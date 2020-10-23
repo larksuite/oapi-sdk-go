@@ -4,9 +4,10 @@
 | 模块    | 描述 |
 |--------------|--------------|
 |  core    | 应用信息配置及一些通用的方法  | 
-|  api     | 发送请求获取larksuite/feishu的业务开放能力  | 
+|  api     | 发送请求，获取larksuite/feishu的业务开放能力  | 
 |  event   | 监听larksuite/feishu的业务数据发生变化，产生的事件  | 
 |  card    | 监听消息卡片交互时的动作  | 
+|  service    | 生成的业务SDK（api&event）  | 
 |  sample  | 示例 | 
 
 ### 包引入
