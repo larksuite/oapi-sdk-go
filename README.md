@@ -1,2 +1,4 @@
-# oapi-sdk-go
-larksuite oapi sdk by golang
+# larksuit open api sdk
+[中文](README.zh.md)
+
+English version will follow
