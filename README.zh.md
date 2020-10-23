@@ -70,8 +70,8 @@
 
     | 业务服务 | 版本  | 路径 | 示例 |
     |--------------|--------------|------|------|
-    |  身份验证    | v1  | [authen](service/authen) | [sample](sample/api/authen.go)|
-    |  图片     | v4  | [image](service/image)|[sample](sample/api/image.go)|
+    |  身份验证    | v1  | [service/authen](service/authen) | [sample/api/authen.go](sample/api/authen.go)|
+    |  图片     | v4  | [service/image](service/image)|[sample/api/image.go](sample/api/image.go)|
     
     
 - 使用说明（对于`没有生成业务API SDK`的处理方式）
@@ -96,7 +96,7 @@
           // request.SetQueryParams(map[string]interface{}{"age":4,"types":[1,2]})：设置 URL qeury，会在url追加?age=4&types=1&types=2      
           // request.setIsResponseStream()，设置响应的是否是流，例如下载文件，这时：output值是Buffer类型
           // request.SetIsNotDataField(),设置响应的是否 没有`data`字段，业务接口都是有`data`字段，所以不需要设置
-          // request.SetTenantKey("TenantKey")，以`ISV应用`身份，表示使用`tenant_access_token`访问API，需要设置
+          // request.SetTenantKey("TenantKey")，以`应用商店应用`身份，表示使用`tenant_access_token`访问API，需要设置
           // request.SetUserAccessToken("UserAccessToken")，表示使用`user_access_token`访问API，需要设置
         req := request.NewRequest2(httpPath: string, httpMethod: string, accessTokenType: AccessTokenType, input: interface, output: interface, ...optFns: OptFn[]))
         coreCtx := core.WarpContext(context.Background())
@@ -166,9 +166,9 @@
         // interface{}: 可以是string（消息卡片 的json字符串），也可以是map（消息卡片 的map封装）
         // error: 不为nil，响应状态码 500
     card.SetHandler(conf, func(coreCtx *core.Context, card *model.Card) (interface{}, error) {
-    		fmt.Println(coreCtx.GetRequestID())
-            fmt.Println(tools.Prettify(card.Action))
-    		return nil, nil
+    	fmt.Println(coreCtx.GetRequestID())
+        fmt.Println(tools.Prettify(card.Action))
+    	return nil, nil
     })
     
     ```   
