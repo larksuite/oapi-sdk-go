@@ -54,7 +54,7 @@
             conf := config.NewTestConfig(domain, appSettings)
             
             // 创建CoreContext(*core.Context)，用于API请求、Event回调、Card回调等，作为函数的参数
-            // 使用Map进行实现
+            // core.Context实现了context.Context接口
             coreCtx := core.WarpContext(context.Background())
             // 获取 API请求、Event回调、Card回调的RequestID（string），用于问题反馈时，开放平台查询相关日志，可以快速的定位问题
             requestID := coreCtx.GetRequestID()
@@ -116,7 +116,7 @@
   
       | 业务服务 | 版本  | 路径 | 示例 |
       |--------------|--------------|------|------|
-      |  应用    | v1  | [application](service/application) | (sample/event/http_server.go) |
+      |  应用    | v1  | [service/application](service/application) | [sample/event/http_server.go](sample/event/http_server.go) |
       
   - 使用说明
     - 事件监听服务启动
