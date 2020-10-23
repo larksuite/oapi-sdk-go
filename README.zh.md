@@ -120,7 +120,7 @@
       
   - 使用说明
     - 事件监听服务启动
-        - webhook地址：http://ip:8089/{app_id}/webhook/event
+        - webhook地址：http://ip:8089/[appID]/webhook/event
         - [使用原生的http server启动](sample/event/http_server.go)  
         - [使用Gin启动](sample/event/gin.go)
     - 对于`没有生成业务Event SDK`的处理方式
@@ -150,7 +150,7 @@
 
   - 使用说明
     - 消息卡片回调服务启动
-        - webhook地址：http://ip:8089/{app_id}/webhook/card
+        - webhook地址：http://ip:8089/[appID]/webhook/card
         - [使用原生的http server启动](sample/card/http_server.go)  
         - [使用Gin启动](sample/card/gin.go)
     - 设置卡片的处理者，代码如下：
