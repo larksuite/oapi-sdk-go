@@ -49,9 +49,9 @@
             conf := config.NewConfig(domain, appSettings, logger, loggerLevel, store)    
             
             // 用于开发测试的Config
-            // logger：使用默认实现(packages/core/src/log/log.ts)
+            // logger：使用默认实现(core/log/log.go defaultLogger)
             // loggerLevel：Debug级别
-            // store：使用默认实现（Map）
+            // store：使用默认实现(core/store/store.go DefaultStore)
             conf := config.NewTestConfig(domain, appSettings)
             
             // 创建CoreContext(*core.Context)，用于API请求、Event回调、Card回调等，作为函数的参数
