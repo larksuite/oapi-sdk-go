@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/larksuite/oapi-sdk-go/api/core/request"
+	"github.com/larksuite/oapi-sdk-go/api/core/response"
 	"github.com/larksuite/oapi-sdk-go/core"
 	"github.com/larksuite/oapi-sdk-go/core/tools"
 	authen "github.com/larksuite/oapi-sdk-go/service/authen/v1"
@@ -30,6 +31,9 @@ func testAccessToken() {
 	fmt.Println(coreCtx.GetHTTPStatusCode())
 	if err != nil {
 		fmt.Println(tools.Prettify(err))
+		e := err.(*response.Error)
+		fmt.Println(e.Code)
+		fmt.Println(e.Msg)
 		return
 	}
 	fmt.Println(tools.Prettify(result))
@@ -45,6 +49,9 @@ func testUserInfo() {
 	fmt.Println(coreCtx.GetHTTPStatusCode())
 	if err != nil {
 		fmt.Println(tools.Prettify(err))
+		e := err.(*response.Error)
+		fmt.Println(e.Code)
+		fmt.Println(e.Msg)
 		return
 	}
 	fmt.Println(tools.Prettify(result))

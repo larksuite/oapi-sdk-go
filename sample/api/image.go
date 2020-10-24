@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/larksuite/oapi-sdk-go/api/core/request"
+	"github.com/larksuite/oapi-sdk-go/api/core/response"
 	"github.com/larksuite/oapi-sdk-go/core"
 	"github.com/larksuite/oapi-sdk-go/core/tools"
 	image "github.com/larksuite/oapi-sdk-go/service/image/v4"
@@ -34,6 +35,9 @@ func testUpload() {
 	fmt.Println(coreCtx.GetHTTPStatusCode())
 	if err != nil {
 		fmt.Println(tools.Prettify(err))
+		e := err.(*response.Error)
+		fmt.Println(e.Code)
+		fmt.Println(e.Msg)
 		return
 	}
 	fmt.Println(tools.Prettify(result))

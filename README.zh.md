@@ -113,6 +113,9 @@ $ go get -u github.com/larksuite/oapi-sdk-go
     fmt.Println(coreCtx.GetHTTPStatusCode())
     if err != nil {
         fmt.Println(tools.Prettify(err))
+        e := err.(*response.Error)
+        fmt.Println(e.Code)
+        fmt.Println(e.Msg)
         return
     }
     fmt.Println(tools.Prettify(ret))

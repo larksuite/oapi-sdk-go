@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/larksuite/oapi-sdk-go/api"
 	"github.com/larksuite/oapi-sdk-go/api/core/request"
+	"github.com/larksuite/oapi-sdk-go/api/core/response"
 	"github.com/larksuite/oapi-sdk-go/core"
 	"github.com/larksuite/oapi-sdk-go/core/test"
 	"github.com/larksuite/oapi-sdk-go/core/tools"
@@ -41,6 +42,9 @@ func testSendMessage() {
 	fmt.Println(coreCtx.GetHTTPStatusCode())
 	if err != nil {
 		fmt.Println(tools.Prettify(err))
+		e := err.(*response.Error)
+		fmt.Println(e.Code)
+		fmt.Println(e.Msg)
 		return
 	}
 	fmt.Println(tools.Prettify(ret))
@@ -77,6 +81,9 @@ func testUploadFile() {
 	fmt.Println(coreCtx.GetHTTPStatusCode())
 	if err != nil {
 		fmt.Println(tools.Prettify(err))
+		e := err.(*response.Error)
+		fmt.Println(e.Code)
+		fmt.Println(e.Msg)
 		return
 	}
 	fmt.Println(tools.Prettify(ret))
@@ -102,6 +109,9 @@ func testDownloadFile() {
 	fmt.Println(coreCtx.GetHTTPStatusCode())
 	if err != nil {
 		fmt.Println(tools.Prettify(err))
+		e := err.(*response.Error)
+		fmt.Println(e.Code)
+		fmt.Println(e.Msg)
 		return
 	}
 	err = ioutil.WriteFile("test_download.png", ret.Bytes(), os.ModePerm)
