@@ -12,7 +12,7 @@
 
 ### 包引入
 ```shell script
-    go get github.com/larksuite/oapi-sdk-go@v1.0.0
+$ go get -u github.com/larksuite/oapi-sdk-go
 ```
 
 ### 模块core
@@ -23,44 +23,45 @@
             - 使用 logrus 实现 [Logger接口](core/log/log.go)
         - 方法使用说明，如下：
         ```go
-            import (
-              "github.com/larksuite/oapi-sdk-go/core/config"
-              "github.com/larksuite/oapi-sdk-go/core/constants"
-              "github.com/larksuite/oapi-sdk-go/core/log"
-            ) 
-      
-            // 创建应用配置，防止泄漏，建议将应用信息放在环境变量中。
-            // appID：应用凭证中的App ID
-            // appSecret：应用凭证中的App Secret
-            // verificationToken：事件订阅中的Verification Token
-            // encryptKey：事件订阅中的Encrypt Key，可以为""，表示事件内容不加密
-            // 企业自建应用的配置
-            appSettings := config.NewInternalAppSettings("[appID]", "[appSecret]", "[verificationToken]", "[encryptKey]")
-            // 应用商店应用的配置
-            appSettings := config.NewISVAppSettings("[appID]", "[appSecret]", "[verificationToken]", "[encryptKey]")
-            
-            // 创建Config
-            // domain：域名http地址：constants.DomainFeiShu / constants.DomainLarkSuite
-            // appSettings：应用配置
-            // logger：[日志接口](core/log/log.go)
-            // loggerLevel：输出的日志级别 log.LevelDebug/LevelInfo/LevelWarn/LevelError
-            // store: [存储接口](core/store/store.go)，用来存储 app_ticket/app_access_token/tenant_access_token
-            // 用于线上的config
-            conf := config.NewConfig(domain, appSettings, logger, loggerLevel, store)    
-            
-            // 用于开发测试的Config
-            // logger：使用默认实现(core/log/log.go defaultLogger)
-            // loggerLevel：Debug级别
-            // store：使用默认实现(core/store/store.go DefaultStore)
-            conf := config.NewTestConfig(domain, appSettings)
-            
-            // 创建CoreContext(*core.Context)，用于API请求、Event回调、Card回调等，作为函数的参数
-            // core.Context实现了context.Context接口
-            coreCtx := core.WarpContext(context.Background())
-            // 获取 API请求、Event回调、Card回调的RequestID（string），用于问题反馈时，开放平台查询相关日志，可以快速的定位问题
-            requestID := coreCtx.GetRequestID()
-            // 获取 API请求的响应状态码（int）
-            statusCode := coreCtx.GetHTTPStatusCode()
+        import (
+          "github.com/larksuite/oapi-sdk-go/core/config"
+          "github.com/larksuite/oapi-sdk-go/core/constants"
+          "github.com/larksuite/oapi-sdk-go/core/log"
+        ) 
+  
+        // 创建应用配置，防止泄漏，建议将应用信息放在环境变量中。
+        // appID：应用凭证中的App ID
+        // appSecret：应用凭证中的App Secret
+        // verificationToken：事件订阅中的Verification Token
+        // encryptKey：事件订阅中的Encrypt Key，可以为""，表示事件内容不加密
+        // 企业自建应用的配置
+        appSettings := config.NewInternalAppSettings("[appID]", "[appSecret]", "[verificationToken]", "[encryptKey]")
+        // 应用商店应用的配置
+        appSettings := config.NewISVAppSettings("[appID]", "[appSecret]", "[verificationToken]", "[encryptKey]")
+        
+        // 创建Config
+        // domain：域名http地址：constants.DomainFeiShu / constants.DomainLarkSuite
+        // appSettings：应用配置
+        // logger：[日志接口](core/log/log.go)
+        // loggerLevel：输出的日志级别 log.LevelDebug/LevelInfo/LevelWarn/LevelError
+        // store: [存储接口](core/store/store.go)，用来存储 app_ticket/app_access_token/tenant_access_token
+        // 用于线上的config
+        conf := config.NewConfig(domain, appSettings, logger, loggerLevel, store)    
+        
+        // 用于开发测试的Config
+        // logger：使用默认实现(core/log/log.go defaultLogger)
+        // loggerLevel：Debug级别
+        // store：使用默认实现(core/store/store.go DefaultStore)
+        conf := config.NewTestConfig(domain, appSettings)
+        
+        // 创建CoreContext(*core.Context)，用于API请求、Event回调、Card回调等，作为函数的参数
+        // core.Context实现了context.Context接口
+        coreCtx := core.WarpContext(context.Background())
+        // 获取 API请求、Event回调、Card回调的RequestID（string），用于问题反馈时，开放平台查询相关日志，可以快速的定位问题
+        requestID := coreCtx.GetRequestID()
+        // 获取 API请求的响应状态码（int）
+        statusCode := coreCtx.GetHTTPStatusCode()
+        
         ```
 
 ### 模块api
@@ -79,37 +80,44 @@
     - 对于`应用商店应用`，在获取`app_access_token`时，需要 `app_ticket`，需要启动事件订阅服务（`模块event`）
     - [使用示例](sample/api/api.go)
     - 封装请求，如下：
-      ```go
-          import (
-                "github.com/larksuite/oapi-sdk-go/core/config"
-                "github.com/larksuite/oapi-sdk-go/core/constants"
-                "github.com/larksuite/oapi-sdk-go/core/log"
-                "github.com/larksuite/oapi-sdk-go/api/core/request"
-          )
-        // 创建请求
-        // httpPath：API路径（`open-apis/`之后的路径），例如：https://{domain}/open-apis/authen/v1/user_info，则 httpPath："authen/v1/user_info"
-        // httpMethod: GET/POST/PUT/BATCH/DELETE
-        // accessTokenType：API使用哪种token访问，取值范围：request.AccessTokenTypeApp/request.AccessTokenTypeTenant/request.AccessTokenTypeUser，例如：request.AccessTokenTypeTenant
-        // input：请求体（可能是request.NewFormData()（例如：文件上传））,如果不需要请求体（例如一些GET请求），则传：nil
-        // output：响应体（output := response["data"])     
-        // optFns：扩展函数，一些不常用的参数封装，如下：
-          // request.SetPathParams(map[string]interface{}{"user_id": 4})：设置URL Path参数（有:前缀）值，当httpPath="users/:user_id"时，请求的URL="https://{domain}/open-apis/users/4"
-          // request.SetQueryParams(map[string]interface{}{"age":4,"types":[1,2]})：设置 URL qeury，会在url追加?age=4&types=1&types=2      
-          // request.setIsResponseStream()，设置响应的是否是流，例如下载文件，这时：output值是Buffer类型
-          // request.SetIsNotDataField(),设置响应的是否 没有`data`字段，业务接口都是有`data`字段，所以不需要设置
-          // request.SetTenantKey("TenantKey")，以`应用商店应用`身份，表示使用`tenant_access_token`访问API，需要设置
-          // request.SetUserAccessToken("UserAccessToken")，表示使用`user_access_token`访问API，需要设置
-        req := request.NewRequest2(httpPath: string, httpMethod: string, accessTokenType: AccessTokenType, input: interface, output: interface, ...optFns: OptFn[]))
-        coreCtx := core.WarpContext(context.Background())
-        err := api.Send(coreCtx, conf, req)
-        fmt.Println(coreCtx.GetRequestID())
-        fmt.Println(coreCtx.GetHTTPStatusCode())
-        if err != nil {
-            fmt.Println(tools.Prettify(err))
-            return
-        }
-        fmt.Println(tools.Prettify(ret))
-      ```
+    ```go
+    import (
+        "github.com/larksuite/oapi-sdk-go/core/config"
+        "github.com/larksuite/oapi-sdk-go/core/constants"
+        "github.com/larksuite/oapi-sdk-go/core/log"
+        "github.com/larksuite/oapi-sdk-go/api/core/request"
+    )
+    // 创建请求
+    // httpPath：API路径（`open-apis/`之后的路径），例如：https://{domain}/open-apis/authen/v1/user_info，则 httpPath："authen/v1/user_info"
+    // httpMethod: GET/POST/PUT/BATCH/DELETE
+    // accessTokenType：API使用哪种token访问，取值范围：request.AccessTokenTypeApp/request.AccessTokenTypeTenant/request.AccessTokenTypeUser，例如：request.AccessTokenTypeTenant
+    // input：请求体（可能是request.NewFormData()（例如：文件上传））,如果不需要请求体（例如一些GET请求），则传：nil
+    // output：响应体（output := response["data"])     
+    // optFns：扩展函数，一些不常用的参数封装，如下：
+      // request.SetPathParams(map[string]interface{}{"user_id": 4})：设置URL Path参数（有:前缀）值，当httpPath="users/:user_id"时，请求的URL="https://{domain}/open-apis/users/4"
+      // request.SetQueryParams(map[string]interface{}{"age":4,"types":[1,2]})：设置 URL qeury，会在url追加?age=4&types=1&types=2      
+      // request.setIsResponseStream()，设置响应的是否是流，例如下载文件，这时：output值是Buffer类型
+      // request.SetIsNotDataField(),设置响应的是否 没有`data`字段，业务接口都是有`data`字段，所以不需要设置
+      // request.SetTenantKey("TenantKey")，以`应用商店应用`身份，表示使用`tenant_access_token`访问API，需要设置
+      // request.SetUserAccessToken("UserAccessToken")，表示使用`user_access_token`访问API，需要设置
+    req := request.NewRequest2(httpPath: string, httpMethod: string, accessTokenType: AccessTokenType, input: interface, output: interface, ...optFns: OptFn[]))
+    coreCtx := core.WarpContext(context.Background())
+    err := api.Send(coreCtx, conf, req)
+    fmt.Println(coreCtx.GetRequestID())
+    fmt.Println(coreCtx.GetHTTPStatusCode())
+    if err != nil {
+        fmt.Println(tools.Prettify(err))
+        return
+    }
+    fmt.Println(tools.Prettify(ret))
+    
+    ```
+    - 工具
+    
+     | 工具 | 路径 | 描述 |
+     |--------------|--------------|------|
+     | 文件下载 | [api/core/tools/file.go](api/core/tools/file.go) | 例如，可以下载图片，用于图片上传 |
+     
 ### 模块event
 - 处理流程
   - 封装了`应用商店应用`的`app_ticket`事件（需要再次设置该事件的处理者），将其存入Store，供`模块api`使用
@@ -127,7 +135,6 @@
     - 对于`没有生成业务Event SDK`的处理方式
     - 设置事件的处理者，样例如下：
     ```go
-    
     import "github.com/larksuite/oapi-sdk-go/event"
     
     // conf: config.Config
@@ -156,7 +163,6 @@
         - [使用Gin启动](sample/card/gin.go)
     - 设置卡片的处理者，代码如下：
     ```go
-    
     import "github.com/larksuite/oapi-sdk-go/card"
     
     // conf: config.Config
