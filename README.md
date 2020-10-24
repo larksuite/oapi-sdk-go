@@ -67,7 +67,7 @@ $ go get -u github.com/larksuite/oapi-sdk-go
 ### Module api
 - Processing flow
     - The acquisition and life cycle maintenance of app_access_token and tenant_access_token life cycle, **developers can directly access the business interface**
-    ![processing flow](api_process.png)
+    ![processing flow](api_process_en.jpg)
 - Business API SDK that has been generated
 
     | Business service | version  | path | sample |
