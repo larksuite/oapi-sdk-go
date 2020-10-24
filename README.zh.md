@@ -4,10 +4,10 @@
 | 模块    | 描述 |
 |--------------|--------------|
 |  core    | 应用信息配置及一些通用的方法  | 
-|  api     | 发送请求，获取larksuite/feishu的业务开放能力  | 
+|  api     | 请求larksuite/feishu的接口  | 
 |  event   | 监听larksuite/feishu的业务数据发生变化，产生的事件  | 
 |  card    | 监听消息卡片交互时的动作  | 
-|  service    | 生成的业务SDK（api&event）  | 
+|  service | 生成的业务SDK（api&event）  | 
 |  sample  | 示例 | 
 
 ### 包引入
@@ -30,14 +30,20 @@ $ go get -u github.com/larksuite/oapi-sdk-go
         ) 
   
         // 创建应用配置，防止泄漏，建议将应用信息放在环境变量中。
-        // appID：应用凭证中的App ID
-        // appSecret：应用凭证中的App Secret
-        // verificationToken：事件订阅中的Verification Token
-        // encryptKey：事件订阅中的Encrypt Key，可以为""，表示事件内容不加密
+        // 环境变量或参数名：
+          // APP_ID：应用凭证中的App ID
+          // APP_SECRET：应用凭证中的App Secret
+          // VERIFICATION_TOKEN：事件订阅中的Verification Token
+          // ENCRYPT_KEY：事件订阅中的Encrypt Key，可以为""，表示事件内容不加密
         // 企业自建应用的配置
-        appSettings := config.NewInternalAppSettings("[appID]", "[appSecret]", "[verificationToken]", "[encryptKey]")
+        appSettings := config.NewInternalAppSettings("[APP_ID]", "[APP_SECRET]", "[VERIFICATION_TOKEN]", "[ENCRYPT_KEY]")
+        // 企业自建应用的配置，通过环境变量获取应用配置
+        appSettings := config.GetInternalAppSettingsByEnv()
         // 应用商店应用的配置
-        appSettings := config.NewISVAppSettings("[appID]", "[appSecret]", "[verificationToken]", "[encryptKey]")
+        appSettings := config.NewISVAppSettings("[APP_ID]", "[APP_SECRET]", "[VERIFICATION_TOKEN]", "[ENCRYPT_KEY]")
+        // 应用商店应用的配置，通过环境变量获取应用配置
+        appSettings := config.GetISVAppSettingsByEnv()
+        
         
         // 创建Config
         // domain：域名http地址：constants.DomainFeiShu / constants.DomainLarkSuite
@@ -66,7 +72,7 @@ $ go get -u github.com/larksuite/oapi-sdk-go
 
 ### 模块api
 - 处理流程
-    - 对app_access_token、tenant_access_token的获取及生命周期的维护做了封装，开发者可直接访问业务接口
+    - 对app_access_token、tenant_access_token的获取及生命周期的维护做了封装，:fa-heart: **开发者可直接访问业务接口**
     ![处理流程图](api_process.png)
 - 已经生成的业务API SDK
 
@@ -129,7 +135,7 @@ $ go get -u github.com/larksuite/oapi-sdk-go
       
   - 使用说明
     - 事件监听服务启动
-        - webhook地址：http://ip:8089/[appID]/webhook/event
+        - webhook地址：http://ip:8089/[APP_ID]/webhook/event
         - [使用原生的http server启动](sample/event/http_server.go)  
         - [使用Gin启动](sample/event/gin.go)
     - 对于`没有生成业务Event SDK`的处理方式
@@ -158,7 +164,7 @@ $ go get -u github.com/larksuite/oapi-sdk-go
 
   - 使用说明
     - 消息卡片回调服务启动
-        - webhook地址：http://ip:8089/[appID]/webhook/card
+        - webhook地址：http://ip:8089/[APP_ID]/webhook/card
         - [使用原生的http server启动](sample/card/http_server.go)  
         - [使用Gin启动](sample/card/gin.go)
     - 设置卡片的处理者，代码如下：

@@ -2,6 +2,7 @@ package config
 
 import (
 	"github.com/larksuite/oapi-sdk-go/core/constants"
+	"os"
 )
 
 type Settings struct {
@@ -14,6 +15,16 @@ type AppSettings struct {
 
 	VerificationToken string
 	EncryptKey        string
+}
+
+func GetISVAppSettingsByEnv() *AppSettings {
+	appID, appSecret, verificationToken, encryptKey := getAppSettingsByEnv()
+	return NewISVAppSettings(appID, appSecret, verificationToken, encryptKey)
+}
+
+func GetInternalAppSettingsByEnv() *AppSettings {
+	appID, appSecret, verificationToken, encryptKey := getAppSettingsByEnv()
+	return NewInternalAppSettings(appID, appSecret, verificationToken, encryptKey)
 }
 
 func NewISVAppSettings(appID, appSecret, verificationToken, eventEncryptKey string) *AppSettings {
@@ -35,4 +46,16 @@ func newAppSettings(appType constants.AppType, appID, appSecret, verificationTok
 		VerificationToken: verificationToken,
 		EncryptKey:        eventEncryptKey,
 	}
+}
+
+func getAppSettingsByEnv() (string, string, string, string) {
+	appID, appSecret, verificationToken, encryptKey := os.Getenv("APP_ID"), os.Getenv("APP_SECRET"),
+		os.Getenv("VERIFICATION_TOKEN"), os.Getenv("ENCRYPT_KEY")
+	if appID == "" {
+		panic("environment variables not exist `APP_ID`")
+	}
+	if appSecret == "" {
+		panic("environment variables not exist `APP_SECRET`")
+	}
+	return appID, appSecret, verificationToken, encryptKey
 }
