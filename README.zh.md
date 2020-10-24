@@ -34,7 +34,7 @@ $ go get -u github.com/larksuite/oapi-sdk-go
           // APP_ID：应用凭证中的App ID
           // APP_SECRET：应用凭证中的App Secret
           // VERIFICATION_TOKEN：事件订阅中的Verification Token
-          // ENCRYPT_KEY：事件订阅中的Encrypt Key，可以为""，表示事件内容不加密
+          // ENCRYPT_KEY：事件订阅中的Encrypt Key，可以为空，表示事件内容不加密
         // 企业自建应用的配置
         appSettings := config.NewInternalAppSettings("[APP_ID]", "[APP_SECRET]", "[VERIFICATION_TOKEN]", "[ENCRYPT_KEY]")
         // 企业自建应用的配置，通过环境变量获取应用配置
@@ -126,7 +126,9 @@ $ go get -u github.com/larksuite/oapi-sdk-go
      
 ### 模块event
 - 处理流程
-  - 封装了`应用商店应用`的`app_ticket`事件（需要再次设置该事件的处理者），将其存入Store，供`模块api`使用
+  - 封装了
+    - `应用商店应用`的`app_ticket`事件（需要再次设置该事件的处理者），将其存入Store，供`模块api`使用
+    - 事件数据的解密与来源可靠性的验证
   - 已经生成的业务Event SDK
   
       | 业务服务 | 版本  | 路径 | 示例 |
@@ -161,7 +163,8 @@ $ go get -u github.com/larksuite/oapi-sdk-go
     ```      
 
 ## 模块card
-
+  - 封装了
+    - 卡片数据的有效性、来源可靠性的验证
   - 使用说明
     - 消息卡片回调服务启动
         - webhook地址：http://ip:8089/[APP_ID]/webhook/card
