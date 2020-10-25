@@ -72,8 +72,8 @@ $ go get -u github.com/larksuite/oapi-sdk-go
 
 ### 模块api
 - 处理流程
-    - 对app_access_token、tenant_access_token的获取及生命周期的维护做了封装，:fa-heart: **开发者可直接访问业务接口**
-    ![处理流程图](api_process.png)
+    - 对app_access_token、tenant_access_token的获取及生命周期的维护做了封装，**开发者可直接访问业务接口**
+    ![处理流程图](api_process.jpg)
 - 已经生成的业务API SDK
 
     | 业务服务 | 版本  | 路径 | 示例 |
@@ -130,7 +130,8 @@ $ go get -u github.com/larksuite/oapi-sdk-go
 ### 模块event
 - 处理流程
   - 封装了
-    - `应用商店应用`的`app_ticket`事件（需要再次设置该事件的处理者），将其存入Store，供`模块api`使用
+    - `应用商店应用`的`app_ticket`事件（需要再次设置该事件的处理者），将其存入Store，供 `模块api` 使用
+    - 已封装challenge验证
     - 事件数据的解密与来源可靠性的验证
   - 已经生成的业务Event SDK
   
@@ -167,6 +168,7 @@ $ go get -u github.com/larksuite/oapi-sdk-go
 
 ## 模块card
   - 封装了
+    - 已封装challenge验证
     - 卡片数据的有效性、来源可靠性的验证
   - 使用说明
     - 消息卡片回调服务启动
