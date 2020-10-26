@@ -55,7 +55,7 @@ func (rc *ImageGetReqCall) SetResponseStream(result io.Writer) {
 func (rc *ImageGetReqCall) Do() (io.Writer, error) {
 	httpPath := path.Join(rc.images.service.basePath, "get")
 	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	rc.optFns = append(rc.optFns, request.SetIsResponseStream())
+	rc.optFns = append(rc.optFns, request.SetResponseStream())
 	req := request.NewRequest(httpPath, "GET",
 		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, rc.result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.images.service.conf, req)

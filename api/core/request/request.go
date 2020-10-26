@@ -109,13 +109,13 @@ func SetPathParams(pathParams map[string]interface{}) OptFn {
 	}
 }
 
-func SetIsNotDataField() OptFn {
+func SetNotDataField() OptFn {
 	return func(opt *Opt) {
 		opt.isNotDataField = true
 	}
 }
 
-func SetIsResponseStream() OptFn {
+func SetResponseStream() OptFn {
 	return func(opt *Opt) {
 		opt.isResponseStream = true
 	}
@@ -143,7 +143,7 @@ func NewRequestByAuth(httpPath, httpMethod string, input, output interface{}) *R
 			AccessTokenType: AccessTokenTypeNone,
 			Input:           input,
 			Output:          output,
-			optFns:          []OptFn{SetIsNotDataField()},
+			optFns:          []OptFn{SetNotDataField()},
 		},
 	}
 }

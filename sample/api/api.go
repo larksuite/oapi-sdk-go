@@ -103,7 +103,7 @@ func testDownloadFile() {
 	*/
 	req := request.NewRequest2("image/v4/get", "GET",
 		request.AccessTokenTypeTenant, nil, ret,
-		request.SetQueryParams(map[string]interface{}{"image_key": "[image key]"}), request.SetIsResponseStream())
+		request.SetQueryParams(map[string]interface{}{"image_key": "[image key]"}), request.SetResponseStream())
 	err := api.Send(coreCtx, conf, req)
 	fmt.Println(coreCtx.GetRequestID())
 	fmt.Println(coreCtx.GetHTTPStatusCode())
