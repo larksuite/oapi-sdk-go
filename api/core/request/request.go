@@ -60,7 +60,7 @@ type OptFn func(*Opt)
 func SetUserID(id string) OptFn {
 	return func(opt *Opt) {
 		opt.userID = &UserID{
-			Type: constants.IDTypeUser,
+			Type: constants.UserIDTypeUser,
 			ID:   id,
 		}
 	}
@@ -69,7 +69,7 @@ func SetUserID(id string) OptFn {
 func SetUnionID(id string) OptFn {
 	return func(opt *Opt) {
 		opt.userID = &UserID{
-			Type: constants.IDTypeUnion,
+			Type: constants.UserIDTypeUnion,
 			ID:   id,
 		}
 	}
@@ -78,7 +78,7 @@ func SetUnionID(id string) OptFn {
 func SetOpenID(id string) OptFn {
 	return func(opt *Opt) {
 		opt.userID = &UserID{
-			Type: constants.IDTypeOpen,
+			Type: constants.UserIDTypeOpen,
 			ID:   id,
 		}
 	}
@@ -271,6 +271,6 @@ func GetInfoByCtx(ctx context.Context) *Info {
 }
 
 type UserID struct {
-	Type constants.IDType
+	Type constants.UserIDType
 	ID   string
 }

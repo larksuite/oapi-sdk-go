@@ -5,9 +5,6 @@ import (
 	"os"
 )
 
-type Settings struct {
-}
-
 type AppSettings struct {
 	AppType   constants.AppType
 	AppID     string

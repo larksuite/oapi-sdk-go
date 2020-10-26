@@ -1,6 +1,7 @@
 package constants
 
 const OAPIRootPath = "open-apis"
+
 const (
 	AppAccessTokenInternalUrlPath    string = "auth/v3/app_access_token/internal"
 	AppAccessTokenIsvUrlPath         string = "auth/v3/app_access_token"
@@ -9,10 +10,10 @@ const (
 	ApplyAppTicketPath               string = "auth/v3/app_ticket/resend"
 )
 
-type IDType string
+type UserIDType string
 
 const (
-	IDTypeOpen  IDType = "OpenID"
-	IDTypeUnion IDType = "UnionID"
-	IDTypeUser  IDType = "UserID"
+	UserIDTypeOpen  UserIDType = "OpenID"
+	UserIDTypeUnion UserIDType = "UnionID"
+	UserIDTypeUser  UserIDType = "UserID"
 )
