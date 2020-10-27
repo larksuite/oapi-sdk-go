@@ -22,7 +22,7 @@ func getInternalAppAccessToken(ctx *core.Context) (*token.AppAccessToken, error)
 	accessToken := &token.AppAccessToken{}
 	conf := config.ByCtx(ctx)
 	req := request.NewRequestByAuth(constants.AppAccessTokenInternalUrlPath, http.MethodPost,
-		&token.GetInternalAccessTokenReq{
+		&token.InternalAccessTokenReq{
 			AppID:     conf.GetAppSettings().AppID,
 			AppSecret: conf.GetAppSettings().AppSecret,
 		}, accessToken)
@@ -38,7 +38,7 @@ func getInternalTenantAccessToken(ctx *core.Context) (*token.TenantAccessToken, 
 	accessToken := &token.TenantAccessToken{}
 	conf := config.ByCtx(ctx)
 	req := request.NewRequestByAuth(constants.TenantAccessTokenInternalUrlPath, http.MethodPost,
-		&token.GetInternalAccessTokenReq{
+		&token.InternalAccessTokenReq{
 			AppID:     conf.GetAppSettings().AppID,
 			AppSecret: conf.GetAppSettings().AppSecret,
 		}, accessToken)
@@ -61,7 +61,7 @@ func getIsvAppAccessToken(ctx *core.Context) (*token.AppAccessToken, error) {
 	conf := config.ByCtx(ctx)
 	appAccessToken := &token.AppAccessToken{}
 	req := request.NewRequestByAuth(constants.AppAccessTokenIsvUrlPath, http.MethodPost,
-		&token.GetISVAppAccessTokenReq{
+		&token.ISVAppAccessTokenReq{
 			AppID:     conf.GetAppSettings().AppID,
 			AppSecret: conf.GetAppSettings().AppSecret,
 			AppTicket: appTicket,
@@ -91,7 +91,7 @@ func getIsvTenantAccessToken(ctx *core.Context) (*token.AppAccessToken, *token.T
 	info := request.GetInfoByCtx(ctx)
 	tenantAccessToken := &token.TenantAccessToken{}
 	req := request.NewRequestByAuth(constants.TenantAccessTokenIsvUrlPath, http.MethodPost,
-		&token.GetISVTenantAccessTokenReq{
+		&token.ISVTenantAccessTokenReq{
 			AppAccessToken: appAccessToken.AppAccessToken,
 			TenantKey:      info.TenantKey,
 		}, tenantAccessToken)

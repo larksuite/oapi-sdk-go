@@ -102,8 +102,8 @@ $ go get -u github.com/larksuite/oapi-sdk-go
     // optFns：扩展函数，一些不常用的参数封装，如下：
       // request.SetPathParams(map[string]interface{}{"user_id": 4})：设置URL Path参数（有:前缀）值，当httpPath="users/:user_id"时，请求的URL="https://{domain}/open-apis/users/4"
       // request.SetQueryParams(map[string]interface{}{"age":4,"types":[1,2]})：设置 URL qeury，会在url追加?age=4&types=1&types=2      
-      // request.setIsResponseStream()，设置响应的是否是流，例如下载文件，这时：output值是Buffer类型
-      // request.SetIsNotDataField(),设置响应的是否 没有`data`字段，业务接口都是有`data`字段，所以不需要设置
+      // request.setResponseStream()，设置响应的是否是流，例如下载文件，这时：output值是Buffer类型
+      // request.SetNotDataField(),设置响应的是否 没有`data`字段，业务接口都是有`data`字段，所以不需要设置
       // request.SetTenantKey("TenantKey")，以`应用商店应用`身份，表示使用`tenant_access_token`访问API，需要设置
       // request.SetUserAccessToken("UserAccessToken")，表示使用`user_access_token`访问API，需要设置
     req := request.NewRequest2(httpPath: string, httpMethod: string, accessTokenType: AccessTokenType, input: interface, output: interface, ...optFns: OptFn[]))

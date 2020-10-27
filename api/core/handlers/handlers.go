@@ -108,7 +108,7 @@ func validateFunc(ctx *core.Context, req *request.Request) {
 		return
 	}
 	if _, ok := req.AccessibleTokenTypeSet[req.AccessTokenType]; !ok {
-		req.Err = errors.ErrAccessTokenTypeIsInValid
+		req.Err = errors.ErrAccessTokenTypeInvalid
 	}
 	if config.ByCtx(ctx).GetAppSettings().AppType == coreconst.AppTypeISV {
 		if req.AccessTokenType == request.AccessTokenTypeTenant && req.TenantKey == "" {
@@ -129,10 +129,10 @@ func buildFunc(ctx *core.Context, req *request.Request) {
 			switch req.Input.(type) {
 			case *request.FormData:
 				reqBodyFromFormData(ctx, req)
-				conf.GetLogger().Debug(ctx, fmt.Sprintf("[build]request:\n%v\nbody:formdata", req))
+				conf.GetLogger().Debug(ctx, fmt.Sprintf("[build]request:%v, body:formdata", req))
 			default:
 				reqBodyFromInput(ctx, req)
-				conf.GetLogger().Debug(ctx, fmt.Sprintf("[build]request:\n%v\nbody:%s", req, string(req.RequestBody)))
+				conf.GetLogger().Debug(ctx, fmt.Sprintf("[build]request:%v, body:%s", req, string(req.RequestBody)))
 			}
 		}
 		if req.Err != nil {
