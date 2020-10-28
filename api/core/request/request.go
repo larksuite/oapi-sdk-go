@@ -156,14 +156,18 @@ func NewRequest2(httpPath, httpMethod string, accessTokenType AccessTokenType,
 func NewRequest(httpPath, httpMethod string, accessTokenTypes []AccessTokenType,
 	input interface{}, output interface{}, optFns ...OptFn) *Request {
 	accessibleTokenTypeSet := make(map[AccessTokenType]struct{})
-	for _, accessTokenType := range accessTokenTypes {
-		accessibleTokenTypeSet[accessTokenType] = struct{}{}
+	accessTokenType := accessTokenTypes[0]
+	for _, t := range accessTokenTypes {
+		if t == AccessTokenTypeTenant {
+			accessTokenType = t
+		}
+		accessibleTokenTypeSet[t] = struct{}{}
 	}
 	req := &Request{
 		Info: &Info{
 			HttpPath:               httpPath,
 			HttpMethod:             httpMethod,
-			AccessTokenType:        accessTokenTypes[0],
+			AccessTokenType:        accessTokenType,
 			AccessibleTokenTypeSet: accessibleTokenTypeSet,
 			Input:                  input,
 			Output:                 output,
