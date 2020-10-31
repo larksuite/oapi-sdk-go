@@ -13,7 +13,7 @@ import (
 
 func main() {
 
-	conf := test.GetOnlineInternalConf()
+	var conf = test.GetInternalConf("online")
 
 	card.SetHandler(conf, func(ctx *core.Context, card *model.Card) (interface{}, error) {
 		fmt.Println(ctx.GetRequestID())

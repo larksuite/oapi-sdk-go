@@ -14,7 +14,7 @@ import (
 	"os"
 )
 
-var conf = test.GetOnlineInternalConf()
+var conf = test.GetInternalConf("online")
 
 func main() {
 	testSendMessage()

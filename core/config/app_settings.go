@@ -24,15 +24,15 @@ func GetInternalAppSettingsByEnv() *AppSettings {
 	return NewInternalAppSettings(appID, appSecret, verificationToken, encryptKey)
 }
 
-func NewISVAppSettings(appID, appSecret, verificationToken, eventEncryptKey string) *AppSettings {
-	return newAppSettings(constants.AppTypeISV, appID, appSecret, verificationToken, eventEncryptKey)
+func NewISVAppSettings(appID, appSecret, verificationToken, encryptKey string) *AppSettings {
+	return newAppSettings(constants.AppTypeISV, appID, appSecret, verificationToken, encryptKey)
 }
 
-func NewInternalAppSettings(appID, appSecret, verificationToken, eventEncryptKey string) *AppSettings {
-	return newAppSettings(constants.AppTypeInternal, appID, appSecret, verificationToken, eventEncryptKey)
+func NewInternalAppSettings(appID, appSecret, verificationToken, encryptKey string) *AppSettings {
+	return newAppSettings(constants.AppTypeInternal, appID, appSecret, verificationToken, encryptKey)
 }
 
-func newAppSettings(appType constants.AppType, appID, appSecret, verificationToken, eventEncryptKey string) *AppSettings {
+func newAppSettings(appType constants.AppType, appID, appSecret, verificationToken, encryptKey string) *AppSettings {
 	if appID == "" || appSecret == "" {
 		panic("appID or appSecret is empty")
 	}
@@ -41,7 +41,7 @@ func newAppSettings(appType constants.AppType, appID, appSecret, verificationTok
 		AppID:             appID,
 		AppSecret:         appSecret,
 		VerificationToken: verificationToken,
-		EncryptKey:        eventEncryptKey,
+		EncryptKey:        encryptKey,
 	}
 }
 

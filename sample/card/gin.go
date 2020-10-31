@@ -14,7 +14,7 @@ import (
 
 func main() {
 
-	conf := test.GetOnlineInternalConf()
+	var conf = test.GetInternalConf("online")
 
 	card.SetHandler(conf, func(coreCtx *core.Context, card *model.Card) (interface{}, error) {
 		fmt.Println(coreCtx.GetRequestID())

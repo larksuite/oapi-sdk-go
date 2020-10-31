@@ -14,7 +14,7 @@ import (
 
 func main() {
 
-	conf := test.GetStagingISVConf()
+	var conf = test.GetISVConf("online")
 
 	application.SetAppOpenEventHandler(conf, func(ctx *core.Context, appOpenEvent *application.AppOpenEvent) error {
 		fmt.Println(ctx.GetRequestID())
