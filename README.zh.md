@@ -137,7 +137,7 @@ $ go get -u github.com/larksuite/oapi-sdk-go
   
       | 业务服务 | 版本  | 路径 | 示例 |
       |--------------|--------------|------|------|
-      |  应用    | v1  | [service/application](service/application) | [sample/event/http_server.go](sample/event/http_server.go) |
+      |  应用    | v1  | [service/application](service/application) | [sample/event/application.go](sample/event/application.go) |
       
   - 使用说明
     - 事件监听服务启动

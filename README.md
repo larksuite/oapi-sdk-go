@@ -131,7 +131,7 @@ $ go get -u github.com/larksuite/oapi-sdk-go
   
       | Business service | version  | path | sample |
       |--------------|--------------|------|------|
-      |  application    | v1  | [service/application](service/application) | [sample/event/http_server.go](sample/event/http_server.go) |
+      |  application    | v1  | [service/application](service/application) | [sample/event/application.go](sample/event/application.go) |
       
   - Instructions for use
     - Event monitoring service started
