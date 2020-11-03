@@ -17,8 +17,8 @@ import (
 var conf = test.GetInternalConf("online")
 
 func main() {
-	testSendMessage()
-	//testUploadFile()
+	//testSendMessage()
+	testUploadFile()
 	//testDownloadFile()
 }
 
