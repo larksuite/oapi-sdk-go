@@ -4,14 +4,14 @@ import (
 	"net/http"
 )
 
-const Version1 = "v1"
-const Version2 = "v2"
+const Version1 = "1.0"
+const Version2 = "2.0"
 
 type HTTPEvent struct {
 	HTTPRequest  *http.Request
 	Input        []byte
 	HTTPResponse http.ResponseWriter
-	Version      string
+	Schema       string
 	Type         string
 	EventType    string
 	Challenge    string
@@ -32,7 +32,7 @@ type BaseEventData struct {
 }
 
 type NotData struct {
-	Version   string  `json:"version"`
+	Schema    string  `json:"schema"`
 	Token     string  `json:"token"`
 	Type      string  `json:"type"`
 	Challenge string  `json:"challenge"`
@@ -52,6 +52,6 @@ type Header struct {
 }
 
 type BaseEventV2 struct {
-	Version string  `json:"version"`
-	Header  *Header `json:"header"`
+	Schema string  `json:"schema"`
+	Header *Header `json:"header"`
 }

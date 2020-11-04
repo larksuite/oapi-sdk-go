@@ -69,10 +69,10 @@ func unmarshalFunc(ctx *core.Context, httpEvent *model.HTTPEvent) {
 		httpEvent.Err = err
 		return
 	}
-	version := model.Version1
+	schema := model.Version1
 	token := notData.Token
-	if notData.Version != "" {
-		version = notData.Version
+	if notData.Schema != "" {
+		schema = notData.Schema
 	}
 	var eventType string
 	if notData.Event != nil {
@@ -82,7 +82,7 @@ func unmarshalFunc(ctx *core.Context, httpEvent *model.HTTPEvent) {
 		token = notData.Header.Token
 		eventType = notData.Header.EventType
 	}
-	httpEvent.Version = version
+	httpEvent.Schema = schema
 	httpEvent.EventType = eventType
 	httpEvent.Type = notData.Type
 	httpEvent.Challenge = notData.Challenge
