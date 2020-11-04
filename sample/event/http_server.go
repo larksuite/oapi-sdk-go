@@ -5,6 +5,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 	"github.com/larksuite/oapi-sdk-go/core/test"
 	"github.com/larksuite/oapi-sdk-go/core/tools"
+	"github.com/larksuite/oapi-sdk-go/event"
 	eventhttpserver "github.com/larksuite/oapi-sdk-go/event/http/native"
 	application "github.com/larksuite/oapi-sdk-go/service/application/v1"
 	"net/http"
@@ -27,6 +28,12 @@ func main() {
 		fmt.Println(appStatusChangeEvent.Event.AppId)
 		fmt.Println(appStatusChangeEvent.Event.Status)
 		fmt.Println(tools.Prettify(appStatusChangeEvent))
+		return nil
+	})
+
+	event.SetTypeHandler2(conf, "user.created_v2", func(coreCtx *core.Context, event map[string]interface{}) error {
+		fmt.Println(coreCtx.GetRequestID())
+		fmt.Println(tools.Prettify(event))
 		return nil
 	})
 
