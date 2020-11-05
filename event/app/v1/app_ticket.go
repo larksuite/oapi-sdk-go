@@ -20,24 +20,24 @@ type AppTicketEvent struct {
 	Event *AppTicketEventData `json:"event"`
 }
 
-type AppTicketHandler struct {
+type AppTicketEventHandler struct {
 	event *AppTicketEvent
 }
 
-func (h *AppTicketHandler) GetEvent() interface{} {
+func (h *AppTicketEventHandler) GetEvent() interface{} {
 	h.event = &AppTicketEvent{}
 	return h.event
 }
 
-func (h *AppTicketHandler) Handle(ctx *core.Context, event interface{}) error {
+func (h *AppTicketEventHandler) Handle(ctx *core.Context, event interface{}) error {
 	appTicketEvent := event.(*AppTicketEvent)
 	conf := config.ByCtx(ctx)
 	return conf.GetStore().Put(ctx, store.AppTicketKey(appTicketEvent.Event.AppID), appTicketEvent.Event.AppTicket, time.Hour*12)
 }
 
-func SetAppTicketHandler(conf *config.Config) {
+func SetAppTicketEventHandler(conf *config.Config) {
 	if conf.GetAppSettings().AppType == constants.AppTypeInternal {
 		return
 	}
-	event.SetTypeHandler(conf, "app_ticket", &AppTicketHandler{})
+	event.SetTypeHandler(conf, "app_ticket", &AppTicketEventHandler{})
 }
