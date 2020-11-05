@@ -9,7 +9,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/event"
 	eventginserver "github.com/larksuite/oapi-sdk-go/event/http/gin"
 	application "github.com/larksuite/oapi-sdk-go/service/application/v1"
-	"path"
 )
 
 func main() {
@@ -59,7 +58,7 @@ func main() {
 	})
 
 	g := gin.Default()
-	eventginserver.Register(path.Join("/", conf.GetAppSettings().AppID, "webhook/event"), conf, g)
+	eventginserver.Register("/webhook/event", conf, g)
 	err := g.Run(":8089")
 	if err != nil {
 		panic(err)

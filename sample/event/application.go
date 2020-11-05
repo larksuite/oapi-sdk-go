@@ -8,7 +8,6 @@ import (
 	eventhttpserver "github.com/larksuite/oapi-sdk-go/event/http/native"
 	application "github.com/larksuite/oapi-sdk-go/service/application/v1"
 	"net/http"
-	"path"
 )
 
 func main() {
@@ -30,7 +29,7 @@ func main() {
 		return nil
 	})
 
-	eventhttpserver.Register(path.Join("/", conf.GetAppSettings().AppID, "webhook/event"), conf)
+	eventhttpserver.Register("/webhook/event", conf)
 	err := http.ListenAndServe(":8089", nil)
 	if err != nil {
 		panic(err)

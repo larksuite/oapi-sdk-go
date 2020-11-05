@@ -7,7 +7,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core/store"
 	"github.com/larksuite/oapi-sdk-go/event"
 	"github.com/larksuite/oapi-sdk-go/event/core/model"
-	"math"
+	"time"
 )
 
 type AppTicketEventData struct {
@@ -32,7 +32,7 @@ func (h *AppTicketHandler) GetEvent() interface{} {
 func (h *AppTicketHandler) Handle(ctx *core.Context, event interface{}) error {
 	appTicketEvent := event.(*AppTicketEvent)
 	conf := config.ByCtx(ctx)
-	return conf.GetStore().Put(ctx, store.AppTicketKey(appTicketEvent.Event.AppID), appTicketEvent.Event.AppTicket, math.MaxInt32)
+	return conf.GetStore().Put(ctx, store.AppTicketKey(appTicketEvent.Event.AppID), appTicketEvent.Event.AppTicket, time.Hour*12)
 }
 
 func SetAppTicketHandler(conf *config.Config) {

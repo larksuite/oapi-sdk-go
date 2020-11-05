@@ -9,12 +9,11 @@ import (
 	eventhttpserver "github.com/larksuite/oapi-sdk-go/event/http/native"
 	application "github.com/larksuite/oapi-sdk-go/service/application/v1"
 	"net/http"
-	"path"
 )
 
 func main() {
 
-	var conf = test.GetISVConf("online")
+	var conf = test.GetISVConf("staging")
 
 	application.SetAppOpenEventHandler(conf, func(coreCtx *core.Context, appOpenEvent *application.AppOpenEvent) error {
 		fmt.Println(coreCtx.GetRequestID())
@@ -37,7 +36,7 @@ func main() {
 		return nil
 	})
 
-	eventhttpserver.Register(path.Join("/", conf.GetAppSettings().AppID, "webhook/event"), conf)
+	eventhttpserver.Register("/webhook/event", conf)
 	err := http.ListenAndServe(":8089", nil)
 	if err != nil {
 		panic(err)
