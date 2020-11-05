@@ -48,6 +48,7 @@ type Info struct {
 	Retryable              bool
 	optFns                 []OptFn
 	IsResponseStream       bool
+	IsResponseStreamReal   bool
 }
 
 func (i *Info) WithContext(ctx *core.Context) {

@@ -154,7 +154,9 @@ func buildFunc(ctx *core.Context, req *request.Request) {
 	for k, v := range defaultHTTPRequestHeader {
 		r.Header.Set(k, v)
 	}
-	r.Header.Set(coreconst.ContentType, req.ContentType)
+	if req.ContentType != "" {
+		r.Header.Set(coreconst.ContentType, req.ContentType)
+	}
 	req.HTTPRequest = r
 }
 
@@ -194,27 +196,32 @@ func signFunc(ctx *core.Context, req *request.Request) {
 
 func validateResponseFunc(_ *core.Context, req *request.Request) {
 	resp := req.HTTPResponse
+	contentType := resp.Header.Get(coreconst.ContentType)
 	if req.IsResponseStream {
+		if strings.Contains(contentType, coreconst.ContentTypeJson) {
+			req.IsResponseStreamReal = false
+			return
+		}
 		if resp.StatusCode != http.StatusOK {
 			req.Err = fmt.Errorf("response is stream, but status code:%d", resp.StatusCode)
 		}
+		req.IsResponseStreamReal = true
 		return
 	}
-	contentTypes := resp.Header[coreconst.ContentType]
-	if len(contentTypes) == 0 || !strings.Contains(contentTypes[0], coreconst.ContentTypeJson) {
+	if !strings.Contains(contentType, coreconst.ContentTypeJson) {
 		respBody, err := readResponse(resp)
 		if err != nil {
 			req.Err = err
 			return
 		}
 		req.Err = response.NewErrorOfInvalidResp(fmt.Sprintf("content-type: %s, is not: %s, if is stream, "+
-			"please `request.SetResponseStream()`, body:%s", contentTypes[0], coreconst.ContentTypeJson, string(respBody)))
+			"please `request.SetResponseStream()`, body:%s", contentType, coreconst.ContentTypeJson, string(respBody)))
 	}
 }
 
 func unmarshalResponseFunc(ctx *core.Context, req *request.Request) {
 	resp := req.HTTPResponse
-	if req.IsResponseStream {
+	if req.IsResponseStreamReal {
 		defer resp.Body.Close()
 		switch output := req.Output.(type) {
 		case io.Writer:
