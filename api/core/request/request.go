@@ -124,16 +124,17 @@ func SetResponseStream() OptFn {
 
 type Request struct {
 	*Info
-	HTTPRequest       *http.Request
-	HTTPResponse      *http.Response
-	RequestBody       []byte
-	RequestBodyStream io.Reader
-	ContentType       string
-	Err               error
+	HTTPRequest         *http.Request
+	HTTPResponse        *http.Response
+	RequestBody         []byte
+	RequestBodyStream   io.Reader
+	RequestBodyFilePath string
+	ContentType         string
+	Err                 error
 }
 
 func (r *Request) String() string {
-	return fmt.Sprintf("%s %s\n%s", r.HttpMethod, r.url(), r.AccessTokenType)
+	return fmt.Sprintf("%s %s %s", r.HttpMethod, r.url(), r.AccessTokenType)
 }
 
 func NewRequestByAuth(httpPath, httpMethod string, input, output interface{}) *Request {

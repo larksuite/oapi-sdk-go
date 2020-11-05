@@ -87,7 +87,7 @@ func unmarshalFunc(ctx *core.Context, httpEvent *model.HTTPEvent) {
 	httpEvent.Type = notData.Type
 	httpEvent.Challenge = notData.Challenge
 	if token != conf.GetAppSettings().VerificationToken {
-		httpEvent.Err = errors.NewTokenInvalidErr()
+		httpEvent.Err = errors.NewTokenInvalidErr(token)
 		return
 	}
 }
@@ -123,7 +123,7 @@ func complementFunc(ctx *core.Context, httpEvent *model.HTTPEvent) {
 	err := httpEvent.Err
 	if err != nil {
 		switch e := err.(type) {
-		case *NotHandlerErr:
+		case *NotFoundHandlerErr:
 			conf.GetLogger().Info(ctx, e.Error())
 			writeHTTPResponse(httpEvent, http.StatusOK, fmt.Sprintf(responseFormat, err.Error()))
 			return

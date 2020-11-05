@@ -129,7 +129,7 @@ func buildFunc(ctx *core.Context, req *request.Request) {
 			switch req.Input.(type) {
 			case *request.FormData:
 				reqBodyFromFormData(ctx, req)
-				conf.GetLogger().Debug(ctx, fmt.Sprintf("[build]request:%v, body:formdata", req))
+				conf.GetLogger().Debug(ctx, fmt.Sprintf("[build]request:%v, body:formdata:%s", req, req.RequestBodyFilePath))
 			default:
 				reqBodyFromInput(ctx, req)
 				conf.GetLogger().Debug(ctx, fmt.Sprintf("[build]request:%v, body:%s", req, string(req.RequestBody)))
@@ -141,10 +141,11 @@ func buildFunc(ctx *core.Context, req *request.Request) {
 	}
 	if req.RequestBody != nil {
 		req.RequestBodyStream = bytes.NewBuffer(req.RequestBody)
-	}
-	if err := requestBodyStream(req); err != nil {
-		req.Err = err
-		return
+	} else if req.RequestBodyFilePath != "" {
+		req.RequestBodyStream, req.Err = os.Open(req.RequestBodyFilePath)
+		if req.Err != nil {
+			return
+		}
 	}
 	r, err := http.NewRequestWithContext(ctx, req.HttpMethod, req.FullUrl(conf.GetDomain()), req.RequestBodyStream)
 	if err != nil {
@@ -158,23 +159,6 @@ func buildFunc(ctx *core.Context, req *request.Request) {
 		r.Header.Set(coreconst.ContentType, req.ContentType)
 	}
 	req.HTTPRequest = r
-}
-
-func requestBodyStream(req *request.Request) error {
-	var err error
-	if seek, ok := req.RequestBodyStream.(io.Seeker); ok {
-		_, err = seek.Seek(0, 0)
-		if err != nil {
-			if pathError, ok := err.(*os.PathError); ok {
-				if pathError.Err == os.ErrClosed {
-					if file, ok := seek.(*os.File); ok {
-						req.RequestBodyStream, err = os.Open(file.Name())
-					}
-				}
-			}
-		}
-	}
-	return err
 }
 
 func signFunc(ctx *core.Context, req *request.Request) {
@@ -241,7 +225,7 @@ func unmarshalResponseFunc(ctx *core.Context, req *request.Request) {
 		req.Err = err
 		return
 	}
-	config.ByCtx(ctx).GetLogger().Debug(ctx, fmt.Sprintf("[unmarshalResponse] request:%v\nresponse:\nbody:%s",
+	config.ByCtx(ctx).GetLogger().Debug(ctx, fmt.Sprintf("[unmarshalResponse] request:%v, response:body:%s",
 		req, string(respBody)))
 	if req.DataFilled() {
 		err := unmarshalJSON(req.Output, req.IsNotDataField, bytes.NewBuffer(respBody))
@@ -275,6 +259,12 @@ func retryFunc(_ *core.Context, req *request.Request) {
 }
 
 func complementFunc(ctx *core.Context, req *request.Request) {
+	if req.RequestBodyFilePath != "" {
+		if err := os.Remove(req.RequestBodyFilePath); err != nil {
+			config.ByCtx(ctx).GetLogger().Info(ctx, fmt.Sprintf("[complement] request:%v, "+
+				"delete tmp file(%s) err: %v", req, req.RequestBodyFilePath, err))
+		}
+	}
 	switch err := req.Err.(type) {
 	case *response.Error:
 		switch err.Code {
@@ -348,10 +338,14 @@ func reqBodyFromFormData(_ *core.Context, req *request.Request) {
 	fd := req.Input.(*request.FormData)
 	hasStream := fd.HasStream()
 	if hasStream {
-		reqBody, req.Err = ioutil.TempFile("", ".larksuiteoapisdk")
+		var reqBodyFile *os.File
+		reqBodyFile, req.Err = ioutil.TempFile("", ".larksuiteoapisdk")
 		if req.Err != nil {
 			return
 		}
+		defer reqBodyFile.Close()
+		req.RequestBodyFilePath = reqBodyFile.Name()
+		reqBody = reqBodyFile
 	} else {
 		reqBody = &bytes.Buffer{}
 	}
@@ -381,9 +375,7 @@ func reqBodyFromFormData(_ *core.Context, req *request.Request) {
 		req.Err = err
 		return
 	}
-	if hasStream {
-		req.RequestBodyStream = reqBody
-	} else {
+	if !hasStream {
 		req.RequestBody, req.Err = ioutil.ReadAll(reqBody)
 	}
 }

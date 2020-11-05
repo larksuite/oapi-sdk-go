@@ -85,7 +85,7 @@ func unmarshalFunc(ctx *core.Context, httpCard *model.HTTPCard) {
 	if httpCard.Type == constants.CallbackTypeChallenge {
 		appSettings := config.ByCtx(ctx).GetAppSettings()
 		if appSettings.VerificationToken != out.Token {
-			httpCard.Err = errors.NewTokenInvalidErr()
+			httpCard.Err = errors.NewTokenInvalidErr(out.Token)
 			return
 		}
 	}
@@ -163,7 +163,7 @@ func complementFunc(ctx *core.Context, httpCard *model.HTTPCard) {
 	conf := config.ByCtx(ctx)
 	if err != nil {
 		switch e := err.(type) {
-		case *NotHandlerErr:
+		case *NotFoundHandlerErr:
 			conf.GetLogger().Info(ctx, e.Error())
 			writeHTTPResponse(ctx, httpCard, http.StatusOK, fmt.Sprintf(responseFormat, err.Error()))
 			return

@@ -1,14 +1,14 @@
 package handlers
 
-type NotHandlerErr struct {
+type NotFoundHandlerErr struct {
 }
 
-func newNotHandlerErr() *NotHandlerErr {
-	return &NotHandlerErr{}
+func newNotHandlerErr() *NotFoundHandlerErr {
+	return &NotFoundHandlerErr{}
 }
 
-func (e NotHandlerErr) Error() string {
-	return "card, not find handler"
+func (e NotFoundHandlerErr) Error() string {
+	return "card, not found handler"
 }
 
 type SignatureErr struct {

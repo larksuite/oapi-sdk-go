@@ -9,7 +9,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 	"github.com/larksuite/oapi-sdk-go/core/test"
 	"github.com/larksuite/oapi-sdk-go/core/tools"
-	"path"
 )
 
 func main() {
@@ -23,7 +22,7 @@ func main() {
 	})
 
 	g := gin.Default()
-	cardginserver.Register(path.Join("/", conf.GetAppSettings().AppID, "webhook/card"), conf, g)
+	cardginserver.Register("/webhook/card", conf, g)
 	err := g.Run(":8089")
 	if err != nil {
 		panic(err)

@@ -1,12 +1,15 @@
 package errors
 
+import "fmt"
+
 type TokenInvalidErr struct {
+	token string
 }
 
-func NewTokenInvalidErr() *TokenInvalidErr {
-	return &TokenInvalidErr{}
+func NewTokenInvalidErr(token string) *TokenInvalidErr {
+	return &TokenInvalidErr{token: token}
 }
 
 func (e TokenInvalidErr) Error() string {
-	return "token invalid"
+	return fmt.Sprintf("AppSettings.verificationToken not equal token(%s)", e.token)
 }

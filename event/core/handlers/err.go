@@ -2,14 +2,14 @@ package handlers
 
 import "fmt"
 
-type NotHandlerErr struct {
+type NotFoundHandlerErr struct {
 	EventType string
 }
 
-func newNotHandlerErr(eventType string) *NotHandlerErr {
-	return &NotHandlerErr{EventType: eventType}
+func newNotHandlerErr(eventType string) *NotFoundHandlerErr {
+	return &NotFoundHandlerErr{EventType: eventType}
 }
 
-func (e NotHandlerErr) Error() string {
-	return fmt.Sprintf("event type:%s, not find handler", e.EventType)
+func (e NotFoundHandlerErr) Error() string {
+	return fmt.Sprintf("event type:%s, not found handler", e.EventType)
 }
