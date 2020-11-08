@@ -5,17 +5,17 @@ import (
 	"github.com/larksuite/oapi-sdk-go/event/core/model"
 )
 
-type UserIds struct {
+type UserId struct {
 	OpenId string `json:"open_id,omitempty"`
 	UserId string `json:"user_id,omitempty"`
 }
 
 type AppOpenEventData struct {
-	AppId      string     `json:"app_id,omitempty"`
-	TenantKey  string     `json:"tenant_key,omitempty"`
-	Type       string     `json:"type,omitempty"`
-	Applicants []*UserIds `json:"applicants,omitempty"`
-	Installer  *UserIds   `json:"installer,omitempty"`
+	AppId      string    `json:"app_id,omitempty"`
+	TenantKey  string    `json:"tenant_key,omitempty"`
+	Type       string    `json:"type,omitempty"`
+	Applicants []*UserId `json:"applicants,omitempty"`
+	Installer  *UserId   `json:"installer,omitempty"`
 }
 
 type AppOpenEvent struct {
