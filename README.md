@@ -74,6 +74,7 @@ $ go get -u github.com/larksuite/oapi-sdk-go
     |--------------|--------------|------|------|
     |  Authentication    | v1  | [service/authen](service/authen) | [sample/api/authen.go](sample/api/authen.go)|
     |  Image     | v4  | [service/image](service/image)|[sample/api/image.go](sample/api/image.go)|
+    |  Calendar     | v4  | [service/calendar](service/calendar)|[sample/api/calendar.go](sample/api/calendar.go)|
     
     
 - Instructions for use（For`No business API SDK is generated`the processing method）
