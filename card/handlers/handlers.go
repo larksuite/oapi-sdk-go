@@ -11,13 +11,10 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core/config"
 	"github.com/larksuite/oapi-sdk-go/core/constants"
 	"github.com/larksuite/oapi-sdk-go/core/errors"
-	"io/ioutil"
+	coremodel "github.com/larksuite/oapi-sdk-go/core/model"
 	"net/http"
 	"strings"
 )
-
-const responseFormat = `{"codemsg":"%s"}`
-const challengeResponseFormat = `{"challenge":"%s"}`
 
 var defaultHandlers = &Handlers{
 	init:       initFunc,
@@ -38,13 +35,13 @@ type Handlers struct {
 }
 
 func initFunc(ctx *core.Context, httpCard *model.HTTPCard) {
-	request := httpCard.HTTPRequest
+	request := httpCard.Request
 	header := &model.Header{
-		Timestamp:    request.Header.Get(model.LarkRequestTimestamp),
-		Nonce:        request.Header.Get(model.LarkRequestRequestNonce),
-		Signature:    request.Header.Get(model.LarkSignature),
-		RefreshToken: request.Header.Get(model.LarkRefreshToken),
-		RequestID:    request.Header.Get(constants.HTTPHeaderKeyRequestID),
+		Timestamp:    request.Header.GetFirstValues(model.LarkRequestTimestamp),
+		Nonce:        request.Header.GetFirstValues(model.LarkRequestRequestNonce),
+		Signature:    request.Header.GetFirstValues(model.LarkSignature),
+		RefreshToken: request.Header.GetFirstValues(model.LarkRefreshToken),
+		RequestID:    request.Header.GetFirstValues(constants.HTTPHeaderKeyRequestID),
 	}
 	httpCard.Header = header
 	ctx.Set(model.LarkRequestTimestamp, header.Timestamp)
@@ -52,13 +49,8 @@ func initFunc(ctx *core.Context, httpCard *model.HTTPCard) {
 	ctx.Set(model.LarkSignature, header.Signature)
 	ctx.Set(model.LarkRefreshToken, header.RefreshToken)
 	ctx.Set(constants.HTTPHeaderKeyRequestID, header.RequestID)
-	body, err := ioutil.ReadAll(httpCard.HTTPRequest.Body)
-	if err != nil {
-		httpCard.Err = err
-		return
-	}
-	httpCard.Input = body
-	config.ByCtx(ctx).GetLogger().Debug(ctx, fmt.Sprintf("[init] card: %s", string(httpCard.Input)))
+	config.ByCtx(ctx).GetLogger().Debug(ctx, fmt.Sprintf("[init] card: %s", request.Body))
+	httpCard.Input = []byte(request.Body)
 }
 
 func validateFunc(ctx *core.Context, httpCard *model.HTTPCard) {
@@ -148,16 +140,6 @@ func handlerFunc(ctx *core.Context, httpCard *model.HTTPCard) {
 	httpCard.Output, httpCard.Err = h(ctx, out)
 }
 
-func writeHTTPResponse(ctx *core.Context, httpCard *model.HTTPCard, code int, message string) {
-	conf := config.ByCtx(ctx)
-	httpCard.HTTPResponse.Header().Set(constants.ContentType, constants.DefaultContentType)
-	httpCard.HTTPResponse.WriteHeader(code)
-	_, err := httpCard.HTTPResponse.Write([]byte(message))
-	if err != nil {
-		conf.GetLogger().Error(ctx, err.Error())
-	}
-}
-
 func complementFunc(ctx *core.Context, httpCard *model.HTTPCard) {
 	err := httpCard.Err
 	conf := config.ByCtx(ctx)
@@ -165,15 +147,15 @@ func complementFunc(ctx *core.Context, httpCard *model.HTTPCard) {
 		switch e := err.(type) {
 		case *NotFoundHandlerErr:
 			conf.GetLogger().Info(ctx, e.Error())
-			writeHTTPResponse(ctx, httpCard, http.StatusOK, fmt.Sprintf(responseFormat, err.Error()))
+			httpCard.Response.Write(http.StatusOK, constants.DefaultContentType, fmt.Sprintf(coremodel.ResponseFormat, err.Error()))
 			return
 		}
 		conf.GetLogger().Error(ctx, err.Error())
-		writeHTTPResponse(ctx, httpCard, http.StatusInternalServerError, fmt.Sprintf(responseFormat, err.Error()))
+		httpCard.Response.Write(http.StatusInternalServerError, constants.DefaultContentType, fmt.Sprintf(coremodel.ResponseFormat, err.Error()))
 		return
 	}
 	if httpCard.Type == constants.CallbackTypeChallenge {
-		writeHTTPResponse(ctx, httpCard, http.StatusOK, fmt.Sprintf(challengeResponseFormat, httpCard.Challenge))
+		httpCard.Response.Write(http.StatusOK, constants.DefaultContentType, fmt.Sprintf(coremodel.ChallengeResponseFormat, httpCard.Challenge))
 		return
 	}
 	if httpCard.Output != nil {
@@ -185,12 +167,12 @@ func complementFunc(ctx *core.Context, httpCard *model.HTTPCard) {
 			bs, err = json.Marshal(httpCard.Output)
 			if err != nil {
 				conf.GetLogger().Error(ctx, err.Error())
-				writeHTTPResponse(ctx, httpCard, http.StatusInternalServerError, fmt.Sprintf(responseFormat, err.Error()))
+				httpCard.Response.Write(http.StatusInternalServerError, constants.DefaultContentType, fmt.Sprintf(coremodel.ResponseFormat, err.Error()))
 				return
 			}
 		}
-		writeHTTPResponse(ctx, httpCard, http.StatusOK, string(bs))
+		httpCard.Response.Write(http.StatusOK, constants.DefaultContentType, string(bs))
 		return
 	}
-	writeHTTPResponse(ctx, httpCard, http.StatusOK, fmt.Sprintf(responseFormat, "successed"))
+	httpCard.Response.Write(http.StatusOK, constants.DefaultContentType, fmt.Sprintf(coremodel.ResponseFormat, "successed"))
 }

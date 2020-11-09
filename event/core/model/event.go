@@ -1,21 +1,21 @@
 package model
 
 import (
-	"net/http"
+	"github.com/larksuite/oapi-sdk-go/core/model"
 )
 
 const Version1 = "1.0"
 const Version2 = "2.0"
 
 type HTTPEvent struct {
-	HTTPRequest  *http.Request
-	Input        []byte
-	HTTPResponse http.ResponseWriter
-	Schema       string
-	Type         string
-	EventType    string
-	Challenge    string
-	Err          error
+	Request   *model.OapiRequest
+	Input     []byte
+	Response  *model.OapiResponse
+	Schema    string
+	Type      string
+	EventType string
+	Challenge string
+	Err       error
 }
 
 type BaseEvent struct {
@@ -31,7 +31,7 @@ type BaseEventData struct {
 	TenantKey string `json:"tenant_key"`
 }
 
-type NotData struct {
+type Fuzzy struct {
 	Schema    string  `json:"schema"`
 	Token     string  `json:"token"`
 	Type      string  `json:"type"`

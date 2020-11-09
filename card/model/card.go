@@ -2,7 +2,7 @@ package model
 
 import (
 	"github.com/larksuite/oapi-sdk-go/core/constants"
-	"net/http"
+	"github.com/larksuite/oapi-sdk-go/core/model"
 )
 
 const (
@@ -21,14 +21,14 @@ type Header struct {
 }
 
 type HTTPCard struct {
-	Header       *Header
-	HTTPRequest  *http.Request
-	Input        []byte
-	HTTPResponse http.ResponseWriter
-	Type         constants.CallbackType
-	Output       interface{}
-	Challenge    string
-	Err          error
+	Header    *Header
+	Request   *model.OapiRequest
+	Input     []byte
+	Response  *model.OapiResponse
+	Type      constants.CallbackType
+	Output    interface{}
+	Challenge string
+	Err       error
 }
 
 type Challenge struct {

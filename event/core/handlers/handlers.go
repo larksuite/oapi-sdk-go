@@ -8,15 +8,12 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core/config"
 	"github.com/larksuite/oapi-sdk-go/core/constants"
 	"github.com/larksuite/oapi-sdk-go/core/errors"
+	coremodel "github.com/larksuite/oapi-sdk-go/core/model"
 	"github.com/larksuite/oapi-sdk-go/core/tools"
 	"github.com/larksuite/oapi-sdk-go/event"
 	"github.com/larksuite/oapi-sdk-go/event/core/model"
-	"io/ioutil"
 	"net/http"
 )
-
-const responseFormat = `{"codemsg":"%s"}`
-const challengeResponseFormat = `{"challenge":"%s"}`
 
 var defaultHandlers = &Handlers{
 	unmarshal:  unmarshalFunc,
@@ -45,15 +42,12 @@ func Handle(ctx *core.Context, httpEvent *model.HTTPEvent) {
 }
 
 func unmarshalFunc(ctx *core.Context, httpEvent *model.HTTPEvent) {
-	requestID := httpEvent.HTTPRequest.Header.Get(constants.HTTPHeaderKeyRequestID)
+	requestID := httpEvent.Request.Header.GetFirstValues(constants.HTTPHeaderKeyRequestID)
 	ctx.Set(constants.HTTPHeaderKeyRequestID, requestID)
-	body, err := ioutil.ReadAll(httpEvent.HTTPRequest.Body)
-	if err != nil {
-		httpEvent.Err = err
-		return
-	}
 	conf := config.ByCtx(ctx)
-	conf.GetLogger().Debug(ctx, fmt.Sprintf("[unmarshal] event: %s", string(body)))
+	conf.GetLogger().Debug(ctx, fmt.Sprintf("[unmarshal] event: %s", httpEvent.Request.Body))
+	body := []byte(httpEvent.Request.Body)
+	var err error
 	if conf.GetAppSettings().EncryptKey != "" {
 		body, err = tools.Decrypt(body, conf.GetAppSettings().EncryptKey)
 		if err != nil {
@@ -63,29 +57,29 @@ func unmarshalFunc(ctx *core.Context, httpEvent *model.HTTPEvent) {
 		conf.GetLogger().Debug(ctx, fmt.Sprintf("[unmarshal] decrypt event: %s", string(body)))
 	}
 	httpEvent.Input = body
-	notData := &model.NotData{}
-	err = json.NewDecoder(bytes.NewBuffer(body)).Decode(&notData)
+	fuzzy := &model.Fuzzy{}
+	err = json.NewDecoder(bytes.NewBuffer(body)).Decode(&fuzzy)
 	if err != nil {
 		httpEvent.Err = err
 		return
 	}
 	schema := model.Version1
-	token := notData.Token
-	if notData.Schema != "" {
-		schema = notData.Schema
+	token := fuzzy.Token
+	if fuzzy.Schema != "" {
+		schema = fuzzy.Schema
 	}
 	var eventType string
-	if notData.Event != nil {
-		eventType = notData.Event.Type
+	if fuzzy.Event != nil {
+		eventType = fuzzy.Event.Type
 	}
-	if notData.Header != nil {
-		token = notData.Header.Token
-		eventType = notData.Header.EventType
+	if fuzzy.Header != nil {
+		token = fuzzy.Header.Token
+		eventType = fuzzy.Header.EventType
 	}
 	httpEvent.Schema = schema
 	httpEvent.EventType = eventType
-	httpEvent.Type = notData.Type
-	httpEvent.Challenge = notData.Challenge
+	httpEvent.Type = fuzzy.Type
+	httpEvent.Challenge = fuzzy.Challenge
 	if token != conf.GetAppSettings().VerificationToken {
 		httpEvent.Err = errors.NewTokenInvalidErr(token)
 		return
@@ -125,22 +119,16 @@ func complementFunc(ctx *core.Context, httpEvent *model.HTTPEvent) {
 		switch e := err.(type) {
 		case *NotFoundHandlerErr:
 			conf.GetLogger().Info(ctx, e.Error())
-			writeHTTPResponse(httpEvent, http.StatusOK, fmt.Sprintf(responseFormat, err.Error()))
+			httpEvent.Response.Write(http.StatusOK, constants.DefaultContentType, fmt.Sprintf(coremodel.ResponseFormat, err.Error()))
 			return
 		}
-		writeHTTPResponse(httpEvent, http.StatusInternalServerError, fmt.Sprintf(responseFormat, err.Error()))
+		httpEvent.Response.Write(http.StatusInternalServerError, constants.DefaultContentType, fmt.Sprintf(coremodel.ResponseFormat, err.Error()))
 		conf.GetLogger().Error(ctx, err.Error())
 		return
 	}
 	if constants.CallbackType(httpEvent.Type) == constants.CallbackTypeChallenge {
-		writeHTTPResponse(httpEvent, http.StatusOK, fmt.Sprintf(challengeResponseFormat, httpEvent.Challenge))
+		httpEvent.Response.Write(http.StatusOK, constants.DefaultContentType, fmt.Sprintf(coremodel.ChallengeResponseFormat, httpEvent.Challenge))
 		return
 	}
-	writeHTTPResponse(httpEvent, http.StatusOK, fmt.Sprintf(responseFormat, "successed"))
-}
-
-func writeHTTPResponse(httpEvent *model.HTTPEvent, code int, message string) {
-	httpEvent.HTTPResponse.Header().Set(constants.ContentType, constants.DefaultContentType)
-	httpEvent.HTTPResponse.WriteHeader(code)
-	_, httpEvent.Err = fmt.Fprint(httpEvent.HTTPResponse, message)
+	httpEvent.Response.Write(http.StatusOK, constants.DefaultContentType, fmt.Sprintf(coremodel.ResponseFormat, "successed"))
 }
