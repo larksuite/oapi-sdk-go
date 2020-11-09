@@ -1,20 +1,24 @@
 package card
 
 import (
+	"github.com/larksuite/oapi-sdk-go/card/handlers"
 	"github.com/larksuite/oapi-sdk-go/card/model"
 	"github.com/larksuite/oapi-sdk-go/core"
 	"github.com/larksuite/oapi-sdk-go/core/config"
+	coremodel "github.com/larksuite/oapi-sdk-go/core/model"
 )
 
-type Handler func(*core.Context, *model.Card) (interface{}, error)
-
-var appID2Handler = make(map[string]Handler)
-
-func SetHandler(conf *config.Config, handler Handler) {
-	appID2Handler[conf.GetAppSettings().AppID] = handler
+func SetHandler(conf *config.Config, handler handlers.Handler) {
+	handlers.AppID2Handler[conf.GetAppSettings().AppID] = handler
 }
 
-func GetHandler(conf *config.Config) (Handler, bool) {
-	h, ok := appID2Handler[conf.GetAppSettings().AppID]
-	return h, ok
+func Handle(conf *config.Config, request *coremodel.OapiRequest) *coremodel.OapiResponse {
+	coreCtx := core.WarpContext(request.Ctx)
+	conf.WithContext(coreCtx)
+	httpCard := &model.HTTPCard{
+		Request:  request,
+		Response: &coremodel.OapiResponse{},
+	}
+	handlers.Handle(coreCtx, httpCard)
+	return httpCard.Response
 }

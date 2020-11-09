@@ -3,23 +3,27 @@ package model
 import "strings"
 
 type OapiHeader struct {
-	m map[string][]string
+	header map[string][]string
 }
 
 func NewOapiHeader(m map[string][]string) *OapiHeader {
-	return &OapiHeader{m: m}
+	header := make(map[string][]string, len(m))
+	for k, v := range m {
+		header[normalizeKey(k)] = v
+	}
+	return &OapiHeader{header: header}
 }
 
 func (h OapiHeader) GetNames() []string {
-	var names = make([]string, 0, len(h.m))
-	for k := range h.m {
+	var names = make([]string, 0, len(h.header))
+	for k := range h.header {
 		names = append(names, k)
 	}
 	return names
 }
 
 func (h OapiHeader) GetFirstValues(name string) string {
-	values := h.m[h.normalizeKey(name)]
+	values := h.header[normalizeKey(name)]
 	if len(values) > 0 {
 		return values[0]
 	}
@@ -27,9 +31,9 @@ func (h OapiHeader) GetFirstValues(name string) string {
 }
 
 func (h OapiHeader) GetMultiValues(name string) []string {
-	return h.m[h.normalizeKey(name)]
+	return h.header[normalizeKey(name)]
 }
 
-func (h OapiHeader) normalizeKey(name string) string {
+func normalizeKey(name string) string {
 	return strings.ToLower(name)
 }

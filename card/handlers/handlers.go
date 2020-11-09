@@ -5,7 +5,6 @@ import (
 	"crypto/sha1"
 	"encoding/json"
 	"fmt"
-	"github.com/larksuite/oapi-sdk-go/card"
 	"github.com/larksuite/oapi-sdk-go/card/model"
 	"github.com/larksuite/oapi-sdk-go/core"
 	"github.com/larksuite/oapi-sdk-go/core/config"
@@ -126,7 +125,7 @@ func handlerFunc(ctx *core.Context, httpCard *model.HTTPCard) {
 		return
 	}
 	conf := config.ByCtx(ctx)
-	h, ok := card.GetHandler(conf)
+	h, ok := getHandler(conf)
 	if !ok {
 		httpCard.Err = newNotHandlerErr()
 		return

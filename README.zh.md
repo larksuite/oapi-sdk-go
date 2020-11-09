@@ -145,6 +145,7 @@ $ go get -u github.com/larksuite/oapi-sdk-go
         - webhook地址：http://ip:8089/[APP_ID]/webhook/event
         - [使用原生的http server启动](sample/event/http_server.go)  
         - [使用Gin启动](sample/event/gin.go)
+        - [其他情况使用](sample/event/go.go)
     - 对于`没有生成业务Event SDK`的处理方式
     - 设置事件的处理者，样例如下：
     ```go
@@ -176,6 +177,7 @@ $ go get -u github.com/larksuite/oapi-sdk-go
         - webhook地址：http://ip:8089/[APP_ID]/webhook/card
         - [使用原生的http server启动](sample/card/http_server.go)  
         - [使用Gin启动](sample/card/gin.go)
+        - [其他情况使用](sample/card/go.go)
     - 设置卡片的处理者，代码如下：
     ```go
     import "github.com/larksuite/oapi-sdk-go/card"

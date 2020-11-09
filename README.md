@@ -139,6 +139,7 @@ $ go get -u github.com/larksuite/oapi-sdk-go
         - webhook address:http://ip:8089/[APP_ID]/webhook/event
         - [Start with native http server](sample/event/http_server.go)  
         - [Start with Gin](sample/event/gin.go)
+        - [Other](sample/event/go.go)
     - For `No business Event SDK is generated` the treatment
     - Set the event handler, for example:
     ```go
@@ -169,6 +170,7 @@ $ go get -u github.com/larksuite/oapi-sdk-go
         - webhook address:http://ip:8089/[APP_ID]/webhook/card
         - [Start with native http server](sample/card/http_server.go)  
         - [Start with Gin](sample/card/gin.go)
+        - [Other](sample/card/go.go)
     - Set the message card handler, the code is as follows:
     ```go
     import "github.com/larksuite/oapi-sdk-go/card"

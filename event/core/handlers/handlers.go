@@ -10,7 +10,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core/errors"
 	coremodel "github.com/larksuite/oapi-sdk-go/core/model"
 	"github.com/larksuite/oapi-sdk-go/core/tools"
-	"github.com/larksuite/oapi-sdk-go/event"
 	"github.com/larksuite/oapi-sdk-go/event/core/model"
 	"net/http"
 )
@@ -91,8 +90,8 @@ func handlerFunc(ctx *core.Context, httpEvent *model.HTTPEvent) {
 		return
 	}
 	conf := config.ByCtx(ctx)
-	var handler event.Handler
-	if type2EventHandler, ok := event.GetType2EventHandler(conf); ok {
+	var handler Handler
+	if type2EventHandler, ok := getType2EventHandler(conf); ok {
 		h, ok := type2EventHandler[httpEvent.EventType]
 		if ok {
 			handler = h
