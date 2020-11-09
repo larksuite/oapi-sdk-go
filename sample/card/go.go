@@ -4,6 +4,8 @@ import (
 	"context"
 	"fmt"
 	"github.com/larksuite/oapi-sdk-go/card"
+	"github.com/larksuite/oapi-sdk-go/card/model"
+	"github.com/larksuite/oapi-sdk-go/core"
 	coremodel "github.com/larksuite/oapi-sdk-go/core/model"
 	"github.com/larksuite/oapi-sdk-go/core/test"
 	"github.com/larksuite/oapi-sdk-go/core/tools"
@@ -11,6 +13,13 @@ import (
 
 func main() {
 	var conf = test.GetISVConf("staging")
+
+	card.SetHandler(conf, func(coreCtx *core.Context, card *model.Card) (interface{}, error) {
+		fmt.Println(coreCtx.GetRequestID())
+		fmt.Println(tools.Prettify(card.Action))
+		return nil, nil
+	})
+
 	header := make(map[string][]string)
 	// from http request header
 	// and "X-Lark-Request-Timestamp"/"X-Lark-Request-Nonce"/"X-Lark-Signature" validate request, Required!
@@ -19,10 +28,11 @@ func main() {
 	header["X-Lark-Request-Nonce"] = []string{"0404f57f-102e-4c91-bb32-a501ad0b7600"}
 	header["X-Lark-Signature"] = []string{"26cb59f4f5a91c4147d0xxxxxxxxxc4a36fb2c"}
 	header["X-Refresh-Token"] = []string{"acc4d5f2-4bc6-4394-a9d4-45e168fcde97"}
+
 	req := &coremodel.OapiRequest{
 		Ctx:    context.Background(),
 		Header: coremodel.NewOapiHeader(header),
-		Body:   "{json}",
+		Body:   "{json}", // from http request body
 	}
 	resp := card.Handle(conf, req)
 	fmt.Println(tools.Prettify(resp))
