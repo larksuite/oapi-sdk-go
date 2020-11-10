@@ -7,7 +7,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core/test"
 	"github.com/larksuite/oapi-sdk-go/core/tools"
 	"github.com/larksuite/oapi-sdk-go/event"
-	eventginserver "github.com/larksuite/oapi-sdk-go/event/http/gin"
+	eventhttp "github.com/larksuite/oapi-sdk-go/event/http"
 	application "github.com/larksuite/oapi-sdk-go/service/application/v1"
 )
 
@@ -45,20 +45,11 @@ func main() {
 		return nil
 	})
 
-	application.SetAppUninstalledEventHandler(conf, func(ctx *core.Context, appUninstalledEvent *application.AppUninstalledEvent) error {
-		fmt.Println(ctx.GetRequestID())
-		fmt.Println(tools.Prettify(appUninstalledEvent))
-		return nil
-	})
-
-	application.SetOrderPaidEventHandler(conf, func(ctx *core.Context, orderPaidEvent *application.OrderPaidEvent) error {
-		fmt.Println(ctx.GetRequestID())
-		fmt.Println(tools.Prettify(orderPaidEvent))
-		return nil
-	})
-
 	g := gin.Default()
-	eventginserver.Register("/webhook/event", conf, g)
+	g.POST("/webhook/event", func(context *gin.Context) {
+		eventhttp.Handle(conf, context.Request, context.Writer)
+	})
+
 	err := g.Run(":8089")
 	if err != nil {
 		panic(err)

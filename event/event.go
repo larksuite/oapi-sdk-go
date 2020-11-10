@@ -4,18 +4,16 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 	"github.com/larksuite/oapi-sdk-go/core/config"
 	coremodel "github.com/larksuite/oapi-sdk-go/core/model"
+	app "github.com/larksuite/oapi-sdk-go/event/app/v1"
 	"github.com/larksuite/oapi-sdk-go/event/core/handlers"
 	"github.com/larksuite/oapi-sdk-go/event/core/model"
+	"sync"
 )
 
+var once sync.Once
+
 func SetTypeHandler(conf *config.Config, eventType string, handler handlers.Handler) {
-	appID := conf.GetAppSettings().AppID
-	type2EventHandler, ok := handlers.AppID2Type2EventHandler[appID]
-	if !ok {
-		type2EventHandler = map[string]handlers.Handler{}
-		handlers.AppID2Type2EventHandler[appID] = type2EventHandler
-	}
-	type2EventHandler[eventType] = handler
+	handlers.SetTypeHandler(conf, eventType, handler)
 }
 
 func SetTypeHandler2(conf *config.Config, eventType string, fn func(ctx *core.Context, event map[string]interface{}) error) {
@@ -37,6 +35,9 @@ func (h *defaultHandler) Handle(ctx *core.Context, event interface{}) error {
 }
 
 func Handle(conf *config.Config, request *coremodel.OapiRequest) *coremodel.OapiResponse {
+	once.Do(func() {
+		app.SetAppTicketEventHandler(conf)
+	})
 	coreCtx := core.WarpContext(request.Ctx)
 	conf.WithContext(coreCtx)
 	httpEvent := &model.HTTPEvent{

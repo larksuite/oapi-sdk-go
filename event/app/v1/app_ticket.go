@@ -5,7 +5,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core/config"
 	"github.com/larksuite/oapi-sdk-go/core/constants"
 	"github.com/larksuite/oapi-sdk-go/core/store"
-	"github.com/larksuite/oapi-sdk-go/event"
+	"github.com/larksuite/oapi-sdk-go/event/core/handlers"
 	"github.com/larksuite/oapi-sdk-go/event/core/model"
 	"time"
 )
@@ -39,5 +39,5 @@ func SetAppTicketEventHandler(conf *config.Config) {
 	if conf.GetAppSettings().AppType == constants.AppTypeInternal {
 		return
 	}
-	event.SetTypeHandler(conf, "app_ticket", &AppTicketEventHandler{})
+	handlers.SetTypeHandler(conf, "app_ticket", &AppTicketEventHandler{})
 }
