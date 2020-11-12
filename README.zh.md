@@ -81,6 +81,7 @@ $ go get -u github.com/larksuite/oapi-sdk-go
     |  身份验证    | v1  | [service/authen](service/authen) | [sample/api/authen.go](sample/api/authen.go)|
     |  图片     | v4  | [service/image](service/image)|[sample/api/image.go](sample/api/image.go)|
     |  日历     | v4  | [service/calendar](service/calendar)|[sample/api/calendar.go](sample/api/calendar.go)|
+    |  通讯录     | v3  | [service/contact](service/contact)|[sample/api/contact.go](sample/api/contact.go)|
     
     
 - 使用说明（对于`没有生成业务API SDK`的处理方式）
@@ -139,6 +140,7 @@ $ go get -u github.com/larksuite/oapi-sdk-go
       | 业务服务 | 版本  | 路径 | 示例 |
       |--------------|--------------|------|------|
       |  应用    | v1  | [service/application](service/application) | [sample/event/application.go](sample/event/application.go) |
+      |  通讯录   | v3  | [service/contact](service/contact) | [sample/event/contact.go](sample/event/contact.go) |
       
   - 使用说明
     - 事件监听服务启动
