@@ -14,17 +14,40 @@ var authenService = authen.NewService(conf)
 
 func main() {
 	testAccessToken()
-	testUserInfo()
+	//testFlushAccessToken()
+	//testUserInfo()
 }
 
 func testAccessToken() {
 	ctx := context.Background()
 	coreCtx := core.WarpContext(ctx)
-	body := &authen.AccessTokenReqBody{
+	body := &authen.AuthenAccessTokenReqBody{
 		GrantType: "authorization_code",
 		Code:      "[code]",
 	}
 	reqCall := authenService.Authens.AccessToken(coreCtx, body)
+
+	result, err := reqCall.Do()
+	fmt.Println(coreCtx.GetRequestID())
+	fmt.Println(coreCtx.GetHTTPStatusCode())
+	if err != nil {
+		fmt.Println(tools.Prettify(err))
+		e := err.(*response.Error)
+		fmt.Println(e.Code)
+		fmt.Println(e.Msg)
+		return
+	}
+	fmt.Println(tools.Prettify(result))
+}
+
+func testFlushAccessToken() {
+	ctx := context.Background()
+	coreCtx := core.WarpContext(ctx)
+	body := &authen.AuthenRefreshAccessTokenReqBody{
+		GrantType:    "refresh_token",
+		RefreshToken: "[refresh_token]",
+	}
+	reqCall := authenService.Authens.RefreshAccessToken(coreCtx, body)
 
 	result, err := reqCall.Do()
 	fmt.Println(coreCtx.GetRequestID())
