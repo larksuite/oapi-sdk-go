@@ -41,11 +41,11 @@ func Handle(ctx *core.Context, httpEvent *model.HTTPEvent) {
 }
 
 func unmarshalFunc(ctx *core.Context, httpEvent *model.HTTPEvent) {
-	requestID := httpEvent.Request.Header.GetFirstValues(constants.HTTPHeaderKeyRequestID)
-	ctx.Set(constants.HTTPHeaderKeyRequestID, requestID)
+	request := httpEvent.Request
+	ctx.SetRequestID(request.Header.GetFirstValues(constants.HTTPHeaderKeyLogID), request.Header.GetFirstValues(constants.HTTPHeaderKeyRequestID))
 	conf := config.ByCtx(ctx)
-	conf.GetLogger().Debug(ctx, fmt.Sprintf("[unmarshal] event: %s", httpEvent.Request.Body))
-	body := []byte(httpEvent.Request.Body)
+	conf.GetLogger().Debug(ctx, fmt.Sprintf("[unmarshal] event: %s", request.Body))
+	body := []byte(request.Body)
 	var err error
 	if conf.GetAppSettings().EncryptKey != "" {
 		body, err = tools.Decrypt(body, conf.GetAppSettings().EncryptKey)

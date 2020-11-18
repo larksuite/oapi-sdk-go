@@ -40,14 +40,13 @@ func initFunc(ctx *core.Context, httpCard *model.HTTPCard) {
 		Nonce:        request.Header.GetFirstValues(model.LarkRequestRequestNonce),
 		Signature:    request.Header.GetFirstValues(model.LarkSignature),
 		RefreshToken: request.Header.GetFirstValues(model.LarkRefreshToken),
-		RequestID:    request.Header.GetFirstValues(constants.HTTPHeaderKeyRequestID),
 	}
 	httpCard.Header = header
 	ctx.Set(model.LarkRequestTimestamp, header.Timestamp)
 	ctx.Set(model.LarkRequestRequestNonce, header.Nonce)
 	ctx.Set(model.LarkSignature, header.Signature)
 	ctx.Set(model.LarkRefreshToken, header.RefreshToken)
-	ctx.Set(constants.HTTPHeaderKeyRequestID, header.RequestID)
+	ctx.SetRequestID(request.Header.GetFirstValues(constants.HTTPHeaderKeyLogID), request.Header.GetFirstValues(constants.HTTPHeaderKeyRequestID))
 	config.ByCtx(ctx).GetLogger().Debug(ctx, fmt.Sprintf("[init] card: %s", request.Body))
 	httpCard.Input = []byte(request.Body)
 }

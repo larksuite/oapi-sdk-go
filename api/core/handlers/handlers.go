@@ -88,7 +88,7 @@ func (hs *Handlers) send(ctx *core.Context, req *request.Request) {
 		req.Err = err
 		return
 	}
-	ctx.Set(coreconst.HTTPHeaderKeyRequestID, resp.Header.Get(coreconst.HTTPHeaderKeyRequestID))
+	ctx.SetRequestID(resp.Header.Get(coreconst.HTTPHeaderKeyLogID), resp.Header.Get(coreconst.HTTPHeaderKeyRequestID))
 	ctx.Set(coreconst.HTTPKeyStatusCode, resp.StatusCode)
 	req.HTTPResponse = resp
 	defer hs.retry(ctx, req)

@@ -16,34 +16,38 @@ const (
 )
 
 type Detail struct {
-	Key   string `json:"key"`
-	Value string `json:"value"`
+	Key   string `json:"key,omitempty"`
+	Value string `json:"value,omitempty"`
 }
 
 type PermissionViolation struct {
-	Type        string `json:"type"`
-	Subject     string `json:"subject"`
-	Description string `json:"description"`
+	Type        string `json:"type,omitempty"`
+	Subject     string `json:"subject,omitempty"`
+	Description string `json:"description,omitempty"`
 }
 
 type FieldViolation struct {
-	Field       string `json:"field"`
-	Value       string `json:"value"`
-	Description string `json:"description"`
+	Field       string `json:"field,omitempty"`
+	Value       string `json:"value,omitempty"`
+	Description string `json:"description,omitempty"`
 }
 
 type Help struct {
-	Url         string `json:"url"`
-	Description string `json:"description"`
+	Url         string `json:"url,omitempty"`
+	Description string `json:"description,omitempty"`
 }
 
-type Error struct {
-	Code                 int                    `json:"code"`
-	Msg                  string                 `json:"msg"`
+type Err struct {
 	Details              []*Detail              `json:"details,omitempty"`
 	PermissionViolations []*PermissionViolation `json:"permission_violations,omitempty"`
 	FieldViolations      []*FieldViolation      `json:"field_violations,omitempty"`
 	Helps                []*Help                `json:"helps,omitempty"`
+}
+
+type Error struct {
+	Code int    `json:"code"`
+	Msg  string `json:"msg"`
+	Err  *Err   `json:"error"`
 }
 
 func NewErrorOfInvalidResp(msg string) *Error {

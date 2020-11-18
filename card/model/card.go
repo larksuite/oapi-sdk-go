@@ -17,7 +17,6 @@ type Header struct {
 	Nonce        string
 	Signature    string
 	RefreshToken string
-	RequestID    string
 }
 
 type HTTPCard struct {
