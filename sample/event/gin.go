@@ -31,7 +31,7 @@ func main() {
 			return nil
 		})
 	*/
-	event.SetTypeHandler2(conf, "app_status_change", func(ctx *core.Context, event map[string]interface{}) error {
+	event.SetTypeCallback(conf, "app_status_change", func(ctx *core.Context, event map[string]interface{}) error {
 		fmt.Println(ctx.GetRequestID())
 		fmt.Println(tools.Prettify(event))
 		data := event["event"].(map[string]interface{})

@@ -16,12 +16,17 @@ func SetTypeHandler(conf *config.Config, eventType string, handler handlers.Hand
 	handlers.SetTypeHandler(conf, eventType, handler)
 }
 
-func SetTypeHandler2(conf *config.Config, eventType string, fn func(ctx *core.Context, event map[string]interface{}) error) {
-	SetTypeHandler(conf, eventType, &defaultHandler{fn: fn})
+// Deprecated, please use `SetTypeCallback`
+func SetTypeHandler2(conf *config.Config, eventType string, callback func(ctx *core.Context, event map[string]interface{}) error) {
+	SetTypeHandler(conf, eventType, &defaultHandler{callback: callback})
+}
+
+func SetTypeCallback(conf *config.Config, eventType string, callback func(ctx *core.Context, event map[string]interface{}) error) {
+	SetTypeHandler(conf, eventType, &defaultHandler{callback: callback})
 }
 
 type defaultHandler struct {
-	fn func(ctx *core.Context, event map[string]interface{}) error
+	callback func(ctx *core.Context, event map[string]interface{}) error
 }
 
 func (h *defaultHandler) GetEvent() interface{} {
@@ -31,7 +36,7 @@ func (h *defaultHandler) GetEvent() interface{} {
 
 func (h *defaultHandler) Handle(ctx *core.Context, event interface{}) error {
 	e := event.(*map[string]interface{})
-	return h.fn(ctx, *e)
+	return h.callback(ctx, *e)
 }
 
 func Handle(conf *config.Config, request *coremodel.OapiRequest) *coremodel.OapiResponse {

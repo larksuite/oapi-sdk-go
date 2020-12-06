@@ -30,7 +30,7 @@ func main() {
 		return nil
 	})
 
-	event.SetTypeHandler2(conf, "user.created_v2", func(coreCtx *core.Context, event map[string]interface{}) error {
+	event.SetTypeCallback(conf, "user.created_v2", func(coreCtx *core.Context, event map[string]interface{}) error {
 		fmt.Println(coreCtx.GetRequestID())
 		fmt.Println(tools.Prettify(event))
 		return nil
