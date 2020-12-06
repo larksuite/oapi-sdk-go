@@ -19,7 +19,7 @@ func main() {
 
 func testUpload() {
 	ctx := context.Background()
-	coreCtx := core.WarpContext(ctx)
+	coreCtx := core.WrapContext(ctx)
 	reqCall := imageService.Images.Put(coreCtx, request.SetTenantKey("[tenant_key]"))
 	reqCall.SetImageType("message")
 	f, err := os.Open("test.png")

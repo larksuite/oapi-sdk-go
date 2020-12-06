@@ -20,7 +20,7 @@ func main() {
 
 func testAccessToken() {
 	ctx := context.Background()
-	coreCtx := core.WarpContext(ctx)
+	coreCtx := core.WrapContext(ctx)
 	body := &authen.AuthenAccessTokenReqBody{
 		GrantType: "authorization_code",
 		Code:      "[code]",
@@ -42,7 +42,7 @@ func testAccessToken() {
 
 func testFlushAccessToken() {
 	ctx := context.Background()
-	coreCtx := core.WarpContext(ctx)
+	coreCtx := core.WrapContext(ctx)
 	body := &authen.AuthenRefreshAccessTokenReqBody{
 		GrantType:    "refresh_token",
 		RefreshToken: "[refresh_token]",
@@ -64,7 +64,7 @@ func testFlushAccessToken() {
 
 func testUserInfo() {
 	ctx := context.Background()
-	coreCtx := core.WarpContext(ctx)
+	coreCtx := core.WrapContext(ctx)
 	reqCall := authenService.Authens.UserInfo(coreCtx, request.SetUserAccessToken("[user_access_token]"))
 
 	result, err := reqCall.Do()

@@ -24,7 +24,7 @@ func main() {
 
 // send message
 func testSendMessage() {
-	coreCtx := core.WarpContext(context.Background())
+	coreCtx := core.WrapContext(context.Background())
 	body := map[string]interface{}{
 		"open_id":  "[open_id]",
 		"msg_type": "text",
@@ -56,7 +56,7 @@ type UploadImage struct {
 
 // upload image
 func testUploadFile() {
-	coreCtx := core.WarpContext(context.Background())
+	coreCtx := core.WrapContext(context.Background())
 	bs, err := ioutil.ReadFile("test.png")
 	if err != nil {
 		fmt.Println(err)
@@ -91,7 +91,7 @@ func testUploadFile() {
 
 // download image
 func testDownloadFile() {
-	coreCtx := core.WarpContext(context.Background())
+	coreCtx := core.WrapContext(context.Background())
 	ret := &bytes.Buffer{}
 	/*
 		// stream download: ret implement io.Writer

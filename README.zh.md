@@ -62,7 +62,7 @@ $ go get -u github.com/larksuite/oapi-sdk-go
         
         // 创建CoreContext(*core.Context)，用于API请求、Event回调、Card回调等，作为函数的参数
         // core.Context实现了context.Context接口
-        coreCtx := core.WarpContext(context.Background())
+        coreCtx := core.WrapContext(context.Background())
         // 获取 API请求、Event回调、Card回调的RequestID（string），用于问题反馈时，开放平台查询相关日志，可以快速的定位问题
         requestID := coreCtx.GetRequestID()
         // 获取 API请求的响应状态码（int）
@@ -107,8 +107,17 @@ $ go get -u github.com/larksuite/oapi-sdk-go
       // request.SetNotDataField(),设置响应的是否 没有`data`字段，业务接口都是有`data`字段，所以不需要设置
       // request.SetTenantKey("TenantKey")，以`应用商店应用`身份，表示使用`tenant_access_token`访问API，需要设置
       // request.SetUserAccessToken("UserAccessToken")，表示使用`user_access_token`访问API，需要设置
-    req := request.NewRequest2(httpPath: string, httpMethod: string, accessTokenType: AccessTokenType, input: interface, output: interface, ...optFns: OptFn[]))
-    coreCtx := core.WarpContext(context.Background())
+    // req := request.NewRequest2(httpPath:string, httpMethod:string, accessTokenType:AccessTokenType, input:interface, output:interface, ... optFns:OptFn [)))
+    // Example:
+    body := map[string]interface{}{
+            "open_id":  "[open_id]",
+            "msg_type": "text",
+            "content": map[string]interface{}{
+                "text": "test",
+            },
+        }
+    ret := make(map[string]interface{})
+    req := request.NewRequest2("message/v4/send", "POST", request.AccessTokenTypeTenant, body, &ret)coreCtx := core.WarpContext(context.Background())
     err := api.Send(coreCtx, conf, req)
     fmt.Println(coreCtx.GetRequestID())
     fmt.Println(coreCtx.GetHTTPStatusCode())

@@ -13,7 +13,14 @@ type Context struct {
 	m  map[string]interface{}
 }
 
+// Deprecated, please use `WrapContext`
 func WarpContext(c context.Context) *Context {
+	return &Context{
+		c: c,
+	}
+}
+
+func WrapContext(c context.Context) *Context {
 	return &Context{
 		c: c,
 	}

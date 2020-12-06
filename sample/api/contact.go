@@ -18,7 +18,7 @@ func main() {
 }
 func testUserServiceList() {
 
-	coreCtx := core.WarpContext(context.Background())
+	coreCtx := core.WrapContext(context.Background())
 	reqCall := contactService.Users.List(coreCtx)
 	reqCall.SetDepartmentIdType("open_id")
 	reqCall.SetPageSize(20)
@@ -37,7 +37,7 @@ func testUserServiceList() {
 }
 
 func testDepartmentServiceUpdate() {
-	coreCtx := core.WarpContext(context.Background())
+	coreCtx := core.WrapContext(context.Background())
 	updateBody := &contact.Department{
 		Name:               "xxxxx",
 		ParentDepartmentId: "od_xxxxxx",

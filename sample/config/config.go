@@ -14,7 +14,7 @@ import (
 func GetConfig(domain constants.Domain, appSettings *config.AppSettings, level log.Level) *config.Config {
 	logger := Logrus{}
 	store := NewRedisStore()
-	coreCtx := core.WarpContext(context.Background())
+	coreCtx := core.WrapContext(context.Background())
 	coreCtx.GetHTTPStatusCode()
 	return config.NewConfig(constants.DomainLarkSuite, appSettings, logger, level, store)
 }

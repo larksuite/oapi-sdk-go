@@ -56,7 +56,7 @@ $ go get -u github.com/larksuite/oapi-sdk-go
         
         // Create CoreContext(*core.Context) for API requests, Event callbacks, Card callbacks, etc., as function parameters 
         // core.Context implements the context.Context interface 
-        coreCtx := core.WarpContext(context.Background())
+        coreCtx := core.WrapContext(context.Background())
         // Get the RequestID(string) of API requests, Event callbacks, and Card callbacks, used for problem feedback, open platform query related logs, you can quickly locate the problem 
         requestID := coreCtx.GetRequestID()
         // Get response to API request Status code(int) 
@@ -102,7 +102,17 @@ $ go get -u github.com/larksuite/oapi-sdk-go
       // request.SetNotDataField(), set whether the response does not have a `data` field, business interfaces all have `data `Field, so you don’t need to set 
       // request.SetTenantKey("TenantKey"), as an `app store application`, it means using `tenant_access_token` to access the API, you need to set 
       // request.SetUserAccessToken("UserAccessToken"), which means using` user_access_token` To access the API, you need to set 
-    req := request.NewRequest2(httpPath:string, httpMethod:string, accessTokenType:AccessTokenType ,input:interface, output:interface ,... optFns : OptFn [)))
+    // req := request.NewRequest2(httpPath:string, httpMethod:string, accessTokenType:AccessTokenType, input:interface, output:interface, ... optFns:OptFn [)))
+    // Example:
+    body := map[string]interface{}{
+    		"open_id":  "[open_id]",
+    		"msg_type": "text",
+    		"content": map[string]interface{}{
+    			"text": "test",
+    		},
+    	}
+    ret := make(map[string]interface{})
+    req := request.NewRequest2("message/v4/send", "POST", request.AccessTokenTypeTenant, body, &ret)
     coreCtx := core.WarpContext(context.Background())
     err := api.Send(coreCtx, conf, req)
     fmt.Println(coreCtx.GetRequestID())
