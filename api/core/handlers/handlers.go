@@ -228,7 +228,7 @@ func unmarshalResponseFunc(ctx *core.Context, req *request.Request) {
 	config.ByCtx(ctx).GetLogger().Debug(ctx, fmt.Sprintf("[unmarshalResponse] request:%v, response:body:%s",
 		req, string(respBody)))
 	if req.DataFilled() {
-		err := unmarshalJSON(req.Output, req.IsNotDataField, bytes.NewBuffer(respBody))
+		err := unmarshalJSON(req.Output, req.IsNotDataField, respBody)
 		if err != nil {
 			req.Err = err
 			return
@@ -292,36 +292,50 @@ func applyAppTicket(ctx *core.Context) {
 	}
 }
 
-func unmarshalJSON(v interface{}, isNotDataField bool, stream io.Reader) error {
+func unmarshalJSON(v interface{}, isNotDataField bool, data []byte) error {
 	var e response.Error
 	if isNotDataField {
-		typ := reflect.TypeOf(v)
-		name := typ.Elem().Name()
-		responseTyp := reflect.StructOf([]reflect.StructField{
-			{
-				Name:      "Error",
-				Anonymous: true,
-				Type:      reflect.TypeOf(response.Error{}),
-			},
-			{
-				Name:      name,
-				Anonymous: true,
-				Type:      typ,
-			},
-		})
-		responseV := reflect.New(responseTyp).Elem()
-		responseV.Field(1).Set(reflect.ValueOf(v))
-		s := responseV.Addr().Interface()
-		err := json.NewDecoder(stream).Decode(s)
-		if err != nil {
-			return err
+		if ret, ok := v.(*map[string]interface{}); ok {
+			e = response.Error{}
+			err := json.Unmarshal(data, &e)
+			if err != nil {
+				return err
+			}
+			err = json.Unmarshal(data, ret)
+			if err != nil {
+				return err
+			}
+			delete(*ret, "code")
+			delete(*ret, "msg")
+		} else {
+			typ := reflect.TypeOf(v)
+			name := typ.Elem().Name()
+			responseTyp := reflect.StructOf([]reflect.StructField{
+				{
+					Name:      "Error",
+					Anonymous: true,
+					Type:      reflect.TypeOf(response.Error{}),
+				},
+				{
+					Name:      name,
+					Anonymous: true,
+					Type:      typ,
+				},
+			})
+			responseV := reflect.New(responseTyp).Elem()
+			responseV.Field(1).Set(reflect.ValueOf(v))
+			s := responseV.Addr().Interface()
+			err := json.Unmarshal(data, s)
+			if err != nil {
+				return err
+			}
+			e = responseV.Field(0).Interface().(response.Error)
 		}
-		e = responseV.Field(0).Interface().(response.Error)
 	} else {
 		out := &response.Response{
 			Data: v,
 		}
-		err := json.NewDecoder(stream).Decode(&out)
+		err := json.Unmarshal(data, out)
 		if err != nil {
 			return err
 		}
