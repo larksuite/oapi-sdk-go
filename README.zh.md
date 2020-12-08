@@ -108,7 +108,7 @@ $ go get -u github.com/larksuite/oapi-sdk-go
       // request.SetNotDataField(),设置响应的是否 没有`data`字段，业务接口都是有`data`字段，所以不需要设置
       // request.SetTenantKey("TenantKey")，以`应用商店应用`身份，表示使用`tenant_access_token`访问API，需要设置
       // request.SetUserAccessToken("UserAccessToken")，表示使用`user_access_token`访问API，需要设置
-    // req := request.NewRequest2(httpPath:string, httpMethod:string, accessTokenType:AccessTokenType, input:interface, output:interface, ... optFns:OptFn [)))
+    // req := request.NewRequestWithNative(httpPath:string, httpMethod:string, accessTokenType:AccessTokenType, input:interface, output:interface, ... optFns:OptFn [)))
     // Example:
     body := map[string]interface{}{
             "open_id":  "[open_id]",
@@ -118,7 +118,7 @@ $ go get -u github.com/larksuite/oapi-sdk-go
             },
         }
     ret := make(map[string]interface{})
-    req := request.NewRequest2("message/v4/send", "POST", request.AccessTokenTypeTenant, body, &ret)coreCtx := core.WarpContext(context.Background())
+    req := request.NewRequestWithNative("message/v4/send", "POST", request.AccessTokenTypeTenant, body, &ret)coreCtx := core.WarpContext(context.Background())
     err := api.Send(coreCtx, conf, req)
     fmt.Println(coreCtx.GetRequestID())
     fmt.Println(coreCtx.GetHTTPStatusCode())
@@ -169,7 +169,7 @@ $ go get -u github.com/larksuite/oapi-sdk-go
         // event: 事件数据
     // return:
         // error: 不为nil，响应状态码 500
-    event.SetTypeHandler2(conf, "app_status_change", func(coreCtx *core.Context, event map[string]interface{}) error {
+    event.SetTypeCallback(conf, "app_status_change", func(coreCtx *core.Context, event map[string]interface{}) error {
         fmt.Println(coreCtx.GetRequestID())
         fmt.Println(tools.Prettify(event))
         data := event["event"].(map[string]interface{})

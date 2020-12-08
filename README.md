@@ -103,7 +103,7 @@ $ go get -u github.com/larksuite/oapi-sdk-go
       // request.SetNotDataField(), set whether the response does not have a `data` field, business interfaces all have `data `Field, so you don’t need to set 
       // request.SetTenantKey("TenantKey"), as an `app store application`, it means using `tenant_access_token` to access the API, you need to set 
       // request.SetUserAccessToken("UserAccessToken"), which means using` user_access_token` To access the API, you need to set 
-    // req := request.NewRequest2(httpPath:string, httpMethod:string, accessTokenType:AccessTokenType, input:interface, output:interface, ... optFns:OptFn [)))
+    // req := request.NewRequestWithNative(httpPath:string, httpMethod:string, accessTokenType:AccessTokenType, input:interface, output:interface, ... optFns:OptFn [)))
     // Example:
     body := map[string]interface{}{
     		"open_id":  "[open_id]",
@@ -113,7 +113,7 @@ $ go get -u github.com/larksuite/oapi-sdk-go
     		},
     	}
     ret := make(map[string]interface{})
-    req := request.NewRequest2("message/v4/send", "POST", request.AccessTokenTypeTenant, body, &ret)
+    req := request.NewRequestWithNative("message/v4/send", "POST", request.AccessTokenTypeTenant, body, &ret)
     coreCtx := core.WarpContext(context.Background())
     err := api.Send(coreCtx, conf, req)
     fmt.Println(coreCtx.GetRequestID())
@@ -164,7 +164,7 @@ $ go get -u github.com/larksuite/oapi-sdk-go
         // event: map[string]interface{}
     // return:
         // error: not nil, response status code 500
-    event.SetTypeHandler2(conf, "app_status_change", func(coreCtx *core.Context, event map[string]interface{}) error {
+    event.SetTypeCallback(conf, "app_status_change", func(coreCtx *core.Context, event map[string]interface{}) error {
         fmt.Println(coreCtx.GetRequestID())
         fmt.Println(tools.Prettify(event))
         data := event["event"].(map[string]interface{})

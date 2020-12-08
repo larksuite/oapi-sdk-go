@@ -33,7 +33,7 @@ func testSendMessage() {
 		},
 	}
 	ret := make(map[string]interface{})
-	req := request.NewRequest2("message/v4/send", "POST",
+	req := request.NewRequestWithNative("message/v4/send", "POST",
 		request.AccessTokenTypeTenant, body, &ret,
 		//应用市场应用 request.SetTenantKey("TenantKey"),
 	)
@@ -75,7 +75,7 @@ func testUploadFile() {
 		formData.AppendFile(request.NewFile().SetContentStream(file).SetFieldName("image"))
 	*/
 	ret := &UploadImage{}
-	err = api.Send(coreCtx, conf, request.NewRequest2("image/v4/put", "POST",
+	err = api.Send(coreCtx, conf, request.NewRequestWithNative("image/v4/put", "POST",
 		request.AccessTokenTypeTenant, formData, ret))
 	fmt.Println(coreCtx.GetRequestID())
 	fmt.Println(coreCtx.GetHTTPStatusCode())
@@ -101,7 +101,7 @@ func testDownloadFile() {
 			return
 		}
 	*/
-	req := request.NewRequest2("image/v4/get", "GET",
+	req := request.NewRequestWithNative("image/v4/get", "GET",
 		request.AccessTokenTypeTenant, nil, ret,
 		request.SetQueryParams(map[string]interface{}{"image_key": "[image key]"}), request.SetResponseStream())
 	err := api.Send(coreCtx, conf, req)

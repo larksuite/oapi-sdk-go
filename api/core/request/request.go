@@ -150,7 +150,13 @@ func NewRequestByAuth(httpPath, httpMethod string, input, output interface{}) *R
 	}
 }
 
+// Deprecated, please use `NewRequestWithNative`
 func NewRequest2(httpPath, httpMethod string, accessTokenType AccessTokenType,
+	input interface{}, output interface{}, optFns ...OptFn) *Request {
+	return NewRequest(httpPath, httpMethod, []AccessTokenType{accessTokenType}, input, output, optFns...)
+}
+
+func NewRequestWithNative(httpPath, httpMethod string, accessTokenType AccessTokenType,
 	input interface{}, output interface{}, optFns ...OptFn) *Request {
 	return NewRequest(httpPath, httpMethod, []AccessTokenType{accessTokenType}, input, output, optFns...)
 }
