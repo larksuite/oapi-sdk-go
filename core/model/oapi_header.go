@@ -22,7 +22,7 @@ func (h OapiHeader) GetNames() []string {
 	return names
 }
 
-func (h OapiHeader) GetFirstValues(name string) string {
+func (h OapiHeader) GetFirstValue(name string) string {
 	values := h.header[normalizeKey(name)]
 	if len(values) > 0 {
 		return values[0]

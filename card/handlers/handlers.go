@@ -36,17 +36,17 @@ type Handlers struct {
 func initFunc(ctx *core.Context, httpCard *model.HTTPCard) {
 	request := httpCard.Request
 	header := &model.Header{
-		Timestamp:    request.Header.GetFirstValues(model.LarkRequestTimestamp),
-		Nonce:        request.Header.GetFirstValues(model.LarkRequestRequestNonce),
-		Signature:    request.Header.GetFirstValues(model.LarkSignature),
-		RefreshToken: request.Header.GetFirstValues(model.LarkRefreshToken),
+		Timestamp:    request.Header.GetFirstValue(model.LarkRequestTimestamp),
+		Nonce:        request.Header.GetFirstValue(model.LarkRequestRequestNonce),
+		Signature:    request.Header.GetFirstValue(model.LarkSignature),
+		RefreshToken: request.Header.GetFirstValue(model.LarkRefreshToken),
 	}
 	httpCard.Header = header
 	ctx.Set(model.LarkRequestTimestamp, header.Timestamp)
 	ctx.Set(model.LarkRequestRequestNonce, header.Nonce)
 	ctx.Set(model.LarkSignature, header.Signature)
 	ctx.Set(model.LarkRefreshToken, header.RefreshToken)
-	ctx.SetRequestID(request.Header.GetFirstValues(constants.HTTPHeaderKeyLogID), request.Header.GetFirstValues(constants.HTTPHeaderKeyRequestID))
+	ctx.SetRequestID(request.Header.GetFirstValue(constants.HTTPHeaderKeyLogID), request.Header.GetFirstValue(constants.HTTPHeaderKeyRequestID))
 	config.ByCtx(ctx).GetLogger().Debug(ctx, fmt.Sprintf("[init] card: %s", request.Body))
 	httpCard.Input = []byte(request.Body)
 }

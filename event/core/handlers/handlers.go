@@ -42,7 +42,7 @@ func Handle(ctx *core.Context, httpEvent *model.HTTPEvent) {
 
 func unmarshalFunc(ctx *core.Context, httpEvent *model.HTTPEvent) {
 	request := httpEvent.Request
-	ctx.SetRequestID(request.Header.GetFirstValues(constants.HTTPHeaderKeyLogID), request.Header.GetFirstValues(constants.HTTPHeaderKeyRequestID))
+	ctx.SetRequestID(request.Header.GetFirstValue(constants.HTTPHeaderKeyLogID), request.Header.GetFirstValue(constants.HTTPHeaderKeyRequestID))
 	conf := config.ByCtx(ctx)
 	conf.GetLogger().Debug(ctx, fmt.Sprintf("[unmarshal] event: %s", request.Body))
 	body := []byte(request.Body)
