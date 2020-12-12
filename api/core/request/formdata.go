@@ -17,6 +17,10 @@ func (fd *FormData) Params() map[string]interface{} {
 	return fd.params
 }
 
+func (fd *FormData) Files() []*File {
+	return fd.files
+}
+
 func NewFormData() *FormData {
 	return &FormData{
 		params: map[string]interface{}{},
@@ -29,7 +33,6 @@ func (fd *FormData) AddParam(field string, val interface{}) *FormData {
 }
 
 func (fd *FormData) AddFile(field string, file *File) *FormData {
-	fd.params[field] = file
 	file.fieldName = field
 	fd.files = append(fd.files, file)
 	return fd
