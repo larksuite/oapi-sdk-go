@@ -6,12 +6,13 @@ import (
 	"github.com/larksuite/oapi-sdk-go/api/core/request"
 	"github.com/larksuite/oapi-sdk-go/api/core/response"
 	"github.com/larksuite/oapi-sdk-go/core"
+	"github.com/larksuite/oapi-sdk-go/core/test"
 	"github.com/larksuite/oapi-sdk-go/core/tools"
 	image "github.com/larksuite/oapi-sdk-go/service/image/v4"
 	"os"
 )
 
-var imageService = image.NewService(conf)
+var imageService = image.NewService(test.GetInternalConf("online"))
 
 func main() {
 	testUpload()

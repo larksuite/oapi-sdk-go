@@ -18,8 +18,8 @@ var conf = test.GetInternalConf("online")
 
 func main() {
 	//testSendMessage()
-	testUploadFile()
-	//testDownloadFile()
+	//testUploadFile()
+	testDownloadFile()
 }
 
 // send message
@@ -57,14 +57,14 @@ type UploadImage struct {
 // upload image
 func testUploadFile() {
 	coreCtx := core.WrapContext(context.Background())
+	var formData = request.NewFormData()
+	formData.AddParam("image_type", "message")
 	bs, err := ioutil.ReadFile("test.png")
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	var formData = request.NewFormData()
-	formData.SetField("image_type", "message")
-	formData.AppendFile(request.NewFile().SetContent(bs).SetFieldName("image"))
+	formData.AddFile("image", request.NewFile().SetContent(bs))
 	/*
 		// stream upload, file implement io.Reader
 		file, err := os.Open("test.png")
@@ -72,7 +72,7 @@ func testUploadFile() {
 			fmt.Println(err)
 			return
 		}
-		formData.AppendFile(request.NewFile().SetContentStream(file).SetFieldName("image"))
+		formData.AddFile("image", request.NewFile().SetContentStream(file))
 	*/
 	ret := &UploadImage{}
 	err = api.Send(coreCtx, conf, request.NewRequestWithNative("image/v4/put", "POST",

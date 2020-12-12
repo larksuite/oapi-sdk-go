@@ -365,22 +365,24 @@ func reqBodyFromFormData(_ *core.Context, req *request.Request) {
 	}
 	writer := multipart.NewWriter(reqBody)
 	for key, val := range fd.Params() {
-		err := writer.WriteField(key, fmt.Sprint(val))
-		if err != nil {
-			req.Err = err
-			return
-		}
-	}
-	for _, file := range fd.Files() {
-		part, err := writer.CreatePart(file.MIMEHeader())
-		if err != nil {
-			req.Err = err
-			return
-		}
-		_, err = io.Copy(part, file)
-		if err != nil {
-			req.Err = err
-			return
+		switch v := val.(type) {
+		case *request.File:
+			part, err := writer.CreatePart(v.MIMEHeader())
+			if err != nil {
+				req.Err = err
+				return
+			}
+			_, err = io.Copy(part, v)
+			if err != nil {
+				req.Err = err
+				return
+			}
+		default:
+			err := writer.WriteField(key, fmt.Sprint(val))
+			if err != nil {
+				req.Err = err
+				return
+			}
 		}
 	}
 	req.ContentType = writer.FormDataContentType()

@@ -37,6 +37,37 @@ func newImageService(service *Service) *ImageService {
 	}
 }
 
+type ImagePutReqCall struct {
+	ctx    *core.Context
+	images *ImageService
+	body   *request.FormData
+	optFns []request.OptFn
+}
+
+func (rc *ImagePutReqCall) SetImage(image *request.File) {
+	rc.body.AddFile("image", image)
+}
+func (rc *ImagePutReqCall) SetImageType(imageType string) {
+	rc.body.AddParam("image_type", imageType)
+}
+func (rc *ImagePutReqCall) Do() (*Image, error) {
+	httpPath := path.Join(rc.images.service.basePath, "put")
+	var result = &Image{}
+	req := request.NewRequest(httpPath, "POST",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.images.service.conf, req)
+	return result, err
+}
+
+func (images *ImageService) Put(ctx *core.Context, optFns ...request.OptFn) *ImagePutReqCall {
+	return &ImagePutReqCall{
+		ctx:    ctx,
+		images: images,
+		body:   request.NewFormData(),
+		optFns: optFns,
+	}
+}
+
 type ImageGetReqCall struct {
 	ctx    *core.Context
 	images *ImageService
@@ -68,37 +99,5 @@ func (images *ImageService) Get(ctx *core.Context, optFns ...request.OptFn) *Ima
 		images:      images,
 		queryParams: map[string]interface{}{},
 		optFns:      optFns,
-	}
-}
-
-type ImagePutReqCall struct {
-	ctx    *core.Context
-	images *ImageService
-	body   *request.FormData
-	optFns []request.OptFn
-}
-
-func (rc *ImagePutReqCall) SetImage(image *request.File) {
-	image.SetFieldName("image")
-	rc.body.AppendFile(image)
-}
-func (rc *ImagePutReqCall) SetImageType(imageType string) {
-	rc.body.SetField("image_type", imageType)
-}
-func (rc *ImagePutReqCall) Do() (*Image, error) {
-	httpPath := path.Join(rc.images.service.basePath, "put")
-	var result = &Image{}
-	req := request.NewRequest(httpPath, "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.images.service.conf, req)
-	return result, err
-}
-
-func (images *ImageService) Put(ctx *core.Context, optFns ...request.OptFn) *ImagePutReqCall {
-	return &ImagePutReqCall{
-		ctx:    ctx,
-		images: images,
-		body:   request.NewFormData(),
-		optFns: optFns,
 	}
 }

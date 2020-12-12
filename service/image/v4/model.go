@@ -2,5 +2,5 @@
 package v4
 
 type Image struct {
-	ImageKey string `json:"image_key"`
+	ImageKey string `json:"image_key,omitempty"`
 }

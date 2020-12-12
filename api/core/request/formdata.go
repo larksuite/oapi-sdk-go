@@ -13,10 +13,6 @@ type FormData struct {
 	files  []*File
 }
 
-func (fd *FormData) Files() []*File {
-	return fd.files
-}
-
 func (fd *FormData) Params() map[string]interface{} {
 	return fd.params
 }
@@ -27,18 +23,20 @@ func NewFormData() *FormData {
 	}
 }
 
-func (fd *FormData) SetField(key string, val interface{}) *FormData {
-	fd.params[key] = val
+func (fd *FormData) AddParam(field string, val interface{}) *FormData {
+	fd.params[field] = val
 	return fd
 }
 
-func (fd *FormData) AppendFile(file *File) *FormData {
+func (fd *FormData) AddFile(field string, file *File) *FormData {
+	fd.params[field] = file
+	file.fieldName = field
 	fd.files = append(fd.files, file)
 	return fd
 }
 
 func (fd *FormData) HasStream() bool {
-	for _, file := range fd.Files() {
+	for _, file := range fd.files {
 		isStream := file.IsStream()
 		if isStream {
 			return isStream
@@ -85,15 +83,6 @@ func (f *File) Type() string {
 
 func (f *File) SetType(typ string) *File {
 	f.typ = typ
-	return f
-}
-
-func (f *File) FieldName() string {
-	return f.fieldName
-}
-
-func (f *File) SetFieldName(fieldName string) *File {
-	f.fieldName = fieldName
 	return f
 }
 
