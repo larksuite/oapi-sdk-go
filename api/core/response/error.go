@@ -5,7 +5,7 @@ import (
 )
 
 const (
-	ErrCodeIO                       = -1
+	ErrCodeNative                   = -1
 	ErrCodeOk                       = 0
 	ErrCodeAppTicketInvalid         = 10012
 	ErrCodeAccessTokenInvalid       = 99991671
@@ -52,14 +52,14 @@ type Error struct {
 
 func NewErrorOfInvalidResp(msg string) *Error {
 	return &Error{
-		Code: ErrCodeIO,
+		Code: ErrCodeNative,
 		Msg:  msg,
 	}
 }
 
 func NewError(err error) *Error {
 	return &Error{
-		Code: ErrCodeIO,
+		Code: ErrCodeNative,
 		Msg:  err.Error(),
 	}
 }
