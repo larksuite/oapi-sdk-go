@@ -82,7 +82,8 @@ $ go get -u github.com/larksuite/oapi-sdk-go
     |  图片     | v4  | [service/image](service/image)|[sample/api/image.go](sample/api/image.go)|
     |  通讯录     | v3  | [service/contact](service/contact)|[sample/api/contact.go](sample/api/contact.go)|
     |  日历     | v4  | [service/calendar](service/calendar)|[sample/api/calendar.go](sample/api/calendar.go)|
-    
+    |  云空间文件     | v1  | [service/drive](service/drive)|[sample/api/drive.go](sample/api/drive.go)|
+ 
     
 - 使用说明（对于`没有生成业务API SDK`的处理方式）
     - 对于`应用商店应用`，在获取`app_access_token`时，需要 `app_ticket`，需要启动事件订阅服务（`模块event`）

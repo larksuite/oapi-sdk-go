@@ -76,7 +76,8 @@ $ go get -u github.com/larksuite/oapi-sdk-go
     |  Image     | v4  | [service/image](service/image)|[sample/api/image.go](sample/api/image.go)|
     |  Contact   | v3  | [service/contact](service/contact) | [sample/api/contact.go](sample/api/contact.go) |
     |  Calendar     | v4  | [service/calendar](service/calendar)|[sample/api/calendar.go](sample/api/calendar.go)|
-    
+    |  Drive     | v1  | [service/drive](service/drive)|[sample/api/drive.go](sample/api/drive.go)|
+
     
 - Instructions for use（For`No business API SDK is generated`the processing method）
     - For`App Store application`, when acquiring`app_access_token`, you need `app_ticket` to start the event subscription service（`Module event`）
