@@ -27,7 +27,7 @@ func createRandomFileData(size int64) []byte {
 }
 
 func testFileUploadAll() {
-	coreCtx := core.WarpContext(context.Background())
+	coreCtx := core.WrapContext(context.Background())
 	reqCall := driveService.Files.UploadAll(coreCtx, request.SetUserAccessToken("[user_access_token]"))
 
 	reqCall.SetParentType("explorer")
@@ -58,7 +58,7 @@ func testFileUploadAll() {
 }
 
 func testFileUploadPart() {
-	coreCtx := core.WarpContext(context.Background())
+	coreCtx := core.WrapContext(context.Background())
 	userAccessTokenOptFn := request.SetUserAccessToken("[user_access_token]")
 	fileSize := 1024
 

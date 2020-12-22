@@ -25,6 +25,7 @@ import (
 const defaultMaxRetryCount = 1
 
 var defaultHTTPRequestHeader = map[string]string{}
+var defaultHTTPRequestHeaderKeysWithContext = []string{coreconst.HTTPHeaderKeyRequestID}
 var Default = &Handlers{}
 
 func init() {
@@ -154,6 +155,11 @@ func buildFunc(ctx *core.Context, req *request.Request) {
 	}
 	for k, v := range defaultHTTPRequestHeader {
 		r.Header.Set(k, v)
+	}
+	for _, k := range defaultHTTPRequestHeaderKeysWithContext {
+		if v, ok := ctx.Get(k); ok {
+			r.Header.Set(k, fmt.Sprint(v))
+		}
 	}
 	if req.ContentType != "" {
 		r.Header.Set(coreconst.ContentType, req.ContentType)

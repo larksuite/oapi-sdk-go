@@ -18,7 +18,7 @@ func main() {
 
 func testCalendarList() {
 	ctx := context.Background()
-	coreCtx := core.WarpContext(ctx)
+	coreCtx := core.WrapContext(ctx)
 	pageToken := ""
 	syncToken := ""
 	hasMore := true

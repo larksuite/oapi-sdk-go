@@ -13,7 +13,7 @@ func SetHandler(conf *config.Config, handler handlers.Handler) {
 }
 
 func Handle(conf *config.Config, request *coremodel.OapiRequest) *coremodel.OapiResponse {
-	coreCtx := core.WarpContext(request.Ctx)
+	coreCtx := core.WrapContext(request.Ctx)
 	conf.WithContext(coreCtx)
 	httpCard := &model.HTTPCard{
 		Request:  request,

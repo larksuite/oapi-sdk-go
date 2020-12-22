@@ -43,7 +43,7 @@ func Handle(conf *config.Config, request *coremodel.OapiRequest) *coremodel.Oapi
 	once.Do(func() {
 		app.SetAppTicketEventHandler(conf)
 	})
-	coreCtx := core.WarpContext(request.Ctx)
+	coreCtx := core.WrapContext(request.Ctx)
 	conf.WithContext(coreCtx)
 	httpEvent := &model.HTTPEvent{
 		Request:  request,

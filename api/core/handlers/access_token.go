@@ -205,8 +205,6 @@ func setTenantAccessToken(ctx *core.Context, req *http.Request) (*http.Request, 
 func setUserAccessToken(ctx *core.Context, req *http.Request) (*http.Request, error) {
 	convertedRequest := cloneHTTPRequest(req)
 	info := request.GetInfoByCtx(ctx)
-	if info.UserAccessToken != "" {
-		setAuthorizationToHeader(convertedRequest, info.UserAccessToken)
-	}
+	setAuthorizationToHeader(convertedRequest, info.UserAccessToken)
 	return convertedRequest, nil
 }

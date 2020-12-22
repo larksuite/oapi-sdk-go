@@ -28,7 +28,6 @@ type Opt struct {
 	pathParams       map[string]interface{}
 	queryParams      map[string]interface{}
 	userAccessToken  string
-	userID           *UserID
 	tenantKey        string
 	isResponseStream bool
 }
@@ -41,8 +40,7 @@ type Info struct {
 	AccessibleTokenTypeSet map[AccessTokenType]struct{} // request accessible token type
 	AccessTokenType        AccessTokenType              // request access token type
 	TenantKey              string
-	UserAccessToken        string // user access token
-	UserID                 *UserID
+	UserAccessToken        string      // user access token
 	IsNotDataField         bool        // response body is not data field
 	Output                 interface{} // response body data
 	Retryable              bool
@@ -56,35 +54,6 @@ func (i *Info) WithContext(ctx *core.Context) {
 }
 
 type OptFn func(*Opt)
-
-/*
-func SetUserID(id string) OptFn {
-	return func(opt *Opt) {
-		opt.userID = &UserID{
-			Type: constants.UserIDTypeUser,
-			ID:   id,
-		}
-	}
-}
-
-func SetUnionID(id string) OptFn {
-	return func(opt *Opt) {
-		opt.userID = &UserID{
-			Type: constants.UserIDTypeUnion,
-			ID:   id,
-		}
-	}
-}
-
-func SetOpenID(id string) OptFn {
-	return func(opt *Opt) {
-		opt.userID = &UserID{
-			Type: constants.UserIDTypeOpen,
-			ID:   id,
-		}
-	}
-}
-*/
 
 func SetUserAccessToken(userAccessToken string) OptFn {
 	return func(opt *Opt) {
@@ -198,11 +167,10 @@ func (r *Request) Init() error {
 			r.TenantKey = opt.tenantKey
 		}
 	}
-	if opt.userAccessToken != "" || opt.userID != nil {
+	if opt.userAccessToken != "" {
 		if _, ok := r.AccessibleTokenTypeSet[AccessTokenTypeUser]; ok {
 			r.AccessTokenType = AccessTokenTypeUser
 			r.UserAccessToken = opt.userAccessToken
-			r.UserID = opt.userID
 		}
 	}
 	if opt.queryParams != nil {

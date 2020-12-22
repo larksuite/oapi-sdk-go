@@ -18,8 +18,8 @@ var conf = test.GetInternalConf("online")
 
 func main() {
 	//testSendMessage()
-	//testUploadFile()
-	testDownloadFile()
+	testUploadFile()
+	//testDownloadFile()
 }
 
 // send message
@@ -57,6 +57,7 @@ type UploadImage struct {
 // upload image
 func testUploadFile() {
 	coreCtx := core.WrapContext(context.Background())
+	// coreCtx.Set(constants.HTTPHeaderKeyRequestID, "2020122212081301001702714534518-xxxxx")
 	var formData = request.NewFormData()
 	formData.AddParam("image_type", "message")
 	bs, err := ioutil.ReadFile("test.png")
