@@ -20,7 +20,7 @@ func (h *DepartmentCreateEventHandler) Handle(ctx *core.Context, event interface
 }
 
 func SetDepartmentCreateEventHandler(conf *config.Config, fn func(ctx *core.Context, event *DepartmentCreateEvent) error) {
-	event.SetTypeHandler(conf, "department.create_v3", &DepartmentCreateEventHandler{Fn: fn})
+	event.SetTypeHandler(conf, "contact.department.create_v3", &DepartmentCreateEventHandler{Fn: fn})
 }
 
 type DepartmentCreatedEventHandler struct {
@@ -36,7 +36,7 @@ func (h *DepartmentCreatedEventHandler) Handle(ctx *core.Context, event interfac
 }
 
 func SetDepartmentCreatedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *DepartmentCreatedEvent) error) {
-	event.SetTypeHandler(conf, "department.created_v3", &DepartmentCreatedEventHandler{Fn: fn})
+	event.SetTypeHandler(conf, "contact.department.created_v3", &DepartmentCreatedEventHandler{Fn: fn})
 }
 
 type DepartmentCreatedV3EventHandler struct {
@@ -52,7 +52,7 @@ func (h *DepartmentCreatedV3EventHandler) Handle(ctx *core.Context, event interf
 }
 
 func SetDepartmentCreatedV3EventHandler(conf *config.Config, fn func(ctx *core.Context, event *DepartmentCreatedV3Event) error) {
-	event.SetTypeHandler(conf, "department.created_v3_v3", &DepartmentCreatedV3EventHandler{Fn: fn})
+	event.SetTypeHandler(conf, "contact.department.created_v3_v3", &DepartmentCreatedV3EventHandler{Fn: fn})
 }
 
 type DepartmentDeleteEventHandler struct {
@@ -68,7 +68,7 @@ func (h *DepartmentDeleteEventHandler) Handle(ctx *core.Context, event interface
 }
 
 func SetDepartmentDeleteEventHandler(conf *config.Config, fn func(ctx *core.Context, event *DepartmentDeleteEvent) error) {
-	event.SetTypeHandler(conf, "department.delete_v3", &DepartmentDeleteEventHandler{Fn: fn})
+	event.SetTypeHandler(conf, "contact.department.delete_v3", &DepartmentDeleteEventHandler{Fn: fn})
 }
 
 type DepartmentDeletedEventHandler struct {
@@ -84,7 +84,7 @@ func (h *DepartmentDeletedEventHandler) Handle(ctx *core.Context, event interfac
 }
 
 func SetDepartmentDeletedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *DepartmentDeletedEvent) error) {
-	event.SetTypeHandler(conf, "department.deleted_v3", &DepartmentDeletedEventHandler{Fn: fn})
+	event.SetTypeHandler(conf, "contact.department.deleted_v3", &DepartmentDeletedEventHandler{Fn: fn})
 }
 
 type DepartmentUpdateEventHandler struct {
@@ -100,7 +100,7 @@ func (h *DepartmentUpdateEventHandler) Handle(ctx *core.Context, event interface
 }
 
 func SetDepartmentUpdateEventHandler(conf *config.Config, fn func(ctx *core.Context, event *DepartmentUpdateEvent) error) {
-	event.SetTypeHandler(conf, "department.update_v3", &DepartmentUpdateEventHandler{Fn: fn})
+	event.SetTypeHandler(conf, "contact.department.update_v3", &DepartmentUpdateEventHandler{Fn: fn})
 }
 
 type DepartmentUpdatedEventHandler struct {
@@ -116,7 +116,7 @@ func (h *DepartmentUpdatedEventHandler) Handle(ctx *core.Context, event interfac
 }
 
 func SetDepartmentUpdatedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *DepartmentUpdatedEvent) error) {
-	event.SetTypeHandler(conf, "department.updated_v3", &DepartmentUpdatedEventHandler{Fn: fn})
+	event.SetTypeHandler(conf, "contact.department.updated_v3", &DepartmentUpdatedEventHandler{Fn: fn})
 }
 
 type ScopeUpdatedEventHandler struct {
@@ -132,7 +132,7 @@ func (h *ScopeUpdatedEventHandler) Handle(ctx *core.Context, event interface{}) 
 }
 
 func SetScopeUpdatedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *ScopeUpdatedEvent) error) {
-	event.SetTypeHandler(conf, "scope.updated_v3", &ScopeUpdatedEventHandler{Fn: fn})
+	event.SetTypeHandler(conf, "contact.scope.updated_v3", &ScopeUpdatedEventHandler{Fn: fn})
 }
 
 type UserCreateEventHandler struct {
@@ -148,7 +148,7 @@ func (h *UserCreateEventHandler) Handle(ctx *core.Context, event interface{}) er
 }
 
 func SetUserCreateEventHandler(conf *config.Config, fn func(ctx *core.Context, event *UserCreateEvent) error) {
-	event.SetTypeHandler(conf, "user.create_v3", &UserCreateEventHandler{Fn: fn})
+	event.SetTypeHandler(conf, "contact.user.create_v3", &UserCreateEventHandler{Fn: fn})
 }
 
 type UserCreatedEventHandler struct {
@@ -164,7 +164,7 @@ func (h *UserCreatedEventHandler) Handle(ctx *core.Context, event interface{}) e
 }
 
 func SetUserCreatedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *UserCreatedEvent) error) {
-	event.SetTypeHandler(conf, "user.created_v3", &UserCreatedEventHandler{Fn: fn})
+	event.SetTypeHandler(conf, "contact.user.created_v3", &UserCreatedEventHandler{Fn: fn})
 }
 
 type UserDeleteEventHandler struct {
@@ -180,7 +180,7 @@ func (h *UserDeleteEventHandler) Handle(ctx *core.Context, event interface{}) er
 }
 
 func SetUserDeleteEventHandler(conf *config.Config, fn func(ctx *core.Context, event *UserDeleteEvent) error) {
-	event.SetTypeHandler(conf, "user.delete_v3", &UserDeleteEventHandler{Fn: fn})
+	event.SetTypeHandler(conf, "contact.user.delete_v3", &UserDeleteEventHandler{Fn: fn})
 }
 
 type UserDeletedEventHandler struct {
@@ -196,7 +196,7 @@ func (h *UserDeletedEventHandler) Handle(ctx *core.Context, event interface{}) e
 }
 
 func SetUserDeletedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *UserDeletedEvent) error) {
-	event.SetTypeHandler(conf, "user.deleted_v3", &UserDeletedEventHandler{Fn: fn})
+	event.SetTypeHandler(conf, "contact.user.deleted_v3", &UserDeletedEventHandler{Fn: fn})
 }
 
 type UserUpdateEventHandler struct {
@@ -212,7 +212,7 @@ func (h *UserUpdateEventHandler) Handle(ctx *core.Context, event interface{}) er
 }
 
 func SetUserUpdateEventHandler(conf *config.Config, fn func(ctx *core.Context, event *UserUpdateEvent) error) {
-	event.SetTypeHandler(conf, "user.update_v3", &UserUpdateEventHandler{Fn: fn})
+	event.SetTypeHandler(conf, "contact.user.update_v3", &UserUpdateEventHandler{Fn: fn})
 }
 
 type UserUpdatedEventHandler struct {
@@ -228,7 +228,7 @@ func (h *UserUpdatedEventHandler) Handle(ctx *core.Context, event interface{}) e
 }
 
 func SetUserUpdatedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *UserUpdatedEvent) error) {
-	event.SetTypeHandler(conf, "user.updated_v3", &UserUpdatedEventHandler{Fn: fn})
+	event.SetTypeHandler(conf, "contact.user.updated_v3", &UserUpdatedEventHandler{Fn: fn})
 }
 
 type UserGroupCreateEventHandler struct {
@@ -244,7 +244,7 @@ func (h *UserGroupCreateEventHandler) Handle(ctx *core.Context, event interface{
 }
 
 func SetUserGroupCreateEventHandler(conf *config.Config, fn func(ctx *core.Context, event *UserGroupCreateEvent) error) {
-	event.SetTypeHandler(conf, "user_group.create_v3", &UserGroupCreateEventHandler{Fn: fn})
+	event.SetTypeHandler(conf, "contact.user_group.create_v3", &UserGroupCreateEventHandler{Fn: fn})
 }
 
 type UserGroupCreatedEventHandler struct {
@@ -260,7 +260,7 @@ func (h *UserGroupCreatedEventHandler) Handle(ctx *core.Context, event interface
 }
 
 func SetUserGroupCreatedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *UserGroupCreatedEvent) error) {
-	event.SetTypeHandler(conf, "user_group.created_v3", &UserGroupCreatedEventHandler{Fn: fn})
+	event.SetTypeHandler(conf, "contact.user_group.created_v3", &UserGroupCreatedEventHandler{Fn: fn})
 }
 
 type UserGroupDeleteEventHandler struct {
@@ -276,7 +276,7 @@ func (h *UserGroupDeleteEventHandler) Handle(ctx *core.Context, event interface{
 }
 
 func SetUserGroupDeleteEventHandler(conf *config.Config, fn func(ctx *core.Context, event *UserGroupDeleteEvent) error) {
-	event.SetTypeHandler(conf, "user_group.delete_v3", &UserGroupDeleteEventHandler{Fn: fn})
+	event.SetTypeHandler(conf, "contact.user_group.delete_v3", &UserGroupDeleteEventHandler{Fn: fn})
 }
 
 type UserGroupDeletedEventHandler struct {
@@ -292,7 +292,7 @@ func (h *UserGroupDeletedEventHandler) Handle(ctx *core.Context, event interface
 }
 
 func SetUserGroupDeletedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *UserGroupDeletedEvent) error) {
-	event.SetTypeHandler(conf, "user_group.deleted_v3", &UserGroupDeletedEventHandler{Fn: fn})
+	event.SetTypeHandler(conf, "contact.user_group.deleted_v3", &UserGroupDeletedEventHandler{Fn: fn})
 }
 
 type UserGroupUpdateEventHandler struct {
@@ -308,7 +308,7 @@ func (h *UserGroupUpdateEventHandler) Handle(ctx *core.Context, event interface{
 }
 
 func SetUserGroupUpdateEventHandler(conf *config.Config, fn func(ctx *core.Context, event *UserGroupUpdateEvent) error) {
-	event.SetTypeHandler(conf, "user_group.update_v3", &UserGroupUpdateEventHandler{Fn: fn})
+	event.SetTypeHandler(conf, "contact.user_group.update_v3", &UserGroupUpdateEventHandler{Fn: fn})
 }
 
 type UserGroupUpdatedEventHandler struct {
@@ -324,5 +324,5 @@ func (h *UserGroupUpdatedEventHandler) Handle(ctx *core.Context, event interface
 }
 
 func SetUserGroupUpdatedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *UserGroupUpdatedEvent) error) {
-	event.SetTypeHandler(conf, "user_group.updated_v3", &UserGroupUpdatedEventHandler{Fn: fn})
+	event.SetTypeHandler(conf, "contact.user_group.updated_v3", &UserGroupUpdatedEventHandler{Fn: fn})
 }
