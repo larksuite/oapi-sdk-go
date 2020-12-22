@@ -10,6 +10,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core/test"
 	"github.com/larksuite/oapi-sdk-go/core/tools"
 	drivev1 "github.com/larksuite/oapi-sdk-go/service/drive/v1"
+
 	"hash/adler32"
 	"io"
 )
@@ -19,6 +20,7 @@ var driveService = drivev1.NewService(test.GetInternalConf("online"))
 func main() {
 	testFileUploadAll()
 	testFileUploadPart()
+	testMediaBatchGetTmpDownloadURLs()
 }
 func createRandomFileData(size int64) []byte {
 	randomData := make([]byte, size)
@@ -131,6 +133,30 @@ func testFileUploadPart() {
 
 	if len(uploadFinishResult.FileToken) == 0 {
 		fmt.Printf("file token is empty")
+		return
+	}
+}
+
+func testMediaBatchGetTmpDownloadURLs() {
+
+	coreCtx := core.WrapContext(context.Background())
+	userAccessTokenOptFn := request.SetUserAccessToken("[user_access_token]")
+
+	reqCall := driveService.Medias.BatchGetTmpDownloadUrl(coreCtx, userAccessTokenOptFn)
+	reqCall.SetFileTokens([]string{"[file_token]"}...)
+
+	result, err := reqCall.Do()
+	fmt.Printf("request_id:%s", coreCtx.GetRequestID())
+	fmt.Printf("http status code:%d", coreCtx.GetHTTPStatusCode())
+	if err != nil {
+		e := err.(*response.Error)
+		fmt.Println(tools.Prettify(e))
+		return
+	}
+	fmt.Printf("reault:%s", tools.Prettify(result))
+
+	if len(result.TmpDownloadUrls) == 0 {
+		fmt.Printf("TmpDownloadUrls len invalid")
 		return
 	}
 }
