@@ -77,6 +77,7 @@ $ go get -u github.com/larksuite/oapi-sdk-go
     |  Contact   | v3  | [service/contact](service/contact) | [sample/api/contact.go](sample/api/contact.go) |
     |  Calendar     | v4  | [service/calendar](service/calendar)|[sample/api/calendar.go](sample/api/calendar.go)|
     |  Drive     | v1  | [service/drive](service/drive)|[sample/api/drive.go](sample/api/drive.go)|
+    |  Admin     | v1 | [service/admin](service/admin)|[sample/api/admin.go](sample/api/admin.go)|
 
     
 - Instructions for use（For`No business API SDK is generated`the processing method）
