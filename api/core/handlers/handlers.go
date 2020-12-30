@@ -205,7 +205,7 @@ func validateResponseFunc(_ *core.Context, req *request.Request) {
 			return
 		}
 		req.Err = response.NewErrorOfInvalidResp(fmt.Sprintf("content-type: %s, is not: %s, if is stream, "+
-			"please `request.SetResponseStream()`, body:%s", contentType, coreconst.ContentTypeJson, string(respBody)))
+			"please `request.SetResponseStream() or xxxxReqCall.SetResponseStream(io.Writer)`, body:%s", contentType, coreconst.ContentTypeJson, string(respBody)))
 	}
 }
 
