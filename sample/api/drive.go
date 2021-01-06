@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"context"
 	"crypto/rand"
 	"fmt"
@@ -19,6 +20,8 @@ var driveService = drivev1.NewService(test.GetInternalConf("online"))
 func main() {
 	testFileUploadAll()
 	testFileUploadPart()
+	testMediaBatchGetTmpDownloadURLs()
+	testFileDownload()
 }
 func createRandomFileData(size int64) []byte {
 	randomData := make([]byte, size)
@@ -55,6 +58,7 @@ func testFileUploadAll() {
 		fmt.Printf("file token is empty")
 		return
 	}
+
 }
 
 func testFileUploadPart() {
@@ -131,6 +135,49 @@ func testFileUploadPart() {
 
 	if len(uploadFinishResult.FileToken) == 0 {
 		fmt.Printf("file token is empty")
+		return
+	}
+}
+
+func testMediaBatchGetTmpDownloadURLs() {
+
+	coreCtx := core.WrapContext(context.Background())
+	userAccessTokenOptFn := request.SetUserAccessToken("[user_access_token]")
+
+	reqCall := driveService.Medias.BatchGetTmpDownloadUrl(coreCtx, userAccessTokenOptFn)
+	reqCall.SetFileTokens([]string{"[file_token]"}...)
+
+	result, err := reqCall.Do()
+	fmt.Printf("request_id:%s", coreCtx.GetRequestID())
+	fmt.Printf("http status code:%d", coreCtx.GetHTTPStatusCode())
+	if err != nil {
+		e := err.(*response.Error)
+		fmt.Println(tools.Prettify(e))
+		return
+	}
+	fmt.Printf("reault:%s", tools.Prettify(result))
+
+	if len(result.TmpDownloadUrls) == 0 {
+		fmt.Printf("TmpDownloadUrls len invalid")
+		return
+	}
+}
+
+func testFileDownload() {
+	coreCtx := core.WrapContext(context.Background())
+
+	reqCall := driveService.Files.Download(coreCtx, request.SetUserAccessToken("[user_access_token]"))
+
+	reqCall.SetFileToken("[file_token]")
+
+	fileContent := bytes.NewBuffer(nil)
+	reqCall.SetResponseStream(fileContent)
+	_, err := reqCall.Do()
+	fmt.Printf("request_id:%s", coreCtx.GetRequestID())
+	fmt.Printf("http status code:%d", coreCtx.GetHTTPStatusCode())
+	if err != nil {
+		e := err.(*response.Error)
+		fmt.Printf(tools.Prettify(e))
 		return
 	}
 }
