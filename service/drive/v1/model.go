@@ -25,11 +25,9 @@ type UploadInfo struct {
 	ParentNode string `json:"parent_node,omitempty"`
 	Size       int    `json:"size,omitempty"`
 }
-
-type MediaUploadPrepareResult struct {
-	UploadId  string `json:"upload_id,omitempty"`
-	BlockSize int    `json:"block_size,omitempty"`
-	BlockNum  int    `json:"block_num,omitempty"`
+type TmpDownloadUrl struct {
+	FileToken      string `json:"file_token,omitempty"`
+	TmpDownloadUrl string `json:"tmp_download_url,omitempty"`
 }
 
 type FileUploadPrepareResult struct {
@@ -38,13 +36,10 @@ type FileUploadPrepareResult struct {
 	BlockNum  int    `json:"block_num,omitempty"`
 }
 
-type FileUploadFinishReqBody struct {
-	UploadId string `json:"upload_id,omitempty"`
-	BlockNum int    `json:"block_num,omitempty"`
-}
-
-type FileUploadFinishResult struct {
-	FileToken string `json:"file_token,omitempty"`
+type MediaUploadPrepareResult struct {
+	UploadId  string `json:"upload_id,omitempty"`
+	BlockSize int    `json:"block_size,omitempty"`
+	BlockNum  int    `json:"block_num,omitempty"`
 }
 
 type MediaUploadFinishReqBody struct {
@@ -56,10 +51,23 @@ type MediaUploadFinishResult struct {
 	FileToken string `json:"file_token,omitempty"`
 }
 
-type MediaUploadAllResult struct {
+type FileUploadFinishReqBody struct {
+	UploadId string `json:"upload_id,omitempty"`
+	BlockNum int    `json:"block_num,omitempty"`
+}
+
+type FileUploadFinishResult struct {
 	FileToken string `json:"file_token,omitempty"`
 }
 
 type FileUploadAllResult struct {
 	FileToken string `json:"file_token,omitempty"`
+}
+
+type MediaUploadAllResult struct {
+	FileToken string `json:"file_token,omitempty"`
+}
+
+type MediaBatchGetTmpDownloadUrlResult struct {
+	TmpDownloadUrls []*TmpDownloadUrl `json:"tmp_download_urls,omitempty"`
 }
