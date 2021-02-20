@@ -18,8 +18,17 @@ type Config struct {
 }
 
 func NewTestConfig(domain constants.Domain, appSettings *AppSettings) *Config {
-	defaultStore := store.NewDefaultStore()
-	conf := NewConfig(domain, appSettings, log.NewDefaultLogger(), log.LevelDebug, defaultStore)
+	return NewConfigWithDefaultStore(domain, appSettings, log.NewDefaultLogger(), log.LevelDebug)
+}
+
+func NewConfigWithDefaultStore(domain constants.Domain, appSettings *AppSettings, logger log.Logger, logLevel log.Level) *Config {
+	loggerProxy := log.NewLoggerProxy(logLevel, logger)
+	conf := &Config{
+		domain:      domain,
+		appSettings: appSettings,
+		store:       store.NewDefaultStoreWithLog(loggerProxy),
+		logger:      loggerProxy,
+	}
 	return conf
 }
 
