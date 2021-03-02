@@ -15,16 +15,16 @@ const serviceBasePath = "contact/v3"
 type Service struct {
 	conf             *config.Config
 	basePath         string
-	Departments      *DepartmentService
-	DepartmentEvents *DepartmentEventService
 	DepartmentUnits  *DepartmentUnitService
-	GroupEvents      *GroupEventService
-	Members          *MemberService
-	Scopes           *ScopeService
 	Users            *UserService
-	UserEvents       *UserEventService
 	UserGroups       *UserGroupService
 	UserGroupMembers *UserGroupMemberService
+	Departments      *DepartmentService
+	DepartmentEvents *DepartmentEventService
+	GroupEvents      *GroupEventService
+	UserEvents       *UserEventService
+	Scopes           *ScopeService
+	CustomAttrEvents *CustomAttrEventService
 }
 
 func NewService(conf *config.Config) *Service {
@@ -32,37 +32,17 @@ func NewService(conf *config.Config) *Service {
 		conf:     conf,
 		basePath: serviceBasePath,
 	}
-	s.Departments = newDepartmentService(s)
-	s.DepartmentEvents = newDepartmentEventService(s)
 	s.DepartmentUnits = newDepartmentUnitService(s)
-	s.GroupEvents = newGroupEventService(s)
-	s.Members = newMemberService(s)
-	s.Scopes = newScopeService(s)
 	s.Users = newUserService(s)
-	s.UserEvents = newUserEventService(s)
 	s.UserGroups = newUserGroupService(s)
 	s.UserGroupMembers = newUserGroupMemberService(s)
+	s.Departments = newDepartmentService(s)
+	s.DepartmentEvents = newDepartmentEventService(s)
+	s.GroupEvents = newGroupEventService(s)
+	s.UserEvents = newUserEventService(s)
+	s.Scopes = newScopeService(s)
+	s.CustomAttrEvents = newCustomAttrEventService(s)
 	return s
-}
-
-type DepartmentService struct {
-	service *Service
-}
-
-func newDepartmentService(service *Service) *DepartmentService {
-	return &DepartmentService{
-		service: service,
-	}
-}
-
-type DepartmentEventService struct {
-	service *Service
-}
-
-func newDepartmentEventService(service *Service) *DepartmentEventService {
-	return &DepartmentEventService{
-		service: service,
-	}
 }
 
 type DepartmentUnitService struct {
@@ -75,52 +55,12 @@ func newDepartmentUnitService(service *Service) *DepartmentUnitService {
 	}
 }
 
-type GroupEventService struct {
-	service *Service
-}
-
-func newGroupEventService(service *Service) *GroupEventService {
-	return &GroupEventService{
-		service: service,
-	}
-}
-
-type MemberService struct {
-	service *Service
-}
-
-func newMemberService(service *Service) *MemberService {
-	return &MemberService{
-		service: service,
-	}
-}
-
-type ScopeService struct {
-	service *Service
-}
-
-func newScopeService(service *Service) *ScopeService {
-	return &ScopeService{
-		service: service,
-	}
-}
-
 type UserService struct {
 	service *Service
 }
 
 func newUserService(service *Service) *UserService {
 	return &UserService{
-		service: service,
-	}
-}
-
-type UserEventService struct {
-	service *Service
-}
-
-func newUserEventService(service *Service) *UserEventService {
-	return &UserEventService{
 		service: service,
 	}
 }
@@ -145,80 +85,63 @@ func newUserGroupMemberService(service *Service) *UserGroupMemberService {
 	}
 }
 
-type DepartmentCreateReqCall struct {
-	ctx         *core.Context
-	departments *DepartmentService
-	body        *Department
-
-	queryParams map[string]interface{}
-	optFns      []request.OptFn
+type DepartmentService struct {
+	service *Service
 }
 
-func (rc *DepartmentCreateReqCall) SetUserIdType(userIdType string) {
-	rc.queryParams["user_id_type"] = userIdType
-}
-func (rc *DepartmentCreateReqCall) SetDepartmentIdType(departmentIdType string) {
-	rc.queryParams["department_id_type"] = departmentIdType
-}
-func (rc *DepartmentCreateReqCall) SetClientToken(clientToken string) {
-	rc.queryParams["client_token"] = clientToken
-}
-func (rc *DepartmentCreateReqCall) Do() (*DepartmentCreateResult, error) {
-	httpPath := path.Join(rc.departments.service.basePath, "departments")
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &DepartmentCreateResult{}
-	req := request.NewRequest(httpPath, "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.departments.service.conf, req)
-	return result, err
-}
-
-func (departments *DepartmentService) Create(ctx *core.Context, body *Department, optFns ...request.OptFn) *DepartmentCreateReqCall {
-	return &DepartmentCreateReqCall{
-		ctx:         ctx,
-		departments: departments,
-		body:        body,
-		queryParams: map[string]interface{}{},
-		optFns:      optFns,
+func newDepartmentService(service *Service) *DepartmentService {
+	return &DepartmentService{
+		service: service,
 	}
 }
 
-type DepartmentDeleteReqCall struct {
-	ctx         *core.Context
-	departments *DepartmentService
-	pathParams  map[string]interface{}
-
-	queryParams map[string]interface{}
-	optFns      []request.OptFn
+type DepartmentEventService struct {
+	service *Service
 }
 
-func (rc *DepartmentDeleteReqCall) SetDepartmentId(departmentId string) {
-	rc.pathParams["department_id"] = departmentId
-}
-func (rc *DepartmentDeleteReqCall) SetUserIdType(userIdType string) {
-	rc.queryParams["user_id_type"] = userIdType
-}
-func (rc *DepartmentDeleteReqCall) SetDepartmentIdType(departmentIdType string) {
-	rc.queryParams["department_id_type"] = departmentIdType
-}
-func (rc *DepartmentDeleteReqCall) Do() (*response.NoData, error) {
-	httpPath := path.Join(rc.departments.service.basePath, "departments/:department_id")
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &response.NoData{}
-	req := request.NewRequest(httpPath, "DELETE",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.departments.service.conf, req)
-	return result, err
+func newDepartmentEventService(service *Service) *DepartmentEventService {
+	return &DepartmentEventService{
+		service: service,
+	}
 }
 
-func (departments *DepartmentService) Delete(ctx *core.Context, optFns ...request.OptFn) *DepartmentDeleteReqCall {
-	return &DepartmentDeleteReqCall{
-		ctx:         ctx,
-		departments: departments,
-		pathParams:  map[string]interface{}{},
-		queryParams: map[string]interface{}{},
-		optFns:      optFns,
+type GroupEventService struct {
+	service *Service
+}
+
+func newGroupEventService(service *Service) *GroupEventService {
+	return &GroupEventService{
+		service: service,
+	}
+}
+
+type UserEventService struct {
+	service *Service
+}
+
+func newUserEventService(service *Service) *UserEventService {
+	return &UserEventService{
+		service: service,
+	}
+}
+
+type ScopeService struct {
+	service *Service
+}
+
+func newScopeService(service *Service) *ScopeService {
+	return &ScopeService{
+		service: service,
+	}
+}
+
+type CustomAttrEventService struct {
+	service *Service
+}
+
+func newCustomAttrEventService(service *Service) *CustomAttrEventService {
+	return &CustomAttrEventService{
+		service: service,
 	}
 }
 
@@ -246,7 +169,7 @@ func (rc *DepartmentGetReqCall) Do() (*DepartmentGetResult, error) {
 	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
 	var result = &DepartmentGetResult{}
 	req := request.NewRequest(httpPath, "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.departments.service.conf, req)
 	return result, err
 }
@@ -256,412 +179,6 @@ func (departments *DepartmentService) Get(ctx *core.Context, optFns ...request.O
 		ctx:         ctx,
 		departments: departments,
 		pathParams:  map[string]interface{}{},
-		queryParams: map[string]interface{}{},
-		optFns:      optFns,
-	}
-}
-
-type DepartmentListReqCall struct {
-	ctx         *core.Context
-	departments *DepartmentService
-
-	queryParams map[string]interface{}
-	optFns      []request.OptFn
-}
-
-func (rc *DepartmentListReqCall) SetUserIdType(userIdType string) {
-	rc.queryParams["user_id_type"] = userIdType
-}
-func (rc *DepartmentListReqCall) SetDepartmentIdType(departmentIdType string) {
-	rc.queryParams["department_id_type"] = departmentIdType
-}
-func (rc *DepartmentListReqCall) SetParentDepartmentId(parentDepartmentId string) {
-	rc.queryParams["parent_department_id"] = parentDepartmentId
-}
-func (rc *DepartmentListReqCall) SetPageToken(pageToken string) {
-	rc.queryParams["page_token"] = pageToken
-}
-func (rc *DepartmentListReqCall) SetPageSize(pageSize int) {
-	rc.queryParams["page_size"] = pageSize
-}
-func (rc *DepartmentListReqCall) Do() (*DepartmentListResult, error) {
-	httpPath := path.Join(rc.departments.service.basePath, "departments")
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &DepartmentListResult{}
-	req := request.NewRequest(httpPath, "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.departments.service.conf, req)
-	return result, err
-}
-
-func (departments *DepartmentService) List(ctx *core.Context, optFns ...request.OptFn) *DepartmentListReqCall {
-	return &DepartmentListReqCall{
-		ctx:         ctx,
-		departments: departments,
-		queryParams: map[string]interface{}{},
-		optFns:      optFns,
-	}
-}
-
-type DepartmentNomalizeReqCall struct {
-	ctx         *core.Context
-	departments *DepartmentService
-	body        *DepartmentNomalizeReqBody
-
-	queryParams map[string]interface{}
-	optFns      []request.OptFn
-}
-
-func (rc *DepartmentNomalizeReqCall) SetDepartmentIdType(departmentIdType string) {
-	rc.queryParams["department_id_type"] = departmentIdType
-}
-func (rc *DepartmentNomalizeReqCall) SetPageToken(pageToken string) {
-	rc.queryParams["page_token"] = pageToken
-}
-func (rc *DepartmentNomalizeReqCall) SetPageSize(pageSize int) {
-	rc.queryParams["page_size"] = pageSize
-}
-func (rc *DepartmentNomalizeReqCall) Do() (*response.NoData, error) {
-	httpPath := path.Join(rc.departments.service.basePath, "departments/nomalize")
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &response.NoData{}
-	req := request.NewRequest(httpPath, "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.departments.service.conf, req)
-	return result, err
-}
-
-func (departments *DepartmentService) Nomalize(ctx *core.Context, body *DepartmentNomalizeReqBody, optFns ...request.OptFn) *DepartmentNomalizeReqCall {
-	return &DepartmentNomalizeReqCall{
-		ctx:         ctx,
-		departments: departments,
-		body:        body,
-		queryParams: map[string]interface{}{},
-		optFns:      optFns,
-	}
-}
-
-type DepartmentNomalizeDepartmentChatReqCall struct {
-	ctx         *core.Context
-	departments *DepartmentService
-	body        *DepartmentNomalizeDepartmentChatReqBody
-
-	queryParams map[string]interface{}
-	optFns      []request.OptFn
-}
-
-func (rc *DepartmentNomalizeDepartmentChatReqCall) SetDepartmentIdType(departmentIdType string) {
-	rc.queryParams["department_id_type"] = departmentIdType
-}
-func (rc *DepartmentNomalizeDepartmentChatReqCall) SetPageToken(pageToken string) {
-	rc.queryParams["page_token"] = pageToken
-}
-func (rc *DepartmentNomalizeDepartmentChatReqCall) SetPageSize(pageSize int) {
-	rc.queryParams["page_size"] = pageSize
-}
-func (rc *DepartmentNomalizeDepartmentChatReqCall) Do() (*response.NoData, error) {
-	httpPath := path.Join(rc.departments.service.basePath, "departments/nomalize_department_chat")
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &response.NoData{}
-	req := request.NewRequest(httpPath, "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.departments.service.conf, req)
-	return result, err
-}
-
-func (departments *DepartmentService) NomalizeDepartmentChat(ctx *core.Context, body *DepartmentNomalizeDepartmentChatReqBody, optFns ...request.OptFn) *DepartmentNomalizeDepartmentChatReqCall {
-	return &DepartmentNomalizeDepartmentChatReqCall{
-		ctx:         ctx,
-		departments: departments,
-		body:        body,
-		queryParams: map[string]interface{}{},
-		optFns:      optFns,
-	}
-}
-
-type DepartmentParentReqCall struct {
-	ctx         *core.Context
-	departments *DepartmentService
-
-	queryParams map[string]interface{}
-	optFns      []request.OptFn
-}
-
-func (rc *DepartmentParentReqCall) SetUserIdType(userIdType string) {
-	rc.queryParams["user_id_type"] = userIdType
-}
-func (rc *DepartmentParentReqCall) SetDepartmentIdType(departmentIdType string) {
-	rc.queryParams["department_id_type"] = departmentIdType
-}
-func (rc *DepartmentParentReqCall) SetDepartmentId(departmentId string) {
-	rc.queryParams["department_id"] = departmentId
-}
-func (rc *DepartmentParentReqCall) SetPageToken(pageToken string) {
-	rc.queryParams["page_token"] = pageToken
-}
-func (rc *DepartmentParentReqCall) SetPageSize(pageSize int) {
-	rc.queryParams["page_size"] = pageSize
-}
-func (rc *DepartmentParentReqCall) Do() (*DepartmentParentResult, error) {
-	httpPath := path.Join(rc.departments.service.basePath, "departments/parent")
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &DepartmentParentResult{}
-	req := request.NewRequest(httpPath, "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.departments.service.conf, req)
-	return result, err
-}
-
-func (departments *DepartmentService) Parent(ctx *core.Context, optFns ...request.OptFn) *DepartmentParentReqCall {
-	return &DepartmentParentReqCall{
-		ctx:         ctx,
-		departments: departments,
-		queryParams: map[string]interface{}{},
-		optFns:      optFns,
-	}
-}
-
-type DepartmentPatchReqCall struct {
-	ctx         *core.Context
-	departments *DepartmentService
-	body        *Department
-	pathParams  map[string]interface{}
-
-	queryParams map[string]interface{}
-	optFns      []request.OptFn
-}
-
-func (rc *DepartmentPatchReqCall) SetDepartmentId(departmentId string) {
-	rc.pathParams["department_id"] = departmentId
-}
-func (rc *DepartmentPatchReqCall) SetUserIdType(userIdType string) {
-	rc.queryParams["user_id_type"] = userIdType
-}
-func (rc *DepartmentPatchReqCall) SetDepartmentIdType(departmentIdType string) {
-	rc.queryParams["department_id_type"] = departmentIdType
-}
-func (rc *DepartmentPatchReqCall) Do() (*DepartmentPatchResult, error) {
-	httpPath := path.Join(rc.departments.service.basePath, "departments/:department_id")
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &DepartmentPatchResult{}
-	req := request.NewRequest(httpPath, "PATCH",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.departments.service.conf, req)
-	return result, err
-}
-
-func (departments *DepartmentService) Patch(ctx *core.Context, body *Department, optFns ...request.OptFn) *DepartmentPatchReqCall {
-	return &DepartmentPatchReqCall{
-		ctx:         ctx,
-		departments: departments,
-		body:        body,
-		pathParams:  map[string]interface{}{},
-		queryParams: map[string]interface{}{},
-		optFns:      optFns,
-	}
-}
-
-type DepartmentUpdateReqCall struct {
-	ctx         *core.Context
-	departments *DepartmentService
-	body        *Department
-	pathParams  map[string]interface{}
-
-	queryParams map[string]interface{}
-	optFns      []request.OptFn
-}
-
-func (rc *DepartmentUpdateReqCall) SetDepartmentId(departmentId string) {
-	rc.pathParams["department_id"] = departmentId
-}
-func (rc *DepartmentUpdateReqCall) SetUserIdType(userIdType string) {
-	rc.queryParams["user_id_type"] = userIdType
-}
-func (rc *DepartmentUpdateReqCall) SetDepartmentIdType(departmentIdType string) {
-	rc.queryParams["department_id_type"] = departmentIdType
-}
-func (rc *DepartmentUpdateReqCall) Do() (*DepartmentUpdateResult, error) {
-	httpPath := path.Join(rc.departments.service.basePath, "departments/:department_id")
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &DepartmentUpdateResult{}
-	req := request.NewRequest(httpPath, "PUT",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.departments.service.conf, req)
-	return result, err
-}
-
-func (departments *DepartmentService) Update(ctx *core.Context, body *Department, optFns ...request.OptFn) *DepartmentUpdateReqCall {
-	return &DepartmentUpdateReqCall{
-		ctx:         ctx,
-		departments: departments,
-		body:        body,
-		pathParams:  map[string]interface{}{},
-		queryParams: map[string]interface{}{},
-		optFns:      optFns,
-	}
-}
-
-type DepartmentUpdateDepartmentIdReqCall struct {
-	ctx         *core.Context
-	departments *DepartmentService
-	body        *DepartmentUpdateDepartmentIdReqBody
-	pathParams  map[string]interface{}
-
-	queryParams map[string]interface{}
-	optFns      []request.OptFn
-}
-
-func (rc *DepartmentUpdateDepartmentIdReqCall) SetDepartmentId(departmentId string) {
-	rc.pathParams["department_id"] = departmentId
-}
-func (rc *DepartmentUpdateDepartmentIdReqCall) SetDepartmentIdType(departmentIdType string) {
-	rc.queryParams["department_id_type"] = departmentIdType
-}
-func (rc *DepartmentUpdateDepartmentIdReqCall) Do() (*response.NoData, error) {
-	httpPath := path.Join(rc.departments.service.basePath, "departments/:department_id/update_department_id")
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &response.NoData{}
-	req := request.NewRequest(httpPath, "PATCH",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.departments.service.conf, req)
-	return result, err
-}
-
-func (departments *DepartmentService) UpdateDepartmentId(ctx *core.Context, body *DepartmentUpdateDepartmentIdReqBody, optFns ...request.OptFn) *DepartmentUpdateDepartmentIdReqCall {
-	return &DepartmentUpdateDepartmentIdReqCall{
-		ctx:         ctx,
-		departments: departments,
-		body:        body,
-		pathParams:  map[string]interface{}{},
-		queryParams: map[string]interface{}{},
-		optFns:      optFns,
-	}
-}
-
-type DepartmentUnitCreateReqCall struct {
-	ctx             *core.Context
-	departmentUnits *DepartmentUnitService
-	body            *DepartmentUnit
-
-	optFns []request.OptFn
-}
-
-func (rc *DepartmentUnitCreateReqCall) Do() (*DepartmentUnitCreateResult, error) {
-	httpPath := path.Join(rc.departmentUnits.service.basePath, "department_units")
-	var result = &DepartmentUnitCreateResult{}
-	req := request.NewRequest(httpPath, "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.departmentUnits.service.conf, req)
-	return result, err
-}
-
-func (departmentUnits *DepartmentUnitService) Create(ctx *core.Context, body *DepartmentUnit, optFns ...request.OptFn) *DepartmentUnitCreateReqCall {
-	return &DepartmentUnitCreateReqCall{
-		ctx:             ctx,
-		departmentUnits: departmentUnits,
-		body:            body,
-		optFns:          optFns,
-	}
-}
-
-type DepartmentUnitDeleteReqCall struct {
-	ctx             *core.Context
-	departmentUnits *DepartmentUnitService
-	pathParams      map[string]interface{}
-
-	optFns []request.OptFn
-}
-
-func (rc *DepartmentUnitDeleteReqCall) SetUnitId(unitId string) {
-	rc.pathParams["unit_id"] = unitId
-}
-func (rc *DepartmentUnitDeleteReqCall) Do() (*response.NoData, error) {
-	httpPath := path.Join(rc.departmentUnits.service.basePath, "department_units/:unit_id")
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	var result = &response.NoData{}
-	req := request.NewRequest(httpPath, "DELETE",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.departmentUnits.service.conf, req)
-	return result, err
-}
-
-func (departmentUnits *DepartmentUnitService) Delete(ctx *core.Context, optFns ...request.OptFn) *DepartmentUnitDeleteReqCall {
-	return &DepartmentUnitDeleteReqCall{
-		ctx:             ctx,
-		departmentUnits: departmentUnits,
-		pathParams:      map[string]interface{}{},
-		optFns:          optFns,
-	}
-}
-
-type DepartmentUnitPatchReqCall struct {
-	ctx             *core.Context
-	departmentUnits *DepartmentUnitService
-	body            *DepartmentUnitPatchReqBody
-	pathParams      map[string]interface{}
-
-	optFns []request.OptFn
-}
-
-func (rc *DepartmentUnitPatchReqCall) SetUnitId(unitId string) {
-	rc.pathParams["unit_id"] = unitId
-}
-func (rc *DepartmentUnitPatchReqCall) Do() (*DepartmentUnitPatchResult, error) {
-	httpPath := path.Join(rc.departmentUnits.service.basePath, "department_units/:unit_id")
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	var result = &DepartmentUnitPatchResult{}
-	req := request.NewRequest(httpPath, "PATCH",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.departmentUnits.service.conf, req)
-	return result, err
-}
-
-func (departmentUnits *DepartmentUnitService) Patch(ctx *core.Context, body *DepartmentUnitPatchReqBody, optFns ...request.OptFn) *DepartmentUnitPatchReqCall {
-	return &DepartmentUnitPatchReqCall{
-		ctx:             ctx,
-		departmentUnits: departmentUnits,
-		body:            body,
-		pathParams:      map[string]interface{}{},
-		optFns:          optFns,
-	}
-}
-
-type UserCreateReqCall struct {
-	ctx   *core.Context
-	users *UserService
-	body  *User
-
-	queryParams map[string]interface{}
-	optFns      []request.OptFn
-}
-
-func (rc *UserCreateReqCall) SetUserIdType(userIdType string) {
-	rc.queryParams["user_id_type"] = userIdType
-}
-func (rc *UserCreateReqCall) SetDepartmentIdType(departmentIdType string) {
-	rc.queryParams["department_id_type"] = departmentIdType
-}
-func (rc *UserCreateReqCall) SetClientToken(clientToken string) {
-	rc.queryParams["client_token"] = clientToken
-}
-func (rc *UserCreateReqCall) Do() (*UserCreateResult, error) {
-	httpPath := path.Join(rc.users.service.basePath, "users")
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &UserCreateResult{}
-	req := request.NewRequest(httpPath, "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.users.service.conf, req)
-	return result, err
-}
-
-func (users *UserService) Create(ctx *core.Context, body *User, optFns ...request.OptFn) *UserCreateReqCall {
-	return &UserCreateReqCall{
-		ctx:         ctx,
-		users:       users,
-		body:        body,
 		queryParams: map[string]interface{}{},
 		optFns:      optFns,
 	}
@@ -705,121 +222,146 @@ func (users *UserService) Delete(ctx *core.Context, body *UserDeleteReqBody, opt
 	}
 }
 
-type UserGetReqCall struct {
-	ctx        *core.Context
-	users      *UserService
-	pathParams map[string]interface{}
+type DepartmentListReqCall struct {
+	ctx         *core.Context
+	departments *DepartmentService
+	body        *DepartmentListReqBody
 
 	queryParams map[string]interface{}
 	optFns      []request.OptFn
 }
 
-func (rc *UserGetReqCall) SetUserId(userId string) {
-	rc.pathParams["user_id"] = userId
-}
-func (rc *UserGetReqCall) SetUserIdType(userIdType string) {
+func (rc *DepartmentListReqCall) SetUserIdType(userIdType string) {
 	rc.queryParams["user_id_type"] = userIdType
 }
-func (rc *UserGetReqCall) SetDepartmentIdType(departmentIdType string) {
+func (rc *DepartmentListReqCall) SetDepartmentIdType(departmentIdType string) {
 	rc.queryParams["department_id_type"] = departmentIdType
 }
-func (rc *UserGetReqCall) Do() (*UserGetResult, error) {
-	httpPath := path.Join(rc.users.service.basePath, "users/:user_id")
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &UserGetResult{}
-	req := request.NewRequest(httpPath, "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.users.service.conf, req)
-	return result, err
+func (rc *DepartmentListReqCall) SetParentDepartmentId(parentDepartmentId string) {
+	rc.queryParams["parent_department_id"] = parentDepartmentId
 }
-
-func (users *UserService) Get(ctx *core.Context, optFns ...request.OptFn) *UserGetReqCall {
-	return &UserGetReqCall{
-		ctx:         ctx,
-		users:       users,
-		pathParams:  map[string]interface{}{},
-		queryParams: map[string]interface{}{},
-		optFns:      optFns,
-	}
-}
-
-type UserListReqCall struct {
-	ctx   *core.Context
-	users *UserService
-
-	queryParams map[string]interface{}
-	optFns      []request.OptFn
-}
-
-func (rc *UserListReqCall) SetUserIdType(userIdType string) {
-	rc.queryParams["user_id_type"] = userIdType
-}
-func (rc *UserListReqCall) SetDepartmentIdType(departmentIdType string) {
-	rc.queryParams["department_id_type"] = departmentIdType
-}
-func (rc *UserListReqCall) SetDepartmentId(departmentId string) {
-	rc.queryParams["department_id"] = departmentId
-}
-func (rc *UserListReqCall) SetPageToken(pageToken string) {
+func (rc *DepartmentListReqCall) SetPageToken(pageToken string) {
 	rc.queryParams["page_token"] = pageToken
 }
-func (rc *UserListReqCall) SetPageSize(pageSize int) {
+func (rc *DepartmentListReqCall) SetPageSize(pageSize int) {
 	rc.queryParams["page_size"] = pageSize
 }
-func (rc *UserListReqCall) Do() (*UserListResult, error) {
-	httpPath := path.Join(rc.users.service.basePath, "users")
+func (rc *DepartmentListReqCall) Do() (*DepartmentListResult, error) {
+	httpPath := path.Join(rc.departments.service.basePath, "departments")
 	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &UserListResult{}
+	var result = &DepartmentListResult{}
 	req := request.NewRequest(httpPath, "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.users.service.conf, req)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.departments.service.conf, req)
 	return result, err
 }
 
-func (users *UserService) List(ctx *core.Context, optFns ...request.OptFn) *UserListReqCall {
-	return &UserListReqCall{
+func (departments *DepartmentService) List(ctx *core.Context, body *DepartmentListReqBody, optFns ...request.OptFn) *DepartmentListReqCall {
+	return &DepartmentListReqCall{
 		ctx:         ctx,
-		users:       users,
+		departments: departments,
+		body:        body,
 		queryParams: map[string]interface{}{},
 		optFns:      optFns,
 	}
 }
 
-type UserPatchReqCall struct {
+type UserGroupUpdateUserGroupIdReqCall struct {
 	ctx        *core.Context
-	users      *UserService
-	body       *User
+	userGroups *UserGroupService
+	body       *UserGroupUpdateUserGroupIdReqBody
 	pathParams map[string]interface{}
+
+	optFns []request.OptFn
+}
+
+func (rc *UserGroupUpdateUserGroupIdReqCall) SetUserGroupId(userGroupId string) {
+	rc.pathParams["user_group_id"] = userGroupId
+}
+func (rc *UserGroupUpdateUserGroupIdReqCall) Do() (*response.NoData, error) {
+	httpPath := path.Join(rc.userGroups.service.basePath, "user_groups/:user_group_id/update_user_group_id")
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	var result = &response.NoData{}
+	req := request.NewRequest(httpPath, "PATCH",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.userGroups.service.conf, req)
+	return result, err
+}
+
+func (userGroups *UserGroupService) UpdateUserGroupId(ctx *core.Context, body *UserGroupUpdateUserGroupIdReqBody, optFns ...request.OptFn) *UserGroupUpdateUserGroupIdReqCall {
+	return &UserGroupUpdateUserGroupIdReqCall{
+		ctx:        ctx,
+		userGroups: userGroups,
+		body:       body,
+		pathParams: map[string]interface{}{},
+		optFns:     optFns,
+	}
+}
+
+type DepartmentUnitDeleteReqCall struct {
+	ctx             *core.Context
+	departmentUnits *DepartmentUnitService
+	pathParams      map[string]interface{}
+
+	optFns []request.OptFn
+}
+
+func (rc *DepartmentUnitDeleteReqCall) SetUnitId(unitId string) {
+	rc.pathParams["unit_id"] = unitId
+}
+func (rc *DepartmentUnitDeleteReqCall) Do() (*response.NoData, error) {
+	httpPath := path.Join(rc.departmentUnits.service.basePath, "department_units/:unit_id")
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	var result = &response.NoData{}
+	req := request.NewRequest(httpPath, "DELETE",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.departmentUnits.service.conf, req)
+	return result, err
+}
+
+func (departmentUnits *DepartmentUnitService) Delete(ctx *core.Context, optFns ...request.OptFn) *DepartmentUnitDeleteReqCall {
+	return &DepartmentUnitDeleteReqCall{
+		ctx:             ctx,
+		departmentUnits: departmentUnits,
+		pathParams:      map[string]interface{}{},
+		optFns:          optFns,
+	}
+}
+
+type DepartmentPatchReqCall struct {
+	ctx         *core.Context
+	departments *DepartmentService
+	body        *Department
+	pathParams  map[string]interface{}
 
 	queryParams map[string]interface{}
 	optFns      []request.OptFn
 }
 
-func (rc *UserPatchReqCall) SetUserId(userId string) {
-	rc.pathParams["user_id"] = userId
+func (rc *DepartmentPatchReqCall) SetDepartmentId(departmentId string) {
+	rc.pathParams["department_id"] = departmentId
 }
-func (rc *UserPatchReqCall) SetUserIdType(userIdType string) {
+func (rc *DepartmentPatchReqCall) SetUserIdType(userIdType string) {
 	rc.queryParams["user_id_type"] = userIdType
 }
-func (rc *UserPatchReqCall) SetDepartmentIdType(departmentIdType string) {
+func (rc *DepartmentPatchReqCall) SetDepartmentIdType(departmentIdType string) {
 	rc.queryParams["department_id_type"] = departmentIdType
 }
-func (rc *UserPatchReqCall) Do() (*UserPatchResult, error) {
-	httpPath := path.Join(rc.users.service.basePath, "users/:user_id")
+func (rc *DepartmentPatchReqCall) Do() (*DepartmentPatchResult, error) {
+	httpPath := path.Join(rc.departments.service.basePath, "departments/:department_id")
 	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
 	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &UserPatchResult{}
+	var result = &DepartmentPatchResult{}
 	req := request.NewRequest(httpPath, "PATCH",
 		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.users.service.conf, req)
+	err := api.Send(rc.ctx, rc.departments.service.conf, req)
 	return result, err
 }
 
-func (users *UserService) Patch(ctx *core.Context, body *User, optFns ...request.OptFn) *UserPatchReqCall {
-	return &UserPatchReqCall{
+func (departments *DepartmentService) Patch(ctx *core.Context, body *Department, optFns ...request.OptFn) *DepartmentPatchReqCall {
+	return &DepartmentPatchReqCall{
 		ctx:         ctx,
-		users:       users,
+		departments: departments,
 		body:        body,
 		pathParams:  map[string]interface{}{},
 		queryParams: map[string]interface{}{},
@@ -868,6 +410,88 @@ func (users *UserService) Update(ctx *core.Context, body *User, optFns ...reques
 	}
 }
 
+type UserCreateReqCall struct {
+	ctx   *core.Context
+	users *UserService
+	body  *User
+
+	queryParams map[string]interface{}
+	optFns      []request.OptFn
+}
+
+func (rc *UserCreateReqCall) SetUserIdType(userIdType string) {
+	rc.queryParams["user_id_type"] = userIdType
+}
+func (rc *UserCreateReqCall) SetDepartmentIdType(departmentIdType string) {
+	rc.queryParams["department_id_type"] = departmentIdType
+}
+func (rc *UserCreateReqCall) SetClientToken(clientToken string) {
+	rc.queryParams["client_token"] = clientToken
+}
+func (rc *UserCreateReqCall) SetNeedSendNotification(needSendNotification bool) {
+	rc.queryParams["need_send_notification"] = needSendNotification
+}
+func (rc *UserCreateReqCall) Do() (*UserCreateResult, error) {
+	httpPath := path.Join(rc.users.service.basePath, "users")
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &UserCreateResult{}
+	req := request.NewRequest(httpPath, "POST",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.users.service.conf, req)
+	return result, err
+}
+
+func (users *UserService) Create(ctx *core.Context, body *User, optFns ...request.OptFn) *UserCreateReqCall {
+	return &UserCreateReqCall{
+		ctx:         ctx,
+		users:       users,
+		body:        body,
+		queryParams: map[string]interface{}{},
+		optFns:      optFns,
+	}
+}
+
+type UserPatchReqCall struct {
+	ctx        *core.Context
+	users      *UserService
+	body       *User
+	pathParams map[string]interface{}
+
+	queryParams map[string]interface{}
+	optFns      []request.OptFn
+}
+
+func (rc *UserPatchReqCall) SetUserId(userId string) {
+	rc.pathParams["user_id"] = userId
+}
+func (rc *UserPatchReqCall) SetUserIdType(userIdType string) {
+	rc.queryParams["user_id_type"] = userIdType
+}
+func (rc *UserPatchReqCall) SetDepartmentIdType(departmentIdType string) {
+	rc.queryParams["department_id_type"] = departmentIdType
+}
+func (rc *UserPatchReqCall) Do() (*UserPatchResult, error) {
+	httpPath := path.Join(rc.users.service.basePath, "users/:user_id")
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &UserPatchResult{}
+	req := request.NewRequest(httpPath, "PATCH",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.users.service.conf, req)
+	return result, err
+}
+
+func (users *UserService) Patch(ctx *core.Context, body *User, optFns ...request.OptFn) *UserPatchReqCall {
+	return &UserPatchReqCall{
+		ctx:         ctx,
+		users:       users,
+		body:        body,
+		pathParams:  map[string]interface{}{},
+		queryParams: map[string]interface{}{},
+		optFns:      optFns,
+	}
+}
+
 type UserUpdateUserIdReqCall struct {
 	ctx        *core.Context
 	users      *UserService
@@ -906,29 +530,41 @@ func (users *UserService) UpdateUserId(ctx *core.Context, body *UserUpdateUserId
 	}
 }
 
-type UserGroupCreateReqCall struct {
-	ctx        *core.Context
-	userGroups *UserGroupService
-	body       *UserGroup
+type UserGroupMemberCreateReqCall struct {
+	ctx              *core.Context
+	userGroupMembers *UserGroupMemberService
+	body             *UserGroupMemberCreateReqBody
+	pathParams       map[string]interface{}
 
-	optFns []request.OptFn
+	queryParams map[string]interface{}
+	optFns      []request.OptFn
 }
 
-func (rc *UserGroupCreateReqCall) Do() (*UserGroupCreateResult, error) {
-	httpPath := path.Join(rc.userGroups.service.basePath, "user_groups")
-	var result = &UserGroupCreateResult{}
+func (rc *UserGroupMemberCreateReqCall) SetUserGroupId(userGroupId string) {
+	rc.pathParams["user_group_id"] = userGroupId
+}
+func (rc *UserGroupMemberCreateReqCall) SetUserIdType(userIdType string) {
+	rc.queryParams["user_id_type"] = userIdType
+}
+func (rc *UserGroupMemberCreateReqCall) Do() (*response.NoData, error) {
+	httpPath := path.Join(rc.userGroupMembers.service.basePath, "user_groups/:user_group_id/members")
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &response.NoData{}
 	req := request.NewRequest(httpPath, "POST",
 		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.userGroups.service.conf, req)
+	err := api.Send(rc.ctx, rc.userGroupMembers.service.conf, req)
 	return result, err
 }
 
-func (userGroups *UserGroupService) Create(ctx *core.Context, body *UserGroup, optFns ...request.OptFn) *UserGroupCreateReqCall {
-	return &UserGroupCreateReqCall{
-		ctx:        ctx,
-		userGroups: userGroups,
-		body:       body,
-		optFns:     optFns,
+func (userGroupMembers *UserGroupMemberService) Create(ctx *core.Context, body *UserGroupMemberCreateReqBody, optFns ...request.OptFn) *UserGroupMemberCreateReqCall {
+	return &UserGroupMemberCreateReqCall{
+		ctx:              ctx,
+		userGroupMembers: userGroupMembers,
+		body:             body,
+		pathParams:       map[string]interface{}{},
+		queryParams:      map[string]interface{}{},
+		optFns:           optFns,
 	}
 }
 
@@ -962,32 +598,130 @@ func (userGroups *UserGroupService) Delete(ctx *core.Context, optFns ...request.
 	}
 }
 
-type UserGroupGetReqCall struct {
+type DepartmentCreateReqCall struct {
+	ctx         *core.Context
+	departments *DepartmentService
+	body        *Department
+
+	queryParams map[string]interface{}
+	optFns      []request.OptFn
+}
+
+func (rc *DepartmentCreateReqCall) SetUserIdType(userIdType string) {
+	rc.queryParams["user_id_type"] = userIdType
+}
+func (rc *DepartmentCreateReqCall) SetDepartmentIdType(departmentIdType string) {
+	rc.queryParams["department_id_type"] = departmentIdType
+}
+func (rc *DepartmentCreateReqCall) SetClientToken(clientToken string) {
+	rc.queryParams["client_token"] = clientToken
+}
+func (rc *DepartmentCreateReqCall) Do() (*DepartmentCreateResult, error) {
+	httpPath := path.Join(rc.departments.service.basePath, "departments")
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &DepartmentCreateResult{}
+	req := request.NewRequest(httpPath, "POST",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.departments.service.conf, req)
+	return result, err
+}
+
+func (departments *DepartmentService) Create(ctx *core.Context, body *Department, optFns ...request.OptFn) *DepartmentCreateReqCall {
+	return &DepartmentCreateReqCall{
+		ctx:         ctx,
+		departments: departments,
+		body:        body,
+		queryParams: map[string]interface{}{},
+		optFns:      optFns,
+	}
+}
+
+type UserGroupPatchReqCall struct {
 	ctx        *core.Context
 	userGroups *UserGroupService
+	body       *UserGroup
 	pathParams map[string]interface{}
 
 	optFns []request.OptFn
 }
 
-func (rc *UserGroupGetReqCall) SetUserGroupId(userGroupId string) {
+func (rc *UserGroupPatchReqCall) SetUserGroupId(userGroupId string) {
 	rc.pathParams["user_group_id"] = userGroupId
 }
-func (rc *UserGroupGetReqCall) Do() (*UserGroupGetResult, error) {
+func (rc *UserGroupPatchReqCall) Do() (*UserGroupPatchResult, error) {
 	httpPath := path.Join(rc.userGroups.service.basePath, "user_groups/:user_group_id")
 	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	var result = &UserGroupGetResult{}
-	req := request.NewRequest(httpPath, "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+	var result = &UserGroupPatchResult{}
+	req := request.NewRequest(httpPath, "PATCH",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.userGroups.service.conf, req)
 	return result, err
 }
 
-func (userGroups *UserGroupService) Get(ctx *core.Context, optFns ...request.OptFn) *UserGroupGetReqCall {
-	return &UserGroupGetReqCall{
+func (userGroups *UserGroupService) Patch(ctx *core.Context, body *UserGroup, optFns ...request.OptFn) *UserGroupPatchReqCall {
+	return &UserGroupPatchReqCall{
 		ctx:        ctx,
 		userGroups: userGroups,
+		body:       body,
 		pathParams: map[string]interface{}{},
+		optFns:     optFns,
+	}
+}
+
+type DepartmentUnitPatchReqCall struct {
+	ctx             *core.Context
+	departmentUnits *DepartmentUnitService
+	body            *DepartmentUnitPatchReqBody
+	pathParams      map[string]interface{}
+
+	optFns []request.OptFn
+}
+
+func (rc *DepartmentUnitPatchReqCall) SetUnitId(unitId string) {
+	rc.pathParams["unit_id"] = unitId
+}
+func (rc *DepartmentUnitPatchReqCall) Do() (*DepartmentUnitPatchResult, error) {
+	httpPath := path.Join(rc.departmentUnits.service.basePath, "department_units/:unit_id")
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	var result = &DepartmentUnitPatchResult{}
+	req := request.NewRequest(httpPath, "PATCH",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.departmentUnits.service.conf, req)
+	return result, err
+}
+
+func (departmentUnits *DepartmentUnitService) Patch(ctx *core.Context, body *DepartmentUnitPatchReqBody, optFns ...request.OptFn) *DepartmentUnitPatchReqCall {
+	return &DepartmentUnitPatchReqCall{
+		ctx:             ctx,
+		departmentUnits: departmentUnits,
+		body:            body,
+		pathParams:      map[string]interface{}{},
+		optFns:          optFns,
+	}
+}
+
+type UserGroupCreateReqCall struct {
+	ctx        *core.Context
+	userGroups *UserGroupService
+	body       *UserGroup
+
+	optFns []request.OptFn
+}
+
+func (rc *UserGroupCreateReqCall) Do() (*UserGroupCreateResult, error) {
+	httpPath := path.Join(rc.userGroups.service.basePath, "user_groups")
+	var result = &UserGroupCreateResult{}
+	req := request.NewRequest(httpPath, "POST",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.userGroups.service.conf, req)
+	return result, err
+}
+
+func (userGroups *UserGroupService) Create(ctx *core.Context, body *UserGroup, optFns ...request.OptFn) *UserGroupCreateReqCall {
+	return &UserGroupCreateReqCall{
+		ctx:        ctx,
+		userGroups: userGroups,
+		body:       body,
 		optFns:     optFns,
 	}
 }
@@ -1025,38 +759,123 @@ func (userGroups *UserGroupService) List(ctx *core.Context, optFns ...request.Op
 	}
 }
 
-type UserGroupMemberCreateReqCall struct {
+type DepartmentDeleteReqCall struct {
+	ctx         *core.Context
+	departments *DepartmentService
+	pathParams  map[string]interface{}
+
+	queryParams map[string]interface{}
+	optFns      []request.OptFn
+}
+
+func (rc *DepartmentDeleteReqCall) SetDepartmentId(departmentId string) {
+	rc.pathParams["department_id"] = departmentId
+}
+func (rc *DepartmentDeleteReqCall) SetUserIdType(userIdType string) {
+	rc.queryParams["user_id_type"] = userIdType
+}
+func (rc *DepartmentDeleteReqCall) SetDepartmentIdType(departmentIdType string) {
+	rc.queryParams["department_id_type"] = departmentIdType
+}
+func (rc *DepartmentDeleteReqCall) Do() (*response.NoData, error) {
+	httpPath := path.Join(rc.departments.service.basePath, "departments/:department_id")
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &response.NoData{}
+	req := request.NewRequest(httpPath, "DELETE",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.departments.service.conf, req)
+	return result, err
+}
+
+func (departments *DepartmentService) Delete(ctx *core.Context, optFns ...request.OptFn) *DepartmentDeleteReqCall {
+	return &DepartmentDeleteReqCall{
+		ctx:         ctx,
+		departments: departments,
+		pathParams:  map[string]interface{}{},
+		queryParams: map[string]interface{}{},
+		optFns:      optFns,
+	}
+}
+
+type UserGetReqCall struct {
+	ctx        *core.Context
+	users      *UserService
+	pathParams map[string]interface{}
+
+	queryParams map[string]interface{}
+	optFns      []request.OptFn
+}
+
+func (rc *UserGetReqCall) SetUserId(userId string) {
+	rc.pathParams["user_id"] = userId
+}
+func (rc *UserGetReqCall) SetUserIdType(userIdType string) {
+	rc.queryParams["user_id_type"] = userIdType
+}
+func (rc *UserGetReqCall) SetDepartmentIdType(departmentIdType string) {
+	rc.queryParams["department_id_type"] = departmentIdType
+}
+func (rc *UserGetReqCall) Do() (*UserGetResult, error) {
+	httpPath := path.Join(rc.users.service.basePath, "users/:user_id")
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &UserGetResult{}
+	req := request.NewRequest(httpPath, "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.users.service.conf, req)
+	return result, err
+}
+
+func (users *UserService) Get(ctx *core.Context, optFns ...request.OptFn) *UserGetReqCall {
+	return &UserGetReqCall{
+		ctx:         ctx,
+		users:       users,
+		pathParams:  map[string]interface{}{},
+		queryParams: map[string]interface{}{},
+		optFns:      optFns,
+	}
+}
+
+type UserGroupMemberListReqCall struct {
 	ctx              *core.Context
 	userGroupMembers *UserGroupMemberService
-	body             *UserGroupMemberCreateReqBody
 	pathParams       map[string]interface{}
 
 	queryParams map[string]interface{}
 	optFns      []request.OptFn
 }
 
-func (rc *UserGroupMemberCreateReqCall) SetUserGroupId(userGroupId string) {
+func (rc *UserGroupMemberListReqCall) SetUserGroupId(userGroupId string) {
 	rc.pathParams["user_group_id"] = userGroupId
 }
-func (rc *UserGroupMemberCreateReqCall) SetUserIdType(userIdType string) {
+func (rc *UserGroupMemberListReqCall) SetUserIdType(userIdType string) {
 	rc.queryParams["user_id_type"] = userIdType
 }
-func (rc *UserGroupMemberCreateReqCall) Do() (*response.NoData, error) {
+func (rc *UserGroupMemberListReqCall) SetDepartmentIdType(departmentIdType string) {
+	rc.queryParams["department_id_type"] = departmentIdType
+}
+func (rc *UserGroupMemberListReqCall) SetPageToken(pageToken string) {
+	rc.queryParams["page_token"] = pageToken
+}
+func (rc *UserGroupMemberListReqCall) SetPageSize(pageSize int) {
+	rc.queryParams["page_size"] = pageSize
+}
+func (rc *UserGroupMemberListReqCall) Do() (*UserGroupMemberListResult, error) {
 	httpPath := path.Join(rc.userGroupMembers.service.basePath, "user_groups/:user_group_id/members")
 	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
 	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &response.NoData{}
-	req := request.NewRequest(httpPath, "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+	var result = &UserGroupMemberListResult{}
+	req := request.NewRequest(httpPath, "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.userGroupMembers.service.conf, req)
 	return result, err
 }
 
-func (userGroupMembers *UserGroupMemberService) Create(ctx *core.Context, body *UserGroupMemberCreateReqBody, optFns ...request.OptFn) *UserGroupMemberCreateReqCall {
-	return &UserGroupMemberCreateReqCall{
+func (userGroupMembers *UserGroupMemberService) List(ctx *core.Context, optFns ...request.OptFn) *UserGroupMemberListReqCall {
+	return &UserGroupMemberListReqCall{
 		ctx:              ctx,
 		userGroupMembers: userGroupMembers,
-		body:             body,
 		pathParams:       map[string]interface{}{},
 		queryParams:      map[string]interface{}{},
 		optFns:           optFns,
@@ -1102,105 +921,294 @@ func (userGroupMembers *UserGroupMemberService) Delete(ctx *core.Context, optFns
 	}
 }
 
-type UserGroupMemberListReqCall struct {
-	ctx              *core.Context
-	userGroupMembers *UserGroupMemberService
-	pathParams       map[string]interface{}
+type DepartmentUpdateReqCall struct {
+	ctx         *core.Context
+	departments *DepartmentService
+	body        *Department
+	pathParams  map[string]interface{}
 
 	queryParams map[string]interface{}
 	optFns      []request.OptFn
 }
 
-func (rc *UserGroupMemberListReqCall) SetUserGroupId(userGroupId string) {
-	rc.pathParams["user_group_id"] = userGroupId
+func (rc *DepartmentUpdateReqCall) SetDepartmentId(departmentId string) {
+	rc.pathParams["department_id"] = departmentId
 }
-func (rc *UserGroupMemberListReqCall) SetUserIdType(userIdType string) {
+func (rc *DepartmentUpdateReqCall) SetUserIdType(userIdType string) {
 	rc.queryParams["user_id_type"] = userIdType
 }
-func (rc *UserGroupMemberListReqCall) SetDepartmentIdType(departmentIdType string) {
+func (rc *DepartmentUpdateReqCall) SetDepartmentIdType(departmentIdType string) {
 	rc.queryParams["department_id_type"] = departmentIdType
 }
-func (rc *UserGroupMemberListReqCall) Do() (*UserGroupMemberListResult, error) {
-	httpPath := path.Join(rc.userGroupMembers.service.basePath, "user_groups/:user_group_id/members")
+func (rc *DepartmentUpdateReqCall) Do() (*DepartmentUpdateResult, error) {
+	httpPath := path.Join(rc.departments.service.basePath, "departments/:department_id")
 	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
 	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &UserGroupMemberListResult{}
-	req := request.NewRequest(httpPath, "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.userGroupMembers.service.conf, req)
+	var result = &DepartmentUpdateResult{}
+	req := request.NewRequest(httpPath, "PUT",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.departments.service.conf, req)
 	return result, err
 }
 
-func (userGroupMembers *UserGroupMemberService) List(ctx *core.Context, optFns ...request.OptFn) *UserGroupMemberListReqCall {
-	return &UserGroupMemberListReqCall{
-		ctx:              ctx,
-		userGroupMembers: userGroupMembers,
-		pathParams:       map[string]interface{}{},
-		queryParams:      map[string]interface{}{},
-		optFns:           optFns,
+func (departments *DepartmentService) Update(ctx *core.Context, body *Department, optFns ...request.OptFn) *DepartmentUpdateReqCall {
+	return &DepartmentUpdateReqCall{
+		ctx:         ctx,
+		departments: departments,
+		body:        body,
+		pathParams:  map[string]interface{}{},
+		queryParams: map[string]interface{}{},
+		optFns:      optFns,
 	}
 }
 
-type UserGroupPatchReqCall struct {
+type DepartmentUnitCreateReqCall struct {
+	ctx             *core.Context
+	departmentUnits *DepartmentUnitService
+	body            *DepartmentUnit
+
+	optFns []request.OptFn
+}
+
+func (rc *DepartmentUnitCreateReqCall) Do() (*DepartmentUnitCreateResult, error) {
+	httpPath := path.Join(rc.departmentUnits.service.basePath, "department_units")
+	var result = &DepartmentUnitCreateResult{}
+	req := request.NewRequest(httpPath, "POST",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.departmentUnits.service.conf, req)
+	return result, err
+}
+
+func (departmentUnits *DepartmentUnitService) Create(ctx *core.Context, body *DepartmentUnit, optFns ...request.OptFn) *DepartmentUnitCreateReqCall {
+	return &DepartmentUnitCreateReqCall{
+		ctx:             ctx,
+		departmentUnits: departmentUnits,
+		body:            body,
+		optFns:          optFns,
+	}
+}
+
+type UserListReqCall struct {
+	ctx   *core.Context
+	users *UserService
+
+	queryParams map[string]interface{}
+	optFns      []request.OptFn
+}
+
+func (rc *UserListReqCall) SetUserIdType(userIdType string) {
+	rc.queryParams["user_id_type"] = userIdType
+}
+func (rc *UserListReqCall) SetDepartmentIdType(departmentIdType string) {
+	rc.queryParams["department_id_type"] = departmentIdType
+}
+func (rc *UserListReqCall) SetDepartmentId(departmentId string) {
+	rc.queryParams["department_id"] = departmentId
+}
+func (rc *UserListReqCall) SetPageToken(pageToken string) {
+	rc.queryParams["page_token"] = pageToken
+}
+func (rc *UserListReqCall) SetPageSize(pageSize int) {
+	rc.queryParams["page_size"] = pageSize
+}
+func (rc *UserListReqCall) Do() (*UserListResult, error) {
+	httpPath := path.Join(rc.users.service.basePath, "users")
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &UserListResult{}
+	req := request.NewRequest(httpPath, "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.users.service.conf, req)
+	return result, err
+}
+
+func (users *UserService) List(ctx *core.Context, optFns ...request.OptFn) *UserListReqCall {
+	return &UserListReqCall{
+		ctx:         ctx,
+		users:       users,
+		queryParams: map[string]interface{}{},
+		optFns:      optFns,
+	}
+}
+
+type UserGroupGetReqCall struct {
 	ctx        *core.Context
 	userGroups *UserGroupService
-	body       *UserGroup
 	pathParams map[string]interface{}
 
 	optFns []request.OptFn
 }
 
-func (rc *UserGroupPatchReqCall) SetUserGroupId(userGroupId string) {
+func (rc *UserGroupGetReqCall) SetUserGroupId(userGroupId string) {
 	rc.pathParams["user_group_id"] = userGroupId
 }
-func (rc *UserGroupPatchReqCall) Do() (*UserGroupPatchResult, error) {
+func (rc *UserGroupGetReqCall) Do() (*UserGroupGetResult, error) {
 	httpPath := path.Join(rc.userGroups.service.basePath, "user_groups/:user_group_id")
 	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	var result = &UserGroupPatchResult{}
-	req := request.NewRequest(httpPath, "PATCH",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+	var result = &UserGroupGetResult{}
+	req := request.NewRequest(httpPath, "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.userGroups.service.conf, req)
 	return result, err
 }
 
-func (userGroups *UserGroupService) Patch(ctx *core.Context, body *UserGroup, optFns ...request.OptFn) *UserGroupPatchReqCall {
-	return &UserGroupPatchReqCall{
+func (userGroups *UserGroupService) Get(ctx *core.Context, optFns ...request.OptFn) *UserGroupGetReqCall {
+	return &UserGroupGetReqCall{
 		ctx:        ctx,
 		userGroups: userGroups,
-		body:       body,
 		pathParams: map[string]interface{}{},
 		optFns:     optFns,
 	}
 }
 
-type UserGroupUpdateUserGroupIdReqCall struct {
-	ctx        *core.Context
-	userGroups *UserGroupService
-	body       *UserGroupUpdateUserGroupIdReqBody
-	pathParams map[string]interface{}
+type DepartmentParentReqCall struct {
+	ctx         *core.Context
+	departments *DepartmentService
 
-	optFns []request.OptFn
+	queryParams map[string]interface{}
+	optFns      []request.OptFn
 }
 
-func (rc *UserGroupUpdateUserGroupIdReqCall) SetUserGroupId(userGroupId string) {
-	rc.pathParams["user_group_id"] = userGroupId
+func (rc *DepartmentParentReqCall) SetUserIdType(userIdType string) {
+	rc.queryParams["user_id_type"] = userIdType
 }
-func (rc *UserGroupUpdateUserGroupIdReqCall) Do() (*response.NoData, error) {
-	httpPath := path.Join(rc.userGroups.service.basePath, "user_groups/:user_group_id/update_user_group_id")
+func (rc *DepartmentParentReqCall) SetDepartmentIdType(departmentIdType string) {
+	rc.queryParams["department_id_type"] = departmentIdType
+}
+func (rc *DepartmentParentReqCall) SetDepartmentId(departmentId string) {
+	rc.queryParams["department_id"] = departmentId
+}
+func (rc *DepartmentParentReqCall) SetPageToken(pageToken string) {
+	rc.queryParams["page_token"] = pageToken
+}
+func (rc *DepartmentParentReqCall) SetPageSize(pageSize int) {
+	rc.queryParams["page_size"] = pageSize
+}
+func (rc *DepartmentParentReqCall) Do() (*DepartmentParentResult, error) {
+	httpPath := path.Join(rc.departments.service.basePath, "departments/parent")
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &DepartmentParentResult{}
+	req := request.NewRequest(httpPath, "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.departments.service.conf, req)
+	return result, err
+}
+
+func (departments *DepartmentService) Parent(ctx *core.Context, optFns ...request.OptFn) *DepartmentParentReqCall {
+	return &DepartmentParentReqCall{
+		ctx:         ctx,
+		departments: departments,
+		queryParams: map[string]interface{}{},
+		optFns:      optFns,
+	}
+}
+
+type DepartmentUpdateDepartmentIdReqCall struct {
+	ctx         *core.Context
+	departments *DepartmentService
+	body        *DepartmentUpdateDepartmentIdReqBody
+	pathParams  map[string]interface{}
+
+	queryParams map[string]interface{}
+	optFns      []request.OptFn
+}
+
+func (rc *DepartmentUpdateDepartmentIdReqCall) SetDepartmentId(departmentId string) {
+	rc.pathParams["department_id"] = departmentId
+}
+func (rc *DepartmentUpdateDepartmentIdReqCall) SetDepartmentIdType(departmentIdType string) {
+	rc.queryParams["department_id_type"] = departmentIdType
+}
+func (rc *DepartmentUpdateDepartmentIdReqCall) Do() (*response.NoData, error) {
+	httpPath := path.Join(rc.departments.service.basePath, "departments/:department_id/update_department_id")
 	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
 	var result = &response.NoData{}
 	req := request.NewRequest(httpPath, "PATCH",
 		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.userGroups.service.conf, req)
+	err := api.Send(rc.ctx, rc.departments.service.conf, req)
 	return result, err
 }
 
-func (userGroups *UserGroupService) UpdateUserGroupId(ctx *core.Context, body *UserGroupUpdateUserGroupIdReqBody, optFns ...request.OptFn) *UserGroupUpdateUserGroupIdReqCall {
-	return &UserGroupUpdateUserGroupIdReqCall{
-		ctx:        ctx,
-		userGroups: userGroups,
-		body:       body,
-		pathParams: map[string]interface{}{},
-		optFns:     optFns,
+func (departments *DepartmentService) UpdateDepartmentId(ctx *core.Context, body *DepartmentUpdateDepartmentIdReqBody, optFns ...request.OptFn) *DepartmentUpdateDepartmentIdReqCall {
+	return &DepartmentUpdateDepartmentIdReqCall{
+		ctx:         ctx,
+		departments: departments,
+		body:        body,
+		pathParams:  map[string]interface{}{},
+		queryParams: map[string]interface{}{},
+		optFns:      optFns,
+	}
+}
+
+type DepartmentUnbindDepartmentChatReqCall struct {
+	ctx         *core.Context
+	departments *DepartmentService
+	body        *DepartmentUnbindDepartmentChatReqBody
+
+	queryParams map[string]interface{}
+	optFns      []request.OptFn
+}
+
+func (rc *DepartmentUnbindDepartmentChatReqCall) SetDepartmentIdType(departmentIdType string) {
+	rc.queryParams["department_id_type"] = departmentIdType
+}
+func (rc *DepartmentUnbindDepartmentChatReqCall) Do() (*response.NoData, error) {
+	httpPath := path.Join(rc.departments.service.basePath, "departments/unbind_department_chat")
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &response.NoData{}
+	req := request.NewRequest(httpPath, "POST",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.departments.service.conf, req)
+	return result, err
+}
+
+func (departments *DepartmentService) UnbindDepartmentChat(ctx *core.Context, body *DepartmentUnbindDepartmentChatReqBody, optFns ...request.OptFn) *DepartmentUnbindDepartmentChatReqCall {
+	return &DepartmentUnbindDepartmentChatReqCall{
+		ctx:         ctx,
+		departments: departments,
+		body:        body,
+		queryParams: map[string]interface{}{},
+		optFns:      optFns,
+	}
+}
+
+type DepartmentSearchReqCall struct {
+	ctx         *core.Context
+	departments *DepartmentService
+	body        *DepartmentSearchReqBody
+
+	queryParams map[string]interface{}
+	optFns      []request.OptFn
+}
+
+func (rc *DepartmentSearchReqCall) SetUserIdType(userIdType string) {
+	rc.queryParams["user_id_type"] = userIdType
+}
+func (rc *DepartmentSearchReqCall) SetDepartmentIdType(departmentIdType string) {
+	rc.queryParams["department_id_type"] = departmentIdType
+}
+func (rc *DepartmentSearchReqCall) SetPageToken(pageToken string) {
+	rc.queryParams["page_token"] = pageToken
+}
+func (rc *DepartmentSearchReqCall) SetPageSize(pageSize int) {
+	rc.queryParams["page_size"] = pageSize
+}
+func (rc *DepartmentSearchReqCall) Do() (*DepartmentSearchResult, error) {
+	httpPath := path.Join(rc.departments.service.basePath, "departments/search")
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &DepartmentSearchResult{}
+	req := request.NewRequest(httpPath, "POST",
+		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.departments.service.conf, req)
+	return result, err
+}
+
+func (departments *DepartmentService) Search(ctx *core.Context, body *DepartmentSearchReqBody, optFns ...request.OptFn) *DepartmentSearchReqCall {
+	return &DepartmentSearchReqCall{
+		ctx:         ctx,
+		departments: departments,
+		body:        body,
+		queryParams: map[string]interface{}{},
+		optFns:      optFns,
 	}
 }

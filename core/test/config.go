@@ -34,8 +34,8 @@ func GetInternalConf(env string) *config.Config {
 }
 
 func getDomain(env string) constants.Domain {
-	if env != "STAGING" && env != "PRE" && env != "ONLINE" {
-		panic("env must in [staging, pre, online]")
+	if env != "BOE" && env != "PRE" && env != "ONLINE" {
+		panic("env must in [boe, pre, online]")
 	}
 	if env == "ONLINE" {
 		return constants.DomainFeiShu
