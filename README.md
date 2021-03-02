@@ -1,4 +1,4 @@
-[**README of 飞书**](README.zh.md) | Lark Suite
+[**README of 飞书（中国）**](README.zh.md) | Larksuite(Overseas)
 
 # LarkSuite open api SDK
 
@@ -10,14 +10,13 @@
   management more efficient.
 
 - Larksuite development interface SDK, convenient call server API and subscribe server events, such as: Message & group,
-  address book, calendar, docs and others can visit [larksuite open platform document]
-  （ https://open.larksuite.cn/document/ ）Take a look at [REFERENCE].
+  address book, calendar, docs and others can visit [larksuite open platform document](https://open.larksuite.cn/document) ,Take a look at [REFERENCE].
 
 ## Run environment
 
 ---
 
-- Golang 1.5+。
+- Golang 1.5+
 
 ## Install
 

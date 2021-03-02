@@ -1,4 +1,4 @@
-[**README of Lark suite**](README.md) | 飞书
+[**README of Larksuite(Overseas)**](README.md) | 飞书
 
 # 飞书开放接口SDK
 
@@ -15,7 +15,7 @@
 
 ---
 
-- Golang 1.5及以上。
+- Golang 1.5及以上
 
 ## 安装方法
 
@@ -146,7 +146,7 @@ func main() {
 	coreCtx := core.WrapContext(context.Background())
 	body := &contact.User{}
 	body.Name = "rename"
-	// 由于这是一个PATCH请求，需要告之更新哪些字段
+	// 由于这是一个PATCH请求，需要明确更新哪些字段
 	body.ForceSendFields = append(body.ForceSendFields, "Name")
 	reqCall := service.Users.Patch(coreCtx, body)
 	reqCall.SetUserId("user id")
