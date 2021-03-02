@@ -422,8 +422,7 @@ import (
 // request.SetNotDataField(),设置响应的是否 没有`data`字段，业务接口都是有`data`字段，所以不需要设置
 // request.SetTenantKey("TenantKey")，以`应用商店应用`身份，表示使用`tenant_access_token`访问API，需要设置
 // request.SetUserAccessToken("UserAccessToken")，表示使用`user_access_token`访问API，需要设置
-req := request.NewRequestWithNative(httpPath, httpMethod string, accessTokenType AccessTokenType,
-input interface{}, output interface{}, optFns ...OptFn)
+req := request.NewRequestWithNative(httpPath, httpMethod string, accessTokenType AccessTokenType, input interface{}, output interface{}, optFns ...OptFn)
 
 ```
 
