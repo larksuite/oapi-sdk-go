@@ -1,4 +1,4 @@
-[**README of 飞书（中国）**](README.zh.md) | Larksuite(Overseas)
+[**飞书，点这里 **](README.zh.md) | Larksuite(Overseas)
 
 # LarkSuite open api SDK
 
