@@ -371,7 +371,7 @@ err := api.Send(ctx *core.Context, conf *config.Config, req *request.Request)
 ### Download File Tool
 
 - Download files via network request
-- For more use examples, please see: [sample/tools/files.go](sample/tools/files.go)
+- For more use examples, please see: [sample/tools/file_download.go](sample/tools/file_download.go)
 
 ```go
 import(
