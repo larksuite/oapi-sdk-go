@@ -32,8 +32,8 @@ func init() {
 	// VerificationToken、EncryptKey："开发者后台" -> "事件订阅" -> 事件订阅（Verification Token、Encrypt Key）。
 	appSetting := config.NewISVAppSettings("AppID", "AppSecret", "VerificationToken", "EncryptKey")
 
-	// 当前访问的是飞书，config.NewConfig()的使用，请看：README.zh.md->高级使用->如何构建整体配置（Config）
-	conf = config.NewConfig(constants.DomainFeiShu, appSetting, logger, log.LevelInfo, store)
+	// config.NewConfig()的使用，请看：README.zh.md->高级使用->如何构建整体配置（Config）
+	conf := config.NewConfig(domain constants.Domain, appSettings *AppSettings, logger log.Logger, logLevel log.Level, store store.Store)
 }
 
 func main() { 
@@ -64,15 +64,19 @@ import (
    "github.com/larksuite/oapi-sdk-go/core/tools"
 )
 
-func main() {
-   // 应用商店应用的配置
-   // AppID、AppSecret: 开发者后台的应用凭证（App ID、App Secret）
-   // VerificationToken、EncryptKey：开发者后台的事件订阅（Verification Token、Encrypt Key），可以为空字符串。
-   appSetting := config.NewISVAppSettings("AppID", "AppSecret", "VerificationToken", "EncryptKey")
+var conf *config.Config
 
-   // 当前访问的是飞书，config.NewConfig()的使用，请看：README.zh.md->高级使用->如何构建整体配置（Config）
-   conf := config.NewConfig(constants.DomainFeiShu, appSetting, logger, log.LevelInfo, store)
- 
+func init() {
+	// 企业自建应用的配置
+	// AppID、AppSecret: "开发者后台" -> "凭证与基础信息" -> 应用凭证（App ID、App Secret）
+	// VerificationToken、EncryptKey："开发者后台" -> "事件订阅" -> 事件订阅（Verification Token、Encrypt Key）。
+	appSetting := config.NewISVAppSettings("AppID", "AppSecret", "VerificationToken", "EncryptKey")
+
+	// config.NewConfig()的使用，请看：README.zh.md->高级使用->如何构建整体配置（Config）
+	conf := config.NewConfig(domain constants.Domain, appSettings *AppSettings, logger log.Logger, logLevel log.Level, store store.Store)
+}
+
+func main() {
    // 发送消息的内容
    body := map[string]interface{}{
       "open_id":  "user open id",
@@ -83,7 +87,7 @@ func main() {
    }
    // 请求发送消息的结果
    ret := make(map[string]interface{})
-   // 构建请求&&设置租户标识（tenant_key）
+   // 构建请求&&设置企业标识（tenant_key）
    req := request.NewRequestWithNative("message/v4/send", "POST", request.AccessTokenTypeTenant,
       body, &ret, request.SetTenantKey("tenant_key"))
    // 请求的上下文
@@ -137,8 +141,8 @@ func init() {
 	// VerificationToken、EncryptKey："开发者后台" -> "事件订阅" -> 事件订阅（Verification Token、Encrypt Key）。
 	appSetting := config.NewISVAppSettings("AppID", "AppSecret", "VerificationToken", "EncryptKey")
 
-	// 当前访问的是飞书，config.NewConfig()的使用，请看：README.zh.md->高级使用->如何构建整体配置（Config）
-	conf = config.NewConfig(constants.DomainFeiShu, appSetting, logger, log.LevelInfo, store)
+	// config.NewConfig()的使用，请看：README.zh.md->高级使用->如何构建整体配置（Config）
+	conf := config.NewConfig(domain constants.Domain, appSettings *AppSettings, logger log.Logger, logLevel log.Level, store store.Store)
 }
 
 func main() {
