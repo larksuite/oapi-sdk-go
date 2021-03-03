@@ -36,10 +36,10 @@ func init() {
 	conf = config.NewConfig(constants.DomainFeiShu, appSetting, logger, log.LevelInfo, store)
 }
 
-func main() {
+func main() { 
 	// 启动httpServer，"开发者后台" -> "事件订阅" 请求网址 URL：https://domain/webhook/event
-   eventhttpserver.Register("/webhook/event", conf)
-   err := http.ListenAndServe(":8089", nil)
+	eventhttpserver.Register("/webhook/event", conf)
+	err := http.ListenAndServe(":8089", nil)
    if err != nil {
       panic(err)
    }

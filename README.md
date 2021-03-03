@@ -10,7 +10,8 @@
   management more efficient.
 
 - Larksuite development interface SDK, convenient call server API and subscribe server events, such as: Message & group,
-  address book, calendar, docs and others can visit [larksuite open platform document](https://open.larksuite.cn/document) ,Take a look at [REFERENCE].
+  address book, calendar, docs and others can
+  visit [larksuite open platform document](https://open.larksuite.cn/document) ,Take a look at [REFERENCE].
 
 ## Run environment
 
@@ -27,11 +28,17 @@ go get -u github.com/larksuite/oapi-sdk-go
 ```
 
 ## Explanation of terms
-- Larksuite: the overseas name of lark, which mainly provides services for overseas enterprises and has an independent [domain name address](https://www.larksuite.com/) .
-- Development documents: reference to the open interface of the open platform **developers must see, and can use search to query documents efficiently** . [more information](https://open.feishu.cn/document/) .
-- Developer background: the management background for developers to develop applications, [more introduction](https://open.larksuite.cn/app/) .
-- Cutome APP: the application can only be installed and used in the enterprise，[more introduction](https://open.larksuite.com/document/ukzMxEjL5MTMx4SOzETM/uEjNwYjLxYDM24SM2AjN) .
-- Marketplace App：The app will be displayed in [App Directory](https://app.larksuite.com/) Display, each enterprise can choose to install.
+
+- Larksuite: the overseas name of lark, which mainly provides services for overseas enterprises and has an
+  independent [domain name address](https://www.larksuite.com/) .
+- Development documents: reference to the open interface of the open platform **developers must see, and can use search
+  to query documents efficiently** . [more information](https://open.feishu.cn/document/) .
+- Developer background: the management background for developers to develop
+  applications, [more introduction](https://open.larksuite.cn/app/) .
+- Cutome APP: the application can only be installed and used in the
+  enterprise，[more introduction](https://open.larksuite.com/document/ukzMxEjL5MTMx4SOzETM/uEjNwYjLxYDM24SM2AjN) .
+- Marketplace App：The app will be displayed in [App Directory](https://app.larksuite.com/) Display, each enterprise can
+  choose to install.
 
 ![App type](doc/app_type.en.png)
 
@@ -41,7 +48,7 @@ go get -u github.com/larksuite/oapi-sdk-go
 
 ### Call API
 
-#### Example of using `Custom App` to access [send text message](https://open.larksuite.com/document/uMzMyEjLzMjMx4yMzITM/ugDN0EjL4QDNx4CO0QTM) API
+#### Example of using "Custom App" to access [send text message](https://open.larksuite.com/document/uMzMyEjLzMjMx4yMzITM/ugDN0EjL4QDNx4CO0QTM) API
 
 - Some of the old API do not have a direct SDK to use. They can use the `native` mode.
 
@@ -62,7 +69,7 @@ import (
 )
 
 func main() {
-	// Configuration of custom app, parameter description:
+	// Configuration of "Custom App", parameter description:
 	// AppID、AppSecret: "Developer Console" -> "Credentials"（App ID、App Secret）
 	// VerificationToken、EncryptKey："Developer Console" -> "Event Subscriptions"（Verification Token、Encrypt Key）
 	appSetting := config.NewInternalAppSettings("AppID", "AppSecret", "VerificationToken", "EncryptKey")
@@ -84,7 +91,7 @@ func main() {
 	req := request.NewRequestWithNative("message/v4/send", "POST", request.AccessTokenTypeTenant, body, &ret)
 	// The context of the request
 	coreCtx := core.WrapContext(context.Background())
-	// The context of the request
+	// Send request 
 	err := api.Send(coreCtx, conf, req)
 	// Print the requestId of the request
 	fmt.Println(coreCtx.GetRequestID())
@@ -109,7 +116,7 @@ func main() {
   the process and precautions of subscribing to events.
 - For more use examples, please refer to [sample/event](sample/event)（including: use in combination with gin）
 
-#### Example of using `Custom App` to subscribe [App First Enabled](https://open.larksuite.com/document/uMzMyEjLzMjMx4yMzITM/uYjMyYjL2IjM24iNyIjN) event.
+#### Example of using "Custom App" to subscribe [App First Enabled](https://open.larksuite.com/document/uMzMyEjLzMjMx4yMzITM/uYjMyYjL2IjM24iNyIjN) event.
 
 - For some old events, there is no SDK that can be used directly. You can use the `native` mode
 
@@ -130,7 +137,7 @@ import (
 
 func main() {
 
-	// Configuration of custom app, parameter description:
+	// Configuration of "Custom App", parameter description:
 	// AppID、AppSecret: "Developer Console" -> "Credentials"（App ID、App Secret）
 	// VerificationToken、EncryptKey："Developer Console" -> "Event Subscriptions"（Verification Token、Encrypt Key）
 	appSetting := config.NewInternalAppSettings("AppID", "AppSecret", "VerificationToken", "EncryptKey")
@@ -162,7 +169,7 @@ func main() {
   understand the process and precautions of processing message cards
 - For more use examples, please refer to [sample/card](sample/card)（including: use in combination with gin）
 
-#### Example of using `Custom App` to handling message card callback.
+#### Example of using "Custom App" to handling message card callback.
 
 ```go
 package main
@@ -182,7 +189,7 @@ import (
 
 func main() {
 
-	// Configuration of custom app, parameter description:
+	// Configuration of "Custom App", parameter description:
 	// AppID、AppSecret: "Developer Console" -> "Credentials"（App ID、App Secret）
 	// VerificationToken、EncryptKey："Developer Console" -> "Event Subscriptions"（Verification Token、Encrypt Key）
 	appSetting := config.NewInternalAppSettings("AppID", "AppSecret", "VerificationToken", "EncryptKey")
@@ -216,7 +223,7 @@ func main() {
 ```go
 
 import (
-	"github.com/larksuite/oapi-sdk-go/core/config"
+    "github.com/larksuite/oapi-sdk-go/core/config"
 )
 
 // To prevent application information leakage, in the configuration environment variables, the variables (4) are described as follows:
@@ -224,17 +231,17 @@ import (
 // APP_Secret: "Developer Console" -> "Credentials"（App Secret）
 // VERIFICATION_Token: VerificationToken、EncryptKey："Developer Console" -> "Event Subscriptions"（Verification Token）
 // ENCRYPT_Key: VerificationToken、EncryptKey："Developer Console" -> "Event Subscriptions"（Encrypt Key）
-// The configuration of `Custom App` is obtained through environment variables
+// The configuration of "Custom App" is obtained through environment variables
 appSettings := config.GetInternalAppSettingsByEnv()
-// The configuration of `Marketplace App` is obtained through environment variables
+// The configuration of "Marketplace App" is obtained through environment variables
 appSettings := config.GetISVAppSettingsByEnv()
 
 // Parameter Description:
 // AppID、AppSecret: "Developer Console" -> "Credentials"（App ID、App Secret）
 // VerificationToken、EncryptKey："Developer Console" -> "Event Subscriptions"（Verification Token、Encrypt Key）
-// The configuration of `Custom App`
+// The configuration of "Custom App"
 appSettings := config.NewInternalAppSettings(appID, appSecret, verificationToken, encryptKey string)
-// The configuration of `Marketplace App`
+// The configuration of "Marketplace App"
 appSettings := config.NewISVAppSettings(appID, appSecret, verificationToken, encryptKey string)
 
 ```
@@ -252,16 +259,16 @@ appSettings := config.NewISVAppSettings(appID, appSecret, verificationToken, enc
     - Redis is recommended. Please see the example code: [sample/config/redis_store.go](sample/config/redis_store.go)
         - It can reduce the times of obtaining access credentials and prevent the frequency limit of calling access
           credentials interface.
-        - `Marketplace App`, accept open platform distributed `app_ticket` will be saved to the storage, so the
+        - "Marketplace App", accept open platform distributed `app_ticket` will be saved to the storage, so the
           implementation of the storage interface (store) needs to support distributed storage.
 
 ```go
 
 import (
-	"github.com/larksuite/oapi-sdk-go/core/config"
-	"github.com/larksuite/oapi-sdk-go/core/constants"
-	"github.com/larksuite/oapi-sdk-go/core/log"
-	"github.com/larksuite/oapi-sdk-go/core/store"
+    "github.com/larksuite/oapi-sdk-go/core/config"
+    "github.com/larksuite/oapi-sdk-go/core/constants"
+    "github.com/larksuite/oapi-sdk-go/core/log"
+    "github.com/larksuite/oapi-sdk-go/core/store"
 )
 
 // Method 1: it is recommended to use redis to implement the store interface, so as to reduce the times of accessing the accesstoken interface
@@ -269,11 +276,11 @@ import (
 // domain：URL domain address, value range: constants.DomainLarkSuite / constants.FeiShu / Other domain addresses
 // appSettings：App setting
 // logger：[Log interface](core/log/log.go)
-// loggerLevel：log level: log.LevelInfo/LevelInfo/LevelWarn/LevelError
-// store: [Store interface](core/store/store.go), Used to store app_ticket/access_token
+// loggerLevel： log.LevelInfo/LevelInfo/LevelWarn/LevelError
+// store: [Store interface](core/store/store.go), used to store app_ticket/access_token
 conf := config.NewConfig(domain constants.Domain, appSettings *AppSettings, logger log.Logger, logLevel log.Level, store store.Store)
 
-// Method 2: use the implementation of the default storage interface (store), which is suitable for light-weight use (not suitable: `Marketplace App` applies or calls the server API frequently)
+// Method 2: use the implementation of the default storage interface (store), which is suitable for light-weight use (not suitable: "Marketplace App" applies or calls the server API frequently)
 // Parameter Description:
 // domain：constants.DomainLarkSuite / constants.FeiShu / Other domain addresses
 // appSettings：App setting
@@ -285,7 +292,8 @@ conf := config.NewConfig(domain constants.Domain, appSettings *AppSettings, logg
 
 ### How to build a request(Request)
 
-- Some of the old interfaces do not have an SDK that can be used directly. They can use `native` mode. At this time, they need to build requests.
+- Some of the old interfaces do not have an SDK that can be used directly. They can use `native` mode. At this time,
+  they need to build requests.
 - For more examples, see [sample/api/api.go](sample/api/api.go) (including: file upload and download)
 
 ```go
@@ -327,7 +335,11 @@ ctx := core.WrapContext(c context.Context)
 requestId := ctx.GetRequestID()
 
 // Get the response status code of the request
-httpStatusCode = ctx.GetHTTPStatusCode()
+httpStatusCode := ctx.GetHTTPStatusCode()
+
+// In the handler of event subscription and message card callback, you can core.Context Get config from
+conf := config.ByCtx(ctx *core.Context)
+
 ```
 
 ### How to send a request

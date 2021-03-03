@@ -177,7 +177,7 @@ func main() {
 - **必看** [订阅事件概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM) ，了解订阅事件的过程及注意事项。
 - 更多使用示例，请看[sample/event](sample/event)（含：结合gin的使用）
 
-#### 使用`企业自建应用` 订阅 [首次启用应用事件](todo) 示例
+#### 使用`企业自建应用` 订阅 [首次启用应用事件](https://open.feishu.cn/document/ukTMukTMukTM/uQTNxYjL0UTM24CN1EjN) 示例
 
 - 有些老的事件，没有直接可以使用的SDK，可以使用`原生`模式
 
@@ -218,7 +218,7 @@ func main() {
 		return nil
 	})
 
-	// 启动httpServer，开发者后台的事件订阅，请求网址：https://domain/webhook/event
+	// 启动httpServer，"开发者后台" -> "事件订阅" 请求网址 URL：https://domain/webhook/event
 	eventhttpserver.Register("/webhook/event", conf)
 	err := http.ListenAndServe(":8089", nil)
 	if err != nil {
@@ -269,6 +269,7 @@ func main() {
 	})
 
 	// 启动httpServer，"开发者后台" -> "事件订阅" 请求网址 URL：https://domain/webhook/event
+	// startup event http server, port: 8089
 	eventhttpserver.Register("/webhook/event", conf)
 	err := http.ListenAndServe(":8089", nil)
 	if err != nil {
@@ -321,6 +322,7 @@ func main() {
 		return "{\"config\":{\"wide_screen_mode\":true},\"i18n_elements\":{\"zh_cn\":[{\"tag\":\"div\",\"text\":{\"tag\":\"lark_md\",\"content\":\"[飞书golang](https://www.feishu.cn)整合即时沟通、日历、音视频会议、云文档、云盘、工作台等功能于一体，成就组织和个人，更高效、更愉悦。\"}}]}}", nil
 	})
 	// 设置 "开发者后台" -> "应用功能" -> "机器人" 消息卡片请求网址：https://domain/webhook/card
+	// startup event http server, port: 8089
 	cardhttpserver.Register("/webhook/card", conf)
 	err := http.ListenAndServe(":8089", nil)
 	if err != nil {
@@ -341,10 +343,10 @@ import (
 )
 
 // 防止应用信息泄漏，配置环境变量中，变量（4个）说明：
-// APP_ID：开发者后台的应用凭证的 App ID
-// APP_SECRET：开发者后台的应用凭证的 App Secret
-// VERIFICATION_TOKEN：开发者后台的事件订阅的 Verification Token
-// ENCRYPT_KEY：开发者后台的事件订阅的 Encrypt Key
+// APP_ID："开发者后台" -> "凭证与基础信息" -> 应用凭证 App ID
+// APP_SECRET："开发者后台" -> "凭证与基础信息" -> 应用凭证 App Secret
+// VERIFICATION_TOKEN："开发者后台" -> "事件订阅" -> 事件订阅 Verification Token
+// ENCRYPT_KEY："开发者后台" -> "事件订阅" -> 事件订阅 Encrypt Key
 // 企业自建应用的配置，通过环境变量获取应用配置
 appSettings := config.GetInternalAppSettingsByEnv()
 // 应用商店应用的配置，通过环境变量获取应用配置
@@ -352,8 +354,8 @@ appSettings := config.GetISVAppSettingsByEnv()
 
 
 // 参数说明：
-// appID、appSecret: 开发者后台的应用凭证（App ID、App Secret）
-// verificationToken、encryptKey：开发者后台的事件订阅（Verification Token、Encrypt Key）。
+// AppID、AppSecret: "开发者后台" -> "凭证与基础信息" -> 应用凭证（App ID、App Secret）
+// VerificationToken、EncryptKey："开发者后台" -> "事件订阅" -> 事件订阅（Verification Token、Encrypt Key）
 // 企业自建应用的配置
 appSettings := config.NewInternalAppSettings(appID, appSecret, verificationToken, encryptKey string)
 // 应用商店应用的配置
@@ -431,6 +433,7 @@ req := request.NewRequestWithNative(httpPath, httpMethod string, accessTokenType
 ```go
 import(
     "github.com/larksuite/oapi-sdk-go/core"
+    "github.com/larksuite/oapi-sdk-go/core/config"
 )
 
 // 参数说明：
@@ -443,7 +446,11 @@ ctx := core.WrapContext(c context.Context)
 requestId := ctx.GetRequestID()
 
 // 获取请求的响应状态码
-httpStatusCode = ctx.GetHTTPStatusCode()
+httpStatusCode := ctx.GetHTTPStatusCode()
+
+// 在事件订阅与消息卡片回调的处理者中，可以从core.Context中获取 Config
+conf := config.ByCtx(ctx *core.Context)
+
 ```
 
 ### 如何发送请求
