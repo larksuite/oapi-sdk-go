@@ -27,7 +27,7 @@ import (
 var conf *config.Config
 
 func init() {
-	// 企业自建应用的配置
+	// 应用商店应用的配置
 	// AppID、AppSecret: "开发者后台" -> "凭证与基础信息" -> 应用凭证（App ID、App Secret）
 	// VerificationToken、EncryptKey："开发者后台" -> "事件订阅" -> 事件订阅（Verification Token、Encrypt Key）。
 	appSetting := config.NewISVAppSettings("AppID", "AppSecret", "VerificationToken", "EncryptKey")
@@ -40,9 +40,9 @@ func main() {
 	// 启动httpServer，"开发者后台" -> "事件订阅" 请求网址 URL：https://domain/webhook/event
 	eventhttpserver.Register("/webhook/event", conf)
 	err := http.ListenAndServe(":8089", nil)
-   if err != nil {
-      panic(err)
-   }
+	if err != nil {
+		panic(err)
+	}
 }
 ```
 
@@ -67,7 +67,7 @@ import (
 var conf *config.Config
 
 func init() {
-	// 企业自建应用的配置
+	// 应用商店应用的配置
 	// AppID、AppSecret: "开发者后台" -> "凭证与基础信息" -> 应用凭证（App ID、App Secret）
 	// VerificationToken、EncryptKey："开发者后台" -> "事件订阅" -> 事件订阅（Verification Token、Encrypt Key）。
 	appSetting := config.NewISVAppSettings("AppID", "AppSecret", "VerificationToken", "EncryptKey")
@@ -136,7 +136,7 @@ import (
 var conf *config.Config
 
 func init() {
-	// 企业自建应用的配置
+	// 应用商店应用的配置
 	// AppID、AppSecret: "开发者后台" -> "凭证与基础信息" -> 应用凭证（App ID、App Secret）
 	// VerificationToken、EncryptKey："开发者后台" -> "事件订阅" -> 事件订阅（Verification Token、Encrypt Key）。
 	appSetting := config.NewISVAppSettings("AppID", "AppSecret", "VerificationToken", "EncryptKey")
