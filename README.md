@@ -1,5 +1,8 @@
 [**飞书，点这里**](README.zh.md) | Larksuite(Overseas)
 
+- 如果使用的是飞书，请看 [**飞书，点这里**](README.zh.md) ，飞书与Larksuite使用的域名不一样，引用的文档地址也是不同的。(If you are using FeiShu, please see [**飞书，点这里**](README.zh.md) , Feishu and larksuite use different domain names and reference different document addresses.)
+
+
 # LarkSuite open api SDK
 
 ## Overview
@@ -49,7 +52,7 @@ go get -u github.com/larksuite/oapi-sdk-go
 ### Call API
 
 #### Example of using "Custom App" to access [send text message](https://open.larksuite.com/document/uMzMyEjLzMjMx4yMzITM/ugDN0EjL4QDNx4CO0QTM) API
-
+- Since the SDK has encapsulated the app_access_token、tenant_access_token So when calling the business API, you don't need to get the app_access_token、tenant_access_token. If the business interface needs to use user_access_token, which needs to be set（request.SetUserAccessToken("user_access_token")), Please refer to README.md -> How to build a request(Request)
 - Some of the old API do not have a direct SDK to use. They can use the `native` mode.
 
 ```go
@@ -344,6 +347,7 @@ conf := config.ByCtx(ctx *core.Context)
 
 ### How to send a request
 
+- Since the SDK has encapsulated the app_access_token、tenant_access_token So when calling the business API, you don't need to get the app_access_token、tenant_access_token. If the business interface needs to use user_access_token, which needs to be set（request.SetUserAccessToken("user_access_token")), Please refer to README.md -> How to build a request(Request)
 - For more use examples, please see: [sample/api/api.go](sample/api/api.go)
 
 ```go
