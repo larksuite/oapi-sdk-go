@@ -89,7 +89,7 @@ func main() {
    ret := make(map[string]interface{})
    // 构建请求&&设置企业标识（tenant_key）
    req := request.NewRequestWithNative("message/v4/send", "POST", request.AccessTokenTypeTenant,
-      body, &ret, request.SetTenantKey("tenant_key"))
+      body, &ret, request.SetTenantKey("Tenant key"))
    // 请求的上下文
    coreCtx := core.WrapContext(context.Background())
    // 发送请求
@@ -115,7 +115,7 @@ func main() {
 
 - 第一步：略，同上
 
-- 第二步：调用服务端接口，该接口是新的接口，可以直接使用SDK。
+- 第二步：调用服务端接口，该接口是新的接口（请看"README.zh.md -> 已生成SDK的业务服务"），可以直接使用SDK。
 
 ```go
 package main
