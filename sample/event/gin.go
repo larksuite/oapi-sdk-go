@@ -4,16 +4,20 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/test"
+	"github.com/larksuite/oapi-sdk-go/core/constants"
 	"github.com/larksuite/oapi-sdk-go/core/tools"
 	"github.com/larksuite/oapi-sdk-go/event"
 	eventginserver "github.com/larksuite/oapi-sdk-go/event/http/gin"
+	"github.com/larksuite/oapi-sdk-go/sample/configs"
 	application "github.com/larksuite/oapi-sdk-go/service/application/v1"
 )
 
 func main() {
 
-	var conf = test.GetISVConf("staging")
+	// for redis store and logrus
+	// var conf = configs.TestConfigWithLogrusAndRedisStore(constants.DomainFeiShu)
+	// var conf = configs.TestConfig("https://open.feishu.cn")
+	var conf = configs.TestConfig(constants.DomainFeiShu)
 
 	application.SetAppOpenEventHandler(conf, func(ctx *core.Context, appOpenEvent *application.AppOpenEvent) error {
 		fmt.Println(ctx.GetRequestID())

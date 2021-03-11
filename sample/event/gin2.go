@@ -4,14 +4,18 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/test"
+	"github.com/larksuite/oapi-sdk-go/core/constants"
 	"github.com/larksuite/oapi-sdk-go/core/tools"
 	"github.com/larksuite/oapi-sdk-go/event"
 	eventhttp "github.com/larksuite/oapi-sdk-go/event/http"
+	"github.com/larksuite/oapi-sdk-go/sample/configs"
 	application "github.com/larksuite/oapi-sdk-go/service/application/v1"
 )
 
-var conf = test.GetISVConf("staging")
+// for redis store and logrus
+// var conf = configs.TestConfigWithLogrusAndRedisStore(constants.DomainFeiShu)
+// var conf = configs.TestConfig("https://open.feishu.cn")
+var conf = configs.TestConfig(constants.DomainFeiShu)
 
 func main() {
 

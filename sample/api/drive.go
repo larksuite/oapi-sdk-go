@@ -8,14 +8,18 @@ import (
 	"github.com/larksuite/oapi-sdk-go/api/core/request"
 	"github.com/larksuite/oapi-sdk-go/api/core/response"
 	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/test"
+	"github.com/larksuite/oapi-sdk-go/core/constants"
 	"github.com/larksuite/oapi-sdk-go/core/tools"
+	"github.com/larksuite/oapi-sdk-go/sample/configs"
 	drivev1 "github.com/larksuite/oapi-sdk-go/service/drive/v1"
 	"hash/adler32"
 	"io"
 )
 
-var driveService = drivev1.NewService(test.GetInternalConf("online"))
+// for redis store and logrus
+// configs.TestConfigWithLogrusAndRedisStore(constants.DomainFeiShu)
+// configs.TestConfig("https://open.feishu.cn")
+var driveService = drivev1.NewService(configs.TestConfig(constants.DomainFeiShu))
 
 func main() {
 	testFileUploadAll()
