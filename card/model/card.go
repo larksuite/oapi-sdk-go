@@ -51,8 +51,8 @@ type Card struct {
 }
 
 type Action struct {
-	Value    map[string]string `json:"value"`
-	Tag      string            `json:"tag"`
-	Option   string            `json:"option"`
-	Timezone string            `json:"timezone"`
+	Value    map[string]interface{} `json:"value"`
+	Tag      string                 `json:"tag"`
+	Option   string                 `json:"option"`
+	Timezone string                 `json:"timezone"`
 }
