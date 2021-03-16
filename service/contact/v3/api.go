@@ -225,7 +225,6 @@ func (users *UserService) Delete(ctx *core.Context, body *UserDeleteReqBody, opt
 type DepartmentListReqCall struct {
 	ctx         *core.Context
 	departments *DepartmentService
-	body        *DepartmentListReqBody
 
 	queryParams map[string]interface{}
 	optFns      []request.OptFn
@@ -240,6 +239,9 @@ func (rc *DepartmentListReqCall) SetDepartmentIdType(departmentIdType string) {
 func (rc *DepartmentListReqCall) SetParentDepartmentId(parentDepartmentId string) {
 	rc.queryParams["parent_department_id"] = parentDepartmentId
 }
+func (rc *DepartmentListReqCall) SetFetchChild(fetchChild bool) {
+	rc.queryParams["fetch_child"] = fetchChild
+}
 func (rc *DepartmentListReqCall) SetPageToken(pageToken string) {
 	rc.queryParams["page_token"] = pageToken
 }
@@ -251,16 +253,15 @@ func (rc *DepartmentListReqCall) Do() (*DepartmentListResult, error) {
 	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
 	var result = &DepartmentListResult{}
 	req := request.NewRequest(httpPath, "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.departments.service.conf, req)
 	return result, err
 }
 
-func (departments *DepartmentService) List(ctx *core.Context, body *DepartmentListReqBody, optFns ...request.OptFn) *DepartmentListReqCall {
+func (departments *DepartmentService) List(ctx *core.Context, optFns ...request.OptFn) *DepartmentListReqCall {
 	return &DepartmentListReqCall{
 		ctx:         ctx,
 		departments: departments,
-		body:        body,
 		queryParams: map[string]interface{}{},
 		optFns:      optFns,
 	}

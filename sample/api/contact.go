@@ -17,11 +17,10 @@ import (
 var contactService = contact.NewService(configs.TestConfig(constants.DomainFeiShu))
 
 func main() {
-	testUserServiceList()
-	testDepartmentServiceUpdate()
+	//testUserServiceList()
+	testDepartmentServiceList()
 }
 func testUserServiceList() {
-
 	coreCtx := core.WrapContext(context.Background())
 	reqCall := contactService.Users.List(coreCtx)
 	reqCall.SetDepartmentIdType("open_id")
@@ -40,21 +39,13 @@ func testUserServiceList() {
 	fmt.Printf("reault:%s", tools.Prettify(result))
 }
 
-func testDepartmentServiceUpdate() {
+func testDepartmentServiceList() {
 	coreCtx := core.WrapContext(context.Background())
-	updateBody := &contact.Department{
-		Name:               "xxxxx",
-		ParentDepartmentId: "od_xxxxxx",
-		LeaderUserId:       "ou-xxxxxxx",
-		Order:              666,
-		CreateGroupChat:    false,
-	}
-	reqCall := contactService.Departments.Create(coreCtx, updateBody)
+	reqCall := contactService.Departments.List(coreCtx)
 	reqCall.SetDepartmentIdType("open_department_id")
 	reqCall.SetUserIdType("open_id")
-	reqCall.SetClientToken("xxxxxxx")
 	result, err := reqCall.Do()
-	fmt.Printf("request_id:%s", coreCtx.GetRequestID())
+	fmt.Printf("request_id:%s\n", coreCtx.GetRequestID())
 	fmt.Printf("http status code:%d", coreCtx.GetHTTPStatusCode())
 	if err != nil {
 		e := err.(*response.Error)

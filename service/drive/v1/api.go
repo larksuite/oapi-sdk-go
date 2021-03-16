@@ -14,10 +14,12 @@ import (
 const serviceBasePath = "drive/v1"
 
 type Service struct {
-	conf     *config.Config
-	basePath string
-	Medias   *MediaService
-	Files    *FileService
+	conf              *config.Config
+	basePath          string
+	Files             *FileService
+	Medias            *MediaService
+	FileCommentReplys *FileCommentReplyService
+	FileComments      *FileCommentService
 }
 
 func NewService(conf *config.Config) *Service {
@@ -25,19 +27,11 @@ func NewService(conf *config.Config) *Service {
 		conf:     conf,
 		basePath: serviceBasePath,
 	}
-	s.Medias = newMediaService(s)
 	s.Files = newFileService(s)
+	s.Medias = newMediaService(s)
+	s.FileCommentReplys = newFileCommentReplyService(s)
+	s.FileComments = newFileCommentService(s)
 	return s
-}
-
-type MediaService struct {
-	service *Service
-}
-
-func newMediaService(service *Service) *MediaService {
-	return &MediaService{
-		service: service,
-	}
 }
 
 type FileService struct {
@@ -50,55 +44,33 @@ func newFileService(service *Service) *FileService {
 	}
 }
 
-type FileUploadPrepareReqCall struct {
-	ctx   *core.Context
-	files *FileService
-	body  *UploadInfo
-
-	optFns []request.OptFn
+type MediaService struct {
+	service *Service
 }
 
-func (rc *FileUploadPrepareReqCall) Do() (*FileUploadPrepareResult, error) {
-	httpPath := path.Join(rc.files.service.basePath, "files/upload_prepare")
-	var result = &FileUploadPrepareResult{}
-	req := request.NewRequest(httpPath, "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.files.service.conf, req)
-	return result, err
-}
-
-func (files *FileService) UploadPrepare(ctx *core.Context, body *UploadInfo, optFns ...request.OptFn) *FileUploadPrepareReqCall {
-	return &FileUploadPrepareReqCall{
-		ctx:    ctx,
-		files:  files,
-		body:   body,
-		optFns: optFns,
+func newMediaService(service *Service) *MediaService {
+	return &MediaService{
+		service: service,
 	}
 }
 
-type MediaUploadPrepareReqCall struct {
-	ctx    *core.Context
-	medias *MediaService
-	body   *UploadInfo
-
-	optFns []request.OptFn
+type FileCommentReplyService struct {
+	service *Service
 }
 
-func (rc *MediaUploadPrepareReqCall) Do() (*MediaUploadPrepareResult, error) {
-	httpPath := path.Join(rc.medias.service.basePath, "medias/upload_prepare")
-	var result = &MediaUploadPrepareResult{}
-	req := request.NewRequest(httpPath, "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.medias.service.conf, req)
-	return result, err
+func newFileCommentReplyService(service *Service) *FileCommentReplyService {
+	return &FileCommentReplyService{
+		service: service,
+	}
 }
 
-func (medias *MediaService) UploadPrepare(ctx *core.Context, body *UploadInfo, optFns ...request.OptFn) *MediaUploadPrepareReqCall {
-	return &MediaUploadPrepareReqCall{
-		ctx:    ctx,
-		medias: medias,
-		body:   body,
-		optFns: optFns,
+type FileCommentService struct {
+	service *Service
+}
+
+func newFileCommentService(service *Service) *FileCommentService {
+	return &FileCommentService{
+		service: service,
 	}
 }
 
@@ -143,42 +115,97 @@ func (medias *MediaService) UploadPart(ctx *core.Context, optFns ...request.OptF
 	}
 }
 
-type FileUploadPartReqCall struct {
+type FileUploadFinishReqCall struct {
 	ctx   *core.Context
 	files *FileService
-	body  *request.FormData
+	body  *FileUploadFinishReqBody
 
 	optFns []request.OptFn
 }
 
-func (rc *FileUploadPartReqCall) SetUploadId(uploadId string) {
-	rc.body.AddParam("upload_id", uploadId)
-}
-func (rc *FileUploadPartReqCall) SetSeq(seq int) {
-	rc.body.AddParam("seq", seq)
-}
-func (rc *FileUploadPartReqCall) SetSize(size int) {
-	rc.body.AddParam("size", size)
-}
-func (rc *FileUploadPartReqCall) SetChecksum(checksum string) {
-	rc.body.AddParam("checksum", checksum)
-}
-func (rc *FileUploadPartReqCall) SetFile(file *request.File) {
-	rc.body.AddFile("file", file)
-}
-func (rc *FileUploadPartReqCall) Do() (*response.NoData, error) {
-	httpPath := path.Join(rc.files.service.basePath, "files/upload_part")
-	var result = &response.NoData{}
+func (rc *FileUploadFinishReqCall) Do() (*FileUploadFinishResult, error) {
+	httpPath := path.Join(rc.files.service.basePath, "files/upload_finish")
+	var result = &FileUploadFinishResult{}
 	req := request.NewRequest(httpPath, "POST",
 		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.files.service.conf, req)
 	return result, err
 }
 
-func (files *FileService) UploadPart(ctx *core.Context, optFns ...request.OptFn) *FileUploadPartReqCall {
-	return &FileUploadPartReqCall{
+func (files *FileService) UploadFinish(ctx *core.Context, body *FileUploadFinishReqBody, optFns ...request.OptFn) *FileUploadFinishReqCall {
+	return &FileUploadFinishReqCall{
 		ctx:    ctx,
 		files:  files,
+		body:   body,
+		optFns: optFns,
+	}
+}
+
+type FileUploadPrepareReqCall struct {
+	ctx   *core.Context
+	files *FileService
+	body  *UploadInfo
+
+	optFns []request.OptFn
+}
+
+func (rc *FileUploadPrepareReqCall) Do() (*FileUploadPrepareResult, error) {
+	httpPath := path.Join(rc.files.service.basePath, "files/upload_prepare")
+	var result = &FileUploadPrepareResult{}
+	req := request.NewRequest(httpPath, "POST",
+		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.files.service.conf, req)
+	return result, err
+}
+
+func (files *FileService) UploadPrepare(ctx *core.Context, body *UploadInfo, optFns ...request.OptFn) *FileUploadPrepareReqCall {
+	return &FileUploadPrepareReqCall{
+		ctx:    ctx,
+		files:  files,
+		body:   body,
+		optFns: optFns,
+	}
+}
+
+type MediaUploadAllReqCall struct {
+	ctx    *core.Context
+	medias *MediaService
+	body   *request.FormData
+
+	optFns []request.OptFn
+}
+
+func (rc *MediaUploadAllReqCall) SetFileName(fileName string) {
+	rc.body.AddParam("file_name", fileName)
+}
+func (rc *MediaUploadAllReqCall) SetParentType(parentType string) {
+	rc.body.AddParam("parent_type", parentType)
+}
+func (rc *MediaUploadAllReqCall) SetParentNode(parentNode string) {
+	rc.body.AddParam("parent_node", parentNode)
+}
+func (rc *MediaUploadAllReqCall) SetSize(size int) {
+	rc.body.AddParam("size", size)
+}
+func (rc *MediaUploadAllReqCall) SetChecksum(checksum string) {
+	rc.body.AddParam("checksum", checksum)
+}
+func (rc *MediaUploadAllReqCall) SetFile(file *request.File) {
+	rc.body.AddFile("file", file)
+}
+func (rc *MediaUploadAllReqCall) Do() (*MediaUploadAllResult, error) {
+	httpPath := path.Join(rc.medias.service.basePath, "medias/upload_all")
+	var result = &MediaUploadAllResult{}
+	req := request.NewRequest(httpPath, "POST",
+		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.medias.service.conf, req)
+	return result, err
+}
+
+func (medias *MediaService) UploadAll(ctx *core.Context, optFns ...request.OptFn) *MediaUploadAllReqCall {
+	return &MediaUploadAllReqCall{
+		ctx:    ctx,
+		medias: medias,
 		body:   request.NewFormData(),
 		optFns: optFns,
 	}
@@ -205,32 +232,6 @@ func (medias *MediaService) UploadFinish(ctx *core.Context, body *MediaUploadFin
 	return &MediaUploadFinishReqCall{
 		ctx:    ctx,
 		medias: medias,
-		body:   body,
-		optFns: optFns,
-	}
-}
-
-type FileUploadFinishReqCall struct {
-	ctx   *core.Context
-	files *FileService
-	body  *FileUploadFinishReqBody
-
-	optFns []request.OptFn
-}
-
-func (rc *FileUploadFinishReqCall) Do() (*FileUploadFinishResult, error) {
-	httpPath := path.Join(rc.files.service.basePath, "files/upload_finish")
-	var result = &FileUploadFinishResult{}
-	req := request.NewRequest(httpPath, "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.files.service.conf, req)
-	return result, err
-}
-
-func (files *FileService) UploadFinish(ctx *core.Context, body *FileUploadFinishReqBody, optFns ...request.OptFn) *FileUploadFinishReqCall {
-	return &FileUploadFinishReqCall{
-		ctx:    ctx,
-		files:  files,
 		body:   body,
 		optFns: optFns,
 	}
@@ -280,81 +281,100 @@ func (files *FileService) UploadAll(ctx *core.Context, optFns ...request.OptFn) 
 	}
 }
 
-type MediaUploadAllReqCall struct {
+type MediaUploadPrepareReqCall struct {
 	ctx    *core.Context
 	medias *MediaService
-	body   *request.FormData
+	body   *UploadInfo
 
 	optFns []request.OptFn
 }
 
-func (rc *MediaUploadAllReqCall) SetFileName(fileName string) {
-	rc.body.AddParam("file_name", fileName)
-}
-func (rc *MediaUploadAllReqCall) SetParentType(parentType string) {
-	rc.body.AddParam("parent_type", parentType)
-}
-func (rc *MediaUploadAllReqCall) SetParentNode(parentNode string) {
-	rc.body.AddParam("parent_node", parentNode)
-}
-func (rc *MediaUploadAllReqCall) SetSize(size int) {
-	rc.body.AddParam("size", size)
-}
-func (rc *MediaUploadAllReqCall) SetChecksum(checksum string) {
-	rc.body.AddParam("checksum", checksum)
-}
-func (rc *MediaUploadAllReqCall) SetFile(file *request.File) {
-	rc.body.AddFile("file", file)
-}
-func (rc *MediaUploadAllReqCall) Do() (*MediaUploadAllResult, error) {
-	httpPath := path.Join(rc.medias.service.basePath, "medias/upload_all")
-	var result = &MediaUploadAllResult{}
+func (rc *MediaUploadPrepareReqCall) Do() (*MediaUploadPrepareResult, error) {
+	httpPath := path.Join(rc.medias.service.basePath, "medias/upload_prepare")
+	var result = &MediaUploadPrepareResult{}
 	req := request.NewRequest(httpPath, "POST",
 		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.medias.service.conf, req)
 	return result, err
 }
 
-func (medias *MediaService) UploadAll(ctx *core.Context, optFns ...request.OptFn) *MediaUploadAllReqCall {
-	return &MediaUploadAllReqCall{
+func (medias *MediaService) UploadPrepare(ctx *core.Context, body *UploadInfo, optFns ...request.OptFn) *MediaUploadPrepareReqCall {
+	return &MediaUploadPrepareReqCall{
 		ctx:    ctx,
 		medias: medias,
+		body:   body,
+		optFns: optFns,
+	}
+}
+
+type FileUploadPartReqCall struct {
+	ctx   *core.Context
+	files *FileService
+	body  *request.FormData
+
+	optFns []request.OptFn
+}
+
+func (rc *FileUploadPartReqCall) SetUploadId(uploadId string) {
+	rc.body.AddParam("upload_id", uploadId)
+}
+func (rc *FileUploadPartReqCall) SetSeq(seq int) {
+	rc.body.AddParam("seq", seq)
+}
+func (rc *FileUploadPartReqCall) SetSize(size int) {
+	rc.body.AddParam("size", size)
+}
+func (rc *FileUploadPartReqCall) SetChecksum(checksum string) {
+	rc.body.AddParam("checksum", checksum)
+}
+func (rc *FileUploadPartReqCall) SetFile(file *request.File) {
+	rc.body.AddFile("file", file)
+}
+func (rc *FileUploadPartReqCall) Do() (*response.NoData, error) {
+	httpPath := path.Join(rc.files.service.basePath, "files/upload_part")
+	var result = &response.NoData{}
+	req := request.NewRequest(httpPath, "POST",
+		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.files.service.conf, req)
+	return result, err
+}
+
+func (files *FileService) UploadPart(ctx *core.Context, optFns ...request.OptFn) *FileUploadPartReqCall {
+	return &FileUploadPartReqCall{
+		ctx:    ctx,
+		files:  files,
 		body:   request.NewFormData(),
 		optFns: optFns,
 	}
 }
 
-type MediaDownloadReqCall struct {
-	ctx        *core.Context
-	medias     *MediaService
-	pathParams map[string]interface{}
+type MediaBatchGetTmpDownloadUrlReqCall struct {
+	ctx    *core.Context
+	medias *MediaService
 
-	optFns []request.OptFn
-	result io.Writer
+	queryParams map[string]interface{}
+	optFns      []request.OptFn
 }
 
-func (rc *MediaDownloadReqCall) SetFileToken(fileToken string) {
-	rc.pathParams["file_token"] = fileToken
+func (rc *MediaBatchGetTmpDownloadUrlReqCall) SetFileTokens(fileTokens ...string) {
+	rc.queryParams["file_tokens"] = fileTokens
 }
-func (rc *MediaDownloadReqCall) SetResponseStream(result io.Writer) {
-	rc.result = result
-}
-func (rc *MediaDownloadReqCall) Do() (io.Writer, error) {
-	httpPath := path.Join(rc.medias.service.basePath, "medias/:file_token/download")
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetResponseStream())
+func (rc *MediaBatchGetTmpDownloadUrlReqCall) Do() (*MediaBatchGetTmpDownloadUrlResult, error) {
+	httpPath := path.Join(rc.medias.service.basePath, "medias/batch_get_tmp_download_url")
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &MediaBatchGetTmpDownloadUrlResult{}
 	req := request.NewRequest(httpPath, "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, nil, rc.result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeUser}, nil, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.medias.service.conf, req)
-	return rc.result, err
+	return result, err
 }
 
-func (medias *MediaService) Download(ctx *core.Context, optFns ...request.OptFn) *MediaDownloadReqCall {
-	return &MediaDownloadReqCall{
-		ctx:        ctx,
-		medias:     medias,
-		pathParams: map[string]interface{}{},
-		optFns:     optFns,
+func (medias *MediaService) BatchGetTmpDownloadUrl(ctx *core.Context, optFns ...request.OptFn) *MediaBatchGetTmpDownloadUrlReqCall {
+	return &MediaBatchGetTmpDownloadUrlReqCall{
+		ctx:         ctx,
+		medias:      medias,
+		queryParams: map[string]interface{}{},
+		optFns:      optFns,
 	}
 }
 
@@ -392,32 +412,330 @@ func (files *FileService) Download(ctx *core.Context, optFns ...request.OptFn) *
 	}
 }
 
-type MediaBatchGetTmpDownloadUrlReqCall struct {
-	ctx    *core.Context
-	medias *MediaService
+type MediaDownloadReqCall struct {
+	ctx        *core.Context
+	medias     *MediaService
+	pathParams map[string]interface{}
+
+	optFns []request.OptFn
+	result io.Writer
+}
+
+func (rc *MediaDownloadReqCall) SetFileToken(fileToken string) {
+	rc.pathParams["file_token"] = fileToken
+}
+func (rc *MediaDownloadReqCall) SetResponseStream(result io.Writer) {
+	rc.result = result
+}
+func (rc *MediaDownloadReqCall) Do() (io.Writer, error) {
+	httpPath := path.Join(rc.medias.service.basePath, "medias/:file_token/download")
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.optFns = append(rc.optFns, request.SetResponseStream())
+	req := request.NewRequest(httpPath, "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeUser}, nil, rc.result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.medias.service.conf, req)
+	return rc.result, err
+}
+
+func (medias *MediaService) Download(ctx *core.Context, optFns ...request.OptFn) *MediaDownloadReqCall {
+	return &MediaDownloadReqCall{
+		ctx:        ctx,
+		medias:     medias,
+		pathParams: map[string]interface{}{},
+		optFns:     optFns,
+	}
+}
+
+type FileSubscribeReqCall struct {
+	ctx        *core.Context
+	files      *FileService
+	pathParams map[string]interface{}
 
 	queryParams map[string]interface{}
 	optFns      []request.OptFn
 }
 
-func (rc *MediaBatchGetTmpDownloadUrlReqCall) SetFileTokens(fileTokens ...string) {
-	rc.queryParams["file_tokens"] = fileTokens
+func (rc *FileSubscribeReqCall) SetFileToken(fileToken string) {
+	rc.pathParams["file_token"] = fileToken
 }
-func (rc *MediaBatchGetTmpDownloadUrlReqCall) Do() (*MediaBatchGetTmpDownloadUrlResult, error) {
-	httpPath := path.Join(rc.medias.service.basePath, "medias/batch_get_tmp_download_url")
+func (rc *FileSubscribeReqCall) SetFileType(fileType string) {
+	rc.queryParams["file_type"] = fileType
+}
+func (rc *FileSubscribeReqCall) Do() (*response.NoData, error) {
+	httpPath := path.Join(rc.files.service.basePath, "files/:file_token/subscribe")
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
 	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &MediaBatchGetTmpDownloadUrlResult{}
-	req := request.NewRequest(httpPath, "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, nil, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.medias.service.conf, req)
+	var result = &response.NoData{}
+	req := request.NewRequest(httpPath, "POST",
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.files.service.conf, req)
 	return result, err
 }
 
-func (medias *MediaService) BatchGetTmpDownloadUrl(ctx *core.Context, optFns ...request.OptFn) *MediaBatchGetTmpDownloadUrlReqCall {
-	return &MediaBatchGetTmpDownloadUrlReqCall{
+func (files *FileService) Subscribe(ctx *core.Context, optFns ...request.OptFn) *FileSubscribeReqCall {
+	return &FileSubscribeReqCall{
 		ctx:         ctx,
-		medias:      medias,
+		files:       files,
+		pathParams:  map[string]interface{}{},
 		queryParams: map[string]interface{}{},
 		optFns:      optFns,
+	}
+}
+
+type FileCommentCreateReqCall struct {
+	ctx          *core.Context
+	fileComments *FileCommentService
+	body         *FileComment
+	pathParams   map[string]interface{}
+
+	queryParams map[string]interface{}
+	optFns      []request.OptFn
+}
+
+func (rc *FileCommentCreateReqCall) SetFileToken(fileToken string) {
+	rc.pathParams["file_token"] = fileToken
+}
+func (rc *FileCommentCreateReqCall) SetFileType(fileType string) {
+	rc.queryParams["file_type"] = fileType
+}
+func (rc *FileCommentCreateReqCall) SetUserIdType(userIdType string) {
+	rc.queryParams["user_id_type"] = userIdType
+}
+func (rc *FileCommentCreateReqCall) Do() (*FileComment, error) {
+	httpPath := path.Join(rc.fileComments.service.basePath, "files/:file_token/comments")
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &FileComment{}
+	req := request.NewRequest(httpPath, "POST",
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.fileComments.service.conf, req)
+	return result, err
+}
+
+func (fileComments *FileCommentService) Create(ctx *core.Context, body *FileComment, optFns ...request.OptFn) *FileCommentCreateReqCall {
+	return &FileCommentCreateReqCall{
+		ctx:          ctx,
+		fileComments: fileComments,
+		body:         body,
+		pathParams:   map[string]interface{}{},
+		queryParams:  map[string]interface{}{},
+		optFns:       optFns,
+	}
+}
+
+type FileCommentGetReqCall struct {
+	ctx          *core.Context
+	fileComments *FileCommentService
+	pathParams   map[string]interface{}
+
+	queryParams map[string]interface{}
+	optFns      []request.OptFn
+}
+
+func (rc *FileCommentGetReqCall) SetFileToken(fileToken string) {
+	rc.pathParams["file_token"] = fileToken
+}
+func (rc *FileCommentGetReqCall) SetCommentId(commentId int64) {
+	rc.pathParams["comment_id"] = commentId
+}
+func (rc *FileCommentGetReqCall) SetFileType(fileType string) {
+	rc.queryParams["file_type"] = fileType
+}
+func (rc *FileCommentGetReqCall) SetUserIdType(userIdType string) {
+	rc.queryParams["user_id_type"] = userIdType
+}
+func (rc *FileCommentGetReqCall) Do() (*FileComment, error) {
+	httpPath := path.Join(rc.fileComments.service.basePath, "files/:file_token/comments/:comment_id")
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &FileComment{}
+	req := request.NewRequest(httpPath, "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.fileComments.service.conf, req)
+	return result, err
+}
+
+func (fileComments *FileCommentService) Get(ctx *core.Context, optFns ...request.OptFn) *FileCommentGetReqCall {
+	return &FileCommentGetReqCall{
+		ctx:          ctx,
+		fileComments: fileComments,
+		pathParams:   map[string]interface{}{},
+		queryParams:  map[string]interface{}{},
+		optFns:       optFns,
+	}
+}
+
+type FileCommentReplyUpdateReqCall struct {
+	ctx               *core.Context
+	fileCommentReplys *FileCommentReplyService
+	body              *FileCommentReplyUpdateReqBody
+	pathParams        map[string]interface{}
+
+	queryParams map[string]interface{}
+	optFns      []request.OptFn
+}
+
+func (rc *FileCommentReplyUpdateReqCall) SetFileToken(fileToken string) {
+	rc.pathParams["file_token"] = fileToken
+}
+func (rc *FileCommentReplyUpdateReqCall) SetCommentId(commentId int64) {
+	rc.pathParams["comment_id"] = commentId
+}
+func (rc *FileCommentReplyUpdateReqCall) SetReplyId(replyId int64) {
+	rc.pathParams["reply_id"] = replyId
+}
+func (rc *FileCommentReplyUpdateReqCall) SetFileType(fileType string) {
+	rc.queryParams["file_type"] = fileType
+}
+func (rc *FileCommentReplyUpdateReqCall) Do() (*response.NoData, error) {
+	httpPath := path.Join(rc.fileCommentReplys.service.basePath, "files/:file_token/comments/:comment_id/replies/:reply_id")
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &response.NoData{}
+	req := request.NewRequest(httpPath, "PUT",
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.fileCommentReplys.service.conf, req)
+	return result, err
+}
+
+func (fileCommentReplys *FileCommentReplyService) Update(ctx *core.Context, body *FileCommentReplyUpdateReqBody, optFns ...request.OptFn) *FileCommentReplyUpdateReqCall {
+	return &FileCommentReplyUpdateReqCall{
+		ctx:               ctx,
+		fileCommentReplys: fileCommentReplys,
+		body:              body,
+		pathParams:        map[string]interface{}{},
+		queryParams:       map[string]interface{}{},
+		optFns:            optFns,
+	}
+}
+
+type FileCommentListReqCall struct {
+	ctx          *core.Context
+	fileComments *FileCommentService
+	pathParams   map[string]interface{}
+
+	queryParams map[string]interface{}
+	optFns      []request.OptFn
+}
+
+func (rc *FileCommentListReqCall) SetFileToken(fileToken string) {
+	rc.pathParams["file_token"] = fileToken
+}
+func (rc *FileCommentListReqCall) SetFileType(fileType string) {
+	rc.queryParams["file_type"] = fileType
+}
+func (rc *FileCommentListReqCall) SetUserIdType(userIdType string) {
+	rc.queryParams["user_id_type"] = userIdType
+}
+func (rc *FileCommentListReqCall) SetIsSolved(isSolved bool) {
+	rc.queryParams["is_solved"] = isSolved
+}
+func (rc *FileCommentListReqCall) SetPageToken(pageToken string) {
+	rc.queryParams["page_token"] = pageToken
+}
+func (rc *FileCommentListReqCall) SetPageSize(pageSize int) {
+	rc.queryParams["page_size"] = pageSize
+}
+func (rc *FileCommentListReqCall) Do() (*FileCommentListResult, error) {
+	httpPath := path.Join(rc.fileComments.service.basePath, "files/:file_token/comments")
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &FileCommentListResult{}
+	req := request.NewRequest(httpPath, "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.fileComments.service.conf, req)
+	return result, err
+}
+
+func (fileComments *FileCommentService) List(ctx *core.Context, optFns ...request.OptFn) *FileCommentListReqCall {
+	return &FileCommentListReqCall{
+		ctx:          ctx,
+		fileComments: fileComments,
+		pathParams:   map[string]interface{}{},
+		queryParams:  map[string]interface{}{},
+		optFns:       optFns,
+	}
+}
+
+type FileCommentPatchReqCall struct {
+	ctx          *core.Context
+	fileComments *FileCommentService
+	body         *FileCommentPatchReqBody
+	pathParams   map[string]interface{}
+
+	queryParams map[string]interface{}
+	optFns      []request.OptFn
+}
+
+func (rc *FileCommentPatchReqCall) SetFileToken(fileToken string) {
+	rc.pathParams["file_token"] = fileToken
+}
+func (rc *FileCommentPatchReqCall) SetCommentId(commentId int64) {
+	rc.pathParams["comment_id"] = commentId
+}
+func (rc *FileCommentPatchReqCall) SetFileType(fileType string) {
+	rc.queryParams["file_type"] = fileType
+}
+func (rc *FileCommentPatchReqCall) Do() (*response.NoData, error) {
+	httpPath := path.Join(rc.fileComments.service.basePath, "files/:file_token/comments/:comment_id")
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &response.NoData{}
+	req := request.NewRequest(httpPath, "PATCH",
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.fileComments.service.conf, req)
+	return result, err
+}
+
+func (fileComments *FileCommentService) Patch(ctx *core.Context, body *FileCommentPatchReqBody, optFns ...request.OptFn) *FileCommentPatchReqCall {
+	return &FileCommentPatchReqCall{
+		ctx:          ctx,
+		fileComments: fileComments,
+		body:         body,
+		pathParams:   map[string]interface{}{},
+		queryParams:  map[string]interface{}{},
+		optFns:       optFns,
+	}
+}
+
+type FileCommentReplyDeleteReqCall struct {
+	ctx               *core.Context
+	fileCommentReplys *FileCommentReplyService
+	pathParams        map[string]interface{}
+
+	queryParams map[string]interface{}
+	optFns      []request.OptFn
+}
+
+func (rc *FileCommentReplyDeleteReqCall) SetFileToken(fileToken string) {
+	rc.pathParams["file_token"] = fileToken
+}
+func (rc *FileCommentReplyDeleteReqCall) SetCommentId(commentId int64) {
+	rc.pathParams["comment_id"] = commentId
+}
+func (rc *FileCommentReplyDeleteReqCall) SetReplyId(replyId int64) {
+	rc.pathParams["reply_id"] = replyId
+}
+func (rc *FileCommentReplyDeleteReqCall) SetFileType(fileType string) {
+	rc.queryParams["file_type"] = fileType
+}
+func (rc *FileCommentReplyDeleteReqCall) Do() (*response.NoData, error) {
+	httpPath := path.Join(rc.fileCommentReplys.service.basePath, "files/:file_token/comments/:comment_id/replies/:reply_id")
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &response.NoData{}
+	req := request.NewRequest(httpPath, "DELETE",
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.fileCommentReplys.service.conf, req)
+	return result, err
+}
+
+func (fileCommentReplys *FileCommentReplyService) Delete(ctx *core.Context, optFns ...request.OptFn) *FileCommentReplyDeleteReqCall {
+	return &FileCommentReplyDeleteReqCall{
+		ctx:               ctx,
+		fileCommentReplys: fileCommentReplys,
+		pathParams:        map[string]interface{}{},
+		queryParams:       map[string]interface{}{},
+		optFns:            optFns,
 	}
 }
