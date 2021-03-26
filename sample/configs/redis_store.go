@@ -29,6 +29,9 @@ func (rs *RedisStore) Get(ctx context.Context, key string) (string, error) {
 		panic("redis client is not initialized")
 	}
 	value, err := rs.client.Get(ctx, key).Result()
+	if err == redis.Nil {
+		return "", nil
+	}
 	if err != nil {
 		return "", err
 	}
