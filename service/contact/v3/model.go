@@ -125,6 +125,18 @@ func (s *GroupEvent) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
+type NotificationOption struct {
+	Channels        []string `json:"channels,omitempty"`
+	Language        string   `json:"language,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *NotificationOption) MarshalJSON() ([]byte, error) {
+	type cp NotificationOption
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
 type Scope struct {
 	Departments     []*Department `json:"departments,omitempty"`
 	Users           []*User       `json:"users,omitempty"`
@@ -156,7 +168,7 @@ type User struct {
 	City            string            `json:"city,omitempty"`
 	Country         string            `json:"country,omitempty"`
 	WorkStation     string            `json:"work_station,omitempty"`
-	JoinTime        string            `json:"join_time,omitempty"`
+	JoinTime        int               `json:"join_time,omitempty"`
 	IsTenantManager bool              `json:"is_tenant_manager,omitempty"`
 	EmployeeNo      string            `json:"employee_no,omitempty"`
 	EmployeeType    int               `json:"employee_type,omitempty"`

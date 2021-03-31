@@ -19,8 +19,8 @@ import (
 var imageService = image.NewService(configs.TestConfig(constants.DomainFeiShu))
 
 func main() {
-	testUpload()
-	//testDownload()
+	//testUpload()
+	testDownload()
 }
 
 func testUpload() {
@@ -59,7 +59,7 @@ func testDownload() {
 	ctx := context.Background()
 	coreCtx := core.WrapContext(ctx)
 	reqCall := imageService.Images.Get(coreCtx)
-	reqCall.SetImageKey("img_dd33673a-0f77-4bde-8ad0-xxxxxxxxx")
+	reqCall.SetImageKey("img_800c6035-7db8-4844-bc85-01a74d6e5cag")
 	reqCall.SetResponseStream(f)
 	_, err = reqCall.Do()
 	fmt.Println(coreCtx.GetRequestID())

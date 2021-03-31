@@ -38,7 +38,7 @@ func testSendCardMessage() {
 		panic(err)
 	}
 	body := map[string]interface{}{
-		"open_id":  "[open_id]",
+		"user_id":  "77bbc392",
 		"msg_type": "interactive",
 		"card":     card,
 	}

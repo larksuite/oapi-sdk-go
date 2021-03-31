@@ -429,9 +429,6 @@ func (rc *UserCreateReqCall) SetDepartmentIdType(departmentIdType string) {
 func (rc *UserCreateReqCall) SetClientToken(clientToken string) {
 	rc.queryParams["client_token"] = clientToken
 }
-func (rc *UserCreateReqCall) SetNeedSendNotification(needSendNotification bool) {
-	rc.queryParams["need_send_notification"] = needSendNotification
-}
 func (rc *UserCreateReqCall) Do() (*UserCreateResult, error) {
 	httpPath := path.Join(rc.users.service.basePath, "users")
 	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))

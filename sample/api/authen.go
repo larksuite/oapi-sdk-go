@@ -28,7 +28,7 @@ func testAccessToken() {
 	coreCtx := core.WrapContext(ctx)
 	body := &authen.AuthenAccessTokenReqBody{
 		GrantType: "authorization_code",
-		Code:      "[code]",
+		Code:      "476Bsaz9mCDIAOmjIOjD4a",
 	}
 	reqCall := authenService.Authens.AccessToken(coreCtx, body)
 

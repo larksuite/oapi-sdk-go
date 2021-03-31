@@ -524,6 +524,7 @@ readCloser, err := tools.DownloadFileToStream(ctx context.Context, url string)
 |[图片](https://open.feishu.cn/document/ukTMukTMukTM/uEDO04SM4QjLxgDN)|v4|[service/image](service/image)|[sample/api/image.go](sample/api/image.go)|
 |[通讯录](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/introduction)|v3|[service/contact](service/contact)|[sample/api/contact.go](sample/api/contact.go)|
 |[日历](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN)|v4|[service/calendar](service/calendar)|[sample/api/calendar.go](sample/api/calendar.go)|
+|[视频会议](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/videoconference/guide)|v1|[service/vc](service/vc)|[sample/api/vc.go](sample/api/vc.go)|
 |[云空间文件](https://open.feishu.cn/document/ukTMukTMukTM/uUjM5YjL1ITO24SNykjN)|v1|[service/drive](service/drive)|[sample/api/drive.go](sample/api/drive.go)|
 
 ## License
