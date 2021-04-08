@@ -7,14 +7,10 @@ import (
 	"github.com/larksuite/oapi-sdk-go/api/core/response"
 	"github.com/larksuite/oapi-sdk-go/core"
 	"github.com/larksuite/oapi-sdk-go/core/config"
-	"path"
 )
-
-const serviceBasePath = "vc/v1"
 
 type Service struct {
 	conf              *config.Config
-	basePath          string
 	MeetingRecordings *MeetingRecordingService
 	Meetings          *MeetingService
 	Reports           *ReportService
@@ -24,8 +20,7 @@ type Service struct {
 
 func NewService(conf *config.Config) *Service {
 	s := &Service{
-		conf:     conf,
-		basePath: serviceBasePath,
+		conf: conf,
 	}
 	s.MeetingRecordings = newMeetingRecordingService(s)
 	s.Meetings = newMeetingService(s)
@@ -88,7 +83,6 @@ func newReserveService(service *Service) *ReserveService {
 type RoomConfigQueryReqCall struct {
 	ctx         *core.Context
 	roomConfigs *RoomConfigService
-
 	queryParams map[string]interface{}
 	optFns      []request.OptFn
 }
@@ -111,11 +105,11 @@ func (rc *RoomConfigQueryReqCall) SetFloorName(floorName string) {
 func (rc *RoomConfigQueryReqCall) SetRoomId(roomId int64) {
 	rc.queryParams["room_id"] = roomId
 }
+
 func (rc *RoomConfigQueryReqCall) Do() (*RoomConfig, error) {
-	httpPath := path.Join(rc.roomConfigs.service.basePath, "room_configs/query")
 	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
 	var result = &RoomConfig{}
-	req := request.NewRequest(httpPath, "GET",
+	req := request.NewRequest("vc/v1/room_configs/query", "GET",
 		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.roomConfigs.service.conf, req)
 	return result, err
@@ -131,11 +125,10 @@ func (roomConfigs *RoomConfigService) Query(ctx *core.Context, optFns ...request
 }
 
 type MeetingInviteReqCall struct {
-	ctx        *core.Context
-	meetings   *MeetingService
-	body       *MeetingInviteReqBody
-	pathParams map[string]interface{}
-
+	ctx         *core.Context
+	meetings    *MeetingService
+	body        *MeetingInviteReqBody
+	pathParams  map[string]interface{}
 	queryParams map[string]interface{}
 	optFns      []request.OptFn
 }
@@ -146,12 +139,12 @@ func (rc *MeetingInviteReqCall) SetMeetingId(meetingId int64) {
 func (rc *MeetingInviteReqCall) SetUserIdType(userIdType string) {
 	rc.queryParams["user_id_type"] = userIdType
 }
+
 func (rc *MeetingInviteReqCall) Do() (*MeetingInviteResult, error) {
-	httpPath := path.Join(rc.meetings.service.basePath, "meetings/:meeting_id/invite")
 	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
 	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
 	var result = &MeetingInviteResult{}
-	req := request.NewRequest(httpPath, "PATCH",
+	req := request.NewRequest("vc/v1/meetings/:meeting_id/invite", "PATCH",
 		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.meetings.service.conf, req)
 	return result, err
@@ -169,9 +162,8 @@ func (meetings *MeetingService) Invite(ctx *core.Context, body *MeetingInviteReq
 }
 
 type MeetingListReqCall struct {
-	ctx      *core.Context
-	meetings *MeetingService
-
+	ctx         *core.Context
+	meetings    *MeetingService
 	queryParams map[string]interface{}
 	optFns      []request.OptFn
 }
@@ -194,11 +186,11 @@ func (rc *MeetingListReqCall) SetPageToken(pageToken string) {
 func (rc *MeetingListReqCall) SetPageSize(pageSize int) {
 	rc.queryParams["page_size"] = pageSize
 }
+
 func (rc *MeetingListReqCall) Do() (*MeetingListResult, error) {
-	httpPath := path.Join(rc.meetings.service.basePath, "meetings")
 	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
 	var result = &MeetingListResult{}
-	req := request.NewRequest(httpPath, "GET",
+	req := request.NewRequest("vc/v1/meetings", "GET",
 		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.meetings.service.conf, req)
 	return result, err
@@ -214,9 +206,8 @@ func (meetings *MeetingService) List(ctx *core.Context, optFns ...request.OptFn)
 }
 
 type ReportGetTopUserReqCall struct {
-	ctx     *core.Context
-	reports *ReportService
-
+	ctx         *core.Context
+	reports     *ReportService
 	queryParams map[string]interface{}
 	optFns      []request.OptFn
 }
@@ -233,11 +224,11 @@ func (rc *ReportGetTopUserReqCall) SetLimit(limit int) {
 func (rc *ReportGetTopUserReqCall) SetOrderBy(orderBy int) {
 	rc.queryParams["order_by"] = orderBy
 }
+
 func (rc *ReportGetTopUserReqCall) Do() (*ReportGetTopUserResult, error) {
-	httpPath := path.Join(rc.reports.service.basePath, "reports/get_top_user")
 	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
 	var result = &ReportGetTopUserResult{}
-	req := request.NewRequest(httpPath, "GET",
+	req := request.NewRequest("vc/v1/reports/get_top_user", "GET",
 		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.reports.service.conf, req)
 	return result, err
@@ -253,11 +244,10 @@ func (reports *ReportService) GetTopUser(ctx *core.Context, optFns ...request.Op
 }
 
 type MeetingSetHostReqCall struct {
-	ctx        *core.Context
-	meetings   *MeetingService
-	body       *MeetingSetHostReqBody
-	pathParams map[string]interface{}
-
+	ctx         *core.Context
+	meetings    *MeetingService
+	body        *MeetingSetHostReqBody
+	pathParams  map[string]interface{}
 	queryParams map[string]interface{}
 	optFns      []request.OptFn
 }
@@ -268,12 +258,12 @@ func (rc *MeetingSetHostReqCall) SetMeetingId(meetingId int64) {
 func (rc *MeetingSetHostReqCall) SetUserIdType(userIdType string) {
 	rc.queryParams["user_id_type"] = userIdType
 }
+
 func (rc *MeetingSetHostReqCall) Do() (*MeetingSetHostResult, error) {
-	httpPath := path.Join(rc.meetings.service.basePath, "meetings/:meeting_id/set_host")
 	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
 	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
 	var result = &MeetingSetHostResult{}
-	req := request.NewRequest(httpPath, "PATCH",
+	req := request.NewRequest("vc/v1/meetings/:meeting_id/set_host", "PATCH",
 		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.meetings.service.conf, req)
 	return result, err
@@ -294,18 +284,17 @@ type MeetingRecordingGetReqCall struct {
 	ctx               *core.Context
 	meetingRecordings *MeetingRecordingService
 	pathParams        map[string]interface{}
-
-	optFns []request.OptFn
+	optFns            []request.OptFn
 }
 
 func (rc *MeetingRecordingGetReqCall) SetMeetingId(meetingId int64) {
 	rc.pathParams["meeting_id"] = meetingId
 }
+
 func (rc *MeetingRecordingGetReqCall) Do() (*MeetingRecordingGetResult, error) {
-	httpPath := path.Join(rc.meetingRecordings.service.basePath, "meetings/:meeting_id/recording")
 	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
 	var result = &MeetingRecordingGetResult{}
-	req := request.NewRequest(httpPath, "GET",
+	req := request.NewRequest("vc/v1/meetings/:meeting_id/recording", "GET",
 		[]request.AccessTokenType{request.AccessTokenTypeUser}, nil, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.meetingRecordings.service.conf, req)
 	return result, err
@@ -324,18 +313,17 @@ type MeetingEndReqCall struct {
 	ctx        *core.Context
 	meetings   *MeetingService
 	pathParams map[string]interface{}
-
-	optFns []request.OptFn
+	optFns     []request.OptFn
 }
 
 func (rc *MeetingEndReqCall) SetMeetingId(meetingId int64) {
 	rc.pathParams["meeting_id"] = meetingId
 }
+
 func (rc *MeetingEndReqCall) Do() (*response.NoData, error) {
-	httpPath := path.Join(rc.meetings.service.basePath, "meetings/:meeting_id/end")
 	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
 	var result = &response.NoData{}
-	req := request.NewRequest(httpPath, "PATCH",
+	req := request.NewRequest("vc/v1/meetings/:meeting_id/end", "PATCH",
 		[]request.AccessTokenType{request.AccessTokenTypeUser}, nil, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.meetings.service.conf, req)
 	return result, err
@@ -354,18 +342,17 @@ type MeetingRecordingStopReqCall struct {
 	ctx               *core.Context
 	meetingRecordings *MeetingRecordingService
 	pathParams        map[string]interface{}
-
-	optFns []request.OptFn
+	optFns            []request.OptFn
 }
 
 func (rc *MeetingRecordingStopReqCall) SetMeetingId(meetingId int64) {
 	rc.pathParams["meeting_id"] = meetingId
 }
+
 func (rc *MeetingRecordingStopReqCall) Do() (*response.NoData, error) {
-	httpPath := path.Join(rc.meetingRecordings.service.basePath, "meetings/:meeting_id/recording/stop")
 	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
 	var result = &response.NoData{}
-	req := request.NewRequest(httpPath, "PATCH",
+	req := request.NewRequest("vc/v1/meetings/:meeting_id/recording/stop", "PATCH",
 		[]request.AccessTokenType{request.AccessTokenTypeUser}, nil, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.meetingRecordings.service.conf, req)
 	return result, err
@@ -381,9 +368,8 @@ func (meetingRecordings *MeetingRecordingService) Stop(ctx *core.Context, optFns
 }
 
 type ReportGetDailyReqCall struct {
-	ctx     *core.Context
-	reports *ReportService
-
+	ctx         *core.Context
+	reports     *ReportService
 	queryParams map[string]interface{}
 	optFns      []request.OptFn
 }
@@ -394,11 +380,11 @@ func (rc *ReportGetDailyReqCall) SetStartTime(startTime int64) {
 func (rc *ReportGetDailyReqCall) SetEndTime(endTime int64) {
 	rc.queryParams["end_time"] = endTime
 }
+
 func (rc *ReportGetDailyReqCall) Do() (*ReportGetDailyResult, error) {
-	httpPath := path.Join(rc.reports.service.basePath, "reports/get_daily")
 	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
 	var result = &ReportGetDailyResult{}
-	req := request.NewRequest(httpPath, "GET",
+	req := request.NewRequest("vc/v1/reports/get_daily", "GET",
 		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.reports.service.conf, req)
 	return result, err
@@ -414,10 +400,9 @@ func (reports *ReportService) GetDaily(ctx *core.Context, optFns ...request.OptF
 }
 
 type MeetingGetReqCall struct {
-	ctx        *core.Context
-	meetings   *MeetingService
-	pathParams map[string]interface{}
-
+	ctx         *core.Context
+	meetings    *MeetingService
+	pathParams  map[string]interface{}
 	queryParams map[string]interface{}
 	optFns      []request.OptFn
 }
@@ -434,12 +419,12 @@ func (rc *MeetingGetReqCall) SetWithMeetingAbility(withMeetingAbility bool) {
 func (rc *MeetingGetReqCall) SetUserIdType(userIdType string) {
 	rc.queryParams["user_id_type"] = userIdType
 }
+
 func (rc *MeetingGetReqCall) Do() (*MeetingGetResult, error) {
-	httpPath := path.Join(rc.meetings.service.basePath, "meetings/:meeting_id")
 	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
 	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
 	var result = &MeetingGetResult{}
-	req := request.NewRequest(httpPath, "GET",
+	req := request.NewRequest("vc/v1/meetings/:meeting_id", "GET",
 		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.meetings.service.conf, req)
 	return result, err
@@ -459,14 +444,12 @@ type RoomConfigSetReqCall struct {
 	ctx         *core.Context
 	roomConfigs *RoomConfigService
 	body        *RoomConfigSetReqBody
-
-	optFns []request.OptFn
+	optFns      []request.OptFn
 }
 
 func (rc *RoomConfigSetReqCall) Do() (*response.NoData, error) {
-	httpPath := path.Join(rc.roomConfigs.service.basePath, "room_configs/set")
 	var result = &response.NoData{}
-	req := request.NewRequest(httpPath, "POST",
+	req := request.NewRequest("vc/v1/room_configs/set", "POST",
 		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.roomConfigs.service.conf, req)
 	return result, err
@@ -486,9 +469,8 @@ type MeetingRecordingSetPermissionReqCall struct {
 	meetingRecordings *MeetingRecordingService
 	body              *MeetingRecordingSetPermissionReqBody
 	pathParams        map[string]interface{}
-
-	queryParams map[string]interface{}
-	optFns      []request.OptFn
+	queryParams       map[string]interface{}
+	optFns            []request.OptFn
 }
 
 func (rc *MeetingRecordingSetPermissionReqCall) SetMeetingId(meetingId int64) {
@@ -497,12 +479,12 @@ func (rc *MeetingRecordingSetPermissionReqCall) SetMeetingId(meetingId int64) {
 func (rc *MeetingRecordingSetPermissionReqCall) SetUserIdType(userIdType string) {
 	rc.queryParams["user_id_type"] = userIdType
 }
+
 func (rc *MeetingRecordingSetPermissionReqCall) Do() (*response.NoData, error) {
-	httpPath := path.Join(rc.meetingRecordings.service.basePath, "meetings/:meeting_id/recording/set_permission")
 	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
 	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
 	var result = &response.NoData{}
-	req := request.NewRequest(httpPath, "PATCH",
+	req := request.NewRequest("vc/v1/meetings/:meeting_id/recording/set_permission", "PATCH",
 		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.meetingRecordings.service.conf, req)
 	return result, err
@@ -524,18 +506,17 @@ type MeetingRecordingStartReqCall struct {
 	meetingRecordings *MeetingRecordingService
 	body              *MeetingRecordingStartReqBody
 	pathParams        map[string]interface{}
-
-	optFns []request.OptFn
+	optFns            []request.OptFn
 }
 
 func (rc *MeetingRecordingStartReqCall) SetMeetingId(meetingId int64) {
 	rc.pathParams["meeting_id"] = meetingId
 }
+
 func (rc *MeetingRecordingStartReqCall) Do() (*response.NoData, error) {
-	httpPath := path.Join(rc.meetingRecordings.service.basePath, "meetings/:meeting_id/recording/start")
 	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
 	var result = &response.NoData{}
-	req := request.NewRequest(httpPath, "PATCH",
+	req := request.NewRequest("vc/v1/meetings/:meeting_id/recording/start", "PATCH",
 		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.meetingRecordings.service.conf, req)
 	return result, err
@@ -552,11 +533,10 @@ func (meetingRecordings *MeetingRecordingService) Start(ctx *core.Context, body 
 }
 
 type ReserveUpdateReqCall struct {
-	ctx        *core.Context
-	reserves   *ReserveService
-	body       *ReserveUpdateReqBody
-	pathParams map[string]interface{}
-
+	ctx         *core.Context
+	reserves    *ReserveService
+	body        *ReserveUpdateReqBody
+	pathParams  map[string]interface{}
 	queryParams map[string]interface{}
 	optFns      []request.OptFn
 }
@@ -567,12 +547,12 @@ func (rc *ReserveUpdateReqCall) SetReserveId(reserveId int64) {
 func (rc *ReserveUpdateReqCall) SetUserIdType(userIdType string) {
 	rc.queryParams["user_id_type"] = userIdType
 }
+
 func (rc *ReserveUpdateReqCall) Do() (*ReserveUpdateResult, error) {
-	httpPath := path.Join(rc.reserves.service.basePath, "reserves/:reserve_id")
 	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
 	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
 	var result = &ReserveUpdateResult{}
-	req := request.NewRequest(httpPath, "PUT",
+	req := request.NewRequest("vc/v1/reserves/:reserve_id", "PUT",
 		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.reserves.service.conf, req)
 	return result, err
@@ -590,10 +570,9 @@ func (reserves *ReserveService) Update(ctx *core.Context, body *ReserveUpdateReq
 }
 
 type ReserveApplyReqCall struct {
-	ctx      *core.Context
-	reserves *ReserveService
-	body     *ReserveApplyReqBody
-
+	ctx         *core.Context
+	reserves    *ReserveService
+	body        *ReserveApplyReqBody
 	queryParams map[string]interface{}
 	optFns      []request.OptFn
 }
@@ -601,11 +580,11 @@ type ReserveApplyReqCall struct {
 func (rc *ReserveApplyReqCall) SetUserIdType(userIdType string) {
 	rc.queryParams["user_id_type"] = userIdType
 }
+
 func (rc *ReserveApplyReqCall) Do() (*ReserveApplyResult, error) {
-	httpPath := path.Join(rc.reserves.service.basePath, "reserves/apply")
 	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
 	var result = &ReserveApplyResult{}
-	req := request.NewRequest(httpPath, "POST",
+	req := request.NewRequest("vc/v1/reserves/apply", "POST",
 		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.reserves.service.conf, req)
 	return result, err
@@ -625,18 +604,17 @@ type ReserveGetReqCall struct {
 	ctx        *core.Context
 	reserves   *ReserveService
 	pathParams map[string]interface{}
-
-	optFns []request.OptFn
+	optFns     []request.OptFn
 }
 
 func (rc *ReserveGetReqCall) SetReserveId(reserveId int64) {
 	rc.pathParams["reserve_id"] = reserveId
 }
+
 func (rc *ReserveGetReqCall) Do() (*ReserveGetResult, error) {
-	httpPath := path.Join(rc.reserves.service.basePath, "reserves/:reserve_id")
 	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
 	var result = &ReserveGetResult{}
-	req := request.NewRequest(httpPath, "GET",
+	req := request.NewRequest("vc/v1/reserves/:reserve_id", "GET",
 		[]request.AccessTokenType{request.AccessTokenTypeUser}, nil, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.reserves.service.conf, req)
 	return result, err
@@ -652,10 +630,9 @@ func (reserves *ReserveService) Get(ctx *core.Context, optFns ...request.OptFn) 
 }
 
 type ReserveGetActiveMeetingReqCall struct {
-	ctx        *core.Context
-	reserves   *ReserveService
-	pathParams map[string]interface{}
-
+	ctx         *core.Context
+	reserves    *ReserveService
+	pathParams  map[string]interface{}
 	queryParams map[string]interface{}
 	optFns      []request.OptFn
 }
@@ -666,12 +643,12 @@ func (rc *ReserveGetActiveMeetingReqCall) SetReserveId(reserveId int64) {
 func (rc *ReserveGetActiveMeetingReqCall) SetWithParticipants(withParticipants bool) {
 	rc.queryParams["with_participants"] = withParticipants
 }
+
 func (rc *ReserveGetActiveMeetingReqCall) Do() (*ReserveGetActiveMeetingResult, error) {
-	httpPath := path.Join(rc.reserves.service.basePath, "reserves/:reserve_id/get_active_meeting")
 	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
 	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
 	var result = &ReserveGetActiveMeetingResult{}
-	req := request.NewRequest(httpPath, "GET",
+	req := request.NewRequest("vc/v1/reserves/:reserve_id/get_active_meeting", "GET",
 		[]request.AccessTokenType{request.AccessTokenTypeUser}, nil, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.reserves.service.conf, req)
 	return result, err
@@ -691,18 +668,17 @@ type ReserveDeleteReqCall struct {
 	ctx        *core.Context
 	reserves   *ReserveService
 	pathParams map[string]interface{}
-
-	optFns []request.OptFn
+	optFns     []request.OptFn
 }
 
 func (rc *ReserveDeleteReqCall) SetReserveId(reserveId int64) {
 	rc.pathParams["reserve_id"] = reserveId
 }
+
 func (rc *ReserveDeleteReqCall) Do() (*response.NoData, error) {
-	httpPath := path.Join(rc.reserves.service.basePath, "reserves/:reserve_id")
 	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
 	var result = &response.NoData{}
-	req := request.NewRequest(httpPath, "DELETE",
+	req := request.NewRequest("vc/v1/reserves/:reserve_id", "DELETE",
 		[]request.AccessTokenType{request.AccessTokenTypeUser}, nil, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.reserves.service.conf, req)
 	return result, err

@@ -6,6 +6,45 @@ import (
 	"github.com/larksuite/oapi-sdk-go/event/core/model"
 )
 
+type UserCustomAttrValue struct {
+	Text            string   `json:"text,omitempty"`
+	Url             string   `json:"url,omitempty"`
+	PcUrl           string   `json:"pc_url,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *UserCustomAttrValue) MarshalJSON() ([]byte, error) {
+	type cp UserCustomAttrValue
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type UserOrder struct {
+	DepartmentId    string   `json:"department_id,omitempty"`
+	UserOrder       int      `json:"user_order,omitempty"`
+	DepartmentOrder int      `json:"department_order,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *UserOrder) MarshalJSON() ([]byte, error) {
+	type cp UserOrder
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type UserStatus struct {
+	IsFrozen        bool     `json:"is_frozen,omitempty"`
+	IsResigned      bool     `json:"is_resigned,omitempty"`
+	IsActivated     bool     `json:"is_activated,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *UserStatus) MarshalJSON() ([]byte, error) {
+	type cp UserStatus
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
 type AvatarInfo struct {
 	Avatar72        string   `json:"avatar_72,omitempty"`
 	Avatar240       string   `json:"avatar_240,omitempty"`
@@ -16,6 +55,59 @@ type AvatarInfo struct {
 
 func (s *AvatarInfo) MarshalJSON() ([]byte, error) {
 	type cp AvatarInfo
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type UserCustomAttr struct {
+	Type            string               `json:"type,omitempty"`
+	Id              string               `json:"id,omitempty"`
+	Value           *UserCustomAttrValue `json:"value,omitempty"`
+	ForceSendFields []string             `json:"-"`
+}
+
+func (s *UserCustomAttr) MarshalJSON() ([]byte, error) {
+	type cp UserCustomAttr
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type UserPosition struct {
+	PositionCode       string   `json:"position_code,omitempty"`
+	PositionName       string   `json:"position_name,omitempty"`
+	DepartmentId       string   `json:"department_id,omitempty"`
+	LeaderUserId       string   `json:"leader_user_id,omitempty"`
+	LeaderPositionCode string   `json:"leader_position_code,omitempty"`
+	IsMajor            bool     `json:"is_major,omitempty"`
+	ForceSendFields    []string `json:"-"`
+}
+
+func (s *UserPosition) MarshalJSON() ([]byte, error) {
+	type cp UserPosition
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type DepartmentI18nName struct {
+	ZhCn            string   `json:"zh_cn,omitempty"`
+	JaJp            string   `json:"ja_jp,omitempty"`
+	EnUs            string   `json:"en_us,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *DepartmentI18nName) MarshalJSON() ([]byte, error) {
+	type cp DepartmentI18nName
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type DepartmentStatus struct {
+	IsDeleted       bool     `json:"is_deleted,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *DepartmentStatus) MarshalJSON() ([]byte, error) {
+	type cp DepartmentStatus
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
@@ -76,30 +168,6 @@ func (s *DepartmentEvent) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
-type DepartmentI18nName struct {
-	ZhCn            string   `json:"zh_cn,omitempty"`
-	JaJp            string   `json:"ja_jp,omitempty"`
-	EnUs            string   `json:"en_us,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *DepartmentI18nName) MarshalJSON() ([]byte, error) {
-	type cp DepartmentI18nName
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type DepartmentStatus struct {
-	IsDeleted       bool     `json:"is_deleted,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *DepartmentStatus) MarshalJSON() ([]byte, error) {
-	type cp DepartmentStatus
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
 type DepartmentUnit struct {
 	UnitId          string   `json:"unit_id,omitempty"`
 	UnitType        string   `json:"unit_type,omitempty"`
@@ -121,18 +189,6 @@ type GroupEvent struct {
 
 func (s *GroupEvent) MarshalJSON() ([]byte, error) {
 	type cp GroupEvent
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type NotificationOption struct {
-	Channels        []string `json:"channels,omitempty"`
-	Language        string   `json:"language,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *NotificationOption) MarshalJSON() ([]byte, error) {
-	type cp NotificationOption
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
@@ -188,32 +244,6 @@ func (s *User) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
-type UserCustomAttr struct {
-	Type            string               `json:"type,omitempty"`
-	Id              string               `json:"id,omitempty"`
-	Value           *UserCustomAttrValue `json:"value,omitempty"`
-	ForceSendFields []string             `json:"-"`
-}
-
-func (s *UserCustomAttr) MarshalJSON() ([]byte, error) {
-	type cp UserCustomAttr
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type UserCustomAttrValue struct {
-	Text            string   `json:"text,omitempty"`
-	Url             string   `json:"url,omitempty"`
-	PcUrl           string   `json:"pc_url,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *UserCustomAttrValue) MarshalJSON() ([]byte, error) {
-	type cp UserCustomAttrValue
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
 type UserEvent struct {
 	OpenId          string            `json:"open_id,omitempty"`
 	UserId          string            `json:"user_id,omitempty"`
@@ -265,57 +295,42 @@ func (s *UserGroup) MarshalJSON() ([]byte, error) {
 type UserGroupMember struct {
 }
 
-type UserId struct {
-	UserId          string   `json:"user_id,omitempty"`
-	OpenId          string   `json:"open_id,omitempty"`
-	UnionId         string   `json:"union_id,omitempty"`
+type NotificationOption struct {
+	Channels        []string `json:"channels,omitempty"`
+	Language        string   `json:"language,omitempty"`
 	ForceSendFields []string `json:"-"`
 }
 
-func (s *UserId) MarshalJSON() ([]byte, error) {
-	type cp UserId
+func (s *NotificationOption) MarshalJSON() ([]byte, error) {
+	type cp NotificationOption
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
-type UserOrder struct {
-	DepartmentId    string   `json:"department_id,omitempty"`
-	UserOrder       int      `json:"user_order,omitempty"`
-	DepartmentOrder int      `json:"department_order,omitempty"`
-	ForceSendFields []string `json:"-"`
+type EmployeeTypeEnum struct {
+	EnumId          string         `json:"enum_id,omitempty"`
+	EnumValue       int64          `json:"enum_value,omitempty,string"`
+	Content         string         `json:"content,omitempty"`
+	EnumType        int            `json:"enum_type,omitempty"`
+	EnumStatus      int            `json:"enum_status,omitempty"`
+	I18nContent     []*I18nContent `json:"i18n_content,omitempty"`
+	ForceSendFields []string       `json:"-"`
 }
 
-func (s *UserOrder) MarshalJSON() ([]byte, error) {
-	type cp UserOrder
+func (s *EmployeeTypeEnum) MarshalJSON() ([]byte, error) {
+	type cp EmployeeTypeEnum
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
-type UserPosition struct {
-	PositionCode       string   `json:"position_code,omitempty"`
-	PositionName       string   `json:"position_name,omitempty"`
-	DepartmentId       string   `json:"department_id,omitempty"`
-	LeaderUserId       string   `json:"leader_user_id,omitempty"`
-	LeaderPositionCode string   `json:"leader_position_code,omitempty"`
-	IsMajor            bool     `json:"is_major,omitempty"`
-	ForceSendFields    []string `json:"-"`
-}
-
-func (s *UserPosition) MarshalJSON() ([]byte, error) {
-	type cp UserPosition
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type UserStatus struct {
-	IsFrozen        bool     `json:"is_frozen,omitempty"`
-	IsResigned      bool     `json:"is_resigned,omitempty"`
-	IsActivated     bool     `json:"is_activated,omitempty"`
+type I18nContent struct {
+	Locale          string   `json:"locale,omitempty"`
+	Value           string   `json:"value,omitempty"`
 	ForceSendFields []string `json:"-"`
 }
 
-func (s *UserStatus) MarshalJSON() ([]byte, error) {
-	type cp UserStatus
+func (s *I18nContent) MarshalJSON() ([]byte, error) {
+	type cp I18nContent
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
@@ -502,6 +517,12 @@ type DepartmentSearchResult struct {
 	HasMore   bool          `json:"has_more,omitempty"`
 }
 
+type EmployeeTypeEnumListResult struct {
+	Items     []*EmployeeTypeEnum `json:"items,omitempty"`
+	HasMore   bool                `json:"has_more,omitempty"`
+	PageToken string              `json:"page_token,omitempty"`
+}
+
 type DepartmentCreatedEventData struct {
 	Object *DepartmentEvent `json:"object,omitempty"`
 }
@@ -615,4 +636,52 @@ type CustomAttrEventUpdatedEventData struct {
 type CustomAttrEventUpdatedEvent struct {
 	*model.BaseEventV2
 	Event *CustomAttrEventUpdatedEventData `json:"event"`
+}
+
+type EmployeeTypeEnumActivedEventData struct {
+	OldEnum *EmployeeTypeEnum `json:"old_enum,omitempty"`
+	NewEnum *EmployeeTypeEnum `json:"new_enum,omitempty"`
+}
+
+type EmployeeTypeEnumActivedEvent struct {
+	*model.BaseEventV2
+	Event *EmployeeTypeEnumActivedEventData `json:"event"`
+}
+
+type EmployeeTypeEnumCreatedEventData struct {
+	NewEnum *EmployeeTypeEnum `json:"new_enum,omitempty"`
+}
+
+type EmployeeTypeEnumCreatedEvent struct {
+	*model.BaseEventV2
+	Event *EmployeeTypeEnumCreatedEventData `json:"event"`
+}
+
+type EmployeeTypeEnumDeactivatedEventData struct {
+	OldEnum *EmployeeTypeEnum `json:"old_enum,omitempty"`
+	NewEnum *EmployeeTypeEnum `json:"new_enum,omitempty"`
+}
+
+type EmployeeTypeEnumDeactivatedEvent struct {
+	*model.BaseEventV2
+	Event *EmployeeTypeEnumDeactivatedEventData `json:"event"`
+}
+
+type EmployeeTypeEnumDeletedEventData struct {
+	OldEnum *EmployeeTypeEnum `json:"old_enum,omitempty"`
+}
+
+type EmployeeTypeEnumDeletedEvent struct {
+	*model.BaseEventV2
+	Event *EmployeeTypeEnumDeletedEventData `json:"event"`
+}
+
+type EmployeeTypeEnumUpdatedEventData struct {
+	OldEnum *EmployeeTypeEnum `json:"old_enum,omitempty"`
+	NewEnum *EmployeeTypeEnum `json:"new_enum,omitempty"`
+}
+
+type EmployeeTypeEnumUpdatedEvent struct {
+	*model.BaseEventV2
+	Event *EmployeeTypeEnumUpdatedEventData `json:"event"`
 }

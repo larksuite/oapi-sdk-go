@@ -35,6 +35,7 @@ type Handlers struct {
 
 func initFunc(ctx *core.Context, httpCard *model.HTTPCard) {
 	request := httpCard.Request
+	ctx.Set(constants.HTTPHeader, request.Header)
 	header := &model.Header{
 		Timestamp:    request.Header.GetFirstValue(model.LarkRequestTimestamp),
 		Nonce:        request.Header.GetFirstValue(model.LarkRequestRequestNonce),
@@ -42,11 +43,6 @@ func initFunc(ctx *core.Context, httpCard *model.HTTPCard) {
 		RefreshToken: request.Header.GetFirstValue(model.LarkRefreshToken),
 	}
 	httpCard.Header = header
-	ctx.Set(model.LarkRequestTimestamp, header.Timestamp)
-	ctx.Set(model.LarkRequestRequestNonce, header.Nonce)
-	ctx.Set(model.LarkSignature, header.Signature)
-	ctx.Set(model.LarkRefreshToken, header.RefreshToken)
-	ctx.SetRequestID(request.Header.GetFirstValue(constants.HTTPHeaderKeyLogID), request.Header.GetFirstValue(constants.HTTPHeaderKeyRequestID))
 	config.ByCtx(ctx).GetLogger().Debug(ctx, fmt.Sprintf("[init] card: %s", request.Body))
 	httpCard.Input = []byte(request.Body)
 }

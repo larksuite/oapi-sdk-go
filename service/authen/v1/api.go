@@ -6,21 +6,16 @@ import (
 	"github.com/larksuite/oapi-sdk-go/api/core/request"
 	"github.com/larksuite/oapi-sdk-go/core"
 	"github.com/larksuite/oapi-sdk-go/core/config"
-	"path"
 )
 
-const serviceBasePath = "authen/v1"
-
 type Service struct {
-	conf     *config.Config
-	basePath string
-	Authens  *AuthenService
+	conf    *config.Config
+	Authens *AuthenService
 }
 
 func NewService(conf *config.Config) *Service {
 	s := &Service{
-		conf:     conf,
-		basePath: serviceBasePath,
+		conf: conf,
 	}
 	s.Authens = newAuthenService(s)
 	return s
@@ -40,14 +35,12 @@ type AuthenAccessTokenReqCall struct {
 	ctx     *core.Context
 	authens *AuthenService
 	body    *AuthenAccessTokenReqBody
-
-	optFns []request.OptFn
+	optFns  []request.OptFn
 }
 
 func (rc *AuthenAccessTokenReqCall) Do() (*UserAccessTokenInfo, error) {
-	httpPath := path.Join(rc.authens.service.basePath, "access_token")
 	var result = &UserAccessTokenInfo{}
-	req := request.NewRequest(httpPath, "POST",
+	req := request.NewRequest("authen/v1/access_token", "POST",
 		[]request.AccessTokenType{request.AccessTokenTypeApp}, rc.body, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.authens.service.conf, req)
 	return result, err
@@ -70,9 +63,8 @@ type AuthenRefreshAccessTokenReqCall struct {
 }
 
 func (rc *AuthenRefreshAccessTokenReqCall) Do() (*UserAccessTokenInfo, error) {
-	httpPath := path.Join(rc.authens.service.basePath, "refresh_access_token")
 	var result = &UserAccessTokenInfo{}
-	req := request.NewRequest(httpPath, "POST",
+	req := request.NewRequest("authen/v1/refresh_access_token", "POST",
 		[]request.AccessTokenType{request.AccessTokenTypeApp}, rc.body, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.authens.service.conf, req)
 	return result, err
@@ -90,14 +82,12 @@ func (authens *AuthenService) RefreshAccessToken(ctx *core.Context, body *Authen
 type AuthenUserInfoReqCall struct {
 	ctx     *core.Context
 	authens *AuthenService
-
-	optFns []request.OptFn
+	optFns  []request.OptFn
 }
 
 func (rc *AuthenUserInfoReqCall) Do() (*UserInfo, error) {
-	httpPath := path.Join(rc.authens.service.basePath, "user_info")
 	var result = &UserInfo{}
-	req := request.NewRequest(httpPath, "GET",
+	req := request.NewRequest("authen/v1/user_info", "GET",
 		[]request.AccessTokenType{request.AccessTokenTypeUser}, nil, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.authens.service.conf, req)
 	return result, err

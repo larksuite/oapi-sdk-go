@@ -6,37 +6,15 @@ import (
 	"github.com/larksuite/oapi-sdk-go/event/core/model"
 )
 
-type Meeting struct {
-	Id               int64                 `json:"id,omitempty,string"`
-	Topic            string                `json:"topic,omitempty"`
-	Url              string                `json:"url,omitempty"`
-	CreateTime       int64                 `json:"create_time,omitempty,string"`
-	StartTime        int64                 `json:"start_time,omitempty,string"`
-	EndTime          int64                 `json:"end_time,omitempty,string"`
-	HostUser         *MeetingUser          `json:"host_user,omitempty"`
-	Status           int                   `json:"status,omitempty"`
-	ParticipantCount int64                 `json:"participant_count,omitempty,string"`
-	Participants     []*MeetingParticipant `json:"participants,omitempty"`
-	Ability          *MeetingAbility       `json:"ability,omitempty"`
-	ForceSendFields  []string              `json:"-"`
-}
-
-func (s *Meeting) MarshalJSON() ([]byte, error) {
-	type cp Meeting
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type MeetingRecording struct {
-	Id              int64    `json:"id,omitempty,string"`
-	MeetingId       int64    `json:"meeting_id,omitempty,string"`
-	Url             string   `json:"url,omitempty"`
-	Duration        int64    `json:"duration,omitempty,string"`
+type UserId struct {
+	UserId          string   `json:"user_id,omitempty"`
+	OpenId          string   `json:"open_id,omitempty"`
+	UnionId         string   `json:"union_id,omitempty"`
 	ForceSendFields []string `json:"-"`
 }
 
-func (s *MeetingRecording) MarshalJSON() ([]byte, error) {
-	type cp MeetingRecording
+func (s *UserId) MarshalJSON() ([]byte, error) {
+	type cp UserId
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
@@ -53,49 +31,6 @@ type MeetingAbility struct {
 
 func (s *MeetingAbility) MarshalJSON() ([]byte, error) {
 	type cp MeetingAbility
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type MeetingEventMeeting struct {
-	Id              int64             `json:"id,omitempty,string"`
-	Topic           string            `json:"topic,omitempty"`
-	MeetingNo       string            `json:"meeting_no,omitempty"`
-	StartTime       int64             `json:"start_time,omitempty,string"`
-	EndTime         int64             `json:"end_time,omitempty,string"`
-	HostUser        *MeetingEventUser `json:"host_user,omitempty"`
-	Owner           *MeetingEventUser `json:"owner,omitempty"`
-	ForceSendFields []string          `json:"-"`
-}
-
-func (s *MeetingEventMeeting) MarshalJSON() ([]byte, error) {
-	type cp MeetingEventMeeting
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type MeetingEventUser struct {
-	Id              *UserId  `json:"id,omitempty"`
-	UserRole        int      `json:"user_role,omitempty"`
-	UserType        int      `json:"user_type,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *MeetingEventUser) MarshalJSON() ([]byte, error) {
-	type cp MeetingEventUser
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type MeetingInviteStatus struct {
-	Id              string   `json:"id,omitempty"`
-	UserType        int      `json:"user_type,omitempty"`
-	Status          int      `json:"status,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *MeetingInviteStatus) MarshalJSON() ([]byte, error) {
-	type cp MeetingInviteStatus
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
@@ -141,6 +76,68 @@ func (s *MeetingUser) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
+type RoomDigitalSignage struct {
+	Enable          bool                          `json:"enable,omitempty"`
+	Mute            bool                          `json:"mute,omitempty"`
+	StartDisplay    int                           `json:"start_display,omitempty"`
+	StopDisplay     int                           `json:"stop_display,omitempty"`
+	Materials       []*RoomDigitalSignageMaterial `json:"materials,omitempty"`
+	ForceSendFields []string                      `json:"-"`
+}
+
+func (s *RoomDigitalSignage) MarshalJSON() ([]byte, error) {
+	type cp RoomDigitalSignage
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type RoomDigitalSignageMaterial struct {
+	Id              string   `json:"id,omitempty"`
+	Name            string   `json:"name,omitempty"`
+	MaterialType    int      `json:"material_type,omitempty"`
+	Url             string   `json:"url,omitempty"`
+	Duration        int      `json:"duration,omitempty"`
+	Cover           string   `json:"cover,omitempty"`
+	Md5             string   `json:"md5,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *RoomDigitalSignageMaterial) MarshalJSON() ([]byte, error) {
+	type cp RoomDigitalSignageMaterial
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type MeetingEventMeeting struct {
+	Id              int64             `json:"id,omitempty,string"`
+	Topic           string            `json:"topic,omitempty"`
+	MeetingNo       string            `json:"meeting_no,omitempty"`
+	StartTime       int64             `json:"start_time,omitempty,string"`
+	EndTime         int64             `json:"end_time,omitempty,string"`
+	HostUser        *MeetingEventUser `json:"host_user,omitempty"`
+	Owner           *MeetingEventUser `json:"owner,omitempty"`
+	ForceSendFields []string          `json:"-"`
+}
+
+func (s *MeetingEventMeeting) MarshalJSON() ([]byte, error) {
+	type cp MeetingEventMeeting
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type MeetingEventUser struct {
+	Id              *UserId  `json:"id,omitempty"`
+	UserRole        int      `json:"user_role,omitempty"`
+	UserType        int      `json:"user_type,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *MeetingEventUser) MarshalJSON() ([]byte, error) {
+	type cp MeetingEventUser
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
 type RecordingPermissionObject struct {
 	Id              string   `json:"id,omitempty"`
 	Type            int      `json:"type,omitempty"`
@@ -150,20 +147,6 @@ type RecordingPermissionObject struct {
 
 func (s *RecordingPermissionObject) MarshalJSON() ([]byte, error) {
 	type cp RecordingPermissionObject
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type Report struct {
-	TotalMeetingCount     int64                 `json:"total_meeting_count,omitempty,string"`
-	TotalMeetingDuration  int64                 `json:"total_meeting_duration,omitempty,string"`
-	TotalParticipantCount int64                 `json:"total_participant_count,omitempty,string"`
-	DailyReport           []*ReportMeetingDaily `json:"daily_report,omitempty"`
-	ForceSendFields       []string              `json:"-"`
-}
-
-func (s *Report) MarshalJSON() ([]byte, error) {
-	type cp Report
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
@@ -197,20 +180,15 @@ func (s *ReportTopUser) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
-type Reserve struct {
-	Id              int64                  `json:"id,omitempty,string"`
-	MeetingNo       string                 `json:"meeting_no,omitempty"`
-	Url             string                 `json:"url,omitempty"`
-	AppLink         string                 `json:"app_link,omitempty"`
-	EndTime         int64                  `json:"end_time,omitempty,string"`
-	ExpireStatus    int                    `json:"expire_status,omitempty"`
-	ReserveUserId   string                 `json:"reserve_user_id,omitempty"`
-	MeetingSettings *ReserveMeetingSetting `json:"meeting_settings,omitempty"`
-	ForceSendFields []string               `json:"-"`
+type ReservePermissionChecker struct {
+	CheckField      int      `json:"check_field,omitempty"`
+	CheckMode       int      `json:"check_mode,omitempty"`
+	CheckList       []string `json:"check_list,omitempty"`
+	ForceSendFields []string `json:"-"`
 }
 
-func (s *Reserve) MarshalJSON() ([]byte, error) {
-	type cp Reserve
+func (s *ReservePermissionChecker) MarshalJSON() ([]byte, error) {
+	type cp ReservePermissionChecker
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
@@ -239,15 +217,82 @@ func (s *ReserveMeetingSetting) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
-type ReservePermissionChecker struct {
-	CheckField      int      `json:"check_field,omitempty"`
-	CheckMode       int      `json:"check_mode,omitempty"`
-	CheckList       []string `json:"check_list,omitempty"`
+type MeetingInviteStatus struct {
+	Id              string   `json:"id,omitempty"`
+	UserType        int      `json:"user_type,omitempty"`
+	Status          int      `json:"status,omitempty"`
 	ForceSendFields []string `json:"-"`
 }
 
-func (s *ReservePermissionChecker) MarshalJSON() ([]byte, error) {
-	type cp ReservePermissionChecker
+func (s *MeetingInviteStatus) MarshalJSON() ([]byte, error) {
+	type cp MeetingInviteStatus
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type Meeting struct {
+	Id               int64                 `json:"id,omitempty,string"`
+	Topic            string                `json:"topic,omitempty"`
+	Url              string                `json:"url,omitempty"`
+	CreateTime       int64                 `json:"create_time,omitempty,string"`
+	StartTime        int64                 `json:"start_time,omitempty,string"`
+	EndTime          int64                 `json:"end_time,omitempty,string"`
+	HostUser         *MeetingUser          `json:"host_user,omitempty"`
+	Status           int                   `json:"status,omitempty"`
+	ParticipantCount int64                 `json:"participant_count,omitempty,string"`
+	Participants     []*MeetingParticipant `json:"participants,omitempty"`
+	Ability          *MeetingAbility       `json:"ability,omitempty"`
+	ForceSendFields  []string              `json:"-"`
+}
+
+func (s *Meeting) MarshalJSON() ([]byte, error) {
+	type cp Meeting
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type MeetingRecording struct {
+	Id              int64    `json:"id,omitempty,string"`
+	MeetingId       int64    `json:"meeting_id,omitempty,string"`
+	Url             string   `json:"url,omitempty"`
+	Duration        int64    `json:"duration,omitempty,string"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *MeetingRecording) MarshalJSON() ([]byte, error) {
+	type cp MeetingRecording
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type Report struct {
+	TotalMeetingCount     int64                 `json:"total_meeting_count,omitempty,string"`
+	TotalMeetingDuration  int64                 `json:"total_meeting_duration,omitempty,string"`
+	TotalParticipantCount int64                 `json:"total_participant_count,omitempty,string"`
+	DailyReport           []*ReportMeetingDaily `json:"daily_report,omitempty"`
+	ForceSendFields       []string              `json:"-"`
+}
+
+func (s *Report) MarshalJSON() ([]byte, error) {
+	type cp Report
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type Reserve struct {
+	Id              int64                  `json:"id,omitempty,string"`
+	MeetingNo       string                 `json:"meeting_no,omitempty"`
+	Url             string                 `json:"url,omitempty"`
+	AppLink         string                 `json:"app_link,omitempty"`
+	EndTime         int64                  `json:"end_time,omitempty,string"`
+	ExpireStatus    int                    `json:"expire_status,omitempty"`
+	ReserveUserId   string                 `json:"reserve_user_id,omitempty"`
+	MeetingSettings *ReserveMeetingSetting `json:"meeting_settings,omitempty"`
+	ForceSendFields []string               `json:"-"`
+}
+
+func (s *Reserve) MarshalJSON() ([]byte, error) {
+	type cp Reserve
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
@@ -261,51 +306,6 @@ type RoomConfig struct {
 
 func (s *RoomConfig) MarshalJSON() ([]byte, error) {
 	type cp RoomConfig
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type RoomDigitalSignage struct {
-	Enable          bool                          `json:"enable,omitempty"`
-	Mute            bool                          `json:"mute,omitempty"`
-	StartDisplay    int                           `json:"start_display,omitempty"`
-	StopDisplay     int                           `json:"stop_display,omitempty"`
-	Materials       []*RoomDigitalSignageMaterial `json:"materials,omitempty"`
-	ForceSendFields []string                      `json:"-"`
-}
-
-func (s *RoomDigitalSignage) MarshalJSON() ([]byte, error) {
-	type cp RoomDigitalSignage
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type RoomDigitalSignageMaterial struct {
-	Id              string   `json:"id,omitempty"`
-	Name            string   `json:"name,omitempty"`
-	MaterialType    int      `json:"material_type,omitempty"`
-	Url             string   `json:"url,omitempty"`
-	Duration        int      `json:"duration,omitempty"`
-	Cover           string   `json:"cover,omitempty"`
-	Md5             string   `json:"md5,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *RoomDigitalSignageMaterial) MarshalJSON() ([]byte, error) {
-	type cp RoomDigitalSignageMaterial
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type UserId struct {
-	UserId          string   `json:"user_id,omitempty"`
-	OpenId          string   `json:"open_id,omitempty"`
-	UnionId         string   `json:"union_id,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *UserId) MarshalJSON() ([]byte, error) {
-	type cp UserId
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }

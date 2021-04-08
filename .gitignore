@@ -10,3 +10,4 @@ modules.txt
 *_test.go
 *.json
 *.sh
+test.go

@@ -518,14 +518,17 @@ readCloser, err := tools.DownloadFileToStream(ctx context.Context, url string)
 
 ---
 
-|业务域|版本|路径|代码示例|
-|---|---|---|----|
-|[用户身份验证](https://open.feishu.cn/document/ukTMukTMukTM/uETOwYjLxkDM24SM5AjN)|v1|[service/authen](service/authen)|[sample/api/authen.go](sample/api/authen.go)|
-|[图片](https://open.feishu.cn/document/ukTMukTMukTM/uEDO04SM4QjLxgDN)|v4|[service/image](service/image)|[sample/api/image.go](sample/api/image.go)|
-|[通讯录](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/introduction)|v3|[service/contact](service/contact)|[sample/api/contact.go](sample/api/contact.go)|
-|[日历](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN)|v4|[service/calendar](service/calendar)|[sample/api/calendar.go](sample/api/calendar.go)|
-|[视频会议](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/videoconference/guide)|v1|[service/vc](service/vc)|[sample/api/vc.go](sample/api/vc.go)|
-|[云空间文件](https://open.feishu.cn/document/ukTMukTMukTM/uUjM5YjL1ITO24SNykjN)|v1|[service/drive](service/drive)|[sample/api/drive.go](sample/api/drive.go)|
+|业务域|版本|路径|API示例|Event示例|
+|---|---|---|----|---|
+|[用户身份验证](https://open.feishu.cn/document/ukTMukTMukTM/uETOwYjLxkDM24SM5AjN)|v1|[service/authen](service/authen)|[sample/api/authen.go](sample/api/authen.go)||
+|[通讯录](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/introduction)|v3|[service/contact](service/contact)|[sample/api/contact.go](sample/api/contact.go)|[sample/event/contact.go](sample/event/contact.go)|
+|[日历](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN)|v4|[service/calendar](service/calendar)|[sample/api/calendar.go](sample/api/calendar.go)||
+|[视频会议](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/videoconference/guide)|v1|[service/vc](service/vc)|[sample/api/vc.go](sample/api/vc.go)||
+|[云空间文件](https://open.feishu.cn/document/ukTMukTMukTM/uUjM5YjL1ITO24SNykjN)|v1|[service/drive](service/drive)|[sample/api/drive.go](sample/api/drive.go)||
+|[消息&群组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)|v1|[service/im](service/im)|[sample/api/im.go](sample/api/im.go)|[sample/event/im.go](sample/event/im.go)|
+|[AI能力-光学字符识别（OCR）](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/optical_char_recognition-v1/image/basic_recognize)|v1|[service/optical_char_recognition](service/optical_char_recognition)|[sample/api/optical_char_recognition.go](sample/api/optical_char_recognition.go)||
+|[AI能力-语音识别（ASR）](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/speech_to_text-v1/speech/stream_recognize)|v1|[service/speech_to_text](service/speech_to_text)|[sample/api/speech_to_text.go](sample/api/speech_to_text.go)||
+|[AI能力-机器翻译（MT）](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/translation-v1/text/translate)|v1|[service/translation](service/translation)|[sample/api/translation.go](sample/api/translation.go)||
 
 ## License
 
