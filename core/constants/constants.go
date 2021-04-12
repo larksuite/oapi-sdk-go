@@ -5,6 +5,7 @@ const ContentTypeJson = "application/json"
 const DefaultContentType = ContentTypeJson + "; charset=utf-8"
 
 const (
+	HTTPHeader             = "HTTP-Header"
 	HTTPHeaderKeyRequestID = "X-Request-Id"
 	HTTPHeaderKeyLogID     = "X-Log-Id"
 	HTTPKeyStatusCode      = "http_status_code"

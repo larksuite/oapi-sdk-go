@@ -7,21 +7,16 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 	"github.com/larksuite/oapi-sdk-go/core/config"
 	"io"
-	"path"
 )
 
-const serviceBasePath = "image/v4"
-
 type Service struct {
-	conf     *config.Config
-	basePath string
-	Images   *ImageService
+	conf   *config.Config
+	Images *ImageService
 }
 
 func NewService(conf *config.Config) *Service {
 	s := &Service{
-		conf:     conf,
-		basePath: serviceBasePath,
+		conf: conf,
 	}
 	s.Images = newImageService(s)
 	return s
@@ -38,9 +33,8 @@ func newImageService(service *Service) *ImageService {
 }
 
 type ImageGetReqCall struct {
-	ctx    *core.Context
-	images *ImageService
-
+	ctx         *core.Context
+	images      *ImageService
 	queryParams map[string]interface{}
 	optFns      []request.OptFn
 	result      io.Writer
@@ -52,11 +46,11 @@ func (rc *ImageGetReqCall) SetImageKey(imageKey string) {
 func (rc *ImageGetReqCall) SetResponseStream(result io.Writer) {
 	rc.result = result
 }
+
 func (rc *ImageGetReqCall) Do() (io.Writer, error) {
-	httpPath := path.Join(rc.images.service.basePath, "get")
 	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
 	rc.optFns = append(rc.optFns, request.SetResponseStream())
-	req := request.NewRequest(httpPath, "GET",
+	req := request.NewRequest("image/v4/get", "GET",
 		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, rc.result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.images.service.conf, req)
 	return rc.result, err
@@ -84,10 +78,10 @@ func (rc *ImagePutReqCall) SetImage(image *request.File) {
 func (rc *ImagePutReqCall) SetImageType(imageType string) {
 	rc.body.AddParam("image_type", imageType)
 }
+
 func (rc *ImagePutReqCall) Do() (*Image, error) {
-	httpPath := path.Join(rc.images.service.basePath, "put")
 	var result = &Image{}
-	req := request.NewRequest(httpPath, "POST",
+	req := request.NewRequest("image/v4/put", "POST",
 		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.images.service.conf, req)
 	return result, err

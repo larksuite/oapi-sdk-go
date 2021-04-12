@@ -198,3 +198,83 @@ func (h *CustomAttrEventUpdatedEventHandler) Handle(ctx *core.Context, event int
 func SetCustomAttrEventUpdatedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *CustomAttrEventUpdatedEvent) error) {
 	event.SetTypeHandler(conf, "contact.custom_attr_event.updated_v3", &CustomAttrEventUpdatedEventHandler{Fn: fn})
 }
+
+type EmployeeTypeEnumActivedEventHandler struct {
+	Fn func(*core.Context, *EmployeeTypeEnumActivedEvent) error
+}
+
+func (h *EmployeeTypeEnumActivedEventHandler) GetEvent() interface{} {
+	return &EmployeeTypeEnumActivedEvent{}
+}
+
+func (h *EmployeeTypeEnumActivedEventHandler) Handle(ctx *core.Context, event interface{}) error {
+	return h.Fn(ctx, event.(*EmployeeTypeEnumActivedEvent))
+}
+
+func SetEmployeeTypeEnumActivedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *EmployeeTypeEnumActivedEvent) error) {
+	event.SetTypeHandler(conf, "contact.employee_type_enum.actived_v3", &EmployeeTypeEnumActivedEventHandler{Fn: fn})
+}
+
+type EmployeeTypeEnumCreatedEventHandler struct {
+	Fn func(*core.Context, *EmployeeTypeEnumCreatedEvent) error
+}
+
+func (h *EmployeeTypeEnumCreatedEventHandler) GetEvent() interface{} {
+	return &EmployeeTypeEnumCreatedEvent{}
+}
+
+func (h *EmployeeTypeEnumCreatedEventHandler) Handle(ctx *core.Context, event interface{}) error {
+	return h.Fn(ctx, event.(*EmployeeTypeEnumCreatedEvent))
+}
+
+func SetEmployeeTypeEnumCreatedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *EmployeeTypeEnumCreatedEvent) error) {
+	event.SetTypeHandler(conf, "contact.employee_type_enum.created_v3", &EmployeeTypeEnumCreatedEventHandler{Fn: fn})
+}
+
+type EmployeeTypeEnumDeactivatedEventHandler struct {
+	Fn func(*core.Context, *EmployeeTypeEnumDeactivatedEvent) error
+}
+
+func (h *EmployeeTypeEnumDeactivatedEventHandler) GetEvent() interface{} {
+	return &EmployeeTypeEnumDeactivatedEvent{}
+}
+
+func (h *EmployeeTypeEnumDeactivatedEventHandler) Handle(ctx *core.Context, event interface{}) error {
+	return h.Fn(ctx, event.(*EmployeeTypeEnumDeactivatedEvent))
+}
+
+func SetEmployeeTypeEnumDeactivatedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *EmployeeTypeEnumDeactivatedEvent) error) {
+	event.SetTypeHandler(conf, "contact.employee_type_enum.deactivated_v3", &EmployeeTypeEnumDeactivatedEventHandler{Fn: fn})
+}
+
+type EmployeeTypeEnumDeletedEventHandler struct {
+	Fn func(*core.Context, *EmployeeTypeEnumDeletedEvent) error
+}
+
+func (h *EmployeeTypeEnumDeletedEventHandler) GetEvent() interface{} {
+	return &EmployeeTypeEnumDeletedEvent{}
+}
+
+func (h *EmployeeTypeEnumDeletedEventHandler) Handle(ctx *core.Context, event interface{}) error {
+	return h.Fn(ctx, event.(*EmployeeTypeEnumDeletedEvent))
+}
+
+func SetEmployeeTypeEnumDeletedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *EmployeeTypeEnumDeletedEvent) error) {
+	event.SetTypeHandler(conf, "contact.employee_type_enum.deleted_v3", &EmployeeTypeEnumDeletedEventHandler{Fn: fn})
+}
+
+type EmployeeTypeEnumUpdatedEventHandler struct {
+	Fn func(*core.Context, *EmployeeTypeEnumUpdatedEvent) error
+}
+
+func (h *EmployeeTypeEnumUpdatedEventHandler) GetEvent() interface{} {
+	return &EmployeeTypeEnumUpdatedEvent{}
+}
+
+func (h *EmployeeTypeEnumUpdatedEventHandler) Handle(ctx *core.Context, event interface{}) error {
+	return h.Fn(ctx, event.(*EmployeeTypeEnumUpdatedEvent))
+}
+
+func SetEmployeeTypeEnumUpdatedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *EmployeeTypeEnumUpdatedEvent) error) {
+	event.SetTypeHandler(conf, "contact.employee_type_enum.updated_v3", &EmployeeTypeEnumUpdatedEventHandler{Fn: fn})
+}

@@ -8,7 +8,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core/tools"
 	eventginserver "github.com/larksuite/oapi-sdk-go/event/http/gin"
 	"github.com/larksuite/oapi-sdk-go/sample/configs"
-	contact "github.com/larksuite/oapi-sdk-go/service/contact/v3"
+	im "github.com/larksuite/oapi-sdk-go/service/im/v1"
 )
 
 func main() {
@@ -18,19 +18,7 @@ func main() {
 	// var conf = configs.TestConfig("https://open.feishu.cn")
 	var conf = configs.TestConfig(constants.DomainFeiShu)
 
-	contact.SetDepartmentCreatedEventHandler(conf, func(ctx *core.Context, event *contact.DepartmentCreatedEvent) error {
-		fmt.Println(ctx.GetRequestID())
-		fmt.Println(tools.Prettify(event))
-		return nil
-	})
-
-	contact.SetUserCreatedEventHandler(conf, func(ctx *core.Context, event *contact.UserCreatedEvent) error {
-		fmt.Println(ctx.GetRequestID())
-		fmt.Println(tools.Prettify(event))
-		return nil
-	})
-
-	contact.SetUserUpdatedEventHandler(conf, func(ctx *core.Context, event *contact.UserUpdatedEvent) error {
+	im.SetMessageReceiveEventHandler(conf, func(ctx *core.Context, event *im.MessageReceiveEvent) error {
 		fmt.Println(ctx.GetRequestID())
 		fmt.Println(tools.Prettify(event))
 		return nil

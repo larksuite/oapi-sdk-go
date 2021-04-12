@@ -17,8 +17,8 @@ import (
 var contactService = contact.NewService(configs.TestConfig(constants.DomainFeiShu))
 
 func main() {
-	//testUserServiceList()
-	testDepartmentServiceList()
+	testUserServiceList()
+	//testDepartmentServiceList()
 }
 func testUserServiceList() {
 	coreCtx := core.WrapContext(context.Background())
@@ -26,7 +26,7 @@ func testUserServiceList() {
 	reqCall.SetDepartmentIdType("open_id")
 	reqCall.SetPageSize(20)
 	reqCall.SetDepartmentIdType("open_department_id")
-	reqCall.SetDepartmentId("od_XXXXXXXXX")
+	reqCall.SetDepartmentId("0")
 	reqCall.SetUserIdType("open_id")
 	result, err := reqCall.Do()
 	fmt.Printf("request_id:%s", coreCtx.GetRequestID())

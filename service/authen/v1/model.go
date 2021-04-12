@@ -10,13 +10,14 @@ type Authen struct {
 
 type UserAccessTokenInfo struct {
 	AccessToken      string   `json:"access_token,omitempty"`
+	TokenType        string   `json:"token_type,omitempty"`
+	ExpiresIn        int      `json:"expires_in,omitempty"`
+	Name             string   `json:"name,omitempty"`
+	EnName           string   `json:"en_name,omitempty"`
 	AvatarUrl        string   `json:"avatar_url,omitempty"`
 	AvatarThumb      string   `json:"avatar_thumb,omitempty"`
 	AvatarMiddle     string   `json:"avatar_middle,omitempty"`
 	AvatarBig        string   `json:"avatar_big,omitempty"`
-	ExpiresIn        int      `json:"expires_in,omitempty"`
-	Name             string   `json:"name,omitempty"`
-	EnName           string   `json:"en_name,omitempty"`
 	OpenId           string   `json:"open_id,omitempty"`
 	UnionId          string   `json:"union_id,omitempty"`
 	Email            string   `json:"email,omitempty"`
@@ -25,7 +26,6 @@ type UserAccessTokenInfo struct {
 	TenantKey        string   `json:"tenant_key,omitempty"`
 	RefreshExpiresIn int      `json:"refresh_expires_in,omitempty"`
 	RefreshToken     string   `json:"refresh_token,omitempty"`
-	TokenType        string   `json:"token_type,omitempty"`
 	ForceSendFields  []string `json:"-"`
 }
 
