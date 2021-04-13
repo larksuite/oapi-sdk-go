@@ -7,17 +7,17 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core/constants"
 	"github.com/larksuite/oapi-sdk-go/core/tools"
 	"github.com/larksuite/oapi-sdk-go/event"
-	eventginserver "github.com/larksuite/oapi-sdk-go/event/http/gin"
+	eventhttp "github.com/larksuite/oapi-sdk-go/event/http"
 	"github.com/larksuite/oapi-sdk-go/sample/configs"
 	application "github.com/larksuite/oapi-sdk-go/service/application/v1"
 )
 
-func main() {
+// for redis store and logrus
+// var conf = configs.TestConfigWithLogrusAndRedisStore(constants.DomainFeiShu)
+// var conf = configs.TestConfig("https://open.feishu.cn")
+var conf = configs.TestConfig(constants.DomainFeiShu)
 
-	// for redis store and logrus
-	// var conf = configs.TestConfigWithLogrusAndRedisStore(constants.DomainFeiShu)
-	// var conf = configs.TestConfig("https://open.feishu.cn")
-	var conf = configs.TestConfig(constants.DomainFeiShu)
+func main() {
 
 	application.SetAppOpenEventHandler(conf, func(ctx *core.Context, appOpenEvent *application.AppOpenEvent) error {
 		fmt.Println(ctx.GetRequestID())
@@ -49,22 +49,15 @@ func main() {
 		return nil
 	})
 
-	application.SetAppUninstalledEventHandler(conf, func(ctx *core.Context, appUninstalledEvent *application.AppUninstalledEvent) error {
-		fmt.Println(ctx.GetRequestID())
-		fmt.Println(tools.Prettify(appUninstalledEvent))
-		return nil
-	})
-
-	application.SetOrderPaidEventHandler(conf, func(ctx *core.Context, orderPaidEvent *application.OrderPaidEvent) error {
-		fmt.Println(ctx.GetRequestID())
-		fmt.Println(tools.Prettify(orderPaidEvent))
-		return nil
-	})
-
 	g := gin.Default()
-	eventginserver.Register("/webhook/event", conf, g)
+
+	g.POST("/webhook/event", webhookEventHandle)
 	err := g.Run(":8089")
 	if err != nil {
 		panic(err)
 	}
+}
+
+func webhookEventHandle(context *gin.Context) {
+	eventhttp.Handle(conf, context.Request, context.Writer)
 }
