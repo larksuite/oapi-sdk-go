@@ -27,14 +27,6 @@ func WrapContext(c context.Context) *Context {
 	}
 }
 
-func (c *Context) SetRequestID(logID, requestID string) {
-	if logID != "" {
-		c.Set(constants.HTTPHeaderKeyRequestID, logID)
-		return
-	}
-	c.Set(constants.HTTPHeaderKeyRequestID, requestID)
-}
-
 func (c *Context) Set(key string, value interface{}) {
 	c.mu.Lock()
 	if c.m == nil {
