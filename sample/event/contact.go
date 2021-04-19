@@ -6,7 +6,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 	"github.com/larksuite/oapi-sdk-go/core/constants"
 	"github.com/larksuite/oapi-sdk-go/core/tools"
-	eventginserver "github.com/larksuite/oapi-sdk-go/event/http/gin"
 	"github.com/larksuite/oapi-sdk-go/sample/configs"
 	contact "github.com/larksuite/oapi-sdk-go/service/contact/v3"
 )
@@ -37,7 +36,7 @@ func main() {
 	})
 
 	g := gin.Default()
-	eventginserver.Register("/webhook/event", conf, g)
+	g.POST("/webhook/event", webhookEventHandle)
 	err := g.Run(":8089")
 	if err != nil {
 		fmt.Println(err)
