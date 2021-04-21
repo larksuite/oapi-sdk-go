@@ -117,10 +117,10 @@ func validateFunc(ctx *core.Context, req *request.Request) {
 			req.Err = errors.ErrTenantKeyIsEmpty
 			return
 		}
-		if req.AccessTokenType == request.AccessTokenTypeUser && req.UserAccessToken == "" {
-			req.Err = errors.ErrUserAccessTokenKeyIsEmpty
-			return
-		}
+	}
+	if req.AccessTokenType == request.AccessTokenTypeUser && req.UserAccessToken == "" {
+		req.Err = errors.ErrUserAccessTokenKeyIsEmpty
+		return
 	}
 }
 
