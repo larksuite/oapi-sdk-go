@@ -790,41 +790,6 @@ func (chatMemberss *ChatMembersService) Delete(ctx *core.Context, body *ChatMemb
 	}
 }
 
-type ChatAnnouncementGetReqCall struct {
-	ctx               *core.Context
-	chatAnnouncements *ChatAnnouncementService
-	pathParams        map[string]interface{}
-	queryParams       map[string]interface{}
-	optFns            []request.OptFn
-}
-
-func (rc *ChatAnnouncementGetReqCall) SetChatId(chatId string) {
-	rc.pathParams["chat_id"] = chatId
-}
-func (rc *ChatAnnouncementGetReqCall) SetUserIdType(userIdType string) {
-	rc.queryParams["user_id_type"] = userIdType
-}
-
-func (rc *ChatAnnouncementGetReqCall) Do() (*ChatAnnouncementGetResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &ChatAnnouncementGetResult{}
-	req := request.NewRequest("im/v1/chats/:chat_id/announcement", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.chatAnnouncements.service.conf, req)
-	return result, err
-}
-
-func (chatAnnouncements *ChatAnnouncementService) Get(ctx *core.Context, optFns ...request.OptFn) *ChatAnnouncementGetReqCall {
-	return &ChatAnnouncementGetReqCall{
-		ctx:               ctx,
-		chatAnnouncements: chatAnnouncements,
-		pathParams:        map[string]interface{}{},
-		queryParams:       map[string]interface{}{},
-		optFns:            optFns,
-	}
-}
-
 type MessageResourceGetReqCall struct {
 	ctx              *core.Context
 	messageResources *MessageResourceService
@@ -867,44 +832,38 @@ func (messageResources *MessageResourceService) Get(ctx *core.Context, optFns ..
 	}
 }
 
-type ChatMembersGetReqCall struct {
-	ctx          *core.Context
-	chatMemberss *ChatMembersService
-	pathParams   map[string]interface{}
-	queryParams  map[string]interface{}
-	optFns       []request.OptFn
+type ChatAnnouncementGetReqCall struct {
+	ctx               *core.Context
+	chatAnnouncements *ChatAnnouncementService
+	pathParams        map[string]interface{}
+	queryParams       map[string]interface{}
+	optFns            []request.OptFn
 }
 
-func (rc *ChatMembersGetReqCall) SetChatId(chatId string) {
+func (rc *ChatAnnouncementGetReqCall) SetChatId(chatId string) {
 	rc.pathParams["chat_id"] = chatId
 }
-func (rc *ChatMembersGetReqCall) SetMemberIdType(memberIdType string) {
-	rc.queryParams["member_id_type"] = memberIdType
-}
-func (rc *ChatMembersGetReqCall) SetPageToken(pageToken string) {
-	rc.queryParams["page_token"] = pageToken
-}
-func (rc *ChatMembersGetReqCall) SetPageSize(pageSize int) {
-	rc.queryParams["page_size"] = pageSize
+func (rc *ChatAnnouncementGetReqCall) SetUserIdType(userIdType string) {
+	rc.queryParams["user_id_type"] = userIdType
 }
 
-func (rc *ChatMembersGetReqCall) Do() (*ChatMembersGetResult, error) {
+func (rc *ChatAnnouncementGetReqCall) Do() (*ChatAnnouncementGetResult, error) {
 	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
 	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &ChatMembersGetResult{}
-	req := request.NewRequest("im/v1/chats/:chat_id/members", "GET",
+	var result = &ChatAnnouncementGetResult{}
+	req := request.NewRequest("im/v1/chats/:chat_id/announcement", "GET",
 		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.chatMemberss.service.conf, req)
+	err := api.Send(rc.ctx, rc.chatAnnouncements.service.conf, req)
 	return result, err
 }
 
-func (chatMemberss *ChatMembersService) Get(ctx *core.Context, optFns ...request.OptFn) *ChatMembersGetReqCall {
-	return &ChatMembersGetReqCall{
-		ctx:          ctx,
-		chatMemberss: chatMemberss,
-		pathParams:   map[string]interface{}{},
-		queryParams:  map[string]interface{}{},
-		optFns:       optFns,
+func (chatAnnouncements *ChatAnnouncementService) Get(ctx *core.Context, optFns ...request.OptFn) *ChatAnnouncementGetReqCall {
+	return &ChatAnnouncementGetReqCall{
+		ctx:               ctx,
+		chatAnnouncements: chatAnnouncements,
+		pathParams:        map[string]interface{}{},
+		queryParams:       map[string]interface{}{},
+		optFns:            optFns,
 	}
 }
 
@@ -946,6 +905,47 @@ func (chatModerations *ChatModerationService) Get(ctx *core.Context, optFns ...r
 		pathParams:      map[string]interface{}{},
 		queryParams:     map[string]interface{}{},
 		optFns:          optFns,
+	}
+}
+
+type ChatMembersGetReqCall struct {
+	ctx          *core.Context
+	chatMemberss *ChatMembersService
+	pathParams   map[string]interface{}
+	queryParams  map[string]interface{}
+	optFns       []request.OptFn
+}
+
+func (rc *ChatMembersGetReqCall) SetChatId(chatId string) {
+	rc.pathParams["chat_id"] = chatId
+}
+func (rc *ChatMembersGetReqCall) SetMemberIdType(memberIdType string) {
+	rc.queryParams["member_id_type"] = memberIdType
+}
+func (rc *ChatMembersGetReqCall) SetPageToken(pageToken string) {
+	rc.queryParams["page_token"] = pageToken
+}
+func (rc *ChatMembersGetReqCall) SetPageSize(pageSize int) {
+	rc.queryParams["page_size"] = pageSize
+}
+
+func (rc *ChatMembersGetReqCall) Do() (*ChatMembersGetResult, error) {
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &ChatMembersGetResult{}
+	req := request.NewRequest("im/v1/chats/:chat_id/members", "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.chatMemberss.service.conf, req)
+	return result, err
+}
+
+func (chatMemberss *ChatMembersService) Get(ctx *core.Context, optFns ...request.OptFn) *ChatMembersGetReqCall {
+	return &ChatMembersGetReqCall{
+		ctx:          ctx,
+		chatMemberss: chatMemberss,
+		pathParams:   map[string]interface{}{},
+		queryParams:  map[string]interface{}{},
+		optFns:       optFns,
 	}
 }
 

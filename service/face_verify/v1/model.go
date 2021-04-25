@@ -5,8 +5,7 @@ type FaceVerify struct {
 }
 
 type FaceVerifyCropFaceImageResult struct {
-	AuthState     int `json:"auth_state,omitempty"`
-	AuthTimpstamp int `json:"auth_timpstamp,omitempty"`
+	FaceImage string `json:"face_image,omitempty"`
 }
 
 type FaceVerifyQueryAuthResultResult struct {
@@ -15,6 +14,5 @@ type FaceVerifyQueryAuthResultResult struct {
 }
 
 type FaceVerifyUploadFaceImageResult struct {
-	AuthState     int `json:"auth_state,omitempty"`
-	AuthTimpstamp int `json:"auth_timpstamp,omitempty"`
+	FaceUid string `json:"face_uid,omitempty"`
 }

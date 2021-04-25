@@ -9,7 +9,7 @@ type Bot struct {
 }
 
 type BotInfo struct {
-	ActivateStatus  string   `json:"activate_status,omitempty"`
+	ActivateStatus  int      `json:"activate_status,omitempty"`
 	AppName         string   `json:"app_name,omitempty"`
 	AvatarUrl       string   `json:"avatar_url,omitempty"`
 	IpWhiteList     []string `json:"ip_white_list,omitempty"`

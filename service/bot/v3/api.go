@@ -39,7 +39,8 @@ type BotGetReqCall struct {
 
 func (rc *BotGetReqCall) Do() (*BotGetResult, error) {
 	var result = &BotGetResult{}
-	req := request.NewRequest("bot/v3/info", "POST",
+	rc.optFns = append(rc.optFns, request.SetNotDataField())
+	req := request.NewRequest("bot/v3/info", "GET",
 		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.bots.service.conf, req)
 	return result, err

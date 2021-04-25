@@ -194,12 +194,12 @@ type SummaryBatchGetResult struct {
 	ErrorEventUids []*ErrorEventUid `json:"ErrorEventUids,omitempty"`
 }
 
-type BuildingBatchGetResult struct {
-	Buildings []*Building `json:"buildings,omitempty"`
-}
-
 type RoomBatchGetResult struct {
 	Rooms []*Room `json:"rooms,omitempty"`
+}
+
+type BuildingBatchGetResult struct {
+	Buildings []*Building `json:"buildings,omitempty"`
 }
 
 type BuildingBatchGetIdResult struct {
@@ -208,25 +208,6 @@ type BuildingBatchGetIdResult struct {
 
 type RoomBatchGetIdResult struct {
 	Rooms []*RoomId `json:"rooms,omitempty"`
-}
-
-type BuildingCreateReqBody struct {
-	Name             string   `json:"name,omitempty"`
-	Floors           []string `json:"floors,omitempty"`
-	CountryId        string   `json:"country_id,omitempty"`
-	DistrictId       string   `json:"district_id,omitempty"`
-	CustomBuildingId string   `json:"custom_building_id,omitempty"`
-	ForceSendFields  []string `json:"-"`
-}
-
-func (s *BuildingCreateReqBody) MarshalJSON() ([]byte, error) {
-	type cp BuildingCreateReqBody
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type BuildingCreateResult struct {
-	BuildingId string `json:"building_id,omitempty"`
 }
 
 type RoomCreateReqBody struct {
@@ -249,6 +230,25 @@ type RoomCreateResult struct {
 	RoomId string `json:"room_id,omitempty"`
 }
 
+type BuildingCreateReqBody struct {
+	Name             string   `json:"name,omitempty"`
+	Floors           []string `json:"floors,omitempty"`
+	CountryId        string   `json:"country_id,omitempty"`
+	DistrictId       string   `json:"district_id,omitempty"`
+	CustomBuildingId string   `json:"custom_building_id,omitempty"`
+	ForceSendFields  []string `json:"-"`
+}
+
+func (s *BuildingCreateReqBody) MarshalJSON() ([]byte, error) {
+	type cp BuildingCreateReqBody
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type BuildingCreateResult struct {
+	BuildingId string `json:"building_id,omitempty"`
+}
+
 type BuildingListResult struct {
 	Buildings []*Building `json:"buildings,omitempty"`
 }
@@ -257,12 +257,12 @@ type RoomListResult struct {
 	Rooms []*Room `json:"rooms,omitempty"`
 }
 
-type CountryListResult struct {
-	Countries []*Country `json:"countries,omitempty"`
-}
-
 type DistrictListResult struct {
 	Districts []*District `json:"districts,omitempty"`
+}
+
+type CountryListResult struct {
+	Countries []*Country `json:"countries,omitempty"`
 }
 
 type InstanceReplyReqBody struct {

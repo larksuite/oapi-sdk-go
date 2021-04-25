@@ -55,22 +55,6 @@ func SetChatDisbandedEventHandler(conf *config.Config, fn func(ctx *core.Context
 	event.SetTypeHandler(conf, "im.chat.disbanded_v1", &ChatDisbandedEventHandler{Fn: fn})
 }
 
-type ChatMemberUserAddedEventHandler struct {
-	Fn func(*core.Context, *ChatMemberUserAddedEvent) error
-}
-
-func (h *ChatMemberUserAddedEventHandler) GetEvent() interface{} {
-	return &ChatMemberUserAddedEvent{}
-}
-
-func (h *ChatMemberUserAddedEventHandler) Handle(ctx *core.Context, event interface{}) error {
-	return h.Fn(ctx, event.(*ChatMemberUserAddedEvent))
-}
-
-func SetChatMemberUserAddedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *ChatMemberUserAddedEvent) error) {
-	event.SetTypeHandler(conf, "im.chat.member.user.added_v1", &ChatMemberUserAddedEventHandler{Fn: fn})
-}
-
 type ChatMemberBotAddedEventHandler struct {
 	Fn func(*core.Context, *ChatMemberBotAddedEvent) error
 }
@@ -85,6 +69,22 @@ func (h *ChatMemberBotAddedEventHandler) Handle(ctx *core.Context, event interfa
 
 func SetChatMemberBotAddedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *ChatMemberBotAddedEvent) error) {
 	event.SetTypeHandler(conf, "im.chat.member.bot.added_v1", &ChatMemberBotAddedEventHandler{Fn: fn})
+}
+
+type ChatMemberUserAddedEventHandler struct {
+	Fn func(*core.Context, *ChatMemberUserAddedEvent) error
+}
+
+func (h *ChatMemberUserAddedEventHandler) GetEvent() interface{} {
+	return &ChatMemberUserAddedEvent{}
+}
+
+func (h *ChatMemberUserAddedEventHandler) Handle(ctx *core.Context, event interface{}) error {
+	return h.Fn(ctx, event.(*ChatMemberUserAddedEvent))
+}
+
+func SetChatMemberUserAddedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *ChatMemberUserAddedEvent) error) {
+	event.SetTypeHandler(conf, "im.chat.member.user.added_v1", &ChatMemberUserAddedEventHandler{Fn: fn})
 }
 
 type ChatMemberBotDeletedEventHandler struct {
