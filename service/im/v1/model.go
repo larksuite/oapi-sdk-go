@@ -599,18 +599,18 @@ type ChatAnnouncementGetResult struct {
 	ModifierId     string `json:"modifier_id,omitempty"`
 }
 
-type ChatModerationGetResult struct {
-	ModerationSetting string           `json:"moderation_setting,omitempty"`
-	PageToken         string           `json:"page_token,omitempty"`
-	HasMore           bool             `json:"has_more,omitempty"`
-	Items             []*ListModerator `json:"items,omitempty"`
-}
-
 type ChatMembersGetResult struct {
 	Items       []*ListMember `json:"items,omitempty"`
 	PageToken   string        `json:"page_token,omitempty"`
 	HasMore     bool          `json:"has_more,omitempty"`
 	MemberTotal int           `json:"member_total,omitempty"`
+}
+
+type ChatModerationGetResult struct {
+	ModerationSetting string           `json:"moderation_setting,omitempty"`
+	PageToken         string           `json:"page_token,omitempty"`
+	HasMore           bool             `json:"has_more,omitempty"`
+	Items             []*ListModerator `json:"items,omitempty"`
 }
 
 type ChatMembersIsInChatResult struct {
@@ -679,18 +679,6 @@ type ChatDisbandedEvent struct {
 	Event *ChatDisbandedEventData `json:"event"`
 }
 
-type ChatMemberBotAddedEventData struct {
-	ChatId            string  `json:"chat_id,omitempty"`
-	OperatorId        *UserId `json:"operator_id,omitempty"`
-	External          bool    `json:"external,omitempty"`
-	OperatorTenantKey string  `json:"operator_tenant_key,omitempty"`
-}
-
-type ChatMemberBotAddedEvent struct {
-	*model.BaseEventV2
-	Event *ChatMemberBotAddedEventData `json:"event"`
-}
-
 type ChatMemberUserAddedEventData struct {
 	ChatId            string            `json:"chat_id,omitempty"`
 	OperatorId        *UserId           `json:"operator_id,omitempty"`
@@ -702,6 +690,18 @@ type ChatMemberUserAddedEventData struct {
 type ChatMemberUserAddedEvent struct {
 	*model.BaseEventV2
 	Event *ChatMemberUserAddedEventData `json:"event"`
+}
+
+type ChatMemberBotAddedEventData struct {
+	ChatId            string  `json:"chat_id,omitempty"`
+	OperatorId        *UserId `json:"operator_id,omitempty"`
+	External          bool    `json:"external,omitempty"`
+	OperatorTenantKey string  `json:"operator_tenant_key,omitempty"`
+}
+
+type ChatMemberBotAddedEvent struct {
+	*model.BaseEventV2
+	Event *ChatMemberBotAddedEventData `json:"event"`
 }
 
 type ChatMemberBotDeletedEventData struct {

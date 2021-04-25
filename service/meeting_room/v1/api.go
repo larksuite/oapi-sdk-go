@@ -116,6 +116,65 @@ func newMeetingRoomService(service *Service) *MeetingRoomService {
 	}
 }
 
+type FreebusyBatchGetReqCall struct {
+	ctx         *core.Context
+	freebusys   *FreebusyService
+	queryParams map[string]interface{}
+	optFns      []request.OptFn
+}
+
+func (rc *FreebusyBatchGetReqCall) SetRoomIds(roomIds ...string) {
+	rc.queryParams["room_ids"] = roomIds
+}
+func (rc *FreebusyBatchGetReqCall) SetTimeMin(timeMin string) {
+	rc.queryParams["time_min"] = timeMin
+}
+func (rc *FreebusyBatchGetReqCall) SetTimeMax(timeMax string) {
+	rc.queryParams["time_max"] = timeMax
+}
+
+func (rc *FreebusyBatchGetReqCall) Do() (*FreebusyBatchGetResult, error) {
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &FreebusyBatchGetResult{}
+	req := request.NewRequest("meeting_room/v1/freebusy/batch_get", "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.freebusys.service.conf, req)
+	return result, err
+}
+
+func (freebusys *FreebusyService) BatchGet(ctx *core.Context, optFns ...request.OptFn) *FreebusyBatchGetReqCall {
+	return &FreebusyBatchGetReqCall{
+		ctx:         ctx,
+		freebusys:   freebusys,
+		queryParams: map[string]interface{}{},
+		optFns:      optFns,
+	}
+}
+
+type SummaryBatchGetReqCall struct {
+	ctx      *core.Context
+	summarys *SummaryService
+	body     *SummaryBatchGetReqBody
+	optFns   []request.OptFn
+}
+
+func (rc *SummaryBatchGetReqCall) Do() (*SummaryBatchGetResult, error) {
+	var result = &SummaryBatchGetResult{}
+	req := request.NewRequest("meeting_room/v1/summary/batch_get", "POST",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.summarys.service.conf, req)
+	return result, err
+}
+
+func (summarys *SummaryService) BatchGet(ctx *core.Context, body *SummaryBatchGetReqBody, optFns ...request.OptFn) *SummaryBatchGetReqCall {
+	return &SummaryBatchGetReqCall{
+		ctx:      ctx,
+		summarys: summarys,
+		body:     body,
+		optFns:   optFns,
+	}
+}
+
 type BuildingBatchGetReqCall struct {
 	ctx         *core.Context
 	buildings   *BuildingService
@@ -175,65 +234,6 @@ func (rooms *RoomService) BatchGet(ctx *core.Context, optFns ...request.OptFn) *
 	return &RoomBatchGetReqCall{
 		ctx:         ctx,
 		rooms:       rooms,
-		queryParams: map[string]interface{}{},
-		optFns:      optFns,
-	}
-}
-
-type SummaryBatchGetReqCall struct {
-	ctx      *core.Context
-	summarys *SummaryService
-	body     *SummaryBatchGetReqBody
-	optFns   []request.OptFn
-}
-
-func (rc *SummaryBatchGetReqCall) Do() (*SummaryBatchGetResult, error) {
-	var result = &SummaryBatchGetResult{}
-	req := request.NewRequest("meeting_room/v1/summary/batch_get", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.summarys.service.conf, req)
-	return result, err
-}
-
-func (summarys *SummaryService) BatchGet(ctx *core.Context, body *SummaryBatchGetReqBody, optFns ...request.OptFn) *SummaryBatchGetReqCall {
-	return &SummaryBatchGetReqCall{
-		ctx:      ctx,
-		summarys: summarys,
-		body:     body,
-		optFns:   optFns,
-	}
-}
-
-type FreebusyBatchGetReqCall struct {
-	ctx         *core.Context
-	freebusys   *FreebusyService
-	queryParams map[string]interface{}
-	optFns      []request.OptFn
-}
-
-func (rc *FreebusyBatchGetReqCall) SetRoomIds(roomIds ...string) {
-	rc.queryParams["room_ids"] = roomIds
-}
-func (rc *FreebusyBatchGetReqCall) SetTimeMin(timeMin string) {
-	rc.queryParams["time_min"] = timeMin
-}
-func (rc *FreebusyBatchGetReqCall) SetTimeMax(timeMax string) {
-	rc.queryParams["time_max"] = timeMax
-}
-
-func (rc *FreebusyBatchGetReqCall) Do() (*FreebusyBatchGetResult, error) {
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &FreebusyBatchGetResult{}
-	req := request.NewRequest("meeting_room/v1/freebusy/batch_get", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.freebusys.service.conf, req)
-	return result, err
-}
-
-func (freebusys *FreebusyService) BatchGet(ctx *core.Context, optFns ...request.OptFn) *FreebusyBatchGetReqCall {
-	return &FreebusyBatchGetReqCall{
-		ctx:         ctx,
-		freebusys:   freebusys,
 		queryParams: map[string]interface{}{},
 		optFns:      optFns,
 	}
@@ -345,28 +345,6 @@ func (rooms *RoomService) Create(ctx *core.Context, body *RoomCreateReqBody, opt
 	}
 }
 
-type BuildingDeleteReqCall struct {
-	ctx       *core.Context
-	buildings *BuildingService
-	optFns    []request.OptFn
-}
-
-func (rc *BuildingDeleteReqCall) Do() (*response.NoData, error) {
-	var result = &response.NoData{}
-	req := request.NewRequest("meeting_room/v1/building/delete", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.buildings.service.conf, req)
-	return result, err
-}
-
-func (buildings *BuildingService) Delete(ctx *core.Context, optFns ...request.OptFn) *BuildingDeleteReqCall {
-	return &BuildingDeleteReqCall{
-		ctx:       ctx,
-		buildings: buildings,
-		optFns:    optFns,
-	}
-}
-
 type RoomDeleteReqCall struct {
 	ctx    *core.Context
 	rooms  *RoomService
@@ -389,54 +367,25 @@ func (rooms *RoomService) Delete(ctx *core.Context, optFns ...request.OptFn) *Ro
 	}
 }
 
-type DistrictListReqCall struct {
-	ctx         *core.Context
-	districts   *DistrictService
-	queryParams map[string]interface{}
-	optFns      []request.OptFn
+type BuildingDeleteReqCall struct {
+	ctx       *core.Context
+	buildings *BuildingService
+	optFns    []request.OptFn
 }
 
-func (rc *DistrictListReqCall) SetCountryId(countryId int) {
-	rc.queryParams["country_id"] = countryId
-}
-
-func (rc *DistrictListReqCall) Do() (*DistrictListResult, error) {
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &DistrictListResult{}
-	req := request.NewRequest("meeting_room/v1/district/list", "GET",
+func (rc *BuildingDeleteReqCall) Do() (*response.NoData, error) {
+	var result = &response.NoData{}
+	req := request.NewRequest("meeting_room/v1/building/delete", "POST",
 		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.districts.service.conf, req)
+	err := api.Send(rc.ctx, rc.buildings.service.conf, req)
 	return result, err
 }
 
-func (districts *DistrictService) List(ctx *core.Context, optFns ...request.OptFn) *DistrictListReqCall {
-	return &DistrictListReqCall{
-		ctx:         ctx,
-		districts:   districts,
-		queryParams: map[string]interface{}{},
-		optFns:      optFns,
-	}
-}
-
-type CountryListReqCall struct {
-	ctx      *core.Context
-	countrys *CountryService
-	optFns   []request.OptFn
-}
-
-func (rc *CountryListReqCall) Do() (*CountryListResult, error) {
-	var result = &CountryListResult{}
-	req := request.NewRequest("meeting_room/v1/country/list", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.countrys.service.conf, req)
-	return result, err
-}
-
-func (countrys *CountryService) List(ctx *core.Context, optFns ...request.OptFn) *CountryListReqCall {
-	return &CountryListReqCall{
-		ctx:      ctx,
-		countrys: countrys,
-		optFns:   optFns,
+func (buildings *BuildingService) Delete(ctx *core.Context, optFns ...request.OptFn) *BuildingDeleteReqCall {
+	return &BuildingDeleteReqCall{
+		ctx:       ctx,
+		buildings: buildings,
+		optFns:    optFns,
 	}
 }
 
@@ -514,6 +463,57 @@ func (rooms *RoomService) List(ctx *core.Context, optFns ...request.OptFn) *Room
 	return &RoomListReqCall{
 		ctx:         ctx,
 		rooms:       rooms,
+		queryParams: map[string]interface{}{},
+		optFns:      optFns,
+	}
+}
+
+type CountryListReqCall struct {
+	ctx      *core.Context
+	countrys *CountryService
+	optFns   []request.OptFn
+}
+
+func (rc *CountryListReqCall) Do() (*CountryListResult, error) {
+	var result = &CountryListResult{}
+	req := request.NewRequest("meeting_room/v1/country/list", "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.countrys.service.conf, req)
+	return result, err
+}
+
+func (countrys *CountryService) List(ctx *core.Context, optFns ...request.OptFn) *CountryListReqCall {
+	return &CountryListReqCall{
+		ctx:      ctx,
+		countrys: countrys,
+		optFns:   optFns,
+	}
+}
+
+type DistrictListReqCall struct {
+	ctx         *core.Context
+	districts   *DistrictService
+	queryParams map[string]interface{}
+	optFns      []request.OptFn
+}
+
+func (rc *DistrictListReqCall) SetCountryId(countryId int) {
+	rc.queryParams["country_id"] = countryId
+}
+
+func (rc *DistrictListReqCall) Do() (*DistrictListResult, error) {
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &DistrictListResult{}
+	req := request.NewRequest("meeting_room/v1/district/list", "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.districts.service.conf, req)
+	return result, err
+}
+
+func (districts *DistrictService) List(ctx *core.Context, optFns ...request.OptFn) *DistrictListReqCall {
+	return &DistrictListReqCall{
+		ctx:         ctx,
+		districts:   districts,
 		queryParams: map[string]interface{}{},
 		optFns:      optFns,
 	}
