@@ -51,13 +51,11 @@ func main() {
 
 	g := gin.Default()
 
-	g.POST("/webhook/event", webhookEventHandle)
+	g.POST("/webhook/event", func(context *gin.Context) {
+		eventhttp.Handle(conf, context.Request, context.Writer)
+	})
 	err := g.Run(":8089")
 	if err != nil {
 		panic(err)
 	}
-}
-
-func webhookEventHandle(context *gin.Context) {
-	eventhttp.Handle(conf, context.Request, context.Writer)
 }

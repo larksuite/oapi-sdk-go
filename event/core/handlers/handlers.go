@@ -115,9 +115,7 @@ func complementFunc(ctx *core.Context, httpEvent *model.HTTPEvent) {
 	conf := config.ByCtx(ctx)
 	err := httpEvent.Err
 	if err != nil {
-		switch e := err.(type) {
-		case *NotFoundHandlerErr:
-			conf.GetLogger().Info(ctx, e.Error())
+		if _, ok := err.(*NotFoundHandlerErr); ok {
 			httpEvent.Response.Write(http.StatusOK, constants.DefaultContentType, fmt.Sprintf(coremodel.ResponseFormat, err.Error()))
 			return
 		}
