@@ -345,28 +345,6 @@ func (buildings *BuildingService) Create(ctx *core.Context, body *BuildingCreate
 	}
 }
 
-type RoomDeleteReqCall struct {
-	ctx    *core.Context
-	rooms  *RoomService
-	optFns []request.OptFn
-}
-
-func (rc *RoomDeleteReqCall) Do() (*response.NoData, error) {
-	var result = &response.NoData{}
-	req := request.NewRequest("meeting_room/v1/room/delete", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.rooms.service.conf, req)
-	return result, err
-}
-
-func (rooms *RoomService) Delete(ctx *core.Context, optFns ...request.OptFn) *RoomDeleteReqCall {
-	return &RoomDeleteReqCall{
-		ctx:    ctx,
-		rooms:  rooms,
-		optFns: optFns,
-	}
-}
-
 type BuildingDeleteReqCall struct {
 	ctx       *core.Context
 	buildings *BuildingService
@@ -389,41 +367,25 @@ func (buildings *BuildingService) Delete(ctx *core.Context, optFns ...request.Op
 	}
 }
 
-type BuildingListReqCall struct {
-	ctx         *core.Context
-	buildings   *BuildingService
-	queryParams map[string]interface{}
-	optFns      []request.OptFn
+type RoomDeleteReqCall struct {
+	ctx    *core.Context
+	rooms  *RoomService
+	optFns []request.OptFn
 }
 
-func (rc *BuildingListReqCall) SetOrderBy(orderBy string) {
-	rc.queryParams["order_by"] = orderBy
-}
-func (rc *BuildingListReqCall) SetFields(fields string) {
-	rc.queryParams["fields"] = fields
-}
-func (rc *BuildingListReqCall) SetPageToken(pageToken string) {
-	rc.queryParams["page_token"] = pageToken
-}
-func (rc *BuildingListReqCall) SetPageSize(pageSize int) {
-	rc.queryParams["page_size"] = pageSize
-}
-
-func (rc *BuildingListReqCall) Do() (*BuildingListResult, error) {
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &BuildingListResult{}
-	req := request.NewRequest("meeting_room/v1/building/list", "GET",
+func (rc *RoomDeleteReqCall) Do() (*response.NoData, error) {
+	var result = &response.NoData{}
+	req := request.NewRequest("meeting_room/v1/room/delete", "POST",
 		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.buildings.service.conf, req)
+	err := api.Send(rc.ctx, rc.rooms.service.conf, req)
 	return result, err
 }
 
-func (buildings *BuildingService) List(ctx *core.Context, optFns ...request.OptFn) *BuildingListReqCall {
-	return &BuildingListReqCall{
-		ctx:         ctx,
-		buildings:   buildings,
-		queryParams: map[string]interface{}{},
-		optFns:      optFns,
+func (rooms *RoomService) Delete(ctx *core.Context, optFns ...request.OptFn) *RoomDeleteReqCall {
+	return &RoomDeleteReqCall{
+		ctx:    ctx,
+		rooms:  rooms,
+		optFns: optFns,
 	}
 }
 
@@ -492,6 +454,44 @@ func (districts *DistrictService) List(ctx *core.Context, optFns ...request.OptF
 	return &DistrictListReqCall{
 		ctx:         ctx,
 		districts:   districts,
+		queryParams: map[string]interface{}{},
+		optFns:      optFns,
+	}
+}
+
+type BuildingListReqCall struct {
+	ctx         *core.Context
+	buildings   *BuildingService
+	queryParams map[string]interface{}
+	optFns      []request.OptFn
+}
+
+func (rc *BuildingListReqCall) SetOrderBy(orderBy string) {
+	rc.queryParams["order_by"] = orderBy
+}
+func (rc *BuildingListReqCall) SetFields(fields string) {
+	rc.queryParams["fields"] = fields
+}
+func (rc *BuildingListReqCall) SetPageToken(pageToken string) {
+	rc.queryParams["page_token"] = pageToken
+}
+func (rc *BuildingListReqCall) SetPageSize(pageSize int) {
+	rc.queryParams["page_size"] = pageSize
+}
+
+func (rc *BuildingListReqCall) Do() (*BuildingListResult, error) {
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &BuildingListResult{}
+	req := request.NewRequest("meeting_room/v1/building/list", "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.buildings.service.conf, req)
+	return result, err
+}
+
+func (buildings *BuildingService) List(ctx *core.Context, optFns ...request.OptFn) *BuildingListReqCall {
+	return &BuildingListReqCall{
+		ctx:         ctx,
+		buildings:   buildings,
 		queryParams: map[string]interface{}{},
 		optFns:      optFns,
 	}

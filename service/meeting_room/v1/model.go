@@ -249,16 +249,16 @@ type BuildingCreateResult struct {
 	BuildingId string `json:"building_id,omitempty"`
 }
 
-type BuildingListResult struct {
-	Buildings []*Building `json:"buildings,omitempty"`
-}
-
 type RoomListResult struct {
 	Rooms []*Room `json:"rooms,omitempty"`
 }
 
 type DistrictListResult struct {
 	Districts []*District `json:"districts,omitempty"`
+}
+
+type BuildingListResult struct {
+	Buildings []*Building `json:"buildings,omitempty"`
 }
 
 type CountryListResult struct {

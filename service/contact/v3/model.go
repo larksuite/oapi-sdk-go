@@ -149,16 +149,16 @@ func (s *Department) MarshalJSON() ([]byte, error) {
 }
 
 type DepartmentEvent struct {
-	Name               string            `json:"name,omitempty"`
-	ParentDepartmentId string            `json:"parent_department_id,omitempty"`
-	DepartmentId       string            `json:"department_id,omitempty"`
-	OpenDepartmentId   string            `json:"open_department_id,omitempty"`
-	LeaderUserId       string            `json:"leader_user_id,omitempty"`
-	ChatId             string            `json:"chat_id,omitempty"`
-	Order              int               `json:"order,omitempty"`
-	UnitIds            []string          `json:"unit_ids,omitempty"`
-	Status             *DepartmentStatus `json:"status,omitempty"`
-	ForceSendFields    []string          `json:"-"`
+	Name               string `json:"name,omitempty"`
+	ParentDepartmentId string `json:"parent_department_id,omitempty"`
+	DepartmentId       string `json:"department_id,omitempty"`
+	OpenDepartmentId   string `json:"open_department_id,omitempty"`
+	LeaderUserId       string `json:"leader_user_id,omitempty"`
+	ChatId             string `json:"chat_id,omitempty"`
+	Order              int    `json:"order,omitempty"`
+
+	Status          *DepartmentStatus `json:"status,omitempty"`
+	ForceSendFields []string          `json:"-"`
 }
 
 func (s *DepartmentEvent) MarshalJSON() ([]byte, error) {
@@ -206,34 +206,32 @@ func (s *Scope) MarshalJSON() ([]byte, error) {
 }
 
 type User struct {
-	UnionId              string              `json:"union_id,omitempty"`
-	UserId               string              `json:"user_id,omitempty"`
-	OpenId               string              `json:"open_id,omitempty"`
-	Name                 string              `json:"name,omitempty"`
-	EnName               string              `json:"en_name,omitempty"`
-	Email                string              `json:"email,omitempty"`
-	Mobile               string              `json:"mobile,omitempty"`
-	MobileVisible        bool                `json:"mobile_visible,omitempty"`
-	Gender               int                 `json:"gender,omitempty"`
-	AvatarKey            string              `json:"avatar_key,omitempty"`
-	Avatar               *AvatarInfo         `json:"avatar,omitempty"`
-	Status               *UserStatus         `json:"status,omitempty"`
-	DepartmentIds        []string            `json:"department_ids,omitempty"`
-	LeaderUserId         string              `json:"leader_user_id,omitempty"`
-	City                 string              `json:"city,omitempty"`
-	Country              string              `json:"country,omitempty"`
-	WorkStation          string              `json:"work_station,omitempty"`
-	JoinTime             int                 `json:"join_time,omitempty"`
-	IsTenantManager      bool                `json:"is_tenant_manager,omitempty"`
-	EmployeeNo           string              `json:"employee_no,omitempty"`
-	EmployeeType         int                 `json:"employee_type,omitempty"`
-	Positions            []*UserPosition     `json:"positions,omitempty"`
-	Orders               []*UserOrder        `json:"orders,omitempty"`
-	CustomAttrs          []*UserCustomAttr   `json:"custom_attrs,omitempty"`
-	EnterpriseEmail      string              `json:"enterprise_email,omitempty"`
-	IdpType              string              `json:"idp_type,omitempty"`
-	TimeZone             string              `json:"time_zone,omitempty"`
-	Description          string              `json:"description,omitempty"`
+	UnionId         string      `json:"union_id,omitempty"`
+	UserId          string      `json:"user_id,omitempty"`
+	OpenId          string      `json:"open_id,omitempty"`
+	Name            string      `json:"name,omitempty"`
+	EnName          string      `json:"en_name,omitempty"`
+	Email           string      `json:"email,omitempty"`
+	Mobile          string      `json:"mobile,omitempty"`
+	MobileVisible   bool        `json:"mobile_visible,omitempty"`
+	Gender          int         `json:"gender,omitempty"`
+	AvatarKey       string      `json:"avatar_key,omitempty"`
+	Avatar          *AvatarInfo `json:"avatar,omitempty"`
+	Status          *UserStatus `json:"status,omitempty"`
+	DepartmentIds   []string    `json:"department_ids,omitempty"`
+	LeaderUserId    string      `json:"leader_user_id,omitempty"`
+	City            string      `json:"city,omitempty"`
+	Country         string      `json:"country,omitempty"`
+	WorkStation     string      `json:"work_station,omitempty"`
+	JoinTime        int         `json:"join_time,omitempty"`
+	IsTenantManager bool        `json:"is_tenant_manager,omitempty"`
+	EmployeeNo      string      `json:"employee_no,omitempty"`
+	EmployeeType    int         `json:"employee_type,omitempty"`
+
+	Orders          []*UserOrder      `json:"orders,omitempty"`
+	CustomAttrs     []*UserCustomAttr `json:"custom_attrs,omitempty"`
+	EnterpriseEmail string            `json:"enterprise_email,omitempty"`
+
 	NeedSendNotification bool                `json:"need_send_notification,omitempty"`
 	NotificationOption   *NotificationOption `json:"notification_option,omitempty"`
 	ForceSendFields      []string            `json:"-"`
@@ -246,28 +244,28 @@ func (s *User) MarshalJSON() ([]byte, error) {
 }
 
 type UserEvent struct {
-	OpenId          string            `json:"open_id,omitempty"`
-	UserId          string            `json:"user_id,omitempty"`
-	Name            string            `json:"name,omitempty"`
-	EnName          string            `json:"en_name,omitempty"`
-	Email           string            `json:"email,omitempty"`
-	Mobile          string            `json:"mobile,omitempty"`
-	MobileVisible   bool              `json:"mobile_visible,omitempty"`
-	Gender          int               `json:"gender,omitempty"`
-	Avatar          *AvatarInfo       `json:"avatar,omitempty"`
-	Status          *UserStatus       `json:"status,omitempty"`
-	DepartmentIds   []string          `json:"department_ids,omitempty"`
-	LeaderUserId    string            `json:"leader_user_id,omitempty"`
-	City            string            `json:"city,omitempty"`
-	Country         string            `json:"country,omitempty"`
-	WorkStation     string            `json:"work_station,omitempty"`
-	JoinTime        int               `json:"join_time,omitempty"`
-	IsTenantManager bool              `json:"is_tenant_manager,omitempty"`
-	EmployeeNo      string            `json:"employee_no,omitempty"`
-	EmployeeType    int               `json:"employee_type,omitempty"`
-	Positions       []*UserPosition   `json:"positions,omitempty"`
-	Orders          []*UserOrder      `json:"orders,omitempty"`
-	TimeZone        string            `json:"time_zone,omitempty"`
+	OpenId string `json:"open_id,omitempty"`
+	UserId string `json:"user_id,omitempty"`
+	Name   string `json:"name,omitempty"`
+	EnName string `json:"en_name,omitempty"`
+	Email  string `json:"email,omitempty"`
+	Mobile string `json:"mobile,omitempty"`
+
+	Gender        int         `json:"gender,omitempty"`
+	Avatar        *AvatarInfo `json:"avatar,omitempty"`
+	Status        *UserStatus `json:"status,omitempty"`
+	DepartmentIds []string    `json:"department_ids,omitempty"`
+	LeaderUserId  string      `json:"leader_user_id,omitempty"`
+	City          string      `json:"city,omitempty"`
+	Country       string      `json:"country,omitempty"`
+	WorkStation   string      `json:"work_station,omitempty"`
+	JoinTime      int         `json:"join_time,omitempty"`
+
+	EmployeeNo   string `json:"employee_no,omitempty"`
+	EmployeeType int    `json:"employee_type,omitempty"`
+
+	Orders []*UserOrder `json:"orders,omitempty"`
+
 	CustomAttrs     []*UserCustomAttr `json:"custom_attrs,omitempty"`
 	ForceSendFields []string          `json:"-"`
 }
