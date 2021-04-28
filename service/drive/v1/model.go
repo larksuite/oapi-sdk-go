@@ -6,13 +6,15 @@ import (
 	"github.com/larksuite/oapi-sdk-go/event/core/model"
 )
 
-type DocsLink struct {
-	Url             string   `json:"url,omitempty"`
+type UserId struct {
+	UserId          string   `json:"user_id,omitempty"`
+	OpenId          string   `json:"open_id,omitempty"`
+	UnionId         string   `json:"union_id,omitempty"`
 	ForceSendFields []string `json:"-"`
 }
 
-func (s *DocsLink) MarshalJSON() ([]byte, error) {
-	type cp DocsLink
+func (s *UserId) MarshalJSON() ([]byte, error) {
+	type cp UserId
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
@@ -60,6 +62,17 @@ type FileCommentReply struct {
 
 func (s *FileCommentReply) MarshalJSON() ([]byte, error) {
 	type cp FileCommentReply
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type DocsLink struct {
+	Url             string   `json:"url,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *DocsLink) MarshalJSON() ([]byte, error) {
+	type cp DocsLink
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
@@ -158,19 +171,6 @@ type UploadInfo struct {
 
 func (s *UploadInfo) MarshalJSON() ([]byte, error) {
 	type cp UploadInfo
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type UserId struct {
-	UserId          string   `json:"user_id,omitempty"`
-	OpenId          string   `json:"open_id,omitempty"`
-	UnionId         string   `json:"union_id,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *UserId) MarshalJSON() ([]byte, error) {
-	type cp UserId
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }

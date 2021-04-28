@@ -151,30 +151,6 @@ func (freebusys *FreebusyService) BatchGet(ctx *core.Context, optFns ...request.
 	}
 }
 
-type SummaryBatchGetReqCall struct {
-	ctx      *core.Context
-	summarys *SummaryService
-	body     *SummaryBatchGetReqBody
-	optFns   []request.OptFn
-}
-
-func (rc *SummaryBatchGetReqCall) Do() (*SummaryBatchGetResult, error) {
-	var result = &SummaryBatchGetResult{}
-	req := request.NewRequest("meeting_room/v1/summary/batch_get", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.summarys.service.conf, req)
-	return result, err
-}
-
-func (summarys *SummaryService) BatchGet(ctx *core.Context, body *SummaryBatchGetReqBody, optFns ...request.OptFn) *SummaryBatchGetReqCall {
-	return &SummaryBatchGetReqCall{
-		ctx:      ctx,
-		summarys: summarys,
-		body:     body,
-		optFns:   optFns,
-	}
-}
-
 type RoomBatchGetReqCall struct {
 	ctx         *core.Context
 	rooms       *RoomService
@@ -204,6 +180,30 @@ func (rooms *RoomService) BatchGet(ctx *core.Context, optFns ...request.OptFn) *
 		rooms:       rooms,
 		queryParams: map[string]interface{}{},
 		optFns:      optFns,
+	}
+}
+
+type SummaryBatchGetReqCall struct {
+	ctx      *core.Context
+	summarys *SummaryService
+	body     *SummaryBatchGetReqBody
+	optFns   []request.OptFn
+}
+
+func (rc *SummaryBatchGetReqCall) Do() (*SummaryBatchGetResult, error) {
+	var result = &SummaryBatchGetResult{}
+	req := request.NewRequest("meeting_room/v1/summary/batch_get", "POST",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.summarys.service.conf, req)
+	return result, err
+}
+
+func (summarys *SummaryService) BatchGet(ctx *core.Context, body *SummaryBatchGetReqBody, optFns ...request.OptFn) *SummaryBatchGetReqCall {
+	return &SummaryBatchGetReqCall{
+		ctx:      ctx,
+		summarys: summarys,
+		body:     body,
+		optFns:   optFns,
 	}
 }
 
@@ -345,6 +345,28 @@ func (buildings *BuildingService) Create(ctx *core.Context, body *BuildingCreate
 	}
 }
 
+type RoomDeleteReqCall struct {
+	ctx    *core.Context
+	rooms  *RoomService
+	optFns []request.OptFn
+}
+
+func (rc *RoomDeleteReqCall) Do() (*response.NoData, error) {
+	var result = &response.NoData{}
+	req := request.NewRequest("meeting_room/v1/room/delete", "POST",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.rooms.service.conf, req)
+	return result, err
+}
+
+func (rooms *RoomService) Delete(ctx *core.Context, optFns ...request.OptFn) *RoomDeleteReqCall {
+	return &RoomDeleteReqCall{
+		ctx:    ctx,
+		rooms:  rooms,
+		optFns: optFns,
+	}
+}
+
 type BuildingDeleteReqCall struct {
 	ctx       *core.Context
 	buildings *BuildingService
@@ -367,25 +389,54 @@ func (buildings *BuildingService) Delete(ctx *core.Context, optFns ...request.Op
 	}
 }
 
-type RoomDeleteReqCall struct {
-	ctx    *core.Context
-	rooms  *RoomService
-	optFns []request.OptFn
+type CountryListReqCall struct {
+	ctx      *core.Context
+	countrys *CountryService
+	optFns   []request.OptFn
 }
 
-func (rc *RoomDeleteReqCall) Do() (*response.NoData, error) {
-	var result = &response.NoData{}
-	req := request.NewRequest("meeting_room/v1/room/delete", "POST",
+func (rc *CountryListReqCall) Do() (*CountryListResult, error) {
+	var result = &CountryListResult{}
+	req := request.NewRequest("meeting_room/v1/country/list", "GET",
 		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.rooms.service.conf, req)
+	err := api.Send(rc.ctx, rc.countrys.service.conf, req)
 	return result, err
 }
 
-func (rooms *RoomService) Delete(ctx *core.Context, optFns ...request.OptFn) *RoomDeleteReqCall {
-	return &RoomDeleteReqCall{
-		ctx:    ctx,
-		rooms:  rooms,
-		optFns: optFns,
+func (countrys *CountryService) List(ctx *core.Context, optFns ...request.OptFn) *CountryListReqCall {
+	return &CountryListReqCall{
+		ctx:      ctx,
+		countrys: countrys,
+		optFns:   optFns,
+	}
+}
+
+type DistrictListReqCall struct {
+	ctx         *core.Context
+	districts   *DistrictService
+	queryParams map[string]interface{}
+	optFns      []request.OptFn
+}
+
+func (rc *DistrictListReqCall) SetCountryId(countryId int) {
+	rc.queryParams["country_id"] = countryId
+}
+
+func (rc *DistrictListReqCall) Do() (*DistrictListResult, error) {
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &DistrictListResult{}
+	req := request.NewRequest("meeting_room/v1/district/list", "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.districts.service.conf, req)
+	return result, err
+}
+
+func (districts *DistrictService) List(ctx *core.Context, optFns ...request.OptFn) *DistrictListReqCall {
+	return &DistrictListReqCall{
+		ctx:         ctx,
+		districts:   districts,
+		queryParams: map[string]interface{}{},
+		optFns:      optFns,
 	}
 }
 
@@ -430,35 +481,6 @@ func (rooms *RoomService) List(ctx *core.Context, optFns ...request.OptFn) *Room
 	}
 }
 
-type DistrictListReqCall struct {
-	ctx         *core.Context
-	districts   *DistrictService
-	queryParams map[string]interface{}
-	optFns      []request.OptFn
-}
-
-func (rc *DistrictListReqCall) SetCountryId(countryId int) {
-	rc.queryParams["country_id"] = countryId
-}
-
-func (rc *DistrictListReqCall) Do() (*DistrictListResult, error) {
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &DistrictListResult{}
-	req := request.NewRequest("meeting_room/v1/district/list", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.districts.service.conf, req)
-	return result, err
-}
-
-func (districts *DistrictService) List(ctx *core.Context, optFns ...request.OptFn) *DistrictListReqCall {
-	return &DistrictListReqCall{
-		ctx:         ctx,
-		districts:   districts,
-		queryParams: map[string]interface{}{},
-		optFns:      optFns,
-	}
-}
-
 type BuildingListReqCall struct {
 	ctx         *core.Context
 	buildings   *BuildingService
@@ -497,28 +519,6 @@ func (buildings *BuildingService) List(ctx *core.Context, optFns ...request.OptF
 	}
 }
 
-type CountryListReqCall struct {
-	ctx      *core.Context
-	countrys *CountryService
-	optFns   []request.OptFn
-}
-
-func (rc *CountryListReqCall) Do() (*CountryListResult, error) {
-	var result = &CountryListResult{}
-	req := request.NewRequest("meeting_room/v1/country/list", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.countrys.service.conf, req)
-	return result, err
-}
-
-func (countrys *CountryService) List(ctx *core.Context, optFns ...request.OptFn) *CountryListReqCall {
-	return &CountryListReqCall{
-		ctx:      ctx,
-		countrys: countrys,
-		optFns:   optFns,
-	}
-}
-
 type InstanceReplyReqCall struct {
 	ctx       *core.Context
 	instances *InstanceService
@@ -538,30 +538,6 @@ func (instances *InstanceService) Reply(ctx *core.Context, body *InstanceReplyRe
 	return &InstanceReplyReqCall{
 		ctx:       ctx,
 		instances: instances,
-		body:      body,
-		optFns:    optFns,
-	}
-}
-
-type BuildingUpdateReqCall struct {
-	ctx       *core.Context
-	buildings *BuildingService
-	body      *BuildingUpdateReqBody
-	optFns    []request.OptFn
-}
-
-func (rc *BuildingUpdateReqCall) Do() (*response.NoData, error) {
-	var result = &response.NoData{}
-	req := request.NewRequest("meeting_room/v1/building/update", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.buildings.service.conf, req)
-	return result, err
-}
-
-func (buildings *BuildingService) Update(ctx *core.Context, body *BuildingUpdateReqBody, optFns ...request.OptFn) *BuildingUpdateReqCall {
-	return &BuildingUpdateReqCall{
-		ctx:       ctx,
-		buildings: buildings,
 		body:      body,
 		optFns:    optFns,
 	}
@@ -588,5 +564,29 @@ func (rooms *RoomService) Update(ctx *core.Context, body *RoomUpdateReqBody, opt
 		rooms:  rooms,
 		body:   body,
 		optFns: optFns,
+	}
+}
+
+type BuildingUpdateReqCall struct {
+	ctx       *core.Context
+	buildings *BuildingService
+	body      *BuildingUpdateReqBody
+	optFns    []request.OptFn
+}
+
+func (rc *BuildingUpdateReqCall) Do() (*response.NoData, error) {
+	var result = &response.NoData{}
+	req := request.NewRequest("meeting_room/v1/building/update", "POST",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.buildings.service.conf, req)
+	return result, err
+}
+
+func (buildings *BuildingService) Update(ctx *core.Context, body *BuildingUpdateReqBody, optFns ...request.OptFn) *BuildingUpdateReqCall {
+	return &BuildingUpdateReqCall{
+		ctx:       ctx,
+		buildings: buildings,
+		body:      body,
+		optFns:    optFns,
 	}
 }

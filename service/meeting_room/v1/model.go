@@ -178,6 +178,10 @@ type FreebusyBatchGetResult struct {
 	FreeBusy map[string]*RoomFreeBusy `json:"free_busy,omitempty"`
 }
 
+type RoomBatchGetResult struct {
+	Rooms []*Room `json:"rooms,omitempty"`
+}
+
 type SummaryBatchGetReqBody struct {
 	EventUids       []*EventUid `json:"EventUids,omitempty"`
 	ForceSendFields []string    `json:"-"`
@@ -192,10 +196,6 @@ func (s *SummaryBatchGetReqBody) MarshalJSON() ([]byte, error) {
 type SummaryBatchGetResult struct {
 	EventInfos     []*EventInfo     `json:"EventInfos,omitempty"`
 	ErrorEventUids []*ErrorEventUid `json:"ErrorEventUids,omitempty"`
-}
-
-type RoomBatchGetResult struct {
-	Rooms []*Room `json:"rooms,omitempty"`
 }
 
 type BuildingBatchGetResult struct {
@@ -249,20 +249,20 @@ type BuildingCreateResult struct {
 	BuildingId string `json:"building_id,omitempty"`
 }
 
-type RoomListResult struct {
-	Rooms []*Room `json:"rooms,omitempty"`
+type CountryListResult struct {
+	Countries []*Country `json:"countries,omitempty"`
 }
 
 type DistrictListResult struct {
 	Districts []*District `json:"districts,omitempty"`
 }
 
-type BuildingListResult struct {
-	Buildings []*Building `json:"buildings,omitempty"`
+type RoomListResult struct {
+	Rooms []*Room `json:"rooms,omitempty"`
 }
 
-type CountryListResult struct {
-	Countries []*Country `json:"countries,omitempty"`
+type BuildingListResult struct {
+	Buildings []*Building `json:"buildings,omitempty"`
 }
 
 type InstanceReplyReqBody struct {
@@ -279,6 +279,20 @@ func (s *InstanceReplyReqBody) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
+type RoomUpdateReqBody struct {
+	Name            string   `json:"name,omitempty"`
+	Capacity        int      `json:"capacity,omitempty"`
+	IsDisabled      bool     `json:"is_disabled,omitempty"`
+	CustomRoomId    string   `json:"custom_room_id,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *RoomUpdateReqBody) MarshalJSON() ([]byte, error) {
+	type cp RoomUpdateReqBody
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
 type BuildingUpdateReqBody struct {
 	Name             string   `json:"name,omitempty"`
 	Floors           []string `json:"floors,omitempty"`
@@ -290,20 +304,6 @@ type BuildingUpdateReqBody struct {
 
 func (s *BuildingUpdateReqBody) MarshalJSON() ([]byte, error) {
 	type cp BuildingUpdateReqBody
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type RoomUpdateReqBody struct {
-	Name            string   `json:"name,omitempty"`
-	Capacity        int      `json:"capacity,omitempty"`
-	IsDisabled      bool     `json:"is_disabled,omitempty"`
-	CustomRoomId    string   `json:"custom_room_id,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *RoomUpdateReqBody) MarshalJSON() ([]byte, error) {
-	type cp RoomUpdateReqBody
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
