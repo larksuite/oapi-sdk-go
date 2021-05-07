@@ -710,6 +710,19 @@ func (s *SpreadsheetsDimensionRangeUpdateReqBody) MarshalJSON() ([]byte, error) 
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
+type SpreadsheetsImportReqBody struct {
+	File            []byte   `json:"file,omitempty"`
+	Name            string   `json:"name,omitempty"`
+	FolderToken     string   `json:"folderToken,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *SpreadsheetsImportReqBody) MarshalJSON() ([]byte, error) {
+	type cp SpreadsheetsImportReqBody
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
 type SpreadsheetsImportResult struct {
 	Ticket string `json:"ticket,omitempty"`
 }
@@ -936,6 +949,19 @@ type SpreadsheetsValuesGetResult struct {
 	Revision         int         `json:"revision,omitempty"`
 	SpreadsheetToken string      `json:"spreadsheetToken,omitempty"`
 	ValueRange       *ValueRange `json:"valueRange,omitempty"`
+}
+
+type SpreadsheetsValuesImageReqBody struct {
+	Range           string   `json:"range,omitempty"`
+	Image           []byte   `json:"image,omitempty"`
+	Name            string   `json:"name,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *SpreadsheetsValuesImageReqBody) MarshalJSON() ([]byte, error) {
+	type cp SpreadsheetsValuesImageReqBody
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
 type SpreadsheetsValuesImageResult struct {

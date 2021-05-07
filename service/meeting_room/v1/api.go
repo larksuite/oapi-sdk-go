@@ -116,6 +116,38 @@ func newMeetingRoomService(service *Service) *MeetingRoomService {
 	}
 }
 
+type RoomBatchGetReqCall struct {
+	ctx         *core.Context
+	rooms       *RoomService
+	queryParams map[string]interface{}
+	optFns      []request.OptFn
+}
+
+func (rc *RoomBatchGetReqCall) SetRoomIds(roomIds ...string) {
+	rc.queryParams["room_ids"] = roomIds
+}
+func (rc *RoomBatchGetReqCall) SetFields(fields string) {
+	rc.queryParams["fields"] = fields
+}
+
+func (rc *RoomBatchGetReqCall) Do() (*RoomBatchGetResult, error) {
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &RoomBatchGetResult{}
+	req := request.NewRequest("meeting_room/v1/room/batch_get", "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.rooms.service.conf, req)
+	return result, err
+}
+
+func (rooms *RoomService) BatchGet(ctx *core.Context, optFns ...request.OptFn) *RoomBatchGetReqCall {
+	return &RoomBatchGetReqCall{
+		ctx:         ctx,
+		rooms:       rooms,
+		queryParams: map[string]interface{}{},
+		optFns:      optFns,
+	}
+}
+
 type FreebusyBatchGetReqCall struct {
 	ctx         *core.Context
 	freebusys   *FreebusyService
@@ -151,33 +183,33 @@ func (freebusys *FreebusyService) BatchGet(ctx *core.Context, optFns ...request.
 	}
 }
 
-type RoomBatchGetReqCall struct {
+type BuildingBatchGetReqCall struct {
 	ctx         *core.Context
-	rooms       *RoomService
+	buildings   *BuildingService
 	queryParams map[string]interface{}
 	optFns      []request.OptFn
 }
 
-func (rc *RoomBatchGetReqCall) SetRoomIds(roomIds ...string) {
-	rc.queryParams["room_ids"] = roomIds
+func (rc *BuildingBatchGetReqCall) SetBuildingIds(buildingIds ...string) {
+	rc.queryParams["building_ids"] = buildingIds
 }
-func (rc *RoomBatchGetReqCall) SetFields(fields string) {
+func (rc *BuildingBatchGetReqCall) SetFields(fields string) {
 	rc.queryParams["fields"] = fields
 }
 
-func (rc *RoomBatchGetReqCall) Do() (*RoomBatchGetResult, error) {
+func (rc *BuildingBatchGetReqCall) Do() (*BuildingBatchGetResult, error) {
 	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &RoomBatchGetResult{}
-	req := request.NewRequest("meeting_room/v1/room/batch_get", "GET",
+	var result = &BuildingBatchGetResult{}
+	req := request.NewRequest("meeting_room/v1/building/batch_get", "GET",
 		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.rooms.service.conf, req)
+	err := api.Send(rc.ctx, rc.buildings.service.conf, req)
 	return result, err
 }
 
-func (rooms *RoomService) BatchGet(ctx *core.Context, optFns ...request.OptFn) *RoomBatchGetReqCall {
-	return &RoomBatchGetReqCall{
+func (buildings *BuildingService) BatchGet(ctx *core.Context, optFns ...request.OptFn) *BuildingBatchGetReqCall {
+	return &BuildingBatchGetReqCall{
 		ctx:         ctx,
-		rooms:       rooms,
+		buildings:   buildings,
 		queryParams: map[string]interface{}{},
 		optFns:      optFns,
 	}
@@ -207,33 +239,30 @@ func (summarys *SummaryService) BatchGet(ctx *core.Context, body *SummaryBatchGe
 	}
 }
 
-type BuildingBatchGetReqCall struct {
+type RoomBatchGetIdReqCall struct {
 	ctx         *core.Context
-	buildings   *BuildingService
+	rooms       *RoomService
 	queryParams map[string]interface{}
 	optFns      []request.OptFn
 }
 
-func (rc *BuildingBatchGetReqCall) SetBuildingIds(buildingIds ...string) {
-	rc.queryParams["building_ids"] = buildingIds
-}
-func (rc *BuildingBatchGetReqCall) SetFields(fields string) {
-	rc.queryParams["fields"] = fields
+func (rc *RoomBatchGetIdReqCall) SetCustomRoomIds(customRoomIds ...string) {
+	rc.queryParams["custom_room_ids"] = customRoomIds
 }
 
-func (rc *BuildingBatchGetReqCall) Do() (*BuildingBatchGetResult, error) {
+func (rc *RoomBatchGetIdReqCall) Do() (*RoomBatchGetIdResult, error) {
 	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &BuildingBatchGetResult{}
-	req := request.NewRequest("meeting_room/v1/building/batch_get", "GET",
+	var result = &RoomBatchGetIdResult{}
+	req := request.NewRequest("meeting_room/v1/room/batch_get_id", "GET",
 		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.buildings.service.conf, req)
+	err := api.Send(rc.ctx, rc.rooms.service.conf, req)
 	return result, err
 }
 
-func (buildings *BuildingService) BatchGet(ctx *core.Context, optFns ...request.OptFn) *BuildingBatchGetReqCall {
-	return &BuildingBatchGetReqCall{
+func (rooms *RoomService) BatchGetId(ctx *core.Context, optFns ...request.OptFn) *RoomBatchGetIdReqCall {
+	return &RoomBatchGetIdReqCall{
 		ctx:         ctx,
-		buildings:   buildings,
+		rooms:       rooms,
 		queryParams: map[string]interface{}{},
 		optFns:      optFns,
 	}
@@ -268,32 +297,27 @@ func (buildings *BuildingService) BatchGetId(ctx *core.Context, optFns ...reques
 	}
 }
 
-type RoomBatchGetIdReqCall struct {
-	ctx         *core.Context
-	rooms       *RoomService
-	queryParams map[string]interface{}
-	optFns      []request.OptFn
+type BuildingCreateReqCall struct {
+	ctx       *core.Context
+	buildings *BuildingService
+	body      *BuildingCreateReqBody
+	optFns    []request.OptFn
 }
 
-func (rc *RoomBatchGetIdReqCall) SetCustomRoomIds(customRoomIds ...string) {
-	rc.queryParams["custom_room_ids"] = customRoomIds
-}
-
-func (rc *RoomBatchGetIdReqCall) Do() (*RoomBatchGetIdResult, error) {
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &RoomBatchGetIdResult{}
-	req := request.NewRequest("meeting_room/v1/room/batch_get_id", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.rooms.service.conf, req)
+func (rc *BuildingCreateReqCall) Do() (*BuildingCreateResult, error) {
+	var result = &BuildingCreateResult{}
+	req := request.NewRequest("meeting_room/v1/building/create", "POST",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.buildings.service.conf, req)
 	return result, err
 }
 
-func (rooms *RoomService) BatchGetId(ctx *core.Context, optFns ...request.OptFn) *RoomBatchGetIdReqCall {
-	return &RoomBatchGetIdReqCall{
-		ctx:         ctx,
-		rooms:       rooms,
-		queryParams: map[string]interface{}{},
-		optFns:      optFns,
+func (buildings *BuildingService) Create(ctx *core.Context, body *BuildingCreateReqBody, optFns ...request.OptFn) *BuildingCreateReqCall {
+	return &BuildingCreateReqCall{
+		ctx:       ctx,
+		buildings: buildings,
+		body:      body,
+		optFns:    optFns,
 	}
 }
 
@@ -318,30 +342,6 @@ func (rooms *RoomService) Create(ctx *core.Context, body *RoomCreateReqBody, opt
 		rooms:  rooms,
 		body:   body,
 		optFns: optFns,
-	}
-}
-
-type BuildingCreateReqCall struct {
-	ctx       *core.Context
-	buildings *BuildingService
-	body      *BuildingCreateReqBody
-	optFns    []request.OptFn
-}
-
-func (rc *BuildingCreateReqCall) Do() (*BuildingCreateResult, error) {
-	var result = &BuildingCreateResult{}
-	req := request.NewRequest("meeting_room/v1/building/create", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.buildings.service.conf, req)
-	return result, err
-}
-
-func (buildings *BuildingService) Create(ctx *core.Context, body *BuildingCreateReqBody, optFns ...request.OptFn) *BuildingCreateReqCall {
-	return &BuildingCreateReqCall{
-		ctx:       ctx,
-		buildings: buildings,
-		body:      body,
-		optFns:    optFns,
 	}
 }
 
@@ -386,6 +386,85 @@ func (buildings *BuildingService) Delete(ctx *core.Context, optFns ...request.Op
 		ctx:       ctx,
 		buildings: buildings,
 		optFns:    optFns,
+	}
+}
+
+type BuildingListReqCall struct {
+	ctx         *core.Context
+	buildings   *BuildingService
+	queryParams map[string]interface{}
+	optFns      []request.OptFn
+}
+
+func (rc *BuildingListReqCall) SetOrderBy(orderBy string) {
+	rc.queryParams["order_by"] = orderBy
+}
+func (rc *BuildingListReqCall) SetFields(fields string) {
+	rc.queryParams["fields"] = fields
+}
+func (rc *BuildingListReqCall) SetPageToken(pageToken string) {
+	rc.queryParams["page_token"] = pageToken
+}
+func (rc *BuildingListReqCall) SetPageSize(pageSize int) {
+	rc.queryParams["page_size"] = pageSize
+}
+
+func (rc *BuildingListReqCall) Do() (*BuildingListResult, error) {
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &BuildingListResult{}
+	req := request.NewRequest("meeting_room/v1/building/list", "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.buildings.service.conf, req)
+	return result, err
+}
+
+func (buildings *BuildingService) List(ctx *core.Context, optFns ...request.OptFn) *BuildingListReqCall {
+	return &BuildingListReqCall{
+		ctx:         ctx,
+		buildings:   buildings,
+		queryParams: map[string]interface{}{},
+		optFns:      optFns,
+	}
+}
+
+type RoomListReqCall struct {
+	ctx         *core.Context
+	rooms       *RoomService
+	queryParams map[string]interface{}
+	optFns      []request.OptFn
+}
+
+func (rc *RoomListReqCall) SetBuildingId(buildingId string) {
+	rc.queryParams["building_id"] = buildingId
+}
+func (rc *RoomListReqCall) SetOrderBy(orderBy string) {
+	rc.queryParams["order_by"] = orderBy
+}
+func (rc *RoomListReqCall) SetFields(fields string) {
+	rc.queryParams["fields"] = fields
+}
+func (rc *RoomListReqCall) SetPageToken(pageToken string) {
+	rc.queryParams["page_token"] = pageToken
+}
+func (rc *RoomListReqCall) SetPageSize(pageSize int) {
+	rc.queryParams["page_size"] = pageSize
+}
+
+func (rc *RoomListReqCall) Do() (*RoomListResult, error) {
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &RoomListResult{}
+	req := request.NewRequest("meeting_room/v1/room/list", "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.rooms.service.conf, req)
+	return result, err
+}
+
+func (rooms *RoomService) List(ctx *core.Context, optFns ...request.OptFn) *RoomListReqCall {
+	return &RoomListReqCall{
+		ctx:         ctx,
+		rooms:       rooms,
+		queryParams: map[string]interface{}{},
+		optFns:      optFns,
 	}
 }
 
@@ -435,85 +514,6 @@ func (districts *DistrictService) List(ctx *core.Context, optFns ...request.OptF
 	return &DistrictListReqCall{
 		ctx:         ctx,
 		districts:   districts,
-		queryParams: map[string]interface{}{},
-		optFns:      optFns,
-	}
-}
-
-type RoomListReqCall struct {
-	ctx         *core.Context
-	rooms       *RoomService
-	queryParams map[string]interface{}
-	optFns      []request.OptFn
-}
-
-func (rc *RoomListReqCall) SetBuildingId(buildingId string) {
-	rc.queryParams["building_id"] = buildingId
-}
-func (rc *RoomListReqCall) SetOrderBy(orderBy string) {
-	rc.queryParams["order_by"] = orderBy
-}
-func (rc *RoomListReqCall) SetFields(fields string) {
-	rc.queryParams["fields"] = fields
-}
-func (rc *RoomListReqCall) SetPageToken(pageToken string) {
-	rc.queryParams["page_token"] = pageToken
-}
-func (rc *RoomListReqCall) SetPageSize(pageSize int) {
-	rc.queryParams["page_size"] = pageSize
-}
-
-func (rc *RoomListReqCall) Do() (*RoomListResult, error) {
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &RoomListResult{}
-	req := request.NewRequest("meeting_room/v1/room/list", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.rooms.service.conf, req)
-	return result, err
-}
-
-func (rooms *RoomService) List(ctx *core.Context, optFns ...request.OptFn) *RoomListReqCall {
-	return &RoomListReqCall{
-		ctx:         ctx,
-		rooms:       rooms,
-		queryParams: map[string]interface{}{},
-		optFns:      optFns,
-	}
-}
-
-type BuildingListReqCall struct {
-	ctx         *core.Context
-	buildings   *BuildingService
-	queryParams map[string]interface{}
-	optFns      []request.OptFn
-}
-
-func (rc *BuildingListReqCall) SetOrderBy(orderBy string) {
-	rc.queryParams["order_by"] = orderBy
-}
-func (rc *BuildingListReqCall) SetFields(fields string) {
-	rc.queryParams["fields"] = fields
-}
-func (rc *BuildingListReqCall) SetPageToken(pageToken string) {
-	rc.queryParams["page_token"] = pageToken
-}
-func (rc *BuildingListReqCall) SetPageSize(pageSize int) {
-	rc.queryParams["page_size"] = pageSize
-}
-
-func (rc *BuildingListReqCall) Do() (*BuildingListResult, error) {
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &BuildingListResult{}
-	req := request.NewRequest("meeting_room/v1/building/list", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.buildings.service.conf, req)
-	return result, err
-}
-
-func (buildings *BuildingService) List(ctx *core.Context, optFns ...request.OptFn) *BuildingListReqCall {
-	return &BuildingListReqCall{
-		ctx:         ctx,
-		buildings:   buildings,
 		queryParams: map[string]interface{}{},
 		optFns:      optFns,
 	}

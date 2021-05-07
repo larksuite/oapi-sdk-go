@@ -384,18 +384,8 @@ func (spreadsheetss *SpreadsheetsService) DimensionRangeUpdate(ctx *core.Context
 type SpreadsheetsImportReqCall struct {
 	ctx           *core.Context
 	spreadsheetss *SpreadsheetsService
-	body          *request.FormData
+	body          *SpreadsheetsImportReqBody
 	optFns        []request.OptFn
-}
-
-func (rc *SpreadsheetsImportReqCall) SetFile(file *request.File) {
-	rc.body.AddFile("file", file)
-}
-func (rc *SpreadsheetsImportReqCall) SetName(name string) {
-	rc.body.AddParam("name", name)
-}
-func (rc *SpreadsheetsImportReqCall) SetFolderToken(folderToken string) {
-	rc.body.AddParam("folderToken", folderToken)
 }
 
 func (rc *SpreadsheetsImportReqCall) Do() (*SpreadsheetsImportResult, error) {
@@ -406,11 +396,11 @@ func (rc *SpreadsheetsImportReqCall) Do() (*SpreadsheetsImportResult, error) {
 	return result, err
 }
 
-func (spreadsheetss *SpreadsheetsService) Import(ctx *core.Context, optFns ...request.OptFn) *SpreadsheetsImportReqCall {
+func (spreadsheetss *SpreadsheetsService) Import(ctx *core.Context, body *SpreadsheetsImportReqBody, optFns ...request.OptFn) *SpreadsheetsImportReqCall {
 	return &SpreadsheetsImportReqCall{
 		ctx:           ctx,
 		spreadsheetss: spreadsheetss,
-		body:          request.NewFormData(),
+		body:          body,
 		optFns:        optFns,
 	}
 }
@@ -980,20 +970,11 @@ func (spreadsheetss *SpreadsheetsService) ValuesGet(ctx *core.Context, optFns ..
 type SpreadsheetsValuesImageReqCall struct {
 	ctx           *core.Context
 	spreadsheetss *SpreadsheetsService
-	body          *request.FormData
+	body          *SpreadsheetsValuesImageReqBody
 	pathParams    map[string]interface{}
 	optFns        []request.OptFn
 }
 
-func (rc *SpreadsheetsValuesImageReqCall) SetRange(range_ string) {
-	rc.body.AddParam("range", range_)
-}
-func (rc *SpreadsheetsValuesImageReqCall) SetImage(image *request.File) {
-	rc.body.AddFile("image", image)
-}
-func (rc *SpreadsheetsValuesImageReqCall) SetName(name string) {
-	rc.body.AddParam("name", name)
-}
 func (rc *SpreadsheetsValuesImageReqCall) SetSpreadsheetToken(spreadsheetToken string) {
 	rc.pathParams["spreadsheetToken"] = spreadsheetToken
 }
@@ -1007,11 +988,11 @@ func (rc *SpreadsheetsValuesImageReqCall) Do() (*SpreadsheetsValuesImageResult, 
 	return result, err
 }
 
-func (spreadsheetss *SpreadsheetsService) ValuesImage(ctx *core.Context, optFns ...request.OptFn) *SpreadsheetsValuesImageReqCall {
+func (spreadsheetss *SpreadsheetsService) ValuesImage(ctx *core.Context, body *SpreadsheetsValuesImageReqBody, optFns ...request.OptFn) *SpreadsheetsValuesImageReqCall {
 	return &SpreadsheetsValuesImageReqCall{
 		ctx:           ctx,
 		spreadsheetss: spreadsheetss,
-		body:          request.NewFormData(),
+		body:          body,
 		pathParams:    map[string]interface{}{},
 		optFns:        optFns,
 	}
