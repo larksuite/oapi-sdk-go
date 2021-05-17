@@ -27,7 +27,7 @@
 ---
 
 ```shell
-go get -u github.com/larksuite/oapi-sdk-go
+go get github.com/larksuite/oapi-sdk-go@v1.1.33
 ```
 
 ## Explanation of terms

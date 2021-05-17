@@ -934,10 +934,10 @@ type SpreadsheetsValuesGetReqCall struct {
 	optFns        []request.OptFn
 }
 
-func (rc *SpreadsheetsValuesGetReqCall) SetSpreadsheetToken(spreadsheetToken *SpreadsheetToken) {
+func (rc *SpreadsheetsValuesGetReqCall) SetSpreadsheetToken(spreadsheetToken string) {
 	rc.pathParams["spreadsheetToken"] = spreadsheetToken
 }
-func (rc *SpreadsheetsValuesGetReqCall) SetRange(range_ *SpreadsheetToken) {
+func (rc *SpreadsheetsValuesGetReqCall) SetRange(range_ string) {
 	rc.pathParams["range"] = range_
 }
 func (rc *SpreadsheetsValuesGetReqCall) SetValueRenderOption(valueRenderOption string) {
