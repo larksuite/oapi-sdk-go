@@ -293,7 +293,7 @@ func (s *Merge) MarshalJSON() ([]byte, error) {
 
 type MetainfoProperties struct {
 	Title           string   `json:"title,omitempty"`
-	OwnerUser       int      `json:"ownerUser,omitempty"`
+	OwnerUser       int64    `json:"ownerUser,omitempty,string"`
 	SheetCount      int      `json:"sheetCount,omitempty"`
 	Revision        int      `json:"revision,omitempty"`
 	ForceSendFields []string `json:"-"`
