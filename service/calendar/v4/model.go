@@ -32,54 +32,6 @@ func (s *AttendeeChatMember) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
-type Reminder struct {
-	Minutes         int      `json:"minutes,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *Reminder) MarshalJSON() ([]byte, error) {
-	type cp Reminder
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type Schema struct {
-	UiName          string   `json:"ui_name,omitempty"`
-	UiStatus        string   `json:"ui_status,omitempty"`
-	AppLink         string   `json:"app_link,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *Schema) MarshalJSON() ([]byte, error) {
-	type cp Schema
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type TimeInfo struct {
-	Date            string   `json:"date,omitempty"`
-	Timestamp       string   `json:"timestamp,omitempty"`
-	Timezone        string   `json:"timezone,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *TimeInfo) MarshalJSON() ([]byte, error) {
-	type cp TimeInfo
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type Vchat struct {
-	MeetingUrl      string   `json:"meeting_url,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *Vchat) MarshalJSON() ([]byte, error) {
-	type cp Vchat
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
 type Calendar struct {
 	CalendarId      string   `json:"calendar_id,omitempty"`
 	Summary         string   `json:"summary,omitempty"`
@@ -162,6 +114,21 @@ func (s *CalendarEventAttendee) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
+type CalendarEventAttendeeChatMember struct {
+	RsvpStatus      string   `json:"rsvp_status,omitempty"`
+	IsOptional      bool     `json:"is_optional,omitempty"`
+	DisplayName     string   `json:"display_name,omitempty"`
+	IsOrganizer     bool     `json:"is_organizer,omitempty"`
+	IsExternal      bool     `json:"is_external,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *CalendarEventAttendeeChatMember) MarshalJSON() ([]byte, error) {
+	type cp CalendarEventAttendeeChatMember
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
 type EventLocation struct {
 	Name            string   `json:"name,omitempty"`
 	Address         string   `json:"address,omitempty"`
@@ -176,6 +143,21 @@ func (s *EventLocation) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
+type EventSearchFilter struct {
+	StartTime       *TimeInfo `json:"start_time,omitempty"`
+	EndTime         *TimeInfo `json:"end_time,omitempty"`
+	UserIds         []string  `json:"user_ids,omitempty"`
+	RoomIds         []string  `json:"room_ids,omitempty"`
+	ChatIds         []string  `json:"chat_ids,omitempty"`
+	ForceSendFields []string  `json:"-"`
+}
+
+func (s *EventSearchFilter) MarshalJSON() ([]byte, error) {
+	type cp EventSearchFilter
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
 type Freebusy struct {
 	StartTime       string   `json:"start_time,omitempty"`
 	EndTime         string   `json:"end_time,omitempty"`
@@ -184,6 +166,46 @@ type Freebusy struct {
 
 func (s *Freebusy) MarshalJSON() ([]byte, error) {
 	type cp Freebusy
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type Reminder struct {
+	Minutes         int      `json:"minutes,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *Reminder) MarshalJSON() ([]byte, error) {
+	type cp Reminder
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type Schema struct {
+	UiName          string   `json:"ui_name,omitempty"`
+	UiStatus        string   `json:"ui_status,omitempty"`
+	AppLink         string   `json:"app_link,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *Schema) MarshalJSON() ([]byte, error) {
+	type cp Schema
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type Setting struct {
+}
+
+type TimeInfo struct {
+	Date            string   `json:"date,omitempty"`
+	Timestamp       string   `json:"timestamp,omitempty"`
+	Timezone        string   `json:"timezone,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *TimeInfo) MarshalJSON() ([]byte, error) {
+	type cp TimeInfo
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
@@ -205,35 +227,27 @@ func (s *TimeoffEvent) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
-type EventSearchFilter struct {
-	StartTime       *TimeInfo `json:"start_time,omitempty"`
-	EndTime         *TimeInfo `json:"end_time,omitempty"`
-	UserIds         []string  `json:"user_ids,omitempty"`
-	RoomIds         []string  `json:"room_ids,omitempty"`
-	ChatIds         []string  `json:"chat_ids,omitempty"`
-	ForceSendFields []string  `json:"-"`
+type Vchat struct {
+	MeetingUrl      string   `json:"meeting_url,omitempty"`
+	ForceSendFields []string `json:"-"`
 }
 
-func (s *EventSearchFilter) MarshalJSON() ([]byte, error) {
-	type cp EventSearchFilter
+func (s *Vchat) MarshalJSON() ([]byte, error) {
+	type cp Vchat
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
-type Setting struct {
-}
-
-type CalendarEventAttendeeChatMember struct {
-	RsvpStatus      string   `json:"rsvp_status,omitempty"`
-	IsOptional      bool     `json:"is_optional,omitempty"`
-	DisplayName     string   `json:"display_name,omitempty"`
-	IsOrganizer     bool     `json:"is_organizer,omitempty"`
-	IsExternal      bool     `json:"is_external,omitempty"`
+type ExchangeBinding struct {
+	AdminAccount    string   `json:"admin_account,omitempty"`
+	ExchangeAccount string   `json:"exchange_account,omitempty"`
+	UserId          string   `json:"user_id,omitempty"`
+	Status          string   `json:"status,omitempty"`
 	ForceSendFields []string `json:"-"`
 }
 
-func (s *CalendarEventAttendeeChatMember) MarshalJSON() ([]byte, error) {
-	type cp CalendarEventAttendeeChatMember
+func (s *ExchangeBinding) MarshalJSON() ([]byte, error) {
+	type cp ExchangeBinding
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
@@ -260,12 +274,6 @@ type CalendarEventCreateResult struct {
 	Event *CalendarEvent `json:"event,omitempty"`
 }
 
-type CalendarEventAttendeeListResult struct {
-	Items     []*CalendarEventAttendee `json:"items,omitempty"`
-	HasMore   bool                     `json:"has_more,omitempty"`
-	PageToken string                   `json:"page_token,omitempty"`
-}
-
 type CalendarListResult struct {
 	HasMore      bool        `json:"has_more,omitempty"`
 	PageToken    string      `json:"page_token,omitempty"`
@@ -273,9 +281,16 @@ type CalendarListResult struct {
 	CalendarList []*Calendar `json:"calendar_list,omitempty"`
 }
 
+type CalendarEventAttendeeListResult struct {
+	Items     []*CalendarEventAttendee `json:"items,omitempty"`
+	HasMore   bool                     `json:"has_more,omitempty"`
+	PageToken string                   `json:"page_token,omitempty"`
+}
+
 type CalendarEventAttendeeBatchDeleteReqBody struct {
-	AttendeeIds     []string `json:"attendee_ids,omitempty"`
-	ForceSendFields []string `json:"-"`
+	AttendeeIds      []string `json:"attendee_ids,omitempty"`
+	NeedNotification bool     `json:"need_notification,omitempty"`
+	ForceSendFields  []string `json:"-"`
 }
 
 func (s *CalendarEventAttendeeBatchDeleteReqBody) MarshalJSON() ([]byte, error) {
@@ -285,8 +300,9 @@ func (s *CalendarEventAttendeeBatchDeleteReqBody) MarshalJSON() ([]byte, error) 
 }
 
 type CalendarEventAttendeeCreateReqBody struct {
-	Attendees       []*CalendarEventAttendee `json:"attendees,omitempty"`
-	ForceSendFields []string                 `json:"-"`
+	Attendees        []*CalendarEventAttendee `json:"attendees,omitempty"`
+	NeedNotification bool                     `json:"need_notification,omitempty"`
+	ForceSendFields  []string                 `json:"-"`
 }
 
 func (s *CalendarEventAttendeeCreateReqBody) MarshalJSON() ([]byte, error) {

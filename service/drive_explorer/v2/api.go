@@ -109,37 +109,6 @@ func (files *FileService) Copy(ctx *core.Context, body *FileCopyReqBody, optFns 
 	}
 }
 
-type FolderCreateReqCall struct {
-	ctx        *core.Context
-	folders    *FolderService
-	body       *FolderCreateReqBody
-	pathParams map[string]interface{}
-	optFns     []request.OptFn
-}
-
-func (rc *FolderCreateReqCall) SetFolderToken(folderToken string) {
-	rc.pathParams["folderToken"] = folderToken
-}
-
-func (rc *FolderCreateReqCall) Do() (*FolderCreateResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	var result = &FolderCreateResult{}
-	req := request.NewRequest("drive/explorer/v2/folder/:folderToken", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.folders.service.conf, req)
-	return result, err
-}
-
-func (folders *FolderService) Create(ctx *core.Context, body *FolderCreateReqBody, optFns ...request.OptFn) *FolderCreateReqCall {
-	return &FolderCreateReqCall{
-		ctx:        ctx,
-		folders:    folders,
-		body:       body,
-		pathParams: map[string]interface{}{},
-		optFns:     optFns,
-	}
-}
-
 type FileCreateReqCall struct {
 	ctx        *core.Context
 	files      *FileService
@@ -165,6 +134,37 @@ func (files *FileService) Create(ctx *core.Context, body *FileCreateReqBody, opt
 	return &FileCreateReqCall{
 		ctx:        ctx,
 		files:      files,
+		body:       body,
+		pathParams: map[string]interface{}{},
+		optFns:     optFns,
+	}
+}
+
+type FolderCreateReqCall struct {
+	ctx        *core.Context
+	folders    *FolderService
+	body       *FolderCreateReqBody
+	pathParams map[string]interface{}
+	optFns     []request.OptFn
+}
+
+func (rc *FolderCreateReqCall) SetFolderToken(folderToken string) {
+	rc.pathParams["folderToken"] = folderToken
+}
+
+func (rc *FolderCreateReqCall) Do() (*FolderCreateResult, error) {
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	var result = &FolderCreateResult{}
+	req := request.NewRequest("drive/explorer/v2/folder/:folderToken", "POST",
+		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.folders.service.conf, req)
+	return result, err
+}
+
+func (folders *FolderService) Create(ctx *core.Context, body *FolderCreateReqBody, optFns ...request.OptFn) *FolderCreateReqCall {
+	return &FolderCreateReqCall{
+		ctx:        ctx,
+		folders:    folders,
 		body:       body,
 		pathParams: map[string]interface{}{},
 		optFns:     optFns,
