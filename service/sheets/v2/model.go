@@ -7,7 +7,7 @@ import (
 
 type AddProtectedDimension struct {
 	Dimension       *Dimension `json:"dimension,omitempty"`
-	Editors         []int      `json:"editors,omitempty"`
+	Editors         []int64    `json:"editors,omitempty"`
 	LockInfo        string     `json:"lockInfo,omitempty"`
 	ProtectId       string     `json:"protectId,omitempty"`
 	ForceSendFields []string   `json:"-"`
