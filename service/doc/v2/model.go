@@ -9,7 +9,6 @@ type Doc struct {
 }
 
 type DocBatchUpdateReqBody struct {
-	DocToken        string   `json:"docToken,omitempty"`
 	Revision        int      `json:"Revision,omitempty"`
 	Requests        []string `json:"Requests,omitempty"`
 	ForceSendFields []string `json:"-"`

@@ -33,6 +33,7 @@ type Opt struct {
 }
 
 type Info struct {
+	Domain                 string
 	HttpPath               string                       // request http path
 	HttpMethod             string                       // request http method
 	QueryParams            string                       // request query
@@ -103,7 +104,7 @@ type Request struct {
 }
 
 func (r *Request) String() string {
-	return fmt.Sprintf("%s %s %s", r.HttpMethod, r.url(), r.AccessTokenType)
+	return fmt.Sprintf("%s %s %s", r.HttpMethod, r.Url(), r.AccessTokenType)
 }
 
 func NewRequestByAuth(httpPath, httpMethod string, input, output interface{}) *Request {
@@ -154,7 +155,8 @@ func NewRequest(httpPath, httpMethod string, accessTokenTypes []AccessTokenType,
 	return req
 }
 
-func (r *Request) Init() error {
+func (r *Request) Init(domain string) error {
+	r.Domain = domain
 	opt := &Opt{}
 	for _, optFn := range r.optFns {
 		optFn(opt)
@@ -230,16 +232,12 @@ func resolvePath(path string, pathVar map[string]interface{}) (string, error) {
 	return newPath, nil
 }
 
-func (r *Request) url() string {
-	path := fmt.Sprintf("/%s/%s", constants.OAPIRootPath, r.HttpPath)
+func (r *Request) Url() string {
+	path := fmt.Sprintf("%s/%s/%s", r.Domain, constants.OAPIRootPath, r.HttpPath)
 	if r.QueryParams != "" {
 		path = fmt.Sprintf("%s?%s", path, r.QueryParams)
 	}
 	return path
-}
-
-func (r *Request) FullUrl(domain string) string {
-	return fmt.Sprintf("%s%s", domain, r.url())
 }
 
 func (r *Request) DataFilled() bool {
