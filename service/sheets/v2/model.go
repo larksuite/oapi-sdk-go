@@ -54,6 +54,18 @@ func (s *AppendStyleBatch) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
+type BlockInfo struct {
+	BlockToken      string   `json:"blockToken,omitempty"`
+	BlockType       string   `json:"blockType,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *BlockInfo) MarshalJSON() ([]byte, error) {
+	type cp BlockInfo
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
 type ConditionFormat struct {
 	CfId            string                 `json:"cf_id,omitempty"`
 	Ranges          []string               `json:"ranges,omitempty"`
@@ -293,7 +305,7 @@ func (s *Merge) MarshalJSON() ([]byte, error) {
 
 type MetainfoProperties struct {
 	Title           string   `json:"title,omitempty"`
-	OwnerUser       int64    `json:"ownerUser,omitempty,string"`
+	OwnerUser       int64    `json:"ownerUser,omitempty"`
 	SheetCount      int      `json:"sheetCount,omitempty"`
 	Revision        int      `json:"revision,omitempty"`
 	ForceSendFields []string `json:"-"`
@@ -429,6 +441,7 @@ type Sheet struct {
 	FrozenColCount  int             `json:"frozenColCount,omitempty"`
 	Merges          []*Merge        `json:"merges,omitempty"`
 	ProtectedRange  *ProtectedRange `json:"protectedRange,omitempty"`
+	BlockInfo       *BlockInfo      `json:"blockInfo,omitempty"`
 	ForceSendFields []string        `json:"-"`
 }
 
@@ -642,10 +655,10 @@ type SpreadsheetsDataValidationDeleteResult struct {
 }
 
 type SpreadsheetsDataValidationGetResult struct {
-	SpreadsheetToken string                  `json:"spreadsheetToken,omitempty"`
-	SheetId          string                  `json:"sheetId,omitempty"`
-	DataValidation   *DataValidationResponse `json:"dataValidation,omitempty"`
-	Revision         int                     `json:"revision,omitempty"`
+	SpreadsheetToken string                    `json:"spreadsheetToken,omitempty"`
+	SheetId          string                    `json:"sheetId,omitempty"`
+	DataValidations  []*DataValidationResponse `json:"dataValidations,omitempty"`
+	Revision         int                       `json:"revision,omitempty"`
 }
 
 type SpreadsheetsDataValidationUpdateReqBody struct {

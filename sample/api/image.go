@@ -19,7 +19,7 @@ import (
 var imageService = image.NewService(configs.TestConfig(constants.DomainFeiShu))
 
 func main() {
-	//testUpload()
+	testUpload()
 	testDownload()
 }
 

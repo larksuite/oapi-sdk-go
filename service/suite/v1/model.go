@@ -40,8 +40,8 @@ func (s *DocsMeta) MarshalJSON() ([]byte, error) {
 }
 
 type RequestDoc struct {
-	Token           string   `json:"token,omitempty"`
-	Type            string   `json:"type,omitempty"`
+	DocsToken       string   `json:"docs_token,omitempty"`
+	DocsType        string   `json:"docs_type,omitempty"`
 	ForceSendFields []string `json:"-"`
 }
 
@@ -72,7 +72,7 @@ type DocsApiSearchReqBody struct {
 	Offset          int      `json:"offset,omitempty"`
 	OwnerIds        []string `json:"owner_ids,omitempty"`
 	ChatIds         []string `json:"chat_ids,omitempty"`
-	DocsTypes       string   `json:"docs_types,omitempty"`
+	DocsTypes       []string `json:"docs_types,omitempty"`
 	ForceSendFields []string `json:"-"`
 }
 

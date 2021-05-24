@@ -24,10 +24,17 @@
 
 ## Install
 
----
+--- 
+
+- The latest release candidate provides more open services API and bug repair.
+```shell
+go get github.com/larksuite/oapi-sdk-go@v1.1.39-rc1
+```
+
+- Stable version
 
 ```shell
-go get github.com/larksuite/oapi-sdk-go@v1.1.38
+go get github.com/larksuite/oapi-sdk-go@v1.1.28
 ```
 
 ## Explanation of terms

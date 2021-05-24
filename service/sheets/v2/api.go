@@ -232,6 +232,12 @@ type SpreadsheetsDataValidationGetReqCall struct {
 func (rc *SpreadsheetsDataValidationGetReqCall) SetSpreadsheetToken(spreadsheetToken string) {
 	rc.pathParams["spreadsheetToken"] = spreadsheetToken
 }
+func (rc *SpreadsheetsDataValidationGetReqCall) SetRange(range_ string) {
+	rc.pathParams["range"] = range_
+}
+func (rc *SpreadsheetsDataValidationGetReqCall) SetDataValidationType(dataValidationType string) {
+	rc.pathParams["dataValidationType"] = dataValidationType
+}
 
 func (rc *SpreadsheetsDataValidationGetReqCall) Do() (*SpreadsheetsDataValidationGetResult, error) {
 	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))

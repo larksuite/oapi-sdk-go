@@ -70,6 +70,7 @@ type MemberDeleteReqBody struct {
 	Token           string   `json:"token,omitempty"`
 	Type            string   `json:"type,omitempty"`
 	MemberType      string   `json:"member_type,omitempty"`
+	MemberId        string   `json:"member_id,omitempty"`
 	ForceSendFields []string `json:"-"`
 }
 
@@ -164,6 +165,7 @@ type MemberUpdateReqBody struct {
 	Token           string   `json:"token,omitempty"`
 	Type            string   `json:"type,omitempty"`
 	MemberType      string   `json:"member_type,omitempty"`
+	MemberId        string   `json:"member_id,omitempty"`
 	Perm            string   `json:"perm,omitempty"`
 	NotifyLark      bool     `json:"notify_lark,omitempty"`
 	ForceSendFields []string `json:"-"`

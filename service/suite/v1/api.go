@@ -40,7 +40,7 @@ type DocsApiMetaReqCall struct {
 
 func (rc *DocsApiMetaReqCall) Do() (*DocsApiMetaResult, error) {
 	var result = &DocsApiMetaResult{}
-	req := request.NewRequest("suite/docs_api/meta", "POST",
+	req := request.NewRequest("suite/docs-api/meta", "POST",
 		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.docsApis.service.conf, req)
 	return result, err
@@ -64,7 +64,7 @@ type DocsApiSearchReqCall struct {
 
 func (rc *DocsApiSearchReqCall) Do() (*DocsApiSearchResult, error) {
 	var result = &DocsApiSearchResult{}
-	req := request.NewRequest("suite/docs_api/search/object", "POST",
+	req := request.NewRequest("suite/docs-api/search/object", "POST",
 		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.docsApis.service.conf, req)
 	return result, err

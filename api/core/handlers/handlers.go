@@ -101,8 +101,9 @@ func (hs *Handlers) send(ctx *core.Context, req *request.Request) {
 	hs.unmarshalResponse(ctx, req)
 }
 
-func initFunc(_ *core.Context, req *request.Request) {
-	req.Err = req.Init()
+func initFunc(ctx *core.Context, req *request.Request) {
+	conf := config.ByCtx(ctx)
+	req.Err = req.Init(conf.GetDomain())
 }
 
 func validateFunc(ctx *core.Context, req *request.Request) {
@@ -149,7 +150,7 @@ func buildFunc(ctx *core.Context, req *request.Request) {
 			return
 		}
 	}
-	r, err := http.NewRequestWithContext(ctx, req.HttpMethod, req.FullUrl(conf.GetDomain()), req.RequestBodyStream)
+	r, err := http.NewRequestWithContext(ctx, req.HttpMethod, req.Url(), req.RequestBodyStream)
 	if err != nil {
 		req.Err = err
 		return
