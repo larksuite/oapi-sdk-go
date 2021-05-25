@@ -27,7 +27,7 @@
 
 ---
 
-- 最新的发布候选版本，提供更多开放服务 API 以及 Bug 修复
+- 最新的发布候选版本，提供更多[开放服务 API](/service) 以及 Bug 修复
 
 ```shell
 go get github.com/larksuite/oapi-sdk-go@v1.1.39-rc1
