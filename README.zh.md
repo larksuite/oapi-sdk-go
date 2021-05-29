@@ -24,7 +24,7 @@
 - 最新的发布候选版本，提供更多[开放服务 API](/service) 以及 Bug 修复
 
 ```shell
-go get github.com/larksuite/oapi-sdk-go@v1.1.39-rc1
+go get github.com/larksuite/oapi-sdk-go@v1.1.39-rc2
 ```
 
 - 稳定版本
@@ -358,10 +358,30 @@ import (
 // APP_SECRET："开发者后台" -> "凭证与基础信息" -> 应用凭证 App Secret
 // VERIFICATION_TOKEN："开发者后台" -> "事件订阅" -> 事件订阅 Verification Token
 // ENCRYPT_KEY："开发者后台" -> "事件订阅" -> 事件订阅 Encrypt Key
+// HELP_DESK_ID: 服务台设置中心 -> ID
+// HELP_DESK_TOKEN: 服务台设置中心 -> 令牌
 // 企业自建应用的配置，通过环境变量获取应用配置
 appSettings := config.GetInternalAppSettingsByEnv()
 // 应用商店应用的配置，通过环境变量获取应用配置
 appSettings := config.GetISVAppSettingsByEnv()
+
+
+// 参数说明：
+// AppID、AppSecret: "开发者后台" -> "凭证与基础信息" -> 应用凭证（App ID、App Secret）
+// VerificationToken、EncryptKey："开发者后台" -> "事件订阅" -> 事件订阅（Verification Token、Encrypt Key）
+// HelpDeskID、HelpDeskToken：服务台设置中心 -> ID、令牌
+// 企业自建应用的配置
+appSettings := config.NewInternalAppSettingsByOpts(
+config.AppSettingsSetApp("AppID", "AppSecret"), // 必需
+config.AppSettingsSetAppEvent("VerificationToken", "EncryptKey"), // 非必需，事件订阅时必需
+config.AppSettingsSetHelpDesk("HelpDeskID", "HelpDeskToken"), // 非必需，访问服务台 API 时必需
+)
+// 应用商店应用的配置
+appSettings := config.NewISVAppSettingsByOpts(
+config.AppSettingsSetApp("AppID", "AppSecret"), // 必需
+config.AppSettingsSetAppEvent("VerificationToken", "EncryptKey"), // 非必需，事件订阅时必需
+config.AppSettingsSetHelpDesk("HelpDeskID", "HelpDeskToken"), // 非必需，访问服务台 API 时必需
+)
 
 
 // 参数说明：
@@ -435,6 +455,7 @@ import (
     // request.SetNotDataField(),设置响应的是否 没有`data`字段，业务接口都是有`data`字段，所以不需要设置
     // request.SetTenantKey("TenantKey")，以`应用商店应用`身份，表示使用`tenant_access_token`访问API，需要设置
     // request.SetUserAccessToken("UserAccessToken")，表示使用`user_access_token`访问API，需要设置
+    // request.SetHelpDeskAPI()，表示是服务台API，需要设置 config.AppSettings 的 help desk 信息
 req := request.NewRequestWithNative(httpPath, httpMethod string, accessTokenType AccessTokenType, input interface{}, output interface{}, optFns ...OptFn)
 
 ```

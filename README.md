@@ -28,7 +28,7 @@
 
 - The latest release candidate provides more [open services API](/service) and bug repair.
 ```shell
-go get github.com/larksuite/oapi-sdk-go@v1.1.39-rc1
+go get github.com/larksuite/oapi-sdk-go@v1.1.39-rc2
 ```
 
 - Stable version
@@ -241,10 +241,29 @@ import (
 // APP_Secret: "Developer Console" -> "Credentials"（App Secret）
 // VERIFICATION_Token: VerificationToken、EncryptKey："Developer Console" -> "Event Subscriptions"（Verification Token）
 // ENCRYPT_Key: VerificationToken、EncryptKey："Developer Console" -> "Event Subscriptions"（Encrypt Key）
+// HELP_DESK_ID: Help desk setting -> ID
+// HELP_DESK_TOKEN: Help desk setting -> Token
 // The configuration of "Custom App" is obtained through environment variables
 appSettings := config.GetInternalAppSettingsByEnv()
 // The configuration of "Marketplace App" is obtained through environment variables
 appSettings := config.GetISVAppSettingsByEnv()
+
+// Parameter Description:
+// AppID、AppSecret: "Developer Console" -> "Credentials"（App ID、App Secret）
+// VerificationToken、EncryptKey："Developer Console" -> "Event Subscriptions"（Verification Token、Encrypt Key）
+// HelpDeskID、HelpDeskToken：Help desk setting -> ID、Token
+// The configuration of "Custom App"
+appSettings := config.NewInternalAppSettingsByOpts(
+config.AppSettingsSetApp("AppID", "AppSecret"), // 必需
+config.AppSettingsSetAppEvent("VerificationToken", "EncryptKey"), // 非必需，事件订阅时必需
+config.AppSettingsSetHelpDesk("HelpDeskID", "HelpDeskToken"), // 非必需，访问服务台 API 时必需
+)
+// The configuration of "Marketplace App"
+appSettings := config.NewISVAppSettingsByOpts(
+config.AppSettingsSetApp("AppID", "AppSecret"), // 必需
+config.AppSettingsSetAppEvent("VerificationToken", "EncryptKey"), // 非必需，事件订阅时必需
+config.AppSettingsSetHelpDesk("HelpDeskID", "HelpDeskToken"), // 非必需，访问服务台 API 时必需
+)
 
 // Parameter Description:
 // AppID、AppSecret: "Developer Console" -> "Credentials"（App ID、App Secret）
@@ -324,6 +343,7 @@ import (
     // request.SetNotDataField(), set whether the response does not have a `data` field, business interfaces all have `data `Field, so you don’t need to set 
     // request.SetTenantKey("TenantKey"), as an `app store application`, it means using `tenant_access_token` to access the API, you need to set 
     // request.SetUserAccessToken("UserAccessToken"), which means using` user_access_token` To access the API, you need to set 
+    // request.SetHelpDeskAPI(), Indicates that the help desk API needs to set help desk information of config.appsettings
 req := request.NewRequestWithNative(httpPath, httpMethod string, accessTokenType AccessTokenType,
 input interface{}, output interface{}, optFns ...OptFn)
 ```

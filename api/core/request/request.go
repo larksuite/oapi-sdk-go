@@ -30,6 +30,7 @@ type Opt struct {
 	userAccessToken  string
 	tenantKey        string
 	isResponseStream bool
+	isHelpDeskAPI    bool
 }
 
 type Info struct {
@@ -48,6 +49,7 @@ type Info struct {
 	optFns                 []OptFn
 	IsResponseStream       bool
 	IsResponseStreamReal   bool
+	IsHelpDeskAPI          bool
 }
 
 func (i *Info) WithContext(ctx *core.Context) {
@@ -89,6 +91,12 @@ func SetNotDataField() OptFn {
 func SetResponseStream() OptFn {
 	return func(opt *Opt) {
 		opt.isResponseStream = true
+	}
+}
+
+func SetHelpDeskAPI() OptFn {
+	return func(opt *Opt) {
+		opt.isHelpDeskAPI = true
 	}
 }
 
@@ -163,6 +171,7 @@ func (r *Request) Init(domain string) error {
 	}
 	r.IsNotDataField = opt.isNotDataField
 	r.IsResponseStream = opt.isResponseStream
+	r.IsHelpDeskAPI = opt.isHelpDeskAPI
 	if opt.tenantKey != "" {
 		if _, ok := r.AccessibleTokenTypeSet[AccessTokenTypeTenant]; ok {
 			r.AccessTokenType = AccessTokenTypeTenant

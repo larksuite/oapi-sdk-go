@@ -11,10 +11,11 @@ import (
 var ctxKeyConfig = "-----ctxKeyConfig"
 
 type Config struct {
-	domain      constants.Domain
-	appSettings *AppSettings
-	store       store.Store // store
-	logger      log.Logger  // logger
+	domain                constants.Domain
+	appSettings           *AppSettings
+	store                 store.Store // store
+	logger                log.Logger  // logger
+	helpDeskAuthorization string
 }
 
 func NewTestConfig(domain constants.Domain, appSettings *AppSettings) *Config {
@@ -24,10 +25,11 @@ func NewTestConfig(domain constants.Domain, appSettings *AppSettings) *Config {
 func NewConfigWithDefaultStore(domain constants.Domain, appSettings *AppSettings, logger log.Logger, logLevel log.Level) *Config {
 	loggerProxy := log.NewLoggerProxy(logLevel, logger)
 	conf := &Config{
-		domain:      domain,
-		appSettings: appSettings,
-		store:       store.NewDefaultStoreWithLog(loggerProxy),
-		logger:      loggerProxy,
+		domain:                domain,
+		appSettings:           appSettings,
+		store:                 store.NewDefaultStoreWithLog(loggerProxy),
+		logger:                loggerProxy,
+		helpDeskAuthorization: appSettings.helpDeskAuthorization(),
 	}
 	return conf
 }
@@ -35,10 +37,11 @@ func NewConfigWithDefaultStore(domain constants.Domain, appSettings *AppSettings
 func NewConfig(domain constants.Domain, appSettings *AppSettings, logger log.Logger, logLevel log.Level, store store.Store) *Config {
 	loggerProxy := log.NewLoggerProxy(logLevel, logger)
 	conf := &Config{
-		domain:      domain,
-		appSettings: appSettings,
-		store:       store,
-		logger:      loggerProxy,
+		domain:                domain,
+		appSettings:           appSettings,
+		store:                 store,
+		logger:                loggerProxy,
+		helpDeskAuthorization: appSettings.helpDeskAuthorization(),
 	}
 	return conf
 }
@@ -57,6 +60,10 @@ func (c *Config) GetLogger() log.Logger {
 
 func (c *Config) GetStore() store.Store {
 	return c.store
+}
+
+func (c *Config) GetHelpDeskAuthorization() string {
+	return c.helpDeskAuthorization
 }
 
 func (c *Config) WithContext(ctx *core.Context) {
