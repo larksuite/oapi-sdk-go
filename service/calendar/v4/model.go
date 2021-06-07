@@ -301,17 +301,17 @@ type CalendarEventCreateResult struct {
 	Event *CalendarEvent `json:"event,omitempty"`
 }
 
-type CalendarEventAttendeeListResult struct {
-	Items     []*CalendarEventAttendee `json:"items,omitempty"`
-	HasMore   bool                     `json:"has_more,omitempty"`
-	PageToken string                   `json:"page_token,omitempty"`
-}
-
 type CalendarListResult struct {
 	HasMore      bool        `json:"has_more,omitempty"`
 	PageToken    string      `json:"page_token,omitempty"`
 	SyncToken    string      `json:"sync_token,omitempty"`
 	CalendarList []*Calendar `json:"calendar_list,omitempty"`
+}
+
+type CalendarEventAttendeeListResult struct {
+	Items     []*CalendarEventAttendee `json:"items,omitempty"`
+	HasMore   bool                     `json:"has_more,omitempty"`
+	PageToken string                   `json:"page_token,omitempty"`
 }
 
 type CalendarEventAttendeeBatchDeleteReqBody struct {
