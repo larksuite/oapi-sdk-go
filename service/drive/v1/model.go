@@ -19,6 +19,31 @@ func (s *UserId) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
+type Collaborator struct {
+	MemberType      string   `json:"member_type,omitempty"`
+	MemberOpenId    string   `json:"member_open_id,omitempty"`
+	MemberUserId    string   `json:"member_user_id,omitempty"`
+	Perm            string   `json:"perm,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *Collaborator) MarshalJSON() ([]byte, error) {
+	type cp Collaborator
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type DocsLink struct {
+	Url             string   `json:"url,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *DocsLink) MarshalJSON() ([]byte, error) {
+	type cp DocsLink
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
 type File struct {
 	FileToken       string   `json:"file_token,omitempty"`
 	FileName        string   `json:"file_name,omitempty"`
@@ -66,17 +91,6 @@ func (s *FileCommentReply) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
-type DocsLink struct {
-	Url             string   `json:"url,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *DocsLink) MarshalJSON() ([]byte, error) {
-	type cp DocsLink
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
 type Media struct {
 	FileToken       string   `json:"file_token,omitempty"`
 	FileName        string   `json:"file_name,omitempty"`
@@ -89,6 +103,37 @@ func (s *Media) MarshalJSON() ([]byte, error) {
 	type cp Media
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type Member struct {
+	MemberType      string   `json:"member_type,omitempty"`
+	MemberId        string   `json:"member_id,omitempty"`
+	Perm            string   `json:"perm,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *Member) MarshalJSON() ([]byte, error) {
+	type cp Member
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type Owner struct {
+	MemberType      string   `json:"member_type,omitempty"`
+	MemberId        string   `json:"member_id,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *Owner) MarshalJSON() ([]byte, error) {
+	type cp Owner
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type PermissionIsvMember struct {
+}
+
+type PermissionIsvPublic struct {
 }
 
 type Person struct {
@@ -157,6 +202,18 @@ type TmpDownloadUrl struct {
 
 func (s *TmpDownloadUrl) MarshalJSON() ([]byte, error) {
 	type cp TmpDownloadUrl
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type TokenType struct {
+	Token           string   `json:"token,omitempty"`
+	Type            string   `json:"type,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *TokenType) MarshalJSON() ([]byte, error) {
+	type cp TokenType
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
@@ -255,6 +312,186 @@ type FileCommentPatchReqBody struct {
 
 func (s *FileCommentPatchReqBody) MarshalJSON() ([]byte, error) {
 	type cp FileCommentPatchReqBody
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type FileCommentReplyCreateReqBody struct {
+	Content         *ReplyContent `json:"content,omitempty"`
+	ForceSendFields []string      `json:"-"`
+}
+
+func (s *FileCommentReplyCreateReqBody) MarshalJSON() ([]byte, error) {
+	type cp FileCommentReplyCreateReqBody
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type FileCommentReplyCreateResult struct {
+	FileCommentReply *FileCommentReply `json:"file.comment.reply,omitempty"`
+}
+
+type PermissionIsvMemberCreateReqBody struct {
+	Token           string    `json:"token,omitempty"`
+	Type            string    `json:"type,omitempty"`
+	Members         []*Member `json:"members,omitempty"`
+	NotifyLark      bool      `json:"notify_lark,omitempty"`
+	ForceSendFields []string  `json:"-"`
+}
+
+func (s *PermissionIsvMemberCreateReqBody) MarshalJSON() ([]byte, error) {
+	type cp PermissionIsvMemberCreateReqBody
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type PermissionIsvMemberCreateResult struct {
+	IsAllSuccess bool      `json:"is_all_success,omitempty"`
+	FailMembers  []*Member `json:"fail_members,omitempty"`
+}
+
+type PermissionIsvMemberDeleteReqBody struct {
+	Token           string   `json:"token,omitempty"`
+	Type            string   `json:"type,omitempty"`
+	MemberType      string   `json:"member_type,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *PermissionIsvMemberDeleteReqBody) MarshalJSON() ([]byte, error) {
+	type cp PermissionIsvMemberDeleteReqBody
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type PermissionIsvMemberDeleteResult struct {
+	IsSuccess bool `json:"is_success,omitempty"`
+}
+
+type PermissionIsvPublicGetReqBody struct {
+	Token           string   `json:"token,omitempty"`
+	Type            string   `json:"type,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *PermissionIsvPublicGetReqBody) MarshalJSON() ([]byte, error) {
+	type cp PermissionIsvPublicGetReqBody
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type PermissionIsvPublicGetResult struct {
+	SecurityEntity     string `json:"security_entity,omitempty"`
+	CommentEntity      string `json:"comment_entity,omitempty"`
+	ShareEntity        string `json:"share_entity,omitempty"`
+	LinkShareEntity    string `json:"link_share_entity,omitempty"`
+	ExternalAccess     bool   `json:"external_access,omitempty"`
+	InviteExternal     bool   `json:"invite_external,omitempty"`
+	PermissionVerision string `json:"permission_verision,omitempty"`
+}
+
+type PermissionIsvMemberListReqBody struct {
+	Token           string   `json:"token,omitempty"`
+	Type            string   `json:"type,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *PermissionIsvMemberListReqBody) MarshalJSON() ([]byte, error) {
+	type cp PermissionIsvMemberListReqBody
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type PermissionIsvMemberListResult struct {
+	Members []*Collaborator `json:"members,omitempty"`
+}
+
+type PermissionIsvMemberObjectsReqBody struct {
+	Objects         []*TokenType `json:"objects,omitempty"`
+	ForceSendFields []string     `json:"-"`
+}
+
+func (s *PermissionIsvMemberObjectsReqBody) MarshalJSON() ([]byte, error) {
+	type cp PermissionIsvMemberObjectsReqBody
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type PermissionIsvMemberObjectsResult struct {
+	Perms map[string][]string `json:"perms,omitempty"`
+}
+
+type PermissionIsvMemberPermittedReqBody struct {
+	Token           string   `json:"token,omitempty"`
+	Type            string   `json:"type,omitempty"`
+	Perm            string   `json:"perm,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *PermissionIsvMemberPermittedReqBody) MarshalJSON() ([]byte, error) {
+	type cp PermissionIsvMemberPermittedReqBody
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type PermissionIsvMemberPermittedResult struct {
+	IsPermitted bool `json:"is_permitted,omitempty"`
+}
+
+type PermissionIsvMemberTransferReqBody struct {
+	Token           string   `json:"token,omitempty"`
+	Type            string   `json:"type,omitempty"`
+	Owner           *Owner   `json:"owner,omitempty"`
+	RemoveOldOwner  bool     `json:"remove_old_owner,omitempty"`
+	CancelNotify    bool     `json:"cancel_notify,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *PermissionIsvMemberTransferReqBody) MarshalJSON() ([]byte, error) {
+	type cp PermissionIsvMemberTransferReqBody
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type PermissionIsvMemberTransferResult struct {
+	IsSuccess bool   `json:"is_success,omitempty"`
+	Type      string `json:"type,omitempty"`
+	Token     string `json:"token,omitempty"`
+	Owner     *Owner `json:"owner,omitempty"`
+}
+
+type PermissionIsvMemberUpdateReqBody struct {
+	Token           string   `json:"token,omitempty"`
+	Type            string   `json:"type,omitempty"`
+	MemberType      string   `json:"member_type,omitempty"`
+	Perm            string   `json:"perm,omitempty"`
+	NotifyLark      bool     `json:"notify_lark,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *PermissionIsvMemberUpdateReqBody) MarshalJSON() ([]byte, error) {
+	type cp PermissionIsvMemberUpdateReqBody
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type PermissionIsvMemberUpdateResult struct {
+	IsSuccess bool `json:"is_success,omitempty"`
+}
+
+type PermissionIsvPublicUpdateReqBody struct {
+	Token           string   `json:"token,omitempty"`
+	Type            string   `json:"type,omitempty"`
+	SecurityEntity  string   `json:"security_entity,omitempty"`
+	CommentEntity   string   `json:"comment_entity,omitempty"`
+	ShareEntity     string   `json:"share_entity,omitempty"`
+	LinkShareEntity string   `json:"link_share_entity,omitempty"`
+	ExternalAccess  bool     `json:"external_access,omitempty"`
+	InviteExternal  bool     `json:"invite_external,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *PermissionIsvPublicUpdateReqBody) MarshalJSON() ([]byte, error) {
+	type cp PermissionIsvPublicUpdateReqBody
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }

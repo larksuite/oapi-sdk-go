@@ -11,39 +11,29 @@ import (
 
 type Service struct {
 	conf              *config.Config
-	DepartmentUnits   *DepartmentUnitService
 	Users             *UserService
 	UserGroups        *UserGroupService
-	UserGroupMembers  *UserGroupMemberService
 	Departments       *DepartmentService
 	Scopes            *ScopeService
 	CustomAttrEvents  *CustomAttrEventService
 	EmployeeTypeEnums *EmployeeTypeEnumService
+	DepartmentUnits   *DepartmentUnitService
+	UserGroupMembers  *UserGroupMemberService
 }
 
 func NewService(conf *config.Config) *Service {
 	s := &Service{
 		conf: conf,
 	}
-	s.DepartmentUnits = newDepartmentUnitService(s)
 	s.Users = newUserService(s)
 	s.UserGroups = newUserGroupService(s)
-	s.UserGroupMembers = newUserGroupMemberService(s)
 	s.Departments = newDepartmentService(s)
 	s.Scopes = newScopeService(s)
 	s.CustomAttrEvents = newCustomAttrEventService(s)
 	s.EmployeeTypeEnums = newEmployeeTypeEnumService(s)
+	s.DepartmentUnits = newDepartmentUnitService(s)
+	s.UserGroupMembers = newUserGroupMemberService(s)
 	return s
-}
-
-type DepartmentUnitService struct {
-	service *Service
-}
-
-func newDepartmentUnitService(service *Service) *DepartmentUnitService {
-	return &DepartmentUnitService{
-		service: service,
-	}
 }
 
 type UserService struct {
@@ -62,16 +52,6 @@ type UserGroupService struct {
 
 func newUserGroupService(service *Service) *UserGroupService {
 	return &UserGroupService{
-		service: service,
-	}
-}
-
-type UserGroupMemberService struct {
-	service *Service
-}
-
-func newUserGroupMemberService(service *Service) *UserGroupMemberService {
-	return &UserGroupMemberService{
 		service: service,
 	}
 }
@@ -112,6 +92,26 @@ type EmployeeTypeEnumService struct {
 
 func newEmployeeTypeEnumService(service *Service) *EmployeeTypeEnumService {
 	return &EmployeeTypeEnumService{
+		service: service,
+	}
+}
+
+type DepartmentUnitService struct {
+	service *Service
+}
+
+func newDepartmentUnitService(service *Service) *DepartmentUnitService {
+	return &DepartmentUnitService{
+		service: service,
+	}
+}
+
+type UserGroupMemberService struct {
+	service *Service
+}
+
+func newUserGroupMemberService(service *Service) *UserGroupMemberService {
+	return &UserGroupMemberService{
 		service: service,
 	}
 }
@@ -721,9 +721,6 @@ type DepartmentDeleteReqCall struct {
 func (rc *DepartmentDeleteReqCall) SetDepartmentId(departmentId string) {
 	rc.pathParams["department_id"] = departmentId
 }
-func (rc *DepartmentDeleteReqCall) SetUserIdType(userIdType string) {
-	rc.queryParams["user_id_type"] = userIdType
-}
 func (rc *DepartmentDeleteReqCall) SetDepartmentIdType(departmentIdType string) {
 	rc.queryParams["department_id_type"] = departmentIdType
 }
@@ -1179,6 +1176,285 @@ func (employeeTypeEnums *EmployeeTypeEnumService) List(ctx *core.Context, optFns
 		ctx:               ctx,
 		employeeTypeEnums: employeeTypeEnums,
 		queryParams:       map[string]interface{}{},
+		optFns:            optFns,
+	}
+}
+
+type DepartmentBatchGetReqCall struct {
+	ctx         *core.Context
+	departments *DepartmentService
+	body        *DepartmentBatchGetReqBody
+	queryParams map[string]interface{}
+	optFns      []request.OptFn
+}
+
+func (rc *DepartmentBatchGetReqCall) SetUserIdType(userIdType string) {
+	rc.queryParams["user_id_type"] = userIdType
+}
+func (rc *DepartmentBatchGetReqCall) SetDepartmentIdType(departmentIdType string) {
+	rc.queryParams["department_id_type"] = departmentIdType
+}
+
+func (rc *DepartmentBatchGetReqCall) Do() (*DepartmentBatchGetResult, error) {
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &DepartmentBatchGetResult{}
+	req := request.NewRequest("contact/v3/departments/batch_get", "POST",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.departments.service.conf, req)
+	return result, err
+}
+
+func (departments *DepartmentService) BatchGet(ctx *core.Context, body *DepartmentBatchGetReqBody, optFns ...request.OptFn) *DepartmentBatchGetReqCall {
+	return &DepartmentBatchGetReqCall{
+		ctx:         ctx,
+		departments: departments,
+		body:        body,
+		queryParams: map[string]interface{}{},
+		optFns:      optFns,
+	}
+}
+
+type UserBatchGetReqCall struct {
+	ctx         *core.Context
+	users       *UserService
+	body        *UserBatchGetReqBody
+	queryParams map[string]interface{}
+	optFns      []request.OptFn
+}
+
+func (rc *UserBatchGetReqCall) SetUserIdType(userIdType string) {
+	rc.queryParams["user_id_type"] = userIdType
+}
+
+func (rc *UserBatchGetReqCall) Do() (*UserBatchGetResult, error) {
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &UserBatchGetResult{}
+	req := request.NewRequest("contact/v3/users/batch_get", "POST",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.users.service.conf, req)
+	return result, err
+}
+
+func (users *UserService) BatchGet(ctx *core.Context, body *UserBatchGetReqBody, optFns ...request.OptFn) *UserBatchGetReqCall {
+	return &UserBatchGetReqCall{
+		ctx:         ctx,
+		users:       users,
+		body:        body,
+		queryParams: map[string]interface{}{},
+		optFns:      optFns,
+	}
+}
+
+type DepartmentBatchParentReqCall struct {
+	ctx         *core.Context
+	departments *DepartmentService
+	body        *DepartmentBatchParentReqBody
+	optFns      []request.OptFn
+}
+
+func (rc *DepartmentBatchParentReqCall) Do() (*DepartmentBatchParentResult, error) {
+	var result = &DepartmentBatchParentResult{}
+	req := request.NewRequest("contact/v3/departments/batch_parent", "POST",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.departments.service.conf, req)
+	return result, err
+}
+
+func (departments *DepartmentService) BatchParent(ctx *core.Context, body *DepartmentBatchParentReqBody, optFns ...request.OptFn) *DepartmentBatchParentReqCall {
+	return &DepartmentBatchParentReqCall{
+		ctx:         ctx,
+		departments: departments,
+		body:        body,
+		optFns:      optFns,
+	}
+}
+
+type DepartmentListChildrenReqCall struct {
+	ctx         *core.Context
+	departments *DepartmentService
+	queryParams map[string]interface{}
+	optFns      []request.OptFn
+}
+
+func (rc *DepartmentListChildrenReqCall) SetUserIdType(userIdType string) {
+	rc.queryParams["user_id_type"] = userIdType
+}
+func (rc *DepartmentListChildrenReqCall) SetDepartmentIdType(departmentIdType string) {
+	rc.queryParams["department_id_type"] = departmentIdType
+}
+func (rc *DepartmentListChildrenReqCall) SetParentDepartmentId(parentDepartmentId string) {
+	rc.queryParams["parent_department_id"] = parentDepartmentId
+}
+func (rc *DepartmentListChildrenReqCall) SetPageToken(pageToken string) {
+	rc.queryParams["page_token"] = pageToken
+}
+func (rc *DepartmentListChildrenReqCall) SetPageSize(pageSize int) {
+	rc.queryParams["page_size"] = pageSize
+}
+
+func (rc *DepartmentListChildrenReqCall) Do() (*DepartmentListChildrenResult, error) {
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &DepartmentListChildrenResult{}
+	req := request.NewRequest("contact/v3/departments/list_children", "POST",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.departments.service.conf, req)
+	return result, err
+}
+
+func (departments *DepartmentService) ListChildren(ctx *core.Context, optFns ...request.OptFn) *DepartmentListChildrenReqCall {
+	return &DepartmentListChildrenReqCall{
+		ctx:         ctx,
+		departments: departments,
+		queryParams: map[string]interface{}{},
+		optFns:      optFns,
+	}
+}
+
+type UserScanReqCall struct {
+	ctx         *core.Context
+	users       *UserService
+	queryParams map[string]interface{}
+	optFns      []request.OptFn
+}
+
+func (rc *UserScanReqCall) SetUserIdType(userIdType string) {
+	rc.queryParams["user_id_type"] = userIdType
+}
+func (rc *UserScanReqCall) SetDepartmentIdType(departmentIdType string) {
+	rc.queryParams["department_id_type"] = departmentIdType
+}
+func (rc *UserScanReqCall) SetDepartmentId(departmentId string) {
+	rc.queryParams["department_id"] = departmentId
+}
+func (rc *UserScanReqCall) SetPageToken(pageToken string) {
+	rc.queryParams["page_token"] = pageToken
+}
+func (rc *UserScanReqCall) SetPageSize(pageSize int) {
+	rc.queryParams["page_size"] = pageSize
+}
+
+func (rc *UserScanReqCall) Do() (*UserScanResult, error) {
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &UserScanResult{}
+	req := request.NewRequest("contact/v3/users/scan", "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.users.service.conf, req)
+	return result, err
+}
+
+func (users *UserService) Scan(ctx *core.Context, optFns ...request.OptFn) *UserScanReqCall {
+	return &UserScanReqCall{
+		ctx:         ctx,
+		users:       users,
+		queryParams: map[string]interface{}{},
+		optFns:      optFns,
+	}
+}
+
+type DepartmentUsersReqCall struct {
+	ctx         *core.Context
+	departments *DepartmentService
+	body        *DepartmentUsersReqBody
+	optFns      []request.OptFn
+}
+
+func (rc *DepartmentUsersReqCall) Do() (*DepartmentUsersResult, error) {
+	var result = &DepartmentUsersResult{}
+	req := request.NewRequest("contact/v3/departments/users", "POST",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.departments.service.conf, req)
+	return result, err
+}
+
+func (departments *DepartmentService) Users(ctx *core.Context, body *DepartmentUsersReqBody, optFns ...request.OptFn) *DepartmentUsersReqCall {
+	return &DepartmentUsersReqCall{
+		ctx:         ctx,
+		departments: departments,
+		body:        body,
+		optFns:      optFns,
+	}
+}
+
+type EmployeeTypeEnumCreateReqCall struct {
+	ctx               *core.Context
+	employeeTypeEnums *EmployeeTypeEnumService
+	body              *EmployeeTypeEnum
+	optFns            []request.OptFn
+}
+
+func (rc *EmployeeTypeEnumCreateReqCall) Do() (*EmployeeTypeEnumCreateResult, error) {
+	var result = &EmployeeTypeEnumCreateResult{}
+	req := request.NewRequest("contact/v3/employee_type_enums", "POST",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.employeeTypeEnums.service.conf, req)
+	return result, err
+}
+
+func (employeeTypeEnums *EmployeeTypeEnumService) Create(ctx *core.Context, body *EmployeeTypeEnum, optFns ...request.OptFn) *EmployeeTypeEnumCreateReqCall {
+	return &EmployeeTypeEnumCreateReqCall{
+		ctx:               ctx,
+		employeeTypeEnums: employeeTypeEnums,
+		body:              body,
+		optFns:            optFns,
+	}
+}
+
+type EmployeeTypeEnumDeleteReqCall struct {
+	ctx               *core.Context
+	employeeTypeEnums *EmployeeTypeEnumService
+	pathParams        map[string]interface{}
+	optFns            []request.OptFn
+}
+
+func (rc *EmployeeTypeEnumDeleteReqCall) SetEnumId(enumId string) {
+	rc.pathParams["enum_id"] = enumId
+}
+
+func (rc *EmployeeTypeEnumDeleteReqCall) Do() (*response.NoData, error) {
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	var result = &response.NoData{}
+	req := request.NewRequest("contact/v3/employee_type_enums/:enum_id", "DELETE",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.employeeTypeEnums.service.conf, req)
+	return result, err
+}
+
+func (employeeTypeEnums *EmployeeTypeEnumService) Delete(ctx *core.Context, optFns ...request.OptFn) *EmployeeTypeEnumDeleteReqCall {
+	return &EmployeeTypeEnumDeleteReqCall{
+		ctx:               ctx,
+		employeeTypeEnums: employeeTypeEnums,
+		pathParams:        map[string]interface{}{},
+		optFns:            optFns,
+	}
+}
+
+type EmployeeTypeEnumUpdateReqCall struct {
+	ctx               *core.Context
+	employeeTypeEnums *EmployeeTypeEnumService
+	body              *EmployeeTypeEnum
+	pathParams        map[string]interface{}
+	optFns            []request.OptFn
+}
+
+func (rc *EmployeeTypeEnumUpdateReqCall) SetEnumId(enumId string) {
+	rc.pathParams["enum_id"] = enumId
+}
+
+func (rc *EmployeeTypeEnumUpdateReqCall) Do() (*EmployeeTypeEnumUpdateResult, error) {
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	var result = &EmployeeTypeEnumUpdateResult{}
+	req := request.NewRequest("contact/v3/employee_type_enums/:enum_id", "PUT",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.employeeTypeEnums.service.conf, req)
+	return result, err
+}
+
+func (employeeTypeEnums *EmployeeTypeEnumService) Update(ctx *core.Context, body *EmployeeTypeEnum, optFns ...request.OptFn) *EmployeeTypeEnumUpdateReqCall {
+	return &EmployeeTypeEnumUpdateReqCall{
+		ctx:               ctx,
+		employeeTypeEnums: employeeTypeEnums,
+		body:              body,
+		pathParams:        map[string]interface{}{},
 		optFns:            optFns,
 	}
 }
