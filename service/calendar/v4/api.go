@@ -16,10 +16,10 @@ type Service struct {
 	CalendarEvents                   *CalendarEventService
 	CalendarEventAttendees           *CalendarEventAttendeeService
 	CalendarEventAttendeeChatMembers *CalendarEventAttendeeChatMemberService
+	ExchangeBindings                 *ExchangeBindingService
 	Freebusys                        *FreebusyService
 	Settings                         *SettingService
 	TimeoffEvents                    *TimeoffEventService
-	ExchangeBindings                 *ExchangeBindingService
 }
 
 func NewService(conf *config.Config) *Service {
@@ -31,10 +31,10 @@ func NewService(conf *config.Config) *Service {
 	s.CalendarEvents = newCalendarEventService(s)
 	s.CalendarEventAttendees = newCalendarEventAttendeeService(s)
 	s.CalendarEventAttendeeChatMembers = newCalendarEventAttendeeChatMemberService(s)
+	s.ExchangeBindings = newExchangeBindingService(s)
 	s.Freebusys = newFreebusyService(s)
 	s.Settings = newSettingService(s)
 	s.TimeoffEvents = newTimeoffEventService(s)
-	s.ExchangeBindings = newExchangeBindingService(s)
 	return s
 }
 
@@ -88,6 +88,16 @@ func newCalendarEventAttendeeChatMemberService(service *Service) *CalendarEventA
 	}
 }
 
+type ExchangeBindingService struct {
+	service *Service
+}
+
+func newExchangeBindingService(service *Service) *ExchangeBindingService {
+	return &ExchangeBindingService{
+		service: service,
+	}
+}
+
 type FreebusyService struct {
 	service *Service
 }
@@ -114,16 +124,6 @@ type TimeoffEventService struct {
 
 func newTimeoffEventService(service *Service) *TimeoffEventService {
 	return &TimeoffEventService{
-		service: service,
-	}
-}
-
-type ExchangeBindingService struct {
-	service *Service
-}
-
-func newExchangeBindingService(service *Service) *ExchangeBindingService {
-	return &ExchangeBindingService{
 		service: service,
 	}
 }
@@ -355,37 +355,6 @@ func (calendarAcls *CalendarAclService) Delete(ctx *core.Context, optFns ...requ
 	}
 }
 
-type CalendarEventCreateReqCall struct {
-	ctx            *core.Context
-	calendarEvents *CalendarEventService
-	body           *CalendarEvent
-	pathParams     map[string]interface{}
-	optFns         []request.OptFn
-}
-
-func (rc *CalendarEventCreateReqCall) SetCalendarId(calendarId string) {
-	rc.pathParams["calendar_id"] = calendarId
-}
-
-func (rc *CalendarEventCreateReqCall) Do() (*CalendarEventCreateResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	var result = &CalendarEventCreateResult{}
-	req := request.NewRequest("calendar/v4/calendars/:calendar_id/events", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.calendarEvents.service.conf, req)
-	return result, err
-}
-
-func (calendarEvents *CalendarEventService) Create(ctx *core.Context, body *CalendarEvent, optFns ...request.OptFn) *CalendarEventCreateReqCall {
-	return &CalendarEventCreateReqCall{
-		ctx:            ctx,
-		calendarEvents: calendarEvents,
-		body:           body,
-		pathParams:     map[string]interface{}{},
-		optFns:         optFns,
-	}
-}
-
 type CalendarAclCreateReqCall struct {
 	ctx          *core.Context
 	calendarAcls *CalendarAclService
@@ -423,38 +392,34 @@ func (calendarAcls *CalendarAclService) Create(ctx *core.Context, body *Calendar
 	}
 }
 
-type CalendarListReqCall struct {
-	ctx         *core.Context
-	calendars   *CalendarService
-	queryParams map[string]interface{}
-	optFns      []request.OptFn
+type CalendarEventCreateReqCall struct {
+	ctx            *core.Context
+	calendarEvents *CalendarEventService
+	body           *CalendarEvent
+	pathParams     map[string]interface{}
+	optFns         []request.OptFn
 }
 
-func (rc *CalendarListReqCall) SetPageSize(pageSize int) {
-	rc.queryParams["page_size"] = pageSize
-}
-func (rc *CalendarListReqCall) SetPageToken(pageToken string) {
-	rc.queryParams["page_token"] = pageToken
-}
-func (rc *CalendarListReqCall) SetSyncToken(syncToken string) {
-	rc.queryParams["sync_token"] = syncToken
+func (rc *CalendarEventCreateReqCall) SetCalendarId(calendarId string) {
+	rc.pathParams["calendar_id"] = calendarId
 }
 
-func (rc *CalendarListReqCall) Do() (*CalendarListResult, error) {
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &CalendarListResult{}
-	req := request.NewRequest("calendar/v4/calendars", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.calendars.service.conf, req)
+func (rc *CalendarEventCreateReqCall) Do() (*CalendarEventCreateResult, error) {
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	var result = &CalendarEventCreateResult{}
+	req := request.NewRequest("calendar/v4/calendars/:calendar_id/events", "POST",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.calendarEvents.service.conf, req)
 	return result, err
 }
 
-func (calendars *CalendarService) List(ctx *core.Context, optFns ...request.OptFn) *CalendarListReqCall {
-	return &CalendarListReqCall{
-		ctx:         ctx,
-		calendars:   calendars,
-		queryParams: map[string]interface{}{},
-		optFns:      optFns,
+func (calendarEvents *CalendarEventService) Create(ctx *core.Context, body *CalendarEvent, optFns ...request.OptFn) *CalendarEventCreateReqCall {
+	return &CalendarEventCreateReqCall{
+		ctx:            ctx,
+		calendarEvents: calendarEvents,
+		body:           body,
+		pathParams:     map[string]interface{}{},
+		optFns:         optFns,
 	}
 }
 
@@ -499,6 +464,41 @@ func (calendarEventAttendees *CalendarEventAttendeeService) List(ctx *core.Conte
 		pathParams:             map[string]interface{}{},
 		queryParams:            map[string]interface{}{},
 		optFns:                 optFns,
+	}
+}
+
+type CalendarListReqCall struct {
+	ctx         *core.Context
+	calendars   *CalendarService
+	queryParams map[string]interface{}
+	optFns      []request.OptFn
+}
+
+func (rc *CalendarListReqCall) SetPageSize(pageSize int) {
+	rc.queryParams["page_size"] = pageSize
+}
+func (rc *CalendarListReqCall) SetPageToken(pageToken string) {
+	rc.queryParams["page_token"] = pageToken
+}
+func (rc *CalendarListReqCall) SetSyncToken(syncToken string) {
+	rc.queryParams["sync_token"] = syncToken
+}
+
+func (rc *CalendarListReqCall) Do() (*CalendarListResult, error) {
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &CalendarListResult{}
+	req := request.NewRequest("calendar/v4/calendars", "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.calendars.service.conf, req)
+	return result, err
+}
+
+func (calendars *CalendarService) List(ctx *core.Context, optFns ...request.OptFn) *CalendarListReqCall {
+	return &CalendarListReqCall{
+		ctx:         ctx,
+		calendars:   calendars,
+		queryParams: map[string]interface{}{},
+		optFns:      optFns,
 	}
 }
 
@@ -618,6 +618,9 @@ func (rc *CalendarEventListReqCall) SetCalendarId(calendarId string) {
 }
 func (rc *CalendarEventListReqCall) SetPageSize(pageSize int) {
 	rc.queryParams["page_size"] = pageSize
+}
+func (rc *CalendarEventListReqCall) SetAnchorTime(anchorTime string) {
+	rc.queryParams["anchor_time"] = anchorTime
 }
 func (rc *CalendarEventListReqCall) SetPageToken(pageToken string) {
 	rc.queryParams["page_token"] = pageToken
