@@ -802,48 +802,6 @@ func (chatMemberss *ChatMembersService) Delete(ctx *core.Context, body *ChatMemb
 	}
 }
 
-type MessageResourceGetReqCall struct {
-	ctx              *core.Context
-	messageResources *MessageResourceService
-	pathParams       map[string]interface{}
-	queryParams      map[string]interface{}
-	optFns           []request.OptFn
-	result           io.Writer
-}
-
-func (rc *MessageResourceGetReqCall) SetMessageId(messageId string) {
-	rc.pathParams["message_id"] = messageId
-}
-func (rc *MessageResourceGetReqCall) SetFileKey(fileKey string) {
-	rc.pathParams["file_key"] = fileKey
-}
-func (rc *MessageResourceGetReqCall) SetType(type_ string) {
-	rc.queryParams["type"] = type_
-}
-func (rc *MessageResourceGetReqCall) SetResponseStream(result io.Writer) {
-	rc.result = result
-}
-
-func (rc *MessageResourceGetReqCall) Do() (io.Writer, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	rc.optFns = append(rc.optFns, request.SetResponseStream())
-	req := request.NewRequest("im/v1/messages/:message_id/resources/:file_key", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, rc.result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.messageResources.service.conf, req)
-	return rc.result, err
-}
-
-func (messageResources *MessageResourceService) Get(ctx *core.Context, optFns ...request.OptFn) *MessageResourceGetReqCall {
-	return &MessageResourceGetReqCall{
-		ctx:              ctx,
-		messageResources: messageResources,
-		pathParams:       map[string]interface{}{},
-		queryParams:      map[string]interface{}{},
-		optFns:           optFns,
-	}
-}
-
 type ChatAnnouncementGetReqCall struct {
 	ctx               *core.Context
 	chatAnnouncements *ChatAnnouncementService
@@ -917,6 +875,48 @@ func (chatMemberss *ChatMembersService) Get(ctx *core.Context, optFns ...request
 		pathParams:   map[string]interface{}{},
 		queryParams:  map[string]interface{}{},
 		optFns:       optFns,
+	}
+}
+
+type MessageResourceGetReqCall struct {
+	ctx              *core.Context
+	messageResources *MessageResourceService
+	pathParams       map[string]interface{}
+	queryParams      map[string]interface{}
+	optFns           []request.OptFn
+	result           io.Writer
+}
+
+func (rc *MessageResourceGetReqCall) SetMessageId(messageId string) {
+	rc.pathParams["message_id"] = messageId
+}
+func (rc *MessageResourceGetReqCall) SetFileKey(fileKey string) {
+	rc.pathParams["file_key"] = fileKey
+}
+func (rc *MessageResourceGetReqCall) SetType(type_ string) {
+	rc.queryParams["type"] = type_
+}
+func (rc *MessageResourceGetReqCall) SetResponseStream(result io.Writer) {
+	rc.result = result
+}
+
+func (rc *MessageResourceGetReqCall) Do() (io.Writer, error) {
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	rc.optFns = append(rc.optFns, request.SetResponseStream())
+	req := request.NewRequest("im/v1/messages/:message_id/resources/:file_key", "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, rc.result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.messageResources.service.conf, req)
+	return rc.result, err
+}
+
+func (messageResources *MessageResourceService) Get(ctx *core.Context, optFns ...request.OptFn) *MessageResourceGetReqCall {
+	return &MessageResourceGetReqCall{
+		ctx:              ctx,
+		messageResources: messageResources,
+		pathParams:       map[string]interface{}{},
+		queryParams:      map[string]interface{}{},
+		optFns:           optFns,
 	}
 }
 

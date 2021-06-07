@@ -11,13 +11,11 @@ import (
 )
 
 type Service struct {
-	conf                 *config.Config
-	Files                *FileService
-	FileComments         *FileCommentService
-	FileCommentReplys    *FileCommentReplyService
-	Medias               *MediaService
-	PermissionIsvMembers *PermissionIsvMemberService
-	PermissionIsvPublics *PermissionIsvPublicService
+	conf              *config.Config
+	Files             *FileService
+	FileComments      *FileCommentService
+	FileCommentReplys *FileCommentReplyService
+	Medias            *MediaService
 }
 
 func NewService(conf *config.Config) *Service {
@@ -28,8 +26,6 @@ func NewService(conf *config.Config) *Service {
 	s.FileComments = newFileCommentService(s)
 	s.FileCommentReplys = newFileCommentReplyService(s)
 	s.Medias = newMediaService(s)
-	s.PermissionIsvMembers = newPermissionIsvMemberService(s)
-	s.PermissionIsvPublics = newPermissionIsvPublicService(s)
 	return s
 }
 
@@ -69,26 +65,6 @@ type MediaService struct {
 
 func newMediaService(service *Service) *MediaService {
 	return &MediaService{
-		service: service,
-	}
-}
-
-type PermissionIsvMemberService struct {
-	service *Service
-}
-
-func newPermissionIsvMemberService(service *Service) *PermissionIsvMemberService {
-	return &PermissionIsvMemberService{
-		service: service,
-	}
-}
-
-type PermissionIsvPublicService struct {
-	service *Service
-}
-
-func newPermissionIsvPublicService(service *Service) *PermissionIsvPublicService {
-	return &PermissionIsvPublicService{
 		service: service,
 	}
 }
@@ -780,221 +756,5 @@ func (fileCommentReplys *FileCommentReplyService) Create(ctx *core.Context, body
 		pathParams:        map[string]interface{}{},
 		queryParams:       map[string]interface{}{},
 		optFns:            optFns,
-	}
-}
-
-type PermissionIsvMemberCreateReqCall struct {
-	ctx                  *core.Context
-	permissionIsvMembers *PermissionIsvMemberService
-	body                 *PermissionIsvMemberCreateReqBody
-	optFns               []request.OptFn
-}
-
-func (rc *PermissionIsvMemberCreateReqCall) Do() (*PermissionIsvMemberCreateResult, error) {
-	var result = &PermissionIsvMemberCreateResult{}
-	req := request.NewRequest("drive/v1/permission/isv/member/create", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.permissionIsvMembers.service.conf, req)
-	return result, err
-}
-
-func (permissionIsvMembers *PermissionIsvMemberService) Create(ctx *core.Context, body *PermissionIsvMemberCreateReqBody, optFns ...request.OptFn) *PermissionIsvMemberCreateReqCall {
-	return &PermissionIsvMemberCreateReqCall{
-		ctx:                  ctx,
-		permissionIsvMembers: permissionIsvMembers,
-		body:                 body,
-		optFns:               optFns,
-	}
-}
-
-type PermissionIsvMemberDeleteReqCall struct {
-	ctx                  *core.Context
-	permissionIsvMembers *PermissionIsvMemberService
-	body                 *PermissionIsvMemberDeleteReqBody
-	optFns               []request.OptFn
-}
-
-func (rc *PermissionIsvMemberDeleteReqCall) Do() (*PermissionIsvMemberDeleteResult, error) {
-	var result = &PermissionIsvMemberDeleteResult{}
-	req := request.NewRequest("drive/v1/permission/isv/member/delete", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.permissionIsvMembers.service.conf, req)
-	return result, err
-}
-
-func (permissionIsvMembers *PermissionIsvMemberService) Delete(ctx *core.Context, body *PermissionIsvMemberDeleteReqBody, optFns ...request.OptFn) *PermissionIsvMemberDeleteReqCall {
-	return &PermissionIsvMemberDeleteReqCall{
-		ctx:                  ctx,
-		permissionIsvMembers: permissionIsvMembers,
-		body:                 body,
-		optFns:               optFns,
-	}
-}
-
-type PermissionIsvPublicGetReqCall struct {
-	ctx                  *core.Context
-	permissionIsvPublics *PermissionIsvPublicService
-	body                 *PermissionIsvPublicGetReqBody
-	optFns               []request.OptFn
-}
-
-func (rc *PermissionIsvPublicGetReqCall) Do() (*PermissionIsvPublicGetResult, error) {
-	var result = &PermissionIsvPublicGetResult{}
-	req := request.NewRequest("drive/v1/permission/isv/public", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.permissionIsvPublics.service.conf, req)
-	return result, err
-}
-
-func (permissionIsvPublics *PermissionIsvPublicService) Get(ctx *core.Context, body *PermissionIsvPublicGetReqBody, optFns ...request.OptFn) *PermissionIsvPublicGetReqCall {
-	return &PermissionIsvPublicGetReqCall{
-		ctx:                  ctx,
-		permissionIsvPublics: permissionIsvPublics,
-		body:                 body,
-		optFns:               optFns,
-	}
-}
-
-type PermissionIsvMemberListReqCall struct {
-	ctx                  *core.Context
-	permissionIsvMembers *PermissionIsvMemberService
-	body                 *PermissionIsvMemberListReqBody
-	optFns               []request.OptFn
-}
-
-func (rc *PermissionIsvMemberListReqCall) Do() (*PermissionIsvMemberListResult, error) {
-	var result = &PermissionIsvMemberListResult{}
-	req := request.NewRequest("drive/v1/permission/isv/member/list", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.permissionIsvMembers.service.conf, req)
-	return result, err
-}
-
-func (permissionIsvMembers *PermissionIsvMemberService) List(ctx *core.Context, body *PermissionIsvMemberListReqBody, optFns ...request.OptFn) *PermissionIsvMemberListReqCall {
-	return &PermissionIsvMemberListReqCall{
-		ctx:                  ctx,
-		permissionIsvMembers: permissionIsvMembers,
-		body:                 body,
-		optFns:               optFns,
-	}
-}
-
-type PermissionIsvMemberObjectsReqCall struct {
-	ctx                  *core.Context
-	permissionIsvMembers *PermissionIsvMemberService
-	body                 *PermissionIsvMemberObjectsReqBody
-	optFns               []request.OptFn
-}
-
-func (rc *PermissionIsvMemberObjectsReqCall) Do() (*PermissionIsvMemberObjectsResult, error) {
-	var result = &PermissionIsvMemberObjectsResult{}
-	req := request.NewRequest("drive/v1/permission/isv/objects", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.permissionIsvMembers.service.conf, req)
-	return result, err
-}
-
-func (permissionIsvMembers *PermissionIsvMemberService) Objects(ctx *core.Context, body *PermissionIsvMemberObjectsReqBody, optFns ...request.OptFn) *PermissionIsvMemberObjectsReqCall {
-	return &PermissionIsvMemberObjectsReqCall{
-		ctx:                  ctx,
-		permissionIsvMembers: permissionIsvMembers,
-		body:                 body,
-		optFns:               optFns,
-	}
-}
-
-type PermissionIsvMemberPermittedReqCall struct {
-	ctx                  *core.Context
-	permissionIsvMembers *PermissionIsvMemberService
-	body                 *PermissionIsvMemberPermittedReqBody
-	optFns               []request.OptFn
-}
-
-func (rc *PermissionIsvMemberPermittedReqCall) Do() (*PermissionIsvMemberPermittedResult, error) {
-	var result = &PermissionIsvMemberPermittedResult{}
-	req := request.NewRequest("drive/v1/permission/isv/member/permitted", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.permissionIsvMembers.service.conf, req)
-	return result, err
-}
-
-func (permissionIsvMembers *PermissionIsvMemberService) Permitted(ctx *core.Context, body *PermissionIsvMemberPermittedReqBody, optFns ...request.OptFn) *PermissionIsvMemberPermittedReqCall {
-	return &PermissionIsvMemberPermittedReqCall{
-		ctx:                  ctx,
-		permissionIsvMembers: permissionIsvMembers,
-		body:                 body,
-		optFns:               optFns,
-	}
-}
-
-type PermissionIsvMemberTransferReqCall struct {
-	ctx                  *core.Context
-	permissionIsvMembers *PermissionIsvMemberService
-	body                 *PermissionIsvMemberTransferReqBody
-	optFns               []request.OptFn
-}
-
-func (rc *PermissionIsvMemberTransferReqCall) Do() (*PermissionIsvMemberTransferResult, error) {
-	var result = &PermissionIsvMemberTransferResult{}
-	req := request.NewRequest("drive/v1/permission/isv/member/transfer", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.permissionIsvMembers.service.conf, req)
-	return result, err
-}
-
-func (permissionIsvMembers *PermissionIsvMemberService) Transfer(ctx *core.Context, body *PermissionIsvMemberTransferReqBody, optFns ...request.OptFn) *PermissionIsvMemberTransferReqCall {
-	return &PermissionIsvMemberTransferReqCall{
-		ctx:                  ctx,
-		permissionIsvMembers: permissionIsvMembers,
-		body:                 body,
-		optFns:               optFns,
-	}
-}
-
-type PermissionIsvMemberUpdateReqCall struct {
-	ctx                  *core.Context
-	permissionIsvMembers *PermissionIsvMemberService
-	body                 *PermissionIsvMemberUpdateReqBody
-	optFns               []request.OptFn
-}
-
-func (rc *PermissionIsvMemberUpdateReqCall) Do() (*PermissionIsvMemberUpdateResult, error) {
-	var result = &PermissionIsvMemberUpdateResult{}
-	req := request.NewRequest("drive/v1/permission/isv/member/update", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.permissionIsvMembers.service.conf, req)
-	return result, err
-}
-
-func (permissionIsvMembers *PermissionIsvMemberService) Update(ctx *core.Context, body *PermissionIsvMemberUpdateReqBody, optFns ...request.OptFn) *PermissionIsvMemberUpdateReqCall {
-	return &PermissionIsvMemberUpdateReqCall{
-		ctx:                  ctx,
-		permissionIsvMembers: permissionIsvMembers,
-		body:                 body,
-		optFns:               optFns,
-	}
-}
-
-type PermissionIsvPublicUpdateReqCall struct {
-	ctx                  *core.Context
-	permissionIsvPublics *PermissionIsvPublicService
-	body                 *PermissionIsvPublicUpdateReqBody
-	optFns               []request.OptFn
-}
-
-func (rc *PermissionIsvPublicUpdateReqCall) Do() (*response.NoData, error) {
-	var result = &response.NoData{}
-	req := request.NewRequest("drive/v1/permission/isv/public/update", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.permissionIsvPublics.service.conf, req)
-	return result, err
-}
-
-func (permissionIsvPublics *PermissionIsvPublicService) Update(ctx *core.Context, body *PermissionIsvPublicUpdateReqBody, optFns ...request.OptFn) *PermissionIsvPublicUpdateReqCall {
-	return &PermissionIsvPublicUpdateReqCall{
-		ctx:                  ctx,
-		permissionIsvPublics: permissionIsvPublics,
-		body:                 body,
-		optFns:               optFns,
 	}
 }

@@ -413,17 +413,6 @@ type DepartmentListResult struct {
 	Items     []*Department `json:"items,omitempty"`
 }
 
-type UserGroupUpdateUserGroupIdReqBody struct {
-	NewUserGroupId  string   `json:"new_user_group_id,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *UserGroupUpdateUserGroupIdReqBody) MarshalJSON() ([]byte, error) {
-	type cp UserGroupUpdateUserGroupIdReqBody
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
 type DepartmentPatchResult struct {
 	Department *Department `json:"department,omitempty"`
 }
@@ -440,78 +429,16 @@ type UserPatchResult struct {
 	User *User `json:"user,omitempty"`
 }
 
-type UserUpdateUserIdReqBody struct {
-	NewUserId       string   `json:"new_user_id,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *UserUpdateUserIdReqBody) MarshalJSON() ([]byte, error) {
-	type cp UserUpdateUserIdReqBody
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type UserGroupMemberCreateReqBody struct {
-	UserId          string   `json:"user_id,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *UserGroupMemberCreateReqBody) MarshalJSON() ([]byte, error) {
-	type cp UserGroupMemberCreateReqBody
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
 type DepartmentCreateResult struct {
 	Department *Department `json:"department,omitempty"`
-}
-
-type UserGroupPatchResult struct {
-	UserGroup *UserGroup `json:"user_group,omitempty"`
-}
-
-type DepartmentUnitPatchReqBody struct {
-	UnitType        string   `json:"unit_type,omitempty"`
-	UnitName        string   `json:"unit_name,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *DepartmentUnitPatchReqBody) MarshalJSON() ([]byte, error) {
-	type cp DepartmentUnitPatchReqBody
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type DepartmentUnitPatchResult struct {
-	DepartmentUnit *DepartmentUnit `json:"department_unit,omitempty"`
-}
-
-type UserGroupCreateResult struct {
-	UserGroup *UserGroup `json:"user_group,omitempty"`
-}
-
-type UserGroupListResult struct {
-	HasMore   bool         `json:"has_more,omitempty"`
-	PageToken string       `json:"page_token,omitempty"`
-	Items     []*UserGroup `json:"items,omitempty"`
 }
 
 type UserGetResult struct {
 	User *User `json:"user,omitempty"`
 }
 
-type UserGroupMemberListResult struct {
-	HasMore   bool    `json:"has_more,omitempty"`
-	PageToken string  `json:"page_token,omitempty"`
-	Items     []*User `json:"items,omitempty"`
-}
-
 type DepartmentUpdateResult struct {
 	Department *Department `json:"department,omitempty"`
-}
-
-type DepartmentUnitCreateResult struct {
-	DepartmentUnit *DepartmentUnit `json:"department_unit,omitempty"`
 }
 
 type UserListResult struct {
@@ -520,36 +447,10 @@ type UserListResult struct {
 	Items     []*User `json:"items,omitempty"`
 }
 
-type UserGroupGetResult struct {
-	UserGroup *UserGroup `json:"user_group,omitempty"`
-}
-
 type DepartmentParentResult struct {
 	HasMore   bool          `json:"has_more,omitempty"`
 	PageToken string        `json:"page_token,omitempty"`
 	Items     []*Department `json:"items,omitempty"`
-}
-
-type DepartmentUpdateDepartmentIdReqBody struct {
-	NewDepartmentId string   `json:"new_department_id,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *DepartmentUpdateDepartmentIdReqBody) MarshalJSON() ([]byte, error) {
-	type cp DepartmentUpdateDepartmentIdReqBody
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type DepartmentUnbindDepartmentChatReqBody struct {
-	DepartmentId    string   `json:"department_id,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *DepartmentUnbindDepartmentChatReqBody) MarshalJSON() ([]byte, error) {
-	type cp DepartmentUnbindDepartmentChatReqBody
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
 type DepartmentSearchReqBody struct {
@@ -567,103 +468,6 @@ type DepartmentSearchResult struct {
 	Items     []*Department `json:"items,omitempty"`
 	PageToken string        `json:"page_token,omitempty"`
 	HasMore   bool          `json:"has_more,omitempty"`
-}
-
-type EmployeeTypeEnumListResult struct {
-	Items     []*EmployeeTypeEnum `json:"items,omitempty"`
-	HasMore   bool                `json:"has_more,omitempty"`
-	PageToken string              `json:"page_token,omitempty"`
-}
-
-type DepartmentBatchGetReqBody struct {
-	DepartmentIdList []string `json:"department_id_list,omitempty"`
-	ForceSendFields  []string `json:"-"`
-}
-
-func (s *DepartmentBatchGetReqBody) MarshalJSON() ([]byte, error) {
-	type cp DepartmentBatchGetReqBody
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type DepartmentBatchGetResult struct {
-	Items         []*Department `json:"items,omitempty"`
-	InvalidIdList []string      `json:"invalid_id_list,omitempty"`
-}
-
-type UserBatchGetReqBody struct {
-	UserIdList      []string `json:"user_id_list,omitempty"`
-	EmailList       []string `json:"email_list,omitempty"`
-	UidList         []string `json:"uid_list,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *UserBatchGetReqBody) MarshalJSON() ([]byte, error) {
-	type cp UserBatchGetReqBody
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type UserBatchGetResult struct {
-	UserList         []*User  `json:"user_list,omitempty"`
-	InvalidIdList    []string `json:"invalid_id_list,omitempty"`
-	InvalidEmailList []string `json:"invalid_email_list,omitempty"`
-	InvalidUidList   []string `json:"invalid_uid_list,omitempty"`
-}
-
-type DepartmentBatchParentReqBody struct {
-	DeptIdList       []string `json:"dept_id_list,omitempty"`
-	DepartmentIdType string   `json:"department_id_type,omitempty"`
-	ForceSendFields  []string `json:"-"`
-}
-
-func (s *DepartmentBatchParentReqBody) MarshalJSON() ([]byte, error) {
-	type cp DepartmentBatchParentReqBody
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type DepartmentBatchParentResult struct {
-	ParentList []*DepartmentParent `json:"parent_list,omitempty"`
-}
-
-type DepartmentListChildrenResult struct {
-	HasMore   bool          `json:"has_more,omitempty"`
-	PageToken string        `json:"page_token,omitempty"`
-	Items     []*Department `json:"items,omitempty"`
-}
-
-type UserScanResult struct {
-	Items     []*User `json:"items,omitempty"`
-	HasMore   bool    `json:"has_more,omitempty"`
-	PageToken string  `json:"page_token,omitempty"`
-}
-
-type DepartmentUsersReqBody struct {
-	UserIdType       string   `json:"user_id_type,omitempty"`
-	DepartmentIdType string   `json:"department_id_type,omitempty"`
-	DeptIdList       []string `json:"dept_id_list,omitempty"`
-	ForceSendFields  []string `json:"-"`
-}
-
-func (s *DepartmentUsersReqBody) MarshalJSON() ([]byte, error) {
-	type cp DepartmentUsersReqBody
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type DepartmentUsersResult struct {
-	Users     []*User `json:"users,omitempty"`
-	HasMore   bool    `json:"has_more,omitempty"`
-	PageToken string  `json:"page_token,omitempty"`
-}
-
-type EmployeeTypeEnumCreateResult struct {
-	EmployeeTypeEnum *EmployeeTypeEnum `json:"employee_type_enum,omitempty"`
-}
-
-type EmployeeTypeEnumUpdateResult struct {
-	EmployeeTypeEnum *EmployeeTypeEnum `json:"employee_type_enum,omitempty"`
 }
 
 type DepartmentCreatedEventData struct {
