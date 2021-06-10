@@ -24,7 +24,7 @@
 - 最新的发布候选版本，提供更多[开放服务 API](/service) 以及 Bug 修复
 
 ```shell
-go get github.com/larksuite/oapi-sdk-go@v1.1.39-rc2
+go get github.com/larksuite/oapi-sdk-go@1.1.39-rc3
 ```
 
 - 稳定版本

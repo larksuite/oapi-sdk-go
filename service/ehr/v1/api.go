@@ -93,10 +93,10 @@ func (rc *EmployeeListReqCall) SetStatus(status ...int) {
 func (rc *EmployeeListReqCall) SetType(type_ ...int) {
 	rc.queryParams["type"] = type_
 }
-func (rc *EmployeeListReqCall) SetStartTime(startTime int) {
+func (rc *EmployeeListReqCall) SetStartTime(startTime int64) {
 	rc.queryParams["start_time"] = startTime
 }
-func (rc *EmployeeListReqCall) SetEndTime(endTime int) {
+func (rc *EmployeeListReqCall) SetEndTime(endTime int64) {
 	rc.queryParams["end_time"] = endTime
 }
 func (rc *EmployeeListReqCall) SetUserIdType(userIdType string) {
