@@ -9,7 +9,7 @@ import (
 )
 
 func Send(ctx *core.Context, conf *config.Config, req *request.Request) error {
-	conf.WithContext(ctx)
+	ctx.Set(config.CtxKeyConfig, conf)
 	req.WithContext(ctx)
 	handlers.Handle(ctx, req)
 	if req.Err == nil {

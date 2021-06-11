@@ -39,11 +39,11 @@ func GetInternalAppSettingsByEnv() *AppSettings {
 }
 
 func NewISVAppSettings(appID, appSecret, verificationToken, encryptKey string) *AppSettings {
-	return NewISVAppSettingsByOpts(AppSettingsSetApp(appID, appSecret), AppSettingsSetAppEvent(verificationToken, encryptKey))
+	return NewISVAppSettingsByOpts(SetAppCredentials(appID, appSecret), SetAppEventKey(encryptKey, verificationToken))
 }
 
 func NewInternalAppSettings(appID, appSecret, verificationToken, encryptKey string) *AppSettings {
-	return NewInternalAppSettingsByOpts(AppSettingsSetApp(appID, appSecret), AppSettingsSetAppEvent(verificationToken, encryptKey))
+	return NewInternalAppSettingsByOpts(SetAppCredentials(appID, appSecret), SetAppEventKey(encryptKey, verificationToken))
 }
 
 func NewISVAppSettingsByOpts(opts ...AppSettingsOpt) *AppSettings {
@@ -54,9 +54,9 @@ func NewInternalAppSettingsByOpts(opts ...AppSettingsOpt) *AppSettings {
 	return newAppSettingsByOpts(constants.AppTypeInternal, opts...)
 }
 
-func newAppSettingsByOpts(appType constants.AppType, opts ...AppSettingsOpt) *AppSettings {
+func newAppSettingsByOpts(appType constants.AppType, optFns ...AppSettingsOpt) *AppSettings {
 	settings := &AppSettings{AppType: appType}
-	for _, opt := range opts {
+	for _, opt := range optFns {
 		opt(settings)
 	}
 	if settings.AppID == "" || settings.AppSecret == "" {
@@ -69,27 +69,27 @@ func getAppSettingsOptsByEnv() []AppSettingsOpt {
 	var opts []AppSettingsOpt
 	appID, appSecret, verificationToken, encryptKey, helpDeskID, helpDeskToken := os.Getenv("APP_ID"), os.Getenv("APP_SECRET"),
 		os.Getenv("VERIFICATION_TOKEN"), os.Getenv("ENCRYPT_KEY"), os.Getenv("HELP_DESK_ID"), os.Getenv("HELP_DESK_TOKEN")
-	opts = append(opts, AppSettingsSetApp(appID, appSecret))
-	opts = append(opts, AppSettingsSetAppEvent(verificationToken, encryptKey))
-	opts = append(opts, AppSettingsSetHelpDesk(helpDeskID, helpDeskToken))
+	opts = append(opts, SetAppCredentials(appID, appSecret))
+	opts = append(opts, SetAppEventKey(verificationToken, encryptKey))
+	opts = append(opts, SetHelpDeskCredentials(helpDeskID, helpDeskToken))
 	return opts
 }
 
-func AppSettingsSetApp(appID, appSecret string) AppSettingsOpt {
+func SetAppCredentials(appID, appSecret string) AppSettingsOpt {
 	return func(settings *AppSettings) {
 		settings.AppID = appID
 		settings.AppSecret = appSecret
 	}
 }
 
-func AppSettingsSetAppEvent(verificationToken, encryptKey string) AppSettingsOpt {
+func SetAppEventKey(encryptKey, verificationToken string) AppSettingsOpt {
 	return func(settings *AppSettings) {
-		settings.VerificationToken = verificationToken
 		settings.EncryptKey = encryptKey
+		settings.VerificationToken = verificationToken
 	}
 }
 
-func AppSettingsSetHelpDesk(helpDeskID, helpDeskToken string) AppSettingsOpt {
+func SetHelpDeskCredentials(helpDeskID, helpDeskToken string) AppSettingsOpt {
 	return func(settings *AppSettings) {
 		settings.HelpDeskID = helpDeskID
 		settings.HelpDeskToken = helpDeskToken

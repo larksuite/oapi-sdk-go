@@ -2,13 +2,12 @@ package config
 
 import (
 	"context"
-	"github.com/larksuite/oapi-sdk-go/core"
 	"github.com/larksuite/oapi-sdk-go/core/constants"
 	"github.com/larksuite/oapi-sdk-go/core/log"
 	"github.com/larksuite/oapi-sdk-go/core/store"
 )
 
-var ctxKeyConfig = "-----ctxKeyConfig"
+var CtxKeyConfig = "-----CtxKeyConfig"
 
 type Config struct {
 	domain                constants.Domain
@@ -66,11 +65,7 @@ func (c *Config) GetHelpDeskAuthorization() string {
 	return c.helpDeskAuthorization
 }
 
-func (c *Config) WithContext(ctx *core.Context) {
-	ctx.Set(ctxKeyConfig, c)
-}
-
 func ByCtx(ctx context.Context) *Config {
-	c := ctx.Value(ctxKeyConfig)
+	c := ctx.Value(CtxKeyConfig)
 	return c.(*Config)
 }
