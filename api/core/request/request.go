@@ -233,7 +233,10 @@ func resolvePath(path string, pathVar map[string]interface{}) (string, error) {
 }
 
 func (r *Request) Url() string {
-	path := fmt.Sprintf("%s/%s/%s", r.Domain, constants.OAPIRootPath, r.HttpPath)
+	path := r.HttpPath
+	if strings.Index(r.HttpPath, "http") != 0 {
+		path = fmt.Sprintf("%s/%s/%s", r.Domain, constants.OAPIRootPath, r.HttpPath)
+	}
 	if r.QueryParams != "" {
 		path = fmt.Sprintf("%s?%s", path, r.QueryParams)
 	}
