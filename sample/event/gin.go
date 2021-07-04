@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/constants"
 	"github.com/larksuite/oapi-sdk-go/core/tools"
 	"github.com/larksuite/oapi-sdk-go/event"
 	eventhttp "github.com/larksuite/oapi-sdk-go/event/http"
@@ -13,9 +12,9 @@ import (
 )
 
 // for redis store and logrus
-// var conf = configs.TestConfigWithLogrusAndRedisStore(constants.DomainFeiShu)
+// var conf = configs.TestConfigWithLogrusAndRedisStore(core.DomainFeiShu)
 // var conf = configs.TestConfig("https://open.feishu.cn")
-var conf = configs.TestConfig(constants.DomainFeiShu)
+var conf = configs.TestConfig(core.DomainFeiShu)
 
 func main() {
 

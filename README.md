@@ -87,11 +87,14 @@ import (
 func main() {
 	// Configuration of "Custom App", parameter description:
 	// AppID、AppSecret: "Developer Console" -> "Credentials"（App ID、App Secret）
-	// VerificationToken、EncryptKey："Developer Console" -> "Event Subscriptions"（Verification Token、Encrypt Key）
-	appSetting := config.NewInternalAppSettings("AppID", "AppSecret", "VerificationToken", "EncryptKey")
+	// EncryptKey、VerificationToken："Developer Console" -> "Event Subscriptions"（Encrypt Key、Verification Token）
+	appSettings := core.NewInternalAppSettings(
+		core.SetAppCredentials("AppID", "AppSecret"), // Required
+		core.SetAppEventKey("VerificationToken", "EncryptKey"), // Not required. Required for event、card subscription
+	)
 
-	// Currently, you are visiting larksuite, which uses default storage and default log (debug level). More optional configurations are as follows: config.NewConfig()
-	conf := config.NewConfigWithDefaultStore(constants.DomainLarkSuite, appSetting, log.NewDefaultLogger(), log.LevelInfo)
+	// Currently, you are visiting larksuite, which uses default storage and default log (error level). More optional configurations are as follows: core.NewConfig()
+	conf := core.NewConfig(core.DomainLarkSuite, appSettings, core.SetLoggerLevel(core.LoggerLevelError))
 
 	// The content of the sent message
 	body := map[string]interface{}{
@@ -155,11 +158,14 @@ func main() {
 
 	// Configuration of "Custom App", parameter description:
 	// AppID、AppSecret: "Developer Console" -> "Credentials"（App ID、App Secret）
-	// VerificationToken、EncryptKey："Developer Console" -> "Event Subscriptions"（Verification Token、Encrypt Key）
-	appSetting := config.NewInternalAppSettings("AppID", "AppSecret", "VerificationToken", "EncryptKey")
+	// EncryptKey、VerificationToken："Developer Console" -> "Event Subscriptions"（Encrypt Key、Verification Token）
+	appSettings := core.NewInternalAppSettings(
+		core.SetAppCredentials("AppID", "AppSecret"), // Required
+		core.SetAppEventKey("VerificationToken", "EncryptKey"), // Not required. Required for event、card subscription
+	)
 
-	// Currently, you are visiting larksuite, which uses default storage and default log (debug level). More optional configurations are as follows: config.NewConfig ()
-	conf := config.NewConfigWithDefaultStore(constants.DomainLarkSuite, appSetting, log.NewDefaultLogger(), log.LevelInfo)
+	// Currently, you are visiting larksuite, which uses default storage and default log (error level). More optional configurations are as follows: core.NewConfig()
+	conf := core.NewConfig(core.DomainLarkSuite, appSettings, core.SetLoggerLevel(core.LoggerLevelError))
 
 	// Set the application event callback to be enabled for the first time
 	event.SetTypeCallback(conf, "app_open", func(ctx *core.Context, e map[string]interface{}) error {
@@ -207,11 +213,14 @@ func main() {
 
 	// Configuration of "Custom App", parameter description:
 	// AppID、AppSecret: "Developer Console" -> "Credentials"（App ID、App Secret）
-	// VerificationToken、EncryptKey："Developer Console" -> "Event Subscriptions"（Verification Token、Encrypt Key）
-	appSetting := config.NewInternalAppSettings("AppID", "AppSecret", "VerificationToken", "EncryptKey")
+	// EncryptKey、VerificationToken："Developer Console" -> "Event Subscriptions"（Encrypt Key、Verification Token）
+	appSettings := core.NewInternalAppSettings(
+		core.SetAppCredentials("AppID", "AppSecret"), // Required
+		core.SetAppEventKey("VerificationToken", "EncryptKey"), // Not required. Required for event、card subscription
+	)
 
-	// Currently, you are visiting larksuite, which uses default storage and default log (debug level). More optional configurations are as follows: config.NewConfig ()
-	conf := config.NewConfigWithDefaultStore(constants.DomainLarkSuite, appSetting, log.NewDefaultLogger(), log.LevelInfo)
+	// Currently, you are visiting larksuite, which uses default storage and default log (error level). More optional configurations are as follows: core.NewConfig()
+	conf := core.NewConfig(core.DomainLarkSuite, appSettings, core.SetLoggerLevel(core.LoggerLevelError))
 
 	// Set the handler of the message card
 	// Return value: can be nil, JSON string of new message card
@@ -239,7 +248,7 @@ func main() {
 ```go
 
 import (
-    "github.com/larksuite/oapi-sdk-go/core/config"
+    "github.com/larksuite/oapi-sdk-go/core"
 )
 
 // To prevent application information leakage, in the configuration environment variables, the variables (4) are described as follows:
@@ -250,35 +259,26 @@ import (
 // HELP_DESK_ID: Help desk setting -> ID
 // HELP_DESK_TOKEN: Help desk setting -> Token
 // The configuration of "Custom App" is obtained through environment variables
-appSettings := config.GetInternalAppSettingsByEnv()
+appSettings := core.GetInternalAppSettingsByEnv()
 // The configuration of "Marketplace App" is obtained through environment variables
-appSettings := config.GetISVAppSettingsByEnv()
+appSettings := core.GetISVAppSettingsByEnv()
 
 // Parameter Description:
 // AppID、AppSecret: "Developer Console" -> "Credentials"（App ID、App Secret）
 // VerificationToken、EncryptKey："Developer Console" -> "Event Subscriptions"（Verification Token、Encrypt Key）
 // HelpDeskID、HelpDeskToken：Help desk setting -> ID、Token
 // The configuration of "Custom App"
-appSettings := config.NewInternalAppSettingsByOpts(
-config.AppSettingsSetApp("AppID", "AppSecret"), // 必需
-config.AppSettingsSetAppEvent("VerificationToken", "EncryptKey"), // 非必需，事件订阅时必需
-config.AppSettingsSetHelpDesk("HelpDeskID", "HelpDeskToken"), // 非必需，访问服务台 API 时必需
+appSettings := core.NewInternalAppSettings(
+core.SetAppCredentials("AppID", "AppSecret"), // Required
+core.SetAppEventKey("VerificationToken", "EncryptKey"), // Not required. Required for event、card subscription
+core.SetHelpDeskCredentials("HelpDeskID", "HelpDeskToken"), // Not required. Required to access the service desk API
 )
 // The configuration of "Marketplace App"
-appSettings := config.NewISVAppSettingsByOpts(
-config.AppSettingsSetApp("AppID", "AppSecret"), // 必需
-config.AppSettingsSetAppEvent("VerificationToken", "EncryptKey"), // 非必需，事件订阅时必需
-config.AppSettingsSetHelpDesk("HelpDeskID", "HelpDeskToken"), // 非必需，访问服务台 API 时必需
+appSettings := core.NewISVAppSettings(
+core.SetAppCredentials("AppID", "AppSecret"), // Required
+core.SetAppEventKey("VerificationToken", "EncryptKey"), // Not required. Required for event、card subscription
+core.SetHelpDeskCredentials("HelpDeskID", "HelpDeskToken"), // Not required. Required to access the service desk API
 )
-
-// Parameter Description:
-// AppID、AppSecret: "Developer Console" -> "Credentials"（App ID、App Secret）
-// VerificationToken、EncryptKey："Developer Console" -> "Event Subscriptions"（Verification Token、Encrypt Key）
-// The configuration of "Custom App"
-appSettings := config.NewInternalAppSettings(appID, appSecret, verificationToken, encryptKey string)
-// The configuration of "Marketplace App"
-appSettings := config.NewISVAppSettings(appID, appSecret, verificationToken, encryptKey string)
-
 ```
 
 ### How to build overall configuration(Config)
@@ -298,31 +298,21 @@ appSettings := config.NewISVAppSettings(appID, appSecret, verificationToken, enc
           implementation of the storage interface (store) needs to support distributed storage.
 
 ```go
-
 import (
-    "github.com/larksuite/oapi-sdk-go/core/config"
-    "github.com/larksuite/oapi-sdk-go/core/constants"
+    "github.com/larksuite/oapi-sdk-go/core"
+	"github.com/larksuite/oapi-sdk-go/core/config"
     "github.com/larksuite/oapi-sdk-go/core/log"
     "github.com/larksuite/oapi-sdk-go/core/store"
 )
 
-// Method 1: it is recommended to use redis to implement the store interface, so as to reduce the times of accessing the accesstoken interface
 // Parameter Description:
-// domain：URL domain address, value range: constants.DomainLarkSuite / constants.FeiShu / Other domain addresses
-// appSettings：App setting
-// logger：[Log interface](core/log/log.go)
-// loggerLevel： log.LevelInfo/LevelInfo/LevelWarn/LevelError
-// store: [Store interface](core/store/store.go), used to store app_ticket/access_token
-conf := config.NewConfig(domain constants.Domain, appSettings *AppSettings, logger log.Logger, logLevel log.Level, store store.Store)
-
-// Method 2: use the implementation of the default storage interface (store), which is suitable for light-weight use (not suitable: "Marketplace App" applies or calls the server API frequently)
-// Parameter Description:
-// domain：constants.DomainLarkSuite / constants.FeiShu / Other domain addresses
-// appSettings：App setting
-// logger：[Log interface](core/log/log.go)
-// loggerLevel：log level: log.LevelInfo/LevelInfo/LevelWarn/LevelError
-conf := config.NewConfig(domain constants.Domain, appSettings *AppSettings, logger log.Logger, logLevel log.Level)
-
+// domain：URL domain address, value range: core.DomainFeiShu / core.DomainLarkSuite / 其他URL域名地址
+// appSettings：App settings
+// opts：Option parameters
+    // core.SetLogger(logger log.Logger), Set logger. The default is console output
+    // core.SetLoggerLevel(core.LoggerLevelDebug), Set the logger log level, and the default is: core.LoggerLevelError
+    // core.SetStore(store store.Store), Set Store([Store interface](core/store/store.go), used to store app_ticket/access_token),it is recommended to use redis to implement the store interface, so as to reduce the times of accessing the accesstoken interface. The default is: memory (sync.Map) storage
+conf = core.NewConfig(domain Domain, appSettings *config.AppSettings, opts ...ConfigOpt)
 ```
 
 ### How to build a request(Request)

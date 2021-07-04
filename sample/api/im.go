@@ -16,9 +16,9 @@ import (
 )
 
 // for redis store and logrus
-// configs.TestConfigWithLogrusAndRedisStore(constants.DomainFeiShu)
+// configs.TestConfigWithLogrusAndRedisStore(core.DomainFeiShu)
 // configs.TestConfig("https://open.feishu.cn")
-var imService = im.NewService(configs.TestConfig(constants.DomainFeiShu))
+var imService = im.NewService(configs.TestConfig(core.DomainFeiShu))
 
 func main() {
 	//testMessageCreate()

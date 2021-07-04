@@ -13,9 +13,9 @@ import (
 )
 
 // for redis store and logrus
-// configs.TestConfigWithLogrusAndRedisStore(constants.DomainFeiShu)
+// configs.TestConfigWithLogrusAndRedisStore(core.DomainFeiShu)
 // configs.TestConfig("https://open.feishu.cn")
-var VCService = vc.NewService(configs.TestConfig(constants.DomainFeiShu))
+var VCService = vc.NewService(configs.TestConfig(core.DomainFeiShu))
 
 func main() {
 	testReserveApply()

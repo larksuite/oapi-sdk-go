@@ -70,7 +70,7 @@ func getAppSettingsOptsByEnv() []AppSettingsOpt {
 	appID, appSecret, verificationToken, encryptKey, helpDeskID, helpDeskToken := os.Getenv("APP_ID"), os.Getenv("APP_SECRET"),
 		os.Getenv("VERIFICATION_TOKEN"), os.Getenv("ENCRYPT_KEY"), os.Getenv("HELP_DESK_ID"), os.Getenv("HELP_DESK_TOKEN")
 	opts = append(opts, SetAppCredentials(appID, appSecret))
-	opts = append(opts, SetAppEventKey(verificationToken, encryptKey))
+	opts = append(opts, SetAppEventKey(encryptKey, verificationToken))
 	opts = append(opts, SetHelpDeskCredentials(helpDeskID, helpDeskToken))
 	return opts
 }

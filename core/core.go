@@ -19,16 +19,12 @@ var (
 
 type LoggerLevel int
 
-type Logger log.Logger
-
 const (
 	LoggerLevelDebug LoggerLevel = LoggerLevel(log.LevelDebug)
 	LoggerLevelInfo  LoggerLevel = LoggerLevel(log.LevelInfo)
 	LoggerLevelWarn  LoggerLevel = LoggerLevel(log.LevelWarn)
 	LoggerLevelError LoggerLevel = LoggerLevel(log.LevelError)
 )
-
-type Store store.Store
 
 type configOpt struct {
 	logger   log.Logger
@@ -59,7 +55,7 @@ func NewConfig(domain Domain, appSettings *config.AppSettings, opts ...ConfigOpt
 
 type ConfigOpt func(o *configOpt)
 
-func SetLogger(logger Logger) func(o *configOpt) {
+func SetLogger(logger log.Logger) func(o *configOpt) {
 	return func(o *configOpt) {
 		o.logger = logger
 	}
@@ -71,7 +67,7 @@ func SetLoggerLevel(logLevel LoggerLevel) func(o *configOpt) {
 	}
 }
 
-func SetStore(store Store) func(o *configOpt) {
+func SetStore(store store.Store) func(o *configOpt) {
 	return func(o *configOpt) {
 		o.store = store
 	}
