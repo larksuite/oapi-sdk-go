@@ -5,6 +5,19 @@ import (
 	"github.com/larksuite/oapi-sdk-go/api/core/tools"
 )
 
+type UserId struct {
+	UserId          string   `json:"user_id,omitempty"`
+	OpenId          string   `json:"open_id,omitempty"`
+	UnionId         string   `json:"union_id,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *UserId) MarshalJSON() ([]byte, error) {
+	type cp UserId
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
 type AclScope struct {
 	Type            string   `json:"type,omitempty"`
 	UserId          string   `json:"user_id,omitempty"`
@@ -61,33 +74,6 @@ type CalendarAcl struct {
 
 func (s *CalendarAcl) MarshalJSON() ([]byte, error) {
 	type cp CalendarAcl
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type CalendarEvent struct {
-	EventId          string         `json:"event_id,omitempty"`
-	Summary          string         `json:"summary,omitempty"`
-	Description      string         `json:"description,omitempty"`
-	StartTime        *TimeInfo      `json:"start_time,omitempty"`
-	EndTime          *TimeInfo      `json:"end_time,omitempty"`
-	Vchat            *Vchat         `json:"vchat,omitempty"`
-	Visibility       string         `json:"visibility,omitempty"`
-	AttendeeAbility  string         `json:"attendee_ability,omitempty"`
-	FreeBusyStatus   string         `json:"free_busy_status,omitempty"`
-	Location         *EventLocation `json:"location,omitempty"`
-	Color            int            `json:"color,omitempty"`
-	Reminders        []*Reminder    `json:"reminders,omitempty"`
-	Recurrence       string         `json:"recurrence,omitempty"`
-	Status           string         `json:"status,omitempty"`
-	IsException      bool           `json:"is_exception,omitempty"`
-	RecurringEventId string         `json:"recurring_event_id,omitempty"`
-	Schemas          []*Schema      `json:"schemas,omitempty"`
-	ForceSendFields  []string       `json:"-"`
-}
-
-func (s *CalendarEvent) MarshalJSON() ([]byte, error) {
-	type cp CalendarEvent
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
@@ -238,12 +224,53 @@ func (s *Vchat) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
-type ExchangeBinding struct {
-	AdminAccount    string   `json:"admin_account,omitempty"`
-	ExchangeAccount string   `json:"exchange_account,omitempty"`
-	UserId          string   `json:"user_id,omitempty"`
-	Status          string   `json:"status,omitempty"`
+type AclScopeEvent struct {
+	Type            string   `json:"type,omitempty"`
+	UserId          *UserId  `json:"user_id,omitempty"`
 	ForceSendFields []string `json:"-"`
+}
+
+func (s *AclScopeEvent) MarshalJSON() ([]byte, error) {
+	type cp AclScopeEvent
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type CalendarEvent struct {
+	EventId          string         `json:"event_id,omitempty"`
+	Summary          string         `json:"summary,omitempty"`
+	Description      string         `json:"description,omitempty"`
+	NeedNotification bool           `json:"need_notification,omitempty"`
+	StartTime        *TimeInfo      `json:"start_time,omitempty"`
+	EndTime          *TimeInfo      `json:"end_time,omitempty"`
+	Vchat            *Vchat         `json:"vchat,omitempty"`
+	Visibility       string         `json:"visibility,omitempty"`
+	AttendeeAbility  string         `json:"attendee_ability,omitempty"`
+	FreeBusyStatus   string         `json:"free_busy_status,omitempty"`
+	Location         *EventLocation `json:"location,omitempty"`
+	Color            int            `json:"color,omitempty"`
+	Reminders        []*Reminder    `json:"reminders,omitempty"`
+	Recurrence       string         `json:"recurrence,omitempty"`
+	Status           string         `json:"status,omitempty"`
+	IsException      bool           `json:"is_exception,omitempty"`
+	RecurringEventId string         `json:"recurring_event_id,omitempty"`
+	Schemas          []*Schema      `json:"schemas,omitempty"`
+	ForceSendFields  []string       `json:"-"`
+}
+
+func (s *CalendarEvent) MarshalJSON() ([]byte, error) {
+	type cp CalendarEvent
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type ExchangeBinding struct {
+	AdminAccount      string   `json:"admin_account,omitempty"`
+	ExchangeAccount   string   `json:"exchange_account,omitempty"`
+	UserId            string   `json:"user_id,omitempty"`
+	Status            string   `json:"status,omitempty"`
+	ExchangeBindingId string   `json:"exchange_binding_id,omitempty"`
+	ForceSendFields   []string `json:"-"`
 }
 
 func (s *ExchangeBinding) MarshalJSON() ([]byte, error) {

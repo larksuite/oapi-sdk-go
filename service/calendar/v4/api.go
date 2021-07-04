@@ -16,10 +16,10 @@ type Service struct {
 	CalendarEvents                   *CalendarEventService
 	CalendarEventAttendees           *CalendarEventAttendeeService
 	CalendarEventAttendeeChatMembers *CalendarEventAttendeeChatMemberService
+	ExchangeBindings                 *ExchangeBindingService
 	Freebusys                        *FreebusyService
 	Settings                         *SettingService
 	TimeoffEvents                    *TimeoffEventService
-	ExchangeBindings                 *ExchangeBindingService
 }
 
 func NewService(conf *config.Config) *Service {
@@ -31,10 +31,10 @@ func NewService(conf *config.Config) *Service {
 	s.CalendarEvents = newCalendarEventService(s)
 	s.CalendarEventAttendees = newCalendarEventAttendeeService(s)
 	s.CalendarEventAttendeeChatMembers = newCalendarEventAttendeeChatMemberService(s)
+	s.ExchangeBindings = newExchangeBindingService(s)
 	s.Freebusys = newFreebusyService(s)
 	s.Settings = newSettingService(s)
 	s.TimeoffEvents = newTimeoffEventService(s)
-	s.ExchangeBindings = newExchangeBindingService(s)
 	return s
 }
 
@@ -88,6 +88,16 @@ func newCalendarEventAttendeeChatMemberService(service *Service) *CalendarEventA
 	}
 }
 
+type ExchangeBindingService struct {
+	service *Service
+}
+
+func newExchangeBindingService(service *Service) *ExchangeBindingService {
+	return &ExchangeBindingService{
+		service: service,
+	}
+}
+
 type FreebusyService struct {
 	service *Service
 }
@@ -114,16 +124,6 @@ type TimeoffEventService struct {
 
 func newTimeoffEventService(service *Service) *TimeoffEventService {
 	return &TimeoffEventService{
-		service: service,
-	}
-}
-
-type ExchangeBindingService struct {
-	service *Service
-}
-
-func newExchangeBindingService(service *Service) *ExchangeBindingService {
-	return &ExchangeBindingService{
 		service: service,
 	}
 }
@@ -618,6 +618,9 @@ func (rc *CalendarEventListReqCall) SetCalendarId(calendarId string) {
 }
 func (rc *CalendarEventListReqCall) SetPageSize(pageSize int) {
 	rc.queryParams["page_size"] = pageSize
+}
+func (rc *CalendarEventListReqCall) SetAnchorTime(anchorTime string) {
+	rc.queryParams["anchor_time"] = anchorTime
 }
 func (rc *CalendarEventListReqCall) SetPageToken(pageToken string) {
 	rc.queryParams["page_token"] = pageToken

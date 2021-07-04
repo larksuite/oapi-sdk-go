@@ -5,8 +5,22 @@ import (
 	"github.com/larksuite/oapi-sdk-go/api/core/tools"
 )
 
+type Attachment struct {
+	Id              string   `json:"id,omitempty"`
+	MimeType        string   `json:"mime_type,omitempty"`
+	Name            string   `json:"name,omitempty"`
+	Size            int64    `json:"size,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *Attachment) MarshalJSON() ([]byte, error) {
+	type cp Attachment
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
 type ContractCompany struct {
-	Id              int      `json:"id,omitempty"`
+	Id              int64    `json:"id,omitempty"`
 	Name            string   `json:"name,omitempty"`
 	ForceSendFields []string `json:"-"`
 }
@@ -60,8 +74,21 @@ func (s *EmergencyContact) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
+type Employee struct {
+	UserId          string          `json:"user_id,omitempty"`
+	SystemFields    *SystemFields   `json:"system_fields,omitempty"`
+	CustomFields    []*CustomFields `json:"custom_fields,omitempty"`
+	ForceSendFields []string        `json:"-"`
+}
+
+func (s *Employee) MarshalJSON() ([]byte, error) {
+	type cp Employee
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
 type Job struct {
-	Id              int      `json:"id,omitempty"`
+	Id              int64    `json:"id,omitempty"`
 	Name            string   `json:"name,omitempty"`
 	ForceSendFields []string `json:"-"`
 }
@@ -73,7 +100,7 @@ func (s *Job) MarshalJSON() ([]byte, error) {
 }
 
 type JobLevel struct {
-	Id              int      `json:"id,omitempty"`
+	Id              int64    `json:"id,omitempty"`
 	Name            string   `json:"name,omitempty"`
 	ForceSendFields []string `json:"-"`
 }
@@ -105,34 +132,6 @@ type NativeRegion struct {
 
 func (s *NativeRegion) MarshalJSON() ([]byte, error) {
 	type cp NativeRegion
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type WorkLocation struct {
-	Id              int      `json:"id,omitempty"`
-	Name            string   `json:"name,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *WorkLocation) MarshalJSON() ([]byte, error) {
-	type cp WorkLocation
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type WorkExperience struct {
-	Company         string   `json:"company,omitempty"`
-	Department      string   `json:"department,omitempty"`
-	Job             string   `json:"job,omitempty"`
-	Start           string   `json:"start,omitempty"`
-	End             string   `json:"end,omitempty"`
-	Description     string   `json:"description,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *WorkExperience) MarshalJSON() ([]byte, error) {
-	type cp WorkExperience
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
@@ -197,8 +196,8 @@ type SystemFields struct {
 	CancelOnboardingReason  int                 `json:"cancel_onboarding_reason,omitempty"`
 	CancelOnboardingNotes   string              `json:"cancel_onboarding_notes,omitempty"`
 	EmployeeFormStatus      int                 `json:"employee_form_status,omitempty"`
-	CreateTime              int                 `json:"create_time,omitempty"`
-	UpdateTime              int                 `json:"update_time,omitempty"`
+	CreateTime              int64               `json:"create_time,omitempty"`
+	UpdateTime              int64               `json:"update_time,omitempty"`
 	ForceSendFields         []string            `json:"-"`
 }
 
@@ -208,29 +207,30 @@ func (s *SystemFields) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
-type Attachment struct {
-	Id              string   `json:"id,omitempty"`
-	MimeType        string   `json:"mime_type,omitempty"`
-	Name            string   `json:"name,omitempty"`
-	Size            int      `json:"size,omitempty"`
+type WorkExperience struct {
+	Company         string   `json:"company,omitempty"`
+	Department      string   `json:"department,omitempty"`
+	Job             string   `json:"job,omitempty"`
+	Start           string   `json:"start,omitempty"`
+	End             string   `json:"end,omitempty"`
+	Description     string   `json:"description,omitempty"`
 	ForceSendFields []string `json:"-"`
 }
 
-func (s *Attachment) MarshalJSON() ([]byte, error) {
-	type cp Attachment
+func (s *WorkExperience) MarshalJSON() ([]byte, error) {
+	type cp WorkExperience
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
-type Employee struct {
-	UserId          string          `json:"user_id,omitempty"`
-	SystemFields    *SystemFields   `json:"system_fields,omitempty"`
-	CustomFields    []*CustomFields `json:"custom_fields,omitempty"`
-	ForceSendFields []string        `json:"-"`
+type WorkLocation struct {
+	Id              int64    `json:"id,omitempty"`
+	Name            string   `json:"name,omitempty"`
+	ForceSendFields []string `json:"-"`
 }
 
-func (s *Employee) MarshalJSON() ([]byte, error) {
-	type cp Employee
+func (s *WorkLocation) MarshalJSON() ([]byte, error) {
+	type cp WorkLocation
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }

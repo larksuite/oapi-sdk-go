@@ -11,10 +11,8 @@ import (
 
 type Service struct {
 	conf              *config.Config
-	DepartmentUnits   *DepartmentUnitService
 	Users             *UserService
 	UserGroups        *UserGroupService
-	UserGroupMembers  *UserGroupMemberService
 	Departments       *DepartmentService
 	Scopes            *ScopeService
 	CustomAttrEvents  *CustomAttrEventService
@@ -25,25 +23,13 @@ func NewService(conf *config.Config) *Service {
 	s := &Service{
 		conf: conf,
 	}
-	s.DepartmentUnits = newDepartmentUnitService(s)
 	s.Users = newUserService(s)
 	s.UserGroups = newUserGroupService(s)
-	s.UserGroupMembers = newUserGroupMemberService(s)
 	s.Departments = newDepartmentService(s)
 	s.Scopes = newScopeService(s)
 	s.CustomAttrEvents = newCustomAttrEventService(s)
 	s.EmployeeTypeEnums = newEmployeeTypeEnumService(s)
 	return s
-}
-
-type DepartmentUnitService struct {
-	service *Service
-}
-
-func newDepartmentUnitService(service *Service) *DepartmentUnitService {
-	return &DepartmentUnitService{
-		service: service,
-	}
 }
 
 type UserService struct {
@@ -62,16 +48,6 @@ type UserGroupService struct {
 
 func newUserGroupService(service *Service) *UserGroupService {
 	return &UserGroupService{
-		service: service,
-	}
-}
-
-type UserGroupMemberService struct {
-	service *Service
-}
-
-func newUserGroupMemberService(service *Service) *UserGroupMemberService {
-	return &UserGroupMemberService{
 		service: service,
 	}
 }
@@ -235,66 +211,6 @@ func (departments *DepartmentService) List(ctx *core.Context, optFns ...request.
 	}
 }
 
-type UserGroupUpdateUserGroupIdReqCall struct {
-	ctx        *core.Context
-	userGroups *UserGroupService
-	body       *UserGroupUpdateUserGroupIdReqBody
-	pathParams map[string]interface{}
-	optFns     []request.OptFn
-}
-
-func (rc *UserGroupUpdateUserGroupIdReqCall) SetUserGroupId(userGroupId string) {
-	rc.pathParams["user_group_id"] = userGroupId
-}
-
-func (rc *UserGroupUpdateUserGroupIdReqCall) Do() (*response.NoData, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	var result = &response.NoData{}
-	req := request.NewRequest("contact/v3/user_groups/:user_group_id/update_user_group_id", "PATCH",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.userGroups.service.conf, req)
-	return result, err
-}
-
-func (userGroups *UserGroupService) UpdateUserGroupId(ctx *core.Context, body *UserGroupUpdateUserGroupIdReqBody, optFns ...request.OptFn) *UserGroupUpdateUserGroupIdReqCall {
-	return &UserGroupUpdateUserGroupIdReqCall{
-		ctx:        ctx,
-		userGroups: userGroups,
-		body:       body,
-		pathParams: map[string]interface{}{},
-		optFns:     optFns,
-	}
-}
-
-type DepartmentUnitDeleteReqCall struct {
-	ctx             *core.Context
-	departmentUnits *DepartmentUnitService
-	pathParams      map[string]interface{}
-	optFns          []request.OptFn
-}
-
-func (rc *DepartmentUnitDeleteReqCall) SetUnitId(unitId string) {
-	rc.pathParams["unit_id"] = unitId
-}
-
-func (rc *DepartmentUnitDeleteReqCall) Do() (*response.NoData, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	var result = &response.NoData{}
-	req := request.NewRequest("contact/v3/department_units/:unit_id", "DELETE",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.departmentUnits.service.conf, req)
-	return result, err
-}
-
-func (departmentUnits *DepartmentUnitService) Delete(ctx *core.Context, optFns ...request.OptFn) *DepartmentUnitDeleteReqCall {
-	return &DepartmentUnitDeleteReqCall{
-		ctx:             ctx,
-		departmentUnits: departmentUnits,
-		pathParams:      map[string]interface{}{},
-		optFns:          optFns,
-	}
-}
-
 type DepartmentPatchReqCall struct {
 	ctx         *core.Context
 	departments *DepartmentService
@@ -452,109 +368,6 @@ func (users *UserService) Patch(ctx *core.Context, body *User, optFns ...request
 	}
 }
 
-type UserUpdateUserIdReqCall struct {
-	ctx         *core.Context
-	users       *UserService
-	body        *UserUpdateUserIdReqBody
-	pathParams  map[string]interface{}
-	queryParams map[string]interface{}
-	optFns      []request.OptFn
-}
-
-func (rc *UserUpdateUserIdReqCall) SetUserId(userId string) {
-	rc.pathParams["user_id"] = userId
-}
-func (rc *UserUpdateUserIdReqCall) SetUserIdType(userIdType string) {
-	rc.queryParams["user_id_type"] = userIdType
-}
-
-func (rc *UserUpdateUserIdReqCall) Do() (*response.NoData, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &response.NoData{}
-	req := request.NewRequest("contact/v3/users/:user_id/update_user_id", "PATCH",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.users.service.conf, req)
-	return result, err
-}
-
-func (users *UserService) UpdateUserId(ctx *core.Context, body *UserUpdateUserIdReqBody, optFns ...request.OptFn) *UserUpdateUserIdReqCall {
-	return &UserUpdateUserIdReqCall{
-		ctx:         ctx,
-		users:       users,
-		body:        body,
-		pathParams:  map[string]interface{}{},
-		queryParams: map[string]interface{}{},
-		optFns:      optFns,
-	}
-}
-
-type UserGroupMemberCreateReqCall struct {
-	ctx              *core.Context
-	userGroupMembers *UserGroupMemberService
-	body             *UserGroupMemberCreateReqBody
-	pathParams       map[string]interface{}
-	queryParams      map[string]interface{}
-	optFns           []request.OptFn
-}
-
-func (rc *UserGroupMemberCreateReqCall) SetUserGroupId(userGroupId string) {
-	rc.pathParams["user_group_id"] = userGroupId
-}
-func (rc *UserGroupMemberCreateReqCall) SetUserIdType(userIdType string) {
-	rc.queryParams["user_id_type"] = userIdType
-}
-
-func (rc *UserGroupMemberCreateReqCall) Do() (*response.NoData, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &response.NoData{}
-	req := request.NewRequest("contact/v3/user_groups/:user_group_id/members", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.userGroupMembers.service.conf, req)
-	return result, err
-}
-
-func (userGroupMembers *UserGroupMemberService) Create(ctx *core.Context, body *UserGroupMemberCreateReqBody, optFns ...request.OptFn) *UserGroupMemberCreateReqCall {
-	return &UserGroupMemberCreateReqCall{
-		ctx:              ctx,
-		userGroupMembers: userGroupMembers,
-		body:             body,
-		pathParams:       map[string]interface{}{},
-		queryParams:      map[string]interface{}{},
-		optFns:           optFns,
-	}
-}
-
-type UserGroupDeleteReqCall struct {
-	ctx        *core.Context
-	userGroups *UserGroupService
-	pathParams map[string]interface{}
-	optFns     []request.OptFn
-}
-
-func (rc *UserGroupDeleteReqCall) SetUserGroupId(userGroupId string) {
-	rc.pathParams["user_group_id"] = userGroupId
-}
-
-func (rc *UserGroupDeleteReqCall) Do() (*response.NoData, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	var result = &response.NoData{}
-	req := request.NewRequest("contact/v3/user_groups/:user_group_id", "DELETE",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.userGroups.service.conf, req)
-	return result, err
-}
-
-func (userGroups *UserGroupService) Delete(ctx *core.Context, optFns ...request.OptFn) *UserGroupDeleteReqCall {
-	return &UserGroupDeleteReqCall{
-		ctx:        ctx,
-		userGroups: userGroups,
-		pathParams: map[string]interface{}{},
-		optFns:     optFns,
-	}
-}
-
 type DepartmentCreateReqCall struct {
 	ctx         *core.Context
 	departments *DepartmentService
@@ -592,124 +405,6 @@ func (departments *DepartmentService) Create(ctx *core.Context, body *Department
 	}
 }
 
-type UserGroupPatchReqCall struct {
-	ctx        *core.Context
-	userGroups *UserGroupService
-	body       *UserGroup
-	pathParams map[string]interface{}
-	optFns     []request.OptFn
-}
-
-func (rc *UserGroupPatchReqCall) SetUserGroupId(userGroupId string) {
-	rc.pathParams["user_group_id"] = userGroupId
-}
-
-func (rc *UserGroupPatchReqCall) Do() (*UserGroupPatchResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	var result = &UserGroupPatchResult{}
-	req := request.NewRequest("contact/v3/user_groups/:user_group_id", "PATCH",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.userGroups.service.conf, req)
-	return result, err
-}
-
-func (userGroups *UserGroupService) Patch(ctx *core.Context, body *UserGroup, optFns ...request.OptFn) *UserGroupPatchReqCall {
-	return &UserGroupPatchReqCall{
-		ctx:        ctx,
-		userGroups: userGroups,
-		body:       body,
-		pathParams: map[string]interface{}{},
-		optFns:     optFns,
-	}
-}
-
-type DepartmentUnitPatchReqCall struct {
-	ctx             *core.Context
-	departmentUnits *DepartmentUnitService
-	body            *DepartmentUnitPatchReqBody
-	pathParams      map[string]interface{}
-	optFns          []request.OptFn
-}
-
-func (rc *DepartmentUnitPatchReqCall) SetUnitId(unitId string) {
-	rc.pathParams["unit_id"] = unitId
-}
-
-func (rc *DepartmentUnitPatchReqCall) Do() (*DepartmentUnitPatchResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	var result = &DepartmentUnitPatchResult{}
-	req := request.NewRequest("contact/v3/department_units/:unit_id", "PATCH",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.departmentUnits.service.conf, req)
-	return result, err
-}
-
-func (departmentUnits *DepartmentUnitService) Patch(ctx *core.Context, body *DepartmentUnitPatchReqBody, optFns ...request.OptFn) *DepartmentUnitPatchReqCall {
-	return &DepartmentUnitPatchReqCall{
-		ctx:             ctx,
-		departmentUnits: departmentUnits,
-		body:            body,
-		pathParams:      map[string]interface{}{},
-		optFns:          optFns,
-	}
-}
-
-type UserGroupCreateReqCall struct {
-	ctx        *core.Context
-	userGroups *UserGroupService
-	body       *UserGroup
-	optFns     []request.OptFn
-}
-
-func (rc *UserGroupCreateReqCall) Do() (*UserGroupCreateResult, error) {
-	var result = &UserGroupCreateResult{}
-	req := request.NewRequest("contact/v3/user_groups", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.userGroups.service.conf, req)
-	return result, err
-}
-
-func (userGroups *UserGroupService) Create(ctx *core.Context, body *UserGroup, optFns ...request.OptFn) *UserGroupCreateReqCall {
-	return &UserGroupCreateReqCall{
-		ctx:        ctx,
-		userGroups: userGroups,
-		body:       body,
-		optFns:     optFns,
-	}
-}
-
-type UserGroupListReqCall struct {
-	ctx         *core.Context
-	userGroups  *UserGroupService
-	queryParams map[string]interface{}
-	optFns      []request.OptFn
-}
-
-func (rc *UserGroupListReqCall) SetPageSize(pageSize int) {
-	rc.queryParams["page_size"] = pageSize
-}
-func (rc *UserGroupListReqCall) SetPageToken(pageToken string) {
-	rc.queryParams["page_token"] = pageToken
-}
-
-func (rc *UserGroupListReqCall) Do() (*UserGroupListResult, error) {
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &UserGroupListResult{}
-	req := request.NewRequest("contact/v3/user_groups", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.userGroups.service.conf, req)
-	return result, err
-}
-
-func (userGroups *UserGroupService) List(ctx *core.Context, optFns ...request.OptFn) *UserGroupListReqCall {
-	return &UserGroupListReqCall{
-		ctx:         ctx,
-		userGroups:  userGroups,
-		queryParams: map[string]interface{}{},
-		optFns:      optFns,
-	}
-}
-
 type DepartmentDeleteReqCall struct {
 	ctx         *core.Context
 	departments *DepartmentService
@@ -720,9 +415,6 @@ type DepartmentDeleteReqCall struct {
 
 func (rc *DepartmentDeleteReqCall) SetDepartmentId(departmentId string) {
 	rc.pathParams["department_id"] = departmentId
-}
-func (rc *DepartmentDeleteReqCall) SetUserIdType(userIdType string) {
-	rc.queryParams["user_id_type"] = userIdType
 }
 func (rc *DepartmentDeleteReqCall) SetDepartmentIdType(departmentIdType string) {
 	rc.queryParams["department_id_type"] = departmentIdType
@@ -786,88 +478,6 @@ func (users *UserService) Get(ctx *core.Context, optFns ...request.OptFn) *UserG
 	}
 }
 
-type UserGroupMemberListReqCall struct {
-	ctx              *core.Context
-	userGroupMembers *UserGroupMemberService
-	pathParams       map[string]interface{}
-	queryParams      map[string]interface{}
-	optFns           []request.OptFn
-}
-
-func (rc *UserGroupMemberListReqCall) SetUserGroupId(userGroupId string) {
-	rc.pathParams["user_group_id"] = userGroupId
-}
-func (rc *UserGroupMemberListReqCall) SetUserIdType(userIdType string) {
-	rc.queryParams["user_id_type"] = userIdType
-}
-func (rc *UserGroupMemberListReqCall) SetDepartmentIdType(departmentIdType string) {
-	rc.queryParams["department_id_type"] = departmentIdType
-}
-func (rc *UserGroupMemberListReqCall) SetPageToken(pageToken string) {
-	rc.queryParams["page_token"] = pageToken
-}
-func (rc *UserGroupMemberListReqCall) SetPageSize(pageSize int) {
-	rc.queryParams["page_size"] = pageSize
-}
-
-func (rc *UserGroupMemberListReqCall) Do() (*UserGroupMemberListResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &UserGroupMemberListResult{}
-	req := request.NewRequest("contact/v3/user_groups/:user_group_id/members", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.userGroupMembers.service.conf, req)
-	return result, err
-}
-
-func (userGroupMembers *UserGroupMemberService) List(ctx *core.Context, optFns ...request.OptFn) *UserGroupMemberListReqCall {
-	return &UserGroupMemberListReqCall{
-		ctx:              ctx,
-		userGroupMembers: userGroupMembers,
-		pathParams:       map[string]interface{}{},
-		queryParams:      map[string]interface{}{},
-		optFns:           optFns,
-	}
-}
-
-type UserGroupMemberDeleteReqCall struct {
-	ctx              *core.Context
-	userGroupMembers *UserGroupMemberService
-	pathParams       map[string]interface{}
-	queryParams      map[string]interface{}
-	optFns           []request.OptFn
-}
-
-func (rc *UserGroupMemberDeleteReqCall) SetUserGroupId(userGroupId string) {
-	rc.pathParams["user_group_id"] = userGroupId
-}
-func (rc *UserGroupMemberDeleteReqCall) SetUserId(userId string) {
-	rc.pathParams["user_id"] = userId
-}
-func (rc *UserGroupMemberDeleteReqCall) SetUserIdType(userIdType string) {
-	rc.queryParams["user_id_type"] = userIdType
-}
-
-func (rc *UserGroupMemberDeleteReqCall) Do() (*response.NoData, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &response.NoData{}
-	req := request.NewRequest("contact/v3/user_groups/:user_group_id/members/:user_id", "DELETE",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.userGroupMembers.service.conf, req)
-	return result, err
-}
-
-func (userGroupMembers *UserGroupMemberService) Delete(ctx *core.Context, optFns ...request.OptFn) *UserGroupMemberDeleteReqCall {
-	return &UserGroupMemberDeleteReqCall{
-		ctx:              ctx,
-		userGroupMembers: userGroupMembers,
-		pathParams:       map[string]interface{}{},
-		queryParams:      map[string]interface{}{},
-		optFns:           optFns,
-	}
-}
-
 type DepartmentUpdateReqCall struct {
 	ctx         *core.Context
 	departments *DepartmentService
@@ -905,30 +515,6 @@ func (departments *DepartmentService) Update(ctx *core.Context, body *Department
 		pathParams:  map[string]interface{}{},
 		queryParams: map[string]interface{}{},
 		optFns:      optFns,
-	}
-}
-
-type DepartmentUnitCreateReqCall struct {
-	ctx             *core.Context
-	departmentUnits *DepartmentUnitService
-	body            *DepartmentUnit
-	optFns          []request.OptFn
-}
-
-func (rc *DepartmentUnitCreateReqCall) Do() (*DepartmentUnitCreateResult, error) {
-	var result = &DepartmentUnitCreateResult{}
-	req := request.NewRequest("contact/v3/department_units", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.departmentUnits.service.conf, req)
-	return result, err
-}
-
-func (departmentUnits *DepartmentUnitService) Create(ctx *core.Context, body *DepartmentUnit, optFns ...request.OptFn) *DepartmentUnitCreateReqCall {
-	return &DepartmentUnitCreateReqCall{
-		ctx:             ctx,
-		departmentUnits: departmentUnits,
-		body:            body,
-		optFns:          optFns,
 	}
 }
 
@@ -973,35 +559,6 @@ func (users *UserService) List(ctx *core.Context, optFns ...request.OptFn) *User
 	}
 }
 
-type UserGroupGetReqCall struct {
-	ctx        *core.Context
-	userGroups *UserGroupService
-	pathParams map[string]interface{}
-	optFns     []request.OptFn
-}
-
-func (rc *UserGroupGetReqCall) SetUserGroupId(userGroupId string) {
-	rc.pathParams["user_group_id"] = userGroupId
-}
-
-func (rc *UserGroupGetReqCall) Do() (*UserGroupGetResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	var result = &UserGroupGetResult{}
-	req := request.NewRequest("contact/v3/user_groups/:user_group_id", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.userGroups.service.conf, req)
-	return result, err
-}
-
-func (userGroups *UserGroupService) Get(ctx *core.Context, optFns ...request.OptFn) *UserGroupGetReqCall {
-	return &UserGroupGetReqCall{
-		ctx:        ctx,
-		userGroups: userGroups,
-		pathParams: map[string]interface{}{},
-		optFns:     optFns,
-	}
-}
-
 type DepartmentParentReqCall struct {
 	ctx         *core.Context
 	departments *DepartmentService
@@ -1038,74 +595,6 @@ func (departments *DepartmentService) Parent(ctx *core.Context, optFns ...reques
 	return &DepartmentParentReqCall{
 		ctx:         ctx,
 		departments: departments,
-		queryParams: map[string]interface{}{},
-		optFns:      optFns,
-	}
-}
-
-type DepartmentUpdateDepartmentIdReqCall struct {
-	ctx         *core.Context
-	departments *DepartmentService
-	body        *DepartmentUpdateDepartmentIdReqBody
-	pathParams  map[string]interface{}
-	queryParams map[string]interface{}
-	optFns      []request.OptFn
-}
-
-func (rc *DepartmentUpdateDepartmentIdReqCall) SetDepartmentId(departmentId string) {
-	rc.pathParams["department_id"] = departmentId
-}
-func (rc *DepartmentUpdateDepartmentIdReqCall) SetDepartmentIdType(departmentIdType string) {
-	rc.queryParams["department_id_type"] = departmentIdType
-}
-
-func (rc *DepartmentUpdateDepartmentIdReqCall) Do() (*response.NoData, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &response.NoData{}
-	req := request.NewRequest("contact/v3/departments/:department_id/update_department_id", "PATCH",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.departments.service.conf, req)
-	return result, err
-}
-
-func (departments *DepartmentService) UpdateDepartmentId(ctx *core.Context, body *DepartmentUpdateDepartmentIdReqBody, optFns ...request.OptFn) *DepartmentUpdateDepartmentIdReqCall {
-	return &DepartmentUpdateDepartmentIdReqCall{
-		ctx:         ctx,
-		departments: departments,
-		body:        body,
-		pathParams:  map[string]interface{}{},
-		queryParams: map[string]interface{}{},
-		optFns:      optFns,
-	}
-}
-
-type DepartmentUnbindDepartmentChatReqCall struct {
-	ctx         *core.Context
-	departments *DepartmentService
-	body        *DepartmentUnbindDepartmentChatReqBody
-	queryParams map[string]interface{}
-	optFns      []request.OptFn
-}
-
-func (rc *DepartmentUnbindDepartmentChatReqCall) SetDepartmentIdType(departmentIdType string) {
-	rc.queryParams["department_id_type"] = departmentIdType
-}
-
-func (rc *DepartmentUnbindDepartmentChatReqCall) Do() (*response.NoData, error) {
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &response.NoData{}
-	req := request.NewRequest("contact/v3/departments/unbind_department_chat", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.departments.service.conf, req)
-	return result, err
-}
-
-func (departments *DepartmentService) UnbindDepartmentChat(ctx *core.Context, body *DepartmentUnbindDepartmentChatReqBody, optFns ...request.OptFn) *DepartmentUnbindDepartmentChatReqCall {
-	return &DepartmentUnbindDepartmentChatReqCall{
-		ctx:         ctx,
-		departments: departments,
-		body:        body,
 		queryParams: map[string]interface{}{},
 		optFns:      optFns,
 	}
@@ -1148,37 +637,5 @@ func (departments *DepartmentService) Search(ctx *core.Context, body *Department
 		body:        body,
 		queryParams: map[string]interface{}{},
 		optFns:      optFns,
-	}
-}
-
-type EmployeeTypeEnumListReqCall struct {
-	ctx               *core.Context
-	employeeTypeEnums *EmployeeTypeEnumService
-	queryParams       map[string]interface{}
-	optFns            []request.OptFn
-}
-
-func (rc *EmployeeTypeEnumListReqCall) SetPageToken(pageToken string) {
-	rc.queryParams["page_token"] = pageToken
-}
-func (rc *EmployeeTypeEnumListReqCall) SetPageSize(pageSize int) {
-	rc.queryParams["page_size"] = pageSize
-}
-
-func (rc *EmployeeTypeEnumListReqCall) Do() (*EmployeeTypeEnumListResult, error) {
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &EmployeeTypeEnumListResult{}
-	req := request.NewRequest("contact/v3/employee_type_enums", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.employeeTypeEnums.service.conf, req)
-	return result, err
-}
-
-func (employeeTypeEnums *EmployeeTypeEnumService) List(ctx *core.Context, optFns ...request.OptFn) *EmployeeTypeEnumListReqCall {
-	return &EmployeeTypeEnumListReqCall{
-		ctx:               ctx,
-		employeeTypeEnums: employeeTypeEnums,
-		queryParams:       map[string]interface{}{},
-		optFns:            optFns,
 	}
 }

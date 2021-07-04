@@ -16,11 +16,13 @@ type Service struct {
 	Chats             *ChatService
 	ChatMemberUsers   *ChatMemberUserService
 	ChatMemberBots    *ChatMemberBotService
+	MessageReactions  *MessageReactionService
 	ChatAnnouncements *ChatAnnouncementService
 	ChatMemberss      *ChatMembersService
 	Files             *FileService
 	Images            *ImageService
 	MessageResources  *MessageResourceService
+	ChatCustomBots    *ChatCustomBotService
 }
 
 func NewService(conf *config.Config) *Service {
@@ -31,11 +33,13 @@ func NewService(conf *config.Config) *Service {
 	s.Chats = newChatService(s)
 	s.ChatMemberUsers = newChatMemberUserService(s)
 	s.ChatMemberBots = newChatMemberBotService(s)
+	s.MessageReactions = newMessageReactionService(s)
 	s.ChatAnnouncements = newChatAnnouncementService(s)
 	s.ChatMemberss = newChatMembersService(s)
 	s.Files = newFileService(s)
 	s.Images = newImageService(s)
 	s.MessageResources = newMessageResourceService(s)
+	s.ChatCustomBots = newChatCustomBotService(s)
 	return s
 }
 
@@ -75,6 +79,16 @@ type ChatMemberBotService struct {
 
 func newChatMemberBotService(service *Service) *ChatMemberBotService {
 	return &ChatMemberBotService{
+		service: service,
+	}
+}
+
+type MessageReactionService struct {
+	service *Service
+}
+
+func newMessageReactionService(service *Service) *MessageReactionService {
+	return &MessageReactionService{
 		service: service,
 	}
 }
@@ -125,6 +139,16 @@ type MessageResourceService struct {
 
 func newMessageResourceService(service *Service) *MessageResourceService {
 	return &MessageResourceService{
+		service: service,
+	}
+}
+
+type ChatCustomBotService struct {
+	service *Service
+}
+
+func newChatCustomBotService(service *Service) *ChatCustomBotService {
+	return &ChatCustomBotService{
 		service: service,
 	}
 }
@@ -778,45 +802,38 @@ func (chatMemberss *ChatMembersService) Delete(ctx *core.Context, body *ChatMemb
 	}
 }
 
-type MessageResourceGetReqCall struct {
-	ctx              *core.Context
-	messageResources *MessageResourceService
-	pathParams       map[string]interface{}
-	queryParams      map[string]interface{}
-	optFns           []request.OptFn
-	result           io.Writer
+type ChatAnnouncementGetReqCall struct {
+	ctx               *core.Context
+	chatAnnouncements *ChatAnnouncementService
+	pathParams        map[string]interface{}
+	queryParams       map[string]interface{}
+	optFns            []request.OptFn
 }
 
-func (rc *MessageResourceGetReqCall) SetMessageId(messageId string) {
-	rc.pathParams["message_id"] = messageId
+func (rc *ChatAnnouncementGetReqCall) SetChatId(chatId string) {
+	rc.pathParams["chat_id"] = chatId
 }
-func (rc *MessageResourceGetReqCall) SetFileKey(fileKey string) {
-	rc.pathParams["file_key"] = fileKey
-}
-func (rc *MessageResourceGetReqCall) SetType(type_ string) {
-	rc.queryParams["type"] = type_
-}
-func (rc *MessageResourceGetReqCall) SetResponseStream(result io.Writer) {
-	rc.result = result
+func (rc *ChatAnnouncementGetReqCall) SetUserIdType(userIdType string) {
+	rc.queryParams["user_id_type"] = userIdType
 }
 
-func (rc *MessageResourceGetReqCall) Do() (io.Writer, error) {
+func (rc *ChatAnnouncementGetReqCall) Do() (*ChatAnnouncementGetResult, error) {
 	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
 	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	rc.optFns = append(rc.optFns, request.SetResponseStream())
-	req := request.NewRequest("im/v1/messages/:message_id/resources/:file_key", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, rc.result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.messageResources.service.conf, req)
-	return rc.result, err
+	var result = &ChatAnnouncementGetResult{}
+	req := request.NewRequest("im/v1/chats/:chat_id/announcement", "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.chatAnnouncements.service.conf, req)
+	return result, err
 }
 
-func (messageResources *MessageResourceService) Get(ctx *core.Context, optFns ...request.OptFn) *MessageResourceGetReqCall {
-	return &MessageResourceGetReqCall{
-		ctx:              ctx,
-		messageResources: messageResources,
-		pathParams:       map[string]interface{}{},
-		queryParams:      map[string]interface{}{},
-		optFns:           optFns,
+func (chatAnnouncements *ChatAnnouncementService) Get(ctx *core.Context, optFns ...request.OptFn) *ChatAnnouncementGetReqCall {
+	return &ChatAnnouncementGetReqCall{
+		ctx:               ctx,
+		chatAnnouncements: chatAnnouncements,
+		pathParams:        map[string]interface{}{},
+		queryParams:       map[string]interface{}{},
+		optFns:            optFns,
 	}
 }
 
@@ -861,38 +878,45 @@ func (chatMemberss *ChatMembersService) Get(ctx *core.Context, optFns ...request
 	}
 }
 
-type ChatAnnouncementGetReqCall struct {
-	ctx               *core.Context
-	chatAnnouncements *ChatAnnouncementService
-	pathParams        map[string]interface{}
-	queryParams       map[string]interface{}
-	optFns            []request.OptFn
+type MessageResourceGetReqCall struct {
+	ctx              *core.Context
+	messageResources *MessageResourceService
+	pathParams       map[string]interface{}
+	queryParams      map[string]interface{}
+	optFns           []request.OptFn
+	result           io.Writer
 }
 
-func (rc *ChatAnnouncementGetReqCall) SetChatId(chatId string) {
-	rc.pathParams["chat_id"] = chatId
+func (rc *MessageResourceGetReqCall) SetMessageId(messageId string) {
+	rc.pathParams["message_id"] = messageId
 }
-func (rc *ChatAnnouncementGetReqCall) SetUserIdType(userIdType string) {
-	rc.queryParams["user_id_type"] = userIdType
+func (rc *MessageResourceGetReqCall) SetFileKey(fileKey string) {
+	rc.pathParams["file_key"] = fileKey
+}
+func (rc *MessageResourceGetReqCall) SetType(type_ string) {
+	rc.queryParams["type"] = type_
+}
+func (rc *MessageResourceGetReqCall) SetResponseStream(result io.Writer) {
+	rc.result = result
 }
 
-func (rc *ChatAnnouncementGetReqCall) Do() (*ChatAnnouncementGetResult, error) {
+func (rc *MessageResourceGetReqCall) Do() (io.Writer, error) {
 	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
 	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &ChatAnnouncementGetResult{}
-	req := request.NewRequest("im/v1/chats/:chat_id/announcement", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.chatAnnouncements.service.conf, req)
-	return result, err
+	rc.optFns = append(rc.optFns, request.SetResponseStream())
+	req := request.NewRequest("im/v1/messages/:message_id/resources/:file_key", "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, rc.result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.messageResources.service.conf, req)
+	return rc.result, err
 }
 
-func (chatAnnouncements *ChatAnnouncementService) Get(ctx *core.Context, optFns ...request.OptFn) *ChatAnnouncementGetReqCall {
-	return &ChatAnnouncementGetReqCall{
-		ctx:               ctx,
-		chatAnnouncements: chatAnnouncements,
-		pathParams:        map[string]interface{}{},
-		queryParams:       map[string]interface{}{},
-		optFns:            optFns,
+func (messageResources *MessageResourceService) Get(ctx *core.Context, optFns ...request.OptFn) *MessageResourceGetReqCall {
+	return &MessageResourceGetReqCall{
+		ctx:              ctx,
+		messageResources: messageResources,
+		pathParams:       map[string]interface{}{},
+		queryParams:      map[string]interface{}{},
+		optFns:           optFns,
 	}
 }
 
@@ -982,5 +1006,225 @@ func (chatAnnouncements *ChatAnnouncementService) Patch(ctx *core.Context, body 
 		body:              body,
 		pathParams:        map[string]interface{}{},
 		optFns:            optFns,
+	}
+}
+
+type ChatCustomBotCreateReqCall struct {
+	ctx            *core.Context
+	chatCustomBots *ChatCustomBotService
+	body           *ChatCustomBotCreateReqBody
+	optFns         []request.OptFn
+}
+
+func (rc *ChatCustomBotCreateReqCall) Do() (*ChatCustomBotCreateResult, error) {
+	var result = &ChatCustomBotCreateResult{}
+	req := request.NewRequest("im/v1/chat_custom_bots", "POST",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.chatCustomBots.service.conf, req)
+	return result, err
+}
+
+func (chatCustomBots *ChatCustomBotService) Create(ctx *core.Context, body *ChatCustomBotCreateReqBody, optFns ...request.OptFn) *ChatCustomBotCreateReqCall {
+	return &ChatCustomBotCreateReqCall{
+		ctx:            ctx,
+		chatCustomBots: chatCustomBots,
+		body:           body,
+		optFns:         optFns,
+	}
+}
+
+type ChatCustomBotDeleteReqCall struct {
+	ctx            *core.Context
+	chatCustomBots *ChatCustomBotService
+	pathParams     map[string]interface{}
+	optFns         []request.OptFn
+}
+
+func (rc *ChatCustomBotDeleteReqCall) SetBotId(botId int64) {
+	rc.pathParams["bot_id"] = botId
+}
+
+func (rc *ChatCustomBotDeleteReqCall) Do() (*response.NoData, error) {
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	var result = &response.NoData{}
+	req := request.NewRequest("im/v1/chat_custom_bots/:bot_id", "DELETE",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.chatCustomBots.service.conf, req)
+	return result, err
+}
+
+func (chatCustomBots *ChatCustomBotService) Delete(ctx *core.Context, optFns ...request.OptFn) *ChatCustomBotDeleteReqCall {
+	return &ChatCustomBotDeleteReqCall{
+		ctx:            ctx,
+		chatCustomBots: chatCustomBots,
+		pathParams:     map[string]interface{}{},
+		optFns:         optFns,
+	}
+}
+
+type ChatCustomBotGetReqCall struct {
+	ctx            *core.Context
+	chatCustomBots *ChatCustomBotService
+	pathParams     map[string]interface{}
+	optFns         []request.OptFn
+}
+
+func (rc *ChatCustomBotGetReqCall) SetBotId(botId int64) {
+	rc.pathParams["bot_id"] = botId
+}
+
+func (rc *ChatCustomBotGetReqCall) Do() (*ChatCustomBotGetResult, error) {
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	var result = &ChatCustomBotGetResult{}
+	req := request.NewRequest("im/v1/chat_custom_bots/:bot_id", "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.chatCustomBots.service.conf, req)
+	return result, err
+}
+
+func (chatCustomBots *ChatCustomBotService) Get(ctx *core.Context, optFns ...request.OptFn) *ChatCustomBotGetReqCall {
+	return &ChatCustomBotGetReqCall{
+		ctx:            ctx,
+		chatCustomBots: chatCustomBots,
+		pathParams:     map[string]interface{}{},
+		optFns:         optFns,
+	}
+}
+
+type ChatCustomBotPatchReqCall struct {
+	ctx            *core.Context
+	chatCustomBots *ChatCustomBotService
+	body           *ChatCustomBotPatchReqBody
+	pathParams     map[string]interface{}
+	optFns         []request.OptFn
+}
+
+func (rc *ChatCustomBotPatchReqCall) SetBotId(botId int64) {
+	rc.pathParams["bot_id"] = botId
+}
+
+func (rc *ChatCustomBotPatchReqCall) Do() (*response.NoData, error) {
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	var result = &response.NoData{}
+	req := request.NewRequest("im/v1/chat_custom_bots/:bot_id", "PATCH",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.chatCustomBots.service.conf, req)
+	return result, err
+}
+
+func (chatCustomBots *ChatCustomBotService) Patch(ctx *core.Context, body *ChatCustomBotPatchReqBody, optFns ...request.OptFn) *ChatCustomBotPatchReqCall {
+	return &ChatCustomBotPatchReqCall{
+		ctx:            ctx,
+		chatCustomBots: chatCustomBots,
+		body:           body,
+		pathParams:     map[string]interface{}{},
+		optFns:         optFns,
+	}
+}
+
+type MessageReactionCreateReqCall struct {
+	ctx              *core.Context
+	messageReactions *MessageReactionService
+	body             *MessageReactionCreateReqBody
+	pathParams       map[string]interface{}
+	optFns           []request.OptFn
+}
+
+func (rc *MessageReactionCreateReqCall) SetMessageId(messageId string) {
+	rc.pathParams["message_id"] = messageId
+}
+
+func (rc *MessageReactionCreateReqCall) Do() (*MessageReaction, error) {
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	var result = &MessageReaction{}
+	req := request.NewRequest("im/v1/messages/:message_id/reactions", "POST",
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.messageReactions.service.conf, req)
+	return result, err
+}
+
+func (messageReactions *MessageReactionService) Create(ctx *core.Context, body *MessageReactionCreateReqBody, optFns ...request.OptFn) *MessageReactionCreateReqCall {
+	return &MessageReactionCreateReqCall{
+		ctx:              ctx,
+		messageReactions: messageReactions,
+		body:             body,
+		pathParams:       map[string]interface{}{},
+		optFns:           optFns,
+	}
+}
+
+type MessageReactionDeleteReqCall struct {
+	ctx              *core.Context
+	messageReactions *MessageReactionService
+	pathParams       map[string]interface{}
+	optFns           []request.OptFn
+}
+
+func (rc *MessageReactionDeleteReqCall) SetMessageId(messageId string) {
+	rc.pathParams["message_id"] = messageId
+}
+func (rc *MessageReactionDeleteReqCall) SetReactionId(reactionId string) {
+	rc.pathParams["reaction_id"] = reactionId
+}
+
+func (rc *MessageReactionDeleteReqCall) Do() (*MessageReaction, error) {
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	var result = &MessageReaction{}
+	req := request.NewRequest("im/v1/messages/:message_id/reactions/:reaction_id", "DELETE",
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.messageReactions.service.conf, req)
+	return result, err
+}
+
+func (messageReactions *MessageReactionService) Delete(ctx *core.Context, optFns ...request.OptFn) *MessageReactionDeleteReqCall {
+	return &MessageReactionDeleteReqCall{
+		ctx:              ctx,
+		messageReactions: messageReactions,
+		pathParams:       map[string]interface{}{},
+		optFns:           optFns,
+	}
+}
+
+type MessageReactionListReqCall struct {
+	ctx              *core.Context
+	messageReactions *MessageReactionService
+	pathParams       map[string]interface{}
+	queryParams      map[string]interface{}
+	optFns           []request.OptFn
+}
+
+func (rc *MessageReactionListReqCall) SetMessageId(messageId string) {
+	rc.pathParams["message_id"] = messageId
+}
+func (rc *MessageReactionListReqCall) SetReactionType(reactionType string) {
+	rc.queryParams["reaction_type"] = reactionType
+}
+func (rc *MessageReactionListReqCall) SetPageToken(pageToken string) {
+	rc.queryParams["page_token"] = pageToken
+}
+func (rc *MessageReactionListReqCall) SetPageSize(pageSize int) {
+	rc.queryParams["page_size"] = pageSize
+}
+func (rc *MessageReactionListReqCall) SetUserIdType(userIdType string) {
+	rc.queryParams["user_id_type"] = userIdType
+}
+
+func (rc *MessageReactionListReqCall) Do() (*MessageReactionListResult, error) {
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &MessageReactionListResult{}
+	req := request.NewRequest("im/v1/messages/:message_id/reactions", "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.messageReactions.service.conf, req)
+	return result, err
+}
+
+func (messageReactions *MessageReactionService) List(ctx *core.Context, optFns ...request.OptFn) *MessageReactionListReqCall {
+	return &MessageReactionListReqCall{
+		ctx:              ctx,
+		messageReactions: messageReactions,
+		pathParams:       map[string]interface{}{},
+		queryParams:      map[string]interface{}{},
+		optFns:           optFns,
 	}
 }

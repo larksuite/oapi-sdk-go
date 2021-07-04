@@ -138,6 +138,8 @@ func buildFunc(ctx *core.Context, req *request.Request) {
 				reqBodyFromInput(ctx, req)
 				conf.GetLogger().Debug(ctx, fmt.Sprintf("[build]request:%v, body:%s", req, string(req.RequestBody)))
 			}
+		} else {
+			conf.GetLogger().Debug(ctx, fmt.Sprintf("[build]request:%v", req))
 		}
 		if req.Err != nil {
 			return
@@ -278,7 +280,7 @@ func retryFunc(_ *core.Context, req *request.Request) {
 func complementFunc(ctx *core.Context, req *request.Request) {
 	if req.RequestBodyFilePath != "" {
 		if err := os.Remove(req.RequestBodyFilePath); err != nil {
-			config.ByCtx(ctx).GetLogger().Info(ctx, fmt.Sprintf("[complement] request:%v, "+
+			config.ByCtx(ctx).GetLogger().Debug(ctx, fmt.Sprintf("[complement] request:%v, "+
 				"delete tmp file(%s) err: %v", req, req.RequestBodyFilePath, err))
 		}
 	}

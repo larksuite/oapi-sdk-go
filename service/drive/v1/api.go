@@ -563,6 +563,9 @@ func (rc *FileCommentReplyUpdateReqCall) SetReplyId(replyId int64) {
 func (rc *FileCommentReplyUpdateReqCall) SetFileType(fileType string) {
 	rc.queryParams["file_type"] = fileType
 }
+func (rc *FileCommentReplyUpdateReqCall) SetUserIdType(userIdType string) {
+	rc.queryParams["user_id_type"] = userIdType
+}
 
 func (rc *FileCommentReplyUpdateReqCall) Do() (*response.NoData, error) {
 	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
@@ -707,6 +710,49 @@ func (fileCommentReplys *FileCommentReplyService) Delete(ctx *core.Context, optF
 	return &FileCommentReplyDeleteReqCall{
 		ctx:               ctx,
 		fileCommentReplys: fileCommentReplys,
+		pathParams:        map[string]interface{}{},
+		queryParams:       map[string]interface{}{},
+		optFns:            optFns,
+	}
+}
+
+type FileCommentReplyCreateReqCall struct {
+	ctx               *core.Context
+	fileCommentReplys *FileCommentReplyService
+	body              *FileCommentReplyCreateReqBody
+	pathParams        map[string]interface{}
+	queryParams       map[string]interface{}
+	optFns            []request.OptFn
+}
+
+func (rc *FileCommentReplyCreateReqCall) SetFileToken(fileToken string) {
+	rc.pathParams["file_token"] = fileToken
+}
+func (rc *FileCommentReplyCreateReqCall) SetCommentId(commentId int64) {
+	rc.pathParams["comment_id"] = commentId
+}
+func (rc *FileCommentReplyCreateReqCall) SetFileType(fileType string) {
+	rc.queryParams["file_type"] = fileType
+}
+func (rc *FileCommentReplyCreateReqCall) SetUserIdType(userIdType string) {
+	rc.queryParams["user_id_type"] = userIdType
+}
+
+func (rc *FileCommentReplyCreateReqCall) Do() (*FileCommentReplyCreateResult, error) {
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &FileCommentReplyCreateResult{}
+	req := request.NewRequest("drive/v1/files/:file_token/comments/:comment_id/replies", "POST",
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.fileCommentReplys.service.conf, req)
+	return result, err
+}
+
+func (fileCommentReplys *FileCommentReplyService) Create(ctx *core.Context, body *FileCommentReplyCreateReqBody, optFns ...request.OptFn) *FileCommentReplyCreateReqCall {
+	return &FileCommentReplyCreateReqCall{
+		ctx:               ctx,
+		fileCommentReplys: fileCommentReplys,
+		body:              body,
 		pathParams:        map[string]interface{}{},
 		queryParams:       map[string]interface{}{},
 		optFns:            optFns,

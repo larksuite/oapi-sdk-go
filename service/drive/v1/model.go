@@ -19,6 +19,31 @@ func (s *UserId) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
+type Collaborator struct {
+	MemberType      string   `json:"member_type,omitempty"`
+	MemberOpenId    string   `json:"member_open_id,omitempty"`
+	MemberUserId    string   `json:"member_user_id,omitempty"`
+	Perm            string   `json:"perm,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *Collaborator) MarshalJSON() ([]byte, error) {
+	type cp Collaborator
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type DocsLink struct {
+	Url             string   `json:"url,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *DocsLink) MarshalJSON() ([]byte, error) {
+	type cp DocsLink
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
 type File struct {
 	FileToken       string   `json:"file_token,omitempty"`
 	FileName        string   `json:"file_name,omitempty"`
@@ -66,17 +91,6 @@ func (s *FileCommentReply) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
-type DocsLink struct {
-	Url             string   `json:"url,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *DocsLink) MarshalJSON() ([]byte, error) {
-	type cp DocsLink
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
 type Media struct {
 	FileToken       string   `json:"file_token,omitempty"`
 	FileName        string   `json:"file_name,omitempty"`
@@ -87,6 +101,31 @@ type Media struct {
 
 func (s *Media) MarshalJSON() ([]byte, error) {
 	type cp Media
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type Member struct {
+	MemberType      string   `json:"member_type,omitempty"`
+	MemberId        string   `json:"member_id,omitempty"`
+	Perm            string   `json:"perm,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *Member) MarshalJSON() ([]byte, error) {
+	type cp Member
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type Owner struct {
+	MemberType      string   `json:"member_type,omitempty"`
+	MemberId        string   `json:"member_id,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *Owner) MarshalJSON() ([]byte, error) {
+	type cp Owner
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
@@ -157,6 +196,18 @@ type TmpDownloadUrl struct {
 
 func (s *TmpDownloadUrl) MarshalJSON() ([]byte, error) {
 	type cp TmpDownloadUrl
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type TokenType struct {
+	Token           string   `json:"token,omitempty"`
+	Type            string   `json:"type,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *TokenType) MarshalJSON() ([]byte, error) {
+	type cp TokenType
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
@@ -257,6 +308,21 @@ func (s *FileCommentPatchReqBody) MarshalJSON() ([]byte, error) {
 	type cp FileCommentPatchReqBody
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type FileCommentReplyCreateReqBody struct {
+	Content         *ReplyContent `json:"content,omitempty"`
+	ForceSendFields []string      `json:"-"`
+}
+
+func (s *FileCommentReplyCreateReqBody) MarshalJSON() ([]byte, error) {
+	type cp FileCommentReplyCreateReqBody
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type FileCommentReplyCreateResult struct {
+	FileCommentReply *FileCommentReply `json:"file.comment.reply,omitempty"`
 }
 
 type FileDeletedEventData struct {
