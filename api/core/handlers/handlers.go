@@ -183,11 +183,11 @@ func signFunc(ctx *core.Context, req *request.Request) {
 	default:
 		httpRequest, err = req.HTTPRequest, req.Err
 	}
-	if req.IsHelpDeskAPI {
+	if req.NeedHelpDeskAuth {
 		conf := config.ByCtx(ctx)
 		if conf.GetHelpDeskAuthorization() == "" {
 			err = errors.New("help desk API, please set the helpdesk information of config.AppSettings")
-		} else {
+		} else if httpRequest != nil {
 			httpRequest.Header.Set("X-Lark-Helpdesk-Authorization", conf.GetHelpDeskAuthorization())
 		}
 	}

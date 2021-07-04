@@ -30,7 +30,7 @@ type Opt struct {
 	userAccessToken  string
 	tenantKey        string
 	isResponseStream bool
-	isHelpDeskAPI    bool
+	needHelpDeskAuth bool
 }
 
 type Info struct {
@@ -49,7 +49,7 @@ type Info struct {
 	optFns                 []OptFn
 	IsResponseStream       bool
 	IsResponseStreamReal   bool
-	IsHelpDeskAPI          bool
+	NeedHelpDeskAuth       bool
 }
 
 func (i *Info) WithContext(ctx *core.Context) {
@@ -94,9 +94,9 @@ func SetResponseStream() OptFn {
 	}
 }
 
-func SetHelpDeskAPI() OptFn {
+func NeedHelpDeskAuth() OptFn {
 	return func(opt *Opt) {
-		opt.isHelpDeskAPI = true
+		opt.needHelpDeskAuth = true
 	}
 }
 
@@ -171,7 +171,7 @@ func (r *Request) Init(domain string) error {
 	}
 	r.IsNotDataField = opt.isNotDataField
 	r.IsResponseStream = opt.isResponseStream
-	r.IsHelpDeskAPI = opt.isHelpDeskAPI
+	r.NeedHelpDeskAuth = opt.needHelpDeskAuth
 	if opt.tenantKey != "" {
 		if _, ok := r.AccessibleTokenTypeSet[AccessTokenTypeTenant]; ok {
 			r.AccessTokenType = AccessTokenTypeTenant
@@ -242,7 +242,10 @@ func resolvePath(path string, pathVar map[string]interface{}) (string, error) {
 }
 
 func (r *Request) Url() string {
-	path := fmt.Sprintf("%s/%s/%s", r.Domain, constants.OAPIRootPath, r.HttpPath)
+	path := r.HttpPath
+	if strings.Index(r.HttpPath, "http") != 0 {
+		path = fmt.Sprintf("%s/%s/%s", r.Domain, constants.OAPIRootPath, r.HttpPath)
+	}
 	if r.QueryParams != "" {
 		path = fmt.Sprintf("%s?%s", path, r.QueryParams)
 	}
