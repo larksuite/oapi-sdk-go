@@ -24,7 +24,7 @@
 - 最新的发布候选版本，提供更多[开放服务 API](/service) 以及 Bug 修复
 
 ```shell
-go get github.com/larksuite/oapi-sdk-go@v1.1.39-rc2
+go get github.com/larksuite/oapi-sdk-go@v1.1.39-rc4
 ```
 
 - 稳定版本
@@ -455,7 +455,7 @@ import (
     // request.SetNotDataField(),设置响应的是否 没有`data`字段，业务接口都是有`data`字段，所以不需要设置
     // request.SetTenantKey("TenantKey")，以`应用商店应用`身份，表示使用`tenant_access_token`访问API，需要设置
     // request.SetUserAccessToken("UserAccessToken")，表示使用`user_access_token`访问API，需要设置
-    // request.SetHelpDeskAPI()，表示是服务台API，需要设置 config.AppSettings 的 help desk 信息
+    // request.NeedHelpDeskAuth()，表示是服务台API，需要设置 config.AppSettings 的 help desk 信息
 req := request.NewRequestWithNative(httpPath, httpMethod string, accessTokenType AccessTokenType, input interface{}, output interface{}, optFns ...OptFn)
 
 ```

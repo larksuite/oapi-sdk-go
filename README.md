@@ -28,7 +28,7 @@
 
 - The latest release candidate provides more [open services API](/service) and bug repair.
 ```shell
-go get github.com/larksuite/oapi-sdk-go@v1.1.39-rc2
+go get github.com/larksuite/oapi-sdk-go@v1.1.39-rc4
 ```
 
 - Stable version
@@ -343,7 +343,7 @@ import (
     // request.SetNotDataField(), set whether the response does not have a `data` field, business interfaces all have `data `Field, so you don’t need to set 
     // request.SetTenantKey("TenantKey"), as an `app store application`, it means using `tenant_access_token` to access the API, you need to set 
     // request.SetUserAccessToken("UserAccessToken"), which means using` user_access_token` To access the API, you need to set 
-    // request.SetHelpDeskAPI(), Indicates that the help desk API needs to set help desk information of config.appsettings
+    // request.NeedHelpDeskAuth(), Indicates that the help desk API needs to set help desk information of config.appsettings
 req := request.NewRequestWithNative(httpPath, httpMethod string, accessTokenType AccessTokenType,
 input interface{}, output interface{}, optFns ...OptFn)
 ```
