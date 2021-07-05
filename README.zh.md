@@ -85,7 +85,7 @@ var conf *config.Config
 func init() {
 	appSettings := core.NewInternalAppSettings(
 		core.SetAppCredentials("AppID", "AppSecret"), // 必需
-		core.SetAppEventKey("EncryptKey", "VerificationToken"), // 非必需，订阅事件、消息卡片时必需
+		core.SetAppEventKey("VerificationToken", "EncryptKey"), // 非必需，订阅事件、消息卡片时必需
 		core.SetHelpDeskCredentials("HelpDeskID", "HelpDeskToken")) // 非必需，使用服务台API时必需
 
 	// 当前访问的是飞书，使用默认的内存存储（app/tenant access token）、默认日志（Debug级别）
@@ -151,7 +151,7 @@ var conf *config.Config
 func init() {
 	appSettings := core.NewInternalAppSettings(
 		core.SetAppCredentials("AppID", "AppSecret"), // 必需
-		core.SetAppEventKey("EncryptKey", "VerificationToken"), // 非必需，订阅事件、消息卡片时必需
+		core.SetAppEventKey("VerificationToken", "EncryptKey"), // 非必需，订阅事件、消息卡片时必需
 		core.SetHelpDeskCredentials("HelpDeskID", "HelpDeskToken")) // 非必需，使用服务台API时必需
 
 	// 当前访问的是飞书，使用默认的内存存储（app/tenant access token）、默认日志（Debug级别）
@@ -219,7 +219,7 @@ var conf *config.Config
 func init() {
 	appSettings := core.NewInternalAppSettings(
 		core.SetAppCredentials("AppID", "AppSecret"), // 必需
-		core.SetAppEventKey("EncryptKey", "VerificationToken"), // 非必需，订阅事件、消息卡片时必需
+		core.SetAppEventKey("VerificationToken", "EncryptKey"), // 非必需，订阅事件、消息卡片时必需
 		core.SetHelpDeskCredentials("HelpDeskID", "HelpDeskToken")) // 非必需，使用服务台API时必需
 
 	// 当前访问的是飞书，使用默认的内存存储（app/tenant access token）、默认日志（Debug级别）
@@ -271,7 +271,7 @@ var conf *config.Config
 func init() {
 	appSettings := core.NewInternalAppSettings(
 		core.SetAppCredentials("AppID", "AppSecret"), // 必需
-		core.SetAppEventKey("EncryptKey", "VerificationToken"), // 非必需，订阅事件、消息卡片时必需
+		core.SetAppEventKey("VerificationToken", "EncryptKey"), // 非必需，订阅事件、消息卡片时必需
 		core.SetHelpDeskCredentials("HelpDeskID", "HelpDeskToken")) // 非必需，使用服务台API时必需
 
 	// 当前访问的是飞书，使用默认的内存存储（app/tenant access token）、默认日志（Debug级别）
@@ -327,7 +327,7 @@ var conf *config.Config
 func init() {
 	appSettings := core.NewInternalAppSettings(
 		core.SetAppCredentials("AppID", "AppSecret"), // 必需
-		core.SetAppEventKey("EncryptKey", "VerificationToken"), // 非必需，订阅事件、消息卡片时必需
+		core.SetAppEventKey("VerificationToken", "EncryptKey"), // 非必需，订阅事件、消息卡片时必需
 		core.SetHelpDeskCredentials("HelpDeskID", "HelpDeskToken")) // 非必需，使用服务台API时必需
 
 	// 当前访问的是飞书，使用默认的内存存储（app/tenant access token）、默认日志（Debug级别）
