@@ -6,7 +6,6 @@ import (
 	cardhttpserver "github.com/larksuite/oapi-sdk-go/card/http/native"
 	"github.com/larksuite/oapi-sdk-go/card/model"
 	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/constants"
 	"github.com/larksuite/oapi-sdk-go/core/tools"
 	"github.com/larksuite/oapi-sdk-go/sample/configs"
 	"net/http"
@@ -15,9 +14,9 @@ import (
 func main() {
 
 	// for redis store and logrus
-	// var conf = configs.TestConfigWithLogrusAndRedisStore(constants.DomainFeiShu)
+	// var conf = configs.TestConfigWithLogrusAndRedisStore(core.DomainFeiShu)
 	// var conf = configs.TestConfig("https://open.feishu.cn")
-	var conf = configs.TestConfig(constants.DomainFeiShu)
+	var conf = configs.TestConfig(core.DomainFeiShu)
 
 	card.SetHandler(conf, func(ctx *core.Context, card *model.Card) (interface{}, error) {
 		fmt.Println(ctx.GetRequestID())

@@ -44,7 +44,7 @@ func Handle(conf *config.Config, request *coremodel.OapiRequest) *coremodel.Oapi
 		app.SetAppTicketEventHandler(conf)
 	})
 	coreCtx := core.WrapContext(request.Ctx)
-	conf.WithContext(coreCtx)
+	coreCtx.Set(config.CtxKeyConfig, conf)
 	httpEvent := &model.HTTPEvent{
 		Request:  request,
 		Response: &coremodel.OapiResponse{},

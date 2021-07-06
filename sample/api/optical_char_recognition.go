@@ -5,16 +5,15 @@ import (
 	"fmt"
 	"github.com/larksuite/oapi-sdk-go/api/core/response"
 	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/constants"
 	"github.com/larksuite/oapi-sdk-go/core/tools"
 	"github.com/larksuite/oapi-sdk-go/sample/configs"
 	optical_char_recognition "github.com/larksuite/oapi-sdk-go/service/optical_char_recognition/v1"
 )
 
 // for redis store and logrus
-// configs.TestConfigWithLogrusAndRedisStore(constants.DomainFeiShu)
+// configs.TestConfigWithLogrusAndRedisStore(core.DomainFeiShu)
 // configs.TestConfig("https://open.feishu.cn")
-var opticalCharRecognitionService = optical_char_recognition.NewService(configs.TestConfig(constants.DomainFeiShu))
+var opticalCharRecognitionService = optical_char_recognition.NewService(configs.TestConfig(core.DomainFeiShu))
 
 func main() {
 	testImageBasicRecognize()

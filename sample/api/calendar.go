@@ -6,16 +6,15 @@ import (
 	"github.com/larksuite/oapi-sdk-go/api/core/request"
 	"github.com/larksuite/oapi-sdk-go/api/core/response"
 	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/constants"
 	"github.com/larksuite/oapi-sdk-go/core/tools"
 	"github.com/larksuite/oapi-sdk-go/sample/configs"
 	calendar "github.com/larksuite/oapi-sdk-go/service/calendar/v4"
 )
 
 // for redis store and logrus
-// configs.TestConfigWithLogrusAndRedisStore(constants.DomainFeiShu)
+// configs.TestConfigWithLogrusAndRedisStore(core.DomainFeiShu)
 // configs.TestConfig("https://open.feishu.cn")
-var calendarService = calendar.NewService(configs.TestConfig(constants.DomainFeiShu))
+var calendarService = calendar.NewService(configs.TestConfig(core.DomainFeiShu))
 
 func main() {
 	testCalendarList()

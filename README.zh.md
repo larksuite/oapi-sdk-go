@@ -11,7 +11,7 @@
 - 飞书开发接口SDK，便捷调用服务端API与订阅服务端事件，例如：消息&群组、通讯录、日历、视频会议、云文档、 OKR等具体可以访问 [飞书开放平台文档](https://open.feishu.cn/document/) 看看【服务端
   API】。
 
-## Problem feedback
+## 问题反馈
 
 ---
 
@@ -30,7 +30,7 @@
 - 最新的发布候选版本，提供更多[开放服务 API](/service) 以及 Bug 修复
 
 ```shell
-go get github.com/larksuite/oapi-sdk-go@v1.1.39-rc3
+go get github.com/larksuite/oapi-sdk-go@v1.1.39-rc4
 ```
 
 - 稳定版本
@@ -83,13 +83,14 @@ import (
 var conf *config.Config
 
 func init() {
-	// 企业自建应用的配置
-	// AppID、AppSecret: "开发者后台" -> "凭证与基础信息" -> 应用凭证（App ID、App Secret）
-	// VerificationToken、EncryptKey："开发者后台" -> "事件订阅" -> 事件订阅（Verification Token、Encrypt Key）。
-	appSetting := config.NewInternalAppSettings("AppID", "AppSecret", "VerificationToken", "EncryptKey")
+	appSettings := core.NewInternalAppSettings(
+		core.SetAppCredentials("AppID", "AppSecret"), // 必需
+		core.SetAppEventKey("VerificationToken", "EncryptKey"), // 非必需，订阅事件、消息卡片时必需
+		core.SetHelpDeskCredentials("HelpDeskID", "HelpDeskToken")) // 非必需，使用服务台API时必需
 
-	// 当前访问的是飞书，使用默认存储、默认日志（Debug级别），更多可选配置，请看：README.zh.md->高级使用->如何构建整体配置（Config）。
-	conf = config.NewConfigWithDefaultStore(constants.DomainFeiShu, appSetting, log.NewDefaultLogger(), log.LevelInfo)
+	// 当前访问的是飞书，使用默认的内存存储（app/tenant access token）、默认日志（Debug级别）
+	// 更多介绍请看：Github->README.zh.md->高级使用->如何构建整体配置（Config）
+	conf = core.NewConfig(core.DomainFeiShu, appSettings, core.SetLoggerLevel(core.LoggerLevelError))
 }
 
 func main() {
@@ -148,13 +149,14 @@ import (
 var conf *config.Config
 
 func init() {
-	// 企业自建应用的配置
-	// AppID、AppSecret: "开发者后台" -> "凭证与基础信息" -> 应用凭证（App ID、App Secret）
-	// VerificationToken、EncryptKey："开发者后台" -> "事件订阅" -> 事件订阅（Verification Token、Encrypt Key）。
-	appSetting := config.NewInternalAppSettings("AppID", "AppSecret", "VerificationToken", "EncryptKey")
+	appSettings := core.NewInternalAppSettings(
+		core.SetAppCredentials("AppID", "AppSecret"), // 必需
+		core.SetAppEventKey("VerificationToken", "EncryptKey"), // 非必需，订阅事件、消息卡片时必需
+		core.SetHelpDeskCredentials("HelpDeskID", "HelpDeskToken")) // 非必需，使用服务台API时必需
 
-	// 当前访问的是飞书，使用默认存储、默认日志（Debug级别），更多可选配置，请看：README.zh.md->高级使用->如何构建整体配置（Config）。
-	conf = config.NewConfigWithDefaultStore(constants.DomainFeiShu, appSetting, log.NewDefaultLogger(), log.LevelInfo)
+	// 当前访问的是飞书，使用默认的内存存储（app/tenant access token）、默认日志（Debug级别）
+	// 更多介绍请看：Github->README.zh.md->高级使用->如何构建整体配置（Config）
+	conf = core.NewConfig(core.DomainFeiShu, appSettings, core.SetLoggerLevel(core.LoggerLevelError))
 }
 
 func main() {
@@ -215,13 +217,14 @@ import (
 var conf *config.Config
 
 func init() {
-	// 企业自建应用的配置
-	// AppID、AppSecret: "开发者后台" -> "凭证与基础信息" -> 应用凭证（App ID、App Secret）
-	// VerificationToken、EncryptKey："开发者后台" -> "事件订阅" -> 事件订阅（Verification Token、Encrypt Key）。
-	appSetting := config.NewInternalAppSettings("AppID", "AppSecret", "VerificationToken", "EncryptKey")
+	appSettings := core.NewInternalAppSettings(
+		core.SetAppCredentials("AppID", "AppSecret"), // 必需
+		core.SetAppEventKey("VerificationToken", "EncryptKey"), // 非必需，订阅事件、消息卡片时必需
+		core.SetHelpDeskCredentials("HelpDeskID", "HelpDeskToken")) // 非必需，使用服务台API时必需
 
-	// 当前访问的是飞书，使用默认存储、默认日志（Debug级别），更多可选配置，请看：README.zh.md->高级使用->如何构建整体配置（Config）。
-	conf = config.NewConfigWithDefaultStore(constants.DomainFeiShu, appSetting, log.NewDefaultLogger(), log.LevelInfo)
+	// 当前访问的是飞书，使用默认的内存存储（app/tenant access token）、默认日志（Debug级别）
+	// 更多介绍请看：Github->README.zh.md->高级使用->如何构建整体配置（Config）
+	conf = core.NewConfig(core.DomainFeiShu, appSettings, core.SetLoggerLevel(core.LoggerLevelError))
 }
 
 func main() {
@@ -266,13 +269,14 @@ import (
 var conf *config.Config
 
 func init() {
-	// 企业自建应用的配置
-	// AppID、AppSecret: "开发者后台" -> "凭证与基础信息" -> 应用凭证（App ID、App Secret）
-	// VerificationToken、EncryptKey："开发者后台" -> "事件订阅" -> 事件订阅（Verification Token、Encrypt Key）。
-	appSetting := config.NewInternalAppSettings("AppID", "AppSecret", "VerificationToken", "EncryptKey")
+	appSettings := core.NewInternalAppSettings(
+		core.SetAppCredentials("AppID", "AppSecret"), // 必需
+		core.SetAppEventKey("VerificationToken", "EncryptKey"), // 非必需，订阅事件、消息卡片时必需
+		core.SetHelpDeskCredentials("HelpDeskID", "HelpDeskToken")) // 非必需，使用服务台API时必需
 
-	// 当前访问的是飞书，使用默认存储、默认日志（Debug级别），更多可选配置，请看：README.zh.md->高级使用->如何构建整体配置（Config）。
-	conf = config.NewConfigWithDefaultStore(constants.DomainFeiShu, appSetting, log.NewDefaultLogger(), log.LevelInfo)
+	// 当前访问的是飞书，使用默认的内存存储（app/tenant access token）、默认日志（Debug级别）
+	// 更多介绍请看：Github->README.zh.md->高级使用->如何构建整体配置（Config）
+	conf = core.NewConfig(core.DomainFeiShu, appSettings, core.SetLoggerLevel(core.LoggerLevelError))
 }
 
 func main() {
@@ -321,13 +325,14 @@ import (
 var conf *config.Config
 
 func init() {
-	// 企业自建应用的配置
-	// AppID、AppSecret: "开发者后台" -> "凭证与基础信息" -> 应用凭证（App ID、App Secret）
-	// VerificationToken、EncryptKey："开发者后台" -> "事件订阅" -> 事件订阅（Verification Token、Encrypt Key）。
-	appSetting := config.NewInternalAppSettings("AppID", "AppSecret", "VerificationToken", "EncryptKey")
+	appSettings := core.NewInternalAppSettings(
+		core.SetAppCredentials("AppID", "AppSecret"), // 必需
+		core.SetAppEventKey("VerificationToken", "EncryptKey"), // 非必需，订阅事件、消息卡片时必需
+		core.SetHelpDeskCredentials("HelpDeskID", "HelpDeskToken")) // 非必需，使用服务台API时必需
 
-	// 当前访问的是飞书，使用默认存储、默认日志（Debug级别），更多可选配置，请看：README.zh.md->高级使用->如何构建整体配置（Config）。
-	conf = config.NewConfigWithDefaultStore(constants.DomainFeiShu, appSetting, log.NewDefaultLogger(), log.LevelInfo)
+	// 当前访问的是飞书，使用默认的内存存储（app/tenant access token）、默认日志（Debug级别）
+	// 更多介绍请看：Github->README.zh.md->高级使用->如何构建整体配置（Config）
+	conf = core.NewConfig(core.DomainFeiShu, appSettings, core.SetLoggerLevel(core.LoggerLevelError))
 }
 
 func main() {
@@ -356,7 +361,7 @@ func main() {
 
 ```go
 import (
-    "github.com/larksuite/oapi-sdk-go/core/config"
+    "github.com/larksuite/oapi-sdk-go/core"
 )
 
 // 防止应用信息泄漏，配置环境变量中，变量（4个）说明：
@@ -364,19 +369,30 @@ import (
 // APP_SECRET："开发者后台" -> "凭证与基础信息" -> 应用凭证 App Secret
 // VERIFICATION_TOKEN："开发者后台" -> "事件订阅" -> 事件订阅 Verification Token
 // ENCRYPT_KEY："开发者后台" -> "事件订阅" -> 事件订阅 Encrypt Key
+// HELP_DESK_ID: 服务台设置中心 -> ID
+// HELP_DESK_TOKEN: 服务台设置中心 -> 令牌
 // 企业自建应用的配置，通过环境变量获取应用配置
-appSettings := config.GetInternalAppSettingsByEnv()
+appSettings := core.GetInternalAppSettingsByEnv()
 // 应用商店应用的配置，通过环境变量获取应用配置
-appSettings := config.GetISVAppSettingsByEnv()
+appSettings := core.GetISVAppSettingsByEnv()
 
 
 // 参数说明：
 // AppID、AppSecret: "开发者后台" -> "凭证与基础信息" -> 应用凭证（App ID、App Secret）
 // VerificationToken、EncryptKey："开发者后台" -> "事件订阅" -> 事件订阅（Verification Token、Encrypt Key）
+// HelpDeskID、HelpDeskToken：服务台设置中心 -> ID、令牌
 // 企业自建应用的配置
-appSettings := config.NewInternalAppSettings(appID, appSecret, verificationToken, encryptKey string)
+appSettings := core.NewInternalAppSettings(
+core.SetAppCredentials("AppID", "AppSecret"), // 必需
+core.SetAppEventKey("VerificationToken", "EncryptKey"), // 非必需，事件订阅时必需
+core.SetHelpDeskCredentials("HelpDeskID", "HelpDeskToken"), // 非必需，访问服务台 API 时必需
+)
 // 应用商店应用的配置
-appSettings := config.NewISVAppSettings(appID, appSecret, verificationToken, encryptKey string)
+appSettings := core.NewISVAppSettings(
+core.SetAppCredentials("AppID", "AppSecret"), // 必需
+core.SetAppEventKey("VerificationToken", "EncryptKey"), // 非必需，事件订阅时必需
+core.SetHelpDeskCredentials("HelpDeskID", "HelpDeskToken"), // 非必需，访问服务台 API 时必需
+)
 
 ```
 
@@ -393,29 +409,20 @@ appSettings := config.NewISVAppSettings(appID, appSecret, verificationToken, enc
 
 ```go
 import (
-    "github.com/larksuite/oapi-sdk-go/core/config"
-    "github.com/larksuite/oapi-sdk-go/core/constants"
+    "github.com/larksuite/oapi-sdk-go/core"
+	"github.com/larksuite/oapi-sdk-go/core/config"
     "github.com/larksuite/oapi-sdk-go/core/log"
     "github.com/larksuite/oapi-sdk-go/core/store"
 )
 
-// 方法一，推荐使用Redis实现存储接口（Store），减少访问获取AccessToken接口的次数
 // 参数说明：
-// domain：URL域名地址，值范围：constants.DomainFeiShu / constants.DomainLarkSuite / 其他URL域名地址
+// domain：URL域名地址，值范围：core.DomainFeiShu / core.DomainLarkSuite / 其他URL域名地址
 // appSettings：应用配置
-// logger：[日志接口](core/log/log.go)
-// loggerLevel：输出的日志级别 log.LevelInfo/LevelInfo/LevelWarn/LevelError
-// store: [存储接口](core/store/store.go)，用来存储 app_ticket/access_token
-conf := config.NewConfig(domain constants.Domain, appSettings *AppSettings, logger log.Logger, logLevel log.Level, store store.Store)
-
-// 方法二，使用默认的存储接口（Store）的实现，适合轻量的使用（不合适：应用商店应用或调用服务端API次数频繁）
-// 参数说明：
-// domain：constants.DomainFeiShu / constants.DomainLarkSuite / 其他域名地址
-// appSettings：应用配置
-// logger：[日志接口](core/log/log.go)
-// loggerLevel：输出的日志级别 log.LevelInfo/LevelInfo/LevelWarn/LevelError
-conf := config.NewConfig(domain constants.Domain, appSettings *AppSettings, logger log.Logger, logLevel log.Level)
-
+// opts：选项参数
+    // core.SetLogger(logger log.Logger) ,设置 Logger， 默认是：控制台输出
+    // core.SetLoggerLevel(core.LoggerLevelDebug)，设置 Logger日志级别， 默认是：core.LoggerLevelError
+    // core.SetStore(store store.Store)，设置 Store（[存储接口](core/store/store.go)，用来存储 app_ticket/access_token），推荐使用Redis实现存储接口（Store），减少访问获取AccessToken接口的次数。默认是：内存（sync.Map）存储
+conf = core.NewConfig(domain Domain, appSettings *config.AppSettings, opts ...ConfigOpt)
 ```
 
 ### 如何构建请求（Request）
@@ -441,6 +448,7 @@ import (
     // request.SetNotDataField(),设置响应的是否 没有`data`字段，业务接口都是有`data`字段，所以不需要设置
     // request.SetTenantKey("TenantKey")，以`应用商店应用`身份，表示使用`tenant_access_token`访问API，需要设置
     // request.SetUserAccessToken("UserAccessToken")，表示使用`user_access_token`访问API，需要设置
+    // request.NeedHelpDeskAuth()，表示是服务台API，需要设置 config.AppSettings 的 help desk 信息
 req := request.NewRequestWithNative(httpPath, httpMethod string, accessTokenType AccessTokenType, input interface{}, output interface{}, optFns ...OptFn)
 
 ```

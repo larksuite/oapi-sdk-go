@@ -7,7 +7,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/api/core/request"
 	"github.com/larksuite/oapi-sdk-go/api/core/response"
 	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/constants"
 	"github.com/larksuite/oapi-sdk-go/core/tools"
 	"github.com/larksuite/oapi-sdk-go/sample/configs"
 	im "github.com/larksuite/oapi-sdk-go/service/im/v1"
@@ -16,9 +15,9 @@ import (
 )
 
 // for redis store and logrus
-// configs.TestConfigWithLogrusAndRedisStore(constants.DomainFeiShu)
+// configs.TestConfigWithLogrusAndRedisStore(core.DomainFeiShu)
 // configs.TestConfig("https://open.feishu.cn")
-var imService = im.NewService(configs.TestConfig(constants.DomainFeiShu))
+var imService = im.NewService(configs.TestConfig(core.DomainFeiShu))
 
 func main() {
 	//testMessageCreate()
