@@ -302,7 +302,7 @@ conf := config.NewConfig(domain constants.Domain, appSettings *AppSettings, logg
 // appSettings：App setting
 // logger：[Log interface](core/log/log.go)
 // loggerLevel：log level: log.LevelInfo/LevelInfo/LevelWarn/LevelError
-conf := config.NewConfig(domain constants.Domain, appSettings *AppSettings, logger log.Logger, logLevel log.Level)
+conf := config.NewConfigWithDefaultStore(domain constants.Domain, appSettings *AppSettings, logger log.Logger, logLevel log.Level)
 
 ```
 
