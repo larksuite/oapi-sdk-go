@@ -414,7 +414,7 @@ conf := config.NewConfig(domain constants.Domain, appSettings *AppSettings, logg
 // appSettings：应用配置
 // logger：[日志接口](core/log/log.go)
 // loggerLevel：输出的日志级别 log.LevelInfo/LevelInfo/LevelWarn/LevelError
-conf := config.NewConfig(domain constants.Domain, appSettings *AppSettings, logger log.Logger, logLevel log.Level)
+conf := config.NewConfigWithDefaultStore(domain constants.Domain, appSettings *AppSettings, logger log.Logger, logLevel log.Level)
 
 ```
 
