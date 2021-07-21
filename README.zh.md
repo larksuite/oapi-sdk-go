@@ -27,16 +27,8 @@
 
 ---
 
-- 最新的发布候选版本，提供更多[开放服务 API](/service) 以及 Bug 修复
-
 ```shell
-go get github.com/larksuite/oapi-sdk-go@v1.1.39-rc4
-```
-
-- 稳定版本
-
-```shell
-go get github.com/larksuite/oapi-sdk-go@v1.1.28
+go get github.com/larksuite/oapi-sdk-go@v1.1.40-rc1
 ```
 
 ## 术语解释
@@ -57,10 +49,68 @@ go get github.com/larksuite/oapi-sdk-go@v1.1.28
 
 - **必看** [如何调用服务端API](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/guide-to-use-server-api)
   ，了解调用服务端API的过程及注意事项。
-  - 由于SDK已经封装了app_access_token、tenant_access_token的获取，所以在调业务API的时候，不需要去获取app_access_token、tenant_access_token。如果业务接口需要使用user_access_token，需要进行设置（request.SetUserAccessToken("UserAccessToken")），具体请看 README.zh.md -> 如何构建请求（Request）
+  - 由于SDK已经封装了 app_access_token、tenant_access_token 的获取，所以在调业务API的时候，不需要去获取 app_access_token、tenant_access_token。如果业务接口需要使用 user_access_token，需要进行设置（request.SetUserAccessToken("UserAccessToken")），具体请看 README.zh.md -> 如何构建请求（Request）
 - 更多示例，请看：[sample/api/api.go](sample/api/api.go)（含：文件的上传与下载）
 
-#### 使用`企业自建应用`访问 发送文本消息API 示例
+#### [使用`应用商店应用`调用 服务端API 示例](doc/ISV.APP.README.zh.md)
+
+#### 使用`企业自建应用`访问 [发送消息API](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create) 示例
+
+- 在 [service](./service) 下的业务 API，都是可以直接使用SDK。
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"github.com/larksuite/oapi-sdk-go/api/core/response"
+	"github.com/larksuite/oapi-sdk-go/core"
+	"github.com/larksuite/oapi-sdk-go/core/config"
+	"github.com/larksuite/oapi-sdk-go/core/tools"
+	im "github.com/larksuite/oapi-sdk-go/service/im/v1"
+)
+
+var conf *config.Config
+
+func init() {
+	// 企业自建应用的配置
+	// AppID、AppSecret: "开发者后台" -> "凭证与基础信息" -> 应用凭证（App ID、App Secret）
+	// EncryptKey、VerificationToken："开发者后台" -> "事件订阅" -> 事件订阅（Encrypt Key、Verification Token）
+	// HelpDeskID、HelpDeskToken：https://open.feishu.cn/document/ukTMukTMukTM/ugDOyYjL4gjM24CO4IjN
+	// 更多介绍请看：Github->README.zh.md->高级使用->如何构建应用配置（AppSettings）
+	appSettings := core.GetInternalAppSettingsByEnv()
+
+	// 当前访问的是飞书，使用默认的内存存储（app/tenant access token）、默认日志（Error级别）
+	// 更多介绍请看：Github->README.zh.md->高级使用->如何构建整体配置（Config）
+	conf = core.NewConfig(core.DomainFeiShu, appSettings, core.SetLoggerLevel(core.LoggerLevelError))
+}
+
+func main() {
+	imService := im.NewService(conf)
+	coreCtx := core.WrapContext(context.Background())
+	reqCall := imService.Messages.Create(coreCtx, &im.MessageCreateReqBody{
+		ReceiveId: "ou_a11d2bcc7d852afbcaf37e5b3ad01f7e",
+		Content:   "{\"text\":\"<at user_id=\\\"ou_a11d2bcc7d852afbcaf37e5b3ad01f7e\\\">Tom</at> test content\"}",
+		MsgType:   "text",
+	})
+	reqCall.SetReceiveIdType("open_id")
+	message, err := reqCall.Do()
+	// 打印 request_id 方便 oncall 时排查问题
+	fmt.Println(coreCtx.GetRequestID())
+	fmt.Println(coreCtx.GetHTTPStatusCode())
+	if err != nil {
+		fmt.Println(tools.Prettify(err))
+		e := err.(*response.Error)
+		fmt.Println(e.Code)
+		fmt.Println(e.Msg)
+		return
+	}
+	fmt.Println(tools.Prettify(message))
+}
+```
+
+#### 使用`企业自建应用`访问 [发送文本消息API](https://open.feishu.cn/document/ukTMukTMukTM/uUjNz4SN2MjL1YzM) 示例
 
 - 有些老版接口，没有直接可以使用的SDK，可以使用`原生`模式。
 
@@ -88,7 +138,7 @@ func init() {
 		core.SetAppEventKey("VerificationToken", "EncryptKey"), // 非必需，订阅事件、消息卡片时必需
 		core.SetHelpDeskCredentials("HelpDeskID", "HelpDeskToken")) // 非必需，使用服务台API时必需
 
-	// 当前访问的是飞书，使用默认的内存存储（app/tenant access token）、默认日志（Debug级别）
+	// 当前访问的是飞书，使用默认的内存存储（app/tenant access token）、默认日志（Error级别）
 	// 更多介绍请看：Github->README.zh.md->高级使用->如何构建整体配置（Config）
 	conf = core.NewConfig(core.DomainFeiShu, appSettings, core.SetLoggerLevel(core.LoggerLevelError))
 }
@@ -127,77 +177,14 @@ func main() {
 }
 ```
 
-#### 使用`企业自建应用`访问 修改用户部分信息API 示例
-
-- 该接口是新的接口（请看"README.zh.md -> 已生成SDK的业务服务"），可以直接使用SDK。
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"github.com/larksuite/oapi-sdk-go/api/core/response"
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/config"
-	"github.com/larksuite/oapi-sdk-go/core/constants"
-	"github.com/larksuite/oapi-sdk-go/core/log"
-	"github.com/larksuite/oapi-sdk-go/core/tools"
-	contact "github.com/larksuite/oapi-sdk-go/service/contact/v3"
-)
-
-var conf *config.Config
-
-func init() {
-	appSettings := core.NewInternalAppSettings(
-		core.SetAppCredentials("AppID", "AppSecret"), // 必需
-		core.SetAppEventKey("VerificationToken", "EncryptKey"), // 非必需，订阅事件、消息卡片时必需
-		core.SetHelpDeskCredentials("HelpDeskID", "HelpDeskToken")) // 非必需，使用服务台API时必需
-
-	// 当前访问的是飞书，使用默认的内存存储（app/tenant access token）、默认日志（Debug级别）
-	// 更多介绍请看：Github->README.zh.md->高级使用->如何构建整体配置（Config）
-	conf = core.NewConfig(core.DomainFeiShu, appSettings, core.SetLoggerLevel(core.LoggerLevelError))
-}
-
-func main() {
-	service := contact.NewService(conf)
-	coreCtx := core.WrapContext(context.Background())
-	body := &contact.User{}
-	body.Name = "rename"
-	// 由于这是一个PATCH请求，需要明确更新哪些字段
-	body.ForceSendFields = append(body.ForceSendFields, "Name")
-	reqCall := service.Users.Patch(coreCtx, body)
-	reqCall.SetUserId("user id")
-	reqCall.SetUserIdType("user_id")
-	// 发送请求
-	result, err := reqCall.Do()
-	// 打印请求的RequestID
-	fmt.Println(coreCtx.GetRequestID())
-	// 打印请求的响应状态吗
-	fmt.Println(coreCtx.GetHTTPStatusCode())
-	// 请求的error处理
-	if err != nil {
-		e := err.(*response.Error)
-		fmt.Println(e.Code)
-		fmt.Println(e.Msg)
-		fmt.Println(tools.Prettify(err))
-		return
-	}
-	// 打印请求的结果
-	fmt.Println(tools.Prettify(result))
-}
-```
-
-#### [使用`应用商店应用`调用 服务端API 示例](doc/ISV.APP.README.zh.md)
-
 ### 订阅服务端事件
 
 - **必看** [订阅事件概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM) ，了解订阅事件的过程及注意事项。
 - 更多使用示例，请看[sample/event](sample/event)（含：结合gin的使用）
 
-#### 使用`企业自建应用` 订阅 [首次启用应用事件](https://open.feishu.cn/document/ukTMukTMukTM/uQTNxYjL0UTM24CN1EjN) 示例
+#### 使用`企业自建应用`订阅 [员工变更事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/events/updated) 示例
 
-- 有些老的事件，没有直接可以使用的SDK，可以使用`原生`模式
+- 在 [service](./service) 下的业务 Event，都是可以直接使用SDK。
 
 ```go
 package main
@@ -206,34 +193,37 @@ import (
 	"fmt"
 	"github.com/larksuite/oapi-sdk-go/core"
 	"github.com/larksuite/oapi-sdk-go/core/config"
-	"github.com/larksuite/oapi-sdk-go/core/constants"
-	"github.com/larksuite/oapi-sdk-go/core/log"
 	"github.com/larksuite/oapi-sdk-go/core/tools"
-	"github.com/larksuite/oapi-sdk-go/event"
 	eventhttpserver "github.com/larksuite/oapi-sdk-go/event/http/native"
+	contact "github.com/larksuite/oapi-sdk-go/service/contact/v3"
 	"net/http"
 )
 
 var conf *config.Config
 
 func init() {
+	// 企业自建应用的配置
+	// AppID、AppSecret: "开发者后台" -> "凭证与基础信息" -> 应用凭证（App ID、App Secret）
+	// EncryptKey、VerificationToken："开发者后台" -> "事件订阅" -> 事件订阅（Encrypt Key、Verification Token）
+	// HelpDeskID、HelpDeskToken：https://open.feishu.cn/document/ukTMukTMukTM/ugDOyYjL4gjM24CO4IjN
+	// 更多介绍请看：Github->README.zh.md->高级使用->如何构建应用配置（AppSettings）
 	appSettings := core.NewInternalAppSettings(
 		core.SetAppCredentials("AppID", "AppSecret"), // 必需
 		core.SetAppEventKey("VerificationToken", "EncryptKey"), // 非必需，订阅事件、消息卡片时必需
 		core.SetHelpDeskCredentials("HelpDeskID", "HelpDeskToken")) // 非必需，使用服务台API时必需
 
-	// 当前访问的是飞书，使用默认的内存存储（app/tenant access token）、默认日志（Debug级别）
+	// 当前访问的是飞书，使用默认的内存存储（app/tenant access token）、默认日志（Error级别）
 	// 更多介绍请看：Github->README.zh.md->高级使用->如何构建整体配置（Config）
 	conf = core.NewConfig(core.DomainFeiShu, appSettings, core.SetLoggerLevel(core.LoggerLevelError))
 }
 
 func main() {
-	// 设置首次启用应用事件callback
-	event.SetTypeCallback(conf, "app_open", func(ctx *core.Context, e map[string]interface{}) error {
-		// 打印请求的Request ID
+	// 设置用户数据变更事件处理者
+	contact.SetUserUpdatedEventHandler(conf, func(ctx *core.Context, event *contact.UserUpdatedEvent) error {
+		// 打印请求的Request ID，方便 oncall 排查问题
 		fmt.Println(ctx.GetRequestID())
 		// 打印事件
-		fmt.Println(tools.Prettify(e))
+		fmt.Println(tools.Prettify(event))
 		return nil
 	})
 
@@ -247,9 +237,9 @@ func main() {
 }
 ```
 
-#### 使用`企业自建应用`订阅 [用户数据变更事件](https://open.feishu.cn/document/ukTMukTMukTM/uITNxYjLyUTM24iM1EjN#70402aa) 示例
+#### 使用`企业自建应用` 订阅 [首次启用应用事件](https://open.feishu.cn/document/ukTMukTMukTM/uQTNxYjL0UTM24CN1EjN) 示例
 
-- 该接口是新的事件，可以直接使用SDK
+- 有些老的事件，没有直接可以使用的SDK，可以使用`原生`模式
 
 ```go
 package main
@@ -258,34 +248,37 @@ import (
 	"fmt"
 	"github.com/larksuite/oapi-sdk-go/core"
 	"github.com/larksuite/oapi-sdk-go/core/config"
-	"github.com/larksuite/oapi-sdk-go/core/constants"
-	"github.com/larksuite/oapi-sdk-go/core/log"
 	"github.com/larksuite/oapi-sdk-go/core/tools"
+	"github.com/larksuite/oapi-sdk-go/event"
 	eventhttpserver "github.com/larksuite/oapi-sdk-go/event/http/native"
-	contact "github.com/larksuite/oapi-sdk-go/service/contact/v3"
 	"net/http"
 )
 
 var conf *config.Config
 
 func init() {
+	// 企业自建应用的配置
+	// AppID、AppSecret: "开发者后台" -> "凭证与基础信息" -> 应用凭证（App ID、App Secret）
+	// EncryptKey、VerificationToken："开发者后台" -> "事件订阅" -> 事件订阅（Encrypt Key、Verification Token）
+	// HelpDeskID、HelpDeskToken：https://open.feishu.cn/document/ukTMukTMukTM/ugDOyYjL4gjM24CO4IjN
+	// 更多介绍请看：Github->README.zh.md->高级使用->如何构建应用配置（AppSettings）
 	appSettings := core.NewInternalAppSettings(
 		core.SetAppCredentials("AppID", "AppSecret"), // 必需
 		core.SetAppEventKey("VerificationToken", "EncryptKey"), // 非必需，订阅事件、消息卡片时必需
 		core.SetHelpDeskCredentials("HelpDeskID", "HelpDeskToken")) // 非必需，使用服务台API时必需
 
-	// 当前访问的是飞书，使用默认的内存存储（app/tenant access token）、默认日志（Debug级别）
+	// 当前访问的是飞书，使用默认的内存存储（app/tenant access token）、默认日志（Error级别）
 	// 更多介绍请看：Github->README.zh.md->高级使用->如何构建整体配置（Config）
 	conf = core.NewConfig(core.DomainFeiShu, appSettings, core.SetLoggerLevel(core.LoggerLevelError))
 }
 
 func main() {
-	// 设置用户数据变更事件处理者
-	contact.SetUserUpdatedEventHandler(conf, func(ctx *core.Context, event *contact.UserUpdatedEvent) error {
+	// 设置首次启用应用事件callback
+	event.SetTypeCallback(conf, "app_open", func(ctx *core.Context, e map[string]interface{}) error {
 		// 打印请求的Request ID
 		fmt.Println(ctx.GetRequestID())
 		// 打印事件
-		fmt.Println(tools.Prettify(event))
+		fmt.Println(tools.Prettify(e))
 		return nil
 	})
 
@@ -316,8 +309,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/card/model"
 	"github.com/larksuite/oapi-sdk-go/core"
 	"github.com/larksuite/oapi-sdk-go/core/config"
-	"github.com/larksuite/oapi-sdk-go/core/constants"
-	"github.com/larksuite/oapi-sdk-go/core/log"
 	"github.com/larksuite/oapi-sdk-go/core/tools"
 	"net/http"
 )
@@ -325,12 +316,17 @@ import (
 var conf *config.Config
 
 func init() {
+	// 企业自建应用的配置
+	// AppID、AppSecret: "开发者后台" -> "凭证与基础信息" -> 应用凭证（App ID、App Secret）
+	// EncryptKey、VerificationToken："开发者后台" -> "事件订阅" -> 事件订阅（Encrypt Key、Verification Token）
+	// HelpDeskID、HelpDeskToken：https://open.feishu.cn/document/ukTMukTMukTM/ugDOyYjL4gjM24CO4IjN
+	// 更多介绍请看：Github->README.zh.md->高级使用->如何构建应用配置（AppSettings）
 	appSettings := core.NewInternalAppSettings(
-		core.SetAppCredentials("AppID", "AppSecret"), // 必需
+		core.SetAppCredentials("AppID", "AppSecret"),           // 必需
 		core.SetAppEventKey("VerificationToken", "EncryptKey"), // 非必需，订阅事件、消息卡片时必需
 		core.SetHelpDeskCredentials("HelpDeskID", "HelpDeskToken")) // 非必需，使用服务台API时必需
 
-	// 当前访问的是飞书，使用默认的内存存储（app/tenant access token）、默认日志（Debug级别）
+	// 当前访问的是飞书，使用默认的内存存储（app/tenant access token）、默认日志（Error级别）
 	// 更多介绍请看：Github->README.zh.md->高级使用->如何构建整体配置（Config）
 	conf = core.NewConfig(core.DomainFeiShu, appSettings, core.SetLoggerLevel(core.LoggerLevelError))
 }
@@ -436,7 +432,11 @@ import (
 )
 
 // 参数说明：
-// httpPath：API路径（`open-apis/`之后的路径），例如：https://domain/open-apis/contact/v3/users/:user_id，则 httpPath："contact/v3/users/:user_id"
+// httpPath：API路径
+   // 例如：https://domain/open-apis/contact/v3/users/:user_id，
+   // 支持域名之后的路径，则 httpPath："/open-apis/contact/v3/users/:user_id"（推荐）
+   // 也支持全路径，则 httpPath："/open-apis/contact/v3/users/:user_id"
+   // 也支持 /open-apis/ 之后的路径，则 httpPath："contact/v3/users/:user_id"
 // httpMethod: GET/POST/PUT/BATCH/DELETE
 // accessTokenType：API使用哪种访问凭证，取值范围：request.AccessTokenTypeApp/request.AccessTokenTypeTenant/request.AccessTokenTypeUser，例如：request.AccessTokenTypeTenant
 // input：请求体（可能是request.NewFormData()（例如：文件上传））,如果不需要请求体（例如一些GET请求），则传：nil
@@ -536,32 +536,11 @@ readCloser, err := tools.DownloadFileToStream(ctx context.Context, url string)
 
 ```
 
-## 已生成SDK的业务服务
-
----
-
-|业务域|版本|路径|API示例|Event示例|
-|---|---|---|----|---|
-|[用户身份验证](https://open.feishu.cn/document/ukTMukTMukTM/uETOwYjLxkDM24SM5AjN)|v1|[service/authen](service/authen)|[sample/api/authen.go](sample/api/authen.go)||
-|[通讯录](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/introduction)|v3|[service/contact](service/contact)|[sample/api/contact.go](sample/api/contact.go)|[sample/event/contact.go](sample/event/contact.go)|
-|[日历](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN)|v4|[service/calendar](service/calendar)|[sample/api/calendar.go](sample/api/calendar.go)||
-|[视频会议](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/videoconference/guide)|v1|[service/vc](service/vc)|[sample/api/vc.go](sample/api/vc.go)||
-|[云空间文件](https://open.feishu.cn/document/ukTMukTMukTM/uUjM5YjL1ITO24SNykjN)|v1|[service/drive](service/drive)|[sample/api/drive.go](sample/api/drive.go)||
-|[消息&群组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)|v1|[service/im](service/im)|[sample/api/im.go](sample/api/im.go)|[sample/event/im.go](sample/event/im.go)|
-|[AI能力-光学字符识别（OCR）](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/optical_char_recognition-v1/image/basic_recognize)|v1|[service/optical_char_recognition](service/optical_char_recognition)|[sample/api/optical_char_recognition.go](sample/api/optical_char_recognition.go)||
-|[AI能力-语音识别（ASR）](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/speech_to_text-v1/speech/stream_recognize)|v1|[service/speech_to_text](service/speech_to_text)|[sample/api/speech_to_text.go](sample/api/speech_to_text.go)||
-|[AI能力-机器翻译（MT）](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/translation-v1/text/translate)|v1|[service/translation](service/translation)|[sample/api/translation.go](sample/api/translation.go)||
-
 ## License
 
 ---
 
 - MIT
 
-## 联系我们
-
----
-
-- 飞书：[服务端SDK](https://open.feishu.cn/document/ukTMukTMukTM/uETO1YjLxkTN24SM5UjN) 页面右上角【这篇文档是否对你有帮助？】提交反馈
 
 

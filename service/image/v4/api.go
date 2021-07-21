@@ -50,7 +50,7 @@ func (rc *ImageGetReqCall) SetResponseStream(result io.Writer) {
 func (rc *ImageGetReqCall) Do() (io.Writer, error) {
 	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
 	rc.optFns = append(rc.optFns, request.SetResponseStream())
-	req := request.NewRequest("image/v4/get", "GET",
+	req := request.NewRequest("/open-apis/image/v4/get", "GET",
 		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, rc.result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.images.service.conf, req)
 	return rc.result, err
@@ -81,7 +81,7 @@ func (rc *ImagePutReqCall) SetImageType(imageType string) {
 
 func (rc *ImagePutReqCall) Do() (*Image, error) {
 	var result = &Image{}
-	req := request.NewRequest("image/v4/put", "POST",
+	req := request.NewRequest("/open-apis/image/v4/put", "POST",
 		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.images.service.conf, req)
 	return result, err

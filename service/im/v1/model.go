@@ -212,6 +212,17 @@ func (s *ChatChange) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
+type Emoji struct {
+	EmojiType       string   `json:"emoji_type,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *Emoji) MarshalJSON() ([]byte, error) {
+	type cp Emoji
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
 type EventMessageReader struct {
 	ReaderId        *UserId  `json:"reader_id,omitempty"`
 	ReadTime        string   `json:"read_time,omitempty"`
@@ -311,48 +322,6 @@ func (s *Mention) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
-type ReadUser struct {
-	UserIdType      string   `json:"user_id_type,omitempty"`
-	UserId          string   `json:"user_id,omitempty"`
-	Timestamp       string   `json:"timestamp,omitempty"`
-	TenantKey       string   `json:"tenant_key,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *ReadUser) MarshalJSON() ([]byte, error) {
-	type cp ReadUser
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type Sender struct {
-	Id              string   `json:"id,omitempty"`
-	IdType          string   `json:"id_type,omitempty"`
-	SenderType      string   `json:"sender_type,omitempty"`
-	TenantKey       string   `json:"tenant_key,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *Sender) MarshalJSON() ([]byte, error) {
-	type cp Sender
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type ChatCustomBot struct {
-}
-
-type Emoji struct {
-	EmojiType       string   `json:"emoji_type,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *Emoji) MarshalJSON() ([]byte, error) {
-	type cp Emoji
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
 type MentionEvent struct {
 	Key             string   `json:"key,omitempty"`
 	Id              *UserId  `json:"id,omitempty"`
@@ -389,6 +358,34 @@ type Operator struct {
 
 func (s *Operator) MarshalJSON() ([]byte, error) {
 	type cp Operator
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type ReadUser struct {
+	UserIdType      string   `json:"user_id_type,omitempty"`
+	UserId          string   `json:"user_id,omitempty"`
+	Timestamp       string   `json:"timestamp,omitempty"`
+	TenantKey       string   `json:"tenant_key,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *ReadUser) MarshalJSON() ([]byte, error) {
+	type cp ReadUser
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type Sender struct {
+	Id              string   `json:"id,omitempty"`
+	IdType          string   `json:"id_type,omitempty"`
+	SenderType      string   `json:"sender_type,omitempty"`
+	TenantKey       string   `json:"tenant_key,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *Sender) MarshalJSON() ([]byte, error) {
+	type cp Sender
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
@@ -585,6 +582,13 @@ type ChatMembersDeleteResult struct {
 	InvalidIdList []string `json:"invalid_id_list,omitempty"`
 }
 
+type ChatMembersGetResult struct {
+	Items       []*ListMember `json:"items,omitempty"`
+	PageToken   string        `json:"page_token,omitempty"`
+	HasMore     bool          `json:"has_more,omitempty"`
+	MemberTotal int           `json:"member_total,omitempty"`
+}
+
 type ChatAnnouncementGetResult struct {
 	Content        string `json:"content,omitempty"`
 	Revision       string `json:"revision,omitempty"`
@@ -594,13 +598,6 @@ type ChatAnnouncementGetResult struct {
 	OwnerId        string `json:"owner_id,omitempty"`
 	ModifierIdType string `json:"modifier_id_type,omitempty"`
 	ModifierId     string `json:"modifier_id,omitempty"`
-}
-
-type ChatMembersGetResult struct {
-	Items       []*ListMember `json:"items,omitempty"`
-	PageToken   string        `json:"page_token,omitempty"`
-	HasMore     bool          `json:"has_more,omitempty"`
-	MemberTotal int           `json:"member_total,omitempty"`
 }
 
 type ChatMembersIsInChatResult struct {
@@ -617,97 +614,6 @@ func (s *ChatAnnouncementPatchReqBody) MarshalJSON() ([]byte, error) {
 	type cp ChatAnnouncementPatchReqBody
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type ChatCustomBotCreateReqBody struct {
-	ChatId          int64    `json:"chat_id,omitempty,string"`
-	AvatarKey       string   `json:"avatar_key,omitempty"`
-	Name            string   `json:"name,omitempty"`
-	Description     string   `json:"description,omitempty"`
-	AllowIps        []string `json:"allow_ips,omitempty"`
-	KeyWords        []string `json:"key_words,omitempty"`
-	SignatureStatus bool     `json:"signature_status,omitempty"`
-	Uuid            int64    `json:"uuid,omitempty,string"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *ChatCustomBotCreateReqBody) MarshalJSON() ([]byte, error) {
-	type cp ChatCustomBotCreateReqBody
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type ChatCustomBotCreateResult struct {
-	BotId            int64      `json:"bot_id,omitempty,string"`
-	ChatId           int64      `json:"chat_id,omitempty,string"`
-	AvatarKey        string     `json:"avatar_key,omitempty"`
-	Name             string     `json:"name,omitempty"`
-	Description      string     `json:"description,omitempty"`
-	I18nNames        *I18nNames `json:"i18n_names,omitempty"`
-	I18nDescriptions *I18nNames `json:"i18n_descriptions,omitempty"`
-	Webhook          string     `json:"webhook,omitempty"`
-	AllowIps         []string   `json:"allow_ips,omitempty"`
-	KeyWords         []string   `json:"key_words,omitempty"`
-	SignatureStatus  bool       `json:"signature_status,omitempty"`
-	Signature        string     `json:"signature,omitempty"`
-	Enable           bool       `json:"enable,omitempty"`
-	InvitorId        int64      `json:"invitor_id,omitempty,string"`
-	InvitorIdType    string     `json:"invitor_id_type,omitempty"`
-	Version          int64      `json:"version,omitempty,string"`
-}
-
-type ChatCustomBotGetResult struct {
-	BotId            int64      `json:"bot_id,omitempty,string"`
-	ChatId           int64      `json:"chat_id,omitempty,string"`
-	AvatarKey        string     `json:"avatar_key,omitempty"`
-	Name             string     `json:"name,omitempty"`
-	Description      string     `json:"description,omitempty"`
-	I18nNames        *I18nNames `json:"i18n_names,omitempty"`
-	I18nDescriptions *I18nNames `json:"i18n_descriptions,omitempty"`
-	Webhook          string     `json:"webhook,omitempty"`
-	AllowIps         []string   `json:"allow_ips,omitempty"`
-	KeyWords         []string   `json:"key_words,omitempty"`
-	SignatureStatus  bool       `json:"signature_status,omitempty"`
-	Signature        string     `json:"signature,omitempty"`
-	Enable           bool       `json:"enable,omitempty"`
-	InvitorId        int64      `json:"invitor_id,omitempty,string"`
-	InvitorIdType    string     `json:"invitor_id_type,omitempty"`
-	Version          int64      `json:"version,omitempty,string"`
-}
-
-type ChatCustomBotPatchReqBody struct {
-	AvatarKey       string   `json:"avatar_key,omitempty"`
-	Name            string   `json:"name,omitempty"`
-	Description     string   `json:"description,omitempty"`
-	AllowIps        []string `json:"allow_ips,omitempty"`
-	KeyWords        []string `json:"key_words,omitempty"`
-	SignatureStatus bool     `json:"signature_status,omitempty"`
-	ChangeSignature bool     `json:"change_signature,omitempty"`
-	Enable          bool     `json:"enable,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *ChatCustomBotPatchReqBody) MarshalJSON() ([]byte, error) {
-	type cp ChatCustomBotPatchReqBody
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type MessageReactionCreateReqBody struct {
-	ReactionType    *Emoji   `json:"reaction_type,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *MessageReactionCreateReqBody) MarshalJSON() ([]byte, error) {
-	type cp MessageReactionCreateReqBody
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type MessageReactionListResult struct {
-	Items     []*MessageReaction `json:"items,omitempty"`
-	HasMore   bool               `json:"has_more,omitempty"`
-	PageToken string             `json:"page_token,omitempty"`
 }
 
 type MessageReceiveEventData struct {
@@ -747,6 +653,18 @@ type ChatDisbandedEvent struct {
 	Event *ChatDisbandedEventData `json:"event"`
 }
 
+type ChatMemberBotAddedEventData struct {
+	ChatId            string  `json:"chat_id,omitempty"`
+	OperatorId        *UserId `json:"operator_id,omitempty"`
+	External          bool    `json:"external,omitempty"`
+	OperatorTenantKey string  `json:"operator_tenant_key,omitempty"`
+}
+
+type ChatMemberBotAddedEvent struct {
+	*model.BaseEventV2
+	Event *ChatMemberBotAddedEventData `json:"event"`
+}
+
 type ChatMemberUserAddedEventData struct {
 	ChatId            string            `json:"chat_id,omitempty"`
 	OperatorId        *UserId           `json:"operator_id,omitempty"`
@@ -758,18 +676,6 @@ type ChatMemberUserAddedEventData struct {
 type ChatMemberUserAddedEvent struct {
 	*model.BaseEventV2
 	Event *ChatMemberUserAddedEventData `json:"event"`
-}
-
-type ChatMemberBotAddedEventData struct {
-	ChatId            string  `json:"chat_id,omitempty"`
-	OperatorId        *UserId `json:"operator_id,omitempty"`
-	External          bool    `json:"external,omitempty"`
-	OperatorTenantKey string  `json:"operator_tenant_key,omitempty"`
-}
-
-type ChatMemberBotAddedEvent struct {
-	*model.BaseEventV2
-	Event *ChatMemberBotAddedEventData `json:"event"`
 }
 
 type ChatMemberBotDeletedEventData struct {
@@ -810,16 +716,6 @@ type ChatMemberUserDeletedEvent struct {
 	Event *ChatMemberUserDeletedEventData `json:"event"`
 }
 
-type MessageAtMessageReadEventData struct {
-	Reader        *EventMessageReader `json:"reader,omitempty"`
-	MessageIdList []string            `json:"message_id_list,omitempty"`
-}
-
-type MessageAtMessageReadEvent struct {
-	*model.BaseEventV2
-	Event *MessageAtMessageReadEventData `json:"event"`
-}
-
 type MessageMessageReadEventData struct {
 	Reader        *EventMessageReader `json:"reader,omitempty"`
 	MessageIdList []string            `json:"message_id_list,omitempty"`
@@ -828,42 +724,4 @@ type MessageMessageReadEventData struct {
 type MessageMessageReadEvent struct {
 	*model.BaseEventV2
 	Event *MessageMessageReadEventData `json:"event"`
-}
-
-type MessageUrgentMessageReadEventData struct {
-	Reader    *EventMessageReader `json:"reader,omitempty"`
-	MessageId string              `json:"message_id,omitempty"`
-}
-
-type MessageUrgentMessageReadEvent struct {
-	*model.BaseEventV2
-	Event *MessageUrgentMessageReadEventData `json:"event"`
-}
-
-type MessageReactionCreatedEventData struct {
-	MessageId    string  `json:"message_id,omitempty"`
-	ReactionType *Emoji  `json:"reaction_type,omitempty"`
-	OperatorType string  `json:"operator_type,omitempty"`
-	UserId       *UserId `json:"user_id,omitempty"`
-	AppId        string  `json:"app_id,omitempty"`
-	ActionTime   string  `json:"action_time,omitempty"`
-}
-
-type MessageReactionCreatedEvent struct {
-	*model.BaseEventV2
-	Event *MessageReactionCreatedEventData `json:"event"`
-}
-
-type MessageReactionDeletedEventData struct {
-	MessageId    string  `json:"message_id,omitempty"`
-	ReactionType *Emoji  `json:"reaction_type,omitempty"`
-	OperatorType string  `json:"operator_type,omitempty"`
-	UserId       *UserId `json:"user_id,omitempty"`
-	AppId        string  `json:"app_id,omitempty"`
-	ActionTime   string  `json:"action_time,omitempty"`
-}
-
-type MessageReactionDeletedEvent struct {
-	*model.BaseEventV2
-	Event *MessageReactionDeletedEventData `json:"event"`
 }

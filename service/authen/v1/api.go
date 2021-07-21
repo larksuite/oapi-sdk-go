@@ -40,7 +40,7 @@ type AuthenAccessTokenReqCall struct {
 
 func (rc *AuthenAccessTokenReqCall) Do() (*UserAccessTokenInfo, error) {
 	var result = &UserAccessTokenInfo{}
-	req := request.NewRequest("authen/v1/access_token", "POST",
+	req := request.NewRequest("/open-apis/authen/v1/access_token", "POST",
 		[]request.AccessTokenType{request.AccessTokenTypeApp}, rc.body, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.authens.service.conf, req)
 	return result, err
@@ -64,7 +64,7 @@ type AuthenRefreshAccessTokenReqCall struct {
 
 func (rc *AuthenRefreshAccessTokenReqCall) Do() (*UserAccessTokenInfo, error) {
 	var result = &UserAccessTokenInfo{}
-	req := request.NewRequest("authen/v1/refresh_access_token", "POST",
+	req := request.NewRequest("/open-apis/authen/v1/refresh_access_token", "POST",
 		[]request.AccessTokenType{request.AccessTokenTypeApp}, rc.body, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.authens.service.conf, req)
 	return result, err
@@ -87,7 +87,7 @@ type AuthenUserInfoReqCall struct {
 
 func (rc *AuthenUserInfoReqCall) Do() (*UserInfo, error) {
 	var result = &UserInfo{}
-	req := request.NewRequest("authen/v1/user_info", "GET",
+	req := request.NewRequest("/open-apis/authen/v1/user_info", "GET",
 		[]request.AccessTokenType{request.AccessTokenTypeUser}, nil, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.authens.service.conf, req)
 	return result, err

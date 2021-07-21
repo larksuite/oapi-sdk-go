@@ -84,8 +84,8 @@ func SetAppCredentials(appID, appSecret string) AppSettingsOpt {
 
 func SetAppEventKey(verificationToken, encryptKey string) AppSettingsOpt {
 	return func(settings *AppSettings) {
-		settings.EncryptKey = encryptKey
 		settings.VerificationToken = verificationToken
+		settings.EncryptKey = encryptKey
 	}
 }
 
