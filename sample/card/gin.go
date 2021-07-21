@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/larksuite/oapi-sdk-go/card"
-	cardtttp "github.com/larksuite/oapi-sdk-go/card/http"
+	cardhttp "github.com/larksuite/oapi-sdk-go/card/http"
 	"github.com/larksuite/oapi-sdk-go/card/model"
 	"github.com/larksuite/oapi-sdk-go/core"
 	"github.com/larksuite/oapi-sdk-go/core/tools"
@@ -26,7 +26,7 @@ func main() {
 
 	g := gin.Default()
 	g.POST("/webhook/card", func(context *gin.Context) {
-		cardtttp.Handle(conf, context.Request, context.Writer)
+		cardhttp.Handle(conf, context.Request, context.Writer)
 	})
 	err := g.Run(":8089")
 	if err != nil {
