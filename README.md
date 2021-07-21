@@ -72,9 +72,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/api/core/request"
 	"github.com/larksuite/oapi-sdk-go/api/core/response"
 	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/config"
-	"github.com/larksuite/oapi-sdk-go/core/constants"
-	"github.com/larksuite/oapi-sdk-go/core/log"
 	"github.com/larksuite/oapi-sdk-go/core/tools"
 )
 
@@ -83,7 +80,7 @@ func main() {
 	// AppID、AppSecret: "Developer Console" -> "Credentials"（App ID、App Secret）
 	// EncryptKey、VerificationToken："Developer Console" -> "Event Subscriptions"（Encrypt Key、Verification Token）
 	appSettings := core.NewInternalAppSettings(
-		core.SetAppCredentials("AppID", "AppSecret"), // Required
+		core.SetAppCredentials("AppID", "AppSecret"),           // Required
 		core.SetAppEventKey("VerificationToken", "EncryptKey"), // Not required. Required for event、card subscription
 	)
 
@@ -121,6 +118,7 @@ func main() {
 	// Print the result of the request
 	fmt.Println(tools.Prettify(ret))
 }
+
 ```
 
 ### Subscribe to events
@@ -139,9 +137,6 @@ package main
 import (
 	"fmt"
 	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/config"
-	"github.com/larksuite/oapi-sdk-go/core/constants"
-	"github.com/larksuite/oapi-sdk-go/core/log"
 	"github.com/larksuite/oapi-sdk-go/core/tools"
 	"github.com/larksuite/oapi-sdk-go/event"
 	eventhttpserver "github.com/larksuite/oapi-sdk-go/event/http/native"
@@ -154,7 +149,7 @@ func main() {
 	// AppID、AppSecret: "Developer Console" -> "Credentials"（App ID、App Secret）
 	// EncryptKey、VerificationToken："Developer Console" -> "Event Subscriptions"（Encrypt Key、Verification Token）
 	appSettings := core.NewInternalAppSettings(
-		core.SetAppCredentials("AppID", "AppSecret"), // Required
+		core.SetAppCredentials("AppID", "AppSecret"),           // Required
 		core.SetAppEventKey("VerificationToken", "EncryptKey"), // Not required. Required for event、card subscription
 	)
 
@@ -177,6 +172,7 @@ func main() {
 		panic(err)
 	}
 }
+
 ```
 
 ### Processing message card callbacks
@@ -196,9 +192,6 @@ import (
 	cardhttpserver "github.com/larksuite/oapi-sdk-go/card/http/native"
 	"github.com/larksuite/oapi-sdk-go/card/model"
 	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/config"
-	"github.com/larksuite/oapi-sdk-go/core/constants"
-	"github.com/larksuite/oapi-sdk-go/core/log"
 	"github.com/larksuite/oapi-sdk-go/core/tools"
 	"net/http"
 )
@@ -209,7 +202,7 @@ func main() {
 	// AppID、AppSecret: "Developer Console" -> "Credentials"（App ID、App Secret）
 	// EncryptKey、VerificationToken："Developer Console" -> "Event Subscriptions"（Encrypt Key、Verification Token）
 	appSettings := core.NewInternalAppSettings(
-		core.SetAppCredentials("AppID", "AppSecret"), // Required
+		core.SetAppCredentials("AppID", "AppSecret"),           // Required
 		core.SetAppEventKey("VerificationToken", "EncryptKey"), // Not required. Required for event、card subscription
 	)
 
@@ -231,13 +224,10 @@ func main() {
 		panic(err)
 	}
 }
-```    
 
-## Advanced use
+```
 
----
-
-### How to build app settings(AppSettings)
+## How to build app settings(AppSettings)
 
 ```go
 
@@ -275,7 +265,7 @@ core.SetHelpDeskCredentials("HelpDeskID", "HelpDeskToken"), // Not required. Req
 )
 ```
 
-### How to build overall configuration(Config)
+## How to build overall configuration(Config)
 
 - Visit Larksuite, Feishu or others
 - App settings
@@ -309,7 +299,7 @@ import (
 conf = core.NewConfig(domain Domain, appSettings *config.AppSettings, opts ...ConfigOpt)
 ```
 
-### How to build a request(Request)
+## How to build a request(Request)
 
 - Some of the old interfaces do not have an SDK that can be used directly. They can use `native` mode. At this time,
   they need to build requests.
@@ -321,7 +311,7 @@ import (
 )
 
 // Parameter Description:
-// httpPath：API path（the path after `open-apis/`）, for example: https://domain/open-apis/contact/v3/users/:user_id, then httpPath："contact/v3/users/:user_id"
+// httpPath：API path（the path after domain）, for example: https://domain/open-apis/contact/v3/users/:user_id, then httpPath："/open-apis/contact/v3/users/:user_id"
 // httpMethod: GET/POST/PUT/BATCH/DELETE
 // accessTokenType：What kind of access certificate does the API use and the value range：request.AccessTokenTypeApp/request.AccessTokenTypeTenant/request.AccessTokenTypeUser, for example: request.AccessTokenTypeTenant
 // input：Request body (possibly request.NewFormData () (e.g. file upload)), if the request body (e.g. some get requests) is not needed, it will be transferred to: nil
@@ -338,7 +328,7 @@ req := request.NewRequestWithNative(httpPath, httpMethod string, accessTokenType
 input interface{}, output interface{}, optFns ...OptFn)
 ```
 
-### How to build request context(core.Context) And common methods
+## How to build request context(core.Context) And common methods
 
 ```go
 import(
@@ -362,7 +352,7 @@ conf := config.ByCtx(ctx *core.Context)
 
 ```
 
-### How to send a request
+## How to send a request
 
 - Since the SDK has encapsulated the app_access_token、tenant_access_token So when calling the business API, you don't need to get the app_access_token、tenant_access_token. If the business interface needs to use user_access_token, which needs to be set（request.SetUserAccessToken("user_access_token")), Please refer to README.md -> How to build a request(Request)
 - For more use examples, please see: [sample/api/api.go](sample/api/api.go)
