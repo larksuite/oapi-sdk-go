@@ -78,11 +78,11 @@ func init() {
 	// AppID、AppSecret: "开发者后台" -> "凭证与基础信息" -> 应用凭证（App ID、App Secret）
 	// EncryptKey、VerificationToken："开发者后台" -> "事件订阅" -> 事件订阅（Encrypt Key、Verification Token）
 	// HelpDeskID、HelpDeskToken：https://open.feishu.cn/document/ukTMukTMukTM/ugDOyYjL4gjM24CO4IjN
-	// 更多介绍请看：Github->README.zh.md->高级使用->如何构建应用配置（AppSettings）
+	// 更多介绍请看：Github->README.zh.md->如何构建应用配置（AppSettings）
 	appSettings := core.GetInternalAppSettingsByEnv()
 
 	// 当前访问的是飞书，使用默认的内存存储（app/tenant access token）、默认日志（Error级别）
-	// 更多介绍请看：Github->README.zh.md->高级使用->如何构建整体配置（Config）
+	// 更多介绍请看：Github->README.zh.md->如何构建整体配置（Config）
 	conf = core.NewConfig(core.DomainFeiShu, appSettings, core.SetLoggerLevel(core.LoggerLevelError))
 }
 
@@ -139,7 +139,7 @@ func init() {
 		core.SetHelpDeskCredentials("HelpDeskID", "HelpDeskToken")) // 非必需，使用服务台API时必需
 
 	// 当前访问的是飞书，使用默认的内存存储（app/tenant access token）、默认日志（Error级别）
-	// 更多介绍请看：Github->README.zh.md->高级使用->如何构建整体配置（Config）
+	// 更多介绍请看：Github->README.zh.md->如何构建整体配置（Config）
 	conf = core.NewConfig(core.DomainFeiShu, appSettings, core.SetLoggerLevel(core.LoggerLevelError))
 }
 
@@ -206,14 +206,14 @@ func init() {
 	// AppID、AppSecret: "开发者后台" -> "凭证与基础信息" -> 应用凭证（App ID、App Secret）
 	// EncryptKey、VerificationToken："开发者后台" -> "事件订阅" -> 事件订阅（Encrypt Key、Verification Token）
 	// HelpDeskID、HelpDeskToken：https://open.feishu.cn/document/ukTMukTMukTM/ugDOyYjL4gjM24CO4IjN
-	// 更多介绍请看：Github->README.zh.md->高级使用->如何构建应用配置（AppSettings）
+	// 更多介绍请看：Github->README.zh.md->如何构建应用配置（AppSettings）
 	appSettings := core.NewInternalAppSettings(
 		core.SetAppCredentials("AppID", "AppSecret"), // 必需
 		core.SetAppEventKey("VerificationToken", "EncryptKey"), // 非必需，订阅事件、消息卡片时必需
 		core.SetHelpDeskCredentials("HelpDeskID", "HelpDeskToken")) // 非必需，使用服务台API时必需
 
 	// 当前访问的是飞书，使用默认的内存存储（app/tenant access token）、默认日志（Error级别）
-	// 更多介绍请看：Github->README.zh.md->高级使用->如何构建整体配置（Config）
+	// 更多介绍请看：Github->README.zh.md->如何构建整体配置（Config）
 	conf = core.NewConfig(core.DomainFeiShu, appSettings, core.SetLoggerLevel(core.LoggerLevelError))
 }
 
@@ -261,14 +261,14 @@ func init() {
 	// AppID、AppSecret: "开发者后台" -> "凭证与基础信息" -> 应用凭证（App ID、App Secret）
 	// EncryptKey、VerificationToken："开发者后台" -> "事件订阅" -> 事件订阅（Encrypt Key、Verification Token）
 	// HelpDeskID、HelpDeskToken：https://open.feishu.cn/document/ukTMukTMukTM/ugDOyYjL4gjM24CO4IjN
-	// 更多介绍请看：Github->README.zh.md->高级使用->如何构建应用配置（AppSettings）
+	// 更多介绍请看：Github->README.zh.md->如何构建应用配置（AppSettings）
 	appSettings := core.NewInternalAppSettings(
 		core.SetAppCredentials("AppID", "AppSecret"), // 必需
 		core.SetAppEventKey("VerificationToken", "EncryptKey"), // 非必需，订阅事件、消息卡片时必需
 		core.SetHelpDeskCredentials("HelpDeskID", "HelpDeskToken")) // 非必需，使用服务台API时必需
 
 	// 当前访问的是飞书，使用默认的内存存储（app/tenant access token）、默认日志（Error级别）
-	// 更多介绍请看：Github->README.zh.md->高级使用->如何构建整体配置（Config）
+	// 更多介绍请看：Github->README.zh.md->如何构建整体配置（Config）
 	conf = core.NewConfig(core.DomainFeiShu, appSettings, core.SetLoggerLevel(core.LoggerLevelError))
 }
 
@@ -320,14 +320,14 @@ func init() {
 	// AppID、AppSecret: "开发者后台" -> "凭证与基础信息" -> 应用凭证（App ID、App Secret）
 	// EncryptKey、VerificationToken："开发者后台" -> "事件订阅" -> 事件订阅（Encrypt Key、Verification Token）
 	// HelpDeskID、HelpDeskToken：https://open.feishu.cn/document/ukTMukTMukTM/ugDOyYjL4gjM24CO4IjN
-	// 更多介绍请看：Github->README.zh.md->高级使用->如何构建应用配置（AppSettings）
+	// 更多介绍请看：Github->README.zh.md->如何构建应用配置（AppSettings）
 	appSettings := core.NewInternalAppSettings(
 		core.SetAppCredentials("AppID", "AppSecret"),           // 必需
 		core.SetAppEventKey("VerificationToken", "EncryptKey"), // 非必需，订阅事件、消息卡片时必需
 		core.SetHelpDeskCredentials("HelpDeskID", "HelpDeskToken")) // 非必需，使用服务台API时必需
 
 	// 当前访问的是飞书，使用默认的内存存储（app/tenant access token）、默认日志（Error级别）
-	// 更多介绍请看：Github->README.zh.md->高级使用->如何构建整体配置（Config）
+	// 更多介绍请看：Github->README.zh.md->如何构建整体配置（Config）
 	conf = core.NewConfig(core.DomainFeiShu, appSettings, core.SetLoggerLevel(core.LoggerLevelError))
 }
 
@@ -347,13 +347,9 @@ func main() {
 		panic(err)
 	}
 }
-```    
+```
 
-## 高级使用
-
----
-
-### 如何构建应用配置（AppSettings）
+## 如何构建应用配置（AppSettings）
 
 ```go
 import (
@@ -392,7 +388,7 @@ core.SetHelpDeskCredentials("HelpDeskID", "HelpDeskToken"), // 非必需，访�
 
 ```
 
-### 如何构建整体配置（Config）
+## 如何构建整体配置（Config）
 
 - 访问 飞书、LarkSuite或者其他
 - 应用的配置
@@ -421,7 +417,7 @@ import (
 conf = core.NewConfig(domain Domain, appSettings *config.AppSettings, opts ...ConfigOpt)
 ```
 
-### 如何构建请求（Request）
+## 如何构建请求（Request）
 
 - 有些老版接口，没有直接可以使用的SDK，可以使用原生模式，这时需要构建请求。
 - 更多示例，请看：[sample/api/api.go](sample/api/api.go)（含：文件的上传与下载）
@@ -453,7 +449,7 @@ req := request.NewRequestWithNative(httpPath, httpMethod string, accessTokenType
 
 ```
 
-### 如何构建请求上下文（core.Context）及常用方法
+## 如何构建请求上下文（core.Context）及常用方法
 
 ```go
 import(
@@ -478,7 +474,7 @@ conf := config.ByCtx(ctx *core.Context)
 
 ```
 
-### 如何发送请求
+## 如何发送请求
 
 - 由于SDK已经封装了app_access_token、tenant_access_token的获取，所以在调业务API的时候，不需要去获取app_access_token、tenant_access_token。如果业务接口需要使用user_access_token，需要进行设置（request.SetUserAccessToken("UserAccessToken")），具体请看 README.zh.md -> 如何构建请求（Request）
 - 更多使用示例，请看：[sample/api/api.go](sample/api/api.go)
@@ -505,7 +501,7 @@ err := api.Send(ctx *core.Context, conf *config.Config, req *request.Request)
 
 ```
 
-### 下载文件工具
+## 下载文件工具
 
 - 通过网络请求下载文件
 - 更多使用示例，请看：[sample/tools/file_download.go](sample/tools/file_download.go)
