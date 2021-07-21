@@ -6,16 +6,15 @@ import (
 	"github.com/larksuite/oapi-sdk-go/api/core/request"
 	"github.com/larksuite/oapi-sdk-go/api/core/response"
 	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/constants"
 	"github.com/larksuite/oapi-sdk-go/core/tools"
 	"github.com/larksuite/oapi-sdk-go/sample/configs"
 	authen "github.com/larksuite/oapi-sdk-go/service/authen/v1"
 )
 
 // for redis store and logrus
-// configs.TestConfigWithLogrusAndRedisStore(constants.DomainFeiShu)
+// configs.TestConfigWithLogrusAndRedisStore(core.DomainFeiShu)
 // configs.TestConfig("https://open.feishu.cn")
-var authenService = authen.NewService(configs.TestConfig(constants.DomainFeiShu))
+var authenService = authen.NewService(configs.TestConfig(core.DomainFeiShu))
 
 func main() {
 	testAccessToken()

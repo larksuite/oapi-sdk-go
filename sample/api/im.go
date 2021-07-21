@@ -7,7 +7,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/api/core/request"
 	"github.com/larksuite/oapi-sdk-go/api/core/response"
 	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/constants"
 	"github.com/larksuite/oapi-sdk-go/core/tools"
 	"github.com/larksuite/oapi-sdk-go/sample/configs"
 	im "github.com/larksuite/oapi-sdk-go/service/im/v1"
@@ -16,12 +15,12 @@ import (
 )
 
 // for redis store and logrus
-// configs.TestConfigWithLogrusAndRedisStore(constants.DomainFeiShu)
+// configs.TestConfigWithLogrusAndRedisStore(core.DomainFeiShu)
 // configs.TestConfig("https://open.feishu.cn")
-var imService = im.NewService(configs.TestConfig(constants.DomainFeiShu))
+var imService = im.NewService(configs.TestConfig(core.DomainFeiShu))
 
 func main() {
-	//testMessageCreate()
+	testMessageCreate()
 	//testFileCreate()
 	testFileRead()
 }
@@ -29,6 +28,7 @@ func main() {
 func testMessageCreate() {
 	coreCtx := core.WrapContext(context.Background())
 	reqCall := imService.Messages.Create(coreCtx, &im.MessageCreateReqBody{
+		// ReceiveId: "b1g6b445",
 		ReceiveId: "ou_a11d2bcc7d852afbcaf37e5b3ad01f7e",
 		Content:   "{\"text\":\"<at user_id=\\\"ou_a11d2bcc7d852afbcaf37e5b3ad01f7e\\\">Tom</at> test content\"}",
 		MsgType:   "text",

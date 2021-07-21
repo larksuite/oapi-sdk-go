@@ -147,6 +147,17 @@ func (s *CopySheet) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
+type CopySheetReply struct {
+	Properties      *Properties `json:"properties,omitempty"`
+	ForceSendFields []string    `json:"-"`
+}
+
+func (s *CopySheetReply) MarshalJSON() ([]byte, error) {
+	type cp CopySheetReply
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
 type DataValidationDeleteResult struct {
 	Range           string   `json:"range,omitempty"`
 	Msg             string   `json:"msg,omitempty"`
@@ -363,7 +374,7 @@ func (s *Properties) MarshalJSON() ([]byte, error) {
 type Protect struct {
 	Lock            string   `json:"lock,omitempty"`
 	LockInfo        string   `json:"lockInfo,omitempty"`
-	UserIds         []int    `json:"userIds,omitempty"`
+	UserIds         []int64  `json:"userIds,omitempty"`
 	ForceSendFields []string `json:"-"`
 }
 
@@ -405,8 +416,8 @@ func (s *ProtectedRangeUpdate) MarshalJSON() ([]byte, error) {
 
 type Reply struct {
 	UpdateSheet     *Properties       `json:"updateSheet,omitempty"`
-	AddSheet        *Properties       `json:"addSheet,omitempty"`
-	CopySheet       *Properties       `json:"copySheet,omitempty"`
+	AddSheet        *AddSheet         `json:"addSheet,omitempty"`
+	CopySheet       *CopySheetReply   `json:"copySheet,omitempty"`
 	DeleteSheet     *DeleteSheetReply `json:"deleteSheet,omitempty"`
 	ForceSendFields []string          `json:"-"`
 }
@@ -421,7 +432,7 @@ type Requests struct {
 	AddSheet        *AddSheet    `json:"addSheet,omitempty"`
 	CopySheet       *CopySheet   `json:"copySheet,omitempty"`
 	DeleteSheet     *DeleteSheet `json:"deleteSheet,omitempty"`
-	UpdateSheet     *Properties  `json:"updateSheet,omitempty"`
+	UpdateSheet     *UpdateSheet `json:"updateSheet,omitempty"`
 	ForceSendFields []string     `json:"-"`
 }
 
@@ -531,6 +542,17 @@ type UpdateResponse struct {
 
 func (s *UpdateResponse) MarshalJSON() ([]byte, error) {
 	type cp UpdateResponse
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type UpdateSheet struct {
+	Properties      *Properties `json:"properties,omitempty"`
+	ForceSendFields []string    `json:"-"`
+}
+
+func (s *UpdateSheet) MarshalJSON() ([]byte, error) {
+	type cp UpdateSheet
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }

@@ -47,7 +47,7 @@ func (rc *DocBatchUpdateReqCall) SetDocToken(docToken string) {
 func (rc *DocBatchUpdateReqCall) Do() (*response.NoData, error) {
 	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
 	var result = &response.NoData{}
-	req := request.NewRequest("doc/v2/:docToken/batch_update", "POST",
+	req := request.NewRequest("/open-apis/doc/v2/:docToken/batch_update", "POST",
 		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.docs.service.conf, req)
 	return result, err
@@ -77,7 +77,7 @@ func (rc *DocContentReqCall) SetDocToken(docToken string) {
 func (rc *DocContentReqCall) Do() (*DocContentResult, error) {
 	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
 	var result = &DocContentResult{}
-	req := request.NewRequest("doc/v2/:docToken/content", "GET",
+	req := request.NewRequest("/open-apis/doc/v2/:docToken/content", "GET",
 		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.docs.service.conf, req)
 	return result, err
@@ -101,7 +101,7 @@ type DocCreateReqCall struct {
 
 func (rc *DocCreateReqCall) Do() (*DocCreateResult, error) {
 	var result = &DocCreateResult{}
-	req := request.NewRequest("doc/v2/create", "POST",
+	req := request.NewRequest("/open-apis/doc/v2/create", "POST",
 		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.docs.service.conf, req)
 	return result, err
@@ -130,7 +130,7 @@ func (rc *DocMetaReqCall) SetDocToken(docToken string) {
 func (rc *DocMetaReqCall) Do() (*DocMetaResult, error) {
 	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
 	var result = &DocMetaResult{}
-	req := request.NewRequest("doc/v2/meta/:docToken", "GET",
+	req := request.NewRequest("/open-apis/doc/v2/meta/:docToken", "GET",
 		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.docs.service.conf, req)
 	return result, err
@@ -159,7 +159,7 @@ func (rc *DocRawContentReqCall) SetDocToken(docToken string) {
 func (rc *DocRawContentReqCall) Do() (*DocRawContentResult, error) {
 	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
 	var result = &DocRawContentResult{}
-	req := request.NewRequest("doc/v2/:docToken/raw_content", "GET",
+	req := request.NewRequest("/open-apis/doc/v2/:docToken/raw_content", "GET",
 		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.docs.service.conf, req)
 	return result, err

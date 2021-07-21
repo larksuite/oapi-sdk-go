@@ -40,7 +40,7 @@ type SpeechFileRecognizeReqCall struct {
 
 func (rc *SpeechFileRecognizeReqCall) Do() (*SpeechFileRecognizeResult, error) {
 	var result = &SpeechFileRecognizeResult{}
-	req := request.NewRequest("speech_to_text/v1/speech/file_recognize", "POST",
+	req := request.NewRequest("/open-apis/speech_to_text/v1/speech/file_recognize", "POST",
 		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.speechs.service.conf, req)
 	return result, err
@@ -64,7 +64,7 @@ type SpeechStreamRecognizeReqCall struct {
 
 func (rc *SpeechStreamRecognizeReqCall) Do() (*SpeechStreamRecognizeResult, error) {
 	var result = &SpeechStreamRecognizeResult{}
-	req := request.NewRequest("speech_to_text/v1/speech/stream_recognize", "POST",
+	req := request.NewRequest("/open-apis/speech_to_text/v1/speech/stream_recognize", "POST",
 		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.speechs.service.conf, req)
 	return result, err

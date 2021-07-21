@@ -40,7 +40,7 @@ type ImageBasicRecognizeReqCall struct {
 
 func (rc *ImageBasicRecognizeReqCall) Do() (*ImageBasicRecognizeResult, error) {
 	var result = &ImageBasicRecognizeResult{}
-	req := request.NewRequest("optical_char_recognition/v1/image/basic_recognize", "POST",
+	req := request.NewRequest("/open-apis/optical_char_recognition/v1/image/basic_recognize", "POST",
 		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.images.service.conf, req)
 	return result, err

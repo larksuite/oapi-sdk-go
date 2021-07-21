@@ -14,7 +14,7 @@ func SetHandler(conf *config.Config, handler handlers.Handler) {
 
 func Handle(conf *config.Config, request *coremodel.OapiRequest) *coremodel.OapiResponse {
 	coreCtx := core.WrapContext(request.Ctx)
-	conf.WithContext(coreCtx)
+	coreCtx.Set(config.CtxKeyConfig, conf)
 	httpCard := &model.HTTPCard{
 		Request:  request,
 		Response: &coremodel.OapiResponse{},
