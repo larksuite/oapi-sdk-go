@@ -166,7 +166,7 @@ func main() {
 	// 请求发送消息的结果
 	ret := make(map[string]interface{})
 	// 构建请求&&设置企业标识（tenant_key）
-	req := request.NewRequestWithNative("message/v4/send", "POST", request.AccessTokenTypeTenant,
+	req := request.NewRequestWithNative("/open-apis/message/v4/send", "POST", request.AccessTokenTypeTenant,
 		body, &ret, request.SetTenantKey("Tenant key"))
 	// 请求的上下文
 	coreCtx := core.WrapContext(context.Background())

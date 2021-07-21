@@ -155,7 +155,7 @@ func main() {
 	// 请求发送消息的结果
 	ret := make(map[string]interface{})
 	// 构建请求
-	req := request.NewRequestWithNative("message/v4/send", "POST", request.AccessTokenTypeTenant, body, &ret)
+	req := request.NewRequestWithNative("/open-apis/message/v4/send", "POST", request.AccessTokenTypeTenant, body, &ret)
 	// 请求的上下文
 	coreCtx := core.WrapContext(context.Background())
 	// 发送请求
