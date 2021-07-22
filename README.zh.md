@@ -79,7 +79,10 @@ func init() {
 	// EncryptKey、VerificationToken："开发者后台" -> "事件订阅" -> 事件订阅（Encrypt Key、Verification Token）
 	// HelpDeskID、HelpDeskToken：https://open.feishu.cn/document/ukTMukTMukTM/ugDOyYjL4gjM24CO4IjN
 	// 更多介绍请看：Github->README.zh.md->如何构建应用配置（AppSettings）
-	appSettings := core.GetInternalAppSettingsByEnv()
+	appSettings := core.NewInternalAppSettings(
+		core.SetAppCredentials("AppID", "AppSecret"), // 必需
+		core.SetAppEventKey("VerificationToken", "EncryptKey"), // 非必需，订阅事件、消息卡片时必需
+		core.SetHelpDeskCredentials("HelpDeskID", "HelpDeskToken")) // 非必需，使用服务台API时必需
 
 	// 当前访问的是飞书，使用默认的内存存储（app/tenant access token）、默认日志（Error级别）
 	// 更多介绍请看：Github->README.zh.md->如何构建整体配置（Config）
@@ -91,7 +94,7 @@ func main() {
 	coreCtx := core.WrapContext(context.Background())
 	reqCall := imService.Messages.Create(coreCtx, &im.MessageCreateReqBody{
 		ReceiveId: "ou_a11d2bcc7d852afbcaf37e5b3ad01f7e",
-		Content:   "{\"text\":\"<at user_id=\\\"ou_a11d2bcc7d852afbcaf37e5b3ad01f7e\\\">Tom</at> test content\"}",
+		Content:   `{"text":"<at user_id="ou_a11d2bcc7d852afbcaf37e5b3ad01f7e">Tom</at> test content"}`,
 		MsgType:   "text",
 	})
 	reqCall.SetReceiveIdType("open_id")
