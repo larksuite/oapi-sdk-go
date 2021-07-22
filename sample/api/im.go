@@ -21,6 +21,7 @@ var imService = im.NewService(configs.TestConfig(core.DomainFeiShu))
 
 func main() {
 	testMessageCreate()
+	testMessageReactionAll()
 	//testFileCreate()
 	testFileRead()
 }
@@ -45,6 +46,56 @@ func testMessageCreate() {
 		return
 	}
 	fmt.Println(tools.Prettify(message))
+}
+
+func testMessageReactionAll() {
+	coreCtx := core.WrapContext(context.Background())
+	createReqCall := imService.MessageReactions.Create(coreCtx, &im.MessageReactionCreateReqBody{
+		ReactionType:    &im.Emoji{
+			EmojiType:       "JIAYI",
+		},
+	})
+	createReqCall.SetMessageId("om_a8f2294b037bfbd808c9a1a38afaac9d")
+	createResp, createErr := createReqCall.Do()
+	fmt.Println(coreCtx.GetRequestID())
+	fmt.Println(coreCtx.GetHTTPStatusCode())
+	if createErr != nil {
+		fmt.Println(tools.Prettify(createErr))
+		e := createErr.(*response.Error)
+		fmt.Println(e.Code)
+		fmt.Println(e.Msg)
+		return
+	}
+	reactionID:= createResp.ReactionId
+	fmt.Println(tools.Prettify(createResp))
+
+	listReqCall :=imService.MessageReactions.List(coreCtx)
+	listReqCall.SetMessageId("om_a8f2294b037bfbd808c9a1a38afaac9d")
+	listReqCall.SetPageSize(1)
+	listReqCall.SetReactionType("SMILE")
+	listReqCall.SetPageToken("YhljsPiGfUgnVAg9urvRFU6IjGHbxJ2BLswa0r0bYxy7k3ZwdDpAuMABmfMa4aQY")
+	listResp, listErr := listReqCall.Do()
+	if listErr != nil {
+		fmt.Println(tools.Prettify(listErr))
+		e := listErr.(*response.Error)
+		fmt.Println(e.Code)
+		fmt.Println(e.Msg)
+		return
+	}
+	fmt.Println(tools.Prettify(listResp))
+
+	deleteReqCall:=imService.MessageReactions.Delete(coreCtx)
+	deleteReqCall.SetMessageId("om_a8f2294b037bfbd808c9a1a38afaac9d")
+	deleteReqCall.SetReactionId(reactionID)
+	deleteResp, deleteErr :=deleteReqCall.Do()
+	if deleteErr != nil {
+		fmt.Println(tools.Prettify(deleteErr))
+		e := deleteErr.(*response.Error)
+		fmt.Println(e.Code)
+		fmt.Println(e.Msg)
+		return
+	}
+	fmt.Println(tools.Prettify(deleteResp))
 }
 
 func testFileRead() {

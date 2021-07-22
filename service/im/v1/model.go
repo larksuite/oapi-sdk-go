@@ -339,7 +339,7 @@ func (s *MentionEvent) MarshalJSON() ([]byte, error) {
 type MessageReaction struct {
 	ReactionId      string    `json:"reaction_id,omitempty"`
 	Operator        *Operator `json:"operator,omitempty"`
-	ActionTime      string    `json:"action_time,omitempty"`
+	ActionTime      int64     `json:"action_time,omitempty,string"`
 	ReactionType    *Emoji    `json:"reaction_type,omitempty"`
 	ForceSendFields []string  `json:"-"`
 }
@@ -394,6 +394,12 @@ type MessageListResult struct {
 	HasMore   bool       `json:"has_more,omitempty"`
 	PageToken string     `json:"page_token,omitempty"`
 	Items     []*Message `json:"items,omitempty"`
+}
+
+type MessageReactionListResult struct {
+	Items     []*MessageReaction `json:"items,omitempty"`
+	HasMore   bool               `json:"has_more,omitempty"`
+	PageToken string             `json:"page_token,omitempty"`
 }
 
 type MessagePatchReqBody struct {
@@ -457,6 +463,17 @@ type ChatUpdateReqBody struct {
 
 func (s *ChatUpdateReqBody) MarshalJSON() ([]byte, error) {
 	type cp ChatUpdateReqBody
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type MessageReactionCreateReqBody struct {
+	ReactionType    *Emoji   `json:"reaction_type,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *MessageReactionCreateReqBody) MarshalJSON() ([]byte, error) {
+	type cp MessageReactionCreateReqBody
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
@@ -624,6 +641,34 @@ type MessageReceiveEventData struct {
 type MessageReceiveEvent struct {
 	*model.BaseEventV2
 	Event *MessageReceiveEventData `json:"event"`
+}
+
+type MessageReactionCreatedEventData struct {
+	MessageId    string  `json:"message_id,omitempty"`
+	ReactionType *Emoji  `json:"reaction_type,omitempty"`
+	OperatorType string  `json:"operator_type,omitempty"`
+	UserId       *UserId `json:"user_id,omitempty"`
+	AppId        string  `json:"app_id,omitempty"`
+	ActionTime   string  `json:"action_time,omitempty"`
+}
+
+type MessageReactionCreatedEvent struct {
+	*model.BaseEventV2
+	Event *MessageReactionCreatedEventData `json:"event"`
+}
+
+type MessageReactionDeletedEventData struct {
+	MessageId    string  `json:"message_id,omitempty"`
+	ReactionType *Emoji  `json:"reaction_type,omitempty"`
+	OperatorType string  `json:"operator_type,omitempty"`
+	UserId       *UserId `json:"user_id,omitempty"`
+	AppId        string  `json:"app_id,omitempty"`
+	ActionTime   string  `json:"action_time,omitempty"`
+}
+
+type MessageReactionDeletedEvent struct {
+	*model.BaseEventV2
+	Event *MessageReactionDeletedEventData `json:"event"`
 }
 
 type ChatUpdatedEventData struct {

@@ -21,6 +21,7 @@ type Service struct {
 	Files             *FileService
 	Images            *ImageService
 	MessageResources  *MessageResourceService
+	MessageReactions  *MessageReactionService
 }
 
 func NewService(conf *config.Config) *Service {
@@ -35,6 +36,7 @@ func NewService(conf *config.Config) *Service {
 	s.ChatMemberss = newChatMembersService(s)
 	s.Files = newFileService(s)
 	s.Images = newImageService(s)
+	s.MessageReactions = newMessageReactionService(s)
 	s.MessageResources = newMessageResourceService(s)
 	return s
 }
@@ -115,6 +117,16 @@ type ImageService struct {
 
 func newImageService(service *Service) *ImageService {
 	return &ImageService{
+		service: service,
+	}
+}
+
+type MessageReactionService struct {
+	service     *Service
+}
+
+func newMessageReactionService(service *Service) *MessageReactionService {
+	return &MessageReactionService{
 		service: service,
 	}
 }
@@ -506,6 +518,110 @@ func (images *ImageService) Create(ctx *core.Context, optFns ...request.OptFn) *
 		images: images,
 		body:   request.NewFormData(),
 		optFns: optFns,
+	}
+}
+
+type MessageReactionCreateReqCall struct {
+	ctx    *core.Context
+	messageReactions *MessageReactionService
+	body *MessageReactionCreateReqBody
+	pathParams  map[string]interface{}
+	optFns   []request.OptFn
+}
+func (rc *MessageReactionCreateReqCall) SetMessageId(messageId string){
+	rc.pathParams["message_id"] = messageId
+}
+
+func (rc *MessageReactionCreateReqCall) Do() (*MessageReaction, error) {
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	var result = &MessageReaction{}
+	req := request.NewRequest("im/v1/messages/:message_id/reactions", "POST",
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.messageReactions.service.conf, req)
+	return result, err
+}
+
+func (messageReactions *MessageReactionService) Create(ctx *core.Context, body  *MessageReactionCreateReqBody, optFns ...request.OptFn) *MessageReactionCreateReqCall {
+	return &MessageReactionCreateReqCall{
+		ctx:    ctx,
+		messageReactions: messageReactions,
+		body:        body,
+		pathParams:        map[string]interface{}{},
+		optFns:      optFns,
+	}
+}
+
+type MessageReactionDeleteReqCall struct {
+	ctx    *core.Context
+	messageReactions *MessageReactionService
+	pathParams  map[string]interface{}
+	optFns   []request.OptFn
+}
+func (rc *MessageReactionDeleteReqCall) SetMessageId(messageId string){
+	rc.pathParams["message_id"] = messageId
+}
+func (rc *MessageReactionDeleteReqCall) SetReactionId(reactionId string){
+	rc.pathParams["reaction_id"] = reactionId
+}
+
+func (rc *MessageReactionDeleteReqCall) Do() (*MessageReaction, error) {
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	var result = &MessageReaction{}
+	req := request.NewRequest("im/v1/messages/:message_id/reactions/:reaction_id", "DELETE",
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.messageReactions.service.conf, req)
+	return result, err
+}
+
+func (messageReactions *MessageReactionService) Delete(ctx *core.Context,  optFns ...request.OptFn) *MessageReactionDeleteReqCall {
+	return &MessageReactionDeleteReqCall{
+		ctx:    ctx,
+		messageReactions: messageReactions,
+		pathParams:        map[string]interface{}{},
+		optFns:      optFns,
+	}
+}
+
+type MessageReactionListReqCall struct {
+	ctx    *core.Context
+	messageReactions *MessageReactionService
+	pathParams  map[string]interface{}
+	queryParams map[string]interface{}
+	optFns   []request.OptFn
+}
+func (rc *MessageReactionListReqCall) SetMessageId(messageId string){
+	rc.pathParams["message_id"] = messageId
+}
+func (rc *MessageReactionListReqCall) SetReactionType(reactionType string){
+	rc.queryParams["reaction_type"] = reactionType
+}
+func (rc *MessageReactionListReqCall) SetPageToken(pageToken string){
+	rc.queryParams["page_token"] = pageToken
+}
+func (rc *MessageReactionListReqCall) SetPageSize(pageSize int){
+	rc.queryParams["page_size"] = pageSize
+}
+func (rc *MessageReactionListReqCall) SetUserIdType(userIdType string){
+	rc.queryParams["user_id_type"] = userIdType
+}
+
+func (rc *MessageReactionListReqCall) Do() (*MessageReactionListResult, error) {
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &MessageReactionListResult{}
+	req := request.NewRequest("im/v1/messages/:message_id/reactions", "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.messageReactions.service.conf, req)
+	return result, err
+}
+
+func (messageReactions *MessageReactionService) List(ctx *core.Context,  optFns ...request.OptFn) *MessageReactionListReqCall {
+	return &MessageReactionListReqCall{
+		ctx:    ctx,
+		messageReactions: messageReactions,
+		pathParams:        map[string]interface{}{},
+		queryParams:        map[string]interface{}{},
+		optFns:      optFns,
 	}
 }
 
