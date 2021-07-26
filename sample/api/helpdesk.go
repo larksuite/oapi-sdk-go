@@ -16,7 +16,7 @@ func main() {
 	// EncryptKey、VerificationToken："开发者后台" -> "事件订阅" -> 事件订阅（Encrypt Key、Verification Token）
 	// HelpDeskID、HelpDeskToken：https://open.feishu.cn/document/ukTMukTMukTM/ugDOyYjL4gjM24CO4IjN
 	// 更多介绍请看：Github->README.zh.md->如何构建应用配置（AppSettings）
-	appSettings := core.NewISVAppSettings(
+	appSettings := core.NewInternalAppSettings(
 		core.SetAppCredentials("AppID", "AppSecret"),               // 必需
 		core.SetAppEventKey("VerificationToken", "EncryptKey"),     // 非必需，订阅事件、消息卡片时必需
 		core.SetHelpDeskCredentials("HelpDeskID", "HelpDeskToken")) // 非必需，使用服务台API时必需
