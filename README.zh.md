@@ -437,9 +437,9 @@ import (
 
 // 参数说明：
 // httpPath：API路径
-   // 例如：https://domain/open-apis/contact/v3/users/:user_id，
+   // 例如：https://domain/open-apis/contact/v3/users/:user_id
    // 支持域名之后的路径，则 httpPath："/open-apis/contact/v3/users/:user_id"（推荐）
-   // 也支持全路径，则 httpPath："/open-apis/contact/v3/users/:user_id"
+   // 也支持全路径，则 httpPath："https://domain/open-apis/contact/v3/users/:user_id"
    // 也支持 /open-apis/ 之后的路径，则 httpPath："contact/v3/users/:user_id"
 // httpMethod: GET/POST/PUT/BATCH/DELETE
 // accessTokenType：API使用哪种访问凭证，取值范围：request.AccessTokenTypeApp/request.AccessTokenTypeTenant/request.AccessTokenTypeUser，例如：request.AccessTokenTypeTenant

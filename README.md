@@ -98,7 +98,7 @@ func main() {
 	// The result of the request to send a message
 	ret := make(map[string]interface{})
 	// Build request
-	req := request.NewRequestWithNative("message/v4/send", "POST", request.AccessTokenTypeTenant, body, &ret)
+	req := request.NewRequestWithNative("/open-apis/message/v4/send", "POST", request.AccessTokenTypeTenant, body, &ret)
 	// The context of the request
 	coreCtx := core.WrapContext(context.Background())
 	// Send request 
