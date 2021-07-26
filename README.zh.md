@@ -77,7 +77,7 @@ func init() {
 	// 企业自建应用的配置
 	// AppID、AppSecret: "开发者后台" -> "凭证与基础信息" -> 应用凭证（App ID、App Secret）
 	// EncryptKey、VerificationToken："开发者后台" -> "事件订阅" -> 事件订阅（Encrypt Key、Verification Token）
-	// HelpDeskID、HelpDeskToken：https://open.feishu.cn/document/ukTMukTMukTM/ugDOyYjL4gjM24CO4IjN
+	// HelpDeskID、HelpDeskToken, 服务台 token：https://open.feishu.cn/document/ukTMukTMukTM/ugDOyYjL4gjM24CO4IjN
 	// 更多介绍请看：Github->README.zh.md->如何构建应用配置（AppSettings）
 	appSettings := core.NewInternalAppSettings(
 		core.SetAppCredentials("AppID", "AppSecret"), // 必需
@@ -139,7 +139,7 @@ func init() {
 	// 企业自建应用的配置
 	// AppID、AppSecret: "开发者后台" -> "凭证与基础信息" -> 应用凭证（App ID、App Secret）
 	// EncryptKey、VerificationToken："开发者后台" -> "事件订阅" -> 事件订阅（Encrypt Key、Verification Token）
-	// HelpDeskID、HelpDeskToken：https://open.feishu.cn/document/ukTMukTMukTM/ugDOyYjL4gjM24CO4IjN
+	// HelpDeskID、HelpDeskToken, 服务台 token：https://open.feishu.cn/document/ukTMukTMukTM/ugDOyYjL4gjM24CO4IjN
 	// 更多介绍请看：Github->README.zh.md->如何构建应用配置（AppSettings）
 	appSettings := core.NewInternalAppSettings(
 		core.SetAppCredentials("AppID", "AppSecret"), // 必需
@@ -213,7 +213,7 @@ func init() {
 	// 企业自建应用的配置
 	// AppID、AppSecret: "开发者后台" -> "凭证与基础信息" -> 应用凭证（App ID、App Secret）
 	// EncryptKey、VerificationToken："开发者后台" -> "事件订阅" -> 事件订阅（Encrypt Key、Verification Token）
-	// HelpDeskID、HelpDeskToken：https://open.feishu.cn/document/ukTMukTMukTM/ugDOyYjL4gjM24CO4IjN
+	// HelpDeskID、HelpDeskToken, 服务台 token：https://open.feishu.cn/document/ukTMukTMukTM/ugDOyYjL4gjM24CO4IjN
 	// 更多介绍请看：Github->README.zh.md->如何构建应用配置（AppSettings）
 	appSettings := core.NewInternalAppSettings(
 		core.SetAppCredentials("AppID", "AppSecret"), // 必需
@@ -268,7 +268,7 @@ func init() {
 	// 企业自建应用的配置
 	// AppID、AppSecret: "开发者后台" -> "凭证与基础信息" -> 应用凭证（App ID、App Secret）
 	// EncryptKey、VerificationToken："开发者后台" -> "事件订阅" -> 事件订阅（Encrypt Key、Verification Token）
-	// HelpDeskID、HelpDeskToken：https://open.feishu.cn/document/ukTMukTMukTM/ugDOyYjL4gjM24CO4IjN
+	// HelpDeskID、HelpDeskToken, 服务台 token：https://open.feishu.cn/document/ukTMukTMukTM/ugDOyYjL4gjM24CO4IjN
 	// 更多介绍请看：Github->README.zh.md->如何构建应用配置（AppSettings）
 	appSettings := core.NewInternalAppSettings(
 		core.SetAppCredentials("AppID", "AppSecret"), // 必需
@@ -327,7 +327,7 @@ func init() {
 	// 企业自建应用的配置
 	// AppID、AppSecret: "开发者后台" -> "凭证与基础信息" -> 应用凭证（App ID、App Secret）
 	// EncryptKey、VerificationToken："开发者后台" -> "事件订阅" -> 事件订阅（Encrypt Key、Verification Token）
-	// HelpDeskID、HelpDeskToken：https://open.feishu.cn/document/ukTMukTMukTM/ugDOyYjL4gjM24CO4IjN
+	// HelpDeskID、HelpDeskToken, 服务台 token：https://open.feishu.cn/document/ukTMukTMukTM/ugDOyYjL4gjM24CO4IjN
 	// 更多介绍请看：Github->README.zh.md->如何构建应用配置（AppSettings）
 	appSettings := core.NewInternalAppSettings(
 		core.SetAppCredentials("AppID", "AppSecret"),           // 必需
