@@ -311,7 +311,11 @@ import (
 )
 
 // Parameter Description:
-// httpPath：API path（the path after domain）, for example: https://domain/open-apis/contact/v3/users/:user_id, then httpPath："/open-apis/contact/v3/users/:user_id"
+// httpPath: API path
+    // such as: https://domain/open-apis/contact/v3/users/:user_id
+    // support: the path of the domain name after, httpPath: "/open apis/contact/v3/users/:user_id" (recommended)
+    // support: the full path, httpPath: "https://domain/open-apis/contact/v3/users/:user_id"
+    // support: httpPath: "contact/v3/users/:user_id"
 // httpMethod: GET/POST/PUT/BATCH/DELETE
 // accessTokenType：What kind of access certificate does the API use and the value range：request.AccessTokenTypeApp/request.AccessTokenTypeTenant/request.AccessTokenTypeUser, for example: request.AccessTokenTypeTenant
 // input：Request body (possibly request.NewFormData () (e.g. file upload)), if the request body (e.g. some get requests) is not needed, it will be transferred to: nil
@@ -323,7 +327,7 @@ import (
     // request.SetNotDataField(), set whether the response does not have a `data` field, business interfaces all have `data `Field, so you don’t need to set 
     // request.SetTenantKey("TenantKey"), as an `app store application`, it means using `tenant_access_token` to access the API, you need to set 
     // request.SetUserAccessToken("UserAccessToken"), which means using` user_access_token` To access the API, you need to set 
-    // request.NeedHelpDeskAuth(), Indicates that the help desk API needs to set help desk information of config.appsettings
+    // request.NeedHelpDeskAuth(), Indicates that the help desk API needs to set help desk information of config.AppSettings
 req := request.NewRequestWithNative(httpPath, httpMethod string, accessTokenType AccessTokenType,
 input interface{}, output interface{}, optFns ...OptFn)
 ```

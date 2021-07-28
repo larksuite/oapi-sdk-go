@@ -51,7 +51,7 @@ func main() {
 }
 ```
 
-- 第二步：在 [service](./service) 下的业务 Event，都是可以直接使用SDK。
+- 第二步：在 [service](../service) 下的业务 API 或 Event，都是可以直接使用SDK。
 
 ```go
 package main
