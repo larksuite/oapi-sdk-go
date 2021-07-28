@@ -11,7 +11,7 @@
 
 ## 使用`应用商店应用`访问 [修改用户部分信息API](https://open.feishu.cn/document/contact/v3/user/patch) 示例
 
-- 第一步：启动启动事件订阅服务，用于接收`app_ticket`。
+- 第一步：启动事件订阅服务，用于接收`app_ticket`。
 
 ```go
 package main
@@ -117,7 +117,7 @@ func main() {
 ```
 ## 使用`应用商店应用`访问 [发送文本消息API](https://open.feishu.cn/document/ukTMukTMukTM/uUjNz4SN2MjL1YzM) 示例
   
-- 第一步：启动启动事件订阅服务，用于接收`app_ticket`。
+- 第一步：启动事件订阅服务，用于接收`app_ticket`。
   - 同上
     
 - 第二步：调用服务端接口，有些老版接口，没有直接可以使用的SDK，可以使用`原生`模式。
