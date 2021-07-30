@@ -343,6 +343,37 @@ func (calendarAcls *CalendarAclService) Delete(ctx *core.Context, optFns ...requ
 	}
 }
 
+type CalendarEventCreateReqCall struct {
+	ctx            *core.Context
+	calendarEvents *CalendarEventService
+	body           *CalendarEvent
+	pathParams     map[string]interface{}
+	optFns         []request.OptFn
+}
+
+func (rc *CalendarEventCreateReqCall) SetCalendarId(calendarId string) {
+	rc.pathParams["calendar_id"] = calendarId
+}
+
+func (rc *CalendarEventCreateReqCall) Do() (*CalendarEventCreateResult, error) {
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	var result = &CalendarEventCreateResult{}
+	req := request.NewRequest("/open-apis/calendar/v4/calendars/:calendar_id/events", "POST",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.calendarEvents.service.conf, req)
+	return result, err
+}
+
+func (calendarEvents *CalendarEventService) Create(ctx *core.Context, body *CalendarEvent, optFns ...request.OptFn) *CalendarEventCreateReqCall {
+	return &CalendarEventCreateReqCall{
+		ctx:            ctx,
+		calendarEvents: calendarEvents,
+		body:           body,
+		pathParams:     map[string]interface{}{},
+		optFns:         optFns,
+	}
+}
+
 type CalendarAclCreateReqCall struct {
 	ctx          *core.Context
 	calendarAcls *CalendarAclService

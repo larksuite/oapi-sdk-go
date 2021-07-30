@@ -313,6 +313,10 @@ type CalendarAclListResult struct {
 	PageToken string         `json:"page_token,omitempty"`
 }
 
+type CalendarEventCreateResult struct {
+	Event *CalendarEvent `json:"event,omitempty"`
+}
+
 type CalendarListResult struct {
 	HasMore      bool        `json:"has_more,omitempty"`
 	PageToken    string      `json:"page_token,omitempty"`
