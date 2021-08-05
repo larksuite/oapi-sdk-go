@@ -3,18 +3,16 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/larksuite/oapi-sdk-go"
 	"github.com/larksuite/oapi-sdk-go/api/core/request"
-	"github.com/larksuite/oapi-sdk-go/api/core/response"
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/tools"
 	"github.com/larksuite/oapi-sdk-go/sample/configs"
 	vc "github.com/larksuite/oapi-sdk-go/service/vc/v1"
 )
 
 // for redis store and logrus
-// configs.TestConfigWithLogrusAndRedisStore(core.DomainFeiShu)
+// configs.TestConfigWithLogrusAndRedisStore(lark.DomainFeiShu)
 // configs.TestConfig("https://open.feishu.cn")
-var VCService = vc.NewService(configs.TestConfig(core.DomainFeiShu))
+var VCService = vc.NewService(configs.TestConfig(lark.DomainFeiShu))
 
 func main() {
 	testReserveApply()
@@ -22,7 +20,7 @@ func main() {
 
 func testReserveApply() {
 	ctx := context.Background()
-	coreCtx := core.WrapContext(ctx)
+	coreCtx := lark.WrapContext(ctx)
 	body := &vc.ReserveApplyReqBody{
 		EndTime: 1617161325,
 		MeetingSettings: &vc.ReserveMeetingSetting{
@@ -45,11 +43,11 @@ func testReserveApply() {
 	fmt.Println(coreCtx.GetRequestID())
 	fmt.Println(coreCtx.GetHTTPStatusCode())
 	if err != nil {
-		fmt.Println(tools.Prettify(err))
-		e := err.(*response.Error)
+		fmt.Println(lark.Prettify(err))
+		e := err.(*lark.APIError)
 		fmt.Println(e.Code)
 		fmt.Println(e.Msg)
 		return
 	}
-	fmt.Println(tools.Prettify(result))
+	fmt.Println(lark.Prettify(result))
 }

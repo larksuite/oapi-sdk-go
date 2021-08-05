@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/config"
 )
 
 type Handler interface {
@@ -12,12 +11,12 @@ type Handler interface {
 
 var appID2Type2EventHandler = map[string]map[string]Handler{}
 
-func getType2EventHandler(conf *config.Config) (map[string]Handler, bool) {
+func getType2EventHandler(conf core.Config) (map[string]Handler, bool) {
 	type2EventHandler, ok := appID2Type2EventHandler[conf.GetAppSettings().AppID]
 	return type2EventHandler, ok
 }
 
-func SetTypeHandler(conf *config.Config, eventType string, handler Handler) {
+func SetTypeHandler(conf core.Config, eventType string, handler Handler) {
 	appID := conf.GetAppSettings().AppID
 	type2EventHandler, ok := appID2Type2EventHandler[appID]
 	if !ok {

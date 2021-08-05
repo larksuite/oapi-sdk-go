@@ -2,18 +2,17 @@
 package v1
 
 import (
+	"github.com/larksuite/oapi-sdk-go"
 	"github.com/larksuite/oapi-sdk-go/api"
 	"github.com/larksuite/oapi-sdk-go/api/core/request"
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/config"
 )
 
 type Service struct {
-	conf   *config.Config
+	conf   lark.Config
 	Images *ImageService
 }
 
-func NewService(conf *config.Config) *Service {
+func NewService(conf lark.Config) *Service {
 	s := &Service{
 		conf: conf,
 	}
@@ -32,25 +31,25 @@ func newImageService(service *Service) *ImageService {
 }
 
 type ImageBasicRecognizeReqCall struct {
-	ctx    *core.Context
+	ctx    *lark.Context
 	images *ImageService
 	body   *ImageBasicRecognizeReqBody
-	optFns []request.OptFn
+	opts   []lark.APIRequestOpt
 }
 
 func (rc *ImageBasicRecognizeReqCall) Do() (*ImageBasicRecognizeResult, error) {
 	var result = &ImageBasicRecognizeResult{}
 	req := request.NewRequest("/open-apis/optical_char_recognition/v1/image/basic_recognize", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.images.service.conf, req)
 	return result, err
 }
 
-func (images *ImageService) BasicRecognize(ctx *core.Context, body *ImageBasicRecognizeReqBody, optFns ...request.OptFn) *ImageBasicRecognizeReqCall {
+func (images *ImageService) BasicRecognize(ctx *lark.Context, body *ImageBasicRecognizeReqBody, opts ...lark.APIRequestOpt) *ImageBasicRecognizeReqCall {
 	return &ImageBasicRecognizeReqCall{
 		ctx:    ctx,
 		images: images,
 		body:   body,
-		optFns: optFns,
+		opts:   opts,
 	}
 }

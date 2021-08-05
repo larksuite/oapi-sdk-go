@@ -2,19 +2,18 @@
 package v2
 
 import (
+	"github.com/larksuite/oapi-sdk-go"
 	"github.com/larksuite/oapi-sdk-go/api"
 	"github.com/larksuite/oapi-sdk-go/api/core/request"
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/config"
 )
 
 type Service struct {
-	conf    *config.Config
+	conf    lark.Config
 	Files   *FileService
 	Folders *FolderService
 }
 
-func NewService(conf *config.Config) *Service {
+func NewService(conf lark.Config) *Service {
 	s := &Service{
 		conf: conf,
 	}
@@ -44,11 +43,11 @@ func newFolderService(service *Service) *FolderService {
 }
 
 type FolderChildrenReqCall struct {
-	ctx         *core.Context
+	ctx         *lark.Context
 	folders     *FolderService
 	pathParams  map[string]interface{}
 	queryParams map[string]interface{}
-	optFns      []request.OptFn
+	opts        []lark.APIRequestOpt
 }
 
 func (rc *FolderChildrenReqCall) SetFolderToken(folderToken string) {
@@ -59,31 +58,31 @@ func (rc *FolderChildrenReqCall) SetTypes(types ...string) {
 }
 
 func (rc *FolderChildrenReqCall) Do() (*FolderChildrenResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
 	var result = &FolderChildrenResult{}
 	req := request.NewRequest("/open-apis/drive/explorer/v2/folder/:folderToken/children", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, nil, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeUser}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.folders.service.conf, req)
 	return result, err
 }
 
-func (folders *FolderService) Children(ctx *core.Context, optFns ...request.OptFn) *FolderChildrenReqCall {
+func (folders *FolderService) Children(ctx *lark.Context, opts ...lark.APIRequestOpt) *FolderChildrenReqCall {
 	return &FolderChildrenReqCall{
 		ctx:         ctx,
 		folders:     folders,
 		pathParams:  map[string]interface{}{},
 		queryParams: map[string]interface{}{},
-		optFns:      optFns,
+		opts:        opts,
 	}
 }
 
 type FileCopyReqCall struct {
-	ctx        *core.Context
+	ctx        *lark.Context
 	files      *FileService
 	body       *FileCopyReqBody
 	pathParams map[string]interface{}
-	optFns     []request.OptFn
+	opts       []lark.APIRequestOpt
 }
 
 func (rc *FileCopyReqCall) SetFileToken(fileToken string) {
@@ -91,30 +90,30 @@ func (rc *FileCopyReqCall) SetFileToken(fileToken string) {
 }
 
 func (rc *FileCopyReqCall) Do() (*FileCopyResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
 	var result = &FileCopyResult{}
 	req := request.NewRequest("/open-apis/drive/explorer/v2/file/copy/files/:fileToken", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.files.service.conf, req)
 	return result, err
 }
 
-func (files *FileService) Copy(ctx *core.Context, body *FileCopyReqBody, optFns ...request.OptFn) *FileCopyReqCall {
+func (files *FileService) Copy(ctx *lark.Context, body *FileCopyReqBody, opts ...lark.APIRequestOpt) *FileCopyReqCall {
 	return &FileCopyReqCall{
 		ctx:        ctx,
 		files:      files,
 		body:       body,
 		pathParams: map[string]interface{}{},
-		optFns:     optFns,
+		opts:       opts,
 	}
 }
 
 type FileCreateReqCall struct {
-	ctx        *core.Context
+	ctx        *lark.Context
 	files      *FileService
 	body       *FileCreateReqBody
 	pathParams map[string]interface{}
-	optFns     []request.OptFn
+	opts       []lark.APIRequestOpt
 }
 
 func (rc *FileCreateReqCall) SetFolderToken(folderToken string) {
@@ -122,30 +121,30 @@ func (rc *FileCreateReqCall) SetFolderToken(folderToken string) {
 }
 
 func (rc *FileCreateReqCall) Do() (*FileCreateResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
 	var result = &FileCreateResult{}
 	req := request.NewRequest("/open-apis/drive/explorer/v2/file/:folderToken", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.files.service.conf, req)
 	return result, err
 }
 
-func (files *FileService) Create(ctx *core.Context, body *FileCreateReqBody, optFns ...request.OptFn) *FileCreateReqCall {
+func (files *FileService) Create(ctx *lark.Context, body *FileCreateReqBody, opts ...lark.APIRequestOpt) *FileCreateReqCall {
 	return &FileCreateReqCall{
 		ctx:        ctx,
 		files:      files,
 		body:       body,
 		pathParams: map[string]interface{}{},
-		optFns:     optFns,
+		opts:       opts,
 	}
 }
 
 type FolderCreateReqCall struct {
-	ctx        *core.Context
+	ctx        *lark.Context
 	folders    *FolderService
 	body       *FolderCreateReqBody
 	pathParams map[string]interface{}
-	optFns     []request.OptFn
+	opts       []lark.APIRequestOpt
 }
 
 func (rc *FolderCreateReqCall) SetFolderToken(folderToken string) {
@@ -153,29 +152,29 @@ func (rc *FolderCreateReqCall) SetFolderToken(folderToken string) {
 }
 
 func (rc *FolderCreateReqCall) Do() (*FolderCreateResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
 	var result = &FolderCreateResult{}
 	req := request.NewRequest("/open-apis/drive/explorer/v2/folder/:folderToken", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.folders.service.conf, req)
 	return result, err
 }
 
-func (folders *FolderService) Create(ctx *core.Context, body *FolderCreateReqBody, optFns ...request.OptFn) *FolderCreateReqCall {
+func (folders *FolderService) Create(ctx *lark.Context, body *FolderCreateReqBody, opts ...lark.APIRequestOpt) *FolderCreateReqCall {
 	return &FolderCreateReqCall{
 		ctx:        ctx,
 		folders:    folders,
 		body:       body,
 		pathParams: map[string]interface{}{},
-		optFns:     optFns,
+		opts:       opts,
 	}
 }
 
 type FileDocsDeleteReqCall struct {
-	ctx        *core.Context
+	ctx        *lark.Context
 	files      *FileService
 	pathParams map[string]interface{}
-	optFns     []request.OptFn
+	opts       []lark.APIRequestOpt
 }
 
 func (rc *FileDocsDeleteReqCall) SetDocToken(docToken string) {
@@ -183,28 +182,28 @@ func (rc *FileDocsDeleteReqCall) SetDocToken(docToken string) {
 }
 
 func (rc *FileDocsDeleteReqCall) Do() (*FileDocsDeleteResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
 	var result = &FileDocsDeleteResult{}
 	req := request.NewRequest("/open-apis/drive/explorer/v2/file/docs/:docToken", "DELETE",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, nil, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeUser}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.files.service.conf, req)
 	return result, err
 }
 
-func (files *FileService) DocsDelete(ctx *core.Context, optFns ...request.OptFn) *FileDocsDeleteReqCall {
+func (files *FileService) DocsDelete(ctx *lark.Context, opts ...lark.APIRequestOpt) *FileDocsDeleteReqCall {
 	return &FileDocsDeleteReqCall{
 		ctx:        ctx,
 		files:      files,
 		pathParams: map[string]interface{}{},
-		optFns:     optFns,
+		opts:       opts,
 	}
 }
 
 type FolderMetaReqCall struct {
-	ctx        *core.Context
+	ctx        *lark.Context
 	folders    *FolderService
 	pathParams map[string]interface{}
-	optFns     []request.OptFn
+	opts       []lark.APIRequestOpt
 }
 
 func (rc *FolderMetaReqCall) SetFolderToken(folderToken string) {
@@ -212,50 +211,50 @@ func (rc *FolderMetaReqCall) SetFolderToken(folderToken string) {
 }
 
 func (rc *FolderMetaReqCall) Do() (*FolderMetaResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
 	var result = &FolderMetaResult{}
 	req := request.NewRequest("/open-apis/drive/explorer/v2/folder/:folderToken/meta", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, nil, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeUser}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.folders.service.conf, req)
 	return result, err
 }
 
-func (folders *FolderService) Meta(ctx *core.Context, optFns ...request.OptFn) *FolderMetaReqCall {
+func (folders *FolderService) Meta(ctx *lark.Context, opts ...lark.APIRequestOpt) *FolderMetaReqCall {
 	return &FolderMetaReqCall{
 		ctx:        ctx,
 		folders:    folders,
 		pathParams: map[string]interface{}{},
-		optFns:     optFns,
+		opts:       opts,
 	}
 }
 
 type FolderRootMetaReqCall struct {
-	ctx     *core.Context
+	ctx     *lark.Context
 	folders *FolderService
-	optFns  []request.OptFn
+	opts    []lark.APIRequestOpt
 }
 
 func (rc *FolderRootMetaReqCall) Do() (*FolderRootMetaResult, error) {
 	var result = &FolderRootMetaResult{}
 	req := request.NewRequest("/open-apis/drive/explorer/v2/root_folder/meta", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, nil, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeUser}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.folders.service.conf, req)
 	return result, err
 }
 
-func (folders *FolderService) RootMeta(ctx *core.Context, optFns ...request.OptFn) *FolderRootMetaReqCall {
+func (folders *FolderService) RootMeta(ctx *lark.Context, opts ...lark.APIRequestOpt) *FolderRootMetaReqCall {
 	return &FolderRootMetaReqCall{
 		ctx:     ctx,
 		folders: folders,
-		optFns:  optFns,
+		opts:    opts,
 	}
 }
 
 type FileSpreadsheetsDeleteReqCall struct {
-	ctx        *core.Context
+	ctx        *lark.Context
 	files      *FileService
 	pathParams map[string]interface{}
-	optFns     []request.OptFn
+	opts       []lark.APIRequestOpt
 }
 
 func (rc *FileSpreadsheetsDeleteReqCall) SetSpreadsheetToken(spreadsheetToken string) {
@@ -263,19 +262,19 @@ func (rc *FileSpreadsheetsDeleteReqCall) SetSpreadsheetToken(spreadsheetToken st
 }
 
 func (rc *FileSpreadsheetsDeleteReqCall) Do() (*FileSpreadsheetsDeleteResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
 	var result = &FileSpreadsheetsDeleteResult{}
 	req := request.NewRequest("/open-apis/drive/explorer/v2/file/spreadsheets/:spreadsheetToken", "DELETE",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, nil, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeUser}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.files.service.conf, req)
 	return result, err
 }
 
-func (files *FileService) SpreadsheetsDelete(ctx *core.Context, optFns ...request.OptFn) *FileSpreadsheetsDeleteReqCall {
+func (files *FileService) SpreadsheetsDelete(ctx *lark.Context, opts ...lark.APIRequestOpt) *FileSpreadsheetsDeleteReqCall {
 	return &FileSpreadsheetsDeleteReqCall{
 		ctx:        ctx,
 		files:      files,
 		pathParams: map[string]interface{}{},
-		optFns:     optFns,
+		opts:       opts,
 	}
 }

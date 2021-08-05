@@ -2,10 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/tools"
-	eventhttpserver "github.com/larksuite/oapi-sdk-go/event/http/native"
-	"github.com/larksuite/oapi-sdk-go/sample/configs"
+	"github.com/larksuite/oapi-sdk-go"
 	application "github.com/larksuite/oapi-sdk-go/service/application/v1"
 	"net/http"
 )
@@ -13,26 +10,26 @@ import (
 func main() {
 
 	// for redis store and logrus
-	// var conf = configs.TestConfigWithLogrusAndRedisStore(core.DomainFeiShu)
+	// var conf = configs.TestConfigWithLogrusAndRedisStore(lark.DomainFeiShu)
 	// var conf = configs.TestConfig("https://open.feishu.cn")
-	var conf = configs.TestConfig(core.DomainFeiShu)
+	var conf = lark.NewInternalAppConfigByEnv(lark.DomainFeiShu)
 
-	application.SetAppOpenEventHandler(conf, func(coreCtx *core.Context, appOpenEvent *application.AppOpenEvent) error {
-		fmt.Println(coreCtx.GetRequestID())
+	application.SetAppOpenEventHandler(conf, func(ctx *lark.Context, appOpenEvent *application.AppOpenEvent) error {
+		fmt.Println(ctx.GetRequestID())
 		fmt.Println(appOpenEvent)
-		fmt.Println(tools.Prettify(appOpenEvent))
+		fmt.Println(lark.Prettify(appOpenEvent))
 		return nil
 	})
 
-	application.SetAppStatusChangeEventHandler(conf, func(coreCtx *core.Context, appStatusChangeEvent *application.AppStatusChangeEvent) error {
-		fmt.Println(coreCtx.GetRequestID())
+	application.SetAppStatusChangeEventHandler(conf, func(ctx *lark.Context, appStatusChangeEvent *application.AppStatusChangeEvent) error {
+		fmt.Println(ctx.GetRequestID())
 		fmt.Println(appStatusChangeEvent.Event.AppId)
 		fmt.Println(appStatusChangeEvent.Event.Status)
-		fmt.Println(tools.Prettify(appStatusChangeEvent))
+		fmt.Println(lark.Prettify(appStatusChangeEvent))
 		return nil
 	})
 
-	eventhttpserver.Register("/webhook/event", conf)
+	lark.WebHook.EventWebServeRouter("/webhook/event", conf)
 	err := http.ListenAndServe(":8089", nil)
 	if err != nil {
 		panic(err)

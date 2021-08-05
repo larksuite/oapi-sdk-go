@@ -5,20 +5,18 @@ import (
 	"context"
 	"crypto/rand"
 	"fmt"
+	"github.com/larksuite/oapi-sdk-go"
 	"github.com/larksuite/oapi-sdk-go/api/core/request"
-	"github.com/larksuite/oapi-sdk-go/api/core/response"
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/tools"
 	"github.com/larksuite/oapi-sdk-go/sample/configs"
-	drivev1 "github.com/larksuite/oapi-sdk-go/service/drive/v1"
+	drive "github.com/larksuite/oapi-sdk-go/service/drive/v1"
 	"hash/adler32"
 	"io"
 )
 
 // for redis store and logrus
-// configs.TestConfigWithLogrusAndRedisStore(core.DomainFeiShu)
+// configs.TestConfigWithLogrusAndRedisStore(lark.DomainFeiShu)
 // configs.TestConfig("https://open.feishu.cn")
-var driveService = drivev1.NewService(configs.TestConfig(core.DomainFeiShu))
+var driveService = drive.NewService(configs.TestConfig(lark.DomainFeiShu))
 
 func main() {
 	testFileUploadAll()
@@ -32,7 +30,7 @@ func createRandomFileData(size int64) []byte {
 }
 
 func testFileUploadAll() {
-	coreCtx := core.WrapContext(context.Background())
+	coreCtx := lark.WrapContext(context.Background())
 	reqCall := driveService.Files.UploadAll(coreCtx, request.SetUserAccessToken("[user_access_token]"))
 
 	reqCall.SetParentType("explorer")
@@ -42,7 +40,7 @@ func testFileUploadAll() {
 
 	fileContent := createRandomFileData(1024)
 	reqCall.SetChecksum(fmt.Sprintf("%d", adler32.Checksum(fileContent)))
-	file := request.NewFile()
+	file := lark.NewFormDataFile()
 	file.SetContent(fileContent)
 	reqCall.SetFile(file)
 
@@ -50,11 +48,11 @@ func testFileUploadAll() {
 	fmt.Printf("request_id:%s", coreCtx.GetRequestID())
 	fmt.Printf("http status code:%d", coreCtx.GetHTTPStatusCode())
 	if err != nil {
-		e := err.(*response.Error)
-		fmt.Println(tools.Prettify(e))
+		e := err.(lark.APIError)
+		fmt.Println(lark.Prettify(e))
 		return
 	}
-	fmt.Printf("reault:%s", tools.Prettify(result))
+	fmt.Printf("reault:%s", lark.Prettify(result))
 
 	if len(result.FileToken) == 0 {
 		fmt.Printf("file token is empty")
@@ -65,7 +63,7 @@ func testFileUploadAll() {
 
 func testMediaBatchGetTmpDownloadURLs() {
 
-	coreCtx := core.WrapContext(context.Background())
+	coreCtx := lark.WrapContext(context.Background())
 	userAccessTokenOptFn := request.SetUserAccessToken("[user_access_token]")
 
 	reqCall := driveService.Medias.BatchGetTmpDownloadUrl(coreCtx, userAccessTokenOptFn)
@@ -75,11 +73,11 @@ func testMediaBatchGetTmpDownloadURLs() {
 	fmt.Printf("request_id:%s", coreCtx.GetRequestID())
 	fmt.Printf("http status code:%d", coreCtx.GetHTTPStatusCode())
 	if err != nil {
-		e := err.(*response.Error)
-		fmt.Println(tools.Prettify(e))
+		e := err.(lark.APIError)
+		fmt.Println(lark.Prettify(e))
 		return
 	}
-	fmt.Printf("reault:%s", tools.Prettify(result))
+	fmt.Printf("reault:%s", lark.Prettify(result))
 
 	if len(result.TmpDownloadUrls) == 0 {
 		fmt.Printf("TmpDownloadUrls len invalid")
@@ -88,7 +86,7 @@ func testMediaBatchGetTmpDownloadURLs() {
 }
 
 func testFileDownload() {
-	coreCtx := core.WrapContext(context.Background())
+	coreCtx := lark.WrapContext(context.Background())
 
 	reqCall := driveService.Files.Download(coreCtx, request.SetUserAccessToken("[user_access_token]"))
 
@@ -100,8 +98,8 @@ func testFileDownload() {
 	fmt.Printf("request_id:%s", coreCtx.GetRequestID())
 	fmt.Printf("http status code:%d", coreCtx.GetHTTPStatusCode())
 	if err != nil {
-		e := err.(*response.Error)
-		fmt.Printf(tools.Prettify(e))
+		e := err.(lark.APIError)
+		fmt.Printf(lark.Prettify(e))
 		return
 	}
 }

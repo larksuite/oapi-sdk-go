@@ -5,15 +5,12 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/larksuite/oapi-sdk-go/api/core/constants"
-	coreerrors "github.com/larksuite/oapi-sdk-go/api/core/errors"
 	"github.com/larksuite/oapi-sdk-go/api/core/request"
 	"github.com/larksuite/oapi-sdk-go/api/core/response"
 	"github.com/larksuite/oapi-sdk-go/api/core/token"
 	"github.com/larksuite/oapi-sdk-go/api/core/transport"
 	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/config"
-	coreconst "github.com/larksuite/oapi-sdk-go/core/constants"
+	"github.com/larksuite/oapi-sdk-go/core/constants"
 	"io"
 	"io/ioutil"
 	"mime/multipart"
@@ -25,8 +22,23 @@ import (
 
 const defaultMaxRetryCount = 1
 
+const (
+	AppAccessTokenInternalUrlPath    string = "auth/v3/app_access_token/internal"
+	AppAccessTokenIsvUrlPath         string = "auth/v3/app_access_token"
+	TenantAccessTokenInternalUrlPath string = "auth/v3/tenant_access_token/internal"
+	TenantAccessTokenIsvUrlPath      string = "auth/v3/tenant_access_token"
+	ApplyAppTicketPath               string = "auth/v3/app_ticket/resend"
+)
+
+var (
+	ErrAccessTokenTypeInvalid    = errors.New("access token type is invalid")
+	ErrTenantKeyIsEmpty          = errors.New("tenant key is empty")
+	ErrUserAccessTokenKeyIsEmpty = errors.New("user access token is empty")
+	ErrAppTicketIsEmpty          = errors.New("app ticket is empty")
+)
+
 var defaultHTTPRequestHeader = map[string]string{}
-var defaultHTTPRequestHeaderKeysWithContext = []string{coreconst.HTTPHeaderKeyRequestID}
+var defaultHTTPRequestHeaderKeysWithContext = []string{constants.HTTPHeaderKeyRequestID}
 var Default = &Handlers{}
 
 func init() {
@@ -71,7 +83,7 @@ func Handle(ctx *core.Context, req *request.Request) {
 		if !req.Retryable || i > defaultMaxRetryCount {
 			return
 		}
-		config.ByCtx(ctx).GetLogger().Debug(ctx, fmt.Sprintf("[retry] request:%v, err: %v", req, req.Err))
+		core.GetConfigByCtx(ctx).GetLogger().Debug(ctx, fmt.Sprintf("[retry] request:%v, err: %v", req, req.Err))
 		req.Err = nil
 	}
 }
@@ -90,8 +102,8 @@ func (hs *Handlers) send(ctx *core.Context, req *request.Request) {
 		req.Err = err
 		return
 	}
-	ctx.Set(coreconst.HTTPHeader, core.NewOapiHeader(resp.Header))
-	ctx.Set(coreconst.HTTPKeyStatusCode, resp.StatusCode)
+	ctx.Set(constants.HTTPHeader, resp.Header)
+	ctx.Set(constants.HTTPKeyStatusCode, resp.StatusCode)
 	req.HTTPResponse = resp
 	defer hs.retry(ctx, req)
 	hs.validateResponse(ctx, req)
@@ -102,7 +114,7 @@ func (hs *Handlers) send(ctx *core.Context, req *request.Request) {
 }
 
 func initFunc(ctx *core.Context, req *request.Request) {
-	conf := config.ByCtx(ctx)
+	conf := core.GetConfigByCtx(ctx)
 	req.Err = req.Init(conf.GetDomain())
 }
 
@@ -111,22 +123,22 @@ func validateFunc(ctx *core.Context, req *request.Request) {
 		return
 	}
 	if _, ok := req.AccessibleTokenTypeSet[req.AccessTokenType]; !ok {
-		req.Err = coreerrors.ErrAccessTokenTypeInvalid
+		req.Err = ErrAccessTokenTypeInvalid
 	}
-	if config.ByCtx(ctx).GetAppSettings().AppType == coreconst.AppTypeISV {
+	if core.GetConfigByCtx(ctx).GetAppSettings().AppType == constants.AppTypeISV {
 		if req.AccessTokenType == request.AccessTokenTypeTenant && req.TenantKey == "" {
-			req.Err = coreerrors.ErrTenantKeyIsEmpty
+			req.Err = ErrTenantKeyIsEmpty
 			return
 		}
 	}
 	if req.AccessTokenType == request.AccessTokenTypeUser && req.UserAccessToken == "" {
-		req.Err = coreerrors.ErrUserAccessTokenKeyIsEmpty
+		req.Err = ErrUserAccessTokenKeyIsEmpty
 		return
 	}
 }
 
 func buildFunc(ctx *core.Context, req *request.Request) {
-	conf := config.ByCtx(ctx)
+	conf := core.GetConfigByCtx(ctx)
 	if !req.Retryable {
 		if req.Input != nil {
 			switch req.Input.(type) {
@@ -166,7 +178,7 @@ func buildFunc(ctx *core.Context, req *request.Request) {
 		}
 	}
 	if req.ContentType != "" {
-		r.Header.Set(coreconst.ContentType, req.ContentType)
+		r.Header.Set(constants.ContentType, req.ContentType)
 	}
 	req.HTTPRequest = r
 }
@@ -185,7 +197,7 @@ func signFunc(ctx *core.Context, req *request.Request) {
 		httpRequest, err = req.HTTPRequest, req.Err
 	}
 	if req.NeedHelpDeskAuth {
-		conf := config.ByCtx(ctx)
+		conf := core.GetConfigByCtx(ctx)
 		if conf.GetHelpDeskAuthorization() == "" {
 			err = errors.New("help desk API, please set the helpdesk information of config.AppSettings")
 		} else if httpRequest != nil {
@@ -198,9 +210,9 @@ func signFunc(ctx *core.Context, req *request.Request) {
 
 func validateResponseFunc(_ *core.Context, req *request.Request) {
 	resp := req.HTTPResponse
-	contentType := resp.Header.Get(coreconst.ContentType)
+	contentType := resp.Header.Get(constants.ContentType)
 	if req.IsResponseStream {
-		if strings.Contains(contentType, coreconst.ContentTypeJson) {
+		if strings.Contains(contentType, constants.ContentTypeJson) {
 			req.IsResponseStreamReal = false
 			return
 		}
@@ -210,14 +222,14 @@ func validateResponseFunc(_ *core.Context, req *request.Request) {
 		req.IsResponseStreamReal = true
 		return
 	}
-	if !strings.Contains(contentType, coreconst.ContentTypeJson) {
+	if !strings.Contains(contentType, constants.ContentTypeJson) {
 		respBody, err := readResponse(resp)
 		if err != nil {
 			req.Err = err
 			return
 		}
 		req.Err = response.NewErrorOfInvalidResp(fmt.Sprintf("content-type: %s, is not: %s, if is stream, "+
-			"please `request.SetResponseStream() or xxxxReqCall.SetResponseStream(io.Writer)`, body:%s", contentType, coreconst.ContentTypeJson, string(respBody)))
+			"please `request.SetResponseStream() or xxxxReqCall.SetResponseStream(io.Writer)`, body:%s", contentType, constants.ContentTypeJson, string(respBody)))
 	}
 }
 
@@ -243,7 +255,7 @@ func unmarshalResponseFunc(ctx *core.Context, req *request.Request) {
 		req.Err = err
 		return
 	}
-	config.ByCtx(ctx).GetLogger().Debug(ctx, fmt.Sprintf("[unmarshalResponse] request:%v, response:body:%s",
+	core.GetConfigByCtx(ctx).GetLogger().Debug(ctx, fmt.Sprintf("[unmarshalResponse] request:%v, response:body:%s",
 		req, string(respBody)))
 	if req.DataFilled() {
 		err := unmarshalJSON(req.Output, req.IsNotDataField, respBody)
@@ -279,7 +291,7 @@ func retryFunc(_ *core.Context, req *request.Request) {
 func complementFunc(ctx *core.Context, req *request.Request) {
 	if req.RequestBodyFilePath != "" {
 		if err := os.Remove(req.RequestBodyFilePath); err != nil {
-			config.ByCtx(ctx).GetLogger().Debug(ctx, fmt.Sprintf("[complement] request:%v, "+
+			core.GetConfigByCtx(ctx).GetLogger().Debug(ctx, fmt.Sprintf("[complement] request:%v, "+
 				"delete tmp file(%s) err: %v", req, req.RequestBodyFilePath, err))
 		}
 	}
@@ -290,7 +302,7 @@ func complementFunc(ctx *core.Context, req *request.Request) {
 			applyAppTicket(ctx)
 		}
 	default:
-		if req.Err == coreerrors.ErrAppTicketIsEmpty {
+		if req.Err == ErrAppTicketIsEmpty {
 			applyAppTicket(ctx)
 		}
 	}
@@ -298,8 +310,8 @@ func complementFunc(ctx *core.Context, req *request.Request) {
 
 // apply app ticket
 func applyAppTicket(ctx *core.Context) {
-	conf := config.ByCtx(ctx)
-	req := request.NewRequestByAuth(constants.ApplyAppTicketPath, http.MethodPost,
+	conf := core.GetConfigByCtx(ctx)
+	req := request.NewRequestByAuth(ApplyAppTicketPath, http.MethodPost,
 		&token.ApplyAppTicketReq{
 			AppID:     conf.GetAppSettings().AppID,
 			AppSecret: conf.GetAppSettings().AppSecret,
@@ -425,6 +437,6 @@ func reqBodyFromInput(_ *core.Context, req *request.Request) {
 		}
 		bs = reqBody.Bytes()
 	}
-	req.ContentType = coreconst.DefaultContentType
+	req.ContentType = constants.DefaultContentType
 	req.RequestBody = bs
 }

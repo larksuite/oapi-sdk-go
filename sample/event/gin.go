@@ -3,55 +3,41 @@ package main
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/tools"
-	"github.com/larksuite/oapi-sdk-go/event"
-	eventhttp "github.com/larksuite/oapi-sdk-go/event/http"
-	"github.com/larksuite/oapi-sdk-go/sample/configs"
+	"github.com/larksuite/oapi-sdk-go"
 	application "github.com/larksuite/oapi-sdk-go/service/application/v1"
 )
 
-// for redis store and logrus
-// var conf = configs.TestConfigWithLogrusAndRedisStore(core.DomainFeiShu)
-// var conf = configs.TestConfig("https://open.feishu.cn")
-var conf = configs.TestConfig(core.DomainFeiShu)
+var appConf *lark.AppConfig
 
 func main() {
+	appConf = lark.NewInternalAppConfigByEnv(lark.DomainFeiShu)
+	appConf.SetLogLevel(lark.LogLevelDebug)
 
-	application.SetAppOpenEventHandler(conf, func(ctx *core.Context, appOpenEvent *application.AppOpenEvent) error {
+	application.SetAppOpenEventHandler(appConf, func(ctx *lark.Context, appOpenEvent *application.AppOpenEvent) error {
 		fmt.Println(ctx.GetRequestID())
 		fmt.Println(appOpenEvent)
-		fmt.Println(tools.Prettify(appOpenEvent))
+		fmt.Println(lark.Prettify(appOpenEvent))
 		return nil
 	})
 
-	/*
-		application.SetAppStatusChangeEventHandler(conf, func(ctx *core.Context, appStatusChangeEvent *application.AppStatusChangeEvent) error {
-			fmt.Println(ctx.GetRequestID())
-			fmt.Println(appStatusChangeEvent.Event.AppId)
-			fmt.Println(appStatusChangeEvent.Event.Status)
-			fmt.Println(tools.Prettify(appStatusChangeEvent))
-			return nil
-		})
-	*/
-	event.SetTypeCallback(conf, "app_status_change", func(ctx *core.Context, event map[string]interface{}) error {
+	lark.WebHook.SetEventHandler(appConf, "app_status_change", func(ctx *lark.Context, event map[string]interface{}) error {
 		fmt.Println(ctx.GetRequestID())
-		fmt.Println(tools.Prettify(event))
+		fmt.Println(lark.Prettify(event))
 		data := event["event"].(map[string]interface{})
-		fmt.Println(tools.Prettify(data))
+		fmt.Println(lark.Prettify(data))
 		return nil
 	})
 
-	application.SetAppUninstalledEventHandler(conf, func(ctx *core.Context, appUninstalledEvent *application.AppUninstalledEvent) error {
+	application.SetAppUninstalledEventHandler(appConf, func(ctx *lark.Context, appUninstalledEvent *application.AppUninstalledEvent) error {
 		fmt.Println(ctx.GetRequestID())
-		fmt.Println(tools.Prettify(appUninstalledEvent))
+		fmt.Println(lark.Prettify(appUninstalledEvent))
 		return nil
 	})
 
 	g := gin.Default()
 
 	g.POST("/webhook/event", func(context *gin.Context) {
-		eventhttp.Handle(conf, context.Request, context.Writer)
+		lark.WebHook.EventWebServeHandler(appConf, context.Request, context.Writer)
 	})
 	err := g.Run(":8089")
 	if err != nil {

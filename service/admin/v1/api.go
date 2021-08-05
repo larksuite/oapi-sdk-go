@@ -2,19 +2,18 @@
 package v1
 
 import (
+	"github.com/larksuite/oapi-sdk-go"
 	"github.com/larksuite/oapi-sdk-go/api"
 	"github.com/larksuite/oapi-sdk-go/api/core/request"
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/config"
 )
 
 type Service struct {
-	conf           *config.Config
+	conf           lark.Config
 	AdminDeptStats *AdminDeptStatService
 	AdminUserStats *AdminUserStatService
 }
 
-func NewService(conf *config.Config) *Service {
+func NewService(conf lark.Config) *Service {
 	s := &Service{
 		conf: conf,
 	}
@@ -44,10 +43,10 @@ func newAdminUserStatService(service *Service) *AdminUserStatService {
 }
 
 type AdminDeptStatListReqCall struct {
-	ctx            *core.Context
+	ctx            *lark.Context
 	adminDeptStats *AdminDeptStatService
 	queryParams    map[string]interface{}
-	optFns         []request.OptFn
+	opts           []lark.APIRequestOpt
 }
 
 func (rc *AdminDeptStatListReqCall) SetDepartmentIdType(departmentIdType string) {
@@ -73,28 +72,28 @@ func (rc *AdminDeptStatListReqCall) SetPageToken(pageToken string) {
 }
 
 func (rc *AdminDeptStatListReqCall) Do() (*AdminDeptStatListResult, error) {
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
 	var result = &AdminDeptStatListResult{}
 	req := request.NewRequest("/open-apis/admin/v1/admin_dept_stats", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.adminDeptStats.service.conf, req)
 	return result, err
 }
 
-func (adminDeptStats *AdminDeptStatService) List(ctx *core.Context, optFns ...request.OptFn) *AdminDeptStatListReqCall {
+func (adminDeptStats *AdminDeptStatService) List(ctx *lark.Context, opts ...lark.APIRequestOpt) *AdminDeptStatListReqCall {
 	return &AdminDeptStatListReqCall{
 		ctx:            ctx,
 		adminDeptStats: adminDeptStats,
 		queryParams:    map[string]interface{}{},
-		optFns:         optFns,
+		opts:           opts,
 	}
 }
 
 type AdminUserStatListReqCall struct {
-	ctx            *core.Context
+	ctx            *lark.Context
 	adminUserStats *AdminUserStatService
 	queryParams    map[string]interface{}
-	optFns         []request.OptFn
+	opts           []lark.APIRequestOpt
 }
 
 func (rc *AdminUserStatListReqCall) SetUserIdType(userIdType string) {
@@ -123,19 +122,19 @@ func (rc *AdminUserStatListReqCall) SetPageToken(pageToken string) {
 }
 
 func (rc *AdminUserStatListReqCall) Do() (*AdminUserStatListResult, error) {
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
 	var result = &AdminUserStatListResult{}
 	req := request.NewRequest("/open-apis/admin/v1/admin_user_stats", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.adminUserStats.service.conf, req)
 	return result, err
 }
 
-func (adminUserStats *AdminUserStatService) List(ctx *core.Context, optFns ...request.OptFn) *AdminUserStatListReqCall {
+func (adminUserStats *AdminUserStatService) List(ctx *lark.Context, opts ...lark.APIRequestOpt) *AdminUserStatListReqCall {
 	return &AdminUserStatListReqCall{
 		ctx:            ctx,
 		adminUserStats: adminUserStats,
 		queryParams:    map[string]interface{}{},
-		optFns:         optFns,
+		opts:           opts,
 	}
 }

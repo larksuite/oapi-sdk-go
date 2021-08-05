@@ -5,27 +5,26 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"github.com/larksuite/oapi-sdk-go"
 	"github.com/larksuite/oapi-sdk-go/api"
 	"github.com/larksuite/oapi-sdk-go/api/core/request"
-	"github.com/larksuite/oapi-sdk-go/api/core/response"
 	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/tools"
 	"github.com/larksuite/oapi-sdk-go/sample/configs"
 	"io/ioutil"
 	"os"
 )
 
 // for redis store and logrus
-var conf = configs.TestConfigWithLogrusAndRedisStore(core.DomainFeiShu)
+var conf = configs.TestConfigWithLogrusAndRedisStore(lark.DomainFeiShu)
 
 // var conf = configs.TestConfig("https://open.feishu.cn")
-// var conf = configs.TestConfig(core.DomainFeiShu)
+// var conf = configs.TestConfig(lark.DomainFeiShu)
 
 func main() {
-	testSendMessage()
-	//testSendCardMessage()
-	//testUploadFile()
-	testDownloadFile()
+	//testSendMessage()
+	testSendCardMessage()
+	testUploadFile()
+	//testDownloadFile()
 }
 
 // send card message
@@ -45,19 +44,19 @@ func testSendCardMessage() {
 	ret := make(map[string]interface{})
 	req := request.NewRequestWithNative("/open-apis/message/v4/send", "POST",
 		request.AccessTokenTypeTenant, body, &ret,
-		//应用市场应用 request.SetTenantKey("TenantKey"),
+		//应用市场应用 lark.SetTenantKey("TenantKey"),
 	)
 	err = api.Send(coreCtx, conf, req)
 	fmt.Println(coreCtx.GetRequestID())
 	fmt.Println(coreCtx.GetHTTPStatusCode())
 	if err != nil {
-		fmt.Println(tools.Prettify(err))
-		e := err.(*response.Error)
+		fmt.Println(lark.Prettify(err))
+		e := err.(*lark.APIError)
 		fmt.Println(e.Code)
 		fmt.Println(e.Msg)
 		return
 	}
-	fmt.Println(tools.Prettify(ret))
+	fmt.Println(lark.Prettify(ret))
 }
 
 // send message
@@ -79,13 +78,13 @@ func testSendMessage() {
 	fmt.Println(coreCtx.GetRequestID())
 	fmt.Println(coreCtx.GetHTTPStatusCode())
 	if err != nil {
-		fmt.Println(tools.Prettify(err))
-		e := err.(*response.Error)
+		fmt.Println(lark.Prettify(err))
+		e := err.(*lark.APIError)
 		fmt.Println(e.Code)
 		fmt.Println(e.Msg)
 		return
 	}
-	fmt.Println(tools.Prettify(ret))
+	fmt.Println(lark.Prettify(ret))
 }
 
 type UploadImage struct {
@@ -119,13 +118,13 @@ func testUploadFile() {
 	fmt.Println(coreCtx.GetRequestID())
 	fmt.Println(coreCtx.GetHTTPStatusCode())
 	if err != nil {
-		fmt.Println(tools.Prettify(err))
-		e := err.(*response.Error)
+		fmt.Println(lark.Prettify(err))
+		e := err.(*lark.APIError)
 		fmt.Println(e.Code)
 		fmt.Println(e.Msg)
 		return
 	}
-	fmt.Println(tools.Prettify(ret))
+	fmt.Println(lark.Prettify(ret))
 }
 
 // download image
@@ -147,8 +146,8 @@ func testDownloadFile() {
 	fmt.Println(coreCtx.GetRequestID())
 	fmt.Println(coreCtx.GetHTTPStatusCode())
 	if err != nil {
-		fmt.Println(tools.Prettify(err))
-		e := err.(*response.Error)
+		fmt.Println(lark.Prettify(err))
+		e := err.(*lark.APIError)
 		fmt.Println(e.Code)
 		fmt.Println(e.Msg)
 		return

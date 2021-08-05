@@ -2,18 +2,17 @@
 package v3
 
 import (
+	lark "github.com/larksuite/oapi-sdk-go"
 	"github.com/larksuite/oapi-sdk-go/api"
 	"github.com/larksuite/oapi-sdk-go/api/core/request"
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/config"
 )
 
 type Service struct {
-	conf *config.Config
+	conf lark.Config
 	Bots *BotService
 }
 
-func NewService(conf *config.Config) *Service {
+func NewService(conf lark.Config) *Service {
 	s := &Service{
 		conf: conf,
 	}
@@ -32,7 +31,7 @@ func newBotService(service *Service) *BotService {
 }
 
 type BotGetReqCall struct {
-	ctx    *core.Context
+	ctx    *lark.Context
 	bots   *BotService
 	optFns []request.OptFn
 }
@@ -46,7 +45,7 @@ func (rc *BotGetReqCall) Do() (*BotGetResult, error) {
 	return result, err
 }
 
-func (bots *BotService) Get(ctx *core.Context, optFns ...request.OptFn) *BotGetReqCall {
+func (bots *BotService) Get(ctx *lark.Context, optFns ...request.OptFn) *BotGetReqCall {
 	return &BotGetReqCall{
 		ctx:    ctx,
 		bots:   bots,

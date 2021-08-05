@@ -2,151 +2,150 @@
 package v1
 
 import (
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/config"
+	"github.com/larksuite/oapi-sdk-go"
 	"github.com/larksuite/oapi-sdk-go/event"
 )
 
 type MeetingLeaveMeetingEventHandler struct {
-	Fn func(*core.Context, *MeetingLeaveMeetingEvent) error
+	Fn func(*lark.Context, *MeetingLeaveMeetingEvent) error
 }
 
 func (h *MeetingLeaveMeetingEventHandler) GetEvent() interface{} {
 	return &MeetingLeaveMeetingEvent{}
 }
 
-func (h *MeetingLeaveMeetingEventHandler) Handle(ctx *core.Context, event interface{}) error {
+func (h *MeetingLeaveMeetingEventHandler) Handle(ctx *lark.Context, event interface{}) error {
 	return h.Fn(ctx, event.(*MeetingLeaveMeetingEvent))
 }
 
-func SetMeetingLeaveMeetingEventHandler(conf *config.Config, fn func(ctx *core.Context, event *MeetingLeaveMeetingEvent) error) {
+func SetMeetingLeaveMeetingEventHandler(conf lark.Config, fn func(ctx *lark.Context, event *MeetingLeaveMeetingEvent) error) {
 	event.SetTypeHandler(conf, "vc.meeting.leave_meeting_v1", &MeetingLeaveMeetingEventHandler{Fn: fn})
 }
 
 type MeetingMeetingEndedEventHandler struct {
-	Fn func(*core.Context, *MeetingMeetingEndedEvent) error
+	Fn func(*lark.Context, *MeetingMeetingEndedEvent) error
 }
 
 func (h *MeetingMeetingEndedEventHandler) GetEvent() interface{} {
 	return &MeetingMeetingEndedEvent{}
 }
 
-func (h *MeetingMeetingEndedEventHandler) Handle(ctx *core.Context, event interface{}) error {
+func (h *MeetingMeetingEndedEventHandler) Handle(ctx *lark.Context, event interface{}) error {
 	return h.Fn(ctx, event.(*MeetingMeetingEndedEvent))
 }
 
-func SetMeetingMeetingEndedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *MeetingMeetingEndedEvent) error) {
+func SetMeetingMeetingEndedEventHandler(conf lark.Config, fn func(ctx *lark.Context, event *MeetingMeetingEndedEvent) error) {
 	event.SetTypeHandler(conf, "vc.meeting.meeting_ended_v1", &MeetingMeetingEndedEventHandler{Fn: fn})
 }
 
 type MeetingMeetingStartedEventHandler struct {
-	Fn func(*core.Context, *MeetingMeetingStartedEvent) error
+	Fn func(*lark.Context, *MeetingMeetingStartedEvent) error
 }
 
 func (h *MeetingMeetingStartedEventHandler) GetEvent() interface{} {
 	return &MeetingMeetingStartedEvent{}
 }
 
-func (h *MeetingMeetingStartedEventHandler) Handle(ctx *core.Context, event interface{}) error {
+func (h *MeetingMeetingStartedEventHandler) Handle(ctx *lark.Context, event interface{}) error {
 	return h.Fn(ctx, event.(*MeetingMeetingStartedEvent))
 }
 
-func SetMeetingMeetingStartedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *MeetingMeetingStartedEvent) error) {
+func SetMeetingMeetingStartedEventHandler(conf lark.Config, fn func(ctx *lark.Context, event *MeetingMeetingStartedEvent) error) {
 	event.SetTypeHandler(conf, "vc.meeting.meeting_started_v1", &MeetingMeetingStartedEventHandler{Fn: fn})
 }
 
 type MeetingRecordingEndedEventHandler struct {
-	Fn func(*core.Context, *MeetingRecordingEndedEvent) error
+	Fn func(*lark.Context, *MeetingRecordingEndedEvent) error
 }
 
 func (h *MeetingRecordingEndedEventHandler) GetEvent() interface{} {
 	return &MeetingRecordingEndedEvent{}
 }
 
-func (h *MeetingRecordingEndedEventHandler) Handle(ctx *core.Context, event interface{}) error {
+func (h *MeetingRecordingEndedEventHandler) Handle(ctx *lark.Context, event interface{}) error {
 	return h.Fn(ctx, event.(*MeetingRecordingEndedEvent))
 }
 
-func SetMeetingRecordingEndedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *MeetingRecordingEndedEvent) error) {
+func SetMeetingRecordingEndedEventHandler(conf lark.Config, fn func(ctx *lark.Context, event *MeetingRecordingEndedEvent) error) {
 	event.SetTypeHandler(conf, "vc.meeting.recording_ended_v1", &MeetingRecordingEndedEventHandler{Fn: fn})
 }
 
 type MeetingShareEndedEventHandler struct {
-	Fn func(*core.Context, *MeetingShareEndedEvent) error
+	Fn func(*lark.Context, *MeetingShareEndedEvent) error
 }
 
 func (h *MeetingShareEndedEventHandler) GetEvent() interface{} {
 	return &MeetingShareEndedEvent{}
 }
 
-func (h *MeetingShareEndedEventHandler) Handle(ctx *core.Context, event interface{}) error {
+func (h *MeetingShareEndedEventHandler) Handle(ctx *lark.Context, event interface{}) error {
 	return h.Fn(ctx, event.(*MeetingShareEndedEvent))
 }
 
-func SetMeetingShareEndedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *MeetingShareEndedEvent) error) {
+func SetMeetingShareEndedEventHandler(conf lark.Config, fn func(ctx *lark.Context, event *MeetingShareEndedEvent) error) {
 	event.SetTypeHandler(conf, "vc.meeting.share_ended_v1", &MeetingShareEndedEventHandler{Fn: fn})
 }
 
 type MeetingJoinMeetingEventHandler struct {
-	Fn func(*core.Context, *MeetingJoinMeetingEvent) error
+	Fn func(*lark.Context, *MeetingJoinMeetingEvent) error
 }
 
 func (h *MeetingJoinMeetingEventHandler) GetEvent() interface{} {
 	return &MeetingJoinMeetingEvent{}
 }
 
-func (h *MeetingJoinMeetingEventHandler) Handle(ctx *core.Context, event interface{}) error {
+func (h *MeetingJoinMeetingEventHandler) Handle(ctx *lark.Context, event interface{}) error {
 	return h.Fn(ctx, event.(*MeetingJoinMeetingEvent))
 }
 
-func SetMeetingJoinMeetingEventHandler(conf *config.Config, fn func(ctx *core.Context, event *MeetingJoinMeetingEvent) error) {
+func SetMeetingJoinMeetingEventHandler(conf lark.Config, fn func(ctx *lark.Context, event *MeetingJoinMeetingEvent) error) {
 	event.SetTypeHandler(conf, "vc.meeting.join_meeting_v1", &MeetingJoinMeetingEventHandler{Fn: fn})
 }
 
 type MeetingRecordingStartedEventHandler struct {
-	Fn func(*core.Context, *MeetingRecordingStartedEvent) error
+	Fn func(*lark.Context, *MeetingRecordingStartedEvent) error
 }
 
 func (h *MeetingRecordingStartedEventHandler) GetEvent() interface{} {
 	return &MeetingRecordingStartedEvent{}
 }
 
-func (h *MeetingRecordingStartedEventHandler) Handle(ctx *core.Context, event interface{}) error {
+func (h *MeetingRecordingStartedEventHandler) Handle(ctx *lark.Context, event interface{}) error {
 	return h.Fn(ctx, event.(*MeetingRecordingStartedEvent))
 }
 
-func SetMeetingRecordingStartedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *MeetingRecordingStartedEvent) error) {
+func SetMeetingRecordingStartedEventHandler(conf lark.Config, fn func(ctx *lark.Context, event *MeetingRecordingStartedEvent) error) {
 	event.SetTypeHandler(conf, "vc.meeting.recording_started_v1", &MeetingRecordingStartedEventHandler{Fn: fn})
 }
 
 type MeetingShareStartedEventHandler struct {
-	Fn func(*core.Context, *MeetingShareStartedEvent) error
+	Fn func(*lark.Context, *MeetingShareStartedEvent) error
 }
 
 func (h *MeetingShareStartedEventHandler) GetEvent() interface{} {
 	return &MeetingShareStartedEvent{}
 }
 
-func (h *MeetingShareStartedEventHandler) Handle(ctx *core.Context, event interface{}) error {
+func (h *MeetingShareStartedEventHandler) Handle(ctx *lark.Context, event interface{}) error {
 	return h.Fn(ctx, event.(*MeetingShareStartedEvent))
 }
 
-func SetMeetingShareStartedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *MeetingShareStartedEvent) error) {
+func SetMeetingShareStartedEventHandler(conf lark.Config, fn func(ctx *lark.Context, event *MeetingShareStartedEvent) error) {
 	event.SetTypeHandler(conf, "vc.meeting.share_started_v1", &MeetingShareStartedEventHandler{Fn: fn})
 }
 
 type MeetingRecordingReadyEventHandler struct {
-	Fn func(*core.Context, *MeetingRecordingReadyEvent) error
+	Fn func(*lark.Context, *MeetingRecordingReadyEvent) error
 }
 
 func (h *MeetingRecordingReadyEventHandler) GetEvent() interface{} {
 	return &MeetingRecordingReadyEvent{}
 }
 
-func (h *MeetingRecordingReadyEventHandler) Handle(ctx *core.Context, event interface{}) error {
+func (h *MeetingRecordingReadyEventHandler) Handle(ctx *lark.Context, event interface{}) error {
 	return h.Fn(ctx, event.(*MeetingRecordingReadyEvent))
 }
 
-func SetMeetingRecordingReadyEventHandler(conf *config.Config, fn func(ctx *core.Context, event *MeetingRecordingReadyEvent) error) {
+func SetMeetingRecordingReadyEventHandler(conf lark.Config, fn func(ctx *lark.Context, event *MeetingRecordingReadyEvent) error) {
 	event.SetTypeHandler(conf, "vc.meeting.recording_ready_v1", &MeetingRecordingReadyEventHandler{Fn: fn})
 }

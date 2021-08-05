@@ -2,19 +2,18 @@
 package v1
 
 import (
+	"github.com/larksuite/oapi-sdk-go"
 	"github.com/larksuite/oapi-sdk-go/api"
 	"github.com/larksuite/oapi-sdk-go/api/core/request"
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/config"
 )
 
 type Service struct {
-	conf    *config.Config
+	conf    lark.Config
 	Members *MemberService
 	Publics *PublicService
 }
 
-func NewService(conf *config.Config) *Service {
+func NewService(conf lark.Config) *Service {
 	s := &Service{
 		conf: conf,
 	}
@@ -44,169 +43,169 @@ func newPublicService(service *Service) *PublicService {
 }
 
 type MemberCreateReqCall struct {
-	ctx     *core.Context
+	ctx     *lark.Context
 	members *MemberService
 	body    *MemberCreateReqBody
-	optFns  []request.OptFn
+	opts    []lark.APIRequestOpt
 }
 
 func (rc *MemberCreateReqCall) Do() (*MemberCreateResult, error) {
 	var result = &MemberCreateResult{}
 	req := request.NewRequest("/open-apis/drive/permission/member/create", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.members.service.conf, req)
 	return result, err
 }
 
-func (members *MemberService) Create(ctx *core.Context, body *MemberCreateReqBody, optFns ...request.OptFn) *MemberCreateReqCall {
+func (members *MemberService) Create(ctx *lark.Context, body *MemberCreateReqBody, opts ...lark.APIRequestOpt) *MemberCreateReqCall {
 	return &MemberCreateReqCall{
 		ctx:     ctx,
 		members: members,
 		body:    body,
-		optFns:  optFns,
+		opts:    opts,
 	}
 }
 
 type MemberDeleteReqCall struct {
-	ctx     *core.Context
+	ctx     *lark.Context
 	members *MemberService
 	body    *MemberDeleteReqBody
-	optFns  []request.OptFn
+	opts    []lark.APIRequestOpt
 }
 
 func (rc *MemberDeleteReqCall) Do() (*MemberDeleteResult, error) {
 	var result = &MemberDeleteResult{}
 	req := request.NewRequest("/open-apis/drive/permission/member/delete", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.members.service.conf, req)
 	return result, err
 }
 
-func (members *MemberService) Delete(ctx *core.Context, body *MemberDeleteReqBody, optFns ...request.OptFn) *MemberDeleteReqCall {
+func (members *MemberService) Delete(ctx *lark.Context, body *MemberDeleteReqBody, opts ...lark.APIRequestOpt) *MemberDeleteReqCall {
 	return &MemberDeleteReqCall{
 		ctx:     ctx,
 		members: members,
 		body:    body,
-		optFns:  optFns,
+		opts:    opts,
 	}
 }
 
 type MemberListReqCall struct {
-	ctx     *core.Context
+	ctx     *lark.Context
 	members *MemberService
 	body    *MemberListReqBody
-	optFns  []request.OptFn
+	opts    []lark.APIRequestOpt
 }
 
 func (rc *MemberListReqCall) Do() (*MemberListResult, error) {
 	var result = &MemberListResult{}
 	req := request.NewRequest("/open-apis/drive/permission/member/list", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.members.service.conf, req)
 	return result, err
 }
 
-func (members *MemberService) List(ctx *core.Context, body *MemberListReqBody, optFns ...request.OptFn) *MemberListReqCall {
+func (members *MemberService) List(ctx *lark.Context, body *MemberListReqBody, opts ...lark.APIRequestOpt) *MemberListReqCall {
 	return &MemberListReqCall{
 		ctx:     ctx,
 		members: members,
 		body:    body,
-		optFns:  optFns,
+		opts:    opts,
 	}
 }
 
 type MemberPermittedReqCall struct {
-	ctx     *core.Context
+	ctx     *lark.Context
 	members *MemberService
 	body    *MemberPermittedReqBody
-	optFns  []request.OptFn
+	opts    []lark.APIRequestOpt
 }
 
 func (rc *MemberPermittedReqCall) Do() (*MemberPermittedResult, error) {
 	var result = &MemberPermittedResult{}
 	req := request.NewRequest("/open-apis/drive/permission/member/permitted", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.members.service.conf, req)
 	return result, err
 }
 
-func (members *MemberService) Permitted(ctx *core.Context, body *MemberPermittedReqBody, optFns ...request.OptFn) *MemberPermittedReqCall {
+func (members *MemberService) Permitted(ctx *lark.Context, body *MemberPermittedReqBody, opts ...lark.APIRequestOpt) *MemberPermittedReqCall {
 	return &MemberPermittedReqCall{
 		ctx:     ctx,
 		members: members,
 		body:    body,
-		optFns:  optFns,
+		opts:    opts,
 	}
 }
 
 type MemberTransferReqCall struct {
-	ctx     *core.Context
+	ctx     *lark.Context
 	members *MemberService
 	body    *MemberTransferReqBody
-	optFns  []request.OptFn
+	opts    []lark.APIRequestOpt
 }
 
 func (rc *MemberTransferReqCall) Do() (*MemberTransferResult, error) {
 	var result = &MemberTransferResult{}
 	req := request.NewRequest("/open-apis/drive/permission/member/transfer", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.members.service.conf, req)
 	return result, err
 }
 
-func (members *MemberService) Transfer(ctx *core.Context, body *MemberTransferReqBody, optFns ...request.OptFn) *MemberTransferReqCall {
+func (members *MemberService) Transfer(ctx *lark.Context, body *MemberTransferReqBody, opts ...lark.APIRequestOpt) *MemberTransferReqCall {
 	return &MemberTransferReqCall{
 		ctx:     ctx,
 		members: members,
 		body:    body,
-		optFns:  optFns,
+		opts:    opts,
 	}
 }
 
 type MemberUpdateReqCall struct {
-	ctx     *core.Context
+	ctx     *lark.Context
 	members *MemberService
 	body    *MemberUpdateReqBody
-	optFns  []request.OptFn
+	opts    []lark.APIRequestOpt
 }
 
 func (rc *MemberUpdateReqCall) Do() (*MemberUpdateResult, error) {
 	var result = &MemberUpdateResult{}
 	req := request.NewRequest("/open-apis/drive/permission/member/update", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.members.service.conf, req)
 	return result, err
 }
 
-func (members *MemberService) Update(ctx *core.Context, body *MemberUpdateReqBody, optFns ...request.OptFn) *MemberUpdateReqCall {
+func (members *MemberService) Update(ctx *lark.Context, body *MemberUpdateReqBody, opts ...lark.APIRequestOpt) *MemberUpdateReqCall {
 	return &MemberUpdateReqCall{
 		ctx:     ctx,
 		members: members,
 		body:    body,
-		optFns:  optFns,
+		opts:    opts,
 	}
 }
 
 type PublicUpdateReqCall struct {
-	ctx     *core.Context
+	ctx     *lark.Context
 	publics *PublicService
 	body    *PublicUpdateReqBody
-	optFns  []request.OptFn
+	opts    []lark.APIRequestOpt
 }
 
 func (rc *PublicUpdateReqCall) Do() (*PublicUpdateResult, error) {
 	var result = &PublicUpdateResult{}
 	req := request.NewRequest("/open-apis/drive/permission/public/update", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.publics.service.conf, req)
 	return result, err
 }
 
-func (publics *PublicService) Update(ctx *core.Context, body *PublicUpdateReqBody, optFns ...request.OptFn) *PublicUpdateReqCall {
+func (publics *PublicService) Update(ctx *lark.Context, body *PublicUpdateReqBody, opts ...lark.APIRequestOpt) *PublicUpdateReqCall {
 	return &PublicUpdateReqCall{
 		ctx:     ctx,
 		publics: publics,
 		body:    body,
-		optFns:  optFns,
+		opts:    opts,
 	}
 }

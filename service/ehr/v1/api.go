@@ -2,20 +2,19 @@
 package v1
 
 import (
+	"github.com/larksuite/oapi-sdk-go"
 	"github.com/larksuite/oapi-sdk-go/api"
 	"github.com/larksuite/oapi-sdk-go/api/core/request"
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/config"
 	"io"
 )
 
 type Service struct {
-	conf        *config.Config
+	conf        lark.Config
 	Attachments *AttachmentService
 	Employees   *EmployeeService
 }
 
-func NewService(conf *config.Config) *Service {
+func NewService(conf lark.Config) *Service {
 	s := &Service{
 		conf: conf,
 	}
@@ -45,10 +44,10 @@ func newEmployeeService(service *Service) *EmployeeService {
 }
 
 type AttachmentGetReqCall struct {
-	ctx         *core.Context
+	ctx         *lark.Context
 	attachments *AttachmentService
 	pathParams  map[string]interface{}
-	optFns      []request.OptFn
+	opts        []lark.APIRequestOpt
 	result      io.Writer
 }
 
@@ -60,28 +59,28 @@ func (rc *AttachmentGetReqCall) SetResponseStream(result io.Writer) {
 }
 
 func (rc *AttachmentGetReqCall) Do() (io.Writer, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetResponseStream())
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetResponseStream())
 	req := request.NewRequest("/open-apis/ehr/v1/attachments/:token", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, rc.result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, rc.result, rc.opts...)
 	err := api.Send(rc.ctx, rc.attachments.service.conf, req)
 	return rc.result, err
 }
 
-func (attachments *AttachmentService) Get(ctx *core.Context, optFns ...request.OptFn) *AttachmentGetReqCall {
+func (attachments *AttachmentService) Get(ctx *lark.Context, opts ...lark.APIRequestOpt) *AttachmentGetReqCall {
 	return &AttachmentGetReqCall{
 		ctx:         ctx,
 		attachments: attachments,
 		pathParams:  map[string]interface{}{},
-		optFns:      optFns,
+		opts:        opts,
 	}
 }
 
 type EmployeeListReqCall struct {
-	ctx         *core.Context
+	ctx         *lark.Context
 	employees   *EmployeeService
 	queryParams map[string]interface{}
-	optFns      []request.OptFn
+	opts        []lark.APIRequestOpt
 }
 
 func (rc *EmployeeListReqCall) SetView(view string) {
@@ -113,19 +112,19 @@ func (rc *EmployeeListReqCall) SetPageSize(pageSize int) {
 }
 
 func (rc *EmployeeListReqCall) Do() (*EmployeeListResult, error) {
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
 	var result = &EmployeeListResult{}
 	req := request.NewRequest("/open-apis/ehr/v1/employees", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.employees.service.conf, req)
 	return result, err
 }
 
-func (employees *EmployeeService) List(ctx *core.Context, optFns ...request.OptFn) *EmployeeListReqCall {
+func (employees *EmployeeService) List(ctx *lark.Context, opts ...lark.APIRequestOpt) *EmployeeListReqCall {
 	return &EmployeeListReqCall{
 		ctx:         ctx,
 		employees:   employees,
 		queryParams: map[string]interface{}{},
-		optFns:      optFns,
+		opts:        opts,
 	}
 }

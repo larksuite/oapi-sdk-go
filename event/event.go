@@ -1,8 +1,8 @@
 package event
 
 import (
+	"context"
 	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/config"
 	app "github.com/larksuite/oapi-sdk-go/event/app/v1"
 	"github.com/larksuite/oapi-sdk-go/event/core/handlers"
 	"github.com/larksuite/oapi-sdk-go/event/core/model"
@@ -12,16 +12,16 @@ import (
 
 var once sync.Once
 
-func SetTypeHandler(conf *config.Config, eventType string, handler handlers.Handler) {
+func SetTypeHandler(conf core.Config, eventType string, handler handlers.Handler) {
 	handlers.SetTypeHandler(conf, eventType, handler)
 }
 
 // Deprecated, please use `SetTypeCallback`
-func SetTypeHandler2(conf *config.Config, eventType string, callback func(ctx *core.Context, event map[string]interface{}) error) {
+func SetTypeHandler2(conf core.Config, eventType string, callback func(ctx *core.Context, event map[string]interface{}) error) {
 	SetTypeHandler(conf, eventType, &defaultHandler{callback: callback})
 }
 
-func SetTypeCallback(conf *config.Config, eventType string, callback func(ctx *core.Context, event map[string]interface{}) error) {
+func SetTypeCallback(conf core.Config, eventType string, callback func(ctx *core.Context, event map[string]interface{}) error) {
 	SetTypeHandler(conf, eventType, &defaultHandler{callback: callback})
 }
 
@@ -39,12 +39,12 @@ func (h *defaultHandler) Handle(ctx *core.Context, event interface{}) error {
 	return h.callback(ctx, *e)
 }
 
-func Handle(conf *config.Config, request *core.OapiRequest) *core.OapiResponse {
+func Handle(conf core.Config, request *core.OapiRequest) *core.OapiResponse {
 	once.Do(func() {
 		app.SetAppTicketEventHandler(conf)
 	})
-	coreCtx := core.WrapContext(request.Ctx)
-	coreCtx.Set(config.CtxKeyConfig, conf)
+	coreCtx := core.WrapContext(context.TODO())
+	coreCtx.Set(core.CtxKeyConfig, conf)
 	httpEvent := &model.HTTPEvent{
 		Request:  request,
 		Response: &core.OapiResponse{},

@@ -11,3 +11,7 @@ modules.txt
 *.json
 *.sh
 test.go
+test.pdf
+test.png
+test_download.pdf
+test_download.png

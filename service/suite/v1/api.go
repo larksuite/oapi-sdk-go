@@ -2,18 +2,17 @@
 package v1
 
 import (
+	"github.com/larksuite/oapi-sdk-go"
 	"github.com/larksuite/oapi-sdk-go/api"
 	"github.com/larksuite/oapi-sdk-go/api/core/request"
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/config"
 )
 
 type Service struct {
-	conf     *config.Config
+	conf     lark.Config
 	DocsApis *DocsApiService
 }
 
-func NewService(conf *config.Config) *Service {
+func NewService(conf lark.Config) *Service {
 	s := &Service{
 		conf: conf,
 	}
@@ -32,49 +31,49 @@ func newDocsApiService(service *Service) *DocsApiService {
 }
 
 type DocsApiMetaReqCall struct {
-	ctx      *core.Context
+	ctx      *lark.Context
 	docsApis *DocsApiService
 	body     *DocsApiMetaReqBody
-	optFns   []request.OptFn
+	opts     []lark.APIRequestOpt
 }
 
 func (rc *DocsApiMetaReqCall) Do() (*DocsApiMetaResult, error) {
 	var result = &DocsApiMetaResult{}
 	req := request.NewRequest("/open-apis/suite/docs-api/meta", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.docsApis.service.conf, req)
 	return result, err
 }
 
-func (docsApis *DocsApiService) Meta(ctx *core.Context, body *DocsApiMetaReqBody, optFns ...request.OptFn) *DocsApiMetaReqCall {
+func (docsApis *DocsApiService) Meta(ctx *lark.Context, body *DocsApiMetaReqBody, opts ...lark.APIRequestOpt) *DocsApiMetaReqCall {
 	return &DocsApiMetaReqCall{
 		ctx:      ctx,
 		docsApis: docsApis,
 		body:     body,
-		optFns:   optFns,
+		opts:     opts,
 	}
 }
 
 type DocsApiSearchReqCall struct {
-	ctx      *core.Context
+	ctx      *lark.Context
 	docsApis *DocsApiService
 	body     *DocsApiSearchReqBody
-	optFns   []request.OptFn
+	opts     []lark.APIRequestOpt
 }
 
 func (rc *DocsApiSearchReqCall) Do() (*DocsApiSearchResult, error) {
 	var result = &DocsApiSearchResult{}
 	req := request.NewRequest("/open-apis/suite/docs-api/search/object", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.docsApis.service.conf, req)
 	return result, err
 }
 
-func (docsApis *DocsApiService) Search(ctx *core.Context, body *DocsApiSearchReqBody, optFns ...request.OptFn) *DocsApiSearchReqCall {
+func (docsApis *DocsApiService) Search(ctx *lark.Context, body *DocsApiSearchReqBody, opts ...lark.APIRequestOpt) *DocsApiSearchReqCall {
 	return &DocsApiSearchReqCall{
 		ctx:      ctx,
 		docsApis: docsApis,
 		body:     body,
-		optFns:   optFns,
+		opts:     opts,
 	}
 }

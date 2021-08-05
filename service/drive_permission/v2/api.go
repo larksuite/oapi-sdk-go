@@ -2,19 +2,17 @@
 package v2
 
 import (
+	"github.com/larksuite/oapi-sdk-go"
 	"github.com/larksuite/oapi-sdk-go/api"
 	"github.com/larksuite/oapi-sdk-go/api/core/request"
-	"github.com/larksuite/oapi-sdk-go/api/core/response"
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/config"
 )
 
 type Service struct {
-	conf    *config.Config
+	conf    lark.Config
 	Publics *PublicService
 }
 
-func NewService(conf *config.Config) *Service {
+func NewService(conf lark.Config) *Service {
 	s := &Service{
 		conf: conf,
 	}
@@ -33,49 +31,49 @@ func newPublicService(service *Service) *PublicService {
 }
 
 type PublicGetReqCall struct {
-	ctx     *core.Context
+	ctx     *lark.Context
 	publics *PublicService
 	body    *PublicGetReqBody
-	optFns  []request.OptFn
+	opts    []lark.APIRequestOpt
 }
 
 func (rc *PublicGetReqCall) Do() (*PublicGetResult, error) {
 	var result = &PublicGetResult{}
 	req := request.NewRequest("/open-apis/drive/permission/v2/public", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.publics.service.conf, req)
 	return result, err
 }
 
-func (publics *PublicService) Get(ctx *core.Context, body *PublicGetReqBody, optFns ...request.OptFn) *PublicGetReqCall {
+func (publics *PublicService) Get(ctx *lark.Context, body *PublicGetReqBody, opts ...lark.APIRequestOpt) *PublicGetReqCall {
 	return &PublicGetReqCall{
 		ctx:     ctx,
 		publics: publics,
 		body:    body,
-		optFns:  optFns,
+		opts:    opts,
 	}
 }
 
 type PublicUpdateReqCall struct {
-	ctx     *core.Context
+	ctx     *lark.Context
 	publics *PublicService
 	body    *PublicUpdateReqBody
-	optFns  []request.OptFn
+	opts    []lark.APIRequestOpt
 }
 
-func (rc *PublicUpdateReqCall) Do() (*response.NoData, error) {
-	var result = &response.NoData{}
+func (rc *PublicUpdateReqCall) Do() (*lark.NoData, error) {
+	var result = &lark.NoData{}
 	req := request.NewRequest("/open-apis/drive/permission/v2/public/update", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.publics.service.conf, req)
 	return result, err
 }
 
-func (publics *PublicService) Update(ctx *core.Context, body *PublicUpdateReqBody, optFns ...request.OptFn) *PublicUpdateReqCall {
+func (publics *PublicService) Update(ctx *lark.Context, body *PublicUpdateReqBody, opts ...lark.APIRequestOpt) *PublicUpdateReqCall {
 	return &PublicUpdateReqCall{
 		ctx:     ctx,
 		publics: publics,
 		body:    body,
-		optFns:  optFns,
+		opts:    opts,
 	}
 }

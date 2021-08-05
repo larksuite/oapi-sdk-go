@@ -1,24 +1,19 @@
 package main
 
 import (
-	"context"
 	"fmt"
-	"github.com/larksuite/oapi-sdk-go/card"
-	"github.com/larksuite/oapi-sdk-go/card/model"
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/tools"
-	"github.com/larksuite/oapi-sdk-go/sample/configs"
+	"github.com/larksuite/oapi-sdk-go"
 )
 
 func main() {
 	// for redis store and logrus
-	// var conf = configs.TestConfigWithLogrusAndRedisStore(core.DomainFeiShu)
+	// var conf = configs.TestConfigWithLogrusAndRedisStore(lark.DomainFeiShu)
 	// var conf = configs.TestConfig("https://open.feishu.cn")
-	var conf = configs.TestConfig(core.DomainFeiShu)
+	var conf = lark.NewInternalAppConfigByEnv(lark.DomainFeiShu)
 
-	card.SetHandler(conf, func(coreCtx *core.Context, card *model.Card) (interface{}, error) {
-		fmt.Println(coreCtx.GetRequestID())
-		fmt.Println(tools.Prettify(card.Action))
+	lark.WebHook.SetCardActionHandler(conf, func(ctx *lark.Context, cardAction *lark.CardAction) (interface{}, error) {
+		fmt.Println(ctx.GetRequestID())
+		fmt.Println(lark.Prettify(cardAction.Action))
 		return nil, nil
 	})
 
@@ -32,11 +27,10 @@ func main() {
 	// header["X-Lark-Signature"] = []string{"26cb59f4f5a91c4147d0xxxxxxxxxc4a36fb2c"}
 	// header["X-Refresh-Token"] = []string{"acc4d5f2-4bc6-4394-a9d4-45e168fcde97"}
 
-	req := &core.OapiRequest{
-		Ctx:    context.Background(),
-		Header: core.NewOapiHeader(header),
+	req := &lark.HTTPRequest{
+		Header: header,
 		Body:   "", // from http request body
 	}
-	resp := card.Handle(conf, req)
-	fmt.Println(tools.Prettify(resp))
+	resp := lark.WebHook.CardRequestHandle(conf, req)
+	fmt.Println(lark.Prettify(resp))
 }

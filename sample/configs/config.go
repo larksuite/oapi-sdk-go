@@ -1,19 +1,20 @@
 package configs
 
 import (
+	"github.com/larksuite/oapi-sdk-go"
 	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/config"
 )
 
-// for Cutome APP（企业自建应用）
-var appSettings = core.GetInternalAppSettingsByEnv()
-
-func TestConfigWithLogrusAndRedisStore(domain core.Domain) *config.Config {
-	logger := Logrus{}
-	store := NewRedisStore()
-	return core.NewConfig(domain, appSettings, core.SetLogger(logger), core.SetLoggerLevel(core.LoggerLevelDebug), core.SetStore(store))
+func TestConfigWithLogrusAndRedisStore(domain lark.Domain) core.Config {
+	conf := lark.NewInternalAppConfigByEnv(domain)
+	conf.SetLogger(Logrus{})
+	conf.SetLogLevel(lark.LogLevelDebug)
+	conf.SetStore(NewRedisStore())
+	return conf
 }
 
-func TestConfig(domain core.Domain) *config.Config {
-	return core.NewConfig(domain, appSettings, core.SetLoggerLevel(core.LoggerLevelDebug))
+func TestConfig(domain lark.Domain) core.Config {
+	conf := lark.NewInternalAppConfigByEnv(domain)
+	conf.SetLogLevel(lark.LogLevelDebug)
+	return conf
 }

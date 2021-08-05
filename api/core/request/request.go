@@ -3,7 +3,6 @@ package request
 import (
 	"context"
 	"fmt"
-	"github.com/larksuite/oapi-sdk-go/api/core/constants"
 	"github.com/larksuite/oapi-sdk-go/core"
 	"io"
 	"net/http"
@@ -12,7 +11,10 @@ import (
 	"strings"
 )
 
-var ctxKeyRequestInfo = "------ctxKeyRequestInfo"
+const (
+	OAPIRootPath      = "open-apis"
+	ctxKeyRequestInfo = "------ctxKeyRequestInfo"
+)
 
 type AccessTokenType string
 
@@ -247,7 +249,7 @@ func (r *Request) Url() string {
 		if strings.Index(r.HttpPath, "/open-apis") == 0 {
 			path = fmt.Sprintf("%s%s", r.Domain, r.HttpPath)
 		} else {
-			path = fmt.Sprintf("%s/%s/%s", r.Domain, constants.OAPIRootPath, r.HttpPath)
+			path = fmt.Sprintf("%s/%s/%s", r.Domain, OAPIRootPath, r.HttpPath)
 		}
 	}
 
@@ -263,9 +265,4 @@ func (r *Request) DataFilled() bool {
 
 func GetInfoByCtx(ctx context.Context) *Info {
 	return ctx.Value(ctxKeyRequestInfo).(*Info)
-}
-
-type UserID struct {
-	Type constants.UserIDType
-	ID   string
 }

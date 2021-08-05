@@ -2,19 +2,17 @@
 package v2
 
 import (
+	"github.com/larksuite/oapi-sdk-go"
 	"github.com/larksuite/oapi-sdk-go/api"
 	"github.com/larksuite/oapi-sdk-go/api/core/request"
-	"github.com/larksuite/oapi-sdk-go/api/core/response"
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/config"
 )
 
 type Service struct {
-	conf *config.Config
+	conf lark.Config
 	Docs *DocService
 }
 
-func NewService(conf *config.Config) *Service {
+func NewService(conf lark.Config) *Service {
 	s := &Service{
 		conf: conf,
 	}
@@ -33,41 +31,41 @@ func newDocService(service *Service) *DocService {
 }
 
 type DocBatchUpdateReqCall struct {
-	ctx        *core.Context
+	ctx        *lark.Context
 	docs       *DocService
 	body       *DocBatchUpdateReqBody
 	pathParams map[string]interface{}
-	optFns     []request.OptFn
+	opts       []lark.APIRequestOpt
 }
 
 func (rc *DocBatchUpdateReqCall) SetDocToken(docToken string) {
 	rc.pathParams["docToken"] = docToken
 }
 
-func (rc *DocBatchUpdateReqCall) Do() (*response.NoData, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	var result = &response.NoData{}
+func (rc *DocBatchUpdateReqCall) Do() (*lark.NoData, error) {
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	var result = &lark.NoData{}
 	req := request.NewRequest("/open-apis/doc/v2/:docToken/batch_update", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.docs.service.conf, req)
 	return result, err
 }
 
-func (docs *DocService) BatchUpdate(ctx *core.Context, body *DocBatchUpdateReqBody, optFns ...request.OptFn) *DocBatchUpdateReqCall {
+func (docs *DocService) BatchUpdate(ctx *lark.Context, body *DocBatchUpdateReqBody, opts ...lark.APIRequestOpt) *DocBatchUpdateReqCall {
 	return &DocBatchUpdateReqCall{
 		ctx:        ctx,
 		docs:       docs,
 		body:       body,
 		pathParams: map[string]interface{}{},
-		optFns:     optFns,
+		opts:       opts,
 	}
 }
 
 type DocContentReqCall struct {
-	ctx        *core.Context
+	ctx        *lark.Context
 	docs       *DocService
 	pathParams map[string]interface{}
-	optFns     []request.OptFn
+	opts       []lark.APIRequestOpt
 }
 
 func (rc *DocContentReqCall) SetDocToken(docToken string) {
@@ -75,52 +73,52 @@ func (rc *DocContentReqCall) SetDocToken(docToken string) {
 }
 
 func (rc *DocContentReqCall) Do() (*DocContentResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
 	var result = &DocContentResult{}
 	req := request.NewRequest("/open-apis/doc/v2/:docToken/content", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.docs.service.conf, req)
 	return result, err
 }
 
-func (docs *DocService) Content(ctx *core.Context, optFns ...request.OptFn) *DocContentReqCall {
+func (docs *DocService) Content(ctx *lark.Context, opts ...lark.APIRequestOpt) *DocContentReqCall {
 	return &DocContentReqCall{
 		ctx:        ctx,
 		docs:       docs,
 		pathParams: map[string]interface{}{},
-		optFns:     optFns,
+		opts:       opts,
 	}
 }
 
 type DocCreateReqCall struct {
-	ctx    *core.Context
-	docs   *DocService
-	body   *DocCreateReqBody
-	optFns []request.OptFn
+	ctx  *lark.Context
+	docs *DocService
+	body *DocCreateReqBody
+	opts []lark.APIRequestOpt
 }
 
 func (rc *DocCreateReqCall) Do() (*DocCreateResult, error) {
 	var result = &DocCreateResult{}
 	req := request.NewRequest("/open-apis/doc/v2/create", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.docs.service.conf, req)
 	return result, err
 }
 
-func (docs *DocService) Create(ctx *core.Context, body *DocCreateReqBody, optFns ...request.OptFn) *DocCreateReqCall {
+func (docs *DocService) Create(ctx *lark.Context, body *DocCreateReqBody, opts ...lark.APIRequestOpt) *DocCreateReqCall {
 	return &DocCreateReqCall{
-		ctx:    ctx,
-		docs:   docs,
-		body:   body,
-		optFns: optFns,
+		ctx:  ctx,
+		docs: docs,
+		body: body,
+		opts: opts,
 	}
 }
 
 type DocMetaReqCall struct {
-	ctx        *core.Context
+	ctx        *lark.Context
 	docs       *DocService
 	pathParams map[string]interface{}
-	optFns     []request.OptFn
+	opts       []lark.APIRequestOpt
 }
 
 func (rc *DocMetaReqCall) SetDocToken(docToken string) {
@@ -128,28 +126,28 @@ func (rc *DocMetaReqCall) SetDocToken(docToken string) {
 }
 
 func (rc *DocMetaReqCall) Do() (*DocMetaResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
 	var result = &DocMetaResult{}
 	req := request.NewRequest("/open-apis/doc/v2/meta/:docToken", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.docs.service.conf, req)
 	return result, err
 }
 
-func (docs *DocService) Meta(ctx *core.Context, optFns ...request.OptFn) *DocMetaReqCall {
+func (docs *DocService) Meta(ctx *lark.Context, opts ...lark.APIRequestOpt) *DocMetaReqCall {
 	return &DocMetaReqCall{
 		ctx:        ctx,
 		docs:       docs,
 		pathParams: map[string]interface{}{},
-		optFns:     optFns,
+		opts:       opts,
 	}
 }
 
 type DocRawContentReqCall struct {
-	ctx        *core.Context
+	ctx        *lark.Context
 	docs       *DocService
 	pathParams map[string]interface{}
-	optFns     []request.OptFn
+	opts       []lark.APIRequestOpt
 }
 
 func (rc *DocRawContentReqCall) SetDocToken(docToken string) {
@@ -157,19 +155,19 @@ func (rc *DocRawContentReqCall) SetDocToken(docToken string) {
 }
 
 func (rc *DocRawContentReqCall) Do() (*DocRawContentResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
 	var result = &DocRawContentResult{}
 	req := request.NewRequest("/open-apis/doc/v2/:docToken/raw_content", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.docs.service.conf, req)
 	return result, err
 }
 
-func (docs *DocService) RawContent(ctx *core.Context, optFns ...request.OptFn) *DocRawContentReqCall {
+func (docs *DocService) RawContent(ctx *lark.Context, opts ...lark.APIRequestOpt) *DocRawContentReqCall {
 	return &DocRawContentReqCall{
 		ctx:        ctx,
 		docs:       docs,
 		pathParams: map[string]interface{}{},
-		optFns:     optFns,
+		opts:       opts,
 	}
 }

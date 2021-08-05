@@ -2,18 +2,17 @@
 package v1
 
 import (
+	"github.com/larksuite/oapi-sdk-go"
 	"github.com/larksuite/oapi-sdk-go/api"
 	"github.com/larksuite/oapi-sdk-go/api/core/request"
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/config"
 )
 
 type Service struct {
-	conf      *config.Config
+	conf      lark.Config
 	Identitys *IdentityService
 }
 
-func NewService(conf *config.Config) *Service {
+func NewService(conf lark.Config) *Service {
 	s := &Service{
 		conf: conf,
 	}
@@ -32,11 +31,11 @@ func newIdentityService(service *Service) *IdentityService {
 }
 
 type IdentityCreateReqCall struct {
-	ctx         *core.Context
+	ctx         *lark.Context
 	identitys   *IdentityService
 	body        *IdentityCreateReqBody
 	queryParams map[string]interface{}
-	optFns      []request.OptFn
+	opts        []lark.APIRequestOpt
 }
 
 func (rc *IdentityCreateReqCall) SetUserId(userId string) {
@@ -47,20 +46,20 @@ func (rc *IdentityCreateReqCall) SetUserIdType(userIdType string) {
 }
 
 func (rc *IdentityCreateReqCall) Do() (*IdentityCreateResult, error) {
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
 	var result = &IdentityCreateResult{}
 	req := request.NewRequest("/open-apis/human_authentication/v1/identities", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.identitys.service.conf, req)
 	return result, err
 }
 
-func (identitys *IdentityService) Create(ctx *core.Context, body *IdentityCreateReqBody, optFns ...request.OptFn) *IdentityCreateReqCall {
+func (identitys *IdentityService) Create(ctx *lark.Context, body *IdentityCreateReqBody, opts ...lark.APIRequestOpt) *IdentityCreateReqCall {
 	return &IdentityCreateReqCall{
 		ctx:         ctx,
 		identitys:   identitys,
 		body:        body,
 		queryParams: map[string]interface{}{},
-		optFns:      optFns,
+		opts:        opts,
 	}
 }

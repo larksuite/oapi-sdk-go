@@ -16,38 +16,46 @@ const (
 )
 
 type LoggerProxy struct {
-	LogLevel Level
-	Logger   Logger
+	logLevel Level
+	logger   Logger
+}
+
+func (p *LoggerProxy) SetLogLevel(l Level) {
+	p.logLevel = l
+}
+
+func (p *LoggerProxy) SetLogger(logger Logger) {
+	p.logger = logger
 }
 
 func NewLoggerProxy(logLevel Level, logger Logger) *LoggerProxy {
 	return &LoggerProxy{
-		LogLevel: logLevel,
-		Logger:   logger,
+		logLevel: logLevel,
+		logger:   logger,
 	}
 }
 
 func (p *LoggerProxy) Debug(ctx context.Context, args ...interface{}) {
-	if p.LogLevel <= LevelDebug {
-		p.Logger.Debug(ctx, args...)
+	if p.logLevel <= LevelDebug {
+		p.logger.Debug(ctx, args...)
 	}
 }
 
 func (p *LoggerProxy) Info(ctx context.Context, args ...interface{}) {
-	if p.LogLevel <= LevelInfo {
-		p.Logger.Info(ctx, args...)
+	if p.logLevel <= LevelInfo {
+		p.logger.Info(ctx, args...)
 	}
 }
 
 func (p *LoggerProxy) Warn(ctx context.Context, args ...interface{}) {
-	if p.LogLevel <= LevelWarn {
-		p.Logger.Warn(ctx, args...)
+	if p.logLevel <= LevelWarn {
+		p.logger.Warn(ctx, args...)
 	}
 }
 
 func (p *LoggerProxy) Error(ctx context.Context, args ...interface{}) {
-	if p.LogLevel <= LevelError {
-		p.Logger.Error(ctx, args...)
+	if p.logLevel <= LevelError {
+		p.logger.Error(ctx, args...)
 	}
 }
 

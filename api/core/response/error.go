@@ -44,6 +44,10 @@ type Err struct {
 	Helps                []*Help                `json:"helps,omitempty"`
 }
 
+func (e Err) Error() string {
+	return tools.Prettify(e)
+}
+
 type Error struct {
 	Code int    `json:"code"`
 	Msg  string `json:"msg"`

@@ -2,19 +2,17 @@
 package v2
 
 import (
+	"github.com/larksuite/oapi-sdk-go"
 	"github.com/larksuite/oapi-sdk-go/api"
 	"github.com/larksuite/oapi-sdk-go/api/core/request"
-	"github.com/larksuite/oapi-sdk-go/api/core/response"
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/config"
 )
 
 type Service struct {
-	conf          *config.Config
+	conf          lark.Config
 	Spreadsheetss *SpreadsheetsService
 }
 
-func NewService(conf *config.Config) *Service {
+func NewService(conf lark.Config) *Service {
 	s := &Service{
 		conf: conf,
 	}
@@ -33,11 +31,11 @@ func newSpreadsheetsService(service *Service) *SpreadsheetsService {
 }
 
 type SpreadsheetsConditionFormatsBatchCreateReqCall struct {
-	ctx           *core.Context
+	ctx           *lark.Context
 	spreadsheetss *SpreadsheetsService
 	body          *SpreadsheetsConditionFormatsBatchCreateReqBody
 	pathParams    map[string]interface{}
-	optFns        []request.OptFn
+	opts          []lark.APIRequestOpt
 }
 
 func (rc *SpreadsheetsConditionFormatsBatchCreateReqCall) SetSpreadsheetToken(spreadsheetToken string) {
@@ -45,30 +43,30 @@ func (rc *SpreadsheetsConditionFormatsBatchCreateReqCall) SetSpreadsheetToken(sp
 }
 
 func (rc *SpreadsheetsConditionFormatsBatchCreateReqCall) Do() (*SpreadsheetsConditionFormatsBatchCreateResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
 	var result = &SpreadsheetsConditionFormatsBatchCreateResult{}
 	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/condition_formats/batch_create", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
-func (spreadsheetss *SpreadsheetsService) ConditionFormatsBatchCreate(ctx *core.Context, body *SpreadsheetsConditionFormatsBatchCreateReqBody, optFns ...request.OptFn) *SpreadsheetsConditionFormatsBatchCreateReqCall {
+func (spreadsheetss *SpreadsheetsService) ConditionFormatsBatchCreate(ctx *lark.Context, body *SpreadsheetsConditionFormatsBatchCreateReqBody, opts ...lark.APIRequestOpt) *SpreadsheetsConditionFormatsBatchCreateReqCall {
 	return &SpreadsheetsConditionFormatsBatchCreateReqCall{
 		ctx:           ctx,
 		spreadsheetss: spreadsheetss,
 		body:          body,
 		pathParams:    map[string]interface{}{},
-		optFns:        optFns,
+		opts:          opts,
 	}
 }
 
 type SpreadsheetsConditionFormatsBatchDeleteReqCall struct {
-	ctx           *core.Context
+	ctx           *lark.Context
 	spreadsheetss *SpreadsheetsService
 	body          *SpreadsheetsConditionFormatsBatchDeleteReqBody
 	pathParams    map[string]interface{}
-	optFns        []request.OptFn
+	opts          []lark.APIRequestOpt
 }
 
 func (rc *SpreadsheetsConditionFormatsBatchDeleteReqCall) SetSpreadsheetToken(spreadsheetToken string) {
@@ -76,30 +74,30 @@ func (rc *SpreadsheetsConditionFormatsBatchDeleteReqCall) SetSpreadsheetToken(sp
 }
 
 func (rc *SpreadsheetsConditionFormatsBatchDeleteReqCall) Do() (*SpreadsheetsConditionFormatsBatchDeleteResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
 	var result = &SpreadsheetsConditionFormatsBatchDeleteResult{}
 	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/condition_formats/batch_delete", "DELETE",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
-func (spreadsheetss *SpreadsheetsService) ConditionFormatsBatchDelete(ctx *core.Context, body *SpreadsheetsConditionFormatsBatchDeleteReqBody, optFns ...request.OptFn) *SpreadsheetsConditionFormatsBatchDeleteReqCall {
+func (spreadsheetss *SpreadsheetsService) ConditionFormatsBatchDelete(ctx *lark.Context, body *SpreadsheetsConditionFormatsBatchDeleteReqBody, opts ...lark.APIRequestOpt) *SpreadsheetsConditionFormatsBatchDeleteReqCall {
 	return &SpreadsheetsConditionFormatsBatchDeleteReqCall{
 		ctx:           ctx,
 		spreadsheetss: spreadsheetss,
 		body:          body,
 		pathParams:    map[string]interface{}{},
-		optFns:        optFns,
+		opts:          opts,
 	}
 }
 
 type SpreadsheetsConditionFormatsBatchGetReqCall struct {
-	ctx           *core.Context
+	ctx           *lark.Context
 	spreadsheetss *SpreadsheetsService
 	pathParams    map[string]interface{}
 	queryParams   map[string]interface{}
-	optFns        []request.OptFn
+	opts          []lark.APIRequestOpt
 }
 
 func (rc *SpreadsheetsConditionFormatsBatchGetReqCall) SetSpreadsheetToken(spreadsheetToken string) {
@@ -110,31 +108,31 @@ func (rc *SpreadsheetsConditionFormatsBatchGetReqCall) SetSheetIds(sheetIds ...s
 }
 
 func (rc *SpreadsheetsConditionFormatsBatchGetReqCall) Do() (*SpreadsheetsConditionFormatsBatchGetResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
 	var result = &SpreadsheetsConditionFormatsBatchGetResult{}
 	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/condition_formats", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
-func (spreadsheetss *SpreadsheetsService) ConditionFormatsBatchGet(ctx *core.Context, optFns ...request.OptFn) *SpreadsheetsConditionFormatsBatchGetReqCall {
+func (spreadsheetss *SpreadsheetsService) ConditionFormatsBatchGet(ctx *lark.Context, opts ...lark.APIRequestOpt) *SpreadsheetsConditionFormatsBatchGetReqCall {
 	return &SpreadsheetsConditionFormatsBatchGetReqCall{
 		ctx:           ctx,
 		spreadsheetss: spreadsheetss,
 		pathParams:    map[string]interface{}{},
 		queryParams:   map[string]interface{}{},
-		optFns:        optFns,
+		opts:          opts,
 	}
 }
 
 type SpreadsheetsConditionFormatsBatchUpdateReqCall struct {
-	ctx           *core.Context
+	ctx           *lark.Context
 	spreadsheetss *SpreadsheetsService
 	body          *SpreadsheetsConditionFormatsBatchUpdateReqBody
 	pathParams    map[string]interface{}
-	optFns        []request.OptFn
+	opts          []lark.APIRequestOpt
 }
 
 func (rc *SpreadsheetsConditionFormatsBatchUpdateReqCall) SetSpreadsheetToken(spreadsheetToken string) {
@@ -142,61 +140,61 @@ func (rc *SpreadsheetsConditionFormatsBatchUpdateReqCall) SetSpreadsheetToken(sp
 }
 
 func (rc *SpreadsheetsConditionFormatsBatchUpdateReqCall) Do() (*SpreadsheetsConditionFormatsBatchUpdateResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
 	var result = &SpreadsheetsConditionFormatsBatchUpdateResult{}
 	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/condition_formats/batch_update", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
-func (spreadsheetss *SpreadsheetsService) ConditionFormatsBatchUpdate(ctx *core.Context, body *SpreadsheetsConditionFormatsBatchUpdateReqBody, optFns ...request.OptFn) *SpreadsheetsConditionFormatsBatchUpdateReqCall {
+func (spreadsheetss *SpreadsheetsService) ConditionFormatsBatchUpdate(ctx *lark.Context, body *SpreadsheetsConditionFormatsBatchUpdateReqBody, opts ...lark.APIRequestOpt) *SpreadsheetsConditionFormatsBatchUpdateReqCall {
 	return &SpreadsheetsConditionFormatsBatchUpdateReqCall{
 		ctx:           ctx,
 		spreadsheetss: spreadsheetss,
 		body:          body,
 		pathParams:    map[string]interface{}{},
-		optFns:        optFns,
+		opts:          opts,
 	}
 }
 
 type SpreadsheetsDataValidationCreateReqCall struct {
-	ctx           *core.Context
+	ctx           *lark.Context
 	spreadsheetss *SpreadsheetsService
 	body          *SpreadsheetsDataValidationCreateReqBody
 	pathParams    map[string]interface{}
-	optFns        []request.OptFn
+	opts          []lark.APIRequestOpt
 }
 
 func (rc *SpreadsheetsDataValidationCreateReqCall) SetSpreadsheetToken(spreadsheetToken string) {
 	rc.pathParams["spreadsheetToken"] = spreadsheetToken
 }
 
-func (rc *SpreadsheetsDataValidationCreateReqCall) Do() (*response.NoData, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	var result = &response.NoData{}
+func (rc *SpreadsheetsDataValidationCreateReqCall) Do() (*lark.NoData, error) {
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	var result = &lark.NoData{}
 	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/dataValidation", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
-func (spreadsheetss *SpreadsheetsService) DataValidationCreate(ctx *core.Context, body *SpreadsheetsDataValidationCreateReqBody, optFns ...request.OptFn) *SpreadsheetsDataValidationCreateReqCall {
+func (spreadsheetss *SpreadsheetsService) DataValidationCreate(ctx *lark.Context, body *SpreadsheetsDataValidationCreateReqBody, opts ...lark.APIRequestOpt) *SpreadsheetsDataValidationCreateReqCall {
 	return &SpreadsheetsDataValidationCreateReqCall{
 		ctx:           ctx,
 		spreadsheetss: spreadsheetss,
 		body:          body,
 		pathParams:    map[string]interface{}{},
-		optFns:        optFns,
+		opts:          opts,
 	}
 }
 
 type SpreadsheetsDataValidationDeleteReqCall struct {
-	ctx           *core.Context
+	ctx           *lark.Context
 	spreadsheetss *SpreadsheetsService
 	body          *SpreadsheetsDataValidationDeleteReqBody
 	pathParams    map[string]interface{}
-	optFns        []request.OptFn
+	opts          []lark.APIRequestOpt
 }
 
 func (rc *SpreadsheetsDataValidationDeleteReqCall) SetSpreadsheetToken(spreadsheetToken string) {
@@ -204,29 +202,29 @@ func (rc *SpreadsheetsDataValidationDeleteReqCall) SetSpreadsheetToken(spreadshe
 }
 
 func (rc *SpreadsheetsDataValidationDeleteReqCall) Do() (*SpreadsheetsDataValidationDeleteResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
 	var result = &SpreadsheetsDataValidationDeleteResult{}
 	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/dataValidation", "DELETE",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
-func (spreadsheetss *SpreadsheetsService) DataValidationDelete(ctx *core.Context, body *SpreadsheetsDataValidationDeleteReqBody, optFns ...request.OptFn) *SpreadsheetsDataValidationDeleteReqCall {
+func (spreadsheetss *SpreadsheetsService) DataValidationDelete(ctx *lark.Context, body *SpreadsheetsDataValidationDeleteReqBody, opts ...lark.APIRequestOpt) *SpreadsheetsDataValidationDeleteReqCall {
 	return &SpreadsheetsDataValidationDeleteReqCall{
 		ctx:           ctx,
 		spreadsheetss: spreadsheetss,
 		body:          body,
 		pathParams:    map[string]interface{}{},
-		optFns:        optFns,
+		opts:          opts,
 	}
 }
 
 type SpreadsheetsDataValidationGetReqCall struct {
-	ctx           *core.Context
+	ctx           *lark.Context
 	spreadsheetss *SpreadsheetsService
 	pathParams    map[string]interface{}
-	optFns        []request.OptFn
+	opts          []lark.APIRequestOpt
 }
 
 func (rc *SpreadsheetsDataValidationGetReqCall) SetSpreadsheetToken(spreadsheetToken string) {
@@ -240,29 +238,29 @@ func (rc *SpreadsheetsDataValidationGetReqCall) SetDataValidationType(dataValida
 }
 
 func (rc *SpreadsheetsDataValidationGetReqCall) Do() (*SpreadsheetsDataValidationGetResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
 	var result = &SpreadsheetsDataValidationGetResult{}
 	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/dataValidation", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
-func (spreadsheetss *SpreadsheetsService) DataValidationGet(ctx *core.Context, optFns ...request.OptFn) *SpreadsheetsDataValidationGetReqCall {
+func (spreadsheetss *SpreadsheetsService) DataValidationGet(ctx *lark.Context, opts ...lark.APIRequestOpt) *SpreadsheetsDataValidationGetReqCall {
 	return &SpreadsheetsDataValidationGetReqCall{
 		ctx:           ctx,
 		spreadsheetss: spreadsheetss,
 		pathParams:    map[string]interface{}{},
-		optFns:        optFns,
+		opts:          opts,
 	}
 }
 
 type SpreadsheetsDataValidationUpdateReqCall struct {
-	ctx           *core.Context
+	ctx           *lark.Context
 	spreadsheetss *SpreadsheetsService
 	body          *SpreadsheetsDataValidationUpdateReqBody
 	pathParams    map[string]interface{}
-	optFns        []request.OptFn
+	opts          []lark.APIRequestOpt
 }
 
 func (rc *SpreadsheetsDataValidationUpdateReqCall) SetSpreadsheetToken(spreadsheetToken string) {
@@ -276,30 +274,30 @@ func (rc *SpreadsheetsDataValidationUpdateReqCall) SetDataValidationId(dataValid
 }
 
 func (rc *SpreadsheetsDataValidationUpdateReqCall) Do() (*SpreadsheetsDataValidationUpdateResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
 	var result = &SpreadsheetsDataValidationUpdateResult{}
 	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/dataValidation/:sheetId/:dataValidationId", "PUT",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
-func (spreadsheetss *SpreadsheetsService) DataValidationUpdate(ctx *core.Context, body *SpreadsheetsDataValidationUpdateReqBody, optFns ...request.OptFn) *SpreadsheetsDataValidationUpdateReqCall {
+func (spreadsheetss *SpreadsheetsService) DataValidationUpdate(ctx *lark.Context, body *SpreadsheetsDataValidationUpdateReqBody, opts ...lark.APIRequestOpt) *SpreadsheetsDataValidationUpdateReqCall {
 	return &SpreadsheetsDataValidationUpdateReqCall{
 		ctx:           ctx,
 		spreadsheetss: spreadsheetss,
 		body:          body,
 		pathParams:    map[string]interface{}{},
-		optFns:        optFns,
+		opts:          opts,
 	}
 }
 
 type SpreadsheetsDimensionRangeAddReqCall struct {
-	ctx           *core.Context
+	ctx           *lark.Context
 	spreadsheetss *SpreadsheetsService
 	body          *SpreadsheetsDimensionRangeAddReqBody
 	pathParams    map[string]interface{}
-	optFns        []request.OptFn
+	opts          []lark.APIRequestOpt
 }
 
 func (rc *SpreadsheetsDimensionRangeAddReqCall) SetSpreadsheetToken(spreadsheetToken string) {
@@ -307,30 +305,30 @@ func (rc *SpreadsheetsDimensionRangeAddReqCall) SetSpreadsheetToken(spreadsheetT
 }
 
 func (rc *SpreadsheetsDimensionRangeAddReqCall) Do() (*SpreadsheetsDimensionRangeAddResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
 	var result = &SpreadsheetsDimensionRangeAddResult{}
 	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/dimension_range", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
-func (spreadsheetss *SpreadsheetsService) DimensionRangeAdd(ctx *core.Context, body *SpreadsheetsDimensionRangeAddReqBody, optFns ...request.OptFn) *SpreadsheetsDimensionRangeAddReqCall {
+func (spreadsheetss *SpreadsheetsService) DimensionRangeAdd(ctx *lark.Context, body *SpreadsheetsDimensionRangeAddReqBody, opts ...lark.APIRequestOpt) *SpreadsheetsDimensionRangeAddReqCall {
 	return &SpreadsheetsDimensionRangeAddReqCall{
 		ctx:           ctx,
 		spreadsheetss: spreadsheetss,
 		body:          body,
 		pathParams:    map[string]interface{}{},
-		optFns:        optFns,
+		opts:          opts,
 	}
 }
 
 type SpreadsheetsDimensionRangeDeleteReqCall struct {
-	ctx           *core.Context
+	ctx           *lark.Context
 	spreadsheetss *SpreadsheetsService
 	body          *SpreadsheetsDimensionRangeDeleteReqBody
 	pathParams    map[string]interface{}
-	optFns        []request.OptFn
+	opts          []lark.APIRequestOpt
 }
 
 func (rc *SpreadsheetsDimensionRangeDeleteReqCall) SetSpreadsheetToken(spreadsheetToken string) {
@@ -338,84 +336,84 @@ func (rc *SpreadsheetsDimensionRangeDeleteReqCall) SetSpreadsheetToken(spreadshe
 }
 
 func (rc *SpreadsheetsDimensionRangeDeleteReqCall) Do() (*SpreadsheetsDimensionRangeDeleteResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
 	var result = &SpreadsheetsDimensionRangeDeleteResult{}
 	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/dimension_range", "DELETE",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
-func (spreadsheetss *SpreadsheetsService) DimensionRangeDelete(ctx *core.Context, body *SpreadsheetsDimensionRangeDeleteReqBody, optFns ...request.OptFn) *SpreadsheetsDimensionRangeDeleteReqCall {
+func (spreadsheetss *SpreadsheetsService) DimensionRangeDelete(ctx *lark.Context, body *SpreadsheetsDimensionRangeDeleteReqBody, opts ...lark.APIRequestOpt) *SpreadsheetsDimensionRangeDeleteReqCall {
 	return &SpreadsheetsDimensionRangeDeleteReqCall{
 		ctx:           ctx,
 		spreadsheetss: spreadsheetss,
 		body:          body,
 		pathParams:    map[string]interface{}{},
-		optFns:        optFns,
+		opts:          opts,
 	}
 }
 
 type SpreadsheetsDimensionRangeUpdateReqCall struct {
-	ctx           *core.Context
+	ctx           *lark.Context
 	spreadsheetss *SpreadsheetsService
 	body          *SpreadsheetsDimensionRangeUpdateReqBody
 	pathParams    map[string]interface{}
-	optFns        []request.OptFn
+	opts          []lark.APIRequestOpt
 }
 
 func (rc *SpreadsheetsDimensionRangeUpdateReqCall) SetSpreadsheetToken(spreadsheetToken string) {
 	rc.pathParams["spreadsheetToken"] = spreadsheetToken
 }
 
-func (rc *SpreadsheetsDimensionRangeUpdateReqCall) Do() (*response.NoData, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	var result = &response.NoData{}
+func (rc *SpreadsheetsDimensionRangeUpdateReqCall) Do() (*lark.NoData, error) {
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	var result = &lark.NoData{}
 	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/dimension_range", "PUT",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
-func (spreadsheetss *SpreadsheetsService) DimensionRangeUpdate(ctx *core.Context, body *SpreadsheetsDimensionRangeUpdateReqBody, optFns ...request.OptFn) *SpreadsheetsDimensionRangeUpdateReqCall {
+func (spreadsheetss *SpreadsheetsService) DimensionRangeUpdate(ctx *lark.Context, body *SpreadsheetsDimensionRangeUpdateReqBody, opts ...lark.APIRequestOpt) *SpreadsheetsDimensionRangeUpdateReqCall {
 	return &SpreadsheetsDimensionRangeUpdateReqCall{
 		ctx:           ctx,
 		spreadsheetss: spreadsheetss,
 		body:          body,
 		pathParams:    map[string]interface{}{},
-		optFns:        optFns,
+		opts:          opts,
 	}
 }
 
 type SpreadsheetsImportReqCall struct {
-	ctx           *core.Context
+	ctx           *lark.Context
 	spreadsheetss *SpreadsheetsService
 	body          *SpreadsheetsImportReqBody
-	optFns        []request.OptFn
+	opts          []lark.APIRequestOpt
 }
 
 func (rc *SpreadsheetsImportReqCall) Do() (*SpreadsheetsImportResult, error) {
 	var result = &SpreadsheetsImportResult{}
 	req := request.NewRequest("/open-apis/sheets/v2/import", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
-func (spreadsheetss *SpreadsheetsService) Import(ctx *core.Context, body *SpreadsheetsImportReqBody, optFns ...request.OptFn) *SpreadsheetsImportReqCall {
+func (spreadsheetss *SpreadsheetsService) Import(ctx *lark.Context, body *SpreadsheetsImportReqBody, opts ...lark.APIRequestOpt) *SpreadsheetsImportReqCall {
 	return &SpreadsheetsImportReqCall{
 		ctx:           ctx,
 		spreadsheetss: spreadsheetss,
 		body:          body,
-		optFns:        optFns,
+		opts:          opts,
 	}
 }
 
 type SpreadsheetsImportResultReqCall struct {
-	ctx           *core.Context
+	ctx           *lark.Context
 	spreadsheetss *SpreadsheetsService
 	queryParams   map[string]interface{}
-	optFns        []request.OptFn
+	opts          []lark.APIRequestOpt
 }
 
 func (rc *SpreadsheetsImportResultReqCall) SetTicket(ticket string) {
@@ -423,60 +421,60 @@ func (rc *SpreadsheetsImportResultReqCall) SetTicket(ticket string) {
 }
 
 func (rc *SpreadsheetsImportResultReqCall) Do() (*SpreadsheetsImportResultResult, error) {
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
 	var result = &SpreadsheetsImportResultResult{}
 	req := request.NewRequest("/open-apis/sheets/v2/import/result", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
-func (spreadsheetss *SpreadsheetsService) ImportResult(ctx *core.Context, optFns ...request.OptFn) *SpreadsheetsImportResultReqCall {
+func (spreadsheetss *SpreadsheetsService) ImportResult(ctx *lark.Context, opts ...lark.APIRequestOpt) *SpreadsheetsImportResultReqCall {
 	return &SpreadsheetsImportResultReqCall{
 		ctx:           ctx,
 		spreadsheetss: spreadsheetss,
 		queryParams:   map[string]interface{}{},
-		optFns:        optFns,
+		opts:          opts,
 	}
 }
 
 type SpreadsheetsInsertDimensionRangeReqCall struct {
-	ctx           *core.Context
+	ctx           *lark.Context
 	spreadsheetss *SpreadsheetsService
 	body          *SpreadsheetsInsertDimensionRangeReqBody
 	pathParams    map[string]interface{}
-	optFns        []request.OptFn
+	opts          []lark.APIRequestOpt
 }
 
 func (rc *SpreadsheetsInsertDimensionRangeReqCall) SetSpreadsheetToken(spreadsheetToken string) {
 	rc.pathParams["spreadsheetToken"] = spreadsheetToken
 }
 
-func (rc *SpreadsheetsInsertDimensionRangeReqCall) Do() (*response.NoData, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	var result = &response.NoData{}
+func (rc *SpreadsheetsInsertDimensionRangeReqCall) Do() (*lark.NoData, error) {
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	var result = &lark.NoData{}
 	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/insert_dimension_range", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
-func (spreadsheetss *SpreadsheetsService) InsertDimensionRange(ctx *core.Context, body *SpreadsheetsInsertDimensionRangeReqBody, optFns ...request.OptFn) *SpreadsheetsInsertDimensionRangeReqCall {
+func (spreadsheetss *SpreadsheetsService) InsertDimensionRange(ctx *lark.Context, body *SpreadsheetsInsertDimensionRangeReqBody, opts ...lark.APIRequestOpt) *SpreadsheetsInsertDimensionRangeReqCall {
 	return &SpreadsheetsInsertDimensionRangeReqCall{
 		ctx:           ctx,
 		spreadsheetss: spreadsheetss,
 		body:          body,
 		pathParams:    map[string]interface{}{},
-		optFns:        optFns,
+		opts:          opts,
 	}
 }
 
 type SpreadsheetsMergeCellsReqCall struct {
-	ctx           *core.Context
+	ctx           *lark.Context
 	spreadsheetss *SpreadsheetsService
 	body          *SpreadsheetsMergeCellsReqBody
 	pathParams    map[string]interface{}
-	optFns        []request.OptFn
+	opts          []lark.APIRequestOpt
 }
 
 func (rc *SpreadsheetsMergeCellsReqCall) SetSpreadsheetToken(spreadsheetToken string) {
@@ -484,30 +482,30 @@ func (rc *SpreadsheetsMergeCellsReqCall) SetSpreadsheetToken(spreadsheetToken st
 }
 
 func (rc *SpreadsheetsMergeCellsReqCall) Do() (*SpreadsheetsMergeCellsResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
 	var result = &SpreadsheetsMergeCellsResult{}
 	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/merge_cells", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
-func (spreadsheetss *SpreadsheetsService) MergeCells(ctx *core.Context, body *SpreadsheetsMergeCellsReqBody, optFns ...request.OptFn) *SpreadsheetsMergeCellsReqCall {
+func (spreadsheetss *SpreadsheetsService) MergeCells(ctx *lark.Context, body *SpreadsheetsMergeCellsReqBody, opts ...lark.APIRequestOpt) *SpreadsheetsMergeCellsReqCall {
 	return &SpreadsheetsMergeCellsReqCall{
 		ctx:           ctx,
 		spreadsheetss: spreadsheetss,
 		body:          body,
 		pathParams:    map[string]interface{}{},
-		optFns:        optFns,
+		opts:          opts,
 	}
 }
 
 type SpreadsheetsMetainfoReqCall struct {
-	ctx           *core.Context
+	ctx           *lark.Context
 	spreadsheetss *SpreadsheetsService
 	pathParams    map[string]interface{}
 	queryParams   map[string]interface{}
-	optFns        []request.OptFn
+	opts          []lark.APIRequestOpt
 }
 
 func (rc *SpreadsheetsMetainfoReqCall) SetSpreadsheetToken(spreadsheetToken string) {
@@ -518,31 +516,31 @@ func (rc *SpreadsheetsMetainfoReqCall) SetExtFields(extFields string) {
 }
 
 func (rc *SpreadsheetsMetainfoReqCall) Do() (*SpreadsheetsMetainfoResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
 	var result = &SpreadsheetsMetainfoResult{}
 	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/metainfo", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
-func (spreadsheetss *SpreadsheetsService) Metainfo(ctx *core.Context, optFns ...request.OptFn) *SpreadsheetsMetainfoReqCall {
+func (spreadsheetss *SpreadsheetsService) Metainfo(ctx *lark.Context, opts ...lark.APIRequestOpt) *SpreadsheetsMetainfoReqCall {
 	return &SpreadsheetsMetainfoReqCall{
 		ctx:           ctx,
 		spreadsheetss: spreadsheetss,
 		pathParams:    map[string]interface{}{},
 		queryParams:   map[string]interface{}{},
-		optFns:        optFns,
+		opts:          opts,
 	}
 }
 
 type SpreadsheetsProtectedRangeBatchCreateReqCall struct {
-	ctx           *core.Context
+	ctx           *lark.Context
 	spreadsheetss *SpreadsheetsService
 	body          *SpreadsheetsProtectedRangeBatchCreateReqBody
 	pathParams    map[string]interface{}
-	optFns        []request.OptFn
+	opts          []lark.APIRequestOpt
 }
 
 func (rc *SpreadsheetsProtectedRangeBatchCreateReqCall) SetSpreadsheetToken(spreadsheetToken string) {
@@ -550,30 +548,30 @@ func (rc *SpreadsheetsProtectedRangeBatchCreateReqCall) SetSpreadsheetToken(spre
 }
 
 func (rc *SpreadsheetsProtectedRangeBatchCreateReqCall) Do() (*SpreadsheetsProtectedRangeBatchCreateResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
 	var result = &SpreadsheetsProtectedRangeBatchCreateResult{}
 	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/protected_dimension", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
-func (spreadsheetss *SpreadsheetsService) ProtectedRangeBatchCreate(ctx *core.Context, body *SpreadsheetsProtectedRangeBatchCreateReqBody, optFns ...request.OptFn) *SpreadsheetsProtectedRangeBatchCreateReqCall {
+func (spreadsheetss *SpreadsheetsService) ProtectedRangeBatchCreate(ctx *lark.Context, body *SpreadsheetsProtectedRangeBatchCreateReqBody, opts ...lark.APIRequestOpt) *SpreadsheetsProtectedRangeBatchCreateReqCall {
 	return &SpreadsheetsProtectedRangeBatchCreateReqCall{
 		ctx:           ctx,
 		spreadsheetss: spreadsheetss,
 		body:          body,
 		pathParams:    map[string]interface{}{},
-		optFns:        optFns,
+		opts:          opts,
 	}
 }
 
 type SpreadsheetsProtectedRangeBatchDeleteReqCall struct {
-	ctx           *core.Context
+	ctx           *lark.Context
 	spreadsheetss *SpreadsheetsService
 	body          *SpreadsheetsProtectedRangeBatchDeleteReqBody
 	pathParams    map[string]interface{}
-	optFns        []request.OptFn
+	opts          []lark.APIRequestOpt
 }
 
 func (rc *SpreadsheetsProtectedRangeBatchDeleteReqCall) SetSpreadsheetToken(spreadsheetToken string) {
@@ -581,30 +579,30 @@ func (rc *SpreadsheetsProtectedRangeBatchDeleteReqCall) SetSpreadsheetToken(spre
 }
 
 func (rc *SpreadsheetsProtectedRangeBatchDeleteReqCall) Do() (*SpreadsheetsProtectedRangeBatchDeleteResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
 	var result = &SpreadsheetsProtectedRangeBatchDeleteResult{}
 	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/protected_range_batch_del", "DELETE",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
-func (spreadsheetss *SpreadsheetsService) ProtectedRangeBatchDelete(ctx *core.Context, body *SpreadsheetsProtectedRangeBatchDeleteReqBody, optFns ...request.OptFn) *SpreadsheetsProtectedRangeBatchDeleteReqCall {
+func (spreadsheetss *SpreadsheetsService) ProtectedRangeBatchDelete(ctx *lark.Context, body *SpreadsheetsProtectedRangeBatchDeleteReqBody, opts ...lark.APIRequestOpt) *SpreadsheetsProtectedRangeBatchDeleteReqCall {
 	return &SpreadsheetsProtectedRangeBatchDeleteReqCall{
 		ctx:           ctx,
 		spreadsheetss: spreadsheetss,
 		body:          body,
 		pathParams:    map[string]interface{}{},
-		optFns:        optFns,
+		opts:          opts,
 	}
 }
 
 type SpreadsheetsProtectedRangeBatchGetReqCall struct {
-	ctx           *core.Context
+	ctx           *lark.Context
 	spreadsheetss *SpreadsheetsService
 	pathParams    map[string]interface{}
 	queryParams   map[string]interface{}
-	optFns        []request.OptFn
+	opts          []lark.APIRequestOpt
 }
 
 func (rc *SpreadsheetsProtectedRangeBatchGetReqCall) SetSpreadsheetToken(spreadsheetToken string) {
@@ -618,31 +616,31 @@ func (rc *SpreadsheetsProtectedRangeBatchGetReqCall) SetMemberType(memberType st
 }
 
 func (rc *SpreadsheetsProtectedRangeBatchGetReqCall) Do() (*SpreadsheetsProtectedRangeBatchGetResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
 	var result = &SpreadsheetsProtectedRangeBatchGetResult{}
 	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/protected_range_batch_get", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
-func (spreadsheetss *SpreadsheetsService) ProtectedRangeBatchGet(ctx *core.Context, optFns ...request.OptFn) *SpreadsheetsProtectedRangeBatchGetReqCall {
+func (spreadsheetss *SpreadsheetsService) ProtectedRangeBatchGet(ctx *lark.Context, opts ...lark.APIRequestOpt) *SpreadsheetsProtectedRangeBatchGetReqCall {
 	return &SpreadsheetsProtectedRangeBatchGetReqCall{
 		ctx:           ctx,
 		spreadsheetss: spreadsheetss,
 		pathParams:    map[string]interface{}{},
 		queryParams:   map[string]interface{}{},
-		optFns:        optFns,
+		opts:          opts,
 	}
 }
 
 type SpreadsheetsProtectedRangeBatchUpdateReqCall struct {
-	ctx           *core.Context
+	ctx           *lark.Context
 	spreadsheetss *SpreadsheetsService
 	body          *SpreadsheetsProtectedRangeBatchUpdateReqBody
 	pathParams    map[string]interface{}
-	optFns        []request.OptFn
+	opts          []lark.APIRequestOpt
 }
 
 func (rc *SpreadsheetsProtectedRangeBatchUpdateReqCall) SetSpreadsheetToken(spreadsheetToken string) {
@@ -650,30 +648,30 @@ func (rc *SpreadsheetsProtectedRangeBatchUpdateReqCall) SetSpreadsheetToken(spre
 }
 
 func (rc *SpreadsheetsProtectedRangeBatchUpdateReqCall) Do() (*SpreadsheetsProtectedRangeBatchUpdateResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
 	var result = &SpreadsheetsProtectedRangeBatchUpdateResult{}
 	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/protected_range_batch_update", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
-func (spreadsheetss *SpreadsheetsService) ProtectedRangeBatchUpdate(ctx *core.Context, body *SpreadsheetsProtectedRangeBatchUpdateReqBody, optFns ...request.OptFn) *SpreadsheetsProtectedRangeBatchUpdateReqCall {
+func (spreadsheetss *SpreadsheetsService) ProtectedRangeBatchUpdate(ctx *lark.Context, body *SpreadsheetsProtectedRangeBatchUpdateReqBody, opts ...lark.APIRequestOpt) *SpreadsheetsProtectedRangeBatchUpdateReqCall {
 	return &SpreadsheetsProtectedRangeBatchUpdateReqCall{
 		ctx:           ctx,
 		spreadsheetss: spreadsheetss,
 		body:          body,
 		pathParams:    map[string]interface{}{},
-		optFns:        optFns,
+		opts:          opts,
 	}
 }
 
 type SpreadsheetsSheetsBatchUpdateReqCall struct {
-	ctx           *core.Context
+	ctx           *lark.Context
 	spreadsheetss *SpreadsheetsService
 	body          *SpreadsheetsSheetsBatchUpdateReqBody
 	pathParams    map[string]interface{}
-	optFns        []request.OptFn
+	opts          []lark.APIRequestOpt
 }
 
 func (rc *SpreadsheetsSheetsBatchUpdateReqCall) SetSpreadsheetToken(spreadsheetToken string) {
@@ -681,30 +679,30 @@ func (rc *SpreadsheetsSheetsBatchUpdateReqCall) SetSpreadsheetToken(spreadsheetT
 }
 
 func (rc *SpreadsheetsSheetsBatchUpdateReqCall) Do() (*SpreadsheetsSheetsBatchUpdateResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
 	var result = &SpreadsheetsSheetsBatchUpdateResult{}
 	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/sheets_batch_update", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
-func (spreadsheetss *SpreadsheetsService) SheetsBatchUpdate(ctx *core.Context, body *SpreadsheetsSheetsBatchUpdateReqBody, optFns ...request.OptFn) *SpreadsheetsSheetsBatchUpdateReqCall {
+func (spreadsheetss *SpreadsheetsService) SheetsBatchUpdate(ctx *lark.Context, body *SpreadsheetsSheetsBatchUpdateReqBody, opts ...lark.APIRequestOpt) *SpreadsheetsSheetsBatchUpdateReqCall {
 	return &SpreadsheetsSheetsBatchUpdateReqCall{
 		ctx:           ctx,
 		spreadsheetss: spreadsheetss,
 		body:          body,
 		pathParams:    map[string]interface{}{},
-		optFns:        optFns,
+		opts:          opts,
 	}
 }
 
 type SpreadsheetsSheetsUpdatePropertiesReqCall struct {
-	ctx           *core.Context
+	ctx           *lark.Context
 	spreadsheetss *SpreadsheetsService
 	body          *SpreadsheetsSheetsUpdatePropertiesReqBody
 	pathParams    map[string]interface{}
-	optFns        []request.OptFn
+	opts          []lark.APIRequestOpt
 }
 
 func (rc *SpreadsheetsSheetsUpdatePropertiesReqCall) SetSpreadsheetToken(spreadsheetToken string) {
@@ -712,30 +710,30 @@ func (rc *SpreadsheetsSheetsUpdatePropertiesReqCall) SetSpreadsheetToken(spreads
 }
 
 func (rc *SpreadsheetsSheetsUpdatePropertiesReqCall) Do() (*SpreadsheetsSheetsUpdatePropertiesResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
 	var result = &SpreadsheetsSheetsUpdatePropertiesResult{}
 	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/properties", "PUT",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
-func (spreadsheetss *SpreadsheetsService) SheetsUpdateProperties(ctx *core.Context, body *SpreadsheetsSheetsUpdatePropertiesReqBody, optFns ...request.OptFn) *SpreadsheetsSheetsUpdatePropertiesReqCall {
+func (spreadsheetss *SpreadsheetsService) SheetsUpdateProperties(ctx *lark.Context, body *SpreadsheetsSheetsUpdatePropertiesReqBody, opts ...lark.APIRequestOpt) *SpreadsheetsSheetsUpdatePropertiesReqCall {
 	return &SpreadsheetsSheetsUpdatePropertiesReqCall{
 		ctx:           ctx,
 		spreadsheetss: spreadsheetss,
 		body:          body,
 		pathParams:    map[string]interface{}{},
-		optFns:        optFns,
+		opts:          opts,
 	}
 }
 
 type SpreadsheetsStyleUpdateReqCall struct {
-	ctx           *core.Context
+	ctx           *lark.Context
 	spreadsheetss *SpreadsheetsService
 	body          *SpreadsheetsStyleUpdateReqBody
 	pathParams    map[string]interface{}
-	optFns        []request.OptFn
+	opts          []lark.APIRequestOpt
 }
 
 func (rc *SpreadsheetsStyleUpdateReqCall) SetSpreadsheetToken(spreadsheetToken string) {
@@ -743,30 +741,30 @@ func (rc *SpreadsheetsStyleUpdateReqCall) SetSpreadsheetToken(spreadsheetToken s
 }
 
 func (rc *SpreadsheetsStyleUpdateReqCall) Do() (*SpreadsheetsStyleUpdateResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
 	var result = &SpreadsheetsStyleUpdateResult{}
 	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/style", "PUT",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
-func (spreadsheetss *SpreadsheetsService) StyleUpdate(ctx *core.Context, body *SpreadsheetsStyleUpdateReqBody, optFns ...request.OptFn) *SpreadsheetsStyleUpdateReqCall {
+func (spreadsheetss *SpreadsheetsService) StyleUpdate(ctx *lark.Context, body *SpreadsheetsStyleUpdateReqBody, opts ...lark.APIRequestOpt) *SpreadsheetsStyleUpdateReqCall {
 	return &SpreadsheetsStyleUpdateReqCall{
 		ctx:           ctx,
 		spreadsheetss: spreadsheetss,
 		body:          body,
 		pathParams:    map[string]interface{}{},
-		optFns:        optFns,
+		opts:          opts,
 	}
 }
 
 type SpreadsheetsStylesBatchUpdateReqCall struct {
-	ctx           *core.Context
+	ctx           *lark.Context
 	spreadsheetss *SpreadsheetsService
 	body          *SpreadsheetsStylesBatchUpdateReqBody
 	pathParams    map[string]interface{}
-	optFns        []request.OptFn
+	opts          []lark.APIRequestOpt
 }
 
 func (rc *SpreadsheetsStylesBatchUpdateReqCall) SetSpreadsheetToken(spreadsheetToken string) {
@@ -774,30 +772,30 @@ func (rc *SpreadsheetsStylesBatchUpdateReqCall) SetSpreadsheetToken(spreadsheetT
 }
 
 func (rc *SpreadsheetsStylesBatchUpdateReqCall) Do() (*SpreadsheetsStylesBatchUpdateResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
 	var result = &SpreadsheetsStylesBatchUpdateResult{}
 	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/styles_batch_update", "PUT",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
-func (spreadsheetss *SpreadsheetsService) StylesBatchUpdate(ctx *core.Context, body *SpreadsheetsStylesBatchUpdateReqBody, optFns ...request.OptFn) *SpreadsheetsStylesBatchUpdateReqCall {
+func (spreadsheetss *SpreadsheetsService) StylesBatchUpdate(ctx *lark.Context, body *SpreadsheetsStylesBatchUpdateReqBody, opts ...lark.APIRequestOpt) *SpreadsheetsStylesBatchUpdateReqCall {
 	return &SpreadsheetsStylesBatchUpdateReqCall{
 		ctx:           ctx,
 		spreadsheetss: spreadsheetss,
 		body:          body,
 		pathParams:    map[string]interface{}{},
-		optFns:        optFns,
+		opts:          opts,
 	}
 }
 
 type SpreadsheetsUnmergeCellsReqCall struct {
-	ctx           *core.Context
+	ctx           *lark.Context
 	spreadsheetss *SpreadsheetsService
 	body          *SpreadsheetsUnmergeCellsReqBody
 	pathParams    map[string]interface{}
-	optFns        []request.OptFn
+	opts          []lark.APIRequestOpt
 }
 
 func (rc *SpreadsheetsUnmergeCellsReqCall) SetSpreadsheetToken(spreadsheetToken string) {
@@ -805,31 +803,31 @@ func (rc *SpreadsheetsUnmergeCellsReqCall) SetSpreadsheetToken(spreadsheetToken 
 }
 
 func (rc *SpreadsheetsUnmergeCellsReqCall) Do() (*SpreadsheetsUnmergeCellsResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
 	var result = &SpreadsheetsUnmergeCellsResult{}
 	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/unmerge_cells", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
-func (spreadsheetss *SpreadsheetsService) UnmergeCells(ctx *core.Context, body *SpreadsheetsUnmergeCellsReqBody, optFns ...request.OptFn) *SpreadsheetsUnmergeCellsReqCall {
+func (spreadsheetss *SpreadsheetsService) UnmergeCells(ctx *lark.Context, body *SpreadsheetsUnmergeCellsReqBody, opts ...lark.APIRequestOpt) *SpreadsheetsUnmergeCellsReqCall {
 	return &SpreadsheetsUnmergeCellsReqCall{
 		ctx:           ctx,
 		spreadsheetss: spreadsheetss,
 		body:          body,
 		pathParams:    map[string]interface{}{},
-		optFns:        optFns,
+		opts:          opts,
 	}
 }
 
 type SpreadsheetsValuesAppendReqCall struct {
-	ctx           *core.Context
+	ctx           *lark.Context
 	spreadsheetss *SpreadsheetsService
 	body          *SpreadsheetsValuesAppendReqBody
 	pathParams    map[string]interface{}
 	queryParams   map[string]interface{}
-	optFns        []request.OptFn
+	opts          []lark.APIRequestOpt
 }
 
 func (rc *SpreadsheetsValuesAppendReqCall) SetSpreadsheetToken(spreadsheetToken string) {
@@ -840,32 +838,32 @@ func (rc *SpreadsheetsValuesAppendReqCall) SetInsertDataOption(insertDataOption 
 }
 
 func (rc *SpreadsheetsValuesAppendReqCall) Do() (*SpreadsheetsValuesAppendResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
 	var result = &SpreadsheetsValuesAppendResult{}
 	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values_append", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
-func (spreadsheetss *SpreadsheetsService) ValuesAppend(ctx *core.Context, body *SpreadsheetsValuesAppendReqBody, optFns ...request.OptFn) *SpreadsheetsValuesAppendReqCall {
+func (spreadsheetss *SpreadsheetsService) ValuesAppend(ctx *lark.Context, body *SpreadsheetsValuesAppendReqBody, opts ...lark.APIRequestOpt) *SpreadsheetsValuesAppendReqCall {
 	return &SpreadsheetsValuesAppendReqCall{
 		ctx:           ctx,
 		spreadsheetss: spreadsheetss,
 		body:          body,
 		pathParams:    map[string]interface{}{},
 		queryParams:   map[string]interface{}{},
-		optFns:        optFns,
+		opts:          opts,
 	}
 }
 
 type SpreadsheetsValuesBatchGetReqCall struct {
-	ctx           *core.Context
+	ctx           *lark.Context
 	spreadsheetss *SpreadsheetsService
 	pathParams    map[string]interface{}
 	queryParams   map[string]interface{}
-	optFns        []request.OptFn
+	opts          []lark.APIRequestOpt
 }
 
 func (rc *SpreadsheetsValuesBatchGetReqCall) SetSpreadsheetToken(spreadsheetToken string) {
@@ -882,31 +880,31 @@ func (rc *SpreadsheetsValuesBatchGetReqCall) SetDateTimeRenderOption(dateTimeRen
 }
 
 func (rc *SpreadsheetsValuesBatchGetReqCall) Do() (*SpreadsheetsValuesBatchGetResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
 	var result = &SpreadsheetsValuesBatchGetResult{}
 	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values_batch_get", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
-func (spreadsheetss *SpreadsheetsService) ValuesBatchGet(ctx *core.Context, optFns ...request.OptFn) *SpreadsheetsValuesBatchGetReqCall {
+func (spreadsheetss *SpreadsheetsService) ValuesBatchGet(ctx *lark.Context, opts ...lark.APIRequestOpt) *SpreadsheetsValuesBatchGetReqCall {
 	return &SpreadsheetsValuesBatchGetReqCall{
 		ctx:           ctx,
 		spreadsheetss: spreadsheetss,
 		pathParams:    map[string]interface{}{},
 		queryParams:   map[string]interface{}{},
-		optFns:        optFns,
+		opts:          opts,
 	}
 }
 
 type SpreadsheetsValuesBatchUpdateReqCall struct {
-	ctx           *core.Context
+	ctx           *lark.Context
 	spreadsheetss *SpreadsheetsService
 	body          *SpreadsheetsValuesBatchUpdateReqBody
 	pathParams    map[string]interface{}
-	optFns        []request.OptFn
+	opts          []lark.APIRequestOpt
 }
 
 func (rc *SpreadsheetsValuesBatchUpdateReqCall) SetSpreadsheetToken(spreadsheetToken string) {
@@ -914,30 +912,30 @@ func (rc *SpreadsheetsValuesBatchUpdateReqCall) SetSpreadsheetToken(spreadsheetT
 }
 
 func (rc *SpreadsheetsValuesBatchUpdateReqCall) Do() (*SpreadsheetsValuesBatchUpdateResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
 	var result = &SpreadsheetsValuesBatchUpdateResult{}
 	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values_batch_update", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
-func (spreadsheetss *SpreadsheetsService) ValuesBatchUpdate(ctx *core.Context, body *SpreadsheetsValuesBatchUpdateReqBody, optFns ...request.OptFn) *SpreadsheetsValuesBatchUpdateReqCall {
+func (spreadsheetss *SpreadsheetsService) ValuesBatchUpdate(ctx *lark.Context, body *SpreadsheetsValuesBatchUpdateReqBody, opts ...lark.APIRequestOpt) *SpreadsheetsValuesBatchUpdateReqCall {
 	return &SpreadsheetsValuesBatchUpdateReqCall{
 		ctx:           ctx,
 		spreadsheetss: spreadsheetss,
 		body:          body,
 		pathParams:    map[string]interface{}{},
-		optFns:        optFns,
+		opts:          opts,
 	}
 }
 
 type SpreadsheetsValuesGetReqCall struct {
-	ctx           *core.Context
+	ctx           *lark.Context
 	spreadsheetss *SpreadsheetsService
 	pathParams    map[string]interface{}
 	queryParams   map[string]interface{}
-	optFns        []request.OptFn
+	opts          []lark.APIRequestOpt
 }
 
 func (rc *SpreadsheetsValuesGetReqCall) SetSpreadsheetToken(spreadsheetToken string) {
@@ -954,31 +952,31 @@ func (rc *SpreadsheetsValuesGetReqCall) SetDateTimeRenderOption(dateTimeRenderOp
 }
 
 func (rc *SpreadsheetsValuesGetReqCall) Do() (*SpreadsheetsValuesGetResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
 	var result = &SpreadsheetsValuesGetResult{}
 	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values/:range", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
-func (spreadsheetss *SpreadsheetsService) ValuesGet(ctx *core.Context, optFns ...request.OptFn) *SpreadsheetsValuesGetReqCall {
+func (spreadsheetss *SpreadsheetsService) ValuesGet(ctx *lark.Context, opts ...lark.APIRequestOpt) *SpreadsheetsValuesGetReqCall {
 	return &SpreadsheetsValuesGetReqCall{
 		ctx:           ctx,
 		spreadsheetss: spreadsheetss,
 		pathParams:    map[string]interface{}{},
 		queryParams:   map[string]interface{}{},
-		optFns:        optFns,
+		opts:          opts,
 	}
 }
 
 type SpreadsheetsValuesImageReqCall struct {
-	ctx           *core.Context
+	ctx           *lark.Context
 	spreadsheetss *SpreadsheetsService
 	body          *SpreadsheetsValuesImageReqBody
 	pathParams    map[string]interface{}
-	optFns        []request.OptFn
+	opts          []lark.APIRequestOpt
 }
 
 func (rc *SpreadsheetsValuesImageReqCall) SetSpreadsheetToken(spreadsheetToken string) {
@@ -986,30 +984,30 @@ func (rc *SpreadsheetsValuesImageReqCall) SetSpreadsheetToken(spreadsheetToken s
 }
 
 func (rc *SpreadsheetsValuesImageReqCall) Do() (*SpreadsheetsValuesImageResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
 	var result = &SpreadsheetsValuesImageResult{}
 	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values_image", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
-func (spreadsheetss *SpreadsheetsService) ValuesImage(ctx *core.Context, body *SpreadsheetsValuesImageReqBody, optFns ...request.OptFn) *SpreadsheetsValuesImageReqCall {
+func (spreadsheetss *SpreadsheetsService) ValuesImage(ctx *lark.Context, body *SpreadsheetsValuesImageReqBody, opts ...lark.APIRequestOpt) *SpreadsheetsValuesImageReqCall {
 	return &SpreadsheetsValuesImageReqCall{
 		ctx:           ctx,
 		spreadsheetss: spreadsheetss,
 		body:          body,
 		pathParams:    map[string]interface{}{},
-		optFns:        optFns,
+		opts:          opts,
 	}
 }
 
 type SpreadsheetsValuesPrependReqCall struct {
-	ctx           *core.Context
+	ctx           *lark.Context
 	spreadsheetss *SpreadsheetsService
 	body          *SpreadsheetsValuesPrependReqBody
 	pathParams    map[string]interface{}
-	optFns        []request.OptFn
+	opts          []lark.APIRequestOpt
 }
 
 func (rc *SpreadsheetsValuesPrependReqCall) SetSpreadsheetToken(spreadsheetToken string) {
@@ -1017,30 +1015,30 @@ func (rc *SpreadsheetsValuesPrependReqCall) SetSpreadsheetToken(spreadsheetToken
 }
 
 func (rc *SpreadsheetsValuesPrependReqCall) Do() (*SpreadsheetsValuesPrependResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
 	var result = &SpreadsheetsValuesPrependResult{}
 	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values_prepend", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
-func (spreadsheetss *SpreadsheetsService) ValuesPrepend(ctx *core.Context, body *SpreadsheetsValuesPrependReqBody, optFns ...request.OptFn) *SpreadsheetsValuesPrependReqCall {
+func (spreadsheetss *SpreadsheetsService) ValuesPrepend(ctx *lark.Context, body *SpreadsheetsValuesPrependReqBody, opts ...lark.APIRequestOpt) *SpreadsheetsValuesPrependReqCall {
 	return &SpreadsheetsValuesPrependReqCall{
 		ctx:           ctx,
 		spreadsheetss: spreadsheetss,
 		body:          body,
 		pathParams:    map[string]interface{}{},
-		optFns:        optFns,
+		opts:          opts,
 	}
 }
 
 type SpreadsheetsValuesUpdateReqCall struct {
-	ctx           *core.Context
+	ctx           *lark.Context
 	spreadsheetss *SpreadsheetsService
 	body          *SpreadsheetsValuesUpdateReqBody
 	pathParams    map[string]interface{}
-	optFns        []request.OptFn
+	opts          []lark.APIRequestOpt
 }
 
 func (rc *SpreadsheetsValuesUpdateReqCall) SetSpreadsheetToken(spreadsheetToken string) {
@@ -1048,20 +1046,20 @@ func (rc *SpreadsheetsValuesUpdateReqCall) SetSpreadsheetToken(spreadsheetToken 
 }
 
 func (rc *SpreadsheetsValuesUpdateReqCall) Do() (*SpreadsheetsValuesUpdateResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
 	var result = &SpreadsheetsValuesUpdateResult{}
 	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values", "PUT",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
-func (spreadsheetss *SpreadsheetsService) ValuesUpdate(ctx *core.Context, body *SpreadsheetsValuesUpdateReqBody, optFns ...request.OptFn) *SpreadsheetsValuesUpdateReqCall {
+func (spreadsheetss *SpreadsheetsService) ValuesUpdate(ctx *lark.Context, body *SpreadsheetsValuesUpdateReqBody, opts ...lark.APIRequestOpt) *SpreadsheetsValuesUpdateReqCall {
 	return &SpreadsheetsValuesUpdateReqCall{
 		ctx:           ctx,
 		spreadsheetss: spreadsheetss,
 		body:          body,
 		pathParams:    map[string]interface{}{},
-		optFns:        optFns,
+		opts:          opts,
 	}
 }

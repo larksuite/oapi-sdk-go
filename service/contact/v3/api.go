@@ -2,33 +2,29 @@
 package v3
 
 import (
+	"github.com/larksuite/oapi-sdk-go"
 	"github.com/larksuite/oapi-sdk-go/api"
 	"github.com/larksuite/oapi-sdk-go/api/core/request"
-	"github.com/larksuite/oapi-sdk-go/api/core/response"
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/config"
 )
 
 type Service struct {
-	conf              *config.Config
+	conf              lark.Config
 	Users             *UserService
-	UserGroups        *UserGroupService
 	Departments       *DepartmentService
 	Scopes            *ScopeService
-	CustomAttrEvents  *CustomAttrEventService
 	EmployeeTypeEnums *EmployeeTypeEnumService
+	CustomAttrs       *CustomAttrService
 }
 
-func NewService(conf *config.Config) *Service {
+func NewService(conf lark.Config) *Service {
 	s := &Service{
 		conf: conf,
 	}
 	s.Users = newUserService(s)
-	s.UserGroups = newUserGroupService(s)
 	s.Departments = newDepartmentService(s)
 	s.Scopes = newScopeService(s)
-	s.CustomAttrEvents = newCustomAttrEventService(s)
 	s.EmployeeTypeEnums = newEmployeeTypeEnumService(s)
+	s.CustomAttrs = newCustomAttrService(s)
 	return s
 }
 
@@ -38,16 +34,6 @@ type UserService struct {
 
 func newUserService(service *Service) *UserService {
 	return &UserService{
-		service: service,
-	}
-}
-
-type UserGroupService struct {
-	service *Service
-}
-
-func newUserGroupService(service *Service) *UserGroupService {
-	return &UserGroupService{
 		service: service,
 	}
 }
@@ -72,16 +58,6 @@ func newScopeService(service *Service) *ScopeService {
 	}
 }
 
-type CustomAttrEventService struct {
-	service *Service
-}
-
-func newCustomAttrEventService(service *Service) *CustomAttrEventService {
-	return &CustomAttrEventService{
-		service: service,
-	}
-}
-
 type EmployeeTypeEnumService struct {
 	service *Service
 }
@@ -92,12 +68,22 @@ func newEmployeeTypeEnumService(service *Service) *EmployeeTypeEnumService {
 	}
 }
 
+type CustomAttrService struct {
+	service *Service
+}
+
+func newCustomAttrService(service *Service) *CustomAttrService {
+	return &CustomAttrService{
+		service: service,
+	}
+}
+
 type DepartmentGetReqCall struct {
-	ctx         *core.Context
+	ctx         *lark.Context
 	departments *DepartmentService
 	pathParams  map[string]interface{}
 	queryParams map[string]interface{}
-	optFns      []request.OptFn
+	opts        []lark.APIRequestOpt
 }
 
 func (rc *DepartmentGetReqCall) SetDepartmentId(departmentId string) {
@@ -111,32 +97,32 @@ func (rc *DepartmentGetReqCall) SetDepartmentIdType(departmentIdType string) {
 }
 
 func (rc *DepartmentGetReqCall) Do() (*DepartmentGetResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
 	var result = &DepartmentGetResult{}
-	req := request.NewRequest("contact/v3/departments/:department_id", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.optFns...)
+	req := request.NewRequest("/open-apis/contact/v3/departments/:department_id", "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.departments.service.conf, req)
 	return result, err
 }
 
-func (departments *DepartmentService) Get(ctx *core.Context, optFns ...request.OptFn) *DepartmentGetReqCall {
+func (departments *DepartmentService) Get(ctx *lark.Context, opts ...lark.APIRequestOpt) *DepartmentGetReqCall {
 	return &DepartmentGetReqCall{
 		ctx:         ctx,
 		departments: departments,
 		pathParams:  map[string]interface{}{},
 		queryParams: map[string]interface{}{},
-		optFns:      optFns,
+		opts:        opts,
 	}
 }
 
 type UserDeleteReqCall struct {
-	ctx         *core.Context
+	ctx         *lark.Context
 	users       *UserService
 	body        *UserDeleteReqBody
 	pathParams  map[string]interface{}
 	queryParams map[string]interface{}
-	optFns      []request.OptFn
+	opts        []lark.APIRequestOpt
 }
 
 func (rc *UserDeleteReqCall) SetUserId(userId string) {
@@ -146,32 +132,32 @@ func (rc *UserDeleteReqCall) SetUserIdType(userIdType string) {
 	rc.queryParams["user_id_type"] = userIdType
 }
 
-func (rc *UserDeleteReqCall) Do() (*response.NoData, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &response.NoData{}
-	req := request.NewRequest("contact/v3/users/:user_id", "DELETE",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+func (rc *UserDeleteReqCall) Do() (*lark.NoData, error) {
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	var result = &lark.NoData{}
+	req := request.NewRequest("/open-apis/contact/v3/users/:user_id", "DELETE",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.users.service.conf, req)
 	return result, err
 }
 
-func (users *UserService) Delete(ctx *core.Context, body *UserDeleteReqBody, optFns ...request.OptFn) *UserDeleteReqCall {
+func (users *UserService) Delete(ctx *lark.Context, body *UserDeleteReqBody, opts ...lark.APIRequestOpt) *UserDeleteReqCall {
 	return &UserDeleteReqCall{
 		ctx:         ctx,
 		users:       users,
 		body:        body,
 		pathParams:  map[string]interface{}{},
 		queryParams: map[string]interface{}{},
-		optFns:      optFns,
+		opts:        opts,
 	}
 }
 
 type DepartmentListReqCall struct {
-	ctx         *core.Context
+	ctx         *lark.Context
 	departments *DepartmentService
 	queryParams map[string]interface{}
-	optFns      []request.OptFn
+	opts        []lark.APIRequestOpt
 }
 
 func (rc *DepartmentListReqCall) SetUserIdType(userIdType string) {
@@ -194,30 +180,30 @@ func (rc *DepartmentListReqCall) SetPageSize(pageSize int) {
 }
 
 func (rc *DepartmentListReqCall) Do() (*DepartmentListResult, error) {
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
 	var result = &DepartmentListResult{}
-	req := request.NewRequest("contact/v3/departments", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.optFns...)
+	req := request.NewRequest("/open-apis/contact/v3/departments", "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.departments.service.conf, req)
 	return result, err
 }
 
-func (departments *DepartmentService) List(ctx *core.Context, optFns ...request.OptFn) *DepartmentListReqCall {
+func (departments *DepartmentService) List(ctx *lark.Context, opts ...lark.APIRequestOpt) *DepartmentListReqCall {
 	return &DepartmentListReqCall{
 		ctx:         ctx,
 		departments: departments,
 		queryParams: map[string]interface{}{},
-		optFns:      optFns,
+		opts:        opts,
 	}
 }
 
 type DepartmentPatchReqCall struct {
-	ctx         *core.Context
+	ctx         *lark.Context
 	departments *DepartmentService
 	body        *Department
 	pathParams  map[string]interface{}
 	queryParams map[string]interface{}
-	optFns      []request.OptFn
+	opts        []lark.APIRequestOpt
 }
 
 func (rc *DepartmentPatchReqCall) SetDepartmentId(departmentId string) {
@@ -231,33 +217,33 @@ func (rc *DepartmentPatchReqCall) SetDepartmentIdType(departmentIdType string) {
 }
 
 func (rc *DepartmentPatchReqCall) Do() (*DepartmentPatchResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
 	var result = &DepartmentPatchResult{}
-	req := request.NewRequest("contact/v3/departments/:department_id", "PATCH",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+	req := request.NewRequest("/open-apis/contact/v3/departments/:department_id", "PATCH",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.departments.service.conf, req)
 	return result, err
 }
 
-func (departments *DepartmentService) Patch(ctx *core.Context, body *Department, optFns ...request.OptFn) *DepartmentPatchReqCall {
+func (departments *DepartmentService) Patch(ctx *lark.Context, body *Department, opts ...lark.APIRequestOpt) *DepartmentPatchReqCall {
 	return &DepartmentPatchReqCall{
 		ctx:         ctx,
 		departments: departments,
 		body:        body,
 		pathParams:  map[string]interface{}{},
 		queryParams: map[string]interface{}{},
-		optFns:      optFns,
+		opts:        opts,
 	}
 }
 
 type UserUpdateReqCall struct {
-	ctx         *core.Context
+	ctx         *lark.Context
 	users       *UserService
 	body        *User
 	pathParams  map[string]interface{}
 	queryParams map[string]interface{}
-	optFns      []request.OptFn
+	opts        []lark.APIRequestOpt
 }
 
 func (rc *UserUpdateReqCall) SetUserId(userId string) {
@@ -271,32 +257,32 @@ func (rc *UserUpdateReqCall) SetDepartmentIdType(departmentIdType string) {
 }
 
 func (rc *UserUpdateReqCall) Do() (*UserUpdateResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
 	var result = &UserUpdateResult{}
-	req := request.NewRequest("contact/v3/users/:user_id", "PUT",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+	req := request.NewRequest("/open-apis/contact/v3/users/:user_id", "PUT",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.users.service.conf, req)
 	return result, err
 }
 
-func (users *UserService) Update(ctx *core.Context, body *User, optFns ...request.OptFn) *UserUpdateReqCall {
+func (users *UserService) Update(ctx *lark.Context, body *User, opts ...lark.APIRequestOpt) *UserUpdateReqCall {
 	return &UserUpdateReqCall{
 		ctx:         ctx,
 		users:       users,
 		body:        body,
 		pathParams:  map[string]interface{}{},
 		queryParams: map[string]interface{}{},
-		optFns:      optFns,
+		opts:        opts,
 	}
 }
 
 type UserCreateReqCall struct {
-	ctx         *core.Context
+	ctx         *lark.Context
 	users       *UserService
 	body        *User
 	queryParams map[string]interface{}
-	optFns      []request.OptFn
+	opts        []lark.APIRequestOpt
 }
 
 func (rc *UserCreateReqCall) SetUserIdType(userIdType string) {
@@ -310,31 +296,31 @@ func (rc *UserCreateReqCall) SetClientToken(clientToken string) {
 }
 
 func (rc *UserCreateReqCall) Do() (*UserCreateResult, error) {
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
 	var result = &UserCreateResult{}
-	req := request.NewRequest("contact/v3/users", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+	req := request.NewRequest("/open-apis/contact/v3/users", "POST",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.users.service.conf, req)
 	return result, err
 }
 
-func (users *UserService) Create(ctx *core.Context, body *User, optFns ...request.OptFn) *UserCreateReqCall {
+func (users *UserService) Create(ctx *lark.Context, body *User, opts ...lark.APIRequestOpt) *UserCreateReqCall {
 	return &UserCreateReqCall{
 		ctx:         ctx,
 		users:       users,
 		body:        body,
 		queryParams: map[string]interface{}{},
-		optFns:      optFns,
+		opts:        opts,
 	}
 }
 
 type UserPatchReqCall struct {
-	ctx         *core.Context
+	ctx         *lark.Context
 	users       *UserService
 	body        *User
 	pathParams  map[string]interface{}
 	queryParams map[string]interface{}
-	optFns      []request.OptFn
+	opts        []lark.APIRequestOpt
 }
 
 func (rc *UserPatchReqCall) SetUserId(userId string) {
@@ -348,32 +334,32 @@ func (rc *UserPatchReqCall) SetDepartmentIdType(departmentIdType string) {
 }
 
 func (rc *UserPatchReqCall) Do() (*UserPatchResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
 	var result = &UserPatchResult{}
-	req := request.NewRequest("contact/v3/users/:user_id", "PATCH",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+	req := request.NewRequest("/open-apis/contact/v3/users/:user_id", "PATCH",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.users.service.conf, req)
 	return result, err
 }
 
-func (users *UserService) Patch(ctx *core.Context, body *User, optFns ...request.OptFn) *UserPatchReqCall {
+func (users *UserService) Patch(ctx *lark.Context, body *User, opts ...lark.APIRequestOpt) *UserPatchReqCall {
 	return &UserPatchReqCall{
 		ctx:         ctx,
 		users:       users,
 		body:        body,
 		pathParams:  map[string]interface{}{},
 		queryParams: map[string]interface{}{},
-		optFns:      optFns,
+		opts:        opts,
 	}
 }
 
 type DepartmentCreateReqCall struct {
-	ctx         *core.Context
+	ctx         *lark.Context
 	departments *DepartmentService
 	body        *Department
 	queryParams map[string]interface{}
-	optFns      []request.OptFn
+	opts        []lark.APIRequestOpt
 }
 
 func (rc *DepartmentCreateReqCall) SetUserIdType(userIdType string) {
@@ -387,30 +373,30 @@ func (rc *DepartmentCreateReqCall) SetClientToken(clientToken string) {
 }
 
 func (rc *DepartmentCreateReqCall) Do() (*DepartmentCreateResult, error) {
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
 	var result = &DepartmentCreateResult{}
-	req := request.NewRequest("contact/v3/departments", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+	req := request.NewRequest("/open-apis/contact/v3/departments", "POST",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.departments.service.conf, req)
 	return result, err
 }
 
-func (departments *DepartmentService) Create(ctx *core.Context, body *Department, optFns ...request.OptFn) *DepartmentCreateReqCall {
+func (departments *DepartmentService) Create(ctx *lark.Context, body *Department, opts ...lark.APIRequestOpt) *DepartmentCreateReqCall {
 	return &DepartmentCreateReqCall{
 		ctx:         ctx,
 		departments: departments,
 		body:        body,
 		queryParams: map[string]interface{}{},
-		optFns:      optFns,
+		opts:        opts,
 	}
 }
 
 type DepartmentDeleteReqCall struct {
-	ctx         *core.Context
+	ctx         *lark.Context
 	departments *DepartmentService
 	pathParams  map[string]interface{}
 	queryParams map[string]interface{}
-	optFns      []request.OptFn
+	opts        []lark.APIRequestOpt
 }
 
 func (rc *DepartmentDeleteReqCall) SetDepartmentId(departmentId string) {
@@ -420,32 +406,32 @@ func (rc *DepartmentDeleteReqCall) SetDepartmentIdType(departmentIdType string) 
 	rc.queryParams["department_id_type"] = departmentIdType
 }
 
-func (rc *DepartmentDeleteReqCall) Do() (*response.NoData, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &response.NoData{}
-	req := request.NewRequest("contact/v3/departments/:department_id", "DELETE",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+func (rc *DepartmentDeleteReqCall) Do() (*lark.NoData, error) {
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	var result = &lark.NoData{}
+	req := request.NewRequest("/open-apis/contact/v3/departments/:department_id", "DELETE",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.departments.service.conf, req)
 	return result, err
 }
 
-func (departments *DepartmentService) Delete(ctx *core.Context, optFns ...request.OptFn) *DepartmentDeleteReqCall {
+func (departments *DepartmentService) Delete(ctx *lark.Context, opts ...lark.APIRequestOpt) *DepartmentDeleteReqCall {
 	return &DepartmentDeleteReqCall{
 		ctx:         ctx,
 		departments: departments,
 		pathParams:  map[string]interface{}{},
 		queryParams: map[string]interface{}{},
-		optFns:      optFns,
+		opts:        opts,
 	}
 }
 
 type UserGetReqCall struct {
-	ctx         *core.Context
+	ctx         *lark.Context
 	users       *UserService
 	pathParams  map[string]interface{}
 	queryParams map[string]interface{}
-	optFns      []request.OptFn
+	opts        []lark.APIRequestOpt
 }
 
 func (rc *UserGetReqCall) SetUserId(userId string) {
@@ -459,32 +445,32 @@ func (rc *UserGetReqCall) SetDepartmentIdType(departmentIdType string) {
 }
 
 func (rc *UserGetReqCall) Do() (*UserGetResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
 	var result = &UserGetResult{}
-	req := request.NewRequest("contact/v3/users/:user_id", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.optFns...)
+	req := request.NewRequest("/open-apis/contact/v3/users/:user_id", "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.users.service.conf, req)
 	return result, err
 }
 
-func (users *UserService) Get(ctx *core.Context, optFns ...request.OptFn) *UserGetReqCall {
+func (users *UserService) Get(ctx *lark.Context, opts ...lark.APIRequestOpt) *UserGetReqCall {
 	return &UserGetReqCall{
 		ctx:         ctx,
 		users:       users,
 		pathParams:  map[string]interface{}{},
 		queryParams: map[string]interface{}{},
-		optFns:      optFns,
+		opts:        opts,
 	}
 }
 
 type DepartmentUpdateReqCall struct {
-	ctx         *core.Context
+	ctx         *lark.Context
 	departments *DepartmentService
 	body        *Department
 	pathParams  map[string]interface{}
 	queryParams map[string]interface{}
-	optFns      []request.OptFn
+	opts        []lark.APIRequestOpt
 }
 
 func (rc *DepartmentUpdateReqCall) SetDepartmentId(departmentId string) {
@@ -498,31 +484,31 @@ func (rc *DepartmentUpdateReqCall) SetDepartmentIdType(departmentIdType string) 
 }
 
 func (rc *DepartmentUpdateReqCall) Do() (*DepartmentUpdateResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
 	var result = &DepartmentUpdateResult{}
-	req := request.NewRequest("contact/v3/departments/:department_id", "PUT",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+	req := request.NewRequest("/open-apis/contact/v3/departments/:department_id", "PUT",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.departments.service.conf, req)
 	return result, err
 }
 
-func (departments *DepartmentService) Update(ctx *core.Context, body *Department, optFns ...request.OptFn) *DepartmentUpdateReqCall {
+func (departments *DepartmentService) Update(ctx *lark.Context, body *Department, opts ...lark.APIRequestOpt) *DepartmentUpdateReqCall {
 	return &DepartmentUpdateReqCall{
 		ctx:         ctx,
 		departments: departments,
 		body:        body,
 		pathParams:  map[string]interface{}{},
 		queryParams: map[string]interface{}{},
-		optFns:      optFns,
+		opts:        opts,
 	}
 }
 
 type UserListReqCall struct {
-	ctx         *core.Context
+	ctx         *lark.Context
 	users       *UserService
 	queryParams map[string]interface{}
-	optFns      []request.OptFn
+	opts        []lark.APIRequestOpt
 }
 
 func (rc *UserListReqCall) SetUserIdType(userIdType string) {
@@ -542,28 +528,28 @@ func (rc *UserListReqCall) SetPageSize(pageSize int) {
 }
 
 func (rc *UserListReqCall) Do() (*UserListResult, error) {
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
 	var result = &UserListResult{}
-	req := request.NewRequest("contact/v3/users", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.optFns...)
+	req := request.NewRequest("/open-apis/contact/v3/users", "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.users.service.conf, req)
 	return result, err
 }
 
-func (users *UserService) List(ctx *core.Context, optFns ...request.OptFn) *UserListReqCall {
+func (users *UserService) List(ctx *lark.Context, opts ...lark.APIRequestOpt) *UserListReqCall {
 	return &UserListReqCall{
 		ctx:         ctx,
 		users:       users,
 		queryParams: map[string]interface{}{},
-		optFns:      optFns,
+		opts:        opts,
 	}
 }
 
 type DepartmentParentReqCall struct {
-	ctx         *core.Context
+	ctx         *lark.Context
 	departments *DepartmentService
 	queryParams map[string]interface{}
-	optFns      []request.OptFn
+	opts        []lark.APIRequestOpt
 }
 
 func (rc *DepartmentParentReqCall) SetUserIdType(userIdType string) {
@@ -583,29 +569,29 @@ func (rc *DepartmentParentReqCall) SetPageSize(pageSize int) {
 }
 
 func (rc *DepartmentParentReqCall) Do() (*DepartmentParentResult, error) {
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
 	var result = &DepartmentParentResult{}
-	req := request.NewRequest("contact/v3/departments/parent", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.optFns...)
+	req := request.NewRequest("/open-apis/contact/v3/departments/parent", "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.departments.service.conf, req)
 	return result, err
 }
 
-func (departments *DepartmentService) Parent(ctx *core.Context, optFns ...request.OptFn) *DepartmentParentReqCall {
+func (departments *DepartmentService) Parent(ctx *lark.Context, opts ...lark.APIRequestOpt) *DepartmentParentReqCall {
 	return &DepartmentParentReqCall{
 		ctx:         ctx,
 		departments: departments,
 		queryParams: map[string]interface{}{},
-		optFns:      optFns,
+		opts:        opts,
 	}
 }
 
 type DepartmentSearchReqCall struct {
-	ctx         *core.Context
+	ctx         *lark.Context
 	departments *DepartmentService
 	body        *DepartmentSearchReqBody
 	queryParams map[string]interface{}
-	optFns      []request.OptFn
+	opts        []lark.APIRequestOpt
 }
 
 func (rc *DepartmentSearchReqCall) SetUserIdType(userIdType string) {
@@ -622,20 +608,168 @@ func (rc *DepartmentSearchReqCall) SetPageSize(pageSize int) {
 }
 
 func (rc *DepartmentSearchReqCall) Do() (*DepartmentSearchResult, error) {
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
 	var result = &DepartmentSearchResult{}
-	req := request.NewRequest("contact/v3/departments/search", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+	req := request.NewRequest("/open-apis/contact/v3/departments/search", "POST",
+		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.departments.service.conf, req)
 	return result, err
 }
 
-func (departments *DepartmentService) Search(ctx *core.Context, body *DepartmentSearchReqBody, optFns ...request.OptFn) *DepartmentSearchReqCall {
+func (departments *DepartmentService) Search(ctx *lark.Context, body *DepartmentSearchReqBody, opts ...lark.APIRequestOpt) *DepartmentSearchReqCall {
 	return &DepartmentSearchReqCall{
 		ctx:         ctx,
 		departments: departments,
 		body:        body,
 		queryParams: map[string]interface{}{},
-		optFns:      optFns,
+		opts:        opts,
+	}
+}
+
+type EmployeeTypeEnumListReqCall struct {
+	ctx               *lark.Context
+	employeeTypeEnums *EmployeeTypeEnumService
+	queryParams       map[string]interface{}
+	opts              []lark.APIRequestOpt
+}
+
+func (rc *EmployeeTypeEnumListReqCall) SetPageToken(pageToken string) {
+	rc.queryParams["page_token"] = pageToken
+}
+func (rc *EmployeeTypeEnumListReqCall) SetPageSize(pageSize int) {
+	rc.queryParams["page_size"] = pageSize
+}
+
+func (rc *EmployeeTypeEnumListReqCall) Do() (*EmployeeTypeEnumListResult, error) {
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	var result = &EmployeeTypeEnumListResult{}
+	req := request.NewRequest("/open-apis/contact/v3/employee_type_enums", "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := api.Send(rc.ctx, rc.employeeTypeEnums.service.conf, req)
+	return result, err
+}
+
+func (employeeTypeEnums *EmployeeTypeEnumService) List(ctx *lark.Context, opts ...lark.APIRequestOpt) *EmployeeTypeEnumListReqCall {
+	return &EmployeeTypeEnumListReqCall{
+		ctx:               ctx,
+		employeeTypeEnums: employeeTypeEnums,
+		queryParams:       map[string]interface{}{},
+		opts:              opts,
+	}
+}
+
+type EmployeeTypeEnumCreateReqCall struct {
+	ctx               *lark.Context
+	employeeTypeEnums *EmployeeTypeEnumService
+	body              *EmployeeTypeEnum
+	opts              []lark.APIRequestOpt
+}
+
+func (rc *EmployeeTypeEnumCreateReqCall) Do() (*EmployeeTypeEnumCreateResult, error) {
+	var result = &EmployeeTypeEnumCreateResult{}
+	req := request.NewRequest("/open-apis/contact/v3/employee_type_enums", "POST",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := api.Send(rc.ctx, rc.employeeTypeEnums.service.conf, req)
+	return result, err
+}
+
+func (employeeTypeEnums *EmployeeTypeEnumService) Create(ctx *lark.Context, body *EmployeeTypeEnum, opts ...lark.APIRequestOpt) *EmployeeTypeEnumCreateReqCall {
+	return &EmployeeTypeEnumCreateReqCall{
+		ctx:               ctx,
+		employeeTypeEnums: employeeTypeEnums,
+		body:              body,
+		opts:              opts,
+	}
+}
+
+type EmployeeTypeEnumDeleteReqCall struct {
+	ctx               *lark.Context
+	employeeTypeEnums *EmployeeTypeEnumService
+	pathParams        map[string]interface{}
+	opts              []lark.APIRequestOpt
+}
+
+func (rc *EmployeeTypeEnumDeleteReqCall) SetEnumId(enumId string) {
+	rc.pathParams["enum_id"] = enumId
+}
+
+func (rc *EmployeeTypeEnumDeleteReqCall) Do() (*lark.NoData, error) {
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	var result = &lark.NoData{}
+	req := request.NewRequest("/open-apis/contact/v3/employee_type_enums/:enum_id", "DELETE",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := api.Send(rc.ctx, rc.employeeTypeEnums.service.conf, req)
+	return result, err
+}
+
+func (employeeTypeEnums *EmployeeTypeEnumService) Delete(ctx *lark.Context, opts ...lark.APIRequestOpt) *EmployeeTypeEnumDeleteReqCall {
+	return &EmployeeTypeEnumDeleteReqCall{
+		ctx:               ctx,
+		employeeTypeEnums: employeeTypeEnums,
+		pathParams:        map[string]interface{}{},
+		opts:              opts,
+	}
+}
+
+type EmployeeTypeEnumUpdateReqCall struct {
+	ctx               *lark.Context
+	employeeTypeEnums *EmployeeTypeEnumService
+	body              *EmployeeTypeEnum
+	pathParams        map[string]interface{}
+	opts              []lark.APIRequestOpt
+}
+
+func (rc *EmployeeTypeEnumUpdateReqCall) SetEnumId(enumId string) {
+	rc.pathParams["enum_id"] = enumId
+}
+
+func (rc *EmployeeTypeEnumUpdateReqCall) Do() (*EmployeeTypeEnumUpdateResult, error) {
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	var result = &EmployeeTypeEnumUpdateResult{}
+	req := request.NewRequest("/open-apis/contact/v3/employee_type_enums/:enum_id", "PUT",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := api.Send(rc.ctx, rc.employeeTypeEnums.service.conf, req)
+	return result, err
+}
+
+func (employeeTypeEnums *EmployeeTypeEnumService) Update(ctx *lark.Context, body *EmployeeTypeEnum, opts ...lark.APIRequestOpt) *EmployeeTypeEnumUpdateReqCall {
+	return &EmployeeTypeEnumUpdateReqCall{
+		ctx:               ctx,
+		employeeTypeEnums: employeeTypeEnums,
+		body:              body,
+		pathParams:        map[string]interface{}{},
+		opts:              opts,
+	}
+}
+
+type CustomAttrListReqCall struct {
+	ctx         *lark.Context
+	customAttrs *CustomAttrService
+	queryParams map[string]interface{}
+	opts        []lark.APIRequestOpt
+}
+
+func (rc *CustomAttrListReqCall) SetPageSize(pageSize int) {
+	rc.queryParams["page_size"] = pageSize
+}
+func (rc *CustomAttrListReqCall) SetPageToken(pageToken string) {
+	rc.queryParams["page_token"] = pageToken
+}
+
+func (rc *CustomAttrListReqCall) Do() (*CustomAttrListResult, error) {
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	var result = &CustomAttrListResult{}
+	req := request.NewRequest("/open-apis/contact/v3/custom_attrs", "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := api.Send(rc.ctx, rc.customAttrs.service.conf, req)
+	return result, err
+}
+
+func (customAttrs *CustomAttrService) List(ctx *lark.Context, opts ...lark.APIRequestOpt) *CustomAttrListReqCall {
+	return &CustomAttrListReqCall{
+		ctx:         ctx,
+		customAttrs: customAttrs,
+		queryParams: map[string]interface{}{},
+		opts:        opts,
 	}
 }

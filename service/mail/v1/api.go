@@ -2,15 +2,13 @@
 package v1
 
 import (
+	"github.com/larksuite/oapi-sdk-go"
 	"github.com/larksuite/oapi-sdk-go/api"
 	"github.com/larksuite/oapi-sdk-go/api/core/request"
-	"github.com/larksuite/oapi-sdk-go/api/core/response"
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/config"
 )
 
 type Service struct {
-	conf                       *config.Config
+	conf                       lark.Config
 	MailgroupMembers           *MailgroupMemberService
 	MailgroupPermissionMembers *MailgroupPermissionMemberService
 	PublicMailboxs             *PublicMailboxService
@@ -18,7 +16,7 @@ type Service struct {
 	Mailgroups                 *MailgroupService
 }
 
-func NewService(conf *config.Config) *Service {
+func NewService(conf lark.Config) *Service {
 	s := &Service{
 		conf: conf,
 	}
@@ -81,10 +79,10 @@ func newMailgroupService(service *Service) *MailgroupService {
 }
 
 type MailgroupPermissionMemberDeleteReqCall struct {
-	ctx                        *core.Context
+	ctx                        *lark.Context
 	mailgroupPermissionMembers *MailgroupPermissionMemberService
 	pathParams                 map[string]interface{}
-	optFns                     []request.OptFn
+	opts                       []lark.APIRequestOpt
 }
 
 func (rc *MailgroupPermissionMemberDeleteReqCall) SetMailgroupId(mailgroupId string) {
@@ -94,30 +92,30 @@ func (rc *MailgroupPermissionMemberDeleteReqCall) SetPermissionMemberId(permissi
 	rc.pathParams["permission_member_id"] = permissionMemberId
 }
 
-func (rc *MailgroupPermissionMemberDeleteReqCall) Do() (*response.NoData, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	var result = &response.NoData{}
+func (rc *MailgroupPermissionMemberDeleteReqCall) Do() (*lark.NoData, error) {
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	var result = &lark.NoData{}
 	req := request.NewRequest("/open-apis/mail/v1/mailgroups/:mailgroup_id/permission_members/:permission_member_id", "DELETE",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.mailgroupPermissionMembers.service.conf, req)
 	return result, err
 }
 
-func (mailgroupPermissionMembers *MailgroupPermissionMemberService) Delete(ctx *core.Context, optFns ...request.OptFn) *MailgroupPermissionMemberDeleteReqCall {
+func (mailgroupPermissionMembers *MailgroupPermissionMemberService) Delete(ctx *lark.Context, opts ...lark.APIRequestOpt) *MailgroupPermissionMemberDeleteReqCall {
 	return &MailgroupPermissionMemberDeleteReqCall{
 		ctx:                        ctx,
 		mailgroupPermissionMembers: mailgroupPermissionMembers,
 		pathParams:                 map[string]interface{}{},
-		optFns:                     optFns,
+		opts:                       opts,
 	}
 }
 
 type PublicMailboxMemberGetReqCall struct {
-	ctx                  *core.Context
+	ctx                  *lark.Context
 	publicMailboxMembers *PublicMailboxMemberService
 	pathParams           map[string]interface{}
 	queryParams          map[string]interface{}
-	optFns               []request.OptFn
+	opts                 []lark.APIRequestOpt
 }
 
 func (rc *PublicMailboxMemberGetReqCall) SetPublicMailboxId(publicMailboxId string) {
@@ -131,30 +129,30 @@ func (rc *PublicMailboxMemberGetReqCall) SetUserIdType(userIdType string) {
 }
 
 func (rc *PublicMailboxMemberGetReqCall) Do() (*PublicMailboxMember, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
 	var result = &PublicMailboxMember{}
 	req := request.NewRequest("/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members/:member_id", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.publicMailboxMembers.service.conf, req)
 	return result, err
 }
 
-func (publicMailboxMembers *PublicMailboxMemberService) Get(ctx *core.Context, optFns ...request.OptFn) *PublicMailboxMemberGetReqCall {
+func (publicMailboxMembers *PublicMailboxMemberService) Get(ctx *lark.Context, opts ...lark.APIRequestOpt) *PublicMailboxMemberGetReqCall {
 	return &PublicMailboxMemberGetReqCall{
 		ctx:                  ctx,
 		publicMailboxMembers: publicMailboxMembers,
 		pathParams:           map[string]interface{}{},
 		queryParams:          map[string]interface{}{},
-		optFns:               optFns,
+		opts:                 opts,
 	}
 }
 
 type PublicMailboxMemberDeleteReqCall struct {
-	ctx                  *core.Context
+	ctx                  *lark.Context
 	publicMailboxMembers *PublicMailboxMemberService
 	pathParams           map[string]interface{}
-	optFns               []request.OptFn
+	opts                 []lark.APIRequestOpt
 }
 
 func (rc *PublicMailboxMemberDeleteReqCall) SetPublicMailboxId(publicMailboxId string) {
@@ -164,30 +162,30 @@ func (rc *PublicMailboxMemberDeleteReqCall) SetMemberId(memberId string) {
 	rc.pathParams["member_id"] = memberId
 }
 
-func (rc *PublicMailboxMemberDeleteReqCall) Do() (*response.NoData, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	var result = &response.NoData{}
+func (rc *PublicMailboxMemberDeleteReqCall) Do() (*lark.NoData, error) {
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	var result = &lark.NoData{}
 	req := request.NewRequest("/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members/:member_id", "DELETE",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.publicMailboxMembers.service.conf, req)
 	return result, err
 }
 
-func (publicMailboxMembers *PublicMailboxMemberService) Delete(ctx *core.Context, optFns ...request.OptFn) *PublicMailboxMemberDeleteReqCall {
+func (publicMailboxMembers *PublicMailboxMemberService) Delete(ctx *lark.Context, opts ...lark.APIRequestOpt) *PublicMailboxMemberDeleteReqCall {
 	return &PublicMailboxMemberDeleteReqCall{
 		ctx:                  ctx,
 		publicMailboxMembers: publicMailboxMembers,
 		pathParams:           map[string]interface{}{},
-		optFns:               optFns,
+		opts:                 opts,
 	}
 }
 
 type MailgroupMemberListReqCall struct {
-	ctx              *core.Context
+	ctx              *lark.Context
 	mailgroupMembers *MailgroupMemberService
 	pathParams       map[string]interface{}
 	queryParams      map[string]interface{}
-	optFns           []request.OptFn
+	opts             []lark.APIRequestOpt
 }
 
 func (rc *MailgroupMemberListReqCall) SetMailgroupId(mailgroupId string) {
@@ -207,31 +205,31 @@ func (rc *MailgroupMemberListReqCall) SetPageSize(pageSize int) {
 }
 
 func (rc *MailgroupMemberListReqCall) Do() (*MailgroupMemberListResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
 	var result = &MailgroupMemberListResult{}
 	req := request.NewRequest("/open-apis/mail/v1/mailgroups/:mailgroup_id/members", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.mailgroupMembers.service.conf, req)
 	return result, err
 }
 
-func (mailgroupMembers *MailgroupMemberService) List(ctx *core.Context, optFns ...request.OptFn) *MailgroupMemberListReqCall {
+func (mailgroupMembers *MailgroupMemberService) List(ctx *lark.Context, opts ...lark.APIRequestOpt) *MailgroupMemberListReqCall {
 	return &MailgroupMemberListReqCall{
 		ctx:              ctx,
 		mailgroupMembers: mailgroupMembers,
 		pathParams:       map[string]interface{}{},
 		queryParams:      map[string]interface{}{},
-		optFns:           optFns,
+		opts:             opts,
 	}
 }
 
 type MailgroupPermissionMemberGetReqCall struct {
-	ctx                        *core.Context
+	ctx                        *lark.Context
 	mailgroupPermissionMembers *MailgroupPermissionMemberService
 	pathParams                 map[string]interface{}
 	queryParams                map[string]interface{}
-	optFns                     []request.OptFn
+	opts                       []lark.APIRequestOpt
 }
 
 func (rc *MailgroupPermissionMemberGetReqCall) SetMailgroupId(mailgroupId string) {
@@ -248,31 +246,31 @@ func (rc *MailgroupPermissionMemberGetReqCall) SetDepartmentIdType(departmentIdT
 }
 
 func (rc *MailgroupPermissionMemberGetReqCall) Do() (*MailgroupPermissionMember, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
 	var result = &MailgroupPermissionMember{}
 	req := request.NewRequest("/open-apis/mail/v1/mailgroups/:mailgroup_id/permission_members/:permission_member_id", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.mailgroupPermissionMembers.service.conf, req)
 	return result, err
 }
 
-func (mailgroupPermissionMembers *MailgroupPermissionMemberService) Get(ctx *core.Context, optFns ...request.OptFn) *MailgroupPermissionMemberGetReqCall {
+func (mailgroupPermissionMembers *MailgroupPermissionMemberService) Get(ctx *lark.Context, opts ...lark.APIRequestOpt) *MailgroupPermissionMemberGetReqCall {
 	return &MailgroupPermissionMemberGetReqCall{
 		ctx:                        ctx,
 		mailgroupPermissionMembers: mailgroupPermissionMembers,
 		pathParams:                 map[string]interface{}{},
 		queryParams:                map[string]interface{}{},
-		optFns:                     optFns,
+		opts:                       opts,
 	}
 }
 
 type MailgroupPermissionMemberListReqCall struct {
-	ctx                        *core.Context
+	ctx                        *lark.Context
 	mailgroupPermissionMembers *MailgroupPermissionMemberService
 	pathParams                 map[string]interface{}
 	queryParams                map[string]interface{}
-	optFns                     []request.OptFn
+	opts                       []lark.APIRequestOpt
 }
 
 func (rc *MailgroupPermissionMemberListReqCall) SetMailgroupId(mailgroupId string) {
@@ -292,31 +290,31 @@ func (rc *MailgroupPermissionMemberListReqCall) SetPageSize(pageSize int) {
 }
 
 func (rc *MailgroupPermissionMemberListReqCall) Do() (*MailgroupPermissionMemberListResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
 	var result = &MailgroupPermissionMemberListResult{}
 	req := request.NewRequest("/open-apis/mail/v1/mailgroups/:mailgroup_id/permission_members", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.mailgroupPermissionMembers.service.conf, req)
 	return result, err
 }
 
-func (mailgroupPermissionMembers *MailgroupPermissionMemberService) List(ctx *core.Context, optFns ...request.OptFn) *MailgroupPermissionMemberListReqCall {
+func (mailgroupPermissionMembers *MailgroupPermissionMemberService) List(ctx *lark.Context, opts ...lark.APIRequestOpt) *MailgroupPermissionMemberListReqCall {
 	return &MailgroupPermissionMemberListReqCall{
 		ctx:                        ctx,
 		mailgroupPermissionMembers: mailgroupPermissionMembers,
 		pathParams:                 map[string]interface{}{},
 		queryParams:                map[string]interface{}{},
-		optFns:                     optFns,
+		opts:                       opts,
 	}
 }
 
 type PublicMailboxUpdateReqCall struct {
-	ctx            *core.Context
+	ctx            *lark.Context
 	publicMailboxs *PublicMailboxService
 	body           *PublicMailbox
 	pathParams     map[string]interface{}
-	optFns         []request.OptFn
+	opts           []lark.APIRequestOpt
 }
 
 func (rc *PublicMailboxUpdateReqCall) SetPublicMailboxId(publicMailboxId string) {
@@ -324,59 +322,59 @@ func (rc *PublicMailboxUpdateReqCall) SetPublicMailboxId(publicMailboxId string)
 }
 
 func (rc *PublicMailboxUpdateReqCall) Do() (*PublicMailbox, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
 	var result = &PublicMailbox{}
 	req := request.NewRequest("/open-apis/mail/v1/public_mailboxes/:public_mailbox_id", "PUT",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.publicMailboxs.service.conf, req)
 	return result, err
 }
 
-func (publicMailboxs *PublicMailboxService) Update(ctx *core.Context, body *PublicMailbox, optFns ...request.OptFn) *PublicMailboxUpdateReqCall {
+func (publicMailboxs *PublicMailboxService) Update(ctx *lark.Context, body *PublicMailbox, opts ...lark.APIRequestOpt) *PublicMailboxUpdateReqCall {
 	return &PublicMailboxUpdateReqCall{
 		ctx:            ctx,
 		publicMailboxs: publicMailboxs,
 		body:           body,
 		pathParams:     map[string]interface{}{},
-		optFns:         optFns,
+		opts:           opts,
 	}
 }
 
 type PublicMailboxMemberClearReqCall struct {
-	ctx                  *core.Context
+	ctx                  *lark.Context
 	publicMailboxMembers *PublicMailboxMemberService
 	pathParams           map[string]interface{}
-	optFns               []request.OptFn
+	opts                 []lark.APIRequestOpt
 }
 
 func (rc *PublicMailboxMemberClearReqCall) SetPublicMailboxId(publicMailboxId string) {
 	rc.pathParams["public_mailbox_id"] = publicMailboxId
 }
 
-func (rc *PublicMailboxMemberClearReqCall) Do() (*response.NoData, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	var result = &response.NoData{}
+func (rc *PublicMailboxMemberClearReqCall) Do() (*lark.NoData, error) {
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	var result = &lark.NoData{}
 	req := request.NewRequest("/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members/clear", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.publicMailboxMembers.service.conf, req)
 	return result, err
 }
 
-func (publicMailboxMembers *PublicMailboxMemberService) Clear(ctx *core.Context, optFns ...request.OptFn) *PublicMailboxMemberClearReqCall {
+func (publicMailboxMembers *PublicMailboxMemberService) Clear(ctx *lark.Context, opts ...lark.APIRequestOpt) *PublicMailboxMemberClearReqCall {
 	return &PublicMailboxMemberClearReqCall{
 		ctx:                  ctx,
 		publicMailboxMembers: publicMailboxMembers,
 		pathParams:           map[string]interface{}{},
-		optFns:               optFns,
+		opts:                 opts,
 	}
 }
 
 type PublicMailboxMemberListReqCall struct {
-	ctx                  *core.Context
+	ctx                  *lark.Context
 	publicMailboxMembers *PublicMailboxMemberService
 	pathParams           map[string]interface{}
 	queryParams          map[string]interface{}
-	optFns               []request.OptFn
+	opts                 []lark.APIRequestOpt
 }
 
 func (rc *PublicMailboxMemberListReqCall) SetPublicMailboxId(publicMailboxId string) {
@@ -393,32 +391,32 @@ func (rc *PublicMailboxMemberListReqCall) SetPageSize(pageSize int) {
 }
 
 func (rc *PublicMailboxMemberListReqCall) Do() (*PublicMailboxMemberListResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
 	var result = &PublicMailboxMemberListResult{}
 	req := request.NewRequest("/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.publicMailboxMembers.service.conf, req)
 	return result, err
 }
 
-func (publicMailboxMembers *PublicMailboxMemberService) List(ctx *core.Context, optFns ...request.OptFn) *PublicMailboxMemberListReqCall {
+func (publicMailboxMembers *PublicMailboxMemberService) List(ctx *lark.Context, opts ...lark.APIRequestOpt) *PublicMailboxMemberListReqCall {
 	return &PublicMailboxMemberListReqCall{
 		ctx:                  ctx,
 		publicMailboxMembers: publicMailboxMembers,
 		pathParams:           map[string]interface{}{},
 		queryParams:          map[string]interface{}{},
-		optFns:               optFns,
+		opts:                 opts,
 	}
 }
 
 type PublicMailboxMemberCreateReqCall struct {
-	ctx                  *core.Context
+	ctx                  *lark.Context
 	publicMailboxMembers *PublicMailboxMemberService
 	body                 *PublicMailboxMember
 	pathParams           map[string]interface{}
 	queryParams          map[string]interface{}
-	optFns               []request.OptFn
+	opts                 []lark.APIRequestOpt
 }
 
 func (rc *PublicMailboxMemberCreateReqCall) SetPublicMailboxId(publicMailboxId string) {
@@ -429,31 +427,31 @@ func (rc *PublicMailboxMemberCreateReqCall) SetUserIdType(userIdType string) {
 }
 
 func (rc *PublicMailboxMemberCreateReqCall) Do() (*PublicMailboxMember, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
 	var result = &PublicMailboxMember{}
 	req := request.NewRequest("/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.publicMailboxMembers.service.conf, req)
 	return result, err
 }
 
-func (publicMailboxMembers *PublicMailboxMemberService) Create(ctx *core.Context, body *PublicMailboxMember, optFns ...request.OptFn) *PublicMailboxMemberCreateReqCall {
+func (publicMailboxMembers *PublicMailboxMemberService) Create(ctx *lark.Context, body *PublicMailboxMember, opts ...lark.APIRequestOpt) *PublicMailboxMemberCreateReqCall {
 	return &PublicMailboxMemberCreateReqCall{
 		ctx:                  ctx,
 		publicMailboxMembers: publicMailboxMembers,
 		body:                 body,
 		pathParams:           map[string]interface{}{},
 		queryParams:          map[string]interface{}{},
-		optFns:               optFns,
+		opts:                 opts,
 	}
 }
 
 type MailgroupGetReqCall struct {
-	ctx        *core.Context
+	ctx        *lark.Context
 	mailgroups *MailgroupService
 	pathParams map[string]interface{}
-	optFns     []request.OptFn
+	opts       []lark.APIRequestOpt
 }
 
 func (rc *MailgroupGetReqCall) SetMailgroupId(mailgroupId string) {
@@ -461,29 +459,29 @@ func (rc *MailgroupGetReqCall) SetMailgroupId(mailgroupId string) {
 }
 
 func (rc *MailgroupGetReqCall) Do() (*Mailgroup, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
 	var result = &Mailgroup{}
 	req := request.NewRequest("/open-apis/mail/v1/mailgroups/:mailgroup_id", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.mailgroups.service.conf, req)
 	return result, err
 }
 
-func (mailgroups *MailgroupService) Get(ctx *core.Context, optFns ...request.OptFn) *MailgroupGetReqCall {
+func (mailgroups *MailgroupService) Get(ctx *lark.Context, opts ...lark.APIRequestOpt) *MailgroupGetReqCall {
 	return &MailgroupGetReqCall{
 		ctx:        ctx,
 		mailgroups: mailgroups,
 		pathParams: map[string]interface{}{},
-		optFns:     optFns,
+		opts:       opts,
 	}
 }
 
 type MailgroupUpdateReqCall struct {
-	ctx        *core.Context
+	ctx        *lark.Context
 	mailgroups *MailgroupService
 	body       *Mailgroup
 	pathParams map[string]interface{}
-	optFns     []request.OptFn
+	opts       []lark.APIRequestOpt
 }
 
 func (rc *MailgroupUpdateReqCall) SetMailgroupId(mailgroupId string) {
@@ -491,29 +489,29 @@ func (rc *MailgroupUpdateReqCall) SetMailgroupId(mailgroupId string) {
 }
 
 func (rc *MailgroupUpdateReqCall) Do() (*Mailgroup, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
 	var result = &Mailgroup{}
 	req := request.NewRequest("/open-apis/mail/v1/mailgroups/:mailgroup_id", "PUT",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.mailgroups.service.conf, req)
 	return result, err
 }
 
-func (mailgroups *MailgroupService) Update(ctx *core.Context, body *Mailgroup, optFns ...request.OptFn) *MailgroupUpdateReqCall {
+func (mailgroups *MailgroupService) Update(ctx *lark.Context, body *Mailgroup, opts ...lark.APIRequestOpt) *MailgroupUpdateReqCall {
 	return &MailgroupUpdateReqCall{
 		ctx:        ctx,
 		mailgroups: mailgroups,
 		body:       body,
 		pathParams: map[string]interface{}{},
-		optFns:     optFns,
+		opts:       opts,
 	}
 }
 
 type PublicMailboxListReqCall struct {
-	ctx            *core.Context
+	ctx            *lark.Context
 	publicMailboxs *PublicMailboxService
 	queryParams    map[string]interface{}
-	optFns         []request.OptFn
+	opts           []lark.APIRequestOpt
 }
 
 func (rc *PublicMailboxListReqCall) SetPageToken(pageToken string) {
@@ -524,59 +522,59 @@ func (rc *PublicMailboxListReqCall) SetPageSize(pageSize int) {
 }
 
 func (rc *PublicMailboxListReqCall) Do() (*PublicMailboxListResult, error) {
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
 	var result = &PublicMailboxListResult{}
 	req := request.NewRequest("/open-apis/mail/v1/public_mailboxes", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.publicMailboxs.service.conf, req)
 	return result, err
 }
 
-func (publicMailboxs *PublicMailboxService) List(ctx *core.Context, optFns ...request.OptFn) *PublicMailboxListReqCall {
+func (publicMailboxs *PublicMailboxService) List(ctx *lark.Context, opts ...lark.APIRequestOpt) *PublicMailboxListReqCall {
 	return &PublicMailboxListReqCall{
 		ctx:            ctx,
 		publicMailboxs: publicMailboxs,
 		queryParams:    map[string]interface{}{},
-		optFns:         optFns,
+		opts:           opts,
 	}
 }
 
 type MailgroupDeleteReqCall struct {
-	ctx        *core.Context
+	ctx        *lark.Context
 	mailgroups *MailgroupService
 	pathParams map[string]interface{}
-	optFns     []request.OptFn
+	opts       []lark.APIRequestOpt
 }
 
 func (rc *MailgroupDeleteReqCall) SetMailgroupId(mailgroupId string) {
 	rc.pathParams["mailgroup_id"] = mailgroupId
 }
 
-func (rc *MailgroupDeleteReqCall) Do() (*response.NoData, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	var result = &response.NoData{}
+func (rc *MailgroupDeleteReqCall) Do() (*lark.NoData, error) {
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	var result = &lark.NoData{}
 	req := request.NewRequest("/open-apis/mail/v1/mailgroups/:mailgroup_id", "DELETE",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.mailgroups.service.conf, req)
 	return result, err
 }
 
-func (mailgroups *MailgroupService) Delete(ctx *core.Context, optFns ...request.OptFn) *MailgroupDeleteReqCall {
+func (mailgroups *MailgroupService) Delete(ctx *lark.Context, opts ...lark.APIRequestOpt) *MailgroupDeleteReqCall {
 	return &MailgroupDeleteReqCall{
 		ctx:        ctx,
 		mailgroups: mailgroups,
 		pathParams: map[string]interface{}{},
-		optFns:     optFns,
+		opts:       opts,
 	}
 }
 
 type MailgroupPermissionMemberCreateReqCall struct {
-	ctx                        *core.Context
+	ctx                        *lark.Context
 	mailgroupPermissionMembers *MailgroupPermissionMemberService
 	body                       *MailgroupPermissionMember
 	pathParams                 map[string]interface{}
 	queryParams                map[string]interface{}
-	optFns                     []request.OptFn
+	opts                       []lark.APIRequestOpt
 }
 
 func (rc *MailgroupPermissionMemberCreateReqCall) SetMailgroupId(mailgroupId string) {
@@ -590,56 +588,56 @@ func (rc *MailgroupPermissionMemberCreateReqCall) SetDepartmentIdType(department
 }
 
 func (rc *MailgroupPermissionMemberCreateReqCall) Do() (*MailgroupPermissionMember, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
 	var result = &MailgroupPermissionMember{}
 	req := request.NewRequest("/open-apis/mail/v1/mailgroups/:mailgroup_id/permission_members", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.mailgroupPermissionMembers.service.conf, req)
 	return result, err
 }
 
-func (mailgroupPermissionMembers *MailgroupPermissionMemberService) Create(ctx *core.Context, body *MailgroupPermissionMember, optFns ...request.OptFn) *MailgroupPermissionMemberCreateReqCall {
+func (mailgroupPermissionMembers *MailgroupPermissionMemberService) Create(ctx *lark.Context, body *MailgroupPermissionMember, opts ...lark.APIRequestOpt) *MailgroupPermissionMemberCreateReqCall {
 	return &MailgroupPermissionMemberCreateReqCall{
 		ctx:                        ctx,
 		mailgroupPermissionMembers: mailgroupPermissionMembers,
 		body:                       body,
 		pathParams:                 map[string]interface{}{},
 		queryParams:                map[string]interface{}{},
-		optFns:                     optFns,
+		opts:                       opts,
 	}
 }
 
 type PublicMailboxCreateReqCall struct {
-	ctx            *core.Context
+	ctx            *lark.Context
 	publicMailboxs *PublicMailboxService
 	body           *PublicMailbox
-	optFns         []request.OptFn
+	opts           []lark.APIRequestOpt
 }
 
 func (rc *PublicMailboxCreateReqCall) Do() (*PublicMailbox, error) {
 	var result = &PublicMailbox{}
 	req := request.NewRequest("/open-apis/mail/v1/public_mailboxes", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.publicMailboxs.service.conf, req)
 	return result, err
 }
 
-func (publicMailboxs *PublicMailboxService) Create(ctx *core.Context, body *PublicMailbox, optFns ...request.OptFn) *PublicMailboxCreateReqCall {
+func (publicMailboxs *PublicMailboxService) Create(ctx *lark.Context, body *PublicMailbox, opts ...lark.APIRequestOpt) *PublicMailboxCreateReqCall {
 	return &PublicMailboxCreateReqCall{
 		ctx:            ctx,
 		publicMailboxs: publicMailboxs,
 		body:           body,
-		optFns:         optFns,
+		opts:           opts,
 	}
 }
 
 type MailgroupMemberGetReqCall struct {
-	ctx              *core.Context
+	ctx              *lark.Context
 	mailgroupMembers *MailgroupMemberService
 	pathParams       map[string]interface{}
 	queryParams      map[string]interface{}
-	optFns           []request.OptFn
+	opts             []lark.APIRequestOpt
 }
 
 func (rc *MailgroupMemberGetReqCall) SetMailgroupId(mailgroupId string) {
@@ -656,30 +654,30 @@ func (rc *MailgroupMemberGetReqCall) SetDepartmentIdType(departmentIdType string
 }
 
 func (rc *MailgroupMemberGetReqCall) Do() (*MailgroupMember, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
 	var result = &MailgroupMember{}
 	req := request.NewRequest("/open-apis/mail/v1/mailgroups/:mailgroup_id/members/:member_id", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.mailgroupMembers.service.conf, req)
 	return result, err
 }
 
-func (mailgroupMembers *MailgroupMemberService) Get(ctx *core.Context, optFns ...request.OptFn) *MailgroupMemberGetReqCall {
+func (mailgroupMembers *MailgroupMemberService) Get(ctx *lark.Context, opts ...lark.APIRequestOpt) *MailgroupMemberGetReqCall {
 	return &MailgroupMemberGetReqCall{
 		ctx:              ctx,
 		mailgroupMembers: mailgroupMembers,
 		pathParams:       map[string]interface{}{},
 		queryParams:      map[string]interface{}{},
-		optFns:           optFns,
+		opts:             opts,
 	}
 }
 
 type PublicMailboxGetReqCall struct {
-	ctx            *core.Context
+	ctx            *lark.Context
 	publicMailboxs *PublicMailboxService
 	pathParams     map[string]interface{}
-	optFns         []request.OptFn
+	opts           []lark.APIRequestOpt
 }
 
 func (rc *PublicMailboxGetReqCall) SetPublicMailboxId(publicMailboxId string) {
@@ -687,29 +685,29 @@ func (rc *PublicMailboxGetReqCall) SetPublicMailboxId(publicMailboxId string) {
 }
 
 func (rc *PublicMailboxGetReqCall) Do() (*PublicMailbox, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
 	var result = &PublicMailbox{}
 	req := request.NewRequest("/open-apis/mail/v1/public_mailboxes/:public_mailbox_id", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.publicMailboxs.service.conf, req)
 	return result, err
 }
 
-func (publicMailboxs *PublicMailboxService) Get(ctx *core.Context, optFns ...request.OptFn) *PublicMailboxGetReqCall {
+func (publicMailboxs *PublicMailboxService) Get(ctx *lark.Context, opts ...lark.APIRequestOpt) *PublicMailboxGetReqCall {
 	return &PublicMailboxGetReqCall{
 		ctx:            ctx,
 		publicMailboxs: publicMailboxs,
 		pathParams:     map[string]interface{}{},
-		optFns:         optFns,
+		opts:           opts,
 	}
 }
 
 type PublicMailboxPatchReqCall struct {
-	ctx            *core.Context
+	ctx            *lark.Context
 	publicMailboxs *PublicMailboxService
 	body           *PublicMailbox
 	pathParams     map[string]interface{}
-	optFns         []request.OptFn
+	opts           []lark.APIRequestOpt
 }
 
 func (rc *PublicMailboxPatchReqCall) SetPublicMailboxId(publicMailboxId string) {
@@ -717,53 +715,53 @@ func (rc *PublicMailboxPatchReqCall) SetPublicMailboxId(publicMailboxId string) 
 }
 
 func (rc *PublicMailboxPatchReqCall) Do() (*PublicMailbox, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
 	var result = &PublicMailbox{}
 	req := request.NewRequest("/open-apis/mail/v1/public_mailboxes/:public_mailbox_id", "PATCH",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.publicMailboxs.service.conf, req)
 	return result, err
 }
 
-func (publicMailboxs *PublicMailboxService) Patch(ctx *core.Context, body *PublicMailbox, optFns ...request.OptFn) *PublicMailboxPatchReqCall {
+func (publicMailboxs *PublicMailboxService) Patch(ctx *lark.Context, body *PublicMailbox, opts ...lark.APIRequestOpt) *PublicMailboxPatchReqCall {
 	return &PublicMailboxPatchReqCall{
 		ctx:            ctx,
 		publicMailboxs: publicMailboxs,
 		body:           body,
 		pathParams:     map[string]interface{}{},
-		optFns:         optFns,
+		opts:           opts,
 	}
 }
 
 type MailgroupCreateReqCall struct {
-	ctx        *core.Context
+	ctx        *lark.Context
 	mailgroups *MailgroupService
 	body       *Mailgroup
-	optFns     []request.OptFn
+	opts       []lark.APIRequestOpt
 }
 
 func (rc *MailgroupCreateReqCall) Do() (*Mailgroup, error) {
 	var result = &Mailgroup{}
 	req := request.NewRequest("/open-apis/mail/v1/mailgroups", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.mailgroups.service.conf, req)
 	return result, err
 }
 
-func (mailgroups *MailgroupService) Create(ctx *core.Context, body *Mailgroup, optFns ...request.OptFn) *MailgroupCreateReqCall {
+func (mailgroups *MailgroupService) Create(ctx *lark.Context, body *Mailgroup, opts ...lark.APIRequestOpt) *MailgroupCreateReqCall {
 	return &MailgroupCreateReqCall{
 		ctx:        ctx,
 		mailgroups: mailgroups,
 		body:       body,
-		optFns:     optFns,
+		opts:       opts,
 	}
 }
 
 type MailgroupListReqCall struct {
-	ctx         *core.Context
+	ctx         *lark.Context
 	mailgroups  *MailgroupService
 	queryParams map[string]interface{}
-	optFns      []request.OptFn
+	opts        []lark.APIRequestOpt
 }
 
 func (rc *MailgroupListReqCall) SetPageToken(pageToken string) {
@@ -774,29 +772,29 @@ func (rc *MailgroupListReqCall) SetPageSize(pageSize int) {
 }
 
 func (rc *MailgroupListReqCall) Do() (*MailgroupListResult, error) {
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
 	var result = &MailgroupListResult{}
 	req := request.NewRequest("/open-apis/mail/v1/mailgroups", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.mailgroups.service.conf, req)
 	return result, err
 }
 
-func (mailgroups *MailgroupService) List(ctx *core.Context, optFns ...request.OptFn) *MailgroupListReqCall {
+func (mailgroups *MailgroupService) List(ctx *lark.Context, opts ...lark.APIRequestOpt) *MailgroupListReqCall {
 	return &MailgroupListReqCall{
 		ctx:         ctx,
 		mailgroups:  mailgroups,
 		queryParams: map[string]interface{}{},
-		optFns:      optFns,
+		opts:        opts,
 	}
 }
 
 type MailgroupPatchReqCall struct {
-	ctx        *core.Context
+	ctx        *lark.Context
 	mailgroups *MailgroupService
 	body       *Mailgroup
 	pathParams map[string]interface{}
-	optFns     []request.OptFn
+	opts       []lark.APIRequestOpt
 }
 
 func (rc *MailgroupPatchReqCall) SetMailgroupId(mailgroupId string) {
@@ -804,31 +802,31 @@ func (rc *MailgroupPatchReqCall) SetMailgroupId(mailgroupId string) {
 }
 
 func (rc *MailgroupPatchReqCall) Do() (*Mailgroup, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
 	var result = &Mailgroup{}
 	req := request.NewRequest("/open-apis/mail/v1/mailgroups/:mailgroup_id", "PATCH",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.mailgroups.service.conf, req)
 	return result, err
 }
 
-func (mailgroups *MailgroupService) Patch(ctx *core.Context, body *Mailgroup, optFns ...request.OptFn) *MailgroupPatchReqCall {
+func (mailgroups *MailgroupService) Patch(ctx *lark.Context, body *Mailgroup, opts ...lark.APIRequestOpt) *MailgroupPatchReqCall {
 	return &MailgroupPatchReqCall{
 		ctx:        ctx,
 		mailgroups: mailgroups,
 		body:       body,
 		pathParams: map[string]interface{}{},
-		optFns:     optFns,
+		opts:       opts,
 	}
 }
 
 type MailgroupMemberCreateReqCall struct {
-	ctx              *core.Context
+	ctx              *lark.Context
 	mailgroupMembers *MailgroupMemberService
 	body             *MailgroupMember
 	pathParams       map[string]interface{}
 	queryParams      map[string]interface{}
-	optFns           []request.OptFn
+	opts             []lark.APIRequestOpt
 }
 
 func (rc *MailgroupMemberCreateReqCall) SetMailgroupId(mailgroupId string) {
@@ -842,31 +840,31 @@ func (rc *MailgroupMemberCreateReqCall) SetDepartmentIdType(departmentIdType str
 }
 
 func (rc *MailgroupMemberCreateReqCall) Do() (*MailgroupMember, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
 	var result = &MailgroupMember{}
 	req := request.NewRequest("/open-apis/mail/v1/mailgroups/:mailgroup_id/members", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.mailgroupMembers.service.conf, req)
 	return result, err
 }
 
-func (mailgroupMembers *MailgroupMemberService) Create(ctx *core.Context, body *MailgroupMember, optFns ...request.OptFn) *MailgroupMemberCreateReqCall {
+func (mailgroupMembers *MailgroupMemberService) Create(ctx *lark.Context, body *MailgroupMember, opts ...lark.APIRequestOpt) *MailgroupMemberCreateReqCall {
 	return &MailgroupMemberCreateReqCall{
 		ctx:              ctx,
 		mailgroupMembers: mailgroupMembers,
 		body:             body,
 		pathParams:       map[string]interface{}{},
 		queryParams:      map[string]interface{}{},
-		optFns:           optFns,
+		opts:             opts,
 	}
 }
 
 type MailgroupMemberDeleteReqCall struct {
-	ctx              *core.Context
+	ctx              *lark.Context
 	mailgroupMembers *MailgroupMemberService
 	pathParams       map[string]interface{}
-	optFns           []request.OptFn
+	opts             []lark.APIRequestOpt
 }
 
 func (rc *MailgroupMemberDeleteReqCall) SetMailgroupId(mailgroupId string) {
@@ -876,20 +874,20 @@ func (rc *MailgroupMemberDeleteReqCall) SetMemberId(memberId string) {
 	rc.pathParams["member_id"] = memberId
 }
 
-func (rc *MailgroupMemberDeleteReqCall) Do() (*response.NoData, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	var result = &response.NoData{}
+func (rc *MailgroupMemberDeleteReqCall) Do() (*lark.NoData, error) {
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	var result = &lark.NoData{}
 	req := request.NewRequest("/open-apis/mail/v1/mailgroups/:mailgroup_id/members/:member_id", "DELETE",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.mailgroupMembers.service.conf, req)
 	return result, err
 }
 
-func (mailgroupMembers *MailgroupMemberService) Delete(ctx *core.Context, optFns ...request.OptFn) *MailgroupMemberDeleteReqCall {
+func (mailgroupMembers *MailgroupMemberService) Delete(ctx *lark.Context, opts ...lark.APIRequestOpt) *MailgroupMemberDeleteReqCall {
 	return &MailgroupMemberDeleteReqCall{
 		ctx:              ctx,
 		mailgroupMembers: mailgroupMembers,
 		pathParams:       map[string]interface{}{},
-		optFns:           optFns,
+		opts:             opts,
 	}
 }

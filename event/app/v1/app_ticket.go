@@ -2,7 +2,6 @@ package v1
 
 import (
 	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/config"
 	"github.com/larksuite/oapi-sdk-go/core/constants"
 	"github.com/larksuite/oapi-sdk-go/core/store"
 	"github.com/larksuite/oapi-sdk-go/event/core/handlers"
@@ -32,11 +31,11 @@ func (h *AppTicketEventHandler) GetEvent() interface{} {
 
 func (h *AppTicketEventHandler) Handle(ctx *core.Context, event interface{}) error {
 	appTicketEvent := event.(*AppTicketEvent)
-	conf := config.ByCtx(ctx)
+	conf := core.GetConfigByCtx(ctx)
 	return conf.GetStore().Put(ctx, store.AppTicketKey(appTicketEvent.Event.AppID), appTicketEvent.Event.AppTicket, time.Hour*12)
 }
 
-func SetAppTicketEventHandler(conf *config.Config) {
+func SetAppTicketEventHandler(conf core.Config) {
 	if conf.GetAppSettings().AppType == constants.AppTypeInternal {
 		return
 	}

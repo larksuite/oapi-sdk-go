@@ -2,18 +2,17 @@
 package v1
 
 import (
+	"github.com/larksuite/oapi-sdk-go"
 	"github.com/larksuite/oapi-sdk-go/api"
 	"github.com/larksuite/oapi-sdk-go/api/core/request"
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/config"
 )
 
 type Service struct {
-	conf    *config.Config
+	conf    lark.Config
 	Authens *AuthenService
 }
 
-func NewService(conf *config.Config) *Service {
+func NewService(conf lark.Config) *Service {
 	s := &Service{
 		conf: conf,
 	}
@@ -32,71 +31,71 @@ func newAuthenService(service *Service) *AuthenService {
 }
 
 type AuthenAccessTokenReqCall struct {
-	ctx     *core.Context
+	ctx     *lark.Context
 	authens *AuthenService
 	body    *AuthenAccessTokenReqBody
-	optFns  []request.OptFn
+	opts    []lark.APIRequestOpt
 }
 
 func (rc *AuthenAccessTokenReqCall) Do() (*UserAccessTokenInfo, error) {
 	var result = &UserAccessTokenInfo{}
 	req := request.NewRequest("/open-apis/authen/v1/access_token", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeApp}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeApp}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.authens.service.conf, req)
 	return result, err
 }
 
-func (authens *AuthenService) AccessToken(ctx *core.Context, body *AuthenAccessTokenReqBody, optFns ...request.OptFn) *AuthenAccessTokenReqCall {
+func (authens *AuthenService) AccessToken(ctx *lark.Context, body *AuthenAccessTokenReqBody, opts ...lark.APIRequestOpt) *AuthenAccessTokenReqCall {
 	return &AuthenAccessTokenReqCall{
 		ctx:     ctx,
 		authens: authens,
 		body:    body,
-		optFns:  optFns,
+		opts:    opts,
 	}
 }
 
 type AuthenRefreshAccessTokenReqCall struct {
-	ctx     *core.Context
+	ctx     *lark.Context
 	authens *AuthenService
 	body    *AuthenRefreshAccessTokenReqBody
-	optFns  []request.OptFn
+	opts    []lark.APIRequestOpt
 }
 
 func (rc *AuthenRefreshAccessTokenReqCall) Do() (*UserAccessTokenInfo, error) {
 	var result = &UserAccessTokenInfo{}
 	req := request.NewRequest("/open-apis/authen/v1/refresh_access_token", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeApp}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeApp}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.authens.service.conf, req)
 	return result, err
 }
 
-func (authens *AuthenService) RefreshAccessToken(ctx *core.Context, body *AuthenRefreshAccessTokenReqBody, optFns ...request.OptFn) *AuthenRefreshAccessTokenReqCall {
+func (authens *AuthenService) RefreshAccessToken(ctx *lark.Context, body *AuthenRefreshAccessTokenReqBody, opts ...lark.APIRequestOpt) *AuthenRefreshAccessTokenReqCall {
 	return &AuthenRefreshAccessTokenReqCall{
 		ctx:     ctx,
 		authens: authens,
 		body:    body,
-		optFns:  optFns,
+		opts:    opts,
 	}
 }
 
 type AuthenUserInfoReqCall struct {
-	ctx     *core.Context
+	ctx     *lark.Context
 	authens *AuthenService
-	optFns  []request.OptFn
+	opts    []lark.APIRequestOpt
 }
 
 func (rc *AuthenUserInfoReqCall) Do() (*UserInfo, error) {
 	var result = &UserInfo{}
 	req := request.NewRequest("/open-apis/authen/v1/user_info", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, nil, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeUser}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.authens.service.conf, req)
 	return result, err
 }
 
-func (authens *AuthenService) UserInfo(ctx *core.Context, optFns ...request.OptFn) *AuthenUserInfoReqCall {
+func (authens *AuthenService) UserInfo(ctx *lark.Context, opts ...lark.APIRequestOpt) *AuthenUserInfoReqCall {
 	return &AuthenUserInfoReqCall{
 		ctx:     ctx,
 		authens: authens,
-		optFns:  optFns,
+		opts:    opts,
 	}
 }

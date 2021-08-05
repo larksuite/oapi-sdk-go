@@ -1,6 +1,9 @@
 package core
 
-import "strings"
+import (
+	"net/http"
+	"strings"
+)
 
 type OapiHeader struct {
 	header map[string][]string
@@ -36,4 +39,8 @@ func (h OapiHeader) GetMultiValues(name string) []string {
 
 func normalizeKey(name string) string {
 	return strings.ToLower(name)
+}
+
+func (h OapiHeader) Raws() http.Header {
+	return h.header
 }

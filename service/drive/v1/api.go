@@ -2,23 +2,22 @@
 package v1
 
 import (
+	lark "github.com/larksuite/oapi-sdk-go"
 	"github.com/larksuite/oapi-sdk-go/api"
 	"github.com/larksuite/oapi-sdk-go/api/core/request"
 	"github.com/larksuite/oapi-sdk-go/api/core/response"
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/config"
 	"io"
 )
 
 type Service struct {
-	conf              *config.Config
+	conf              lark.Config
 	Files             *FileService
 	FileComments      *FileCommentService
 	FileCommentReplys *FileCommentReplyService
 	Medias            *MediaService
 }
 
-func NewService(conf *config.Config) *Service {
+func NewService(conf lark.Config) *Service {
 	s := &Service{
 		conf: conf,
 	}
@@ -70,7 +69,7 @@ func newMediaService(service *Service) *MediaService {
 }
 
 type MediaUploadPartReqCall struct {
-	ctx    *core.Context
+	ctx    lark.Context
 	medias *MediaService
 	body   *request.FormData
 	optFns []request.OptFn
@@ -100,7 +99,7 @@ func (rc *MediaUploadPartReqCall) Do() (*response.NoData, error) {
 	return result, err
 }
 
-func (medias *MediaService) UploadPart(ctx *core.Context, optFns ...request.OptFn) *MediaUploadPartReqCall {
+func (medias *MediaService) UploadPart(ctx *lark.Context, optFns ...request.OptFn) *MediaUploadPartReqCall {
 	return &MediaUploadPartReqCall{
 		ctx:    ctx,
 		medias: medias,
@@ -110,7 +109,7 @@ func (medias *MediaService) UploadPart(ctx *core.Context, optFns ...request.OptF
 }
 
 type FileUploadFinishReqCall struct {
-	ctx    *core.Context
+	ctx    lark.Context
 	files  *FileService
 	body   *FileUploadFinishReqBody
 	optFns []request.OptFn
@@ -124,7 +123,7 @@ func (rc *FileUploadFinishReqCall) Do() (*FileUploadFinishResult, error) {
 	return result, err
 }
 
-func (files *FileService) UploadFinish(ctx *core.Context, body *FileUploadFinishReqBody, optFns ...request.OptFn) *FileUploadFinishReqCall {
+func (files *FileService) UploadFinish(ctx *lark.Context, body *FileUploadFinishReqBody, optFns ...request.OptFn) *FileUploadFinishReqCall {
 	return &FileUploadFinishReqCall{
 		ctx:    ctx,
 		files:  files,
@@ -134,7 +133,7 @@ func (files *FileService) UploadFinish(ctx *core.Context, body *FileUploadFinish
 }
 
 type FileUploadPrepareReqCall struct {
-	ctx    *core.Context
+	ctx    lark.Context
 	files  *FileService
 	body   *FileUploadInfo
 	optFns []request.OptFn
@@ -148,7 +147,7 @@ func (rc *FileUploadPrepareReqCall) Do() (*FileUploadPrepareResult, error) {
 	return result, err
 }
 
-func (files *FileService) UploadPrepare(ctx *core.Context, body *FileUploadInfo, optFns ...request.OptFn) *FileUploadPrepareReqCall {
+func (files *FileService) UploadPrepare(ctx *lark.Context, body *FileUploadInfo, optFns ...request.OptFn) *FileUploadPrepareReqCall {
 	return &FileUploadPrepareReqCall{
 		ctx:    ctx,
 		files:  files,
@@ -158,7 +157,7 @@ func (files *FileService) UploadPrepare(ctx *core.Context, body *FileUploadInfo,
 }
 
 type MediaUploadAllReqCall struct {
-	ctx    *core.Context
+	ctx    lark.Context
 	medias *MediaService
 	body   *request.FormData
 	optFns []request.OptFn
@@ -194,7 +193,7 @@ func (rc *MediaUploadAllReqCall) Do() (*MediaUploadAllResult, error) {
 	return result, err
 }
 
-func (medias *MediaService) UploadAll(ctx *core.Context, optFns ...request.OptFn) *MediaUploadAllReqCall {
+func (medias *MediaService) UploadAll(ctx *lark.Context, optFns ...request.OptFn) *MediaUploadAllReqCall {
 	return &MediaUploadAllReqCall{
 		ctx:    ctx,
 		medias: medias,
@@ -204,7 +203,7 @@ func (medias *MediaService) UploadAll(ctx *core.Context, optFns ...request.OptFn
 }
 
 type MediaUploadFinishReqCall struct {
-	ctx    *core.Context
+	ctx    lark.Context
 	medias *MediaService
 	body   *MediaUploadFinishReqBody
 	optFns []request.OptFn
@@ -218,7 +217,7 @@ func (rc *MediaUploadFinishReqCall) Do() (*MediaUploadFinishResult, error) {
 	return result, err
 }
 
-func (medias *MediaService) UploadFinish(ctx *core.Context, body *MediaUploadFinishReqBody, optFns ...request.OptFn) *MediaUploadFinishReqCall {
+func (medias *MediaService) UploadFinish(ctx *lark.Context, body *MediaUploadFinishReqBody, optFns ...request.OptFn) *MediaUploadFinishReqCall {
 	return &MediaUploadFinishReqCall{
 		ctx:    ctx,
 		medias: medias,
@@ -228,7 +227,7 @@ func (medias *MediaService) UploadFinish(ctx *core.Context, body *MediaUploadFin
 }
 
 type FileUploadAllReqCall struct {
-	ctx    *core.Context
+	ctx    lark.Context
 	files  *FileService
 	body   *request.FormData
 	optFns []request.OptFn
@@ -261,7 +260,7 @@ func (rc *FileUploadAllReqCall) Do() (*FileUploadAllResult, error) {
 	return result, err
 }
 
-func (files *FileService) UploadAll(ctx *core.Context, optFns ...request.OptFn) *FileUploadAllReqCall {
+func (files *FileService) UploadAll(ctx *lark.Context, optFns ...request.OptFn) *FileUploadAllReqCall {
 	return &FileUploadAllReqCall{
 		ctx:    ctx,
 		files:  files,
@@ -271,7 +270,7 @@ func (files *FileService) UploadAll(ctx *core.Context, optFns ...request.OptFn) 
 }
 
 type MediaUploadPrepareReqCall struct {
-	ctx    *core.Context
+	ctx    lark.Context
 	medias *MediaService
 	body   *MediaUploadInfo
 	optFns []request.OptFn
@@ -285,7 +284,7 @@ func (rc *MediaUploadPrepareReqCall) Do() (*MediaUploadPrepareResult, error) {
 	return result, err
 }
 
-func (medias *MediaService) UploadPrepare(ctx *core.Context, body *MediaUploadInfo, optFns ...request.OptFn) *MediaUploadPrepareReqCall {
+func (medias *MediaService) UploadPrepare(ctx *lark.Context, body *MediaUploadInfo, optFns ...request.OptFn) *MediaUploadPrepareReqCall {
 	return &MediaUploadPrepareReqCall{
 		ctx:    ctx,
 		medias: medias,
@@ -295,7 +294,7 @@ func (medias *MediaService) UploadPrepare(ctx *core.Context, body *MediaUploadIn
 }
 
 type FileUploadPartReqCall struct {
-	ctx    *core.Context
+	ctx    lark.Context
 	files  *FileService
 	body   *request.FormData
 	optFns []request.OptFn
@@ -325,7 +324,7 @@ func (rc *FileUploadPartReqCall) Do() (*response.NoData, error) {
 	return result, err
 }
 
-func (files *FileService) UploadPart(ctx *core.Context, optFns ...request.OptFn) *FileUploadPartReqCall {
+func (files *FileService) UploadPart(ctx *lark.Context, optFns ...request.OptFn) *FileUploadPartReqCall {
 	return &FileUploadPartReqCall{
 		ctx:    ctx,
 		files:  files,
@@ -335,7 +334,7 @@ func (files *FileService) UploadPart(ctx *core.Context, optFns ...request.OptFn)
 }
 
 type MediaBatchGetTmpDownloadUrlReqCall struct {
-	ctx         *core.Context
+	ctx         lark.Context
 	medias      *MediaService
 	queryParams map[string]interface{}
 	optFns      []request.OptFn
@@ -357,7 +356,7 @@ func (rc *MediaBatchGetTmpDownloadUrlReqCall) Do() (*MediaBatchGetTmpDownloadUrl
 	return result, err
 }
 
-func (medias *MediaService) BatchGetTmpDownloadUrl(ctx *core.Context, optFns ...request.OptFn) *MediaBatchGetTmpDownloadUrlReqCall {
+func (medias *MediaService) BatchGetTmpDownloadUrl(ctx *lark.Context, optFns ...request.OptFn) *MediaBatchGetTmpDownloadUrlReqCall {
 	return &MediaBatchGetTmpDownloadUrlReqCall{
 		ctx:         ctx,
 		medias:      medias,
@@ -367,7 +366,7 @@ func (medias *MediaService) BatchGetTmpDownloadUrl(ctx *core.Context, optFns ...
 }
 
 type FileDownloadReqCall struct {
-	ctx        *core.Context
+	ctx        lark.Context
 	files      *FileService
 	pathParams map[string]interface{}
 	optFns     []request.OptFn
@@ -390,7 +389,7 @@ func (rc *FileDownloadReqCall) Do() (io.Writer, error) {
 	return rc.result, err
 }
 
-func (files *FileService) Download(ctx *core.Context, optFns ...request.OptFn) *FileDownloadReqCall {
+func (files *FileService) Download(ctx *lark.Context, optFns ...request.OptFn) *FileDownloadReqCall {
 	return &FileDownloadReqCall{
 		ctx:        ctx,
 		files:      files,
@@ -400,7 +399,7 @@ func (files *FileService) Download(ctx *core.Context, optFns ...request.OptFn) *
 }
 
 type MediaDownloadReqCall struct {
-	ctx         *core.Context
+	ctx         lark.Context
 	medias      *MediaService
 	pathParams  map[string]interface{}
 	queryParams map[string]interface{}
@@ -428,7 +427,7 @@ func (rc *MediaDownloadReqCall) Do() (io.Writer, error) {
 	return rc.result, err
 }
 
-func (medias *MediaService) Download(ctx *core.Context, optFns ...request.OptFn) *MediaDownloadReqCall {
+func (medias *MediaService) Download(ctx *lark.Context, optFns ...request.OptFn) *MediaDownloadReqCall {
 	return &MediaDownloadReqCall{
 		ctx:         ctx,
 		medias:      medias,
@@ -439,7 +438,7 @@ func (medias *MediaService) Download(ctx *core.Context, optFns ...request.OptFn)
 }
 
 type FileCommentCreateReqCall struct {
-	ctx          *core.Context
+	ctx          lark.Context
 	fileComments *FileCommentService
 	body         *FileComment
 	pathParams   map[string]interface{}
@@ -467,7 +466,7 @@ func (rc *FileCommentCreateReqCall) Do() (*FileComment, error) {
 	return result, err
 }
 
-func (fileComments *FileCommentService) Create(ctx *core.Context, body *FileComment, optFns ...request.OptFn) *FileCommentCreateReqCall {
+func (fileComments *FileCommentService) Create(ctx *lark.Context, body *FileComment, optFns ...request.OptFn) *FileCommentCreateReqCall {
 	return &FileCommentCreateReqCall{
 		ctx:          ctx,
 		fileComments: fileComments,
@@ -479,7 +478,7 @@ func (fileComments *FileCommentService) Create(ctx *core.Context, body *FileComm
 }
 
 type FileCommentGetReqCall struct {
-	ctx          *core.Context
+	ctx          lark.Context
 	fileComments *FileCommentService
 	pathParams   map[string]interface{}
 	queryParams  map[string]interface{}
@@ -509,7 +508,7 @@ func (rc *FileCommentGetReqCall) Do() (*FileComment, error) {
 	return result, err
 }
 
-func (fileComments *FileCommentService) Get(ctx *core.Context, optFns ...request.OptFn) *FileCommentGetReqCall {
+func (fileComments *FileCommentService) Get(ctx *lark.Context, optFns ...request.OptFn) *FileCommentGetReqCall {
 	return &FileCommentGetReqCall{
 		ctx:          ctx,
 		fileComments: fileComments,
@@ -520,7 +519,7 @@ func (fileComments *FileCommentService) Get(ctx *core.Context, optFns ...request
 }
 
 type FileCommentReplyUpdateReqCall struct {
-	ctx               *core.Context
+	ctx               lark.Context
 	fileCommentReplys *FileCommentReplyService
 	body              *FileCommentReplyUpdateReqBody
 	pathParams        map[string]interface{}
@@ -554,7 +553,7 @@ func (rc *FileCommentReplyUpdateReqCall) Do() (*response.NoData, error) {
 	return result, err
 }
 
-func (fileCommentReplys *FileCommentReplyService) Update(ctx *core.Context, body *FileCommentReplyUpdateReqBody, optFns ...request.OptFn) *FileCommentReplyUpdateReqCall {
+func (fileCommentReplys *FileCommentReplyService) Update(ctx *lark.Context, body *FileCommentReplyUpdateReqBody, optFns ...request.OptFn) *FileCommentReplyUpdateReqCall {
 	return &FileCommentReplyUpdateReqCall{
 		ctx:               ctx,
 		fileCommentReplys: fileCommentReplys,
@@ -566,7 +565,7 @@ func (fileCommentReplys *FileCommentReplyService) Update(ctx *core.Context, body
 }
 
 type FileCommentListReqCall struct {
-	ctx          *core.Context
+	ctx          lark.Context
 	fileComments *FileCommentService
 	pathParams   map[string]interface{}
 	queryParams  map[string]interface{}
@@ -602,7 +601,7 @@ func (rc *FileCommentListReqCall) Do() (*FileCommentListResult, error) {
 	return result, err
 }
 
-func (fileComments *FileCommentService) List(ctx *core.Context, optFns ...request.OptFn) *FileCommentListReqCall {
+func (fileComments *FileCommentService) List(ctx *lark.Context, optFns ...request.OptFn) *FileCommentListReqCall {
 	return &FileCommentListReqCall{
 		ctx:          ctx,
 		fileComments: fileComments,
@@ -613,7 +612,7 @@ func (fileComments *FileCommentService) List(ctx *core.Context, optFns ...reques
 }
 
 type FileCommentPatchReqCall struct {
-	ctx          *core.Context
+	ctx          lark.Context
 	fileComments *FileCommentService
 	body         *FileCommentPatchReqBody
 	pathParams   map[string]interface{}
@@ -641,7 +640,7 @@ func (rc *FileCommentPatchReqCall) Do() (*response.NoData, error) {
 	return result, err
 }
 
-func (fileComments *FileCommentService) Patch(ctx *core.Context, body *FileCommentPatchReqBody, optFns ...request.OptFn) *FileCommentPatchReqCall {
+func (fileComments *FileCommentService) Patch(ctx *lark.Context, body *FileCommentPatchReqBody, optFns ...request.OptFn) *FileCommentPatchReqCall {
 	return &FileCommentPatchReqCall{
 		ctx:          ctx,
 		fileComments: fileComments,
@@ -653,7 +652,7 @@ func (fileComments *FileCommentService) Patch(ctx *core.Context, body *FileComme
 }
 
 type FileCommentReplyDeleteReqCall struct {
-	ctx               *core.Context
+	ctx               lark.Context
 	fileCommentReplys *FileCommentReplyService
 	pathParams        map[string]interface{}
 	queryParams       map[string]interface{}
@@ -683,7 +682,7 @@ func (rc *FileCommentReplyDeleteReqCall) Do() (*response.NoData, error) {
 	return result, err
 }
 
-func (fileCommentReplys *FileCommentReplyService) Delete(ctx *core.Context, optFns ...request.OptFn) *FileCommentReplyDeleteReqCall {
+func (fileCommentReplys *FileCommentReplyService) Delete(ctx *lark.Context, optFns ...request.OptFn) *FileCommentReplyDeleteReqCall {
 	return &FileCommentReplyDeleteReqCall{
 		ctx:               ctx,
 		fileCommentReplys: fileCommentReplys,

@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/config"
 	"github.com/larksuite/oapi-sdk-go/core/constants"
 	"github.com/larksuite/oapi-sdk-go/core/errors"
 	"github.com/larksuite/oapi-sdk-go/core/tools"
@@ -42,8 +41,8 @@ func Handle(ctx *core.Context, httpEvent *model.HTTPEvent) {
 
 func unmarshalFunc(ctx *core.Context, httpEvent *model.HTTPEvent) {
 	request := httpEvent.Request
-	ctx.Set(constants.HTTPHeader, request.Header)
-	conf := config.ByCtx(ctx)
+	ctx.Set(constants.HTTPHeader, request.Header.Raws())
+	conf := core.GetConfigByCtx(ctx)
 	conf.GetLogger().Debug(ctx, fmt.Sprintf("[unmarshal] event: %s", request.Body))
 	body := []byte(request.Body)
 	var err error
@@ -89,7 +88,7 @@ func handlerFunc(ctx *core.Context, httpEvent *model.HTTPEvent) {
 	if constants.CallbackType(httpEvent.Type) == constants.CallbackTypeChallenge {
 		return
 	}
-	conf := config.ByCtx(ctx)
+	conf := core.GetConfigByCtx(ctx)
 	var handler Handler
 	if type2EventHandler, ok := getType2EventHandler(conf); ok {
 		h, ok := type2EventHandler[httpEvent.EventType]
@@ -112,7 +111,7 @@ func handlerFunc(ctx *core.Context, httpEvent *model.HTTPEvent) {
 }
 
 func complementFunc(ctx *core.Context, httpEvent *model.HTTPEvent) {
-	conf := config.ByCtx(ctx)
+	conf := core.GetConfigByCtx(ctx)
 	err := httpEvent.Err
 	if err != nil {
 		if _, ok := err.(*NotFoundHandlerErr); ok {

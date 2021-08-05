@@ -1,19 +1,16 @@
 package config
 
 import (
-	"context"
 	"github.com/larksuite/oapi-sdk-go/core/constants"
 	"github.com/larksuite/oapi-sdk-go/core/log"
 	"github.com/larksuite/oapi-sdk-go/core/store"
 )
 
-var CtxKeyConfig = "-----CtxKeyConfig"
-
 type Config struct {
 	domain                constants.Domain
 	appSettings           *AppSettings
-	store                 store.Store // store
-	logger                log.Logger  // logger
+	store                 store.Store      // store
+	logger                *log.LoggerProxy // logger
 	helpDeskAuthorization string
 }
 
@@ -26,7 +23,7 @@ func NewConfigWithDefaultStore(domain constants.Domain, appSettings *AppSettings
 	conf := &Config{
 		domain:                domain,
 		appSettings:           appSettings,
-		store:                 store.NewDefaultStoreWithLog(loggerProxy),
+		store:                 store.NewDefaultStore(),
 		logger:                loggerProxy,
 		helpDeskAuthorization: appSettings.helpDeskAuthorization(),
 	}
@@ -53,7 +50,7 @@ func (c *Config) GetAppSettings() *AppSettings {
 	return c.appSettings
 }
 
-func (c *Config) GetLogger() log.Logger {
+func (c *Config) GetLogger() *log.LoggerProxy {
 	return c.logger
 }
 
@@ -65,7 +62,6 @@ func (c *Config) GetHelpDeskAuthorization() string {
 	return c.helpDeskAuthorization
 }
 
-func ByCtx(ctx context.Context) *Config {
-	c := ctx.Value(CtxKeyConfig)
-	return c.(*Config)
+func (c *Config) SetStore(s store.Store) {
+	c.store = s
 }

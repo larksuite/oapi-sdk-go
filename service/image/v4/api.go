@@ -2,19 +2,18 @@
 package v4
 
 import (
+	"github.com/larksuite/oapi-sdk-go"
 	"github.com/larksuite/oapi-sdk-go/api"
 	"github.com/larksuite/oapi-sdk-go/api/core/request"
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/config"
 	"io"
 )
 
 type Service struct {
-	conf   *config.Config
+	conf   lark.Config
 	Images *ImageService
 }
 
-func NewService(conf *config.Config) *Service {
+func NewService(conf lark.Config) *Service {
 	s := &Service{
 		conf: conf,
 	}
@@ -33,10 +32,10 @@ func newImageService(service *Service) *ImageService {
 }
 
 type ImageGetReqCall struct {
-	ctx         *core.Context
+	ctx         *lark.Context
 	images      *ImageService
 	queryParams map[string]interface{}
-	optFns      []request.OptFn
+	opts        []lark.APIRequestOpt
 	result      io.Writer
 }
 
@@ -48,28 +47,28 @@ func (rc *ImageGetReqCall) SetResponseStream(result io.Writer) {
 }
 
 func (rc *ImageGetReqCall) Do() (io.Writer, error) {
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	rc.optFns = append(rc.optFns, request.SetResponseStream())
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetResponseStream())
 	req := request.NewRequest("/open-apis/image/v4/get", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, rc.result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, rc.result, rc.opts...)
 	err := api.Send(rc.ctx, rc.images.service.conf, req)
 	return rc.result, err
 }
 
-func (images *ImageService) Get(ctx *core.Context, optFns ...request.OptFn) *ImageGetReqCall {
+func (images *ImageService) Get(ctx *lark.Context, opts ...lark.APIRequestOpt) *ImageGetReqCall {
 	return &ImageGetReqCall{
 		ctx:         ctx,
 		images:      images,
 		queryParams: map[string]interface{}{},
-		optFns:      optFns,
+		opts:        opts,
 	}
 }
 
 type ImagePutReqCall struct {
-	ctx    *core.Context
+	ctx    *lark.Context
 	images *ImageService
 	body   *request.FormData
-	optFns []request.OptFn
+	opts   []lark.APIRequestOpt
 }
 
 func (rc *ImagePutReqCall) SetImage(image *request.File) {
@@ -82,16 +81,16 @@ func (rc *ImagePutReqCall) SetImageType(imageType string) {
 func (rc *ImagePutReqCall) Do() (*Image, error) {
 	var result = &Image{}
 	req := request.NewRequest("/open-apis/image/v4/put", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.images.service.conf, req)
 	return result, err
 }
 
-func (images *ImageService) Put(ctx *core.Context, optFns ...request.OptFn) *ImagePutReqCall {
+func (images *ImageService) Put(ctx *lark.Context, opts ...lark.APIRequestOpt) *ImagePutReqCall {
 	return &ImagePutReqCall{
 		ctx:    ctx,
 		images: images,
 		body:   request.NewFormData(),
-		optFns: optFns,
+		opts:   opts,
 	}
 }

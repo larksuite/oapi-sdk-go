@@ -3,13 +3,10 @@ package handlers
 import (
 	"context"
 	"fmt"
-	"github.com/larksuite/oapi-sdk-go/api/core/constants"
-	coreerrors "github.com/larksuite/oapi-sdk-go/api/core/errors"
 	"github.com/larksuite/oapi-sdk-go/api/core/request"
 	"github.com/larksuite/oapi-sdk-go/api/core/token"
 	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/config"
-	commonconst "github.com/larksuite/oapi-sdk-go/core/constants"
+	"github.com/larksuite/oapi-sdk-go/core/constants"
 	"github.com/larksuite/oapi-sdk-go/core/store"
 	"net/http"
 	"time"
@@ -20,8 +17,8 @@ const expiryDelta = 3 * time.Minute
 // get internal app access token
 func getInternalAppAccessToken(ctx *core.Context) (*token.AppAccessToken, error) {
 	accessToken := &token.AppAccessToken{}
-	conf := config.ByCtx(ctx)
-	req := request.NewRequestByAuth(constants.AppAccessTokenInternalUrlPath, http.MethodPost,
+	conf := core.GetConfigByCtx(ctx)
+	req := request.NewRequestByAuth(AppAccessTokenInternalUrlPath, http.MethodPost,
 		&token.InternalAccessTokenReq{
 			AppID:     conf.GetAppSettings().AppID,
 			AppSecret: conf.GetAppSettings().AppSecret,
@@ -36,8 +33,8 @@ func getInternalAppAccessToken(ctx *core.Context) (*token.AppAccessToken, error)
 // get internal tenant access token
 func getInternalTenantAccessToken(ctx *core.Context) (*token.TenantAccessToken, error) {
 	accessToken := &token.TenantAccessToken{}
-	conf := config.ByCtx(ctx)
-	req := request.NewRequestByAuth(constants.TenantAccessTokenInternalUrlPath, http.MethodPost,
+	conf := core.GetConfigByCtx(ctx)
+	req := request.NewRequestByAuth(TenantAccessTokenInternalUrlPath, http.MethodPost,
 		&token.InternalAccessTokenReq{
 			AppID:     conf.GetAppSettings().AppID,
 			AppSecret: conf.GetAppSettings().AppSecret,
@@ -56,11 +53,11 @@ func getIsvAppAccessToken(ctx *core.Context) (*token.AppAccessToken, error) {
 		return nil, err
 	}
 	if appTicket == "" {
-		return nil, coreerrors.ErrAppTicketIsEmpty
+		return nil, ErrAppTicketIsEmpty
 	}
-	conf := config.ByCtx(ctx)
+	conf := core.GetConfigByCtx(ctx)
 	appAccessToken := &token.AppAccessToken{}
-	req := request.NewRequestByAuth(constants.AppAccessTokenIsvUrlPath, http.MethodPost,
+	req := request.NewRequestByAuth(AppAccessTokenIsvUrlPath, http.MethodPost,
 		&token.ISVAppAccessTokenReq{
 			AppID:     conf.GetAppSettings().AppID,
 			AppSecret: conf.GetAppSettings().AppSecret,
@@ -74,7 +71,7 @@ func getIsvAppAccessToken(ctx *core.Context) (*token.AppAccessToken, error) {
 }
 
 func setAppAccessTokenToStore(ctx context.Context, appAccessToken *token.AppAccessToken) {
-	conf := config.ByCtx(ctx)
+	conf := core.GetConfigByCtx(ctx)
 	expire := time.Duration(appAccessToken.Expire)*time.Second - expiryDelta
 	err := conf.GetStore().Put(ctx, store.AppAccessTokenKey(conf.GetAppSettings().AppID), appAccessToken.AppAccessToken, expire)
 	if err != nil {
@@ -90,7 +87,7 @@ func getIsvTenantAccessToken(ctx *core.Context) (*token.AppAccessToken, *token.T
 	}
 	info := request.GetInfoByCtx(ctx)
 	tenantAccessToken := &token.TenantAccessToken{}
-	req := request.NewRequestByAuth(constants.TenantAccessTokenIsvUrlPath, http.MethodPost,
+	req := request.NewRequestByAuth(TenantAccessTokenIsvUrlPath, http.MethodPost,
 		&token.ISVTenantAccessTokenReq{
 			AppAccessToken: appAccessToken.AppAccessToken,
 			TenantKey:      info.TenantKey,
@@ -104,7 +101,7 @@ func getIsvTenantAccessToken(ctx *core.Context) (*token.AppAccessToken, *token.T
 
 func setTenantAccessTokenToStore(ctx context.Context, tenantAccessToken *token.TenantAccessToken) {
 	info := request.GetInfoByCtx(ctx)
-	conf := config.ByCtx(ctx)
+	conf := core.GetConfigByCtx(ctx)
 	expire := time.Duration(tenantAccessToken.Expire)*time.Second - expiryDelta
 	err := conf.GetStore().Put(ctx, store.TenantAccessTokenKey(conf.GetAppSettings().AppID, info.TenantKey), tenantAccessToken.TenantAccessToken, expire)
 	if err != nil {
@@ -132,14 +129,14 @@ func send(ctx *core.Context, req *request.Request) error {
 }
 
 func getAppTicket(ctx *core.Context) (string, error) {
-	conf := config.ByCtx(ctx)
+	conf := core.GetConfigByCtx(ctx)
 	return conf.GetStore().Get(ctx, store.AppTicketKey(conf.GetAppSettings().AppID))
 }
 
 func setAppAccessToken(ctx *core.Context, req *http.Request) (*http.Request, error) {
 	convertedRequest := cloneHTTPRequest(req)
 	info := request.GetInfoByCtx(ctx)
-	conf := config.ByCtx(ctx)
+	conf := core.GetConfigByCtx(ctx)
 	// from store get app access token
 	if !info.Retryable {
 		tok, err := conf.GetStore().Get(ctx, store.AppAccessTokenKey(conf.GetAppSettings().AppID))
@@ -154,7 +151,7 @@ func setAppAccessToken(ctx *core.Context, req *http.Request) (*http.Request, err
 	// from api get app access token
 	var appAccessToken *token.AppAccessToken
 	var err error
-	if conf.GetAppSettings().AppType == commonconst.AppTypeInternal {
+	if conf.GetAppSettings().AppType == constants.AppTypeInternal {
 		appAccessToken, err = getInternalAppAccessToken(ctx)
 	} else {
 		appAccessToken, err = getIsvAppAccessToken(ctx)
@@ -170,7 +167,7 @@ func setAppAccessToken(ctx *core.Context, req *http.Request) (*http.Request, err
 func setTenantAccessToken(ctx *core.Context, req *http.Request) (*http.Request, error) {
 	convertedRequest := cloneHTTPRequest(req)
 	info := request.GetInfoByCtx(ctx)
-	conf := config.ByCtx(ctx)
+	conf := core.GetConfigByCtx(ctx)
 	// from store get tenant access token
 	if !info.Retryable {
 		tok, err := conf.GetStore().Get(ctx, store.TenantAccessTokenKey(conf.GetAppSettings().AppID, info.TenantKey))
@@ -186,7 +183,7 @@ func setTenantAccessToken(ctx *core.Context, req *http.Request) (*http.Request, 
 	var tenantAccessToken *token.TenantAccessToken
 	var appAccessToken *token.AppAccessToken
 	var err error
-	if conf.GetAppSettings().AppType == commonconst.AppTypeInternal {
+	if conf.GetAppSettings().AppType == constants.AppTypeInternal {
 		tenantAccessToken, err = getInternalTenantAccessToken(ctx)
 	} else {
 		appAccessToken, tenantAccessToken, err = getIsvTenantAccessToken(ctx)

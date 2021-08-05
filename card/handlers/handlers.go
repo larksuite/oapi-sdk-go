@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"github.com/larksuite/oapi-sdk-go/card/model"
 	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/config"
 	"github.com/larksuite/oapi-sdk-go/core/constants"
 	"github.com/larksuite/oapi-sdk-go/core/errors"
 	"net/http"
@@ -34,7 +33,7 @@ type Handlers struct {
 
 func initFunc(ctx *core.Context, httpCard *model.HTTPCard) {
 	request := httpCard.Request
-	ctx.Set(constants.HTTPHeader, request.Header)
+	ctx.Set(constants.HTTPHeader, request.Header.Raws())
 	header := &model.Header{
 		Timestamp:    request.Header.GetFirstValue(model.LarkRequestTimestamp),
 		Nonce:        request.Header.GetFirstValue(model.LarkRequestRequestNonce),
@@ -42,7 +41,7 @@ func initFunc(ctx *core.Context, httpCard *model.HTTPCard) {
 		RefreshToken: request.Header.GetFirstValue(model.LarkRefreshToken),
 	}
 	httpCard.Header = header
-	config.ByCtx(ctx).GetLogger().Debug(ctx, fmt.Sprintf("[init] card: %s", request.Body))
+	core.GetConfigByCtx(ctx).GetLogger().Debug(ctx, fmt.Sprintf("[init] card: %s", request.Body))
 	httpCard.Input = []byte(request.Body)
 }
 
@@ -50,7 +49,7 @@ func validateFunc(ctx *core.Context, httpCard *model.HTTPCard) {
 	if httpCard.Header.Signature == "" {
 		return
 	}
-	appSettings := config.ByCtx(ctx).GetAppSettings()
+	appSettings := core.GetConfigByCtx(ctx).GetAppSettings()
 	err := verify(appSettings.VerificationToken, httpCard.Header, httpCard.Input)
 	if err != nil {
 		httpCard.Err = err
@@ -68,7 +67,7 @@ func unmarshalFunc(ctx *core.Context, httpCard *model.HTTPCard) {
 	httpCard.Type = constants.CallbackType(out.Type)
 	httpCard.Challenge = out.Challenge
 	if httpCard.Type == constants.CallbackTypeChallenge {
-		appSettings := config.ByCtx(ctx).GetAppSettings()
+		appSettings := core.GetConfigByCtx(ctx).GetAppSettings()
 		if appSettings.VerificationToken != out.Token {
 			httpCard.Err = errors.NewTokenInvalidErr(out.Token)
 			return
@@ -118,7 +117,7 @@ func handlerFunc(ctx *core.Context, httpCard *model.HTTPCard) {
 	if httpCard.Type == constants.CallbackTypeChallenge {
 		return
 	}
-	conf := config.ByCtx(ctx)
+	conf := core.GetConfigByCtx(ctx)
 	h, ok := getHandler(conf)
 	if !ok {
 		httpCard.Err = newNotHandlerErr()
@@ -135,7 +134,7 @@ func handlerFunc(ctx *core.Context, httpCard *model.HTTPCard) {
 
 func complementFunc(ctx *core.Context, httpCard *model.HTTPCard) {
 	err := httpCard.Err
-	conf := config.ByCtx(ctx)
+	conf := core.GetConfigByCtx(ctx)
 	if err != nil {
 		switch e := err.(type) {
 		case *NotFoundHandlerErr:

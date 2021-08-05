@@ -2,135 +2,134 @@
 package v1
 
 import (
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/config"
+	"github.com/larksuite/oapi-sdk-go"
 	"github.com/larksuite/oapi-sdk-go/event"
 )
 
 type RoomCreatedEventHandler struct {
-	Fn func(*core.Context, *RoomCreatedEvent) error
+	Fn func(*lark.Context, *RoomCreatedEvent) error
 }
 
 func (h *RoomCreatedEventHandler) GetEvent() interface{} {
 	return &RoomCreatedEvent{}
 }
 
-func (h *RoomCreatedEventHandler) Handle(ctx *core.Context, event interface{}) error {
+func (h *RoomCreatedEventHandler) Handle(ctx *lark.Context, event interface{}) error {
 	return h.Fn(ctx, event.(*RoomCreatedEvent))
 }
 
-func SetRoomCreatedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *RoomCreatedEvent) error) {
+func SetRoomCreatedEventHandler(conf lark.Config, fn func(ctx *lark.Context, event *RoomCreatedEvent) error) {
 	event.SetTypeHandler(conf, "meeting_room.room.created_v1", &RoomCreatedEventHandler{Fn: fn})
 }
 
 type RoomDeletedEventHandler struct {
-	Fn func(*core.Context, *RoomDeletedEvent) error
+	Fn func(*lark.Context, *RoomDeletedEvent) error
 }
 
 func (h *RoomDeletedEventHandler) GetEvent() interface{} {
 	return &RoomDeletedEvent{}
 }
 
-func (h *RoomDeletedEventHandler) Handle(ctx *core.Context, event interface{}) error {
+func (h *RoomDeletedEventHandler) Handle(ctx *lark.Context, event interface{}) error {
 	return h.Fn(ctx, event.(*RoomDeletedEvent))
 }
 
-func SetRoomDeletedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *RoomDeletedEvent) error) {
+func SetRoomDeletedEventHandler(conf lark.Config, fn func(ctx *lark.Context, event *RoomDeletedEvent) error) {
 	event.SetTypeHandler(conf, "meeting_room.room.deleted_v1", &RoomDeletedEventHandler{Fn: fn})
 }
 
 type RoomStatusChangedEventHandler struct {
-	Fn func(*core.Context, *RoomStatusChangedEvent) error
+	Fn func(*lark.Context, *RoomStatusChangedEvent) error
 }
 
 func (h *RoomStatusChangedEventHandler) GetEvent() interface{} {
 	return &RoomStatusChangedEvent{}
 }
 
-func (h *RoomStatusChangedEventHandler) Handle(ctx *core.Context, event interface{}) error {
+func (h *RoomStatusChangedEventHandler) Handle(ctx *lark.Context, event interface{}) error {
 	return h.Fn(ctx, event.(*RoomStatusChangedEvent))
 }
 
-func SetRoomStatusChangedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *RoomStatusChangedEvent) error) {
+func SetRoomStatusChangedEventHandler(conf lark.Config, fn func(ctx *lark.Context, event *RoomStatusChangedEvent) error) {
 	event.SetTypeHandler(conf, "meeting_room.room.status_changed_v1", &RoomStatusChangedEventHandler{Fn: fn})
 }
 
 type RoomUpdatedEventHandler struct {
-	Fn func(*core.Context, *RoomUpdatedEvent) error
+	Fn func(*lark.Context, *RoomUpdatedEvent) error
 }
 
 func (h *RoomUpdatedEventHandler) GetEvent() interface{} {
 	return &RoomUpdatedEvent{}
 }
 
-func (h *RoomUpdatedEventHandler) Handle(ctx *core.Context, event interface{}) error {
+func (h *RoomUpdatedEventHandler) Handle(ctx *lark.Context, event interface{}) error {
 	return h.Fn(ctx, event.(*RoomUpdatedEvent))
 }
 
-func SetRoomUpdatedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *RoomUpdatedEvent) error) {
+func SetRoomUpdatedEventHandler(conf lark.Config, fn func(ctx *lark.Context, event *RoomUpdatedEvent) error) {
 	event.SetTypeHandler(conf, "meeting_room.room.updated_v1", &RoomUpdatedEventHandler{Fn: fn})
 }
 
 type MeetingRoomStatusChangedEventHandler struct {
-	Fn func(*core.Context, *MeetingRoomStatusChangedEvent) error
+	Fn func(*lark.Context, *MeetingRoomStatusChangedEvent) error
 }
 
 func (h *MeetingRoomStatusChangedEventHandler) GetEvent() interface{} {
 	return &MeetingRoomStatusChangedEvent{}
 }
 
-func (h *MeetingRoomStatusChangedEventHandler) Handle(ctx *core.Context, event interface{}) error {
+func (h *MeetingRoomStatusChangedEventHandler) Handle(ctx *lark.Context, event interface{}) error {
 	return h.Fn(ctx, event.(*MeetingRoomStatusChangedEvent))
 }
 
-func SetMeetingRoomStatusChangedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *MeetingRoomStatusChangedEvent) error) {
+func SetMeetingRoomStatusChangedEventHandler(conf lark.Config, fn func(ctx *lark.Context, event *MeetingRoomStatusChangedEvent) error) {
 	event.SetTypeHandler(conf, "meeting_room.meeting_room.status_changed_v1", &MeetingRoomStatusChangedEventHandler{Fn: fn})
 }
 
 type MeetingRoomCreatedEventHandler struct {
-	Fn func(*core.Context, *MeetingRoomCreatedEvent) error
+	Fn func(*lark.Context, *MeetingRoomCreatedEvent) error
 }
 
 func (h *MeetingRoomCreatedEventHandler) GetEvent() interface{} {
 	return &MeetingRoomCreatedEvent{}
 }
 
-func (h *MeetingRoomCreatedEventHandler) Handle(ctx *core.Context, event interface{}) error {
+func (h *MeetingRoomCreatedEventHandler) Handle(ctx *lark.Context, event interface{}) error {
 	return h.Fn(ctx, event.(*MeetingRoomCreatedEvent))
 }
 
-func SetMeetingRoomCreatedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *MeetingRoomCreatedEvent) error) {
+func SetMeetingRoomCreatedEventHandler(conf lark.Config, fn func(ctx *lark.Context, event *MeetingRoomCreatedEvent) error) {
 	event.SetTypeHandler(conf, "meeting_room.meeting_room.created_v1", &MeetingRoomCreatedEventHandler{Fn: fn})
 }
 
 type MeetingRoomDeletedEventHandler struct {
-	Fn func(*core.Context, *MeetingRoomDeletedEvent) error
+	Fn func(*lark.Context, *MeetingRoomDeletedEvent) error
 }
 
 func (h *MeetingRoomDeletedEventHandler) GetEvent() interface{} {
 	return &MeetingRoomDeletedEvent{}
 }
 
-func (h *MeetingRoomDeletedEventHandler) Handle(ctx *core.Context, event interface{}) error {
+func (h *MeetingRoomDeletedEventHandler) Handle(ctx *lark.Context, event interface{}) error {
 	return h.Fn(ctx, event.(*MeetingRoomDeletedEvent))
 }
 
-func SetMeetingRoomDeletedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *MeetingRoomDeletedEvent) error) {
+func SetMeetingRoomDeletedEventHandler(conf lark.Config, fn func(ctx *lark.Context, event *MeetingRoomDeletedEvent) error) {
 	event.SetTypeHandler(conf, "meeting_room.meeting_room.deleted_v1", &MeetingRoomDeletedEventHandler{Fn: fn})
 }
 
 type MeetingRoomUpdatedEventHandler struct {
-	Fn func(*core.Context, *MeetingRoomUpdatedEvent) error
+	Fn func(*lark.Context, *MeetingRoomUpdatedEvent) error
 }
 
 func (h *MeetingRoomUpdatedEventHandler) GetEvent() interface{} {
 	return &MeetingRoomUpdatedEvent{}
 }
 
-func (h *MeetingRoomUpdatedEventHandler) Handle(ctx *core.Context, event interface{}) error {
+func (h *MeetingRoomUpdatedEventHandler) Handle(ctx *lark.Context, event interface{}) error {
 	return h.Fn(ctx, event.(*MeetingRoomUpdatedEvent))
 }
 
-func SetMeetingRoomUpdatedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *MeetingRoomUpdatedEvent) error) {
+func SetMeetingRoomUpdatedEventHandler(conf lark.Config, fn func(ctx *lark.Context, event *MeetingRoomUpdatedEvent) error) {
 	event.SetTypeHandler(conf, "meeting_room.meeting_room.updated_v1", &MeetingRoomUpdatedEventHandler{Fn: fn})
 }

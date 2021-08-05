@@ -2,16 +2,14 @@
 package v1
 
 import (
+	"github.com/larksuite/oapi-sdk-go"
 	"github.com/larksuite/oapi-sdk-go/api"
 	"github.com/larksuite/oapi-sdk-go/api/core/request"
-	"github.com/larksuite/oapi-sdk-go/api/core/response"
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/config"
 	"io"
 )
 
 type Service struct {
-	conf              *config.Config
+	conf              lark.Config
 	Messages          *MessageService
 	Chats             *ChatService
 	ChatMemberUsers   *ChatMemberUserService
@@ -23,7 +21,7 @@ type Service struct {
 	MessageResources  *MessageResourceService
 }
 
-func NewService(conf *config.Config) *Service {
+func NewService(conf lark.Config) *Service {
 	s := &Service{
 		conf: conf,
 	}
@@ -130,10 +128,10 @@ func newMessageResourceService(service *Service) *MessageResourceService {
 }
 
 type MessageListReqCall struct {
-	ctx         *core.Context
+	ctx         *lark.Context
 	messages    *MessageService
 	queryParams map[string]interface{}
-	optFns      []request.OptFn
+	opts        []lark.APIRequestOpt
 }
 
 func (rc *MessageListReqCall) SetContainerIdType(containerIdType string) {
@@ -156,60 +154,60 @@ func (rc *MessageListReqCall) SetPageSize(pageSize int) {
 }
 
 func (rc *MessageListReqCall) Do() (*MessageListResult, error) {
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
 	var result = &MessageListResult{}
 	req := request.NewRequest("/open-apis/im/v1/messages", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.messages.service.conf, req)
 	return result, err
 }
 
-func (messages *MessageService) List(ctx *core.Context, optFns ...request.OptFn) *MessageListReqCall {
+func (messages *MessageService) List(ctx *lark.Context, opts ...lark.APIRequestOpt) *MessageListReqCall {
 	return &MessageListReqCall{
 		ctx:         ctx,
 		messages:    messages,
 		queryParams: map[string]interface{}{},
-		optFns:      optFns,
+		opts:        opts,
 	}
 }
 
 type MessagePatchReqCall struct {
-	ctx        *core.Context
+	ctx        *lark.Context
 	messages   *MessageService
 	body       *MessagePatchReqBody
 	pathParams map[string]interface{}
-	optFns     []request.OptFn
+	opts       []lark.APIRequestOpt
 }
 
 func (rc *MessagePatchReqCall) SetMessageId(messageId string) {
 	rc.pathParams["message_id"] = messageId
 }
 
-func (rc *MessagePatchReqCall) Do() (*response.NoData, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	var result = &response.NoData{}
+func (rc *MessagePatchReqCall) Do() (*lark.NoData, error) {
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	var result = &lark.NoData{}
 	req := request.NewRequest("/open-apis/im/v1/messages/:message_id", "PATCH",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.messages.service.conf, req)
 	return result, err
 }
 
-func (messages *MessageService) Patch(ctx *core.Context, body *MessagePatchReqBody, optFns ...request.OptFn) *MessagePatchReqCall {
+func (messages *MessageService) Patch(ctx *lark.Context, body *MessagePatchReqBody, opts ...lark.APIRequestOpt) *MessagePatchReqCall {
 	return &MessagePatchReqCall{
 		ctx:        ctx,
 		messages:   messages,
 		body:       body,
 		pathParams: map[string]interface{}{},
-		optFns:     optFns,
+		opts:       opts,
 	}
 }
 
 type MessageReplyReqCall struct {
-	ctx        *core.Context
+	ctx        *lark.Context
 	messages   *MessageService
 	body       *MessageReplyReqBody
 	pathParams map[string]interface{}
-	optFns     []request.OptFn
+	opts       []lark.APIRequestOpt
 }
 
 func (rc *MessageReplyReqCall) SetMessageId(messageId string) {
@@ -217,30 +215,30 @@ func (rc *MessageReplyReqCall) SetMessageId(messageId string) {
 }
 
 func (rc *MessageReplyReqCall) Do() (*Message, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
 	var result = &Message{}
 	req := request.NewRequest("/open-apis/im/v1/messages/:message_id/reply", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.messages.service.conf, req)
 	return result, err
 }
 
-func (messages *MessageService) Reply(ctx *core.Context, body *MessageReplyReqBody, optFns ...request.OptFn) *MessageReplyReqCall {
+func (messages *MessageService) Reply(ctx *lark.Context, body *MessageReplyReqBody, opts ...lark.APIRequestOpt) *MessageReplyReqCall {
 	return &MessageReplyReqCall{
 		ctx:        ctx,
 		messages:   messages,
 		body:       body,
 		pathParams: map[string]interface{}{},
-		optFns:     optFns,
+		opts:       opts,
 	}
 }
 
 type MessageCreateReqCall struct {
-	ctx         *core.Context
+	ctx         *lark.Context
 	messages    *MessageService
 	body        *MessageCreateReqBody
 	queryParams map[string]interface{}
-	optFns      []request.OptFn
+	opts        []lark.APIRequestOpt
 }
 
 func (rc *MessageCreateReqCall) SetReceiveIdType(receiveIdType string) {
@@ -248,59 +246,59 @@ func (rc *MessageCreateReqCall) SetReceiveIdType(receiveIdType string) {
 }
 
 func (rc *MessageCreateReqCall) Do() (*Message, error) {
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
 	var result = &Message{}
 	req := request.NewRequest("/open-apis/im/v1/messages", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.messages.service.conf, req)
 	return result, err
 }
 
-func (messages *MessageService) Create(ctx *core.Context, body *MessageCreateReqBody, optFns ...request.OptFn) *MessageCreateReqCall {
+func (messages *MessageService) Create(ctx *lark.Context, body *MessageCreateReqBody, opts ...lark.APIRequestOpt) *MessageCreateReqCall {
 	return &MessageCreateReqCall{
 		ctx:         ctx,
 		messages:    messages,
 		body:        body,
 		queryParams: map[string]interface{}{},
-		optFns:      optFns,
+		opts:        opts,
 	}
 }
 
 type MessageDeleteReqCall struct {
-	ctx        *core.Context
+	ctx        *lark.Context
 	messages   *MessageService
 	pathParams map[string]interface{}
-	optFns     []request.OptFn
+	opts       []lark.APIRequestOpt
 }
 
 func (rc *MessageDeleteReqCall) SetMessageId(messageId string) {
 	rc.pathParams["message_id"] = messageId
 }
 
-func (rc *MessageDeleteReqCall) Do() (*response.NoData, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	var result = &response.NoData{}
+func (rc *MessageDeleteReqCall) Do() (*lark.NoData, error) {
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	var result = &lark.NoData{}
 	req := request.NewRequest("/open-apis/im/v1/messages/:message_id", "DELETE",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.messages.service.conf, req)
 	return result, err
 }
 
-func (messages *MessageService) Delete(ctx *core.Context, optFns ...request.OptFn) *MessageDeleteReqCall {
+func (messages *MessageService) Delete(ctx *lark.Context, opts ...lark.APIRequestOpt) *MessageDeleteReqCall {
 	return &MessageDeleteReqCall{
 		ctx:        ctx,
 		messages:   messages,
 		pathParams: map[string]interface{}{},
-		optFns:     optFns,
+		opts:       opts,
 	}
 }
 
 type MessageReadUsersReqCall struct {
-	ctx         *core.Context
+	ctx         *lark.Context
 	messages    *MessageService
 	pathParams  map[string]interface{}
 	queryParams map[string]interface{}
-	optFns      []request.OptFn
+	opts        []lark.APIRequestOpt
 }
 
 func (rc *MessageReadUsersReqCall) SetMessageId(messageId string) {
@@ -317,32 +315,32 @@ func (rc *MessageReadUsersReqCall) SetPageToken(pageToken string) {
 }
 
 func (rc *MessageReadUsersReqCall) Do() (*MessageReadUsersResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
 	var result = &MessageReadUsersResult{}
 	req := request.NewRequest("/open-apis/im/v1/messages/:message_id/read_users", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.messages.service.conf, req)
 	return result, err
 }
 
-func (messages *MessageService) ReadUsers(ctx *core.Context, optFns ...request.OptFn) *MessageReadUsersReqCall {
+func (messages *MessageService) ReadUsers(ctx *lark.Context, opts ...lark.APIRequestOpt) *MessageReadUsersReqCall {
 	return &MessageReadUsersReqCall{
 		ctx:         ctx,
 		messages:    messages,
 		pathParams:  map[string]interface{}{},
 		queryParams: map[string]interface{}{},
-		optFns:      optFns,
+		opts:        opts,
 	}
 }
 
 type ChatUpdateReqCall struct {
-	ctx         *core.Context
+	ctx         *lark.Context
 	chats       *ChatService
 	body        *ChatUpdateReqBody
 	pathParams  map[string]interface{}
 	queryParams map[string]interface{}
-	optFns      []request.OptFn
+	opts        []lark.APIRequestOpt
 }
 
 func (rc *ChatUpdateReqCall) SetChatId(chatId string) {
@@ -352,32 +350,32 @@ func (rc *ChatUpdateReqCall) SetUserIdType(userIdType string) {
 	rc.queryParams["user_id_type"] = userIdType
 }
 
-func (rc *ChatUpdateReqCall) Do() (*response.NoData, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &response.NoData{}
+func (rc *ChatUpdateReqCall) Do() (*lark.NoData, error) {
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	var result = &lark.NoData{}
 	req := request.NewRequest("/open-apis/im/v1/chats/:chat_id", "PUT",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.chats.service.conf, req)
 	return result, err
 }
 
-func (chats *ChatService) Update(ctx *core.Context, body *ChatUpdateReqBody, optFns ...request.OptFn) *ChatUpdateReqCall {
+func (chats *ChatService) Update(ctx *lark.Context, body *ChatUpdateReqBody, opts ...lark.APIRequestOpt) *ChatUpdateReqCall {
 	return &ChatUpdateReqCall{
 		ctx:         ctx,
 		chats:       chats,
 		body:        body,
 		pathParams:  map[string]interface{}{},
 		queryParams: map[string]interface{}{},
-		optFns:      optFns,
+		opts:        opts,
 	}
 }
 
 type FileCreateReqCall struct {
-	ctx    *core.Context
-	files  *FileService
-	body   *request.FormData
-	optFns []request.OptFn
+	ctx   *lark.Context
+	files *FileService
+	body  *request.FormData
+	opts  []lark.APIRequestOpt
 }
 
 func (rc *FileCreateReqCall) SetFileType(fileType string) {
@@ -396,25 +394,25 @@ func (rc *FileCreateReqCall) SetFile(file *request.File) {
 func (rc *FileCreateReqCall) Do() (*FileCreateResult, error) {
 	var result = &FileCreateResult{}
 	req := request.NewRequest("/open-apis/im/v1/files", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.files.service.conf, req)
 	return result, err
 }
 
-func (files *FileService) Create(ctx *core.Context, optFns ...request.OptFn) *FileCreateReqCall {
+func (files *FileService) Create(ctx *lark.Context, opts ...lark.APIRequestOpt) *FileCreateReqCall {
 	return &FileCreateReqCall{
-		ctx:    ctx,
-		files:  files,
-		body:   request.NewFormData(),
-		optFns: optFns,
+		ctx:   ctx,
+		files: files,
+		body:  request.NewFormData(),
+		opts:  opts,
 	}
 }
 
 type FileGetReqCall struct {
-	ctx        *core.Context
+	ctx        *lark.Context
 	files      *FileService
 	pathParams map[string]interface{}
-	optFns     []request.OptFn
+	opts       []lark.APIRequestOpt
 	result     io.Writer
 }
 
@@ -426,28 +424,28 @@ func (rc *FileGetReqCall) SetResponseStream(result io.Writer) {
 }
 
 func (rc *FileGetReqCall) Do() (io.Writer, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetResponseStream())
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetResponseStream())
 	req := request.NewRequest("/open-apis/im/v1/files/:file_key", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, rc.result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, rc.result, rc.opts...)
 	err := api.Send(rc.ctx, rc.files.service.conf, req)
 	return rc.result, err
 }
 
-func (files *FileService) Get(ctx *core.Context, optFns ...request.OptFn) *FileGetReqCall {
+func (files *FileService) Get(ctx *lark.Context, opts ...lark.APIRequestOpt) *FileGetReqCall {
 	return &FileGetReqCall{
 		ctx:        ctx,
 		files:      files,
 		pathParams: map[string]interface{}{},
-		optFns:     optFns,
+		opts:       opts,
 	}
 }
 
 type ChatListReqCall struct {
-	ctx         *core.Context
+	ctx         *lark.Context
 	chats       *ChatService
 	queryParams map[string]interface{}
-	optFns      []request.OptFn
+	opts        []lark.APIRequestOpt
 }
 
 func (rc *ChatListReqCall) SetUserIdType(userIdType string) {
@@ -461,28 +459,28 @@ func (rc *ChatListReqCall) SetPageSize(pageSize int) {
 }
 
 func (rc *ChatListReqCall) Do() (*ChatListResult, error) {
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
 	var result = &ChatListResult{}
 	req := request.NewRequest("/open-apis/im/v1/chats", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.chats.service.conf, req)
 	return result, err
 }
 
-func (chats *ChatService) List(ctx *core.Context, optFns ...request.OptFn) *ChatListReqCall {
+func (chats *ChatService) List(ctx *lark.Context, opts ...lark.APIRequestOpt) *ChatListReqCall {
 	return &ChatListReqCall{
 		ctx:         ctx,
 		chats:       chats,
 		queryParams: map[string]interface{}{},
-		optFns:      optFns,
+		opts:        opts,
 	}
 }
 
 type ImageCreateReqCall struct {
-	ctx    *core.Context
+	ctx    *lark.Context
 	images *ImageService
 	body   *request.FormData
-	optFns []request.OptFn
+	opts   []lark.APIRequestOpt
 }
 
 func (rc *ImageCreateReqCall) SetImageType(imageType string) {
@@ -495,54 +493,54 @@ func (rc *ImageCreateReqCall) SetImage(image *request.File) {
 func (rc *ImageCreateReqCall) Do() (*ImageCreateResult, error) {
 	var result = &ImageCreateResult{}
 	req := request.NewRequest("/open-apis/im/v1/images", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.images.service.conf, req)
 	return result, err
 }
 
-func (images *ImageService) Create(ctx *core.Context, optFns ...request.OptFn) *ImageCreateReqCall {
+func (images *ImageService) Create(ctx *lark.Context, opts ...lark.APIRequestOpt) *ImageCreateReqCall {
 	return &ImageCreateReqCall{
 		ctx:    ctx,
 		images: images,
 		body:   request.NewFormData(),
-		optFns: optFns,
+		opts:   opts,
 	}
 }
 
 type ChatDeleteReqCall struct {
-	ctx        *core.Context
+	ctx        *lark.Context
 	chats      *ChatService
 	pathParams map[string]interface{}
-	optFns     []request.OptFn
+	opts       []lark.APIRequestOpt
 }
 
 func (rc *ChatDeleteReqCall) SetChatId(chatId string) {
 	rc.pathParams["chat_id"] = chatId
 }
 
-func (rc *ChatDeleteReqCall) Do() (*response.NoData, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	var result = &response.NoData{}
+func (rc *ChatDeleteReqCall) Do() (*lark.NoData, error) {
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	var result = &lark.NoData{}
 	req := request.NewRequest("/open-apis/im/v1/chats/:chat_id", "DELETE",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.chats.service.conf, req)
 	return result, err
 }
 
-func (chats *ChatService) Delete(ctx *core.Context, optFns ...request.OptFn) *ChatDeleteReqCall {
+func (chats *ChatService) Delete(ctx *lark.Context, opts ...lark.APIRequestOpt) *ChatDeleteReqCall {
 	return &ChatDeleteReqCall{
 		ctx:        ctx,
 		chats:      chats,
 		pathParams: map[string]interface{}{},
-		optFns:     optFns,
+		opts:       opts,
 	}
 }
 
 type ImageGetReqCall struct {
-	ctx        *core.Context
+	ctx        *lark.Context
 	images     *ImageService
 	pathParams map[string]interface{}
-	optFns     []request.OptFn
+	opts       []lark.APIRequestOpt
 	result     io.Writer
 }
 
@@ -554,29 +552,29 @@ func (rc *ImageGetReqCall) SetResponseStream(result io.Writer) {
 }
 
 func (rc *ImageGetReqCall) Do() (io.Writer, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetResponseStream())
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetResponseStream())
 	req := request.NewRequest("/open-apis/im/v1/images/:image_key", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, rc.result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, rc.result, rc.opts...)
 	err := api.Send(rc.ctx, rc.images.service.conf, req)
 	return rc.result, err
 }
 
-func (images *ImageService) Get(ctx *core.Context, optFns ...request.OptFn) *ImageGetReqCall {
+func (images *ImageService) Get(ctx *lark.Context, opts ...lark.APIRequestOpt) *ImageGetReqCall {
 	return &ImageGetReqCall{
 		ctx:        ctx,
 		images:     images,
 		pathParams: map[string]interface{}{},
-		optFns:     optFns,
+		opts:       opts,
 	}
 }
 
 type ChatGetReqCall struct {
-	ctx         *core.Context
+	ctx         *lark.Context
 	chats       *ChatService
 	pathParams  map[string]interface{}
 	queryParams map[string]interface{}
-	optFns      []request.OptFn
+	opts        []lark.APIRequestOpt
 }
 
 func (rc *ChatGetReqCall) SetChatId(chatId string) {
@@ -587,31 +585,31 @@ func (rc *ChatGetReqCall) SetUserIdType(userIdType string) {
 }
 
 func (rc *ChatGetReqCall) Do() (*ChatGetResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
 	var result = &ChatGetResult{}
 	req := request.NewRequest("/open-apis/im/v1/chats/:chat_id", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.chats.service.conf, req)
 	return result, err
 }
 
-func (chats *ChatService) Get(ctx *core.Context, optFns ...request.OptFn) *ChatGetReqCall {
+func (chats *ChatService) Get(ctx *lark.Context, opts ...lark.APIRequestOpt) *ChatGetReqCall {
 	return &ChatGetReqCall{
 		ctx:         ctx,
 		chats:       chats,
 		pathParams:  map[string]interface{}{},
 		queryParams: map[string]interface{}{},
-		optFns:      optFns,
+		opts:        opts,
 	}
 }
 
 type ChatCreateReqCall struct {
-	ctx         *core.Context
+	ctx         *lark.Context
 	chats       *ChatService
 	body        *ChatCreateReqBody
 	queryParams map[string]interface{}
-	optFns      []request.OptFn
+	opts        []lark.APIRequestOpt
 }
 
 func (rc *ChatCreateReqCall) SetUserIdType(userIdType string) {
@@ -619,29 +617,29 @@ func (rc *ChatCreateReqCall) SetUserIdType(userIdType string) {
 }
 
 func (rc *ChatCreateReqCall) Do() (*ChatCreateResult, error) {
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
 	var result = &ChatCreateResult{}
 	req := request.NewRequest("/open-apis/im/v1/chats", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.chats.service.conf, req)
 	return result, err
 }
 
-func (chats *ChatService) Create(ctx *core.Context, body *ChatCreateReqBody, optFns ...request.OptFn) *ChatCreateReqCall {
+func (chats *ChatService) Create(ctx *lark.Context, body *ChatCreateReqBody, opts ...lark.APIRequestOpt) *ChatCreateReqCall {
 	return &ChatCreateReqCall{
 		ctx:         ctx,
 		chats:       chats,
 		body:        body,
 		queryParams: map[string]interface{}{},
-		optFns:      optFns,
+		opts:        opts,
 	}
 }
 
 type ChatSearchReqCall struct {
-	ctx         *core.Context
+	ctx         *lark.Context
 	chats       *ChatService
 	queryParams map[string]interface{}
-	optFns      []request.OptFn
+	opts        []lark.APIRequestOpt
 }
 
 func (rc *ChatSearchReqCall) SetUserIdType(userIdType string) {
@@ -658,28 +656,28 @@ func (rc *ChatSearchReqCall) SetPageSize(pageSize int) {
 }
 
 func (rc *ChatSearchReqCall) Do() (*ChatSearchResult, error) {
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
 	var result = &ChatSearchResult{}
 	req := request.NewRequest("/open-apis/im/v1/chats/search", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.chats.service.conf, req)
 	return result, err
 }
 
-func (chats *ChatService) Search(ctx *core.Context, optFns ...request.OptFn) *ChatSearchReqCall {
+func (chats *ChatService) Search(ctx *lark.Context, opts ...lark.APIRequestOpt) *ChatSearchReqCall {
 	return &ChatSearchReqCall{
 		ctx:         ctx,
 		chats:       chats,
 		queryParams: map[string]interface{}{},
-		optFns:      optFns,
+		opts:        opts,
 	}
 }
 
 type MessageGetReqCall struct {
-	ctx        *core.Context
+	ctx        *lark.Context
 	messages   *MessageService
 	pathParams map[string]interface{}
-	optFns     []request.OptFn
+	opts       []lark.APIRequestOpt
 }
 
 func (rc *MessageGetReqCall) SetMessageId(messageId string) {
@@ -687,30 +685,30 @@ func (rc *MessageGetReqCall) SetMessageId(messageId string) {
 }
 
 func (rc *MessageGetReqCall) Do() (*MessageGetResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
 	var result = &MessageGetResult{}
 	req := request.NewRequest("/open-apis/im/v1/messages/:message_id", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.messages.service.conf, req)
 	return result, err
 }
 
-func (messages *MessageService) Get(ctx *core.Context, optFns ...request.OptFn) *MessageGetReqCall {
+func (messages *MessageService) Get(ctx *lark.Context, opts ...lark.APIRequestOpt) *MessageGetReqCall {
 	return &MessageGetReqCall{
 		ctx:        ctx,
 		messages:   messages,
 		pathParams: map[string]interface{}{},
-		optFns:     optFns,
+		opts:       opts,
 	}
 }
 
 type ChatMembersCreateReqCall struct {
-	ctx          *core.Context
+	ctx          *lark.Context
 	chatMemberss *ChatMembersService
 	body         *ChatMembersCreateReqBody
 	pathParams   map[string]interface{}
 	queryParams  map[string]interface{}
-	optFns       []request.OptFn
+	opts         []lark.APIRequestOpt
 }
 
 func (rc *ChatMembersCreateReqCall) SetChatId(chatId string) {
@@ -721,33 +719,33 @@ func (rc *ChatMembersCreateReqCall) SetMemberIdType(memberIdType string) {
 }
 
 func (rc *ChatMembersCreateReqCall) Do() (*ChatMembersCreateResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
 	var result = &ChatMembersCreateResult{}
 	req := request.NewRequest("/open-apis/im/v1/chats/:chat_id/members", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.chatMemberss.service.conf, req)
 	return result, err
 }
 
-func (chatMemberss *ChatMembersService) Create(ctx *core.Context, body *ChatMembersCreateReqBody, optFns ...request.OptFn) *ChatMembersCreateReqCall {
+func (chatMemberss *ChatMembersService) Create(ctx *lark.Context, body *ChatMembersCreateReqBody, opts ...lark.APIRequestOpt) *ChatMembersCreateReqCall {
 	return &ChatMembersCreateReqCall{
 		ctx:          ctx,
 		chatMemberss: chatMemberss,
 		body:         body,
 		pathParams:   map[string]interface{}{},
 		queryParams:  map[string]interface{}{},
-		optFns:       optFns,
+		opts:         opts,
 	}
 }
 
 type ChatMembersDeleteReqCall struct {
-	ctx          *core.Context
+	ctx          *lark.Context
 	chatMemberss *ChatMembersService
 	body         *ChatMembersDeleteReqBody
 	pathParams   map[string]interface{}
 	queryParams  map[string]interface{}
-	optFns       []request.OptFn
+	opts         []lark.APIRequestOpt
 }
 
 func (rc *ChatMembersDeleteReqCall) SetChatId(chatId string) {
@@ -758,32 +756,32 @@ func (rc *ChatMembersDeleteReqCall) SetMemberIdType(memberIdType string) {
 }
 
 func (rc *ChatMembersDeleteReqCall) Do() (*ChatMembersDeleteResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
 	var result = &ChatMembersDeleteResult{}
 	req := request.NewRequest("/open-apis/im/v1/chats/:chat_id/members", "DELETE",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.chatMemberss.service.conf, req)
 	return result, err
 }
 
-func (chatMemberss *ChatMembersService) Delete(ctx *core.Context, body *ChatMembersDeleteReqBody, optFns ...request.OptFn) *ChatMembersDeleteReqCall {
+func (chatMemberss *ChatMembersService) Delete(ctx *lark.Context, body *ChatMembersDeleteReqBody, opts ...lark.APIRequestOpt) *ChatMembersDeleteReqCall {
 	return &ChatMembersDeleteReqCall{
 		ctx:          ctx,
 		chatMemberss: chatMemberss,
 		body:         body,
 		pathParams:   map[string]interface{}{},
 		queryParams:  map[string]interface{}{},
-		optFns:       optFns,
+		opts:         opts,
 	}
 }
 
 type ChatMembersGetReqCall struct {
-	ctx          *core.Context
+	ctx          *lark.Context
 	chatMemberss *ChatMembersService
 	pathParams   map[string]interface{}
 	queryParams  map[string]interface{}
-	optFns       []request.OptFn
+	opts         []lark.APIRequestOpt
 }
 
 func (rc *ChatMembersGetReqCall) SetChatId(chatId string) {
@@ -800,66 +798,31 @@ func (rc *ChatMembersGetReqCall) SetPageSize(pageSize int) {
 }
 
 func (rc *ChatMembersGetReqCall) Do() (*ChatMembersGetResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
 	var result = &ChatMembersGetResult{}
 	req := request.NewRequest("/open-apis/im/v1/chats/:chat_id/members", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.chatMemberss.service.conf, req)
 	return result, err
 }
 
-func (chatMemberss *ChatMembersService) Get(ctx *core.Context, optFns ...request.OptFn) *ChatMembersGetReqCall {
+func (chatMemberss *ChatMembersService) Get(ctx *lark.Context, opts ...lark.APIRequestOpt) *ChatMembersGetReqCall {
 	return &ChatMembersGetReqCall{
 		ctx:          ctx,
 		chatMemberss: chatMemberss,
 		pathParams:   map[string]interface{}{},
 		queryParams:  map[string]interface{}{},
-		optFns:       optFns,
-	}
-}
-
-type ChatAnnouncementGetReqCall struct {
-	ctx               *core.Context
-	chatAnnouncements *ChatAnnouncementService
-	pathParams        map[string]interface{}
-	queryParams       map[string]interface{}
-	optFns            []request.OptFn
-}
-
-func (rc *ChatAnnouncementGetReqCall) SetChatId(chatId string) {
-	rc.pathParams["chat_id"] = chatId
-}
-func (rc *ChatAnnouncementGetReqCall) SetUserIdType(userIdType string) {
-	rc.queryParams["user_id_type"] = userIdType
-}
-
-func (rc *ChatAnnouncementGetReqCall) Do() (*ChatAnnouncementGetResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &ChatAnnouncementGetResult{}
-	req := request.NewRequest("/open-apis/im/v1/chats/:chat_id/announcement", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.chatAnnouncements.service.conf, req)
-	return result, err
-}
-
-func (chatAnnouncements *ChatAnnouncementService) Get(ctx *core.Context, optFns ...request.OptFn) *ChatAnnouncementGetReqCall {
-	return &ChatAnnouncementGetReqCall{
-		ctx:               ctx,
-		chatAnnouncements: chatAnnouncements,
-		pathParams:        map[string]interface{}{},
-		queryParams:       map[string]interface{}{},
-		optFns:            optFns,
+		opts:         opts,
 	}
 }
 
 type MessageResourceGetReqCall struct {
-	ctx              *core.Context
+	ctx              *lark.Context
 	messageResources *MessageResourceService
 	pathParams       map[string]interface{}
 	queryParams      map[string]interface{}
-	optFns           []request.OptFn
+	opts             []lark.APIRequestOpt
 	result           io.Writer
 }
 
@@ -877,30 +840,65 @@ func (rc *MessageResourceGetReqCall) SetResponseStream(result io.Writer) {
 }
 
 func (rc *MessageResourceGetReqCall) Do() (io.Writer, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	rc.optFns = append(rc.optFns, request.SetResponseStream())
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, request.SetResponseStream())
 	req := request.NewRequest("/open-apis/im/v1/messages/:message_id/resources/:file_key", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, rc.result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, rc.result, rc.opts...)
 	err := api.Send(rc.ctx, rc.messageResources.service.conf, req)
 	return rc.result, err
 }
 
-func (messageResources *MessageResourceService) Get(ctx *core.Context, optFns ...request.OptFn) *MessageResourceGetReqCall {
+func (messageResources *MessageResourceService) Get(ctx *lark.Context, opts ...lark.APIRequestOpt) *MessageResourceGetReqCall {
 	return &MessageResourceGetReqCall{
 		ctx:              ctx,
 		messageResources: messageResources,
 		pathParams:       map[string]interface{}{},
 		queryParams:      map[string]interface{}{},
-		optFns:           optFns,
+		opts:             opts,
+	}
+}
+
+type ChatAnnouncementGetReqCall struct {
+	ctx               *lark.Context
+	chatAnnouncements *ChatAnnouncementService
+	pathParams        map[string]interface{}
+	queryParams       map[string]interface{}
+	opts              []lark.APIRequestOpt
+}
+
+func (rc *ChatAnnouncementGetReqCall) SetChatId(chatId string) {
+	rc.pathParams["chat_id"] = chatId
+}
+func (rc *ChatAnnouncementGetReqCall) SetUserIdType(userIdType string) {
+	rc.queryParams["user_id_type"] = userIdType
+}
+
+func (rc *ChatAnnouncementGetReqCall) Do() (*ChatAnnouncementGetResult, error) {
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	var result = &ChatAnnouncementGetResult{}
+	req := request.NewRequest("/open-apis/im/v1/chats/:chat_id/announcement", "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := api.Send(rc.ctx, rc.chatAnnouncements.service.conf, req)
+	return result, err
+}
+
+func (chatAnnouncements *ChatAnnouncementService) Get(ctx *lark.Context, opts ...lark.APIRequestOpt) *ChatAnnouncementGetReqCall {
+	return &ChatAnnouncementGetReqCall{
+		ctx:               ctx,
+		chatAnnouncements: chatAnnouncements,
+		pathParams:        map[string]interface{}{},
+		queryParams:       map[string]interface{}{},
+		opts:              opts,
 	}
 }
 
 type ChatMembersIsInChatReqCall struct {
-	ctx          *core.Context
+	ctx          *lark.Context
 	chatMemberss *ChatMembersService
 	pathParams   map[string]interface{}
-	optFns       []request.OptFn
+	opts         []lark.APIRequestOpt
 }
 
 func (rc *ChatMembersIsInChatReqCall) SetChatId(chatId string) {
@@ -908,79 +906,79 @@ func (rc *ChatMembersIsInChatReqCall) SetChatId(chatId string) {
 }
 
 func (rc *ChatMembersIsInChatReqCall) Do() (*ChatMembersIsInChatResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
 	var result = &ChatMembersIsInChatResult{}
 	req := request.NewRequest("/open-apis/im/v1/chats/:chat_id/members/is_in_chat", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.chatMemberss.service.conf, req)
 	return result, err
 }
 
-func (chatMemberss *ChatMembersService) IsInChat(ctx *core.Context, optFns ...request.OptFn) *ChatMembersIsInChatReqCall {
+func (chatMemberss *ChatMembersService) IsInChat(ctx *lark.Context, opts ...lark.APIRequestOpt) *ChatMembersIsInChatReqCall {
 	return &ChatMembersIsInChatReqCall{
 		ctx:          ctx,
 		chatMemberss: chatMemberss,
 		pathParams:   map[string]interface{}{},
-		optFns:       optFns,
+		opts:         opts,
 	}
 }
 
 type ChatMembersMeJoinReqCall struct {
-	ctx          *core.Context
+	ctx          *lark.Context
 	chatMemberss *ChatMembersService
 	pathParams   map[string]interface{}
-	optFns       []request.OptFn
+	opts         []lark.APIRequestOpt
 }
 
 func (rc *ChatMembersMeJoinReqCall) SetChatId(chatId string) {
 	rc.pathParams["chat_id"] = chatId
 }
 
-func (rc *ChatMembersMeJoinReqCall) Do() (*response.NoData, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	var result = &response.NoData{}
+func (rc *ChatMembersMeJoinReqCall) Do() (*lark.NoData, error) {
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	var result = &lark.NoData{}
 	req := request.NewRequest("/open-apis/im/v1/chats/:chat_id/members/me_join", "PATCH",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.chatMemberss.service.conf, req)
 	return result, err
 }
 
-func (chatMemberss *ChatMembersService) MeJoin(ctx *core.Context, optFns ...request.OptFn) *ChatMembersMeJoinReqCall {
+func (chatMemberss *ChatMembersService) MeJoin(ctx *lark.Context, opts ...lark.APIRequestOpt) *ChatMembersMeJoinReqCall {
 	return &ChatMembersMeJoinReqCall{
 		ctx:          ctx,
 		chatMemberss: chatMemberss,
 		pathParams:   map[string]interface{}{},
-		optFns:       optFns,
+		opts:         opts,
 	}
 }
 
 type ChatAnnouncementPatchReqCall struct {
-	ctx               *core.Context
+	ctx               *lark.Context
 	chatAnnouncements *ChatAnnouncementService
 	body              *ChatAnnouncementPatchReqBody
 	pathParams        map[string]interface{}
-	optFns            []request.OptFn
+	opts              []lark.APIRequestOpt
 }
 
 func (rc *ChatAnnouncementPatchReqCall) SetChatId(chatId string) {
 	rc.pathParams["chat_id"] = chatId
 }
 
-func (rc *ChatAnnouncementPatchReqCall) Do() (*response.NoData, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	var result = &response.NoData{}
+func (rc *ChatAnnouncementPatchReqCall) Do() (*lark.NoData, error) {
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	var result = &lark.NoData{}
 	req := request.NewRequest("/open-apis/im/v1/chats/:chat_id/announcement", "PATCH",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.chatAnnouncements.service.conf, req)
 	return result, err
 }
 
-func (chatAnnouncements *ChatAnnouncementService) Patch(ctx *core.Context, body *ChatAnnouncementPatchReqBody, optFns ...request.OptFn) *ChatAnnouncementPatchReqCall {
+func (chatAnnouncements *ChatAnnouncementService) Patch(ctx *lark.Context, body *ChatAnnouncementPatchReqBody, opts ...lark.APIRequestOpt) *ChatAnnouncementPatchReqCall {
 	return &ChatAnnouncementPatchReqCall{
 		ctx:               ctx,
 		chatAnnouncements: chatAnnouncements,
 		body:              body,
 		pathParams:        map[string]interface{}{},
-		optFns:            optFns,
+		opts:              opts,
 	}
 }

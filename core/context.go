@@ -3,6 +3,7 @@ package core
 import (
 	"context"
 	"github.com/larksuite/oapi-sdk-go/core/constants"
+	"net/http"
 	"sync"
 	"time"
 )
@@ -13,7 +14,7 @@ type Context struct {
 	m  map[string]interface{}
 }
 
-// Deprecated, please use `WrapContext`
+// WarpContext Deprecated, please use `WrapContext`
 func WarpContext(c context.Context) *Context {
 	return &Context{
 		c: c,
@@ -44,20 +45,20 @@ func (c *Context) Get(key string) (value interface{}, exists bool) {
 	return
 }
 
-func (c *Context) GetHeader() *OapiHeader {
+func (c *Context) GetHeader() http.Header {
 	if header, ok := c.Get(constants.HTTPHeader); ok {
-		return header.(*OapiHeader)
+		return header.(http.Header)
 	}
-	return NewOapiHeader(map[string][]string{})
+	return map[string][]string{}
 }
 
 func (c *Context) GetRequestID() string {
 	header := c.GetHeader()
-	logID := header.GetFirstValue(constants.HTTPHeaderKeyLogID)
+	logID := header.Get(constants.HTTPHeaderKeyLogID)
 	if logID != "" {
 		return logID
 	}
-	return header.GetFirstValue(constants.HTTPHeaderKeyRequestID)
+	return header.Get(constants.HTTPHeaderKeyRequestID)
 }
 
 func (c *Context) GetHTTPStatusCode() int {

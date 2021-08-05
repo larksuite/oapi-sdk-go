@@ -2,18 +2,17 @@
 package v1
 
 import (
+	"github.com/larksuite/oapi-sdk-go"
 	"github.com/larksuite/oapi-sdk-go/api"
 	"github.com/larksuite/oapi-sdk-go/api/core/request"
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/config"
 )
 
 type Service struct {
-	conf    *config.Config
+	conf    lark.Config
 	Speechs *SpeechService
 }
 
-func NewService(conf *config.Config) *Service {
+func NewService(conf lark.Config) *Service {
 	s := &Service{
 		conf: conf,
 	}
@@ -32,49 +31,49 @@ func newSpeechService(service *Service) *SpeechService {
 }
 
 type SpeechFileRecognizeReqCall struct {
-	ctx     *core.Context
+	ctx     *lark.Context
 	speechs *SpeechService
 	body    *SpeechFileRecognizeReqBody
-	optFns  []request.OptFn
+	opts    []lark.APIRequestOpt
 }
 
 func (rc *SpeechFileRecognizeReqCall) Do() (*SpeechFileRecognizeResult, error) {
 	var result = &SpeechFileRecognizeResult{}
 	req := request.NewRequest("/open-apis/speech_to_text/v1/speech/file_recognize", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.speechs.service.conf, req)
 	return result, err
 }
 
-func (speechs *SpeechService) FileRecognize(ctx *core.Context, body *SpeechFileRecognizeReqBody, optFns ...request.OptFn) *SpeechFileRecognizeReqCall {
+func (speechs *SpeechService) FileRecognize(ctx *lark.Context, body *SpeechFileRecognizeReqBody, opts ...lark.APIRequestOpt) *SpeechFileRecognizeReqCall {
 	return &SpeechFileRecognizeReqCall{
 		ctx:     ctx,
 		speechs: speechs,
 		body:    body,
-		optFns:  optFns,
+		opts:    opts,
 	}
 }
 
 type SpeechStreamRecognizeReqCall struct {
-	ctx     *core.Context
+	ctx     *lark.Context
 	speechs *SpeechService
 	body    *SpeechStreamRecognizeReqBody
-	optFns  []request.OptFn
+	opts    []lark.APIRequestOpt
 }
 
 func (rc *SpeechStreamRecognizeReqCall) Do() (*SpeechStreamRecognizeResult, error) {
 	var result = &SpeechStreamRecognizeResult{}
 	req := request.NewRequest("/open-apis/speech_to_text/v1/speech/stream_recognize", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.speechs.service.conf, req)
 	return result, err
 }
 
-func (speechs *SpeechService) StreamRecognize(ctx *core.Context, body *SpeechStreamRecognizeReqBody, optFns ...request.OptFn) *SpeechStreamRecognizeReqCall {
+func (speechs *SpeechService) StreamRecognize(ctx *lark.Context, body *SpeechStreamRecognizeReqBody, opts ...lark.APIRequestOpt) *SpeechStreamRecognizeReqCall {
 	return &SpeechStreamRecognizeReqCall{
 		ctx:     ctx,
 		speechs: speechs,
 		body:    body,
-		optFns:  optFns,
+		opts:    opts,
 	}
 }

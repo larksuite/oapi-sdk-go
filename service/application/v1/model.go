@@ -2,12 +2,23 @@
 package v1
 
 import (
+	"github.com/larksuite/oapi-sdk-go/api/core/tools"
 	"github.com/larksuite/oapi-sdk-go/event/core/model"
 )
 
+type Application struct {
+}
+
 type UserId struct {
-	OpenId string `json:"open_id,omitempty"`
-	UserId string `json:"user_id,omitempty"`
+	OpenId          string   `json:"open_id,omitempty"`
+	UserId          string   `json:"user_id,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *UserId) MarshalJSON() ([]byte, error) {
+	type cp UserId
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
 type AppOpenEventData struct {
@@ -24,10 +35,11 @@ type AppOpenEvent struct {
 }
 
 type AppStatusChangeEventData struct {
-	AppId     string `json:"app_id,omitempty"`
-	TenantKey string `json:"tenant_key,omitempty"`
-	Type      string `json:"type,omitempty"`
-	Status    string `json:"status,omitempty"`
+	AppId     string  `json:"app_id,omitempty"`
+	TenantKey string  `json:"tenant_key,omitempty"`
+	Type      string  `json:"type,omitempty"`
+	Status    string  `json:"status,omitempty"`
+	Operator  *UserId `json:"operator,omitempty"`
 }
 
 type AppStatusChangeEvent struct {

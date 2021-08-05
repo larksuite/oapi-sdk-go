@@ -3,24 +3,22 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/larksuite/oapi-sdk-go/api/core/response"
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/tools"
+	"github.com/larksuite/oapi-sdk-go"
 	"github.com/larksuite/oapi-sdk-go/sample/configs"
 	optical_char_recognition "github.com/larksuite/oapi-sdk-go/service/optical_char_recognition/v1"
 )
 
 // for redis store and logrus
-// configs.TestConfigWithLogrusAndRedisStore(core.DomainFeiShu)
+// configs.TestConfigWithLogrusAndRedisStore(lark.DomainFeiShu)
 // configs.TestConfig("https://open.feishu.cn")
-var opticalCharRecognitionService = optical_char_recognition.NewService(configs.TestConfig(core.DomainFeiShu))
+var opticalCharRecognitionService = optical_char_recognition.NewService(configs.TestConfig(lark.DomainFeiShu))
 
 func main() {
 	testImageBasicRecognize()
 }
 
 func testImageBasicRecognize() {
-	coreCtx := core.WrapContext(context.Background())
+	coreCtx := lark.WrapContext(context.Background())
 	reqCall := opticalCharRecognitionService.Images.BasicRecognize(coreCtx, &optical_char_recognition.ImageBasicRecognizeReqBody{
 		Image: "base64 image",
 	})
@@ -28,9 +26,9 @@ func testImageBasicRecognize() {
 	fmt.Printf("request_id:%s\n", coreCtx.GetRequestID())
 	fmt.Printf("http status code:%d", coreCtx.GetHTTPStatusCode())
 	if err != nil {
-		e := err.(*response.Error)
-		fmt.Printf(tools.Prettify(e))
+		e := err.(lark.APIError)
+		fmt.Printf(lark.Prettify(e))
 		return
 	}
-	fmt.Printf("reault:%s", tools.Prettify(result))
+	fmt.Printf("reault:%s", lark.Prettify(result))
 }
