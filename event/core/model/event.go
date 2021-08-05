@@ -1,16 +1,16 @@
 package model
 
 import (
-	"github.com/larksuite/oapi-sdk-go/core/model"
+	"github.com/larksuite/oapi-sdk-go/core"
 )
 
 const Version1 = "1.0"
 const Version2 = "2.0"
 
 type HTTPEvent struct {
-	Request   *model.OapiRequest
+	Request   *core.OapiRequest
 	Input     []byte
-	Response  *model.OapiResponse
+	Response  *core.OapiResponse
 	Schema    string
 	Type      string
 	EventType string
