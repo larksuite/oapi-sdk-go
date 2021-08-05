@@ -14,7 +14,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 	"github.com/larksuite/oapi-sdk-go/core/config"
 	coreconst "github.com/larksuite/oapi-sdk-go/core/constants"
-	"github.com/larksuite/oapi-sdk-go/core/model"
 	"io"
 	"io/ioutil"
 	"mime/multipart"
@@ -91,7 +90,7 @@ func (hs *Handlers) send(ctx *core.Context, req *request.Request) {
 		req.Err = err
 		return
 	}
-	ctx.Set(coreconst.HTTPHeader, model.NewOapiHeader(resp.Header))
+	ctx.Set(coreconst.HTTPHeader, core.NewOapiHeader(resp.Header))
 	ctx.Set(coreconst.HTTPKeyStatusCode, resp.StatusCode)
 	req.HTTPResponse = resp
 	defer hs.retry(ctx, req)
