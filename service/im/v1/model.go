@@ -653,18 +653,6 @@ type ChatDisbandedEvent struct {
 	Event *ChatDisbandedEventData `json:"event"`
 }
 
-type ChatMemberBotAddedEventData struct {
-	ChatId            string  `json:"chat_id,omitempty"`
-	OperatorId        *UserId `json:"operator_id,omitempty"`
-	External          bool    `json:"external,omitempty"`
-	OperatorTenantKey string  `json:"operator_tenant_key,omitempty"`
-}
-
-type ChatMemberBotAddedEvent struct {
-	*model.BaseEventV2
-	Event *ChatMemberBotAddedEventData `json:"event"`
-}
-
 type ChatMemberUserAddedEventData struct {
 	ChatId            string            `json:"chat_id,omitempty"`
 	OperatorId        *UserId           `json:"operator_id,omitempty"`
@@ -676,6 +664,18 @@ type ChatMemberUserAddedEventData struct {
 type ChatMemberUserAddedEvent struct {
 	*model.BaseEventV2
 	Event *ChatMemberUserAddedEventData `json:"event"`
+}
+
+type ChatMemberBotAddedEventData struct {
+	ChatId            string  `json:"chat_id,omitempty"`
+	OperatorId        *UserId `json:"operator_id,omitempty"`
+	External          bool    `json:"external,omitempty"`
+	OperatorTenantKey string  `json:"operator_tenant_key,omitempty"`
+}
+
+type ChatMemberBotAddedEvent struct {
+	*model.BaseEventV2
+	Event *ChatMemberBotAddedEventData `json:"event"`
 }
 
 type ChatMemberBotDeletedEventData struct {

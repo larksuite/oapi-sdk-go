@@ -3,8 +3,6 @@ package v2
 
 import (
 	"github.com/larksuite/oapi-sdk-go"
-	"github.com/larksuite/oapi-sdk-go/api"
-	"github.com/larksuite/oapi-sdk-go/api/core/request"
 )
 
 type Service struct {
@@ -38,9 +36,9 @@ type TenantQueryReqCall struct {
 
 func (rc *TenantQueryReqCall) Do() (*TenantQueryResult, error) {
 	var result = &TenantQueryResult{}
-	req := request.NewRequest("/open-apis/tenant/v2/tenant/query", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.tenants.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/tenant/v2/tenant/query", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.tenants.service.conf, req)
 	return result, err
 }
 

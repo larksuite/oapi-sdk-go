@@ -172,14 +172,18 @@ func (s *MeetingRoom) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
-type RoomBatchGetResult struct {
-	Rooms []*Room `json:"rooms,omitempty"`
-}
-
 type FreebusyBatchGetResult struct {
 	TimeMin  string                     `json:"time_min,omitempty"`
 	TimeMax  string                     `json:"time_max,omitempty"`
 	FreeBusy map[string][]*RoomFreeBusy `json:"free_busy,omitempty"`
+}
+
+type BuildingBatchGetResult struct {
+	Buildings []*Building `json:"buildings,omitempty"`
+}
+
+type RoomBatchGetResult struct {
+	Rooms []*Room `json:"rooms,omitempty"`
 }
 
 type SummaryBatchGetReqBody struct {
@@ -196,10 +200,6 @@ func (s *SummaryBatchGetReqBody) MarshalJSON() ([]byte, error) {
 type SummaryBatchGetResult struct {
 	EventInfos     []*EventInfo     `json:"EventInfos,omitempty"`
 	ErrorEventUids []*ErrorEventUid `json:"ErrorEventUids,omitempty"`
-}
-
-type BuildingBatchGetResult struct {
-	Buildings []*Building `json:"buildings,omitempty"`
 }
 
 type RoomBatchGetIdResult struct {
@@ -271,10 +271,8 @@ func (s *RoomDeleteReqBody) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
-type BuildingListResult struct {
-	PageToken string      `json:"page_token,omitempty"`
-	HasMore   bool        `json:"has_more,omitempty"`
-	Buildings []*Building `json:"buildings,omitempty"`
+type CountryListResult struct {
+	Countries []*Country `json:"countries,omitempty"`
 }
 
 type DistrictListResult struct {
@@ -287,8 +285,10 @@ type RoomListResult struct {
 	Rooms     []*Room `json:"rooms,omitempty"`
 }
 
-type CountryListResult struct {
-	Countries []*Country `json:"countries,omitempty"`
+type BuildingListResult struct {
+	PageToken string      `json:"page_token,omitempty"`
+	HasMore   bool        `json:"has_more,omitempty"`
+	Buildings []*Building `json:"buildings,omitempty"`
 }
 
 type InstanceReplyReqBody struct {

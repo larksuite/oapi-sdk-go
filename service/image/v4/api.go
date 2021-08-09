@@ -3,8 +3,6 @@ package v4
 
 import (
 	"github.com/larksuite/oapi-sdk-go"
-	"github.com/larksuite/oapi-sdk-go/api"
-	"github.com/larksuite/oapi-sdk-go/api/core/request"
 	"io"
 )
 
@@ -47,11 +45,11 @@ func (rc *ImageGetReqCall) SetResponseStream(result io.Writer) {
 }
 
 func (rc *ImageGetReqCall) Do() (io.Writer, error) {
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
-	rc.opts = append(rc.opts, request.SetResponseStream())
-	req := request.NewRequest("/open-apis/image/v4/get", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, rc.result, rc.opts...)
-	err := api.Send(rc.ctx, rc.images.service.conf, req)
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetResponseStream())
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/image/v4/get", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, nil, rc.result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.images.service.conf, req)
 	return rc.result, err
 }
 
@@ -80,9 +78,9 @@ func (rc *ImagePutReqCall) SetImageType(imageType string) {
 
 func (rc *ImagePutReqCall) Do() (*Image, error) {
 	var result = &Image{}
-	req := request.NewRequest("/open-apis/image/v4/put", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.images.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/image/v4/put", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.images.service.conf, req)
 	return result, err
 }
 
@@ -90,7 +88,7 @@ func (images *ImageService) Put(ctx *lark.Context, opts ...lark.APIRequestOpt) *
 	return &ImagePutReqCall{
 		ctx:    ctx,
 		images: images,
-		body:   request.NewFormData(),
+		body:   lark.NewFormData(),
 		opts:   opts,
 	}
 }

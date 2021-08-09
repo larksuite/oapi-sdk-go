@@ -3,8 +3,6 @@ package v3
 
 import (
 	"github.com/larksuite/oapi-sdk-go"
-	"github.com/larksuite/oapi-sdk-go/api"
-	"github.com/larksuite/oapi-sdk-go/api/core/request"
 )
 
 type Service struct {
@@ -97,12 +95,12 @@ func (rc *DepartmentGetReqCall) SetDepartmentIdType(departmentIdType string) {
 }
 
 func (rc *DepartmentGetReqCall) Do() (*DepartmentGetResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &DepartmentGetResult{}
-	req := request.NewRequest("/open-apis/contact/v3/departments/:department_id", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.departments.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/contact/v3/departments/:department_id", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.departments.service.conf, req)
 	return result, err
 }
 
@@ -133,12 +131,12 @@ func (rc *UserDeleteReqCall) SetUserIdType(userIdType string) {
 }
 
 func (rc *UserDeleteReqCall) Do() (*lark.NoData, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &lark.NoData{}
-	req := request.NewRequest("/open-apis/contact/v3/users/:user_id", "DELETE",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.users.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/contact/v3/users/:user_id", "DELETE",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.users.service.conf, req)
 	return result, err
 }
 
@@ -180,11 +178,11 @@ func (rc *DepartmentListReqCall) SetPageSize(pageSize int) {
 }
 
 func (rc *DepartmentListReqCall) Do() (*DepartmentListResult, error) {
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &DepartmentListResult{}
-	req := request.NewRequest("/open-apis/contact/v3/departments", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.departments.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/contact/v3/departments", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.departments.service.conf, req)
 	return result, err
 }
 
@@ -217,12 +215,12 @@ func (rc *DepartmentPatchReqCall) SetDepartmentIdType(departmentIdType string) {
 }
 
 func (rc *DepartmentPatchReqCall) Do() (*DepartmentPatchResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &DepartmentPatchResult{}
-	req := request.NewRequest("/open-apis/contact/v3/departments/:department_id", "PATCH",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.departments.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/contact/v3/departments/:department_id", "PATCH",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.departments.service.conf, req)
 	return result, err
 }
 
@@ -257,12 +255,12 @@ func (rc *UserUpdateReqCall) SetDepartmentIdType(departmentIdType string) {
 }
 
 func (rc *UserUpdateReqCall) Do() (*UserUpdateResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &UserUpdateResult{}
-	req := request.NewRequest("/open-apis/contact/v3/users/:user_id", "PUT",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.users.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/contact/v3/users/:user_id", "PUT",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.users.service.conf, req)
 	return result, err
 }
 
@@ -296,11 +294,11 @@ func (rc *UserCreateReqCall) SetClientToken(clientToken string) {
 }
 
 func (rc *UserCreateReqCall) Do() (*UserCreateResult, error) {
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &UserCreateResult{}
-	req := request.NewRequest("/open-apis/contact/v3/users", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.users.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/contact/v3/users", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.users.service.conf, req)
 	return result, err
 }
 
@@ -334,12 +332,12 @@ func (rc *UserPatchReqCall) SetDepartmentIdType(departmentIdType string) {
 }
 
 func (rc *UserPatchReqCall) Do() (*UserPatchResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &UserPatchResult{}
-	req := request.NewRequest("/open-apis/contact/v3/users/:user_id", "PATCH",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.users.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/contact/v3/users/:user_id", "PATCH",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.users.service.conf, req)
 	return result, err
 }
 
@@ -373,11 +371,11 @@ func (rc *DepartmentCreateReqCall) SetClientToken(clientToken string) {
 }
 
 func (rc *DepartmentCreateReqCall) Do() (*DepartmentCreateResult, error) {
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &DepartmentCreateResult{}
-	req := request.NewRequest("/open-apis/contact/v3/departments", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.departments.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/contact/v3/departments", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.departments.service.conf, req)
 	return result, err
 }
 
@@ -407,12 +405,12 @@ func (rc *DepartmentDeleteReqCall) SetDepartmentIdType(departmentIdType string) 
 }
 
 func (rc *DepartmentDeleteReqCall) Do() (*lark.NoData, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &lark.NoData{}
-	req := request.NewRequest("/open-apis/contact/v3/departments/:department_id", "DELETE",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.departments.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/contact/v3/departments/:department_id", "DELETE",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.departments.service.conf, req)
 	return result, err
 }
 
@@ -445,12 +443,12 @@ func (rc *UserGetReqCall) SetDepartmentIdType(departmentIdType string) {
 }
 
 func (rc *UserGetReqCall) Do() (*UserGetResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &UserGetResult{}
-	req := request.NewRequest("/open-apis/contact/v3/users/:user_id", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.users.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/contact/v3/users/:user_id", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.users.service.conf, req)
 	return result, err
 }
 
@@ -484,12 +482,12 @@ func (rc *DepartmentUpdateReqCall) SetDepartmentIdType(departmentIdType string) 
 }
 
 func (rc *DepartmentUpdateReqCall) Do() (*DepartmentUpdateResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &DepartmentUpdateResult{}
-	req := request.NewRequest("/open-apis/contact/v3/departments/:department_id", "PUT",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.departments.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/contact/v3/departments/:department_id", "PUT",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.departments.service.conf, req)
 	return result, err
 }
 
@@ -528,11 +526,11 @@ func (rc *UserListReqCall) SetPageSize(pageSize int) {
 }
 
 func (rc *UserListReqCall) Do() (*UserListResult, error) {
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &UserListResult{}
-	req := request.NewRequest("/open-apis/contact/v3/users", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.users.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/contact/v3/users", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.users.service.conf, req)
 	return result, err
 }
 
@@ -569,11 +567,11 @@ func (rc *DepartmentParentReqCall) SetPageSize(pageSize int) {
 }
 
 func (rc *DepartmentParentReqCall) Do() (*DepartmentParentResult, error) {
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &DepartmentParentResult{}
-	req := request.NewRequest("/open-apis/contact/v3/departments/parent", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.departments.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/contact/v3/departments/parent", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.departments.service.conf, req)
 	return result, err
 }
 
@@ -608,11 +606,11 @@ func (rc *DepartmentSearchReqCall) SetPageSize(pageSize int) {
 }
 
 func (rc *DepartmentSearchReqCall) Do() (*DepartmentSearchResult, error) {
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &DepartmentSearchResult{}
-	req := request.NewRequest("/open-apis/contact/v3/departments/search", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.departments.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/contact/v3/departments/search", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.departments.service.conf, req)
 	return result, err
 }
 
@@ -641,11 +639,11 @@ func (rc *EmployeeTypeEnumListReqCall) SetPageSize(pageSize int) {
 }
 
 func (rc *EmployeeTypeEnumListReqCall) Do() (*EmployeeTypeEnumListResult, error) {
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &EmployeeTypeEnumListResult{}
-	req := request.NewRequest("/open-apis/contact/v3/employee_type_enums", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.employeeTypeEnums.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/contact/v3/employee_type_enums", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.employeeTypeEnums.service.conf, req)
 	return result, err
 }
 
@@ -667,9 +665,9 @@ type EmployeeTypeEnumCreateReqCall struct {
 
 func (rc *EmployeeTypeEnumCreateReqCall) Do() (*EmployeeTypeEnumCreateResult, error) {
 	var result = &EmployeeTypeEnumCreateResult{}
-	req := request.NewRequest("/open-apis/contact/v3/employee_type_enums", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.employeeTypeEnums.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/contact/v3/employee_type_enums", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.employeeTypeEnums.service.conf, req)
 	return result, err
 }
 
@@ -694,11 +692,11 @@ func (rc *EmployeeTypeEnumDeleteReqCall) SetEnumId(enumId string) {
 }
 
 func (rc *EmployeeTypeEnumDeleteReqCall) Do() (*lark.NoData, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &lark.NoData{}
-	req := request.NewRequest("/open-apis/contact/v3/employee_type_enums/:enum_id", "DELETE",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.employeeTypeEnums.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/contact/v3/employee_type_enums/:enum_id", "DELETE",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.employeeTypeEnums.service.conf, req)
 	return result, err
 }
 
@@ -724,11 +722,11 @@ func (rc *EmployeeTypeEnumUpdateReqCall) SetEnumId(enumId string) {
 }
 
 func (rc *EmployeeTypeEnumUpdateReqCall) Do() (*EmployeeTypeEnumUpdateResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &EmployeeTypeEnumUpdateResult{}
-	req := request.NewRequest("/open-apis/contact/v3/employee_type_enums/:enum_id", "PUT",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.employeeTypeEnums.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/contact/v3/employee_type_enums/:enum_id", "PUT",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.employeeTypeEnums.service.conf, req)
 	return result, err
 }
 
@@ -757,11 +755,11 @@ func (rc *CustomAttrListReqCall) SetPageToken(pageToken string) {
 }
 
 func (rc *CustomAttrListReqCall) Do() (*CustomAttrListResult, error) {
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &CustomAttrListResult{}
-	req := request.NewRequest("/open-apis/contact/v3/custom_attrs", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.customAttrs.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/contact/v3/custom_attrs", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.customAttrs.service.conf, req)
 	return result, err
 }
 

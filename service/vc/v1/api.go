@@ -3,8 +3,6 @@ package v1
 
 import (
 	"github.com/larksuite/oapi-sdk-go"
-	"github.com/larksuite/oapi-sdk-go/api"
-	"github.com/larksuite/oapi-sdk-go/api/core/request"
 )
 
 type Service struct {
@@ -105,11 +103,11 @@ func (rc *RoomConfigQueryReqCall) SetRoomId(roomId int64) {
 }
 
 func (rc *RoomConfigQueryReqCall) Do() (*RoomConfig, error) {
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &RoomConfig{}
-	req := request.NewRequest("/open-apis/vc/v1/room_configs/query", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.roomConfigs.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/vc/v1/room_configs/query", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.roomConfigs.service.conf, req)
 	return result, err
 }
 
@@ -139,12 +137,12 @@ func (rc *MeetingInviteReqCall) SetUserIdType(userIdType string) {
 }
 
 func (rc *MeetingInviteReqCall) Do() (*MeetingInviteResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &MeetingInviteResult{}
-	req := request.NewRequest("/open-apis/vc/v1/meetings/:meeting_id/invite", "PATCH",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.meetings.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/vc/v1/meetings/:meeting_id/invite", "PATCH",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.meetings.service.conf, req)
 	return result, err
 }
 
@@ -183,11 +181,11 @@ func (rc *ReportGetTopUserReqCall) SetUserIdType(userIdType string) {
 }
 
 func (rc *ReportGetTopUserReqCall) Do() (*ReportGetTopUserResult, error) {
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &ReportGetTopUserResult{}
-	req := request.NewRequest("/open-apis/vc/v1/reports/get_top_user", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.reports.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/vc/v1/reports/get_top_user", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.reports.service.conf, req)
 	return result, err
 }
 
@@ -217,12 +215,12 @@ func (rc *MeetingSetHostReqCall) SetUserIdType(userIdType string) {
 }
 
 func (rc *MeetingSetHostReqCall) Do() (*MeetingSetHostResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &MeetingSetHostResult{}
-	req := request.NewRequest("/open-apis/vc/v1/meetings/:meeting_id/set_host", "PATCH",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.meetings.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/vc/v1/meetings/:meeting_id/set_host", "PATCH",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.meetings.service.conf, req)
 	return result, err
 }
 
@@ -249,11 +247,11 @@ func (rc *MeetingRecordingGetReqCall) SetMeetingId(meetingId int64) {
 }
 
 func (rc *MeetingRecordingGetReqCall) Do() (*MeetingRecordingGetResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &MeetingRecordingGetResult{}
-	req := request.NewRequest("/open-apis/vc/v1/meetings/:meeting_id/recording", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.meetingRecordings.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/vc/v1/meetings/:meeting_id/recording", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.meetingRecordings.service.conf, req)
 	return result, err
 }
 
@@ -278,11 +276,11 @@ func (rc *MeetingEndReqCall) SetMeetingId(meetingId int64) {
 }
 
 func (rc *MeetingEndReqCall) Do() (*lark.NoData, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &lark.NoData{}
-	req := request.NewRequest("/open-apis/vc/v1/meetings/:meeting_id/end", "PATCH",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.meetings.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/vc/v1/meetings/:meeting_id/end", "PATCH",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.meetings.service.conf, req)
 	return result, err
 }
 
@@ -307,11 +305,11 @@ func (rc *MeetingRecordingStopReqCall) SetMeetingId(meetingId int64) {
 }
 
 func (rc *MeetingRecordingStopReqCall) Do() (*lark.NoData, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &lark.NoData{}
-	req := request.NewRequest("/open-apis/vc/v1/meetings/:meeting_id/recording/stop", "PATCH",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.meetingRecordings.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/vc/v1/meetings/:meeting_id/recording/stop", "PATCH",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.meetingRecordings.service.conf, req)
 	return result, err
 }
 
@@ -339,11 +337,11 @@ func (rc *ReportGetDailyReqCall) SetEndTime(endTime int64) {
 }
 
 func (rc *ReportGetDailyReqCall) Do() (*ReportGetDailyResult, error) {
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &ReportGetDailyResult{}
-	req := request.NewRequest("/open-apis/vc/v1/reports/get_daily", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.reports.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/vc/v1/reports/get_daily", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.reports.service.conf, req)
 	return result, err
 }
 
@@ -378,12 +376,12 @@ func (rc *MeetingGetReqCall) SetUserIdType(userIdType string) {
 }
 
 func (rc *MeetingGetReqCall) Do() (*MeetingGetResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &MeetingGetResult{}
-	req := request.NewRequest("/open-apis/vc/v1/meetings/:meeting_id", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.meetings.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/vc/v1/meetings/:meeting_id", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.meetings.service.conf, req)
 	return result, err
 }
 
@@ -406,9 +404,9 @@ type RoomConfigSetReqCall struct {
 
 func (rc *RoomConfigSetReqCall) Do() (*lark.NoData, error) {
 	var result = &lark.NoData{}
-	req := request.NewRequest("/open-apis/vc/v1/room_configs/set", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.roomConfigs.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/vc/v1/room_configs/set", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.roomConfigs.service.conf, req)
 	return result, err
 }
 
@@ -438,12 +436,12 @@ func (rc *MeetingRecordingSetPermissionReqCall) SetUserIdType(userIdType string)
 }
 
 func (rc *MeetingRecordingSetPermissionReqCall) Do() (*lark.NoData, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &lark.NoData{}
-	req := request.NewRequest("/open-apis/vc/v1/meetings/:meeting_id/recording/set_permission", "PATCH",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.meetingRecordings.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/vc/v1/meetings/:meeting_id/recording/set_permission", "PATCH",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.meetingRecordings.service.conf, req)
 	return result, err
 }
 
@@ -471,11 +469,11 @@ func (rc *MeetingRecordingStartReqCall) SetMeetingId(meetingId int64) {
 }
 
 func (rc *MeetingRecordingStartReqCall) Do() (*lark.NoData, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &lark.NoData{}
-	req := request.NewRequest("/open-apis/vc/v1/meetings/:meeting_id/recording/start", "PATCH",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.meetingRecordings.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/vc/v1/meetings/:meeting_id/recording/start", "PATCH",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.meetingRecordings.service.conf, req)
 	return result, err
 }
 
@@ -506,12 +504,12 @@ func (rc *ReserveUpdateReqCall) SetUserIdType(userIdType string) {
 }
 
 func (rc *ReserveUpdateReqCall) Do() (*ReserveUpdateResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &ReserveUpdateResult{}
-	req := request.NewRequest("/open-apis/vc/v1/reserves/:reserve_id", "PUT",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.reserves.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/vc/v1/reserves/:reserve_id", "PUT",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.reserves.service.conf, req)
 	return result, err
 }
 
@@ -539,11 +537,11 @@ func (rc *ReserveApplyReqCall) SetUserIdType(userIdType string) {
 }
 
 func (rc *ReserveApplyReqCall) Do() (*ReserveApplyResult, error) {
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &ReserveApplyResult{}
-	req := request.NewRequest("/open-apis/vc/v1/reserves/apply", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.reserves.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/vc/v1/reserves/apply", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.reserves.service.conf, req)
 	return result, err
 }
 
@@ -573,12 +571,12 @@ func (rc *ReserveGetReqCall) SetUserIdType(userIdType string) {
 }
 
 func (rc *ReserveGetReqCall) Do() (*ReserveGetResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &ReserveGetResult{}
-	req := request.NewRequest("/open-apis/vc/v1/reserves/:reserve_id", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.reserves.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/vc/v1/reserves/:reserve_id", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.reserves.service.conf, req)
 	return result, err
 }
 
@@ -611,12 +609,12 @@ func (rc *ReserveGetActiveMeetingReqCall) SetUserIdType(userIdType string) {
 }
 
 func (rc *ReserveGetActiveMeetingReqCall) Do() (*ReserveGetActiveMeetingResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &ReserveGetActiveMeetingResult{}
-	req := request.NewRequest("/open-apis/vc/v1/reserves/:reserve_id/get_active_meeting", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.reserves.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/vc/v1/reserves/:reserve_id/get_active_meeting", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.reserves.service.conf, req)
 	return result, err
 }
 
@@ -642,11 +640,11 @@ func (rc *ReserveDeleteReqCall) SetReserveId(reserveId int64) {
 }
 
 func (rc *ReserveDeleteReqCall) Do() (*lark.NoData, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &lark.NoData{}
-	req := request.NewRequest("/open-apis/vc/v1/reserves/:reserve_id", "DELETE",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.reserves.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/vc/v1/reserves/:reserve_id", "DELETE",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.reserves.service.conf, req)
 	return result, err
 }
 

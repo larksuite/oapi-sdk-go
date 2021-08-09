@@ -3,8 +3,6 @@ package v1
 
 import (
 	"github.com/larksuite/oapi-sdk-go"
-	"github.com/larksuite/oapi-sdk-go/api"
-	"github.com/larksuite/oapi-sdk-go/api/core/request"
 )
 
 type Service struct {
@@ -39,9 +37,9 @@ type TextTranslateReqCall struct {
 
 func (rc *TextTranslateReqCall) Do() (*TextTranslateResult, error) {
 	var result = &TextTranslateResult{}
-	req := request.NewRequest("/open-apis/translation/v1/text/translate", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.texts.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/translation/v1/text/translate", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.texts.service.conf, req)
 	return result, err
 }
 
@@ -63,9 +61,9 @@ type TextDetectReqCall struct {
 
 func (rc *TextDetectReqCall) Do() (*TextDetectResult, error) {
 	var result = &TextDetectResult{}
-	req := request.NewRequest("/open-apis/translation/v1/text/detect", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.texts.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/translation/v1/text/detect", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.texts.service.conf, req)
 	return result, err
 }
 

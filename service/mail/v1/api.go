@@ -3,8 +3,6 @@ package v1
 
 import (
 	"github.com/larksuite/oapi-sdk-go"
-	"github.com/larksuite/oapi-sdk-go/api"
-	"github.com/larksuite/oapi-sdk-go/api/core/request"
 )
 
 type Service struct {
@@ -93,11 +91,11 @@ func (rc *MailgroupPermissionMemberDeleteReqCall) SetPermissionMemberId(permissi
 }
 
 func (rc *MailgroupPermissionMemberDeleteReqCall) Do() (*lark.NoData, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &lark.NoData{}
-	req := request.NewRequest("/open-apis/mail/v1/mailgroups/:mailgroup_id/permission_members/:permission_member_id", "DELETE",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.mailgroupPermissionMembers.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/mail/v1/mailgroups/:mailgroup_id/permission_members/:permission_member_id", "DELETE",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.mailgroupPermissionMembers.service.conf, req)
 	return result, err
 }
 
@@ -129,12 +127,12 @@ func (rc *PublicMailboxMemberGetReqCall) SetUserIdType(userIdType string) {
 }
 
 func (rc *PublicMailboxMemberGetReqCall) Do() (*PublicMailboxMember, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &PublicMailboxMember{}
-	req := request.NewRequest("/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members/:member_id", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.publicMailboxMembers.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members/:member_id", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.publicMailboxMembers.service.conf, req)
 	return result, err
 }
 
@@ -163,11 +161,11 @@ func (rc *PublicMailboxMemberDeleteReqCall) SetMemberId(memberId string) {
 }
 
 func (rc *PublicMailboxMemberDeleteReqCall) Do() (*lark.NoData, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &lark.NoData{}
-	req := request.NewRequest("/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members/:member_id", "DELETE",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.publicMailboxMembers.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members/:member_id", "DELETE",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.publicMailboxMembers.service.conf, req)
 	return result, err
 }
 
@@ -205,12 +203,12 @@ func (rc *MailgroupMemberListReqCall) SetPageSize(pageSize int) {
 }
 
 func (rc *MailgroupMemberListReqCall) Do() (*MailgroupMemberListResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &MailgroupMemberListResult{}
-	req := request.NewRequest("/open-apis/mail/v1/mailgroups/:mailgroup_id/members", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.mailgroupMembers.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/mail/v1/mailgroups/:mailgroup_id/members", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.mailgroupMembers.service.conf, req)
 	return result, err
 }
 
@@ -246,12 +244,12 @@ func (rc *MailgroupPermissionMemberGetReqCall) SetDepartmentIdType(departmentIdT
 }
 
 func (rc *MailgroupPermissionMemberGetReqCall) Do() (*MailgroupPermissionMember, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &MailgroupPermissionMember{}
-	req := request.NewRequest("/open-apis/mail/v1/mailgroups/:mailgroup_id/permission_members/:permission_member_id", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.mailgroupPermissionMembers.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/mail/v1/mailgroups/:mailgroup_id/permission_members/:permission_member_id", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.mailgroupPermissionMembers.service.conf, req)
 	return result, err
 }
 
@@ -290,12 +288,12 @@ func (rc *MailgroupPermissionMemberListReqCall) SetPageSize(pageSize int) {
 }
 
 func (rc *MailgroupPermissionMemberListReqCall) Do() (*MailgroupPermissionMemberListResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &MailgroupPermissionMemberListResult{}
-	req := request.NewRequest("/open-apis/mail/v1/mailgroups/:mailgroup_id/permission_members", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.mailgroupPermissionMembers.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/mail/v1/mailgroups/:mailgroup_id/permission_members", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.mailgroupPermissionMembers.service.conf, req)
 	return result, err
 }
 
@@ -322,11 +320,11 @@ func (rc *PublicMailboxUpdateReqCall) SetPublicMailboxId(publicMailboxId string)
 }
 
 func (rc *PublicMailboxUpdateReqCall) Do() (*PublicMailbox, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &PublicMailbox{}
-	req := request.NewRequest("/open-apis/mail/v1/public_mailboxes/:public_mailbox_id", "PUT",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.publicMailboxs.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/mail/v1/public_mailboxes/:public_mailbox_id", "PUT",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.publicMailboxs.service.conf, req)
 	return result, err
 }
 
@@ -352,11 +350,11 @@ func (rc *PublicMailboxMemberClearReqCall) SetPublicMailboxId(publicMailboxId st
 }
 
 func (rc *PublicMailboxMemberClearReqCall) Do() (*lark.NoData, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &lark.NoData{}
-	req := request.NewRequest("/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members/clear", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.publicMailboxMembers.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members/clear", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.publicMailboxMembers.service.conf, req)
 	return result, err
 }
 
@@ -391,12 +389,12 @@ func (rc *PublicMailboxMemberListReqCall) SetPageSize(pageSize int) {
 }
 
 func (rc *PublicMailboxMemberListReqCall) Do() (*PublicMailboxMemberListResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &PublicMailboxMemberListResult{}
-	req := request.NewRequest("/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.publicMailboxMembers.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.publicMailboxMembers.service.conf, req)
 	return result, err
 }
 
@@ -427,12 +425,12 @@ func (rc *PublicMailboxMemberCreateReqCall) SetUserIdType(userIdType string) {
 }
 
 func (rc *PublicMailboxMemberCreateReqCall) Do() (*PublicMailboxMember, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &PublicMailboxMember{}
-	req := request.NewRequest("/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.publicMailboxMembers.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.publicMailboxMembers.service.conf, req)
 	return result, err
 }
 
@@ -459,11 +457,11 @@ func (rc *MailgroupGetReqCall) SetMailgroupId(mailgroupId string) {
 }
 
 func (rc *MailgroupGetReqCall) Do() (*Mailgroup, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &Mailgroup{}
-	req := request.NewRequest("/open-apis/mail/v1/mailgroups/:mailgroup_id", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.mailgroups.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/mail/v1/mailgroups/:mailgroup_id", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.mailgroups.service.conf, req)
 	return result, err
 }
 
@@ -489,11 +487,11 @@ func (rc *MailgroupUpdateReqCall) SetMailgroupId(mailgroupId string) {
 }
 
 func (rc *MailgroupUpdateReqCall) Do() (*Mailgroup, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &Mailgroup{}
-	req := request.NewRequest("/open-apis/mail/v1/mailgroups/:mailgroup_id", "PUT",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.mailgroups.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/mail/v1/mailgroups/:mailgroup_id", "PUT",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.mailgroups.service.conf, req)
 	return result, err
 }
 
@@ -522,11 +520,11 @@ func (rc *PublicMailboxListReqCall) SetPageSize(pageSize int) {
 }
 
 func (rc *PublicMailboxListReqCall) Do() (*PublicMailboxListResult, error) {
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &PublicMailboxListResult{}
-	req := request.NewRequest("/open-apis/mail/v1/public_mailboxes", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.publicMailboxs.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/mail/v1/public_mailboxes", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.publicMailboxs.service.conf, req)
 	return result, err
 }
 
@@ -551,11 +549,11 @@ func (rc *MailgroupDeleteReqCall) SetMailgroupId(mailgroupId string) {
 }
 
 func (rc *MailgroupDeleteReqCall) Do() (*lark.NoData, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &lark.NoData{}
-	req := request.NewRequest("/open-apis/mail/v1/mailgroups/:mailgroup_id", "DELETE",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.mailgroups.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/mail/v1/mailgroups/:mailgroup_id", "DELETE",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.mailgroups.service.conf, req)
 	return result, err
 }
 
@@ -588,12 +586,12 @@ func (rc *MailgroupPermissionMemberCreateReqCall) SetDepartmentIdType(department
 }
 
 func (rc *MailgroupPermissionMemberCreateReqCall) Do() (*MailgroupPermissionMember, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &MailgroupPermissionMember{}
-	req := request.NewRequest("/open-apis/mail/v1/mailgroups/:mailgroup_id/permission_members", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.mailgroupPermissionMembers.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/mail/v1/mailgroups/:mailgroup_id/permission_members", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.mailgroupPermissionMembers.service.conf, req)
 	return result, err
 }
 
@@ -617,9 +615,9 @@ type PublicMailboxCreateReqCall struct {
 
 func (rc *PublicMailboxCreateReqCall) Do() (*PublicMailbox, error) {
 	var result = &PublicMailbox{}
-	req := request.NewRequest("/open-apis/mail/v1/public_mailboxes", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.publicMailboxs.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/mail/v1/public_mailboxes", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.publicMailboxs.service.conf, req)
 	return result, err
 }
 
@@ -654,12 +652,12 @@ func (rc *MailgroupMemberGetReqCall) SetDepartmentIdType(departmentIdType string
 }
 
 func (rc *MailgroupMemberGetReqCall) Do() (*MailgroupMember, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &MailgroupMember{}
-	req := request.NewRequest("/open-apis/mail/v1/mailgroups/:mailgroup_id/members/:member_id", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.mailgroupMembers.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/mail/v1/mailgroups/:mailgroup_id/members/:member_id", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.mailgroupMembers.service.conf, req)
 	return result, err
 }
 
@@ -685,11 +683,11 @@ func (rc *PublicMailboxGetReqCall) SetPublicMailboxId(publicMailboxId string) {
 }
 
 func (rc *PublicMailboxGetReqCall) Do() (*PublicMailbox, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &PublicMailbox{}
-	req := request.NewRequest("/open-apis/mail/v1/public_mailboxes/:public_mailbox_id", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.publicMailboxs.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/mail/v1/public_mailboxes/:public_mailbox_id", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.publicMailboxs.service.conf, req)
 	return result, err
 }
 
@@ -715,11 +713,11 @@ func (rc *PublicMailboxPatchReqCall) SetPublicMailboxId(publicMailboxId string) 
 }
 
 func (rc *PublicMailboxPatchReqCall) Do() (*PublicMailbox, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &PublicMailbox{}
-	req := request.NewRequest("/open-apis/mail/v1/public_mailboxes/:public_mailbox_id", "PATCH",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.publicMailboxs.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/mail/v1/public_mailboxes/:public_mailbox_id", "PATCH",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.publicMailboxs.service.conf, req)
 	return result, err
 }
 
@@ -742,9 +740,9 @@ type MailgroupCreateReqCall struct {
 
 func (rc *MailgroupCreateReqCall) Do() (*Mailgroup, error) {
 	var result = &Mailgroup{}
-	req := request.NewRequest("/open-apis/mail/v1/mailgroups", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.mailgroups.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/mail/v1/mailgroups", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.mailgroups.service.conf, req)
 	return result, err
 }
 
@@ -772,11 +770,11 @@ func (rc *MailgroupListReqCall) SetPageSize(pageSize int) {
 }
 
 func (rc *MailgroupListReqCall) Do() (*MailgroupListResult, error) {
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &MailgroupListResult{}
-	req := request.NewRequest("/open-apis/mail/v1/mailgroups", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.mailgroups.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/mail/v1/mailgroups", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.mailgroups.service.conf, req)
 	return result, err
 }
 
@@ -802,11 +800,11 @@ func (rc *MailgroupPatchReqCall) SetMailgroupId(mailgroupId string) {
 }
 
 func (rc *MailgroupPatchReqCall) Do() (*Mailgroup, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &Mailgroup{}
-	req := request.NewRequest("/open-apis/mail/v1/mailgroups/:mailgroup_id", "PATCH",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.mailgroups.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/mail/v1/mailgroups/:mailgroup_id", "PATCH",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.mailgroups.service.conf, req)
 	return result, err
 }
 
@@ -840,12 +838,12 @@ func (rc *MailgroupMemberCreateReqCall) SetDepartmentIdType(departmentIdType str
 }
 
 func (rc *MailgroupMemberCreateReqCall) Do() (*MailgroupMember, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &MailgroupMember{}
-	req := request.NewRequest("/open-apis/mail/v1/mailgroups/:mailgroup_id/members", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.mailgroupMembers.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/mail/v1/mailgroups/:mailgroup_id/members", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.mailgroupMembers.service.conf, req)
 	return result, err
 }
 
@@ -875,11 +873,11 @@ func (rc *MailgroupMemberDeleteReqCall) SetMemberId(memberId string) {
 }
 
 func (rc *MailgroupMemberDeleteReqCall) Do() (*lark.NoData, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &lark.NoData{}
-	req := request.NewRequest("/open-apis/mail/v1/mailgroups/:mailgroup_id/members/:member_id", "DELETE",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.mailgroupMembers.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/mail/v1/mailgroups/:mailgroup_id/members/:member_id", "DELETE",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.mailgroupMembers.service.conf, req)
 	return result, err
 }
 

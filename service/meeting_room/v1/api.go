@@ -3,8 +3,6 @@ package v1
 
 import (
 	"github.com/larksuite/oapi-sdk-go"
-	"github.com/larksuite/oapi-sdk-go/api"
-	"github.com/larksuite/oapi-sdk-go/api/core/request"
 )
 
 type Service struct {
@@ -114,38 +112,6 @@ func newMeetingRoomService(service *Service) *MeetingRoomService {
 	}
 }
 
-type RoomBatchGetReqCall struct {
-	ctx         *lark.Context
-	rooms       *RoomService
-	queryParams map[string]interface{}
-	opts        []lark.APIRequestOpt
-}
-
-func (rc *RoomBatchGetReqCall) SetRoomIds(roomIds ...string) {
-	rc.queryParams["room_ids"] = roomIds
-}
-func (rc *RoomBatchGetReqCall) SetFields(fields string) {
-	rc.queryParams["fields"] = fields
-}
-
-func (rc *RoomBatchGetReqCall) Do() (*RoomBatchGetResult, error) {
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
-	var result = &RoomBatchGetResult{}
-	req := request.NewRequest("/open-apis/meeting_room/room/batch_get", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.rooms.service.conf, req)
-	return result, err
-}
-
-func (rooms *RoomService) BatchGet(ctx *lark.Context, opts ...lark.APIRequestOpt) *RoomBatchGetReqCall {
-	return &RoomBatchGetReqCall{
-		ctx:         ctx,
-		rooms:       rooms,
-		queryParams: map[string]interface{}{},
-		opts:        opts,
-	}
-}
-
 type FreebusyBatchGetReqCall struct {
 	ctx         *lark.Context
 	freebusys   *FreebusyService
@@ -164,11 +130,11 @@ func (rc *FreebusyBatchGetReqCall) SetTimeMax(timeMax string) {
 }
 
 func (rc *FreebusyBatchGetReqCall) Do() (*FreebusyBatchGetResult, error) {
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &FreebusyBatchGetResult{}
-	req := request.NewRequest("/open-apis/meeting_room/freebusy/batch_get", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.freebusys.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/meeting_room/freebusy/batch_get", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.freebusys.service.conf, req)
 	return result, err
 }
 
@@ -178,30 +144,6 @@ func (freebusys *FreebusyService) BatchGet(ctx *lark.Context, opts ...lark.APIRe
 		freebusys:   freebusys,
 		queryParams: map[string]interface{}{},
 		opts:        opts,
-	}
-}
-
-type SummaryBatchGetReqCall struct {
-	ctx      *lark.Context
-	summarys *SummaryService
-	body     *SummaryBatchGetReqBody
-	opts     []lark.APIRequestOpt
-}
-
-func (rc *SummaryBatchGetReqCall) Do() (*SummaryBatchGetResult, error) {
-	var result = &SummaryBatchGetResult{}
-	req := request.NewRequest("/open-apis/meeting_room/summary/batch_get", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.summarys.service.conf, req)
-	return result, err
-}
-
-func (summarys *SummaryService) BatchGet(ctx *lark.Context, body *SummaryBatchGetReqBody, opts ...lark.APIRequestOpt) *SummaryBatchGetReqCall {
-	return &SummaryBatchGetReqCall{
-		ctx:      ctx,
-		summarys: summarys,
-		body:     body,
-		opts:     opts,
 	}
 }
 
@@ -220,11 +162,11 @@ func (rc *BuildingBatchGetReqCall) SetFields(fields string) {
 }
 
 func (rc *BuildingBatchGetReqCall) Do() (*BuildingBatchGetResult, error) {
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &BuildingBatchGetResult{}
-	req := request.NewRequest("/open-apis/meeting_room/building/batch_get", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.buildings.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/meeting_room/building/batch_get", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.buildings.service.conf, req)
 	return result, err
 }
 
@@ -234,6 +176,62 @@ func (buildings *BuildingService) BatchGet(ctx *lark.Context, opts ...lark.APIRe
 		buildings:   buildings,
 		queryParams: map[string]interface{}{},
 		opts:        opts,
+	}
+}
+
+type RoomBatchGetReqCall struct {
+	ctx         *lark.Context
+	rooms       *RoomService
+	queryParams map[string]interface{}
+	opts        []lark.APIRequestOpt
+}
+
+func (rc *RoomBatchGetReqCall) SetRoomIds(roomIds ...string) {
+	rc.queryParams["room_ids"] = roomIds
+}
+func (rc *RoomBatchGetReqCall) SetFields(fields string) {
+	rc.queryParams["fields"] = fields
+}
+
+func (rc *RoomBatchGetReqCall) Do() (*RoomBatchGetResult, error) {
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
+	var result = &RoomBatchGetResult{}
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/meeting_room/room/batch_get", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.rooms.service.conf, req)
+	return result, err
+}
+
+func (rooms *RoomService) BatchGet(ctx *lark.Context, opts ...lark.APIRequestOpt) *RoomBatchGetReqCall {
+	return &RoomBatchGetReqCall{
+		ctx:         ctx,
+		rooms:       rooms,
+		queryParams: map[string]interface{}{},
+		opts:        opts,
+	}
+}
+
+type SummaryBatchGetReqCall struct {
+	ctx      *lark.Context
+	summarys *SummaryService
+	body     *SummaryBatchGetReqBody
+	opts     []lark.APIRequestOpt
+}
+
+func (rc *SummaryBatchGetReqCall) Do() (*SummaryBatchGetResult, error) {
+	var result = &SummaryBatchGetResult{}
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/meeting_room/summary/batch_get", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.summarys.service.conf, req)
+	return result, err
+}
+
+func (summarys *SummaryService) BatchGet(ctx *lark.Context, body *SummaryBatchGetReqBody, opts ...lark.APIRequestOpt) *SummaryBatchGetReqCall {
+	return &SummaryBatchGetReqCall{
+		ctx:      ctx,
+		summarys: summarys,
+		body:     body,
+		opts:     opts,
 	}
 }
 
@@ -249,11 +247,11 @@ func (rc *RoomBatchGetIdReqCall) SetCustomRoomIds(customRoomIds ...string) {
 }
 
 func (rc *RoomBatchGetIdReqCall) Do() (*RoomBatchGetIdResult, error) {
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &RoomBatchGetIdResult{}
-	req := request.NewRequest("/open-apis/meeting_room/room/batch_get_id", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.rooms.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/meeting_room/room/batch_get_id", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.rooms.service.conf, req)
 	return result, err
 }
 
@@ -278,11 +276,11 @@ func (rc *BuildingBatchGetIdReqCall) SetCustomBuildingIds(customBuildingIds ...s
 }
 
 func (rc *BuildingBatchGetIdReqCall) Do() (*BuildingBatchGetIdResult, error) {
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &BuildingBatchGetIdResult{}
-	req := request.NewRequest("/open-apis/meeting_room/building/batch_get_id", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.buildings.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/meeting_room/building/batch_get_id", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.buildings.service.conf, req)
 	return result, err
 }
 
@@ -304,9 +302,9 @@ type BuildingCreateReqCall struct {
 
 func (rc *BuildingCreateReqCall) Do() (*BuildingCreateResult, error) {
 	var result = &BuildingCreateResult{}
-	req := request.NewRequest("/open-apis/meeting_room/building/create", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.buildings.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/meeting_room/building/create", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.buildings.service.conf, req)
 	return result, err
 }
 
@@ -328,9 +326,9 @@ type RoomCreateReqCall struct {
 
 func (rc *RoomCreateReqCall) Do() (*RoomCreateResult, error) {
 	var result = &RoomCreateResult{}
-	req := request.NewRequest("/open-apis/meeting_room/room/create", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.rooms.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/meeting_room/room/create", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.rooms.service.conf, req)
 	return result, err
 }
 
@@ -352,9 +350,9 @@ type BuildingDeleteReqCall struct {
 
 func (rc *BuildingDeleteReqCall) Do() (*lark.NoData, error) {
 	var result = &lark.NoData{}
-	req := request.NewRequest("/open-apis/meeting_room/building/delete", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.buildings.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/meeting_room/building/delete", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.buildings.service.conf, req)
 	return result, err
 }
 
@@ -376,9 +374,9 @@ type RoomDeleteReqCall struct {
 
 func (rc *RoomDeleteReqCall) Do() (*lark.NoData, error) {
 	var result = &lark.NoData{}
-	req := request.NewRequest("/open-apis/meeting_room/room/delete", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.rooms.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/meeting_room/room/delete", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.rooms.service.conf, req)
 	return result, err
 }
 
@@ -391,41 +389,25 @@ func (rooms *RoomService) Delete(ctx *lark.Context, body *RoomDeleteReqBody, opt
 	}
 }
 
-type BuildingListReqCall struct {
-	ctx         *lark.Context
-	buildings   *BuildingService
-	queryParams map[string]interface{}
-	opts        []lark.APIRequestOpt
+type CountryListReqCall struct {
+	ctx      *lark.Context
+	countrys *CountryService
+	opts     []lark.APIRequestOpt
 }
 
-func (rc *BuildingListReqCall) SetOrderBy(orderBy string) {
-	rc.queryParams["order_by"] = orderBy
-}
-func (rc *BuildingListReqCall) SetFields(fields string) {
-	rc.queryParams["fields"] = fields
-}
-func (rc *BuildingListReqCall) SetPageToken(pageToken string) {
-	rc.queryParams["page_token"] = pageToken
-}
-func (rc *BuildingListReqCall) SetPageSize(pageSize int) {
-	rc.queryParams["page_size"] = pageSize
-}
-
-func (rc *BuildingListReqCall) Do() (*BuildingListResult, error) {
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
-	var result = &BuildingListResult{}
-	req := request.NewRequest("/open-apis/meeting_room/building/list", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.buildings.service.conf, req)
+func (rc *CountryListReqCall) Do() (*CountryListResult, error) {
+	var result = &CountryListResult{}
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/meeting_room/country/list", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.countrys.service.conf, req)
 	return result, err
 }
 
-func (buildings *BuildingService) List(ctx *lark.Context, opts ...lark.APIRequestOpt) *BuildingListReqCall {
-	return &BuildingListReqCall{
-		ctx:         ctx,
-		buildings:   buildings,
-		queryParams: map[string]interface{}{},
-		opts:        opts,
+func (countrys *CountryService) List(ctx *lark.Context, opts ...lark.APIRequestOpt) *CountryListReqCall {
+	return &CountryListReqCall{
+		ctx:      ctx,
+		countrys: countrys,
+		opts:     opts,
 	}
 }
 
@@ -441,11 +423,11 @@ func (rc *DistrictListReqCall) SetCountryId(countryId int) {
 }
 
 func (rc *DistrictListReqCall) Do() (*DistrictListResult, error) {
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &DistrictListResult{}
-	req := request.NewRequest("/open-apis/meeting_room/district/list", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.districts.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/meeting_room/district/list", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.districts.service.conf, req)
 	return result, err
 }
 
@@ -482,11 +464,11 @@ func (rc *RoomListReqCall) SetPageSize(pageSize int) {
 }
 
 func (rc *RoomListReqCall) Do() (*RoomListResult, error) {
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &RoomListResult{}
-	req := request.NewRequest("/open-apis/meeting_room/room/list", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.rooms.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/meeting_room/room/list", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.rooms.service.conf, req)
 	return result, err
 }
 
@@ -499,25 +481,41 @@ func (rooms *RoomService) List(ctx *lark.Context, opts ...lark.APIRequestOpt) *R
 	}
 }
 
-type CountryListReqCall struct {
-	ctx      *lark.Context
-	countrys *CountryService
-	opts     []lark.APIRequestOpt
+type BuildingListReqCall struct {
+	ctx         *lark.Context
+	buildings   *BuildingService
+	queryParams map[string]interface{}
+	opts        []lark.APIRequestOpt
 }
 
-func (rc *CountryListReqCall) Do() (*CountryListResult, error) {
-	var result = &CountryListResult{}
-	req := request.NewRequest("/open-apis/meeting_room/country/list", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.countrys.service.conf, req)
+func (rc *BuildingListReqCall) SetOrderBy(orderBy string) {
+	rc.queryParams["order_by"] = orderBy
+}
+func (rc *BuildingListReqCall) SetFields(fields string) {
+	rc.queryParams["fields"] = fields
+}
+func (rc *BuildingListReqCall) SetPageToken(pageToken string) {
+	rc.queryParams["page_token"] = pageToken
+}
+func (rc *BuildingListReqCall) SetPageSize(pageSize int) {
+	rc.queryParams["page_size"] = pageSize
+}
+
+func (rc *BuildingListReqCall) Do() (*BuildingListResult, error) {
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
+	var result = &BuildingListResult{}
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/meeting_room/building/list", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.buildings.service.conf, req)
 	return result, err
 }
 
-func (countrys *CountryService) List(ctx *lark.Context, opts ...lark.APIRequestOpt) *CountryListReqCall {
-	return &CountryListReqCall{
-		ctx:      ctx,
-		countrys: countrys,
-		opts:     opts,
+func (buildings *BuildingService) List(ctx *lark.Context, opts ...lark.APIRequestOpt) *BuildingListReqCall {
+	return &BuildingListReqCall{
+		ctx:         ctx,
+		buildings:   buildings,
+		queryParams: map[string]interface{}{},
+		opts:        opts,
 	}
 }
 
@@ -530,9 +528,9 @@ type InstanceReplyReqCall struct {
 
 func (rc *InstanceReplyReqCall) Do() (*lark.NoData, error) {
 	var result = &lark.NoData{}
-	req := request.NewRequest("/open-apis/meeting_room/instance/reply", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.instances.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/meeting_room/instance/reply", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.instances.service.conf, req)
 	return result, err
 }
 
@@ -554,9 +552,9 @@ type BuildingUpdateReqCall struct {
 
 func (rc *BuildingUpdateReqCall) Do() (*lark.NoData, error) {
 	var result = &lark.NoData{}
-	req := request.NewRequest("/open-apis/meeting_room/building/update", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.buildings.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/meeting_room/building/update", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.buildings.service.conf, req)
 	return result, err
 }
 
@@ -578,9 +576,9 @@ type RoomUpdateReqCall struct {
 
 func (rc *RoomUpdateReqCall) Do() (*lark.NoData, error) {
 	var result = &lark.NoData{}
-	req := request.NewRequest("/open-apis/meeting_room/room/update", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.rooms.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/meeting_room/room/update", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.rooms.service.conf, req)
 	return result, err
 }
 

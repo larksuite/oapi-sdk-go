@@ -3,8 +3,6 @@ package v1
 
 import (
 	"github.com/larksuite/oapi-sdk-go"
-	"github.com/larksuite/oapi-sdk-go/api"
-	"github.com/larksuite/oapi-sdk-go/api/core/request"
 )
 
 type Service struct {
@@ -46,11 +44,11 @@ func (rc *IdentityCreateReqCall) SetUserIdType(userIdType string) {
 }
 
 func (rc *IdentityCreateReqCall) Do() (*IdentityCreateResult, error) {
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &IdentityCreateResult{}
-	req := request.NewRequest("/open-apis/human_authentication/v1/identities", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.identitys.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/human_authentication/v1/identities", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.identitys.service.conf, req)
 	return result, err
 }
 

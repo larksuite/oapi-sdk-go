@@ -3,8 +3,6 @@ package v2
 
 import (
 	"github.com/larksuite/oapi-sdk-go"
-	"github.com/larksuite/oapi-sdk-go/api"
-	"github.com/larksuite/oapi-sdk-go/api/core/request"
 )
 
 type Service struct {
@@ -43,11 +41,11 @@ func (rc *DocBatchUpdateReqCall) SetDocToken(docToken string) {
 }
 
 func (rc *DocBatchUpdateReqCall) Do() (*lark.NoData, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &lark.NoData{}
-	req := request.NewRequest("/open-apis/doc/v2/:docToken/batch_update", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.docs.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/doc/v2/:docToken/batch_update", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.docs.service.conf, req)
 	return result, err
 }
 
@@ -73,11 +71,11 @@ func (rc *DocContentReqCall) SetDocToken(docToken string) {
 }
 
 func (rc *DocContentReqCall) Do() (*DocContentResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &DocContentResult{}
-	req := request.NewRequest("/open-apis/doc/v2/:docToken/content", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.docs.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/doc/v2/:docToken/content", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.docs.service.conf, req)
 	return result, err
 }
 
@@ -99,9 +97,9 @@ type DocCreateReqCall struct {
 
 func (rc *DocCreateReqCall) Do() (*DocCreateResult, error) {
 	var result = &DocCreateResult{}
-	req := request.NewRequest("/open-apis/doc/v2/create", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.docs.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/doc/v2/create", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.docs.service.conf, req)
 	return result, err
 }
 
@@ -126,11 +124,11 @@ func (rc *DocMetaReqCall) SetDocToken(docToken string) {
 }
 
 func (rc *DocMetaReqCall) Do() (*DocMetaResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &DocMetaResult{}
-	req := request.NewRequest("/open-apis/doc/v2/meta/:docToken", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.docs.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/doc/v2/meta/:docToken", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.docs.service.conf, req)
 	return result, err
 }
 
@@ -155,11 +153,11 @@ func (rc *DocRawContentReqCall) SetDocToken(docToken string) {
 }
 
 func (rc *DocRawContentReqCall) Do() (*DocRawContentResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &DocRawContentResult{}
-	req := request.NewRequest("/open-apis/doc/v2/:docToken/raw_content", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.docs.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/doc/v2/:docToken/raw_content", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.docs.service.conf, req)
 	return result, err
 }
 

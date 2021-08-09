@@ -3,8 +3,6 @@ package v1
 
 import (
 	"github.com/larksuite/oapi-sdk-go"
-	"github.com/larksuite/oapi-sdk-go/api"
-	"github.com/larksuite/oapi-sdk-go/api/core/request"
 )
 
 type Service struct {
@@ -39,9 +37,9 @@ type AuthenAccessTokenReqCall struct {
 
 func (rc *AuthenAccessTokenReqCall) Do() (*UserAccessTokenInfo, error) {
 	var result = &UserAccessTokenInfo{}
-	req := request.NewRequest("/open-apis/authen/v1/access_token", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeApp}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.authens.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/authen/v1/access_token", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeApp}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.authens.service.conf, req)
 	return result, err
 }
 
@@ -63,9 +61,9 @@ type AuthenRefreshAccessTokenReqCall struct {
 
 func (rc *AuthenRefreshAccessTokenReqCall) Do() (*UserAccessTokenInfo, error) {
 	var result = &UserAccessTokenInfo{}
-	req := request.NewRequest("/open-apis/authen/v1/refresh_access_token", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeApp}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.authens.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/authen/v1/refresh_access_token", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeApp}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.authens.service.conf, req)
 	return result, err
 }
 
@@ -86,9 +84,9 @@ type AuthenUserInfoReqCall struct {
 
 func (rc *AuthenUserInfoReqCall) Do() (*UserInfo, error) {
 	var result = &UserInfo{}
-	req := request.NewRequest("/open-apis/authen/v1/user_info", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.authens.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/authen/v1/user_info", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.authens.service.conf, req)
 	return result, err
 }
 

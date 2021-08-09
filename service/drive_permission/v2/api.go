@@ -3,8 +3,6 @@ package v2
 
 import (
 	"github.com/larksuite/oapi-sdk-go"
-	"github.com/larksuite/oapi-sdk-go/api"
-	"github.com/larksuite/oapi-sdk-go/api/core/request"
 )
 
 type Service struct {
@@ -39,9 +37,9 @@ type PublicGetReqCall struct {
 
 func (rc *PublicGetReqCall) Do() (*PublicGetResult, error) {
 	var result = &PublicGetResult{}
-	req := request.NewRequest("/open-apis/drive/permission/v2/public", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.publics.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/drive/permission/v2/public", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.publics.service.conf, req)
 	return result, err
 }
 
@@ -63,9 +61,9 @@ type PublicUpdateReqCall struct {
 
 func (rc *PublicUpdateReqCall) Do() (*lark.NoData, error) {
 	var result = &lark.NoData{}
-	req := request.NewRequest("/open-apis/drive/permission/v2/public/update", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.publics.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/drive/permission/v2/public/update", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.publics.service.conf, req)
 	return result, err
 }
 

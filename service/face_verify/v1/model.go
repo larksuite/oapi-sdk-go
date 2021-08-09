@@ -4,19 +4,3 @@ package v1
 import (
 	"github.com/larksuite/oapi-sdk-go/api/core/tools"
 )
-
-type FaceVerify struct {
-}
-
-type FaceVerifyCropFaceImageResult struct {
-	FaceImage string `json:"face_image,omitempty"`
-}
-
-type FaceVerifyQueryAuthResultResult struct {
-	AuthState     int `json:"auth_state,omitempty"`
-	AuthTimpstamp int `json:"auth_timpstamp,omitempty"`
-}
-
-type FaceVerifyUploadFaceImageResult struct {
-	FaceUid string `json:"face_uid,omitempty"`
-}

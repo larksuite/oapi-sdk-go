@@ -4,13 +4,13 @@ import (
 	"context"
 	"fmt"
 	"github.com/larksuite/oapi-sdk-go"
+	"github.com/larksuite/oapi-sdk-go/core"
 	im "github.com/larksuite/oapi-sdk-go/service/im/v1"
 )
 
-var newConf = lark.NewInternalAppConfigByEnv(lark.DomainFeiShu)
+var newConf = core.NewConfig(core.DomainFeiShu, core.GetInternalAppSettingsByEnv(), core.SetLoggerLevel(core.LoggerLevelDebug))
 
 func main() {
-	newConf.SetLogLevel(lark.LogLevelDebug)
 	testSendCardMessage1()
 	testMessageCreate1()
 }

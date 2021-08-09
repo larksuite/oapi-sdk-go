@@ -3,8 +3,6 @@ package v1
 
 import (
 	"github.com/larksuite/oapi-sdk-go"
-	"github.com/larksuite/oapi-sdk-go/api"
-	"github.com/larksuite/oapi-sdk-go/api/core/request"
 )
 
 type Service struct {
@@ -51,9 +49,9 @@ type MemberCreateReqCall struct {
 
 func (rc *MemberCreateReqCall) Do() (*MemberCreateResult, error) {
 	var result = &MemberCreateResult{}
-	req := request.NewRequest("/open-apis/drive/permission/member/create", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.members.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/drive/permission/member/create", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.members.service.conf, req)
 	return result, err
 }
 
@@ -75,9 +73,9 @@ type MemberDeleteReqCall struct {
 
 func (rc *MemberDeleteReqCall) Do() (*MemberDeleteResult, error) {
 	var result = &MemberDeleteResult{}
-	req := request.NewRequest("/open-apis/drive/permission/member/delete", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.members.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/drive/permission/member/delete", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.members.service.conf, req)
 	return result, err
 }
 
@@ -99,9 +97,9 @@ type MemberListReqCall struct {
 
 func (rc *MemberListReqCall) Do() (*MemberListResult, error) {
 	var result = &MemberListResult{}
-	req := request.NewRequest("/open-apis/drive/permission/member/list", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.members.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/drive/permission/member/list", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.members.service.conf, req)
 	return result, err
 }
 
@@ -123,9 +121,9 @@ type MemberPermittedReqCall struct {
 
 func (rc *MemberPermittedReqCall) Do() (*MemberPermittedResult, error) {
 	var result = &MemberPermittedResult{}
-	req := request.NewRequest("/open-apis/drive/permission/member/permitted", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.members.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/drive/permission/member/permitted", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.members.service.conf, req)
 	return result, err
 }
 
@@ -147,9 +145,9 @@ type MemberTransferReqCall struct {
 
 func (rc *MemberTransferReqCall) Do() (*MemberTransferResult, error) {
 	var result = &MemberTransferResult{}
-	req := request.NewRequest("/open-apis/drive/permission/member/transfer", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.members.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/drive/permission/member/transfer", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.members.service.conf, req)
 	return result, err
 }
 
@@ -171,9 +169,9 @@ type MemberUpdateReqCall struct {
 
 func (rc *MemberUpdateReqCall) Do() (*MemberUpdateResult, error) {
 	var result = &MemberUpdateResult{}
-	req := request.NewRequest("/open-apis/drive/permission/member/update", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.members.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/drive/permission/member/update", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.members.service.conf, req)
 	return result, err
 }
 
@@ -195,9 +193,9 @@ type PublicUpdateReqCall struct {
 
 func (rc *PublicUpdateReqCall) Do() (*PublicUpdateResult, error) {
 	var result = &PublicUpdateResult{}
-	req := request.NewRequest("/open-apis/drive/permission/public/update", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.publics.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/drive/permission/public/update", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.publics.service.conf, req)
 	return result, err
 }
 

@@ -48,6 +48,12 @@ func NewAPIRequest(httpPath, httpMethod string, accessTokenType AccessTokenType,
 	return req
 }
 
-func SendAPIRequest(ctx *core.Context, appConfig *AppConfig, req *APIRequest) error {
-	return api.Send(ctx, appConfig.Config, req)
+func NewAPIRequestWithMultiToken(httpPath, httpMethod string, accessTokenTypes []AccessTokenType,
+	input interface{}, output interface{}, opts ...APIRequestOpt) *APIRequest {
+	req := request.NewRequest(httpPath, httpMethod, accessTokenTypes, input, output, opts...)
+	return req
+}
+
+func SendAPIRequest(ctx *core.Context, conf Config, req *APIRequest) error {
+	return api.Send(ctx, conf, req)
 }

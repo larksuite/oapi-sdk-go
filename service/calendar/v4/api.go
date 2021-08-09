@@ -3,8 +3,6 @@ package v4
 
 import (
 	"github.com/larksuite/oapi-sdk-go"
-	"github.com/larksuite/oapi-sdk-go/api"
-	"github.com/larksuite/oapi-sdk-go/api/core/request"
 )
 
 type Service struct {
@@ -123,9 +121,9 @@ type CalendarCreateReqCall struct {
 
 func (rc *CalendarCreateReqCall) Do() (*CalendarCreateResult, error) {
 	var result = &CalendarCreateResult{}
-	req := request.NewRequest("/open-apis/calendar/v4/calendars", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.calendars.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/calendar/v4/calendars", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.calendars.service.conf, req)
 	return result, err
 }
 
@@ -157,12 +155,12 @@ func (rc *CalendarEventDeleteReqCall) SetNeedNotification(needNotification bool)
 }
 
 func (rc *CalendarEventDeleteReqCall) Do() (*lark.NoData, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &lark.NoData{}
-	req := request.NewRequest("/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id", "DELETE",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.calendarEvents.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id", "DELETE",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.calendarEvents.service.conf, req)
 	return result, err
 }
 
@@ -191,11 +189,11 @@ func (rc *CalendarEventGetReqCall) SetEventId(eventId string) {
 }
 
 func (rc *CalendarEventGetReqCall) Do() (*CalendarEventGetResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &CalendarEventGetResult{}
-	req := request.NewRequest("/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.calendarEvents.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.calendarEvents.service.conf, req)
 	return result, err
 }
 
@@ -221,11 +219,11 @@ func (rc *CalendarPatchReqCall) SetCalendarId(calendarId string) {
 }
 
 func (rc *CalendarPatchReqCall) Do() (*CalendarPatchResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &CalendarPatchResult{}
-	req := request.NewRequest("/open-apis/calendar/v4/calendars/:calendar_id", "PATCH",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.calendars.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/calendar/v4/calendars/:calendar_id", "PATCH",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.calendars.service.conf, req)
 	return result, err
 }
 
@@ -251,11 +249,11 @@ func (rc *CalendarDeleteReqCall) SetCalendarId(calendarId string) {
 }
 
 func (rc *CalendarDeleteReqCall) Do() (*lark.NoData, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &lark.NoData{}
-	req := request.NewRequest("/open-apis/calendar/v4/calendars/:calendar_id", "DELETE",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.calendars.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/calendar/v4/calendars/:calendar_id", "DELETE",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.calendars.service.conf, req)
 	return result, err
 }
 
@@ -290,12 +288,12 @@ func (rc *CalendarAclListReqCall) SetPageSize(pageSize int) {
 }
 
 func (rc *CalendarAclListReqCall) Do() (*CalendarAclListResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &CalendarAclListResult{}
-	req := request.NewRequest("/open-apis/calendar/v4/calendars/:calendar_id/acls", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.calendarAcls.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/calendar/v4/calendars/:calendar_id/acls", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.calendarAcls.service.conf, req)
 	return result, err
 }
 
@@ -324,11 +322,11 @@ func (rc *CalendarAclDeleteReqCall) SetAclId(aclId string) {
 }
 
 func (rc *CalendarAclDeleteReqCall) Do() (*lark.NoData, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &lark.NoData{}
-	req := request.NewRequest("/open-apis/calendar/v4/calendars/:calendar_id/acls/:acl_id", "DELETE",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.calendarAcls.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/calendar/v4/calendars/:calendar_id/acls/:acl_id", "DELETE",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.calendarAcls.service.conf, req)
 	return result, err
 }
 
@@ -358,12 +356,12 @@ func (rc *CalendarAclCreateReqCall) SetUserIdType(userIdType string) {
 }
 
 func (rc *CalendarAclCreateReqCall) Do() (*CalendarAcl, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &CalendarAcl{}
-	req := request.NewRequest("/open-apis/calendar/v4/calendars/:calendar_id/acls", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.calendarAcls.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/calendar/v4/calendars/:calendar_id/acls", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.calendarAcls.service.conf, req)
 	return result, err
 }
 
@@ -391,11 +389,11 @@ func (rc *CalendarEventCreateReqCall) SetCalendarId(calendarId string) {
 }
 
 func (rc *CalendarEventCreateReqCall) Do() (*CalendarEventCreateResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &CalendarEventCreateResult{}
-	req := request.NewRequest("/open-apis/calendar/v4/calendars/:calendar_id/events", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.calendarEvents.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/calendar/v4/calendars/:calendar_id/events", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.calendarEvents.service.conf, req)
 	return result, err
 }
 
@@ -406,6 +404,41 @@ func (calendarEvents *CalendarEventService) Create(ctx *lark.Context, body *Cale
 		body:           body,
 		pathParams:     map[string]interface{}{},
 		opts:           opts,
+	}
+}
+
+type CalendarListReqCall struct {
+	ctx         *lark.Context
+	calendars   *CalendarService
+	queryParams map[string]interface{}
+	opts        []lark.APIRequestOpt
+}
+
+func (rc *CalendarListReqCall) SetPageSize(pageSize int) {
+	rc.queryParams["page_size"] = pageSize
+}
+func (rc *CalendarListReqCall) SetPageToken(pageToken string) {
+	rc.queryParams["page_token"] = pageToken
+}
+func (rc *CalendarListReqCall) SetSyncToken(syncToken string) {
+	rc.queryParams["sync_token"] = syncToken
+}
+
+func (rc *CalendarListReqCall) Do() (*CalendarListResult, error) {
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
+	var result = &CalendarListResult{}
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/calendar/v4/calendars", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.calendars.service.conf, req)
+	return result, err
+}
+
+func (calendars *CalendarService) List(ctx *lark.Context, opts ...lark.APIRequestOpt) *CalendarListReqCall {
+	return &CalendarListReqCall{
+		ctx:         ctx,
+		calendars:   calendars,
+		queryParams: map[string]interface{}{},
+		opts:        opts,
 	}
 }
 
@@ -434,12 +467,12 @@ func (rc *CalendarEventAttendeeListReqCall) SetPageSize(pageSize int) {
 }
 
 func (rc *CalendarEventAttendeeListReqCall) Do() (*CalendarEventAttendeeListResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &CalendarEventAttendeeListResult{}
-	req := request.NewRequest("/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id/attendees", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.calendarEventAttendees.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id/attendees", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.calendarEventAttendees.service.conf, req)
 	return result, err
 }
 
@@ -450,41 +483,6 @@ func (calendarEventAttendees *CalendarEventAttendeeService) List(ctx *lark.Conte
 		pathParams:             map[string]interface{}{},
 		queryParams:            map[string]interface{}{},
 		opts:                   opts,
-	}
-}
-
-type CalendarListReqCall struct {
-	ctx         *lark.Context
-	calendars   *CalendarService
-	queryParams map[string]interface{}
-	opts        []lark.APIRequestOpt
-}
-
-func (rc *CalendarListReqCall) SetPageSize(pageSize int) {
-	rc.queryParams["page_size"] = pageSize
-}
-func (rc *CalendarListReqCall) SetPageToken(pageToken string) {
-	rc.queryParams["page_token"] = pageToken
-}
-func (rc *CalendarListReqCall) SetSyncToken(syncToken string) {
-	rc.queryParams["sync_token"] = syncToken
-}
-
-func (rc *CalendarListReqCall) Do() (*CalendarListResult, error) {
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
-	var result = &CalendarListResult{}
-	req := request.NewRequest("/open-apis/calendar/v4/calendars", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.calendars.service.conf, req)
-	return result, err
-}
-
-func (calendars *CalendarService) List(ctx *lark.Context, opts ...lark.APIRequestOpt) *CalendarListReqCall {
-	return &CalendarListReqCall{
-		ctx:         ctx,
-		calendars:   calendars,
-		queryParams: map[string]interface{}{},
-		opts:        opts,
 	}
 }
 
@@ -504,11 +502,11 @@ func (rc *CalendarEventAttendeeBatchDeleteReqCall) SetEventId(eventId string) {
 }
 
 func (rc *CalendarEventAttendeeBatchDeleteReqCall) Do() (*lark.NoData, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &lark.NoData{}
-	req := request.NewRequest("/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id/attendees/batch_delete", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.calendarEventAttendees.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id/attendees/batch_delete", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.calendarEventAttendees.service.conf, req)
 	return result, err
 }
 
@@ -542,12 +540,12 @@ func (rc *CalendarEventAttendeeCreateReqCall) SetUserIdType(userIdType string) {
 }
 
 func (rc *CalendarEventAttendeeCreateReqCall) Do() (*CalendarEventAttendeeCreateResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &CalendarEventAttendeeCreateResult{}
-	req := request.NewRequest("/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id/attendees", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.calendarEventAttendees.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id/attendees", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.calendarEventAttendees.service.conf, req)
 	return result, err
 }
 
@@ -574,11 +572,11 @@ func (rc *CalendarGetReqCall) SetCalendarId(calendarId string) {
 }
 
 func (rc *CalendarGetReqCall) Do() (*Calendar, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &Calendar{}
-	req := request.NewRequest("/open-apis/calendar/v4/calendars/:calendar_id", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.calendars.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/calendar/v4/calendars/:calendar_id", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.calendars.service.conf, req)
 	return result, err
 }
 
@@ -616,12 +614,12 @@ func (rc *CalendarEventListReqCall) SetSyncToken(syncToken string) {
 }
 
 func (rc *CalendarEventListReqCall) Do() (*CalendarEventListResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &CalendarEventListResult{}
-	req := request.NewRequest("/open-apis/calendar/v4/calendars/:calendar_id/events", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.calendarEvents.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/calendar/v4/calendars/:calendar_id/events", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.calendarEvents.service.conf, req)
 	return result, err
 }
 
@@ -651,11 +649,11 @@ func (rc *CalendarSearchReqCall) SetPageSize(pageSize int) {
 }
 
 func (rc *CalendarSearchReqCall) Do() (*CalendarSearchResult, error) {
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &CalendarSearchResult{}
-	req := request.NewRequest("/open-apis/calendar/v4/calendars/search", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.calendars.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/calendar/v4/calendars/search", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.calendars.service.conf, req)
 	return result, err
 }
 
@@ -682,11 +680,11 @@ func (rc *FreebusyListReqCall) SetUserIdType(userIdType string) {
 }
 
 func (rc *FreebusyListReqCall) Do() (*FreebusyListResult, error) {
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &FreebusyListResult{}
-	req := request.NewRequest("/open-apis/calendar/v4/freebusy/list", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.freebusys.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/calendar/v4/freebusy/list", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.freebusys.service.conf, req)
 	return result, err
 }
 
@@ -716,11 +714,11 @@ func (rc *CalendarEventPatchReqCall) SetEventId(eventId string) {
 }
 
 func (rc *CalendarEventPatchReqCall) Do() (*CalendarEventPatchResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &CalendarEventPatchResult{}
-	req := request.NewRequest("/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id", "PATCH",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.calendarEvents.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id", "PATCH",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.calendarEvents.service.conf, req)
 	return result, err
 }
 
@@ -746,11 +744,11 @@ func (rc *TimeoffEventDeleteReqCall) SetTimeoffEventId(timeoffEventId string) {
 }
 
 func (rc *TimeoffEventDeleteReqCall) Do() (*lark.NoData, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &lark.NoData{}
-	req := request.NewRequest("/open-apis/calendar/v4/timeoff_events/:timeoff_event_id", "DELETE",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.timeoffEvents.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/calendar/v4/timeoff_events/:timeoff_event_id", "DELETE",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.timeoffEvents.service.conf, req)
 	return result, err
 }
 
@@ -776,11 +774,11 @@ func (rc *TimeoffEventCreateReqCall) SetUserIdType(userIdType string) {
 }
 
 func (rc *TimeoffEventCreateReqCall) Do() (*TimeoffEvent, error) {
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &TimeoffEvent{}
-	req := request.NewRequest("/open-apis/calendar/v4/timeoff_events", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.timeoffEvents.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/calendar/v4/timeoff_events", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.timeoffEvents.service.conf, req)
 	return result, err
 }
 
@@ -806,11 +804,11 @@ func (rc *CalendarUnsubscribeReqCall) SetCalendarId(calendarId string) {
 }
 
 func (rc *CalendarUnsubscribeReqCall) Do() (*lark.NoData, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &lark.NoData{}
-	req := request.NewRequest("/open-apis/calendar/v4/calendars/:calendar_id/unsubscribe", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.calendars.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/calendar/v4/calendars/:calendar_id/unsubscribe", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.calendars.service.conf, req)
 	return result, err
 }
 
@@ -846,12 +844,12 @@ func (rc *CalendarEventSearchReqCall) SetPageSize(pageSize int) {
 }
 
 func (rc *CalendarEventSearchReqCall) Do() (*CalendarEventSearchResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &CalendarEventSearchResult{}
-	req := request.NewRequest("/open-apis/calendar/v4/calendars/:calendar_id/events/search", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.calendarEvents.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/calendar/v4/calendars/:calendar_id/events/search", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.calendarEvents.service.conf, req)
 	return result, err
 }
 
@@ -878,11 +876,11 @@ func (rc *CalendarSubscribeReqCall) SetCalendarId(calendarId string) {
 }
 
 func (rc *CalendarSubscribeReqCall) Do() (*CalendarSubscribeResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &CalendarSubscribeResult{}
-	req := request.NewRequest("/open-apis/calendar/v4/calendars/:calendar_id/subscribe", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.calendars.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/calendar/v4/calendars/:calendar_id/subscribe", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.calendars.service.conf, req)
 	return result, err
 }
 
@@ -904,9 +902,9 @@ type SettingGenerateCaldavConfReqCall struct {
 
 func (rc *SettingGenerateCaldavConfReqCall) Do() (*SettingGenerateCaldavConfResult, error) {
 	var result = &SettingGenerateCaldavConfResult{}
-	req := request.NewRequest("/open-apis/calendar/v4/settings/generate_caldav_conf", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.settings.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/calendar/v4/settings/generate_caldav_conf", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.settings.service.conf, req)
 	return result, err
 }
 
@@ -931,11 +929,11 @@ func (rc *CalendarEventSubscriptionReqCall) SetCalendarId(calendarId string) {
 }
 
 func (rc *CalendarEventSubscriptionReqCall) Do() (*lark.NoData, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &lark.NoData{}
-	req := request.NewRequest("/open-apis/calendar/v4/calendars/:calendar_id/events/subscription", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.calendarEvents.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/calendar/v4/calendars/:calendar_id/events/subscription", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.calendarEvents.service.conf, req)
 	return result, err
 }
 
@@ -956,9 +954,9 @@ type CalendarSubscriptionReqCall struct {
 
 func (rc *CalendarSubscriptionReqCall) Do() (*lark.NoData, error) {
 	var result = &lark.NoData{}
-	req := request.NewRequest("/open-apis/calendar/v4/calendars/subscription", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.calendars.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/calendar/v4/calendars/subscription", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.calendars.service.conf, req)
 	return result, err
 }
 
@@ -982,11 +980,11 @@ func (rc *CalendarAclSubscriptionReqCall) SetCalendarId(calendarId string) {
 }
 
 func (rc *CalendarAclSubscriptionReqCall) Do() (*lark.NoData, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &lark.NoData{}
-	req := request.NewRequest("/open-apis/calendar/v4/calendars/:calendar_id/acls/subscription", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.calendarAcls.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/calendar/v4/calendars/:calendar_id/acls/subscription", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.calendarAcls.service.conf, req)
 	return result, err
 }
 
@@ -1024,12 +1022,12 @@ func (rc *CalendarEventAttendeeChatMemberListReqCall) SetPageSize(pageSize int) 
 }
 
 func (rc *CalendarEventAttendeeChatMemberListReqCall) Do() (*CalendarEventAttendeeChatMemberListResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &CalendarEventAttendeeChatMemberListResult{}
-	req := request.NewRequest("/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id/attendees/:attendee_id/chat_members", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.calendarEventAttendeeChatMembers.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id/attendees/:attendee_id/chat_members", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.calendarEventAttendeeChatMembers.service.conf, req)
 	return result, err
 }
 

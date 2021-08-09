@@ -3,8 +3,6 @@ package v1
 
 import (
 	"github.com/larksuite/oapi-sdk-go"
-	"github.com/larksuite/oapi-sdk-go/api"
-	"github.com/larksuite/oapi-sdk-go/api/core/request"
 )
 
 type Service struct {
@@ -39,9 +37,9 @@ type ImageBasicRecognizeReqCall struct {
 
 func (rc *ImageBasicRecognizeReqCall) Do() (*ImageBasicRecognizeResult, error) {
 	var result = &ImageBasicRecognizeResult{}
-	req := request.NewRequest("/open-apis/optical_char_recognition/v1/image/basic_recognize", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.images.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/optical_char_recognition/v1/image/basic_recognize", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.images.service.conf, req)
 	return result, err
 }
 

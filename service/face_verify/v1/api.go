@@ -3,129 +3,15 @@ package v1
 
 import (
 	"github.com/larksuite/oapi-sdk-go"
-	"github.com/larksuite/oapi-sdk-go/api"
-	"github.com/larksuite/oapi-sdk-go/api/core/request"
 )
 
 type Service struct {
-	conf        lark.Config
-	FaceVerifys *FaceVerifyService
+	conf lark.Config
 }
 
 func NewService(conf lark.Config) *Service {
 	s := &Service{
 		conf: conf,
 	}
-	s.FaceVerifys = newFaceVerifyService(s)
 	return s
-}
-
-type FaceVerifyService struct {
-	service *Service
-}
-
-func newFaceVerifyService(service *Service) *FaceVerifyService {
-	return &FaceVerifyService{
-		service: service,
-	}
-}
-
-type FaceVerifyCropFaceImageReqCall struct {
-	ctx         *lark.Context
-	faceVerifys *FaceVerifyService
-	body        *lark.FormData
-	opts        []lark.APIRequestOpt
-}
-
-func (rc *FaceVerifyCropFaceImageReqCall) SetRawImage(rawImage *lark.FormDataFile) {
-	rc.body.AddFile("raw_image", rawImage)
-}
-
-func (rc *FaceVerifyCropFaceImageReqCall) Do() (*FaceVerifyCropFaceImageResult, error) {
-	var result = &FaceVerifyCropFaceImageResult{}
-	req := request.NewRequest("/open-apis/face_verify/v1/crop_face_image", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.faceVerifys.service.conf, req)
-	return result, err
-}
-
-func (faceVerifys *FaceVerifyService) CropFaceImage(ctx *lark.Context, opts ...lark.APIRequestOpt) *FaceVerifyCropFaceImageReqCall {
-	return &FaceVerifyCropFaceImageReqCall{
-		ctx:         ctx,
-		faceVerifys: faceVerifys,
-		body:        request.NewFormData(),
-		opts:        opts,
-	}
-}
-
-type FaceVerifyQueryAuthResultReqCall struct {
-	ctx         *lark.Context
-	faceVerifys *FaceVerifyService
-	queryParams map[string]interface{}
-	opts        []lark.APIRequestOpt
-}
-
-func (rc *FaceVerifyQueryAuthResultReqCall) SetReqOrderNo(reqOrderNo string) {
-	rc.queryParams["req_order_no"] = reqOrderNo
-}
-func (rc *FaceVerifyQueryAuthResultReqCall) SetOpenId(openId string) {
-	rc.queryParams["open_id"] = openId
-}
-func (rc *FaceVerifyQueryAuthResultReqCall) SetEmployeeId(employeeId string) {
-	rc.queryParams["employee_id"] = employeeId
-}
-
-func (rc *FaceVerifyQueryAuthResultReqCall) Do() (*FaceVerifyQueryAuthResultResult, error) {
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
-	var result = &FaceVerifyQueryAuthResultResult{}
-	req := request.NewRequest("/open-apis/face_verify/v1/query_auth_result", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.faceVerifys.service.conf, req)
-	return result, err
-}
-
-func (faceVerifys *FaceVerifyService) QueryAuthResult(ctx *lark.Context, opts ...lark.APIRequestOpt) *FaceVerifyQueryAuthResultReqCall {
-	return &FaceVerifyQueryAuthResultReqCall{
-		ctx:         ctx,
-		faceVerifys: faceVerifys,
-		queryParams: map[string]interface{}{},
-		opts:        opts,
-	}
-}
-
-type FaceVerifyUploadFaceImageReqCall struct {
-	ctx         *lark.Context
-	faceVerifys *FaceVerifyService
-	body        *lark.FormData
-	queryParams map[string]interface{}
-	opts        []lark.APIRequestOpt
-}
-
-func (rc *FaceVerifyUploadFaceImageReqCall) SetImage(image *lark.FormDataFile) {
-	rc.body.AddFile("image", image)
-}
-func (rc *FaceVerifyUploadFaceImageReqCall) SetOpenId(openId string) {
-	rc.queryParams["open_id"] = openId
-}
-func (rc *FaceVerifyUploadFaceImageReqCall) SetEmployeeId(employeeId string) {
-	rc.queryParams["employee_id"] = employeeId
-}
-
-func (rc *FaceVerifyUploadFaceImageReqCall) Do() (*FaceVerifyUploadFaceImageResult, error) {
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
-	var result = &FaceVerifyUploadFaceImageResult{}
-	req := request.NewRequest("/open-apis/face_verify/v1/upload_face_image", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.faceVerifys.service.conf, req)
-	return result, err
-}
-
-func (faceVerifys *FaceVerifyService) UploadFaceImage(ctx *lark.Context, opts ...lark.APIRequestOpt) *FaceVerifyUploadFaceImageReqCall {
-	return &FaceVerifyUploadFaceImageReqCall{
-		ctx:         ctx,
-		faceVerifys: faceVerifys,
-		body:        request.NewFormData(),
-		queryParams: map[string]interface{}{},
-		opts:        opts,
-	}
 }

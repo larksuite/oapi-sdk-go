@@ -3,8 +3,6 @@ package v1
 
 import (
 	"github.com/larksuite/oapi-sdk-go"
-	"github.com/larksuite/oapi-sdk-go/api"
-	"github.com/larksuite/oapi-sdk-go/api/core/request"
 )
 
 type Service struct {
@@ -72,11 +70,11 @@ func (rc *AdminDeptStatListReqCall) SetPageToken(pageToken string) {
 }
 
 func (rc *AdminDeptStatListReqCall) Do() (*AdminDeptStatListResult, error) {
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &AdminDeptStatListResult{}
-	req := request.NewRequest("/open-apis/admin/v1/admin_dept_stats", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.adminDeptStats.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/admin/v1/admin_dept_stats", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.adminDeptStats.service.conf, req)
 	return result, err
 }
 
@@ -122,11 +120,11 @@ func (rc *AdminUserStatListReqCall) SetPageToken(pageToken string) {
 }
 
 func (rc *AdminUserStatListReqCall) Do() (*AdminUserStatListResult, error) {
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &AdminUserStatListResult{}
-	req := request.NewRequest("/open-apis/admin/v1/admin_user_stats", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.adminUserStats.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/admin/v1/admin_user_stats", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.adminUserStats.service.conf, req)
 	return result, err
 }
 

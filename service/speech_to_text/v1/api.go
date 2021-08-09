@@ -3,8 +3,6 @@ package v1
 
 import (
 	"github.com/larksuite/oapi-sdk-go"
-	"github.com/larksuite/oapi-sdk-go/api"
-	"github.com/larksuite/oapi-sdk-go/api/core/request"
 )
 
 type Service struct {
@@ -39,9 +37,9 @@ type SpeechFileRecognizeReqCall struct {
 
 func (rc *SpeechFileRecognizeReqCall) Do() (*SpeechFileRecognizeResult, error) {
 	var result = &SpeechFileRecognizeResult{}
-	req := request.NewRequest("/open-apis/speech_to_text/v1/speech/file_recognize", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.speechs.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/speech_to_text/v1/speech/file_recognize", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.speechs.service.conf, req)
 	return result, err
 }
 
@@ -63,9 +61,9 @@ type SpeechStreamRecognizeReqCall struct {
 
 func (rc *SpeechStreamRecognizeReqCall) Do() (*SpeechStreamRecognizeResult, error) {
 	var result = &SpeechStreamRecognizeResult{}
-	req := request.NewRequest("/open-apis/speech_to_text/v1/speech/stream_recognize", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.speechs.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/speech_to_text/v1/speech/stream_recognize", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.speechs.service.conf, req)
 	return result, err
 }
 

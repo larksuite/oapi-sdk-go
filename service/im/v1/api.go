@@ -3,8 +3,6 @@ package v1
 
 import (
 	"github.com/larksuite/oapi-sdk-go"
-	"github.com/larksuite/oapi-sdk-go/api"
-	"github.com/larksuite/oapi-sdk-go/api/core/request"
 	"io"
 )
 
@@ -154,11 +152,11 @@ func (rc *MessageListReqCall) SetPageSize(pageSize int) {
 }
 
 func (rc *MessageListReqCall) Do() (*MessageListResult, error) {
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &MessageListResult{}
-	req := request.NewRequest("/open-apis/im/v1/messages", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.messages.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/im/v1/messages", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.messages.service.conf, req)
 	return result, err
 }
 
@@ -184,11 +182,11 @@ func (rc *MessagePatchReqCall) SetMessageId(messageId string) {
 }
 
 func (rc *MessagePatchReqCall) Do() (*lark.NoData, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &lark.NoData{}
-	req := request.NewRequest("/open-apis/im/v1/messages/:message_id", "PATCH",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.messages.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/im/v1/messages/:message_id", "PATCH",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.messages.service.conf, req)
 	return result, err
 }
 
@@ -215,11 +213,11 @@ func (rc *MessageReplyReqCall) SetMessageId(messageId string) {
 }
 
 func (rc *MessageReplyReqCall) Do() (*Message, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &Message{}
-	req := request.NewRequest("/open-apis/im/v1/messages/:message_id/reply", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.messages.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/im/v1/messages/:message_id/reply", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.messages.service.conf, req)
 	return result, err
 }
 
@@ -246,11 +244,11 @@ func (rc *MessageCreateReqCall) SetReceiveIdType(receiveIdType string) {
 }
 
 func (rc *MessageCreateReqCall) Do() (*Message, error) {
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &Message{}
-	req := request.NewRequest("/open-apis/im/v1/messages", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.messages.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/im/v1/messages", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.messages.service.conf, req)
 	return result, err
 }
 
@@ -276,11 +274,11 @@ func (rc *MessageDeleteReqCall) SetMessageId(messageId string) {
 }
 
 func (rc *MessageDeleteReqCall) Do() (*lark.NoData, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &lark.NoData{}
-	req := request.NewRequest("/open-apis/im/v1/messages/:message_id", "DELETE",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.messages.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/im/v1/messages/:message_id", "DELETE",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.messages.service.conf, req)
 	return result, err
 }
 
@@ -315,12 +313,12 @@ func (rc *MessageReadUsersReqCall) SetPageToken(pageToken string) {
 }
 
 func (rc *MessageReadUsersReqCall) Do() (*MessageReadUsersResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &MessageReadUsersResult{}
-	req := request.NewRequest("/open-apis/im/v1/messages/:message_id/read_users", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.messages.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/im/v1/messages/:message_id/read_users", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.messages.service.conf, req)
 	return result, err
 }
 
@@ -351,12 +349,12 @@ func (rc *ChatUpdateReqCall) SetUserIdType(userIdType string) {
 }
 
 func (rc *ChatUpdateReqCall) Do() (*lark.NoData, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &lark.NoData{}
-	req := request.NewRequest("/open-apis/im/v1/chats/:chat_id", "PUT",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.chats.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/im/v1/chats/:chat_id", "PUT",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.chats.service.conf, req)
 	return result, err
 }
 
@@ -393,9 +391,9 @@ func (rc *FileCreateReqCall) SetFile(file *lark.FormDataFile) {
 
 func (rc *FileCreateReqCall) Do() (*FileCreateResult, error) {
 	var result = &FileCreateResult{}
-	req := request.NewRequest("/open-apis/im/v1/files", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.files.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/im/v1/files", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.files.service.conf, req)
 	return result, err
 }
 
@@ -403,7 +401,7 @@ func (files *FileService) Create(ctx *lark.Context, opts ...lark.APIRequestOpt) 
 	return &FileCreateReqCall{
 		ctx:   ctx,
 		files: files,
-		body:  request.NewFormData(),
+		body:  lark.NewFormData(),
 		opts:  opts,
 	}
 }
@@ -424,11 +422,11 @@ func (rc *FileGetReqCall) SetResponseStream(result io.Writer) {
 }
 
 func (rc *FileGetReqCall) Do() (io.Writer, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetResponseStream())
-	req := request.NewRequest("/open-apis/im/v1/files/:file_key", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, rc.result, rc.opts...)
-	err := api.Send(rc.ctx, rc.files.service.conf, req)
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetResponseStream())
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/im/v1/files/:file_key", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, nil, rc.result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.files.service.conf, req)
 	return rc.result, err
 }
 
@@ -459,11 +457,11 @@ func (rc *ChatListReqCall) SetPageSize(pageSize int) {
 }
 
 func (rc *ChatListReqCall) Do() (*ChatListResult, error) {
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &ChatListResult{}
-	req := request.NewRequest("/open-apis/im/v1/chats", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.chats.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/im/v1/chats", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.chats.service.conf, req)
 	return result, err
 }
 
@@ -492,9 +490,9 @@ func (rc *ImageCreateReqCall) SetImage(image *lark.FormDataFile) {
 
 func (rc *ImageCreateReqCall) Do() (*ImageCreateResult, error) {
 	var result = &ImageCreateResult{}
-	req := request.NewRequest("/open-apis/im/v1/images", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.images.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/im/v1/images", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.images.service.conf, req)
 	return result, err
 }
 
@@ -502,7 +500,7 @@ func (images *ImageService) Create(ctx *lark.Context, opts ...lark.APIRequestOpt
 	return &ImageCreateReqCall{
 		ctx:    ctx,
 		images: images,
-		body:   request.NewFormData(),
+		body:   lark.NewFormData(),
 		opts:   opts,
 	}
 }
@@ -519,11 +517,11 @@ func (rc *ChatDeleteReqCall) SetChatId(chatId string) {
 }
 
 func (rc *ChatDeleteReqCall) Do() (*lark.NoData, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &lark.NoData{}
-	req := request.NewRequest("/open-apis/im/v1/chats/:chat_id", "DELETE",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.chats.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/im/v1/chats/:chat_id", "DELETE",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.chats.service.conf, req)
 	return result, err
 }
 
@@ -552,11 +550,11 @@ func (rc *ImageGetReqCall) SetResponseStream(result io.Writer) {
 }
 
 func (rc *ImageGetReqCall) Do() (io.Writer, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetResponseStream())
-	req := request.NewRequest("/open-apis/im/v1/images/:image_key", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, rc.result, rc.opts...)
-	err := api.Send(rc.ctx, rc.images.service.conf, req)
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetResponseStream())
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/im/v1/images/:image_key", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, nil, rc.result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.images.service.conf, req)
 	return rc.result, err
 }
 
@@ -585,12 +583,12 @@ func (rc *ChatGetReqCall) SetUserIdType(userIdType string) {
 }
 
 func (rc *ChatGetReqCall) Do() (*ChatGetResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &ChatGetResult{}
-	req := request.NewRequest("/open-apis/im/v1/chats/:chat_id", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.chats.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/im/v1/chats/:chat_id", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.chats.service.conf, req)
 	return result, err
 }
 
@@ -617,11 +615,11 @@ func (rc *ChatCreateReqCall) SetUserIdType(userIdType string) {
 }
 
 func (rc *ChatCreateReqCall) Do() (*ChatCreateResult, error) {
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &ChatCreateResult{}
-	req := request.NewRequest("/open-apis/im/v1/chats", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.chats.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/im/v1/chats", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.chats.service.conf, req)
 	return result, err
 }
 
@@ -656,11 +654,11 @@ func (rc *ChatSearchReqCall) SetPageSize(pageSize int) {
 }
 
 func (rc *ChatSearchReqCall) Do() (*ChatSearchResult, error) {
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &ChatSearchResult{}
-	req := request.NewRequest("/open-apis/im/v1/chats/search", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.chats.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/im/v1/chats/search", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.chats.service.conf, req)
 	return result, err
 }
 
@@ -685,11 +683,11 @@ func (rc *MessageGetReqCall) SetMessageId(messageId string) {
 }
 
 func (rc *MessageGetReqCall) Do() (*MessageGetResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &MessageGetResult{}
-	req := request.NewRequest("/open-apis/im/v1/messages/:message_id", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.messages.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/im/v1/messages/:message_id", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.messages.service.conf, req)
 	return result, err
 }
 
@@ -719,12 +717,12 @@ func (rc *ChatMembersCreateReqCall) SetMemberIdType(memberIdType string) {
 }
 
 func (rc *ChatMembersCreateReqCall) Do() (*ChatMembersCreateResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &ChatMembersCreateResult{}
-	req := request.NewRequest("/open-apis/im/v1/chats/:chat_id/members", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.chatMemberss.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/im/v1/chats/:chat_id/members", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.chatMemberss.service.conf, req)
 	return result, err
 }
 
@@ -756,12 +754,12 @@ func (rc *ChatMembersDeleteReqCall) SetMemberIdType(memberIdType string) {
 }
 
 func (rc *ChatMembersDeleteReqCall) Do() (*ChatMembersDeleteResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &ChatMembersDeleteResult{}
-	req := request.NewRequest("/open-apis/im/v1/chats/:chat_id/members", "DELETE",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.chatMemberss.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/im/v1/chats/:chat_id/members", "DELETE",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.chatMemberss.service.conf, req)
 	return result, err
 }
 
@@ -770,6 +768,47 @@ func (chatMemberss *ChatMembersService) Delete(ctx *lark.Context, body *ChatMemb
 		ctx:          ctx,
 		chatMemberss: chatMemberss,
 		body:         body,
+		pathParams:   map[string]interface{}{},
+		queryParams:  map[string]interface{}{},
+		opts:         opts,
+	}
+}
+
+type ChatMembersGetReqCall struct {
+	ctx          *lark.Context
+	chatMemberss *ChatMembersService
+	pathParams   map[string]interface{}
+	queryParams  map[string]interface{}
+	opts         []lark.APIRequestOpt
+}
+
+func (rc *ChatMembersGetReqCall) SetChatId(chatId string) {
+	rc.pathParams["chat_id"] = chatId
+}
+func (rc *ChatMembersGetReqCall) SetMemberIdType(memberIdType string) {
+	rc.queryParams["member_id_type"] = memberIdType
+}
+func (rc *ChatMembersGetReqCall) SetPageToken(pageToken string) {
+	rc.queryParams["page_token"] = pageToken
+}
+func (rc *ChatMembersGetReqCall) SetPageSize(pageSize int) {
+	rc.queryParams["page_size"] = pageSize
+}
+
+func (rc *ChatMembersGetReqCall) Do() (*ChatMembersGetResult, error) {
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
+	var result = &ChatMembersGetResult{}
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/im/v1/chats/:chat_id/members", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.chatMemberss.service.conf, req)
+	return result, err
+}
+
+func (chatMemberss *ChatMembersService) Get(ctx *lark.Context, opts ...lark.APIRequestOpt) *ChatMembersGetReqCall {
+	return &ChatMembersGetReqCall{
+		ctx:          ctx,
+		chatMemberss: chatMemberss,
 		pathParams:   map[string]interface{}{},
 		queryParams:  map[string]interface{}{},
 		opts:         opts,
@@ -799,12 +838,12 @@ func (rc *MessageResourceGetReqCall) SetResponseStream(result io.Writer) {
 }
 
 func (rc *MessageResourceGetReqCall) Do() (io.Writer, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
-	rc.opts = append(rc.opts, request.SetResponseStream())
-	req := request.NewRequest("/open-apis/im/v1/messages/:message_id/resources/:file_key", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, rc.result, rc.opts...)
-	err := api.Send(rc.ctx, rc.messageResources.service.conf, req)
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetResponseStream())
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/im/v1/messages/:message_id/resources/:file_key", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, nil, rc.result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.messageResources.service.conf, req)
 	return rc.result, err
 }
 
@@ -815,47 +854,6 @@ func (messageResources *MessageResourceService) Get(ctx *lark.Context, opts ...l
 		pathParams:       map[string]interface{}{},
 		queryParams:      map[string]interface{}{},
 		opts:             opts,
-	}
-}
-
-type ChatMembersGetReqCall struct {
-	ctx          *lark.Context
-	chatMemberss *ChatMembersService
-	pathParams   map[string]interface{}
-	queryParams  map[string]interface{}
-	opts         []lark.APIRequestOpt
-}
-
-func (rc *ChatMembersGetReqCall) SetChatId(chatId string) {
-	rc.pathParams["chat_id"] = chatId
-}
-func (rc *ChatMembersGetReqCall) SetMemberIdType(memberIdType string) {
-	rc.queryParams["member_id_type"] = memberIdType
-}
-func (rc *ChatMembersGetReqCall) SetPageToken(pageToken string) {
-	rc.queryParams["page_token"] = pageToken
-}
-func (rc *ChatMembersGetReqCall) SetPageSize(pageSize int) {
-	rc.queryParams["page_size"] = pageSize
-}
-
-func (rc *ChatMembersGetReqCall) Do() (*ChatMembersGetResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
-	var result = &ChatMembersGetResult{}
-	req := request.NewRequest("/open-apis/im/v1/chats/:chat_id/members", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.chatMemberss.service.conf, req)
-	return result, err
-}
-
-func (chatMemberss *ChatMembersService) Get(ctx *lark.Context, opts ...lark.APIRequestOpt) *ChatMembersGetReqCall {
-	return &ChatMembersGetReqCall{
-		ctx:          ctx,
-		chatMemberss: chatMemberss,
-		pathParams:   map[string]interface{}{},
-		queryParams:  map[string]interface{}{},
-		opts:         opts,
 	}
 }
 
@@ -875,12 +873,12 @@ func (rc *ChatAnnouncementGetReqCall) SetUserIdType(userIdType string) {
 }
 
 func (rc *ChatAnnouncementGetReqCall) Do() (*ChatAnnouncementGetResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &ChatAnnouncementGetResult{}
-	req := request.NewRequest("/open-apis/im/v1/chats/:chat_id/announcement", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.chatAnnouncements.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/im/v1/chats/:chat_id/announcement", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.chatAnnouncements.service.conf, req)
 	return result, err
 }
 
@@ -906,11 +904,11 @@ func (rc *ChatMembersIsInChatReqCall) SetChatId(chatId string) {
 }
 
 func (rc *ChatMembersIsInChatReqCall) Do() (*ChatMembersIsInChatResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &ChatMembersIsInChatResult{}
-	req := request.NewRequest("/open-apis/im/v1/chats/:chat_id/members/is_in_chat", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.chatMemberss.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/im/v1/chats/:chat_id/members/is_in_chat", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.chatMemberss.service.conf, req)
 	return result, err
 }
 
@@ -935,11 +933,11 @@ func (rc *ChatMembersMeJoinReqCall) SetChatId(chatId string) {
 }
 
 func (rc *ChatMembersMeJoinReqCall) Do() (*lark.NoData, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &lark.NoData{}
-	req := request.NewRequest("/open-apis/im/v1/chats/:chat_id/members/me_join", "PATCH",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.chatMemberss.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/im/v1/chats/:chat_id/members/me_join", "PATCH",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.chatMemberss.service.conf, req)
 	return result, err
 }
 
@@ -965,11 +963,11 @@ func (rc *ChatAnnouncementPatchReqCall) SetChatId(chatId string) {
 }
 
 func (rc *ChatAnnouncementPatchReqCall) Do() (*lark.NoData, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &lark.NoData{}
-	req := request.NewRequest("/open-apis/im/v1/chats/:chat_id/announcement", "PATCH",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.chatAnnouncements.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/im/v1/chats/:chat_id/announcement", "PATCH",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.chatAnnouncements.service.conf, req)
 	return result, err
 }
 

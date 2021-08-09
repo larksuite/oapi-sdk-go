@@ -3,8 +3,6 @@ package v1
 
 import (
 	"github.com/larksuite/oapi-sdk-go"
-	"github.com/larksuite/oapi-sdk-go/api"
-	"github.com/larksuite/oapi-sdk-go/api/core/request"
 )
 
 type Service struct {
@@ -94,11 +92,11 @@ func (rc *AppTableRecordBatchDeleteReqCall) SetTableId(tableId string) {
 }
 
 func (rc *AppTableRecordBatchDeleteReqCall) Do() (*AppTableRecordBatchDeleteResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &AppTableRecordBatchDeleteResult{}
-	req := request.NewRequest("/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/batch_delete", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.appTableRecords.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/batch_delete", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.appTableRecords.service.conf, req)
 	return result, err
 }
 
@@ -132,12 +130,12 @@ func (rc *AppTableRecordBatchCreateReqCall) SetUserIdType(userIdType string) {
 }
 
 func (rc *AppTableRecordBatchCreateReqCall) Do() (*AppTableRecordBatchCreateResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &AppTableRecordBatchCreateResult{}
-	req := request.NewRequest("/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/batch_create", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.appTableRecords.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/batch_create", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.appTableRecords.service.conf, req)
 	return result, err
 }
 
@@ -174,12 +172,12 @@ func (rc *AppTableRecordGetReqCall) SetUserIdType(userIdType string) {
 }
 
 func (rc *AppTableRecordGetReqCall) Do() (*AppTableRecordGetResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &AppTableRecordGetResult{}
-	req := request.NewRequest("/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.appTableRecords.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.appTableRecords.service.conf, req)
 	return result, err
 }
 
@@ -216,12 +214,12 @@ func (rc *AppTableRecordUpdateReqCall) SetUserIdType(userIdType string) {
 }
 
 func (rc *AppTableRecordUpdateReqCall) Do() (*AppTableRecordUpdateResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &AppTableRecordUpdateResult{}
-	req := request.NewRequest("/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id", "PUT",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.appTableRecords.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id", "PUT",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.appTableRecords.service.conf, req)
 	return result, err
 }
 
@@ -254,11 +252,11 @@ func (rc *AppTableRecordDeleteReqCall) SetRecordId(recordId string) {
 }
 
 func (rc *AppTableRecordDeleteReqCall) Do() (*DeleteRecord, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &DeleteRecord{}
-	req := request.NewRequest("/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id", "DELETE",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.appTableRecords.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id", "DELETE",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.appTableRecords.service.conf, req)
 	return result, err
 }
 
@@ -308,12 +306,12 @@ func (rc *AppTableRecordListReqCall) SetUserIdType(userIdType string) {
 }
 
 func (rc *AppTableRecordListReqCall) Do() (*AppTableRecordListResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &AppTableRecordListResult{}
-	req := request.NewRequest("/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.appTableRecords.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.appTableRecords.service.conf, req)
 	return result, err
 }
 
@@ -347,12 +345,12 @@ func (rc *AppTableRecordBatchUpdateReqCall) SetUserIdType(userIdType string) {
 }
 
 func (rc *AppTableRecordBatchUpdateReqCall) Do() (*AppTableRecordBatchUpdateResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &AppTableRecordBatchUpdateResult{}
-	req := request.NewRequest("/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/batch_update", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.appTableRecords.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/batch_update", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.appTableRecords.service.conf, req)
 	return result, err
 }
 
@@ -387,12 +385,12 @@ func (rc *AppTableRecordCreateReqCall) SetUserIdType(userIdType string) {
 }
 
 func (rc *AppTableRecordCreateReqCall) Do() (*AppTableRecordCreateResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &AppTableRecordCreateResult{}
-	req := request.NewRequest("/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.appTableRecords.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.appTableRecords.service.conf, req)
 	return result, err
 }
 
@@ -419,11 +417,11 @@ func (rc *AppGetReqCall) SetAppToken(appToken string) {
 }
 
 func (rc *AppGetReqCall) Do() (*AppGetResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &AppGetResult{}
-	req := request.NewRequest("/open-apis/bitable/v1/apps/:app_token", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.apps.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/bitable/v1/apps/:app_token", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.apps.service.conf, req)
 	return result, err
 }
 
@@ -455,12 +453,12 @@ func (rc *AppTableListReqCall) SetPageSize(pageSize int) {
 }
 
 func (rc *AppTableListReqCall) Do() (*AppTableListResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &AppTableListResult{}
-	req := request.NewRequest("/open-apis/bitable/v1/apps/:app_token/tables", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.appTables.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/bitable/v1/apps/:app_token/tables", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.appTables.service.conf, req)
 	return result, err
 }
 
@@ -499,12 +497,12 @@ func (rc *AppTableFieldListReqCall) SetPageSize(pageSize int) {
 }
 
 func (rc *AppTableFieldListReqCall) Do() (*AppTableFieldListResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &AppTableFieldListResult{}
-	req := request.NewRequest("/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.appTableFields.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.appTableFields.service.conf, req)
 	return result, err
 }
 
@@ -538,12 +536,12 @@ func (rc *AppTableFieldCreateReqCall) SetUserIdType(userIdType string) {
 }
 
 func (rc *AppTableFieldCreateReqCall) Do() (*AppTableFieldCreateResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &AppTableFieldCreateResult{}
-	req := request.NewRequest("/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.appTableFields.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.appTableFields.service.conf, req)
 	return result, err
 }
 
@@ -575,12 +573,12 @@ func (rc *AppTableBatchCreateReqCall) SetUserIdType(userIdType string) {
 }
 
 func (rc *AppTableBatchCreateReqCall) Do() (*AppTableBatchCreateResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &AppTableBatchCreateResult{}
-	req := request.NewRequest("/open-apis/bitable/v1/apps/:app_token/tables/batch_create", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.appTables.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/bitable/v1/apps/:app_token/tables/batch_create", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.appTables.service.conf, req)
 	return result, err
 }
 
@@ -612,12 +610,12 @@ func (rc *AppTableCreateReqCall) SetUserIdType(userIdType string) {
 }
 
 func (rc *AppTableCreateReqCall) Do() (*AppTableCreateResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &AppTableCreateResult{}
-	req := request.NewRequest("/open-apis/bitable/v1/apps/:app_token/tables", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.appTables.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/bitable/v1/apps/:app_token/tables", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.appTables.service.conf, req)
 	return result, err
 }
 
@@ -647,11 +645,11 @@ func (rc *AppTableDeleteReqCall) SetTableId(tableId string) {
 }
 
 func (rc *AppTableDeleteReqCall) Do() (*lark.NoData, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &lark.NoData{}
-	req := request.NewRequest("/open-apis/bitable/v1/apps/:app_token/tables/:table_id", "DELETE",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.appTables.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/bitable/v1/apps/:app_token/tables/:table_id", "DELETE",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.appTables.service.conf, req)
 	return result, err
 }
 
@@ -682,11 +680,11 @@ func (rc *AppTableFieldDeleteReqCall) SetFieldId(fieldId string) {
 }
 
 func (rc *AppTableFieldDeleteReqCall) Do() (*AppTableFieldDeleteResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &AppTableFieldDeleteResult{}
-	req := request.NewRequest("/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields/:field_id", "DELETE",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.appTableFields.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields/:field_id", "DELETE",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.appTableFields.service.conf, req)
 	return result, err
 }
 
@@ -718,11 +716,11 @@ func (rc *AppTableFieldUpdateReqCall) SetFieldId(fieldId string) {
 }
 
 func (rc *AppTableFieldUpdateReqCall) Do() (*AppTableFieldUpdateResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &AppTableFieldUpdateResult{}
-	req := request.NewRequest("/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields/:field_id", "PUT",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.appTableFields.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields/:field_id", "PUT",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.appTableFields.service.conf, req)
 	return result, err
 }
 
@@ -749,11 +747,11 @@ func (rc *AppTableBatchDeleteReqCall) SetAppToken(appToken string) {
 }
 
 func (rc *AppTableBatchDeleteReqCall) Do() (*lark.NoData, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &lark.NoData{}
-	req := request.NewRequest("/open-apis/bitable/v1/apps/:app_token/tables/batch_delete", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.appTables.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/bitable/v1/apps/:app_token/tables/batch_delete", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.appTables.service.conf, req)
 	return result, err
 }
 
@@ -783,11 +781,11 @@ func (rc *AppTableViewCreateReqCall) SetTableId(tableId string) {
 }
 
 func (rc *AppTableViewCreateReqCall) Do() (*AppTableViewCreateResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &AppTableViewCreateResult{}
-	req := request.NewRequest("/open-apis/bitable/v1/apps/:app_token/tables/:table_id/views", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.appTableViews.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/bitable/v1/apps/:app_token/tables/:table_id/views", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.appTableViews.service.conf, req)
 	return result, err
 }
 
@@ -819,11 +817,11 @@ func (rc *AppTableViewDeleteReqCall) SetViewId(viewId string) {
 }
 
 func (rc *AppTableViewDeleteReqCall) Do() (*lark.NoData, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &lark.NoData{}
-	req := request.NewRequest("/open-apis/bitable/v1/apps/:app_token/tables/:table_id/views/:view_id", "DELETE",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.appTableViews.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/bitable/v1/apps/:app_token/tables/:table_id/views/:view_id", "DELETE",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.appTableViews.service.conf, req)
 	return result, err
 }
 
@@ -858,12 +856,12 @@ func (rc *AppTableViewListReqCall) SetPageToken(pageToken string) {
 }
 
 func (rc *AppTableViewListReqCall) Do() (*AppTableViewListResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &AppTableViewListResult{}
-	req := request.NewRequest("/open-apis/bitable/v1/apps/:app_token/tables/:table_id/views", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.appTableViews.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/bitable/v1/apps/:app_token/tables/:table_id/views", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.appTableViews.service.conf, req)
 	return result, err
 }
 

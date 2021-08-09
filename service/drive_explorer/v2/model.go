@@ -64,6 +64,23 @@ type FileCopyResult struct {
 	Url         string `json:"url,omitempty"`
 }
 
+type FolderCreateReqBody struct {
+	Title           string   `json:"title,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *FolderCreateReqBody) MarshalJSON() ([]byte, error) {
+	type cp FolderCreateReqBody
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type FolderCreateResult struct {
+	Url      string `json:"url,omitempty"`
+	Revision int    `json:"revision,omitempty"`
+	Token    string `json:"token,omitempty"`
+}
+
 type FileCreateReqBody struct {
 	Title           string   `json:"title,omitempty"`
 	Type            string   `json:"type,omitempty"`
@@ -77,23 +94,6 @@ func (s *FileCreateReqBody) MarshalJSON() ([]byte, error) {
 }
 
 type FileCreateResult struct {
-	Url      string `json:"url,omitempty"`
-	Revision int    `json:"revision,omitempty"`
-	Token    string `json:"token,omitempty"`
-}
-
-type FolderCreateReqBody struct {
-	Title           string   `json:"title,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *FolderCreateReqBody) MarshalJSON() ([]byte, error) {
-	type cp FolderCreateReqBody
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type FolderCreateResult struct {
 	Url      string `json:"url,omitempty"`
 	Revision int    `json:"revision,omitempty"`
 	Token    string `json:"token,omitempty"`

@@ -3,8 +3,6 @@ package v1
 
 import (
 	"github.com/larksuite/oapi-sdk-go"
-	"github.com/larksuite/oapi-sdk-go/api"
-	"github.com/larksuite/oapi-sdk-go/api/core/request"
 )
 
 type Service struct {
@@ -39,9 +37,9 @@ type DocsApiMetaReqCall struct {
 
 func (rc *DocsApiMetaReqCall) Do() (*DocsApiMetaResult, error) {
 	var result = &DocsApiMetaResult{}
-	req := request.NewRequest("/open-apis/suite/docs-api/meta", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.docsApis.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/suite/docs-api/meta", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.docsApis.service.conf, req)
 	return result, err
 }
 
@@ -63,9 +61,9 @@ type DocsApiSearchReqCall struct {
 
 func (rc *DocsApiSearchReqCall) Do() (*DocsApiSearchResult, error) {
 	var result = &DocsApiSearchResult{}
-	req := request.NewRequest("/open-apis/suite/docs-api/search/object", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.docsApis.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/suite/docs-api/search/object", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeUser}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.docsApis.service.conf, req)
 	return result, err
 }
 

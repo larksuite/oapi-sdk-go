@@ -3,8 +3,6 @@ package v1
 
 import (
 	"github.com/larksuite/oapi-sdk-go"
-	"github.com/larksuite/oapi-sdk-go/api"
-	"github.com/larksuite/oapi-sdk-go/api/core/request"
 	"io"
 )
 
@@ -59,11 +57,11 @@ func (rc *AttachmentGetReqCall) SetResponseStream(result io.Writer) {
 }
 
 func (rc *AttachmentGetReqCall) Do() (io.Writer, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetResponseStream())
-	req := request.NewRequest("/open-apis/ehr/v1/attachments/:token", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, rc.result, rc.opts...)
-	err := api.Send(rc.ctx, rc.attachments.service.conf, req)
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetResponseStream())
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/ehr/v1/attachments/:token", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, nil, rc.result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.attachments.service.conf, req)
 	return rc.result, err
 }
 
@@ -112,11 +110,11 @@ func (rc *EmployeeListReqCall) SetPageSize(pageSize int) {
 }
 
 func (rc *EmployeeListReqCall) Do() (*EmployeeListResult, error) {
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &EmployeeListResult{}
-	req := request.NewRequest("/open-apis/ehr/v1/employees", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.employees.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/ehr/v1/employees", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.employees.service.conf, req)
 	return result, err
 }
 

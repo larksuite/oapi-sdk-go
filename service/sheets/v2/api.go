@@ -3,8 +3,6 @@ package v2
 
 import (
 	"github.com/larksuite/oapi-sdk-go"
-	"github.com/larksuite/oapi-sdk-go/api"
-	"github.com/larksuite/oapi-sdk-go/api/core/request"
 )
 
 type Service struct {
@@ -43,11 +41,11 @@ func (rc *SpreadsheetsConditionFormatsBatchCreateReqCall) SetSpreadsheetToken(sp
 }
 
 func (rc *SpreadsheetsConditionFormatsBatchCreateReqCall) Do() (*SpreadsheetsConditionFormatsBatchCreateResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &SpreadsheetsConditionFormatsBatchCreateResult{}
-	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/condition_formats/batch_create", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/condition_formats/batch_create", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
@@ -74,11 +72,11 @@ func (rc *SpreadsheetsConditionFormatsBatchDeleteReqCall) SetSpreadsheetToken(sp
 }
 
 func (rc *SpreadsheetsConditionFormatsBatchDeleteReqCall) Do() (*SpreadsheetsConditionFormatsBatchDeleteResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &SpreadsheetsConditionFormatsBatchDeleteResult{}
-	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/condition_formats/batch_delete", "DELETE",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/condition_formats/batch_delete", "DELETE",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
@@ -108,12 +106,12 @@ func (rc *SpreadsheetsConditionFormatsBatchGetReqCall) SetSheetIds(sheetIds ...s
 }
 
 func (rc *SpreadsheetsConditionFormatsBatchGetReqCall) Do() (*SpreadsheetsConditionFormatsBatchGetResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &SpreadsheetsConditionFormatsBatchGetResult{}
-	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/condition_formats", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/condition_formats", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
@@ -140,11 +138,11 @@ func (rc *SpreadsheetsConditionFormatsBatchUpdateReqCall) SetSpreadsheetToken(sp
 }
 
 func (rc *SpreadsheetsConditionFormatsBatchUpdateReqCall) Do() (*SpreadsheetsConditionFormatsBatchUpdateResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &SpreadsheetsConditionFormatsBatchUpdateResult{}
-	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/condition_formats/batch_update", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/condition_formats/batch_update", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
@@ -171,11 +169,11 @@ func (rc *SpreadsheetsDataValidationCreateReqCall) SetSpreadsheetToken(spreadshe
 }
 
 func (rc *SpreadsheetsDataValidationCreateReqCall) Do() (*lark.NoData, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &lark.NoData{}
-	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/dataValidation", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/dataValidation", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
@@ -202,11 +200,11 @@ func (rc *SpreadsheetsDataValidationDeleteReqCall) SetSpreadsheetToken(spreadshe
 }
 
 func (rc *SpreadsheetsDataValidationDeleteReqCall) Do() (*SpreadsheetsDataValidationDeleteResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &SpreadsheetsDataValidationDeleteResult{}
-	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/dataValidation", "DELETE",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/dataValidation", "DELETE",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
@@ -238,11 +236,11 @@ func (rc *SpreadsheetsDataValidationGetReqCall) SetDataValidationType(dataValida
 }
 
 func (rc *SpreadsheetsDataValidationGetReqCall) Do() (*SpreadsheetsDataValidationGetResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &SpreadsheetsDataValidationGetResult{}
-	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/dataValidation", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/dataValidation", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
@@ -274,11 +272,11 @@ func (rc *SpreadsheetsDataValidationUpdateReqCall) SetDataValidationId(dataValid
 }
 
 func (rc *SpreadsheetsDataValidationUpdateReqCall) Do() (*SpreadsheetsDataValidationUpdateResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &SpreadsheetsDataValidationUpdateResult{}
-	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/dataValidation/:sheetId/:dataValidationId", "PUT",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/dataValidation/:sheetId/:dataValidationId", "PUT",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
@@ -305,11 +303,11 @@ func (rc *SpreadsheetsDimensionRangeAddReqCall) SetSpreadsheetToken(spreadsheetT
 }
 
 func (rc *SpreadsheetsDimensionRangeAddReqCall) Do() (*SpreadsheetsDimensionRangeAddResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &SpreadsheetsDimensionRangeAddResult{}
-	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/dimension_range", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/dimension_range", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
@@ -336,11 +334,11 @@ func (rc *SpreadsheetsDimensionRangeDeleteReqCall) SetSpreadsheetToken(spreadshe
 }
 
 func (rc *SpreadsheetsDimensionRangeDeleteReqCall) Do() (*SpreadsheetsDimensionRangeDeleteResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &SpreadsheetsDimensionRangeDeleteResult{}
-	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/dimension_range", "DELETE",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/dimension_range", "DELETE",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
@@ -367,11 +365,11 @@ func (rc *SpreadsheetsDimensionRangeUpdateReqCall) SetSpreadsheetToken(spreadshe
 }
 
 func (rc *SpreadsheetsDimensionRangeUpdateReqCall) Do() (*lark.NoData, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &lark.NoData{}
-	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/dimension_range", "PUT",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/dimension_range", "PUT",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
@@ -394,9 +392,9 @@ type SpreadsheetsImportReqCall struct {
 
 func (rc *SpreadsheetsImportReqCall) Do() (*SpreadsheetsImportResult, error) {
 	var result = &SpreadsheetsImportResult{}
-	req := request.NewRequest("/open-apis/sheets/v2/import", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/sheets/v2/import", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
@@ -421,11 +419,11 @@ func (rc *SpreadsheetsImportResultReqCall) SetTicket(ticket string) {
 }
 
 func (rc *SpreadsheetsImportResultReqCall) Do() (*SpreadsheetsImportResultResult, error) {
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &SpreadsheetsImportResultResult{}
-	req := request.NewRequest("/open-apis/sheets/v2/import/result", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/sheets/v2/import/result", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
@@ -451,11 +449,11 @@ func (rc *SpreadsheetsInsertDimensionRangeReqCall) SetSpreadsheetToken(spreadshe
 }
 
 func (rc *SpreadsheetsInsertDimensionRangeReqCall) Do() (*lark.NoData, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &lark.NoData{}
-	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/insert_dimension_range", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/insert_dimension_range", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
@@ -482,11 +480,11 @@ func (rc *SpreadsheetsMergeCellsReqCall) SetSpreadsheetToken(spreadsheetToken st
 }
 
 func (rc *SpreadsheetsMergeCellsReqCall) Do() (*SpreadsheetsMergeCellsResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &SpreadsheetsMergeCellsResult{}
-	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/merge_cells", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/merge_cells", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
@@ -516,12 +514,12 @@ func (rc *SpreadsheetsMetainfoReqCall) SetExtFields(extFields string) {
 }
 
 func (rc *SpreadsheetsMetainfoReqCall) Do() (*SpreadsheetsMetainfoResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &SpreadsheetsMetainfoResult{}
-	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/metainfo", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/metainfo", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
@@ -548,11 +546,11 @@ func (rc *SpreadsheetsProtectedRangeBatchCreateReqCall) SetSpreadsheetToken(spre
 }
 
 func (rc *SpreadsheetsProtectedRangeBatchCreateReqCall) Do() (*SpreadsheetsProtectedRangeBatchCreateResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &SpreadsheetsProtectedRangeBatchCreateResult{}
-	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/protected_dimension", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/protected_dimension", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
@@ -579,11 +577,11 @@ func (rc *SpreadsheetsProtectedRangeBatchDeleteReqCall) SetSpreadsheetToken(spre
 }
 
 func (rc *SpreadsheetsProtectedRangeBatchDeleteReqCall) Do() (*SpreadsheetsProtectedRangeBatchDeleteResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &SpreadsheetsProtectedRangeBatchDeleteResult{}
-	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/protected_range_batch_del", "DELETE",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/protected_range_batch_del", "DELETE",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
@@ -616,12 +614,12 @@ func (rc *SpreadsheetsProtectedRangeBatchGetReqCall) SetMemberType(memberType st
 }
 
 func (rc *SpreadsheetsProtectedRangeBatchGetReqCall) Do() (*SpreadsheetsProtectedRangeBatchGetResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &SpreadsheetsProtectedRangeBatchGetResult{}
-	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/protected_range_batch_get", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/protected_range_batch_get", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
@@ -648,11 +646,11 @@ func (rc *SpreadsheetsProtectedRangeBatchUpdateReqCall) SetSpreadsheetToken(spre
 }
 
 func (rc *SpreadsheetsProtectedRangeBatchUpdateReqCall) Do() (*SpreadsheetsProtectedRangeBatchUpdateResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &SpreadsheetsProtectedRangeBatchUpdateResult{}
-	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/protected_range_batch_update", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/protected_range_batch_update", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
@@ -679,11 +677,11 @@ func (rc *SpreadsheetsSheetsBatchUpdateReqCall) SetSpreadsheetToken(spreadsheetT
 }
 
 func (rc *SpreadsheetsSheetsBatchUpdateReqCall) Do() (*SpreadsheetsSheetsBatchUpdateResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &SpreadsheetsSheetsBatchUpdateResult{}
-	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/sheets_batch_update", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/sheets_batch_update", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
@@ -710,11 +708,11 @@ func (rc *SpreadsheetsSheetsUpdatePropertiesReqCall) SetSpreadsheetToken(spreads
 }
 
 func (rc *SpreadsheetsSheetsUpdatePropertiesReqCall) Do() (*SpreadsheetsSheetsUpdatePropertiesResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &SpreadsheetsSheetsUpdatePropertiesResult{}
-	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/properties", "PUT",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/properties", "PUT",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
@@ -741,11 +739,11 @@ func (rc *SpreadsheetsStyleUpdateReqCall) SetSpreadsheetToken(spreadsheetToken s
 }
 
 func (rc *SpreadsheetsStyleUpdateReqCall) Do() (*SpreadsheetsStyleUpdateResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &SpreadsheetsStyleUpdateResult{}
-	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/style", "PUT",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/style", "PUT",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
@@ -772,11 +770,11 @@ func (rc *SpreadsheetsStylesBatchUpdateReqCall) SetSpreadsheetToken(spreadsheetT
 }
 
 func (rc *SpreadsheetsStylesBatchUpdateReqCall) Do() (*SpreadsheetsStylesBatchUpdateResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &SpreadsheetsStylesBatchUpdateResult{}
-	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/styles_batch_update", "PUT",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/styles_batch_update", "PUT",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
@@ -803,11 +801,11 @@ func (rc *SpreadsheetsUnmergeCellsReqCall) SetSpreadsheetToken(spreadsheetToken 
 }
 
 func (rc *SpreadsheetsUnmergeCellsReqCall) Do() (*SpreadsheetsUnmergeCellsResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &SpreadsheetsUnmergeCellsResult{}
-	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/unmerge_cells", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/unmerge_cells", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
@@ -838,12 +836,12 @@ func (rc *SpreadsheetsValuesAppendReqCall) SetInsertDataOption(insertDataOption 
 }
 
 func (rc *SpreadsheetsValuesAppendReqCall) Do() (*SpreadsheetsValuesAppendResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &SpreadsheetsValuesAppendResult{}
-	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values_append", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values_append", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
@@ -880,12 +878,12 @@ func (rc *SpreadsheetsValuesBatchGetReqCall) SetDateTimeRenderOption(dateTimeRen
 }
 
 func (rc *SpreadsheetsValuesBatchGetReqCall) Do() (*SpreadsheetsValuesBatchGetResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &SpreadsheetsValuesBatchGetResult{}
-	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values_batch_get", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values_batch_get", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
@@ -912,11 +910,11 @@ func (rc *SpreadsheetsValuesBatchUpdateReqCall) SetSpreadsheetToken(spreadsheetT
 }
 
 func (rc *SpreadsheetsValuesBatchUpdateReqCall) Do() (*SpreadsheetsValuesBatchUpdateResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &SpreadsheetsValuesBatchUpdateResult{}
-	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values_batch_update", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values_batch_update", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
@@ -952,12 +950,12 @@ func (rc *SpreadsheetsValuesGetReqCall) SetDateTimeRenderOption(dateTimeRenderOp
 }
 
 func (rc *SpreadsheetsValuesGetReqCall) Do() (*SpreadsheetsValuesGetResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetQueryParams(rc.queryParams))
 	var result = &SpreadsheetsValuesGetResult{}
-	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values/:range", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values/:range", "GET",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, nil, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
@@ -984,11 +982,11 @@ func (rc *SpreadsheetsValuesImageReqCall) SetSpreadsheetToken(spreadsheetToken s
 }
 
 func (rc *SpreadsheetsValuesImageReqCall) Do() (*SpreadsheetsValuesImageResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &SpreadsheetsValuesImageResult{}
-	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values_image", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values_image", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
@@ -1015,11 +1013,11 @@ func (rc *SpreadsheetsValuesPrependReqCall) SetSpreadsheetToken(spreadsheetToken
 }
 
 func (rc *SpreadsheetsValuesPrependReqCall) Do() (*SpreadsheetsValuesPrependResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &SpreadsheetsValuesPrependResult{}
-	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values_prepend", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values_prepend", "POST",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
@@ -1046,11 +1044,11 @@ func (rc *SpreadsheetsValuesUpdateReqCall) SetSpreadsheetToken(spreadsheetToken 
 }
 
 func (rc *SpreadsheetsValuesUpdateReqCall) Do() (*SpreadsheetsValuesUpdateResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, lark.SetPathParams(rc.pathParams))
 	var result = &SpreadsheetsValuesUpdateResult{}
-	req := request.NewRequest("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values", "PUT",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.spreadsheetss.service.conf, req)
+	req := lark.NewAPIRequestWithMultiToken("/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values", "PUT",
+		[]lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, rc.body, result, rc.opts...)
+	err := lark.SendAPIRequest(rc.ctx, rc.spreadsheetss.service.conf, req)
 	return result, err
 }
 
