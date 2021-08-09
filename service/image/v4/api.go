@@ -67,11 +67,11 @@ func (images *ImageService) Get(ctx *lark.Context, opts ...lark.APIRequestOpt) *
 type ImagePutReqCall struct {
 	ctx    *lark.Context
 	images *ImageService
-	body   *request.FormData
+	body   *lark.FormData
 	opts   []lark.APIRequestOpt
 }
 
-func (rc *ImagePutReqCall) SetImage(image *request.File) {
+func (rc *ImagePutReqCall) SetImage(image *lark.FormDataFile) {
 	rc.body.AddFile("image", image)
 }
 func (rc *ImagePutReqCall) SetImageType(imageType string) {

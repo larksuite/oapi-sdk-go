@@ -18,7 +18,7 @@ var imService = im.NewService(configs.TestConfig(lark.DomainFeiShu))
 
 func main() {
 	testMessageCreate()
-	//testFileCreate()
+	testFileCreate()
 	testFileRead()
 }
 
@@ -30,7 +30,7 @@ func testMessageCreate() {
 		Content:   "{\"text\":\"<at user_id=\\\"ou_a11d2bcc7d852afbcaf37e5b3ad01f7e\\\">Tom</at> test content\"}",
 		MsgType:   "text",
 	})
-	reqCall.SetReceiveIdType("open1_id")
+	reqCall.SetReceiveIdType("open_id")
 	message, err := reqCall.Do()
 	fmt.Println(coreCtx.GetRequestID())
 	fmt.Println(coreCtx.GetHTTPStatusCode())

@@ -34,6 +34,9 @@ var (
 	NeedHelpDeskAuth   = request.NeedHelpDeskAuth
 )
 
+type FormData = request.FormData
+type FormDataFile = request.File
+
 var (
 	NewFormDataFile = request.NewFile
 	NewFormData     = request.NewFormData

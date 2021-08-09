@@ -114,62 +114,6 @@ func newMeetingRoomService(service *Service) *MeetingRoomService {
 	}
 }
 
-type BuildingBatchGetReqCall struct {
-	ctx         *lark.Context
-	buildings   *BuildingService
-	queryParams map[string]interface{}
-	opts        []lark.APIRequestOpt
-}
-
-func (rc *BuildingBatchGetReqCall) SetBuildingIds(buildingIds ...string) {
-	rc.queryParams["building_ids"] = buildingIds
-}
-func (rc *BuildingBatchGetReqCall) SetFields(fields string) {
-	rc.queryParams["fields"] = fields
-}
-
-func (rc *BuildingBatchGetReqCall) Do() (*BuildingBatchGetResult, error) {
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
-	var result = &BuildingBatchGetResult{}
-	req := request.NewRequest("/open-apis/meeting_room/building/batch_get", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.buildings.service.conf, req)
-	return result, err
-}
-
-func (buildings *BuildingService) BatchGet(ctx *lark.Context, opts ...lark.APIRequestOpt) *BuildingBatchGetReqCall {
-	return &BuildingBatchGetReqCall{
-		ctx:         ctx,
-		buildings:   buildings,
-		queryParams: map[string]interface{}{},
-		opts:        opts,
-	}
-}
-
-type SummaryBatchGetReqCall struct {
-	ctx      *lark.Context
-	summarys *SummaryService
-	body     *SummaryBatchGetReqBody
-	opts     []lark.APIRequestOpt
-}
-
-func (rc *SummaryBatchGetReqCall) Do() (*SummaryBatchGetResult, error) {
-	var result = &SummaryBatchGetResult{}
-	req := request.NewRequest("/open-apis/meeting_room/summary/batch_get", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.summarys.service.conf, req)
-	return result, err
-}
-
-func (summarys *SummaryService) BatchGet(ctx *lark.Context, body *SummaryBatchGetReqBody, opts ...lark.APIRequestOpt) *SummaryBatchGetReqCall {
-	return &SummaryBatchGetReqCall{
-		ctx:      ctx,
-		summarys: summarys,
-		body:     body,
-		opts:     opts,
-	}
-}
-
 type RoomBatchGetReqCall struct {
 	ctx         *lark.Context
 	rooms       *RoomService
@@ -237,28 +181,55 @@ func (freebusys *FreebusyService) BatchGet(ctx *lark.Context, opts ...lark.APIRe
 	}
 }
 
-type BuildingBatchGetIdReqCall struct {
+type SummaryBatchGetReqCall struct {
+	ctx      *lark.Context
+	summarys *SummaryService
+	body     *SummaryBatchGetReqBody
+	opts     []lark.APIRequestOpt
+}
+
+func (rc *SummaryBatchGetReqCall) Do() (*SummaryBatchGetResult, error) {
+	var result = &SummaryBatchGetResult{}
+	req := request.NewRequest("/open-apis/meeting_room/summary/batch_get", "POST",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := api.Send(rc.ctx, rc.summarys.service.conf, req)
+	return result, err
+}
+
+func (summarys *SummaryService) BatchGet(ctx *lark.Context, body *SummaryBatchGetReqBody, opts ...lark.APIRequestOpt) *SummaryBatchGetReqCall {
+	return &SummaryBatchGetReqCall{
+		ctx:      ctx,
+		summarys: summarys,
+		body:     body,
+		opts:     opts,
+	}
+}
+
+type BuildingBatchGetReqCall struct {
 	ctx         *lark.Context
 	buildings   *BuildingService
 	queryParams map[string]interface{}
 	opts        []lark.APIRequestOpt
 }
 
-func (rc *BuildingBatchGetIdReqCall) SetCustomBuildingIds(customBuildingIds ...string) {
-	rc.queryParams["custom_building_ids"] = customBuildingIds
+func (rc *BuildingBatchGetReqCall) SetBuildingIds(buildingIds ...string) {
+	rc.queryParams["building_ids"] = buildingIds
+}
+func (rc *BuildingBatchGetReqCall) SetFields(fields string) {
+	rc.queryParams["fields"] = fields
 }
 
-func (rc *BuildingBatchGetIdReqCall) Do() (*BuildingBatchGetIdResult, error) {
+func (rc *BuildingBatchGetReqCall) Do() (*BuildingBatchGetResult, error) {
 	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
-	var result = &BuildingBatchGetIdResult{}
-	req := request.NewRequest("/open-apis/meeting_room/building/batch_get_id", "GET",
+	var result = &BuildingBatchGetResult{}
+	req := request.NewRequest("/open-apis/meeting_room/building/batch_get", "GET",
 		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.buildings.service.conf, req)
 	return result, err
 }
 
-func (buildings *BuildingService) BatchGetId(ctx *lark.Context, opts ...lark.APIRequestOpt) *BuildingBatchGetIdReqCall {
-	return &BuildingBatchGetIdReqCall{
+func (buildings *BuildingService) BatchGet(ctx *lark.Context, opts ...lark.APIRequestOpt) *BuildingBatchGetReqCall {
+	return &BuildingBatchGetReqCall{
 		ctx:         ctx,
 		buildings:   buildings,
 		queryParams: map[string]interface{}{},
@@ -295,27 +266,32 @@ func (rooms *RoomService) BatchGetId(ctx *lark.Context, opts ...lark.APIRequestO
 	}
 }
 
-type RoomCreateReqCall struct {
-	ctx   *lark.Context
-	rooms *RoomService
-	body  *RoomCreateReqBody
-	opts  []lark.APIRequestOpt
+type BuildingBatchGetIdReqCall struct {
+	ctx         *lark.Context
+	buildings   *BuildingService
+	queryParams map[string]interface{}
+	opts        []lark.APIRequestOpt
 }
 
-func (rc *RoomCreateReqCall) Do() (*RoomCreateResult, error) {
-	var result = &RoomCreateResult{}
-	req := request.NewRequest("/open-apis/meeting_room/room/create", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.rooms.service.conf, req)
+func (rc *BuildingBatchGetIdReqCall) SetCustomBuildingIds(customBuildingIds ...string) {
+	rc.queryParams["custom_building_ids"] = customBuildingIds
+}
+
+func (rc *BuildingBatchGetIdReqCall) Do() (*BuildingBatchGetIdResult, error) {
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	var result = &BuildingBatchGetIdResult{}
+	req := request.NewRequest("/open-apis/meeting_room/building/batch_get_id", "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := api.Send(rc.ctx, rc.buildings.service.conf, req)
 	return result, err
 }
 
-func (rooms *RoomService) Create(ctx *lark.Context, body *RoomCreateReqBody, opts ...lark.APIRequestOpt) *RoomCreateReqCall {
-	return &RoomCreateReqCall{
-		ctx:   ctx,
-		rooms: rooms,
-		body:  body,
-		opts:  opts,
+func (buildings *BuildingService) BatchGetId(ctx *lark.Context, opts ...lark.APIRequestOpt) *BuildingBatchGetIdReqCall {
+	return &BuildingBatchGetIdReqCall{
+		ctx:         ctx,
+		buildings:   buildings,
+		queryParams: map[string]interface{}{},
+		opts:        opts,
 	}
 }
 
@@ -343,23 +319,23 @@ func (buildings *BuildingService) Create(ctx *lark.Context, body *BuildingCreate
 	}
 }
 
-type RoomDeleteReqCall struct {
+type RoomCreateReqCall struct {
 	ctx   *lark.Context
 	rooms *RoomService
-	body  *RoomDeleteReqBody
+	body  *RoomCreateReqBody
 	opts  []lark.APIRequestOpt
 }
 
-func (rc *RoomDeleteReqCall) Do() (*lark.NoData, error) {
-	var result = &lark.NoData{}
-	req := request.NewRequest("/open-apis/meeting_room/room/delete", "POST",
+func (rc *RoomCreateReqCall) Do() (*RoomCreateResult, error) {
+	var result = &RoomCreateResult{}
+	req := request.NewRequest("/open-apis/meeting_room/room/create", "POST",
 		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
 	err := api.Send(rc.ctx, rc.rooms.service.conf, req)
 	return result, err
 }
 
-func (rooms *RoomService) Delete(ctx *lark.Context, body *RoomDeleteReqBody, opts ...lark.APIRequestOpt) *RoomDeleteReqCall {
-	return &RoomDeleteReqCall{
+func (rooms *RoomService) Create(ctx *lark.Context, body *RoomCreateReqBody, opts ...lark.APIRequestOpt) *RoomCreateReqCall {
+	return &RoomCreateReqCall{
 		ctx:   ctx,
 		rooms: rooms,
 		body:  body,
@@ -391,54 +367,27 @@ func (buildings *BuildingService) Delete(ctx *lark.Context, body *BuildingDelete
 	}
 }
 
-type CountryListReqCall struct {
-	ctx      *lark.Context
-	countrys *CountryService
-	opts     []lark.APIRequestOpt
+type RoomDeleteReqCall struct {
+	ctx   *lark.Context
+	rooms *RoomService
+	body  *RoomDeleteReqBody
+	opts  []lark.APIRequestOpt
 }
 
-func (rc *CountryListReqCall) Do() (*CountryListResult, error) {
-	var result = &CountryListResult{}
-	req := request.NewRequest("/open-apis/meeting_room/country/list", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.countrys.service.conf, req)
+func (rc *RoomDeleteReqCall) Do() (*lark.NoData, error) {
+	var result = &lark.NoData{}
+	req := request.NewRequest("/open-apis/meeting_room/room/delete", "POST",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := api.Send(rc.ctx, rc.rooms.service.conf, req)
 	return result, err
 }
 
-func (countrys *CountryService) List(ctx *lark.Context, opts ...lark.APIRequestOpt) *CountryListReqCall {
-	return &CountryListReqCall{
-		ctx:      ctx,
-		countrys: countrys,
-		opts:     opts,
-	}
-}
-
-type DistrictListReqCall struct {
-	ctx         *lark.Context
-	districts   *DistrictService
-	queryParams map[string]interface{}
-	opts        []lark.APIRequestOpt
-}
-
-func (rc *DistrictListReqCall) SetCountryId(countryId int) {
-	rc.queryParams["country_id"] = countryId
-}
-
-func (rc *DistrictListReqCall) Do() (*DistrictListResult, error) {
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
-	var result = &DistrictListResult{}
-	req := request.NewRequest("/open-apis/meeting_room/district/list", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.districts.service.conf, req)
-	return result, err
-}
-
-func (districts *DistrictService) List(ctx *lark.Context, opts ...lark.APIRequestOpt) *DistrictListReqCall {
-	return &DistrictListReqCall{
-		ctx:         ctx,
-		districts:   districts,
-		queryParams: map[string]interface{}{},
-		opts:        opts,
+func (rooms *RoomService) Delete(ctx *lark.Context, body *RoomDeleteReqBody, opts ...lark.APIRequestOpt) *RoomDeleteReqCall {
+	return &RoomDeleteReqCall{
+		ctx:   ctx,
+		rooms: rooms,
+		body:  body,
+		opts:  opts,
 	}
 }
 
@@ -475,6 +424,35 @@ func (buildings *BuildingService) List(ctx *lark.Context, opts ...lark.APIReques
 	return &BuildingListReqCall{
 		ctx:         ctx,
 		buildings:   buildings,
+		queryParams: map[string]interface{}{},
+		opts:        opts,
+	}
+}
+
+type DistrictListReqCall struct {
+	ctx         *lark.Context
+	districts   *DistrictService
+	queryParams map[string]interface{}
+	opts        []lark.APIRequestOpt
+}
+
+func (rc *DistrictListReqCall) SetCountryId(countryId int) {
+	rc.queryParams["country_id"] = countryId
+}
+
+func (rc *DistrictListReqCall) Do() (*DistrictListResult, error) {
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	var result = &DistrictListResult{}
+	req := request.NewRequest("/open-apis/meeting_room/district/list", "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := api.Send(rc.ctx, rc.districts.service.conf, req)
+	return result, err
+}
+
+func (districts *DistrictService) List(ctx *lark.Context, opts ...lark.APIRequestOpt) *DistrictListReqCall {
+	return &DistrictListReqCall{
+		ctx:         ctx,
+		districts:   districts,
 		queryParams: map[string]interface{}{},
 		opts:        opts,
 	}
@@ -521,6 +499,28 @@ func (rooms *RoomService) List(ctx *lark.Context, opts ...lark.APIRequestOpt) *R
 	}
 }
 
+type CountryListReqCall struct {
+	ctx      *lark.Context
+	countrys *CountryService
+	opts     []lark.APIRequestOpt
+}
+
+func (rc *CountryListReqCall) Do() (*CountryListResult, error) {
+	var result = &CountryListResult{}
+	req := request.NewRequest("/open-apis/meeting_room/country/list", "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := api.Send(rc.ctx, rc.countrys.service.conf, req)
+	return result, err
+}
+
+func (countrys *CountryService) List(ctx *lark.Context, opts ...lark.APIRequestOpt) *CountryListReqCall {
+	return &CountryListReqCall{
+		ctx:      ctx,
+		countrys: countrys,
+		opts:     opts,
+	}
+}
+
 type InstanceReplyReqCall struct {
 	ctx       *lark.Context
 	instances *InstanceService
@@ -540,6 +540,30 @@ func (instances *InstanceService) Reply(ctx *lark.Context, body *InstanceReplyRe
 	return &InstanceReplyReqCall{
 		ctx:       ctx,
 		instances: instances,
+		body:      body,
+		opts:      opts,
+	}
+}
+
+type BuildingUpdateReqCall struct {
+	ctx       *lark.Context
+	buildings *BuildingService
+	body      *BuildingUpdateReqBody
+	opts      []lark.APIRequestOpt
+}
+
+func (rc *BuildingUpdateReqCall) Do() (*lark.NoData, error) {
+	var result = &lark.NoData{}
+	req := request.NewRequest("/open-apis/meeting_room/building/update", "POST",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
+	err := api.Send(rc.ctx, rc.buildings.service.conf, req)
+	return result, err
+}
+
+func (buildings *BuildingService) Update(ctx *lark.Context, body *BuildingUpdateReqBody, opts ...lark.APIRequestOpt) *BuildingUpdateReqCall {
+	return &BuildingUpdateReqCall{
+		ctx:       ctx,
+		buildings: buildings,
 		body:      body,
 		opts:      opts,
 	}
@@ -566,29 +590,5 @@ func (rooms *RoomService) Update(ctx *lark.Context, body *RoomUpdateReqBody, opt
 		rooms: rooms,
 		body:  body,
 		opts:  opts,
-	}
-}
-
-type BuildingUpdateReqCall struct {
-	ctx       *lark.Context
-	buildings *BuildingService
-	body      *BuildingUpdateReqBody
-	opts      []lark.APIRequestOpt
-}
-
-func (rc *BuildingUpdateReqCall) Do() (*lark.NoData, error) {
-	var result = &lark.NoData{}
-	req := request.NewRequest("/open-apis/meeting_room/building/update", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.buildings.service.conf, req)
-	return result, err
-}
-
-func (buildings *BuildingService) Update(ctx *lark.Context, body *BuildingUpdateReqBody, opts ...lark.APIRequestOpt) *BuildingUpdateReqCall {
-	return &BuildingUpdateReqCall{
-		ctx:       ctx,
-		buildings: buildings,
-		body:      body,
-		opts:      opts,
 	}
 }

@@ -94,15 +94,14 @@ type UploadImage struct {
 // upload image
 func testUploadFile() {
 	coreCtx := core.WrapContext(context.Background())
-	// coreCtx.Set(constants.HTTPHeaderKeyRequestID, "2020122212081301001702714534518-xxxxx")
-	var formData = request.NewFormData()
+	var formData = lark.NewFormData()
 	formData.AddParam("image_type", "message")
 	bs, err := ioutil.ReadFile("test.png")
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	formData.AddFile("image", request.NewFile().SetContent(bs))
+	formData.AddFile("image", lark.NewFormDataFile().SetContent(bs))
 	/*
 		// stream upload, file implement io.Reader
 		file, err := os.Open("test.png")
@@ -110,7 +109,7 @@ func testUploadFile() {
 			fmt.Println(err)
 			return
 		}
-		formData.AddFile("image", request.NewFile().SetContentStream(file))
+		formData.AddFile("image", lark.NewFormDataFile().SetContentStream(file))
 	*/
 	ret := &UploadImage{}
 	err = api.Send(coreCtx, conf, request.NewRequestWithNative("/open-apis/image/v4/put", "POST",

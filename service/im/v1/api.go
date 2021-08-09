@@ -374,7 +374,7 @@ func (chats *ChatService) Update(ctx *lark.Context, body *ChatUpdateReqBody, opt
 type FileCreateReqCall struct {
 	ctx   *lark.Context
 	files *FileService
-	body  *request.FormData
+	body  *lark.FormData
 	opts  []lark.APIRequestOpt
 }
 
@@ -387,7 +387,7 @@ func (rc *FileCreateReqCall) SetFileName(fileName string) {
 func (rc *FileCreateReqCall) SetDuration(duration int) {
 	rc.body.AddParam("duration", duration)
 }
-func (rc *FileCreateReqCall) SetFile(file *request.File) {
+func (rc *FileCreateReqCall) SetFile(file *lark.FormDataFile) {
 	rc.body.AddFile("file", file)
 }
 
@@ -479,14 +479,14 @@ func (chats *ChatService) List(ctx *lark.Context, opts ...lark.APIRequestOpt) *C
 type ImageCreateReqCall struct {
 	ctx    *lark.Context
 	images *ImageService
-	body   *request.FormData
+	body   *lark.FormData
 	opts   []lark.APIRequestOpt
 }
 
 func (rc *ImageCreateReqCall) SetImageType(imageType string) {
 	rc.body.AddParam("image_type", imageType)
 }
-func (rc *ImageCreateReqCall) SetImage(image *request.File) {
+func (rc *ImageCreateReqCall) SetImage(image *lark.FormDataFile) {
 	rc.body.AddFile("image", image)
 }
 
@@ -776,47 +776,6 @@ func (chatMemberss *ChatMembersService) Delete(ctx *lark.Context, body *ChatMemb
 	}
 }
 
-type ChatMembersGetReqCall struct {
-	ctx          *lark.Context
-	chatMemberss *ChatMembersService
-	pathParams   map[string]interface{}
-	queryParams  map[string]interface{}
-	opts         []lark.APIRequestOpt
-}
-
-func (rc *ChatMembersGetReqCall) SetChatId(chatId string) {
-	rc.pathParams["chat_id"] = chatId
-}
-func (rc *ChatMembersGetReqCall) SetMemberIdType(memberIdType string) {
-	rc.queryParams["member_id_type"] = memberIdType
-}
-func (rc *ChatMembersGetReqCall) SetPageToken(pageToken string) {
-	rc.queryParams["page_token"] = pageToken
-}
-func (rc *ChatMembersGetReqCall) SetPageSize(pageSize int) {
-	rc.queryParams["page_size"] = pageSize
-}
-
-func (rc *ChatMembersGetReqCall) Do() (*ChatMembersGetResult, error) {
-	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
-	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
-	var result = &ChatMembersGetResult{}
-	req := request.NewRequest("/open-apis/im/v1/chats/:chat_id/members", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.opts...)
-	err := api.Send(rc.ctx, rc.chatMemberss.service.conf, req)
-	return result, err
-}
-
-func (chatMemberss *ChatMembersService) Get(ctx *lark.Context, opts ...lark.APIRequestOpt) *ChatMembersGetReqCall {
-	return &ChatMembersGetReqCall{
-		ctx:          ctx,
-		chatMemberss: chatMemberss,
-		pathParams:   map[string]interface{}{},
-		queryParams:  map[string]interface{}{},
-		opts:         opts,
-	}
-}
-
 type MessageResourceGetReqCall struct {
 	ctx              *lark.Context
 	messageResources *MessageResourceService
@@ -856,6 +815,47 @@ func (messageResources *MessageResourceService) Get(ctx *lark.Context, opts ...l
 		pathParams:       map[string]interface{}{},
 		queryParams:      map[string]interface{}{},
 		opts:             opts,
+	}
+}
+
+type ChatMembersGetReqCall struct {
+	ctx          *lark.Context
+	chatMemberss *ChatMembersService
+	pathParams   map[string]interface{}
+	queryParams  map[string]interface{}
+	opts         []lark.APIRequestOpt
+}
+
+func (rc *ChatMembersGetReqCall) SetChatId(chatId string) {
+	rc.pathParams["chat_id"] = chatId
+}
+func (rc *ChatMembersGetReqCall) SetMemberIdType(memberIdType string) {
+	rc.queryParams["member_id_type"] = memberIdType
+}
+func (rc *ChatMembersGetReqCall) SetPageToken(pageToken string) {
+	rc.queryParams["page_token"] = pageToken
+}
+func (rc *ChatMembersGetReqCall) SetPageSize(pageSize int) {
+	rc.queryParams["page_size"] = pageSize
+}
+
+func (rc *ChatMembersGetReqCall) Do() (*ChatMembersGetResult, error) {
+	rc.opts = append(rc.opts, request.SetPathParams(rc.pathParams))
+	rc.opts = append(rc.opts, request.SetQueryParams(rc.queryParams))
+	var result = &ChatMembersGetResult{}
+	req := request.NewRequest("/open-apis/im/v1/chats/:chat_id/members", "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.opts...)
+	err := api.Send(rc.ctx, rc.chatMemberss.service.conf, req)
+	return result, err
+}
+
+func (chatMemberss *ChatMembersService) Get(ctx *lark.Context, opts ...lark.APIRequestOpt) *ChatMembersGetReqCall {
+	return &ChatMembersGetReqCall{
+		ctx:          ctx,
+		chatMemberss: chatMemberss,
+		pathParams:   map[string]interface{}{},
+		queryParams:  map[string]interface{}{},
+		opts:         opts,
 	}
 }
 

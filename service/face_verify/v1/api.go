@@ -33,11 +33,11 @@ func newFaceVerifyService(service *Service) *FaceVerifyService {
 type FaceVerifyCropFaceImageReqCall struct {
 	ctx         *lark.Context
 	faceVerifys *FaceVerifyService
-	body        *request.FormData
+	body        *lark.FormData
 	opts        []lark.APIRequestOpt
 }
 
-func (rc *FaceVerifyCropFaceImageReqCall) SetRawImage(rawImage *request.File) {
+func (rc *FaceVerifyCropFaceImageReqCall) SetRawImage(rawImage *lark.FormDataFile) {
 	rc.body.AddFile("raw_image", rawImage)
 }
 
@@ -96,12 +96,12 @@ func (faceVerifys *FaceVerifyService) QueryAuthResult(ctx *lark.Context, opts ..
 type FaceVerifyUploadFaceImageReqCall struct {
 	ctx         *lark.Context
 	faceVerifys *FaceVerifyService
-	body        *request.FormData
+	body        *lark.FormData
 	queryParams map[string]interface{}
 	opts        []lark.APIRequestOpt
 }
 
-func (rc *FaceVerifyUploadFaceImageReqCall) SetImage(image *request.File) {
+func (rc *FaceVerifyUploadFaceImageReqCall) SetImage(image *lark.FormDataFile) {
 	rc.body.AddFile("image", image)
 }
 func (rc *FaceVerifyUploadFaceImageReqCall) SetOpenId(openId string) {
