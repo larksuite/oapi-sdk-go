@@ -23,12 +23,12 @@ func getInternalAppSettings(env string) *config.AppSettings {
 	return config.NewInternalAppSettings(appID, appSecret, verificationToken, encryptKey)
 }
 
-func GetISVConf(env string) core.Config {
+func GetISVConf(env string) *config.Config {
 	env = strings.ToUpper(env)
 	return config.NewTestConfig(getDomain(env), getISVAppSettings(env))
 }
 
-func GetInternalConf(env string) core.Config {
+func GetInternalConf(env string) *config.Config {
 	env = strings.ToUpper(env)
 	return config.NewTestConfig(getDomain(env), getInternalAppSettings(env))
 }

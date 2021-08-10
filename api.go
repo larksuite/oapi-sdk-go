@@ -4,7 +4,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/api"
 	"github.com/larksuite/oapi-sdk-go/api/core/request"
 	"github.com/larksuite/oapi-sdk-go/api/core/response"
-	"github.com/larksuite/oapi-sdk-go/core"
 )
 
 type NoData = response.NoData
@@ -54,6 +53,6 @@ func NewAPIRequestWithMultiToken(httpPath, httpMethod string, accessTokenTypes [
 	return req
 }
 
-func SendAPIRequest(ctx *core.Context, conf Config, req *APIRequest) error {
+func SendAPIRequest(ctx *Context, conf Config, req *APIRequest) error {
 	return api.Send(ctx, conf, req)
 }

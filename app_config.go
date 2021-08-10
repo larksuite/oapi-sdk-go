@@ -22,6 +22,8 @@ const (
 )
 
 type LogLevel int
+type Logger = log.Logger
+type Store = store.Store
 
 const (
 	LogLevelDebug LogLevel = LogLevel(core.LoggerLevelDebug)
@@ -34,7 +36,7 @@ type AppConfig struct {
 	*config.Config
 }
 
-func (ac *AppConfig) SetLogger(log log.Logger) {
+func (ac *AppConfig) SetLogger(log Logger) {
 	ac.Config.GetLogger().SetLogger(log)
 }
 
@@ -42,7 +44,7 @@ func (ac *AppConfig) SetLogLevel(level LogLevel) {
 	ac.Config.GetLogger().SetLogLevel(log.Level(level))
 }
 
-func (ac *AppConfig) SetStore(store store.Store) {
+func (ac *AppConfig) SetStore(store Store) {
 	ac.Config.SetStore(store)
 }
 

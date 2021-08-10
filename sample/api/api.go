@@ -46,6 +46,7 @@ func testSendCardMessage() {
 		request.AccessTokenTypeTenant, body, &ret,
 		//应用市场应用 lark.SetTenantKey("TenantKey"),
 	)
+	coreCtx.GetHeader()
 	err = api.Send(coreCtx, conf, req)
 	fmt.Println(coreCtx.GetRequestID())
 	fmt.Println(coreCtx.GetHTTPStatusCode())
