@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/larksuite/oapi-sdk-go"
 	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/sample/configs"
+	"github.com/larksuite/oapi-sdk-go/sample"
 	application "github.com/larksuite/oapi-sdk-go/service/application/v1"
 	"net/http"
 )
@@ -12,9 +12,9 @@ import (
 func main() {
 
 	// for redis store and logrus
-	// var conf = configs.TestConfigWithLogrusAndRedisStore(lark.DomainFeiShu)
-	// var conf = configs.TestConfig("https://open.feishu.cn")
-	var conf = configs.TestConfig(lark.DomainFeiShu)
+	// var conf = sample.TestConfigWithLogrusAndRedisStore(lark.DomainFeiShu)
+	// var conf = sample.TestConfig("https://open.feishu.cn")
+	var conf = sample.TestConfig(lark.DomainFeiShu)
 
 	application.SetAppOpenEventHandler(conf, func(coreCtx *core.Context, appOpenEvent *application.AppOpenEvent) error {
 		fmt.Println(coreCtx.GetRequestID())

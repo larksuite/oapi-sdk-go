@@ -7,8 +7,8 @@ import (
 
 func main() {
 	// for redis store and logrus
-	// var conf = configs.TestConfigWithLogrusAndRedisStore(lark.DomainFeiShu)
-	// var conf = configs.TestConfig("https://open.feishu.cn")
+	// var conf = sample.TestConfigWithLogrusAndRedisStore(lark.DomainFeiShu)
+	// var conf = sample.TestConfig("https://open.feishu.cn")
 	var conf = lark.NewInternalAppConfigByEnv(lark.DomainFeiShu)
 
 	lark.WebHook.SetCardActionHandler(conf, func(ctx *lark.Context, cardAction *lark.CardAction) (interface{}, error) {

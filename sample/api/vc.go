@@ -5,14 +5,14 @@ import (
 	"fmt"
 	"github.com/larksuite/oapi-sdk-go"
 	"github.com/larksuite/oapi-sdk-go/api/core/request"
-	"github.com/larksuite/oapi-sdk-go/sample/configs"
+	"github.com/larksuite/oapi-sdk-go/sample"
 	vc "github.com/larksuite/oapi-sdk-go/service/vc/v1"
 )
 
 // for redis store and logrus
-// configs.TestConfigWithLogrusAndRedisStore(lark.DomainFeiShu)
-// configs.TestConfig("https://open.feishu.cn")
-var VCService = vc.NewService(configs.TestConfig(lark.DomainFeiShu))
+// sample.TestConfigWithLogrusAndRedisStore(lark.DomainFeiShu)
+// sample.TestConfig("https://open.feishu.cn")
+var VCService = vc.NewService(sample.TestConfig(lark.DomainFeiShu))
 
 func main() {
 	testReserveApply()

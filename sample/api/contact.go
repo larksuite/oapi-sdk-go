@@ -8,8 +8,8 @@ import (
 )
 
 // for redis store and logrus
-// configs.TestConfigWithLogrusAndRedisStore(lark.DomainFeiShu)
-// configs.TestConfig("https://open.feishu.cn")
+// sample.TestConfigWithLogrusAndRedisStore(lark.DomainFeiShu)
+// sample.TestConfig("https://open.feishu.cn")
 var contactService = contact.NewService(lark.NewInternalAppConfigByEnv(lark.DomainFeiShu))
 
 func main() {

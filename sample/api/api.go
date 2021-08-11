@@ -9,16 +9,16 @@ import (
 	"github.com/larksuite/oapi-sdk-go/api"
 	"github.com/larksuite/oapi-sdk-go/api/core/request"
 	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/sample/configs"
+	"github.com/larksuite/oapi-sdk-go/sample"
 	"io/ioutil"
 	"os"
 )
 
 // for redis store and logrus
-var conf = configs.TestConfigWithLogrusAndRedisStore(lark.DomainFeiShu)
+var conf = sample.TestConfigWithLogrusAndRedisStore(lark.DomainFeiShu)
 
-// var conf = configs.TestConfig("https://open.feishu.cn")
-// var conf = configs.TestConfig(lark.DomainFeiShu)
+// var conf = sample.TestConfig("https://open.feishu.cn")
+// var conf = sample.TestConfig(lark.DomainFeiShu)
 
 func main() {
 	//testSendMessage()

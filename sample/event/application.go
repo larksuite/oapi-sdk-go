@@ -10,8 +10,8 @@ import (
 func main() {
 
 	// for redis store and logrus
-	// var conf = configs.TestConfigWithLogrusAndRedisStore(lark.DomainFeiShu)
-	// var conf = configs.TestConfig("https://open.feishu.cn")
+	// var conf = sample.TestConfigWithLogrusAndRedisStore(lark.DomainFeiShu)
+	// var conf = sample.TestConfig("https://open.feishu.cn")
 	var conf = lark.NewInternalAppConfigByEnv(lark.DomainFeiShu)
 
 	application.SetAppOpenEventHandler(conf, func(ctx *lark.Context, appOpenEvent *application.AppOpenEvent) error {

@@ -4,14 +4,14 @@ import (
 	"context"
 	"fmt"
 	"github.com/larksuite/oapi-sdk-go"
-	"github.com/larksuite/oapi-sdk-go/sample/configs"
+	"github.com/larksuite/oapi-sdk-go/sample"
 	translation "github.com/larksuite/oapi-sdk-go/service/translation/v1"
 )
 
 // for redis store and logrus
-// configs.TestConfigWithLogrusAndRedisStore(lark.DomainFeiShu)
-// configs.TestConfig("https://open.feishu.cn")
-var translationService = translation.NewService(configs.TestConfig(lark.DomainFeiShu))
+// sample.TestConfigWithLogrusAndRedisStore(lark.DomainFeiShu)
+// sample.TestConfig("https://open.feishu.cn")
+var translationService = translation.NewService(sample.TestConfig(lark.DomainFeiShu))
 
 func main() {
 	testTextDetect()
