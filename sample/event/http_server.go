@@ -38,7 +38,6 @@ func main() {
 		fmt.Println(tools.Prettify(event))
 		return nil
 	})
-
 	eventhttpserver.Register("/webhook/event", conf)
 	err := http.ListenAndServe(":8089", nil)
 	if err != nil {

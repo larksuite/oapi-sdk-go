@@ -3,10 +3,6 @@ package lark
 import (
 	"bytes"
 	"context"
-	"crypto/aes"
-	"crypto/cipher"
-	"crypto/sha256"
-	"encoding/base64"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -173,39 +169,6 @@ func DownloadFile(ctx context.Context, url string) ([]byte, error) {
 	}
 	defer r.Close()
 	return ioutil.ReadAll(r)
-}
-
-// EventDecrypt returns decrypt bytes
-func EventDecrypt(encrypt string, secret string) ([]byte, error) {
-	buf, err := base64.StdEncoding.DecodeString(encrypt)
-	if err != nil {
-		return nil, newDecryptErr(fmt.Sprintf("base64 decode error[%v]", err))
-	}
-	if len(buf) < aes.BlockSize {
-		return nil, newDecryptErr("cipher too short")
-	}
-	key := sha256.Sum256([]byte(secret))
-	block, err := aes.NewCipher(key[:sha256.Size])
-	if err != nil {
-		return nil, newDecryptErr(fmt.Sprintf("AES new cipher Error[%v]", err))
-	}
-	iv := buf[:aes.BlockSize]
-	buf = buf[aes.BlockSize:]
-	// CBC mode always works in whole blocks.
-	if len(buf)%aes.BlockSize != 0 {
-		return nil, newDecryptErr("ciphertext is not a multiple of the block size")
-	}
-	mode := cipher.NewCBCDecrypter(block, iv)
-	mode.CryptBlocks(buf, buf)
-	n := strings.Index(string(buf), "{")
-	if n == -1 {
-		n = 0
-	}
-	m := strings.LastIndex(string(buf), "}")
-	if m == -1 {
-		m = len(buf) - 1
-	}
-	return buf[n : m+1], nil
 }
 
 func FileNameByHeader(header http.Header) string {
