@@ -1,14 +1,12 @@
 package lark
 
-import "errors"
-
 const contentTypeHeader = "Content-Type"
 const contentTypeJson = "application/json"
 const defaultContentType = contentTypeJson + "; charset=utf-8"
 
 const (
-	httpHeaderKeyRequestID = "X-Request-Id"
-	httpHeaderKeyLogID     = "X-Tt-Logid"
+	httpHeaderKeyRequestId = "X-Request-Id"
+	httpHeaderKeyLogId     = "X-Tt-Logid"
 )
 
 type AppType string
@@ -25,11 +23,11 @@ const (
 	DomainLarkSuite Domain = "https://open.larksuite.com"
 )
 
-type CallbackType string
+type webhookType string
 
 const (
-	callbackTypeEvent     CallbackType = "event_callback"
-	callbackTypeChallenge CallbackType = "url_verification"
+	webhookTypeEvent     webhookType = "event_callback"
+	webhookTypeChallenge webhookType = "url_verification"
 )
 
 type AccessTokenType string
@@ -39,12 +37,6 @@ const (
 	AccessTokenTypeApp    AccessTokenType = "app_access_token"
 	AccessTokenTypeTenant AccessTokenType = "tenant_access_token"
 	AccessTokenTypeUser   AccessTokenType = "user_access_token"
-)
-
-var (
-	ErrTenantKeyIsEmpty          = errors.New("tenant key is empty")
-	ErrUserAccessTokenKeyIsEmpty = errors.New("user access token is empty")
-	ErrAppTicketIsEmpty          = errors.New("app ticket is empty")
 )
 
 const (
@@ -61,8 +53,18 @@ const (
 	errCodeAccessTokenInvalid       = 99991671
 	errCodeAppAccessTokenInvalid    = 99991664
 	errCodeTenantAccessTokenInvalid = 99991663
-	ErrCodeUserAccessTokenInvalid   = 99991668
-	ErrCodeUserRefreshTokenInvalid  = 99991669
+	errCodeUserAccessTokenInvalid   = 99991668
+	errCodeUserRefreshTokenInvalid  = 99991669
 )
+
+const (
+	larkRequestNonce     = "X-Lark-Request-Nonce"
+	larkRequestTimestamp = "X-Lark-Request-Timestamp"
+	larkSignature        = "X-Lark-Signature"
+	larkRefreshToken     = "X-Refresh-Token"
+)
+
+const webhookResponseFormat = `{"msg":"%s"}`
+const challengeResponseFormat = `{"challenge":"%s"}`
 
 const version = "1.0.0"

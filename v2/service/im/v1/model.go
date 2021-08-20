@@ -2,7 +2,7 @@
 package v1
 
 import (
-	lark "github.com/larksuite/oapi-sdk-go/v2"
+	"github.com/larksuite/oapi-sdk-go/v2"
 	"io"
 )
 
@@ -77,6 +77,47 @@ type FileCreateReq struct {
 	FileName *string   `json:"file_name"`
 	Duration *int      `json:"duration"`
 	File     io.Reader `json:"file"`
+}
+
+type UserId struct {
+	UserId  string `json:"user_id,omitempty"`
+	OpenId  string `json:"open_id,omitempty"`
+	UnionId string `json:"union_id,omitempty"`
+}
+
+type EventSender struct {
+	SenderId   *UserId `json:"sender_id,omitempty"`
+	SenderType string  `json:"sender_type,omitempty"`
+	TenantKey  string  `json:"tenant_key,omitempty"`
+}
+
+type MentionEvent struct {
+	Key       string  `json:"key,omitempty"`
+	Id        *UserId `json:"id,omitempty"`
+	Name      string  `json:"name,omitempty"`
+	TenantKey string  `json:"tenant_key,omitempty"`
+}
+
+type EventMessage struct {
+	MessageId   string          `json:"message_id,omitempty"`
+	RootId      string          `json:"root_id,omitempty"`
+	ParentId    string          `json:"parent_id,omitempty"`
+	CreateTime  int64           `json:"create_time,omitempty,string"`
+	ChatId      string          `json:"chat_id,omitempty"`
+	ChatType    string          `json:"chat_type,omitempty"`
+	MessageType string          `json:"message_type,omitempty"`
+	Content     string          `json:"content,omitempty"`
+	Mentions    []*MentionEvent `json:"mentions,omitempty"`
+}
+
+type MessageReceiveEventData struct {
+	Sender  *EventSender  `json:"sender,omitempty"`
+	Message *EventMessage `json:"message,omitempty"`
+}
+
+type MessageReceiveEvent struct {
+	*lark.EventV2Base
+	Event *MessageReceiveEventData `json:"event"`
 }
 
 type FileCreateRespData struct {

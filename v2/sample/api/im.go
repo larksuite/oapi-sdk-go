@@ -77,6 +77,7 @@ func fileDownload(ctx context.Context, larkApp *lark.App) {
 
 func main() {
 	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
+
 	larkApp := lark.NewApp(lark.DomainFeiShu, lark.WithAppCredential(appID, appSecret),
 		lark.WithLogger(lark.NewDefaultLogger(), lark.LogLevelDebug))
 

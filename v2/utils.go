@@ -3,10 +3,6 @@ package lark
 import (
 	"bytes"
 	"context"
-	"crypto/aes"
-	"crypto/cipher"
-	"crypto/sha256"
-	"encoding/base64"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -175,39 +171,6 @@ func DownloadFile(ctx context.Context, url string) ([]byte, error) {
 	return ioutil.ReadAll(r)
 }
 
-// EventDecrypt returns decrypt bytes
-func EventDecrypt(encrypt string, secret string) ([]byte, error) {
-	buf, err := base64.StdEncoding.DecodeString(encrypt)
-	if err != nil {
-		return nil, newDecryptErr(fmt.Sprintf("base64 decode error[%v]", err))
-	}
-	if len(buf) < aes.BlockSize {
-		return nil, newDecryptErr("cipher too short")
-	}
-	key := sha256.Sum256([]byte(secret))
-	block, err := aes.NewCipher(key[:sha256.Size])
-	if err != nil {
-		return nil, newDecryptErr(fmt.Sprintf("AES new cipher Error[%v]", err))
-	}
-	iv := buf[:aes.BlockSize]
-	buf = buf[aes.BlockSize:]
-	// CBC mode always works in whole blocks.
-	if len(buf)%aes.BlockSize != 0 {
-		return nil, newDecryptErr("ciphertext is not a multiple of the block size")
-	}
-	mode := cipher.NewCBCDecrypter(block, iv)
-	mode.CryptBlocks(buf, buf)
-	n := strings.Index(string(buf), "{")
-	if n == -1 {
-		n = 0
-	}
-	m := strings.LastIndex(string(buf), "}")
-	if m == -1 {
-		m = len(buf) - 1
-	}
-	return buf[n : m+1], nil
-}
-
 func FileNameByHeader(header http.Header) string {
 	filename := ""
 	_, media, _ := mime.ParseMediaType(header.Get("Content-Disposition"))
@@ -338,4 +301,109 @@ func prettify(v reflect.Value, indent int, buf *bytes.Buffer) {
 		}
 		fmt.Fprintf(buf, format, v.Interface())
 	}
+}
+
+func StructToMap(val interface{}) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
+	s := reflect.Indirect(reflect.ValueOf(val))
+	st := s.Type()
+	fmt.Println(st.Name())
+	for i := 0; i < s.NumField(); i++ {
+		jsonTag := st.Field(i).Tag.Get("json")
+		if jsonTag == "" {
+			continue
+		}
+		tag, err := parseJSONTag(jsonTag)
+		if err != nil {
+			return nil, err
+		}
+		if tag.ignore {
+			continue
+		}
+		if tag.apiName == "lines" {
+			fmt.Println("----")
+		}
+		v := s.Field(i)
+		f := st.Field(i)
+
+		if f.Type.Kind() == reflect.Ptr && v.IsNil() {
+			continue
+		}
+		// nil maps are treated as empty maps.
+		if f.Type.Kind() == reflect.Map && v.IsNil() {
+			continue
+		}
+		if f.Type.Kind() == reflect.Slice && v.IsNil() {
+			continue
+		}
+		if tag.stringFormat {
+			m[tag.apiName] = formatAsString(v, f.Type.Kind())
+		} else {
+			m[tag.apiName] = v.Interface()
+		}
+	}
+	return m, nil
+}
+
+func formatAsString(v reflect.Value, kind reflect.Kind) string {
+	if kind == reflect.Ptr && !v.IsNil() {
+		v = v.Elem()
+	}
+	return fmt.Sprintf("%v", v.Interface())
+}
+
+type jsonTag struct {
+	apiName      string
+	stringFormat bool
+	ignore       bool
+}
+
+func parseJSONTag(val string) (jsonTag, error) {
+	if val == "-" {
+		return jsonTag{ignore: true}, nil
+	}
+	var tag jsonTag
+	i := strings.Index(val, ",")
+	if i == -1 || val[:i] == "" {
+		return tag, fmt.Errorf("malformed json tag: %s", val)
+	}
+	tag = jsonTag{
+		apiName: val[:i],
+	}
+	switch val[i+1:] {
+	case "omitempty":
+	case "omitempty,string":
+		tag.stringFormat = true
+	default:
+		return tag, fmt.Errorf("malformed json tag: %s", val)
+	}
+	return tag, nil
+}
+
+func includeField(v reflect.Value, f reflect.StructField, mustInclude map[string]bool) bool {
+	if f.Type.Kind() == reflect.Ptr && v.IsNil() {
+		return false
+	}
+	if f.Type.Kind() == reflect.Interface && v.IsNil() {
+		return false
+	}
+	return mustInclude[f.Name] || !isEmptyValue(v)
+}
+
+func isEmptyValue(v reflect.Value) bool {
+	switch v.Kind() {
+	case reflect.Array, reflect.Map, reflect.Slice, reflect.String:
+		return v.Len() == 0
+	case reflect.Bool:
+		return !v.Bool()
+	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
+		return v.Int() == 0
+	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Uintptr:
+		return v.Uint() == 0
+	case reflect.Float32, reflect.Float64:
+		return v.Float() == 0
+	case reflect.Interface, reflect.Ptr:
+		return v.IsNil()
+	}
+	return false
 }

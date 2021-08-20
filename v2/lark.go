@@ -81,3 +81,8 @@ type AppSettings struct {
 	helpDeskToken     string
 	helpdeskAuthToken string
 }
+
+var Webhook = webhook{}
+
+type webhook struct {
+}

@@ -6,7 +6,9 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"io/ioutil"
+	"mime/multipart"
 	"net/http"
 	"net/url"
 	"reflect"
@@ -14,13 +16,18 @@ import (
 	"time"
 )
 
+var (
+	ErrAppTicketIsEmpty = errors.New("app ticket is empty")
+)
+
 func (app *App) SendRequest(ctx context.Context, httpMethod string, httpPath string, input interface{},
 	accessTokenType AccessTokenType, options ...RequestOptionFunc) (*RawResponse, error) {
-	return app.SendRequestWithAccessTokenTypes(ctx, httpMethod, httpPath, input, []AccessTokenType{accessTokenType}, options...)
+	return app.SendRequestWithAccessTokenTypes(ctx, httpMethod, httpPath, input,
+		[]AccessTokenType{accessTokenType}, options...)
 }
 
-func (app *App) SendRequestWithAccessTokenTypes(ctx context.Context, httpMethod string, httpPath string, input interface{},
-	accessTokenTypes []AccessTokenType, options ...RequestOptionFunc) (*RawResponse, error) {
+func (app *App) SendRequestWithAccessTokenTypes(ctx context.Context, httpMethod string, httpPath string,
+	input interface{}, accessTokenTypes []AccessTokenType, options ...RequestOptionFunc) (*RawResponse, error) {
 	option := &requestOption{}
 	for _, optionFunc := range options {
 		optionFunc(option)
@@ -260,7 +267,7 @@ type request struct {
 }
 
 func (r *request) do(ctx context.Context, app *App) (*RawResponse, error) {
-	err := r.validate(ctx, app)
+	err := r.validate(app)
 	if err != nil {
 		return nil, err
 	}
@@ -272,14 +279,14 @@ func (r *request) do(ctx context.Context, app *App) (*RawResponse, error) {
 	return rawResp, err
 }
 
-func (r *request) validate(ctx context.Context, app *App) error {
+func (r *request) validate(app *App) error {
 	if app.settings.type_ == AppTypeMarketplace {
 		if r.accessTokenType == AccessTokenTypeTenant && r.option.tenantKey == "" {
-			return ErrTenantKeyIsEmpty
+			return errors.New("tenant key is empty")
 		}
 	}
 	if r.accessTokenType == AccessTokenTypeUser && r.option.userAccessToken == "" {
-		return ErrUserAccessTokenKeyIsEmpty
+		return errors.New("user access token is empty")
 	}
 	return nil
 }
@@ -303,12 +310,12 @@ func (r *request) send(ctx context.Context, app *App) (*RawResponse, int, error)
 		case AccessTokenTypeTenant:
 			err = r.signTenantAccessToken(ctx, rawRequest, app)
 		case AccessTokenTypeUser:
-			err = r.signUserAccessToken(ctx, rawRequest)
+			err = r.signUserAccessToken(rawRequest)
 		}
 		if err != nil {
 			return nil, 0, err
 		}
-		err = r.signHelpdeskAuthToken(ctx, rawRequest, app)
+		err = r.signHelpdeskAuthToken(rawRequest, app)
 		if err != nil {
 			return nil, 0, err
 		}
@@ -553,7 +560,7 @@ func (r *request) signTenantAccessToken(ctx context.Context, httpRequest *http.R
 	return nil
 }
 
-func (r *request) signUserAccessToken(ctx context.Context, httpRequest *http.Request) error {
+func (r *request) signUserAccessToken(httpRequest *http.Request) error {
 	r.authorizationToHeader(httpRequest, r.option.userAccessToken)
 	return nil
 }
@@ -567,7 +574,7 @@ func (r *request) readResponse(resp *http.Response) ([]byte, error) {
 	return respBody, nil
 }
 
-func (r *request) signHelpdeskAuthToken(ctx context.Context, rawRequest *http.Request, app *App) error {
+func (r *request) signHelpdeskAuthToken(rawRequest *http.Request, app *App) error {
 	if r.option.needHelpDeskAuth {
 		if app.settings.helpdeskAuthToken == "" {
 			return errors.New("help desk API, please set the helpdesk information of lark.App")
@@ -626,4 +633,96 @@ func appAccessTokenKey(appID string) string {
 
 func tenantAccessTokenKey(appID, tenantKey string) string {
 	return fmt.Sprintf("%s-%s-%s", tenantAccessTokenKeyPrefix, appID, tenantKey)
+}
+
+type Formdata struct {
+	fields map[string]interface{}
+	data   *struct {
+		content     []byte
+		contentType string
+	}
+}
+
+func NewFormdata() *Formdata {
+	return &Formdata{}
+}
+
+func (fd *Formdata) AddField(field string, val interface{}) *Formdata {
+	if fd.fields == nil {
+		fd.fields = map[string]interface{}{}
+	}
+	fd.fields[field] = val
+	return fd
+}
+
+func (fd *Formdata) AddFile(field string, r io.Reader) *Formdata {
+	return fd.AddField(field, r)
+}
+
+func (fd *Formdata) content() (string, []byte, error) {
+	if fd.data != nil {
+		return fd.data.contentType, fd.data.content, nil
+	}
+	buf := &bytes.Buffer{}
+	writer := multipart.NewWriter(buf)
+	for key, val := range fd.fields {
+		if r, ok := val.(io.Reader); ok {
+			part, err := writer.CreateFormFile(key, "unknown-file")
+			if err != nil {
+				return "", nil, err
+			}
+			_, err = io.Copy(part, r)
+			if err != nil {
+				return "", nil, err
+			}
+			continue
+		}
+		err := writer.WriteField(key, fmt.Sprint(val))
+		if err != nil {
+			return "", nil, err
+		}
+	}
+	contentType := writer.FormDataContentType()
+	err := writer.Close()
+	if err != nil {
+		return "", nil, err
+	}
+	fd.data = &struct {
+		content     []byte
+		contentType string
+	}{content: buf.Bytes(), contentType: contentType}
+	return fd.data.contentType, fd.data.content, nil
+}
+
+type CodeError struct {
+	Code int               `json:"code"`
+	Msg  string            `json:"msg"`
+	Err  *InnerDetailError `json:"error"`
+}
+
+func (ce CodeError) Error() string {
+	return Prettify(ce)
+}
+
+type InnerDetailError struct {
+	Details              []*CodeErrorDetail              `json:"details,omitempty"`
+	PermissionViolations []*CodeErrorPermissionViolation `json:"permission_violations,omitempty"`
+	FieldViolations      []*CodeErrorFieldViolation      `json:"field_violations,omitempty"`
+}
+
+type CodeErrorDetail struct {
+	Key   string `json:"key,omitempty"`
+	Value string `json:"value,omitempty"`
+}
+
+type CodeErrorPermissionViolation struct {
+	Type        string `json:"type,omitempty"`
+	Subject     string `json:"subject,omitempty"`
+	Description string `json:"description,omitempty"`
+}
+
+type CodeErrorFieldViolation struct {
+	Field       string `json:"field,omitempty"`
+	Value       string `json:"value,omitempty"`
+	Description string `json:"description,omitempty"`
 }

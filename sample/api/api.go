@@ -22,10 +22,10 @@ var conf = configs.TestConfigWithLogrusAndRedisStore(core.DomainFeiShu)
 // var conf = configs.TestConfig(core.DomainFeiShu)
 
 func main() {
-	testSendMessage()
-	//testSendCardMessage()
+	//testSendMessage()
+	testSendCardMessage()
 	//testUploadFile()
-	testDownloadFile()
+	//testDownloadFile()
 }
 
 // send card message
