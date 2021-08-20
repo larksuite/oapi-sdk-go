@@ -2,10 +2,12 @@ package lark
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"io"
 	"mime/multipart"
 	"net/http"
+	"strings"
 )
 
 type RawRequest struct {
@@ -14,14 +16,29 @@ type RawRequest struct {
 }
 
 type RawResponse struct {
-	StatusCode int
-	Header     http.Header
-	Body       []byte
+	StatusCode int         `json:"-"`
+	Header     http.Header `json:"-"`
+	RawBody    []byte      `json:"-"`
+}
+
+func (resp RawResponse) JsonUnmarshal(val interface{}) error {
+	if !strings.Contains(resp.Header.Get(contentTypeHeader), contentTypeJson) {
+		return fmt.Errorf("response content-type not json, response: %v", resp)
+	}
+	return json.Unmarshal(resp.RawBody, val)
+}
+
+func (resp RawResponse) RequestId() string {
+	logID := resp.Header.Get(httpHeaderKeyLogID)
+	if logID != "" {
+		return logID
+	}
+	return resp.Header.Get(httpHeaderKeyRequestID)
 }
 
 func (resp RawResponse) String() string {
 	return fmt.Sprintf("StatusCode: %d, Header:%v, Content-Type: %s, Body: %v", resp.StatusCode,
-		resp.Header, resp.Header.Get(contentTypeHeader), string(resp.Body))
+		resp.Header, resp.Header.Get(contentTypeHeader), string(resp.RawBody))
 }
 
 type CodeError struct {
@@ -55,14 +72,6 @@ type CodeErrorFieldViolation struct {
 	Field       string `json:"field,omitempty"`
 	Value       string `json:"value,omitempty"`
 	Description string `json:"description,omitempty"`
-}
-
-func (resp RawResponse) RequestId() string {
-	logID := resp.Header.Get(httpHeaderKeyLogID)
-	if logID != "" {
-		return logID
-	}
-	return resp.Header.Get(httpHeaderKeyRequestID)
 }
 
 type CardAction struct {

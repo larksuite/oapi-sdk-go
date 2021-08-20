@@ -9,8 +9,6 @@ import (
 	"os"
 )
 
-var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
-
 func sendMessage(larkApp *lark.App) {
 	resp, err := larkApp.SendRequest(context.TODO(), "POST", "/open-apis/message/v4/send", map[string]interface{}{
 		"user_id":  "77bbc392",
@@ -53,7 +51,7 @@ func downloadImage(larkApp *lark.App) {
 		fmt.Println(resp)
 		return
 	}
-	err = ioutil.WriteFile("test_download_v2.png", resp.Body, 0666)
+	err = ioutil.WriteFile("test_download_v2.png", resp.RawBody, 0666)
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -61,6 +59,7 @@ func downloadImage(larkApp *lark.App) {
 }
 
 func main() {
+	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
 	larkApp := lark.NewApp(lark.DomainFeiShu, lark.WithAppCredential(appID, appSecret),
 		lark.WithLogger(lark.NewDefaultLogger(), lark.LogLevelDebug))
 	// sendMessage(larkApp)

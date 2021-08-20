@@ -10,6 +10,7 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"mime"
 	"net/http"
 	"reflect"
 	"strings"
@@ -205,6 +206,15 @@ func EventDecrypt(encrypt string, secret string) ([]byte, error) {
 		m = len(buf) - 1
 	}
 	return buf[n : m+1], nil
+}
+
+func FileNameByHeader(header http.Header) string {
+	filename := ""
+	_, media, _ := mime.ParseMediaType(header.Get("Content-Disposition"))
+	if len(media) > 0 {
+		filename = media["filename"]
+	}
+	return filename
 }
 
 type DecryptErr struct {

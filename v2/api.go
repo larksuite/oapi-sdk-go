@@ -16,10 +16,10 @@ import (
 
 func (app *App) SendRequest(ctx context.Context, httpMethod string, httpPath string, input interface{},
 	accessTokenType AccessTokenType, options ...RequestOptionFunc) (*RawResponse, error) {
-	return app.sendRequest(ctx, httpMethod, httpPath, input, []AccessTokenType{accessTokenType}, options...)
+	return app.SendRequestWithAccessTokenTypes(ctx, httpMethod, httpPath, input, []AccessTokenType{accessTokenType}, options...)
 }
 
-func (app *App) sendRequest(ctx context.Context, httpMethod string, httpPath string, input interface{},
+func (app *App) SendRequestWithAccessTokenTypes(ctx context.Context, httpMethod string, httpPath string, input interface{},
 	accessTokenTypes []AccessTokenType, options ...RequestOptionFunc) (*RawResponse, error) {
 	option := &requestOption{}
 	for _, optionFunc := range options {
@@ -86,12 +86,6 @@ func WithFileUpload() RequestOptionFunc {
 	}
 }
 
-func WithFileDownload() RequestOptionFunc {
-	return func(option *requestOption) {
-		option.fileDownload = true
-	}
-}
-
 func WithUserAccessToken(userAccessToken string) RequestOptionFunc {
 	return func(option *requestOption) {
 		option.userAccessToken = userAccessToken
@@ -106,16 +100,16 @@ func parseInput(input interface{}, option *requestOption) (map[string]interface{
 		return nil, nil, input
 	}
 	var hasHTTPTag bool
-	var body interface{}
+	body := input
 	paths, queries := map[string]interface{}{}, map[string]interface{}{}
-	vv := reflect.ValueOf(input)
-	vt := reflect.TypeOf(input)
+	vv := reflect.ValueOf(body)
+	vt := reflect.TypeOf(body)
 	if vt.Kind() == reflect.Ptr {
 		vv = vv.Elem()
 		vt = vt.Elem()
 	}
 	if vt.Kind() != reflect.Struct {
-		return nil, nil, input
+		return nil, nil, body
 	}
 	for i := 0; i < vt.NumField(); i++ {
 		fieldValue := vv.Field(i)
@@ -140,34 +134,41 @@ func parseInput(input interface{}, option *requestOption) (map[string]interface{
 		}
 	}
 	if !hasHTTPTag {
-		return nil, nil, input
+		if option.fileUpload {
+			body = toFormdata(body)
+		}
+		return nil, nil, body
 	}
 	if body != nil {
 		if option.fileUpload {
-			formdata := &Formdata{}
-			v := reflect.ValueOf(body)
-			t := reflect.TypeOf(body)
-			if t.Kind() == reflect.Ptr {
-				v = v.Elem()
-				t = t.Elem()
-			}
-			for i := 0; i < t.NumField(); i++ {
-				fieldValue := v.Field(i)
-				fieldType := t.Field(i)
-				if isEmpty(fieldValue) {
-					continue
-				}
-				if fieldName := fieldType.Tag.Get("json"); fieldName != "" {
-					if strings.HasSuffix(fieldName, ",omitempty") {
-						fieldName = fieldName[:len(fieldName)-10]
-					}
-					formdata.AddField(fieldName, reflect.Indirect(fieldValue).Interface())
-				}
-			}
-			body = formdata
+			body = toFormdata(body)
 		}
 	}
 	return paths, queries, body
+}
+
+func toFormdata(body interface{}) *Formdata {
+	formdata := &Formdata{}
+	v := reflect.ValueOf(body)
+	t := reflect.TypeOf(body)
+	if t.Kind() == reflect.Ptr {
+		v = v.Elem()
+		t = t.Elem()
+	}
+	for i := 0; i < t.NumField(); i++ {
+		fieldValue := v.Field(i)
+		fieldType := t.Field(i)
+		if isEmpty(fieldValue) {
+			continue
+		}
+		if fieldName := fieldType.Tag.Get("json"); fieldName != "" {
+			if strings.HasSuffix(fieldName, ",omitempty") {
+				fieldName = fieldName[:len(fieldName)-10]
+			}
+			formdata.AddField(fieldName, reflect.Indirect(fieldValue).Interface())
+		}
+	}
+	return formdata
 }
 
 func isEmpty(value reflect.Value) bool {
@@ -242,10 +243,10 @@ func payload(body interface{}) (string, []byte, error) {
 }
 
 type requestOption struct {
-	tenantKey                string
-	userAccessToken          string
-	needHelpDeskAuth         bool
-	fileUpload, fileDownload bool
+	tenantKey        string
+	userAccessToken  string
+	needHelpDeskAuth bool
+	fileUpload       bool
 }
 
 type request struct {
@@ -322,7 +323,7 @@ func (r *request) send(ctx context.Context, app *App) (*RawResponse, int, error)
 		rawResp = &RawResponse{
 			StatusCode: resp.StatusCode,
 			Header:     resp.Header,
-			Body:       body,
+			RawBody:    body,
 		}
 		if r.retryCount == 1 || !strings.Contains(resp.Header.Get(contentTypeHeader), contentTypeJson) {
 			break
@@ -343,7 +344,7 @@ func (r *request) send(ctx context.Context, app *App) (*RawResponse, int, error)
 }
 
 func (r *request) applyAppTicket(ctx context.Context, app *App) {
-	rawResp, err := app.SendRequest(ctx, http.MethodPost, applyAppTicketPath, &InternalAccessTokenReq{
+	rawResp, err := app.SendRequest(ctx, http.MethodPost, applyAppTicketPath, &applyAppTicketReq{
 		AppID:     app.settings.id,
 		AppSecret: app.settings.secret,
 	}, accessTokenTypeNone)
@@ -356,7 +357,7 @@ func (r *request) applyAppTicket(ctx context.Context, app *App) {
 		return
 	}
 	codeError := &CodeError{}
-	err = json.Unmarshal(rawResp.Body, codeError)
+	err = json.Unmarshal(rawResp.RawBody, codeError)
 	if err != nil {
 		app.logger.Error(ctx, fmt.Sprintf("apply app_ticket, json unmarshal error: %v", err))
 		return
@@ -381,15 +382,15 @@ const expiryDelta = 3 * time.Minute
 
 // internal app access token
 func (r *request) customAppAccessToken(ctx context.Context, app *App) (string, error) {
-	rawResp, err := app.SendRequest(ctx, http.MethodPost, appAccessTokenInternalUrlPath, &InternalAccessTokenReq{
+	rawResp, err := app.SendRequest(ctx, http.MethodPost, appAccessTokenInternalUrlPath, &internalAccessTokenReq{
 		AppID:     app.settings.id,
 		AppSecret: app.settings.secret,
 	}, accessTokenTypeNone)
 	if err != nil {
 		return "", err
 	}
-	appAccessTokenResp := &AppAccessTokenResp{}
-	err = json.Unmarshal(rawResp.Body, appAccessTokenResp)
+	appAccessTokenResp := &appAccessTokenResp{}
+	err = json.Unmarshal(rawResp.RawBody, appAccessTokenResp)
 	if err != nil {
 		return "", err
 	}
@@ -406,15 +407,15 @@ func (r *request) customAppAccessToken(ctx context.Context, app *App) (string, e
 
 // get internal tenant access token
 func (r *request) customTenantAccessToken(ctx context.Context, app *App) (string, error) {
-	rawResp, err := app.SendRequest(ctx, http.MethodPost, tenantAccessTokenInternalUrlPath, &InternalAccessTokenReq{
+	rawResp, err := app.SendRequest(ctx, http.MethodPost, tenantAccessTokenInternalUrlPath, &internalAccessTokenReq{
 		AppID:     app.settings.id,
 		AppSecret: app.settings.secret,
 	}, accessTokenTypeNone)
 	if err != nil {
 		return "", err
 	}
-	tenantAccessTokenResp := &TenantAccessTokenResp{}
-	err = json.Unmarshal(rawResp.Body, tenantAccessTokenResp)
+	tenantAccessTokenResp := &tenantAccessTokenResp{}
+	err = json.Unmarshal(rawResp.RawBody, tenantAccessTokenResp)
 	if err != nil {
 		return "", err
 	}
@@ -438,15 +439,15 @@ func (r *request) marketplaceAppAccessToken(ctx context.Context, app *App) (stri
 	if appTicket == "" {
 		return "", ErrAppTicketIsEmpty
 	}
-	rawResp, err := app.SendRequest(ctx, http.MethodPost, appAccessTokenUrlPath, &MarketplaceAppAccessTokenReq{
+	rawResp, err := app.SendRequest(ctx, http.MethodPost, appAccessTokenUrlPath, &marketplaceAppAccessTokenReq{
 		AppID:     app.settings.id,
 		AppSecret: app.settings.secret,
 	}, accessTokenTypeNone)
 	if err != nil {
 		return "", err
 	}
-	appAccessTokenResp := &AppAccessTokenResp{}
-	err = json.Unmarshal(rawResp.Body, appAccessTokenResp)
+	appAccessTokenResp := &appAccessTokenResp{}
+	err = json.Unmarshal(rawResp.RawBody, appAccessTokenResp)
 	if err != nil {
 		return "", err
 	}
@@ -467,15 +468,15 @@ func (r *request) marketplaceTenantAccessToken(ctx context.Context, app *App) (s
 	if err != nil {
 		return "", err
 	}
-	rawResp, err := app.SendRequest(ctx, http.MethodPost, tenantAccessTokenUrlPath, &MarketplaceTenantAccessTokenReq{
+	rawResp, err := app.SendRequest(ctx, http.MethodPost, tenantAccessTokenUrlPath, &marketplaceTenantAccessTokenReq{
 		AppAccessToken: appAccessToken,
 		TenantKey:      r.option.tenantKey,
 	}, accessTokenTypeNone)
 	if err != nil {
 		return "", err
 	}
-	tenantAccessTokenResp := &TenantAccessTokenResp{}
-	err = json.Unmarshal(rawResp.Body, tenantAccessTokenResp)
+	tenantAccessTokenResp := &tenantAccessTokenResp{}
+	err = json.Unmarshal(rawResp.RawBody, tenantAccessTokenResp)
 	if err != nil {
 		return "", err
 	}
@@ -576,35 +577,35 @@ func (r *request) signHelpdeskAuthToken(ctx context.Context, rawRequest *http.Re
 	return nil
 }
 
-type MarketplaceTenantAccessTokenReq struct {
-	AppAccessToken string `json:"app_access_token"`
-	TenantKey      string `json:"tenant_key"`
-}
-
-type TenantAccessTokenResp struct {
-	*CodeError
+type tenantAccessTokenResp struct {
+	CodeError
 	Expire            int    `json:"expire"`
 	TenantAccessToken string `json:"tenant_access_token"`
 }
 
-type InternalAccessTokenReq struct {
+type internalAccessTokenReq struct {
 	AppID     string `json:"app_id"`
 	AppSecret string `json:"app_secret"`
 }
 
-type MarketplaceAppAccessTokenReq struct {
+type marketplaceAppAccessTokenReq struct {
 	AppID     string `json:"app_id"`
 	AppSecret string `json:"app_secret"`
 	AppTicket string `json:"app_ticket"`
 }
 
-type AppAccessTokenResp struct {
-	*CodeError
+type marketplaceTenantAccessTokenReq struct {
+	AppAccessToken string `json:"app_access_token"`
+	TenantKey      string `json:"tenant_key"`
+}
+
+type appAccessTokenResp struct {
+	CodeError
 	Expire         int    `json:"expire"`
 	AppAccessToken string `json:"app_access_token"`
 }
 
-type ApplyAppTicketReq struct {
+type applyAppTicketReq struct {
 	AppID     string `json:"app_id"`
 	AppSecret string `json:"app_secret"`
 }
