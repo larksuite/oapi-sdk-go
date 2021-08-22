@@ -15,50 +15,50 @@ const (
 	LogLevelError LogLevel = 4
 )
 
-type LoggerProxy struct {
+type loggerProxy struct {
 	LogLevel LogLevel
-	Logger   Logger
+	Logger   logger
 }
 
-func NewLoggerProxy(logLevel LogLevel, logger Logger) *LoggerProxy {
-	return &LoggerProxy{
+func newLoggerProxy(logLevel LogLevel, logger logger) *loggerProxy {
+	return &loggerProxy{
 		LogLevel: logLevel,
 		Logger:   logger,
 	}
 }
 
-func (p *LoggerProxy) Debug(ctx context.Context, args ...interface{}) {
-	if p.LogLevel <= LogLevelDebug && p.Logger != nil {
+func (p *loggerProxy) Debug(ctx context.Context, args ...interface{}) {
+	if p.Logger != nil && p.LogLevel <= LogLevelDebug {
 		p.Logger.Debug(ctx, args...)
 	}
 }
 
-func (p *LoggerProxy) Info(ctx context.Context, args ...interface{}) {
-	if p.LogLevel <= LogLevelInfo && p.Logger != nil {
+func (p *loggerProxy) Info(ctx context.Context, args ...interface{}) {
+	if p.Logger != nil && p.LogLevel <= LogLevelInfo {
 		p.Logger.Info(ctx, args...)
 	}
 }
 
-func (p *LoggerProxy) Warn(ctx context.Context, args ...interface{}) {
-	if p.LogLevel <= LogLevelWarn && p.Logger != nil {
+func (p *loggerProxy) Warn(ctx context.Context, args ...interface{}) {
+	if p.Logger != nil && p.LogLevel <= LogLevelWarn {
 		p.Logger.Warn(ctx, args...)
 	}
 }
 
-func (p *LoggerProxy) Error(ctx context.Context, args ...interface{}) {
-	if p.LogLevel <= LogLevelError && p.Logger != nil {
+func (p *loggerProxy) Error(ctx context.Context, args ...interface{}) {
+	if p.Logger != nil && p.LogLevel <= LogLevelError {
 		p.Logger.Error(ctx, args...)
 	}
 }
 
-type Logger interface {
+type logger interface {
 	Debug(context.Context, ...interface{})
 	Info(context.Context, ...interface{})
 	Warn(context.Context, ...interface{})
 	Error(context.Context, ...interface{})
 }
 
-func NewDefaultLogger() Logger {
+func NewDefaultLogger() logger {
 	return &defaultLogger{
 		logger: log.New(os.Stdout, "", log.LstdFlags),
 	}

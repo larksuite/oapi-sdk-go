@@ -36,7 +36,7 @@ func (app *App) SendRequestWithAccessTokenTypes(ctx context.Context, httpMethod 
 	accessTokenType := accessTokenTypes[0]
 	for _, t := range accessTokenTypes {
 		if t == AccessTokenTypeTenant {
-			accessTokenType = t
+			accessTokenType = t // default
 		}
 		accessibleTokenTypeSet[t] = struct{}{}
 	}
@@ -75,9 +75,9 @@ func (app *App) SendRequestWithAccessTokenTypes(ctx context.Context, httpMethod 
 
 type RequestOptionFunc func(option *requestOption)
 
-func WithNeedHelpDeskAuth(needHelpDeskAuth bool) RequestOptionFunc {
+func WithNeedHelpDeskAuth() RequestOptionFunc {
 	return func(option *requestOption) {
-		option.needHelpDeskAuth = needHelpDeskAuth
+		option.needHelpDeskAuth = true
 	}
 }
 
@@ -90,6 +90,12 @@ func WithTenantKey(tenantKey string) RequestOptionFunc {
 func WithFileUpload() RequestOptionFunc {
 	return func(option *requestOption) {
 		option.fileUpload = true
+	}
+}
+
+func WithHTTPHeader(header http.Header) RequestOptionFunc {
+	return func(option *requestOption) {
+		option.header = header
 	}
 }
 
@@ -254,6 +260,7 @@ type requestOption struct {
 	userAccessToken  string
 	needHelpDeskAuth bool
 	fileUpload       bool
+	header           http.Header
 }
 
 type request struct {
@@ -299,6 +306,11 @@ func (r *request) send(ctx context.Context, app *App) (*RawResponse, int, error)
 		rawRequest, err := http.NewRequestWithContext(ctx, r.method, r.url, bytes.NewBuffer(r.body))
 		if err != nil {
 			return nil, 0, err
+		}
+		for k, vs := range r.option.header {
+			for _, v := range vs {
+				rawRequest.Header.Add(k, v)
+			}
 		}
 		rawRequest.Header.Set("User-Agent", fmt.Sprintf("oapi-sdk-go-v2/%s", version))
 		if r.contentType != "" {
@@ -449,6 +461,7 @@ func (r *request) marketplaceAppAccessToken(ctx context.Context, app *App) (stri
 	rawResp, err := app.SendRequest(ctx, http.MethodPost, appAccessTokenUrlPath, &marketplaceAppAccessTokenReq{
 		AppID:     app.settings.id,
 		AppSecret: app.settings.secret,
+		AppTicket: appTicket,
 	}, accessTokenTypeNone)
 	if err != nil {
 		return "", err
@@ -701,6 +714,10 @@ type CodeError struct {
 }
 
 func (ce CodeError) Error() string {
+	return Prettify(ce)
+}
+
+func (ce CodeError) String() string {
 	return Prettify(ce)
 }
 

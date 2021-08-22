@@ -17,43 +17,31 @@ import (
 
 var once sync.Once
 
-func (h webhook) EventCommandHandle(ctx context.Context, app *App, req *RawRequest) *RawResponse {
-	return eventCommandHandle(ctx, app, req)
-}
-
-func eventCommandHandle(ctx context.Context, app *App, request *RawRequest) *RawResponse {
+func (wh *webhook) EventCommandHandle(ctx context.Context, req *RawRequest) *RawResponse {
 	once.Do(func() {
-		if app.settings.type_ == AppTypeMarketplace {
-			EventHandler(app, "app_ticket", &appTicketEventHandler{app: app})
+		if wh.app.settings.type_ == AppTypeMarketplace {
+			wh.EventHandler("app_ticket", &appTicketEventHandler{app: wh.app})
 		}
 	})
 	httpEvent := &httpEvent{
-		request:  request,
+		request:  req,
 		response: &RawResponse{},
 	}
-	httpEvent.do(ctx, app)
+	httpEvent.do(ctx, wh)
 	return httpEvent.response
+}
+
+func (wh *webhook) EventHandler(eventType string, handler eventHandler) {
+	wh.eventType2EventHandler[eventType] = handler
+}
+
+func (wh *webhook) EventHandleFunc(eventType string, handler func(context.Context, *RawRequest) error) {
+	wh.EventHandler(eventType, &defaultHandler{handler: handler})
 }
 
 type eventHandler interface {
 	Event() interface{}
 	Handle(context.Context, *RawRequest, interface{}) error
-}
-
-var appId2Type2EventHandler = map[string]map[string]eventHandler{}
-
-func EventHandler(app *App, eventType string, handler eventHandler) {
-	appID := app.settings.id
-	type2EventHandler, ok := appId2Type2EventHandler[appID]
-	if !ok {
-		type2EventHandler = map[string]eventHandler{}
-		appId2Type2EventHandler[appID] = type2EventHandler
-	}
-	type2EventHandler[eventType] = handler
-}
-
-func EventHandleFunc(app *App, eventType string, handler func(context.Context, *RawRequest) error) {
-	EventHandler(app, eventType, &defaultHandler{handler: handler})
 }
 
 type defaultHandler struct {
@@ -73,7 +61,7 @@ type httpEvent struct {
 	response *RawResponse
 }
 
-func (e *httpEvent) do(ctx context.Context, app *App) {
+func (e *httpEvent) do(ctx context.Context, wh *webhook) {
 	var type_ webhookType
 	var token string
 	var eventType string
@@ -85,10 +73,11 @@ func (e *httpEvent) do(ctx context.Context, app *App) {
 		e.response.Header.Set(contentTypeHeader, defaultContentType)
 		if err != nil {
 			if _, ok := err.(*notFoundEventHandlerErr); ok {
+				wh.app.logger.Debug(ctx, fmt.Sprintf("%v", err))
 				e.response.RawBody = []byte(fmt.Sprintf(webhookResponseFormat, err.Error()))
 				return
 			}
-			app.logger.Error(ctx, fmt.Sprintf("event handle err: %v", err))
+			wh.app.logger.Error(ctx, fmt.Sprintf("event handle err: %v", err))
 			e.response.StatusCode = http.StatusInternalServerError
 			e.response.RawBody = []byte(fmt.Sprintf(webhookResponseFormat, err.Error()))
 			return
@@ -101,20 +90,20 @@ func (e *httpEvent) do(ctx context.Context, app *App) {
 		return
 	}()
 	var body = e.request.RawBody
-	app.logger.Debug(ctx, fmt.Sprintf("event request: %v", e.request))
-	if app.settings.encryptKey != "" {
+	wh.app.logger.Debug(ctx, fmt.Sprintf("event request: %v", e.request))
+	if wh.app.settings.eventEncryptKey != "" {
 		var encrypt eventAESMsg
 		err = json.Unmarshal(e.request.RawBody, &encrypt)
 		if err != nil {
 			err = fmt.Errorf("event json unmarshal, err:%v", err)
 			return
 		}
-		body, err = eventDecrypt(encrypt.Encrypt, app.settings.encryptKey)
+		body, err = eventDecrypt(encrypt.Encrypt, wh.app.settings.eventEncryptKey)
 		if err != nil {
 			err = fmt.Errorf("event decrypt, err:%v", err)
 			return
 		}
-		app.logger.Debug(ctx, fmt.Sprintf("event decrypt: %s", string(body)))
+		wh.app.logger.Debug(ctx, fmt.Sprintf("event decrypt: %s", string(body)))
 	}
 	fuzzy := &eventFuzzy{}
 	err = json.Unmarshal(body, fuzzy)
@@ -135,28 +124,54 @@ func (e *httpEvent) do(ctx context.Context, app *App) {
 		eventType = fuzzy.Header.EventType
 	}
 	if type_ == webhookTypeChallenge {
-		if token != app.settings.verificationToken {
+		if token != wh.app.settings.verificationToken {
 			err = errors.New("event token not equal app settings token")
 			return
 		}
 		return
 	}
-	var handler eventHandler
-	if eventType2EventHandler, ok := appId2Type2EventHandler[app.settings.id]; ok {
-		if h, ok := eventType2EventHandler[eventType]; ok {
-			handler = h
-		}
+	err = e.verify(wh.app)
+	if err != nil {
+		return
 	}
+	handler := wh.eventType2EventHandler[eventType]
 	if handler == nil {
 		err = &notFoundEventHandlerErr{eventType: eventType}
 		return
 	}
 	event := handler.Event()
-	err = json.Unmarshal(body, event)
-	if err != nil {
-		return
+	if _, ok := handler.(*defaultHandler); !ok {
+		err = json.Unmarshal(body, event)
+		if err != nil {
+			return
+		}
 	}
 	err = handler.Handle(ctx, e.request, event)
+}
+
+func (e httpEvent) verify(app *App) error {
+	if app.settings.eventEncryptKey == "" {
+		return nil
+	}
+	targetSig := e.signature(e.request.Header.Get(larkRequestTimestamp), e.request.Header.Get(larkRequestNonce),
+		app.settings.eventEncryptKey, string(e.request.RawBody))
+	if e.request.Header.Get(larkSignature) == targetSig {
+		return nil
+	}
+	return errors.New("signature error")
+}
+
+func (e httpEvent) signature(timestamp string, nonce string, eventEncryptKey string, body string) string {
+	var b strings.Builder
+	b.WriteString(timestamp)
+	b.WriteString(nonce)
+	b.WriteString(eventEncryptKey)
+	b.WriteString(body)
+	bs := []byte(b.String())
+	h := sha256.New()
+	_, _ = h.Write(bs)
+	bs = h.Sum(nil)
+	return fmt.Sprintf("%x", bs)
 }
 
 // eventDecrypt returns decrypt bytes
@@ -237,9 +252,8 @@ func (e notFoundEventHandlerErr) Error() string {
 }
 
 type appTicketEventData struct {
-	AppID     string `json:"app_id"`
+	AppId     string `json:"app_id"`
 	Type      string `json:"type"`
-	TenantKey string `json:"tenant_key"`
 	AppTicket string `json:"app_ticket"`
 }
 
@@ -260,6 +274,6 @@ func (h *appTicketEventHandler) Event() interface{} {
 
 func (h *appTicketEventHandler) Handle(ctx context.Context, req *RawRequest, event interface{}) error {
 	appTicketEvent := event.(*appTicketEvent)
-	return h.app.store.Put(ctx, fmt.Sprintf("%s-%s", appTicketKeyPrefix, appTicketEvent.Event.AppID),
+	return h.app.store.Put(ctx, fmt.Sprintf("%s-%s", appTicketKeyPrefix, appTicketEvent.Event.AppId),
 		appTicketEvent.Event.AppTicket, time.Hour*12)
 }

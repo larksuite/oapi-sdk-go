@@ -4,8 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/larksuite/oapi-sdk-go/v2"
-	im "github.com/larksuite/oapi-sdk-go/v2/service/im/v1"
-	"io/ioutil"
+	"github.com/larksuite/oapi-sdk-go/v2/service/im/v1"
 	"net/http"
 	"os"
 )
@@ -16,10 +15,11 @@ func main() {
 
 	larkApp := lark.NewApp(lark.DomainFeiShu,
 		lark.WithAppCredential(appID, appSecret),
-		lark.WithEventVerify(verificationToken, encryptKey),
+		lark.WithAppEventVerify(verificationToken, encryptKey),
 		lark.WithLogger(lark.NewDefaultLogger(), lark.LogLevelDebug))
 
-	im.New(larkApp).Messages.ReceiveEventHandler(func(ctx context.Context, req *lark.RawRequest, event *im.MessageReceiveEvent) error {
+	// @robot message handle
+	imv1.New(larkApp).Messages.ReceiveEventHandler(func(ctx context.Context, req *lark.RawRequest, event *imv1.MessageReceiveEvent) error {
 		fmt.Println(req)
 		fmt.Println(lark.Prettify(event))
 		return nil
@@ -27,18 +27,13 @@ func main() {
 
 	// http server handle func
 	http.HandleFunc("/webhook/event", func(writer http.ResponseWriter, request *http.Request) {
-		rawBody, _ := ioutil.ReadAll(request.Body)
-		resp := lark.Webhook.EventCommandHandle(context.Background(), larkApp, &lark.RawRequest{
-			Header:  request.Header,
-			RawBody: rawBody,
-		})
-		writer.WriteHeader(resp.StatusCode)
-		for k, vs := range resp.Header {
-			for _, v := range vs {
-				writer.Header().Set(k, v)
-			}
+		rawRequest, err := lark.NewRawRequest(request)
+		if err != nil {
+			writer.WriteHeader(http.StatusInternalServerError)
+			writer.Write([]byte(err.Error()))
+			return
 		}
-		writer.Write(resp.RawBody)
+		larkApp.Webhook.EventCommandHandle(context.Background(), rawRequest).Write(writer)
 	})
 	// startup http server
 	err := http.ListenAndServe(":8089", nil)

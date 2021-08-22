@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-type Store interface {
+type store interface {
 	Get(context.Context, string) (string, error)
 	Put(context.Context, string, string, time.Duration) error
 }

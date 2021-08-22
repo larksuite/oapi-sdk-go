@@ -303,11 +303,10 @@ func prettify(v reflect.Value, indent int, buf *bytes.Buffer) {
 	}
 }
 
-func StructToMap(val interface{}) (map[string]interface{}, error) {
+func structToMap(val interface{}) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	s := reflect.Indirect(reflect.ValueOf(val))
 	st := s.Type()
-	fmt.Println(st.Name())
 	for i := 0; i < s.NumField(); i++ {
 		jsonTag := st.Field(i).Tag.Get("json")
 		if jsonTag == "" {
@@ -319,9 +318,6 @@ func StructToMap(val interface{}) (map[string]interface{}, error) {
 		}
 		if tag.ignore {
 			continue
-		}
-		if tag.apiName == "lines" {
-			fmt.Println("----")
 		}
 		v := s.Field(i)
 		f := st.Field(i)

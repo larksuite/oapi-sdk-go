@@ -12,19 +12,17 @@ import (
 
 type cardActionHandler func(context.Context, *RawRequest, *CardAction) (interface{}, error)
 
-var appId2CardActionHandler = make(map[string]cardActionHandler)
-
-func (h webhook) CardActionHandler(app *App, handler cardActionHandler) {
-	appId2CardActionHandler[app.settings.id] = handler
-}
-
-func (h webhook) CardActionHandle(ctx context.Context, app *App, req *RawRequest) *RawResponse {
+func (wh *webhook) CardActionHandle(ctx context.Context, req *RawRequest) *RawResponse {
 	card := httpCard{
 		request:  req,
 		response: &RawResponse{},
 	}
-	card.do(ctx, app)
+	card.do(ctx, wh)
 	return card.response
+}
+
+func (wh *webhook) CardActionHandler(handler cardActionHandler) {
+	wh.actionHandler = handler
 }
 
 type httpCard struct {
@@ -32,7 +30,7 @@ type httpCard struct {
 	response *RawResponse
 }
 
-func (c httpCard) do(ctx context.Context, app *App) {
+func (c httpCard) do(ctx context.Context, wh *webhook) {
 	var err error
 	var type_ webhookType
 	var challenge string
@@ -47,7 +45,7 @@ func (c httpCard) do(ctx context.Context, app *App) {
 				c.response.RawBody = []byte(fmt.Sprintf(webhookResponseFormat, err.Error()))
 				return
 			}
-			app.logger.Error(ctx, fmt.Sprintf("card action handle err: %v", err))
+			wh.app.logger.Error(ctx, fmt.Sprintf("card action handle err: %v", err))
 			c.response.StatusCode = http.StatusInternalServerError
 			c.response.RawBody = []byte(fmt.Sprintf(webhookResponseFormat, err.Error()))
 			return
@@ -63,7 +61,7 @@ func (c httpCard) do(ctx context.Context, app *App) {
 		c.response.RawBody = []byte(fmt.Sprintf(webhookResponseFormat, "success"))
 		return
 	}()
-	app.logger.Debug(ctx, fmt.Sprintf("card action: %v", c.request))
+	wh.app.logger.Debug(ctx, fmt.Sprintf("card action: %v", c.request))
 	out := &cardChallenge{}
 	err = json.Unmarshal(c.request.RawBody, out)
 	if err != nil {
@@ -72,18 +70,18 @@ func (c httpCard) do(ctx context.Context, app *App) {
 	type_ = webhookType(out.Type)
 	challenge = out.Challenge
 	if type_ == webhookTypeChallenge {
-		if app.settings.verificationToken != out.Token {
+		if wh.app.settings.verificationToken != out.Token {
 			err = errors.New("card challenge token not equal app settings token")
 			return
 		}
 		return
 	}
-	err = c.verify(app)
+	err = c.verify(wh.app)
 	if err != nil {
 		return
 	}
-	h, ok := appId2CardActionHandler[app.settings.id]
-	if !ok {
+	h := wh.actionHandler
+	if h == nil {
 		err = notFoundCardHandlerErr
 		return
 	}

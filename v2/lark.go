@@ -8,13 +8,14 @@ import (
 func NewApp(domain Domain, options ...AppOptionFunc) *App {
 	app := &App{
 		domain:   domain,
-		settings: &AppSettings{type_: AppTypeCustom},
-		logger:   NewLoggerProxy(LogLevelError, nil),
+		settings: &appSettings{type_: AppTypeCustom},
+		logger:   newLoggerProxy(LogLevelError, nil),
 		store:    &defaultStore{},
 	}
 	for _, optionFunc := range options {
 		optionFunc(app)
 	}
+	app.Webhook = newWebhook(app)
 	return app
 }
 
@@ -25,14 +26,14 @@ func WithAppCredential(appID, appSecret string) AppOptionFunc {
 	}
 }
 
-func WithEventVerify(verificationToken, encryptKey string) AppOptionFunc {
+func WithAppEventVerify(verificationToken, encryptKey string) AppOptionFunc {
 	return func(app *App) {
 		app.settings.verificationToken = verificationToken
-		app.settings.encryptKey = encryptKey
+		app.settings.eventEncryptKey = encryptKey
 	}
 }
 
-func WithHelpdeskCredential(helpdeskID, helpdeskToken string) AppOptionFunc {
+func WithAppHelpdeskCredential(helpdeskID, helpdeskToken string) AppOptionFunc {
 	return func(app *App) {
 		app.settings.helpDeskID = helpdeskID
 		app.settings.helpDeskToken = helpdeskToken
@@ -42,9 +43,9 @@ func WithHelpdeskCredential(helpdeskID, helpdeskToken string) AppOptionFunc {
 	}
 }
 
-func WithLogger(logger Logger, level LogLevel) AppOptionFunc {
+func WithLogger(logger logger, level LogLevel) AppOptionFunc {
 	return func(lark *App) {
-		lark.logger = NewLoggerProxy(level, logger)
+		lark.logger = newLoggerProxy(level, logger)
 	}
 }
 
@@ -54,7 +55,7 @@ func WithAppType(appType AppType) AppOptionFunc {
 	}
 }
 
-func WithStore(store Store) AppOptionFunc {
+func WithStore(store store) AppOptionFunc {
 	return func(app *App) {
 		app.store = store
 	}
@@ -64,25 +65,34 @@ type AppOptionFunc func(*App)
 
 type App struct {
 	domain   Domain
-	settings *AppSettings
-	logger   Logger
-	store    Store
+	settings *appSettings
+	logger   logger
+	store    store
+	Webhook  *webhook
 }
 
-type AppSettings struct {
+type appSettings struct {
 	type_  AppType
 	id     string
 	secret string
 
 	verificationToken string
-	encryptKey        string
+	eventEncryptKey   string
 
 	helpDeskID        string
 	helpDeskToken     string
 	helpdeskAuthToken string
 }
 
-var Webhook = webhook{}
-
 type webhook struct {
+	app                    *App
+	actionHandler          cardActionHandler
+	eventType2EventHandler map[string]eventHandler
+}
+
+func newWebhook(app *App) *webhook {
+	return &webhook{
+		app:                    app,
+		eventType2EventHandler: map[string]eventHandler{},
+	}
 }

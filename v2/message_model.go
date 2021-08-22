@@ -2,11 +2,212 @@ package lark
 
 import "encoding/json"
 
+type LanguageType string
+
+const (
+	LanguageTypeZhCN LanguageType = "zh_cn"
+	LanguageTypeEnUS LanguageType = "en_us"
+	LanguageTypeJaJP LanguageType = "ja_jp"
+)
+
+type MessageText struct {
+	Text string `json:"text"`
+}
+
+func (m *MessageText) Json() (string, error) {
+	bs, err := json.Marshal(m)
+	if err != nil {
+		return "", err
+	}
+	return string(bs), nil
+}
+
+type MessagePost map[LanguageType]*MessagePostContent
+
+type MessagePostContent struct {
+	Title   string                 `json:"title,omitempty"`
+	Content [][]MessagePostElement `json:"content,omitempty"`
+}
+
+func (m *MessagePost) Json() (string, error) {
+	bs, err := json.Marshal(m)
+	if err != nil {
+		return "", err
+	}
+	return string(bs), nil
+}
+
+type MessagePostElement interface {
+	Tag() string
+	IsPost()
+	MarshalJSON() ([]byte, error)
+}
+
+func messagePostElementJson(e MessagePostElement) ([]byte, error) {
+	data, err := structToMap(e)
+	if err != nil {
+		return nil, err
+	}
+	data["tag"] = e.Tag()
+	return json.Marshal(data)
+}
+
+type MessagePostText struct {
+	Text     string `json:"text,omitempty"`
+	UnEscape bool   `json:"un_escape,omitempty"`
+}
+
+func (m *MessagePostText) Tag() string {
+	return "text"
+}
+
+func (m *MessagePostText) IsPost() {
+}
+
+func (m *MessagePostText) MarshalJSON() ([]byte, error) {
+	return messagePostElementJson(m)
+}
+
+type MessagePostA struct {
+	Text     string `json:"text,omitempty"`
+	Href     string `json:"href,omitempty"`
+	UnEscape bool   `json:"un_escape,omitempty"`
+}
+
+func (m *MessagePostA) Tag() string {
+	return "a"
+}
+
+func (m *MessagePostA) IsPost() {
+}
+
+func (m *MessagePostA) MarshalJSON() ([]byte, error) {
+	return messagePostElementJson(m)
+}
+
+type MessagePostAt struct {
+	UserId string `json:"user_id,omitempty"`
+}
+
+func (m *MessagePostAt) Tag() string {
+	return "at"
+}
+
+func (m *MessagePostAt) IsPost() {
+}
+
+func (m *MessagePostAt) MarshalJSON() ([]byte, error) {
+	return messagePostElementJson(m)
+}
+
+type MessagePostImg struct {
+	ImageKey string `json:"image_key,omitempty"`
+	Width    int    `json:"width"`
+	Height   int    `json:"height"`
+}
+
+func (m *MessagePostImg) Tag() string {
+	return "img"
+}
+
+func (m *MessagePostImg) IsPost() {
+}
+
+func (m *MessagePostImg) MarshalJSON() ([]byte, error) {
+	return messagePostElementJson(m)
+}
+
+type MessageShareChat struct {
+	ChatId string `json:"chat_id,omitempty"`
+}
+
+func (m *MessageShareChat) Json() (string, error) {
+	bs, err := json.Marshal(m)
+	if err != nil {
+		return "", err
+	}
+	return string(bs), nil
+}
+
+type MessageShareUser struct {
+	UserId string `json:"user_id,omitempty"`
+}
+
+func (m *MessageShareUser) Json() (string, error) {
+	bs, err := json.Marshal(m)
+	if err != nil {
+		return "", err
+	}
+	return string(bs), nil
+}
+
+type MessageImage struct {
+	ImageKey string `json:"image_key,omitempty"`
+}
+
+func (m *MessageImage) Json() (string, error) {
+	bs, err := json.Marshal(m)
+	if err != nil {
+		return "", err
+	}
+	return string(bs), nil
+}
+
+type MessageAudio struct {
+	FileKey string `json:"file_key,omitempty"`
+}
+
+func (m *MessageAudio) Json() (string, error) {
+	bs, err := json.Marshal(m)
+	if err != nil {
+		return "", err
+	}
+	return string(bs), nil
+}
+
+type MessageVideo struct {
+	FileKey  string `json:"file_key,omitempty"`
+	ImageKey string `json:"image_key,omitempty"`
+}
+
+func (m *MessageVideo) Json() (string, error) {
+	bs, err := json.Marshal(m)
+	if err != nil {
+		return "", err
+	}
+	return string(bs), nil
+}
+
+type MessageFile struct {
+	FileKey string `json:"file_key,omitempty"`
+}
+
+func (m *MessageFile) Json() (string, error) {
+	bs, err := json.Marshal(m)
+	if err != nil {
+		return "", err
+	}
+	return string(bs), nil
+}
+
+type MessageSticker struct {
+	FileKey string `json:"file_key,omitempty"`
+}
+
+func (m *MessageSticker) Json() (string, error) {
+	bs, err := json.Marshal(m)
+	if err != nil {
+		return "", err
+	}
+	return string(bs), nil
+}
+
 type MessageCard struct {
-	Config   *MessageCardConfig   `json:"config,omitempty"`
-	Header   *MessageCardHeader   `json:"header,omitempty"`
-	Elements []MessageCardElement `json:"elements,omitempty"`
-	CardLink *MessageCardURL      `json:"card_link,omitempty"`
+	Config       *MessageCardConfig                  `json:"config,omitempty"`
+	Header       *MessageCardHeader                  `json:"header,omitempty"`
+	Elements     []MessageCardElement                `json:"elements,omitempty"`
+	I18nElements map[LanguageType]MessageCardElement `json:"i18n_elements,omitempty"`
+	CardLink     *MessageCardURL                     `json:"card_link,omitempty"`
 }
 
 func (m *MessageCard) Json() (string, error) {
@@ -18,7 +219,7 @@ func (m *MessageCard) Json() (string, error) {
 }
 
 func messageCardElementJson(e MessageCardElement) ([]byte, error) {
-	data, err := StructToMap(e)
+	data, err := structToMap(e)
 	if err != nil {
 		return nil, err
 	}
