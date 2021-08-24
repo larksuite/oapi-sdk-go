@@ -213,17 +213,6 @@ func (s *TimeoffEvent) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
-type Vchat struct {
-	MeetingUrl      string   `json:"meeting_url,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *Vchat) MarshalJSON() ([]byte, error) {
-	type cp Vchat
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
 type AclScopeEvent struct {
 	Type            string   `json:"type,omitempty"`
 	UserId          *UserId  `json:"user_id,omitempty"`
@@ -232,6 +221,19 @@ type AclScopeEvent struct {
 
 func (s *AclScopeEvent) MarshalJSON() ([]byte, error) {
 	type cp AclScopeEvent
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type CalendarAclEvent struct {
+	AclId           string         `json:"acl_id,omitempty"`
+	Role            string         `json:"role,omitempty"`
+	Scope           *AclScopeEvent `json:"scope,omitempty"`
+	ForceSendFields []string       `json:"-"`
+}
+
+func (s *CalendarAclEvent) MarshalJSON() ([]byte, error) {
+	type cp CalendarAclEvent
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
@@ -275,6 +277,20 @@ type ExchangeBinding struct {
 
 func (s *ExchangeBinding) MarshalJSON() ([]byte, error) {
 	type cp ExchangeBinding
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type Vchat struct {
+	VcType          string   `json:"vc_type,omitempty"`
+	IconType        string   `json:"icon_type,omitempty"`
+	Description     string   `json:"description,omitempty"`
+	MeetingUrl      string   `json:"meeting_url,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *Vchat) MarshalJSON() ([]byte, error) {
+	type cp Vchat
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }

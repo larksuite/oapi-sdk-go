@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/constants"
 	"github.com/larksuite/oapi-sdk-go/core/tools"
 	eventhttp "github.com/larksuite/oapi-sdk-go/event/http"
 	"github.com/larksuite/oapi-sdk-go/sample/configs"
@@ -14,9 +13,9 @@ import (
 func main() {
 
 	// for redis store and logrus
-	// var conf = configs.TestConfigWithLogrusAndRedisStore(constants.DomainFeiShu)
+	// var conf = configs.TestConfigWithLogrusAndRedisStore(core.DomainFeiShu)
 	// var conf = configs.TestConfig("https://open.feishu.cn")
-	var conf = configs.TestConfig(constants.DomainFeiShu)
+	var conf = configs.TestConfig(core.DomainFeiShu)
 
 	contact.SetDepartmentCreatedEventHandler(conf, func(ctx *core.Context, event *contact.DepartmentCreatedEvent) error {
 		fmt.Println(ctx.GetRequestID())

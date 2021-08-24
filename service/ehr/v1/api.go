@@ -62,7 +62,7 @@ func (rc *AttachmentGetReqCall) SetResponseStream(result io.Writer) {
 func (rc *AttachmentGetReqCall) Do() (io.Writer, error) {
 	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
 	rc.optFns = append(rc.optFns, request.SetResponseStream())
-	req := request.NewRequest("ehr/v1/attachments/:token", "GET",
+	req := request.NewRequest("/open-apis/ehr/v1/attachments/:token", "GET",
 		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, rc.result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.attachments.service.conf, req)
 	return rc.result, err
@@ -115,7 +115,7 @@ func (rc *EmployeeListReqCall) SetPageSize(pageSize int) {
 func (rc *EmployeeListReqCall) Do() (*EmployeeListResult, error) {
 	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
 	var result = &EmployeeListResult{}
-	req := request.NewRequest("ehr/v1/employees", "GET",
+	req := request.NewRequest("/open-apis/ehr/v1/employees", "GET",
 		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.employees.service.conf, req)
 	return result, err

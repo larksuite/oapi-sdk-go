@@ -94,7 +94,7 @@ func (rc *MediaUploadPartReqCall) SetFile(file *request.File) {
 
 func (rc *MediaUploadPartReqCall) Do() (*response.NoData, error) {
 	var result = &response.NoData{}
-	req := request.NewRequest("drive/v1/medias/upload_part", "POST",
+	req := request.NewRequest("/open-apis/drive/v1/medias/upload_part", "POST",
 		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.medias.service.conf, req)
 	return result, err
@@ -118,7 +118,7 @@ type FileUploadFinishReqCall struct {
 
 func (rc *FileUploadFinishReqCall) Do() (*FileUploadFinishResult, error) {
 	var result = &FileUploadFinishResult{}
-	req := request.NewRequest("drive/v1/files/upload_finish", "POST",
+	req := request.NewRequest("/open-apis/drive/v1/files/upload_finish", "POST",
 		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.files.service.conf, req)
 	return result, err
@@ -136,19 +136,19 @@ func (files *FileService) UploadFinish(ctx *core.Context, body *FileUploadFinish
 type FileUploadPrepareReqCall struct {
 	ctx    *core.Context
 	files  *FileService
-	body   *UploadInfo
+	body   *FileUploadInfo
 	optFns []request.OptFn
 }
 
 func (rc *FileUploadPrepareReqCall) Do() (*FileUploadPrepareResult, error) {
 	var result = &FileUploadPrepareResult{}
-	req := request.NewRequest("drive/v1/files/upload_prepare", "POST",
+	req := request.NewRequest("/open-apis/drive/v1/files/upload_prepare", "POST",
 		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.files.service.conf, req)
 	return result, err
 }
 
-func (files *FileService) UploadPrepare(ctx *core.Context, body *UploadInfo, optFns ...request.OptFn) *FileUploadPrepareReqCall {
+func (files *FileService) UploadPrepare(ctx *core.Context, body *FileUploadInfo, optFns ...request.OptFn) *FileUploadPrepareReqCall {
 	return &FileUploadPrepareReqCall{
 		ctx:    ctx,
 		files:  files,
@@ -179,13 +179,16 @@ func (rc *MediaUploadAllReqCall) SetSize(size int) {
 func (rc *MediaUploadAllReqCall) SetChecksum(checksum string) {
 	rc.body.AddParam("checksum", checksum)
 }
+func (rc *MediaUploadAllReqCall) SetExtra(extra string) {
+	rc.body.AddParam("extra", extra)
+}
 func (rc *MediaUploadAllReqCall) SetFile(file *request.File) {
 	rc.body.AddFile("file", file)
 }
 
 func (rc *MediaUploadAllReqCall) Do() (*MediaUploadAllResult, error) {
 	var result = &MediaUploadAllResult{}
-	req := request.NewRequest("drive/v1/medias/upload_all", "POST",
+	req := request.NewRequest("/open-apis/drive/v1/medias/upload_all", "POST",
 		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.medias.service.conf, req)
 	return result, err
@@ -209,7 +212,7 @@ type MediaUploadFinishReqCall struct {
 
 func (rc *MediaUploadFinishReqCall) Do() (*MediaUploadFinishResult, error) {
 	var result = &MediaUploadFinishResult{}
-	req := request.NewRequest("drive/v1/medias/upload_finish", "POST",
+	req := request.NewRequest("/open-apis/drive/v1/medias/upload_finish", "POST",
 		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.medias.service.conf, req)
 	return result, err
@@ -252,7 +255,7 @@ func (rc *FileUploadAllReqCall) SetFile(file *request.File) {
 
 func (rc *FileUploadAllReqCall) Do() (*FileUploadAllResult, error) {
 	var result = &FileUploadAllResult{}
-	req := request.NewRequest("drive/v1/files/upload_all", "POST",
+	req := request.NewRequest("/open-apis/drive/v1/files/upload_all", "POST",
 		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.files.service.conf, req)
 	return result, err
@@ -270,19 +273,19 @@ func (files *FileService) UploadAll(ctx *core.Context, optFns ...request.OptFn) 
 type MediaUploadPrepareReqCall struct {
 	ctx    *core.Context
 	medias *MediaService
-	body   *UploadInfo
+	body   *MediaUploadInfo
 	optFns []request.OptFn
 }
 
 func (rc *MediaUploadPrepareReqCall) Do() (*MediaUploadPrepareResult, error) {
 	var result = &MediaUploadPrepareResult{}
-	req := request.NewRequest("drive/v1/medias/upload_prepare", "POST",
+	req := request.NewRequest("/open-apis/drive/v1/medias/upload_prepare", "POST",
 		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.medias.service.conf, req)
 	return result, err
 }
 
-func (medias *MediaService) UploadPrepare(ctx *core.Context, body *UploadInfo, optFns ...request.OptFn) *MediaUploadPrepareReqCall {
+func (medias *MediaService) UploadPrepare(ctx *core.Context, body *MediaUploadInfo, optFns ...request.OptFn) *MediaUploadPrepareReqCall {
 	return &MediaUploadPrepareReqCall{
 		ctx:    ctx,
 		medias: medias,
@@ -316,7 +319,7 @@ func (rc *FileUploadPartReqCall) SetFile(file *request.File) {
 
 func (rc *FileUploadPartReqCall) Do() (*response.NoData, error) {
 	var result = &response.NoData{}
-	req := request.NewRequest("drive/v1/files/upload_part", "POST",
+	req := request.NewRequest("/open-apis/drive/v1/files/upload_part", "POST",
 		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.files.service.conf, req)
 	return result, err
@@ -341,11 +344,14 @@ type MediaBatchGetTmpDownloadUrlReqCall struct {
 func (rc *MediaBatchGetTmpDownloadUrlReqCall) SetFileTokens(fileTokens ...string) {
 	rc.queryParams["file_tokens"] = fileTokens
 }
+func (rc *MediaBatchGetTmpDownloadUrlReqCall) SetExtra(extra string) {
+	rc.queryParams["extra"] = extra
+}
 
 func (rc *MediaBatchGetTmpDownloadUrlReqCall) Do() (*MediaBatchGetTmpDownloadUrlResult, error) {
 	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
 	var result = &MediaBatchGetTmpDownloadUrlResult{}
-	req := request.NewRequest("drive/v1/medias/batch_get_tmp_download_url", "GET",
+	req := request.NewRequest("/open-apis/drive/v1/medias/batch_get_tmp_download_url", "GET",
 		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.medias.service.conf, req)
 	return result, err
@@ -378,7 +384,7 @@ func (rc *FileDownloadReqCall) SetResponseStream(result io.Writer) {
 func (rc *FileDownloadReqCall) Do() (io.Writer, error) {
 	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
 	rc.optFns = append(rc.optFns, request.SetResponseStream())
-	req := request.NewRequest("drive/v1/files/:file_token/download", "GET",
+	req := request.NewRequest("/open-apis/drive/v1/files/:file_token/download", "GET",
 		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, rc.result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.files.service.conf, req)
 	return rc.result, err
@@ -394,15 +400,19 @@ func (files *FileService) Download(ctx *core.Context, optFns ...request.OptFn) *
 }
 
 type MediaDownloadReqCall struct {
-	ctx        *core.Context
-	medias     *MediaService
-	pathParams map[string]interface{}
-	optFns     []request.OptFn
-	result     io.Writer
+	ctx         *core.Context
+	medias      *MediaService
+	pathParams  map[string]interface{}
+	queryParams map[string]interface{}
+	optFns      []request.OptFn
+	result      io.Writer
 }
 
 func (rc *MediaDownloadReqCall) SetFileToken(fileToken string) {
 	rc.pathParams["file_token"] = fileToken
+}
+func (rc *MediaDownloadReqCall) SetExtra(extra string) {
+	rc.queryParams["extra"] = extra
 }
 func (rc *MediaDownloadReqCall) SetResponseStream(result io.Writer) {
 	rc.result = result
@@ -410,8 +420,9 @@ func (rc *MediaDownloadReqCall) SetResponseStream(result io.Writer) {
 
 func (rc *MediaDownloadReqCall) Do() (io.Writer, error) {
 	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
 	rc.optFns = append(rc.optFns, request.SetResponseStream())
-	req := request.NewRequest("drive/v1/medias/:file_token/download", "GET",
+	req := request.NewRequest("/open-apis/drive/v1/medias/:file_token/download", "GET",
 		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, rc.result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.medias.service.conf, req)
 	return rc.result, err
@@ -419,42 +430,8 @@ func (rc *MediaDownloadReqCall) Do() (io.Writer, error) {
 
 func (medias *MediaService) Download(ctx *core.Context, optFns ...request.OptFn) *MediaDownloadReqCall {
 	return &MediaDownloadReqCall{
-		ctx:        ctx,
-		medias:     medias,
-		pathParams: map[string]interface{}{},
-		optFns:     optFns,
-	}
-}
-
-type FileSubscribeReqCall struct {
-	ctx         *core.Context
-	files       *FileService
-	pathParams  map[string]interface{}
-	queryParams map[string]interface{}
-	optFns      []request.OptFn
-}
-
-func (rc *FileSubscribeReqCall) SetFileToken(fileToken string) {
-	rc.pathParams["file_token"] = fileToken
-}
-func (rc *FileSubscribeReqCall) SetFileType(fileType string) {
-	rc.queryParams["file_type"] = fileType
-}
-
-func (rc *FileSubscribeReqCall) Do() (*response.NoData, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &response.NoData{}
-	req := request.NewRequest("drive/v1/files/:file_token/subscribe", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.files.service.conf, req)
-	return result, err
-}
-
-func (files *FileService) Subscribe(ctx *core.Context, optFns ...request.OptFn) *FileSubscribeReqCall {
-	return &FileSubscribeReqCall{
 		ctx:         ctx,
-		files:       files,
+		medias:      medias,
 		pathParams:  map[string]interface{}{},
 		queryParams: map[string]interface{}{},
 		optFns:      optFns,
@@ -484,7 +461,7 @@ func (rc *FileCommentCreateReqCall) Do() (*FileComment, error) {
 	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
 	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
 	var result = &FileComment{}
-	req := request.NewRequest("drive/v1/files/:file_token/comments", "POST",
+	req := request.NewRequest("/open-apis/drive/v1/files/:file_token/comments", "POST",
 		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.fileComments.service.conf, req)
 	return result, err
@@ -526,7 +503,7 @@ func (rc *FileCommentGetReqCall) Do() (*FileComment, error) {
 	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
 	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
 	var result = &FileComment{}
-	req := request.NewRequest("drive/v1/files/:file_token/comments/:comment_id", "GET",
+	req := request.NewRequest("/open-apis/drive/v1/files/:file_token/comments/:comment_id", "GET",
 		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.fileComments.service.conf, req)
 	return result, err
@@ -571,7 +548,7 @@ func (rc *FileCommentReplyUpdateReqCall) Do() (*response.NoData, error) {
 	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
 	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
 	var result = &response.NoData{}
-	req := request.NewRequest("drive/v1/files/:file_token/comments/:comment_id/replies/:reply_id", "PUT",
+	req := request.NewRequest("/open-apis/drive/v1/files/:file_token/comments/:comment_id/replies/:reply_id", "PUT",
 		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.fileCommentReplys.service.conf, req)
 	return result, err
@@ -619,7 +596,7 @@ func (rc *FileCommentListReqCall) Do() (*FileCommentListResult, error) {
 	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
 	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
 	var result = &FileCommentListResult{}
-	req := request.NewRequest("drive/v1/files/:file_token/comments", "GET",
+	req := request.NewRequest("/open-apis/drive/v1/files/:file_token/comments", "GET",
 		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.fileComments.service.conf, req)
 	return result, err
@@ -658,7 +635,7 @@ func (rc *FileCommentPatchReqCall) Do() (*response.NoData, error) {
 	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
 	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
 	var result = &response.NoData{}
-	req := request.NewRequest("drive/v1/files/:file_token/comments/:comment_id", "PATCH",
+	req := request.NewRequest("/open-apis/drive/v1/files/:file_token/comments/:comment_id", "PATCH",
 		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.fileComments.service.conf, req)
 	return result, err
@@ -700,7 +677,7 @@ func (rc *FileCommentReplyDeleteReqCall) Do() (*response.NoData, error) {
 	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
 	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
 	var result = &response.NoData{}
-	req := request.NewRequest("drive/v1/files/:file_token/comments/:comment_id/replies/:reply_id", "DELETE",
+	req := request.NewRequest("/open-apis/drive/v1/files/:file_token/comments/:comment_id/replies/:reply_id", "DELETE",
 		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.fileCommentReplys.service.conf, req)
 	return result, err
@@ -710,49 +687,6 @@ func (fileCommentReplys *FileCommentReplyService) Delete(ctx *core.Context, optF
 	return &FileCommentReplyDeleteReqCall{
 		ctx:               ctx,
 		fileCommentReplys: fileCommentReplys,
-		pathParams:        map[string]interface{}{},
-		queryParams:       map[string]interface{}{},
-		optFns:            optFns,
-	}
-}
-
-type FileCommentReplyCreateReqCall struct {
-	ctx               *core.Context
-	fileCommentReplys *FileCommentReplyService
-	body              *FileCommentReplyCreateReqBody
-	pathParams        map[string]interface{}
-	queryParams       map[string]interface{}
-	optFns            []request.OptFn
-}
-
-func (rc *FileCommentReplyCreateReqCall) SetFileToken(fileToken string) {
-	rc.pathParams["file_token"] = fileToken
-}
-func (rc *FileCommentReplyCreateReqCall) SetCommentId(commentId int64) {
-	rc.pathParams["comment_id"] = commentId
-}
-func (rc *FileCommentReplyCreateReqCall) SetFileType(fileType string) {
-	rc.queryParams["file_type"] = fileType
-}
-func (rc *FileCommentReplyCreateReqCall) SetUserIdType(userIdType string) {
-	rc.queryParams["user_id_type"] = userIdType
-}
-
-func (rc *FileCommentReplyCreateReqCall) Do() (*FileCommentReplyCreateResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &FileCommentReplyCreateResult{}
-	req := request.NewRequest("drive/v1/files/:file_token/comments/:comment_id/replies", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.fileCommentReplys.service.conf, req)
-	return result, err
-}
-
-func (fileCommentReplys *FileCommentReplyService) Create(ctx *core.Context, body *FileCommentReplyCreateReqBody, optFns ...request.OptFn) *FileCommentReplyCreateReqCall {
-	return &FileCommentReplyCreateReqCall{
-		ctx:               ctx,
-		fileCommentReplys: fileCommentReplys,
-		body:              body,
 		pathParams:        map[string]interface{}{},
 		queryParams:       map[string]interface{}{},
 		optFns:            optFns,

@@ -119,22 +119,6 @@ func SetMeetingRecordingStartedEventHandler(conf *config.Config, fn func(ctx *co
 	event.SetTypeHandler(conf, "vc.meeting.recording_started_v1", &MeetingRecordingStartedEventHandler{Fn: fn})
 }
 
-type MeetingSendMeetingImEventHandler struct {
-	Fn func(*core.Context, *MeetingSendMeetingImEvent) error
-}
-
-func (h *MeetingSendMeetingImEventHandler) GetEvent() interface{} {
-	return &MeetingSendMeetingImEvent{}
-}
-
-func (h *MeetingSendMeetingImEventHandler) Handle(ctx *core.Context, event interface{}) error {
-	return h.Fn(ctx, event.(*MeetingSendMeetingImEvent))
-}
-
-func SetMeetingSendMeetingImEventHandler(conf *config.Config, fn func(ctx *core.Context, event *MeetingSendMeetingImEvent) error) {
-	event.SetTypeHandler(conf, "vc.meeting.send_meeting_im_v1", &MeetingSendMeetingImEventHandler{Fn: fn})
-}
-
 type MeetingShareStartedEventHandler struct {
 	Fn func(*core.Context, *MeetingShareStartedEvent) error
 }

@@ -49,7 +49,7 @@ func (rc *IdentityCreateReqCall) SetUserIdType(userIdType string) {
 func (rc *IdentityCreateReqCall) Do() (*IdentityCreateResult, error) {
 	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
 	var result = &IdentityCreateResult{}
-	req := request.NewRequest("human_authentication/v1/identities", "POST",
+	req := request.NewRequest("/open-apis/human_authentication/v1/identities", "POST",
 		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.identitys.service.conf, req)
 	return result, err

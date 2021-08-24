@@ -18,6 +18,18 @@ func (s *FileConfig) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
+type Speech struct {
+	Speech          string   `json:"speech,omitempty"`
+	SpeechKey       string   `json:"speech_key,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *Speech) MarshalJSON() ([]byte, error) {
+	type cp Speech
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
 type StreamConfig struct {
 	StreamId        string   `json:"stream_id,omitempty"`
 	SequenceId      int      `json:"sequence_id,omitempty"`
@@ -29,18 +41,6 @@ type StreamConfig struct {
 
 func (s *StreamConfig) MarshalJSON() ([]byte, error) {
 	type cp StreamConfig
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type Speech struct {
-	Speech          string   `json:"speech,omitempty"`
-	SpeechKey       string   `json:"speech_key,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *Speech) MarshalJSON() ([]byte, error) {
-	type cp Speech
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }

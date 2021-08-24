@@ -10,7 +10,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core/config"
 	"github.com/larksuite/oapi-sdk-go/core/constants"
 	"github.com/larksuite/oapi-sdk-go/core/errors"
-	coremodel "github.com/larksuite/oapi-sdk-go/core/model"
 	"net/http"
 	"strings"
 )
@@ -141,15 +140,15 @@ func complementFunc(ctx *core.Context, httpCard *model.HTTPCard) {
 		switch e := err.(type) {
 		case *NotFoundHandlerErr:
 			conf.GetLogger().Info(ctx, e.Error())
-			httpCard.Response.Write(http.StatusOK, constants.DefaultContentType, fmt.Sprintf(coremodel.ResponseFormat, err.Error()))
+			httpCard.Response.Write(http.StatusOK, constants.DefaultContentType, fmt.Sprintf(core.ResponseFormat, err.Error()))
 			return
 		}
 		conf.GetLogger().Error(ctx, err.Error())
-		httpCard.Response.Write(http.StatusInternalServerError, constants.DefaultContentType, fmt.Sprintf(coremodel.ResponseFormat, err.Error()))
+		httpCard.Response.Write(http.StatusInternalServerError, constants.DefaultContentType, fmt.Sprintf(core.ResponseFormat, err.Error()))
 		return
 	}
 	if httpCard.Type == constants.CallbackTypeChallenge {
-		httpCard.Response.Write(http.StatusOK, constants.DefaultContentType, fmt.Sprintf(coremodel.ChallengeResponseFormat, httpCard.Challenge))
+		httpCard.Response.Write(http.StatusOK, constants.DefaultContentType, fmt.Sprintf(core.ChallengeResponseFormat, httpCard.Challenge))
 		return
 	}
 	if httpCard.Output != nil {
@@ -161,12 +160,12 @@ func complementFunc(ctx *core.Context, httpCard *model.HTTPCard) {
 			bs, err = json.Marshal(httpCard.Output)
 			if err != nil {
 				conf.GetLogger().Error(ctx, err.Error())
-				httpCard.Response.Write(http.StatusInternalServerError, constants.DefaultContentType, fmt.Sprintf(coremodel.ResponseFormat, err.Error()))
+				httpCard.Response.Write(http.StatusInternalServerError, constants.DefaultContentType, fmt.Sprintf(core.ResponseFormat, err.Error()))
 				return
 			}
 		}
 		httpCard.Response.Write(http.StatusOK, constants.DefaultContentType, string(bs))
 		return
 	}
-	httpCard.Response.Write(http.StatusOK, constants.DefaultContentType, fmt.Sprintf(coremodel.ResponseFormat, "successed"))
+	httpCard.Response.Write(http.StatusOK, constants.DefaultContentType, fmt.Sprintf(core.ResponseFormat, "successed"))
 }

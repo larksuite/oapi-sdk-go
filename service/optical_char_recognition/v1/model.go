@@ -10,7 +10,6 @@ type Image struct {
 
 type ImageBasicRecognizeReqBody struct {
 	Image           string   `json:"image,omitempty"`
-	ImageKey        string   `json:"image_key,omitempty"`
 	ForceSendFields []string `json:"-"`
 }
 

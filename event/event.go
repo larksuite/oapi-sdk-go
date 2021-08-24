@@ -3,10 +3,10 @@ package event
 import (
 	"github.com/larksuite/oapi-sdk-go/core"
 	"github.com/larksuite/oapi-sdk-go/core/config"
-	coremodel "github.com/larksuite/oapi-sdk-go/core/model"
 	app "github.com/larksuite/oapi-sdk-go/event/app/v1"
 	"github.com/larksuite/oapi-sdk-go/event/core/handlers"
 	"github.com/larksuite/oapi-sdk-go/event/core/model"
+
 	"sync"
 )
 
@@ -39,15 +39,15 @@ func (h *defaultHandler) Handle(ctx *core.Context, event interface{}) error {
 	return h.callback(ctx, *e)
 }
 
-func Handle(conf *config.Config, request *coremodel.OapiRequest) *coremodel.OapiResponse {
+func Handle(conf *config.Config, request *core.OapiRequest) *core.OapiResponse {
 	once.Do(func() {
 		app.SetAppTicketEventHandler(conf)
 	})
 	coreCtx := core.WrapContext(request.Ctx)
-	conf.WithContext(coreCtx)
+	coreCtx.Set(config.CtxKeyConfig, conf)
 	httpEvent := &model.HTTPEvent{
 		Request:  request,
-		Response: &coremodel.OapiResponse{},
+		Response: &core.OapiResponse{},
 	}
 	handlers.Handle(coreCtx, httpEvent)
 	return httpEvent.Response

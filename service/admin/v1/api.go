@@ -75,7 +75,7 @@ func (rc *AdminDeptStatListReqCall) SetPageToken(pageToken string) {
 func (rc *AdminDeptStatListReqCall) Do() (*AdminDeptStatListResult, error) {
 	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
 	var result = &AdminDeptStatListResult{}
-	req := request.NewRequest("admin/v1/admin_dept_stats", "GET",
+	req := request.NewRequest("/open-apis/admin/v1/admin_dept_stats", "GET",
 		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.adminDeptStats.service.conf, req)
 	return result, err
@@ -125,7 +125,7 @@ func (rc *AdminUserStatListReqCall) SetPageToken(pageToken string) {
 func (rc *AdminUserStatListReqCall) Do() (*AdminUserStatListResult, error) {
 	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
 	var result = &AdminUserStatListResult{}
-	req := request.NewRequest("admin/v1/admin_user_stats", "GET",
+	req := request.NewRequest("/open-apis/admin/v1/admin_user_stats", "GET",
 		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.adminUserStats.service.conf, req)
 	return result, err

@@ -139,6 +139,26 @@ type MemberTransferResult struct {
 	Owner     *Owner `json:"owner,omitempty"`
 }
 
+type MemberUpdateReqBody struct {
+	Token           string   `json:"token,omitempty"`
+	Type            string   `json:"type,omitempty"`
+	MemberType      string   `json:"member_type,omitempty"`
+	MemberId        string   `json:"member_id,omitempty"`
+	Perm            string   `json:"perm,omitempty"`
+	NotifyLark      bool     `json:"notify_lark,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *MemberUpdateReqBody) MarshalJSON() ([]byte, error) {
+	type cp MemberUpdateReqBody
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type MemberUpdateResult struct {
+	IsSuccess bool `json:"is_success,omitempty"`
+}
+
 type PublicUpdateReqBody struct {
 	Token                 string   `json:"token,omitempty"`
 	Type                  string   `json:"type,omitempty"`
@@ -158,25 +178,5 @@ func (s *PublicUpdateReqBody) MarshalJSON() ([]byte, error) {
 }
 
 type PublicUpdateResult struct {
-	IsSuccess bool `json:"is_success,omitempty"`
-}
-
-type MemberUpdateReqBody struct {
-	Token           string   `json:"token,omitempty"`
-	Type            string   `json:"type,omitempty"`
-	MemberType      string   `json:"member_type,omitempty"`
-	MemberId        string   `json:"member_id,omitempty"`
-	Perm            string   `json:"perm,omitempty"`
-	NotifyLark      bool     `json:"notify_lark,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *MemberUpdateReqBody) MarshalJSON() ([]byte, error) {
-	type cp MemberUpdateReqBody
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type MemberUpdateResult struct {
 	IsSuccess bool `json:"is_success,omitempty"`
 }

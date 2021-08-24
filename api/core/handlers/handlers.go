@@ -3,9 +3,10 @@ package handlers
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/larksuite/oapi-sdk-go/api/core/constants"
-	"github.com/larksuite/oapi-sdk-go/api/core/errors"
+	coreerrors "github.com/larksuite/oapi-sdk-go/api/core/errors"
 	"github.com/larksuite/oapi-sdk-go/api/core/request"
 	"github.com/larksuite/oapi-sdk-go/api/core/response"
 	"github.com/larksuite/oapi-sdk-go/api/core/token"
@@ -13,7 +14,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 	"github.com/larksuite/oapi-sdk-go/core/config"
 	coreconst "github.com/larksuite/oapi-sdk-go/core/constants"
-	"github.com/larksuite/oapi-sdk-go/core/model"
 	"io"
 	"io/ioutil"
 	"mime/multipart"
@@ -90,7 +90,7 @@ func (hs *Handlers) send(ctx *core.Context, req *request.Request) {
 		req.Err = err
 		return
 	}
-	ctx.Set(coreconst.HTTPHeader, model.NewOapiHeader(resp.Header))
+	ctx.Set(coreconst.HTTPHeader, core.NewOapiHeader(resp.Header))
 	ctx.Set(coreconst.HTTPKeyStatusCode, resp.StatusCode)
 	req.HTTPResponse = resp
 	defer hs.retry(ctx, req)
@@ -111,16 +111,16 @@ func validateFunc(ctx *core.Context, req *request.Request) {
 		return
 	}
 	if _, ok := req.AccessibleTokenTypeSet[req.AccessTokenType]; !ok {
-		req.Err = errors.ErrAccessTokenTypeInvalid
+		req.Err = coreerrors.ErrAccessTokenTypeInvalid
 	}
 	if config.ByCtx(ctx).GetAppSettings().AppType == coreconst.AppTypeISV {
 		if req.AccessTokenType == request.AccessTokenTypeTenant && req.TenantKey == "" {
-			req.Err = errors.ErrTenantKeyIsEmpty
+			req.Err = coreerrors.ErrTenantKeyIsEmpty
 			return
 		}
 	}
 	if req.AccessTokenType == request.AccessTokenTypeUser && req.UserAccessToken == "" {
-		req.Err = errors.ErrUserAccessTokenKeyIsEmpty
+		req.Err = coreerrors.ErrUserAccessTokenKeyIsEmpty
 		return
 	}
 }
@@ -183,6 +183,14 @@ func signFunc(ctx *core.Context, req *request.Request) {
 		httpRequest, err = setUserAccessToken(ctx, req.HTTPRequest)
 	default:
 		httpRequest, err = req.HTTPRequest, req.Err
+	}
+	if req.NeedHelpDeskAuth {
+		conf := config.ByCtx(ctx)
+		if conf.GetHelpDeskAuthorization() == "" {
+			err = errors.New("help desk API, please set the helpdesk information of config.AppSettings")
+		} else if httpRequest != nil {
+			httpRequest.Header.Set("X-Lark-Helpdesk-Authorization", conf.GetHelpDeskAuthorization())
+		}
 	}
 	req.HTTPRequest = httpRequest
 	req.Err = err
@@ -282,7 +290,7 @@ func complementFunc(ctx *core.Context, req *request.Request) {
 			applyAppTicket(ctx)
 		}
 	default:
-		if req.Err == errors.ErrAppTicketIsEmpty {
+		if req.Err == coreerrors.ErrAppTicketIsEmpty {
 			applyAppTicket(ctx)
 		}
 	}

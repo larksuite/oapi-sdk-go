@@ -40,7 +40,7 @@ type TextTranslateReqCall struct {
 
 func (rc *TextTranslateReqCall) Do() (*TextTranslateResult, error) {
 	var result = &TextTranslateResult{}
-	req := request.NewRequest("translation/v1/text/translate", "POST",
+	req := request.NewRequest("/open-apis/translation/v1/text/translate", "POST",
 		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.texts.service.conf, req)
 	return result, err
@@ -64,7 +64,7 @@ type TextDetectReqCall struct {
 
 func (rc *TextDetectReqCall) Do() (*TextDetectResult, error) {
 	var result = &TextDetectResult{}
-	req := request.NewRequest("translation/v1/text/detect", "POST",
+	req := request.NewRequest("/open-apis/translation/v1/text/detect", "POST",
 		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.texts.service.conf, req)
 	return result, err

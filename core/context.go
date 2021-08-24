@@ -3,7 +3,6 @@ package core
 import (
 	"context"
 	"github.com/larksuite/oapi-sdk-go/core/constants"
-	"github.com/larksuite/oapi-sdk-go/core/model"
 	"sync"
 	"time"
 )
@@ -45,11 +44,11 @@ func (c *Context) Get(key string) (value interface{}, exists bool) {
 	return
 }
 
-func (c *Context) GetHeader() *model.OapiHeader {
+func (c *Context) GetHeader() *OapiHeader {
 	if header, ok := c.Get(constants.HTTPHeader); ok {
-		return header.(*model.OapiHeader)
+		return header.(*OapiHeader)
 	}
-	return model.NewOapiHeader(map[string][]string{})
+	return NewOapiHeader(map[string][]string{})
 }
 
 func (c *Context) GetRequestID() string {

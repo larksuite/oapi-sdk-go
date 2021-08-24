@@ -4,8 +4,6 @@ import (
 	"context"
 	"fmt"
 	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/constants"
-	coremodel "github.com/larksuite/oapi-sdk-go/core/model"
 	"github.com/larksuite/oapi-sdk-go/core/tools"
 	"github.com/larksuite/oapi-sdk-go/event"
 	"github.com/larksuite/oapi-sdk-go/sample/configs"
@@ -14,9 +12,9 @@ import (
 
 func main() {
 	// for redis store and logrus
-	// var conf = configs.TestConfigWithLogrusAndRedisStore(constants.DomainFeiShu)
+	// var conf = configs.TestConfigWithLogrusAndRedisStore(core.DomainFeiShu)
 	// var conf = configs.TestConfig("https://open.feishu.cn")
-	var conf = configs.TestConfig(constants.DomainFeiShu)
+	var conf = configs.TestConfig(core.DomainFeiShu)
 
 	application.SetAppOpenEventHandler(conf, func(coreCtx *core.Context, appOpenEvent *application.AppOpenEvent) error {
 		fmt.Println(coreCtx.GetRequestID())
@@ -35,11 +33,10 @@ func main() {
 
 	header := make(map[string][]string)
 	// from http request header
-	header["X-Request-Id"] = []string{"63278309j-yuewuyeu-7828389"}
-	req := &coremodel.OapiRequest{
+	req := &core.OapiRequest{
 		Ctx:    context.Background(),
-		Header: coremodel.NewOapiHeader(header),
-		Body:   "{json}", // from http request body
+		Header: core.NewOapiHeader(header),
+		Body:   "", // from http request body
 	}
 	resp := event.Handle(conf, req)
 	fmt.Println(tools.Prettify(resp))

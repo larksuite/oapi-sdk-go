@@ -5,19 +5,18 @@ import (
 	"github.com/larksuite/oapi-sdk-go/card/model"
 	"github.com/larksuite/oapi-sdk-go/core"
 	"github.com/larksuite/oapi-sdk-go/core/config"
-	coremodel "github.com/larksuite/oapi-sdk-go/core/model"
 )
 
 func SetHandler(conf *config.Config, handler handlers.Handler) {
 	handlers.AppID2Handler[conf.GetAppSettings().AppID] = handler
 }
 
-func Handle(conf *config.Config, request *coremodel.OapiRequest) *coremodel.OapiResponse {
+func Handle(conf *config.Config, request *core.OapiRequest) *core.OapiResponse {
 	coreCtx := core.WrapContext(request.Ctx)
-	conf.WithContext(coreCtx)
+	coreCtx.Set(config.CtxKeyConfig, conf)
 	httpCard := &model.HTTPCard{
 		Request:  request,
-		Response: &coremodel.OapiResponse{},
+		Response: &core.OapiResponse{},
 	}
 	handlers.Handle(coreCtx, httpCard)
 	return httpCard.Response

@@ -9,7 +9,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/api/core/request"
 	"github.com/larksuite/oapi-sdk-go/api/core/response"
 	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/constants"
 	"github.com/larksuite/oapi-sdk-go/core/tools"
 	"github.com/larksuite/oapi-sdk-go/sample/configs"
 	"io/ioutil"
@@ -17,15 +16,16 @@ import (
 )
 
 // for redis store and logrus
-// var conf = configs.TestConfigWithLogrusAndRedisStore(constants.DomainFeiShu)
+var conf = configs.TestConfigWithLogrusAndRedisStore(core.DomainFeiShu)
+
 // var conf = configs.TestConfig("https://open.feishu.cn")
-var conf = configs.TestConfig(constants.DomainFeiShu)
+// var conf = configs.TestConfig(core.DomainFeiShu)
 
 func main() {
-	//testSendMessage()
-	testSendCardMessage()
+	testSendMessage()
+	//testSendCardMessage()
 	//testUploadFile()
-	//testDownloadFile()
+	testDownloadFile()
 }
 
 // send card message
@@ -43,7 +43,7 @@ func testSendCardMessage() {
 		"card":     card,
 	}
 	ret := make(map[string]interface{})
-	req := request.NewRequestWithNative("message/v4/send", "POST",
+	req := request.NewRequestWithNative("/open-apis/message/v4/send", "POST",
 		request.AccessTokenTypeTenant, body, &ret,
 		//应用市场应用 request.SetTenantKey("TenantKey"),
 	)
@@ -71,7 +71,7 @@ func testSendMessage() {
 		},
 	}
 	ret := make(map[string]interface{})
-	req := request.NewRequestWithNative("message/v4/send", "POST",
+	req := request.NewRequestWithNative("/open-apis/message/v4/send", "POST",
 		request.AccessTokenTypeTenant, body, &ret,
 		//应用市场应用 request.SetTenantKey("TenantKey"),
 	)
@@ -114,7 +114,7 @@ func testUploadFile() {
 		formData.AddFile("image", request.NewFile().SetContentStream(file))
 	*/
 	ret := &UploadImage{}
-	err = api.Send(coreCtx, conf, request.NewRequestWithNative("image/v4/put", "POST",
+	err = api.Send(coreCtx, conf, request.NewRequestWithNative("/open-apis/image/v4/put", "POST",
 		request.AccessTokenTypeTenant, formData, ret))
 	fmt.Println(coreCtx.GetRequestID())
 	fmt.Println(coreCtx.GetHTTPStatusCode())
@@ -140,7 +140,7 @@ func testDownloadFile() {
 			return
 		}
 	*/
-	req := request.NewRequestWithNative("image/v4/get", "GET",
+	req := request.NewRequestWithNative("/open-apis/image/v4/get", "GET",
 		request.AccessTokenTypeTenant, nil, ret,
 		request.SetQueryParams(map[string]interface{}{"image_key": "[image key]"}), request.SetResponseStream())
 	err := api.Send(coreCtx, conf, req)

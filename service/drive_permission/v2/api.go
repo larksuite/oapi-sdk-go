@@ -41,7 +41,7 @@ type PublicGetReqCall struct {
 
 func (rc *PublicGetReqCall) Do() (*PublicGetResult, error) {
 	var result = &PublicGetResult{}
-	req := request.NewRequest("drive/permission/v2/public", "POST",
+	req := request.NewRequest("/open-apis/drive/permission/v2/public", "POST",
 		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.publics.service.conf, req)
 	return result, err
@@ -65,7 +65,7 @@ type PublicUpdateReqCall struct {
 
 func (rc *PublicUpdateReqCall) Do() (*response.NoData, error) {
 	var result = &response.NoData{}
-	req := request.NewRequest("drive/permission/v2/public/update", "POST",
+	req := request.NewRequest("/open-apis/drive/permission/v2/public/update", "POST",
 		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.publics.service.conf, req)
 	return result, err
