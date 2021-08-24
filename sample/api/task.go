@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/api/core/response"
 	"github.com/larksuite/oapi-sdk-go/core"
 	"github.com/larksuite/oapi-sdk-go/core/tools"
@@ -10,7 +11,7 @@ import (
 	task "github.com/larksuite/oapi-sdk-go/service/task/v1"
 )
 
-var taskService = task.NewService(configs.TestConfig("https://open.feishu-boe.cn"))
+var taskService = task.NewService(configs.TestConfig("https://open.feishu.cn"))
 
 func main() {
 	testCreateTask()
@@ -87,4 +88,22 @@ func testCreateTask() {
 		return
 	}
 	fmt.Println("createReminderMessage : " + tools.Prettify(createReminderMessage))
+
+	// 测试创建提醒时间
+	createCommentReqCall := taskService.TaskComments.Create(
+		coreCtx,
+		&task.Comment{Content: "欲穷千里目，更上一层楼", ParentId: 0},
+	)
+	createCommentReqCall.SetTaskId(createTaskMessage.Task.Id)
+	createCommentMessage, createCommentErr := createCommentReqCall.Do()
+	fmt.Println(coreCtx.GetRequestID())
+	fmt.Println(coreCtx.GetHTTPStatusCode())
+	if createCommentErr != nil {
+		fmt.Println(tools.Prettify(createCommentErr))
+		e := createCommentErr.(*response.Error)
+		fmt.Println(e.Code)
+		fmt.Println(e.Msg)
+		return
+	}
+	fmt.Println("createCommentMessage : " + tools.Prettify(createCommentMessage))
 }
