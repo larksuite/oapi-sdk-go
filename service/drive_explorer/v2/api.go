@@ -93,8 +93,8 @@ func (rc *FileCopyReqCall) SetFileToken(fileToken string) {
 func (rc *FileCopyReqCall) Do() (*FileCopyResult, error) {
 	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
 	var result = &FileCopyResult{}
-	req := request.NewRequest("/open-apis/drive/explorer/v2/file/copy/files/:fileToken", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+	req := request.NewRequest("drive/explorer/v2/file/copy/files/:fileToken", "POST",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.files.service.conf, req)
 	return result, err
 }
@@ -265,8 +265,8 @@ func (rc *FileSpreadsheetsDeleteReqCall) SetSpreadsheetToken(spreadsheetToken st
 func (rc *FileSpreadsheetsDeleteReqCall) Do() (*FileSpreadsheetsDeleteResult, error) {
 	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
 	var result = &FileSpreadsheetsDeleteResult{}
-	req := request.NewRequest("/open-apis/drive/explorer/v2/file/spreadsheets/:spreadsheetToken", "DELETE",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, nil, result, rc.optFns...)
+	req := request.NewRequest("drive/explorer/v2/file/spreadsheets/:spreadsheetToken", "DELETE",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
 	err := api.Send(rc.ctx, rc.files.service.conf, req)
 	return result, err
 }
