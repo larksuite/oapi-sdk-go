@@ -660,3 +660,40 @@ func (reserves *ReserveService) Delete(ctx *core.Context, optFns ...request.OptF
 		optFns:     optFns,
 	}
 }
+
+type MeetingKickoutReqCall struct {
+	ctx         *core.Context
+	meetings    *MeetingService
+	body        *MeetingKickoutReqBody
+	pathParams  map[string]interface{}
+	queryParams map[string]interface{}
+	optFns      []request.OptFn
+}
+
+func (rc *MeetingKickoutReqCall) SetMeetingId(meetingId int64) {
+	rc.pathParams["meeting_id"] = meetingId
+}
+func (rc *MeetingKickoutReqCall) SetUserIdType(userIdType string) {
+	rc.queryParams["user_id_type"] = userIdType
+}
+
+func (rc *MeetingKickoutReqCall) Do() (*MeetingKickoutResult, error) {
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &MeetingKickoutResult{}
+	req := request.NewRequest("/open-apis/vc/v1/meetings/:meeting_id/kickout", "POST",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.meetings.service.conf, req)
+	return result, err
+}
+
+func (meetings *MeetingService) Kickout(ctx *core.Context, body *MeetingKickoutReqBody, optFns ...request.OptFn) *MeetingKickoutReqCall {
+	return &MeetingKickoutReqCall{
+		ctx:         ctx,
+		meetings:    meetings,
+		body:        body,
+		pathParams:  map[string]interface{}{},
+		queryParams: map[string]interface{}{},
+		optFns:      optFns,
+	}
+}

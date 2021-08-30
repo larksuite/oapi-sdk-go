@@ -80,6 +80,43 @@ func newAppTableViewService(service *Service) *AppTableViewService {
 	}
 }
 
+type AppTableBatchCreateReqCall struct {
+	ctx         *core.Context
+	appTables   *AppTableService
+	body        *AppTableBatchCreateReqBody
+	pathParams  map[string]interface{}
+	queryParams map[string]interface{}
+	optFns      []request.OptFn
+}
+
+func (rc *AppTableBatchCreateReqCall) SetAppToken(appToken string) {
+	rc.pathParams["app_token"] = appToken
+}
+func (rc *AppTableBatchCreateReqCall) SetUserIdType(userIdType string) {
+	rc.queryParams["user_id_type"] = userIdType
+}
+
+func (rc *AppTableBatchCreateReqCall) Do() (*AppTableBatchCreateResult, error) {
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &AppTableBatchCreateResult{}
+	req := request.NewRequest("/open-apis/bitable/v1/apps/:app_token/tables/batch_create", "POST",
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.appTables.service.conf, req)
+	return result, err
+}
+
+func (appTables *AppTableService) BatchCreate(ctx *core.Context, body *AppTableBatchCreateReqBody, optFns ...request.OptFn) *AppTableBatchCreateReqCall {
+	return &AppTableBatchCreateReqCall{
+		ctx:         ctx,
+		appTables:   appTables,
+		body:        body,
+		pathParams:  map[string]interface{}{},
+		queryParams: map[string]interface{}{},
+		optFns:      optFns,
+	}
+}
+
 type AppTableRecordBatchDeleteReqCall struct {
 	ctx             *core.Context
 	appTableRecords *AppTableRecordService
@@ -114,218 +151,34 @@ func (appTableRecords *AppTableRecordService) BatchDelete(ctx *core.Context, bod
 	}
 }
 
-type AppTableRecordBatchCreateReqCall struct {
-	ctx             *core.Context
-	appTableRecords *AppTableRecordService
-	body            *AppTableRecordBatchCreateReqBody
-	pathParams      map[string]interface{}
-	queryParams     map[string]interface{}
-	optFns          []request.OptFn
+type AppTableBatchDeleteReqCall struct {
+	ctx        *core.Context
+	appTables  *AppTableService
+	body       *AppTableBatchDeleteReqBody
+	pathParams map[string]interface{}
+	optFns     []request.OptFn
 }
 
-func (rc *AppTableRecordBatchCreateReqCall) SetAppToken(appToken string) {
+func (rc *AppTableBatchDeleteReqCall) SetAppToken(appToken string) {
 	rc.pathParams["app_token"] = appToken
 }
-func (rc *AppTableRecordBatchCreateReqCall) SetTableId(tableId string) {
-	rc.pathParams["table_id"] = tableId
-}
-func (rc *AppTableRecordBatchCreateReqCall) SetUserIdType(userIdType string) {
-	rc.queryParams["user_id_type"] = userIdType
-}
 
-func (rc *AppTableRecordBatchCreateReqCall) Do() (*AppTableRecordBatchCreateResult, error) {
+func (rc *AppTableBatchDeleteReqCall) Do() (*response.NoData, error) {
 	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &AppTableRecordBatchCreateResult{}
-	req := request.NewRequest("/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/batch_create", "POST",
+	var result = &response.NoData{}
+	req := request.NewRequest("/open-apis/bitable/v1/apps/:app_token/tables/batch_delete", "POST",
 		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.appTableRecords.service.conf, req)
+	err := api.Send(rc.ctx, rc.appTables.service.conf, req)
 	return result, err
 }
 
-func (appTableRecords *AppTableRecordService) BatchCreate(ctx *core.Context, body *AppTableRecordBatchCreateReqBody, optFns ...request.OptFn) *AppTableRecordBatchCreateReqCall {
-	return &AppTableRecordBatchCreateReqCall{
-		ctx:             ctx,
-		appTableRecords: appTableRecords,
-		body:            body,
-		pathParams:      map[string]interface{}{},
-		queryParams:     map[string]interface{}{},
-		optFns:          optFns,
-	}
-}
-
-type AppTableRecordGetReqCall struct {
-	ctx             *core.Context
-	appTableRecords *AppTableRecordService
-	pathParams      map[string]interface{}
-	queryParams     map[string]interface{}
-	optFns          []request.OptFn
-}
-
-func (rc *AppTableRecordGetReqCall) SetAppToken(appToken string) {
-	rc.pathParams["app_token"] = appToken
-}
-func (rc *AppTableRecordGetReqCall) SetTableId(tableId string) {
-	rc.pathParams["table_id"] = tableId
-}
-func (rc *AppTableRecordGetReqCall) SetRecordId(recordId string) {
-	rc.pathParams["record_id"] = recordId
-}
-func (rc *AppTableRecordGetReqCall) SetUserIdType(userIdType string) {
-	rc.queryParams["user_id_type"] = userIdType
-}
-
-func (rc *AppTableRecordGetReqCall) Do() (*AppTableRecordGetResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &AppTableRecordGetResult{}
-	req := request.NewRequest("/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.appTableRecords.service.conf, req)
-	return result, err
-}
-
-func (appTableRecords *AppTableRecordService) Get(ctx *core.Context, optFns ...request.OptFn) *AppTableRecordGetReqCall {
-	return &AppTableRecordGetReqCall{
-		ctx:             ctx,
-		appTableRecords: appTableRecords,
-		pathParams:      map[string]interface{}{},
-		queryParams:     map[string]interface{}{},
-		optFns:          optFns,
-	}
-}
-
-type AppTableRecordUpdateReqCall struct {
-	ctx             *core.Context
-	appTableRecords *AppTableRecordService
-	body            *AppTableRecord
-	pathParams      map[string]interface{}
-	queryParams     map[string]interface{}
-	optFns          []request.OptFn
-}
-
-func (rc *AppTableRecordUpdateReqCall) SetAppToken(appToken string) {
-	rc.pathParams["app_token"] = appToken
-}
-func (rc *AppTableRecordUpdateReqCall) SetTableId(tableId string) {
-	rc.pathParams["table_id"] = tableId
-}
-func (rc *AppTableRecordUpdateReqCall) SetRecordId(recordId string) {
-	rc.pathParams["record_id"] = recordId
-}
-func (rc *AppTableRecordUpdateReqCall) SetUserIdType(userIdType string) {
-	rc.queryParams["user_id_type"] = userIdType
-}
-
-func (rc *AppTableRecordUpdateReqCall) Do() (*AppTableRecordUpdateResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &AppTableRecordUpdateResult{}
-	req := request.NewRequest("/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id", "PUT",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.appTableRecords.service.conf, req)
-	return result, err
-}
-
-func (appTableRecords *AppTableRecordService) Update(ctx *core.Context, body *AppTableRecord, optFns ...request.OptFn) *AppTableRecordUpdateReqCall {
-	return &AppTableRecordUpdateReqCall{
-		ctx:             ctx,
-		appTableRecords: appTableRecords,
-		body:            body,
-		pathParams:      map[string]interface{}{},
-		queryParams:     map[string]interface{}{},
-		optFns:          optFns,
-	}
-}
-
-type AppTableRecordDeleteReqCall struct {
-	ctx             *core.Context
-	appTableRecords *AppTableRecordService
-	pathParams      map[string]interface{}
-	optFns          []request.OptFn
-}
-
-func (rc *AppTableRecordDeleteReqCall) SetAppToken(appToken string) {
-	rc.pathParams["app_token"] = appToken
-}
-func (rc *AppTableRecordDeleteReqCall) SetTableId(tableId string) {
-	rc.pathParams["table_id"] = tableId
-}
-func (rc *AppTableRecordDeleteReqCall) SetRecordId(recordId string) {
-	rc.pathParams["record_id"] = recordId
-}
-
-func (rc *AppTableRecordDeleteReqCall) Do() (*DeleteRecord, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	var result = &DeleteRecord{}
-	req := request.NewRequest("/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id", "DELETE",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.appTableRecords.service.conf, req)
-	return result, err
-}
-
-func (appTableRecords *AppTableRecordService) Delete(ctx *core.Context, optFns ...request.OptFn) *AppTableRecordDeleteReqCall {
-	return &AppTableRecordDeleteReqCall{
-		ctx:             ctx,
-		appTableRecords: appTableRecords,
-		pathParams:      map[string]interface{}{},
-		optFns:          optFns,
-	}
-}
-
-type AppTableRecordListReqCall struct {
-	ctx             *core.Context
-	appTableRecords *AppTableRecordService
-	pathParams      map[string]interface{}
-	queryParams     map[string]interface{}
-	optFns          []request.OptFn
-}
-
-func (rc *AppTableRecordListReqCall) SetAppToken(appToken string) {
-	rc.pathParams["app_token"] = appToken
-}
-func (rc *AppTableRecordListReqCall) SetTableId(tableId string) {
-	rc.pathParams["table_id"] = tableId
-}
-func (rc *AppTableRecordListReqCall) SetViewId(viewId string) {
-	rc.queryParams["view_id"] = viewId
-}
-func (rc *AppTableRecordListReqCall) SetFilter(filter string) {
-	rc.queryParams["filter"] = filter
-}
-func (rc *AppTableRecordListReqCall) SetSort(sort string) {
-	rc.queryParams["sort"] = sort
-}
-func (rc *AppTableRecordListReqCall) SetFieldNames(fieldNames string) {
-	rc.queryParams["field_names"] = fieldNames
-}
-func (rc *AppTableRecordListReqCall) SetPageToken(pageToken string) {
-	rc.queryParams["page_token"] = pageToken
-}
-func (rc *AppTableRecordListReqCall) SetPageSize(pageSize int) {
-	rc.queryParams["page_size"] = pageSize
-}
-func (rc *AppTableRecordListReqCall) SetUserIdType(userIdType string) {
-	rc.queryParams["user_id_type"] = userIdType
-}
-
-func (rc *AppTableRecordListReqCall) Do() (*AppTableRecordListResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &AppTableRecordListResult{}
-	req := request.NewRequest("/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.appTableRecords.service.conf, req)
-	return result, err
-}
-
-func (appTableRecords *AppTableRecordService) List(ctx *core.Context, optFns ...request.OptFn) *AppTableRecordListReqCall {
-	return &AppTableRecordListReqCall{
-		ctx:             ctx,
-		appTableRecords: appTableRecords,
-		pathParams:      map[string]interface{}{},
-		queryParams:     map[string]interface{}{},
-		optFns:          optFns,
+func (appTables *AppTableService) BatchDelete(ctx *core.Context, body *AppTableBatchDeleteReqBody, optFns ...request.OptFn) *AppTableBatchDeleteReqCall {
+	return &AppTableBatchDeleteReqCall{
+		ctx:        ctx,
+		appTables:  appTables,
+		body:       body,
+		pathParams: map[string]interface{}{},
+		optFns:     optFns,
 	}
 }
 
@@ -360,6 +213,86 @@ func (rc *AppTableRecordBatchUpdateReqCall) Do() (*AppTableRecordBatchUpdateResu
 
 func (appTableRecords *AppTableRecordService) BatchUpdate(ctx *core.Context, body *AppTableRecordBatchUpdateReqBody, optFns ...request.OptFn) *AppTableRecordBatchUpdateReqCall {
 	return &AppTableRecordBatchUpdateReqCall{
+		ctx:             ctx,
+		appTableRecords: appTableRecords,
+		body:            body,
+		pathParams:      map[string]interface{}{},
+		queryParams:     map[string]interface{}{},
+		optFns:          optFns,
+	}
+}
+
+type AppTableFieldCreateReqCall struct {
+	ctx            *core.Context
+	appTableFields *AppTableFieldService
+	body           *AppTableField
+	pathParams     map[string]interface{}
+	queryParams    map[string]interface{}
+	optFns         []request.OptFn
+}
+
+func (rc *AppTableFieldCreateReqCall) SetAppToken(appToken string) {
+	rc.pathParams["app_token"] = appToken
+}
+func (rc *AppTableFieldCreateReqCall) SetTableId(tableId string) {
+	rc.pathParams["table_id"] = tableId
+}
+func (rc *AppTableFieldCreateReqCall) SetUserIdType(userIdType string) {
+	rc.queryParams["user_id_type"] = userIdType
+}
+
+func (rc *AppTableFieldCreateReqCall) Do() (*AppTableFieldCreateResult, error) {
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &AppTableFieldCreateResult{}
+	req := request.NewRequest("/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields", "POST",
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.appTableFields.service.conf, req)
+	return result, err
+}
+
+func (appTableFields *AppTableFieldService) Create(ctx *core.Context, body *AppTableField, optFns ...request.OptFn) *AppTableFieldCreateReqCall {
+	return &AppTableFieldCreateReqCall{
+		ctx:            ctx,
+		appTableFields: appTableFields,
+		body:           body,
+		pathParams:     map[string]interface{}{},
+		queryParams:    map[string]interface{}{},
+		optFns:         optFns,
+	}
+}
+
+type AppTableRecordBatchCreateReqCall struct {
+	ctx             *core.Context
+	appTableRecords *AppTableRecordService
+	body            *AppTableRecordBatchCreateReqBody
+	pathParams      map[string]interface{}
+	queryParams     map[string]interface{}
+	optFns          []request.OptFn
+}
+
+func (rc *AppTableRecordBatchCreateReqCall) SetAppToken(appToken string) {
+	rc.pathParams["app_token"] = appToken
+}
+func (rc *AppTableRecordBatchCreateReqCall) SetTableId(tableId string) {
+	rc.pathParams["table_id"] = tableId
+}
+func (rc *AppTableRecordBatchCreateReqCall) SetUserIdType(userIdType string) {
+	rc.queryParams["user_id_type"] = userIdType
+}
+
+func (rc *AppTableRecordBatchCreateReqCall) Do() (*AppTableRecordBatchCreateResult, error) {
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &AppTableRecordBatchCreateResult{}
+	req := request.NewRequest("/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/batch_create", "POST",
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.appTableRecords.service.conf, req)
+	return result, err
+}
+
+func (appTableRecords *AppTableRecordService) BatchCreate(ctx *core.Context, body *AppTableRecordBatchCreateReqBody, optFns ...request.OptFn) *AppTableRecordBatchCreateReqCall {
+	return &AppTableRecordBatchCreateReqCall{
 		ctx:             ctx,
 		appTableRecords: appTableRecords,
 		body:            body,
@@ -406,194 +339,6 @@ func (appTableRecords *AppTableRecordService) Create(ctx *core.Context, body *Ap
 		pathParams:      map[string]interface{}{},
 		queryParams:     map[string]interface{}{},
 		optFns:          optFns,
-	}
-}
-
-type AppGetReqCall struct {
-	ctx        *core.Context
-	apps       *AppService
-	pathParams map[string]interface{}
-	optFns     []request.OptFn
-}
-
-func (rc *AppGetReqCall) SetAppToken(appToken string) {
-	rc.pathParams["app_token"] = appToken
-}
-
-func (rc *AppGetReqCall) Do() (*AppGetResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	var result = &AppGetResult{}
-	req := request.NewRequest("/open-apis/bitable/v1/apps/:app_token", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.apps.service.conf, req)
-	return result, err
-}
-
-func (apps *AppService) Get(ctx *core.Context, optFns ...request.OptFn) *AppGetReqCall {
-	return &AppGetReqCall{
-		ctx:        ctx,
-		apps:       apps,
-		pathParams: map[string]interface{}{},
-		optFns:     optFns,
-	}
-}
-
-type AppTableListReqCall struct {
-	ctx         *core.Context
-	appTables   *AppTableService
-	pathParams  map[string]interface{}
-	queryParams map[string]interface{}
-	optFns      []request.OptFn
-}
-
-func (rc *AppTableListReqCall) SetAppToken(appToken string) {
-	rc.pathParams["app_token"] = appToken
-}
-func (rc *AppTableListReqCall) SetPageToken(pageToken string) {
-	rc.queryParams["page_token"] = pageToken
-}
-func (rc *AppTableListReqCall) SetPageSize(pageSize int) {
-	rc.queryParams["page_size"] = pageSize
-}
-
-func (rc *AppTableListReqCall) Do() (*AppTableListResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &AppTableListResult{}
-	req := request.NewRequest("/open-apis/bitable/v1/apps/:app_token/tables", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.appTables.service.conf, req)
-	return result, err
-}
-
-func (appTables *AppTableService) List(ctx *core.Context, optFns ...request.OptFn) *AppTableListReqCall {
-	return &AppTableListReqCall{
-		ctx:         ctx,
-		appTables:   appTables,
-		pathParams:  map[string]interface{}{},
-		queryParams: map[string]interface{}{},
-		optFns:      optFns,
-	}
-}
-
-type AppTableFieldListReqCall struct {
-	ctx            *core.Context
-	appTableFields *AppTableFieldService
-	pathParams     map[string]interface{}
-	queryParams    map[string]interface{}
-	optFns         []request.OptFn
-}
-
-func (rc *AppTableFieldListReqCall) SetAppToken(appToken string) {
-	rc.pathParams["app_token"] = appToken
-}
-func (rc *AppTableFieldListReqCall) SetTableId(tableId string) {
-	rc.pathParams["table_id"] = tableId
-}
-func (rc *AppTableFieldListReqCall) SetViewId(viewId string) {
-	rc.queryParams["view_id"] = viewId
-}
-func (rc *AppTableFieldListReqCall) SetPageToken(pageToken string) {
-	rc.queryParams["page_token"] = pageToken
-}
-func (rc *AppTableFieldListReqCall) SetPageSize(pageSize int) {
-	rc.queryParams["page_size"] = pageSize
-}
-
-func (rc *AppTableFieldListReqCall) Do() (*AppTableFieldListResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &AppTableFieldListResult{}
-	req := request.NewRequest("/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.appTableFields.service.conf, req)
-	return result, err
-}
-
-func (appTableFields *AppTableFieldService) List(ctx *core.Context, optFns ...request.OptFn) *AppTableFieldListReqCall {
-	return &AppTableFieldListReqCall{
-		ctx:            ctx,
-		appTableFields: appTableFields,
-		pathParams:     map[string]interface{}{},
-		queryParams:    map[string]interface{}{},
-		optFns:         optFns,
-	}
-}
-
-type AppTableFieldCreateReqCall struct {
-	ctx            *core.Context
-	appTableFields *AppTableFieldService
-	body           *AppTableField
-	pathParams     map[string]interface{}
-	queryParams    map[string]interface{}
-	optFns         []request.OptFn
-}
-
-func (rc *AppTableFieldCreateReqCall) SetAppToken(appToken string) {
-	rc.pathParams["app_token"] = appToken
-}
-func (rc *AppTableFieldCreateReqCall) SetTableId(tableId string) {
-	rc.pathParams["table_id"] = tableId
-}
-func (rc *AppTableFieldCreateReqCall) SetUserIdType(userIdType string) {
-	rc.queryParams["user_id_type"] = userIdType
-}
-
-func (rc *AppTableFieldCreateReqCall) Do() (*AppTableFieldCreateResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &AppTableFieldCreateResult{}
-	req := request.NewRequest("/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.appTableFields.service.conf, req)
-	return result, err
-}
-
-func (appTableFields *AppTableFieldService) Create(ctx *core.Context, body *AppTableField, optFns ...request.OptFn) *AppTableFieldCreateReqCall {
-	return &AppTableFieldCreateReqCall{
-		ctx:            ctx,
-		appTableFields: appTableFields,
-		body:           body,
-		pathParams:     map[string]interface{}{},
-		queryParams:    map[string]interface{}{},
-		optFns:         optFns,
-	}
-}
-
-type AppTableBatchCreateReqCall struct {
-	ctx         *core.Context
-	appTables   *AppTableService
-	body        *AppTableBatchCreateReqBody
-	pathParams  map[string]interface{}
-	queryParams map[string]interface{}
-	optFns      []request.OptFn
-}
-
-func (rc *AppTableBatchCreateReqCall) SetAppToken(appToken string) {
-	rc.pathParams["app_token"] = appToken
-}
-func (rc *AppTableBatchCreateReqCall) SetUserIdType(userIdType string) {
-	rc.queryParams["user_id_type"] = userIdType
-}
-
-func (rc *AppTableBatchCreateReqCall) Do() (*AppTableBatchCreateResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &AppTableBatchCreateResult{}
-	req := request.NewRequest("/open-apis/bitable/v1/apps/:app_token/tables/batch_create", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.appTables.service.conf, req)
-	return result, err
-}
-
-func (appTables *AppTableService) BatchCreate(ctx *core.Context, body *AppTableBatchCreateReqBody, optFns ...request.OptFn) *AppTableBatchCreateReqCall {
-	return &AppTableBatchCreateReqCall{
-		ctx:         ctx,
-		appTables:   appTables,
-		body:        body,
-		pathParams:  map[string]interface{}{},
-		queryParams: map[string]interface{}{},
-		optFns:      optFns,
 	}
 }
 
@@ -701,6 +446,263 @@ func (appTableFields *AppTableFieldService) Delete(ctx *core.Context, optFns ...
 	}
 }
 
+type AppTableRecordDeleteReqCall struct {
+	ctx             *core.Context
+	appTableRecords *AppTableRecordService
+	pathParams      map[string]interface{}
+	optFns          []request.OptFn
+}
+
+func (rc *AppTableRecordDeleteReqCall) SetAppToken(appToken string) {
+	rc.pathParams["app_token"] = appToken
+}
+func (rc *AppTableRecordDeleteReqCall) SetTableId(tableId string) {
+	rc.pathParams["table_id"] = tableId
+}
+func (rc *AppTableRecordDeleteReqCall) SetRecordId(recordId string) {
+	rc.pathParams["record_id"] = recordId
+}
+
+func (rc *AppTableRecordDeleteReqCall) Do() (*DeleteRecord, error) {
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	var result = &DeleteRecord{}
+	req := request.NewRequest("/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id", "DELETE",
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.appTableRecords.service.conf, req)
+	return result, err
+}
+
+func (appTableRecords *AppTableRecordService) Delete(ctx *core.Context, optFns ...request.OptFn) *AppTableRecordDeleteReqCall {
+	return &AppTableRecordDeleteReqCall{
+		ctx:             ctx,
+		appTableRecords: appTableRecords,
+		pathParams:      map[string]interface{}{},
+		optFns:          optFns,
+	}
+}
+
+type AppTableRecordGetReqCall struct {
+	ctx             *core.Context
+	appTableRecords *AppTableRecordService
+	pathParams      map[string]interface{}
+	queryParams     map[string]interface{}
+	optFns          []request.OptFn
+}
+
+func (rc *AppTableRecordGetReqCall) SetAppToken(appToken string) {
+	rc.pathParams["app_token"] = appToken
+}
+func (rc *AppTableRecordGetReqCall) SetTableId(tableId string) {
+	rc.pathParams["table_id"] = tableId
+}
+func (rc *AppTableRecordGetReqCall) SetRecordId(recordId string) {
+	rc.pathParams["record_id"] = recordId
+}
+func (rc *AppTableRecordGetReqCall) SetUserIdType(userIdType string) {
+	rc.queryParams["user_id_type"] = userIdType
+}
+
+func (rc *AppTableRecordGetReqCall) Do() (*AppTableRecordGetResult, error) {
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &AppTableRecordGetResult{}
+	req := request.NewRequest("/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id", "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.appTableRecords.service.conf, req)
+	return result, err
+}
+
+func (appTableRecords *AppTableRecordService) Get(ctx *core.Context, optFns ...request.OptFn) *AppTableRecordGetReqCall {
+	return &AppTableRecordGetReqCall{
+		ctx:             ctx,
+		appTableRecords: appTableRecords,
+		pathParams:      map[string]interface{}{},
+		queryParams:     map[string]interface{}{},
+		optFns:          optFns,
+	}
+}
+
+type AppTableFieldListReqCall struct {
+	ctx            *core.Context
+	appTableFields *AppTableFieldService
+	pathParams     map[string]interface{}
+	queryParams    map[string]interface{}
+	optFns         []request.OptFn
+}
+
+func (rc *AppTableFieldListReqCall) SetAppToken(appToken string) {
+	rc.pathParams["app_token"] = appToken
+}
+func (rc *AppTableFieldListReqCall) SetTableId(tableId string) {
+	rc.pathParams["table_id"] = tableId
+}
+func (rc *AppTableFieldListReqCall) SetViewId(viewId string) {
+	rc.queryParams["view_id"] = viewId
+}
+func (rc *AppTableFieldListReqCall) SetPageToken(pageToken string) {
+	rc.queryParams["page_token"] = pageToken
+}
+func (rc *AppTableFieldListReqCall) SetPageSize(pageSize int) {
+	rc.queryParams["page_size"] = pageSize
+}
+
+func (rc *AppTableFieldListReqCall) Do() (*AppTableFieldListResult, error) {
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &AppTableFieldListResult{}
+	req := request.NewRequest("/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields", "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.appTableFields.service.conf, req)
+	return result, err
+}
+
+func (appTableFields *AppTableFieldService) List(ctx *core.Context, optFns ...request.OptFn) *AppTableFieldListReqCall {
+	return &AppTableFieldListReqCall{
+		ctx:            ctx,
+		appTableFields: appTableFields,
+		pathParams:     map[string]interface{}{},
+		queryParams:    map[string]interface{}{},
+		optFns:         optFns,
+	}
+}
+
+type AppTableRecordListReqCall struct {
+	ctx             *core.Context
+	appTableRecords *AppTableRecordService
+	pathParams      map[string]interface{}
+	queryParams     map[string]interface{}
+	optFns          []request.OptFn
+}
+
+func (rc *AppTableRecordListReqCall) SetAppToken(appToken string) {
+	rc.pathParams["app_token"] = appToken
+}
+func (rc *AppTableRecordListReqCall) SetTableId(tableId string) {
+	rc.pathParams["table_id"] = tableId
+}
+func (rc *AppTableRecordListReqCall) SetViewId(viewId string) {
+	rc.queryParams["view_id"] = viewId
+}
+func (rc *AppTableRecordListReqCall) SetFilter(filter string) {
+	rc.queryParams["filter"] = filter
+}
+func (rc *AppTableRecordListReqCall) SetSort(sort string) {
+	rc.queryParams["sort"] = sort
+}
+func (rc *AppTableRecordListReqCall) SetFieldNames(fieldNames string) {
+	rc.queryParams["field_names"] = fieldNames
+}
+func (rc *AppTableRecordListReqCall) SetPageToken(pageToken string) {
+	rc.queryParams["page_token"] = pageToken
+}
+func (rc *AppTableRecordListReqCall) SetPageSize(pageSize int) {
+	rc.queryParams["page_size"] = pageSize
+}
+func (rc *AppTableRecordListReqCall) SetUserIdType(userIdType string) {
+	rc.queryParams["user_id_type"] = userIdType
+}
+
+func (rc *AppTableRecordListReqCall) Do() (*AppTableRecordListResult, error) {
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &AppTableRecordListResult{}
+	req := request.NewRequest("/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records", "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.appTableRecords.service.conf, req)
+	return result, err
+}
+
+func (appTableRecords *AppTableRecordService) List(ctx *core.Context, optFns ...request.OptFn) *AppTableRecordListReqCall {
+	return &AppTableRecordListReqCall{
+		ctx:             ctx,
+		appTableRecords: appTableRecords,
+		pathParams:      map[string]interface{}{},
+		queryParams:     map[string]interface{}{},
+		optFns:          optFns,
+	}
+}
+
+type AppTableListReqCall struct {
+	ctx         *core.Context
+	appTables   *AppTableService
+	pathParams  map[string]interface{}
+	queryParams map[string]interface{}
+	optFns      []request.OptFn
+}
+
+func (rc *AppTableListReqCall) SetAppToken(appToken string) {
+	rc.pathParams["app_token"] = appToken
+}
+func (rc *AppTableListReqCall) SetPageToken(pageToken string) {
+	rc.queryParams["page_token"] = pageToken
+}
+func (rc *AppTableListReqCall) SetPageSize(pageSize int) {
+	rc.queryParams["page_size"] = pageSize
+}
+
+func (rc *AppTableListReqCall) Do() (*AppTableListResult, error) {
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &AppTableListResult{}
+	req := request.NewRequest("/open-apis/bitable/v1/apps/:app_token/tables", "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.appTables.service.conf, req)
+	return result, err
+}
+
+func (appTables *AppTableService) List(ctx *core.Context, optFns ...request.OptFn) *AppTableListReqCall {
+	return &AppTableListReqCall{
+		ctx:         ctx,
+		appTables:   appTables,
+		pathParams:  map[string]interface{}{},
+		queryParams: map[string]interface{}{},
+		optFns:      optFns,
+	}
+}
+
+type AppTableRecordUpdateReqCall struct {
+	ctx             *core.Context
+	appTableRecords *AppTableRecordService
+	body            *AppTableRecord
+	pathParams      map[string]interface{}
+	queryParams     map[string]interface{}
+	optFns          []request.OptFn
+}
+
+func (rc *AppTableRecordUpdateReqCall) SetAppToken(appToken string) {
+	rc.pathParams["app_token"] = appToken
+}
+func (rc *AppTableRecordUpdateReqCall) SetTableId(tableId string) {
+	rc.pathParams["table_id"] = tableId
+}
+func (rc *AppTableRecordUpdateReqCall) SetRecordId(recordId string) {
+	rc.pathParams["record_id"] = recordId
+}
+func (rc *AppTableRecordUpdateReqCall) SetUserIdType(userIdType string) {
+	rc.queryParams["user_id_type"] = userIdType
+}
+
+func (rc *AppTableRecordUpdateReqCall) Do() (*AppTableRecordUpdateResult, error) {
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &AppTableRecordUpdateResult{}
+	req := request.NewRequest("/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id", "PUT",
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.appTableRecords.service.conf, req)
+	return result, err
+}
+
+func (appTableRecords *AppTableRecordService) Update(ctx *core.Context, body *AppTableRecord, optFns ...request.OptFn) *AppTableRecordUpdateReqCall {
+	return &AppTableRecordUpdateReqCall{
+		ctx:             ctx,
+		appTableRecords: appTableRecords,
+		body:            body,
+		pathParams:      map[string]interface{}{},
+		queryParams:     map[string]interface{}{},
+		optFns:          optFns,
+	}
+}
+
 type AppTableFieldUpdateReqCall struct {
 	ctx            *core.Context
 	appTableFields *AppTableFieldService
@@ -738,32 +740,30 @@ func (appTableFields *AppTableFieldService) Update(ctx *core.Context, body *AppT
 	}
 }
 
-type AppTableBatchDeleteReqCall struct {
+type AppGetReqCall struct {
 	ctx        *core.Context
-	appTables  *AppTableService
-	body       *AppTableBatchDeleteReqBody
+	apps       *AppService
 	pathParams map[string]interface{}
 	optFns     []request.OptFn
 }
 
-func (rc *AppTableBatchDeleteReqCall) SetAppToken(appToken string) {
+func (rc *AppGetReqCall) SetAppToken(appToken string) {
 	rc.pathParams["app_token"] = appToken
 }
 
-func (rc *AppTableBatchDeleteReqCall) Do() (*response.NoData, error) {
+func (rc *AppGetReqCall) Do() (*AppGetResult, error) {
 	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	var result = &response.NoData{}
-	req := request.NewRequest("/open-apis/bitable/v1/apps/:app_token/tables/batch_delete", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.appTables.service.conf, req)
+	var result = &AppGetResult{}
+	req := request.NewRequest("/open-apis/bitable/v1/apps/:app_token", "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.apps.service.conf, req)
 	return result, err
 }
 
-func (appTables *AppTableService) BatchDelete(ctx *core.Context, body *AppTableBatchDeleteReqBody, optFns ...request.OptFn) *AppTableBatchDeleteReqCall {
-	return &AppTableBatchDeleteReqCall{
+func (apps *AppService) Get(ctx *core.Context, optFns ...request.OptFn) *AppGetReqCall {
+	return &AppGetReqCall{
 		ctx:        ctx,
-		appTables:  appTables,
-		body:       body,
+		apps:       apps,
 		pathParams: map[string]interface{}{},
 		optFns:     optFns,
 	}

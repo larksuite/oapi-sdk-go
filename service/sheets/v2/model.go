@@ -428,7 +428,7 @@ func (s *Reply) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
-type Requests struct {
+type Request struct {
 	AddSheet        *AddSheet    `json:"addSheet,omitempty"`
 	CopySheet       *CopySheet   `json:"copySheet,omitempty"`
 	DeleteSheet     *DeleteSheet `json:"deleteSheet,omitempty"`
@@ -436,24 +436,24 @@ type Requests struct {
 	ForceSendFields []string     `json:"-"`
 }
 
-func (s *Requests) MarshalJSON() ([]byte, error) {
-	type cp Requests
+func (s *Request) MarshalJSON() ([]byte, error) {
+	type cp Request
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
 type Sheet struct {
-	SheetId         string          `json:"sheetId,omitempty"`
-	Title           string          `json:"title,omitempty"`
-	Index           int             `json:"index,omitempty"`
-	RowCount        int             `json:"rowCount,omitempty"`
-	ColumnCount     int             `json:"columnCount,omitempty"`
-	FrozenRowCount  int             `json:"frozenRowCount,omitempty"`
-	FrozenColCount  int             `json:"frozenColCount,omitempty"`
-	Merges          []*Merge        `json:"merges,omitempty"`
-	ProtectedRange  *ProtectedRange `json:"protectedRange,omitempty"`
-	BlockInfo       *BlockInfo      `json:"blockInfo,omitempty"`
-	ForceSendFields []string        `json:"-"`
+	SheetId         string            `json:"sheetId,omitempty"`
+	Title           string            `json:"title,omitempty"`
+	Index           int               `json:"index,omitempty"`
+	RowCount        int               `json:"rowCount,omitempty"`
+	ColumnCount     int               `json:"columnCount,omitempty"`
+	FrozenRowCount  int               `json:"frozenRowCount,omitempty"`
+	FrozenColCount  int               `json:"frozenColCount,omitempty"`
+	Merges          []*Merge          `json:"merges,omitempty"`
+	ProtectedRange  []*ProtectedRange `json:"protectedRange,omitempty"`
+	BlockInfo       *BlockInfo        `json:"blockInfo,omitempty"`
+	ForceSendFields []string          `json:"-"`
 }
 
 func (s *Sheet) MarshalJSON() ([]byte, error) {
@@ -853,8 +853,8 @@ type SpreadsheetsProtectedRangeBatchUpdateResult struct {
 }
 
 type SpreadsheetsSheetsBatchUpdateReqBody struct {
-	Requests        *Requests `json:"requests,omitempty"`
-	ForceSendFields []string  `json:"-"`
+	Requests        []*Request `json:"requests,omitempty"`
+	ForceSendFields []string   `json:"-"`
 }
 
 func (s *SpreadsheetsSheetsBatchUpdateReqBody) MarshalJSON() ([]byte, error) {

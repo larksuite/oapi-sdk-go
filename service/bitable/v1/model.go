@@ -30,6 +30,43 @@ func (s *AppTable) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
+type DeleteRecord struct {
+	Deleted         bool     `json:"deleted,omitempty"`
+	RecordId        string   `json:"record_id,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *DeleteRecord) MarshalJSON() ([]byte, error) {
+	type cp DeleteRecord
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type Person struct {
+	Id              string   `json:"id,omitempty"`
+	Name            string   `json:"name,omitempty"`
+	EnName          string   `json:"en_name,omitempty"`
+	Email           string   `json:"email,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *Person) MarshalJSON() ([]byte, error) {
+	type cp Person
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type ReqTable struct {
+	Name            string   `json:"name,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *ReqTable) MarshalJSON() ([]byte, error) {
+	type cp ReqTable
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
 type AppTableField struct {
 	FieldId         string                 `json:"field_id,omitempty"`
 	FieldName       string                 `json:"field_name,omitempty"`
@@ -100,41 +137,47 @@ func (s *AppTableView) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
-type DeleteRecord struct {
-	Deleted         bool     `json:"deleted,omitempty"`
-	RecordId        string   `json:"record_id,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *DeleteRecord) MarshalJSON() ([]byte, error) {
-	type cp DeleteRecord
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type Person struct {
-	Id              string   `json:"id,omitempty"`
+type Attachment struct {
+	FileToken       string   `json:"file_token,omitempty"`
 	Name            string   `json:"name,omitempty"`
-	EnName          string   `json:"en_name,omitempty"`
-	Email           string   `json:"email,omitempty"`
+	Type            string   `json:"type,omitempty"`
+	Size            int      `json:"size,omitempty"`
+	Url             string   `json:"url,omitempty"`
+	TmpUrl          string   `json:"tmp_url,omitempty"`
 	ForceSendFields []string `json:"-"`
 }
 
-func (s *Person) MarshalJSON() ([]byte, error) {
-	type cp Person
+func (s *Attachment) MarshalJSON() ([]byte, error) {
+	type cp Attachment
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
-type ReqTable struct {
-	Name            string   `json:"name,omitempty"`
+type Url struct {
+	Text            string   `json:"text,omitempty"`
+	Link            string   `json:"link,omitempty"`
 	ForceSendFields []string `json:"-"`
 }
 
-func (s *ReqTable) MarshalJSON() ([]byte, error) {
-	type cp ReqTable
+func (s *Url) MarshalJSON() ([]byte, error) {
+	type cp Url
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type AppTableBatchCreateReqBody struct {
+	Tables          []*ReqTable `json:"tables,omitempty"`
+	ForceSendFields []string    `json:"-"`
+}
+
+func (s *AppTableBatchCreateReqBody) MarshalJSON() ([]byte, error) {
+	type cp AppTableBatchCreateReqBody
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type AppTableBatchCreateResult struct {
+	TableIds []string `json:"table_ids,omitempty"`
 }
 
 type AppTableRecordBatchDeleteReqBody struct {
@@ -152,33 +195,15 @@ type AppTableRecordBatchDeleteResult struct {
 	Records []*DeleteRecord `json:"records,omitempty"`
 }
 
-type AppTableRecordBatchCreateReqBody struct {
-	Records         []*AppTableRecord `json:"records,omitempty"`
-	ForceSendFields []string          `json:"-"`
+type AppTableBatchDeleteReqBody struct {
+	TableIds        []string `json:"table_ids,omitempty"`
+	ForceSendFields []string `json:"-"`
 }
 
-func (s *AppTableRecordBatchCreateReqBody) MarshalJSON() ([]byte, error) {
-	type cp AppTableRecordBatchCreateReqBody
+func (s *AppTableBatchDeleteReqBody) MarshalJSON() ([]byte, error) {
+	type cp AppTableBatchDeleteReqBody
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type AppTableRecordBatchCreateResult struct {
-	Records []*AppTableRecord `json:"records,omitempty"`
-}
-
-type AppTableRecordGetResult struct {
-	Record *AppTableRecord `json:"record,omitempty"`
-}
-
-type AppTableRecordUpdateResult struct {
-	Record *AppTableRecord `json:"record,omitempty"`
-}
-
-type AppTableRecordListResult struct {
-	HasMore   bool              `json:"has_more,omitempty"`
-	PageToken string            `json:"page_token,omitempty"`
-	Items     []*AppTableRecord `json:"items,omitempty"`
 }
 
 type AppTableRecordBatchUpdateReqBody struct {
@@ -196,43 +221,27 @@ type AppTableRecordBatchUpdateResult struct {
 	Records []*AppTableRecord `json:"records,omitempty"`
 }
 
-type AppTableRecordCreateResult struct {
-	Record *AppTableRecord `json:"record,omitempty"`
-}
-
-type AppGetResult struct {
-	App *App `json:"app,omitempty"`
-}
-
-type AppTableListResult struct {
-	HasMore   bool        `json:"has_more,omitempty"`
-	PageToken string      `json:"page_token,omitempty"`
-	Items     []*AppTable `json:"items,omitempty"`
-}
-
-type AppTableFieldListResult struct {
-	HasMore   bool             `json:"has_more,omitempty"`
-	PageToken string           `json:"page_token,omitempty"`
-	Items     []*AppTableField `json:"items,omitempty"`
-}
-
 type AppTableFieldCreateResult struct {
 	Field *AppTableField `json:"field,omitempty"`
 }
 
-type AppTableBatchCreateReqBody struct {
-	Tables          []*ReqTable `json:"tables,omitempty"`
-	ForceSendFields []string    `json:"-"`
+type AppTableRecordBatchCreateReqBody struct {
+	Records         []*AppTableRecord `json:"records,omitempty"`
+	ForceSendFields []string          `json:"-"`
 }
 
-func (s *AppTableBatchCreateReqBody) MarshalJSON() ([]byte, error) {
-	type cp AppTableBatchCreateReqBody
+func (s *AppTableRecordBatchCreateReqBody) MarshalJSON() ([]byte, error) {
+	type cp AppTableRecordBatchCreateReqBody
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
-type AppTableBatchCreateResult struct {
-	TableIds []string `json:"table_ids,omitempty"`
+type AppTableRecordBatchCreateResult struct {
+	Records []*AppTableRecord `json:"records,omitempty"`
+}
+
+type AppTableRecordCreateResult struct {
+	Record *AppTableRecord `json:"record,omitempty"`
 }
 
 type AppTableCreateReqBody struct {
@@ -255,19 +264,41 @@ type AppTableFieldDeleteResult struct {
 	Deleted bool   `json:"deleted,omitempty"`
 }
 
+type AppTableRecordGetResult struct {
+	Record *AppTableRecord `json:"record,omitempty"`
+}
+
+type AppTableFieldListResult struct {
+	HasMore   bool             `json:"has_more,omitempty"`
+	PageToken string           `json:"page_token,omitempty"`
+	Total     int              `json:"total,omitempty"`
+	Items     []*AppTableField `json:"items,omitempty"`
+}
+
+type AppTableRecordListResult struct {
+	HasMore   bool              `json:"has_more,omitempty"`
+	PageToken string            `json:"page_token,omitempty"`
+	Total     int               `json:"total,omitempty"`
+	Items     []*AppTableRecord `json:"items,omitempty"`
+}
+
+type AppTableListResult struct {
+	HasMore   bool        `json:"has_more,omitempty"`
+	PageToken string      `json:"page_token,omitempty"`
+	Total     int         `json:"total,omitempty"`
+	Items     []*AppTable `json:"items,omitempty"`
+}
+
+type AppTableRecordUpdateResult struct {
+	Record *AppTableRecord `json:"record,omitempty"`
+}
+
 type AppTableFieldUpdateResult struct {
 	Field *AppTableField `json:"field,omitempty"`
 }
 
-type AppTableBatchDeleteReqBody struct {
-	TableIds        []string `json:"table_ids,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *AppTableBatchDeleteReqBody) MarshalJSON() ([]byte, error) {
-	type cp AppTableBatchDeleteReqBody
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
+type AppGetResult struct {
+	App *App `json:"app,omitempty"`
 }
 
 type AppTableViewCreateResult struct {
@@ -278,4 +309,5 @@ type AppTableViewListResult struct {
 	Items     []*AppTableView `json:"items,omitempty"`
 	PageToken string          `json:"page_token,omitempty"`
 	HasMore   bool            `json:"has_more,omitempty"`
+	Total     int             `json:"total,omitempty"`
 }

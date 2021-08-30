@@ -528,6 +528,21 @@ type ReserveGetActiveMeetingResult struct {
 	Meeting *Meeting `json:"meeting,omitempty"`
 }
 
+type MeetingKickoutReqBody struct {
+	KickoutUsers    []*MeetingUser `json:"kickout_users,omitempty"`
+	ForceSendFields []string       `json:"-"`
+}
+
+func (s *MeetingKickoutReqBody) MarshalJSON() ([]byte, error) {
+	type cp MeetingKickoutReqBody
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type MeetingKickoutResult struct {
+	KickoutResults []*MeetingParticipantResult `json:"kickout_results,omitempty"`
+}
+
 type MeetingLeaveMeetingEventData struct {
 	Meeting     *MeetingEventMeeting `json:"meeting,omitempty"`
 	Operator    *MeetingEventUser    `json:"operator,omitempty"`

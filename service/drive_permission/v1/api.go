@@ -163,30 +163,6 @@ func (members *MemberService) Transfer(ctx *core.Context, body *MemberTransferRe
 	}
 }
 
-type MemberUpdateReqCall struct {
-	ctx     *core.Context
-	members *MemberService
-	body    *MemberUpdateReqBody
-	optFns  []request.OptFn
-}
-
-func (rc *MemberUpdateReqCall) Do() (*MemberUpdateResult, error) {
-	var result = &MemberUpdateResult{}
-	req := request.NewRequest("/open-apis/drive/permission/member/update", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.members.service.conf, req)
-	return result, err
-}
-
-func (members *MemberService) Update(ctx *core.Context, body *MemberUpdateReqBody, optFns ...request.OptFn) *MemberUpdateReqCall {
-	return &MemberUpdateReqCall{
-		ctx:     ctx,
-		members: members,
-		body:    body,
-		optFns:  optFns,
-	}
-}
-
 type PublicUpdateReqCall struct {
 	ctx     *core.Context
 	publics *PublicService
@@ -206,6 +182,30 @@ func (publics *PublicService) Update(ctx *core.Context, body *PublicUpdateReqBod
 	return &PublicUpdateReqCall{
 		ctx:     ctx,
 		publics: publics,
+		body:    body,
+		optFns:  optFns,
+	}
+}
+
+type MemberUpdateReqCall struct {
+	ctx     *core.Context
+	members *MemberService
+	body    *MemberUpdateReqBody
+	optFns  []request.OptFn
+}
+
+func (rc *MemberUpdateReqCall) Do() (*MemberUpdateResult, error) {
+	var result = &MemberUpdateResult{}
+	req := request.NewRequest("/open-apis/drive/permission/member/update", "POST",
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.members.service.conf, req)
+	return result, err
+}
+
+func (members *MemberService) Update(ctx *core.Context, body *MemberUpdateReqBody, optFns ...request.OptFn) *MemberUpdateReqCall {
+	return &MemberUpdateReqCall{
+		ctx:     ctx,
+		members: members,
 		body:    body,
 		optFns:  optFns,
 	}
