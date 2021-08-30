@@ -22,6 +22,8 @@
 
 If you encounter any problems during usage, please let us know by submitting  [Github Issues](https://github.com/larksuite/oapi-sdk-go/issues). We will deal with these Issues and get back to you as soon as possible.
 
+- Upgrade the package first, if you still have problems, please submit Issues
+
 ## Run environment
 
 ---

@@ -17,6 +17,8 @@
 
 如有任何SDK使用相关问题，请提交 [Github Issues](https://github.com/larksuite/oapi-sdk-go/issues), 我们会在收到 Issues 的第一时间处理，并尽快给您答复。
 
+- 优先升级一下包，如果还有问题， 请提交 Issues
+
 ## 运行环境
 
 ---
