@@ -708,23 +708,21 @@ func (fd *Formdata) content() (string, []byte, error) {
 }
 
 type CodeError struct {
-	Code int               `json:"code"`
-	Msg  string            `json:"msg"`
-	Err  *InnerDetailError `json:"error"`
+	Code int    `json:"code"`
+	Msg  string `json:"msg"`
+	Err  *struct {
+		Details              []*CodeErrorDetail              `json:"details,omitempty"`
+		PermissionViolations []*CodeErrorPermissionViolation `json:"permission_violations,omitempty"`
+		FieldViolations      []*CodeErrorFieldViolation      `json:"field_violations,omitempty"`
+	} `json:"error"`
 }
 
 func (ce CodeError) Error() string {
-	return Prettify(ce)
+	return ce.String()
 }
 
 func (ce CodeError) String() string {
 	return Prettify(ce)
-}
-
-type InnerDetailError struct {
-	Details              []*CodeErrorDetail              `json:"details,omitempty"`
-	PermissionViolations []*CodeErrorPermissionViolation `json:"permission_violations,omitempty"`
-	FieldViolations      []*CodeErrorFieldViolation      `json:"field_violations,omitempty"`
 }
 
 type CodeErrorDetail struct {
