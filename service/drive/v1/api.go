@@ -16,6 +16,10 @@ type Service struct {
 	FileComments      *FileCommentService
 	FileCommentReplys *FileCommentReplyService
 	Medias            *MediaService
+	FileStatisticss   *FileStatisticsService
+	ImportTasks       *ImportTaskService
+	PermissionMembers *PermissionMemberService
+	PermissionPublics *PermissionPublicService
 }
 
 func NewService(conf *config.Config) *Service {
@@ -26,6 +30,10 @@ func NewService(conf *config.Config) *Service {
 	s.FileComments = newFileCommentService(s)
 	s.FileCommentReplys = newFileCommentReplyService(s)
 	s.Medias = newMediaService(s)
+	s.FileStatisticss = newFileStatisticsService(s)
+	s.ImportTasks = newImportTaskService(s)
+	s.PermissionMembers = newPermissionMemberService(s)
+	s.PermissionPublics = newPermissionPublicService(s)
 	return s
 }
 
@@ -65,6 +73,46 @@ type MediaService struct {
 
 func newMediaService(service *Service) *MediaService {
 	return &MediaService{
+		service: service,
+	}
+}
+
+type FileStatisticsService struct {
+	service *Service
+}
+
+func newFileStatisticsService(service *Service) *FileStatisticsService {
+	return &FileStatisticsService{
+		service: service,
+	}
+}
+
+type ImportTaskService struct {
+	service *Service
+}
+
+func newImportTaskService(service *Service) *ImportTaskService {
+	return &ImportTaskService{
+		service: service,
+	}
+}
+
+type PermissionMemberService struct {
+	service *Service
+}
+
+func newPermissionMemberService(service *Service) *PermissionMemberService {
+	return &PermissionMemberService{
+		service: service,
+	}
+}
+
+type PermissionPublicService struct {
+	service *Service
+}
+
+func newPermissionPublicService(service *Service) *PermissionPublicService {
+	return &PermissionPublicService{
 		service: service,
 	}
 }
@@ -687,6 +735,255 @@ func (fileCommentReplys *FileCommentReplyService) Delete(ctx *core.Context, optF
 	return &FileCommentReplyDeleteReqCall{
 		ctx:               ctx,
 		fileCommentReplys: fileCommentReplys,
+		pathParams:        map[string]interface{}{},
+		queryParams:       map[string]interface{}{},
+		optFns:            optFns,
+	}
+}
+
+type PermissionMemberCreateReqCall struct {
+	ctx               *core.Context
+	permissionMembers *PermissionMemberService
+	body              *Member
+	pathParams        map[string]interface{}
+	queryParams       map[string]interface{}
+	optFns            []request.OptFn
+}
+
+func (rc *PermissionMemberCreateReqCall) SetToken(token string) {
+	rc.pathParams["token"] = token
+}
+func (rc *PermissionMemberCreateReqCall) SetType(type_ string) {
+	rc.queryParams["type"] = type_
+}
+func (rc *PermissionMemberCreateReqCall) SetNeedNotification(needNotification bool) {
+	rc.queryParams["need_notification"] = needNotification
+}
+
+func (rc *PermissionMemberCreateReqCall) Do() (*PermissionMemberCreateResult, error) {
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &PermissionMemberCreateResult{}
+	req := request.NewRequest("/open-apis/drive/v1/permissions/:token/members", "POST",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.permissionMembers.service.conf, req)
+	return result, err
+}
+
+func (permissionMembers *PermissionMemberService) Create(ctx *core.Context, body *Member, optFns ...request.OptFn) *PermissionMemberCreateReqCall {
+	return &PermissionMemberCreateReqCall{
+		ctx:               ctx,
+		permissionMembers: permissionMembers,
+		body:              body,
+		pathParams:        map[string]interface{}{},
+		queryParams:       map[string]interface{}{},
+		optFns:            optFns,
+	}
+}
+
+type PermissionPublicPatchReqCall struct {
+	ctx               *core.Context
+	permissionPublics *PermissionPublicService
+	body              *PermissionPublic
+	pathParams        map[string]interface{}
+	queryParams       map[string]interface{}
+	optFns            []request.OptFn
+}
+
+func (rc *PermissionPublicPatchReqCall) SetToken(token string) {
+	rc.pathParams["token"] = token
+}
+func (rc *PermissionPublicPatchReqCall) SetType(type_ string) {
+	rc.queryParams["type"] = type_
+}
+
+func (rc *PermissionPublicPatchReqCall) Do() (*PermissionPublicPatchResult, error) {
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &PermissionPublicPatchResult{}
+	req := request.NewRequest("/open-apis/drive/v1/permissions/:token/public", "PATCH",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.permissionPublics.service.conf, req)
+	return result, err
+}
+
+func (permissionPublics *PermissionPublicService) Patch(ctx *core.Context, body *PermissionPublic, optFns ...request.OptFn) *PermissionPublicPatchReqCall {
+	return &PermissionPublicPatchReqCall{
+		ctx:               ctx,
+		permissionPublics: permissionPublics,
+		body:              body,
+		pathParams:        map[string]interface{}{},
+		queryParams:       map[string]interface{}{},
+		optFns:            optFns,
+	}
+}
+
+type ImportTaskCreateReqCall struct {
+	ctx         *core.Context
+	importTasks *ImportTaskService
+	body        *ImportTask
+	optFns      []request.OptFn
+}
+
+func (rc *ImportTaskCreateReqCall) Do() (*ImportTaskCreateResult, error) {
+	var result = &ImportTaskCreateResult{}
+	req := request.NewRequest("/open-apis/drive/v1/import_tasks", "POST",
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.importTasks.service.conf, req)
+	return result, err
+}
+
+func (importTasks *ImportTaskService) Create(ctx *core.Context, body *ImportTask, optFns ...request.OptFn) *ImportTaskCreateReqCall {
+	return &ImportTaskCreateReqCall{
+		ctx:         ctx,
+		importTasks: importTasks,
+		body:        body,
+		optFns:      optFns,
+	}
+}
+
+type ImportTaskGetReqCall struct {
+	ctx         *core.Context
+	importTasks *ImportTaskService
+	pathParams  map[string]interface{}
+	optFns      []request.OptFn
+}
+
+func (rc *ImportTaskGetReqCall) SetTicket(ticket string) {
+	rc.pathParams["ticket"] = ticket
+}
+
+func (rc *ImportTaskGetReqCall) Do() (*ImportTaskGetResult, error) {
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	var result = &ImportTaskGetResult{}
+	req := request.NewRequest("/open-apis/drive/v1/import_tasks/:ticket", "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.importTasks.service.conf, req)
+	return result, err
+}
+
+func (importTasks *ImportTaskService) Get(ctx *core.Context, optFns ...request.OptFn) *ImportTaskGetReqCall {
+	return &ImportTaskGetReqCall{
+		ctx:         ctx,
+		importTasks: importTasks,
+		pathParams:  map[string]interface{}{},
+		optFns:      optFns,
+	}
+}
+
+type FileStatisticsGetReqCall struct {
+	ctx             *core.Context
+	fileStatisticss *FileStatisticsService
+	pathParams      map[string]interface{}
+	queryParams     map[string]interface{}
+	optFns          []request.OptFn
+}
+
+func (rc *FileStatisticsGetReqCall) SetFileToken(fileToken string) {
+	rc.pathParams["file_token"] = fileToken
+}
+func (rc *FileStatisticsGetReqCall) SetFileType(fileType string) {
+	rc.queryParams["file_type"] = fileType
+}
+
+func (rc *FileStatisticsGetReqCall) Do() (*FileStatisticsGetResult, error) {
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &FileStatisticsGetResult{}
+	req := request.NewRequest("/open-apis/drive/v1/files/:file_token/statistics", "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.fileStatisticss.service.conf, req)
+	return result, err
+}
+
+func (fileStatisticss *FileStatisticsService) Get(ctx *core.Context, optFns ...request.OptFn) *FileStatisticsGetReqCall {
+	return &FileStatisticsGetReqCall{
+		ctx:             ctx,
+		fileStatisticss: fileStatisticss,
+		pathParams:      map[string]interface{}{},
+		queryParams:     map[string]interface{}{},
+		optFns:          optFns,
+	}
+}
+
+type PermissionMemberDeleteReqCall struct {
+	ctx               *core.Context
+	permissionMembers *PermissionMemberService
+	pathParams        map[string]interface{}
+	queryParams       map[string]interface{}
+	optFns            []request.OptFn
+}
+
+func (rc *PermissionMemberDeleteReqCall) SetToken(token string) {
+	rc.pathParams["token"] = token
+}
+func (rc *PermissionMemberDeleteReqCall) SetMemberId(memberId string) {
+	rc.pathParams["member_id"] = memberId
+}
+func (rc *PermissionMemberDeleteReqCall) SetType(type_ string) {
+	rc.queryParams["type"] = type_
+}
+func (rc *PermissionMemberDeleteReqCall) SetMemberType(memberType string) {
+	rc.queryParams["member_type"] = memberType
+}
+
+func (rc *PermissionMemberDeleteReqCall) Do() (*response.NoData, error) {
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &response.NoData{}
+	req := request.NewRequest("/open-apis/drive/v1/permissions/:token/members/:member_id", "DELETE",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, nil, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.permissionMembers.service.conf, req)
+	return result, err
+}
+
+func (permissionMembers *PermissionMemberService) Delete(ctx *core.Context, optFns ...request.OptFn) *PermissionMemberDeleteReqCall {
+	return &PermissionMemberDeleteReqCall{
+		ctx:               ctx,
+		permissionMembers: permissionMembers,
+		pathParams:        map[string]interface{}{},
+		queryParams:       map[string]interface{}{},
+		optFns:            optFns,
+	}
+}
+
+type PermissionMemberUpdateReqCall struct {
+	ctx               *core.Context
+	permissionMembers *PermissionMemberService
+	body              *Member
+	pathParams        map[string]interface{}
+	queryParams       map[string]interface{}
+	optFns            []request.OptFn
+}
+
+func (rc *PermissionMemberUpdateReqCall) SetToken(token string) {
+	rc.pathParams["token"] = token
+}
+func (rc *PermissionMemberUpdateReqCall) SetMemberId(memberId string) {
+	rc.pathParams["member_id"] = memberId
+}
+func (rc *PermissionMemberUpdateReqCall) SetNeedNotification(needNotification bool) {
+	rc.queryParams["need_notification"] = needNotification
+}
+func (rc *PermissionMemberUpdateReqCall) SetType(type_ string) {
+	rc.queryParams["type"] = type_
+}
+
+func (rc *PermissionMemberUpdateReqCall) Do() (*PermissionMemberUpdateResult, error) {
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &PermissionMemberUpdateResult{}
+	req := request.NewRequest("/open-apis/drive/v1/permissions/:token/members/:member_id", "PUT",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant, request.AccessTokenTypeUser}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.permissionMembers.service.conf, req)
+	return result, err
+}
+
+func (permissionMembers *PermissionMemberService) Update(ctx *core.Context, body *Member, optFns ...request.OptFn) *PermissionMemberUpdateReqCall {
+	return &PermissionMemberUpdateReqCall{
+		ctx:               ctx,
+		permissionMembers: permissionMembers,
+		body:              body,
 		pathParams:        map[string]interface{}{},
 		queryParams:       map[string]interface{}{},
 		optFns:            optFns,

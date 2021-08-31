@@ -3,6 +3,7 @@ package v4
 
 import (
 	"github.com/larksuite/oapi-sdk-go/api/core/tools"
+	"github.com/larksuite/oapi-sdk-go/event/core/model"
 )
 
 type UserId struct {
@@ -74,28 +75,6 @@ type CalendarAcl struct {
 
 func (s *CalendarAcl) MarshalJSON() ([]byte, error) {
 	type cp CalendarAcl
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type CalendarEventAttendee struct {
-	Type            string                `json:"type,omitempty"`
-	AttendeeId      string                `json:"attendee_id,omitempty"`
-	RsvpStatus      string                `json:"rsvp_status,omitempty"`
-	IsOptional      bool                  `json:"is_optional,omitempty"`
-	IsOrganizer     bool                  `json:"is_organizer,omitempty"`
-	IsExternal      bool                  `json:"is_external,omitempty"`
-	DisplayName     string                `json:"display_name,omitempty"`
-	ChatMembers     []*AttendeeChatMember `json:"chat_members,omitempty"`
-	UserId          string                `json:"user_id,omitempty"`
-	ChatId          string                `json:"chat_id,omitempty"`
-	RoomId          string                `json:"room_id,omitempty"`
-	ThirdPartyEmail string                `json:"third_party_email,omitempty"`
-	ForceSendFields []string              `json:"-"`
-}
-
-func (s *CalendarEventAttendee) MarshalJSON() ([]byte, error) {
-	type cp CalendarEventAttendee
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
@@ -229,11 +208,25 @@ type CalendarAclEvent struct {
 	AclId           string         `json:"acl_id,omitempty"`
 	Role            string         `json:"role,omitempty"`
 	Scope           *AclScopeEvent `json:"scope,omitempty"`
+	UserIdList      []*UserId      `json:"user_id_list,omitempty"`
 	ForceSendFields []string       `json:"-"`
 }
 
 func (s *CalendarAclEvent) MarshalJSON() ([]byte, error) {
 	type cp CalendarAclEvent
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type CalendarAttendeeResourceCustomization struct {
+	IndexKey        string                 `json:"index_key,omitempty"`
+	InputContent    string                 `json:"input_content,omitempty"`
+	Options         []*CustomizationOption `json:"options,omitempty"`
+	ForceSendFields []string               `json:"-"`
+}
+
+func (s *CalendarAttendeeResourceCustomization) MarshalJSON() ([]byte, error) {
+	type cp CalendarAttendeeResourceCustomization
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
@@ -262,6 +255,42 @@ type CalendarEvent struct {
 
 func (s *CalendarEvent) MarshalJSON() ([]byte, error) {
 	type cp CalendarEvent
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type CalendarEventAttendee struct {
+	Type                  string                                   `json:"type,omitempty"`
+	AttendeeId            string                                   `json:"attendee_id,omitempty"`
+	RsvpStatus            string                                   `json:"rsvp_status,omitempty"`
+	IsOptional            bool                                     `json:"is_optional,omitempty"`
+	IsOrganizer           bool                                     `json:"is_organizer,omitempty"`
+	IsExternal            bool                                     `json:"is_external,omitempty"`
+	DisplayName           string                                   `json:"display_name,omitempty"`
+	ChatMembers           []*AttendeeChatMember                    `json:"chat_members,omitempty"`
+	UserId                string                                   `json:"user_id,omitempty"`
+	ChatId                string                                   `json:"chat_id,omitempty"`
+	RoomId                string                                   `json:"room_id,omitempty"`
+	ThirdPartyEmail       string                                   `json:"third_party_email,omitempty"`
+	OperateId             string                                   `json:"operate_id,omitempty"`
+	ResourceCustomization []*CalendarAttendeeResourceCustomization `json:"resource_customization,omitempty"`
+	ForceSendFields       []string                                 `json:"-"`
+}
+
+func (s *CalendarEventAttendee) MarshalJSON() ([]byte, error) {
+	type cp CalendarEventAttendee
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type CustomizationOption struct {
+	OptionKey       string   `json:"option_key,omitempty"`
+	OthersContent   string   `json:"others_content,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *CustomizationOption) MarshalJSON() ([]byte, error) {
+	type cp CustomizationOption
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
@@ -317,17 +346,17 @@ type CalendarEventCreateResult struct {
 	Event *CalendarEvent `json:"event,omitempty"`
 }
 
-type CalendarEventAttendeeListResult struct {
-	Items     []*CalendarEventAttendee `json:"items,omitempty"`
-	HasMore   bool                     `json:"has_more,omitempty"`
-	PageToken string                   `json:"page_token,omitempty"`
-}
-
 type CalendarListResult struct {
 	HasMore      bool        `json:"has_more,omitempty"`
 	PageToken    string      `json:"page_token,omitempty"`
 	SyncToken    string      `json:"sync_token,omitempty"`
 	CalendarList []*Calendar `json:"calendar_list,omitempty"`
+}
+
+type CalendarEventAttendeeListResult struct {
+	Items     []*CalendarEventAttendee `json:"items,omitempty"`
+	HasMore   bool                     `json:"has_more,omitempty"`
+	PageToken string                   `json:"page_token,omitempty"`
 }
 
 type CalendarEventAttendeeBatchDeleteReqBody struct {
@@ -446,4 +475,47 @@ type CalendarEventAttendeeChatMemberListResult struct {
 	Items     []*CalendarEventAttendeeChatMember `json:"items,omitempty"`
 	HasMore   bool                               `json:"has_more,omitempty"`
 	PageToken string                             `json:"page_token,omitempty"`
+}
+
+type CalendarEventChangedEventData struct {
+	CalendarId string    `json:"calendar_id,omitempty"`
+	UserIdList []*UserId `json:"user_id_list,omitempty"`
+}
+
+type CalendarEventChangedEvent struct {
+	*model.BaseEventV2
+	Event *CalendarEventChangedEventData `json:"event"`
+}
+
+type CalendarChangedEventData struct {
+	UserIdList []*UserId `json:"user_id_list,omitempty"`
+}
+
+type CalendarChangedEvent struct {
+	*model.BaseEventV2
+	Event *CalendarChangedEventData `json:"event"`
+}
+
+type CalendarAclCreatedEventData struct {
+	AclId      string         `json:"acl_id,omitempty"`
+	Role       string         `json:"role,omitempty"`
+	Scope      *AclScopeEvent `json:"scope,omitempty"`
+	UserIdList []*UserId      `json:"user_id_list,omitempty"`
+}
+
+type CalendarAclCreatedEvent struct {
+	*model.BaseEventV2
+	Event *CalendarAclCreatedEventData `json:"event"`
+}
+
+type CalendarAclDeletedEventData struct {
+	AclId      string         `json:"acl_id,omitempty"`
+	Role       string         `json:"role,omitempty"`
+	Scope      *AclScopeEvent `json:"scope,omitempty"`
+	UserIdList []*UserId      `json:"user_id_list,omitempty"`
+}
+
+type CalendarAclDeletedEvent struct {
+	*model.BaseEventV2
+	Event *CalendarAclDeletedEventData `json:"event"`
 }

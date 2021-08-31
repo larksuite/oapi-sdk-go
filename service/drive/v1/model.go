@@ -198,23 +198,11 @@ func (s *TokenType) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
-type CreateMember struct {
-	Type             string   `json:"type,omitempty"`
-	Member           *Member  `json:"member,omitempty"`
-	NeedNotification bool     `json:"need_notification,omitempty"`
-	ForceSendFields  []string `json:"-"`
-}
-
-func (s *CreateMember) MarshalJSON() ([]byte, error) {
-	type cp CreateMember
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
 type FileStatistics struct {
 	Uv              int      `json:"uv,omitempty"`
 	Pv              int      `json:"pv,omitempty"`
 	LikeCount       int      `json:"like_count,omitempty"`
+	Timestamp       int      `json:"timestamp,omitempty"`
 	ForceSendFields []string `json:"-"`
 }
 
@@ -249,6 +237,7 @@ type ImportTask struct {
 	JobErrorMsg     string                `json:"job_error_msg,omitempty"`
 	Token           string                `json:"token,omitempty"`
 	Url             string                `json:"url,omitempty"`
+	Extra           []string              `json:"extra,omitempty"`
 	ForceSendFields []string              `json:"-"`
 }
 
@@ -397,4 +386,30 @@ func (s *FileCommentPatchReqBody) MarshalJSON() ([]byte, error) {
 	type cp FileCommentPatchReqBody
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type PermissionMemberCreateResult struct {
+	Member *Member `json:"member,omitempty"`
+}
+
+type PermissionPublicPatchResult struct {
+	PermissionPublic *PermissionPublic `json:"permission_public,omitempty"`
+}
+
+type ImportTaskCreateResult struct {
+	Ticket string `json:"ticket,omitempty"`
+}
+
+type ImportTaskGetResult struct {
+	Result *ImportTask `json:"result,omitempty"`
+}
+
+type FileStatisticsGetResult struct {
+	FileToken  string          `json:"file_token,omitempty"`
+	FileType   string          `json:"file_type,omitempty"`
+	Statistics *FileStatistics `json:"statistics,omitempty"`
+}
+
+type PermissionMemberUpdateResult struct {
+	Member *Member `json:"member,omitempty"`
 }
