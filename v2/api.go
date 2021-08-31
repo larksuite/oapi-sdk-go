@@ -302,7 +302,7 @@ func (r *request) send(ctx context.Context, app *App) (*RawResponse, int, error)
 	var rawResp *RawResponse
 	var code int
 	for r.retryCount < 2 {
-		app.logger.Debug(ctx, fmt.Sprintf("send request: %v", r))
+		app.logger.Debug(ctx, fmt.Sprintf("send request %v", r))
 		rawRequest, err := http.NewRequestWithContext(ctx, r.method, r.url, bytes.NewBuffer(r.body))
 		if err != nil {
 			return nil, 0, err
@@ -344,6 +344,7 @@ func (r *request) send(ctx context.Context, app *App) (*RawResponse, int, error)
 			Header:     resp.Header,
 			RawBody:    body,
 		}
+		app.logger.Debug(ctx, fmt.Sprintf("send request %v, response %v", r, rawResp))
 		if r.retryCount == 1 || !strings.Contains(resp.Header.Get(contentTypeHeader), contentTypeJson) {
 			break
 		}

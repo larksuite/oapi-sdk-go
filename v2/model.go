@@ -71,6 +71,11 @@ func (resp RawResponse) RequestId() string {
 }
 
 func (resp RawResponse) String() string {
+	contentType := resp.Header.Get(contentTypeHeader)
+	body := fmt.Sprintf("<binary> len %d", len(resp.RawBody))
+	if strings.Contains(contentType, "json") || strings.Contains(contentType, "text") {
+		body = string(resp.RawBody)
+	}
 	return fmt.Sprintf("StatusCode: %d, Header:%v, Content-Type: %s, Body: %v", resp.StatusCode,
-		resp.Header, resp.Header.Get(contentTypeHeader), string(resp.RawBody))
+		resp.Header, resp.Header.Get(contentTypeHeader), body)
 }
