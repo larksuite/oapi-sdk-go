@@ -13,7 +13,7 @@ func main() {
 	appID, appSecret, verificationToken, encryptKey := os.Getenv("BOE_ISV_APP_ID"), os.Getenv("BOE_ISV_APP_SECRET"),
 		os.Getenv("BOE_ISV_VERIFICATION_TOKEN"), os.Getenv("BOE_ISV_ENCRYPT_KEY")
 	// BOE env
-	larkApp := lark.NewApp("https://open.feishu.cn", lark.WithAppCredential(appID, appSecret),
+	larkApp := lark.NewApp("https://open.feishu.cn", appID, appSecret,
 		lark.WithAppEventVerify(verificationToken, encryptKey),
 		lark.WithAppType(lark.AppTypeMarketplace),            // marketplace app(ISV app)
 		lark.WithLogger(sample.Logrus{}, lark.LogLevelDebug), // use logrus print log

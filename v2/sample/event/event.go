@@ -12,8 +12,7 @@ func main() {
 	appID, appSecret, verificationToken, encryptKey := os.Getenv("APP_ID"), os.Getenv("APP_SECRET"),
 		os.Getenv("VERIFICATION_TOKEN"), os.Getenv("ENCRYPT_KEY")
 
-	larkApp := lark.NewApp(lark.DomainFeiShu,
-		lark.WithAppCredential(appID, appSecret),
+	larkApp := lark.NewApp(lark.DomainFeiShu, appID, appSecret,
 		lark.WithAppEventVerify(verificationToken, encryptKey),
 		lark.WithLogger(lark.NewDefaultLogger(), lark.LogLevelDebug))
 

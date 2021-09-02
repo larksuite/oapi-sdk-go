@@ -11,7 +11,7 @@ import (
 
 func main() {
 	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
-	larkApp := lark.NewApp(lark.DomainFeiShu, lark.WithAppCredential(appID, appSecret),
+	larkApp := lark.NewApp(lark.DomainFeiShu, appID, appSecret,
 		lark.WithLogger(lark.NewDefaultLogger(), lark.LogLevelDebug))
 
 	ctx := context.Background()
@@ -22,15 +22,14 @@ func main() {
 
 func messageCreate(ctx context.Context, larkApp *lark.App) {
 	messageText := &lark.MessageText{Text: "Tom test content"}
-	content, err := messageText.Json()
+	content, err := messageText.JSON()
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-
-	messageCreateResp, err := imv1.New(larkApp).Messages.Create(ctx, &imv1.MessageCreateReq{
-		ReceiveIdType: imv1.ReceiveIdTypeUserId.Ptr(),
-		Body: imv1.MessageCreateReqBody{
+	messageCreateResp, err := im.New(larkApp).Messages.Create(ctx, &im.MessageCreateReq{
+		ReceiveIdType: im.ReceiveIdTypeUserId.Ptr(),
+		Body: im.MessageCreateReqBody{
 			ReceiveId: lark.StringPtr("77bbc392"),
 			MsgType:   lark.StringPtr("text"),
 			Content:   lark.StringPtr(content),
@@ -58,8 +57,8 @@ func fileCreate(ctx context.Context, larkApp *lark.App) {
 	}
 	defer pdf.Close()
 
-	fileCreateResp, err := imv1.New(larkApp).Files.Create(ctx, &imv1.FileCreateReq{
-		Body: &imv1.FileCreateReqBody{
+	fileCreateResp, err := im.New(larkApp).Files.Create(ctx, &im.FileCreateReq{
+		Body: &im.FileCreateReqBody{
 			FileType: lark.StringPtr("pdf"),
 			FileName: lark.StringPtr("测试.pdf"),
 			File:     pdf,
@@ -80,7 +79,7 @@ func fileCreate(ctx context.Context, larkApp *lark.App) {
 }
 
 func fileDownload(ctx context.Context, larkApp *lark.App) {
-	fileGetResp, err := imv1.New(larkApp).Files.Get(ctx, &imv1.FileGetReq{
+	fileGetResp, err := im.New(larkApp).Files.Get(ctx, &im.FileGetReq{
 		FileKey: "file_v2_62ac7c6e-de7e-464f-ac33-f1c28f94169g",
 	})
 	if err != nil {

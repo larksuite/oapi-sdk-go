@@ -14,7 +14,7 @@ type MessageText struct {
 	Text string `json:"text"`
 }
 
-func (m *MessageText) Json() (string, error) {
+func (m *MessageText) JSON() (string, error) {
 	bs, err := json.Marshal(m)
 	if err != nil {
 		return "", err
@@ -29,7 +29,7 @@ type MessagePostContent struct {
 	Content [][]MessagePostElement `json:"content,omitempty"`
 }
 
-func (m *MessagePost) Json() (string, error) {
+func (m *MessagePost) JSON() (string, error) {
 	bs, err := json.Marshal(m)
 	if err != nil {
 		return "", err
@@ -121,7 +121,7 @@ type MessageShareChat struct {
 	ChatId string `json:"chat_id,omitempty"`
 }
 
-func (m *MessageShareChat) Json() (string, error) {
+func (m *MessageShareChat) JSON() (string, error) {
 	bs, err := json.Marshal(m)
 	if err != nil {
 		return "", err
@@ -133,7 +133,7 @@ type MessageShareUser struct {
 	UserId string `json:"user_id,omitempty"`
 }
 
-func (m *MessageShareUser) Json() (string, error) {
+func (m *MessageShareUser) JSON() (string, error) {
 	bs, err := json.Marshal(m)
 	if err != nil {
 		return "", err
@@ -145,7 +145,7 @@ type MessageImage struct {
 	ImageKey string `json:"image_key,omitempty"`
 }
 
-func (m *MessageImage) Json() (string, error) {
+func (m *MessageImage) JSON() (string, error) {
 	bs, err := json.Marshal(m)
 	if err != nil {
 		return "", err
@@ -157,7 +157,7 @@ type MessageAudio struct {
 	FileKey string `json:"file_key,omitempty"`
 }
 
-func (m *MessageAudio) Json() (string, error) {
+func (m *MessageAudio) JSON() (string, error) {
 	bs, err := json.Marshal(m)
 	if err != nil {
 		return "", err
@@ -170,7 +170,7 @@ type MessageVideo struct {
 	ImageKey string `json:"image_key,omitempty"`
 }
 
-func (m *MessageVideo) Json() (string, error) {
+func (m *MessageVideo) JSON() (string, error) {
 	bs, err := json.Marshal(m)
 	if err != nil {
 		return "", err
@@ -182,7 +182,7 @@ type MessageFile struct {
 	FileKey string `json:"file_key,omitempty"`
 }
 
-func (m *MessageFile) Json() (string, error) {
+func (m *MessageFile) JSON() (string, error) {
 	bs, err := json.Marshal(m)
 	if err != nil {
 		return "", err
@@ -194,7 +194,7 @@ type MessageSticker struct {
 	FileKey string `json:"file_key,omitempty"`
 }
 
-func (m *MessageSticker) Json() (string, error) {
+func (m *MessageSticker) JSON() (string, error) {
 	bs, err := json.Marshal(m)
 	if err != nil {
 		return "", err
@@ -210,7 +210,7 @@ type MessageCard struct {
 	CardLink     *MessageCardURL                     `json:"card_link,omitempty"`
 }
 
-func (m *MessageCard) Json() (string, error) {
+func (m *MessageCard) JSON() (string, error) {
 	bs, err := json.Marshal(m)
 	if err != nil {
 		return "", err

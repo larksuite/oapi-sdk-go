@@ -10,8 +10,7 @@ import (
 func main() {
 	appID, appSecret, helpDeskID, helpDeskToken := os.Getenv("HD_APP_ID"), os.Getenv("HD_APP_SECRET"),
 		os.Getenv("HD_HELP_DESK_ID"), os.Getenv("HD_HELP_DESK_TOKEN")
-	larkApp := lark.NewApp("https://open.feishu-boe.cn",
-		lark.WithAppCredential(appID, appSecret),
+	larkApp := lark.NewApp("https://open.feishu.cn", appID, appSecret,
 		lark.WithAppHelpdeskCredential(helpDeskID, helpDeskToken),
 		lark.WithLogger(lark.NewDefaultLogger(), lark.LogLevelDebug))
 

@@ -5,13 +5,14 @@ import (
 	"fmt"
 )
 
-func NewApp(domain Domain, options ...AppOptionFunc) *App {
+func NewApp(domain Domain, appID, appSecret string, options ...AppOptionFunc) *App {
 	app := &App{
 		domain:   domain,
 		settings: &appSettings{type_: AppTypeCustom},
 		logger:   newLoggerProxy(LogLevelError, nil),
 		store:    &defaultStore{},
 	}
+	options = append(options, withAppCredential(appID, appSecret))
 	for _, optionFunc := range options {
 		optionFunc(app)
 	}
@@ -19,7 +20,7 @@ func NewApp(domain Domain, options ...AppOptionFunc) *App {
 	return app
 }
 
-func WithAppCredential(appID, appSecret string) AppOptionFunc {
+func withAppCredential(appID, appSecret string) AppOptionFunc {
 	return func(app *App) {
 		app.settings.id = appID
 		app.settings.secret = appSecret

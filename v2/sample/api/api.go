@@ -11,7 +11,7 @@ import (
 
 func main() {
 	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
-	larkApp := lark.NewApp(lark.DomainFeiShu, lark.WithAppCredential(appID, appSecret),
+	larkApp := lark.NewApp(lark.DomainFeiShu, appID, appSecret,
 		lark.WithLogger(lark.NewDefaultLogger(), lark.LogLevelDebug))
 
 	ctx := context.Background()
@@ -21,7 +21,7 @@ func main() {
 }
 
 func sendMessage(ctx context.Context, larkApp *lark.App) {
-	resp, err := larkApp.SendRequest(ctx, "POST", "/open-apis/message/v4/send", map[string]interface{}{
+	resp, err := larkApp.SendRequest(ctx, http.MethodPost, "/open-apis/message/v4/send", map[string]interface{}{
 		"user_id":  "77bbc392",
 		"msg_type": "text",
 		"content":  &lark.MessageText{Text: "test"},
@@ -43,7 +43,7 @@ func uploadImage(ctx context.Context, larkApp *lark.App) {
 		return
 	}
 	defer img.Close()
-	resp, err := larkApp.SendRequest(ctx, "POST", "/open-apis/image/v4/put",
+	resp, err := larkApp.SendRequest(ctx, http.MethodPost, "/open-apis/image/v4/put",
 		lark.NewFormdata().AddField("image_type", "message").AddFile("image", img), lark.AccessTokenTypeTenant)
 	if err != nil {
 		fmt.Println(err)
@@ -56,7 +56,7 @@ func uploadImage(ctx context.Context, larkApp *lark.App) {
 }
 
 func downloadImage(ctx context.Context, larkApp *lark.App) {
-	resp, err := larkApp.SendRequest(ctx, "GET", "/open-apis/image/v4/get?image_key=img_v2_a0cea146-64d2-4dcb-94c7-636586fea98g",
+	resp, err := larkApp.SendRequest(ctx, http.MethodGet, "/open-apis/image/v4/get?image_key=img_v2_a0cea146-64d2-4dcb-94c7-636586fea98g",
 		nil, lark.AccessTokenTypeTenant)
 	if err != nil {
 		fmt.Println(err)

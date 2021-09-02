@@ -13,13 +13,12 @@ func main() {
 	appID, appSecret, verificationToken, encryptKey := os.Getenv("APP_ID"), os.Getenv("APP_SECRET"),
 		os.Getenv("VERIFICATION_TOKEN"), os.Getenv("ENCRYPT_KEY")
 
-	larkApp := lark.NewApp(lark.DomainFeiShu,
-		lark.WithAppCredential(appID, appSecret),
+	larkApp := lark.NewApp(lark.DomainFeiShu, appID, appSecret,
 		lark.WithAppEventVerify(verificationToken, encryptKey),
 		lark.WithLogger(lark.NewDefaultLogger(), lark.LogLevelDebug))
 
 	// @robot message handle
-	imv1.New(larkApp).Messages.ReceiveEventHandler(func(ctx context.Context, req *lark.RawRequest, event *imv1.MessageReceiveEvent) error {
+	im.New(larkApp).Messages.ReceiveEventHandler(func(ctx context.Context, req *lark.RawRequest, event *im.MessageReceiveEvent) error {
 		fmt.Println(req)
 		fmt.Println(lark.Prettify(event))
 		return nil

@@ -20,7 +20,7 @@ func main() {
 
 func printMessageText() {
 	text := &lark.MessageText{Text: "Text"}
-	s, err := text.Json()
+	s, err := text.JSON()
 	if err != nil {
 		panic(err)
 	}
@@ -52,7 +52,7 @@ func printMessagePost() {
 			},
 		},
 	}
-	s, err := post.Json()
+	s, err := post.JSON()
 	if err != nil {
 		panic(err)
 	}
@@ -120,7 +120,7 @@ func printMessageCard() {
 			},
 		},
 	}
-	s, err := card.Json()
+	s, err := card.JSON()
 	if err != nil {
 		panic(err)
 	}
@@ -129,7 +129,7 @@ func printMessageCard() {
 
 func printMessageImage() {
 	image := &lark.MessageImage{ImageKey: "img-xxxxxxxxxxxx"}
-	s, err := image.Json()
+	s, err := image.JSON()
 	if err != nil {
 		panic(err)
 	}
@@ -138,7 +138,7 @@ func printMessageImage() {
 
 func printMessageShareChat() {
 	shareChat := &lark.MessageShareChat{ChatId: "oc_xxxxxxxxxxxx"}
-	s, err := shareChat.Json()
+	s, err := shareChat.JSON()
 	if err != nil {
 		panic(err)
 	}
@@ -147,7 +147,7 @@ func printMessageShareChat() {
 
 func printMessageShareUser() {
 	shareUser := &lark.MessageShareUser{UserId: "ou-xxxxxxxxxxxxxx"}
-	s, err := shareUser.Json()
+	s, err := shareUser.JSON()
 	if err != nil {
 		panic(err)
 	}
@@ -158,7 +158,7 @@ func printMessageAudio() {
 	audio := &lark.MessageAudio{
 		FileKey: "file-xxxxxxxxxx",
 	}
-	s, err := audio.Json()
+	s, err := audio.JSON()
 	if err != nil {
 		panic(err)
 	}
@@ -170,7 +170,7 @@ func printMessageVideo() {
 		FileKey:  "file-xxxxxxxxxx",
 		ImageKey: "img-xxxxxxxxx",
 	}
-	s, err := audio.Json()
+	s, err := audio.JSON()
 	if err != nil {
 		panic(err)
 	}
@@ -181,7 +181,7 @@ func printMessageFile() {
 	file := &lark.MessageFile{
 		FileKey: "file-xxxxxxxxxx",
 	}
-	s, err := file.Json()
+	s, err := file.JSON()
 	if err != nil {
 		panic(err)
 	}
@@ -192,7 +192,7 @@ func printMessageSticker() {
 	sticker := &lark.MessageSticker{
 		FileKey: "file-xxxxxxxxxx",
 	}
-	s, err := sticker.Json()
+	s, err := sticker.JSON()
 	if err != nil {
 		panic(err)
 	}
