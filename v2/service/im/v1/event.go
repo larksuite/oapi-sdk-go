@@ -18,6 +18,6 @@ func (h *messageReceiveEventHandler) Handle(ctx context.Context, req *lark.RawRe
 	return h.handler(ctx, req, event.(*MessageReceiveEvent))
 }
 
-func (messageService *MessageService) ReceiveEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *MessageReceiveEvent) error) {
-	messageService.app.Webhook.EventHandler("im.message.receive_v1", &messageReceiveEventHandler{handler: handler})
+func (s *messages) ReceiveEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *MessageReceiveEvent) error) {
+	s.app.Webhook.EventHandler("im.message.receive_v1", &messageReceiveEventHandler{handler: handler})
 }
