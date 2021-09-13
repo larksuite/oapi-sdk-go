@@ -69,8 +69,8 @@ func (fileService *files) Get(ctx context.Context, req *FileGetReq,
 	}
 	fileGetResp := &FileGetResp{RawResponse: rawResp}
 	if rawResp.StatusCode == http.StatusOK {
-		fileGetResp.File = bytes.NewBuffer(fileGetResp.RawBody)
-		fileGetResp.FileName = lark.FileNameByHeader(fileGetResp.Header)
+		fileGetResp.File = bytes.NewBuffer(rawResp.RawBody)
+		fileGetResp.FileName = lark.FileNameByHeader(rawResp.Header)
 		return fileGetResp, err
 	}
 	err = rawResp.JSONUnmarshalBody(fileGetResp)

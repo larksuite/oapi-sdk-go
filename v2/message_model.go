@@ -102,8 +102,8 @@ func (m *MessagePostAt) MarshalJSON() ([]byte, error) {
 
 type MessagePostImg struct {
 	ImageKey string `json:"image_key,omitempty"`
-	Width    int    `json:"width"`
-	Height   int    `json:"height"`
+	Width    int    `json:"width,omitempty"`
+	Height   int    `json:"height,omitempty"`
 }
 
 func (m *MessagePostImg) Tag() string {
@@ -287,7 +287,7 @@ func (m *MessageCardDiv) MarshalJSON() ([]byte, error) {
 
 type MessageCardText interface {
 	MessageCardElement
-	Content_() string
+	Text() string
 }
 
 type MessageCardPlainText struct {
@@ -303,7 +303,7 @@ func (m *MessageCardPlainText) MarshalJSON() ([]byte, error) {
 	return messageCardElementJson(m)
 }
 
-func (m *MessageCardPlainText) Content_() string {
+func (m *MessageCardPlainText) Text() string {
 	return m.Content
 }
 
@@ -325,7 +325,7 @@ func (m *MessageCardLarkMd) MarshalJSON() ([]byte, error) {
 	return messageCardElementJson(m)
 }
 
-func (m *MessageCardLarkMd) Content_() string {
+func (m *MessageCardLarkMd) Text() string {
 	return m.Content
 }
 
@@ -347,7 +347,7 @@ func (m MessageCardImageModel) Ptr() *MessageCardImageModel {
 }
 
 type MessageCardImage struct {
-	Alt          MessageCardText        `json:"alt,omitempty"`
+	Alt          *MessageCardPlainText  `json:"alt,omitempty"`
 	Title        MessageCardText        `json:"title,omitempty"`
 	ImgKey       string                 `json:"img_key,omitempty"`
 	CustomWidth  *int                   `json:"custom_width,omitempty"`
@@ -362,12 +362,6 @@ func (m *MessageCardImage) Tag() string {
 
 func (m *MessageCardImage) MarshalJSON() ([]byte, error) {
 	return messageCardElementJson(m)
-}
-
-func (m *MessageCardImage) IsExtra() {
-}
-
-func (m *MessageCardImage) IsNote() {
 }
 
 type MessageCardNote struct {
@@ -395,11 +389,28 @@ func (bt MessageCardButtonType) Ptr() *MessageCardButtonType {
 }
 
 type MessageCardActionConfirm struct {
-	Title MessageCardText `json:"title,omitempty"`
-	Text  MessageCardText `json:"text,omitempty"`
+	Title *MessageCardPlainText `json:"title,omitempty"`
+	Text  *MessageCardPlainText `json:"text,omitempty"`
 }
 
-type MessageCardButton struct {
+type MessageCardEmbedImage struct {
+	Alt     *MessageCardPlainText  `json:"alt,omitempty"`
+	ImgKey  string                 `json:"img_key,omitempty"`
+	Mode    *MessageCardImageModel `json:"mode,omitempty"`
+	Preview *bool                  `json:"preview,omitempty"`
+}
+
+func (m *MessageCardEmbedImage) Tag() string {
+	return "img"
+}
+
+func (m *MessageCardEmbedImage) IsExtra() {
+}
+
+func (m *MessageCardEmbedImage) IsNote() {
+}
+
+type MessageCardEmbedButton struct {
 	Text     MessageCardText           `json:"text,omitempty"`
 	URL      *string                   `json:"url,omitempty"`
 	MultiURL *MessageCardURL           `json:"multi_url,omitempty"`
@@ -408,136 +419,136 @@ type MessageCardButton struct {
 	Confirm  *MessageCardActionConfirm `json:"confirm,omitempty"`
 }
 
-func (m *MessageCardButton) Tag() string {
+func (m *MessageCardEmbedButton) Tag() string {
 	return "button"
 }
 
-func (m *MessageCardButton) MarshalJSON() ([]byte, error) {
+func (m *MessageCardEmbedButton) MarshalJSON() ([]byte, error) {
 	return messageCardElementJson(m)
 }
 
-func (m *MessageCardButton) IsAction() {
+func (m *MessageCardEmbedButton) IsAction() {
 }
 
-func (m *MessageCardButton) IsExtra() {
+func (m *MessageCardEmbedButton) IsExtra() {
 }
 
-type MessageCardDatePickerBase struct {
+type MessageCardEmbedDatePickerBase struct {
 	InitialDate     *string                   `json:"initial_date,omitempty"`
 	InitialTime     *string                   `json:"initial_time,omitempty"`
 	InitialDatetime *string                   `json:"initial_datetime,omitempty"`
-	Placeholder     MessageCardText           `json:"placeholder,omitempty"`
+	Placeholder     *MessageCardPlainText     `json:"placeholder,omitempty"`
 	Value           map[string]interface{}    `json:"value,omitempty"`
 	Confirm         *MessageCardActionConfirm `json:"confirm,omitempty"`
 }
 
-func (m *MessageCardDatePickerBase) IsAction() {
+func (m *MessageCardEmbedDatePickerBase) IsAction() {
 }
 
-func (m *MessageCardDatePickerBase) IsExtra() {
+func (m *MessageCardEmbedDatePickerBase) IsExtra() {
 }
 
-type MessageCardDatePicker struct {
-	*MessageCardDatePickerBase
+type MessageCardEmbedDatePicker struct {
+	*MessageCardEmbedDatePickerBase
 }
 
-func (m *MessageCardDatePicker) Tag() string {
+func (m *MessageCardEmbedDatePicker) Tag() string {
 	return "date_picker"
 }
 
-func (m *MessageCardDatePicker) MarshalJSON() ([]byte, error) {
+func (m *MessageCardEmbedDatePicker) MarshalJSON() ([]byte, error) {
 	return messageCardElementJson(m)
 }
 
-type MessageCardPickerTime struct {
-	*MessageCardDatePickerBase
+type MessageCardEmbedPickerTime struct {
+	*MessageCardEmbedDatePickerBase
 }
 
-func (m *MessageCardPickerTime) Tag() string {
+func (m *MessageCardEmbedPickerTime) Tag() string {
 	return "picker_time"
 }
 
-func (m *MessageCardPickerTime) MarshalJSON() ([]byte, error) {
+func (m *MessageCardEmbedPickerTime) MarshalJSON() ([]byte, error) {
 	return messageCardElementJson(m)
 }
 
-type MessageCardPickerDatetime struct {
-	*MessageCardDatePickerBase
+type MessageCardEmbedPickerDatetime struct {
+	*MessageCardEmbedDatePickerBase
 }
 
-func (m *MessageCardPickerDatetime) Tag() string {
+func (m *MessageCardEmbedPickerDatetime) Tag() string {
 	return "picker_datetime"
 }
 
-func (m *MessageCardPickerDatetime) MarshalJSON() ([]byte, error) {
+func (m *MessageCardEmbedPickerDatetime) MarshalJSON() ([]byte, error) {
 	return messageCardElementJson(m)
 }
 
-type MessageCardSelectOption struct {
-	Text     MessageCardText        `json:"text,omitempty"`
+type MessageCardEmbedSelectOption struct {
+	Text     *MessageCardPlainText  `json:"text,omitempty"`
 	Value    string                 `json:"value,omitempty"`
 	URL      *string                `json:"url,omitempty"`
 	MultiURL *MessageCardURL        `json:"multi_url,omitempty"`
 	Type     *MessageCardButtonType `json:"type,omitempty"`
 }
 
-type MessageCardOverflow struct {
-	Options []*MessageCardSelectOption `json:"options,omitempty"`
+type MessageCardEmbedOverflow struct {
+	Options []*MessageCardEmbedSelectOption `json:"options,omitempty"`
 	Value   map[string]interface {
 	} `json:"value,omitempty"`
 	Confirm *MessageCardActionConfirm `json:"confirm,omitempty"`
 }
 
-func (m *MessageCardOverflow) Tag() string {
+func (m *MessageCardEmbedOverflow) Tag() string {
 	return "overflow"
 }
 
-func (m *MessageCardOverflow) MarshalJSON() ([]byte, error) {
+func (m *MessageCardEmbedOverflow) MarshalJSON() ([]byte, error) {
 	return messageCardElementJson(m)
 }
 
-func (m *MessageCardOverflow) IsAction() {
+func (m *MessageCardEmbedOverflow) IsAction() {
 }
 
-func (m *MessageCardOverflow) IsExtra() {
+func (m *MessageCardEmbedOverflow) IsExtra() {
 }
 
-type MessageCardSelectMenuBase struct {
-	Placeholder   MessageCardText            `json:"placeholder,omitempty"`
-	InitialOption string                     `json:"initial_option,omitempty"`
-	Options       []*MessageCardSelectOption `json:"options,omitempty"`
+type MessageCardEmbedSelectMenuBase struct {
+	Placeholder   *MessageCardPlainText           `json:"placeholder,omitempty"`
+	InitialOption string                          `json:"initial_option,omitempty"`
+	Options       []*MessageCardEmbedSelectOption `json:"options,omitempty"`
 	Value         map[string]interface {
 	} `json:"value"`
 	Confirm *MessageCardActionConfirm `json:"confirm,omitempty"`
 }
 
-func (m *MessageCardSelectMenuBase) IsAction() {
+func (m *MessageCardEmbedSelectMenuBase) IsAction() {
 }
 
-func (m *MessageCardSelectMenuBase) IsExtra() {
+func (m *MessageCardEmbedSelectMenuBase) IsExtra() {
 }
 
-type MessageCardSelectMenuStatic struct {
-	*MessageCardSelectMenuBase
+type MessageCardEmbedSelectMenuStatic struct {
+	*MessageCardEmbedSelectMenuBase
 }
 
-func (m *MessageCardSelectMenuStatic) Tag() string {
+func (m *MessageCardEmbedSelectMenuStatic) Tag() string {
 	return "select_static"
 }
 
-func (m *MessageCardSelectMenuStatic) MarshalJSON() ([]byte, error) {
+func (m *MessageCardEmbedSelectMenuStatic) MarshalJSON() ([]byte, error) {
 	return messageCardElementJson(m)
 }
 
-type MessageCardSelectMenuPerson struct {
-	*MessageCardSelectMenuBase
+type MessageCardEmbedSelectMenuPerson struct {
+	*MessageCardEmbedSelectMenuBase
 }
 
-func (m *MessageCardSelectMenuPerson) Tag() string {
+func (m *MessageCardEmbedSelectMenuPerson) Tag() string {
 	return "select_person"
 }
 
-func (m *MessageCardSelectMenuPerson) MarshalJSON() ([]byte, error) {
+func (m *MessageCardEmbedSelectMenuPerson) MarshalJSON() ([]byte, error) {
 	return messageCardElementJson(m)
 }
 
@@ -567,7 +578,8 @@ func (m *MessageCardAction) MarshalJSON() ([]byte, error) {
 }
 
 type MessageCardConfig struct {
-	WideScreenMode bool `json:"wide_screen_mode,omitempty"`
+	EnableForward  *bool `json:"enable_forward,omitempty"`
+	WideScreenMode *bool `json:"wide_screen_mode,omitempty"`
 }
 
 type MessageCardHeader struct {

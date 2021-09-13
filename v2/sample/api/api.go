@@ -24,7 +24,7 @@ func sendMessage(ctx context.Context, larkApp *lark.App) {
 	resp, err := larkApp.SendRequest(ctx, http.MethodPost, "/open-apis/message/v4/send", map[string]interface{}{
 		"user_id":  "77bbc392",
 		"msg_type": "text",
-		"content":  &lark.MessageText{Text: "test"},
+		"content":  `{"config":{"enable_forward":true,"wide_screen_mode":true},"header":{"template":"blue","title":{"content":"Header title","tag":"plain_text"}},"elements":[{"alt":null,"compact_width":false,"custom_width":120,"img_key":"img_v2_9221f258-db3e-4a40-b9cb-24decddee2bg","tag":"img","title":{"content":"img_v2_9221f258-db3e-4a40-b9cb-24decddee2bg","tag":"plain_text"}},{"actions":[{"confirm":{"title":{"content":"Title","tag":"plain_text"},"text":{"content":"Text","tag":"plain_text"}},"tag":"button","text":{"content":"button","tag":"plain_text"},"type":"danger","value":{"value":"1"}}],"layout":"flow","tag":"action"},{"content":"**Markdown**","tag":"markdown"},{"extra":{"confirm":{"title":{"content":"Title","tag":"plain_text"},"text":{"content":"Text","tag":"plain_text"}},"tag":"button","text":{"content":"button","tag":"plain_text"},"type":"danger","value":{"value":"1"}},"tag":"div","text":{"content":"text","tag":"plain_text"}}],"card_link":{"url":"https://www.feishu.cn","android_url":"https://www.feishu.cn","ios_url":"https://www.feishu.cn","pc_url":"https://www.feishu.cn"}}`,
 	}, lark.AccessTokenTypeTenant, lark.WithHTTPHeader(map[string][]string{"X-Request-Id": []string{"3a87a759a4f03391607ed1c7"}}))
 	if err != nil {
 		fmt.Println(err)

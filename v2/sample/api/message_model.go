@@ -62,12 +62,12 @@ func printMessagePost() {
 func printMessageCard() {
 	card := &lark.MessageCard{
 		CardLink: &lark.MessageCardURL{
-			URL:        "https://URL.com",
-			AndroidURL: "https://AndroidURL.com",
-			IOSURL:     "https://IOSURL.com",
-			PCURL:      "https://PCURL.com",
+			URL:        "https://www.feishu.cn",
+			AndroidURL: "https://www.feishu.cn",
+			IOSURL:     "https://www.feishu.cn",
+			PCURL:      "https://www.feishu.cn",
 		},
-		Config: &lark.MessageCardConfig{WideScreenMode: true},
+		Config: &lark.MessageCardConfig{EnableForward: lark.BoolPtr(true)},
 		Header: &lark.MessageCardHeader{
 			Template: lark.StringPtr("blue"),
 			Title: &lark.MessageCardPlainText{
@@ -75,9 +75,17 @@ func printMessageCard() {
 			},
 		},
 		Elements: []lark.MessageCardElement{
+			&lark.MessageCardImage{
+				Title: &lark.MessageCardPlainText{
+					Content: "img_v2_9221f258-db3e-4a40-b9cb-24decddee2bg",
+				},
+				ImgKey:       "img_v2_9221f258-db3e-4a40-b9cb-24decddee2bg",
+				CustomWidth:  lark.IntPtr(120),
+				CompactWidth: lark.BoolPtr(false),
+			},
 			&lark.MessageCardAction{
 				Actions: []lark.MessageCardActionElement{
-					&lark.MessageCardButton{
+					&lark.MessageCardEmbedButton{
 						Text: &lark.MessageCardPlainText{
 							Content: "button",
 						},
@@ -102,7 +110,7 @@ func printMessageCard() {
 				Text: &lark.MessageCardPlainText{
 					Content: "text",
 				},
-				Extra: &lark.MessageCardButton{
+				Extra: &lark.MessageCardEmbedButton{
 					Text: &lark.MessageCardPlainText{
 						Content: "button",
 					},
@@ -128,7 +136,7 @@ func printMessageCard() {
 }
 
 func printMessageImage() {
-	image := &lark.MessageImage{ImageKey: "img-xxxxxxxxxxxx"}
+	image := &lark.MessageImage{ImageKey: "img_v2_9221f258-db3e-4a40-b9cb-24decddee2bg"}
 	s, err := image.JSON()
 	if err != nil {
 		panic(err)

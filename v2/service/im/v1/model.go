@@ -56,8 +56,8 @@ const (
 )
 
 type MessageCreateReq struct {
-	ReceiveIdType *ReceiveIdType       `query:"receive_id_type"`
-	Body          MessageCreateReqBody `body:""`
+	ReceiveIdType *ReceiveIdType        `query:"receive_id_type"`
+	Body          *MessageCreateReqBody `body:""`
 }
 
 type MessageCreateReqBody struct {
