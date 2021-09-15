@@ -508,9 +508,6 @@ func (s *SpreadsheetToken) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
-type Spreadsheets struct {
-}
-
 type Style struct {
 	Font            *Font    `json:"font,omitempty"`
 	TextDecoration  int      `json:"textDecoration,omitempty"`
@@ -960,7 +957,7 @@ type SpreadsheetsValuesBatchGetResult struct {
 	Revision         int           `json:"revision,omitempty"`
 	SpreadsheetToken string        `json:"spreadsheetToken,omitempty"`
 	TotalCells       int           `json:"totalCells,omitempty"`
-	ValueRange       []*ValueRange `json:"valueRange,omitempty"`
+	ValueRanges      []*ValueRange `json:"valueRanges,omitempty"`
 }
 
 type SpreadsheetsValuesBatchUpdateReqBody struct {
