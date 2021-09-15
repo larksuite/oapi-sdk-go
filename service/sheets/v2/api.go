@@ -10,15 +10,15 @@ import (
 )
 
 type Service struct {
-	conf         *config.Config
-	Spreadsheets *SpreadsheetsService
+	conf          *config.Config
+	Spreadsheetss *SpreadsheetsService
 }
 
 func NewService(conf *config.Config) *Service {
 	s := &Service{
 		conf: conf,
 	}
-	s.Spreadsheets = newSpreadsheetsService(s)
+	s.Spreadsheetss = newSpreadsheetsService(s)
 	return s
 }
 
