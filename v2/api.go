@@ -113,17 +113,17 @@ func parseInput(input interface{}, option *requestOption) (map[string]interface{
 		return nil, nil, input
 	}
 	var hasHTTPTag bool
-	body := input
 	paths, queries := map[string]interface{}{}, map[string]interface{}{}
-	vv := reflect.ValueOf(body)
-	vt := reflect.TypeOf(body)
+	vv := reflect.ValueOf(input)
+	vt := reflect.TypeOf(input)
 	if vt.Kind() == reflect.Ptr {
 		vv = vv.Elem()
 		vt = vt.Elem()
 	}
 	if vt.Kind() != reflect.Struct {
-		return nil, nil, body
+		return nil, nil, input
 	}
+	var body interface{}
 	for i := 0; i < vt.NumField(); i++ {
 		fieldValue := vv.Field(i)
 		fieldType := vt.Field(i)
@@ -251,6 +251,9 @@ func payload(body interface{}) (string, []byte, error) {
 		return fd.content()
 	}
 	contentType := defaultContentType
+	if body == nil {
+		return contentType, nil, nil
+	}
 	bs, err := json.Marshal(body)
 	return contentType, bs, err
 }
@@ -391,7 +394,7 @@ func (r *request) applyAppTicket(ctx context.Context, app *App) {
 func (r *request) String() string {
 	bodyStr := ""
 	if r.option.fileUpload {
-		bodyStr = fmt.Sprintf("file binary, length: %d", len(r.body))
+		bodyStr = fmt.Sprintf("<binary> len %d", len(r.body))
 	} else {
 		bodyStr = string(r.body)
 	}

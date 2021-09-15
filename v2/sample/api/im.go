@@ -28,7 +28,7 @@ func messageCreate(ctx context.Context, larkApp *lark.App) {
 		return
 	}
 	messageCreateResp, err := im.New(larkApp).Messages.Create(ctx, &im.MessageCreateReq{
-		ReceiveIdType: im.ReceiveIdTypeUserId.Ptr(),
+		ReceiveIdType: lark.StringPtr("user_id"),
 		Body: &im.MessageCreateReqBody{
 			ReceiveId: lark.StringPtr("77bbc392"),
 			MsgType:   lark.StringPtr("text"),

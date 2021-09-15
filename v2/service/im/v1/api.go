@@ -4,78 +4,404 @@ package im
 import (
 	"bytes"
 	"context"
-	"github.com/larksuite/oapi-sdk-go/v2"
 	"net/http"
+
+	"github.com/larksuite/oapi-sdk-go/v2"
 )
 
-type Im struct {
-	Messages *messages
-	Files    *files
+type ImService struct {
+	Messages         *messages
+	Chats            *chats
+	ChatMemberUsers  *chatMemberUsers
+	ChatMemberBots   *chatMemberBots
+	ChatAnnouncement *chatAnnouncement
+	ChatMembers      *chatMembers
+	Files            *files
+	Images           *images
+	Resources        *resources
 }
 
-func New(app *lark.App) *Im {
-	s := &Im{}
-	s.Messages = &messages{app: app}
-	s.Files = &files{app: app}
-	return s
+func New(app *lark.App) *ImService {
+	i := &ImService{}
+	i.Messages = &messages{app: app}
+	i.Chats = &chats{app: app}
+	i.ChatMemberUsers = &chatMemberUsers{app: app}
+	i.ChatMemberBots = &chatMemberBots{app: app}
+	i.ChatAnnouncement = &chatAnnouncement{app: app}
+	i.ChatMembers = &chatMembers{app: app}
+	i.Files = &files{app: app}
+	i.Images = &images{app: app}
+	i.Resources = &resources{app: app}
+	return i
 }
 
 type messages struct {
 	app *lark.App
 }
-
+type chats struct {
+	app *lark.App
+}
+type chatMemberUsers struct {
+	app *lark.App
+}
+type chatMemberBots struct {
+	app *lark.App
+}
+type chatAnnouncement struct {
+	app *lark.App
+}
+type chatMembers struct {
+	app *lark.App
+}
 type files struct {
 	app *lark.App
 }
-
-func (s *messages) Create(ctx context.Context, req *MessageCreateReq,
-	options ...lark.RequestOptionFunc) (*MessageCreateResp, error) {
-	rawResp, err := s.app.SendRequestWithAccessTokenTypes(ctx, "POST",
-		"/open-apis/im/v1/messages", req, []lark.AccessTokenType{lark.AccessTokenTypeTenant}, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	messageCreateResp := &MessageCreateResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(messageCreateResp)
-	if err != nil {
-		return nil, err
-	}
-	return messageCreateResp, err
+type images struct {
+	app *lark.App
+}
+type resources struct {
+	app *lark.App
 }
 
-func (fileService *files) Create(ctx context.Context, req *FileCreateReq,
-	options ...lark.RequestOptionFunc) (*FileCreateResp, error) {
+func (c *chats) Update(ctx context.Context, req *ChatUpdateReq, options ...lark.RequestOptionFunc) (*ChatUpdateResp, error) {
+	rawResp, err := c.app.SendRequestWithAccessTokenTypes(ctx, http.MethodPut,
+		"/open-apis/im/v1/chats/:chat_id", req, []lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, options...)
+	if err != nil {
+		return nil, err
+	}
+	resp := &ChatUpdateResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (c *chats) List(ctx context.Context, req *ChatListReq, options ...lark.RequestOptionFunc) (*ChatListResp, error) {
+	rawResp, err := c.app.SendRequestWithAccessTokenTypes(ctx, http.MethodGet,
+		"/open-apis/im/v1/chats", req, []lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, options...)
+	if err != nil {
+		return nil, err
+	}
+	resp := &ChatListResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (c *chats) Delete(ctx context.Context, req *ChatDeleteReq, options ...lark.RequestOptionFunc) (*ChatDeleteResp, error) {
+	rawResp, err := c.app.SendRequestWithAccessTokenTypes(ctx, http.MethodDelete,
+		"/open-apis/im/v1/chats/:chat_id", req, []lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, options...)
+	if err != nil {
+		return nil, err
+	}
+	resp := &ChatDeleteResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (c *chats) Get(ctx context.Context, req *ChatGetReq, options ...lark.RequestOptionFunc) (*ChatGetResp, error) {
+	rawResp, err := c.app.SendRequestWithAccessTokenTypes(ctx, http.MethodGet,
+		"/open-apis/im/v1/chats/:chat_id", req, []lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, options...)
+	if err != nil {
+		return nil, err
+	}
+	resp := &ChatGetResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (c *chats) Create(ctx context.Context, req *ChatCreateReq, options ...lark.RequestOptionFunc) (*ChatCreateResp, error) {
+	rawResp, err := c.app.SendRequestWithAccessTokenTypes(ctx, http.MethodPost,
+		"/open-apis/im/v1/chats", req, []lark.AccessTokenType{lark.AccessTokenTypeTenant}, options...)
+	if err != nil {
+		return nil, err
+	}
+	resp := &ChatCreateResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (c *chats) Search(ctx context.Context, req *ChatSearchReq, options ...lark.RequestOptionFunc) (*ChatSearchResp, error) {
+	rawResp, err := c.app.SendRequestWithAccessTokenTypes(ctx, http.MethodGet,
+		"/open-apis/im/v1/chats/search", req, []lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, options...)
+	if err != nil {
+		return nil, err
+	}
+	resp := &ChatSearchResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (c *chatAnnouncement) Get(ctx context.Context, req *ChatAnnouncementGetReq, options ...lark.RequestOptionFunc) (*ChatAnnouncementGetResp, error) {
+	rawResp, err := c.app.SendRequestWithAccessTokenTypes(ctx, http.MethodGet,
+		"/open-apis/im/v1/chats/:chat_id/announcement", req, []lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, options...)
+	if err != nil {
+		return nil, err
+	}
+	resp := &ChatAnnouncementGetResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (c *chatAnnouncement) Patch(ctx context.Context, req *ChatAnnouncementPatchReq, options ...lark.RequestOptionFunc) (*ChatAnnouncementPatchResp, error) {
+	rawResp, err := c.app.SendRequestWithAccessTokenTypes(ctx, http.MethodPatch,
+		"/open-apis/im/v1/chats/:chat_id/announcement", req, []lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, options...)
+	if err != nil {
+		return nil, err
+	}
+	resp := &ChatAnnouncementPatchResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (c *chatMembers) Create(ctx context.Context, req *ChatMembersCreateReq, options ...lark.RequestOptionFunc) (*ChatMembersCreateResp, error) {
+	rawResp, err := c.app.SendRequestWithAccessTokenTypes(ctx, http.MethodPost,
+		"/open-apis/im/v1/chats/:chat_id/members", req, []lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, options...)
+	if err != nil {
+		return nil, err
+	}
+	resp := &ChatMembersCreateResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (c *chatMembers) Delete(ctx context.Context, req *ChatMembersDeleteReq, options ...lark.RequestOptionFunc) (*ChatMembersDeleteResp, error) {
+	rawResp, err := c.app.SendRequestWithAccessTokenTypes(ctx, http.MethodDelete,
+		"/open-apis/im/v1/chats/:chat_id/members", req, []lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, options...)
+	if err != nil {
+		return nil, err
+	}
+	resp := &ChatMembersDeleteResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (c *chatMembers) Get(ctx context.Context, req *ChatMembersGetReq, options ...lark.RequestOptionFunc) (*ChatMembersGetResp, error) {
+	rawResp, err := c.app.SendRequestWithAccessTokenTypes(ctx, http.MethodGet,
+		"/open-apis/im/v1/chats/:chat_id/members", req, []lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, options...)
+	if err != nil {
+		return nil, err
+	}
+	resp := &ChatMembersGetResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (c *chatMembers) IsInChat(ctx context.Context, req *ChatMembersIsInChatReq, options ...lark.RequestOptionFunc) (*ChatMembersIsInChatResp, error) {
+	rawResp, err := c.app.SendRequestWithAccessTokenTypes(ctx, http.MethodGet,
+		"/open-apis/im/v1/chats/:chat_id/members/is_in_chat", req, []lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, options...)
+	if err != nil {
+		return nil, err
+	}
+	resp := &ChatMembersIsInChatResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (c *chatMembers) MeJoin(ctx context.Context, req *ChatMembersMeJoinReq, options ...lark.RequestOptionFunc) (*ChatMembersMeJoinResp, error) {
+	rawResp, err := c.app.SendRequestWithAccessTokenTypes(ctx, http.MethodPatch,
+		"/open-apis/im/v1/chats/:chat_id/members/me_join", req, []lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, options...)
+	if err != nil {
+		return nil, err
+	}
+	resp := &ChatMembersMeJoinResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (f *files) Create(ctx context.Context, req *FileCreateReq, options ...lark.RequestOptionFunc) (*FileCreateResp, error) {
 	options = append(options, lark.WithFileUpload())
-	rawResp, err := fileService.app.SendRequestWithAccessTokenTypes(ctx, http.MethodPost,
+	rawResp, err := f.app.SendRequestWithAccessTokenTypes(ctx, http.MethodPost,
 		"/open-apis/im/v1/files", req, []lark.AccessTokenType{lark.AccessTokenTypeTenant}, options...)
 	if err != nil {
 		return nil, err
 	}
-	fileCreateResp := &FileCreateResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(fileCreateResp)
+	resp := &FileCreateResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
 	if err != nil {
 		return nil, err
 	}
-	return fileCreateResp, err
+	return resp, err
 }
-
-func (fileService *files) Get(ctx context.Context, req *FileGetReq,
-	options ...lark.RequestOptionFunc) (*FileGetResp, error) {
-	rawResp, err := fileService.app.SendRequestWithAccessTokenTypes(ctx, "GET",
+func (f *files) Get(ctx context.Context, req *FileGetReq, options ...lark.RequestOptionFunc) (*FileGetResp, error) {
+	rawResp, err := f.app.SendRequestWithAccessTokenTypes(ctx, http.MethodGet,
 		"/open-apis/im/v1/files/:file_key", req, []lark.AccessTokenType{lark.AccessTokenTypeTenant}, options...)
 	if err != nil {
 		return nil, err
 	}
-	fileGetResp := &FileGetResp{RawResponse: rawResp}
+	resp := &FileGetResp{RawResponse: rawResp}
 	if rawResp.StatusCode == http.StatusOK {
-		fileGetResp.File = bytes.NewBuffer(rawResp.RawBody)
-		fileGetResp.FileName = lark.FileNameByHeader(rawResp.Header)
-		return fileGetResp, err
+		resp.File = bytes.NewBuffer(rawResp.RawBody)
+		resp.FileName = lark.FileNameByHeader(rawResp.Header)
+		return resp, err
 	}
-	err = rawResp.JSONUnmarshalBody(fileGetResp)
+	err = rawResp.JSONUnmarshalBody(resp)
 	if err != nil {
 		return nil, err
 	}
-	return fileGetResp, err
+	return resp, err
+}
+func (i *images) Create(ctx context.Context, req *ImageCreateReq, options ...lark.RequestOptionFunc) (*ImageCreateResp, error) {
+	options = append(options, lark.WithFileUpload())
+	rawResp, err := i.app.SendRequestWithAccessTokenTypes(ctx, http.MethodPost,
+		"/open-apis/im/v1/images", req, []lark.AccessTokenType{lark.AccessTokenTypeTenant}, options...)
+	if err != nil {
+		return nil, err
+	}
+	resp := &ImageCreateResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (i *images) Get(ctx context.Context, req *ImageGetReq, options ...lark.RequestOptionFunc) (*ImageGetResp, error) {
+	rawResp, err := i.app.SendRequestWithAccessTokenTypes(ctx, http.MethodGet,
+		"/open-apis/im/v1/images/:image_key", req, []lark.AccessTokenType{lark.AccessTokenTypeTenant}, options...)
+	if err != nil {
+		return nil, err
+	}
+	resp := &ImageGetResp{RawResponse: rawResp}
+	if rawResp.StatusCode == http.StatusOK {
+		resp.File = bytes.NewBuffer(rawResp.RawBody)
+		resp.FileName = lark.FileNameByHeader(rawResp.Header)
+		return resp, err
+	}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (m *messages) List(ctx context.Context, req *MessageListReq, options ...lark.RequestOptionFunc) (*MessageListResp, error) {
+	rawResp, err := m.app.SendRequestWithAccessTokenTypes(ctx, http.MethodGet,
+		"/open-apis/im/v1/messages", req, []lark.AccessTokenType{lark.AccessTokenTypeTenant}, options...)
+	if err != nil {
+		return nil, err
+	}
+	resp := &MessageListResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (m *messages) Patch(ctx context.Context, req *MessagePatchReq, options ...lark.RequestOptionFunc) (*MessagePatchResp, error) {
+	rawResp, err := m.app.SendRequestWithAccessTokenTypes(ctx, http.MethodPatch,
+		"/open-apis/im/v1/messages/:message_id", req, []lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, options...)
+	if err != nil {
+		return nil, err
+	}
+	resp := &MessagePatchResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (m *messages) Reply(ctx context.Context, req *MessageReplyReq, options ...lark.RequestOptionFunc) (*MessageReplyResp, error) {
+	rawResp, err := m.app.SendRequestWithAccessTokenTypes(ctx, http.MethodPost,
+		"/open-apis/im/v1/messages/:message_id/reply", req, []lark.AccessTokenType{lark.AccessTokenTypeTenant}, options...)
+	if err != nil {
+		return nil, err
+	}
+	resp := &MessageReplyResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (m *messages) Create(ctx context.Context, req *MessageCreateReq, options ...lark.RequestOptionFunc) (*MessageCreateResp, error) {
+	rawResp, err := m.app.SendRequestWithAccessTokenTypes(ctx, http.MethodPost,
+		"/open-apis/im/v1/messages", req, []lark.AccessTokenType{lark.AccessTokenTypeTenant}, options...)
+	if err != nil {
+		return nil, err
+	}
+	resp := &MessageCreateResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (m *messages) Delete(ctx context.Context, req *MessageDeleteReq, options ...lark.RequestOptionFunc) (*MessageDeleteResp, error) {
+	rawResp, err := m.app.SendRequestWithAccessTokenTypes(ctx, http.MethodDelete,
+		"/open-apis/im/v1/messages/:message_id", req, []lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, options...)
+	if err != nil {
+		return nil, err
+	}
+	resp := &MessageDeleteResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (m *messages) ReadUsers(ctx context.Context, req *MessageReadUsersReq, options ...lark.RequestOptionFunc) (*MessageReadUsersResp, error) {
+	rawResp, err := m.app.SendRequestWithAccessTokenTypes(ctx, http.MethodGet,
+		"/open-apis/im/v1/messages/:message_id/read_users", req, []lark.AccessTokenType{lark.AccessTokenTypeTenant}, options...)
+	if err != nil {
+		return nil, err
+	}
+	resp := &MessageReadUsersResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (m *messages) Get(ctx context.Context, req *MessageGetReq, options ...lark.RequestOptionFunc) (*MessageGetResp, error) {
+	rawResp, err := m.app.SendRequestWithAccessTokenTypes(ctx, http.MethodGet,
+		"/open-apis/im/v1/messages/:message_id", req, []lark.AccessTokenType{lark.AccessTokenTypeTenant}, options...)
+	if err != nil {
+		return nil, err
+	}
+	resp := &MessageGetResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (r *resources) Get(ctx context.Context, req *MessageResourceGetReq, options ...lark.RequestOptionFunc) (*MessageResourceGetResp, error) {
+	rawResp, err := r.app.SendRequestWithAccessTokenTypes(ctx, http.MethodGet,
+		"/open-apis/im/v1/messages/:message_id/resources/:file_key", req, []lark.AccessTokenType{lark.AccessTokenTypeTenant}, options...)
+	if err != nil {
+		return nil, err
+	}
+	resp := &MessageResourceGetResp{RawResponse: rawResp}
+	if rawResp.StatusCode == http.StatusOK {
+		resp.File = bytes.NewBuffer(rawResp.RawBody)
+		resp.FileName = lark.FileNameByHeader(rawResp.Header)
+		return resp, err
+	}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
 }
