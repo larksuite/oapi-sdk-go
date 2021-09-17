@@ -76,11 +76,15 @@ func printMessageCard() {
 		},
 		Elements: []lark.MessageCardElement{
 			&lark.MessageCardImage{
+				Alt: &lark.MessageCardPlainText{
+					Content: "img_v2_9221f258-db3e-4a40-b9cb-24decddee2bg",
+					Lines:   nil,
+				},
 				Title: &lark.MessageCardPlainText{
 					Content: "img_v2_9221f258-db3e-4a40-b9cb-24decddee2bg",
 				},
 				ImgKey:       "img_v2_9221f258-db3e-4a40-b9cb-24decddee2bg",
-				CustomWidth:  lark.IntPtr(120),
+				CustomWidth:  lark.IntPtr(300),
 				CompactWidth: lark.BoolPtr(false),
 			},
 			&lark.MessageCardAction{

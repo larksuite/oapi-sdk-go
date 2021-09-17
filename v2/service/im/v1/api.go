@@ -65,7 +65,7 @@ type resources struct {
 
 func (c *chats) Update(ctx context.Context, req *ChatUpdateReq, options ...lark.RequestOptionFunc) (*ChatUpdateResp, error) {
 	rawResp, err := c.app.SendRequestWithAccessTokenTypes(ctx, http.MethodPut,
-		"/open-apis/im/v1/chats/:chat_id", req, []lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, options...)
+		"/open-apis/im/v1/chats/:chat_id", []lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -78,7 +78,7 @@ func (c *chats) Update(ctx context.Context, req *ChatUpdateReq, options ...lark.
 }
 func (c *chats) List(ctx context.Context, req *ChatListReq, options ...lark.RequestOptionFunc) (*ChatListResp, error) {
 	rawResp, err := c.app.SendRequestWithAccessTokenTypes(ctx, http.MethodGet,
-		"/open-apis/im/v1/chats", req, []lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, options...)
+		"/open-apis/im/v1/chats", []lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -91,7 +91,7 @@ func (c *chats) List(ctx context.Context, req *ChatListReq, options ...lark.Requ
 }
 func (c *chats) Delete(ctx context.Context, req *ChatDeleteReq, options ...lark.RequestOptionFunc) (*ChatDeleteResp, error) {
 	rawResp, err := c.app.SendRequestWithAccessTokenTypes(ctx, http.MethodDelete,
-		"/open-apis/im/v1/chats/:chat_id", req, []lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, options...)
+		"/open-apis/im/v1/chats/:chat_id", []lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -104,7 +104,7 @@ func (c *chats) Delete(ctx context.Context, req *ChatDeleteReq, options ...lark.
 }
 func (c *chats) Get(ctx context.Context, req *ChatGetReq, options ...lark.RequestOptionFunc) (*ChatGetResp, error) {
 	rawResp, err := c.app.SendRequestWithAccessTokenTypes(ctx, http.MethodGet,
-		"/open-apis/im/v1/chats/:chat_id", req, []lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, options...)
+		"/open-apis/im/v1/chats/:chat_id", []lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -117,7 +117,7 @@ func (c *chats) Get(ctx context.Context, req *ChatGetReq, options ...lark.Reques
 }
 func (c *chats) Create(ctx context.Context, req *ChatCreateReq, options ...lark.RequestOptionFunc) (*ChatCreateResp, error) {
 	rawResp, err := c.app.SendRequestWithAccessTokenTypes(ctx, http.MethodPost,
-		"/open-apis/im/v1/chats", req, []lark.AccessTokenType{lark.AccessTokenTypeTenant}, options...)
+		"/open-apis/im/v1/chats", []lark.AccessTokenType{lark.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -130,7 +130,7 @@ func (c *chats) Create(ctx context.Context, req *ChatCreateReq, options ...lark.
 }
 func (c *chats) Search(ctx context.Context, req *ChatSearchReq, options ...lark.RequestOptionFunc) (*ChatSearchResp, error) {
 	rawResp, err := c.app.SendRequestWithAccessTokenTypes(ctx, http.MethodGet,
-		"/open-apis/im/v1/chats/search", req, []lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, options...)
+		"/open-apis/im/v1/chats/search", []lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -143,7 +143,7 @@ func (c *chats) Search(ctx context.Context, req *ChatSearchReq, options ...lark.
 }
 func (c *chatAnnouncement) Get(ctx context.Context, req *ChatAnnouncementGetReq, options ...lark.RequestOptionFunc) (*ChatAnnouncementGetResp, error) {
 	rawResp, err := c.app.SendRequestWithAccessTokenTypes(ctx, http.MethodGet,
-		"/open-apis/im/v1/chats/:chat_id/announcement", req, []lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, options...)
+		"/open-apis/im/v1/chats/:chat_id/announcement", []lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -156,7 +156,7 @@ func (c *chatAnnouncement) Get(ctx context.Context, req *ChatAnnouncementGetReq,
 }
 func (c *chatAnnouncement) Patch(ctx context.Context, req *ChatAnnouncementPatchReq, options ...lark.RequestOptionFunc) (*ChatAnnouncementPatchResp, error) {
 	rawResp, err := c.app.SendRequestWithAccessTokenTypes(ctx, http.MethodPatch,
-		"/open-apis/im/v1/chats/:chat_id/announcement", req, []lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, options...)
+		"/open-apis/im/v1/chats/:chat_id/announcement", []lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -169,7 +169,7 @@ func (c *chatAnnouncement) Patch(ctx context.Context, req *ChatAnnouncementPatch
 }
 func (c *chatMembers) Create(ctx context.Context, req *ChatMembersCreateReq, options ...lark.RequestOptionFunc) (*ChatMembersCreateResp, error) {
 	rawResp, err := c.app.SendRequestWithAccessTokenTypes(ctx, http.MethodPost,
-		"/open-apis/im/v1/chats/:chat_id/members", req, []lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, options...)
+		"/open-apis/im/v1/chats/:chat_id/members", []lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -182,7 +182,7 @@ func (c *chatMembers) Create(ctx context.Context, req *ChatMembersCreateReq, opt
 }
 func (c *chatMembers) Delete(ctx context.Context, req *ChatMembersDeleteReq, options ...lark.RequestOptionFunc) (*ChatMembersDeleteResp, error) {
 	rawResp, err := c.app.SendRequestWithAccessTokenTypes(ctx, http.MethodDelete,
-		"/open-apis/im/v1/chats/:chat_id/members", req, []lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, options...)
+		"/open-apis/im/v1/chats/:chat_id/members", []lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -195,7 +195,7 @@ func (c *chatMembers) Delete(ctx context.Context, req *ChatMembersDeleteReq, opt
 }
 func (c *chatMembers) Get(ctx context.Context, req *ChatMembersGetReq, options ...lark.RequestOptionFunc) (*ChatMembersGetResp, error) {
 	rawResp, err := c.app.SendRequestWithAccessTokenTypes(ctx, http.MethodGet,
-		"/open-apis/im/v1/chats/:chat_id/members", req, []lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, options...)
+		"/open-apis/im/v1/chats/:chat_id/members", []lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -208,7 +208,7 @@ func (c *chatMembers) Get(ctx context.Context, req *ChatMembersGetReq, options .
 }
 func (c *chatMembers) IsInChat(ctx context.Context, req *ChatMembersIsInChatReq, options ...lark.RequestOptionFunc) (*ChatMembersIsInChatResp, error) {
 	rawResp, err := c.app.SendRequestWithAccessTokenTypes(ctx, http.MethodGet,
-		"/open-apis/im/v1/chats/:chat_id/members/is_in_chat", req, []lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, options...)
+		"/open-apis/im/v1/chats/:chat_id/members/is_in_chat", []lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -221,7 +221,7 @@ func (c *chatMembers) IsInChat(ctx context.Context, req *ChatMembersIsInChatReq,
 }
 func (c *chatMembers) MeJoin(ctx context.Context, req *ChatMembersMeJoinReq, options ...lark.RequestOptionFunc) (*ChatMembersMeJoinResp, error) {
 	rawResp, err := c.app.SendRequestWithAccessTokenTypes(ctx, http.MethodPatch,
-		"/open-apis/im/v1/chats/:chat_id/members/me_join", req, []lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, options...)
+		"/open-apis/im/v1/chats/:chat_id/members/me_join", []lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -235,7 +235,7 @@ func (c *chatMembers) MeJoin(ctx context.Context, req *ChatMembersMeJoinReq, opt
 func (f *files) Create(ctx context.Context, req *FileCreateReq, options ...lark.RequestOptionFunc) (*FileCreateResp, error) {
 	options = append(options, lark.WithFileUpload())
 	rawResp, err := f.app.SendRequestWithAccessTokenTypes(ctx, http.MethodPost,
-		"/open-apis/im/v1/files", req, []lark.AccessTokenType{lark.AccessTokenTypeTenant}, options...)
+		"/open-apis/im/v1/files", []lark.AccessTokenType{lark.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -248,7 +248,7 @@ func (f *files) Create(ctx context.Context, req *FileCreateReq, options ...lark.
 }
 func (f *files) Get(ctx context.Context, req *FileGetReq, options ...lark.RequestOptionFunc) (*FileGetResp, error) {
 	rawResp, err := f.app.SendRequestWithAccessTokenTypes(ctx, http.MethodGet,
-		"/open-apis/im/v1/files/:file_key", req, []lark.AccessTokenType{lark.AccessTokenTypeTenant}, options...)
+		"/open-apis/im/v1/files/:file_key", []lark.AccessTokenType{lark.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -267,7 +267,7 @@ func (f *files) Get(ctx context.Context, req *FileGetReq, options ...lark.Reques
 func (i *images) Create(ctx context.Context, req *ImageCreateReq, options ...lark.RequestOptionFunc) (*ImageCreateResp, error) {
 	options = append(options, lark.WithFileUpload())
 	rawResp, err := i.app.SendRequestWithAccessTokenTypes(ctx, http.MethodPost,
-		"/open-apis/im/v1/images", req, []lark.AccessTokenType{lark.AccessTokenTypeTenant}, options...)
+		"/open-apis/im/v1/images", []lark.AccessTokenType{lark.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -280,7 +280,7 @@ func (i *images) Create(ctx context.Context, req *ImageCreateReq, options ...lar
 }
 func (i *images) Get(ctx context.Context, req *ImageGetReq, options ...lark.RequestOptionFunc) (*ImageGetResp, error) {
 	rawResp, err := i.app.SendRequestWithAccessTokenTypes(ctx, http.MethodGet,
-		"/open-apis/im/v1/images/:image_key", req, []lark.AccessTokenType{lark.AccessTokenTypeTenant}, options...)
+		"/open-apis/im/v1/images/:image_key", []lark.AccessTokenType{lark.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -298,7 +298,7 @@ func (i *images) Get(ctx context.Context, req *ImageGetReq, options ...lark.Requ
 }
 func (m *messages) List(ctx context.Context, req *MessageListReq, options ...lark.RequestOptionFunc) (*MessageListResp, error) {
 	rawResp, err := m.app.SendRequestWithAccessTokenTypes(ctx, http.MethodGet,
-		"/open-apis/im/v1/messages", req, []lark.AccessTokenType{lark.AccessTokenTypeTenant}, options...)
+		"/open-apis/im/v1/messages", []lark.AccessTokenType{lark.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -311,7 +311,7 @@ func (m *messages) List(ctx context.Context, req *MessageListReq, options ...lar
 }
 func (m *messages) Patch(ctx context.Context, req *MessagePatchReq, options ...lark.RequestOptionFunc) (*MessagePatchResp, error) {
 	rawResp, err := m.app.SendRequestWithAccessTokenTypes(ctx, http.MethodPatch,
-		"/open-apis/im/v1/messages/:message_id", req, []lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, options...)
+		"/open-apis/im/v1/messages/:message_id", []lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -324,7 +324,7 @@ func (m *messages) Patch(ctx context.Context, req *MessagePatchReq, options ...l
 }
 func (m *messages) Reply(ctx context.Context, req *MessageReplyReq, options ...lark.RequestOptionFunc) (*MessageReplyResp, error) {
 	rawResp, err := m.app.SendRequestWithAccessTokenTypes(ctx, http.MethodPost,
-		"/open-apis/im/v1/messages/:message_id/reply", req, []lark.AccessTokenType{lark.AccessTokenTypeTenant}, options...)
+		"/open-apis/im/v1/messages/:message_id/reply", []lark.AccessTokenType{lark.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -337,7 +337,7 @@ func (m *messages) Reply(ctx context.Context, req *MessageReplyReq, options ...l
 }
 func (m *messages) Create(ctx context.Context, req *MessageCreateReq, options ...lark.RequestOptionFunc) (*MessageCreateResp, error) {
 	rawResp, err := m.app.SendRequestWithAccessTokenTypes(ctx, http.MethodPost,
-		"/open-apis/im/v1/messages", req, []lark.AccessTokenType{lark.AccessTokenTypeTenant}, options...)
+		"/open-apis/im/v1/messages", []lark.AccessTokenType{lark.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -350,7 +350,7 @@ func (m *messages) Create(ctx context.Context, req *MessageCreateReq, options ..
 }
 func (m *messages) Delete(ctx context.Context, req *MessageDeleteReq, options ...lark.RequestOptionFunc) (*MessageDeleteResp, error) {
 	rawResp, err := m.app.SendRequestWithAccessTokenTypes(ctx, http.MethodDelete,
-		"/open-apis/im/v1/messages/:message_id", req, []lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, options...)
+		"/open-apis/im/v1/messages/:message_id", []lark.AccessTokenType{lark.AccessTokenTypeTenant, lark.AccessTokenTypeUser}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -363,7 +363,7 @@ func (m *messages) Delete(ctx context.Context, req *MessageDeleteReq, options ..
 }
 func (m *messages) ReadUsers(ctx context.Context, req *MessageReadUsersReq, options ...lark.RequestOptionFunc) (*MessageReadUsersResp, error) {
 	rawResp, err := m.app.SendRequestWithAccessTokenTypes(ctx, http.MethodGet,
-		"/open-apis/im/v1/messages/:message_id/read_users", req, []lark.AccessTokenType{lark.AccessTokenTypeTenant}, options...)
+		"/open-apis/im/v1/messages/:message_id/read_users", []lark.AccessTokenType{lark.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -376,7 +376,7 @@ func (m *messages) ReadUsers(ctx context.Context, req *MessageReadUsersReq, opti
 }
 func (m *messages) Get(ctx context.Context, req *MessageGetReq, options ...lark.RequestOptionFunc) (*MessageGetResp, error) {
 	rawResp, err := m.app.SendRequestWithAccessTokenTypes(ctx, http.MethodGet,
-		"/open-apis/im/v1/messages/:message_id", req, []lark.AccessTokenType{lark.AccessTokenTypeTenant}, options...)
+		"/open-apis/im/v1/messages/:message_id", []lark.AccessTokenType{lark.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -389,7 +389,7 @@ func (m *messages) Get(ctx context.Context, req *MessageGetReq, options ...lark.
 }
 func (r *resources) Get(ctx context.Context, req *MessageResourceGetReq, options ...lark.RequestOptionFunc) (*MessageResourceGetResp, error) {
 	rawResp, err := r.app.SendRequestWithAccessTokenTypes(ctx, http.MethodGet,
-		"/open-apis/im/v1/messages/:message_id/resources/:file_key", req, []lark.AccessTokenType{lark.AccessTokenTypeTenant}, options...)
+		"/open-apis/im/v1/messages/:message_id/resources/:file_key", []lark.AccessTokenType{lark.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}

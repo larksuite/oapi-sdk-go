@@ -15,7 +15,7 @@ func main() {
 		lark.WithLogger(lark.NewDefaultLogger(), lark.LogLevelDebug))
 
 	resp, err := larkApp.SendRequest(context.TODO(), "GET", "/open-apis/helpdesk/v1/tickets/6971250929135779860",
-		nil, lark.AccessTokenTypeTenant, lark.WithNeedHelpDeskAuth())
+		lark.AccessTokenTypeTenant, nil, lark.WithNeedHelpDeskAuth())
 	if err != nil {
 		fmt.Println(err)
 		return

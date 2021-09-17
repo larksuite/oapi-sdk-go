@@ -2,8 +2,9 @@
 package image
 
 import (
-	"github.com/larksuite/oapi-sdk-go/v2"
 	"io"
+
+	"github.com/larksuite/oapi-sdk-go/v2"
 )
 
 type Image struct {
@@ -27,7 +28,7 @@ type ImagePutReqBody struct {
 }
 
 type ImagePutReq struct {
-	Body *ImagePutReqBody
+	Body *ImagePutReqBody `body:""`
 }
 
 type ImagePutResp struct {

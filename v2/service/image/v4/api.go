@@ -25,7 +25,7 @@ type images struct {
 
 func (i *images) Get(ctx context.Context, req *ImageGetReq, options ...lark.RequestOptionFunc) (*ImageGetResp, error) {
 	rawResp, err := i.app.SendRequestWithAccessTokenTypes(ctx, http.MethodGet,
-		"/open-apis/image/v4/get", req, []lark.AccessTokenType{lark.AccessTokenTypeTenant}, options...)
+		"/open-apis/image/v4/get", []lark.AccessTokenType{lark.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -44,7 +44,7 @@ func (i *images) Get(ctx context.Context, req *ImageGetReq, options ...lark.Requ
 func (i *images) Put(ctx context.Context, req *ImagePutReq, options ...lark.RequestOptionFunc) (*ImagePutResp, error) {
 	options = append(options, lark.WithFileUpload())
 	rawResp, err := i.app.SendRequestWithAccessTokenTypes(ctx, http.MethodPost,
-		"/open-apis/image/v4/put", req, []lark.AccessTokenType{lark.AccessTokenTypeTenant}, options...)
+		"/open-apis/image/v4/put", []lark.AccessTokenType{lark.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}

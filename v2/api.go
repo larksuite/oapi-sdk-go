@@ -20,14 +20,13 @@ var (
 	ErrAppTicketIsEmpty = errors.New("app ticket is empty")
 )
 
-func (app *App) SendRequest(ctx context.Context, httpMethod string, httpPath string, input interface{},
-	accessTokenType AccessTokenType, options ...RequestOptionFunc) (*RawResponse, error) {
-	return app.SendRequestWithAccessTokenTypes(ctx, httpMethod, httpPath, input,
-		[]AccessTokenType{accessTokenType}, options...)
+func (app *App) SendRequest(ctx context.Context, httpMethod string, httpPath string,
+	accessTokenType AccessTokenType, input interface{}, options ...RequestOptionFunc) (*RawResponse, error) {
+	return app.SendRequestWithAccessTokenTypes(ctx, httpMethod, httpPath, []AccessTokenType{accessTokenType}, input, options...)
 }
 
 func (app *App) SendRequestWithAccessTokenTypes(ctx context.Context, httpMethod string, httpPath string,
-	input interface{}, accessTokenTypes []AccessTokenType, options ...RequestOptionFunc) (*RawResponse, error) {
+	accessTokenTypes []AccessTokenType, input interface{}, options ...RequestOptionFunc) (*RawResponse, error) {
 	option := &requestOption{}
 	for _, optionFunc := range options {
 		optionFunc(option)
@@ -147,8 +146,9 @@ func parseInput(input interface{}, option *requestOption) (map[string]interface{
 		}
 	}
 	if !hasHTTPTag {
+		body = input
 		if option.fileUpload {
-			body = toFormdata(body)
+			body = toFormdata(input)
 		}
 		return nil, nil, body
 	}
@@ -367,10 +367,10 @@ func (r *request) send(ctx context.Context, app *App) (*RawResponse, int, error)
 }
 
 func (r *request) applyAppTicket(ctx context.Context, app *App) {
-	rawResp, err := app.SendRequest(ctx, http.MethodPost, applyAppTicketPath, &applyAppTicketReq{
+	rawResp, err := app.SendRequest(ctx, http.MethodPost, applyAppTicketPath, accessTokenTypeNone, &applyAppTicketReq{
 		AppID:     app.settings.id,
 		AppSecret: app.settings.secret,
-	}, accessTokenTypeNone)
+	})
 	if err != nil {
 		app.logger.Error(ctx, fmt.Sprintf("apply app_ticket, error: %v", err))
 		return
@@ -405,10 +405,10 @@ const expiryDelta = 3 * time.Minute
 
 // internal app access token
 func (r *request) customAppAccessToken(ctx context.Context, app *App) (string, error) {
-	rawResp, err := app.SendRequest(ctx, http.MethodPost, appAccessTokenInternalUrlPath, &internalAccessTokenReq{
+	rawResp, err := app.SendRequest(ctx, http.MethodPost, appAccessTokenInternalUrlPath, accessTokenTypeNone, &internalAccessTokenReq{
 		AppID:     app.settings.id,
 		AppSecret: app.settings.secret,
-	}, accessTokenTypeNone)
+	})
 	if err != nil {
 		return "", err
 	}
@@ -430,10 +430,10 @@ func (r *request) customAppAccessToken(ctx context.Context, app *App) (string, e
 
 // get internal tenant access token
 func (r *request) customTenantAccessToken(ctx context.Context, app *App) (string, error) {
-	rawResp, err := app.SendRequest(ctx, http.MethodPost, tenantAccessTokenInternalUrlPath, &internalAccessTokenReq{
+	rawResp, err := app.SendRequest(ctx, http.MethodPost, tenantAccessTokenInternalUrlPath, accessTokenTypeNone, &internalAccessTokenReq{
 		AppID:     app.settings.id,
 		AppSecret: app.settings.secret,
-	}, accessTokenTypeNone)
+	})
 	if err != nil {
 		return "", err
 	}
@@ -462,11 +462,11 @@ func (r *request) marketplaceAppAccessToken(ctx context.Context, app *App) (stri
 	if appTicket == "" {
 		return "", ErrAppTicketIsEmpty
 	}
-	rawResp, err := app.SendRequest(ctx, http.MethodPost, appAccessTokenUrlPath, &marketplaceAppAccessTokenReq{
+	rawResp, err := app.SendRequest(ctx, http.MethodPost, appAccessTokenUrlPath, accessTokenTypeNone, &marketplaceAppAccessTokenReq{
 		AppID:     app.settings.id,
 		AppSecret: app.settings.secret,
 		AppTicket: appTicket,
-	}, accessTokenTypeNone)
+	})
 	if err != nil {
 		return "", err
 	}
@@ -492,10 +492,10 @@ func (r *request) marketplaceTenantAccessToken(ctx context.Context, app *App) (s
 	if err != nil {
 		return "", err
 	}
-	rawResp, err := app.SendRequest(ctx, http.MethodPost, tenantAccessTokenUrlPath, &marketplaceTenantAccessTokenReq{
+	rawResp, err := app.SendRequest(ctx, http.MethodPost, tenantAccessTokenUrlPath, accessTokenTypeNone, &marketplaceTenantAccessTokenReq{
 		AppAccessToken: appAccessToken,
 		TenantKey:      r.option.tenantKey,
-	}, accessTokenTypeNone)
+	})
 	if err != nil {
 		return "", err
 	}

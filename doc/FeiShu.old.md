@@ -39,7 +39,7 @@ go get github.com/larksuite/oapi-sdk-go@v1.1.40-rc2
 - 企业自建应用：应用仅仅可在本企业内安装使用，[更多介绍说明](https://open.feishu.cn/document/uQjL04CN/ukzM04SOzQjL5MDN) 。
 - 应用商店应用：应用会在 [应用目录](https://app.feishu.cn/?lang=zh-CN) 展示，各个企业可以选择安装，[更多介绍说明](https://open.feishu.cn/document/uQjL04CN/ugTO5UjL4kTO14CO5kTN) 。
   
-![App type](doc/app_type.zh.png)
+![App type](app_type.zh.png)
 
 ## 快速使用
 

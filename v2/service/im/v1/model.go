@@ -2,17 +2,15 @@
 package im
 
 import (
-	"github.com/larksuite/oapi-sdk-go/v2"
 	"io"
+
+	"github.com/larksuite/oapi-sdk-go/v2"
 )
 
 type UserId struct {
 	UserId  *string `json:"user_id,omitempty"`
 	OpenId  *string `json:"open_id,omitempty"`
 	UnionId *string `json:"union_id,omitempty"`
-}
-
-type ChatAnnouncement struct {
 }
 
 type ChatMember struct {
@@ -39,16 +37,23 @@ type EventMessage struct {
 	Mentions    []*MentionEvent `json:"mentions,omitempty"`
 }
 
-type File struct {
-}
-
 type I18nNames struct {
 	ZhCn *string `json:"zh_cn,omitempty"`
 	EnUs *string `json:"en_us,omitempty"`
 	JaJp *string `json:"ja_jp,omitempty"`
 }
 
-type Image struct {
+type ListMember struct {
+	MemberIdType *string `json:"member_id_type,omitempty"`
+	MemberId     *string `json:"member_id,omitempty"`
+	Name         *string `json:"name,omitempty"`
+	TenantKey    *string `json:"tenant_key,omitempty"`
+}
+
+type ListModerator struct {
+	UserIdType *string `json:"user_id_type,omitempty"`
+	UserId     *string `json:"user_id,omitempty"`
+	TenantKey  *string `json:"tenant_key,omitempty"`
 }
 
 type Message struct {
@@ -65,9 +70,6 @@ type Message struct {
 	Body           *MessageBody `json:"body,omitempty"`
 	Mentions       []*Mention   `json:"mentions,omitempty"`
 	UpperMessageId *string      `json:"upper_message_id,omitempty"`
-}
-
-type MessageResource struct {
 }
 
 type MessageBody struct {
@@ -95,6 +97,10 @@ type Chat struct {
 	OnlyOwnerEdit  *bool      `json:"only_owner_edit,omitempty"`
 	OwnerUserId    *string    `json:"owner_user_id,omitempty"`
 	Type           *string    `json:"type,omitempty"`
+}
+
+type ChatManagers struct {
+	ManagerId *int64 `json:"manager_id,omitempty,string"`
 }
 
 type ChatMemberUser struct {
@@ -151,19 +157,6 @@ type ListEventModerator struct {
 	UserId    *UserId `json:"user_id,omitempty"`
 }
 
-type ListMember struct {
-	MemberIdType *string `json:"member_id_type,omitempty"`
-	MemberId     *string `json:"member_id,omitempty"`
-	Name         *string `json:"name,omitempty"`
-	TenantKey    *string `json:"tenant_key,omitempty"`
-}
-
-type ListModerator struct {
-	UserIdType *string `json:"user_id_type,omitempty"`
-	UserId     *string `json:"user_id,omitempty"`
-	TenantKey  *string `json:"tenant_key,omitempty"`
-}
-
 type Mention struct {
 	Key       *string `json:"key,omitempty"`
 	Id        *string `json:"id,omitempty"`
@@ -182,7 +175,7 @@ type MentionEvent struct {
 type MessageReaction struct {
 	ReactionId   *string   `json:"reaction_id,omitempty"`
 	Operator     *Operator `json:"operator,omitempty"`
-	ActionTime   *string   `json:"action_time,omitempty"`
+	ActionTime   *int64    `json:"action_time,omitempty,string"`
 	ReactionType *Emoji    `json:"reaction_type,omitempty"`
 }
 
@@ -221,9 +214,9 @@ type ChatUpdateReqBody struct {
 }
 
 type ChatUpdateReq struct {
-	ChatId     string  `path:"chat_id"`
-	UserIdType *string `query:"user_id_type"`
-	Body       *ChatUpdateReqBody
+	ChatId     string             `path:"chat_id"`
+	UserIdType *string            `query:"user_id_type"`
+	Body       *ChatUpdateReqBody `body:""`
 }
 
 type ChatUpdateResp struct {
@@ -306,8 +299,8 @@ type ChatCreateReqBody struct {
 }
 
 type ChatCreateReq struct {
-	UserIdType *string `query:"user_id_type"`
-	Body       *ChatCreateReqBody
+	UserIdType *string            `query:"user_id_type"`
+	Body       *ChatCreateReqBody `body:""`
 }
 
 type ChatCreateRespData struct {
@@ -386,8 +379,8 @@ type ChatAnnouncementPatchReqBody struct {
 }
 
 type ChatAnnouncementPatchReq struct {
-	ChatId string `path:"chat_id"`
-	Body   *ChatAnnouncementPatchReqBody
+	ChatId string                        `path:"chat_id"`
+	Body   *ChatAnnouncementPatchReqBody `body:""`
 }
 
 type ChatAnnouncementPatchResp struct {
@@ -400,9 +393,9 @@ type ChatMembersCreateReqBody struct {
 }
 
 type ChatMembersCreateReq struct {
-	ChatId       string  `path:"chat_id"`
-	MemberIdType *string `query:"member_id_type"`
-	Body         *ChatMembersCreateReqBody
+	ChatId       string                    `path:"chat_id"`
+	MemberIdType *string                   `query:"member_id_type"`
+	Body         *ChatMembersCreateReqBody `body:""`
 }
 
 type ChatMembersCreateRespData struct {
@@ -420,9 +413,9 @@ type ChatMembersDeleteReqBody struct {
 }
 
 type ChatMembersDeleteReq struct {
-	ChatId       string  `path:"chat_id"`
-	MemberIdType *string `query:"member_id_type"`
-	Body         *ChatMembersDeleteReqBody
+	ChatId       string                    `path:"chat_id"`
+	MemberIdType *string                   `query:"member_id_type"`
+	Body         *ChatMembersDeleteReqBody `body:""`
 }
 
 type ChatMembersDeleteRespData struct {
@@ -486,7 +479,7 @@ type FileCreateReqBody struct {
 }
 
 type FileCreateReq struct {
-	Body *FileCreateReqBody
+	Body *FileCreateReqBody `body:""`
 }
 
 type FileCreateRespData struct {
@@ -516,7 +509,7 @@ type ImageCreateReqBody struct {
 }
 
 type ImageCreateReq struct {
-	Body *ImageCreateReqBody
+	Body *ImageCreateReqBody `body:""`
 }
 
 type ImageCreateRespData struct {
@@ -566,8 +559,8 @@ type MessagePatchReqBody struct {
 }
 
 type MessagePatchReq struct {
-	MessageId string `path:"message_id"`
-	Body      *MessagePatchReqBody
+	MessageId string               `path:"message_id"`
+	Body      *MessagePatchReqBody `body:""`
 }
 
 type MessagePatchResp struct {
@@ -581,8 +574,8 @@ type MessageReplyReqBody struct {
 }
 
 type MessageReplyReq struct {
-	MessageId string `path:"message_id"`
-	Body      *MessageReplyReqBody
+	MessageId string               `path:"message_id"`
+	Body      *MessageReplyReqBody `body:""`
 }
 
 type MessageReplyResp struct {
@@ -598,8 +591,8 @@ type MessageCreateReqBody struct {
 }
 
 type MessageCreateReq struct {
-	ReceiveIdType *string `query:"receive_id_type"`
-	Body          *MessageCreateReqBody
+	ReceiveIdType *string               `query:"receive_id_type"`
+	Body          *MessageCreateReqBody `body:""`
 }
 
 type MessageCreateResp struct {

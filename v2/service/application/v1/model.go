@@ -11,15 +11,16 @@ type UserId struct {
 }
 
 type ApplicationAppOpenEventData struct {
-	AppId      *string   `json:"app_id,omitempty"`
-	TenantKey  *string   `json:"tenant_key,omitempty"`
-	Type       *string   `json:"type,omitempty"`
-	Applicants []*UserId `json:"applicants,omitempty"`
-	Installer  *UserId   `json:"installer,omitempty"`
+	AppId             *string   `json:"app_id,omitempty"`
+	TenantKey         *string   `json:"tenant_key,omitempty"`
+	Type              *string   `json:"type,omitempty"`
+	Applicants        []*UserId `json:"applicants,omitempty"`
+	Installer         *UserId   `json:"installer,omitempty"`
+	InstallerEmployee *UserId   `json:"installer_employee,omitempty"`
 }
 
 type ApplicationAppOpenEvent struct {
-	*lark.EventBase
+	*lark.EventV2Base
 	Event *ApplicationAppOpenEventData `json:"event"`
 }
 
@@ -32,7 +33,7 @@ type ApplicationAppStatusChangeEventData struct {
 }
 
 type ApplicationAppStatusChangeEvent struct {
-	*lark.EventBase
+	*lark.EventV2Base
 	Event *ApplicationAppStatusChangeEventData `json:"event"`
 }
 
@@ -43,7 +44,7 @@ type ApplicationAppUninstalledEventData struct {
 }
 
 type ApplicationAppUninstalledEvent struct {
-	*lark.EventBase
+	*lark.EventV2Base
 	Event *ApplicationAppUninstalledEventData `json:"event"`
 }
 
@@ -64,6 +65,6 @@ type ApplicationOrderPaidEventData struct {
 }
 
 type ApplicationOrderPaidEvent struct {
-	*lark.EventBase
+	*lark.EventV2Base
 	Event *ApplicationOrderPaidEventData `json:"event"`
 }

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	lark "github.com/larksuite/oapi-sdk-go/v2"
 	"github.com/larksuite/oapi-sdk-go/v2/sample"
+	"github.com/larksuite/oapi-sdk-go/v2/service/im/v1"
 	"net/http"
 	"os"
 )
@@ -20,7 +21,7 @@ func main() {
 		lark.WithStore(sample.NewRedisStore()),               // use redis store
 	)
 
-	marketplaceAppSendMessage(larkApp)
+	marketplaceAppSendMessage(context.Background(), larkApp)
 
 	// http server handle func
 	// obtain app ticket
@@ -40,17 +41,31 @@ func main() {
 	}
 }
 
-func marketplaceAppSendMessage(larkApp *lark.App) {
-	resp, err := larkApp.SendRequest(context.TODO(), "POST", "/open-apis/message/v4/send", map[string]interface{}{
-		"user_id":  "beb9d1cc",
-		"msg_type": "text",
-		"content": map[string]interface{}{
-			"text": "test",
-		},
-	}, lark.AccessTokenTypeTenant, lark.WithTenantKey("13586be5aacf1748"))
+func marketplaceAppSendMessage(ctx context.Context, larkApp *lark.App) {
+	messageText := &lark.MessageText{Text: "Tom test content"}
+	content, err := messageText.JSON()
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	fmt.Println(resp)
+	messageCreateResp, err := im.New(larkApp).Messages.Create(ctx, &im.MessageCreateReq{
+		ReceiveIdType: lark.StringPtr("user_id"),
+		Body: &im.MessageCreateReqBody{
+			ReceiveId: lark.StringPtr("beb9d1cc"),
+			MsgType:   lark.StringPtr("text"),
+			Content:   lark.StringPtr(content),
+		},
+	}, lark.WithTenantKey("13586be5aacf1748")) // setting TenantKey
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Printf("request id: %s \n", messageCreateResp.RequestId())
+	if messageCreateResp.Code != 0 {
+		fmt.Println(messageCreateResp.CodeError)
+		return
+	}
+	fmt.Println(lark.Prettify(messageCreateResp.Data))
+	fmt.Println()
+	fmt.Println()
 }

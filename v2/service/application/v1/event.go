@@ -18,8 +18,7 @@ func (h *applicationAppOpenEventHandler) Handle(ctx context.Context, req *lark.R
 	return h.handler(ctx, req, event.(*ApplicationAppOpenEvent))
 }
 
-func (a *application) AppOpenEventHandler(handler func(ctx context.Context,
-	req *lark.RawRequest, event *ApplicationAppOpenEvent) error) {
+func (a *application) AppOpenEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *ApplicationAppOpenEvent) error) {
 	a.app.Webhook.EventHandler("app_open", &applicationAppOpenEventHandler{handler: handler})
 }
 
@@ -35,8 +34,7 @@ func (h *applicationAppStatusChangeEventHandler) Handle(ctx context.Context, req
 	return h.handler(ctx, req, event.(*ApplicationAppStatusChangeEvent))
 }
 
-func (a *application) AppStatusChangeEventHandler(handler func(ctx context.Context,
-	req *lark.RawRequest, event *ApplicationAppStatusChangeEvent) error) {
+func (a *application) AppStatusChangeEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *ApplicationAppStatusChangeEvent) error) {
 	a.app.Webhook.EventHandler("app_status_change", &applicationAppStatusChangeEventHandler{handler: handler})
 }
 
@@ -52,8 +50,7 @@ func (h *applicationAppUninstalledEventHandler) Handle(ctx context.Context, req 
 	return h.handler(ctx, req, event.(*ApplicationAppUninstalledEvent))
 }
 
-func (a *application) AppUninstalledEventHandler(handler func(ctx context.Context,
-	req *lark.RawRequest, event *ApplicationAppUninstalledEvent) error) {
+func (a *application) AppUninstalledEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *ApplicationAppUninstalledEvent) error) {
 	a.app.Webhook.EventHandler("app_uninstalled", &applicationAppUninstalledEventHandler{handler: handler})
 }
 
@@ -69,7 +66,6 @@ func (h *applicationOrderPaidEventHandler) Handle(ctx context.Context, req *lark
 	return h.handler(ctx, req, event.(*ApplicationOrderPaidEvent))
 }
 
-func (a *application) OrderPaidEventHandler(handler func(ctx context.Context,
-	req *lark.RawRequest, event *ApplicationOrderPaidEvent) error) {
+func (a *application) OrderPaidEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *ApplicationOrderPaidEvent) error) {
 	a.app.Webhook.EventHandler("order_paid", &applicationOrderPaidEventHandler{handler: handler})
 }
