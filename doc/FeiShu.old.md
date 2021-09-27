@@ -1,15 +1,11 @@
-[**README of Larksuite(Overseas)**](README.md) | 飞书
-
 # 飞书开放接口SDK
 
 ## 概述
 
 ---
 
-- 飞书开放平台，便于企业应用与飞书集成，让协同与管理更加高效，[概述](https://open.feishu.cn/document/uQjL04CN/ucDOz4yN4MjL3gzM)
-
-- 飞书开发接口SDK，便捷调用服务端API与订阅服务端事件，例如：消息&群组、通讯录、日历、视频会议、云文档、 OKR等具体可以访问 [飞书开放平台文档](https://open.feishu.cn/document/) 看看【服务端
-  API】。
+- 飞书开放平台，便于企业应用与飞书集成，让协同与管理更加高效
+- 飞书开发接口SDK，便捷 [调用服务端API](https://open.feishu.cn/document/ukTMukTMukTM/uITNz4iM1MjLyUzM) 与 [订阅服务端事件](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
 
 ## 问题反馈
 
@@ -32,13 +28,11 @@ go get github.com/larksuite/oapi-sdk-go@v1.1.40-rc2
 ```
 
 ## 术语解释
-- 飞书（FeiShu）：Lark在中国的称呼，主要为国内的企业提供服务，拥有独立的[域名地址](https://www.feishu.cn)。
-- LarkSuite：Lark在海外的称呼，主要为海外的企业提供服务，拥有独立的[域名地址](https://www.larksuite.com/) 。
-- 开发文档：开放平台的开放接口的参考，**开发者必看，可以使用搜索功能，高效的查询文档**。[更多介绍说明](https://open.feishu.cn/document/) 。
-- 开发者后台：开发者开发应用的管理后台，[更多介绍说明](https://open.feishu.cn/app/) 。
-- 企业自建应用：应用仅仅可在本企业内安装使用，[更多介绍说明](https://open.feishu.cn/document/uQjL04CN/ukzM04SOzQjL5MDN) 。
-- 应用商店应用：应用会在 [应用目录](https://app.feishu.cn/?lang=zh-CN) 展示，各个企业可以选择安装，[更多介绍说明](https://open.feishu.cn/document/uQjL04CN/ugTO5UjL4kTO14CO5kTN) 。
-  
+- [开发文档](https://open.feishu.cn/document/) ：开放平台的开放接口的参考，**开发者必看，可以使用搜索功能，高效的查询文档** 。
+- [开发者后台](https://open.feishu.cn/app/) ：开发者开发应用的管理后台。
+- 企业自建应用：应用仅仅可在本企业内发布使用。
+- 应用商店应用：应用会在 [应用目录](https://app.feishu.cn/) 展示，各个企业可以选择安装使用。
+
 ![App type](app_type.zh.png)
 
 ## 快速使用

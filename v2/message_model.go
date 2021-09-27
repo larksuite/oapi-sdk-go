@@ -117,11 +117,11 @@ func (m *MessagePostImg) MarshalJSON() ([]byte, error) {
 	return messagePostElementJson(m)
 }
 
-type MessageShareChat struct {
-	ChatId string `json:"chat_id,omitempty"`
+type MessageShareUser struct {
+	UserId string `json:"user_id,omitempty"`
 }
 
-func (m *MessageShareChat) JSON() (string, error) {
+func (m *MessageShareUser) JSON() (string, error) {
 	bs, err := json.Marshal(m)
 	if err != nil {
 		return "", err
@@ -129,11 +129,11 @@ func (m *MessageShareChat) JSON() (string, error) {
 	return string(bs), nil
 }
 
-type MessageShareUser struct {
-	UserId string `json:"user_id,omitempty"`
+type MessageShareChat struct {
+	ChatId string `json:"chat_id,omitempty"`
 }
 
-func (m *MessageShareUser) JSON() (string, error) {
+func (m *MessageShareChat) JSON() (string, error) {
 	bs, err := json.Marshal(m)
 	if err != nil {
 		return "", err

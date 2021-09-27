@@ -32,6 +32,13 @@ func (req RawRequest) RequestId() string {
 	return req.Header.Get(httpHeaderKeyRequestId)
 }
 
+func (req RawRequest) JSONUnmarshalBody(val interface{}) error {
+	if !strings.Contains(req.Header.Get(contentTypeHeader), contentTypeJson) {
+		return fmt.Errorf("req content-type not json, req: %v", req)
+	}
+	return json.Unmarshal(req.RawBody, val)
+}
+
 func (req RawRequest) String() string {
 	return fmt.Sprintf("Header:%v, Content-Type: %s, Body: %v",
 		req.Header, req.Header.Get(contentTypeHeader), string(req.RawBody))

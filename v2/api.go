@@ -196,31 +196,24 @@ func isEmpty(value reflect.Value) bool {
 
 func jointURL(domain Domain, httpPath string, paths, queries map[string]interface{}) (string, error) {
 	// path
-	tmpPath := httpPath
-	newPath := ""
-	for {
-		i := strings.Index(tmpPath, ":")
-		if i == -1 {
-			newPath += tmpPath
-			break
+	var pathSegs []string
+	for _, p := range strings.Split(httpPath, "/") {
+		if strings.Index(p, ":") == 0 {
+			varName := p[1:]
+			v, ok := paths[varName]
+			if !ok {
+				return "", fmt.Errorf("http path:%s, name: %s, not found value", httpPath, varName)
+			}
+			val := fmt.Sprint(v)
+			if val == "" {
+				return "", fmt.Errorf("http path:%s, name: %s, value is empty", httpPath, varName)
+			}
+			pathSegs = append(pathSegs, val)
+			continue
 		}
-		newPath += tmpPath[:i]
-		subPath := tmpPath[i:]
-		j := strings.Index(subPath, "/")
-		if j == -1 {
-			j = len(subPath)
-		}
-		varName := subPath[1:j]
-		v, ok := paths[varName]
-		if !ok {
-			return "", fmt.Errorf("path:%s, name: %s, not value", httpPath, varName)
-		}
-		newPath += fmt.Sprint(v)
-		if j == len(subPath) {
-			break
-		}
-		tmpPath = subPath[j:]
+		pathSegs = append(pathSegs, p)
 	}
+	newPath := strings.Join(pathSegs, "/")
 	if strings.Index(newPath, "http") != 0 {
 		if strings.Index(newPath, "/open-apis") == 0 {
 			newPath = fmt.Sprintf("%s%s", domain, newPath)

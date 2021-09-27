@@ -15,14 +15,15 @@ func main() {
 		lark.WithAppEventVerify(verificationToken, encryptKey),
 		lark.WithLogger(lark.NewDefaultLogger(), lark.LogLevelDebug))
 
-	// return
+	// card action handler
+	// return new card
 	larkApp.Webhook.CardActionHandler(func(ctx context.Context, request *lark.RawRequest,
 		action *lark.CardAction) (interface{}, error) {
 		fmt.Println(request)
 		fmt.Println(lark.Prettify(action))
 
 		card := &lark.MessageCard{
-			Config: &lark.MessageCardConfig{WideScreenMode: true},
+			Config: &lark.MessageCardConfig{WideScreenMode: lark.BoolPtr(true)},
 			Elements: []lark.MessageCardElement{&lark.MessageCardMarkdown{
 				Content: "**test**",
 			}},
