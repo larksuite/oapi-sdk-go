@@ -36,7 +36,7 @@ If you encounter any problems during usage, please let us know by submitting  [G
 
 - The latest release candidate provides more [open services API](/service) and bug repair.
 ```shell
-go get github.com/larksuite/oapi-sdk-go@v1.1.40-rc7
+go get github.com/larksuite/oapi-sdk-go@v1.1.40-rc8
 ```
 
 ## Explanation of terms

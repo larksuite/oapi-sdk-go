@@ -228,11 +228,15 @@ func resolvePath(path string, pathVar map[string]interface{}) (string, error) {
 			j = len(subPath)
 		}
 		varName := subPath[1:j]
-		v, ok := pathVar[varName]
-		if !ok {
-			return "", fmt.Errorf("path:%s, var name:%s not find value", path, varName)
+		if varName == "" {
+			newPath += fmt.Sprint(subPath[:j])
+		} else {
+			v, ok := pathVar[varName]
+			if !ok {
+				return "", fmt.Errorf("path:%s, var name:%s not find value", path, varName)
+			}
+			newPath += fmt.Sprint(v)
 		}
-		newPath += fmt.Sprint(v)
 		if j == len(subPath) {
 			break
 		}
