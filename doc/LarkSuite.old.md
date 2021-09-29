@@ -17,6 +17,8 @@
 
 If you encounter any problems during usage, please let us know by submitting  [Github Issues](https://github.com/larksuite/oapi-sdk-go/issues). We will deal with these Issues and get back to you as soon as possible.
 
+- Upgrade the package first, if you still have problems, please submit Issues
+
 ## Run environment
 
 ---
@@ -29,7 +31,7 @@ If you encounter any problems during usage, please let us know by submitting  [G
 
 - The latest release candidate provides more [open services API](/service) and bug repair.
 ```shell
-go get github.com/larksuite/oapi-sdk-go@v1.1.40-rc2
+go get github.com/larksuite/oapi-sdk-go@v1.1.40-rc9
 ```
 
 ## Explanation of terms
@@ -45,7 +47,7 @@ go get github.com/larksuite/oapi-sdk-go@v1.1.40-rc2
 - Marketplace App：The app will be displayed in [App Directory](https://app.larksuite.com/) Display, each enterprise can
   choose to install.
 
-![App type](app_type.en.png)
+![App type](doc/app_type.en.png)
 
 ## Quick use
 

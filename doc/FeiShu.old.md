@@ -4,14 +4,18 @@
 
 ---
 
-- 飞书开放平台，便于企业应用与飞书集成，让协同与管理更加高效
-- 飞书开发接口SDK，便捷 [调用服务端API](https://open.feishu.cn/document/ukTMukTMukTM/uITNz4iM1MjLyUzM) 与 [订阅服务端事件](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
+- 飞书开放平台，便于企业应用与飞书集成，让协同与管理更加高效，[概述](https://open.feishu.cn/document/uQjL04CN/ucDOz4yN4MjL3gzM)
+
+- 飞书开发接口SDK，便捷调用服务端API与订阅服务端事件，例如：消息&群组、通讯录、日历、视频会议、云文档、 OKR等具体可以访问 [飞书开放平台文档](https://open.feishu.cn/document/) 看看【服务端
+  API】。
 
 ## 问题反馈
 
 ---
 
 如有任何SDK使用相关问题，请提交 [Github Issues](https://github.com/larksuite/oapi-sdk-go/issues), 我们会在收到 Issues 的第一时间处理，并尽快给您答复。
+
+- 优先升级一下包，如果还有问题， 请提交 Issues
 
 ## 运行环境
 
@@ -24,14 +28,16 @@
 ---
 
 ```shell
-go get github.com/larksuite/oapi-sdk-go@v1.1.40-rc2
+go get github.com/larksuite/oapi-sdk-go@v1.1.40-rc9
 ```
 
 ## 术语解释
-- [开发文档](https://open.feishu.cn/document/) ：开放平台的开放接口的参考，**开发者必看，可以使用搜索功能，高效的查询文档** 。
-- [开发者后台](https://open.feishu.cn/app/) ：开发者开发应用的管理后台。
-- 企业自建应用：应用仅仅可在本企业内发布使用。
-- 应用商店应用：应用会在 [应用目录](https://app.feishu.cn/) 展示，各个企业可以选择安装使用。
+- 飞书（FeiShu）：Lark在中国的称呼，主要为国内的企业提供服务，拥有独立的[域名地址](https://www.feishu.cn)。
+- LarkSuite：Lark在海外的称呼，主要为海外的企业提供服务，拥有独立的[域名地址](https://www.larksuite.com/) 。
+- 开发文档：开放平台的开放接口的参考，**开发者必看，可以使用搜索功能，高效的查询文档**。[更多介绍说明](https://open.feishu.cn/document/) 。
+- 开发者后台：开发者开发应用的管理后台，[更多介绍说明](https://open.feishu.cn/app/) 。
+- 企业自建应用：应用仅仅可在本企业内安装使用，[更多介绍说明](https://open.feishu.cn/document/uQjL04CN/ukzM04SOzQjL5MDN) 。
+- 应用商店应用：应用会在 [应用目录](https://app.feishu.cn/?lang=zh-CN) 展示，各个企业可以选择安装，[更多介绍说明](https://open.feishu.cn/document/uQjL04CN/ugTO5UjL4kTO14CO5kTN) 。
 
 ![App type](app_type.zh.png)
 
@@ -43,10 +49,10 @@ go get github.com/larksuite/oapi-sdk-go@v1.1.40-rc2
 
 - **必看** [如何调用服务端API](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/guide-to-use-server-api)
   ，了解调用服务端API的过程及注意事项。
-  - 由于SDK已经封装了 app_access_token、tenant_access_token 的获取，所以在调业务API的时候，不需要去获取 app_access_token、tenant_access_token。如果业务接口需要使用 user_access_token，需要进行设置（request.SetUserAccessToken("UserAccessToken")），具体请看 README.zh.md -> 如何构建请求（Request）
+    - 由于SDK已经封装了 app_access_token、tenant_access_token 的获取，所以在调业务API的时候，不需要去获取 app_access_token、tenant_access_token。如果业务接口需要使用 user_access_token，需要进行设置（request.SetUserAccessToken("UserAccessToken")），具体请看 README.zh.md -> 如何构建请求（Request）
 - 更多示例，请看：[sample/api/api.go](sample/api/api.go)（含：文件的上传与下载）
 
-#### [使用`应用商店应用`调用 服务端API 示例](doc/ISV.APP.README.zh.md)
+#### [使用`应用商店应用`调用 服务端API 示例](ISV.APP.README.zh.md)
 
 #### 使用`企业自建应用`访问 [发送消息API](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create) 示例
 
