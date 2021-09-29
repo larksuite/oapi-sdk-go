@@ -200,14 +200,17 @@ func validateResponseFunc(_ *core.Context, req *request.Request) {
 	resp := req.HTTPResponse
 	contentType := resp.Header.Get(coreconst.ContentType)
 	if req.IsResponseStream {
+		if resp.StatusCode == http.StatusOK {
+			req.IsResponseStreamReal = true
+			return
+		}
 		if strings.Contains(contentType, coreconst.ContentTypeJson) {
 			req.IsResponseStreamReal = false
 			return
 		}
 		if resp.StatusCode != http.StatusOK {
-			req.Err = fmt.Errorf("response is stream, but status code:%d", resp.StatusCode)
+			req.Err = fmt.Errorf("response is stream, but status code:%d, contentType:%s", resp.StatusCode, contentType)
 		}
-		req.IsResponseStreamReal = true
 		return
 	}
 	if !strings.Contains(contentType, coreconst.ContentTypeJson) {

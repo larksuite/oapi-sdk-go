@@ -23,9 +23,9 @@ var conf = configs.TestConfigWithLogrusAndRedisStore(core.DomainFeiShu)
 
 func main() {
 	//testSendMessage()
-	testSendCardMessage()
+	//testSendCardMessage()
 	//testUploadFile()
-	//testDownloadFile()
+	testDownloadFile()
 }
 
 // send card message
@@ -142,7 +142,7 @@ func testDownloadFile() {
 	*/
 	req := request.NewRequestWithNative("/open-apis/image/v4/get", "GET",
 		request.AccessTokenTypeTenant, nil, ret,
-		request.SetQueryParams(map[string]interface{}{"image_key": "[image key]"}), request.SetResponseStream())
+		request.SetQueryParams(map[string]interface{}{"image_key": "img_v2_f6203671-41d6-46ed-adc9-c50aa840330g"}), request.SetResponseStream())
 	err := api.Send(coreCtx, conf, req)
 	fmt.Println(coreCtx.GetRequestID())
 	fmt.Println(coreCtx.GetHTTPStatusCode())
