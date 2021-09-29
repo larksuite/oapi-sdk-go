@@ -503,26 +503,28 @@ func (m *Message***) JSON() (string, error) {}
 |方法名| 描述 |
 |----|----|
 |lark.StringPtr(v string)|string 转 *string|
-|lark.BoolPtr(v bool)|string 转 *string|
+|lark.BoolPtr(v bool)|bool 转 *bool|
 |lark.IntPtr(v int)|int 转 *int|
 |lark.Int8Ptr(v int8)|int8 转 *int8|
 |lark.Int16Ptr(v int16)|int16 转 *int16|
 |lark.Int32Ptr(v int32)|int32 转 *int32|
+|lark.Int64Ptr(v int64)|int64 转 *int64|
 |lark.Float32Ptr(v float32)|float32 转 *float32|
-|lark.Float64Ptr(v float64)|float64 转 *int64|
+|lark.Float64Ptr(v float64)|float64 转 *float64|
 |lark.TimePtr(v time.Time)|time.Time 转 *time.Time|
 
 ### 指针类型转基本类型
 |方法名| 描述 |
 |----|----|
 |lark.StringValue(v *string)|*string 转 string|
-|lark.BoolValue(v *bool)|*string 转 string|
+|lark.BoolValue(v *bool)|*bool 转 bool|
 |lark.IntValue(v *int)|*int 转 int|
 |lark.Int8Value(v *int8)|*int8 转 int8|
 |lark.Int16Value(v *int16)|*int16 转 int16|
 |lark.Int32Value(v *int32)|*int32 转 int32|
+|lark.Int32Value(v *int64)|*int32 转 int64|
 |lark.Float32Value(v *float32)|*float32 转 float32|
-|lark.Float64Value(v *float64)|*float64 转 int64|
+|lark.Float64Value(v *float64)|*float64 转 float64|
 |lark.TimeValue(v *time.Time)|*time.Time 转 time.Time|
 
 
