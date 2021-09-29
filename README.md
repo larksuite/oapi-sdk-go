@@ -3,7 +3,6 @@
 ## New SDK version v2 (SDK v2 新版本)
 
 > ### 使用飞书（[feishu.cn](http://open.feishu.cn)），请看文档：[FeiShu.md](FeiShu.md)
-> ### Use Lark ([larksuite.com](http://open.larksuite.com)), see document: [LarkSuite.md](LarkSuite.md)
 > ### SDK v2 advantage（SDK v2 优势）
 > - SDK V2 introduces fewer packages, avoiding the problem of package name conflict between SDK and developer business system
 > （SDK v2 引入的包更少，避免 SDK 包名与开发者业务系统出现包名冲突的问题)
