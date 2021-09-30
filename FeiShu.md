@@ -105,7 +105,7 @@ func messageCreate(ctx context.Context, larkApp *lark.App) {
 
 ### 使用`企业自建应用`访问 [发送文本消息 API](https://open.feishu.cn/document/ukTMukTMukTM/uUjNz4SN2MjL1YzM) 示例
 
-- 有些老版接口，没有直接可以使用的业务 SDK，可以使用`原生`模式，具体请看：【如何发送请求】
+- 有些老版接口，没有直接可以使用的业务 SDK，可以使用`原生`模式，具体请看：[如何发送请求](#如何发送请求)
 
 - 更多示例，请看：[v2/sample/api/api.go](./v2/sample/api/api.go)（含：文件的上传与下载）
 
@@ -204,7 +204,7 @@ func main() {
 
 ### 使用`企业自建应用`订阅 [接收消息事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive) 示例
 
-- 有些老的事件，没有直接可以使用的业务 SDK，可以使用`原生`模式，具体请看：【如何订阅事件】
+- 有些老的事件，没有直接可以使用的业务 SDK，可以使用`原生`模式，具体请看：[如何订阅事件](#如何订阅事件)
   
 - 更多使用示例，请看：[v2/sample/event/event.go](./v2/sample/event/event.go)
 
