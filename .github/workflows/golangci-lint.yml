@@ -20,10 +20,9 @@ jobs:
 
           # Optional: working directory, useful for monorepos
           working-directory: ./v2
-          skip-dirs:
 
           # Optional: golangci-lint command line arguments.
-          args: --skip-dirs=[sample]
+          args: --skip-dirs=[v2/sample]
 
           # Optional: show only new issues if it's a pull request. The default value is `false`.
           # only-new-issues: true
