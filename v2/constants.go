@@ -62,5 +62,3 @@ const (
 
 const webhookResponseFormat = `{"msg":"%s"}`
 const challengeResponseFormat = `{"challenge":"%s"}`
-
-const version = "1.0.0"

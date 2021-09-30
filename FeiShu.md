@@ -17,7 +17,7 @@
 ## 安装方法
 
 ```shell
-go get github.com/larksuite/v2@v2.0.0-rc1
+go get -u github.com/larksuite/v2
 ```
 
 ## SDK 包引入与使用规则
@@ -46,7 +46,8 @@ go get github.com/larksuite/v2@v2.0.0-rc1
 - **必看** [如何调用服务端 API](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/guide-to-use-server-api)
   ，了解调用服务端API的过程及注意事项。
     - 由于 SDK 已经封装了 app_access_token、tenant_access_token 的获取，所以在调业务 API 的时候，不需要去获取
-      app_access_token、tenant_access_token。如果业务接口需要使用 user_access_token，需要进行设置 lark.WithUserAccessToken("userAccessToken")，具体请看：[如何发送请求](#如何发送请求)
+      app_access_token、tenant_access_token。如果业务接口需要使用 user_access_token，需要进行设置 lark.WithUserAccessToken("
+      userAccessToken")，具体请看：[如何发送请求](#如何发送请求)
 
 ### 使用`企业自建应用`访问 [发送消息 API](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create) 示例
 
@@ -130,12 +131,12 @@ func main() {
 
 // 发送消息
 func sendMessage(ctx context.Context, larkApp *lark.App) {
-	resp, err := larkApp.SendRequest(ctx, http.MethodGet, "/open-apis/message/v4/send", 
+	resp, err := larkApp.SendRequest(ctx, http.MethodGet, "/open-apis/message/v4/send",
 		lark.AccessTokenTypeTenant, map[string]interface{}{
-		"user_id":  "77bbc392",
-		"msg_type": "text",
-		"content":  &lark.MessageText{Text: "test"},
-	})
+			"user_id":  "77bbc392",
+			"msg_type": "text",
+			"content":  &lark.MessageText{Text: "test"},
+		})
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -154,7 +155,7 @@ func sendMessage(ctx context.Context, larkApp *lark.App) {
 ### 使用`企业自建应用`订阅 [接收消息事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive) 示例
 
 - 在 [v2/service](./v2/service) 下的业务 Event，都是可以直接使用业务 SDK
-  
+
 - 更多使用示例，请看：[v2/sample/event/im.go](./v2/sample/event/im.go)
 
 ```go
@@ -175,7 +176,7 @@ func main() {
 
 	larkApp := lark.NewApp(lark.DomainFeiShu, appID, appSecret,
 		lark.WithAppEventVerify(verificationToken, encryptKey))
-	
+
 	// @应用机器人的消息处理
 	im.New(larkApp).Messages.ReceiveEventHandler(func(ctx context.Context, req *lark.RawRequest, event *im.MessageReceiveEvent) error {
 		fmt.Println(req)
@@ -209,7 +210,7 @@ func main() {
 ### 使用`企业自建应用`订阅 [接收消息事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive) 示例
 
 - 有些老的事件，没有直接可以使用的业务 SDK，可以使用`原生`模式，具体请看：[如何订阅事件](#如何订阅事件)
-  
+
 - 更多使用示例，请看：[v2/sample/event/event.go](./v2/sample/event/event.go)
 
 ```go
@@ -229,7 +230,7 @@ func main() {
 
 	larkApp := lark.NewApp(lark.DomainFeiShu, appID, appSecret,
 		lark.WithAppEventVerify(verificationToken, encryptKey))
-	
+
 	// @应用机器人的消息处理
 	// "im.message.receive_v1"：事件类型
 	larkApp.Webhook.EventHandleFunc("im.message.receive_v1", func(ctx context.Context, req *lark.RawRequest) error {
@@ -282,7 +283,7 @@ import (
 func main() {
 	appID, appSecret, verificationToken, encryptKey := os.Getenv("APP_ID"), os.Getenv("APP_SECRET"),
 		os.Getenv("VERIFICATION_TOKEN"), os.Getenv("ENCRYPT_KEY")
-	
+
 	larkApp := lark.NewApp(lark.DomainFeiShu, appID, appSecret,
 		lark.WithAppEventVerify(verificationToken, encryptKey))
 
@@ -328,7 +329,8 @@ func main() {
 - [如何获取 app_access_token](https://open.feishu.cn/document/ukTMukTMukTM/uEjNz4SM2MjLxYzM) （应用商店应用）
     - 与企业自建应用相比，应用商店应用的获取 app_access_token 的流程复杂一些。
         - 需要开放平台下发的 app_ticket，通过订阅事件接收。SDK 已经封装了 app_ticket 事件的处理，只需要启动事件订阅服务。
-        - 使用SDK调用服务端 API 时，如果当前还没有收到开发平台下发的 app_ticket ，会报错且向开放平台申请下发 app_ticket ，可以尽快的收到开发平台下发的 app_ticket，保证再次调用服务端 API 的正常。
+        - 使用SDK调用服务端 API 时，如果当前还没有收到开发平台下发的 app_ticket ，会报错且向开放平台申请下发 app_ticket ，可以尽快的收到开发平台下发的 app_ticket，保证再次调用服务端
+          API 的正常。
         - 使用SDK调用服务端 API 时，需要使用 tenant_access_token 访问凭证时，需要 tenant_key ，来表示当前是哪个租户使用这个应用调用服务端 API。
             - tenant_key，租户安装启用了这个应用，开放平台发送的服务端事件，事件内容中都含有 tenant_key。
 - 示例代码：[v2/sample/api/marketplace_app.go](./v2/sample/api/marketplace_app.go)
@@ -338,7 +340,7 @@ func main() {
 ```go
 
 import (
-    "github.com/larksuite/oapi-sdk-go/v2"
+"github.com/larksuite/oapi-sdk-go/v2"
 )
 
 // 防止应用信息泄漏，配置环境变量中，变量说明：
@@ -354,29 +356,27 @@ os.Getenv("VERIFICATION_TOKEN"), os.Getenv("ENCRYPT_KEY"), os.Getenv("HELP_DESK_
 
 // 企业自建应用的配置
 larkApp := lark.NewApp(lark.DomainFeiShu, appID, appSecret,
-    lark.WithAppEventVerify(verificationToken, encryptKey), // 非必需，事件订阅、处理消息卡片Action时必需
-    lark.WithAppHelpdeskCredential(helpDeskID, helpDeskToken), // 非必需，访问服务台API时必需
+lark.WithAppEventVerify(verificationToken, encryptKey), // 非必需，事件订阅、处理消息卡片Action时必需
+lark.WithAppHelpdeskCredential(helpDeskID, helpDeskToken), // 非必需，访问服务台API时必需
 )
 
 // 应用商店应用的配置
-larkApp := lark.NewApp(lark.DomainFeiShu, appID, appSecret, 
-    lark.WithAppType(lark.AppTypeMarketplace), // 标识应用类型为：应用商店应用
-    lark.WithAppEventVerify(verificationToken, encryptKey), // 非必需，事件订阅、处理消息卡片Action时必需
-    lark.WithAppHelpdeskCredential(helpDeskID, helpDeskToken), // 非必需，访问服务台API时必需
+larkApp := lark.NewApp(lark.DomainFeiShu, appID, appSecret,
+lark.WithAppType(lark.AppTypeMarketplace), // 标识应用类型为：应用商店应用
+lark.WithAppEventVerify(verificationToken, encryptKey), // 非必需，事件订阅、处理消息卡片Action时必需
+lark.WithAppHelpdeskCredential(helpDeskID, helpDeskToken), // 非必需，访问服务台API时必需
 )
-
 
 // 配置日志接口的实现
 // 例如：使用logrus实现，请看示例代码：v2/sample/logrus.go
 // 例如：日志（lark.NewDefaultLogger()：日志控制台输出），日志级别（lark.LogLevelDebug：debug级别，可以打印更好的日志，利于排查问题）
 larkApp := lark.NewApp(lark.DomainFeiShu, appID, appSecret,
-	lark.WithLogger(lark.NewDefaultLogger(), lark.LogLevelDebug), // 非必需
+lark.WithLogger(lark.NewDefaultLogger(), lark.LogLevelDebug), // 非必需
 )
 // 更多示例：v2/sample/api/marketplace_app.go的"sample.Logrus{}"
 larkApp := lark.NewApp(lark.DomainFeiShu, appID, appSecret,
-    lark.WithLogger(sample.Logrus{}, lark.LogLevelDebug),
+lark.WithLogger(sample.Logrus{}, lark.LogLevelDebug),
 )
-
 
 // 配置存储接口，用于存放：app_access_token、tenant_access_token、app_ticket
 // 默认是sync.map内存实现的
@@ -384,7 +384,7 @@ larkApp := lark.NewApp(lark.DomainFeiShu, appID, appSecret,
 // 对于应用商品应用，接收开放平台下发的app_ticket，会保存到存储中，所以存储接口的实现的实现需要支持分布式存储
 // 更多示例：v2/sample/api/marketplace_app.go的"sample.NewRedisStore()"
 larkApp := lark.NewApp(lark.DomainFeiShu, appID, appSecret,
-	lark.WithStore(sample.NewRedisStore()) // use redis store
+lark.WithStore(sample.NewRedisStore()) // use redis store
 )
 
 ```
@@ -397,13 +397,12 @@ larkApp := lark.NewApp(lark.DomainFeiShu, appID, appSecret,
 ```go
 
 import (
-    "context"
-    "net/http"
-    "github.com/larksuite/oapi-sdk-go/v2"
+"context"
+"net/http"
+"github.com/larksuite/oapi-sdk-go/v2"
 )
 
 app := lark.NewApp(lark.DomainFeiShu, appID, appSecret)
-
 
 // 参数说明：
 // ctx: context.Context
@@ -425,14 +424,14 @@ app := lark.NewApp(lark.DomainFeiShu, appID, appSecret)
 // lark.WithHTTPHeader(header http.Header)，设置 HTTP header
 // lark.WithFileDownload()，表示下载文件
 func (app *App) SendRequest(ctx context.Context, httpMethod string, httpPath string,
-    accessTokenType AccessTokenType, input interface{}, options ...RequestOptionFunc) (*RawResponse, error) {}
+accessTokenType AccessTokenType, input interface{}, options ...RequestOptionFunc) (*RawResponse, error) {}
 
 
 // 发送请求的响应（lark.RawResponse）
 type RawResponse struct {
-    StatusCode int         `json:"-"`
-    Header     http.Header `json:"-"`
-    RawBody    []byte      `json:"-"`
+StatusCode int         `json:"-"`
+Header     http.Header `json:"-"`
+RawBody    []byte      `json:"-"`
 }
 
 // 获取请求的ID，反馈问题的时候，提供RequestId（HTTP.header["X-Tt-Logid"]），排查问题更方便
@@ -451,9 +450,9 @@ func (resp RawResponse) JSONUnmarshalBody(val interface{}) error {}
 ```go
 
 import (
-    "context"
-    "net/http"
-    "github.com/larksuite/oapi-sdk-go/v2"
+"context"
+"net/http"
+"github.com/larksuite/oapi-sdk-go/v2"
 )
 
 app := lark.NewApp(lark.DomainFeiShu, appID, appSecret, lark.WithAppEventVerify(verificationToken, encryptKey))
@@ -465,13 +464,13 @@ app := lark.NewApp(lark.DomainFeiShu, appID, appSecret, lark.WithAppEventVerify(
 // handler: 事件处理函数
 // ctx：context.Context
 // req：事件的回调请求
-func (wh *webhook) EventHandleFunc(eventType string, handler func(ctx context.Context, req *RawRequest) error) {}
+func (wh *webhook) EventHandleFunc(eventType string, handler func (ctx context.Context, req *RawRequest) error) {}
 
 
 // 事件的回调请求（lark.RawRequest）
 type RawRequest struct {
-    Header  http.Header
-    RawBody []byte
+Header  http.Header
+RawBody []byte
 }
 
 // 获取请求的ID，反馈问题的时候，提供RequestId，排查问题更方便
@@ -535,6 +534,7 @@ func (m *Message***) JSON() (string, error) {}
 ## 基本类型与指针类型的转换
 
 ### 基本类型转指针类型
+
 |方法名| 描述 |
 |----|----|
 |lark.StringPtr(v string)|string 转 *string|
@@ -549,6 +549,7 @@ func (m *Message***) JSON() (string, error) {}
 |lark.TimePtr(v time.Time)|time.Time 转 *time.Time|
 
 ### 指针类型转基本类型
+
 |方法名| 描述 |
 |----|----|
 |lark.StringValue(v *string)|*string 转 string|
@@ -561,7 +562,6 @@ func (m *Message***) JSON() (string, error) {}
 |lark.Float32Value(v *float32)|*float32 转 float32|
 |lark.Float64Value(v *float64)|*float64 转 float64|
 |lark.TimeValue(v *time.Time)|*time.Time 转 time.Time|
-
 
 ## 下载文件工具
 
