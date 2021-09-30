@@ -69,13 +69,13 @@ func (c *CustomerBot) SendMessage(ctx context.Context, msgType string, content i
 	if err != nil {
 		return nil, err
 	}
-	rawRequest, err := http.NewRequestWithContext(ctx, http.MethodPost, c.webhook, bytes.NewBuffer(reqBs))
+	httpRequest, err := http.NewRequestWithContext(ctx, http.MethodPost, c.webhook, bytes.NewBuffer(reqBs))
 	if err != nil {
 		return nil, err
 	}
-	rawRequest.Header.Set(userAgentHeader, fmt.Sprintf("oapi-sdk-go-v2/%s", version))
-	rawRequest.Header.Set(contentTypeHeader, defaultContentType)
-	rawResp, err := sendHTTPRequest(rawRequest)
+	httpRequest.Header.Set(userAgentHeader, fmt.Sprintf("oapi-sdk-go-v2/%s", version))
+	httpRequest.Header.Set(contentTypeHeader, defaultContentType)
+	rawResp, err := sendHTTPRequest(httpRequest)
 	if err != nil {
 		return nil, err
 	}
