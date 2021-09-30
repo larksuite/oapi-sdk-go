@@ -7,7 +7,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"mime/multipart"
 	"net/http"
 	"net/url"
@@ -336,7 +335,7 @@ func (r *request) newHTTPRequest(ctx context.Context, app *App) (*http.Request, 
 			httpRequest.Header.Add(k, v)
 		}
 	}
-	httpRequest.Header.Set(userAgentHeader, fmt.Sprintf("oapi-sdk-go-v2/%s", version))
+	httpRequest.Header.Set(userAgentHeader, userAgent())
 	if r.contentType != "" {
 		httpRequest.Header.Set(contentTypeHeader, r.contentType)
 	}
@@ -356,31 +355,6 @@ func (r *request) newHTTPRequest(ctx context.Context, app *App) (*http.Request, 
 		return nil, err
 	}
 	return httpRequest, nil
-}
-
-func sendHTTPRequest(rawRequest *http.Request) (*RawResponse, error) {
-	resp, err := http.DefaultClient.Do(rawRequest)
-	if err != nil {
-		return nil, err
-	}
-	body, err := readResponse(resp)
-	if err != nil {
-		return nil, err
-	}
-	return &RawResponse{
-		StatusCode: resp.StatusCode,
-		Header:     resp.Header,
-		RawBody:    body,
-	}, nil
-}
-
-func readResponse(resp *http.Response) ([]byte, error) {
-	defer resp.Body.Close()
-	respBody, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return nil, err
-	}
-	return respBody, nil
 }
 
 func (r *request) applyAppTicket(ctx context.Context, app *App) {

@@ -403,3 +403,32 @@ func isEmptyValue(v reflect.Value) bool {
 	}
 	return false
 }
+
+func userAgent() string {
+	return fmt.Sprintf("oapi-sdk-go-v2/%s", version)
+}
+
+func sendHTTPRequest(rawRequest *http.Request) (*RawResponse, error) {
+	resp, err := http.DefaultClient.Do(rawRequest)
+	if err != nil {
+		return nil, err
+	}
+	body, err := readResponse(resp)
+	if err != nil {
+		return nil, err
+	}
+	return &RawResponse{
+		StatusCode: resp.StatusCode,
+		Header:     resp.Header,
+		RawBody:    body,
+	}, nil
+}
+
+func readResponse(resp *http.Response) ([]byte, error) {
+	defer resp.Body.Close()
+	respBody, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+	return respBody, nil
+}

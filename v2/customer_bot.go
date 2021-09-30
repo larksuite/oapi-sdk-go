@@ -73,7 +73,7 @@ func (c *CustomerBot) SendMessage(ctx context.Context, msgType string, content i
 	if err != nil {
 		return nil, err
 	}
-	httpRequest.Header.Set(userAgentHeader, fmt.Sprintf("oapi-sdk-go-v2/%s", version))
+	httpRequest.Header.Set(userAgentHeader, userAgent())
 	httpRequest.Header.Set(contentTypeHeader, defaultContentType)
 	rawResp, err := sendHTTPRequest(httpRequest)
 	if err != nil {
