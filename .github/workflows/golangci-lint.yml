@@ -19,7 +19,7 @@ jobs:
           version: v1.29
 
           # Optional: working directory, useful for monorepos
-          # working-directory: ./v2
+          working-directory: v2
 
           # Optional: golangci-lint command line arguments.
           args: --skip-dirs=sample
