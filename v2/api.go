@@ -299,53 +299,20 @@ func (r *request) send(ctx context.Context, app *App) (*RawResponse, int, error)
 	var code int
 	for r.retryCount < 2 {
 		app.logger.Debug(ctx, fmt.Sprintf("send request %v", r))
-		rawRequest, err := http.NewRequestWithContext(ctx, r.method, r.url, bytes.NewBuffer(r.body))
+		httpRequest, err := r.newHTTPRequest(ctx, app)
 		if err != nil {
 			return nil, 0, err
 		}
-		for k, vs := range r.option.header {
-			for _, v := range vs {
-				rawRequest.Header.Add(k, v)
-			}
-		}
-		rawRequest.Header.Set("User-Agent", fmt.Sprintf("oapi-sdk-go-v2/%s", version))
-		if r.contentType != "" {
-			rawRequest.Header.Set(contentTypeHeader, r.contentType)
-		}
-		switch r.accessTokenType {
-		case AccessTokenTypeApp:
-			err = r.signAppAccessToken(ctx, rawRequest, app)
-		case AccessTokenTypeTenant:
-			err = r.signTenantAccessToken(ctx, rawRequest, app)
-		case AccessTokenTypeUser:
-			err = r.signUserAccessToken(rawRequest)
-		}
+		rawResp, err = sendHTTPRequest(httpRequest)
 		if err != nil {
 			return nil, 0, err
-		}
-		err = r.signHelpdeskAuthToken(rawRequest, app)
-		if err != nil {
-			return nil, 0, err
-		}
-		resp, err := http.DefaultClient.Do(rawRequest)
-		if err != nil {
-			return nil, 0, err
-		}
-		body, err := r.readResponse(resp)
-		if err != nil {
-			return nil, 0, err
-		}
-		rawResp = &RawResponse{
-			StatusCode: resp.StatusCode,
-			Header:     resp.Header,
-			RawBody:    body,
 		}
 		app.logger.Debug(ctx, fmt.Sprintf("send request %v, response %v", r, rawResp))
-		if r.retryCount == 1 || !strings.Contains(resp.Header.Get(contentTypeHeader), contentTypeJson) {
+		if r.retryCount == 1 || !strings.Contains(rawResp.Header.Get(contentTypeHeader), contentTypeJson) {
 			break
 		}
 		codeError := &CodeError{}
-		err = json.Unmarshal(body, codeError)
+		err = json.Unmarshal(rawResp.RawBody, codeError)
 		if err != nil {
 			return nil, 0, err
 		}
@@ -357,6 +324,63 @@ func (r *request) send(ctx context.Context, app *App) (*RawResponse, int, error)
 		r.retryCount++
 	}
 	return rawResp, code, nil
+}
+
+func (r *request) newHTTPRequest(ctx context.Context, app *App) (*http.Request, error) {
+	httpRequest, err := http.NewRequestWithContext(ctx, r.method, r.url, bytes.NewBuffer(r.body))
+	if err != nil {
+		return nil, err
+	}
+	for k, vs := range r.option.header {
+		for _, v := range vs {
+			httpRequest.Header.Add(k, v)
+		}
+	}
+	httpRequest.Header.Set(userAgentHeader, fmt.Sprintf("oapi-sdk-go-v2/%s", version))
+	if r.contentType != "" {
+		httpRequest.Header.Set(contentTypeHeader, r.contentType)
+	}
+	switch r.accessTokenType {
+	case AccessTokenTypeApp:
+		err = r.signAppAccessToken(ctx, httpRequest, app)
+	case AccessTokenTypeTenant:
+		err = r.signTenantAccessToken(ctx, httpRequest, app)
+	case AccessTokenTypeUser:
+		err = r.signUserAccessToken(httpRequest)
+	}
+	if err != nil {
+		return nil, err
+	}
+	err = r.signHelpdeskAuthToken(httpRequest, app)
+	if err != nil {
+		return nil, err
+	}
+	return httpRequest, nil
+}
+
+func sendHTTPRequest(rawRequest *http.Request) (*RawResponse, error) {
+	resp, err := http.DefaultClient.Do(rawRequest)
+	if err != nil {
+		return nil, err
+	}
+	body, err := readResponse(resp)
+	if err != nil {
+		return nil, err
+	}
+	return &RawResponse{
+		StatusCode: resp.StatusCode,
+		Header:     resp.Header,
+		RawBody:    body,
+	}, nil
+}
+
+func readResponse(resp *http.Response) ([]byte, error) {
+	defer resp.Body.Close()
+	respBody, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+	return respBody, nil
 }
 
 func (r *request) applyAppTicket(ctx context.Context, app *App) {
@@ -573,15 +597,6 @@ func (r *request) signTenantAccessToken(ctx context.Context, httpRequest *http.R
 func (r *request) signUserAccessToken(httpRequest *http.Request) error {
 	r.authorizationToHeader(httpRequest, r.option.userAccessToken)
 	return nil
-}
-
-func (r *request) readResponse(resp *http.Response) ([]byte, error) {
-	defer resp.Body.Close()
-	respBody, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return nil, err
-	}
-	return respBody, nil
 }
 
 func (r *request) signHelpdeskAuthToken(rawRequest *http.Request, app *App) error {

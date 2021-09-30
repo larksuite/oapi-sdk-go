@@ -1,5 +1,6 @@
 package lark
 
+const userAgentHeader = "User-Agent"
 const contentTypeHeader = "Content-Type"
 const contentTypeJson = "application/json"
 const defaultContentType = contentTypeJson + "; charset=utf-8"
