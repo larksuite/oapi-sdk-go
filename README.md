@@ -4,12 +4,12 @@
 
 > ### 使用飞书（[feishu.cn](http://open.feishu.cn)），请看文档：[FeiShu.md](FeiShu.md)
 > ### SDK v2 advantage（SDK v2 优势）
-> - SDK V2 introduces fewer packages, avoiding the problem of package name conflict between SDK and developer business system
-> （SDK v2 引入的包更少，避免 SDK 包名与开发者业务系统出现包名冲突的问题)
+> - SDK V2 introduces fewer packages, avoiding the problem of package name conflict between SDK and developer`s business system
+> （SDK v2 引入的包更少，避免 SDK 包名与开发者的业务系统出现包名冲突的问题)
 >
 >
 > - SDK V2 request API need parameters are encapsulated into a structure (including HTTP request path, Query, and body parameters) to avoid the omission caused by scattered Settings of parameters required by the request
-> （SDK v2 请求 API 需要的参数，封装成一个结构体（含：HTTP request path、query、body 参数），避免请求需要的参数分散设置有遗漏）
+> （SDK v2 请求 API 需要的参数，封装成一个结构体（含：HTTP request path、query、body 参数），避免请求需要的参数分散设置，出现遗漏）
 >
 >
 > - The SDK V2 adds models for various messages to facilitate building message content
