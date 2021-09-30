@@ -16,7 +16,10 @@ jobs:
         uses: golangci/golangci-lint-action@v2
         with:
           # Optional: version of golangci-lint to use in form of v1.2 or v1.2.3 or `latest` to use the latest version
-          version: v1.29
+          version: v1.42.1
+
+          # Optional: working directory, useful for monorepos
+          working-directory: v2
 
           # Optional: golangci-lint command line arguments.
           args: --skip-dirs=sample
