@@ -481,6 +481,28 @@ func (req RawRequest) JSONUnmarshalBody(val interface{}) error {}
 
 ```
 
+## 自定义机器人
+
+- 开发文档：[自定义机器人指南](https://open.feishu.cn/document/ukTMukTMukTM/ucTM5YjL3ETO24yNxkjN)
+- 示例代码：[v2/sample/customer_bot/customer_bot.go](./v2/sample/customer_bot/customer_bot.go)
+
+```go
+
+// 创建一个 CustomerBot
+// 参数说明：
+// webhook：Webhook 地址
+// secret：安全设置 -> 签名校验，如果没有开启，则值为空字符串
+func NewCustomerBot(webhook string, secret string) *CustomerBot {}
+
+// 发送消息
+// 参数说明：
+// ctx：context.Context
+// msgType：消息类型
+// content：消息内容，类型：interface{} ，可以使用消息内容Model
+func (c *CustomerBot) SendMessage(ctx context.Context, msgType string, content interface{}) (*CustomerBotSendMessageResp, error)
+
+```
+
 ## 消息内容 Model
 
 - 文档：[发送消息 content 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)

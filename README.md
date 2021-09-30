@@ -14,6 +14,9 @@
 >
 > - The SDK V2 adds models for various messages to facilitate building message content
 > （SDK v2 增加了各种消息内容 Model，方便构建消息内容）
+> 
+> - The SDK V2 adds sending messages via custom bots
+> （SDK v2 增加了通过自定义机器人发送消息）
 
 
 ## Older SDK version v1 (SDK v1 老版本）

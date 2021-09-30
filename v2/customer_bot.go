@@ -18,6 +18,43 @@ type CustomerBot struct {
 	secret  string
 }
 
+func NewCustomerBot(webhook string, secret string) *CustomerBot {
+	return &CustomerBot{
+		webhook: webhook,
+		secret:  secret,
+	}
+}
+
+func (c *CustomerBot) SendMessage(ctx context.Context, msgType string, content interface{}) (*CustomerBotSendMessageResp, error) {
+	req, err := c.newSendMessageReq(msgType, content)
+	if err != nil {
+		return nil, err
+	}
+	reqBs, err := json.Marshal(req)
+	if err != nil {
+		return nil, err
+	}
+	httpRequest, err := http.NewRequestWithContext(ctx, http.MethodPost, c.webhook, bytes.NewBuffer(reqBs))
+	if err != nil {
+		return nil, err
+	}
+	httpRequest.Header.Set(userAgentHeader, userAgent())
+	httpRequest.Header.Set(contentTypeHeader, defaultContentType)
+	rawResp, err := sendHTTPRequest(httpRequest)
+	if err != nil {
+		return nil, err
+	}
+	codeError := CodeError{}
+	err = json.Unmarshal(rawResp.RawBody, &codeError)
+	if err != nil {
+		return nil, err
+	}
+	return &CustomerBotSendMessageResp{
+		RawResponse: rawResp,
+		CodeError:   codeError,
+	}, nil
+}
+
 type CustomerBotSendMessageResp struct {
 	*RawResponse `json:"-"`
 	CodeError
@@ -58,41 +95,4 @@ func (c *CustomerBot) newSendMessageReq(msgType string, content interface{}) (*c
 		MsgType:   msgType,
 		Content:   content,
 	}, nil
-}
-
-func (c *CustomerBot) SendMessage(ctx context.Context, msgType string, content interface{}) (*CustomerBotSendMessageResp, error) {
-	req, err := c.newSendMessageReq(msgType, content)
-	if err != nil {
-		return nil, err
-	}
-	reqBs, err := json.Marshal(req)
-	if err != nil {
-		return nil, err
-	}
-	httpRequest, err := http.NewRequestWithContext(ctx, http.MethodPost, c.webhook, bytes.NewBuffer(reqBs))
-	if err != nil {
-		return nil, err
-	}
-	httpRequest.Header.Set(userAgentHeader, userAgent())
-	httpRequest.Header.Set(contentTypeHeader, defaultContentType)
-	rawResp, err := sendHTTPRequest(httpRequest)
-	if err != nil {
-		return nil, err
-	}
-	codeError := CodeError{}
-	err = json.Unmarshal(rawResp.RawBody, &codeError)
-	if err != nil {
-		return nil, err
-	}
-	return &CustomerBotSendMessageResp{
-		RawResponse: rawResp,
-		CodeError:   codeError,
-	}, nil
-}
-
-func NewCustomerBot(webhook string, secret string) *CustomerBot {
-	return &CustomerBot{
-		webhook: webhook,
-		secret:  secret,
-	}
 }
