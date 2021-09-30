@@ -15,9 +15,9 @@ func main() {
 		lark.WithLogger(lark.NewDefaultLogger(), lark.LogLevelDebug))
 
 	ctx := context.Background()
-	messageCreate(ctx, larkApp)
+	//messageCreate(ctx, larkApp)
 	fileCreate(ctx, larkApp)
-	fileDownload(ctx, larkApp)
+	//fileDownload(ctx, larkApp)
 }
 
 func messageCreate(ctx context.Context, larkApp *lark.App) {
@@ -80,7 +80,7 @@ func fileCreate(ctx context.Context, larkApp *lark.App) {
 
 func fileDownload(ctx context.Context, larkApp *lark.App) {
 	fileGetResp, err := im.New(larkApp).Files.Get(ctx, &im.FileGetReq{
-		FileKey: "file_v2_62ac7c6e-de7e-464f-ac33-f1c28f94169g",
+		FileKey: "file_v2_d0f706c9-9d6a-4f1d-8bdc-c577e23d94fg",
 	})
 	if err != nil {
 		fmt.Println(err)
