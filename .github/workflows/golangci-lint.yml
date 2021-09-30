@@ -23,7 +23,7 @@ jobs:
           skip-dirs:
 
           # Optional: golangci-lint command line arguments.
-          args: skip-dirs=[sample]
+          args: --skip-dirs=[sample]
 
           # Optional: show only new issues if it's a pull request. The default value is `false`.
           # only-new-issues: true
