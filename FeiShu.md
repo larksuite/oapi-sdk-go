@@ -45,9 +45,8 @@ go get github.com/larksuite/v2@v2.0.0-rc1
 
 - **必看** [如何调用服务端 API](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/guide-to-use-server-api)
   ，了解调用服务端API的过程及注意事项。
-    - 由于 SDK 已经封装了 app_access_token、tenant_access_token 的获取，所以在调业务API的时候，不需要去获取
-      app_access_token、tenant_access_token。如果业务接口需要使用 user_access_token，需要进行设置 lark.WithUserAccessToken("
-      UserAccessToken")，具体请看：【如何发送请求】
+    - 由于 SDK 已经封装了 app_access_token、tenant_access_token 的获取，所以在调业务 API 的时候，不需要去获取
+      app_access_token、tenant_access_token。如果业务接口需要使用 user_access_token，需要进行设置 lark.WithUserAccessToken("userAccessToken")，具体请看：[如何发送请求](#如何发送请求)
 
 ### 使用`企业自建应用`访问 [发送消息 API](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create) 示例
 
@@ -176,8 +175,8 @@ func main() {
 
 	larkApp := lark.NewApp(lark.DomainFeiShu, appID, appSecret,
 		lark.WithAppEventVerify(verificationToken, encryptKey))
-
-	// @robot message handle
+	
+	// @应用机器人的消息处理
 	im.New(larkApp).Messages.ReceiveEventHandler(func(ctx context.Context, req *lark.RawRequest, event *im.MessageReceiveEvent) error {
 		fmt.Println(req)
 		fmt.Println(lark.Prettify(event))
@@ -186,15 +185,20 @@ func main() {
 
 	// http server handle func
 	http.HandleFunc("/webhook/event", func(writer http.ResponseWriter, request *http.Request) {
+		// 如果开发者使用是其他 Web 框架，需要将 Web 框架的 Request 装成 lark.RawRequest
+		// 经过 larkApp.Webhook.EventCommandHandle(...) 的处理，返回 lark.RawResponse
+		// 再将 lark.RawResponse 转成 Web 框架的Response 
 		rawRequest, err := lark.NewRawRequest(request)
 		if err != nil {
 			writer.WriteHeader(http.StatusInternalServerError)
 			writer.Write([]byte(err.Error()))
 			return
 		}
-		larkApp.Webhook.EventCommandHandle(context.Background(), rawRequest).Write(writer)
+		rawResp := larkApp.Webhook.EventCommandHandle(context.Background(), rawRequest)
+		rawResp.Write(writer)
 	})
-	// startup http server
+	// 设置 "开发者后台" -> "事件订阅" 请求网址 URL：https://domain/webhook/event
+	// startup event http server, port: 8089
 	err := http.ListenAndServe(":8089", nil)
 	if err != nil {
 		panic(err)
@@ -225,8 +229,8 @@ func main() {
 
 	larkApp := lark.NewApp(lark.DomainFeiShu, appID, appSecret,
 		lark.WithAppEventVerify(verificationToken, encryptKey))
-
-	// @robot message handle
+	
+	// @应用机器人的消息处理
 	// "im.message.receive_v1"：事件类型
 	larkApp.Webhook.EventHandleFunc("im.message.receive_v1", func(ctx context.Context, req *lark.RawRequest) error {
 		fmt.Println(req.RequestId())
@@ -236,13 +240,17 @@ func main() {
 
 	// http server handle func
 	http.HandleFunc("/webhook/event", func(writer http.ResponseWriter, request *http.Request) {
+		// 如果开发者使用是其他 Web 框架，需要将 Web 框架的 Request 装成 lark.RawRequest
+		// 经过 larkApp.Webhook.EventCommandHandle(...) 的处理，返回 lark.RawResponse
+		// 再将 lark.RawResponse 转成 Web 框架的Response
 		rawRequest, err := lark.NewRawRequest(request)
 		if err != nil {
 			writer.WriteHeader(http.StatusInternalServerError)
 			writer.Write([]byte(err.Error()))
 			return
 		}
-		larkApp.Webhook.EventCommandHandle(context.Background(), rawRequest).Write(writer)
+		rawResp := larkApp.Webhook.EventCommandHandle(context.Background(), rawRequest)
+		rawResp.Write(writer)
 	})
 	// 设置 "开发者后台" -> "事件订阅" 请求网址 URL：https://domain/webhook/event
 	// startup event http server, port: 8089
@@ -253,7 +261,7 @@ func main() {
 }
 ```
 
-## 处理消息卡片回调
+## 如何处理消息卡片 Action
 
 - **必看** [消息卡片开发流程](https://open.feishu.cn/document/ukTMukTMukTM/uAzMxEjLwMTMx4CMzETM) ，了解订阅事件的过程及注意事项
 - 更多使用示例，请看：[v2/sample/card/card.go](./v2/sample/card/card.go)
@@ -274,6 +282,7 @@ import (
 func main() {
 	appID, appSecret, verificationToken, encryptKey := os.Getenv("APP_ID"), os.Getenv("APP_SECRET"),
 		os.Getenv("VERIFICATION_TOKEN"), os.Getenv("ENCRYPT_KEY")
+	
 	larkApp := lark.NewApp(lark.DomainFeiShu, appID, appSecret,
 		lark.WithAppEventVerify(verificationToken, encryptKey))
 
@@ -294,6 +303,9 @@ func main() {
 	})
 	// http server handle func
 	http.HandleFunc("/webhook/card", func(writer http.ResponseWriter, request *http.Request) {
+		// 如果开发者使用是其他 Web 框架，需要将 Web 框架的 Request 装成 *lark.RawRequest
+		// 经过 larkApp.Webhook.CardActionHandle(...) 的处理，返回 *lark.RawResponse
+		// 再将 lark.RawResponse 转成 Web 框架的Response
 		rawRequest, err := lark.NewRawRequest(request)
 		if err != nil {
 			writer.WriteHeader(http.StatusInternalServerError)
@@ -329,28 +341,28 @@ import (
     "github.com/larksuite/oapi-sdk-go/v2"
 )
 
-// 防止应用信息泄漏，配置环境变量中，变量（4个）说明：
+// 防止应用信息泄漏，配置环境变量中，变量说明：
 // APP_ID："开发者后台" -> "凭证与基础信息" -> 应用凭证 App ID
 // APP_SECRET："开发者后台" -> "凭证与基础信息" -> 应用凭证 App Secret
-// VERIFICATION_TOKEN："开发者后台" -> "事件订阅" -> 事件订阅 Verification Token
-// ENCRYPT_KEY："开发者后台" -> "事件订阅" -> 事件订阅 Encrypt Key
+// VERIFICATION_TOKEN："开发者后台" -> "事件订阅" -> 事件订阅 Verification Token （事件订阅、处理消息卡片Action 必需）
+// ENCRYPT_KEY："开发者后台" -> "事件订阅" -> 事件订阅 Encrypt Key（事件订阅 必需）
 // HELP_DESK_ID: 服务台设置中心 -> ID
 // HELP_DESK_TOKEN: 服务台设置中心 -> 令牌
 
 appID, appSecret, verificationToken, encryptKey, helpDeskID, helpDeskToken := os.Getenv("APP_ID"), os.Getenv("APP_SECRET"),
 os.Getenv("VERIFICATION_TOKEN"), os.Getenv("ENCRYPT_KEY"), os.Getenv("HELP_DESK_ID"), os.Getenv("HELP_DESK_TOKEN")
 
-// 企业自建应用的配置，通过环境变量获取应用配置
+// 企业自建应用的配置
 larkApp := lark.NewApp(lark.DomainFeiShu, appID, appSecret,
-    lark.WithAppEventVerify(verificationToken, encryptKey), // 非必需，事件订阅时必需
-    lark.WithAppHelpdeskCredential(helpDeskID, helpDeskToken), // 非必需，访问服务台 API 时必需
+    lark.WithAppEventVerify(verificationToken, encryptKey), // 非必需，事件订阅、处理消息卡片Action时必需
+    lark.WithAppHelpdeskCredential(helpDeskID, helpDeskToken), // 非必需，访问服务台API时必需
 )
 
-// 应用商店应用的配置，通过环境变量获取应用配置
+// 应用商店应用的配置
 larkApp := lark.NewApp(lark.DomainFeiShu, appID, appSecret, 
-	lark.WithAppType(lark.AppTypeMarketplace), // 标识应用类型为：应用商店应用
-    lark.WithAppEventVerify(verificationToken, encryptKey), // 非必需，事件订阅时必需
-    lark.WithAppHelpdeskCredential(helpDeskID, helpDeskToken), // 非必需，访问服务台 API 时必需
+    lark.WithAppType(lark.AppTypeMarketplace), // 标识应用类型为：应用商店应用
+    lark.WithAppEventVerify(verificationToken, encryptKey), // 非必需，事件订阅、处理消息卡片Action时必需
+    lark.WithAppHelpdeskCredential(helpDeskID, helpDeskToken), // 非必需，访问服务台API时必需
 )
 
 
@@ -362,7 +374,7 @@ larkApp := lark.NewApp(lark.DomainFeiShu, appID, appSecret,
 )
 // 更多示例：v2/sample/api/marketplace_app.go 的 "sample.Logrus{}"
 larkApp := lark.NewApp(lark.DomainFeiShu, appID, appSecret,
-    lark.WithLogger(sample.Logrus{}, lark.LogLevelDebug), // use logrus print log
+    lark.WithLogger(sample.Logrus{}, lark.LogLevelDebug),
 )
 
 
@@ -522,7 +534,7 @@ func (m *Message***) JSON() (string, error) {}
 |lark.Int8Value(v *int8)|*int8 转 int8|
 |lark.Int16Value(v *int16)|*int16 转 int16|
 |lark.Int32Value(v *int32)|*int32 转 int32|
-|lark.Int32Value(v *int64)|*int32 转 int64|
+|lark.Int32Value(v *int64)|*int64 转 int64|
 |lark.Float32Value(v *float32)|*float32 转 float32|
 |lark.Float64Value(v *float64)|*float64 转 float64|
 |lark.TimeValue(v *time.Time)|*time.Time 转 time.Time|
