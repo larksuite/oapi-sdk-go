@@ -27,7 +27,6 @@ const (
 type webhookType string
 
 const (
-	webhookTypeEvent     webhookType = "event_callback"
 	webhookTypeChallenge webhookType = "url_verification"
 )
 
@@ -49,20 +48,16 @@ const (
 )
 
 const (
-	errCodeOk                       = 0
 	errCodeAppTicketInvalid         = 10012
 	errCodeAccessTokenInvalid       = 99991671
 	errCodeAppAccessTokenInvalid    = 99991664
 	errCodeTenantAccessTokenInvalid = 99991663
-	errCodeUserAccessTokenInvalid   = 99991668
-	errCodeUserRefreshTokenInvalid  = 99991669
 )
 
 const (
 	larkRequestNonce     = "X-Lark-Request-Nonce"
 	larkRequestTimestamp = "X-Lark-Request-Timestamp"
 	larkSignature        = "X-Lark-Signature"
-	larkRefreshToken     = "X-Refresh-Token"
 )
 
 const webhookResponseFormat = `{"msg":"%s"}`

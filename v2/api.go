@@ -133,14 +133,14 @@ func parseInput(input interface{}, option *requestOption) (map[string]interface{
 		fieldType := vt.Field(i)
 		if path, ok := fieldType.Tag.Lookup("path"); ok {
 			hasHTTPTag = true
-			if path != "" && !isEmpty(fieldValue) {
+			if path != "" && !isEmptyValue(fieldValue) {
 				paths[path] = reflect.Indirect(fieldValue).Interface()
 			}
 			continue
 		}
 		if query, ok := fieldType.Tag.Lookup("query"); ok {
 			hasHTTPTag = true
-			if query != "" && !isEmpty(fieldValue) {
+			if query != "" && !isEmptyValue(fieldValue) {
 				queries[query] = reflect.Indirect(fieldValue).Interface()
 			}
 			continue
@@ -176,27 +176,15 @@ func toFormdata(body interface{}) *Formdata {
 	for i := 0; i < t.NumField(); i++ {
 		fieldValue := v.Field(i)
 		fieldType := t.Field(i)
-		if isEmpty(fieldValue) {
+		if isEmptyValue(fieldValue) {
 			continue
 		}
 		if fieldName := fieldType.Tag.Get("json"); fieldName != "" {
-			if strings.HasSuffix(fieldName, ",omitempty") {
-				fieldName = fieldName[:len(fieldName)-10]
-			}
+			fieldName = strings.TrimSuffix(fieldName, ",omitempty")
 			formdata.AddField(fieldName, reflect.Indirect(fieldValue).Interface())
 		}
 	}
 	return formdata
-}
-
-func isEmpty(value reflect.Value) bool {
-	if (value.Kind() == reflect.Ptr || value.Kind() == reflect.Slice || value.Kind() == reflect.Map) && value.IsNil() {
-		return true
-	}
-	if (value.Kind() == reflect.Slice || value.Kind() == reflect.Map) && value.Len() == 0 {
-		return true
-	}
-	return false
 }
 
 func jointURL(domain Domain, httpPath string, paths, queries map[string]interface{}) (string, error) {
@@ -282,7 +270,7 @@ func (r *request) do(ctx context.Context, app *App) (*RawResponse, error) {
 	}
 	rawResp, code, err := r.send(ctx, app)
 	if code == errCodeAppTicketInvalid || err == ErrAppTicketIsEmpty {
-		app.logger.Warn(ctx, fmt.Sprintf("app_ticket invalid, send apply app_ticket request"))
+		app.logger.Warn(ctx, "app_ticket invalid, send apply app_ticket request")
 		r.applyAppTicket(ctx, app)
 	}
 	return rawResp, err

@@ -376,16 +376,6 @@ func parseJSONTag(val string) (jsonTag, error) {
 	return tag, nil
 }
 
-func includeField(v reflect.Value, f reflect.StructField, mustInclude map[string]bool) bool {
-	if f.Type.Kind() == reflect.Ptr && v.IsNil() {
-		return false
-	}
-	if f.Type.Kind() == reflect.Interface && v.IsNil() {
-		return false
-	}
-	return mustInclude[f.Name] || !isEmptyValue(v)
-}
-
 func isEmptyValue(v reflect.Value) bool {
 	switch v.Kind() {
 	case reflect.Array, reflect.Map, reflect.Slice, reflect.String:

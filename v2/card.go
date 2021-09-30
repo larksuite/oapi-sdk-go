@@ -59,7 +59,6 @@ func (c httpCard) do(ctx context.Context, wh *webhook) {
 			return
 		}
 		c.response.RawBody = []byte(fmt.Sprintf(webhookResponseFormat, "success"))
-		return
 	}()
 	wh.app.logger.Debug(ctx, fmt.Sprintf("card action: %v", c.request))
 	out := &cardChallenge{}

@@ -87,7 +87,6 @@ func (e *httpEvent) do(ctx context.Context, wh *webhook) {
 			return
 		}
 		e.response.RawBody = []byte(fmt.Sprintf(webhookResponseFormat, "success"))
-		return
 	}()
 	var body = e.request.RawBody
 	wh.app.logger.Debug(ctx, fmt.Sprintf("event request: %v", e.request))

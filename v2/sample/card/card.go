@@ -36,7 +36,7 @@ func main() {
 		rawRequest, err := lark.NewRawRequest(request)
 		if err != nil {
 			writer.WriteHeader(http.StatusInternalServerError)
-			writer.Write([]byte(err.Error()))
+			_, _ = writer.Write([]byte(err.Error()))
 			return
 		}
 		larkApp.Webhook.CardActionHandle(context.Background(), rawRequest).Write(writer)
