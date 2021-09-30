@@ -185,9 +185,9 @@ func main() {
 
 	// http server handle func
 	http.HandleFunc("/webhook/event", func(writer http.ResponseWriter, request *http.Request) {
-		// 如果开发者使用是其他 Web 框架，需要将 Web 框架的 Request 装成 lark.RawRequest
-		// 经过 larkApp.Webhook.EventCommandHandle(...) 的处理，返回 lark.RawResponse
-		// 再将 lark.RawResponse 转成 Web 框架的Response 
+		// 如果开发者使用是其他Web框架，需要将Web框架的Request转成lark.RawRequest
+		// 经过larkApp.Webhook.EventCommandHandle(...) 的处理，返回lark.RawResponse
+		// 再将lark.RawResponse转成Web框架的Response
 		rawRequest, err := lark.NewRawRequest(request)
 		if err != nil {
 			writer.WriteHeader(http.StatusInternalServerError)
@@ -240,9 +240,9 @@ func main() {
 
 	// http server handle func
 	http.HandleFunc("/webhook/event", func(writer http.ResponseWriter, request *http.Request) {
-		// 如果开发者使用是其他 Web 框架，需要将 Web 框架的 Request 装成 lark.RawRequest
-		// 经过 larkApp.Webhook.EventCommandHandle(...) 的处理，返回 lark.RawResponse
-		// 再将 lark.RawResponse 转成 Web 框架的Response
+		// 如果开发者使用是其他Web框架，需要将Web框架的Request转成lark.RawRequest
+		// 经过larkApp.Webhook.EventCommandHandle(...) 的处理，返回lark.RawResponse
+		// 再将lark.RawResponse转成Web框架的Response
 		rawRequest, err := lark.NewRawRequest(request)
 		if err != nil {
 			writer.WriteHeader(http.StatusInternalServerError)
@@ -303,9 +303,9 @@ func main() {
 	})
 	// http server handle func
 	http.HandleFunc("/webhook/card", func(writer http.ResponseWriter, request *http.Request) {
-		// 如果开发者使用是其他 Web 框架，需要将 Web 框架的 Request 装成 *lark.RawRequest
-		// 经过 larkApp.Webhook.CardActionHandle(...) 的处理，返回 *lark.RawResponse
-		// 再将 lark.RawResponse 转成 Web 框架的Response
+		// 如果开发者使用是其他Web框架，需要将Web框架的Request转成lark.RawRequest
+		// 经过larkApp.Webhook.CardActionHandle(...) 的处理，返回lark.RawResponse
+		// 再将lark.RawResponse转成Web框架的Response
 		rawRequest, err := lark.NewRawRequest(request)
 		if err != nil {
 			writer.WriteHeader(http.StatusInternalServerError)
@@ -367,22 +367,22 @@ larkApp := lark.NewApp(lark.DomainFeiShu, appID, appSecret,
 
 
 // 配置日志接口的实现
-// 例如：使用 logrus 实现，请看示例代码：v2/sample/logrus.go
+// 例如：使用logrus实现，请看示例代码：v2/sample/logrus.go
 // 例如：日志（lark.NewDefaultLogger()：日志控制台输出），日志级别（lark.LogLevelDebug：debug级别，可以打印更好的日志，利于排查问题）
 larkApp := lark.NewApp(lark.DomainFeiShu, appID, appSecret,
 	lark.WithLogger(lark.NewDefaultLogger(), lark.LogLevelDebug), // 非必需
 )
-// 更多示例：v2/sample/api/marketplace_app.go 的 "sample.Logrus{}"
+// 更多示例：v2/sample/api/marketplace_app.go的"sample.Logrus{}"
 larkApp := lark.NewApp(lark.DomainFeiShu, appID, appSecret,
     lark.WithLogger(sample.Logrus{}, lark.LogLevelDebug),
 )
 
 
 // 配置存储接口，用于存放：app_access_token、tenant_access_token、app_ticket
-// 默认是 sync.map 内存实现的
-// 例如：使用 Redis 实现，请看示例代码：v2/sample/redis_store.go
-// 对于应用商品应用，接收开放平台下发的 app_ticket，会保存到存储中，所以存储接口的实现的实现需要支持分布式存储
-// 更多示例：v2/sample/api/marketplace_app.go 的 "sample.NewRedisStore()"
+// 默认是sync.map内存实现的
+// 例如：使用redis实现，请看示例代码：v2/sample/redis_store.go
+// 对于应用商品应用，接收开放平台下发的app_ticket，会保存到存储中，所以存储接口的实现的实现需要支持分布式存储
+// 更多示例：v2/sample/api/marketplace_app.go的"sample.NewRedisStore()"
 larkApp := lark.NewApp(lark.DomainFeiShu, appID, appSecret,
 	lark.WithStore(sample.NewRedisStore()) // use redis store
 )
@@ -416,7 +416,7 @@ app := lark.NewApp(lark.DomainFeiShu, appID, appSecret)
 
 // accessTokenType：API使用哪种访问凭证（lark.AccessTokenTypeApp/lark.AccessTokenTypeTenant/lark.AccessTokenTypeUser）
 
-// input：请求体（可能是 lark.NewFormdata()（例如：文件上传））, 如果不需要请求体（例如：GET请求），则传：nil
+// input：请求体（可以是lark.NewFormdata()，表示：文件上传）, 如果不需要请求体（例如：GET请求），则传：nil
 
 // options：扩展函数，如下： 
 // lark.WithTenantKey("tenantKey")，以`应用商店应用`身份，表示使用`tenant_access_token`访问API，需要设置
@@ -534,7 +534,7 @@ func (m *Message***) JSON() (string, error) {}
 |lark.Int8Value(v *int8)|*int8 转 int8|
 |lark.Int16Value(v *int16)|*int16 转 int16|
 |lark.Int32Value(v *int32)|*int32 转 int32|
-|lark.Int32Value(v *int64)|*int64 转 int64|
+|lark.Int64Value(v *int64)|*int64 转 int64|
 |lark.Float32Value(v *float32)|*float32 转 float32|
 |lark.Float64Value(v *float64)|*float64 转 float64|
 |lark.TimeValue(v *time.Time)|*time.Time 转 time.Time|
