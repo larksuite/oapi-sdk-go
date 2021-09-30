@@ -381,7 +381,7 @@ larkApp := lark.NewApp(lark.DomainFeiShu, appID, appSecret,
 // 配置存储接口，用于存放：app_access_token、tenant_access_token、app_ticket
 // 默认是 sync.map 内存实现的
 // 例如：使用 Redis 实现，请看示例代码：v2/sample/redis_store.go
-// 对于应用商品应用，接收开放平台下发的 app_ticket ，会保存到存储中，所以存储接口的实现的实现需要支持分布式存储
+// 对于应用商品应用，接收开放平台下发的 app_ticket，会保存到存储中，所以存储接口的实现的实现需要支持分布式存储
 // 更多示例：v2/sample/api/marketplace_app.go 的 "sample.NewRedisStore()"
 larkApp := lark.NewApp(lark.DomainFeiShu, appID, appSecret,
 	lark.WithStore(sample.NewRedisStore()) // use redis store
@@ -408,7 +408,7 @@ app := lark.NewApp(lark.DomainFeiShu, appID, appSecret)
 // 参数说明：
 // ctx: context.Context
 
-// httpMethod: HTTP method（http.MethodGET/http.MethodPOST/http.MethodPUT/http.MethodPATCH/http.MethodDELETE）
+// httpMethod: HTTP method（http.MethodGet/http.MethodPost/http.MethodPut/http.MethodPatch/http.MethodDelete）
 
 // httpPath：API路径
 // 支持：域名之后的路径，则 httpPath："/open-apis/contact/v3/users/:user_id"（推荐）
@@ -419,22 +419,22 @@ app := lark.NewApp(lark.DomainFeiShu, appID, appSecret)
 // input：请求体（可能是 lark.NewFormdata()（例如：文件上传））, 如果不需要请求体（例如：GET请求），则传：nil
 
 // options：扩展函数，如下： 
-// lark.WithTenantKey("TenantKey")，以`应用商店应用`身份，表示使用`tenant_access_token`访问API，需要设置
-// lark.WithUserAccessToken("UserAccessToken")，表示使用`user_access_token`访问API，需要设置
-// lark.WithNeedHelpDeskAuth()，表示是 服务台API，需要设置 lark app 的 help desk 信息
+// lark.WithTenantKey("tenantKey")，以`应用商店应用`身份，表示使用`tenant_access_token`访问API，需要设置
+// lark.WithUserAccessToken("userAccessToken")，表示使用`user_access_token`访问API，需要设置
+// lark.WithNeedHelpDeskAuth()，表示是服务台API，需要HelpDesk的Auth验证，需要设置 lark app 的 HelpDesk 信息
 // lark.WithHTTPHeader(header http.Header)，设置 HTTP header
 func (app *App) SendRequest(ctx context.Context, httpMethod string, httpPath string,
     accessTokenType AccessTokenType, input interface{}, options ...RequestOptionFunc) (*RawResponse, error) {}
 
 
-// 发送请求的响应（RawResponse）
+// 发送请求的响应（lark.RawResponse）
 type RawResponse struct {
     StatusCode int         `json:"-"`
     Header     http.Header `json:"-"`
     RawBody    []byte      `json:"-"`
 }
 
-// 获取请求的ID，反馈问题的时候，提供 RequestId，排查问题更方便
+// 获取请求的ID，反馈问题的时候，提供RequestId（HTTP.header["X-Tt-Logid"]），排查问题更方便
 func (resp RawResponse) RequestId() string {}
 
 // 响应的Body，反序列化一个实例上
@@ -467,13 +467,13 @@ app := lark.NewApp(lark.DomainFeiShu, appID, appSecret, lark.WithAppEventVerify(
 func (wh *webhook) EventHandleFunc(eventType string, handler func(ctx context.Context, req *RawRequest) error) {}
 
 
-// 事件的回调请求（RawRequest）
+// 事件的回调请求（lark.RawRequest）
 type RawRequest struct {
     Header  http.Header
     RawBody []byte
 }
 
-// 获取请求的ID，反馈问题的时候，提供 RequestId，排查问题更方便
+// 获取请求的ID，反馈问题的时候，提供RequestId，排查问题更方便
 func (req RawRequest) RequestId() string {}
 
 // 请求的Body，反序列化一个实例上
@@ -504,7 +504,7 @@ func (req RawRequest) JSONUnmarshalBody(val interface{}) error {}
 
 ```go
 
-// 消息内容 Model 都有 JSON 方法，返回 JSON 字符串
+// 消息内容Model都有JSON方法，返回JSON字符串
 func (m *Message***) JSON() (string, error) {}
 
 ```
