@@ -24,6 +24,7 @@ type images struct {
 }
 
 func (i *images) Get(ctx context.Context, req *ImageGetReq, options ...lark.RequestOptionFunc) (*ImageGetResp, error) {
+	options = append(options, lark.WithFileDownload())
 	rawResp, err := i.app.SendRequestWithAccessTokenTypes(ctx, http.MethodGet,
 		"/open-apis/image/v4/get", []lark.AccessTokenType{lark.AccessTokenTypeTenant}, req, options...)
 	if err != nil {

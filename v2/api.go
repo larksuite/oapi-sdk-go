@@ -91,6 +91,12 @@ func WithFileUpload() RequestOptionFunc {
 	}
 }
 
+func WithFileDownload() RequestOptionFunc {
+	return func(option *requestOption) {
+		option.fileDownload = true
+	}
+}
+
 func WithHTTPHeader(header http.Header) RequestOptionFunc {
 	return func(option *requestOption) {
 		option.header = header
@@ -255,6 +261,7 @@ type requestOption struct {
 	userAccessToken  string
 	needHelpDeskAuth bool
 	fileUpload       bool
+	fileDownload     bool
 	header           http.Header
 }
 
@@ -307,7 +314,8 @@ func (r *request) send(ctx context.Context, app *App) (*RawResponse, int, error)
 			return nil, 0, err
 		}
 		app.logger.Debug(ctx, fmt.Sprintf("send request %v, response %v", r, rawResp))
-		if r.retryCount == 1 || !strings.Contains(rawResp.Header.Get(contentTypeHeader), contentTypeJson) {
+		fileDownloadSuccess := r.option.fileDownload && rawResp.StatusCode == http.StatusOK
+		if fileDownloadSuccess || !strings.Contains(rawResp.Header.Get(contentTypeHeader), contentTypeJson) {
 			break
 		}
 		codeError := &CodeError{}

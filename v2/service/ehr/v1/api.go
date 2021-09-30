@@ -29,6 +29,7 @@ type employees struct {
 }
 
 func (a *attachments) Get(ctx context.Context, req *AttachmentGetReq, options ...lark.RequestOptionFunc) (*AttachmentGetResp, error) {
+	options = append(options, lark.WithFileDownload())
 	rawResp, err := a.app.SendRequestWithAccessTokenTypes(ctx, http.MethodGet,
 		"/open-apis/ehr/v1/attachments/:token", []lark.AccessTokenType{lark.AccessTokenTypeTenant}, req, options...)
 	if err != nil {

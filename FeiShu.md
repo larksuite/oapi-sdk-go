@@ -423,6 +423,7 @@ app := lark.NewApp(lark.DomainFeiShu, appID, appSecret)
 // lark.WithUserAccessToken("userAccessToken")，表示使用`user_access_token`访问API，需要设置
 // lark.WithNeedHelpDeskAuth()，表示是服务台API，需要HelpDesk的Auth验证，需要设置 lark app 的 HelpDesk 信息
 // lark.WithHTTPHeader(header http.Header)，设置 HTTP header
+// lark.WithFileDownload()，表示下载文件
 func (app *App) SendRequest(ctx context.Context, httpMethod string, httpPath string,
     accessTokenType AccessTokenType, input interface{}, options ...RequestOptionFunc) (*RawResponse, error) {}
 

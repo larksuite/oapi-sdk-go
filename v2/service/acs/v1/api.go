@@ -57,6 +57,7 @@ func (a *accessRecords) List(ctx context.Context, req *AccessRecordListReq, opti
 	return resp, err
 }
 func (a *accessRecordAccessPhoto) Get(ctx context.Context, req *AccessRecordAccessPhotoGetReq, options ...lark.RequestOptionFunc) (*AccessRecordAccessPhotoGetResp, error) {
+	options = append(options, lark.WithFileDownload())
 	rawResp, err := a.app.SendRequestWithAccessTokenTypes(ctx, http.MethodGet,
 		"/open-apis/acs/v1/access_records/:access_record_id/access_photo", []lark.AccessTokenType{lark.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
@@ -127,6 +128,7 @@ func (u *users) List(ctx context.Context, req *UserListReq, options ...lark.Requ
 	return resp, err
 }
 func (u *userFace) Get(ctx context.Context, req *UserFaceGetReq, options ...lark.RequestOptionFunc) (*UserFaceGetResp, error) {
+	options = append(options, lark.WithFileDownload())
 	rawResp, err := u.app.SendRequestWithAccessTokenTypes(ctx, http.MethodGet,
 		"/open-apis/acs/v1/users/:user_id/face", []lark.AccessTokenType{lark.AccessTokenTypeTenant}, req, options...)
 	if err != nil {

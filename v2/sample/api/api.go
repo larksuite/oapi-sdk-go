@@ -16,8 +16,8 @@ func main() {
 
 	ctx := context.Background()
 	sendMessage(ctx, larkApp)
-	//uploadImage(ctx, larkApp)
-	//downloadImage(ctx, larkApp)
+	uploadImage(ctx, larkApp)
+	downloadImage(ctx, larkApp)
 }
 
 func sendMessage(ctx context.Context, larkApp *lark.App) {
@@ -56,8 +56,8 @@ func uploadImage(ctx context.Context, larkApp *lark.App) {
 }
 
 func downloadImage(ctx context.Context, larkApp *lark.App) {
-	resp, err := larkApp.SendRequest(ctx, http.MethodGet, "/open-apis/image/v4/get?image_key=img_v2_a0cea146-64d2-4dcb-94c7-636586fea98g",
-		lark.AccessTokenTypeTenant, nil)
+	resp, err := larkApp.SendRequest(ctx, http.MethodGet, "/open-apis/image/v4/get?image_key=img_v2_b49b2df3-f277-467b-a650-d352839f4b6g",
+		lark.AccessTokenTypeTenant, nil, lark.WithFileDownload())
 	if err != nil {
 		fmt.Println(err)
 		return

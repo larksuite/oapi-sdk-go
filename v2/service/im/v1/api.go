@@ -247,6 +247,7 @@ func (f *files) Create(ctx context.Context, req *FileCreateReq, options ...lark.
 	return resp, err
 }
 func (f *files) Get(ctx context.Context, req *FileGetReq, options ...lark.RequestOptionFunc) (*FileGetResp, error) {
+	options = append(options, lark.WithFileDownload())
 	rawResp, err := f.app.SendRequestWithAccessTokenTypes(ctx, http.MethodGet,
 		"/open-apis/im/v1/files/:file_key", []lark.AccessTokenType{lark.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
@@ -279,6 +280,7 @@ func (i *images) Create(ctx context.Context, req *ImageCreateReq, options ...lar
 	return resp, err
 }
 func (i *images) Get(ctx context.Context, req *ImageGetReq, options ...lark.RequestOptionFunc) (*ImageGetResp, error) {
+	options = append(options, lark.WithFileDownload())
 	rawResp, err := i.app.SendRequestWithAccessTokenTypes(ctx, http.MethodGet,
 		"/open-apis/im/v1/images/:image_key", []lark.AccessTokenType{lark.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
@@ -388,6 +390,7 @@ func (m *messages) Get(ctx context.Context, req *MessageGetReq, options ...lark.
 	return resp, err
 }
 func (r *resources) Get(ctx context.Context, req *MessageResourceGetReq, options ...lark.RequestOptionFunc) (*MessageResourceGetResp, error) {
+	options = append(options, lark.WithFileDownload())
 	rawResp, err := r.app.SendRequestWithAccessTokenTypes(ctx, http.MethodGet,
 		"/open-apis/im/v1/messages/:message_id/resources/:file_key", []lark.AccessTokenType{lark.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
