@@ -7,6 +7,18 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v2"
 )
 
+type Attachment struct {
+	Id       *string `json:"id,omitempty"`
+	MimeType *string `json:"mime_type,omitempty"`
+	Name     *string `json:"name,omitempty"`
+	Size     *int64  `json:"size,omitempty"`
+}
+
+type ContractCompany struct {
+	Id   *int64  `json:"id,omitempty"`
+	Name *string `json:"name,omitempty"`
+}
+
 type CustomFields struct {
 	Key   *string `json:"key,omitempty"`
 	Label *string `json:"label,omitempty"`
@@ -35,6 +47,16 @@ type Employee struct {
 	CustomFields []*CustomFields `json:"custom_fields,omitempty"`
 }
 
+type Job struct {
+	Id   *int64  `json:"id,omitempty"`
+	Name *string `json:"name,omitempty"`
+}
+
+type JobLevel struct {
+	Id   *int64  `json:"id,omitempty"`
+	Name *string `json:"name,omitempty"`
+}
+
 type Manager struct {
 	UserId *string `json:"user_id,omitempty"`
 	Name   *string `json:"name,omitempty"`
@@ -44,28 +66,6 @@ type Manager struct {
 type NativeRegion struct {
 	IsoCode *string `json:"iso_code,omitempty"`
 	Name    *string `json:"name,omitempty"`
-}
-
-type Attachment struct {
-	Id       *string `json:"id,omitempty"`
-	MimeType *string `json:"mime_type,omitempty"`
-	Name     *string `json:"name,omitempty"`
-	Size     *int64  `json:"size,omitempty"`
-}
-
-type ContractCompany struct {
-	Id   *int64  `json:"id,omitempty"`
-	Name *string `json:"name,omitempty"`
-}
-
-type Job struct {
-	Id   *int64  `json:"id,omitempty"`
-	Name *string `json:"name,omitempty"`
-}
-
-type JobLevel struct {
-	Id   *int64  `json:"id,omitempty"`
-	Name *string `json:"name,omitempty"`
 }
 
 type SystemFields struct {
@@ -158,15 +158,15 @@ type AttachmentGetResp struct {
 }
 
 type EmployeeListReq struct {
-	View       *string `query:"view"`
-	Status     []int   `query:"status"`
-	Type       []int   `query:"type"`
-	StartTime  *int64  `query:"start_time"`
-	EndTime    *int64  `query:"end_time"`
-	UserIdType *string `query:"user_id_type"`
-	UserIds    *string `query:"user_ids"`
-	PageToken  *string `query:"page_token"`
-	PageSize   *int    `query:"page_size"`
+	View       *string  `query:"view"`
+	Status     []int    `query:"status"`
+	Type       []int    `query:"type"`
+	StartTime  *int64   `query:"start_time"`
+	EndTime    *int64   `query:"end_time"`
+	UserIdType *string  `query:"user_id_type"`
+	UserIds    []string `query:"user_ids"`
+	PageToken  *string  `query:"page_token"`
+	PageSize   *int     `query:"page_size"`
 }
 
 type EmployeeListRespData struct {

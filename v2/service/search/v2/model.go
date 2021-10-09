@@ -30,6 +30,8 @@ type DataSource struct {
 	CreateTime    *string `json:"create_time,omitempty"`
 	UpdateTime    *string `json:"update_time,omitempty"`
 	IsExceedQuota *bool   `json:"is_exceed_quota,omitempty"`
+	IconUrl       *string `json:"icon_url,omitempty"`
+	Template      *string `json:"template,omitempty"`
 }
 
 type Item struct {

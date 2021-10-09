@@ -36,20 +36,6 @@ type MaterialUploadResult struct {
 	Result    *int    `json:"result,omitempty"`
 }
 
-type Meeting struct {
-	Id               *int64                `json:"id,omitempty,string"`
-	Topic            *string               `json:"topic,omitempty"`
-	Url              *string               `json:"url,omitempty"`
-	CreateTime       *int64                `json:"create_time,omitempty,string"`
-	StartTime        *int64                `json:"start_time,omitempty,string"`
-	EndTime          *int64                `json:"end_time,omitempty,string"`
-	HostUser         *MeetingUser          `json:"host_user,omitempty"`
-	Status           *int                  `json:"status,omitempty"`
-	ParticipantCount *int64                `json:"participant_count,omitempty,string"`
-	Participants     []*MeetingParticipant `json:"participants,omitempty"`
-	Ability          *MeetingAbility       `json:"ability,omitempty"`
-}
-
 type MeetingRecording struct {
 	Id        *int64  `json:"id,omitempty,string"`
 	MeetingId *int64  `json:"meeting_id,omitempty,string"`
@@ -86,21 +72,6 @@ type MeetingInviteStatus struct {
 	Id       *string `json:"id,omitempty"`
 	UserType *int    `json:"user_type,omitempty"`
 	Status   *int    `json:"status,omitempty"`
-}
-
-type MeetingParticipant struct {
-	Id         *string `json:"id,omitempty"`
-	UserType   *int    `json:"user_type,omitempty"`
-	IsHost     *bool   `json:"is_host,omitempty"`
-	IsCohost   *bool   `json:"is_cohost,omitempty"`
-	IsExternal *bool   `json:"is_external,omitempty"`
-	Status     *int    `json:"status,omitempty"`
-}
-
-type MeetingParticipantResult struct {
-	Id       *string `json:"id,omitempty"`
-	UserType *int    `json:"user_type,omitempty"`
-	Result   *int    `json:"result,omitempty"`
 }
 
 type MeetingUser struct {
@@ -141,18 +112,6 @@ type ReportTopUser struct {
 	MeetingDuration *int64  `json:"meeting_duration,omitempty,string"`
 }
 
-type Reserve struct {
-	Id              *int64                 `json:"id,omitempty,string"`
-	MeetingNo       *string                `json:"meeting_no,omitempty"`
-	Url             *string                `json:"url,omitempty"`
-	AppLink         *string                `json:"app_link,omitempty"`
-	LiveLink        *string                `json:"live_link,omitempty"`
-	EndTime         *int64                 `json:"end_time,omitempty,string"`
-	ExpireStatus    *int                   `json:"expire_status,omitempty"`
-	ReserveUserId   *string                `json:"reserve_user_id,omitempty"`
-	MeetingSettings *ReserveMeetingSetting `json:"meeting_settings,omitempty"`
-}
-
 type ReserveActionPermission struct {
 	Permission         *int                        `json:"permission,omitempty"`
 	PermissionCheckers []*ReservePermissionChecker `json:"permission_checkers,omitempty"`
@@ -187,6 +146,52 @@ type RoomDigitalSignage struct {
 	StartDisplay *int                          `json:"start_display,omitempty"`
 	StopDisplay  *int                          `json:"stop_display,omitempty"`
 	Materials    []*RoomDigitalSignageMaterial `json:"materials,omitempty"`
+}
+
+type Meeting struct {
+	Id                          *int64                `json:"id,omitempty,string"`
+	Topic                       *string               `json:"topic,omitempty"`
+	Url                         *string               `json:"url,omitempty"`
+	MeetingNo                   *string               `json:"meeting_no,omitempty"`
+	CreateTime                  *int64                `json:"create_time,omitempty,string"`
+	StartTime                   *int64                `json:"start_time,omitempty,string"`
+	EndTime                     *int64                `json:"end_time,omitempty,string"`
+	HostUser                    *MeetingUser          `json:"host_user,omitempty"`
+	Status                      *int                  `json:"status,omitempty"`
+	ParticipantCount            *int64                `json:"participant_count,omitempty,string"`
+	ParticipantCountAccumulated *int64                `json:"participant_count_accumulated,omitempty,string"`
+	Participants                []*MeetingParticipant `json:"participants,omitempty"`
+	Ability                     *MeetingAbility       `json:"ability,omitempty"`
+}
+
+type MeetingParticipant struct {
+	Id                *string `json:"id,omitempty"`
+	FirstJoinTime     *int64  `json:"first_join_time,omitempty,string"`
+	FinalLeaveTime    *int64  `json:"final_leave_time,omitempty,string"`
+	InMeetingDuration *int64  `json:"in_meeting_duration,omitempty,string"`
+	UserType          *int    `json:"user_type,omitempty"`
+	IsHost            *bool   `json:"is_host,omitempty"`
+	IsCohost          *bool   `json:"is_cohost,omitempty"`
+	IsExternal        *bool   `json:"is_external,omitempty"`
+	Status            *int    `json:"status,omitempty"`
+}
+
+type MeetingParticipantResult struct {
+	Id       *string `json:"id,omitempty"`
+	UserType *int    `json:"user_type,omitempty"`
+	Result   *int    `json:"result,omitempty"`
+}
+
+type Reserve struct {
+	Id              *int64                 `json:"id,omitempty,string"`
+	MeetingNo       *string                `json:"meeting_no,omitempty"`
+	Url             *string                `json:"url,omitempty"`
+	AppLink         *string                `json:"app_link,omitempty"`
+	LiveLink        *string                `json:"live_link,omitempty"`
+	EndTime         *int64                 `json:"end_time,omitempty,string"`
+	ExpireStatus    *int                   `json:"expire_status,omitempty"`
+	ReserveUserId   *string                `json:"reserve_user_id,omitempty"`
+	MeetingSettings *ReserveMeetingSetting `json:"meeting_settings,omitempty"`
 }
 
 type RoomConfig struct {
@@ -293,6 +298,26 @@ type MeetingKickoutResp struct {
 	*lark.RawResponse `json:"-"`
 	lark.CodeError
 	Data *MeetingKickoutRespData `json:"data"`
+}
+
+type MeetingListByNoReq struct {
+	MeetingNo *string `query:"meeting_no"`
+	StartTime *int64  `query:"start_time"`
+	EndTime   *int64  `query:"end_time"`
+	PageToken *string `query:"page_token"`
+	PageSize  *int    `query:"page_size"`
+}
+
+type MeetingListByNoRespData struct {
+	HasMore       *bool      `json:"has_more,omitempty"`
+	PageToken     *string    `json:"page_token,omitempty"`
+	MeetingBriefs []*Meeting `json:"meeting_briefs,omitempty"`
+}
+
+type MeetingListByNoResp struct {
+	*lark.RawResponse `json:"-"`
+	lark.CodeError
+	Data *MeetingListByNoRespData `json:"data"`
 }
 
 type MeetingRecordingGetReq struct {

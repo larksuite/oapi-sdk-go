@@ -5,11 +5,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v2"
 )
 
-type Href struct {
-	Url   *string `json:"url,omitempty"`
-	Title *string `json:"title,omitempty"`
-}
-
 type Collaborator struct {
 	Id *string `json:"id,omitempty"`
 }
@@ -28,6 +23,11 @@ type Due struct {
 
 type Follower struct {
 	Id *string `json:"id,omitempty"`
+}
+
+type Href struct {
+	Url   *string `json:"url,omitempty"`
+	Title *string `json:"title,omitempty"`
 }
 
 type Origin struct {
@@ -52,6 +52,7 @@ type Task struct {
 	Due          *Due    `json:"due,omitempty"`
 	Origin       *Origin `json:"origin,omitempty"`
 	CanEdit      *bool   `json:"can_edit,omitempty"`
+	Custom       *string `json:"custom,omitempty"`
 }
 
 type TaskCompleteReq struct {

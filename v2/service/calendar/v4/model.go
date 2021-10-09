@@ -386,6 +386,8 @@ type CalendarEventListReq struct {
 	AnchorTime *string `query:"anchor_time"`
 	PageToken  *string `query:"page_token"`
 	SyncToken  *string `query:"sync_token"`
+	StartTime  *string `query:"start_time"`
+	EndTime    *string `query:"end_time"`
 }
 
 type CalendarEventListRespData struct {

@@ -11,6 +11,31 @@ type AppTable struct {
 	Name     *string `json:"name,omitempty"`
 }
 
+type DeleteRecord struct {
+	Deleted  *bool   `json:"deleted,omitempty"`
+	RecordId *string `json:"record_id,omitempty"`
+}
+
+type Person struct {
+	Id     *string `json:"id,omitempty"`
+	Name   *string `json:"name,omitempty"`
+	EnName *string `json:"en_name,omitempty"`
+	Email  *string `json:"email,omitempty"`
+}
+
+type App struct {
+	AppToken *string `json:"app_token,omitempty"`
+	Name     *string `json:"name,omitempty"`
+	Revision *int    `json:"revision,omitempty"`
+}
+
+type AppTableField struct {
+	FieldId   *string                `json:"field_id,omitempty"`
+	FieldName *string                `json:"field_name,omitempty"`
+	Type      *int                   `json:"type,omitempty"`
+	Property  *AppTableFieldProperty `json:"property,omitempty"`
+}
+
 type AppTableFieldProperty struct {
 	Options    []*AppTableFieldPropertyOption `json:"options,omitempty"`
 	Formatter  *string                        `json:"formatter,omitempty"`
@@ -39,35 +64,6 @@ type AppTableView struct {
 	ViewType *string `json:"view_type,omitempty"`
 }
 
-type DeleteRecord struct {
-	Deleted  *bool   `json:"deleted,omitempty"`
-	RecordId *string `json:"record_id,omitempty"`
-}
-
-type Person struct {
-	Id     *string `json:"id,omitempty"`
-	Name   *string `json:"name,omitempty"`
-	EnName *string `json:"en_name,omitempty"`
-	Email  *string `json:"email,omitempty"`
-}
-
-type ReqTable struct {
-	Name *string `json:"name,omitempty"`
-}
-
-type App struct {
-	AppToken *string `json:"app_token,omitempty"`
-	Name     *string `json:"name,omitempty"`
-	Revision *int    `json:"revision,omitempty"`
-}
-
-type AppTableField struct {
-	FieldId   *string                `json:"field_id,omitempty"`
-	FieldName *string                `json:"field_name,omitempty"`
-	Type      *int                   `json:"type,omitempty"`
-	Property  *AppTableFieldProperty `json:"property,omitempty"`
-}
-
 type Attachment struct {
 	FileToken *string `json:"file_token,omitempty"`
 	Name      *string `json:"name,omitempty"`
@@ -75,6 +71,10 @@ type Attachment struct {
 	Size      *int    `json:"size,omitempty"`
 	Url       *string `json:"url,omitempty"`
 	TmpUrl    *string `json:"tmp_url,omitempty"`
+}
+
+type ReqTable struct {
+	Name *string `json:"name,omitempty"`
 }
 
 type Url struct {

@@ -15,8 +15,8 @@ func main() {
 		lark.WithLogger(lark.NewDefaultLogger(), lark.LogLevelDebug))
 
 	ctx := context.Background()
-	//messageCreate(ctx, larkApp)
-	fileCreate(ctx, larkApp)
+	messageCreate(ctx, larkApp)
+	//fileCreate(ctx, larkApp)
 	//fileDownload(ctx, larkApp)
 }
 

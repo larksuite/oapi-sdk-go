@@ -107,6 +107,19 @@ func (m *meetings) Kickout(ctx context.Context, req *MeetingKickoutReq, options 
 	}
 	return resp, err
 }
+func (m *meetings) ListByNo(ctx context.Context, req *MeetingListByNoReq, options ...lark.RequestOptionFunc) (*MeetingListByNoResp, error) {
+	rawResp, err := m.app.SendRequestWithAccessTokenTypes(ctx, http.MethodGet,
+		"/open-apis/vc/v1/meetings/list_by_no", []lark.AccessTokenType{lark.AccessTokenTypeUser, lark.AccessTokenTypeTenant}, req, options...)
+	if err != nil {
+		return nil, err
+	}
+	resp := &MeetingListByNoResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
 func (m *meetingRecording) Get(ctx context.Context, req *MeetingRecordingGetReq, options ...lark.RequestOptionFunc) (*MeetingRecordingGetResp, error) {
 	rawResp, err := m.app.SendRequestWithAccessTokenTypes(ctx, http.MethodGet,
 		"/open-apis/vc/v1/meetings/:meeting_id/recording", []lark.AccessTokenType{lark.AccessTokenTypeUser}, req, options...)

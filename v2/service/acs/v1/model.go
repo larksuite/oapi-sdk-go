@@ -13,6 +13,12 @@ type UserId struct {
 	UnionId *string `json:"union_id,omitempty"`
 }
 
+type Device struct {
+	DeviceId   *int64  `json:"device_id,omitempty,string"`
+	DeviceName *string `json:"device_name,omitempty"`
+	DeviceSn   *string `json:"device_sn,omitempty"`
+}
+
 type AccessRecord struct {
 	AccessRecordId *int64  `json:"access_record_id,omitempty,string"`
 	UserId         *string `json:"user_id,omitempty"`
@@ -22,12 +28,6 @@ type AccessRecord struct {
 	AccessType     *string `json:"access_type,omitempty"`
 	AccessData     *string `json:"access_data,omitempty"`
 	IsDoorOpen     *bool   `json:"is_door_open,omitempty"`
-}
-
-type Device struct {
-	DeviceId   *int64  `json:"device_id,omitempty,string"`
-	DeviceName *string `json:"device_name,omitempty"`
-	DeviceSn   *string `json:"device_sn,omitempty"`
 }
 
 type Feature struct {

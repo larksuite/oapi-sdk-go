@@ -12,8 +12,8 @@ import (
 type AcsService struct {
 	AccessRecords           *accessRecords
 	Users                   *users
-	AccessRecordAccessPhoto *accessRecordAccessPhoto
 	Devices                 *devices
+	AccessRecordAccessPhoto *accessRecordAccessPhoto
 	UserFace                *userFace
 }
 
@@ -21,8 +21,8 @@ func New(app *lark.App) *AcsService {
 	a := &AcsService{}
 	a.AccessRecords = &accessRecords{app: app}
 	a.Users = &users{app: app}
-	a.AccessRecordAccessPhoto = &accessRecordAccessPhoto{app: app}
 	a.Devices = &devices{app: app}
+	a.AccessRecordAccessPhoto = &accessRecordAccessPhoto{app: app}
 	a.UserFace = &userFace{app: app}
 	return a
 }
@@ -33,10 +33,10 @@ type accessRecords struct {
 type users struct {
 	app *lark.App
 }
-type accessRecordAccessPhoto struct {
+type devices struct {
 	app *lark.App
 }
-type devices struct {
+type accessRecordAccessPhoto struct {
 	app *lark.App
 }
 type userFace struct {
