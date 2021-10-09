@@ -50,7 +50,7 @@ go get github.com/larksuite/oapi-sdk-go@v1.1.40-rc9
 - **必看** [如何调用服务端API](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/guide-to-use-server-api)
   ，了解调用服务端API的过程及注意事项。
     - 由于SDK已经封装了 app_access_token、tenant_access_token 的获取，所以在调业务API的时候，不需要去获取 app_access_token、tenant_access_token。如果业务接口需要使用 user_access_token，需要进行设置（request.SetUserAccessToken("UserAccessToken")），具体请看 README.zh.md -> 如何构建请求（Request）
-- 更多示例，请看：[sample/api/api.go](sample/api/api.go)（含：文件的上传与下载）
+- 更多示例，请看：[old/sample/api/api.go](../old/sample/api/api.go)（含：文件的上传与下载）
 
 #### [使用`应用商店应用`调用 服务端API 示例](ISV.APP.README.zh.md)
 
@@ -186,7 +186,7 @@ func main() {
 ### 订阅服务端事件
 
 - **必看** [订阅事件概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM) ，了解订阅事件的过程及注意事项。
-- 更多使用示例，请看[sample/event](sample/event)（含：结合gin的使用）
+- 更多使用示例，请看[old/sample/event](../old/sample/event)（含：结合gin的使用）
 
 #### 使用`企业自建应用`订阅 [员工变更事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/events/updated) 示例
 
@@ -301,7 +301,7 @@ func main() {
 ### 处理消息卡片回调
 
 - **必看** [消息卡片开发流程](https://open.feishu.cn/document/ukTMukTMukTM/uAzMxEjLwMTMx4CMzETM) ，了解订阅事件的过程及注意事项
-- 更多使用示例，请看：[sample/card](sample/card) （含：结合gin的使用）
+- 更多使用示例，请看：[old/sample/card](../old/sample/card) （含：结合gin的使用）
 
 #### 使用`企业自建应用`处理消息卡片回调示例
 
@@ -399,9 +399,9 @@ core.SetHelpDeskCredentials("HelpDeskID", "HelpDeskToken"), // 非必需，访�
 - 访问 飞书、LarkSuite或者其他
 - 应用的配置
 - 日志接口（Logger）的实现，用于输出SDK处理过程中产生的日志，便于排查问题。
-    - 可以使用业务系统的日志实现，请看示例代码：[sample/config/logrus.go](sample/config/logrus.go)
+    - 可以使用业务系统的日志实现，请看示例代码：[old/sample/config/logrus.go](../old/sample/config/logrus.go)
 - 存储接口（Store）的实现，用于保存访问凭证（app/tenant_access_token）、临时凭证(app_ticket）
-    - 推荐使用Redis实现，请看示例代码：[sample/config/redis_store.go](sample/config/redis_store.go)
+    - 推荐使用Redis实现，请看示例代码：[old/sample/config/redis_store.go](../old/sample/config/redis_store.go)
         - 减少获取 访问凭证 的次数，防止调用访问凭证 接口被限频。
         - 应用商品应用，接受开放平台下发的app_ticket，会保存到存储中，所以存储接口（Store）的实现的实现需要支持分布式存储。
 
@@ -426,7 +426,7 @@ conf = core.NewConfig(domain Domain, appSettings *config.AppSettings, opts ...Co
 ## 如何构建请求（Request）
 
 - 有些老版接口，没有直接可以使用的SDK，可以使用原生模式，这时需要构建请求。
-- 更多示例，请看：[sample/api/api.go](sample/api/api.go)（含：文件的上传与下载）
+- 更多示例，请看：[old/sample/api/api.go](../old/sample/api/api.go)（含：文件的上传与下载）
 
 ```go
 import (
@@ -483,7 +483,7 @@ conf := config.ByCtx(ctx *core.Context)
 ## 如何发送请求
 
 - 由于SDK已经封装了app_access_token、tenant_access_token的获取，所以在调业务API的时候，不需要去获取app_access_token、tenant_access_token。如果业务接口需要使用user_access_token，需要进行设置（request.SetUserAccessToken("UserAccessToken")），具体请看 README.zh.md -> 如何构建请求（Request）
-- 更多使用示例，请看：[sample/api/api.go](sample/api/api.go)
+- 更多使用示例，请看：[old/sample/api/api.go](../old/sample/api/api.go)
 
 ```go
 import(
@@ -510,7 +510,7 @@ err := api.Send(ctx *core.Context, conf *config.Config, req *request.Request)
 ## 下载文件工具
 
 - 通过网络请求下载文件
-- 更多使用示例，请看：[sample/tools/file_download.go](sample/tools/file_download.go)
+- 更多使用示例，请看：[old/sample/tools/file_download.go](../old/sample/tools/file_download.go)
 
 ```go
 import(

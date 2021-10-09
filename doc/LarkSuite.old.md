@@ -47,7 +47,7 @@ go get github.com/larksuite/oapi-sdk-go@v1.1.40-rc9
 - Marketplace App：The app will be displayed in [App Directory](https://app.larksuite.com/) Display, each enterprise can
   choose to install.
 
-![App type](doc/app_type.en.png)
+![App type](app_type.en.png)
 
 ## Quick use
 
@@ -122,7 +122,7 @@ func main() {
 
 - [Subscribe to events](https://open.larksuite.com/document/uMzMyEjLzMjMx4yMzITM/uETM4QjLxEDO04SMxgDN) , to understand
   the process and precautions of subscribing to events.
-- For more use examples, please refer to [sample/event](sample/event)（including: use in combination with gin）
+- For more use examples, please refer to [old/sample/event](../old/sample/event)（including: use in combination with gin）
 
 #### Example of using "Custom App" to subscribe [App First Enabled](https://open.larksuite.com/document/uMzMyEjLzMjMx4yMzITM/uYjMyYjL2IjM24iNyIjN) event.
 
@@ -176,7 +176,7 @@ func main() {
 
 - [Message Card Development Process](https://open.larksuite.com/document/uMzMyEjLzMjMx4yMzITM/ukzM3QjL5MzN04SOzcDN) , to
   understand the process and precautions of processing message cards
-- For more use examples, please refer to [sample/card](sample/card)（including: use in combination with gin）
+- For more use examples, please refer to [old/sample/card](../old/sample/card)（including: use in combination with gin）
 
 #### Example of using "Custom App" to handling message card callback.
 
@@ -269,10 +269,10 @@ core.SetHelpDeskCredentials("HelpDeskID", "HelpDeskToken"), // Not required. Req
 - The implementation of logger is used to output the logs generated in the process of SDK processing, which is
   convenient for troubleshooting.
     - You can use the log implementation of the business system, see the sample
-      code: [sample/config/logrus.go](sample/config/logrus.go)
+      code: [old/sample/config/logrus.go](../old/sample/config/logrus.go)
 - The implementation of store is used to save the access credentials (app/tenant_access_token), temporary voucher (
   app_ticket）
-    - Redis is recommended. Please see the example code: [sample/config/redis_store.go](sample/config/redis_store.go)
+    - Redis is recommended. Please see the example code: [old/sample/config/redis_store.go](../old/sample/config/redis_store.go)
         - It can reduce the times of obtaining access credentials and prevent the frequency limit of calling access
           credentials interface.
         - "Marketplace App", accept open platform distributed `app_ticket` will be saved to the storage, so the
@@ -300,7 +300,7 @@ conf = core.NewConfig(domain Domain, appSettings *config.AppSettings, opts ...Co
 
 - Some of the old interfaces do not have an SDK that can be used directly. They can use `native` mode. At this time,
   they need to build requests.
-- For more examples, see [sample/api/api.go](sample/api/api.go) (including: file upload and download)
+- For more examples, see [old/sample/api/api.go](../old/sample/api/api.go) (including: file upload and download)
 
 ```go
 import (
@@ -356,7 +356,7 @@ conf := config.ByCtx(ctx *core.Context)
 ## How to send a request
 
 - Since the SDK has encapsulated the app_access_token、tenant_access_token So when calling the business API, you don't need to get the app_access_token、tenant_access_token. If the business interface needs to use user_access_token, which needs to be set（request.SetUserAccessToken("user_access_token")), Please refer to README.md -> How to build a request(Request)
-- For more use examples, please see: [sample/api/api.go](sample/api/api.go)
+- For more use examples, please see: [old/sample/api/api.go](../old/sample/api/api.go)
 
 ```go
 import(
@@ -383,7 +383,7 @@ err := api.Send(ctx *core.Context, conf *config.Config, req *request.Request)
 ### Download File Tool
 
 - Download files via network request
-- For more use examples, please see: [sample/tools/file_download.go](sample/tools/file_download.go)
+- For more use examples, please see: [old/sample/tools/file_download.go](../old/sample/tools/file_download.go)
 
 ```go
 import(

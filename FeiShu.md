@@ -23,12 +23,57 @@ go get -u github.com/larksuite/oapi-sdk-go/v2
 ## SDK 包引入与使用规则
 
 - lark 包，引入的路径："github.com/larksuite/oapi-sdk-go/v2"
+  
+    - 下面的代码示例中的 "lark.NewApp(....)" 等等
 
 - 业务 包，引入的路径："github.com/larksuite/oapi-sdk-go/v2/service/业务/版本"
 
     - 例如：im 包，引入的路径："github.com/larksuite/oapi-sdk-go/v2/service/im/v1"
+      
+    - 下面的代码示例中的 "im.New(larkApp)" 等等
 
-- SDK 包如何使用，下面有代码示例可以参考
+- 代码示例：
+
+```go
+
+package main
+
+import (
+	"context"
+	"fmt"
+	"github.com/larksuite/oapi-sdk-go/v2"
+	"github.com/larksuite/oapi-sdk-go/v2/service/im/v1"
+	"os"
+)
+
+func main() {
+	larkApp := lark.NewApp(lark.DomainFeiShu, os.Getenv("APP_ID"), os.Getenv("APP_SECRET")) 
+	messageText := &lark.MessageText{Text: "Tom test content"}
+	content, err := messageText.JSON()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	messageCreateResp, err := im.New(larkApp).Messages.Create(context.Background(), &im.MessageCreateReq{
+		ReceiveIdType: lark.StringPtr("user_id"),
+		Body: &im.MessageCreateReqBody{
+			ReceiveId: lark.StringPtr("77bbc392"),
+			MsgType:   lark.StringPtr("text"),
+			Content:   lark.StringPtr(content),
+		},
+	})
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Printf("request id: %s \n", messageCreateResp.RequestId())
+	if messageCreateResp.Code != 0 {
+		fmt.Println(messageCreateResp.CodeError)
+		return
+	}
+	fmt.Println(lark.Prettify(messageCreateResp.Data))
+}
+```
 
 ## 术语解释
 
@@ -52,7 +97,7 @@ go get -u github.com/larksuite/oapi-sdk-go/v2
 ### 使用`企业自建应用`访问 [发送消息 API](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create) 示例
 
 - 在 [v2/service](./v2/service) 下的业务 API，都是可以直接使用业务 SDK
-- 更多示例，请看：[v2/sample/api/im.go](./v2/sample/api/im.go)（含：文件的上传与下载）
+- 更多示例，请看：[sample/api/im.go](./sample/api/im.go)（含：文件的上传与下载）
 
 ```go
 package main
@@ -107,7 +152,7 @@ func messageCreate(ctx context.Context, larkApp *lark.App) {
 
 - 有些老版接口，没有直接可以使用的业务 SDK，可以使用`原生`模式，具体请看：[如何发送请求](#如何发送请求)
 
-- 更多示例，请看：[v2/sample/api/api.go](./v2/sample/api/api.go)（含：文件的上传与下载）
+- 更多示例，请看：[sample/api/api.go](./sample/api/api.go)（含：文件的上传与下载）
 
 ```go
 package main
@@ -156,7 +201,7 @@ func sendMessage(ctx context.Context, larkApp *lark.App) {
 
 - 在 [v2/service](./v2/service) 下的业务 Event，都是可以直接使用业务 SDK
 
-- 更多使用示例，请看：[v2/sample/event/im.go](./v2/sample/event/im.go)
+- 更多使用示例，请看：[sample/event/im.go](./sample/event/im.go)
 
 ```go
 package main
@@ -211,7 +256,7 @@ func main() {
 
 - 有些老的事件，没有直接可以使用的业务 SDK，可以使用`原生`模式，具体请看：[如何订阅事件](#如何订阅事件)
 
-- 更多使用示例，请看：[v2/sample/event/event.go](./v2/sample/event/event.go)
+- 更多使用示例，请看：[sample/event/event.go](./sample/event/event.go)
 
 ```go
 package main
@@ -265,7 +310,7 @@ func main() {
 ## 如何处理消息卡片 Action
 
 - **必看** [消息卡片开发流程](https://open.feishu.cn/document/ukTMukTMukTM/uAzMxEjLwMTMx4CMzETM) ，了解订阅事件的过程及注意事项
-- 更多使用示例，请看：[v2/sample/card/card.go](./v2/sample/card/card.go)
+- 更多使用示例，请看：[sample/card/card.go](./sample/card/card.go)
 
 #### 使用`企业自建应用`处理消息卡片回调示例
 
@@ -333,7 +378,7 @@ func main() {
           API 的正常。
         - 使用SDK调用服务端 API 时，需要使用 tenant_access_token 访问凭证时，需要 tenant_key ，来表示当前是哪个租户使用这个应用调用服务端 API。
             - tenant_key，租户安装启用了这个应用，开放平台发送的服务端事件，事件内容中都含有 tenant_key。
-- 示例代码：[v2/sample/api/marketplace_app.go](./v2/sample/api/marketplace_app.go)
+- 示例代码：[sample/api/marketplace_app.go](./sample/api/marketplace_app.go)
 
 ## 如何构建应用
 
@@ -368,21 +413,21 @@ lark.WithAppHelpdeskCredential(helpDeskID, helpDeskToken), // 非必需，访问
 )
 
 // 配置日志接口的实现
-// 例如：使用logrus实现，请看示例代码：v2/sample/logrus.go
+// 例如：使用logrus实现，请看示例代码：sample/logrus.go
 // 例如：日志（lark.NewDefaultLogger()：日志控制台输出），日志级别（lark.LogLevelDebug：debug级别，可以打印更好的日志，利于排查问题）
 larkApp := lark.NewApp(lark.DomainFeiShu, appID, appSecret,
 lark.WithLogger(lark.NewDefaultLogger(), lark.LogLevelDebug), // 非必需
 )
-// 更多示例：v2/sample/api/marketplace_app.go的"sample.Logrus{}"
+// 更多示例：sample/api/marketplace_app.go的"sample.Logrus{}"
 larkApp := lark.NewApp(lark.DomainFeiShu, appID, appSecret,
 lark.WithLogger(sample.Logrus{}, lark.LogLevelDebug),
 )
 
 // 配置存储接口，用于存放：app_access_token、tenant_access_token、app_ticket
 // 默认是sync.map内存实现的
-// 例如：使用redis实现，请看示例代码：v2/sample/redis_store.go
+// 例如：使用redis实现，请看示例代码：sample/redis_store.go
 // 对于应用商品应用，接收开放平台下发的app_ticket，会保存到存储中，所以存储接口的实现的实现需要支持分布式存储
-// 更多示例：v2/sample/api/marketplace_app.go的"sample.NewRedisStore()"
+// 更多示例：sample/api/marketplace_app.go的"sample.NewRedisStore()"
 larkApp := lark.NewApp(lark.DomainFeiShu, appID, appSecret,
 lark.WithStore(sample.NewRedisStore()) // use redis store
 )
@@ -392,7 +437,7 @@ lark.WithStore(sample.NewRedisStore()) // use redis store
 ## 如何发送请求
 
 - 有些老版接口，没有直接可以使用的业务 SDK，可以使用原生模式
-- 更多示例，请看：[v2/sample/api/api.go](./v2/sample/api/api.go)（含：文件的上传与下载）
+- 更多示例，请看：[sample/api/api.go](./sample/api/api.go)（含：文件的上传与下载）
 
 ```go
 
@@ -445,7 +490,7 @@ func (resp RawResponse) JSONUnmarshalBody(val interface{}) error {}
 ## 如何订阅事件
 
 - 有些老版接口，没有直接可以使用的业务 SDK，可以使用原生模式
-- 更多示例，请看：[v2/sample/event/event.go](./v2/sample/event/event.go)
+- 更多示例，请看：[sample/event/event.go](./sample/event/event.go)
 
 ```go
 
@@ -484,7 +529,7 @@ func (req RawRequest) JSONUnmarshalBody(val interface{}) error {}
 ## 自定义机器人
 
 - 开发文档：[自定义机器人指南](https://open.feishu.cn/document/ukTMukTMukTM/ucTM5YjL3ETO24yNxkjN)
-- 示例代码：[v2/sample/customer_bot/customer_bot.go](./v2/sample/customer_bot/customer_bot.go)
+- 示例代码：[sample/customer_bot/customer_bot.go](./sample/customer_bot/customer_bot.go)
 
 ```go
 
@@ -509,7 +554,7 @@ func (c *CustomerBot) SendMessage(ctx context.Context, msgType string, content i
 
 - 消息内容 Model 代码：[v2/message_model.go](./v2/message_model.go)
 
-- 消息内容 Model 使用示例：[v2/sample/api/message_model.go](./v2/sample/api/message_model.go)
+- 消息内容 Model 使用示例：[sample/api/message_model.go](./sample/api/message_model.go)
 
 |消息类型| Model |
 |----|----|
@@ -566,7 +611,7 @@ func (m *Message***) JSON() (string, error) {}
 ## 下载文件工具
 
 - 通过网络请求下载文件
-- 更多使用示例，请看：[v2/sample/utils/file_download.go](./v2/sample/utils/file_download.go)
+- 更多使用示例，请看：[sample/utils/file_download.go](./sample/utils/file_download.go)
 
 ## License
 
