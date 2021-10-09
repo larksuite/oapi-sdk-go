@@ -15,9 +15,9 @@
 - Golang 1.5及以上
 
 ## 安装方法
-
+- 具体最新版本号，请看 git tag
 ```shell
-go get -u github.com/larksuite/v2
+go get -u github.com/larksuite/oapi-sdk-go/v2
 ```
 
 ## SDK 包引入与使用规则

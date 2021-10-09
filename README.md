@@ -9,7 +9,7 @@
 >
 >
 > - SDK V2 request API need parameters are encapsulated into a structure (including HTTP request path, Query, and body parameters) to avoid the omission caused by scattered Settings of parameters required by the request
-> （SDK v2 请求 API 需要的参数，封装成一个结构体（含：HTTP request path、query、body 参数），避免请求需要的参数分散设置出现遗漏）
+> （SDK v2 请求 API 需要的参数，封装成一个结构体（含：HTTP request path、query、body 参数），避免参数分散设置容易出现遗漏）
 >
 >
 > - The SDK V2 adds models for various messages to facilitate building message content
