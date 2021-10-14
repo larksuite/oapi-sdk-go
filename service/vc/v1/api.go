@@ -80,50 +80,6 @@ func newRoomConfigService(service *Service) *RoomConfigService {
 	}
 }
 
-type RoomConfigQueryReqCall struct {
-	ctx         *core.Context
-	roomConfigs *RoomConfigService
-	queryParams map[string]interface{}
-	optFns      []request.OptFn
-}
-
-func (rc *RoomConfigQueryReqCall) SetScope(scope int) {
-	rc.queryParams["scope"] = scope
-}
-func (rc *RoomConfigQueryReqCall) SetCountryId(countryId int64) {
-	rc.queryParams["country_id"] = countryId
-}
-func (rc *RoomConfigQueryReqCall) SetDistrictId(districtId int64) {
-	rc.queryParams["district_id"] = districtId
-}
-func (rc *RoomConfigQueryReqCall) SetBuildingId(buildingId int64) {
-	rc.queryParams["building_id"] = buildingId
-}
-func (rc *RoomConfigQueryReqCall) SetFloorName(floorName string) {
-	rc.queryParams["floor_name"] = floorName
-}
-func (rc *RoomConfigQueryReqCall) SetRoomId(roomId int64) {
-	rc.queryParams["room_id"] = roomId
-}
-
-func (rc *RoomConfigQueryReqCall) Do() (*RoomConfig, error) {
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &RoomConfig{}
-	req := request.NewRequest("/open-apis/vc/v1/room_configs/query", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.roomConfigs.service.conf, req)
-	return result, err
-}
-
-func (roomConfigs *RoomConfigService) Query(ctx *core.Context, optFns ...request.OptFn) *RoomConfigQueryReqCall {
-	return &RoomConfigQueryReqCall{
-		ctx:         ctx,
-		roomConfigs: roomConfigs,
-		queryParams: map[string]interface{}{},
-		optFns:      optFns,
-	}
-}
-
 type MeetingInviteReqCall struct {
 	ctx         *core.Context
 	meetings    *MeetingService
@@ -156,47 +112,6 @@ func (meetings *MeetingService) Invite(ctx *core.Context, body *MeetingInviteReq
 		meetings:    meetings,
 		body:        body,
 		pathParams:  map[string]interface{}{},
-		queryParams: map[string]interface{}{},
-		optFns:      optFns,
-	}
-}
-
-type ReportGetTopUserReqCall struct {
-	ctx         *core.Context
-	reports     *ReportService
-	queryParams map[string]interface{}
-	optFns      []request.OptFn
-}
-
-func (rc *ReportGetTopUserReqCall) SetStartTime(startTime int64) {
-	rc.queryParams["start_time"] = startTime
-}
-func (rc *ReportGetTopUserReqCall) SetEndTime(endTime int64) {
-	rc.queryParams["end_time"] = endTime
-}
-func (rc *ReportGetTopUserReqCall) SetLimit(limit int) {
-	rc.queryParams["limit"] = limit
-}
-func (rc *ReportGetTopUserReqCall) SetOrderBy(orderBy int) {
-	rc.queryParams["order_by"] = orderBy
-}
-func (rc *ReportGetTopUserReqCall) SetUserIdType(userIdType string) {
-	rc.queryParams["user_id_type"] = userIdType
-}
-
-func (rc *ReportGetTopUserReqCall) Do() (*ReportGetTopUserResult, error) {
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &ReportGetTopUserResult{}
-	req := request.NewRequest("/open-apis/vc/v1/reports/get_top_user", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.reports.service.conf, req)
-	return result, err
-}
-
-func (reports *ReportService) GetTopUser(ctx *core.Context, optFns ...request.OptFn) *ReportGetTopUserReqCall {
-	return &ReportGetTopUserReqCall{
-		ctx:         ctx,
-		reports:     reports,
 		queryParams: map[string]interface{}{},
 		optFns:      optFns,
 	}
@@ -239,35 +154,6 @@ func (meetings *MeetingService) SetHost(ctx *core.Context, body *MeetingSetHostR
 	}
 }
 
-type MeetingRecordingGetReqCall struct {
-	ctx               *core.Context
-	meetingRecordings *MeetingRecordingService
-	pathParams        map[string]interface{}
-	optFns            []request.OptFn
-}
-
-func (rc *MeetingRecordingGetReqCall) SetMeetingId(meetingId int64) {
-	rc.pathParams["meeting_id"] = meetingId
-}
-
-func (rc *MeetingRecordingGetReqCall) Do() (*MeetingRecordingGetResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	var result = &MeetingRecordingGetResult{}
-	req := request.NewRequest("/open-apis/vc/v1/meetings/:meeting_id/recording", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, nil, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.meetingRecordings.service.conf, req)
-	return result, err
-}
-
-func (meetingRecordings *MeetingRecordingService) Get(ctx *core.Context, optFns ...request.OptFn) *MeetingRecordingGetReqCall {
-	return &MeetingRecordingGetReqCall{
-		ctx:               ctx,
-		meetingRecordings: meetingRecordings,
-		pathParams:        map[string]interface{}{},
-		optFns:            optFns,
-	}
-}
-
 type MeetingEndReqCall struct {
 	ctx        *core.Context
 	meetings   *MeetingService
@@ -294,67 +180,6 @@ func (meetings *MeetingService) End(ctx *core.Context, optFns ...request.OptFn) 
 		meetings:   meetings,
 		pathParams: map[string]interface{}{},
 		optFns:     optFns,
-	}
-}
-
-type MeetingRecordingStopReqCall struct {
-	ctx               *core.Context
-	meetingRecordings *MeetingRecordingService
-	pathParams        map[string]interface{}
-	optFns            []request.OptFn
-}
-
-func (rc *MeetingRecordingStopReqCall) SetMeetingId(meetingId int64) {
-	rc.pathParams["meeting_id"] = meetingId
-}
-
-func (rc *MeetingRecordingStopReqCall) Do() (*response.NoData, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
-	var result = &response.NoData{}
-	req := request.NewRequest("/open-apis/vc/v1/meetings/:meeting_id/recording/stop", "PATCH",
-		[]request.AccessTokenType{request.AccessTokenTypeUser}, nil, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.meetingRecordings.service.conf, req)
-	return result, err
-}
-
-func (meetingRecordings *MeetingRecordingService) Stop(ctx *core.Context, optFns ...request.OptFn) *MeetingRecordingStopReqCall {
-	return &MeetingRecordingStopReqCall{
-		ctx:               ctx,
-		meetingRecordings: meetingRecordings,
-		pathParams:        map[string]interface{}{},
-		optFns:            optFns,
-	}
-}
-
-type ReportGetDailyReqCall struct {
-	ctx         *core.Context
-	reports     *ReportService
-	queryParams map[string]interface{}
-	optFns      []request.OptFn
-}
-
-func (rc *ReportGetDailyReqCall) SetStartTime(startTime int64) {
-	rc.queryParams["start_time"] = startTime
-}
-func (rc *ReportGetDailyReqCall) SetEndTime(endTime int64) {
-	rc.queryParams["end_time"] = endTime
-}
-
-func (rc *ReportGetDailyReqCall) Do() (*ReportGetDailyResult, error) {
-	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &ReportGetDailyResult{}
-	req := request.NewRequest("/open-apis/vc/v1/reports/get_daily", "GET",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.reports.service.conf, req)
-	return result, err
-}
-
-func (reports *ReportService) GetDaily(ctx *core.Context, optFns ...request.OptFn) *ReportGetDailyReqCall {
-	return &ReportGetDailyReqCall{
-		ctx:         ctx,
-		reports:     reports,
-		queryParams: map[string]interface{}{},
-		optFns:      optFns,
 	}
 }
 
@@ -399,27 +224,139 @@ func (meetings *MeetingService) Get(ctx *core.Context, optFns ...request.OptFn) 
 	}
 }
 
-type RoomConfigSetReqCall struct {
+type MeetingKickoutReqCall struct {
 	ctx         *core.Context
-	roomConfigs *RoomConfigService
-	body        *RoomConfigSetReqBody
+	meetings    *MeetingService
+	body        *MeetingKickoutReqBody
+	pathParams  map[string]interface{}
+	queryParams map[string]interface{}
 	optFns      []request.OptFn
 }
 
-func (rc *RoomConfigSetReqCall) Do() (*response.NoData, error) {
-	var result = &response.NoData{}
-	req := request.NewRequest("/open-apis/vc/v1/room_configs/set", "POST",
+func (rc *MeetingKickoutReqCall) SetMeetingId(meetingId int64) {
+	rc.pathParams["meeting_id"] = meetingId
+}
+func (rc *MeetingKickoutReqCall) SetUserIdType(userIdType string) {
+	rc.queryParams["user_id_type"] = userIdType
+}
+
+func (rc *MeetingKickoutReqCall) Do() (*MeetingKickoutResult, error) {
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &MeetingKickoutResult{}
+	req := request.NewRequest("/open-apis/vc/v1/meetings/:meeting_id/kickout", "POST",
 		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.roomConfigs.service.conf, req)
+	err := api.Send(rc.ctx, rc.meetings.service.conf, req)
 	return result, err
 }
 
-func (roomConfigs *RoomConfigService) Set(ctx *core.Context, body *RoomConfigSetReqBody, optFns ...request.OptFn) *RoomConfigSetReqCall {
-	return &RoomConfigSetReqCall{
+func (meetings *MeetingService) Kickout(ctx *core.Context, body *MeetingKickoutReqBody, optFns ...request.OptFn) *MeetingKickoutReqCall {
+	return &MeetingKickoutReqCall{
 		ctx:         ctx,
-		roomConfigs: roomConfigs,
+		meetings:    meetings,
 		body:        body,
+		pathParams:  map[string]interface{}{},
+		queryParams: map[string]interface{}{},
 		optFns:      optFns,
+	}
+}
+
+type MeetingListByNoReqCall struct {
+	ctx         *core.Context
+	meetings    *MeetingService
+	queryParams map[string]interface{}
+	optFns      []request.OptFn
+}
+
+func (rc *MeetingListByNoReqCall) SetMeetingNo(meetingNo string) {
+	rc.queryParams["meeting_no"] = meetingNo
+}
+func (rc *MeetingListByNoReqCall) SetStartTime(startTime int64) {
+	rc.queryParams["start_time"] = startTime
+}
+func (rc *MeetingListByNoReqCall) SetEndTime(endTime int64) {
+	rc.queryParams["end_time"] = endTime
+}
+func (rc *MeetingListByNoReqCall) SetPageToken(pageToken string) {
+	rc.queryParams["page_token"] = pageToken
+}
+func (rc *MeetingListByNoReqCall) SetPageSize(pageSize int) {
+	rc.queryParams["page_size"] = pageSize
+}
+
+func (rc *MeetingListByNoReqCall) Do() (*MeetingListByNoResult, error) {
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &MeetingListByNoResult{}
+	req := request.NewRequest("/open-apis/vc/v1/meetings/list_by_no", "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeUser, request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.meetings.service.conf, req)
+	return result, err
+}
+
+func (meetings *MeetingService) ListByNo(ctx *core.Context, optFns ...request.OptFn) *MeetingListByNoReqCall {
+	return &MeetingListByNoReqCall{
+		ctx:         ctx,
+		meetings:    meetings,
+		queryParams: map[string]interface{}{},
+		optFns:      optFns,
+	}
+}
+
+type MeetingRecordingGetReqCall struct {
+	ctx               *core.Context
+	meetingRecordings *MeetingRecordingService
+	pathParams        map[string]interface{}
+	optFns            []request.OptFn
+}
+
+func (rc *MeetingRecordingGetReqCall) SetMeetingId(meetingId int64) {
+	rc.pathParams["meeting_id"] = meetingId
+}
+
+func (rc *MeetingRecordingGetReqCall) Do() (*MeetingRecordingGetResult, error) {
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	var result = &MeetingRecordingGetResult{}
+	req := request.NewRequest("/open-apis/vc/v1/meetings/:meeting_id/recording", "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeUser}, nil, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.meetingRecordings.service.conf, req)
+	return result, err
+}
+
+func (meetingRecordings *MeetingRecordingService) Get(ctx *core.Context, optFns ...request.OptFn) *MeetingRecordingGetReqCall {
+	return &MeetingRecordingGetReqCall{
+		ctx:               ctx,
+		meetingRecordings: meetingRecordings,
+		pathParams:        map[string]interface{}{},
+		optFns:            optFns,
+	}
+}
+
+type MeetingRecordingStopReqCall struct {
+	ctx               *core.Context
+	meetingRecordings *MeetingRecordingService
+	pathParams        map[string]interface{}
+	optFns            []request.OptFn
+}
+
+func (rc *MeetingRecordingStopReqCall) SetMeetingId(meetingId int64) {
+	rc.pathParams["meeting_id"] = meetingId
+}
+
+func (rc *MeetingRecordingStopReqCall) Do() (*response.NoData, error) {
+	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+	var result = &response.NoData{}
+	req := request.NewRequest("/open-apis/vc/v1/meetings/:meeting_id/recording/stop", "PATCH",
+		[]request.AccessTokenType{request.AccessTokenTypeUser}, nil, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.meetingRecordings.service.conf, req)
+	return result, err
+}
+
+func (meetingRecordings *MeetingRecordingService) Stop(ctx *core.Context, optFns ...request.OptFn) *MeetingRecordingStopReqCall {
+	return &MeetingRecordingStopReqCall{
+		ctx:               ctx,
+		meetingRecordings: meetingRecordings,
+		pathParams:        map[string]interface{}{},
+		optFns:            optFns,
 	}
 }
 
@@ -488,6 +425,79 @@ func (meetingRecordings *MeetingRecordingService) Start(ctx *core.Context, body 
 		body:              body,
 		pathParams:        map[string]interface{}{},
 		optFns:            optFns,
+	}
+}
+
+type ReportGetTopUserReqCall struct {
+	ctx         *core.Context
+	reports     *ReportService
+	queryParams map[string]interface{}
+	optFns      []request.OptFn
+}
+
+func (rc *ReportGetTopUserReqCall) SetStartTime(startTime int64) {
+	rc.queryParams["start_time"] = startTime
+}
+func (rc *ReportGetTopUserReqCall) SetEndTime(endTime int64) {
+	rc.queryParams["end_time"] = endTime
+}
+func (rc *ReportGetTopUserReqCall) SetLimit(limit int) {
+	rc.queryParams["limit"] = limit
+}
+func (rc *ReportGetTopUserReqCall) SetOrderBy(orderBy int) {
+	rc.queryParams["order_by"] = orderBy
+}
+func (rc *ReportGetTopUserReqCall) SetUserIdType(userIdType string) {
+	rc.queryParams["user_id_type"] = userIdType
+}
+
+func (rc *ReportGetTopUserReqCall) Do() (*ReportGetTopUserResult, error) {
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &ReportGetTopUserResult{}
+	req := request.NewRequest("/open-apis/vc/v1/reports/get_top_user", "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.reports.service.conf, req)
+	return result, err
+}
+
+func (reports *ReportService) GetTopUser(ctx *core.Context, optFns ...request.OptFn) *ReportGetTopUserReqCall {
+	return &ReportGetTopUserReqCall{
+		ctx:         ctx,
+		reports:     reports,
+		queryParams: map[string]interface{}{},
+		optFns:      optFns,
+	}
+}
+
+type ReportGetDailyReqCall struct {
+	ctx         *core.Context
+	reports     *ReportService
+	queryParams map[string]interface{}
+	optFns      []request.OptFn
+}
+
+func (rc *ReportGetDailyReqCall) SetStartTime(startTime int64) {
+	rc.queryParams["start_time"] = startTime
+}
+func (rc *ReportGetDailyReqCall) SetEndTime(endTime int64) {
+	rc.queryParams["end_time"] = endTime
+}
+
+func (rc *ReportGetDailyReqCall) Do() (*ReportGetDailyResult, error) {
+	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
+	var result = &ReportGetDailyResult{}
+	req := request.NewRequest("/open-apis/vc/v1/reports/get_daily", "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.reports.service.conf, req)
+	return result, err
+}
+
+func (reports *ReportService) GetDaily(ctx *core.Context, optFns ...request.OptFn) *ReportGetDailyReqCall {
+	return &ReportGetDailyReqCall{
+		ctx:         ctx,
+		reports:     reports,
+		queryParams: map[string]interface{}{},
+		optFns:      optFns,
 	}
 }
 
@@ -661,39 +671,70 @@ func (reserves *ReserveService) Delete(ctx *core.Context, optFns ...request.OptF
 	}
 }
 
-type MeetingKickoutReqCall struct {
+type RoomConfigQueryReqCall struct {
 	ctx         *core.Context
-	meetings    *MeetingService
-	body        *MeetingKickoutReqBody
-	pathParams  map[string]interface{}
+	roomConfigs *RoomConfigService
 	queryParams map[string]interface{}
 	optFns      []request.OptFn
 }
 
-func (rc *MeetingKickoutReqCall) SetMeetingId(meetingId int64) {
-	rc.pathParams["meeting_id"] = meetingId
+func (rc *RoomConfigQueryReqCall) SetScope(scope int) {
+	rc.queryParams["scope"] = scope
 }
-func (rc *MeetingKickoutReqCall) SetUserIdType(userIdType string) {
-	rc.queryParams["user_id_type"] = userIdType
+func (rc *RoomConfigQueryReqCall) SetCountryId(countryId string) {
+	rc.queryParams["country_id"] = countryId
+}
+func (rc *RoomConfigQueryReqCall) SetDistrictId(districtId string) {
+	rc.queryParams["district_id"] = districtId
+}
+func (rc *RoomConfigQueryReqCall) SetBuildingId(buildingId string) {
+	rc.queryParams["building_id"] = buildingId
+}
+func (rc *RoomConfigQueryReqCall) SetFloorName(floorName string) {
+	rc.queryParams["floor_name"] = floorName
+}
+func (rc *RoomConfigQueryReqCall) SetRoomId(roomId string) {
+	rc.queryParams["room_id"] = roomId
 }
 
-func (rc *MeetingKickoutReqCall) Do() (*MeetingKickoutResult, error) {
-	rc.optFns = append(rc.optFns, request.SetPathParams(rc.pathParams))
+func (rc *RoomConfigQueryReqCall) Do() (*RoomConfig, error) {
 	rc.optFns = append(rc.optFns, request.SetQueryParams(rc.queryParams))
-	var result = &MeetingKickoutResult{}
-	req := request.NewRequest("/open-apis/vc/v1/meetings/:meeting_id/kickout", "POST",
-		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
-	err := api.Send(rc.ctx, rc.meetings.service.conf, req)
+	var result = &RoomConfig{}
+	req := request.NewRequest("/open-apis/vc/v1/room_configs/query", "GET",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, nil, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.roomConfigs.service.conf, req)
 	return result, err
 }
 
-func (meetings *MeetingService) Kickout(ctx *core.Context, body *MeetingKickoutReqBody, optFns ...request.OptFn) *MeetingKickoutReqCall {
-	return &MeetingKickoutReqCall{
+func (roomConfigs *RoomConfigService) Query(ctx *core.Context, optFns ...request.OptFn) *RoomConfigQueryReqCall {
+	return &RoomConfigQueryReqCall{
 		ctx:         ctx,
-		meetings:    meetings,
-		body:        body,
-		pathParams:  map[string]interface{}{},
+		roomConfigs: roomConfigs,
 		queryParams: map[string]interface{}{},
+		optFns:      optFns,
+	}
+}
+
+type RoomConfigSetReqCall struct {
+	ctx         *core.Context
+	roomConfigs *RoomConfigService
+	body        *RoomConfigSetReqBody
+	optFns      []request.OptFn
+}
+
+func (rc *RoomConfigSetReqCall) Do() (*response.NoData, error) {
+	var result = &response.NoData{}
+	req := request.NewRequest("/open-apis/vc/v1/room_configs/set", "POST",
+		[]request.AccessTokenType{request.AccessTokenTypeTenant}, rc.body, result, rc.optFns...)
+	err := api.Send(rc.ctx, rc.roomConfigs.service.conf, req)
+	return result, err
+}
+
+func (roomConfigs *RoomConfigService) Set(ctx *core.Context, body *RoomConfigSetReqBody, optFns ...request.OptFn) *RoomConfigSetReqCall {
+	return &RoomConfigSetReqCall{
+		ctx:         ctx,
+		roomConfigs: roomConfigs,
+		body:        body,
 		optFns:      optFns,
 	}
 }

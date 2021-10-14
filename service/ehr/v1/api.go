@@ -102,7 +102,7 @@ func (rc *EmployeeListReqCall) SetEndTime(endTime int64) {
 func (rc *EmployeeListReqCall) SetUserIdType(userIdType string) {
 	rc.queryParams["user_id_type"] = userIdType
 }
-func (rc *EmployeeListReqCall) SetUserIds(userIds string) {
+func (rc *EmployeeListReqCall) SetUserIds(userIds ...string) {
 	rc.queryParams["user_ids"] = userIds
 }
 func (rc *EmployeeListReqCall) SetPageToken(pageToken string) {

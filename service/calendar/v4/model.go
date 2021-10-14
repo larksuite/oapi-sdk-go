@@ -159,9 +159,6 @@ func (s *Schema) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
-type Setting struct {
-}
-
 type TimeInfo struct {
 	Date            string   `json:"date,omitempty"`
 	Timestamp       string   `json:"timestamp,omitempty"`
@@ -328,11 +325,34 @@ type CalendarCreateResult struct {
 	Calendar *Calendar `json:"calendar,omitempty"`
 }
 
-type CalendarEventGetResult struct {
-	Event *CalendarEvent `json:"event,omitempty"`
+type CalendarPatchResult struct {
+	Calendar *Calendar `json:"calendar,omitempty"`
 }
 
-type CalendarPatchResult struct {
+type CalendarListResult struct {
+	HasMore      bool        `json:"has_more,omitempty"`
+	PageToken    string      `json:"page_token,omitempty"`
+	SyncToken    string      `json:"sync_token,omitempty"`
+	CalendarList []*Calendar `json:"calendar_list,omitempty"`
+}
+
+type CalendarSearchReqBody struct {
+	Query           string   `json:"query,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *CalendarSearchReqBody) MarshalJSON() ([]byte, error) {
+	type cp CalendarSearchReqBody
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type CalendarSearchResult struct {
+	Items     []*Calendar `json:"items,omitempty"`
+	PageToken string      `json:"page_token,omitempty"`
+}
+
+type CalendarSubscribeResult struct {
 	Calendar *Calendar `json:"calendar,omitempty"`
 }
 
@@ -342,15 +362,40 @@ type CalendarAclListResult struct {
 	PageToken string         `json:"page_token,omitempty"`
 }
 
+type CalendarEventGetResult struct {
+	Event *CalendarEvent `json:"event,omitempty"`
+}
+
 type CalendarEventCreateResult struct {
 	Event *CalendarEvent `json:"event,omitempty"`
 }
 
-type CalendarListResult struct {
-	HasMore      bool        `json:"has_more,omitempty"`
-	PageToken    string      `json:"page_token,omitempty"`
-	SyncToken    string      `json:"sync_token,omitempty"`
-	CalendarList []*Calendar `json:"calendar_list,omitempty"`
+type CalendarEventListResult struct {
+	HasMore   bool             `json:"has_more,omitempty"`
+	PageToken string           `json:"page_token,omitempty"`
+	SyncToken string           `json:"sync_token,omitempty"`
+	Items     []*CalendarEvent `json:"items,omitempty"`
+}
+
+type CalendarEventPatchResult struct {
+	Event *CalendarEvent `json:"event,omitempty"`
+}
+
+type CalendarEventSearchReqBody struct {
+	Query           string             `json:"query,omitempty"`
+	Filter          *EventSearchFilter `json:"filter,omitempty"`
+	ForceSendFields []string           `json:"-"`
+}
+
+func (s *CalendarEventSearchReqBody) MarshalJSON() ([]byte, error) {
+	type cp CalendarEventSearchReqBody
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type CalendarEventSearchResult struct {
+	Items     []*CalendarEvent `json:"items,omitempty"`
+	PageToken string           `json:"page_token,omitempty"`
 }
 
 type CalendarEventAttendeeListResult struct {
@@ -387,27 +432,10 @@ type CalendarEventAttendeeCreateResult struct {
 	Attendees []*CalendarEventAttendee `json:"attendees,omitempty"`
 }
 
-type CalendarEventListResult struct {
-	HasMore   bool             `json:"has_more,omitempty"`
-	PageToken string           `json:"page_token,omitempty"`
-	SyncToken string           `json:"sync_token,omitempty"`
-	Items     []*CalendarEvent `json:"items,omitempty"`
-}
-
-type CalendarSearchReqBody struct {
-	Query           string   `json:"query,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *CalendarSearchReqBody) MarshalJSON() ([]byte, error) {
-	type cp CalendarSearchReqBody
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type CalendarSearchResult struct {
-	Items     []*Calendar `json:"items,omitempty"`
-	PageToken string      `json:"page_token,omitempty"`
+type CalendarEventAttendeeChatMemberListResult struct {
+	Items     []*CalendarEventAttendeeChatMember `json:"items,omitempty"`
+	HasMore   bool                               `json:"has_more,omitempty"`
+	PageToken string                             `json:"page_token,omitempty"`
 }
 
 type FreebusyListReqBody struct {
@@ -428,31 +456,6 @@ type FreebusyListResult struct {
 	FreebusyList []*Freebusy `json:"freebusy_list,omitempty"`
 }
 
-type CalendarEventPatchResult struct {
-	Event *CalendarEvent `json:"event,omitempty"`
-}
-
-type CalendarEventSearchReqBody struct {
-	Query           string             `json:"query,omitempty"`
-	Filter          *EventSearchFilter `json:"filter,omitempty"`
-	ForceSendFields []string           `json:"-"`
-}
-
-func (s *CalendarEventSearchReqBody) MarshalJSON() ([]byte, error) {
-	type cp CalendarEventSearchReqBody
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type CalendarEventSearchResult struct {
-	Items     []*CalendarEvent `json:"items,omitempty"`
-	PageToken string           `json:"page_token,omitempty"`
-}
-
-type CalendarSubscribeResult struct {
-	Calendar *Calendar `json:"calendar,omitempty"`
-}
-
 type SettingGenerateCaldavConfReqBody struct {
 	DeviceName      string   `json:"device_name,omitempty"`
 	ForceSendFields []string `json:"-"`
@@ -469,22 +472,6 @@ type SettingGenerateCaldavConfResult struct {
 	UserName      string `json:"user_name,omitempty"`
 	ServerAddress string `json:"server_address,omitempty"`
 	DeviceName    string `json:"device_name,omitempty"`
-}
-
-type CalendarEventAttendeeChatMemberListResult struct {
-	Items     []*CalendarEventAttendeeChatMember `json:"items,omitempty"`
-	HasMore   bool                               `json:"has_more,omitempty"`
-	PageToken string                             `json:"page_token,omitempty"`
-}
-
-type CalendarEventChangedEventData struct {
-	CalendarId string    `json:"calendar_id,omitempty"`
-	UserIdList []*UserId `json:"user_id_list,omitempty"`
-}
-
-type CalendarEventChangedEvent struct {
-	*model.BaseEventV2
-	Event *CalendarEventChangedEventData `json:"event"`
 }
 
 type CalendarChangedEventData struct {
@@ -518,4 +505,14 @@ type CalendarAclDeletedEventData struct {
 type CalendarAclDeletedEvent struct {
 	*model.BaseEventV2
 	Event *CalendarAclDeletedEventData `json:"event"`
+}
+
+type CalendarEventChangedEventData struct {
+	CalendarId string    `json:"calendar_id,omitempty"`
+	UserIdList []*UserId `json:"user_id_list,omitempty"`
+}
+
+type CalendarEventChangedEvent struct {
+	*model.BaseEventV2
+	Event *CalendarEventChangedEventData `json:"event"`
 }

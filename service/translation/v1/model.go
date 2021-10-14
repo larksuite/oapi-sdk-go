@@ -17,9 +17,6 @@ func (s *Term) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
-type Text struct {
-}
-
 type TextTranslateReqBody struct {
 	SourceLanguage  string   `json:"source_language,omitempty"`
 	Text            string   `json:"text,omitempty"`

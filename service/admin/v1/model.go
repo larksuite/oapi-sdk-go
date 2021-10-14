@@ -292,14 +292,14 @@ func (s *SplashPageStat) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
-type AdminUserStatListResult struct {
-	HasMore   bool             `json:"has_more,omitempty"`
-	PageToken string           `json:"page_token,omitempty"`
-	Items     []*AdminUserStat `json:"items,omitempty"`
-}
-
 type AdminDeptStatListResult struct {
 	HasMore   bool             `json:"has_more,omitempty"`
 	PageToken string           `json:"page_token,omitempty"`
 	Items     []*AdminDeptStat `json:"items,omitempty"`
+}
+
+type AdminUserStatListResult struct {
+	HasMore   bool             `json:"has_more,omitempty"`
+	PageToken string           `json:"page_token,omitempty"`
+	Items     []*AdminUserStat `json:"items,omitempty"`
 }

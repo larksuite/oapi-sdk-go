@@ -30,7 +30,7 @@
 ---
 
 ```shell
-go get github.com/larksuite/oapi-sdk-go@v1.1.40-rc9
+go get github.com/larksuite/oapi-sdk-go@v1.1.41
 ```
 
 ## 术语解释

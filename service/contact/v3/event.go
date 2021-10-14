@@ -55,150 +55,6 @@ func SetDepartmentUpdatedEventHandler(conf *config.Config, fn func(ctx *core.Con
 	event.SetTypeHandler(conf, "contact.department.updated_v3", &DepartmentUpdatedEventHandler{Fn: fn})
 }
 
-type UserCreatedEventHandler struct {
-	Fn func(*core.Context, *UserCreatedEvent) error
-}
-
-func (h *UserCreatedEventHandler) GetEvent() interface{} {
-	return &UserCreatedEvent{}
-}
-
-func (h *UserCreatedEventHandler) Handle(ctx *core.Context, event interface{}) error {
-	return h.Fn(ctx, event.(*UserCreatedEvent))
-}
-
-func SetUserCreatedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *UserCreatedEvent) error) {
-	event.SetTypeHandler(conf, "contact.user.created_v3", &UserCreatedEventHandler{Fn: fn})
-}
-
-type UserDeletedEventHandler struct {
-	Fn func(*core.Context, *UserDeletedEvent) error
-}
-
-func (h *UserDeletedEventHandler) GetEvent() interface{} {
-	return &UserDeletedEvent{}
-}
-
-func (h *UserDeletedEventHandler) Handle(ctx *core.Context, event interface{}) error {
-	return h.Fn(ctx, event.(*UserDeletedEvent))
-}
-
-func SetUserDeletedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *UserDeletedEvent) error) {
-	event.SetTypeHandler(conf, "contact.user.deleted_v3", &UserDeletedEventHandler{Fn: fn})
-}
-
-type UserUpdatedEventHandler struct {
-	Fn func(*core.Context, *UserUpdatedEvent) error
-}
-
-func (h *UserUpdatedEventHandler) GetEvent() interface{} {
-	return &UserUpdatedEvent{}
-}
-
-func (h *UserUpdatedEventHandler) Handle(ctx *core.Context, event interface{}) error {
-	return h.Fn(ctx, event.(*UserUpdatedEvent))
-}
-
-func SetUserUpdatedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *UserUpdatedEvent) error) {
-	event.SetTypeHandler(conf, "contact.user.updated_v3", &UserUpdatedEventHandler{Fn: fn})
-}
-
-type UserGroupCreatedEventHandler struct {
-	Fn func(*core.Context, *UserGroupCreatedEvent) error
-}
-
-func (h *UserGroupCreatedEventHandler) GetEvent() interface{} {
-	return &UserGroupCreatedEvent{}
-}
-
-func (h *UserGroupCreatedEventHandler) Handle(ctx *core.Context, event interface{}) error {
-	return h.Fn(ctx, event.(*UserGroupCreatedEvent))
-}
-
-func SetUserGroupCreatedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *UserGroupCreatedEvent) error) {
-	event.SetTypeHandler(conf, "contact.user_group.created_v3", &UserGroupCreatedEventHandler{Fn: fn})
-}
-
-type UserGroupDeletedEventHandler struct {
-	Fn func(*core.Context, *UserGroupDeletedEvent) error
-}
-
-func (h *UserGroupDeletedEventHandler) GetEvent() interface{} {
-	return &UserGroupDeletedEvent{}
-}
-
-func (h *UserGroupDeletedEventHandler) Handle(ctx *core.Context, event interface{}) error {
-	return h.Fn(ctx, event.(*UserGroupDeletedEvent))
-}
-
-func SetUserGroupDeletedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *UserGroupDeletedEvent) error) {
-	event.SetTypeHandler(conf, "contact.user_group.deleted_v3", &UserGroupDeletedEventHandler{Fn: fn})
-}
-
-type UserGroupUpdatedEventHandler struct {
-	Fn func(*core.Context, *UserGroupUpdatedEvent) error
-}
-
-func (h *UserGroupUpdatedEventHandler) GetEvent() interface{} {
-	return &UserGroupUpdatedEvent{}
-}
-
-func (h *UserGroupUpdatedEventHandler) Handle(ctx *core.Context, event interface{}) error {
-	return h.Fn(ctx, event.(*UserGroupUpdatedEvent))
-}
-
-func SetUserGroupUpdatedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *UserGroupUpdatedEvent) error) {
-	event.SetTypeHandler(conf, "contact.user_group.updated_v3", &UserGroupUpdatedEventHandler{Fn: fn})
-}
-
-type ScopeUpdatedEventHandler struct {
-	Fn func(*core.Context, *ScopeUpdatedEvent) error
-}
-
-func (h *ScopeUpdatedEventHandler) GetEvent() interface{} {
-	return &ScopeUpdatedEvent{}
-}
-
-func (h *ScopeUpdatedEventHandler) Handle(ctx *core.Context, event interface{}) error {
-	return h.Fn(ctx, event.(*ScopeUpdatedEvent))
-}
-
-func SetScopeUpdatedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *ScopeUpdatedEvent) error) {
-	event.SetTypeHandler(conf, "contact.scope.updated_v3", &ScopeUpdatedEventHandler{Fn: fn})
-}
-
-type UserGroupMemberChangedEventHandler struct {
-	Fn func(*core.Context, *UserGroupMemberChangedEvent) error
-}
-
-func (h *UserGroupMemberChangedEventHandler) GetEvent() interface{} {
-	return &UserGroupMemberChangedEvent{}
-}
-
-func (h *UserGroupMemberChangedEventHandler) Handle(ctx *core.Context, event interface{}) error {
-	return h.Fn(ctx, event.(*UserGroupMemberChangedEvent))
-}
-
-func SetUserGroupMemberChangedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *UserGroupMemberChangedEvent) error) {
-	event.SetTypeHandler(conf, "contact.user_group.member.changed_v3", &UserGroupMemberChangedEventHandler{Fn: fn})
-}
-
-type CustomAttrEventUpdatedEventHandler struct {
-	Fn func(*core.Context, *CustomAttrEventUpdatedEvent) error
-}
-
-func (h *CustomAttrEventUpdatedEventHandler) GetEvent() interface{} {
-	return &CustomAttrEventUpdatedEvent{}
-}
-
-func (h *CustomAttrEventUpdatedEventHandler) Handle(ctx *core.Context, event interface{}) error {
-	return h.Fn(ctx, event.(*CustomAttrEventUpdatedEvent))
-}
-
-func SetCustomAttrEventUpdatedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *CustomAttrEventUpdatedEvent) error) {
-	event.SetTypeHandler(conf, "contact.custom_attr_event.updated_v3", &CustomAttrEventUpdatedEventHandler{Fn: fn})
-}
-
 type EmployeeTypeEnumActivedEventHandler struct {
 	Fn func(*core.Context, *EmployeeTypeEnumActivedEvent) error
 }
@@ -277,4 +133,68 @@ func (h *EmployeeTypeEnumUpdatedEventHandler) Handle(ctx *core.Context, event in
 
 func SetEmployeeTypeEnumUpdatedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *EmployeeTypeEnumUpdatedEvent) error) {
 	event.SetTypeHandler(conf, "contact.employee_type_enum.updated_v3", &EmployeeTypeEnumUpdatedEventHandler{Fn: fn})
+}
+
+type ScopeUpdatedEventHandler struct {
+	Fn func(*core.Context, *ScopeUpdatedEvent) error
+}
+
+func (h *ScopeUpdatedEventHandler) GetEvent() interface{} {
+	return &ScopeUpdatedEvent{}
+}
+
+func (h *ScopeUpdatedEventHandler) Handle(ctx *core.Context, event interface{}) error {
+	return h.Fn(ctx, event.(*ScopeUpdatedEvent))
+}
+
+func SetScopeUpdatedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *ScopeUpdatedEvent) error) {
+	event.SetTypeHandler(conf, "contact.scope.updated_v3", &ScopeUpdatedEventHandler{Fn: fn})
+}
+
+type UserCreatedEventHandler struct {
+	Fn func(*core.Context, *UserCreatedEvent) error
+}
+
+func (h *UserCreatedEventHandler) GetEvent() interface{} {
+	return &UserCreatedEvent{}
+}
+
+func (h *UserCreatedEventHandler) Handle(ctx *core.Context, event interface{}) error {
+	return h.Fn(ctx, event.(*UserCreatedEvent))
+}
+
+func SetUserCreatedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *UserCreatedEvent) error) {
+	event.SetTypeHandler(conf, "contact.user.created_v3", &UserCreatedEventHandler{Fn: fn})
+}
+
+type UserDeletedEventHandler struct {
+	Fn func(*core.Context, *UserDeletedEvent) error
+}
+
+func (h *UserDeletedEventHandler) GetEvent() interface{} {
+	return &UserDeletedEvent{}
+}
+
+func (h *UserDeletedEventHandler) Handle(ctx *core.Context, event interface{}) error {
+	return h.Fn(ctx, event.(*UserDeletedEvent))
+}
+
+func SetUserDeletedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *UserDeletedEvent) error) {
+	event.SetTypeHandler(conf, "contact.user.deleted_v3", &UserDeletedEventHandler{Fn: fn})
+}
+
+type UserUpdatedEventHandler struct {
+	Fn func(*core.Context, *UserUpdatedEvent) error
+}
+
+func (h *UserUpdatedEventHandler) GetEvent() interface{} {
+	return &UserUpdatedEvent{}
+}
+
+func (h *UserUpdatedEventHandler) Handle(ctx *core.Context, event interface{}) error {
+	return h.Fn(ctx, event.(*UserUpdatedEvent))
+}
+
+func SetUserUpdatedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *UserUpdatedEvent) error) {
+	event.SetTypeHandler(conf, "contact.user.updated_v3", &UserUpdatedEventHandler{Fn: fn})
 }

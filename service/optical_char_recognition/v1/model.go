@@ -5,9 +5,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/api/core/tools"
 )
 
-type Image struct {
-}
-
 type ImageBasicRecognizeReqBody struct {
 	Image           string   `json:"image,omitempty"`
 	ForceSendFields []string `json:"-"`

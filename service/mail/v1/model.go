@@ -78,6 +78,12 @@ func (s *PublicMailboxMember) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
+type MailgroupListResult struct {
+	HasMore   bool         `json:"has_more,omitempty"`
+	PageToken string       `json:"page_token,omitempty"`
+	Items     []*Mailgroup `json:"items,omitempty"`
+}
+
 type MailgroupMemberListResult struct {
 	HasMore   bool               `json:"has_more,omitempty"`
 	PageToken string             `json:"page_token,omitempty"`
@@ -90,20 +96,14 @@ type MailgroupPermissionMemberListResult struct {
 	Items     []*MailgroupPermissionMember `json:"items,omitempty"`
 }
 
-type PublicMailboxMemberListResult struct {
-	HasMore   bool                   `json:"has_more,omitempty"`
-	PageToken string                 `json:"page_token,omitempty"`
-	Items     []*PublicMailboxMember `json:"items,omitempty"`
-}
-
 type PublicMailboxListResult struct {
 	HasMore   bool             `json:"has_more,omitempty"`
 	PageToken string           `json:"page_token,omitempty"`
 	Items     []*PublicMailbox `json:"items,omitempty"`
 }
 
-type MailgroupListResult struct {
-	HasMore   bool         `json:"has_more,omitempty"`
-	PageToken string       `json:"page_token,omitempty"`
-	Items     []*Mailgroup `json:"items,omitempty"`
+type PublicMailboxMemberListResult struct {
+	HasMore   bool                   `json:"has_more,omitempty"`
+	PageToken string                 `json:"page_token,omitempty"`
+	Items     []*PublicMailboxMember `json:"items,omitempty"`
 }

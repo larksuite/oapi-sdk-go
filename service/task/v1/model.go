@@ -3,28 +3,8 @@ package v1
 
 import (
 	"github.com/larksuite/oapi-sdk-go/api/core/tools"
+	"github.com/larksuite/oapi-sdk-go/event/core/model"
 )
-
-type Href struct {
-	Url             string   `json:"url,omitempty"`
-	Title           string   `json:"title,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *Href) MarshalJSON() ([]byte, error) {
-	type cp Href
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type TaskCollaborator struct {
-}
-
-type TaskFollower struct {
-}
-
-type TaskReminder struct {
-}
 
 type Collaborator struct {
 	Id              string   `json:"id,omitempty"`
@@ -74,6 +54,18 @@ func (s *Follower) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
+type Href struct {
+	Url             string   `json:"url,omitempty"`
+	Title           string   `json:"title,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *Href) MarshalJSON() ([]byte, error) {
+	type cp Href
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
 type Origin struct {
 	PlatformI18nName string   `json:"platform_i18n_name,omitempty"`
 	Href             *Href    `json:"href,omitempty"`
@@ -109,6 +101,8 @@ type Task struct {
 	UpdateTime      int64    `json:"update_time,omitempty,string"`
 	Due             *Due     `json:"due,omitempty"`
 	Origin          *Origin  `json:"origin,omitempty"`
+	CanEdit         bool     `json:"can_edit,omitempty"`
+	Custom          string   `json:"custom,omitempty"`
 	ForceSendFields []string `json:"-"`
 }
 
@@ -118,42 +112,12 @@ func (s *Task) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
-type TaskCollaboratorCreateResult struct {
-	Collaborator *Collaborator `json:"collaborator,omitempty"`
-}
-
-type TaskFollowerCreateResult struct {
-	Follower *Follower `json:"follower,omitempty"`
-}
-
-type TaskReminderCreateResult struct {
-	Reminder *Reminder `json:"reminder,omitempty"`
-}
-
 type TaskCreateResult struct {
 	Task *Task `json:"task,omitempty"`
 }
 
 type TaskGetResult struct {
 	Task *Task `json:"task,omitempty"`
-}
-
-type TaskFollowerListResult struct {
-	Items     []*Follower `json:"items,omitempty"`
-	PageToken string      `json:"page_token,omitempty"`
-	HasMore   bool        `json:"has_more,omitempty"`
-}
-
-type TaskReminderListResult struct {
-	Items     []*Reminder `json:"items,omitempty"`
-	PageToken string      `json:"page_token,omitempty"`
-	HasMore   bool        `json:"has_more,omitempty"`
-}
-
-type TaskCollaboratorListResult struct {
-	Items     []*Collaborator `json:"items,omitempty"`
-	PageToken string          `json:"page_token,omitempty"`
-	HasMore   bool            `json:"has_more,omitempty"`
 }
 
 type TaskPatchReqBody struct {
@@ -170,4 +134,79 @@ func (s *TaskPatchReqBody) MarshalJSON() ([]byte, error) {
 
 type TaskPatchResult struct {
 	Task *Task `json:"task,omitempty"`
+}
+
+type TaskCollaboratorCreateResult struct {
+	Collaborator *Collaborator `json:"collaborator,omitempty"`
+}
+
+type TaskCollaboratorListResult struct {
+	Items     []*Collaborator `json:"items,omitempty"`
+	PageToken string          `json:"page_token,omitempty"`
+	HasMore   bool            `json:"has_more,omitempty"`
+}
+
+type TaskCommentCreateResult struct {
+	Comment *Comment `json:"comment,omitempty"`
+}
+
+type TaskCommentGetResult struct {
+	Comment *Comment `json:"comment,omitempty"`
+}
+
+type TaskCommentUpdateReqBody struct {
+	Content         string   `json:"content,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *TaskCommentUpdateReqBody) MarshalJSON() ([]byte, error) {
+	type cp TaskCommentUpdateReqBody
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type TaskCommentUpdateResult struct {
+	Comment *Comment `json:"comment,omitempty"`
+}
+
+type TaskFollowerCreateResult struct {
+	Follower *Follower `json:"follower,omitempty"`
+}
+
+type TaskFollowerListResult struct {
+	Items     []*Follower `json:"items,omitempty"`
+	PageToken string      `json:"page_token,omitempty"`
+	HasMore   bool        `json:"has_more,omitempty"`
+}
+
+type TaskReminderCreateResult struct {
+	Reminder *Reminder `json:"reminder,omitempty"`
+}
+
+type TaskReminderListResult struct {
+	Items     []*Reminder `json:"items,omitempty"`
+	PageToken string      `json:"page_token,omitempty"`
+	HasMore   bool        `json:"has_more,omitempty"`
+}
+
+type TaskUpdatedEventData struct {
+	TaskId  string `json:"task_id,omitempty"`
+	ObjType int    `json:"obj_type,omitempty"`
+}
+
+type TaskUpdatedEvent struct {
+	*model.BaseEventV2
+	Event *TaskUpdatedEventData `json:"event"`
+}
+
+type TaskCommentUpdatedEventData struct {
+	TaskId    string `json:"task_id,omitempty"`
+	CommentId string `json:"comment_id,omitempty"`
+	ParentId  string `json:"parent_id,omitempty"`
+	ObjType   int    `json:"obj_type,omitempty"`
+}
+
+type TaskCommentUpdatedEvent struct {
+	*model.BaseEventV2
+	Event *TaskCommentUpdatedEventData `json:"event"`
 }

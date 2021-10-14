@@ -7,22 +7,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/event"
 )
 
-type CalendarEventChangedEventHandler struct {
-	Fn func(*core.Context, *CalendarEventChangedEvent) error
-}
-
-func (h *CalendarEventChangedEventHandler) GetEvent() interface{} {
-	return &CalendarEventChangedEvent{}
-}
-
-func (h *CalendarEventChangedEventHandler) Handle(ctx *core.Context, event interface{}) error {
-	return h.Fn(ctx, event.(*CalendarEventChangedEvent))
-}
-
-func SetCalendarEventChangedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *CalendarEventChangedEvent) error) {
-	event.SetTypeHandler(conf, "calendar.calendar.event.changed_v4", &CalendarEventChangedEventHandler{Fn: fn})
-}
-
 type CalendarChangedEventHandler struct {
 	Fn func(*core.Context, *CalendarChangedEvent) error
 }
@@ -69,4 +53,20 @@ func (h *CalendarAclDeletedEventHandler) Handle(ctx *core.Context, event interfa
 
 func SetCalendarAclDeletedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *CalendarAclDeletedEvent) error) {
 	event.SetTypeHandler(conf, "calendar.calendar.acl.deleted_v4", &CalendarAclDeletedEventHandler{Fn: fn})
+}
+
+type CalendarEventChangedEventHandler struct {
+	Fn func(*core.Context, *CalendarEventChangedEvent) error
+}
+
+func (h *CalendarEventChangedEventHandler) GetEvent() interface{} {
+	return &CalendarEventChangedEvent{}
+}
+
+func (h *CalendarEventChangedEventHandler) Handle(ctx *core.Context, event interface{}) error {
+	return h.Fn(ctx, event.(*CalendarEventChangedEvent))
+}
+
+func SetCalendarEventChangedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *CalendarEventChangedEvent) error) {
+	event.SetTypeHandler(conf, "calendar.calendar.event.changed_v4", &CalendarEventChangedEventHandler{Fn: fn})
 }

@@ -7,22 +7,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/event"
 )
 
-type MessageReceiveEventHandler struct {
-	Fn func(*core.Context, *MessageReceiveEvent) error
-}
-
-func (h *MessageReceiveEventHandler) GetEvent() interface{} {
-	return &MessageReceiveEvent{}
-}
-
-func (h *MessageReceiveEventHandler) Handle(ctx *core.Context, event interface{}) error {
-	return h.Fn(ctx, event.(*MessageReceiveEvent))
-}
-
-func SetMessageReceiveEventHandler(conf *config.Config, fn func(ctx *core.Context, event *MessageReceiveEvent) error) {
-	event.SetTypeHandler(conf, "im.message.receive_v1", &MessageReceiveEventHandler{Fn: fn})
-}
-
 type ChatUpdatedEventHandler struct {
 	Fn func(*core.Context, *ChatUpdatedEvent) error
 }
@@ -71,22 +55,6 @@ func SetChatMemberBotAddedEventHandler(conf *config.Config, fn func(ctx *core.Co
 	event.SetTypeHandler(conf, "im.chat.member.bot.added_v1", &ChatMemberBotAddedEventHandler{Fn: fn})
 }
 
-type ChatMemberUserAddedEventHandler struct {
-	Fn func(*core.Context, *ChatMemberUserAddedEvent) error
-}
-
-func (h *ChatMemberUserAddedEventHandler) GetEvent() interface{} {
-	return &ChatMemberUserAddedEvent{}
-}
-
-func (h *ChatMemberUserAddedEventHandler) Handle(ctx *core.Context, event interface{}) error {
-	return h.Fn(ctx, event.(*ChatMemberUserAddedEvent))
-}
-
-func SetChatMemberUserAddedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *ChatMemberUserAddedEvent) error) {
-	event.SetTypeHandler(conf, "im.chat.member.user.added_v1", &ChatMemberUserAddedEventHandler{Fn: fn})
-}
-
 type ChatMemberBotDeletedEventHandler struct {
 	Fn func(*core.Context, *ChatMemberBotDeletedEvent) error
 }
@@ -101,6 +69,22 @@ func (h *ChatMemberBotDeletedEventHandler) Handle(ctx *core.Context, event inter
 
 func SetChatMemberBotDeletedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *ChatMemberBotDeletedEvent) error) {
 	event.SetTypeHandler(conf, "im.chat.member.bot.deleted_v1", &ChatMemberBotDeletedEventHandler{Fn: fn})
+}
+
+type ChatMemberUserAddedEventHandler struct {
+	Fn func(*core.Context, *ChatMemberUserAddedEvent) error
+}
+
+func (h *ChatMemberUserAddedEventHandler) GetEvent() interface{} {
+	return &ChatMemberUserAddedEvent{}
+}
+
+func (h *ChatMemberUserAddedEventHandler) Handle(ctx *core.Context, event interface{}) error {
+	return h.Fn(ctx, event.(*ChatMemberUserAddedEvent))
+}
+
+func SetChatMemberUserAddedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *ChatMemberUserAddedEvent) error) {
+	event.SetTypeHandler(conf, "im.chat.member.user.added_v1", &ChatMemberUserAddedEventHandler{Fn: fn})
 }
 
 type ChatMemberUserWithdrawnEventHandler struct {
@@ -133,6 +117,22 @@ func (h *ChatMemberUserDeletedEventHandler) Handle(ctx *core.Context, event inte
 
 func SetChatMemberUserDeletedEventHandler(conf *config.Config, fn func(ctx *core.Context, event *ChatMemberUserDeletedEvent) error) {
 	event.SetTypeHandler(conf, "im.chat.member.user.deleted_v1", &ChatMemberUserDeletedEventHandler{Fn: fn})
+}
+
+type MessageReceiveEventHandler struct {
+	Fn func(*core.Context, *MessageReceiveEvent) error
+}
+
+func (h *MessageReceiveEventHandler) GetEvent() interface{} {
+	return &MessageReceiveEvent{}
+}
+
+func (h *MessageReceiveEventHandler) Handle(ctx *core.Context, event interface{}) error {
+	return h.Fn(ctx, event.(*MessageReceiveEvent))
+}
+
+func SetMessageReceiveEventHandler(conf *config.Config, fn func(ctx *core.Context, event *MessageReceiveEvent) error) {
+	event.SetTypeHandler(conf, "im.message.receive_v1", &MessageReceiveEventHandler{Fn: fn})
 }
 
 type MessageMessageReadEventHandler struct {
