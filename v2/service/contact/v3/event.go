@@ -19,7 +19,7 @@ func (h *departmentCreatedEventHandler) Handle(ctx context.Context, req *lark.Ra
 }
 
 func (d *departments) CreatedEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *DepartmentCreatedEvent) error) {
-	d.app.Webhook.EventHandler("created", &departmentCreatedEventHandler{handler: handler})
+	d.app.Webhook.EventHandler("contact.department.created_v3", &departmentCreatedEventHandler{handler: handler})
 }
 
 type departmentDeletedEventHandler struct {
@@ -35,7 +35,7 @@ func (h *departmentDeletedEventHandler) Handle(ctx context.Context, req *lark.Ra
 }
 
 func (d *departments) DeletedEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *DepartmentDeletedEvent) error) {
-	d.app.Webhook.EventHandler("deleted", &departmentDeletedEventHandler{handler: handler})
+	d.app.Webhook.EventHandler("contact.department.deleted_v3", &departmentDeletedEventHandler{handler: handler})
 }
 
 type departmentUpdatedEventHandler struct {
@@ -51,7 +51,7 @@ func (h *departmentUpdatedEventHandler) Handle(ctx context.Context, req *lark.Ra
 }
 
 func (d *departments) UpdatedEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *DepartmentUpdatedEvent) error) {
-	d.app.Webhook.EventHandler("updated", &departmentUpdatedEventHandler{handler: handler})
+	d.app.Webhook.EventHandler("contact.department.updated_v3", &departmentUpdatedEventHandler{handler: handler})
 }
 
 type employeeTypeEnumActivedEventHandler struct {
@@ -67,7 +67,7 @@ func (h *employeeTypeEnumActivedEventHandler) Handle(ctx context.Context, req *l
 }
 
 func (e *employeeTypeEnums) ActivedEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *EmployeeTypeEnumActivedEvent) error) {
-	e.app.Webhook.EventHandler("actived", &employeeTypeEnumActivedEventHandler{handler: handler})
+	e.app.Webhook.EventHandler("contact.employee_type_enum.actived_v3", &employeeTypeEnumActivedEventHandler{handler: handler})
 }
 
 type employeeTypeEnumCreatedEventHandler struct {
@@ -83,7 +83,7 @@ func (h *employeeTypeEnumCreatedEventHandler) Handle(ctx context.Context, req *l
 }
 
 func (e *employeeTypeEnums) CreatedEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *EmployeeTypeEnumCreatedEvent) error) {
-	e.app.Webhook.EventHandler("created", &employeeTypeEnumCreatedEventHandler{handler: handler})
+	e.app.Webhook.EventHandler("contact.employee_type_enum.created_v3", &employeeTypeEnumCreatedEventHandler{handler: handler})
 }
 
 type employeeTypeEnumDeactivatedEventHandler struct {
@@ -99,7 +99,7 @@ func (h *employeeTypeEnumDeactivatedEventHandler) Handle(ctx context.Context, re
 }
 
 func (e *employeeTypeEnums) DeactivatedEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *EmployeeTypeEnumDeactivatedEvent) error) {
-	e.app.Webhook.EventHandler("deactivated", &employeeTypeEnumDeactivatedEventHandler{handler: handler})
+	e.app.Webhook.EventHandler("contact.employee_type_enum.deactivated_v3", &employeeTypeEnumDeactivatedEventHandler{handler: handler})
 }
 
 type employeeTypeEnumDeletedEventHandler struct {
@@ -115,7 +115,7 @@ func (h *employeeTypeEnumDeletedEventHandler) Handle(ctx context.Context, req *l
 }
 
 func (e *employeeTypeEnums) DeletedEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *EmployeeTypeEnumDeletedEvent) error) {
-	e.app.Webhook.EventHandler("deleted", &employeeTypeEnumDeletedEventHandler{handler: handler})
+	e.app.Webhook.EventHandler("contact.employee_type_enum.deleted_v3", &employeeTypeEnumDeletedEventHandler{handler: handler})
 }
 
 type employeeTypeEnumUpdatedEventHandler struct {
@@ -131,7 +131,7 @@ func (h *employeeTypeEnumUpdatedEventHandler) Handle(ctx context.Context, req *l
 }
 
 func (e *employeeTypeEnums) UpdatedEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *EmployeeTypeEnumUpdatedEvent) error) {
-	e.app.Webhook.EventHandler("updated", &employeeTypeEnumUpdatedEventHandler{handler: handler})
+	e.app.Webhook.EventHandler("contact.employee_type_enum.updated_v3", &employeeTypeEnumUpdatedEventHandler{handler: handler})
 }
 
 type scopeUpdatedEventHandler struct {
@@ -147,7 +147,7 @@ func (h *scopeUpdatedEventHandler) Handle(ctx context.Context, req *lark.RawRequ
 }
 
 func (s *scopes) UpdatedEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *ScopeUpdatedEvent) error) {
-	s.app.Webhook.EventHandler("updated", &scopeUpdatedEventHandler{handler: handler})
+	s.app.Webhook.EventHandler("contact.scope.updated_v3", &scopeUpdatedEventHandler{handler: handler})
 }
 
 type userCreatedEventHandler struct {
@@ -163,7 +163,7 @@ func (h *userCreatedEventHandler) Handle(ctx context.Context, req *lark.RawReque
 }
 
 func (u *users) CreatedEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *UserCreatedEvent) error) {
-	u.app.Webhook.EventHandler("created", &userCreatedEventHandler{handler: handler})
+	u.app.Webhook.EventHandler("contact.user.created_v3", &userCreatedEventHandler{handler: handler})
 }
 
 type userDeletedEventHandler struct {
@@ -179,7 +179,7 @@ func (h *userDeletedEventHandler) Handle(ctx context.Context, req *lark.RawReque
 }
 
 func (u *users) DeletedEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *UserDeletedEvent) error) {
-	u.app.Webhook.EventHandler("deleted", &userDeletedEventHandler{handler: handler})
+	u.app.Webhook.EventHandler("contact.user.deleted_v3", &userDeletedEventHandler{handler: handler})
 }
 
 type userUpdatedEventHandler struct {
@@ -195,5 +195,5 @@ func (h *userUpdatedEventHandler) Handle(ctx context.Context, req *lark.RawReque
 }
 
 func (u *users) UpdatedEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *UserUpdatedEvent) error) {
-	u.app.Webhook.EventHandler("updated", &userUpdatedEventHandler{handler: handler})
+	u.app.Webhook.EventHandler("contact.user.updated_v3", &userUpdatedEventHandler{handler: handler})
 }

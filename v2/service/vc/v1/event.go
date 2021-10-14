@@ -19,7 +19,7 @@ func (h *meetingLeaveMeetingEventHandler) Handle(ctx context.Context, req *lark.
 }
 
 func (m *meetings) LeaveMeetingEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *MeetingLeaveMeetingEvent) error) {
-	m.app.Webhook.EventHandler("leave_meeting", &meetingLeaveMeetingEventHandler{handler: handler})
+	m.app.Webhook.EventHandler("vc.meeting.leave_meeting_v1", &meetingLeaveMeetingEventHandler{handler: handler})
 }
 
 type meetingMeetingEndedEventHandler struct {
@@ -35,7 +35,7 @@ func (h *meetingMeetingEndedEventHandler) Handle(ctx context.Context, req *lark.
 }
 
 func (m *meetings) MeetingEndedEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *MeetingMeetingEndedEvent) error) {
-	m.app.Webhook.EventHandler("meeting_ended", &meetingMeetingEndedEventHandler{handler: handler})
+	m.app.Webhook.EventHandler("vc.meeting.meeting_ended_v1", &meetingMeetingEndedEventHandler{handler: handler})
 }
 
 type meetingMeetingStartedEventHandler struct {
@@ -51,7 +51,7 @@ func (h *meetingMeetingStartedEventHandler) Handle(ctx context.Context, req *lar
 }
 
 func (m *meetings) MeetingStartedEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *MeetingMeetingStartedEvent) error) {
-	m.app.Webhook.EventHandler("meeting_started", &meetingMeetingStartedEventHandler{handler: handler})
+	m.app.Webhook.EventHandler("vc.meeting.meeting_started_v1", &meetingMeetingStartedEventHandler{handler: handler})
 }
 
 type meetingRecordingEndedEventHandler struct {
@@ -67,7 +67,7 @@ func (h *meetingRecordingEndedEventHandler) Handle(ctx context.Context, req *lar
 }
 
 func (m *meetings) RecordingEndedEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *MeetingRecordingEndedEvent) error) {
-	m.app.Webhook.EventHandler("recording_ended", &meetingRecordingEndedEventHandler{handler: handler})
+	m.app.Webhook.EventHandler("vc.meeting.recording_ended_v1", &meetingRecordingEndedEventHandler{handler: handler})
 }
 
 type meetingShareEndedEventHandler struct {
@@ -83,7 +83,7 @@ func (h *meetingShareEndedEventHandler) Handle(ctx context.Context, req *lark.Ra
 }
 
 func (m *meetings) ShareEndedEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *MeetingShareEndedEvent) error) {
-	m.app.Webhook.EventHandler("share_ended", &meetingShareEndedEventHandler{handler: handler})
+	m.app.Webhook.EventHandler("vc.meeting.share_ended_v1", &meetingShareEndedEventHandler{handler: handler})
 }
 
 type meetingJoinMeetingEventHandler struct {
@@ -99,7 +99,7 @@ func (h *meetingJoinMeetingEventHandler) Handle(ctx context.Context, req *lark.R
 }
 
 func (m *meetings) JoinMeetingEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *MeetingJoinMeetingEvent) error) {
-	m.app.Webhook.EventHandler("join_meeting", &meetingJoinMeetingEventHandler{handler: handler})
+	m.app.Webhook.EventHandler("vc.meeting.join_meeting_v1", &meetingJoinMeetingEventHandler{handler: handler})
 }
 
 type meetingRecordingStartedEventHandler struct {
@@ -115,7 +115,7 @@ func (h *meetingRecordingStartedEventHandler) Handle(ctx context.Context, req *l
 }
 
 func (m *meetings) RecordingStartedEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *MeetingRecordingStartedEvent) error) {
-	m.app.Webhook.EventHandler("recording_started", &meetingRecordingStartedEventHandler{handler: handler})
+	m.app.Webhook.EventHandler("vc.meeting.recording_started_v1", &meetingRecordingStartedEventHandler{handler: handler})
 }
 
 type meetingShareStartedEventHandler struct {
@@ -131,7 +131,7 @@ func (h *meetingShareStartedEventHandler) Handle(ctx context.Context, req *lark.
 }
 
 func (m *meetings) ShareStartedEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *MeetingShareStartedEvent) error) {
-	m.app.Webhook.EventHandler("share_started", &meetingShareStartedEventHandler{handler: handler})
+	m.app.Webhook.EventHandler("vc.meeting.share_started_v1", &meetingShareStartedEventHandler{handler: handler})
 }
 
 type meetingRecordingReadyEventHandler struct {
@@ -147,5 +147,5 @@ func (h *meetingRecordingReadyEventHandler) Handle(ctx context.Context, req *lar
 }
 
 func (m *meetings) RecordingReadyEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *MeetingRecordingReadyEvent) error) {
-	m.app.Webhook.EventHandler("recording_ready", &meetingRecordingReadyEventHandler{handler: handler})
+	m.app.Webhook.EventHandler("vc.meeting.recording_ready_v1", &meetingRecordingReadyEventHandler{handler: handler})
 }

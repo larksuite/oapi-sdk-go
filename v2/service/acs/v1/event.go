@@ -19,7 +19,7 @@ func (h *accessRecordCreatedEventHandler) Handle(ctx context.Context, req *lark.
 }
 
 func (a *accessRecords) CreatedEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *AccessRecordCreatedEvent) error) {
-	a.app.Webhook.EventHandler("created", &accessRecordCreatedEventHandler{handler: handler})
+	a.app.Webhook.EventHandler("acs.access_record.created_v1", &accessRecordCreatedEventHandler{handler: handler})
 }
 
 type userUpdatedEventHandler struct {
@@ -35,5 +35,5 @@ func (h *userUpdatedEventHandler) Handle(ctx context.Context, req *lark.RawReque
 }
 
 func (u *users) UpdatedEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *UserUpdatedEvent) error) {
-	u.app.Webhook.EventHandler("updated", &userUpdatedEventHandler{handler: handler})
+	u.app.Webhook.EventHandler("acs.user.updated_v1", &userUpdatedEventHandler{handler: handler})
 }

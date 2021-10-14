@@ -19,7 +19,7 @@ func (h *taskUpdatedEventHandler) Handle(ctx context.Context, req *lark.RawReque
 }
 
 func (t *tasks) UpdatedEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *TaskUpdatedEvent) error) {
-	t.app.Webhook.EventHandler("updated", &taskUpdatedEventHandler{handler: handler})
+	t.app.Webhook.EventHandler("task.task.updated_v1", &taskUpdatedEventHandler{handler: handler})
 }
 
 type taskCommentUpdatedEventHandler struct {
@@ -35,5 +35,5 @@ func (h *taskCommentUpdatedEventHandler) Handle(ctx context.Context, req *lark.R
 }
 
 func (c *comments) UpdatedEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *TaskCommentUpdatedEvent) error) {
-	c.app.Webhook.EventHandler("updated", &taskCommentUpdatedEventHandler{handler: handler})
+	c.app.Webhook.EventHandler("task.task.comment.updated_v1", &taskCommentUpdatedEventHandler{handler: handler})
 }

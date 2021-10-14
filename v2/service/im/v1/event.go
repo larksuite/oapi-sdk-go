@@ -19,7 +19,7 @@ func (h *chatUpdatedEventHandler) Handle(ctx context.Context, req *lark.RawReque
 }
 
 func (c *chats) UpdatedEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *ChatUpdatedEvent) error) {
-	c.app.Webhook.EventHandler("updated", &chatUpdatedEventHandler{handler: handler})
+	c.app.Webhook.EventHandler("im.chat.updated_v1", &chatUpdatedEventHandler{handler: handler})
 }
 
 type chatDisbandedEventHandler struct {
@@ -35,7 +35,7 @@ func (h *chatDisbandedEventHandler) Handle(ctx context.Context, req *lark.RawReq
 }
 
 func (c *chats) DisbandedEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *ChatDisbandedEvent) error) {
-	c.app.Webhook.EventHandler("disbanded", &chatDisbandedEventHandler{handler: handler})
+	c.app.Webhook.EventHandler("im.chat.disbanded_v1", &chatDisbandedEventHandler{handler: handler})
 }
 
 type chatMemberBotAddedEventHandler struct {
@@ -51,7 +51,7 @@ func (h *chatMemberBotAddedEventHandler) Handle(ctx context.Context, req *lark.R
 }
 
 func (c *chatMemberBots) AddedEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *ChatMemberBotAddedEvent) error) {
-	c.app.Webhook.EventHandler("added", &chatMemberBotAddedEventHandler{handler: handler})
+	c.app.Webhook.EventHandler("im.chat.member.bot.added_v1", &chatMemberBotAddedEventHandler{handler: handler})
 }
 
 type chatMemberBotDeletedEventHandler struct {
@@ -67,7 +67,7 @@ func (h *chatMemberBotDeletedEventHandler) Handle(ctx context.Context, req *lark
 }
 
 func (c *chatMemberBots) DeletedEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *ChatMemberBotDeletedEvent) error) {
-	c.app.Webhook.EventHandler("deleted", &chatMemberBotDeletedEventHandler{handler: handler})
+	c.app.Webhook.EventHandler("im.chat.member.bot.deleted_v1", &chatMemberBotDeletedEventHandler{handler: handler})
 }
 
 type chatMemberUserAddedEventHandler struct {
@@ -83,7 +83,7 @@ func (h *chatMemberUserAddedEventHandler) Handle(ctx context.Context, req *lark.
 }
 
 func (c *chatMemberUsers) AddedEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *ChatMemberUserAddedEvent) error) {
-	c.app.Webhook.EventHandler("added", &chatMemberUserAddedEventHandler{handler: handler})
+	c.app.Webhook.EventHandler("im.chat.member.user.added_v1", &chatMemberUserAddedEventHandler{handler: handler})
 }
 
 type chatMemberUserWithdrawnEventHandler struct {
@@ -99,7 +99,7 @@ func (h *chatMemberUserWithdrawnEventHandler) Handle(ctx context.Context, req *l
 }
 
 func (c *chatMemberUsers) WithdrawnEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *ChatMemberUserWithdrawnEvent) error) {
-	c.app.Webhook.EventHandler("withdrawn", &chatMemberUserWithdrawnEventHandler{handler: handler})
+	c.app.Webhook.EventHandler("im.chat.member.user.withdrawn_v1", &chatMemberUserWithdrawnEventHandler{handler: handler})
 }
 
 type chatMemberUserDeletedEventHandler struct {
@@ -115,7 +115,7 @@ func (h *chatMemberUserDeletedEventHandler) Handle(ctx context.Context, req *lar
 }
 
 func (c *chatMemberUsers) DeletedEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *ChatMemberUserDeletedEvent) error) {
-	c.app.Webhook.EventHandler("deleted", &chatMemberUserDeletedEventHandler{handler: handler})
+	c.app.Webhook.EventHandler("im.chat.member.user.deleted_v1", &chatMemberUserDeletedEventHandler{handler: handler})
 }
 
 type messageReceiveEventHandler struct {
@@ -131,7 +131,7 @@ func (h *messageReceiveEventHandler) Handle(ctx context.Context, req *lark.RawRe
 }
 
 func (m *messages) ReceiveEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *MessageReceiveEvent) error) {
-	m.app.Webhook.EventHandler("receive", &messageReceiveEventHandler{handler: handler})
+	m.app.Webhook.EventHandler("im.message.receive_v1", &messageReceiveEventHandler{handler: handler})
 }
 
 type messageMessageReadEventHandler struct {
@@ -147,5 +147,5 @@ func (h *messageMessageReadEventHandler) Handle(ctx context.Context, req *lark.R
 }
 
 func (m *messages) MessageReadEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *MessageMessageReadEvent) error) {
-	m.app.Webhook.EventHandler("message_read", &messageMessageReadEventHandler{handler: handler})
+	m.app.Webhook.EventHandler("im.message.message_read_v1", &messageMessageReadEventHandler{handler: handler})
 }

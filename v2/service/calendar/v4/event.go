@@ -19,7 +19,7 @@ func (h *calendarChangedEventHandler) Handle(ctx context.Context, req *lark.RawR
 }
 
 func (c *calendars) ChangedEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *CalendarChangedEvent) error) {
-	c.app.Webhook.EventHandler("changed", &calendarChangedEventHandler{handler: handler})
+	c.app.Webhook.EventHandler("calendar.calendar.changed_v4", &calendarChangedEventHandler{handler: handler})
 }
 
 type calendarAclCreatedEventHandler struct {
@@ -35,7 +35,7 @@ func (h *calendarAclCreatedEventHandler) Handle(ctx context.Context, req *lark.R
 }
 
 func (c *calendarAcls) CreatedEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *CalendarAclCreatedEvent) error) {
-	c.app.Webhook.EventHandler("created", &calendarAclCreatedEventHandler{handler: handler})
+	c.app.Webhook.EventHandler("calendar.calendar.acl.created_v4", &calendarAclCreatedEventHandler{handler: handler})
 }
 
 type calendarAclDeletedEventHandler struct {
@@ -51,7 +51,7 @@ func (h *calendarAclDeletedEventHandler) Handle(ctx context.Context, req *lark.R
 }
 
 func (c *calendarAcls) DeletedEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *CalendarAclDeletedEvent) error) {
-	c.app.Webhook.EventHandler("deleted", &calendarAclDeletedEventHandler{handler: handler})
+	c.app.Webhook.EventHandler("calendar.calendar.acl.deleted_v4", &calendarAclDeletedEventHandler{handler: handler})
 }
 
 type calendarEventChangedEventHandler struct {
@@ -67,5 +67,5 @@ func (h *calendarEventChangedEventHandler) Handle(ctx context.Context, req *lark
 }
 
 func (c *calendarEvents) ChangedEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *CalendarEventChangedEvent) error) {
-	c.app.Webhook.EventHandler("changed", &calendarEventChangedEventHandler{handler: handler})
+	c.app.Webhook.EventHandler("calendar.calendar.event.changed_v4", &calendarEventChangedEventHandler{handler: handler})
 }
