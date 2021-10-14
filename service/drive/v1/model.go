@@ -3,7 +3,21 @@ package v1
 
 import (
 	"github.com/larksuite/oapi-sdk-go/api/core/tools"
+	"github.com/larksuite/oapi-sdk-go/event/core/model"
 )
+
+type UserId struct {
+	UserId          string   `json:"user_id,omitempty"`
+	OpenId          string   `json:"open_id,omitempty"`
+	UnionId         string   `json:"union_id,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *UserId) MarshalJSON() ([]byte, error) {
+	type cp UserId
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
 
 type Collaborator struct {
 	MemberType      string   `json:"member_type,omitempty"`
@@ -77,6 +91,32 @@ func (s *FileCommentReply) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
+type FileUploadInfo struct {
+	FileName        string   `json:"file_name,omitempty"`
+	ParentType      string   `json:"parent_type,omitempty"`
+	ParentNode      string   `json:"parent_node,omitempty"`
+	Size            int      `json:"size,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *FileUploadInfo) MarshalJSON() ([]byte, error) {
+	type cp FileUploadInfo
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type ImportTaskMountPoint struct {
+	MountType       int      `json:"mount_type,omitempty"`
+	MountKey        string   `json:"mount_key,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *ImportTaskMountPoint) MarshalJSON() ([]byte, error) {
+	type cp ImportTaskMountPoint
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
 type Media struct {
 	FileToken       string   `json:"file_token,omitempty"`
 	FileName        string   `json:"file_name,omitempty"`
@@ -87,6 +127,21 @@ type Media struct {
 
 func (s *Media) MarshalJSON() ([]byte, error) {
 	type cp Media
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type MediaUploadInfo struct {
+	FileName        string   `json:"file_name,omitempty"`
+	ParentType      string   `json:"parent_type,omitempty"`
+	ParentNode      string   `json:"parent_node,omitempty"`
+	Size            int      `json:"size,omitempty"`
+	Extra           string   `json:"extra,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *MediaUploadInfo) MarshalJSON() ([]byte, error) {
+	type cp MediaUploadInfo
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
@@ -112,6 +167,22 @@ type Owner struct {
 
 func (s *Owner) MarshalJSON() ([]byte, error) {
 	type cp Owner
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type PermissionPublic struct {
+	ExternalAccess  bool     `json:"external_access,omitempty"`
+	SecurityEntity  string   `json:"security_entity,omitempty"`
+	CommentEntity   string   `json:"comment_entity,omitempty"`
+	ShareEntity     string   `json:"share_entity,omitempty"`
+	LinkShareEntity string   `json:"link_share_entity,omitempty"`
+	InviteExternal  bool     `json:"invite_external,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *PermissionPublic) MarshalJSON() ([]byte, error) {
+	type cp PermissionPublic
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
@@ -198,6 +269,20 @@ func (s *TokenType) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
+type UploadInfo struct {
+	FileName        string   `json:"file_name,omitempty"`
+	ParentType      string   `json:"parent_type,omitempty"`
+	ParentNode      string   `json:"parent_node,omitempty"`
+	Size            int      `json:"size,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *UploadInfo) MarshalJSON() ([]byte, error) {
+	type cp UploadInfo
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
 type FileStatistics struct {
 	Uv              int      `json:"uv,omitempty"`
 	Pv              int      `json:"pv,omitempty"`
@@ -208,20 +293,6 @@ type FileStatistics struct {
 
 func (s *FileStatistics) MarshalJSON() ([]byte, error) {
 	type cp FileStatistics
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type FileUploadInfo struct {
-	FileName        string   `json:"file_name,omitempty"`
-	ParentType      string   `json:"parent_type,omitempty"`
-	ParentNode      string   `json:"parent_node,omitempty"`
-	Size            int      `json:"size,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *FileUploadInfo) MarshalJSON() ([]byte, error) {
-	type cp FileUploadInfo
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
@@ -243,63 +314,6 @@ type ImportTask struct {
 
 func (s *ImportTask) MarshalJSON() ([]byte, error) {
 	type cp ImportTask
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type ImportTaskMountPoint struct {
-	MountType       int      `json:"mount_type,omitempty"`
-	MountKey        string   `json:"mount_key,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *ImportTaskMountPoint) MarshalJSON() ([]byte, error) {
-	type cp ImportTaskMountPoint
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type MediaUploadInfo struct {
-	FileName        string   `json:"file_name,omitempty"`
-	ParentType      string   `json:"parent_type,omitempty"`
-	ParentNode      string   `json:"parent_node,omitempty"`
-	Size            int      `json:"size,omitempty"`
-	Extra           string   `json:"extra,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *MediaUploadInfo) MarshalJSON() ([]byte, error) {
-	type cp MediaUploadInfo
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type PermissionPublic struct {
-	ExternalAccess  bool     `json:"external_access,omitempty"`
-	SecurityEntity  string   `json:"security_entity,omitempty"`
-	CommentEntity   string   `json:"comment_entity,omitempty"`
-	ShareEntity     string   `json:"share_entity,omitempty"`
-	LinkShareEntity string   `json:"link_share_entity,omitempty"`
-	InviteExternal  bool     `json:"invite_external,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *PermissionPublic) MarshalJSON() ([]byte, error) {
-	type cp PermissionPublic
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type UploadInfo struct {
-	FileName        string   `json:"file_name,omitempty"`
-	ParentType      string   `json:"parent_type,omitempty"`
-	ParentNode      string   `json:"parent_node,omitempty"`
-	Size            int      `json:"size,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *UploadInfo) MarshalJSON() ([]byte, error) {
-	type cp UploadInfo
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
@@ -326,6 +340,52 @@ type FileUploadPrepareResult struct {
 	BlockNum  int    `json:"block_num,omitempty"`
 }
 
+type FileUploadAllResult struct {
+	FileToken string `json:"file_token,omitempty"`
+}
+
+type FileCommentListResult struct {
+	HasMore   bool           `json:"has_more,omitempty"`
+	PageToken string         `json:"page_token,omitempty"`
+	Items     []*FileComment `json:"items,omitempty"`
+}
+
+type FileCommentPatchReqBody struct {
+	IsSolved        bool     `json:"is_solved,omitempty"`
+	ForceSendFields []string `json:"-"`
+}
+
+func (s *FileCommentPatchReqBody) MarshalJSON() ([]byte, error) {
+	type cp FileCommentPatchReqBody
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type FileCommentReplyUpdateReqBody struct {
+	Content         *ReplyContent `json:"content,omitempty"`
+	ForceSendFields []string      `json:"-"`
+}
+
+func (s *FileCommentReplyUpdateReqBody) MarshalJSON() ([]byte, error) {
+	type cp FileCommentReplyUpdateReqBody
+	raw := cp(*s)
+	return tools.MarshalJSON(raw, s.ForceSendFields)
+}
+
+type FileStatisticsGetResult struct {
+	FileToken  string          `json:"file_token,omitempty"`
+	FileType   string          `json:"file_type,omitempty"`
+	Statistics *FileStatistics `json:"statistics,omitempty"`
+}
+
+type ImportTaskCreateResult struct {
+	Ticket string `json:"ticket,omitempty"`
+}
+
+type ImportTaskGetResult struct {
+	Result *ImportTask `json:"result,omitempty"`
+}
+
 type MediaUploadAllResult struct {
 	FileToken string `json:"file_token,omitempty"`
 }
@@ -346,10 +406,6 @@ type MediaUploadFinishResult struct {
 	FileToken string `json:"file_token,omitempty"`
 }
 
-type FileUploadAllResult struct {
-	FileToken string `json:"file_token,omitempty"`
-}
-
 type MediaUploadPrepareResult struct {
 	UploadId  string `json:"upload_id,omitempty"`
 	BlockSize int    `json:"block_size,omitempty"`
@@ -360,35 +416,11 @@ type MediaBatchGetTmpDownloadUrlResult struct {
 	TmpDownloadUrls []*TmpDownloadUrl `json:"tmp_download_urls,omitempty"`
 }
 
-type FileCommentReplyUpdateReqBody struct {
-	Content         *ReplyContent `json:"content,omitempty"`
-	ForceSendFields []string      `json:"-"`
-}
-
-func (s *FileCommentReplyUpdateReqBody) MarshalJSON() ([]byte, error) {
-	type cp FileCommentReplyUpdateReqBody
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type FileCommentListResult struct {
-	HasMore   bool           `json:"has_more,omitempty"`
-	PageToken string         `json:"page_token,omitempty"`
-	Items     []*FileComment `json:"items,omitempty"`
-}
-
-type FileCommentPatchReqBody struct {
-	IsSolved        bool     `json:"is_solved,omitempty"`
-	ForceSendFields []string `json:"-"`
-}
-
-func (s *FileCommentPatchReqBody) MarshalJSON() ([]byte, error) {
-	type cp FileCommentPatchReqBody
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
 type PermissionMemberCreateResult struct {
+	Member *Member `json:"member,omitempty"`
+}
+
+type PermissionMemberUpdateResult struct {
 	Member *Member `json:"member,omitempty"`
 }
 
@@ -396,20 +428,90 @@ type PermissionPublicPatchResult struct {
 	PermissionPublic *PermissionPublic `json:"permission_public,omitempty"`
 }
 
-type ImportTaskCreateResult struct {
-	Ticket string `json:"ticket,omitempty"`
+type FileDeletedEventData struct {
+	FileType         string    `json:"file_type,omitempty"`
+	FileToken        string    `json:"file_token,omitempty"`
+	OperatorId       *UserId   `json:"operator_id,omitempty"`
+	SubscriberIdList []*UserId `json:"subscriber_id_list,omitempty"`
 }
 
-type ImportTaskGetResult struct {
-	Result *ImportTask `json:"result,omitempty"`
+type FileDeletedEvent struct {
+	*model.BaseEventV2
+	Event *FileDeletedEventData `json:"event"`
 }
 
-type FileStatisticsGetResult struct {
-	FileToken  string          `json:"file_token,omitempty"`
-	FileType   string          `json:"file_type,omitempty"`
-	Statistics *FileStatistics `json:"statistics,omitempty"`
+type FilePermissionMemberAddedEventData struct {
+	FileType         string    `json:"file_type,omitempty"`
+	FileToken        string    `json:"file_token,omitempty"`
+	OperatorId       *UserId   `json:"operator_id,omitempty"`
+	UserList         []*UserId `json:"user_list,omitempty"`
+	ChatList         []string  `json:"chat_list,omitempty"`
+	SubscriberIdList []*UserId `json:"subscriber_id_list,omitempty"`
 }
 
-type PermissionMemberUpdateResult struct {
-	Member *Member `json:"member,omitempty"`
+type FilePermissionMemberAddedEvent struct {
+	*model.BaseEventV2
+	Event *FilePermissionMemberAddedEventData `json:"event"`
+}
+
+type FilePermissionMemberRemovedEventData struct {
+	FileType         string    `json:"file_type,omitempty"`
+	FileToken        string    `json:"file_token,omitempty"`
+	OperatorId       *UserId   `json:"operator_id,omitempty"`
+	UserList         []*UserId `json:"user_list,omitempty"`
+	ChatList         []string  `json:"chat_list,omitempty"`
+	SubscriberIdList []*UserId `json:"subscriber_id_list,omitempty"`
+}
+
+type FilePermissionMemberRemovedEvent struct {
+	*model.BaseEventV2
+	Event *FilePermissionMemberRemovedEventData `json:"event"`
+}
+
+type FileReadEventData struct {
+	FileType         string    `json:"file_type,omitempty"`
+	FileToken        string    `json:"file_token,omitempty"`
+	OperatorIdList   []*UserId `json:"operator_id_list,omitempty"`
+	SubscriberIdList []*UserId `json:"subscriber_id_list,omitempty"`
+}
+
+type FileReadEvent struct {
+	*model.BaseEventV2
+	Event *FileReadEventData `json:"event"`
+}
+
+type FileTitleUpdatedEventData struct {
+	FileType         string    `json:"file_type,omitempty"`
+	FileToken        string    `json:"file_token,omitempty"`
+	OperatorId       *UserId   `json:"operator_id,omitempty"`
+	SubscriberIdList []*UserId `json:"subscriber_id_list,omitempty"`
+}
+
+type FileTitleUpdatedEvent struct {
+	*model.BaseEventV2
+	Event *FileTitleUpdatedEventData `json:"event"`
+}
+
+type FileTrashedEventData struct {
+	FileType         string    `json:"file_type,omitempty"`
+	FileToken        string    `json:"file_token,omitempty"`
+	OperatorId       *UserId   `json:"operator_id,omitempty"`
+	SubscriberIdList []*UserId `json:"subscriber_id_list,omitempty"`
+}
+
+type FileTrashedEvent struct {
+	*model.BaseEventV2
+	Event *FileTrashedEventData `json:"event"`
+}
+
+type FileEditEventData struct {
+	FileType         string    `json:"file_type,omitempty"`
+	FileToken        string    `json:"file_token,omitempty"`
+	OperatorIdList   []*UserId `json:"operator_id_list,omitempty"`
+	SubscriberIdList []*UserId `json:"subscriber_id_list,omitempty"`
+}
+
+type FileEditEvent struct {
+	*model.BaseEventV2
+	Event *FileEditEventData `json:"event"`
 }
