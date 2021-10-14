@@ -5,9 +5,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/api/core/tools"
 )
 
-type Authen struct {
-}
-
 type UserAccessTokenInfo struct {
 	AccessToken      string   `json:"access_token,omitempty"`
 	TokenType        string   `json:"token_type,omitempty"`

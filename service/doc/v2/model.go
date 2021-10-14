@@ -5,9 +5,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/api/core/tools"
 )
 
-type Doc struct {
-}
-
 type DocBatchUpdateReqBody struct {
 	Revision        int      `json:"Revision,omitempty"`
 	Requests        []string `json:"Requests,omitempty"`

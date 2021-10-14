@@ -5,9 +5,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/api/core/tools"
 )
 
-type DocsApi struct {
-}
-
 type DocsEntity struct {
 	DocsToken       string   `json:"docs_token,omitempty"`
 	DocsType        string   `json:"docs_type,omitempty"`

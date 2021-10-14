@@ -62,19 +62,6 @@ func (s *Feature) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
-type File struct {
-	Files           *request.File `json:"files,omitempty"`
-	FileType        string        `json:"file_type,omitempty"`
-	FileName        string        `json:"file_name,omitempty"`
-	ForceSendFields []string      `json:"-"`
-}
-
-func (s *File) MarshalJSON() ([]byte, error) {
-	type cp File
-	raw := cp(*s)
-	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
 type User struct {
 	Feature         *Feature `json:"feature,omitempty"`
 	UserId          string   `json:"user_id,omitempty"`

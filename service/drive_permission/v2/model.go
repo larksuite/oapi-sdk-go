@@ -5,9 +5,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/api/core/tools"
 )
 
-type Public struct {
-}
-
 type PublicGetReqBody struct {
 	Token           string   `json:"token,omitempty"`
 	Type            string   `json:"type,omitempty"`

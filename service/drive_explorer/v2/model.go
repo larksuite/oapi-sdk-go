@@ -18,12 +18,6 @@ func (s *Child) MarshalJSON() ([]byte, error) {
 	return tools.MarshalJSON(raw, s.ForceSendFields)
 }
 
-type File struct {
-}
-
-type Folder struct {
-}
-
 type OperatorId struct {
 	OpenId          string   `json:"open_id,omitempty"`
 	UnionId         string   `json:"union_id,omitempty"`
@@ -35,11 +29,6 @@ func (s *OperatorId) MarshalJSON() ([]byte, error) {
 	type cp OperatorId
 	raw := cp(*s)
 	return tools.MarshalJSON(raw, s.ForceSendFields)
-}
-
-type FolderChildrenResult struct {
-	ParentToken string            `json:"parentToken,omitempty"`
-	Children    map[string]*Child `json:"children,omitempty"`
 }
 
 type FileCopyReqBody struct {
@@ -82,6 +71,21 @@ type FileCreateResult struct {
 	Token    string `json:"token,omitempty"`
 }
 
+type FileDocsDeleteResult struct {
+	Id     string `json:"id,omitempty"`
+	Result bool   `json:"result,omitempty"`
+}
+
+type FileSpreadsheetsDeleteResult struct {
+	Id     string `json:"id,omitempty"`
+	Result bool   `json:"result,omitempty"`
+}
+
+type FolderChildrenResult struct {
+	ParentToken string            `json:"parentToken,omitempty"`
+	Children    map[string]*Child `json:"children,omitempty"`
+}
+
 type FolderCreateReqBody struct {
 	Title           string   `json:"title,omitempty"`
 	ForceSendFields []string `json:"-"`
@@ -99,11 +103,6 @@ type FolderCreateResult struct {
 	Token    string `json:"token,omitempty"`
 }
 
-type FileDocsDeleteResult struct {
-	Id     string `json:"id,omitempty"`
-	Result bool   `json:"result,omitempty"`
-}
-
 type FolderMetaResult struct {
 	Id        string `json:"id,omitempty"`
 	Name      string `json:"name,omitempty"`
@@ -118,9 +117,4 @@ type FolderRootMetaResult struct {
 	Token  string `json:"token,omitempty"`
 	Id     string `json:"id,omitempty"`
 	UserId string `json:"user_id,omitempty"`
-}
-
-type FileSpreadsheetsDeleteResult struct {
-	Id     string `json:"id,omitempty"`
-	Result bool   `json:"result,omitempty"`
 }
