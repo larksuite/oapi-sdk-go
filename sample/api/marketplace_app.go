@@ -3,8 +3,8 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/larksuite/oapi-sdk-go/sample"
 	lark "github.com/larksuite/oapi-sdk-go/v2"
-	"github.com/larksuite/oapi-sdk-go/v2/sample"
 	"github.com/larksuite/oapi-sdk-go/v2/service/im/v1"
 	"net/http"
 	"os"

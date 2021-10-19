@@ -1,4 +1,4 @@
-module github.com/larksuite/oapi-sdk-go/smaple
+module github.com/larksuite/oapi-sdk-go/old_smaple
 
 go 1.13
 
