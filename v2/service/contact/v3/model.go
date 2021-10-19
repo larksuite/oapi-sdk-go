@@ -40,11 +40,6 @@ type GroupEvent struct {
 	Name        *string `json:"name,omitempty"`
 }
 
-type I18nContent struct {
-	Locale *string `json:"locale,omitempty"`
-	Value  *string `json:"value,omitempty"`
-}
-
 type NotificationOption struct {
 	Channels []string `json:"channels,omitempty"`
 	Language *string  `json:"language,omitempty"`
@@ -130,14 +125,6 @@ type Department struct {
 	CreateGroupChat    *bool               `json:"create_group_chat,omitempty"`
 }
 
-type DepartmentCount struct {
-	DepartmentId          *string `json:"department_id,omitempty"`
-	DirectDepartmentCount *int    `json:"direct_department_count,omitempty"`
-	DirectUserCount       *int    `json:"direct_user_count,omitempty"`
-	DepartmentCount       *int    `json:"department_count,omitempty"`
-	UserCount             *int    `json:"user_count,omitempty"`
-}
-
 type DepartmentEvent struct {
 	Name               *string `json:"name,omitempty"`
 	ParentDepartmentId *string `json:"parent_department_id,omitempty"`
@@ -162,6 +149,24 @@ type EmployeeTypeEnum struct {
 	EnumType    *int           `json:"enum_type,omitempty"`
 	EnumStatus  *int           `json:"enum_status,omitempty"`
 	I18nContent []*I18nContent `json:"i18n_content,omitempty"`
+}
+
+type Group struct {
+	Id                    *string `json:"id,omitempty"`
+	Name                  *string `json:"name,omitempty"`
+	Description           *string `json:"description,omitempty"`
+	MemberUserCount       *int    `json:"member_user_count,omitempty"`
+	MemberDepartmentCount *int    `json:"member_department_count,omitempty"`
+}
+
+type I18nContent struct {
+	Locale *string `json:"locale,omitempty"`
+	Value  *string `json:"value,omitempty"`
+}
+
+type Memberlist struct {
+	MemberId   *string `json:"member_id,omitempty"`
+	MemberType *string `json:"member_type,omitempty"`
 }
 
 type OldDepartmentObject struct {
@@ -211,17 +216,12 @@ type UserEvent struct {
 	CustomAttrs []*UserCustomAttr `json:"custom_attrs,omitempty"`
 }
 
-type Group struct {
-	Id                    *string `json:"id,omitempty"`
-	Name                  *string `json:"name,omitempty"`
-	Description           *string `json:"description,omitempty"`
-	MemberUserCount       *int    `json:"member_user_count,omitempty"`
-	MemberDepartmentCount *int    `json:"member_department_count,omitempty"`
-}
-
-type Memberlist struct {
-	MemberId   *string `json:"member_id,omitempty"`
-	MemberType *string `json:"member_type,omitempty"`
+type DepartmentCount struct {
+	DepartmentId          *string `json:"department_id,omitempty"`
+	DirectDepartmentCount *int    `json:"direct_department_count,omitempty"`
+	DirectUserCount       *int    `json:"direct_user_count,omitempty"`
+	DepartmentCount       *int    `json:"department_count,omitempty"`
+	UserCount             *int    `json:"user_count,omitempty"`
 }
 
 type User struct {

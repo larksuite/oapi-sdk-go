@@ -19,7 +19,7 @@ func (h *meetingRoomStatusChangedEventHandler) Handle(ctx context.Context, req *
 }
 
 func (m *meetingRooms) StatusChangedEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *MeetingRoomStatusChangedEvent) error) {
-	m.app.Webhook.EventHandler("status_changed", &meetingRoomStatusChangedEventHandler{handler: handler})
+	m.app.Webhook.EventHandler("meeting_room.meeting_room.status_changed_v1", &meetingRoomStatusChangedEventHandler{handler: handler})
 }
 
 type meetingRoomCreatedEventHandler struct {
@@ -35,7 +35,7 @@ func (h *meetingRoomCreatedEventHandler) Handle(ctx context.Context, req *lark.R
 }
 
 func (m *meetingRooms) CreatedEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *MeetingRoomCreatedEvent) error) {
-	m.app.Webhook.EventHandler("created", &meetingRoomCreatedEventHandler{handler: handler})
+	m.app.Webhook.EventHandler("meeting_room.meeting_room.created_v1", &meetingRoomCreatedEventHandler{handler: handler})
 }
 
 type meetingRoomDeletedEventHandler struct {
@@ -51,7 +51,7 @@ func (h *meetingRoomDeletedEventHandler) Handle(ctx context.Context, req *lark.R
 }
 
 func (m *meetingRooms) DeletedEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *MeetingRoomDeletedEvent) error) {
-	m.app.Webhook.EventHandler("deleted", &meetingRoomDeletedEventHandler{handler: handler})
+	m.app.Webhook.EventHandler("meeting_room.meeting_room.deleted_v1", &meetingRoomDeletedEventHandler{handler: handler})
 }
 
 type meetingRoomUpdatedEventHandler struct {
@@ -67,7 +67,7 @@ func (h *meetingRoomUpdatedEventHandler) Handle(ctx context.Context, req *lark.R
 }
 
 func (m *meetingRooms) UpdatedEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *MeetingRoomUpdatedEvent) error) {
-	m.app.Webhook.EventHandler("updated", &meetingRoomUpdatedEventHandler{handler: handler})
+	m.app.Webhook.EventHandler("meeting_room.meeting_room.updated_v1", &meetingRoomUpdatedEventHandler{handler: handler})
 }
 
 type roomCreatedEventHandler struct {
@@ -83,7 +83,7 @@ func (h *roomCreatedEventHandler) Handle(ctx context.Context, req *lark.RawReque
 }
 
 func (r *room) CreatedEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *RoomCreatedEvent) error) {
-	r.app.Webhook.EventHandler("created", &roomCreatedEventHandler{handler: handler})
+	r.app.Webhook.EventHandler("meeting_room.room.created_v1", &roomCreatedEventHandler{handler: handler})
 }
 
 type roomDeletedEventHandler struct {
@@ -99,7 +99,7 @@ func (h *roomDeletedEventHandler) Handle(ctx context.Context, req *lark.RawReque
 }
 
 func (r *room) DeletedEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *RoomDeletedEvent) error) {
-	r.app.Webhook.EventHandler("deleted", &roomDeletedEventHandler{handler: handler})
+	r.app.Webhook.EventHandler("meeting_room.room.deleted_v1", &roomDeletedEventHandler{handler: handler})
 }
 
 type roomStatusChangedEventHandler struct {
@@ -115,7 +115,7 @@ func (h *roomStatusChangedEventHandler) Handle(ctx context.Context, req *lark.Ra
 }
 
 func (r *room) StatusChangedEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *RoomStatusChangedEvent) error) {
-	r.app.Webhook.EventHandler("status_changed", &roomStatusChangedEventHandler{handler: handler})
+	r.app.Webhook.EventHandler("meeting_room.room.status_changed_v1", &roomStatusChangedEventHandler{handler: handler})
 }
 
 type roomUpdatedEventHandler struct {
@@ -131,5 +131,5 @@ func (h *roomUpdatedEventHandler) Handle(ctx context.Context, req *lark.RawReque
 }
 
 func (r *room) UpdatedEventHandler(handler func(ctx context.Context, req *lark.RawRequest, event *RoomUpdatedEvent) error) {
-	r.app.Webhook.EventHandler("updated", &roomUpdatedEventHandler{handler: handler})
+	r.app.Webhook.EventHandler("meeting_room.room.updated_v1", &roomUpdatedEventHandler{handler: handler})
 }

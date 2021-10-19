@@ -74,6 +74,12 @@ type MeetingInviteStatus struct {
 	Status   *int    `json:"status,omitempty"`
 }
 
+type MeetingParticipantResult struct {
+	Id       *string `json:"id,omitempty"`
+	UserType *int    `json:"user_type,omitempty"`
+	Result   *int    `json:"result,omitempty"`
+}
+
 type MeetingUser struct {
 	Id       *string `json:"id,omitempty"`
 	UserType *int    `json:"user_type,omitempty"`
@@ -110,6 +116,18 @@ type ReportTopUser struct {
 	UserType        *int    `json:"user_type,omitempty"`
 	MeetingCount    *int64  `json:"meeting_count,omitempty,string"`
 	MeetingDuration *int64  `json:"meeting_duration,omitempty,string"`
+}
+
+type Reserve struct {
+	Id              *int64                 `json:"id,omitempty,string"`
+	MeetingNo       *string                `json:"meeting_no,omitempty"`
+	Url             *string                `json:"url,omitempty"`
+	AppLink         *string                `json:"app_link,omitempty"`
+	LiveLink        *string                `json:"live_link,omitempty"`
+	EndTime         *int64                 `json:"end_time,omitempty,string"`
+	ExpireStatus    *int                   `json:"expire_status,omitempty"`
+	ReserveUserId   *string                `json:"reserve_user_id,omitempty"`
+	MeetingSettings *ReserveMeetingSetting `json:"meeting_settings,omitempty"`
 }
 
 type ReserveActionPermission struct {
@@ -174,24 +192,6 @@ type MeetingParticipant struct {
 	IsCohost          *bool   `json:"is_cohost,omitempty"`
 	IsExternal        *bool   `json:"is_external,omitempty"`
 	Status            *int    `json:"status,omitempty"`
-}
-
-type MeetingParticipantResult struct {
-	Id       *string `json:"id,omitempty"`
-	UserType *int    `json:"user_type,omitempty"`
-	Result   *int    `json:"result,omitempty"`
-}
-
-type Reserve struct {
-	Id              *int64                 `json:"id,omitempty,string"`
-	MeetingNo       *string                `json:"meeting_no,omitempty"`
-	Url             *string                `json:"url,omitempty"`
-	AppLink         *string                `json:"app_link,omitempty"`
-	LiveLink        *string                `json:"live_link,omitempty"`
-	EndTime         *int64                 `json:"end_time,omitempty,string"`
-	ExpireStatus    *int                   `json:"expire_status,omitempty"`
-	ReserveUserId   *string                `json:"reserve_user_id,omitempty"`
-	MeetingSettings *ReserveMeetingSetting `json:"meeting_settings,omitempty"`
 }
 
 type RoomConfig struct {

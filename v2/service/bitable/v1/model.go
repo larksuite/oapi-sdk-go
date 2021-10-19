@@ -5,28 +5,18 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v2"
 )
 
+type App struct {
+	AppToken    *string `json:"app_token,omitempty"`
+	Name        *string `json:"name,omitempty"`
+	Revision    *int    `json:"revision,omitempty"`
+	FolderToken *string `json:"folder_token,omitempty"`
+	Url         *string `json:"url,omitempty"`
+}
+
 type AppTable struct {
 	TableId  *string `json:"table_id,omitempty"`
 	Revision *int    `json:"revision,omitempty"`
 	Name     *string `json:"name,omitempty"`
-}
-
-type DeleteRecord struct {
-	Deleted  *bool   `json:"deleted,omitempty"`
-	RecordId *string `json:"record_id,omitempty"`
-}
-
-type Person struct {
-	Id     *string `json:"id,omitempty"`
-	Name   *string `json:"name,omitempty"`
-	EnName *string `json:"en_name,omitempty"`
-	Email  *string `json:"email,omitempty"`
-}
-
-type App struct {
-	AppToken *string `json:"app_token,omitempty"`
-	Name     *string `json:"name,omitempty"`
-	Revision *int    `json:"revision,omitempty"`
 }
 
 type AppTableField struct {
@@ -71,6 +61,18 @@ type Attachment struct {
 	Size      *int    `json:"size,omitempty"`
 	Url       *string `json:"url,omitempty"`
 	TmpUrl    *string `json:"tmp_url,omitempty"`
+}
+
+type DeleteRecord struct {
+	Deleted  *bool   `json:"deleted,omitempty"`
+	RecordId *string `json:"record_id,omitempty"`
+}
+
+type Person struct {
+	Id     *string `json:"id,omitempty"`
+	Name   *string `json:"name,omitempty"`
+	EnName *string `json:"en_name,omitempty"`
+	Email  *string `json:"email,omitempty"`
 }
 
 type ReqTable struct {
@@ -293,10 +295,11 @@ type AppTableRecordBatchCreateResp struct {
 }
 
 type AppTableRecordGetReq struct {
-	AppToken   string  `path:"app_token"`
-	TableId    string  `path:"table_id"`
-	RecordId   string  `path:"record_id"`
-	UserIdType *string `query:"user_id_type"`
+	AppToken         string  `path:"app_token"`
+	TableId          string  `path:"table_id"`
+	RecordId         string  `path:"record_id"`
+	TextFieldAsArray *bool   `query:"text_field_as_array"`
+	UserIdType       *string `query:"user_id_type"`
 }
 
 type AppTableRecordGetRespData struct {
@@ -340,15 +343,16 @@ type AppTableRecordDeleteResp struct {
 }
 
 type AppTableRecordListReq struct {
-	AppToken   string  `path:"app_token"`
-	TableId    string  `path:"table_id"`
-	ViewId     *string `query:"view_id"`
-	Filter     *string `query:"filter"`
-	Sort       *string `query:"sort"`
-	FieldNames *string `query:"field_names"`
-	PageToken  *string `query:"page_token"`
-	PageSize   *int    `query:"page_size"`
-	UserIdType *string `query:"user_id_type"`
+	AppToken         string  `path:"app_token"`
+	TableId          string  `path:"table_id"`
+	ViewId           *string `query:"view_id"`
+	Filter           *string `query:"filter"`
+	Sort             *string `query:"sort"`
+	FieldNames       *string `query:"field_names"`
+	TextFieldAsArray *bool   `query:"text_field_as_array"`
+	PageToken        *string `query:"page_token"`
+	PageSize         *int    `query:"page_size"`
+	UserIdType       *string `query:"user_id_type"`
 }
 
 type AppTableRecordListRespData struct {

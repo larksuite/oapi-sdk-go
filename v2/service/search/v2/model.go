@@ -135,6 +135,7 @@ type DataSourcePatchReqBody struct {
 	Name        *string `json:"name,omitempty"`
 	State       *int    `json:"state,omitempty"`
 	Description *string `json:"description,omitempty"`
+	IconUrl     *string `json:"icon_url,omitempty"`
 }
 
 type DataSourcePatchReq struct {
@@ -142,14 +143,9 @@ type DataSourcePatchReq struct {
 	Body         *DataSourcePatchReqBody `body:""`
 }
 
-type DataSourcePatchRespData struct {
-	DataSource *DataSource `json:"data_source,omitempty"`
-}
-
 type DataSourcePatchResp struct {
 	*lark.RawResponse `json:"-"`
 	lark.CodeError
-	Data *DataSourcePatchRespData `json:"data"`
 }
 
 type DataSourceItemCreateReq struct {

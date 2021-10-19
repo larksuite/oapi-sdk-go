@@ -13,6 +13,20 @@ type UserId struct {
 	UnionId *string `json:"union_id,omitempty"`
 }
 
+type Chat struct {
+	ChatId         *string    `json:"chat_id,omitempty"`
+	Avatar         *string    `json:"avatar,omitempty"`
+	Name           *string    `json:"name,omitempty"`
+	Description    *string    `json:"description,omitempty"`
+	I18nNames      *I18nNames `json:"i18n_names,omitempty"`
+	OnlyOwnerAdd   *bool      `json:"only_owner_add,omitempty"`
+	ShareAllowed   *bool      `json:"share_allowed,omitempty"`
+	OnlyOwnerAtAll *bool      `json:"only_owner_at_all,omitempty"`
+	OnlyOwnerEdit  *bool      `json:"only_owner_edit,omitempty"`
+	OwnerUserId    *string    `json:"owner_user_id,omitempty"`
+	Type           *string    `json:"type,omitempty"`
+}
+
 type ChatMember struct {
 	UserId *string `json:"user_id,omitempty"`
 }
@@ -29,6 +43,26 @@ type ChatMemberUser struct {
 
 type ChatMembers struct {
 	UserId *string `json:"user_id,omitempty"`
+}
+
+type ChatChange struct {
+	Avatar                 *string    `json:"avatar,omitempty"`
+	Name                   *string    `json:"name,omitempty"`
+	Description            *string    `json:"description,omitempty"`
+	I18nNames              *I18nNames `json:"i18n_names,omitempty"`
+	AddMemberPermission    *string    `json:"add_member_permission,omitempty"`
+	ShareCardPermission    *string    `json:"share_card_permission,omitempty"`
+	AtAllPermission        *string    `json:"at_all_permission,omitempty"`
+	EditPermission         *string    `json:"edit_permission,omitempty"`
+	MembershipApproval     *string    `json:"membership_approval,omitempty"`
+	JoinMessageVisibility  *string    `json:"join_message_visibility,omitempty"`
+	LeaveMessageVisibility *string    `json:"leave_message_visibility,omitempty"`
+	ModerationPermission   *string    `json:"moderation_permission,omitempty"`
+	OwnerId                *UserId    `json:"owner_id,omitempty"`
+}
+
+type Emoji struct {
+	EmojiType *string `json:"emoji_type,omitempty"`
 }
 
 type EventMessage struct {
@@ -59,6 +93,17 @@ type I18nNames struct {
 	ZhCn *string `json:"zh_cn,omitempty"`
 	EnUs *string `json:"en_us,omitempty"`
 	JaJp *string `json:"ja_jp,omitempty"`
+}
+
+type ListChat struct {
+	ChatId      *string `json:"chat_id,omitempty"`
+	Avatar      *string `json:"avatar,omitempty"`
+	Name        *string `json:"name,omitempty"`
+	Description *string `json:"description,omitempty"`
+	OwnerId     *string `json:"owner_id,omitempty"`
+	OwnerIdType *string `json:"owner_id_type,omitempty"`
+	External    *bool   `json:"external,omitempty"`
+	TenantKey   *string `json:"tenant_key,omitempty"`
 }
 
 type ListEventModerator struct {
@@ -112,6 +157,11 @@ type ModeratorList struct {
 	RemovedMemberList []*ListEventModerator `json:"removed_member_list,omitempty"`
 }
 
+type Operator struct {
+	OperatorId   *string `json:"operator_id,omitempty"`
+	OperatorType *string `json:"operator_type,omitempty"`
+}
+
 type ReadUser struct {
 	UserIdType *string `json:"user_id_type,omitempty"`
 	UserId     *string `json:"user_id,omitempty"`
@@ -130,53 +180,29 @@ type UrgentReceivers struct {
 	UserIdList []string `json:"user_id_list,omitempty"`
 }
 
-type Chat struct {
-	ChatId         *string    `json:"chat_id,omitempty"`
-	Avatar         *string    `json:"avatar,omitempty"`
-	Name           *string    `json:"name,omitempty"`
-	Description    *string    `json:"description,omitempty"`
-	I18nNames      *I18nNames `json:"i18n_names,omitempty"`
-	OnlyOwnerAdd   *bool      `json:"only_owner_add,omitempty"`
-	ShareAllowed   *bool      `json:"share_allowed,omitempty"`
-	OnlyOwnerAtAll *bool      `json:"only_owner_at_all,omitempty"`
-	OnlyOwnerEdit  *bool      `json:"only_owner_edit,omitempty"`
-	OwnerUserId    *string    `json:"owner_user_id,omitempty"`
-	Type           *string    `json:"type,omitempty"`
+type BatchMessage struct {
+	BatchMessageId      *string              `json:"batch_message_id,omitempty"`
+	BatchSendProgress   *BatchSendProgress   `json:"batch_send_progress,omitempty"`
+	BatchRecallProgress *BatchRecallProgress `json:"batch_recall_progress,omitempty"`
+}
+
+type BatchMessageReadUser struct {
+	ReadCount  *string `json:"read_count,omitempty"`
+	TotalCount *string `json:"total_count,omitempty"`
+}
+
+type BatchRecallProgress struct {
+	RecallCount      *string `json:"recall_count,omitempty"`
+	TotalRecallCount *string `json:"total_recall_count,omitempty"`
+}
+
+type BatchSendProgress struct {
+	SendCount      *string `json:"send_count,omitempty"`
+	TotalSendCount *string `json:"total_send_count,omitempty"`
 }
 
 type ChatManagers struct {
 	ManagerId *int64 `json:"manager_id,omitempty,string"`
-}
-
-type ChatChange struct {
-	Avatar                 *string    `json:"avatar,omitempty"`
-	Name                   *string    `json:"name,omitempty"`
-	Description            *string    `json:"description,omitempty"`
-	I18nNames              *I18nNames `json:"i18n_names,omitempty"`
-	AddMemberPermission    *string    `json:"add_member_permission,omitempty"`
-	ShareCardPermission    *string    `json:"share_card_permission,omitempty"`
-	AtAllPermission        *string    `json:"at_all_permission,omitempty"`
-	EditPermission         *string    `json:"edit_permission,omitempty"`
-	MembershipApproval     *string    `json:"membership_approval,omitempty"`
-	JoinMessageVisibility  *string    `json:"join_message_visibility,omitempty"`
-	LeaveMessageVisibility *string    `json:"leave_message_visibility,omitempty"`
-	ModerationPermission   *string    `json:"moderation_permission,omitempty"`
-	OwnerId                *UserId    `json:"owner_id,omitempty"`
-}
-
-type Emoji struct {
-	EmojiType *string `json:"emoji_type,omitempty"`
-}
-
-type ListChat struct {
-	ChatId      *string `json:"chat_id,omitempty"`
-	Avatar      *string `json:"avatar,omitempty"`
-	Name        *string `json:"name,omitempty"`
-	Description *string `json:"description,omitempty"`
-	OwnerId     *string `json:"owner_id,omitempty"`
-	OwnerIdType *string `json:"owner_id_type,omitempty"`
-	External    *bool   `json:"external,omitempty"`
-	TenantKey   *string `json:"tenant_key,omitempty"`
 }
 
 type MentionEvent struct {
@@ -191,11 +217,6 @@ type MessageReaction struct {
 	Operator     *Operator `json:"operator,omitempty"`
 	ActionTime   *int64    `json:"action_time,omitempty,string"`
 	ReactionType *Emoji    `json:"reaction_type,omitempty"`
-}
-
-type Operator struct {
-	OperatorId   *string `json:"operator_id,omitempty"`
-	OperatorType *string `json:"operator_type,omitempty"`
 }
 
 type ChatUpdateReqBody struct {
