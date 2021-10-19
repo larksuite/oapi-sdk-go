@@ -24,30 +24,33 @@ func printMessageText() {
 	if err != nil {
 		panic(err)
 	}
+	fmt.Println("MessageText: ----------------------------")
 	fmt.Println(s)
+	fmt.Println("-----------------------------------------")
 }
 
 func printMessagePost() {
-	post := make(lark.MessagePost)
-	post[lark.LanguageTypeZhCN] = &lark.MessagePostContent{
-		Title: "Title",
-		Content: [][]lark.MessagePostElement{
-			{
-				&lark.MessagePostText{
-					Text:     "Text",
-					UnEscape: false,
+	post := &lark.MessagePost{
+		ZhCN: &lark.MessagePostContent{
+			Title: "Title",
+			Content: [][]lark.MessagePostElement{
+				{
+					&lark.MessagePostText{
+						Text:     "Text",
+						UnEscape: false,
+					},
+					&lark.MessagePostA{
+						Text:     "Fei Shu",
+						Href:     "https://www.feishu.com",
+						UnEscape: false,
+					},
 				},
-				&lark.MessagePostA{
-					Text:     "Fei Shu",
-					Href:     "https://www.feishu.com",
-					UnEscape: false,
-				},
-			},
-			{
-				&lark.MessagePostA{
-					Text:     "Fei Shu",
-					Href:     "https://www.feishu.com",
-					UnEscape: false,
+				{
+					&lark.MessagePostA{
+						Text:     "Fei Shu",
+						Href:     "https://www.feishu.com",
+						UnEscape: false,
+					},
 				},
 			},
 		},
@@ -56,7 +59,9 @@ func printMessagePost() {
 	if err != nil {
 		panic(err)
 	}
+	fmt.Println("MessagePost: ----------------------------")
 	fmt.Println(s)
+	fmt.Println("-----------------------------------------")
 }
 
 func printMessageCard() {
@@ -136,7 +141,9 @@ func printMessageCard() {
 	if err != nil {
 		panic(err)
 	}
+	fmt.Println("MessageCard: ----------------------------")
 	fmt.Println(s)
+	fmt.Println("-----------------------------------------")
 }
 
 func printMessageImage() {
@@ -145,7 +152,9 @@ func printMessageImage() {
 	if err != nil {
 		panic(err)
 	}
+	fmt.Println("MessageImage: ----------------------------")
 	fmt.Println(s)
+	fmt.Println("-----------------------------------------")
 }
 
 func printMessageShareChat() {
@@ -154,7 +163,9 @@ func printMessageShareChat() {
 	if err != nil {
 		panic(err)
 	}
+	fmt.Println("MessageShareChat: ----------------------------")
 	fmt.Println(s)
+	fmt.Println("-----------------------------------------")
 }
 
 func printMessageShareUser() {
@@ -163,7 +174,9 @@ func printMessageShareUser() {
 	if err != nil {
 		panic(err)
 	}
+	fmt.Println("MessageShareUser: ----------------------------")
 	fmt.Println(s)
+	fmt.Println("-----------------------------------------")
 }
 
 func printMessageAudio() {
@@ -174,7 +187,9 @@ func printMessageAudio() {
 	if err != nil {
 		panic(err)
 	}
+	fmt.Println("MessageAudio: ----------------------------")
 	fmt.Println(s)
+	fmt.Println("-----------------------------------------")
 }
 
 func printMessageVideo() {
@@ -186,7 +201,9 @@ func printMessageVideo() {
 	if err != nil {
 		panic(err)
 	}
+	fmt.Println("MessageVideo: ----------------------------")
 	fmt.Println(s)
+	fmt.Println("-----------------------------------------")
 }
 
 func printMessageFile() {
@@ -197,7 +214,9 @@ func printMessageFile() {
 	if err != nil {
 		panic(err)
 	}
+	fmt.Println("MessageFile: ----------------------------")
 	fmt.Println(s)
+	fmt.Println("-----------------------------------------")
 }
 
 func printMessageSticker() {
@@ -208,5 +227,7 @@ func printMessageSticker() {
 	if err != nil {
 		panic(err)
 	}
+	fmt.Println("MessageSticker: ----------------------------")
 	fmt.Println(s)
+	fmt.Println("-----------------------------------------")
 }

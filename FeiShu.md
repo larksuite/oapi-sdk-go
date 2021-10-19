@@ -567,7 +567,7 @@ func (c *CustomerBot) SendMessage(ctx context.Context, msgType string, content i
 |语音 audio|lark.MessageAudio|
 |视频 media|lark.MessageVideo|
 |文件 file|lark.MessageFile|
-|表情包 sticker|lark.MessageFile|
+|表情包 sticker|lark.MessageSticker|
 
 ```go
 

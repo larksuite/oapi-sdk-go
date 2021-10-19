@@ -2,14 +2,6 @@ package lark
 
 import "encoding/json"
 
-type LanguageType string
-
-const (
-	LanguageTypeZhCN LanguageType = "zh_cn"
-	LanguageTypeEnUS LanguageType = "en_us"
-	LanguageTypeJaJP LanguageType = "ja_jp"
-)
-
 type MessageText struct {
 	Text string `json:"text"`
 }
@@ -22,7 +14,11 @@ func (m *MessageText) JSON() (string, error) {
 	return string(bs), nil
 }
 
-type MessagePost map[LanguageType]*MessagePostContent
+type MessagePost struct {
+	ZhCN *MessagePostContent `json:"zh_cn,omitempty"`
+	EnUS *MessagePostContent `json:"en_us,omitempty"`
+	JaJP *MessagePostContent `json:"ja_jp,omitempty"`
+}
 
 type MessagePostContent struct {
 	Title   string                 `json:"title,omitempty"`
@@ -202,12 +198,18 @@ func (m *MessageSticker) JSON() (string, error) {
 	return string(bs), nil
 }
 
+type I18nElements struct {
+	ZhCN MessageCardElement `json:"zh_cn,omitempty"`
+	EnUS MessageCardElement `json:"en_us,omitempty"`
+	JaJP MessageCardElement `json:"ja_jp,omitempty"`
+}
+
 type MessageCard struct {
-	Config       *MessageCardConfig                  `json:"config,omitempty"`
-	Header       *MessageCardHeader                  `json:"header,omitempty"`
-	Elements     []MessageCardElement                `json:"elements,omitempty"`
-	I18nElements map[LanguageType]MessageCardElement `json:"i18n_elements,omitempty"`
-	CardLink     *MessageCardURL                     `json:"card_link,omitempty"`
+	Config       *MessageCardConfig   `json:"config,omitempty"`
+	Header       *MessageCardHeader   `json:"header,omitempty"`
+	Elements     []MessageCardElement `json:"elements,omitempty"`
+	I18nElements *I18nElements        `json:"i18n_elements,omitempty"`
+	CardLink     *MessageCardURL      `json:"card_link,omitempty"`
 }
 
 func (m *MessageCard) JSON() (string, error) {
