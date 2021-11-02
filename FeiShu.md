@@ -30,10 +30,11 @@ go get -u github.com/larksuite/oapi-sdk-go/v2
 
     - 例如：im 包，引入的路径："github.com/larksuite/oapi-sdk-go/v2/service/im/v1"
       
-    - 下面的代码示例中的 "im.New(larkApp)" 等等
+    - 下面的代码示例中的 "im.New(larkApp)" 等等，例如：发送消息
+    ![doc/pkg_url.png](doc/pkg_url.png)
 
 - 代码示例：
-
+  
     - 发送普通文本消息给用户（user_id = 77bbc392） 
     - im：消息&通讯录业务
 
