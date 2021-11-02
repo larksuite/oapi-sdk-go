@@ -34,6 +34,9 @@ go get -u github.com/larksuite/oapi-sdk-go/v2
 
 - 代码示例：
 
+    - 发送普通文本消息给用户（user_id = 77bbc392） 
+    - im：消息&通讯录业务
+
 ```go
 
 package main
