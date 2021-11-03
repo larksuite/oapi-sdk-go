@@ -16,6 +16,7 @@
 
 ## 安装方法
 - 具体最新版本号，请看 git tag
+
 ```shell
 go get -u github.com/larksuite/oapi-sdk-go/v2
 ```
@@ -28,54 +29,70 @@ go get -u github.com/larksuite/oapi-sdk-go/v2
 
 - 业务 包，引入的路径："github.com/larksuite/oapi-sdk-go/v2/service/业务/版本"
 
-    - 例如：im 包，引入的路径："github.com/larksuite/oapi-sdk-go/v2/service/im/v1"
+    - 例如：contact 包，引入的路径："github.com/larksuite/oapi-sdk-go/v2/service/contact/v3"
       
-    - 下面的代码示例中的 "im.New(larkApp)" 等等，例如：发送消息
-    ![doc/pkg_url_ship.png](doc/pkg_url_ship.png)
+    - 下面的代码示例中的 "contact.New(larkApp).Users.Create(...)" 等等，例如：创建用户
+    ![doc/pkg_resource_url.png](doc/pkg_resource_url.png)
+
+- 业务【资源.方法】与【HTTP URL】的关联，使用通讯录（contact）的用户资源（User）举例
+  
+  |资源.方法| HTTP URL | HTTP Method |描述 |
+  |-----|-----|-----|----|
+  |Users.Create|/open-apis/contact/v3/users|POST|创建用户|
+  |Users.Get|/open-apis/contact/v3/users/:user_id|GET|获取单个用户信息|
+  |Users.List|/open-apis/contact/v3/users|GET|获取用户列表|
+  |Users.Patch|/open-apis/contact/v3/users/:user_id|PATCH|修改用户部分信息|
+  |Users.Update|/open-apis/contact/v3/users/:user_id|PUT|更新用户所有信息|
+  |Users.Delete|/open-apis/contact/v3/users/:user_id|DELETE|删除用户|
+  |Users.Search|/open-apis/contact/v3/users/search（自定义方法search）|POST|查询用户|
 
 - 代码示例：
   
-    - 发送普通文本消息给用户（user_id = 77bbc392） 
-    - im：消息&通讯录业务
+    - contact：通讯录业务    
+    - 创建用户
 
 ```go
-
 package main
 
 import (
 	"context"
 	"fmt"
 	"github.com/larksuite/oapi-sdk-go/v2"
-	"github.com/larksuite/oapi-sdk-go/v2/service/im/v1"
+	"github.com/larksuite/oapi-sdk-go/v2/service/contact/v3"
 	"os"
 )
 
 func main() {
-	larkApp := lark.NewApp(lark.DomainFeiShu, os.Getenv("APP_ID"), os.Getenv("APP_SECRET")) 
-	messageText := &lark.MessageText{Text: "Tom test content"}
-	content, err := messageText.JSON()
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	messageCreateResp, err := im.New(larkApp).Messages.Create(context.Background(), &im.MessageCreateReq{
-		ReceiveIdType: lark.StringPtr("user_id"),
-		Body: &im.MessageCreateReqBody{
-			ReceiveId: lark.StringPtr("77bbc392"),
-			MsgType:   lark.StringPtr("text"),
-			Content:   lark.StringPtr(content),
+	
+	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
+	larkApp := lark.NewApp(lark.DomainFeiShu, appID, appSecret,
+		lark.WithLogger(lark.NewDefaultLogger(), lark.LogLevelDebug))
+	
+	ctx := context.Background()
+	
+	userCreateResp, err := contact.New(larkApp).Users.Create(ctx, &contact.UserCreateReq{
+		UserIdType:       lark.StringPtr("user_id"),
+		DepartmentIdType: lark.StringPtr("open_department_id"),
+		User: &contact.User{
+			Name:          lark.StringPtr("test-name"),
+			EnName:        lark.StringPtr("test-en-name"),
+			Email:         lark.StringPtr("test-email@126.com"),
+			Mobile:        lark.StringPtr("1234567890"),
+			Gender:        lark.IntPtr(1),
+			DepartmentIds: []string{"0"},
+			EmployeeType: lark.IntPtr(1),
 		},
 	})
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	fmt.Printf("request id: %s \n", messageCreateResp.RequestId())
-	if messageCreateResp.Code != 0 {
-		fmt.Println(messageCreateResp.CodeError)
+	fmt.Printf("request id: %s \n", userCreateResp.RequestId())
+	if userCreateResp.Code != 0 {
+		fmt.Println(userCreateResp.CodeError)
 		return
 	}
-	fmt.Println(lark.Prettify(messageCreateResp.Data))
+	fmt.Println(lark.Prettify(userCreateResp.Data))
 }
 ```
 
