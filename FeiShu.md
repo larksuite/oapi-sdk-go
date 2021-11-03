@@ -46,10 +46,7 @@ go get -u github.com/larksuite/oapi-sdk-go/v2
   |Users.Delete|/open-apis/contact/v3/users/:user_id|DELETE|删除用户|
   |Users.Search|/open-apis/contact/v3/users/search（自定义方法search）|POST|查询用户|
 
-- 代码示例：
-  
-    - contact：通讯录业务    
-    - 创建用户
+- 代码示例，创建用户：
 
 ```go
 package main
