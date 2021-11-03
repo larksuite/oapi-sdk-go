@@ -389,10 +389,10 @@ func main() {
 ```go
 
 import (
-"github.com/larksuite/oapi-sdk-go/v2"
+    "github.com/larksuite/oapi-sdk-go/v2"
 )
 
-// 防止应用信息泄漏，配置环境变量中，变量说明：
+// 防止应用信息泄漏，建议把应用的信息配置环境变量中，变量说明：
 // APP_ID："开发者后台" -> "凭证与基础信息" -> 应用凭证 App ID
 // APP_SECRET："开发者后台" -> "凭证与基础信息" -> 应用凭证 App Secret
 // VERIFICATION_TOKEN："开发者后台" -> "事件订阅" -> 事件订阅 Verification Token （事件订阅、处理消息卡片Action 必需）
@@ -405,26 +405,26 @@ os.Getenv("VERIFICATION_TOKEN"), os.Getenv("ENCRYPT_KEY"), os.Getenv("HELP_DESK_
 
 // 企业自建应用的配置
 larkApp := lark.NewApp(lark.DomainFeiShu, appID, appSecret,
-lark.WithAppEventVerify(verificationToken, encryptKey), // 非必需，事件订阅、处理消息卡片Action时必需
-lark.WithAppHelpdeskCredential(helpDeskID, helpDeskToken), // 非必需，访问服务台API时必需
+    lark.WithAppEventVerify(verificationToken, encryptKey), // 非必需，事件订阅、处理消息卡片Action时必需
+    lark.WithAppHelpdeskCredential(helpDeskID, helpDeskToken), // 非必需，访问服务台API时必需
 )
 
 // 应用商店应用的配置
 larkApp := lark.NewApp(lark.DomainFeiShu, appID, appSecret,
-lark.WithAppType(lark.AppTypeMarketplace), // 标识应用类型为：应用商店应用
-lark.WithAppEventVerify(verificationToken, encryptKey), // 非必需，事件订阅、处理消息卡片Action时必需
-lark.WithAppHelpdeskCredential(helpDeskID, helpDeskToken), // 非必需，访问服务台API时必需
+    lark.WithAppType(lark.AppTypeMarketplace), // 标识应用类型为：应用商店应用
+    lark.WithAppEventVerify(verificationToken, encryptKey), // 非必需，事件订阅、处理消息卡片Action时必需
+    lark.WithAppHelpdeskCredential(helpDeskID, helpDeskToken), // 非必需，访问服务台API时必需
 )
 
 // 配置日志接口的实现
 // 例如：使用logrus实现，请看示例代码：sample/logrus.go
 // 例如：日志（lark.NewDefaultLogger()：日志控制台输出），日志级别（lark.LogLevelDebug：debug级别，可以打印更好的日志，利于排查问题）
 larkApp := lark.NewApp(lark.DomainFeiShu, appID, appSecret,
-lark.WithLogger(lark.NewDefaultLogger(), lark.LogLevelDebug), // 非必需
+    lark.WithLogger(lark.NewDefaultLogger(), lark.LogLevelDebug), // 非必需
 )
 // 更多示例：sample/api/marketplace_app.go的"sample.Logrus{}"
 larkApp := lark.NewApp(lark.DomainFeiShu, appID, appSecret,
-lark.WithLogger(sample.Logrus{}, lark.LogLevelDebug),
+    lark.WithLogger(sample.Logrus{}, lark.LogLevelDebug),
 )
 
 // 配置存储接口，用于存放：app_access_token、tenant_access_token、app_ticket
@@ -433,7 +433,7 @@ lark.WithLogger(sample.Logrus{}, lark.LogLevelDebug),
 // 对于应用商品应用，接收开放平台下发的app_ticket，会保存到存储中，所以存储接口的实现的实现需要支持分布式存储
 // 更多示例：sample/api/marketplace_app.go的"sample.NewRedisStore()"
 larkApp := lark.NewApp(lark.DomainFeiShu, appID, appSecret,
-lark.WithStore(sample.NewRedisStore()) // use redis store
+    lark.WithStore(sample.NewRedisStore()) // use redis store
 )
 
 ```
@@ -446,9 +446,9 @@ lark.WithStore(sample.NewRedisStore()) // use redis store
 ```go
 
 import (
-"context"
-"net/http"
-"github.com/larksuite/oapi-sdk-go/v2"
+    "context"
+    "net/http"
+    "github.com/larksuite/oapi-sdk-go/v2"
 )
 
 app := lark.NewApp(lark.DomainFeiShu, appID, appSecret)
@@ -473,14 +473,14 @@ app := lark.NewApp(lark.DomainFeiShu, appID, appSecret)
 // lark.WithHTTPHeader(header http.Header)，设置 HTTP header
 // lark.WithFileDownload()，表示下载文件
 func (app *App) SendRequest(ctx context.Context, httpMethod string, httpPath string,
-accessTokenType AccessTokenType, input interface{}, options ...RequestOptionFunc) (*RawResponse, error) {}
+    accessTokenType AccessTokenType, input interface{}, options ...RequestOptionFunc) (*RawResponse, error) {}
 
 
 // 发送请求的响应（lark.RawResponse）
 type RawResponse struct {
-StatusCode int         `json:"-"`
-Header     http.Header `json:"-"`
-RawBody    []byte      `json:"-"`
+    StatusCode int         `json:"-"`
+    Header     http.Header `json:"-"`
+    RawBody    []byte      `json:"-"`
 }
 
 // 获取请求的ID，反馈问题的时候，提供RequestId（HTTP.header["X-Tt-Logid"]），排查问题更方便
@@ -499,9 +499,9 @@ func (resp RawResponse) JSONUnmarshalBody(val interface{}) error {}
 ```go
 
 import (
-"context"
-"net/http"
-"github.com/larksuite/oapi-sdk-go/v2"
+    "context"
+    "net/http"
+    "github.com/larksuite/oapi-sdk-go/v2"
 )
 
 app := lark.NewApp(lark.DomainFeiShu, appID, appSecret, lark.WithAppEventVerify(verificationToken, encryptKey))
@@ -518,8 +518,8 @@ func (wh *webhook) EventHandleFunc(eventType string, handler func (ctx context.C
 
 // 事件的回调请求（lark.RawRequest）
 type RawRequest struct {
-Header  http.Header
-RawBody []byte
+    Header  http.Header
+    RawBody []byte
 }
 
 // 获取请求的ID，反馈问题的时候，提供RequestId，排查问题更方便
