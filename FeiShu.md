@@ -32,7 +32,7 @@ go get -u github.com/larksuite/oapi-sdk-go/v2
     - 例如：contact 包，引入的路径："github.com/larksuite/oapi-sdk-go/v2/service/contact/v3"
       
     - 下面的代码示例中的 "contact.New(larkApp).Users.Create(...)" 等等，例如：创建用户
-    ![doc/pkg_resource_url.png](doc/pkg_resource_url.png)
+    ![doc/pkg_resource_url1.png](doc/pkg_resource_url1.png)
 
 -【资源.方法名】与【HTTP URL】的关联，使用通讯录（contact）的用户资源（User）举例：
   
