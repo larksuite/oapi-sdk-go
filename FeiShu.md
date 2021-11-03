@@ -34,9 +34,9 @@ go get -u github.com/larksuite/oapi-sdk-go/v2
     - 下面的代码示例中的 "contact.New(larkApp).Users.Create(...)" 等等，例如：创建用户
     ![doc/pkg_resource_url.png](doc/pkg_resource_url.png)
 
-- 业务【资源.方法】与【HTTP URL】的关联，使用通讯录（contact）的用户资源（User）举例
+-【资源.方法名】与【HTTP URL】的关联，使用通讯录（contact）的用户资源（User）举例：
   
-  |资源.方法| HTTP URL | HTTP Method |描述 |
+  |资源.方法名| HTTP URL | HTTP Method |描述 |
   |-----|-----|-----|----|
   |Users.Create|/open-apis/contact/v3/users|POST|创建用户|
   |Users.Get|/open-apis/contact/v3/users/:user_id|GET|获取单个用户信息|
