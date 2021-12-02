@@ -3,7 +3,7 @@ package lark
 import "encoding/json"
 
 type MessageText struct {
-	Text string `json:"text"`
+	Text string `json:"text,omitempty"`
 }
 
 func (m *MessageText) JSON() (string, error) {
@@ -520,7 +520,7 @@ type MessageCardEmbedSelectMenuBase struct {
 	InitialOption string                          `json:"initial_option,omitempty"`
 	Options       []*MessageCardEmbedSelectOption `json:"options,omitempty"`
 	Value         map[string]interface {
-	} `json:"value"`
+	} `json:"value,omitempty"`
 	Confirm *MessageCardActionConfirm `json:"confirm,omitempty"`
 }
 

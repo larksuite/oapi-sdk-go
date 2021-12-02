@@ -308,7 +308,19 @@ func structToMap(val interface{}) (map[string]interface{}, error) {
 	s := reflect.Indirect(reflect.ValueOf(val))
 	st := s.Type()
 	for i := 0; i < s.NumField(); i++ {
-		jsonTag := st.Field(i).Tag.Get("json")
+		fieldDesc := st.Field(i)
+		fieldVal := s.Field(i)
+		if fieldDesc.Anonymous {
+			embeddedMap, err := structToMap(fieldVal.Interface())
+			if err != nil {
+				return nil, err
+			}
+			for k, v := range embeddedMap {
+				m[k] = v
+			}
+			continue
+		}
+		jsonTag := fieldDesc.Tag.Get("json")
 		if jsonTag == "" {
 			continue
 		}
@@ -319,23 +331,20 @@ func structToMap(val interface{}) (map[string]interface{}, error) {
 		if tag.ignore {
 			continue
 		}
-		v := s.Field(i)
-		f := st.Field(i)
-
-		if f.Type.Kind() == reflect.Ptr && v.IsNil() {
+		if fieldDesc.Type.Kind() == reflect.Ptr && fieldVal.IsNil() {
 			continue
 		}
 		// nil maps are treated as empty maps.
-		if f.Type.Kind() == reflect.Map && v.IsNil() {
+		if fieldDesc.Type.Kind() == reflect.Map && fieldVal.IsNil() {
 			continue
 		}
-		if f.Type.Kind() == reflect.Slice && v.IsNil() {
+		if fieldDesc.Type.Kind() == reflect.Slice && fieldVal.IsNil() {
 			continue
 		}
 		if tag.stringFormat {
-			m[tag.apiName] = formatAsString(v, f.Type.Kind())
+			m[tag.name] = formatAsString(fieldVal, fieldDesc.Type.Kind())
 		} else {
-			m[tag.apiName] = v.Interface()
+			m[tag.name] = fieldVal.Interface()
 		}
 	}
 	return m, nil
@@ -349,7 +358,7 @@ func formatAsString(v reflect.Value, kind reflect.Kind) string {
 }
 
 type jsonTag struct {
-	apiName      string
+	name         string
 	stringFormat bool
 	ignore       bool
 }
@@ -364,7 +373,7 @@ func parseJSONTag(val string) (jsonTag, error) {
 		return tag, fmt.Errorf("malformed json tag: %s", val)
 	}
 	tag = jsonTag{
-		apiName: val[:i],
+		name: val[:i],
 	}
 	switch val[i+1:] {
 	case "omitempty":

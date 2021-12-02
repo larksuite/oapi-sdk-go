@@ -15,17 +15,32 @@ func main() {
 		lark.WithLogger(lark.NewDefaultLogger(), lark.LogLevelDebug))
 
 	ctx := context.Background()
-	sendMessage(ctx, larkApp)
-	uploadImage(ctx, larkApp)
-	downloadImage(ctx, larkApp)
+	//sendMessage(ctx, larkApp)
+	//uploadImage(ctx, larkApp)
+	//downloadImage(ctx, larkApp)
+	getJsTicket(ctx, larkApp)
 }
 
 func sendMessage(ctx context.Context, larkApp *lark.App) {
-	resp, err := larkApp.SendRequest(ctx, http.MethodGet, "/open-apis/message/v4/send", lark.AccessTokenTypeTenant, map[string]interface{}{
-		"user_id":  "77bbc392",
-		"msg_type": "text",
-		"content":  &lark.MessageText{Text: "test"},
-	})
+	resp, err := larkApp.SendRequest(ctx, http.MethodGet, "/open-apis/message/v4/send",
+		lark.AccessTokenTypeTenant, map[string]interface{}{
+			"user_id":  "77bbc392",
+			"msg_type": "text",
+			"content":  &lark.MessageText{Text: "test"},
+		})
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Printf("request id: %s \n", resp.RequestId())
+	fmt.Println(resp)
+	fmt.Println()
+	fmt.Println()
+}
+
+func getJsTicket(ctx context.Context, larkApp *lark.App) {
+	resp, err := larkApp.SendRequest(ctx, http.MethodGet, "/open-apis/jssdk/ticket/get",
+		lark.AccessTokenTypeApp, nil)
 	if err != nil {
 		fmt.Println(err)
 		return
