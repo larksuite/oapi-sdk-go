@@ -557,7 +557,7 @@ func (m *MessageCardEmbedSelectMenuPerson) MarshalJSON() ([]byte, error) {
 type MessageCardActionLayout string
 
 const (
-	MessageCardActionLayoutDisected   MessageCardActionLayout = "bisected"
+	MessageCardActionLayoutBisected   MessageCardActionLayout = "bisected"
 	MessageCardActionLayoutTrisection MessageCardActionLayout = "trisection"
 	MessageCardActionLayoutFlow       MessageCardActionLayout = "flow"
 )
