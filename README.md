@@ -326,7 +326,7 @@ import (
     // request.SetPathParams(map[string]interface{}{"user_id": 4}): set the URL Path parameter(with: prefix) value, When httpPath="contact/v3/users/:user_id", the requested URL="https://{domain}/open-apis/contact/v3/users/4"
     // request.SetQueryParams(map[string]interface{}{"age":4,"types":[1,2]}): Set the URL query, will append to the url?age=4&types=1&types=2       
     // request.setResponseStream(), set whether the response is a stream, such as downloading a file, At this point: the type of output needs to be implemented io.Writer Interface
-    // request.SetNotDataField(), set whether the response does not have a `data` field, business interfaces all have `data `Field, so you don’t need to set 
+    // request.SetNotDataField(), some apis do not have a 'data' field in the response body and need to be set
     // request.SetTenantKey("TenantKey"), as an `app store application`, it means using `tenant_access_token` to access the API, you need to set 
     // request.SetUserAccessToken("UserAccessToken"), which means using` user_access_token` To access the API, you need to set 
     // request.NeedHelpDeskAuth(), Indicates that the help desk API needs to set help desk information of config.AppSettings
