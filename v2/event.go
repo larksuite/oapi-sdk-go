@@ -110,6 +110,10 @@ func (e *httpEvent) do(ctx context.Context, wh *webhook) {
 		err = fmt.Errorf("event json unmarshal, err: %v", err)
 		return
 	}
+	if fuzzy.Encrypt != "" {
+		err = errors.New("event data is encrypted, Need to set up the `EncryptKey` for your APP")
+		return
+	}
 	type_ = webhookType(fuzzy.Type)
 	token = fuzzy.Token
 	challenge = fuzzy.Challenge
@@ -214,6 +218,7 @@ type EventBase struct {
 }
 
 type eventFuzzy struct {
+	Encrypt   string       `json:"encrypt"`
 	Schema    string       `json:"schema"`
 	Token     string       `json:"token"`
 	Type      string       `json:"type"`
