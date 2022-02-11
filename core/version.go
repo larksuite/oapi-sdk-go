@@ -1,3 +1,3 @@
 package core
 
-const SdkVersion = "v1.1.43"
+const SdkVersion = "v1.1.44"

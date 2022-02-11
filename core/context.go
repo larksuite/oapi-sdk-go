@@ -81,8 +81,9 @@ func (c *Context) Err() error {
 
 func (c *Context) Value(key interface{}) interface{} {
 	if keyAsString, ok := key.(string); ok {
-		val, _ := c.Get(keyAsString)
-		return val
+		if val, ok := c.Get(keyAsString); ok {
+			return val
+		}
 	}
 	return c.c.Value(key)
 }
