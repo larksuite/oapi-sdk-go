@@ -198,18 +198,18 @@ func (m *MessageSticker) JSON() (string, error) {
 	return string(bs), nil
 }
 
-type I18nElements struct {
-	ZhCN MessageCardElement `json:"zh_cn,omitempty"`
-	EnUS MessageCardElement `json:"en_us,omitempty"`
-	JaJP MessageCardElement `json:"ja_jp,omitempty"`
+type MessageCardI18nElements struct {
+	ZhCN []MessageCardElement `json:"zh_cn,omitempty"`
+	EnUS []MessageCardElement `json:"en_us,omitempty"`
+	JaJP []MessageCardElement `json:"ja_jp,omitempty"`
 }
 
 type MessageCard struct {
-	Config       *MessageCardConfig   `json:"config,omitempty"`
-	Header       *MessageCardHeader   `json:"header,omitempty"`
-	Elements     []MessageCardElement `json:"elements,omitempty"`
-	I18nElements *I18nElements        `json:"i18n_elements,omitempty"`
-	CardLink     *MessageCardURL      `json:"card_link,omitempty"`
+	Config       *MessageCardConfig       `json:"config,omitempty"`
+	Header       *MessageCardHeader       `json:"header,omitempty"`
+	Elements     []MessageCardElement     `json:"elements,omitempty"`
+	I18nElements *MessageCardI18nElements `json:"i18n_elements,omitempty"`
+	CardLink     *MessageCardURL          `json:"card_link,omitempty"`
 }
 
 func (m *MessageCard) JSON() (string, error) {
@@ -292,9 +292,16 @@ type MessageCardText interface {
 	Text() string
 }
 
+type MessageCardPlainTextI18n struct {
+	ZhCN string `json:"zh_cn,omitempty"`
+	EnUS string `json:"en_us,omitempty"`
+	JaJP string `json:"ja_jp,omitempty"`
+}
+
 type MessageCardPlainText struct {
-	Content string `json:"content,omitempty"`
-	Lines   *int   `json:"lines,omitempty"`
+	Content string                    `json:"content,omitempty"`
+	Lines   *int                      `json:"lines,omitempty"`
+	I18n    *MessageCardPlainTextI18n `json:"i18n,omitempty"`
 }
 
 func (m *MessageCardPlainText) Tag() string {
