@@ -9,6 +9,7 @@ func main() {
 	printMessageText()
 	printMessagePost()
 	printMessageCard()
+	printMessageCardI18n()
 	printMessageImage()
 	printMessageShareChat()
 	printMessageShareUser()
@@ -144,6 +145,59 @@ func printMessageCard() {
 	fmt.Println("MessageCard: ----------------------------")
 	fmt.Println(s)
 	fmt.Println("-----------------------------------------")
+}
+
+func printMessageCardI18n() {
+	card := &lark.MessageCard{
+		CardLink: &lark.MessageCardURL{
+			URL:        "https://www.feishu.cn",
+			AndroidURL: "https://www.feishu.cn",
+			IOSURL:     "https://www.feishu.cn",
+			PCURL:      "https://www.feishu.cn",
+		},
+		Config: &lark.MessageCardConfig{EnableForward: lark.BoolPtr(true)},
+		Header: &lark.MessageCardHeader{
+			Template: lark.StringPtr("blue"),
+			Title: &lark.MessageCardPlainText{
+				I18n: &lark.MessageCardPlainTextI18n{
+					ZhCN: "ZhCN Header title",
+					EnUS: "",
+					JaJP: "JaJP Header title",
+				},
+			},
+		},
+		I18nElements: &lark.MessageCardI18nElements{
+			ZhCN: []lark.MessageCardElement{
+				&lark.MessageCardMarkdown{
+					Content: "**ZhCN**",
+				},
+				&lark.MessageCardMarkdown{
+					Content: "**ZhCN-2**",
+				},
+			},
+			EnUS: []lark.MessageCardElement{
+				&lark.MessageCardMarkdown{
+					Content: "**EnUS**",
+				},
+				&lark.MessageCardMarkdown{
+					Content: "**EnUS-2**",
+				},
+			},
+			JaJP: []lark.MessageCardElement{
+				&lark.MessageCardMarkdown{
+					Content: "**JaJP**",
+				},
+				&lark.MessageCardMarkdown{
+					Content: "**JaJP-2**",
+				},
+			},
+		},
+	}
+	s, err := card.JSON()
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(s)
 }
 
 func printMessageImage() {
