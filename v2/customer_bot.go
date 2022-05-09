@@ -64,7 +64,8 @@ type customerBotSendMessageReq struct {
 	Timestamp string      `json:"timestamp,omitempty"`
 	Sign      string      `json:"sign,omitempty"`
 	MsgType   string      `json:"msg_type,omitempty"`
-	Content   interface{} `json:"content"`
+	Content   interface{} `json:"content,omitempty"`
+	Card      interface{} `json:"card,omitempty"`
 }
 
 func (c *CustomerBot) sign(timestamp string) (string, error) {
@@ -88,6 +89,14 @@ func (c *CustomerBot) newSendMessageReq(msgType string, content interface{}) (*c
 		if err != nil {
 			return nil, err
 		}
+	}
+	if msgType == "interactive" {
+		return &customerBotSendMessageReq{
+			Timestamp: timestamp,
+			Sign:      sign,
+			MsgType:   msgType,
+			Card:      content,
+		}, nil
 	}
 	return &customerBotSendMessageReq{
 		Timestamp: timestamp,
