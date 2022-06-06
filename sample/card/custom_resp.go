@@ -22,14 +22,14 @@ func main() {
 		fmt.Println(coreCtx.GetRequestID())
 		fmt.Println(tools.Prettify(card.Action))
 
-		body := &model.CustomToastBody{
-			Content: "hello",
-			I18n: &model.I18n{
-				ZhCn: "你好",
-				EnCn: "hello",
-				JaJp: "こんにちは",
-			},
-		}
+		body := make(map[string]interface{})
+		body["content"] = "hello"
+
+		i18n := make(map[string]string)
+		i18n["zh_cn"] = "你好"
+		i18n["en_us"] = "hello"
+		i18n["ja_jp"] = "こんにちは"
+		body["i18n"] = i18n
 
 		b, err := json.Marshal(body)
 		if err != nil {
@@ -37,8 +37,8 @@ func main() {
 		}
 
 		return &model.CustomResp{
-			Status: 400,
-			Body:   b,
+			StatusCode: 400,
+			Body:       b,
 		}, nil
 	})
 

@@ -158,7 +158,7 @@ func complementFunc(ctx *core.Context, httpCard *model.HTTPCard) {
 		case string:
 			bs = []byte(output)
 		case *model.CustomResp:
-			status := output.Status
+			status := output.StatusCode
 			if status == 0 {
 				status = http.StatusInternalServerError
 			}

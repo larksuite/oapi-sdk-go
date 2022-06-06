@@ -58,17 +58,6 @@ type Action struct {
 }
 
 type CustomResp struct {
-	Status int
-	Body   []byte
-}
-
-type CustomToastBody struct {
-	Content string `json:"content"`
-	I18n    *I18n  `json:"i18n"`
-}
-
-type I18n struct {
-	ZhCn string `json:"zh_cn"`
-	EnCn string `json:"en_us"`
-	JaJp string `json:"ja_jp"`
+	StatusCode int
+	Body       []byte
 }
