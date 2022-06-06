@@ -8,3 +8,5 @@ require (
 	github.com/sirupsen/logrus v1.8.1
 	github.com/stretchr/testify v1.6.1 // indirect
 )
+
+replace github.com/larksuite/oapi-sdk-go/v2 => ../v2
