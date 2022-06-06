@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 
 	"github.com/larksuite/oapi-sdk-go/card"
@@ -20,7 +21,25 @@ func main() {
 	card.SetHandler(conf, func(coreCtx *core.Context, card *model.Card) (interface{}, error) {
 		fmt.Println(coreCtx.GetRequestID())
 		fmt.Println(tools.Prettify(card.Action))
-		return nil, nil
+
+		body := &model.CustomToastBody{
+			Content: "hello",
+			I18n: &model.I18n{
+				ZhCn: "你好",
+				EnCn: "hello",
+				JaJp: "こんにちは",
+			},
+		}
+
+		b, err := json.Marshal(body)
+		if err != nil {
+			return nil, err
+		}
+
+		return &model.CustomResp{
+			Status: 400,
+			Body:   b,
+		}, nil
 	})
 
 	header := make(map[string][]string)
@@ -36,7 +55,7 @@ func main() {
 	req := &core.OapiRequest{
 		Ctx:    context.Background(),
 		Header: core.NewOapiHeader(header),
-		Body:   "", // from http request body
+		Body:   "{\"token\":\"sss\",\"type\":\"event_callback\"}", // from http request body
 	}
 	resp := card.Handle(conf, req)
 	fmt.Println(tools.Prettify(resp))
