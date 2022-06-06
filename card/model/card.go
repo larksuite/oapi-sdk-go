@@ -56,3 +56,8 @@ type Action struct {
 	Option   string                 `json:"option"`
 	Timezone string                 `json:"timezone"`
 }
+
+type CustomResp struct {
+	StatusCode int
+	Body       []byte
+}

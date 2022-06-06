@@ -5,13 +5,14 @@ import (
 	"crypto/sha1"
 	"encoding/json"
 	"fmt"
+	"net/http"
+	"strings"
+
 	"github.com/larksuite/oapi-sdk-go/card/model"
 	"github.com/larksuite/oapi-sdk-go/core"
 	"github.com/larksuite/oapi-sdk-go/core/config"
 	"github.com/larksuite/oapi-sdk-go/core/constants"
 	"github.com/larksuite/oapi-sdk-go/core/errors"
-	"net/http"
-	"strings"
 )
 
 var defaultHandlers = &Handlers{
@@ -156,6 +157,13 @@ func complementFunc(ctx *core.Context, httpCard *model.HTTPCard) {
 		switch output := httpCard.Output.(type) {
 		case string:
 			bs = []byte(output)
+		case *model.CustomResp:
+			status := output.StatusCode
+			if status == 0 {
+				status = http.StatusInternalServerError
+			}
+			httpCard.Response.Write(status, constants.DefaultContentType, string(output.Body))
+			return
 		default:
 			bs, err = json.Marshal(httpCard.Output)
 			if err != nil {
