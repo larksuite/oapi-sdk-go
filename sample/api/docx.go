@@ -21,11 +21,11 @@ func main() {
 	//getDocument()
 	//getRawDocument()
 	//createBlock()
-	//listBlocks()
+	listBlocks()
 	//listSubBlocks()
 
 	//getBlock()
-	batchDelBlock()
+	//batchDelBlock()
 
 }
 func createDocument() {
@@ -58,7 +58,7 @@ func getDocument() {
 
 func getRawDocument() {
 	coreCtx := core.WrapContext(context.Background())
-	reqCall := docxService.Documents.RawContent(coreCtx, request.SetUserAccessToken("u-GQze1ue1QXC650Z3NYBsga"))
+	reqCall := docxService.Documents.RawContent(coreCtx, request.SetUserAccessToken("u-G4p3fYOXuJqkwyNOwSDG5g"))
 	reqCall.SetDocumentId("doxcnku1W0IhiZBDPkxlEVSn6Tf")
 
 	resp, err := reqCall.Do()
@@ -100,7 +100,7 @@ func createBlock() {
 
 func listBlocks() {
 	coreCtx := core.WrapContext(context.Background())
-	reqCall := docxService.DocumentBlocks.List(coreCtx, request.SetUserAccessToken("u-GQze1ue1QXC650Z3NYBsga"))
+	reqCall := docxService.DocumentBlocks.List(coreCtx, request.SetUserAccessToken("u-G4p3fYOXuJqkwyNOwSDG5g"))
 	reqCall.SetDocumentId("doxcnku1W0IhiZBDPkxlEVSn6Tf")
 	reqCall.SetPageSize(10)
 
