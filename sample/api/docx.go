@@ -4,157 +4,75 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/larksuite/oapi-sdk-go/api/core/request"
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/tools"
-	"github.com/larksuite/oapi-sdk-go/sample/configs"
-	docx "github.com/larksuite/oapi-sdk-go/service/docx/v1"
+	"github.com/feishu/oapi-sdk-go"
+	"github.com/feishu/oapi-sdk-go/core"
+	"github.com/feishu/oapi-sdk-go/service/docx/v1"
 )
 
-// for redis store and logrus
-// configs.TestConfigWithLogrusAndRedisStore(core.DomainFeiShu)
-// configs.TestConfig("https://open.feishu.cn")
-var docxService = docx.NewService(configs.TestConfig(core.DomainFeiShu))
+func createDocument(client *client.Client) {
+	resp, err := client.Docx.Documents.Create(context.Background(), docx.NewCreateDocumentReqBuilder().
+		Body(docx.NewCreateDocumentReqBodyBuilder().
+			FolderToken("token").
+			Title("title").
+			Build()).
+		Build(),
+		core.WithUserAccessToken("usertoken"))
+
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(resp.Code, resp.Msg, core.Prettify(resp.Data))
+}
+
+func listBlocks(client *client.Client) {
+	resp, err := client.Docx.Blocks.List(context.Background(),
+		docx.NewListDocumentBlockReqBuilder().
+			DocumentId("doxcnku1W0IhiZBDPkxlEVSn6Tf").
+			PageSize(1).
+			Build(), core.WithUserAccessToken("u-kFK7mQdQasTbiosC18boUc"),
+	)
+
+	if err != nil {
+		fmt.Println(core.Prettify(err))
+		return
+	}
+
+	fmt.Println(core.Prettify(resp))
+}
+
+//
+//func listBlocksIter() {
+//	iter, err := client.Docx.Blocks.ListDocumentBlock(context.Background(),
+//		docx.NewListDocumentBlockReqBuilder().
+//			DocumentId("doxcnku1W0IhiZBDPkxlEVSn6Tf").
+//			PageSize(2).
+//			Build(), core.WithUserAccessToken("u-zwbYaTxHGGHxQ9BAVIAO5g"),
+//	)
+//
+//	if err != nil {
+//		fmt.Println(core.Prettify(err))
+//		return
+//	}
+//
+//	for {
+//		if iter.HasNext() {
+//			block, err := iter.Next()
+//			if err != nil {
+//				fmt.Println(err)
+//				return
+//			}
+//			fmt.Println(core.Prettify(block))
+//
+//		} else {
+//			break
+//		}
+//	}
+//
+//}
 
 func main() {
-	//createDocument()
-	//getDocument()
-	//getRawDocument()
-	//createBlock()
-	//listBlocks()
-	//listSubBlocks()
+	feishuClient := client.NewClient("cli_a1eccc36c278900d", "0PhrmTxRd7q6cqzVKx25tgvlObXNmbqD")
 
-	//getBlock()
-	batchDelBlock()
-
-}
-func createDocument() {
-	coreCtx := core.WrapContext(context.Background())
-	reqCall := docxService.Documents.Create(coreCtx, &docx.DocumentCreateReqBody{
-		FolderToken: "fldcniHf40Vcv1DoEc8SXeuA0Zd",
-		Title:       "documentv1",
-	}, request.SetUserAccessToken("u-GQze1ue1QXC650Z3NYBsga"))
-
-	resp, err := reqCall.Do()
-	if err != nil {
-		fmt.Println(err)
-	} else {
-		fmt.Println(tools.Prettify(resp))
-	}
-}
-
-func getDocument() {
-	coreCtx := core.WrapContext(context.Background())
-	reqCall := docxService.Documents.Get(coreCtx, request.SetUserAccessToken("u-GQze1ue1QXC650Z3NYBsga"))
-	reqCall.SetDocumentId("doxcnku1W0IhiZBDPkxlEVSn6Tf")
-
-	resp, err := reqCall.Do()
-	if err != nil {
-		fmt.Println(err)
-	} else {
-		fmt.Println(tools.Prettify(resp))
-	}
-}
-
-func getRawDocument() {
-	coreCtx := core.WrapContext(context.Background())
-	reqCall := docxService.Documents.RawContent(coreCtx, request.SetUserAccessToken("u-GQze1ue1QXC650Z3NYBsga"))
-	reqCall.SetDocumentId("doxcnku1W0IhiZBDPkxlEVSn6Tf")
-
-	resp, err := reqCall.Do()
-	if err != nil {
-		fmt.Println(err)
-	} else {
-		fmt.Println(tools.Prettify(resp))
-	}
-}
-func createBlock() {
-	coreCtx := core.WrapContext(context.Background())
-	reqCall := docxService.DocumentBlockChildrens.Create(coreCtx, &docx.DocumentBlockChildrenCreateReqBody{
-		Children: []*docx.Block{&docx.Block{
-			BlockType: 2,
-			Text: &docx.Text{Elements: []*docx.TextElement{
-				&docx.TextElement{
-					TextRun: &docx.TextRun{
-						Content:          "插入v1-1块",
-						TextElementStyle: &docx.TextElementStyle{BackgroundColor: 14, TextColor: 5}}},
-
-				&docx.TextElement{
-					TextRun: &docx.TextRun{
-						Content:          "插入v1-2块",
-						TextElementStyle: &docx.TextElementStyle{BackgroundColor: 14, TextColor: 5}}}}},
-		}},
-		Index:           0,
-		ForceSendFields: nil,
-	}, request.SetUserAccessToken("u-GQze1ue1QXC650Z3NYBsga"))
-	reqCall.SetBlockId("doxcnIOUiQQCkCSgQK0FF7IKUJh")
-	reqCall.SetDocumentId("doxcnku1W0IhiZBDPkxlEVSn6Tf")
-
-	resp, err := reqCall.Do()
-	if err != nil {
-		fmt.Println(err)
-	} else {
-		fmt.Println(tools.Prettify(resp))
-	}
-}
-
-func listBlocks() {
-	coreCtx := core.WrapContext(context.Background())
-	reqCall := docxService.DocumentBlocks.List(coreCtx, request.SetUserAccessToken("u-GQze1ue1QXC650Z3NYBsga"))
-	reqCall.SetDocumentId("doxcnku1W0IhiZBDPkxlEVSn6Tf")
-	reqCall.SetPageSize(10)
-
-	resp, err := reqCall.Do()
-	if err != nil {
-		fmt.Println(err)
-	} else {
-		fmt.Println(tools.Prettify(resp))
-	}
-}
-
-func listSubBlocks() {
-	coreCtx := core.WrapContext(context.Background())
-	reqCall := docxService.DocumentBlockChildrens.Get(coreCtx, request.SetUserAccessToken("u-GQze1ue1QXC650Z3NYBsga"))
-	reqCall.SetDocumentId("doxcnku1W0IhiZBDPkxlEVSn6Tf")
-	reqCall.SetPageSize(10)
-	reqCall.SetBlockId("doxcnIOUiQQCkCSgQK0FF7IKUJh")
-
-	resp, err := reqCall.Do()
-	if err != nil {
-		fmt.Println(err)
-	} else {
-		fmt.Println(tools.Prettify(resp))
-	}
-}
-
-func getBlock() {
-	coreCtx := core.WrapContext(context.Background())
-	reqCall := docxService.DocumentBlocks.Get(coreCtx, request.SetUserAccessToken("u-GQze1ue1QXC650Z3NYBsga"))
-	reqCall.SetDocumentId("doxcnku1W0IhiZBDPkxlEVSn6Tf")
-	reqCall.SetBlockId("doxcnIOUiQQCkCSgQK0FF7IKUJh")
-
-	resp, err := reqCall.Do()
-	if err != nil {
-		fmt.Println(err)
-	} else {
-		fmt.Println(tools.Prettify(resp))
-	}
-}
-
-func batchDelBlock() {
-	coreCtx := core.WrapContext(context.Background())
-	reqCall := docxService.DocumentBlockChildrens.BatchDelete(coreCtx, &docx.DocumentBlockChildrenBatchDeleteReqBody{
-		StartIndex:      0,
-		EndIndex:        1,
-		ForceSendFields: []string{"StartIndex"},
-	}, request.SetUserAccessToken("u-GQze1ue1QXC650Z3NYBsga"))
-	reqCall.SetDocumentId("doxcnku1W0IhiZBDPkxlEVSn6Tf")
-	reqCall.SetBlockId("doxcnIOUiQQCkCSgQK0FF7IKUJh")
-
-	resp, err := reqCall.Do()
-	if err != nil {
-		fmt.Println(err)
-	} else {
-		fmt.Println(tools.Prettify(resp))
-	}
+	listBlocks(feishuClient)
+	//listBlocksIter()
 }
