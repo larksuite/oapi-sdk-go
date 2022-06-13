@@ -11,8 +11,6 @@ import (
 	"github.com/feishu/oapi-sdk-go/service/im/v1"
 )
 
-//var client = client2.NewClient("cli_a1eccc36c278900d", "0PhrmTxRd7q6cqzVKx25tgvlObXNmbqD")
-
 func uploadImage(client *client2.Client) {
 
 	pdf, err := os.Open("/Users/bytedance/Downloads/a.jpg")

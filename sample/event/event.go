@@ -13,13 +13,13 @@ import (
 	"github.com/feishu/oapi-sdk-go/service/im/v1"
 )
 
-func main() {
+type CardActionBody struct {
+	*card.CardAction
+	Challenge string `json:"challenge"`
+	Type      string `json:"type"`
+}
 
-	type CardActionBody struct {
-		*card.CardAction
-		Challenge string `json:"challenge"`
-		Type      string `json:"type"`
-	}
+func main() {
 
 	handler := dispatcher.NewEventReqDispatcher("v", "1212121212").MessageReceiveV1(func(ctx context.Context, event *im.MessageReceiveEvent) error {
 		fmt.Println(core.Prettify(event))

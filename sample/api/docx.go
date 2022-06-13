@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"os"
 
 	"github.com/feishu/oapi-sdk-go"
 	"github.com/feishu/oapi-sdk-go/core"
@@ -71,7 +72,9 @@ func listBlocks(client *client.Client) {
 //}
 
 func main() {
-	feishuClient := client.NewClient("cli_a1eccc36c278900d", "0PhrmTxRd7q6cqzVKx25tgvlObXNmbqD")
+	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
+
+	feishuClient := client.NewClient(appID, appSecret)
 
 	listBlocks(feishuClient)
 	//listBlocksIter()
