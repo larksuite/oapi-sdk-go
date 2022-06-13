@@ -4,8 +4,13 @@ package im
 import (
 	"io"
 	
+	"bytes"
+	
+	"io/ioutil"
+	
 	"context"
 	"errors"
+	"fmt"
 	
 	"github.com/feishu/oapi-sdk-go/event"
 	
@@ -396,6 +401,7 @@ type UserId struct {
 type DeleteBatchMessageReqBuilder struct {
 	batchMessageId  string
 	batchMessageIdFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -423,6 +429,7 @@ func (builder * DeleteBatchMessageReqBuilder ) Build() *DeleteBatchMessageReq {
 
 type DeleteBatchMessageReq struct {
 	BatchMessageId  string `path:"batch_message_id"`
+
 }
 
 
@@ -436,6 +443,7 @@ type DeleteBatchMessageResp struct {
 type GetProgressBatchMessageReqBuilder struct {
 	batchMessageId  string
 	batchMessageIdFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -463,6 +471,7 @@ func (builder * GetProgressBatchMessageReqBuilder ) Build() *GetProgressBatchMes
 
 type GetProgressBatchMessageReq struct {
 	BatchMessageId  string `path:"batch_message_id"`
+
 }
 
 type GetProgressBatchMessageRespData struct {
@@ -481,6 +490,7 @@ type GetProgressBatchMessageResp struct {
 type ReadUserBatchMessageReqBuilder struct {
 	batchMessageId  string
 	batchMessageIdFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -508,6 +518,7 @@ func (builder * ReadUserBatchMessageReqBuilder ) Build() *ReadUserBatchMessageRe
 
 type ReadUserBatchMessageReq struct {
 	BatchMessageId  string `path:"batch_message_id"`
+
 }
 
 type ReadUserBatchMessageRespData struct {
@@ -694,6 +705,170 @@ func (builder * CreateChatReqBodyBuilder ) Build() *CreateChatReqBody {
    return req
 }
 
+/**上传文件path开始**/
+type CreateChatPathReqBodyBuilder struct {
+	avatar  string
+	avatarFlag  bool
+	name  string
+	nameFlag  bool
+	description  string
+	descriptionFlag  bool
+	i18nNames  *I18nNames
+	i18nNamesFlag  bool
+	ownerId  string
+	ownerIdFlag  bool
+	userIdList  []string
+	userIdListFlag  bool
+	botIdList  []string
+	botIdListFlag  bool
+	chatMode  string
+	chatModeFlag  bool
+	chatType  string
+	chatTypeFlag  bool
+	external  bool
+	externalFlag  bool
+	joinMessageVisibility  string
+	joinMessageVisibilityFlag  bool
+	leaveMessageVisibility  string
+	leaveMessageVisibilityFlag  bool
+	membershipApproval  string
+	membershipApprovalFlag  bool
+	labels  []string
+	labelsFlag  bool
+}
+
+// 生成body的New构造器
+func NewCreateChatPathReqBodyBuilder() * CreateChatPathReqBodyBuilder{
+  builder := &CreateChatPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * CreateChatPathReqBodyBuilder ) Avatar(avatar string) *CreateChatPathReqBodyBuilder {
+  builder.avatar = avatar
+  builder.avatarFlag = true
+  return builder
+}
+func (builder * CreateChatPathReqBodyBuilder ) Name(name string) *CreateChatPathReqBodyBuilder {
+  builder.name = name
+  builder.nameFlag = true
+  return builder
+}
+func (builder * CreateChatPathReqBodyBuilder ) Description(description string) *CreateChatPathReqBodyBuilder {
+  builder.description = description
+  builder.descriptionFlag = true
+  return builder
+}
+func (builder * CreateChatPathReqBodyBuilder ) I18nNames(i18nNames *I18nNames) *CreateChatPathReqBodyBuilder {
+  builder.i18nNames = i18nNames
+  builder.i18nNamesFlag = true
+  return builder
+}
+func (builder * CreateChatPathReqBodyBuilder ) OwnerId(ownerId string) *CreateChatPathReqBodyBuilder {
+  builder.ownerId = ownerId
+  builder.ownerIdFlag = true
+  return builder
+}
+func (builder * CreateChatPathReqBodyBuilder ) UserIdList(userIdList []string) *CreateChatPathReqBodyBuilder {
+  builder.userIdList = userIdList
+  builder.userIdListFlag = true
+  return builder
+}
+func (builder * CreateChatPathReqBodyBuilder ) BotIdList(botIdList []string) *CreateChatPathReqBodyBuilder {
+  builder.botIdList = botIdList
+  builder.botIdListFlag = true
+  return builder
+}
+func (builder * CreateChatPathReqBodyBuilder ) ChatMode(chatMode string) *CreateChatPathReqBodyBuilder {
+  builder.chatMode = chatMode
+  builder.chatModeFlag = true
+  return builder
+}
+func (builder * CreateChatPathReqBodyBuilder ) ChatType(chatType string) *CreateChatPathReqBodyBuilder {
+  builder.chatType = chatType
+  builder.chatTypeFlag = true
+  return builder
+}
+func (builder * CreateChatPathReqBodyBuilder ) External(external bool) *CreateChatPathReqBodyBuilder {
+  builder.external = external
+  builder.externalFlag = true
+  return builder
+}
+func (builder * CreateChatPathReqBodyBuilder ) JoinMessageVisibility(joinMessageVisibility string) *CreateChatPathReqBodyBuilder {
+  builder.joinMessageVisibility = joinMessageVisibility
+  builder.joinMessageVisibilityFlag = true
+  return builder
+}
+func (builder * CreateChatPathReqBodyBuilder ) LeaveMessageVisibility(leaveMessageVisibility string) *CreateChatPathReqBodyBuilder {
+  builder.leaveMessageVisibility = leaveMessageVisibility
+  builder.leaveMessageVisibilityFlag = true
+  return builder
+}
+func (builder * CreateChatPathReqBodyBuilder ) MembershipApproval(membershipApproval string) *CreateChatPathReqBodyBuilder {
+  builder.membershipApproval = membershipApproval
+  builder.membershipApprovalFlag = true
+  return builder
+}
+
+
+
+/*1.3 生成body的build方法*/
+func (builder * CreateChatPathReqBodyBuilder ) Build() (*CreateChatReqBody, error) {
+   req := &CreateChatReqBody{}
+   if builder.avatarFlag {
+	  req.Avatar = &builder.avatar
+	  
+   }
+   if builder.nameFlag {
+	  req.Name = &builder.name
+	  
+   }
+   if builder.descriptionFlag {
+	  req.Description = &builder.description
+	  
+   }
+   if builder.i18nNamesFlag {
+	   req.I18nNames = builder.i18nNames
+   }
+   if builder.ownerIdFlag {
+	  req.OwnerId = &builder.ownerId
+	  
+   }
+   if builder.userIdListFlag {
+	   req.UserIdList = builder.userIdList
+   }
+   if builder.botIdListFlag {
+	   req.BotIdList = builder.botIdList
+   }
+   if builder.chatModeFlag {
+	  req.ChatMode = &builder.chatMode
+	  
+   }
+   if builder.chatTypeFlag {
+	  req.ChatType = &builder.chatType
+	  
+   }
+   if builder.externalFlag {
+	  req.External = &builder.external
+	  
+   }
+   if builder.joinMessageVisibilityFlag {
+	  req.JoinMessageVisibility = &builder.joinMessageVisibility
+	  
+   }
+   if builder.leaveMessageVisibilityFlag {
+	  req.LeaveMessageVisibility = &builder.leaveMessageVisibility
+	  
+   }
+   if builder.membershipApprovalFlag {
+	  req.MembershipApproval = &builder.membershipApproval
+	  
+   }
+
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type CreateChatReqBuilder struct {
 	userIdType  string
@@ -702,6 +877,7 @@ type CreateChatReqBuilder struct {
 	setBotManagerFlag  bool
 	body *CreateChatReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -764,6 +940,7 @@ type CreateChatReq struct {
 	UserIdType  *string `query:"user_id_type"`
 	SetBotManager  *bool `query:"set_bot_manager"`
 	Body *CreateChatReqBody `body:""`
+
 }
 
 type CreateChatRespData struct {
@@ -801,6 +978,7 @@ type CreateChatResp struct {
 type DeleteChatReqBuilder struct {
 	chatId  string
 	chatIdFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -828,6 +1006,7 @@ func (builder * DeleteChatReqBuilder ) Build() *DeleteChatReq {
 
 type DeleteChatReq struct {
 	ChatId  string `path:"chat_id"`
+
 }
 
 
@@ -843,6 +1022,7 @@ type GetChatReqBuilder struct {
 	chatIdFlag  bool
 	userIdType  string
 	userIdTypeFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -879,6 +1059,7 @@ func (builder * GetChatReqBuilder ) Build() *GetChatReq {
 type GetChatReq struct {
 	ChatId  string `path:"chat_id"`
 	UserIdType  *string `query:"user_id_type"`
+
 }
 
 type GetChatRespData struct {
@@ -921,6 +1102,8 @@ type ListChatReqBuilder struct {
 	pageTokenFlag  bool
 	pageSize  int
 	pageSizeFlag  bool
+	limit int
+
 }
 
 // 生成请求的New构造器
@@ -930,6 +1113,10 @@ func NewListChatReqBuilder() * ListChatReqBuilder{
 }
 
 /*1.5 生成请求的builder属性方法*/
+func (builder * ListChatReqBuilder) Limit(limit int ) *ListChatReqBuilder  {
+  builder.limit = limit
+  return builder
+}
 func (builder * ListChatReqBuilder) UserIdType(userIdType string) *ListChatReqBuilder  {
   builder.userIdType = userIdType
   builder.userIdTypeFlag = true
@@ -949,6 +1136,7 @@ func (builder * ListChatReqBuilder) PageSize(pageSize int) *ListChatReqBuilder  
 /*1.5 生成请求的builder的build方法*/
 func (builder * ListChatReqBuilder ) Build() *ListChatReq {
    req := &ListChatReq{}
+   req.Limit = builder.limit
    if builder.userIdTypeFlag {
 	  req.UserIdType = &builder.userIdType
    }
@@ -966,6 +1154,8 @@ type ListChatReq struct {
 	UserIdType  *string `query:"user_id_type"`
 	PageToken  *string `query:"page_token"`
 	PageSize  *int `query:"page_size"`
+	Limit int
+
 }
 
 type ListChatRespData struct {
@@ -991,6 +1181,8 @@ type SearchChatReqBuilder struct {
 	pageTokenFlag  bool
 	pageSize  int
 	pageSizeFlag  bool
+	limit int
+
 }
 
 // 生成请求的New构造器
@@ -1000,6 +1192,10 @@ func NewSearchChatReqBuilder() * SearchChatReqBuilder{
 }
 
 /*1.5 生成请求的builder属性方法*/
+func (builder * SearchChatReqBuilder) Limit(limit int ) *SearchChatReqBuilder  {
+  builder.limit = limit
+  return builder
+}
 func (builder * SearchChatReqBuilder) UserIdType(userIdType string) *SearchChatReqBuilder  {
   builder.userIdType = userIdType
   builder.userIdTypeFlag = true
@@ -1024,6 +1220,7 @@ func (builder * SearchChatReqBuilder) PageSize(pageSize int) *SearchChatReqBuild
 /*1.5 生成请求的builder的build方法*/
 func (builder * SearchChatReqBuilder ) Build() *SearchChatReq {
    req := &SearchChatReq{}
+   req.Limit = builder.limit
    if builder.userIdTypeFlag {
 	  req.UserIdType = &builder.userIdType
    }
@@ -1045,6 +1242,8 @@ type SearchChatReq struct {
 	Query  *string `query:"query"`
 	PageToken  *string `query:"page_token"`
 	PageSize  *int `query:"page_size"`
+	Limit int
+
 }
 
 type SearchChatRespData struct {
@@ -1223,6 +1422,161 @@ func (builder * UpdateChatReqBodyBuilder ) Build() *UpdateChatReqBody {
    return req
 }
 
+/**上传文件path开始**/
+type UpdateChatPathReqBodyBuilder struct {
+	avatar  string
+	avatarFlag  bool
+	name  string
+	nameFlag  bool
+	description  string
+	descriptionFlag  bool
+	i18nNames  *I18nNames
+	i18nNamesFlag  bool
+	addMemberPermission  string
+	addMemberPermissionFlag  bool
+	shareCardPermission  string
+	shareCardPermissionFlag  bool
+	atAllPermission  string
+	atAllPermissionFlag  bool
+	editPermission  string
+	editPermissionFlag  bool
+	ownerId  string
+	ownerIdFlag  bool
+	joinMessageVisibility  string
+	joinMessageVisibilityFlag  bool
+	leaveMessageVisibility  string
+	leaveMessageVisibilityFlag  bool
+	membershipApproval  string
+	membershipApprovalFlag  bool
+	labels  []string
+	labelsFlag  bool
+}
+
+// 生成body的New构造器
+func NewUpdateChatPathReqBodyBuilder() * UpdateChatPathReqBodyBuilder{
+  builder := &UpdateChatPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * UpdateChatPathReqBodyBuilder ) Avatar(avatar string) *UpdateChatPathReqBodyBuilder {
+  builder.avatar = avatar
+  builder.avatarFlag = true
+  return builder
+}
+func (builder * UpdateChatPathReqBodyBuilder ) Name(name string) *UpdateChatPathReqBodyBuilder {
+  builder.name = name
+  builder.nameFlag = true
+  return builder
+}
+func (builder * UpdateChatPathReqBodyBuilder ) Description(description string) *UpdateChatPathReqBodyBuilder {
+  builder.description = description
+  builder.descriptionFlag = true
+  return builder
+}
+func (builder * UpdateChatPathReqBodyBuilder ) I18nNames(i18nNames *I18nNames) *UpdateChatPathReqBodyBuilder {
+  builder.i18nNames = i18nNames
+  builder.i18nNamesFlag = true
+  return builder
+}
+func (builder * UpdateChatPathReqBodyBuilder ) AddMemberPermission(addMemberPermission string) *UpdateChatPathReqBodyBuilder {
+  builder.addMemberPermission = addMemberPermission
+  builder.addMemberPermissionFlag = true
+  return builder
+}
+func (builder * UpdateChatPathReqBodyBuilder ) ShareCardPermission(shareCardPermission string) *UpdateChatPathReqBodyBuilder {
+  builder.shareCardPermission = shareCardPermission
+  builder.shareCardPermissionFlag = true
+  return builder
+}
+func (builder * UpdateChatPathReqBodyBuilder ) AtAllPermission(atAllPermission string) *UpdateChatPathReqBodyBuilder {
+  builder.atAllPermission = atAllPermission
+  builder.atAllPermissionFlag = true
+  return builder
+}
+func (builder * UpdateChatPathReqBodyBuilder ) EditPermission(editPermission string) *UpdateChatPathReqBodyBuilder {
+  builder.editPermission = editPermission
+  builder.editPermissionFlag = true
+  return builder
+}
+func (builder * UpdateChatPathReqBodyBuilder ) OwnerId(ownerId string) *UpdateChatPathReqBodyBuilder {
+  builder.ownerId = ownerId
+  builder.ownerIdFlag = true
+  return builder
+}
+func (builder * UpdateChatPathReqBodyBuilder ) JoinMessageVisibility(joinMessageVisibility string) *UpdateChatPathReqBodyBuilder {
+  builder.joinMessageVisibility = joinMessageVisibility
+  builder.joinMessageVisibilityFlag = true
+  return builder
+}
+func (builder * UpdateChatPathReqBodyBuilder ) LeaveMessageVisibility(leaveMessageVisibility string) *UpdateChatPathReqBodyBuilder {
+  builder.leaveMessageVisibility = leaveMessageVisibility
+  builder.leaveMessageVisibilityFlag = true
+  return builder
+}
+func (builder * UpdateChatPathReqBodyBuilder ) MembershipApproval(membershipApproval string) *UpdateChatPathReqBodyBuilder {
+  builder.membershipApproval = membershipApproval
+  builder.membershipApprovalFlag = true
+  return builder
+}
+
+
+
+/*1.3 生成body的build方法*/
+func (builder * UpdateChatPathReqBodyBuilder ) Build() (*UpdateChatReqBody, error) {
+   req := &UpdateChatReqBody{}
+   if builder.avatarFlag {
+	  req.Avatar = &builder.avatar
+	  
+   }
+   if builder.nameFlag {
+	  req.Name = &builder.name
+	  
+   }
+   if builder.descriptionFlag {
+	  req.Description = &builder.description
+	  
+   }
+   if builder.i18nNamesFlag {
+	   req.I18nNames = builder.i18nNames
+   }
+   if builder.addMemberPermissionFlag {
+	  req.AddMemberPermission = &builder.addMemberPermission
+	  
+   }
+   if builder.shareCardPermissionFlag {
+	  req.ShareCardPermission = &builder.shareCardPermission
+	  
+   }
+   if builder.atAllPermissionFlag {
+	  req.AtAllPermission = &builder.atAllPermission
+	  
+   }
+   if builder.editPermissionFlag {
+	  req.EditPermission = &builder.editPermission
+	  
+   }
+   if builder.ownerIdFlag {
+	  req.OwnerId = &builder.ownerId
+	  
+   }
+   if builder.joinMessageVisibilityFlag {
+	  req.JoinMessageVisibility = &builder.joinMessageVisibility
+	  
+   }
+   if builder.leaveMessageVisibilityFlag {
+	  req.LeaveMessageVisibility = &builder.leaveMessageVisibility
+	  
+   }
+   if builder.membershipApprovalFlag {
+	  req.MembershipApproval = &builder.membershipApproval
+	  
+   }
+
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type UpdateChatReqBuilder struct {
 	chatId  string
@@ -1231,6 +1585,7 @@ type UpdateChatReqBuilder struct {
 	userIdTypeFlag  bool
 	body *UpdateChatReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -1292,6 +1647,7 @@ type UpdateChatReq struct {
 	ChatId  string `path:"chat_id"`
 	UserIdType  *string `query:"user_id_type"`
 	Body *UpdateChatReqBody `body:""`
+
 }
 
 
@@ -1307,6 +1663,7 @@ type GetChatAnnouncementReqBuilder struct {
 	chatIdFlag  bool
 	userIdType  string
 	userIdTypeFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -1343,6 +1700,7 @@ func (builder * GetChatAnnouncementReqBuilder ) Build() *GetChatAnnouncementReq 
 type GetChatAnnouncementReq struct {
 	ChatId  string `path:"chat_id"`
 	UserIdType  *string `query:"user_id_type"`
+
 }
 
 type GetChatAnnouncementRespData struct {
@@ -1403,12 +1761,54 @@ func (builder * PatchChatAnnouncementReqBodyBuilder ) Build() *PatchChatAnnounce
    return req
 }
 
+/**上传文件path开始**/
+type PatchChatAnnouncementPathReqBodyBuilder struct {
+	revision  string
+	revisionFlag  bool
+	requests  []string
+	requestsFlag  bool
+}
+
+// 生成body的New构造器
+func NewPatchChatAnnouncementPathReqBodyBuilder() * PatchChatAnnouncementPathReqBodyBuilder{
+  builder := &PatchChatAnnouncementPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * PatchChatAnnouncementPathReqBodyBuilder ) Revision(revision string) *PatchChatAnnouncementPathReqBodyBuilder {
+  builder.revision = revision
+  builder.revisionFlag = true
+  return builder
+}
+func (builder * PatchChatAnnouncementPathReqBodyBuilder ) Requests(requests []string) *PatchChatAnnouncementPathReqBodyBuilder {
+  builder.requests = requests
+  builder.requestsFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * PatchChatAnnouncementPathReqBodyBuilder ) Build() (*PatchChatAnnouncementReqBody, error) {
+   req := &PatchChatAnnouncementReqBody{}
+   if builder.revisionFlag {
+	  req.Revision = &builder.revision
+	  
+   }
+   if builder.requestsFlag {
+	   req.Requests = builder.requests
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type PatchChatAnnouncementReqBuilder struct {
 	chatId  string
 	chatIdFlag  bool
 	body *PatchChatAnnouncementReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -1450,6 +1850,7 @@ type PatchChatAnnouncementReqBody struct {
 type PatchChatAnnouncementReq struct {
 	ChatId  string `path:"chat_id"`
 	Body *PatchChatAnnouncementReqBody `body:""`
+
 }
 
 
@@ -1487,6 +1888,36 @@ func (builder * AddManagersChatManagersReqBodyBuilder ) Build() *AddManagersChat
    return req
 }
 
+/**上传文件path开始**/
+type AddManagersChatManagersPathReqBodyBuilder struct {
+	managerIds  []string
+	managerIdsFlag  bool
+}
+
+// 生成body的New构造器
+func NewAddManagersChatManagersPathReqBodyBuilder() * AddManagersChatManagersPathReqBodyBuilder{
+  builder := &AddManagersChatManagersPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * AddManagersChatManagersPathReqBodyBuilder ) ManagerIds(managerIds []string) *AddManagersChatManagersPathReqBodyBuilder {
+  builder.managerIds = managerIds
+  builder.managerIdsFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * AddManagersChatManagersPathReqBodyBuilder ) Build() (*AddManagersChatManagersReqBody, error) {
+   req := &AddManagersChatManagersReqBody{}
+   if builder.managerIdsFlag {
+	   req.ManagerIds = builder.managerIds
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type AddManagersChatManagersReqBuilder struct {
 	chatId  string
@@ -1495,6 +1926,7 @@ type AddManagersChatManagersReqBuilder struct {
 	memberIdTypeFlag  bool
 	body *AddManagersChatManagersReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -1544,6 +1976,7 @@ type AddManagersChatManagersReq struct {
 	ChatId  string `path:"chat_id"`
 	MemberIdType  *string `query:"member_id_type"`
 	Body *AddManagersChatManagersReqBody `body:""`
+
 }
 
 type AddManagersChatManagersRespData struct {
@@ -1586,6 +2019,36 @@ func (builder * DeleteManagersChatManagersReqBodyBuilder ) Build() *DeleteManage
    return req
 }
 
+/**上传文件path开始**/
+type DeleteManagersChatManagersPathReqBodyBuilder struct {
+	managerIds  []string
+	managerIdsFlag  bool
+}
+
+// 生成body的New构造器
+func NewDeleteManagersChatManagersPathReqBodyBuilder() * DeleteManagersChatManagersPathReqBodyBuilder{
+  builder := &DeleteManagersChatManagersPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * DeleteManagersChatManagersPathReqBodyBuilder ) ManagerIds(managerIds []string) *DeleteManagersChatManagersPathReqBodyBuilder {
+  builder.managerIds = managerIds
+  builder.managerIdsFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * DeleteManagersChatManagersPathReqBodyBuilder ) Build() (*DeleteManagersChatManagersReqBody, error) {
+   req := &DeleteManagersChatManagersReqBody{}
+   if builder.managerIdsFlag {
+	   req.ManagerIds = builder.managerIds
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type DeleteManagersChatManagersReqBuilder struct {
 	chatId  string
@@ -1594,6 +2057,7 @@ type DeleteManagersChatManagersReqBuilder struct {
 	memberIdTypeFlag  bool
 	body *DeleteManagersChatManagersReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -1643,6 +2107,7 @@ type DeleteManagersChatManagersReq struct {
 	ChatId  string `path:"chat_id"`
 	MemberIdType  *string `query:"member_id_type"`
 	Body *DeleteManagersChatManagersReqBody `body:""`
+
 }
 
 type DeleteManagersChatManagersRespData struct {
@@ -1685,6 +2150,36 @@ func (builder * CreateChatMembersReqBodyBuilder ) Build() *CreateChatMembersReqB
    return req
 }
 
+/**上传文件path开始**/
+type CreateChatMembersPathReqBodyBuilder struct {
+	idList  []string
+	idListFlag  bool
+}
+
+// 生成body的New构造器
+func NewCreateChatMembersPathReqBodyBuilder() * CreateChatMembersPathReqBodyBuilder{
+  builder := &CreateChatMembersPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * CreateChatMembersPathReqBodyBuilder ) IdList(idList []string) *CreateChatMembersPathReqBodyBuilder {
+  builder.idList = idList
+  builder.idListFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * CreateChatMembersPathReqBodyBuilder ) Build() (*CreateChatMembersReqBody, error) {
+   req := &CreateChatMembersReqBody{}
+   if builder.idListFlag {
+	   req.IdList = builder.idList
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type CreateChatMembersReqBuilder struct {
 	chatId  string
@@ -1695,6 +2190,7 @@ type CreateChatMembersReqBuilder struct {
 	succeedTypeFlag  bool
 	body *CreateChatMembersReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -1753,6 +2249,7 @@ type CreateChatMembersReq struct {
 	MemberIdType  *string `query:"member_id_type"`
 	SucceedType  *int `query:"succeed_type"`
 	Body *CreateChatMembersReqBody `body:""`
+
 }
 
 type CreateChatMembersRespData struct {
@@ -1795,6 +2292,36 @@ func (builder * DeleteChatMembersReqBodyBuilder ) Build() *DeleteChatMembersReqB
    return req
 }
 
+/**上传文件path开始**/
+type DeleteChatMembersPathReqBodyBuilder struct {
+	idList  []string
+	idListFlag  bool
+}
+
+// 生成body的New构造器
+func NewDeleteChatMembersPathReqBodyBuilder() * DeleteChatMembersPathReqBodyBuilder{
+  builder := &DeleteChatMembersPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * DeleteChatMembersPathReqBodyBuilder ) IdList(idList []string) *DeleteChatMembersPathReqBodyBuilder {
+  builder.idList = idList
+  builder.idListFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * DeleteChatMembersPathReqBodyBuilder ) Build() (*DeleteChatMembersReqBody, error) {
+   req := &DeleteChatMembersReqBody{}
+   if builder.idListFlag {
+	   req.IdList = builder.idList
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type DeleteChatMembersReqBuilder struct {
 	chatId  string
@@ -1803,6 +2330,7 @@ type DeleteChatMembersReqBuilder struct {
 	memberIdTypeFlag  bool
 	body *DeleteChatMembersReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -1852,6 +2380,7 @@ type DeleteChatMembersReq struct {
 	ChatId  string `path:"chat_id"`
 	MemberIdType  *string `query:"member_id_type"`
 	Body *DeleteChatMembersReqBody `body:""`
+
 }
 
 type DeleteChatMembersRespData struct {
@@ -1875,6 +2404,8 @@ type GetChatMembersReqBuilder struct {
 	pageTokenFlag  bool
 	pageSize  int
 	pageSizeFlag  bool
+	limit int
+
 }
 
 // 生成请求的New构造器
@@ -1884,6 +2415,10 @@ func NewGetChatMembersReqBuilder() * GetChatMembersReqBuilder{
 }
 
 /*1.5 生成请求的builder属性方法*/
+func (builder * GetChatMembersReqBuilder) Limit(limit int ) *GetChatMembersReqBuilder  {
+  builder.limit = limit
+  return builder
+}
 func (builder * GetChatMembersReqBuilder) ChatId(chatId string) *GetChatMembersReqBuilder  {
   builder.chatId = chatId
   builder.chatIdFlag = true
@@ -1908,6 +2443,7 @@ func (builder * GetChatMembersReqBuilder) PageSize(pageSize int) *GetChatMembers
 /*1.5 生成请求的builder的build方法*/
 func (builder * GetChatMembersReqBuilder ) Build() *GetChatMembersReq {
    req := &GetChatMembersReq{}
+   req.Limit = builder.limit
    if builder.chatIdFlag {
 	  req.ChatId = builder.chatId
    }
@@ -1929,6 +2465,8 @@ type GetChatMembersReq struct {
 	MemberIdType  *string `query:"member_id_type"`
 	PageToken  *string `query:"page_token"`
 	PageSize  *int `query:"page_size"`
+	Limit int
+
 }
 
 type GetChatMembersRespData struct {
@@ -1949,6 +2487,7 @@ type GetChatMembersResp struct {
 type IsInChatChatMembersReqBuilder struct {
 	chatId  string
 	chatIdFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -1976,6 +2515,7 @@ func (builder * IsInChatChatMembersReqBuilder ) Build() *IsInChatChatMembersReq 
 
 type IsInChatChatMembersReq struct {
 	ChatId  string `path:"chat_id"`
+
 }
 
 type IsInChatChatMembersRespData struct {
@@ -1993,6 +2533,7 @@ type IsInChatChatMembersResp struct {
 type MeJoinChatMembersReqBuilder struct {
 	chatId  string
 	chatIdFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -2020,6 +2561,7 @@ func (builder * MeJoinChatMembersReqBuilder ) Build() *MeJoinChatMembersReq {
 
 type MeJoinChatMembersReq struct {
 	ChatId  string `path:"chat_id"`
+
 }
 
 
@@ -2039,6 +2581,8 @@ type GetChatModerationReqBuilder struct {
 	pageTokenFlag  bool
 	pageSize  int
 	pageSizeFlag  bool
+	limit int
+
 }
 
 // 生成请求的New构造器
@@ -2048,6 +2592,10 @@ func NewGetChatModerationReqBuilder() * GetChatModerationReqBuilder{
 }
 
 /*1.5 生成请求的builder属性方法*/
+func (builder * GetChatModerationReqBuilder) Limit(limit int ) *GetChatModerationReqBuilder  {
+  builder.limit = limit
+  return builder
+}
 func (builder * GetChatModerationReqBuilder) ChatId(chatId string) *GetChatModerationReqBuilder  {
   builder.chatId = chatId
   builder.chatIdFlag = true
@@ -2072,6 +2620,7 @@ func (builder * GetChatModerationReqBuilder) PageSize(pageSize int) *GetChatMode
 /*1.5 生成请求的builder的build方法*/
 func (builder * GetChatModerationReqBuilder ) Build() *GetChatModerationReq {
    req := &GetChatModerationReq{}
+   req.Limit = builder.limit
    if builder.chatIdFlag {
 	  req.ChatId = builder.chatId
    }
@@ -2093,6 +2642,8 @@ type GetChatModerationReq struct {
 	UserIdType  *string `query:"user_id_type"`
 	PageToken  *string `query:"page_token"`
 	PageSize  *int `query:"page_size"`
+	Limit int
+
 }
 
 type GetChatModerationRespData struct {
@@ -2160,6 +2711,57 @@ func (builder * UpdateChatModerationReqBodyBuilder ) Build() *UpdateChatModerati
    return req
 }
 
+/**上传文件path开始**/
+type UpdateChatModerationPathReqBodyBuilder struct {
+	moderationSetting  string
+	moderationSettingFlag  bool
+	moderatorAddedList  []string
+	moderatorAddedListFlag  bool
+	moderatorRemovedList  []string
+	moderatorRemovedListFlag  bool
+}
+
+// 生成body的New构造器
+func NewUpdateChatModerationPathReqBodyBuilder() * UpdateChatModerationPathReqBodyBuilder{
+  builder := &UpdateChatModerationPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * UpdateChatModerationPathReqBodyBuilder ) ModerationSetting(moderationSetting string) *UpdateChatModerationPathReqBodyBuilder {
+  builder.moderationSetting = moderationSetting
+  builder.moderationSettingFlag = true
+  return builder
+}
+func (builder * UpdateChatModerationPathReqBodyBuilder ) ModeratorAddedList(moderatorAddedList []string) *UpdateChatModerationPathReqBodyBuilder {
+  builder.moderatorAddedList = moderatorAddedList
+  builder.moderatorAddedListFlag = true
+  return builder
+}
+func (builder * UpdateChatModerationPathReqBodyBuilder ) ModeratorRemovedList(moderatorRemovedList []string) *UpdateChatModerationPathReqBodyBuilder {
+  builder.moderatorRemovedList = moderatorRemovedList
+  builder.moderatorRemovedListFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * UpdateChatModerationPathReqBodyBuilder ) Build() (*UpdateChatModerationReqBody, error) {
+   req := &UpdateChatModerationReqBody{}
+   if builder.moderationSettingFlag {
+	  req.ModerationSetting = &builder.moderationSetting
+	  
+   }
+   if builder.moderatorAddedListFlag {
+	   req.ModeratorAddedList = builder.moderatorAddedList
+   }
+   if builder.moderatorRemovedListFlag {
+	   req.ModeratorRemovedList = builder.moderatorRemovedList
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type UpdateChatModerationReqBuilder struct {
 	chatId  string
@@ -2168,6 +2770,7 @@ type UpdateChatModerationReqBuilder struct {
 	userIdTypeFlag  bool
 	body *UpdateChatModerationReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -2219,6 +2822,7 @@ type UpdateChatModerationReq struct {
 	ChatId  string `path:"chat_id"`
 	UserIdType  *string `query:"user_id_type"`
 	Body *UpdateChatModerationReqBody `body:""`
+
 }
 
 
@@ -2256,12 +2860,43 @@ func (builder * CreateChatTabReqBodyBuilder ) Build() *CreateChatTabReqBody {
    return req
 }
 
+/**上传文件path开始**/
+type CreateChatTabPathReqBodyBuilder struct {
+	chatTabs  []*ChatTab
+	chatTabsFlag  bool
+}
+
+// 生成body的New构造器
+func NewCreateChatTabPathReqBodyBuilder() * CreateChatTabPathReqBodyBuilder{
+  builder := &CreateChatTabPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * CreateChatTabPathReqBodyBuilder ) ChatTabs(chatTabs []*ChatTab) *CreateChatTabPathReqBodyBuilder {
+  builder.chatTabs = chatTabs
+  builder.chatTabsFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * CreateChatTabPathReqBodyBuilder ) Build() (*CreateChatTabReqBody, error) {
+   req := &CreateChatTabReqBody{}
+   if builder.chatTabsFlag {
+	   req.ChatTabs = builder.chatTabs
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type CreateChatTabReqBuilder struct {
 	chatId  string
 	chatIdFlag  bool
 	body *CreateChatTabReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -2302,6 +2937,7 @@ type CreateChatTabReqBody struct {
 type CreateChatTabReq struct {
 	ChatId  string `path:"chat_id"`
 	Body *CreateChatTabReqBody `body:""`
+
 }
 
 type CreateChatTabRespData struct {
@@ -2343,12 +2979,43 @@ func (builder * DeleteTabsChatTabReqBodyBuilder ) Build() *DeleteTabsChatTabReqB
    return req
 }
 
+/**上传文件path开始**/
+type DeleteTabsChatTabPathReqBodyBuilder struct {
+	tabIds  []string
+	tabIdsFlag  bool
+}
+
+// 生成body的New构造器
+func NewDeleteTabsChatTabPathReqBodyBuilder() * DeleteTabsChatTabPathReqBodyBuilder{
+  builder := &DeleteTabsChatTabPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * DeleteTabsChatTabPathReqBodyBuilder ) TabIds(tabIds []string) *DeleteTabsChatTabPathReqBodyBuilder {
+  builder.tabIds = tabIds
+  builder.tabIdsFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * DeleteTabsChatTabPathReqBodyBuilder ) Build() (*DeleteTabsChatTabReqBody, error) {
+   req := &DeleteTabsChatTabReqBody{}
+   if builder.tabIdsFlag {
+	   req.TabIds = builder.tabIds
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type DeleteTabsChatTabReqBuilder struct {
 	chatId  string
 	chatIdFlag  bool
 	body *DeleteTabsChatTabReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -2389,6 +3056,7 @@ type DeleteTabsChatTabReqBody struct {
 type DeleteTabsChatTabReq struct {
 	ChatId  string `path:"chat_id"`
 	Body *DeleteTabsChatTabReqBody `body:""`
+
 }
 
 type DeleteTabsChatTabRespData struct {
@@ -2406,6 +3074,7 @@ type DeleteTabsChatTabResp struct {
 type ListTabsChatTabReqBuilder struct {
 	chatId  string
 	chatIdFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -2433,6 +3102,7 @@ func (builder * ListTabsChatTabReqBuilder ) Build() *ListTabsChatTabReq {
 
 type ListTabsChatTabReq struct {
 	ChatId  string `path:"chat_id"`
+
 }
 
 type ListTabsChatTabRespData struct {
@@ -2474,12 +3144,43 @@ func (builder * SortTabsChatTabReqBodyBuilder ) Build() *SortTabsChatTabReqBody 
    return req
 }
 
+/**上传文件path开始**/
+type SortTabsChatTabPathReqBodyBuilder struct {
+	tabIds  []string
+	tabIdsFlag  bool
+}
+
+// 生成body的New构造器
+func NewSortTabsChatTabPathReqBodyBuilder() * SortTabsChatTabPathReqBodyBuilder{
+  builder := &SortTabsChatTabPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * SortTabsChatTabPathReqBodyBuilder ) TabIds(tabIds []string) *SortTabsChatTabPathReqBodyBuilder {
+  builder.tabIds = tabIds
+  builder.tabIdsFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * SortTabsChatTabPathReqBodyBuilder ) Build() (*SortTabsChatTabReqBody, error) {
+   req := &SortTabsChatTabReqBody{}
+   if builder.tabIdsFlag {
+	   req.TabIds = builder.tabIds
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type SortTabsChatTabReqBuilder struct {
 	chatId  string
 	chatIdFlag  bool
 	body *SortTabsChatTabReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -2520,6 +3221,7 @@ type SortTabsChatTabReqBody struct {
 type SortTabsChatTabReq struct {
 	ChatId  string `path:"chat_id"`
 	Body *SortTabsChatTabReqBody `body:""`
+
 }
 
 type SortTabsChatTabRespData struct {
@@ -2561,12 +3263,43 @@ func (builder * UpdateTabsChatTabReqBodyBuilder ) Build() *UpdateTabsChatTabReqB
    return req
 }
 
+/**上传文件path开始**/
+type UpdateTabsChatTabPathReqBodyBuilder struct {
+	chatTabs  []*ChatTab
+	chatTabsFlag  bool
+}
+
+// 生成body的New构造器
+func NewUpdateTabsChatTabPathReqBodyBuilder() * UpdateTabsChatTabPathReqBodyBuilder{
+  builder := &UpdateTabsChatTabPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * UpdateTabsChatTabPathReqBodyBuilder ) ChatTabs(chatTabs []*ChatTab) *UpdateTabsChatTabPathReqBodyBuilder {
+  builder.chatTabs = chatTabs
+  builder.chatTabsFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * UpdateTabsChatTabPathReqBodyBuilder ) Build() (*UpdateTabsChatTabReqBody, error) {
+   req := &UpdateTabsChatTabReqBody{}
+   if builder.chatTabsFlag {
+	   req.ChatTabs = builder.chatTabs
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type UpdateTabsChatTabReqBuilder struct {
 	chatId  string
 	chatIdFlag  bool
 	body *UpdateTabsChatTabReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -2607,6 +3340,7 @@ type UpdateTabsChatTabReqBody struct {
 type UpdateTabsChatTabReq struct {
 	ChatId  string `path:"chat_id"`
 	Body *UpdateTabsChatTabReqBody `body:""`
+
 }
 
 type UpdateTabsChatTabRespData struct {
@@ -2624,6 +3358,7 @@ type UpdateTabsChatTabResp struct {
 type DeleteTopNoticeChatTopNoticeReqBuilder struct {
 	chatId  string
 	chatIdFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -2651,6 +3386,7 @@ func (builder * DeleteTopNoticeChatTopNoticeReqBuilder ) Build() *DeleteTopNotic
 
 type DeleteTopNoticeChatTopNoticeReq struct {
 	ChatId  string `path:"chat_id"`
+
 }
 
 
@@ -2688,12 +3424,43 @@ func (builder * PutTopNoticeChatTopNoticeReqBodyBuilder ) Build() *PutTopNoticeC
    return req
 }
 
+/**上传文件path开始**/
+type PutTopNoticeChatTopNoticePathReqBodyBuilder struct {
+	chatTopNotice  []*ChatTopNotice
+	chatTopNoticeFlag  bool
+}
+
+// 生成body的New构造器
+func NewPutTopNoticeChatTopNoticePathReqBodyBuilder() * PutTopNoticeChatTopNoticePathReqBodyBuilder{
+  builder := &PutTopNoticeChatTopNoticePathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * PutTopNoticeChatTopNoticePathReqBodyBuilder ) ChatTopNotice(chatTopNotice []*ChatTopNotice) *PutTopNoticeChatTopNoticePathReqBodyBuilder {
+  builder.chatTopNotice = chatTopNotice
+  builder.chatTopNoticeFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * PutTopNoticeChatTopNoticePathReqBodyBuilder ) Build() (*PutTopNoticeChatTopNoticeReqBody, error) {
+   req := &PutTopNoticeChatTopNoticeReqBody{}
+   if builder.chatTopNoticeFlag {
+	   req.ChatTopNotice = builder.chatTopNotice
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type PutTopNoticeChatTopNoticeReqBuilder struct {
 	chatId  string
 	chatIdFlag  bool
 	body *PutTopNoticeChatTopNoticeReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -2734,6 +3501,7 @@ type PutTopNoticeChatTopNoticeReqBody struct {
 type PutTopNoticeChatTopNoticeReq struct {
 	ChatId  string `path:"chat_id"`
 	Body *PutTopNoticeChatTopNoticeReqBody `body:""`
+
 }
 
 
@@ -2854,10 +3622,117 @@ func (builder * CreateChatCustomBotReqBodyBuilder ) Build() *CreateChatCustomBot
    return req
 }
 
+/**上传文件path开始**/
+type CreateChatCustomBotPathReqBodyBuilder struct {
+	chatId  int64
+	chatIdFlag  bool
+	avatarKey  string
+	avatarKeyFlag  bool
+	name  string
+	nameFlag  bool
+	description  string
+	descriptionFlag  bool
+	allowIps  []string
+	allowIpsFlag  bool
+	keyWords  []string
+	keyWordsFlag  bool
+	signatureStatus  bool
+	signatureStatusFlag  bool
+	uuid  int64
+	uuidFlag  bool
+}
+
+// 生成body的New构造器
+func NewCreateChatCustomBotPathReqBodyBuilder() * CreateChatCustomBotPathReqBodyBuilder{
+  builder := &CreateChatCustomBotPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * CreateChatCustomBotPathReqBodyBuilder ) ChatId(chatId int64) *CreateChatCustomBotPathReqBodyBuilder {
+  builder.chatId = chatId
+  builder.chatIdFlag = true
+  return builder
+}
+func (builder * CreateChatCustomBotPathReqBodyBuilder ) AvatarKey(avatarKey string) *CreateChatCustomBotPathReqBodyBuilder {
+  builder.avatarKey = avatarKey
+  builder.avatarKeyFlag = true
+  return builder
+}
+func (builder * CreateChatCustomBotPathReqBodyBuilder ) Name(name string) *CreateChatCustomBotPathReqBodyBuilder {
+  builder.name = name
+  builder.nameFlag = true
+  return builder
+}
+func (builder * CreateChatCustomBotPathReqBodyBuilder ) Description(description string) *CreateChatCustomBotPathReqBodyBuilder {
+  builder.description = description
+  builder.descriptionFlag = true
+  return builder
+}
+func (builder * CreateChatCustomBotPathReqBodyBuilder ) AllowIps(allowIps []string) *CreateChatCustomBotPathReqBodyBuilder {
+  builder.allowIps = allowIps
+  builder.allowIpsFlag = true
+  return builder
+}
+func (builder * CreateChatCustomBotPathReqBodyBuilder ) KeyWords(keyWords []string) *CreateChatCustomBotPathReqBodyBuilder {
+  builder.keyWords = keyWords
+  builder.keyWordsFlag = true
+  return builder
+}
+func (builder * CreateChatCustomBotPathReqBodyBuilder ) SignatureStatus(signatureStatus bool) *CreateChatCustomBotPathReqBodyBuilder {
+  builder.signatureStatus = signatureStatus
+  builder.signatureStatusFlag = true
+  return builder
+}
+func (builder * CreateChatCustomBotPathReqBodyBuilder ) Uuid(uuid int64) *CreateChatCustomBotPathReqBodyBuilder {
+  builder.uuid = uuid
+  builder.uuidFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * CreateChatCustomBotPathReqBodyBuilder ) Build() (*CreateChatCustomBotReqBody, error) {
+   req := &CreateChatCustomBotReqBody{}
+   if builder.chatIdFlag {
+	  req.ChatId = &builder.chatId
+	  
+   }
+   if builder.avatarKeyFlag {
+	  req.AvatarKey = &builder.avatarKey
+	  
+   }
+   if builder.nameFlag {
+	  req.Name = &builder.name
+	  
+   }
+   if builder.descriptionFlag {
+	  req.Description = &builder.description
+	  
+   }
+   if builder.allowIpsFlag {
+	   req.AllowIps = builder.allowIps
+   }
+   if builder.keyWordsFlag {
+	   req.KeyWords = builder.keyWords
+   }
+   if builder.signatureStatusFlag {
+	  req.SignatureStatus = &builder.signatureStatus
+	  
+   }
+   if builder.uuidFlag {
+	  req.Uuid = &builder.uuid
+	  
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type CreateChatCustomBotReqBuilder struct {
 	body *CreateChatCustomBotReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -2896,6 +3771,7 @@ type CreateChatCustomBotReqBody struct {
 
 type CreateChatCustomBotReq struct {
 	Body *CreateChatCustomBotReqBody `body:""`
+
 }
 
 type CreateChatCustomBotRespData struct {
@@ -2928,6 +3804,7 @@ type CreateChatCustomBotResp struct {
 type DeleteChatCustomBotReqBuilder struct {
 	botId  int64
 	botIdFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -2955,6 +3832,7 @@ func (builder * DeleteChatCustomBotReqBuilder ) Build() *DeleteChatCustomBotReq 
 
 type DeleteChatCustomBotReq struct {
 	BotId  int64 `path:"bot_id"`
+
 }
 
 
@@ -2968,6 +3846,7 @@ type DeleteChatCustomBotResp struct {
 type GetChatCustomBotReqBuilder struct {
 	botId  int64
 	botIdFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -2995,6 +3874,7 @@ func (builder * GetChatCustomBotReqBuilder ) Build() *GetChatCustomBotReq {
 
 type GetChatCustomBotReq struct {
 	BotId  int64 `path:"bot_id"`
+
 }
 
 type GetChatCustomBotRespData struct {
@@ -3134,12 +4014,119 @@ func (builder * PatchChatCustomBotReqBodyBuilder ) Build() *PatchChatCustomBotRe
    return req
 }
 
+/**上传文件path开始**/
+type PatchChatCustomBotPathReqBodyBuilder struct {
+	avatarKey  string
+	avatarKeyFlag  bool
+	name  string
+	nameFlag  bool
+	description  string
+	descriptionFlag  bool
+	allowIps  []string
+	allowIpsFlag  bool
+	keyWords  []string
+	keyWordsFlag  bool
+	signatureStatus  bool
+	signatureStatusFlag  bool
+	changeSignature  bool
+	changeSignatureFlag  bool
+	enable  bool
+	enableFlag  bool
+}
+
+// 生成body的New构造器
+func NewPatchChatCustomBotPathReqBodyBuilder() * PatchChatCustomBotPathReqBodyBuilder{
+  builder := &PatchChatCustomBotPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * PatchChatCustomBotPathReqBodyBuilder ) AvatarKey(avatarKey string) *PatchChatCustomBotPathReqBodyBuilder {
+  builder.avatarKey = avatarKey
+  builder.avatarKeyFlag = true
+  return builder
+}
+func (builder * PatchChatCustomBotPathReqBodyBuilder ) Name(name string) *PatchChatCustomBotPathReqBodyBuilder {
+  builder.name = name
+  builder.nameFlag = true
+  return builder
+}
+func (builder * PatchChatCustomBotPathReqBodyBuilder ) Description(description string) *PatchChatCustomBotPathReqBodyBuilder {
+  builder.description = description
+  builder.descriptionFlag = true
+  return builder
+}
+func (builder * PatchChatCustomBotPathReqBodyBuilder ) AllowIps(allowIps []string) *PatchChatCustomBotPathReqBodyBuilder {
+  builder.allowIps = allowIps
+  builder.allowIpsFlag = true
+  return builder
+}
+func (builder * PatchChatCustomBotPathReqBodyBuilder ) KeyWords(keyWords []string) *PatchChatCustomBotPathReqBodyBuilder {
+  builder.keyWords = keyWords
+  builder.keyWordsFlag = true
+  return builder
+}
+func (builder * PatchChatCustomBotPathReqBodyBuilder ) SignatureStatus(signatureStatus bool) *PatchChatCustomBotPathReqBodyBuilder {
+  builder.signatureStatus = signatureStatus
+  builder.signatureStatusFlag = true
+  return builder
+}
+func (builder * PatchChatCustomBotPathReqBodyBuilder ) ChangeSignature(changeSignature bool) *PatchChatCustomBotPathReqBodyBuilder {
+  builder.changeSignature = changeSignature
+  builder.changeSignatureFlag = true
+  return builder
+}
+func (builder * PatchChatCustomBotPathReqBodyBuilder ) Enable(enable bool) *PatchChatCustomBotPathReqBodyBuilder {
+  builder.enable = enable
+  builder.enableFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * PatchChatCustomBotPathReqBodyBuilder ) Build() (*PatchChatCustomBotReqBody, error) {
+   req := &PatchChatCustomBotReqBody{}
+   if builder.avatarKeyFlag {
+	  req.AvatarKey = &builder.avatarKey
+	  
+   }
+   if builder.nameFlag {
+	  req.Name = &builder.name
+	  
+   }
+   if builder.descriptionFlag {
+	  req.Description = &builder.description
+	  
+   }
+   if builder.allowIpsFlag {
+	   req.AllowIps = builder.allowIps
+   }
+   if builder.keyWordsFlag {
+	   req.KeyWords = builder.keyWords
+   }
+   if builder.signatureStatusFlag {
+	  req.SignatureStatus = &builder.signatureStatus
+	  
+   }
+   if builder.changeSignatureFlag {
+	  req.ChangeSignature = &builder.changeSignature
+	  
+   }
+   if builder.enableFlag {
+	  req.Enable = &builder.enable
+	  
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type PatchChatCustomBotReqBuilder struct {
 	botId  int64
 	botIdFlag  bool
 	body *PatchChatCustomBotReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -3187,6 +4174,7 @@ type PatchChatCustomBotReqBody struct {
 type PatchChatCustomBotReq struct {
 	BotId  int64 `path:"bot_id"`
 	Body *PatchChatCustomBotReqBody `body:""`
+
 }
 
 
@@ -3260,10 +4248,78 @@ func (builder * CreateFileReqBodyBuilder ) Build() *CreateFileReqBody {
    return req
 }
 
+/**上传文件path开始**/
+type CreateFilePathReqBodyBuilder struct {
+	fileType  string
+	fileTypeFlag  bool
+	fileName  string
+	fileNameFlag  bool
+	duration  int
+	durationFlag  bool
+	filePath  string
+	filePathFlag  bool
+}
+
+// 生成body的New构造器
+func NewCreateFilePathReqBodyBuilder() * CreateFilePathReqBodyBuilder{
+  builder := &CreateFilePathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * CreateFilePathReqBodyBuilder ) FileType(fileType string) *CreateFilePathReqBodyBuilder {
+  builder.fileType = fileType
+  builder.fileTypeFlag = true
+  return builder
+}
+func (builder * CreateFilePathReqBodyBuilder ) FileName(fileName string) *CreateFilePathReqBodyBuilder {
+  builder.fileName = fileName
+  builder.fileNameFlag = true
+  return builder
+}
+func (builder * CreateFilePathReqBodyBuilder ) Duration(duration int) *CreateFilePathReqBodyBuilder {
+  builder.duration = duration
+  builder.durationFlag = true
+  return builder
+}
+func (builder * CreateFilePathReqBodyBuilder ) FilePath(filePath string) *CreateFilePathReqBodyBuilder {
+  builder.filePath = filePath
+  builder.filePathFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * CreateFilePathReqBodyBuilder ) Build() (*CreateFileReqBody, error) {
+   req := &CreateFileReqBody{}
+   if builder.fileTypeFlag {
+	  req.FileType = &builder.fileType
+	  
+   }
+   if builder.fileNameFlag {
+	  req.FileName = &builder.fileName
+	  
+   }
+   if builder.durationFlag {
+	  req.Duration = &builder.duration
+	  
+   }
+   if builder.filePathFlag {
+	  data, err := core.File2Bytes(builder.filePath)
+	  if err != nil {
+		return nil, err
+	  }
+	  req.File = bytes.NewBuffer(data)
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type CreateFileReqBuilder struct {
 	body *CreateFileReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -3298,6 +4354,7 @@ type CreateFileReqBody struct {
 
 type CreateFileReq struct {
 	Body *CreateFileReqBody `body:""`
+
 }
 
 type CreateFileRespData struct {
@@ -3315,6 +4372,7 @@ type CreateFileResp struct {
 type GetFileReqBuilder struct {
 	fileKey  string
 	fileKeyFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -3342,6 +4400,7 @@ func (builder * GetFileReqBuilder ) Build() *GetFileReq {
 
 type GetFileReq struct {
 	FileKey  string `path:"file_key"`
+
 }
 
 
@@ -3351,6 +4410,20 @@ type GetFileResp struct {
 	File	 io.Reader `json:"-"`
 	FileName string	`json:"-"`
 }
+/**下载api,生成WriteFile方法**/
+func (resp * GetFileResp) WriteFile(fileName string ) error {
+	bs, err := ioutil.ReadAll(resp.File)
+	if err != nil {
+		return err
+	}
+
+	err = ioutil.WriteFile(fileName, bs, 0666)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
 
 
 /*1.4 生成请求的builder结构体*/
@@ -3359,6 +4432,7 @@ type ImDepthDataImUsageDataReqBuilder struct {
 	pDateFlag  bool
 	departmentId  string
 	departmentIdFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -3395,6 +4469,7 @@ func (builder * ImDepthDataImUsageDataReqBuilder ) Build() *ImDepthDataImUsageDa
 type ImDepthDataImUsageDataReq struct {
 	PDate  *string `query:"p_date"`
 	DepartmentId  *string `query:"department_id"`
+
 }
 
 type ImDepthDataImUsageDataRespData struct {
@@ -3414,6 +4489,7 @@ type MsgProcessDataImUsageDataReqBuilder struct {
 	pDateFlag  bool
 	departmentId  string
 	departmentIdFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -3450,6 +4526,7 @@ func (builder * MsgProcessDataImUsageDataReqBuilder ) Build() *MsgProcessDataImU
 type MsgProcessDataImUsageDataReq struct {
 	PDate  *string `query:"p_date"`
 	DepartmentId  *string `query:"department_id"`
+
 }
 
 type MsgProcessDataImUsageDataRespData struct {
@@ -3503,10 +4580,56 @@ func (builder * CreateImageReqBodyBuilder ) Build() *CreateImageReqBody {
    return req
 }
 
+/**上传文件path开始**/
+type CreateImagePathReqBodyBuilder struct {
+	imageType  string
+	imageTypeFlag  bool
+	imagePath  string
+	imagePathFlag  bool
+}
+
+// 生成body的New构造器
+func NewCreateImagePathReqBodyBuilder() * CreateImagePathReqBodyBuilder{
+  builder := &CreateImagePathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * CreateImagePathReqBodyBuilder ) ImageType(imageType string) *CreateImagePathReqBodyBuilder {
+  builder.imageType = imageType
+  builder.imageTypeFlag = true
+  return builder
+}
+func (builder * CreateImagePathReqBodyBuilder ) ImagePath(imagePath string) *CreateImagePathReqBodyBuilder {
+  builder.imagePath = imagePath
+  builder.imagePathFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * CreateImagePathReqBodyBuilder ) Build() (*CreateImageReqBody, error) {
+   req := &CreateImageReqBody{}
+   if builder.imageTypeFlag {
+	  req.ImageType = &builder.imageType
+	  
+   }
+   if builder.imagePathFlag {
+	  data, err := core.File2Bytes(builder.imagePath)
+	  if err != nil {
+		return nil, err
+	  }
+	  req.Image = bytes.NewBuffer(data)
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type CreateImageReqBuilder struct {
 	body *CreateImageReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -3539,6 +4662,7 @@ type CreateImageReqBody struct {
 
 type CreateImageReq struct {
 	Body *CreateImageReqBody `body:""`
+
 }
 
 type CreateImageRespData struct {
@@ -3556,6 +4680,7 @@ type CreateImageResp struct {
 type GetImageReqBuilder struct {
 	imageKey  string
 	imageKeyFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -3583,6 +4708,7 @@ func (builder * GetImageReqBuilder ) Build() *GetImageReq {
 
 type GetImageReq struct {
 	ImageKey  string `path:"image_key"`
+
 }
 
 
@@ -3591,6 +4717,20 @@ type GetImageResp struct {
 	core.CodeError
 	File	 io.Reader `json:"-"`
 	FileName string	`json:"-"`
+}
+/**下载api,生成WriteFile方法**/
+func (resp * GetImageResp) WriteFile(fileName string ) error {
+	bs, err := ioutil.ReadAll(resp.File)
+	if err != nil {
+		return err
+	}
+
+	err = ioutil.WriteFile(fileName, bs, 0666)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 type CreateMessageReqBodyBuilder struct {
@@ -3647,12 +4787,66 @@ func (builder * CreateMessageReqBodyBuilder ) Build() *CreateMessageReqBody {
    return req
 }
 
+/**上传文件path开始**/
+type CreateMessagePathReqBodyBuilder struct {
+	receiveId  string
+	receiveIdFlag  bool
+	content  string
+	contentFlag  bool
+	msgType  string
+	msgTypeFlag  bool
+}
+
+// 生成body的New构造器
+func NewCreateMessagePathReqBodyBuilder() * CreateMessagePathReqBodyBuilder{
+  builder := &CreateMessagePathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * CreateMessagePathReqBodyBuilder ) ReceiveId(receiveId string) *CreateMessagePathReqBodyBuilder {
+  builder.receiveId = receiveId
+  builder.receiveIdFlag = true
+  return builder
+}
+func (builder * CreateMessagePathReqBodyBuilder ) Content(content string) *CreateMessagePathReqBodyBuilder {
+  builder.content = content
+  builder.contentFlag = true
+  return builder
+}
+func (builder * CreateMessagePathReqBodyBuilder ) MsgType(msgType string) *CreateMessagePathReqBodyBuilder {
+  builder.msgType = msgType
+  builder.msgTypeFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * CreateMessagePathReqBodyBuilder ) Build() (*CreateMessageReqBody, error) {
+   req := &CreateMessageReqBody{}
+   if builder.receiveIdFlag {
+	  req.ReceiveId = &builder.receiveId
+	  
+   }
+   if builder.contentFlag {
+	  req.Content = &builder.content
+	  
+   }
+   if builder.msgTypeFlag {
+	  req.MsgType = &builder.msgType
+	  
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type CreateMessageReqBuilder struct {
 	receiveIdType  string
 	receiveIdTypeFlag  bool
 	body *CreateMessageReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -3695,6 +4889,7 @@ type CreateMessageReqBody struct {
 type CreateMessageReq struct {
 	ReceiveIdType  *string `query:"receive_id_type"`
 	Body *CreateMessageReqBody `body:""`
+
 }
 
 type CreateMessageRespData struct {
@@ -3724,6 +4919,7 @@ type CreateMessageResp struct {
 type DeleteMessageReqBuilder struct {
 	messageId  string
 	messageIdFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -3751,6 +4947,7 @@ func (builder * DeleteMessageReqBuilder ) Build() *DeleteMessageReq {
 
 type DeleteMessageReq struct {
 	MessageId  string `path:"message_id"`
+
 }
 
 
@@ -3764,6 +4961,7 @@ type DeleteMessageResp struct {
 type GetMessageReqBuilder struct {
 	messageId  string
 	messageIdFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -3791,6 +4989,7 @@ func (builder * GetMessageReqBuilder ) Build() *GetMessageReq {
 
 type GetMessageReq struct {
 	MessageId  string `path:"message_id"`
+
 }
 
 type GetMessageRespData struct {
@@ -3818,6 +5017,8 @@ type ListMessageReqBuilder struct {
 	pageTokenFlag  bool
 	pageSize  int
 	pageSizeFlag  bool
+	limit int
+
 }
 
 // 生成请求的New构造器
@@ -3827,6 +5028,10 @@ func NewListMessageReqBuilder() * ListMessageReqBuilder{
 }
 
 /*1.5 生成请求的builder属性方法*/
+func (builder * ListMessageReqBuilder) Limit(limit int ) *ListMessageReqBuilder  {
+  builder.limit = limit
+  return builder
+}
 func (builder * ListMessageReqBuilder) ContainerIdType(containerIdType string) *ListMessageReqBuilder  {
   builder.containerIdType = containerIdType
   builder.containerIdTypeFlag = true
@@ -3861,6 +5066,7 @@ func (builder * ListMessageReqBuilder) PageSize(pageSize int) *ListMessageReqBui
 /*1.5 生成请求的builder的build方法*/
 func (builder * ListMessageReqBuilder ) Build() *ListMessageReq {
    req := &ListMessageReq{}
+   req.Limit = builder.limit
    if builder.containerIdTypeFlag {
 	  req.ContainerIdType = &builder.containerIdType
    }
@@ -3890,6 +5096,8 @@ type ListMessageReq struct {
 	EndTime  *string `query:"end_time"`
 	PageToken  *string `query:"page_token"`
 	PageSize  *int `query:"page_size"`
+	Limit int
+
 }
 
 type ListMessageRespData struct {
@@ -3934,12 +5142,44 @@ func (builder * PatchMessageReqBodyBuilder ) Build() *PatchMessageReqBody {
    return req
 }
 
+/**上传文件path开始**/
+type PatchMessagePathReqBodyBuilder struct {
+	content  string
+	contentFlag  bool
+}
+
+// 生成body的New构造器
+func NewPatchMessagePathReqBodyBuilder() * PatchMessagePathReqBodyBuilder{
+  builder := &PatchMessagePathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * PatchMessagePathReqBodyBuilder ) Content(content string) *PatchMessagePathReqBodyBuilder {
+  builder.content = content
+  builder.contentFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * PatchMessagePathReqBodyBuilder ) Build() (*PatchMessageReqBody, error) {
+   req := &PatchMessageReqBody{}
+   if builder.contentFlag {
+	  req.Content = &builder.content
+	  
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type PatchMessageReqBuilder struct {
 	messageId  string
 	messageIdFlag  bool
 	body *PatchMessageReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -3980,6 +5220,7 @@ type PatchMessageReqBody struct {
 type PatchMessageReq struct {
 	MessageId  string `path:"message_id"`
 	Body *PatchMessageReqBody `body:""`
+
 }
 
 
@@ -3999,6 +5240,7 @@ type ReadUsersMessageReqBuilder struct {
 	pageSizeFlag  bool
 	pageToken  string
 	pageTokenFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -4053,6 +5295,7 @@ type ReadUsersMessageReq struct {
 	UserIdType  *string `query:"user_id_type"`
 	PageSize  *int `query:"page_size"`
 	PageToken  *string `query:"page_token"`
+
 }
 
 type ReadUsersMessageRespData struct {
@@ -4109,12 +5352,55 @@ func (builder * ReplyMessageReqBodyBuilder ) Build() *ReplyMessageReqBody {
    return req
 }
 
+/**上传文件path开始**/
+type ReplyMessagePathReqBodyBuilder struct {
+	content  string
+	contentFlag  bool
+	msgType  string
+	msgTypeFlag  bool
+}
+
+// 生成body的New构造器
+func NewReplyMessagePathReqBodyBuilder() * ReplyMessagePathReqBodyBuilder{
+  builder := &ReplyMessagePathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * ReplyMessagePathReqBodyBuilder ) Content(content string) *ReplyMessagePathReqBodyBuilder {
+  builder.content = content
+  builder.contentFlag = true
+  return builder
+}
+func (builder * ReplyMessagePathReqBodyBuilder ) MsgType(msgType string) *ReplyMessagePathReqBodyBuilder {
+  builder.msgType = msgType
+  builder.msgTypeFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * ReplyMessagePathReqBodyBuilder ) Build() (*ReplyMessageReqBody, error) {
+   req := &ReplyMessageReqBody{}
+   if builder.contentFlag {
+	  req.Content = &builder.content
+	  
+   }
+   if builder.msgTypeFlag {
+	  req.MsgType = &builder.msgType
+	  
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type ReplyMessageReqBuilder struct {
 	messageId  string
 	messageIdFlag  bool
 	body *ReplyMessageReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -4156,6 +5442,7 @@ type ReplyMessageReqBody struct {
 type ReplyMessageReq struct {
 	MessageId  string `path:"message_id"`
 	Body *ReplyMessageReqBody `body:""`
+
 }
 
 type ReplyMessageRespData struct {
@@ -4189,6 +5476,7 @@ type UrgentAppMessageReqBuilder struct {
 	userIdTypeFlag  bool
 	urgentReceivers *UrgentReceivers
 	urgentReceiversFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -4231,6 +5519,7 @@ type UrgentAppMessageReq struct {
 	MessageId  string `path:"message_id"`
 	UserIdType  *string `query:"user_id_type"`
 	UrgentReceivers *UrgentReceivers `body:""`
+
 }
 
 type UrgentAppMessageRespData struct {
@@ -4252,6 +5541,7 @@ type UrgentPhoneMessageReqBuilder struct {
 	userIdTypeFlag  bool
 	urgentReceivers *UrgentReceivers
 	urgentReceiversFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -4294,6 +5584,7 @@ type UrgentPhoneMessageReq struct {
 	MessageId  string `path:"message_id"`
 	UserIdType  *string `query:"user_id_type"`
 	UrgentReceivers *UrgentReceivers `body:""`
+
 }
 
 type UrgentPhoneMessageRespData struct {
@@ -4317,6 +5608,7 @@ type UrgentReadUsersMessageReqBuilder struct {
 	pageSizeFlag  bool
 	pageToken  string
 	pageTokenFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -4371,6 +5663,7 @@ type UrgentReadUsersMessageReq struct {
 	UserIdType  *string `query:"user_id_type"`
 	PageSize  *int `query:"page_size"`
 	PageToken  *string `query:"page_token"`
+
 }
 
 type UrgentReadUsersMessageRespData struct {
@@ -4394,6 +5687,7 @@ type UrgentSmsMessageReqBuilder struct {
 	userIdTypeFlag  bool
 	urgentReceivers *UrgentReceivers
 	urgentReceiversFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -4436,6 +5730,7 @@ type UrgentSmsMessageReq struct {
 	MessageId  string `path:"message_id"`
 	UserIdType  *string `query:"user_id_type"`
 	UrgentReceivers *UrgentReceivers `body:""`
+
 }
 
 type UrgentSmsMessageRespData struct {
@@ -4477,12 +5772,43 @@ func (builder * CreateMessageReactionReqBodyBuilder ) Build() *CreateMessageReac
    return req
 }
 
+/**上传文件path开始**/
+type CreateMessageReactionPathReqBodyBuilder struct {
+	reactionType  *Emoji
+	reactionTypeFlag  bool
+}
+
+// 生成body的New构造器
+func NewCreateMessageReactionPathReqBodyBuilder() * CreateMessageReactionPathReqBodyBuilder{
+  builder := &CreateMessageReactionPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * CreateMessageReactionPathReqBodyBuilder ) ReactionType(reactionType *Emoji) *CreateMessageReactionPathReqBodyBuilder {
+  builder.reactionType = reactionType
+  builder.reactionTypeFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * CreateMessageReactionPathReqBodyBuilder ) Build() (*CreateMessageReactionReqBody, error) {
+   req := &CreateMessageReactionReqBody{}
+   if builder.reactionTypeFlag {
+	   req.ReactionType = builder.reactionType
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type CreateMessageReactionReqBuilder struct {
 	messageId  string
 	messageIdFlag  bool
 	body *CreateMessageReactionReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -4523,6 +5849,7 @@ type CreateMessageReactionReqBody struct {
 type CreateMessageReactionReq struct {
 	MessageId  string `path:"message_id"`
 	Body *CreateMessageReactionReqBody `body:""`
+
 }
 
 type CreateMessageReactionRespData struct {
@@ -4545,6 +5872,7 @@ type DeleteMessageReactionReqBuilder struct {
 	messageIdFlag  bool
 	reactionId  string
 	reactionIdFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -4581,6 +5909,7 @@ func (builder * DeleteMessageReactionReqBuilder ) Build() *DeleteMessageReaction
 type DeleteMessageReactionReq struct {
 	MessageId  string `path:"message_id"`
 	ReactionId  string `path:"reaction_id"`
+
 }
 
 type DeleteMessageReactionRespData struct {
@@ -4609,6 +5938,8 @@ type ListMessageReactionReqBuilder struct {
 	pageSizeFlag  bool
 	userIdType  string
 	userIdTypeFlag  bool
+	limit int
+
 }
 
 // 生成请求的New构造器
@@ -4618,6 +5949,10 @@ func NewListMessageReactionReqBuilder() * ListMessageReactionReqBuilder{
 }
 
 /*1.5 生成请求的builder属性方法*/
+func (builder * ListMessageReactionReqBuilder) Limit(limit int ) *ListMessageReactionReqBuilder  {
+  builder.limit = limit
+  return builder
+}
 func (builder * ListMessageReactionReqBuilder) MessageId(messageId string) *ListMessageReactionReqBuilder  {
   builder.messageId = messageId
   builder.messageIdFlag = true
@@ -4647,6 +5982,7 @@ func (builder * ListMessageReactionReqBuilder) UserIdType(userIdType string) *Li
 /*1.5 生成请求的builder的build方法*/
 func (builder * ListMessageReactionReqBuilder ) Build() *ListMessageReactionReq {
    req := &ListMessageReactionReq{}
+   req.Limit = builder.limit
    if builder.messageIdFlag {
 	  req.MessageId = builder.messageId
    }
@@ -4672,6 +6008,8 @@ type ListMessageReactionReq struct {
 	PageToken  *string `query:"page_token"`
 	PageSize  *int `query:"page_size"`
 	UserIdType  *string `query:"user_id_type"`
+	Limit int
+
 }
 
 type ListMessageReactionRespData struct {
@@ -4695,6 +6033,7 @@ type GetMessageResourceReqBuilder struct {
 	fileKeyFlag  bool
 	type_  string
 	typeFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -4740,6 +6079,7 @@ type GetMessageResourceReq struct {
 	MessageId  string `path:"message_id"`
 	FileKey  string `path:"file_key"`
 	Type  *string `query:"type"`
+
 }
 
 
@@ -4748,6 +6088,20 @@ type GetMessageResourceResp struct {
 	core.CodeError
 	File	 io.Reader `json:"-"`
 	FileName string	`json:"-"`
+}
+/**下载api,生成WriteFile方法**/
+func (resp * GetMessageResourceResp) WriteFile(fileName string ) error {
+	bs, err := ioutil.ReadAll(resp.File)
+	if err != nil {
+		return err
+	}
+
+	err = ioutil.WriteFile(fileName, bs, 0666)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 
@@ -4759,6 +6113,8 @@ type ListSpecialFocusReqBuilder struct {
 	pageSizeFlag  bool
 	pageToken  string
 	pageTokenFlag  bool
+	limit int
+
 }
 
 // 生成请求的New构造器
@@ -4768,6 +6124,10 @@ func NewListSpecialFocusReqBuilder() * ListSpecialFocusReqBuilder{
 }
 
 /*1.5 生成请求的builder属性方法*/
+func (builder * ListSpecialFocusReqBuilder) Limit(limit int ) *ListSpecialFocusReqBuilder  {
+  builder.limit = limit
+  return builder
+}
 func (builder * ListSpecialFocusReqBuilder) MemberIdType(memberIdType string) *ListSpecialFocusReqBuilder  {
   builder.memberIdType = memberIdType
   builder.memberIdTypeFlag = true
@@ -4787,6 +6147,7 @@ func (builder * ListSpecialFocusReqBuilder) PageToken(pageToken string) *ListSpe
 /*1.5 生成请求的builder的build方法*/
 func (builder * ListSpecialFocusReqBuilder ) Build() *ListSpecialFocusReq {
    req := &ListSpecialFocusReq{}
+   req.Limit = builder.limit
    if builder.memberIdTypeFlag {
 	  req.MemberIdType = &builder.memberIdType
    }
@@ -4804,6 +6165,8 @@ type ListSpecialFocusReq struct {
 	MemberIdType  *string `query:"member_id_type"`
 	PageSize  *int `query:"page_size"`
 	PageToken  *string `query:"page_token"`
+	Limit int
+
 }
 
 type ListSpecialFocusRespData struct {
@@ -4859,12 +6222,54 @@ func (builder * UnreadSpecialFocusReqBodyBuilder ) Build() *UnreadSpecialFocusRe
    return req
 }
 
+/**上传文件path开始**/
+type UnreadSpecialFocusPathReqBodyBuilder struct {
+	idList  []string
+	idListFlag  bool
+	chatMode  string
+	chatModeFlag  bool
+}
+
+// 生成body的New构造器
+func NewUnreadSpecialFocusPathReqBodyBuilder() * UnreadSpecialFocusPathReqBodyBuilder{
+  builder := &UnreadSpecialFocusPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * UnreadSpecialFocusPathReqBodyBuilder ) IdList(idList []string) *UnreadSpecialFocusPathReqBodyBuilder {
+  builder.idList = idList
+  builder.idListFlag = true
+  return builder
+}
+func (builder * UnreadSpecialFocusPathReqBodyBuilder ) ChatMode(chatMode string) *UnreadSpecialFocusPathReqBodyBuilder {
+  builder.chatMode = chatMode
+  builder.chatModeFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * UnreadSpecialFocusPathReqBodyBuilder ) Build() (*UnreadSpecialFocusReqBody, error) {
+   req := &UnreadSpecialFocusReqBody{}
+   if builder.idListFlag {
+	   req.IdList = builder.idList
+   }
+   if builder.chatModeFlag {
+	  req.ChatMode = &builder.chatMode
+	  
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type UnreadSpecialFocusReqBuilder struct {
 	memberIdType  string
 	memberIdTypeFlag  bool
 	body *UnreadSpecialFocusReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -4906,6 +6311,7 @@ type UnreadSpecialFocusReqBody struct {
 type UnreadSpecialFocusReq struct {
 	MemberIdType  *string `query:"member_id_type"`
 	Body *UnreadSpecialFocusReqBody `body:""`
+
 }
 
 type UnreadSpecialFocusRespData struct {
@@ -4959,10 +6365,52 @@ func (builder * BatchUpdateUrlPreviewReqBodyBuilder ) Build() *BatchUpdateUrlPre
    return req
 }
 
+/**上传文件path开始**/
+type BatchUpdateUrlPreviewPathReqBodyBuilder struct {
+	previewTokens  []string
+	previewTokensFlag  bool
+	version  string
+	versionFlag  bool
+}
+
+// 生成body的New构造器
+func NewBatchUpdateUrlPreviewPathReqBodyBuilder() * BatchUpdateUrlPreviewPathReqBodyBuilder{
+  builder := &BatchUpdateUrlPreviewPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * BatchUpdateUrlPreviewPathReqBodyBuilder ) PreviewTokens(previewTokens []string) *BatchUpdateUrlPreviewPathReqBodyBuilder {
+  builder.previewTokens = previewTokens
+  builder.previewTokensFlag = true
+  return builder
+}
+func (builder * BatchUpdateUrlPreviewPathReqBodyBuilder ) Version(version string) *BatchUpdateUrlPreviewPathReqBodyBuilder {
+  builder.version = version
+  builder.versionFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * BatchUpdateUrlPreviewPathReqBodyBuilder ) Build() (*BatchUpdateUrlPreviewReqBody, error) {
+   req := &BatchUpdateUrlPreviewReqBody{}
+   if builder.previewTokensFlag {
+	   req.PreviewTokens = builder.previewTokens
+   }
+   if builder.versionFlag {
+	  req.Version = &builder.version
+	  
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type BatchUpdateUrlPreviewReqBuilder struct {
 	body *BatchUpdateUrlPreviewReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -4995,6 +6443,7 @@ type BatchUpdateUrlPreviewReqBody struct {
 
 type BatchUpdateUrlPreviewReq struct {
 	Body *BatchUpdateUrlPreviewReqBody `body:""`
+
 }
 
 
@@ -5167,485 +6616,382 @@ type MessageReactionDeletedEvent struct {
 /* 生成请求的builder构造器*/
 /*1.1 生成body的builder结构体*/
 /**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
    type ListChatIterator struct{
-	 pageToken string
+	 nextPageToken *string
 	 items	 []*ListChat
 	 index	 int
-	 total	 int
+	 limit	 int
 	 ctx	   context.Context
 	 req	   *ListChatReq
 	 listFunc  func (ctx context.Context, req *ListChatReq, options ...core.RequestOptionFunc) (*ListChatResp, error)
 	 options   []core.RequestOptionFunc
+   	 curlNum	   int
    }
 
-   func (iterator *ListChatIterator) HasNext() bool {
-		index := iterator.index
-		if index < iterator.total && index != 0 {
-			return true
-		}
-		if index > iterator.total {
-			return false
+   func (iterator *ListChatIterator) Next() (bool, *ListChat, error) {
+		// 达到最大量，则返回
+		if iterator.curlNum > iterator.limit {
+			return false, nil, nil
 		}
 
-		//相等时，迭代拉取
-		if index != 0 && iterator.pageToken == "" {
-			return false
+		// 为0则拉取数据
+		if iterator.index == 0 || iterator.index >= len(iterator.items) {
+			if iterator.index != 0 && iterator.nextPageToken == nil {
+				return false, nil, nil
+			}
+			if iterator.nextPageToken != nil {
+				iterator.req.PageToken = iterator.nextPageToken
+			}
+			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+			if err != nil {
+				return false, nil, err
+			}
+
+			if resp.Code != 0 {
+				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+			}
+
+			if len(resp.Data.Items) == 0 {
+				return false, nil, nil
+			}
+
+			iterator.nextPageToken = resp.Data.PageToken
+			iterator.items = resp.Data.Items
+			iterator.index = 0
 		}
 
-		if index != 0 && iterator.pageToken != "" {
-			iterator.req.PageToken = &iterator.pageToken
-		}
-		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-		if err != nil {
-			return false
-		}
-
-		if resp.Code != 0 {
-			return false
-		}
-
-		if nil != resp.Data.PageToken {
-			iterator.pageToken = *resp.Data.PageToken
-		}
-		iterator.items = resp.Data.Items
-		iterator.index = 0
-		iterator.total = len(iterator.items)
-		return true
+		block := iterator.items[iterator.index]
+		iterator.index++
+		iterator.curlNum++
+		return true, block, nil
    }
 
-
-   func (iterator *ListChatIterator) Next() (*ListChat, error) {
-	  if iterator.index >= iterator.total {
-		 return nil, errors.New("no such element error")
-	  }
-
-	  index := iterator.index
-	  iterator.index = index + 1
-	  return iterator.items[index], nil
-
-   }
-
-   func (iterator *ListChatIterator) NextPageToken() string {
-	  return iterator.pageToken
+   func (iterator *ListChatIterator) NextPageToken() *string {
+	  return iterator.nextPageToken
    }
 /**如果是分页查询，则添加迭代器定义**/
    type SearchChatIterator struct{
-	 pageToken string
+	 nextPageToken *string
 	 items	 []*ListChat
 	 index	 int
-	 total	 int
+	 limit	 int
 	 ctx	   context.Context
 	 req	   *SearchChatReq
 	 listFunc  func (ctx context.Context, req *SearchChatReq, options ...core.RequestOptionFunc) (*SearchChatResp, error)
 	 options   []core.RequestOptionFunc
+   	 curlNum	   int
    }
 
-   func (iterator *SearchChatIterator) HasNext() bool {
-		index := iterator.index
-		if index < iterator.total && index != 0 {
-			return true
-		}
-		if index > iterator.total {
-			return false
+   func (iterator *SearchChatIterator) Next() (bool, *ListChat, error) {
+		// 达到最大量，则返回
+		if iterator.curlNum > iterator.limit {
+			return false, nil, nil
 		}
 
-		//相等时，迭代拉取
-		if index != 0 && iterator.pageToken == "" {
-			return false
+		// 为0则拉取数据
+		if iterator.index == 0 || iterator.index >= len(iterator.items) {
+			if iterator.index != 0 && iterator.nextPageToken == nil {
+				return false, nil, nil
+			}
+			if iterator.nextPageToken != nil {
+				iterator.req.PageToken = iterator.nextPageToken
+			}
+			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+			if err != nil {
+				return false, nil, err
+			}
+
+			if resp.Code != 0 {
+				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+			}
+
+			if len(resp.Data.Items) == 0 {
+				return false, nil, nil
+			}
+
+			iterator.nextPageToken = resp.Data.PageToken
+			iterator.items = resp.Data.Items
+			iterator.index = 0
 		}
 
-		if index != 0 && iterator.pageToken != "" {
-			iterator.req.PageToken = &iterator.pageToken
-		}
-		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-		if err != nil {
-			return false
-		}
-
-		if resp.Code != 0 {
-			return false
-		}
-
-		if nil != resp.Data.PageToken {
-			iterator.pageToken = *resp.Data.PageToken
-		}
-		iterator.items = resp.Data.Items
-		iterator.index = 0
-		iterator.total = len(iterator.items)
-		return true
+		block := iterator.items[iterator.index]
+		iterator.index++
+		iterator.curlNum++
+		return true, block, nil
    }
 
-
-   func (iterator *SearchChatIterator) Next() (*ListChat, error) {
-	  if iterator.index >= iterator.total {
-		 return nil, errors.New("no such element error")
-	  }
-
-	  index := iterator.index
-	  iterator.index = index + 1
-	  return iterator.items[index], nil
-
+   func (iterator *SearchChatIterator) NextPageToken() *string {
+	  return iterator.nextPageToken
    }
-
-   func (iterator *SearchChatIterator) NextPageToken() string {
-	  return iterator.pageToken
-   }
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
 /**如果是分页查询，则添加迭代器定义**/
    type GetChatMembersIterator struct{
-	 pageToken string
+	 nextPageToken *string
 	 items	 []*ListMember
 	 index	 int
-	 total	 int
+	 limit	 int
 	 ctx	   context.Context
 	 req	   *GetChatMembersReq
 	 listFunc  func (ctx context.Context, req *GetChatMembersReq, options ...core.RequestOptionFunc) (*GetChatMembersResp, error)
 	 options   []core.RequestOptionFunc
+   	 curlNum	   int
    }
 
-   func (iterator *GetChatMembersIterator) HasNext() bool {
-		index := iterator.index
-		if index < iterator.total && index != 0 {
-			return true
-		}
-		if index > iterator.total {
-			return false
+   func (iterator *GetChatMembersIterator) Next() (bool, *ListMember, error) {
+		// 达到最大量，则返回
+		if iterator.curlNum > iterator.limit {
+			return false, nil, nil
 		}
 
-		//相等时，迭代拉取
-		if index != 0 && iterator.pageToken == "" {
-			return false
+		// 为0则拉取数据
+		if iterator.index == 0 || iterator.index >= len(iterator.items) {
+			if iterator.index != 0 && iterator.nextPageToken == nil {
+				return false, nil, nil
+			}
+			if iterator.nextPageToken != nil {
+				iterator.req.PageToken = iterator.nextPageToken
+			}
+			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+			if err != nil {
+				return false, nil, err
+			}
+
+			if resp.Code != 0 {
+				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+			}
+
+			if len(resp.Data.Items) == 0 {
+				return false, nil, nil
+			}
+
+			iterator.nextPageToken = resp.Data.PageToken
+			iterator.items = resp.Data.Items
+			iterator.index = 0
 		}
 
-		if index != 0 && iterator.pageToken != "" {
-			iterator.req.PageToken = &iterator.pageToken
-		}
-		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-		if err != nil {
-			return false
-		}
-
-		if resp.Code != 0 {
-			return false
-		}
-
-		if nil != resp.Data.PageToken {
-			iterator.pageToken = *resp.Data.PageToken
-		}
-		iterator.items = resp.Data.Items
-		iterator.index = 0
-		iterator.total = len(iterator.items)
-		return true
+		block := iterator.items[iterator.index]
+		iterator.index++
+		iterator.curlNum++
+		return true, block, nil
    }
 
-
-   func (iterator *GetChatMembersIterator) Next() (*ListMember, error) {
-	  if iterator.index >= iterator.total {
-		 return nil, errors.New("no such element error")
-	  }
-
-	  index := iterator.index
-	  iterator.index = index + 1
-	  return iterator.items[index], nil
-
+   func (iterator *GetChatMembersIterator) NextPageToken() *string {
+	  return iterator.nextPageToken
    }
-
-   func (iterator *GetChatMembersIterator) NextPageToken() string {
-	  return iterator.pageToken
-   }
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
 /**如果是分页查询，则添加迭代器定义**/
    type GetChatModerationIterator struct{
-	 pageToken string
+	 nextPageToken *string
 	 items	 []*ListModerator
 	 index	 int
-	 total	 int
+	 limit	 int
 	 ctx	   context.Context
 	 req	   *GetChatModerationReq
 	 listFunc  func (ctx context.Context, req *GetChatModerationReq, options ...core.RequestOptionFunc) (*GetChatModerationResp, error)
 	 options   []core.RequestOptionFunc
+   	 curlNum	   int
    }
 
-   func (iterator *GetChatModerationIterator) HasNext() bool {
-		index := iterator.index
-		if index < iterator.total && index != 0 {
-			return true
-		}
-		if index > iterator.total {
-			return false
+   func (iterator *GetChatModerationIterator) Next() (bool, *ListModerator, error) {
+		// 达到最大量，则返回
+		if iterator.curlNum > iterator.limit {
+			return false, nil, nil
 		}
 
-		//相等时，迭代拉取
-		if index != 0 && iterator.pageToken == "" {
-			return false
+		// 为0则拉取数据
+		if iterator.index == 0 || iterator.index >= len(iterator.items) {
+			if iterator.index != 0 && iterator.nextPageToken == nil {
+				return false, nil, nil
+			}
+			if iterator.nextPageToken != nil {
+				iterator.req.PageToken = iterator.nextPageToken
+			}
+			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+			if err != nil {
+				return false, nil, err
+			}
+
+			if resp.Code != 0 {
+				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+			}
+
+			if len(resp.Data.Items) == 0 {
+				return false, nil, nil
+			}
+
+			iterator.nextPageToken = resp.Data.PageToken
+			iterator.items = resp.Data.Items
+			iterator.index = 0
 		}
 
-		if index != 0 && iterator.pageToken != "" {
-			iterator.req.PageToken = &iterator.pageToken
-		}
-		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-		if err != nil {
-			return false
-		}
-
-		if resp.Code != 0 {
-			return false
-		}
-
-		if nil != resp.Data.PageToken {
-			iterator.pageToken = *resp.Data.PageToken
-		}
-		iterator.items = resp.Data.Items
-		iterator.index = 0
-		iterator.total = len(iterator.items)
-		return true
+		block := iterator.items[iterator.index]
+		iterator.index++
+		iterator.curlNum++
+		return true, block, nil
    }
 
-
-   func (iterator *GetChatModerationIterator) Next() (*ListModerator, error) {
-	  if iterator.index >= iterator.total {
-		 return nil, errors.New("no such element error")
-	  }
-
-	  index := iterator.index
-	  iterator.index = index + 1
-	  return iterator.items[index], nil
-
+   func (iterator *GetChatModerationIterator) NextPageToken() *string {
+	  return iterator.nextPageToken
    }
-
-   func (iterator *GetChatModerationIterator) NextPageToken() string {
-	  return iterator.pageToken
-   }
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
 /**如果是分页查询，则添加迭代器定义**/
    type ListMessageIterator struct{
-	 pageToken string
+	 nextPageToken *string
 	 items	 []*Message
 	 index	 int
-	 total	 int
+	 limit	 int
 	 ctx	   context.Context
 	 req	   *ListMessageReq
 	 listFunc  func (ctx context.Context, req *ListMessageReq, options ...core.RequestOptionFunc) (*ListMessageResp, error)
 	 options   []core.RequestOptionFunc
+   	 curlNum	   int
    }
 
-   func (iterator *ListMessageIterator) HasNext() bool {
-		index := iterator.index
-		if index < iterator.total && index != 0 {
-			return true
-		}
-		if index > iterator.total {
-			return false
+   func (iterator *ListMessageIterator) Next() (bool, *Message, error) {
+		// 达到最大量，则返回
+		if iterator.curlNum > iterator.limit {
+			return false, nil, nil
 		}
 
-		//相等时，迭代拉取
-		if index != 0 && iterator.pageToken == "" {
-			return false
+		// 为0则拉取数据
+		if iterator.index == 0 || iterator.index >= len(iterator.items) {
+			if iterator.index != 0 && iterator.nextPageToken == nil {
+				return false, nil, nil
+			}
+			if iterator.nextPageToken != nil {
+				iterator.req.PageToken = iterator.nextPageToken
+			}
+			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+			if err != nil {
+				return false, nil, err
+			}
+
+			if resp.Code != 0 {
+				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+			}
+
+			if len(resp.Data.Items) == 0 {
+				return false, nil, nil
+			}
+
+			iterator.nextPageToken = resp.Data.PageToken
+			iterator.items = resp.Data.Items
+			iterator.index = 0
 		}
 
-		if index != 0 && iterator.pageToken != "" {
-			iterator.req.PageToken = &iterator.pageToken
-		}
-		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-		if err != nil {
-			return false
-		}
-
-		if resp.Code != 0 {
-			return false
-		}
-
-		if nil != resp.Data.PageToken {
-			iterator.pageToken = *resp.Data.PageToken
-		}
-		iterator.items = resp.Data.Items
-		iterator.index = 0
-		iterator.total = len(iterator.items)
-		return true
+		block := iterator.items[iterator.index]
+		iterator.index++
+		iterator.curlNum++
+		return true, block, nil
    }
 
-
-   func (iterator *ListMessageIterator) Next() (*Message, error) {
-	  if iterator.index >= iterator.total {
-		 return nil, errors.New("no such element error")
-	  }
-
-	  index := iterator.index
-	  iterator.index = index + 1
-	  return iterator.items[index], nil
-
+   func (iterator *ListMessageIterator) NextPageToken() *string {
+	  return iterator.nextPageToken
    }
-
-   func (iterator *ListMessageIterator) NextPageToken() string {
-	  return iterator.pageToken
-   }
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
 /**如果是分页查询，则添加迭代器定义**/
    type ListMessageReactionIterator struct{
-	 pageToken string
+	 nextPageToken *string
 	 items	 []*MessageReaction
 	 index	 int
-	 total	 int
+	 limit	 int
 	 ctx	   context.Context
 	 req	   *ListMessageReactionReq
 	 listFunc  func (ctx context.Context, req *ListMessageReactionReq, options ...core.RequestOptionFunc) (*ListMessageReactionResp, error)
 	 options   []core.RequestOptionFunc
+   	 curlNum	   int
    }
 
-   func (iterator *ListMessageReactionIterator) HasNext() bool {
-		index := iterator.index
-		if index < iterator.total && index != 0 {
-			return true
-		}
-		if index > iterator.total {
-			return false
+   func (iterator *ListMessageReactionIterator) Next() (bool, *MessageReaction, error) {
+		// 达到最大量，则返回
+		if iterator.curlNum > iterator.limit {
+			return false, nil, nil
 		}
 
-		//相等时，迭代拉取
-		if index != 0 && iterator.pageToken == "" {
-			return false
+		// 为0则拉取数据
+		if iterator.index == 0 || iterator.index >= len(iterator.items) {
+			if iterator.index != 0 && iterator.nextPageToken == nil {
+				return false, nil, nil
+			}
+			if iterator.nextPageToken != nil {
+				iterator.req.PageToken = iterator.nextPageToken
+			}
+			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+			if err != nil {
+				return false, nil, err
+			}
+
+			if resp.Code != 0 {
+				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+			}
+
+			if len(resp.Data.Items) == 0 {
+				return false, nil, nil
+			}
+
+			iterator.nextPageToken = resp.Data.PageToken
+			iterator.items = resp.Data.Items
+			iterator.index = 0
 		}
 
-		if index != 0 && iterator.pageToken != "" {
-			iterator.req.PageToken = &iterator.pageToken
-		}
-		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-		if err != nil {
-			return false
-		}
-
-		if resp.Code != 0 {
-			return false
-		}
-
-		if nil != resp.Data.PageToken {
-			iterator.pageToken = *resp.Data.PageToken
-		}
-		iterator.items = resp.Data.Items
-		iterator.index = 0
-		iterator.total = len(iterator.items)
-		return true
+		block := iterator.items[iterator.index]
+		iterator.index++
+		iterator.curlNum++
+		return true, block, nil
    }
 
-
-   func (iterator *ListMessageReactionIterator) Next() (*MessageReaction, error) {
-	  if iterator.index >= iterator.total {
-		 return nil, errors.New("no such element error")
-	  }
-
-	  index := iterator.index
-	  iterator.index = index + 1
-	  return iterator.items[index], nil
-
+   func (iterator *ListMessageReactionIterator) NextPageToken() *string {
+	  return iterator.nextPageToken
    }
-
-   func (iterator *ListMessageReactionIterator) NextPageToken() string {
-	  return iterator.pageToken
-   }
-/**如果是分页查询，则添加迭代器定义**/
 /**如果是分页查询，则添加迭代器定义**/
    type ListSpecialFocusIterator struct{
-	 pageToken string
+	 nextPageToken *string
 	 items	 []*SpecialFocus
 	 index	 int
-	 total	 int
+	 limit	 int
 	 ctx	   context.Context
 	 req	   *ListSpecialFocusReq
 	 listFunc  func (ctx context.Context, req *ListSpecialFocusReq, options ...core.RequestOptionFunc) (*ListSpecialFocusResp, error)
 	 options   []core.RequestOptionFunc
+   	 curlNum	   int
    }
 
-   func (iterator *ListSpecialFocusIterator) HasNext() bool {
-		index := iterator.index
-		if index < iterator.total && index != 0 {
-			return true
-		}
-		if index > iterator.total {
-			return false
+   func (iterator *ListSpecialFocusIterator) Next() (bool, *SpecialFocus, error) {
+		// 达到最大量，则返回
+		if iterator.curlNum > iterator.limit {
+			return false, nil, nil
 		}
 
-		//相等时，迭代拉取
-		if index != 0 && iterator.pageToken == "" {
-			return false
+		// 为0则拉取数据
+		if iterator.index == 0 || iterator.index >= len(iterator.items) {
+			if iterator.index != 0 && iterator.nextPageToken == nil {
+				return false, nil, nil
+			}
+			if iterator.nextPageToken != nil {
+				iterator.req.PageToken = iterator.nextPageToken
+			}
+			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+			if err != nil {
+				return false, nil, err
+			}
+
+			if resp.Code != 0 {
+				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+			}
+
+			if len(resp.Data.Items) == 0 {
+				return false, nil, nil
+			}
+
+			iterator.nextPageToken = resp.Data.PageToken
+			iterator.items = resp.Data.Items
+			iterator.index = 0
 		}
 
-		if index != 0 && iterator.pageToken != "" {
-			iterator.req.PageToken = &iterator.pageToken
-		}
-		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-		if err != nil {
-			return false
-		}
-
-		if resp.Code != 0 {
-			return false
-		}
-
-		if nil != resp.Data.PageToken {
-			iterator.pageToken = *resp.Data.PageToken
-		}
-		iterator.items = resp.Data.Items
-		iterator.index = 0
-		iterator.total = len(iterator.items)
-		return true
+		block := iterator.items[iterator.index]
+		iterator.index++
+		iterator.curlNum++
+		return true, block, nil
    }
 
-
-   func (iterator *ListSpecialFocusIterator) Next() (*SpecialFocus, error) {
-	  if iterator.index >= iterator.total {
-		 return nil, errors.New("no such element error")
-	  }
-
-	  index := iterator.index
-	  iterator.index = index + 1
-	  return iterator.items[index], nil
-
+   func (iterator *ListSpecialFocusIterator) NextPageToken() *string {
+	  return iterator.nextPageToken
    }
 
-   func (iterator *ListSpecialFocusIterator) NextPageToken() string {
-	  return iterator.pageToken
-   }
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
 

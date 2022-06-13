@@ -114,7 +114,8 @@ func (c *customAttrs) ListCustomAttr(ctx context.Context, req *ListCustomAttrReq
 	  ctx:	  ctx,
 	  req:	  req,
 	  listFunc: c.List,
-	  options:  options}, nil
+	  options:  options,
+	  limit: req.Limit}, nil
 }
 func (d *departments) BatchGet(ctx context.Context, req *BatchGetDepartmentReq, options ...core.RequestOptionFunc) (*BatchGetDepartmentResp, error) {
 
@@ -173,7 +174,8 @@ func (d *departments) ChildrenDepartment(ctx context.Context, req *ChildrenDepar
 	  ctx:	  ctx,
 	  req:	  req,
 	  listFunc: d.Children,
-	  options:  options}, nil
+	  options:  options,
+	  limit: req.Limit}, nil
 }
 func (d *departments) Create(ctx context.Context, req *CreateDepartmentReq, options ...core.RequestOptionFunc) (*CreateDepartmentResp, error) {
 
@@ -249,7 +251,8 @@ func (d *departments) ListDepartment(ctx context.Context, req *ListDepartmentReq
 	  ctx:	  ctx,
 	  req:	  req,
 	  listFunc: d.List,
-	  options:  options}, nil
+	  options:  options,
+	  limit: req.Limit}, nil
 }
 func (d *departments) ListChildren(ctx context.Context, req *ListChildrenDepartmentReq, options ...core.RequestOptionFunc) (*ListChildrenDepartmentResp, error) {
 
@@ -274,7 +277,8 @@ func (d *departments) ListChildrenDepartment(ctx context.Context, req *ListChild
 	  ctx:	  ctx,
 	  req:	  req,
 	  listFunc: d.ListChildren,
-	  options:  options}, nil
+	  options:  options,
+	  limit: req.Limit}, nil
 }
 func (d *departments) Parent(ctx context.Context, req *ParentDepartmentReq, options ...core.RequestOptionFunc) (*ParentDepartmentResp, error) {
 
@@ -299,7 +303,8 @@ func (d *departments) ParentDepartment(ctx context.Context, req *ParentDepartmen
 	  ctx:	  ctx,
 	  req:	  req,
 	  listFunc: d.Parent,
-	  options:  options}, nil
+	  options:  options,
+	  limit: req.Limit}, nil
 }
 func (d *departments) Patch(ctx context.Context, req *PatchDepartmentReq, options ...core.RequestOptionFunc) (*PatchDepartmentResp, error) {
 
@@ -341,7 +346,8 @@ func (d *departments) SearchDepartment(ctx context.Context, req *SearchDepartmen
 	  ctx:	  ctx,
 	  req:	  req,
 	  listFunc: d.Search,
-	  options:  options}, nil
+	  options:  options,
+	  limit: req.Limit}, nil
 }
 func (d *departments) UnbindDepartmentChat(ctx context.Context, req *UnbindDepartmentChatDepartmentReq, options ...core.RequestOptionFunc) (*UnbindDepartmentChatDepartmentResp, error) {
 
@@ -519,7 +525,8 @@ func (e *employeeTypeEnums) ListEmployeeTypeEnum(ctx context.Context, req *ListE
 	  ctx:	  ctx,
 	  req:	  req,
 	  listFunc: e.List,
-	  options:  options}, nil
+	  options:  options,
+	  limit: req.Limit}, nil
 }
 func (e *employeeTypeEnums) Update(ctx context.Context, req *UpdateEmployeeTypeEnumReq, options ...core.RequestOptionFunc) (*UpdateEmployeeTypeEnumResp, error) {
 
@@ -646,7 +653,8 @@ func (g *group) SimplelistGroup(ctx context.Context, req *SimplelistGroupReq, op
 	  ctx:	  ctx,
 	  req:	  req,
 	  listFunc: g.Simplelist,
-	  options:  options}, nil
+	  options:  options,
+	  limit: req.Limit}, nil
 }
 func (g *groupMember) Add(ctx context.Context, req *AddGroupMemberReq, options ...core.RequestOptionFunc) (*AddGroupMemberResp, error) {
 
@@ -960,7 +968,8 @@ func (u *users) FindByDepartmentUser(ctx context.Context, req *FindByDepartmentU
 	  ctx:	  ctx,
 	  req:	  req,
 	  listFunc: u.FindByDepartment,
-	  options:  options}, nil
+	  options:  options,
+	  limit: req.Limit}, nil
 }
 func (u *users) Get(ctx context.Context, req *GetUserReq, options ...core.RequestOptionFunc) (*GetUserResp, error) {
 
@@ -1002,7 +1011,8 @@ func (u *users) ListUser(ctx context.Context, req *ListUserReq, options ...core.
 	  ctx:	  ctx,
 	  req:	  req,
 	  listFunc: u.List,
-	  options:  options}, nil
+	  options:  options,
+	  limit: req.Limit}, nil
 }
 func (u *users) Patch(ctx context.Context, req *PatchUserReq, options ...core.RequestOptionFunc) (*PatchUserResp, error) {
 
@@ -1129,7 +1139,8 @@ func (u *userGroups) ListUserGroup(ctx context.Context, req *ListUserGroupReq, o
 	  ctx:	  ctx,
 	  req:	  req,
 	  listFunc: u.List,
-	  options:  options}, nil
+	  options:  options,
+	  limit: req.Limit}, nil
 }
 func (u *userGroups) Patch(ctx context.Context, req *PatchUserGroupReq, options ...core.RequestOptionFunc) (*PatchUserGroupResp, error) {
 
@@ -1222,5 +1233,6 @@ func (u *userGroupMembers) ListUserGroupMember(ctx context.Context, req *ListUse
 	  ctx:	  ctx,
 	  req:	  req,
 	  listFunc: u.List,
-	  options:  options}, nil
+	  options:  options,
+	  limit: req.Limit}, nil
 }

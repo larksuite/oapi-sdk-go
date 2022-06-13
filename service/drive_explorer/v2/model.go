@@ -93,12 +93,77 @@ func (builder * CopyFileReqBodyBuilder ) Build() *CopyFileReqBody {
    return req
 }
 
+/**上传文件path开始**/
+type CopyFilePathReqBodyBuilder struct {
+	type_  string
+	typeFlag  bool
+	dstFolderToken  string
+	dstFolderTokenFlag  bool
+	dstName  string
+	dstNameFlag  bool
+	commentNeeded  bool
+	commentNeededFlag  bool
+}
+
+// 生成body的New构造器
+func NewCopyFilePathReqBodyBuilder() * CopyFilePathReqBodyBuilder{
+  builder := &CopyFilePathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * CopyFilePathReqBodyBuilder ) Type(type_ string) *CopyFilePathReqBodyBuilder {
+  builder.type_ = type_
+  builder.typeFlag = true
+  return builder
+}
+func (builder * CopyFilePathReqBodyBuilder ) DstFolderToken(dstFolderToken string) *CopyFilePathReqBodyBuilder {
+  builder.dstFolderToken = dstFolderToken
+  builder.dstFolderTokenFlag = true
+  return builder
+}
+func (builder * CopyFilePathReqBodyBuilder ) DstName(dstName string) *CopyFilePathReqBodyBuilder {
+  builder.dstName = dstName
+  builder.dstNameFlag = true
+  return builder
+}
+func (builder * CopyFilePathReqBodyBuilder ) CommentNeeded(commentNeeded bool) *CopyFilePathReqBodyBuilder {
+  builder.commentNeeded = commentNeeded
+  builder.commentNeededFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * CopyFilePathReqBodyBuilder ) Build() (*CopyFileReqBody, error) {
+   req := &CopyFileReqBody{}
+   if builder.typeFlag {
+	  req.Type = &builder.type_
+	  
+   }
+   if builder.dstFolderTokenFlag {
+	  req.DstFolderToken = &builder.dstFolderToken
+	  
+   }
+   if builder.dstNameFlag {
+	  req.DstName = &builder.dstName
+	  
+   }
+   if builder.commentNeededFlag {
+	  req.CommentNeeded = &builder.commentNeeded
+	  
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type CopyFileReqBuilder struct {
 	fileToken  string
 	fileTokenFlag  bool
 	body *CopyFileReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -142,6 +207,7 @@ type CopyFileReqBody struct {
 type CopyFileReq struct {
 	FileToken  string `path:"fileToken"`
 	Body *CopyFileReqBody `body:""`
+
 }
 
 type CopyFileRespData struct {
@@ -200,12 +266,55 @@ func (builder * CreateFileReqBodyBuilder ) Build() *CreateFileReqBody {
    return req
 }
 
+/**上传文件path开始**/
+type CreateFilePathReqBodyBuilder struct {
+	title  string
+	titleFlag  bool
+	type_  string
+	typeFlag  bool
+}
+
+// 生成body的New构造器
+func NewCreateFilePathReqBodyBuilder() * CreateFilePathReqBodyBuilder{
+  builder := &CreateFilePathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * CreateFilePathReqBodyBuilder ) Title(title string) *CreateFilePathReqBodyBuilder {
+  builder.title = title
+  builder.titleFlag = true
+  return builder
+}
+func (builder * CreateFilePathReqBodyBuilder ) Type(type_ string) *CreateFilePathReqBodyBuilder {
+  builder.type_ = type_
+  builder.typeFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * CreateFilePathReqBodyBuilder ) Build() (*CreateFileReqBody, error) {
+   req := &CreateFileReqBody{}
+   if builder.titleFlag {
+	  req.Title = &builder.title
+	  
+   }
+   if builder.typeFlag {
+	  req.Type = &builder.type_
+	  
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type CreateFileReqBuilder struct {
 	folderToken  string
 	folderTokenFlag  bool
 	body *CreateFileReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -247,6 +356,7 @@ type CreateFileReqBody struct {
 type CreateFileReq struct {
 	FolderToken  string `path:"folderToken"`
 	Body *CreateFileReqBody `body:""`
+
 }
 
 type CreateFileRespData struct {
@@ -266,6 +376,7 @@ type CreateFileResp struct {
 type DocsDeleteFileReqBuilder struct {
 	docToken  string
 	docTokenFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -293,6 +404,7 @@ func (builder * DocsDeleteFileReqBuilder ) Build() *DocsDeleteFileReq {
 
 type DocsDeleteFileReq struct {
 	DocToken  string `path:"docToken"`
+
 }
 
 type DocsDeleteFileRespData struct {
@@ -311,6 +423,7 @@ type DocsDeleteFileResp struct {
 type SpreadsheetsDeleteFileReqBuilder struct {
 	spreadsheetToken  string
 	spreadsheetTokenFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -338,6 +451,7 @@ func (builder * SpreadsheetsDeleteFileReqBuilder ) Build() *SpreadsheetsDeleteFi
 
 type SpreadsheetsDeleteFileReq struct {
 	SpreadsheetToken  string `path:"spreadsheetToken"`
+
 }
 
 type SpreadsheetsDeleteFileRespData struct {
@@ -358,6 +472,7 @@ type ChildrenFolderReqBuilder struct {
 	folderTokenFlag  bool
 	types  []string
 	typesFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -394,6 +509,7 @@ func (builder * ChildrenFolderReqBuilder ) Build() *ChildrenFolderReq {
 type ChildrenFolderReq struct {
 	FolderToken  string `path:"folderToken"`
 	Types  []string `query:"types"`
+
 }
 
 type ChildrenFolderRespData struct {
@@ -437,12 +553,44 @@ func (builder * CreateFolderReqBodyBuilder ) Build() *CreateFolderReqBody {
    return req
 }
 
+/**上传文件path开始**/
+type CreateFolderPathReqBodyBuilder struct {
+	title  string
+	titleFlag  bool
+}
+
+// 生成body的New构造器
+func NewCreateFolderPathReqBodyBuilder() * CreateFolderPathReqBodyBuilder{
+  builder := &CreateFolderPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * CreateFolderPathReqBodyBuilder ) Title(title string) *CreateFolderPathReqBodyBuilder {
+  builder.title = title
+  builder.titleFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * CreateFolderPathReqBodyBuilder ) Build() (*CreateFolderReqBody, error) {
+   req := &CreateFolderReqBody{}
+   if builder.titleFlag {
+	  req.Title = &builder.title
+	  
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type CreateFolderReqBuilder struct {
 	folderToken  string
 	folderTokenFlag  bool
 	body *CreateFolderReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -483,6 +631,7 @@ type CreateFolderReqBody struct {
 type CreateFolderReq struct {
 	FolderToken  string `path:"folderToken"`
 	Body *CreateFolderReqBody `body:""`
+
 }
 
 type CreateFolderRespData struct {
@@ -502,6 +651,7 @@ type CreateFolderResp struct {
 type MetaFolderReqBuilder struct {
 	folderToken  string
 	folderTokenFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -529,6 +679,7 @@ func (builder * MetaFolderReqBuilder ) Build() *MetaFolderReq {
 
 type MetaFolderReq struct {
 	FolderToken  string `path:"folderToken"`
+
 }
 
 type MetaFolderRespData struct {
@@ -566,12 +717,5 @@ type RootMetaFolderResp struct {
 
 /* 生成请求的builder构造器*/
 /*1.1 生成body的builder结构体*/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
+
 

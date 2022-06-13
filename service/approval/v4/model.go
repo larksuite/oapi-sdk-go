@@ -4,8 +4,11 @@ package approval
 import (
 	"io"
 	
+	"bytes"
+	
 	"context"
 	"errors"
+	"fmt"
 	
 	"github.com/feishu/oapi-sdk-go/event"
 	
@@ -741,6 +744,7 @@ type CreateApprovalReqBuilder struct {
 	userIdTypeFlag  bool
 	approvalCreate *ApprovalCreate
 	approvalCreateFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -783,6 +787,7 @@ type CreateApprovalReq struct {
 	DepartmentIdType  *string `query:"department_id_type"`
 	UserIdType  *string `query:"user_id_type"`
 	ApprovalCreate *ApprovalCreate `body:""`
+
 }
 
 type CreateApprovalRespData struct {
@@ -803,6 +808,7 @@ type GetApprovalReqBuilder struct {
 	approvalCodeFlag  bool
 	locale  string
 	localeFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -839,6 +845,7 @@ func (builder * GetApprovalReqBuilder ) Build() *GetApprovalReq {
 type GetApprovalReq struct {
 	ApprovalCode  string `path:"approval_code"`
 	Locale  *string `query:"locale"`
+
 }
 
 type GetApprovalRespData struct {
@@ -897,12 +904,55 @@ func (builder * SearchApprovalReqBodyBuilder ) Build() *SearchApprovalReqBody {
    return req
 }
 
+/**上传文件path开始**/
+type SearchApprovalPathReqBodyBuilder struct {
+	userId  string
+	userIdFlag  bool
+	locale  string
+	localeFlag  bool
+}
+
+// 生成body的New构造器
+func NewSearchApprovalPathReqBodyBuilder() * SearchApprovalPathReqBodyBuilder{
+  builder := &SearchApprovalPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * SearchApprovalPathReqBodyBuilder ) UserId(userId string) *SearchApprovalPathReqBodyBuilder {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
+}
+func (builder * SearchApprovalPathReqBodyBuilder ) Locale(locale string) *SearchApprovalPathReqBodyBuilder {
+  builder.locale = locale
+  builder.localeFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * SearchApprovalPathReqBodyBuilder ) Build() (*SearchApprovalReqBody, error) {
+   req := &SearchApprovalReqBody{}
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.localeFlag {
+	  req.Locale = &builder.locale
+	  
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type SearchApprovalReqBuilder struct {
 	userIdType  string
 	userIdTypeFlag  bool
 	body *SearchApprovalReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -944,6 +994,7 @@ type SearchApprovalReqBody struct {
 type SearchApprovalReq struct {
 	UserIdType  *string `query:"user_id_type"`
 	Body *SearchApprovalReqBody `body:""`
+
 }
 
 type SearchApprovalRespData struct {
@@ -958,6 +1009,90 @@ type SearchApprovalResp struct {
 
 
 /*1.4 生成请求的builder结构体*/
+type SubscribeApprovalReqBuilder struct {
+	approvalCode  string
+	approvalCodeFlag  bool
+
+}
+
+// 生成请求的New构造器
+func NewSubscribeApprovalReqBuilder() * SubscribeApprovalReqBuilder{
+   builder := &SubscribeApprovalReqBuilder{}
+   return builder
+}
+
+/*1.5 生成请求的builder属性方法*/
+func (builder * SubscribeApprovalReqBuilder) ApprovalCode(approvalCode string) *SubscribeApprovalReqBuilder  {
+  builder.approvalCode = approvalCode
+  builder.approvalCodeFlag = true
+  return builder
+}
+
+/*1.5 生成请求的builder的build方法*/
+func (builder * SubscribeApprovalReqBuilder ) Build() *SubscribeApprovalReq {
+   req := &SubscribeApprovalReq{}
+   if builder.approvalCodeFlag {
+	  req.ApprovalCode = builder.approvalCode
+   }
+   return req
+}
+
+
+type SubscribeApprovalReq struct {
+	ApprovalCode  string `path:"approval_code"`
+
+}
+
+
+type SubscribeApprovalResp struct {
+	*core.RawResponse `json:"-"`
+	core.CodeError
+}
+
+
+/*1.4 生成请求的builder结构体*/
+type UnsubscribeApprovalReqBuilder struct {
+	approvalCode  string
+	approvalCodeFlag  bool
+
+}
+
+// 生成请求的New构造器
+func NewUnsubscribeApprovalReqBuilder() * UnsubscribeApprovalReqBuilder{
+   builder := &UnsubscribeApprovalReqBuilder{}
+   return builder
+}
+
+/*1.5 生成请求的builder属性方法*/
+func (builder * UnsubscribeApprovalReqBuilder) ApprovalCode(approvalCode string) *UnsubscribeApprovalReqBuilder  {
+  builder.approvalCode = approvalCode
+  builder.approvalCodeFlag = true
+  return builder
+}
+
+/*1.5 生成请求的builder的build方法*/
+func (builder * UnsubscribeApprovalReqBuilder ) Build() *UnsubscribeApprovalReq {
+   req := &UnsubscribeApprovalReq{}
+   if builder.approvalCodeFlag {
+	  req.ApprovalCode = builder.approvalCode
+   }
+   return req
+}
+
+
+type UnsubscribeApprovalReq struct {
+	ApprovalCode  string `path:"approval_code"`
+
+}
+
+
+type UnsubscribeApprovalResp struct {
+	*core.RawResponse `json:"-"`
+	core.CodeError
+}
+
+
+/*1.4 生成请求的builder结构体*/
 type CreateExternalApprovalReqBuilder struct {
 	departmentIdType  string
 	departmentIdTypeFlag  bool
@@ -965,6 +1100,7 @@ type CreateExternalApprovalReqBuilder struct {
 	userIdTypeFlag  bool
 	externalApproval *ExternalApproval
 	externalApprovalFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -1007,6 +1143,7 @@ type CreateExternalApprovalReq struct {
 	DepartmentIdType  *string `query:"department_id_type"`
 	UserIdType  *string `query:"user_id_type"`
 	ExternalApproval *ExternalApproval `body:""`
+
 }
 
 type CreateExternalApprovalRespData struct {
@@ -1048,10 +1185,41 @@ func (builder * CheckExternalInstanceReqBodyBuilder ) Build() *CheckExternalInst
    return req
 }
 
+/**上传文件path开始**/
+type CheckExternalInstancePathReqBodyBuilder struct {
+	instances  []*ExteranlInstanceCheck
+	instancesFlag  bool
+}
+
+// 生成body的New构造器
+func NewCheckExternalInstancePathReqBodyBuilder() * CheckExternalInstancePathReqBodyBuilder{
+  builder := &CheckExternalInstancePathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * CheckExternalInstancePathReqBodyBuilder ) Instances(instances []*ExteranlInstanceCheck) *CheckExternalInstancePathReqBodyBuilder {
+  builder.instances = instances
+  builder.instancesFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * CheckExternalInstancePathReqBodyBuilder ) Build() (*CheckExternalInstanceReqBody, error) {
+   req := &CheckExternalInstanceReqBody{}
+   if builder.instancesFlag {
+	   req.Instances = builder.instances
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type CheckExternalInstanceReqBuilder struct {
 	body *CheckExternalInstanceReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -1083,6 +1251,7 @@ type CheckExternalInstanceReqBody struct {
 
 type CheckExternalInstanceReq struct {
 	Body *CheckExternalInstanceReqBody `body:""`
+
 }
 
 type CheckExternalInstanceRespData struct {
@@ -1100,6 +1269,7 @@ type CheckExternalInstanceResp struct {
 type CreateExternalInstanceReqBuilder struct {
 	externalInstance *ExternalInstance
 	externalInstanceFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -1124,6 +1294,7 @@ func (builder * CreateExternalInstanceReqBuilder ) Build() *CreateExternalInstan
 
 type CreateExternalInstanceReq struct {
 	ExternalInstance *ExternalInstance `body:""`
+
 }
 
 type CreateExternalInstanceRespData struct {
@@ -1199,6 +1370,67 @@ func (builder * ListExternalTaskReqBodyBuilder ) Build() *ListExternalTaskReqBod
    return req
 }
 
+/**上传文件path开始**/
+type ListExternalTaskPathReqBodyBuilder struct {
+	approvalCodes  []string
+	approvalCodesFlag  bool
+	instanceIds  []string
+	instanceIdsFlag  bool
+	userIds  []string
+	userIdsFlag  bool
+	status  string
+	statusFlag  bool
+}
+
+// 生成body的New构造器
+func NewListExternalTaskPathReqBodyBuilder() * ListExternalTaskPathReqBodyBuilder{
+  builder := &ListExternalTaskPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * ListExternalTaskPathReqBodyBuilder ) ApprovalCodes(approvalCodes []string) *ListExternalTaskPathReqBodyBuilder {
+  builder.approvalCodes = approvalCodes
+  builder.approvalCodesFlag = true
+  return builder
+}
+func (builder * ListExternalTaskPathReqBodyBuilder ) InstanceIds(instanceIds []string) *ListExternalTaskPathReqBodyBuilder {
+  builder.instanceIds = instanceIds
+  builder.instanceIdsFlag = true
+  return builder
+}
+func (builder * ListExternalTaskPathReqBodyBuilder ) UserIds(userIds []string) *ListExternalTaskPathReqBodyBuilder {
+  builder.userIds = userIds
+  builder.userIdsFlag = true
+  return builder
+}
+func (builder * ListExternalTaskPathReqBodyBuilder ) Status(status string) *ListExternalTaskPathReqBodyBuilder {
+  builder.status = status
+  builder.statusFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * ListExternalTaskPathReqBodyBuilder ) Build() (*ListExternalTaskReqBody, error) {
+   req := &ListExternalTaskReqBody{}
+   if builder.approvalCodesFlag {
+	   req.ApprovalCodes = builder.approvalCodes
+   }
+   if builder.instanceIdsFlag {
+	   req.InstanceIds = builder.instanceIds
+   }
+   if builder.userIdsFlag {
+	   req.UserIds = builder.userIds
+   }
+   if builder.statusFlag {
+	  req.Status = &builder.status
+	  
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type ListExternalTaskReqBuilder struct {
 	pageSize  int
@@ -1207,6 +1439,8 @@ type ListExternalTaskReqBuilder struct {
 	pageTokenFlag  bool
 	body *ListExternalTaskReqBody
 	bodyFlag bool
+	limit int
+
 }
 
 // 生成请求的New构造器
@@ -1216,6 +1450,10 @@ func NewListExternalTaskReqBuilder() * ListExternalTaskReqBuilder{
 }
 
 /*1.5 生成请求的builder属性方法*/
+func (builder * ListExternalTaskReqBuilder) Limit(limit int ) *ListExternalTaskReqBuilder  {
+  builder.limit = limit
+  return builder
+}
 func (builder * ListExternalTaskReqBuilder) PageSize(pageSize int) *ListExternalTaskReqBuilder  {
   builder.pageSize = pageSize
   builder.pageSizeFlag = true
@@ -1235,6 +1473,7 @@ func (builder * ListExternalTaskReqBuilder) Body(body *ListExternalTaskReqBody) 
 /*1.5 生成请求的builder的build方法*/
 func (builder * ListExternalTaskReqBuilder ) Build() *ListExternalTaskReq {
    req := &ListExternalTaskReq{}
+   req.Limit = builder.limit
    if builder.pageSizeFlag {
 	  req.PageSize = &builder.pageSize
    }
@@ -1259,6 +1498,8 @@ type ListExternalTaskReq struct {
 	PageSize  *int `query:"page_size"`
 	PageToken  *string `query:"page_token"`
 	Body *ListExternalTaskReqBody `body:""`
+	Limit int
+
 }
 
 type ListExternalTaskRespData struct {
@@ -1326,10 +1567,67 @@ func (builder * UploadFileReqBodyBuilder ) Build() *UploadFileReqBody {
    return req
 }
 
+/**上传文件path开始**/
+type UploadFilePathReqBodyBuilder struct {
+	name  string
+	nameFlag  bool
+	type_  string
+	typeFlag  bool
+	contentPath  string
+	contentPathFlag  bool
+}
+
+// 生成body的New构造器
+func NewUploadFilePathReqBodyBuilder() * UploadFilePathReqBodyBuilder{
+  builder := &UploadFilePathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * UploadFilePathReqBodyBuilder ) Name(name string) *UploadFilePathReqBodyBuilder {
+  builder.name = name
+  builder.nameFlag = true
+  return builder
+}
+func (builder * UploadFilePathReqBodyBuilder ) Type(type_ string) *UploadFilePathReqBodyBuilder {
+  builder.type_ = type_
+  builder.typeFlag = true
+  return builder
+}
+func (builder * UploadFilePathReqBodyBuilder ) ContentPath(contentPath string) *UploadFilePathReqBodyBuilder {
+  builder.contentPath = contentPath
+  builder.contentPathFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * UploadFilePathReqBodyBuilder ) Build() (*UploadFileReqBody, error) {
+   req := &UploadFileReqBody{}
+   if builder.nameFlag {
+	  req.Name = &builder.name
+	  
+   }
+   if builder.typeFlag {
+	  req.Type = &builder.type_
+	  
+   }
+   if builder.contentPathFlag {
+	  data, err := core.File2Bytes(builder.contentPath)
+	  if err != nil {
+		return nil, err
+	  }
+	  req.Content = bytes.NewBuffer(data)
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type UploadFileReqBuilder struct {
 	body *UploadFileReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -1363,6 +1661,7 @@ type UploadFileReqBody struct {
 
 type UploadFileReq struct {
 	Body *UploadFileReqBody `body:""`
+
 }
 
 type UploadFileRespData struct {
@@ -1489,10 +1788,118 @@ func (builder * AddSignInstanceReqBodyBuilder ) Build() *AddSignInstanceReqBody 
    return req
 }
 
+/**上传文件path开始**/
+type AddSignInstancePathReqBodyBuilder struct {
+	userId  string
+	userIdFlag  bool
+	approvalCode  string
+	approvalCodeFlag  bool
+	instanceCode  string
+	instanceCodeFlag  bool
+	taskId  string
+	taskIdFlag  bool
+	comment  string
+	commentFlag  bool
+	addSignUserIds  []string
+	addSignUserIdsFlag  bool
+	addSignType  int
+	addSignTypeFlag  bool
+	approvalMethod  int
+	approvalMethodFlag  bool
+}
+
+// 生成body的New构造器
+func NewAddSignInstancePathReqBodyBuilder() * AddSignInstancePathReqBodyBuilder{
+  builder := &AddSignInstancePathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * AddSignInstancePathReqBodyBuilder ) UserId(userId string) *AddSignInstancePathReqBodyBuilder {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
+}
+func (builder * AddSignInstancePathReqBodyBuilder ) ApprovalCode(approvalCode string) *AddSignInstancePathReqBodyBuilder {
+  builder.approvalCode = approvalCode
+  builder.approvalCodeFlag = true
+  return builder
+}
+func (builder * AddSignInstancePathReqBodyBuilder ) InstanceCode(instanceCode string) *AddSignInstancePathReqBodyBuilder {
+  builder.instanceCode = instanceCode
+  builder.instanceCodeFlag = true
+  return builder
+}
+func (builder * AddSignInstancePathReqBodyBuilder ) TaskId(taskId string) *AddSignInstancePathReqBodyBuilder {
+  builder.taskId = taskId
+  builder.taskIdFlag = true
+  return builder
+}
+func (builder * AddSignInstancePathReqBodyBuilder ) Comment(comment string) *AddSignInstancePathReqBodyBuilder {
+  builder.comment = comment
+  builder.commentFlag = true
+  return builder
+}
+func (builder * AddSignInstancePathReqBodyBuilder ) AddSignUserIds(addSignUserIds []string) *AddSignInstancePathReqBodyBuilder {
+  builder.addSignUserIds = addSignUserIds
+  builder.addSignUserIdsFlag = true
+  return builder
+}
+func (builder * AddSignInstancePathReqBodyBuilder ) AddSignType(addSignType int) *AddSignInstancePathReqBodyBuilder {
+  builder.addSignType = addSignType
+  builder.addSignTypeFlag = true
+  return builder
+}
+func (builder * AddSignInstancePathReqBodyBuilder ) ApprovalMethod(approvalMethod int) *AddSignInstancePathReqBodyBuilder {
+  builder.approvalMethod = approvalMethod
+  builder.approvalMethodFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * AddSignInstancePathReqBodyBuilder ) Build() (*AddSignInstanceReqBody, error) {
+   req := &AddSignInstanceReqBody{}
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.approvalCodeFlag {
+	  req.ApprovalCode = &builder.approvalCode
+	  
+   }
+   if builder.instanceCodeFlag {
+	  req.InstanceCode = &builder.instanceCode
+	  
+   }
+   if builder.taskIdFlag {
+	  req.TaskId = &builder.taskId
+	  
+   }
+   if builder.commentFlag {
+	  req.Comment = &builder.comment
+	  
+   }
+   if builder.addSignUserIdsFlag {
+	   req.AddSignUserIds = builder.addSignUserIds
+   }
+   if builder.addSignTypeFlag {
+	  req.AddSignType = &builder.addSignType
+	  
+   }
+   if builder.approvalMethodFlag {
+	  req.ApprovalMethod = &builder.approvalMethod
+	  
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type AddSignInstanceReqBuilder struct {
 	body *AddSignInstanceReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -1531,6 +1938,7 @@ type AddSignInstanceReqBody struct {
 
 type AddSignInstanceReq struct {
 	Body *AddSignInstanceReqBody `body:""`
+
 }
 
 
@@ -1546,6 +1954,7 @@ type CancelInstanceReqBuilder struct {
 	userIdTypeFlag  bool
 	instanceCancel *InstanceCancel
 	instanceCancelFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -1579,6 +1988,7 @@ func (builder * CancelInstanceReqBuilder ) Build() *CancelInstanceReq {
 type CancelInstanceReq struct {
 	UserIdType  *string `query:"user_id_type"`
 	InstanceCancel *InstanceCancel `body:""`
+
 }
 
 
@@ -1664,12 +2074,87 @@ func (builder * CarbonCopyInstanceReqBodyBuilder ) Build() *CarbonCopyInstanceRe
    return req
 }
 
+/**上传文件path开始**/
+type CarbonCopyInstancePathReqBodyBuilder struct {
+	instanceCode  string
+	instanceCodeFlag  bool
+	reason  string
+	reasonFlag  bool
+	reasonVersion  int
+	reasonVersionFlag  bool
+	targetUserIds  []string
+	targetUserIdsFlag  bool
+	userId  string
+	userIdFlag  bool
+}
+
+// 生成body的New构造器
+func NewCarbonCopyInstancePathReqBodyBuilder() * CarbonCopyInstancePathReqBodyBuilder{
+  builder := &CarbonCopyInstancePathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * CarbonCopyInstancePathReqBodyBuilder ) InstanceCode(instanceCode string) *CarbonCopyInstancePathReqBodyBuilder {
+  builder.instanceCode = instanceCode
+  builder.instanceCodeFlag = true
+  return builder
+}
+func (builder * CarbonCopyInstancePathReqBodyBuilder ) Reason(reason string) *CarbonCopyInstancePathReqBodyBuilder {
+  builder.reason = reason
+  builder.reasonFlag = true
+  return builder
+}
+func (builder * CarbonCopyInstancePathReqBodyBuilder ) ReasonVersion(reasonVersion int) *CarbonCopyInstancePathReqBodyBuilder {
+  builder.reasonVersion = reasonVersion
+  builder.reasonVersionFlag = true
+  return builder
+}
+func (builder * CarbonCopyInstancePathReqBodyBuilder ) TargetUserIds(targetUserIds []string) *CarbonCopyInstancePathReqBodyBuilder {
+  builder.targetUserIds = targetUserIds
+  builder.targetUserIdsFlag = true
+  return builder
+}
+func (builder * CarbonCopyInstancePathReqBodyBuilder ) UserId(userId string) *CarbonCopyInstancePathReqBodyBuilder {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * CarbonCopyInstancePathReqBodyBuilder ) Build() (*CarbonCopyInstanceReqBody, error) {
+   req := &CarbonCopyInstanceReqBody{}
+   if builder.instanceCodeFlag {
+	  req.InstanceCode = &builder.instanceCode
+	  
+   }
+   if builder.reasonFlag {
+	  req.Reason = &builder.reason
+	  
+   }
+   if builder.reasonVersionFlag {
+	  req.ReasonVersion = &builder.reasonVersion
+	  
+   }
+   if builder.targetUserIdsFlag {
+	   req.TargetUserIds = builder.targetUserIds
+   }
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type CarbonCopyInstanceReqBuilder struct {
 	userIdType  string
 	userIdTypeFlag  bool
 	body *CarbonCopyInstanceReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -1714,6 +2199,7 @@ type CarbonCopyInstanceReqBody struct {
 type CarbonCopyInstanceReq struct {
 	UserIdType  *string `query:"user_id_type"`
 	Body *CarbonCopyInstanceReqBody `body:""`
+
 }
 
 type CarbonCopyInstanceRespData struct {
@@ -1733,6 +2219,7 @@ type CcInstanceReqBuilder struct {
 	userIdTypeFlag  bool
 	instanceCc *InstanceCc
 	instanceCcFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -1766,6 +2253,7 @@ func (builder * CcInstanceReqBuilder ) Build() *CcInstanceReq {
 type CcInstanceReq struct {
 	UserIdType  *string `query:"user_id_type"`
 	InstanceCc *InstanceCc `body:""`
+
 }
 
 
@@ -1779,6 +2267,7 @@ type CcInstanceResp struct {
 type CreateInstanceReqBuilder struct {
 	instanceCreate *InstanceCreate
 	instanceCreateFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -1803,6 +2292,7 @@ func (builder * CreateInstanceReqBuilder ) Build() *CreateInstanceReq {
 
 type CreateInstanceReq struct {
 	InstanceCreate *InstanceCreate `body:""`
+
 }
 
 type CreateInstanceRespData struct {
@@ -1826,6 +2316,7 @@ type GetInstanceReqBuilder struct {
 	userIdFlag  bool
 	userIdType  string
 	userIdTypeFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -1880,6 +2371,7 @@ type GetInstanceReq struct {
 	Locale  *string `query:"locale"`
 	UserId  *string `query:"user_id"`
 	UserIdType  *string `query:"user_id_type"`
+
 }
 
 type GetInstanceRespData struct {
@@ -1920,6 +2412,8 @@ type ListInstanceReqBuilder struct {
 	startTimeFlag  bool
 	endTime  int64
 	endTimeFlag  bool
+	limit int
+
 }
 
 // 生成请求的New构造器
@@ -1929,6 +2423,10 @@ func NewListInstanceReqBuilder() * ListInstanceReqBuilder{
 }
 
 /*1.5 生成请求的builder属性方法*/
+func (builder * ListInstanceReqBuilder) Limit(limit int ) *ListInstanceReqBuilder  {
+  builder.limit = limit
+  return builder
+}
 func (builder * ListInstanceReqBuilder) PageSize(pageSize int) *ListInstanceReqBuilder  {
   builder.pageSize = pageSize
   builder.pageSizeFlag = true
@@ -1958,6 +2456,7 @@ func (builder * ListInstanceReqBuilder) EndTime(endTime int64) *ListInstanceReqB
 /*1.5 生成请求的builder的build方法*/
 func (builder * ListInstanceReqBuilder ) Build() *ListInstanceReq {
    req := &ListInstanceReq{}
+   req.Limit = builder.limit
    if builder.pageSizeFlag {
 	  req.PageSize = &builder.pageSize
    }
@@ -1983,6 +2482,8 @@ type ListInstanceReq struct {
 	ApprovalCode  *string `query:"approval_code"`
 	StartTime  *int64 `query:"start_time"`
 	EndTime  *int64 `query:"end_time"`
+	Limit int
+
 }
 
 type ListInstanceRespData struct {
@@ -2099,12 +2600,110 @@ func (builder * PreviewInstanceReqBodyBuilder ) Build() *PreviewInstanceReqBody 
    return req
 }
 
+/**上传文件path开始**/
+type PreviewInstancePathReqBodyBuilder struct {
+	userId  string
+	userIdFlag  bool
+	approvalCode  string
+	approvalCodeFlag  bool
+	departmentId  string
+	departmentIdFlag  bool
+	form  string
+	formFlag  bool
+	instanceCode  string
+	instanceCodeFlag  bool
+	locale  string
+	localeFlag  bool
+	taskId  string
+	taskIdFlag  bool
+}
+
+// 生成body的New构造器
+func NewPreviewInstancePathReqBodyBuilder() * PreviewInstancePathReqBodyBuilder{
+  builder := &PreviewInstancePathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * PreviewInstancePathReqBodyBuilder ) UserId(userId string) *PreviewInstancePathReqBodyBuilder {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
+}
+func (builder * PreviewInstancePathReqBodyBuilder ) ApprovalCode(approvalCode string) *PreviewInstancePathReqBodyBuilder {
+  builder.approvalCode = approvalCode
+  builder.approvalCodeFlag = true
+  return builder
+}
+func (builder * PreviewInstancePathReqBodyBuilder ) DepartmentId(departmentId string) *PreviewInstancePathReqBodyBuilder {
+  builder.departmentId = departmentId
+  builder.departmentIdFlag = true
+  return builder
+}
+func (builder * PreviewInstancePathReqBodyBuilder ) Form(form string) *PreviewInstancePathReqBodyBuilder {
+  builder.form = form
+  builder.formFlag = true
+  return builder
+}
+func (builder * PreviewInstancePathReqBodyBuilder ) InstanceCode(instanceCode string) *PreviewInstancePathReqBodyBuilder {
+  builder.instanceCode = instanceCode
+  builder.instanceCodeFlag = true
+  return builder
+}
+func (builder * PreviewInstancePathReqBodyBuilder ) Locale(locale string) *PreviewInstancePathReqBodyBuilder {
+  builder.locale = locale
+  builder.localeFlag = true
+  return builder
+}
+func (builder * PreviewInstancePathReqBodyBuilder ) TaskId(taskId string) *PreviewInstancePathReqBodyBuilder {
+  builder.taskId = taskId
+  builder.taskIdFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * PreviewInstancePathReqBodyBuilder ) Build() (*PreviewInstanceReqBody, error) {
+   req := &PreviewInstanceReqBody{}
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.approvalCodeFlag {
+	  req.ApprovalCode = &builder.approvalCode
+	  
+   }
+   if builder.departmentIdFlag {
+	  req.DepartmentId = &builder.departmentId
+	  
+   }
+   if builder.formFlag {
+	  req.Form = &builder.form
+	  
+   }
+   if builder.instanceCodeFlag {
+	  req.InstanceCode = &builder.instanceCode
+	  
+   }
+   if builder.localeFlag {
+	  req.Locale = &builder.locale
+	  
+   }
+   if builder.taskIdFlag {
+	  req.TaskId = &builder.taskId
+	  
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type PreviewInstanceReqBuilder struct {
 	userIdType  string
 	userIdTypeFlag  bool
 	body *PreviewInstanceReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -2151,6 +2750,7 @@ type PreviewInstanceReqBody struct {
 type PreviewInstanceReq struct {
 	UserIdType  *string `query:"user_id_type"`
 	Body *PreviewInstanceReqBody `body:""`
+
 }
 
 type PreviewInstanceRespData struct {
@@ -2174,6 +2774,7 @@ type QueryInstanceReqBuilder struct {
 	userIdTypeFlag  bool
 	instanceSearch *InstanceSearch
 	instanceSearchFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -2225,6 +2826,7 @@ type QueryInstanceReq struct {
 	PageToken  *string `query:"page_token"`
 	UserIdType  *string `query:"user_id_type"`
 	InstanceSearch *InstanceSearch `body:""`
+
 }
 
 type QueryInstanceRespData struct {
@@ -2329,12 +2931,98 @@ func (builder * SearchInstanceReqBodyBuilder ) Build() *SearchInstanceReqBody {
    return req
 }
 
+/**上传文件path开始**/
+type SearchInstancePathReqBodyBuilder struct {
+	userId  string
+	userIdFlag  bool
+	approvalCodeList  []string
+	approvalCodeListFlag  bool
+	searchKey  string
+	searchKeyFlag  bool
+	offset  int
+	offsetFlag  bool
+	limit  int
+	limitFlag  bool
+	sortAsc  bool
+	sortAscFlag  bool
+}
+
+// 生成body的New构造器
+func NewSearchInstancePathReqBodyBuilder() * SearchInstancePathReqBodyBuilder{
+  builder := &SearchInstancePathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * SearchInstancePathReqBodyBuilder ) UserId(userId string) *SearchInstancePathReqBodyBuilder {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
+}
+func (builder * SearchInstancePathReqBodyBuilder ) ApprovalCodeList(approvalCodeList []string) *SearchInstancePathReqBodyBuilder {
+  builder.approvalCodeList = approvalCodeList
+  builder.approvalCodeListFlag = true
+  return builder
+}
+func (builder * SearchInstancePathReqBodyBuilder ) SearchKey(searchKey string) *SearchInstancePathReqBodyBuilder {
+  builder.searchKey = searchKey
+  builder.searchKeyFlag = true
+  return builder
+}
+func (builder * SearchInstancePathReqBodyBuilder ) Offset(offset int) *SearchInstancePathReqBodyBuilder {
+  builder.offset = offset
+  builder.offsetFlag = true
+  return builder
+}
+func (builder * SearchInstancePathReqBodyBuilder ) Limit(limit int) *SearchInstancePathReqBodyBuilder {
+  builder.limit = limit
+  builder.limitFlag = true
+  return builder
+}
+func (builder * SearchInstancePathReqBodyBuilder ) SortAsc(sortAsc bool) *SearchInstancePathReqBodyBuilder {
+  builder.sortAsc = sortAsc
+  builder.sortAscFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * SearchInstancePathReqBodyBuilder ) Build() (*SearchInstanceReqBody, error) {
+   req := &SearchInstanceReqBody{}
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.approvalCodeListFlag {
+	   req.ApprovalCodeList = builder.approvalCodeList
+   }
+   if builder.searchKeyFlag {
+	  req.SearchKey = &builder.searchKey
+	  
+   }
+   if builder.offsetFlag {
+	  req.Offset = &builder.offset
+	  
+   }
+   if builder.limitFlag {
+	  req.Limit = &builder.limit
+	  
+   }
+   if builder.sortAscFlag {
+	  req.SortAsc = &builder.sortAsc
+	  
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type SearchInstanceReqBuilder struct {
 	userIdType  string
 	userIdTypeFlag  bool
 	body *SearchInstanceReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -2380,6 +3068,7 @@ type SearchInstanceReqBody struct {
 type SearchInstanceReq struct {
 	UserIdType  *string `query:"user_id_type"`
 	Body *SearchInstanceReqBody `body:""`
+
 }
 
 type SearchInstanceRespData struct {
@@ -2405,6 +3094,7 @@ type SearchCcInstanceReqBuilder struct {
 	userIdTypeFlag  bool
 	ccSearch *CcSearch
 	ccSearchFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -2456,6 +3146,7 @@ type SearchCcInstanceReq struct {
 	PageToken  *string `query:"page_token"`
 	UserIdType  *string `query:"user_id_type"`
 	CcSearch *CcSearch `body:""`
+
 }
 
 type SearchCcInstanceRespData struct {
@@ -2476,6 +3167,7 @@ type SpecifiedRollbackInstanceReqBuilder struct {
 	userIdTypeFlag  bool
 	specifiedRollback *SpecifiedRollback
 	specifiedRollbackFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -2509,6 +3201,7 @@ func (builder * SpecifiedRollbackInstanceReqBuilder ) Build() *SpecifiedRollback
 type SpecifiedRollbackInstanceReq struct {
 	UserIdType  *string `query:"user_id_type"`
 	SpecifiedRollback *SpecifiedRollback `body:""`
+
 }
 
 
@@ -2528,6 +3221,7 @@ type CreateInstanceCommentReqBuilder struct {
 	userIdFlag  bool
 	commentRequest *CommentRequest
 	commentRequestFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -2579,6 +3273,7 @@ type CreateInstanceCommentReq struct {
 	UserIdType  *string `query:"user_id_type"`
 	UserId  *int64 `query:"user_id"`
 	CommentRequest *CommentRequest `body:""`
+
 }
 
 type CreateInstanceCommentRespData struct {
@@ -2602,6 +3297,7 @@ type DeleteInstanceCommentReqBuilder struct {
 	userIdTypeFlag  bool
 	userId  int64
 	userIdFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -2656,6 +3352,7 @@ type DeleteInstanceCommentReq struct {
 	CommentId  int64 `path:"comment_id"`
 	UserIdType  *string `query:"user_id_type"`
 	UserId  *int64 `query:"user_id"`
+
 }
 
 type DeleteInstanceCommentRespData struct {
@@ -2681,6 +3378,7 @@ type ListInstanceCommentReqBuilder struct {
 	pageTokenFlag  bool
 	pageSize  int
 	pageSizeFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -2744,6 +3442,7 @@ type ListInstanceCommentReq struct {
 	UserId  *int64 `query:"user_id"`
 	PageToken  *string `query:"page_token"`
 	PageSize  *int `query:"page_size"`
+
 }
 
 type ListInstanceCommentRespData struct {
@@ -2765,6 +3464,7 @@ type RemoveInstanceCommentReqBuilder struct {
 	userIdTypeFlag  bool
 	userId  int64
 	userIdFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -2810,6 +3510,7 @@ type RemoveInstanceCommentReq struct {
 	InstanceId  string `path:"instance_id"`
 	UserIdType  *string `query:"user_id_type"`
 	UserId  *int64 `query:"user_id"`
+
 }
 
 type RemoveInstanceCommentRespData struct {
@@ -2830,6 +3531,7 @@ type CreateMessageReqBuilder struct {
 	receiveIdTypeFlag  bool
 	message *Message
 	messageFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -2863,6 +3565,7 @@ func (builder * CreateMessageReqBuilder ) Build() *CreateMessageReq {
 type CreateMessageReq struct {
 	ReceiveIdType  *string `query:"receive_id_type"`
 	Message *Message `body:""`
+
 }
 
 type CreateMessageRespData struct {
@@ -2882,6 +3585,7 @@ type PatchMessageReqBuilder struct {
 	messageIdFlag  bool
 	message *Message
 	messageFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -2915,6 +3619,7 @@ func (builder * PatchMessageReqBuilder ) Build() *PatchMessageReq {
 type PatchMessageReq struct {
 	MessageId  string `path:"message_id"`
 	Message *Message `body:""`
+
 }
 
 type PatchMessageRespData struct {
@@ -2934,6 +3639,7 @@ type ApproveTaskReqBuilder struct {
 	userIdTypeFlag  bool
 	taskApprove *TaskApprove
 	taskApproveFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -2967,6 +3673,7 @@ func (builder * ApproveTaskReqBuilder ) Build() *ApproveTaskReq {
 type ApproveTaskReq struct {
 	UserIdType  *string `query:"user_id_type"`
 	TaskApprove *TaskApprove `body:""`
+
 }
 
 
@@ -2988,6 +3695,8 @@ type QueryTaskReqBuilder struct {
 	topicFlag  bool
 	userIdType  string
 	userIdTypeFlag  bool
+	limit int
+
 }
 
 // 生成请求的New构造器
@@ -2997,6 +3706,10 @@ func NewQueryTaskReqBuilder() * QueryTaskReqBuilder{
 }
 
 /*1.5 生成请求的builder属性方法*/
+func (builder * QueryTaskReqBuilder) Limit(limit int ) *QueryTaskReqBuilder  {
+  builder.limit = limit
+  return builder
+}
 func (builder * QueryTaskReqBuilder) PageSize(pageSize int) *QueryTaskReqBuilder  {
   builder.pageSize = pageSize
   builder.pageSizeFlag = true
@@ -3026,6 +3739,7 @@ func (builder * QueryTaskReqBuilder) UserIdType(userIdType string) *QueryTaskReq
 /*1.5 生成请求的builder的build方法*/
 func (builder * QueryTaskReqBuilder ) Build() *QueryTaskReq {
    req := &QueryTaskReq{}
+   req.Limit = builder.limit
    if builder.pageSizeFlag {
 	  req.PageSize = &builder.pageSize
    }
@@ -3051,6 +3765,8 @@ type QueryTaskReq struct {
 	UserId  *string `query:"user_id"`
 	Topic  *int64 `query:"topic"`
 	UserIdType  *string `query:"user_id_type"`
+	Limit int
+
 }
 
 type QueryTaskRespData struct {
@@ -3073,6 +3789,7 @@ type RejectTaskReqBuilder struct {
 	userIdTypeFlag  bool
 	taskApprove *TaskApprove
 	taskApproveFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -3106,6 +3823,7 @@ func (builder * RejectTaskReqBuilder ) Build() *RejectTaskReq {
 type RejectTaskReq struct {
 	UserIdType  *string `query:"user_id_type"`
 	TaskApprove *TaskApprove `body:""`
+
 }
 
 
@@ -3125,6 +3843,7 @@ type SearchTaskReqBuilder struct {
 	userIdTypeFlag  bool
 	taskSearch *TaskSearch
 	taskSearchFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -3176,6 +3895,7 @@ type SearchTaskReq struct {
 	PageToken  *string `query:"page_token"`
 	UserIdType  *string `query:"user_id_type"`
 	TaskSearch *TaskSearch `body:""`
+
 }
 
 type SearchTaskRespData struct {
@@ -3198,6 +3918,7 @@ type TransferTaskReqBuilder struct {
 	userIdTypeFlag  bool
 	taskTransfer *TaskTransfer
 	taskTransferFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -3231,6 +3952,7 @@ func (builder * TransferTaskReqBuilder ) Build() *TransferTaskReq {
 type TransferTaskReq struct {
 	UserIdType  *string `query:"user_id_type"`
 	TaskTransfer *TaskTransfer `body:""`
+
 }
 
 
@@ -3281,217 +4003,166 @@ type InstanceTripGroupUpdateEvent struct {
 /* 生成请求的builder构造器*/
 /*1.1 生成body的builder结构体*/
 /**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
    type ListExternalTaskIterator struct{
-	 pageToken string
+	 nextPageToken *string
 	 items	 []*ExternalTaskList
 	 index	 int
-	 total	 int
+	 limit	 int
 	 ctx	   context.Context
 	 req	   *ListExternalTaskReq
 	 listFunc  func (ctx context.Context, req *ListExternalTaskReq, options ...core.RequestOptionFunc) (*ListExternalTaskResp, error)
 	 options   []core.RequestOptionFunc
+   	 curlNum	   int
    }
 
-   func (iterator *ListExternalTaskIterator) HasNext() bool {
-		index := iterator.index
-		if index < iterator.total && index != 0 {
-			return true
-		}
-		if index > iterator.total {
-			return false
+   func (iterator *ListExternalTaskIterator) Next() (bool, *ExternalTaskList, error) {
+		// 达到最大量，则返回
+		if iterator.curlNum > iterator.limit {
+			return false, nil, nil
 		}
 
-		//相等时，迭代拉取
-		if index != 0 && iterator.pageToken == "" {
-			return false
+		// 为0则拉取数据
+		if iterator.index == 0 || iterator.index >= len(iterator.items) {
+			if iterator.index != 0 && iterator.nextPageToken == nil {
+				return false, nil, nil
+			}
+			if iterator.nextPageToken != nil {
+				iterator.req.PageToken = iterator.nextPageToken
+			}
+			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+			if err != nil {
+				return false, nil, err
+			}
+
+			if resp.Code != 0 {
+				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+			}
+
+			if len(resp.Data.Data) == 0 {
+				return false, nil, nil
+			}
+
+			iterator.nextPageToken = resp.Data.PageToken
+			iterator.items = resp.Data.Data
+			iterator.index = 0
 		}
 
-		if index != 0 && iterator.pageToken != "" {
-			iterator.req.PageToken = &iterator.pageToken
-		}
-		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-		if err != nil {
-			return false
-		}
-
-		if resp.Code != 0 {
-			return false
-		}
-
-		if nil != resp.Data.PageToken {
-			iterator.pageToken = *resp.Data.PageToken
-		}
-		iterator.items = resp.Data.Data
-		iterator.index = 0
-		iterator.total = len(iterator.items)
-		return true
+		block := iterator.items[iterator.index]
+		iterator.index++
+		iterator.curlNum++
+		return true, block, nil
    }
 
-
-   func (iterator *ListExternalTaskIterator) Next() (*ExternalTaskList, error) {
-	  if iterator.index >= iterator.total {
-		 return nil, errors.New("no such element error")
-	  }
-
-	  index := iterator.index
-	  iterator.index = index + 1
-	  return iterator.items[index], nil
-
+   func (iterator *ListExternalTaskIterator) NextPageToken() *string {
+	  return iterator.nextPageToken
    }
-
-   func (iterator *ListExternalTaskIterator) NextPageToken() string {
-	  return iterator.pageToken
-   }
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
 /**如果是分页查询，则添加迭代器定义**/
    type ListInstanceIterator struct{
-	 pageToken string
+	 nextPageToken *string
 	 items	 []string
 	 index	 int
-	 total	 int
+	 limit	 int
 	 ctx	   context.Context
 	 req	   *ListInstanceReq
 	 listFunc  func (ctx context.Context, req *ListInstanceReq, options ...core.RequestOptionFunc) (*ListInstanceResp, error)
 	 options   []core.RequestOptionFunc
+   	 curlNum	   int
    }
 
-   func (iterator *ListInstanceIterator) HasNext() bool {
-		index := iterator.index
-		if index < iterator.total && index != 0 {
-			return true
-		}
-		if index > iterator.total {
-			return false
+   func (iterator *ListInstanceIterator) Next() (bool, string, error) {
+		// 达到最大量，则返回
+		if iterator.curlNum > iterator.limit {
+			return false, "", nil
 		}
 
-		//相等时，迭代拉取
-		if index != 0 && iterator.pageToken == "" {
-			return false
+		// 为0则拉取数据
+		if iterator.index == 0 || iterator.index >= len(iterator.items) {
+			if iterator.index != 0 && iterator.nextPageToken == nil {
+				return false, "", nil
+			}
+			if iterator.nextPageToken != nil {
+				iterator.req.PageToken = iterator.nextPageToken
+			}
+			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+			if err != nil {
+				return false, "", err
+			}
+
+			if resp.Code != 0 {
+				return false, "", errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+			}
+
+			if len(resp.Data.InstanceCodeList) == 0 {
+				return false, "", nil
+			}
+
+			iterator.nextPageToken = resp.Data.PageToken
+			iterator.items = resp.Data.InstanceCodeList
+			iterator.index = 0
 		}
 
-		if index != 0 && iterator.pageToken != "" {
-			iterator.req.PageToken = &iterator.pageToken
-		}
-		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-		if err != nil {
-			return false
-		}
-
-		if resp.Code != 0 {
-			return false
-		}
-
-		if nil != resp.Data.PageToken {
-			iterator.pageToken = *resp.Data.PageToken
-		}
-		iterator.items = resp.Data.InstanceCodeList
-		iterator.index = 0
-		iterator.total = len(iterator.items)
-		return true
+		block := iterator.items[iterator.index]
+		iterator.index++
+		iterator.curlNum++
+		return true, block, nil
    }
 
-
-   func (iterator *ListInstanceIterator) Next() (string, error) {
-	  if iterator.index >= iterator.total {
-		 return "", errors.New("no such element error")
-	  }
-
-	  index := iterator.index
-	  iterator.index = index + 1
-	  return iterator.items[index], nil
-
+   func (iterator *ListInstanceIterator) NextPageToken() *string {
+	  return iterator.nextPageToken
    }
-
-   func (iterator *ListInstanceIterator) NextPageToken() string {
-	  return iterator.pageToken
-   }
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
 /**如果是分页查询，则添加迭代器定义**/
    type QueryTaskIterator struct{
-	 pageToken string
+	 nextPageToken *string
 	 items	 []*Task
 	 index	 int
-	 total	 int
+	 limit	 int
 	 ctx	   context.Context
 	 req	   *QueryTaskReq
 	 listFunc  func (ctx context.Context, req *QueryTaskReq, options ...core.RequestOptionFunc) (*QueryTaskResp, error)
 	 options   []core.RequestOptionFunc
+   	 curlNum	   int
    }
 
-   func (iterator *QueryTaskIterator) HasNext() bool {
-		index := iterator.index
-		if index < iterator.total && index != 0 {
-			return true
-		}
-		if index > iterator.total {
-			return false
+   func (iterator *QueryTaskIterator) Next() (bool, *Task, error) {
+		// 达到最大量，则返回
+		if iterator.curlNum > iterator.limit {
+			return false, nil, nil
 		}
 
-		//相等时，迭代拉取
-		if index != 0 && iterator.pageToken == "" {
-			return false
+		// 为0则拉取数据
+		if iterator.index == 0 || iterator.index >= len(iterator.items) {
+			if iterator.index != 0 && iterator.nextPageToken == nil {
+				return false, nil, nil
+			}
+			if iterator.nextPageToken != nil {
+				iterator.req.PageToken = iterator.nextPageToken
+			}
+			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+			if err != nil {
+				return false, nil, err
+			}
+
+			if resp.Code != 0 {
+				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+			}
+
+			if len(resp.Data.Tasks) == 0 {
+				return false, nil, nil
+			}
+
+			iterator.nextPageToken = resp.Data.PageToken
+			iterator.items = resp.Data.Tasks
+			iterator.index = 0
 		}
 
-		if index != 0 && iterator.pageToken != "" {
-			iterator.req.PageToken = &iterator.pageToken
-		}
-		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-		if err != nil {
-			return false
-		}
-
-		if resp.Code != 0 {
-			return false
-		}
-
-		if nil != resp.Data.PageToken {
-			iterator.pageToken = *resp.Data.PageToken
-		}
-		iterator.items = resp.Data.Tasks
-		iterator.index = 0
-		iterator.total = len(iterator.items)
-		return true
+		block := iterator.items[iterator.index]
+		iterator.index++
+		iterator.curlNum++
+		return true, block, nil
    }
 
-
-   func (iterator *QueryTaskIterator) Next() (*Task, error) {
-	  if iterator.index >= iterator.total {
-		 return nil, errors.New("no such element error")
-	  }
-
-	  index := iterator.index
-	  iterator.index = index + 1
-	  return iterator.items[index], nil
-
+   func (iterator *QueryTaskIterator) NextPageToken() *string {
+	  return iterator.nextPageToken
    }
 
-   func (iterator *QueryTaskIterator) NextPageToken() string {
-	  return iterator.pageToken
-   }
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
 

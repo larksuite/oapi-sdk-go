@@ -6,28 +6,31 @@ import (
 	"fmt"
 	"net/http"
 	"time"
-
-	"github.com/feishu/oapi-sdk-go/core"
-	"github.com/feishu/oapi-sdk-go/httpclient"
-	"github.com/feishu/oapi-sdk-go/service/approval/v4"
-	"github.com/feishu/oapi-sdk-go/service/bitable/v1"
-	"github.com/feishu/oapi-sdk-go/service/calendar/v4"
-	"github.com/feishu/oapi-sdk-go/service/contact/v3"
-	"github.com/feishu/oapi-sdk-go/service/docx/v1"
-	"github.com/feishu/oapi-sdk-go/service/drive_explorer/v2"
-	"github.com/feishu/oapi-sdk-go/service/im/v1"
-	"github.com/feishu/oapi-sdk-go/service/sheets/v3"
-)
+	
+	 "github.com/feishu/oapi-sdk-go/service/calendar/v4"
+	 "github.com/feishu/oapi-sdk-go/service/approval/v4"
+	 "github.com/feishu/oapi-sdk-go/service/contact/v3"
+	 "github.com/feishu/oapi-sdk-go/service/im/v1"
+	 "github.com/feishu/oapi-sdk-go/service/docx/v1"
+	 "github.com/feishu/oapi-sdk-go/service/drive/v1"
+	 "github.com/feishu/oapi-sdk-go/service/bitable/v1"
+	 "github.com/feishu/oapi-sdk-go/service/drive_explorer/v2"
+	 "github.com/feishu/oapi-sdk-go/service/sheets/v3"
+	 "github.com/feishu/oapi-sdk-go/core"
+	 "github.com/feishu/oapi-sdk-go/httpclient"
+	)
 
 type Client struct {
-	Calendar      *calendar.CalendarService
-	Approval      *approval.ApprovalService
-	Contact       *contact.ContactService
-	Im            *im.ImService
-	Docx          *docx.DocxService
-	Bitable       *bitable.BitableService
-	DriveExplorer *drive_explorer.DriveExplorerService
-	Sheets        *sheets.SheetsService
+	 Calendar *calendar.CalendarService
+	 Approval *approval.ApprovalService
+	 Contact *contact.ContactService
+	 Im *im.ImService
+	 Docx *docx.DocxService
+	 Drive *drive.DriveService
+	 Bitable *bitable.BitableService
+	 DriveExplorer *drive_explorer.DriveExplorerService
+	 Sheets *sheets.SheetsService
+	 
 }
 
 type ClientOptionFunc func(config *core.Config)
@@ -68,6 +71,7 @@ func WithTokenCache(cache core.Cache) ClientOptionFunc {
 	}
 }
 
+
 func WithHelpdeskCredential(helpdeskID, helpdeskToken string) ClientOptionFunc {
 	return func(config *core.Config) {
 		config.HelpDeskId = helpdeskID
@@ -87,41 +91,44 @@ func WithReqTimeout(reqTimeout time.Duration) ClientOptionFunc {
 func NewClient(appId, appSecret string, options ...ClientOptionFunc) *Client {
 	// 构建配置
 	config := &core.Config{
-		Domain:           FeishuDomain,
-		AppId:            appId,
-		AppSecret:        appSecret,
+		Domain: FeishuDomain,
+		AppId:	 appId,
+		AppSecret: appSecret,
 		EnableTokenCache: true,
-		AppType:          core.AppTypeCustom,
+		AppType: core.AppTypeCustom,
 	}
 	for _, option := range options {
 		option(config)
 	}
 
-	// 构建日志器
-	core.NewLogger(config)
+ 	// 构建日志器
+ 	core.NewLogger(config)
 
-	// 构建缓存
-	core.NewCache(config)
+ 	// 构建缓存
+ 	core.NewCache(config)
 
-	// 创建httpclient
-	httpClient := httpclient.NewHttpClient(config)
+ 	// 创建httpclient
+ 	httpClient := httpclient.NewHttpClient(config)
+
 
 	// 创建sdk-client，并初始化服务
 	client := &Client{}
-	initService(client, httpClient, config)
+	initService(client,httpClient, config)
 	return client
 }
 
 func initService(client *Client, httpClient *http.Client, config *core.Config) {
-	client.Calendar = calendar.NewService(httpClient, config)
-	client.Approval = approval.NewService(httpClient, config)
-	client.Contact = contact.NewService(httpClient, config)
-	client.Im = im.NewService(httpClient, config)
-	client.Docx = docx.NewService(httpClient, config)
-	client.Bitable = bitable.NewService(httpClient, config)
-	client.DriveExplorer = drive_explorer.NewService(httpClient, config)
-	client.Sheets = sheets.NewService(httpClient, config)
-
+	 client.Calendar =  calendar.NewService(httpClient, config)
+	 client.Approval =  approval.NewService(httpClient, config)
+	 client.Contact =  contact.NewService(httpClient, config)
+	 client.Im =  im.NewService(httpClient, config)
+	 client.Docx =  docx.NewService(httpClient, config)
+	 client.Drive =  drive.NewService(httpClient, config)
+	 client.Bitable =  bitable.NewService(httpClient, config)
+	 client.DriveExplorer =  drive_explorer.NewService(httpClient, config)
+	 client.Sheets =  sheets.NewService(httpClient, config)
+	 
 }
+
 
 var FeishuDomain = "https://open.feishu.cn"

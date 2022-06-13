@@ -154,7 +154,8 @@ func (b *blocks) ListDocumentBlock(ctx context.Context, req *ListDocumentBlockRe
 	  ctx:	  ctx,
 	  req:	  req,
 	  listFunc: b.List,
-	  options:  options}, nil
+	  options:  options,
+	  limit: req.Limit}, nil
 }
 func (b *blocks) Patch(ctx context.Context, req *PatchDocumentBlockReq, options ...core.RequestOptionFunc) (*PatchDocumentBlockResp, error) {
 
@@ -230,5 +231,6 @@ func (d *documentBlockChildren) GetDocumentBlockChildren(ctx context.Context, re
 	  ctx:	  ctx,
 	  req:	  req,
 	  listFunc: d.Get,
-	  options:  options}, nil
+	  options:  options,
+	  limit: req.Limit}, nil
 }

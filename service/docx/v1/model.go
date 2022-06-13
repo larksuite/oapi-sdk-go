@@ -4,6 +4,7 @@ package docx
 import (
 	"context"
 	"errors"
+	"fmt"
 	
 	"github.com/feishu/oapi-sdk-go/core"
 
@@ -385,10 +386,53 @@ func (builder * CreateDocumentReqBodyBuilder ) Build() *CreateDocumentReqBody {
    return req
 }
 
+/**上传文件path开始**/
+type CreateDocumentPathReqBodyBuilder struct {
+	folderToken  string
+	folderTokenFlag  bool
+	title  string
+	titleFlag  bool
+}
+
+// 生成body的New构造器
+func NewCreateDocumentPathReqBodyBuilder() * CreateDocumentPathReqBodyBuilder{
+  builder := &CreateDocumentPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * CreateDocumentPathReqBodyBuilder ) FolderToken(folderToken string) *CreateDocumentPathReqBodyBuilder {
+  builder.folderToken = folderToken
+  builder.folderTokenFlag = true
+  return builder
+}
+func (builder * CreateDocumentPathReqBodyBuilder ) Title(title string) *CreateDocumentPathReqBodyBuilder {
+  builder.title = title
+  builder.titleFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * CreateDocumentPathReqBodyBuilder ) Build() (*CreateDocumentReqBody, error) {
+   req := &CreateDocumentReqBody{}
+   if builder.folderTokenFlag {
+	  req.FolderToken = &builder.folderToken
+	  
+   }
+   if builder.titleFlag {
+	  req.Title = &builder.title
+	  
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type CreateDocumentReqBuilder struct {
 	body *CreateDocumentReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -421,6 +465,7 @@ type CreateDocumentReqBody struct {
 
 type CreateDocumentReq struct {
 	Body *CreateDocumentReqBody `body:""`
+
 }
 
 type CreateDocumentRespData struct {
@@ -438,6 +483,7 @@ type CreateDocumentResp struct {
 type GetDocumentReqBuilder struct {
 	documentId  string
 	documentIdFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -465,6 +511,7 @@ func (builder * GetDocumentReqBuilder ) Build() *GetDocumentReq {
 
 type GetDocumentReq struct {
 	DocumentId  string `path:"document_id"`
+
 }
 
 type GetDocumentRespData struct {
@@ -484,6 +531,7 @@ type RawContentDocumentReqBuilder struct {
 	documentIdFlag  bool
 	lang  int
 	langFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -520,6 +568,7 @@ func (builder * RawContentDocumentReqBuilder ) Build() *RawContentDocumentReq {
 type RawContentDocumentReq struct {
 	DocumentId  string `path:"document_id"`
 	Lang  *int `query:"lang"`
+
 }
 
 type RawContentDocumentRespData struct {
@@ -561,6 +610,36 @@ func (builder * BatchUpdateDocumentBlockReqBodyBuilder ) Build() *BatchUpdateDoc
    return req
 }
 
+/**上传文件path开始**/
+type BatchUpdateDocumentBlockPathReqBodyBuilder struct {
+	requests  []*UpdateBlockRequest
+	requestsFlag  bool
+}
+
+// 生成body的New构造器
+func NewBatchUpdateDocumentBlockPathReqBodyBuilder() * BatchUpdateDocumentBlockPathReqBodyBuilder{
+  builder := &BatchUpdateDocumentBlockPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * BatchUpdateDocumentBlockPathReqBodyBuilder ) Requests(requests []*UpdateBlockRequest) *BatchUpdateDocumentBlockPathReqBodyBuilder {
+  builder.requests = requests
+  builder.requestsFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * BatchUpdateDocumentBlockPathReqBodyBuilder ) Build() (*BatchUpdateDocumentBlockReqBody, error) {
+   req := &BatchUpdateDocumentBlockReqBody{}
+   if builder.requestsFlag {
+	   req.Requests = builder.requests
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type BatchUpdateDocumentBlockReqBuilder struct {
 	documentId  string
@@ -573,6 +652,7 @@ type BatchUpdateDocumentBlockReqBuilder struct {
 	userIdTypeFlag  bool
 	body *BatchUpdateDocumentBlockReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -640,6 +720,7 @@ type BatchUpdateDocumentBlockReq struct {
 	ClientToken  *string `query:"client_token"`
 	UserIdType  *string `query:"user_id_type"`
 	Body *BatchUpdateDocumentBlockReqBody `body:""`
+
 }
 
 type BatchUpdateDocumentBlockRespData struct {
@@ -665,6 +746,7 @@ type GetDocumentBlockReqBuilder struct {
 	documentRevisionIdFlag  bool
 	userIdType  string
 	userIdTypeFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -719,6 +801,7 @@ type GetDocumentBlockReq struct {
 	BlockId  string `path:"block_id"`
 	DocumentRevisionId  *int `query:"document_revision_id"`
 	UserIdType  *string `query:"user_id_type"`
+
 }
 
 type GetDocumentBlockRespData struct {
@@ -744,6 +827,8 @@ type ListDocumentBlockReqBuilder struct {
 	documentRevisionIdFlag  bool
 	userIdType  string
 	userIdTypeFlag  bool
+	limit int
+
 }
 
 // 生成请求的New构造器
@@ -753,6 +838,10 @@ func NewListDocumentBlockReqBuilder() * ListDocumentBlockReqBuilder{
 }
 
 /*1.5 生成请求的builder属性方法*/
+func (builder * ListDocumentBlockReqBuilder) Limit(limit int ) *ListDocumentBlockReqBuilder  {
+  builder.limit = limit
+  return builder
+}
 func (builder * ListDocumentBlockReqBuilder) DocumentId(documentId string) *ListDocumentBlockReqBuilder  {
   builder.documentId = documentId
   builder.documentIdFlag = true
@@ -782,6 +871,7 @@ func (builder * ListDocumentBlockReqBuilder) UserIdType(userIdType string) *List
 /*1.5 生成请求的builder的build方法*/
 func (builder * ListDocumentBlockReqBuilder ) Build() *ListDocumentBlockReq {
    req := &ListDocumentBlockReq{}
+   req.Limit = builder.limit
    if builder.documentIdFlag {
 	  req.DocumentId = builder.documentId
    }
@@ -807,6 +897,8 @@ type ListDocumentBlockReq struct {
 	PageToken  *string `query:"page_token"`
 	DocumentRevisionId  *int `query:"document_revision_id"`
 	UserIdType  *string `query:"user_id_type"`
+	Limit int
+
 }
 
 type ListDocumentBlockRespData struct {
@@ -836,6 +928,7 @@ type PatchDocumentBlockReqBuilder struct {
 	userIdTypeFlag  bool
 	updateBlockRequest *UpdateBlockRequest
 	updateBlockRequestFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -905,6 +998,7 @@ type PatchDocumentBlockReq struct {
 	ClientToken  *string `query:"client_token"`
 	UserIdType  *string `query:"user_id_type"`
 	UpdateBlockRequest *UpdateBlockRequest `body:""`
+
 }
 
 type PatchDocumentBlockRespData struct {
@@ -961,6 +1055,48 @@ func (builder * BatchDeleteDocumentBlockChildrenReqBodyBuilder ) Build() *BatchD
    return req
 }
 
+/**上传文件path开始**/
+type BatchDeleteDocumentBlockChildrenPathReqBodyBuilder struct {
+	startIndex  int
+	startIndexFlag  bool
+	endIndex  int
+	endIndexFlag  bool
+}
+
+// 生成body的New构造器
+func NewBatchDeleteDocumentBlockChildrenPathReqBodyBuilder() * BatchDeleteDocumentBlockChildrenPathReqBodyBuilder{
+  builder := &BatchDeleteDocumentBlockChildrenPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * BatchDeleteDocumentBlockChildrenPathReqBodyBuilder ) StartIndex(startIndex int) *BatchDeleteDocumentBlockChildrenPathReqBodyBuilder {
+  builder.startIndex = startIndex
+  builder.startIndexFlag = true
+  return builder
+}
+func (builder * BatchDeleteDocumentBlockChildrenPathReqBodyBuilder ) EndIndex(endIndex int) *BatchDeleteDocumentBlockChildrenPathReqBodyBuilder {
+  builder.endIndex = endIndex
+  builder.endIndexFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * BatchDeleteDocumentBlockChildrenPathReqBodyBuilder ) Build() (*BatchDeleteDocumentBlockChildrenReqBody, error) {
+   req := &BatchDeleteDocumentBlockChildrenReqBody{}
+   if builder.startIndexFlag {
+	  req.StartIndex = &builder.startIndex
+	  
+   }
+   if builder.endIndexFlag {
+	  req.EndIndex = &builder.endIndex
+	  
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type BatchDeleteDocumentBlockChildrenReqBuilder struct {
 	documentId  string
@@ -973,6 +1109,7 @@ type BatchDeleteDocumentBlockChildrenReqBuilder struct {
 	clientTokenFlag  bool
 	body *BatchDeleteDocumentBlockChildrenReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -1041,6 +1178,7 @@ type BatchDeleteDocumentBlockChildrenReq struct {
 	DocumentRevisionId  *int `query:"document_revision_id"`
 	ClientToken  *string `query:"client_token"`
 	Body *BatchDeleteDocumentBlockChildrenReqBody `body:""`
+
 }
 
 type BatchDeleteDocumentBlockChildrenRespData struct {
@@ -1095,6 +1233,47 @@ func (builder * CreateDocumentBlockChildrenReqBodyBuilder ) Build() *CreateDocum
    return req
 }
 
+/**上传文件path开始**/
+type CreateDocumentBlockChildrenPathReqBodyBuilder struct {
+	children  []*Block
+	childrenFlag  bool
+	index  int
+	indexFlag  bool
+}
+
+// 生成body的New构造器
+func NewCreateDocumentBlockChildrenPathReqBodyBuilder() * CreateDocumentBlockChildrenPathReqBodyBuilder{
+  builder := &CreateDocumentBlockChildrenPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * CreateDocumentBlockChildrenPathReqBodyBuilder ) Children(children []*Block) *CreateDocumentBlockChildrenPathReqBodyBuilder {
+  builder.children = children
+  builder.childrenFlag = true
+  return builder
+}
+func (builder * CreateDocumentBlockChildrenPathReqBodyBuilder ) Index(index int) *CreateDocumentBlockChildrenPathReqBodyBuilder {
+  builder.index = index
+  builder.indexFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * CreateDocumentBlockChildrenPathReqBodyBuilder ) Build() (*CreateDocumentBlockChildrenReqBody, error) {
+   req := &CreateDocumentBlockChildrenReqBody{}
+   if builder.childrenFlag {
+	   req.Children = builder.children
+   }
+   if builder.indexFlag {
+	  req.Index = &builder.index
+	  
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type CreateDocumentBlockChildrenReqBuilder struct {
 	documentId  string
@@ -1109,6 +1288,7 @@ type CreateDocumentBlockChildrenReqBuilder struct {
 	userIdTypeFlag  bool
 	body *CreateDocumentBlockChildrenReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -1186,6 +1366,7 @@ type CreateDocumentBlockChildrenReq struct {
 	ClientToken  *string `query:"client_token"`
 	UserIdType  *string `query:"user_id_type"`
 	Body *CreateDocumentBlockChildrenReqBody `body:""`
+
 }
 
 type CreateDocumentBlockChildrenRespData struct {
@@ -1215,6 +1396,8 @@ type GetDocumentBlockChildrenReqBuilder struct {
 	pageSizeFlag  bool
 	userIdType  string
 	userIdTypeFlag  bool
+	limit int
+
 }
 
 // 生成请求的New构造器
@@ -1224,6 +1407,10 @@ func NewGetDocumentBlockChildrenReqBuilder() * GetDocumentBlockChildrenReqBuilde
 }
 
 /*1.5 生成请求的builder属性方法*/
+func (builder * GetDocumentBlockChildrenReqBuilder) Limit(limit int ) *GetDocumentBlockChildrenReqBuilder  {
+  builder.limit = limit
+  return builder
+}
 func (builder * GetDocumentBlockChildrenReqBuilder) DocumentId(documentId string) *GetDocumentBlockChildrenReqBuilder  {
   builder.documentId = documentId
   builder.documentIdFlag = true
@@ -1258,6 +1445,7 @@ func (builder * GetDocumentBlockChildrenReqBuilder) UserIdType(userIdType string
 /*1.5 生成请求的builder的build方法*/
 func (builder * GetDocumentBlockChildrenReqBuilder ) Build() *GetDocumentBlockChildrenReq {
    req := &GetDocumentBlockChildrenReq{}
+   req.Limit = builder.limit
    if builder.documentIdFlag {
 	  req.DocumentId = builder.documentId
    }
@@ -1287,6 +1475,8 @@ type GetDocumentBlockChildrenReq struct {
 	PageToken  *string `query:"page_token"`
 	PageSize  *int `query:"page_size"`
 	UserIdType  *string `query:"user_id_type"`
+	Limit int
+
 }
 
 type GetDocumentBlockChildrenRespData struct {
@@ -1307,135 +1497,112 @@ type GetDocumentBlockChildrenResp struct {
 /* 生成请求的builder构造器*/
 /*1.1 生成body的builder结构体*/
 /**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
    type ListDocumentBlockIterator struct{
-	 pageToken string
+	 nextPageToken *string
 	 items	 []*Block
 	 index	 int
-	 total	 int
+	 limit	 int
 	 ctx	   context.Context
 	 req	   *ListDocumentBlockReq
 	 listFunc  func (ctx context.Context, req *ListDocumentBlockReq, options ...core.RequestOptionFunc) (*ListDocumentBlockResp, error)
 	 options   []core.RequestOptionFunc
+   	 curlNum	   int
    }
 
-   func (iterator *ListDocumentBlockIterator) HasNext() bool {
-		index := iterator.index
-		if index < iterator.total && index != 0 {
-			return true
-		}
-		if index > iterator.total {
-			return false
+   func (iterator *ListDocumentBlockIterator) Next() (bool, *Block, error) {
+		// 达到最大量，则返回
+		if iterator.curlNum > iterator.limit {
+			return false, nil, nil
 		}
 
-		//相等时，迭代拉取
-		if index != 0 && iterator.pageToken == "" {
-			return false
+		// 为0则拉取数据
+		if iterator.index == 0 || iterator.index >= len(iterator.items) {
+			if iterator.index != 0 && iterator.nextPageToken == nil {
+				return false, nil, nil
+			}
+			if iterator.nextPageToken != nil {
+				iterator.req.PageToken = iterator.nextPageToken
+			}
+			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+			if err != nil {
+				return false, nil, err
+			}
+
+			if resp.Code != 0 {
+				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+			}
+
+			if len(resp.Data.Items) == 0 {
+				return false, nil, nil
+			}
+
+			iterator.nextPageToken = resp.Data.PageToken
+			iterator.items = resp.Data.Items
+			iterator.index = 0
 		}
 
-		if index != 0 && iterator.pageToken != "" {
-			iterator.req.PageToken = &iterator.pageToken
-		}
-		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-		if err != nil {
-			return false
-		}
-
-		if resp.Code != 0 {
-			return false
-		}
-
-		if nil != resp.Data.PageToken {
-			iterator.pageToken = *resp.Data.PageToken
-		}
-		iterator.items = resp.Data.Items
-		iterator.index = 0
-		iterator.total = len(iterator.items)
-		return true
+		block := iterator.items[iterator.index]
+		iterator.index++
+		iterator.curlNum++
+		return true, block, nil
    }
 
-
-   func (iterator *ListDocumentBlockIterator) Next() (*Block, error) {
-	  if iterator.index >= iterator.total {
-		 return nil, errors.New("no such element error")
-	  }
-
-	  index := iterator.index
-	  iterator.index = index + 1
-	  return iterator.items[index], nil
-
+   func (iterator *ListDocumentBlockIterator) NextPageToken() *string {
+	  return iterator.nextPageToken
    }
-
-   func (iterator *ListDocumentBlockIterator) NextPageToken() string {
-	  return iterator.pageToken
-   }
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
 /**如果是分页查询，则添加迭代器定义**/
    type GetDocumentBlockChildrenIterator struct{
-	 pageToken string
+	 nextPageToken *string
 	 items	 []*Block
 	 index	 int
-	 total	 int
+	 limit	 int
 	 ctx	   context.Context
 	 req	   *GetDocumentBlockChildrenReq
 	 listFunc  func (ctx context.Context, req *GetDocumentBlockChildrenReq, options ...core.RequestOptionFunc) (*GetDocumentBlockChildrenResp, error)
 	 options   []core.RequestOptionFunc
+   	 curlNum	   int
    }
 
-   func (iterator *GetDocumentBlockChildrenIterator) HasNext() bool {
-		index := iterator.index
-		if index < iterator.total && index != 0 {
-			return true
-		}
-		if index > iterator.total {
-			return false
+   func (iterator *GetDocumentBlockChildrenIterator) Next() (bool, *Block, error) {
+		// 达到最大量，则返回
+		if iterator.curlNum > iterator.limit {
+			return false, nil, nil
 		}
 
-		//相等时，迭代拉取
-		if index != 0 && iterator.pageToken == "" {
-			return false
+		// 为0则拉取数据
+		if iterator.index == 0 || iterator.index >= len(iterator.items) {
+			if iterator.index != 0 && iterator.nextPageToken == nil {
+				return false, nil, nil
+			}
+			if iterator.nextPageToken != nil {
+				iterator.req.PageToken = iterator.nextPageToken
+			}
+			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+			if err != nil {
+				return false, nil, err
+			}
+
+			if resp.Code != 0 {
+				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+			}
+
+			if len(resp.Data.Items) == 0 {
+				return false, nil, nil
+			}
+
+			iterator.nextPageToken = resp.Data.PageToken
+			iterator.items = resp.Data.Items
+			iterator.index = 0
 		}
 
-		if index != 0 && iterator.pageToken != "" {
-			iterator.req.PageToken = &iterator.pageToken
-		}
-		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-		if err != nil {
-			return false
-		}
-
-		if resp.Code != 0 {
-			return false
-		}
-
-		if nil != resp.Data.PageToken {
-			iterator.pageToken = *resp.Data.PageToken
-		}
-		iterator.items = resp.Data.Items
-		iterator.index = 0
-		iterator.total = len(iterator.items)
-		return true
+		block := iterator.items[iterator.index]
+		iterator.index++
+		iterator.curlNum++
+		return true, block, nil
    }
 
-
-   func (iterator *GetDocumentBlockChildrenIterator) Next() (*Block, error) {
-	  if iterator.index >= iterator.total {
-		 return nil, errors.New("no such element error")
-	  }
-
-	  index := iterator.index
-	  iterator.index = index + 1
-	  return iterator.items[index], nil
-
+   func (iterator *GetDocumentBlockChildrenIterator) NextPageToken() *string {
+	  return iterator.nextPageToken
    }
 
-   func (iterator *GetDocumentBlockChildrenIterator) NextPageToken() string {
-	  return iterator.pageToken
-   }
 

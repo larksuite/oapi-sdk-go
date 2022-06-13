@@ -4,6 +4,7 @@ package contact
 import (
 	"context"
 	"errors"
+	"fmt"
 	
 	"github.com/feishu/oapi-sdk-go/event"
 	
@@ -380,6 +381,8 @@ type ListCustomAttrReqBuilder struct {
 	pageSizeFlag  bool
 	pageToken  string
 	pageTokenFlag  bool
+	limit int
+
 }
 
 // 生成请求的New构造器
@@ -389,6 +392,10 @@ func NewListCustomAttrReqBuilder() * ListCustomAttrReqBuilder{
 }
 
 /*1.5 生成请求的builder属性方法*/
+func (builder * ListCustomAttrReqBuilder) Limit(limit int ) *ListCustomAttrReqBuilder  {
+  builder.limit = limit
+  return builder
+}
 func (builder * ListCustomAttrReqBuilder) PageSize(pageSize int) *ListCustomAttrReqBuilder  {
   builder.pageSize = pageSize
   builder.pageSizeFlag = true
@@ -403,6 +410,7 @@ func (builder * ListCustomAttrReqBuilder) PageToken(pageToken string) *ListCusto
 /*1.5 生成请求的builder的build方法*/
 func (builder * ListCustomAttrReqBuilder ) Build() *ListCustomAttrReq {
    req := &ListCustomAttrReq{}
+   req.Limit = builder.limit
    if builder.pageSizeFlag {
 	  req.PageSize = &builder.pageSize
    }
@@ -416,6 +424,8 @@ func (builder * ListCustomAttrReqBuilder ) Build() *ListCustomAttrReq {
 type ListCustomAttrReq struct {
 	PageSize  *int `query:"page_size"`
 	PageToken  *string `query:"page_token"`
+	Limit int
+
 }
 
 type ListCustomAttrRespData struct {
@@ -459,6 +469,36 @@ func (builder * BatchGetDepartmentReqBodyBuilder ) Build() *BatchGetDepartmentRe
    return req
 }
 
+/**上传文件path开始**/
+type BatchGetDepartmentPathReqBodyBuilder struct {
+	departmentIdList  []string
+	departmentIdListFlag  bool
+}
+
+// 生成body的New构造器
+func NewBatchGetDepartmentPathReqBodyBuilder() * BatchGetDepartmentPathReqBodyBuilder{
+  builder := &BatchGetDepartmentPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * BatchGetDepartmentPathReqBodyBuilder ) DepartmentIdList(departmentIdList []string) *BatchGetDepartmentPathReqBodyBuilder {
+  builder.departmentIdList = departmentIdList
+  builder.departmentIdListFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * BatchGetDepartmentPathReqBodyBuilder ) Build() (*BatchGetDepartmentReqBody, error) {
+   req := &BatchGetDepartmentReqBody{}
+   if builder.departmentIdListFlag {
+	   req.DepartmentIdList = builder.departmentIdList
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type BatchGetDepartmentReqBuilder struct {
 	userIdType  string
@@ -471,6 +511,7 @@ type BatchGetDepartmentReqBuilder struct {
 	responseDepartmentIdTypeFlag  bool
 	body *BatchGetDepartmentReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -538,6 +579,7 @@ type BatchGetDepartmentReq struct {
 	ResponseUserIdType  *string `query:"response_user_id_type"`
 	ResponseDepartmentIdType  *string `query:"response_department_id_type"`
 	Body *BatchGetDepartmentReqBody `body:""`
+
 }
 
 type BatchGetDepartmentRespData struct {
@@ -592,10 +634,52 @@ func (builder * BatchParentDepartmentReqBodyBuilder ) Build() *BatchParentDepart
    return req
 }
 
+/**上传文件path开始**/
+type BatchParentDepartmentPathReqBodyBuilder struct {
+	deptIdList  []string
+	deptIdListFlag  bool
+	departmentIdType  string
+	departmentIdTypeFlag  bool
+}
+
+// 生成body的New构造器
+func NewBatchParentDepartmentPathReqBodyBuilder() * BatchParentDepartmentPathReqBodyBuilder{
+  builder := &BatchParentDepartmentPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * BatchParentDepartmentPathReqBodyBuilder ) DeptIdList(deptIdList []string) *BatchParentDepartmentPathReqBodyBuilder {
+  builder.deptIdList = deptIdList
+  builder.deptIdListFlag = true
+  return builder
+}
+func (builder * BatchParentDepartmentPathReqBodyBuilder ) DepartmentIdType(departmentIdType string) *BatchParentDepartmentPathReqBodyBuilder {
+  builder.departmentIdType = departmentIdType
+  builder.departmentIdTypeFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * BatchParentDepartmentPathReqBodyBuilder ) Build() (*BatchParentDepartmentReqBody, error) {
+   req := &BatchParentDepartmentReqBody{}
+   if builder.deptIdListFlag {
+	   req.DeptIdList = builder.deptIdList
+   }
+   if builder.departmentIdTypeFlag {
+	  req.DepartmentIdType = &builder.departmentIdType
+	  
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type BatchParentDepartmentReqBuilder struct {
 	body *BatchParentDepartmentReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -628,6 +712,7 @@ type BatchParentDepartmentReqBody struct {
 
 type BatchParentDepartmentReq struct {
 	Body *BatchParentDepartmentReqBody `body:""`
+
 }
 
 type BatchParentDepartmentRespData struct {
@@ -655,6 +740,8 @@ type ChildrenDepartmentReqBuilder struct {
 	pageSizeFlag  bool
 	pageToken  string
 	pageTokenFlag  bool
+	limit int
+
 }
 
 // 生成请求的New构造器
@@ -664,6 +751,10 @@ func NewChildrenDepartmentReqBuilder() * ChildrenDepartmentReqBuilder{
 }
 
 /*1.5 生成请求的builder属性方法*/
+func (builder * ChildrenDepartmentReqBuilder) Limit(limit int ) *ChildrenDepartmentReqBuilder  {
+  builder.limit = limit
+  return builder
+}
 func (builder * ChildrenDepartmentReqBuilder) DepartmentId(departmentId int64) *ChildrenDepartmentReqBuilder  {
   builder.departmentId = departmentId
   builder.departmentIdFlag = true
@@ -698,6 +789,7 @@ func (builder * ChildrenDepartmentReqBuilder) PageToken(pageToken string) *Child
 /*1.5 生成请求的builder的build方法*/
 func (builder * ChildrenDepartmentReqBuilder ) Build() *ChildrenDepartmentReq {
    req := &ChildrenDepartmentReq{}
+   req.Limit = builder.limit
    if builder.departmentIdFlag {
 	  req.DepartmentId = builder.departmentId
    }
@@ -727,6 +819,8 @@ type ChildrenDepartmentReq struct {
 	FetchChild  *bool `query:"fetch_child"`
 	PageSize  *int `query:"page_size"`
 	PageToken  *string `query:"page_token"`
+	Limit int
+
 }
 
 type ChildrenDepartmentRespData struct {
@@ -752,6 +846,7 @@ type CreateDepartmentReqBuilder struct {
 	clientTokenFlag  bool
 	department *Department
 	departmentFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -803,6 +898,7 @@ type CreateDepartmentReq struct {
 	DepartmentIdType  *string `query:"department_id_type"`
 	ClientToken  *string `query:"client_token"`
 	Department *Department `body:""`
+
 }
 
 type CreateDepartmentRespData struct {
@@ -822,6 +918,7 @@ type DeleteDepartmentReqBuilder struct {
 	departmentIdFlag  bool
 	departmentIdType  string
 	departmentIdTypeFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -858,6 +955,7 @@ func (builder * DeleteDepartmentReqBuilder ) Build() *DeleteDepartmentReq {
 type DeleteDepartmentReq struct {
 	DepartmentId  string `path:"department_id"`
 	DepartmentIdType  *string `query:"department_id_type"`
+
 }
 
 
@@ -875,6 +973,7 @@ type GetDepartmentReqBuilder struct {
 	userIdTypeFlag  bool
 	departmentIdType  string
 	departmentIdTypeFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -920,6 +1019,7 @@ type GetDepartmentReq struct {
 	DepartmentId  string `path:"department_id"`
 	UserIdType  *string `query:"user_id_type"`
 	DepartmentIdType  *string `query:"department_id_type"`
+
 }
 
 type GetDepartmentRespData struct {
@@ -947,6 +1047,8 @@ type ListDepartmentReqBuilder struct {
 	pageTokenFlag  bool
 	pageSize  int
 	pageSizeFlag  bool
+	limit int
+
 }
 
 // 生成请求的New构造器
@@ -956,6 +1058,10 @@ func NewListDepartmentReqBuilder() * ListDepartmentReqBuilder{
 }
 
 /*1.5 生成请求的builder属性方法*/
+func (builder * ListDepartmentReqBuilder) Limit(limit int ) *ListDepartmentReqBuilder  {
+  builder.limit = limit
+  return builder
+}
 func (builder * ListDepartmentReqBuilder) UserIdType(userIdType string) *ListDepartmentReqBuilder  {
   builder.userIdType = userIdType
   builder.userIdTypeFlag = true
@@ -990,6 +1096,7 @@ func (builder * ListDepartmentReqBuilder) PageSize(pageSize int) *ListDepartment
 /*1.5 生成请求的builder的build方法*/
 func (builder * ListDepartmentReqBuilder ) Build() *ListDepartmentReq {
    req := &ListDepartmentReq{}
+   req.Limit = builder.limit
    if builder.userIdTypeFlag {
 	  req.UserIdType = &builder.userIdType
    }
@@ -1019,6 +1126,8 @@ type ListDepartmentReq struct {
 	FetchChild  *bool `query:"fetch_child"`
 	PageToken  *string `query:"page_token"`
 	PageSize  *int `query:"page_size"`
+	Limit int
+
 }
 
 type ListDepartmentRespData struct {
@@ -1050,6 +1159,8 @@ type ListChildrenDepartmentReqBuilder struct {
 	pageTokenFlag  bool
 	pageSize  int
 	pageSizeFlag  bool
+	limit int
+
 }
 
 // 生成请求的New构造器
@@ -1059,6 +1170,10 @@ func NewListChildrenDepartmentReqBuilder() * ListChildrenDepartmentReqBuilder{
 }
 
 /*1.5 生成请求的builder属性方法*/
+func (builder * ListChildrenDepartmentReqBuilder) Limit(limit int ) *ListChildrenDepartmentReqBuilder  {
+  builder.limit = limit
+  return builder
+}
 func (builder * ListChildrenDepartmentReqBuilder) UserIdType(userIdType string) *ListChildrenDepartmentReqBuilder  {
   builder.userIdType = userIdType
   builder.userIdTypeFlag = true
@@ -1098,6 +1213,7 @@ func (builder * ListChildrenDepartmentReqBuilder) PageSize(pageSize int) *ListCh
 /*1.5 生成请求的builder的build方法*/
 func (builder * ListChildrenDepartmentReqBuilder ) Build() *ListChildrenDepartmentReq {
    req := &ListChildrenDepartmentReq{}
+   req.Limit = builder.limit
    if builder.userIdTypeFlag {
 	  req.UserIdType = &builder.userIdType
    }
@@ -1131,6 +1247,8 @@ type ListChildrenDepartmentReq struct {
 	FetchChild  *bool `query:"fetch_child"`
 	PageToken  *string `query:"page_token"`
 	PageSize  *int `query:"page_size"`
+	Limit int
+
 }
 
 type ListChildrenDepartmentRespData struct {
@@ -1158,6 +1276,8 @@ type ParentDepartmentReqBuilder struct {
 	pageTokenFlag  bool
 	pageSize  int
 	pageSizeFlag  bool
+	limit int
+
 }
 
 // 生成请求的New构造器
@@ -1167,6 +1287,10 @@ func NewParentDepartmentReqBuilder() * ParentDepartmentReqBuilder{
 }
 
 /*1.5 生成请求的builder属性方法*/
+func (builder * ParentDepartmentReqBuilder) Limit(limit int ) *ParentDepartmentReqBuilder  {
+  builder.limit = limit
+  return builder
+}
 func (builder * ParentDepartmentReqBuilder) UserIdType(userIdType string) *ParentDepartmentReqBuilder  {
   builder.userIdType = userIdType
   builder.userIdTypeFlag = true
@@ -1196,6 +1320,7 @@ func (builder * ParentDepartmentReqBuilder) PageSize(pageSize int) *ParentDepart
 /*1.5 生成请求的builder的build方法*/
 func (builder * ParentDepartmentReqBuilder ) Build() *ParentDepartmentReq {
    req := &ParentDepartmentReq{}
+   req.Limit = builder.limit
    if builder.userIdTypeFlag {
 	  req.UserIdType = &builder.userIdType
    }
@@ -1221,6 +1346,8 @@ type ParentDepartmentReq struct {
 	DepartmentId  *string `query:"department_id"`
 	PageToken  *string `query:"page_token"`
 	PageSize  *int `query:"page_size"`
+	Limit int
+
 }
 
 type ParentDepartmentRespData struct {
@@ -1246,6 +1373,7 @@ type PatchDepartmentReqBuilder struct {
 	departmentIdTypeFlag  bool
 	department *Department
 	departmentFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -1297,6 +1425,7 @@ type PatchDepartmentReq struct {
 	UserIdType  *string `query:"user_id_type"`
 	DepartmentIdType  *string `query:"department_id_type"`
 	Department *Department `body:""`
+
 }
 
 type PatchDepartmentRespData struct {
@@ -1339,6 +1468,37 @@ func (builder * SearchDepartmentReqBodyBuilder ) Build() *SearchDepartmentReqBod
    return req
 }
 
+/**上传文件path开始**/
+type SearchDepartmentPathReqBodyBuilder struct {
+	query  string
+	queryFlag  bool
+}
+
+// 生成body的New构造器
+func NewSearchDepartmentPathReqBodyBuilder() * SearchDepartmentPathReqBodyBuilder{
+  builder := &SearchDepartmentPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * SearchDepartmentPathReqBodyBuilder ) Query(query string) *SearchDepartmentPathReqBodyBuilder {
+  builder.query = query
+  builder.queryFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * SearchDepartmentPathReqBodyBuilder ) Build() (*SearchDepartmentReqBody, error) {
+   req := &SearchDepartmentReqBody{}
+   if builder.queryFlag {
+	  req.Query = &builder.query
+	  
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type SearchDepartmentReqBuilder struct {
 	userIdType  string
@@ -1351,6 +1511,8 @@ type SearchDepartmentReqBuilder struct {
 	pageSizeFlag  bool
 	body *SearchDepartmentReqBody
 	bodyFlag bool
+	limit int
+
 }
 
 // 生成请求的New构造器
@@ -1360,6 +1522,10 @@ func NewSearchDepartmentReqBuilder() * SearchDepartmentReqBuilder{
 }
 
 /*1.5 生成请求的builder属性方法*/
+func (builder * SearchDepartmentReqBuilder) Limit(limit int ) *SearchDepartmentReqBuilder  {
+  builder.limit = limit
+  return builder
+}
 func (builder * SearchDepartmentReqBuilder) UserIdType(userIdType string) *SearchDepartmentReqBuilder  {
   builder.userIdType = userIdType
   builder.userIdTypeFlag = true
@@ -1389,6 +1555,7 @@ func (builder * SearchDepartmentReqBuilder) Body(body *SearchDepartmentReqBody) 
 /*1.5 生成请求的builder的build方法*/
 func (builder * SearchDepartmentReqBuilder ) Build() *SearchDepartmentReq {
    req := &SearchDepartmentReq{}
+   req.Limit = builder.limit
    if builder.userIdTypeFlag {
 	  req.UserIdType = &builder.userIdType
    }
@@ -1418,6 +1585,8 @@ type SearchDepartmentReq struct {
 	PageToken  *string `query:"page_token"`
 	PageSize  *int `query:"page_size"`
 	Body *SearchDepartmentReqBody `body:""`
+	Limit int
+
 }
 
 type SearchDepartmentRespData struct {
@@ -1462,12 +1631,44 @@ func (builder * UnbindDepartmentChatDepartmentReqBodyBuilder ) Build() *UnbindDe
    return req
 }
 
+/**上传文件path开始**/
+type UnbindDepartmentChatDepartmentPathReqBodyBuilder struct {
+	departmentId  string
+	departmentIdFlag  bool
+}
+
+// 生成body的New构造器
+func NewUnbindDepartmentChatDepartmentPathReqBodyBuilder() * UnbindDepartmentChatDepartmentPathReqBodyBuilder{
+  builder := &UnbindDepartmentChatDepartmentPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * UnbindDepartmentChatDepartmentPathReqBodyBuilder ) DepartmentId(departmentId string) *UnbindDepartmentChatDepartmentPathReqBodyBuilder {
+  builder.departmentId = departmentId
+  builder.departmentIdFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * UnbindDepartmentChatDepartmentPathReqBodyBuilder ) Build() (*UnbindDepartmentChatDepartmentReqBody, error) {
+   req := &UnbindDepartmentChatDepartmentReqBody{}
+   if builder.departmentIdFlag {
+	  req.DepartmentId = &builder.departmentId
+	  
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type UnbindDepartmentChatDepartmentReqBuilder struct {
 	departmentIdType  string
 	departmentIdTypeFlag  bool
 	body *UnbindDepartmentChatDepartmentReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -1508,6 +1709,7 @@ type UnbindDepartmentChatDepartmentReqBody struct {
 type UnbindDepartmentChatDepartmentReq struct {
 	DepartmentIdType  *string `query:"department_id_type"`
 	Body *UnbindDepartmentChatDepartmentReqBody `body:""`
+
 }
 
 
@@ -1527,6 +1729,7 @@ type UpdateDepartmentReqBuilder struct {
 	departmentIdTypeFlag  bool
 	department *Department
 	departmentFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -1578,6 +1781,7 @@ type UpdateDepartmentReq struct {
 	UserIdType  *string `query:"user_id_type"`
 	DepartmentIdType  *string `query:"department_id_type"`
 	Department *Department `body:""`
+
 }
 
 type UpdateDepartmentRespData struct {
@@ -1620,6 +1824,37 @@ func (builder * UpdateDepartmentIdDepartmentReqBodyBuilder ) Build() *UpdateDepa
    return req
 }
 
+/**上传文件path开始**/
+type UpdateDepartmentIdDepartmentPathReqBodyBuilder struct {
+	newDepartmentId  string
+	newDepartmentIdFlag  bool
+}
+
+// 生成body的New构造器
+func NewUpdateDepartmentIdDepartmentPathReqBodyBuilder() * UpdateDepartmentIdDepartmentPathReqBodyBuilder{
+  builder := &UpdateDepartmentIdDepartmentPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * UpdateDepartmentIdDepartmentPathReqBodyBuilder ) NewDepartmentId(newDepartmentId string) *UpdateDepartmentIdDepartmentPathReqBodyBuilder {
+  builder.newDepartmentId = newDepartmentId
+  builder.newDepartmentIdFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * UpdateDepartmentIdDepartmentPathReqBodyBuilder ) Build() (*UpdateDepartmentIdDepartmentReqBody, error) {
+   req := &UpdateDepartmentIdDepartmentReqBody{}
+   if builder.newDepartmentIdFlag {
+	  req.NewDepartmentId = &builder.newDepartmentId
+	  
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type UpdateDepartmentIdDepartmentReqBuilder struct {
 	departmentId  string
@@ -1628,6 +1863,7 @@ type UpdateDepartmentIdDepartmentReqBuilder struct {
 	departmentIdTypeFlag  bool
 	body *UpdateDepartmentIdDepartmentReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -1677,6 +1913,7 @@ type UpdateDepartmentIdDepartmentReq struct {
 	DepartmentId  string `path:"department_id"`
 	DepartmentIdType  *string `query:"department_id_type"`
 	Body *UpdateDepartmentIdDepartmentReqBody `body:""`
+
 }
 
 
@@ -1738,6 +1975,58 @@ func (builder * UsersDepartmentReqBodyBuilder ) Build() *UsersDepartmentReqBody 
    return req
 }
 
+/**上传文件path开始**/
+type UsersDepartmentPathReqBodyBuilder struct {
+	departmentIdList  []string
+	departmentIdListFlag  bool
+	pageToken  string
+	pageTokenFlag  bool
+	pageSize  int
+	pageSizeFlag  bool
+}
+
+// 生成body的New构造器
+func NewUsersDepartmentPathReqBodyBuilder() * UsersDepartmentPathReqBodyBuilder{
+  builder := &UsersDepartmentPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * UsersDepartmentPathReqBodyBuilder ) DepartmentIdList(departmentIdList []string) *UsersDepartmentPathReqBodyBuilder {
+  builder.departmentIdList = departmentIdList
+  builder.departmentIdListFlag = true
+  return builder
+}
+func (builder * UsersDepartmentPathReqBodyBuilder ) PageToken(pageToken string) *UsersDepartmentPathReqBodyBuilder {
+  builder.pageToken = pageToken
+  builder.pageTokenFlag = true
+  return builder
+}
+func (builder * UsersDepartmentPathReqBodyBuilder ) PageSize(pageSize int) *UsersDepartmentPathReqBodyBuilder {
+  builder.pageSize = pageSize
+  builder.pageSizeFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * UsersDepartmentPathReqBodyBuilder ) Build() (*UsersDepartmentReqBody, error) {
+   req := &UsersDepartmentReqBody{}
+   if builder.departmentIdListFlag {
+	   req.DepartmentIdList = builder.departmentIdList
+   }
+   if builder.pageTokenFlag {
+	  req.PageToken = &builder.pageToken
+	  
+   }
+   if builder.pageSizeFlag {
+	  req.PageSize = &builder.pageSize
+	  
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type UsersDepartmentReqBuilder struct {
 	userIdType  string
@@ -1750,6 +2039,7 @@ type UsersDepartmentReqBuilder struct {
 	responseDepartmentIdTypeFlag  bool
 	body *UsersDepartmentReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -1819,6 +2109,7 @@ type UsersDepartmentReq struct {
 	ResponseUserIdType  *string `query:"response_user_id_type"`
 	ResponseDepartmentIdType  *string `query:"response_department_id_type"`
 	Body *UsersDepartmentReqBody `body:""`
+
 }
 
 type UsersDepartmentRespData struct {
@@ -1839,6 +2130,7 @@ type UsersDepartmentResp struct {
 type CreateDepartmentUnitReqBuilder struct {
 	departmentUnit *DepartmentUnit
 	departmentUnitFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -1863,6 +2155,7 @@ func (builder * CreateDepartmentUnitReqBuilder ) Build() *CreateDepartmentUnitRe
 
 type CreateDepartmentUnitReq struct {
 	DepartmentUnit *DepartmentUnit `body:""`
+
 }
 
 type CreateDepartmentUnitRespData struct {
@@ -1880,6 +2173,7 @@ type CreateDepartmentUnitResp struct {
 type DeleteDepartmentUnitReqBuilder struct {
 	unitId  string
 	unitIdFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -1907,6 +2201,7 @@ func (builder * DeleteDepartmentUnitReqBuilder ) Build() *DeleteDepartmentUnitRe
 
 type DeleteDepartmentUnitReq struct {
 	UnitId  string `path:"unit_id"`
+
 }
 
 
@@ -1957,12 +2252,55 @@ func (builder * PatchDepartmentUnitReqBodyBuilder ) Build() *PatchDepartmentUnit
    return req
 }
 
+/**上传文件path开始**/
+type PatchDepartmentUnitPathReqBodyBuilder struct {
+	unitType  string
+	unitTypeFlag  bool
+	unitName  string
+	unitNameFlag  bool
+}
+
+// 生成body的New构造器
+func NewPatchDepartmentUnitPathReqBodyBuilder() * PatchDepartmentUnitPathReqBodyBuilder{
+  builder := &PatchDepartmentUnitPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * PatchDepartmentUnitPathReqBodyBuilder ) UnitType(unitType string) *PatchDepartmentUnitPathReqBodyBuilder {
+  builder.unitType = unitType
+  builder.unitTypeFlag = true
+  return builder
+}
+func (builder * PatchDepartmentUnitPathReqBodyBuilder ) UnitName(unitName string) *PatchDepartmentUnitPathReqBodyBuilder {
+  builder.unitName = unitName
+  builder.unitNameFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * PatchDepartmentUnitPathReqBodyBuilder ) Build() (*PatchDepartmentUnitReqBody, error) {
+   req := &PatchDepartmentUnitReqBody{}
+   if builder.unitTypeFlag {
+	  req.UnitType = &builder.unitType
+	  
+   }
+   if builder.unitNameFlag {
+	  req.UnitName = &builder.unitName
+	  
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type PatchDepartmentUnitReqBuilder struct {
 	unitId  string
 	unitIdFlag  bool
 	body *PatchDepartmentUnitReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -2004,6 +2342,7 @@ type PatchDepartmentUnitReqBody struct {
 type PatchDepartmentUnitReq struct {
 	UnitId  string `path:"unit_id"`
 	Body *PatchDepartmentUnitReqBody `body:""`
+
 }
 
 type PatchDepartmentUnitRespData struct {
@@ -2021,6 +2360,7 @@ type PatchDepartmentUnitResp struct {
 type CreateEmployeeTypeEnumReqBuilder struct {
 	employeeTypeEnum *EmployeeTypeEnum
 	employeeTypeEnumFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -2045,6 +2385,7 @@ func (builder * CreateEmployeeTypeEnumReqBuilder ) Build() *CreateEmployeeTypeEn
 
 type CreateEmployeeTypeEnumReq struct {
 	EmployeeTypeEnum *EmployeeTypeEnum `body:""`
+
 }
 
 type CreateEmployeeTypeEnumRespData struct {
@@ -2062,6 +2403,7 @@ type CreateEmployeeTypeEnumResp struct {
 type DeleteEmployeeTypeEnumReqBuilder struct {
 	enumId  string
 	enumIdFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -2089,6 +2431,7 @@ func (builder * DeleteEmployeeTypeEnumReqBuilder ) Build() *DeleteEmployeeTypeEn
 
 type DeleteEmployeeTypeEnumReq struct {
 	EnumId  string `path:"enum_id"`
+
 }
 
 
@@ -2104,6 +2447,8 @@ type ListEmployeeTypeEnumReqBuilder struct {
 	pageTokenFlag  bool
 	pageSize  int
 	pageSizeFlag  bool
+	limit int
+
 }
 
 // 生成请求的New构造器
@@ -2113,6 +2458,10 @@ func NewListEmployeeTypeEnumReqBuilder() * ListEmployeeTypeEnumReqBuilder{
 }
 
 /*1.5 生成请求的builder属性方法*/
+func (builder * ListEmployeeTypeEnumReqBuilder) Limit(limit int ) *ListEmployeeTypeEnumReqBuilder  {
+  builder.limit = limit
+  return builder
+}
 func (builder * ListEmployeeTypeEnumReqBuilder) PageToken(pageToken string) *ListEmployeeTypeEnumReqBuilder  {
   builder.pageToken = pageToken
   builder.pageTokenFlag = true
@@ -2127,6 +2476,7 @@ func (builder * ListEmployeeTypeEnumReqBuilder) PageSize(pageSize int) *ListEmpl
 /*1.5 生成请求的builder的build方法*/
 func (builder * ListEmployeeTypeEnumReqBuilder ) Build() *ListEmployeeTypeEnumReq {
    req := &ListEmployeeTypeEnumReq{}
+   req.Limit = builder.limit
    if builder.pageTokenFlag {
 	  req.PageToken = &builder.pageToken
    }
@@ -2140,6 +2490,8 @@ func (builder * ListEmployeeTypeEnumReqBuilder ) Build() *ListEmployeeTypeEnumRe
 type ListEmployeeTypeEnumReq struct {
 	PageToken  *string `query:"page_token"`
 	PageSize  *int `query:"page_size"`
+	Limit int
+
 }
 
 type ListEmployeeTypeEnumRespData struct {
@@ -2161,6 +2513,7 @@ type UpdateEmployeeTypeEnumReqBuilder struct {
 	enumIdFlag  bool
 	employeeTypeEnum *EmployeeTypeEnum
 	employeeTypeEnumFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -2194,6 +2547,7 @@ func (builder * UpdateEmployeeTypeEnumReqBuilder ) Build() *UpdateEmployeeTypeEn
 type UpdateEmployeeTypeEnumReq struct {
 	EnumId  string `path:"enum_id"`
 	EmployeeTypeEnum *EmployeeTypeEnum `body:""`
+
 }
 
 type UpdateEmployeeTypeEnumRespData struct {
@@ -2272,10 +2626,75 @@ func (builder * CreateGroupReqBodyBuilder ) Build() *CreateGroupReqBody {
    return req
 }
 
+/**上传文件path开始**/
+type CreateGroupPathReqBodyBuilder struct {
+	groupId  string
+	groupIdFlag  bool
+	name  string
+	nameFlag  bool
+	description  string
+	descriptionFlag  bool
+	type_  int
+	typeFlag  bool
+}
+
+// 生成body的New构造器
+func NewCreateGroupPathReqBodyBuilder() * CreateGroupPathReqBodyBuilder{
+  builder := &CreateGroupPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * CreateGroupPathReqBodyBuilder ) GroupId(groupId string) *CreateGroupPathReqBodyBuilder {
+  builder.groupId = groupId
+  builder.groupIdFlag = true
+  return builder
+}
+func (builder * CreateGroupPathReqBodyBuilder ) Name(name string) *CreateGroupPathReqBodyBuilder {
+  builder.name = name
+  builder.nameFlag = true
+  return builder
+}
+func (builder * CreateGroupPathReqBodyBuilder ) Description(description string) *CreateGroupPathReqBodyBuilder {
+  builder.description = description
+  builder.descriptionFlag = true
+  return builder
+}
+func (builder * CreateGroupPathReqBodyBuilder ) Type(type_ int) *CreateGroupPathReqBodyBuilder {
+  builder.type_ = type_
+  builder.typeFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * CreateGroupPathReqBodyBuilder ) Build() (*CreateGroupReqBody, error) {
+   req := &CreateGroupReqBody{}
+   if builder.groupIdFlag {
+	  req.GroupId = &builder.groupId
+	  
+   }
+   if builder.nameFlag {
+	  req.Name = &builder.name
+	  
+   }
+   if builder.descriptionFlag {
+	  req.Description = &builder.description
+	  
+   }
+   if builder.typeFlag {
+	  req.Type = &builder.type_
+	  
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type CreateGroupReqBuilder struct {
 	body *CreateGroupReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -2310,6 +2729,7 @@ type CreateGroupReqBody struct {
 
 type CreateGroupReq struct {
 	Body *CreateGroupReqBody `body:""`
+
 }
 
 type CreateGroupRespData struct {
@@ -2327,6 +2747,7 @@ type CreateGroupResp struct {
 type DeleteGroupReqBuilder struct {
 	groupId  string
 	groupIdFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -2354,6 +2775,7 @@ func (builder * DeleteGroupReqBuilder ) Build() *DeleteGroupReq {
 
 type DeleteGroupReq struct {
 	GroupId  string `path:"group_id"`
+
 }
 
 
@@ -2367,6 +2789,7 @@ type DeleteGroupResp struct {
 type GetGroupReqBuilder struct {
 	groupId  string
 	groupIdFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -2394,6 +2817,7 @@ func (builder * GetGroupReqBuilder ) Build() *GetGroupReq {
 
 type GetGroupReq struct {
 	GroupId  string `path:"group_id"`
+
 }
 
 type GetGroupRespData struct {
@@ -2419,6 +2843,7 @@ type MemberBelongGroupReqBuilder struct {
 	pageSizeFlag  bool
 	pageToken  string
 	pageTokenFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -2482,6 +2907,7 @@ type MemberBelongGroupReq struct {
 	GroupType  *int `query:"group_type"`
 	PageSize  *int `query:"page_size"`
 	PageToken  *string `query:"page_token"`
+
 }
 
 type MemberBelongGroupRespData struct {
@@ -2538,12 +2964,55 @@ func (builder * PatchGroupReqBodyBuilder ) Build() *PatchGroupReqBody {
    return req
 }
 
+/**上传文件path开始**/
+type PatchGroupPathReqBodyBuilder struct {
+	name  string
+	nameFlag  bool
+	description  string
+	descriptionFlag  bool
+}
+
+// 生成body的New构造器
+func NewPatchGroupPathReqBodyBuilder() * PatchGroupPathReqBodyBuilder{
+  builder := &PatchGroupPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * PatchGroupPathReqBodyBuilder ) Name(name string) *PatchGroupPathReqBodyBuilder {
+  builder.name = name
+  builder.nameFlag = true
+  return builder
+}
+func (builder * PatchGroupPathReqBodyBuilder ) Description(description string) *PatchGroupPathReqBodyBuilder {
+  builder.description = description
+  builder.descriptionFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * PatchGroupPathReqBodyBuilder ) Build() (*PatchGroupReqBody, error) {
+   req := &PatchGroupReqBody{}
+   if builder.nameFlag {
+	  req.Name = &builder.name
+	  
+   }
+   if builder.descriptionFlag {
+	  req.Description = &builder.description
+	  
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type PatchGroupReqBuilder struct {
 	groupId  string
 	groupIdFlag  bool
 	body *PatchGroupReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -2585,6 +3054,7 @@ type PatchGroupReqBody struct {
 type PatchGroupReq struct {
 	GroupId  string `path:"group_id"`
 	Body *PatchGroupReqBody `body:""`
+
 }
 
 
@@ -2602,6 +3072,8 @@ type SimplelistGroupReqBuilder struct {
 	pageTokenFlag  bool
 	type_  int
 	typeFlag  bool
+	limit int
+
 }
 
 // 生成请求的New构造器
@@ -2611,6 +3083,10 @@ func NewSimplelistGroupReqBuilder() * SimplelistGroupReqBuilder{
 }
 
 /*1.5 生成请求的builder属性方法*/
+func (builder * SimplelistGroupReqBuilder) Limit(limit int ) *SimplelistGroupReqBuilder  {
+  builder.limit = limit
+  return builder
+}
 func (builder * SimplelistGroupReqBuilder) PageSize(pageSize int) *SimplelistGroupReqBuilder  {
   builder.pageSize = pageSize
   builder.pageSizeFlag = true
@@ -2630,6 +3106,7 @@ func (builder * SimplelistGroupReqBuilder) Type(type_ int) *SimplelistGroupReqBu
 /*1.5 生成请求的builder的build方法*/
 func (builder * SimplelistGroupReqBuilder ) Build() *SimplelistGroupReq {
    req := &SimplelistGroupReq{}
+   req.Limit = builder.limit
    if builder.pageSizeFlag {
 	  req.PageSize = &builder.pageSize
    }
@@ -2647,6 +3124,8 @@ type SimplelistGroupReq struct {
 	PageSize  *int `query:"page_size"`
 	PageToken  *string `query:"page_token"`
 	Type  *int `query:"type"`
+	Limit int
+
 }
 
 type SimplelistGroupRespData struct {
@@ -2715,12 +3194,66 @@ func (builder * AddGroupMemberReqBodyBuilder ) Build() *AddGroupMemberReqBody {
    return req
 }
 
+/**上传文件path开始**/
+type AddGroupMemberPathReqBodyBuilder struct {
+	memberType  string
+	memberTypeFlag  bool
+	memberIdType  string
+	memberIdTypeFlag  bool
+	memberId  string
+	memberIdFlag  bool
+}
+
+// 生成body的New构造器
+func NewAddGroupMemberPathReqBodyBuilder() * AddGroupMemberPathReqBodyBuilder{
+  builder := &AddGroupMemberPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * AddGroupMemberPathReqBodyBuilder ) MemberType(memberType string) *AddGroupMemberPathReqBodyBuilder {
+  builder.memberType = memberType
+  builder.memberTypeFlag = true
+  return builder
+}
+func (builder * AddGroupMemberPathReqBodyBuilder ) MemberIdType(memberIdType string) *AddGroupMemberPathReqBodyBuilder {
+  builder.memberIdType = memberIdType
+  builder.memberIdTypeFlag = true
+  return builder
+}
+func (builder * AddGroupMemberPathReqBodyBuilder ) MemberId(memberId string) *AddGroupMemberPathReqBodyBuilder {
+  builder.memberId = memberId
+  builder.memberIdFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * AddGroupMemberPathReqBodyBuilder ) Build() (*AddGroupMemberReqBody, error) {
+   req := &AddGroupMemberReqBody{}
+   if builder.memberTypeFlag {
+	  req.MemberType = &builder.memberType
+	  
+   }
+   if builder.memberIdTypeFlag {
+	  req.MemberIdType = &builder.memberIdType
+	  
+   }
+   if builder.memberIdFlag {
+	  req.MemberId = &builder.memberId
+	  
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type AddGroupMemberReqBuilder struct {
 	groupId  string
 	groupIdFlag  bool
 	body *AddGroupMemberReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -2763,6 +3296,7 @@ type AddGroupMemberReqBody struct {
 type AddGroupMemberReq struct {
 	GroupId  string `path:"group_id"`
 	Body *AddGroupMemberReqBody `body:""`
+
 }
 
 
@@ -2800,12 +3334,43 @@ func (builder * BatchAddGroupMemberReqBodyBuilder ) Build() *BatchAddGroupMember
    return req
 }
 
+/**上传文件path开始**/
+type BatchAddGroupMemberPathReqBodyBuilder struct {
+	members  []*Memberlist
+	membersFlag  bool
+}
+
+// 生成body的New构造器
+func NewBatchAddGroupMemberPathReqBodyBuilder() * BatchAddGroupMemberPathReqBodyBuilder{
+  builder := &BatchAddGroupMemberPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * BatchAddGroupMemberPathReqBodyBuilder ) Members(members []*Memberlist) *BatchAddGroupMemberPathReqBodyBuilder {
+  builder.members = members
+  builder.membersFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * BatchAddGroupMemberPathReqBodyBuilder ) Build() (*BatchAddGroupMemberReqBody, error) {
+   req := &BatchAddGroupMemberReqBody{}
+   if builder.membersFlag {
+	   req.Members = builder.members
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type BatchAddGroupMemberReqBuilder struct {
 	groupId  string
 	groupIdFlag  bool
 	body *BatchAddGroupMemberReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -2846,6 +3411,7 @@ type BatchAddGroupMemberReqBody struct {
 type BatchAddGroupMemberReq struct {
 	GroupId  string `path:"group_id"`
 	Body *BatchAddGroupMemberReqBody `body:""`
+
 }
 
 type BatchAddGroupMemberRespData struct {
@@ -2887,12 +3453,43 @@ func (builder * BatchRemoveGroupMemberReqBodyBuilder ) Build() *BatchRemoveGroup
    return req
 }
 
+/**上传文件path开始**/
+type BatchRemoveGroupMemberPathReqBodyBuilder struct {
+	members  []*Memberlist
+	membersFlag  bool
+}
+
+// 生成body的New构造器
+func NewBatchRemoveGroupMemberPathReqBodyBuilder() * BatchRemoveGroupMemberPathReqBodyBuilder{
+  builder := &BatchRemoveGroupMemberPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * BatchRemoveGroupMemberPathReqBodyBuilder ) Members(members []*Memberlist) *BatchRemoveGroupMemberPathReqBodyBuilder {
+  builder.members = members
+  builder.membersFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * BatchRemoveGroupMemberPathReqBodyBuilder ) Build() (*BatchRemoveGroupMemberReqBody, error) {
+   req := &BatchRemoveGroupMemberReqBody{}
+   if builder.membersFlag {
+	   req.Members = builder.members
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type BatchRemoveGroupMemberReqBuilder struct {
 	groupId  string
 	groupIdFlag  bool
 	body *BatchRemoveGroupMemberReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -2933,6 +3530,7 @@ type BatchRemoveGroupMemberReqBody struct {
 type BatchRemoveGroupMemberReq struct {
 	GroupId  string `path:"group_id"`
 	Body *BatchRemoveGroupMemberReqBody `body:""`
+
 }
 
 
@@ -2995,12 +3593,66 @@ func (builder * RemoveGroupMemberReqBodyBuilder ) Build() *RemoveGroupMemberReqB
    return req
 }
 
+/**上传文件path开始**/
+type RemoveGroupMemberPathReqBodyBuilder struct {
+	memberType  string
+	memberTypeFlag  bool
+	memberId  string
+	memberIdFlag  bool
+	memberIdType  string
+	memberIdTypeFlag  bool
+}
+
+// 生成body的New构造器
+func NewRemoveGroupMemberPathReqBodyBuilder() * RemoveGroupMemberPathReqBodyBuilder{
+  builder := &RemoveGroupMemberPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * RemoveGroupMemberPathReqBodyBuilder ) MemberType(memberType string) *RemoveGroupMemberPathReqBodyBuilder {
+  builder.memberType = memberType
+  builder.memberTypeFlag = true
+  return builder
+}
+func (builder * RemoveGroupMemberPathReqBodyBuilder ) MemberId(memberId string) *RemoveGroupMemberPathReqBodyBuilder {
+  builder.memberId = memberId
+  builder.memberIdFlag = true
+  return builder
+}
+func (builder * RemoveGroupMemberPathReqBodyBuilder ) MemberIdType(memberIdType string) *RemoveGroupMemberPathReqBodyBuilder {
+  builder.memberIdType = memberIdType
+  builder.memberIdTypeFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * RemoveGroupMemberPathReqBodyBuilder ) Build() (*RemoveGroupMemberReqBody, error) {
+   req := &RemoveGroupMemberReqBody{}
+   if builder.memberTypeFlag {
+	  req.MemberType = &builder.memberType
+	  
+   }
+   if builder.memberIdFlag {
+	  req.MemberId = &builder.memberId
+	  
+   }
+   if builder.memberIdTypeFlag {
+	  req.MemberIdType = &builder.memberIdType
+	  
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type RemoveGroupMemberReqBuilder struct {
 	groupId  string
 	groupIdFlag  bool
 	body *RemoveGroupMemberReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -3043,6 +3695,7 @@ type RemoveGroupMemberReqBody struct {
 type RemoveGroupMemberReq struct {
 	GroupId  string `path:"group_id"`
 	Body *RemoveGroupMemberReqBody `body:""`
+
 }
 
 
@@ -3064,6 +3717,7 @@ type SimplelistGroupMemberReqBuilder struct {
 	memberIdTypeFlag  bool
 	memberType  string
 	memberTypeFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -3127,6 +3781,7 @@ type SimplelistGroupMemberReq struct {
 	PageToken  *string `query:"page_token"`
 	MemberIdType  *string `query:"member_id_type"`
 	MemberType  *string `query:"member_type"`
+
 }
 
 type SimplelistGroupMemberRespData struct {
@@ -3152,6 +3807,7 @@ type ListScopeReqBuilder struct {
 	pageTokenFlag  bool
 	pageSize  int
 	pageSizeFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -3206,6 +3862,7 @@ type ListScopeReq struct {
 	DepartmentIdType  *string `query:"department_id_type"`
 	PageToken  *string `query:"page_token"`
 	PageSize  *int `query:"page_size"`
+
 }
 
 type ListScopeRespData struct {
@@ -3276,10 +3933,64 @@ func (builder * BindDepartmentUnitReqBodyBuilder ) Build() *BindDepartmentUnitRe
    return req
 }
 
+/**上传文件path开始**/
+type BindDepartmentUnitPathReqBodyBuilder struct {
+	unitId  string
+	unitIdFlag  bool
+	departmentId  string
+	departmentIdFlag  bool
+	departmentIdType  string
+	departmentIdTypeFlag  bool
+}
+
+// 生成body的New构造器
+func NewBindDepartmentUnitPathReqBodyBuilder() * BindDepartmentUnitPathReqBodyBuilder{
+  builder := &BindDepartmentUnitPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * BindDepartmentUnitPathReqBodyBuilder ) UnitId(unitId string) *BindDepartmentUnitPathReqBodyBuilder {
+  builder.unitId = unitId
+  builder.unitIdFlag = true
+  return builder
+}
+func (builder * BindDepartmentUnitPathReqBodyBuilder ) DepartmentId(departmentId string) *BindDepartmentUnitPathReqBodyBuilder {
+  builder.departmentId = departmentId
+  builder.departmentIdFlag = true
+  return builder
+}
+func (builder * BindDepartmentUnitPathReqBodyBuilder ) DepartmentIdType(departmentIdType string) *BindDepartmentUnitPathReqBodyBuilder {
+  builder.departmentIdType = departmentIdType
+  builder.departmentIdTypeFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * BindDepartmentUnitPathReqBodyBuilder ) Build() (*BindDepartmentUnitReqBody, error) {
+   req := &BindDepartmentUnitReqBody{}
+   if builder.unitIdFlag {
+	  req.UnitId = &builder.unitId
+	  
+   }
+   if builder.departmentIdFlag {
+	  req.DepartmentId = &builder.departmentId
+	  
+   }
+   if builder.departmentIdTypeFlag {
+	  req.DepartmentIdType = &builder.departmentIdType
+	  
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type BindDepartmentUnitReqBuilder struct {
 	body *BindDepartmentUnitReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -3313,6 +4024,7 @@ type BindDepartmentUnitReqBody struct {
 
 type BindDepartmentUnitReq struct {
 	Body *BindDepartmentUnitReqBody `body:""`
+
 }
 
 
@@ -3375,10 +4087,64 @@ func (builder * CreateUnitReqBodyBuilder ) Build() *CreateUnitReqBody {
    return req
 }
 
+/**上传文件path开始**/
+type CreateUnitPathReqBodyBuilder struct {
+	unitId  string
+	unitIdFlag  bool
+	name  string
+	nameFlag  bool
+	unitType  string
+	unitTypeFlag  bool
+}
+
+// 生成body的New构造器
+func NewCreateUnitPathReqBodyBuilder() * CreateUnitPathReqBodyBuilder{
+  builder := &CreateUnitPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * CreateUnitPathReqBodyBuilder ) UnitId(unitId string) *CreateUnitPathReqBodyBuilder {
+  builder.unitId = unitId
+  builder.unitIdFlag = true
+  return builder
+}
+func (builder * CreateUnitPathReqBodyBuilder ) Name(name string) *CreateUnitPathReqBodyBuilder {
+  builder.name = name
+  builder.nameFlag = true
+  return builder
+}
+func (builder * CreateUnitPathReqBodyBuilder ) UnitType(unitType string) *CreateUnitPathReqBodyBuilder {
+  builder.unitType = unitType
+  builder.unitTypeFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * CreateUnitPathReqBodyBuilder ) Build() (*CreateUnitReqBody, error) {
+   req := &CreateUnitReqBody{}
+   if builder.unitIdFlag {
+	  req.UnitId = &builder.unitId
+	  
+   }
+   if builder.nameFlag {
+	  req.Name = &builder.name
+	  
+   }
+   if builder.unitTypeFlag {
+	  req.UnitType = &builder.unitType
+	  
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type CreateUnitReqBuilder struct {
 	body *CreateUnitReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -3412,6 +4178,7 @@ type CreateUnitReqBody struct {
 
 type CreateUnitReq struct {
 	Body *CreateUnitReqBody `body:""`
+
 }
 
 type CreateUnitRespData struct {
@@ -3429,6 +4196,7 @@ type CreateUnitResp struct {
 type DeleteUnitReqBuilder struct {
 	unitId  string
 	unitIdFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -3456,6 +4224,7 @@ func (builder * DeleteUnitReqBuilder ) Build() *DeleteUnitReq {
 
 type DeleteUnitReq struct {
 	UnitId  string `path:"unit_id"`
+
 }
 
 
@@ -3469,6 +4238,7 @@ type DeleteUnitResp struct {
 type GetUnitReqBuilder struct {
 	unitId  string
 	unitIdFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -3496,6 +4266,7 @@ func (builder * GetUnitReqBuilder ) Build() *GetUnitReq {
 
 type GetUnitReq struct {
 	UnitId  string `path:"unit_id"`
+
 }
 
 type GetUnitRespData struct {
@@ -3515,6 +4286,7 @@ type ListUnitReqBuilder struct {
 	pageSizeFlag  bool
 	pageToken  string
 	pageTokenFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -3551,6 +4323,7 @@ func (builder * ListUnitReqBuilder ) Build() *ListUnitReq {
 type ListUnitReq struct {
 	PageSize  *int `query:"page_size"`
 	PageToken  *string `query:"page_token"`
+
 }
 
 type ListUnitRespData struct {
@@ -3576,6 +4349,7 @@ type ListDepartmentUnitReqBuilder struct {
 	pageTokenFlag  bool
 	pageSize  int
 	pageSizeFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -3630,6 +4404,7 @@ type ListDepartmentUnitReq struct {
 	DepartmentIdType  *string `query:"department_id_type"`
 	PageToken  *string `query:"page_token"`
 	PageSize  *int `query:"page_size"`
+
 }
 
 type ListDepartmentUnitRespData struct {
@@ -3674,12 +4449,44 @@ func (builder * PatchUnitReqBodyBuilder ) Build() *PatchUnitReqBody {
    return req
 }
 
+/**上传文件path开始**/
+type PatchUnitPathReqBodyBuilder struct {
+	name  string
+	nameFlag  bool
+}
+
+// 生成body的New构造器
+func NewPatchUnitPathReqBodyBuilder() * PatchUnitPathReqBodyBuilder{
+  builder := &PatchUnitPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * PatchUnitPathReqBodyBuilder ) Name(name string) *PatchUnitPathReqBodyBuilder {
+  builder.name = name
+  builder.nameFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * PatchUnitPathReqBodyBuilder ) Build() (*PatchUnitReqBody, error) {
+   req := &PatchUnitReqBody{}
+   if builder.nameFlag {
+	  req.Name = &builder.name
+	  
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type PatchUnitReqBuilder struct {
 	unitId  string
 	unitIdFlag  bool
 	body *PatchUnitReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -3720,6 +4527,7 @@ type PatchUnitReqBody struct {
 type PatchUnitReq struct {
 	UnitId  string `path:"unit_id"`
 	Body *PatchUnitReqBody `body:""`
+
 }
 
 
@@ -3782,10 +4590,64 @@ func (builder * UnbindDepartmentUnitReqBodyBuilder ) Build() *UnbindDepartmentUn
    return req
 }
 
+/**上传文件path开始**/
+type UnbindDepartmentUnitPathReqBodyBuilder struct {
+	unitId  string
+	unitIdFlag  bool
+	departmentId  string
+	departmentIdFlag  bool
+	departmentIdType  string
+	departmentIdTypeFlag  bool
+}
+
+// 生成body的New构造器
+func NewUnbindDepartmentUnitPathReqBodyBuilder() * UnbindDepartmentUnitPathReqBodyBuilder{
+  builder := &UnbindDepartmentUnitPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * UnbindDepartmentUnitPathReqBodyBuilder ) UnitId(unitId string) *UnbindDepartmentUnitPathReqBodyBuilder {
+  builder.unitId = unitId
+  builder.unitIdFlag = true
+  return builder
+}
+func (builder * UnbindDepartmentUnitPathReqBodyBuilder ) DepartmentId(departmentId string) *UnbindDepartmentUnitPathReqBodyBuilder {
+  builder.departmentId = departmentId
+  builder.departmentIdFlag = true
+  return builder
+}
+func (builder * UnbindDepartmentUnitPathReqBodyBuilder ) DepartmentIdType(departmentIdType string) *UnbindDepartmentUnitPathReqBodyBuilder {
+  builder.departmentIdType = departmentIdType
+  builder.departmentIdTypeFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * UnbindDepartmentUnitPathReqBodyBuilder ) Build() (*UnbindDepartmentUnitReqBody, error) {
+   req := &UnbindDepartmentUnitReqBody{}
+   if builder.unitIdFlag {
+	  req.UnitId = &builder.unitId
+	  
+   }
+   if builder.departmentIdFlag {
+	  req.DepartmentId = &builder.departmentId
+	  
+   }
+   if builder.departmentIdTypeFlag {
+	  req.DepartmentIdType = &builder.departmentIdType
+	  
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type UnbindDepartmentUnitReqBuilder struct {
 	body *UnbindDepartmentUnitReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -3819,6 +4681,7 @@ type UnbindDepartmentUnitReqBody struct {
 
 type UnbindDepartmentUnitReq struct {
 	Body *UnbindDepartmentUnitReqBody `body:""`
+
 }
 
 
@@ -3867,12 +4730,53 @@ func (builder * BatchGetIdUserReqBodyBuilder ) Build() *BatchGetIdUserReqBody {
    return req
 }
 
+/**上传文件path开始**/
+type BatchGetIdUserPathReqBodyBuilder struct {
+	emails  []string
+	emailsFlag  bool
+	mobiles  []string
+	mobilesFlag  bool
+}
+
+// 生成body的New构造器
+func NewBatchGetIdUserPathReqBodyBuilder() * BatchGetIdUserPathReqBodyBuilder{
+  builder := &BatchGetIdUserPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * BatchGetIdUserPathReqBodyBuilder ) Emails(emails []string) *BatchGetIdUserPathReqBodyBuilder {
+  builder.emails = emails
+  builder.emailsFlag = true
+  return builder
+}
+func (builder * BatchGetIdUserPathReqBodyBuilder ) Mobiles(mobiles []string) *BatchGetIdUserPathReqBodyBuilder {
+  builder.mobiles = mobiles
+  builder.mobilesFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * BatchGetIdUserPathReqBodyBuilder ) Build() (*BatchGetIdUserReqBody, error) {
+   req := &BatchGetIdUserReqBody{}
+   if builder.emailsFlag {
+	   req.Emails = builder.emails
+   }
+   if builder.mobilesFlag {
+	   req.Mobiles = builder.mobiles
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type BatchGetIdUserReqBuilder struct {
 	userIdType  string
 	userIdTypeFlag  bool
 	body *BatchGetIdUserReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -3914,6 +4818,7 @@ type BatchGetIdUserReqBody struct {
 type BatchGetIdUserReq struct {
 	UserIdType  *string `query:"user_id_type"`
 	Body *BatchGetIdUserReqBody `body:""`
+
 }
 
 type BatchGetIdUserRespData struct {
@@ -3937,6 +4842,7 @@ type CreateUserReqBuilder struct {
 	clientTokenFlag  bool
 	user *User
 	userFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -3988,6 +4894,7 @@ type CreateUserReq struct {
 	DepartmentIdType  *string `query:"department_id_type"`
 	ClientToken  *string `query:"client_token"`
 	User *User `body:""`
+
 }
 
 type CreateUserRespData struct {
@@ -4090,6 +4997,92 @@ func (builder * DeleteUserReqBodyBuilder ) Build() *DeleteUserReqBody {
    return req
 }
 
+/**上传文件path开始**/
+type DeleteUserPathReqBodyBuilder struct {
+	departmentChatAcceptorUserId  string
+	departmentChatAcceptorUserIdFlag  bool
+	externalChatAcceptorUserId  string
+	externalChatAcceptorUserIdFlag  bool
+	docsAcceptorUserId  string
+	docsAcceptorUserIdFlag  bool
+	calendarAcceptorUserId  string
+	calendarAcceptorUserIdFlag  bool
+	applicationAcceptorUserId  string
+	applicationAcceptorUserIdFlag  bool
+	helpdeskAcceptorUserId  string
+	helpdeskAcceptorUserIdFlag  bool
+}
+
+// 生成body的New构造器
+func NewDeleteUserPathReqBodyBuilder() * DeleteUserPathReqBodyBuilder{
+  builder := &DeleteUserPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * DeleteUserPathReqBodyBuilder ) DepartmentChatAcceptorUserId(departmentChatAcceptorUserId string) *DeleteUserPathReqBodyBuilder {
+  builder.departmentChatAcceptorUserId = departmentChatAcceptorUserId
+  builder.departmentChatAcceptorUserIdFlag = true
+  return builder
+}
+func (builder * DeleteUserPathReqBodyBuilder ) ExternalChatAcceptorUserId(externalChatAcceptorUserId string) *DeleteUserPathReqBodyBuilder {
+  builder.externalChatAcceptorUserId = externalChatAcceptorUserId
+  builder.externalChatAcceptorUserIdFlag = true
+  return builder
+}
+func (builder * DeleteUserPathReqBodyBuilder ) DocsAcceptorUserId(docsAcceptorUserId string) *DeleteUserPathReqBodyBuilder {
+  builder.docsAcceptorUserId = docsAcceptorUserId
+  builder.docsAcceptorUserIdFlag = true
+  return builder
+}
+func (builder * DeleteUserPathReqBodyBuilder ) CalendarAcceptorUserId(calendarAcceptorUserId string) *DeleteUserPathReqBodyBuilder {
+  builder.calendarAcceptorUserId = calendarAcceptorUserId
+  builder.calendarAcceptorUserIdFlag = true
+  return builder
+}
+func (builder * DeleteUserPathReqBodyBuilder ) ApplicationAcceptorUserId(applicationAcceptorUserId string) *DeleteUserPathReqBodyBuilder {
+  builder.applicationAcceptorUserId = applicationAcceptorUserId
+  builder.applicationAcceptorUserIdFlag = true
+  return builder
+}
+func (builder * DeleteUserPathReqBodyBuilder ) HelpdeskAcceptorUserId(helpdeskAcceptorUserId string) *DeleteUserPathReqBodyBuilder {
+  builder.helpdeskAcceptorUserId = helpdeskAcceptorUserId
+  builder.helpdeskAcceptorUserIdFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * DeleteUserPathReqBodyBuilder ) Build() (*DeleteUserReqBody, error) {
+   req := &DeleteUserReqBody{}
+   if builder.departmentChatAcceptorUserIdFlag {
+	  req.DepartmentChatAcceptorUserId = &builder.departmentChatAcceptorUserId
+	  
+   }
+   if builder.externalChatAcceptorUserIdFlag {
+	  req.ExternalChatAcceptorUserId = &builder.externalChatAcceptorUserId
+	  
+   }
+   if builder.docsAcceptorUserIdFlag {
+	  req.DocsAcceptorUserId = &builder.docsAcceptorUserId
+	  
+   }
+   if builder.calendarAcceptorUserIdFlag {
+	  req.CalendarAcceptorUserId = &builder.calendarAcceptorUserId
+	  
+   }
+   if builder.applicationAcceptorUserIdFlag {
+	  req.ApplicationAcceptorUserId = &builder.applicationAcceptorUserId
+	  
+   }
+   if builder.helpdeskAcceptorUserIdFlag {
+	  req.HelpdeskAcceptorUserId = &builder.helpdeskAcceptorUserId
+	  
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type DeleteUserReqBuilder struct {
 	userId  string
@@ -4098,6 +5091,7 @@ type DeleteUserReqBuilder struct {
 	userIdTypeFlag  bool
 	body *DeleteUserReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -4152,6 +5146,7 @@ type DeleteUserReq struct {
 	UserId  string `path:"user_id"`
 	UserIdType  *string `query:"user_id_type"`
 	Body *DeleteUserReqBody `body:""`
+
 }
 
 
@@ -4173,6 +5168,8 @@ type FindByDepartmentUserReqBuilder struct {
 	pageSizeFlag  bool
 	pageToken  string
 	pageTokenFlag  bool
+	limit int
+
 }
 
 // 生成请求的New构造器
@@ -4182,6 +5179,10 @@ func NewFindByDepartmentUserReqBuilder() * FindByDepartmentUserReqBuilder{
 }
 
 /*1.5 生成请求的builder属性方法*/
+func (builder * FindByDepartmentUserReqBuilder) Limit(limit int ) *FindByDepartmentUserReqBuilder  {
+  builder.limit = limit
+  return builder
+}
 func (builder * FindByDepartmentUserReqBuilder) UserIdType(userIdType string) *FindByDepartmentUserReqBuilder  {
   builder.userIdType = userIdType
   builder.userIdTypeFlag = true
@@ -4211,6 +5212,7 @@ func (builder * FindByDepartmentUserReqBuilder) PageToken(pageToken string) *Fin
 /*1.5 生成请求的builder的build方法*/
 func (builder * FindByDepartmentUserReqBuilder ) Build() *FindByDepartmentUserReq {
    req := &FindByDepartmentUserReq{}
+   req.Limit = builder.limit
    if builder.userIdTypeFlag {
 	  req.UserIdType = &builder.userIdType
    }
@@ -4236,6 +5238,8 @@ type FindByDepartmentUserReq struct {
 	DepartmentId  *string `query:"department_id"`
 	PageSize  *int `query:"page_size"`
 	PageToken  *string `query:"page_token"`
+	Limit int
+
 }
 
 type FindByDepartmentUserRespData struct {
@@ -4259,6 +5263,7 @@ type GetUserReqBuilder struct {
 	userIdTypeFlag  bool
 	departmentIdType  string
 	departmentIdTypeFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -4304,6 +5309,7 @@ type GetUserReq struct {
 	UserId  string `path:"user_id"`
 	UserIdType  *string `query:"user_id_type"`
 	DepartmentIdType  *string `query:"department_id_type"`
+
 }
 
 type GetUserRespData struct {
@@ -4329,6 +5335,8 @@ type ListUserReqBuilder struct {
 	pageTokenFlag  bool
 	pageSize  int
 	pageSizeFlag  bool
+	limit int
+
 }
 
 // 生成请求的New构造器
@@ -4338,6 +5346,10 @@ func NewListUserReqBuilder() * ListUserReqBuilder{
 }
 
 /*1.5 生成请求的builder属性方法*/
+func (builder * ListUserReqBuilder) Limit(limit int ) *ListUserReqBuilder  {
+  builder.limit = limit
+  return builder
+}
 func (builder * ListUserReqBuilder) UserIdType(userIdType string) *ListUserReqBuilder  {
   builder.userIdType = userIdType
   builder.userIdTypeFlag = true
@@ -4367,6 +5379,7 @@ func (builder * ListUserReqBuilder) PageSize(pageSize int) *ListUserReqBuilder  
 /*1.5 生成请求的builder的build方法*/
 func (builder * ListUserReqBuilder ) Build() *ListUserReq {
    req := &ListUserReq{}
+   req.Limit = builder.limit
    if builder.userIdTypeFlag {
 	  req.UserIdType = &builder.userIdType
    }
@@ -4392,6 +5405,8 @@ type ListUserReq struct {
 	DepartmentId  *string `query:"department_id"`
 	PageToken  *string `query:"page_token"`
 	PageSize  *int `query:"page_size"`
+	Limit int
+
 }
 
 type ListUserRespData struct {
@@ -4417,6 +5432,7 @@ type PatchUserReqBuilder struct {
 	departmentIdTypeFlag  bool
 	user *User
 	userFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -4468,6 +5484,7 @@ type PatchUserReq struct {
 	UserIdType  *string `query:"user_id_type"`
 	DepartmentIdType  *string `query:"department_id_type"`
 	User *User `body:""`
+
 }
 
 type PatchUserRespData struct {
@@ -4491,6 +5508,7 @@ type UpdateUserReqBuilder struct {
 	departmentIdTypeFlag  bool
 	user *User
 	userFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -4542,6 +5560,7 @@ type UpdateUserReq struct {
 	UserIdType  *string `query:"user_id_type"`
 	DepartmentIdType  *string `query:"department_id_type"`
 	User *User `body:""`
+
 }
 
 type UpdateUserRespData struct {
@@ -4584,6 +5603,37 @@ func (builder * UpdateUserIdUserReqBodyBuilder ) Build() *UpdateUserIdUserReqBod
    return req
 }
 
+/**上传文件path开始**/
+type UpdateUserIdUserPathReqBodyBuilder struct {
+	newUserId  string
+	newUserIdFlag  bool
+}
+
+// 生成body的New构造器
+func NewUpdateUserIdUserPathReqBodyBuilder() * UpdateUserIdUserPathReqBodyBuilder{
+  builder := &UpdateUserIdUserPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * UpdateUserIdUserPathReqBodyBuilder ) NewUserId(newUserId string) *UpdateUserIdUserPathReqBodyBuilder {
+  builder.newUserId = newUserId
+  builder.newUserIdFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * UpdateUserIdUserPathReqBodyBuilder ) Build() (*UpdateUserIdUserReqBody, error) {
+   req := &UpdateUserIdUserReqBody{}
+   if builder.newUserIdFlag {
+	  req.NewUserId = &builder.newUserId
+	  
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type UpdateUserIdUserReqBuilder struct {
 	userId  string
@@ -4592,6 +5642,7 @@ type UpdateUserIdUserReqBuilder struct {
 	userIdTypeFlag  bool
 	body *UpdateUserIdUserReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -4641,6 +5692,7 @@ type UpdateUserIdUserReq struct {
 	UserId  string `path:"user_id"`
 	UserIdType  *string `query:"user_id_type"`
 	Body *UpdateUserIdUserReqBody `body:""`
+
 }
 
 
@@ -4654,6 +5706,7 @@ type UpdateUserIdUserResp struct {
 type CreateUserGroupReqBuilder struct {
 	userGroup *UserGroup
 	userGroupFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -4678,6 +5731,7 @@ func (builder * CreateUserGroupReqBuilder ) Build() *CreateUserGroupReq {
 
 type CreateUserGroupReq struct {
 	UserGroup *UserGroup `body:""`
+
 }
 
 type CreateUserGroupRespData struct {
@@ -4695,6 +5749,7 @@ type CreateUserGroupResp struct {
 type DeleteUserGroupReqBuilder struct {
 	userGroupId  string
 	userGroupIdFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -4722,6 +5777,7 @@ func (builder * DeleteUserGroupReqBuilder ) Build() *DeleteUserGroupReq {
 
 type DeleteUserGroupReq struct {
 	UserGroupId  string `path:"user_group_id"`
+
 }
 
 
@@ -4735,6 +5791,7 @@ type DeleteUserGroupResp struct {
 type GetUserGroupReqBuilder struct {
 	userGroupId  string
 	userGroupIdFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -4762,6 +5819,7 @@ func (builder * GetUserGroupReqBuilder ) Build() *GetUserGroupReq {
 
 type GetUserGroupReq struct {
 	UserGroupId  string `path:"user_group_id"`
+
 }
 
 type GetUserGroupRespData struct {
@@ -4781,6 +5839,8 @@ type ListUserGroupReqBuilder struct {
 	pageSizeFlag  bool
 	pageToken  string
 	pageTokenFlag  bool
+	limit int
+
 }
 
 // 生成请求的New构造器
@@ -4790,6 +5850,10 @@ func NewListUserGroupReqBuilder() * ListUserGroupReqBuilder{
 }
 
 /*1.5 生成请求的builder属性方法*/
+func (builder * ListUserGroupReqBuilder) Limit(limit int ) *ListUserGroupReqBuilder  {
+  builder.limit = limit
+  return builder
+}
 func (builder * ListUserGroupReqBuilder) PageSize(pageSize int) *ListUserGroupReqBuilder  {
   builder.pageSize = pageSize
   builder.pageSizeFlag = true
@@ -4804,6 +5868,7 @@ func (builder * ListUserGroupReqBuilder) PageToken(pageToken string) *ListUserGr
 /*1.5 生成请求的builder的build方法*/
 func (builder * ListUserGroupReqBuilder ) Build() *ListUserGroupReq {
    req := &ListUserGroupReq{}
+   req.Limit = builder.limit
    if builder.pageSizeFlag {
 	  req.PageSize = &builder.pageSize
    }
@@ -4817,6 +5882,8 @@ func (builder * ListUserGroupReqBuilder ) Build() *ListUserGroupReq {
 type ListUserGroupReq struct {
 	PageSize  *int `query:"page_size"`
 	PageToken  *string `query:"page_token"`
+	Limit int
+
 }
 
 type ListUserGroupRespData struct {
@@ -4838,6 +5905,7 @@ type PatchUserGroupReqBuilder struct {
 	userGroupIdFlag  bool
 	userGroup *UserGroup
 	userGroupFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -4871,6 +5939,7 @@ func (builder * PatchUserGroupReqBuilder ) Build() *PatchUserGroupReq {
 type PatchUserGroupReq struct {
 	UserGroupId  string `path:"user_group_id"`
 	UserGroup *UserGroup `body:""`
+
 }
 
 type PatchUserGroupRespData struct {
@@ -4913,12 +5982,44 @@ func (builder * UpdateUserGroupIdUserGroupReqBodyBuilder ) Build() *UpdateUserGr
    return req
 }
 
+/**上传文件path开始**/
+type UpdateUserGroupIdUserGroupPathReqBodyBuilder struct {
+	newUserGroupId  string
+	newUserGroupIdFlag  bool
+}
+
+// 生成body的New构造器
+func NewUpdateUserGroupIdUserGroupPathReqBodyBuilder() * UpdateUserGroupIdUserGroupPathReqBodyBuilder{
+  builder := &UpdateUserGroupIdUserGroupPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * UpdateUserGroupIdUserGroupPathReqBodyBuilder ) NewUserGroupId(newUserGroupId string) *UpdateUserGroupIdUserGroupPathReqBodyBuilder {
+  builder.newUserGroupId = newUserGroupId
+  builder.newUserGroupIdFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * UpdateUserGroupIdUserGroupPathReqBodyBuilder ) Build() (*UpdateUserGroupIdUserGroupReqBody, error) {
+   req := &UpdateUserGroupIdUserGroupReqBody{}
+   if builder.newUserGroupIdFlag {
+	  req.NewUserGroupId = &builder.newUserGroupId
+	  
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type UpdateUserGroupIdUserGroupReqBuilder struct {
 	userGroupId  string
 	userGroupIdFlag  bool
 	body *UpdateUserGroupIdUserGroupReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -4959,6 +6060,7 @@ type UpdateUserGroupIdUserGroupReqBody struct {
 type UpdateUserGroupIdUserGroupReq struct {
 	UserGroupId  string `path:"user_group_id"`
 	Body *UpdateUserGroupIdUserGroupReqBody `body:""`
+
 }
 
 
@@ -4997,6 +6099,37 @@ func (builder * CreateUserGroupMemberReqBodyBuilder ) Build() *CreateUserGroupMe
    return req
 }
 
+/**上传文件path开始**/
+type CreateUserGroupMemberPathReqBodyBuilder struct {
+	userId  string
+	userIdFlag  bool
+}
+
+// 生成body的New构造器
+func NewCreateUserGroupMemberPathReqBodyBuilder() * CreateUserGroupMemberPathReqBodyBuilder{
+  builder := &CreateUserGroupMemberPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * CreateUserGroupMemberPathReqBodyBuilder ) UserId(userId string) *CreateUserGroupMemberPathReqBodyBuilder {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * CreateUserGroupMemberPathReqBodyBuilder ) Build() (*CreateUserGroupMemberReqBody, error) {
+   req := &CreateUserGroupMemberReqBody{}
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type CreateUserGroupMemberReqBuilder struct {
 	userGroupId  string
@@ -5005,6 +6138,7 @@ type CreateUserGroupMemberReqBuilder struct {
 	userIdTypeFlag  bool
 	body *CreateUserGroupMemberReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -5054,6 +6188,7 @@ type CreateUserGroupMemberReq struct {
 	UserGroupId  string `path:"user_group_id"`
 	UserIdType  *string `query:"user_id_type"`
 	Body *CreateUserGroupMemberReqBody `body:""`
+
 }
 
 
@@ -5071,6 +6206,7 @@ type DeleteUserGroupMemberReqBuilder struct {
 	userIdFlag  bool
 	userIdType  string
 	userIdTypeFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -5116,6 +6252,7 @@ type DeleteUserGroupMemberReq struct {
 	UserGroupId  string `path:"user_group_id"`
 	UserId  string `path:"user_id"`
 	UserIdType  *string `query:"user_id_type"`
+
 }
 
 
@@ -5137,6 +6274,8 @@ type ListUserGroupMemberReqBuilder struct {
 	pageTokenFlag  bool
 	pageSize  int
 	pageSizeFlag  bool
+	limit int
+
 }
 
 // 生成请求的New构造器
@@ -5146,6 +6285,10 @@ func NewListUserGroupMemberReqBuilder() * ListUserGroupMemberReqBuilder{
 }
 
 /*1.5 生成请求的builder属性方法*/
+func (builder * ListUserGroupMemberReqBuilder) Limit(limit int ) *ListUserGroupMemberReqBuilder  {
+  builder.limit = limit
+  return builder
+}
 func (builder * ListUserGroupMemberReqBuilder) UserGroupId(userGroupId string) *ListUserGroupMemberReqBuilder  {
   builder.userGroupId = userGroupId
   builder.userGroupIdFlag = true
@@ -5175,6 +6318,7 @@ func (builder * ListUserGroupMemberReqBuilder) PageSize(pageSize int) *ListUserG
 /*1.5 生成请求的builder的build方法*/
 func (builder * ListUserGroupMemberReqBuilder ) Build() *ListUserGroupMemberReq {
    req := &ListUserGroupMemberReq{}
+   req.Limit = builder.limit
    if builder.userGroupIdFlag {
 	  req.UserGroupId = builder.userGroupId
    }
@@ -5200,6 +6344,8 @@ type ListUserGroupMemberReq struct {
 	DepartmentIdType  *string `query:"department_id_type"`
 	PageToken  *string `query:"page_token"`
 	PageSize  *int `query:"page_size"`
+	Limit int
+
 }
 
 type ListUserGroupMemberRespData struct {
@@ -5384,795 +6530,651 @@ type UserGroupUpdatedEvent struct {
 /*1.1 生成body的builder结构体*/
 /**如果是分页查询，则添加迭代器定义**/
    type ListCustomAttrIterator struct{
-	 pageToken string
+	 nextPageToken *string
 	 items	 []*CustomAttr
 	 index	 int
-	 total	 int
+	 limit	 int
 	 ctx	   context.Context
 	 req	   *ListCustomAttrReq
 	 listFunc  func (ctx context.Context, req *ListCustomAttrReq, options ...core.RequestOptionFunc) (*ListCustomAttrResp, error)
 	 options   []core.RequestOptionFunc
+   	 curlNum	   int
    }
 
-   func (iterator *ListCustomAttrIterator) HasNext() bool {
-		index := iterator.index
-		if index < iterator.total && index != 0 {
-			return true
-		}
-		if index > iterator.total {
-			return false
+   func (iterator *ListCustomAttrIterator) Next() (bool, *CustomAttr, error) {
+		// 达到最大量，则返回
+		if iterator.curlNum > iterator.limit {
+			return false, nil, nil
 		}
 
-		//相等时，迭代拉取
-		if index != 0 && iterator.pageToken == "" {
-			return false
+		// 为0则拉取数据
+		if iterator.index == 0 || iterator.index >= len(iterator.items) {
+			if iterator.index != 0 && iterator.nextPageToken == nil {
+				return false, nil, nil
+			}
+			if iterator.nextPageToken != nil {
+				iterator.req.PageToken = iterator.nextPageToken
+			}
+			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+			if err != nil {
+				return false, nil, err
+			}
+
+			if resp.Code != 0 {
+				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+			}
+
+			if len(resp.Data.Items) == 0 {
+				return false, nil, nil
+			}
+
+			iterator.nextPageToken = resp.Data.PageToken
+			iterator.items = resp.Data.Items
+			iterator.index = 0
 		}
 
-		if index != 0 && iterator.pageToken != "" {
-			iterator.req.PageToken = &iterator.pageToken
-		}
-		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-		if err != nil {
-			return false
-		}
-
-		if resp.Code != 0 {
-			return false
-		}
-
-		if nil != resp.Data.PageToken {
-			iterator.pageToken = *resp.Data.PageToken
-		}
-		iterator.items = resp.Data.Items
-		iterator.index = 0
-		iterator.total = len(iterator.items)
-		return true
+		block := iterator.items[iterator.index]
+		iterator.index++
+		iterator.curlNum++
+		return true, block, nil
    }
 
-
-   func (iterator *ListCustomAttrIterator) Next() (*CustomAttr, error) {
-	  if iterator.index >= iterator.total {
-		 return nil, errors.New("no such element error")
-	  }
-
-	  index := iterator.index
-	  iterator.index = index + 1
-	  return iterator.items[index], nil
-
+   func (iterator *ListCustomAttrIterator) NextPageToken() *string {
+	  return iterator.nextPageToken
    }
-
-   func (iterator *ListCustomAttrIterator) NextPageToken() string {
-	  return iterator.pageToken
-   }
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
 /**如果是分页查询，则添加迭代器定义**/
    type ChildrenDepartmentIterator struct{
-	 pageToken string
+	 nextPageToken *string
 	 items	 []*Department
 	 index	 int
-	 total	 int
+	 limit	 int
 	 ctx	   context.Context
 	 req	   *ChildrenDepartmentReq
 	 listFunc  func (ctx context.Context, req *ChildrenDepartmentReq, options ...core.RequestOptionFunc) (*ChildrenDepartmentResp, error)
 	 options   []core.RequestOptionFunc
+   	 curlNum	   int
    }
 
-   func (iterator *ChildrenDepartmentIterator) HasNext() bool {
-		index := iterator.index
-		if index < iterator.total && index != 0 {
-			return true
-		}
-		if index > iterator.total {
-			return false
+   func (iterator *ChildrenDepartmentIterator) Next() (bool, *Department, error) {
+		// 达到最大量，则返回
+		if iterator.curlNum > iterator.limit {
+			return false, nil, nil
 		}
 
-		//相等时，迭代拉取
-		if index != 0 && iterator.pageToken == "" {
-			return false
+		// 为0则拉取数据
+		if iterator.index == 0 || iterator.index >= len(iterator.items) {
+			if iterator.index != 0 && iterator.nextPageToken == nil {
+				return false, nil, nil
+			}
+			if iterator.nextPageToken != nil {
+				iterator.req.PageToken = iterator.nextPageToken
+			}
+			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+			if err != nil {
+				return false, nil, err
+			}
+
+			if resp.Code != 0 {
+				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+			}
+
+			if len(resp.Data.Items) == 0 {
+				return false, nil, nil
+			}
+
+			iterator.nextPageToken = resp.Data.PageToken
+			iterator.items = resp.Data.Items
+			iterator.index = 0
 		}
 
-		if index != 0 && iterator.pageToken != "" {
-			iterator.req.PageToken = &iterator.pageToken
-		}
-		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-		if err != nil {
-			return false
-		}
-
-		if resp.Code != 0 {
-			return false
-		}
-
-		if nil != resp.Data.PageToken {
-			iterator.pageToken = *resp.Data.PageToken
-		}
-		iterator.items = resp.Data.Items
-		iterator.index = 0
-		iterator.total = len(iterator.items)
-		return true
+		block := iterator.items[iterator.index]
+		iterator.index++
+		iterator.curlNum++
+		return true, block, nil
    }
 
-
-   func (iterator *ChildrenDepartmentIterator) Next() (*Department, error) {
-	  if iterator.index >= iterator.total {
-		 return nil, errors.New("no such element error")
-	  }
-
-	  index := iterator.index
-	  iterator.index = index + 1
-	  return iterator.items[index], nil
-
+   func (iterator *ChildrenDepartmentIterator) NextPageToken() *string {
+	  return iterator.nextPageToken
    }
-
-   func (iterator *ChildrenDepartmentIterator) NextPageToken() string {
-	  return iterator.pageToken
-   }
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
 /**如果是分页查询，则添加迭代器定义**/
    type ListDepartmentIterator struct{
-	 pageToken string
+	 nextPageToken *string
 	 items	 []*Department
 	 index	 int
-	 total	 int
+	 limit	 int
 	 ctx	   context.Context
 	 req	   *ListDepartmentReq
 	 listFunc  func (ctx context.Context, req *ListDepartmentReq, options ...core.RequestOptionFunc) (*ListDepartmentResp, error)
 	 options   []core.RequestOptionFunc
+   	 curlNum	   int
    }
 
-   func (iterator *ListDepartmentIterator) HasNext() bool {
-		index := iterator.index
-		if index < iterator.total && index != 0 {
-			return true
-		}
-		if index > iterator.total {
-			return false
+   func (iterator *ListDepartmentIterator) Next() (bool, *Department, error) {
+		// 达到最大量，则返回
+		if iterator.curlNum > iterator.limit {
+			return false, nil, nil
 		}
 
-		//相等时，迭代拉取
-		if index != 0 && iterator.pageToken == "" {
-			return false
+		// 为0则拉取数据
+		if iterator.index == 0 || iterator.index >= len(iterator.items) {
+			if iterator.index != 0 && iterator.nextPageToken == nil {
+				return false, nil, nil
+			}
+			if iterator.nextPageToken != nil {
+				iterator.req.PageToken = iterator.nextPageToken
+			}
+			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+			if err != nil {
+				return false, nil, err
+			}
+
+			if resp.Code != 0 {
+				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+			}
+
+			if len(resp.Data.Items) == 0 {
+				return false, nil, nil
+			}
+
+			iterator.nextPageToken = resp.Data.PageToken
+			iterator.items = resp.Data.Items
+			iterator.index = 0
 		}
 
-		if index != 0 && iterator.pageToken != "" {
-			iterator.req.PageToken = &iterator.pageToken
-		}
-		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-		if err != nil {
-			return false
-		}
-
-		if resp.Code != 0 {
-			return false
-		}
-
-		if nil != resp.Data.PageToken {
-			iterator.pageToken = *resp.Data.PageToken
-		}
-		iterator.items = resp.Data.Items
-		iterator.index = 0
-		iterator.total = len(iterator.items)
-		return true
+		block := iterator.items[iterator.index]
+		iterator.index++
+		iterator.curlNum++
+		return true, block, nil
    }
 
-
-   func (iterator *ListDepartmentIterator) Next() (*Department, error) {
-	  if iterator.index >= iterator.total {
-		 return nil, errors.New("no such element error")
-	  }
-
-	  index := iterator.index
-	  iterator.index = index + 1
-	  return iterator.items[index], nil
-
-   }
-
-   func (iterator *ListDepartmentIterator) NextPageToken() string {
-	  return iterator.pageToken
+   func (iterator *ListDepartmentIterator) NextPageToken() *string {
+	  return iterator.nextPageToken
    }
 /**如果是分页查询，则添加迭代器定义**/
    type ListChildrenDepartmentIterator struct{
-	 pageToken string
+	 nextPageToken *string
 	 items	 []*Department
 	 index	 int
-	 total	 int
+	 limit	 int
 	 ctx	   context.Context
 	 req	   *ListChildrenDepartmentReq
 	 listFunc  func (ctx context.Context, req *ListChildrenDepartmentReq, options ...core.RequestOptionFunc) (*ListChildrenDepartmentResp, error)
 	 options   []core.RequestOptionFunc
+   	 curlNum	   int
    }
 
-   func (iterator *ListChildrenDepartmentIterator) HasNext() bool {
-		index := iterator.index
-		if index < iterator.total && index != 0 {
-			return true
-		}
-		if index > iterator.total {
-			return false
+   func (iterator *ListChildrenDepartmentIterator) Next() (bool, *Department, error) {
+		// 达到最大量，则返回
+		if iterator.curlNum > iterator.limit {
+			return false, nil, nil
 		}
 
-		//相等时，迭代拉取
-		if index != 0 && iterator.pageToken == "" {
-			return false
+		// 为0则拉取数据
+		if iterator.index == 0 || iterator.index >= len(iterator.items) {
+			if iterator.index != 0 && iterator.nextPageToken == nil {
+				return false, nil, nil
+			}
+			if iterator.nextPageToken != nil {
+				iterator.req.PageToken = iterator.nextPageToken
+			}
+			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+			if err != nil {
+				return false, nil, err
+			}
+
+			if resp.Code != 0 {
+				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+			}
+
+			if len(resp.Data.Items) == 0 {
+				return false, nil, nil
+			}
+
+			iterator.nextPageToken = resp.Data.PageToken
+			iterator.items = resp.Data.Items
+			iterator.index = 0
 		}
 
-		if index != 0 && iterator.pageToken != "" {
-			iterator.req.PageToken = &iterator.pageToken
-		}
-		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-		if err != nil {
-			return false
-		}
-
-		if resp.Code != 0 {
-			return false
-		}
-
-		if nil != resp.Data.PageToken {
-			iterator.pageToken = *resp.Data.PageToken
-		}
-		iterator.items = resp.Data.Items
-		iterator.index = 0
-		iterator.total = len(iterator.items)
-		return true
+		block := iterator.items[iterator.index]
+		iterator.index++
+		iterator.curlNum++
+		return true, block, nil
    }
 
-
-   func (iterator *ListChildrenDepartmentIterator) Next() (*Department, error) {
-	  if iterator.index >= iterator.total {
-		 return nil, errors.New("no such element error")
-	  }
-
-	  index := iterator.index
-	  iterator.index = index + 1
-	  return iterator.items[index], nil
-
-   }
-
-   func (iterator *ListChildrenDepartmentIterator) NextPageToken() string {
-	  return iterator.pageToken
+   func (iterator *ListChildrenDepartmentIterator) NextPageToken() *string {
+	  return iterator.nextPageToken
    }
 /**如果是分页查询，则添加迭代器定义**/
    type ParentDepartmentIterator struct{
-	 pageToken string
+	 nextPageToken *string
 	 items	 []*Department
 	 index	 int
-	 total	 int
+	 limit	 int
 	 ctx	   context.Context
 	 req	   *ParentDepartmentReq
 	 listFunc  func (ctx context.Context, req *ParentDepartmentReq, options ...core.RequestOptionFunc) (*ParentDepartmentResp, error)
 	 options   []core.RequestOptionFunc
+   	 curlNum	   int
    }
 
-   func (iterator *ParentDepartmentIterator) HasNext() bool {
-		index := iterator.index
-		if index < iterator.total && index != 0 {
-			return true
-		}
-		if index > iterator.total {
-			return false
+   func (iterator *ParentDepartmentIterator) Next() (bool, *Department, error) {
+		// 达到最大量，则返回
+		if iterator.curlNum > iterator.limit {
+			return false, nil, nil
 		}
 
-		//相等时，迭代拉取
-		if index != 0 && iterator.pageToken == "" {
-			return false
+		// 为0则拉取数据
+		if iterator.index == 0 || iterator.index >= len(iterator.items) {
+			if iterator.index != 0 && iterator.nextPageToken == nil {
+				return false, nil, nil
+			}
+			if iterator.nextPageToken != nil {
+				iterator.req.PageToken = iterator.nextPageToken
+			}
+			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+			if err != nil {
+				return false, nil, err
+			}
+
+			if resp.Code != 0 {
+				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+			}
+
+			if len(resp.Data.Items) == 0 {
+				return false, nil, nil
+			}
+
+			iterator.nextPageToken = resp.Data.PageToken
+			iterator.items = resp.Data.Items
+			iterator.index = 0
 		}
 
-		if index != 0 && iterator.pageToken != "" {
-			iterator.req.PageToken = &iterator.pageToken
-		}
-		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-		if err != nil {
-			return false
-		}
-
-		if resp.Code != 0 {
-			return false
-		}
-
-		if nil != resp.Data.PageToken {
-			iterator.pageToken = *resp.Data.PageToken
-		}
-		iterator.items = resp.Data.Items
-		iterator.index = 0
-		iterator.total = len(iterator.items)
-		return true
+		block := iterator.items[iterator.index]
+		iterator.index++
+		iterator.curlNum++
+		return true, block, nil
    }
 
-
-   func (iterator *ParentDepartmentIterator) Next() (*Department, error) {
-	  if iterator.index >= iterator.total {
-		 return nil, errors.New("no such element error")
-	  }
-
-	  index := iterator.index
-	  iterator.index = index + 1
-	  return iterator.items[index], nil
-
+   func (iterator *ParentDepartmentIterator) NextPageToken() *string {
+	  return iterator.nextPageToken
    }
-
-   func (iterator *ParentDepartmentIterator) NextPageToken() string {
-	  return iterator.pageToken
-   }
-/**如果是分页查询，则添加迭代器定义**/
 /**如果是分页查询，则添加迭代器定义**/
    type SearchDepartmentIterator struct{
-	 pageToken string
+	 nextPageToken *string
 	 items	 []*Department
 	 index	 int
-	 total	 int
+	 limit	 int
 	 ctx	   context.Context
 	 req	   *SearchDepartmentReq
 	 listFunc  func (ctx context.Context, req *SearchDepartmentReq, options ...core.RequestOptionFunc) (*SearchDepartmentResp, error)
 	 options   []core.RequestOptionFunc
+   	 curlNum	   int
    }
 
-   func (iterator *SearchDepartmentIterator) HasNext() bool {
-		index := iterator.index
-		if index < iterator.total && index != 0 {
-			return true
-		}
-		if index > iterator.total {
-			return false
+   func (iterator *SearchDepartmentIterator) Next() (bool, *Department, error) {
+		// 达到最大量，则返回
+		if iterator.curlNum > iterator.limit {
+			return false, nil, nil
 		}
 
-		//相等时，迭代拉取
-		if index != 0 && iterator.pageToken == "" {
-			return false
+		// 为0则拉取数据
+		if iterator.index == 0 || iterator.index >= len(iterator.items) {
+			if iterator.index != 0 && iterator.nextPageToken == nil {
+				return false, nil, nil
+			}
+			if iterator.nextPageToken != nil {
+				iterator.req.PageToken = iterator.nextPageToken
+			}
+			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+			if err != nil {
+				return false, nil, err
+			}
+
+			if resp.Code != 0 {
+				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+			}
+
+			if len(resp.Data.Items) == 0 {
+				return false, nil, nil
+			}
+
+			iterator.nextPageToken = resp.Data.PageToken
+			iterator.items = resp.Data.Items
+			iterator.index = 0
 		}
 
-		if index != 0 && iterator.pageToken != "" {
-			iterator.req.PageToken = &iterator.pageToken
-		}
-		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-		if err != nil {
-			return false
-		}
-
-		if resp.Code != 0 {
-			return false
-		}
-
-		if nil != resp.Data.PageToken {
-			iterator.pageToken = *resp.Data.PageToken
-		}
-		iterator.items = resp.Data.Items
-		iterator.index = 0
-		iterator.total = len(iterator.items)
-		return true
+		block := iterator.items[iterator.index]
+		iterator.index++
+		iterator.curlNum++
+		return true, block, nil
    }
 
-
-   func (iterator *SearchDepartmentIterator) Next() (*Department, error) {
-	  if iterator.index >= iterator.total {
-		 return nil, errors.New("no such element error")
-	  }
-
-	  index := iterator.index
-	  iterator.index = index + 1
-	  return iterator.items[index], nil
-
+   func (iterator *SearchDepartmentIterator) NextPageToken() *string {
+	  return iterator.nextPageToken
    }
-
-   func (iterator *SearchDepartmentIterator) NextPageToken() string {
-	  return iterator.pageToken
-   }
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
 /**如果是分页查询，则添加迭代器定义**/
    type ListEmployeeTypeEnumIterator struct{
-	 pageToken string
+	 nextPageToken *string
 	 items	 []*EmployeeTypeEnum
 	 index	 int
-	 total	 int
+	 limit	 int
 	 ctx	   context.Context
 	 req	   *ListEmployeeTypeEnumReq
 	 listFunc  func (ctx context.Context, req *ListEmployeeTypeEnumReq, options ...core.RequestOptionFunc) (*ListEmployeeTypeEnumResp, error)
 	 options   []core.RequestOptionFunc
+   	 curlNum	   int
    }
 
-   func (iterator *ListEmployeeTypeEnumIterator) HasNext() bool {
-		index := iterator.index
-		if index < iterator.total && index != 0 {
-			return true
-		}
-		if index > iterator.total {
-			return false
+   func (iterator *ListEmployeeTypeEnumIterator) Next() (bool, *EmployeeTypeEnum, error) {
+		// 达到最大量，则返回
+		if iterator.curlNum > iterator.limit {
+			return false, nil, nil
 		}
 
-		//相等时，迭代拉取
-		if index != 0 && iterator.pageToken == "" {
-			return false
+		// 为0则拉取数据
+		if iterator.index == 0 || iterator.index >= len(iterator.items) {
+			if iterator.index != 0 && iterator.nextPageToken == nil {
+				return false, nil, nil
+			}
+			if iterator.nextPageToken != nil {
+				iterator.req.PageToken = iterator.nextPageToken
+			}
+			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+			if err != nil {
+				return false, nil, err
+			}
+
+			if resp.Code != 0 {
+				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+			}
+
+			if len(resp.Data.Items) == 0 {
+				return false, nil, nil
+			}
+
+			iterator.nextPageToken = resp.Data.PageToken
+			iterator.items = resp.Data.Items
+			iterator.index = 0
 		}
 
-		if index != 0 && iterator.pageToken != "" {
-			iterator.req.PageToken = &iterator.pageToken
-		}
-		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-		if err != nil {
-			return false
-		}
-
-		if resp.Code != 0 {
-			return false
-		}
-
-		if nil != resp.Data.PageToken {
-			iterator.pageToken = *resp.Data.PageToken
-		}
-		iterator.items = resp.Data.Items
-		iterator.index = 0
-		iterator.total = len(iterator.items)
-		return true
+		block := iterator.items[iterator.index]
+		iterator.index++
+		iterator.curlNum++
+		return true, block, nil
    }
 
-
-   func (iterator *ListEmployeeTypeEnumIterator) Next() (*EmployeeTypeEnum, error) {
-	  if iterator.index >= iterator.total {
-		 return nil, errors.New("no such element error")
-	  }
-
-	  index := iterator.index
-	  iterator.index = index + 1
-	  return iterator.items[index], nil
-
+   func (iterator *ListEmployeeTypeEnumIterator) NextPageToken() *string {
+	  return iterator.nextPageToken
    }
-
-   func (iterator *ListEmployeeTypeEnumIterator) NextPageToken() string {
-	  return iterator.pageToken
-   }
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
 /**如果是分页查询，则添加迭代器定义**/
    type SimplelistGroupIterator struct{
-	 pageToken string
+	 nextPageToken *string
 	 items	 []*Group
 	 index	 int
-	 total	 int
+	 limit	 int
 	 ctx	   context.Context
 	 req	   *SimplelistGroupReq
 	 listFunc  func (ctx context.Context, req *SimplelistGroupReq, options ...core.RequestOptionFunc) (*SimplelistGroupResp, error)
 	 options   []core.RequestOptionFunc
+   	 curlNum	   int
    }
 
-   func (iterator *SimplelistGroupIterator) HasNext() bool {
-		index := iterator.index
-		if index < iterator.total && index != 0 {
-			return true
-		}
-		if index > iterator.total {
-			return false
+   func (iterator *SimplelistGroupIterator) Next() (bool, *Group, error) {
+		// 达到最大量，则返回
+		if iterator.curlNum > iterator.limit {
+			return false, nil, nil
 		}
 
-		//相等时，迭代拉取
-		if index != 0 && iterator.pageToken == "" {
-			return false
+		// 为0则拉取数据
+		if iterator.index == 0 || iterator.index >= len(iterator.items) {
+			if iterator.index != 0 && iterator.nextPageToken == nil {
+				return false, nil, nil
+			}
+			if iterator.nextPageToken != nil {
+				iterator.req.PageToken = iterator.nextPageToken
+			}
+			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+			if err != nil {
+				return false, nil, err
+			}
+
+			if resp.Code != 0 {
+				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+			}
+
+			if len(resp.Data.Grouplist) == 0 {
+				return false, nil, nil
+			}
+
+			iterator.nextPageToken = resp.Data.PageToken
+			iterator.items = resp.Data.Grouplist
+			iterator.index = 0
 		}
 
-		if index != 0 && iterator.pageToken != "" {
-			iterator.req.PageToken = &iterator.pageToken
-		}
-		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-		if err != nil {
-			return false
-		}
-
-		if resp.Code != 0 {
-			return false
-		}
-
-		if nil != resp.Data.PageToken {
-			iterator.pageToken = *resp.Data.PageToken
-		}
-		iterator.items = resp.Data.Grouplist
-		iterator.index = 0
-		iterator.total = len(iterator.items)
-		return true
+		block := iterator.items[iterator.index]
+		iterator.index++
+		iterator.curlNum++
+		return true, block, nil
    }
 
-
-   func (iterator *SimplelistGroupIterator) Next() (*Group, error) {
-	  if iterator.index >= iterator.total {
-		 return nil, errors.New("no such element error")
-	  }
-
-	  index := iterator.index
-	  iterator.index = index + 1
-	  return iterator.items[index], nil
-
+   func (iterator *SimplelistGroupIterator) NextPageToken() *string {
+	  return iterator.nextPageToken
    }
-
-   func (iterator *SimplelistGroupIterator) NextPageToken() string {
-	  return iterator.pageToken
-   }
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
 /**如果是分页查询，则添加迭代器定义**/
    type FindByDepartmentUserIterator struct{
-	 pageToken string
+	 nextPageToken *string
 	 items	 []*User
 	 index	 int
-	 total	 int
+	 limit	 int
 	 ctx	   context.Context
 	 req	   *FindByDepartmentUserReq
 	 listFunc  func (ctx context.Context, req *FindByDepartmentUserReq, options ...core.RequestOptionFunc) (*FindByDepartmentUserResp, error)
 	 options   []core.RequestOptionFunc
+   	 curlNum	   int
    }
 
-   func (iterator *FindByDepartmentUserIterator) HasNext() bool {
-		index := iterator.index
-		if index < iterator.total && index != 0 {
-			return true
-		}
-		if index > iterator.total {
-			return false
+   func (iterator *FindByDepartmentUserIterator) Next() (bool, *User, error) {
+		// 达到最大量，则返回
+		if iterator.curlNum > iterator.limit {
+			return false, nil, nil
 		}
 
-		//相等时，迭代拉取
-		if index != 0 && iterator.pageToken == "" {
-			return false
+		// 为0则拉取数据
+		if iterator.index == 0 || iterator.index >= len(iterator.items) {
+			if iterator.index != 0 && iterator.nextPageToken == nil {
+				return false, nil, nil
+			}
+			if iterator.nextPageToken != nil {
+				iterator.req.PageToken = iterator.nextPageToken
+			}
+			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+			if err != nil {
+				return false, nil, err
+			}
+
+			if resp.Code != 0 {
+				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+			}
+
+			if len(resp.Data.Items) == 0 {
+				return false, nil, nil
+			}
+
+			iterator.nextPageToken = resp.Data.PageToken
+			iterator.items = resp.Data.Items
+			iterator.index = 0
 		}
 
-		if index != 0 && iterator.pageToken != "" {
-			iterator.req.PageToken = &iterator.pageToken
-		}
-		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-		if err != nil {
-			return false
-		}
-
-		if resp.Code != 0 {
-			return false
-		}
-
-		if nil != resp.Data.PageToken {
-			iterator.pageToken = *resp.Data.PageToken
-		}
-		iterator.items = resp.Data.Items
-		iterator.index = 0
-		iterator.total = len(iterator.items)
-		return true
+		block := iterator.items[iterator.index]
+		iterator.index++
+		iterator.curlNum++
+		return true, block, nil
    }
 
-
-   func (iterator *FindByDepartmentUserIterator) Next() (*User, error) {
-	  if iterator.index >= iterator.total {
-		 return nil, errors.New("no such element error")
-	  }
-
-	  index := iterator.index
-	  iterator.index = index + 1
-	  return iterator.items[index], nil
-
+   func (iterator *FindByDepartmentUserIterator) NextPageToken() *string {
+	  return iterator.nextPageToken
    }
-
-   func (iterator *FindByDepartmentUserIterator) NextPageToken() string {
-	  return iterator.pageToken
-   }
-/**如果是分页查询，则添加迭代器定义**/
 /**如果是分页查询，则添加迭代器定义**/
    type ListUserIterator struct{
-	 pageToken string
+	 nextPageToken *string
 	 items	 []*User
 	 index	 int
-	 total	 int
+	 limit	 int
 	 ctx	   context.Context
 	 req	   *ListUserReq
 	 listFunc  func (ctx context.Context, req *ListUserReq, options ...core.RequestOptionFunc) (*ListUserResp, error)
 	 options   []core.RequestOptionFunc
+   	 curlNum	   int
    }
 
-   func (iterator *ListUserIterator) HasNext() bool {
-		index := iterator.index
-		if index < iterator.total && index != 0 {
-			return true
-		}
-		if index > iterator.total {
-			return false
+   func (iterator *ListUserIterator) Next() (bool, *User, error) {
+		// 达到最大量，则返回
+		if iterator.curlNum > iterator.limit {
+			return false, nil, nil
 		}
 
-		//相等时，迭代拉取
-		if index != 0 && iterator.pageToken == "" {
-			return false
+		// 为0则拉取数据
+		if iterator.index == 0 || iterator.index >= len(iterator.items) {
+			if iterator.index != 0 && iterator.nextPageToken == nil {
+				return false, nil, nil
+			}
+			if iterator.nextPageToken != nil {
+				iterator.req.PageToken = iterator.nextPageToken
+			}
+			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+			if err != nil {
+				return false, nil, err
+			}
+
+			if resp.Code != 0 {
+				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+			}
+
+			if len(resp.Data.Items) == 0 {
+				return false, nil, nil
+			}
+
+			iterator.nextPageToken = resp.Data.PageToken
+			iterator.items = resp.Data.Items
+			iterator.index = 0
 		}
 
-		if index != 0 && iterator.pageToken != "" {
-			iterator.req.PageToken = &iterator.pageToken
-		}
-		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-		if err != nil {
-			return false
-		}
-
-		if resp.Code != 0 {
-			return false
-		}
-
-		if nil != resp.Data.PageToken {
-			iterator.pageToken = *resp.Data.PageToken
-		}
-		iterator.items = resp.Data.Items
-		iterator.index = 0
-		iterator.total = len(iterator.items)
-		return true
+		block := iterator.items[iterator.index]
+		iterator.index++
+		iterator.curlNum++
+		return true, block, nil
    }
 
-
-   func (iterator *ListUserIterator) Next() (*User, error) {
-	  if iterator.index >= iterator.total {
-		 return nil, errors.New("no such element error")
-	  }
-
-	  index := iterator.index
-	  iterator.index = index + 1
-	  return iterator.items[index], nil
-
+   func (iterator *ListUserIterator) NextPageToken() *string {
+	  return iterator.nextPageToken
    }
-
-   func (iterator *ListUserIterator) NextPageToken() string {
-	  return iterator.pageToken
-   }
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
 /**如果是分页查询，则添加迭代器定义**/
    type ListUserGroupIterator struct{
-	 pageToken string
+	 nextPageToken *string
 	 items	 []*UserGroup
 	 index	 int
-	 total	 int
+	 limit	 int
 	 ctx	   context.Context
 	 req	   *ListUserGroupReq
 	 listFunc  func (ctx context.Context, req *ListUserGroupReq, options ...core.RequestOptionFunc) (*ListUserGroupResp, error)
 	 options   []core.RequestOptionFunc
+   	 curlNum	   int
    }
 
-   func (iterator *ListUserGroupIterator) HasNext() bool {
-		index := iterator.index
-		if index < iterator.total && index != 0 {
-			return true
-		}
-		if index > iterator.total {
-			return false
+   func (iterator *ListUserGroupIterator) Next() (bool, *UserGroup, error) {
+		// 达到最大量，则返回
+		if iterator.curlNum > iterator.limit {
+			return false, nil, nil
 		}
 
-		//相等时，迭代拉取
-		if index != 0 && iterator.pageToken == "" {
-			return false
+		// 为0则拉取数据
+		if iterator.index == 0 || iterator.index >= len(iterator.items) {
+			if iterator.index != 0 && iterator.nextPageToken == nil {
+				return false, nil, nil
+			}
+			if iterator.nextPageToken != nil {
+				iterator.req.PageToken = iterator.nextPageToken
+			}
+			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+			if err != nil {
+				return false, nil, err
+			}
+
+			if resp.Code != 0 {
+				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+			}
+
+			if len(resp.Data.Items) == 0 {
+				return false, nil, nil
+			}
+
+			iterator.nextPageToken = resp.Data.PageToken
+			iterator.items = resp.Data.Items
+			iterator.index = 0
 		}
 
-		if index != 0 && iterator.pageToken != "" {
-			iterator.req.PageToken = &iterator.pageToken
-		}
-		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-		if err != nil {
-			return false
-		}
-
-		if resp.Code != 0 {
-			return false
-		}
-
-		if nil != resp.Data.PageToken {
-			iterator.pageToken = *resp.Data.PageToken
-		}
-		iterator.items = resp.Data.Items
-		iterator.index = 0
-		iterator.total = len(iterator.items)
-		return true
+		block := iterator.items[iterator.index]
+		iterator.index++
+		iterator.curlNum++
+		return true, block, nil
    }
 
-
-   func (iterator *ListUserGroupIterator) Next() (*UserGroup, error) {
-	  if iterator.index >= iterator.total {
-		 return nil, errors.New("no such element error")
-	  }
-
-	  index := iterator.index
-	  iterator.index = index + 1
-	  return iterator.items[index], nil
-
+   func (iterator *ListUserGroupIterator) NextPageToken() *string {
+	  return iterator.nextPageToken
    }
-
-   func (iterator *ListUserGroupIterator) NextPageToken() string {
-	  return iterator.pageToken
-   }
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
 /**如果是分页查询，则添加迭代器定义**/
    type ListUserGroupMemberIterator struct{
-	 pageToken string
+	 nextPageToken *string
 	 items	 []*User
 	 index	 int
-	 total	 int
+	 limit	 int
 	 ctx	   context.Context
 	 req	   *ListUserGroupMemberReq
 	 listFunc  func (ctx context.Context, req *ListUserGroupMemberReq, options ...core.RequestOptionFunc) (*ListUserGroupMemberResp, error)
 	 options   []core.RequestOptionFunc
+   	 curlNum	   int
    }
 
-   func (iterator *ListUserGroupMemberIterator) HasNext() bool {
-		index := iterator.index
-		if index < iterator.total && index != 0 {
-			return true
-		}
-		if index > iterator.total {
-			return false
+   func (iterator *ListUserGroupMemberIterator) Next() (bool, *User, error) {
+		// 达到最大量，则返回
+		if iterator.curlNum > iterator.limit {
+			return false, nil, nil
 		}
 
-		//相等时，迭代拉取
-		if index != 0 && iterator.pageToken == "" {
-			return false
+		// 为0则拉取数据
+		if iterator.index == 0 || iterator.index >= len(iterator.items) {
+			if iterator.index != 0 && iterator.nextPageToken == nil {
+				return false, nil, nil
+			}
+			if iterator.nextPageToken != nil {
+				iterator.req.PageToken = iterator.nextPageToken
+			}
+			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+			if err != nil {
+				return false, nil, err
+			}
+
+			if resp.Code != 0 {
+				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+			}
+
+			if len(resp.Data.Items) == 0 {
+				return false, nil, nil
+			}
+
+			iterator.nextPageToken = resp.Data.PageToken
+			iterator.items = resp.Data.Items
+			iterator.index = 0
 		}
 
-		if index != 0 && iterator.pageToken != "" {
-			iterator.req.PageToken = &iterator.pageToken
-		}
-		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-		if err != nil {
-			return false
-		}
-
-		if resp.Code != 0 {
-			return false
-		}
-
-		if nil != resp.Data.PageToken {
-			iterator.pageToken = *resp.Data.PageToken
-		}
-		iterator.items = resp.Data.Items
-		iterator.index = 0
-		iterator.total = len(iterator.items)
-		return true
+		block := iterator.items[iterator.index]
+		iterator.index++
+		iterator.curlNum++
+		return true, block, nil
    }
 
-
-   func (iterator *ListUserGroupMemberIterator) Next() (*User, error) {
-	  if iterator.index >= iterator.total {
-		 return nil, errors.New("no such element error")
-	  }
-
-	  index := iterator.index
-	  iterator.index = index + 1
-	  return iterator.items[index], nil
-
+   func (iterator *ListUserGroupMemberIterator) NextPageToken() *string {
+	  return iterator.nextPageToken
    }
 
-   func (iterator *ListUserGroupMemberIterator) NextPageToken() string {
-	  return iterator.pageToken
-   }
 

@@ -15,7 +15,7 @@ func main() {
 		AppSecret: "appSecret",
 	}
 
-	resp, err := core.SendRequest(context.Background(), config, "get", "/open-apis/message/v4/send", []core.AccessTokenType{core.AccessTokenTypeUser}, map[string]interface{}{
+	resp, err := core.SendGet(context.Background(), config, "/open-apis/message/v4/send", core.AccessTokenTypeUser, map[string]interface{}{
 		"user_id":  "77bbc392",
 		"msg_type": "text",
 		"content":  "content",

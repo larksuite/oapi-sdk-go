@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"os"
+	"time"
 
 	"github.com/feishu/oapi-sdk-go"
 	"github.com/feishu/oapi-sdk-go/core"
@@ -22,15 +23,15 @@ func createDocument(client *client.Client) {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(resp.Code, resp.Msg, core.Prettify(resp.Data))
+	fmt.Println(resp.Code, resp.Msg, resp.RequestId(), core.Prettify(resp.Data))
 }
 
 func listBlocks(client *client.Client) {
 	resp, err := client.Docx.Blocks.List(context.Background(),
 		docx.NewListDocumentBlockReqBuilder().
 			DocumentId("doxcnku1W0IhiZBDPkxlEVSn6Tf").
-			PageSize(1).
-			Build(), core.WithUserAccessToken("u-kFK7mQdQasTbiosC18boUc"),
+			PageSize(100).
+			Build(), core.WithUserAccessToken("u-JDboiwm9RnJbtNc1gdJ0Qd"),
 	)
 
 	if err != nil {
@@ -38,38 +39,50 @@ func listBlocks(client *client.Client) {
 		return
 	}
 
+	fmt.Println(resp.RequestId())
 	fmt.Println(core.Prettify(resp))
+	fmt.Println(len(resp.Data.Items))
+
 }
 
-//
-//func listBlocksIter() {
-//	iter, err := client.Docx.Blocks.ListDocumentBlock(context.Background(),
-//		docx.NewListDocumentBlockReqBuilder().
-//			DocumentId("doxcnku1W0IhiZBDPkxlEVSn6Tf").
-//			PageSize(2).
-//			Build(), core.WithUserAccessToken("u-zwbYaTxHGGHxQ9BAVIAO5g"),
-//	)
-//
-//	if err != nil {
-//		fmt.Println(core.Prettify(err))
-//		return
-//	}
-//
-//	for {
-//		if iter.HasNext() {
-//			block, err := iter.Next()
-//			if err != nil {
-//				fmt.Println(err)
-//				return
-//			}
-//			fmt.Println(core.Prettify(block))
-//
-//		} else {
-//			break
-//		}
-//	}
-//
-//}
+func listBlocksIter(client *client.Client) {
+	var count = 0
+
+	defer func() {
+		fmt.Println(count)
+
+	}()
+
+	iter, err := client.Docx.Blocks.ListDocumentBlock(context.Background(),
+		docx.NewListDocumentBlockReqBuilder().
+			DocumentId("doxcnku1W0IhiZBDPkxlEVSn6Tf").
+			PageSize(2).
+			Limit(100).
+			Build(), core.WithUserAccessToken("u-JDboiwm9RnJbtNc1gdJ0Qd"),
+	)
+
+	if err != nil {
+		fmt.Println(core.Prettify(err))
+		return
+	}
+
+	for {
+		hasNext, block, err := iter.Next()
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+
+		if !hasNext {
+			return
+		}
+
+		fmt.Println(core.Prettify(block))
+		time.Sleep(time.Second)
+		count++
+	}
+
+}
 
 func main() {
 	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
@@ -77,5 +90,5 @@ func main() {
 	feishuClient := client.NewClient(appID, appSecret)
 
 	listBlocks(feishuClient)
-	//listBlocksIter()
+	listBlocksIter(feishuClient)
 }

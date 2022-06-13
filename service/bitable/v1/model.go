@@ -4,6 +4,7 @@ package bitable
 import (
 	"context"
 	"errors"
+	"fmt"
 	
 	"github.com/feishu/oapi-sdk-go/core"
 
@@ -122,6 +123,7 @@ type Url struct {
 type GetAppReqBuilder struct {
 	appToken  string
 	appTokenFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -149,6 +151,7 @@ func (builder * GetAppReqBuilder ) Build() *GetAppReq {
 
 type GetAppReq struct {
 	AppToken  string `path:"app_token"`
+
 }
 
 type GetAppRespData struct {
@@ -170,6 +173,8 @@ type ListAppTableReqBuilder struct {
 	pageTokenFlag  bool
 	pageSize  int
 	pageSizeFlag  bool
+	limit int
+
 }
 
 // 生成请求的New构造器
@@ -179,6 +184,10 @@ func NewListAppTableReqBuilder() * ListAppTableReqBuilder{
 }
 
 /*1.5 生成请求的builder属性方法*/
+func (builder * ListAppTableReqBuilder) Limit(limit int ) *ListAppTableReqBuilder  {
+  builder.limit = limit
+  return builder
+}
 func (builder * ListAppTableReqBuilder) AppToken(appToken string) *ListAppTableReqBuilder  {
   builder.appToken = appToken
   builder.appTokenFlag = true
@@ -198,6 +207,7 @@ func (builder * ListAppTableReqBuilder) PageSize(pageSize int) *ListAppTableReqB
 /*1.5 生成请求的builder的build方法*/
 func (builder * ListAppTableReqBuilder ) Build() *ListAppTableReq {
    req := &ListAppTableReq{}
+   req.Limit = builder.limit
    if builder.appTokenFlag {
 	  req.AppToken = builder.appToken
    }
@@ -215,6 +225,8 @@ type ListAppTableReq struct {
 	AppToken  string `path:"app_token"`
 	PageToken  *string `query:"page_token"`
 	PageSize  *int `query:"page_size"`
+	Limit int
+
 }
 
 type ListAppTableRespData struct {
@@ -259,6 +271,36 @@ func (builder * BatchCreateAppTableReqBodyBuilder ) Build() *BatchCreateAppTable
    return req
 }
 
+/**上传文件path开始**/
+type BatchCreateAppTablePathReqBodyBuilder struct {
+	tables  []*ReqTable
+	tablesFlag  bool
+}
+
+// 生成body的New构造器
+func NewBatchCreateAppTablePathReqBodyBuilder() * BatchCreateAppTablePathReqBodyBuilder{
+  builder := &BatchCreateAppTablePathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * BatchCreateAppTablePathReqBodyBuilder ) Tables(tables []*ReqTable) *BatchCreateAppTablePathReqBodyBuilder {
+  builder.tables = tables
+  builder.tablesFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * BatchCreateAppTablePathReqBodyBuilder ) Build() (*BatchCreateAppTableReqBody, error) {
+   req := &BatchCreateAppTableReqBody{}
+   if builder.tablesFlag {
+	   req.Tables = builder.tables
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type BatchCreateAppTableReqBuilder struct {
 	appToken  string
@@ -267,6 +309,7 @@ type BatchCreateAppTableReqBuilder struct {
 	userIdTypeFlag  bool
 	body *BatchCreateAppTableReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -316,6 +359,7 @@ type BatchCreateAppTableReq struct {
 	AppToken  string `path:"app_token"`
 	UserIdType  *string `query:"user_id_type"`
 	Body *BatchCreateAppTableReqBody `body:""`
+
 }
 
 type BatchCreateAppTableRespData struct {
@@ -357,6 +401,36 @@ func (builder * CreateAppTableReqBodyBuilder ) Build() *CreateAppTableReqBody {
    return req
 }
 
+/**上传文件path开始**/
+type CreateAppTablePathReqBodyBuilder struct {
+	table  *ReqTable
+	tableFlag  bool
+}
+
+// 生成body的New构造器
+func NewCreateAppTablePathReqBodyBuilder() * CreateAppTablePathReqBodyBuilder{
+  builder := &CreateAppTablePathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * CreateAppTablePathReqBodyBuilder ) Table(table *ReqTable) *CreateAppTablePathReqBodyBuilder {
+  builder.table = table
+  builder.tableFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * CreateAppTablePathReqBodyBuilder ) Build() (*CreateAppTableReqBody, error) {
+   req := &CreateAppTableReqBody{}
+   if builder.tableFlag {
+	   req.Table = builder.table
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type CreateAppTableReqBuilder struct {
 	appToken  string
@@ -365,6 +439,7 @@ type CreateAppTableReqBuilder struct {
 	userIdTypeFlag  bool
 	body *CreateAppTableReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -414,6 +489,7 @@ type CreateAppTableReq struct {
 	AppToken  string `path:"app_token"`
 	UserIdType  *string `query:"user_id_type"`
 	Body *CreateAppTableReqBody `body:""`
+
 }
 
 type CreateAppTableRespData struct {
@@ -433,6 +509,7 @@ type DeleteAppTableReqBuilder struct {
 	appTokenFlag  bool
 	tableId  string
 	tableIdFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -469,6 +546,7 @@ func (builder * DeleteAppTableReqBuilder ) Build() *DeleteAppTableReq {
 type DeleteAppTableReq struct {
 	AppToken  string `path:"app_token"`
 	TableId  string `path:"table_id"`
+
 }
 
 
@@ -506,12 +584,43 @@ func (builder * BatchDeleteAppTableReqBodyBuilder ) Build() *BatchDeleteAppTable
    return req
 }
 
+/**上传文件path开始**/
+type BatchDeleteAppTablePathReqBodyBuilder struct {
+	tableIds  []string
+	tableIdsFlag  bool
+}
+
+// 生成body的New构造器
+func NewBatchDeleteAppTablePathReqBodyBuilder() * BatchDeleteAppTablePathReqBodyBuilder{
+  builder := &BatchDeleteAppTablePathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * BatchDeleteAppTablePathReqBodyBuilder ) TableIds(tableIds []string) *BatchDeleteAppTablePathReqBodyBuilder {
+  builder.tableIds = tableIds
+  builder.tableIdsFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * BatchDeleteAppTablePathReqBodyBuilder ) Build() (*BatchDeleteAppTableReqBody, error) {
+   req := &BatchDeleteAppTableReqBody{}
+   if builder.tableIdsFlag {
+	   req.TableIds = builder.tableIds
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type BatchDeleteAppTableReqBuilder struct {
 	appToken  string
 	appTokenFlag  bool
 	body *BatchDeleteAppTableReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -552,6 +661,7 @@ type BatchDeleteAppTableReqBody struct {
 type BatchDeleteAppTableReq struct {
 	AppToken  string `path:"app_token"`
 	Body *BatchDeleteAppTableReqBody `body:""`
+
 }
 
 
@@ -573,6 +683,8 @@ type ListAppTableFieldReqBuilder struct {
 	pageTokenFlag  bool
 	pageSize  int
 	pageSizeFlag  bool
+	limit int
+
 }
 
 // 生成请求的New构造器
@@ -582,6 +694,10 @@ func NewListAppTableFieldReqBuilder() * ListAppTableFieldReqBuilder{
 }
 
 /*1.5 生成请求的builder属性方法*/
+func (builder * ListAppTableFieldReqBuilder) Limit(limit int ) *ListAppTableFieldReqBuilder  {
+  builder.limit = limit
+  return builder
+}
 func (builder * ListAppTableFieldReqBuilder) AppToken(appToken string) *ListAppTableFieldReqBuilder  {
   builder.appToken = appToken
   builder.appTokenFlag = true
@@ -611,6 +727,7 @@ func (builder * ListAppTableFieldReqBuilder) PageSize(pageSize int) *ListAppTabl
 /*1.5 生成请求的builder的build方法*/
 func (builder * ListAppTableFieldReqBuilder ) Build() *ListAppTableFieldReq {
    req := &ListAppTableFieldReq{}
+   req.Limit = builder.limit
    if builder.appTokenFlag {
 	  req.AppToken = builder.appToken
    }
@@ -636,6 +753,8 @@ type ListAppTableFieldReq struct {
 	ViewId  *string `query:"view_id"`
 	PageToken  *string `query:"page_token"`
 	PageSize  *int `query:"page_size"`
+	Limit int
+
 }
 
 type ListAppTableFieldRespData struct {
@@ -662,6 +781,7 @@ type CreateAppTableFieldReqBuilder struct {
 	userIdTypeFlag  bool
 	appTableField *AppTableField
 	appTableFieldFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -713,6 +833,7 @@ type CreateAppTableFieldReq struct {
 	TableId  string `path:"table_id"`
 	UserIdType  *string `query:"user_id_type"`
 	AppTableField *AppTableField `body:""`
+
 }
 
 type CreateAppTableFieldRespData struct {
@@ -734,6 +855,7 @@ type DeleteAppTableFieldReqBuilder struct {
 	tableIdFlag  bool
 	fieldId  string
 	fieldIdFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -779,6 +901,7 @@ type DeleteAppTableFieldReq struct {
 	AppToken  string `path:"app_token"`
 	TableId  string `path:"table_id"`
 	FieldId  string `path:"field_id"`
+
 }
 
 type DeleteAppTableFieldRespData struct {
@@ -803,6 +926,7 @@ type UpdateAppTableFieldReqBuilder struct {
 	fieldIdFlag  bool
 	appTableField *AppTableField
 	appTableFieldFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -854,6 +978,7 @@ type UpdateAppTableFieldReq struct {
 	TableId  string `path:"table_id"`
 	FieldId  string `path:"field_id"`
 	AppTableField *AppTableField `body:""`
+
 }
 
 type UpdateAppTableFieldRespData struct {
@@ -895,6 +1020,36 @@ func (builder * BatchDeleteAppTableRecordReqBodyBuilder ) Build() *BatchDeleteAp
    return req
 }
 
+/**上传文件path开始**/
+type BatchDeleteAppTableRecordPathReqBodyBuilder struct {
+	records  []string
+	recordsFlag  bool
+}
+
+// 生成body的New构造器
+func NewBatchDeleteAppTableRecordPathReqBodyBuilder() * BatchDeleteAppTableRecordPathReqBodyBuilder{
+  builder := &BatchDeleteAppTableRecordPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * BatchDeleteAppTableRecordPathReqBodyBuilder ) Records(records []string) *BatchDeleteAppTableRecordPathReqBodyBuilder {
+  builder.records = records
+  builder.recordsFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * BatchDeleteAppTableRecordPathReqBodyBuilder ) Build() (*BatchDeleteAppTableRecordReqBody, error) {
+   req := &BatchDeleteAppTableRecordReqBody{}
+   if builder.recordsFlag {
+	   req.Records = builder.records
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type BatchDeleteAppTableRecordReqBuilder struct {
 	appToken  string
@@ -903,6 +1058,7 @@ type BatchDeleteAppTableRecordReqBuilder struct {
 	tableIdFlag  bool
 	body *BatchDeleteAppTableRecordReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -952,6 +1108,7 @@ type BatchDeleteAppTableRecordReq struct {
 	AppToken  string `path:"app_token"`
 	TableId  string `path:"table_id"`
 	Body *BatchDeleteAppTableRecordReqBody `body:""`
+
 }
 
 type BatchDeleteAppTableRecordRespData struct {
@@ -993,6 +1150,36 @@ func (builder * BatchCreateAppTableRecordReqBodyBuilder ) Build() *BatchCreateAp
    return req
 }
 
+/**上传文件path开始**/
+type BatchCreateAppTableRecordPathReqBodyBuilder struct {
+	records  []*AppTableRecord
+	recordsFlag  bool
+}
+
+// 生成body的New构造器
+func NewBatchCreateAppTableRecordPathReqBodyBuilder() * BatchCreateAppTableRecordPathReqBodyBuilder{
+  builder := &BatchCreateAppTableRecordPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * BatchCreateAppTableRecordPathReqBodyBuilder ) Records(records []*AppTableRecord) *BatchCreateAppTableRecordPathReqBodyBuilder {
+  builder.records = records
+  builder.recordsFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * BatchCreateAppTableRecordPathReqBodyBuilder ) Build() (*BatchCreateAppTableRecordReqBody, error) {
+   req := &BatchCreateAppTableRecordReqBody{}
+   if builder.recordsFlag {
+	   req.Records = builder.records
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type BatchCreateAppTableRecordReqBuilder struct {
 	appToken  string
@@ -1003,6 +1190,7 @@ type BatchCreateAppTableRecordReqBuilder struct {
 	userIdTypeFlag  bool
 	body *BatchCreateAppTableRecordReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -1061,6 +1249,7 @@ type BatchCreateAppTableRecordReq struct {
 	TableId  string `path:"table_id"`
 	UserIdType  *string `query:"user_id_type"`
 	Body *BatchCreateAppTableRecordReqBody `body:""`
+
 }
 
 type BatchCreateAppTableRecordRespData struct {
@@ -1084,6 +1273,7 @@ type GetAppTableRecordReqBuilder struct {
 	recordIdFlag  bool
 	userIdType  string
 	userIdTypeFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -1138,6 +1328,7 @@ type GetAppTableRecordReq struct {
 	TableId  string `path:"table_id"`
 	RecordId  string `path:"record_id"`
 	UserIdType  *string `query:"user_id_type"`
+
 }
 
 type GetAppTableRecordRespData struct {
@@ -1163,6 +1354,7 @@ type UpdateAppTableRecordReqBuilder struct {
 	userIdTypeFlag  bool
 	appTableRecord *AppTableRecord
 	appTableRecordFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -1223,6 +1415,7 @@ type UpdateAppTableRecordReq struct {
 	RecordId  string `path:"record_id"`
 	UserIdType  *string `query:"user_id_type"`
 	AppTableRecord *AppTableRecord `body:""`
+
 }
 
 type UpdateAppTableRecordRespData struct {
@@ -1244,6 +1437,7 @@ type DeleteAppTableRecordReqBuilder struct {
 	tableIdFlag  bool
 	recordId  string
 	recordIdFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -1289,6 +1483,7 @@ type DeleteAppTableRecordReq struct {
 	AppToken  string `path:"app_token"`
 	TableId  string `path:"table_id"`
 	RecordId  string `path:"record_id"`
+
 }
 
 
@@ -1319,6 +1514,8 @@ type ListAppTableRecordReqBuilder struct {
 	pageSizeFlag  bool
 	userIdType  string
 	userIdTypeFlag  bool
+	limit int
+
 }
 
 // 生成请求的New构造器
@@ -1328,6 +1525,10 @@ func NewListAppTableRecordReqBuilder() * ListAppTableRecordReqBuilder{
 }
 
 /*1.5 生成请求的builder属性方法*/
+func (builder * ListAppTableRecordReqBuilder) Limit(limit int ) *ListAppTableRecordReqBuilder  {
+  builder.limit = limit
+  return builder
+}
 func (builder * ListAppTableRecordReqBuilder) AppToken(appToken string) *ListAppTableRecordReqBuilder  {
   builder.appToken = appToken
   builder.appTokenFlag = true
@@ -1377,6 +1578,7 @@ func (builder * ListAppTableRecordReqBuilder) UserIdType(userIdType string) *Lis
 /*1.5 生成请求的builder的build方法*/
 func (builder * ListAppTableRecordReqBuilder ) Build() *ListAppTableRecordReq {
    req := &ListAppTableRecordReq{}
+   req.Limit = builder.limit
    if builder.appTokenFlag {
 	  req.AppToken = builder.appToken
    }
@@ -1418,6 +1620,8 @@ type ListAppTableRecordReq struct {
 	PageToken  *string `query:"page_token"`
 	PageSize  *int `query:"page_size"`
 	UserIdType  *string `query:"user_id_type"`
+	Limit int
+
 }
 
 type ListAppTableRecordRespData struct {
@@ -1462,6 +1666,36 @@ func (builder * BatchUpdateAppTableRecordReqBodyBuilder ) Build() *BatchUpdateAp
    return req
 }
 
+/**上传文件path开始**/
+type BatchUpdateAppTableRecordPathReqBodyBuilder struct {
+	records  []*AppTableRecord
+	recordsFlag  bool
+}
+
+// 生成body的New构造器
+func NewBatchUpdateAppTableRecordPathReqBodyBuilder() * BatchUpdateAppTableRecordPathReqBodyBuilder{
+  builder := &BatchUpdateAppTableRecordPathReqBodyBuilder{}
+  return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder * BatchUpdateAppTableRecordPathReqBodyBuilder ) Records(records []*AppTableRecord) *BatchUpdateAppTableRecordPathReqBodyBuilder {
+  builder.records = records
+  builder.recordsFlag = true
+  return builder
+}
+
+
+/*1.3 生成body的build方法*/
+func (builder * BatchUpdateAppTableRecordPathReqBodyBuilder ) Build() (*BatchUpdateAppTableRecordReqBody, error) {
+   req := &BatchUpdateAppTableRecordReqBody{}
+   if builder.recordsFlag {
+	   req.Records = builder.records
+   }
+   return req, nil
+}
+/**上传文件path结束**/
+
 /*1.4 生成请求的builder结构体*/
 type BatchUpdateAppTableRecordReqBuilder struct {
 	appToken  string
@@ -1472,6 +1706,7 @@ type BatchUpdateAppTableRecordReqBuilder struct {
 	userIdTypeFlag  bool
 	body *BatchUpdateAppTableRecordReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -1530,6 +1765,7 @@ type BatchUpdateAppTableRecordReq struct {
 	TableId  string `path:"table_id"`
 	UserIdType  *string `query:"user_id_type"`
 	Body *BatchUpdateAppTableRecordReqBody `body:""`
+
 }
 
 type BatchUpdateAppTableRecordRespData struct {
@@ -1553,6 +1789,7 @@ type CreateAppTableRecordReqBuilder struct {
 	userIdTypeFlag  bool
 	appTableRecord *AppTableRecord
 	appTableRecordFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -1604,6 +1841,7 @@ type CreateAppTableRecordReq struct {
 	TableId  string `path:"table_id"`
 	UserIdType  *string `query:"user_id_type"`
 	AppTableRecord *AppTableRecord `body:""`
+
 }
 
 type CreateAppTableRecordRespData struct {
@@ -1625,6 +1863,7 @@ type CreateAppTableViewReqBuilder struct {
 	tableIdFlag  bool
 	appTableView *AppTableView
 	appTableViewFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -1667,6 +1906,7 @@ type CreateAppTableViewReq struct {
 	AppToken  string `path:"app_token"`
 	TableId  string `path:"table_id"`
 	AppTableView *AppTableView `body:""`
+
 }
 
 type CreateAppTableViewRespData struct {
@@ -1688,6 +1928,7 @@ type DeleteAppTableViewReqBuilder struct {
 	tableIdFlag  bool
 	viewId  string
 	viewIdFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -1733,6 +1974,7 @@ type DeleteAppTableViewReq struct {
 	AppToken  string `path:"app_token"`
 	TableId  string `path:"table_id"`
 	ViewId  string `path:"view_id"`
+
 }
 
 
@@ -1752,6 +1994,8 @@ type ListAppTableViewReqBuilder struct {
 	pageSizeFlag  bool
 	pageToken  string
 	pageTokenFlag  bool
+	limit int
+
 }
 
 // 生成请求的New构造器
@@ -1761,6 +2005,10 @@ func NewListAppTableViewReqBuilder() * ListAppTableViewReqBuilder{
 }
 
 /*1.5 生成请求的builder属性方法*/
+func (builder * ListAppTableViewReqBuilder) Limit(limit int ) *ListAppTableViewReqBuilder  {
+  builder.limit = limit
+  return builder
+}
 func (builder * ListAppTableViewReqBuilder) AppToken(appToken string) *ListAppTableViewReqBuilder  {
   builder.appToken = appToken
   builder.appTokenFlag = true
@@ -1785,6 +2033,7 @@ func (builder * ListAppTableViewReqBuilder) PageToken(pageToken string) *ListApp
 /*1.5 生成请求的builder的build方法*/
 func (builder * ListAppTableViewReqBuilder ) Build() *ListAppTableViewReq {
    req := &ListAppTableViewReq{}
+   req.Limit = builder.limit
    if builder.appTokenFlag {
 	  req.AppToken = builder.appToken
    }
@@ -1806,6 +2055,8 @@ type ListAppTableViewReq struct {
 	TableId  string `path:"table_id"`
 	PageSize  *int `query:"page_size"`
 	PageToken  *string `query:"page_token"`
+	Limit int
+
 }
 
 type ListAppTableViewRespData struct {
@@ -1827,268 +2078,220 @@ type ListAppTableViewResp struct {
 /* 生成请求的builder构造器*/
 /*1.1 生成body的builder结构体*/
 /**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
    type ListAppTableIterator struct{
-	 pageToken string
+	 nextPageToken *string
 	 items	 []*AppTable
 	 index	 int
-	 total	 int
+	 limit	 int
 	 ctx	   context.Context
 	 req	   *ListAppTableReq
 	 listFunc  func (ctx context.Context, req *ListAppTableReq, options ...core.RequestOptionFunc) (*ListAppTableResp, error)
 	 options   []core.RequestOptionFunc
+   	 curlNum	   int
    }
 
-   func (iterator *ListAppTableIterator) HasNext() bool {
-		index := iterator.index
-		if index < iterator.total && index != 0 {
-			return true
-		}
-		if index > iterator.total {
-			return false
+   func (iterator *ListAppTableIterator) Next() (bool, *AppTable, error) {
+		// 达到最大量，则返回
+		if iterator.curlNum > iterator.limit {
+			return false, nil, nil
 		}
 
-		//相等时，迭代拉取
-		if index != 0 && iterator.pageToken == "" {
-			return false
+		// 为0则拉取数据
+		if iterator.index == 0 || iterator.index >= len(iterator.items) {
+			if iterator.index != 0 && iterator.nextPageToken == nil {
+				return false, nil, nil
+			}
+			if iterator.nextPageToken != nil {
+				iterator.req.PageToken = iterator.nextPageToken
+			}
+			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+			if err != nil {
+				return false, nil, err
+			}
+
+			if resp.Code != 0 {
+				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+			}
+
+			if len(resp.Data.Items) == 0 {
+				return false, nil, nil
+			}
+
+			iterator.nextPageToken = resp.Data.PageToken
+			iterator.items = resp.Data.Items
+			iterator.index = 0
 		}
 
-		if index != 0 && iterator.pageToken != "" {
-			iterator.req.PageToken = &iterator.pageToken
-		}
-		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-		if err != nil {
-			return false
-		}
-
-		if resp.Code != 0 {
-			return false
-		}
-
-		if nil != resp.Data.PageToken {
-			iterator.pageToken = *resp.Data.PageToken
-		}
-		iterator.items = resp.Data.Items
-		iterator.index = 0
-		iterator.total = len(iterator.items)
-		return true
+		block := iterator.items[iterator.index]
+		iterator.index++
+		iterator.curlNum++
+		return true, block, nil
    }
 
-
-   func (iterator *ListAppTableIterator) Next() (*AppTable, error) {
-	  if iterator.index >= iterator.total {
-		 return nil, errors.New("no such element error")
-	  }
-
-	  index := iterator.index
-	  iterator.index = index + 1
-	  return iterator.items[index], nil
-
+   func (iterator *ListAppTableIterator) NextPageToken() *string {
+	  return iterator.nextPageToken
    }
-
-   func (iterator *ListAppTableIterator) NextPageToken() string {
-	  return iterator.pageToken
-   }
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
 /**如果是分页查询，则添加迭代器定义**/
    type ListAppTableFieldIterator struct{
-	 pageToken string
+	 nextPageToken *string
 	 items	 []*AppTableField
 	 index	 int
-	 total	 int
+	 limit	 int
 	 ctx	   context.Context
 	 req	   *ListAppTableFieldReq
 	 listFunc  func (ctx context.Context, req *ListAppTableFieldReq, options ...core.RequestOptionFunc) (*ListAppTableFieldResp, error)
 	 options   []core.RequestOptionFunc
+   	 curlNum	   int
    }
 
-   func (iterator *ListAppTableFieldIterator) HasNext() bool {
-		index := iterator.index
-		if index < iterator.total && index != 0 {
-			return true
-		}
-		if index > iterator.total {
-			return false
+   func (iterator *ListAppTableFieldIterator) Next() (bool, *AppTableField, error) {
+		// 达到最大量，则返回
+		if iterator.curlNum > iterator.limit {
+			return false, nil, nil
 		}
 
-		//相等时，迭代拉取
-		if index != 0 && iterator.pageToken == "" {
-			return false
+		// 为0则拉取数据
+		if iterator.index == 0 || iterator.index >= len(iterator.items) {
+			if iterator.index != 0 && iterator.nextPageToken == nil {
+				return false, nil, nil
+			}
+			if iterator.nextPageToken != nil {
+				iterator.req.PageToken = iterator.nextPageToken
+			}
+			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+			if err != nil {
+				return false, nil, err
+			}
+
+			if resp.Code != 0 {
+				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+			}
+
+			if len(resp.Data.Items) == 0 {
+				return false, nil, nil
+			}
+
+			iterator.nextPageToken = resp.Data.PageToken
+			iterator.items = resp.Data.Items
+			iterator.index = 0
 		}
 
-		if index != 0 && iterator.pageToken != "" {
-			iterator.req.PageToken = &iterator.pageToken
-		}
-		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-		if err != nil {
-			return false
-		}
-
-		if resp.Code != 0 {
-			return false
-		}
-
-		if nil != resp.Data.PageToken {
-			iterator.pageToken = *resp.Data.PageToken
-		}
-		iterator.items = resp.Data.Items
-		iterator.index = 0
-		iterator.total = len(iterator.items)
-		return true
+		block := iterator.items[iterator.index]
+		iterator.index++
+		iterator.curlNum++
+		return true, block, nil
    }
 
-
-   func (iterator *ListAppTableFieldIterator) Next() (*AppTableField, error) {
-	  if iterator.index >= iterator.total {
-		 return nil, errors.New("no such element error")
-	  }
-
-	  index := iterator.index
-	  iterator.index = index + 1
-	  return iterator.items[index], nil
-
+   func (iterator *ListAppTableFieldIterator) NextPageToken() *string {
+	  return iterator.nextPageToken
    }
-
-   func (iterator *ListAppTableFieldIterator) NextPageToken() string {
-	  return iterator.pageToken
-   }
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
 /**如果是分页查询，则添加迭代器定义**/
    type ListAppTableRecordIterator struct{
-	 pageToken string
+	 nextPageToken *string
 	 items	 []*AppTableRecord
 	 index	 int
-	 total	 int
+	 limit	 int
 	 ctx	   context.Context
 	 req	   *ListAppTableRecordReq
 	 listFunc  func (ctx context.Context, req *ListAppTableRecordReq, options ...core.RequestOptionFunc) (*ListAppTableRecordResp, error)
 	 options   []core.RequestOptionFunc
+   	 curlNum	   int
    }
 
-   func (iterator *ListAppTableRecordIterator) HasNext() bool {
-		index := iterator.index
-		if index < iterator.total && index != 0 {
-			return true
-		}
-		if index > iterator.total {
-			return false
+   func (iterator *ListAppTableRecordIterator) Next() (bool, *AppTableRecord, error) {
+		// 达到最大量，则返回
+		if iterator.curlNum > iterator.limit {
+			return false, nil, nil
 		}
 
-		//相等时，迭代拉取
-		if index != 0 && iterator.pageToken == "" {
-			return false
+		// 为0则拉取数据
+		if iterator.index == 0 || iterator.index >= len(iterator.items) {
+			if iterator.index != 0 && iterator.nextPageToken == nil {
+				return false, nil, nil
+			}
+			if iterator.nextPageToken != nil {
+				iterator.req.PageToken = iterator.nextPageToken
+			}
+			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+			if err != nil {
+				return false, nil, err
+			}
+
+			if resp.Code != 0 {
+				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+			}
+
+			if len(resp.Data.Items) == 0 {
+				return false, nil, nil
+			}
+
+			iterator.nextPageToken = resp.Data.PageToken
+			iterator.items = resp.Data.Items
+			iterator.index = 0
 		}
 
-		if index != 0 && iterator.pageToken != "" {
-			iterator.req.PageToken = &iterator.pageToken
-		}
-		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-		if err != nil {
-			return false
-		}
-
-		if resp.Code != 0 {
-			return false
-		}
-
-		if nil != resp.Data.PageToken {
-			iterator.pageToken = *resp.Data.PageToken
-		}
-		iterator.items = resp.Data.Items
-		iterator.index = 0
-		iterator.total = len(iterator.items)
-		return true
+		block := iterator.items[iterator.index]
+		iterator.index++
+		iterator.curlNum++
+		return true, block, nil
    }
 
-
-   func (iterator *ListAppTableRecordIterator) Next() (*AppTableRecord, error) {
-	  if iterator.index >= iterator.total {
-		 return nil, errors.New("no such element error")
-	  }
-
-	  index := iterator.index
-	  iterator.index = index + 1
-	  return iterator.items[index], nil
-
+   func (iterator *ListAppTableRecordIterator) NextPageToken() *string {
+	  return iterator.nextPageToken
    }
-
-   func (iterator *ListAppTableRecordIterator) NextPageToken() string {
-	  return iterator.pageToken
-   }
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
 /**如果是分页查询，则添加迭代器定义**/
    type ListAppTableViewIterator struct{
-	 pageToken string
+	 nextPageToken *string
 	 items	 []*AppTableView
 	 index	 int
-	 total	 int
+	 limit	 int
 	 ctx	   context.Context
 	 req	   *ListAppTableViewReq
 	 listFunc  func (ctx context.Context, req *ListAppTableViewReq, options ...core.RequestOptionFunc) (*ListAppTableViewResp, error)
 	 options   []core.RequestOptionFunc
+   	 curlNum	   int
    }
 
-   func (iterator *ListAppTableViewIterator) HasNext() bool {
-		index := iterator.index
-		if index < iterator.total && index != 0 {
-			return true
-		}
-		if index > iterator.total {
-			return false
+   func (iterator *ListAppTableViewIterator) Next() (bool, *AppTableView, error) {
+		// 达到最大量，则返回
+		if iterator.curlNum > iterator.limit {
+			return false, nil, nil
 		}
 
-		//相等时，迭代拉取
-		if index != 0 && iterator.pageToken == "" {
-			return false
+		// 为0则拉取数据
+		if iterator.index == 0 || iterator.index >= len(iterator.items) {
+			if iterator.index != 0 && iterator.nextPageToken == nil {
+				return false, nil, nil
+			}
+			if iterator.nextPageToken != nil {
+				iterator.req.PageToken = iterator.nextPageToken
+			}
+			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+			if err != nil {
+				return false, nil, err
+			}
+
+			if resp.Code != 0 {
+				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+			}
+
+			if len(resp.Data.Items) == 0 {
+				return false, nil, nil
+			}
+
+			iterator.nextPageToken = resp.Data.PageToken
+			iterator.items = resp.Data.Items
+			iterator.index = 0
 		}
 
-		if index != 0 && iterator.pageToken != "" {
-			iterator.req.PageToken = &iterator.pageToken
-		}
-		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-		if err != nil {
-			return false
-		}
-
-		if resp.Code != 0 {
-			return false
-		}
-
-		if nil != resp.Data.PageToken {
-			iterator.pageToken = *resp.Data.PageToken
-		}
-		iterator.items = resp.Data.Items
-		iterator.index = 0
-		iterator.total = len(iterator.items)
-		return true
+		block := iterator.items[iterator.index]
+		iterator.index++
+		iterator.curlNum++
+		return true, block, nil
    }
 
-
-   func (iterator *ListAppTableViewIterator) Next() (*AppTableView, error) {
-	  if iterator.index >= iterator.total {
-		 return nil, errors.New("no such element error")
-	  }
-
-	  index := iterator.index
-	  iterator.index = index + 1
-	  return iterator.items[index], nil
-
+   func (iterator *ListAppTableViewIterator) NextPageToken() *string {
+	  return iterator.nextPageToken
    }
 
-   func (iterator *ListAppTableViewIterator) NextPageToken() string {
-	  return iterator.pageToken
-   }
 

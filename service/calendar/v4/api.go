@@ -201,7 +201,8 @@ func (c *calendars) SearchCalendar(ctx context.Context, req *SearchCalendarReq, 
 	  ctx:	  ctx,
 	  req:	  req,
 	  listFunc: c.Search,
-	  options:  options}, nil
+	  options:  options,
+	  limit: req.Limit}, nil
 }
 func (c *calendars) Subscribe(ctx context.Context, req *SubscribeCalendarReq, options ...core.RequestOptionFunc) (*SubscribeCalendarResp, error) {
 
@@ -311,7 +312,8 @@ func (c *calendarAcls) ListCalendarAcl(ctx context.Context, req *ListCalendarAcl
 	  ctx:	  ctx,
 	  req:	  req,
 	  listFunc: c.List,
-	  options:  options}, nil
+	  options:  options,
+	  limit: req.Limit}, nil
 }
 func (c *calendarAcls) Subscription(ctx context.Context, req *SubscriptionCalendarAclReq, options ...core.RequestOptionFunc) (*SubscriptionCalendarAclResp, error) {
 
@@ -438,7 +440,8 @@ func (c *calendarEvents) SearchCalendarEvent(ctx context.Context, req *SearchCal
 	  ctx:	  ctx,
 	  req:	  req,
 	  listFunc: c.Search,
-	  options:  options}, nil
+	  options:  options,
+	  limit: req.Limit}, nil
 }
 func (c *calendarEvents) Subscription(ctx context.Context, req *SubscriptionCalendarEventReq, options ...core.RequestOptionFunc) (*SubscriptionCalendarEventResp, error) {
 
@@ -514,7 +517,8 @@ func (c *calendarEventAttendees) ListCalendarEventAttendee(ctx context.Context, 
 	  ctx:	  ctx,
 	  req:	  req,
 	  listFunc: c.List,
-	  options:  options}, nil
+	  options:  options,
+	  limit: req.Limit}, nil
 }
 func (c *calendarEventAttendeeChatMembers) List(ctx context.Context, req *ListCalendarEventAttendeeChatMemberReq, options ...core.RequestOptionFunc) (*ListCalendarEventAttendeeChatMemberResp, error) {
 
@@ -539,7 +543,8 @@ func (c *calendarEventAttendeeChatMembers) ListCalendarEventAttendeeChatMember(c
 	  ctx:	  ctx,
 	  req:	  req,
 	  listFunc: c.List,
-	  options:  options}, nil
+	  options:  options,
+	  limit: req.Limit}, nil
 }
 func (e *exchangeBindings) Create(ctx context.Context, req *CreateExchangeBindingReq, options ...core.RequestOptionFunc) (*CreateExchangeBindingResp, error) {
 

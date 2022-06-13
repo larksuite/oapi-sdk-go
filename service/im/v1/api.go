@@ -252,7 +252,8 @@ func (c *chats) ListChat(ctx context.Context, req *ListChatReq, options ...core.
 	  ctx:	  ctx,
 	  req:	  req,
 	  listFunc: c.List,
-	  options:  options}, nil
+	  options:  options,
+	  limit: req.Limit}, nil
 }
 func (c *chats) Search(ctx context.Context, req *SearchChatReq, options ...core.RequestOptionFunc) (*SearchChatResp, error) {
 
@@ -277,7 +278,8 @@ func (c *chats) SearchChat(ctx context.Context, req *SearchChatReq, options ...c
 	  ctx:	  ctx,
 	  req:	  req,
 	  listFunc: c.Search,
-	  options:  options}, nil
+	  options:  options,
+	  limit: req.Limit}, nil
 }
 func (c *chats) Update(ctx context.Context, req *UpdateChatReq, options ...core.RequestOptionFunc) (*UpdateChatResp, error) {
 
@@ -421,7 +423,8 @@ func (c *chatMembers) GetChatMembers(ctx context.Context, req *GetChatMembersReq
 	  ctx:	  ctx,
 	  req:	  req,
 	  listFunc: c.Get,
-	  options:  options}, nil
+	  options:  options,
+	  limit: req.Limit}, nil
 }
 func (c *chatMembers) IsInChat(ctx context.Context, req *IsInChatChatMembersReq, options ...core.RequestOptionFunc) (*IsInChatChatMembersResp, error) {
 
@@ -480,7 +483,8 @@ func (c *chatModeration) GetChatModeration(ctx context.Context, req *GetChatMode
 	  ctx:	  ctx,
 	  req:	  req,
 	  listFunc: c.Get,
-	  options:  options}, nil
+	  options:  options,
+	  limit: req.Limit}, nil
 }
 func (c *chatModeration) Update(ctx context.Context, req *UpdateChatModerationReq, options ...core.RequestOptionFunc) (*UpdateChatModerationResp, error) {
 
@@ -876,7 +880,8 @@ func (m *messages) ListMessage(ctx context.Context, req *ListMessageReq, options
 	  ctx:	  ctx,
 	  req:	  req,
 	  listFunc: m.List,
-	  options:  options}, nil
+	  options:  options,
+	  limit: req.Limit}, nil
 }
 func (m *messages) Patch(ctx context.Context, req *PatchMessageReq, options ...core.RequestOptionFunc) (*PatchMessageResp, error) {
 
@@ -1054,7 +1059,8 @@ func (r *reactions) ListMessageReaction(ctx context.Context, req *ListMessageRea
 	  ctx:	  ctx,
 	  req:	  req,
 	  listFunc: r.List,
-	  options:  options}, nil
+	  options:  options,
+	  limit: req.Limit}, nil
 }
 func (r *resources) Get(ctx context.Context, req *GetMessageResourceReq, options ...core.RequestOptionFunc) (*GetMessageResourceResp, error) {
 
@@ -1102,7 +1108,8 @@ func (s *specialFocus) ListSpecialFocus(ctx context.Context, req *ListSpecialFoc
 	  ctx:	  ctx,
 	  req:	  req,
 	  listFunc: s.List,
-	  options:  options}, nil
+	  options:  options,
+	  limit: req.Limit}, nil
 }
 func (s *specialFocus) Unread(ctx context.Context, req *UnreadSpecialFocusReq, options ...core.RequestOptionFunc) (*UnreadSpecialFocusResp, error) {
 

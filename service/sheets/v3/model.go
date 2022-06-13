@@ -114,6 +114,7 @@ type UpdateSheetFilter struct {
 type CreateSpreadsheetReqBuilder struct {
 	spreadsheet *Spreadsheet
 	spreadsheetFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -138,6 +139,7 @@ func (builder * CreateSpreadsheetReqBuilder ) Build() *CreateSpreadsheetReq {
 
 type CreateSpreadsheetReq struct {
 	Spreadsheet *Spreadsheet `body:""`
+
 }
 
 type CreateSpreadsheetRespData struct {
@@ -159,6 +161,7 @@ type FindSpreadsheetSheetReqBuilder struct {
 	sheetIdFlag  bool
 	find *Find
 	findFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -201,6 +204,7 @@ type FindSpreadsheetSheetReq struct {
 	SpreadsheetToken  string `path:"spreadsheet_token"`
 	SheetId  string `path:"sheet_id"`
 	Find *Find `body:""`
+
 }
 
 type FindSpreadsheetSheetRespData struct {
@@ -222,6 +226,7 @@ type MoveDimensionSpreadsheetSheetReqBuilder struct {
 	sheetIdFlag  bool
 	moveDimension *MoveDimension
 	moveDimensionFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -264,6 +269,7 @@ type MoveDimensionSpreadsheetSheetReq struct {
 	SpreadsheetToken  string `path:"spreadsheet_token"`
 	SheetId  string `path:"sheet_id"`
 	MoveDimension *MoveDimension `body:""`
+
 }
 
 
@@ -281,6 +287,7 @@ type ReplaceSpreadsheetSheetReqBuilder struct {
 	sheetIdFlag  bool
 	replace *Replace
 	replaceFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -323,6 +330,7 @@ type ReplaceSpreadsheetSheetReq struct {
 	SpreadsheetToken  string `path:"spreadsheet_token"`
 	SheetId  string `path:"sheet_id"`
 	Replace *Replace `body:""`
+
 }
 
 type ReplaceSpreadsheetSheetRespData struct {
@@ -344,6 +352,7 @@ type CreateSpreadsheetSheetFilterReqBuilder struct {
 	sheetIdFlag  bool
 	createSheetFilter *CreateSheetFilter
 	createSheetFilterFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -386,6 +395,7 @@ type CreateSpreadsheetSheetFilterReq struct {
 	SpreadsheetToken  string `path:"spreadsheet_token"`
 	SheetId  string `path:"sheet_id"`
 	CreateSheetFilter *CreateSheetFilter `body:""`
+
 }
 
 
@@ -401,6 +411,7 @@ type DeleteSpreadsheetSheetFilterReqBuilder struct {
 	spreadsheetTokenFlag  bool
 	sheetId  string
 	sheetIdFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -437,6 +448,7 @@ func (builder * DeleteSpreadsheetSheetFilterReqBuilder ) Build() *DeleteSpreadsh
 type DeleteSpreadsheetSheetFilterReq struct {
 	SpreadsheetToken  string `path:"spreadsheet_token"`
 	SheetId  string `path:"sheet_id"`
+
 }
 
 
@@ -452,6 +464,7 @@ type GetSpreadsheetSheetFilterReqBuilder struct {
 	spreadsheetTokenFlag  bool
 	sheetId  string
 	sheetIdFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -488,6 +501,7 @@ func (builder * GetSpreadsheetSheetFilterReqBuilder ) Build() *GetSpreadsheetShe
 type GetSpreadsheetSheetFilterReq struct {
 	SpreadsheetToken  string `path:"spreadsheet_token"`
 	SheetId  string `path:"sheet_id"`
+
 }
 
 type GetSpreadsheetSheetFilterRespData struct {
@@ -509,6 +523,7 @@ type UpdateSpreadsheetSheetFilterReqBuilder struct {
 	sheetIdFlag  bool
 	updateSheetFilter *UpdateSheetFilter
 	updateSheetFilterFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -551,6 +566,7 @@ type UpdateSpreadsheetSheetFilterReq struct {
 	SpreadsheetToken  string `path:"spreadsheet_token"`
 	SheetId  string `path:"sheet_id"`
 	UpdateSheetFilter *UpdateSheetFilter `body:""`
+
 }
 
 
@@ -568,6 +584,7 @@ type CreateSpreadsheetSheetFilterViewReqBuilder struct {
 	sheetIdFlag  bool
 	filterView *FilterView
 	filterViewFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -610,6 +627,7 @@ type CreateSpreadsheetSheetFilterViewReq struct {
 	SpreadsheetToken  string `path:"spreadsheet_token"`
 	SheetId  string `path:"sheet_id"`
 	FilterView *FilterView `body:""`
+
 }
 
 type CreateSpreadsheetSheetFilterViewRespData struct {
@@ -631,6 +649,7 @@ type DeleteSpreadsheetSheetFilterViewReqBuilder struct {
 	sheetIdFlag  bool
 	filterViewId  string
 	filterViewIdFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -676,6 +695,7 @@ type DeleteSpreadsheetSheetFilterViewReq struct {
 	SpreadsheetToken  string `path:"spreadsheet_token"`
 	SheetId  string `path:"sheet_id"`
 	FilterViewId  string `path:"filter_view_id"`
+
 }
 
 
@@ -693,6 +713,7 @@ type GetSpreadsheetSheetFilterViewReqBuilder struct {
 	sheetIdFlag  bool
 	filterViewId  string
 	filterViewIdFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -738,6 +759,7 @@ type GetSpreadsheetSheetFilterViewReq struct {
 	SpreadsheetToken  string `path:"spreadsheet_token"`
 	SheetId  string `path:"sheet_id"`
 	FilterViewId  string `path:"filter_view_id"`
+
 }
 
 type GetSpreadsheetSheetFilterViewRespData struct {
@@ -761,6 +783,7 @@ type PatchSpreadsheetSheetFilterViewReqBuilder struct {
 	filterViewIdFlag  bool
 	filterView *FilterView
 	filterViewFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -812,6 +835,7 @@ type PatchSpreadsheetSheetFilterViewReq struct {
 	SheetId  string `path:"sheet_id"`
 	FilterViewId  string `path:"filter_view_id"`
 	FilterView *FilterView `body:""`
+
 }
 
 type PatchSpreadsheetSheetFilterViewRespData struct {
@@ -831,6 +855,7 @@ type QuerySpreadsheetSheetFilterViewReqBuilder struct {
 	spreadsheetTokenFlag  bool
 	sheetId  string
 	sheetIdFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -867,6 +892,7 @@ func (builder * QuerySpreadsheetSheetFilterViewReqBuilder ) Build() *QuerySpread
 type QuerySpreadsheetSheetFilterViewReq struct {
 	SpreadsheetToken  string `path:"spreadsheet_token"`
 	SheetId  string `path:"sheet_id"`
+
 }
 
 type QuerySpreadsheetSheetFilterViewRespData struct {
@@ -890,6 +916,7 @@ type CreateSpreadsheetSheetFilterViewConditionReqBuilder struct {
 	filterViewIdFlag  bool
 	filterViewCondition *FilterViewCondition
 	filterViewConditionFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -941,6 +968,7 @@ type CreateSpreadsheetSheetFilterViewConditionReq struct {
 	SheetId  string `path:"sheet_id"`
 	FilterViewId  string `path:"filter_view_id"`
 	FilterViewCondition *FilterViewCondition `body:""`
+
 }
 
 type CreateSpreadsheetSheetFilterViewConditionRespData struct {
@@ -964,6 +992,7 @@ type DeleteSpreadsheetSheetFilterViewConditionReqBuilder struct {
 	filterViewIdFlag  bool
 	conditionId  string
 	conditionIdFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -1018,6 +1047,7 @@ type DeleteSpreadsheetSheetFilterViewConditionReq struct {
 	SheetId  string `path:"sheet_id"`
 	FilterViewId  string `path:"filter_view_id"`
 	ConditionId  string `path:"condition_id"`
+
 }
 
 
@@ -1037,6 +1067,7 @@ type GetSpreadsheetSheetFilterViewConditionReqBuilder struct {
 	filterViewIdFlag  bool
 	conditionId  string
 	conditionIdFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -1091,6 +1122,7 @@ type GetSpreadsheetSheetFilterViewConditionReq struct {
 	SheetId  string `path:"sheet_id"`
 	FilterViewId  string `path:"filter_view_id"`
 	ConditionId  string `path:"condition_id"`
+
 }
 
 type GetSpreadsheetSheetFilterViewConditionRespData struct {
@@ -1112,6 +1144,7 @@ type QuerySpreadsheetSheetFilterViewConditionReqBuilder struct {
 	sheetIdFlag  bool
 	filterViewId  string
 	filterViewIdFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -1157,6 +1190,7 @@ type QuerySpreadsheetSheetFilterViewConditionReq struct {
 	SpreadsheetToken  string `path:"spreadsheet_token"`
 	SheetId  string `path:"sheet_id"`
 	FilterViewId  string `path:"filter_view_id"`
+
 }
 
 type QuerySpreadsheetSheetFilterViewConditionRespData struct {
@@ -1182,6 +1216,7 @@ type UpdateSpreadsheetSheetFilterViewConditionReqBuilder struct {
 	conditionIdFlag  bool
 	filterViewCondition *FilterViewCondition
 	filterViewConditionFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -1242,6 +1277,7 @@ type UpdateSpreadsheetSheetFilterViewConditionReq struct {
 	FilterViewId  string `path:"filter_view_id"`
 	ConditionId  string `path:"condition_id"`
 	FilterViewCondition *FilterViewCondition `body:""`
+
 }
 
 type UpdateSpreadsheetSheetFilterViewConditionRespData struct {
@@ -1263,6 +1299,7 @@ type CreateSpreadsheetSheetFloatImageReqBuilder struct {
 	sheetIdFlag  bool
 	floatImage *FloatImage
 	floatImageFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -1305,6 +1342,7 @@ type CreateSpreadsheetSheetFloatImageReq struct {
 	SpreadsheetToken  string `path:"spreadsheet_token"`
 	SheetId  string `path:"sheet_id"`
 	FloatImage *FloatImage `body:""`
+
 }
 
 type CreateSpreadsheetSheetFloatImageRespData struct {
@@ -1326,6 +1364,7 @@ type DeleteSpreadsheetSheetFloatImageReqBuilder struct {
 	sheetIdFlag  bool
 	floatImageId  string
 	floatImageIdFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -1371,6 +1410,7 @@ type DeleteSpreadsheetSheetFloatImageReq struct {
 	SpreadsheetToken  string `path:"spreadsheet_token"`
 	SheetId  string `path:"sheet_id"`
 	FloatImageId  string `path:"float_image_id"`
+
 }
 
 
@@ -1388,6 +1428,7 @@ type GetSpreadsheetSheetFloatImageReqBuilder struct {
 	sheetIdFlag  bool
 	floatImageId  string
 	floatImageIdFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -1433,6 +1474,7 @@ type GetSpreadsheetSheetFloatImageReq struct {
 	SpreadsheetToken  string `path:"spreadsheet_token"`
 	SheetId  string `path:"sheet_id"`
 	FloatImageId  string `path:"float_image_id"`
+
 }
 
 type GetSpreadsheetSheetFloatImageRespData struct {
@@ -1456,6 +1498,7 @@ type PatchSpreadsheetSheetFloatImageReqBuilder struct {
 	floatImageIdFlag  bool
 	floatImage *FloatImage
 	floatImageFlag bool
+
 }
 
 // 生成请求的New构造器
@@ -1507,6 +1550,7 @@ type PatchSpreadsheetSheetFloatImageReq struct {
 	SheetId  string `path:"sheet_id"`
 	FloatImageId  string `path:"float_image_id"`
 	FloatImage *FloatImage `body:""`
+
 }
 
 type PatchSpreadsheetSheetFloatImageRespData struct {
@@ -1526,6 +1570,7 @@ type QuerySpreadsheetSheetFloatImageReqBuilder struct {
 	spreadsheetTokenFlag  bool
 	sheetId  string
 	sheetIdFlag  bool
+
 }
 
 // 生成请求的New构造器
@@ -1562,6 +1607,7 @@ func (builder * QuerySpreadsheetSheetFloatImageReqBuilder ) Build() *QuerySpread
 type QuerySpreadsheetSheetFloatImageReq struct {
 	SpreadsheetToken  string `path:"spreadsheet_token"`
 	SheetId  string `path:"sheet_id"`
+
 }
 
 type QuerySpreadsheetSheetFloatImageRespData struct {
@@ -1579,27 +1625,5 @@ type QuerySpreadsheetSheetFloatImageResp struct {
 
 /* 生成请求的builder构造器*/
 /*1.1 生成body的builder结构体*/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
-/**如果是分页查询，则添加迭代器定义**/
+
 

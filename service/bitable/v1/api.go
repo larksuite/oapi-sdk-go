@@ -96,7 +96,8 @@ func (a *appTables) ListAppTable(ctx context.Context, req *ListAppTableReq, opti
 	  ctx:	  ctx,
 	  req:	  req,
 	  listFunc: a.List,
-	  options:  options}, nil
+	  options:  options,
+	  limit: req.Limit}, nil
 }
 func (a *appTables) BatchCreate(ctx context.Context, req *BatchCreateAppTableReq, options ...core.RequestOptionFunc) (*BatchCreateAppTableResp, error) {
 
@@ -189,7 +190,8 @@ func (a *appTableFields) ListAppTableField(ctx context.Context, req *ListAppTabl
 	  ctx:	  ctx,
 	  req:	  req,
 	  listFunc: a.List,
-	  options:  options}, nil
+	  options:  options,
+	  limit: req.Limit}, nil
 }
 func (a *appTableFields) Create(ctx context.Context, req *CreateAppTableFieldReq, options ...core.RequestOptionFunc) (*CreateAppTableFieldResp, error) {
 
@@ -350,7 +352,8 @@ func (a *appTableRecords) ListAppTableRecord(ctx context.Context, req *ListAppTa
 	  ctx:	  ctx,
 	  req:	  req,
 	  listFunc: a.List,
-	  options:  options}, nil
+	  options:  options,
+	  limit: req.Limit}, nil
 }
 func (a *appTableRecords) BatchUpdate(ctx context.Context, req *BatchUpdateAppTableRecordReq, options ...core.RequestOptionFunc) (*BatchUpdateAppTableRecordResp, error) {
 
@@ -443,5 +446,6 @@ func (a *appTableViews) ListAppTableView(ctx context.Context, req *ListAppTableV
 	  ctx:	  ctx,
 	  req:	  req,
 	  listFunc: a.List,
-	  options:  options}, nil
+	  options:  options,
+	  limit: req.Limit}, nil
 }

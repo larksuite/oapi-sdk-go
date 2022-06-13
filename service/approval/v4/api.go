@@ -127,6 +127,40 @@ func (a *approvals) Search(ctx context.Context, req *SearchApprovalReq, options 
 	}
 	return resp, err
 }
+func (a *approvals) Subscribe(ctx context.Context, req *SubscribeApprovalReq, options ...core.RequestOptionFunc) (*SubscribeApprovalResp, error) {
+
+	// 发起请求
+	rawResp, err := core.SendRequest(ctx,a.service.config, http.MethodPost,
+		"/open-apis/approval/v4/approvals/:approval_code/subscribe", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	if err != nil {
+		return nil, err
+	}
+
+	// 反序列响应结果
+	resp := &SubscribeApprovalResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (a *approvals) Unsubscribe(ctx context.Context, req *UnsubscribeApprovalReq, options ...core.RequestOptionFunc) (*UnsubscribeApprovalResp, error) {
+
+	// 发起请求
+	rawResp, err := core.SendRequest(ctx,a.service.config, http.MethodPost,
+		"/open-apis/approval/v4/approvals/:approval_code/unsubscribe", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	if err != nil {
+		return nil, err
+	}
+
+	// 反序列响应结果
+	resp := &UnsubscribeApprovalResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
 func (e *externalApprovals) Create(ctx context.Context, req *CreateExternalApprovalReq, options ...core.RequestOptionFunc) (*CreateExternalApprovalResp, error) {
 
 	// 发起请求
@@ -201,7 +235,8 @@ func (e *externalTasks) ListExternalTask(ctx context.Context, req *ListExternalT
 	  ctx:	  ctx,
 	  req:	  req,
 	  listFunc: e.List,
-	  options:  options}, nil
+	  options:  options,
+	  limit: req.Limit}, nil
 }
 func (f *files) Upload(ctx context.Context, req *UploadFileReq, options ...core.RequestOptionFunc) (*UploadFileResp, error) {
 	options = append(options, core.WithFileUpload())
@@ -346,7 +381,8 @@ func (i *instances) ListInstance(ctx context.Context, req *ListInstanceReq, opti
 	  ctx:	  ctx,
 	  req:	  req,
 	  listFunc: i.List,
-	  options:  options}, nil
+	  options:  options,
+	  limit: req.Limit}, nil
 }
 func (i *instances) Preview(ctx context.Context, req *PreviewInstanceReq, options ...core.RequestOptionFunc) (*PreviewInstanceResp, error) {
 
@@ -575,7 +611,8 @@ func (t *tasks) QueryTask(ctx context.Context, req *QueryTaskReq, options ...cor
 	  ctx:	  ctx,
 	  req:	  req,
 	  listFunc: t.Query,
-	  options:  options}, nil
+	  options:  options,
+	  limit: req.Limit}, nil
 }
 func (t *tasks) Reject(ctx context.Context, req *RejectTaskReq, options ...core.RequestOptionFunc) (*RejectTaskResp, error) {
 
