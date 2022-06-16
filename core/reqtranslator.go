@@ -43,12 +43,16 @@ func (translator *ReqTranslator) translate(ctx context.Context, input interface{
 func authorizationToHeader(req *http.Request, token string) {
 	req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", token))
 }
+
 func (translator *ReqTranslator) newHTTPRequest(ctx context.Context,
 	httpMethod, url, contentType string, body []byte,
 	accessTokenType AccessTokenType, option *RequestOption, config *Config) (*http.Request, error) {
 	httpRequest, err := http.NewRequestWithContext(ctx, httpMethod, url, bytes.NewBuffer(body))
 	if err != nil {
 		return nil, err
+	}
+	if option.RequestId != "" {
+		httpRequest.Header.Add(customRequestId, option.RequestId)
 	}
 	for k, vs := range option.Header {
 		for _, v := range vs {
@@ -63,7 +67,7 @@ func (translator *ReqTranslator) newHTTPRequest(ctx context.Context,
 	case AccessTokenTypeApp:
 		appAccessToken := option.AppAccessToken
 		if config.EnableTokenCache {
-			appAccessToken, err = tokenManager.getAppAccessToken(ctx, config, config.AppType)
+			appAccessToken, err = tokenManager.getAppAccessToken(ctx, config)
 			if err != nil {
 				return nil, err
 			}
@@ -83,9 +87,11 @@ func (translator *ReqTranslator) newHTTPRequest(ctx context.Context,
 	case AccessTokenTypeUser:
 		authorizationToHeader(httpRequest, option.UserAccessToken)
 	}
+
 	if err != nil {
 		return nil, err
 	}
+
 	err = translator.signHelpdeskAuthToken(httpRequest, option.NeedHelpDeskAuth, config.HelpdeskAuthToken)
 	if err != nil {
 		return nil, err

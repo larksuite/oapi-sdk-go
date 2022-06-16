@@ -440,6 +440,10 @@ type ListCustomAttrResp struct {
 	Data *ListCustomAttrRespData `json:"data"`
 }
 
+func (resp *ListCustomAttrResp) Success() bool {
+	return resp.Code == 0
+}
+
 type BatchGetDepartmentReqBodyBuilder struct {
 	departmentIdList  []string
 	departmentIdListFlag  bool
@@ -593,6 +597,10 @@ type BatchGetDepartmentResp struct {
 	Data *BatchGetDepartmentRespData `json:"data"`
 }
 
+func (resp *BatchGetDepartmentResp) Success() bool {
+	return resp.Code == 0
+}
+
 type BatchParentDepartmentReqBodyBuilder struct {
 	deptIdList  []string
 	deptIdListFlag  bool
@@ -725,6 +733,10 @@ type BatchParentDepartmentResp struct {
 	Data *BatchParentDepartmentRespData `json:"data"`
 }
 
+func (resp *BatchParentDepartmentResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type ChildrenDepartmentReqBuilder struct {
@@ -835,6 +847,10 @@ type ChildrenDepartmentResp struct {
 	Data *ChildrenDepartmentRespData `json:"data"`
 }
 
+func (resp *ChildrenDepartmentResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type CreateDepartmentReqBuilder struct {
@@ -911,6 +927,10 @@ type CreateDepartmentResp struct {
 	Data *CreateDepartmentRespData `json:"data"`
 }
 
+func (resp *CreateDepartmentResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type DeleteDepartmentReqBuilder struct {
@@ -962,6 +982,10 @@ type DeleteDepartmentReq struct {
 type DeleteDepartmentResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *DeleteDepartmentResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -1030,6 +1054,10 @@ type GetDepartmentResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *GetDepartmentRespData `json:"data"`
+}
+
+func (resp *GetDepartmentResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -1140,6 +1168,10 @@ type ListDepartmentResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *ListDepartmentRespData `json:"data"`
+}
+
+func (resp *ListDepartmentResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -1263,6 +1295,10 @@ type ListChildrenDepartmentResp struct {
 	Data *ListChildrenDepartmentRespData `json:"data"`
 }
 
+func (resp *ListChildrenDepartmentResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type ParentDepartmentReqBuilder struct {
@@ -1362,6 +1398,10 @@ type ParentDepartmentResp struct {
 	Data *ParentDepartmentRespData `json:"data"`
 }
 
+func (resp *ParentDepartmentResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type PatchDepartmentReqBuilder struct {
@@ -1436,6 +1476,10 @@ type PatchDepartmentResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *PatchDepartmentRespData `json:"data"`
+}
+
+func (resp *PatchDepartmentResp) Success() bool {
+	return resp.Code == 0
 }
 
 type SearchDepartmentReqBodyBuilder struct {
@@ -1601,6 +1645,10 @@ type SearchDepartmentResp struct {
 	Data *SearchDepartmentRespData `json:"data"`
 }
 
+func (resp *SearchDepartmentResp) Success() bool {
+	return resp.Code == 0
+}
+
 type UnbindDepartmentChatDepartmentReqBodyBuilder struct {
 	departmentId  string
 	departmentIdFlag  bool
@@ -1718,6 +1766,10 @@ type UnbindDepartmentChatDepartmentResp struct {
 	core.CodeError
 }
 
+func (resp *UnbindDepartmentChatDepartmentResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type UpdateDepartmentReqBuilder struct {
@@ -1792,6 +1844,10 @@ type UpdateDepartmentResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *UpdateDepartmentRespData `json:"data"`
+}
+
+func (resp *UpdateDepartmentResp) Success() bool {
+	return resp.Code == 0
 }
 
 type UpdateDepartmentIdDepartmentReqBodyBuilder struct {
@@ -1920,6 +1976,10 @@ type UpdateDepartmentIdDepartmentReq struct {
 type UpdateDepartmentIdDepartmentResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *UpdateDepartmentIdDepartmentResp) Success() bool {
+	return resp.Code == 0
 }
 
 type UsersDepartmentReqBodyBuilder struct {
@@ -2125,6 +2185,10 @@ type UsersDepartmentResp struct {
 	Data *UsersDepartmentRespData `json:"data"`
 }
 
+func (resp *UsersDepartmentResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type CreateDepartmentUnitReqBuilder struct {
@@ -2168,6 +2232,10 @@ type CreateDepartmentUnitResp struct {
 	Data *CreateDepartmentUnitRespData `json:"data"`
 }
 
+func (resp *CreateDepartmentUnitResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type DeleteDepartmentUnitReqBuilder struct {
@@ -2208,6 +2276,10 @@ type DeleteDepartmentUnitReq struct {
 type DeleteDepartmentUnitResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *DeleteDepartmentUnitResp) Success() bool {
+	return resp.Code == 0
 }
 
 type PatchDepartmentUnitReqBodyBuilder struct {
@@ -2355,6 +2427,10 @@ type PatchDepartmentUnitResp struct {
 	Data *PatchDepartmentUnitRespData `json:"data"`
 }
 
+func (resp *PatchDepartmentUnitResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type CreateEmployeeTypeEnumReqBuilder struct {
@@ -2398,6 +2474,10 @@ type CreateEmployeeTypeEnumResp struct {
 	Data *CreateEmployeeTypeEnumRespData `json:"data"`
 }
 
+func (resp *CreateEmployeeTypeEnumResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type DeleteEmployeeTypeEnumReqBuilder struct {
@@ -2438,6 +2518,10 @@ type DeleteEmployeeTypeEnumReq struct {
 type DeleteEmployeeTypeEnumResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *DeleteEmployeeTypeEnumResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -2506,6 +2590,10 @@ type ListEmployeeTypeEnumResp struct {
 	Data *ListEmployeeTypeEnumRespData `json:"data"`
 }
 
+func (resp *ListEmployeeTypeEnumResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type UpdateEmployeeTypeEnumReqBuilder struct {
@@ -2558,6 +2646,10 @@ type UpdateEmployeeTypeEnumResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *UpdateEmployeeTypeEnumRespData `json:"data"`
+}
+
+func (resp *UpdateEmployeeTypeEnumResp) Success() bool {
+	return resp.Code == 0
 }
 
 type CreateGroupReqBodyBuilder struct {
@@ -2742,6 +2834,10 @@ type CreateGroupResp struct {
 	Data *CreateGroupRespData `json:"data"`
 }
 
+func (resp *CreateGroupResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type DeleteGroupReqBuilder struct {
@@ -2782,6 +2878,10 @@ type DeleteGroupReq struct {
 type DeleteGroupResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *DeleteGroupResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -2828,6 +2928,10 @@ type GetGroupResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *GetGroupRespData `json:"data"`
+}
+
+func (resp *GetGroupResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -2920,6 +3024,10 @@ type MemberBelongGroupResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *MemberBelongGroupRespData `json:"data"`
+}
+
+func (resp *MemberBelongGroupResp) Success() bool {
+	return resp.Code == 0
 }
 
 type PatchGroupReqBodyBuilder struct {
@@ -3063,6 +3171,10 @@ type PatchGroupResp struct {
 	core.CodeError
 }
 
+func (resp *PatchGroupResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type SimplelistGroupReqBuilder struct {
@@ -3138,6 +3250,10 @@ type SimplelistGroupResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *SimplelistGroupRespData `json:"data"`
+}
+
+func (resp *SimplelistGroupResp) Success() bool {
+	return resp.Code == 0
 }
 
 type AddGroupMemberReqBodyBuilder struct {
@@ -3305,6 +3421,10 @@ type AddGroupMemberResp struct {
 	core.CodeError
 }
 
+func (resp *AddGroupMemberResp) Success() bool {
+	return resp.Code == 0
+}
+
 type BatchAddGroupMemberReqBodyBuilder struct {
 	members  []*Memberlist
 	membersFlag  bool
@@ -3424,6 +3544,10 @@ type BatchAddGroupMemberResp struct {
 	Data *BatchAddGroupMemberRespData `json:"data"`
 }
 
+func (resp *BatchAddGroupMemberResp) Success() bool {
+	return resp.Code == 0
+}
+
 type BatchRemoveGroupMemberReqBodyBuilder struct {
 	members  []*Memberlist
 	membersFlag  bool
@@ -3537,6 +3661,10 @@ type BatchRemoveGroupMemberReq struct {
 type BatchRemoveGroupMemberResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *BatchRemoveGroupMemberResp) Success() bool {
+	return resp.Code == 0
 }
 
 type RemoveGroupMemberReqBodyBuilder struct {
@@ -3704,6 +3832,10 @@ type RemoveGroupMemberResp struct {
 	core.CodeError
 }
 
+func (resp *RemoveGroupMemberResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type SimplelistGroupMemberReqBuilder struct {
@@ -3796,6 +3928,10 @@ type SimplelistGroupMemberResp struct {
 	Data *SimplelistGroupMemberRespData `json:"data"`
 }
 
+func (resp *SimplelistGroupMemberResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type ListScopeReqBuilder struct {
@@ -3877,6 +4013,10 @@ type ListScopeResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *ListScopeRespData `json:"data"`
+}
+
+func (resp *ListScopeResp) Success() bool {
+	return resp.Code == 0
 }
 
 type BindDepartmentUnitReqBodyBuilder struct {
@@ -4031,6 +4171,10 @@ type BindDepartmentUnitReq struct {
 type BindDepartmentUnitResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *BindDepartmentUnitResp) Success() bool {
+	return resp.Code == 0
 }
 
 type CreateUnitReqBodyBuilder struct {
@@ -4191,6 +4335,10 @@ type CreateUnitResp struct {
 	Data *CreateUnitRespData `json:"data"`
 }
 
+func (resp *CreateUnitResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type DeleteUnitReqBuilder struct {
@@ -4231,6 +4379,10 @@ type DeleteUnitReq struct {
 type DeleteUnitResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *DeleteUnitResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -4277,6 +4429,10 @@ type GetUnitResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *GetUnitRespData `json:"data"`
+}
+
+func (resp *GetUnitResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -4336,6 +4492,10 @@ type ListUnitResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *ListUnitRespData `json:"data"`
+}
+
+func (resp *ListUnitResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -4417,6 +4577,10 @@ type ListDepartmentUnitResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *ListDepartmentUnitRespData `json:"data"`
+}
+
+func (resp *ListDepartmentUnitResp) Success() bool {
+	return resp.Code == 0
 }
 
 type PatchUnitReqBodyBuilder struct {
@@ -4534,6 +4698,10 @@ type PatchUnitReq struct {
 type PatchUnitResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *PatchUnitResp) Success() bool {
+	return resp.Code == 0
 }
 
 type UnbindDepartmentUnitReqBodyBuilder struct {
@@ -4690,6 +4858,10 @@ type UnbindDepartmentUnitResp struct {
 	core.CodeError
 }
 
+func (resp *UnbindDepartmentUnitResp) Success() bool {
+	return resp.Code == 0
+}
+
 type BatchGetIdUserReqBodyBuilder struct {
 	emails  []string
 	emailsFlag  bool
@@ -4831,6 +5003,10 @@ type BatchGetIdUserResp struct {
 	Data *BatchGetIdUserRespData `json:"data"`
 }
 
+func (resp *BatchGetIdUserResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type CreateUserReqBuilder struct {
@@ -4905,6 +5081,10 @@ type CreateUserResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *CreateUserRespData `json:"data"`
+}
+
+func (resp *CreateUserResp) Success() bool {
+	return resp.Code == 0
 }
 
 type DeleteUserReqBodyBuilder struct {
@@ -5155,6 +5335,10 @@ type DeleteUserResp struct {
 	core.CodeError
 }
 
+func (resp *DeleteUserResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type FindByDepartmentUserReqBuilder struct {
@@ -5254,6 +5438,10 @@ type FindByDepartmentUserResp struct {
 	Data *FindByDepartmentUserRespData `json:"data"`
 }
 
+func (resp *FindByDepartmentUserResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type GetUserReqBuilder struct {
@@ -5320,6 +5508,10 @@ type GetUserResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *GetUserRespData `json:"data"`
+}
+
+func (resp *GetUserResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -5421,6 +5613,10 @@ type ListUserResp struct {
 	Data *ListUserRespData `json:"data"`
 }
 
+func (resp *ListUserResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type PatchUserReqBuilder struct {
@@ -5497,6 +5693,10 @@ type PatchUserResp struct {
 	Data *PatchUserRespData `json:"data"`
 }
 
+func (resp *PatchUserResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type UpdateUserReqBuilder struct {
@@ -5571,6 +5771,10 @@ type UpdateUserResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *UpdateUserRespData `json:"data"`
+}
+
+func (resp *UpdateUserResp) Success() bool {
+	return resp.Code == 0
 }
 
 type UpdateUserIdUserReqBodyBuilder struct {
@@ -5701,6 +5905,10 @@ type UpdateUserIdUserResp struct {
 	core.CodeError
 }
 
+func (resp *UpdateUserIdUserResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type CreateUserGroupReqBuilder struct {
@@ -5744,6 +5952,10 @@ type CreateUserGroupResp struct {
 	Data *CreateUserGroupRespData `json:"data"`
 }
 
+func (resp *CreateUserGroupResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type DeleteUserGroupReqBuilder struct {
@@ -5784,6 +5996,10 @@ type DeleteUserGroupReq struct {
 type DeleteUserGroupResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *DeleteUserGroupResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -5830,6 +6046,10 @@ type GetUserGroupResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *GetUserGroupRespData `json:"data"`
+}
+
+func (resp *GetUserGroupResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -5898,6 +6118,10 @@ type ListUserGroupResp struct {
 	Data *ListUserGroupRespData `json:"data"`
 }
 
+func (resp *ListUserGroupResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type PatchUserGroupReqBuilder struct {
@@ -5950,6 +6174,10 @@ type PatchUserGroupResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *PatchUserGroupRespData `json:"data"`
+}
+
+func (resp *PatchUserGroupResp) Success() bool {
+	return resp.Code == 0
 }
 
 type UpdateUserGroupIdUserGroupReqBodyBuilder struct {
@@ -6067,6 +6295,10 @@ type UpdateUserGroupIdUserGroupReq struct {
 type UpdateUserGroupIdUserGroupResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *UpdateUserGroupIdUserGroupResp) Success() bool {
+	return resp.Code == 0
 }
 
 type CreateUserGroupMemberReqBodyBuilder struct {
@@ -6197,6 +6429,10 @@ type CreateUserGroupMemberResp struct {
 	core.CodeError
 }
 
+func (resp *CreateUserGroupMemberResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type DeleteUserGroupMemberReqBuilder struct {
@@ -6259,6 +6495,10 @@ type DeleteUserGroupMemberReq struct {
 type DeleteUserGroupMemberResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *DeleteUserGroupMemberResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -6358,6 +6598,10 @@ type ListUserGroupMemberResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *ListUserGroupMemberRespData `json:"data"`
+}
+
+func (resp *ListUserGroupMemberResp) Success() bool {
+	return resp.Code == 0
 }
 
 /**生成消息事件结构体 **/
@@ -6543,7 +6787,7 @@ type UserGroupUpdatedEvent struct {
 
    func (iterator *ListCustomAttrIterator) Next() (bool, *CustomAttr, error) {
 		// 达到最大量，则返回
-		if iterator.curlNum > iterator.limit {
+		if iterator.limit >0 && iterator.curlNum > iterator.limit {
 			return false, nil, nil
 		}
 
@@ -6597,7 +6841,7 @@ type UserGroupUpdatedEvent struct {
 
    func (iterator *ChildrenDepartmentIterator) Next() (bool, *Department, error) {
 		// 达到最大量，则返回
-		if iterator.curlNum > iterator.limit {
+		if iterator.limit >0 && iterator.curlNum > iterator.limit {
 			return false, nil, nil
 		}
 
@@ -6651,7 +6895,7 @@ type UserGroupUpdatedEvent struct {
 
    func (iterator *ListDepartmentIterator) Next() (bool, *Department, error) {
 		// 达到最大量，则返回
-		if iterator.curlNum > iterator.limit {
+		if iterator.limit >0 && iterator.curlNum > iterator.limit {
 			return false, nil, nil
 		}
 
@@ -6705,7 +6949,7 @@ type UserGroupUpdatedEvent struct {
 
    func (iterator *ListChildrenDepartmentIterator) Next() (bool, *Department, error) {
 		// 达到最大量，则返回
-		if iterator.curlNum > iterator.limit {
+		if iterator.limit >0 && iterator.curlNum > iterator.limit {
 			return false, nil, nil
 		}
 
@@ -6759,7 +7003,7 @@ type UserGroupUpdatedEvent struct {
 
    func (iterator *ParentDepartmentIterator) Next() (bool, *Department, error) {
 		// 达到最大量，则返回
-		if iterator.curlNum > iterator.limit {
+		if iterator.limit >0 && iterator.curlNum > iterator.limit {
 			return false, nil, nil
 		}
 
@@ -6813,7 +7057,7 @@ type UserGroupUpdatedEvent struct {
 
    func (iterator *SearchDepartmentIterator) Next() (bool, *Department, error) {
 		// 达到最大量，则返回
-		if iterator.curlNum > iterator.limit {
+		if iterator.limit >0 && iterator.curlNum > iterator.limit {
 			return false, nil, nil
 		}
 
@@ -6867,7 +7111,7 @@ type UserGroupUpdatedEvent struct {
 
    func (iterator *ListEmployeeTypeEnumIterator) Next() (bool, *EmployeeTypeEnum, error) {
 		// 达到最大量，则返回
-		if iterator.curlNum > iterator.limit {
+		if iterator.limit >0 && iterator.curlNum > iterator.limit {
 			return false, nil, nil
 		}
 
@@ -6921,7 +7165,7 @@ type UserGroupUpdatedEvent struct {
 
    func (iterator *SimplelistGroupIterator) Next() (bool, *Group, error) {
 		// 达到最大量，则返回
-		if iterator.curlNum > iterator.limit {
+		if iterator.limit >0 && iterator.curlNum > iterator.limit {
 			return false, nil, nil
 		}
 
@@ -6975,7 +7219,7 @@ type UserGroupUpdatedEvent struct {
 
    func (iterator *FindByDepartmentUserIterator) Next() (bool, *User, error) {
 		// 达到最大量，则返回
-		if iterator.curlNum > iterator.limit {
+		if iterator.limit >0 && iterator.curlNum > iterator.limit {
 			return false, nil, nil
 		}
 
@@ -7029,7 +7273,7 @@ type UserGroupUpdatedEvent struct {
 
    func (iterator *ListUserIterator) Next() (bool, *User, error) {
 		// 达到最大量，则返回
-		if iterator.curlNum > iterator.limit {
+		if iterator.limit >0 && iterator.curlNum > iterator.limit {
 			return false, nil, nil
 		}
 
@@ -7083,7 +7327,7 @@ type UserGroupUpdatedEvent struct {
 
    func (iterator *ListUserGroupIterator) Next() (bool, *UserGroup, error) {
 		// 达到最大量，则返回
-		if iterator.curlNum > iterator.limit {
+		if iterator.limit >0 && iterator.curlNum > iterator.limit {
 			return false, nil, nil
 		}
 
@@ -7137,7 +7381,7 @@ type UserGroupUpdatedEvent struct {
 
    func (iterator *ListUserGroupMemberIterator) Next() (bool, *User, error) {
 		// 达到最大量，则返回
-		if iterator.curlNum > iterator.limit {
+		if iterator.limit >0 && iterator.curlNum > iterator.limit {
 			return false, nil, nil
 		}
 

@@ -164,6 +164,10 @@ type GetAppResp struct {
 	Data *GetAppRespData `json:"data"`
 }
 
+func (resp *GetAppResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type ListAppTableReqBuilder struct {
@@ -240,6 +244,10 @@ type ListAppTableResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *ListAppTableRespData `json:"data"`
+}
+
+func (resp *ListAppTableResp) Success() bool {
+	return resp.Code == 0
 }
 
 type BatchCreateAppTableReqBodyBuilder struct {
@@ -372,6 +380,10 @@ type BatchCreateAppTableResp struct {
 	Data *BatchCreateAppTableRespData `json:"data"`
 }
 
+func (resp *BatchCreateAppTableResp) Success() bool {
+	return resp.Code == 0
+}
+
 type CreateAppTableReqBodyBuilder struct {
 	table  *ReqTable
 	tableFlag  bool
@@ -502,6 +514,10 @@ type CreateAppTableResp struct {
 	Data *CreateAppTableRespData `json:"data"`
 }
 
+func (resp *CreateAppTableResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type DeleteAppTableReqBuilder struct {
@@ -553,6 +569,10 @@ type DeleteAppTableReq struct {
 type DeleteAppTableResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *DeleteAppTableResp) Success() bool {
+	return resp.Code == 0
 }
 
 type BatchDeleteAppTableReqBodyBuilder struct {
@@ -670,6 +690,10 @@ type BatchDeleteAppTableResp struct {
 	core.CodeError
 }
 
+func (resp *BatchDeleteAppTableResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type ListAppTableFieldReqBuilder struct {
@@ -770,6 +794,10 @@ type ListAppTableFieldResp struct {
 	Data *ListAppTableFieldRespData `json:"data"`
 }
 
+func (resp *ListAppTableFieldResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type CreateAppTableFieldReqBuilder struct {
@@ -846,6 +874,10 @@ type CreateAppTableFieldResp struct {
 	Data *CreateAppTableFieldRespData `json:"data"`
 }
 
+func (resp *CreateAppTableFieldResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type DeleteAppTableFieldReqBuilder struct {
@@ -913,6 +945,10 @@ type DeleteAppTableFieldResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *DeleteAppTableFieldRespData `json:"data"`
+}
+
+func (resp *DeleteAppTableFieldResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -989,6 +1025,10 @@ type UpdateAppTableFieldResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *UpdateAppTableFieldRespData `json:"data"`
+}
+
+func (resp *UpdateAppTableFieldResp) Success() bool {
+	return resp.Code == 0
 }
 
 type BatchDeleteAppTableRecordReqBodyBuilder struct {
@@ -1119,6 +1159,10 @@ type BatchDeleteAppTableRecordResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *BatchDeleteAppTableRecordRespData `json:"data"`
+}
+
+func (resp *BatchDeleteAppTableRecordResp) Success() bool {
+	return resp.Code == 0
 }
 
 type BatchCreateAppTableRecordReqBodyBuilder struct {
@@ -1262,6 +1306,10 @@ type BatchCreateAppTableRecordResp struct {
 	Data *BatchCreateAppTableRecordRespData `json:"data"`
 }
 
+func (resp *BatchCreateAppTableRecordResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type GetAppTableRecordReqBuilder struct {
@@ -1339,6 +1387,10 @@ type GetAppTableRecordResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *GetAppTableRecordRespData `json:"data"`
+}
+
+func (resp *GetAppTableRecordResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -1428,6 +1480,10 @@ type UpdateAppTableRecordResp struct {
 	Data *UpdateAppTableRecordRespData `json:"data"`
 }
 
+func (resp *UpdateAppTableRecordResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type DeleteAppTableRecordReqBuilder struct {
@@ -1491,6 +1547,10 @@ type DeleteAppTableRecordResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *DeleteRecord `json:"data"`
+}
+
+func (resp *DeleteAppTableRecordResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -1637,6 +1697,10 @@ type ListAppTableRecordResp struct {
 	Data *ListAppTableRecordRespData `json:"data"`
 }
 
+func (resp *ListAppTableRecordResp) Success() bool {
+	return resp.Code == 0
+}
+
 type BatchUpdateAppTableRecordReqBodyBuilder struct {
 	records  []*AppTableRecord
 	recordsFlag  bool
@@ -1778,6 +1842,10 @@ type BatchUpdateAppTableRecordResp struct {
 	Data *BatchUpdateAppTableRecordRespData `json:"data"`
 }
 
+func (resp *BatchUpdateAppTableRecordResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type CreateAppTableRecordReqBuilder struct {
@@ -1854,6 +1922,10 @@ type CreateAppTableRecordResp struct {
 	Data *CreateAppTableRecordRespData `json:"data"`
 }
 
+func (resp *CreateAppTableRecordResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type CreateAppTableViewReqBuilder struct {
@@ -1919,6 +1991,10 @@ type CreateAppTableViewResp struct {
 	Data *CreateAppTableViewRespData `json:"data"`
 }
 
+func (resp *CreateAppTableViewResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type DeleteAppTableViewReqBuilder struct {
@@ -1981,6 +2057,10 @@ type DeleteAppTableViewReq struct {
 type DeleteAppTableViewResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *DeleteAppTableViewResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -2072,6 +2152,10 @@ type ListAppTableViewResp struct {
 	Data *ListAppTableViewRespData `json:"data"`
 }
 
+func (resp *ListAppTableViewResp) Success() bool {
+	return resp.Code == 0
+}
+
 /**生成消息事件结构体 **/
 
 
@@ -2092,7 +2176,7 @@ type ListAppTableViewResp struct {
 
    func (iterator *ListAppTableIterator) Next() (bool, *AppTable, error) {
 		// 达到最大量，则返回
-		if iterator.curlNum > iterator.limit {
+		if iterator.limit >0 && iterator.curlNum > iterator.limit {
 			return false, nil, nil
 		}
 
@@ -2146,7 +2230,7 @@ type ListAppTableViewResp struct {
 
    func (iterator *ListAppTableFieldIterator) Next() (bool, *AppTableField, error) {
 		// 达到最大量，则返回
-		if iterator.curlNum > iterator.limit {
+		if iterator.limit >0 && iterator.curlNum > iterator.limit {
 			return false, nil, nil
 		}
 
@@ -2200,7 +2284,7 @@ type ListAppTableViewResp struct {
 
    func (iterator *ListAppTableRecordIterator) Next() (bool, *AppTableRecord, error) {
 		// 达到最大量，则返回
-		if iterator.curlNum > iterator.limit {
+		if iterator.limit >0 && iterator.curlNum > iterator.limit {
 			return false, nil, nil
 		}
 
@@ -2254,7 +2338,7 @@ type ListAppTableViewResp struct {
 
    func (iterator *ListAppTableViewIterator) Next() (bool, *AppTableView, error) {
 		// 达到最大量，则返回
-		if iterator.curlNum > iterator.limit {
+		if iterator.limit >0 && iterator.curlNum > iterator.limit {
 			return false, nil, nil
 		}
 

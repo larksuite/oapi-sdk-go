@@ -21,6 +21,16 @@ type EventReqDispatcher struct {
 	*core.Config
 }
 
+func NewTemplateReqHandler(handler *EventReqDispatcher, options ...event.OptionFunc) *event.ReqHandler {
+	reqHandler := event.ReqHandler{IReqHandler: handler, Config: handler.Config}
+	for _, option := range options {
+		option(handler.Config)
+	}
+
+	core.NewLogger(handler.Config)
+	return &reqHandler
+}
+
 func NewEventReqDispatcher(verificationToken, eventEncryptKey string) *EventReqDispatcher {
 	reqDispatcher := &EventReqDispatcher{
 		eventType2EventHandler: make(map[string]event.EventHandler),
@@ -35,7 +45,7 @@ func NewEventReqDispatcher(verificationToken, eventEncryptKey string) *EventReqD
 }
 
 func (d *EventReqDispatcher) ParseReq(ctx context.Context, req *event.EventReq) (string, error) {
-	d.Config.Logger.Debug(ctx, fmt.Sprintf("event request: %v", req))
+	d.Config.Logger.Debug(ctx, fmt.Sprintf("event request: header:%v,body:%s", req.Header, string(req.Body)))
 	if d.eventEncryptKey != "" {
 		var encrypt event.EventEncryptMsg
 		err := json.Unmarshal(req.Body, &encrypt)

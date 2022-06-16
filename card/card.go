@@ -21,6 +21,15 @@ type CardActionHandler struct {
 	*core.Config
 }
 
+func NewTemplateReqHandler(handler *CardActionHandler, options ...event.OptionFunc) *event.ReqHandler {
+	reqHandler := event.ReqHandler{IReqHandler: handler, Config: handler.Config}
+	for _, option := range options {
+		option(handler.Config)
+	}
+
+	core.NewLogger(handler.Config)
+	return &reqHandler
+}
 func NewCardActionHandler(verificationToken, eventEncryptKey string, handler func(context.Context, *CardAction) (interface{}, error)) *CardActionHandler {
 	h := &CardActionHandler{
 		verificationToken: verificationToken,
@@ -124,7 +133,7 @@ func (h *CardActionHandler) DoHandle(ctx context.Context, plainEventJsonStr stri
 }
 
 func (h *CardActionHandler) ParseReq(ctx context.Context, req *event.EventReq) (string, error) {
-	h.Config.Logger.Debug(ctx, fmt.Sprintf("cardAction request: %v", req))
+	h.Config.Logger.Debug(ctx, fmt.Sprintf("event request: header:%v,body:%s", req.Header, string(req.Body)))
 	return string(req.Body), nil
 }
 

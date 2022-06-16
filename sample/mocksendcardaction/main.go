@@ -37,7 +37,7 @@ func mockCardAction() []byte {
 	cardActionBody := &card.CardActionBody{
 		CardAction: cardAction,
 		Challenge:  "121212",
-		Type:       "url_verification",
+		Type:       "url_verification1",
 	}
 
 	body, _ := json.Marshal(cardActionBody)
@@ -58,7 +58,7 @@ func main() {
 	// 计算签名
 	var timestamp = "timestamp"
 	var nonce = "nonce"
-	var token = "token"
+	var token = "12"
 	sourceSign := card.Signature(timestamp, nonce, token, string(body))
 
 	// 添加header

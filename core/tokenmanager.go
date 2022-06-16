@@ -15,12 +15,13 @@ type TokenManager struct {
 	cache Cache
 }
 
-func (m *TokenManager) getAppAccessToken(ctx context.Context, config *Config, appType AppType) (string, error) {
-	token, err := m.cache.Get(ctx, appAccessTokenKey(config.AppId))
+func (m *TokenManager) getAppAccessToken(ctx context.Context, config *Config) (string, error) {
+	token, err := m.get(ctx, appAccessTokenKey(config.AppId))
 	if err != nil {
 		return "", err
 	}
 
+	appType := config.AppType
 	if token == "" {
 		if appType == AppTypeCustom {
 			token, err = m.getCustomAppAccessTokenThenCache(ctx, config)
@@ -41,7 +42,7 @@ func (m *TokenManager) getAppAccessToken(ctx context.Context, config *Config, ap
 }
 
 func (m *TokenManager) getTenantAccessToken(ctx context.Context, config *Config, tenantKey string) (string, error) {
-	token, err := m.cache.Get(ctx, tenantAccessTokenKey(config.AppId, tenantKey))
+	token, err := m.get(ctx, tenantAccessTokenKey(config.AppId, tenantKey))
 	if err != nil {
 		return "", err
 	}
@@ -67,6 +68,11 @@ func (m *TokenManager) getTenantAccessToken(ctx context.Context, config *Config,
 
 func (m *TokenManager) set(ctx context.Context, key, value string, ttl time.Duration) error {
 	return m.cache.Set(ctx, key, value, ttl)
+}
+
+func (m *TokenManager) get(ctx context.Context, tokenKey string) (string, error) {
+	token, err := m.cache.Get(ctx, tokenKey)
+	return token, err
 }
 
 type internalAccessTokenReq struct {
@@ -155,7 +161,7 @@ func (m *TokenManager) getCustomTenantAccessTokenThenCache(ctx context.Context, 
 var ErrAppTicketIsEmpty = errors.New("app ticket is empty")
 
 func (m *TokenManager) getMarketplaceAppAccessTokenThenCache(ctx context.Context, config *Config) (string, error) {
-	appTicket, err := appTicketManager.Get(ctx, appTicketKey(config.AppId))
+	appTicket, err := appTicketManager.Get(ctx, config)
 	if err != nil {
 		return "", err
 	}

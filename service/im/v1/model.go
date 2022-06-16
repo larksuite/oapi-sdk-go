@@ -438,6 +438,10 @@ type DeleteBatchMessageResp struct {
 	core.CodeError
 }
 
+func (resp *DeleteBatchMessageResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type GetProgressBatchMessageReqBuilder struct {
@@ -485,6 +489,10 @@ type GetProgressBatchMessageResp struct {
 	Data *GetProgressBatchMessageRespData `json:"data"`
 }
 
+func (resp *GetProgressBatchMessageResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type ReadUserBatchMessageReqBuilder struct {
@@ -529,6 +537,10 @@ type ReadUserBatchMessageResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *ReadUserBatchMessageRespData `json:"data"`
+}
+
+func (resp *ReadUserBatchMessageResp) Success() bool {
+	return resp.Code == 0
 }
 
 type CreateChatReqBodyBuilder struct {
@@ -973,6 +985,10 @@ type CreateChatResp struct {
 	Data *CreateChatRespData `json:"data"`
 }
 
+func (resp *CreateChatResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type DeleteChatReqBuilder struct {
@@ -1013,6 +1029,10 @@ type DeleteChatReq struct {
 type DeleteChatResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *DeleteChatResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -1093,6 +1113,10 @@ type GetChatResp struct {
 	Data *GetChatRespData `json:"data"`
 }
 
+func (resp *GetChatResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type ListChatReqBuilder struct {
@@ -1168,6 +1192,10 @@ type ListChatResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *ListChatRespData `json:"data"`
+}
+
+func (resp *ListChatResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -1256,6 +1284,10 @@ type SearchChatResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *SearchChatRespData `json:"data"`
+}
+
+func (resp *SearchChatResp) Success() bool {
+	return resp.Code == 0
 }
 
 type UpdateChatReqBodyBuilder struct {
@@ -1656,6 +1688,10 @@ type UpdateChatResp struct {
 	core.CodeError
 }
 
+func (resp *UpdateChatResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type GetChatAnnouncementReqBuilder struct {
@@ -1718,6 +1754,10 @@ type GetChatAnnouncementResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *GetChatAnnouncementRespData `json:"data"`
+}
+
+func (resp *GetChatAnnouncementResp) Success() bool {
+	return resp.Code == 0
 }
 
 type PatchChatAnnouncementReqBodyBuilder struct {
@@ -1859,6 +1899,10 @@ type PatchChatAnnouncementResp struct {
 	core.CodeError
 }
 
+func (resp *PatchChatAnnouncementResp) Success() bool {
+	return resp.Code == 0
+}
+
 type AddManagersChatManagersReqBodyBuilder struct {
 	managerIds  []string
 	managerIdsFlag  bool
@@ -1990,6 +2034,10 @@ type AddManagersChatManagersResp struct {
 	Data *AddManagersChatManagersRespData `json:"data"`
 }
 
+func (resp *AddManagersChatManagersResp) Success() bool {
+	return resp.Code == 0
+}
+
 type DeleteManagersChatManagersReqBodyBuilder struct {
 	managerIds  []string
 	managerIdsFlag  bool
@@ -2119,6 +2167,10 @@ type DeleteManagersChatManagersResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *DeleteManagersChatManagersRespData `json:"data"`
+}
+
+func (resp *DeleteManagersChatManagersResp) Success() bool {
+	return resp.Code == 0
 }
 
 type CreateChatMembersReqBodyBuilder struct {
@@ -2263,6 +2315,10 @@ type CreateChatMembersResp struct {
 	Data *CreateChatMembersRespData `json:"data"`
 }
 
+func (resp *CreateChatMembersResp) Success() bool {
+	return resp.Code == 0
+}
+
 type DeleteChatMembersReqBodyBuilder struct {
 	idList  []string
 	idListFlag  bool
@@ -2393,6 +2449,10 @@ type DeleteChatMembersResp struct {
 	Data *DeleteChatMembersRespData `json:"data"`
 }
 
+func (resp *DeleteChatMembersResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type GetChatMembersReqBuilder struct {
@@ -2482,6 +2542,10 @@ type GetChatMembersResp struct {
 	Data *GetChatMembersRespData `json:"data"`
 }
 
+func (resp *GetChatMembersResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type IsInChatChatMembersReqBuilder struct {
@@ -2528,6 +2592,10 @@ type IsInChatChatMembersResp struct {
 	Data *IsInChatChatMembersRespData `json:"data"`
 }
 
+func (resp *IsInChatChatMembersResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type MeJoinChatMembersReqBuilder struct {
@@ -2568,6 +2636,10 @@ type MeJoinChatMembersReq struct {
 type MeJoinChatMembersResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *MeJoinChatMembersResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -2657,6 +2729,10 @@ type GetChatModerationResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *GetChatModerationRespData `json:"data"`
+}
+
+func (resp *GetChatModerationResp) Success() bool {
+	return resp.Code == 0
 }
 
 type UpdateChatModerationReqBodyBuilder struct {
@@ -2831,6 +2907,10 @@ type UpdateChatModerationResp struct {
 	core.CodeError
 }
 
+func (resp *UpdateChatModerationResp) Success() bool {
+	return resp.Code == 0
+}
+
 type CreateChatTabReqBodyBuilder struct {
 	chatTabs  []*ChatTab
 	chatTabsFlag  bool
@@ -2948,6 +3028,10 @@ type CreateChatTabResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *CreateChatTabRespData `json:"data"`
+}
+
+func (resp *CreateChatTabResp) Success() bool {
+	return resp.Code == 0
 }
 
 type DeleteTabsChatTabReqBodyBuilder struct {
@@ -3069,6 +3153,10 @@ type DeleteTabsChatTabResp struct {
 	Data *DeleteTabsChatTabRespData `json:"data"`
 }
 
+func (resp *DeleteTabsChatTabResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type ListTabsChatTabReqBuilder struct {
@@ -3113,6 +3201,10 @@ type ListTabsChatTabResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *ListTabsChatTabRespData `json:"data"`
+}
+
+func (resp *ListTabsChatTabResp) Success() bool {
+	return resp.Code == 0
 }
 
 type SortTabsChatTabReqBodyBuilder struct {
@@ -3234,6 +3326,10 @@ type SortTabsChatTabResp struct {
 	Data *SortTabsChatTabRespData `json:"data"`
 }
 
+func (resp *SortTabsChatTabResp) Success() bool {
+	return resp.Code == 0
+}
+
 type UpdateTabsChatTabReqBodyBuilder struct {
 	chatTabs  []*ChatTab
 	chatTabsFlag  bool
@@ -3353,6 +3449,10 @@ type UpdateTabsChatTabResp struct {
 	Data *UpdateTabsChatTabRespData `json:"data"`
 }
 
+func (resp *UpdateTabsChatTabResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type DeleteTopNoticeChatTopNoticeReqBuilder struct {
@@ -3393,6 +3493,10 @@ type DeleteTopNoticeChatTopNoticeReq struct {
 type DeleteTopNoticeChatTopNoticeResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *DeleteTopNoticeChatTopNoticeResp) Success() bool {
+	return resp.Code == 0
 }
 
 type PutTopNoticeChatTopNoticeReqBodyBuilder struct {
@@ -3508,6 +3612,10 @@ type PutTopNoticeChatTopNoticeReq struct {
 type PutTopNoticeChatTopNoticeResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *PutTopNoticeChatTopNoticeResp) Success() bool {
+	return resp.Code == 0
 }
 
 type CreateChatCustomBotReqBodyBuilder struct {
@@ -3799,6 +3907,10 @@ type CreateChatCustomBotResp struct {
 	Data *CreateChatCustomBotRespData `json:"data"`
 }
 
+func (resp *CreateChatCustomBotResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type DeleteChatCustomBotReqBuilder struct {
@@ -3839,6 +3951,10 @@ type DeleteChatCustomBotReq struct {
 type DeleteChatCustomBotResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *DeleteChatCustomBotResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -3900,6 +4016,10 @@ type GetChatCustomBotResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *GetChatCustomBotRespData `json:"data"`
+}
+
+func (resp *GetChatCustomBotResp) Success() bool {
+	return resp.Code == 0
 }
 
 type PatchChatCustomBotReqBodyBuilder struct {
@@ -4183,6 +4303,10 @@ type PatchChatCustomBotResp struct {
 	core.CodeError
 }
 
+func (resp *PatchChatCustomBotResp) Success() bool {
+	return resp.Code == 0
+}
+
 type CreateFileReqBodyBuilder struct {
 	fileType  string
 	fileTypeFlag  bool
@@ -4367,6 +4491,10 @@ type CreateFileResp struct {
 	Data *CreateFileRespData `json:"data"`
 }
 
+func (resp *CreateFileResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type GetFileReqBuilder struct {
@@ -4409,6 +4537,10 @@ type GetFileResp struct {
 	core.CodeError
 	File	 io.Reader `json:"-"`
 	FileName string	`json:"-"`
+}
+
+func (resp *GetFileResp) Success() bool {
+	return resp.Code == 0
 }
 /**下载api,生成WriteFile方法**/
 func (resp * GetFileResp) WriteFile(fileName string ) error {
@@ -4482,6 +4614,10 @@ type ImDepthDataImUsageDataResp struct {
 	Data *ImDepthDataImUsageDataRespData `json:"data"`
 }
 
+func (resp *ImDepthDataImUsageDataResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type MsgProcessDataImUsageDataReqBuilder struct {
@@ -4537,6 +4673,10 @@ type MsgProcessDataImUsageDataResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *MsgProcessDataImUsageDataRespData `json:"data"`
+}
+
+func (resp *MsgProcessDataImUsageDataResp) Success() bool {
+	return resp.Code == 0
 }
 
 type CreateImageReqBodyBuilder struct {
@@ -4675,6 +4815,10 @@ type CreateImageResp struct {
 	Data *CreateImageRespData `json:"data"`
 }
 
+func (resp *CreateImageResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type GetImageReqBuilder struct {
@@ -4717,6 +4861,10 @@ type GetImageResp struct {
 	core.CodeError
 	File	 io.Reader `json:"-"`
 	FileName string	`json:"-"`
+}
+
+func (resp *GetImageResp) Success() bool {
+	return resp.Code == 0
 }
 /**下载api,生成WriteFile方法**/
 func (resp * GetImageResp) WriteFile(fileName string ) error {
@@ -4914,6 +5062,10 @@ type CreateMessageResp struct {
 	Data *CreateMessageRespData `json:"data"`
 }
 
+func (resp *CreateMessageResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type DeleteMessageReqBuilder struct {
@@ -4954,6 +5106,10 @@ type DeleteMessageReq struct {
 type DeleteMessageResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *DeleteMessageResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -5000,6 +5156,10 @@ type GetMessageResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *GetMessageRespData `json:"data"`
+}
+
+func (resp *GetMessageResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -5110,6 +5270,10 @@ type ListMessageResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *ListMessageRespData `json:"data"`
+}
+
+func (resp *ListMessageResp) Success() bool {
+	return resp.Code == 0
 }
 
 type PatchMessageReqBodyBuilder struct {
@@ -5229,6 +5393,10 @@ type PatchMessageResp struct {
 	core.CodeError
 }
 
+func (resp *PatchMessageResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type ReadUsersMessageReqBuilder struct {
@@ -5308,6 +5476,10 @@ type ReadUsersMessageResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *ReadUsersMessageRespData `json:"data"`
+}
+
+func (resp *ReadUsersMessageResp) Success() bool {
+	return resp.Code == 0
 }
 
 type ReplyMessageReqBodyBuilder struct {
@@ -5467,6 +5639,10 @@ type ReplyMessageResp struct {
 	Data *ReplyMessageRespData `json:"data"`
 }
 
+func (resp *ReplyMessageResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type UrgentAppMessageReqBuilder struct {
@@ -5532,6 +5708,10 @@ type UrgentAppMessageResp struct {
 	Data *UrgentAppMessageRespData `json:"data"`
 }
 
+func (resp *UrgentAppMessageResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type UrgentPhoneMessageReqBuilder struct {
@@ -5595,6 +5775,10 @@ type UrgentPhoneMessageResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *UrgentPhoneMessageRespData `json:"data"`
+}
+
+func (resp *UrgentPhoneMessageResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -5678,6 +5862,10 @@ type UrgentReadUsersMessageResp struct {
 	Data *UrgentReadUsersMessageRespData `json:"data"`
 }
 
+func (resp *UrgentReadUsersMessageResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type UrgentSmsMessageReqBuilder struct {
@@ -5741,6 +5929,10 @@ type UrgentSmsMessageResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *UrgentSmsMessageRespData `json:"data"`
+}
+
+func (resp *UrgentSmsMessageResp) Success() bool {
+	return resp.Code == 0
 }
 
 type CreateMessageReactionReqBodyBuilder struct {
@@ -5865,6 +6057,10 @@ type CreateMessageReactionResp struct {
 	Data *CreateMessageReactionRespData `json:"data"`
 }
 
+func (resp *CreateMessageReactionResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type DeleteMessageReactionReqBuilder struct {
@@ -5923,6 +6119,10 @@ type DeleteMessageReactionResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *DeleteMessageReactionRespData `json:"data"`
+}
+
+func (resp *DeleteMessageReactionResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -6024,6 +6224,10 @@ type ListMessageReactionResp struct {
 	Data *ListMessageReactionRespData `json:"data"`
 }
 
+func (resp *ListMessageReactionResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type GetMessageResourceReqBuilder struct {
@@ -6088,6 +6292,10 @@ type GetMessageResourceResp struct {
 	core.CodeError
 	File	 io.Reader `json:"-"`
 	FileName string	`json:"-"`
+}
+
+func (resp *GetMessageResourceResp) Success() bool {
+	return resp.Code == 0
 }
 /**下载api,生成WriteFile方法**/
 func (resp * GetMessageResourceResp) WriteFile(fileName string ) error {
@@ -6179,6 +6387,10 @@ type ListSpecialFocusResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *ListSpecialFocusRespData `json:"data"`
+}
+
+func (resp *ListSpecialFocusResp) Success() bool {
+	return resp.Code == 0
 }
 
 type UnreadSpecialFocusReqBodyBuilder struct {
@@ -6324,6 +6536,10 @@ type UnreadSpecialFocusResp struct {
 	Data *UnreadSpecialFocusRespData `json:"data"`
 }
 
+func (resp *UnreadSpecialFocusResp) Success() bool {
+	return resp.Code == 0
+}
+
 type BatchUpdateUrlPreviewReqBodyBuilder struct {
 	previewTokens  []string
 	previewTokensFlag  bool
@@ -6450,6 +6666,10 @@ type BatchUpdateUrlPreviewReq struct {
 type BatchUpdateUrlPreviewResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *BatchUpdateUrlPreviewResp) Success() bool {
+	return resp.Code == 0
 }
 
 /**生成消息事件结构体 **/
@@ -6630,7 +6850,7 @@ type MessageReactionDeletedEvent struct {
 
    func (iterator *ListChatIterator) Next() (bool, *ListChat, error) {
 		// 达到最大量，则返回
-		if iterator.curlNum > iterator.limit {
+		if iterator.limit >0 && iterator.curlNum > iterator.limit {
 			return false, nil, nil
 		}
 
@@ -6684,7 +6904,7 @@ type MessageReactionDeletedEvent struct {
 
    func (iterator *SearchChatIterator) Next() (bool, *ListChat, error) {
 		// 达到最大量，则返回
-		if iterator.curlNum > iterator.limit {
+		if iterator.limit >0 && iterator.curlNum > iterator.limit {
 			return false, nil, nil
 		}
 
@@ -6738,7 +6958,7 @@ type MessageReactionDeletedEvent struct {
 
    func (iterator *GetChatMembersIterator) Next() (bool, *ListMember, error) {
 		// 达到最大量，则返回
-		if iterator.curlNum > iterator.limit {
+		if iterator.limit >0 && iterator.curlNum > iterator.limit {
 			return false, nil, nil
 		}
 
@@ -6792,7 +7012,7 @@ type MessageReactionDeletedEvent struct {
 
    func (iterator *GetChatModerationIterator) Next() (bool, *ListModerator, error) {
 		// 达到最大量，则返回
-		if iterator.curlNum > iterator.limit {
+		if iterator.limit >0 && iterator.curlNum > iterator.limit {
 			return false, nil, nil
 		}
 
@@ -6846,7 +7066,7 @@ type MessageReactionDeletedEvent struct {
 
    func (iterator *ListMessageIterator) Next() (bool, *Message, error) {
 		// 达到最大量，则返回
-		if iterator.curlNum > iterator.limit {
+		if iterator.limit >0 && iterator.curlNum > iterator.limit {
 			return false, nil, nil
 		}
 
@@ -6900,7 +7120,7 @@ type MessageReactionDeletedEvent struct {
 
    func (iterator *ListMessageReactionIterator) Next() (bool, *MessageReaction, error) {
 		// 达到最大量，则返回
-		if iterator.curlNum > iterator.limit {
+		if iterator.limit >0 && iterator.curlNum > iterator.limit {
 			return false, nil, nil
 		}
 
@@ -6954,7 +7174,7 @@ type MessageReactionDeletedEvent struct {
 
    func (iterator *ListSpecialFocusIterator) Next() (bool, *SpecialFocus, error) {
 		// 达到最大量，则返回
-		if iterator.curlNum > iterator.limit {
+		if iterator.limit >0 && iterator.curlNum > iterator.limit {
 			return false, nil, nil
 		}
 

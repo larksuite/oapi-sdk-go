@@ -50,7 +50,7 @@ func mockEncryptedBody(encrypteKey string) []byte {
 		Type:             "url_verification1",
 	}
 
-	en, _ := core.AsEncryptedPushFormat(context.Background(), eventBody, encrypteKey)
+	en, _ := core.EncryptedEventMsg(context.Background(), eventBody, encrypteKey)
 	fmt.Println(encrypteKey)
 
 	encrypt := event.EventEncryptMsg{Encrypt: en}
@@ -58,31 +58,14 @@ func mockEncryptedBody(encrypteKey string) []byte {
 
 	return body1
 }
+
 func mockEvent() []byte {
 	userEvent := &contact.UserEvent{
-		OpenId:          core.StringPtr("ou_7dab8a3d3cdcc9da365777c7ad535d62"),
-		UnionId:         core.StringPtr("on_576833b917gda3d939b9a3c2d53e72c8"),
-		UserId:          core.StringPtr("e33ggbyz"),
-		Name:            core.StringPtr("张三"),
-		EnName:          nil,
-		Nickname:        nil,
-		Email:           nil,
-		EnterpriseEmail: nil,
-		JobTitle:        nil,
-		Mobile:          nil,
-		Gender:          nil,
-		Avatar:          nil,
-		Status:          nil,
-		DepartmentIds:   nil,
-		LeaderUserId:    nil,
-		City:            nil,
-		Country:         nil,
-		WorkStation:     nil,
-		JoinTime:        nil,
-		EmployeeNo:      core.StringPtr("employee_no"),
-		EmployeeType:    nil,
-		Orders:          nil,
-		CustomAttrs:     nil,
+		OpenId:     core.StringPtr("ou_7dab8a3d3cdcc9da365777c7ad535d62"),
+		UnionId:    core.StringPtr("on_576833b917gda3d939b9a3c2d53e72c8"),
+		UserId:     core.StringPtr("e33ggbyz"),
+		Name:       core.StringPtr("张三"),
+		EmployeeNo: core.StringPtr("employee_no"),
 	}
 
 	usersCreatedEvent := contact.UserCreatedEvent{
@@ -103,7 +86,7 @@ func mockEvent() []byte {
 	eventBody := EventV2Body{
 		UserCreatedEvent: usersCreatedEvent,
 		Challenge:        "1212",
-		Type:             "url_verification",
+		Type:             "url_verification1",
 	}
 
 	body1, _ := json.Marshal(eventBody)
@@ -111,11 +94,17 @@ func mockEvent() []byte {
 	return body1
 }
 
+func mockAppTicketEvent() []byte {
+
+	body := "{\"ts\":\"\",\"uuid\":\"\",\"token\":\"1212121212\",\"type\":\"\",\"event\":{\"app_id\":\"jiaduoappId\",\"type\":\"app_ticket\",\"app_ticket\":\"AppTicketvalue\"}}"
+	return []byte(body)
+}
+
 func main() {
 
 	//mock body
-	encrypteKey := "1212121212"
-	body := mockEncryptedBody(encrypteKey)
+	encryptedKey := "1212121212"
+	body := mockEncryptedBody(encryptedKey)
 	//body := mockEvent()
 
 	// 创建http req
@@ -128,7 +117,7 @@ func main() {
 	// 计算签名
 	var timestamp = "timestamp"
 	var nonce = "nonce"
-	var token = encrypteKey
+	var token = encryptedKey
 	sourceSign := event.Signature(timestamp, nonce, token, string(body))
 
 	// 添加header

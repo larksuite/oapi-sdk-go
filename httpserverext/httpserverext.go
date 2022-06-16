@@ -2,7 +2,6 @@ package httpserverext
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -13,26 +12,28 @@ import (
 	"github.com/feishu/oapi-sdk-go/event"
 )
 
-func newReqHandler(handler event.IReqHandler, options ...event.OptionFunc) *event.ReqHandler {
-	reqHandler := event.ReqHandler{IReqHandler: handler}
-	switch h := handler.(type) {
-	case *dispatcher.EventReqDispatcher:
-		for _, option := range options {
-			option(h.Config)
-		}
-		reqHandler.Config = h.Config
-	case *card.CardActionHandler:
-		for _, option := range options {
-			option(h.Config)
-		}
-		reqHandler.Config = h.Config
-	}
-	return &reqHandler
-}
-func doProcess(writer http.ResponseWriter, req *http.Request, handler event.IReqHandler, options ...event.OptionFunc) {
-	// 构建模板类
-	reqHandler := newReqHandler(handler, options...)
+//
+//func newReqHandler(handler event.IReqHandler, options ...event.OptionFunc) *event.ReqHandler {
+//	reqHandler := event.ReqHandler{IReqHandler: handler}
+//
+//	switch h := handler.(type) {
+//	case *dispatcher.EventReqDispatcher:
+//		for _, option := range options {
+//			option(h.Config)
+//		}
+//		reqHandler.Config = h.Config
+//	case *card.CardActionHandler:
+//		for _, option := range options {
+//			option(h.Config)
+//		}
+//		reqHandler.Config = h.Config
+//	}
+//	core.NewLogger(reqHandler.Config)
+//
+//	return &reqHandler
+//}
 
+func doProcess(writer http.ResponseWriter, req *http.Request, reqHandler *event.ReqHandler) {
 	// 转换http请求对象为标准请求对象
 	ctx := context.Background()
 	eventReq, err := translate(ctx, req)
@@ -55,29 +56,31 @@ func doProcess(writer http.ResponseWriter, req *http.Request, handler event.IReq
 	}
 }
 
-func NewCardActionHandlerFunc(cardActionHandler event.IReqHandler, options ...event.OptionFunc) func(writer http.ResponseWriter, req *http.Request) {
-	// 类型判断
-	if _, ok := cardActionHandler.(*card.CardActionHandler); !ok {
-		err := errors.New("cardActionHandler type not match,please pass a card.CardActionHandler instance")
-		panic(err)
-	}
-
-	// 逻辑处理
+func NewCardActionHandlerFunc(cardActionHandler *card.CardActionHandler, options ...event.OptionFunc) func(writer http.ResponseWriter, req *http.Request) {
+	reqHandler := card.NewTemplateReqHandler(cardActionHandler, options...)
 	return func(writer http.ResponseWriter, req *http.Request) {
-		doProcess(writer, req, cardActionHandler, options...)
+		doProcess(writer, req, reqHandler)
 	}
 }
 
-func NewEventReqHandlerFunc(eventReqDispatcher event.IReqHandler, options ...event.OptionFunc) func(writer http.ResponseWriter, req *http.Request) {
-	// 类型判断
-	if _, ok := eventReqDispatcher.(*dispatcher.EventReqDispatcher); !ok {
-		err := errors.New("eventReqDispatcher type not match,please pass a dispatcher.eventReqDispatcher instance")
-		panic(err)
-	}
+//func NewEventReqHandlerFunc(eventReqDispatcher event.IReqHandler, options ...event.OptionFunc) func(writer http.ResponseWriter, req *http.Request) {
+//	// 类型判断
+//	if _, ok := eventReqDispatcher.(*dispatcher.EventReqDispatcher); !ok {
+//		err := errors.New("eventReqDispatcher type not match,please pass a dispatcher.eventReqDispatcher instance")
+//		panic(err)
+//	}
+//
+//	// 创建处理器
+//	reqHandler := newReqHandler(eventReqDispatcher, options...)
+//	return func(writer http.ResponseWriter, req *http.Request) {
+//		doProcess(writer, req, reqHandler)
+//	}
+//}
 
-	// 逻辑处理
+func NewEventReqHandlerFunc(eventReqDispatcher *dispatcher.EventReqDispatcher, options ...event.OptionFunc) func(writer http.ResponseWriter, req *http.Request) {
+	reqHandler := dispatcher.NewTemplateReqHandler(eventReqDispatcher, options...)
 	return func(writer http.ResponseWriter, req *http.Request) {
-		doProcess(writer, req, eventReqDispatcher, options...)
+		doProcess(writer, req, reqHandler)
 	}
 }
 
@@ -107,6 +110,7 @@ func write(ctx context.Context, writer http.ResponseWriter, eventResp *event.Eve
 	}
 	return nil
 }
+
 func translate(ctx context.Context, req *http.Request) (*event.EventReq, error) {
 	rawBody, err := ioutil.ReadAll(req.Body)
 	if err != nil {

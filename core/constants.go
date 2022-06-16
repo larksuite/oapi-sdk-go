@@ -10,6 +10,7 @@ const (
 	httpHeaderKeyLogId     = "X-Tt-Logid"
 	contentTypeHeader      = "Content-Type"
 	contentTypeJson        = "application/json"
+	customRequestId        = "Oapi-Sdk-Request-Id"
 )
 
 type AppType string
@@ -42,3 +43,9 @@ const (
 	tenantAccessTokenKeyPrefix = "tenant_access_token"
 )
 const expiryDelta = 3 * time.Minute
+const (
+	errCodeAppTicketInvalid         = 10012
+	errCodeAccessTokenInvalid       = 99991671
+	errCodeAppAccessTokenInvalid    = 99991664
+	errCodeTenantAccessTokenInvalid = 99991663
+)

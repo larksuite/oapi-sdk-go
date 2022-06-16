@@ -317,6 +317,10 @@ type CreateCalendarResp struct {
 	Data *CreateCalendarRespData `json:"data"`
 }
 
+func (resp *CreateCalendarResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type DeleteCalendarReqBuilder struct {
@@ -357,6 +361,10 @@ type DeleteCalendarReq struct {
 type DeleteCalendarResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *DeleteCalendarResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -412,6 +420,10 @@ type GetCalendarResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *GetCalendarRespData `json:"data"`
+}
+
+func (resp *GetCalendarResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -485,6 +497,10 @@ type ListCalendarResp struct {
 	Data *ListCalendarRespData `json:"data"`
 }
 
+func (resp *ListCalendarResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type PatchCalendarReqBuilder struct {
@@ -539,6 +555,10 @@ type PatchCalendarResp struct {
 	Data *PatchCalendarRespData `json:"data"`
 }
 
+func (resp *PatchCalendarResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type PrimaryCalendarReqBuilder struct {
@@ -583,6 +603,10 @@ type PrimaryCalendarResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *PrimaryCalendarRespData `json:"data"`
+}
+
+func (resp *PrimaryCalendarResp) Success() bool {
+	return resp.Code == 0
 }
 
 type SearchCalendarReqBodyBuilder struct {
@@ -725,6 +749,10 @@ type SearchCalendarResp struct {
 	Data *SearchCalendarRespData `json:"data"`
 }
 
+func (resp *SearchCalendarResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type SubscribeCalendarReqBuilder struct {
@@ -771,12 +799,20 @@ type SubscribeCalendarResp struct {
 	Data *SubscribeCalendarRespData `json:"data"`
 }
 
+func (resp *SubscribeCalendarResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 
 
 type SubscriptionCalendarResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *SubscriptionCalendarResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -819,6 +855,10 @@ type UnsubscribeCalendarReq struct {
 type UnsubscribeCalendarResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *UnsubscribeCalendarResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -888,6 +928,10 @@ type CreateCalendarAclResp struct {
 	Data *CreateCalendarAclRespData `json:"data"`
 }
 
+func (resp *CreateCalendarAclResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type DeleteCalendarAclReqBuilder struct {
@@ -939,6 +983,10 @@ type DeleteCalendarAclReq struct {
 type DeleteCalendarAclResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *DeleteCalendarAclResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -1029,6 +1077,10 @@ type ListCalendarAclResp struct {
 	Data *ListCalendarAclRespData `json:"data"`
 }
 
+func (resp *ListCalendarAclResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type SubscriptionCalendarAclReqBuilder struct {
@@ -1069,6 +1121,10 @@ type SubscriptionCalendarAclReq struct {
 type SubscriptionCalendarAclResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *SubscriptionCalendarAclResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -1123,6 +1179,10 @@ type CreateCalendarEventResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *CreateCalendarEventRespData `json:"data"`
+}
+
+func (resp *CreateCalendarEventResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -1189,6 +1249,10 @@ type DeleteCalendarEventResp struct {
 	core.CodeError
 }
 
+func (resp *DeleteCalendarEventResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type GetCalendarEventReqBuilder struct {
@@ -1244,6 +1308,10 @@ type GetCalendarEventResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *GetCalendarEventRespData `json:"data"`
+}
+
+func (resp *GetCalendarEventResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -1361,6 +1429,10 @@ type ListCalendarEventResp struct {
 	Data *ListCalendarEventRespData `json:"data"`
 }
 
+func (resp *ListCalendarEventResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type PatchCalendarEventReqBuilder struct {
@@ -1424,6 +1496,10 @@ type PatchCalendarEventResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *PatchCalendarEventRespData `json:"data"`
+}
+
+func (resp *PatchCalendarEventResp) Success() bool {
+	return resp.Code == 0
 }
 
 type SearchCalendarEventReqBodyBuilder struct {
@@ -1610,6 +1686,10 @@ type SearchCalendarEventResp struct {
 	Data *SearchCalendarEventRespData `json:"data"`
 }
 
+func (resp *SearchCalendarEventResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type SubscriptionCalendarEventReqBuilder struct {
@@ -1650,6 +1730,10 @@ type SubscriptionCalendarEventReq struct {
 type SubscriptionCalendarEventResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *SubscriptionCalendarEventResp) Success() bool {
+	return resp.Code == 0
 }
 
 type BatchDeleteCalendarEventAttendeeReqBodyBuilder struct {
@@ -1848,6 +1932,10 @@ type BatchDeleteCalendarEventAttendeeReq struct {
 type BatchDeleteCalendarEventAttendeeResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *BatchDeleteCalendarEventAttendeeResp) Success() bool {
+	return resp.Code == 0
 }
 
 type CreateCalendarEventAttendeeReqBodyBuilder struct {
@@ -2063,6 +2151,10 @@ type CreateCalendarEventAttendeeResp struct {
 	Data *CreateCalendarEventAttendeeRespData `json:"data"`
 }
 
+func (resp *CreateCalendarEventAttendeeResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type ListCalendarEventAttendeeReqBuilder struct {
@@ -2160,6 +2252,10 @@ type ListCalendarEventAttendeeResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *ListCalendarEventAttendeeRespData `json:"data"`
+}
+
+func (resp *ListCalendarEventAttendeeResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -2272,6 +2368,10 @@ type ListCalendarEventAttendeeChatMemberResp struct {
 	Data *ListCalendarEventAttendeeChatMemberRespData `json:"data"`
 }
 
+func (resp *ListCalendarEventAttendeeChatMemberResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type CreateExchangeBindingReqBuilder struct {
@@ -2330,6 +2430,10 @@ type CreateExchangeBindingResp struct {
 	Data *CreateExchangeBindingRespData `json:"data"`
 }
 
+func (resp *CreateExchangeBindingResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type DeleteExchangeBindingReqBuilder struct {
@@ -2370,6 +2474,10 @@ type DeleteExchangeBindingReq struct {
 type DeleteExchangeBindingResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *DeleteExchangeBindingResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -2431,6 +2539,10 @@ type GetExchangeBindingResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *GetExchangeBindingRespData `json:"data"`
+}
+
+func (resp *GetExchangeBindingResp) Success() bool {
+	return resp.Code == 0
 }
 
 type BatchGetFreebusyReqBodyBuilder struct {
@@ -2612,6 +2724,10 @@ type BatchGetFreebusyResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *BatchGetFreebusyRespData `json:"data"`
+}
+
+func (resp *BatchGetFreebusyResp) Success() bool {
+	return resp.Code == 0
 }
 
 type ListFreebusyReqBodyBuilder struct {
@@ -2807,6 +2923,10 @@ type ListFreebusyResp struct {
 	Data *ListFreebusyRespData `json:"data"`
 }
 
+func (resp *ListFreebusyResp) Success() bool {
+	return resp.Code == 0
+}
+
 type GenerateCaldavConfSettingReqBodyBuilder struct {
 	deviceName  string
 	deviceNameFlag  bool
@@ -2920,6 +3040,10 @@ type GenerateCaldavConfSettingResp struct {
 	Data *GenerateCaldavConfSettingRespData `json:"data"`
 }
 
+func (resp *GenerateCaldavConfSettingResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type CreateTimeoffEventReqBuilder struct {
@@ -2980,6 +3104,10 @@ type CreateTimeoffEventResp struct {
 	Data *CreateTimeoffEventRespData `json:"data"`
 }
 
+func (resp *CreateTimeoffEventResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type DeleteTimeoffEventReqBuilder struct {
@@ -3020,6 +3148,10 @@ type DeleteTimeoffEventReq struct {
 type DeleteTimeoffEventResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *DeleteTimeoffEventResp) Success() bool {
+	return resp.Code == 0
 }
 
 /**生成消息事件结构体 **/
@@ -3085,7 +3217,7 @@ type CalendarEventChangedEvent struct {
 
    func (iterator *SearchCalendarIterator) Next() (bool, *Calendar, error) {
 		// 达到最大量，则返回
-		if iterator.curlNum > iterator.limit {
+		if iterator.limit >0 && iterator.curlNum > iterator.limit {
 			return false, nil, nil
 		}
 
@@ -3139,7 +3271,7 @@ type CalendarEventChangedEvent struct {
 
    func (iterator *ListCalendarAclIterator) Next() (bool, *CalendarAcl, error) {
 		// 达到最大量，则返回
-		if iterator.curlNum > iterator.limit {
+		if iterator.limit >0 && iterator.curlNum > iterator.limit {
 			return false, nil, nil
 		}
 
@@ -3193,7 +3325,7 @@ type CalendarEventChangedEvent struct {
 
    func (iterator *SearchCalendarEventIterator) Next() (bool, *CalendarEvent, error) {
 		// 达到最大量，则返回
-		if iterator.curlNum > iterator.limit {
+		if iterator.limit >0 && iterator.curlNum > iterator.limit {
 			return false, nil, nil
 		}
 
@@ -3247,7 +3379,7 @@ type CalendarEventChangedEvent struct {
 
    func (iterator *ListCalendarEventAttendeeIterator) Next() (bool, *CalendarEventAttendee, error) {
 		// 达到最大量，则返回
-		if iterator.curlNum > iterator.limit {
+		if iterator.limit >0 && iterator.curlNum > iterator.limit {
 			return false, nil, nil
 		}
 
@@ -3301,7 +3433,7 @@ type CalendarEventChangedEvent struct {
 
    func (iterator *ListCalendarEventAttendeeChatMemberIterator) Next() (bool, *CalendarEventAttendeeChatMember, error) {
 		// 达到最大量，则返回
-		if iterator.curlNum > iterator.limit {
+		if iterator.limit >0 && iterator.curlNum > iterator.limit {
 			return false, nil, nil
 		}
 

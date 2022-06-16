@@ -2,8 +2,11 @@ package core
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
+	"fmt"
 	"net/http"
+	"strings"
 )
 
 var reqTranslator ReqTranslator
@@ -44,7 +47,7 @@ func determineTokenType(accessTokenTypes []AccessTokenType, option *RequestOptio
 	return accessTokenType
 }
 
-func valid(config *Config, option *RequestOption, accessTokenType AccessTokenType) error {
+func validate(config *Config, option *RequestOption, accessTokenType AccessTokenType) error {
 	if config.EnableTokenCache == false && option.UserAccessToken == "" && option.TenantAccessToken == "" && option.AppAccessToken == "" {
 		return errors.New("accessToken is empty")
 	}
@@ -60,7 +63,43 @@ func valid(config *Config, option *RequestOption, accessTokenType AccessTokenTyp
 	return nil
 }
 
-func doSend(rawRequest *http.Request, httpClient *http.Client) (*RawResponse, error) {
+func send(ctx context.Context, rawRequest *http.Request, config *Config, fileDownLoad bool) (*RawResponse, error) {
+	var rawResp *RawResponse
+	var err error
+	for i := 0; i < 2; i++ {
+		config.Logger.Debug(ctx, fmt.Sprintf("req:%v", rawRequest))
+		rawResp, err = doSend(ctx, rawRequest, config.HttpClient)
+		if err != nil {
+			return rawResp, err
+		}
+		config.Logger.Debug(ctx, fmt.Sprintf("req:%v,resp:%v", rawRequest, rawResp))
+
+		fileDownloadSuccess := fileDownLoad && rawResp.StatusCode == http.StatusOK
+		if fileDownloadSuccess || !strings.Contains(rawResp.Header.Get(contentTypeHeader), contentTypeJson) {
+			break
+		}
+
+		codeError := &CodeError{}
+		err = json.Unmarshal(rawResp.RawBody, codeError)
+		if err != nil {
+			return nil, err
+		}
+
+		code := codeError.Code
+		if code == errCodeAppTicketInvalid {
+			applyAppTicket(ctx, config)
+		}
+
+		if code != errCodeAccessTokenInvalid && code != errCodeAppAccessTokenInvalid &&
+			code != errCodeTenantAccessTokenInvalid {
+			break
+		}
+	}
+
+	return rawResp, nil
+}
+
+func doSend(ctx context.Context, rawRequest *http.Request, httpClient *http.Client) (*RawResponse, error) {
 	resp, err := httpClient.Do(rawRequest)
 	if err != nil {
 		return nil, err
@@ -69,12 +108,19 @@ func doSend(rawRequest *http.Request, httpClient *http.Client) (*RawResponse, er
 	if err != nil {
 		return nil, err
 	}
+
 	return &RawResponse{
 		StatusCode: resp.StatusCode,
 		Header:     resp.Header,
 		RawBody:    body,
 	}, nil
 }
+
+type applyAppTicketReq struct {
+	AppID     string `json:"app_id"`
+	AppSecret string `json:"app_secret"`
+}
+
 func SendRequest(ctx context.Context, config *Config, httpMethod string, httpPath string,
 	accessTokenTypes []AccessTokenType, input interface{}, options ...RequestOptionFunc) (*RawResponse, error) {
 
@@ -85,19 +131,56 @@ func SendRequest(ctx context.Context, config *Config, httpMethod string, httpPat
 
 	accessTokenType := determineTokenType(accessTokenTypes, option, config.EnableTokenCache)
 
-	err := valid(config, option, accessTokenType)
+	err := validate(config, option, accessTokenType)
 	if err != nil {
 		return nil, err
 	}
 
-	req, err := reqTranslator.translate(ctx, input, accessTokenType, config, httpMethod, httpPath, option)
-	if err != nil {
-		return nil, err
-	}
-
-	rawResp, err := doSend(req, config.HttpClient)
+	rawResp, err := doSendRequest(ctx, config, httpMethod, httpPath, accessTokenType, input, option)
 
 	return rawResp, err
+}
+
+func doSendRequest(ctx context.Context, config *Config, httpMethod string, httpPath string,
+	accessTokenType AccessTokenType, input interface{}, option *RequestOption) (*RawResponse, error) {
+
+	var rawResp *RawResponse
+	for i := 0; i < 2; i++ {
+		req, err := reqTranslator.translate(ctx, input, accessTokenType, config, httpMethod, httpPath, option)
+		if err != nil {
+			return nil, err
+		}
+
+		config.Logger.Debug(ctx, fmt.Sprintf("req:%v", req))
+		rawResp, err = doSend(ctx, req, config.HttpClient)
+		if err != nil {
+			return rawResp, err
+		}
+		config.Logger.Debug(ctx, fmt.Sprintf("req:%v,resp:%v", req, rawResp))
+
+		fileDownloadSuccess := option.FileDownload && rawResp.StatusCode == http.StatusOK
+		if fileDownloadSuccess || !strings.Contains(rawResp.Header.Get(contentTypeHeader), contentTypeJson) {
+			break
+		}
+
+		codeError := &CodeError{}
+		err = json.Unmarshal(rawResp.RawBody, codeError)
+		if err != nil {
+			return nil, err
+		}
+
+		code := codeError.Code
+		if code == errCodeAppTicketInvalid {
+			applyAppTicket(ctx, config)
+		}
+
+		if code != errCodeAccessTokenInvalid && code != errCodeAppAccessTokenInvalid &&
+			code != errCodeTenantAccessTokenInvalid {
+			break
+		}
+	}
+
+	return rawResp, nil
 }
 
 func SendPost(ctx context.Context, config *Config, httpPath string,

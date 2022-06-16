@@ -801,6 +801,10 @@ type CreateApprovalResp struct {
 	Data *CreateApprovalRespData `json:"data"`
 }
 
+func (resp *CreateApprovalResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type GetApprovalReqBuilder struct {
@@ -860,6 +864,10 @@ type GetApprovalResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *GetApprovalRespData `json:"data"`
+}
+
+func (resp *GetApprovalResp) Success() bool {
+	return resp.Code == 0
 }
 
 type SearchApprovalReqBodyBuilder struct {
@@ -1007,6 +1015,10 @@ type SearchApprovalResp struct {
 	Data *SearchApprovalRespData `json:"data"`
 }
 
+func (resp *SearchApprovalResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type SubscribeApprovalReqBuilder struct {
@@ -1049,6 +1061,10 @@ type SubscribeApprovalResp struct {
 	core.CodeError
 }
 
+func (resp *SubscribeApprovalResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type UnsubscribeApprovalReqBuilder struct {
@@ -1089,6 +1105,10 @@ type UnsubscribeApprovalReq struct {
 type UnsubscribeApprovalResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *UnsubscribeApprovalResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -1154,6 +1174,10 @@ type CreateExternalApprovalResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *CreateExternalApprovalRespData `json:"data"`
+}
+
+func (resp *CreateExternalApprovalResp) Success() bool {
+	return resp.Code == 0
 }
 
 type CheckExternalInstanceReqBodyBuilder struct {
@@ -1264,6 +1288,10 @@ type CheckExternalInstanceResp struct {
 	Data *CheckExternalInstanceRespData `json:"data"`
 }
 
+func (resp *CheckExternalInstanceResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type CreateExternalInstanceReqBuilder struct {
@@ -1305,6 +1333,10 @@ type CreateExternalInstanceResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *CreateExternalInstanceRespData `json:"data"`
+}
+
+func (resp *CreateExternalInstanceResp) Success() bool {
+	return resp.Code == 0
 }
 
 type ListExternalTaskReqBodyBuilder struct {
@@ -1514,6 +1546,10 @@ type ListExternalTaskResp struct {
 	Data *ListExternalTaskRespData `json:"data"`
 }
 
+func (resp *ListExternalTaskResp) Success() bool {
+	return resp.Code == 0
+}
+
 type UploadFileReqBodyBuilder struct {
 	name  string
 	nameFlag  bool
@@ -1673,6 +1709,10 @@ type UploadFileResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *UploadFileRespData `json:"data"`
+}
+
+func (resp *UploadFileResp) Success() bool {
+	return resp.Code == 0
 }
 
 type AddSignInstanceReqBodyBuilder struct {
@@ -1947,6 +1987,10 @@ type AddSignInstanceResp struct {
 	core.CodeError
 }
 
+func (resp *AddSignInstanceResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type CancelInstanceReqBuilder struct {
@@ -1995,6 +2039,10 @@ type CancelInstanceReq struct {
 type CancelInstanceResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *CancelInstanceResp) Success() bool {
+	return resp.Code == 0
 }
 
 type CarbonCopyInstanceReqBodyBuilder struct {
@@ -2212,6 +2260,10 @@ type CarbonCopyInstanceResp struct {
 	Data *CarbonCopyInstanceRespData `json:"data"`
 }
 
+func (resp *CarbonCopyInstanceResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type CcInstanceReqBuilder struct {
@@ -2262,6 +2314,10 @@ type CcInstanceResp struct {
 	core.CodeError
 }
 
+func (resp *CcInstanceResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type CreateInstanceReqBuilder struct {
@@ -2303,6 +2359,10 @@ type CreateInstanceResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *CreateInstanceRespData `json:"data"`
+}
+
+func (resp *CreateInstanceResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -2397,6 +2457,10 @@ type GetInstanceResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *GetInstanceRespData `json:"data"`
+}
+
+func (resp *GetInstanceResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -2496,6 +2560,10 @@ type ListInstanceResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *ListInstanceRespData `json:"data"`
+}
+
+func (resp *ListInstanceResp) Success() bool {
+	return resp.Code == 0
 }
 
 type PreviewInstanceReqBodyBuilder struct {
@@ -2763,6 +2831,10 @@ type PreviewInstanceResp struct {
 	Data *PreviewInstanceRespData `json:"data"`
 }
 
+func (resp *PreviewInstanceResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type QueryInstanceReqBuilder struct {
@@ -2840,6 +2912,10 @@ type QueryInstanceResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *QueryInstanceRespData `json:"data"`
+}
+
+func (resp *QueryInstanceResp) Success() bool {
+	return resp.Code == 0
 }
 
 type SearchInstanceReqBodyBuilder struct {
@@ -3083,6 +3159,10 @@ type SearchInstanceResp struct {
 	Data *SearchInstanceRespData `json:"data"`
 }
 
+func (resp *SearchInstanceResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type SearchCcInstanceReqBuilder struct {
@@ -3160,6 +3240,10 @@ type SearchCcInstanceResp struct {
 	Data *SearchCcInstanceRespData `json:"data"`
 }
 
+func (resp *SearchCcInstanceResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type SpecifiedRollbackInstanceReqBuilder struct {
@@ -3208,6 +3292,10 @@ type SpecifiedRollbackInstanceReq struct {
 type SpecifiedRollbackInstanceResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *SpecifiedRollbackInstanceResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -3284,6 +3372,10 @@ type CreateInstanceCommentResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *CreateInstanceCommentRespData `json:"data"`
+}
+
+func (resp *CreateInstanceCommentResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -3363,6 +3455,10 @@ type DeleteInstanceCommentResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *DeleteInstanceCommentRespData `json:"data"`
+}
+
+func (resp *DeleteInstanceCommentResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -3455,6 +3551,10 @@ type ListInstanceCommentResp struct {
 	Data *ListInstanceCommentRespData `json:"data"`
 }
 
+func (resp *ListInstanceCommentResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type RemoveInstanceCommentReqBuilder struct {
@@ -3524,6 +3624,10 @@ type RemoveInstanceCommentResp struct {
 	Data *RemoveInstanceCommentRespData `json:"data"`
 }
 
+func (resp *RemoveInstanceCommentResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type CreateMessageReqBuilder struct {
@@ -3576,6 +3680,10 @@ type CreateMessageResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *CreateMessageRespData `json:"data"`
+}
+
+func (resp *CreateMessageResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -3632,6 +3740,10 @@ type PatchMessageResp struct {
 	Data *PatchMessageRespData `json:"data"`
 }
 
+func (resp *PatchMessageResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type ApproveTaskReqBuilder struct {
@@ -3680,6 +3792,10 @@ type ApproveTaskReq struct {
 type ApproveTaskResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *ApproveTaskResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -3782,6 +3898,10 @@ type QueryTaskResp struct {
 	Data *QueryTaskRespData `json:"data"`
 }
 
+func (resp *QueryTaskResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type RejectTaskReqBuilder struct {
@@ -3830,6 +3950,10 @@ type RejectTaskReq struct {
 type RejectTaskResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *RejectTaskResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -3911,6 +4035,10 @@ type SearchTaskResp struct {
 	Data *SearchTaskRespData `json:"data"`
 }
 
+func (resp *SearchTaskResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type TransferTaskReqBuilder struct {
@@ -3959,6 +4087,10 @@ type TransferTaskReq struct {
 type TransferTaskResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *TransferTaskResp) Success() bool {
+	return resp.Code == 0
 }
 
 /**生成消息事件结构体 **/
@@ -4017,7 +4149,7 @@ type InstanceTripGroupUpdateEvent struct {
 
    func (iterator *ListExternalTaskIterator) Next() (bool, *ExternalTaskList, error) {
 		// 达到最大量，则返回
-		if iterator.curlNum > iterator.limit {
+		if iterator.limit >0 && iterator.curlNum > iterator.limit {
 			return false, nil, nil
 		}
 
@@ -4071,7 +4203,7 @@ type InstanceTripGroupUpdateEvent struct {
 
    func (iterator *ListInstanceIterator) Next() (bool, string, error) {
 		// 达到最大量，则返回
-		if iterator.curlNum > iterator.limit {
+		if iterator.limit >0 && iterator.curlNum > iterator.limit {
 			return false, "", nil
 		}
 
@@ -4125,7 +4257,7 @@ type InstanceTripGroupUpdateEvent struct {
 
    func (iterator *QueryTaskIterator) Next() (bool, *Task, error) {
 		// 达到最大量，则返回
-		if iterator.curlNum > iterator.limit {
+		if iterator.limit >0 && iterator.curlNum > iterator.limit {
 			return false, nil, nil
 		}
 

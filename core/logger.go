@@ -80,7 +80,14 @@ func NewLogger(config *Config) {
 }
 
 func NewEventLogger() Logger {
-	logger := newLoggerProxy(LogLevelInfo, defaultLogger{
+	logger := defaultLogger{
+		logger: log.New(os.Stdout, "", log.LstdFlags),
+	}
+	return logger
+}
+
+func NewDefaultLogger(logLevel LogLevel) Logger {
+	logger := newLoggerProxy(logLevel, defaultLogger{
 		logger: log.New(os.Stdout, "", log.LstdFlags),
 	})
 	return logger

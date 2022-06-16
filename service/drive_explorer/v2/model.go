@@ -224,6 +224,10 @@ type CopyFileResp struct {
 	Data *CopyFileRespData `json:"data"`
 }
 
+func (resp *CopyFileResp) Success() bool {
+	return resp.Code == 0
+}
+
 type CreateFileReqBodyBuilder struct {
 	title  string
 	titleFlag  bool
@@ -371,6 +375,10 @@ type CreateFileResp struct {
 	Data *CreateFileRespData `json:"data"`
 }
 
+func (resp *CreateFileResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type DocsDeleteFileReqBuilder struct {
@@ -418,6 +426,10 @@ type DocsDeleteFileResp struct {
 	Data *DocsDeleteFileRespData `json:"data"`
 }
 
+func (resp *DocsDeleteFileResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type SpreadsheetsDeleteFileReqBuilder struct {
@@ -463,6 +475,10 @@ type SpreadsheetsDeleteFileResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *SpreadsheetsDeleteFileRespData `json:"data"`
+}
+
+func (resp *SpreadsheetsDeleteFileResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -521,6 +537,10 @@ type ChildrenFolderResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *ChildrenFolderRespData `json:"data"`
+}
+
+func (resp *ChildrenFolderResp) Success() bool {
+	return resp.Code == 0
 }
 
 type CreateFolderReqBodyBuilder struct {
@@ -646,6 +666,10 @@ type CreateFolderResp struct {
 	Data *CreateFolderRespData `json:"data"`
 }
 
+func (resp *CreateFolderResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type MetaFolderReqBuilder struct {
@@ -698,6 +722,10 @@ type MetaFolderResp struct {
 	Data *MetaFolderRespData `json:"data"`
 }
 
+func (resp *MetaFolderResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 
 type RootMetaFolderRespData struct {
@@ -710,6 +738,10 @@ type RootMetaFolderResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *RootMetaFolderRespData `json:"data"`
+}
+
+func (resp *RootMetaFolderResp) Success() bool {
+	return resp.Code == 0
 }
 
 /**生成消息事件结构体 **/

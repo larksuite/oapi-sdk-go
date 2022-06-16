@@ -30,7 +30,7 @@ func (h *appTicketEventHandler) Event() interface{} {
 
 func (h *appTicketEventHandler) Handle(ctx context.Context, event interface{}) error {
 	appTicketEvent := event.(*appTicketEvent)
-	return core.GetAppTicketManager().Put(context.Background(),
+	return core.GetAppTicketManager().Set(context.Background(),
 		appTicketEvent.Event.AppId,
 		appTicketEvent.Event.AppTicket, time.Hour*12)
 }

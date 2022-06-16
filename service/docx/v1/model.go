@@ -478,6 +478,10 @@ type CreateDocumentResp struct {
 	Data *CreateDocumentRespData `json:"data"`
 }
 
+func (resp *CreateDocumentResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type GetDocumentReqBuilder struct {
@@ -522,6 +526,10 @@ type GetDocumentResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *GetDocumentRespData `json:"data"`
+}
+
+func (resp *GetDocumentResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -579,6 +587,10 @@ type RawContentDocumentResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *RawContentDocumentRespData `json:"data"`
+}
+
+func (resp *RawContentDocumentResp) Success() bool {
+	return resp.Code == 0
 }
 
 type BatchUpdateDocumentBlockReqBodyBuilder struct {
@@ -735,6 +747,10 @@ type BatchUpdateDocumentBlockResp struct {
 	Data *BatchUpdateDocumentBlockRespData `json:"data"`
 }
 
+func (resp *BatchUpdateDocumentBlockResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type GetDocumentBlockReqBuilder struct {
@@ -812,6 +828,10 @@ type GetDocumentBlockResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *GetDocumentBlockRespData `json:"data"`
+}
+
+func (resp *GetDocumentBlockResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -913,6 +933,10 @@ type ListDocumentBlockResp struct {
 	Data *ListDocumentBlockRespData `json:"data"`
 }
 
+func (resp *ListDocumentBlockResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type PatchDocumentBlockReqBuilder struct {
@@ -1011,6 +1035,10 @@ type PatchDocumentBlockResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *PatchDocumentBlockRespData `json:"data"`
+}
+
+func (resp *PatchDocumentBlockResp) Success() bool {
+	return resp.Code == 0
 }
 
 type BatchDeleteDocumentBlockChildrenReqBodyBuilder struct {
@@ -1190,6 +1218,10 @@ type BatchDeleteDocumentBlockChildrenResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *BatchDeleteDocumentBlockChildrenRespData `json:"data"`
+}
+
+func (resp *BatchDeleteDocumentBlockChildrenResp) Success() bool {
+	return resp.Code == 0
 }
 
 type CreateDocumentBlockChildrenReqBodyBuilder struct {
@@ -1381,6 +1413,10 @@ type CreateDocumentBlockChildrenResp struct {
 	Data *CreateDocumentBlockChildrenRespData `json:"data"`
 }
 
+func (resp *CreateDocumentBlockChildrenResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type GetDocumentBlockChildrenReqBuilder struct {
@@ -1491,6 +1527,10 @@ type GetDocumentBlockChildrenResp struct {
 	Data *GetDocumentBlockChildrenRespData `json:"data"`
 }
 
+func (resp *GetDocumentBlockChildrenResp) Success() bool {
+	return resp.Code == 0
+}
+
 /**生成消息事件结构体 **/
 
 
@@ -1511,7 +1551,7 @@ type GetDocumentBlockChildrenResp struct {
 
    func (iterator *ListDocumentBlockIterator) Next() (bool, *Block, error) {
 		// 达到最大量，则返回
-		if iterator.curlNum > iterator.limit {
+		if iterator.limit >0 && iterator.curlNum > iterator.limit {
 			return false, nil, nil
 		}
 
@@ -1565,7 +1605,7 @@ type GetDocumentBlockChildrenResp struct {
 
    func (iterator *GetDocumentBlockChildrenIterator) Next() (bool, *Block, error) {
 		// 达到最大量，则返回
-		if iterator.curlNum > iterator.limit {
+		if iterator.limit >0 && iterator.curlNum > iterator.limit {
 			return false, nil, nil
 		}
 

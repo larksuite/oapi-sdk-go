@@ -8,6 +8,7 @@ type RequestOption struct {
 	AppAccessToken    string
 	TenantAccessToken string
 	NeedHelpDeskAuth  bool
+	RequestId         string
 	FileUpload        bool
 	FileDownload      bool
 	Header            http.Header
@@ -18,6 +19,12 @@ type RequestOptionFunc func(option *RequestOption)
 func WithNeedHelpDeskAuth() RequestOptionFunc {
 	return func(option *RequestOption) {
 		option.NeedHelpDeskAuth = true
+	}
+}
+
+func WithRequestId(requestId string) RequestOptionFunc {
+	return func(option *RequestOption) {
+		option.RequestId = requestId
 	}
 }
 

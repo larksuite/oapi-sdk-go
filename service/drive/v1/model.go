@@ -406,6 +406,10 @@ type CreateExportTaskResp struct {
 	Data *CreateExportTaskRespData `json:"data"`
 }
 
+func (resp *CreateExportTaskResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type DownloadExportTaskReqBuilder struct {
@@ -448,6 +452,10 @@ type DownloadExportTaskResp struct {
 	core.CodeError
 	File	 io.Reader `json:"-"`
 	FileName string	`json:"-"`
+}
+
+func (resp *DownloadExportTaskResp) Success() bool {
+	return resp.Code == 0
 }
 /**下载api,生成WriteFile方法**/
 func (resp * DownloadExportTaskResp) WriteFile(fileName string ) error {
@@ -519,6 +527,10 @@ type GetExportTaskResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *GetExportTaskRespData `json:"data"`
+}
+
+func (resp *GetExportTaskResp) Success() bool {
+	return resp.Code == 0
 }
 
 type CopyFileReqBodyBuilder struct {
@@ -690,6 +702,10 @@ type CopyFileResp struct {
 	Data *CopyFileRespData `json:"data"`
 }
 
+func (resp *CopyFileResp) Success() bool {
+	return resp.Code == 0
+}
+
 type CreateFolderFileReqBodyBuilder struct {
 	name  string
 	nameFlag  bool
@@ -825,6 +841,10 @@ type CreateFolderFileResp struct {
 	Data *CreateFolderFileRespData `json:"data"`
 }
 
+func (resp *CreateFolderFileResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type DeleteFileReqBuilder struct {
@@ -882,6 +902,10 @@ type DeleteFileResp struct {
 	Data *DeleteFileRespData `json:"data"`
 }
 
+func (resp *DeleteFileResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type DownloadFileReqBuilder struct {
@@ -924,6 +948,10 @@ type DownloadFileResp struct {
 	core.CodeError
 	File	 io.Reader `json:"-"`
 	FileName string	`json:"-"`
+}
+
+func (resp *DownloadFileResp) Success() bool {
+	return resp.Code == 0
 }
 /**下载api,生成WriteFile方法**/
 func (resp * DownloadFileResp) WriteFile(fileName string ) error {
@@ -1008,6 +1036,10 @@ type ListFileResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *ListFileRespData `json:"data"`
+}
+
+func (resp *ListFileResp) Success() bool {
+	return resp.Code == 0
 }
 
 type MoveFileReqBodyBuilder struct {
@@ -1153,6 +1185,10 @@ type MoveFileResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *MoveFileRespData `json:"data"`
+}
+
+func (resp *MoveFileResp) Success() bool {
+	return resp.Code == 0
 }
 
 type SearchFileReqBodyBuilder struct {
@@ -1374,6 +1410,10 @@ type SearchFileResp struct {
 	Data *SearchFileRespData `json:"data"`
 }
 
+func (resp *SearchFileResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type SubscribeFileReqBuilder struct {
@@ -1427,6 +1467,10 @@ type SubscribeFileResp struct {
 	core.CodeError
 }
 
+func (resp *SubscribeFileResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type TaskCheckFileReqBuilder struct {
@@ -1471,6 +1515,10 @@ type TaskCheckFileResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *TaskCheckFileRespData `json:"data"`
+}
+
+func (resp *TaskCheckFileResp) Success() bool {
+	return resp.Code == 0
 }
 
 type UploadAllFileReqBodyBuilder struct {
@@ -1705,6 +1753,10 @@ type UploadAllFileResp struct {
 	Data *UploadAllFileRespData `json:"data"`
 }
 
+func (resp *UploadAllFileResp) Success() bool {
+	return resp.Code == 0
+}
+
 type UploadFinishFileReqBodyBuilder struct {
 	uploadId  string
 	uploadIdFlag  bool
@@ -1837,6 +1889,10 @@ type UploadFinishFileResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *UploadFinishFileRespData `json:"data"`
+}
+
+func (resp *UploadFinishFileResp) Success() bool {
+	return resp.Code == 0
 }
 
 type UploadPartFileReqBodyBuilder struct {
@@ -2043,6 +2099,10 @@ type UploadPartFileResp struct {
 	core.CodeError
 }
 
+func (resp *UploadPartFileResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type UploadPrepareFileReqBuilder struct {
@@ -2086,6 +2146,10 @@ type UploadPrepareFileResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *UploadPrepareFileRespData `json:"data"`
+}
+
+func (resp *UploadPrepareFileResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -2169,6 +2233,10 @@ type CreateFileCommentResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *CreateFileCommentRespData `json:"data"`
+}
+
+func (resp *CreateFileCommentResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -2255,6 +2323,10 @@ type GetFileCommentResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *GetFileCommentRespData `json:"data"`
+}
+
+func (resp *GetFileCommentResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -2365,6 +2437,10 @@ type ListFileCommentResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *ListFileCommentRespData `json:"data"`
+}
+
+func (resp *ListFileCommentResp) Success() bool {
+	return resp.Code == 0
 }
 
 type PatchFileCommentReqBodyBuilder struct {
@@ -2504,6 +2580,10 @@ type PatchFileCommentReq struct {
 type PatchFileCommentResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *PatchFileCommentResp) Success() bool {
+	return resp.Code == 0
 }
 
 type CreateFileCommentReplyReqBodyBuilder struct {
@@ -2658,6 +2738,10 @@ type CreateFileCommentReplyResp struct {
 	Data *CreateFileCommentReplyRespData `json:"data"`
 }
 
+func (resp *CreateFileCommentReplyResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type DeleteFileCommentReplyReqBuilder struct {
@@ -2731,6 +2815,10 @@ type DeleteFileCommentReplyReq struct {
 type DeleteFileCommentReplyResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *DeleteFileCommentReplyResp) Success() bool {
+	return resp.Code == 0
 }
 
 type UpdateFileCommentReplyReqBodyBuilder struct {
@@ -2892,6 +2980,10 @@ type UpdateFileCommentReplyResp struct {
 	core.CodeError
 }
 
+func (resp *UpdateFileCommentReplyResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type GetFileStatisticsReqBuilder struct {
@@ -2951,6 +3043,10 @@ type GetFileStatisticsResp struct {
 	Data *GetFileStatisticsRespData `json:"data"`
 }
 
+func (resp *GetFileStatisticsResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type CreateFileSubscriptionReqBuilder struct {
@@ -3003,6 +3099,10 @@ type CreateFileSubscriptionResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *CreateFileSubscriptionRespData `json:"data"`
+}
+
+func (resp *CreateFileSubscriptionResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -3068,6 +3168,10 @@ type GetFileSubscriptionResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *GetFileSubscriptionRespData `json:"data"`
+}
+
+func (resp *GetFileSubscriptionResp) Success() bool {
+	return resp.Code == 0
 }
 
 type PatchFileSubscriptionReqBodyBuilder struct {
@@ -3226,6 +3330,10 @@ type PatchFileSubscriptionResp struct {
 	Data *PatchFileSubscriptionRespData `json:"data"`
 }
 
+func (resp *PatchFileSubscriptionResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type CreateImportTaskReqBuilder struct {
@@ -3267,6 +3375,10 @@ type CreateImportTaskResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *CreateImportTaskRespData `json:"data"`
+}
+
+func (resp *CreateImportTaskResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -3313,6 +3425,10 @@ type GetImportTaskResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *GetImportTaskRespData `json:"data"`
+}
+
+func (resp *GetImportTaskResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -3372,6 +3488,10 @@ type BatchGetTmpDownloadUrlMediaResp struct {
 	Data *BatchGetTmpDownloadUrlMediaRespData `json:"data"`
 }
 
+func (resp *BatchGetTmpDownloadUrlMediaResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type DownloadMediaReqBuilder struct {
@@ -3425,6 +3545,10 @@ type DownloadMediaResp struct {
 	core.CodeError
 	File	 io.Reader `json:"-"`
 	FileName string	`json:"-"`
+}
+
+func (resp *DownloadMediaResp) Success() bool {
+	return resp.Code == 0
 }
 /**下载api,生成WriteFile方法**/
 func (resp * DownloadMediaResp) WriteFile(fileName string ) error {
@@ -3697,6 +3821,10 @@ type UploadAllMediaResp struct {
 	Data *UploadAllMediaRespData `json:"data"`
 }
 
+func (resp *UploadAllMediaResp) Success() bool {
+	return resp.Code == 0
+}
+
 type UploadFinishMediaReqBodyBuilder struct {
 	uploadId  string
 	uploadIdFlag  bool
@@ -3829,6 +3957,10 @@ type UploadFinishMediaResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *UploadFinishMediaRespData `json:"data"`
+}
+
+func (resp *UploadFinishMediaResp) Success() bool {
+	return resp.Code == 0
 }
 
 type UploadPartMediaReqBodyBuilder struct {
@@ -4035,6 +4167,10 @@ type UploadPartMediaResp struct {
 	core.CodeError
 }
 
+func (resp *UploadPartMediaResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type UploadPrepareMediaReqBuilder struct {
@@ -4078,6 +4214,10 @@ type UploadPrepareMediaResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *UploadPrepareMediaRespData `json:"data"`
+}
+
+func (resp *UploadPrepareMediaResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -4133,6 +4273,10 @@ type BatchQueryMetaResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *BatchQueryMetaRespData `json:"data"`
+}
+
+func (resp *BatchQueryMetaResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -4194,6 +4338,10 @@ type ApplyPermissionMemberReq struct {
 type ApplyPermissionMemberResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *ApplyPermissionMemberResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -4272,6 +4420,10 @@ type CreatePermissionMemberResp struct {
 	Data *CreatePermissionMemberRespData `json:"data"`
 }
 
+func (resp *CreatePermissionMemberResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type DeletePermissionMemberReqBuilder struct {
@@ -4345,6 +4497,10 @@ type DeletePermissionMemberReq struct {
 type DeletePermissionMemberResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *DeletePermissionMemberResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -4434,6 +4590,10 @@ type UpdatePermissionMemberResp struct {
 	Data *UpdatePermissionMemberRespData `json:"data"`
 }
 
+func (resp *UpdatePermissionMemberResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type GetPermissionPublicReqBuilder struct {
@@ -4489,6 +4649,10 @@ type GetPermissionPublicResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *GetPermissionPublicRespData `json:"data"`
+}
+
+func (resp *GetPermissionPublicResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -4556,6 +4720,10 @@ type PatchPermissionPublicResp struct {
 	Data *PatchPermissionPublicRespData `json:"data"`
 }
 
+func (resp *PatchPermissionPublicResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type UnlockPermissionPublicReqBuilder struct {
@@ -4607,6 +4775,10 @@ type UnlockPermissionPublicReq struct {
 type UnlockPermissionPublicResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *UnlockPermissionPublicResp) Success() bool {
+	return resp.Code == 0
 }
 
 /**生成消息事件结构体 **/
@@ -4733,7 +4905,7 @@ type FileTrashedEvent struct {
 
    func (iterator *SearchFileIterator) Next() (bool, *FileSearch, error) {
 		// 达到最大量，则返回
-		if iterator.curlNum > iterator.limit {
+		if iterator.limit >0 && iterator.curlNum > iterator.limit {
 			return false, nil, nil
 		}
 
@@ -4787,7 +4959,7 @@ type FileTrashedEvent struct {
 
    func (iterator *ListFileCommentIterator) Next() (bool, *FileComment, error) {
 		// 达到最大量，则返回
-		if iterator.curlNum > iterator.limit {
+		if iterator.limit >0 && iterator.curlNum > iterator.limit {
 			return false, nil, nil
 		}
 

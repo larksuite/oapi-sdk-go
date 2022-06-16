@@ -152,6 +152,10 @@ type CreateSpreadsheetResp struct {
 	Data *CreateSpreadsheetRespData `json:"data"`
 }
 
+func (resp *CreateSpreadsheetResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type FindSpreadsheetSheetReqBuilder struct {
@@ -217,6 +221,10 @@ type FindSpreadsheetSheetResp struct {
 	Data *FindSpreadsheetSheetRespData `json:"data"`
 }
 
+func (resp *FindSpreadsheetSheetResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type MoveDimensionSpreadsheetSheetReqBuilder struct {
@@ -276,6 +284,10 @@ type MoveDimensionSpreadsheetSheetReq struct {
 type MoveDimensionSpreadsheetSheetResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *MoveDimensionSpreadsheetSheetResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -343,6 +355,10 @@ type ReplaceSpreadsheetSheetResp struct {
 	Data *ReplaceSpreadsheetSheetRespData `json:"data"`
 }
 
+func (resp *ReplaceSpreadsheetSheetResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type CreateSpreadsheetSheetFilterReqBuilder struct {
@@ -404,6 +420,10 @@ type CreateSpreadsheetSheetFilterResp struct {
 	core.CodeError
 }
 
+func (resp *CreateSpreadsheetSheetFilterResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type DeleteSpreadsheetSheetFilterReqBuilder struct {
@@ -455,6 +475,10 @@ type DeleteSpreadsheetSheetFilterReq struct {
 type DeleteSpreadsheetSheetFilterResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *DeleteSpreadsheetSheetFilterResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -512,6 +536,10 @@ type GetSpreadsheetSheetFilterResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *GetSpreadsheetSheetFilterRespData `json:"data"`
+}
+
+func (resp *GetSpreadsheetSheetFilterResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -573,6 +601,10 @@ type UpdateSpreadsheetSheetFilterReq struct {
 type UpdateSpreadsheetSheetFilterResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *UpdateSpreadsheetSheetFilterResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -640,6 +672,10 @@ type CreateSpreadsheetSheetFilterViewResp struct {
 	Data *CreateSpreadsheetSheetFilterViewRespData `json:"data"`
 }
 
+func (resp *CreateSpreadsheetSheetFilterViewResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type DeleteSpreadsheetSheetFilterViewReqBuilder struct {
@@ -702,6 +738,10 @@ type DeleteSpreadsheetSheetFilterViewReq struct {
 type DeleteSpreadsheetSheetFilterViewResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *DeleteSpreadsheetSheetFilterViewResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -770,6 +810,10 @@ type GetSpreadsheetSheetFilterViewResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *GetSpreadsheetSheetFilterViewRespData `json:"data"`
+}
+
+func (resp *GetSpreadsheetSheetFilterViewResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -848,6 +892,10 @@ type PatchSpreadsheetSheetFilterViewResp struct {
 	Data *PatchSpreadsheetSheetFilterViewRespData `json:"data"`
 }
 
+func (resp *PatchSpreadsheetSheetFilterViewResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type QuerySpreadsheetSheetFilterViewReqBuilder struct {
@@ -903,6 +951,10 @@ type QuerySpreadsheetSheetFilterViewResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *QuerySpreadsheetSheetFilterViewRespData `json:"data"`
+}
+
+func (resp *QuerySpreadsheetSheetFilterViewResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -981,6 +1033,10 @@ type CreateSpreadsheetSheetFilterViewConditionResp struct {
 	Data *CreateSpreadsheetSheetFilterViewConditionRespData `json:"data"`
 }
 
+func (resp *CreateSpreadsheetSheetFilterViewConditionResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type DeleteSpreadsheetSheetFilterViewConditionReqBuilder struct {
@@ -1054,6 +1110,10 @@ type DeleteSpreadsheetSheetFilterViewConditionReq struct {
 type DeleteSpreadsheetSheetFilterViewConditionResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *DeleteSpreadsheetSheetFilterViewConditionResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -1135,6 +1195,10 @@ type GetSpreadsheetSheetFilterViewConditionResp struct {
 	Data *GetSpreadsheetSheetFilterViewConditionRespData `json:"data"`
 }
 
+func (resp *GetSpreadsheetSheetFilterViewConditionResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type QuerySpreadsheetSheetFilterViewConditionReqBuilder struct {
@@ -1201,6 +1265,10 @@ type QuerySpreadsheetSheetFilterViewConditionResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *QuerySpreadsheetSheetFilterViewConditionRespData `json:"data"`
+}
+
+func (resp *QuerySpreadsheetSheetFilterViewConditionResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -1290,6 +1358,10 @@ type UpdateSpreadsheetSheetFilterViewConditionResp struct {
 	Data *UpdateSpreadsheetSheetFilterViewConditionRespData `json:"data"`
 }
 
+func (resp *UpdateSpreadsheetSheetFilterViewConditionResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type CreateSpreadsheetSheetFloatImageReqBuilder struct {
@@ -1355,6 +1427,10 @@ type CreateSpreadsheetSheetFloatImageResp struct {
 	Data *CreateSpreadsheetSheetFloatImageRespData `json:"data"`
 }
 
+func (resp *CreateSpreadsheetSheetFloatImageResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type DeleteSpreadsheetSheetFloatImageReqBuilder struct {
@@ -1417,6 +1493,10 @@ type DeleteSpreadsheetSheetFloatImageReq struct {
 type DeleteSpreadsheetSheetFloatImageResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
+}
+
+func (resp *DeleteSpreadsheetSheetFloatImageResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -1485,6 +1565,10 @@ type GetSpreadsheetSheetFloatImageResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *GetSpreadsheetSheetFloatImageRespData `json:"data"`
+}
+
+func (resp *GetSpreadsheetSheetFloatImageResp) Success() bool {
+	return resp.Code == 0
 }
 
 
@@ -1563,6 +1647,10 @@ type PatchSpreadsheetSheetFloatImageResp struct {
 	Data *PatchSpreadsheetSheetFloatImageRespData `json:"data"`
 }
 
+func (resp *PatchSpreadsheetSheetFloatImageResp) Success() bool {
+	return resp.Code == 0
+}
+
 
 /*1.4 生成请求的builder结构体*/
 type QuerySpreadsheetSheetFloatImageReqBuilder struct {
@@ -1618,6 +1706,10 @@ type QuerySpreadsheetSheetFloatImageResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
 	Data *QuerySpreadsheetSheetFloatImageRespData `json:"data"`
+}
+
+func (resp *QuerySpreadsheetSheetFloatImageResp) Success() bool {
+	return resp.Code == 0
 }
 
 /**生成消息事件结构体 **/

@@ -3,21 +3,23 @@ package dispatcher
 
 import (
 	"context"
+
 	"github.com/feishu/oapi-sdk-go/service/approval/v4"
 )
-func ( dispatcher * EventReqDispatcher ) ApprovalUpdatedV4(handler func(ctx context.Context, event *approval.ApprovalUpdatedEvent) error) * EventReqDispatcher{
+
+func (dispatcher *EventReqDispatcher) ApprovalUpdatedV4(handler func(ctx context.Context, event *approval.ApprovalUpdatedEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["approval.approval.updated_v4"] = approval.NewApprovalUpdatedEventHandler(handler)
 	return dispatcher
 }
-func ( dispatcher * EventReqDispatcher ) InstanceRemedyGroupUpdateV4(handler func(ctx context.Context, event *approval.InstanceRemedyGroupUpdateEvent) error) * EventReqDispatcher{
+func (dispatcher *EventReqDispatcher) InstanceRemedyGroupUpdateV4(handler func(ctx context.Context, event *approval.InstanceRemedyGroupUpdateEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["approval.instance.remedy_group_update_v4"] = approval.NewInstanceRemedyGroupUpdateEventHandler(handler)
 	return dispatcher
 }
-func ( dispatcher * EventReqDispatcher ) InstanceSignGroupUpdateV4(handler func(ctx context.Context, event *approval.InstanceSignGroupUpdateEvent) error) * EventReqDispatcher{
+func (dispatcher *EventReqDispatcher) InstanceSignGroupUpdateV4(handler func(ctx context.Context, event *approval.InstanceSignGroupUpdateEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["approval.instance.sign_group_update_v4"] = approval.NewInstanceSignGroupUpdateEventHandler(handler)
 	return dispatcher
 }
-func ( dispatcher * EventReqDispatcher ) InstanceTripGroupUpdateV4(handler func(ctx context.Context, event *approval.InstanceTripGroupUpdateEvent) error) * EventReqDispatcher{
+func (dispatcher *EventReqDispatcher) InstanceTripGroupUpdateV4(handler func(ctx context.Context, event *approval.InstanceTripGroupUpdateEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["approval.instance.trip_group_update_v4"] = approval.NewInstanceTripGroupUpdateEventHandler(handler)
 	return dispatcher
 }

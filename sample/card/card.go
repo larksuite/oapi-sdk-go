@@ -71,7 +71,7 @@ func main() {
 	})
 
 	// 注册处理器
-	http.HandleFunc("webhook/card", httpserverext.NewCardActionHandlerFunc(cardHandler))
+	http.HandleFunc("/webhook/card", httpserverext.NewCardActionHandlerFunc(cardHandler))
 
 	// 开发者启动服务
 	err := http.ListenAndServe(":9999", nil)

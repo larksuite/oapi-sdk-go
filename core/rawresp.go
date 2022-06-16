@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"mime"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -66,7 +67,12 @@ func (ce CodeError) Error() string {
 }
 
 func (ce CodeError) String() string {
-	return ""
+	sb := strings.Builder{}
+	sb.WriteString("msg:")
+	sb.WriteString(ce.Msg)
+	sb.WriteString(",code:")
+	sb.WriteString(strconv.Itoa(ce.Code))
+	return sb.String()
 }
 
 type CodeErrorDetail struct {
