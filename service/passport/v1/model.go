@@ -70,20 +70,16 @@ type QuerySessionPathReqBodyBuilder struct {
 	userIdsFlag bool
 }
 
-// 生成body的New构造器
 func NewQuerySessionPathReqBodyBuilder() *QuerySessionPathReqBodyBuilder {
 	builder := &QuerySessionPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *QuerySessionPathReqBodyBuilder) UserIds(userIds []string) *QuerySessionPathReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *QuerySessionPathReqBodyBuilder) Build() (*QuerySessionReqBody, error) {
 	req := &QuerySessionReqBody{}
 	if builder.userIdsFlag {
@@ -128,7 +124,6 @@ func (builder *QuerySessionReqBuilder) Build() *QuerySessionReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }

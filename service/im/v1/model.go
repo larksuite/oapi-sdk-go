@@ -716,13 +716,10 @@ type CreateChatPathReqBodyBuilder struct {
 	labelsFlag                 bool
 }
 
-// 生成body的New构造器
 func NewCreateChatPathReqBodyBuilder() *CreateChatPathReqBodyBuilder {
 	builder := &CreateChatPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *CreateChatPathReqBodyBuilder) Avatar(avatar string) *CreateChatPathReqBodyBuilder {
 	builder.avatar = avatar
 	builder.avatarFlag = true
@@ -789,7 +786,6 @@ func (builder *CreateChatPathReqBodyBuilder) MembershipApproval(membershipApprov
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *CreateChatPathReqBodyBuilder) Build() (*CreateChatReqBody, error) {
 	req := &CreateChatReqBody{}
 	if builder.avatarFlag {
@@ -891,7 +887,6 @@ func (builder *CreateChatReqBuilder) Build() *CreateChatReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -1414,13 +1409,10 @@ type UpdateChatPathReqBodyBuilder struct {
 	labelsFlag                 bool
 }
 
-// 生成body的New构造器
 func NewUpdateChatPathReqBodyBuilder() *UpdateChatPathReqBodyBuilder {
 	builder := &UpdateChatPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *UpdateChatPathReqBodyBuilder) Avatar(avatar string) *UpdateChatPathReqBodyBuilder {
 	builder.avatar = avatar
 	builder.avatarFlag = true
@@ -1482,7 +1474,6 @@ func (builder *UpdateChatPathReqBodyBuilder) MembershipApproval(membershipApprov
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *UpdateChatPathReqBodyBuilder) Build() (*UpdateChatReqBody, error) {
 	req := &UpdateChatReqBody{}
 	if builder.avatarFlag {
@@ -1582,7 +1573,6 @@ func (builder *UpdateChatReqBuilder) Build() *UpdateChatReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -1728,13 +1718,10 @@ type PatchChatAnnouncementPathReqBodyBuilder struct {
 	requestsFlag bool
 }
 
-// 生成body的New构造器
 func NewPatchChatAnnouncementPathReqBodyBuilder() *PatchChatAnnouncementPathReqBodyBuilder {
 	builder := &PatchChatAnnouncementPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *PatchChatAnnouncementPathReqBodyBuilder) Revision(revision string) *PatchChatAnnouncementPathReqBodyBuilder {
 	builder.revision = revision
 	builder.revisionFlag = true
@@ -1746,7 +1733,6 @@ func (builder *PatchChatAnnouncementPathReqBodyBuilder) Requests(requests []stri
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *PatchChatAnnouncementPathReqBodyBuilder) Build() (*PatchChatAnnouncementReqBody, error) {
 	req := &PatchChatAnnouncementReqBody{}
 	if builder.revisionFlag {
@@ -1795,7 +1781,6 @@ func (builder *PatchChatAnnouncementReqBuilder) Build() *PatchChatAnnouncementRe
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -1853,20 +1838,16 @@ type AddManagersChatManagersPathReqBodyBuilder struct {
 	managerIdsFlag bool
 }
 
-// 生成body的New构造器
 func NewAddManagersChatManagersPathReqBodyBuilder() *AddManagersChatManagersPathReqBodyBuilder {
 	builder := &AddManagersChatManagersPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *AddManagersChatManagersPathReqBodyBuilder) ManagerIds(managerIds []string) *AddManagersChatManagersPathReqBodyBuilder {
 	builder.managerIds = managerIds
 	builder.managerIdsFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *AddManagersChatManagersPathReqBodyBuilder) Build() (*AddManagersChatManagersReqBody, error) {
 	req := &AddManagersChatManagersReqBody{}
 	if builder.managerIdsFlag {
@@ -1921,7 +1902,6 @@ func (builder *AddManagersChatManagersReqBuilder) Build() *AddManagersChatManage
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -1985,20 +1965,16 @@ type DeleteManagersChatManagersPathReqBodyBuilder struct {
 	managerIdsFlag bool
 }
 
-// 生成body的New构造器
 func NewDeleteManagersChatManagersPathReqBodyBuilder() *DeleteManagersChatManagersPathReqBodyBuilder {
 	builder := &DeleteManagersChatManagersPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *DeleteManagersChatManagersPathReqBodyBuilder) ManagerIds(managerIds []string) *DeleteManagersChatManagersPathReqBodyBuilder {
 	builder.managerIds = managerIds
 	builder.managerIdsFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *DeleteManagersChatManagersPathReqBodyBuilder) Build() (*DeleteManagersChatManagersReqBody, error) {
 	req := &DeleteManagersChatManagersReqBody{}
 	if builder.managerIdsFlag {
@@ -2053,7 +2029,6 @@ func (builder *DeleteManagersChatManagersReqBuilder) Build() *DeleteManagersChat
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -2117,20 +2092,16 @@ type CreateChatMembersPathReqBodyBuilder struct {
 	idListFlag bool
 }
 
-// 生成body的New构造器
 func NewCreateChatMembersPathReqBodyBuilder() *CreateChatMembersPathReqBodyBuilder {
 	builder := &CreateChatMembersPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *CreateChatMembersPathReqBodyBuilder) IdList(idList []string) *CreateChatMembersPathReqBodyBuilder {
 	builder.idList = idList
 	builder.idListFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *CreateChatMembersPathReqBodyBuilder) Build() (*CreateChatMembersReqBody, error) {
 	req := &CreateChatMembersReqBody{}
 	if builder.idListFlag {
@@ -2195,7 +2166,6 @@ func (builder *CreateChatMembersReqBuilder) Build() *CreateChatMembersReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -2260,20 +2230,16 @@ type DeleteChatMembersPathReqBodyBuilder struct {
 	idListFlag bool
 }
 
-// 生成body的New构造器
 func NewDeleteChatMembersPathReqBodyBuilder() *DeleteChatMembersPathReqBodyBuilder {
 	builder := &DeleteChatMembersPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *DeleteChatMembersPathReqBodyBuilder) IdList(idList []string) *DeleteChatMembersPathReqBodyBuilder {
 	builder.idList = idList
 	builder.idListFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *DeleteChatMembersPathReqBodyBuilder) Build() (*DeleteChatMembersReqBody, error) {
 	req := &DeleteChatMembersReqBody{}
 	if builder.idListFlag {
@@ -2328,7 +2294,6 @@ func (builder *DeleteChatMembersReqBuilder) Build() *DeleteChatMembersReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -2682,13 +2647,10 @@ type UpdateChatModerationPathReqBodyBuilder struct {
 	moderatorRemovedListFlag bool
 }
 
-// 生成body的New构造器
 func NewUpdateChatModerationPathReqBodyBuilder() *UpdateChatModerationPathReqBodyBuilder {
 	builder := &UpdateChatModerationPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *UpdateChatModerationPathReqBodyBuilder) ModerationSetting(moderationSetting string) *UpdateChatModerationPathReqBodyBuilder {
 	builder.moderationSetting = moderationSetting
 	builder.moderationSettingFlag = true
@@ -2705,7 +2667,6 @@ func (builder *UpdateChatModerationPathReqBodyBuilder) ModeratorRemovedList(mode
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *UpdateChatModerationPathReqBodyBuilder) Build() (*UpdateChatModerationReqBody, error) {
 	req := &UpdateChatModerationReqBody{}
 	if builder.moderationSettingFlag {
@@ -2767,7 +2728,6 @@ func (builder *UpdateChatModerationReqBuilder) Build() *UpdateChatModerationReq 
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -2868,20 +2828,16 @@ type PutTopNoticeChatTopNoticePathReqBodyBuilder struct {
 	chatTopNoticeFlag bool
 }
 
-// 生成body的New构造器
 func NewPutTopNoticeChatTopNoticePathReqBodyBuilder() *PutTopNoticeChatTopNoticePathReqBodyBuilder {
 	builder := &PutTopNoticeChatTopNoticePathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *PutTopNoticeChatTopNoticePathReqBodyBuilder) ChatTopNotice(chatTopNotice []*ChatTopNotice) *PutTopNoticeChatTopNoticePathReqBodyBuilder {
 	builder.chatTopNotice = chatTopNotice
 	builder.chatTopNoticeFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *PutTopNoticeChatTopNoticePathReqBodyBuilder) Build() (*PutTopNoticeChatTopNoticeReqBody, error) {
 	req := &PutTopNoticeChatTopNoticeReqBody{}
 	if builder.chatTopNoticeFlag {
@@ -2926,7 +2882,6 @@ func (builder *PutTopNoticeChatTopNoticeReqBuilder) Build() *PutTopNoticeChatTop
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -3022,13 +2977,10 @@ type CreateFilePathReqBodyBuilder struct {
 	filePathFlag bool
 }
 
-// 生成body的New构造器
 func NewCreateFilePathReqBodyBuilder() *CreateFilePathReqBodyBuilder {
 	builder := &CreateFilePathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *CreateFilePathReqBodyBuilder) FileType(fileType string) *CreateFilePathReqBodyBuilder {
 	builder.fileType = fileType
 	builder.fileTypeFlag = true
@@ -3050,7 +3002,6 @@ func (builder *CreateFilePathReqBodyBuilder) FilePath(filePath string) *CreateFi
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *CreateFilePathReqBodyBuilder) Build() (*CreateFileReqBody, error) {
 	req := &CreateFileReqBody{}
 	if builder.fileTypeFlag {
@@ -3101,7 +3052,6 @@ func (builder *CreateFileReqBuilder) Build() *CreateFileReq {
 	req := &CreateFileReq{}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -3235,13 +3185,10 @@ type CreateImagePathReqBodyBuilder struct {
 	imagePathFlag bool
 }
 
-// 生成body的New构造器
 func NewCreateImagePathReqBodyBuilder() *CreateImagePathReqBodyBuilder {
 	builder := &CreateImagePathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *CreateImagePathReqBodyBuilder) ImageType(imageType string) *CreateImagePathReqBodyBuilder {
 	builder.imageType = imageType
 	builder.imageTypeFlag = true
@@ -3253,7 +3200,6 @@ func (builder *CreateImagePathReqBodyBuilder) ImagePath(imagePath string) *Creat
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *CreateImagePathReqBodyBuilder) Build() (*CreateImageReqBody, error) {
 	req := &CreateImageReqBody{}
 	if builder.imageTypeFlag {
@@ -3296,7 +3242,6 @@ func (builder *CreateImageReqBuilder) Build() *CreateImageReq {
 	req := &CreateImageReq{}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -3441,13 +3386,10 @@ type CreateMessagePathReqBodyBuilder struct {
 	msgTypeFlag   bool
 }
 
-// 生成body的New构造器
 func NewCreateMessagePathReqBodyBuilder() *CreateMessagePathReqBodyBuilder {
 	builder := &CreateMessagePathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *CreateMessagePathReqBodyBuilder) ReceiveId(receiveId string) *CreateMessagePathReqBodyBuilder {
 	builder.receiveId = receiveId
 	builder.receiveIdFlag = true
@@ -3464,7 +3406,6 @@ func (builder *CreateMessagePathReqBodyBuilder) MsgType(msgType string) *CreateM
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *CreateMessagePathReqBodyBuilder) Build() (*CreateMessageReqBody, error) {
 	req := &CreateMessageReqBody{}
 	if builder.receiveIdFlag {
@@ -3518,7 +3459,6 @@ func (builder *CreateMessageReqBuilder) Build() *CreateMessageReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -3791,20 +3731,16 @@ type PatchMessagePathReqBodyBuilder struct {
 	contentFlag bool
 }
 
-// 生成body的New构造器
 func NewPatchMessagePathReqBodyBuilder() *PatchMessagePathReqBodyBuilder {
 	builder := &PatchMessagePathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *PatchMessagePathReqBodyBuilder) Content(content string) *PatchMessagePathReqBodyBuilder {
 	builder.content = content
 	builder.contentFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *PatchMessagePathReqBodyBuilder) Build() (*PatchMessageReqBody, error) {
 	req := &PatchMessageReqBody{}
 	if builder.contentFlag {
@@ -3850,7 +3786,6 @@ func (builder *PatchMessageReqBuilder) Build() *PatchMessageReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -4001,13 +3936,10 @@ type ReplyMessagePathReqBodyBuilder struct {
 	msgTypeFlag bool
 }
 
-// 生成body的New构造器
 func NewReplyMessagePathReqBodyBuilder() *ReplyMessagePathReqBodyBuilder {
 	builder := &ReplyMessagePathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *ReplyMessagePathReqBodyBuilder) Content(content string) *ReplyMessagePathReqBodyBuilder {
 	builder.content = content
 	builder.contentFlag = true
@@ -4019,7 +3951,6 @@ func (builder *ReplyMessagePathReqBodyBuilder) MsgType(msgType string) *ReplyMes
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *ReplyMessagePathReqBodyBuilder) Build() (*ReplyMessageReqBody, error) {
 	req := &ReplyMessageReqBody{}
 	if builder.contentFlag {
@@ -4069,7 +4000,6 @@ func (builder *ReplyMessageReqBuilder) Build() *ReplyMessageReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -4152,6 +4082,9 @@ func (builder *UrgentAppMessageReqBuilder) Build() *UrgentAppMessageReq {
 	if builder.userIdTypeFlag {
 		req.UserIdType = &builder.userIdType
 	}
+	if builder.urgentReceiversFlag {
+		req.UrgentReceivers = builder.urgentReceivers
+	}
 	return req
 }
 
@@ -4216,6 +4149,9 @@ func (builder *UrgentPhoneMessageReqBuilder) Build() *UrgentPhoneMessageReq {
 	}
 	if builder.userIdTypeFlag {
 		req.UserIdType = &builder.userIdType
+	}
+	if builder.urgentReceiversFlag {
+		req.UrgentReceivers = builder.urgentReceivers
 	}
 	return req
 }
@@ -4282,6 +4218,9 @@ func (builder *UrgentSmsMessageReqBuilder) Build() *UrgentSmsMessageReq {
 	if builder.userIdTypeFlag {
 		req.UserIdType = &builder.userIdType
 	}
+	if builder.urgentReceiversFlag {
+		req.UrgentReceivers = builder.urgentReceivers
+	}
 	return req
 }
 
@@ -4339,20 +4278,16 @@ type CreateMessageReactionPathReqBodyBuilder struct {
 	reactionTypeFlag bool
 }
 
-// 生成body的New构造器
 func NewCreateMessageReactionPathReqBodyBuilder() *CreateMessageReactionPathReqBodyBuilder {
 	builder := &CreateMessageReactionPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *CreateMessageReactionPathReqBodyBuilder) ReactionType(reactionType *Emoji) *CreateMessageReactionPathReqBodyBuilder {
 	builder.reactionType = reactionType
 	builder.reactionTypeFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *CreateMessageReactionPathReqBodyBuilder) Build() (*CreateMessageReactionReqBody, error) {
 	req := &CreateMessageReactionReqBody{}
 	if builder.reactionTypeFlag {
@@ -4397,7 +4332,6 @@ func (builder *CreateMessageReactionReqBuilder) Build() *CreateMessageReactionRe
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }

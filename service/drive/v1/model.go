@@ -367,6 +367,9 @@ func (builder *CreateExportTaskReqBuilder) ExportTask(exportTask *ExportTask) *C
 /*1.5 生成请求的builder的build方法*/
 func (builder *CreateExportTaskReqBuilder) Build() *CreateExportTaskReq {
 	req := &CreateExportTaskReq{}
+	if builder.exportTaskFlag {
+		req.ExportTask = builder.exportTask
+	}
 	return req
 }
 
@@ -562,13 +565,10 @@ type CopyFilePathReqBodyBuilder struct {
 	folderTokenFlag bool
 }
 
-// 生成body的New构造器
 func NewCopyFilePathReqBodyBuilder() *CopyFilePathReqBodyBuilder {
 	builder := &CopyFilePathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *CopyFilePathReqBodyBuilder) Name(name string) *CopyFilePathReqBodyBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -585,7 +585,6 @@ func (builder *CopyFilePathReqBodyBuilder) FolderToken(folderToken string) *Copy
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *CopyFilePathReqBodyBuilder) Build() (*CopyFileReqBody, error) {
 	req := &CopyFileReqBody{}
 	if builder.nameFlag {
@@ -639,7 +638,6 @@ func (builder *CopyFileReqBuilder) Build() *CopyFileReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -716,13 +714,10 @@ type CreateFolderFilePathReqBodyBuilder struct {
 	folderTokenFlag bool
 }
 
-// 生成body的New构造器
 func NewCreateFolderFilePathReqBodyBuilder() *CreateFolderFilePathReqBodyBuilder {
 	builder := &CreateFolderFilePathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *CreateFolderFilePathReqBodyBuilder) Name(name string) *CreateFolderFilePathReqBodyBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -734,7 +729,6 @@ func (builder *CreateFolderFilePathReqBodyBuilder) FolderToken(folderToken strin
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *CreateFolderFilePathReqBodyBuilder) Build() (*CreateFolderFileReqBody, error) {
 	req := &CreateFolderFileReqBody{}
 	if builder.nameFlag {
@@ -774,7 +768,6 @@ func (builder *CreateFolderFileReqBuilder) Build() *CreateFolderFileReq {
 	req := &CreateFolderFileReq{}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -1034,13 +1027,10 @@ type MoveFilePathReqBodyBuilder struct {
 	folderTokenFlag bool
 }
 
-// 生成body的New构造器
 func NewMoveFilePathReqBodyBuilder() *MoveFilePathReqBodyBuilder {
 	builder := &MoveFilePathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *MoveFilePathReqBodyBuilder) Type(type_ string) *MoveFilePathReqBodyBuilder {
 	builder.type_ = type_
 	builder.typeFlag = true
@@ -1052,7 +1042,6 @@ func (builder *MoveFilePathReqBodyBuilder) FolderToken(folderToken string) *Move
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *MoveFilePathReqBodyBuilder) Build() (*MoveFileReqBody, error) {
 	req := &MoveFileReqBody{}
 	if builder.typeFlag {
@@ -1102,7 +1091,6 @@ func (builder *MoveFileReqBuilder) Build() *MoveFileReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -1328,13 +1316,10 @@ type UploadAllFilePathReqBodyBuilder struct {
 	filePathFlag   bool
 }
 
-// 生成body的New构造器
 func NewUploadAllFilePathReqBodyBuilder() *UploadAllFilePathReqBodyBuilder {
 	builder := &UploadAllFilePathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *UploadAllFilePathReqBodyBuilder) FileName(fileName string) *UploadAllFilePathReqBodyBuilder {
 	builder.fileName = fileName
 	builder.fileNameFlag = true
@@ -1366,7 +1351,6 @@ func (builder *UploadAllFilePathReqBodyBuilder) FilePath(filePath string) *Uploa
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *UploadAllFilePathReqBodyBuilder) Build() (*UploadAllFileReqBody, error) {
 	req := &UploadAllFileReqBody{}
 	if builder.fileNameFlag {
@@ -1425,7 +1409,6 @@ func (builder *UploadAllFileReqBuilder) Build() *UploadAllFileReq {
 	req := &UploadAllFileReq{}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -1504,13 +1487,10 @@ type UploadFinishFilePathReqBodyBuilder struct {
 	blockNumFlag bool
 }
 
-// 生成body的New构造器
 func NewUploadFinishFilePathReqBodyBuilder() *UploadFinishFilePathReqBodyBuilder {
 	builder := &UploadFinishFilePathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *UploadFinishFilePathReqBodyBuilder) UploadId(uploadId string) *UploadFinishFilePathReqBodyBuilder {
 	builder.uploadId = uploadId
 	builder.uploadIdFlag = true
@@ -1522,7 +1502,6 @@ func (builder *UploadFinishFilePathReqBodyBuilder) BlockNum(blockNum int) *Uploa
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *UploadFinishFilePathReqBodyBuilder) Build() (*UploadFinishFileReqBody, error) {
 	req := &UploadFinishFileReqBody{}
 	if builder.uploadIdFlag {
@@ -1562,7 +1541,6 @@ func (builder *UploadFinishFileReqBuilder) Build() *UploadFinishFileReq {
 	req := &UploadFinishFileReq{}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -1676,13 +1654,10 @@ type UploadPartFilePathReqBodyBuilder struct {
 	filePathFlag bool
 }
 
-// 生成body的New构造器
 func NewUploadPartFilePathReqBodyBuilder() *UploadPartFilePathReqBodyBuilder {
 	builder := &UploadPartFilePathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *UploadPartFilePathReqBodyBuilder) UploadId(uploadId string) *UploadPartFilePathReqBodyBuilder {
 	builder.uploadId = uploadId
 	builder.uploadIdFlag = true
@@ -1709,7 +1684,6 @@ func (builder *UploadPartFilePathReqBodyBuilder) FilePath(filePath string) *Uplo
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *UploadPartFilePathReqBodyBuilder) Build() (*UploadPartFileReqBody, error) {
 	req := &UploadPartFileReqBody{}
 	if builder.uploadIdFlag {
@@ -1764,7 +1738,6 @@ func (builder *UploadPartFileReqBuilder) Build() *UploadPartFileReq {
 	req := &UploadPartFileReq{}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -1812,6 +1785,9 @@ func (builder *UploadPrepareFileReqBuilder) FileUploadInfo(fileUploadInfo *FileU
 /*1.5 生成请求的builder的build方法*/
 func (builder *UploadPrepareFileReqBuilder) Build() *UploadPrepareFileReq {
 	req := &UploadPrepareFileReq{}
+	if builder.fileUploadInfoFlag {
+		req.FileUploadInfo = builder.fileUploadInfo
+	}
 	return req
 }
 
@@ -1886,6 +1862,9 @@ func (builder *CreateFileCommentReqBuilder) Build() *CreateFileCommentReq {
 	}
 	if builder.userIdTypeFlag {
 		req.UserIdType = &builder.userIdType
+	}
+	if builder.fileCommentFlag {
+		req.FileComment = builder.fileComment
 	}
 	return req
 }
@@ -2148,20 +2127,16 @@ type PatchFileCommentPathReqBodyBuilder struct {
 	isSolvedFlag bool
 }
 
-// 生成body的New构造器
 func NewPatchFileCommentPathReqBodyBuilder() *PatchFileCommentPathReqBodyBuilder {
 	builder := &PatchFileCommentPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *PatchFileCommentPathReqBodyBuilder) IsSolved(isSolved bool) *PatchFileCommentPathReqBodyBuilder {
 	builder.isSolved = isSolved
 	builder.isSolvedFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *PatchFileCommentPathReqBodyBuilder) Build() (*PatchFileCommentReqBody, error) {
 	req := &PatchFileCommentReqBody{}
 	if builder.isSolvedFlag {
@@ -2227,7 +2202,6 @@ func (builder *PatchFileCommentReqBuilder) Build() *PatchFileCommentReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -2360,20 +2334,16 @@ type UpdateFileCommentReplyPathReqBodyBuilder struct {
 	contentFlag bool
 }
 
-// 生成body的New构造器
 func NewUpdateFileCommentReplyPathReqBodyBuilder() *UpdateFileCommentReplyPathReqBodyBuilder {
 	builder := &UpdateFileCommentReplyPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *UpdateFileCommentReplyPathReqBodyBuilder) Content(content *ReplyContent) *UpdateFileCommentReplyPathReqBodyBuilder {
 	builder.content = content
 	builder.contentFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *UpdateFileCommentReplyPathReqBodyBuilder) Build() (*UpdateFileCommentReplyReqBody, error) {
 	req := &UpdateFileCommentReplyReqBody{}
 	if builder.contentFlag {
@@ -2458,7 +2428,6 @@ func (builder *UpdateFileCommentReplyReqBuilder) Build() *UpdateFileCommentReply
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -2576,6 +2545,9 @@ func (builder *CreateFileSubscriptionReqBuilder) Build() *CreateFileSubscription
 	if builder.fileTokenFlag {
 		req.FileToken = builder.fileToken
 	}
+	if builder.fileSubscriptionFlag {
+		req.FileSubscription = builder.fileSubscription
+	}
 	return req
 }
 
@@ -2639,6 +2611,9 @@ func (builder *GetFileSubscriptionReqBuilder) Build() *GetFileSubscriptionReq {
 	}
 	if builder.subscriptionIdFlag {
 		req.SubscriptionId = builder.subscriptionId
+	}
+	if builder.fileSubscriptionFlag {
+		req.FileSubscription = builder.fileSubscription
 	}
 	return req
 }
@@ -2710,13 +2685,10 @@ type PatchFileSubscriptionPathReqBodyBuilder struct {
 	fileTypeFlag    bool
 }
 
-// 生成body的New构造器
 func NewPatchFileSubscriptionPathReqBodyBuilder() *PatchFileSubscriptionPathReqBodyBuilder {
 	builder := &PatchFileSubscriptionPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *PatchFileSubscriptionPathReqBodyBuilder) IsSubscribe(isSubscribe bool) *PatchFileSubscriptionPathReqBodyBuilder {
 	builder.isSubscribe = isSubscribe
 	builder.isSubscribeFlag = true
@@ -2728,7 +2700,6 @@ func (builder *PatchFileSubscriptionPathReqBodyBuilder) FileType(fileType string
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *PatchFileSubscriptionPathReqBodyBuilder) Build() (*PatchFileSubscriptionReqBody, error) {
 	req := &PatchFileSubscriptionReqBody{}
 	if builder.isSubscribeFlag {
@@ -2788,7 +2759,6 @@ func (builder *PatchFileSubscriptionReqBuilder) Build() *PatchFileSubscriptionRe
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -2840,6 +2810,9 @@ func (builder *CreateImportTaskReqBuilder) ImportTask(importTask *ImportTask) *C
 /*1.5 生成请求的builder的build方法*/
 func (builder *CreateImportTaskReqBuilder) Build() *CreateImportTaskReq {
 	req := &CreateImportTaskReq{}
+	if builder.importTaskFlag {
+		req.ImportTask = builder.importTask
+	}
 	return req
 }
 
@@ -3144,13 +3117,10 @@ type UploadAllMediaPathReqBodyBuilder struct {
 	filePathFlag   bool
 }
 
-// 生成body的New构造器
 func NewUploadAllMediaPathReqBodyBuilder() *UploadAllMediaPathReqBodyBuilder {
 	builder := &UploadAllMediaPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *UploadAllMediaPathReqBodyBuilder) FileName(fileName string) *UploadAllMediaPathReqBodyBuilder {
 	builder.fileName = fileName
 	builder.fileNameFlag = true
@@ -3187,7 +3157,6 @@ func (builder *UploadAllMediaPathReqBodyBuilder) FilePath(filePath string) *Uplo
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *UploadAllMediaPathReqBodyBuilder) Build() (*UploadAllMediaReqBody, error) {
 	req := &UploadAllMediaReqBody{}
 	if builder.fileNameFlag {
@@ -3250,7 +3219,6 @@ func (builder *UploadAllMediaReqBuilder) Build() *UploadAllMediaReq {
 	req := &UploadAllMediaReq{}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -3330,13 +3298,10 @@ type UploadFinishMediaPathReqBodyBuilder struct {
 	blockNumFlag bool
 }
 
-// 生成body的New构造器
 func NewUploadFinishMediaPathReqBodyBuilder() *UploadFinishMediaPathReqBodyBuilder {
 	builder := &UploadFinishMediaPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *UploadFinishMediaPathReqBodyBuilder) UploadId(uploadId string) *UploadFinishMediaPathReqBodyBuilder {
 	builder.uploadId = uploadId
 	builder.uploadIdFlag = true
@@ -3348,7 +3313,6 @@ func (builder *UploadFinishMediaPathReqBodyBuilder) BlockNum(blockNum int) *Uplo
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *UploadFinishMediaPathReqBodyBuilder) Build() (*UploadFinishMediaReqBody, error) {
 	req := &UploadFinishMediaReqBody{}
 	if builder.uploadIdFlag {
@@ -3388,7 +3352,6 @@ func (builder *UploadFinishMediaReqBuilder) Build() *UploadFinishMediaReq {
 	req := &UploadFinishMediaReq{}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -3502,13 +3465,10 @@ type UploadPartMediaPathReqBodyBuilder struct {
 	filePathFlag bool
 }
 
-// 生成body的New构造器
 func NewUploadPartMediaPathReqBodyBuilder() *UploadPartMediaPathReqBodyBuilder {
 	builder := &UploadPartMediaPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *UploadPartMediaPathReqBodyBuilder) UploadId(uploadId string) *UploadPartMediaPathReqBodyBuilder {
 	builder.uploadId = uploadId
 	builder.uploadIdFlag = true
@@ -3535,7 +3495,6 @@ func (builder *UploadPartMediaPathReqBodyBuilder) FilePath(filePath string) *Upl
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *UploadPartMediaPathReqBodyBuilder) Build() (*UploadPartMediaReqBody, error) {
 	req := &UploadPartMediaReqBody{}
 	if builder.uploadIdFlag {
@@ -3590,7 +3549,6 @@ func (builder *UploadPartMediaReqBuilder) Build() *UploadPartMediaReq {
 	req := &UploadPartMediaReq{}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -3638,6 +3596,9 @@ func (builder *UploadPrepareMediaReqBuilder) MediaUploadInfo(mediaUploadInfo *Me
 /*1.5 生成请求的builder的build方法*/
 func (builder *UploadPrepareMediaReqBuilder) Build() *UploadPrepareMediaReq {
 	req := &UploadPrepareMediaReq{}
+	if builder.mediaUploadInfoFlag {
+		req.MediaUploadInfo = builder.mediaUploadInfo
+	}
 	return req
 }
 
@@ -3692,6 +3653,9 @@ func (builder *BatchQueryMetaReqBuilder) Build() *BatchQueryMetaReq {
 	req := &BatchQueryMetaReq{}
 	if builder.userIdTypeFlag {
 		req.UserIdType = &builder.userIdType
+	}
+	if builder.metaRequestFlag {
+		req.MetaRequest = builder.metaRequest
 	}
 	return req
 }
@@ -3767,6 +3731,9 @@ func (builder *CreatePermissionMemberReqBuilder) Build() *CreatePermissionMember
 	}
 	if builder.needNotificationFlag {
 		req.NeedNotification = &builder.needNotification
+	}
+	if builder.memberFlag {
+		req.Member = builder.member
 	}
 	return req
 }
@@ -3928,6 +3895,9 @@ func (builder *UpdatePermissionMemberReqBuilder) Build() *UpdatePermissionMember
 	if builder.typeFlag {
 		req.Type = &builder.type_
 	}
+	if builder.memberFlag {
+		req.Member = builder.member
+	}
 	return req
 }
 
@@ -4051,6 +4021,9 @@ func (builder *PatchPermissionPublicReqBuilder) Build() *PatchPermissionPublicRe
 	}
 	if builder.typeFlag {
 		req.Type = &builder.type_
+	}
+	if builder.permissionPublicRequestFlag {
+		req.PermissionPublicRequest = builder.permissionPublicRequest
 	}
 	return req
 }

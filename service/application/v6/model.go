@@ -543,6 +543,9 @@ func (builder *PatchApplicationReqBuilder) Build() *PatchApplicationReq {
 	if builder.langFlag {
 		req.Lang = &builder.lang
 	}
+	if builder.applicationFlag {
+		req.Application = builder.application
+	}
 	return req
 }
 
@@ -722,13 +725,10 @@ type OverviewApplicationAppUsagePathReqBodyBuilder struct {
 	abilityFlag      bool
 }
 
-// 生成body的New构造器
 func NewOverviewApplicationAppUsagePathReqBodyBuilder() *OverviewApplicationAppUsagePathReqBodyBuilder {
 	builder := &OverviewApplicationAppUsagePathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *OverviewApplicationAppUsagePathReqBodyBuilder) Date(date string) *OverviewApplicationAppUsagePathReqBodyBuilder {
 	builder.date = date
 	builder.dateFlag = true
@@ -750,7 +750,6 @@ func (builder *OverviewApplicationAppUsagePathReqBodyBuilder) Ability(ability st
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *OverviewApplicationAppUsagePathReqBodyBuilder) Build() (*OverviewApplicationAppUsageReqBody, error) {
 	req := &OverviewApplicationAppUsageReqBody{}
 	if builder.dateFlag {
@@ -818,7 +817,6 @@ func (builder *OverviewApplicationAppUsageReqBuilder) Build() *OverviewApplicati
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -1000,6 +998,9 @@ func (builder *PatchApplicationAppVersionReqBuilder) Build() *PatchApplicationAp
 	}
 	if builder.rejectReasonFlag {
 		req.RejectReason = &builder.rejectReason
+	}
+	if builder.applicationAppVersionFlag {
+		req.ApplicationAppVersion = builder.applicationAppVersion
 	}
 	return req
 }

@@ -611,13 +611,10 @@ type ResetPasswordPathReqBodyBuilder struct {
 	userIdFlag   bool
 }
 
-// 生成body的New构造器
 func NewResetPasswordPathReqBodyBuilder() *ResetPasswordPathReqBodyBuilder {
 	builder := &ResetPasswordPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *ResetPasswordPathReqBodyBuilder) Password(password *Password) *ResetPasswordPathReqBodyBuilder {
 	builder.password = password
 	builder.passwordFlag = true
@@ -629,7 +626,6 @@ func (builder *ResetPasswordPathReqBodyBuilder) UserId(userId string) *ResetPass
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *ResetPasswordPathReqBodyBuilder) Build() (*ResetPasswordReqBody, error) {
 	req := &ResetPasswordReqBody{}
 	if builder.passwordFlag {
@@ -678,7 +674,6 @@ func (builder *ResetPasswordReqBuilder) Build() *ResetPasswordReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }

@@ -53,20 +53,16 @@ type DetectTextPathReqBodyBuilder struct {
 	textFlag bool
 }
 
-// 生成body的New构造器
 func NewDetectTextPathReqBodyBuilder() *DetectTextPathReqBodyBuilder {
 	builder := &DetectTextPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *DetectTextPathReqBodyBuilder) Text(text string) *DetectTextPathReqBodyBuilder {
 	builder.text = text
 	builder.textFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *DetectTextPathReqBodyBuilder) Build() (*DetectTextReqBody, error) {
 	req := &DetectTextReqBody{}
 	if builder.textFlag {
@@ -102,7 +98,6 @@ func (builder *DetectTextReqBuilder) Build() *DetectTextReq {
 	req := &DetectTextReq{}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -202,13 +197,10 @@ type TranslateTextPathReqBodyBuilder struct {
 	glossaryFlag       bool
 }
 
-// 生成body的New构造器
 func NewTranslateTextPathReqBodyBuilder() *TranslateTextPathReqBodyBuilder {
 	builder := &TranslateTextPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *TranslateTextPathReqBodyBuilder) SourceLanguage(sourceLanguage string) *TranslateTextPathReqBodyBuilder {
 	builder.sourceLanguage = sourceLanguage
 	builder.sourceLanguageFlag = true
@@ -230,7 +222,6 @@ func (builder *TranslateTextPathReqBodyBuilder) Glossary(glossary []*Term) *Tran
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *TranslateTextPathReqBodyBuilder) Build() (*TranslateTextReqBody, error) {
 	req := &TranslateTextReqBody{}
 	if builder.sourceLanguageFlag {
@@ -277,7 +268,6 @@ func (builder *TranslateTextReqBuilder) Build() *TranslateTextReq {
 	req := &TranslateTextReq{}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }

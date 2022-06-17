@@ -127,6 +127,9 @@ func (builder *CreateSpreadsheetReqBuilder) Spreadsheet(spreadsheet *Spreadsheet
 /*1.5 生成请求的builder的build方法*/
 func (builder *CreateSpreadsheetReqBuilder) Build() *CreateSpreadsheetReq {
 	req := &CreateSpreadsheetReq{}
+	if builder.spreadsheetFlag {
+		req.Spreadsheet = builder.spreadsheet
+	}
 	return req
 }
 
@@ -189,6 +192,9 @@ func (builder *FindSpreadsheetSheetReqBuilder) Build() *FindSpreadsheetSheetReq 
 	}
 	if builder.sheetIdFlag {
 		req.SheetId = builder.sheetId
+	}
+	if builder.findFlag {
+		req.Find = builder.find
 	}
 	return req
 }
@@ -255,6 +261,9 @@ func (builder *MoveDimensionSpreadsheetSheetReqBuilder) Build() *MoveDimensionSp
 	if builder.sheetIdFlag {
 		req.SheetId = builder.sheetId
 	}
+	if builder.moveDimensionFlag {
+		req.MoveDimension = builder.moveDimension
+	}
 	return req
 }
 
@@ -314,6 +323,9 @@ func (builder *ReplaceSpreadsheetSheetReqBuilder) Build() *ReplaceSpreadsheetShe
 	}
 	if builder.sheetIdFlag {
 		req.SheetId = builder.sheetId
+	}
+	if builder.replaceFlag {
+		req.Replace = builder.replace
 	}
 	return req
 }
@@ -379,6 +391,9 @@ func (builder *CreateSpreadsheetSheetFilterReqBuilder) Build() *CreateSpreadshee
 	}
 	if builder.sheetIdFlag {
 		req.SheetId = builder.sheetId
+	}
+	if builder.createSheetFilterFlag {
+		req.CreateSheetFilter = builder.createSheetFilter
 	}
 	return req
 }
@@ -549,6 +564,9 @@ func (builder *UpdateSpreadsheetSheetFilterReqBuilder) Build() *UpdateSpreadshee
 	if builder.sheetIdFlag {
 		req.SheetId = builder.sheetId
 	}
+	if builder.updateSheetFilterFlag {
+		req.UpdateSheetFilter = builder.updateSheetFilter
+	}
 	return req
 }
 
@@ -608,6 +626,9 @@ func (builder *CreateSpreadsheetSheetFilterViewReqBuilder) Build() *CreateSpread
 	}
 	if builder.sheetIdFlag {
 		req.SheetId = builder.sheetId
+	}
+	if builder.filterViewFlag {
+		req.FilterView = builder.filterView
 	}
 	return req
 }
@@ -815,6 +836,9 @@ func (builder *PatchSpreadsheetSheetFilterViewReqBuilder) Build() *PatchSpreadsh
 	if builder.filterViewIdFlag {
 		req.FilterViewId = builder.filterViewId
 	}
+	if builder.filterViewFlag {
+		req.FilterView = builder.filterView
+	}
 	return req
 }
 
@@ -947,6 +971,9 @@ func (builder *CreateSpreadsheetSheetFilterViewConditionReqBuilder) Build() *Cre
 	}
 	if builder.filterViewIdFlag {
 		req.FilterViewId = builder.filterViewId
+	}
+	if builder.filterViewConditionFlag {
+		req.FilterViewCondition = builder.filterViewCondition
 	}
 	return req
 }
@@ -1255,6 +1282,9 @@ func (builder *UpdateSpreadsheetSheetFilterViewConditionReqBuilder) Build() *Upd
 	if builder.conditionIdFlag {
 		req.ConditionId = builder.conditionId
 	}
+	if builder.filterViewConditionFlag {
+		req.FilterViewCondition = builder.filterViewCondition
+	}
 	return req
 }
 
@@ -1321,6 +1351,9 @@ func (builder *CreateSpreadsheetSheetFloatImageReqBuilder) Build() *CreateSpread
 	}
 	if builder.sheetIdFlag {
 		req.SheetId = builder.sheetId
+	}
+	if builder.floatImageFlag {
+		req.FloatImage = builder.floatImage
 	}
 	return req
 }
@@ -1527,6 +1560,9 @@ func (builder *PatchSpreadsheetSheetFloatImageReqBuilder) Build() *PatchSpreadsh
 	}
 	if builder.floatImageIdFlag {
 		req.FloatImageId = builder.floatImageId
+	}
+	if builder.floatImageFlag {
+		req.FloatImage = builder.floatImage
 	}
 	return req
 }

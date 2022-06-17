@@ -297,13 +297,10 @@ type UpdateAppPathReqBodyBuilder struct {
 	isAdvancedFlag bool
 }
 
-// 生成body的New构造器
 func NewUpdateAppPathReqBodyBuilder() *UpdateAppPathReqBodyBuilder {
 	builder := &UpdateAppPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *UpdateAppPathReqBodyBuilder) Name(name string) *UpdateAppPathReqBodyBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -315,7 +312,6 @@ func (builder *UpdateAppPathReqBodyBuilder) IsAdvanced(isAdvanced bool) *UpdateA
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *UpdateAppPathReqBodyBuilder) Build() (*UpdateAppReqBody, error) {
 	req := &UpdateAppReqBody{}
 	if builder.nameFlag {
@@ -365,7 +361,6 @@ func (builder *UpdateAppReqBuilder) Build() *UpdateAppReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -425,6 +420,9 @@ func (builder *CreateAppRoleReqBuilder) Build() *CreateAppRoleReq {
 	req := &CreateAppRoleReq{}
 	if builder.appTokenFlag {
 		req.AppToken = builder.appToken
+	}
+	if builder.appRoleFlag {
+		req.AppRole = builder.appRole
 	}
 	return req
 }
@@ -620,6 +618,9 @@ func (builder *UpdateAppRoleReqBuilder) Build() *UpdateAppRoleReq {
 	if builder.roleIdFlag {
 		req.RoleId = builder.roleId
 	}
+	if builder.appRoleFlag {
+		req.AppRole = builder.appRole
+	}
 	return req
 }
 
@@ -694,6 +695,9 @@ func (builder *CreateAppRoleMemberReqBuilder) Build() *CreateAppRoleMemberReq {
 	}
 	if builder.memberIdTypeFlag {
 		req.MemberIdType = &builder.memberIdType
+	}
+	if builder.appRoleMemberFlag {
+		req.AppRoleMember = builder.appRoleMember
 	}
 	return req
 }
@@ -911,20 +915,16 @@ type BatchCreateAppTablePathReqBodyBuilder struct {
 	tablesFlag bool
 }
 
-// 生成body的New构造器
 func NewBatchCreateAppTablePathReqBodyBuilder() *BatchCreateAppTablePathReqBodyBuilder {
 	builder := &BatchCreateAppTablePathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *BatchCreateAppTablePathReqBodyBuilder) Tables(tables []*ReqTable) *BatchCreateAppTablePathReqBodyBuilder {
 	builder.tables = tables
 	builder.tablesFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *BatchCreateAppTablePathReqBodyBuilder) Build() (*BatchCreateAppTableReqBody, error) {
 	req := &BatchCreateAppTableReqBody{}
 	if builder.tablesFlag {
@@ -979,7 +979,6 @@ func (builder *BatchCreateAppTableReqBuilder) Build() *BatchCreateAppTableReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -1042,20 +1041,16 @@ type BatchDeleteAppTablePathReqBodyBuilder struct {
 	tableIdsFlag bool
 }
 
-// 生成body的New构造器
 func NewBatchDeleteAppTablePathReqBodyBuilder() *BatchDeleteAppTablePathReqBodyBuilder {
 	builder := &BatchDeleteAppTablePathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *BatchDeleteAppTablePathReqBodyBuilder) TableIds(tableIds []string) *BatchDeleteAppTablePathReqBodyBuilder {
 	builder.tableIds = tableIds
 	builder.tableIdsFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *BatchDeleteAppTablePathReqBodyBuilder) Build() (*BatchDeleteAppTableReqBody, error) {
 	req := &BatchDeleteAppTableReqBody{}
 	if builder.tableIdsFlag {
@@ -1100,7 +1095,6 @@ func (builder *BatchDeleteAppTableReqBuilder) Build() *BatchDeleteAppTableReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -1157,20 +1151,16 @@ type CreateAppTablePathReqBodyBuilder struct {
 	tableFlag bool
 }
 
-// 生成body的New构造器
 func NewCreateAppTablePathReqBodyBuilder() *CreateAppTablePathReqBodyBuilder {
 	builder := &CreateAppTablePathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *CreateAppTablePathReqBodyBuilder) Table(table *ReqTable) *CreateAppTablePathReqBodyBuilder {
 	builder.table = table
 	builder.tableFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *CreateAppTablePathReqBodyBuilder) Build() (*CreateAppTableReqBody, error) {
 	req := &CreateAppTableReqBody{}
 	if builder.tableFlag {
@@ -1225,7 +1215,6 @@ func (builder *CreateAppTableReqBuilder) Build() *CreateAppTableReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -1425,6 +1414,9 @@ func (builder *CreateAppTableFieldReqBuilder) Build() *CreateAppTableFieldReq {
 	}
 	if builder.tableIdFlag {
 		req.TableId = builder.tableId
+	}
+	if builder.appTableFieldFlag {
+		req.AppTableField = builder.appTableField
 	}
 	return req
 }
@@ -1670,6 +1662,9 @@ func (builder *UpdateAppTableFieldReqBuilder) Build() *UpdateAppTableFieldReq {
 	if builder.fieldIdFlag {
 		req.FieldId = builder.fieldId
 	}
+	if builder.appTableFieldFlag {
+		req.AppTableField = builder.appTableField
+	}
 	return req
 }
 
@@ -1728,20 +1723,16 @@ type BatchCreateAppTableRecordPathReqBodyBuilder struct {
 	recordsFlag bool
 }
 
-// 生成body的New构造器
 func NewBatchCreateAppTableRecordPathReqBodyBuilder() *BatchCreateAppTableRecordPathReqBodyBuilder {
 	builder := &BatchCreateAppTableRecordPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *BatchCreateAppTableRecordPathReqBodyBuilder) Records(records []*AppTableRecord) *BatchCreateAppTableRecordPathReqBodyBuilder {
 	builder.records = records
 	builder.recordsFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *BatchCreateAppTableRecordPathReqBodyBuilder) Build() (*BatchCreateAppTableRecordReqBody, error) {
 	req := &BatchCreateAppTableRecordReqBody{}
 	if builder.recordsFlag {
@@ -1806,7 +1797,6 @@ func (builder *BatchCreateAppTableRecordReqBuilder) Build() *BatchCreateAppTable
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -1870,20 +1860,16 @@ type BatchDeleteAppTableRecordPathReqBodyBuilder struct {
 	recordsFlag bool
 }
 
-// 生成body的New构造器
 func NewBatchDeleteAppTableRecordPathReqBodyBuilder() *BatchDeleteAppTableRecordPathReqBodyBuilder {
 	builder := &BatchDeleteAppTableRecordPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *BatchDeleteAppTableRecordPathReqBodyBuilder) Records(records []string) *BatchDeleteAppTableRecordPathReqBodyBuilder {
 	builder.records = records
 	builder.recordsFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *BatchDeleteAppTableRecordPathReqBodyBuilder) Build() (*BatchDeleteAppTableRecordReqBody, error) {
 	req := &BatchDeleteAppTableRecordReqBody{}
 	if builder.recordsFlag {
@@ -1938,7 +1924,6 @@ func (builder *BatchDeleteAppTableRecordReqBuilder) Build() *BatchDeleteAppTable
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -2001,20 +1986,16 @@ type BatchUpdateAppTableRecordPathReqBodyBuilder struct {
 	recordsFlag bool
 }
 
-// 生成body的New构造器
 func NewBatchUpdateAppTableRecordPathReqBodyBuilder() *BatchUpdateAppTableRecordPathReqBodyBuilder {
 	builder := &BatchUpdateAppTableRecordPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *BatchUpdateAppTableRecordPathReqBodyBuilder) Records(records []*AppTableRecord) *BatchUpdateAppTableRecordPathReqBodyBuilder {
 	builder.records = records
 	builder.recordsFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *BatchUpdateAppTableRecordPathReqBodyBuilder) Build() (*BatchUpdateAppTableRecordReqBody, error) {
 	req := &BatchUpdateAppTableRecordReqBody{}
 	if builder.recordsFlag {
@@ -2079,7 +2060,6 @@ func (builder *BatchUpdateAppTableRecordReqBuilder) Build() *BatchUpdateAppTable
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -2160,6 +2140,9 @@ func (builder *CreateAppTableRecordReqBuilder) Build() *CreateAppTableRecordReq 
 	}
 	if builder.userIdTypeFlag {
 		req.UserIdType = &builder.userIdType
+	}
+	if builder.appTableRecordFlag {
+		req.AppTableRecord = builder.appTableRecord
 	}
 	return req
 }
@@ -2605,6 +2588,9 @@ func (builder *UpdateAppTableRecordReqBuilder) Build() *UpdateAppTableRecordReq 
 	if builder.userIdTypeFlag {
 		req.UserIdType = &builder.userIdType
 	}
+	if builder.appTableRecordFlag {
+		req.AppTableRecord = builder.appTableRecord
+	}
 	return req
 }
 
@@ -2671,6 +2657,9 @@ func (builder *CreateAppTableViewReqBuilder) Build() *CreateAppTableViewReq {
 	}
 	if builder.tableIdFlag {
 		req.TableId = builder.tableId
+	}
+	if builder.reqViewFlag {
+		req.ReqView = builder.reqView
 	}
 	return req
 }

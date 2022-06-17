@@ -570,6 +570,9 @@ func (builder *CreateDepartmentReqBuilder) Build() *CreateDepartmentReq {
 	if builder.clientTokenFlag {
 		req.ClientToken = &builder.clientToken
 	}
+	if builder.departmentFlag {
+		req.Department = builder.department
+	}
 	return req
 }
 
@@ -975,6 +978,9 @@ func (builder *PatchDepartmentReqBuilder) Build() *PatchDepartmentReq {
 	if builder.departmentIdTypeFlag {
 		req.DepartmentIdType = &builder.departmentIdType
 	}
+	if builder.departmentFlag {
+		req.Department = builder.department
+	}
 	return req
 }
 
@@ -1033,20 +1039,16 @@ type SearchDepartmentPathReqBodyBuilder struct {
 	queryFlag bool
 }
 
-// 生成body的New构造器
 func NewSearchDepartmentPathReqBodyBuilder() *SearchDepartmentPathReqBodyBuilder {
 	builder := &SearchDepartmentPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *SearchDepartmentPathReqBodyBuilder) Query(query string) *SearchDepartmentPathReqBodyBuilder {
 	builder.query = query
 	builder.queryFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *SearchDepartmentPathReqBodyBuilder) Build() (*SearchDepartmentReqBody, error) {
 	req := &SearchDepartmentReqBody{}
 	if builder.queryFlag {
@@ -1128,7 +1130,6 @@ func (builder *SearchDepartmentReqBuilder) Build() *SearchDepartmentReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -1196,20 +1197,16 @@ type UnbindDepartmentChatDepartmentPathReqBodyBuilder struct {
 	departmentIdFlag bool
 }
 
-// 生成body的New构造器
 func NewUnbindDepartmentChatDepartmentPathReqBodyBuilder() *UnbindDepartmentChatDepartmentPathReqBodyBuilder {
 	builder := &UnbindDepartmentChatDepartmentPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *UnbindDepartmentChatDepartmentPathReqBodyBuilder) DepartmentId(departmentId string) *UnbindDepartmentChatDepartmentPathReqBodyBuilder {
 	builder.departmentId = departmentId
 	builder.departmentIdFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *UnbindDepartmentChatDepartmentPathReqBodyBuilder) Build() (*UnbindDepartmentChatDepartmentReqBody, error) {
 	req := &UnbindDepartmentChatDepartmentReqBody{}
 	if builder.departmentIdFlag {
@@ -1255,7 +1252,6 @@ func (builder *UnbindDepartmentChatDepartmentReqBuilder) Build() *UnbindDepartme
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -1330,6 +1326,9 @@ func (builder *UpdateDepartmentReqBuilder) Build() *UpdateDepartmentReq {
 	if builder.departmentIdTypeFlag {
 		req.DepartmentIdType = &builder.departmentIdType
 	}
+	if builder.departmentFlag {
+		req.Department = builder.department
+	}
 	return req
 }
 
@@ -1376,6 +1375,9 @@ func (builder *CreateEmployeeTypeEnumReqBuilder) EmployeeTypeEnum(employeeTypeEn
 /*1.5 生成请求的builder的build方法*/
 func (builder *CreateEmployeeTypeEnumReqBuilder) Build() *CreateEmployeeTypeEnumReq {
 	req := &CreateEmployeeTypeEnumReq{}
+	if builder.employeeTypeEnumFlag {
+		req.EmployeeTypeEnum = builder.employeeTypeEnum
+	}
 	return req
 }
 
@@ -1536,6 +1538,9 @@ func (builder *UpdateEmployeeTypeEnumReqBuilder) Build() *UpdateEmployeeTypeEnum
 	if builder.enumIdFlag {
 		req.EnumId = builder.enumId
 	}
+	if builder.employeeTypeEnumFlag {
+		req.EmployeeTypeEnum = builder.employeeTypeEnum
+	}
 	return req
 }
 
@@ -1631,13 +1636,10 @@ type CreateGroupPathReqBodyBuilder struct {
 	typeFlag        bool
 }
 
-// 生成body的New构造器
 func NewCreateGroupPathReqBodyBuilder() *CreateGroupPathReqBodyBuilder {
 	builder := &CreateGroupPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *CreateGroupPathReqBodyBuilder) GroupId(groupId string) *CreateGroupPathReqBodyBuilder {
 	builder.groupId = groupId
 	builder.groupIdFlag = true
@@ -1659,7 +1661,6 @@ func (builder *CreateGroupPathReqBodyBuilder) Type(type_ int) *CreateGroupPathRe
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *CreateGroupPathReqBodyBuilder) Build() (*CreateGroupReqBody, error) {
 	req := &CreateGroupReqBody{}
 	if builder.groupIdFlag {
@@ -1707,7 +1708,6 @@ func (builder *CreateGroupReqBuilder) Build() *CreateGroupReq {
 	req := &CreateGroupReq{}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -1963,13 +1963,10 @@ type PatchGroupPathReqBodyBuilder struct {
 	descriptionFlag bool
 }
 
-// 生成body的New构造器
 func NewPatchGroupPathReqBodyBuilder() *PatchGroupPathReqBodyBuilder {
 	builder := &PatchGroupPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *PatchGroupPathReqBodyBuilder) Name(name string) *PatchGroupPathReqBodyBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -1981,7 +1978,6 @@ func (builder *PatchGroupPathReqBodyBuilder) Description(description string) *Pa
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *PatchGroupPathReqBodyBuilder) Build() (*PatchGroupReqBody, error) {
 	req := &PatchGroupReqBody{}
 	if builder.nameFlag {
@@ -2031,7 +2027,6 @@ func (builder *PatchGroupReqBuilder) Build() *PatchGroupReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -2192,13 +2187,10 @@ type AddGroupMemberPathReqBodyBuilder struct {
 	memberIdFlag     bool
 }
 
-// 生成body的New构造器
 func NewAddGroupMemberPathReqBodyBuilder() *AddGroupMemberPathReqBodyBuilder {
 	builder := &AddGroupMemberPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *AddGroupMemberPathReqBodyBuilder) MemberType(memberType string) *AddGroupMemberPathReqBodyBuilder {
 	builder.memberType = memberType
 	builder.memberTypeFlag = true
@@ -2215,7 +2207,6 @@ func (builder *AddGroupMemberPathReqBodyBuilder) MemberId(memberId string) *AddG
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *AddGroupMemberPathReqBodyBuilder) Build() (*AddGroupMemberReqBody, error) {
 	req := &AddGroupMemberReqBody{}
 	if builder.memberTypeFlag {
@@ -2269,7 +2260,6 @@ func (builder *AddGroupMemberReqBuilder) Build() *AddGroupMemberReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -2328,20 +2318,16 @@ type BatchAddGroupMemberPathReqBodyBuilder struct {
 	membersFlag bool
 }
 
-// 生成body的New构造器
 func NewBatchAddGroupMemberPathReqBodyBuilder() *BatchAddGroupMemberPathReqBodyBuilder {
 	builder := &BatchAddGroupMemberPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *BatchAddGroupMemberPathReqBodyBuilder) Members(members []*Memberlist) *BatchAddGroupMemberPathReqBodyBuilder {
 	builder.members = members
 	builder.membersFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *BatchAddGroupMemberPathReqBodyBuilder) Build() (*BatchAddGroupMemberReqBody, error) {
 	req := &BatchAddGroupMemberReqBody{}
 	if builder.membersFlag {
@@ -2386,7 +2372,6 @@ func (builder *BatchAddGroupMemberReqBuilder) Build() *BatchAddGroupMemberReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -2448,20 +2433,16 @@ type BatchRemoveGroupMemberPathReqBodyBuilder struct {
 	membersFlag bool
 }
 
-// 生成body的New构造器
 func NewBatchRemoveGroupMemberPathReqBodyBuilder() *BatchRemoveGroupMemberPathReqBodyBuilder {
 	builder := &BatchRemoveGroupMemberPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *BatchRemoveGroupMemberPathReqBodyBuilder) Members(members []*Memberlist) *BatchRemoveGroupMemberPathReqBodyBuilder {
 	builder.members = members
 	builder.membersFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *BatchRemoveGroupMemberPathReqBodyBuilder) Build() (*BatchRemoveGroupMemberReqBody, error) {
 	req := &BatchRemoveGroupMemberReqBody{}
 	if builder.membersFlag {
@@ -2506,7 +2487,6 @@ func (builder *BatchRemoveGroupMemberReqBuilder) Build() *BatchRemoveGroupMember
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -2589,13 +2569,10 @@ type RemoveGroupMemberPathReqBodyBuilder struct {
 	memberIdTypeFlag bool
 }
 
-// 生成body的New构造器
 func NewRemoveGroupMemberPathReqBodyBuilder() *RemoveGroupMemberPathReqBodyBuilder {
 	builder := &RemoveGroupMemberPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *RemoveGroupMemberPathReqBodyBuilder) MemberType(memberType string) *RemoveGroupMemberPathReqBodyBuilder {
 	builder.memberType = memberType
 	builder.memberTypeFlag = true
@@ -2612,7 +2589,6 @@ func (builder *RemoveGroupMemberPathReqBodyBuilder) MemberIdType(memberIdType st
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *RemoveGroupMemberPathReqBodyBuilder) Build() (*RemoveGroupMemberReqBody, error) {
 	req := &RemoveGroupMemberReqBody{}
 	if builder.memberTypeFlag {
@@ -2666,7 +2642,6 @@ func (builder *RemoveGroupMemberReqBuilder) Build() *RemoveGroupMemberReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -2926,13 +2901,10 @@ type BindDepartmentUnitPathReqBodyBuilder struct {
 	departmentIdTypeFlag bool
 }
 
-// 生成body的New构造器
 func NewBindDepartmentUnitPathReqBodyBuilder() *BindDepartmentUnitPathReqBodyBuilder {
 	builder := &BindDepartmentUnitPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *BindDepartmentUnitPathReqBodyBuilder) UnitId(unitId string) *BindDepartmentUnitPathReqBodyBuilder {
 	builder.unitId = unitId
 	builder.unitIdFlag = true
@@ -2949,7 +2921,6 @@ func (builder *BindDepartmentUnitPathReqBodyBuilder) DepartmentIdType(department
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *BindDepartmentUnitPathReqBodyBuilder) Build() (*BindDepartmentUnitReqBody, error) {
 	req := &BindDepartmentUnitReqBody{}
 	if builder.unitIdFlag {
@@ -2993,7 +2964,6 @@ func (builder *BindDepartmentUnitReqBuilder) Build() *BindDepartmentUnitReq {
 	req := &BindDepartmentUnitReq{}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -3077,13 +3047,10 @@ type CreateUnitPathReqBodyBuilder struct {
 	unitTypeFlag bool
 }
 
-// 生成body的New构造器
 func NewCreateUnitPathReqBodyBuilder() *CreateUnitPathReqBodyBuilder {
 	builder := &CreateUnitPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *CreateUnitPathReqBodyBuilder) UnitId(unitId string) *CreateUnitPathReqBodyBuilder {
 	builder.unitId = unitId
 	builder.unitIdFlag = true
@@ -3100,7 +3067,6 @@ func (builder *CreateUnitPathReqBodyBuilder) UnitType(unitType string) *CreateUn
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *CreateUnitPathReqBodyBuilder) Build() (*CreateUnitReqBody, error) {
 	req := &CreateUnitReqBody{}
 	if builder.unitIdFlag {
@@ -3144,7 +3110,6 @@ func (builder *CreateUnitReqBuilder) Build() *CreateUnitReq {
 	req := &CreateUnitReq{}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -3434,20 +3399,16 @@ type PatchUnitPathReqBodyBuilder struct {
 	nameFlag bool
 }
 
-// 生成body的New构造器
 func NewPatchUnitPathReqBodyBuilder() *PatchUnitPathReqBodyBuilder {
 	builder := &PatchUnitPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *PatchUnitPathReqBodyBuilder) Name(name string) *PatchUnitPathReqBodyBuilder {
 	builder.name = name
 	builder.nameFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *PatchUnitPathReqBodyBuilder) Build() (*PatchUnitReqBody, error) {
 	req := &PatchUnitReqBody{}
 	if builder.nameFlag {
@@ -3493,7 +3454,6 @@ func (builder *PatchUnitReqBuilder) Build() *PatchUnitReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -3576,13 +3536,10 @@ type UnbindDepartmentUnitPathReqBodyBuilder struct {
 	departmentIdTypeFlag bool
 }
 
-// 生成body的New构造器
 func NewUnbindDepartmentUnitPathReqBodyBuilder() *UnbindDepartmentUnitPathReqBodyBuilder {
 	builder := &UnbindDepartmentUnitPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *UnbindDepartmentUnitPathReqBodyBuilder) UnitId(unitId string) *UnbindDepartmentUnitPathReqBodyBuilder {
 	builder.unitId = unitId
 	builder.unitIdFlag = true
@@ -3599,7 +3556,6 @@ func (builder *UnbindDepartmentUnitPathReqBodyBuilder) DepartmentIdType(departme
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *UnbindDepartmentUnitPathReqBodyBuilder) Build() (*UnbindDepartmentUnitReqBody, error) {
 	req := &UnbindDepartmentUnitReqBody{}
 	if builder.unitIdFlag {
@@ -3643,7 +3599,6 @@ func (builder *UnbindDepartmentUnitReqBuilder) Build() *UnbindDepartmentUnitReq 
 	req := &UnbindDepartmentUnitReq{}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -3714,13 +3669,10 @@ type BatchGetIdUserPathReqBodyBuilder struct {
 	mobilesFlag bool
 }
 
-// 生成body的New构造器
 func NewBatchGetIdUserPathReqBodyBuilder() *BatchGetIdUserPathReqBodyBuilder {
 	builder := &BatchGetIdUserPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *BatchGetIdUserPathReqBodyBuilder) Emails(emails []string) *BatchGetIdUserPathReqBodyBuilder {
 	builder.emails = emails
 	builder.emailsFlag = true
@@ -3732,7 +3684,6 @@ func (builder *BatchGetIdUserPathReqBodyBuilder) Mobiles(mobiles []string) *Batc
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *BatchGetIdUserPathReqBodyBuilder) Build() (*BatchGetIdUserReqBody, error) {
 	req := &BatchGetIdUserReqBody{}
 	if builder.emailsFlag {
@@ -3780,7 +3731,6 @@ func (builder *BatchGetIdUserReqBuilder) Build() *BatchGetIdUserReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -3860,6 +3810,9 @@ func (builder *CreateUserReqBuilder) Build() *CreateUserReq {
 	}
 	if builder.clientTokenFlag {
 		req.ClientToken = &builder.clientToken
+	}
+	if builder.userFlag {
+		req.User = builder.user
 	}
 	return req
 }
@@ -3984,13 +3937,10 @@ type DeleteUserPathReqBodyBuilder struct {
 	helpdeskAcceptorUserIdFlag       bool
 }
 
-// 生成body的New构造器
 func NewDeleteUserPathReqBodyBuilder() *DeleteUserPathReqBodyBuilder {
 	builder := &DeleteUserPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *DeleteUserPathReqBodyBuilder) DepartmentChatAcceptorUserId(departmentChatAcceptorUserId string) *DeleteUserPathReqBodyBuilder {
 	builder.departmentChatAcceptorUserId = departmentChatAcceptorUserId
 	builder.departmentChatAcceptorUserIdFlag = true
@@ -4022,7 +3972,6 @@ func (builder *DeleteUserPathReqBodyBuilder) HelpdeskAcceptorUserId(helpdeskAcce
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *DeleteUserPathReqBodyBuilder) Build() (*DeleteUserReqBody, error) {
 	req := &DeleteUserReqBody{}
 	if builder.departmentChatAcceptorUserIdFlag {
@@ -4098,7 +4047,6 @@ func (builder *DeleteUserReqBuilder) Build() *DeleteUserReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -4445,6 +4393,9 @@ func (builder *PatchUserReqBuilder) Build() *PatchUserReq {
 	if builder.departmentIdTypeFlag {
 		req.DepartmentIdType = &builder.departmentIdType
 	}
+	if builder.userFlag {
+		req.User = builder.user
+	}
 	return req
 }
 
@@ -4520,6 +4471,9 @@ func (builder *UpdateUserReqBuilder) Build() *UpdateUserReq {
 	}
 	if builder.departmentIdTypeFlag {
 		req.DepartmentIdType = &builder.departmentIdType
+	}
+	if builder.userFlag {
+		req.User = builder.user
 	}
 	return req
 }

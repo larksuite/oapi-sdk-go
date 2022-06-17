@@ -423,6 +423,9 @@ func (builder *PatchUserReqBuilder) Build() *PatchUserReq {
 	if builder.userIdTypeFlag {
 		req.UserIdType = &builder.userIdType
 	}
+	if builder.userFlag {
+		req.User = builder.user
+	}
 	return req
 }
 
@@ -561,6 +564,9 @@ func (builder *UpdateUserFaceReqBuilder) Build() *UpdateUserFaceReq {
 	}
 	if builder.userIdTypeFlag {
 		req.UserIdType = &builder.userIdType
+	}
+	if builder.fileFlag {
+		req.File = builder.file
 	}
 	return req
 }

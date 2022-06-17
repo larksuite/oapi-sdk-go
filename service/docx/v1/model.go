@@ -387,13 +387,10 @@ type CreateDocumentPathReqBodyBuilder struct {
 	titleFlag       bool
 }
 
-// 生成body的New构造器
 func NewCreateDocumentPathReqBodyBuilder() *CreateDocumentPathReqBodyBuilder {
 	builder := &CreateDocumentPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *CreateDocumentPathReqBodyBuilder) FolderToken(folderToken string) *CreateDocumentPathReqBodyBuilder {
 	builder.folderToken = folderToken
 	builder.folderTokenFlag = true
@@ -405,7 +402,6 @@ func (builder *CreateDocumentPathReqBodyBuilder) Title(title string) *CreateDocu
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *CreateDocumentPathReqBodyBuilder) Build() (*CreateDocumentReqBody, error) {
 	req := &CreateDocumentReqBody{}
 	if builder.folderTokenFlag {
@@ -445,7 +441,6 @@ func (builder *CreateDocumentReqBuilder) Build() *CreateDocumentReq {
 	req := &CreateDocumentReq{}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -610,20 +605,16 @@ type BatchUpdateDocumentBlockPathReqBodyBuilder struct {
 	requestsFlag bool
 }
 
-// 生成body的New构造器
 func NewBatchUpdateDocumentBlockPathReqBodyBuilder() *BatchUpdateDocumentBlockPathReqBodyBuilder {
 	builder := &BatchUpdateDocumentBlockPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *BatchUpdateDocumentBlockPathReqBodyBuilder) Requests(requests []*UpdateBlockRequest) *BatchUpdateDocumentBlockPathReqBodyBuilder {
 	builder.requests = requests
 	builder.requestsFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *BatchUpdateDocumentBlockPathReqBodyBuilder) Build() (*BatchUpdateDocumentBlockReqBody, error) {
 	req := &BatchUpdateDocumentBlockReqBody{}
 	if builder.requestsFlag {
@@ -698,7 +689,6 @@ func (builder *BatchUpdateDocumentBlockReqBuilder) Build() *BatchUpdateDocumentB
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -981,6 +971,9 @@ func (builder *PatchDocumentBlockReqBuilder) Build() *PatchDocumentBlockReq {
 	if builder.userIdTypeFlag {
 		req.UserIdType = &builder.userIdType
 	}
+	if builder.updateBlockRequestFlag {
+		req.UpdateBlockRequest = builder.updateBlockRequest
+	}
 	return req
 }
 
@@ -1056,13 +1049,10 @@ type BatchDeleteDocumentBlockChildrenPathReqBodyBuilder struct {
 	endIndexFlag   bool
 }
 
-// 生成body的New构造器
 func NewBatchDeleteDocumentBlockChildrenPathReqBodyBuilder() *BatchDeleteDocumentBlockChildrenPathReqBodyBuilder {
 	builder := &BatchDeleteDocumentBlockChildrenPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *BatchDeleteDocumentBlockChildrenPathReqBodyBuilder) StartIndex(startIndex int) *BatchDeleteDocumentBlockChildrenPathReqBodyBuilder {
 	builder.startIndex = startIndex
 	builder.startIndexFlag = true
@@ -1074,7 +1064,6 @@ func (builder *BatchDeleteDocumentBlockChildrenPathReqBodyBuilder) EndIndex(endI
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *BatchDeleteDocumentBlockChildrenPathReqBodyBuilder) Build() (*BatchDeleteDocumentBlockChildrenReqBody, error) {
 	req := &BatchDeleteDocumentBlockChildrenReqBody{}
 	if builder.startIndexFlag {
@@ -1154,7 +1143,6 @@ func (builder *BatchDeleteDocumentBlockChildrenReqBuilder) Build() *BatchDeleteD
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -1234,13 +1222,10 @@ type CreateDocumentBlockChildrenPathReqBodyBuilder struct {
 	indexFlag    bool
 }
 
-// 生成body的New构造器
 func NewCreateDocumentBlockChildrenPathReqBodyBuilder() *CreateDocumentBlockChildrenPathReqBodyBuilder {
 	builder := &CreateDocumentBlockChildrenPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *CreateDocumentBlockChildrenPathReqBodyBuilder) Children(children []*Block) *CreateDocumentBlockChildrenPathReqBodyBuilder {
 	builder.children = children
 	builder.childrenFlag = true
@@ -1252,7 +1237,6 @@ func (builder *CreateDocumentBlockChildrenPathReqBodyBuilder) Index(index int) *
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *CreateDocumentBlockChildrenPathReqBodyBuilder) Build() (*CreateDocumentBlockChildrenReqBody, error) {
 	req := &CreateDocumentBlockChildrenReqBody{}
 	if builder.childrenFlag {
@@ -1341,7 +1325,6 @@ func (builder *CreateDocumentBlockChildrenReqBuilder) Build() *CreateDocumentBlo
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }

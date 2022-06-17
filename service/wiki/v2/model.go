@@ -127,6 +127,9 @@ func (builder *CreateSpaceReqBuilder) Space(space *Space) *CreateSpaceReqBuilder
 /*1.5 生成请求的builder的build方法*/
 func (builder *CreateSpaceReqBuilder) Build() *CreateSpaceReq {
 	req := &CreateSpaceReq{}
+	if builder.spaceFlag {
+		req.Space = builder.space
+	}
 	return req
 }
 
@@ -348,6 +351,9 @@ func (builder *CreateSpaceMemberReqBuilder) Build() *CreateSpaceMemberReq {
 	if builder.needNotificationFlag {
 		req.NeedNotification = &builder.needNotification
 	}
+	if builder.memberFlag {
+		req.Member = builder.member
+	}
 	return req
 }
 
@@ -412,6 +418,9 @@ func (builder *DeleteSpaceMemberReqBuilder) Build() *DeleteSpaceMemberReq {
 	}
 	if builder.memberIdFlag {
 		req.MemberId = builder.memberId
+	}
+	if builder.memberFlag {
+		req.Member = builder.member
 	}
 	return req
 }
@@ -496,13 +505,10 @@ type CopySpaceNodePathReqBodyBuilder struct {
 	titleFlag             bool
 }
 
-// 生成body的New构造器
 func NewCopySpaceNodePathReqBodyBuilder() *CopySpaceNodePathReqBodyBuilder {
 	builder := &CopySpaceNodePathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *CopySpaceNodePathReqBodyBuilder) TargetParentToken(targetParentToken string) *CopySpaceNodePathReqBodyBuilder {
 	builder.targetParentToken = targetParentToken
 	builder.targetParentTokenFlag = true
@@ -519,7 +525,6 @@ func (builder *CopySpaceNodePathReqBodyBuilder) Title(title string) *CopySpaceNo
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *CopySpaceNodePathReqBodyBuilder) Build() (*CopySpaceNodeReqBody, error) {
 	req := &CopySpaceNodeReqBody{}
 	if builder.targetParentTokenFlag {
@@ -583,7 +588,6 @@ func (builder *CopySpaceNodeReqBuilder) Build() *CopySpaceNodeReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -645,6 +649,9 @@ func (builder *CreateSpaceNodeReqBuilder) Build() *CreateSpaceNodeReq {
 	req := &CreateSpaceNodeReq{}
 	if builder.spaceIdFlag {
 		req.SpaceId = builder.spaceId
+	}
+	if builder.nodeFlag {
+		req.Node = builder.node
 	}
 	return req
 }
@@ -803,13 +810,10 @@ type MoveSpaceNodePathReqBodyBuilder struct {
 	targetSpaceIdFlag     bool
 }
 
-// 生成body的New构造器
 func NewMoveSpaceNodePathReqBodyBuilder() *MoveSpaceNodePathReqBodyBuilder {
 	builder := &MoveSpaceNodePathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *MoveSpaceNodePathReqBodyBuilder) TargetParentToken(targetParentToken string) *MoveSpaceNodePathReqBodyBuilder {
 	builder.targetParentToken = targetParentToken
 	builder.targetParentTokenFlag = true
@@ -821,7 +825,6 @@ func (builder *MoveSpaceNodePathReqBodyBuilder) TargetSpaceId(targetSpaceId stri
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *MoveSpaceNodePathReqBodyBuilder) Build() (*MoveSpaceNodeReqBody, error) {
 	req := &MoveSpaceNodeReqBody{}
 	if builder.targetParentTokenFlag {
@@ -881,7 +884,6 @@ func (builder *MoveSpaceNodeReqBuilder) Build() *MoveSpaceNodeReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -984,13 +986,10 @@ type MoveDocsToWikiSpaceNodePathReqBodyBuilder struct {
 	applyFlag           bool
 }
 
-// 生成body的New构造器
 func NewMoveDocsToWikiSpaceNodePathReqBodyBuilder() *MoveDocsToWikiSpaceNodePathReqBodyBuilder {
 	builder := &MoveDocsToWikiSpaceNodePathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *MoveDocsToWikiSpaceNodePathReqBodyBuilder) ParentWikiToken(parentWikiToken string) *MoveDocsToWikiSpaceNodePathReqBodyBuilder {
 	builder.parentWikiToken = parentWikiToken
 	builder.parentWikiTokenFlag = true
@@ -1012,7 +1011,6 @@ func (builder *MoveDocsToWikiSpaceNodePathReqBodyBuilder) Apply(apply bool) *Mov
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *MoveDocsToWikiSpaceNodePathReqBodyBuilder) Build() (*MoveDocsToWikiSpaceNodeReqBody, error) {
 	req := &MoveDocsToWikiSpaceNodeReqBody{}
 	if builder.parentWikiTokenFlag {
@@ -1070,7 +1068,6 @@ func (builder *MoveDocsToWikiSpaceNodeReqBuilder) Build() *MoveDocsToWikiSpaceNo
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -1137,20 +1134,16 @@ type UpdateTitleSpaceNodePathReqBodyBuilder struct {
 	titleFlag bool
 }
 
-// 生成body的New构造器
 func NewUpdateTitleSpaceNodePathReqBodyBuilder() *UpdateTitleSpaceNodePathReqBodyBuilder {
 	builder := &UpdateTitleSpaceNodePathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *UpdateTitleSpaceNodePathReqBodyBuilder) Title(title string) *UpdateTitleSpaceNodePathReqBodyBuilder {
 	builder.title = title
 	builder.titleFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *UpdateTitleSpaceNodePathReqBodyBuilder) Build() (*UpdateTitleSpaceNodeReqBody, error) {
 	req := &UpdateTitleSpaceNodeReqBody{}
 	if builder.titleFlag {
@@ -1206,7 +1199,6 @@ func (builder *UpdateTitleSpaceNodeReqBuilder) Build() *UpdateTitleSpaceNodeReq 
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -1261,6 +1253,9 @@ func (builder *UpdateSpaceSettingReqBuilder) Build() *UpdateSpaceSettingReq {
 	req := &UpdateSpaceSettingReq{}
 	if builder.spaceIdFlag {
 		req.SpaceId = builder.spaceId
+	}
+	if builder.settingFlag {
+		req.Setting = builder.setting
 	}
 	return req
 }

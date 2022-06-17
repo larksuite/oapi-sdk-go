@@ -399,20 +399,16 @@ type InviteMeetingPathReqBodyBuilder struct {
 	inviteesFlag bool
 }
 
-// 生成body的New构造器
 func NewInviteMeetingPathReqBodyBuilder() *InviteMeetingPathReqBodyBuilder {
 	builder := &InviteMeetingPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *InviteMeetingPathReqBodyBuilder) Invitees(invitees []*MeetingUser) *InviteMeetingPathReqBodyBuilder {
 	builder.invitees = invitees
 	builder.inviteesFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *InviteMeetingPathReqBodyBuilder) Build() (*InviteMeetingReqBody, error) {
 	req := &InviteMeetingReqBody{}
 	if builder.inviteesFlag {
@@ -467,7 +463,6 @@ func (builder *InviteMeetingReqBuilder) Build() *InviteMeetingReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -530,20 +525,16 @@ type KickoutMeetingPathReqBodyBuilder struct {
 	kickoutUsersFlag bool
 }
 
-// 生成body的New构造器
 func NewKickoutMeetingPathReqBodyBuilder() *KickoutMeetingPathReqBodyBuilder {
 	builder := &KickoutMeetingPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *KickoutMeetingPathReqBodyBuilder) KickoutUsers(kickoutUsers []*MeetingUser) *KickoutMeetingPathReqBodyBuilder {
 	builder.kickoutUsers = kickoutUsers
 	builder.kickoutUsersFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *KickoutMeetingPathReqBodyBuilder) Build() (*KickoutMeetingReqBody, error) {
 	req := &KickoutMeetingReqBody{}
 	if builder.kickoutUsersFlag {
@@ -598,7 +589,6 @@ func (builder *KickoutMeetingReqBuilder) Build() *KickoutMeetingReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -773,13 +763,10 @@ type SetHostMeetingPathReqBodyBuilder struct {
 	oldHostUserFlag bool
 }
 
-// 生成body的New构造器
 func NewSetHostMeetingPathReqBodyBuilder() *SetHostMeetingPathReqBodyBuilder {
 	builder := &SetHostMeetingPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *SetHostMeetingPathReqBodyBuilder) HostUser(hostUser *MeetingUser) *SetHostMeetingPathReqBodyBuilder {
 	builder.hostUser = hostUser
 	builder.hostUserFlag = true
@@ -791,7 +778,6 @@ func (builder *SetHostMeetingPathReqBodyBuilder) OldHostUser(oldHostUser *Meetin
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *SetHostMeetingPathReqBodyBuilder) Build() (*SetHostMeetingReqBody, error) {
 	req := &SetHostMeetingReqBody{}
 	if builder.hostUserFlag {
@@ -849,7 +835,6 @@ func (builder *SetHostMeetingReqBuilder) Build() *SetHostMeetingReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -959,20 +944,16 @@ type SetPermissionMeetingRecordingPathReqBodyBuilder struct {
 	permissionObjectsFlag bool
 }
 
-// 生成body的New构造器
 func NewSetPermissionMeetingRecordingPathReqBodyBuilder() *SetPermissionMeetingRecordingPathReqBodyBuilder {
 	builder := &SetPermissionMeetingRecordingPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *SetPermissionMeetingRecordingPathReqBodyBuilder) PermissionObjects(permissionObjects []*RecordingPermissionObject) *SetPermissionMeetingRecordingPathReqBodyBuilder {
 	builder.permissionObjects = permissionObjects
 	builder.permissionObjectsFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *SetPermissionMeetingRecordingPathReqBodyBuilder) Build() (*SetPermissionMeetingRecordingReqBody, error) {
 	req := &SetPermissionMeetingRecordingReqBody{}
 	if builder.permissionObjectsFlag {
@@ -1027,7 +1008,6 @@ func (builder *SetPermissionMeetingRecordingReqBuilder) Build() *SetPermissionMe
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -1085,20 +1065,16 @@ type StartMeetingRecordingPathReqBodyBuilder struct {
 	timezoneFlag bool
 }
 
-// 生成body的New构造器
 func NewStartMeetingRecordingPathReqBodyBuilder() *StartMeetingRecordingPathReqBodyBuilder {
 	builder := &StartMeetingRecordingPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *StartMeetingRecordingPathReqBodyBuilder) Timezone(timezone int) *StartMeetingRecordingPathReqBodyBuilder {
 	builder.timezone = timezone
 	builder.timezoneFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *StartMeetingRecordingPathReqBodyBuilder) Build() (*StartMeetingRecordingReqBody, error) {
 	req := &StartMeetingRecordingReqBody{}
 	if builder.timezoneFlag {
@@ -1144,7 +1120,6 @@ func (builder *StartMeetingRecordingReqBuilder) Build() *StartMeetingRecordingRe
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -1402,13 +1377,10 @@ type ApplyReservePathReqBodyBuilder struct {
 	meetingSettingsFlag bool
 }
 
-// 生成body的New构造器
 func NewApplyReservePathReqBodyBuilder() *ApplyReservePathReqBodyBuilder {
 	builder := &ApplyReservePathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *ApplyReservePathReqBodyBuilder) EndTime(endTime int64) *ApplyReservePathReqBodyBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
@@ -1420,7 +1392,6 @@ func (builder *ApplyReservePathReqBodyBuilder) MeetingSettings(meetingSettings *
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *ApplyReservePathReqBodyBuilder) Build() (*ApplyReserveReqBody, error) {
 	req := &ApplyReserveReqBody{}
 	if builder.endTimeFlag {
@@ -1469,7 +1440,6 @@ func (builder *ApplyReserveReqBuilder) Build() *ApplyReserveReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -1711,13 +1681,10 @@ type UpdateReservePathReqBodyBuilder struct {
 	meetingSettingsFlag bool
 }
 
-// 生成body的New构造器
 func NewUpdateReservePathReqBodyBuilder() *UpdateReservePathReqBodyBuilder {
 	builder := &UpdateReservePathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *UpdateReservePathReqBodyBuilder) EndTime(endTime int64) *UpdateReservePathReqBodyBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
@@ -1729,7 +1696,6 @@ func (builder *UpdateReservePathReqBodyBuilder) MeetingSettings(meetingSettings 
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *UpdateReservePathReqBodyBuilder) Build() (*UpdateReserveReqBody, error) {
 	req := &UpdateReserveReqBody{}
 	if builder.endTimeFlag {
@@ -1788,7 +1754,6 @@ func (builder *UpdateReserveReqBuilder) Build() *UpdateReserveReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -2034,13 +1999,10 @@ type SetRoomConfigPathReqBodyBuilder struct {
 	roomConfigFlag bool
 }
 
-// 生成body的New构造器
 func NewSetRoomConfigPathReqBodyBuilder() *SetRoomConfigPathReqBodyBuilder {
 	builder := &SetRoomConfigPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *SetRoomConfigPathReqBodyBuilder) Scope(scope int) *SetRoomConfigPathReqBodyBuilder {
 	builder.scope = scope
 	builder.scopeFlag = true
@@ -2077,7 +2039,6 @@ func (builder *SetRoomConfigPathReqBodyBuilder) RoomConfig(roomConfig *RoomConfi
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *SetRoomConfigPathReqBodyBuilder) Build() (*SetRoomConfigReqBody, error) {
 	req := &SetRoomConfigReqBody{}
 	if builder.scopeFlag {
@@ -2136,7 +2097,6 @@ func (builder *SetRoomConfigReqBuilder) Build() *SetRoomConfigReq {
 	req := &SetRoomConfigReq{}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }

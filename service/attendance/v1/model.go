@@ -532,13 +532,10 @@ type ProcessApprovalInfoPathReqBodyBuilder struct {
 	statusFlag       bool
 }
 
-// 生成body的New构造器
 func NewProcessApprovalInfoPathReqBodyBuilder() *ProcessApprovalInfoPathReqBodyBuilder {
 	builder := &ProcessApprovalInfoPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *ProcessApprovalInfoPathReqBodyBuilder) ApprovalId(approvalId string) *ProcessApprovalInfoPathReqBodyBuilder {
 	builder.approvalId = approvalId
 	builder.approvalIdFlag = true
@@ -555,7 +552,6 @@ func (builder *ProcessApprovalInfoPathReqBodyBuilder) Status(status int) *Proces
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *ProcessApprovalInfoPathReqBodyBuilder) Build() (*ProcessApprovalInfoReqBody, error) {
 	req := &ProcessApprovalInfoReqBody{}
 	if builder.approvalIdFlag {
@@ -599,7 +595,6 @@ func (builder *ProcessApprovalInfoReqBuilder) Build() *ProcessApprovalInfoReq {
 	req := &ProcessApprovalInfoReq{}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -719,20 +714,16 @@ type UploadFilePathReqBodyBuilder struct {
 	filePathFlag bool
 }
 
-// 生成body的New构造器
 func NewUploadFilePathReqBodyBuilder() *UploadFilePathReqBodyBuilder {
 	builder := &UploadFilePathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *UploadFilePathReqBodyBuilder) FilePath(filePath string) *UploadFilePathReqBodyBuilder {
 	builder.filePath = filePath
 	builder.filePathFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *UploadFilePathReqBodyBuilder) Build() (*UploadFileReqBody, error) {
 	req := &UploadFileReqBody{}
 	if builder.filePathFlag {
@@ -781,7 +772,6 @@ func (builder *UploadFileReqBuilder) Build() *UploadFileReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -843,20 +833,16 @@ type CreateGroupPathReqBodyBuilder struct {
 	groupFlag bool
 }
 
-// 生成body的New构造器
 func NewCreateGroupPathReqBodyBuilder() *CreateGroupPathReqBodyBuilder {
 	builder := &CreateGroupPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *CreateGroupPathReqBodyBuilder) Group(group *Group) *CreateGroupPathReqBodyBuilder {
 	builder.group = group
 	builder.groupFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *CreateGroupPathReqBodyBuilder) Build() (*CreateGroupReqBody, error) {
 	req := &CreateGroupReqBody{}
 	if builder.groupFlag {
@@ -911,7 +897,6 @@ func (builder *CreateGroupReqBuilder) Build() *CreateGroupReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -1197,13 +1182,10 @@ type SearchGroupPathReqBodyBuilder struct {
 	exactlyMatchedFlag bool
 }
 
-// 生成body的New构造器
 func NewSearchGroupPathReqBodyBuilder() *SearchGroupPathReqBodyBuilder {
 	builder := &SearchGroupPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *SearchGroupPathReqBodyBuilder) GroupName(groupName string) *SearchGroupPathReqBodyBuilder {
 	builder.groupName = groupName
 	builder.groupNameFlag = true
@@ -1215,7 +1197,6 @@ func (builder *SearchGroupPathReqBodyBuilder) ExactlyMatched(exactlyMatched bool
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *SearchGroupPathReqBodyBuilder) Build() (*SearchGroupReqBody, error) {
 	req := &SearchGroupReqBody{}
 	if builder.groupNameFlag {
@@ -1255,7 +1236,6 @@ func (builder *SearchGroupReqBuilder) Build() *SearchGroupReq {
 	req := &SearchGroupReq{}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -1305,6 +1285,9 @@ func (builder *CreateShiftReqBuilder) Shift(shift *Shift) *CreateShiftReqBuilder
 /*1.5 生成请求的builder的build方法*/
 func (builder *CreateShiftReqBuilder) Build() *CreateShiftReq {
 	req := &CreateShiftReq{}
+	if builder.shiftFlag {
+		req.Shift = builder.shift
+	}
 	return req
 }
 
@@ -1575,20 +1558,16 @@ type CreateUserApprovalPathReqBodyBuilder struct {
 	userApprovalFlag bool
 }
 
-// 生成body的New构造器
 func NewCreateUserApprovalPathReqBodyBuilder() *CreateUserApprovalPathReqBodyBuilder {
 	builder := &CreateUserApprovalPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *CreateUserApprovalPathReqBodyBuilder) UserApproval(userApproval *UserApproval) *CreateUserApprovalPathReqBodyBuilder {
 	builder.userApproval = userApproval
 	builder.userApprovalFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *CreateUserApprovalPathReqBodyBuilder) Build() (*CreateUserApprovalReqBody, error) {
 	req := &CreateUserApprovalReqBody{}
 	if builder.userApprovalFlag {
@@ -1633,7 +1612,6 @@ func (builder *CreateUserApprovalReqBuilder) Build() *CreateUserApprovalReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -1721,13 +1699,10 @@ type QueryUserApprovalPathReqBodyBuilder struct {
 	checkDateToFlag   bool
 }
 
-// 生成body的New构造器
 func NewQueryUserApprovalPathReqBodyBuilder() *QueryUserApprovalPathReqBodyBuilder {
 	builder := &QueryUserApprovalPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *QueryUserApprovalPathReqBodyBuilder) UserIds(userIds []string) *QueryUserApprovalPathReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsFlag = true
@@ -1744,7 +1719,6 @@ func (builder *QueryUserApprovalPathReqBodyBuilder) CheckDateTo(checkDateTo int)
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *QueryUserApprovalPathReqBodyBuilder) Build() (*QueryUserApprovalReqBody, error) {
 	req := &QueryUserApprovalReqBody{}
 	if builder.userIdsFlag {
@@ -1797,7 +1771,6 @@ func (builder *QueryUserApprovalReqBuilder) Build() *QueryUserApprovalReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -1861,20 +1834,16 @@ type BatchCreateUserDailyShiftPathReqBodyBuilder struct {
 	userDailyShiftsFlag bool
 }
 
-// 生成body的New构造器
 func NewBatchCreateUserDailyShiftPathReqBodyBuilder() *BatchCreateUserDailyShiftPathReqBodyBuilder {
 	builder := &BatchCreateUserDailyShiftPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *BatchCreateUserDailyShiftPathReqBodyBuilder) UserDailyShifts(userDailyShifts []*UserDailyShift) *BatchCreateUserDailyShiftPathReqBodyBuilder {
 	builder.userDailyShifts = userDailyShifts
 	builder.userDailyShiftsFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *BatchCreateUserDailyShiftPathReqBodyBuilder) Build() (*BatchCreateUserDailyShiftReqBody, error) {
 	req := &BatchCreateUserDailyShiftReqBody{}
 	if builder.userDailyShiftsFlag {
@@ -1919,7 +1888,6 @@ func (builder *BatchCreateUserDailyShiftReqBuilder) Build() *BatchCreateUserDail
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -2007,13 +1975,10 @@ type QueryUserDailyShiftPathReqBodyBuilder struct {
 	checkDateToFlag   bool
 }
 
-// 生成body的New构造器
 func NewQueryUserDailyShiftPathReqBodyBuilder() *QueryUserDailyShiftPathReqBodyBuilder {
 	builder := &QueryUserDailyShiftPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *QueryUserDailyShiftPathReqBodyBuilder) UserIds(userIds []string) *QueryUserDailyShiftPathReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsFlag = true
@@ -2030,7 +1995,6 @@ func (builder *QueryUserDailyShiftPathReqBodyBuilder) CheckDateTo(checkDateTo in
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *QueryUserDailyShiftPathReqBodyBuilder) Build() (*QueryUserDailyShiftReqBody, error) {
 	req := &QueryUserDailyShiftReqBody{}
 	if builder.userIdsFlag {
@@ -2083,7 +2047,6 @@ func (builder *QueryUserDailyShiftReqBuilder) Build() *QueryUserDailyShiftReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -2147,20 +2110,16 @@ type BatchCreateUserFlowPathReqBodyBuilder struct {
 	flowRecordsFlag bool
 }
 
-// 生成body的New构造器
 func NewBatchCreateUserFlowPathReqBodyBuilder() *BatchCreateUserFlowPathReqBodyBuilder {
 	builder := &BatchCreateUserFlowPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *BatchCreateUserFlowPathReqBodyBuilder) FlowRecords(flowRecords []*UserFlow) *BatchCreateUserFlowPathReqBodyBuilder {
 	builder.flowRecords = flowRecords
 	builder.flowRecordsFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *BatchCreateUserFlowPathReqBodyBuilder) Build() (*BatchCreateUserFlowReqBody, error) {
 	req := &BatchCreateUserFlowReqBody{}
 	if builder.flowRecordsFlag {
@@ -2205,7 +2164,6 @@ func (builder *BatchCreateUserFlowReqBuilder) Build() *BatchCreateUserFlowReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -2365,13 +2323,10 @@ type QueryUserFlowPathReqBodyBuilder struct {
 	checkTimeToFlag   bool
 }
 
-// 生成body的New构造器
 func NewQueryUserFlowPathReqBodyBuilder() *QueryUserFlowPathReqBodyBuilder {
 	builder := &QueryUserFlowPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *QueryUserFlowPathReqBodyBuilder) UserIds(userIds []string) *QueryUserFlowPathReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsFlag = true
@@ -2388,7 +2343,6 @@ func (builder *QueryUserFlowPathReqBodyBuilder) CheckTimeTo(checkTimeTo string) 
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *QueryUserFlowPathReqBodyBuilder) Build() (*QueryUserFlowReqBody, error) {
 	req := &QueryUserFlowReqBody{}
 	if builder.userIdsFlag {
@@ -2451,7 +2405,6 @@ func (builder *QueryUserFlowReqBuilder) Build() *QueryUserFlowReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -2516,20 +2469,16 @@ type ModifyUserSettingPathReqBodyBuilder struct {
 	userSettingFlag bool
 }
 
-// 生成body的New构造器
 func NewModifyUserSettingPathReqBodyBuilder() *ModifyUserSettingPathReqBodyBuilder {
 	builder := &ModifyUserSettingPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *ModifyUserSettingPathReqBodyBuilder) UserSetting(userSetting *UserSetting) *ModifyUserSettingPathReqBodyBuilder {
 	builder.userSetting = userSetting
 	builder.userSettingFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *ModifyUserSettingPathReqBodyBuilder) Build() (*ModifyUserSettingReqBody, error) {
 	req := &ModifyUserSettingReqBody{}
 	if builder.userSettingFlag {
@@ -2574,7 +2523,6 @@ func (builder *ModifyUserSettingReqBuilder) Build() *ModifyUserSettingReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -2636,20 +2584,16 @@ type QueryUserSettingPathReqBodyBuilder struct {
 	userIdsFlag bool
 }
 
-// 生成body的New构造器
 func NewQueryUserSettingPathReqBodyBuilder() *QueryUserSettingPathReqBodyBuilder {
 	builder := &QueryUserSettingPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *QueryUserSettingPathReqBodyBuilder) UserIds(userIds []string) *QueryUserSettingPathReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *QueryUserSettingPathReqBodyBuilder) Build() (*QueryUserSettingReqBody, error) {
 	req := &QueryUserSettingReqBody{}
 	if builder.userIdsFlag {
@@ -2694,7 +2638,6 @@ func (builder *QueryUserSettingReqBuilder) Build() *QueryUserSettingReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -2834,13 +2777,10 @@ type QueryUserStatsDataPathReqBodyBuilder struct {
 	currentGroupOnlyFlag bool
 }
 
-// 生成body的New构造器
 func NewQueryUserStatsDataPathReqBodyBuilder() *QueryUserStatsDataPathReqBodyBuilder {
 	builder := &QueryUserStatsDataPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *QueryUserStatsDataPathReqBodyBuilder) Locale(locale string) *QueryUserStatsDataPathReqBodyBuilder {
 	builder.locale = locale
 	builder.localeFlag = true
@@ -2877,7 +2817,6 @@ func (builder *QueryUserStatsDataPathReqBodyBuilder) CurrentGroupOnly(currentGro
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *QueryUserStatsDataPathReqBodyBuilder) Build() (*QueryUserStatsDataReqBody, error) {
 	req := &QueryUserStatsDataReqBody{}
 	if builder.localeFlag {
@@ -2946,7 +2885,6 @@ func (builder *QueryUserStatsDataReqBuilder) Build() *QueryUserStatsDataReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -3053,13 +2991,10 @@ type QueryUserStatsFieldPathReqBodyBuilder struct {
 	endDateFlag   bool
 }
 
-// 生成body的New构造器
 func NewQueryUserStatsFieldPathReqBodyBuilder() *QueryUserStatsFieldPathReqBodyBuilder {
 	builder := &QueryUserStatsFieldPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *QueryUserStatsFieldPathReqBodyBuilder) Locale(locale string) *QueryUserStatsFieldPathReqBodyBuilder {
 	builder.locale = locale
 	builder.localeFlag = true
@@ -3081,7 +3016,6 @@ func (builder *QueryUserStatsFieldPathReqBodyBuilder) EndDate(endDate int) *Quer
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *QueryUserStatsFieldPathReqBodyBuilder) Build() (*QueryUserStatsFieldReqBody, error) {
 	req := &QueryUserStatsFieldReqBody{}
 	if builder.localeFlag {
@@ -3139,7 +3073,6 @@ func (builder *QueryUserStatsFieldReqBuilder) Build() *QueryUserStatsFieldReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -3217,13 +3150,10 @@ type QueryUserStatsViewPathReqBodyBuilder struct {
 	statsTypeFlag bool
 }
 
-// 生成body的New构造器
 func NewQueryUserStatsViewPathReqBodyBuilder() *QueryUserStatsViewPathReqBodyBuilder {
 	builder := &QueryUserStatsViewPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *QueryUserStatsViewPathReqBodyBuilder) Locale(locale string) *QueryUserStatsViewPathReqBodyBuilder {
 	builder.locale = locale
 	builder.localeFlag = true
@@ -3235,7 +3165,6 @@ func (builder *QueryUserStatsViewPathReqBodyBuilder) StatsType(statsType string)
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *QueryUserStatsViewPathReqBodyBuilder) Build() (*QueryUserStatsViewReqBody, error) {
 	req := &QueryUserStatsViewReqBody{}
 	if builder.localeFlag {
@@ -3285,7 +3214,6 @@ func (builder *QueryUserStatsViewReqBuilder) Build() *QueryUserStatsViewReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -3348,20 +3276,16 @@ type UpdateUserStatsViewPathReqBodyBuilder struct {
 	viewFlag bool
 }
 
-// 生成body的New构造器
 func NewUpdateUserStatsViewPathReqBodyBuilder() *UpdateUserStatsViewPathReqBodyBuilder {
 	builder := &UpdateUserStatsViewPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *UpdateUserStatsViewPathReqBodyBuilder) View(view *UserStatsView) *UpdateUserStatsViewPathReqBodyBuilder {
 	builder.view = view
 	builder.viewFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *UpdateUserStatsViewPathReqBodyBuilder) Build() (*UpdateUserStatsViewReqBody, error) {
 	req := &UpdateUserStatsViewReqBody{}
 	if builder.viewFlag {
@@ -3416,7 +3340,6 @@ func (builder *UpdateUserStatsViewReqBuilder) Build() *UpdateUserStatsViewReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -3505,13 +3428,10 @@ type QueryUserTaskPathReqBodyBuilder struct {
 	checkDateToFlag   bool
 }
 
-// 生成body的New构造器
 func NewQueryUserTaskPathReqBodyBuilder() *QueryUserTaskPathReqBodyBuilder {
 	builder := &QueryUserTaskPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *QueryUserTaskPathReqBodyBuilder) UserIds(userIds []string) *QueryUserTaskPathReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsFlag = true
@@ -3528,7 +3448,6 @@ func (builder *QueryUserTaskPathReqBodyBuilder) CheckDateTo(checkDateTo int) *Qu
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *QueryUserTaskPathReqBodyBuilder) Build() (*QueryUserTaskReqBody, error) {
 	req := &QueryUserTaskReqBody{}
 	if builder.userIdsFlag {
@@ -3601,7 +3520,6 @@ func (builder *QueryUserTaskReqBuilder) Build() *QueryUserTaskReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -3666,6 +3584,9 @@ func (builder *CreateUserTaskRemedyReqBuilder) Build() *CreateUserTaskRemedyReq 
 	req := &CreateUserTaskRemedyReq{}
 	if builder.employeeTypeFlag {
 		req.EmployeeType = &builder.employeeType
+	}
+	if builder.userTaskRemedyFlag {
+		req.UserTaskRemedy = builder.userTaskRemedy
 	}
 	return req
 }
@@ -3749,13 +3670,10 @@ type QueryUserTaskRemedyPathReqBodyBuilder struct {
 	checkTimeToFlag   bool
 }
 
-// 生成body的New构造器
 func NewQueryUserTaskRemedyPathReqBodyBuilder() *QueryUserTaskRemedyPathReqBodyBuilder {
 	builder := &QueryUserTaskRemedyPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *QueryUserTaskRemedyPathReqBodyBuilder) UserIds(userIds []string) *QueryUserTaskRemedyPathReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsFlag = true
@@ -3772,7 +3690,6 @@ func (builder *QueryUserTaskRemedyPathReqBodyBuilder) CheckTimeTo(checkTimeTo st
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *QueryUserTaskRemedyPathReqBodyBuilder) Build() (*QueryUserTaskRemedyReqBody, error) {
 	req := &QueryUserTaskRemedyReqBody{}
 	if builder.userIdsFlag {
@@ -3825,7 +3742,6 @@ func (builder *QueryUserTaskRemedyReqBuilder) Build() *QueryUserTaskRemedyReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -3902,13 +3818,10 @@ type QueryUserAllowedRemedysUserTaskRemedyPathReqBodyBuilder struct {
 	remedyDateFlag bool
 }
 
-// 生成body的New构造器
 func NewQueryUserAllowedRemedysUserTaskRemedyPathReqBodyBuilder() *QueryUserAllowedRemedysUserTaskRemedyPathReqBodyBuilder {
 	builder := &QueryUserAllowedRemedysUserTaskRemedyPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *QueryUserAllowedRemedysUserTaskRemedyPathReqBodyBuilder) UserId(userId string) *QueryUserAllowedRemedysUserTaskRemedyPathReqBodyBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
@@ -3920,7 +3833,6 @@ func (builder *QueryUserAllowedRemedysUserTaskRemedyPathReqBodyBuilder) RemedyDa
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *QueryUserAllowedRemedysUserTaskRemedyPathReqBodyBuilder) Build() (*QueryUserAllowedRemedysUserTaskRemedyReqBody, error) {
 	req := &QueryUserAllowedRemedysUserTaskRemedyReqBody{}
 	if builder.userIdFlag {
@@ -3970,7 +3882,6 @@ func (builder *QueryUserAllowedRemedysUserTaskRemedyReqBuilder) Build() *QueryUs
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }

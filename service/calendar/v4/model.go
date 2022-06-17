@@ -340,6 +340,9 @@ func (builder *CreateCalendarReqBuilder) Calendar(calendar *Calendar) *CreateCal
 /*1.5 生成请求的builder的build方法*/
 func (builder *CreateCalendarReqBuilder) Build() *CreateCalendarReq {
 	req := &CreateCalendarReq{}
+	if builder.calendarFlag {
+		req.Calendar = builder.calendar
+	}
 	return req
 }
 
@@ -560,6 +563,9 @@ func (builder *PatchCalendarReqBuilder) Build() *PatchCalendarReq {
 	if builder.calendarIdFlag {
 		req.CalendarId = builder.calendarId
 	}
+	if builder.calendarFlag {
+		req.Calendar = builder.calendar
+	}
 	return req
 }
 
@@ -662,20 +668,16 @@ type SearchCalendarPathReqBodyBuilder struct {
 	queryFlag bool
 }
 
-// 生成body的New构造器
 func NewSearchCalendarPathReqBodyBuilder() *SearchCalendarPathReqBodyBuilder {
 	builder := &SearchCalendarPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *SearchCalendarPathReqBodyBuilder) Query(query string) *SearchCalendarPathReqBodyBuilder {
 	builder.query = query
 	builder.queryFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *SearchCalendarPathReqBodyBuilder) Build() (*SearchCalendarReqBody, error) {
 	req := &SearchCalendarReqBody{}
 	if builder.queryFlag {
@@ -737,7 +739,6 @@ func (builder *SearchCalendarReqBuilder) Build() *SearchCalendarReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -905,6 +906,9 @@ func (builder *CreateCalendarAclReqBuilder) Build() *CreateCalendarAclReq {
 	}
 	if builder.userIdTypeFlag {
 		req.UserIdType = &builder.userIdType
+	}
+	if builder.calendarAclFlag {
+		req.CalendarAcl = builder.calendarAcl
 	}
 	return req
 }
@@ -1143,6 +1147,9 @@ func (builder *CreateCalendarEventReqBuilder) Build() *CreateCalendarEventReq {
 	req := &CreateCalendarEventReq{}
 	if builder.calendarIdFlag {
 		req.CalendarId = builder.calendarId
+	}
+	if builder.calendarEventFlag {
+		req.CalendarEvent = builder.calendarEvent
 	}
 	return req
 }
@@ -1443,6 +1450,9 @@ func (builder *PatchCalendarEventReqBuilder) Build() *PatchCalendarEventReq {
 	if builder.eventIdFlag {
 		req.EventId = builder.eventId
 	}
+	if builder.calendarEventFlag {
+		req.CalendarEvent = builder.calendarEvent
+	}
 	return req
 }
 
@@ -1513,13 +1523,10 @@ type SearchCalendarEventPathReqBodyBuilder struct {
 	filterFlag bool
 }
 
-// 生成body的New构造器
 func NewSearchCalendarEventPathReqBodyBuilder() *SearchCalendarEventPathReqBodyBuilder {
 	builder := &SearchCalendarEventPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *SearchCalendarEventPathReqBodyBuilder) Query(query string) *SearchCalendarEventPathReqBodyBuilder {
 	builder.query = query
 	builder.queryFlag = true
@@ -1531,7 +1538,6 @@ func (builder *SearchCalendarEventPathReqBodyBuilder) Filter(filter *EventSearch
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *SearchCalendarEventPathReqBodyBuilder) Build() (*SearchCalendarEventReqBody, error) {
 	req := &SearchCalendarEventReqBody{}
 	if builder.queryFlag {
@@ -1616,7 +1622,6 @@ func (builder *SearchCalendarEventReqBuilder) Build() *SearchCalendarEventReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -1777,13 +1782,10 @@ type BatchDeleteCalendarEventAttendeePathReqBodyBuilder struct {
 	isEnableAdminFlag          bool
 }
 
-// 生成body的New构造器
 func NewBatchDeleteCalendarEventAttendeePathReqBodyBuilder() *BatchDeleteCalendarEventAttendeePathReqBodyBuilder {
 	builder := &BatchDeleteCalendarEventAttendeePathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *BatchDeleteCalendarEventAttendeePathReqBodyBuilder) AttendeeIds(attendeeIds []string) *BatchDeleteCalendarEventAttendeePathReqBodyBuilder {
 	builder.attendeeIds = attendeeIds
 	builder.attendeeIdsFlag = true
@@ -1810,7 +1812,6 @@ func (builder *BatchDeleteCalendarEventAttendeePathReqBodyBuilder) IsEnableAdmin
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *BatchDeleteCalendarEventAttendeePathReqBodyBuilder) Build() (*BatchDeleteCalendarEventAttendeeReqBody, error) {
 	req := &BatchDeleteCalendarEventAttendeeReqBody{}
 	if builder.attendeeIdsFlag {
@@ -1890,7 +1891,6 @@ func (builder *BatchDeleteCalendarEventAttendeeReqBuilder) Build() *BatchDeleteC
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -1992,13 +1992,10 @@ type CreateCalendarEventAttendeePathReqBodyBuilder struct {
 	isEnableAdminFlag          bool
 }
 
-// 生成body的New构造器
 func NewCreateCalendarEventAttendeePathReqBodyBuilder() *CreateCalendarEventAttendeePathReqBodyBuilder {
 	builder := &CreateCalendarEventAttendeePathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *CreateCalendarEventAttendeePathReqBodyBuilder) Attendees(attendees []*CalendarEventAttendee) *CreateCalendarEventAttendeePathReqBodyBuilder {
 	builder.attendees = attendees
 	builder.attendeesFlag = true
@@ -2020,7 +2017,6 @@ func (builder *CreateCalendarEventAttendeePathReqBodyBuilder) IsEnableAdmin(isEn
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *CreateCalendarEventAttendeePathReqBodyBuilder) Build() (*CreateCalendarEventAttendeeReqBody, error) {
 	req := &CreateCalendarEventAttendeeReqBody{}
 	if builder.attendeesFlag {
@@ -2097,7 +2093,6 @@ func (builder *CreateCalendarEventAttendeeReqBuilder) Build() *CreateCalendarEve
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -2371,6 +2366,9 @@ func (builder *CreateExchangeBindingReqBuilder) Build() *CreateExchangeBindingRe
 	if builder.userIdTypeFlag {
 		req.UserIdType = &builder.userIdType
 	}
+	if builder.exchangeBindingFlag {
+		req.ExchangeBinding = builder.exchangeBinding
+	}
 	return req
 }
 
@@ -2572,13 +2570,10 @@ type ListFreebusyPathReqBodyBuilder struct {
 	roomIdFlag  bool
 }
 
-// 生成body的New构造器
 func NewListFreebusyPathReqBodyBuilder() *ListFreebusyPathReqBodyBuilder {
 	builder := &ListFreebusyPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *ListFreebusyPathReqBodyBuilder) TimeMin(timeMin string) *ListFreebusyPathReqBodyBuilder {
 	builder.timeMin = timeMin
 	builder.timeMinFlag = true
@@ -2600,7 +2595,6 @@ func (builder *ListFreebusyPathReqBodyBuilder) RoomId(roomId string) *ListFreebu
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *ListFreebusyPathReqBodyBuilder) Build() (*ListFreebusyReqBody, error) {
 	req := &ListFreebusyReqBody{}
 	if builder.timeMinFlag {
@@ -2658,7 +2652,6 @@ func (builder *ListFreebusyReqBuilder) Build() *ListFreebusyReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -2723,20 +2716,16 @@ type GenerateCaldavConfSettingPathReqBodyBuilder struct {
 	deviceNameFlag bool
 }
 
-// 生成body的New构造器
 func NewGenerateCaldavConfSettingPathReqBodyBuilder() *GenerateCaldavConfSettingPathReqBodyBuilder {
 	builder := &GenerateCaldavConfSettingPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *GenerateCaldavConfSettingPathReqBodyBuilder) DeviceName(deviceName string) *GenerateCaldavConfSettingPathReqBodyBuilder {
 	builder.deviceName = deviceName
 	builder.deviceNameFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *GenerateCaldavConfSettingPathReqBodyBuilder) Build() (*GenerateCaldavConfSettingReqBody, error) {
 	req := &GenerateCaldavConfSettingReqBody{}
 	if builder.deviceNameFlag {
@@ -2772,7 +2761,6 @@ func (builder *GenerateCaldavConfSettingReqBuilder) Build() *GenerateCaldavConfS
 	req := &GenerateCaldavConfSettingReq{}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -2833,6 +2821,9 @@ func (builder *CreateTimeoffEventReqBuilder) Build() *CreateTimeoffEventReq {
 	req := &CreateTimeoffEventReq{}
 	if builder.userIdTypeFlag {
 		req.UserIdType = &builder.userIdType
+	}
+	if builder.timeoffEventFlag {
+		req.TimeoffEvent = builder.timeoffEvent
 	}
 	return req
 }

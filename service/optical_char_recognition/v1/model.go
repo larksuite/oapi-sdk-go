@@ -48,20 +48,16 @@ type BasicRecognizeImagePathReqBodyBuilder struct {
 	imageFlag bool
 }
 
-// 生成body的New构造器
 func NewBasicRecognizeImagePathReqBodyBuilder() *BasicRecognizeImagePathReqBodyBuilder {
 	builder := &BasicRecognizeImagePathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *BasicRecognizeImagePathReqBodyBuilder) Image(image string) *BasicRecognizeImagePathReqBodyBuilder {
 	builder.image = image
 	builder.imageFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *BasicRecognizeImagePathReqBodyBuilder) Build() (*BasicRecognizeImageReqBody, error) {
 	req := &BasicRecognizeImageReqBody{}
 	if builder.imageFlag {
@@ -97,7 +93,6 @@ func (builder *BasicRecognizeImageReqBuilder) Build() *BasicRecognizeImageReq {
 	req := &BasicRecognizeImageReq{}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }

@@ -200,6 +200,9 @@ func (builder *CreateDraftReqBuilder) Build() *CreateDraftReq {
 	if builder.userIdTypeFlag {
 		req.UserIdType = &builder.userIdType
 	}
+	if builder.entityFlag {
+		req.Entity = builder.entity
+	}
 	return req
 }
 
@@ -264,6 +267,9 @@ func (builder *UpdateDraftReqBuilder) Build() *UpdateDraftReq {
 	if builder.userIdTypeFlag {
 		req.UserIdType = &builder.userIdType
 	}
+	if builder.entityFlag {
+		req.Entity = builder.entity
+	}
 	return req
 }
 
@@ -318,6 +324,9 @@ func (builder *CreateEntityReqBuilder) Build() *CreateEntityReq {
 	req := &CreateEntityReq{}
 	if builder.userIdTypeFlag {
 		req.UserIdType = &builder.userIdType
+	}
+	if builder.entityFlag {
+		req.Entity = builder.entity
 	}
 	return req
 }
@@ -454,20 +463,16 @@ type HighlightEntityPathReqBodyBuilder struct {
 	textFlag bool
 }
 
-// 生成body的New构造器
 func NewHighlightEntityPathReqBodyBuilder() *HighlightEntityPathReqBodyBuilder {
 	builder := &HighlightEntityPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *HighlightEntityPathReqBodyBuilder) Text(text string) *HighlightEntityPathReqBodyBuilder {
 	builder.text = text
 	builder.textFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *HighlightEntityPathReqBodyBuilder) Build() (*HighlightEntityReqBody, error) {
 	req := &HighlightEntityReqBody{}
 	if builder.textFlag {
@@ -503,7 +508,6 @@ func (builder *HighlightEntityReqBuilder) Build() *HighlightEntityReq {
 	req := &HighlightEntityReq{}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -651,20 +655,16 @@ type MatchEntityPathReqBodyBuilder struct {
 	wordFlag bool
 }
 
-// 生成body的New构造器
 func NewMatchEntityPathReqBodyBuilder() *MatchEntityPathReqBodyBuilder {
 	builder := &MatchEntityPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *MatchEntityPathReqBodyBuilder) Word(word string) *MatchEntityPathReqBodyBuilder {
 	builder.word = word
 	builder.wordFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *MatchEntityPathReqBodyBuilder) Build() (*MatchEntityReqBody, error) {
 	req := &MatchEntityReqBody{}
 	if builder.wordFlag {
@@ -700,7 +700,6 @@ func (builder *MatchEntityReqBuilder) Build() *MatchEntityReq {
 	req := &MatchEntityReq{}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -761,20 +760,16 @@ type SearchEntityPathReqBodyBuilder struct {
 	queryFlag bool
 }
 
-// 生成body的New构造器
 func NewSearchEntityPathReqBodyBuilder() *SearchEntityPathReqBodyBuilder {
 	builder := &SearchEntityPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *SearchEntityPathReqBodyBuilder) Query(query string) *SearchEntityPathReqBodyBuilder {
 	builder.query = query
 	builder.queryFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *SearchEntityPathReqBodyBuilder) Build() (*SearchEntityReqBody, error) {
 	req := &SearchEntityReqBody{}
 	if builder.queryFlag {
@@ -846,7 +841,6 @@ func (builder *SearchEntityReqBuilder) Build() *SearchEntityReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -919,6 +913,9 @@ func (builder *UpdateEntityReqBuilder) Build() *UpdateEntityReq {
 	}
 	if builder.userIdTypeFlag {
 		req.UserIdType = &builder.userIdType
+	}
+	if builder.entityFlag {
+		req.Entity = builder.entity
 	}
 	return req
 }

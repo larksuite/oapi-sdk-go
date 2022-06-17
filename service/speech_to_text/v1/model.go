@@ -77,13 +77,10 @@ type FileRecognizeSpeechPathReqBodyBuilder struct {
 	configFlag bool
 }
 
-// 生成body的New构造器
 func NewFileRecognizeSpeechPathReqBodyBuilder() *FileRecognizeSpeechPathReqBodyBuilder {
 	builder := &FileRecognizeSpeechPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *FileRecognizeSpeechPathReqBodyBuilder) Speech(speech *Speech) *FileRecognizeSpeechPathReqBodyBuilder {
 	builder.speech = speech
 	builder.speechFlag = true
@@ -95,7 +92,6 @@ func (builder *FileRecognizeSpeechPathReqBodyBuilder) Config(config *FileConfig)
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *FileRecognizeSpeechPathReqBodyBuilder) Build() (*FileRecognizeSpeechReqBody, error) {
 	req := &FileRecognizeSpeechReqBody{}
 	if builder.speechFlag {
@@ -133,7 +129,6 @@ func (builder *FileRecognizeSpeechReqBuilder) Build() *FileRecognizeSpeechReq {
 	req := &FileRecognizeSpeechReq{}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -208,13 +203,10 @@ type StreamRecognizeSpeechPathReqBodyBuilder struct {
 	configFlag bool
 }
 
-// 生成body的New构造器
 func NewStreamRecognizeSpeechPathReqBodyBuilder() *StreamRecognizeSpeechPathReqBodyBuilder {
 	builder := &StreamRecognizeSpeechPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *StreamRecognizeSpeechPathReqBodyBuilder) Speech(speech *Speech) *StreamRecognizeSpeechPathReqBodyBuilder {
 	builder.speech = speech
 	builder.speechFlag = true
@@ -226,7 +218,6 @@ func (builder *StreamRecognizeSpeechPathReqBodyBuilder) Config(config *StreamCon
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *StreamRecognizeSpeechPathReqBodyBuilder) Build() (*StreamRecognizeSpeechReqBody, error) {
 	req := &StreamRecognizeSpeechReqBody{}
 	if builder.speechFlag {
@@ -264,7 +255,6 @@ func (builder *StreamRecognizeSpeechReqBuilder) Build() *StreamRecognizeSpeechRe
 	req := &StreamRecognizeSpeechReq{}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }

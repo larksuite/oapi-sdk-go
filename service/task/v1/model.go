@@ -164,6 +164,9 @@ func (builder *CreateTaskReqBuilder) Build() *CreateTaskReq {
 	if builder.userIdTypeFlag {
 		req.UserIdType = &builder.userIdType
 	}
+	if builder.taskFlag {
+		req.Task = builder.task
+	}
 	return req
 }
 
@@ -441,13 +444,10 @@ type PatchTaskPathReqBodyBuilder struct {
 	updateFieldsFlag bool
 }
 
-// 生成body的New构造器
 func NewPatchTaskPathReqBodyBuilder() *PatchTaskPathReqBodyBuilder {
 	builder := &PatchTaskPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *PatchTaskPathReqBodyBuilder) Task(task *Task) *PatchTaskPathReqBodyBuilder {
 	builder.task = task
 	builder.taskFlag = true
@@ -459,7 +459,6 @@ func (builder *PatchTaskPathReqBodyBuilder) UpdateFields(updateFields []string) 
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *PatchTaskPathReqBodyBuilder) Build() (*PatchTaskReqBody, error) {
 	req := &PatchTaskReqBody{}
 	if builder.taskFlag {
@@ -517,7 +516,6 @@ func (builder *PatchTaskReqBuilder) Build() *PatchTaskReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -629,6 +627,9 @@ func (builder *CreateTaskCollaboratorReqBuilder) Build() *CreateTaskCollaborator
 	}
 	if builder.userIdTypeFlag {
 		req.UserIdType = &builder.userIdType
+	}
+	if builder.collaboratorFlag {
+		req.Collaborator = builder.collaborator
 	}
 	return req
 }
@@ -824,6 +825,9 @@ func (builder *CreateTaskCommentReqBuilder) Build() *CreateTaskCommentReq {
 	req := &CreateTaskCommentReq{}
 	if builder.taskIdFlag {
 		req.TaskId = builder.taskId
+	}
+	if builder.commentFlag {
+		req.Comment = builder.comment
 	}
 	return req
 }
@@ -1078,20 +1082,16 @@ type UpdateTaskCommentPathReqBodyBuilder struct {
 	contentFlag bool
 }
 
-// 生成body的New构造器
 func NewUpdateTaskCommentPathReqBodyBuilder() *UpdateTaskCommentPathReqBodyBuilder {
 	builder := &UpdateTaskCommentPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *UpdateTaskCommentPathReqBodyBuilder) Content(content string) *UpdateTaskCommentPathReqBodyBuilder {
 	builder.content = content
 	builder.contentFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *UpdateTaskCommentPathReqBodyBuilder) Build() (*UpdateTaskCommentReqBody, error) {
 	req := &UpdateTaskCommentReqBody{}
 	if builder.contentFlag {
@@ -1147,7 +1147,6 @@ func (builder *UpdateTaskCommentReqBuilder) Build() *UpdateTaskCommentReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -1217,6 +1216,9 @@ func (builder *CreateTaskFollowerReqBuilder) Build() *CreateTaskFollowerReq {
 	}
 	if builder.userIdTypeFlag {
 		req.UserIdType = &builder.userIdType
+	}
+	if builder.followerFlag {
+		req.Follower = builder.follower
 	}
 	return req
 }
@@ -1412,6 +1414,9 @@ func (builder *CreateTaskReminderReqBuilder) Build() *CreateTaskReminderReq {
 	req := &CreateTaskReminderReq{}
 	if builder.taskIdFlag {
 		req.TaskId = builder.taskId
+	}
+	if builder.reminderFlag {
+		req.Reminder = builder.reminder
 	}
 	return req
 }

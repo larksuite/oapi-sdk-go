@@ -83,13 +83,10 @@ type CreateIdentityPathReqBodyBuilder struct {
 	mobileFlag       bool
 }
 
-// 生成body的New构造器
 func NewCreateIdentityPathReqBodyBuilder() *CreateIdentityPathReqBodyBuilder {
 	builder := &CreateIdentityPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *CreateIdentityPathReqBodyBuilder) IdentityName(identityName string) *CreateIdentityPathReqBodyBuilder {
 	builder.identityName = identityName
 	builder.identityNameFlag = true
@@ -106,7 +103,6 @@ func (builder *CreateIdentityPathReqBodyBuilder) Mobile(mobile string) *CreateId
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *CreateIdentityPathReqBodyBuilder) Build() (*CreateIdentityReqBody, error) {
 	req := &CreateIdentityReqBody{}
 	if builder.identityNameFlag {
@@ -170,7 +166,6 @@ func (builder *CreateIdentityReqBuilder) Build() *CreateIdentityReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }

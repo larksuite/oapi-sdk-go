@@ -187,6 +187,9 @@ func (builder *CreateDataSourceReqBuilder) DataSource(dataSource *DataSource) *C
 /*1.5 生成请求的builder的build方法*/
 func (builder *CreateDataSourceReqBuilder) Build() *CreateDataSourceReq {
 	req := &CreateDataSourceReq{}
+	if builder.dataSourceFlag {
+		req.DataSource = builder.dataSource
+	}
 	return req
 }
 
@@ -471,13 +474,10 @@ type PatchDataSourcePathReqBodyBuilder struct {
 	i18nDescriptionFlag bool
 }
 
-// 生成body的New构造器
 func NewPatchDataSourcePathReqBodyBuilder() *PatchDataSourcePathReqBodyBuilder {
 	builder := &PatchDataSourcePathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *PatchDataSourcePathReqBodyBuilder) Name(name string) *PatchDataSourcePathReqBodyBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -509,7 +509,6 @@ func (builder *PatchDataSourcePathReqBodyBuilder) I18nDescription(i18nDescriptio
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *PatchDataSourcePathReqBodyBuilder) Build() (*PatchDataSourceReqBody, error) {
 	req := &PatchDataSourceReqBody{}
 	if builder.nameFlag {
@@ -573,7 +572,6 @@ func (builder *PatchDataSourceReqBuilder) Build() *PatchDataSourceReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -637,6 +635,9 @@ func (builder *CreateDataSourceItemReqBuilder) Build() *CreateDataSourceItemReq 
 	req := &CreateDataSourceItemReq{}
 	if builder.dataSourceIdFlag {
 		req.DataSourceId = builder.dataSourceId
+	}
+	if builder.itemFlag {
+		req.Item = builder.item
 	}
 	return req
 }

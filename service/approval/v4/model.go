@@ -795,13 +795,10 @@ type AddSignInstancePathReqBodyBuilder struct {
 	approvalMethodFlag bool
 }
 
-// 生成body的New构造器
 func NewAddSignInstancePathReqBodyBuilder() *AddSignInstancePathReqBodyBuilder {
 	builder := &AddSignInstancePathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *AddSignInstancePathReqBodyBuilder) UserId(userId string) *AddSignInstancePathReqBodyBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
@@ -843,7 +840,6 @@ func (builder *AddSignInstancePathReqBodyBuilder) ApprovalMethod(approvalMethod 
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *AddSignInstancePathReqBodyBuilder) Build() (*AddSignInstanceReqBody, error) {
 	req := &AddSignInstanceReqBody{}
 	if builder.userIdFlag {
@@ -906,7 +902,6 @@ func (builder *AddSignInstanceReqBuilder) Build() *AddSignInstanceReq {
 	req := &AddSignInstanceReq{}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -1047,13 +1042,10 @@ type PreviewInstancePathReqBodyBuilder struct {
 	taskIdFlag       bool
 }
 
-// 生成body的New构造器
 func NewPreviewInstancePathReqBodyBuilder() *PreviewInstancePathReqBodyBuilder {
 	builder := &PreviewInstancePathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *PreviewInstancePathReqBodyBuilder) UserId(userId string) *PreviewInstancePathReqBodyBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
@@ -1090,7 +1082,6 @@ func (builder *PreviewInstancePathReqBodyBuilder) TaskId(taskId string) *Preview
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *PreviewInstancePathReqBodyBuilder) Build() (*PreviewInstanceReqBody, error) {
 	req := &PreviewInstanceReqBody{}
 	if builder.userIdFlag {
@@ -1160,7 +1151,6 @@ func (builder *PreviewInstanceReqBuilder) Build() *PreviewInstanceReq {
 	}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }

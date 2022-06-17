@@ -118,6 +118,9 @@ func (builder *CreateMailgroupReqBuilder) Mailgroup(mailgroup *Mailgroup) *Creat
 /*1.5 生成请求的builder的build方法*/
 func (builder *CreateMailgroupReqBuilder) Build() *CreateMailgroupReq {
 	req := &CreateMailgroupReq{}
+	if builder.mailgroupFlag {
+		req.Mailgroup = builder.mailgroup
+	}
 	return req
 }
 
@@ -360,6 +363,9 @@ func (builder *PatchMailgroupReqBuilder) Build() *PatchMailgroupReq {
 	if builder.mailgroupIdFlag {
 		req.MailgroupId = builder.mailgroupId
 	}
+	if builder.mailgroupFlag {
+		req.Mailgroup = builder.mailgroup
+	}
 	return req
 }
 
@@ -421,6 +427,9 @@ func (builder *UpdateMailgroupReqBuilder) Build() *UpdateMailgroupReq {
 	if builder.mailgroupIdFlag {
 		req.MailgroupId = builder.mailgroupId
 	}
+	if builder.mailgroupFlag {
+		req.Mailgroup = builder.mailgroup
+	}
 	return req
 }
 
@@ -481,6 +490,9 @@ func (builder *CreateMailgroupAliasReqBuilder) Build() *CreateMailgroupAliasReq 
 	req := &CreateMailgroupAliasReq{}
 	if builder.mailgroupIdFlag {
 		req.MailgroupId = builder.mailgroupId
+	}
+	if builder.emailAliasFlag {
+		req.EmailAlias = builder.emailAlias
 	}
 	return req
 }
@@ -653,6 +665,9 @@ func (builder *CreateMailgroupMemberReqBuilder) Build() *CreateMailgroupMemberRe
 	}
 	if builder.departmentIdTypeFlag {
 		req.DepartmentIdType = &builder.departmentIdType
+	}
+	if builder.mailgroupMemberFlag {
+		req.MailgroupMember = builder.mailgroupMember
 	}
 	return req
 }
@@ -968,6 +983,9 @@ func (builder *CreateMailgroupPermissionMemberReqBuilder) Build() *CreateMailgro
 	if builder.departmentIdTypeFlag {
 		req.DepartmentIdType = &builder.departmentIdType
 	}
+	if builder.mailgroupPermissionMemberFlag {
+		req.MailgroupPermissionMember = builder.mailgroupPermissionMember
+	}
 	return req
 }
 
@@ -1250,6 +1268,9 @@ func (builder *CreatePublicMailboxReqBuilder) PublicMailbox(publicMailbox *Publi
 /*1.5 生成请求的builder的build方法*/
 func (builder *CreatePublicMailboxReqBuilder) Build() *CreatePublicMailboxReq {
 	req := &CreatePublicMailboxReq{}
+	if builder.publicMailboxFlag {
+		req.PublicMailbox = builder.publicMailbox
+	}
 	return req
 }
 
@@ -1460,6 +1481,9 @@ func (builder *PatchPublicMailboxReqBuilder) Build() *PatchPublicMailboxReq {
 	if builder.publicMailboxIdFlag {
 		req.PublicMailboxId = builder.publicMailboxId
 	}
+	if builder.publicMailboxFlag {
+		req.PublicMailbox = builder.publicMailbox
+	}
 	return req
 }
 
@@ -1516,6 +1540,9 @@ func (builder *UpdatePublicMailboxReqBuilder) Build() *UpdatePublicMailboxReq {
 	if builder.publicMailboxIdFlag {
 		req.PublicMailboxId = builder.publicMailboxId
 	}
+	if builder.publicMailboxFlag {
+		req.PublicMailbox = builder.publicMailbox
+	}
 	return req
 }
 
@@ -1571,6 +1598,9 @@ func (builder *CreatePublicMailboxAliasReqBuilder) Build() *CreatePublicMailboxA
 	req := &CreatePublicMailboxAliasReq{}
 	if builder.publicMailboxIdFlag {
 		req.PublicMailboxId = builder.publicMailboxId
+	}
+	if builder.emailAliasFlag {
+		req.EmailAlias = builder.emailAlias
 	}
 	return req
 }
@@ -1774,6 +1804,9 @@ func (builder *CreatePublicMailboxMemberReqBuilder) Build() *CreatePublicMailbox
 	}
 	if builder.userIdTypeFlag {
 		req.UserIdType = &builder.userIdType
+	}
+	if builder.publicMailboxMemberFlag {
+		req.PublicMailboxMember = builder.publicMailboxMember
 	}
 	return req
 }
@@ -2044,20 +2077,16 @@ type QueryUserPathReqBodyBuilder struct {
 	emailListFlag bool
 }
 
-// 生成body的New构造器
 func NewQueryUserPathReqBodyBuilder() *QueryUserPathReqBodyBuilder {
 	builder := &QueryUserPathReqBodyBuilder{}
 	return builder
 }
-
-/*1.2 生成body的builder属性方法*/
 func (builder *QueryUserPathReqBodyBuilder) EmailList(emailList []string) *QueryUserPathReqBodyBuilder {
 	builder.emailList = emailList
 	builder.emailListFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
 func (builder *QueryUserPathReqBodyBuilder) Build() (*QueryUserReqBody, error) {
 	req := &QueryUserReqBody{}
 	if builder.emailListFlag {
@@ -2092,7 +2121,6 @@ func (builder *QueryUserReqBuilder) Build() *QueryUserReq {
 	req := &QueryUserReq{}
 	if builder.bodyFlag {
 		req.Body = builder.body
-
 	}
 	return req
 }
@@ -2202,6 +2230,9 @@ func (builder *CreateUserMailboxAliasReqBuilder) Build() *CreateUserMailboxAlias
 	req := &CreateUserMailboxAliasReq{}
 	if builder.userMailboxIdFlag {
 		req.UserMailboxId = builder.userMailboxId
+	}
+	if builder.emailAliasFlag {
+		req.EmailAlias = builder.emailAlias
 	}
 	return req
 }
