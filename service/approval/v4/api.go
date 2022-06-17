@@ -2,9 +2,9 @@
 package approval
 
 import (
-	"net/http"
 	"context"
-	
+	"net/http"
+
 	"github.com/feishu/oapi-sdk-go/core"
 )
 
@@ -12,16 +12,10 @@ import (
 构建业务域服务实例
 **/
 func NewService(httpClient *http.Client, config *core.Config) *ApprovalService {
-	a := &ApprovalService{httpClient:httpClient,config:config}
-	a.Approvals = &approvals{service: a}
-	a.ExternalApprovals = &externalApprovals{service: a}
-	a.ExternalInstances = &externalInstances{service: a}
-	a.ExternalTasks = &externalTasks{service: a}
-	a.Files = &files{service: a}
-	a.Instances = &instances{service: a}
-	a.Comments = &comments{service: a}
-	a.Messages = &messages{service: a}
-	a.Tasks = &tasks{service: a}
+	a := &ApprovalService{httpClient: httpClient, config: config}
+	a.Approval = &approval{service: a}
+	a.Instance = &instance{service: a}
+	a.Task = &task{service: a}
 	return a
 }
 
@@ -30,241 +24,35 @@ func NewService(httpClient *http.Client, config *core.Config) *ApprovalService {
 **/
 type ApprovalService struct {
 	httpClient *http.Client
-	config *core.Config
-	Approvals *approvals
-	ExternalApprovals *externalApprovals
-	ExternalInstances *externalInstances
-	ExternalTasks *externalTasks
-	Files *files
-	Instances *instances
-	Comments *comments
-	Messages *messages
-	Tasks *tasks
+	config     *core.Config
+	Approval   *approval
+	Instance   *instance
+	Task       *task
 }
-
 
 /**
 资源服务定义
 **/
-type approvals struct {
-   service *ApprovalService
+type approval struct {
+	service *ApprovalService
 }
-type externalApprovals struct {
-   service *ApprovalService
+type instance struct {
+	service *ApprovalService
 }
-type externalInstances struct {
-   service *ApprovalService
+type task struct {
+	service *ApprovalService
 }
-type externalTasks struct {
-   service *ApprovalService
-}
-type files struct {
-   service *ApprovalService
-}
-type instances struct {
-   service *ApprovalService
-}
-type comments struct {
-   service *ApprovalService
-}
-type messages struct {
-   service *ApprovalService
-}
-type tasks struct {
-   service *ApprovalService
-}
+
 /**
 资源服务方法定义
 **/
-func (a *approvals) Create(ctx context.Context, req *CreateApprovalReq, options ...core.RequestOptionFunc) (*CreateApprovalResp, error) {
-
+func (i *instance) AddSign(ctx context.Context, req *AddSignInstanceReq, options ...core.RequestOptionFunc) (*AddSignInstanceResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,a.service.config, http.MethodPost,
-		"/open-apis/approval/v4/approvals", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &CreateApprovalResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (a *approvals) Get(ctx context.Context, req *GetApprovalReq, options ...core.RequestOptionFunc) (*GetApprovalResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,a.service.config, http.MethodGet,
-		"/open-apis/approval/v4/approvals/:approval_code", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &GetApprovalResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (a *approvals) Search(ctx context.Context, req *SearchApprovalReq, options ...core.RequestOptionFunc) (*SearchApprovalResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,a.service.config, http.MethodPost,
-		"/open-apis/approval/v4/approvals/search", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &SearchApprovalResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (a *approvals) Subscribe(ctx context.Context, req *SubscribeApprovalReq, options ...core.RequestOptionFunc) (*SubscribeApprovalResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,a.service.config, http.MethodPost,
-		"/open-apis/approval/v4/approvals/:approval_code/subscribe", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &SubscribeApprovalResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (a *approvals) Unsubscribe(ctx context.Context, req *UnsubscribeApprovalReq, options ...core.RequestOptionFunc) (*UnsubscribeApprovalResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,a.service.config, http.MethodPost,
-		"/open-apis/approval/v4/approvals/:approval_code/unsubscribe", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &UnsubscribeApprovalResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (e *externalApprovals) Create(ctx context.Context, req *CreateExternalApprovalReq, options ...core.RequestOptionFunc) (*CreateExternalApprovalResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,e.service.config, http.MethodPost,
-		"/open-apis/approval/v4/external_approvals", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &CreateExternalApprovalResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (e *externalInstances) Check(ctx context.Context, req *CheckExternalInstanceReq, options ...core.RequestOptionFunc) (*CheckExternalInstanceResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,e.service.config, http.MethodPost,
-		"/open-apis/approval/v4/external_instances/check", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &CheckExternalInstanceResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (e *externalInstances) Create(ctx context.Context, req *CreateExternalInstanceReq, options ...core.RequestOptionFunc) (*CreateExternalInstanceResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,e.service.config, http.MethodPost,
-		"/open-apis/approval/v4/external_instances", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &CreateExternalInstanceResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (e *externalTasks) List(ctx context.Context, req *ListExternalTaskReq, options ...core.RequestOptionFunc) (*ListExternalTaskResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,e.service.config, http.MethodGet,
-		"/open-apis/approval/v4/external_tasks", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &ListExternalTaskResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-/**如果是分页查询，则添加迭代器函数**/
-func (e *externalTasks) ListExternalTask(ctx context.Context, req *ListExternalTaskReq, options ...core.RequestOptionFunc) (*ListExternalTaskIterator, error) {
-   return &ListExternalTaskIterator{
-	  ctx:	  ctx,
-	  req:	  req,
-	  listFunc: e.List,
-	  options:  options,
-	  limit: req.Limit}, nil
-}
-func (f *files) Upload(ctx context.Context, req *UploadFileReq, options ...core.RequestOptionFunc) (*UploadFileResp, error) {
-	options = append(options, core.WithFileUpload())
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,f.service.config, http.MethodPost,
-		"/open-apis/approval/v4/files/upload", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &UploadFileResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (i *instances) AddSign(ctx context.Context, req *AddSignInstanceReq, options ...core.RequestOptionFunc) (*AddSignInstanceResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,i.service.config, http.MethodPost,
+	rawResp, err := core.SendRequest(ctx, i.service.config, http.MethodPost,
 		"/open-apis/approval/v4/instances/add_sign", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &AddSignInstanceResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -273,126 +61,13 @@ func (i *instances) AddSign(ctx context.Context, req *AddSignInstanceReq, option
 	}
 	return resp, err
 }
-func (i *instances) Cancel(ctx context.Context, req *CancelInstanceReq, options ...core.RequestOptionFunc) (*CancelInstanceResp, error) {
-
+func (i *instance) Preview(ctx context.Context, req *PreviewInstanceReq, options ...core.RequestOptionFunc) (*PreviewInstanceResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,i.service.config, http.MethodPost,
-		"/open-apis/approval/v4/instances/cancel", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &CancelInstanceResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (i *instances) CarbonCopy(ctx context.Context, req *CarbonCopyInstanceReq, options ...core.RequestOptionFunc) (*CarbonCopyInstanceResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,i.service.config, http.MethodPost,
-		"/open-apis/approval/v4/instances/carbon_copy", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &CarbonCopyInstanceResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (i *instances) Cc(ctx context.Context, req *CcInstanceReq, options ...core.RequestOptionFunc) (*CcInstanceResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,i.service.config, http.MethodPost,
-		"/open-apis/approval/v4/instances/cc", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &CcInstanceResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (i *instances) Create(ctx context.Context, req *CreateInstanceReq, options ...core.RequestOptionFunc) (*CreateInstanceResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,i.service.config, http.MethodPost,
-		"/open-apis/approval/v4/instances", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &CreateInstanceResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (i *instances) Get(ctx context.Context, req *GetInstanceReq, options ...core.RequestOptionFunc) (*GetInstanceResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,i.service.config, http.MethodGet,
-		"/open-apis/approval/v4/instances/:instance_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &GetInstanceResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (i *instances) List(ctx context.Context, req *ListInstanceReq, options ...core.RequestOptionFunc) (*ListInstanceResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,i.service.config, http.MethodGet,
-		"/open-apis/approval/v4/instances", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &ListInstanceResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-/**如果是分页查询，则添加迭代器函数**/
-func (i *instances) ListInstance(ctx context.Context, req *ListInstanceReq, options ...core.RequestOptionFunc) (*ListInstanceIterator, error) {
-   return &ListInstanceIterator{
-	  ctx:	  ctx,
-	  req:	  req,
-	  listFunc: i.List,
-	  options:  options,
-	  limit: req.Limit}, nil
-}
-func (i *instances) Preview(ctx context.Context, req *PreviewInstanceReq, options ...core.RequestOptionFunc) (*PreviewInstanceResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,i.service.config, http.MethodPost,
+	rawResp, err := core.SendRequest(ctx, i.service.config, http.MethodPost,
 		"/open-apis/approval/v4/instances/preview", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &PreviewInstanceResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -401,202 +76,13 @@ func (i *instances) Preview(ctx context.Context, req *PreviewInstanceReq, option
 	}
 	return resp, err
 }
-func (i *instances) Query(ctx context.Context, req *QueryInstanceReq, options ...core.RequestOptionFunc) (*QueryInstanceResp, error) {
-
+func (t *task) Query(ctx context.Context, req *QueryTaskReq, options ...core.RequestOptionFunc) (*QueryTaskResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,i.service.config, http.MethodPost,
-		"/open-apis/approval/v4/instances/query", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &QueryInstanceResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (i *instances) Search(ctx context.Context, req *SearchInstanceReq, options ...core.RequestOptionFunc) (*SearchInstanceResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,i.service.config, http.MethodPost,
-		"/open-apis/approval/v4/instances/search", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &SearchInstanceResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (i *instances) SearchCc(ctx context.Context, req *SearchCcInstanceReq, options ...core.RequestOptionFunc) (*SearchCcInstanceResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,i.service.config, http.MethodPost,
-		"/open-apis/approval/v4/instances/search_cc", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &SearchCcInstanceResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (i *instances) SpecifiedRollback(ctx context.Context, req *SpecifiedRollbackInstanceReq, options ...core.RequestOptionFunc) (*SpecifiedRollbackInstanceResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,i.service.config, http.MethodPost,
-		"/open-apis/approval/v4/instances/specified_rollback", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &SpecifiedRollbackInstanceResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (c *comments) Create(ctx context.Context, req *CreateInstanceCommentReq, options ...core.RequestOptionFunc) (*CreateInstanceCommentResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,c.service.config, http.MethodPost,
-		"/open-apis/approval/v4/instances/:instance_id/comments", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &CreateInstanceCommentResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (c *comments) Delete(ctx context.Context, req *DeleteInstanceCommentReq, options ...core.RequestOptionFunc) (*DeleteInstanceCommentResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,c.service.config, http.MethodDelete,
-		"/open-apis/approval/v4/instances/:instance_id/comments/:comment_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &DeleteInstanceCommentResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (c *comments) List(ctx context.Context, req *ListInstanceCommentReq, options ...core.RequestOptionFunc) (*ListInstanceCommentResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,c.service.config, http.MethodGet,
-		"/open-apis/approval/v4/instances/:instance_id/comments", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &ListInstanceCommentResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (c *comments) Remove(ctx context.Context, req *RemoveInstanceCommentReq, options ...core.RequestOptionFunc) (*RemoveInstanceCommentResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,c.service.config, http.MethodPost,
-		"/open-apis/approval/v4/instances/:instance_id/comments/remove", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &RemoveInstanceCommentResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (m *messages) Create(ctx context.Context, req *CreateMessageReq, options ...core.RequestOptionFunc) (*CreateMessageResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,m.service.config, http.MethodPost,
-		"/open-apis/approval/v4/messages", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &CreateMessageResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (m *messages) Patch(ctx context.Context, req *PatchMessageReq, options ...core.RequestOptionFunc) (*PatchMessageResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,m.service.config, http.MethodPatch,
-		"/open-apis/approval/v4/messages/:message_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &PatchMessageResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (t *tasks) Approve(ctx context.Context, req *ApproveTaskReq, options ...core.RequestOptionFunc) (*ApproveTaskResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,t.service.config, http.MethodPost,
-		"/open-apis/approval/v4/tasks/approve", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &ApproveTaskResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (t *tasks) Query(ctx context.Context, req *QueryTaskReq, options ...core.RequestOptionFunc) (*QueryTaskResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,t.service.config, http.MethodGet,
+	rawResp, err := core.SendRequest(ctx, t.service.config, http.MethodGet,
 		"/open-apis/approval/v4/tasks/query", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &QueryTaskResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -605,63 +91,13 @@ func (t *tasks) Query(ctx context.Context, req *QueryTaskReq, options ...core.Re
 	}
 	return resp, err
 }
+
 /**如果是分页查询，则添加迭代器函数**/
-func (t *tasks) QueryTask(ctx context.Context, req *QueryTaskReq, options ...core.RequestOptionFunc) (*QueryTaskIterator, error) {
-   return &QueryTaskIterator{
-	  ctx:	  ctx,
-	  req:	  req,
-	  listFunc: t.Query,
-	  options:  options,
-	  limit: req.Limit}, nil
-}
-func (t *tasks) Reject(ctx context.Context, req *RejectTaskReq, options ...core.RequestOptionFunc) (*RejectTaskResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,t.service.config, http.MethodPost,
-		"/open-apis/approval/v4/tasks/reject", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &RejectTaskResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (t *tasks) Search(ctx context.Context, req *SearchTaskReq, options ...core.RequestOptionFunc) (*SearchTaskResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,t.service.config, http.MethodPost,
-		"/open-apis/approval/v4/tasks/search", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &SearchTaskResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (t *tasks) Transfer(ctx context.Context, req *TransferTaskReq, options ...core.RequestOptionFunc) (*TransferTaskResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,t.service.config, http.MethodPost,
-		"/open-apis/approval/v4/tasks/transfer", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &TransferTaskResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
+func (t *task) QueryTask(ctx context.Context, req *QueryTaskReq, options ...core.RequestOptionFunc) (*QueryTaskIterator, error) {
+	return &QueryTaskIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: t.Query,
+		options:  options,
+		limit:    req.Limit}, nil
 }

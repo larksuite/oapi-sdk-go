@@ -12,7 +12,7 @@ import (
 )
 
 func createDocument(client *client.Client) {
-	resp, err := client.Docx.Documents.Create(context.Background(), docx.NewCreateDocumentReqBuilder().
+	resp, err := client.Docx.Document.Create(context.Background(), docx.NewCreateDocumentReqBuilder().
 		Body(docx.NewCreateDocumentReqBodyBuilder().
 			FolderToken("token").
 			Title("title").
@@ -27,7 +27,7 @@ func createDocument(client *client.Client) {
 }
 
 func listBlocks(client *client.Client) {
-	resp, err := client.Docx.Blocks.List(context.Background(),
+	resp, err := client.Docx.DocumentBlock.List(context.Background(),
 		docx.NewListDocumentBlockReqBuilder().
 			DocumentId("doxcnku1W0IhiZBDPkxlEVSn6Tf").
 			PageSize(100).
@@ -53,7 +53,7 @@ func listBlocksIter(client *client.Client) {
 
 	}()
 
-	iter, err := client.Docx.Blocks.ListDocumentBlock(context.Background(),
+	iter, err := client.Docx.DocumentBlock.ListDocumentBlock(context.Background(),
 		docx.NewListDocumentBlockReqBuilder().
 			DocumentId("doxcnku1W0IhiZBDPkxlEVSn6Tf").
 			PageSize(2).
@@ -90,5 +90,5 @@ func main() {
 	feishuClient := client.NewClient(appID, appSecret)
 
 	listBlocks(feishuClient)
-	listBlocksIter(feishuClient)
+	//listBlocksIter(feishuClient)
 }

@@ -1,6 +1,8 @@
 package core
 
-import "time"
+import (
+	"time"
+)
 
 const defaultContentType = contentTypeJson + "; charset=utf-8"
 const userAgentHeader = "User-Agent"

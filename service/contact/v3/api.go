@@ -2,9 +2,9 @@
 package contact
 
 import (
-	"net/http"
 	"context"
-	
+	"net/http"
+
 	"github.com/feishu/oapi-sdk-go/core"
 )
 
@@ -12,19 +12,16 @@ import (
 构建业务域服务实例
 **/
 func NewService(httpClient *http.Client, config *core.Config) *ContactService {
-	c := &ContactService{httpClient:httpClient,config:config}
-	c.CustomAttrs = &customAttrs{service: c}
+	c := &ContactService{httpClient: httpClient, config: config}
+	c.CustomAttr = &customAttr{service: c}
 	c.CustomAttrEvent = &customAttrEvent{service: c}
-	c.Departments = &departments{service: c}
-	c.DepartmentUnits = &departmentUnits{service: c}
-	c.EmployeeTypeEnums = &employeeTypeEnums{service: c}
+	c.Department = &department{service: c}
+	c.EmployeeTypeEnum = &employeeTypeEnum{service: c}
 	c.Group = &group{service: c}
 	c.GroupMember = &groupMember{service: c}
-	c.Scopes = &scopes{service: c}
+	c.Scope = &scope{service: c}
 	c.Unit = &unit{service: c}
-	c.Users = &users{service: c}
-	c.UserGroups = &userGroups{service: c}
-	c.UserGroupMembers = &userGroupMembers{service: c}
+	c.User = &user{service: c}
 	return c
 }
 
@@ -32,74 +29,60 @@ func NewService(httpClient *http.Client, config *core.Config) *ContactService {
 业务域服务定义
 **/
 type ContactService struct {
-	httpClient *http.Client
-	config *core.Config
-	CustomAttrs *customAttrs
-	CustomAttrEvent *customAttrEvent
-	Departments *departments
-	DepartmentUnits *departmentUnits
-	EmployeeTypeEnums *employeeTypeEnums
-	Group *group
-	GroupMember *groupMember
-	Scopes *scopes
-	Unit *unit
-	Users *users
-	UserGroups *userGroups
-	UserGroupMembers *userGroupMembers
+	httpClient       *http.Client
+	config           *core.Config
+	CustomAttr       *customAttr
+	CustomAttrEvent  *customAttrEvent
+	Department       *department
+	EmployeeTypeEnum *employeeTypeEnum
+	Group            *group
+	GroupMember      *groupMember
+	Scope            *scope
+	Unit             *unit
+	User             *user
 }
-
 
 /**
 资源服务定义
 **/
-type customAttrs struct {
-   service *ContactService
+type customAttr struct {
+	service *ContactService
 }
 type customAttrEvent struct {
-   service *ContactService
+	service *ContactService
 }
-type departments struct {
-   service *ContactService
+type department struct {
+	service *ContactService
 }
-type departmentUnits struct {
-   service *ContactService
-}
-type employeeTypeEnums struct {
-   service *ContactService
+type employeeTypeEnum struct {
+	service *ContactService
 }
 type group struct {
-   service *ContactService
+	service *ContactService
 }
 type groupMember struct {
-   service *ContactService
+	service *ContactService
 }
-type scopes struct {
-   service *ContactService
+type scope struct {
+	service *ContactService
 }
 type unit struct {
-   service *ContactService
+	service *ContactService
 }
-type users struct {
-   service *ContactService
+type user struct {
+	service *ContactService
 }
-type userGroups struct {
-   service *ContactService
-}
-type userGroupMembers struct {
-   service *ContactService
-}
+
 /**
 资源服务方法定义
 **/
-func (c *customAttrs) List(ctx context.Context, req *ListCustomAttrReq, options ...core.RequestOptionFunc) (*ListCustomAttrResp, error) {
-
+func (c *customAttr) List(ctx context.Context, req *ListCustomAttrReq, options ...core.RequestOptionFunc) (*ListCustomAttrResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,c.service.config, http.MethodGet,
+	rawResp, err := core.SendRequest(ctx, c.service.config, http.MethodGet,
 		"/open-apis/contact/v3/custom_attrs", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &ListCustomAttrResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -108,58 +91,23 @@ func (c *customAttrs) List(ctx context.Context, req *ListCustomAttrReq, options 
 	}
 	return resp, err
 }
+
 /**如果是分页查询，则添加迭代器函数**/
-func (c *customAttrs) ListCustomAttr(ctx context.Context, req *ListCustomAttrReq, options ...core.RequestOptionFunc) (*ListCustomAttrIterator, error) {
-   return &ListCustomAttrIterator{
-	  ctx:	  ctx,
-	  req:	  req,
-	  listFunc: c.List,
-	  options:  options,
-	  limit: req.Limit}, nil
+func (c *customAttr) ListCustomAttr(ctx context.Context, req *ListCustomAttrReq, options ...core.RequestOptionFunc) (*ListCustomAttrIterator, error) {
+	return &ListCustomAttrIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: c.List,
+		options:  options,
+		limit:    req.Limit}, nil
 }
-func (d *departments) BatchGet(ctx context.Context, req *BatchGetDepartmentReq, options ...core.RequestOptionFunc) (*BatchGetDepartmentResp, error) {
-
+func (d *department) Children(ctx context.Context, req *ChildrenDepartmentReq, options ...core.RequestOptionFunc) (*ChildrenDepartmentResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,d.service.config, http.MethodPost,
-		"/open-apis/contact/v3/departments/batch_get", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &BatchGetDepartmentResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (d *departments) BatchParent(ctx context.Context, req *BatchParentDepartmentReq, options ...core.RequestOptionFunc) (*BatchParentDepartmentResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,d.service.config, http.MethodPost,
-		"/open-apis/contact/v3/departments/batch_parent", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &BatchParentDepartmentResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (d *departments) Children(ctx context.Context, req *ChildrenDepartmentReq, options ...core.RequestOptionFunc) (*ChildrenDepartmentResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,d.service.config, http.MethodGet,
+	rawResp, err := core.SendRequest(ctx, d.service.config, http.MethodGet,
 		"/open-apis/contact/v3/departments/:department_id/children", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &ChildrenDepartmentResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -168,24 +116,23 @@ func (d *departments) Children(ctx context.Context, req *ChildrenDepartmentReq, 
 	}
 	return resp, err
 }
-/**如果是分页查询，则添加迭代器函数**/
-func (d *departments) ChildrenDepartment(ctx context.Context, req *ChildrenDepartmentReq, options ...core.RequestOptionFunc) (*ChildrenDepartmentIterator, error) {
-   return &ChildrenDepartmentIterator{
-	  ctx:	  ctx,
-	  req:	  req,
-	  listFunc: d.Children,
-	  options:  options,
-	  limit: req.Limit}, nil
-}
-func (d *departments) Create(ctx context.Context, req *CreateDepartmentReq, options ...core.RequestOptionFunc) (*CreateDepartmentResp, error) {
 
+/**如果是分页查询，则添加迭代器函数**/
+func (d *department) ChildrenDepartment(ctx context.Context, req *ChildrenDepartmentReq, options ...core.RequestOptionFunc) (*ChildrenDepartmentIterator, error) {
+	return &ChildrenDepartmentIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: d.Children,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+func (d *department) Create(ctx context.Context, req *CreateDepartmentReq, options ...core.RequestOptionFunc) (*CreateDepartmentResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,d.service.config, http.MethodPost,
+	rawResp, err := core.SendRequest(ctx, d.service.config, http.MethodPost,
 		"/open-apis/contact/v3/departments", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &CreateDepartmentResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -194,15 +141,13 @@ func (d *departments) Create(ctx context.Context, req *CreateDepartmentReq, opti
 	}
 	return resp, err
 }
-func (d *departments) Delete(ctx context.Context, req *DeleteDepartmentReq, options ...core.RequestOptionFunc) (*DeleteDepartmentResp, error) {
-
+func (d *department) Delete(ctx context.Context, req *DeleteDepartmentReq, options ...core.RequestOptionFunc) (*DeleteDepartmentResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,d.service.config, http.MethodDelete,
+	rawResp, err := core.SendRequest(ctx, d.service.config, http.MethodDelete,
 		"/open-apis/contact/v3/departments/:department_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &DeleteDepartmentResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -211,15 +156,13 @@ func (d *departments) Delete(ctx context.Context, req *DeleteDepartmentReq, opti
 	}
 	return resp, err
 }
-func (d *departments) Get(ctx context.Context, req *GetDepartmentReq, options ...core.RequestOptionFunc) (*GetDepartmentResp, error) {
-
+func (d *department) Get(ctx context.Context, req *GetDepartmentReq, options ...core.RequestOptionFunc) (*GetDepartmentResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,d.service.config, http.MethodGet,
+	rawResp, err := core.SendRequest(ctx, d.service.config, http.MethodGet,
 		"/open-apis/contact/v3/departments/:department_id", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &GetDepartmentResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -228,15 +171,13 @@ func (d *departments) Get(ctx context.Context, req *GetDepartmentReq, options ..
 	}
 	return resp, err
 }
-func (d *departments) List(ctx context.Context, req *ListDepartmentReq, options ...core.RequestOptionFunc) (*ListDepartmentResp, error) {
-
+func (d *department) List(ctx context.Context, req *ListDepartmentReq, options ...core.RequestOptionFunc) (*ListDepartmentResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,d.service.config, http.MethodGet,
+	rawResp, err := core.SendRequest(ctx, d.service.config, http.MethodGet,
 		"/open-apis/contact/v3/departments", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &ListDepartmentResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -245,50 +186,23 @@ func (d *departments) List(ctx context.Context, req *ListDepartmentReq, options 
 	}
 	return resp, err
 }
+
 /**如果是分页查询，则添加迭代器函数**/
-func (d *departments) ListDepartment(ctx context.Context, req *ListDepartmentReq, options ...core.RequestOptionFunc) (*ListDepartmentIterator, error) {
-   return &ListDepartmentIterator{
-	  ctx:	  ctx,
-	  req:	  req,
-	  listFunc: d.List,
-	  options:  options,
-	  limit: req.Limit}, nil
+func (d *department) ListDepartment(ctx context.Context, req *ListDepartmentReq, options ...core.RequestOptionFunc) (*ListDepartmentIterator, error) {
+	return &ListDepartmentIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: d.List,
+		options:  options,
+		limit:    req.Limit}, nil
 }
-func (d *departments) ListChildren(ctx context.Context, req *ListChildrenDepartmentReq, options ...core.RequestOptionFunc) (*ListChildrenDepartmentResp, error) {
-
+func (d *department) Parent(ctx context.Context, req *ParentDepartmentReq, options ...core.RequestOptionFunc) (*ParentDepartmentResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,d.service.config, http.MethodGet,
-		"/open-apis/contact/v3/departments/list_children", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &ListChildrenDepartmentResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-/**如果是分页查询，则添加迭代器函数**/
-func (d *departments) ListChildrenDepartment(ctx context.Context, req *ListChildrenDepartmentReq, options ...core.RequestOptionFunc) (*ListChildrenDepartmentIterator, error) {
-   return &ListChildrenDepartmentIterator{
-	  ctx:	  ctx,
-	  req:	  req,
-	  listFunc: d.ListChildren,
-	  options:  options,
-	  limit: req.Limit}, nil
-}
-func (d *departments) Parent(ctx context.Context, req *ParentDepartmentReq, options ...core.RequestOptionFunc) (*ParentDepartmentResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,d.service.config, http.MethodGet,
+	rawResp, err := core.SendRequest(ctx, d.service.config, http.MethodGet,
 		"/open-apis/contact/v3/departments/parent", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &ParentDepartmentResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -297,24 +211,23 @@ func (d *departments) Parent(ctx context.Context, req *ParentDepartmentReq, opti
 	}
 	return resp, err
 }
-/**如果是分页查询，则添加迭代器函数**/
-func (d *departments) ParentDepartment(ctx context.Context, req *ParentDepartmentReq, options ...core.RequestOptionFunc) (*ParentDepartmentIterator, error) {
-   return &ParentDepartmentIterator{
-	  ctx:	  ctx,
-	  req:	  req,
-	  listFunc: d.Parent,
-	  options:  options,
-	  limit: req.Limit}, nil
-}
-func (d *departments) Patch(ctx context.Context, req *PatchDepartmentReq, options ...core.RequestOptionFunc) (*PatchDepartmentResp, error) {
 
+/**如果是分页查询，则添加迭代器函数**/
+func (d *department) ParentDepartment(ctx context.Context, req *ParentDepartmentReq, options ...core.RequestOptionFunc) (*ParentDepartmentIterator, error) {
+	return &ParentDepartmentIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: d.Parent,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+func (d *department) Patch(ctx context.Context, req *PatchDepartmentReq, options ...core.RequestOptionFunc) (*PatchDepartmentResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,d.service.config, http.MethodPatch,
+	rawResp, err := core.SendRequest(ctx, d.service.config, http.MethodPatch,
 		"/open-apis/contact/v3/departments/:department_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &PatchDepartmentResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -323,15 +236,13 @@ func (d *departments) Patch(ctx context.Context, req *PatchDepartmentReq, option
 	}
 	return resp, err
 }
-func (d *departments) Search(ctx context.Context, req *SearchDepartmentReq, options ...core.RequestOptionFunc) (*SearchDepartmentResp, error) {
-
+func (d *department) Search(ctx context.Context, req *SearchDepartmentReq, options ...core.RequestOptionFunc) (*SearchDepartmentResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,d.service.config, http.MethodPost,
+	rawResp, err := core.SendRequest(ctx, d.service.config, http.MethodPost,
 		"/open-apis/contact/v3/departments/search", []core.AccessTokenType{core.AccessTokenTypeUser}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &SearchDepartmentResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -340,24 +251,23 @@ func (d *departments) Search(ctx context.Context, req *SearchDepartmentReq, opti
 	}
 	return resp, err
 }
-/**如果是分页查询，则添加迭代器函数**/
-func (d *departments) SearchDepartment(ctx context.Context, req *SearchDepartmentReq, options ...core.RequestOptionFunc) (*SearchDepartmentIterator, error) {
-   return &SearchDepartmentIterator{
-	  ctx:	  ctx,
-	  req:	  req,
-	  listFunc: d.Search,
-	  options:  options,
-	  limit: req.Limit}, nil
-}
-func (d *departments) UnbindDepartmentChat(ctx context.Context, req *UnbindDepartmentChatDepartmentReq, options ...core.RequestOptionFunc) (*UnbindDepartmentChatDepartmentResp, error) {
 
+/**如果是分页查询，则添加迭代器函数**/
+func (d *department) SearchDepartment(ctx context.Context, req *SearchDepartmentReq, options ...core.RequestOptionFunc) (*SearchDepartmentIterator, error) {
+	return &SearchDepartmentIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: d.Search,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+func (d *department) UnbindDepartmentChat(ctx context.Context, req *UnbindDepartmentChatDepartmentReq, options ...core.RequestOptionFunc) (*UnbindDepartmentChatDepartmentResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,d.service.config, http.MethodPost,
+	rawResp, err := core.SendRequest(ctx, d.service.config, http.MethodPost,
 		"/open-apis/contact/v3/departments/unbind_department_chat", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &UnbindDepartmentChatDepartmentResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -366,15 +276,13 @@ func (d *departments) UnbindDepartmentChat(ctx context.Context, req *UnbindDepar
 	}
 	return resp, err
 }
-func (d *departments) Update(ctx context.Context, req *UpdateDepartmentReq, options ...core.RequestOptionFunc) (*UpdateDepartmentResp, error) {
-
+func (d *department) Update(ctx context.Context, req *UpdateDepartmentReq, options ...core.RequestOptionFunc) (*UpdateDepartmentResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,d.service.config, http.MethodPut,
+	rawResp, err := core.SendRequest(ctx, d.service.config, http.MethodPut,
 		"/open-apis/contact/v3/departments/:department_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &UpdateDepartmentResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -383,100 +291,13 @@ func (d *departments) Update(ctx context.Context, req *UpdateDepartmentReq, opti
 	}
 	return resp, err
 }
-func (d *departments) UpdateDepartmentId(ctx context.Context, req *UpdateDepartmentIdDepartmentReq, options ...core.RequestOptionFunc) (*UpdateDepartmentIdDepartmentResp, error) {
-
+func (e *employeeTypeEnum) Create(ctx context.Context, req *CreateEmployeeTypeEnumReq, options ...core.RequestOptionFunc) (*CreateEmployeeTypeEnumResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,d.service.config, http.MethodPatch,
-		"/open-apis/contact/v3/departments/:department_id/update_department_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &UpdateDepartmentIdDepartmentResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (d *departments) Users(ctx context.Context, req *UsersDepartmentReq, options ...core.RequestOptionFunc) (*UsersDepartmentResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,d.service.config, http.MethodPost,
-		"/open-apis/contact/v3/departments/users", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &UsersDepartmentResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (d *departmentUnits) Create(ctx context.Context, req *CreateDepartmentUnitReq, options ...core.RequestOptionFunc) (*CreateDepartmentUnitResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,d.service.config, http.MethodPost,
-		"/open-apis/contact/v3/department_units", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &CreateDepartmentUnitResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (d *departmentUnits) Delete(ctx context.Context, req *DeleteDepartmentUnitReq, options ...core.RequestOptionFunc) (*DeleteDepartmentUnitResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,d.service.config, http.MethodDelete,
-		"/open-apis/contact/v3/department_units/:unit_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &DeleteDepartmentUnitResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (d *departmentUnits) Patch(ctx context.Context, req *PatchDepartmentUnitReq, options ...core.RequestOptionFunc) (*PatchDepartmentUnitResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,d.service.config, http.MethodPatch,
-		"/open-apis/contact/v3/department_units/:unit_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &PatchDepartmentUnitResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (e *employeeTypeEnums) Create(ctx context.Context, req *CreateEmployeeTypeEnumReq, options ...core.RequestOptionFunc) (*CreateEmployeeTypeEnumResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,e.service.config, http.MethodPost,
+	rawResp, err := core.SendRequest(ctx, e.service.config, http.MethodPost,
 		"/open-apis/contact/v3/employee_type_enums", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &CreateEmployeeTypeEnumResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -485,15 +306,13 @@ func (e *employeeTypeEnums) Create(ctx context.Context, req *CreateEmployeeTypeE
 	}
 	return resp, err
 }
-func (e *employeeTypeEnums) Delete(ctx context.Context, req *DeleteEmployeeTypeEnumReq, options ...core.RequestOptionFunc) (*DeleteEmployeeTypeEnumResp, error) {
-
+func (e *employeeTypeEnum) Delete(ctx context.Context, req *DeleteEmployeeTypeEnumReq, options ...core.RequestOptionFunc) (*DeleteEmployeeTypeEnumResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,e.service.config, http.MethodDelete,
+	rawResp, err := core.SendRequest(ctx, e.service.config, http.MethodDelete,
 		"/open-apis/contact/v3/employee_type_enums/:enum_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &DeleteEmployeeTypeEnumResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -502,15 +321,13 @@ func (e *employeeTypeEnums) Delete(ctx context.Context, req *DeleteEmployeeTypeE
 	}
 	return resp, err
 }
-func (e *employeeTypeEnums) List(ctx context.Context, req *ListEmployeeTypeEnumReq, options ...core.RequestOptionFunc) (*ListEmployeeTypeEnumResp, error) {
-
+func (e *employeeTypeEnum) List(ctx context.Context, req *ListEmployeeTypeEnumReq, options ...core.RequestOptionFunc) (*ListEmployeeTypeEnumResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,e.service.config, http.MethodGet,
+	rawResp, err := core.SendRequest(ctx, e.service.config, http.MethodGet,
 		"/open-apis/contact/v3/employee_type_enums", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &ListEmployeeTypeEnumResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -519,24 +336,23 @@ func (e *employeeTypeEnums) List(ctx context.Context, req *ListEmployeeTypeEnumR
 	}
 	return resp, err
 }
-/**如果是分页查询，则添加迭代器函数**/
-func (e *employeeTypeEnums) ListEmployeeTypeEnum(ctx context.Context, req *ListEmployeeTypeEnumReq, options ...core.RequestOptionFunc) (*ListEmployeeTypeEnumIterator, error) {
-   return &ListEmployeeTypeEnumIterator{
-	  ctx:	  ctx,
-	  req:	  req,
-	  listFunc: e.List,
-	  options:  options,
-	  limit: req.Limit}, nil
-}
-func (e *employeeTypeEnums) Update(ctx context.Context, req *UpdateEmployeeTypeEnumReq, options ...core.RequestOptionFunc) (*UpdateEmployeeTypeEnumResp, error) {
 
+/**如果是分页查询，则添加迭代器函数**/
+func (e *employeeTypeEnum) ListEmployeeTypeEnum(ctx context.Context, req *ListEmployeeTypeEnumReq, options ...core.RequestOptionFunc) (*ListEmployeeTypeEnumIterator, error) {
+	return &ListEmployeeTypeEnumIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: e.List,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+func (e *employeeTypeEnum) Update(ctx context.Context, req *UpdateEmployeeTypeEnumReq, options ...core.RequestOptionFunc) (*UpdateEmployeeTypeEnumResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,e.service.config, http.MethodPut,
+	rawResp, err := core.SendRequest(ctx, e.service.config, http.MethodPut,
 		"/open-apis/contact/v3/employee_type_enums/:enum_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &UpdateEmployeeTypeEnumResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -546,14 +362,12 @@ func (e *employeeTypeEnums) Update(ctx context.Context, req *UpdateEmployeeTypeE
 	return resp, err
 }
 func (g *group) Create(ctx context.Context, req *CreateGroupReq, options ...core.RequestOptionFunc) (*CreateGroupResp, error) {
-
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,g.service.config, http.MethodPost,
+	rawResp, err := core.SendRequest(ctx, g.service.config, http.MethodPost,
 		"/open-apis/contact/v3/group", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &CreateGroupResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -563,14 +377,12 @@ func (g *group) Create(ctx context.Context, req *CreateGroupReq, options ...core
 	return resp, err
 }
 func (g *group) Delete(ctx context.Context, req *DeleteGroupReq, options ...core.RequestOptionFunc) (*DeleteGroupResp, error) {
-
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,g.service.config, http.MethodDelete,
+	rawResp, err := core.SendRequest(ctx, g.service.config, http.MethodDelete,
 		"/open-apis/contact/v3/group/:group_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &DeleteGroupResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -580,14 +392,12 @@ func (g *group) Delete(ctx context.Context, req *DeleteGroupReq, options ...core
 	return resp, err
 }
 func (g *group) Get(ctx context.Context, req *GetGroupReq, options ...core.RequestOptionFunc) (*GetGroupResp, error) {
-
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,g.service.config, http.MethodGet,
+	rawResp, err := core.SendRequest(ctx, g.service.config, http.MethodGet,
 		"/open-apis/contact/v3/group/:group_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &GetGroupResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -597,14 +407,12 @@ func (g *group) Get(ctx context.Context, req *GetGroupReq, options ...core.Reque
 	return resp, err
 }
 func (g *group) MemberBelong(ctx context.Context, req *MemberBelongGroupReq, options ...core.RequestOptionFunc) (*MemberBelongGroupResp, error) {
-
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,g.service.config, http.MethodGet,
+	rawResp, err := core.SendRequest(ctx, g.service.config, http.MethodGet,
 		"/open-apis/contact/v3/group/member_belong", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &MemberBelongGroupResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -614,14 +422,12 @@ func (g *group) MemberBelong(ctx context.Context, req *MemberBelongGroupReq, opt
 	return resp, err
 }
 func (g *group) Patch(ctx context.Context, req *PatchGroupReq, options ...core.RequestOptionFunc) (*PatchGroupResp, error) {
-
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,g.service.config, http.MethodPatch,
+	rawResp, err := core.SendRequest(ctx, g.service.config, http.MethodPatch,
 		"/open-apis/contact/v3/group/:group_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &PatchGroupResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -631,14 +437,12 @@ func (g *group) Patch(ctx context.Context, req *PatchGroupReq, options ...core.R
 	return resp, err
 }
 func (g *group) Simplelist(ctx context.Context, req *SimplelistGroupReq, options ...core.RequestOptionFunc) (*SimplelistGroupResp, error) {
-
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,g.service.config, http.MethodGet,
+	rawResp, err := core.SendRequest(ctx, g.service.config, http.MethodGet,
 		"/open-apis/contact/v3/group/simplelist", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &SimplelistGroupResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -647,24 +451,23 @@ func (g *group) Simplelist(ctx context.Context, req *SimplelistGroupReq, options
 	}
 	return resp, err
 }
+
 /**如果是分页查询，则添加迭代器函数**/
 func (g *group) SimplelistGroup(ctx context.Context, req *SimplelistGroupReq, options ...core.RequestOptionFunc) (*SimplelistGroupIterator, error) {
-   return &SimplelistGroupIterator{
-	  ctx:	  ctx,
-	  req:	  req,
-	  listFunc: g.Simplelist,
-	  options:  options,
-	  limit: req.Limit}, nil
+	return &SimplelistGroupIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: g.Simplelist,
+		options:  options,
+		limit:    req.Limit}, nil
 }
 func (g *groupMember) Add(ctx context.Context, req *AddGroupMemberReq, options ...core.RequestOptionFunc) (*AddGroupMemberResp, error) {
-
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,g.service.config, http.MethodPost,
+	rawResp, err := core.SendRequest(ctx, g.service.config, http.MethodPost,
 		"/open-apis/contact/v3/group/:group_id/member/add", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &AddGroupMemberResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -674,14 +477,12 @@ func (g *groupMember) Add(ctx context.Context, req *AddGroupMemberReq, options .
 	return resp, err
 }
 func (g *groupMember) BatchAdd(ctx context.Context, req *BatchAddGroupMemberReq, options ...core.RequestOptionFunc) (*BatchAddGroupMemberResp, error) {
-
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,g.service.config, http.MethodPost,
+	rawResp, err := core.SendRequest(ctx, g.service.config, http.MethodPost,
 		"/open-apis/contact/v3/group/:group_id/member/batch_add", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &BatchAddGroupMemberResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -691,14 +492,12 @@ func (g *groupMember) BatchAdd(ctx context.Context, req *BatchAddGroupMemberReq,
 	return resp, err
 }
 func (g *groupMember) BatchRemove(ctx context.Context, req *BatchRemoveGroupMemberReq, options ...core.RequestOptionFunc) (*BatchRemoveGroupMemberResp, error) {
-
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,g.service.config, http.MethodPost,
+	rawResp, err := core.SendRequest(ctx, g.service.config, http.MethodPost,
 		"/open-apis/contact/v3/group/:group_id/member/batch_remove", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &BatchRemoveGroupMemberResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -708,14 +507,12 @@ func (g *groupMember) BatchRemove(ctx context.Context, req *BatchRemoveGroupMemb
 	return resp, err
 }
 func (g *groupMember) Remove(ctx context.Context, req *RemoveGroupMemberReq, options ...core.RequestOptionFunc) (*RemoveGroupMemberResp, error) {
-
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,g.service.config, http.MethodPost,
+	rawResp, err := core.SendRequest(ctx, g.service.config, http.MethodPost,
 		"/open-apis/contact/v3/group/:group_id/member/remove", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &RemoveGroupMemberResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -725,14 +522,12 @@ func (g *groupMember) Remove(ctx context.Context, req *RemoveGroupMemberReq, opt
 	return resp, err
 }
 func (g *groupMember) Simplelist(ctx context.Context, req *SimplelistGroupMemberReq, options ...core.RequestOptionFunc) (*SimplelistGroupMemberResp, error) {
-
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,g.service.config, http.MethodGet,
+	rawResp, err := core.SendRequest(ctx, g.service.config, http.MethodGet,
 		"/open-apis/contact/v3/group/:group_id/member/simplelist", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &SimplelistGroupMemberResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -741,15 +536,13 @@ func (g *groupMember) Simplelist(ctx context.Context, req *SimplelistGroupMember
 	}
 	return resp, err
 }
-func (s *scopes) List(ctx context.Context, req *ListScopeReq, options ...core.RequestOptionFunc) (*ListScopeResp, error) {
-
+func (s *scope) List(ctx context.Context, req *ListScopeReq, options ...core.RequestOptionFunc) (*ListScopeResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,s.service.config, http.MethodGet,
+	rawResp, err := core.SendRequest(ctx, s.service.config, http.MethodGet,
 		"/open-apis/contact/v3/scopes", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &ListScopeResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -759,14 +552,12 @@ func (s *scopes) List(ctx context.Context, req *ListScopeReq, options ...core.Re
 	return resp, err
 }
 func (u *unit) BindDepartment(ctx context.Context, req *BindDepartmentUnitReq, options ...core.RequestOptionFunc) (*BindDepartmentUnitResp, error) {
-
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,u.service.config, http.MethodPost,
+	rawResp, err := core.SendRequest(ctx, u.service.config, http.MethodPost,
 		"/open-apis/contact/v3/unit/bind_department", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &BindDepartmentUnitResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -776,14 +567,12 @@ func (u *unit) BindDepartment(ctx context.Context, req *BindDepartmentUnitReq, o
 	return resp, err
 }
 func (u *unit) Create(ctx context.Context, req *CreateUnitReq, options ...core.RequestOptionFunc) (*CreateUnitResp, error) {
-
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,u.service.config, http.MethodPost,
+	rawResp, err := core.SendRequest(ctx, u.service.config, http.MethodPost,
 		"/open-apis/contact/v3/unit", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &CreateUnitResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -793,14 +582,12 @@ func (u *unit) Create(ctx context.Context, req *CreateUnitReq, options ...core.R
 	return resp, err
 }
 func (u *unit) Delete(ctx context.Context, req *DeleteUnitReq, options ...core.RequestOptionFunc) (*DeleteUnitResp, error) {
-
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,u.service.config, http.MethodDelete,
+	rawResp, err := core.SendRequest(ctx, u.service.config, http.MethodDelete,
 		"/open-apis/contact/v3/unit/:unit_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &DeleteUnitResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -810,14 +597,12 @@ func (u *unit) Delete(ctx context.Context, req *DeleteUnitReq, options ...core.R
 	return resp, err
 }
 func (u *unit) Get(ctx context.Context, req *GetUnitReq, options ...core.RequestOptionFunc) (*GetUnitResp, error) {
-
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,u.service.config, http.MethodGet,
+	rawResp, err := core.SendRequest(ctx, u.service.config, http.MethodGet,
 		"/open-apis/contact/v3/unit/:unit_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &GetUnitResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -827,14 +612,12 @@ func (u *unit) Get(ctx context.Context, req *GetUnitReq, options ...core.Request
 	return resp, err
 }
 func (u *unit) List(ctx context.Context, req *ListUnitReq, options ...core.RequestOptionFunc) (*ListUnitResp, error) {
-
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,u.service.config, http.MethodGet,
+	rawResp, err := core.SendRequest(ctx, u.service.config, http.MethodGet,
 		"/open-apis/contact/v3/unit", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &ListUnitResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -844,14 +627,12 @@ func (u *unit) List(ctx context.Context, req *ListUnitReq, options ...core.Reque
 	return resp, err
 }
 func (u *unit) ListDepartment(ctx context.Context, req *ListDepartmentUnitReq, options ...core.RequestOptionFunc) (*ListDepartmentUnitResp, error) {
-
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,u.service.config, http.MethodGet,
+	rawResp, err := core.SendRequest(ctx, u.service.config, http.MethodGet,
 		"/open-apis/contact/v3/unit/list_department", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &ListDepartmentUnitResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -861,14 +642,12 @@ func (u *unit) ListDepartment(ctx context.Context, req *ListDepartmentUnitReq, o
 	return resp, err
 }
 func (u *unit) Patch(ctx context.Context, req *PatchUnitReq, options ...core.RequestOptionFunc) (*PatchUnitResp, error) {
-
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,u.service.config, http.MethodPatch,
+	rawResp, err := core.SendRequest(ctx, u.service.config, http.MethodPatch,
 		"/open-apis/contact/v3/unit/:unit_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &PatchUnitResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -878,14 +657,12 @@ func (u *unit) Patch(ctx context.Context, req *PatchUnitReq, options ...core.Req
 	return resp, err
 }
 func (u *unit) UnbindDepartment(ctx context.Context, req *UnbindDepartmentUnitReq, options ...core.RequestOptionFunc) (*UnbindDepartmentUnitResp, error) {
-
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,u.service.config, http.MethodPost,
+	rawResp, err := core.SendRequest(ctx, u.service.config, http.MethodPost,
 		"/open-apis/contact/v3/unit/unbind_department", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &UnbindDepartmentUnitResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -894,15 +671,13 @@ func (u *unit) UnbindDepartment(ctx context.Context, req *UnbindDepartmentUnitRe
 	}
 	return resp, err
 }
-func (u *users) BatchGetId(ctx context.Context, req *BatchGetIdUserReq, options ...core.RequestOptionFunc) (*BatchGetIdUserResp, error) {
-
+func (u *user) BatchGetId(ctx context.Context, req *BatchGetIdUserReq, options ...core.RequestOptionFunc) (*BatchGetIdUserResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,u.service.config, http.MethodPost,
+	rawResp, err := core.SendRequest(ctx, u.service.config, http.MethodPost,
 		"/open-apis/contact/v3/users/batch_get_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &BatchGetIdUserResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -911,15 +686,13 @@ func (u *users) BatchGetId(ctx context.Context, req *BatchGetIdUserReq, options 
 	}
 	return resp, err
 }
-func (u *users) Create(ctx context.Context, req *CreateUserReq, options ...core.RequestOptionFunc) (*CreateUserResp, error) {
-
+func (u *user) Create(ctx context.Context, req *CreateUserReq, options ...core.RequestOptionFunc) (*CreateUserResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,u.service.config, http.MethodPost,
+	rawResp, err := core.SendRequest(ctx, u.service.config, http.MethodPost,
 		"/open-apis/contact/v3/users", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &CreateUserResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -928,15 +701,13 @@ func (u *users) Create(ctx context.Context, req *CreateUserReq, options ...core.
 	}
 	return resp, err
 }
-func (u *users) Delete(ctx context.Context, req *DeleteUserReq, options ...core.RequestOptionFunc) (*DeleteUserResp, error) {
-
+func (u *user) Delete(ctx context.Context, req *DeleteUserReq, options ...core.RequestOptionFunc) (*DeleteUserResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,u.service.config, http.MethodDelete,
+	rawResp, err := core.SendRequest(ctx, u.service.config, http.MethodDelete,
 		"/open-apis/contact/v3/users/:user_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &DeleteUserResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -945,15 +716,13 @@ func (u *users) Delete(ctx context.Context, req *DeleteUserReq, options ...core.
 	}
 	return resp, err
 }
-func (u *users) FindByDepartment(ctx context.Context, req *FindByDepartmentUserReq, options ...core.RequestOptionFunc) (*FindByDepartmentUserResp, error) {
-
+func (u *user) FindByDepartment(ctx context.Context, req *FindByDepartmentUserReq, options ...core.RequestOptionFunc) (*FindByDepartmentUserResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,u.service.config, http.MethodGet,
+	rawResp, err := core.SendRequest(ctx, u.service.config, http.MethodGet,
 		"/open-apis/contact/v3/users/find_by_department", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &FindByDepartmentUserResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -962,24 +731,23 @@ func (u *users) FindByDepartment(ctx context.Context, req *FindByDepartmentUserR
 	}
 	return resp, err
 }
-/**如果是分页查询，则添加迭代器函数**/
-func (u *users) FindByDepartmentUser(ctx context.Context, req *FindByDepartmentUserReq, options ...core.RequestOptionFunc) (*FindByDepartmentUserIterator, error) {
-   return &FindByDepartmentUserIterator{
-	  ctx:	  ctx,
-	  req:	  req,
-	  listFunc: u.FindByDepartment,
-	  options:  options,
-	  limit: req.Limit}, nil
-}
-func (u *users) Get(ctx context.Context, req *GetUserReq, options ...core.RequestOptionFunc) (*GetUserResp, error) {
 
+/**如果是分页查询，则添加迭代器函数**/
+func (u *user) FindByDepartmentUser(ctx context.Context, req *FindByDepartmentUserReq, options ...core.RequestOptionFunc) (*FindByDepartmentUserIterator, error) {
+	return &FindByDepartmentUserIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: u.FindByDepartment,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+func (u *user) Get(ctx context.Context, req *GetUserReq, options ...core.RequestOptionFunc) (*GetUserResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,u.service.config, http.MethodGet,
+	rawResp, err := core.SendRequest(ctx, u.service.config, http.MethodGet,
 		"/open-apis/contact/v3/users/:user_id", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &GetUserResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -988,15 +756,13 @@ func (u *users) Get(ctx context.Context, req *GetUserReq, options ...core.Reques
 	}
 	return resp, err
 }
-func (u *users) List(ctx context.Context, req *ListUserReq, options ...core.RequestOptionFunc) (*ListUserResp, error) {
-
+func (u *user) List(ctx context.Context, req *ListUserReq, options ...core.RequestOptionFunc) (*ListUserResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,u.service.config, http.MethodGet,
+	rawResp, err := core.SendRequest(ctx, u.service.config, http.MethodGet,
 		"/open-apis/contact/v3/users", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &ListUserResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -1005,24 +771,23 @@ func (u *users) List(ctx context.Context, req *ListUserReq, options ...core.Requ
 	}
 	return resp, err
 }
-/**如果是分页查询，则添加迭代器函数**/
-func (u *users) ListUser(ctx context.Context, req *ListUserReq, options ...core.RequestOptionFunc) (*ListUserIterator, error) {
-   return &ListUserIterator{
-	  ctx:	  ctx,
-	  req:	  req,
-	  listFunc: u.List,
-	  options:  options,
-	  limit: req.Limit}, nil
-}
-func (u *users) Patch(ctx context.Context, req *PatchUserReq, options ...core.RequestOptionFunc) (*PatchUserResp, error) {
 
+/**如果是分页查询，则添加迭代器函数**/
+func (u *user) ListUser(ctx context.Context, req *ListUserReq, options ...core.RequestOptionFunc) (*ListUserIterator, error) {
+	return &ListUserIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: u.List,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+func (u *user) Patch(ctx context.Context, req *PatchUserReq, options ...core.RequestOptionFunc) (*PatchUserResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,u.service.config, http.MethodPatch,
+	rawResp, err := core.SendRequest(ctx, u.service.config, http.MethodPatch,
 		"/open-apis/contact/v3/users/:user_id", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &PatchUserResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -1031,15 +796,13 @@ func (u *users) Patch(ctx context.Context, req *PatchUserReq, options ...core.Re
 	}
 	return resp, err
 }
-func (u *users) Update(ctx context.Context, req *UpdateUserReq, options ...core.RequestOptionFunc) (*UpdateUserResp, error) {
-
+func (u *user) Update(ctx context.Context, req *UpdateUserReq, options ...core.RequestOptionFunc) (*UpdateUserResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,u.service.config, http.MethodPut,
+	rawResp, err := core.SendRequest(ctx, u.service.config, http.MethodPut,
 		"/open-apis/contact/v3/users/:user_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &UpdateUserResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -1047,192 +810,4 @@ func (u *users) Update(ctx context.Context, req *UpdateUserReq, options ...core.
 		return nil, err
 	}
 	return resp, err
-}
-func (u *users) UpdateUserId(ctx context.Context, req *UpdateUserIdUserReq, options ...core.RequestOptionFunc) (*UpdateUserIdUserResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,u.service.config, http.MethodPatch,
-		"/open-apis/contact/v3/users/:user_id/update_user_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &UpdateUserIdUserResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (u *userGroups) Create(ctx context.Context, req *CreateUserGroupReq, options ...core.RequestOptionFunc) (*CreateUserGroupResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,u.service.config, http.MethodPost,
-		"/open-apis/contact/v3/user_groups", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &CreateUserGroupResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (u *userGroups) Delete(ctx context.Context, req *DeleteUserGroupReq, options ...core.RequestOptionFunc) (*DeleteUserGroupResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,u.service.config, http.MethodDelete,
-		"/open-apis/contact/v3/user_groups/:user_group_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &DeleteUserGroupResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (u *userGroups) Get(ctx context.Context, req *GetUserGroupReq, options ...core.RequestOptionFunc) (*GetUserGroupResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,u.service.config, http.MethodGet,
-		"/open-apis/contact/v3/user_groups/:user_group_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &GetUserGroupResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (u *userGroups) List(ctx context.Context, req *ListUserGroupReq, options ...core.RequestOptionFunc) (*ListUserGroupResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,u.service.config, http.MethodGet,
-		"/open-apis/contact/v3/user_groups", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &ListUserGroupResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-/**如果是分页查询，则添加迭代器函数**/
-func (u *userGroups) ListUserGroup(ctx context.Context, req *ListUserGroupReq, options ...core.RequestOptionFunc) (*ListUserGroupIterator, error) {
-   return &ListUserGroupIterator{
-	  ctx:	  ctx,
-	  req:	  req,
-	  listFunc: u.List,
-	  options:  options,
-	  limit: req.Limit}, nil
-}
-func (u *userGroups) Patch(ctx context.Context, req *PatchUserGroupReq, options ...core.RequestOptionFunc) (*PatchUserGroupResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,u.service.config, http.MethodPatch,
-		"/open-apis/contact/v3/user_groups/:user_group_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &PatchUserGroupResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (u *userGroups) UpdateUserGroupId(ctx context.Context, req *UpdateUserGroupIdUserGroupReq, options ...core.RequestOptionFunc) (*UpdateUserGroupIdUserGroupResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,u.service.config, http.MethodPatch,
-		"/open-apis/contact/v3/user_groups/:user_group_id/update_user_group_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &UpdateUserGroupIdUserGroupResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (u *userGroupMembers) Create(ctx context.Context, req *CreateUserGroupMemberReq, options ...core.RequestOptionFunc) (*CreateUserGroupMemberResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,u.service.config, http.MethodPost,
-		"/open-apis/contact/v3/user_groups/:user_group_id/members", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &CreateUserGroupMemberResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (u *userGroupMembers) Delete(ctx context.Context, req *DeleteUserGroupMemberReq, options ...core.RequestOptionFunc) (*DeleteUserGroupMemberResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,u.service.config, http.MethodDelete,
-		"/open-apis/contact/v3/user_groups/:user_group_id/members/:user_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &DeleteUserGroupMemberResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (u *userGroupMembers) List(ctx context.Context, req *ListUserGroupMemberReq, options ...core.RequestOptionFunc) (*ListUserGroupMemberResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,u.service.config, http.MethodGet,
-		"/open-apis/contact/v3/user_groups/:user_group_id/members", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &ListUserGroupMemberResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-/**如果是分页查询，则添加迭代器函数**/
-func (u *userGroupMembers) ListUserGroupMember(ctx context.Context, req *ListUserGroupMemberReq, options ...core.RequestOptionFunc) (*ListUserGroupMemberIterator, error) {
-   return &ListUserGroupMemberIterator{
-	  ctx:	  ctx,
-	  req:	  req,
-	  listFunc: u.List,
-	  options:  options,
-	  limit: req.Limit}, nil
 }

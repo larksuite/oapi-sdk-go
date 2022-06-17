@@ -3,147 +3,139 @@ package sheets
 
 import (
 	"github.com/feishu/oapi-sdk-go/core"
-
 )
 
 /**生成枚举值 **/
 
-
-
 /**生成数据类型 **/
 
 type Condition struct {
-	FilterType  *string `json:"filter_type,omitempty"`
-	CompareType  *string `json:"compare_type,omitempty"`
-	Expected  []string `json:"expected,omitempty"`
+	FilterType  *string  `json:"filter_type,omitempty"`
+	CompareType *string  `json:"compare_type,omitempty"`
+	Expected    []string `json:"expected,omitempty"`
 }
 
 type CreateSheetFilter struct {
-	Range  *string `json:"range,omitempty"`
-	Col  *string `json:"col,omitempty"`
-	Condition  *Condition `json:"condition,omitempty"`
+	Range     *string    `json:"range,omitempty"`
+	Col       *string    `json:"col,omitempty"`
+	Condition *Condition `json:"condition,omitempty"`
 }
 
 type Dimension struct {
-	MajorDimension  *string `json:"major_dimension,omitempty"`
-	StartIndex  *int `json:"start_index,omitempty"`
-	EndIndex  *int `json:"end_index,omitempty"`
+	MajorDimension *string `json:"major_dimension,omitempty"`
+	StartIndex     *int    `json:"start_index,omitempty"`
+	EndIndex       *int    `json:"end_index,omitempty"`
 }
 
 type FilterInfo struct {
-	Col  *string `json:"col,omitempty"`
-	Conditions  []*Condition `json:"conditions,omitempty"`
+	Col        *string      `json:"col,omitempty"`
+	Conditions []*Condition `json:"conditions,omitempty"`
 }
 
 type FilterView struct {
-	FilterViewId  *string `json:"filter_view_id,omitempty"`
-	FilterViewName  *string `json:"filter_view_name,omitempty"`
-	Range  *string `json:"range,omitempty"`
+	FilterViewId   *string `json:"filter_view_id,omitempty"`
+	FilterViewName *string `json:"filter_view_name,omitempty"`
+	Range          *string `json:"range,omitempty"`
 }
 
 type FilterViewCondition struct {
-	ConditionId  *string `json:"condition_id,omitempty"`
-	FilterType  *string `json:"filter_type,omitempty"`
-	CompareType  *string `json:"compare_type,omitempty"`
-	Expected  []string `json:"expected,omitempty"`
+	ConditionId *string  `json:"condition_id,omitempty"`
+	FilterType  *string  `json:"filter_type,omitempty"`
+	CompareType *string  `json:"compare_type,omitempty"`
+	Expected    []string `json:"expected,omitempty"`
 }
 
 type Find struct {
-	FindCondition  *FindCondition `json:"find_condition,omitempty"`
-	Find  *string `json:"find,omitempty"`
+	FindCondition *FindCondition `json:"find_condition,omitempty"`
+	Find          *string        `json:"find,omitempty"`
 }
 
 type FindCondition struct {
-	Range  *string `json:"range,omitempty"`
-	MatchCase  *bool `json:"match_case,omitempty"`
-	MatchEntireCell  *bool `json:"match_entire_cell,omitempty"`
-	SearchByRegex  *bool `json:"search_by_regex,omitempty"`
-	IncludeFormulas  *bool `json:"include_formulas,omitempty"`
+	Range           *string `json:"range,omitempty"`
+	MatchCase       *bool   `json:"match_case,omitempty"`
+	MatchEntireCell *bool   `json:"match_entire_cell,omitempty"`
+	SearchByRegex   *bool   `json:"search_by_regex,omitempty"`
+	IncludeFormulas *bool   `json:"include_formulas,omitempty"`
 }
 
 type FindReplaceResult struct {
-	MatchedCells  []string `json:"matched_cells,omitempty"`
-	MatchedFormulaCells  []string `json:"matched_formula_cells,omitempty"`
-	RowsCount  *int `json:"rows_count,omitempty"`
+	MatchedCells        []string `json:"matched_cells,omitempty"`
+	MatchedFormulaCells []string `json:"matched_formula_cells,omitempty"`
+	RowsCount           *int     `json:"rows_count,omitempty"`
 }
 
 type FloatImage struct {
-	FloatImageId  *string `json:"float_image_id,omitempty"`
-	FloatImageToken  *string `json:"float_image_token,omitempty"`
-	Range  *string `json:"range,omitempty"`
-	Width  *float64 `json:"width,omitempty"`
-	Height  *float64 `json:"height,omitempty"`
-	OffsetX  *float64 `json:"offset_x,omitempty"`
-	OffsetY  *float64 `json:"offset_y,omitempty"`
+	FloatImageId    *string  `json:"float_image_id,omitempty"`
+	FloatImageToken *string  `json:"float_image_token,omitempty"`
+	Range           *string  `json:"range,omitempty"`
+	Width           *float64 `json:"width,omitempty"`
+	Height          *float64 `json:"height,omitempty"`
+	OffsetX         *float64 `json:"offset_x,omitempty"`
+	OffsetY         *float64 `json:"offset_y,omitempty"`
 }
 
 type MoveDimension struct {
-	Source  *Dimension `json:"source,omitempty"`
-	DestinationIndex  *int `json:"destination_index,omitempty"`
+	Source           *Dimension `json:"source,omitempty"`
+	DestinationIndex *int       `json:"destination_index,omitempty"`
 }
 
 type Replace struct {
-	FindCondition  *FindCondition `json:"find_condition,omitempty"`
-	Find  *string `json:"find,omitempty"`
-	Replacement  *string `json:"replacement,omitempty"`
+	FindCondition *FindCondition `json:"find_condition,omitempty"`
+	Find          *string        `json:"find,omitempty"`
+	Replacement   *string        `json:"replacement,omitempty"`
 }
 
 type SheetFilterInfo struct {
-	Range  *string `json:"range,omitempty"`
-	FilteredOutRows  []int `json:"filtered_out_rows,omitempty"`
-	FilterInfos  []*FilterInfo `json:"filter_infos,omitempty"`
+	Range           *string       `json:"range,omitempty"`
+	FilteredOutRows []int         `json:"filtered_out_rows,omitempty"`
+	FilterInfos     []*FilterInfo `json:"filter_infos,omitempty"`
 }
 
 type Spreadsheet struct {
-	Title  *string `json:"title,omitempty"`
-	FolderToken  *string `json:"folder_token,omitempty"`
-	Url  *string `json:"url,omitempty"`
-	SpreadsheetToken  *string `json:"spreadsheet_token,omitempty"`
+	Title            *string `json:"title,omitempty"`
+	FolderToken      *string `json:"folder_token,omitempty"`
+	Url              *string `json:"url,omitempty"`
+	SpreadsheetToken *string `json:"spreadsheet_token,omitempty"`
 }
 
 type UpdateSheetFilter struct {
-	Col  *string `json:"col,omitempty"`
-	Condition  *Condition `json:"condition,omitempty"`
+	Col       *string    `json:"col,omitempty"`
+	Condition *Condition `json:"condition,omitempty"`
 }
-
 
 /**生成请求和响应结果类型，以及请求对象的Builder构造器 **/
 
-
 /*1.4 生成请求的builder结构体*/
 type CreateSpreadsheetReqBuilder struct {
-	spreadsheet *Spreadsheet
+	spreadsheet     *Spreadsheet
 	spreadsheetFlag bool
-
 }
 
 // 生成请求的New构造器
-func NewCreateSpreadsheetReqBuilder() * CreateSpreadsheetReqBuilder{
-   builder := &CreateSpreadsheetReqBuilder{}
-   return builder
+func NewCreateSpreadsheetReqBuilder() *CreateSpreadsheetReqBuilder {
+	builder := &CreateSpreadsheetReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * CreateSpreadsheetReqBuilder) Spreadsheet(spreadsheet *Spreadsheet) *CreateSpreadsheetReqBuilder  {
-  builder.spreadsheet = spreadsheet
-  builder.spreadsheetFlag = true
-  return builder
+func (builder *CreateSpreadsheetReqBuilder) Spreadsheet(spreadsheet *Spreadsheet) *CreateSpreadsheetReqBuilder {
+	builder.spreadsheet = spreadsheet
+	builder.spreadsheetFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * CreateSpreadsheetReqBuilder ) Build() *CreateSpreadsheetReq {
-   req := &CreateSpreadsheetReq{}
-   return req
+func (builder *CreateSpreadsheetReqBuilder) Build() *CreateSpreadsheetReq {
+	req := &CreateSpreadsheetReq{}
+	return req
 }
-
 
 type CreateSpreadsheetReq struct {
 	Spreadsheet *Spreadsheet `body:""`
-
 }
 
 type CreateSpreadsheetRespData struct {
-	Spreadsheet  *Spreadsheet `json:"spreadsheet,omitempty"`
+	Spreadsheet *Spreadsheet `json:"spreadsheet,omitempty"`
 }
 
 type CreateSpreadsheetResp struct {
@@ -156,63 +148,59 @@ func (resp *CreateSpreadsheetResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type FindSpreadsheetSheetReqBuilder struct {
-	spreadsheetToken  string
-	spreadsheetTokenFlag  bool
-	sheetId  string
-	sheetIdFlag  bool
-	find *Find
-	findFlag bool
-
+	spreadsheetToken     string
+	spreadsheetTokenFlag bool
+	sheetId              string
+	sheetIdFlag          bool
+	find                 *Find
+	findFlag             bool
 }
 
 // 生成请求的New构造器
-func NewFindSpreadsheetSheetReqBuilder() * FindSpreadsheetSheetReqBuilder{
-   builder := &FindSpreadsheetSheetReqBuilder{}
-   return builder
+func NewFindSpreadsheetSheetReqBuilder() *FindSpreadsheetSheetReqBuilder {
+	builder := &FindSpreadsheetSheetReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * FindSpreadsheetSheetReqBuilder) SpreadsheetToken(spreadsheetToken string) *FindSpreadsheetSheetReqBuilder  {
-  builder.spreadsheetToken = spreadsheetToken
-  builder.spreadsheetTokenFlag = true
-  return builder
+func (builder *FindSpreadsheetSheetReqBuilder) SpreadsheetToken(spreadsheetToken string) *FindSpreadsheetSheetReqBuilder {
+	builder.spreadsheetToken = spreadsheetToken
+	builder.spreadsheetTokenFlag = true
+	return builder
 }
-func (builder * FindSpreadsheetSheetReqBuilder) SheetId(sheetId string) *FindSpreadsheetSheetReqBuilder  {
-  builder.sheetId = sheetId
-  builder.sheetIdFlag = true
-  return builder
+func (builder *FindSpreadsheetSheetReqBuilder) SheetId(sheetId string) *FindSpreadsheetSheetReqBuilder {
+	builder.sheetId = sheetId
+	builder.sheetIdFlag = true
+	return builder
 }
-func (builder * FindSpreadsheetSheetReqBuilder) Find(find *Find) *FindSpreadsheetSheetReqBuilder  {
-  builder.find = find
-  builder.findFlag = true
-  return builder
+func (builder *FindSpreadsheetSheetReqBuilder) Find(find *Find) *FindSpreadsheetSheetReqBuilder {
+	builder.find = find
+	builder.findFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * FindSpreadsheetSheetReqBuilder ) Build() *FindSpreadsheetSheetReq {
-   req := &FindSpreadsheetSheetReq{}
-   if builder.spreadsheetTokenFlag {
-	  req.SpreadsheetToken = builder.spreadsheetToken
-   }
-   if builder.sheetIdFlag {
-	  req.SheetId = builder.sheetId
-   }
-   return req
+func (builder *FindSpreadsheetSheetReqBuilder) Build() *FindSpreadsheetSheetReq {
+	req := &FindSpreadsheetSheetReq{}
+	if builder.spreadsheetTokenFlag {
+		req.SpreadsheetToken = builder.spreadsheetToken
+	}
+	if builder.sheetIdFlag {
+		req.SheetId = builder.sheetId
+	}
+	return req
 }
 
-
 type FindSpreadsheetSheetReq struct {
-	SpreadsheetToken  string `path:"spreadsheet_token"`
-	SheetId  string `path:"sheet_id"`
-	Find *Find `body:""`
-
+	SpreadsheetToken string `path:"spreadsheet_token"`
+	SheetId          string `path:"sheet_id"`
+	Find             *Find  `body:""`
 }
 
 type FindSpreadsheetSheetRespData struct {
-	FindResult  *FindReplaceResult `json:"find_result,omitempty"`
+	FindResult *FindReplaceResult `json:"find_result,omitempty"`
 }
 
 type FindSpreadsheetSheetResp struct {
@@ -225,61 +213,56 @@ func (resp *FindSpreadsheetSheetResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type MoveDimensionSpreadsheetSheetReqBuilder struct {
-	spreadsheetToken  string
-	spreadsheetTokenFlag  bool
-	sheetId  string
-	sheetIdFlag  bool
-	moveDimension *MoveDimension
-	moveDimensionFlag bool
-
+	spreadsheetToken     string
+	spreadsheetTokenFlag bool
+	sheetId              string
+	sheetIdFlag          bool
+	moveDimension        *MoveDimension
+	moveDimensionFlag    bool
 }
 
 // 生成请求的New构造器
-func NewMoveDimensionSpreadsheetSheetReqBuilder() * MoveDimensionSpreadsheetSheetReqBuilder{
-   builder := &MoveDimensionSpreadsheetSheetReqBuilder{}
-   return builder
+func NewMoveDimensionSpreadsheetSheetReqBuilder() *MoveDimensionSpreadsheetSheetReqBuilder {
+	builder := &MoveDimensionSpreadsheetSheetReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * MoveDimensionSpreadsheetSheetReqBuilder) SpreadsheetToken(spreadsheetToken string) *MoveDimensionSpreadsheetSheetReqBuilder  {
-  builder.spreadsheetToken = spreadsheetToken
-  builder.spreadsheetTokenFlag = true
-  return builder
+func (builder *MoveDimensionSpreadsheetSheetReqBuilder) SpreadsheetToken(spreadsheetToken string) *MoveDimensionSpreadsheetSheetReqBuilder {
+	builder.spreadsheetToken = spreadsheetToken
+	builder.spreadsheetTokenFlag = true
+	return builder
 }
-func (builder * MoveDimensionSpreadsheetSheetReqBuilder) SheetId(sheetId string) *MoveDimensionSpreadsheetSheetReqBuilder  {
-  builder.sheetId = sheetId
-  builder.sheetIdFlag = true
-  return builder
+func (builder *MoveDimensionSpreadsheetSheetReqBuilder) SheetId(sheetId string) *MoveDimensionSpreadsheetSheetReqBuilder {
+	builder.sheetId = sheetId
+	builder.sheetIdFlag = true
+	return builder
 }
-func (builder * MoveDimensionSpreadsheetSheetReqBuilder) MoveDimension(moveDimension *MoveDimension) *MoveDimensionSpreadsheetSheetReqBuilder  {
-  builder.moveDimension = moveDimension
-  builder.moveDimensionFlag = true
-  return builder
+func (builder *MoveDimensionSpreadsheetSheetReqBuilder) MoveDimension(moveDimension *MoveDimension) *MoveDimensionSpreadsheetSheetReqBuilder {
+	builder.moveDimension = moveDimension
+	builder.moveDimensionFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * MoveDimensionSpreadsheetSheetReqBuilder ) Build() *MoveDimensionSpreadsheetSheetReq {
-   req := &MoveDimensionSpreadsheetSheetReq{}
-   if builder.spreadsheetTokenFlag {
-	  req.SpreadsheetToken = builder.spreadsheetToken
-   }
-   if builder.sheetIdFlag {
-	  req.SheetId = builder.sheetId
-   }
-   return req
+func (builder *MoveDimensionSpreadsheetSheetReqBuilder) Build() *MoveDimensionSpreadsheetSheetReq {
+	req := &MoveDimensionSpreadsheetSheetReq{}
+	if builder.spreadsheetTokenFlag {
+		req.SpreadsheetToken = builder.spreadsheetToken
+	}
+	if builder.sheetIdFlag {
+		req.SheetId = builder.sheetId
+	}
+	return req
 }
-
 
 type MoveDimensionSpreadsheetSheetReq struct {
-	SpreadsheetToken  string `path:"spreadsheet_token"`
-	SheetId  string `path:"sheet_id"`
-	MoveDimension *MoveDimension `body:""`
-
+	SpreadsheetToken string         `path:"spreadsheet_token"`
+	SheetId          string         `path:"sheet_id"`
+	MoveDimension    *MoveDimension `body:""`
 }
-
 
 type MoveDimensionSpreadsheetSheetResp struct {
 	*core.RawResponse `json:"-"`
@@ -290,63 +273,59 @@ func (resp *MoveDimensionSpreadsheetSheetResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type ReplaceSpreadsheetSheetReqBuilder struct {
-	spreadsheetToken  string
-	spreadsheetTokenFlag  bool
-	sheetId  string
-	sheetIdFlag  bool
-	replace *Replace
-	replaceFlag bool
-
+	spreadsheetToken     string
+	spreadsheetTokenFlag bool
+	sheetId              string
+	sheetIdFlag          bool
+	replace              *Replace
+	replaceFlag          bool
 }
 
 // 生成请求的New构造器
-func NewReplaceSpreadsheetSheetReqBuilder() * ReplaceSpreadsheetSheetReqBuilder{
-   builder := &ReplaceSpreadsheetSheetReqBuilder{}
-   return builder
+func NewReplaceSpreadsheetSheetReqBuilder() *ReplaceSpreadsheetSheetReqBuilder {
+	builder := &ReplaceSpreadsheetSheetReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * ReplaceSpreadsheetSheetReqBuilder) SpreadsheetToken(spreadsheetToken string) *ReplaceSpreadsheetSheetReqBuilder  {
-  builder.spreadsheetToken = spreadsheetToken
-  builder.spreadsheetTokenFlag = true
-  return builder
+func (builder *ReplaceSpreadsheetSheetReqBuilder) SpreadsheetToken(spreadsheetToken string) *ReplaceSpreadsheetSheetReqBuilder {
+	builder.spreadsheetToken = spreadsheetToken
+	builder.spreadsheetTokenFlag = true
+	return builder
 }
-func (builder * ReplaceSpreadsheetSheetReqBuilder) SheetId(sheetId string) *ReplaceSpreadsheetSheetReqBuilder  {
-  builder.sheetId = sheetId
-  builder.sheetIdFlag = true
-  return builder
+func (builder *ReplaceSpreadsheetSheetReqBuilder) SheetId(sheetId string) *ReplaceSpreadsheetSheetReqBuilder {
+	builder.sheetId = sheetId
+	builder.sheetIdFlag = true
+	return builder
 }
-func (builder * ReplaceSpreadsheetSheetReqBuilder) Replace(replace *Replace) *ReplaceSpreadsheetSheetReqBuilder  {
-  builder.replace = replace
-  builder.replaceFlag = true
-  return builder
+func (builder *ReplaceSpreadsheetSheetReqBuilder) Replace(replace *Replace) *ReplaceSpreadsheetSheetReqBuilder {
+	builder.replace = replace
+	builder.replaceFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * ReplaceSpreadsheetSheetReqBuilder ) Build() *ReplaceSpreadsheetSheetReq {
-   req := &ReplaceSpreadsheetSheetReq{}
-   if builder.spreadsheetTokenFlag {
-	  req.SpreadsheetToken = builder.spreadsheetToken
-   }
-   if builder.sheetIdFlag {
-	  req.SheetId = builder.sheetId
-   }
-   return req
+func (builder *ReplaceSpreadsheetSheetReqBuilder) Build() *ReplaceSpreadsheetSheetReq {
+	req := &ReplaceSpreadsheetSheetReq{}
+	if builder.spreadsheetTokenFlag {
+		req.SpreadsheetToken = builder.spreadsheetToken
+	}
+	if builder.sheetIdFlag {
+		req.SheetId = builder.sheetId
+	}
+	return req
 }
 
-
 type ReplaceSpreadsheetSheetReq struct {
-	SpreadsheetToken  string `path:"spreadsheet_token"`
-	SheetId  string `path:"sheet_id"`
-	Replace *Replace `body:""`
-
+	SpreadsheetToken string   `path:"spreadsheet_token"`
+	SheetId          string   `path:"sheet_id"`
+	Replace          *Replace `body:""`
 }
 
 type ReplaceSpreadsheetSheetRespData struct {
-	ReplaceResult  *FindReplaceResult `json:"replace_result,omitempty"`
+	ReplaceResult *FindReplaceResult `json:"replace_result,omitempty"`
 }
 
 type ReplaceSpreadsheetSheetResp struct {
@@ -359,61 +338,56 @@ func (resp *ReplaceSpreadsheetSheetResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type CreateSpreadsheetSheetFilterReqBuilder struct {
-	spreadsheetToken  string
+	spreadsheetToken      string
 	spreadsheetTokenFlag  bool
-	sheetId  string
-	sheetIdFlag  bool
-	createSheetFilter *CreateSheetFilter
+	sheetId               string
+	sheetIdFlag           bool
+	createSheetFilter     *CreateSheetFilter
 	createSheetFilterFlag bool
-
 }
 
 // 生成请求的New构造器
-func NewCreateSpreadsheetSheetFilterReqBuilder() * CreateSpreadsheetSheetFilterReqBuilder{
-   builder := &CreateSpreadsheetSheetFilterReqBuilder{}
-   return builder
+func NewCreateSpreadsheetSheetFilterReqBuilder() *CreateSpreadsheetSheetFilterReqBuilder {
+	builder := &CreateSpreadsheetSheetFilterReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * CreateSpreadsheetSheetFilterReqBuilder) SpreadsheetToken(spreadsheetToken string) *CreateSpreadsheetSheetFilterReqBuilder  {
-  builder.spreadsheetToken = spreadsheetToken
-  builder.spreadsheetTokenFlag = true
-  return builder
+func (builder *CreateSpreadsheetSheetFilterReqBuilder) SpreadsheetToken(spreadsheetToken string) *CreateSpreadsheetSheetFilterReqBuilder {
+	builder.spreadsheetToken = spreadsheetToken
+	builder.spreadsheetTokenFlag = true
+	return builder
 }
-func (builder * CreateSpreadsheetSheetFilterReqBuilder) SheetId(sheetId string) *CreateSpreadsheetSheetFilterReqBuilder  {
-  builder.sheetId = sheetId
-  builder.sheetIdFlag = true
-  return builder
+func (builder *CreateSpreadsheetSheetFilterReqBuilder) SheetId(sheetId string) *CreateSpreadsheetSheetFilterReqBuilder {
+	builder.sheetId = sheetId
+	builder.sheetIdFlag = true
+	return builder
 }
-func (builder * CreateSpreadsheetSheetFilterReqBuilder) CreateSheetFilter(createSheetFilter *CreateSheetFilter) *CreateSpreadsheetSheetFilterReqBuilder  {
-  builder.createSheetFilter = createSheetFilter
-  builder.createSheetFilterFlag = true
-  return builder
+func (builder *CreateSpreadsheetSheetFilterReqBuilder) CreateSheetFilter(createSheetFilter *CreateSheetFilter) *CreateSpreadsheetSheetFilterReqBuilder {
+	builder.createSheetFilter = createSheetFilter
+	builder.createSheetFilterFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * CreateSpreadsheetSheetFilterReqBuilder ) Build() *CreateSpreadsheetSheetFilterReq {
-   req := &CreateSpreadsheetSheetFilterReq{}
-   if builder.spreadsheetTokenFlag {
-	  req.SpreadsheetToken = builder.spreadsheetToken
-   }
-   if builder.sheetIdFlag {
-	  req.SheetId = builder.sheetId
-   }
-   return req
+func (builder *CreateSpreadsheetSheetFilterReqBuilder) Build() *CreateSpreadsheetSheetFilterReq {
+	req := &CreateSpreadsheetSheetFilterReq{}
+	if builder.spreadsheetTokenFlag {
+		req.SpreadsheetToken = builder.spreadsheetToken
+	}
+	if builder.sheetIdFlag {
+		req.SheetId = builder.sheetId
+	}
+	return req
 }
-
 
 type CreateSpreadsheetSheetFilterReq struct {
-	SpreadsheetToken  string `path:"spreadsheet_token"`
-	SheetId  string `path:"sheet_id"`
+	SpreadsheetToken  string             `path:"spreadsheet_token"`
+	SheetId           string             `path:"sheet_id"`
 	CreateSheetFilter *CreateSheetFilter `body:""`
-
 }
-
 
 type CreateSpreadsheetSheetFilterResp struct {
 	*core.RawResponse `json:"-"`
@@ -424,53 +398,48 @@ func (resp *CreateSpreadsheetSheetFilterResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type DeleteSpreadsheetSheetFilterReqBuilder struct {
-	spreadsheetToken  string
-	spreadsheetTokenFlag  bool
-	sheetId  string
-	sheetIdFlag  bool
-
+	spreadsheetToken     string
+	spreadsheetTokenFlag bool
+	sheetId              string
+	sheetIdFlag          bool
 }
 
 // 生成请求的New构造器
-func NewDeleteSpreadsheetSheetFilterReqBuilder() * DeleteSpreadsheetSheetFilterReqBuilder{
-   builder := &DeleteSpreadsheetSheetFilterReqBuilder{}
-   return builder
+func NewDeleteSpreadsheetSheetFilterReqBuilder() *DeleteSpreadsheetSheetFilterReqBuilder {
+	builder := &DeleteSpreadsheetSheetFilterReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * DeleteSpreadsheetSheetFilterReqBuilder) SpreadsheetToken(spreadsheetToken string) *DeleteSpreadsheetSheetFilterReqBuilder  {
-  builder.spreadsheetToken = spreadsheetToken
-  builder.spreadsheetTokenFlag = true
-  return builder
+func (builder *DeleteSpreadsheetSheetFilterReqBuilder) SpreadsheetToken(spreadsheetToken string) *DeleteSpreadsheetSheetFilterReqBuilder {
+	builder.spreadsheetToken = spreadsheetToken
+	builder.spreadsheetTokenFlag = true
+	return builder
 }
-func (builder * DeleteSpreadsheetSheetFilterReqBuilder) SheetId(sheetId string) *DeleteSpreadsheetSheetFilterReqBuilder  {
-  builder.sheetId = sheetId
-  builder.sheetIdFlag = true
-  return builder
+func (builder *DeleteSpreadsheetSheetFilterReqBuilder) SheetId(sheetId string) *DeleteSpreadsheetSheetFilterReqBuilder {
+	builder.sheetId = sheetId
+	builder.sheetIdFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * DeleteSpreadsheetSheetFilterReqBuilder ) Build() *DeleteSpreadsheetSheetFilterReq {
-   req := &DeleteSpreadsheetSheetFilterReq{}
-   if builder.spreadsheetTokenFlag {
-	  req.SpreadsheetToken = builder.spreadsheetToken
-   }
-   if builder.sheetIdFlag {
-	  req.SheetId = builder.sheetId
-   }
-   return req
+func (builder *DeleteSpreadsheetSheetFilterReqBuilder) Build() *DeleteSpreadsheetSheetFilterReq {
+	req := &DeleteSpreadsheetSheetFilterReq{}
+	if builder.spreadsheetTokenFlag {
+		req.SpreadsheetToken = builder.spreadsheetToken
+	}
+	if builder.sheetIdFlag {
+		req.SheetId = builder.sheetId
+	}
+	return req
 }
-
 
 type DeleteSpreadsheetSheetFilterReq struct {
-	SpreadsheetToken  string `path:"spreadsheet_token"`
-	SheetId  string `path:"sheet_id"`
-
+	SpreadsheetToken string `path:"spreadsheet_token"`
+	SheetId          string `path:"sheet_id"`
 }
-
 
 type DeleteSpreadsheetSheetFilterResp struct {
 	*core.RawResponse `json:"-"`
@@ -481,55 +450,51 @@ func (resp *DeleteSpreadsheetSheetFilterResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type GetSpreadsheetSheetFilterReqBuilder struct {
-	spreadsheetToken  string
-	spreadsheetTokenFlag  bool
-	sheetId  string
-	sheetIdFlag  bool
-
+	spreadsheetToken     string
+	spreadsheetTokenFlag bool
+	sheetId              string
+	sheetIdFlag          bool
 }
 
 // 生成请求的New构造器
-func NewGetSpreadsheetSheetFilterReqBuilder() * GetSpreadsheetSheetFilterReqBuilder{
-   builder := &GetSpreadsheetSheetFilterReqBuilder{}
-   return builder
+func NewGetSpreadsheetSheetFilterReqBuilder() *GetSpreadsheetSheetFilterReqBuilder {
+	builder := &GetSpreadsheetSheetFilterReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * GetSpreadsheetSheetFilterReqBuilder) SpreadsheetToken(spreadsheetToken string) *GetSpreadsheetSheetFilterReqBuilder  {
-  builder.spreadsheetToken = spreadsheetToken
-  builder.spreadsheetTokenFlag = true
-  return builder
+func (builder *GetSpreadsheetSheetFilterReqBuilder) SpreadsheetToken(spreadsheetToken string) *GetSpreadsheetSheetFilterReqBuilder {
+	builder.spreadsheetToken = spreadsheetToken
+	builder.spreadsheetTokenFlag = true
+	return builder
 }
-func (builder * GetSpreadsheetSheetFilterReqBuilder) SheetId(sheetId string) *GetSpreadsheetSheetFilterReqBuilder  {
-  builder.sheetId = sheetId
-  builder.sheetIdFlag = true
-  return builder
+func (builder *GetSpreadsheetSheetFilterReqBuilder) SheetId(sheetId string) *GetSpreadsheetSheetFilterReqBuilder {
+	builder.sheetId = sheetId
+	builder.sheetIdFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * GetSpreadsheetSheetFilterReqBuilder ) Build() *GetSpreadsheetSheetFilterReq {
-   req := &GetSpreadsheetSheetFilterReq{}
-   if builder.spreadsheetTokenFlag {
-	  req.SpreadsheetToken = builder.spreadsheetToken
-   }
-   if builder.sheetIdFlag {
-	  req.SheetId = builder.sheetId
-   }
-   return req
+func (builder *GetSpreadsheetSheetFilterReqBuilder) Build() *GetSpreadsheetSheetFilterReq {
+	req := &GetSpreadsheetSheetFilterReq{}
+	if builder.spreadsheetTokenFlag {
+		req.SpreadsheetToken = builder.spreadsheetToken
+	}
+	if builder.sheetIdFlag {
+		req.SheetId = builder.sheetId
+	}
+	return req
 }
 
-
 type GetSpreadsheetSheetFilterReq struct {
-	SpreadsheetToken  string `path:"spreadsheet_token"`
-	SheetId  string `path:"sheet_id"`
-
+	SpreadsheetToken string `path:"spreadsheet_token"`
+	SheetId          string `path:"sheet_id"`
 }
 
 type GetSpreadsheetSheetFilterRespData struct {
-	SheetFilterInfo  *SheetFilterInfo `json:"sheet_filter_info,omitempty"`
+	SheetFilterInfo *SheetFilterInfo `json:"sheet_filter_info,omitempty"`
 }
 
 type GetSpreadsheetSheetFilterResp struct {
@@ -542,61 +507,56 @@ func (resp *GetSpreadsheetSheetFilterResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type UpdateSpreadsheetSheetFilterReqBuilder struct {
-	spreadsheetToken  string
+	spreadsheetToken      string
 	spreadsheetTokenFlag  bool
-	sheetId  string
-	sheetIdFlag  bool
-	updateSheetFilter *UpdateSheetFilter
+	sheetId               string
+	sheetIdFlag           bool
+	updateSheetFilter     *UpdateSheetFilter
 	updateSheetFilterFlag bool
-
 }
 
 // 生成请求的New构造器
-func NewUpdateSpreadsheetSheetFilterReqBuilder() * UpdateSpreadsheetSheetFilterReqBuilder{
-   builder := &UpdateSpreadsheetSheetFilterReqBuilder{}
-   return builder
+func NewUpdateSpreadsheetSheetFilterReqBuilder() *UpdateSpreadsheetSheetFilterReqBuilder {
+	builder := &UpdateSpreadsheetSheetFilterReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * UpdateSpreadsheetSheetFilterReqBuilder) SpreadsheetToken(spreadsheetToken string) *UpdateSpreadsheetSheetFilterReqBuilder  {
-  builder.spreadsheetToken = spreadsheetToken
-  builder.spreadsheetTokenFlag = true
-  return builder
+func (builder *UpdateSpreadsheetSheetFilterReqBuilder) SpreadsheetToken(spreadsheetToken string) *UpdateSpreadsheetSheetFilterReqBuilder {
+	builder.spreadsheetToken = spreadsheetToken
+	builder.spreadsheetTokenFlag = true
+	return builder
 }
-func (builder * UpdateSpreadsheetSheetFilterReqBuilder) SheetId(sheetId string) *UpdateSpreadsheetSheetFilterReqBuilder  {
-  builder.sheetId = sheetId
-  builder.sheetIdFlag = true
-  return builder
+func (builder *UpdateSpreadsheetSheetFilterReqBuilder) SheetId(sheetId string) *UpdateSpreadsheetSheetFilterReqBuilder {
+	builder.sheetId = sheetId
+	builder.sheetIdFlag = true
+	return builder
 }
-func (builder * UpdateSpreadsheetSheetFilterReqBuilder) UpdateSheetFilter(updateSheetFilter *UpdateSheetFilter) *UpdateSpreadsheetSheetFilterReqBuilder  {
-  builder.updateSheetFilter = updateSheetFilter
-  builder.updateSheetFilterFlag = true
-  return builder
+func (builder *UpdateSpreadsheetSheetFilterReqBuilder) UpdateSheetFilter(updateSheetFilter *UpdateSheetFilter) *UpdateSpreadsheetSheetFilterReqBuilder {
+	builder.updateSheetFilter = updateSheetFilter
+	builder.updateSheetFilterFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * UpdateSpreadsheetSheetFilterReqBuilder ) Build() *UpdateSpreadsheetSheetFilterReq {
-   req := &UpdateSpreadsheetSheetFilterReq{}
-   if builder.spreadsheetTokenFlag {
-	  req.SpreadsheetToken = builder.spreadsheetToken
-   }
-   if builder.sheetIdFlag {
-	  req.SheetId = builder.sheetId
-   }
-   return req
+func (builder *UpdateSpreadsheetSheetFilterReqBuilder) Build() *UpdateSpreadsheetSheetFilterReq {
+	req := &UpdateSpreadsheetSheetFilterReq{}
+	if builder.spreadsheetTokenFlag {
+		req.SpreadsheetToken = builder.spreadsheetToken
+	}
+	if builder.sheetIdFlag {
+		req.SheetId = builder.sheetId
+	}
+	return req
 }
-
 
 type UpdateSpreadsheetSheetFilterReq struct {
-	SpreadsheetToken  string `path:"spreadsheet_token"`
-	SheetId  string `path:"sheet_id"`
+	SpreadsheetToken  string             `path:"spreadsheet_token"`
+	SheetId           string             `path:"sheet_id"`
 	UpdateSheetFilter *UpdateSheetFilter `body:""`
-
 }
-
 
 type UpdateSpreadsheetSheetFilterResp struct {
 	*core.RawResponse `json:"-"`
@@ -607,63 +567,59 @@ func (resp *UpdateSpreadsheetSheetFilterResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type CreateSpreadsheetSheetFilterViewReqBuilder struct {
-	spreadsheetToken  string
-	spreadsheetTokenFlag  bool
-	sheetId  string
-	sheetIdFlag  bool
-	filterView *FilterView
-	filterViewFlag bool
-
+	spreadsheetToken     string
+	spreadsheetTokenFlag bool
+	sheetId              string
+	sheetIdFlag          bool
+	filterView           *FilterView
+	filterViewFlag       bool
 }
 
 // 生成请求的New构造器
-func NewCreateSpreadsheetSheetFilterViewReqBuilder() * CreateSpreadsheetSheetFilterViewReqBuilder{
-   builder := &CreateSpreadsheetSheetFilterViewReqBuilder{}
-   return builder
+func NewCreateSpreadsheetSheetFilterViewReqBuilder() *CreateSpreadsheetSheetFilterViewReqBuilder {
+	builder := &CreateSpreadsheetSheetFilterViewReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * CreateSpreadsheetSheetFilterViewReqBuilder) SpreadsheetToken(spreadsheetToken string) *CreateSpreadsheetSheetFilterViewReqBuilder  {
-  builder.spreadsheetToken = spreadsheetToken
-  builder.spreadsheetTokenFlag = true
-  return builder
+func (builder *CreateSpreadsheetSheetFilterViewReqBuilder) SpreadsheetToken(spreadsheetToken string) *CreateSpreadsheetSheetFilterViewReqBuilder {
+	builder.spreadsheetToken = spreadsheetToken
+	builder.spreadsheetTokenFlag = true
+	return builder
 }
-func (builder * CreateSpreadsheetSheetFilterViewReqBuilder) SheetId(sheetId string) *CreateSpreadsheetSheetFilterViewReqBuilder  {
-  builder.sheetId = sheetId
-  builder.sheetIdFlag = true
-  return builder
+func (builder *CreateSpreadsheetSheetFilterViewReqBuilder) SheetId(sheetId string) *CreateSpreadsheetSheetFilterViewReqBuilder {
+	builder.sheetId = sheetId
+	builder.sheetIdFlag = true
+	return builder
 }
-func (builder * CreateSpreadsheetSheetFilterViewReqBuilder) FilterView(filterView *FilterView) *CreateSpreadsheetSheetFilterViewReqBuilder  {
-  builder.filterView = filterView
-  builder.filterViewFlag = true
-  return builder
+func (builder *CreateSpreadsheetSheetFilterViewReqBuilder) FilterView(filterView *FilterView) *CreateSpreadsheetSheetFilterViewReqBuilder {
+	builder.filterView = filterView
+	builder.filterViewFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * CreateSpreadsheetSheetFilterViewReqBuilder ) Build() *CreateSpreadsheetSheetFilterViewReq {
-   req := &CreateSpreadsheetSheetFilterViewReq{}
-   if builder.spreadsheetTokenFlag {
-	  req.SpreadsheetToken = builder.spreadsheetToken
-   }
-   if builder.sheetIdFlag {
-	  req.SheetId = builder.sheetId
-   }
-   return req
+func (builder *CreateSpreadsheetSheetFilterViewReqBuilder) Build() *CreateSpreadsheetSheetFilterViewReq {
+	req := &CreateSpreadsheetSheetFilterViewReq{}
+	if builder.spreadsheetTokenFlag {
+		req.SpreadsheetToken = builder.spreadsheetToken
+	}
+	if builder.sheetIdFlag {
+		req.SheetId = builder.sheetId
+	}
+	return req
 }
 
-
 type CreateSpreadsheetSheetFilterViewReq struct {
-	SpreadsheetToken  string `path:"spreadsheet_token"`
-	SheetId  string `path:"sheet_id"`
-	FilterView *FilterView `body:""`
-
+	SpreadsheetToken string      `path:"spreadsheet_token"`
+	SheetId          string      `path:"sheet_id"`
+	FilterView       *FilterView `body:""`
 }
 
 type CreateSpreadsheetSheetFilterViewRespData struct {
-	FilterView  *FilterView `json:"filter_view,omitempty"`
+	FilterView *FilterView `json:"filter_view,omitempty"`
 }
 
 type CreateSpreadsheetSheetFilterViewResp struct {
@@ -676,64 +632,59 @@ func (resp *CreateSpreadsheetSheetFilterViewResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type DeleteSpreadsheetSheetFilterViewReqBuilder struct {
-	spreadsheetToken  string
-	spreadsheetTokenFlag  bool
-	sheetId  string
-	sheetIdFlag  bool
-	filterViewId  string
-	filterViewIdFlag  bool
-
+	spreadsheetToken     string
+	spreadsheetTokenFlag bool
+	sheetId              string
+	sheetIdFlag          bool
+	filterViewId         string
+	filterViewIdFlag     bool
 }
 
 // 生成请求的New构造器
-func NewDeleteSpreadsheetSheetFilterViewReqBuilder() * DeleteSpreadsheetSheetFilterViewReqBuilder{
-   builder := &DeleteSpreadsheetSheetFilterViewReqBuilder{}
-   return builder
+func NewDeleteSpreadsheetSheetFilterViewReqBuilder() *DeleteSpreadsheetSheetFilterViewReqBuilder {
+	builder := &DeleteSpreadsheetSheetFilterViewReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * DeleteSpreadsheetSheetFilterViewReqBuilder) SpreadsheetToken(spreadsheetToken string) *DeleteSpreadsheetSheetFilterViewReqBuilder  {
-  builder.spreadsheetToken = spreadsheetToken
-  builder.spreadsheetTokenFlag = true
-  return builder
+func (builder *DeleteSpreadsheetSheetFilterViewReqBuilder) SpreadsheetToken(spreadsheetToken string) *DeleteSpreadsheetSheetFilterViewReqBuilder {
+	builder.spreadsheetToken = spreadsheetToken
+	builder.spreadsheetTokenFlag = true
+	return builder
 }
-func (builder * DeleteSpreadsheetSheetFilterViewReqBuilder) SheetId(sheetId string) *DeleteSpreadsheetSheetFilterViewReqBuilder  {
-  builder.sheetId = sheetId
-  builder.sheetIdFlag = true
-  return builder
+func (builder *DeleteSpreadsheetSheetFilterViewReqBuilder) SheetId(sheetId string) *DeleteSpreadsheetSheetFilterViewReqBuilder {
+	builder.sheetId = sheetId
+	builder.sheetIdFlag = true
+	return builder
 }
-func (builder * DeleteSpreadsheetSheetFilterViewReqBuilder) FilterViewId(filterViewId string) *DeleteSpreadsheetSheetFilterViewReqBuilder  {
-  builder.filterViewId = filterViewId
-  builder.filterViewIdFlag = true
-  return builder
+func (builder *DeleteSpreadsheetSheetFilterViewReqBuilder) FilterViewId(filterViewId string) *DeleteSpreadsheetSheetFilterViewReqBuilder {
+	builder.filterViewId = filterViewId
+	builder.filterViewIdFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * DeleteSpreadsheetSheetFilterViewReqBuilder ) Build() *DeleteSpreadsheetSheetFilterViewReq {
-   req := &DeleteSpreadsheetSheetFilterViewReq{}
-   if builder.spreadsheetTokenFlag {
-	  req.SpreadsheetToken = builder.spreadsheetToken
-   }
-   if builder.sheetIdFlag {
-	  req.SheetId = builder.sheetId
-   }
-   if builder.filterViewIdFlag {
-	  req.FilterViewId = builder.filterViewId
-   }
-   return req
+func (builder *DeleteSpreadsheetSheetFilterViewReqBuilder) Build() *DeleteSpreadsheetSheetFilterViewReq {
+	req := &DeleteSpreadsheetSheetFilterViewReq{}
+	if builder.spreadsheetTokenFlag {
+		req.SpreadsheetToken = builder.spreadsheetToken
+	}
+	if builder.sheetIdFlag {
+		req.SheetId = builder.sheetId
+	}
+	if builder.filterViewIdFlag {
+		req.FilterViewId = builder.filterViewId
+	}
+	return req
 }
-
 
 type DeleteSpreadsheetSheetFilterViewReq struct {
-	SpreadsheetToken  string `path:"spreadsheet_token"`
-	SheetId  string `path:"sheet_id"`
-	FilterViewId  string `path:"filter_view_id"`
-
+	SpreadsheetToken string `path:"spreadsheet_token"`
+	SheetId          string `path:"sheet_id"`
+	FilterViewId     string `path:"filter_view_id"`
 }
-
 
 type DeleteSpreadsheetSheetFilterViewResp struct {
 	*core.RawResponse `json:"-"`
@@ -744,66 +695,62 @@ func (resp *DeleteSpreadsheetSheetFilterViewResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type GetSpreadsheetSheetFilterViewReqBuilder struct {
-	spreadsheetToken  string
-	spreadsheetTokenFlag  bool
-	sheetId  string
-	sheetIdFlag  bool
-	filterViewId  string
-	filterViewIdFlag  bool
-
+	spreadsheetToken     string
+	spreadsheetTokenFlag bool
+	sheetId              string
+	sheetIdFlag          bool
+	filterViewId         string
+	filterViewIdFlag     bool
 }
 
 // 生成请求的New构造器
-func NewGetSpreadsheetSheetFilterViewReqBuilder() * GetSpreadsheetSheetFilterViewReqBuilder{
-   builder := &GetSpreadsheetSheetFilterViewReqBuilder{}
-   return builder
+func NewGetSpreadsheetSheetFilterViewReqBuilder() *GetSpreadsheetSheetFilterViewReqBuilder {
+	builder := &GetSpreadsheetSheetFilterViewReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * GetSpreadsheetSheetFilterViewReqBuilder) SpreadsheetToken(spreadsheetToken string) *GetSpreadsheetSheetFilterViewReqBuilder  {
-  builder.spreadsheetToken = spreadsheetToken
-  builder.spreadsheetTokenFlag = true
-  return builder
+func (builder *GetSpreadsheetSheetFilterViewReqBuilder) SpreadsheetToken(spreadsheetToken string) *GetSpreadsheetSheetFilterViewReqBuilder {
+	builder.spreadsheetToken = spreadsheetToken
+	builder.spreadsheetTokenFlag = true
+	return builder
 }
-func (builder * GetSpreadsheetSheetFilterViewReqBuilder) SheetId(sheetId string) *GetSpreadsheetSheetFilterViewReqBuilder  {
-  builder.sheetId = sheetId
-  builder.sheetIdFlag = true
-  return builder
+func (builder *GetSpreadsheetSheetFilterViewReqBuilder) SheetId(sheetId string) *GetSpreadsheetSheetFilterViewReqBuilder {
+	builder.sheetId = sheetId
+	builder.sheetIdFlag = true
+	return builder
 }
-func (builder * GetSpreadsheetSheetFilterViewReqBuilder) FilterViewId(filterViewId string) *GetSpreadsheetSheetFilterViewReqBuilder  {
-  builder.filterViewId = filterViewId
-  builder.filterViewIdFlag = true
-  return builder
+func (builder *GetSpreadsheetSheetFilterViewReqBuilder) FilterViewId(filterViewId string) *GetSpreadsheetSheetFilterViewReqBuilder {
+	builder.filterViewId = filterViewId
+	builder.filterViewIdFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * GetSpreadsheetSheetFilterViewReqBuilder ) Build() *GetSpreadsheetSheetFilterViewReq {
-   req := &GetSpreadsheetSheetFilterViewReq{}
-   if builder.spreadsheetTokenFlag {
-	  req.SpreadsheetToken = builder.spreadsheetToken
-   }
-   if builder.sheetIdFlag {
-	  req.SheetId = builder.sheetId
-   }
-   if builder.filterViewIdFlag {
-	  req.FilterViewId = builder.filterViewId
-   }
-   return req
+func (builder *GetSpreadsheetSheetFilterViewReqBuilder) Build() *GetSpreadsheetSheetFilterViewReq {
+	req := &GetSpreadsheetSheetFilterViewReq{}
+	if builder.spreadsheetTokenFlag {
+		req.SpreadsheetToken = builder.spreadsheetToken
+	}
+	if builder.sheetIdFlag {
+		req.SheetId = builder.sheetId
+	}
+	if builder.filterViewIdFlag {
+		req.FilterViewId = builder.filterViewId
+	}
+	return req
 }
 
-
 type GetSpreadsheetSheetFilterViewReq struct {
-	SpreadsheetToken  string `path:"spreadsheet_token"`
-	SheetId  string `path:"sheet_id"`
-	FilterViewId  string `path:"filter_view_id"`
-
+	SpreadsheetToken string `path:"spreadsheet_token"`
+	SheetId          string `path:"sheet_id"`
+	FilterViewId     string `path:"filter_view_id"`
 }
 
 type GetSpreadsheetSheetFilterViewRespData struct {
-	FilterView  *FilterView `json:"filter_view,omitempty"`
+	FilterView *FilterView `json:"filter_view,omitempty"`
 }
 
 type GetSpreadsheetSheetFilterViewResp struct {
@@ -816,74 +763,70 @@ func (resp *GetSpreadsheetSheetFilterViewResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type PatchSpreadsheetSheetFilterViewReqBuilder struct {
-	spreadsheetToken  string
-	spreadsheetTokenFlag  bool
-	sheetId  string
-	sheetIdFlag  bool
-	filterViewId  string
-	filterViewIdFlag  bool
-	filterView *FilterView
-	filterViewFlag bool
-
+	spreadsheetToken     string
+	spreadsheetTokenFlag bool
+	sheetId              string
+	sheetIdFlag          bool
+	filterViewId         string
+	filterViewIdFlag     bool
+	filterView           *FilterView
+	filterViewFlag       bool
 }
 
 // 生成请求的New构造器
-func NewPatchSpreadsheetSheetFilterViewReqBuilder() * PatchSpreadsheetSheetFilterViewReqBuilder{
-   builder := &PatchSpreadsheetSheetFilterViewReqBuilder{}
-   return builder
+func NewPatchSpreadsheetSheetFilterViewReqBuilder() *PatchSpreadsheetSheetFilterViewReqBuilder {
+	builder := &PatchSpreadsheetSheetFilterViewReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * PatchSpreadsheetSheetFilterViewReqBuilder) SpreadsheetToken(spreadsheetToken string) *PatchSpreadsheetSheetFilterViewReqBuilder  {
-  builder.spreadsheetToken = spreadsheetToken
-  builder.spreadsheetTokenFlag = true
-  return builder
+func (builder *PatchSpreadsheetSheetFilterViewReqBuilder) SpreadsheetToken(spreadsheetToken string) *PatchSpreadsheetSheetFilterViewReqBuilder {
+	builder.spreadsheetToken = spreadsheetToken
+	builder.spreadsheetTokenFlag = true
+	return builder
 }
-func (builder * PatchSpreadsheetSheetFilterViewReqBuilder) SheetId(sheetId string) *PatchSpreadsheetSheetFilterViewReqBuilder  {
-  builder.sheetId = sheetId
-  builder.sheetIdFlag = true
-  return builder
+func (builder *PatchSpreadsheetSheetFilterViewReqBuilder) SheetId(sheetId string) *PatchSpreadsheetSheetFilterViewReqBuilder {
+	builder.sheetId = sheetId
+	builder.sheetIdFlag = true
+	return builder
 }
-func (builder * PatchSpreadsheetSheetFilterViewReqBuilder) FilterViewId(filterViewId string) *PatchSpreadsheetSheetFilterViewReqBuilder  {
-  builder.filterViewId = filterViewId
-  builder.filterViewIdFlag = true
-  return builder
+func (builder *PatchSpreadsheetSheetFilterViewReqBuilder) FilterViewId(filterViewId string) *PatchSpreadsheetSheetFilterViewReqBuilder {
+	builder.filterViewId = filterViewId
+	builder.filterViewIdFlag = true
+	return builder
 }
-func (builder * PatchSpreadsheetSheetFilterViewReqBuilder) FilterView(filterView *FilterView) *PatchSpreadsheetSheetFilterViewReqBuilder  {
-  builder.filterView = filterView
-  builder.filterViewFlag = true
-  return builder
+func (builder *PatchSpreadsheetSheetFilterViewReqBuilder) FilterView(filterView *FilterView) *PatchSpreadsheetSheetFilterViewReqBuilder {
+	builder.filterView = filterView
+	builder.filterViewFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * PatchSpreadsheetSheetFilterViewReqBuilder ) Build() *PatchSpreadsheetSheetFilterViewReq {
-   req := &PatchSpreadsheetSheetFilterViewReq{}
-   if builder.spreadsheetTokenFlag {
-	  req.SpreadsheetToken = builder.spreadsheetToken
-   }
-   if builder.sheetIdFlag {
-	  req.SheetId = builder.sheetId
-   }
-   if builder.filterViewIdFlag {
-	  req.FilterViewId = builder.filterViewId
-   }
-   return req
+func (builder *PatchSpreadsheetSheetFilterViewReqBuilder) Build() *PatchSpreadsheetSheetFilterViewReq {
+	req := &PatchSpreadsheetSheetFilterViewReq{}
+	if builder.spreadsheetTokenFlag {
+		req.SpreadsheetToken = builder.spreadsheetToken
+	}
+	if builder.sheetIdFlag {
+		req.SheetId = builder.sheetId
+	}
+	if builder.filterViewIdFlag {
+		req.FilterViewId = builder.filterViewId
+	}
+	return req
 }
 
-
 type PatchSpreadsheetSheetFilterViewReq struct {
-	SpreadsheetToken  string `path:"spreadsheet_token"`
-	SheetId  string `path:"sheet_id"`
-	FilterViewId  string `path:"filter_view_id"`
-	FilterView *FilterView `body:""`
-
+	SpreadsheetToken string      `path:"spreadsheet_token"`
+	SheetId          string      `path:"sheet_id"`
+	FilterViewId     string      `path:"filter_view_id"`
+	FilterView       *FilterView `body:""`
 }
 
 type PatchSpreadsheetSheetFilterViewRespData struct {
-	FilterView  *FilterView `json:"filter_view,omitempty"`
+	FilterView *FilterView `json:"filter_view,omitempty"`
 }
 
 type PatchSpreadsheetSheetFilterViewResp struct {
@@ -896,55 +839,51 @@ func (resp *PatchSpreadsheetSheetFilterViewResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type QuerySpreadsheetSheetFilterViewReqBuilder struct {
-	spreadsheetToken  string
-	spreadsheetTokenFlag  bool
-	sheetId  string
-	sheetIdFlag  bool
-
+	spreadsheetToken     string
+	spreadsheetTokenFlag bool
+	sheetId              string
+	sheetIdFlag          bool
 }
 
 // 生成请求的New构造器
-func NewQuerySpreadsheetSheetFilterViewReqBuilder() * QuerySpreadsheetSheetFilterViewReqBuilder{
-   builder := &QuerySpreadsheetSheetFilterViewReqBuilder{}
-   return builder
+func NewQuerySpreadsheetSheetFilterViewReqBuilder() *QuerySpreadsheetSheetFilterViewReqBuilder {
+	builder := &QuerySpreadsheetSheetFilterViewReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * QuerySpreadsheetSheetFilterViewReqBuilder) SpreadsheetToken(spreadsheetToken string) *QuerySpreadsheetSheetFilterViewReqBuilder  {
-  builder.spreadsheetToken = spreadsheetToken
-  builder.spreadsheetTokenFlag = true
-  return builder
+func (builder *QuerySpreadsheetSheetFilterViewReqBuilder) SpreadsheetToken(spreadsheetToken string) *QuerySpreadsheetSheetFilterViewReqBuilder {
+	builder.spreadsheetToken = spreadsheetToken
+	builder.spreadsheetTokenFlag = true
+	return builder
 }
-func (builder * QuerySpreadsheetSheetFilterViewReqBuilder) SheetId(sheetId string) *QuerySpreadsheetSheetFilterViewReqBuilder  {
-  builder.sheetId = sheetId
-  builder.sheetIdFlag = true
-  return builder
+func (builder *QuerySpreadsheetSheetFilterViewReqBuilder) SheetId(sheetId string) *QuerySpreadsheetSheetFilterViewReqBuilder {
+	builder.sheetId = sheetId
+	builder.sheetIdFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * QuerySpreadsheetSheetFilterViewReqBuilder ) Build() *QuerySpreadsheetSheetFilterViewReq {
-   req := &QuerySpreadsheetSheetFilterViewReq{}
-   if builder.spreadsheetTokenFlag {
-	  req.SpreadsheetToken = builder.spreadsheetToken
-   }
-   if builder.sheetIdFlag {
-	  req.SheetId = builder.sheetId
-   }
-   return req
+func (builder *QuerySpreadsheetSheetFilterViewReqBuilder) Build() *QuerySpreadsheetSheetFilterViewReq {
+	req := &QuerySpreadsheetSheetFilterViewReq{}
+	if builder.spreadsheetTokenFlag {
+		req.SpreadsheetToken = builder.spreadsheetToken
+	}
+	if builder.sheetIdFlag {
+		req.SheetId = builder.sheetId
+	}
+	return req
 }
 
-
 type QuerySpreadsheetSheetFilterViewReq struct {
-	SpreadsheetToken  string `path:"spreadsheet_token"`
-	SheetId  string `path:"sheet_id"`
-
+	SpreadsheetToken string `path:"spreadsheet_token"`
+	SheetId          string `path:"sheet_id"`
 }
 
 type QuerySpreadsheetSheetFilterViewRespData struct {
-	Items  []*FilterView `json:"items,omitempty"`
+	Items []*FilterView `json:"items,omitempty"`
 }
 
 type QuerySpreadsheetSheetFilterViewResp struct {
@@ -957,74 +896,70 @@ func (resp *QuerySpreadsheetSheetFilterViewResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type CreateSpreadsheetSheetFilterViewConditionReqBuilder struct {
-	spreadsheetToken  string
-	spreadsheetTokenFlag  bool
-	sheetId  string
-	sheetIdFlag  bool
-	filterViewId  string
-	filterViewIdFlag  bool
-	filterViewCondition *FilterViewCondition
+	spreadsheetToken        string
+	spreadsheetTokenFlag    bool
+	sheetId                 string
+	sheetIdFlag             bool
+	filterViewId            string
+	filterViewIdFlag        bool
+	filterViewCondition     *FilterViewCondition
 	filterViewConditionFlag bool
-
 }
 
 // 生成请求的New构造器
-func NewCreateSpreadsheetSheetFilterViewConditionReqBuilder() * CreateSpreadsheetSheetFilterViewConditionReqBuilder{
-   builder := &CreateSpreadsheetSheetFilterViewConditionReqBuilder{}
-   return builder
+func NewCreateSpreadsheetSheetFilterViewConditionReqBuilder() *CreateSpreadsheetSheetFilterViewConditionReqBuilder {
+	builder := &CreateSpreadsheetSheetFilterViewConditionReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * CreateSpreadsheetSheetFilterViewConditionReqBuilder) SpreadsheetToken(spreadsheetToken string) *CreateSpreadsheetSheetFilterViewConditionReqBuilder  {
-  builder.spreadsheetToken = spreadsheetToken
-  builder.spreadsheetTokenFlag = true
-  return builder
+func (builder *CreateSpreadsheetSheetFilterViewConditionReqBuilder) SpreadsheetToken(spreadsheetToken string) *CreateSpreadsheetSheetFilterViewConditionReqBuilder {
+	builder.spreadsheetToken = spreadsheetToken
+	builder.spreadsheetTokenFlag = true
+	return builder
 }
-func (builder * CreateSpreadsheetSheetFilterViewConditionReqBuilder) SheetId(sheetId string) *CreateSpreadsheetSheetFilterViewConditionReqBuilder  {
-  builder.sheetId = sheetId
-  builder.sheetIdFlag = true
-  return builder
+func (builder *CreateSpreadsheetSheetFilterViewConditionReqBuilder) SheetId(sheetId string) *CreateSpreadsheetSheetFilterViewConditionReqBuilder {
+	builder.sheetId = sheetId
+	builder.sheetIdFlag = true
+	return builder
 }
-func (builder * CreateSpreadsheetSheetFilterViewConditionReqBuilder) FilterViewId(filterViewId string) *CreateSpreadsheetSheetFilterViewConditionReqBuilder  {
-  builder.filterViewId = filterViewId
-  builder.filterViewIdFlag = true
-  return builder
+func (builder *CreateSpreadsheetSheetFilterViewConditionReqBuilder) FilterViewId(filterViewId string) *CreateSpreadsheetSheetFilterViewConditionReqBuilder {
+	builder.filterViewId = filterViewId
+	builder.filterViewIdFlag = true
+	return builder
 }
-func (builder * CreateSpreadsheetSheetFilterViewConditionReqBuilder) FilterViewCondition(filterViewCondition *FilterViewCondition) *CreateSpreadsheetSheetFilterViewConditionReqBuilder  {
-  builder.filterViewCondition = filterViewCondition
-  builder.filterViewConditionFlag = true
-  return builder
+func (builder *CreateSpreadsheetSheetFilterViewConditionReqBuilder) FilterViewCondition(filterViewCondition *FilterViewCondition) *CreateSpreadsheetSheetFilterViewConditionReqBuilder {
+	builder.filterViewCondition = filterViewCondition
+	builder.filterViewConditionFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * CreateSpreadsheetSheetFilterViewConditionReqBuilder ) Build() *CreateSpreadsheetSheetFilterViewConditionReq {
-   req := &CreateSpreadsheetSheetFilterViewConditionReq{}
-   if builder.spreadsheetTokenFlag {
-	  req.SpreadsheetToken = builder.spreadsheetToken
-   }
-   if builder.sheetIdFlag {
-	  req.SheetId = builder.sheetId
-   }
-   if builder.filterViewIdFlag {
-	  req.FilterViewId = builder.filterViewId
-   }
-   return req
+func (builder *CreateSpreadsheetSheetFilterViewConditionReqBuilder) Build() *CreateSpreadsheetSheetFilterViewConditionReq {
+	req := &CreateSpreadsheetSheetFilterViewConditionReq{}
+	if builder.spreadsheetTokenFlag {
+		req.SpreadsheetToken = builder.spreadsheetToken
+	}
+	if builder.sheetIdFlag {
+		req.SheetId = builder.sheetId
+	}
+	if builder.filterViewIdFlag {
+		req.FilterViewId = builder.filterViewId
+	}
+	return req
 }
 
-
 type CreateSpreadsheetSheetFilterViewConditionReq struct {
-	SpreadsheetToken  string `path:"spreadsheet_token"`
-	SheetId  string `path:"sheet_id"`
-	FilterViewId  string `path:"filter_view_id"`
+	SpreadsheetToken    string               `path:"spreadsheet_token"`
+	SheetId             string               `path:"sheet_id"`
+	FilterViewId        string               `path:"filter_view_id"`
 	FilterViewCondition *FilterViewCondition `body:""`
-
 }
 
 type CreateSpreadsheetSheetFilterViewConditionRespData struct {
-	Condition  *FilterViewCondition `json:"condition,omitempty"`
+	Condition *FilterViewCondition `json:"condition,omitempty"`
 }
 
 type CreateSpreadsheetSheetFilterViewConditionResp struct {
@@ -1037,75 +972,70 @@ func (resp *CreateSpreadsheetSheetFilterViewConditionResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type DeleteSpreadsheetSheetFilterViewConditionReqBuilder struct {
-	spreadsheetToken  string
-	spreadsheetTokenFlag  bool
-	sheetId  string
-	sheetIdFlag  bool
-	filterViewId  string
-	filterViewIdFlag  bool
-	conditionId  string
-	conditionIdFlag  bool
-
+	spreadsheetToken     string
+	spreadsheetTokenFlag bool
+	sheetId              string
+	sheetIdFlag          bool
+	filterViewId         string
+	filterViewIdFlag     bool
+	conditionId          string
+	conditionIdFlag      bool
 }
 
 // 生成请求的New构造器
-func NewDeleteSpreadsheetSheetFilterViewConditionReqBuilder() * DeleteSpreadsheetSheetFilterViewConditionReqBuilder{
-   builder := &DeleteSpreadsheetSheetFilterViewConditionReqBuilder{}
-   return builder
+func NewDeleteSpreadsheetSheetFilterViewConditionReqBuilder() *DeleteSpreadsheetSheetFilterViewConditionReqBuilder {
+	builder := &DeleteSpreadsheetSheetFilterViewConditionReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * DeleteSpreadsheetSheetFilterViewConditionReqBuilder) SpreadsheetToken(spreadsheetToken string) *DeleteSpreadsheetSheetFilterViewConditionReqBuilder  {
-  builder.spreadsheetToken = spreadsheetToken
-  builder.spreadsheetTokenFlag = true
-  return builder
+func (builder *DeleteSpreadsheetSheetFilterViewConditionReqBuilder) SpreadsheetToken(spreadsheetToken string) *DeleteSpreadsheetSheetFilterViewConditionReqBuilder {
+	builder.spreadsheetToken = spreadsheetToken
+	builder.spreadsheetTokenFlag = true
+	return builder
 }
-func (builder * DeleteSpreadsheetSheetFilterViewConditionReqBuilder) SheetId(sheetId string) *DeleteSpreadsheetSheetFilterViewConditionReqBuilder  {
-  builder.sheetId = sheetId
-  builder.sheetIdFlag = true
-  return builder
+func (builder *DeleteSpreadsheetSheetFilterViewConditionReqBuilder) SheetId(sheetId string) *DeleteSpreadsheetSheetFilterViewConditionReqBuilder {
+	builder.sheetId = sheetId
+	builder.sheetIdFlag = true
+	return builder
 }
-func (builder * DeleteSpreadsheetSheetFilterViewConditionReqBuilder) FilterViewId(filterViewId string) *DeleteSpreadsheetSheetFilterViewConditionReqBuilder  {
-  builder.filterViewId = filterViewId
-  builder.filterViewIdFlag = true
-  return builder
+func (builder *DeleteSpreadsheetSheetFilterViewConditionReqBuilder) FilterViewId(filterViewId string) *DeleteSpreadsheetSheetFilterViewConditionReqBuilder {
+	builder.filterViewId = filterViewId
+	builder.filterViewIdFlag = true
+	return builder
 }
-func (builder * DeleteSpreadsheetSheetFilterViewConditionReqBuilder) ConditionId(conditionId string) *DeleteSpreadsheetSheetFilterViewConditionReqBuilder  {
-  builder.conditionId = conditionId
-  builder.conditionIdFlag = true
-  return builder
+func (builder *DeleteSpreadsheetSheetFilterViewConditionReqBuilder) ConditionId(conditionId string) *DeleteSpreadsheetSheetFilterViewConditionReqBuilder {
+	builder.conditionId = conditionId
+	builder.conditionIdFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * DeleteSpreadsheetSheetFilterViewConditionReqBuilder ) Build() *DeleteSpreadsheetSheetFilterViewConditionReq {
-   req := &DeleteSpreadsheetSheetFilterViewConditionReq{}
-   if builder.spreadsheetTokenFlag {
-	  req.SpreadsheetToken = builder.spreadsheetToken
-   }
-   if builder.sheetIdFlag {
-	  req.SheetId = builder.sheetId
-   }
-   if builder.filterViewIdFlag {
-	  req.FilterViewId = builder.filterViewId
-   }
-   if builder.conditionIdFlag {
-	  req.ConditionId = builder.conditionId
-   }
-   return req
+func (builder *DeleteSpreadsheetSheetFilterViewConditionReqBuilder) Build() *DeleteSpreadsheetSheetFilterViewConditionReq {
+	req := &DeleteSpreadsheetSheetFilterViewConditionReq{}
+	if builder.spreadsheetTokenFlag {
+		req.SpreadsheetToken = builder.spreadsheetToken
+	}
+	if builder.sheetIdFlag {
+		req.SheetId = builder.sheetId
+	}
+	if builder.filterViewIdFlag {
+		req.FilterViewId = builder.filterViewId
+	}
+	if builder.conditionIdFlag {
+		req.ConditionId = builder.conditionId
+	}
+	return req
 }
-
 
 type DeleteSpreadsheetSheetFilterViewConditionReq struct {
-	SpreadsheetToken  string `path:"spreadsheet_token"`
-	SheetId  string `path:"sheet_id"`
-	FilterViewId  string `path:"filter_view_id"`
-	ConditionId  string `path:"condition_id"`
-
+	SpreadsheetToken string `path:"spreadsheet_token"`
+	SheetId          string `path:"sheet_id"`
+	FilterViewId     string `path:"filter_view_id"`
+	ConditionId      string `path:"condition_id"`
 }
-
 
 type DeleteSpreadsheetSheetFilterViewConditionResp struct {
 	*core.RawResponse `json:"-"`
@@ -1116,77 +1046,73 @@ func (resp *DeleteSpreadsheetSheetFilterViewConditionResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type GetSpreadsheetSheetFilterViewConditionReqBuilder struct {
-	spreadsheetToken  string
-	spreadsheetTokenFlag  bool
-	sheetId  string
-	sheetIdFlag  bool
-	filterViewId  string
-	filterViewIdFlag  bool
-	conditionId  string
-	conditionIdFlag  bool
-
+	spreadsheetToken     string
+	spreadsheetTokenFlag bool
+	sheetId              string
+	sheetIdFlag          bool
+	filterViewId         string
+	filterViewIdFlag     bool
+	conditionId          string
+	conditionIdFlag      bool
 }
 
 // 生成请求的New构造器
-func NewGetSpreadsheetSheetFilterViewConditionReqBuilder() * GetSpreadsheetSheetFilterViewConditionReqBuilder{
-   builder := &GetSpreadsheetSheetFilterViewConditionReqBuilder{}
-   return builder
+func NewGetSpreadsheetSheetFilterViewConditionReqBuilder() *GetSpreadsheetSheetFilterViewConditionReqBuilder {
+	builder := &GetSpreadsheetSheetFilterViewConditionReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * GetSpreadsheetSheetFilterViewConditionReqBuilder) SpreadsheetToken(spreadsheetToken string) *GetSpreadsheetSheetFilterViewConditionReqBuilder  {
-  builder.spreadsheetToken = spreadsheetToken
-  builder.spreadsheetTokenFlag = true
-  return builder
+func (builder *GetSpreadsheetSheetFilterViewConditionReqBuilder) SpreadsheetToken(spreadsheetToken string) *GetSpreadsheetSheetFilterViewConditionReqBuilder {
+	builder.spreadsheetToken = spreadsheetToken
+	builder.spreadsheetTokenFlag = true
+	return builder
 }
-func (builder * GetSpreadsheetSheetFilterViewConditionReqBuilder) SheetId(sheetId string) *GetSpreadsheetSheetFilterViewConditionReqBuilder  {
-  builder.sheetId = sheetId
-  builder.sheetIdFlag = true
-  return builder
+func (builder *GetSpreadsheetSheetFilterViewConditionReqBuilder) SheetId(sheetId string) *GetSpreadsheetSheetFilterViewConditionReqBuilder {
+	builder.sheetId = sheetId
+	builder.sheetIdFlag = true
+	return builder
 }
-func (builder * GetSpreadsheetSheetFilterViewConditionReqBuilder) FilterViewId(filterViewId string) *GetSpreadsheetSheetFilterViewConditionReqBuilder  {
-  builder.filterViewId = filterViewId
-  builder.filterViewIdFlag = true
-  return builder
+func (builder *GetSpreadsheetSheetFilterViewConditionReqBuilder) FilterViewId(filterViewId string) *GetSpreadsheetSheetFilterViewConditionReqBuilder {
+	builder.filterViewId = filterViewId
+	builder.filterViewIdFlag = true
+	return builder
 }
-func (builder * GetSpreadsheetSheetFilterViewConditionReqBuilder) ConditionId(conditionId string) *GetSpreadsheetSheetFilterViewConditionReqBuilder  {
-  builder.conditionId = conditionId
-  builder.conditionIdFlag = true
-  return builder
+func (builder *GetSpreadsheetSheetFilterViewConditionReqBuilder) ConditionId(conditionId string) *GetSpreadsheetSheetFilterViewConditionReqBuilder {
+	builder.conditionId = conditionId
+	builder.conditionIdFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * GetSpreadsheetSheetFilterViewConditionReqBuilder ) Build() *GetSpreadsheetSheetFilterViewConditionReq {
-   req := &GetSpreadsheetSheetFilterViewConditionReq{}
-   if builder.spreadsheetTokenFlag {
-	  req.SpreadsheetToken = builder.spreadsheetToken
-   }
-   if builder.sheetIdFlag {
-	  req.SheetId = builder.sheetId
-   }
-   if builder.filterViewIdFlag {
-	  req.FilterViewId = builder.filterViewId
-   }
-   if builder.conditionIdFlag {
-	  req.ConditionId = builder.conditionId
-   }
-   return req
+func (builder *GetSpreadsheetSheetFilterViewConditionReqBuilder) Build() *GetSpreadsheetSheetFilterViewConditionReq {
+	req := &GetSpreadsheetSheetFilterViewConditionReq{}
+	if builder.spreadsheetTokenFlag {
+		req.SpreadsheetToken = builder.spreadsheetToken
+	}
+	if builder.sheetIdFlag {
+		req.SheetId = builder.sheetId
+	}
+	if builder.filterViewIdFlag {
+		req.FilterViewId = builder.filterViewId
+	}
+	if builder.conditionIdFlag {
+		req.ConditionId = builder.conditionId
+	}
+	return req
 }
 
-
 type GetSpreadsheetSheetFilterViewConditionReq struct {
-	SpreadsheetToken  string `path:"spreadsheet_token"`
-	SheetId  string `path:"sheet_id"`
-	FilterViewId  string `path:"filter_view_id"`
-	ConditionId  string `path:"condition_id"`
-
+	SpreadsheetToken string `path:"spreadsheet_token"`
+	SheetId          string `path:"sheet_id"`
+	FilterViewId     string `path:"filter_view_id"`
+	ConditionId      string `path:"condition_id"`
 }
 
 type GetSpreadsheetSheetFilterViewConditionRespData struct {
-	Condition  *FilterViewCondition `json:"condition,omitempty"`
+	Condition *FilterViewCondition `json:"condition,omitempty"`
 }
 
 type GetSpreadsheetSheetFilterViewConditionResp struct {
@@ -1199,66 +1125,62 @@ func (resp *GetSpreadsheetSheetFilterViewConditionResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type QuerySpreadsheetSheetFilterViewConditionReqBuilder struct {
-	spreadsheetToken  string
-	spreadsheetTokenFlag  bool
-	sheetId  string
-	sheetIdFlag  bool
-	filterViewId  string
-	filterViewIdFlag  bool
-
+	spreadsheetToken     string
+	spreadsheetTokenFlag bool
+	sheetId              string
+	sheetIdFlag          bool
+	filterViewId         string
+	filterViewIdFlag     bool
 }
 
 // 生成请求的New构造器
-func NewQuerySpreadsheetSheetFilterViewConditionReqBuilder() * QuerySpreadsheetSheetFilterViewConditionReqBuilder{
-   builder := &QuerySpreadsheetSheetFilterViewConditionReqBuilder{}
-   return builder
+func NewQuerySpreadsheetSheetFilterViewConditionReqBuilder() *QuerySpreadsheetSheetFilterViewConditionReqBuilder {
+	builder := &QuerySpreadsheetSheetFilterViewConditionReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * QuerySpreadsheetSheetFilterViewConditionReqBuilder) SpreadsheetToken(spreadsheetToken string) *QuerySpreadsheetSheetFilterViewConditionReqBuilder  {
-  builder.spreadsheetToken = spreadsheetToken
-  builder.spreadsheetTokenFlag = true
-  return builder
+func (builder *QuerySpreadsheetSheetFilterViewConditionReqBuilder) SpreadsheetToken(spreadsheetToken string) *QuerySpreadsheetSheetFilterViewConditionReqBuilder {
+	builder.spreadsheetToken = spreadsheetToken
+	builder.spreadsheetTokenFlag = true
+	return builder
 }
-func (builder * QuerySpreadsheetSheetFilterViewConditionReqBuilder) SheetId(sheetId string) *QuerySpreadsheetSheetFilterViewConditionReqBuilder  {
-  builder.sheetId = sheetId
-  builder.sheetIdFlag = true
-  return builder
+func (builder *QuerySpreadsheetSheetFilterViewConditionReqBuilder) SheetId(sheetId string) *QuerySpreadsheetSheetFilterViewConditionReqBuilder {
+	builder.sheetId = sheetId
+	builder.sheetIdFlag = true
+	return builder
 }
-func (builder * QuerySpreadsheetSheetFilterViewConditionReqBuilder) FilterViewId(filterViewId string) *QuerySpreadsheetSheetFilterViewConditionReqBuilder  {
-  builder.filterViewId = filterViewId
-  builder.filterViewIdFlag = true
-  return builder
+func (builder *QuerySpreadsheetSheetFilterViewConditionReqBuilder) FilterViewId(filterViewId string) *QuerySpreadsheetSheetFilterViewConditionReqBuilder {
+	builder.filterViewId = filterViewId
+	builder.filterViewIdFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * QuerySpreadsheetSheetFilterViewConditionReqBuilder ) Build() *QuerySpreadsheetSheetFilterViewConditionReq {
-   req := &QuerySpreadsheetSheetFilterViewConditionReq{}
-   if builder.spreadsheetTokenFlag {
-	  req.SpreadsheetToken = builder.spreadsheetToken
-   }
-   if builder.sheetIdFlag {
-	  req.SheetId = builder.sheetId
-   }
-   if builder.filterViewIdFlag {
-	  req.FilterViewId = builder.filterViewId
-   }
-   return req
+func (builder *QuerySpreadsheetSheetFilterViewConditionReqBuilder) Build() *QuerySpreadsheetSheetFilterViewConditionReq {
+	req := &QuerySpreadsheetSheetFilterViewConditionReq{}
+	if builder.spreadsheetTokenFlag {
+		req.SpreadsheetToken = builder.spreadsheetToken
+	}
+	if builder.sheetIdFlag {
+		req.SheetId = builder.sheetId
+	}
+	if builder.filterViewIdFlag {
+		req.FilterViewId = builder.filterViewId
+	}
+	return req
 }
 
-
 type QuerySpreadsheetSheetFilterViewConditionReq struct {
-	SpreadsheetToken  string `path:"spreadsheet_token"`
-	SheetId  string `path:"sheet_id"`
-	FilterViewId  string `path:"filter_view_id"`
-
+	SpreadsheetToken string `path:"spreadsheet_token"`
+	SheetId          string `path:"sheet_id"`
+	FilterViewId     string `path:"filter_view_id"`
 }
 
 type QuerySpreadsheetSheetFilterViewConditionRespData struct {
-	Items  []*FilterViewCondition `json:"items,omitempty"`
+	Items []*FilterViewCondition `json:"items,omitempty"`
 }
 
 type QuerySpreadsheetSheetFilterViewConditionResp struct {
@@ -1271,85 +1193,81 @@ func (resp *QuerySpreadsheetSheetFilterViewConditionResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type UpdateSpreadsheetSheetFilterViewConditionReqBuilder struct {
-	spreadsheetToken  string
-	spreadsheetTokenFlag  bool
-	sheetId  string
-	sheetIdFlag  bool
-	filterViewId  string
-	filterViewIdFlag  bool
-	conditionId  string
-	conditionIdFlag  bool
-	filterViewCondition *FilterViewCondition
+	spreadsheetToken        string
+	spreadsheetTokenFlag    bool
+	sheetId                 string
+	sheetIdFlag             bool
+	filterViewId            string
+	filterViewIdFlag        bool
+	conditionId             string
+	conditionIdFlag         bool
+	filterViewCondition     *FilterViewCondition
 	filterViewConditionFlag bool
-
 }
 
 // 生成请求的New构造器
-func NewUpdateSpreadsheetSheetFilterViewConditionReqBuilder() * UpdateSpreadsheetSheetFilterViewConditionReqBuilder{
-   builder := &UpdateSpreadsheetSheetFilterViewConditionReqBuilder{}
-   return builder
+func NewUpdateSpreadsheetSheetFilterViewConditionReqBuilder() *UpdateSpreadsheetSheetFilterViewConditionReqBuilder {
+	builder := &UpdateSpreadsheetSheetFilterViewConditionReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * UpdateSpreadsheetSheetFilterViewConditionReqBuilder) SpreadsheetToken(spreadsheetToken string) *UpdateSpreadsheetSheetFilterViewConditionReqBuilder  {
-  builder.spreadsheetToken = spreadsheetToken
-  builder.spreadsheetTokenFlag = true
-  return builder
+func (builder *UpdateSpreadsheetSheetFilterViewConditionReqBuilder) SpreadsheetToken(spreadsheetToken string) *UpdateSpreadsheetSheetFilterViewConditionReqBuilder {
+	builder.spreadsheetToken = spreadsheetToken
+	builder.spreadsheetTokenFlag = true
+	return builder
 }
-func (builder * UpdateSpreadsheetSheetFilterViewConditionReqBuilder) SheetId(sheetId string) *UpdateSpreadsheetSheetFilterViewConditionReqBuilder  {
-  builder.sheetId = sheetId
-  builder.sheetIdFlag = true
-  return builder
+func (builder *UpdateSpreadsheetSheetFilterViewConditionReqBuilder) SheetId(sheetId string) *UpdateSpreadsheetSheetFilterViewConditionReqBuilder {
+	builder.sheetId = sheetId
+	builder.sheetIdFlag = true
+	return builder
 }
-func (builder * UpdateSpreadsheetSheetFilterViewConditionReqBuilder) FilterViewId(filterViewId string) *UpdateSpreadsheetSheetFilterViewConditionReqBuilder  {
-  builder.filterViewId = filterViewId
-  builder.filterViewIdFlag = true
-  return builder
+func (builder *UpdateSpreadsheetSheetFilterViewConditionReqBuilder) FilterViewId(filterViewId string) *UpdateSpreadsheetSheetFilterViewConditionReqBuilder {
+	builder.filterViewId = filterViewId
+	builder.filterViewIdFlag = true
+	return builder
 }
-func (builder * UpdateSpreadsheetSheetFilterViewConditionReqBuilder) ConditionId(conditionId string) *UpdateSpreadsheetSheetFilterViewConditionReqBuilder  {
-  builder.conditionId = conditionId
-  builder.conditionIdFlag = true
-  return builder
+func (builder *UpdateSpreadsheetSheetFilterViewConditionReqBuilder) ConditionId(conditionId string) *UpdateSpreadsheetSheetFilterViewConditionReqBuilder {
+	builder.conditionId = conditionId
+	builder.conditionIdFlag = true
+	return builder
 }
-func (builder * UpdateSpreadsheetSheetFilterViewConditionReqBuilder) FilterViewCondition(filterViewCondition *FilterViewCondition) *UpdateSpreadsheetSheetFilterViewConditionReqBuilder  {
-  builder.filterViewCondition = filterViewCondition
-  builder.filterViewConditionFlag = true
-  return builder
+func (builder *UpdateSpreadsheetSheetFilterViewConditionReqBuilder) FilterViewCondition(filterViewCondition *FilterViewCondition) *UpdateSpreadsheetSheetFilterViewConditionReqBuilder {
+	builder.filterViewCondition = filterViewCondition
+	builder.filterViewConditionFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * UpdateSpreadsheetSheetFilterViewConditionReqBuilder ) Build() *UpdateSpreadsheetSheetFilterViewConditionReq {
-   req := &UpdateSpreadsheetSheetFilterViewConditionReq{}
-   if builder.spreadsheetTokenFlag {
-	  req.SpreadsheetToken = builder.spreadsheetToken
-   }
-   if builder.sheetIdFlag {
-	  req.SheetId = builder.sheetId
-   }
-   if builder.filterViewIdFlag {
-	  req.FilterViewId = builder.filterViewId
-   }
-   if builder.conditionIdFlag {
-	  req.ConditionId = builder.conditionId
-   }
-   return req
+func (builder *UpdateSpreadsheetSheetFilterViewConditionReqBuilder) Build() *UpdateSpreadsheetSheetFilterViewConditionReq {
+	req := &UpdateSpreadsheetSheetFilterViewConditionReq{}
+	if builder.spreadsheetTokenFlag {
+		req.SpreadsheetToken = builder.spreadsheetToken
+	}
+	if builder.sheetIdFlag {
+		req.SheetId = builder.sheetId
+	}
+	if builder.filterViewIdFlag {
+		req.FilterViewId = builder.filterViewId
+	}
+	if builder.conditionIdFlag {
+		req.ConditionId = builder.conditionId
+	}
+	return req
 }
 
-
 type UpdateSpreadsheetSheetFilterViewConditionReq struct {
-	SpreadsheetToken  string `path:"spreadsheet_token"`
-	SheetId  string `path:"sheet_id"`
-	FilterViewId  string `path:"filter_view_id"`
-	ConditionId  string `path:"condition_id"`
+	SpreadsheetToken    string               `path:"spreadsheet_token"`
+	SheetId             string               `path:"sheet_id"`
+	FilterViewId        string               `path:"filter_view_id"`
+	ConditionId         string               `path:"condition_id"`
 	FilterViewCondition *FilterViewCondition `body:""`
-
 }
 
 type UpdateSpreadsheetSheetFilterViewConditionRespData struct {
-	Condition  *FilterViewCondition `json:"condition,omitempty"`
+	Condition *FilterViewCondition `json:"condition,omitempty"`
 }
 
 type UpdateSpreadsheetSheetFilterViewConditionResp struct {
@@ -1362,63 +1280,59 @@ func (resp *UpdateSpreadsheetSheetFilterViewConditionResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type CreateSpreadsheetSheetFloatImageReqBuilder struct {
-	spreadsheetToken  string
-	spreadsheetTokenFlag  bool
-	sheetId  string
-	sheetIdFlag  bool
-	floatImage *FloatImage
-	floatImageFlag bool
-
+	spreadsheetToken     string
+	spreadsheetTokenFlag bool
+	sheetId              string
+	sheetIdFlag          bool
+	floatImage           *FloatImage
+	floatImageFlag       bool
 }
 
 // 生成请求的New构造器
-func NewCreateSpreadsheetSheetFloatImageReqBuilder() * CreateSpreadsheetSheetFloatImageReqBuilder{
-   builder := &CreateSpreadsheetSheetFloatImageReqBuilder{}
-   return builder
+func NewCreateSpreadsheetSheetFloatImageReqBuilder() *CreateSpreadsheetSheetFloatImageReqBuilder {
+	builder := &CreateSpreadsheetSheetFloatImageReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * CreateSpreadsheetSheetFloatImageReqBuilder) SpreadsheetToken(spreadsheetToken string) *CreateSpreadsheetSheetFloatImageReqBuilder  {
-  builder.spreadsheetToken = spreadsheetToken
-  builder.spreadsheetTokenFlag = true
-  return builder
+func (builder *CreateSpreadsheetSheetFloatImageReqBuilder) SpreadsheetToken(spreadsheetToken string) *CreateSpreadsheetSheetFloatImageReqBuilder {
+	builder.spreadsheetToken = spreadsheetToken
+	builder.spreadsheetTokenFlag = true
+	return builder
 }
-func (builder * CreateSpreadsheetSheetFloatImageReqBuilder) SheetId(sheetId string) *CreateSpreadsheetSheetFloatImageReqBuilder  {
-  builder.sheetId = sheetId
-  builder.sheetIdFlag = true
-  return builder
+func (builder *CreateSpreadsheetSheetFloatImageReqBuilder) SheetId(sheetId string) *CreateSpreadsheetSheetFloatImageReqBuilder {
+	builder.sheetId = sheetId
+	builder.sheetIdFlag = true
+	return builder
 }
-func (builder * CreateSpreadsheetSheetFloatImageReqBuilder) FloatImage(floatImage *FloatImage) *CreateSpreadsheetSheetFloatImageReqBuilder  {
-  builder.floatImage = floatImage
-  builder.floatImageFlag = true
-  return builder
+func (builder *CreateSpreadsheetSheetFloatImageReqBuilder) FloatImage(floatImage *FloatImage) *CreateSpreadsheetSheetFloatImageReqBuilder {
+	builder.floatImage = floatImage
+	builder.floatImageFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * CreateSpreadsheetSheetFloatImageReqBuilder ) Build() *CreateSpreadsheetSheetFloatImageReq {
-   req := &CreateSpreadsheetSheetFloatImageReq{}
-   if builder.spreadsheetTokenFlag {
-	  req.SpreadsheetToken = builder.spreadsheetToken
-   }
-   if builder.sheetIdFlag {
-	  req.SheetId = builder.sheetId
-   }
-   return req
+func (builder *CreateSpreadsheetSheetFloatImageReqBuilder) Build() *CreateSpreadsheetSheetFloatImageReq {
+	req := &CreateSpreadsheetSheetFloatImageReq{}
+	if builder.spreadsheetTokenFlag {
+		req.SpreadsheetToken = builder.spreadsheetToken
+	}
+	if builder.sheetIdFlag {
+		req.SheetId = builder.sheetId
+	}
+	return req
 }
 
-
 type CreateSpreadsheetSheetFloatImageReq struct {
-	SpreadsheetToken  string `path:"spreadsheet_token"`
-	SheetId  string `path:"sheet_id"`
-	FloatImage *FloatImage `body:""`
-
+	SpreadsheetToken string      `path:"spreadsheet_token"`
+	SheetId          string      `path:"sheet_id"`
+	FloatImage       *FloatImage `body:""`
 }
 
 type CreateSpreadsheetSheetFloatImageRespData struct {
-	FloatImage  *FloatImage `json:"float_image,omitempty"`
+	FloatImage *FloatImage `json:"float_image,omitempty"`
 }
 
 type CreateSpreadsheetSheetFloatImageResp struct {
@@ -1431,64 +1345,59 @@ func (resp *CreateSpreadsheetSheetFloatImageResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type DeleteSpreadsheetSheetFloatImageReqBuilder struct {
-	spreadsheetToken  string
-	spreadsheetTokenFlag  bool
-	sheetId  string
-	sheetIdFlag  bool
-	floatImageId  string
-	floatImageIdFlag  bool
-
+	spreadsheetToken     string
+	spreadsheetTokenFlag bool
+	sheetId              string
+	sheetIdFlag          bool
+	floatImageId         string
+	floatImageIdFlag     bool
 }
 
 // 生成请求的New构造器
-func NewDeleteSpreadsheetSheetFloatImageReqBuilder() * DeleteSpreadsheetSheetFloatImageReqBuilder{
-   builder := &DeleteSpreadsheetSheetFloatImageReqBuilder{}
-   return builder
+func NewDeleteSpreadsheetSheetFloatImageReqBuilder() *DeleteSpreadsheetSheetFloatImageReqBuilder {
+	builder := &DeleteSpreadsheetSheetFloatImageReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * DeleteSpreadsheetSheetFloatImageReqBuilder) SpreadsheetToken(spreadsheetToken string) *DeleteSpreadsheetSheetFloatImageReqBuilder  {
-  builder.spreadsheetToken = spreadsheetToken
-  builder.spreadsheetTokenFlag = true
-  return builder
+func (builder *DeleteSpreadsheetSheetFloatImageReqBuilder) SpreadsheetToken(spreadsheetToken string) *DeleteSpreadsheetSheetFloatImageReqBuilder {
+	builder.spreadsheetToken = spreadsheetToken
+	builder.spreadsheetTokenFlag = true
+	return builder
 }
-func (builder * DeleteSpreadsheetSheetFloatImageReqBuilder) SheetId(sheetId string) *DeleteSpreadsheetSheetFloatImageReqBuilder  {
-  builder.sheetId = sheetId
-  builder.sheetIdFlag = true
-  return builder
+func (builder *DeleteSpreadsheetSheetFloatImageReqBuilder) SheetId(sheetId string) *DeleteSpreadsheetSheetFloatImageReqBuilder {
+	builder.sheetId = sheetId
+	builder.sheetIdFlag = true
+	return builder
 }
-func (builder * DeleteSpreadsheetSheetFloatImageReqBuilder) FloatImageId(floatImageId string) *DeleteSpreadsheetSheetFloatImageReqBuilder  {
-  builder.floatImageId = floatImageId
-  builder.floatImageIdFlag = true
-  return builder
+func (builder *DeleteSpreadsheetSheetFloatImageReqBuilder) FloatImageId(floatImageId string) *DeleteSpreadsheetSheetFloatImageReqBuilder {
+	builder.floatImageId = floatImageId
+	builder.floatImageIdFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * DeleteSpreadsheetSheetFloatImageReqBuilder ) Build() *DeleteSpreadsheetSheetFloatImageReq {
-   req := &DeleteSpreadsheetSheetFloatImageReq{}
-   if builder.spreadsheetTokenFlag {
-	  req.SpreadsheetToken = builder.spreadsheetToken
-   }
-   if builder.sheetIdFlag {
-	  req.SheetId = builder.sheetId
-   }
-   if builder.floatImageIdFlag {
-	  req.FloatImageId = builder.floatImageId
-   }
-   return req
+func (builder *DeleteSpreadsheetSheetFloatImageReqBuilder) Build() *DeleteSpreadsheetSheetFloatImageReq {
+	req := &DeleteSpreadsheetSheetFloatImageReq{}
+	if builder.spreadsheetTokenFlag {
+		req.SpreadsheetToken = builder.spreadsheetToken
+	}
+	if builder.sheetIdFlag {
+		req.SheetId = builder.sheetId
+	}
+	if builder.floatImageIdFlag {
+		req.FloatImageId = builder.floatImageId
+	}
+	return req
 }
-
 
 type DeleteSpreadsheetSheetFloatImageReq struct {
-	SpreadsheetToken  string `path:"spreadsheet_token"`
-	SheetId  string `path:"sheet_id"`
-	FloatImageId  string `path:"float_image_id"`
-
+	SpreadsheetToken string `path:"spreadsheet_token"`
+	SheetId          string `path:"sheet_id"`
+	FloatImageId     string `path:"float_image_id"`
 }
-
 
 type DeleteSpreadsheetSheetFloatImageResp struct {
 	*core.RawResponse `json:"-"`
@@ -1499,66 +1408,62 @@ func (resp *DeleteSpreadsheetSheetFloatImageResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type GetSpreadsheetSheetFloatImageReqBuilder struct {
-	spreadsheetToken  string
-	spreadsheetTokenFlag  bool
-	sheetId  string
-	sheetIdFlag  bool
-	floatImageId  string
-	floatImageIdFlag  bool
-
+	spreadsheetToken     string
+	spreadsheetTokenFlag bool
+	sheetId              string
+	sheetIdFlag          bool
+	floatImageId         string
+	floatImageIdFlag     bool
 }
 
 // 生成请求的New构造器
-func NewGetSpreadsheetSheetFloatImageReqBuilder() * GetSpreadsheetSheetFloatImageReqBuilder{
-   builder := &GetSpreadsheetSheetFloatImageReqBuilder{}
-   return builder
+func NewGetSpreadsheetSheetFloatImageReqBuilder() *GetSpreadsheetSheetFloatImageReqBuilder {
+	builder := &GetSpreadsheetSheetFloatImageReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * GetSpreadsheetSheetFloatImageReqBuilder) SpreadsheetToken(spreadsheetToken string) *GetSpreadsheetSheetFloatImageReqBuilder  {
-  builder.spreadsheetToken = spreadsheetToken
-  builder.spreadsheetTokenFlag = true
-  return builder
+func (builder *GetSpreadsheetSheetFloatImageReqBuilder) SpreadsheetToken(spreadsheetToken string) *GetSpreadsheetSheetFloatImageReqBuilder {
+	builder.spreadsheetToken = spreadsheetToken
+	builder.spreadsheetTokenFlag = true
+	return builder
 }
-func (builder * GetSpreadsheetSheetFloatImageReqBuilder) SheetId(sheetId string) *GetSpreadsheetSheetFloatImageReqBuilder  {
-  builder.sheetId = sheetId
-  builder.sheetIdFlag = true
-  return builder
+func (builder *GetSpreadsheetSheetFloatImageReqBuilder) SheetId(sheetId string) *GetSpreadsheetSheetFloatImageReqBuilder {
+	builder.sheetId = sheetId
+	builder.sheetIdFlag = true
+	return builder
 }
-func (builder * GetSpreadsheetSheetFloatImageReqBuilder) FloatImageId(floatImageId string) *GetSpreadsheetSheetFloatImageReqBuilder  {
-  builder.floatImageId = floatImageId
-  builder.floatImageIdFlag = true
-  return builder
+func (builder *GetSpreadsheetSheetFloatImageReqBuilder) FloatImageId(floatImageId string) *GetSpreadsheetSheetFloatImageReqBuilder {
+	builder.floatImageId = floatImageId
+	builder.floatImageIdFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * GetSpreadsheetSheetFloatImageReqBuilder ) Build() *GetSpreadsheetSheetFloatImageReq {
-   req := &GetSpreadsheetSheetFloatImageReq{}
-   if builder.spreadsheetTokenFlag {
-	  req.SpreadsheetToken = builder.spreadsheetToken
-   }
-   if builder.sheetIdFlag {
-	  req.SheetId = builder.sheetId
-   }
-   if builder.floatImageIdFlag {
-	  req.FloatImageId = builder.floatImageId
-   }
-   return req
+func (builder *GetSpreadsheetSheetFloatImageReqBuilder) Build() *GetSpreadsheetSheetFloatImageReq {
+	req := &GetSpreadsheetSheetFloatImageReq{}
+	if builder.spreadsheetTokenFlag {
+		req.SpreadsheetToken = builder.spreadsheetToken
+	}
+	if builder.sheetIdFlag {
+		req.SheetId = builder.sheetId
+	}
+	if builder.floatImageIdFlag {
+		req.FloatImageId = builder.floatImageId
+	}
+	return req
 }
 
-
 type GetSpreadsheetSheetFloatImageReq struct {
-	SpreadsheetToken  string `path:"spreadsheet_token"`
-	SheetId  string `path:"sheet_id"`
-	FloatImageId  string `path:"float_image_id"`
-
+	SpreadsheetToken string `path:"spreadsheet_token"`
+	SheetId          string `path:"sheet_id"`
+	FloatImageId     string `path:"float_image_id"`
 }
 
 type GetSpreadsheetSheetFloatImageRespData struct {
-	FloatImage  *FloatImage `json:"float_image,omitempty"`
+	FloatImage *FloatImage `json:"float_image,omitempty"`
 }
 
 type GetSpreadsheetSheetFloatImageResp struct {
@@ -1571,74 +1476,70 @@ func (resp *GetSpreadsheetSheetFloatImageResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type PatchSpreadsheetSheetFloatImageReqBuilder struct {
-	spreadsheetToken  string
-	spreadsheetTokenFlag  bool
-	sheetId  string
-	sheetIdFlag  bool
-	floatImageId  string
-	floatImageIdFlag  bool
-	floatImage *FloatImage
-	floatImageFlag bool
-
+	spreadsheetToken     string
+	spreadsheetTokenFlag bool
+	sheetId              string
+	sheetIdFlag          bool
+	floatImageId         string
+	floatImageIdFlag     bool
+	floatImage           *FloatImage
+	floatImageFlag       bool
 }
 
 // 生成请求的New构造器
-func NewPatchSpreadsheetSheetFloatImageReqBuilder() * PatchSpreadsheetSheetFloatImageReqBuilder{
-   builder := &PatchSpreadsheetSheetFloatImageReqBuilder{}
-   return builder
+func NewPatchSpreadsheetSheetFloatImageReqBuilder() *PatchSpreadsheetSheetFloatImageReqBuilder {
+	builder := &PatchSpreadsheetSheetFloatImageReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * PatchSpreadsheetSheetFloatImageReqBuilder) SpreadsheetToken(spreadsheetToken string) *PatchSpreadsheetSheetFloatImageReqBuilder  {
-  builder.spreadsheetToken = spreadsheetToken
-  builder.spreadsheetTokenFlag = true
-  return builder
+func (builder *PatchSpreadsheetSheetFloatImageReqBuilder) SpreadsheetToken(spreadsheetToken string) *PatchSpreadsheetSheetFloatImageReqBuilder {
+	builder.spreadsheetToken = spreadsheetToken
+	builder.spreadsheetTokenFlag = true
+	return builder
 }
-func (builder * PatchSpreadsheetSheetFloatImageReqBuilder) SheetId(sheetId string) *PatchSpreadsheetSheetFloatImageReqBuilder  {
-  builder.sheetId = sheetId
-  builder.sheetIdFlag = true
-  return builder
+func (builder *PatchSpreadsheetSheetFloatImageReqBuilder) SheetId(sheetId string) *PatchSpreadsheetSheetFloatImageReqBuilder {
+	builder.sheetId = sheetId
+	builder.sheetIdFlag = true
+	return builder
 }
-func (builder * PatchSpreadsheetSheetFloatImageReqBuilder) FloatImageId(floatImageId string) *PatchSpreadsheetSheetFloatImageReqBuilder  {
-  builder.floatImageId = floatImageId
-  builder.floatImageIdFlag = true
-  return builder
+func (builder *PatchSpreadsheetSheetFloatImageReqBuilder) FloatImageId(floatImageId string) *PatchSpreadsheetSheetFloatImageReqBuilder {
+	builder.floatImageId = floatImageId
+	builder.floatImageIdFlag = true
+	return builder
 }
-func (builder * PatchSpreadsheetSheetFloatImageReqBuilder) FloatImage(floatImage *FloatImage) *PatchSpreadsheetSheetFloatImageReqBuilder  {
-  builder.floatImage = floatImage
-  builder.floatImageFlag = true
-  return builder
+func (builder *PatchSpreadsheetSheetFloatImageReqBuilder) FloatImage(floatImage *FloatImage) *PatchSpreadsheetSheetFloatImageReqBuilder {
+	builder.floatImage = floatImage
+	builder.floatImageFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * PatchSpreadsheetSheetFloatImageReqBuilder ) Build() *PatchSpreadsheetSheetFloatImageReq {
-   req := &PatchSpreadsheetSheetFloatImageReq{}
-   if builder.spreadsheetTokenFlag {
-	  req.SpreadsheetToken = builder.spreadsheetToken
-   }
-   if builder.sheetIdFlag {
-	  req.SheetId = builder.sheetId
-   }
-   if builder.floatImageIdFlag {
-	  req.FloatImageId = builder.floatImageId
-   }
-   return req
+func (builder *PatchSpreadsheetSheetFloatImageReqBuilder) Build() *PatchSpreadsheetSheetFloatImageReq {
+	req := &PatchSpreadsheetSheetFloatImageReq{}
+	if builder.spreadsheetTokenFlag {
+		req.SpreadsheetToken = builder.spreadsheetToken
+	}
+	if builder.sheetIdFlag {
+		req.SheetId = builder.sheetId
+	}
+	if builder.floatImageIdFlag {
+		req.FloatImageId = builder.floatImageId
+	}
+	return req
 }
 
-
 type PatchSpreadsheetSheetFloatImageReq struct {
-	SpreadsheetToken  string `path:"spreadsheet_token"`
-	SheetId  string `path:"sheet_id"`
-	FloatImageId  string `path:"float_image_id"`
-	FloatImage *FloatImage `body:""`
-
+	SpreadsheetToken string      `path:"spreadsheet_token"`
+	SheetId          string      `path:"sheet_id"`
+	FloatImageId     string      `path:"float_image_id"`
+	FloatImage       *FloatImage `body:""`
 }
 
 type PatchSpreadsheetSheetFloatImageRespData struct {
-	FloatImage  *FloatImage `json:"float_image,omitempty"`
+	FloatImage *FloatImage `json:"float_image,omitempty"`
 }
 
 type PatchSpreadsheetSheetFloatImageResp struct {
@@ -1651,55 +1552,51 @@ func (resp *PatchSpreadsheetSheetFloatImageResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type QuerySpreadsheetSheetFloatImageReqBuilder struct {
-	spreadsheetToken  string
-	spreadsheetTokenFlag  bool
-	sheetId  string
-	sheetIdFlag  bool
-
+	spreadsheetToken     string
+	spreadsheetTokenFlag bool
+	sheetId              string
+	sheetIdFlag          bool
 }
 
 // 生成请求的New构造器
-func NewQuerySpreadsheetSheetFloatImageReqBuilder() * QuerySpreadsheetSheetFloatImageReqBuilder{
-   builder := &QuerySpreadsheetSheetFloatImageReqBuilder{}
-   return builder
+func NewQuerySpreadsheetSheetFloatImageReqBuilder() *QuerySpreadsheetSheetFloatImageReqBuilder {
+	builder := &QuerySpreadsheetSheetFloatImageReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * QuerySpreadsheetSheetFloatImageReqBuilder) SpreadsheetToken(spreadsheetToken string) *QuerySpreadsheetSheetFloatImageReqBuilder  {
-  builder.spreadsheetToken = spreadsheetToken
-  builder.spreadsheetTokenFlag = true
-  return builder
+func (builder *QuerySpreadsheetSheetFloatImageReqBuilder) SpreadsheetToken(spreadsheetToken string) *QuerySpreadsheetSheetFloatImageReqBuilder {
+	builder.spreadsheetToken = spreadsheetToken
+	builder.spreadsheetTokenFlag = true
+	return builder
 }
-func (builder * QuerySpreadsheetSheetFloatImageReqBuilder) SheetId(sheetId string) *QuerySpreadsheetSheetFloatImageReqBuilder  {
-  builder.sheetId = sheetId
-  builder.sheetIdFlag = true
-  return builder
+func (builder *QuerySpreadsheetSheetFloatImageReqBuilder) SheetId(sheetId string) *QuerySpreadsheetSheetFloatImageReqBuilder {
+	builder.sheetId = sheetId
+	builder.sheetIdFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * QuerySpreadsheetSheetFloatImageReqBuilder ) Build() *QuerySpreadsheetSheetFloatImageReq {
-   req := &QuerySpreadsheetSheetFloatImageReq{}
-   if builder.spreadsheetTokenFlag {
-	  req.SpreadsheetToken = builder.spreadsheetToken
-   }
-   if builder.sheetIdFlag {
-	  req.SheetId = builder.sheetId
-   }
-   return req
+func (builder *QuerySpreadsheetSheetFloatImageReqBuilder) Build() *QuerySpreadsheetSheetFloatImageReq {
+	req := &QuerySpreadsheetSheetFloatImageReq{}
+	if builder.spreadsheetTokenFlag {
+		req.SpreadsheetToken = builder.spreadsheetToken
+	}
+	if builder.sheetIdFlag {
+		req.SheetId = builder.sheetId
+	}
+	return req
 }
 
-
 type QuerySpreadsheetSheetFloatImageReq struct {
-	SpreadsheetToken  string `path:"spreadsheet_token"`
-	SheetId  string `path:"sheet_id"`
-
+	SpreadsheetToken string `path:"spreadsheet_token"`
+	SheetId          string `path:"sheet_id"`
 }
 
 type QuerySpreadsheetSheetFloatImageRespData struct {
-	Items  []*FloatImage `json:"items,omitempty"`
+	Items []*FloatImage `json:"items,omitempty"`
 }
 
 type QuerySpreadsheetSheetFloatImageResp struct {
@@ -1714,8 +1611,5 @@ func (resp *QuerySpreadsheetSheetFloatImageResp) Success() bool {
 
 /**生成消息事件结构体 **/
 
-
 /* 生成请求的builder构造器*/
 /*1.1 生成body的builder结构体*/
-
-

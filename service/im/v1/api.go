@@ -2,10 +2,10 @@
 package im
 
 import (
-	"net/http"
 	"bytes"
 	"context"
-	
+	"net/http"
+
 	"github.com/feishu/oapi-sdk-go/core"
 )
 
@@ -13,26 +13,21 @@ import (
 构建业务域服务实例
 **/
 func NewService(httpClient *http.Client, config *core.Config) *ImService {
-	i := &ImService{httpClient:httpClient,config:config}
-	i.BatchMessages = &batchMessages{service: i}
-	i.Chats = &chats{service: i}
+	i := &ImService{httpClient: httpClient, config: config}
+	i.BatchMessage = &batchMessage{service: i}
+	i.Chat = &chat{service: i}
 	i.ChatAnnouncement = &chatAnnouncement{service: i}
 	i.ChatManagers = &chatManagers{service: i}
-	i.ChatMemberBots = &chatMemberBots{service: i}
-	i.ChatMemberUsers = &chatMemberUsers{service: i}
+	i.ChatMemberBot = &chatMemberBot{service: i}
+	i.ChatMemberUser = &chatMemberUser{service: i}
 	i.ChatMembers = &chatMembers{service: i}
 	i.ChatModeration = &chatModeration{service: i}
-	i.ChatTabs = &chatTabs{service: i}
 	i.ChatTopNotice = &chatTopNotice{service: i}
-	i.ChatCustomBots = &chatCustomBots{service: i}
-	i.Files = &files{service: i}
-	i.ImUsageData = &imUsageData{service: i}
-	i.Images = &images{service: i}
-	i.Messages = &messages{service: i}
-	i.Reactions = &reactions{service: i}
-	i.Resources = &resources{service: i}
-	i.SpecialFocus = &specialFocus{service: i}
-	i.UrlPreviews = &urlPreviews{service: i}
+	i.File = &file{service: i}
+	i.Image = &image{service: i}
+	i.Message = &message{service: i}
+	i.MessageReaction = &messageReaction{service: i}
+	i.MessageResource = &messageResource{service: i}
 	return i
 }
 
@@ -40,102 +35,80 @@ func NewService(httpClient *http.Client, config *core.Config) *ImService {
 业务域服务定义
 **/
 type ImService struct {
-	httpClient *http.Client
-	config *core.Config
-	BatchMessages *batchMessages
-	Chats *chats
+	httpClient       *http.Client
+	config           *core.Config
+	BatchMessage     *batchMessage
+	Chat             *chat
 	ChatAnnouncement *chatAnnouncement
-	ChatManagers *chatManagers
-	ChatMemberBots *chatMemberBots
-	ChatMemberUsers *chatMemberUsers
-	ChatMembers *chatMembers
-	ChatModeration *chatModeration
-	ChatTabs *chatTabs
-	ChatTopNotice *chatTopNotice
-	ChatCustomBots *chatCustomBots
-	Files *files
-	ImUsageData *imUsageData
-	Images *images
-	Messages *messages
-	Reactions *reactions
-	Resources *resources
-	SpecialFocus *specialFocus
-	UrlPreviews *urlPreviews
+	ChatManagers     *chatManagers
+	ChatMemberBot    *chatMemberBot
+	ChatMemberUser   *chatMemberUser
+	ChatMembers      *chatMembers
+	ChatModeration   *chatModeration
+	ChatTopNotice    *chatTopNotice
+	File             *file
+	Image            *image
+	Message          *message
+	MessageReaction  *messageReaction
+	MessageResource  *messageResource
 }
-
 
 /**
 资源服务定义
 **/
-type batchMessages struct {
-   service *ImService
+type batchMessage struct {
+	service *ImService
 }
-type chats struct {
-   service *ImService
+type chat struct {
+	service *ImService
 }
 type chatAnnouncement struct {
-   service *ImService
+	service *ImService
 }
 type chatManagers struct {
-   service *ImService
+	service *ImService
 }
-type chatMemberBots struct {
-   service *ImService
+type chatMemberBot struct {
+	service *ImService
 }
-type chatMemberUsers struct {
-   service *ImService
+type chatMemberUser struct {
+	service *ImService
 }
 type chatMembers struct {
-   service *ImService
+	service *ImService
 }
 type chatModeration struct {
-   service *ImService
-}
-type chatTabs struct {
-   service *ImService
+	service *ImService
 }
 type chatTopNotice struct {
-   service *ImService
+	service *ImService
 }
-type chatCustomBots struct {
-   service *ImService
+type file struct {
+	service *ImService
 }
-type files struct {
-   service *ImService
+type image struct {
+	service *ImService
 }
-type imUsageData struct {
-   service *ImService
+type message struct {
+	service *ImService
 }
-type images struct {
-   service *ImService
+type messageReaction struct {
+	service *ImService
 }
-type messages struct {
-   service *ImService
+type messageResource struct {
+	service *ImService
 }
-type reactions struct {
-   service *ImService
-}
-type resources struct {
-   service *ImService
-}
-type specialFocus struct {
-   service *ImService
-}
-type urlPreviews struct {
-   service *ImService
-}
+
 /**
 资源服务方法定义
 **/
-func (b *batchMessages) Delete(ctx context.Context, req *DeleteBatchMessageReq, options ...core.RequestOptionFunc) (*DeleteBatchMessageResp, error) {
-
+func (b *batchMessage) Delete(ctx context.Context, req *DeleteBatchMessageReq, options ...core.RequestOptionFunc) (*DeleteBatchMessageResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,b.service.config, http.MethodDelete,
+	rawResp, err := core.SendRequest(ctx, b.service.config, http.MethodDelete,
 		"/open-apis/im/v1/batch_messages/:batch_message_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &DeleteBatchMessageResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -144,15 +117,13 @@ func (b *batchMessages) Delete(ctx context.Context, req *DeleteBatchMessageReq, 
 	}
 	return resp, err
 }
-func (b *batchMessages) GetProgress(ctx context.Context, req *GetProgressBatchMessageReq, options ...core.RequestOptionFunc) (*GetProgressBatchMessageResp, error) {
-
+func (b *batchMessage) GetProgress(ctx context.Context, req *GetProgressBatchMessageReq, options ...core.RequestOptionFunc) (*GetProgressBatchMessageResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,b.service.config, http.MethodGet,
+	rawResp, err := core.SendRequest(ctx, b.service.config, http.MethodGet,
 		"/open-apis/im/v1/batch_messages/:batch_message_id/get_progress", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &GetProgressBatchMessageResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -161,15 +132,13 @@ func (b *batchMessages) GetProgress(ctx context.Context, req *GetProgressBatchMe
 	}
 	return resp, err
 }
-func (b *batchMessages) ReadUser(ctx context.Context, req *ReadUserBatchMessageReq, options ...core.RequestOptionFunc) (*ReadUserBatchMessageResp, error) {
-
+func (b *batchMessage) ReadUser(ctx context.Context, req *ReadUserBatchMessageReq, options ...core.RequestOptionFunc) (*ReadUserBatchMessageResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,b.service.config, http.MethodGet,
+	rawResp, err := core.SendRequest(ctx, b.service.config, http.MethodGet,
 		"/open-apis/im/v1/batch_messages/:batch_message_id/read_user", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &ReadUserBatchMessageResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -178,15 +147,13 @@ func (b *batchMessages) ReadUser(ctx context.Context, req *ReadUserBatchMessageR
 	}
 	return resp, err
 }
-func (c *chats) Create(ctx context.Context, req *CreateChatReq, options ...core.RequestOptionFunc) (*CreateChatResp, error) {
-
+func (c *chat) Create(ctx context.Context, req *CreateChatReq, options ...core.RequestOptionFunc) (*CreateChatResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,c.service.config, http.MethodPost,
+	rawResp, err := core.SendRequest(ctx, c.service.config, http.MethodPost,
 		"/open-apis/im/v1/chats", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &CreateChatResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -195,15 +162,13 @@ func (c *chats) Create(ctx context.Context, req *CreateChatReq, options ...core.
 	}
 	return resp, err
 }
-func (c *chats) Delete(ctx context.Context, req *DeleteChatReq, options ...core.RequestOptionFunc) (*DeleteChatResp, error) {
-
+func (c *chat) Delete(ctx context.Context, req *DeleteChatReq, options ...core.RequestOptionFunc) (*DeleteChatResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,c.service.config, http.MethodDelete,
+	rawResp, err := core.SendRequest(ctx, c.service.config, http.MethodDelete,
 		"/open-apis/im/v1/chats/:chat_id", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &DeleteChatResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -212,15 +177,13 @@ func (c *chats) Delete(ctx context.Context, req *DeleteChatReq, options ...core.
 	}
 	return resp, err
 }
-func (c *chats) Get(ctx context.Context, req *GetChatReq, options ...core.RequestOptionFunc) (*GetChatResp, error) {
-
+func (c *chat) Get(ctx context.Context, req *GetChatReq, options ...core.RequestOptionFunc) (*GetChatResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,c.service.config, http.MethodGet,
+	rawResp, err := core.SendRequest(ctx, c.service.config, http.MethodGet,
 		"/open-apis/im/v1/chats/:chat_id", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &GetChatResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -229,15 +192,13 @@ func (c *chats) Get(ctx context.Context, req *GetChatReq, options ...core.Reques
 	}
 	return resp, err
 }
-func (c *chats) List(ctx context.Context, req *ListChatReq, options ...core.RequestOptionFunc) (*ListChatResp, error) {
-
+func (c *chat) List(ctx context.Context, req *ListChatReq, options ...core.RequestOptionFunc) (*ListChatResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,c.service.config, http.MethodGet,
+	rawResp, err := core.SendRequest(ctx, c.service.config, http.MethodGet,
 		"/open-apis/im/v1/chats", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &ListChatResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -246,24 +207,23 @@ func (c *chats) List(ctx context.Context, req *ListChatReq, options ...core.Requ
 	}
 	return resp, err
 }
-/**如果是分页查询，则添加迭代器函数**/
-func (c *chats) ListChat(ctx context.Context, req *ListChatReq, options ...core.RequestOptionFunc) (*ListChatIterator, error) {
-   return &ListChatIterator{
-	  ctx:	  ctx,
-	  req:	  req,
-	  listFunc: c.List,
-	  options:  options,
-	  limit: req.Limit}, nil
-}
-func (c *chats) Search(ctx context.Context, req *SearchChatReq, options ...core.RequestOptionFunc) (*SearchChatResp, error) {
 
+/**如果是分页查询，则添加迭代器函数**/
+func (c *chat) ListChat(ctx context.Context, req *ListChatReq, options ...core.RequestOptionFunc) (*ListChatIterator, error) {
+	return &ListChatIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: c.List,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+func (c *chat) Search(ctx context.Context, req *SearchChatReq, options ...core.RequestOptionFunc) (*SearchChatResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,c.service.config, http.MethodGet,
+	rawResp, err := core.SendRequest(ctx, c.service.config, http.MethodGet,
 		"/open-apis/im/v1/chats/search", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &SearchChatResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -272,24 +232,23 @@ func (c *chats) Search(ctx context.Context, req *SearchChatReq, options ...core.
 	}
 	return resp, err
 }
-/**如果是分页查询，则添加迭代器函数**/
-func (c *chats) SearchChat(ctx context.Context, req *SearchChatReq, options ...core.RequestOptionFunc) (*SearchChatIterator, error) {
-   return &SearchChatIterator{
-	  ctx:	  ctx,
-	  req:	  req,
-	  listFunc: c.Search,
-	  options:  options,
-	  limit: req.Limit}, nil
-}
-func (c *chats) Update(ctx context.Context, req *UpdateChatReq, options ...core.RequestOptionFunc) (*UpdateChatResp, error) {
 
+/**如果是分页查询，则添加迭代器函数**/
+func (c *chat) SearchChat(ctx context.Context, req *SearchChatReq, options ...core.RequestOptionFunc) (*SearchChatIterator, error) {
+	return &SearchChatIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: c.Search,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+func (c *chat) Update(ctx context.Context, req *UpdateChatReq, options ...core.RequestOptionFunc) (*UpdateChatResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,c.service.config, http.MethodPut,
+	rawResp, err := core.SendRequest(ctx, c.service.config, http.MethodPut,
 		"/open-apis/im/v1/chats/:chat_id", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &UpdateChatResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -299,14 +258,12 @@ func (c *chats) Update(ctx context.Context, req *UpdateChatReq, options ...core.
 	return resp, err
 }
 func (c *chatAnnouncement) Get(ctx context.Context, req *GetChatAnnouncementReq, options ...core.RequestOptionFunc) (*GetChatAnnouncementResp, error) {
-
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,c.service.config, http.MethodGet,
+	rawResp, err := core.SendRequest(ctx, c.service.config, http.MethodGet,
 		"/open-apis/im/v1/chats/:chat_id/announcement", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &GetChatAnnouncementResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -316,14 +273,12 @@ func (c *chatAnnouncement) Get(ctx context.Context, req *GetChatAnnouncementReq,
 	return resp, err
 }
 func (c *chatAnnouncement) Patch(ctx context.Context, req *PatchChatAnnouncementReq, options ...core.RequestOptionFunc) (*PatchChatAnnouncementResp, error) {
-
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,c.service.config, http.MethodPatch,
+	rawResp, err := core.SendRequest(ctx, c.service.config, http.MethodPatch,
 		"/open-apis/im/v1/chats/:chat_id/announcement", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &PatchChatAnnouncementResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -333,14 +288,12 @@ func (c *chatAnnouncement) Patch(ctx context.Context, req *PatchChatAnnouncement
 	return resp, err
 }
 func (c *chatManagers) AddManagers(ctx context.Context, req *AddManagersChatManagersReq, options ...core.RequestOptionFunc) (*AddManagersChatManagersResp, error) {
-
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,c.service.config, http.MethodPost,
+	rawResp, err := core.SendRequest(ctx, c.service.config, http.MethodPost,
 		"/open-apis/im/v1/chats/:chat_id/managers/add_managers", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &AddManagersChatManagersResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -350,14 +303,12 @@ func (c *chatManagers) AddManagers(ctx context.Context, req *AddManagersChatMana
 	return resp, err
 }
 func (c *chatManagers) DeleteManagers(ctx context.Context, req *DeleteManagersChatManagersReq, options ...core.RequestOptionFunc) (*DeleteManagersChatManagersResp, error) {
-
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,c.service.config, http.MethodPost,
+	rawResp, err := core.SendRequest(ctx, c.service.config, http.MethodPost,
 		"/open-apis/im/v1/chats/:chat_id/managers/delete_managers", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &DeleteManagersChatManagersResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -367,14 +318,12 @@ func (c *chatManagers) DeleteManagers(ctx context.Context, req *DeleteManagersCh
 	return resp, err
 }
 func (c *chatMembers) Create(ctx context.Context, req *CreateChatMembersReq, options ...core.RequestOptionFunc) (*CreateChatMembersResp, error) {
-
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,c.service.config, http.MethodPost,
+	rawResp, err := core.SendRequest(ctx, c.service.config, http.MethodPost,
 		"/open-apis/im/v1/chats/:chat_id/members", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &CreateChatMembersResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -384,14 +333,12 @@ func (c *chatMembers) Create(ctx context.Context, req *CreateChatMembersReq, opt
 	return resp, err
 }
 func (c *chatMembers) Delete(ctx context.Context, req *DeleteChatMembersReq, options ...core.RequestOptionFunc) (*DeleteChatMembersResp, error) {
-
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,c.service.config, http.MethodDelete,
+	rawResp, err := core.SendRequest(ctx, c.service.config, http.MethodDelete,
 		"/open-apis/im/v1/chats/:chat_id/members", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &DeleteChatMembersResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -401,14 +348,12 @@ func (c *chatMembers) Delete(ctx context.Context, req *DeleteChatMembersReq, opt
 	return resp, err
 }
 func (c *chatMembers) Get(ctx context.Context, req *GetChatMembersReq, options ...core.RequestOptionFunc) (*GetChatMembersResp, error) {
-
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,c.service.config, http.MethodGet,
+	rawResp, err := core.SendRequest(ctx, c.service.config, http.MethodGet,
 		"/open-apis/im/v1/chats/:chat_id/members", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &GetChatMembersResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -417,24 +362,23 @@ func (c *chatMembers) Get(ctx context.Context, req *GetChatMembersReq, options .
 	}
 	return resp, err
 }
+
 /**如果是分页查询，则添加迭代器函数**/
 func (c *chatMembers) GetChatMembers(ctx context.Context, req *GetChatMembersReq, options ...core.RequestOptionFunc) (*GetChatMembersIterator, error) {
-   return &GetChatMembersIterator{
-	  ctx:	  ctx,
-	  req:	  req,
-	  listFunc: c.Get,
-	  options:  options,
-	  limit: req.Limit}, nil
+	return &GetChatMembersIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: c.Get,
+		options:  options,
+		limit:    req.Limit}, nil
 }
 func (c *chatMembers) IsInChat(ctx context.Context, req *IsInChatChatMembersReq, options ...core.RequestOptionFunc) (*IsInChatChatMembersResp, error) {
-
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,c.service.config, http.MethodGet,
+	rawResp, err := core.SendRequest(ctx, c.service.config, http.MethodGet,
 		"/open-apis/im/v1/chats/:chat_id/members/is_in_chat", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &IsInChatChatMembersResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -444,14 +388,12 @@ func (c *chatMembers) IsInChat(ctx context.Context, req *IsInChatChatMembersReq,
 	return resp, err
 }
 func (c *chatMembers) MeJoin(ctx context.Context, req *MeJoinChatMembersReq, options ...core.RequestOptionFunc) (*MeJoinChatMembersResp, error) {
-
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,c.service.config, http.MethodPatch,
+	rawResp, err := core.SendRequest(ctx, c.service.config, http.MethodPatch,
 		"/open-apis/im/v1/chats/:chat_id/members/me_join", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &MeJoinChatMembersResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -461,14 +403,12 @@ func (c *chatMembers) MeJoin(ctx context.Context, req *MeJoinChatMembersReq, opt
 	return resp, err
 }
 func (c *chatModeration) Get(ctx context.Context, req *GetChatModerationReq, options ...core.RequestOptionFunc) (*GetChatModerationResp, error) {
-
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,c.service.config, http.MethodGet,
+	rawResp, err := core.SendRequest(ctx, c.service.config, http.MethodGet,
 		"/open-apis/im/v1/chats/:chat_id/moderation", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &GetChatModerationResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -477,24 +417,23 @@ func (c *chatModeration) Get(ctx context.Context, req *GetChatModerationReq, opt
 	}
 	return resp, err
 }
+
 /**如果是分页查询，则添加迭代器函数**/
 func (c *chatModeration) GetChatModeration(ctx context.Context, req *GetChatModerationReq, options ...core.RequestOptionFunc) (*GetChatModerationIterator, error) {
-   return &GetChatModerationIterator{
-	  ctx:	  ctx,
-	  req:	  req,
-	  listFunc: c.Get,
-	  options:  options,
-	  limit: req.Limit}, nil
+	return &GetChatModerationIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: c.Get,
+		options:  options,
+		limit:    req.Limit}, nil
 }
 func (c *chatModeration) Update(ctx context.Context, req *UpdateChatModerationReq, options ...core.RequestOptionFunc) (*UpdateChatModerationResp, error) {
-
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,c.service.config, http.MethodPut,
+	rawResp, err := core.SendRequest(ctx, c.service.config, http.MethodPut,
 		"/open-apis/im/v1/chats/:chat_id/moderation", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &UpdateChatModerationResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -503,100 +442,13 @@ func (c *chatModeration) Update(ctx context.Context, req *UpdateChatModerationRe
 	}
 	return resp, err
 }
-func (c *chatTabs) Create(ctx context.Context, req *CreateChatTabReq, options ...core.RequestOptionFunc) (*CreateChatTabResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,c.service.config, http.MethodPost,
-		"/open-apis/im/v1/chats/:chat_id/chat_tabs", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &CreateChatTabResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (c *chatTabs) DeleteTabs(ctx context.Context, req *DeleteTabsChatTabReq, options ...core.RequestOptionFunc) (*DeleteTabsChatTabResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,c.service.config, http.MethodDelete,
-		"/open-apis/im/v1/chats/:chat_id/chat_tabs/delete_tabs", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &DeleteTabsChatTabResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (c *chatTabs) ListTabs(ctx context.Context, req *ListTabsChatTabReq, options ...core.RequestOptionFunc) (*ListTabsChatTabResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,c.service.config, http.MethodGet,
-		"/open-apis/im/v1/chats/:chat_id/chat_tabs/list_tabs", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &ListTabsChatTabResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (c *chatTabs) SortTabs(ctx context.Context, req *SortTabsChatTabReq, options ...core.RequestOptionFunc) (*SortTabsChatTabResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,c.service.config, http.MethodPost,
-		"/open-apis/im/v1/chats/:chat_id/chat_tabs/sort_tabs", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &SortTabsChatTabResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (c *chatTabs) UpdateTabs(ctx context.Context, req *UpdateTabsChatTabReq, options ...core.RequestOptionFunc) (*UpdateTabsChatTabResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,c.service.config, http.MethodPost,
-		"/open-apis/im/v1/chats/:chat_id/chat_tabs/update_tabs", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &UpdateTabsChatTabResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
 func (c *chatTopNotice) DeleteTopNotice(ctx context.Context, req *DeleteTopNoticeChatTopNoticeReq, options ...core.RequestOptionFunc) (*DeleteTopNoticeChatTopNoticeResp, error) {
-
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,c.service.config, http.MethodPost,
+	rawResp, err := core.SendRequest(ctx, c.service.config, http.MethodPost,
 		"/open-apis/im/v1/chats/:chat_id/top_notice/delete_top_notice", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &DeleteTopNoticeChatTopNoticeResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -606,14 +458,12 @@ func (c *chatTopNotice) DeleteTopNotice(ctx context.Context, req *DeleteTopNotic
 	return resp, err
 }
 func (c *chatTopNotice) PutTopNotice(ctx context.Context, req *PutTopNoticeChatTopNoticeReq, options ...core.RequestOptionFunc) (*PutTopNoticeChatTopNoticeResp, error) {
-
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,c.service.config, http.MethodPost,
+	rawResp, err := core.SendRequest(ctx, c.service.config, http.MethodPost,
 		"/open-apis/im/v1/chats/:chat_id/top_notice/put_top_notice", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &PutTopNoticeChatTopNoticeResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -622,84 +472,14 @@ func (c *chatTopNotice) PutTopNotice(ctx context.Context, req *PutTopNoticeChatT
 	}
 	return resp, err
 }
-func (c *chatCustomBots) Create(ctx context.Context, req *CreateChatCustomBotReq, options ...core.RequestOptionFunc) (*CreateChatCustomBotResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,c.service.config, http.MethodPost,
-		"/open-apis/im/v1/chat_custom_bots", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &CreateChatCustomBotResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (c *chatCustomBots) Delete(ctx context.Context, req *DeleteChatCustomBotReq, options ...core.RequestOptionFunc) (*DeleteChatCustomBotResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,c.service.config, http.MethodDelete,
-		"/open-apis/im/v1/chat_custom_bots/:bot_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &DeleteChatCustomBotResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (c *chatCustomBots) Get(ctx context.Context, req *GetChatCustomBotReq, options ...core.RequestOptionFunc) (*GetChatCustomBotResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,c.service.config, http.MethodGet,
-		"/open-apis/im/v1/chat_custom_bots/:bot_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &GetChatCustomBotResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (c *chatCustomBots) Patch(ctx context.Context, req *PatchChatCustomBotReq, options ...core.RequestOptionFunc) (*PatchChatCustomBotResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,c.service.config, http.MethodPatch,
-		"/open-apis/im/v1/chat_custom_bots/:bot_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &PatchChatCustomBotResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (f *files) Create(ctx context.Context, req *CreateFileReq, options ...core.RequestOptionFunc) (*CreateFileResp, error) {
+func (f *file) Create(ctx context.Context, req *CreateFileReq, options ...core.RequestOptionFunc) (*CreateFileResp, error) {
 	options = append(options, core.WithFileUpload())
-
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,f.service.config, http.MethodPost,
+	rawResp, err := core.SendRequest(ctx, f.service.config, http.MethodPost,
 		"/open-apis/im/v1/files", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &CreateFileResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -708,15 +488,13 @@ func (f *files) Create(ctx context.Context, req *CreateFileReq, options ...core.
 	}
 	return resp, err
 }
-func (f *files) Get(ctx context.Context, req *GetFileReq, options ...core.RequestOptionFunc) (*GetFileResp, error) {
-
+func (f *file) Get(ctx context.Context, req *GetFileReq, options ...core.RequestOptionFunc) (*GetFileResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,f.service.config, http.MethodGet,
+	rawResp, err := core.SendRequest(ctx, f.service.config, http.MethodGet,
 		"/open-apis/im/v1/files/:file_key", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &GetFileResp{RawResponse: rawResp}
 	// 如果是下载，则设置响应结果
@@ -731,50 +509,14 @@ func (f *files) Get(ctx context.Context, req *GetFileReq, options ...core.Reques
 	}
 	return resp, err
 }
-func (i *imUsageData) ImDepthData(ctx context.Context, req *ImDepthDataImUsageDataReq, options ...core.RequestOptionFunc) (*ImDepthDataImUsageDataResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,i.service.config, http.MethodPost,
-		"/open-apis/im/v1/im_usage_data/im_depth_data", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &ImDepthDataImUsageDataResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (i *imUsageData) MsgProcessData(ctx context.Context, req *MsgProcessDataImUsageDataReq, options ...core.RequestOptionFunc) (*MsgProcessDataImUsageDataResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,i.service.config, http.MethodPost,
-		"/open-apis/im/v1/im_usage_data/msg_process_data", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &MsgProcessDataImUsageDataResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (i *images) Create(ctx context.Context, req *CreateImageReq, options ...core.RequestOptionFunc) (*CreateImageResp, error) {
+func (i *image) Create(ctx context.Context, req *CreateImageReq, options ...core.RequestOptionFunc) (*CreateImageResp, error) {
 	options = append(options, core.WithFileUpload())
-
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,i.service.config, http.MethodPost,
+	rawResp, err := core.SendRequest(ctx, i.service.config, http.MethodPost,
 		"/open-apis/im/v1/images", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &CreateImageResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -783,15 +525,13 @@ func (i *images) Create(ctx context.Context, req *CreateImageReq, options ...cor
 	}
 	return resp, err
 }
-func (i *images) Get(ctx context.Context, req *GetImageReq, options ...core.RequestOptionFunc) (*GetImageResp, error) {
-
+func (i *image) Get(ctx context.Context, req *GetImageReq, options ...core.RequestOptionFunc) (*GetImageResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,i.service.config, http.MethodGet,
+	rawResp, err := core.SendRequest(ctx, i.service.config, http.MethodGet,
 		"/open-apis/im/v1/images/:image_key", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &GetImageResp{RawResponse: rawResp}
 	// 如果是下载，则设置响应结果
@@ -806,15 +546,13 @@ func (i *images) Get(ctx context.Context, req *GetImageReq, options ...core.Requ
 	}
 	return resp, err
 }
-func (m *messages) Create(ctx context.Context, req *CreateMessageReq, options ...core.RequestOptionFunc) (*CreateMessageResp, error) {
-
+func (m *message) Create(ctx context.Context, req *CreateMessageReq, options ...core.RequestOptionFunc) (*CreateMessageResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,m.service.config, http.MethodPost,
+	rawResp, err := core.SendRequest(ctx, m.service.config, http.MethodPost,
 		"/open-apis/im/v1/messages", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &CreateMessageResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -823,15 +561,13 @@ func (m *messages) Create(ctx context.Context, req *CreateMessageReq, options ..
 	}
 	return resp, err
 }
-func (m *messages) Delete(ctx context.Context, req *DeleteMessageReq, options ...core.RequestOptionFunc) (*DeleteMessageResp, error) {
-
+func (m *message) Delete(ctx context.Context, req *DeleteMessageReq, options ...core.RequestOptionFunc) (*DeleteMessageResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,m.service.config, http.MethodDelete,
+	rawResp, err := core.SendRequest(ctx, m.service.config, http.MethodDelete,
 		"/open-apis/im/v1/messages/:message_id", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &DeleteMessageResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -840,15 +576,13 @@ func (m *messages) Delete(ctx context.Context, req *DeleteMessageReq, options ..
 	}
 	return resp, err
 }
-func (m *messages) Get(ctx context.Context, req *GetMessageReq, options ...core.RequestOptionFunc) (*GetMessageResp, error) {
-
+func (m *message) Get(ctx context.Context, req *GetMessageReq, options ...core.RequestOptionFunc) (*GetMessageResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,m.service.config, http.MethodGet,
+	rawResp, err := core.SendRequest(ctx, m.service.config, http.MethodGet,
 		"/open-apis/im/v1/messages/:message_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &GetMessageResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -857,15 +591,13 @@ func (m *messages) Get(ctx context.Context, req *GetMessageReq, options ...core.
 	}
 	return resp, err
 }
-func (m *messages) List(ctx context.Context, req *ListMessageReq, options ...core.RequestOptionFunc) (*ListMessageResp, error) {
-
+func (m *message) List(ctx context.Context, req *ListMessageReq, options ...core.RequestOptionFunc) (*ListMessageResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,m.service.config, http.MethodGet,
+	rawResp, err := core.SendRequest(ctx, m.service.config, http.MethodGet,
 		"/open-apis/im/v1/messages", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &ListMessageResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -874,24 +606,23 @@ func (m *messages) List(ctx context.Context, req *ListMessageReq, options ...cor
 	}
 	return resp, err
 }
-/**如果是分页查询，则添加迭代器函数**/
-func (m *messages) ListMessage(ctx context.Context, req *ListMessageReq, options ...core.RequestOptionFunc) (*ListMessageIterator, error) {
-   return &ListMessageIterator{
-	  ctx:	  ctx,
-	  req:	  req,
-	  listFunc: m.List,
-	  options:  options,
-	  limit: req.Limit}, nil
-}
-func (m *messages) Patch(ctx context.Context, req *PatchMessageReq, options ...core.RequestOptionFunc) (*PatchMessageResp, error) {
 
+/**如果是分页查询，则添加迭代器函数**/
+func (m *message) ListMessage(ctx context.Context, req *ListMessageReq, options ...core.RequestOptionFunc) (*ListMessageIterator, error) {
+	return &ListMessageIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: m.List,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+func (m *message) Patch(ctx context.Context, req *PatchMessageReq, options ...core.RequestOptionFunc) (*PatchMessageResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,m.service.config, http.MethodPatch,
+	rawResp, err := core.SendRequest(ctx, m.service.config, http.MethodPatch,
 		"/open-apis/im/v1/messages/:message_id", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &PatchMessageResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -900,15 +631,13 @@ func (m *messages) Patch(ctx context.Context, req *PatchMessageReq, options ...c
 	}
 	return resp, err
 }
-func (m *messages) ReadUsers(ctx context.Context, req *ReadUsersMessageReq, options ...core.RequestOptionFunc) (*ReadUsersMessageResp, error) {
-
+func (m *message) ReadUsers(ctx context.Context, req *ReadUsersMessageReq, options ...core.RequestOptionFunc) (*ReadUsersMessageResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,m.service.config, http.MethodGet,
+	rawResp, err := core.SendRequest(ctx, m.service.config, http.MethodGet,
 		"/open-apis/im/v1/messages/:message_id/read_users", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &ReadUsersMessageResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -917,15 +646,13 @@ func (m *messages) ReadUsers(ctx context.Context, req *ReadUsersMessageReq, opti
 	}
 	return resp, err
 }
-func (m *messages) Reply(ctx context.Context, req *ReplyMessageReq, options ...core.RequestOptionFunc) (*ReplyMessageResp, error) {
-
+func (m *message) Reply(ctx context.Context, req *ReplyMessageReq, options ...core.RequestOptionFunc) (*ReplyMessageResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,m.service.config, http.MethodPost,
+	rawResp, err := core.SendRequest(ctx, m.service.config, http.MethodPost,
 		"/open-apis/im/v1/messages/:message_id/reply", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &ReplyMessageResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -934,15 +661,13 @@ func (m *messages) Reply(ctx context.Context, req *ReplyMessageReq, options ...c
 	}
 	return resp, err
 }
-func (m *messages) UrgentApp(ctx context.Context, req *UrgentAppMessageReq, options ...core.RequestOptionFunc) (*UrgentAppMessageResp, error) {
-
+func (m *message) UrgentApp(ctx context.Context, req *UrgentAppMessageReq, options ...core.RequestOptionFunc) (*UrgentAppMessageResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,m.service.config, http.MethodPatch,
+	rawResp, err := core.SendRequest(ctx, m.service.config, http.MethodPatch,
 		"/open-apis/im/v1/messages/:message_id/urgent_app", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &UrgentAppMessageResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -951,15 +676,13 @@ func (m *messages) UrgentApp(ctx context.Context, req *UrgentAppMessageReq, opti
 	}
 	return resp, err
 }
-func (m *messages) UrgentPhone(ctx context.Context, req *UrgentPhoneMessageReq, options ...core.RequestOptionFunc) (*UrgentPhoneMessageResp, error) {
-
+func (m *message) UrgentPhone(ctx context.Context, req *UrgentPhoneMessageReq, options ...core.RequestOptionFunc) (*UrgentPhoneMessageResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,m.service.config, http.MethodPatch,
+	rawResp, err := core.SendRequest(ctx, m.service.config, http.MethodPatch,
 		"/open-apis/im/v1/messages/:message_id/urgent_phone", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &UrgentPhoneMessageResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -968,32 +691,13 @@ func (m *messages) UrgentPhone(ctx context.Context, req *UrgentPhoneMessageReq, 
 	}
 	return resp, err
 }
-func (m *messages) UrgentReadUsers(ctx context.Context, req *UrgentReadUsersMessageReq, options ...core.RequestOptionFunc) (*UrgentReadUsersMessageResp, error) {
-
+func (m *message) UrgentSms(ctx context.Context, req *UrgentSmsMessageReq, options ...core.RequestOptionFunc) (*UrgentSmsMessageResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,m.service.config, http.MethodGet,
-		"/open-apis/im/v1/messages/:message_id/urgent_read_users", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &UrgentReadUsersMessageResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (m *messages) UrgentSms(ctx context.Context, req *UrgentSmsMessageReq, options ...core.RequestOptionFunc) (*UrgentSmsMessageResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,m.service.config, http.MethodPatch,
+	rawResp, err := core.SendRequest(ctx, m.service.config, http.MethodPatch,
 		"/open-apis/im/v1/messages/:message_id/urgent_sms", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &UrgentSmsMessageResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -1002,15 +706,13 @@ func (m *messages) UrgentSms(ctx context.Context, req *UrgentSmsMessageReq, opti
 	}
 	return resp, err
 }
-func (r *reactions) Create(ctx context.Context, req *CreateMessageReactionReq, options ...core.RequestOptionFunc) (*CreateMessageReactionResp, error) {
-
+func (m *messageReaction) Create(ctx context.Context, req *CreateMessageReactionReq, options ...core.RequestOptionFunc) (*CreateMessageReactionResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,r.service.config, http.MethodPost,
+	rawResp, err := core.SendRequest(ctx, m.service.config, http.MethodPost,
 		"/open-apis/im/v1/messages/:message_id/reactions", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &CreateMessageReactionResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -1019,15 +721,13 @@ func (r *reactions) Create(ctx context.Context, req *CreateMessageReactionReq, o
 	}
 	return resp, err
 }
-func (r *reactions) Delete(ctx context.Context, req *DeleteMessageReactionReq, options ...core.RequestOptionFunc) (*DeleteMessageReactionResp, error) {
-
+func (m *messageReaction) Delete(ctx context.Context, req *DeleteMessageReactionReq, options ...core.RequestOptionFunc) (*DeleteMessageReactionResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,r.service.config, http.MethodDelete,
+	rawResp, err := core.SendRequest(ctx, m.service.config, http.MethodDelete,
 		"/open-apis/im/v1/messages/:message_id/reactions/:reaction_id", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &DeleteMessageReactionResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -1036,15 +736,13 @@ func (r *reactions) Delete(ctx context.Context, req *DeleteMessageReactionReq, o
 	}
 	return resp, err
 }
-func (r *reactions) List(ctx context.Context, req *ListMessageReactionReq, options ...core.RequestOptionFunc) (*ListMessageReactionResp, error) {
-
+func (m *messageReaction) List(ctx context.Context, req *ListMessageReactionReq, options ...core.RequestOptionFunc) (*ListMessageReactionResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,r.service.config, http.MethodGet,
+	rawResp, err := core.SendRequest(ctx, m.service.config, http.MethodGet,
 		"/open-apis/im/v1/messages/:message_id/reactions", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &ListMessageReactionResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -1053,24 +751,23 @@ func (r *reactions) List(ctx context.Context, req *ListMessageReactionReq, optio
 	}
 	return resp, err
 }
-/**如果是分页查询，则添加迭代器函数**/
-func (r *reactions) ListMessageReaction(ctx context.Context, req *ListMessageReactionReq, options ...core.RequestOptionFunc) (*ListMessageReactionIterator, error) {
-   return &ListMessageReactionIterator{
-	  ctx:	  ctx,
-	  req:	  req,
-	  listFunc: r.List,
-	  options:  options,
-	  limit: req.Limit}, nil
-}
-func (r *resources) Get(ctx context.Context, req *GetMessageResourceReq, options ...core.RequestOptionFunc) (*GetMessageResourceResp, error) {
 
+/**如果是分页查询，则添加迭代器函数**/
+func (m *messageReaction) ListMessageReaction(ctx context.Context, req *ListMessageReactionReq, options ...core.RequestOptionFunc) (*ListMessageReactionIterator, error) {
+	return &ListMessageReactionIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: m.List,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+func (m *messageResource) Get(ctx context.Context, req *GetMessageResourceReq, options ...core.RequestOptionFunc) (*GetMessageResourceResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,r.service.config, http.MethodGet,
+	rawResp, err := core.SendRequest(ctx, m.service.config, http.MethodGet,
 		"/open-apis/im/v1/messages/:message_id/resources/:file_key", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &GetMessageResourceResp{RawResponse: rawResp}
 	// 如果是下载，则设置响应结果
@@ -1079,66 +776,6 @@ func (r *resources) Get(ctx context.Context, req *GetMessageResourceReq, options
 		resp.FileName = core.FileNameByHeader(rawResp.Header)
 		return resp, err
 	}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (s *specialFocus) List(ctx context.Context, req *ListSpecialFocusReq, options ...core.RequestOptionFunc) (*ListSpecialFocusResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,s.service.config, http.MethodGet,
-		"/open-apis/im/v1/special_focus", []core.AccessTokenType{core.AccessTokenTypeUser}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &ListSpecialFocusResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-/**如果是分页查询，则添加迭代器函数**/
-func (s *specialFocus) ListSpecialFocus(ctx context.Context, req *ListSpecialFocusReq, options ...core.RequestOptionFunc) (*ListSpecialFocusIterator, error) {
-   return &ListSpecialFocusIterator{
-	  ctx:	  ctx,
-	  req:	  req,
-	  listFunc: s.List,
-	  options:  options,
-	  limit: req.Limit}, nil
-}
-func (s *specialFocus) Unread(ctx context.Context, req *UnreadSpecialFocusReq, options ...core.RequestOptionFunc) (*UnreadSpecialFocusResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,s.service.config, http.MethodPost,
-		"/open-apis/im/v1/special_focus/unread", []core.AccessTokenType{core.AccessTokenTypeUser}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &UnreadSpecialFocusResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (u *urlPreviews) BatchUpdate(ctx context.Context, req *BatchUpdateUrlPreviewReq, options ...core.RequestOptionFunc) (*BatchUpdateUrlPreviewResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,u.service.config, http.MethodPost,
-		"/open-apis/im/v1/url_previews/batch_update", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &BatchUpdateUrlPreviewResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
 	if err != nil {
 		return nil, err

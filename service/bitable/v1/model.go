@@ -5,157 +5,239 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	
-	"github.com/feishu/oapi-sdk-go/core"
 
+	"github.com/feishu/oapi-sdk-go/core"
 )
 
 /**生成枚举值 **/
 
 const (
-	  USER_ID_TYPE_USER_ID string  = "user_id"
-	  USER_ID_TYPE_UNION_ID string  = "union_id"
-	  USER_ID_TYPE_OPEN_ID string  = "open_id"
+	MemberIdTypeOpenID           string = "open_id"
+	MemberIdTypeUnionID          string = "union_id"
+	MemberIdTypeUserID           string = "user_id"
+	MemberIdTypeChatID           string = "chat_id"
+	MemberIdTypeDepartmentID     string = "department_id"
+	MemberIdTypeOpenDepartmentID string = "open_department_id"
 )
 
 const (
-	  TYPE_TEXT string  = "1"
-	  TYPE_NUMBER string  = "2"
-	  TYPE_SINGLESELECT string  = "3"
-	  TYPE_MULTISELECT string  = "4"
-	  TYPE_DATETIME string  = "5"
-	  TYPE_CHECKBOX string  = "7"
-	  TYPE_USER string  = "11"
-	  TYPE_URL string  = "15"
-	  TYPE_ATTACHMENT string  = "17"
-	  TYPE_LINK string  = "18"
-	  TYPE_FORMULA string  = "20"
-	  TYPE_CREATEDTIME string  = "1001"
-	  TYPE_MODIFIEDTIME string  = "1002"
+	UserIdTypeUserId  string = "user_id"
+	UserIdTypeUnionId string = "union_id"
+	UserIdTypeOpenId  string = "open_id"
 )
 
+const (
+	TypeText         string = "1"
+	TypeNumber       string = "2"
+	TypeSingleSelect string = "3"
+	TypeMultiSelect  string = "4"
+	TypeDateTime     string = "5"
+	TypeCheckbox     string = "7"
+	TypeUser         string = "11"
+	TypeUrl          string = "15"
+	TypeAttachment   string = "17"
+	TypeLink         string = "18"
+	TypeFormula      string = "20"
+	TypeDuplexLink   string = "21"
+	TypeCreatedTime  string = "1001"
+	TypeModifiedTime string = "1002"
+	TypeCreatedUser  string = "1003"
+	TypeModifiedUser string = "1004"
+)
 
+const (
+	ViewTypeGrid    string = "grid"
+	ViewTypeKanban  string = "kanban"
+	ViewTypeGallery string = "gallery"
+	ViewTypeGantt   string = "gantt"
+)
 
 /**生成数据类型 **/
 
+type App struct {
+	AppToken    *string `json:"app_token,omitempty"`
+	Name        *string `json:"name,omitempty"`
+	Revision    *int    `json:"revision,omitempty"`
+	FolderToken *string `json:"folder_token,omitempty"`
+	Url         *string `json:"url,omitempty"`
+}
+
+type AppRole struct {
+	RoleName   *string             `json:"role_name,omitempty"`
+	RoleId     *string             `json:"role_id,omitempty"`
+	TableRoles []*AppRoleTableRole `json:"table_roles,omitempty"`
+}
+
+type AppRoleMember struct {
+	MemberId         *string `json:"member_id,omitempty"`
+	OpenId           *string `json:"open_id,omitempty"`
+	UnionId          *string `json:"union_id,omitempty"`
+	UserId           *string `json:"user_id,omitempty"`
+	ChatId           *string `json:"chat_id,omitempty"`
+	DepartmentId     *string `json:"department_id,omitempty"`
+	OpenDepartmentId *string `json:"open_department_id,omitempty"`
+	MemberName       *string `json:"member_name,omitempty"`
+	MemberEnName     *string `json:"member_en_name,omitempty"`
+	MemberType       *string `json:"member_type,omitempty"`
+}
+
+type AppRoleTableRole struct {
+	TableName *string                    `json:"table_name,omitempty"`
+	TablePerm *int                       `json:"table_perm,omitempty"`
+	RecRule   *AppRoleTableRoleRecRule   `json:"rec_rule,omitempty"`
+	FieldPerm *AppRoleTableRoleFieldPerm `json:"field_perm,omitempty"`
+}
+
+type AppRoleTableRoleFieldPerm struct {
+}
+
+type AppRoleTableRoleRecRule struct {
+	Conditions  []*AppRoleTableRoleRecRuleCondition `json:"conditions,omitempty"`
+	Conjunction *string                             `json:"conjunction,omitempty"`
+	OtherPerm   *int                                `json:"other_perm,omitempty"`
+}
+
+type AppRoleTableRoleRecRuleCondition struct {
+	FieldName *string  `json:"field_name,omitempty"`
+	Operator  *string  `json:"operator,omitempty"`
+	Value     []string `json:"value,omitempty"`
+	FieldType *int     `json:"field_type,omitempty"`
+}
+
 type AppTable struct {
 	TableId  *string `json:"table_id,omitempty"`
-	Revision  *int `json:"revision,omitempty"`
-	Name  *string `json:"name,omitempty"`
+	Revision *int    `json:"revision,omitempty"`
+	Name     *string `json:"name,omitempty"`
+}
+
+type AppTableField struct {
+	FieldId   *string                `json:"field_id,omitempty"`
+	FieldName *string                `json:"field_name,omitempty"`
+	Type      *int                   `json:"type,omitempty"`
+	Property  *AppTableFieldProperty `json:"property,omitempty"`
 }
 
 type AppTableFieldProperty struct {
-	Options  []*AppTableFieldPropertyOption `json:"options,omitempty"`
-	Formatter  *string `json:"formatter,omitempty"`
-	DateFormat  *string `json:"date_format,omitempty"`
-	TimeFormat  *string `json:"time_format,omitempty"`
-	AutoFill  *bool `json:"auto_fill,omitempty"`
-	Multiple  *bool `json:"multiple,omitempty"`
-	TableId  *string `json:"table_id,omitempty"`
-	ViewId  *string `json:"view_id,omitempty"`
-	Fields  []string `json:"fields,omitempty"`
+	Options       []*AppTableFieldPropertyOption `json:"options,omitempty"`
+	Formatter     *string                        `json:"formatter,omitempty"`
+	DateFormatter *string                        `json:"date_formatter,omitempty"`
+	AutoFill      *bool                          `json:"auto_fill,omitempty"`
+	Multiple      *bool                          `json:"multiple,omitempty"`
+	TableId       *string                        `json:"table_id,omitempty"`
+	TableName     *string                        `json:"table_name,omitempty"`
+	BackFieldName *string                        `json:"back_field_name,omitempty"`
 }
 
 type AppTableFieldPropertyOption struct {
 	Name  *string `json:"name,omitempty"`
-	Id  *string `json:"id,omitempty"`
+	Id    *string `json:"id,omitempty"`
+	Color *int    `json:"color,omitempty"`
 }
 
 type AppTableRecord struct {
-	RecordId  *string `json:"record_id,omitempty"`
-	Fields  map[string]interface{} `json:"fields,omitempty"`
+	RecordId         *string                `json:"record_id,omitempty"`
+	CreatedBy        *Person                `json:"created_by,omitempty"`
+	CreatedTime      *int                   `json:"created_time,omitempty"`
+	LastModifiedBy   *Person                `json:"last_modified_by,omitempty"`
+	LastModifiedTime *int                   `json:"last_modified_time,omitempty"`
+	Fields           map[string]interface{} `json:"fields,omitempty"`
 }
 
 type AppTableView struct {
-	ViewId  *string `json:"view_id,omitempty"`
-	ViewName  *string `json:"view_name,omitempty"`
-	ViewType  *string `json:"view_type,omitempty"`
-}
-
-type DeleteRecord struct {
-	Deleted  *bool `json:"deleted,omitempty"`
-	RecordId  *string `json:"record_id,omitempty"`
-}
-
-type Person struct {
-	Id  *string `json:"id,omitempty"`
-	Name  *string `json:"name,omitempty"`
-	EnName  *string `json:"en_name,omitempty"`
-	Email  *string `json:"email,omitempty"`
-}
-
-type ReqTable struct {
-	Name  *string `json:"name,omitempty"`
-}
-
-type App struct {
-	AppToken  *string `json:"app_token,omitempty"`
-	Name  *string `json:"name,omitempty"`
-	Revision  *int `json:"revision,omitempty"`
-}
-
-type AppTableField struct {
-	FieldId  *string `json:"field_id,omitempty"`
-	FieldName  *string `json:"field_name,omitempty"`
-	Type  *int `json:"type,omitempty"`
-	Property  *AppTableFieldProperty `json:"property,omitempty"`
+	ViewId   *string `json:"view_id,omitempty"`
+	ViewName *string `json:"view_name,omitempty"`
+	ViewType *string `json:"view_type,omitempty"`
 }
 
 type Attachment struct {
-	FileToken  *string `json:"file_token,omitempty"`
-	Name  *string `json:"name,omitempty"`
-	Type  *string `json:"type,omitempty"`
-	Size  *int `json:"size,omitempty"`
-	Url  *string `json:"url,omitempty"`
-	TmpUrl  *string `json:"tmp_url,omitempty"`
+	FileToken *string `json:"file_token,omitempty"`
+	Name      *string `json:"name,omitempty"`
+	Type      *string `json:"type,omitempty"`
+	Size      *int    `json:"size,omitempty"`
+	Url       *string `json:"url,omitempty"`
+	TmpUrl    *string `json:"tmp_url,omitempty"`
+}
+
+type DeleteRecord struct {
+	Deleted  *bool   `json:"deleted,omitempty"`
+	RecordId *string `json:"record_id,omitempty"`
+}
+
+type DisplayApp struct {
+	AppToken   *string `json:"app_token,omitempty"`
+	Name       *string `json:"name,omitempty"`
+	Revision   *int    `json:"revision,omitempty"`
+	IsAdvanced *bool   `json:"is_advanced,omitempty"`
+}
+
+type DisplayAppV2 struct {
+	AppToken   *string `json:"app_token,omitempty"`
+	Name       *string `json:"name,omitempty"`
+	IsAdvanced *bool   `json:"is_advanced,omitempty"`
+}
+
+type Person struct {
+	Id     *string `json:"id,omitempty"`
+	Name   *string `json:"name,omitempty"`
+	EnName *string `json:"en_name,omitempty"`
+	Email  *string `json:"email,omitempty"`
+}
+
+type ReqApp struct {
+	Name        *string `json:"name,omitempty"`
+	FolderToken *string `json:"folder_token,omitempty"`
+}
+
+type ReqTable struct {
+	Name *string `json:"name,omitempty"`
+}
+
+type ReqView struct {
+	ViewName *string `json:"view_name,omitempty"`
+	ViewType *string `json:"view_type,omitempty"`
 }
 
 type Url struct {
-	Text  *string `json:"text,omitempty"`
-	Link  *string `json:"link,omitempty"`
+	Text *string `json:"text,omitempty"`
+	Link *string `json:"link,omitempty"`
 }
-
 
 /**生成请求和响应结果类型，以及请求对象的Builder构造器 **/
 
-
 /*1.4 生成请求的builder结构体*/
 type GetAppReqBuilder struct {
-	appToken  string
-	appTokenFlag  bool
-
+	appToken     string
+	appTokenFlag bool
 }
 
 // 生成请求的New构造器
-func NewGetAppReqBuilder() * GetAppReqBuilder{
-   builder := &GetAppReqBuilder{}
-   return builder
+func NewGetAppReqBuilder() *GetAppReqBuilder {
+	builder := &GetAppReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * GetAppReqBuilder) AppToken(appToken string) *GetAppReqBuilder  {
-  builder.appToken = appToken
-  builder.appTokenFlag = true
-  return builder
+func (builder *GetAppReqBuilder) AppToken(appToken string) *GetAppReqBuilder {
+	builder.appToken = appToken
+	builder.appTokenFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * GetAppReqBuilder ) Build() *GetAppReq {
-   req := &GetAppReq{}
-   if builder.appTokenFlag {
-	  req.AppToken = builder.appToken
-   }
-   return req
+func (builder *GetAppReqBuilder) Build() *GetAppReq {
+	req := &GetAppReq{}
+	if builder.appTokenFlag {
+		req.AppToken = builder.appToken
+	}
+	return req
 }
 
-
 type GetAppReq struct {
-	AppToken  string `path:"app_token"`
-
+	AppToken string `path:"app_token"`
 }
 
 type GetAppRespData struct {
-	App  *App `json:"app,omitempty"`
+	App *DisplayApp `json:"app,omitempty"`
 }
 
 type GetAppResp struct {
@@ -168,210 +250,752 @@ func (resp *GetAppResp) Success() bool {
 	return resp.Code == 0
 }
 
+type UpdateAppReqBodyBuilder struct {
+	name           string
+	nameFlag       bool
+	isAdvanced     bool
+	isAdvancedFlag bool
+}
+
+// 生成body的New构造器
+func NewUpdateAppReqBodyBuilder() *UpdateAppReqBodyBuilder {
+	builder := &UpdateAppReqBodyBuilder{}
+	return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder *UpdateAppReqBodyBuilder) Name(name string) *UpdateAppReqBodyBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *UpdateAppReqBodyBuilder) IsAdvanced(isAdvanced bool) *UpdateAppReqBodyBuilder {
+	builder.isAdvanced = isAdvanced
+	builder.isAdvancedFlag = true
+	return builder
+}
+
+/*1.3 生成body的build方法*/
+func (builder *UpdateAppReqBodyBuilder) Build() *UpdateAppReqBody {
+	req := &UpdateAppReqBody{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.isAdvancedFlag {
+		req.IsAdvanced = &builder.isAdvanced
+
+	}
+	return req
+}
+
+/**上传文件path开始**/
+type UpdateAppPathReqBodyBuilder struct {
+	name           string
+	nameFlag       bool
+	isAdvanced     bool
+	isAdvancedFlag bool
+}
+
+// 生成body的New构造器
+func NewUpdateAppPathReqBodyBuilder() *UpdateAppPathReqBodyBuilder {
+	builder := &UpdateAppPathReqBodyBuilder{}
+	return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder *UpdateAppPathReqBodyBuilder) Name(name string) *UpdateAppPathReqBodyBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *UpdateAppPathReqBodyBuilder) IsAdvanced(isAdvanced bool) *UpdateAppPathReqBodyBuilder {
+	builder.isAdvanced = isAdvanced
+	builder.isAdvancedFlag = true
+	return builder
+}
+
+/*1.3 生成body的build方法*/
+func (builder *UpdateAppPathReqBodyBuilder) Build() (*UpdateAppReqBody, error) {
+	req := &UpdateAppReqBody{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.isAdvancedFlag {
+		req.IsAdvanced = &builder.isAdvanced
+
+	}
+	return req, nil
+}
+
+/**上传文件path结束**/
 
 /*1.4 生成请求的builder结构体*/
-type ListAppTableReqBuilder struct {
-	appToken  string
-	appTokenFlag  bool
-	pageToken  string
-	pageTokenFlag  bool
-	pageSize  int
-	pageSizeFlag  bool
-	limit int
-
+type UpdateAppReqBuilder struct {
+	appToken     string
+	appTokenFlag bool
+	body         *UpdateAppReqBody
+	bodyFlag     bool
 }
 
 // 生成请求的New构造器
-func NewListAppTableReqBuilder() * ListAppTableReqBuilder{
-   builder := &ListAppTableReqBuilder{}
-   return builder
+func NewUpdateAppReqBuilder() *UpdateAppReqBuilder {
+	builder := &UpdateAppReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * ListAppTableReqBuilder) Limit(limit int ) *ListAppTableReqBuilder  {
-  builder.limit = limit
-  return builder
+func (builder *UpdateAppReqBuilder) AppToken(appToken string) *UpdateAppReqBuilder {
+	builder.appToken = appToken
+	builder.appTokenFlag = true
+	return builder
 }
-func (builder * ListAppTableReqBuilder) AppToken(appToken string) *ListAppTableReqBuilder  {
-  builder.appToken = appToken
-  builder.appTokenFlag = true
-  return builder
-}
-func (builder * ListAppTableReqBuilder) PageToken(pageToken string) *ListAppTableReqBuilder  {
-  builder.pageToken = pageToken
-  builder.pageTokenFlag = true
-  return builder
-}
-func (builder * ListAppTableReqBuilder) PageSize(pageSize int) *ListAppTableReqBuilder  {
-  builder.pageSize = pageSize
-  builder.pageSizeFlag = true
-  return builder
+func (builder *UpdateAppReqBuilder) Body(body *UpdateAppReqBody) *UpdateAppReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * ListAppTableReqBuilder ) Build() *ListAppTableReq {
-   req := &ListAppTableReq{}
-   req.Limit = builder.limit
-   if builder.appTokenFlag {
-	  req.AppToken = builder.appToken
-   }
-   if builder.pageTokenFlag {
-	  req.PageToken = &builder.pageToken
-   }
-   if builder.pageSizeFlag {
-	  req.PageSize = &builder.pageSize
-   }
-   return req
+func (builder *UpdateAppReqBuilder) Build() *UpdateAppReq {
+	req := &UpdateAppReq{}
+	if builder.appTokenFlag {
+		req.AppToken = builder.appToken
+	}
+	if builder.bodyFlag {
+		req.Body = builder.body
+
+	}
+	return req
 }
 
-
-type ListAppTableReq struct {
-	AppToken  string `path:"app_token"`
-	PageToken  *string `query:"page_token"`
-	PageSize  *int `query:"page_size"`
-	Limit int
-
+type UpdateAppReqBody struct {
+	Name       *string `json:"name,omitempty"`
+	IsAdvanced *bool   `json:"is_advanced,omitempty"`
 }
 
-type ListAppTableRespData struct {
-	HasMore  *bool `json:"has_more,omitempty"`
-	PageToken  *string `json:"page_token,omitempty"`
-	Total  *int `json:"total,omitempty"`
-	Items  []*AppTable `json:"items,omitempty"`
+type UpdateAppReq struct {
+	AppToken string            `path:"app_token"`
+	Body     *UpdateAppReqBody `body:""`
 }
 
-type ListAppTableResp struct {
+type UpdateAppRespData struct {
+	App *DisplayAppV2 `json:"app,omitempty"`
+}
+
+type UpdateAppResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
-	Data *ListAppTableRespData `json:"data"`
+	Data *UpdateAppRespData `json:"data"`
 }
 
-func (resp *ListAppTableResp) Success() bool {
+func (resp *UpdateAppResp) Success() bool {
+	return resp.Code == 0
+}
+
+/*1.4 生成请求的builder结构体*/
+type CreateAppRoleReqBuilder struct {
+	appToken     string
+	appTokenFlag bool
+	appRole      *AppRole
+	appRoleFlag  bool
+}
+
+// 生成请求的New构造器
+func NewCreateAppRoleReqBuilder() *CreateAppRoleReqBuilder {
+	builder := &CreateAppRoleReqBuilder{}
+	return builder
+}
+
+/*1.5 生成请求的builder属性方法*/
+func (builder *CreateAppRoleReqBuilder) AppToken(appToken string) *CreateAppRoleReqBuilder {
+	builder.appToken = appToken
+	builder.appTokenFlag = true
+	return builder
+}
+func (builder *CreateAppRoleReqBuilder) AppRole(appRole *AppRole) *CreateAppRoleReqBuilder {
+	builder.appRole = appRole
+	builder.appRoleFlag = true
+	return builder
+}
+
+/*1.5 生成请求的builder的build方法*/
+func (builder *CreateAppRoleReqBuilder) Build() *CreateAppRoleReq {
+	req := &CreateAppRoleReq{}
+	if builder.appTokenFlag {
+		req.AppToken = builder.appToken
+	}
+	return req
+}
+
+type CreateAppRoleReq struct {
+	AppToken string   `path:"app_token"`
+	AppRole  *AppRole `body:""`
+}
+
+type CreateAppRoleRespData struct {
+	Role *AppRole `json:"role,omitempty"`
+}
+
+type CreateAppRoleResp struct {
+	*core.RawResponse `json:"-"`
+	core.CodeError
+	Data *CreateAppRoleRespData `json:"data"`
+}
+
+func (resp *CreateAppRoleResp) Success() bool {
+	return resp.Code == 0
+}
+
+/*1.4 生成请求的builder结构体*/
+type DeleteAppRoleReqBuilder struct {
+	appToken     string
+	appTokenFlag bool
+	roleId       string
+	roleIdFlag   bool
+}
+
+// 生成请求的New构造器
+func NewDeleteAppRoleReqBuilder() *DeleteAppRoleReqBuilder {
+	builder := &DeleteAppRoleReqBuilder{}
+	return builder
+}
+
+/*1.5 生成请求的builder属性方法*/
+func (builder *DeleteAppRoleReqBuilder) AppToken(appToken string) *DeleteAppRoleReqBuilder {
+	builder.appToken = appToken
+	builder.appTokenFlag = true
+	return builder
+}
+func (builder *DeleteAppRoleReqBuilder) RoleId(roleId string) *DeleteAppRoleReqBuilder {
+	builder.roleId = roleId
+	builder.roleIdFlag = true
+	return builder
+}
+
+/*1.5 生成请求的builder的build方法*/
+func (builder *DeleteAppRoleReqBuilder) Build() *DeleteAppRoleReq {
+	req := &DeleteAppRoleReq{}
+	if builder.appTokenFlag {
+		req.AppToken = builder.appToken
+	}
+	if builder.roleIdFlag {
+		req.RoleId = builder.roleId
+	}
+	return req
+}
+
+type DeleteAppRoleReq struct {
+	AppToken string `path:"app_token"`
+	RoleId   string `path:"role_id"`
+}
+
+type DeleteAppRoleResp struct {
+	*core.RawResponse `json:"-"`
+	core.CodeError
+}
+
+func (resp *DeleteAppRoleResp) Success() bool {
+	return resp.Code == 0
+}
+
+/*1.4 生成请求的builder结构体*/
+type ListAppRoleReqBuilder struct {
+	appToken      string
+	appTokenFlag  bool
+	pageSize      int
+	pageSizeFlag  bool
+	pageToken     string
+	pageTokenFlag bool
+	limit         int
+}
+
+// 生成请求的New构造器
+func NewListAppRoleReqBuilder() *ListAppRoleReqBuilder {
+	builder := &ListAppRoleReqBuilder{}
+	return builder
+}
+
+/*1.5 生成请求的builder属性方法*/
+func (builder *ListAppRoleReqBuilder) Limit(limit int) *ListAppRoleReqBuilder {
+	builder.limit = limit
+	return builder
+}
+func (builder *ListAppRoleReqBuilder) AppToken(appToken string) *ListAppRoleReqBuilder {
+	builder.appToken = appToken
+	builder.appTokenFlag = true
+	return builder
+}
+func (builder *ListAppRoleReqBuilder) PageSize(pageSize int) *ListAppRoleReqBuilder {
+	builder.pageSize = pageSize
+	builder.pageSizeFlag = true
+	return builder
+}
+func (builder *ListAppRoleReqBuilder) PageToken(pageToken string) *ListAppRoleReqBuilder {
+	builder.pageToken = pageToken
+	builder.pageTokenFlag = true
+	return builder
+}
+
+/*1.5 生成请求的builder的build方法*/
+func (builder *ListAppRoleReqBuilder) Build() *ListAppRoleReq {
+	req := &ListAppRoleReq{}
+	req.Limit = builder.limit
+	if builder.appTokenFlag {
+		req.AppToken = builder.appToken
+	}
+	if builder.pageSizeFlag {
+		req.PageSize = &builder.pageSize
+	}
+	if builder.pageTokenFlag {
+		req.PageToken = &builder.pageToken
+	}
+	return req
+}
+
+type ListAppRoleReq struct {
+	AppToken  string  `path:"app_token"`
+	PageSize  *int    `query:"page_size"`
+	PageToken *string `query:"page_token"`
+	Limit     int
+}
+
+type ListAppRoleRespData struct {
+	Items     []*AppRole `json:"items,omitempty"`
+	PageToken *string    `json:"page_token,omitempty"`
+	HasMore   *bool      `json:"has_more,omitempty"`
+	Total     *int       `json:"total,omitempty"`
+}
+
+type ListAppRoleResp struct {
+	*core.RawResponse `json:"-"`
+	core.CodeError
+	Data *ListAppRoleRespData `json:"data"`
+}
+
+func (resp *ListAppRoleResp) Success() bool {
+	return resp.Code == 0
+}
+
+/*1.4 生成请求的builder结构体*/
+type UpdateAppRoleReqBuilder struct {
+	appToken     string
+	appTokenFlag bool
+	roleId       string
+	roleIdFlag   bool
+	appRole      *AppRole
+	appRoleFlag  bool
+}
+
+// 生成请求的New构造器
+func NewUpdateAppRoleReqBuilder() *UpdateAppRoleReqBuilder {
+	builder := &UpdateAppRoleReqBuilder{}
+	return builder
+}
+
+/*1.5 生成请求的builder属性方法*/
+func (builder *UpdateAppRoleReqBuilder) AppToken(appToken string) *UpdateAppRoleReqBuilder {
+	builder.appToken = appToken
+	builder.appTokenFlag = true
+	return builder
+}
+func (builder *UpdateAppRoleReqBuilder) RoleId(roleId string) *UpdateAppRoleReqBuilder {
+	builder.roleId = roleId
+	builder.roleIdFlag = true
+	return builder
+}
+func (builder *UpdateAppRoleReqBuilder) AppRole(appRole *AppRole) *UpdateAppRoleReqBuilder {
+	builder.appRole = appRole
+	builder.appRoleFlag = true
+	return builder
+}
+
+/*1.5 生成请求的builder的build方法*/
+func (builder *UpdateAppRoleReqBuilder) Build() *UpdateAppRoleReq {
+	req := &UpdateAppRoleReq{}
+	if builder.appTokenFlag {
+		req.AppToken = builder.appToken
+	}
+	if builder.roleIdFlag {
+		req.RoleId = builder.roleId
+	}
+	return req
+}
+
+type UpdateAppRoleReq struct {
+	AppToken string   `path:"app_token"`
+	RoleId   string   `path:"role_id"`
+	AppRole  *AppRole `body:""`
+}
+
+type UpdateAppRoleRespData struct {
+	Role *AppRole `json:"role,omitempty"`
+}
+
+type UpdateAppRoleResp struct {
+	*core.RawResponse `json:"-"`
+	core.CodeError
+	Data *UpdateAppRoleRespData `json:"data"`
+}
+
+func (resp *UpdateAppRoleResp) Success() bool {
+	return resp.Code == 0
+}
+
+/*1.4 生成请求的builder结构体*/
+type CreateAppRoleMemberReqBuilder struct {
+	appToken          string
+	appTokenFlag      bool
+	roleId            string
+	roleIdFlag        bool
+	memberIdType      string
+	memberIdTypeFlag  bool
+	appRoleMember     *AppRoleMember
+	appRoleMemberFlag bool
+}
+
+// 生成请求的New构造器
+func NewCreateAppRoleMemberReqBuilder() *CreateAppRoleMemberReqBuilder {
+	builder := &CreateAppRoleMemberReqBuilder{}
+	return builder
+}
+
+/*1.5 生成请求的builder属性方法*/
+func (builder *CreateAppRoleMemberReqBuilder) AppToken(appToken string) *CreateAppRoleMemberReqBuilder {
+	builder.appToken = appToken
+	builder.appTokenFlag = true
+	return builder
+}
+func (builder *CreateAppRoleMemberReqBuilder) RoleId(roleId string) *CreateAppRoleMemberReqBuilder {
+	builder.roleId = roleId
+	builder.roleIdFlag = true
+	return builder
+}
+func (builder *CreateAppRoleMemberReqBuilder) MemberIdType(memberIdType string) *CreateAppRoleMemberReqBuilder {
+	builder.memberIdType = memberIdType
+	builder.memberIdTypeFlag = true
+	return builder
+}
+func (builder *CreateAppRoleMemberReqBuilder) AppRoleMember(appRoleMember *AppRoleMember) *CreateAppRoleMemberReqBuilder {
+	builder.appRoleMember = appRoleMember
+	builder.appRoleMemberFlag = true
+	return builder
+}
+
+/*1.5 生成请求的builder的build方法*/
+func (builder *CreateAppRoleMemberReqBuilder) Build() *CreateAppRoleMemberReq {
+	req := &CreateAppRoleMemberReq{}
+	if builder.appTokenFlag {
+		req.AppToken = builder.appToken
+	}
+	if builder.roleIdFlag {
+		req.RoleId = builder.roleId
+	}
+	if builder.memberIdTypeFlag {
+		req.MemberIdType = &builder.memberIdType
+	}
+	return req
+}
+
+type CreateAppRoleMemberReq struct {
+	AppToken      string         `path:"app_token"`
+	RoleId        string         `path:"role_id"`
+	MemberIdType  *string        `query:"member_id_type"`
+	AppRoleMember *AppRoleMember `body:""`
+}
+
+type CreateAppRoleMemberResp struct {
+	*core.RawResponse `json:"-"`
+	core.CodeError
+}
+
+func (resp *CreateAppRoleMemberResp) Success() bool {
+	return resp.Code == 0
+}
+
+/*1.4 生成请求的builder结构体*/
+type DeleteAppRoleMemberReqBuilder struct {
+	appToken         string
+	appTokenFlag     bool
+	roleId           string
+	roleIdFlag       bool
+	memberId         string
+	memberIdFlag     bool
+	memberIdType     string
+	memberIdTypeFlag bool
+}
+
+// 生成请求的New构造器
+func NewDeleteAppRoleMemberReqBuilder() *DeleteAppRoleMemberReqBuilder {
+	builder := &DeleteAppRoleMemberReqBuilder{}
+	return builder
+}
+
+/*1.5 生成请求的builder属性方法*/
+func (builder *DeleteAppRoleMemberReqBuilder) AppToken(appToken string) *DeleteAppRoleMemberReqBuilder {
+	builder.appToken = appToken
+	builder.appTokenFlag = true
+	return builder
+}
+func (builder *DeleteAppRoleMemberReqBuilder) RoleId(roleId string) *DeleteAppRoleMemberReqBuilder {
+	builder.roleId = roleId
+	builder.roleIdFlag = true
+	return builder
+}
+func (builder *DeleteAppRoleMemberReqBuilder) MemberId(memberId string) *DeleteAppRoleMemberReqBuilder {
+	builder.memberId = memberId
+	builder.memberIdFlag = true
+	return builder
+}
+func (builder *DeleteAppRoleMemberReqBuilder) MemberIdType(memberIdType string) *DeleteAppRoleMemberReqBuilder {
+	builder.memberIdType = memberIdType
+	builder.memberIdTypeFlag = true
+	return builder
+}
+
+/*1.5 生成请求的builder的build方法*/
+func (builder *DeleteAppRoleMemberReqBuilder) Build() *DeleteAppRoleMemberReq {
+	req := &DeleteAppRoleMemberReq{}
+	if builder.appTokenFlag {
+		req.AppToken = builder.appToken
+	}
+	if builder.roleIdFlag {
+		req.RoleId = builder.roleId
+	}
+	if builder.memberIdFlag {
+		req.MemberId = builder.memberId
+	}
+	if builder.memberIdTypeFlag {
+		req.MemberIdType = &builder.memberIdType
+	}
+	return req
+}
+
+type DeleteAppRoleMemberReq struct {
+	AppToken     string  `path:"app_token"`
+	RoleId       string  `path:"role_id"`
+	MemberId     string  `path:"member_id"`
+	MemberIdType *string `query:"member_id_type"`
+}
+
+type DeleteAppRoleMemberResp struct {
+	*core.RawResponse `json:"-"`
+	core.CodeError
+}
+
+func (resp *DeleteAppRoleMemberResp) Success() bool {
+	return resp.Code == 0
+}
+
+/*1.4 生成请求的builder结构体*/
+type ListAppRoleMemberReqBuilder struct {
+	appToken      string
+	appTokenFlag  bool
+	roleId        string
+	roleIdFlag    bool
+	pageSize      int
+	pageSizeFlag  bool
+	pageToken     string
+	pageTokenFlag bool
+	limit         int
+}
+
+// 生成请求的New构造器
+func NewListAppRoleMemberReqBuilder() *ListAppRoleMemberReqBuilder {
+	builder := &ListAppRoleMemberReqBuilder{}
+	return builder
+}
+
+/*1.5 生成请求的builder属性方法*/
+func (builder *ListAppRoleMemberReqBuilder) Limit(limit int) *ListAppRoleMemberReqBuilder {
+	builder.limit = limit
+	return builder
+}
+func (builder *ListAppRoleMemberReqBuilder) AppToken(appToken string) *ListAppRoleMemberReqBuilder {
+	builder.appToken = appToken
+	builder.appTokenFlag = true
+	return builder
+}
+func (builder *ListAppRoleMemberReqBuilder) RoleId(roleId string) *ListAppRoleMemberReqBuilder {
+	builder.roleId = roleId
+	builder.roleIdFlag = true
+	return builder
+}
+func (builder *ListAppRoleMemberReqBuilder) PageSize(pageSize int) *ListAppRoleMemberReqBuilder {
+	builder.pageSize = pageSize
+	builder.pageSizeFlag = true
+	return builder
+}
+func (builder *ListAppRoleMemberReqBuilder) PageToken(pageToken string) *ListAppRoleMemberReqBuilder {
+	builder.pageToken = pageToken
+	builder.pageTokenFlag = true
+	return builder
+}
+
+/*1.5 生成请求的builder的build方法*/
+func (builder *ListAppRoleMemberReqBuilder) Build() *ListAppRoleMemberReq {
+	req := &ListAppRoleMemberReq{}
+	req.Limit = builder.limit
+	if builder.appTokenFlag {
+		req.AppToken = builder.appToken
+	}
+	if builder.roleIdFlag {
+		req.RoleId = builder.roleId
+	}
+	if builder.pageSizeFlag {
+		req.PageSize = &builder.pageSize
+	}
+	if builder.pageTokenFlag {
+		req.PageToken = &builder.pageToken
+	}
+	return req
+}
+
+type ListAppRoleMemberReq struct {
+	AppToken  string  `path:"app_token"`
+	RoleId    string  `path:"role_id"`
+	PageSize  *int    `query:"page_size"`
+	PageToken *string `query:"page_token"`
+	Limit     int
+}
+
+type ListAppRoleMemberRespData struct {
+	Items     []*AppRoleMember `json:"items,omitempty"`
+	HasMore   *bool            `json:"has_more,omitempty"`
+	PageToken *string          `json:"page_token,omitempty"`
+	Total     *int             `json:"total,omitempty"`
+}
+
+type ListAppRoleMemberResp struct {
+	*core.RawResponse `json:"-"`
+	core.CodeError
+	Data *ListAppRoleMemberRespData `json:"data"`
+}
+
+func (resp *ListAppRoleMemberResp) Success() bool {
 	return resp.Code == 0
 }
 
 type BatchCreateAppTableReqBodyBuilder struct {
-	tables  []*ReqTable
-	tablesFlag  bool
+	tables     []*ReqTable
+	tablesFlag bool
 }
 
 // 生成body的New构造器
-func NewBatchCreateAppTableReqBodyBuilder() * BatchCreateAppTableReqBodyBuilder{
-  builder := &BatchCreateAppTableReqBodyBuilder{}
-  return builder
+func NewBatchCreateAppTableReqBodyBuilder() *BatchCreateAppTableReqBodyBuilder {
+	builder := &BatchCreateAppTableReqBodyBuilder{}
+	return builder
 }
 
 /*1.2 生成body的builder属性方法*/
-func (builder * BatchCreateAppTableReqBodyBuilder ) Tables(tables []*ReqTable) *BatchCreateAppTableReqBodyBuilder {
-  builder.tables = tables
-  builder.tablesFlag = true
-  return builder
+func (builder *BatchCreateAppTableReqBodyBuilder) Tables(tables []*ReqTable) *BatchCreateAppTableReqBodyBuilder {
+	builder.tables = tables
+	builder.tablesFlag = true
+	return builder
 }
 
-
 /*1.3 生成body的build方法*/
-func (builder * BatchCreateAppTableReqBodyBuilder ) Build() *BatchCreateAppTableReqBody {
-   req := &BatchCreateAppTableReqBody{}
-   if builder.tablesFlag {
-	  req.Tables = builder.tables
+func (builder *BatchCreateAppTableReqBodyBuilder) Build() *BatchCreateAppTableReqBody {
+	req := &BatchCreateAppTableReqBody{}
+	if builder.tablesFlag {
+		req.Tables = builder.tables
 
-   }
-   return req
+	}
+	return req
 }
 
 /**上传文件path开始**/
 type BatchCreateAppTablePathReqBodyBuilder struct {
-	tables  []*ReqTable
-	tablesFlag  bool
+	tables     []*ReqTable
+	tablesFlag bool
 }
 
 // 生成body的New构造器
-func NewBatchCreateAppTablePathReqBodyBuilder() * BatchCreateAppTablePathReqBodyBuilder{
-  builder := &BatchCreateAppTablePathReqBodyBuilder{}
-  return builder
+func NewBatchCreateAppTablePathReqBodyBuilder() *BatchCreateAppTablePathReqBodyBuilder {
+	builder := &BatchCreateAppTablePathReqBodyBuilder{}
+	return builder
 }
 
 /*1.2 生成body的builder属性方法*/
-func (builder * BatchCreateAppTablePathReqBodyBuilder ) Tables(tables []*ReqTable) *BatchCreateAppTablePathReqBodyBuilder {
-  builder.tables = tables
-  builder.tablesFlag = true
-  return builder
+func (builder *BatchCreateAppTablePathReqBodyBuilder) Tables(tables []*ReqTable) *BatchCreateAppTablePathReqBodyBuilder {
+	builder.tables = tables
+	builder.tablesFlag = true
+	return builder
 }
-
 
 /*1.3 生成body的build方法*/
-func (builder * BatchCreateAppTablePathReqBodyBuilder ) Build() (*BatchCreateAppTableReqBody, error) {
-   req := &BatchCreateAppTableReqBody{}
-   if builder.tablesFlag {
-	   req.Tables = builder.tables
-   }
-   return req, nil
+func (builder *BatchCreateAppTablePathReqBodyBuilder) Build() (*BatchCreateAppTableReqBody, error) {
+	req := &BatchCreateAppTableReqBody{}
+	if builder.tablesFlag {
+		req.Tables = builder.tables
+	}
+	return req, nil
 }
+
 /**上传文件path结束**/
 
 /*1.4 生成请求的builder结构体*/
 type BatchCreateAppTableReqBuilder struct {
-	appToken  string
-	appTokenFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-	body *BatchCreateAppTableReqBody
-	bodyFlag bool
-
+	appToken       string
+	appTokenFlag   bool
+	userIdType     string
+	userIdTypeFlag bool
+	body           *BatchCreateAppTableReqBody
+	bodyFlag       bool
 }
 
 // 生成请求的New构造器
-func NewBatchCreateAppTableReqBuilder() * BatchCreateAppTableReqBuilder{
-   builder := &BatchCreateAppTableReqBuilder{}
-   return builder
+func NewBatchCreateAppTableReqBuilder() *BatchCreateAppTableReqBuilder {
+	builder := &BatchCreateAppTableReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * BatchCreateAppTableReqBuilder) AppToken(appToken string) *BatchCreateAppTableReqBuilder  {
-  builder.appToken = appToken
-  builder.appTokenFlag = true
-  return builder
+func (builder *BatchCreateAppTableReqBuilder) AppToken(appToken string) *BatchCreateAppTableReqBuilder {
+	builder.appToken = appToken
+	builder.appTokenFlag = true
+	return builder
 }
-func (builder * BatchCreateAppTableReqBuilder) UserIdType(userIdType string) *BatchCreateAppTableReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *BatchCreateAppTableReqBuilder) UserIdType(userIdType string) *BatchCreateAppTableReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
-func (builder * BatchCreateAppTableReqBuilder) Body(body *BatchCreateAppTableReqBody) *BatchCreateAppTableReqBuilder  {
-  builder.body = body
-  builder.bodyFlag = true
-  return builder
+func (builder *BatchCreateAppTableReqBuilder) Body(body *BatchCreateAppTableReqBody) *BatchCreateAppTableReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * BatchCreateAppTableReqBuilder ) Build() *BatchCreateAppTableReq {
-   req := &BatchCreateAppTableReq{}
-   if builder.appTokenFlag {
-	  req.AppToken = builder.appToken
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   if builder.bodyFlag {
-	  req.Body = builder.body
+func (builder *BatchCreateAppTableReqBuilder) Build() *BatchCreateAppTableReq {
+	req := &BatchCreateAppTableReq{}
+	if builder.appTokenFlag {
+		req.AppToken = builder.appToken
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	if builder.bodyFlag {
+		req.Body = builder.body
 
-   }
-   return req
+	}
+	return req
 }
 
 type BatchCreateAppTableReqBody struct {
-	Tables  []*ReqTable `json:"tables,omitempty"`
+	Tables []*ReqTable `json:"tables,omitempty"`
 }
 
 type BatchCreateAppTableReq struct {
-	AppToken  string `path:"app_token"`
-	UserIdType  *string `query:"user_id_type"`
-	Body *BatchCreateAppTableReqBody `body:""`
-
+	AppToken   string                      `path:"app_token"`
+	UserIdType *string                     `query:"user_id_type"`
+	Body       *BatchCreateAppTableReqBody `body:""`
 }
 
 type BatchCreateAppTableRespData struct {
-	TableIds  []string `json:"table_ids,omitempty"`
+	TableIds []string `json:"table_ids,omitempty"`
 }
 
 type BatchCreateAppTableResp struct {
@@ -384,128 +1008,240 @@ func (resp *BatchCreateAppTableResp) Success() bool {
 	return resp.Code == 0
 }
 
-type CreateAppTableReqBodyBuilder struct {
-	table  *ReqTable
-	tableFlag  bool
+type BatchDeleteAppTableReqBodyBuilder struct {
+	tableIds     []string
+	tableIdsFlag bool
 }
 
 // 生成body的New构造器
-func NewCreateAppTableReqBodyBuilder() * CreateAppTableReqBodyBuilder{
-  builder := &CreateAppTableReqBodyBuilder{}
-  return builder
+func NewBatchDeleteAppTableReqBodyBuilder() *BatchDeleteAppTableReqBodyBuilder {
+	builder := &BatchDeleteAppTableReqBodyBuilder{}
+	return builder
 }
 
 /*1.2 生成body的builder属性方法*/
-func (builder * CreateAppTableReqBodyBuilder ) Table(table *ReqTable) *CreateAppTableReqBodyBuilder {
-  builder.table = table
-  builder.tableFlag = true
-  return builder
+func (builder *BatchDeleteAppTableReqBodyBuilder) TableIds(tableIds []string) *BatchDeleteAppTableReqBodyBuilder {
+	builder.tableIds = tableIds
+	builder.tableIdsFlag = true
+	return builder
 }
 
+/*1.3 生成body的build方法*/
+func (builder *BatchDeleteAppTableReqBodyBuilder) Build() *BatchDeleteAppTableReqBody {
+	req := &BatchDeleteAppTableReqBody{}
+	if builder.tableIdsFlag {
+		req.TableIds = builder.tableIds
+
+	}
+	return req
+}
+
+/**上传文件path开始**/
+type BatchDeleteAppTablePathReqBodyBuilder struct {
+	tableIds     []string
+	tableIdsFlag bool
+}
+
+// 生成body的New构造器
+func NewBatchDeleteAppTablePathReqBodyBuilder() *BatchDeleteAppTablePathReqBodyBuilder {
+	builder := &BatchDeleteAppTablePathReqBodyBuilder{}
+	return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder *BatchDeleteAppTablePathReqBodyBuilder) TableIds(tableIds []string) *BatchDeleteAppTablePathReqBodyBuilder {
+	builder.tableIds = tableIds
+	builder.tableIdsFlag = true
+	return builder
+}
 
 /*1.3 生成body的build方法*/
-func (builder * CreateAppTableReqBodyBuilder ) Build() *CreateAppTableReqBody {
-   req := &CreateAppTableReqBody{}
-   if builder.tableFlag {
-	  req.Table = builder.table
+func (builder *BatchDeleteAppTablePathReqBodyBuilder) Build() (*BatchDeleteAppTableReqBody, error) {
+	req := &BatchDeleteAppTableReqBody{}
+	if builder.tableIdsFlag {
+		req.TableIds = builder.tableIds
+	}
+	return req, nil
+}
 
-   }
-   return req
+/**上传文件path结束**/
+
+/*1.4 生成请求的builder结构体*/
+type BatchDeleteAppTableReqBuilder struct {
+	appToken     string
+	appTokenFlag bool
+	body         *BatchDeleteAppTableReqBody
+	bodyFlag     bool
+}
+
+// 生成请求的New构造器
+func NewBatchDeleteAppTableReqBuilder() *BatchDeleteAppTableReqBuilder {
+	builder := &BatchDeleteAppTableReqBuilder{}
+	return builder
+}
+
+/*1.5 生成请求的builder属性方法*/
+func (builder *BatchDeleteAppTableReqBuilder) AppToken(appToken string) *BatchDeleteAppTableReqBuilder {
+	builder.appToken = appToken
+	builder.appTokenFlag = true
+	return builder
+}
+func (builder *BatchDeleteAppTableReqBuilder) Body(body *BatchDeleteAppTableReqBody) *BatchDeleteAppTableReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
+}
+
+/*1.5 生成请求的builder的build方法*/
+func (builder *BatchDeleteAppTableReqBuilder) Build() *BatchDeleteAppTableReq {
+	req := &BatchDeleteAppTableReq{}
+	if builder.appTokenFlag {
+		req.AppToken = builder.appToken
+	}
+	if builder.bodyFlag {
+		req.Body = builder.body
+
+	}
+	return req
+}
+
+type BatchDeleteAppTableReqBody struct {
+	TableIds []string `json:"table_ids,omitempty"`
+}
+
+type BatchDeleteAppTableReq struct {
+	AppToken string                      `path:"app_token"`
+	Body     *BatchDeleteAppTableReqBody `body:""`
+}
+
+type BatchDeleteAppTableResp struct {
+	*core.RawResponse `json:"-"`
+	core.CodeError
+}
+
+func (resp *BatchDeleteAppTableResp) Success() bool {
+	return resp.Code == 0
+}
+
+type CreateAppTableReqBodyBuilder struct {
+	table     *ReqTable
+	tableFlag bool
+}
+
+// 生成body的New构造器
+func NewCreateAppTableReqBodyBuilder() *CreateAppTableReqBodyBuilder {
+	builder := &CreateAppTableReqBodyBuilder{}
+	return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder *CreateAppTableReqBodyBuilder) Table(table *ReqTable) *CreateAppTableReqBodyBuilder {
+	builder.table = table
+	builder.tableFlag = true
+	return builder
+}
+
+/*1.3 生成body的build方法*/
+func (builder *CreateAppTableReqBodyBuilder) Build() *CreateAppTableReqBody {
+	req := &CreateAppTableReqBody{}
+	if builder.tableFlag {
+		req.Table = builder.table
+
+	}
+	return req
 }
 
 /**上传文件path开始**/
 type CreateAppTablePathReqBodyBuilder struct {
-	table  *ReqTable
-	tableFlag  bool
+	table     *ReqTable
+	tableFlag bool
 }
 
 // 生成body的New构造器
-func NewCreateAppTablePathReqBodyBuilder() * CreateAppTablePathReqBodyBuilder{
-  builder := &CreateAppTablePathReqBodyBuilder{}
-  return builder
+func NewCreateAppTablePathReqBodyBuilder() *CreateAppTablePathReqBodyBuilder {
+	builder := &CreateAppTablePathReqBodyBuilder{}
+	return builder
 }
 
 /*1.2 生成body的builder属性方法*/
-func (builder * CreateAppTablePathReqBodyBuilder ) Table(table *ReqTable) *CreateAppTablePathReqBodyBuilder {
-  builder.table = table
-  builder.tableFlag = true
-  return builder
+func (builder *CreateAppTablePathReqBodyBuilder) Table(table *ReqTable) *CreateAppTablePathReqBodyBuilder {
+	builder.table = table
+	builder.tableFlag = true
+	return builder
 }
-
 
 /*1.3 生成body的build方法*/
-func (builder * CreateAppTablePathReqBodyBuilder ) Build() (*CreateAppTableReqBody, error) {
-   req := &CreateAppTableReqBody{}
-   if builder.tableFlag {
-	   req.Table = builder.table
-   }
-   return req, nil
+func (builder *CreateAppTablePathReqBodyBuilder) Build() (*CreateAppTableReqBody, error) {
+	req := &CreateAppTableReqBody{}
+	if builder.tableFlag {
+		req.Table = builder.table
+	}
+	return req, nil
 }
+
 /**上传文件path结束**/
 
 /*1.4 生成请求的builder结构体*/
 type CreateAppTableReqBuilder struct {
-	appToken  string
-	appTokenFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-	body *CreateAppTableReqBody
-	bodyFlag bool
-
+	appToken       string
+	appTokenFlag   bool
+	userIdType     string
+	userIdTypeFlag bool
+	body           *CreateAppTableReqBody
+	bodyFlag       bool
 }
 
 // 生成请求的New构造器
-func NewCreateAppTableReqBuilder() * CreateAppTableReqBuilder{
-   builder := &CreateAppTableReqBuilder{}
-   return builder
+func NewCreateAppTableReqBuilder() *CreateAppTableReqBuilder {
+	builder := &CreateAppTableReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * CreateAppTableReqBuilder) AppToken(appToken string) *CreateAppTableReqBuilder  {
-  builder.appToken = appToken
-  builder.appTokenFlag = true
-  return builder
+func (builder *CreateAppTableReqBuilder) AppToken(appToken string) *CreateAppTableReqBuilder {
+	builder.appToken = appToken
+	builder.appTokenFlag = true
+	return builder
 }
-func (builder * CreateAppTableReqBuilder) UserIdType(userIdType string) *CreateAppTableReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *CreateAppTableReqBuilder) UserIdType(userIdType string) *CreateAppTableReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
-func (builder * CreateAppTableReqBuilder) Body(body *CreateAppTableReqBody) *CreateAppTableReqBuilder  {
-  builder.body = body
-  builder.bodyFlag = true
-  return builder
+func (builder *CreateAppTableReqBuilder) Body(body *CreateAppTableReqBody) *CreateAppTableReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * CreateAppTableReqBuilder ) Build() *CreateAppTableReq {
-   req := &CreateAppTableReq{}
-   if builder.appTokenFlag {
-	  req.AppToken = builder.appToken
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   if builder.bodyFlag {
-	  req.Body = builder.body
+func (builder *CreateAppTableReqBuilder) Build() *CreateAppTableReq {
+	req := &CreateAppTableReq{}
+	if builder.appTokenFlag {
+		req.AppToken = builder.appToken
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	if builder.bodyFlag {
+		req.Body = builder.body
 
-   }
-   return req
+	}
+	return req
 }
 
 type CreateAppTableReqBody struct {
-	Table  *ReqTable `json:"table,omitempty"`
+	Table *ReqTable `json:"table,omitempty"`
 }
 
 type CreateAppTableReq struct {
-	AppToken  string `path:"app_token"`
-	UserIdType  *string `query:"user_id_type"`
-	Body *CreateAppTableReqBody `body:""`
-
+	AppToken   string                 `path:"app_token"`
+	UserIdType *string                `query:"user_id_type"`
+	Body       *CreateAppTableReqBody `body:""`
 }
 
 type CreateAppTableRespData struct {
-	TableId  *string `json:"table_id,omitempty"`
+	TableId *string `json:"table_id,omitempty"`
 }
 
 type CreateAppTableResp struct {
@@ -518,53 +1254,48 @@ func (resp *CreateAppTableResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type DeleteAppTableReqBuilder struct {
-	appToken  string
-	appTokenFlag  bool
-	tableId  string
+	appToken     string
+	appTokenFlag bool
+	tableId      string
 	tableIdFlag  bool
-
 }
 
 // 生成请求的New构造器
-func NewDeleteAppTableReqBuilder() * DeleteAppTableReqBuilder{
-   builder := &DeleteAppTableReqBuilder{}
-   return builder
+func NewDeleteAppTableReqBuilder() *DeleteAppTableReqBuilder {
+	builder := &DeleteAppTableReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * DeleteAppTableReqBuilder) AppToken(appToken string) *DeleteAppTableReqBuilder  {
-  builder.appToken = appToken
-  builder.appTokenFlag = true
-  return builder
+func (builder *DeleteAppTableReqBuilder) AppToken(appToken string) *DeleteAppTableReqBuilder {
+	builder.appToken = appToken
+	builder.appTokenFlag = true
+	return builder
 }
-func (builder * DeleteAppTableReqBuilder) TableId(tableId string) *DeleteAppTableReqBuilder  {
-  builder.tableId = tableId
-  builder.tableIdFlag = true
-  return builder
+func (builder *DeleteAppTableReqBuilder) TableId(tableId string) *DeleteAppTableReqBuilder {
+	builder.tableId = tableId
+	builder.tableIdFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * DeleteAppTableReqBuilder ) Build() *DeleteAppTableReq {
-   req := &DeleteAppTableReq{}
-   if builder.appTokenFlag {
-	  req.AppToken = builder.appToken
-   }
-   if builder.tableIdFlag {
-	  req.TableId = builder.tableId
-   }
-   return req
+func (builder *DeleteAppTableReqBuilder) Build() *DeleteAppTableReq {
+	req := &DeleteAppTableReq{}
+	if builder.appTokenFlag {
+		req.AppToken = builder.appToken
+	}
+	if builder.tableIdFlag {
+		req.TableId = builder.tableId
+	}
+	return req
 }
-
 
 type DeleteAppTableReq struct {
-	AppToken  string `path:"app_token"`
+	AppToken string `path:"app_token"`
 	TableId  string `path:"table_id"`
-
 }
-
 
 type DeleteAppTableResp struct {
 	*core.RawResponse `json:"-"`
@@ -575,297 +1306,137 @@ func (resp *DeleteAppTableResp) Success() bool {
 	return resp.Code == 0
 }
 
-type BatchDeleteAppTableReqBodyBuilder struct {
-	tableIds  []string
-	tableIdsFlag  bool
-}
-
-// 生成body的New构造器
-func NewBatchDeleteAppTableReqBodyBuilder() * BatchDeleteAppTableReqBodyBuilder{
-  builder := &BatchDeleteAppTableReqBodyBuilder{}
-  return builder
-}
-
-/*1.2 生成body的builder属性方法*/
-func (builder * BatchDeleteAppTableReqBodyBuilder ) TableIds(tableIds []string) *BatchDeleteAppTableReqBodyBuilder {
-  builder.tableIds = tableIds
-  builder.tableIdsFlag = true
-  return builder
-}
-
-
-/*1.3 生成body的build方法*/
-func (builder * BatchDeleteAppTableReqBodyBuilder ) Build() *BatchDeleteAppTableReqBody {
-   req := &BatchDeleteAppTableReqBody{}
-   if builder.tableIdsFlag {
-	  req.TableIds = builder.tableIds
-
-   }
-   return req
-}
-
-/**上传文件path开始**/
-type BatchDeleteAppTablePathReqBodyBuilder struct {
-	tableIds  []string
-	tableIdsFlag  bool
-}
-
-// 生成body的New构造器
-func NewBatchDeleteAppTablePathReqBodyBuilder() * BatchDeleteAppTablePathReqBodyBuilder{
-  builder := &BatchDeleteAppTablePathReqBodyBuilder{}
-  return builder
-}
-
-/*1.2 生成body的builder属性方法*/
-func (builder * BatchDeleteAppTablePathReqBodyBuilder ) TableIds(tableIds []string) *BatchDeleteAppTablePathReqBodyBuilder {
-  builder.tableIds = tableIds
-  builder.tableIdsFlag = true
-  return builder
-}
-
-
-/*1.3 生成body的build方法*/
-func (builder * BatchDeleteAppTablePathReqBodyBuilder ) Build() (*BatchDeleteAppTableReqBody, error) {
-   req := &BatchDeleteAppTableReqBody{}
-   if builder.tableIdsFlag {
-	   req.TableIds = builder.tableIds
-   }
-   return req, nil
-}
-/**上传文件path结束**/
-
 /*1.4 生成请求的builder结构体*/
-type BatchDeleteAppTableReqBuilder struct {
-	appToken  string
+type ListAppTableReqBuilder struct {
+	appToken      string
 	appTokenFlag  bool
-	body *BatchDeleteAppTableReqBody
-	bodyFlag bool
-
-}
-
-// 生成请求的New构造器
-func NewBatchDeleteAppTableReqBuilder() * BatchDeleteAppTableReqBuilder{
-   builder := &BatchDeleteAppTableReqBuilder{}
-   return builder
-}
-
-/*1.5 生成请求的builder属性方法*/
-func (builder * BatchDeleteAppTableReqBuilder) AppToken(appToken string) *BatchDeleteAppTableReqBuilder  {
-  builder.appToken = appToken
-  builder.appTokenFlag = true
-  return builder
-}
-func (builder * BatchDeleteAppTableReqBuilder) Body(body *BatchDeleteAppTableReqBody) *BatchDeleteAppTableReqBuilder  {
-  builder.body = body
-  builder.bodyFlag = true
-  return builder
-}
-
-/*1.5 生成请求的builder的build方法*/
-func (builder * BatchDeleteAppTableReqBuilder ) Build() *BatchDeleteAppTableReq {
-   req := &BatchDeleteAppTableReq{}
-   if builder.appTokenFlag {
-	  req.AppToken = builder.appToken
-   }
-   if builder.bodyFlag {
-	  req.Body = builder.body
-
-   }
-   return req
-}
-
-type BatchDeleteAppTableReqBody struct {
-	TableIds  []string `json:"table_ids,omitempty"`
-}
-
-type BatchDeleteAppTableReq struct {
-	AppToken  string `path:"app_token"`
-	Body *BatchDeleteAppTableReqBody `body:""`
-
-}
-
-
-type BatchDeleteAppTableResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
-}
-
-func (resp *BatchDeleteAppTableResp) Success() bool {
-	return resp.Code == 0
-}
-
-
-/*1.4 生成请求的builder结构体*/
-type ListAppTableFieldReqBuilder struct {
-	appToken  string
-	appTokenFlag  bool
-	tableId  string
-	tableIdFlag  bool
-	viewId  string
-	viewIdFlag  bool
-	pageToken  string
-	pageTokenFlag  bool
-	pageSize  int
+	pageToken     string
+	pageTokenFlag bool
+	pageSize      int
 	pageSizeFlag  bool
-	limit int
-
+	limit         int
 }
 
 // 生成请求的New构造器
-func NewListAppTableFieldReqBuilder() * ListAppTableFieldReqBuilder{
-   builder := &ListAppTableFieldReqBuilder{}
-   return builder
+func NewListAppTableReqBuilder() *ListAppTableReqBuilder {
+	builder := &ListAppTableReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * ListAppTableFieldReqBuilder) Limit(limit int ) *ListAppTableFieldReqBuilder  {
-  builder.limit = limit
-  return builder
+func (builder *ListAppTableReqBuilder) Limit(limit int) *ListAppTableReqBuilder {
+	builder.limit = limit
+	return builder
 }
-func (builder * ListAppTableFieldReqBuilder) AppToken(appToken string) *ListAppTableFieldReqBuilder  {
-  builder.appToken = appToken
-  builder.appTokenFlag = true
-  return builder
+func (builder *ListAppTableReqBuilder) AppToken(appToken string) *ListAppTableReqBuilder {
+	builder.appToken = appToken
+	builder.appTokenFlag = true
+	return builder
 }
-func (builder * ListAppTableFieldReqBuilder) TableId(tableId string) *ListAppTableFieldReqBuilder  {
-  builder.tableId = tableId
-  builder.tableIdFlag = true
-  return builder
+func (builder *ListAppTableReqBuilder) PageToken(pageToken string) *ListAppTableReqBuilder {
+	builder.pageToken = pageToken
+	builder.pageTokenFlag = true
+	return builder
 }
-func (builder * ListAppTableFieldReqBuilder) ViewId(viewId string) *ListAppTableFieldReqBuilder  {
-  builder.viewId = viewId
-  builder.viewIdFlag = true
-  return builder
-}
-func (builder * ListAppTableFieldReqBuilder) PageToken(pageToken string) *ListAppTableFieldReqBuilder  {
-  builder.pageToken = pageToken
-  builder.pageTokenFlag = true
-  return builder
-}
-func (builder * ListAppTableFieldReqBuilder) PageSize(pageSize int) *ListAppTableFieldReqBuilder  {
-  builder.pageSize = pageSize
-  builder.pageSizeFlag = true
-  return builder
+func (builder *ListAppTableReqBuilder) PageSize(pageSize int) *ListAppTableReqBuilder {
+	builder.pageSize = pageSize
+	builder.pageSizeFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * ListAppTableFieldReqBuilder ) Build() *ListAppTableFieldReq {
-   req := &ListAppTableFieldReq{}
-   req.Limit = builder.limit
-   if builder.appTokenFlag {
-	  req.AppToken = builder.appToken
-   }
-   if builder.tableIdFlag {
-	  req.TableId = builder.tableId
-   }
-   if builder.viewIdFlag {
-	  req.ViewId = &builder.viewId
-   }
-   if builder.pageTokenFlag {
-	  req.PageToken = &builder.pageToken
-   }
-   if builder.pageSizeFlag {
-	  req.PageSize = &builder.pageSize
-   }
-   return req
+func (builder *ListAppTableReqBuilder) Build() *ListAppTableReq {
+	req := &ListAppTableReq{}
+	req.Limit = builder.limit
+	if builder.appTokenFlag {
+		req.AppToken = builder.appToken
+	}
+	if builder.pageTokenFlag {
+		req.PageToken = &builder.pageToken
+	}
+	if builder.pageSizeFlag {
+		req.PageSize = &builder.pageSize
+	}
+	return req
 }
 
-
-type ListAppTableFieldReq struct {
-	AppToken  string `path:"app_token"`
-	TableId  string `path:"table_id"`
-	ViewId  *string `query:"view_id"`
-	PageToken  *string `query:"page_token"`
-	PageSize  *int `query:"page_size"`
-	Limit int
-
+type ListAppTableReq struct {
+	AppToken  string  `path:"app_token"`
+	PageToken *string `query:"page_token"`
+	PageSize  *int    `query:"page_size"`
+	Limit     int
 }
 
-type ListAppTableFieldRespData struct {
-	HasMore  *bool `json:"has_more,omitempty"`
-	PageToken  *string `json:"page_token,omitempty"`
-	Total  *int `json:"total,omitempty"`
-	Items  []*AppTableField `json:"items,omitempty"`
+type ListAppTableRespData struct {
+	HasMore   *bool       `json:"has_more,omitempty"`
+	PageToken *string     `json:"page_token,omitempty"`
+	Total     *int        `json:"total,omitempty"`
+	Items     []*AppTable `json:"items,omitempty"`
 }
 
-type ListAppTableFieldResp struct {
+type ListAppTableResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
-	Data *ListAppTableFieldRespData `json:"data"`
+	Data *ListAppTableRespData `json:"data"`
 }
 
-func (resp *ListAppTableFieldResp) Success() bool {
+func (resp *ListAppTableResp) Success() bool {
 	return resp.Code == 0
 }
-
 
 /*1.4 生成请求的builder结构体*/
 type CreateAppTableFieldReqBuilder struct {
-	appToken  string
-	appTokenFlag  bool
-	tableId  string
-	tableIdFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-	appTableField *AppTableField
+	appToken          string
+	appTokenFlag      bool
+	tableId           string
+	tableIdFlag       bool
+	appTableField     *AppTableField
 	appTableFieldFlag bool
-
 }
 
 // 生成请求的New构造器
-func NewCreateAppTableFieldReqBuilder() * CreateAppTableFieldReqBuilder{
-   builder := &CreateAppTableFieldReqBuilder{}
-   return builder
+func NewCreateAppTableFieldReqBuilder() *CreateAppTableFieldReqBuilder {
+	builder := &CreateAppTableFieldReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * CreateAppTableFieldReqBuilder) AppToken(appToken string) *CreateAppTableFieldReqBuilder  {
-  builder.appToken = appToken
-  builder.appTokenFlag = true
-  return builder
+func (builder *CreateAppTableFieldReqBuilder) AppToken(appToken string) *CreateAppTableFieldReqBuilder {
+	builder.appToken = appToken
+	builder.appTokenFlag = true
+	return builder
 }
-func (builder * CreateAppTableFieldReqBuilder) TableId(tableId string) *CreateAppTableFieldReqBuilder  {
-  builder.tableId = tableId
-  builder.tableIdFlag = true
-  return builder
+func (builder *CreateAppTableFieldReqBuilder) TableId(tableId string) *CreateAppTableFieldReqBuilder {
+	builder.tableId = tableId
+	builder.tableIdFlag = true
+	return builder
 }
-func (builder * CreateAppTableFieldReqBuilder) UserIdType(userIdType string) *CreateAppTableFieldReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
-}
-func (builder * CreateAppTableFieldReqBuilder) AppTableField(appTableField *AppTableField) *CreateAppTableFieldReqBuilder  {
-  builder.appTableField = appTableField
-  builder.appTableFieldFlag = true
-  return builder
+func (builder *CreateAppTableFieldReqBuilder) AppTableField(appTableField *AppTableField) *CreateAppTableFieldReqBuilder {
+	builder.appTableField = appTableField
+	builder.appTableFieldFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * CreateAppTableFieldReqBuilder ) Build() *CreateAppTableFieldReq {
-   req := &CreateAppTableFieldReq{}
-   if builder.appTokenFlag {
-	  req.AppToken = builder.appToken
-   }
-   if builder.tableIdFlag {
-	  req.TableId = builder.tableId
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   return req
+func (builder *CreateAppTableFieldReqBuilder) Build() *CreateAppTableFieldReq {
+	req := &CreateAppTableFieldReq{}
+	if builder.appTokenFlag {
+		req.AppToken = builder.appToken
+	}
+	if builder.tableIdFlag {
+		req.TableId = builder.tableId
+	}
+	return req
 }
 
-
 type CreateAppTableFieldReq struct {
-	AppToken  string `path:"app_token"`
-	TableId  string `path:"table_id"`
-	UserIdType  *string `query:"user_id_type"`
+	AppToken      string         `path:"app_token"`
+	TableId       string         `path:"table_id"`
 	AppTableField *AppTableField `body:""`
-
 }
 
 type CreateAppTableFieldRespData struct {
-	Field  *AppTableField `json:"field,omitempty"`
+	Field *AppTableField `json:"field,omitempty"`
 }
 
 type CreateAppTableFieldResp struct {
@@ -878,67 +1449,63 @@ func (resp *CreateAppTableFieldResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type DeleteAppTableFieldReqBuilder struct {
-	appToken  string
-	appTokenFlag  bool
-	tableId  string
+	appToken     string
+	appTokenFlag bool
+	tableId      string
 	tableIdFlag  bool
-	fieldId  string
+	fieldId      string
 	fieldIdFlag  bool
-
 }
 
 // 生成请求的New构造器
-func NewDeleteAppTableFieldReqBuilder() * DeleteAppTableFieldReqBuilder{
-   builder := &DeleteAppTableFieldReqBuilder{}
-   return builder
+func NewDeleteAppTableFieldReqBuilder() *DeleteAppTableFieldReqBuilder {
+	builder := &DeleteAppTableFieldReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * DeleteAppTableFieldReqBuilder) AppToken(appToken string) *DeleteAppTableFieldReqBuilder  {
-  builder.appToken = appToken
-  builder.appTokenFlag = true
-  return builder
+func (builder *DeleteAppTableFieldReqBuilder) AppToken(appToken string) *DeleteAppTableFieldReqBuilder {
+	builder.appToken = appToken
+	builder.appTokenFlag = true
+	return builder
 }
-func (builder * DeleteAppTableFieldReqBuilder) TableId(tableId string) *DeleteAppTableFieldReqBuilder  {
-  builder.tableId = tableId
-  builder.tableIdFlag = true
-  return builder
+func (builder *DeleteAppTableFieldReqBuilder) TableId(tableId string) *DeleteAppTableFieldReqBuilder {
+	builder.tableId = tableId
+	builder.tableIdFlag = true
+	return builder
 }
-func (builder * DeleteAppTableFieldReqBuilder) FieldId(fieldId string) *DeleteAppTableFieldReqBuilder  {
-  builder.fieldId = fieldId
-  builder.fieldIdFlag = true
-  return builder
+func (builder *DeleteAppTableFieldReqBuilder) FieldId(fieldId string) *DeleteAppTableFieldReqBuilder {
+	builder.fieldId = fieldId
+	builder.fieldIdFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * DeleteAppTableFieldReqBuilder ) Build() *DeleteAppTableFieldReq {
-   req := &DeleteAppTableFieldReq{}
-   if builder.appTokenFlag {
-	  req.AppToken = builder.appToken
-   }
-   if builder.tableIdFlag {
-	  req.TableId = builder.tableId
-   }
-   if builder.fieldIdFlag {
-	  req.FieldId = builder.fieldId
-   }
-   return req
+func (builder *DeleteAppTableFieldReqBuilder) Build() *DeleteAppTableFieldReq {
+	req := &DeleteAppTableFieldReq{}
+	if builder.appTokenFlag {
+		req.AppToken = builder.appToken
+	}
+	if builder.tableIdFlag {
+		req.TableId = builder.tableId
+	}
+	if builder.fieldIdFlag {
+		req.FieldId = builder.fieldId
+	}
+	return req
 }
 
-
 type DeleteAppTableFieldReq struct {
-	AppToken  string `path:"app_token"`
+	AppToken string `path:"app_token"`
 	TableId  string `path:"table_id"`
 	FieldId  string `path:"field_id"`
-
 }
 
 type DeleteAppTableFieldRespData struct {
-	FieldId  *string `json:"field_id,omitempty"`
-	Deleted  *bool `json:"deleted,omitempty"`
+	FieldId *string `json:"field_id,omitempty"`
+	Deleted *bool   `json:"deleted,omitempty"`
 }
 
 type DeleteAppTableFieldResp struct {
@@ -951,74 +1518,170 @@ func (resp *DeleteAppTableFieldResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
-type UpdateAppTableFieldReqBuilder struct {
-	appToken  string
+type ListAppTableFieldReqBuilder struct {
+	appToken      string
 	appTokenFlag  bool
-	tableId  string
-	tableIdFlag  bool
-	fieldId  string
-	fieldIdFlag  bool
-	appTableField *AppTableField
-	appTableFieldFlag bool
-
+	tableId       string
+	tableIdFlag   bool
+	viewId        string
+	viewIdFlag    bool
+	pageToken     string
+	pageTokenFlag bool
+	pageSize      int
+	pageSizeFlag  bool
+	limit         int
 }
 
 // 生成请求的New构造器
-func NewUpdateAppTableFieldReqBuilder() * UpdateAppTableFieldReqBuilder{
-   builder := &UpdateAppTableFieldReqBuilder{}
-   return builder
+func NewListAppTableFieldReqBuilder() *ListAppTableFieldReqBuilder {
+	builder := &ListAppTableFieldReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * UpdateAppTableFieldReqBuilder) AppToken(appToken string) *UpdateAppTableFieldReqBuilder  {
-  builder.appToken = appToken
-  builder.appTokenFlag = true
-  return builder
+func (builder *ListAppTableFieldReqBuilder) Limit(limit int) *ListAppTableFieldReqBuilder {
+	builder.limit = limit
+	return builder
 }
-func (builder * UpdateAppTableFieldReqBuilder) TableId(tableId string) *UpdateAppTableFieldReqBuilder  {
-  builder.tableId = tableId
-  builder.tableIdFlag = true
-  return builder
+func (builder *ListAppTableFieldReqBuilder) AppToken(appToken string) *ListAppTableFieldReqBuilder {
+	builder.appToken = appToken
+	builder.appTokenFlag = true
+	return builder
 }
-func (builder * UpdateAppTableFieldReqBuilder) FieldId(fieldId string) *UpdateAppTableFieldReqBuilder  {
-  builder.fieldId = fieldId
-  builder.fieldIdFlag = true
-  return builder
+func (builder *ListAppTableFieldReqBuilder) TableId(tableId string) *ListAppTableFieldReqBuilder {
+	builder.tableId = tableId
+	builder.tableIdFlag = true
+	return builder
 }
-func (builder * UpdateAppTableFieldReqBuilder) AppTableField(appTableField *AppTableField) *UpdateAppTableFieldReqBuilder  {
-  builder.appTableField = appTableField
-  builder.appTableFieldFlag = true
-  return builder
+func (builder *ListAppTableFieldReqBuilder) ViewId(viewId string) *ListAppTableFieldReqBuilder {
+	builder.viewId = viewId
+	builder.viewIdFlag = true
+	return builder
+}
+func (builder *ListAppTableFieldReqBuilder) PageToken(pageToken string) *ListAppTableFieldReqBuilder {
+	builder.pageToken = pageToken
+	builder.pageTokenFlag = true
+	return builder
+}
+func (builder *ListAppTableFieldReqBuilder) PageSize(pageSize int) *ListAppTableFieldReqBuilder {
+	builder.pageSize = pageSize
+	builder.pageSizeFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * UpdateAppTableFieldReqBuilder ) Build() *UpdateAppTableFieldReq {
-   req := &UpdateAppTableFieldReq{}
-   if builder.appTokenFlag {
-	  req.AppToken = builder.appToken
-   }
-   if builder.tableIdFlag {
-	  req.TableId = builder.tableId
-   }
-   if builder.fieldIdFlag {
-	  req.FieldId = builder.fieldId
-   }
-   return req
+func (builder *ListAppTableFieldReqBuilder) Build() *ListAppTableFieldReq {
+	req := &ListAppTableFieldReq{}
+	req.Limit = builder.limit
+	if builder.appTokenFlag {
+		req.AppToken = builder.appToken
+	}
+	if builder.tableIdFlag {
+		req.TableId = builder.tableId
+	}
+	if builder.viewIdFlag {
+		req.ViewId = &builder.viewId
+	}
+	if builder.pageTokenFlag {
+		req.PageToken = &builder.pageToken
+	}
+	if builder.pageSizeFlag {
+		req.PageSize = &builder.pageSize
+	}
+	return req
 }
 
+type ListAppTableFieldReq struct {
+	AppToken  string  `path:"app_token"`
+	TableId   string  `path:"table_id"`
+	ViewId    *string `query:"view_id"`
+	PageToken *string `query:"page_token"`
+	PageSize  *int    `query:"page_size"`
+	Limit     int
+}
+
+type ListAppTableFieldRespData struct {
+	HasMore   *bool            `json:"has_more,omitempty"`
+	PageToken *string          `json:"page_token,omitempty"`
+	Total     *int             `json:"total,omitempty"`
+	Items     []*AppTableField `json:"items,omitempty"`
+}
+
+type ListAppTableFieldResp struct {
+	*core.RawResponse `json:"-"`
+	core.CodeError
+	Data *ListAppTableFieldRespData `json:"data"`
+}
+
+func (resp *ListAppTableFieldResp) Success() bool {
+	return resp.Code == 0
+}
+
+/*1.4 生成请求的builder结构体*/
+type UpdateAppTableFieldReqBuilder struct {
+	appToken          string
+	appTokenFlag      bool
+	tableId           string
+	tableIdFlag       bool
+	fieldId           string
+	fieldIdFlag       bool
+	appTableField     *AppTableField
+	appTableFieldFlag bool
+}
+
+// 生成请求的New构造器
+func NewUpdateAppTableFieldReqBuilder() *UpdateAppTableFieldReqBuilder {
+	builder := &UpdateAppTableFieldReqBuilder{}
+	return builder
+}
+
+/*1.5 生成请求的builder属性方法*/
+func (builder *UpdateAppTableFieldReqBuilder) AppToken(appToken string) *UpdateAppTableFieldReqBuilder {
+	builder.appToken = appToken
+	builder.appTokenFlag = true
+	return builder
+}
+func (builder *UpdateAppTableFieldReqBuilder) TableId(tableId string) *UpdateAppTableFieldReqBuilder {
+	builder.tableId = tableId
+	builder.tableIdFlag = true
+	return builder
+}
+func (builder *UpdateAppTableFieldReqBuilder) FieldId(fieldId string) *UpdateAppTableFieldReqBuilder {
+	builder.fieldId = fieldId
+	builder.fieldIdFlag = true
+	return builder
+}
+func (builder *UpdateAppTableFieldReqBuilder) AppTableField(appTableField *AppTableField) *UpdateAppTableFieldReqBuilder {
+	builder.appTableField = appTableField
+	builder.appTableFieldFlag = true
+	return builder
+}
+
+/*1.5 生成请求的builder的build方法*/
+func (builder *UpdateAppTableFieldReqBuilder) Build() *UpdateAppTableFieldReq {
+	req := &UpdateAppTableFieldReq{}
+	if builder.appTokenFlag {
+		req.AppToken = builder.appToken
+	}
+	if builder.tableIdFlag {
+		req.TableId = builder.tableId
+	}
+	if builder.fieldIdFlag {
+		req.FieldId = builder.fieldId
+	}
+	return req
+}
 
 type UpdateAppTableFieldReq struct {
-	AppToken  string `path:"app_token"`
-	TableId  string `path:"table_id"`
-	FieldId  string `path:"field_id"`
+	AppToken      string         `path:"app_token"`
+	TableId       string         `path:"table_id"`
+	FieldId       string         `path:"field_id"`
 	AppTableField *AppTableField `body:""`
-
 }
 
 type UpdateAppTableFieldRespData struct {
-	Field  *AppTableField `json:"field,omitempty"`
+	Field *AppTableField `json:"field,omitempty"`
 }
 
 type UpdateAppTableFieldResp struct {
@@ -1031,273 +1694,136 @@ func (resp *UpdateAppTableFieldResp) Success() bool {
 	return resp.Code == 0
 }
 
-type BatchDeleteAppTableRecordReqBodyBuilder struct {
-	records  []string
-	recordsFlag  bool
-}
-
-// 生成body的New构造器
-func NewBatchDeleteAppTableRecordReqBodyBuilder() * BatchDeleteAppTableRecordReqBodyBuilder{
-  builder := &BatchDeleteAppTableRecordReqBodyBuilder{}
-  return builder
-}
-
-/*1.2 生成body的builder属性方法*/
-func (builder * BatchDeleteAppTableRecordReqBodyBuilder ) Records(records []string) *BatchDeleteAppTableRecordReqBodyBuilder {
-  builder.records = records
-  builder.recordsFlag = true
-  return builder
-}
-
-
-/*1.3 生成body的build方法*/
-func (builder * BatchDeleteAppTableRecordReqBodyBuilder ) Build() *BatchDeleteAppTableRecordReqBody {
-   req := &BatchDeleteAppTableRecordReqBody{}
-   if builder.recordsFlag {
-	  req.Records = builder.records
-
-   }
-   return req
-}
-
-/**上传文件path开始**/
-type BatchDeleteAppTableRecordPathReqBodyBuilder struct {
-	records  []string
-	recordsFlag  bool
-}
-
-// 生成body的New构造器
-func NewBatchDeleteAppTableRecordPathReqBodyBuilder() * BatchDeleteAppTableRecordPathReqBodyBuilder{
-  builder := &BatchDeleteAppTableRecordPathReqBodyBuilder{}
-  return builder
-}
-
-/*1.2 生成body的builder属性方法*/
-func (builder * BatchDeleteAppTableRecordPathReqBodyBuilder ) Records(records []string) *BatchDeleteAppTableRecordPathReqBodyBuilder {
-  builder.records = records
-  builder.recordsFlag = true
-  return builder
-}
-
-
-/*1.3 生成body的build方法*/
-func (builder * BatchDeleteAppTableRecordPathReqBodyBuilder ) Build() (*BatchDeleteAppTableRecordReqBody, error) {
-   req := &BatchDeleteAppTableRecordReqBody{}
-   if builder.recordsFlag {
-	   req.Records = builder.records
-   }
-   return req, nil
-}
-/**上传文件path结束**/
-
-/*1.4 生成请求的builder结构体*/
-type BatchDeleteAppTableRecordReqBuilder struct {
-	appToken  string
-	appTokenFlag  bool
-	tableId  string
-	tableIdFlag  bool
-	body *BatchDeleteAppTableRecordReqBody
-	bodyFlag bool
-
-}
-
-// 生成请求的New构造器
-func NewBatchDeleteAppTableRecordReqBuilder() * BatchDeleteAppTableRecordReqBuilder{
-   builder := &BatchDeleteAppTableRecordReqBuilder{}
-   return builder
-}
-
-/*1.5 生成请求的builder属性方法*/
-func (builder * BatchDeleteAppTableRecordReqBuilder) AppToken(appToken string) *BatchDeleteAppTableRecordReqBuilder  {
-  builder.appToken = appToken
-  builder.appTokenFlag = true
-  return builder
-}
-func (builder * BatchDeleteAppTableRecordReqBuilder) TableId(tableId string) *BatchDeleteAppTableRecordReqBuilder  {
-  builder.tableId = tableId
-  builder.tableIdFlag = true
-  return builder
-}
-func (builder * BatchDeleteAppTableRecordReqBuilder) Body(body *BatchDeleteAppTableRecordReqBody) *BatchDeleteAppTableRecordReqBuilder  {
-  builder.body = body
-  builder.bodyFlag = true
-  return builder
-}
-
-/*1.5 生成请求的builder的build方法*/
-func (builder * BatchDeleteAppTableRecordReqBuilder ) Build() *BatchDeleteAppTableRecordReq {
-   req := &BatchDeleteAppTableRecordReq{}
-   if builder.appTokenFlag {
-	  req.AppToken = builder.appToken
-   }
-   if builder.tableIdFlag {
-	  req.TableId = builder.tableId
-   }
-   if builder.bodyFlag {
-	  req.Body = builder.body
-
-   }
-   return req
-}
-
-type BatchDeleteAppTableRecordReqBody struct {
-	Records  []string `json:"records,omitempty"`
-}
-
-type BatchDeleteAppTableRecordReq struct {
-	AppToken  string `path:"app_token"`
-	TableId  string `path:"table_id"`
-	Body *BatchDeleteAppTableRecordReqBody `body:""`
-
-}
-
-type BatchDeleteAppTableRecordRespData struct {
-	Records  []*DeleteRecord `json:"records,omitempty"`
-}
-
-type BatchDeleteAppTableRecordResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
-	Data *BatchDeleteAppTableRecordRespData `json:"data"`
-}
-
-func (resp *BatchDeleteAppTableRecordResp) Success() bool {
-	return resp.Code == 0
-}
-
 type BatchCreateAppTableRecordReqBodyBuilder struct {
-	records  []*AppTableRecord
-	recordsFlag  bool
+	records     []*AppTableRecord
+	recordsFlag bool
 }
 
 // 生成body的New构造器
-func NewBatchCreateAppTableRecordReqBodyBuilder() * BatchCreateAppTableRecordReqBodyBuilder{
-  builder := &BatchCreateAppTableRecordReqBodyBuilder{}
-  return builder
+func NewBatchCreateAppTableRecordReqBodyBuilder() *BatchCreateAppTableRecordReqBodyBuilder {
+	builder := &BatchCreateAppTableRecordReqBodyBuilder{}
+	return builder
 }
 
 /*1.2 生成body的builder属性方法*/
-func (builder * BatchCreateAppTableRecordReqBodyBuilder ) Records(records []*AppTableRecord) *BatchCreateAppTableRecordReqBodyBuilder {
-  builder.records = records
-  builder.recordsFlag = true
-  return builder
+func (builder *BatchCreateAppTableRecordReqBodyBuilder) Records(records []*AppTableRecord) *BatchCreateAppTableRecordReqBodyBuilder {
+	builder.records = records
+	builder.recordsFlag = true
+	return builder
 }
 
-
 /*1.3 生成body的build方法*/
-func (builder * BatchCreateAppTableRecordReqBodyBuilder ) Build() *BatchCreateAppTableRecordReqBody {
-   req := &BatchCreateAppTableRecordReqBody{}
-   if builder.recordsFlag {
-	  req.Records = builder.records
+func (builder *BatchCreateAppTableRecordReqBodyBuilder) Build() *BatchCreateAppTableRecordReqBody {
+	req := &BatchCreateAppTableRecordReqBody{}
+	if builder.recordsFlag {
+		req.Records = builder.records
 
-   }
-   return req
+	}
+	return req
 }
 
 /**上传文件path开始**/
 type BatchCreateAppTableRecordPathReqBodyBuilder struct {
-	records  []*AppTableRecord
-	recordsFlag  bool
+	records     []*AppTableRecord
+	recordsFlag bool
 }
 
 // 生成body的New构造器
-func NewBatchCreateAppTableRecordPathReqBodyBuilder() * BatchCreateAppTableRecordPathReqBodyBuilder{
-  builder := &BatchCreateAppTableRecordPathReqBodyBuilder{}
-  return builder
+func NewBatchCreateAppTableRecordPathReqBodyBuilder() *BatchCreateAppTableRecordPathReqBodyBuilder {
+	builder := &BatchCreateAppTableRecordPathReqBodyBuilder{}
+	return builder
 }
 
 /*1.2 生成body的builder属性方法*/
-func (builder * BatchCreateAppTableRecordPathReqBodyBuilder ) Records(records []*AppTableRecord) *BatchCreateAppTableRecordPathReqBodyBuilder {
-  builder.records = records
-  builder.recordsFlag = true
-  return builder
+func (builder *BatchCreateAppTableRecordPathReqBodyBuilder) Records(records []*AppTableRecord) *BatchCreateAppTableRecordPathReqBodyBuilder {
+	builder.records = records
+	builder.recordsFlag = true
+	return builder
 }
-
 
 /*1.3 生成body的build方法*/
-func (builder * BatchCreateAppTableRecordPathReqBodyBuilder ) Build() (*BatchCreateAppTableRecordReqBody, error) {
-   req := &BatchCreateAppTableRecordReqBody{}
-   if builder.recordsFlag {
-	   req.Records = builder.records
-   }
-   return req, nil
+func (builder *BatchCreateAppTableRecordPathReqBodyBuilder) Build() (*BatchCreateAppTableRecordReqBody, error) {
+	req := &BatchCreateAppTableRecordReqBody{}
+	if builder.recordsFlag {
+		req.Records = builder.records
+	}
+	return req, nil
 }
+
 /**上传文件path结束**/
 
 /*1.4 生成请求的builder结构体*/
 type BatchCreateAppTableRecordReqBuilder struct {
-	appToken  string
-	appTokenFlag  bool
-	tableId  string
-	tableIdFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-	body *BatchCreateAppTableRecordReqBody
-	bodyFlag bool
-
+	appToken       string
+	appTokenFlag   bool
+	tableId        string
+	tableIdFlag    bool
+	userIdType     string
+	userIdTypeFlag bool
+	body           *BatchCreateAppTableRecordReqBody
+	bodyFlag       bool
 }
 
 // 生成请求的New构造器
-func NewBatchCreateAppTableRecordReqBuilder() * BatchCreateAppTableRecordReqBuilder{
-   builder := &BatchCreateAppTableRecordReqBuilder{}
-   return builder
+func NewBatchCreateAppTableRecordReqBuilder() *BatchCreateAppTableRecordReqBuilder {
+	builder := &BatchCreateAppTableRecordReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * BatchCreateAppTableRecordReqBuilder) AppToken(appToken string) *BatchCreateAppTableRecordReqBuilder  {
-  builder.appToken = appToken
-  builder.appTokenFlag = true
-  return builder
+func (builder *BatchCreateAppTableRecordReqBuilder) AppToken(appToken string) *BatchCreateAppTableRecordReqBuilder {
+	builder.appToken = appToken
+	builder.appTokenFlag = true
+	return builder
 }
-func (builder * BatchCreateAppTableRecordReqBuilder) TableId(tableId string) *BatchCreateAppTableRecordReqBuilder  {
-  builder.tableId = tableId
-  builder.tableIdFlag = true
-  return builder
+func (builder *BatchCreateAppTableRecordReqBuilder) TableId(tableId string) *BatchCreateAppTableRecordReqBuilder {
+	builder.tableId = tableId
+	builder.tableIdFlag = true
+	return builder
 }
-func (builder * BatchCreateAppTableRecordReqBuilder) UserIdType(userIdType string) *BatchCreateAppTableRecordReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *BatchCreateAppTableRecordReqBuilder) UserIdType(userIdType string) *BatchCreateAppTableRecordReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
-func (builder * BatchCreateAppTableRecordReqBuilder) Body(body *BatchCreateAppTableRecordReqBody) *BatchCreateAppTableRecordReqBuilder  {
-  builder.body = body
-  builder.bodyFlag = true
-  return builder
+func (builder *BatchCreateAppTableRecordReqBuilder) Body(body *BatchCreateAppTableRecordReqBody) *BatchCreateAppTableRecordReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * BatchCreateAppTableRecordReqBuilder ) Build() *BatchCreateAppTableRecordReq {
-   req := &BatchCreateAppTableRecordReq{}
-   if builder.appTokenFlag {
-	  req.AppToken = builder.appToken
-   }
-   if builder.tableIdFlag {
-	  req.TableId = builder.tableId
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   if builder.bodyFlag {
-	  req.Body = builder.body
+func (builder *BatchCreateAppTableRecordReqBuilder) Build() *BatchCreateAppTableRecordReq {
+	req := &BatchCreateAppTableRecordReq{}
+	if builder.appTokenFlag {
+		req.AppToken = builder.appToken
+	}
+	if builder.tableIdFlag {
+		req.TableId = builder.tableId
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	if builder.bodyFlag {
+		req.Body = builder.body
 
-   }
-   return req
+	}
+	return req
 }
 
 type BatchCreateAppTableRecordReqBody struct {
-	Records  []*AppTableRecord `json:"records,omitempty"`
+	Records []*AppTableRecord `json:"records,omitempty"`
 }
 
 type BatchCreateAppTableRecordReq struct {
-	AppToken  string `path:"app_token"`
-	TableId  string `path:"table_id"`
-	UserIdType  *string `query:"user_id_type"`
-	Body *BatchCreateAppTableRecordReqBody `body:""`
-
+	AppToken   string                            `path:"app_token"`
+	TableId    string                            `path:"table_id"`
+	UserIdType *string                           `query:"user_id_type"`
+	Body       *BatchCreateAppTableRecordReqBody `body:""`
 }
 
 type BatchCreateAppTableRecordRespData struct {
-	Records  []*AppTableRecord `json:"records,omitempty"`
+	Records []*AppTableRecord `json:"records,omitempty"`
 }
 
 type BatchCreateAppTableRecordResp struct {
@@ -1310,530 +1836,267 @@ func (resp *BatchCreateAppTableRecordResp) Success() bool {
 	return resp.Code == 0
 }
 
+type BatchDeleteAppTableRecordReqBodyBuilder struct {
+	records     []string
+	recordsFlag bool
+}
+
+// 生成body的New构造器
+func NewBatchDeleteAppTableRecordReqBodyBuilder() *BatchDeleteAppTableRecordReqBodyBuilder {
+	builder := &BatchDeleteAppTableRecordReqBodyBuilder{}
+	return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder *BatchDeleteAppTableRecordReqBodyBuilder) Records(records []string) *BatchDeleteAppTableRecordReqBodyBuilder {
+	builder.records = records
+	builder.recordsFlag = true
+	return builder
+}
+
+/*1.3 生成body的build方法*/
+func (builder *BatchDeleteAppTableRecordReqBodyBuilder) Build() *BatchDeleteAppTableRecordReqBody {
+	req := &BatchDeleteAppTableRecordReqBody{}
+	if builder.recordsFlag {
+		req.Records = builder.records
+
+	}
+	return req
+}
+
+/**上传文件path开始**/
+type BatchDeleteAppTableRecordPathReqBodyBuilder struct {
+	records     []string
+	recordsFlag bool
+}
+
+// 生成body的New构造器
+func NewBatchDeleteAppTableRecordPathReqBodyBuilder() *BatchDeleteAppTableRecordPathReqBodyBuilder {
+	builder := &BatchDeleteAppTableRecordPathReqBodyBuilder{}
+	return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder *BatchDeleteAppTableRecordPathReqBodyBuilder) Records(records []string) *BatchDeleteAppTableRecordPathReqBodyBuilder {
+	builder.records = records
+	builder.recordsFlag = true
+	return builder
+}
+
+/*1.3 生成body的build方法*/
+func (builder *BatchDeleteAppTableRecordPathReqBodyBuilder) Build() (*BatchDeleteAppTableRecordReqBody, error) {
+	req := &BatchDeleteAppTableRecordReqBody{}
+	if builder.recordsFlag {
+		req.Records = builder.records
+	}
+	return req, nil
+}
+
+/**上传文件path结束**/
 
 /*1.4 生成请求的builder结构体*/
-type GetAppTableRecordReqBuilder struct {
-	appToken  string
-	appTokenFlag  bool
-	tableId  string
+type BatchDeleteAppTableRecordReqBuilder struct {
+	appToken     string
+	appTokenFlag bool
+	tableId      string
 	tableIdFlag  bool
-	recordId  string
-	recordIdFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-
+	body         *BatchDeleteAppTableRecordReqBody
+	bodyFlag     bool
 }
 
 // 生成请求的New构造器
-func NewGetAppTableRecordReqBuilder() * GetAppTableRecordReqBuilder{
-   builder := &GetAppTableRecordReqBuilder{}
-   return builder
+func NewBatchDeleteAppTableRecordReqBuilder() *BatchDeleteAppTableRecordReqBuilder {
+	builder := &BatchDeleteAppTableRecordReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * GetAppTableRecordReqBuilder) AppToken(appToken string) *GetAppTableRecordReqBuilder  {
-  builder.appToken = appToken
-  builder.appTokenFlag = true
-  return builder
+func (builder *BatchDeleteAppTableRecordReqBuilder) AppToken(appToken string) *BatchDeleteAppTableRecordReqBuilder {
+	builder.appToken = appToken
+	builder.appTokenFlag = true
+	return builder
 }
-func (builder * GetAppTableRecordReqBuilder) TableId(tableId string) *GetAppTableRecordReqBuilder  {
-  builder.tableId = tableId
-  builder.tableIdFlag = true
-  return builder
+func (builder *BatchDeleteAppTableRecordReqBuilder) TableId(tableId string) *BatchDeleteAppTableRecordReqBuilder {
+	builder.tableId = tableId
+	builder.tableIdFlag = true
+	return builder
 }
-func (builder * GetAppTableRecordReqBuilder) RecordId(recordId string) *GetAppTableRecordReqBuilder  {
-  builder.recordId = recordId
-  builder.recordIdFlag = true
-  return builder
-}
-func (builder * GetAppTableRecordReqBuilder) UserIdType(userIdType string) *GetAppTableRecordReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *BatchDeleteAppTableRecordReqBuilder) Body(body *BatchDeleteAppTableRecordReqBody) *BatchDeleteAppTableRecordReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * GetAppTableRecordReqBuilder ) Build() *GetAppTableRecordReq {
-   req := &GetAppTableRecordReq{}
-   if builder.appTokenFlag {
-	  req.AppToken = builder.appToken
-   }
-   if builder.tableIdFlag {
-	  req.TableId = builder.tableId
-   }
-   if builder.recordIdFlag {
-	  req.RecordId = builder.recordId
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   return req
+func (builder *BatchDeleteAppTableRecordReqBuilder) Build() *BatchDeleteAppTableRecordReq {
+	req := &BatchDeleteAppTableRecordReq{}
+	if builder.appTokenFlag {
+		req.AppToken = builder.appToken
+	}
+	if builder.tableIdFlag {
+		req.TableId = builder.tableId
+	}
+	if builder.bodyFlag {
+		req.Body = builder.body
+
+	}
+	return req
 }
 
-
-type GetAppTableRecordReq struct {
-	AppToken  string `path:"app_token"`
-	TableId  string `path:"table_id"`
-	RecordId  string `path:"record_id"`
-	UserIdType  *string `query:"user_id_type"`
-
+type BatchDeleteAppTableRecordReqBody struct {
+	Records []string `json:"records,omitempty"`
 }
 
-type GetAppTableRecordRespData struct {
-	Record  *AppTableRecord `json:"record,omitempty"`
+type BatchDeleteAppTableRecordReq struct {
+	AppToken string                            `path:"app_token"`
+	TableId  string                            `path:"table_id"`
+	Body     *BatchDeleteAppTableRecordReqBody `body:""`
 }
 
-type GetAppTableRecordResp struct {
+type BatchDeleteAppTableRecordRespData struct {
+	Records []*DeleteRecord `json:"records,omitempty"`
+}
+
+type BatchDeleteAppTableRecordResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
-	Data *GetAppTableRecordRespData `json:"data"`
+	Data *BatchDeleteAppTableRecordRespData `json:"data"`
 }
 
-func (resp *GetAppTableRecordResp) Success() bool {
-	return resp.Code == 0
-}
-
-
-/*1.4 生成请求的builder结构体*/
-type UpdateAppTableRecordReqBuilder struct {
-	appToken  string
-	appTokenFlag  bool
-	tableId  string
-	tableIdFlag  bool
-	recordId  string
-	recordIdFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-	appTableRecord *AppTableRecord
-	appTableRecordFlag bool
-
-}
-
-// 生成请求的New构造器
-func NewUpdateAppTableRecordReqBuilder() * UpdateAppTableRecordReqBuilder{
-   builder := &UpdateAppTableRecordReqBuilder{}
-   return builder
-}
-
-/*1.5 生成请求的builder属性方法*/
-func (builder * UpdateAppTableRecordReqBuilder) AppToken(appToken string) *UpdateAppTableRecordReqBuilder  {
-  builder.appToken = appToken
-  builder.appTokenFlag = true
-  return builder
-}
-func (builder * UpdateAppTableRecordReqBuilder) TableId(tableId string) *UpdateAppTableRecordReqBuilder  {
-  builder.tableId = tableId
-  builder.tableIdFlag = true
-  return builder
-}
-func (builder * UpdateAppTableRecordReqBuilder) RecordId(recordId string) *UpdateAppTableRecordReqBuilder  {
-  builder.recordId = recordId
-  builder.recordIdFlag = true
-  return builder
-}
-func (builder * UpdateAppTableRecordReqBuilder) UserIdType(userIdType string) *UpdateAppTableRecordReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
-}
-func (builder * UpdateAppTableRecordReqBuilder) AppTableRecord(appTableRecord *AppTableRecord) *UpdateAppTableRecordReqBuilder  {
-  builder.appTableRecord = appTableRecord
-  builder.appTableRecordFlag = true
-  return builder
-}
-
-/*1.5 生成请求的builder的build方法*/
-func (builder * UpdateAppTableRecordReqBuilder ) Build() *UpdateAppTableRecordReq {
-   req := &UpdateAppTableRecordReq{}
-   if builder.appTokenFlag {
-	  req.AppToken = builder.appToken
-   }
-   if builder.tableIdFlag {
-	  req.TableId = builder.tableId
-   }
-   if builder.recordIdFlag {
-	  req.RecordId = builder.recordId
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   return req
-}
-
-
-type UpdateAppTableRecordReq struct {
-	AppToken  string `path:"app_token"`
-	TableId  string `path:"table_id"`
-	RecordId  string `path:"record_id"`
-	UserIdType  *string `query:"user_id_type"`
-	AppTableRecord *AppTableRecord `body:""`
-
-}
-
-type UpdateAppTableRecordRespData struct {
-	Record  *AppTableRecord `json:"record,omitempty"`
-}
-
-type UpdateAppTableRecordResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
-	Data *UpdateAppTableRecordRespData `json:"data"`
-}
-
-func (resp *UpdateAppTableRecordResp) Success() bool {
-	return resp.Code == 0
-}
-
-
-/*1.4 生成请求的builder结构体*/
-type DeleteAppTableRecordReqBuilder struct {
-	appToken  string
-	appTokenFlag  bool
-	tableId  string
-	tableIdFlag  bool
-	recordId  string
-	recordIdFlag  bool
-
-}
-
-// 生成请求的New构造器
-func NewDeleteAppTableRecordReqBuilder() * DeleteAppTableRecordReqBuilder{
-   builder := &DeleteAppTableRecordReqBuilder{}
-   return builder
-}
-
-/*1.5 生成请求的builder属性方法*/
-func (builder * DeleteAppTableRecordReqBuilder) AppToken(appToken string) *DeleteAppTableRecordReqBuilder  {
-  builder.appToken = appToken
-  builder.appTokenFlag = true
-  return builder
-}
-func (builder * DeleteAppTableRecordReqBuilder) TableId(tableId string) *DeleteAppTableRecordReqBuilder  {
-  builder.tableId = tableId
-  builder.tableIdFlag = true
-  return builder
-}
-func (builder * DeleteAppTableRecordReqBuilder) RecordId(recordId string) *DeleteAppTableRecordReqBuilder  {
-  builder.recordId = recordId
-  builder.recordIdFlag = true
-  return builder
-}
-
-/*1.5 生成请求的builder的build方法*/
-func (builder * DeleteAppTableRecordReqBuilder ) Build() *DeleteAppTableRecordReq {
-   req := &DeleteAppTableRecordReq{}
-   if builder.appTokenFlag {
-	  req.AppToken = builder.appToken
-   }
-   if builder.tableIdFlag {
-	  req.TableId = builder.tableId
-   }
-   if builder.recordIdFlag {
-	  req.RecordId = builder.recordId
-   }
-   return req
-}
-
-
-type DeleteAppTableRecordReq struct {
-	AppToken  string `path:"app_token"`
-	TableId  string `path:"table_id"`
-	RecordId  string `path:"record_id"`
-
-}
-
-
-type DeleteAppTableRecordResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
-	Data *DeleteRecord `json:"data"`
-}
-
-func (resp *DeleteAppTableRecordResp) Success() bool {
-	return resp.Code == 0
-}
-
-
-/*1.4 生成请求的builder结构体*/
-type ListAppTableRecordReqBuilder struct {
-	appToken  string
-	appTokenFlag  bool
-	tableId  string
-	tableIdFlag  bool
-	viewId  string
-	viewIdFlag  bool
-	filter  string
-	filterFlag  bool
-	sort  string
-	sortFlag  bool
-	fieldNames  string
-	fieldNamesFlag  bool
-	pageToken  string
-	pageTokenFlag  bool
-	pageSize  int
-	pageSizeFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-	limit int
-
-}
-
-// 生成请求的New构造器
-func NewListAppTableRecordReqBuilder() * ListAppTableRecordReqBuilder{
-   builder := &ListAppTableRecordReqBuilder{}
-   return builder
-}
-
-/*1.5 生成请求的builder属性方法*/
-func (builder * ListAppTableRecordReqBuilder) Limit(limit int ) *ListAppTableRecordReqBuilder  {
-  builder.limit = limit
-  return builder
-}
-func (builder * ListAppTableRecordReqBuilder) AppToken(appToken string) *ListAppTableRecordReqBuilder  {
-  builder.appToken = appToken
-  builder.appTokenFlag = true
-  return builder
-}
-func (builder * ListAppTableRecordReqBuilder) TableId(tableId string) *ListAppTableRecordReqBuilder  {
-  builder.tableId = tableId
-  builder.tableIdFlag = true
-  return builder
-}
-func (builder * ListAppTableRecordReqBuilder) ViewId(viewId string) *ListAppTableRecordReqBuilder  {
-  builder.viewId = viewId
-  builder.viewIdFlag = true
-  return builder
-}
-func (builder * ListAppTableRecordReqBuilder) Filter(filter string) *ListAppTableRecordReqBuilder  {
-  builder.filter = filter
-  builder.filterFlag = true
-  return builder
-}
-func (builder * ListAppTableRecordReqBuilder) Sort(sort string) *ListAppTableRecordReqBuilder  {
-  builder.sort = sort
-  builder.sortFlag = true
-  return builder
-}
-func (builder * ListAppTableRecordReqBuilder) FieldNames(fieldNames string) *ListAppTableRecordReqBuilder  {
-  builder.fieldNames = fieldNames
-  builder.fieldNamesFlag = true
-  return builder
-}
-func (builder * ListAppTableRecordReqBuilder) PageToken(pageToken string) *ListAppTableRecordReqBuilder  {
-  builder.pageToken = pageToken
-  builder.pageTokenFlag = true
-  return builder
-}
-func (builder * ListAppTableRecordReqBuilder) PageSize(pageSize int) *ListAppTableRecordReqBuilder  {
-  builder.pageSize = pageSize
-  builder.pageSizeFlag = true
-  return builder
-}
-func (builder * ListAppTableRecordReqBuilder) UserIdType(userIdType string) *ListAppTableRecordReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
-}
-
-/*1.5 生成请求的builder的build方法*/
-func (builder * ListAppTableRecordReqBuilder ) Build() *ListAppTableRecordReq {
-   req := &ListAppTableRecordReq{}
-   req.Limit = builder.limit
-   if builder.appTokenFlag {
-	  req.AppToken = builder.appToken
-   }
-   if builder.tableIdFlag {
-	  req.TableId = builder.tableId
-   }
-   if builder.viewIdFlag {
-	  req.ViewId = &builder.viewId
-   }
-   if builder.filterFlag {
-	  req.Filter = &builder.filter
-   }
-   if builder.sortFlag {
-	  req.Sort = &builder.sort
-   }
-   if builder.fieldNamesFlag {
-	  req.FieldNames = &builder.fieldNames
-   }
-   if builder.pageTokenFlag {
-	  req.PageToken = &builder.pageToken
-   }
-   if builder.pageSizeFlag {
-	  req.PageSize = &builder.pageSize
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   return req
-}
-
-
-type ListAppTableRecordReq struct {
-	AppToken  string `path:"app_token"`
-	TableId  string `path:"table_id"`
-	ViewId  *string `query:"view_id"`
-	Filter  *string `query:"filter"`
-	Sort  *string `query:"sort"`
-	FieldNames  *string `query:"field_names"`
-	PageToken  *string `query:"page_token"`
-	PageSize  *int `query:"page_size"`
-	UserIdType  *string `query:"user_id_type"`
-	Limit int
-
-}
-
-type ListAppTableRecordRespData struct {
-	HasMore  *bool `json:"has_more,omitempty"`
-	PageToken  *string `json:"page_token,omitempty"`
-	Total  *int `json:"total,omitempty"`
-	Items  []*AppTableRecord `json:"items,omitempty"`
-}
-
-type ListAppTableRecordResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
-	Data *ListAppTableRecordRespData `json:"data"`
-}
-
-func (resp *ListAppTableRecordResp) Success() bool {
+func (resp *BatchDeleteAppTableRecordResp) Success() bool {
 	return resp.Code == 0
 }
 
 type BatchUpdateAppTableRecordReqBodyBuilder struct {
-	records  []*AppTableRecord
-	recordsFlag  bool
+	records     []*AppTableRecord
+	recordsFlag bool
 }
 
 // 生成body的New构造器
-func NewBatchUpdateAppTableRecordReqBodyBuilder() * BatchUpdateAppTableRecordReqBodyBuilder{
-  builder := &BatchUpdateAppTableRecordReqBodyBuilder{}
-  return builder
+func NewBatchUpdateAppTableRecordReqBodyBuilder() *BatchUpdateAppTableRecordReqBodyBuilder {
+	builder := &BatchUpdateAppTableRecordReqBodyBuilder{}
+	return builder
 }
 
 /*1.2 生成body的builder属性方法*/
-func (builder * BatchUpdateAppTableRecordReqBodyBuilder ) Records(records []*AppTableRecord) *BatchUpdateAppTableRecordReqBodyBuilder {
-  builder.records = records
-  builder.recordsFlag = true
-  return builder
+func (builder *BatchUpdateAppTableRecordReqBodyBuilder) Records(records []*AppTableRecord) *BatchUpdateAppTableRecordReqBodyBuilder {
+	builder.records = records
+	builder.recordsFlag = true
+	return builder
 }
 
-
 /*1.3 生成body的build方法*/
-func (builder * BatchUpdateAppTableRecordReqBodyBuilder ) Build() *BatchUpdateAppTableRecordReqBody {
-   req := &BatchUpdateAppTableRecordReqBody{}
-   if builder.recordsFlag {
-	  req.Records = builder.records
+func (builder *BatchUpdateAppTableRecordReqBodyBuilder) Build() *BatchUpdateAppTableRecordReqBody {
+	req := &BatchUpdateAppTableRecordReqBody{}
+	if builder.recordsFlag {
+		req.Records = builder.records
 
-   }
-   return req
+	}
+	return req
 }
 
 /**上传文件path开始**/
 type BatchUpdateAppTableRecordPathReqBodyBuilder struct {
-	records  []*AppTableRecord
-	recordsFlag  bool
+	records     []*AppTableRecord
+	recordsFlag bool
 }
 
 // 生成body的New构造器
-func NewBatchUpdateAppTableRecordPathReqBodyBuilder() * BatchUpdateAppTableRecordPathReqBodyBuilder{
-  builder := &BatchUpdateAppTableRecordPathReqBodyBuilder{}
-  return builder
+func NewBatchUpdateAppTableRecordPathReqBodyBuilder() *BatchUpdateAppTableRecordPathReqBodyBuilder {
+	builder := &BatchUpdateAppTableRecordPathReqBodyBuilder{}
+	return builder
 }
 
 /*1.2 生成body的builder属性方法*/
-func (builder * BatchUpdateAppTableRecordPathReqBodyBuilder ) Records(records []*AppTableRecord) *BatchUpdateAppTableRecordPathReqBodyBuilder {
-  builder.records = records
-  builder.recordsFlag = true
-  return builder
+func (builder *BatchUpdateAppTableRecordPathReqBodyBuilder) Records(records []*AppTableRecord) *BatchUpdateAppTableRecordPathReqBodyBuilder {
+	builder.records = records
+	builder.recordsFlag = true
+	return builder
 }
-
 
 /*1.3 生成body的build方法*/
-func (builder * BatchUpdateAppTableRecordPathReqBodyBuilder ) Build() (*BatchUpdateAppTableRecordReqBody, error) {
-   req := &BatchUpdateAppTableRecordReqBody{}
-   if builder.recordsFlag {
-	   req.Records = builder.records
-   }
-   return req, nil
+func (builder *BatchUpdateAppTableRecordPathReqBodyBuilder) Build() (*BatchUpdateAppTableRecordReqBody, error) {
+	req := &BatchUpdateAppTableRecordReqBody{}
+	if builder.recordsFlag {
+		req.Records = builder.records
+	}
+	return req, nil
 }
+
 /**上传文件path结束**/
 
 /*1.4 生成请求的builder结构体*/
 type BatchUpdateAppTableRecordReqBuilder struct {
-	appToken  string
-	appTokenFlag  bool
-	tableId  string
-	tableIdFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-	body *BatchUpdateAppTableRecordReqBody
-	bodyFlag bool
-
+	appToken       string
+	appTokenFlag   bool
+	tableId        string
+	tableIdFlag    bool
+	userIdType     string
+	userIdTypeFlag bool
+	body           *BatchUpdateAppTableRecordReqBody
+	bodyFlag       bool
 }
 
 // 生成请求的New构造器
-func NewBatchUpdateAppTableRecordReqBuilder() * BatchUpdateAppTableRecordReqBuilder{
-   builder := &BatchUpdateAppTableRecordReqBuilder{}
-   return builder
+func NewBatchUpdateAppTableRecordReqBuilder() *BatchUpdateAppTableRecordReqBuilder {
+	builder := &BatchUpdateAppTableRecordReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * BatchUpdateAppTableRecordReqBuilder) AppToken(appToken string) *BatchUpdateAppTableRecordReqBuilder  {
-  builder.appToken = appToken
-  builder.appTokenFlag = true
-  return builder
+func (builder *BatchUpdateAppTableRecordReqBuilder) AppToken(appToken string) *BatchUpdateAppTableRecordReqBuilder {
+	builder.appToken = appToken
+	builder.appTokenFlag = true
+	return builder
 }
-func (builder * BatchUpdateAppTableRecordReqBuilder) TableId(tableId string) *BatchUpdateAppTableRecordReqBuilder  {
-  builder.tableId = tableId
-  builder.tableIdFlag = true
-  return builder
+func (builder *BatchUpdateAppTableRecordReqBuilder) TableId(tableId string) *BatchUpdateAppTableRecordReqBuilder {
+	builder.tableId = tableId
+	builder.tableIdFlag = true
+	return builder
 }
-func (builder * BatchUpdateAppTableRecordReqBuilder) UserIdType(userIdType string) *BatchUpdateAppTableRecordReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *BatchUpdateAppTableRecordReqBuilder) UserIdType(userIdType string) *BatchUpdateAppTableRecordReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
-func (builder * BatchUpdateAppTableRecordReqBuilder) Body(body *BatchUpdateAppTableRecordReqBody) *BatchUpdateAppTableRecordReqBuilder  {
-  builder.body = body
-  builder.bodyFlag = true
-  return builder
+func (builder *BatchUpdateAppTableRecordReqBuilder) Body(body *BatchUpdateAppTableRecordReqBody) *BatchUpdateAppTableRecordReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * BatchUpdateAppTableRecordReqBuilder ) Build() *BatchUpdateAppTableRecordReq {
-   req := &BatchUpdateAppTableRecordReq{}
-   if builder.appTokenFlag {
-	  req.AppToken = builder.appToken
-   }
-   if builder.tableIdFlag {
-	  req.TableId = builder.tableId
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   if builder.bodyFlag {
-	  req.Body = builder.body
+func (builder *BatchUpdateAppTableRecordReqBuilder) Build() *BatchUpdateAppTableRecordReq {
+	req := &BatchUpdateAppTableRecordReq{}
+	if builder.appTokenFlag {
+		req.AppToken = builder.appToken
+	}
+	if builder.tableIdFlag {
+		req.TableId = builder.tableId
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	if builder.bodyFlag {
+		req.Body = builder.body
 
-   }
-   return req
+	}
+	return req
 }
 
 type BatchUpdateAppTableRecordReqBody struct {
-	Records  []*AppTableRecord `json:"records,omitempty"`
+	Records []*AppTableRecord `json:"records,omitempty"`
 }
 
 type BatchUpdateAppTableRecordReq struct {
-	AppToken  string `path:"app_token"`
-	TableId  string `path:"table_id"`
-	UserIdType  *string `query:"user_id_type"`
-	Body *BatchUpdateAppTableRecordReqBody `body:""`
-
+	AppToken   string                            `path:"app_token"`
+	TableId    string                            `path:"table_id"`
+	UserIdType *string                           `query:"user_id_type"`
+	Body       *BatchUpdateAppTableRecordReqBody `body:""`
 }
 
 type BatchUpdateAppTableRecordRespData struct {
-	Records  []*AppTableRecord `json:"records,omitempty"`
+	Records []*AppTableRecord `json:"records,omitempty"`
 }
 
 type BatchUpdateAppTableRecordResp struct {
@@ -1846,74 +2109,70 @@ func (resp *BatchUpdateAppTableRecordResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type CreateAppTableRecordReqBuilder struct {
-	appToken  string
-	appTokenFlag  bool
-	tableId  string
-	tableIdFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-	appTableRecord *AppTableRecord
+	appToken           string
+	appTokenFlag       bool
+	tableId            string
+	tableIdFlag        bool
+	userIdType         string
+	userIdTypeFlag     bool
+	appTableRecord     *AppTableRecord
 	appTableRecordFlag bool
-
 }
 
 // 生成请求的New构造器
-func NewCreateAppTableRecordReqBuilder() * CreateAppTableRecordReqBuilder{
-   builder := &CreateAppTableRecordReqBuilder{}
-   return builder
+func NewCreateAppTableRecordReqBuilder() *CreateAppTableRecordReqBuilder {
+	builder := &CreateAppTableRecordReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * CreateAppTableRecordReqBuilder) AppToken(appToken string) *CreateAppTableRecordReqBuilder  {
-  builder.appToken = appToken
-  builder.appTokenFlag = true
-  return builder
+func (builder *CreateAppTableRecordReqBuilder) AppToken(appToken string) *CreateAppTableRecordReqBuilder {
+	builder.appToken = appToken
+	builder.appTokenFlag = true
+	return builder
 }
-func (builder * CreateAppTableRecordReqBuilder) TableId(tableId string) *CreateAppTableRecordReqBuilder  {
-  builder.tableId = tableId
-  builder.tableIdFlag = true
-  return builder
+func (builder *CreateAppTableRecordReqBuilder) TableId(tableId string) *CreateAppTableRecordReqBuilder {
+	builder.tableId = tableId
+	builder.tableIdFlag = true
+	return builder
 }
-func (builder * CreateAppTableRecordReqBuilder) UserIdType(userIdType string) *CreateAppTableRecordReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *CreateAppTableRecordReqBuilder) UserIdType(userIdType string) *CreateAppTableRecordReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
-func (builder * CreateAppTableRecordReqBuilder) AppTableRecord(appTableRecord *AppTableRecord) *CreateAppTableRecordReqBuilder  {
-  builder.appTableRecord = appTableRecord
-  builder.appTableRecordFlag = true
-  return builder
+func (builder *CreateAppTableRecordReqBuilder) AppTableRecord(appTableRecord *AppTableRecord) *CreateAppTableRecordReqBuilder {
+	builder.appTableRecord = appTableRecord
+	builder.appTableRecordFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * CreateAppTableRecordReqBuilder ) Build() *CreateAppTableRecordReq {
-   req := &CreateAppTableRecordReq{}
-   if builder.appTokenFlag {
-	  req.AppToken = builder.appToken
-   }
-   if builder.tableIdFlag {
-	  req.TableId = builder.tableId
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   return req
+func (builder *CreateAppTableRecordReqBuilder) Build() *CreateAppTableRecordReq {
+	req := &CreateAppTableRecordReq{}
+	if builder.appTokenFlag {
+		req.AppToken = builder.appToken
+	}
+	if builder.tableIdFlag {
+		req.TableId = builder.tableId
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	return req
 }
 
-
 type CreateAppTableRecordReq struct {
-	AppToken  string `path:"app_token"`
-	TableId  string `path:"table_id"`
-	UserIdType  *string `query:"user_id_type"`
+	AppToken       string          `path:"app_token"`
+	TableId        string          `path:"table_id"`
+	UserIdType     *string         `query:"user_id_type"`
 	AppTableRecord *AppTableRecord `body:""`
-
 }
 
 type CreateAppTableRecordRespData struct {
-	Record  *AppTableRecord `json:"record,omitempty"`
+	Record *AppTableRecord `json:"record,omitempty"`
 }
 
 type CreateAppTableRecordResp struct {
@@ -1926,63 +2185,504 @@ func (resp *CreateAppTableRecordResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
-type CreateAppTableViewReqBuilder struct {
-	appToken  string
-	appTokenFlag  bool
-	tableId  string
+type DeleteAppTableRecordReqBuilder struct {
+	appToken     string
+	appTokenFlag bool
+	tableId      string
 	tableIdFlag  bool
-	appTableView *AppTableView
-	appTableViewFlag bool
-
+	recordId     string
+	recordIdFlag bool
 }
 
 // 生成请求的New构造器
-func NewCreateAppTableViewReqBuilder() * CreateAppTableViewReqBuilder{
-   builder := &CreateAppTableViewReqBuilder{}
-   return builder
+func NewDeleteAppTableRecordReqBuilder() *DeleteAppTableRecordReqBuilder {
+	builder := &DeleteAppTableRecordReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * CreateAppTableViewReqBuilder) AppToken(appToken string) *CreateAppTableViewReqBuilder  {
-  builder.appToken = appToken
-  builder.appTokenFlag = true
-  return builder
+func (builder *DeleteAppTableRecordReqBuilder) AppToken(appToken string) *DeleteAppTableRecordReqBuilder {
+	builder.appToken = appToken
+	builder.appTokenFlag = true
+	return builder
 }
-func (builder * CreateAppTableViewReqBuilder) TableId(tableId string) *CreateAppTableViewReqBuilder  {
-  builder.tableId = tableId
-  builder.tableIdFlag = true
-  return builder
+func (builder *DeleteAppTableRecordReqBuilder) TableId(tableId string) *DeleteAppTableRecordReqBuilder {
+	builder.tableId = tableId
+	builder.tableIdFlag = true
+	return builder
 }
-func (builder * CreateAppTableViewReqBuilder) AppTableView(appTableView *AppTableView) *CreateAppTableViewReqBuilder  {
-  builder.appTableView = appTableView
-  builder.appTableViewFlag = true
-  return builder
+func (builder *DeleteAppTableRecordReqBuilder) RecordId(recordId string) *DeleteAppTableRecordReqBuilder {
+	builder.recordId = recordId
+	builder.recordIdFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * CreateAppTableViewReqBuilder ) Build() *CreateAppTableViewReq {
-   req := &CreateAppTableViewReq{}
-   if builder.appTokenFlag {
-	  req.AppToken = builder.appToken
-   }
-   if builder.tableIdFlag {
-	  req.TableId = builder.tableId
-   }
-   return req
+func (builder *DeleteAppTableRecordReqBuilder) Build() *DeleteAppTableRecordReq {
+	req := &DeleteAppTableRecordReq{}
+	if builder.appTokenFlag {
+		req.AppToken = builder.appToken
+	}
+	if builder.tableIdFlag {
+		req.TableId = builder.tableId
+	}
+	if builder.recordIdFlag {
+		req.RecordId = builder.recordId
+	}
+	return req
 }
 
+type DeleteAppTableRecordReq struct {
+	AppToken string `path:"app_token"`
+	TableId  string `path:"table_id"`
+	RecordId string `path:"record_id"`
+}
+
+type DeleteAppTableRecordRespData struct {
+	Deleted  *bool   `json:"deleted,omitempty"`
+	RecordId *string `json:"record_id,omitempty"`
+}
+
+type DeleteAppTableRecordResp struct {
+	*core.RawResponse `json:"-"`
+	core.CodeError
+	Data *DeleteAppTableRecordRespData `json:"data"`
+}
+
+func (resp *DeleteAppTableRecordResp) Success() bool {
+	return resp.Code == 0
+}
+
+/*1.4 生成请求的builder结构体*/
+type GetAppTableRecordReqBuilder struct {
+	appToken              string
+	appTokenFlag          bool
+	tableId               string
+	tableIdFlag           bool
+	recordId              string
+	recordIdFlag          bool
+	textFieldAsArray      bool
+	textFieldAsArrayFlag  bool
+	userIdType            string
+	userIdTypeFlag        bool
+	displayFormulaRef     bool
+	displayFormulaRefFlag bool
+	automaticFields       bool
+	automaticFieldsFlag   bool
+}
+
+// 生成请求的New构造器
+func NewGetAppTableRecordReqBuilder() *GetAppTableRecordReqBuilder {
+	builder := &GetAppTableRecordReqBuilder{}
+	return builder
+}
+
+/*1.5 生成请求的builder属性方法*/
+func (builder *GetAppTableRecordReqBuilder) AppToken(appToken string) *GetAppTableRecordReqBuilder {
+	builder.appToken = appToken
+	builder.appTokenFlag = true
+	return builder
+}
+func (builder *GetAppTableRecordReqBuilder) TableId(tableId string) *GetAppTableRecordReqBuilder {
+	builder.tableId = tableId
+	builder.tableIdFlag = true
+	return builder
+}
+func (builder *GetAppTableRecordReqBuilder) RecordId(recordId string) *GetAppTableRecordReqBuilder {
+	builder.recordId = recordId
+	builder.recordIdFlag = true
+	return builder
+}
+func (builder *GetAppTableRecordReqBuilder) TextFieldAsArray(textFieldAsArray bool) *GetAppTableRecordReqBuilder {
+	builder.textFieldAsArray = textFieldAsArray
+	builder.textFieldAsArrayFlag = true
+	return builder
+}
+func (builder *GetAppTableRecordReqBuilder) UserIdType(userIdType string) *GetAppTableRecordReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
+}
+func (builder *GetAppTableRecordReqBuilder) DisplayFormulaRef(displayFormulaRef bool) *GetAppTableRecordReqBuilder {
+	builder.displayFormulaRef = displayFormulaRef
+	builder.displayFormulaRefFlag = true
+	return builder
+}
+func (builder *GetAppTableRecordReqBuilder) AutomaticFields(automaticFields bool) *GetAppTableRecordReqBuilder {
+	builder.automaticFields = automaticFields
+	builder.automaticFieldsFlag = true
+	return builder
+}
+
+/*1.5 生成请求的builder的build方法*/
+func (builder *GetAppTableRecordReqBuilder) Build() *GetAppTableRecordReq {
+	req := &GetAppTableRecordReq{}
+	if builder.appTokenFlag {
+		req.AppToken = builder.appToken
+	}
+	if builder.tableIdFlag {
+		req.TableId = builder.tableId
+	}
+	if builder.recordIdFlag {
+		req.RecordId = builder.recordId
+	}
+	if builder.textFieldAsArrayFlag {
+		req.TextFieldAsArray = &builder.textFieldAsArray
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	if builder.displayFormulaRefFlag {
+		req.DisplayFormulaRef = &builder.displayFormulaRef
+	}
+	if builder.automaticFieldsFlag {
+		req.AutomaticFields = &builder.automaticFields
+	}
+	return req
+}
+
+type GetAppTableRecordReq struct {
+	AppToken          string  `path:"app_token"`
+	TableId           string  `path:"table_id"`
+	RecordId          string  `path:"record_id"`
+	TextFieldAsArray  *bool   `query:"text_field_as_array"`
+	UserIdType        *string `query:"user_id_type"`
+	DisplayFormulaRef *bool   `query:"display_formula_ref"`
+	AutomaticFields   *bool   `query:"automatic_fields"`
+}
+
+type GetAppTableRecordRespData struct {
+	Record *AppTableRecord `json:"record,omitempty"`
+}
+
+type GetAppTableRecordResp struct {
+	*core.RawResponse `json:"-"`
+	core.CodeError
+	Data *GetAppTableRecordRespData `json:"data"`
+}
+
+func (resp *GetAppTableRecordResp) Success() bool {
+	return resp.Code == 0
+}
+
+/*1.4 生成请求的builder结构体*/
+type ListAppTableRecordReqBuilder struct {
+	appToken              string
+	appTokenFlag          bool
+	tableId               string
+	tableIdFlag           bool
+	viewId                string
+	viewIdFlag            bool
+	filter                string
+	filterFlag            bool
+	sort                  string
+	sortFlag              bool
+	fieldNames            string
+	fieldNamesFlag        bool
+	textFieldAsArray      bool
+	textFieldAsArrayFlag  bool
+	userIdType            string
+	userIdTypeFlag        bool
+	displayFormulaRef     bool
+	displayFormulaRefFlag bool
+	automaticFields       bool
+	automaticFieldsFlag   bool
+	pageToken             string
+	pageTokenFlag         bool
+	pageSize              int
+	pageSizeFlag          bool
+	limit                 int
+}
+
+// 生成请求的New构造器
+func NewListAppTableRecordReqBuilder() *ListAppTableRecordReqBuilder {
+	builder := &ListAppTableRecordReqBuilder{}
+	return builder
+}
+
+/*1.5 生成请求的builder属性方法*/
+func (builder *ListAppTableRecordReqBuilder) Limit(limit int) *ListAppTableRecordReqBuilder {
+	builder.limit = limit
+	return builder
+}
+func (builder *ListAppTableRecordReqBuilder) AppToken(appToken string) *ListAppTableRecordReqBuilder {
+	builder.appToken = appToken
+	builder.appTokenFlag = true
+	return builder
+}
+func (builder *ListAppTableRecordReqBuilder) TableId(tableId string) *ListAppTableRecordReqBuilder {
+	builder.tableId = tableId
+	builder.tableIdFlag = true
+	return builder
+}
+func (builder *ListAppTableRecordReqBuilder) ViewId(viewId string) *ListAppTableRecordReqBuilder {
+	builder.viewId = viewId
+	builder.viewIdFlag = true
+	return builder
+}
+func (builder *ListAppTableRecordReqBuilder) Filter(filter string) *ListAppTableRecordReqBuilder {
+	builder.filter = filter
+	builder.filterFlag = true
+	return builder
+}
+func (builder *ListAppTableRecordReqBuilder) Sort(sort string) *ListAppTableRecordReqBuilder {
+	builder.sort = sort
+	builder.sortFlag = true
+	return builder
+}
+func (builder *ListAppTableRecordReqBuilder) FieldNames(fieldNames string) *ListAppTableRecordReqBuilder {
+	builder.fieldNames = fieldNames
+	builder.fieldNamesFlag = true
+	return builder
+}
+func (builder *ListAppTableRecordReqBuilder) TextFieldAsArray(textFieldAsArray bool) *ListAppTableRecordReqBuilder {
+	builder.textFieldAsArray = textFieldAsArray
+	builder.textFieldAsArrayFlag = true
+	return builder
+}
+func (builder *ListAppTableRecordReqBuilder) UserIdType(userIdType string) *ListAppTableRecordReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
+}
+func (builder *ListAppTableRecordReqBuilder) DisplayFormulaRef(displayFormulaRef bool) *ListAppTableRecordReqBuilder {
+	builder.displayFormulaRef = displayFormulaRef
+	builder.displayFormulaRefFlag = true
+	return builder
+}
+func (builder *ListAppTableRecordReqBuilder) AutomaticFields(automaticFields bool) *ListAppTableRecordReqBuilder {
+	builder.automaticFields = automaticFields
+	builder.automaticFieldsFlag = true
+	return builder
+}
+func (builder *ListAppTableRecordReqBuilder) PageToken(pageToken string) *ListAppTableRecordReqBuilder {
+	builder.pageToken = pageToken
+	builder.pageTokenFlag = true
+	return builder
+}
+func (builder *ListAppTableRecordReqBuilder) PageSize(pageSize int) *ListAppTableRecordReqBuilder {
+	builder.pageSize = pageSize
+	builder.pageSizeFlag = true
+	return builder
+}
+
+/*1.5 生成请求的builder的build方法*/
+func (builder *ListAppTableRecordReqBuilder) Build() *ListAppTableRecordReq {
+	req := &ListAppTableRecordReq{}
+	req.Limit = builder.limit
+	if builder.appTokenFlag {
+		req.AppToken = builder.appToken
+	}
+	if builder.tableIdFlag {
+		req.TableId = builder.tableId
+	}
+	if builder.viewIdFlag {
+		req.ViewId = &builder.viewId
+	}
+	if builder.filterFlag {
+		req.Filter = &builder.filter
+	}
+	if builder.sortFlag {
+		req.Sort = &builder.sort
+	}
+	if builder.fieldNamesFlag {
+		req.FieldNames = &builder.fieldNames
+	}
+	if builder.textFieldAsArrayFlag {
+		req.TextFieldAsArray = &builder.textFieldAsArray
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	if builder.displayFormulaRefFlag {
+		req.DisplayFormulaRef = &builder.displayFormulaRef
+	}
+	if builder.automaticFieldsFlag {
+		req.AutomaticFields = &builder.automaticFields
+	}
+	if builder.pageTokenFlag {
+		req.PageToken = &builder.pageToken
+	}
+	if builder.pageSizeFlag {
+		req.PageSize = &builder.pageSize
+	}
+	return req
+}
+
+type ListAppTableRecordReq struct {
+	AppToken          string  `path:"app_token"`
+	TableId           string  `path:"table_id"`
+	ViewId            *string `query:"view_id"`
+	Filter            *string `query:"filter"`
+	Sort              *string `query:"sort"`
+	FieldNames        *string `query:"field_names"`
+	TextFieldAsArray  *bool   `query:"text_field_as_array"`
+	UserIdType        *string `query:"user_id_type"`
+	DisplayFormulaRef *bool   `query:"display_formula_ref"`
+	AutomaticFields   *bool   `query:"automatic_fields"`
+	PageToken         *string `query:"page_token"`
+	PageSize          *int    `query:"page_size"`
+	Limit             int
+}
+
+type ListAppTableRecordRespData struct {
+	HasMore   *bool             `json:"has_more,omitempty"`
+	PageToken *string           `json:"page_token,omitempty"`
+	Total     *int              `json:"total,omitempty"`
+	Items     []*AppTableRecord `json:"items,omitempty"`
+}
+
+type ListAppTableRecordResp struct {
+	*core.RawResponse `json:"-"`
+	core.CodeError
+	Data *ListAppTableRecordRespData `json:"data"`
+}
+
+func (resp *ListAppTableRecordResp) Success() bool {
+	return resp.Code == 0
+}
+
+/*1.4 生成请求的builder结构体*/
+type UpdateAppTableRecordReqBuilder struct {
+	appToken           string
+	appTokenFlag       bool
+	tableId            string
+	tableIdFlag        bool
+	recordId           string
+	recordIdFlag       bool
+	userIdType         string
+	userIdTypeFlag     bool
+	appTableRecord     *AppTableRecord
+	appTableRecordFlag bool
+}
+
+// 生成请求的New构造器
+func NewUpdateAppTableRecordReqBuilder() *UpdateAppTableRecordReqBuilder {
+	builder := &UpdateAppTableRecordReqBuilder{}
+	return builder
+}
+
+/*1.5 生成请求的builder属性方法*/
+func (builder *UpdateAppTableRecordReqBuilder) AppToken(appToken string) *UpdateAppTableRecordReqBuilder {
+	builder.appToken = appToken
+	builder.appTokenFlag = true
+	return builder
+}
+func (builder *UpdateAppTableRecordReqBuilder) TableId(tableId string) *UpdateAppTableRecordReqBuilder {
+	builder.tableId = tableId
+	builder.tableIdFlag = true
+	return builder
+}
+func (builder *UpdateAppTableRecordReqBuilder) RecordId(recordId string) *UpdateAppTableRecordReqBuilder {
+	builder.recordId = recordId
+	builder.recordIdFlag = true
+	return builder
+}
+func (builder *UpdateAppTableRecordReqBuilder) UserIdType(userIdType string) *UpdateAppTableRecordReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
+}
+func (builder *UpdateAppTableRecordReqBuilder) AppTableRecord(appTableRecord *AppTableRecord) *UpdateAppTableRecordReqBuilder {
+	builder.appTableRecord = appTableRecord
+	builder.appTableRecordFlag = true
+	return builder
+}
+
+/*1.5 生成请求的builder的build方法*/
+func (builder *UpdateAppTableRecordReqBuilder) Build() *UpdateAppTableRecordReq {
+	req := &UpdateAppTableRecordReq{}
+	if builder.appTokenFlag {
+		req.AppToken = builder.appToken
+	}
+	if builder.tableIdFlag {
+		req.TableId = builder.tableId
+	}
+	if builder.recordIdFlag {
+		req.RecordId = builder.recordId
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	return req
+}
+
+type UpdateAppTableRecordReq struct {
+	AppToken       string          `path:"app_token"`
+	TableId        string          `path:"table_id"`
+	RecordId       string          `path:"record_id"`
+	UserIdType     *string         `query:"user_id_type"`
+	AppTableRecord *AppTableRecord `body:""`
+}
+
+type UpdateAppTableRecordRespData struct {
+	Record *AppTableRecord `json:"record,omitempty"`
+}
+
+type UpdateAppTableRecordResp struct {
+	*core.RawResponse `json:"-"`
+	core.CodeError
+	Data *UpdateAppTableRecordRespData `json:"data"`
+}
+
+func (resp *UpdateAppTableRecordResp) Success() bool {
+	return resp.Code == 0
+}
+
+/*1.4 生成请求的builder结构体*/
+type CreateAppTableViewReqBuilder struct {
+	appToken     string
+	appTokenFlag bool
+	tableId      string
+	tableIdFlag  bool
+	reqView      *ReqView
+	reqViewFlag  bool
+}
+
+// 生成请求的New构造器
+func NewCreateAppTableViewReqBuilder() *CreateAppTableViewReqBuilder {
+	builder := &CreateAppTableViewReqBuilder{}
+	return builder
+}
+
+/*1.5 生成请求的builder属性方法*/
+func (builder *CreateAppTableViewReqBuilder) AppToken(appToken string) *CreateAppTableViewReqBuilder {
+	builder.appToken = appToken
+	builder.appTokenFlag = true
+	return builder
+}
+func (builder *CreateAppTableViewReqBuilder) TableId(tableId string) *CreateAppTableViewReqBuilder {
+	builder.tableId = tableId
+	builder.tableIdFlag = true
+	return builder
+}
+func (builder *CreateAppTableViewReqBuilder) ReqView(reqView *ReqView) *CreateAppTableViewReqBuilder {
+	builder.reqView = reqView
+	builder.reqViewFlag = true
+	return builder
+}
+
+/*1.5 生成请求的builder的build方法*/
+func (builder *CreateAppTableViewReqBuilder) Build() *CreateAppTableViewReq {
+	req := &CreateAppTableViewReq{}
+	if builder.appTokenFlag {
+		req.AppToken = builder.appToken
+	}
+	if builder.tableIdFlag {
+		req.TableId = builder.tableId
+	}
+	return req
+}
 
 type CreateAppTableViewReq struct {
-	AppToken  string `path:"app_token"`
-	TableId  string `path:"table_id"`
-	AppTableView *AppTableView `body:""`
-
+	AppToken string   `path:"app_token"`
+	TableId  string   `path:"table_id"`
+	ReqView  *ReqView `body:""`
 }
 
 type CreateAppTableViewRespData struct {
-	AppTableView  *AppTableView `json:"app.table.view,omitempty"`
+	View *AppTableView `json:"view,omitempty"`
 }
 
 type CreateAppTableViewResp struct {
@@ -1995,64 +2695,59 @@ func (resp *CreateAppTableViewResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type DeleteAppTableViewReqBuilder struct {
-	appToken  string
-	appTokenFlag  bool
-	tableId  string
+	appToken     string
+	appTokenFlag bool
+	tableId      string
 	tableIdFlag  bool
-	viewId  string
-	viewIdFlag  bool
-
+	viewId       string
+	viewIdFlag   bool
 }
 
 // 生成请求的New构造器
-func NewDeleteAppTableViewReqBuilder() * DeleteAppTableViewReqBuilder{
-   builder := &DeleteAppTableViewReqBuilder{}
-   return builder
+func NewDeleteAppTableViewReqBuilder() *DeleteAppTableViewReqBuilder {
+	builder := &DeleteAppTableViewReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * DeleteAppTableViewReqBuilder) AppToken(appToken string) *DeleteAppTableViewReqBuilder  {
-  builder.appToken = appToken
-  builder.appTokenFlag = true
-  return builder
+func (builder *DeleteAppTableViewReqBuilder) AppToken(appToken string) *DeleteAppTableViewReqBuilder {
+	builder.appToken = appToken
+	builder.appTokenFlag = true
+	return builder
 }
-func (builder * DeleteAppTableViewReqBuilder) TableId(tableId string) *DeleteAppTableViewReqBuilder  {
-  builder.tableId = tableId
-  builder.tableIdFlag = true
-  return builder
+func (builder *DeleteAppTableViewReqBuilder) TableId(tableId string) *DeleteAppTableViewReqBuilder {
+	builder.tableId = tableId
+	builder.tableIdFlag = true
+	return builder
 }
-func (builder * DeleteAppTableViewReqBuilder) ViewId(viewId string) *DeleteAppTableViewReqBuilder  {
-  builder.viewId = viewId
-  builder.viewIdFlag = true
-  return builder
+func (builder *DeleteAppTableViewReqBuilder) ViewId(viewId string) *DeleteAppTableViewReqBuilder {
+	builder.viewId = viewId
+	builder.viewIdFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * DeleteAppTableViewReqBuilder ) Build() *DeleteAppTableViewReq {
-   req := &DeleteAppTableViewReq{}
-   if builder.appTokenFlag {
-	  req.AppToken = builder.appToken
-   }
-   if builder.tableIdFlag {
-	  req.TableId = builder.tableId
-   }
-   if builder.viewIdFlag {
-	  req.ViewId = builder.viewId
-   }
-   return req
+func (builder *DeleteAppTableViewReqBuilder) Build() *DeleteAppTableViewReq {
+	req := &DeleteAppTableViewReq{}
+	if builder.appTokenFlag {
+		req.AppToken = builder.appToken
+	}
+	if builder.tableIdFlag {
+		req.TableId = builder.tableId
+	}
+	if builder.viewIdFlag {
+		req.ViewId = builder.viewId
+	}
+	return req
 }
-
 
 type DeleteAppTableViewReq struct {
-	AppToken  string `path:"app_token"`
+	AppToken string `path:"app_token"`
 	TableId  string `path:"table_id"`
-	ViewId  string `path:"view_id"`
-
+	ViewId   string `path:"view_id"`
 }
-
 
 type DeleteAppTableViewResp struct {
 	*core.RawResponse `json:"-"`
@@ -2063,87 +2758,83 @@ func (resp *DeleteAppTableViewResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type ListAppTableViewReqBuilder struct {
-	appToken  string
+	appToken      string
 	appTokenFlag  bool
-	tableId  string
-	tableIdFlag  bool
-	pageSize  int
+	tableId       string
+	tableIdFlag   bool
+	pageSize      int
 	pageSizeFlag  bool
-	pageToken  string
-	pageTokenFlag  bool
-	limit int
-
+	pageToken     string
+	pageTokenFlag bool
+	limit         int
 }
 
 // 生成请求的New构造器
-func NewListAppTableViewReqBuilder() * ListAppTableViewReqBuilder{
-   builder := &ListAppTableViewReqBuilder{}
-   return builder
+func NewListAppTableViewReqBuilder() *ListAppTableViewReqBuilder {
+	builder := &ListAppTableViewReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * ListAppTableViewReqBuilder) Limit(limit int ) *ListAppTableViewReqBuilder  {
-  builder.limit = limit
-  return builder
+func (builder *ListAppTableViewReqBuilder) Limit(limit int) *ListAppTableViewReqBuilder {
+	builder.limit = limit
+	return builder
 }
-func (builder * ListAppTableViewReqBuilder) AppToken(appToken string) *ListAppTableViewReqBuilder  {
-  builder.appToken = appToken
-  builder.appTokenFlag = true
-  return builder
+func (builder *ListAppTableViewReqBuilder) AppToken(appToken string) *ListAppTableViewReqBuilder {
+	builder.appToken = appToken
+	builder.appTokenFlag = true
+	return builder
 }
-func (builder * ListAppTableViewReqBuilder) TableId(tableId string) *ListAppTableViewReqBuilder  {
-  builder.tableId = tableId
-  builder.tableIdFlag = true
-  return builder
+func (builder *ListAppTableViewReqBuilder) TableId(tableId string) *ListAppTableViewReqBuilder {
+	builder.tableId = tableId
+	builder.tableIdFlag = true
+	return builder
 }
-func (builder * ListAppTableViewReqBuilder) PageSize(pageSize int) *ListAppTableViewReqBuilder  {
-  builder.pageSize = pageSize
-  builder.pageSizeFlag = true
-  return builder
+func (builder *ListAppTableViewReqBuilder) PageSize(pageSize int) *ListAppTableViewReqBuilder {
+	builder.pageSize = pageSize
+	builder.pageSizeFlag = true
+	return builder
 }
-func (builder * ListAppTableViewReqBuilder) PageToken(pageToken string) *ListAppTableViewReqBuilder  {
-  builder.pageToken = pageToken
-  builder.pageTokenFlag = true
-  return builder
+func (builder *ListAppTableViewReqBuilder) PageToken(pageToken string) *ListAppTableViewReqBuilder {
+	builder.pageToken = pageToken
+	builder.pageTokenFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * ListAppTableViewReqBuilder ) Build() *ListAppTableViewReq {
-   req := &ListAppTableViewReq{}
-   req.Limit = builder.limit
-   if builder.appTokenFlag {
-	  req.AppToken = builder.appToken
-   }
-   if builder.tableIdFlag {
-	  req.TableId = builder.tableId
-   }
-   if builder.pageSizeFlag {
-	  req.PageSize = &builder.pageSize
-   }
-   if builder.pageTokenFlag {
-	  req.PageToken = &builder.pageToken
-   }
-   return req
+func (builder *ListAppTableViewReqBuilder) Build() *ListAppTableViewReq {
+	req := &ListAppTableViewReq{}
+	req.Limit = builder.limit
+	if builder.appTokenFlag {
+		req.AppToken = builder.appToken
+	}
+	if builder.tableIdFlag {
+		req.TableId = builder.tableId
+	}
+	if builder.pageSizeFlag {
+		req.PageSize = &builder.pageSize
+	}
+	if builder.pageTokenFlag {
+		req.PageToken = &builder.pageToken
+	}
+	return req
 }
 
-
 type ListAppTableViewReq struct {
-	AppToken  string `path:"app_token"`
-	TableId  string `path:"table_id"`
-	PageSize  *int `query:"page_size"`
-	PageToken  *string `query:"page_token"`
-	Limit int
-
+	AppToken  string  `path:"app_token"`
+	TableId   string  `path:"table_id"`
+	PageSize  *int    `query:"page_size"`
+	PageToken *string `query:"page_token"`
+	Limit     int
 }
 
 type ListAppTableViewRespData struct {
-	Items  []*AppTableView `json:"items,omitempty"`
-	PageToken  *string `json:"page_token,omitempty"`
-	HasMore  *bool `json:"has_more,omitempty"`
-	Total  *int `json:"total,omitempty"`
+	Items     []*AppTableView `json:"items,omitempty"`
+	PageToken *string         `json:"page_token,omitempty"`
+	HasMore   *bool           `json:"has_more,omitempty"`
+	Total     *int            `json:"total,omitempty"`
 }
 
 type ListAppTableViewResp struct {
@@ -2158,224 +2849,334 @@ func (resp *ListAppTableViewResp) Success() bool {
 
 /**生成消息事件结构体 **/
 
-
 /* 生成请求的builder构造器*/
 /*1.1 生成body的builder结构体*/
 /**如果是分页查询，则添加迭代器定义**/
-   type ListAppTableIterator struct{
-	 nextPageToken *string
-	 items	 []*AppTable
-	 index	 int
-	 limit	 int
-	 ctx	   context.Context
-	 req	   *ListAppTableReq
-	 listFunc  func (ctx context.Context, req *ListAppTableReq, options ...core.RequestOptionFunc) (*ListAppTableResp, error)
-	 options   []core.RequestOptionFunc
-   	 curlNum	   int
-   }
+type ListAppRoleIterator struct {
+	nextPageToken *string
+	items         []*AppRole
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListAppRoleReq
+	listFunc      func(ctx context.Context, req *ListAppRoleReq, options ...core.RequestOptionFunc) (*ListAppRoleResp, error)
+	options       []core.RequestOptionFunc
+	curlNum       int
+}
 
-   func (iterator *ListAppTableIterator) Next() (bool, *AppTable, error) {
-		// 达到最大量，则返回
-		if iterator.limit >0 && iterator.curlNum > iterator.limit {
+func (iterator *ListAppRoleIterator) Next() (bool, *AppRole, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.PageToken = iterator.nextPageToken
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
 			return false, nil, nil
 		}
 
-		// 为0则拉取数据
-		if iterator.index == 0 || iterator.index >= len(iterator.items) {
-			if iterator.index != 0 && iterator.nextPageToken == nil {
-				return false, nil, nil
-			}
-			if iterator.nextPageToken != nil {
-				iterator.req.PageToken = iterator.nextPageToken
-			}
-			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-			if err != nil {
-				return false, nil, err
-			}
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
 
-			if resp.Code != 0 {
-				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
-			}
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
 
-			if len(resp.Data.Items) == 0 {
-				return false, nil, nil
-			}
+func (iterator *ListAppRoleIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
 
-			iterator.nextPageToken = resp.Data.PageToken
-			iterator.items = resp.Data.Items
-			iterator.index = 0
-		}
-
-		block := iterator.items[iterator.index]
-		iterator.index++
-		iterator.curlNum++
-		return true, block, nil
-   }
-
-   func (iterator *ListAppTableIterator) NextPageToken() *string {
-	  return iterator.nextPageToken
-   }
 /**如果是分页查询，则添加迭代器定义**/
-   type ListAppTableFieldIterator struct{
-	 nextPageToken *string
-	 items	 []*AppTableField
-	 index	 int
-	 limit	 int
-	 ctx	   context.Context
-	 req	   *ListAppTableFieldReq
-	 listFunc  func (ctx context.Context, req *ListAppTableFieldReq, options ...core.RequestOptionFunc) (*ListAppTableFieldResp, error)
-	 options   []core.RequestOptionFunc
-   	 curlNum	   int
-   }
+type ListAppRoleMemberIterator struct {
+	nextPageToken *string
+	items         []*AppRoleMember
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListAppRoleMemberReq
+	listFunc      func(ctx context.Context, req *ListAppRoleMemberReq, options ...core.RequestOptionFunc) (*ListAppRoleMemberResp, error)
+	options       []core.RequestOptionFunc
+	curlNum       int
+}
 
-   func (iterator *ListAppTableFieldIterator) Next() (bool, *AppTableField, error) {
-		// 达到最大量，则返回
-		if iterator.limit >0 && iterator.curlNum > iterator.limit {
+func (iterator *ListAppRoleMemberIterator) Next() (bool, *AppRoleMember, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.PageToken = iterator.nextPageToken
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
 			return false, nil, nil
 		}
 
-		// 为0则拉取数据
-		if iterator.index == 0 || iterator.index >= len(iterator.items) {
-			if iterator.index != 0 && iterator.nextPageToken == nil {
-				return false, nil, nil
-			}
-			if iterator.nextPageToken != nil {
-				iterator.req.PageToken = iterator.nextPageToken
-			}
-			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-			if err != nil {
-				return false, nil, err
-			}
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
 
-			if resp.Code != 0 {
-				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
-			}
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
 
-			if len(resp.Data.Items) == 0 {
-				return false, nil, nil
-			}
+func (iterator *ListAppRoleMemberIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
 
-			iterator.nextPageToken = resp.Data.PageToken
-			iterator.items = resp.Data.Items
-			iterator.index = 0
-		}
-
-		block := iterator.items[iterator.index]
-		iterator.index++
-		iterator.curlNum++
-		return true, block, nil
-   }
-
-   func (iterator *ListAppTableFieldIterator) NextPageToken() *string {
-	  return iterator.nextPageToken
-   }
 /**如果是分页查询，则添加迭代器定义**/
-   type ListAppTableRecordIterator struct{
-	 nextPageToken *string
-	 items	 []*AppTableRecord
-	 index	 int
-	 limit	 int
-	 ctx	   context.Context
-	 req	   *ListAppTableRecordReq
-	 listFunc  func (ctx context.Context, req *ListAppTableRecordReq, options ...core.RequestOptionFunc) (*ListAppTableRecordResp, error)
-	 options   []core.RequestOptionFunc
-   	 curlNum	   int
-   }
+type ListAppTableIterator struct {
+	nextPageToken *string
+	items         []*AppTable
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListAppTableReq
+	listFunc      func(ctx context.Context, req *ListAppTableReq, options ...core.RequestOptionFunc) (*ListAppTableResp, error)
+	options       []core.RequestOptionFunc
+	curlNum       int
+}
 
-   func (iterator *ListAppTableRecordIterator) Next() (bool, *AppTableRecord, error) {
-		// 达到最大量，则返回
-		if iterator.limit >0 && iterator.curlNum > iterator.limit {
+func (iterator *ListAppTableIterator) Next() (bool, *AppTable, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.PageToken = iterator.nextPageToken
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
 			return false, nil, nil
 		}
 
-		// 为0则拉取数据
-		if iterator.index == 0 || iterator.index >= len(iterator.items) {
-			if iterator.index != 0 && iterator.nextPageToken == nil {
-				return false, nil, nil
-			}
-			if iterator.nextPageToken != nil {
-				iterator.req.PageToken = iterator.nextPageToken
-			}
-			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-			if err != nil {
-				return false, nil, err
-			}
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
 
-			if resp.Code != 0 {
-				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
-			}
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
 
-			if len(resp.Data.Items) == 0 {
-				return false, nil, nil
-			}
+func (iterator *ListAppTableIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
 
-			iterator.nextPageToken = resp.Data.PageToken
-			iterator.items = resp.Data.Items
-			iterator.index = 0
-		}
-
-		block := iterator.items[iterator.index]
-		iterator.index++
-		iterator.curlNum++
-		return true, block, nil
-   }
-
-   func (iterator *ListAppTableRecordIterator) NextPageToken() *string {
-	  return iterator.nextPageToken
-   }
 /**如果是分页查询，则添加迭代器定义**/
-   type ListAppTableViewIterator struct{
-	 nextPageToken *string
-	 items	 []*AppTableView
-	 index	 int
-	 limit	 int
-	 ctx	   context.Context
-	 req	   *ListAppTableViewReq
-	 listFunc  func (ctx context.Context, req *ListAppTableViewReq, options ...core.RequestOptionFunc) (*ListAppTableViewResp, error)
-	 options   []core.RequestOptionFunc
-   	 curlNum	   int
-   }
+type ListAppTableFieldIterator struct {
+	nextPageToken *string
+	items         []*AppTableField
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListAppTableFieldReq
+	listFunc      func(ctx context.Context, req *ListAppTableFieldReq, options ...core.RequestOptionFunc) (*ListAppTableFieldResp, error)
+	options       []core.RequestOptionFunc
+	curlNum       int
+}
 
-   func (iterator *ListAppTableViewIterator) Next() (bool, *AppTableView, error) {
-		// 达到最大量，则返回
-		if iterator.limit >0 && iterator.curlNum > iterator.limit {
+func (iterator *ListAppTableFieldIterator) Next() (bool, *AppTableField, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.PageToken = iterator.nextPageToken
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
 			return false, nil, nil
 		}
 
-		// 为0则拉取数据
-		if iterator.index == 0 || iterator.index >= len(iterator.items) {
-			if iterator.index != 0 && iterator.nextPageToken == nil {
-				return false, nil, nil
-			}
-			if iterator.nextPageToken != nil {
-				iterator.req.PageToken = iterator.nextPageToken
-			}
-			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-			if err != nil {
-				return false, nil, err
-			}
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
 
-			if resp.Code != 0 {
-				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
-			}
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
 
-			if len(resp.Data.Items) == 0 {
-				return false, nil, nil
-			}
+func (iterator *ListAppTableFieldIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
 
-			iterator.nextPageToken = resp.Data.PageToken
-			iterator.items = resp.Data.Items
-			iterator.index = 0
+/**如果是分页查询，则添加迭代器定义**/
+type ListAppTableRecordIterator struct {
+	nextPageToken *string
+	items         []*AppTableRecord
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListAppTableRecordReq
+	listFunc      func(ctx context.Context, req *ListAppTableRecordReq, options ...core.RequestOptionFunc) (*ListAppTableRecordResp, error)
+	options       []core.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *ListAppTableRecordIterator) Next() (bool, *AppTableRecord, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.PageToken = iterator.nextPageToken
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
 		}
 
-		block := iterator.items[iterator.index]
-		iterator.index++
-		iterator.curlNum++
-		return true, block, nil
-   }
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
 
-   func (iterator *ListAppTableViewIterator) NextPageToken() *string {
-	  return iterator.nextPageToken
-   }
+		if len(resp.Data.Items) == 0 {
+			return false, nil, nil
+		}
 
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
 
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *ListAppTableRecordIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
+
+/**如果是分页查询，则添加迭代器定义**/
+type ListAppTableViewIterator struct {
+	nextPageToken *string
+	items         []*AppTableView
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListAppTableViewReq
+	listFunc      func(ctx context.Context, req *ListAppTableViewReq, options ...core.RequestOptionFunc) (*ListAppTableViewResp, error)
+	options       []core.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *ListAppTableViewIterator) Next() (bool, *AppTableView, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.PageToken = iterator.nextPageToken
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *ListAppTableViewIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}

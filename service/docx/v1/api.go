@@ -2,9 +2,9 @@
 package docx
 
 import (
-	"net/http"
 	"context"
-	
+	"net/http"
+
 	"github.com/feishu/oapi-sdk-go/core"
 )
 
@@ -12,9 +12,9 @@ import (
 构建业务域服务实例
 **/
 func NewService(httpClient *http.Client, config *core.Config) *DocxService {
-	d := &DocxService{httpClient:httpClient,config:config}
-	d.Documents = &documents{service: d}
-	d.Blocks = &blocks{service: d}
+	d := &DocxService{httpClient: httpClient, config: config}
+	d.Document = &document{service: d}
+	d.DocumentBlock = &documentBlock{service: d}
 	d.DocumentBlockChildren = &documentBlockChildren{service: d}
 	return d
 }
@@ -23,38 +23,36 @@ func NewService(httpClient *http.Client, config *core.Config) *DocxService {
 业务域服务定义
 **/
 type DocxService struct {
-	httpClient *http.Client
-	config *core.Config
-	Documents *documents
-	Blocks *blocks
+	httpClient            *http.Client
+	config                *core.Config
+	Document              *document
+	DocumentBlock         *documentBlock
 	DocumentBlockChildren *documentBlockChildren
 }
-
 
 /**
 资源服务定义
 **/
-type documents struct {
-   service *DocxService
+type document struct {
+	service *DocxService
 }
-type blocks struct {
-   service *DocxService
+type documentBlock struct {
+	service *DocxService
 }
 type documentBlockChildren struct {
-   service *DocxService
+	service *DocxService
 }
+
 /**
 资源服务方法定义
 **/
-func (d *documents) Create(ctx context.Context, req *CreateDocumentReq, options ...core.RequestOptionFunc) (*CreateDocumentResp, error) {
-
+func (d *document) Create(ctx context.Context, req *CreateDocumentReq, options ...core.RequestOptionFunc) (*CreateDocumentResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,d.service.config, http.MethodPost,
+	rawResp, err := core.SendRequest(ctx, d.service.config, http.MethodPost,
 		"/open-apis/docx/v1/documents", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &CreateDocumentResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -63,15 +61,13 @@ func (d *documents) Create(ctx context.Context, req *CreateDocumentReq, options 
 	}
 	return resp, err
 }
-func (d *documents) Get(ctx context.Context, req *GetDocumentReq, options ...core.RequestOptionFunc) (*GetDocumentResp, error) {
-
+func (d *document) Get(ctx context.Context, req *GetDocumentReq, options ...core.RequestOptionFunc) (*GetDocumentResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,d.service.config, http.MethodGet,
+	rawResp, err := core.SendRequest(ctx, d.service.config, http.MethodGet,
 		"/open-apis/docx/v1/documents/:document_id", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &GetDocumentResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -80,15 +76,13 @@ func (d *documents) Get(ctx context.Context, req *GetDocumentReq, options ...cor
 	}
 	return resp, err
 }
-func (d *documents) RawContent(ctx context.Context, req *RawContentDocumentReq, options ...core.RequestOptionFunc) (*RawContentDocumentResp, error) {
-
+func (d *document) RawContent(ctx context.Context, req *RawContentDocumentReq, options ...core.RequestOptionFunc) (*RawContentDocumentResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,d.service.config, http.MethodGet,
+	rawResp, err := core.SendRequest(ctx, d.service.config, http.MethodGet,
 		"/open-apis/docx/v1/documents/:document_id/raw_content", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &RawContentDocumentResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -97,15 +91,13 @@ func (d *documents) RawContent(ctx context.Context, req *RawContentDocumentReq, 
 	}
 	return resp, err
 }
-func (b *blocks) BatchUpdate(ctx context.Context, req *BatchUpdateDocumentBlockReq, options ...core.RequestOptionFunc) (*BatchUpdateDocumentBlockResp, error) {
-
+func (d *documentBlock) BatchUpdate(ctx context.Context, req *BatchUpdateDocumentBlockReq, options ...core.RequestOptionFunc) (*BatchUpdateDocumentBlockResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,b.service.config, http.MethodPatch,
+	rawResp, err := core.SendRequest(ctx, d.service.config, http.MethodPatch,
 		"/open-apis/docx/v1/documents/:document_id/blocks/batch_update", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &BatchUpdateDocumentBlockResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -114,15 +106,13 @@ func (b *blocks) BatchUpdate(ctx context.Context, req *BatchUpdateDocumentBlockR
 	}
 	return resp, err
 }
-func (b *blocks) Get(ctx context.Context, req *GetDocumentBlockReq, options ...core.RequestOptionFunc) (*GetDocumentBlockResp, error) {
-
+func (d *documentBlock) Get(ctx context.Context, req *GetDocumentBlockReq, options ...core.RequestOptionFunc) (*GetDocumentBlockResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,b.service.config, http.MethodGet,
+	rawResp, err := core.SendRequest(ctx, d.service.config, http.MethodGet,
 		"/open-apis/docx/v1/documents/:document_id/blocks/:block_id", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &GetDocumentBlockResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -131,15 +121,13 @@ func (b *blocks) Get(ctx context.Context, req *GetDocumentBlockReq, options ...c
 	}
 	return resp, err
 }
-func (b *blocks) List(ctx context.Context, req *ListDocumentBlockReq, options ...core.RequestOptionFunc) (*ListDocumentBlockResp, error) {
-
+func (d *documentBlock) List(ctx context.Context, req *ListDocumentBlockReq, options ...core.RequestOptionFunc) (*ListDocumentBlockResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,b.service.config, http.MethodGet,
+	rawResp, err := core.SendRequest(ctx, d.service.config, http.MethodGet,
 		"/open-apis/docx/v1/documents/:document_id/blocks", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &ListDocumentBlockResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -148,24 +136,23 @@ func (b *blocks) List(ctx context.Context, req *ListDocumentBlockReq, options ..
 	}
 	return resp, err
 }
-/**如果是分页查询，则添加迭代器函数**/
-func (b *blocks) ListDocumentBlock(ctx context.Context, req *ListDocumentBlockReq, options ...core.RequestOptionFunc) (*ListDocumentBlockIterator, error) {
-   return &ListDocumentBlockIterator{
-	  ctx:	  ctx,
-	  req:	  req,
-	  listFunc: b.List,
-	  options:  options,
-	  limit: req.Limit}, nil
-}
-func (b *blocks) Patch(ctx context.Context, req *PatchDocumentBlockReq, options ...core.RequestOptionFunc) (*PatchDocumentBlockResp, error) {
 
+/**如果是分页查询，则添加迭代器函数**/
+func (d *documentBlock) ListDocumentBlock(ctx context.Context, req *ListDocumentBlockReq, options ...core.RequestOptionFunc) (*ListDocumentBlockIterator, error) {
+	return &ListDocumentBlockIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: d.List,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+func (d *documentBlock) Patch(ctx context.Context, req *PatchDocumentBlockReq, options ...core.RequestOptionFunc) (*PatchDocumentBlockResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,b.service.config, http.MethodPatch,
+	rawResp, err := core.SendRequest(ctx, d.service.config, http.MethodPatch,
 		"/open-apis/docx/v1/documents/:document_id/blocks/:block_id", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &PatchDocumentBlockResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -175,14 +162,12 @@ func (b *blocks) Patch(ctx context.Context, req *PatchDocumentBlockReq, options 
 	return resp, err
 }
 func (d *documentBlockChildren) BatchDelete(ctx context.Context, req *BatchDeleteDocumentBlockChildrenReq, options ...core.RequestOptionFunc) (*BatchDeleteDocumentBlockChildrenResp, error) {
-
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,d.service.config, http.MethodDelete,
+	rawResp, err := core.SendRequest(ctx, d.service.config, http.MethodDelete,
 		"/open-apis/docx/v1/documents/:document_id/blocks/:block_id/children/batch_delete", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &BatchDeleteDocumentBlockChildrenResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -192,14 +177,12 @@ func (d *documentBlockChildren) BatchDelete(ctx context.Context, req *BatchDelet
 	return resp, err
 }
 func (d *documentBlockChildren) Create(ctx context.Context, req *CreateDocumentBlockChildrenReq, options ...core.RequestOptionFunc) (*CreateDocumentBlockChildrenResp, error) {
-
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,d.service.config, http.MethodPost,
+	rawResp, err := core.SendRequest(ctx, d.service.config, http.MethodPost,
 		"/open-apis/docx/v1/documents/:document_id/blocks/:block_id/children", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &CreateDocumentBlockChildrenResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -209,14 +192,12 @@ func (d *documentBlockChildren) Create(ctx context.Context, req *CreateDocumentB
 	return resp, err
 }
 func (d *documentBlockChildren) Get(ctx context.Context, req *GetDocumentBlockChildrenReq, options ...core.RequestOptionFunc) (*GetDocumentBlockChildrenResp, error) {
-
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,d.service.config, http.MethodGet,
+	rawResp, err := core.SendRequest(ctx, d.service.config, http.MethodGet,
 		"/open-apis/docx/v1/documents/:document_id/blocks/:block_id/children", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &GetDocumentBlockChildrenResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -225,12 +206,13 @@ func (d *documentBlockChildren) Get(ctx context.Context, req *GetDocumentBlockCh
 	}
 	return resp, err
 }
+
 /**如果是分页查询，则添加迭代器函数**/
 func (d *documentBlockChildren) GetDocumentBlockChildren(ctx context.Context, req *GetDocumentBlockChildrenReq, options ...core.RequestOptionFunc) (*GetDocumentBlockChildrenIterator, error) {
-   return &GetDocumentBlockChildrenIterator{
-	  ctx:	  ctx,
-	  req:	  req,
-	  listFunc: d.Get,
-	  options:  options,
-	  limit: req.Limit}, nil
+	return &GetDocumentBlockChildrenIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: d.Get,
+		options:  options,
+		limit:    req.Limit}, nil
 }

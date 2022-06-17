@@ -3,9 +3,10 @@ package core
 import (
 	"context"
 	"encoding/json"
-	"errors"
 	"fmt"
+	"net"
 	"net/http"
+	"net/url"
 	"strings"
 )
 
@@ -49,60 +50,37 @@ func determineTokenType(accessTokenTypes []AccessTokenType, option *RequestOptio
 
 func validate(config *Config, option *RequestOption, accessTokenType AccessTokenType) error {
 	if config.EnableTokenCache == false && option.UserAccessToken == "" && option.TenantAccessToken == "" && option.AppAccessToken == "" {
-		return errors.New("accessToken is empty")
+		return &IllegalParamError{msg: "accessToken is empty"}
 	}
 
 	if config.AppType == AppTypeMarketplace && accessTokenType == AccessTokenTypeTenant && option.TenantKey == "" {
-		return errors.New("tenant key is empty")
+		return &IllegalParamError{msg: "tenant key is empty"}
 	}
 
 	if accessTokenType == AccessTokenTypeUser && option.UserAccessToken == "" {
-		return errors.New("user access token is empty")
+		return &IllegalParamError{msg: "user access token is empty"}
 	}
 
 	return nil
 }
 
-func send(ctx context.Context, rawRequest *http.Request, config *Config, fileDownLoad bool) (*RawResponse, error) {
-	var rawResp *RawResponse
-	var err error
-	for i := 0; i < 2; i++ {
-		config.Logger.Debug(ctx, fmt.Sprintf("req:%v", rawRequest))
-		rawResp, err = doSend(ctx, rawRequest, config.HttpClient)
-		if err != nil {
-			return rawResp, err
-		}
-		config.Logger.Debug(ctx, fmt.Sprintf("req:%v,resp:%v", rawRequest, rawResp))
-
-		fileDownloadSuccess := fileDownLoad && rawResp.StatusCode == http.StatusOK
-		if fileDownloadSuccess || !strings.Contains(rawResp.Header.Get(contentTypeHeader), contentTypeJson) {
-			break
-		}
-
-		codeError := &CodeError{}
-		err = json.Unmarshal(rawResp.RawBody, codeError)
-		if err != nil {
-			return nil, err
-		}
-
-		code := codeError.Code
-		if code == errCodeAppTicketInvalid {
-			applyAppTicket(ctx, config)
-		}
-
-		if code != errCodeAccessTokenInvalid && code != errCodeAppAccessTokenInvalid &&
-			code != errCodeTenantAccessTokenInvalid {
-			break
-		}
-	}
-
-	return rawResp, nil
-}
-
 func doSend(ctx context.Context, rawRequest *http.Request, httpClient *http.Client) (*RawResponse, error) {
 	resp, err := httpClient.Do(rawRequest)
 	if err != nil {
+		if er, ok := err.(*url.Error); ok {
+			if er.Timeout() {
+				return nil, &ClientTimeoutError{msg: er.Error()}
+			}
+
+			if e, ok := er.Err.(*net.OpError); ok && e.Op == "dial" {
+				return nil, &DialFailedError{msg: er.Error()}
+			}
+		}
 		return nil, err
+	}
+
+	if resp.StatusCode == http.StatusGatewayTimeout {
+		return nil, &ServerTimeoutError{msg: "server time out error "}
 	}
 	body, err := readResponse(resp)
 	if err != nil {
@@ -175,7 +153,7 @@ func doSendRequest(ctx context.Context, config *Config, httpMethod string, httpP
 		}
 
 		if code != errCodeAccessTokenInvalid && code != errCodeAppAccessTokenInvalid &&
-			code != errCodeTenantAccessTokenInvalid {
+			code != errCodeTenantAccessTokenInvalid && !config.EnableTokenCache {
 			break
 		}
 	}

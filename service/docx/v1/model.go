@@ -5,282 +5,279 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	
-	"github.com/feishu/oapi-sdk-go/core"
 
+	"github.com/feishu/oapi-sdk-go/core"
 )
 
 /**生成枚举值 **/
 
 const (
-	  LANG_ZH string  = "0"
-	  LANG_EN string  = "1"
-	  LANG_JP string  = "2"
+	LangZH string = "0"
+	LangEN string = "1"
+	LangJP string = "2"
 )
 
 const (
-	  USER_ID_TYPE_USER_ID string  = "user_id"
-	  USER_ID_TYPE_UNION_ID string  = "union_id"
-	  USER_ID_TYPE_OPEN_ID string  = "open_id"
+	UserIdTypeUserId  string = "user_id"
+	UserIdTypeUnionId string = "union_id"
+	UserIdTypeOpenId  string = "open_id"
 )
-
-
 
 /**生成数据类型 **/
 
 type Bitable struct {
-	Token  *string `json:"token,omitempty"`
-	ViewType  *int `json:"view_type,omitempty"`
+	Token    *string `json:"token,omitempty"`
+	ViewType *int    `json:"view_type,omitempty"`
 }
 
 type Block struct {
-	BlockId  *string `json:"block_id,omitempty"`
-	ParentId  *string `json:"parent_id,omitempty"`
-	Children  []string `json:"children,omitempty"`
-	BlockType  *int `json:"block_type,omitempty"`
-	Page  *Text `json:"page,omitempty"`
-	Text  *Text `json:"text,omitempty"`
-	Heading1  *Text `json:"heading1,omitempty"`
-	Heading2  *Text `json:"heading2,omitempty"`
-	Heading3  *Text `json:"heading3,omitempty"`
-	Heading4  *Text `json:"heading4,omitempty"`
-	Heading5  *Text `json:"heading5,omitempty"`
-	Heading6  *Text `json:"heading6,omitempty"`
-	Heading7  *Text `json:"heading7,omitempty"`
-	Heading8  *Text `json:"heading8,omitempty"`
-	Heading9  *Text `json:"heading9,omitempty"`
-	Bullet  *Text `json:"bullet,omitempty"`
-	Ordered  *Text `json:"ordered,omitempty"`
-	Code  *Text `json:"code,omitempty"`
-	Quote  *Text `json:"quote,omitempty"`
-	Equation  *Text `json:"equation,omitempty"`
-	Todo  *Text `json:"todo,omitempty"`
-	Bitable  *Bitable `json:"bitable,omitempty"`
-	Callout  *Callout `json:"callout,omitempty"`
-	ChatCard  *ChatCard `json:"chat_card,omitempty"`
-	Diagram  *Diagram `json:"diagram,omitempty"`
-	Divider  *Divider `json:"divider,omitempty"`
-	File  *File `json:"file,omitempty"`
-	Grid  *Grid `json:"grid,omitempty"`
-	GridColumn  *GridColumn `json:"grid_column,omitempty"`
-	Iframe  *Iframe `json:"iframe,omitempty"`
-	Image  *Image `json:"image,omitempty"`
-	Isv  *Isv `json:"isv,omitempty"`
-	Mindnote  *Mindnote `json:"mindnote,omitempty"`
-	Sheet  *Sheet `json:"sheet,omitempty"`
-	Table  *Table `json:"table,omitempty"`
-	TableCell  *TableCell `json:"table_cell,omitempty"`
-	View  *View `json:"view,omitempty"`
-	Undefined  *Undefined `json:"undefined,omitempty"`
-	QuoteContainer  *QuoteContainer `json:"quote_container,omitempty"`
+	BlockId        *string         `json:"block_id,omitempty"`
+	ParentId       *string         `json:"parent_id,omitempty"`
+	Children       []string        `json:"children,omitempty"`
+	BlockType      *int            `json:"block_type,omitempty"`
+	Page           *Text           `json:"page,omitempty"`
+	Text           *Text           `json:"text,omitempty"`
+	Heading1       *Text           `json:"heading1,omitempty"`
+	Heading2       *Text           `json:"heading2,omitempty"`
+	Heading3       *Text           `json:"heading3,omitempty"`
+	Heading4       *Text           `json:"heading4,omitempty"`
+	Heading5       *Text           `json:"heading5,omitempty"`
+	Heading6       *Text           `json:"heading6,omitempty"`
+	Heading7       *Text           `json:"heading7,omitempty"`
+	Heading8       *Text           `json:"heading8,omitempty"`
+	Heading9       *Text           `json:"heading9,omitempty"`
+	Bullet         *Text           `json:"bullet,omitempty"`
+	Ordered        *Text           `json:"ordered,omitempty"`
+	Code           *Text           `json:"code,omitempty"`
+	Quote          *Text           `json:"quote,omitempty"`
+	Equation       *Text           `json:"equation,omitempty"`
+	Todo           *Text           `json:"todo,omitempty"`
+	Bitable        *Bitable        `json:"bitable,omitempty"`
+	Callout        *Callout        `json:"callout,omitempty"`
+	ChatCard       *ChatCard       `json:"chat_card,omitempty"`
+	Diagram        *Diagram        `json:"diagram,omitempty"`
+	Divider        *Divider        `json:"divider,omitempty"`
+	File           *File           `json:"file,omitempty"`
+	Grid           *Grid           `json:"grid,omitempty"`
+	GridColumn     *GridColumn     `json:"grid_column,omitempty"`
+	Iframe         *Iframe         `json:"iframe,omitempty"`
+	Image          *Image          `json:"image,omitempty"`
+	Isv            *Isv            `json:"isv,omitempty"`
+	Mindnote       *Mindnote       `json:"mindnote,omitempty"`
+	Sheet          *Sheet          `json:"sheet,omitempty"`
+	Table          *Table          `json:"table,omitempty"`
+	TableCell      *TableCell      `json:"table_cell,omitempty"`
+	View           *View           `json:"view,omitempty"`
+	Undefined      *Undefined      `json:"undefined,omitempty"`
+	QuoteContainer *QuoteContainer `json:"quote_container,omitempty"`
 }
 
 type Callout struct {
-	BackgroundColor  *int `json:"background_color,omitempty"`
-	BorderColor  *int `json:"border_color,omitempty"`
-	TextColor  *int `json:"text_color,omitempty"`
-	EmojiId  *string `json:"emoji_id,omitempty"`
+	BackgroundColor *int    `json:"background_color,omitempty"`
+	BorderColor     *int    `json:"border_color,omitempty"`
+	TextColor       *int    `json:"text_color,omitempty"`
+	EmojiId         *string `json:"emoji_id,omitempty"`
 }
 
 type ChatCard struct {
-	ChatId  *int64 `json:"chat_id,omitempty,string"`
-	Align  *int `json:"align,omitempty"`
+	ChatId *int64 `json:"chat_id,omitempty,string"`
+	Align  *int   `json:"align,omitempty"`
 }
 
 type DeleteGridColumnRequest struct {
-	ColumnIndex  *int `json:"column_index,omitempty"`
+	ColumnIndex *int `json:"column_index,omitempty"`
 }
 
 type DeleteTableColumnsRequest struct {
-	ColumnStartIndex  *int `json:"column_start_index,omitempty"`
-	ColumnEndIndex  *int `json:"column_end_index,omitempty"`
+	ColumnStartIndex *int `json:"column_start_index,omitempty"`
+	ColumnEndIndex   *int `json:"column_end_index,omitempty"`
 }
 
 type DeleteTableRowsRequest struct {
-	RowStartIndex  *int `json:"row_start_index,omitempty"`
-	RowEndIndex  *int `json:"row_end_index,omitempty"`
+	RowStartIndex *int `json:"row_start_index,omitempty"`
+	RowEndIndex   *int `json:"row_end_index,omitempty"`
 }
 
 type Diagram struct {
-	DiagramType  *int `json:"diagram_type,omitempty"`
+	DiagramType *int `json:"diagram_type,omitempty"`
 }
 
 type Divider struct {
 }
 
 type Document struct {
-	DocumentId  *string `json:"document_id,omitempty"`
-	RevisionId  *int `json:"revision_id,omitempty"`
-	Title  *string `json:"title,omitempty"`
+	DocumentId *string `json:"document_id,omitempty"`
+	RevisionId *int    `json:"revision_id,omitempty"`
+	Title      *string `json:"title,omitempty"`
 }
 
 type Equation struct {
-	Content  *string `json:"content,omitempty"`
+	Content *string `json:"content,omitempty"`
 }
 
 type File struct {
-	Token  *string `json:"token,omitempty"`
+	Token *string `json:"token,omitempty"`
 	Name  *string `json:"name,omitempty"`
 }
 
 type Grid struct {
-	ColumnSize  *int `json:"column_size,omitempty"`
+	ColumnSize *int `json:"column_size,omitempty"`
 }
 
 type GridColumn struct {
-	WidthRatio  *int `json:"width_ratio,omitempty"`
+	WidthRatio *int `json:"width_ratio,omitempty"`
 }
 
 type Iframe struct {
-	Component  *IframeComponent `json:"component,omitempty"`
+	Component *IframeComponent `json:"component,omitempty"`
 }
 
 type IframeComponent struct {
-	IframeType  *int `json:"iframe_type,omitempty"`
-	Url  *string `json:"url,omitempty"`
+	IframeType *int    `json:"iframe_type,omitempty"`
+	Url        *string `json:"url,omitempty"`
 }
 
 type Image struct {
-	Width  *int `json:"width,omitempty"`
-	Height  *int `json:"height,omitempty"`
+	Width  *int    `json:"width,omitempty"`
+	Height *int    `json:"height,omitempty"`
 	Token  *string `json:"token,omitempty"`
 }
 
 type InlineBlock struct {
-	BlockId  *string `json:"block_id,omitempty"`
+	BlockId *string `json:"block_id,omitempty"`
 }
 
 type InlineFile struct {
-	FileToken  *string `json:"file_token,omitempty"`
-	SourceBlockId  *string `json:"source_block_id,omitempty"`
+	FileToken     *string `json:"file_token,omitempty"`
+	SourceBlockId *string `json:"source_block_id,omitempty"`
 }
 
 type InsertGridColumnRequest struct {
-	ColumnIndex  *int `json:"column_index,omitempty"`
+	ColumnIndex *int `json:"column_index,omitempty"`
 }
 
 type InsertTableColumnRequest struct {
-	ColumnIndex  *int `json:"column_index,omitempty"`
+	ColumnIndex *int `json:"column_index,omitempty"`
 }
 
 type InsertTableRowRequest struct {
-	RowIndex  *int `json:"row_index,omitempty"`
+	RowIndex *int `json:"row_index,omitempty"`
 }
 
 type Isv struct {
-	ComponentId  *string `json:"component_id,omitempty"`
-	ComponentTypeId  *string `json:"component_type_id,omitempty"`
+	ComponentId     *string `json:"component_id,omitempty"`
+	ComponentTypeId *string `json:"component_type_id,omitempty"`
 }
 
 type Link struct {
-	Url  *string `json:"url,omitempty"`
+	Url *string `json:"url,omitempty"`
 }
 
 type MentionDoc struct {
-	Token  *string `json:"token,omitempty"`
-	ObjType  *int `json:"obj_type,omitempty"`
-	Url  *string `json:"url,omitempty"`
-	Title  *string `json:"title,omitempty"`
+	Token   *string `json:"token,omitempty"`
+	ObjType *int    `json:"obj_type,omitempty"`
+	Url     *string `json:"url,omitempty"`
+	Title   *string `json:"title,omitempty"`
 }
 
 type MentionUser struct {
-	UserId  *string `json:"user_id,omitempty"`
+	UserId *string `json:"user_id,omitempty"`
 }
 
 type MergeTableCellsRequest struct {
-	RowStartIndex  *int `json:"row_start_index,omitempty"`
-	RowEndIndex  *int `json:"row_end_index,omitempty"`
-	ColumnStartIndex  *int `json:"column_start_index,omitempty"`
-	ColumnEndIndex  *int `json:"column_end_index,omitempty"`
+	RowStartIndex    *int `json:"row_start_index,omitempty"`
+	RowEndIndex      *int `json:"row_end_index,omitempty"`
+	ColumnStartIndex *int `json:"column_start_index,omitempty"`
+	ColumnEndIndex   *int `json:"column_end_index,omitempty"`
 }
 
 type Mindnote struct {
-	Token  *string `json:"token,omitempty"`
+	Token *string `json:"token,omitempty"`
 }
 
 type QuoteContainer struct {
 }
 
 type Reminder struct {
-	CreateUserId  *string `json:"create_user_id,omitempty"`
-	IsNotify  *bool `json:"is_notify,omitempty"`
-	IsWholeDay  *bool `json:"is_whole_day,omitempty"`
-	ExpireTime  *int64 `json:"expire_time,omitempty,string"`
-	NotifyTime  *int64 `json:"notify_time,omitempty,string"`
+	CreateUserId *string `json:"create_user_id,omitempty"`
+	IsNotify     *bool   `json:"is_notify,omitempty"`
+	IsWholeDay   *bool   `json:"is_whole_day,omitempty"`
+	ExpireTime   *int64  `json:"expire_time,omitempty,string"`
+	NotifyTime   *int64  `json:"notify_time,omitempty,string"`
 }
 
 type ReplaceFileRequest struct {
-	Token  *string `json:"token,omitempty"`
+	Token *string `json:"token,omitempty"`
 }
 
 type ReplaceImageRequest struct {
-	Token  *string `json:"token,omitempty"`
+	Token *string `json:"token,omitempty"`
 }
 
 type Sheet struct {
-	Token  *string `json:"token,omitempty"`
-	RowSize  *int `json:"row_size,omitempty"`
-	ColumnSize  *int `json:"column_size,omitempty"`
+	Token      *string `json:"token,omitempty"`
+	RowSize    *int    `json:"row_size,omitempty"`
+	ColumnSize *int    `json:"column_size,omitempty"`
 }
 
 type Table struct {
-	Cells  []string `json:"cells,omitempty"`
-	Property  *TableProperty `json:"property,omitempty"`
+	Cells    []string       `json:"cells,omitempty"`
+	Property *TableProperty `json:"property,omitempty"`
 }
 
 type TableCell struct {
 }
 
 type TableMergeInfo struct {
-	RowSpan  *int `json:"row_span,omitempty"`
-	ColSpan  *int `json:"col_span,omitempty"`
+	RowSpan *int `json:"row_span,omitempty"`
+	ColSpan *int `json:"col_span,omitempty"`
 }
 
 type TableProperty struct {
-	RowSize  *int `json:"row_size,omitempty"`
-	ColumnSize  *int `json:"column_size,omitempty"`
-	ColumnWidth  []int `json:"column_width,omitempty"`
-	MergeInfo  []*TableMergeInfo `json:"merge_info,omitempty"`
+	RowSize     *int              `json:"row_size,omitempty"`
+	ColumnSize  *int              `json:"column_size,omitempty"`
+	ColumnWidth []int             `json:"column_width,omitempty"`
+	MergeInfo   []*TableMergeInfo `json:"merge_info,omitempty"`
 }
 
 type Text struct {
-	Style  *TextStyle `json:"style,omitempty"`
-	Elements  []*TextElement `json:"elements,omitempty"`
+	Style    *TextStyle     `json:"style,omitempty"`
+	Elements []*TextElement `json:"elements,omitempty"`
 }
 
 type TextElement struct {
-	TextRun  *TextRun `json:"text_run,omitempty"`
-	MentionUser  *MentionUser `json:"mention_user,omitempty"`
-	MentionDoc  *MentionDoc `json:"mention_doc,omitempty"`
-	Reminder  *Reminder `json:"reminder,omitempty"`
-	File  *InlineFile `json:"file,omitempty"`
-	Undefined  *UndefinedElement `json:"undefined,omitempty"`
-	InlineBlock  *InlineBlock `json:"inline_block,omitempty"`
-	Equation  *Equation `json:"equation,omitempty"`
+	TextRun     *TextRun          `json:"text_run,omitempty"`
+	MentionUser *MentionUser      `json:"mention_user,omitempty"`
+	MentionDoc  *MentionDoc       `json:"mention_doc,omitempty"`
+	Reminder    *Reminder         `json:"reminder,omitempty"`
+	File        *InlineFile       `json:"file,omitempty"`
+	Undefined   *UndefinedElement `json:"undefined,omitempty"`
+	InlineBlock *InlineBlock      `json:"inline_block,omitempty"`
+	Equation    *Equation         `json:"equation,omitempty"`
 }
 
 type TextElementStyle struct {
-	Bold  *bool `json:"bold,omitempty"`
-	Italic  *bool `json:"italic,omitempty"`
-	Strikethrough  *bool `json:"strikethrough,omitempty"`
-	Underline  *bool `json:"underline,omitempty"`
-	InlineCode  *bool `json:"inline_code,omitempty"`
-	BackgroundColor  *int `json:"background_color,omitempty"`
-	TextColor  *int `json:"text_color,omitempty"`
-	Link  *Link `json:"link,omitempty"`
+	Bold            *bool `json:"bold,omitempty"`
+	Italic          *bool `json:"italic,omitempty"`
+	Strikethrough   *bool `json:"strikethrough,omitempty"`
+	Underline       *bool `json:"underline,omitempty"`
+	InlineCode      *bool `json:"inline_code,omitempty"`
+	BackgroundColor *int  `json:"background_color,omitempty"`
+	TextColor       *int  `json:"text_color,omitempty"`
+	Link            *Link `json:"link,omitempty"`
 }
 
 type TextRun struct {
-	Content  *string `json:"content,omitempty"`
-	TextElementStyle  *TextElementStyle `json:"text_element_style,omitempty"`
+	Content          *string           `json:"content,omitempty"`
+	TextElementStyle *TextElementStyle `json:"text_element_style,omitempty"`
 }
 
 type TextStyle struct {
-	Align  *int `json:"align,omitempty"`
-	Done  *bool `json:"done,omitempty"`
-	Folded  *bool `json:"folded,omitempty"`
-	Language  *int `json:"language,omitempty"`
-	Wrap  *bool `json:"wrap,omitempty"`
+	Align    *int  `json:"align,omitempty"`
+	Done     *bool `json:"done,omitempty"`
+	Folded   *bool `json:"folded,omitempty"`
+	Language *int  `json:"language,omitempty"`
+	Wrap     *bool `json:"wrap,omitempty"`
 }
 
 type Undefined struct {
@@ -290,186 +287,180 @@ type UndefinedElement struct {
 }
 
 type UnmergeTableCellsRequest struct {
-	RowIndex  *int `json:"row_index,omitempty"`
-	ColumnIndex  *int `json:"column_index,omitempty"`
+	RowIndex    *int `json:"row_index,omitempty"`
+	ColumnIndex *int `json:"column_index,omitempty"`
 }
 
 type UpdateBlockRequest struct {
-	UpdateTextElements  *UpdateTextElementsRequest `json:"update_text_elements,omitempty"`
-	UpdateTextStyle  *UpdateTextStyleRequest `json:"update_text_style,omitempty"`
-	UpdateTableProperty  *UpdateTablePropertyRequest `json:"update_table_property,omitempty"`
-	InsertTableRow  *InsertTableRowRequest `json:"insert_table_row,omitempty"`
-	InsertTableColumn  *InsertTableColumnRequest `json:"insert_table_column,omitempty"`
-	DeleteTableRows  *DeleteTableRowsRequest `json:"delete_table_rows,omitempty"`
-	DeleteTableColumns  *DeleteTableColumnsRequest `json:"delete_table_columns,omitempty"`
-	MergeTableCells  *MergeTableCellsRequest `json:"merge_table_cells,omitempty"`
-	UnmergeTableCells  *UnmergeTableCellsRequest `json:"unmerge_table_cells,omitempty"`
-	InsertGridColumn  *InsertGridColumnRequest `json:"insert_grid_column,omitempty"`
-	DeleteGridColumn  *DeleteGridColumnRequest `json:"delete_grid_column,omitempty"`
-	UpdateGridColumnWidthRatio  *UpdateGridColumnWidthRatioRequest `json:"update_grid_column_width_ratio,omitempty"`
-	ReplaceImage  *ReplaceImageRequest `json:"replace_image,omitempty"`
-	ReplaceFile  *ReplaceFileRequest `json:"replace_file,omitempty"`
-	BlockId  *string `json:"block_id,omitempty"`
-	UpdateText  *UpdateTextRequest `json:"update_text,omitempty"`
+	UpdateTextElements         *UpdateTextElementsRequest         `json:"update_text_elements,omitempty"`
+	UpdateTextStyle            *UpdateTextStyleRequest            `json:"update_text_style,omitempty"`
+	UpdateTableProperty        *UpdateTablePropertyRequest        `json:"update_table_property,omitempty"`
+	InsertTableRow             *InsertTableRowRequest             `json:"insert_table_row,omitempty"`
+	InsertTableColumn          *InsertTableColumnRequest          `json:"insert_table_column,omitempty"`
+	DeleteTableRows            *DeleteTableRowsRequest            `json:"delete_table_rows,omitempty"`
+	DeleteTableColumns         *DeleteTableColumnsRequest         `json:"delete_table_columns,omitempty"`
+	MergeTableCells            *MergeTableCellsRequest            `json:"merge_table_cells,omitempty"`
+	UnmergeTableCells          *UnmergeTableCellsRequest          `json:"unmerge_table_cells,omitempty"`
+	InsertGridColumn           *InsertGridColumnRequest           `json:"insert_grid_column,omitempty"`
+	DeleteGridColumn           *DeleteGridColumnRequest           `json:"delete_grid_column,omitempty"`
+	UpdateGridColumnWidthRatio *UpdateGridColumnWidthRatioRequest `json:"update_grid_column_width_ratio,omitempty"`
+	ReplaceImage               *ReplaceImageRequest               `json:"replace_image,omitempty"`
+	ReplaceFile                *ReplaceFileRequest                `json:"replace_file,omitempty"`
+	BlockId                    *string                            `json:"block_id,omitempty"`
+	UpdateText                 *UpdateTextRequest                 `json:"update_text,omitempty"`
 }
 
 type UpdateGridColumnWidthRatioRequest struct {
-	WidthRatios  []int `json:"width_ratios,omitempty"`
+	WidthRatios []int `json:"width_ratios,omitempty"`
 }
 
 type UpdateTablePropertyRequest struct {
-	ColumnWidth  *int `json:"column_width,omitempty"`
-	ColumnIndex  *int `json:"column_index,omitempty"`
+	ColumnWidth *int `json:"column_width,omitempty"`
+	ColumnIndex *int `json:"column_index,omitempty"`
 }
 
 type UpdateTextElementsRequest struct {
-	Elements  []*TextElement `json:"elements,omitempty"`
+	Elements []*TextElement `json:"elements,omitempty"`
 }
 
 type UpdateTextRequest struct {
-	Elements  []*TextElement `json:"elements,omitempty"`
-	Style  *TextStyle `json:"style,omitempty"`
-	Fields  []int `json:"fields,omitempty"`
+	Elements []*TextElement `json:"elements,omitempty"`
+	Style    *TextStyle     `json:"style,omitempty"`
+	Fields   []int          `json:"fields,omitempty"`
 }
 
 type UpdateTextStyleRequest struct {
 	Style  *TextStyle `json:"style,omitempty"`
-	Fields  []int `json:"fields,omitempty"`
+	Fields []int      `json:"fields,omitempty"`
 }
 
 type View struct {
-	ViewType  *int `json:"view_type,omitempty"`
+	ViewType *int `json:"view_type,omitempty"`
 }
-
 
 /**生成请求和响应结果类型，以及请求对象的Builder构造器 **/
 
 type CreateDocumentReqBodyBuilder struct {
-	folderToken  string
-	folderTokenFlag  bool
-	title  string
-	titleFlag  bool
+	folderToken     string
+	folderTokenFlag bool
+	title           string
+	titleFlag       bool
 }
 
 // 生成body的New构造器
-func NewCreateDocumentReqBodyBuilder() * CreateDocumentReqBodyBuilder{
-  builder := &CreateDocumentReqBodyBuilder{}
-  return builder
+func NewCreateDocumentReqBodyBuilder() *CreateDocumentReqBodyBuilder {
+	builder := &CreateDocumentReqBodyBuilder{}
+	return builder
 }
 
 /*1.2 生成body的builder属性方法*/
-func (builder * CreateDocumentReqBodyBuilder ) FolderToken(folderToken string) *CreateDocumentReqBodyBuilder {
-  builder.folderToken = folderToken
-  builder.folderTokenFlag = true
-  return builder
+func (builder *CreateDocumentReqBodyBuilder) FolderToken(folderToken string) *CreateDocumentReqBodyBuilder {
+	builder.folderToken = folderToken
+	builder.folderTokenFlag = true
+	return builder
 }
-func (builder * CreateDocumentReqBodyBuilder ) Title(title string) *CreateDocumentReqBodyBuilder {
-  builder.title = title
-  builder.titleFlag = true
-  return builder
+func (builder *CreateDocumentReqBodyBuilder) Title(title string) *CreateDocumentReqBodyBuilder {
+	builder.title = title
+	builder.titleFlag = true
+	return builder
 }
-
 
 /*1.3 生成body的build方法*/
-func (builder * CreateDocumentReqBodyBuilder ) Build() *CreateDocumentReqBody {
-   req := &CreateDocumentReqBody{}
-   if builder.folderTokenFlag {
-	  req.FolderToken = &builder.folderToken
-	  
+func (builder *CreateDocumentReqBodyBuilder) Build() *CreateDocumentReqBody {
+	req := &CreateDocumentReqBody{}
+	if builder.folderTokenFlag {
+		req.FolderToken = &builder.folderToken
 
-   }
-   if builder.titleFlag {
-	  req.Title = &builder.title
-	  
+	}
+	if builder.titleFlag {
+		req.Title = &builder.title
 
-   }
-   return req
+	}
+	return req
 }
 
 /**上传文件path开始**/
 type CreateDocumentPathReqBodyBuilder struct {
-	folderToken  string
-	folderTokenFlag  bool
-	title  string
-	titleFlag  bool
+	folderToken     string
+	folderTokenFlag bool
+	title           string
+	titleFlag       bool
 }
 
 // 生成body的New构造器
-func NewCreateDocumentPathReqBodyBuilder() * CreateDocumentPathReqBodyBuilder{
-  builder := &CreateDocumentPathReqBodyBuilder{}
-  return builder
+func NewCreateDocumentPathReqBodyBuilder() *CreateDocumentPathReqBodyBuilder {
+	builder := &CreateDocumentPathReqBodyBuilder{}
+	return builder
 }
 
 /*1.2 生成body的builder属性方法*/
-func (builder * CreateDocumentPathReqBodyBuilder ) FolderToken(folderToken string) *CreateDocumentPathReqBodyBuilder {
-  builder.folderToken = folderToken
-  builder.folderTokenFlag = true
-  return builder
+func (builder *CreateDocumentPathReqBodyBuilder) FolderToken(folderToken string) *CreateDocumentPathReqBodyBuilder {
+	builder.folderToken = folderToken
+	builder.folderTokenFlag = true
+	return builder
 }
-func (builder * CreateDocumentPathReqBodyBuilder ) Title(title string) *CreateDocumentPathReqBodyBuilder {
-  builder.title = title
-  builder.titleFlag = true
-  return builder
+func (builder *CreateDocumentPathReqBodyBuilder) Title(title string) *CreateDocumentPathReqBodyBuilder {
+	builder.title = title
+	builder.titleFlag = true
+	return builder
 }
-
 
 /*1.3 生成body的build方法*/
-func (builder * CreateDocumentPathReqBodyBuilder ) Build() (*CreateDocumentReqBody, error) {
-   req := &CreateDocumentReqBody{}
-   if builder.folderTokenFlag {
-	  req.FolderToken = &builder.folderToken
-	  
-   }
-   if builder.titleFlag {
-	  req.Title = &builder.title
-	  
-   }
-   return req, nil
+func (builder *CreateDocumentPathReqBodyBuilder) Build() (*CreateDocumentReqBody, error) {
+	req := &CreateDocumentReqBody{}
+	if builder.folderTokenFlag {
+		req.FolderToken = &builder.folderToken
+
+	}
+	if builder.titleFlag {
+		req.Title = &builder.title
+
+	}
+	return req, nil
 }
+
 /**上传文件path结束**/
 
 /*1.4 生成请求的builder结构体*/
 type CreateDocumentReqBuilder struct {
-	body *CreateDocumentReqBody
+	body     *CreateDocumentReqBody
 	bodyFlag bool
-
 }
 
 // 生成请求的New构造器
-func NewCreateDocumentReqBuilder() * CreateDocumentReqBuilder{
-   builder := &CreateDocumentReqBuilder{}
-   return builder
+func NewCreateDocumentReqBuilder() *CreateDocumentReqBuilder {
+	builder := &CreateDocumentReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * CreateDocumentReqBuilder) Body(body *CreateDocumentReqBody) *CreateDocumentReqBuilder  {
-  builder.body = body
-  builder.bodyFlag = true
-  return builder
+func (builder *CreateDocumentReqBuilder) Body(body *CreateDocumentReqBody) *CreateDocumentReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * CreateDocumentReqBuilder ) Build() *CreateDocumentReq {
-   req := &CreateDocumentReq{}
-   if builder.bodyFlag {
-	  req.Body = builder.body
+func (builder *CreateDocumentReqBuilder) Build() *CreateDocumentReq {
+	req := &CreateDocumentReq{}
+	if builder.bodyFlag {
+		req.Body = builder.body
 
-   }
-   return req
+	}
+	return req
 }
 
 type CreateDocumentReqBody struct {
-	FolderToken  *string `json:"folder_token,omitempty"`
-	Title  *string `json:"title,omitempty"`
+	FolderToken *string `json:"folder_token,omitempty"`
+	Title       *string `json:"title,omitempty"`
 }
 
 type CreateDocumentReq struct {
 	Body *CreateDocumentReqBody `body:""`
-
 }
 
 type CreateDocumentRespData struct {
-	Document  *Document `json:"document,omitempty"`
+	Document *Document `json:"document,omitempty"`
 }
 
 type CreateDocumentResp struct {
@@ -482,44 +473,40 @@ func (resp *CreateDocumentResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type GetDocumentReqBuilder struct {
-	documentId  string
-	documentIdFlag  bool
-
+	documentId     string
+	documentIdFlag bool
 }
 
 // 生成请求的New构造器
-func NewGetDocumentReqBuilder() * GetDocumentReqBuilder{
-   builder := &GetDocumentReqBuilder{}
-   return builder
+func NewGetDocumentReqBuilder() *GetDocumentReqBuilder {
+	builder := &GetDocumentReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * GetDocumentReqBuilder) DocumentId(documentId string) *GetDocumentReqBuilder  {
-  builder.documentId = documentId
-  builder.documentIdFlag = true
-  return builder
+func (builder *GetDocumentReqBuilder) DocumentId(documentId string) *GetDocumentReqBuilder {
+	builder.documentId = documentId
+	builder.documentIdFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * GetDocumentReqBuilder ) Build() *GetDocumentReq {
-   req := &GetDocumentReq{}
-   if builder.documentIdFlag {
-	  req.DocumentId = builder.documentId
-   }
-   return req
+func (builder *GetDocumentReqBuilder) Build() *GetDocumentReq {
+	req := &GetDocumentReq{}
+	if builder.documentIdFlag {
+		req.DocumentId = builder.documentId
+	}
+	return req
 }
 
-
 type GetDocumentReq struct {
-	DocumentId  string `path:"document_id"`
-
+	DocumentId string `path:"document_id"`
 }
 
 type GetDocumentRespData struct {
-	Document  *Document `json:"document,omitempty"`
+	Document *Document `json:"document,omitempty"`
 }
 
 type GetDocumentResp struct {
@@ -532,55 +519,51 @@ func (resp *GetDocumentResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type RawContentDocumentReqBuilder struct {
-	documentId  string
-	documentIdFlag  bool
-	lang  int
-	langFlag  bool
-
+	documentId     string
+	documentIdFlag bool
+	lang           int
+	langFlag       bool
 }
 
 // 生成请求的New构造器
-func NewRawContentDocumentReqBuilder() * RawContentDocumentReqBuilder{
-   builder := &RawContentDocumentReqBuilder{}
-   return builder
+func NewRawContentDocumentReqBuilder() *RawContentDocumentReqBuilder {
+	builder := &RawContentDocumentReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * RawContentDocumentReqBuilder) DocumentId(documentId string) *RawContentDocumentReqBuilder  {
-  builder.documentId = documentId
-  builder.documentIdFlag = true
-  return builder
+func (builder *RawContentDocumentReqBuilder) DocumentId(documentId string) *RawContentDocumentReqBuilder {
+	builder.documentId = documentId
+	builder.documentIdFlag = true
+	return builder
 }
-func (builder * RawContentDocumentReqBuilder) Lang(lang int) *RawContentDocumentReqBuilder  {
-  builder.lang = lang
-  builder.langFlag = true
-  return builder
+func (builder *RawContentDocumentReqBuilder) Lang(lang int) *RawContentDocumentReqBuilder {
+	builder.lang = lang
+	builder.langFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * RawContentDocumentReqBuilder ) Build() *RawContentDocumentReq {
-   req := &RawContentDocumentReq{}
-   if builder.documentIdFlag {
-	  req.DocumentId = builder.documentId
-   }
-   if builder.langFlag {
-	  req.Lang = &builder.lang
-   }
-   return req
+func (builder *RawContentDocumentReqBuilder) Build() *RawContentDocumentReq {
+	req := &RawContentDocumentReq{}
+	if builder.documentIdFlag {
+		req.DocumentId = builder.documentId
+	}
+	if builder.langFlag {
+		req.Lang = &builder.lang
+	}
+	return req
 }
 
-
 type RawContentDocumentReq struct {
-	DocumentId  string `path:"document_id"`
-	Lang  *int `query:"lang"`
-
+	DocumentId string `path:"document_id"`
+	Lang       *int   `query:"lang"`
 }
 
 type RawContentDocumentRespData struct {
-	Content  *string `json:"content,omitempty"`
+	Content *string `json:"content,omitempty"`
 }
 
 type RawContentDocumentResp struct {
@@ -594,151 +577,148 @@ func (resp *RawContentDocumentResp) Success() bool {
 }
 
 type BatchUpdateDocumentBlockReqBodyBuilder struct {
-	requests  []*UpdateBlockRequest
-	requestsFlag  bool
+	requests     []*UpdateBlockRequest
+	requestsFlag bool
 }
 
 // 生成body的New构造器
-func NewBatchUpdateDocumentBlockReqBodyBuilder() * BatchUpdateDocumentBlockReqBodyBuilder{
-  builder := &BatchUpdateDocumentBlockReqBodyBuilder{}
-  return builder
+func NewBatchUpdateDocumentBlockReqBodyBuilder() *BatchUpdateDocumentBlockReqBodyBuilder {
+	builder := &BatchUpdateDocumentBlockReqBodyBuilder{}
+	return builder
 }
 
 /*1.2 生成body的builder属性方法*/
-func (builder * BatchUpdateDocumentBlockReqBodyBuilder ) Requests(requests []*UpdateBlockRequest) *BatchUpdateDocumentBlockReqBodyBuilder {
-  builder.requests = requests
-  builder.requestsFlag = true
-  return builder
+func (builder *BatchUpdateDocumentBlockReqBodyBuilder) Requests(requests []*UpdateBlockRequest) *BatchUpdateDocumentBlockReqBodyBuilder {
+	builder.requests = requests
+	builder.requestsFlag = true
+	return builder
 }
 
-
 /*1.3 生成body的build方法*/
-func (builder * BatchUpdateDocumentBlockReqBodyBuilder ) Build() *BatchUpdateDocumentBlockReqBody {
-   req := &BatchUpdateDocumentBlockReqBody{}
-   if builder.requestsFlag {
-	  req.Requests = builder.requests
+func (builder *BatchUpdateDocumentBlockReqBodyBuilder) Build() *BatchUpdateDocumentBlockReqBody {
+	req := &BatchUpdateDocumentBlockReqBody{}
+	if builder.requestsFlag {
+		req.Requests = builder.requests
 
-   }
-   return req
+	}
+	return req
 }
 
 /**上传文件path开始**/
 type BatchUpdateDocumentBlockPathReqBodyBuilder struct {
-	requests  []*UpdateBlockRequest
-	requestsFlag  bool
+	requests     []*UpdateBlockRequest
+	requestsFlag bool
 }
 
 // 生成body的New构造器
-func NewBatchUpdateDocumentBlockPathReqBodyBuilder() * BatchUpdateDocumentBlockPathReqBodyBuilder{
-  builder := &BatchUpdateDocumentBlockPathReqBodyBuilder{}
-  return builder
+func NewBatchUpdateDocumentBlockPathReqBodyBuilder() *BatchUpdateDocumentBlockPathReqBodyBuilder {
+	builder := &BatchUpdateDocumentBlockPathReqBodyBuilder{}
+	return builder
 }
 
 /*1.2 生成body的builder属性方法*/
-func (builder * BatchUpdateDocumentBlockPathReqBodyBuilder ) Requests(requests []*UpdateBlockRequest) *BatchUpdateDocumentBlockPathReqBodyBuilder {
-  builder.requests = requests
-  builder.requestsFlag = true
-  return builder
+func (builder *BatchUpdateDocumentBlockPathReqBodyBuilder) Requests(requests []*UpdateBlockRequest) *BatchUpdateDocumentBlockPathReqBodyBuilder {
+	builder.requests = requests
+	builder.requestsFlag = true
+	return builder
 }
-
 
 /*1.3 生成body的build方法*/
-func (builder * BatchUpdateDocumentBlockPathReqBodyBuilder ) Build() (*BatchUpdateDocumentBlockReqBody, error) {
-   req := &BatchUpdateDocumentBlockReqBody{}
-   if builder.requestsFlag {
-	   req.Requests = builder.requests
-   }
-   return req, nil
+func (builder *BatchUpdateDocumentBlockPathReqBodyBuilder) Build() (*BatchUpdateDocumentBlockReqBody, error) {
+	req := &BatchUpdateDocumentBlockReqBody{}
+	if builder.requestsFlag {
+		req.Requests = builder.requests
+	}
+	return req, nil
 }
+
 /**上传文件path结束**/
 
 /*1.4 生成请求的builder结构体*/
 type BatchUpdateDocumentBlockReqBuilder struct {
-	documentId  string
-	documentIdFlag  bool
-	documentRevisionId  int
-	documentRevisionIdFlag  bool
-	clientToken  string
-	clientTokenFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-	body *BatchUpdateDocumentBlockReqBody
-	bodyFlag bool
-
+	documentId             string
+	documentIdFlag         bool
+	documentRevisionId     int
+	documentRevisionIdFlag bool
+	clientToken            string
+	clientTokenFlag        bool
+	userIdType             string
+	userIdTypeFlag         bool
+	body                   *BatchUpdateDocumentBlockReqBody
+	bodyFlag               bool
 }
 
 // 生成请求的New构造器
-func NewBatchUpdateDocumentBlockReqBuilder() * BatchUpdateDocumentBlockReqBuilder{
-   builder := &BatchUpdateDocumentBlockReqBuilder{}
-   return builder
+func NewBatchUpdateDocumentBlockReqBuilder() *BatchUpdateDocumentBlockReqBuilder {
+	builder := &BatchUpdateDocumentBlockReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * BatchUpdateDocumentBlockReqBuilder) DocumentId(documentId string) *BatchUpdateDocumentBlockReqBuilder  {
-  builder.documentId = documentId
-  builder.documentIdFlag = true
-  return builder
+func (builder *BatchUpdateDocumentBlockReqBuilder) DocumentId(documentId string) *BatchUpdateDocumentBlockReqBuilder {
+	builder.documentId = documentId
+	builder.documentIdFlag = true
+	return builder
 }
-func (builder * BatchUpdateDocumentBlockReqBuilder) DocumentRevisionId(documentRevisionId int) *BatchUpdateDocumentBlockReqBuilder  {
-  builder.documentRevisionId = documentRevisionId
-  builder.documentRevisionIdFlag = true
-  return builder
+func (builder *BatchUpdateDocumentBlockReqBuilder) DocumentRevisionId(documentRevisionId int) *BatchUpdateDocumentBlockReqBuilder {
+	builder.documentRevisionId = documentRevisionId
+	builder.documentRevisionIdFlag = true
+	return builder
 }
-func (builder * BatchUpdateDocumentBlockReqBuilder) ClientToken(clientToken string) *BatchUpdateDocumentBlockReqBuilder  {
-  builder.clientToken = clientToken
-  builder.clientTokenFlag = true
-  return builder
+func (builder *BatchUpdateDocumentBlockReqBuilder) ClientToken(clientToken string) *BatchUpdateDocumentBlockReqBuilder {
+	builder.clientToken = clientToken
+	builder.clientTokenFlag = true
+	return builder
 }
-func (builder * BatchUpdateDocumentBlockReqBuilder) UserIdType(userIdType string) *BatchUpdateDocumentBlockReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *BatchUpdateDocumentBlockReqBuilder) UserIdType(userIdType string) *BatchUpdateDocumentBlockReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
-func (builder * BatchUpdateDocumentBlockReqBuilder) Body(body *BatchUpdateDocumentBlockReqBody) *BatchUpdateDocumentBlockReqBuilder  {
-  builder.body = body
-  builder.bodyFlag = true
-  return builder
+func (builder *BatchUpdateDocumentBlockReqBuilder) Body(body *BatchUpdateDocumentBlockReqBody) *BatchUpdateDocumentBlockReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * BatchUpdateDocumentBlockReqBuilder ) Build() *BatchUpdateDocumentBlockReq {
-   req := &BatchUpdateDocumentBlockReq{}
-   if builder.documentIdFlag {
-	  req.DocumentId = builder.documentId
-   }
-   if builder.documentRevisionIdFlag {
-	  req.DocumentRevisionId = &builder.documentRevisionId
-   }
-   if builder.clientTokenFlag {
-	  req.ClientToken = &builder.clientToken
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   if builder.bodyFlag {
-	  req.Body = builder.body
+func (builder *BatchUpdateDocumentBlockReqBuilder) Build() *BatchUpdateDocumentBlockReq {
+	req := &BatchUpdateDocumentBlockReq{}
+	if builder.documentIdFlag {
+		req.DocumentId = builder.documentId
+	}
+	if builder.documentRevisionIdFlag {
+		req.DocumentRevisionId = &builder.documentRevisionId
+	}
+	if builder.clientTokenFlag {
+		req.ClientToken = &builder.clientToken
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	if builder.bodyFlag {
+		req.Body = builder.body
 
-   }
-   return req
+	}
+	return req
 }
 
 type BatchUpdateDocumentBlockReqBody struct {
-	Requests  []*UpdateBlockRequest `json:"requests,omitempty"`
+	Requests []*UpdateBlockRequest `json:"requests,omitempty"`
 }
 
 type BatchUpdateDocumentBlockReq struct {
-	DocumentId  string `path:"document_id"`
-	DocumentRevisionId  *int `query:"document_revision_id"`
-	ClientToken  *string `query:"client_token"`
-	UserIdType  *string `query:"user_id_type"`
-	Body *BatchUpdateDocumentBlockReqBody `body:""`
-
+	DocumentId         string                           `path:"document_id"`
+	DocumentRevisionId *int                             `query:"document_revision_id"`
+	ClientToken        *string                          `query:"client_token"`
+	UserIdType         *string                          `query:"user_id_type"`
+	Body               *BatchUpdateDocumentBlockReqBody `body:""`
 }
 
 type BatchUpdateDocumentBlockRespData struct {
-	Blocks  []*Block `json:"blocks,omitempty"`
-	DocumentRevisionId  *int `json:"document_revision_id,omitempty"`
-	ClientToken  *string `json:"client_token,omitempty"`
+	Blocks             []*Block `json:"blocks,omitempty"`
+	DocumentRevisionId *int     `json:"document_revision_id,omitempty"`
+	ClientToken        *string  `json:"client_token,omitempty"`
 }
 
 type BatchUpdateDocumentBlockResp struct {
@@ -751,77 +731,73 @@ func (resp *BatchUpdateDocumentBlockResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type GetDocumentBlockReqBuilder struct {
-	documentId  string
-	documentIdFlag  bool
-	blockId  string
-	blockIdFlag  bool
-	documentRevisionId  int
-	documentRevisionIdFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-
+	documentId             string
+	documentIdFlag         bool
+	blockId                string
+	blockIdFlag            bool
+	documentRevisionId     int
+	documentRevisionIdFlag bool
+	userIdType             string
+	userIdTypeFlag         bool
 }
 
 // 生成请求的New构造器
-func NewGetDocumentBlockReqBuilder() * GetDocumentBlockReqBuilder{
-   builder := &GetDocumentBlockReqBuilder{}
-   return builder
+func NewGetDocumentBlockReqBuilder() *GetDocumentBlockReqBuilder {
+	builder := &GetDocumentBlockReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * GetDocumentBlockReqBuilder) DocumentId(documentId string) *GetDocumentBlockReqBuilder  {
-  builder.documentId = documentId
-  builder.documentIdFlag = true
-  return builder
+func (builder *GetDocumentBlockReqBuilder) DocumentId(documentId string) *GetDocumentBlockReqBuilder {
+	builder.documentId = documentId
+	builder.documentIdFlag = true
+	return builder
 }
-func (builder * GetDocumentBlockReqBuilder) BlockId(blockId string) *GetDocumentBlockReqBuilder  {
-  builder.blockId = blockId
-  builder.blockIdFlag = true
-  return builder
+func (builder *GetDocumentBlockReqBuilder) BlockId(blockId string) *GetDocumentBlockReqBuilder {
+	builder.blockId = blockId
+	builder.blockIdFlag = true
+	return builder
 }
-func (builder * GetDocumentBlockReqBuilder) DocumentRevisionId(documentRevisionId int) *GetDocumentBlockReqBuilder  {
-  builder.documentRevisionId = documentRevisionId
-  builder.documentRevisionIdFlag = true
-  return builder
+func (builder *GetDocumentBlockReqBuilder) DocumentRevisionId(documentRevisionId int) *GetDocumentBlockReqBuilder {
+	builder.documentRevisionId = documentRevisionId
+	builder.documentRevisionIdFlag = true
+	return builder
 }
-func (builder * GetDocumentBlockReqBuilder) UserIdType(userIdType string) *GetDocumentBlockReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *GetDocumentBlockReqBuilder) UserIdType(userIdType string) *GetDocumentBlockReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * GetDocumentBlockReqBuilder ) Build() *GetDocumentBlockReq {
-   req := &GetDocumentBlockReq{}
-   if builder.documentIdFlag {
-	  req.DocumentId = builder.documentId
-   }
-   if builder.blockIdFlag {
-	  req.BlockId = builder.blockId
-   }
-   if builder.documentRevisionIdFlag {
-	  req.DocumentRevisionId = &builder.documentRevisionId
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   return req
+func (builder *GetDocumentBlockReqBuilder) Build() *GetDocumentBlockReq {
+	req := &GetDocumentBlockReq{}
+	if builder.documentIdFlag {
+		req.DocumentId = builder.documentId
+	}
+	if builder.blockIdFlag {
+		req.BlockId = builder.blockId
+	}
+	if builder.documentRevisionIdFlag {
+		req.DocumentRevisionId = &builder.documentRevisionId
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	return req
 }
 
-
 type GetDocumentBlockReq struct {
-	DocumentId  string `path:"document_id"`
-	BlockId  string `path:"block_id"`
-	DocumentRevisionId  *int `query:"document_revision_id"`
-	UserIdType  *string `query:"user_id_type"`
-
+	DocumentId         string  `path:"document_id"`
+	BlockId            string  `path:"block_id"`
+	DocumentRevisionId *int    `query:"document_revision_id"`
+	UserIdType         *string `query:"user_id_type"`
 }
 
 type GetDocumentBlockRespData struct {
-	Block  *Block `json:"block,omitempty"`
+	Block *Block `json:"block,omitempty"`
 }
 
 type GetDocumentBlockResp struct {
@@ -834,97 +810,93 @@ func (resp *GetDocumentBlockResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type ListDocumentBlockReqBuilder struct {
-	documentId  string
-	documentIdFlag  bool
-	pageSize  int
-	pageSizeFlag  bool
-	pageToken  string
-	pageTokenFlag  bool
-	documentRevisionId  int
-	documentRevisionIdFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-	limit int
-
+	documentId             string
+	documentIdFlag         bool
+	pageSize               int
+	pageSizeFlag           bool
+	pageToken              string
+	pageTokenFlag          bool
+	documentRevisionId     int
+	documentRevisionIdFlag bool
+	userIdType             string
+	userIdTypeFlag         bool
+	limit                  int
 }
 
 // 生成请求的New构造器
-func NewListDocumentBlockReqBuilder() * ListDocumentBlockReqBuilder{
-   builder := &ListDocumentBlockReqBuilder{}
-   return builder
+func NewListDocumentBlockReqBuilder() *ListDocumentBlockReqBuilder {
+	builder := &ListDocumentBlockReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * ListDocumentBlockReqBuilder) Limit(limit int ) *ListDocumentBlockReqBuilder  {
-  builder.limit = limit
-  return builder
+func (builder *ListDocumentBlockReqBuilder) Limit(limit int) *ListDocumentBlockReqBuilder {
+	builder.limit = limit
+	return builder
 }
-func (builder * ListDocumentBlockReqBuilder) DocumentId(documentId string) *ListDocumentBlockReqBuilder  {
-  builder.documentId = documentId
-  builder.documentIdFlag = true
-  return builder
+func (builder *ListDocumentBlockReqBuilder) DocumentId(documentId string) *ListDocumentBlockReqBuilder {
+	builder.documentId = documentId
+	builder.documentIdFlag = true
+	return builder
 }
-func (builder * ListDocumentBlockReqBuilder) PageSize(pageSize int) *ListDocumentBlockReqBuilder  {
-  builder.pageSize = pageSize
-  builder.pageSizeFlag = true
-  return builder
+func (builder *ListDocumentBlockReqBuilder) PageSize(pageSize int) *ListDocumentBlockReqBuilder {
+	builder.pageSize = pageSize
+	builder.pageSizeFlag = true
+	return builder
 }
-func (builder * ListDocumentBlockReqBuilder) PageToken(pageToken string) *ListDocumentBlockReqBuilder  {
-  builder.pageToken = pageToken
-  builder.pageTokenFlag = true
-  return builder
+func (builder *ListDocumentBlockReqBuilder) PageToken(pageToken string) *ListDocumentBlockReqBuilder {
+	builder.pageToken = pageToken
+	builder.pageTokenFlag = true
+	return builder
 }
-func (builder * ListDocumentBlockReqBuilder) DocumentRevisionId(documentRevisionId int) *ListDocumentBlockReqBuilder  {
-  builder.documentRevisionId = documentRevisionId
-  builder.documentRevisionIdFlag = true
-  return builder
+func (builder *ListDocumentBlockReqBuilder) DocumentRevisionId(documentRevisionId int) *ListDocumentBlockReqBuilder {
+	builder.documentRevisionId = documentRevisionId
+	builder.documentRevisionIdFlag = true
+	return builder
 }
-func (builder * ListDocumentBlockReqBuilder) UserIdType(userIdType string) *ListDocumentBlockReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *ListDocumentBlockReqBuilder) UserIdType(userIdType string) *ListDocumentBlockReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * ListDocumentBlockReqBuilder ) Build() *ListDocumentBlockReq {
-   req := &ListDocumentBlockReq{}
-   req.Limit = builder.limit
-   if builder.documentIdFlag {
-	  req.DocumentId = builder.documentId
-   }
-   if builder.pageSizeFlag {
-	  req.PageSize = &builder.pageSize
-   }
-   if builder.pageTokenFlag {
-	  req.PageToken = &builder.pageToken
-   }
-   if builder.documentRevisionIdFlag {
-	  req.DocumentRevisionId = &builder.documentRevisionId
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   return req
+func (builder *ListDocumentBlockReqBuilder) Build() *ListDocumentBlockReq {
+	req := &ListDocumentBlockReq{}
+	req.Limit = builder.limit
+	if builder.documentIdFlag {
+		req.DocumentId = builder.documentId
+	}
+	if builder.pageSizeFlag {
+		req.PageSize = &builder.pageSize
+	}
+	if builder.pageTokenFlag {
+		req.PageToken = &builder.pageToken
+	}
+	if builder.documentRevisionIdFlag {
+		req.DocumentRevisionId = &builder.documentRevisionId
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	return req
 }
 
-
 type ListDocumentBlockReq struct {
-	DocumentId  string `path:"document_id"`
-	PageSize  *int `query:"page_size"`
-	PageToken  *string `query:"page_token"`
-	DocumentRevisionId  *int `query:"document_revision_id"`
-	UserIdType  *string `query:"user_id_type"`
-	Limit int
-
+	DocumentId         string  `path:"document_id"`
+	PageSize           *int    `query:"page_size"`
+	PageToken          *string `query:"page_token"`
+	DocumentRevisionId *int    `query:"document_revision_id"`
+	UserIdType         *string `query:"user_id_type"`
+	Limit              int
 }
 
 type ListDocumentBlockRespData struct {
-	Items  []*Block `json:"items,omitempty"`
-	PageToken  *string `json:"page_token,omitempty"`
-	HasMore  *bool `json:"has_more,omitempty"`
+	Items     []*Block `json:"items,omitempty"`
+	PageToken *string  `json:"page_token,omitempty"`
+	HasMore   *bool    `json:"has_more,omitempty"`
 }
 
 type ListDocumentBlockResp struct {
@@ -937,98 +909,94 @@ func (resp *ListDocumentBlockResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type PatchDocumentBlockReqBuilder struct {
-	documentId  string
-	documentIdFlag  bool
-	blockId  string
-	blockIdFlag  bool
-	documentRevisionId  int
-	documentRevisionIdFlag  bool
-	clientToken  string
-	clientTokenFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-	updateBlockRequest *UpdateBlockRequest
+	documentId             string
+	documentIdFlag         bool
+	blockId                string
+	blockIdFlag            bool
+	documentRevisionId     int
+	documentRevisionIdFlag bool
+	clientToken            string
+	clientTokenFlag        bool
+	userIdType             string
+	userIdTypeFlag         bool
+	updateBlockRequest     *UpdateBlockRequest
 	updateBlockRequestFlag bool
-
 }
 
 // 生成请求的New构造器
-func NewPatchDocumentBlockReqBuilder() * PatchDocumentBlockReqBuilder{
-   builder := &PatchDocumentBlockReqBuilder{}
-   return builder
+func NewPatchDocumentBlockReqBuilder() *PatchDocumentBlockReqBuilder {
+	builder := &PatchDocumentBlockReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * PatchDocumentBlockReqBuilder) DocumentId(documentId string) *PatchDocumentBlockReqBuilder  {
-  builder.documentId = documentId
-  builder.documentIdFlag = true
-  return builder
+func (builder *PatchDocumentBlockReqBuilder) DocumentId(documentId string) *PatchDocumentBlockReqBuilder {
+	builder.documentId = documentId
+	builder.documentIdFlag = true
+	return builder
 }
-func (builder * PatchDocumentBlockReqBuilder) BlockId(blockId string) *PatchDocumentBlockReqBuilder  {
-  builder.blockId = blockId
-  builder.blockIdFlag = true
-  return builder
+func (builder *PatchDocumentBlockReqBuilder) BlockId(blockId string) *PatchDocumentBlockReqBuilder {
+	builder.blockId = blockId
+	builder.blockIdFlag = true
+	return builder
 }
-func (builder * PatchDocumentBlockReqBuilder) DocumentRevisionId(documentRevisionId int) *PatchDocumentBlockReqBuilder  {
-  builder.documentRevisionId = documentRevisionId
-  builder.documentRevisionIdFlag = true
-  return builder
+func (builder *PatchDocumentBlockReqBuilder) DocumentRevisionId(documentRevisionId int) *PatchDocumentBlockReqBuilder {
+	builder.documentRevisionId = documentRevisionId
+	builder.documentRevisionIdFlag = true
+	return builder
 }
-func (builder * PatchDocumentBlockReqBuilder) ClientToken(clientToken string) *PatchDocumentBlockReqBuilder  {
-  builder.clientToken = clientToken
-  builder.clientTokenFlag = true
-  return builder
+func (builder *PatchDocumentBlockReqBuilder) ClientToken(clientToken string) *PatchDocumentBlockReqBuilder {
+	builder.clientToken = clientToken
+	builder.clientTokenFlag = true
+	return builder
 }
-func (builder * PatchDocumentBlockReqBuilder) UserIdType(userIdType string) *PatchDocumentBlockReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *PatchDocumentBlockReqBuilder) UserIdType(userIdType string) *PatchDocumentBlockReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
-func (builder * PatchDocumentBlockReqBuilder) UpdateBlockRequest(updateBlockRequest *UpdateBlockRequest) *PatchDocumentBlockReqBuilder  {
-  builder.updateBlockRequest = updateBlockRequest
-  builder.updateBlockRequestFlag = true
-  return builder
+func (builder *PatchDocumentBlockReqBuilder) UpdateBlockRequest(updateBlockRequest *UpdateBlockRequest) *PatchDocumentBlockReqBuilder {
+	builder.updateBlockRequest = updateBlockRequest
+	builder.updateBlockRequestFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * PatchDocumentBlockReqBuilder ) Build() *PatchDocumentBlockReq {
-   req := &PatchDocumentBlockReq{}
-   if builder.documentIdFlag {
-	  req.DocumentId = builder.documentId
-   }
-   if builder.blockIdFlag {
-	  req.BlockId = builder.blockId
-   }
-   if builder.documentRevisionIdFlag {
-	  req.DocumentRevisionId = &builder.documentRevisionId
-   }
-   if builder.clientTokenFlag {
-	  req.ClientToken = &builder.clientToken
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   return req
+func (builder *PatchDocumentBlockReqBuilder) Build() *PatchDocumentBlockReq {
+	req := &PatchDocumentBlockReq{}
+	if builder.documentIdFlag {
+		req.DocumentId = builder.documentId
+	}
+	if builder.blockIdFlag {
+		req.BlockId = builder.blockId
+	}
+	if builder.documentRevisionIdFlag {
+		req.DocumentRevisionId = &builder.documentRevisionId
+	}
+	if builder.clientTokenFlag {
+		req.ClientToken = &builder.clientToken
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	return req
 }
 
-
 type PatchDocumentBlockReq struct {
-	DocumentId  string `path:"document_id"`
-	BlockId  string `path:"block_id"`
-	DocumentRevisionId  *int `query:"document_revision_id"`
-	ClientToken  *string `query:"client_token"`
-	UserIdType  *string `query:"user_id_type"`
+	DocumentId         string              `path:"document_id"`
+	BlockId            string              `path:"block_id"`
+	DocumentRevisionId *int                `query:"document_revision_id"`
+	ClientToken        *string             `query:"client_token"`
+	UserIdType         *string             `query:"user_id_type"`
 	UpdateBlockRequest *UpdateBlockRequest `body:""`
-
 }
 
 type PatchDocumentBlockRespData struct {
-	Block  *Block `json:"block,omitempty"`
-	DocumentRevisionId  *int `json:"document_revision_id,omitempty"`
-	ClientToken  *string `json:"client_token,omitempty"`
+	Block              *Block  `json:"block,omitempty"`
+	DocumentRevisionId *int    `json:"document_revision_id,omitempty"`
+	ClientToken        *string `json:"client_token,omitempty"`
 }
 
 type PatchDocumentBlockResp struct {
@@ -1042,176 +1010,171 @@ func (resp *PatchDocumentBlockResp) Success() bool {
 }
 
 type BatchDeleteDocumentBlockChildrenReqBodyBuilder struct {
-	startIndex  int
-	startIndexFlag  bool
-	endIndex  int
-	endIndexFlag  bool
+	startIndex     int
+	startIndexFlag bool
+	endIndex       int
+	endIndexFlag   bool
 }
 
 // 生成body的New构造器
-func NewBatchDeleteDocumentBlockChildrenReqBodyBuilder() * BatchDeleteDocumentBlockChildrenReqBodyBuilder{
-  builder := &BatchDeleteDocumentBlockChildrenReqBodyBuilder{}
-  return builder
+func NewBatchDeleteDocumentBlockChildrenReqBodyBuilder() *BatchDeleteDocumentBlockChildrenReqBodyBuilder {
+	builder := &BatchDeleteDocumentBlockChildrenReqBodyBuilder{}
+	return builder
 }
 
 /*1.2 生成body的builder属性方法*/
-func (builder * BatchDeleteDocumentBlockChildrenReqBodyBuilder ) StartIndex(startIndex int) *BatchDeleteDocumentBlockChildrenReqBodyBuilder {
-  builder.startIndex = startIndex
-  builder.startIndexFlag = true
-  return builder
+func (builder *BatchDeleteDocumentBlockChildrenReqBodyBuilder) StartIndex(startIndex int) *BatchDeleteDocumentBlockChildrenReqBodyBuilder {
+	builder.startIndex = startIndex
+	builder.startIndexFlag = true
+	return builder
 }
-func (builder * BatchDeleteDocumentBlockChildrenReqBodyBuilder ) EndIndex(endIndex int) *BatchDeleteDocumentBlockChildrenReqBodyBuilder {
-  builder.endIndex = endIndex
-  builder.endIndexFlag = true
-  return builder
+func (builder *BatchDeleteDocumentBlockChildrenReqBodyBuilder) EndIndex(endIndex int) *BatchDeleteDocumentBlockChildrenReqBodyBuilder {
+	builder.endIndex = endIndex
+	builder.endIndexFlag = true
+	return builder
 }
-
 
 /*1.3 生成body的build方法*/
-func (builder * BatchDeleteDocumentBlockChildrenReqBodyBuilder ) Build() *BatchDeleteDocumentBlockChildrenReqBody {
-   req := &BatchDeleteDocumentBlockChildrenReqBody{}
-   if builder.startIndexFlag {
-	  req.StartIndex = &builder.startIndex
-	  
+func (builder *BatchDeleteDocumentBlockChildrenReqBodyBuilder) Build() *BatchDeleteDocumentBlockChildrenReqBody {
+	req := &BatchDeleteDocumentBlockChildrenReqBody{}
+	if builder.startIndexFlag {
+		req.StartIndex = &builder.startIndex
 
-   }
-   if builder.endIndexFlag {
-	  req.EndIndex = &builder.endIndex
-	  
+	}
+	if builder.endIndexFlag {
+		req.EndIndex = &builder.endIndex
 
-   }
-   return req
+	}
+	return req
 }
 
 /**上传文件path开始**/
 type BatchDeleteDocumentBlockChildrenPathReqBodyBuilder struct {
-	startIndex  int
-	startIndexFlag  bool
-	endIndex  int
-	endIndexFlag  bool
+	startIndex     int
+	startIndexFlag bool
+	endIndex       int
+	endIndexFlag   bool
 }
 
 // 生成body的New构造器
-func NewBatchDeleteDocumentBlockChildrenPathReqBodyBuilder() * BatchDeleteDocumentBlockChildrenPathReqBodyBuilder{
-  builder := &BatchDeleteDocumentBlockChildrenPathReqBodyBuilder{}
-  return builder
+func NewBatchDeleteDocumentBlockChildrenPathReqBodyBuilder() *BatchDeleteDocumentBlockChildrenPathReqBodyBuilder {
+	builder := &BatchDeleteDocumentBlockChildrenPathReqBodyBuilder{}
+	return builder
 }
 
 /*1.2 生成body的builder属性方法*/
-func (builder * BatchDeleteDocumentBlockChildrenPathReqBodyBuilder ) StartIndex(startIndex int) *BatchDeleteDocumentBlockChildrenPathReqBodyBuilder {
-  builder.startIndex = startIndex
-  builder.startIndexFlag = true
-  return builder
+func (builder *BatchDeleteDocumentBlockChildrenPathReqBodyBuilder) StartIndex(startIndex int) *BatchDeleteDocumentBlockChildrenPathReqBodyBuilder {
+	builder.startIndex = startIndex
+	builder.startIndexFlag = true
+	return builder
 }
-func (builder * BatchDeleteDocumentBlockChildrenPathReqBodyBuilder ) EndIndex(endIndex int) *BatchDeleteDocumentBlockChildrenPathReqBodyBuilder {
-  builder.endIndex = endIndex
-  builder.endIndexFlag = true
-  return builder
+func (builder *BatchDeleteDocumentBlockChildrenPathReqBodyBuilder) EndIndex(endIndex int) *BatchDeleteDocumentBlockChildrenPathReqBodyBuilder {
+	builder.endIndex = endIndex
+	builder.endIndexFlag = true
+	return builder
 }
-
 
 /*1.3 生成body的build方法*/
-func (builder * BatchDeleteDocumentBlockChildrenPathReqBodyBuilder ) Build() (*BatchDeleteDocumentBlockChildrenReqBody, error) {
-   req := &BatchDeleteDocumentBlockChildrenReqBody{}
-   if builder.startIndexFlag {
-	  req.StartIndex = &builder.startIndex
-	  
-   }
-   if builder.endIndexFlag {
-	  req.EndIndex = &builder.endIndex
-	  
-   }
-   return req, nil
+func (builder *BatchDeleteDocumentBlockChildrenPathReqBodyBuilder) Build() (*BatchDeleteDocumentBlockChildrenReqBody, error) {
+	req := &BatchDeleteDocumentBlockChildrenReqBody{}
+	if builder.startIndexFlag {
+		req.StartIndex = &builder.startIndex
+
+	}
+	if builder.endIndexFlag {
+		req.EndIndex = &builder.endIndex
+
+	}
+	return req, nil
 }
+
 /**上传文件path结束**/
 
 /*1.4 生成请求的builder结构体*/
 type BatchDeleteDocumentBlockChildrenReqBuilder struct {
-	documentId  string
-	documentIdFlag  bool
-	blockId  string
-	blockIdFlag  bool
-	documentRevisionId  int
-	documentRevisionIdFlag  bool
-	clientToken  string
-	clientTokenFlag  bool
-	body *BatchDeleteDocumentBlockChildrenReqBody
-	bodyFlag bool
-
+	documentId             string
+	documentIdFlag         bool
+	blockId                string
+	blockIdFlag            bool
+	documentRevisionId     int
+	documentRevisionIdFlag bool
+	clientToken            string
+	clientTokenFlag        bool
+	body                   *BatchDeleteDocumentBlockChildrenReqBody
+	bodyFlag               bool
 }
 
 // 生成请求的New构造器
-func NewBatchDeleteDocumentBlockChildrenReqBuilder() * BatchDeleteDocumentBlockChildrenReqBuilder{
-   builder := &BatchDeleteDocumentBlockChildrenReqBuilder{}
-   return builder
+func NewBatchDeleteDocumentBlockChildrenReqBuilder() *BatchDeleteDocumentBlockChildrenReqBuilder {
+	builder := &BatchDeleteDocumentBlockChildrenReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * BatchDeleteDocumentBlockChildrenReqBuilder) DocumentId(documentId string) *BatchDeleteDocumentBlockChildrenReqBuilder  {
-  builder.documentId = documentId
-  builder.documentIdFlag = true
-  return builder
+func (builder *BatchDeleteDocumentBlockChildrenReqBuilder) DocumentId(documentId string) *BatchDeleteDocumentBlockChildrenReqBuilder {
+	builder.documentId = documentId
+	builder.documentIdFlag = true
+	return builder
 }
-func (builder * BatchDeleteDocumentBlockChildrenReqBuilder) BlockId(blockId string) *BatchDeleteDocumentBlockChildrenReqBuilder  {
-  builder.blockId = blockId
-  builder.blockIdFlag = true
-  return builder
+func (builder *BatchDeleteDocumentBlockChildrenReqBuilder) BlockId(blockId string) *BatchDeleteDocumentBlockChildrenReqBuilder {
+	builder.blockId = blockId
+	builder.blockIdFlag = true
+	return builder
 }
-func (builder * BatchDeleteDocumentBlockChildrenReqBuilder) DocumentRevisionId(documentRevisionId int) *BatchDeleteDocumentBlockChildrenReqBuilder  {
-  builder.documentRevisionId = documentRevisionId
-  builder.documentRevisionIdFlag = true
-  return builder
+func (builder *BatchDeleteDocumentBlockChildrenReqBuilder) DocumentRevisionId(documentRevisionId int) *BatchDeleteDocumentBlockChildrenReqBuilder {
+	builder.documentRevisionId = documentRevisionId
+	builder.documentRevisionIdFlag = true
+	return builder
 }
-func (builder * BatchDeleteDocumentBlockChildrenReqBuilder) ClientToken(clientToken string) *BatchDeleteDocumentBlockChildrenReqBuilder  {
-  builder.clientToken = clientToken
-  builder.clientTokenFlag = true
-  return builder
+func (builder *BatchDeleteDocumentBlockChildrenReqBuilder) ClientToken(clientToken string) *BatchDeleteDocumentBlockChildrenReqBuilder {
+	builder.clientToken = clientToken
+	builder.clientTokenFlag = true
+	return builder
 }
-func (builder * BatchDeleteDocumentBlockChildrenReqBuilder) Body(body *BatchDeleteDocumentBlockChildrenReqBody) *BatchDeleteDocumentBlockChildrenReqBuilder  {
-  builder.body = body
-  builder.bodyFlag = true
-  return builder
+func (builder *BatchDeleteDocumentBlockChildrenReqBuilder) Body(body *BatchDeleteDocumentBlockChildrenReqBody) *BatchDeleteDocumentBlockChildrenReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * BatchDeleteDocumentBlockChildrenReqBuilder ) Build() *BatchDeleteDocumentBlockChildrenReq {
-   req := &BatchDeleteDocumentBlockChildrenReq{}
-   if builder.documentIdFlag {
-	  req.DocumentId = builder.documentId
-   }
-   if builder.blockIdFlag {
-	  req.BlockId = builder.blockId
-   }
-   if builder.documentRevisionIdFlag {
-	  req.DocumentRevisionId = &builder.documentRevisionId
-   }
-   if builder.clientTokenFlag {
-	  req.ClientToken = &builder.clientToken
-   }
-   if builder.bodyFlag {
-	  req.Body = builder.body
+func (builder *BatchDeleteDocumentBlockChildrenReqBuilder) Build() *BatchDeleteDocumentBlockChildrenReq {
+	req := &BatchDeleteDocumentBlockChildrenReq{}
+	if builder.documentIdFlag {
+		req.DocumentId = builder.documentId
+	}
+	if builder.blockIdFlag {
+		req.BlockId = builder.blockId
+	}
+	if builder.documentRevisionIdFlag {
+		req.DocumentRevisionId = &builder.documentRevisionId
+	}
+	if builder.clientTokenFlag {
+		req.ClientToken = &builder.clientToken
+	}
+	if builder.bodyFlag {
+		req.Body = builder.body
 
-   }
-   return req
+	}
+	return req
 }
 
 type BatchDeleteDocumentBlockChildrenReqBody struct {
-	StartIndex  *int `json:"start_index,omitempty"`
-	EndIndex  *int `json:"end_index,omitempty"`
+	StartIndex *int `json:"start_index,omitempty"`
+	EndIndex   *int `json:"end_index,omitempty"`
 }
 
 type BatchDeleteDocumentBlockChildrenReq struct {
-	DocumentId  string `path:"document_id"`
-	BlockId  string `path:"block_id"`
-	DocumentRevisionId  *int `query:"document_revision_id"`
-	ClientToken  *string `query:"client_token"`
-	Body *BatchDeleteDocumentBlockChildrenReqBody `body:""`
-
+	DocumentId         string                                   `path:"document_id"`
+	BlockId            string                                   `path:"block_id"`
+	DocumentRevisionId *int                                     `query:"document_revision_id"`
+	ClientToken        *string                                  `query:"client_token"`
+	Body               *BatchDeleteDocumentBlockChildrenReqBody `body:""`
 }
 
 type BatchDeleteDocumentBlockChildrenRespData struct {
-	DocumentRevisionId  *int `json:"document_revision_id,omitempty"`
-	ClientToken  *string `json:"client_token,omitempty"`
+	DocumentRevisionId *int    `json:"document_revision_id,omitempty"`
+	ClientToken        *string `json:"client_token,omitempty"`
 }
 
 type BatchDeleteDocumentBlockChildrenResp struct {
@@ -1225,186 +1188,182 @@ func (resp *BatchDeleteDocumentBlockChildrenResp) Success() bool {
 }
 
 type CreateDocumentBlockChildrenReqBodyBuilder struct {
-	children  []*Block
-	childrenFlag  bool
-	index  int
-	indexFlag  bool
+	children     []*Block
+	childrenFlag bool
+	index        int
+	indexFlag    bool
 }
 
 // 生成body的New构造器
-func NewCreateDocumentBlockChildrenReqBodyBuilder() * CreateDocumentBlockChildrenReqBodyBuilder{
-  builder := &CreateDocumentBlockChildrenReqBodyBuilder{}
-  return builder
+func NewCreateDocumentBlockChildrenReqBodyBuilder() *CreateDocumentBlockChildrenReqBodyBuilder {
+	builder := &CreateDocumentBlockChildrenReqBodyBuilder{}
+	return builder
 }
 
 /*1.2 生成body的builder属性方法*/
-func (builder * CreateDocumentBlockChildrenReqBodyBuilder ) Children(children []*Block) *CreateDocumentBlockChildrenReqBodyBuilder {
-  builder.children = children
-  builder.childrenFlag = true
-  return builder
+func (builder *CreateDocumentBlockChildrenReqBodyBuilder) Children(children []*Block) *CreateDocumentBlockChildrenReqBodyBuilder {
+	builder.children = children
+	builder.childrenFlag = true
+	return builder
 }
-func (builder * CreateDocumentBlockChildrenReqBodyBuilder ) Index(index int) *CreateDocumentBlockChildrenReqBodyBuilder {
-  builder.index = index
-  builder.indexFlag = true
-  return builder
+func (builder *CreateDocumentBlockChildrenReqBodyBuilder) Index(index int) *CreateDocumentBlockChildrenReqBodyBuilder {
+	builder.index = index
+	builder.indexFlag = true
+	return builder
 }
-
 
 /*1.3 生成body的build方法*/
-func (builder * CreateDocumentBlockChildrenReqBodyBuilder ) Build() *CreateDocumentBlockChildrenReqBody {
-   req := &CreateDocumentBlockChildrenReqBody{}
-   if builder.childrenFlag {
-	  req.Children = builder.children
+func (builder *CreateDocumentBlockChildrenReqBodyBuilder) Build() *CreateDocumentBlockChildrenReqBody {
+	req := &CreateDocumentBlockChildrenReqBody{}
+	if builder.childrenFlag {
+		req.Children = builder.children
 
-   }
-   if builder.indexFlag {
-	  req.Index = &builder.index
-	  
+	}
+	if builder.indexFlag {
+		req.Index = &builder.index
 
-   }
-   return req
+	}
+	return req
 }
 
 /**上传文件path开始**/
 type CreateDocumentBlockChildrenPathReqBodyBuilder struct {
-	children  []*Block
-	childrenFlag  bool
-	index  int
-	indexFlag  bool
+	children     []*Block
+	childrenFlag bool
+	index        int
+	indexFlag    bool
 }
 
 // 生成body的New构造器
-func NewCreateDocumentBlockChildrenPathReqBodyBuilder() * CreateDocumentBlockChildrenPathReqBodyBuilder{
-  builder := &CreateDocumentBlockChildrenPathReqBodyBuilder{}
-  return builder
+func NewCreateDocumentBlockChildrenPathReqBodyBuilder() *CreateDocumentBlockChildrenPathReqBodyBuilder {
+	builder := &CreateDocumentBlockChildrenPathReqBodyBuilder{}
+	return builder
 }
 
 /*1.2 生成body的builder属性方法*/
-func (builder * CreateDocumentBlockChildrenPathReqBodyBuilder ) Children(children []*Block) *CreateDocumentBlockChildrenPathReqBodyBuilder {
-  builder.children = children
-  builder.childrenFlag = true
-  return builder
+func (builder *CreateDocumentBlockChildrenPathReqBodyBuilder) Children(children []*Block) *CreateDocumentBlockChildrenPathReqBodyBuilder {
+	builder.children = children
+	builder.childrenFlag = true
+	return builder
 }
-func (builder * CreateDocumentBlockChildrenPathReqBodyBuilder ) Index(index int) *CreateDocumentBlockChildrenPathReqBodyBuilder {
-  builder.index = index
-  builder.indexFlag = true
-  return builder
+func (builder *CreateDocumentBlockChildrenPathReqBodyBuilder) Index(index int) *CreateDocumentBlockChildrenPathReqBodyBuilder {
+	builder.index = index
+	builder.indexFlag = true
+	return builder
 }
-
 
 /*1.3 生成body的build方法*/
-func (builder * CreateDocumentBlockChildrenPathReqBodyBuilder ) Build() (*CreateDocumentBlockChildrenReqBody, error) {
-   req := &CreateDocumentBlockChildrenReqBody{}
-   if builder.childrenFlag {
-	   req.Children = builder.children
-   }
-   if builder.indexFlag {
-	  req.Index = &builder.index
-	  
-   }
-   return req, nil
+func (builder *CreateDocumentBlockChildrenPathReqBodyBuilder) Build() (*CreateDocumentBlockChildrenReqBody, error) {
+	req := &CreateDocumentBlockChildrenReqBody{}
+	if builder.childrenFlag {
+		req.Children = builder.children
+	}
+	if builder.indexFlag {
+		req.Index = &builder.index
+
+	}
+	return req, nil
 }
+
 /**上传文件path结束**/
 
 /*1.4 生成请求的builder结构体*/
 type CreateDocumentBlockChildrenReqBuilder struct {
-	documentId  string
-	documentIdFlag  bool
-	blockId  string
-	blockIdFlag  bool
-	documentRevisionId  int
-	documentRevisionIdFlag  bool
-	clientToken  string
-	clientTokenFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-	body *CreateDocumentBlockChildrenReqBody
-	bodyFlag bool
-
+	documentId             string
+	documentIdFlag         bool
+	blockId                string
+	blockIdFlag            bool
+	documentRevisionId     int
+	documentRevisionIdFlag bool
+	clientToken            string
+	clientTokenFlag        bool
+	userIdType             string
+	userIdTypeFlag         bool
+	body                   *CreateDocumentBlockChildrenReqBody
+	bodyFlag               bool
 }
 
 // 生成请求的New构造器
-func NewCreateDocumentBlockChildrenReqBuilder() * CreateDocumentBlockChildrenReqBuilder{
-   builder := &CreateDocumentBlockChildrenReqBuilder{}
-   return builder
+func NewCreateDocumentBlockChildrenReqBuilder() *CreateDocumentBlockChildrenReqBuilder {
+	builder := &CreateDocumentBlockChildrenReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * CreateDocumentBlockChildrenReqBuilder) DocumentId(documentId string) *CreateDocumentBlockChildrenReqBuilder  {
-  builder.documentId = documentId
-  builder.documentIdFlag = true
-  return builder
+func (builder *CreateDocumentBlockChildrenReqBuilder) DocumentId(documentId string) *CreateDocumentBlockChildrenReqBuilder {
+	builder.documentId = documentId
+	builder.documentIdFlag = true
+	return builder
 }
-func (builder * CreateDocumentBlockChildrenReqBuilder) BlockId(blockId string) *CreateDocumentBlockChildrenReqBuilder  {
-  builder.blockId = blockId
-  builder.blockIdFlag = true
-  return builder
+func (builder *CreateDocumentBlockChildrenReqBuilder) BlockId(blockId string) *CreateDocumentBlockChildrenReqBuilder {
+	builder.blockId = blockId
+	builder.blockIdFlag = true
+	return builder
 }
-func (builder * CreateDocumentBlockChildrenReqBuilder) DocumentRevisionId(documentRevisionId int) *CreateDocumentBlockChildrenReqBuilder  {
-  builder.documentRevisionId = documentRevisionId
-  builder.documentRevisionIdFlag = true
-  return builder
+func (builder *CreateDocumentBlockChildrenReqBuilder) DocumentRevisionId(documentRevisionId int) *CreateDocumentBlockChildrenReqBuilder {
+	builder.documentRevisionId = documentRevisionId
+	builder.documentRevisionIdFlag = true
+	return builder
 }
-func (builder * CreateDocumentBlockChildrenReqBuilder) ClientToken(clientToken string) *CreateDocumentBlockChildrenReqBuilder  {
-  builder.clientToken = clientToken
-  builder.clientTokenFlag = true
-  return builder
+func (builder *CreateDocumentBlockChildrenReqBuilder) ClientToken(clientToken string) *CreateDocumentBlockChildrenReqBuilder {
+	builder.clientToken = clientToken
+	builder.clientTokenFlag = true
+	return builder
 }
-func (builder * CreateDocumentBlockChildrenReqBuilder) UserIdType(userIdType string) *CreateDocumentBlockChildrenReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *CreateDocumentBlockChildrenReqBuilder) UserIdType(userIdType string) *CreateDocumentBlockChildrenReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
-func (builder * CreateDocumentBlockChildrenReqBuilder) Body(body *CreateDocumentBlockChildrenReqBody) *CreateDocumentBlockChildrenReqBuilder  {
-  builder.body = body
-  builder.bodyFlag = true
-  return builder
+func (builder *CreateDocumentBlockChildrenReqBuilder) Body(body *CreateDocumentBlockChildrenReqBody) *CreateDocumentBlockChildrenReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * CreateDocumentBlockChildrenReqBuilder ) Build() *CreateDocumentBlockChildrenReq {
-   req := &CreateDocumentBlockChildrenReq{}
-   if builder.documentIdFlag {
-	  req.DocumentId = builder.documentId
-   }
-   if builder.blockIdFlag {
-	  req.BlockId = builder.blockId
-   }
-   if builder.documentRevisionIdFlag {
-	  req.DocumentRevisionId = &builder.documentRevisionId
-   }
-   if builder.clientTokenFlag {
-	  req.ClientToken = &builder.clientToken
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   if builder.bodyFlag {
-	  req.Body = builder.body
+func (builder *CreateDocumentBlockChildrenReqBuilder) Build() *CreateDocumentBlockChildrenReq {
+	req := &CreateDocumentBlockChildrenReq{}
+	if builder.documentIdFlag {
+		req.DocumentId = builder.documentId
+	}
+	if builder.blockIdFlag {
+		req.BlockId = builder.blockId
+	}
+	if builder.documentRevisionIdFlag {
+		req.DocumentRevisionId = &builder.documentRevisionId
+	}
+	if builder.clientTokenFlag {
+		req.ClientToken = &builder.clientToken
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	if builder.bodyFlag {
+		req.Body = builder.body
 
-   }
-   return req
+	}
+	return req
 }
 
 type CreateDocumentBlockChildrenReqBody struct {
-	Children  []*Block `json:"children,omitempty"`
-	Index  *int `json:"index,omitempty"`
+	Children []*Block `json:"children,omitempty"`
+	Index    *int     `json:"index,omitempty"`
 }
 
 type CreateDocumentBlockChildrenReq struct {
-	DocumentId  string `path:"document_id"`
-	BlockId  string `path:"block_id"`
-	DocumentRevisionId  *int `query:"document_revision_id"`
-	ClientToken  *string `query:"client_token"`
-	UserIdType  *string `query:"user_id_type"`
-	Body *CreateDocumentBlockChildrenReqBody `body:""`
-
+	DocumentId         string                              `path:"document_id"`
+	BlockId            string                              `path:"block_id"`
+	DocumentRevisionId *int                                `query:"document_revision_id"`
+	ClientToken        *string                             `query:"client_token"`
+	UserIdType         *string                             `query:"user_id_type"`
+	Body               *CreateDocumentBlockChildrenReqBody `body:""`
 }
 
 type CreateDocumentBlockChildrenRespData struct {
-	Children  []*Block `json:"children,omitempty"`
-	DocumentRevisionId  *int `json:"document_revision_id,omitempty"`
-	ClientToken  *string `json:"client_token,omitempty"`
+	Children           []*Block `json:"children,omitempty"`
+	DocumentRevisionId *int     `json:"document_revision_id,omitempty"`
+	ClientToken        *string  `json:"client_token,omitempty"`
 }
 
 type CreateDocumentBlockChildrenResp struct {
@@ -1417,108 +1376,104 @@ func (resp *CreateDocumentBlockChildrenResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type GetDocumentBlockChildrenReqBuilder struct {
-	documentId  string
-	documentIdFlag  bool
-	blockId  string
-	blockIdFlag  bool
-	documentRevisionId  int
-	documentRevisionIdFlag  bool
-	pageToken  string
-	pageTokenFlag  bool
-	pageSize  int
-	pageSizeFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-	limit int
-
+	documentId             string
+	documentIdFlag         bool
+	blockId                string
+	blockIdFlag            bool
+	documentRevisionId     int
+	documentRevisionIdFlag bool
+	pageToken              string
+	pageTokenFlag          bool
+	pageSize               int
+	pageSizeFlag           bool
+	userIdType             string
+	userIdTypeFlag         bool
+	limit                  int
 }
 
 // 生成请求的New构造器
-func NewGetDocumentBlockChildrenReqBuilder() * GetDocumentBlockChildrenReqBuilder{
-   builder := &GetDocumentBlockChildrenReqBuilder{}
-   return builder
+func NewGetDocumentBlockChildrenReqBuilder() *GetDocumentBlockChildrenReqBuilder {
+	builder := &GetDocumentBlockChildrenReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * GetDocumentBlockChildrenReqBuilder) Limit(limit int ) *GetDocumentBlockChildrenReqBuilder  {
-  builder.limit = limit
-  return builder
+func (builder *GetDocumentBlockChildrenReqBuilder) Limit(limit int) *GetDocumentBlockChildrenReqBuilder {
+	builder.limit = limit
+	return builder
 }
-func (builder * GetDocumentBlockChildrenReqBuilder) DocumentId(documentId string) *GetDocumentBlockChildrenReqBuilder  {
-  builder.documentId = documentId
-  builder.documentIdFlag = true
-  return builder
+func (builder *GetDocumentBlockChildrenReqBuilder) DocumentId(documentId string) *GetDocumentBlockChildrenReqBuilder {
+	builder.documentId = documentId
+	builder.documentIdFlag = true
+	return builder
 }
-func (builder * GetDocumentBlockChildrenReqBuilder) BlockId(blockId string) *GetDocumentBlockChildrenReqBuilder  {
-  builder.blockId = blockId
-  builder.blockIdFlag = true
-  return builder
+func (builder *GetDocumentBlockChildrenReqBuilder) BlockId(blockId string) *GetDocumentBlockChildrenReqBuilder {
+	builder.blockId = blockId
+	builder.blockIdFlag = true
+	return builder
 }
-func (builder * GetDocumentBlockChildrenReqBuilder) DocumentRevisionId(documentRevisionId int) *GetDocumentBlockChildrenReqBuilder  {
-  builder.documentRevisionId = documentRevisionId
-  builder.documentRevisionIdFlag = true
-  return builder
+func (builder *GetDocumentBlockChildrenReqBuilder) DocumentRevisionId(documentRevisionId int) *GetDocumentBlockChildrenReqBuilder {
+	builder.documentRevisionId = documentRevisionId
+	builder.documentRevisionIdFlag = true
+	return builder
 }
-func (builder * GetDocumentBlockChildrenReqBuilder) PageToken(pageToken string) *GetDocumentBlockChildrenReqBuilder  {
-  builder.pageToken = pageToken
-  builder.pageTokenFlag = true
-  return builder
+func (builder *GetDocumentBlockChildrenReqBuilder) PageToken(pageToken string) *GetDocumentBlockChildrenReqBuilder {
+	builder.pageToken = pageToken
+	builder.pageTokenFlag = true
+	return builder
 }
-func (builder * GetDocumentBlockChildrenReqBuilder) PageSize(pageSize int) *GetDocumentBlockChildrenReqBuilder  {
-  builder.pageSize = pageSize
-  builder.pageSizeFlag = true
-  return builder
+func (builder *GetDocumentBlockChildrenReqBuilder) PageSize(pageSize int) *GetDocumentBlockChildrenReqBuilder {
+	builder.pageSize = pageSize
+	builder.pageSizeFlag = true
+	return builder
 }
-func (builder * GetDocumentBlockChildrenReqBuilder) UserIdType(userIdType string) *GetDocumentBlockChildrenReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *GetDocumentBlockChildrenReqBuilder) UserIdType(userIdType string) *GetDocumentBlockChildrenReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * GetDocumentBlockChildrenReqBuilder ) Build() *GetDocumentBlockChildrenReq {
-   req := &GetDocumentBlockChildrenReq{}
-   req.Limit = builder.limit
-   if builder.documentIdFlag {
-	  req.DocumentId = builder.documentId
-   }
-   if builder.blockIdFlag {
-	  req.BlockId = builder.blockId
-   }
-   if builder.documentRevisionIdFlag {
-	  req.DocumentRevisionId = &builder.documentRevisionId
-   }
-   if builder.pageTokenFlag {
-	  req.PageToken = &builder.pageToken
-   }
-   if builder.pageSizeFlag {
-	  req.PageSize = &builder.pageSize
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   return req
+func (builder *GetDocumentBlockChildrenReqBuilder) Build() *GetDocumentBlockChildrenReq {
+	req := &GetDocumentBlockChildrenReq{}
+	req.Limit = builder.limit
+	if builder.documentIdFlag {
+		req.DocumentId = builder.documentId
+	}
+	if builder.blockIdFlag {
+		req.BlockId = builder.blockId
+	}
+	if builder.documentRevisionIdFlag {
+		req.DocumentRevisionId = &builder.documentRevisionId
+	}
+	if builder.pageTokenFlag {
+		req.PageToken = &builder.pageToken
+	}
+	if builder.pageSizeFlag {
+		req.PageSize = &builder.pageSize
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	return req
 }
 
-
 type GetDocumentBlockChildrenReq struct {
-	DocumentId  string `path:"document_id"`
-	BlockId  string `path:"block_id"`
-	DocumentRevisionId  *int `query:"document_revision_id"`
-	PageToken  *string `query:"page_token"`
-	PageSize  *int `query:"page_size"`
-	UserIdType  *string `query:"user_id_type"`
-	Limit int
-
+	DocumentId         string  `path:"document_id"`
+	BlockId            string  `path:"block_id"`
+	DocumentRevisionId *int    `query:"document_revision_id"`
+	PageToken          *string `query:"page_token"`
+	PageSize           *int    `query:"page_size"`
+	UserIdType         *string `query:"user_id_type"`
+	Limit              int
 }
 
 type GetDocumentBlockChildrenRespData struct {
-	Items  []*Block `json:"items,omitempty"`
-	PageToken  *string `json:"page_token,omitempty"`
-	HasMore  *bool `json:"has_more,omitempty"`
+	Items     []*Block `json:"items,omitempty"`
+	PageToken *string  `json:"page_token,omitempty"`
+	HasMore   *bool    `json:"has_more,omitempty"`
 }
 
 type GetDocumentBlockChildrenResp struct {
@@ -1533,116 +1488,114 @@ func (resp *GetDocumentBlockChildrenResp) Success() bool {
 
 /**生成消息事件结构体 **/
 
-
 /* 生成请求的builder构造器*/
 /*1.1 生成body的builder结构体*/
 /**如果是分页查询，则添加迭代器定义**/
-   type ListDocumentBlockIterator struct{
-	 nextPageToken *string
-	 items	 []*Block
-	 index	 int
-	 limit	 int
-	 ctx	   context.Context
-	 req	   *ListDocumentBlockReq
-	 listFunc  func (ctx context.Context, req *ListDocumentBlockReq, options ...core.RequestOptionFunc) (*ListDocumentBlockResp, error)
-	 options   []core.RequestOptionFunc
-   	 curlNum	   int
-   }
+type ListDocumentBlockIterator struct {
+	nextPageToken *string
+	items         []*Block
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListDocumentBlockReq
+	listFunc      func(ctx context.Context, req *ListDocumentBlockReq, options ...core.RequestOptionFunc) (*ListDocumentBlockResp, error)
+	options       []core.RequestOptionFunc
+	curlNum       int
+}
 
-   func (iterator *ListDocumentBlockIterator) Next() (bool, *Block, error) {
-		// 达到最大量，则返回
-		if iterator.limit >0 && iterator.curlNum > iterator.limit {
+func (iterator *ListDocumentBlockIterator) Next() (bool, *Block, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.PageToken = iterator.nextPageToken
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
 			return false, nil, nil
 		}
 
-		// 为0则拉取数据
-		if iterator.index == 0 || iterator.index >= len(iterator.items) {
-			if iterator.index != 0 && iterator.nextPageToken == nil {
-				return false, nil, nil
-			}
-			if iterator.nextPageToken != nil {
-				iterator.req.PageToken = iterator.nextPageToken
-			}
-			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-			if err != nil {
-				return false, nil, err
-			}
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
 
-			if resp.Code != 0 {
-				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
-			}
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
 
-			if len(resp.Data.Items) == 0 {
-				return false, nil, nil
-			}
+func (iterator *ListDocumentBlockIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
 
-			iterator.nextPageToken = resp.Data.PageToken
-			iterator.items = resp.Data.Items
-			iterator.index = 0
-		}
-
-		block := iterator.items[iterator.index]
-		iterator.index++
-		iterator.curlNum++
-		return true, block, nil
-   }
-
-   func (iterator *ListDocumentBlockIterator) NextPageToken() *string {
-	  return iterator.nextPageToken
-   }
 /**如果是分页查询，则添加迭代器定义**/
-   type GetDocumentBlockChildrenIterator struct{
-	 nextPageToken *string
-	 items	 []*Block
-	 index	 int
-	 limit	 int
-	 ctx	   context.Context
-	 req	   *GetDocumentBlockChildrenReq
-	 listFunc  func (ctx context.Context, req *GetDocumentBlockChildrenReq, options ...core.RequestOptionFunc) (*GetDocumentBlockChildrenResp, error)
-	 options   []core.RequestOptionFunc
-   	 curlNum	   int
-   }
+type GetDocumentBlockChildrenIterator struct {
+	nextPageToken *string
+	items         []*Block
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *GetDocumentBlockChildrenReq
+	listFunc      func(ctx context.Context, req *GetDocumentBlockChildrenReq, options ...core.RequestOptionFunc) (*GetDocumentBlockChildrenResp, error)
+	options       []core.RequestOptionFunc
+	curlNum       int
+}
 
-   func (iterator *GetDocumentBlockChildrenIterator) Next() (bool, *Block, error) {
-		// 达到最大量，则返回
-		if iterator.limit >0 && iterator.curlNum > iterator.limit {
+func (iterator *GetDocumentBlockChildrenIterator) Next() (bool, *Block, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.PageToken = iterator.nextPageToken
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
 			return false, nil, nil
 		}
 
-		// 为0则拉取数据
-		if iterator.index == 0 || iterator.index >= len(iterator.items) {
-			if iterator.index != 0 && iterator.nextPageToken == nil {
-				return false, nil, nil
-			}
-			if iterator.nextPageToken != nil {
-				iterator.req.PageToken = iterator.nextPageToken
-			}
-			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-			if err != nil {
-				return false, nil, err
-			}
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
 
-			if resp.Code != 0 {
-				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
-			}
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
 
-			if len(resp.Data.Items) == 0 {
-				return false, nil, nil
-			}
-
-			iterator.nextPageToken = resp.Data.PageToken
-			iterator.items = resp.Data.Items
-			iterator.index = 0
-		}
-
-		block := iterator.items[iterator.index]
-		iterator.index++
-		iterator.curlNum++
-		return true, block, nil
-   }
-
-   func (iterator *GetDocumentBlockChildrenIterator) NextPageToken() *string {
-	  return iterator.nextPageToken
-   }
-
-
+func (iterator *GetDocumentBlockChildrenIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}

@@ -19,10 +19,10 @@ func uploadImage(client *client.Client) {
 	}
 	defer pdf.Close()
 
-	resp, err := client.Im.Images.Create(context.Background(),
+	resp, err := client.Im.Image.Create(context.Background(),
 		im.NewCreateImageReqBuilder().
 			Body(im.NewCreateImageReqBodyBuilder().
-				ImageType(im.IMAGE_TYPE_MESSAGE).
+				ImageType(im.ImageTypeMessage).
 				Image(pdf).
 				Build()).
 			Build())
@@ -44,10 +44,10 @@ func uploadFile(client *client.Client) {
 	}
 	defer pdf.Close()
 
-	resp, err := client.Im.Files.Create(context.Background(),
+	resp, err := client.Im.File.Create(context.Background(),
 		im.NewCreateFileReqBuilder().
 			Body(im.NewCreateFileReqBodyBuilder().
-				FileType(im.FILE_TYPE_PDF).
+				FileType(im.FileTypePdf).
 				FileName("redis.pdf").
 				File(pdf).
 				Build()).
@@ -63,13 +63,13 @@ func uploadFile(client *client.Client) {
 }
 
 func uploadImage2(client *client.Client) {
-	body, err := im.NewCreateImagePathReqBodyBuilder().ImagePath("/Users/bytedance/Downloads/a.jpg").ImageType(im.IMAGE_TYPE_MESSAGE).Build()
+	body, err := im.NewCreateImagePathReqBodyBuilder().ImagePath("/Users/bytedance/Downloads/a.jpg").ImageType(im.ImageTypeMessage).Build()
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	resp, err := client.Im.Images.Create(context.Background(), im.NewCreateImageReqBuilder().Body(body).Build())
+	resp, err := client.Im.Image.Create(context.Background(), im.NewCreateImageReqBuilder().Body(body).Build())
 
 	if err != nil {
 		fmt.Println(err)
@@ -81,7 +81,7 @@ func uploadImage2(client *client.Client) {
 }
 
 func downLoadImage(client *client.Client) {
-	resp, err := client.Im.Images.Get(context.Background(), im.NewGetImageReqBuilder().ImageKey("img_v2_cd2657c7-ad1e-410a-8e76-942c89203bfg").Build())
+	resp, err := client.Im.Image.Get(context.Background(), im.NewGetImageReqBuilder().ImageKey("img_v2_cd2657c7-ad1e-410a-8e76-942c89203bfg").Build())
 
 	if err != nil {
 		fmt.Println(core.Prettify(err))
@@ -109,7 +109,7 @@ func downLoadImage(client *client.Client) {
 }
 
 func downLoadImageV2(client *client.Client) {
-	resp, err := client.Im.Images.Get(context.Background(), im.NewGetImageReqBuilder().ImageKey("img_v2_cd2657c7-ad1e-410a-8e76-942c89203bfg").Build())
+	resp, err := client.Im.Image.Get(context.Background(), im.NewGetImageReqBuilder().ImageKey("img_v2_cd2657c7-ad1e-410a-8e76-942c89203bfg").Build())
 
 	if err != nil {
 		fmt.Println(core.Prettify(err))
@@ -142,8 +142,8 @@ func sendTextMsg(client *client.Client) {
 		return
 	}
 
-	resp, err := client.Im.Messages.Create(context.Background(), im.NewCreateMessageReqBuilder().
-		ReceiveIdType(im.RECEIVE_ID_TYPE_OPEN_ID).
+	resp, err := client.Im.Message.Create(context.Background(), im.NewCreateMessageReqBuilder().
+		ReceiveIdType(im.ReceiveIdTypeOpenId).
 		Body(im.NewCreateMessageReqBodyBuilder().
 			MsgType(im.MSG_TYPE_TEXT).
 			ReceiveId("ou_c245b0a7dff2725cfa2fb104f8b48b9d").
@@ -167,8 +167,8 @@ func sendImageMsg(client *client.Client) {
 		fmt.Println(err)
 		return
 	}
-	resp, err := client.Im.Messages.Create(context.Background(), im.NewCreateMessageReqBuilder().
-		ReceiveIdType(im.RECEIVE_ID_TYPE_OPEN_ID).
+	resp, err := client.Im.Message.Create(context.Background(), im.NewCreateMessageReqBuilder().
+		ReceiveIdType(im.ReceiveIdTypeOpenId).
 		Body(im.NewCreateMessageReqBodyBuilder().
 			MsgType(im.MSG_TYPE_IMAGE).
 			ReceiveId("ou_c245b0a7dff2725cfa2fb104f8b48b9d").
@@ -192,8 +192,8 @@ func sendShardChatMsg(client *client.Client) {
 		fmt.Println(err)
 		return
 	}
-	resp, err := client.Im.Messages.Create(context.Background(), im.NewCreateMessageReqBuilder().
-		ReceiveIdType(im.RECEIVE_ID_TYPE_OPEN_ID).
+	resp, err := client.Im.Message.Create(context.Background(), im.NewCreateMessageReqBuilder().
+		ReceiveIdType(im.ReceiveIdTypeOpenId).
 		Body(im.NewCreateMessageReqBodyBuilder().
 			MsgType(im.MSG_TYPE_SHARE_CHAT).
 			ReceiveId("ou_c245b0a7dff2725cfa2fb104f8b48b9d").
@@ -217,8 +217,8 @@ func sendShardUserMsg(client *client.Client) {
 		fmt.Println(err)
 		return
 	}
-	resp, err := client.Im.Messages.Create(context.Background(), im.NewCreateMessageReqBuilder().
-		ReceiveIdType(im.RECEIVE_ID_TYPE_OPEN_ID).
+	resp, err := client.Im.Message.Create(context.Background(), im.NewCreateMessageReqBuilder().
+		ReceiveIdType(im.ReceiveIdTypeOpenId).
 		Body(im.NewCreateMessageReqBodyBuilder().
 			MsgType(im.MSG_TYPE_SHARE_USER).
 			ReceiveId("ou_c245b0a7dff2725cfa2fb104f8b48b9d").
@@ -242,8 +242,8 @@ func sendAudioMsg(client *client.Client) {
 		fmt.Println(err)
 		return
 	}
-	resp, err := client.Im.Messages.Create(context.Background(), im.NewCreateMessageReqBuilder().
-		ReceiveIdType(im.RECEIVE_ID_TYPE_OPEN_ID).
+	resp, err := client.Im.Message.Create(context.Background(), im.NewCreateMessageReqBuilder().
+		ReceiveIdType(im.ReceiveIdTypeOpenId).
 		Body(im.NewCreateMessageReqBodyBuilder().
 			MsgType(im.MSG_TYPE_AUDIO).
 			ReceiveId("ou_c245b0a7dff2725cfa2fb104f8b48b9d").
@@ -267,8 +267,8 @@ func sendMediaMsg(client *client.Client) {
 		fmt.Println(err)
 		return
 	}
-	resp, err := client.Im.Messages.Create(context.Background(), im.NewCreateMessageReqBuilder().
-		ReceiveIdType(im.RECEIVE_ID_TYPE_OPEN_ID).
+	resp, err := client.Im.Message.Create(context.Background(), im.NewCreateMessageReqBuilder().
+		ReceiveIdType(im.ReceiveIdTypeOpenId).
 		Body(im.NewCreateMessageReqBodyBuilder().
 			MsgType(im.MSG_TYPE_MEDIA).
 			ReceiveId("ou_c245b0a7dff2725cfa2fb104f8b48b9d").
@@ -292,8 +292,8 @@ func sendFileMsg(client *client.Client) {
 		fmt.Println(err)
 		return
 	}
-	resp, err := client.Im.Messages.Create(context.Background(), im.NewCreateMessageReqBuilder().
-		ReceiveIdType(im.RECEIVE_ID_TYPE_OPEN_ID).
+	resp, err := client.Im.Message.Create(context.Background(), im.NewCreateMessageReqBuilder().
+		ReceiveIdType(im.ReceiveIdTypeOpenId).
 		Body(im.NewCreateMessageReqBodyBuilder().
 			MsgType(im.MSG_TYPE_FILE).
 			ReceiveId("ou_c245b0a7dff2725cfa2fb104f8b48b9d").
@@ -317,8 +317,8 @@ func sendStickerMsg(client *client.Client) {
 		fmt.Println(err)
 		return
 	}
-	resp, err := client.Im.Messages.Create(context.Background(), im.NewCreateMessageReqBuilder().
-		ReceiveIdType(im.RECEIVE_ID_TYPE_CHAT_ID).
+	resp, err := client.Im.Message.Create(context.Background(), im.NewCreateMessageReqBuilder().
+		ReceiveIdType(im.ReceiveIdTypeChatId).
 		Body(im.NewCreateMessageReqBodyBuilder().
 			MsgType(im.MSG_TYPE_STICKER).
 			ReceiveId("121212").
@@ -351,12 +351,9 @@ func sendPostMsg(client *client.Client) {
 		fmt.Println(err)
 		return
 	}
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	resp, err := client.Im.Messages.Create(context.Background(), im.NewCreateMessageReqBuilder().
-		ReceiveIdType(im.RECEIVE_ID_TYPE_OPEN_ID).
+
+	resp, err := client.Im.Message.Create(context.Background(), im.NewCreateMessageReqBuilder().
+		ReceiveIdType(im.ReceiveIdTypeOpenId).
 		Body(im.NewCreateMessageReqBodyBuilder().
 			MsgType(im.MSG_TYPE_POST).
 			ReceiveId("ou_c245b0a7dff2725cfa2fb104f8b48b9d").
@@ -365,7 +362,19 @@ func sendPostMsg(client *client.Client) {
 		Build(), core.WithRequestId("jiaduo_id"))
 
 	if err != nil {
-		fmt.Println(err)
+		switch er := err.(type) {
+		case *core.IllegalParamError:
+			fmt.Println(er.Error()) // 处理错误
+		case *core.ClientTimeoutError:
+			fmt.Println(er.Error()) // 处理错误
+		case *core.ServerTimeoutError:
+			fmt.Println(er.Error()) // 处理错误
+		case *core.DialFailedError:
+			fmt.Println(er.Error()) // 处理错误
+		default:
+			//其他处理
+			fmt.Println(err)
+		}
 		return
 	}
 	fmt.Println(core.Prettify(resp))
@@ -393,8 +402,8 @@ func sendPostMsgUseBuilder(client *client.Client) {
 		return
 	}
 
-	resp, err := client.Im.Messages.Create(context.Background(), im.NewCreateMessageReqBuilder().
-		ReceiveIdType(im.RECEIVE_ID_TYPE_OPEN_ID).
+	resp, err := client.Im.Message.Create(context.Background(), im.NewCreateMessageReqBuilder().
+		ReceiveIdType(im.ReceiveIdTypeOpenId).
 		Body(im.NewCreateMessageReqBodyBuilder().
 			MsgType(im.MSG_TYPE_POST).
 			ReceiveId("ou_c245b0a7dff2725cfa2fb104f8b48b9d").
@@ -403,9 +412,22 @@ func sendPostMsgUseBuilder(client *client.Client) {
 		Build())
 
 	if err != nil {
-		fmt.Println(err)
+		switch er := err.(type) {
+		case *core.IllegalParamError:
+			fmt.Println(er.Error()) // 处理错误
+		case *core.ClientTimeoutError:
+			fmt.Println(er.Error()) // 处理错误
+		case *core.ServerTimeoutError:
+			fmt.Println(er.Error()) // 处理错误
+		case *core.DialFailedError:
+			fmt.Println(er.Error()) // 处理错误
+		default:
+			//其他处理
+			fmt.Println(err)
+		}
 		return
 	}
+
 	if resp.Success() {
 		fmt.Println(core.Prettify(resp))
 	} else {
@@ -430,5 +452,5 @@ func main() {
 	//sendShardChatMsg(client)
 	//sendShardUserMsg(client)
 	sendPostMsg(feishu_client)
-	//sendPostMsgUseBuilder(client)
+	//sendPostMsgUseBuilder(feishu_client)
 }

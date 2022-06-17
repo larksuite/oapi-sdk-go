@@ -5,232 +5,277 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	
-	"github.com/feishu/oapi-sdk-go/event"
-	
-	"github.com/feishu/oapi-sdk-go/core"
 
+	"github.com/feishu/oapi-sdk-go/event"
+
+	"github.com/feishu/oapi-sdk-go/core"
 )
 
 /**生成枚举值 **/
 
 const (
-	  EVENT_PERMISSIONS_PRIVATE string  = "private"
-	  EVENT_PERMISSIONS_SHOWONLYFREEBUSY string  = "show_only_free_busy"
-	  EVENT_PERMISSIONS_PUBLIC string  = "public"
+	EventPermissionsPrivate          string = "private"
+	EventPermissionsShowOnlyFreeBusy string = "show_only_free_busy"
+	EventPermissionsPublic           string = "public"
 )
 
 const (
-	  CALENDAR_TYPE_UNKNOWN string  = "unknown"
-	  CALENDAR_TYPE_PRIMARY string  = "primary"
-	  CALENDAR_TYPE_SHARED string  = "shared"
-	  CALENDAR_TYPE_GOOGLE string  = "google"
-	  CALENDAR_TYPE_RESOURCE string  = "resource"
-	  CALENDAR_TYPE_EXCHANGE string  = "exchange"
+	CalendarTypeUnknown  string = "unknown"
+	CalendarTypePrimary  string = "primary"
+	CalendarTypeShared   string = "shared"
+	CalendarTypeGoogle   string = "google"
+	CalendarTypeResource string = "resource"
+	CalendarTypeExchange string = "exchange"
 )
 
 const (
-	  CALENDAR_ACCESS_ROLE_UNKONWN string  = "unknown"
-	  CALENDAR_ACCESS_ROLE_FREEBUSYREADER string  = "free_busy_reader"
-	  CALENDAR_ACCESS_ROLE_READER string  = "reader"
-	  CALENDAR_ACCESS_ROLE_WRITER string  = "writer"
-	  CALENDAR_ACCESS_ROLE_OWNER string  = "owner"
+	CalendarAccessRoleUnkonwn        string = "unknown"
+	CalendarAccessRoleFreeBusyReader string = "free_busy_reader"
+	CalendarAccessRoleReader         string = "reader"
+	CalendarAccessRoleWriter         string = "writer"
+	CalendarAccessRoleOwner          string = "owner"
 )
 
 const (
-	  USER_ID_TYPE_USER_ID string  = "user_id"
-	  USER_ID_TYPE_UNION_ID string  = "union_id"
-	  USER_ID_TYPE_OPEN_ID string  = "open_id"
+	UserIdTypeUserId  string = "user_id"
+	UserIdTypeUnionId string = "union_id"
+	UserIdTypeOpenId  string = "open_id"
 )
 
 const (
-	  EVENT_VISIBILITY_DEFAULT string  = "default"
-	  EVENT_VISIBILITY_PUBLIC string  = "public"
-	  EVENT_VISIBILITY_PRIVATE string  = "private"
+	EventVisibilityDefault string = "default"
+	EventVisibilityPublic  string = "public"
+	EventVisibilityPrivate string = "private"
 )
 
 const (
-	  EVENT_ATTENDEE_ABILITY_NONE string  = "none"
-	  EVENT_ATTENDEE_ABILITY_CANSEEOTHERS string  = "can_see_others"
-	  EVENT_ATTENDEE_ABILITY_CANINVITEOTHERS string  = "can_invite_others"
-	  EVENT_ATTENDEE_ABILITY_CANMODIFYEVENT string  = "can_modify_event"
+	EventAttendeeAbilityNone            string = "none"
+	EventAttendeeAbilityCanSeeOthers    string = "can_see_others"
+	EventAttendeeAbilityCanInviteOthers string = "can_invite_others"
+	EventAttendeeAbilityCanModifyEvent  string = "can_modify_event"
 )
 
 const (
-	  EVENT_FREE_BUSY_STATUS_BUSY string  = "busy"
-	  EVENT_FREE_BUSY_STATUS_FREE string  = "free"
+	EventFreeBusyStatusBusy string = "busy"
+	EventFreeBusyStatusFree string = "free"
 )
 
 const (
-	  NEED_NOTIFICATION_TRUE string  = "true"
-	  NEED_NOTIFICATION_FALSE string  = "false"
+	NeedNotificationTrue  string = "true"
+	NeedNotificationFalse string = "false"
 )
 
 const (
-	  STATUS_DOING string  = "doing"
-	  STATUS_CAL_DONE string  = "cal_done"
-	  STATUS_TIMESPAN_DONE string  = "timespan_done"
-	  STATUS_DONE string  = "done"
-	  STATUS_ERR string  = "err"
+	StatusDoing        string = "doing"
+	StatusCalDone      string = "cal_done"
+	StatusTimespanDone string = "timespan_done"
+	StatusDone         string = "done"
+	StatusErr          string = "err"
 )
-
-
 
 /**生成数据类型 **/
 
 type AclScope struct {
-	Type  *string `json:"type,omitempty"`
-	UserId  *string `json:"user_id,omitempty"`
+	Type   *string `json:"type,omitempty"`
+	UserId *string `json:"user_id,omitempty"`
 }
 
 type AclScopeEvent struct {
-	Type  *string `json:"type,omitempty"`
-	UserId  *UserId `json:"user_id,omitempty"`
+	Type   *string `json:"type,omitempty"`
+	UserId *UserId `json:"user_id,omitempty"`
 }
 
 type AttendeeChatMember struct {
 	RsvpStatus  *string `json:"rsvp_status,omitempty"`
-	IsOptional  *bool `json:"is_optional,omitempty"`
-	DisplayName  *string `json:"display_name,omitempty"`
-	IsOrganizer  *bool `json:"is_organizer,omitempty"`
-	IsExternal  *bool `json:"is_external,omitempty"`
+	IsOptional  *bool   `json:"is_optional,omitempty"`
+	DisplayName *string `json:"display_name,omitempty"`
+	IsOrganizer *bool   `json:"is_organizer,omitempty"`
+	IsExternal  *bool   `json:"is_external,omitempty"`
 }
 
 type Calendar struct {
-	CalendarId  *string `json:"calendar_id,omitempty"`
-	Summary  *string `json:"summary,omitempty"`
+	CalendarId   *string `json:"calendar_id,omitempty"`
+	Summary      *string `json:"summary,omitempty"`
 	Description  *string `json:"description,omitempty"`
 	Permissions  *string `json:"permissions,omitempty"`
-	Color  *int `json:"color,omitempty"`
-	Type  *string `json:"type,omitempty"`
-	SummaryAlias  *string `json:"summary_alias,omitempty"`
-	IsDeleted  *bool `json:"is_deleted,omitempty"`
-	IsThirdParty  *bool `json:"is_third_party,omitempty"`
-	Role  *string `json:"role,omitempty"`
+	Color        *int    `json:"color,omitempty"`
+	Type         *string `json:"type,omitempty"`
+	SummaryAlias *string `json:"summary_alias,omitempty"`
+	IsDeleted    *bool   `json:"is_deleted,omitempty"`
+	IsThirdParty *bool   `json:"is_third_party,omitempty"`
+	Role         *string `json:"role,omitempty"`
 }
 
 type CalendarAcl struct {
-	AclId  *string `json:"acl_id,omitempty"`
-	Role  *string `json:"role,omitempty"`
-	Scope  *AclScope `json:"scope,omitempty"`
+	AclId *string   `json:"acl_id,omitempty"`
+	Role  *string   `json:"role,omitempty"`
+	Scope *AclScope `json:"scope,omitempty"`
 }
 
 type CalendarAclEvent struct {
-	AclId  *string `json:"acl_id,omitempty"`
-	Role  *string `json:"role,omitempty"`
-	Scope  *AclScopeEvent `json:"scope,omitempty"`
-	UserIdList  []*UserId `json:"user_id_list,omitempty"`
+	AclId      *string        `json:"acl_id,omitempty"`
+	Role       *string        `json:"role,omitempty"`
+	Scope      *AclScopeEvent `json:"scope,omitempty"`
+	UserIdList []*UserId      `json:"user_id_list,omitempty"`
 }
 
 type CalendarAttendeeResourceCustomization struct {
-	IndexKey  *string `json:"index_key,omitempty"`
-	InputContent  *string `json:"input_content,omitempty"`
-	Options  []*CustomizationOption `json:"options,omitempty"`
+	IndexKey     *string                `json:"index_key,omitempty"`
+	InputContent *string                `json:"input_content,omitempty"`
+	Options      []*CustomizationOption `json:"options,omitempty"`
 }
 
 type CalendarEvent struct {
-	EventId  *string `json:"event_id,omitempty"`
-	OrganizerCalendarId  *string `json:"organizer_calendar_id,omitempty"`
-	Summary  *string `json:"summary,omitempty"`
-	Description  *string `json:"description,omitempty"`
-	NeedNotification  *bool `json:"need_notification,omitempty"`
-	StartTime  *TimeInfo `json:"start_time,omitempty"`
-	EndTime  *TimeInfo `json:"end_time,omitempty"`
-	Vchat  *Vchat `json:"vchat,omitempty"`
-	Visibility  *string `json:"visibility,omitempty"`
-	AttendeeAbility  *string `json:"attendee_ability,omitempty"`
-	FreeBusyStatus  *string `json:"free_busy_status,omitempty"`
-	Location  *EventLocation `json:"location,omitempty"`
-	Color  *int `json:"color,omitempty"`
-	Reminders  []*Reminder `json:"reminders,omitempty"`
-	Recurrence  *string `json:"recurrence,omitempty"`
-	Status  *string `json:"status,omitempty"`
-	IsException  *bool `json:"is_exception,omitempty"`
-	RecurringEventId  *string `json:"recurring_event_id,omitempty"`
-	Schemas  []*Schema `json:"schemas,omitempty"`
+	EventId             *string        `json:"event_id,omitempty"`
+	OrganizerCalendarId *string        `json:"organizer_calendar_id,omitempty"`
+	Summary             *string        `json:"summary,omitempty"`
+	Description         *string        `json:"description,omitempty"`
+	NeedNotification    *bool          `json:"need_notification,omitempty"`
+	StartTime           *TimeInfo      `json:"start_time,omitempty"`
+	EndTime             *TimeInfo      `json:"end_time,omitempty"`
+	Vchat               *Vchat         `json:"vchat,omitempty"`
+	Visibility          *string        `json:"visibility,omitempty"`
+	AttendeeAbility     *string        `json:"attendee_ability,omitempty"`
+	FreeBusyStatus      *string        `json:"free_busy_status,omitempty"`
+	Location            *EventLocation `json:"location,omitempty"`
+	Color               *int           `json:"color,omitempty"`
+	Reminders           []*Reminder    `json:"reminders,omitempty"`
+	Recurrence          *string        `json:"recurrence,omitempty"`
+	Status              *string        `json:"status,omitempty"`
+	IsException         *bool          `json:"is_exception,omitempty"`
+	RecurringEventId    *string        `json:"recurring_event_id,omitempty"`
+	Schemas             []*Schema      `json:"schemas,omitempty"`
 }
 
 type CalendarEventAttendee struct {
-	Type  *string `json:"type,omitempty"`
-	AttendeeId  *string `json:"attendee_id,omitempty"`
-	RsvpStatus  *string `json:"rsvp_status,omitempty"`
-	IsOptional  *bool `json:"is_optional,omitempty"`
-	IsOrganizer  *bool `json:"is_organizer,omitempty"`
-	IsExternal  *bool `json:"is_external,omitempty"`
-	DisplayName  *string `json:"display_name,omitempty"`
-	ChatMembers  []*AttendeeChatMember `json:"chat_members,omitempty"`
-	UserId  *string `json:"user_id,omitempty"`
-	ChatId  *string `json:"chat_id,omitempty"`
-	RoomId  *string `json:"room_id,omitempty"`
-	ThirdPartyEmail  *string `json:"third_party_email,omitempty"`
-	OperateId  *string `json:"operate_id,omitempty"`
-	ResourceCustomization  []*CalendarAttendeeResourceCustomization `json:"resource_customization,omitempty"`
+	Type                  *string                                  `json:"type,omitempty"`
+	AttendeeId            *string                                  `json:"attendee_id,omitempty"`
+	RsvpStatus            *string                                  `json:"rsvp_status,omitempty"`
+	IsOptional            *bool                                    `json:"is_optional,omitempty"`
+	IsOrganizer           *bool                                    `json:"is_organizer,omitempty"`
+	IsExternal            *bool                                    `json:"is_external,omitempty"`
+	DisplayName           *string                                  `json:"display_name,omitempty"`
+	ChatMembers           []*AttendeeChatMember                    `json:"chat_members,omitempty"`
+	UserId                *string                                  `json:"user_id,omitempty"`
+	ChatId                *string                                  `json:"chat_id,omitempty"`
+	RoomId                *string                                  `json:"room_id,omitempty"`
+	ThirdPartyEmail       *string                                  `json:"third_party_email,omitempty"`
+	OperateId             *string                                  `json:"operate_id,omitempty"`
+	ResourceCustomization []*CalendarAttendeeResourceCustomization `json:"resource_customization,omitempty"`
 }
 
 type CalendarEventAttendeeChatMember struct {
 	RsvpStatus  *string `json:"rsvp_status,omitempty"`
-	IsOptional  *bool `json:"is_optional,omitempty"`
-	DisplayName  *string `json:"display_name,omitempty"`
-	OpenId  *string `json:"open_id,omitempty"`
-	IsOrganizer  *bool `json:"is_organizer,omitempty"`
-	IsExternal  *bool `json:"is_external,omitempty"`
+	IsOptional  *bool   `json:"is_optional,omitempty"`
+	DisplayName *string `json:"display_name,omitempty"`
+	OpenId      *string `json:"open_id,omitempty"`
+	IsOrganizer *bool   `json:"is_organizer,omitempty"`
+	IsExternal  *bool   `json:"is_external,omitempty"`
+}
+
+type CalendarEventAttendeeId struct {
+	Type            *string `json:"type,omitempty"`
+	AttendeeId      *string `json:"attendee_id,omitempty"`
+	UserId          *string `json:"user_id,omitempty"`
+	ChatId          *string `json:"chat_id,omitempty"`
+	RoomId          *string `json:"room_id,omitempty"`
+	ThirdPartyEmail *string `json:"third_party_email,omitempty"`
+}
+
+type CalendarEventAttendeeResp struct {
+	Type                  *string                                  `json:"type,omitempty"`
+	AttendeeId            *string                                  `json:"attendee_id,omitempty"`
+	RsvpStatus            *string                                  `json:"rsvp_status,omitempty"`
+	IsOptional            *bool                                    `json:"is_optional,omitempty"`
+	IsOrganizer           *bool                                    `json:"is_organizer,omitempty"`
+	IsExternal            *bool                                    `json:"is_external,omitempty"`
+	DisplayName           *string                                  `json:"display_name,omitempty"`
+	ChatMembers           []*AttendeeChatMember                    `json:"chat_members,omitempty"`
+	UserId                *string                                  `json:"user_id,omitempty"`
+	ChatId                *string                                  `json:"chat_id,omitempty"`
+	RoomId                *string                                  `json:"room_id,omitempty"`
+	ThirdPartyEmail       *string                                  `json:"third_party_email,omitempty"`
+	OperateId             *string                                  `json:"operate_id,omitempty"`
+	ResourceCustomization []*CalendarAttendeeResourceCustomization `json:"resource_customization,omitempty"`
+}
+
+type CalendarEventResp struct {
+	EventId             *string        `json:"event_id,omitempty"`
+	OrganizerCalendarId *string        `json:"organizer_calendar_id,omitempty"`
+	Summary             *string        `json:"summary,omitempty"`
+	Description         *string        `json:"description,omitempty"`
+	NeedNotification    *bool          `json:"need_notification,omitempty"`
+	StartTime           *TimeInfo      `json:"start_time,omitempty"`
+	EndTime             *TimeInfo      `json:"end_time,omitempty"`
+	Vchat               *Vchat         `json:"vchat,omitempty"`
+	Visibility          *string        `json:"visibility,omitempty"`
+	AttendeeAbility     *string        `json:"attendee_ability,omitempty"`
+	FreeBusyStatus      *string        `json:"free_busy_status,omitempty"`
+	Location            *EventLocation `json:"location,omitempty"`
+	Color               *int           `json:"color,omitempty"`
+	Reminders           []*Reminder    `json:"reminders,omitempty"`
+	Recurrence          *string        `json:"recurrence,omitempty"`
+	Status              *string        `json:"status,omitempty"`
+	IsException         *bool          `json:"is_exception,omitempty"`
+	RecurringEventId    *string        `json:"recurring_event_id,omitempty"`
+	Schemas             []*Schema      `json:"schemas,omitempty"`
 }
 
 type CalendarFreebusy struct {
 	StartTime  *string `json:"start_time,omitempty"`
-	EndTime  *string `json:"end_time,omitempty"`
-	CalendarId  *string `json:"calendar_id,omitempty"`
+	EndTime    *string `json:"end_time,omitempty"`
+	CalendarId *string `json:"calendar_id,omitempty"`
 }
 
 type CalendarFreebusyError struct {
-	CalendarId  *string `json:"calendar_id,omitempty"`
-	ErrorMsg  *string `json:"error_msg,omitempty"`
+	CalendarId *string `json:"calendar_id,omitempty"`
+	ErrorMsg   *string `json:"error_msg,omitempty"`
 }
 
 type CustomizationOption struct {
-	OptionKey  *string `json:"option_key,omitempty"`
-	OthersContent  *string `json:"others_content,omitempty"`
+	OptionKey     *string `json:"option_key,omitempty"`
+	OthersContent *string `json:"others_content,omitempty"`
 }
 
 type EventLocation struct {
-	Name  *string `json:"name,omitempty"`
-	Address  *string `json:"address,omitempty"`
+	Name      *string  `json:"name,omitempty"`
+	Address   *string  `json:"address,omitempty"`
 	Latitude  *float64 `json:"latitude,omitempty"`
-	Longitude  *float64 `json:"longitude,omitempty"`
+	Longitude *float64 `json:"longitude,omitempty"`
 }
 
 type EventSearchFilter struct {
-	StartTime  *TimeInfo `json:"start_time,omitempty"`
-	EndTime  *TimeInfo `json:"end_time,omitempty"`
-	UserIds  []string `json:"user_ids,omitempty"`
-	RoomIds  []string `json:"room_ids,omitempty"`
-	ChatIds  []string `json:"chat_ids,omitempty"`
+	StartTime *TimeInfo `json:"start_time,omitempty"`
+	EndTime   *TimeInfo `json:"end_time,omitempty"`
+	UserIds   []string  `json:"user_ids,omitempty"`
+	RoomIds   []string  `json:"room_ids,omitempty"`
+	ChatIds   []string  `json:"chat_ids,omitempty"`
 }
 
 type EventTime struct {
-	TimeStamp  *string `json:"time_stamp,omitempty"`
+	TimeStamp *string `json:"time_stamp,omitempty"`
 }
 
 type ExchangeBinding struct {
-	AdminAccount  *string `json:"admin_account,omitempty"`
-	ExchangeAccount  *string `json:"exchange_account,omitempty"`
-	UserId  *string `json:"user_id,omitempty"`
-	Status  *string `json:"status,omitempty"`
-	ExchangeBindingId  *string `json:"exchange_binding_id,omitempty"`
+	AdminAccount      *string `json:"admin_account,omitempty"`
+	ExchangeAccount   *string `json:"exchange_account,omitempty"`
+	UserId            *string `json:"user_id,omitempty"`
+	Status            *string `json:"status,omitempty"`
+	ExchangeBindingId *string `json:"exchange_binding_id,omitempty"`
 }
 
 type Freebusy struct {
-	StartTime  *string `json:"start_time,omitempty"`
-	EndTime  *string `json:"end_time,omitempty"`
+	StartTime *string `json:"start_time,omitempty"`
+	EndTime   *string `json:"end_time,omitempty"`
 }
 
 type Reminder struct {
-	Minutes  *int `json:"minutes,omitempty"`
+	Minutes *int `json:"minutes,omitempty"`
 }
 
 type Schema struct {
-	UiName  *string `json:"ui_name,omitempty"`
-	UiStatus  *string `json:"ui_status,omitempty"`
+	UiName   *string `json:"ui_name,omitempty"`
+	UiStatus *string `json:"ui_status,omitempty"`
 	AppLink  *string `json:"app_link,omitempty"`
 }
 
@@ -238,77 +283,72 @@ type Setting struct {
 }
 
 type TimeInfo struct {
-	Date  *string `json:"date,omitempty"`
-	Timestamp  *string `json:"timestamp,omitempty"`
+	Date      *string `json:"date,omitempty"`
+	Timestamp *string `json:"timestamp,omitempty"`
 	Timezone  *string `json:"timezone,omitempty"`
 }
 
 type TimeoffEvent struct {
-	TimeoffEventId  *string `json:"timeoff_event_id,omitempty"`
-	UserId  *string `json:"user_id,omitempty"`
-	Timezone  *string `json:"timezone,omitempty"`
-	StartTime  *string `json:"start_time,omitempty"`
-	EndTime  *string `json:"end_time,omitempty"`
-	Title  *string `json:"title,omitempty"`
-	Description  *string `json:"description,omitempty"`
+	TimeoffEventId *string `json:"timeoff_event_id,omitempty"`
+	UserId         *string `json:"user_id,omitempty"`
+	Timezone       *string `json:"timezone,omitempty"`
+	StartTime      *string `json:"start_time,omitempty"`
+	EndTime        *string `json:"end_time,omitempty"`
+	Title          *string `json:"title,omitempty"`
+	Description    *string `json:"description,omitempty"`
 }
 
 type UserCalendar struct {
-	Calendar  *Calendar `json:"calendar,omitempty"`
-	UserId  *string `json:"user_id,omitempty"`
+	Calendar *Calendar `json:"calendar,omitempty"`
+	UserId   *string   `json:"user_id,omitempty"`
 }
 
 type UserId struct {
 	UserId  *string `json:"user_id,omitempty"`
 	OpenId  *string `json:"open_id,omitempty"`
-	UnionId  *string `json:"union_id,omitempty"`
+	UnionId *string `json:"union_id,omitempty"`
 }
 
 type Vchat struct {
-	VcType  *string `json:"vc_type,omitempty"`
-	IconType  *string `json:"icon_type,omitempty"`
-	Description  *string `json:"description,omitempty"`
+	VcType      *string `json:"vc_type,omitempty"`
+	IconType    *string `json:"icon_type,omitempty"`
+	Description *string `json:"description,omitempty"`
 	MeetingUrl  *string `json:"meeting_url,omitempty"`
 }
 
-
 /**生成请求和响应结果类型，以及请求对象的Builder构造器 **/
-
 
 /*1.4 生成请求的builder结构体*/
 type CreateCalendarReqBuilder struct {
-	calendar *Calendar
+	calendar     *Calendar
 	calendarFlag bool
-
 }
 
 // 生成请求的New构造器
-func NewCreateCalendarReqBuilder() * CreateCalendarReqBuilder{
-   builder := &CreateCalendarReqBuilder{}
-   return builder
+func NewCreateCalendarReqBuilder() *CreateCalendarReqBuilder {
+	builder := &CreateCalendarReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * CreateCalendarReqBuilder) Calendar(calendar *Calendar) *CreateCalendarReqBuilder  {
-  builder.calendar = calendar
-  builder.calendarFlag = true
-  return builder
+func (builder *CreateCalendarReqBuilder) Calendar(calendar *Calendar) *CreateCalendarReqBuilder {
+	builder.calendar = calendar
+	builder.calendarFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * CreateCalendarReqBuilder ) Build() *CreateCalendarReq {
-   req := &CreateCalendarReq{}
-   return req
+func (builder *CreateCalendarReqBuilder) Build() *CreateCalendarReq {
+	req := &CreateCalendarReq{}
+	return req
 }
-
 
 type CreateCalendarReq struct {
 	Calendar *Calendar `body:""`
-
 }
 
 type CreateCalendarRespData struct {
-	Calendar  *Calendar `json:"calendar,omitempty"`
+	Calendar *Calendar `json:"calendar,omitempty"`
 }
 
 type CreateCalendarResp struct {
@@ -321,42 +361,37 @@ func (resp *CreateCalendarResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type DeleteCalendarReqBuilder struct {
-	calendarId  string
-	calendarIdFlag  bool
-
+	calendarId     string
+	calendarIdFlag bool
 }
 
 // 生成请求的New构造器
-func NewDeleteCalendarReqBuilder() * DeleteCalendarReqBuilder{
-   builder := &DeleteCalendarReqBuilder{}
-   return builder
+func NewDeleteCalendarReqBuilder() *DeleteCalendarReqBuilder {
+	builder := &DeleteCalendarReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * DeleteCalendarReqBuilder) CalendarId(calendarId string) *DeleteCalendarReqBuilder  {
-  builder.calendarId = calendarId
-  builder.calendarIdFlag = true
-  return builder
+func (builder *DeleteCalendarReqBuilder) CalendarId(calendarId string) *DeleteCalendarReqBuilder {
+	builder.calendarId = calendarId
+	builder.calendarIdFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * DeleteCalendarReqBuilder ) Build() *DeleteCalendarReq {
-   req := &DeleteCalendarReq{}
-   if builder.calendarIdFlag {
-	  req.CalendarId = builder.calendarId
-   }
-   return req
+func (builder *DeleteCalendarReqBuilder) Build() *DeleteCalendarReq {
+	req := &DeleteCalendarReq{}
+	if builder.calendarIdFlag {
+		req.CalendarId = builder.calendarId
+	}
+	return req
 }
-
 
 type DeleteCalendarReq struct {
-	CalendarId  string `path:"calendar_id"`
-
+	CalendarId string `path:"calendar_id"`
 }
-
 
 type DeleteCalendarResp struct {
 	*core.RawResponse `json:"-"`
@@ -367,53 +402,49 @@ func (resp *DeleteCalendarResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type GetCalendarReqBuilder struct {
-	calendarId  string
-	calendarIdFlag  bool
-
+	calendarId     string
+	calendarIdFlag bool
 }
 
 // 生成请求的New构造器
-func NewGetCalendarReqBuilder() * GetCalendarReqBuilder{
-   builder := &GetCalendarReqBuilder{}
-   return builder
+func NewGetCalendarReqBuilder() *GetCalendarReqBuilder {
+	builder := &GetCalendarReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * GetCalendarReqBuilder) CalendarId(calendarId string) *GetCalendarReqBuilder  {
-  builder.calendarId = calendarId
-  builder.calendarIdFlag = true
-  return builder
+func (builder *GetCalendarReqBuilder) CalendarId(calendarId string) *GetCalendarReqBuilder {
+	builder.calendarId = calendarId
+	builder.calendarIdFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * GetCalendarReqBuilder ) Build() *GetCalendarReq {
-   req := &GetCalendarReq{}
-   if builder.calendarIdFlag {
-	  req.CalendarId = builder.calendarId
-   }
-   return req
+func (builder *GetCalendarReqBuilder) Build() *GetCalendarReq {
+	req := &GetCalendarReq{}
+	if builder.calendarIdFlag {
+		req.CalendarId = builder.calendarId
+	}
+	return req
 }
 
-
 type GetCalendarReq struct {
-	CalendarId  string `path:"calendar_id"`
-
+	CalendarId string `path:"calendar_id"`
 }
 
 type GetCalendarRespData struct {
-	CalendarId  *string `json:"calendar_id,omitempty"`
-	Summary  *string `json:"summary,omitempty"`
+	CalendarId   *string `json:"calendar_id,omitempty"`
+	Summary      *string `json:"summary,omitempty"`
 	Description  *string `json:"description,omitempty"`
 	Permissions  *string `json:"permissions,omitempty"`
-	Color  *int `json:"color,omitempty"`
-	Type  *string `json:"type,omitempty"`
-	SummaryAlias  *string `json:"summary_alias,omitempty"`
-	IsDeleted  *bool `json:"is_deleted,omitempty"`
-	IsThirdParty  *bool `json:"is_third_party,omitempty"`
-	Role  *string `json:"role,omitempty"`
+	Color        *int    `json:"color,omitempty"`
+	Type         *string `json:"type,omitempty"`
+	SummaryAlias *string `json:"summary_alias,omitempty"`
+	IsDeleted    *bool   `json:"is_deleted,omitempty"`
+	IsThirdParty *bool   `json:"is_third_party,omitempty"`
+	Role         *string `json:"role,omitempty"`
 }
 
 type GetCalendarResp struct {
@@ -426,69 +457,65 @@ func (resp *GetCalendarResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type ListCalendarReqBuilder struct {
-	pageSize  int
+	pageSize      int
 	pageSizeFlag  bool
-	pageToken  string
-	pageTokenFlag  bool
-	syncToken  string
-	syncTokenFlag  bool
-
+	pageToken     string
+	pageTokenFlag bool
+	syncToken     string
+	syncTokenFlag bool
 }
 
 // 生成请求的New构造器
-func NewListCalendarReqBuilder() * ListCalendarReqBuilder{
-   builder := &ListCalendarReqBuilder{}
-   return builder
+func NewListCalendarReqBuilder() *ListCalendarReqBuilder {
+	builder := &ListCalendarReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * ListCalendarReqBuilder) PageSize(pageSize int) *ListCalendarReqBuilder  {
-  builder.pageSize = pageSize
-  builder.pageSizeFlag = true
-  return builder
+func (builder *ListCalendarReqBuilder) PageSize(pageSize int) *ListCalendarReqBuilder {
+	builder.pageSize = pageSize
+	builder.pageSizeFlag = true
+	return builder
 }
-func (builder * ListCalendarReqBuilder) PageToken(pageToken string) *ListCalendarReqBuilder  {
-  builder.pageToken = pageToken
-  builder.pageTokenFlag = true
-  return builder
+func (builder *ListCalendarReqBuilder) PageToken(pageToken string) *ListCalendarReqBuilder {
+	builder.pageToken = pageToken
+	builder.pageTokenFlag = true
+	return builder
 }
-func (builder * ListCalendarReqBuilder) SyncToken(syncToken string) *ListCalendarReqBuilder  {
-  builder.syncToken = syncToken
-  builder.syncTokenFlag = true
-  return builder
+func (builder *ListCalendarReqBuilder) SyncToken(syncToken string) *ListCalendarReqBuilder {
+	builder.syncToken = syncToken
+	builder.syncTokenFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * ListCalendarReqBuilder ) Build() *ListCalendarReq {
-   req := &ListCalendarReq{}
-   if builder.pageSizeFlag {
-	  req.PageSize = &builder.pageSize
-   }
-   if builder.pageTokenFlag {
-	  req.PageToken = &builder.pageToken
-   }
-   if builder.syncTokenFlag {
-	  req.SyncToken = &builder.syncToken
-   }
-   return req
+func (builder *ListCalendarReqBuilder) Build() *ListCalendarReq {
+	req := &ListCalendarReq{}
+	if builder.pageSizeFlag {
+		req.PageSize = &builder.pageSize
+	}
+	if builder.pageTokenFlag {
+		req.PageToken = &builder.pageToken
+	}
+	if builder.syncTokenFlag {
+		req.SyncToken = &builder.syncToken
+	}
+	return req
 }
 
-
 type ListCalendarReq struct {
-	PageSize  *int `query:"page_size"`
-	PageToken  *string `query:"page_token"`
-	SyncToken  *string `query:"sync_token"`
-
+	PageSize  *int    `query:"page_size"`
+	PageToken *string `query:"page_token"`
+	SyncToken *string `query:"sync_token"`
 }
 
 type ListCalendarRespData struct {
-	HasMore  *bool `json:"has_more,omitempty"`
-	PageToken  *string `json:"page_token,omitempty"`
-	SyncToken  *string `json:"sync_token,omitempty"`
-	CalendarList  []*Calendar `json:"calendar_list,omitempty"`
+	HasMore      *bool       `json:"has_more,omitempty"`
+	PageToken    *string     `json:"page_token,omitempty"`
+	SyncToken    *string     `json:"sync_token,omitempty"`
+	CalendarList []*Calendar `json:"calendar_list,omitempty"`
 }
 
 type ListCalendarResp struct {
@@ -501,52 +528,48 @@ func (resp *ListCalendarResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type PatchCalendarReqBuilder struct {
-	calendarId  string
-	calendarIdFlag  bool
-	calendar *Calendar
-	calendarFlag bool
-
+	calendarId     string
+	calendarIdFlag bool
+	calendar       *Calendar
+	calendarFlag   bool
 }
 
 // 生成请求的New构造器
-func NewPatchCalendarReqBuilder() * PatchCalendarReqBuilder{
-   builder := &PatchCalendarReqBuilder{}
-   return builder
+func NewPatchCalendarReqBuilder() *PatchCalendarReqBuilder {
+	builder := &PatchCalendarReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * PatchCalendarReqBuilder) CalendarId(calendarId string) *PatchCalendarReqBuilder  {
-  builder.calendarId = calendarId
-  builder.calendarIdFlag = true
-  return builder
+func (builder *PatchCalendarReqBuilder) CalendarId(calendarId string) *PatchCalendarReqBuilder {
+	builder.calendarId = calendarId
+	builder.calendarIdFlag = true
+	return builder
 }
-func (builder * PatchCalendarReqBuilder) Calendar(calendar *Calendar) *PatchCalendarReqBuilder  {
-  builder.calendar = calendar
-  builder.calendarFlag = true
-  return builder
+func (builder *PatchCalendarReqBuilder) Calendar(calendar *Calendar) *PatchCalendarReqBuilder {
+	builder.calendar = calendar
+	builder.calendarFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * PatchCalendarReqBuilder ) Build() *PatchCalendarReq {
-   req := &PatchCalendarReq{}
-   if builder.calendarIdFlag {
-	  req.CalendarId = builder.calendarId
-   }
-   return req
+func (builder *PatchCalendarReqBuilder) Build() *PatchCalendarReq {
+	req := &PatchCalendarReq{}
+	if builder.calendarIdFlag {
+		req.CalendarId = builder.calendarId
+	}
+	return req
 }
 
-
 type PatchCalendarReq struct {
-	CalendarId  string `path:"calendar_id"`
-	Calendar *Calendar `body:""`
-
+	CalendarId string    `path:"calendar_id"`
+	Calendar   *Calendar `body:""`
 }
 
 type PatchCalendarRespData struct {
-	Calendar  *Calendar `json:"calendar,omitempty"`
+	Calendar *Calendar `json:"calendar,omitempty"`
 }
 
 type PatchCalendarResp struct {
@@ -559,44 +582,40 @@ func (resp *PatchCalendarResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type PrimaryCalendarReqBuilder struct {
-	userIdType  string
-	userIdTypeFlag  bool
-
+	userIdType     string
+	userIdTypeFlag bool
 }
 
 // 生成请求的New构造器
-func NewPrimaryCalendarReqBuilder() * PrimaryCalendarReqBuilder{
-   builder := &PrimaryCalendarReqBuilder{}
-   return builder
+func NewPrimaryCalendarReqBuilder() *PrimaryCalendarReqBuilder {
+	builder := &PrimaryCalendarReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * PrimaryCalendarReqBuilder) UserIdType(userIdType string) *PrimaryCalendarReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *PrimaryCalendarReqBuilder) UserIdType(userIdType string) *PrimaryCalendarReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * PrimaryCalendarReqBuilder ) Build() *PrimaryCalendarReq {
-   req := &PrimaryCalendarReq{}
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   return req
+func (builder *PrimaryCalendarReqBuilder) Build() *PrimaryCalendarReq {
+	req := &PrimaryCalendarReq{}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	return req
 }
 
-
 type PrimaryCalendarReq struct {
-	UserIdType  *string `query:"user_id_type"`
-
+	UserIdType *string `query:"user_id_type"`
 }
 
 type PrimaryCalendarRespData struct {
-	Calendars  []*UserCalendar `json:"calendars,omitempty"`
+	Calendars []*UserCalendar `json:"calendars,omitempty"`
 }
 
 type PrimaryCalendarResp struct {
@@ -610,137 +629,133 @@ func (resp *PrimaryCalendarResp) Success() bool {
 }
 
 type SearchCalendarReqBodyBuilder struct {
-	query  string
-	queryFlag  bool
+	query     string
+	queryFlag bool
 }
 
 // 生成body的New构造器
-func NewSearchCalendarReqBodyBuilder() * SearchCalendarReqBodyBuilder{
-  builder := &SearchCalendarReqBodyBuilder{}
-  return builder
+func NewSearchCalendarReqBodyBuilder() *SearchCalendarReqBodyBuilder {
+	builder := &SearchCalendarReqBodyBuilder{}
+	return builder
 }
 
 /*1.2 生成body的builder属性方法*/
-func (builder * SearchCalendarReqBodyBuilder ) Query(query string) *SearchCalendarReqBodyBuilder {
-  builder.query = query
-  builder.queryFlag = true
-  return builder
+func (builder *SearchCalendarReqBodyBuilder) Query(query string) *SearchCalendarReqBodyBuilder {
+	builder.query = query
+	builder.queryFlag = true
+	return builder
 }
 
-
 /*1.3 生成body的build方法*/
-func (builder * SearchCalendarReqBodyBuilder ) Build() *SearchCalendarReqBody {
-   req := &SearchCalendarReqBody{}
-   if builder.queryFlag {
-	  req.Query = &builder.query
-	  
+func (builder *SearchCalendarReqBodyBuilder) Build() *SearchCalendarReqBody {
+	req := &SearchCalendarReqBody{}
+	if builder.queryFlag {
+		req.Query = &builder.query
 
-   }
-   return req
+	}
+	return req
 }
 
 /**上传文件path开始**/
 type SearchCalendarPathReqBodyBuilder struct {
-	query  string
-	queryFlag  bool
+	query     string
+	queryFlag bool
 }
 
 // 生成body的New构造器
-func NewSearchCalendarPathReqBodyBuilder() * SearchCalendarPathReqBodyBuilder{
-  builder := &SearchCalendarPathReqBodyBuilder{}
-  return builder
+func NewSearchCalendarPathReqBodyBuilder() *SearchCalendarPathReqBodyBuilder {
+	builder := &SearchCalendarPathReqBodyBuilder{}
+	return builder
 }
 
 /*1.2 生成body的builder属性方法*/
-func (builder * SearchCalendarPathReqBodyBuilder ) Query(query string) *SearchCalendarPathReqBodyBuilder {
-  builder.query = query
-  builder.queryFlag = true
-  return builder
+func (builder *SearchCalendarPathReqBodyBuilder) Query(query string) *SearchCalendarPathReqBodyBuilder {
+	builder.query = query
+	builder.queryFlag = true
+	return builder
 }
-
 
 /*1.3 生成body的build方法*/
-func (builder * SearchCalendarPathReqBodyBuilder ) Build() (*SearchCalendarReqBody, error) {
-   req := &SearchCalendarReqBody{}
-   if builder.queryFlag {
-	  req.Query = &builder.query
-	  
-   }
-   return req, nil
+func (builder *SearchCalendarPathReqBodyBuilder) Build() (*SearchCalendarReqBody, error) {
+	req := &SearchCalendarReqBody{}
+	if builder.queryFlag {
+		req.Query = &builder.query
+
+	}
+	return req, nil
 }
+
 /**上传文件path结束**/
 
 /*1.4 生成请求的builder结构体*/
 type SearchCalendarReqBuilder struct {
-	pageToken  string
-	pageTokenFlag  bool
-	pageSize  int
+	pageToken     string
+	pageTokenFlag bool
+	pageSize      int
 	pageSizeFlag  bool
-	body *SearchCalendarReqBody
-	bodyFlag bool
-	limit int
-
+	body          *SearchCalendarReqBody
+	bodyFlag      bool
+	limit         int
 }
 
 // 生成请求的New构造器
-func NewSearchCalendarReqBuilder() * SearchCalendarReqBuilder{
-   builder := &SearchCalendarReqBuilder{}
-   return builder
+func NewSearchCalendarReqBuilder() *SearchCalendarReqBuilder {
+	builder := &SearchCalendarReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * SearchCalendarReqBuilder) Limit(limit int ) *SearchCalendarReqBuilder  {
-  builder.limit = limit
-  return builder
+func (builder *SearchCalendarReqBuilder) Limit(limit int) *SearchCalendarReqBuilder {
+	builder.limit = limit
+	return builder
 }
-func (builder * SearchCalendarReqBuilder) PageToken(pageToken string) *SearchCalendarReqBuilder  {
-  builder.pageToken = pageToken
-  builder.pageTokenFlag = true
-  return builder
+func (builder *SearchCalendarReqBuilder) PageToken(pageToken string) *SearchCalendarReqBuilder {
+	builder.pageToken = pageToken
+	builder.pageTokenFlag = true
+	return builder
 }
-func (builder * SearchCalendarReqBuilder) PageSize(pageSize int) *SearchCalendarReqBuilder  {
-  builder.pageSize = pageSize
-  builder.pageSizeFlag = true
-  return builder
+func (builder *SearchCalendarReqBuilder) PageSize(pageSize int) *SearchCalendarReqBuilder {
+	builder.pageSize = pageSize
+	builder.pageSizeFlag = true
+	return builder
 }
-func (builder * SearchCalendarReqBuilder) Body(body *SearchCalendarReqBody) *SearchCalendarReqBuilder  {
-  builder.body = body
-  builder.bodyFlag = true
-  return builder
+func (builder *SearchCalendarReqBuilder) Body(body *SearchCalendarReqBody) *SearchCalendarReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * SearchCalendarReqBuilder ) Build() *SearchCalendarReq {
-   req := &SearchCalendarReq{}
-   req.Limit = builder.limit
-   if builder.pageTokenFlag {
-	  req.PageToken = &builder.pageToken
-   }
-   if builder.pageSizeFlag {
-	  req.PageSize = &builder.pageSize
-   }
-   if builder.bodyFlag {
-	  req.Body = builder.body
+func (builder *SearchCalendarReqBuilder) Build() *SearchCalendarReq {
+	req := &SearchCalendarReq{}
+	req.Limit = builder.limit
+	if builder.pageTokenFlag {
+		req.PageToken = &builder.pageToken
+	}
+	if builder.pageSizeFlag {
+		req.PageSize = &builder.pageSize
+	}
+	if builder.bodyFlag {
+		req.Body = builder.body
 
-   }
-   return req
+	}
+	return req
 }
 
 type SearchCalendarReqBody struct {
-	Query  *string `json:"query,omitempty"`
+	Query *string `json:"query,omitempty"`
 }
 
 type SearchCalendarReq struct {
-	PageToken  *string `query:"page_token"`
-	PageSize  *int `query:"page_size"`
-	Body *SearchCalendarReqBody `body:""`
-	Limit int
-
+	PageToken *string                `query:"page_token"`
+	PageSize  *int                   `query:"page_size"`
+	Body      *SearchCalendarReqBody `body:""`
+	Limit     int
 }
 
 type SearchCalendarRespData struct {
-	Items  []*Calendar `json:"items,omitempty"`
-	PageToken  *string `json:"page_token,omitempty"`
+	Items     []*Calendar `json:"items,omitempty"`
+	PageToken *string     `json:"page_token,omitempty"`
 }
 
 type SearchCalendarResp struct {
@@ -753,44 +768,40 @@ func (resp *SearchCalendarResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type SubscribeCalendarReqBuilder struct {
-	calendarId  string
-	calendarIdFlag  bool
-
+	calendarId     string
+	calendarIdFlag bool
 }
 
 // 生成请求的New构造器
-func NewSubscribeCalendarReqBuilder() * SubscribeCalendarReqBuilder{
-   builder := &SubscribeCalendarReqBuilder{}
-   return builder
+func NewSubscribeCalendarReqBuilder() *SubscribeCalendarReqBuilder {
+	builder := &SubscribeCalendarReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * SubscribeCalendarReqBuilder) CalendarId(calendarId string) *SubscribeCalendarReqBuilder  {
-  builder.calendarId = calendarId
-  builder.calendarIdFlag = true
-  return builder
+func (builder *SubscribeCalendarReqBuilder) CalendarId(calendarId string) *SubscribeCalendarReqBuilder {
+	builder.calendarId = calendarId
+	builder.calendarIdFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * SubscribeCalendarReqBuilder ) Build() *SubscribeCalendarReq {
-   req := &SubscribeCalendarReq{}
-   if builder.calendarIdFlag {
-	  req.CalendarId = builder.calendarId
-   }
-   return req
+func (builder *SubscribeCalendarReqBuilder) Build() *SubscribeCalendarReq {
+	req := &SubscribeCalendarReq{}
+	if builder.calendarIdFlag {
+		req.CalendarId = builder.calendarId
+	}
+	return req
 }
 
-
 type SubscribeCalendarReq struct {
-	CalendarId  string `path:"calendar_id"`
-
+	CalendarId string `path:"calendar_id"`
 }
 
 type SubscribeCalendarRespData struct {
-	Calendar  *Calendar `json:"calendar,omitempty"`
+	Calendar *Calendar `json:"calendar,omitempty"`
 }
 
 type SubscribeCalendarResp struct {
@@ -803,9 +814,6 @@ func (resp *SubscribeCalendarResp) Success() bool {
 	return resp.Code == 0
 }
 
-
-
-
 type SubscriptionCalendarResp struct {
 	*core.RawResponse `json:"-"`
 	core.CodeError
@@ -815,42 +823,37 @@ func (resp *SubscriptionCalendarResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type UnsubscribeCalendarReqBuilder struct {
-	calendarId  string
-	calendarIdFlag  bool
-
+	calendarId     string
+	calendarIdFlag bool
 }
 
 // 生成请求的New构造器
-func NewUnsubscribeCalendarReqBuilder() * UnsubscribeCalendarReqBuilder{
-   builder := &UnsubscribeCalendarReqBuilder{}
-   return builder
+func NewUnsubscribeCalendarReqBuilder() *UnsubscribeCalendarReqBuilder {
+	builder := &UnsubscribeCalendarReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * UnsubscribeCalendarReqBuilder) CalendarId(calendarId string) *UnsubscribeCalendarReqBuilder  {
-  builder.calendarId = calendarId
-  builder.calendarIdFlag = true
-  return builder
+func (builder *UnsubscribeCalendarReqBuilder) CalendarId(calendarId string) *UnsubscribeCalendarReqBuilder {
+	builder.calendarId = calendarId
+	builder.calendarIdFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * UnsubscribeCalendarReqBuilder ) Build() *UnsubscribeCalendarReq {
-   req := &UnsubscribeCalendarReq{}
-   if builder.calendarIdFlag {
-	  req.CalendarId = builder.calendarId
-   }
-   return req
+func (builder *UnsubscribeCalendarReqBuilder) Build() *UnsubscribeCalendarReq {
+	req := &UnsubscribeCalendarReq{}
+	if builder.calendarIdFlag {
+		req.CalendarId = builder.calendarId
+	}
+	return req
 }
-
 
 type UnsubscribeCalendarReq struct {
-	CalendarId  string `path:"calendar_id"`
-
+	CalendarId string `path:"calendar_id"`
 }
-
 
 type UnsubscribeCalendarResp struct {
 	*core.RawResponse `json:"-"`
@@ -861,65 +864,61 @@ func (resp *UnsubscribeCalendarResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type CreateCalendarAclReqBuilder struct {
-	calendarId  string
+	calendarId      string
 	calendarIdFlag  bool
-	userIdType  string
+	userIdType      string
 	userIdTypeFlag  bool
-	calendarAcl *CalendarAcl
+	calendarAcl     *CalendarAcl
 	calendarAclFlag bool
-
 }
 
 // 生成请求的New构造器
-func NewCreateCalendarAclReqBuilder() * CreateCalendarAclReqBuilder{
-   builder := &CreateCalendarAclReqBuilder{}
-   return builder
+func NewCreateCalendarAclReqBuilder() *CreateCalendarAclReqBuilder {
+	builder := &CreateCalendarAclReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * CreateCalendarAclReqBuilder) CalendarId(calendarId string) *CreateCalendarAclReqBuilder  {
-  builder.calendarId = calendarId
-  builder.calendarIdFlag = true
-  return builder
+func (builder *CreateCalendarAclReqBuilder) CalendarId(calendarId string) *CreateCalendarAclReqBuilder {
+	builder.calendarId = calendarId
+	builder.calendarIdFlag = true
+	return builder
 }
-func (builder * CreateCalendarAclReqBuilder) UserIdType(userIdType string) *CreateCalendarAclReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *CreateCalendarAclReqBuilder) UserIdType(userIdType string) *CreateCalendarAclReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
-func (builder * CreateCalendarAclReqBuilder) CalendarAcl(calendarAcl *CalendarAcl) *CreateCalendarAclReqBuilder  {
-  builder.calendarAcl = calendarAcl
-  builder.calendarAclFlag = true
-  return builder
+func (builder *CreateCalendarAclReqBuilder) CalendarAcl(calendarAcl *CalendarAcl) *CreateCalendarAclReqBuilder {
+	builder.calendarAcl = calendarAcl
+	builder.calendarAclFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * CreateCalendarAclReqBuilder ) Build() *CreateCalendarAclReq {
-   req := &CreateCalendarAclReq{}
-   if builder.calendarIdFlag {
-	  req.CalendarId = builder.calendarId
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   return req
+func (builder *CreateCalendarAclReqBuilder) Build() *CreateCalendarAclReq {
+	req := &CreateCalendarAclReq{}
+	if builder.calendarIdFlag {
+		req.CalendarId = builder.calendarId
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	return req
 }
 
-
 type CreateCalendarAclReq struct {
-	CalendarId  string `path:"calendar_id"`
-	UserIdType  *string `query:"user_id_type"`
+	CalendarId  string       `path:"calendar_id"`
+	UserIdType  *string      `query:"user_id_type"`
 	CalendarAcl *CalendarAcl `body:""`
-
 }
 
 type CreateCalendarAclRespData struct {
-	AclId  *string `json:"acl_id,omitempty"`
-	Role  *string `json:"role,omitempty"`
-	Scope  *AclScope `json:"scope,omitempty"`
+	AclId *string   `json:"acl_id,omitempty"`
+	Role  *string   `json:"role,omitempty"`
+	Scope *AclScope `json:"scope,omitempty"`
 }
 
 type CreateCalendarAclResp struct {
@@ -932,53 +931,48 @@ func (resp *CreateCalendarAclResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type DeleteCalendarAclReqBuilder struct {
-	calendarId  string
-	calendarIdFlag  bool
-	aclId  string
-	aclIdFlag  bool
-
+	calendarId     string
+	calendarIdFlag bool
+	aclId          string
+	aclIdFlag      bool
 }
 
 // 生成请求的New构造器
-func NewDeleteCalendarAclReqBuilder() * DeleteCalendarAclReqBuilder{
-   builder := &DeleteCalendarAclReqBuilder{}
-   return builder
+func NewDeleteCalendarAclReqBuilder() *DeleteCalendarAclReqBuilder {
+	builder := &DeleteCalendarAclReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * DeleteCalendarAclReqBuilder) CalendarId(calendarId string) *DeleteCalendarAclReqBuilder  {
-  builder.calendarId = calendarId
-  builder.calendarIdFlag = true
-  return builder
+func (builder *DeleteCalendarAclReqBuilder) CalendarId(calendarId string) *DeleteCalendarAclReqBuilder {
+	builder.calendarId = calendarId
+	builder.calendarIdFlag = true
+	return builder
 }
-func (builder * DeleteCalendarAclReqBuilder) AclId(aclId string) *DeleteCalendarAclReqBuilder  {
-  builder.aclId = aclId
-  builder.aclIdFlag = true
-  return builder
+func (builder *DeleteCalendarAclReqBuilder) AclId(aclId string) *DeleteCalendarAclReqBuilder {
+	builder.aclId = aclId
+	builder.aclIdFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * DeleteCalendarAclReqBuilder ) Build() *DeleteCalendarAclReq {
-   req := &DeleteCalendarAclReq{}
-   if builder.calendarIdFlag {
-	  req.CalendarId = builder.calendarId
-   }
-   if builder.aclIdFlag {
-	  req.AclId = builder.aclId
-   }
-   return req
+func (builder *DeleteCalendarAclReqBuilder) Build() *DeleteCalendarAclReq {
+	req := &DeleteCalendarAclReq{}
+	if builder.calendarIdFlag {
+		req.CalendarId = builder.calendarId
+	}
+	if builder.aclIdFlag {
+		req.AclId = builder.aclId
+	}
+	return req
 }
-
 
 type DeleteCalendarAclReq struct {
-	CalendarId  string `path:"calendar_id"`
-	AclId  string `path:"acl_id"`
-
+	CalendarId string `path:"calendar_id"`
+	AclId      string `path:"acl_id"`
 }
-
 
 type DeleteCalendarAclResp struct {
 	*core.RawResponse `json:"-"`
@@ -989,86 +983,82 @@ func (resp *DeleteCalendarAclResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type ListCalendarAclReqBuilder struct {
-	calendarId  string
-	calendarIdFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-	pageToken  string
+	calendarId     string
+	calendarIdFlag bool
+	userIdType     string
+	userIdTypeFlag bool
+	pageToken      string
 	pageTokenFlag  bool
-	pageSize  int
-	pageSizeFlag  bool
-	limit int
-
+	pageSize       int
+	pageSizeFlag   bool
+	limit          int
 }
 
 // 生成请求的New构造器
-func NewListCalendarAclReqBuilder() * ListCalendarAclReqBuilder{
-   builder := &ListCalendarAclReqBuilder{}
-   return builder
+func NewListCalendarAclReqBuilder() *ListCalendarAclReqBuilder {
+	builder := &ListCalendarAclReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * ListCalendarAclReqBuilder) Limit(limit int ) *ListCalendarAclReqBuilder  {
-  builder.limit = limit
-  return builder
+func (builder *ListCalendarAclReqBuilder) Limit(limit int) *ListCalendarAclReqBuilder {
+	builder.limit = limit
+	return builder
 }
-func (builder * ListCalendarAclReqBuilder) CalendarId(calendarId string) *ListCalendarAclReqBuilder  {
-  builder.calendarId = calendarId
-  builder.calendarIdFlag = true
-  return builder
+func (builder *ListCalendarAclReqBuilder) CalendarId(calendarId string) *ListCalendarAclReqBuilder {
+	builder.calendarId = calendarId
+	builder.calendarIdFlag = true
+	return builder
 }
-func (builder * ListCalendarAclReqBuilder) UserIdType(userIdType string) *ListCalendarAclReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *ListCalendarAclReqBuilder) UserIdType(userIdType string) *ListCalendarAclReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
-func (builder * ListCalendarAclReqBuilder) PageToken(pageToken string) *ListCalendarAclReqBuilder  {
-  builder.pageToken = pageToken
-  builder.pageTokenFlag = true
-  return builder
+func (builder *ListCalendarAclReqBuilder) PageToken(pageToken string) *ListCalendarAclReqBuilder {
+	builder.pageToken = pageToken
+	builder.pageTokenFlag = true
+	return builder
 }
-func (builder * ListCalendarAclReqBuilder) PageSize(pageSize int) *ListCalendarAclReqBuilder  {
-  builder.pageSize = pageSize
-  builder.pageSizeFlag = true
-  return builder
+func (builder *ListCalendarAclReqBuilder) PageSize(pageSize int) *ListCalendarAclReqBuilder {
+	builder.pageSize = pageSize
+	builder.pageSizeFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * ListCalendarAclReqBuilder ) Build() *ListCalendarAclReq {
-   req := &ListCalendarAclReq{}
-   req.Limit = builder.limit
-   if builder.calendarIdFlag {
-	  req.CalendarId = builder.calendarId
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   if builder.pageTokenFlag {
-	  req.PageToken = &builder.pageToken
-   }
-   if builder.pageSizeFlag {
-	  req.PageSize = &builder.pageSize
-   }
-   return req
+func (builder *ListCalendarAclReqBuilder) Build() *ListCalendarAclReq {
+	req := &ListCalendarAclReq{}
+	req.Limit = builder.limit
+	if builder.calendarIdFlag {
+		req.CalendarId = builder.calendarId
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	if builder.pageTokenFlag {
+		req.PageToken = &builder.pageToken
+	}
+	if builder.pageSizeFlag {
+		req.PageSize = &builder.pageSize
+	}
+	return req
 }
 
-
 type ListCalendarAclReq struct {
-	CalendarId  string `path:"calendar_id"`
-	UserIdType  *string `query:"user_id_type"`
+	CalendarId string  `path:"calendar_id"`
+	UserIdType *string `query:"user_id_type"`
 	PageToken  *string `query:"page_token"`
-	PageSize  *int `query:"page_size"`
-	Limit int
-
+	PageSize   *int    `query:"page_size"`
+	Limit      int
 }
 
 type ListCalendarAclRespData struct {
-	Acls  []*CalendarAcl `json:"acls,omitempty"`
-	HasMore  *bool `json:"has_more,omitempty"`
-	PageToken  *string `json:"page_token,omitempty"`
+	Acls      []*CalendarAcl `json:"acls,omitempty"`
+	HasMore   *bool          `json:"has_more,omitempty"`
+	PageToken *string        `json:"page_token,omitempty"`
 }
 
 type ListCalendarAclResp struct {
@@ -1081,42 +1071,37 @@ func (resp *ListCalendarAclResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type SubscriptionCalendarAclReqBuilder struct {
-	calendarId  string
-	calendarIdFlag  bool
-
+	calendarId     string
+	calendarIdFlag bool
 }
 
 // 生成请求的New构造器
-func NewSubscriptionCalendarAclReqBuilder() * SubscriptionCalendarAclReqBuilder{
-   builder := &SubscriptionCalendarAclReqBuilder{}
-   return builder
+func NewSubscriptionCalendarAclReqBuilder() *SubscriptionCalendarAclReqBuilder {
+	builder := &SubscriptionCalendarAclReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * SubscriptionCalendarAclReqBuilder) CalendarId(calendarId string) *SubscriptionCalendarAclReqBuilder  {
-  builder.calendarId = calendarId
-  builder.calendarIdFlag = true
-  return builder
+func (builder *SubscriptionCalendarAclReqBuilder) CalendarId(calendarId string) *SubscriptionCalendarAclReqBuilder {
+	builder.calendarId = calendarId
+	builder.calendarIdFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * SubscriptionCalendarAclReqBuilder ) Build() *SubscriptionCalendarAclReq {
-   req := &SubscriptionCalendarAclReq{}
-   if builder.calendarIdFlag {
-	  req.CalendarId = builder.calendarId
-   }
-   return req
+func (builder *SubscriptionCalendarAclReqBuilder) Build() *SubscriptionCalendarAclReq {
+	req := &SubscriptionCalendarAclReq{}
+	if builder.calendarIdFlag {
+		req.CalendarId = builder.calendarId
+	}
+	return req
 }
-
 
 type SubscriptionCalendarAclReq struct {
-	CalendarId  string `path:"calendar_id"`
-
+	CalendarId string `path:"calendar_id"`
 }
-
 
 type SubscriptionCalendarAclResp struct {
 	*core.RawResponse `json:"-"`
@@ -1127,52 +1112,48 @@ func (resp *SubscriptionCalendarAclResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type CreateCalendarEventReqBuilder struct {
-	calendarId  string
-	calendarIdFlag  bool
-	calendarEvent *CalendarEvent
+	calendarId        string
+	calendarIdFlag    bool
+	calendarEvent     *CalendarEvent
 	calendarEventFlag bool
-
 }
 
 // 生成请求的New构造器
-func NewCreateCalendarEventReqBuilder() * CreateCalendarEventReqBuilder{
-   builder := &CreateCalendarEventReqBuilder{}
-   return builder
+func NewCreateCalendarEventReqBuilder() *CreateCalendarEventReqBuilder {
+	builder := &CreateCalendarEventReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * CreateCalendarEventReqBuilder) CalendarId(calendarId string) *CreateCalendarEventReqBuilder  {
-  builder.calendarId = calendarId
-  builder.calendarIdFlag = true
-  return builder
+func (builder *CreateCalendarEventReqBuilder) CalendarId(calendarId string) *CreateCalendarEventReqBuilder {
+	builder.calendarId = calendarId
+	builder.calendarIdFlag = true
+	return builder
 }
-func (builder * CreateCalendarEventReqBuilder) CalendarEvent(calendarEvent *CalendarEvent) *CreateCalendarEventReqBuilder  {
-  builder.calendarEvent = calendarEvent
-  builder.calendarEventFlag = true
-  return builder
+func (builder *CreateCalendarEventReqBuilder) CalendarEvent(calendarEvent *CalendarEvent) *CreateCalendarEventReqBuilder {
+	builder.calendarEvent = calendarEvent
+	builder.calendarEventFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * CreateCalendarEventReqBuilder ) Build() *CreateCalendarEventReq {
-   req := &CreateCalendarEventReq{}
-   if builder.calendarIdFlag {
-	  req.CalendarId = builder.calendarId
-   }
-   return req
+func (builder *CreateCalendarEventReqBuilder) Build() *CreateCalendarEventReq {
+	req := &CreateCalendarEventReq{}
+	if builder.calendarIdFlag {
+		req.CalendarId = builder.calendarId
+	}
+	return req
 }
 
-
 type CreateCalendarEventReq struct {
-	CalendarId  string `path:"calendar_id"`
+	CalendarId    string         `path:"calendar_id"`
 	CalendarEvent *CalendarEvent `body:""`
-
 }
 
 type CreateCalendarEventRespData struct {
-	Event  *CalendarEvent `json:"event,omitempty"`
+	Event *CalendarEvent `json:"event,omitempty"`
 }
 
 type CreateCalendarEventResp struct {
@@ -1185,64 +1166,59 @@ func (resp *CreateCalendarEventResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type DeleteCalendarEventReqBuilder struct {
-	calendarId  string
-	calendarIdFlag  bool
-	eventId  string
-	eventIdFlag  bool
-	needNotification  bool
-	needNotificationFlag  bool
-
+	calendarId           string
+	calendarIdFlag       bool
+	eventId              string
+	eventIdFlag          bool
+	needNotification     bool
+	needNotificationFlag bool
 }
 
 // 生成请求的New构造器
-func NewDeleteCalendarEventReqBuilder() * DeleteCalendarEventReqBuilder{
-   builder := &DeleteCalendarEventReqBuilder{}
-   return builder
+func NewDeleteCalendarEventReqBuilder() *DeleteCalendarEventReqBuilder {
+	builder := &DeleteCalendarEventReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * DeleteCalendarEventReqBuilder) CalendarId(calendarId string) *DeleteCalendarEventReqBuilder  {
-  builder.calendarId = calendarId
-  builder.calendarIdFlag = true
-  return builder
+func (builder *DeleteCalendarEventReqBuilder) CalendarId(calendarId string) *DeleteCalendarEventReqBuilder {
+	builder.calendarId = calendarId
+	builder.calendarIdFlag = true
+	return builder
 }
-func (builder * DeleteCalendarEventReqBuilder) EventId(eventId string) *DeleteCalendarEventReqBuilder  {
-  builder.eventId = eventId
-  builder.eventIdFlag = true
-  return builder
+func (builder *DeleteCalendarEventReqBuilder) EventId(eventId string) *DeleteCalendarEventReqBuilder {
+	builder.eventId = eventId
+	builder.eventIdFlag = true
+	return builder
 }
-func (builder * DeleteCalendarEventReqBuilder) NeedNotification(needNotification bool) *DeleteCalendarEventReqBuilder  {
-  builder.needNotification = needNotification
-  builder.needNotificationFlag = true
-  return builder
+func (builder *DeleteCalendarEventReqBuilder) NeedNotification(needNotification bool) *DeleteCalendarEventReqBuilder {
+	builder.needNotification = needNotification
+	builder.needNotificationFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * DeleteCalendarEventReqBuilder ) Build() *DeleteCalendarEventReq {
-   req := &DeleteCalendarEventReq{}
-   if builder.calendarIdFlag {
-	  req.CalendarId = builder.calendarId
-   }
-   if builder.eventIdFlag {
-	  req.EventId = builder.eventId
-   }
-   if builder.needNotificationFlag {
-	  req.NeedNotification = &builder.needNotification
-   }
-   return req
+func (builder *DeleteCalendarEventReqBuilder) Build() *DeleteCalendarEventReq {
+	req := &DeleteCalendarEventReq{}
+	if builder.calendarIdFlag {
+		req.CalendarId = builder.calendarId
+	}
+	if builder.eventIdFlag {
+		req.EventId = builder.eventId
+	}
+	if builder.needNotificationFlag {
+		req.NeedNotification = &builder.needNotification
+	}
+	return req
 }
-
 
 type DeleteCalendarEventReq struct {
-	CalendarId  string `path:"calendar_id"`
-	EventId  string `path:"event_id"`
-	NeedNotification  *bool `query:"need_notification"`
-
+	CalendarId       string `path:"calendar_id"`
+	EventId          string `path:"event_id"`
+	NeedNotification *bool  `query:"need_notification"`
 }
-
 
 type DeleteCalendarEventResp struct {
 	*core.RawResponse `json:"-"`
@@ -1253,55 +1229,51 @@ func (resp *DeleteCalendarEventResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type GetCalendarEventReqBuilder struct {
-	calendarId  string
-	calendarIdFlag  bool
-	eventId  string
-	eventIdFlag  bool
-
+	calendarId     string
+	calendarIdFlag bool
+	eventId        string
+	eventIdFlag    bool
 }
 
 // 生成请求的New构造器
-func NewGetCalendarEventReqBuilder() * GetCalendarEventReqBuilder{
-   builder := &GetCalendarEventReqBuilder{}
-   return builder
+func NewGetCalendarEventReqBuilder() *GetCalendarEventReqBuilder {
+	builder := &GetCalendarEventReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * GetCalendarEventReqBuilder) CalendarId(calendarId string) *GetCalendarEventReqBuilder  {
-  builder.calendarId = calendarId
-  builder.calendarIdFlag = true
-  return builder
+func (builder *GetCalendarEventReqBuilder) CalendarId(calendarId string) *GetCalendarEventReqBuilder {
+	builder.calendarId = calendarId
+	builder.calendarIdFlag = true
+	return builder
 }
-func (builder * GetCalendarEventReqBuilder) EventId(eventId string) *GetCalendarEventReqBuilder  {
-  builder.eventId = eventId
-  builder.eventIdFlag = true
-  return builder
+func (builder *GetCalendarEventReqBuilder) EventId(eventId string) *GetCalendarEventReqBuilder {
+	builder.eventId = eventId
+	builder.eventIdFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * GetCalendarEventReqBuilder ) Build() *GetCalendarEventReq {
-   req := &GetCalendarEventReq{}
-   if builder.calendarIdFlag {
-	  req.CalendarId = builder.calendarId
-   }
-   if builder.eventIdFlag {
-	  req.EventId = builder.eventId
-   }
-   return req
+func (builder *GetCalendarEventReqBuilder) Build() *GetCalendarEventReq {
+	req := &GetCalendarEventReq{}
+	if builder.calendarIdFlag {
+		req.CalendarId = builder.calendarId
+	}
+	if builder.eventIdFlag {
+		req.EventId = builder.eventId
+	}
+	return req
 }
 
-
 type GetCalendarEventReq struct {
-	CalendarId  string `path:"calendar_id"`
-	EventId  string `path:"event_id"`
-
+	CalendarId string `path:"calendar_id"`
+	EventId    string `path:"event_id"`
 }
 
 type GetCalendarEventRespData struct {
-	Event  *CalendarEvent `json:"event,omitempty"`
+	Event *CalendarEvent `json:"event,omitempty"`
 }
 
 type GetCalendarEventResp struct {
@@ -1314,113 +1286,109 @@ func (resp *GetCalendarEventResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type ListCalendarEventReqBuilder struct {
-	calendarId  string
-	calendarIdFlag  bool
-	pageSize  int
-	pageSizeFlag  bool
-	anchorTime  string
-	anchorTimeFlag  bool
-	pageToken  string
+	calendarId     string
+	calendarIdFlag bool
+	pageSize       int
+	pageSizeFlag   bool
+	anchorTime     string
+	anchorTimeFlag bool
+	pageToken      string
 	pageTokenFlag  bool
-	syncToken  string
+	syncToken      string
 	syncTokenFlag  bool
-	startTime  string
+	startTime      string
 	startTimeFlag  bool
-	endTime  string
-	endTimeFlag  bool
-
+	endTime        string
+	endTimeFlag    bool
 }
 
 // 生成请求的New构造器
-func NewListCalendarEventReqBuilder() * ListCalendarEventReqBuilder{
-   builder := &ListCalendarEventReqBuilder{}
-   return builder
+func NewListCalendarEventReqBuilder() *ListCalendarEventReqBuilder {
+	builder := &ListCalendarEventReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * ListCalendarEventReqBuilder) CalendarId(calendarId string) *ListCalendarEventReqBuilder  {
-  builder.calendarId = calendarId
-  builder.calendarIdFlag = true
-  return builder
+func (builder *ListCalendarEventReqBuilder) CalendarId(calendarId string) *ListCalendarEventReqBuilder {
+	builder.calendarId = calendarId
+	builder.calendarIdFlag = true
+	return builder
 }
-func (builder * ListCalendarEventReqBuilder) PageSize(pageSize int) *ListCalendarEventReqBuilder  {
-  builder.pageSize = pageSize
-  builder.pageSizeFlag = true
-  return builder
+func (builder *ListCalendarEventReqBuilder) PageSize(pageSize int) *ListCalendarEventReqBuilder {
+	builder.pageSize = pageSize
+	builder.pageSizeFlag = true
+	return builder
 }
-func (builder * ListCalendarEventReqBuilder) AnchorTime(anchorTime string) *ListCalendarEventReqBuilder  {
-  builder.anchorTime = anchorTime
-  builder.anchorTimeFlag = true
-  return builder
+func (builder *ListCalendarEventReqBuilder) AnchorTime(anchorTime string) *ListCalendarEventReqBuilder {
+	builder.anchorTime = anchorTime
+	builder.anchorTimeFlag = true
+	return builder
 }
-func (builder * ListCalendarEventReqBuilder) PageToken(pageToken string) *ListCalendarEventReqBuilder  {
-  builder.pageToken = pageToken
-  builder.pageTokenFlag = true
-  return builder
+func (builder *ListCalendarEventReqBuilder) PageToken(pageToken string) *ListCalendarEventReqBuilder {
+	builder.pageToken = pageToken
+	builder.pageTokenFlag = true
+	return builder
 }
-func (builder * ListCalendarEventReqBuilder) SyncToken(syncToken string) *ListCalendarEventReqBuilder  {
-  builder.syncToken = syncToken
-  builder.syncTokenFlag = true
-  return builder
+func (builder *ListCalendarEventReqBuilder) SyncToken(syncToken string) *ListCalendarEventReqBuilder {
+	builder.syncToken = syncToken
+	builder.syncTokenFlag = true
+	return builder
 }
-func (builder * ListCalendarEventReqBuilder) StartTime(startTime string) *ListCalendarEventReqBuilder  {
-  builder.startTime = startTime
-  builder.startTimeFlag = true
-  return builder
+func (builder *ListCalendarEventReqBuilder) StartTime(startTime string) *ListCalendarEventReqBuilder {
+	builder.startTime = startTime
+	builder.startTimeFlag = true
+	return builder
 }
-func (builder * ListCalendarEventReqBuilder) EndTime(endTime string) *ListCalendarEventReqBuilder  {
-  builder.endTime = endTime
-  builder.endTimeFlag = true
-  return builder
+func (builder *ListCalendarEventReqBuilder) EndTime(endTime string) *ListCalendarEventReqBuilder {
+	builder.endTime = endTime
+	builder.endTimeFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * ListCalendarEventReqBuilder ) Build() *ListCalendarEventReq {
-   req := &ListCalendarEventReq{}
-   if builder.calendarIdFlag {
-	  req.CalendarId = builder.calendarId
-   }
-   if builder.pageSizeFlag {
-	  req.PageSize = &builder.pageSize
-   }
-   if builder.anchorTimeFlag {
-	  req.AnchorTime = &builder.anchorTime
-   }
-   if builder.pageTokenFlag {
-	  req.PageToken = &builder.pageToken
-   }
-   if builder.syncTokenFlag {
-	  req.SyncToken = &builder.syncToken
-   }
-   if builder.startTimeFlag {
-	  req.StartTime = &builder.startTime
-   }
-   if builder.endTimeFlag {
-	  req.EndTime = &builder.endTime
-   }
-   return req
+func (builder *ListCalendarEventReqBuilder) Build() *ListCalendarEventReq {
+	req := &ListCalendarEventReq{}
+	if builder.calendarIdFlag {
+		req.CalendarId = builder.calendarId
+	}
+	if builder.pageSizeFlag {
+		req.PageSize = &builder.pageSize
+	}
+	if builder.anchorTimeFlag {
+		req.AnchorTime = &builder.anchorTime
+	}
+	if builder.pageTokenFlag {
+		req.PageToken = &builder.pageToken
+	}
+	if builder.syncTokenFlag {
+		req.SyncToken = &builder.syncToken
+	}
+	if builder.startTimeFlag {
+		req.StartTime = &builder.startTime
+	}
+	if builder.endTimeFlag {
+		req.EndTime = &builder.endTime
+	}
+	return req
 }
 
-
 type ListCalendarEventReq struct {
-	CalendarId  string `path:"calendar_id"`
-	PageSize  *int `query:"page_size"`
-	AnchorTime  *string `query:"anchor_time"`
+	CalendarId string  `path:"calendar_id"`
+	PageSize   *int    `query:"page_size"`
+	AnchorTime *string `query:"anchor_time"`
 	PageToken  *string `query:"page_token"`
 	SyncToken  *string `query:"sync_token"`
 	StartTime  *string `query:"start_time"`
-	EndTime  *string `query:"end_time"`
-
+	EndTime    *string `query:"end_time"`
 }
 
 type ListCalendarEventRespData struct {
-	HasMore  *bool `json:"has_more,omitempty"`
-	PageToken  *string `json:"page_token,omitempty"`
-	SyncToken  *string `json:"sync_token,omitempty"`
-	Items  []*CalendarEvent `json:"items,omitempty"`
+	HasMore   *bool            `json:"has_more,omitempty"`
+	PageToken *string          `json:"page_token,omitempty"`
+	SyncToken *string          `json:"sync_token,omitempty"`
+	Items     []*CalendarEvent `json:"items,omitempty"`
 }
 
 type ListCalendarEventResp struct {
@@ -1433,63 +1401,59 @@ func (resp *ListCalendarEventResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type PatchCalendarEventReqBuilder struct {
-	calendarId  string
-	calendarIdFlag  bool
-	eventId  string
-	eventIdFlag  bool
-	calendarEvent *CalendarEvent
+	calendarId        string
+	calendarIdFlag    bool
+	eventId           string
+	eventIdFlag       bool
+	calendarEvent     *CalendarEvent
 	calendarEventFlag bool
-
 }
 
 // 生成请求的New构造器
-func NewPatchCalendarEventReqBuilder() * PatchCalendarEventReqBuilder{
-   builder := &PatchCalendarEventReqBuilder{}
-   return builder
+func NewPatchCalendarEventReqBuilder() *PatchCalendarEventReqBuilder {
+	builder := &PatchCalendarEventReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * PatchCalendarEventReqBuilder) CalendarId(calendarId string) *PatchCalendarEventReqBuilder  {
-  builder.calendarId = calendarId
-  builder.calendarIdFlag = true
-  return builder
+func (builder *PatchCalendarEventReqBuilder) CalendarId(calendarId string) *PatchCalendarEventReqBuilder {
+	builder.calendarId = calendarId
+	builder.calendarIdFlag = true
+	return builder
 }
-func (builder * PatchCalendarEventReqBuilder) EventId(eventId string) *PatchCalendarEventReqBuilder  {
-  builder.eventId = eventId
-  builder.eventIdFlag = true
-  return builder
+func (builder *PatchCalendarEventReqBuilder) EventId(eventId string) *PatchCalendarEventReqBuilder {
+	builder.eventId = eventId
+	builder.eventIdFlag = true
+	return builder
 }
-func (builder * PatchCalendarEventReqBuilder) CalendarEvent(calendarEvent *CalendarEvent) *PatchCalendarEventReqBuilder  {
-  builder.calendarEvent = calendarEvent
-  builder.calendarEventFlag = true
-  return builder
+func (builder *PatchCalendarEventReqBuilder) CalendarEvent(calendarEvent *CalendarEvent) *PatchCalendarEventReqBuilder {
+	builder.calendarEvent = calendarEvent
+	builder.calendarEventFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * PatchCalendarEventReqBuilder ) Build() *PatchCalendarEventReq {
-   req := &PatchCalendarEventReq{}
-   if builder.calendarIdFlag {
-	  req.CalendarId = builder.calendarId
-   }
-   if builder.eventIdFlag {
-	  req.EventId = builder.eventId
-   }
-   return req
+func (builder *PatchCalendarEventReqBuilder) Build() *PatchCalendarEventReq {
+	req := &PatchCalendarEventReq{}
+	if builder.calendarIdFlag {
+		req.CalendarId = builder.calendarId
+	}
+	if builder.eventIdFlag {
+		req.EventId = builder.eventId
+	}
+	return req
 }
 
-
 type PatchCalendarEventReq struct {
-	CalendarId  string `path:"calendar_id"`
-	EventId  string `path:"event_id"`
+	CalendarId    string         `path:"calendar_id"`
+	EventId       string         `path:"event_id"`
 	CalendarEvent *CalendarEvent `body:""`
-
 }
 
 type PatchCalendarEventRespData struct {
-	Event  *CalendarEvent `json:"event,omitempty"`
+	Event *CalendarEvent `json:"event,omitempty"`
 }
 
 type PatchCalendarEventResp struct {
@@ -1503,181 +1467,177 @@ func (resp *PatchCalendarEventResp) Success() bool {
 }
 
 type SearchCalendarEventReqBodyBuilder struct {
-	query  string
+	query      string
 	queryFlag  bool
-	filter  *EventSearchFilter
-	filterFlag  bool
+	filter     *EventSearchFilter
+	filterFlag bool
 }
 
 // 生成body的New构造器
-func NewSearchCalendarEventReqBodyBuilder() * SearchCalendarEventReqBodyBuilder{
-  builder := &SearchCalendarEventReqBodyBuilder{}
-  return builder
+func NewSearchCalendarEventReqBodyBuilder() *SearchCalendarEventReqBodyBuilder {
+	builder := &SearchCalendarEventReqBodyBuilder{}
+	return builder
 }
 
 /*1.2 生成body的builder属性方法*/
-func (builder * SearchCalendarEventReqBodyBuilder ) Query(query string) *SearchCalendarEventReqBodyBuilder {
-  builder.query = query
-  builder.queryFlag = true
-  return builder
+func (builder *SearchCalendarEventReqBodyBuilder) Query(query string) *SearchCalendarEventReqBodyBuilder {
+	builder.query = query
+	builder.queryFlag = true
+	return builder
 }
-func (builder * SearchCalendarEventReqBodyBuilder ) Filter(filter *EventSearchFilter) *SearchCalendarEventReqBodyBuilder {
-  builder.filter = filter
-  builder.filterFlag = true
-  return builder
+func (builder *SearchCalendarEventReqBodyBuilder) Filter(filter *EventSearchFilter) *SearchCalendarEventReqBodyBuilder {
+	builder.filter = filter
+	builder.filterFlag = true
+	return builder
 }
-
 
 /*1.3 生成body的build方法*/
-func (builder * SearchCalendarEventReqBodyBuilder ) Build() *SearchCalendarEventReqBody {
-   req := &SearchCalendarEventReqBody{}
-   if builder.queryFlag {
-	  req.Query = &builder.query
-	  
+func (builder *SearchCalendarEventReqBodyBuilder) Build() *SearchCalendarEventReqBody {
+	req := &SearchCalendarEventReqBody{}
+	if builder.queryFlag {
+		req.Query = &builder.query
 
-   }
-   if builder.filterFlag {
-	  req.Filter = builder.filter
+	}
+	if builder.filterFlag {
+		req.Filter = builder.filter
 
-   }
-   return req
+	}
+	return req
 }
 
 /**上传文件path开始**/
 type SearchCalendarEventPathReqBodyBuilder struct {
-	query  string
+	query      string
 	queryFlag  bool
-	filter  *EventSearchFilter
-	filterFlag  bool
+	filter     *EventSearchFilter
+	filterFlag bool
 }
 
 // 生成body的New构造器
-func NewSearchCalendarEventPathReqBodyBuilder() * SearchCalendarEventPathReqBodyBuilder{
-  builder := &SearchCalendarEventPathReqBodyBuilder{}
-  return builder
+func NewSearchCalendarEventPathReqBodyBuilder() *SearchCalendarEventPathReqBodyBuilder {
+	builder := &SearchCalendarEventPathReqBodyBuilder{}
+	return builder
 }
 
 /*1.2 生成body的builder属性方法*/
-func (builder * SearchCalendarEventPathReqBodyBuilder ) Query(query string) *SearchCalendarEventPathReqBodyBuilder {
-  builder.query = query
-  builder.queryFlag = true
-  return builder
+func (builder *SearchCalendarEventPathReqBodyBuilder) Query(query string) *SearchCalendarEventPathReqBodyBuilder {
+	builder.query = query
+	builder.queryFlag = true
+	return builder
 }
-func (builder * SearchCalendarEventPathReqBodyBuilder ) Filter(filter *EventSearchFilter) *SearchCalendarEventPathReqBodyBuilder {
-  builder.filter = filter
-  builder.filterFlag = true
-  return builder
+func (builder *SearchCalendarEventPathReqBodyBuilder) Filter(filter *EventSearchFilter) *SearchCalendarEventPathReqBodyBuilder {
+	builder.filter = filter
+	builder.filterFlag = true
+	return builder
 }
-
 
 /*1.3 生成body的build方法*/
-func (builder * SearchCalendarEventPathReqBodyBuilder ) Build() (*SearchCalendarEventReqBody, error) {
-   req := &SearchCalendarEventReqBody{}
-   if builder.queryFlag {
-	  req.Query = &builder.query
-	  
-   }
-   if builder.filterFlag {
-	   req.Filter = builder.filter
-   }
-   return req, nil
+func (builder *SearchCalendarEventPathReqBodyBuilder) Build() (*SearchCalendarEventReqBody, error) {
+	req := &SearchCalendarEventReqBody{}
+	if builder.queryFlag {
+		req.Query = &builder.query
+
+	}
+	if builder.filterFlag {
+		req.Filter = builder.filter
+	}
+	return req, nil
 }
+
 /**上传文件path结束**/
 
 /*1.4 生成请求的builder结构体*/
 type SearchCalendarEventReqBuilder struct {
-	calendarId  string
-	calendarIdFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-	pageToken  string
+	calendarId     string
+	calendarIdFlag bool
+	userIdType     string
+	userIdTypeFlag bool
+	pageToken      string
 	pageTokenFlag  bool
-	pageSize  int
-	pageSizeFlag  bool
-	body *SearchCalendarEventReqBody
-	bodyFlag bool
-	limit int
-
+	pageSize       int
+	pageSizeFlag   bool
+	body           *SearchCalendarEventReqBody
+	bodyFlag       bool
+	limit          int
 }
 
 // 生成请求的New构造器
-func NewSearchCalendarEventReqBuilder() * SearchCalendarEventReqBuilder{
-   builder := &SearchCalendarEventReqBuilder{}
-   return builder
+func NewSearchCalendarEventReqBuilder() *SearchCalendarEventReqBuilder {
+	builder := &SearchCalendarEventReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * SearchCalendarEventReqBuilder) Limit(limit int ) *SearchCalendarEventReqBuilder  {
-  builder.limit = limit
-  return builder
+func (builder *SearchCalendarEventReqBuilder) Limit(limit int) *SearchCalendarEventReqBuilder {
+	builder.limit = limit
+	return builder
 }
-func (builder * SearchCalendarEventReqBuilder) CalendarId(calendarId string) *SearchCalendarEventReqBuilder  {
-  builder.calendarId = calendarId
-  builder.calendarIdFlag = true
-  return builder
+func (builder *SearchCalendarEventReqBuilder) CalendarId(calendarId string) *SearchCalendarEventReqBuilder {
+	builder.calendarId = calendarId
+	builder.calendarIdFlag = true
+	return builder
 }
-func (builder * SearchCalendarEventReqBuilder) UserIdType(userIdType string) *SearchCalendarEventReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *SearchCalendarEventReqBuilder) UserIdType(userIdType string) *SearchCalendarEventReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
-func (builder * SearchCalendarEventReqBuilder) PageToken(pageToken string) *SearchCalendarEventReqBuilder  {
-  builder.pageToken = pageToken
-  builder.pageTokenFlag = true
-  return builder
+func (builder *SearchCalendarEventReqBuilder) PageToken(pageToken string) *SearchCalendarEventReqBuilder {
+	builder.pageToken = pageToken
+	builder.pageTokenFlag = true
+	return builder
 }
-func (builder * SearchCalendarEventReqBuilder) PageSize(pageSize int) *SearchCalendarEventReqBuilder  {
-  builder.pageSize = pageSize
-  builder.pageSizeFlag = true
-  return builder
+func (builder *SearchCalendarEventReqBuilder) PageSize(pageSize int) *SearchCalendarEventReqBuilder {
+	builder.pageSize = pageSize
+	builder.pageSizeFlag = true
+	return builder
 }
-func (builder * SearchCalendarEventReqBuilder) Body(body *SearchCalendarEventReqBody) *SearchCalendarEventReqBuilder  {
-  builder.body = body
-  builder.bodyFlag = true
-  return builder
+func (builder *SearchCalendarEventReqBuilder) Body(body *SearchCalendarEventReqBody) *SearchCalendarEventReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * SearchCalendarEventReqBuilder ) Build() *SearchCalendarEventReq {
-   req := &SearchCalendarEventReq{}
-   req.Limit = builder.limit
-   if builder.calendarIdFlag {
-	  req.CalendarId = builder.calendarId
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   if builder.pageTokenFlag {
-	  req.PageToken = &builder.pageToken
-   }
-   if builder.pageSizeFlag {
-	  req.PageSize = &builder.pageSize
-   }
-   if builder.bodyFlag {
-	  req.Body = builder.body
+func (builder *SearchCalendarEventReqBuilder) Build() *SearchCalendarEventReq {
+	req := &SearchCalendarEventReq{}
+	req.Limit = builder.limit
+	if builder.calendarIdFlag {
+		req.CalendarId = builder.calendarId
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	if builder.pageTokenFlag {
+		req.PageToken = &builder.pageToken
+	}
+	if builder.pageSizeFlag {
+		req.PageSize = &builder.pageSize
+	}
+	if builder.bodyFlag {
+		req.Body = builder.body
 
-   }
-   return req
+	}
+	return req
 }
 
 type SearchCalendarEventReqBody struct {
-	Query  *string `json:"query,omitempty"`
-	Filter  *EventSearchFilter `json:"filter,omitempty"`
+	Query  *string            `json:"query,omitempty"`
+	Filter *EventSearchFilter `json:"filter,omitempty"`
 }
 
 type SearchCalendarEventReq struct {
-	CalendarId  string `path:"calendar_id"`
-	UserIdType  *string `query:"user_id_type"`
-	PageToken  *string `query:"page_token"`
-	PageSize  *int `query:"page_size"`
-	Body *SearchCalendarEventReqBody `body:""`
-	Limit int
-
+	CalendarId string                      `path:"calendar_id"`
+	UserIdType *string                     `query:"user_id_type"`
+	PageToken  *string                     `query:"page_token"`
+	PageSize   *int                        `query:"page_size"`
+	Body       *SearchCalendarEventReqBody `body:""`
+	Limit      int
 }
 
 type SearchCalendarEventRespData struct {
-	Items  []*CalendarEvent `json:"items,omitempty"`
-	PageToken  *string `json:"page_token,omitempty"`
+	Items     []*CalendarEvent `json:"items,omitempty"`
+	PageToken *string          `json:"page_token,omitempty"`
 }
 
 type SearchCalendarEventResp struct {
@@ -1690,42 +1650,37 @@ func (resp *SearchCalendarEventResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type SubscriptionCalendarEventReqBuilder struct {
-	calendarId  string
-	calendarIdFlag  bool
-
+	calendarId     string
+	calendarIdFlag bool
 }
 
 // 生成请求的New构造器
-func NewSubscriptionCalendarEventReqBuilder() * SubscriptionCalendarEventReqBuilder{
-   builder := &SubscriptionCalendarEventReqBuilder{}
-   return builder
+func NewSubscriptionCalendarEventReqBuilder() *SubscriptionCalendarEventReqBuilder {
+	builder := &SubscriptionCalendarEventReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * SubscriptionCalendarEventReqBuilder) CalendarId(calendarId string) *SubscriptionCalendarEventReqBuilder  {
-  builder.calendarId = calendarId
-  builder.calendarIdFlag = true
-  return builder
+func (builder *SubscriptionCalendarEventReqBuilder) CalendarId(calendarId string) *SubscriptionCalendarEventReqBuilder {
+	builder.calendarId = calendarId
+	builder.calendarIdFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * SubscriptionCalendarEventReqBuilder ) Build() *SubscriptionCalendarEventReq {
-   req := &SubscriptionCalendarEventReq{}
-   if builder.calendarIdFlag {
-	  req.CalendarId = builder.calendarId
-   }
-   return req
+func (builder *SubscriptionCalendarEventReqBuilder) Build() *SubscriptionCalendarEventReq {
+	req := &SubscriptionCalendarEventReq{}
+	if builder.calendarIdFlag {
+		req.CalendarId = builder.calendarId
+	}
+	return req
 }
-
 
 type SubscriptionCalendarEventReq struct {
-	CalendarId  string `path:"calendar_id"`
-
+	CalendarId string `path:"calendar_id"`
 }
-
 
 type SubscriptionCalendarEventResp struct {
 	*core.RawResponse `json:"-"`
@@ -1737,197 +1692,223 @@ func (resp *SubscriptionCalendarEventResp) Success() bool {
 }
 
 type BatchDeleteCalendarEventAttendeeReqBodyBuilder struct {
-	attendeeIds  []string
-	attendeeIdsFlag  bool
-	needNotification  bool
-	needNotificationFlag  bool
-	instanceStartTimeAdmin  string
-	instanceStartTimeAdminFlag  bool
-	isEnableAdmin  bool
-	isEnableAdminFlag  bool
+	attendeeIds                []string
+	attendeeIdsFlag            bool
+	deleteIds                  []*CalendarEventAttendeeId
+	deleteIdsFlag              bool
+	needNotification           bool
+	needNotificationFlag       bool
+	instanceStartTimeAdmin     string
+	instanceStartTimeAdminFlag bool
+	isEnableAdmin              bool
+	isEnableAdminFlag          bool
 }
 
 // 生成body的New构造器
-func NewBatchDeleteCalendarEventAttendeeReqBodyBuilder() * BatchDeleteCalendarEventAttendeeReqBodyBuilder{
-  builder := &BatchDeleteCalendarEventAttendeeReqBodyBuilder{}
-  return builder
+func NewBatchDeleteCalendarEventAttendeeReqBodyBuilder() *BatchDeleteCalendarEventAttendeeReqBodyBuilder {
+	builder := &BatchDeleteCalendarEventAttendeeReqBodyBuilder{}
+	return builder
 }
 
 /*1.2 生成body的builder属性方法*/
-func (builder * BatchDeleteCalendarEventAttendeeReqBodyBuilder ) AttendeeIds(attendeeIds []string) *BatchDeleteCalendarEventAttendeeReqBodyBuilder {
-  builder.attendeeIds = attendeeIds
-  builder.attendeeIdsFlag = true
-  return builder
+func (builder *BatchDeleteCalendarEventAttendeeReqBodyBuilder) AttendeeIds(attendeeIds []string) *BatchDeleteCalendarEventAttendeeReqBodyBuilder {
+	builder.attendeeIds = attendeeIds
+	builder.attendeeIdsFlag = true
+	return builder
 }
-func (builder * BatchDeleteCalendarEventAttendeeReqBodyBuilder ) NeedNotification(needNotification bool) *BatchDeleteCalendarEventAttendeeReqBodyBuilder {
-  builder.needNotification = needNotification
-  builder.needNotificationFlag = true
-  return builder
+func (builder *BatchDeleteCalendarEventAttendeeReqBodyBuilder) DeleteIds(deleteIds []*CalendarEventAttendeeId) *BatchDeleteCalendarEventAttendeeReqBodyBuilder {
+	builder.deleteIds = deleteIds
+	builder.deleteIdsFlag = true
+	return builder
 }
-func (builder * BatchDeleteCalendarEventAttendeeReqBodyBuilder ) InstanceStartTimeAdmin(instanceStartTimeAdmin string) *BatchDeleteCalendarEventAttendeeReqBodyBuilder {
-  builder.instanceStartTimeAdmin = instanceStartTimeAdmin
-  builder.instanceStartTimeAdminFlag = true
-  return builder
+func (builder *BatchDeleteCalendarEventAttendeeReqBodyBuilder) NeedNotification(needNotification bool) *BatchDeleteCalendarEventAttendeeReqBodyBuilder {
+	builder.needNotification = needNotification
+	builder.needNotificationFlag = true
+	return builder
 }
-func (builder * BatchDeleteCalendarEventAttendeeReqBodyBuilder ) IsEnableAdmin(isEnableAdmin bool) *BatchDeleteCalendarEventAttendeeReqBodyBuilder {
-  builder.isEnableAdmin = isEnableAdmin
-  builder.isEnableAdminFlag = true
-  return builder
+func (builder *BatchDeleteCalendarEventAttendeeReqBodyBuilder) InstanceStartTimeAdmin(instanceStartTimeAdmin string) *BatchDeleteCalendarEventAttendeeReqBodyBuilder {
+	builder.instanceStartTimeAdmin = instanceStartTimeAdmin
+	builder.instanceStartTimeAdminFlag = true
+	return builder
 }
-
+func (builder *BatchDeleteCalendarEventAttendeeReqBodyBuilder) IsEnableAdmin(isEnableAdmin bool) *BatchDeleteCalendarEventAttendeeReqBodyBuilder {
+	builder.isEnableAdmin = isEnableAdmin
+	builder.isEnableAdminFlag = true
+	return builder
+}
 
 /*1.3 生成body的build方法*/
-func (builder * BatchDeleteCalendarEventAttendeeReqBodyBuilder ) Build() *BatchDeleteCalendarEventAttendeeReqBody {
-   req := &BatchDeleteCalendarEventAttendeeReqBody{}
-   if builder.attendeeIdsFlag {
-	  req.AttendeeIds = builder.attendeeIds
+func (builder *BatchDeleteCalendarEventAttendeeReqBodyBuilder) Build() *BatchDeleteCalendarEventAttendeeReqBody {
+	req := &BatchDeleteCalendarEventAttendeeReqBody{}
+	if builder.attendeeIdsFlag {
+		req.AttendeeIds = builder.attendeeIds
 
-   }
-   if builder.needNotificationFlag {
-	  req.NeedNotification = &builder.needNotification
-	  
+	}
+	if builder.deleteIdsFlag {
+		req.DeleteIds = builder.deleteIds
 
-   }
-   if builder.instanceStartTimeAdminFlag {
-	  req.InstanceStartTimeAdmin = &builder.instanceStartTimeAdmin
-	  
+	}
+	if builder.needNotificationFlag {
+		req.NeedNotification = &builder.needNotification
 
-   }
-   if builder.isEnableAdminFlag {
-	  req.IsEnableAdmin = &builder.isEnableAdmin
-	  
+	}
+	if builder.instanceStartTimeAdminFlag {
+		req.InstanceStartTimeAdmin = &builder.instanceStartTimeAdmin
 
-   }
-   return req
+	}
+	if builder.isEnableAdminFlag {
+		req.IsEnableAdmin = &builder.isEnableAdmin
+
+	}
+	return req
 }
 
 /**上传文件path开始**/
 type BatchDeleteCalendarEventAttendeePathReqBodyBuilder struct {
-	attendeeIds  []string
-	attendeeIdsFlag  bool
-	needNotification  bool
-	needNotificationFlag  bool
-	instanceStartTimeAdmin  string
-	instanceStartTimeAdminFlag  bool
-	isEnableAdmin  bool
-	isEnableAdminFlag  bool
+	attendeeIds                []string
+	attendeeIdsFlag            bool
+	deleteIds                  []*CalendarEventAttendeeId
+	deleteIdsFlag              bool
+	needNotification           bool
+	needNotificationFlag       bool
+	instanceStartTimeAdmin     string
+	instanceStartTimeAdminFlag bool
+	isEnableAdmin              bool
+	isEnableAdminFlag          bool
 }
 
 // 生成body的New构造器
-func NewBatchDeleteCalendarEventAttendeePathReqBodyBuilder() * BatchDeleteCalendarEventAttendeePathReqBodyBuilder{
-  builder := &BatchDeleteCalendarEventAttendeePathReqBodyBuilder{}
-  return builder
+func NewBatchDeleteCalendarEventAttendeePathReqBodyBuilder() *BatchDeleteCalendarEventAttendeePathReqBodyBuilder {
+	builder := &BatchDeleteCalendarEventAttendeePathReqBodyBuilder{}
+	return builder
 }
 
 /*1.2 生成body的builder属性方法*/
-func (builder * BatchDeleteCalendarEventAttendeePathReqBodyBuilder ) AttendeeIds(attendeeIds []string) *BatchDeleteCalendarEventAttendeePathReqBodyBuilder {
-  builder.attendeeIds = attendeeIds
-  builder.attendeeIdsFlag = true
-  return builder
+func (builder *BatchDeleteCalendarEventAttendeePathReqBodyBuilder) AttendeeIds(attendeeIds []string) *BatchDeleteCalendarEventAttendeePathReqBodyBuilder {
+	builder.attendeeIds = attendeeIds
+	builder.attendeeIdsFlag = true
+	return builder
 }
-func (builder * BatchDeleteCalendarEventAttendeePathReqBodyBuilder ) NeedNotification(needNotification bool) *BatchDeleteCalendarEventAttendeePathReqBodyBuilder {
-  builder.needNotification = needNotification
-  builder.needNotificationFlag = true
-  return builder
+func (builder *BatchDeleteCalendarEventAttendeePathReqBodyBuilder) DeleteIds(deleteIds []*CalendarEventAttendeeId) *BatchDeleteCalendarEventAttendeePathReqBodyBuilder {
+	builder.deleteIds = deleteIds
+	builder.deleteIdsFlag = true
+	return builder
 }
-func (builder * BatchDeleteCalendarEventAttendeePathReqBodyBuilder ) InstanceStartTimeAdmin(instanceStartTimeAdmin string) *BatchDeleteCalendarEventAttendeePathReqBodyBuilder {
-  builder.instanceStartTimeAdmin = instanceStartTimeAdmin
-  builder.instanceStartTimeAdminFlag = true
-  return builder
+func (builder *BatchDeleteCalendarEventAttendeePathReqBodyBuilder) NeedNotification(needNotification bool) *BatchDeleteCalendarEventAttendeePathReqBodyBuilder {
+	builder.needNotification = needNotification
+	builder.needNotificationFlag = true
+	return builder
 }
-func (builder * BatchDeleteCalendarEventAttendeePathReqBodyBuilder ) IsEnableAdmin(isEnableAdmin bool) *BatchDeleteCalendarEventAttendeePathReqBodyBuilder {
-  builder.isEnableAdmin = isEnableAdmin
-  builder.isEnableAdminFlag = true
-  return builder
+func (builder *BatchDeleteCalendarEventAttendeePathReqBodyBuilder) InstanceStartTimeAdmin(instanceStartTimeAdmin string) *BatchDeleteCalendarEventAttendeePathReqBodyBuilder {
+	builder.instanceStartTimeAdmin = instanceStartTimeAdmin
+	builder.instanceStartTimeAdminFlag = true
+	return builder
 }
-
+func (builder *BatchDeleteCalendarEventAttendeePathReqBodyBuilder) IsEnableAdmin(isEnableAdmin bool) *BatchDeleteCalendarEventAttendeePathReqBodyBuilder {
+	builder.isEnableAdmin = isEnableAdmin
+	builder.isEnableAdminFlag = true
+	return builder
+}
 
 /*1.3 生成body的build方法*/
-func (builder * BatchDeleteCalendarEventAttendeePathReqBodyBuilder ) Build() (*BatchDeleteCalendarEventAttendeeReqBody, error) {
-   req := &BatchDeleteCalendarEventAttendeeReqBody{}
-   if builder.attendeeIdsFlag {
-	   req.AttendeeIds = builder.attendeeIds
-   }
-   if builder.needNotificationFlag {
-	  req.NeedNotification = &builder.needNotification
-	  
-   }
-   if builder.instanceStartTimeAdminFlag {
-	  req.InstanceStartTimeAdmin = &builder.instanceStartTimeAdmin
-	  
-   }
-   if builder.isEnableAdminFlag {
-	  req.IsEnableAdmin = &builder.isEnableAdmin
-	  
-   }
-   return req, nil
+func (builder *BatchDeleteCalendarEventAttendeePathReqBodyBuilder) Build() (*BatchDeleteCalendarEventAttendeeReqBody, error) {
+	req := &BatchDeleteCalendarEventAttendeeReqBody{}
+	if builder.attendeeIdsFlag {
+		req.AttendeeIds = builder.attendeeIds
+	}
+	if builder.deleteIdsFlag {
+		req.DeleteIds = builder.deleteIds
+	}
+	if builder.needNotificationFlag {
+		req.NeedNotification = &builder.needNotification
+
+	}
+	if builder.instanceStartTimeAdminFlag {
+		req.InstanceStartTimeAdmin = &builder.instanceStartTimeAdmin
+
+	}
+	if builder.isEnableAdminFlag {
+		req.IsEnableAdmin = &builder.isEnableAdmin
+
+	}
+	return req, nil
 }
+
 /**上传文件path结束**/
 
 /*1.4 生成请求的builder结构体*/
 type BatchDeleteCalendarEventAttendeeReqBuilder struct {
-	calendarId  string
-	calendarIdFlag  bool
-	eventId  string
-	eventIdFlag  bool
-	body *BatchDeleteCalendarEventAttendeeReqBody
-	bodyFlag bool
-
+	calendarId     string
+	calendarIdFlag bool
+	eventId        string
+	eventIdFlag    bool
+	userIdType     string
+	userIdTypeFlag bool
+	body           *BatchDeleteCalendarEventAttendeeReqBody
+	bodyFlag       bool
 }
 
 // 生成请求的New构造器
-func NewBatchDeleteCalendarEventAttendeeReqBuilder() * BatchDeleteCalendarEventAttendeeReqBuilder{
-   builder := &BatchDeleteCalendarEventAttendeeReqBuilder{}
-   return builder
+func NewBatchDeleteCalendarEventAttendeeReqBuilder() *BatchDeleteCalendarEventAttendeeReqBuilder {
+	builder := &BatchDeleteCalendarEventAttendeeReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * BatchDeleteCalendarEventAttendeeReqBuilder) CalendarId(calendarId string) *BatchDeleteCalendarEventAttendeeReqBuilder  {
-  builder.calendarId = calendarId
-  builder.calendarIdFlag = true
-  return builder
+func (builder *BatchDeleteCalendarEventAttendeeReqBuilder) CalendarId(calendarId string) *BatchDeleteCalendarEventAttendeeReqBuilder {
+	builder.calendarId = calendarId
+	builder.calendarIdFlag = true
+	return builder
 }
-func (builder * BatchDeleteCalendarEventAttendeeReqBuilder) EventId(eventId string) *BatchDeleteCalendarEventAttendeeReqBuilder  {
-  builder.eventId = eventId
-  builder.eventIdFlag = true
-  return builder
+func (builder *BatchDeleteCalendarEventAttendeeReqBuilder) EventId(eventId string) *BatchDeleteCalendarEventAttendeeReqBuilder {
+	builder.eventId = eventId
+	builder.eventIdFlag = true
+	return builder
 }
-func (builder * BatchDeleteCalendarEventAttendeeReqBuilder) Body(body *BatchDeleteCalendarEventAttendeeReqBody) *BatchDeleteCalendarEventAttendeeReqBuilder  {
-  builder.body = body
-  builder.bodyFlag = true
-  return builder
+func (builder *BatchDeleteCalendarEventAttendeeReqBuilder) UserIdType(userIdType string) *BatchDeleteCalendarEventAttendeeReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
+}
+func (builder *BatchDeleteCalendarEventAttendeeReqBuilder) Body(body *BatchDeleteCalendarEventAttendeeReqBody) *BatchDeleteCalendarEventAttendeeReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * BatchDeleteCalendarEventAttendeeReqBuilder ) Build() *BatchDeleteCalendarEventAttendeeReq {
-   req := &BatchDeleteCalendarEventAttendeeReq{}
-   if builder.calendarIdFlag {
-	  req.CalendarId = builder.calendarId
-   }
-   if builder.eventIdFlag {
-	  req.EventId = builder.eventId
-   }
-   if builder.bodyFlag {
-	  req.Body = builder.body
+func (builder *BatchDeleteCalendarEventAttendeeReqBuilder) Build() *BatchDeleteCalendarEventAttendeeReq {
+	req := &BatchDeleteCalendarEventAttendeeReq{}
+	if builder.calendarIdFlag {
+		req.CalendarId = builder.calendarId
+	}
+	if builder.eventIdFlag {
+		req.EventId = builder.eventId
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	if builder.bodyFlag {
+		req.Body = builder.body
 
-   }
-   return req
+	}
+	return req
 }
 
 type BatchDeleteCalendarEventAttendeeReqBody struct {
-	AttendeeIds  []string `json:"attendee_ids,omitempty"`
-	NeedNotification  *bool `json:"need_notification,omitempty"`
-	InstanceStartTimeAdmin  *string `json:"instance_start_time_admin,omitempty"`
-	IsEnableAdmin  *bool `json:"is_enable_admin,omitempty"`
+	AttendeeIds            []string                   `json:"attendee_ids,omitempty"`
+	DeleteIds              []*CalendarEventAttendeeId `json:"delete_ids,omitempty"`
+	NeedNotification       *bool                      `json:"need_notification,omitempty"`
+	InstanceStartTimeAdmin *string                    `json:"instance_start_time_admin,omitempty"`
+	IsEnableAdmin          *bool                      `json:"is_enable_admin,omitempty"`
 }
 
 type BatchDeleteCalendarEventAttendeeReq struct {
-	CalendarId  string `path:"calendar_id"`
-	EventId  string `path:"event_id"`
-	Body *BatchDeleteCalendarEventAttendeeReqBody `body:""`
-
+	CalendarId string                                   `path:"calendar_id"`
+	EventId    string                                   `path:"event_id"`
+	UserIdType *string                                  `query:"user_id_type"`
+	Body       *BatchDeleteCalendarEventAttendeeReqBody `body:""`
 }
-
 
 type BatchDeleteCalendarEventAttendeeResp struct {
 	*core.RawResponse `json:"-"`
@@ -1939,210 +1920,204 @@ func (resp *BatchDeleteCalendarEventAttendeeResp) Success() bool {
 }
 
 type CreateCalendarEventAttendeeReqBodyBuilder struct {
-	attendees  []*CalendarEventAttendee
-	attendeesFlag  bool
-	needNotification  bool
-	needNotificationFlag  bool
-	instanceStartTimeAdmin  string
-	instanceStartTimeAdminFlag  bool
-	isEnableAdmin  bool
-	isEnableAdminFlag  bool
+	attendees                  []*CalendarEventAttendee
+	attendeesFlag              bool
+	needNotification           bool
+	needNotificationFlag       bool
+	instanceStartTimeAdmin     string
+	instanceStartTimeAdminFlag bool
+	isEnableAdmin              bool
+	isEnableAdminFlag          bool
 }
 
 // 生成body的New构造器
-func NewCreateCalendarEventAttendeeReqBodyBuilder() * CreateCalendarEventAttendeeReqBodyBuilder{
-  builder := &CreateCalendarEventAttendeeReqBodyBuilder{}
-  return builder
+func NewCreateCalendarEventAttendeeReqBodyBuilder() *CreateCalendarEventAttendeeReqBodyBuilder {
+	builder := &CreateCalendarEventAttendeeReqBodyBuilder{}
+	return builder
 }
 
 /*1.2 生成body的builder属性方法*/
-func (builder * CreateCalendarEventAttendeeReqBodyBuilder ) Attendees(attendees []*CalendarEventAttendee) *CreateCalendarEventAttendeeReqBodyBuilder {
-  builder.attendees = attendees
-  builder.attendeesFlag = true
-  return builder
+func (builder *CreateCalendarEventAttendeeReqBodyBuilder) Attendees(attendees []*CalendarEventAttendee) *CreateCalendarEventAttendeeReqBodyBuilder {
+	builder.attendees = attendees
+	builder.attendeesFlag = true
+	return builder
 }
-func (builder * CreateCalendarEventAttendeeReqBodyBuilder ) NeedNotification(needNotification bool) *CreateCalendarEventAttendeeReqBodyBuilder {
-  builder.needNotification = needNotification
-  builder.needNotificationFlag = true
-  return builder
+func (builder *CreateCalendarEventAttendeeReqBodyBuilder) NeedNotification(needNotification bool) *CreateCalendarEventAttendeeReqBodyBuilder {
+	builder.needNotification = needNotification
+	builder.needNotificationFlag = true
+	return builder
 }
-func (builder * CreateCalendarEventAttendeeReqBodyBuilder ) InstanceStartTimeAdmin(instanceStartTimeAdmin string) *CreateCalendarEventAttendeeReqBodyBuilder {
-  builder.instanceStartTimeAdmin = instanceStartTimeAdmin
-  builder.instanceStartTimeAdminFlag = true
-  return builder
+func (builder *CreateCalendarEventAttendeeReqBodyBuilder) InstanceStartTimeAdmin(instanceStartTimeAdmin string) *CreateCalendarEventAttendeeReqBodyBuilder {
+	builder.instanceStartTimeAdmin = instanceStartTimeAdmin
+	builder.instanceStartTimeAdminFlag = true
+	return builder
 }
-func (builder * CreateCalendarEventAttendeeReqBodyBuilder ) IsEnableAdmin(isEnableAdmin bool) *CreateCalendarEventAttendeeReqBodyBuilder {
-  builder.isEnableAdmin = isEnableAdmin
-  builder.isEnableAdminFlag = true
-  return builder
+func (builder *CreateCalendarEventAttendeeReqBodyBuilder) IsEnableAdmin(isEnableAdmin bool) *CreateCalendarEventAttendeeReqBodyBuilder {
+	builder.isEnableAdmin = isEnableAdmin
+	builder.isEnableAdminFlag = true
+	return builder
 }
-
 
 /*1.3 生成body的build方法*/
-func (builder * CreateCalendarEventAttendeeReqBodyBuilder ) Build() *CreateCalendarEventAttendeeReqBody {
-   req := &CreateCalendarEventAttendeeReqBody{}
-   if builder.attendeesFlag {
-	  req.Attendees = builder.attendees
+func (builder *CreateCalendarEventAttendeeReqBodyBuilder) Build() *CreateCalendarEventAttendeeReqBody {
+	req := &CreateCalendarEventAttendeeReqBody{}
+	if builder.attendeesFlag {
+		req.Attendees = builder.attendees
 
-   }
-   if builder.needNotificationFlag {
-	  req.NeedNotification = &builder.needNotification
-	  
+	}
+	if builder.needNotificationFlag {
+		req.NeedNotification = &builder.needNotification
 
-   }
-   if builder.instanceStartTimeAdminFlag {
-	  req.InstanceStartTimeAdmin = &builder.instanceStartTimeAdmin
-	  
+	}
+	if builder.instanceStartTimeAdminFlag {
+		req.InstanceStartTimeAdmin = &builder.instanceStartTimeAdmin
 
-   }
-   if builder.isEnableAdminFlag {
-	  req.IsEnableAdmin = &builder.isEnableAdmin
-	  
+	}
+	if builder.isEnableAdminFlag {
+		req.IsEnableAdmin = &builder.isEnableAdmin
 
-   }
-   return req
+	}
+	return req
 }
 
 /**上传文件path开始**/
 type CreateCalendarEventAttendeePathReqBodyBuilder struct {
-	attendees  []*CalendarEventAttendee
-	attendeesFlag  bool
-	needNotification  bool
-	needNotificationFlag  bool
-	instanceStartTimeAdmin  string
-	instanceStartTimeAdminFlag  bool
-	isEnableAdmin  bool
-	isEnableAdminFlag  bool
+	attendees                  []*CalendarEventAttendee
+	attendeesFlag              bool
+	needNotification           bool
+	needNotificationFlag       bool
+	instanceStartTimeAdmin     string
+	instanceStartTimeAdminFlag bool
+	isEnableAdmin              bool
+	isEnableAdminFlag          bool
 }
 
 // 生成body的New构造器
-func NewCreateCalendarEventAttendeePathReqBodyBuilder() * CreateCalendarEventAttendeePathReqBodyBuilder{
-  builder := &CreateCalendarEventAttendeePathReqBodyBuilder{}
-  return builder
+func NewCreateCalendarEventAttendeePathReqBodyBuilder() *CreateCalendarEventAttendeePathReqBodyBuilder {
+	builder := &CreateCalendarEventAttendeePathReqBodyBuilder{}
+	return builder
 }
 
 /*1.2 生成body的builder属性方法*/
-func (builder * CreateCalendarEventAttendeePathReqBodyBuilder ) Attendees(attendees []*CalendarEventAttendee) *CreateCalendarEventAttendeePathReqBodyBuilder {
-  builder.attendees = attendees
-  builder.attendeesFlag = true
-  return builder
+func (builder *CreateCalendarEventAttendeePathReqBodyBuilder) Attendees(attendees []*CalendarEventAttendee) *CreateCalendarEventAttendeePathReqBodyBuilder {
+	builder.attendees = attendees
+	builder.attendeesFlag = true
+	return builder
 }
-func (builder * CreateCalendarEventAttendeePathReqBodyBuilder ) NeedNotification(needNotification bool) *CreateCalendarEventAttendeePathReqBodyBuilder {
-  builder.needNotification = needNotification
-  builder.needNotificationFlag = true
-  return builder
+func (builder *CreateCalendarEventAttendeePathReqBodyBuilder) NeedNotification(needNotification bool) *CreateCalendarEventAttendeePathReqBodyBuilder {
+	builder.needNotification = needNotification
+	builder.needNotificationFlag = true
+	return builder
 }
-func (builder * CreateCalendarEventAttendeePathReqBodyBuilder ) InstanceStartTimeAdmin(instanceStartTimeAdmin string) *CreateCalendarEventAttendeePathReqBodyBuilder {
-  builder.instanceStartTimeAdmin = instanceStartTimeAdmin
-  builder.instanceStartTimeAdminFlag = true
-  return builder
+func (builder *CreateCalendarEventAttendeePathReqBodyBuilder) InstanceStartTimeAdmin(instanceStartTimeAdmin string) *CreateCalendarEventAttendeePathReqBodyBuilder {
+	builder.instanceStartTimeAdmin = instanceStartTimeAdmin
+	builder.instanceStartTimeAdminFlag = true
+	return builder
 }
-func (builder * CreateCalendarEventAttendeePathReqBodyBuilder ) IsEnableAdmin(isEnableAdmin bool) *CreateCalendarEventAttendeePathReqBodyBuilder {
-  builder.isEnableAdmin = isEnableAdmin
-  builder.isEnableAdminFlag = true
-  return builder
+func (builder *CreateCalendarEventAttendeePathReqBodyBuilder) IsEnableAdmin(isEnableAdmin bool) *CreateCalendarEventAttendeePathReqBodyBuilder {
+	builder.isEnableAdmin = isEnableAdmin
+	builder.isEnableAdminFlag = true
+	return builder
 }
-
 
 /*1.3 生成body的build方法*/
-func (builder * CreateCalendarEventAttendeePathReqBodyBuilder ) Build() (*CreateCalendarEventAttendeeReqBody, error) {
-   req := &CreateCalendarEventAttendeeReqBody{}
-   if builder.attendeesFlag {
-	   req.Attendees = builder.attendees
-   }
-   if builder.needNotificationFlag {
-	  req.NeedNotification = &builder.needNotification
-	  
-   }
-   if builder.instanceStartTimeAdminFlag {
-	  req.InstanceStartTimeAdmin = &builder.instanceStartTimeAdmin
-	  
-   }
-   if builder.isEnableAdminFlag {
-	  req.IsEnableAdmin = &builder.isEnableAdmin
-	  
-   }
-   return req, nil
+func (builder *CreateCalendarEventAttendeePathReqBodyBuilder) Build() (*CreateCalendarEventAttendeeReqBody, error) {
+	req := &CreateCalendarEventAttendeeReqBody{}
+	if builder.attendeesFlag {
+		req.Attendees = builder.attendees
+	}
+	if builder.needNotificationFlag {
+		req.NeedNotification = &builder.needNotification
+
+	}
+	if builder.instanceStartTimeAdminFlag {
+		req.InstanceStartTimeAdmin = &builder.instanceStartTimeAdmin
+
+	}
+	if builder.isEnableAdminFlag {
+		req.IsEnableAdmin = &builder.isEnableAdmin
+
+	}
+	return req, nil
 }
+
 /**上传文件path结束**/
 
 /*1.4 生成请求的builder结构体*/
 type CreateCalendarEventAttendeeReqBuilder struct {
-	calendarId  string
-	calendarIdFlag  bool
-	eventId  string
-	eventIdFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-	body *CreateCalendarEventAttendeeReqBody
-	bodyFlag bool
-
+	calendarId     string
+	calendarIdFlag bool
+	eventId        string
+	eventIdFlag    bool
+	userIdType     string
+	userIdTypeFlag bool
+	body           *CreateCalendarEventAttendeeReqBody
+	bodyFlag       bool
 }
 
 // 生成请求的New构造器
-func NewCreateCalendarEventAttendeeReqBuilder() * CreateCalendarEventAttendeeReqBuilder{
-   builder := &CreateCalendarEventAttendeeReqBuilder{}
-   return builder
+func NewCreateCalendarEventAttendeeReqBuilder() *CreateCalendarEventAttendeeReqBuilder {
+	builder := &CreateCalendarEventAttendeeReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * CreateCalendarEventAttendeeReqBuilder) CalendarId(calendarId string) *CreateCalendarEventAttendeeReqBuilder  {
-  builder.calendarId = calendarId
-  builder.calendarIdFlag = true
-  return builder
+func (builder *CreateCalendarEventAttendeeReqBuilder) CalendarId(calendarId string) *CreateCalendarEventAttendeeReqBuilder {
+	builder.calendarId = calendarId
+	builder.calendarIdFlag = true
+	return builder
 }
-func (builder * CreateCalendarEventAttendeeReqBuilder) EventId(eventId string) *CreateCalendarEventAttendeeReqBuilder  {
-  builder.eventId = eventId
-  builder.eventIdFlag = true
-  return builder
+func (builder *CreateCalendarEventAttendeeReqBuilder) EventId(eventId string) *CreateCalendarEventAttendeeReqBuilder {
+	builder.eventId = eventId
+	builder.eventIdFlag = true
+	return builder
 }
-func (builder * CreateCalendarEventAttendeeReqBuilder) UserIdType(userIdType string) *CreateCalendarEventAttendeeReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *CreateCalendarEventAttendeeReqBuilder) UserIdType(userIdType string) *CreateCalendarEventAttendeeReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
-func (builder * CreateCalendarEventAttendeeReqBuilder) Body(body *CreateCalendarEventAttendeeReqBody) *CreateCalendarEventAttendeeReqBuilder  {
-  builder.body = body
-  builder.bodyFlag = true
-  return builder
+func (builder *CreateCalendarEventAttendeeReqBuilder) Body(body *CreateCalendarEventAttendeeReqBody) *CreateCalendarEventAttendeeReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * CreateCalendarEventAttendeeReqBuilder ) Build() *CreateCalendarEventAttendeeReq {
-   req := &CreateCalendarEventAttendeeReq{}
-   if builder.calendarIdFlag {
-	  req.CalendarId = builder.calendarId
-   }
-   if builder.eventIdFlag {
-	  req.EventId = builder.eventId
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   if builder.bodyFlag {
-	  req.Body = builder.body
+func (builder *CreateCalendarEventAttendeeReqBuilder) Build() *CreateCalendarEventAttendeeReq {
+	req := &CreateCalendarEventAttendeeReq{}
+	if builder.calendarIdFlag {
+		req.CalendarId = builder.calendarId
+	}
+	if builder.eventIdFlag {
+		req.EventId = builder.eventId
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	if builder.bodyFlag {
+		req.Body = builder.body
 
-   }
-   return req
+	}
+	return req
 }
 
 type CreateCalendarEventAttendeeReqBody struct {
-	Attendees  []*CalendarEventAttendee `json:"attendees,omitempty"`
-	NeedNotification  *bool `json:"need_notification,omitempty"`
-	InstanceStartTimeAdmin  *string `json:"instance_start_time_admin,omitempty"`
-	IsEnableAdmin  *bool `json:"is_enable_admin,omitempty"`
+	Attendees              []*CalendarEventAttendee `json:"attendees,omitempty"`
+	NeedNotification       *bool                    `json:"need_notification,omitempty"`
+	InstanceStartTimeAdmin *string                  `json:"instance_start_time_admin,omitempty"`
+	IsEnableAdmin          *bool                    `json:"is_enable_admin,omitempty"`
 }
 
 type CreateCalendarEventAttendeeReq struct {
-	CalendarId  string `path:"calendar_id"`
-	EventId  string `path:"event_id"`
-	UserIdType  *string `query:"user_id_type"`
-	Body *CreateCalendarEventAttendeeReqBody `body:""`
-
+	CalendarId string                              `path:"calendar_id"`
+	EventId    string                              `path:"event_id"`
+	UserIdType *string                             `query:"user_id_type"`
+	Body       *CreateCalendarEventAttendeeReqBody `body:""`
 }
 
 type CreateCalendarEventAttendeeRespData struct {
-	Attendees  []*CalendarEventAttendee `json:"attendees,omitempty"`
+	Attendees []*CalendarEventAttendee `json:"attendees,omitempty"`
 }
 
 type CreateCalendarEventAttendeeResp struct {
@@ -2155,97 +2130,93 @@ func (resp *CreateCalendarEventAttendeeResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type ListCalendarEventAttendeeReqBuilder struct {
-	calendarId  string
-	calendarIdFlag  bool
-	eventId  string
-	eventIdFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-	pageToken  string
+	calendarId     string
+	calendarIdFlag bool
+	eventId        string
+	eventIdFlag    bool
+	userIdType     string
+	userIdTypeFlag bool
+	pageToken      string
 	pageTokenFlag  bool
-	pageSize  int
-	pageSizeFlag  bool
-	limit int
-
+	pageSize       int
+	pageSizeFlag   bool
+	limit          int
 }
 
 // 生成请求的New构造器
-func NewListCalendarEventAttendeeReqBuilder() * ListCalendarEventAttendeeReqBuilder{
-   builder := &ListCalendarEventAttendeeReqBuilder{}
-   return builder
+func NewListCalendarEventAttendeeReqBuilder() *ListCalendarEventAttendeeReqBuilder {
+	builder := &ListCalendarEventAttendeeReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * ListCalendarEventAttendeeReqBuilder) Limit(limit int ) *ListCalendarEventAttendeeReqBuilder  {
-  builder.limit = limit
-  return builder
+func (builder *ListCalendarEventAttendeeReqBuilder) Limit(limit int) *ListCalendarEventAttendeeReqBuilder {
+	builder.limit = limit
+	return builder
 }
-func (builder * ListCalendarEventAttendeeReqBuilder) CalendarId(calendarId string) *ListCalendarEventAttendeeReqBuilder  {
-  builder.calendarId = calendarId
-  builder.calendarIdFlag = true
-  return builder
+func (builder *ListCalendarEventAttendeeReqBuilder) CalendarId(calendarId string) *ListCalendarEventAttendeeReqBuilder {
+	builder.calendarId = calendarId
+	builder.calendarIdFlag = true
+	return builder
 }
-func (builder * ListCalendarEventAttendeeReqBuilder) EventId(eventId string) *ListCalendarEventAttendeeReqBuilder  {
-  builder.eventId = eventId
-  builder.eventIdFlag = true
-  return builder
+func (builder *ListCalendarEventAttendeeReqBuilder) EventId(eventId string) *ListCalendarEventAttendeeReqBuilder {
+	builder.eventId = eventId
+	builder.eventIdFlag = true
+	return builder
 }
-func (builder * ListCalendarEventAttendeeReqBuilder) UserIdType(userIdType string) *ListCalendarEventAttendeeReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *ListCalendarEventAttendeeReqBuilder) UserIdType(userIdType string) *ListCalendarEventAttendeeReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
-func (builder * ListCalendarEventAttendeeReqBuilder) PageToken(pageToken string) *ListCalendarEventAttendeeReqBuilder  {
-  builder.pageToken = pageToken
-  builder.pageTokenFlag = true
-  return builder
+func (builder *ListCalendarEventAttendeeReqBuilder) PageToken(pageToken string) *ListCalendarEventAttendeeReqBuilder {
+	builder.pageToken = pageToken
+	builder.pageTokenFlag = true
+	return builder
 }
-func (builder * ListCalendarEventAttendeeReqBuilder) PageSize(pageSize int) *ListCalendarEventAttendeeReqBuilder  {
-  builder.pageSize = pageSize
-  builder.pageSizeFlag = true
-  return builder
+func (builder *ListCalendarEventAttendeeReqBuilder) PageSize(pageSize int) *ListCalendarEventAttendeeReqBuilder {
+	builder.pageSize = pageSize
+	builder.pageSizeFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * ListCalendarEventAttendeeReqBuilder ) Build() *ListCalendarEventAttendeeReq {
-   req := &ListCalendarEventAttendeeReq{}
-   req.Limit = builder.limit
-   if builder.calendarIdFlag {
-	  req.CalendarId = builder.calendarId
-   }
-   if builder.eventIdFlag {
-	  req.EventId = builder.eventId
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   if builder.pageTokenFlag {
-	  req.PageToken = &builder.pageToken
-   }
-   if builder.pageSizeFlag {
-	  req.PageSize = &builder.pageSize
-   }
-   return req
+func (builder *ListCalendarEventAttendeeReqBuilder) Build() *ListCalendarEventAttendeeReq {
+	req := &ListCalendarEventAttendeeReq{}
+	req.Limit = builder.limit
+	if builder.calendarIdFlag {
+		req.CalendarId = builder.calendarId
+	}
+	if builder.eventIdFlag {
+		req.EventId = builder.eventId
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	if builder.pageTokenFlag {
+		req.PageToken = &builder.pageToken
+	}
+	if builder.pageSizeFlag {
+		req.PageSize = &builder.pageSize
+	}
+	return req
 }
 
-
 type ListCalendarEventAttendeeReq struct {
-	CalendarId  string `path:"calendar_id"`
-	EventId  string `path:"event_id"`
-	UserIdType  *string `query:"user_id_type"`
+	CalendarId string  `path:"calendar_id"`
+	EventId    string  `path:"event_id"`
+	UserIdType *string `query:"user_id_type"`
 	PageToken  *string `query:"page_token"`
-	PageSize  *int `query:"page_size"`
-	Limit int
-
+	PageSize   *int    `query:"page_size"`
+	Limit      int
 }
 
 type ListCalendarEventAttendeeRespData struct {
-	Items  []*CalendarEventAttendee `json:"items,omitempty"`
-	HasMore  *bool `json:"has_more,omitempty"`
-	PageToken  *string `json:"page_token,omitempty"`
+	Items     []*CalendarEventAttendee `json:"items,omitempty"`
+	HasMore   *bool                    `json:"has_more,omitempty"`
+	PageToken *string                  `json:"page_token,omitempty"`
 }
 
 type ListCalendarEventAttendeeResp struct {
@@ -2258,108 +2229,104 @@ func (resp *ListCalendarEventAttendeeResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type ListCalendarEventAttendeeChatMemberReqBuilder struct {
-	calendarId  string
-	calendarIdFlag  bool
-	eventId  string
-	eventIdFlag  bool
-	attendeeId  string
-	attendeeIdFlag  bool
-	pageToken  string
+	calendarId     string
+	calendarIdFlag bool
+	eventId        string
+	eventIdFlag    bool
+	attendeeId     string
+	attendeeIdFlag bool
+	pageToken      string
 	pageTokenFlag  bool
-	pageSize  int
-	pageSizeFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-	limit int
-
+	pageSize       int
+	pageSizeFlag   bool
+	userIdType     string
+	userIdTypeFlag bool
+	limit          int
 }
 
 // 生成请求的New构造器
-func NewListCalendarEventAttendeeChatMemberReqBuilder() * ListCalendarEventAttendeeChatMemberReqBuilder{
-   builder := &ListCalendarEventAttendeeChatMemberReqBuilder{}
-   return builder
+func NewListCalendarEventAttendeeChatMemberReqBuilder() *ListCalendarEventAttendeeChatMemberReqBuilder {
+	builder := &ListCalendarEventAttendeeChatMemberReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * ListCalendarEventAttendeeChatMemberReqBuilder) Limit(limit int ) *ListCalendarEventAttendeeChatMemberReqBuilder  {
-  builder.limit = limit
-  return builder
+func (builder *ListCalendarEventAttendeeChatMemberReqBuilder) Limit(limit int) *ListCalendarEventAttendeeChatMemberReqBuilder {
+	builder.limit = limit
+	return builder
 }
-func (builder * ListCalendarEventAttendeeChatMemberReqBuilder) CalendarId(calendarId string) *ListCalendarEventAttendeeChatMemberReqBuilder  {
-  builder.calendarId = calendarId
-  builder.calendarIdFlag = true
-  return builder
+func (builder *ListCalendarEventAttendeeChatMemberReqBuilder) CalendarId(calendarId string) *ListCalendarEventAttendeeChatMemberReqBuilder {
+	builder.calendarId = calendarId
+	builder.calendarIdFlag = true
+	return builder
 }
-func (builder * ListCalendarEventAttendeeChatMemberReqBuilder) EventId(eventId string) *ListCalendarEventAttendeeChatMemberReqBuilder  {
-  builder.eventId = eventId
-  builder.eventIdFlag = true
-  return builder
+func (builder *ListCalendarEventAttendeeChatMemberReqBuilder) EventId(eventId string) *ListCalendarEventAttendeeChatMemberReqBuilder {
+	builder.eventId = eventId
+	builder.eventIdFlag = true
+	return builder
 }
-func (builder * ListCalendarEventAttendeeChatMemberReqBuilder) AttendeeId(attendeeId string) *ListCalendarEventAttendeeChatMemberReqBuilder  {
-  builder.attendeeId = attendeeId
-  builder.attendeeIdFlag = true
-  return builder
+func (builder *ListCalendarEventAttendeeChatMemberReqBuilder) AttendeeId(attendeeId string) *ListCalendarEventAttendeeChatMemberReqBuilder {
+	builder.attendeeId = attendeeId
+	builder.attendeeIdFlag = true
+	return builder
 }
-func (builder * ListCalendarEventAttendeeChatMemberReqBuilder) PageToken(pageToken string) *ListCalendarEventAttendeeChatMemberReqBuilder  {
-  builder.pageToken = pageToken
-  builder.pageTokenFlag = true
-  return builder
+func (builder *ListCalendarEventAttendeeChatMemberReqBuilder) PageToken(pageToken string) *ListCalendarEventAttendeeChatMemberReqBuilder {
+	builder.pageToken = pageToken
+	builder.pageTokenFlag = true
+	return builder
 }
-func (builder * ListCalendarEventAttendeeChatMemberReqBuilder) PageSize(pageSize int) *ListCalendarEventAttendeeChatMemberReqBuilder  {
-  builder.pageSize = pageSize
-  builder.pageSizeFlag = true
-  return builder
+func (builder *ListCalendarEventAttendeeChatMemberReqBuilder) PageSize(pageSize int) *ListCalendarEventAttendeeChatMemberReqBuilder {
+	builder.pageSize = pageSize
+	builder.pageSizeFlag = true
+	return builder
 }
-func (builder * ListCalendarEventAttendeeChatMemberReqBuilder) UserIdType(userIdType string) *ListCalendarEventAttendeeChatMemberReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *ListCalendarEventAttendeeChatMemberReqBuilder) UserIdType(userIdType string) *ListCalendarEventAttendeeChatMemberReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * ListCalendarEventAttendeeChatMemberReqBuilder ) Build() *ListCalendarEventAttendeeChatMemberReq {
-   req := &ListCalendarEventAttendeeChatMemberReq{}
-   req.Limit = builder.limit
-   if builder.calendarIdFlag {
-	  req.CalendarId = builder.calendarId
-   }
-   if builder.eventIdFlag {
-	  req.EventId = builder.eventId
-   }
-   if builder.attendeeIdFlag {
-	  req.AttendeeId = builder.attendeeId
-   }
-   if builder.pageTokenFlag {
-	  req.PageToken = &builder.pageToken
-   }
-   if builder.pageSizeFlag {
-	  req.PageSize = &builder.pageSize
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   return req
+func (builder *ListCalendarEventAttendeeChatMemberReqBuilder) Build() *ListCalendarEventAttendeeChatMemberReq {
+	req := &ListCalendarEventAttendeeChatMemberReq{}
+	req.Limit = builder.limit
+	if builder.calendarIdFlag {
+		req.CalendarId = builder.calendarId
+	}
+	if builder.eventIdFlag {
+		req.EventId = builder.eventId
+	}
+	if builder.attendeeIdFlag {
+		req.AttendeeId = builder.attendeeId
+	}
+	if builder.pageTokenFlag {
+		req.PageToken = &builder.pageToken
+	}
+	if builder.pageSizeFlag {
+		req.PageSize = &builder.pageSize
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	return req
 }
 
-
 type ListCalendarEventAttendeeChatMemberReq struct {
-	CalendarId  string `path:"calendar_id"`
-	EventId  string `path:"event_id"`
-	AttendeeId  string `path:"attendee_id"`
+	CalendarId string  `path:"calendar_id"`
+	EventId    string  `path:"event_id"`
+	AttendeeId string  `path:"attendee_id"`
 	PageToken  *string `query:"page_token"`
-	PageSize  *int `query:"page_size"`
-	UserIdType  *string `query:"user_id_type"`
-	Limit int
-
+	PageSize   *int    `query:"page_size"`
+	UserIdType *string `query:"user_id_type"`
+	Limit      int
 }
 
 type ListCalendarEventAttendeeChatMemberRespData struct {
-	Items  []*CalendarEventAttendeeChatMember `json:"items,omitempty"`
-	HasMore  *bool `json:"has_more,omitempty"`
-	PageToken  *string `json:"page_token,omitempty"`
+	Items     []*CalendarEventAttendeeChatMember `json:"items,omitempty"`
+	HasMore   *bool                              `json:"has_more,omitempty"`
+	PageToken *string                            `json:"page_token,omitempty"`
 }
 
 type ListCalendarEventAttendeeChatMemberResp struct {
@@ -2372,56 +2339,52 @@ func (resp *ListCalendarEventAttendeeChatMemberResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type CreateExchangeBindingReqBuilder struct {
-	userIdType  string
-	userIdTypeFlag  bool
-	exchangeBinding *ExchangeBinding
+	userIdType          string
+	userIdTypeFlag      bool
+	exchangeBinding     *ExchangeBinding
 	exchangeBindingFlag bool
-
 }
 
 // 生成请求的New构造器
-func NewCreateExchangeBindingReqBuilder() * CreateExchangeBindingReqBuilder{
-   builder := &CreateExchangeBindingReqBuilder{}
-   return builder
+func NewCreateExchangeBindingReqBuilder() *CreateExchangeBindingReqBuilder {
+	builder := &CreateExchangeBindingReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * CreateExchangeBindingReqBuilder) UserIdType(userIdType string) *CreateExchangeBindingReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *CreateExchangeBindingReqBuilder) UserIdType(userIdType string) *CreateExchangeBindingReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
-func (builder * CreateExchangeBindingReqBuilder) ExchangeBinding(exchangeBinding *ExchangeBinding) *CreateExchangeBindingReqBuilder  {
-  builder.exchangeBinding = exchangeBinding
-  builder.exchangeBindingFlag = true
-  return builder
+func (builder *CreateExchangeBindingReqBuilder) ExchangeBinding(exchangeBinding *ExchangeBinding) *CreateExchangeBindingReqBuilder {
+	builder.exchangeBinding = exchangeBinding
+	builder.exchangeBindingFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * CreateExchangeBindingReqBuilder ) Build() *CreateExchangeBindingReq {
-   req := &CreateExchangeBindingReq{}
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   return req
+func (builder *CreateExchangeBindingReqBuilder) Build() *CreateExchangeBindingReq {
+	req := &CreateExchangeBindingReq{}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	return req
 }
 
-
 type CreateExchangeBindingReq struct {
-	UserIdType  *string `query:"user_id_type"`
+	UserIdType      *string          `query:"user_id_type"`
 	ExchangeBinding *ExchangeBinding `body:""`
-
 }
 
 type CreateExchangeBindingRespData struct {
-	AdminAccount  *string `json:"admin_account,omitempty"`
-	ExchangeAccount  *string `json:"exchange_account,omitempty"`
-	UserId  *string `json:"user_id,omitempty"`
-	Status  *string `json:"status,omitempty"`
-	ExchangeBindingId  *string `json:"exchange_binding_id,omitempty"`
+	AdminAccount      *string `json:"admin_account,omitempty"`
+	ExchangeAccount   *string `json:"exchange_account,omitempty"`
+	UserId            *string `json:"user_id,omitempty"`
+	Status            *string `json:"status,omitempty"`
+	ExchangeBindingId *string `json:"exchange_binding_id,omitempty"`
 }
 
 type CreateExchangeBindingResp struct {
@@ -2434,42 +2397,37 @@ func (resp *CreateExchangeBindingResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type DeleteExchangeBindingReqBuilder struct {
-	exchangeBindingId  string
-	exchangeBindingIdFlag  bool
-
+	exchangeBindingId     string
+	exchangeBindingIdFlag bool
 }
 
 // 生成请求的New构造器
-func NewDeleteExchangeBindingReqBuilder() * DeleteExchangeBindingReqBuilder{
-   builder := &DeleteExchangeBindingReqBuilder{}
-   return builder
+func NewDeleteExchangeBindingReqBuilder() *DeleteExchangeBindingReqBuilder {
+	builder := &DeleteExchangeBindingReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * DeleteExchangeBindingReqBuilder) ExchangeBindingId(exchangeBindingId string) *DeleteExchangeBindingReqBuilder  {
-  builder.exchangeBindingId = exchangeBindingId
-  builder.exchangeBindingIdFlag = true
-  return builder
+func (builder *DeleteExchangeBindingReqBuilder) ExchangeBindingId(exchangeBindingId string) *DeleteExchangeBindingReqBuilder {
+	builder.exchangeBindingId = exchangeBindingId
+	builder.exchangeBindingIdFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * DeleteExchangeBindingReqBuilder ) Build() *DeleteExchangeBindingReq {
-   req := &DeleteExchangeBindingReq{}
-   if builder.exchangeBindingIdFlag {
-	  req.ExchangeBindingId = builder.exchangeBindingId
-   }
-   return req
+func (builder *DeleteExchangeBindingReqBuilder) Build() *DeleteExchangeBindingReq {
+	req := &DeleteExchangeBindingReq{}
+	if builder.exchangeBindingIdFlag {
+		req.ExchangeBindingId = builder.exchangeBindingId
+	}
+	return req
 }
-
 
 type DeleteExchangeBindingReq struct {
-	ExchangeBindingId  string `path:"exchange_binding_id"`
-
+	ExchangeBindingId string `path:"exchange_binding_id"`
 }
-
 
 type DeleteExchangeBindingResp struct {
 	*core.RawResponse `json:"-"`
@@ -2480,59 +2438,55 @@ func (resp *DeleteExchangeBindingResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type GetExchangeBindingReqBuilder struct {
-	exchangeBindingId  string
-	exchangeBindingIdFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-
+	exchangeBindingId     string
+	exchangeBindingIdFlag bool
+	userIdType            string
+	userIdTypeFlag        bool
 }
 
 // 生成请求的New构造器
-func NewGetExchangeBindingReqBuilder() * GetExchangeBindingReqBuilder{
-   builder := &GetExchangeBindingReqBuilder{}
-   return builder
+func NewGetExchangeBindingReqBuilder() *GetExchangeBindingReqBuilder {
+	builder := &GetExchangeBindingReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * GetExchangeBindingReqBuilder) ExchangeBindingId(exchangeBindingId string) *GetExchangeBindingReqBuilder  {
-  builder.exchangeBindingId = exchangeBindingId
-  builder.exchangeBindingIdFlag = true
-  return builder
+func (builder *GetExchangeBindingReqBuilder) ExchangeBindingId(exchangeBindingId string) *GetExchangeBindingReqBuilder {
+	builder.exchangeBindingId = exchangeBindingId
+	builder.exchangeBindingIdFlag = true
+	return builder
 }
-func (builder * GetExchangeBindingReqBuilder) UserIdType(userIdType string) *GetExchangeBindingReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *GetExchangeBindingReqBuilder) UserIdType(userIdType string) *GetExchangeBindingReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * GetExchangeBindingReqBuilder ) Build() *GetExchangeBindingReq {
-   req := &GetExchangeBindingReq{}
-   if builder.exchangeBindingIdFlag {
-	  req.ExchangeBindingId = builder.exchangeBindingId
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   return req
+func (builder *GetExchangeBindingReqBuilder) Build() *GetExchangeBindingReq {
+	req := &GetExchangeBindingReq{}
+	if builder.exchangeBindingIdFlag {
+		req.ExchangeBindingId = builder.exchangeBindingId
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	return req
 }
 
-
 type GetExchangeBindingReq struct {
-	ExchangeBindingId  string `path:"exchange_binding_id"`
-	UserIdType  *string `query:"user_id_type"`
-
+	ExchangeBindingId string  `path:"exchange_binding_id"`
+	UserIdType        *string `query:"user_id_type"`
 }
 
 type GetExchangeBindingRespData struct {
-	AdminAccount  *string `json:"admin_account,omitempty"`
-	ExchangeAccount  *string `json:"exchange_account,omitempty"`
-	UserId  *string `json:"user_id,omitempty"`
-	Status  *string `json:"status,omitempty"`
-	ExchangeBindingId  *string `json:"exchange_binding_id,omitempty"`
+	AdminAccount      *string `json:"admin_account,omitempty"`
+	ExchangeAccount   *string `json:"exchange_account,omitempty"`
+	UserId            *string `json:"user_id,omitempty"`
+	Status            *string `json:"status,omitempty"`
+	ExchangeBindingId *string `json:"exchange_binding_id,omitempty"`
 }
 
 type GetExchangeBindingResp struct {
@@ -2545,376 +2499,184 @@ func (resp *GetExchangeBindingResp) Success() bool {
 	return resp.Code == 0
 }
 
-type BatchGetFreebusyReqBodyBuilder struct {
-	timeMin  string
-	timeMinFlag  bool
-	timeMax  string
-	timeMaxFlag  bool
-	calendarIds  []string
-	calendarIdsFlag  bool
-}
-
-// 生成body的New构造器
-func NewBatchGetFreebusyReqBodyBuilder() * BatchGetFreebusyReqBodyBuilder{
-  builder := &BatchGetFreebusyReqBodyBuilder{}
-  return builder
-}
-
-/*1.2 生成body的builder属性方法*/
-func (builder * BatchGetFreebusyReqBodyBuilder ) TimeMin(timeMin string) *BatchGetFreebusyReqBodyBuilder {
-  builder.timeMin = timeMin
-  builder.timeMinFlag = true
-  return builder
-}
-func (builder * BatchGetFreebusyReqBodyBuilder ) TimeMax(timeMax string) *BatchGetFreebusyReqBodyBuilder {
-  builder.timeMax = timeMax
-  builder.timeMaxFlag = true
-  return builder
-}
-func (builder * BatchGetFreebusyReqBodyBuilder ) CalendarIds(calendarIds []string) *BatchGetFreebusyReqBodyBuilder {
-  builder.calendarIds = calendarIds
-  builder.calendarIdsFlag = true
-  return builder
-}
-
-
-/*1.3 生成body的build方法*/
-func (builder * BatchGetFreebusyReqBodyBuilder ) Build() *BatchGetFreebusyReqBody {
-   req := &BatchGetFreebusyReqBody{}
-   if builder.timeMinFlag {
-	  req.TimeMin = &builder.timeMin
-	  
-
-   }
-   if builder.timeMaxFlag {
-	  req.TimeMax = &builder.timeMax
-	  
-
-   }
-   if builder.calendarIdsFlag {
-	  req.CalendarIds = builder.calendarIds
-
-   }
-   return req
-}
-
-/**上传文件path开始**/
-type BatchGetFreebusyPathReqBodyBuilder struct {
-	timeMin  string
-	timeMinFlag  bool
-	timeMax  string
-	timeMaxFlag  bool
-	calendarIds  []string
-	calendarIdsFlag  bool
-}
-
-// 生成body的New构造器
-func NewBatchGetFreebusyPathReqBodyBuilder() * BatchGetFreebusyPathReqBodyBuilder{
-  builder := &BatchGetFreebusyPathReqBodyBuilder{}
-  return builder
-}
-
-/*1.2 生成body的builder属性方法*/
-func (builder * BatchGetFreebusyPathReqBodyBuilder ) TimeMin(timeMin string) *BatchGetFreebusyPathReqBodyBuilder {
-  builder.timeMin = timeMin
-  builder.timeMinFlag = true
-  return builder
-}
-func (builder * BatchGetFreebusyPathReqBodyBuilder ) TimeMax(timeMax string) *BatchGetFreebusyPathReqBodyBuilder {
-  builder.timeMax = timeMax
-  builder.timeMaxFlag = true
-  return builder
-}
-func (builder * BatchGetFreebusyPathReqBodyBuilder ) CalendarIds(calendarIds []string) *BatchGetFreebusyPathReqBodyBuilder {
-  builder.calendarIds = calendarIds
-  builder.calendarIdsFlag = true
-  return builder
-}
-
-
-/*1.3 生成body的build方法*/
-func (builder * BatchGetFreebusyPathReqBodyBuilder ) Build() (*BatchGetFreebusyReqBody, error) {
-   req := &BatchGetFreebusyReqBody{}
-   if builder.timeMinFlag {
-	  req.TimeMin = &builder.timeMin
-	  
-   }
-   if builder.timeMaxFlag {
-	  req.TimeMax = &builder.timeMax
-	  
-   }
-   if builder.calendarIdsFlag {
-	   req.CalendarIds = builder.calendarIds
-   }
-   return req, nil
-}
-/**上传文件path结束**/
-
-/*1.4 生成请求的builder结构体*/
-type BatchGetFreebusyReqBuilder struct {
-	pageToken  string
-	pageTokenFlag  bool
-	pageSize  int
-	pageSizeFlag  bool
-	body *BatchGetFreebusyReqBody
-	bodyFlag bool
-
-}
-
-// 生成请求的New构造器
-func NewBatchGetFreebusyReqBuilder() * BatchGetFreebusyReqBuilder{
-   builder := &BatchGetFreebusyReqBuilder{}
-   return builder
-}
-
-/*1.5 生成请求的builder属性方法*/
-func (builder * BatchGetFreebusyReqBuilder) PageToken(pageToken string) *BatchGetFreebusyReqBuilder  {
-  builder.pageToken = pageToken
-  builder.pageTokenFlag = true
-  return builder
-}
-func (builder * BatchGetFreebusyReqBuilder) PageSize(pageSize int) *BatchGetFreebusyReqBuilder  {
-  builder.pageSize = pageSize
-  builder.pageSizeFlag = true
-  return builder
-}
-func (builder * BatchGetFreebusyReqBuilder) Body(body *BatchGetFreebusyReqBody) *BatchGetFreebusyReqBuilder  {
-  builder.body = body
-  builder.bodyFlag = true
-  return builder
-}
-
-/*1.5 生成请求的builder的build方法*/
-func (builder * BatchGetFreebusyReqBuilder ) Build() *BatchGetFreebusyReq {
-   req := &BatchGetFreebusyReq{}
-   if builder.pageTokenFlag {
-	  req.PageToken = &builder.pageToken
-   }
-   if builder.pageSizeFlag {
-	  req.PageSize = &builder.pageSize
-   }
-   if builder.bodyFlag {
-	  req.Body = builder.body
-
-   }
-   return req
-}
-
-type BatchGetFreebusyReqBody struct {
-	TimeMin  *string `json:"time_min,omitempty"`
-	TimeMax  *string `json:"time_max,omitempty"`
-	CalendarIds  []string `json:"calendar_ids,omitempty"`
-}
-
-type BatchGetFreebusyReq struct {
-	PageToken  *string `query:"page_token"`
-	PageSize  *int `query:"page_size"`
-	Body *BatchGetFreebusyReqBody `body:""`
-
-}
-
-type BatchGetFreebusyRespData struct {
-	ErrorCalendarList  []*CalendarFreebusyError `json:"error_calendar_list,omitempty"`
-	FreebusyList  []*CalendarFreebusy `json:"freebusy_list,omitempty"`
-	HasMore  *bool `json:"has_more,omitempty"`
-	PageToken  *string `json:"page_token,omitempty"`
-}
-
-type BatchGetFreebusyResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
-	Data *BatchGetFreebusyRespData `json:"data"`
-}
-
-func (resp *BatchGetFreebusyResp) Success() bool {
-	return resp.Code == 0
-}
-
 type ListFreebusyReqBodyBuilder struct {
-	timeMin  string
-	timeMinFlag  bool
-	timeMax  string
-	timeMaxFlag  bool
-	userId  string
+	timeMin     string
+	timeMinFlag bool
+	timeMax     string
+	timeMaxFlag bool
+	userId      string
 	userIdFlag  bool
-	roomId  string
+	roomId      string
 	roomIdFlag  bool
 }
 
 // 生成body的New构造器
-func NewListFreebusyReqBodyBuilder() * ListFreebusyReqBodyBuilder{
-  builder := &ListFreebusyReqBodyBuilder{}
-  return builder
+func NewListFreebusyReqBodyBuilder() *ListFreebusyReqBodyBuilder {
+	builder := &ListFreebusyReqBodyBuilder{}
+	return builder
 }
 
 /*1.2 生成body的builder属性方法*/
-func (builder * ListFreebusyReqBodyBuilder ) TimeMin(timeMin string) *ListFreebusyReqBodyBuilder {
-  builder.timeMin = timeMin
-  builder.timeMinFlag = true
-  return builder
+func (builder *ListFreebusyReqBodyBuilder) TimeMin(timeMin string) *ListFreebusyReqBodyBuilder {
+	builder.timeMin = timeMin
+	builder.timeMinFlag = true
+	return builder
 }
-func (builder * ListFreebusyReqBodyBuilder ) TimeMax(timeMax string) *ListFreebusyReqBodyBuilder {
-  builder.timeMax = timeMax
-  builder.timeMaxFlag = true
-  return builder
+func (builder *ListFreebusyReqBodyBuilder) TimeMax(timeMax string) *ListFreebusyReqBodyBuilder {
+	builder.timeMax = timeMax
+	builder.timeMaxFlag = true
+	return builder
 }
-func (builder * ListFreebusyReqBodyBuilder ) UserId(userId string) *ListFreebusyReqBodyBuilder {
-  builder.userId = userId
-  builder.userIdFlag = true
-  return builder
+func (builder *ListFreebusyReqBodyBuilder) UserId(userId string) *ListFreebusyReqBodyBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
 }
-func (builder * ListFreebusyReqBodyBuilder ) RoomId(roomId string) *ListFreebusyReqBodyBuilder {
-  builder.roomId = roomId
-  builder.roomIdFlag = true
-  return builder
+func (builder *ListFreebusyReqBodyBuilder) RoomId(roomId string) *ListFreebusyReqBodyBuilder {
+	builder.roomId = roomId
+	builder.roomIdFlag = true
+	return builder
 }
-
 
 /*1.3 生成body的build方法*/
-func (builder * ListFreebusyReqBodyBuilder ) Build() *ListFreebusyReqBody {
-   req := &ListFreebusyReqBody{}
-   if builder.timeMinFlag {
-	  req.TimeMin = &builder.timeMin
-	  
+func (builder *ListFreebusyReqBodyBuilder) Build() *ListFreebusyReqBody {
+	req := &ListFreebusyReqBody{}
+	if builder.timeMinFlag {
+		req.TimeMin = &builder.timeMin
 
-   }
-   if builder.timeMaxFlag {
-	  req.TimeMax = &builder.timeMax
-	  
+	}
+	if builder.timeMaxFlag {
+		req.TimeMax = &builder.timeMax
 
-   }
-   if builder.userIdFlag {
-	  req.UserId = &builder.userId
-	  
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
 
-   }
-   if builder.roomIdFlag {
-	  req.RoomId = &builder.roomId
-	  
+	}
+	if builder.roomIdFlag {
+		req.RoomId = &builder.roomId
 
-   }
-   return req
+	}
+	return req
 }
 
 /**上传文件path开始**/
 type ListFreebusyPathReqBodyBuilder struct {
-	timeMin  string
-	timeMinFlag  bool
-	timeMax  string
-	timeMaxFlag  bool
-	userId  string
+	timeMin     string
+	timeMinFlag bool
+	timeMax     string
+	timeMaxFlag bool
+	userId      string
 	userIdFlag  bool
-	roomId  string
+	roomId      string
 	roomIdFlag  bool
 }
 
 // 生成body的New构造器
-func NewListFreebusyPathReqBodyBuilder() * ListFreebusyPathReqBodyBuilder{
-  builder := &ListFreebusyPathReqBodyBuilder{}
-  return builder
+func NewListFreebusyPathReqBodyBuilder() *ListFreebusyPathReqBodyBuilder {
+	builder := &ListFreebusyPathReqBodyBuilder{}
+	return builder
 }
 
 /*1.2 生成body的builder属性方法*/
-func (builder * ListFreebusyPathReqBodyBuilder ) TimeMin(timeMin string) *ListFreebusyPathReqBodyBuilder {
-  builder.timeMin = timeMin
-  builder.timeMinFlag = true
-  return builder
+func (builder *ListFreebusyPathReqBodyBuilder) TimeMin(timeMin string) *ListFreebusyPathReqBodyBuilder {
+	builder.timeMin = timeMin
+	builder.timeMinFlag = true
+	return builder
 }
-func (builder * ListFreebusyPathReqBodyBuilder ) TimeMax(timeMax string) *ListFreebusyPathReqBodyBuilder {
-  builder.timeMax = timeMax
-  builder.timeMaxFlag = true
-  return builder
+func (builder *ListFreebusyPathReqBodyBuilder) TimeMax(timeMax string) *ListFreebusyPathReqBodyBuilder {
+	builder.timeMax = timeMax
+	builder.timeMaxFlag = true
+	return builder
 }
-func (builder * ListFreebusyPathReqBodyBuilder ) UserId(userId string) *ListFreebusyPathReqBodyBuilder {
-  builder.userId = userId
-  builder.userIdFlag = true
-  return builder
+func (builder *ListFreebusyPathReqBodyBuilder) UserId(userId string) *ListFreebusyPathReqBodyBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
 }
-func (builder * ListFreebusyPathReqBodyBuilder ) RoomId(roomId string) *ListFreebusyPathReqBodyBuilder {
-  builder.roomId = roomId
-  builder.roomIdFlag = true
-  return builder
+func (builder *ListFreebusyPathReqBodyBuilder) RoomId(roomId string) *ListFreebusyPathReqBodyBuilder {
+	builder.roomId = roomId
+	builder.roomIdFlag = true
+	return builder
 }
-
 
 /*1.3 生成body的build方法*/
-func (builder * ListFreebusyPathReqBodyBuilder ) Build() (*ListFreebusyReqBody, error) {
-   req := &ListFreebusyReqBody{}
-   if builder.timeMinFlag {
-	  req.TimeMin = &builder.timeMin
-	  
-   }
-   if builder.timeMaxFlag {
-	  req.TimeMax = &builder.timeMax
-	  
-   }
-   if builder.userIdFlag {
-	  req.UserId = &builder.userId
-	  
-   }
-   if builder.roomIdFlag {
-	  req.RoomId = &builder.roomId
-	  
-   }
-   return req, nil
+func (builder *ListFreebusyPathReqBodyBuilder) Build() (*ListFreebusyReqBody, error) {
+	req := &ListFreebusyReqBody{}
+	if builder.timeMinFlag {
+		req.TimeMin = &builder.timeMin
+
+	}
+	if builder.timeMaxFlag {
+		req.TimeMax = &builder.timeMax
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.roomIdFlag {
+		req.RoomId = &builder.roomId
+
+	}
+	return req, nil
 }
+
 /**上传文件path结束**/
 
 /*1.4 生成请求的builder结构体*/
 type ListFreebusyReqBuilder struct {
-	userIdType  string
-	userIdTypeFlag  bool
-	body *ListFreebusyReqBody
-	bodyFlag bool
-
+	userIdType     string
+	userIdTypeFlag bool
+	body           *ListFreebusyReqBody
+	bodyFlag       bool
 }
 
 // 生成请求的New构造器
-func NewListFreebusyReqBuilder() * ListFreebusyReqBuilder{
-   builder := &ListFreebusyReqBuilder{}
-   return builder
+func NewListFreebusyReqBuilder() *ListFreebusyReqBuilder {
+	builder := &ListFreebusyReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * ListFreebusyReqBuilder) UserIdType(userIdType string) *ListFreebusyReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *ListFreebusyReqBuilder) UserIdType(userIdType string) *ListFreebusyReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
-func (builder * ListFreebusyReqBuilder) Body(body *ListFreebusyReqBody) *ListFreebusyReqBuilder  {
-  builder.body = body
-  builder.bodyFlag = true
-  return builder
+func (builder *ListFreebusyReqBuilder) Body(body *ListFreebusyReqBody) *ListFreebusyReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * ListFreebusyReqBuilder ) Build() *ListFreebusyReq {
-   req := &ListFreebusyReq{}
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   if builder.bodyFlag {
-	  req.Body = builder.body
+func (builder *ListFreebusyReqBuilder) Build() *ListFreebusyReq {
+	req := &ListFreebusyReq{}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	if builder.bodyFlag {
+		req.Body = builder.body
 
-   }
-   return req
+	}
+	return req
 }
 
 type ListFreebusyReqBody struct {
-	TimeMin  *string `json:"time_min,omitempty"`
-	TimeMax  *string `json:"time_max,omitempty"`
+	TimeMin *string `json:"time_min,omitempty"`
+	TimeMax *string `json:"time_max,omitempty"`
 	UserId  *string `json:"user_id,omitempty"`
 	RoomId  *string `json:"room_id,omitempty"`
 }
 
 type ListFreebusyReq struct {
-	UserIdType  *string `query:"user_id_type"`
-	Body *ListFreebusyReqBody `body:""`
-
+	UserIdType *string              `query:"user_id_type"`
+	Body       *ListFreebusyReqBody `body:""`
 }
 
 type ListFreebusyRespData struct {
-	FreebusyList  []*Freebusy `json:"freebusy_list,omitempty"`
+	FreebusyList []*Freebusy `json:"freebusy_list,omitempty"`
 }
 
 type ListFreebusyResp struct {
@@ -2928,110 +2690,106 @@ func (resp *ListFreebusyResp) Success() bool {
 }
 
 type GenerateCaldavConfSettingReqBodyBuilder struct {
-	deviceName  string
-	deviceNameFlag  bool
+	deviceName     string
+	deviceNameFlag bool
 }
 
 // 生成body的New构造器
-func NewGenerateCaldavConfSettingReqBodyBuilder() * GenerateCaldavConfSettingReqBodyBuilder{
-  builder := &GenerateCaldavConfSettingReqBodyBuilder{}
-  return builder
+func NewGenerateCaldavConfSettingReqBodyBuilder() *GenerateCaldavConfSettingReqBodyBuilder {
+	builder := &GenerateCaldavConfSettingReqBodyBuilder{}
+	return builder
 }
 
 /*1.2 生成body的builder属性方法*/
-func (builder * GenerateCaldavConfSettingReqBodyBuilder ) DeviceName(deviceName string) *GenerateCaldavConfSettingReqBodyBuilder {
-  builder.deviceName = deviceName
-  builder.deviceNameFlag = true
-  return builder
+func (builder *GenerateCaldavConfSettingReqBodyBuilder) DeviceName(deviceName string) *GenerateCaldavConfSettingReqBodyBuilder {
+	builder.deviceName = deviceName
+	builder.deviceNameFlag = true
+	return builder
 }
 
-
 /*1.3 生成body的build方法*/
-func (builder * GenerateCaldavConfSettingReqBodyBuilder ) Build() *GenerateCaldavConfSettingReqBody {
-   req := &GenerateCaldavConfSettingReqBody{}
-   if builder.deviceNameFlag {
-	  req.DeviceName = &builder.deviceName
-	  
+func (builder *GenerateCaldavConfSettingReqBodyBuilder) Build() *GenerateCaldavConfSettingReqBody {
+	req := &GenerateCaldavConfSettingReqBody{}
+	if builder.deviceNameFlag {
+		req.DeviceName = &builder.deviceName
 
-   }
-   return req
+	}
+	return req
 }
 
 /**上传文件path开始**/
 type GenerateCaldavConfSettingPathReqBodyBuilder struct {
-	deviceName  string
-	deviceNameFlag  bool
+	deviceName     string
+	deviceNameFlag bool
 }
 
 // 生成body的New构造器
-func NewGenerateCaldavConfSettingPathReqBodyBuilder() * GenerateCaldavConfSettingPathReqBodyBuilder{
-  builder := &GenerateCaldavConfSettingPathReqBodyBuilder{}
-  return builder
+func NewGenerateCaldavConfSettingPathReqBodyBuilder() *GenerateCaldavConfSettingPathReqBodyBuilder {
+	builder := &GenerateCaldavConfSettingPathReqBodyBuilder{}
+	return builder
 }
 
 /*1.2 生成body的builder属性方法*/
-func (builder * GenerateCaldavConfSettingPathReqBodyBuilder ) DeviceName(deviceName string) *GenerateCaldavConfSettingPathReqBodyBuilder {
-  builder.deviceName = deviceName
-  builder.deviceNameFlag = true
-  return builder
+func (builder *GenerateCaldavConfSettingPathReqBodyBuilder) DeviceName(deviceName string) *GenerateCaldavConfSettingPathReqBodyBuilder {
+	builder.deviceName = deviceName
+	builder.deviceNameFlag = true
+	return builder
 }
-
 
 /*1.3 生成body的build方法*/
-func (builder * GenerateCaldavConfSettingPathReqBodyBuilder ) Build() (*GenerateCaldavConfSettingReqBody, error) {
-   req := &GenerateCaldavConfSettingReqBody{}
-   if builder.deviceNameFlag {
-	  req.DeviceName = &builder.deviceName
-	  
-   }
-   return req, nil
+func (builder *GenerateCaldavConfSettingPathReqBodyBuilder) Build() (*GenerateCaldavConfSettingReqBody, error) {
+	req := &GenerateCaldavConfSettingReqBody{}
+	if builder.deviceNameFlag {
+		req.DeviceName = &builder.deviceName
+
+	}
+	return req, nil
 }
+
 /**上传文件path结束**/
 
 /*1.4 生成请求的builder结构体*/
 type GenerateCaldavConfSettingReqBuilder struct {
-	body *GenerateCaldavConfSettingReqBody
+	body     *GenerateCaldavConfSettingReqBody
 	bodyFlag bool
-
 }
 
 // 生成请求的New构造器
-func NewGenerateCaldavConfSettingReqBuilder() * GenerateCaldavConfSettingReqBuilder{
-   builder := &GenerateCaldavConfSettingReqBuilder{}
-   return builder
+func NewGenerateCaldavConfSettingReqBuilder() *GenerateCaldavConfSettingReqBuilder {
+	builder := &GenerateCaldavConfSettingReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * GenerateCaldavConfSettingReqBuilder) Body(body *GenerateCaldavConfSettingReqBody) *GenerateCaldavConfSettingReqBuilder  {
-  builder.body = body
-  builder.bodyFlag = true
-  return builder
+func (builder *GenerateCaldavConfSettingReqBuilder) Body(body *GenerateCaldavConfSettingReqBody) *GenerateCaldavConfSettingReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * GenerateCaldavConfSettingReqBuilder ) Build() *GenerateCaldavConfSettingReq {
-   req := &GenerateCaldavConfSettingReq{}
-   if builder.bodyFlag {
-	  req.Body = builder.body
+func (builder *GenerateCaldavConfSettingReqBuilder) Build() *GenerateCaldavConfSettingReq {
+	req := &GenerateCaldavConfSettingReq{}
+	if builder.bodyFlag {
+		req.Body = builder.body
 
-   }
-   return req
+	}
+	return req
 }
 
 type GenerateCaldavConfSettingReqBody struct {
-	DeviceName  *string `json:"device_name,omitempty"`
+	DeviceName *string `json:"device_name,omitempty"`
 }
 
 type GenerateCaldavConfSettingReq struct {
 	Body *GenerateCaldavConfSettingReqBody `body:""`
-
 }
 
 type GenerateCaldavConfSettingRespData struct {
-	Password  *string `json:"password,omitempty"`
-	UserName  *string `json:"user_name,omitempty"`
-	ServerAddress  *string `json:"server_address,omitempty"`
-	DeviceName  *string `json:"device_name,omitempty"`
+	Password      *string `json:"password,omitempty"`
+	UserName      *string `json:"user_name,omitempty"`
+	ServerAddress *string `json:"server_address,omitempty"`
+	DeviceName    *string `json:"device_name,omitempty"`
 }
 
 type GenerateCaldavConfSettingResp struct {
@@ -3044,58 +2802,54 @@ func (resp *GenerateCaldavConfSettingResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type CreateTimeoffEventReqBuilder struct {
-	userIdType  string
-	userIdTypeFlag  bool
-	timeoffEvent *TimeoffEvent
+	userIdType       string
+	userIdTypeFlag   bool
+	timeoffEvent     *TimeoffEvent
 	timeoffEventFlag bool
-
 }
 
 // 生成请求的New构造器
-func NewCreateTimeoffEventReqBuilder() * CreateTimeoffEventReqBuilder{
-   builder := &CreateTimeoffEventReqBuilder{}
-   return builder
+func NewCreateTimeoffEventReqBuilder() *CreateTimeoffEventReqBuilder {
+	builder := &CreateTimeoffEventReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * CreateTimeoffEventReqBuilder) UserIdType(userIdType string) *CreateTimeoffEventReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *CreateTimeoffEventReqBuilder) UserIdType(userIdType string) *CreateTimeoffEventReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
-func (builder * CreateTimeoffEventReqBuilder) TimeoffEvent(timeoffEvent *TimeoffEvent) *CreateTimeoffEventReqBuilder  {
-  builder.timeoffEvent = timeoffEvent
-  builder.timeoffEventFlag = true
-  return builder
+func (builder *CreateTimeoffEventReqBuilder) TimeoffEvent(timeoffEvent *TimeoffEvent) *CreateTimeoffEventReqBuilder {
+	builder.timeoffEvent = timeoffEvent
+	builder.timeoffEventFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * CreateTimeoffEventReqBuilder ) Build() *CreateTimeoffEventReq {
-   req := &CreateTimeoffEventReq{}
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   return req
+func (builder *CreateTimeoffEventReqBuilder) Build() *CreateTimeoffEventReq {
+	req := &CreateTimeoffEventReq{}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	return req
 }
 
-
 type CreateTimeoffEventReq struct {
-	UserIdType  *string `query:"user_id_type"`
+	UserIdType   *string       `query:"user_id_type"`
 	TimeoffEvent *TimeoffEvent `body:""`
-
 }
 
 type CreateTimeoffEventRespData struct {
-	TimeoffEventId  *string `json:"timeoff_event_id,omitempty"`
-	UserId  *string `json:"user_id,omitempty"`
-	Timezone  *string `json:"timezone,omitempty"`
-	StartTime  *string `json:"start_time,omitempty"`
-	EndTime  *string `json:"end_time,omitempty"`
-	Title  *string `json:"title,omitempty"`
-	Description  *string `json:"description,omitempty"`
+	TimeoffEventId *string `json:"timeoff_event_id,omitempty"`
+	UserId         *string `json:"user_id,omitempty"`
+	Timezone       *string `json:"timezone,omitempty"`
+	StartTime      *string `json:"start_time,omitempty"`
+	EndTime        *string `json:"end_time,omitempty"`
+	Title          *string `json:"title,omitempty"`
+	Description    *string `json:"description,omitempty"`
 }
 
 type CreateTimeoffEventResp struct {
@@ -3108,42 +2862,37 @@ func (resp *CreateTimeoffEventResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 /*1.4 生成请求的builder结构体*/
 type DeleteTimeoffEventReqBuilder struct {
-	timeoffEventId  string
-	timeoffEventIdFlag  bool
-
+	timeoffEventId     string
+	timeoffEventIdFlag bool
 }
 
 // 生成请求的New构造器
-func NewDeleteTimeoffEventReqBuilder() * DeleteTimeoffEventReqBuilder{
-   builder := &DeleteTimeoffEventReqBuilder{}
-   return builder
+func NewDeleteTimeoffEventReqBuilder() *DeleteTimeoffEventReqBuilder {
+	builder := &DeleteTimeoffEventReqBuilder{}
+	return builder
 }
 
 /*1.5 生成请求的builder属性方法*/
-func (builder * DeleteTimeoffEventReqBuilder) TimeoffEventId(timeoffEventId string) *DeleteTimeoffEventReqBuilder  {
-  builder.timeoffEventId = timeoffEventId
-  builder.timeoffEventIdFlag = true
-  return builder
+func (builder *DeleteTimeoffEventReqBuilder) TimeoffEventId(timeoffEventId string) *DeleteTimeoffEventReqBuilder {
+	builder.timeoffEventId = timeoffEventId
+	builder.timeoffEventIdFlag = true
+	return builder
 }
 
 /*1.5 生成请求的builder的build方法*/
-func (builder * DeleteTimeoffEventReqBuilder ) Build() *DeleteTimeoffEventReq {
-   req := &DeleteTimeoffEventReq{}
-   if builder.timeoffEventIdFlag {
-	  req.TimeoffEventId = builder.timeoffEventId
-   }
-   return req
+func (builder *DeleteTimeoffEventReqBuilder) Build() *DeleteTimeoffEventReq {
+	req := &DeleteTimeoffEventReq{}
+	if builder.timeoffEventIdFlag {
+		req.TimeoffEventId = builder.timeoffEventId
+	}
+	return req
 }
-
 
 type DeleteTimeoffEventReq struct {
-	TimeoffEventId  string `path:"timeoff_event_id"`
-
+	TimeoffEventId string `path:"timeoff_event_id"`
 }
-
 
 type DeleteTimeoffEventResp struct {
 	*core.RawResponse `json:"-"`
@@ -3157,7 +2906,7 @@ func (resp *DeleteTimeoffEventResp) Success() bool {
 /**生成消息事件结构体 **/
 
 type CalendarChangedEventData struct {
-	UserIdList  []*UserId `json:"user_id_list,omitempty"`
+	UserIdList []*UserId `json:"user_id_list,omitempty"`
 }
 
 type CalendarChangedEvent struct {
@@ -3166,10 +2915,10 @@ type CalendarChangedEvent struct {
 }
 
 type CalendarAclCreatedEventData struct {
-	AclId  *string `json:"acl_id,omitempty"`
-	Role  *string `json:"role,omitempty"`
-	Scope  *AclScopeEvent `json:"scope,omitempty"`
-	UserIdList  []*UserId `json:"user_id_list,omitempty"`
+	AclId      *string        `json:"acl_id,omitempty"`
+	Role       *string        `json:"role,omitempty"`
+	Scope      *AclScopeEvent `json:"scope,omitempty"`
+	UserIdList []*UserId      `json:"user_id_list,omitempty"`
 }
 
 type CalendarAclCreatedEvent struct {
@@ -3178,10 +2927,10 @@ type CalendarAclCreatedEvent struct {
 }
 
 type CalendarAclDeletedEventData struct {
-	AclId  *string `json:"acl_id,omitempty"`
-	Role  *string `json:"role,omitempty"`
-	Scope  *AclScopeEvent `json:"scope,omitempty"`
-	UserIdList  []*UserId `json:"user_id_list,omitempty"`
+	AclId      *string        `json:"acl_id,omitempty"`
+	Role       *string        `json:"role,omitempty"`
+	Scope      *AclScopeEvent `json:"scope,omitempty"`
+	UserIdList []*UserId      `json:"user_id_list,omitempty"`
 }
 
 type CalendarAclDeletedEvent struct {
@@ -3190,8 +2939,8 @@ type CalendarAclDeletedEvent struct {
 }
 
 type CalendarEventChangedEventData struct {
-	CalendarId  *string `json:"calendar_id,omitempty"`
-	UserIdList  []*UserId `json:"user_id_list,omitempty"`
+	CalendarId *string   `json:"calendar_id,omitempty"`
+	UserIdList []*UserId `json:"user_id_list,omitempty"`
 }
 
 type CalendarEventChangedEvent struct {
@@ -3199,278 +2948,279 @@ type CalendarEventChangedEvent struct {
 	Event *CalendarEventChangedEventData `json:"event"`
 }
 
-
 /* 生成请求的builder构造器*/
 /*1.1 生成body的builder结构体*/
 /**如果是分页查询，则添加迭代器定义**/
-   type SearchCalendarIterator struct{
-	 nextPageToken *string
-	 items	 []*Calendar
-	 index	 int
-	 limit	 int
-	 ctx	   context.Context
-	 req	   *SearchCalendarReq
-	 listFunc  func (ctx context.Context, req *SearchCalendarReq, options ...core.RequestOptionFunc) (*SearchCalendarResp, error)
-	 options   []core.RequestOptionFunc
-   	 curlNum	   int
-   }
+type SearchCalendarIterator struct {
+	nextPageToken *string
+	items         []*Calendar
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *SearchCalendarReq
+	listFunc      func(ctx context.Context, req *SearchCalendarReq, options ...core.RequestOptionFunc) (*SearchCalendarResp, error)
+	options       []core.RequestOptionFunc
+	curlNum       int
+}
 
-   func (iterator *SearchCalendarIterator) Next() (bool, *Calendar, error) {
-		// 达到最大量，则返回
-		if iterator.limit >0 && iterator.curlNum > iterator.limit {
+func (iterator *SearchCalendarIterator) Next() (bool, *Calendar, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.PageToken = iterator.nextPageToken
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
 			return false, nil, nil
 		}
 
-		// 为0则拉取数据
-		if iterator.index == 0 || iterator.index >= len(iterator.items) {
-			if iterator.index != 0 && iterator.nextPageToken == nil {
-				return false, nil, nil
-			}
-			if iterator.nextPageToken != nil {
-				iterator.req.PageToken = iterator.nextPageToken
-			}
-			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-			if err != nil {
-				return false, nil, err
-			}
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
 
-			if resp.Code != 0 {
-				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
-			}
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
 
-			if len(resp.Data.Items) == 0 {
-				return false, nil, nil
-			}
+func (iterator *SearchCalendarIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
 
-			iterator.nextPageToken = resp.Data.PageToken
-			iterator.items = resp.Data.Items
-			iterator.index = 0
-		}
-
-		block := iterator.items[iterator.index]
-		iterator.index++
-		iterator.curlNum++
-		return true, block, nil
-   }
-
-   func (iterator *SearchCalendarIterator) NextPageToken() *string {
-	  return iterator.nextPageToken
-   }
 /**如果是分页查询，则添加迭代器定义**/
-   type ListCalendarAclIterator struct{
-	 nextPageToken *string
-	 items	 []*CalendarAcl
-	 index	 int
-	 limit	 int
-	 ctx	   context.Context
-	 req	   *ListCalendarAclReq
-	 listFunc  func (ctx context.Context, req *ListCalendarAclReq, options ...core.RequestOptionFunc) (*ListCalendarAclResp, error)
-	 options   []core.RequestOptionFunc
-   	 curlNum	   int
-   }
+type ListCalendarAclIterator struct {
+	nextPageToken *string
+	items         []*CalendarAcl
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListCalendarAclReq
+	listFunc      func(ctx context.Context, req *ListCalendarAclReq, options ...core.RequestOptionFunc) (*ListCalendarAclResp, error)
+	options       []core.RequestOptionFunc
+	curlNum       int
+}
 
-   func (iterator *ListCalendarAclIterator) Next() (bool, *CalendarAcl, error) {
-		// 达到最大量，则返回
-		if iterator.limit >0 && iterator.curlNum > iterator.limit {
+func (iterator *ListCalendarAclIterator) Next() (bool, *CalendarAcl, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.PageToken = iterator.nextPageToken
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Acls) == 0 {
 			return false, nil, nil
 		}
 
-		// 为0则拉取数据
-		if iterator.index == 0 || iterator.index >= len(iterator.items) {
-			if iterator.index != 0 && iterator.nextPageToken == nil {
-				return false, nil, nil
-			}
-			if iterator.nextPageToken != nil {
-				iterator.req.PageToken = iterator.nextPageToken
-			}
-			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-			if err != nil {
-				return false, nil, err
-			}
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Acls
+		iterator.index = 0
+	}
 
-			if resp.Code != 0 {
-				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
-			}
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
 
-			if len(resp.Data.Acls) == 0 {
-				return false, nil, nil
-			}
+func (iterator *ListCalendarAclIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
 
-			iterator.nextPageToken = resp.Data.PageToken
-			iterator.items = resp.Data.Acls
-			iterator.index = 0
-		}
-
-		block := iterator.items[iterator.index]
-		iterator.index++
-		iterator.curlNum++
-		return true, block, nil
-   }
-
-   func (iterator *ListCalendarAclIterator) NextPageToken() *string {
-	  return iterator.nextPageToken
-   }
 /**如果是分页查询，则添加迭代器定义**/
-   type SearchCalendarEventIterator struct{
-	 nextPageToken *string
-	 items	 []*CalendarEvent
-	 index	 int
-	 limit	 int
-	 ctx	   context.Context
-	 req	   *SearchCalendarEventReq
-	 listFunc  func (ctx context.Context, req *SearchCalendarEventReq, options ...core.RequestOptionFunc) (*SearchCalendarEventResp, error)
-	 options   []core.RequestOptionFunc
-   	 curlNum	   int
-   }
+type SearchCalendarEventIterator struct {
+	nextPageToken *string
+	items         []*CalendarEvent
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *SearchCalendarEventReq
+	listFunc      func(ctx context.Context, req *SearchCalendarEventReq, options ...core.RequestOptionFunc) (*SearchCalendarEventResp, error)
+	options       []core.RequestOptionFunc
+	curlNum       int
+}
 
-   func (iterator *SearchCalendarEventIterator) Next() (bool, *CalendarEvent, error) {
-		// 达到最大量，则返回
-		if iterator.limit >0 && iterator.curlNum > iterator.limit {
+func (iterator *SearchCalendarEventIterator) Next() (bool, *CalendarEvent, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.PageToken = iterator.nextPageToken
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
 			return false, nil, nil
 		}
 
-		// 为0则拉取数据
-		if iterator.index == 0 || iterator.index >= len(iterator.items) {
-			if iterator.index != 0 && iterator.nextPageToken == nil {
-				return false, nil, nil
-			}
-			if iterator.nextPageToken != nil {
-				iterator.req.PageToken = iterator.nextPageToken
-			}
-			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-			if err != nil {
-				return false, nil, err
-			}
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
 
-			if resp.Code != 0 {
-				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
-			}
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
 
-			if len(resp.Data.Items) == 0 {
-				return false, nil, nil
-			}
+func (iterator *SearchCalendarEventIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
 
-			iterator.nextPageToken = resp.Data.PageToken
-			iterator.items = resp.Data.Items
-			iterator.index = 0
-		}
-
-		block := iterator.items[iterator.index]
-		iterator.index++
-		iterator.curlNum++
-		return true, block, nil
-   }
-
-   func (iterator *SearchCalendarEventIterator) NextPageToken() *string {
-	  return iterator.nextPageToken
-   }
 /**如果是分页查询，则添加迭代器定义**/
-   type ListCalendarEventAttendeeIterator struct{
-	 nextPageToken *string
-	 items	 []*CalendarEventAttendee
-	 index	 int
-	 limit	 int
-	 ctx	   context.Context
-	 req	   *ListCalendarEventAttendeeReq
-	 listFunc  func (ctx context.Context, req *ListCalendarEventAttendeeReq, options ...core.RequestOptionFunc) (*ListCalendarEventAttendeeResp, error)
-	 options   []core.RequestOptionFunc
-   	 curlNum	   int
-   }
+type ListCalendarEventAttendeeIterator struct {
+	nextPageToken *string
+	items         []*CalendarEventAttendee
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListCalendarEventAttendeeReq
+	listFunc      func(ctx context.Context, req *ListCalendarEventAttendeeReq, options ...core.RequestOptionFunc) (*ListCalendarEventAttendeeResp, error)
+	options       []core.RequestOptionFunc
+	curlNum       int
+}
 
-   func (iterator *ListCalendarEventAttendeeIterator) Next() (bool, *CalendarEventAttendee, error) {
-		// 达到最大量，则返回
-		if iterator.limit >0 && iterator.curlNum > iterator.limit {
+func (iterator *ListCalendarEventAttendeeIterator) Next() (bool, *CalendarEventAttendee, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.PageToken = iterator.nextPageToken
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
 			return false, nil, nil
 		}
 
-		// 为0则拉取数据
-		if iterator.index == 0 || iterator.index >= len(iterator.items) {
-			if iterator.index != 0 && iterator.nextPageToken == nil {
-				return false, nil, nil
-			}
-			if iterator.nextPageToken != nil {
-				iterator.req.PageToken = iterator.nextPageToken
-			}
-			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-			if err != nil {
-				return false, nil, err
-			}
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
 
-			if resp.Code != 0 {
-				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
-			}
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
 
-			if len(resp.Data.Items) == 0 {
-				return false, nil, nil
-			}
+func (iterator *ListCalendarEventAttendeeIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
 
-			iterator.nextPageToken = resp.Data.PageToken
-			iterator.items = resp.Data.Items
-			iterator.index = 0
-		}
-
-		block := iterator.items[iterator.index]
-		iterator.index++
-		iterator.curlNum++
-		return true, block, nil
-   }
-
-   func (iterator *ListCalendarEventAttendeeIterator) NextPageToken() *string {
-	  return iterator.nextPageToken
-   }
 /**如果是分页查询，则添加迭代器定义**/
-   type ListCalendarEventAttendeeChatMemberIterator struct{
-	 nextPageToken *string
-	 items	 []*CalendarEventAttendeeChatMember
-	 index	 int
-	 limit	 int
-	 ctx	   context.Context
-	 req	   *ListCalendarEventAttendeeChatMemberReq
-	 listFunc  func (ctx context.Context, req *ListCalendarEventAttendeeChatMemberReq, options ...core.RequestOptionFunc) (*ListCalendarEventAttendeeChatMemberResp, error)
-	 options   []core.RequestOptionFunc
-   	 curlNum	   int
-   }
+type ListCalendarEventAttendeeChatMemberIterator struct {
+	nextPageToken *string
+	items         []*CalendarEventAttendeeChatMember
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListCalendarEventAttendeeChatMemberReq
+	listFunc      func(ctx context.Context, req *ListCalendarEventAttendeeChatMemberReq, options ...core.RequestOptionFunc) (*ListCalendarEventAttendeeChatMemberResp, error)
+	options       []core.RequestOptionFunc
+	curlNum       int
+}
 
-   func (iterator *ListCalendarEventAttendeeChatMemberIterator) Next() (bool, *CalendarEventAttendeeChatMember, error) {
-		// 达到最大量，则返回
-		if iterator.limit >0 && iterator.curlNum > iterator.limit {
+func (iterator *ListCalendarEventAttendeeChatMemberIterator) Next() (bool, *CalendarEventAttendeeChatMember, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.PageToken = iterator.nextPageToken
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
 			return false, nil, nil
 		}
 
-		// 为0则拉取数据
-		if iterator.index == 0 || iterator.index >= len(iterator.items) {
-			if iterator.index != 0 && iterator.nextPageToken == nil {
-				return false, nil, nil
-			}
-			if iterator.nextPageToken != nil {
-				iterator.req.PageToken = iterator.nextPageToken
-			}
-			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-			if err != nil {
-				return false, nil, err
-			}
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
 
-			if resp.Code != 0 {
-				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
-			}
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
 
-			if len(resp.Data.Items) == 0 {
-				return false, nil, nil
-			}
-
-			iterator.nextPageToken = resp.Data.PageToken
-			iterator.items = resp.Data.Items
-			iterator.index = 0
-		}
-
-		block := iterator.items[iterator.index]
-		iterator.index++
-		iterator.curlNum++
-		return true, block, nil
-   }
-
-   func (iterator *ListCalendarEventAttendeeChatMemberIterator) NextPageToken() *string {
-	  return iterator.nextPageToken
-   }
-
-
+func (iterator *ListCalendarEventAttendeeChatMemberIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}

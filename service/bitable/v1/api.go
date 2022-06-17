@@ -2,9 +2,9 @@
 package bitable
 
 import (
-	"net/http"
 	"context"
-	
+	"net/http"
+
 	"github.com/feishu/oapi-sdk-go/core"
 )
 
@@ -12,12 +12,14 @@ import (
 构建业务域服务实例
 **/
 func NewService(httpClient *http.Client, config *core.Config) *BitableService {
-	b := &BitableService{httpClient:httpClient,config:config}
-	b.Apps = &apps{service: b}
-	b.AppTables = &appTables{service: b}
-	b.AppTableFields = &appTableFields{service: b}
-	b.AppTableRecords = &appTableRecords{service: b}
-	b.AppTableViews = &appTableViews{service: b}
+	b := &BitableService{httpClient: httpClient, config: config}
+	b.App = &app{service: b}
+	b.AppRole = &appRole{service: b}
+	b.AppRoleMember = &appRoleMember{service: b}
+	b.AppTable = &appTable{service: b}
+	b.AppTableField = &appTableField{service: b}
+	b.AppTableRecord = &appTableRecord{service: b}
+	b.AppTableView = &appTableView{service: b}
 	return b
 }
 
@@ -25,46 +27,52 @@ func NewService(httpClient *http.Client, config *core.Config) *BitableService {
 业务域服务定义
 **/
 type BitableService struct {
-	httpClient *http.Client
-	config *core.Config
-	Apps *apps
-	AppTables *appTables
-	AppTableFields *appTableFields
-	AppTableRecords *appTableRecords
-	AppTableViews *appTableViews
+	httpClient     *http.Client
+	config         *core.Config
+	App            *app
+	AppRole        *appRole
+	AppRoleMember  *appRoleMember
+	AppTable       *appTable
+	AppTableField  *appTableField
+	AppTableRecord *appTableRecord
+	AppTableView   *appTableView
 }
-
 
 /**
 资源服务定义
 **/
-type apps struct {
-   service *BitableService
+type app struct {
+	service *BitableService
 }
-type appTables struct {
-   service *BitableService
+type appRole struct {
+	service *BitableService
 }
-type appTableFields struct {
-   service *BitableService
+type appRoleMember struct {
+	service *BitableService
 }
-type appTableRecords struct {
-   service *BitableService
+type appTable struct {
+	service *BitableService
 }
-type appTableViews struct {
-   service *BitableService
+type appTableField struct {
+	service *BitableService
 }
+type appTableRecord struct {
+	service *BitableService
+}
+type appTableView struct {
+	service *BitableService
+}
+
 /**
 资源服务方法定义
 **/
-func (a *apps) Get(ctx context.Context, req *GetAppReq, options ...core.RequestOptionFunc) (*GetAppResp, error) {
-
+func (a *app) Get(ctx context.Context, req *GetAppReq, options ...core.RequestOptionFunc) (*GetAppResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,a.service.config, http.MethodGet,
+	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodGet,
 		"/open-apis/bitable/v1/apps/:app_token", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &GetAppResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -73,41 +81,153 @@ func (a *apps) Get(ctx context.Context, req *GetAppReq, options ...core.RequestO
 	}
 	return resp, err
 }
-func (a *appTables) List(ctx context.Context, req *ListAppTableReq, options ...core.RequestOptionFunc) (*ListAppTableResp, error) {
-
+func (a *app) Update(ctx context.Context, req *UpdateAppReq, options ...core.RequestOptionFunc) (*UpdateAppResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,a.service.config, http.MethodGet,
-		"/open-apis/bitable/v1/apps/:app_token/tables", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodPut,
+		"/open-apis/bitable/v1/apps/:app_token", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
-	resp := &ListAppTableResp{RawResponse: rawResp}
+	resp := &UpdateAppResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
 	if err != nil {
 		return nil, err
 	}
 	return resp, err
 }
-/**如果是分页查询，则添加迭代器函数**/
-func (a *appTables) ListAppTable(ctx context.Context, req *ListAppTableReq, options ...core.RequestOptionFunc) (*ListAppTableIterator, error) {
-   return &ListAppTableIterator{
-	  ctx:	  ctx,
-	  req:	  req,
-	  listFunc: a.List,
-	  options:  options,
-	  limit: req.Limit}, nil
-}
-func (a *appTables) BatchCreate(ctx context.Context, req *BatchCreateAppTableReq, options ...core.RequestOptionFunc) (*BatchCreateAppTableResp, error) {
-
+func (a *appRole) Create(ctx context.Context, req *CreateAppRoleReq, options ...core.RequestOptionFunc) (*CreateAppRoleResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,a.service.config, http.MethodPost,
+	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodPost,
+		"/open-apis/bitable/v1/apps/:app_token/roles", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateAppRoleResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (a *appRole) Delete(ctx context.Context, req *DeleteAppRoleReq, options ...core.RequestOptionFunc) (*DeleteAppRoleResp, error) {
+	// 发起请求
+	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodDelete,
+		"/open-apis/bitable/v1/apps/:app_token/roles/:role_id", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &DeleteAppRoleResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (a *appRole) List(ctx context.Context, req *ListAppRoleReq, options ...core.RequestOptionFunc) (*ListAppRoleResp, error) {
+	// 发起请求
+	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodGet,
+		"/open-apis/bitable/v1/apps/:app_token/roles", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListAppRoleResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+/**如果是分页查询，则添加迭代器函数**/
+func (a *appRole) ListAppRole(ctx context.Context, req *ListAppRoleReq, options ...core.RequestOptionFunc) (*ListAppRoleIterator, error) {
+	return &ListAppRoleIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: a.List,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+func (a *appRole) Update(ctx context.Context, req *UpdateAppRoleReq, options ...core.RequestOptionFunc) (*UpdateAppRoleResp, error) {
+	// 发起请求
+	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodPut,
+		"/open-apis/bitable/v1/apps/:app_token/roles/:role_id", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &UpdateAppRoleResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (a *appRoleMember) Create(ctx context.Context, req *CreateAppRoleMemberReq, options ...core.RequestOptionFunc) (*CreateAppRoleMemberResp, error) {
+	// 发起请求
+	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodPost,
+		"/open-apis/bitable/v1/apps/:app_token/roles/:role_id/members", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateAppRoleMemberResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (a *appRoleMember) Delete(ctx context.Context, req *DeleteAppRoleMemberReq, options ...core.RequestOptionFunc) (*DeleteAppRoleMemberResp, error) {
+	// 发起请求
+	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodDelete,
+		"/open-apis/bitable/v1/apps/:app_token/roles/:role_id/members/:member_id", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &DeleteAppRoleMemberResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (a *appRoleMember) List(ctx context.Context, req *ListAppRoleMemberReq, options ...core.RequestOptionFunc) (*ListAppRoleMemberResp, error) {
+	// 发起请求
+	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodGet,
+		"/open-apis/bitable/v1/apps/:app_token/roles/:role_id/members", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListAppRoleMemberResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+/**如果是分页查询，则添加迭代器函数**/
+func (a *appRoleMember) ListAppRoleMember(ctx context.Context, req *ListAppRoleMemberReq, options ...core.RequestOptionFunc) (*ListAppRoleMemberIterator, error) {
+	return &ListAppRoleMemberIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: a.List,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+func (a *appTable) BatchCreate(ctx context.Context, req *BatchCreateAppTableReq, options ...core.RequestOptionFunc) (*BatchCreateAppTableResp, error) {
+	// 发起请求
+	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodPost,
 		"/open-apis/bitable/v1/apps/:app_token/tables/batch_create", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &BatchCreateAppTableResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -116,49 +236,13 @@ func (a *appTables) BatchCreate(ctx context.Context, req *BatchCreateAppTableReq
 	}
 	return resp, err
 }
-func (a *appTables) Create(ctx context.Context, req *CreateAppTableReq, options ...core.RequestOptionFunc) (*CreateAppTableResp, error) {
-
+func (a *appTable) BatchDelete(ctx context.Context, req *BatchDeleteAppTableReq, options ...core.RequestOptionFunc) (*BatchDeleteAppTableResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,a.service.config, http.MethodPost,
-		"/open-apis/bitable/v1/apps/:app_token/tables", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &CreateAppTableResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (a *appTables) Delete(ctx context.Context, req *DeleteAppTableReq, options ...core.RequestOptionFunc) (*DeleteAppTableResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,a.service.config, http.MethodDelete,
-		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &DeleteAppTableResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (a *appTables) BatchDelete(ctx context.Context, req *BatchDeleteAppTableReq, options ...core.RequestOptionFunc) (*BatchDeleteAppTableResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,a.service.config, http.MethodPost,
+	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodPost,
 		"/open-apis/bitable/v1/apps/:app_token/tables/batch_delete", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &BatchDeleteAppTableResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -167,41 +251,68 @@ func (a *appTables) BatchDelete(ctx context.Context, req *BatchDeleteAppTableReq
 	}
 	return resp, err
 }
-func (a *appTableFields) List(ctx context.Context, req *ListAppTableFieldReq, options ...core.RequestOptionFunc) (*ListAppTableFieldResp, error) {
-
+func (a *appTable) Create(ctx context.Context, req *CreateAppTableReq, options ...core.RequestOptionFunc) (*CreateAppTableResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,a.service.config, http.MethodGet,
-		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodPost,
+		"/open-apis/bitable/v1/apps/:app_token/tables", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
-	resp := &ListAppTableFieldResp{RawResponse: rawResp}
+	resp := &CreateAppTableResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
 	if err != nil {
 		return nil, err
 	}
 	return resp, err
 }
-/**如果是分页查询，则添加迭代器函数**/
-func (a *appTableFields) ListAppTableField(ctx context.Context, req *ListAppTableFieldReq, options ...core.RequestOptionFunc) (*ListAppTableFieldIterator, error) {
-   return &ListAppTableFieldIterator{
-	  ctx:	  ctx,
-	  req:	  req,
-	  listFunc: a.List,
-	  options:  options,
-	  limit: req.Limit}, nil
-}
-func (a *appTableFields) Create(ctx context.Context, req *CreateAppTableFieldReq, options ...core.RequestOptionFunc) (*CreateAppTableFieldResp, error) {
-
+func (a *appTable) Delete(ctx context.Context, req *DeleteAppTableReq, options ...core.RequestOptionFunc) (*DeleteAppTableResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,a.service.config, http.MethodPost,
+	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodDelete,
+		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &DeleteAppTableResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (a *appTable) List(ctx context.Context, req *ListAppTableReq, options ...core.RequestOptionFunc) (*ListAppTableResp, error) {
+	// 发起请求
+	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodGet,
+		"/open-apis/bitable/v1/apps/:app_token/tables", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListAppTableResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+/**如果是分页查询，则添加迭代器函数**/
+func (a *appTable) ListAppTable(ctx context.Context, req *ListAppTableReq, options ...core.RequestOptionFunc) (*ListAppTableIterator, error) {
+	return &ListAppTableIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: a.List,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+func (a *appTableField) Create(ctx context.Context, req *CreateAppTableFieldReq, options ...core.RequestOptionFunc) (*CreateAppTableFieldResp, error) {
+	// 发起请求
+	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodPost,
 		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &CreateAppTableFieldResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -210,15 +321,13 @@ func (a *appTableFields) Create(ctx context.Context, req *CreateAppTableFieldReq
 	}
 	return resp, err
 }
-func (a *appTableFields) Delete(ctx context.Context, req *DeleteAppTableFieldReq, options ...core.RequestOptionFunc) (*DeleteAppTableFieldResp, error) {
-
+func (a *appTableField) Delete(ctx context.Context, req *DeleteAppTableFieldReq, options ...core.RequestOptionFunc) (*DeleteAppTableFieldResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,a.service.config, http.MethodDelete,
+	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodDelete,
 		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields/:field_id", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &DeleteAppTableFieldResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -227,15 +336,38 @@ func (a *appTableFields) Delete(ctx context.Context, req *DeleteAppTableFieldReq
 	}
 	return resp, err
 }
-func (a *appTableFields) Update(ctx context.Context, req *UpdateAppTableFieldReq, options ...core.RequestOptionFunc) (*UpdateAppTableFieldResp, error) {
-
+func (a *appTableField) List(ctx context.Context, req *ListAppTableFieldReq, options ...core.RequestOptionFunc) (*ListAppTableFieldResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,a.service.config, http.MethodPut,
+	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodGet,
+		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListAppTableFieldResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+/**如果是分页查询，则添加迭代器函数**/
+func (a *appTableField) ListAppTableField(ctx context.Context, req *ListAppTableFieldReq, options ...core.RequestOptionFunc) (*ListAppTableFieldIterator, error) {
+	return &ListAppTableFieldIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: a.List,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+func (a *appTableField) Update(ctx context.Context, req *UpdateAppTableFieldReq, options ...core.RequestOptionFunc) (*UpdateAppTableFieldResp, error) {
+	// 发起请求
+	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodPut,
 		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields/:field_id", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &UpdateAppTableFieldResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -244,32 +376,13 @@ func (a *appTableFields) Update(ctx context.Context, req *UpdateAppTableFieldReq
 	}
 	return resp, err
 }
-func (a *appTableRecords) BatchDelete(ctx context.Context, req *BatchDeleteAppTableRecordReq, options ...core.RequestOptionFunc) (*BatchDeleteAppTableRecordResp, error) {
-
+func (a *appTableRecord) BatchCreate(ctx context.Context, req *BatchCreateAppTableRecordReq, options ...core.RequestOptionFunc) (*BatchCreateAppTableRecordResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,a.service.config, http.MethodPost,
-		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/batch_delete", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &BatchDeleteAppTableRecordResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (a *appTableRecords) BatchCreate(ctx context.Context, req *BatchCreateAppTableRecordReq, options ...core.RequestOptionFunc) (*BatchCreateAppTableRecordResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,a.service.config, http.MethodPost,
+	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodPost,
 		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/batch_create", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &BatchCreateAppTableRecordResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -278,92 +391,28 @@ func (a *appTableRecords) BatchCreate(ctx context.Context, req *BatchCreateAppTa
 	}
 	return resp, err
 }
-func (a *appTableRecords) Get(ctx context.Context, req *GetAppTableRecordReq, options ...core.RequestOptionFunc) (*GetAppTableRecordResp, error) {
-
+func (a *appTableRecord) BatchDelete(ctx context.Context, req *BatchDeleteAppTableRecordReq, options ...core.RequestOptionFunc) (*BatchDeleteAppTableRecordResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,a.service.config, http.MethodGet,
-		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodPost,
+		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/batch_delete", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
-	resp := &GetAppTableRecordResp{RawResponse: rawResp}
+	resp := &BatchDeleteAppTableRecordResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
 	if err != nil {
 		return nil, err
 	}
 	return resp, err
 }
-func (a *appTableRecords) Update(ctx context.Context, req *UpdateAppTableRecordReq, options ...core.RequestOptionFunc) (*UpdateAppTableRecordResp, error) {
-
+func (a *appTableRecord) BatchUpdate(ctx context.Context, req *BatchUpdateAppTableRecordReq, options ...core.RequestOptionFunc) (*BatchUpdateAppTableRecordResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,a.service.config, http.MethodPut,
-		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &UpdateAppTableRecordResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (a *appTableRecords) Delete(ctx context.Context, req *DeleteAppTableRecordReq, options ...core.RequestOptionFunc) (*DeleteAppTableRecordResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,a.service.config, http.MethodDelete,
-		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &DeleteAppTableRecordResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-func (a *appTableRecords) List(ctx context.Context, req *ListAppTableRecordReq, options ...core.RequestOptionFunc) (*ListAppTableRecordResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,a.service.config, http.MethodGet,
-		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
-	if err != nil {
-		return nil, err
-	}
-
-	// 反序列响应结果
-	resp := &ListAppTableRecordResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-/**如果是分页查询，则添加迭代器函数**/
-func (a *appTableRecords) ListAppTableRecord(ctx context.Context, req *ListAppTableRecordReq, options ...core.RequestOptionFunc) (*ListAppTableRecordIterator, error) {
-   return &ListAppTableRecordIterator{
-	  ctx:	  ctx,
-	  req:	  req,
-	  listFunc: a.List,
-	  options:  options,
-	  limit: req.Limit}, nil
-}
-func (a *appTableRecords) BatchUpdate(ctx context.Context, req *BatchUpdateAppTableRecordReq, options ...core.RequestOptionFunc) (*BatchUpdateAppTableRecordResp, error) {
-
-	// 发起请求
-	rawResp, err := core.SendRequest(ctx,a.service.config, http.MethodPost,
+	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodPost,
 		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/batch_update", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &BatchUpdateAppTableRecordResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -372,15 +421,13 @@ func (a *appTableRecords) BatchUpdate(ctx context.Context, req *BatchUpdateAppTa
 	}
 	return resp, err
 }
-func (a *appTableRecords) Create(ctx context.Context, req *CreateAppTableRecordReq, options ...core.RequestOptionFunc) (*CreateAppTableRecordResp, error) {
-
+func (a *appTableRecord) Create(ctx context.Context, req *CreateAppTableRecordReq, options ...core.RequestOptionFunc) (*CreateAppTableRecordResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,a.service.config, http.MethodPost,
+	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodPost,
 		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &CreateAppTableRecordResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -389,15 +436,83 @@ func (a *appTableRecords) Create(ctx context.Context, req *CreateAppTableRecordR
 	}
 	return resp, err
 }
-func (a *appTableViews) Create(ctx context.Context, req *CreateAppTableViewReq, options ...core.RequestOptionFunc) (*CreateAppTableViewResp, error) {
-
+func (a *appTableRecord) Delete(ctx context.Context, req *DeleteAppTableRecordReq, options ...core.RequestOptionFunc) (*DeleteAppTableRecordResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,a.service.config, http.MethodPost,
+	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodDelete,
+		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &DeleteAppTableRecordResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (a *appTableRecord) Get(ctx context.Context, req *GetAppTableRecordReq, options ...core.RequestOptionFunc) (*GetAppTableRecordResp, error) {
+	// 发起请求
+	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodGet,
+		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &GetAppTableRecordResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (a *appTableRecord) List(ctx context.Context, req *ListAppTableRecordReq, options ...core.RequestOptionFunc) (*ListAppTableRecordResp, error) {
+	// 发起请求
+	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodGet,
+		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListAppTableRecordResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+/**如果是分页查询，则添加迭代器函数**/
+func (a *appTableRecord) ListAppTableRecord(ctx context.Context, req *ListAppTableRecordReq, options ...core.RequestOptionFunc) (*ListAppTableRecordIterator, error) {
+	return &ListAppTableRecordIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: a.List,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+func (a *appTableRecord) Update(ctx context.Context, req *UpdateAppTableRecordReq, options ...core.RequestOptionFunc) (*UpdateAppTableRecordResp, error) {
+	// 发起请求
+	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodPut,
+		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &UpdateAppTableRecordResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (a *appTableView) Create(ctx context.Context, req *CreateAppTableViewReq, options ...core.RequestOptionFunc) (*CreateAppTableViewResp, error) {
+	// 发起请求
+	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodPost,
 		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/views", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &CreateAppTableViewResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -406,15 +521,13 @@ func (a *appTableViews) Create(ctx context.Context, req *CreateAppTableViewReq, 
 	}
 	return resp, err
 }
-func (a *appTableViews) Delete(ctx context.Context, req *DeleteAppTableViewReq, options ...core.RequestOptionFunc) (*DeleteAppTableViewResp, error) {
-
+func (a *appTableView) Delete(ctx context.Context, req *DeleteAppTableViewReq, options ...core.RequestOptionFunc) (*DeleteAppTableViewResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,a.service.config, http.MethodDelete,
+	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodDelete,
 		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/views/:view_id", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &DeleteAppTableViewResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -423,15 +536,13 @@ func (a *appTableViews) Delete(ctx context.Context, req *DeleteAppTableViewReq, 
 	}
 	return resp, err
 }
-func (a *appTableViews) List(ctx context.Context, req *ListAppTableViewReq, options ...core.RequestOptionFunc) (*ListAppTableViewResp, error) {
-
+func (a *appTableView) List(ctx context.Context, req *ListAppTableViewReq, options ...core.RequestOptionFunc) (*ListAppTableViewResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx,a.service.config, http.MethodGet,
+	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodGet,
 		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/views", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
-
 	// 反序列响应结果
 	resp := &ListAppTableViewResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -440,12 +551,13 @@ func (a *appTableViews) List(ctx context.Context, req *ListAppTableViewReq, opti
 	}
 	return resp, err
 }
+
 /**如果是分页查询，则添加迭代器函数**/
-func (a *appTableViews) ListAppTableView(ctx context.Context, req *ListAppTableViewReq, options ...core.RequestOptionFunc) (*ListAppTableViewIterator, error) {
-   return &ListAppTableViewIterator{
-	  ctx:	  ctx,
-	  req:	  req,
-	  listFunc: a.List,
-	  options:  options,
-	  limit: req.Limit}, nil
+func (a *appTableView) ListAppTableView(ctx context.Context, req *ListAppTableViewReq, options ...core.RequestOptionFunc) (*ListAppTableViewIterator, error) {
+	return &ListAppTableViewIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: a.List,
+		options:  options,
+		limit:    req.Limit}, nil
 }
