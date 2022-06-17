@@ -3,34 +3,34 @@ package dispatcher
 
 import (
 	"context"
-	"github.com/feishu/oapi-sdk-go/service/application/v6"
+	"github.com/larksuite/oapi-sdk-go/service/application/v6"
 )
 
-func (dispatcher *EventReqDispatcher) ApplicationCreatedV6(handler func(ctx context.Context, event *application.ApplicationCreatedEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnApplicationCreatedV6(handler func(ctx context.Context, event *application.ApplicationCreatedEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["application.application.created_v6"] = application.NewApplicationCreatedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventReqDispatcher) ApplicationAppVersionAuditV6(handler func(ctx context.Context, event *application.ApplicationAppVersionAuditEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnApplicationAppVersionAuditV6(handler func(ctx context.Context, event *application.ApplicationAppVersionAuditEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["application.application.app_version.audit_v6"] = application.NewApplicationAppVersionAuditEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventReqDispatcher) ApplicationAppVersionPublishApplyV6(handler func(ctx context.Context, event *application.ApplicationAppVersionPublishApplyEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnApplicationAppVersionPublishApplyV6(handler func(ctx context.Context, event *application.ApplicationAppVersionPublishApplyEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["application.application.app_version.publish_apply_v6"] = application.NewApplicationAppVersionPublishApplyEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventReqDispatcher) ApplicationAppVersionPublishRevokeV6(handler func(ctx context.Context, event *application.ApplicationAppVersionPublishRevokeEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnApplicationAppVersionPublishRevokeV6(handler func(ctx context.Context, event *application.ApplicationAppVersionPublishRevokeEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["application.application.app_version.publish_revoke_v6"] = application.NewApplicationAppVersionPublishRevokeEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventReqDispatcher) ApplicationFeedbackCreatedV6(handler func(ctx context.Context, event *application.ApplicationFeedbackCreatedEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnApplicationFeedbackCreatedV6(handler func(ctx context.Context, event *application.ApplicationFeedbackCreatedEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["application.application.feedback.created_v6"] = application.NewApplicationFeedbackCreatedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventReqDispatcher) ApplicationFeedbackUpdatedV6(handler func(ctx context.Context, event *application.ApplicationFeedbackUpdatedEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnApplicationFeedbackUpdatedV6(handler func(ctx context.Context, event *application.ApplicationFeedbackUpdatedEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["application.application.feedback.updated_v6"] = application.NewApplicationFeedbackUpdatedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventReqDispatcher) ApplicationVisibilityAddedV6(handler func(ctx context.Context, event *application.ApplicationVisibilityAddedEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnApplicationVisibilityAddedV6(handler func(ctx context.Context, event *application.ApplicationVisibilityAddedEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["application.application.visibility.added_v6"] = application.NewApplicationVisibilityAddedEventHandler(handler)
 	return dispatcher
 }

@@ -3,18 +3,18 @@ package dispatcher
 
 import (
 	"context"
-	"github.com/feishu/oapi-sdk-go/service/task/v1"
+	"github.com/larksuite/oapi-sdk-go/service/task/v1"
 )
 
-func (dispatcher *EventReqDispatcher) TaskUpdateTenantV1(handler func(ctx context.Context, event *task.TaskUpdateTenantEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnTaskUpdateTenantV1(handler func(ctx context.Context, event *task.TaskUpdateTenantEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["task.task.update_tenant_v1"] = task.NewTaskUpdateTenantEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventReqDispatcher) TaskUpdatedV1(handler func(ctx context.Context, event *task.TaskUpdatedEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnTaskUpdatedV1(handler func(ctx context.Context, event *task.TaskUpdatedEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["task.task.updated_v1"] = task.NewTaskUpdatedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventReqDispatcher) TaskCommentUpdatedV1(handler func(ctx context.Context, event *task.TaskCommentUpdatedEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnTaskCommentUpdatedV1(handler func(ctx context.Context, event *task.TaskCommentUpdatedEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["task.task.comment.updated_v1"] = task.NewTaskCommentUpdatedEventHandler(handler)
 	return dispatcher
 }

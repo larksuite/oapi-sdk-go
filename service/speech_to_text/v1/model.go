@@ -2,7 +2,7 @@
 package speech_to_text
 
 import (
-	"github.com/feishu/oapi-sdk-go/core"
+	"github.com/larksuite/oapi-sdk-go/core"
 )
 
 /**生成枚举值 **/

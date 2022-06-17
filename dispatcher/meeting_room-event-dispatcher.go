@@ -3,22 +3,22 @@ package dispatcher
 
 import (
 	"context"
-	"github.com/feishu/oapi-sdk-go/service/meeting_room/v1"
+	"github.com/larksuite/oapi-sdk-go/service/meeting_room/v1"
 )
 
-func (dispatcher *EventReqDispatcher) MeetingRoomCreatedV1(handler func(ctx context.Context, event *meeting_room.MeetingRoomCreatedEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnMeetingRoomCreatedV1(handler func(ctx context.Context, event *meeting_room.MeetingRoomCreatedEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["meeting_room.meeting_room.created_v1"] = meeting_room.NewMeetingRoomCreatedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventReqDispatcher) MeetingRoomDeletedV1(handler func(ctx context.Context, event *meeting_room.MeetingRoomDeletedEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnMeetingRoomDeletedV1(handler func(ctx context.Context, event *meeting_room.MeetingRoomDeletedEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["meeting_room.meeting_room.deleted_v1"] = meeting_room.NewMeetingRoomDeletedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventReqDispatcher) MeetingRoomStatusChangedV1(handler func(ctx context.Context, event *meeting_room.MeetingRoomStatusChangedEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnMeetingRoomStatusChangedV1(handler func(ctx context.Context, event *meeting_room.MeetingRoomStatusChangedEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["meeting_room.meeting_room.status_changed_v1"] = meeting_room.NewMeetingRoomStatusChangedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventReqDispatcher) MeetingRoomUpdatedV1(handler func(ctx context.Context, event *meeting_room.MeetingRoomUpdatedEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnMeetingRoomUpdatedV1(handler func(ctx context.Context, event *meeting_room.MeetingRoomUpdatedEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["meeting_room.meeting_room.updated_v1"] = meeting_room.NewMeetingRoomUpdatedEventHandler(handler)
 	return dispatcher
 }

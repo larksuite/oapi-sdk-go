@@ -2,9 +2,7 @@
 package meeting_room
 
 import (
-	"github.com/feishu/oapi-sdk-go/event"
-
-	"github.com/feishu/oapi-sdk-go/core"
+	"github.com/larksuite/oapi-sdk-go/event"
 )
 
 /**生成枚举值 **/

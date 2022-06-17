@@ -6,9 +6,9 @@ import (
 	"os"
 	"time"
 
-	"github.com/feishu/oapi-sdk-go"
-	"github.com/feishu/oapi-sdk-go/core"
-	"github.com/feishu/oapi-sdk-go/service/docx/v1"
+	"github.com/larksuite/oapi-sdk-go"
+	"github.com/larksuite/oapi-sdk-go/core"
+	"github.com/larksuite/oapi-sdk-go/service/docx/v1"
 )
 
 func createDocument(client *client.Client) {

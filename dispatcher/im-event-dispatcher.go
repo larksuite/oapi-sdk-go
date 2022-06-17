@@ -3,50 +3,50 @@ package dispatcher
 
 import (
 	"context"
-	"github.com/feishu/oapi-sdk-go/service/im/v1"
+	"github.com/larksuite/oapi-sdk-go/service/im/v1"
 )
 
-func (dispatcher *EventReqDispatcher) ChatDisbandedV1(handler func(ctx context.Context, event *im.ChatDisbandedEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnChatDisbandedV1(handler func(ctx context.Context, event *im.ChatDisbandedEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["im.chat.disbanded_v1"] = im.NewChatDisbandedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventReqDispatcher) ChatUpdatedV1(handler func(ctx context.Context, event *im.ChatUpdatedEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnChatUpdatedV1(handler func(ctx context.Context, event *im.ChatUpdatedEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["im.chat.updated_v1"] = im.NewChatUpdatedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventReqDispatcher) ChatMemberBotAddedV1(handler func(ctx context.Context, event *im.ChatMemberBotAddedEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnChatMemberBotAddedV1(handler func(ctx context.Context, event *im.ChatMemberBotAddedEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["im.chat.member.bot.added_v1"] = im.NewChatMemberBotAddedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventReqDispatcher) ChatMemberBotDeletedV1(handler func(ctx context.Context, event *im.ChatMemberBotDeletedEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnChatMemberBotDeletedV1(handler func(ctx context.Context, event *im.ChatMemberBotDeletedEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["im.chat.member.bot.deleted_v1"] = im.NewChatMemberBotDeletedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventReqDispatcher) ChatMemberUserAddedV1(handler func(ctx context.Context, event *im.ChatMemberUserAddedEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnChatMemberUserAddedV1(handler func(ctx context.Context, event *im.ChatMemberUserAddedEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["im.chat.member.user.added_v1"] = im.NewChatMemberUserAddedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventReqDispatcher) ChatMemberUserDeletedV1(handler func(ctx context.Context, event *im.ChatMemberUserDeletedEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnChatMemberUserDeletedV1(handler func(ctx context.Context, event *im.ChatMemberUserDeletedEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["im.chat.member.user.deleted_v1"] = im.NewChatMemberUserDeletedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventReqDispatcher) ChatMemberUserWithdrawnV1(handler func(ctx context.Context, event *im.ChatMemberUserWithdrawnEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnChatMemberUserWithdrawnV1(handler func(ctx context.Context, event *im.ChatMemberUserWithdrawnEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["im.chat.member.user.withdrawn_v1"] = im.NewChatMemberUserWithdrawnEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventReqDispatcher) MessageMessageReadV1(handler func(ctx context.Context, event *im.MessageMessageReadEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnMessageMessageReadV1(handler func(ctx context.Context, event *im.MessageMessageReadEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["im.message.message_read_v1"] = im.NewMessageMessageReadEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventReqDispatcher) MessageReceiveV1(handler func(ctx context.Context, event *im.MessageReceiveEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnMessageReceiveV1(handler func(ctx context.Context, event *im.MessageReceiveEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["im.message.receive_v1"] = im.NewMessageReceiveEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventReqDispatcher) MessageReactionCreatedV1(handler func(ctx context.Context, event *im.MessageReactionCreatedEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnMessageReactionCreatedV1(handler func(ctx context.Context, event *im.MessageReactionCreatedEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["im.message.reaction.created_v1"] = im.NewMessageReactionCreatedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventReqDispatcher) MessageReactionDeletedV1(handler func(ctx context.Context, event *im.MessageReactionDeletedEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnMessageReactionDeletedV1(handler func(ctx context.Context, event *im.MessageReactionDeletedEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["im.message.reaction.deleted_v1"] = im.NewMessageReactionDeletedEventHandler(handler)
 	return dispatcher
 }

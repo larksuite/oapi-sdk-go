@@ -3,14 +3,15 @@ package dispatcher
 
 import (
 	"context"
-	"github.com/feishu/oapi-sdk-go/service/acs/v1"
+
+	"github.com/larksuite/oapi-sdk-go/service/acs/v1"
 )
 
-func (dispatcher *EventReqDispatcher) AccessRecordCreatedV1(handler func(ctx context.Context, event *acs.AccessRecordCreatedEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnAccessRecordCreatedV1(handler func(ctx context.Context, event *acs.AccessRecordCreatedEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["acs.access_record.created_v1"] = acs.NewAccessRecordCreatedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventReqDispatcher) UserUpdatedV1(handler func(ctx context.Context, event *acs.UserUpdatedEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnUserUpdatedV1(handler func(ctx context.Context, event *acs.UserUpdatedEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["acs.user.updated_v1"] = acs.NewUserUpdatedEventHandler(handler)
 	return dispatcher
 }

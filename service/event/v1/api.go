@@ -5,7 +5,7 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/feishu/oapi-sdk-go/core"
+	"github.com/larksuite/oapi-sdk-go/core"
 )
 
 /**

@@ -5,24 +5,24 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/feishu/oapi-sdk-go/core"
-	"github.com/feishu/oapi-sdk-go/dispatcher"
-	"github.com/feishu/oapi-sdk-go/event"
-	"github.com/feishu/oapi-sdk-go/httpserverext"
-	"github.com/feishu/oapi-sdk-go/service/contact/v3"
-	"github.com/feishu/oapi-sdk-go/service/im/v1"
+	"github.com/larksuite/oapi-sdk-go/core"
+	"github.com/larksuite/oapi-sdk-go/dispatcher"
+	"github.com/larksuite/oapi-sdk-go/event"
+	"github.com/larksuite/oapi-sdk-go/httpserverext"
+	"github.com/larksuite/oapi-sdk-go/service/contact/v3"
+	"github.com/larksuite/oapi-sdk-go/service/im/v1"
 )
 
 func main() {
 
 	//1212121212
-	handler := dispatcher.NewEventReqDispatcher("v", "").MessageReceiveV1(func(ctx context.Context, event *im.MessageReceiveEvent) error {
+	handler := dispatcher.NewEventReqDispatcher("v", "1212121212").OnMessageReceiveV1(func(ctx context.Context, event *im.MessageReceiveEvent) error {
 		fmt.Println(core.Prettify(event))
 		return nil
-	}).MessageMessageReadV1(func(ctx context.Context, event *im.MessageMessageReadEvent) error {
+	}).OnMessageMessageReadV1(func(ctx context.Context, event *im.MessageMessageReadEvent) error {
 		fmt.Println(core.Prettify(event))
 		return nil
-	}).UserCreatedV3(func(ctx context.Context, event *contact.UserCreatedEvent) error {
+	}).OnUserCreatedV3(func(ctx context.Context, event *contact.UserCreatedEvent) error {
 		fmt.Println(core.Prettify(event))
 		return nil
 	})

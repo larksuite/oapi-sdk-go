@@ -3,22 +3,22 @@ package dispatcher
 
 import (
 	"context"
-	"github.com/feishu/oapi-sdk-go/service/calendar/v4"
+	"github.com/larksuite/oapi-sdk-go/service/calendar/v4"
 )
 
-func (dispatcher *EventReqDispatcher) CalendarChangedV4(handler func(ctx context.Context, event *calendar.CalendarChangedEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnCalendarChangedV4(handler func(ctx context.Context, event *calendar.CalendarChangedEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["calendar.calendar.changed_v4"] = calendar.NewCalendarChangedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventReqDispatcher) CalendarAclCreatedV4(handler func(ctx context.Context, event *calendar.CalendarAclCreatedEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnCalendarAclCreatedV4(handler func(ctx context.Context, event *calendar.CalendarAclCreatedEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["calendar.calendar.acl.created_v4"] = calendar.NewCalendarAclCreatedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventReqDispatcher) CalendarAclDeletedV4(handler func(ctx context.Context, event *calendar.CalendarAclDeletedEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnCalendarAclDeletedV4(handler func(ctx context.Context, event *calendar.CalendarAclDeletedEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["calendar.calendar.acl.deleted_v4"] = calendar.NewCalendarAclDeletedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventReqDispatcher) CalendarEventChangedV4(handler func(ctx context.Context, event *calendar.CalendarEventChangedEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnCalendarEventChangedV4(handler func(ctx context.Context, event *calendar.CalendarEventChangedEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["calendar.calendar.event.changed_v4"] = calendar.NewCalendarEventChangedEventHandler(handler)
 	return dispatcher
 }

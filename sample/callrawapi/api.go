@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	client "github.com/feishu/oapi-sdk-go"
-	"github.com/feishu/oapi-sdk-go/core"
+	client "github.com/larksuite/oapi-sdk-go"
+	"github.com/larksuite/oapi-sdk-go/core"
 )
 
 func main() {

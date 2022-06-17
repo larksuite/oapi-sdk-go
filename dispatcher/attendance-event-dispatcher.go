@@ -3,14 +3,14 @@ package dispatcher
 
 import (
 	"context"
-	"github.com/feishu/oapi-sdk-go/service/attendance/v1"
+	"github.com/larksuite/oapi-sdk-go/service/attendance/v1"
 )
 
-func (dispatcher *EventReqDispatcher) UserFlowCreatedV1(handler func(ctx context.Context, event *attendance.UserFlowCreatedEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnUserFlowCreatedV1(handler func(ctx context.Context, event *attendance.UserFlowCreatedEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["attendance.user_flow.created_v1"] = attendance.NewUserFlowCreatedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventReqDispatcher) UserTaskUpdatedV1(handler func(ctx context.Context, event *attendance.UserTaskUpdatedEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnUserTaskUpdatedV1(handler func(ctx context.Context, event *attendance.UserTaskUpdatedEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["attendance.user_task.updated_v1"] = attendance.NewUserTaskUpdatedEventHandler(handler)
 	return dispatcher
 }

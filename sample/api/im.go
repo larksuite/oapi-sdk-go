@@ -6,9 +6,9 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/feishu/oapi-sdk-go"
-	"github.com/feishu/oapi-sdk-go/core"
-	"github.com/feishu/oapi-sdk-go/service/im/v1"
+	"github.com/larksuite/oapi-sdk-go"
+	"github.com/larksuite/oapi-sdk-go/core"
+	"github.com/larksuite/oapi-sdk-go/service/im/v1"
 )
 
 func uploadImage(client *client.Client) {

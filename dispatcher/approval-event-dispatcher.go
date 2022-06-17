@@ -3,10 +3,10 @@ package dispatcher
 
 import (
 	"context"
-	"github.com/feishu/oapi-sdk-go/service/approval/v4"
+	"github.com/larksuite/oapi-sdk-go/service/approval/v4"
 )
 
-func (dispatcher *EventReqDispatcher) ApprovalUpdatedV4(handler func(ctx context.Context, event *approval.ApprovalUpdatedEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnApprovalUpdatedV4(handler func(ctx context.Context, event *approval.ApprovalUpdatedEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["approval.approval.updated_v4"] = approval.NewApprovalUpdatedEventHandler(handler)
 	return dispatcher
 }

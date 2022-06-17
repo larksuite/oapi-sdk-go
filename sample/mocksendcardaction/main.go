@@ -7,9 +7,9 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/feishu/oapi-sdk-go/card"
-	"github.com/feishu/oapi-sdk-go/core"
-	"github.com/feishu/oapi-sdk-go/event"
+	"github.com/larksuite/oapi-sdk-go/card"
+	"github.com/larksuite/oapi-sdk-go/core"
+	"github.com/larksuite/oapi-sdk-go/event"
 )
 
 func mockCardAction() []byte {

@@ -4,8 +4,8 @@ import (
 	"context"
 	"time"
 
-	"github.com/feishu/oapi-sdk-go/core"
-	"github.com/feishu/oapi-sdk-go/event"
+	"github.com/larksuite/oapi-sdk-go/core"
+	"github.com/larksuite/oapi-sdk-go/event"
 )
 
 type appTicketEventData struct {

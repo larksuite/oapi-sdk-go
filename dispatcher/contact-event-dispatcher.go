@@ -3,58 +3,58 @@ package dispatcher
 
 import (
 	"context"
-	"github.com/feishu/oapi-sdk-go/service/contact/v3"
+	"github.com/larksuite/oapi-sdk-go/service/contact/v3"
 )
 
-func (dispatcher *EventReqDispatcher) CustomAttrEventUpdatedV3(handler func(ctx context.Context, event *contact.CustomAttrEventUpdatedEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnCustomAttrEventUpdatedV3(handler func(ctx context.Context, event *contact.CustomAttrEventUpdatedEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["contact.custom_attr_event.updated_v3"] = contact.NewCustomAttrEventUpdatedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventReqDispatcher) DepartmentCreatedV3(handler func(ctx context.Context, event *contact.DepartmentCreatedEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnDepartmentCreatedV3(handler func(ctx context.Context, event *contact.DepartmentCreatedEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["contact.department.created_v3"] = contact.NewDepartmentCreatedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventReqDispatcher) DepartmentDeletedV3(handler func(ctx context.Context, event *contact.DepartmentDeletedEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnDepartmentDeletedV3(handler func(ctx context.Context, event *contact.DepartmentDeletedEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["contact.department.deleted_v3"] = contact.NewDepartmentDeletedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventReqDispatcher) DepartmentUpdatedV3(handler func(ctx context.Context, event *contact.DepartmentUpdatedEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnDepartmentUpdatedV3(handler func(ctx context.Context, event *contact.DepartmentUpdatedEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["contact.department.updated_v3"] = contact.NewDepartmentUpdatedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventReqDispatcher) EmployeeTypeEnumActivedV3(handler func(ctx context.Context, event *contact.EmployeeTypeEnumActivedEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnEmployeeTypeEnumActivedV3(handler func(ctx context.Context, event *contact.EmployeeTypeEnumActivedEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["contact.employee_type_enum.actived_v3"] = contact.NewEmployeeTypeEnumActivedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventReqDispatcher) EmployeeTypeEnumCreatedV3(handler func(ctx context.Context, event *contact.EmployeeTypeEnumCreatedEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnEmployeeTypeEnumCreatedV3(handler func(ctx context.Context, event *contact.EmployeeTypeEnumCreatedEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["contact.employee_type_enum.created_v3"] = contact.NewEmployeeTypeEnumCreatedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventReqDispatcher) EmployeeTypeEnumDeactivatedV3(handler func(ctx context.Context, event *contact.EmployeeTypeEnumDeactivatedEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnEmployeeTypeEnumDeactivatedV3(handler func(ctx context.Context, event *contact.EmployeeTypeEnumDeactivatedEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["contact.employee_type_enum.deactivated_v3"] = contact.NewEmployeeTypeEnumDeactivatedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventReqDispatcher) EmployeeTypeEnumDeletedV3(handler func(ctx context.Context, event *contact.EmployeeTypeEnumDeletedEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnEmployeeTypeEnumDeletedV3(handler func(ctx context.Context, event *contact.EmployeeTypeEnumDeletedEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["contact.employee_type_enum.deleted_v3"] = contact.NewEmployeeTypeEnumDeletedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventReqDispatcher) EmployeeTypeEnumUpdatedV3(handler func(ctx context.Context, event *contact.EmployeeTypeEnumUpdatedEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnEmployeeTypeEnumUpdatedV3(handler func(ctx context.Context, event *contact.EmployeeTypeEnumUpdatedEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["contact.employee_type_enum.updated_v3"] = contact.NewEmployeeTypeEnumUpdatedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventReqDispatcher) ScopeUpdatedV3(handler func(ctx context.Context, event *contact.ScopeUpdatedEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnScopeUpdatedV3(handler func(ctx context.Context, event *contact.ScopeUpdatedEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["contact.scope.updated_v3"] = contact.NewScopeUpdatedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventReqDispatcher) UserCreatedV3(handler func(ctx context.Context, event *contact.UserCreatedEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnUserCreatedV3(handler func(ctx context.Context, event *contact.UserCreatedEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["contact.user.created_v3"] = contact.NewUserCreatedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventReqDispatcher) UserDeletedV3(handler func(ctx context.Context, event *contact.UserDeletedEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnUserDeletedV3(handler func(ctx context.Context, event *contact.UserDeletedEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["contact.user.deleted_v3"] = contact.NewUserDeletedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventReqDispatcher) UserUpdatedV3(handler func(ctx context.Context, event *contact.UserUpdatedEvent) error) *EventReqDispatcher {
+func (dispatcher *EventReqDispatcher) OnUserUpdatedV3(handler func(ctx context.Context, event *contact.UserUpdatedEvent) error) *EventReqDispatcher {
 	dispatcher.eventType2EventHandler["contact.user.updated_v3"] = contact.NewUserUpdatedEventHandler(handler)
 	return dispatcher
 }

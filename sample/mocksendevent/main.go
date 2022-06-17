@@ -8,9 +8,9 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/feishu/oapi-sdk-go/core"
-	"github.com/feishu/oapi-sdk-go/event"
-	"github.com/feishu/oapi-sdk-go/service/contact/v3"
+	"github.com/larksuite/oapi-sdk-go/core"
+	"github.com/larksuite/oapi-sdk-go/event"
+	"github.com/larksuite/oapi-sdk-go/service/contact/v3"
 )
 
 type EventV2Body struct {
