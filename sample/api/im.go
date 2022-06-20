@@ -12,7 +12,7 @@ import (
 )
 
 func uploadImage(client *client.Client) {
-	pdf, err := os.Open("/Users/bytedance/Downloads/a.jpg")
+	pdf, err := os.Open("/Users/bytedance/Downloads/guava-ratelimiterl.jpg")
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -37,7 +37,7 @@ func uploadImage(client *client.Client) {
 }
 
 func uploadFile(client *client.Client) {
-	pdf, err := os.Open("/Users/bytedance/Downloads/redis.pdf")
+	pdf, err := os.Open("/Users/bytedance/Downloads/open-gateway.pdf")
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -48,7 +48,7 @@ func uploadFile(client *client.Client) {
 		im.NewCreateFileReqBuilder().
 			Body(im.NewCreateFileReqBodyBuilder().
 				FileType(im.FileTypePdf).
-				FileName("redis.pdf").
+				FileName("open-redis.pdf").
 				File(pdf).
 				Build()).
 			Build())
@@ -161,7 +161,7 @@ func sendTextMsg(client *client.Client) {
 }
 
 func sendImageMsg(client *client.Client) {
-	msgImage := im.MessageImage{ImageKey: "img_v2_0db0c471-fff0-460a-883f-e3523c478c4g"}
+	msgImage := im.MessageImage{ImageKey: "img_v2_63554b3a-b60f-449a-a286-0f89e353815g"}
 	content, err := msgImage.String()
 	if err != nil {
 		fmt.Println(err)
@@ -286,7 +286,7 @@ func sendMediaMsg(client *client.Client) {
 }
 
 func sendFileMsg(client *client.Client) {
-	msgImage := im.MessageFile{FileKey: "file_v2_0c7f5b4b-64ec-408a-a9eb-09aec7954a4g"}
+	msgImage := im.MessageFile{FileKey: "file_v2_4fa17cda-01f3-4aac-927a-7833ab482fcg"}
 	content, err := msgImage.String()
 	if err != nil {
 		fmt.Println(err)
@@ -437,20 +437,20 @@ func sendPostMsgUseBuilder(client *client.Client) {
 }
 func main() {
 	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
-	var feishu_client = client.NewClient(appID, appSecret, client.WithLogLevel(core.LogLevelDebug))
+	var feishu_client = client.NewClient(appID, appSecret, client.WithLogLevel(core.LogLevelInfo))
 	//downLoadImageV2(client)
-	//uploadImage(client)
+	//uploadImage(feishu_client)
 	//uploadImage(client)
 	//downLoadImage(client)
 	//uploadImage2(client)
 	//sendTextMsg(client)
-	//sendImageMsg(client)
-	//uploadFile(client)
-	//sendFileMsg(client)
+	sendImageMsg(feishu_client)
+	//uploadFile(feishu_client)
+	//sendFileMsg(feishu_client)
 	//sendAudioMsg(client)
 	//sendMediaMsg(client)
 	//sendShardChatMsg(client)
 	//sendShardUserMsg(client)
-	sendPostMsg(feishu_client)
+	//sendPostMsg(feishu_client)
 	//sendPostMsgUseBuilder(feishu_client)
 }

@@ -21,7 +21,7 @@ type CardActionHandler struct {
 	*core.Config
 }
 
-func NewTemplateReqHandler(handler *CardActionHandler, options ...event.OptionFunc) *event.ReqHandler {
+func NewReqHandlerTemplate(handler *CardActionHandler, options ...event.OptionFunc) *event.ReqHandler {
 	reqHandler := event.ReqHandler{IReqHandler: handler, Config: handler.Config}
 	for _, option := range options {
 		option(handler.Config)

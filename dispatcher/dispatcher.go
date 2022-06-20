@@ -21,7 +21,7 @@ type EventReqDispatcher struct {
 	*core.Config
 }
 
-func NewTemplateReqHandler(handler *EventReqDispatcher, options ...event.OptionFunc) *event.ReqHandler {
+func NewReqHandlerTemplate(handler *EventReqDispatcher, options ...event.OptionFunc) *event.ReqHandler {
 	reqHandler := event.ReqHandler{IReqHandler: handler, Config: handler.Config}
 	for _, option := range options {
 		option(handler.Config)

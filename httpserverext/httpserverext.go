@@ -52,12 +52,12 @@ func doProcess(writer http.ResponseWriter, req *http.Request, reqHandler *event.
 	// 回写结果
 	err = write(ctx, writer, eventResp)
 	if err != nil {
-		panic(err)
+		reqHandler.Logger.Error(ctx, fmt.Sprintf("write resp result error:%s", err.Error()))
 	}
 }
 
 func NewCardActionHandlerFunc(cardActionHandler *card.CardActionHandler, options ...event.OptionFunc) func(writer http.ResponseWriter, req *http.Request) {
-	reqHandler := card.NewTemplateReqHandler(cardActionHandler, options...)
+	reqHandler := card.NewReqHandlerTemplate(cardActionHandler, options...)
 	return func(writer http.ResponseWriter, req *http.Request) {
 		doProcess(writer, req, reqHandler)
 	}
@@ -78,7 +78,7 @@ func NewCardActionHandlerFunc(cardActionHandler *card.CardActionHandler, options
 //}
 
 func NewEventReqHandlerFunc(eventReqDispatcher *dispatcher.EventReqDispatcher, options ...event.OptionFunc) func(writer http.ResponseWriter, req *http.Request) {
-	reqHandler := dispatcher.NewTemplateReqHandler(eventReqDispatcher, options...)
+	reqHandler := dispatcher.NewReqHandlerTemplate(eventReqDispatcher, options...)
 	return func(writer http.ResponseWriter, req *http.Request) {
 		doProcess(writer, req, reqHandler)
 	}

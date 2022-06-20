@@ -152,8 +152,12 @@ func doSendRequest(ctx context.Context, config *Config, httpMethod string, httpP
 			applyAppTicket(ctx, config)
 		}
 
+		if !config.EnableTokenCache {
+			break
+		}
+
 		if code != errCodeAccessTokenInvalid && code != errCodeAppAccessTokenInvalid &&
-			code != errCodeTenantAccessTokenInvalid && !config.EnableTokenCache {
+			code != errCodeTenantAccessTokenInvalid {
 			break
 		}
 	}
