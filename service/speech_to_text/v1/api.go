@@ -8,7 +8,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
-/**
+/**i
 构建业务域服务实例
 **/
 func NewService(httpClient *http.Client, config *core.Config) *SpeechToTextService {

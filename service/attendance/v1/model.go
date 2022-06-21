@@ -4401,8 +4401,10 @@ func (resp *UploadFileResp) Success() bool {
 }
 
 type CreateGroupReqBodyBuilder struct {
-	group     *Group
-	groupFlag bool
+	group          *Group
+	groupFlag      bool
+	operatorId     string
+	operatorIdFlag bool
 }
 
 // 生成body的New构造器
@@ -4417,6 +4419,11 @@ func (builder *CreateGroupReqBodyBuilder) Group(group *Group) *CreateGroupReqBod
 	builder.groupFlag = true
 	return builder
 }
+func (builder *CreateGroupReqBodyBuilder) OperatorId(operatorId string) *CreateGroupReqBodyBuilder {
+	builder.operatorId = operatorId
+	builder.operatorIdFlag = true
+	return builder
+}
 
 /*1.3 生成body的build方法*/
 func (builder *CreateGroupReqBodyBuilder) Build() *CreateGroupReqBody {
@@ -4425,13 +4432,19 @@ func (builder *CreateGroupReqBodyBuilder) Build() *CreateGroupReqBody {
 		req.Group = builder.group
 
 	}
+	if builder.operatorIdFlag {
+		req.OperatorId = &builder.operatorId
+
+	}
 	return req
 }
 
 /**上传文件path开始**/
 type CreateGroupPathReqBodyBuilder struct {
-	group     *Group
-	groupFlag bool
+	group          *Group
+	groupFlag      bool
+	operatorId     string
+	operatorIdFlag bool
 }
 
 func NewCreateGroupPathReqBodyBuilder() *CreateGroupPathReqBodyBuilder {
@@ -4443,11 +4456,20 @@ func (builder *CreateGroupPathReqBodyBuilder) Group(group *Group) *CreateGroupPa
 	builder.groupFlag = true
 	return builder
 }
+func (builder *CreateGroupPathReqBodyBuilder) OperatorId(operatorId string) *CreateGroupPathReqBodyBuilder {
+	builder.operatorId = operatorId
+	builder.operatorIdFlag = true
+	return builder
+}
 
 func (builder *CreateGroupPathReqBodyBuilder) Build() (*CreateGroupReqBody, error) {
 	req := &CreateGroupReqBody{}
 	if builder.groupFlag {
 		req.Group = builder.group
+	}
+	if builder.operatorIdFlag {
+		req.OperatorId = &builder.operatorId
+
 	}
 	return req, nil
 }
@@ -4503,7 +4525,8 @@ func (builder *CreateGroupReqBuilder) Build() *CreateGroupReq {
 }
 
 type CreateGroupReqBody struct {
-	Group *Group `json:"group,omitempty"`
+	Group      *Group  `json:"group,omitempty"`
+	OperatorId *string `json:"operator_id,omitempty"`
 }
 
 type CreateGroupReq struct {
@@ -5404,6 +5427,8 @@ func (resp *QueryUserApprovalResp) Success() bool {
 type BatchCreateUserDailyShiftReqBodyBuilder struct {
 	userDailyShifts     []*UserDailyShift
 	userDailyShiftsFlag bool
+	operatorId          string
+	operatorIdFlag      bool
 }
 
 // 生成body的New构造器
@@ -5418,12 +5443,21 @@ func (builder *BatchCreateUserDailyShiftReqBodyBuilder) UserDailyShifts(userDail
 	builder.userDailyShiftsFlag = true
 	return builder
 }
+func (builder *BatchCreateUserDailyShiftReqBodyBuilder) OperatorId(operatorId string) *BatchCreateUserDailyShiftReqBodyBuilder {
+	builder.operatorId = operatorId
+	builder.operatorIdFlag = true
+	return builder
+}
 
 /*1.3 生成body的build方法*/
 func (builder *BatchCreateUserDailyShiftReqBodyBuilder) Build() *BatchCreateUserDailyShiftReqBody {
 	req := &BatchCreateUserDailyShiftReqBody{}
 	if builder.userDailyShiftsFlag {
 		req.UserDailyShifts = builder.userDailyShifts
+
+	}
+	if builder.operatorIdFlag {
+		req.OperatorId = &builder.operatorId
 
 	}
 	return req
@@ -5433,6 +5467,8 @@ func (builder *BatchCreateUserDailyShiftReqBodyBuilder) Build() *BatchCreateUser
 type BatchCreateUserDailyShiftPathReqBodyBuilder struct {
 	userDailyShifts     []*UserDailyShift
 	userDailyShiftsFlag bool
+	operatorId          string
+	operatorIdFlag      bool
 }
 
 func NewBatchCreateUserDailyShiftPathReqBodyBuilder() *BatchCreateUserDailyShiftPathReqBodyBuilder {
@@ -5444,11 +5480,20 @@ func (builder *BatchCreateUserDailyShiftPathReqBodyBuilder) UserDailyShifts(user
 	builder.userDailyShiftsFlag = true
 	return builder
 }
+func (builder *BatchCreateUserDailyShiftPathReqBodyBuilder) OperatorId(operatorId string) *BatchCreateUserDailyShiftPathReqBodyBuilder {
+	builder.operatorId = operatorId
+	builder.operatorIdFlag = true
+	return builder
+}
 
 func (builder *BatchCreateUserDailyShiftPathReqBodyBuilder) Build() (*BatchCreateUserDailyShiftReqBody, error) {
 	req := &BatchCreateUserDailyShiftReqBody{}
 	if builder.userDailyShiftsFlag {
 		req.UserDailyShifts = builder.userDailyShifts
+	}
+	if builder.operatorIdFlag {
+		req.OperatorId = &builder.operatorId
+
 	}
 	return req, nil
 }
@@ -5495,6 +5540,7 @@ func (builder *BatchCreateUserDailyShiftReqBuilder) Build() *BatchCreateUserDail
 
 type BatchCreateUserDailyShiftReqBody struct {
 	UserDailyShifts []*UserDailyShift `json:"user_daily_shifts,omitempty"`
+	OperatorId      *string           `json:"operator_id,omitempty"`
 }
 
 type BatchCreateUserDailyShiftReq struct {
@@ -6281,6 +6327,8 @@ type QueryUserStatsDataReqBodyBuilder struct {
 	needHistoryFlag      bool
 	currentGroupOnly     bool
 	currentGroupOnlyFlag bool
+	userId               string
+	userIdFlag           bool
 }
 
 // 生成body的New构造器
@@ -6325,6 +6373,11 @@ func (builder *QueryUserStatsDataReqBodyBuilder) CurrentGroupOnly(currentGroupOn
 	builder.currentGroupOnlyFlag = true
 	return builder
 }
+func (builder *QueryUserStatsDataReqBodyBuilder) UserId(userId string) *QueryUserStatsDataReqBodyBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
 
 /*1.3 生成body的build方法*/
 func (builder *QueryUserStatsDataReqBodyBuilder) Build() *QueryUserStatsDataReqBody {
@@ -6357,6 +6410,10 @@ func (builder *QueryUserStatsDataReqBodyBuilder) Build() *QueryUserStatsDataReqB
 		req.CurrentGroupOnly = &builder.currentGroupOnly
 
 	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
 	return req
 }
 
@@ -6376,6 +6433,8 @@ type QueryUserStatsDataPathReqBodyBuilder struct {
 	needHistoryFlag      bool
 	currentGroupOnly     bool
 	currentGroupOnlyFlag bool
+	userId               string
+	userIdFlag           bool
 }
 
 func NewQueryUserStatsDataPathReqBodyBuilder() *QueryUserStatsDataPathReqBodyBuilder {
@@ -6417,6 +6476,11 @@ func (builder *QueryUserStatsDataPathReqBodyBuilder) CurrentGroupOnly(currentGro
 	builder.currentGroupOnlyFlag = true
 	return builder
 }
+func (builder *QueryUserStatsDataPathReqBodyBuilder) UserId(userId string) *QueryUserStatsDataPathReqBodyBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
 
 func (builder *QueryUserStatsDataPathReqBodyBuilder) Build() (*QueryUserStatsDataReqBody, error) {
 	req := &QueryUserStatsDataReqBody{}
@@ -6445,6 +6509,10 @@ func (builder *QueryUserStatsDataPathReqBodyBuilder) Build() (*QueryUserStatsDat
 	}
 	if builder.currentGroupOnlyFlag {
 		req.CurrentGroupOnly = &builder.currentGroupOnly
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
 
 	}
 	return req, nil
@@ -6498,6 +6566,7 @@ type QueryUserStatsDataReqBody struct {
 	UserIds          []string `json:"user_ids,omitempty"`
 	NeedHistory      *bool    `json:"need_history,omitempty"`
 	CurrentGroupOnly *bool    `json:"current_group_only,omitempty"`
+	UserId           *string  `json:"user_id,omitempty"`
 }
 
 type QueryUserStatsDataReq struct {
@@ -6709,6 +6778,8 @@ type QueryUserStatsViewReqBodyBuilder struct {
 	localeFlag    bool
 	statsType     string
 	statsTypeFlag bool
+	userId        string
+	userIdFlag    bool
 }
 
 // 生成body的New构造器
@@ -6728,6 +6799,11 @@ func (builder *QueryUserStatsViewReqBodyBuilder) StatsType(statsType string) *Qu
 	builder.statsTypeFlag = true
 	return builder
 }
+func (builder *QueryUserStatsViewReqBodyBuilder) UserId(userId string) *QueryUserStatsViewReqBodyBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
 
 /*1.3 生成body的build方法*/
 func (builder *QueryUserStatsViewReqBodyBuilder) Build() *QueryUserStatsViewReqBody {
@@ -6740,6 +6816,10 @@ func (builder *QueryUserStatsViewReqBodyBuilder) Build() *QueryUserStatsViewReqB
 		req.StatsType = &builder.statsType
 
 	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
 	return req
 }
 
@@ -6749,6 +6829,8 @@ type QueryUserStatsViewPathReqBodyBuilder struct {
 	localeFlag    bool
 	statsType     string
 	statsTypeFlag bool
+	userId        string
+	userIdFlag    bool
 }
 
 func NewQueryUserStatsViewPathReqBodyBuilder() *QueryUserStatsViewPathReqBodyBuilder {
@@ -6765,6 +6847,11 @@ func (builder *QueryUserStatsViewPathReqBodyBuilder) StatsType(statsType string)
 	builder.statsTypeFlag = true
 	return builder
 }
+func (builder *QueryUserStatsViewPathReqBodyBuilder) UserId(userId string) *QueryUserStatsViewPathReqBodyBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
 
 func (builder *QueryUserStatsViewPathReqBodyBuilder) Build() (*QueryUserStatsViewReqBody, error) {
 	req := &QueryUserStatsViewReqBody{}
@@ -6774,6 +6861,10 @@ func (builder *QueryUserStatsViewPathReqBodyBuilder) Build() (*QueryUserStatsVie
 	}
 	if builder.statsTypeFlag {
 		req.StatsType = &builder.statsType
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
 
 	}
 	return req, nil
@@ -6822,6 +6913,7 @@ func (builder *QueryUserStatsViewReqBuilder) Build() *QueryUserStatsViewReq {
 type QueryUserStatsViewReqBody struct {
 	Locale    *string `json:"locale,omitempty"`
 	StatsType *string `json:"stats_type,omitempty"`
+	UserId    *string `json:"user_id,omitempty"`
 }
 
 type QueryUserStatsViewReq struct {
