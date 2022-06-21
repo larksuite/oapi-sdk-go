@@ -86,13 +86,6 @@ func NewEventLogger() Logger {
 	return logger
 }
 
-func NewDefaultLogger(logLevel LogLevel) Logger {
-	logger := newLoggerProxy(logLevel, defaultLogger{
-		logger: log.New(os.Stdout, "", log.LstdFlags),
-	})
-	return logger
-}
-
 type defaultLogger struct {
 	logger *log.Logger
 }

@@ -12,7 +12,7 @@ func mockConfig() *Config {
 	config := &Config{
 		AppId:            "xxx",
 		AppSecret:        "xxx",
-		Logger:           NewDefaultLogger(LogLevelDebug),
+		Logger:           newLoggerProxy(LogLevelDebug, NewEventLogger()),
 		LogLevel:         LogLevelDebug,
 		EnableTokenCache: true,
 		HttpClient:       http.DefaultClient,
