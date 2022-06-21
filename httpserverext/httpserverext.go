@@ -8,30 +8,9 @@ import (
 
 	"github.com/larksuite/oapi-sdk-go/card"
 	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/dispatcher"
 	"github.com/larksuite/oapi-sdk-go/event"
+	"github.com/larksuite/oapi-sdk-go/event/dispatcher"
 )
-
-//
-//func newReqHandler(handler event.IReqHandler, options ...event.OptionFunc) *event.ReqHandler {
-//	reqHandler := event.ReqHandler{IReqHandler: handler}
-//
-//	switch h := handler.(type) {
-//	case *dispatcher.EventReqDispatcher:
-//		for _, option := range options {
-//			option(h.Config)
-//		}
-//		reqHandler.Config = h.Config
-//	case *card.CardActionHandler:
-//		for _, option := range options {
-//			option(h.Config)
-//		}
-//		reqHandler.Config = h.Config
-//	}
-//	core.NewLogger(reqHandler.Config)
-//
-//	return &reqHandler
-//}
 
 func doProcess(writer http.ResponseWriter, req *http.Request, reqHandler *event.ReqHandler) {
 	// 转换http请求对象为标准请求对象
@@ -63,21 +42,7 @@ func NewCardActionHandlerFunc(cardActionHandler *card.CardActionHandler, options
 	}
 }
 
-//func NewEventReqHandlerFunc(eventReqDispatcher event.IReqHandler, options ...event.OptionFunc) func(writer http.ResponseWriter, req *http.Request) {
-//	// 类型判断
-//	if _, ok := eventReqDispatcher.(*dispatcher.EventReqDispatcher); !ok {
-//		err := errors.New("eventReqDispatcher type not match,please pass a dispatcher.eventReqDispatcher instance")
-//		panic(err)
-//	}
-//
-//	// 创建处理器
-//	reqHandler := newReqHandler(eventReqDispatcher, options...)
-//	return func(writer http.ResponseWriter, req *http.Request) {
-//		doProcess(writer, req, reqHandler)
-//	}
-//}
-
-func NewEventReqHandlerFunc(eventReqDispatcher *dispatcher.EventReqDispatcher, options ...event.OptionFunc) func(writer http.ResponseWriter, req *http.Request) {
+func NewEventHandlerFunc(eventReqDispatcher *dispatcher.EventReqDispatcher, options ...event.OptionFunc) func(writer http.ResponseWriter, req *http.Request) {
 	reqHandler := dispatcher.NewReqHandlerTemplate(eventReqDispatcher, options...)
 	return func(writer http.ResponseWriter, req *http.Request) {
 		doProcess(writer, req, reqHandler)

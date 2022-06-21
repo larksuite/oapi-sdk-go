@@ -7,7 +7,6 @@ output
 coverage
 modules.txt
 *.log
-*_test.go
 *.json
 *.sh
 test.go
