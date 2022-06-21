@@ -80,10 +80,87 @@ type AclScope struct {
 	UserId *string `json:"user_id,omitempty"`
 }
 
+/**builder开始**/
+type AclScopeBuilder struct {
+	type_      string
+	typeFlag   bool
+	userId     string
+	userIdFlag bool
+}
+
+func NewAclScopeBuilder() *AclScopeBuilder {
+	builder := &AclScopeBuilder{}
+	return builder
+}
+
+func (builder *AclScopeBuilder) Type(type_ string) *AclScopeBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+func (builder *AclScopeBuilder) UserId(userId string) *AclScopeBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+func (builder *AclScopeBuilder) Build() *AclScope {
+	req := &AclScope{}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type AclScopeEvent struct {
 	Type   *string `json:"type,omitempty"`
 	UserId *UserId `json:"user_id,omitempty"`
 }
+
+/**builder开始**/
+type AclScopeEventBuilder struct {
+	type_      string
+	typeFlag   bool
+	userId     *UserId
+	userIdFlag bool
+}
+
+func NewAclScopeEventBuilder() *AclScopeEventBuilder {
+	builder := &AclScopeEventBuilder{}
+	return builder
+}
+
+func (builder *AclScopeEventBuilder) Type(type_ string) *AclScopeEventBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+func (builder *AclScopeEventBuilder) UserId(userId *UserId) *AclScopeEventBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+func (builder *AclScopeEventBuilder) Build() *AclScopeEvent {
+	req := &AclScopeEvent{}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.userIdFlag {
+		req.UserId = builder.userId
+	}
+	return req
+}
+
+/**builder结束**/
 
 type AttendeeChatMember struct {
 	RsvpStatus  *string `json:"rsvp_status,omitempty"`
@@ -92,6 +169,78 @@ type AttendeeChatMember struct {
 	IsOrganizer *bool   `json:"is_organizer,omitempty"`
 	IsExternal  *bool   `json:"is_external,omitempty"`
 }
+
+/**builder开始**/
+type AttendeeChatMemberBuilder struct {
+	rsvpStatus      string
+	rsvpStatusFlag  bool
+	isOptional      bool
+	isOptionalFlag  bool
+	displayName     string
+	displayNameFlag bool
+	isOrganizer     bool
+	isOrganizerFlag bool
+	isExternal      bool
+	isExternalFlag  bool
+}
+
+func NewAttendeeChatMemberBuilder() *AttendeeChatMemberBuilder {
+	builder := &AttendeeChatMemberBuilder{}
+	return builder
+}
+
+func (builder *AttendeeChatMemberBuilder) RsvpStatus(rsvpStatus string) *AttendeeChatMemberBuilder {
+	builder.rsvpStatus = rsvpStatus
+	builder.rsvpStatusFlag = true
+	return builder
+}
+func (builder *AttendeeChatMemberBuilder) IsOptional(isOptional bool) *AttendeeChatMemberBuilder {
+	builder.isOptional = isOptional
+	builder.isOptionalFlag = true
+	return builder
+}
+func (builder *AttendeeChatMemberBuilder) DisplayName(displayName string) *AttendeeChatMemberBuilder {
+	builder.displayName = displayName
+	builder.displayNameFlag = true
+	return builder
+}
+func (builder *AttendeeChatMemberBuilder) IsOrganizer(isOrganizer bool) *AttendeeChatMemberBuilder {
+	builder.isOrganizer = isOrganizer
+	builder.isOrganizerFlag = true
+	return builder
+}
+func (builder *AttendeeChatMemberBuilder) IsExternal(isExternal bool) *AttendeeChatMemberBuilder {
+	builder.isExternal = isExternal
+	builder.isExternalFlag = true
+	return builder
+}
+
+func (builder *AttendeeChatMemberBuilder) Build() *AttendeeChatMember {
+	req := &AttendeeChatMember{}
+	if builder.rsvpStatusFlag {
+		req.RsvpStatus = &builder.rsvpStatus
+
+	}
+	if builder.isOptionalFlag {
+		req.IsOptional = &builder.isOptional
+
+	}
+	if builder.displayNameFlag {
+		req.DisplayName = &builder.displayName
+
+	}
+	if builder.isOrganizerFlag {
+		req.IsOrganizer = &builder.isOrganizer
+
+	}
+	if builder.isExternalFlag {
+		req.IsExternal = &builder.isExternal
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type Calendar struct {
 	CalendarId   *string `json:"calendar_id,omitempty"`
@@ -106,11 +255,187 @@ type Calendar struct {
 	Role         *string `json:"role,omitempty"`
 }
 
+/**builder开始**/
+type CalendarBuilder struct {
+	calendarId       string
+	calendarIdFlag   bool
+	summary          string
+	summaryFlag      bool
+	description      string
+	descriptionFlag  bool
+	permissions      string
+	permissionsFlag  bool
+	color            int
+	colorFlag        bool
+	type_            string
+	typeFlag         bool
+	summaryAlias     string
+	summaryAliasFlag bool
+	isDeleted        bool
+	isDeletedFlag    bool
+	isThirdParty     bool
+	isThirdPartyFlag bool
+	role             string
+	roleFlag         bool
+}
+
+func NewCalendarBuilder() *CalendarBuilder {
+	builder := &CalendarBuilder{}
+	return builder
+}
+
+func (builder *CalendarBuilder) CalendarId(calendarId string) *CalendarBuilder {
+	builder.calendarId = calendarId
+	builder.calendarIdFlag = true
+	return builder
+}
+func (builder *CalendarBuilder) Summary(summary string) *CalendarBuilder {
+	builder.summary = summary
+	builder.summaryFlag = true
+	return builder
+}
+func (builder *CalendarBuilder) Description(description string) *CalendarBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+func (builder *CalendarBuilder) Permissions(permissions string) *CalendarBuilder {
+	builder.permissions = permissions
+	builder.permissionsFlag = true
+	return builder
+}
+func (builder *CalendarBuilder) Color(color int) *CalendarBuilder {
+	builder.color = color
+	builder.colorFlag = true
+	return builder
+}
+func (builder *CalendarBuilder) Type(type_ string) *CalendarBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+func (builder *CalendarBuilder) SummaryAlias(summaryAlias string) *CalendarBuilder {
+	builder.summaryAlias = summaryAlias
+	builder.summaryAliasFlag = true
+	return builder
+}
+func (builder *CalendarBuilder) IsDeleted(isDeleted bool) *CalendarBuilder {
+	builder.isDeleted = isDeleted
+	builder.isDeletedFlag = true
+	return builder
+}
+func (builder *CalendarBuilder) IsThirdParty(isThirdParty bool) *CalendarBuilder {
+	builder.isThirdParty = isThirdParty
+	builder.isThirdPartyFlag = true
+	return builder
+}
+func (builder *CalendarBuilder) Role(role string) *CalendarBuilder {
+	builder.role = role
+	builder.roleFlag = true
+	return builder
+}
+
+func (builder *CalendarBuilder) Build() *Calendar {
+	req := &Calendar{}
+	if builder.calendarIdFlag {
+		req.CalendarId = &builder.calendarId
+
+	}
+	if builder.summaryFlag {
+		req.Summary = &builder.summary
+
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	if builder.permissionsFlag {
+		req.Permissions = &builder.permissions
+
+	}
+	if builder.colorFlag {
+		req.Color = &builder.color
+
+	}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.summaryAliasFlag {
+		req.SummaryAlias = &builder.summaryAlias
+
+	}
+	if builder.isDeletedFlag {
+		req.IsDeleted = &builder.isDeleted
+
+	}
+	if builder.isThirdPartyFlag {
+		req.IsThirdParty = &builder.isThirdParty
+
+	}
+	if builder.roleFlag {
+		req.Role = &builder.role
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type CalendarAcl struct {
 	AclId *string   `json:"acl_id,omitempty"`
 	Role  *string   `json:"role,omitempty"`
 	Scope *AclScope `json:"scope,omitempty"`
 }
+
+/**builder开始**/
+type CalendarAclBuilder struct {
+	aclId     string
+	aclIdFlag bool
+	role      string
+	roleFlag  bool
+	scope     *AclScope
+	scopeFlag bool
+}
+
+func NewCalendarAclBuilder() *CalendarAclBuilder {
+	builder := &CalendarAclBuilder{}
+	return builder
+}
+
+func (builder *CalendarAclBuilder) AclId(aclId string) *CalendarAclBuilder {
+	builder.aclId = aclId
+	builder.aclIdFlag = true
+	return builder
+}
+func (builder *CalendarAclBuilder) Role(role string) *CalendarAclBuilder {
+	builder.role = role
+	builder.roleFlag = true
+	return builder
+}
+func (builder *CalendarAclBuilder) Scope(scope *AclScope) *CalendarAclBuilder {
+	builder.scope = scope
+	builder.scopeFlag = true
+	return builder
+}
+
+func (builder *CalendarAclBuilder) Build() *CalendarAcl {
+	req := &CalendarAcl{}
+	if builder.aclIdFlag {
+		req.AclId = &builder.aclId
+
+	}
+	if builder.roleFlag {
+		req.Role = &builder.role
+
+	}
+	if builder.scopeFlag {
+		req.Scope = builder.scope
+	}
+	return req
+}
+
+/**builder结束**/
 
 type CalendarAclEvent struct {
 	AclId      *string        `json:"acl_id,omitempty"`
@@ -119,11 +444,119 @@ type CalendarAclEvent struct {
 	UserIdList []*UserId      `json:"user_id_list,omitempty"`
 }
 
+/**builder开始**/
+type CalendarAclEventBuilder struct {
+	aclId          string
+	aclIdFlag      bool
+	role           string
+	roleFlag       bool
+	scope          *AclScopeEvent
+	scopeFlag      bool
+	userIdList     []*UserId
+	userIdListFlag bool
+}
+
+func NewCalendarAclEventBuilder() *CalendarAclEventBuilder {
+	builder := &CalendarAclEventBuilder{}
+	return builder
+}
+
+func (builder *CalendarAclEventBuilder) AclId(aclId string) *CalendarAclEventBuilder {
+	builder.aclId = aclId
+	builder.aclIdFlag = true
+	return builder
+}
+func (builder *CalendarAclEventBuilder) Role(role string) *CalendarAclEventBuilder {
+	builder.role = role
+	builder.roleFlag = true
+	return builder
+}
+func (builder *CalendarAclEventBuilder) Scope(scope *AclScopeEvent) *CalendarAclEventBuilder {
+	builder.scope = scope
+	builder.scopeFlag = true
+	return builder
+}
+func (builder *CalendarAclEventBuilder) UserIdList(userIdList []*UserId) *CalendarAclEventBuilder {
+	builder.userIdList = userIdList
+	builder.userIdListFlag = true
+	return builder
+}
+
+func (builder *CalendarAclEventBuilder) Build() *CalendarAclEvent {
+	req := &CalendarAclEvent{}
+	if builder.aclIdFlag {
+		req.AclId = &builder.aclId
+
+	}
+	if builder.roleFlag {
+		req.Role = &builder.role
+
+	}
+	if builder.scopeFlag {
+		req.Scope = builder.scope
+	}
+	if builder.userIdListFlag {
+		req.UserIdList = builder.userIdList
+	}
+	return req
+}
+
+/**builder结束**/
+
 type CalendarAttendeeResourceCustomization struct {
 	IndexKey     *string                `json:"index_key,omitempty"`
 	InputContent *string                `json:"input_content,omitempty"`
 	Options      []*CustomizationOption `json:"options,omitempty"`
 }
+
+/**builder开始**/
+type CalendarAttendeeResourceCustomizationBuilder struct {
+	indexKey         string
+	indexKeyFlag     bool
+	inputContent     string
+	inputContentFlag bool
+	options          []*CustomizationOption
+	optionsFlag      bool
+}
+
+func NewCalendarAttendeeResourceCustomizationBuilder() *CalendarAttendeeResourceCustomizationBuilder {
+	builder := &CalendarAttendeeResourceCustomizationBuilder{}
+	return builder
+}
+
+func (builder *CalendarAttendeeResourceCustomizationBuilder) IndexKey(indexKey string) *CalendarAttendeeResourceCustomizationBuilder {
+	builder.indexKey = indexKey
+	builder.indexKeyFlag = true
+	return builder
+}
+func (builder *CalendarAttendeeResourceCustomizationBuilder) InputContent(inputContent string) *CalendarAttendeeResourceCustomizationBuilder {
+	builder.inputContent = inputContent
+	builder.inputContentFlag = true
+	return builder
+}
+func (builder *CalendarAttendeeResourceCustomizationBuilder) Options(options []*CustomizationOption) *CalendarAttendeeResourceCustomizationBuilder {
+	builder.options = options
+	builder.optionsFlag = true
+	return builder
+}
+
+func (builder *CalendarAttendeeResourceCustomizationBuilder) Build() *CalendarAttendeeResourceCustomization {
+	req := &CalendarAttendeeResourceCustomization{}
+	if builder.indexKeyFlag {
+		req.IndexKey = &builder.indexKey
+
+	}
+	if builder.inputContentFlag {
+		req.InputContent = &builder.inputContent
+
+	}
+	if builder.optionsFlag {
+		req.Options = builder.options
+	}
+	return req
+}
+
+/**builder结束**/
 
 type CalendarEvent struct {
 	EventId             *string        `json:"event_id,omitempty"`
@@ -147,6 +580,226 @@ type CalendarEvent struct {
 	Schemas             []*Schema      `json:"schemas,omitempty"`
 }
 
+/**builder开始**/
+type CalendarEventBuilder struct {
+	eventId                 string
+	eventIdFlag             bool
+	organizerCalendarId     string
+	organizerCalendarIdFlag bool
+	summary                 string
+	summaryFlag             bool
+	description             string
+	descriptionFlag         bool
+	needNotification        bool
+	needNotificationFlag    bool
+	startTime               *TimeInfo
+	startTimeFlag           bool
+	endTime                 *TimeInfo
+	endTimeFlag             bool
+	vchat                   *Vchat
+	vchatFlag               bool
+	visibility              string
+	visibilityFlag          bool
+	attendeeAbility         string
+	attendeeAbilityFlag     bool
+	freeBusyStatus          string
+	freeBusyStatusFlag      bool
+	location                *EventLocation
+	locationFlag            bool
+	color                   int
+	colorFlag               bool
+	reminders               []*Reminder
+	remindersFlag           bool
+	recurrence              string
+	recurrenceFlag          bool
+	status                  string
+	statusFlag              bool
+	isException             bool
+	isExceptionFlag         bool
+	recurringEventId        string
+	recurringEventIdFlag    bool
+	schemas                 []*Schema
+	schemasFlag             bool
+}
+
+func NewCalendarEventBuilder() *CalendarEventBuilder {
+	builder := &CalendarEventBuilder{}
+	return builder
+}
+
+func (builder *CalendarEventBuilder) EventId(eventId string) *CalendarEventBuilder {
+	builder.eventId = eventId
+	builder.eventIdFlag = true
+	return builder
+}
+func (builder *CalendarEventBuilder) OrganizerCalendarId(organizerCalendarId string) *CalendarEventBuilder {
+	builder.organizerCalendarId = organizerCalendarId
+	builder.organizerCalendarIdFlag = true
+	return builder
+}
+func (builder *CalendarEventBuilder) Summary(summary string) *CalendarEventBuilder {
+	builder.summary = summary
+	builder.summaryFlag = true
+	return builder
+}
+func (builder *CalendarEventBuilder) Description(description string) *CalendarEventBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+func (builder *CalendarEventBuilder) NeedNotification(needNotification bool) *CalendarEventBuilder {
+	builder.needNotification = needNotification
+	builder.needNotificationFlag = true
+	return builder
+}
+func (builder *CalendarEventBuilder) StartTime(startTime *TimeInfo) *CalendarEventBuilder {
+	builder.startTime = startTime
+	builder.startTimeFlag = true
+	return builder
+}
+func (builder *CalendarEventBuilder) EndTime(endTime *TimeInfo) *CalendarEventBuilder {
+	builder.endTime = endTime
+	builder.endTimeFlag = true
+	return builder
+}
+func (builder *CalendarEventBuilder) Vchat(vchat *Vchat) *CalendarEventBuilder {
+	builder.vchat = vchat
+	builder.vchatFlag = true
+	return builder
+}
+func (builder *CalendarEventBuilder) Visibility(visibility string) *CalendarEventBuilder {
+	builder.visibility = visibility
+	builder.visibilityFlag = true
+	return builder
+}
+func (builder *CalendarEventBuilder) AttendeeAbility(attendeeAbility string) *CalendarEventBuilder {
+	builder.attendeeAbility = attendeeAbility
+	builder.attendeeAbilityFlag = true
+	return builder
+}
+func (builder *CalendarEventBuilder) FreeBusyStatus(freeBusyStatus string) *CalendarEventBuilder {
+	builder.freeBusyStatus = freeBusyStatus
+	builder.freeBusyStatusFlag = true
+	return builder
+}
+func (builder *CalendarEventBuilder) Location(location *EventLocation) *CalendarEventBuilder {
+	builder.location = location
+	builder.locationFlag = true
+	return builder
+}
+func (builder *CalendarEventBuilder) Color(color int) *CalendarEventBuilder {
+	builder.color = color
+	builder.colorFlag = true
+	return builder
+}
+func (builder *CalendarEventBuilder) Reminders(reminders []*Reminder) *CalendarEventBuilder {
+	builder.reminders = reminders
+	builder.remindersFlag = true
+	return builder
+}
+func (builder *CalendarEventBuilder) Recurrence(recurrence string) *CalendarEventBuilder {
+	builder.recurrence = recurrence
+	builder.recurrenceFlag = true
+	return builder
+}
+func (builder *CalendarEventBuilder) Status(status string) *CalendarEventBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+func (builder *CalendarEventBuilder) IsException(isException bool) *CalendarEventBuilder {
+	builder.isException = isException
+	builder.isExceptionFlag = true
+	return builder
+}
+func (builder *CalendarEventBuilder) RecurringEventId(recurringEventId string) *CalendarEventBuilder {
+	builder.recurringEventId = recurringEventId
+	builder.recurringEventIdFlag = true
+	return builder
+}
+func (builder *CalendarEventBuilder) Schemas(schemas []*Schema) *CalendarEventBuilder {
+	builder.schemas = schemas
+	builder.schemasFlag = true
+	return builder
+}
+
+func (builder *CalendarEventBuilder) Build() *CalendarEvent {
+	req := &CalendarEvent{}
+	if builder.eventIdFlag {
+		req.EventId = &builder.eventId
+
+	}
+	if builder.organizerCalendarIdFlag {
+		req.OrganizerCalendarId = &builder.organizerCalendarId
+
+	}
+	if builder.summaryFlag {
+		req.Summary = &builder.summary
+
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	if builder.needNotificationFlag {
+		req.NeedNotification = &builder.needNotification
+
+	}
+	if builder.startTimeFlag {
+		req.StartTime = builder.startTime
+	}
+	if builder.endTimeFlag {
+		req.EndTime = builder.endTime
+	}
+	if builder.vchatFlag {
+		req.Vchat = builder.vchat
+	}
+	if builder.visibilityFlag {
+		req.Visibility = &builder.visibility
+
+	}
+	if builder.attendeeAbilityFlag {
+		req.AttendeeAbility = &builder.attendeeAbility
+
+	}
+	if builder.freeBusyStatusFlag {
+		req.FreeBusyStatus = &builder.freeBusyStatus
+
+	}
+	if builder.locationFlag {
+		req.Location = builder.location
+	}
+	if builder.colorFlag {
+		req.Color = &builder.color
+
+	}
+	if builder.remindersFlag {
+		req.Reminders = builder.reminders
+	}
+	if builder.recurrenceFlag {
+		req.Recurrence = &builder.recurrence
+
+	}
+	if builder.statusFlag {
+		req.Status = &builder.status
+
+	}
+	if builder.isExceptionFlag {
+		req.IsException = &builder.isException
+
+	}
+	if builder.recurringEventIdFlag {
+		req.RecurringEventId = &builder.recurringEventId
+
+	}
+	if builder.schemasFlag {
+		req.Schemas = builder.schemas
+	}
+	return req
+}
+
+/**builder结束**/
+
 type CalendarEventAttendee struct {
 	Type                  *string                                  `json:"type,omitempty"`
 	AttendeeId            *string                                  `json:"attendee_id,omitempty"`
@@ -164,6 +817,175 @@ type CalendarEventAttendee struct {
 	ResourceCustomization []*CalendarAttendeeResourceCustomization `json:"resource_customization,omitempty"`
 }
 
+/**builder开始**/
+type CalendarEventAttendeeBuilder struct {
+	type_                     string
+	typeFlag                  bool
+	attendeeId                string
+	attendeeIdFlag            bool
+	rsvpStatus                string
+	rsvpStatusFlag            bool
+	isOptional                bool
+	isOptionalFlag            bool
+	isOrganizer               bool
+	isOrganizerFlag           bool
+	isExternal                bool
+	isExternalFlag            bool
+	displayName               string
+	displayNameFlag           bool
+	chatMembers               []*AttendeeChatMember
+	chatMembersFlag           bool
+	userId                    string
+	userIdFlag                bool
+	chatId                    string
+	chatIdFlag                bool
+	roomId                    string
+	roomIdFlag                bool
+	thirdPartyEmail           string
+	thirdPartyEmailFlag       bool
+	operateId                 string
+	operateIdFlag             bool
+	resourceCustomization     []*CalendarAttendeeResourceCustomization
+	resourceCustomizationFlag bool
+}
+
+func NewCalendarEventAttendeeBuilder() *CalendarEventAttendeeBuilder {
+	builder := &CalendarEventAttendeeBuilder{}
+	return builder
+}
+
+func (builder *CalendarEventAttendeeBuilder) Type(type_ string) *CalendarEventAttendeeBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+func (builder *CalendarEventAttendeeBuilder) AttendeeId(attendeeId string) *CalendarEventAttendeeBuilder {
+	builder.attendeeId = attendeeId
+	builder.attendeeIdFlag = true
+	return builder
+}
+func (builder *CalendarEventAttendeeBuilder) RsvpStatus(rsvpStatus string) *CalendarEventAttendeeBuilder {
+	builder.rsvpStatus = rsvpStatus
+	builder.rsvpStatusFlag = true
+	return builder
+}
+func (builder *CalendarEventAttendeeBuilder) IsOptional(isOptional bool) *CalendarEventAttendeeBuilder {
+	builder.isOptional = isOptional
+	builder.isOptionalFlag = true
+	return builder
+}
+func (builder *CalendarEventAttendeeBuilder) IsOrganizer(isOrganizer bool) *CalendarEventAttendeeBuilder {
+	builder.isOrganizer = isOrganizer
+	builder.isOrganizerFlag = true
+	return builder
+}
+func (builder *CalendarEventAttendeeBuilder) IsExternal(isExternal bool) *CalendarEventAttendeeBuilder {
+	builder.isExternal = isExternal
+	builder.isExternalFlag = true
+	return builder
+}
+func (builder *CalendarEventAttendeeBuilder) DisplayName(displayName string) *CalendarEventAttendeeBuilder {
+	builder.displayName = displayName
+	builder.displayNameFlag = true
+	return builder
+}
+func (builder *CalendarEventAttendeeBuilder) ChatMembers(chatMembers []*AttendeeChatMember) *CalendarEventAttendeeBuilder {
+	builder.chatMembers = chatMembers
+	builder.chatMembersFlag = true
+	return builder
+}
+func (builder *CalendarEventAttendeeBuilder) UserId(userId string) *CalendarEventAttendeeBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *CalendarEventAttendeeBuilder) ChatId(chatId string) *CalendarEventAttendeeBuilder {
+	builder.chatId = chatId
+	builder.chatIdFlag = true
+	return builder
+}
+func (builder *CalendarEventAttendeeBuilder) RoomId(roomId string) *CalendarEventAttendeeBuilder {
+	builder.roomId = roomId
+	builder.roomIdFlag = true
+	return builder
+}
+func (builder *CalendarEventAttendeeBuilder) ThirdPartyEmail(thirdPartyEmail string) *CalendarEventAttendeeBuilder {
+	builder.thirdPartyEmail = thirdPartyEmail
+	builder.thirdPartyEmailFlag = true
+	return builder
+}
+func (builder *CalendarEventAttendeeBuilder) OperateId(operateId string) *CalendarEventAttendeeBuilder {
+	builder.operateId = operateId
+	builder.operateIdFlag = true
+	return builder
+}
+func (builder *CalendarEventAttendeeBuilder) ResourceCustomization(resourceCustomization []*CalendarAttendeeResourceCustomization) *CalendarEventAttendeeBuilder {
+	builder.resourceCustomization = resourceCustomization
+	builder.resourceCustomizationFlag = true
+	return builder
+}
+
+func (builder *CalendarEventAttendeeBuilder) Build() *CalendarEventAttendee {
+	req := &CalendarEventAttendee{}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.attendeeIdFlag {
+		req.AttendeeId = &builder.attendeeId
+
+	}
+	if builder.rsvpStatusFlag {
+		req.RsvpStatus = &builder.rsvpStatus
+
+	}
+	if builder.isOptionalFlag {
+		req.IsOptional = &builder.isOptional
+
+	}
+	if builder.isOrganizerFlag {
+		req.IsOrganizer = &builder.isOrganizer
+
+	}
+	if builder.isExternalFlag {
+		req.IsExternal = &builder.isExternal
+
+	}
+	if builder.displayNameFlag {
+		req.DisplayName = &builder.displayName
+
+	}
+	if builder.chatMembersFlag {
+		req.ChatMembers = builder.chatMembers
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.chatIdFlag {
+		req.ChatId = &builder.chatId
+
+	}
+	if builder.roomIdFlag {
+		req.RoomId = &builder.roomId
+
+	}
+	if builder.thirdPartyEmailFlag {
+		req.ThirdPartyEmail = &builder.thirdPartyEmail
+
+	}
+	if builder.operateIdFlag {
+		req.OperateId = &builder.operateId
+
+	}
+	if builder.resourceCustomizationFlag {
+		req.ResourceCustomization = builder.resourceCustomization
+	}
+	return req
+}
+
+/**builder结束**/
+
 type CalendarEventAttendeeChatMember struct {
 	RsvpStatus  *string `json:"rsvp_status,omitempty"`
 	IsOptional  *bool   `json:"is_optional,omitempty"`
@@ -173,6 +995,89 @@ type CalendarEventAttendeeChatMember struct {
 	IsExternal  *bool   `json:"is_external,omitempty"`
 }
 
+/**builder开始**/
+type CalendarEventAttendeeChatMemberBuilder struct {
+	rsvpStatus      string
+	rsvpStatusFlag  bool
+	isOptional      bool
+	isOptionalFlag  bool
+	displayName     string
+	displayNameFlag bool
+	openId          string
+	openIdFlag      bool
+	isOrganizer     bool
+	isOrganizerFlag bool
+	isExternal      bool
+	isExternalFlag  bool
+}
+
+func NewCalendarEventAttendeeChatMemberBuilder() *CalendarEventAttendeeChatMemberBuilder {
+	builder := &CalendarEventAttendeeChatMemberBuilder{}
+	return builder
+}
+
+func (builder *CalendarEventAttendeeChatMemberBuilder) RsvpStatus(rsvpStatus string) *CalendarEventAttendeeChatMemberBuilder {
+	builder.rsvpStatus = rsvpStatus
+	builder.rsvpStatusFlag = true
+	return builder
+}
+func (builder *CalendarEventAttendeeChatMemberBuilder) IsOptional(isOptional bool) *CalendarEventAttendeeChatMemberBuilder {
+	builder.isOptional = isOptional
+	builder.isOptionalFlag = true
+	return builder
+}
+func (builder *CalendarEventAttendeeChatMemberBuilder) DisplayName(displayName string) *CalendarEventAttendeeChatMemberBuilder {
+	builder.displayName = displayName
+	builder.displayNameFlag = true
+	return builder
+}
+func (builder *CalendarEventAttendeeChatMemberBuilder) OpenId(openId string) *CalendarEventAttendeeChatMemberBuilder {
+	builder.openId = openId
+	builder.openIdFlag = true
+	return builder
+}
+func (builder *CalendarEventAttendeeChatMemberBuilder) IsOrganizer(isOrganizer bool) *CalendarEventAttendeeChatMemberBuilder {
+	builder.isOrganizer = isOrganizer
+	builder.isOrganizerFlag = true
+	return builder
+}
+func (builder *CalendarEventAttendeeChatMemberBuilder) IsExternal(isExternal bool) *CalendarEventAttendeeChatMemberBuilder {
+	builder.isExternal = isExternal
+	builder.isExternalFlag = true
+	return builder
+}
+
+func (builder *CalendarEventAttendeeChatMemberBuilder) Build() *CalendarEventAttendeeChatMember {
+	req := &CalendarEventAttendeeChatMember{}
+	if builder.rsvpStatusFlag {
+		req.RsvpStatus = &builder.rsvpStatus
+
+	}
+	if builder.isOptionalFlag {
+		req.IsOptional = &builder.isOptional
+
+	}
+	if builder.displayNameFlag {
+		req.DisplayName = &builder.displayName
+
+	}
+	if builder.openIdFlag {
+		req.OpenId = &builder.openId
+
+	}
+	if builder.isOrganizerFlag {
+		req.IsOrganizer = &builder.isOrganizer
+
+	}
+	if builder.isExternalFlag {
+		req.IsExternal = &builder.isExternal
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type CalendarEventAttendeeId struct {
 	Type            *string `json:"type,omitempty"`
 	AttendeeId      *string `json:"attendee_id,omitempty"`
@@ -181,6 +1086,89 @@ type CalendarEventAttendeeId struct {
 	RoomId          *string `json:"room_id,omitempty"`
 	ThirdPartyEmail *string `json:"third_party_email,omitempty"`
 }
+
+/**builder开始**/
+type CalendarEventAttendeeIdBuilder struct {
+	type_               string
+	typeFlag            bool
+	attendeeId          string
+	attendeeIdFlag      bool
+	userId              string
+	userIdFlag          bool
+	chatId              string
+	chatIdFlag          bool
+	roomId              string
+	roomIdFlag          bool
+	thirdPartyEmail     string
+	thirdPartyEmailFlag bool
+}
+
+func NewCalendarEventAttendeeIdBuilder() *CalendarEventAttendeeIdBuilder {
+	builder := &CalendarEventAttendeeIdBuilder{}
+	return builder
+}
+
+func (builder *CalendarEventAttendeeIdBuilder) Type(type_ string) *CalendarEventAttendeeIdBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+func (builder *CalendarEventAttendeeIdBuilder) AttendeeId(attendeeId string) *CalendarEventAttendeeIdBuilder {
+	builder.attendeeId = attendeeId
+	builder.attendeeIdFlag = true
+	return builder
+}
+func (builder *CalendarEventAttendeeIdBuilder) UserId(userId string) *CalendarEventAttendeeIdBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *CalendarEventAttendeeIdBuilder) ChatId(chatId string) *CalendarEventAttendeeIdBuilder {
+	builder.chatId = chatId
+	builder.chatIdFlag = true
+	return builder
+}
+func (builder *CalendarEventAttendeeIdBuilder) RoomId(roomId string) *CalendarEventAttendeeIdBuilder {
+	builder.roomId = roomId
+	builder.roomIdFlag = true
+	return builder
+}
+func (builder *CalendarEventAttendeeIdBuilder) ThirdPartyEmail(thirdPartyEmail string) *CalendarEventAttendeeIdBuilder {
+	builder.thirdPartyEmail = thirdPartyEmail
+	builder.thirdPartyEmailFlag = true
+	return builder
+}
+
+func (builder *CalendarEventAttendeeIdBuilder) Build() *CalendarEventAttendeeId {
+	req := &CalendarEventAttendeeId{}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.attendeeIdFlag {
+		req.AttendeeId = &builder.attendeeId
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.chatIdFlag {
+		req.ChatId = &builder.chatId
+
+	}
+	if builder.roomIdFlag {
+		req.RoomId = &builder.roomId
+
+	}
+	if builder.thirdPartyEmailFlag {
+		req.ThirdPartyEmail = &builder.thirdPartyEmail
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type CalendarEventAttendeeResp struct {
 	Type                  *string                                  `json:"type,omitempty"`
@@ -198,6 +1186,175 @@ type CalendarEventAttendeeResp struct {
 	OperateId             *string                                  `json:"operate_id,omitempty"`
 	ResourceCustomization []*CalendarAttendeeResourceCustomization `json:"resource_customization,omitempty"`
 }
+
+/**builder开始**/
+type CalendarEventAttendeeRespBuilder struct {
+	type_                     string
+	typeFlag                  bool
+	attendeeId                string
+	attendeeIdFlag            bool
+	rsvpStatus                string
+	rsvpStatusFlag            bool
+	isOptional                bool
+	isOptionalFlag            bool
+	isOrganizer               bool
+	isOrganizerFlag           bool
+	isExternal                bool
+	isExternalFlag            bool
+	displayName               string
+	displayNameFlag           bool
+	chatMembers               []*AttendeeChatMember
+	chatMembersFlag           bool
+	userId                    string
+	userIdFlag                bool
+	chatId                    string
+	chatIdFlag                bool
+	roomId                    string
+	roomIdFlag                bool
+	thirdPartyEmail           string
+	thirdPartyEmailFlag       bool
+	operateId                 string
+	operateIdFlag             bool
+	resourceCustomization     []*CalendarAttendeeResourceCustomization
+	resourceCustomizationFlag bool
+}
+
+func NewCalendarEventAttendeeRespBuilder() *CalendarEventAttendeeRespBuilder {
+	builder := &CalendarEventAttendeeRespBuilder{}
+	return builder
+}
+
+func (builder *CalendarEventAttendeeRespBuilder) Type(type_ string) *CalendarEventAttendeeRespBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+func (builder *CalendarEventAttendeeRespBuilder) AttendeeId(attendeeId string) *CalendarEventAttendeeRespBuilder {
+	builder.attendeeId = attendeeId
+	builder.attendeeIdFlag = true
+	return builder
+}
+func (builder *CalendarEventAttendeeRespBuilder) RsvpStatus(rsvpStatus string) *CalendarEventAttendeeRespBuilder {
+	builder.rsvpStatus = rsvpStatus
+	builder.rsvpStatusFlag = true
+	return builder
+}
+func (builder *CalendarEventAttendeeRespBuilder) IsOptional(isOptional bool) *CalendarEventAttendeeRespBuilder {
+	builder.isOptional = isOptional
+	builder.isOptionalFlag = true
+	return builder
+}
+func (builder *CalendarEventAttendeeRespBuilder) IsOrganizer(isOrganizer bool) *CalendarEventAttendeeRespBuilder {
+	builder.isOrganizer = isOrganizer
+	builder.isOrganizerFlag = true
+	return builder
+}
+func (builder *CalendarEventAttendeeRespBuilder) IsExternal(isExternal bool) *CalendarEventAttendeeRespBuilder {
+	builder.isExternal = isExternal
+	builder.isExternalFlag = true
+	return builder
+}
+func (builder *CalendarEventAttendeeRespBuilder) DisplayName(displayName string) *CalendarEventAttendeeRespBuilder {
+	builder.displayName = displayName
+	builder.displayNameFlag = true
+	return builder
+}
+func (builder *CalendarEventAttendeeRespBuilder) ChatMembers(chatMembers []*AttendeeChatMember) *CalendarEventAttendeeRespBuilder {
+	builder.chatMembers = chatMembers
+	builder.chatMembersFlag = true
+	return builder
+}
+func (builder *CalendarEventAttendeeRespBuilder) UserId(userId string) *CalendarEventAttendeeRespBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *CalendarEventAttendeeRespBuilder) ChatId(chatId string) *CalendarEventAttendeeRespBuilder {
+	builder.chatId = chatId
+	builder.chatIdFlag = true
+	return builder
+}
+func (builder *CalendarEventAttendeeRespBuilder) RoomId(roomId string) *CalendarEventAttendeeRespBuilder {
+	builder.roomId = roomId
+	builder.roomIdFlag = true
+	return builder
+}
+func (builder *CalendarEventAttendeeRespBuilder) ThirdPartyEmail(thirdPartyEmail string) *CalendarEventAttendeeRespBuilder {
+	builder.thirdPartyEmail = thirdPartyEmail
+	builder.thirdPartyEmailFlag = true
+	return builder
+}
+func (builder *CalendarEventAttendeeRespBuilder) OperateId(operateId string) *CalendarEventAttendeeRespBuilder {
+	builder.operateId = operateId
+	builder.operateIdFlag = true
+	return builder
+}
+func (builder *CalendarEventAttendeeRespBuilder) ResourceCustomization(resourceCustomization []*CalendarAttendeeResourceCustomization) *CalendarEventAttendeeRespBuilder {
+	builder.resourceCustomization = resourceCustomization
+	builder.resourceCustomizationFlag = true
+	return builder
+}
+
+func (builder *CalendarEventAttendeeRespBuilder) Build() *CalendarEventAttendeeResp {
+	req := &CalendarEventAttendeeResp{}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.attendeeIdFlag {
+		req.AttendeeId = &builder.attendeeId
+
+	}
+	if builder.rsvpStatusFlag {
+		req.RsvpStatus = &builder.rsvpStatus
+
+	}
+	if builder.isOptionalFlag {
+		req.IsOptional = &builder.isOptional
+
+	}
+	if builder.isOrganizerFlag {
+		req.IsOrganizer = &builder.isOrganizer
+
+	}
+	if builder.isExternalFlag {
+		req.IsExternal = &builder.isExternal
+
+	}
+	if builder.displayNameFlag {
+		req.DisplayName = &builder.displayName
+
+	}
+	if builder.chatMembersFlag {
+		req.ChatMembers = builder.chatMembers
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.chatIdFlag {
+		req.ChatId = &builder.chatId
+
+	}
+	if builder.roomIdFlag {
+		req.RoomId = &builder.roomId
+
+	}
+	if builder.thirdPartyEmailFlag {
+		req.ThirdPartyEmail = &builder.thirdPartyEmail
+
+	}
+	if builder.operateIdFlag {
+		req.OperateId = &builder.operateId
+
+	}
+	if builder.resourceCustomizationFlag {
+		req.ResourceCustomization = builder.resourceCustomization
+	}
+	return req
+}
+
+/**builder结束**/
 
 type CalendarEventResp struct {
 	EventId             *string        `json:"event_id,omitempty"`
@@ -221,21 +1378,369 @@ type CalendarEventResp struct {
 	Schemas             []*Schema      `json:"schemas,omitempty"`
 }
 
+/**builder开始**/
+type CalendarEventRespBuilder struct {
+	eventId                 string
+	eventIdFlag             bool
+	organizerCalendarId     string
+	organizerCalendarIdFlag bool
+	summary                 string
+	summaryFlag             bool
+	description             string
+	descriptionFlag         bool
+	needNotification        bool
+	needNotificationFlag    bool
+	startTime               *TimeInfo
+	startTimeFlag           bool
+	endTime                 *TimeInfo
+	endTimeFlag             bool
+	vchat                   *Vchat
+	vchatFlag               bool
+	visibility              string
+	visibilityFlag          bool
+	attendeeAbility         string
+	attendeeAbilityFlag     bool
+	freeBusyStatus          string
+	freeBusyStatusFlag      bool
+	location                *EventLocation
+	locationFlag            bool
+	color                   int
+	colorFlag               bool
+	reminders               []*Reminder
+	remindersFlag           bool
+	recurrence              string
+	recurrenceFlag          bool
+	status                  string
+	statusFlag              bool
+	isException             bool
+	isExceptionFlag         bool
+	recurringEventId        string
+	recurringEventIdFlag    bool
+	schemas                 []*Schema
+	schemasFlag             bool
+}
+
+func NewCalendarEventRespBuilder() *CalendarEventRespBuilder {
+	builder := &CalendarEventRespBuilder{}
+	return builder
+}
+
+func (builder *CalendarEventRespBuilder) EventId(eventId string) *CalendarEventRespBuilder {
+	builder.eventId = eventId
+	builder.eventIdFlag = true
+	return builder
+}
+func (builder *CalendarEventRespBuilder) OrganizerCalendarId(organizerCalendarId string) *CalendarEventRespBuilder {
+	builder.organizerCalendarId = organizerCalendarId
+	builder.organizerCalendarIdFlag = true
+	return builder
+}
+func (builder *CalendarEventRespBuilder) Summary(summary string) *CalendarEventRespBuilder {
+	builder.summary = summary
+	builder.summaryFlag = true
+	return builder
+}
+func (builder *CalendarEventRespBuilder) Description(description string) *CalendarEventRespBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+func (builder *CalendarEventRespBuilder) NeedNotification(needNotification bool) *CalendarEventRespBuilder {
+	builder.needNotification = needNotification
+	builder.needNotificationFlag = true
+	return builder
+}
+func (builder *CalendarEventRespBuilder) StartTime(startTime *TimeInfo) *CalendarEventRespBuilder {
+	builder.startTime = startTime
+	builder.startTimeFlag = true
+	return builder
+}
+func (builder *CalendarEventRespBuilder) EndTime(endTime *TimeInfo) *CalendarEventRespBuilder {
+	builder.endTime = endTime
+	builder.endTimeFlag = true
+	return builder
+}
+func (builder *CalendarEventRespBuilder) Vchat(vchat *Vchat) *CalendarEventRespBuilder {
+	builder.vchat = vchat
+	builder.vchatFlag = true
+	return builder
+}
+func (builder *CalendarEventRespBuilder) Visibility(visibility string) *CalendarEventRespBuilder {
+	builder.visibility = visibility
+	builder.visibilityFlag = true
+	return builder
+}
+func (builder *CalendarEventRespBuilder) AttendeeAbility(attendeeAbility string) *CalendarEventRespBuilder {
+	builder.attendeeAbility = attendeeAbility
+	builder.attendeeAbilityFlag = true
+	return builder
+}
+func (builder *CalendarEventRespBuilder) FreeBusyStatus(freeBusyStatus string) *CalendarEventRespBuilder {
+	builder.freeBusyStatus = freeBusyStatus
+	builder.freeBusyStatusFlag = true
+	return builder
+}
+func (builder *CalendarEventRespBuilder) Location(location *EventLocation) *CalendarEventRespBuilder {
+	builder.location = location
+	builder.locationFlag = true
+	return builder
+}
+func (builder *CalendarEventRespBuilder) Color(color int) *CalendarEventRespBuilder {
+	builder.color = color
+	builder.colorFlag = true
+	return builder
+}
+func (builder *CalendarEventRespBuilder) Reminders(reminders []*Reminder) *CalendarEventRespBuilder {
+	builder.reminders = reminders
+	builder.remindersFlag = true
+	return builder
+}
+func (builder *CalendarEventRespBuilder) Recurrence(recurrence string) *CalendarEventRespBuilder {
+	builder.recurrence = recurrence
+	builder.recurrenceFlag = true
+	return builder
+}
+func (builder *CalendarEventRespBuilder) Status(status string) *CalendarEventRespBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+func (builder *CalendarEventRespBuilder) IsException(isException bool) *CalendarEventRespBuilder {
+	builder.isException = isException
+	builder.isExceptionFlag = true
+	return builder
+}
+func (builder *CalendarEventRespBuilder) RecurringEventId(recurringEventId string) *CalendarEventRespBuilder {
+	builder.recurringEventId = recurringEventId
+	builder.recurringEventIdFlag = true
+	return builder
+}
+func (builder *CalendarEventRespBuilder) Schemas(schemas []*Schema) *CalendarEventRespBuilder {
+	builder.schemas = schemas
+	builder.schemasFlag = true
+	return builder
+}
+
+func (builder *CalendarEventRespBuilder) Build() *CalendarEventResp {
+	req := &CalendarEventResp{}
+	if builder.eventIdFlag {
+		req.EventId = &builder.eventId
+
+	}
+	if builder.organizerCalendarIdFlag {
+		req.OrganizerCalendarId = &builder.organizerCalendarId
+
+	}
+	if builder.summaryFlag {
+		req.Summary = &builder.summary
+
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	if builder.needNotificationFlag {
+		req.NeedNotification = &builder.needNotification
+
+	}
+	if builder.startTimeFlag {
+		req.StartTime = builder.startTime
+	}
+	if builder.endTimeFlag {
+		req.EndTime = builder.endTime
+	}
+	if builder.vchatFlag {
+		req.Vchat = builder.vchat
+	}
+	if builder.visibilityFlag {
+		req.Visibility = &builder.visibility
+
+	}
+	if builder.attendeeAbilityFlag {
+		req.AttendeeAbility = &builder.attendeeAbility
+
+	}
+	if builder.freeBusyStatusFlag {
+		req.FreeBusyStatus = &builder.freeBusyStatus
+
+	}
+	if builder.locationFlag {
+		req.Location = builder.location
+	}
+	if builder.colorFlag {
+		req.Color = &builder.color
+
+	}
+	if builder.remindersFlag {
+		req.Reminders = builder.reminders
+	}
+	if builder.recurrenceFlag {
+		req.Recurrence = &builder.recurrence
+
+	}
+	if builder.statusFlag {
+		req.Status = &builder.status
+
+	}
+	if builder.isExceptionFlag {
+		req.IsException = &builder.isException
+
+	}
+	if builder.recurringEventIdFlag {
+		req.RecurringEventId = &builder.recurringEventId
+
+	}
+	if builder.schemasFlag {
+		req.Schemas = builder.schemas
+	}
+	return req
+}
+
+/**builder结束**/
+
 type CalendarFreebusy struct {
 	StartTime  *string `json:"start_time,omitempty"`
 	EndTime    *string `json:"end_time,omitempty"`
 	CalendarId *string `json:"calendar_id,omitempty"`
 }
 
+/**builder开始**/
+type CalendarFreebusyBuilder struct {
+	startTime      string
+	startTimeFlag  bool
+	endTime        string
+	endTimeFlag    bool
+	calendarId     string
+	calendarIdFlag bool
+}
+
+func NewCalendarFreebusyBuilder() *CalendarFreebusyBuilder {
+	builder := &CalendarFreebusyBuilder{}
+	return builder
+}
+
+func (builder *CalendarFreebusyBuilder) StartTime(startTime string) *CalendarFreebusyBuilder {
+	builder.startTime = startTime
+	builder.startTimeFlag = true
+	return builder
+}
+func (builder *CalendarFreebusyBuilder) EndTime(endTime string) *CalendarFreebusyBuilder {
+	builder.endTime = endTime
+	builder.endTimeFlag = true
+	return builder
+}
+func (builder *CalendarFreebusyBuilder) CalendarId(calendarId string) *CalendarFreebusyBuilder {
+	builder.calendarId = calendarId
+	builder.calendarIdFlag = true
+	return builder
+}
+
+func (builder *CalendarFreebusyBuilder) Build() *CalendarFreebusy {
+	req := &CalendarFreebusy{}
+	if builder.startTimeFlag {
+		req.StartTime = &builder.startTime
+
+	}
+	if builder.endTimeFlag {
+		req.EndTime = &builder.endTime
+
+	}
+	if builder.calendarIdFlag {
+		req.CalendarId = &builder.calendarId
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type CalendarFreebusyError struct {
 	CalendarId *string `json:"calendar_id,omitempty"`
 	ErrorMsg   *string `json:"error_msg,omitempty"`
 }
 
+/**builder开始**/
+type CalendarFreebusyErrorBuilder struct {
+	calendarId     string
+	calendarIdFlag bool
+	errorMsg       string
+	errorMsgFlag   bool
+}
+
+func NewCalendarFreebusyErrorBuilder() *CalendarFreebusyErrorBuilder {
+	builder := &CalendarFreebusyErrorBuilder{}
+	return builder
+}
+
+func (builder *CalendarFreebusyErrorBuilder) CalendarId(calendarId string) *CalendarFreebusyErrorBuilder {
+	builder.calendarId = calendarId
+	builder.calendarIdFlag = true
+	return builder
+}
+func (builder *CalendarFreebusyErrorBuilder) ErrorMsg(errorMsg string) *CalendarFreebusyErrorBuilder {
+	builder.errorMsg = errorMsg
+	builder.errorMsgFlag = true
+	return builder
+}
+
+func (builder *CalendarFreebusyErrorBuilder) Build() *CalendarFreebusyError {
+	req := &CalendarFreebusyError{}
+	if builder.calendarIdFlag {
+		req.CalendarId = &builder.calendarId
+
+	}
+	if builder.errorMsgFlag {
+		req.ErrorMsg = &builder.errorMsg
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type CustomizationOption struct {
 	OptionKey     *string `json:"option_key,omitempty"`
 	OthersContent *string `json:"others_content,omitempty"`
 }
+
+/**builder开始**/
+type CustomizationOptionBuilder struct {
+	optionKey         string
+	optionKeyFlag     bool
+	othersContent     string
+	othersContentFlag bool
+}
+
+func NewCustomizationOptionBuilder() *CustomizationOptionBuilder {
+	builder := &CustomizationOptionBuilder{}
+	return builder
+}
+
+func (builder *CustomizationOptionBuilder) OptionKey(optionKey string) *CustomizationOptionBuilder {
+	builder.optionKey = optionKey
+	builder.optionKeyFlag = true
+	return builder
+}
+func (builder *CustomizationOptionBuilder) OthersContent(othersContent string) *CustomizationOptionBuilder {
+	builder.othersContent = othersContent
+	builder.othersContentFlag = true
+	return builder
+}
+
+func (builder *CustomizationOptionBuilder) Build() *CustomizationOption {
+	req := &CustomizationOption{}
+	if builder.optionKeyFlag {
+		req.OptionKey = &builder.optionKey
+
+	}
+	if builder.othersContentFlag {
+		req.OthersContent = &builder.othersContent
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type EventLocation struct {
 	Name      *string  `json:"name,omitempty"`
@@ -243,6 +1748,67 @@ type EventLocation struct {
 	Latitude  *float64 `json:"latitude,omitempty"`
 	Longitude *float64 `json:"longitude,omitempty"`
 }
+
+/**builder开始**/
+type EventLocationBuilder struct {
+	name          string
+	nameFlag      bool
+	address       string
+	addressFlag   bool
+	latitude      float64
+	latitudeFlag  bool
+	longitude     float64
+	longitudeFlag bool
+}
+
+func NewEventLocationBuilder() *EventLocationBuilder {
+	builder := &EventLocationBuilder{}
+	return builder
+}
+
+func (builder *EventLocationBuilder) Name(name string) *EventLocationBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *EventLocationBuilder) Address(address string) *EventLocationBuilder {
+	builder.address = address
+	builder.addressFlag = true
+	return builder
+}
+func (builder *EventLocationBuilder) Latitude(latitude float64) *EventLocationBuilder {
+	builder.latitude = latitude
+	builder.latitudeFlag = true
+	return builder
+}
+func (builder *EventLocationBuilder) Longitude(longitude float64) *EventLocationBuilder {
+	builder.longitude = longitude
+	builder.longitudeFlag = true
+	return builder
+}
+
+func (builder *EventLocationBuilder) Build() *EventLocation {
+	req := &EventLocation{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.addressFlag {
+		req.Address = &builder.address
+
+	}
+	if builder.latitudeFlag {
+		req.Latitude = &builder.latitude
+
+	}
+	if builder.longitudeFlag {
+		req.Longitude = &builder.longitude
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type EventSearchFilter struct {
 	StartTime *TimeInfo `json:"start_time,omitempty"`
@@ -252,9 +1818,104 @@ type EventSearchFilter struct {
 	ChatIds   []string  `json:"chat_ids,omitempty"`
 }
 
+/**builder开始**/
+type EventSearchFilterBuilder struct {
+	startTime     *TimeInfo
+	startTimeFlag bool
+	endTime       *TimeInfo
+	endTimeFlag   bool
+	userIds       []string
+	userIdsFlag   bool
+	roomIds       []string
+	roomIdsFlag   bool
+	chatIds       []string
+	chatIdsFlag   bool
+}
+
+func NewEventSearchFilterBuilder() *EventSearchFilterBuilder {
+	builder := &EventSearchFilterBuilder{}
+	return builder
+}
+
+func (builder *EventSearchFilterBuilder) StartTime(startTime *TimeInfo) *EventSearchFilterBuilder {
+	builder.startTime = startTime
+	builder.startTimeFlag = true
+	return builder
+}
+func (builder *EventSearchFilterBuilder) EndTime(endTime *TimeInfo) *EventSearchFilterBuilder {
+	builder.endTime = endTime
+	builder.endTimeFlag = true
+	return builder
+}
+func (builder *EventSearchFilterBuilder) UserIds(userIds []string) *EventSearchFilterBuilder {
+	builder.userIds = userIds
+	builder.userIdsFlag = true
+	return builder
+}
+func (builder *EventSearchFilterBuilder) RoomIds(roomIds []string) *EventSearchFilterBuilder {
+	builder.roomIds = roomIds
+	builder.roomIdsFlag = true
+	return builder
+}
+func (builder *EventSearchFilterBuilder) ChatIds(chatIds []string) *EventSearchFilterBuilder {
+	builder.chatIds = chatIds
+	builder.chatIdsFlag = true
+	return builder
+}
+
+func (builder *EventSearchFilterBuilder) Build() *EventSearchFilter {
+	req := &EventSearchFilter{}
+	if builder.startTimeFlag {
+		req.StartTime = builder.startTime
+	}
+	if builder.endTimeFlag {
+		req.EndTime = builder.endTime
+	}
+	if builder.userIdsFlag {
+		req.UserIds = builder.userIds
+	}
+	if builder.roomIdsFlag {
+		req.RoomIds = builder.roomIds
+	}
+	if builder.chatIdsFlag {
+		req.ChatIds = builder.chatIds
+	}
+	return req
+}
+
+/**builder结束**/
+
 type EventTime struct {
 	TimeStamp *string `json:"time_stamp,omitempty"`
 }
+
+/**builder开始**/
+type EventTimeBuilder struct {
+	timeStamp     string
+	timeStampFlag bool
+}
+
+func NewEventTimeBuilder() *EventTimeBuilder {
+	builder := &EventTimeBuilder{}
+	return builder
+}
+
+func (builder *EventTimeBuilder) TimeStamp(timeStamp string) *EventTimeBuilder {
+	builder.timeStamp = timeStamp
+	builder.timeStampFlag = true
+	return builder
+}
+
+func (builder *EventTimeBuilder) Build() *EventTime {
+	req := &EventTime{}
+	if builder.timeStampFlag {
+		req.TimeStamp = &builder.timeStamp
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type ExchangeBinding struct {
 	AdminAccount      *string `json:"admin_account,omitempty"`
@@ -264,14 +1925,153 @@ type ExchangeBinding struct {
 	ExchangeBindingId *string `json:"exchange_binding_id,omitempty"`
 }
 
+/**builder开始**/
+type ExchangeBindingBuilder struct {
+	adminAccount          string
+	adminAccountFlag      bool
+	exchangeAccount       string
+	exchangeAccountFlag   bool
+	userId                string
+	userIdFlag            bool
+	status                string
+	statusFlag            bool
+	exchangeBindingId     string
+	exchangeBindingIdFlag bool
+}
+
+func NewExchangeBindingBuilder() *ExchangeBindingBuilder {
+	builder := &ExchangeBindingBuilder{}
+	return builder
+}
+
+func (builder *ExchangeBindingBuilder) AdminAccount(adminAccount string) *ExchangeBindingBuilder {
+	builder.adminAccount = adminAccount
+	builder.adminAccountFlag = true
+	return builder
+}
+func (builder *ExchangeBindingBuilder) ExchangeAccount(exchangeAccount string) *ExchangeBindingBuilder {
+	builder.exchangeAccount = exchangeAccount
+	builder.exchangeAccountFlag = true
+	return builder
+}
+func (builder *ExchangeBindingBuilder) UserId(userId string) *ExchangeBindingBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *ExchangeBindingBuilder) Status(status string) *ExchangeBindingBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+func (builder *ExchangeBindingBuilder) ExchangeBindingId(exchangeBindingId string) *ExchangeBindingBuilder {
+	builder.exchangeBindingId = exchangeBindingId
+	builder.exchangeBindingIdFlag = true
+	return builder
+}
+
+func (builder *ExchangeBindingBuilder) Build() *ExchangeBinding {
+	req := &ExchangeBinding{}
+	if builder.adminAccountFlag {
+		req.AdminAccount = &builder.adminAccount
+
+	}
+	if builder.exchangeAccountFlag {
+		req.ExchangeAccount = &builder.exchangeAccount
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.statusFlag {
+		req.Status = &builder.status
+
+	}
+	if builder.exchangeBindingIdFlag {
+		req.ExchangeBindingId = &builder.exchangeBindingId
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Freebusy struct {
 	StartTime *string `json:"start_time,omitempty"`
 	EndTime   *string `json:"end_time,omitempty"`
 }
 
+/**builder开始**/
+type FreebusyBuilder struct {
+	startTime     string
+	startTimeFlag bool
+	endTime       string
+	endTimeFlag   bool
+}
+
+func NewFreebusyBuilder() *FreebusyBuilder {
+	builder := &FreebusyBuilder{}
+	return builder
+}
+
+func (builder *FreebusyBuilder) StartTime(startTime string) *FreebusyBuilder {
+	builder.startTime = startTime
+	builder.startTimeFlag = true
+	return builder
+}
+func (builder *FreebusyBuilder) EndTime(endTime string) *FreebusyBuilder {
+	builder.endTime = endTime
+	builder.endTimeFlag = true
+	return builder
+}
+
+func (builder *FreebusyBuilder) Build() *Freebusy {
+	req := &Freebusy{}
+	if builder.startTimeFlag {
+		req.StartTime = &builder.startTime
+
+	}
+	if builder.endTimeFlag {
+		req.EndTime = &builder.endTime
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Reminder struct {
 	Minutes *int `json:"minutes,omitempty"`
 }
+
+/**builder开始**/
+type ReminderBuilder struct {
+	minutes     int
+	minutesFlag bool
+}
+
+func NewReminderBuilder() *ReminderBuilder {
+	builder := &ReminderBuilder{}
+	return builder
+}
+
+func (builder *ReminderBuilder) Minutes(minutes int) *ReminderBuilder {
+	builder.minutes = minutes
+	builder.minutesFlag = true
+	return builder
+}
+
+func (builder *ReminderBuilder) Build() *Reminder {
+	req := &Reminder{}
+	if builder.minutesFlag {
+		req.Minutes = &builder.minutes
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type Schema struct {
 	UiName   *string `json:"ui_name,omitempty"`
@@ -279,14 +2079,117 @@ type Schema struct {
 	AppLink  *string `json:"app_link,omitempty"`
 }
 
+/**builder开始**/
+type SchemaBuilder struct {
+	uiName       string
+	uiNameFlag   bool
+	uiStatus     string
+	uiStatusFlag bool
+	appLink      string
+	appLinkFlag  bool
+}
+
+func NewSchemaBuilder() *SchemaBuilder {
+	builder := &SchemaBuilder{}
+	return builder
+}
+
+func (builder *SchemaBuilder) UiName(uiName string) *SchemaBuilder {
+	builder.uiName = uiName
+	builder.uiNameFlag = true
+	return builder
+}
+func (builder *SchemaBuilder) UiStatus(uiStatus string) *SchemaBuilder {
+	builder.uiStatus = uiStatus
+	builder.uiStatusFlag = true
+	return builder
+}
+func (builder *SchemaBuilder) AppLink(appLink string) *SchemaBuilder {
+	builder.appLink = appLink
+	builder.appLinkFlag = true
+	return builder
+}
+
+func (builder *SchemaBuilder) Build() *Schema {
+	req := &Schema{}
+	if builder.uiNameFlag {
+		req.UiName = &builder.uiName
+
+	}
+	if builder.uiStatusFlag {
+		req.UiStatus = &builder.uiStatus
+
+	}
+	if builder.appLinkFlag {
+		req.AppLink = &builder.appLink
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Setting struct {
 }
+
+/**builder开始**/
+/**builder结束**/
 
 type TimeInfo struct {
 	Date      *string `json:"date,omitempty"`
 	Timestamp *string `json:"timestamp,omitempty"`
 	Timezone  *string `json:"timezone,omitempty"`
 }
+
+/**builder开始**/
+type TimeInfoBuilder struct {
+	date          string
+	dateFlag      bool
+	timestamp     string
+	timestampFlag bool
+	timezone      string
+	timezoneFlag  bool
+}
+
+func NewTimeInfoBuilder() *TimeInfoBuilder {
+	builder := &TimeInfoBuilder{}
+	return builder
+}
+
+func (builder *TimeInfoBuilder) Date(date string) *TimeInfoBuilder {
+	builder.date = date
+	builder.dateFlag = true
+	return builder
+}
+func (builder *TimeInfoBuilder) Timestamp(timestamp string) *TimeInfoBuilder {
+	builder.timestamp = timestamp
+	builder.timestampFlag = true
+	return builder
+}
+func (builder *TimeInfoBuilder) Timezone(timezone string) *TimeInfoBuilder {
+	builder.timezone = timezone
+	builder.timezoneFlag = true
+	return builder
+}
+
+func (builder *TimeInfoBuilder) Build() *TimeInfo {
+	req := &TimeInfo{}
+	if builder.dateFlag {
+		req.Date = &builder.date
+
+	}
+	if builder.timestampFlag {
+		req.Timestamp = &builder.timestamp
+
+	}
+	if builder.timezoneFlag {
+		req.Timezone = &builder.timezone
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type TimeoffEvent struct {
 	TimeoffEventId *string `json:"timeoff_event_id,omitempty"`
@@ -298,10 +2201,142 @@ type TimeoffEvent struct {
 	Description    *string `json:"description,omitempty"`
 }
 
+/**builder开始**/
+type TimeoffEventBuilder struct {
+	timeoffEventId     string
+	timeoffEventIdFlag bool
+	userId             string
+	userIdFlag         bool
+	timezone           string
+	timezoneFlag       bool
+	startTime          string
+	startTimeFlag      bool
+	endTime            string
+	endTimeFlag        bool
+	title              string
+	titleFlag          bool
+	description        string
+	descriptionFlag    bool
+}
+
+func NewTimeoffEventBuilder() *TimeoffEventBuilder {
+	builder := &TimeoffEventBuilder{}
+	return builder
+}
+
+func (builder *TimeoffEventBuilder) TimeoffEventId(timeoffEventId string) *TimeoffEventBuilder {
+	builder.timeoffEventId = timeoffEventId
+	builder.timeoffEventIdFlag = true
+	return builder
+}
+func (builder *TimeoffEventBuilder) UserId(userId string) *TimeoffEventBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *TimeoffEventBuilder) Timezone(timezone string) *TimeoffEventBuilder {
+	builder.timezone = timezone
+	builder.timezoneFlag = true
+	return builder
+}
+func (builder *TimeoffEventBuilder) StartTime(startTime string) *TimeoffEventBuilder {
+	builder.startTime = startTime
+	builder.startTimeFlag = true
+	return builder
+}
+func (builder *TimeoffEventBuilder) EndTime(endTime string) *TimeoffEventBuilder {
+	builder.endTime = endTime
+	builder.endTimeFlag = true
+	return builder
+}
+func (builder *TimeoffEventBuilder) Title(title string) *TimeoffEventBuilder {
+	builder.title = title
+	builder.titleFlag = true
+	return builder
+}
+func (builder *TimeoffEventBuilder) Description(description string) *TimeoffEventBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+
+func (builder *TimeoffEventBuilder) Build() *TimeoffEvent {
+	req := &TimeoffEvent{}
+	if builder.timeoffEventIdFlag {
+		req.TimeoffEventId = &builder.timeoffEventId
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.timezoneFlag {
+		req.Timezone = &builder.timezone
+
+	}
+	if builder.startTimeFlag {
+		req.StartTime = &builder.startTime
+
+	}
+	if builder.endTimeFlag {
+		req.EndTime = &builder.endTime
+
+	}
+	if builder.titleFlag {
+		req.Title = &builder.title
+
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type UserCalendar struct {
 	Calendar *Calendar `json:"calendar,omitempty"`
 	UserId   *string   `json:"user_id,omitempty"`
 }
+
+/**builder开始**/
+type UserCalendarBuilder struct {
+	calendar     *Calendar
+	calendarFlag bool
+	userId       string
+	userIdFlag   bool
+}
+
+func NewUserCalendarBuilder() *UserCalendarBuilder {
+	builder := &UserCalendarBuilder{}
+	return builder
+}
+
+func (builder *UserCalendarBuilder) Calendar(calendar *Calendar) *UserCalendarBuilder {
+	builder.calendar = calendar
+	builder.calendarFlag = true
+	return builder
+}
+func (builder *UserCalendarBuilder) UserId(userId string) *UserCalendarBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+func (builder *UserCalendarBuilder) Build() *UserCalendar {
+	req := &UserCalendar{}
+	if builder.calendarFlag {
+		req.Calendar = builder.calendar
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type UserId struct {
 	UserId  *string `json:"user_id,omitempty"`
@@ -309,12 +2344,123 @@ type UserId struct {
 	UnionId *string `json:"union_id,omitempty"`
 }
 
+/**builder开始**/
+type UserIdBuilder struct {
+	userId      string
+	userIdFlag  bool
+	openId      string
+	openIdFlag  bool
+	unionId     string
+	unionIdFlag bool
+}
+
+func NewUserIdBuilder() *UserIdBuilder {
+	builder := &UserIdBuilder{}
+	return builder
+}
+
+func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
+	builder.openId = openId
+	builder.openIdFlag = true
+	return builder
+}
+func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
+	builder.unionId = unionId
+	builder.unionIdFlag = true
+	return builder
+}
+
+func (builder *UserIdBuilder) Build() *UserId {
+	req := &UserId{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.openIdFlag {
+		req.OpenId = &builder.openId
+
+	}
+	if builder.unionIdFlag {
+		req.UnionId = &builder.unionId
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Vchat struct {
 	VcType      *string `json:"vc_type,omitempty"`
 	IconType    *string `json:"icon_type,omitempty"`
 	Description *string `json:"description,omitempty"`
 	MeetingUrl  *string `json:"meeting_url,omitempty"`
 }
+
+/**builder开始**/
+type VchatBuilder struct {
+	vcType          string
+	vcTypeFlag      bool
+	iconType        string
+	iconTypeFlag    bool
+	description     string
+	descriptionFlag bool
+	meetingUrl      string
+	meetingUrlFlag  bool
+}
+
+func NewVchatBuilder() *VchatBuilder {
+	builder := &VchatBuilder{}
+	return builder
+}
+
+func (builder *VchatBuilder) VcType(vcType string) *VchatBuilder {
+	builder.vcType = vcType
+	builder.vcTypeFlag = true
+	return builder
+}
+func (builder *VchatBuilder) IconType(iconType string) *VchatBuilder {
+	builder.iconType = iconType
+	builder.iconTypeFlag = true
+	return builder
+}
+func (builder *VchatBuilder) Description(description string) *VchatBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+func (builder *VchatBuilder) MeetingUrl(meetingUrl string) *VchatBuilder {
+	builder.meetingUrl = meetingUrl
+	builder.meetingUrlFlag = true
+	return builder
+}
+
+func (builder *VchatBuilder) Build() *Vchat {
+	req := &Vchat{}
+	if builder.vcTypeFlag {
+		req.VcType = &builder.vcType
+
+	}
+	if builder.iconTypeFlag {
+		req.IconType = &builder.iconType
+
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	if builder.meetingUrlFlag {
+		req.MeetingUrl = &builder.meetingUrl
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 /**生成请求和响应结果类型，以及请求对象的Builder构造器 **/
 

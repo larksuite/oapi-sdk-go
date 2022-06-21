@@ -7,6 +7,10 @@ import (
 )
 
 func (dispatcher *EventReqDispatcher) OnApprovalUpdatedV4(handler func(ctx context.Context, event *approval.ApprovalUpdatedEvent) error) *EventReqDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["approval.approval.updated_v4"]
+	if existed {
+		panic("event: multiple handler registrations for " + "approval.approval.updated_v4")
+	}
 	dispatcher.eventType2EventHandler["approval.approval.updated_v4"] = approval.NewApprovalUpdatedEventHandler(handler)
 	return dispatcher
 }

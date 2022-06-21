@@ -46,6 +46,45 @@ type EmailAlias struct {
 	EmailAlias   *string `json:"email_alias,omitempty"`
 }
 
+/**builder开始**/
+type EmailAliasBuilder struct {
+	primaryEmail     string
+	primaryEmailFlag bool
+	emailAlias       string
+	emailAliasFlag   bool
+}
+
+func NewEmailAliasBuilder() *EmailAliasBuilder {
+	builder := &EmailAliasBuilder{}
+	return builder
+}
+
+func (builder *EmailAliasBuilder) PrimaryEmail(primaryEmail string) *EmailAliasBuilder {
+	builder.primaryEmail = primaryEmail
+	builder.primaryEmailFlag = true
+	return builder
+}
+func (builder *EmailAliasBuilder) EmailAlias(emailAlias string) *EmailAliasBuilder {
+	builder.emailAlias = emailAlias
+	builder.emailAliasFlag = true
+	return builder
+}
+
+func (builder *EmailAliasBuilder) Build() *EmailAlias {
+	req := &EmailAlias{}
+	if builder.primaryEmailFlag {
+		req.PrimaryEmail = &builder.primaryEmail
+
+	}
+	if builder.emailAliasFlag {
+		req.EmailAlias = &builder.emailAlias
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Mailgroup struct {
 	MailgroupId             *string `json:"mailgroup_id,omitempty"`
 	Email                   *string `json:"email,omitempty"`
@@ -57,6 +96,111 @@ type Mailgroup struct {
 	WhoCanSendMail          *string `json:"who_can_send_mail,omitempty"`
 }
 
+/**builder开始**/
+type MailgroupBuilder struct {
+	mailgroupId                 string
+	mailgroupIdFlag             bool
+	email                       string
+	emailFlag                   bool
+	name                        string
+	nameFlag                    bool
+	description                 string
+	descriptionFlag             bool
+	directMembersCount          string
+	directMembersCountFlag      bool
+	includeExternalMember       bool
+	includeExternalMemberFlag   bool
+	includeAllCompanyMember     bool
+	includeAllCompanyMemberFlag bool
+	whoCanSendMail              string
+	whoCanSendMailFlag          bool
+}
+
+func NewMailgroupBuilder() *MailgroupBuilder {
+	builder := &MailgroupBuilder{}
+	return builder
+}
+
+func (builder *MailgroupBuilder) MailgroupId(mailgroupId string) *MailgroupBuilder {
+	builder.mailgroupId = mailgroupId
+	builder.mailgroupIdFlag = true
+	return builder
+}
+func (builder *MailgroupBuilder) Email(email string) *MailgroupBuilder {
+	builder.email = email
+	builder.emailFlag = true
+	return builder
+}
+func (builder *MailgroupBuilder) Name(name string) *MailgroupBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *MailgroupBuilder) Description(description string) *MailgroupBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+func (builder *MailgroupBuilder) DirectMembersCount(directMembersCount string) *MailgroupBuilder {
+	builder.directMembersCount = directMembersCount
+	builder.directMembersCountFlag = true
+	return builder
+}
+func (builder *MailgroupBuilder) IncludeExternalMember(includeExternalMember bool) *MailgroupBuilder {
+	builder.includeExternalMember = includeExternalMember
+	builder.includeExternalMemberFlag = true
+	return builder
+}
+func (builder *MailgroupBuilder) IncludeAllCompanyMember(includeAllCompanyMember bool) *MailgroupBuilder {
+	builder.includeAllCompanyMember = includeAllCompanyMember
+	builder.includeAllCompanyMemberFlag = true
+	return builder
+}
+func (builder *MailgroupBuilder) WhoCanSendMail(whoCanSendMail string) *MailgroupBuilder {
+	builder.whoCanSendMail = whoCanSendMail
+	builder.whoCanSendMailFlag = true
+	return builder
+}
+
+func (builder *MailgroupBuilder) Build() *Mailgroup {
+	req := &Mailgroup{}
+	if builder.mailgroupIdFlag {
+		req.MailgroupId = &builder.mailgroupId
+
+	}
+	if builder.emailFlag {
+		req.Email = &builder.email
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	if builder.directMembersCountFlag {
+		req.DirectMembersCount = &builder.directMembersCount
+
+	}
+	if builder.includeExternalMemberFlag {
+		req.IncludeExternalMember = &builder.includeExternalMember
+
+	}
+	if builder.includeAllCompanyMemberFlag {
+		req.IncludeAllCompanyMember = &builder.includeAllCompanyMember
+
+	}
+	if builder.whoCanSendMailFlag {
+		req.WhoCanSendMail = &builder.whoCanSendMail
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type MailgroupMember struct {
 	MemberId     *string `json:"member_id,omitempty"`
 	Email        *string `json:"email,omitempty"`
@@ -65,6 +209,78 @@ type MailgroupMember struct {
 	Type         *string `json:"type,omitempty"`
 }
 
+/**builder开始**/
+type MailgroupMemberBuilder struct {
+	memberId         string
+	memberIdFlag     bool
+	email            string
+	emailFlag        bool
+	userId           string
+	userIdFlag       bool
+	departmentId     string
+	departmentIdFlag bool
+	type_            string
+	typeFlag         bool
+}
+
+func NewMailgroupMemberBuilder() *MailgroupMemberBuilder {
+	builder := &MailgroupMemberBuilder{}
+	return builder
+}
+
+func (builder *MailgroupMemberBuilder) MemberId(memberId string) *MailgroupMemberBuilder {
+	builder.memberId = memberId
+	builder.memberIdFlag = true
+	return builder
+}
+func (builder *MailgroupMemberBuilder) Email(email string) *MailgroupMemberBuilder {
+	builder.email = email
+	builder.emailFlag = true
+	return builder
+}
+func (builder *MailgroupMemberBuilder) UserId(userId string) *MailgroupMemberBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *MailgroupMemberBuilder) DepartmentId(departmentId string) *MailgroupMemberBuilder {
+	builder.departmentId = departmentId
+	builder.departmentIdFlag = true
+	return builder
+}
+func (builder *MailgroupMemberBuilder) Type(type_ string) *MailgroupMemberBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+
+func (builder *MailgroupMemberBuilder) Build() *MailgroupMember {
+	req := &MailgroupMember{}
+	if builder.memberIdFlag {
+		req.MemberId = &builder.memberId
+
+	}
+	if builder.emailFlag {
+		req.Email = &builder.email
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.departmentIdFlag {
+		req.DepartmentId = &builder.departmentId
+
+	}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type MailgroupPermissionMember struct {
 	PermissionMemberId *string `json:"permission_member_id,omitempty"`
 	UserId             *string `json:"user_id,omitempty"`
@@ -72,9 +288,98 @@ type MailgroupPermissionMember struct {
 	Type               *string `json:"type,omitempty"`
 }
 
+/**builder开始**/
+type MailgroupPermissionMemberBuilder struct {
+	permissionMemberId     string
+	permissionMemberIdFlag bool
+	userId                 string
+	userIdFlag             bool
+	departmentId           string
+	departmentIdFlag       bool
+	type_                  string
+	typeFlag               bool
+}
+
+func NewMailgroupPermissionMemberBuilder() *MailgroupPermissionMemberBuilder {
+	builder := &MailgroupPermissionMemberBuilder{}
+	return builder
+}
+
+func (builder *MailgroupPermissionMemberBuilder) PermissionMemberId(permissionMemberId string) *MailgroupPermissionMemberBuilder {
+	builder.permissionMemberId = permissionMemberId
+	builder.permissionMemberIdFlag = true
+	return builder
+}
+func (builder *MailgroupPermissionMemberBuilder) UserId(userId string) *MailgroupPermissionMemberBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *MailgroupPermissionMemberBuilder) DepartmentId(departmentId string) *MailgroupPermissionMemberBuilder {
+	builder.departmentId = departmentId
+	builder.departmentIdFlag = true
+	return builder
+}
+func (builder *MailgroupPermissionMemberBuilder) Type(type_ string) *MailgroupPermissionMemberBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+
+func (builder *MailgroupPermissionMemberBuilder) Build() *MailgroupPermissionMember {
+	req := &MailgroupPermissionMember{}
+	if builder.permissionMemberIdFlag {
+		req.PermissionMemberId = &builder.permissionMemberId
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.departmentIdFlag {
+		req.DepartmentId = &builder.departmentId
+
+	}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Message struct {
 	Raw *string `json:"raw,omitempty"`
 }
+
+/**builder开始**/
+type MessageBuilder struct {
+	raw     string
+	rawFlag bool
+}
+
+func NewMessageBuilder() *MessageBuilder {
+	builder := &MessageBuilder{}
+	return builder
+}
+
+func (builder *MessageBuilder) Raw(raw string) *MessageBuilder {
+	builder.raw = raw
+	builder.rawFlag = true
+	return builder
+}
+
+func (builder *MessageBuilder) Build() *Message {
+	req := &Message{}
+	if builder.rawFlag {
+		req.Raw = &builder.raw
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type PublicMailbox struct {
 	PublicMailboxId *string `json:"public_mailbox_id,omitempty"`
@@ -82,17 +387,167 @@ type PublicMailbox struct {
 	Name            *string `json:"name,omitempty"`
 }
 
+/**builder开始**/
+type PublicMailboxBuilder struct {
+	publicMailboxId     string
+	publicMailboxIdFlag bool
+	email               string
+	emailFlag           bool
+	name                string
+	nameFlag            bool
+}
+
+func NewPublicMailboxBuilder() *PublicMailboxBuilder {
+	builder := &PublicMailboxBuilder{}
+	return builder
+}
+
+func (builder *PublicMailboxBuilder) PublicMailboxId(publicMailboxId string) *PublicMailboxBuilder {
+	builder.publicMailboxId = publicMailboxId
+	builder.publicMailboxIdFlag = true
+	return builder
+}
+func (builder *PublicMailboxBuilder) Email(email string) *PublicMailboxBuilder {
+	builder.email = email
+	builder.emailFlag = true
+	return builder
+}
+func (builder *PublicMailboxBuilder) Name(name string) *PublicMailboxBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+func (builder *PublicMailboxBuilder) Build() *PublicMailbox {
+	req := &PublicMailbox{}
+	if builder.publicMailboxIdFlag {
+		req.PublicMailboxId = &builder.publicMailboxId
+
+	}
+	if builder.emailFlag {
+		req.Email = &builder.email
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type PublicMailboxMember struct {
 	MemberId *string `json:"member_id,omitempty"`
 	UserId   *string `json:"user_id,omitempty"`
 	Type     *string `json:"type,omitempty"`
 }
 
+/**builder开始**/
+type PublicMailboxMemberBuilder struct {
+	memberId     string
+	memberIdFlag bool
+	userId       string
+	userIdFlag   bool
+	type_        string
+	typeFlag     bool
+}
+
+func NewPublicMailboxMemberBuilder() *PublicMailboxMemberBuilder {
+	builder := &PublicMailboxMemberBuilder{}
+	return builder
+}
+
+func (builder *PublicMailboxMemberBuilder) MemberId(memberId string) *PublicMailboxMemberBuilder {
+	builder.memberId = memberId
+	builder.memberIdFlag = true
+	return builder
+}
+func (builder *PublicMailboxMemberBuilder) UserId(userId string) *PublicMailboxMemberBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *PublicMailboxMemberBuilder) Type(type_ string) *PublicMailboxMemberBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+
+func (builder *PublicMailboxMemberBuilder) Build() *PublicMailboxMember {
+	req := &PublicMailboxMember{}
+	if builder.memberIdFlag {
+		req.MemberId = &builder.memberId
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type User struct {
 	Email  *string `json:"email,omitempty"`
 	Status *int    `json:"status,omitempty"`
 	Type   *int    `json:"type,omitempty"`
 }
+
+/**builder开始**/
+type UserBuilder struct {
+	email      string
+	emailFlag  bool
+	status     int
+	statusFlag bool
+	type_      int
+	typeFlag   bool
+}
+
+func NewUserBuilder() *UserBuilder {
+	builder := &UserBuilder{}
+	return builder
+}
+
+func (builder *UserBuilder) Email(email string) *UserBuilder {
+	builder.email = email
+	builder.emailFlag = true
+	return builder
+}
+func (builder *UserBuilder) Status(status int) *UserBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+func (builder *UserBuilder) Type(type_ int) *UserBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+
+func (builder *UserBuilder) Build() *User {
+	req := &User{}
+	if builder.emailFlag {
+		req.Email = &builder.email
+
+	}
+	if builder.statusFlag {
+		req.Status = &builder.status
+
+	}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 /**生成请求和响应结果类型，以及请求对象的Builder构造器 **/
 

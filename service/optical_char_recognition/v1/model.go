@@ -12,6 +12,9 @@ import (
 type Image struct {
 }
 
+/**builder开始**/
+/**builder结束**/
+
 /**生成请求和响应结果类型，以及请求对象的Builder构造器 **/
 
 type BasicRecognizeImageReqBodyBuilder struct {

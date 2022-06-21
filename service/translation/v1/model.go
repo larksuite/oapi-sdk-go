@@ -14,8 +14,50 @@ type Term struct {
 	To   *string `json:"to,omitempty"`
 }
 
+/**builder开始**/
+type TermBuilder struct {
+	from     string
+	fromFlag bool
+	to       string
+	toFlag   bool
+}
+
+func NewTermBuilder() *TermBuilder {
+	builder := &TermBuilder{}
+	return builder
+}
+
+func (builder *TermBuilder) From(from string) *TermBuilder {
+	builder.from = from
+	builder.fromFlag = true
+	return builder
+}
+func (builder *TermBuilder) To(to string) *TermBuilder {
+	builder.to = to
+	builder.toFlag = true
+	return builder
+}
+
+func (builder *TermBuilder) Build() *Term {
+	req := &Term{}
+	if builder.fromFlag {
+		req.From = &builder.from
+
+	}
+	if builder.toFlag {
+		req.To = &builder.to
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Text struct {
 }
+
+/**builder开始**/
+/**builder结束**/
 
 /**生成请求和响应结果类型，以及请求对象的Builder构造器 **/
 

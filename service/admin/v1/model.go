@@ -55,6 +55,375 @@ type AdminDeptStat struct {
 	AvgCreateTaskNum     *string `json:"avg_create_task_num,omitempty"`
 }
 
+/**builder开始**/
+type AdminDeptStatBuilder struct {
+	date                     string
+	dateFlag                 bool
+	departmentId             string
+	departmentIdFlag         bool
+	departmentName           string
+	departmentNameFlag       bool
+	departmentPath           string
+	departmentPathFlag       bool
+	totalUserNum             int
+	totalUserNumFlag         bool
+	activeUserNum            int
+	activeUserNumFlag        bool
+	activeUserRate           string
+	activeUserRateFlag       bool
+	suiteDau                 int
+	suiteDauFlag             bool
+	suiteActiveRate          string
+	suiteActiveRateFlag      bool
+	newUserNum               int
+	newUserNumFlag           bool
+	newActiveNum             int
+	newActiveNumFlag         bool
+	resignUserNum            int
+	resignUserNumFlag        bool
+	imDau                    int
+	imDauFlag                bool
+	sendMessengerUserNum     int
+	sendMessengerUserNumFlag bool
+	sendMessengerNum         int
+	sendMessengerNumFlag     bool
+	avgSendMessengerNum      string
+	avgSendMessengerNumFlag  bool
+	docsDau                  int
+	docsDauFlag              bool
+	createDocsUserNum        int
+	createDocsUserNumFlag    bool
+	createDocsNum            int
+	createDocsNumFlag        bool
+	avgCreateDocsNum         string
+	avgCreateDocsNumFlag     bool
+	calDau                   int
+	calDauFlag               bool
+	createCalUserNum         int
+	createCalUserNumFlag     bool
+	createCalNum             int
+	createCalNumFlag         bool
+	avgCreateCalNum          string
+	avgCreateCalNumFlag      bool
+	vcDau                    int
+	vcDauFlag                bool
+	vcDuration               int
+	vcDurationFlag           bool
+	avgVcDuration            string
+	avgVcDurationFlag        bool
+	avgDuration              string
+	avgDurationFlag          bool
+	taskDau                  int
+	taskDauFlag              bool
+	createTaskUserNum        int
+	createTaskUserNumFlag    bool
+	createTaskNum            int
+	createTaskNumFlag        bool
+	avgCreateTaskNum         string
+	avgCreateTaskNumFlag     bool
+}
+
+func NewAdminDeptStatBuilder() *AdminDeptStatBuilder {
+	builder := &AdminDeptStatBuilder{}
+	return builder
+}
+
+func (builder *AdminDeptStatBuilder) Date(date string) *AdminDeptStatBuilder {
+	builder.date = date
+	builder.dateFlag = true
+	return builder
+}
+func (builder *AdminDeptStatBuilder) DepartmentId(departmentId string) *AdminDeptStatBuilder {
+	builder.departmentId = departmentId
+	builder.departmentIdFlag = true
+	return builder
+}
+func (builder *AdminDeptStatBuilder) DepartmentName(departmentName string) *AdminDeptStatBuilder {
+	builder.departmentName = departmentName
+	builder.departmentNameFlag = true
+	return builder
+}
+func (builder *AdminDeptStatBuilder) DepartmentPath(departmentPath string) *AdminDeptStatBuilder {
+	builder.departmentPath = departmentPath
+	builder.departmentPathFlag = true
+	return builder
+}
+func (builder *AdminDeptStatBuilder) TotalUserNum(totalUserNum int) *AdminDeptStatBuilder {
+	builder.totalUserNum = totalUserNum
+	builder.totalUserNumFlag = true
+	return builder
+}
+func (builder *AdminDeptStatBuilder) ActiveUserNum(activeUserNum int) *AdminDeptStatBuilder {
+	builder.activeUserNum = activeUserNum
+	builder.activeUserNumFlag = true
+	return builder
+}
+func (builder *AdminDeptStatBuilder) ActiveUserRate(activeUserRate string) *AdminDeptStatBuilder {
+	builder.activeUserRate = activeUserRate
+	builder.activeUserRateFlag = true
+	return builder
+}
+func (builder *AdminDeptStatBuilder) SuiteDau(suiteDau int) *AdminDeptStatBuilder {
+	builder.suiteDau = suiteDau
+	builder.suiteDauFlag = true
+	return builder
+}
+func (builder *AdminDeptStatBuilder) SuiteActiveRate(suiteActiveRate string) *AdminDeptStatBuilder {
+	builder.suiteActiveRate = suiteActiveRate
+	builder.suiteActiveRateFlag = true
+	return builder
+}
+func (builder *AdminDeptStatBuilder) NewUserNum(newUserNum int) *AdminDeptStatBuilder {
+	builder.newUserNum = newUserNum
+	builder.newUserNumFlag = true
+	return builder
+}
+func (builder *AdminDeptStatBuilder) NewActiveNum(newActiveNum int) *AdminDeptStatBuilder {
+	builder.newActiveNum = newActiveNum
+	builder.newActiveNumFlag = true
+	return builder
+}
+func (builder *AdminDeptStatBuilder) ResignUserNum(resignUserNum int) *AdminDeptStatBuilder {
+	builder.resignUserNum = resignUserNum
+	builder.resignUserNumFlag = true
+	return builder
+}
+func (builder *AdminDeptStatBuilder) ImDau(imDau int) *AdminDeptStatBuilder {
+	builder.imDau = imDau
+	builder.imDauFlag = true
+	return builder
+}
+func (builder *AdminDeptStatBuilder) SendMessengerUserNum(sendMessengerUserNum int) *AdminDeptStatBuilder {
+	builder.sendMessengerUserNum = sendMessengerUserNum
+	builder.sendMessengerUserNumFlag = true
+	return builder
+}
+func (builder *AdminDeptStatBuilder) SendMessengerNum(sendMessengerNum int) *AdminDeptStatBuilder {
+	builder.sendMessengerNum = sendMessengerNum
+	builder.sendMessengerNumFlag = true
+	return builder
+}
+func (builder *AdminDeptStatBuilder) AvgSendMessengerNum(avgSendMessengerNum string) *AdminDeptStatBuilder {
+	builder.avgSendMessengerNum = avgSendMessengerNum
+	builder.avgSendMessengerNumFlag = true
+	return builder
+}
+func (builder *AdminDeptStatBuilder) DocsDau(docsDau int) *AdminDeptStatBuilder {
+	builder.docsDau = docsDau
+	builder.docsDauFlag = true
+	return builder
+}
+func (builder *AdminDeptStatBuilder) CreateDocsUserNum(createDocsUserNum int) *AdminDeptStatBuilder {
+	builder.createDocsUserNum = createDocsUserNum
+	builder.createDocsUserNumFlag = true
+	return builder
+}
+func (builder *AdminDeptStatBuilder) CreateDocsNum(createDocsNum int) *AdminDeptStatBuilder {
+	builder.createDocsNum = createDocsNum
+	builder.createDocsNumFlag = true
+	return builder
+}
+func (builder *AdminDeptStatBuilder) AvgCreateDocsNum(avgCreateDocsNum string) *AdminDeptStatBuilder {
+	builder.avgCreateDocsNum = avgCreateDocsNum
+	builder.avgCreateDocsNumFlag = true
+	return builder
+}
+func (builder *AdminDeptStatBuilder) CalDau(calDau int) *AdminDeptStatBuilder {
+	builder.calDau = calDau
+	builder.calDauFlag = true
+	return builder
+}
+func (builder *AdminDeptStatBuilder) CreateCalUserNum(createCalUserNum int) *AdminDeptStatBuilder {
+	builder.createCalUserNum = createCalUserNum
+	builder.createCalUserNumFlag = true
+	return builder
+}
+func (builder *AdminDeptStatBuilder) CreateCalNum(createCalNum int) *AdminDeptStatBuilder {
+	builder.createCalNum = createCalNum
+	builder.createCalNumFlag = true
+	return builder
+}
+func (builder *AdminDeptStatBuilder) AvgCreateCalNum(avgCreateCalNum string) *AdminDeptStatBuilder {
+	builder.avgCreateCalNum = avgCreateCalNum
+	builder.avgCreateCalNumFlag = true
+	return builder
+}
+func (builder *AdminDeptStatBuilder) VcDau(vcDau int) *AdminDeptStatBuilder {
+	builder.vcDau = vcDau
+	builder.vcDauFlag = true
+	return builder
+}
+func (builder *AdminDeptStatBuilder) VcDuration(vcDuration int) *AdminDeptStatBuilder {
+	builder.vcDuration = vcDuration
+	builder.vcDurationFlag = true
+	return builder
+}
+func (builder *AdminDeptStatBuilder) AvgVcDuration(avgVcDuration string) *AdminDeptStatBuilder {
+	builder.avgVcDuration = avgVcDuration
+	builder.avgVcDurationFlag = true
+	return builder
+}
+func (builder *AdminDeptStatBuilder) AvgDuration(avgDuration string) *AdminDeptStatBuilder {
+	builder.avgDuration = avgDuration
+	builder.avgDurationFlag = true
+	return builder
+}
+func (builder *AdminDeptStatBuilder) TaskDau(taskDau int) *AdminDeptStatBuilder {
+	builder.taskDau = taskDau
+	builder.taskDauFlag = true
+	return builder
+}
+func (builder *AdminDeptStatBuilder) CreateTaskUserNum(createTaskUserNum int) *AdminDeptStatBuilder {
+	builder.createTaskUserNum = createTaskUserNum
+	builder.createTaskUserNumFlag = true
+	return builder
+}
+func (builder *AdminDeptStatBuilder) CreateTaskNum(createTaskNum int) *AdminDeptStatBuilder {
+	builder.createTaskNum = createTaskNum
+	builder.createTaskNumFlag = true
+	return builder
+}
+func (builder *AdminDeptStatBuilder) AvgCreateTaskNum(avgCreateTaskNum string) *AdminDeptStatBuilder {
+	builder.avgCreateTaskNum = avgCreateTaskNum
+	builder.avgCreateTaskNumFlag = true
+	return builder
+}
+
+func (builder *AdminDeptStatBuilder) Build() *AdminDeptStat {
+	req := &AdminDeptStat{}
+	if builder.dateFlag {
+		req.Date = &builder.date
+
+	}
+	if builder.departmentIdFlag {
+		req.DepartmentId = &builder.departmentId
+
+	}
+	if builder.departmentNameFlag {
+		req.DepartmentName = &builder.departmentName
+
+	}
+	if builder.departmentPathFlag {
+		req.DepartmentPath = &builder.departmentPath
+
+	}
+	if builder.totalUserNumFlag {
+		req.TotalUserNum = &builder.totalUserNum
+
+	}
+	if builder.activeUserNumFlag {
+		req.ActiveUserNum = &builder.activeUserNum
+
+	}
+	if builder.activeUserRateFlag {
+		req.ActiveUserRate = &builder.activeUserRate
+
+	}
+	if builder.suiteDauFlag {
+		req.SuiteDau = &builder.suiteDau
+
+	}
+	if builder.suiteActiveRateFlag {
+		req.SuiteActiveRate = &builder.suiteActiveRate
+
+	}
+	if builder.newUserNumFlag {
+		req.NewUserNum = &builder.newUserNum
+
+	}
+	if builder.newActiveNumFlag {
+		req.NewActiveNum = &builder.newActiveNum
+
+	}
+	if builder.resignUserNumFlag {
+		req.ResignUserNum = &builder.resignUserNum
+
+	}
+	if builder.imDauFlag {
+		req.ImDau = &builder.imDau
+
+	}
+	if builder.sendMessengerUserNumFlag {
+		req.SendMessengerUserNum = &builder.sendMessengerUserNum
+
+	}
+	if builder.sendMessengerNumFlag {
+		req.SendMessengerNum = &builder.sendMessengerNum
+
+	}
+	if builder.avgSendMessengerNumFlag {
+		req.AvgSendMessengerNum = &builder.avgSendMessengerNum
+
+	}
+	if builder.docsDauFlag {
+		req.DocsDau = &builder.docsDau
+
+	}
+	if builder.createDocsUserNumFlag {
+		req.CreateDocsUserNum = &builder.createDocsUserNum
+
+	}
+	if builder.createDocsNumFlag {
+		req.CreateDocsNum = &builder.createDocsNum
+
+	}
+	if builder.avgCreateDocsNumFlag {
+		req.AvgCreateDocsNum = &builder.avgCreateDocsNum
+
+	}
+	if builder.calDauFlag {
+		req.CalDau = &builder.calDau
+
+	}
+	if builder.createCalUserNumFlag {
+		req.CreateCalUserNum = &builder.createCalUserNum
+
+	}
+	if builder.createCalNumFlag {
+		req.CreateCalNum = &builder.createCalNum
+
+	}
+	if builder.avgCreateCalNumFlag {
+		req.AvgCreateCalNum = &builder.avgCreateCalNum
+
+	}
+	if builder.vcDauFlag {
+		req.VcDau = &builder.vcDau
+
+	}
+	if builder.vcDurationFlag {
+		req.VcDuration = &builder.vcDuration
+
+	}
+	if builder.avgVcDurationFlag {
+		req.AvgVcDuration = &builder.avgVcDuration
+
+	}
+	if builder.avgDurationFlag {
+		req.AvgDuration = &builder.avgDuration
+
+	}
+	if builder.taskDauFlag {
+		req.TaskDau = &builder.taskDau
+
+	}
+	if builder.createTaskUserNumFlag {
+		req.CreateTaskUserNum = &builder.createTaskUserNum
+
+	}
+	if builder.createTaskNumFlag {
+		req.CreateTaskNum = &builder.createTaskNum
+
+	}
+	if builder.avgCreateTaskNumFlag {
+		req.AvgCreateTaskNum = &builder.avgCreateTaskNum
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type AdminUserStat struct {
 	Date             *string `json:"date,omitempty"`
 	UserId           *string `json:"user_id,omitempty"`
@@ -79,15 +448,340 @@ type AdminUserStat struct {
 	VcNum            *int    `json:"vc_num,omitempty"`
 }
 
+/**builder开始**/
+type AdminUserStatBuilder struct {
+	date                 string
+	dateFlag             bool
+	userId               string
+	userIdFlag           bool
+	userName             string
+	userNameFlag         bool
+	departmentName       string
+	departmentNameFlag   bool
+	departmentPath       string
+	departmentPathFlag   bool
+	createTime           string
+	createTimeFlag       bool
+	userActiveFlag       int
+	userActiveFlagFlag   bool
+	registerTime         string
+	registerTimeFlag     bool
+	suiteActiveFlag      int
+	suiteActiveFlagFlag  bool
+	lastActiveTime       string
+	lastActiveTimeFlag   bool
+	imActiveFlag         int
+	imActiveFlagFlag     bool
+	sendMessengerNum     int
+	sendMessengerNumFlag bool
+	docsActiveFlag       int
+	docsActiveFlagFlag   bool
+	createDocsNum        int
+	createDocsNumFlag    bool
+	calActiveFlag        int
+	calActiveFlagFlag    bool
+	createCalNum         int
+	createCalNumFlag     bool
+	vcActiveFlag         int
+	vcActiveFlagFlag     bool
+	vcDuration           int
+	vcDurationFlag       bool
+	activeOs             string
+	activeOsFlag         bool
+	createTaskNum        int
+	createTaskNumFlag    bool
+	vcNum                int
+	vcNumFlag            bool
+}
+
+func NewAdminUserStatBuilder() *AdminUserStatBuilder {
+	builder := &AdminUserStatBuilder{}
+	return builder
+}
+
+func (builder *AdminUserStatBuilder) Date(date string) *AdminUserStatBuilder {
+	builder.date = date
+	builder.dateFlag = true
+	return builder
+}
+func (builder *AdminUserStatBuilder) UserId(userId string) *AdminUserStatBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *AdminUserStatBuilder) UserName(userName string) *AdminUserStatBuilder {
+	builder.userName = userName
+	builder.userNameFlag = true
+	return builder
+}
+func (builder *AdminUserStatBuilder) DepartmentName(departmentName string) *AdminUserStatBuilder {
+	builder.departmentName = departmentName
+	builder.departmentNameFlag = true
+	return builder
+}
+func (builder *AdminUserStatBuilder) DepartmentPath(departmentPath string) *AdminUserStatBuilder {
+	builder.departmentPath = departmentPath
+	builder.departmentPathFlag = true
+	return builder
+}
+func (builder *AdminUserStatBuilder) CreateTime(createTime string) *AdminUserStatBuilder {
+	builder.createTime = createTime
+	builder.createTimeFlag = true
+	return builder
+}
+func (builder *AdminUserStatBuilder) UserActiveFlag(userActiveFlag int) *AdminUserStatBuilder {
+	builder.userActiveFlag = userActiveFlag
+	builder.userActiveFlagFlag = true
+	return builder
+}
+func (builder *AdminUserStatBuilder) RegisterTime(registerTime string) *AdminUserStatBuilder {
+	builder.registerTime = registerTime
+	builder.registerTimeFlag = true
+	return builder
+}
+func (builder *AdminUserStatBuilder) SuiteActiveFlag(suiteActiveFlag int) *AdminUserStatBuilder {
+	builder.suiteActiveFlag = suiteActiveFlag
+	builder.suiteActiveFlagFlag = true
+	return builder
+}
+func (builder *AdminUserStatBuilder) LastActiveTime(lastActiveTime string) *AdminUserStatBuilder {
+	builder.lastActiveTime = lastActiveTime
+	builder.lastActiveTimeFlag = true
+	return builder
+}
+func (builder *AdminUserStatBuilder) ImActiveFlag(imActiveFlag int) *AdminUserStatBuilder {
+	builder.imActiveFlag = imActiveFlag
+	builder.imActiveFlagFlag = true
+	return builder
+}
+func (builder *AdminUserStatBuilder) SendMessengerNum(sendMessengerNum int) *AdminUserStatBuilder {
+	builder.sendMessengerNum = sendMessengerNum
+	builder.sendMessengerNumFlag = true
+	return builder
+}
+func (builder *AdminUserStatBuilder) DocsActiveFlag(docsActiveFlag int) *AdminUserStatBuilder {
+	builder.docsActiveFlag = docsActiveFlag
+	builder.docsActiveFlagFlag = true
+	return builder
+}
+func (builder *AdminUserStatBuilder) CreateDocsNum(createDocsNum int) *AdminUserStatBuilder {
+	builder.createDocsNum = createDocsNum
+	builder.createDocsNumFlag = true
+	return builder
+}
+func (builder *AdminUserStatBuilder) CalActiveFlag(calActiveFlag int) *AdminUserStatBuilder {
+	builder.calActiveFlag = calActiveFlag
+	builder.calActiveFlagFlag = true
+	return builder
+}
+func (builder *AdminUserStatBuilder) CreateCalNum(createCalNum int) *AdminUserStatBuilder {
+	builder.createCalNum = createCalNum
+	builder.createCalNumFlag = true
+	return builder
+}
+func (builder *AdminUserStatBuilder) VcActiveFlag(vcActiveFlag int) *AdminUserStatBuilder {
+	builder.vcActiveFlag = vcActiveFlag
+	builder.vcActiveFlagFlag = true
+	return builder
+}
+func (builder *AdminUserStatBuilder) VcDuration(vcDuration int) *AdminUserStatBuilder {
+	builder.vcDuration = vcDuration
+	builder.vcDurationFlag = true
+	return builder
+}
+func (builder *AdminUserStatBuilder) ActiveOs(activeOs string) *AdminUserStatBuilder {
+	builder.activeOs = activeOs
+	builder.activeOsFlag = true
+	return builder
+}
+func (builder *AdminUserStatBuilder) CreateTaskNum(createTaskNum int) *AdminUserStatBuilder {
+	builder.createTaskNum = createTaskNum
+	builder.createTaskNumFlag = true
+	return builder
+}
+func (builder *AdminUserStatBuilder) VcNum(vcNum int) *AdminUserStatBuilder {
+	builder.vcNum = vcNum
+	builder.vcNumFlag = true
+	return builder
+}
+
+func (builder *AdminUserStatBuilder) Build() *AdminUserStat {
+	req := &AdminUserStat{}
+	if builder.dateFlag {
+		req.Date = &builder.date
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.userNameFlag {
+		req.UserName = &builder.userName
+
+	}
+	if builder.departmentNameFlag {
+		req.DepartmentName = &builder.departmentName
+
+	}
+	if builder.departmentPathFlag {
+		req.DepartmentPath = &builder.departmentPath
+
+	}
+	if builder.createTimeFlag {
+		req.CreateTime = &builder.createTime
+
+	}
+	if builder.userActiveFlagFlag {
+		req.UserActiveFlag = &builder.userActiveFlag
+
+	}
+	if builder.registerTimeFlag {
+		req.RegisterTime = &builder.registerTime
+
+	}
+	if builder.suiteActiveFlagFlag {
+		req.SuiteActiveFlag = &builder.suiteActiveFlag
+
+	}
+	if builder.lastActiveTimeFlag {
+		req.LastActiveTime = &builder.lastActiveTime
+
+	}
+	if builder.imActiveFlagFlag {
+		req.ImActiveFlag = &builder.imActiveFlag
+
+	}
+	if builder.sendMessengerNumFlag {
+		req.SendMessengerNum = &builder.sendMessengerNum
+
+	}
+	if builder.docsActiveFlagFlag {
+		req.DocsActiveFlag = &builder.docsActiveFlag
+
+	}
+	if builder.createDocsNumFlag {
+		req.CreateDocsNum = &builder.createDocsNum
+
+	}
+	if builder.calActiveFlagFlag {
+		req.CalActiveFlag = &builder.calActiveFlag
+
+	}
+	if builder.createCalNumFlag {
+		req.CreateCalNum = &builder.createCalNum
+
+	}
+	if builder.vcActiveFlagFlag {
+		req.VcActiveFlag = &builder.vcActiveFlag
+
+	}
+	if builder.vcDurationFlag {
+		req.VcDuration = &builder.vcDuration
+
+	}
+	if builder.activeOsFlag {
+		req.ActiveOs = &builder.activeOs
+
+	}
+	if builder.createTaskNumFlag {
+		req.CreateTaskNum = &builder.createTaskNum
+
+	}
+	if builder.vcNumFlag {
+		req.VcNum = &builder.vcNum
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Administrator struct {
 	UserId               *int64 `json:"user_id,omitempty,string"`
 	IsSuperAdministrator *bool  `json:"is_super_administrator,omitempty"`
 	IsAdministrator      *bool  `json:"is_administrator,omitempty"`
 }
 
+/**builder开始**/
+type AdministratorBuilder struct {
+	userId                   int64
+	userIdFlag               bool
+	isSuperAdministrator     bool
+	isSuperAdministratorFlag bool
+	isAdministrator          bool
+	isAdministratorFlag      bool
+}
+
+func NewAdministratorBuilder() *AdministratorBuilder {
+	builder := &AdministratorBuilder{}
+	return builder
+}
+
+func (builder *AdministratorBuilder) UserId(userId int64) *AdministratorBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *AdministratorBuilder) IsSuperAdministrator(isSuperAdministrator bool) *AdministratorBuilder {
+	builder.isSuperAdministrator = isSuperAdministrator
+	builder.isSuperAdministratorFlag = true
+	return builder
+}
+func (builder *AdministratorBuilder) IsAdministrator(isAdministrator bool) *AdministratorBuilder {
+	builder.isAdministrator = isAdministrator
+	builder.isAdministratorFlag = true
+	return builder
+}
+
+func (builder *AdministratorBuilder) Build() *Administrator {
+	req := &Administrator{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.isSuperAdministratorFlag {
+		req.IsSuperAdministrator = &builder.isSuperAdministrator
+
+	}
+	if builder.isAdministratorFlag {
+		req.IsAdministrator = &builder.isAdministrator
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type ApiAuditCommonDrawers struct {
 	CommonDrawInfoList []*ApiAuditDrawerInfo `json:"common_draw_info_list,omitempty"`
 }
+
+/**builder开始**/
+type ApiAuditCommonDrawersBuilder struct {
+	commonDrawInfoList     []*ApiAuditDrawerInfo
+	commonDrawInfoListFlag bool
+}
+
+func NewApiAuditCommonDrawersBuilder() *ApiAuditCommonDrawersBuilder {
+	builder := &ApiAuditCommonDrawersBuilder{}
+	return builder
+}
+
+func (builder *ApiAuditCommonDrawersBuilder) CommonDrawInfoList(commonDrawInfoList []*ApiAuditDrawerInfo) *ApiAuditCommonDrawersBuilder {
+	builder.commonDrawInfoList = commonDrawInfoList
+	builder.commonDrawInfoListFlag = true
+	return builder
+}
+
+func (builder *ApiAuditCommonDrawersBuilder) Build() *ApiAuditCommonDrawers {
+	req := &ApiAuditCommonDrawers{}
+	if builder.commonDrawInfoListFlag {
+		req.CommonDrawInfoList = builder.commonDrawInfoList
+	}
+	return req
+}
+
+/**builder结束**/
 
 type ApiAuditDrawerInfo struct {
 	InfoKey    *string `json:"info_key,omitempty"`
@@ -96,6 +790,78 @@ type ApiAuditDrawerInfo struct {
 	ValType    *string `json:"val_type,omitempty"`
 	ValI18nKey *string `json:"val_i18n_key,omitempty"`
 }
+
+/**builder开始**/
+type ApiAuditDrawerInfoBuilder struct {
+	infoKey        string
+	infoKeyFlag    bool
+	infoVal        string
+	infoValFlag    bool
+	keyI18nKey     string
+	keyI18nKeyFlag bool
+	valType        string
+	valTypeFlag    bool
+	valI18nKey     string
+	valI18nKeyFlag bool
+}
+
+func NewApiAuditDrawerInfoBuilder() *ApiAuditDrawerInfoBuilder {
+	builder := &ApiAuditDrawerInfoBuilder{}
+	return builder
+}
+
+func (builder *ApiAuditDrawerInfoBuilder) InfoKey(infoKey string) *ApiAuditDrawerInfoBuilder {
+	builder.infoKey = infoKey
+	builder.infoKeyFlag = true
+	return builder
+}
+func (builder *ApiAuditDrawerInfoBuilder) InfoVal(infoVal string) *ApiAuditDrawerInfoBuilder {
+	builder.infoVal = infoVal
+	builder.infoValFlag = true
+	return builder
+}
+func (builder *ApiAuditDrawerInfoBuilder) KeyI18nKey(keyI18nKey string) *ApiAuditDrawerInfoBuilder {
+	builder.keyI18nKey = keyI18nKey
+	builder.keyI18nKeyFlag = true
+	return builder
+}
+func (builder *ApiAuditDrawerInfoBuilder) ValType(valType string) *ApiAuditDrawerInfoBuilder {
+	builder.valType = valType
+	builder.valTypeFlag = true
+	return builder
+}
+func (builder *ApiAuditDrawerInfoBuilder) ValI18nKey(valI18nKey string) *ApiAuditDrawerInfoBuilder {
+	builder.valI18nKey = valI18nKey
+	builder.valI18nKeyFlag = true
+	return builder
+}
+
+func (builder *ApiAuditDrawerInfoBuilder) Build() *ApiAuditDrawerInfo {
+	req := &ApiAuditDrawerInfo{}
+	if builder.infoKeyFlag {
+		req.InfoKey = &builder.infoKey
+
+	}
+	if builder.infoValFlag {
+		req.InfoVal = &builder.infoVal
+
+	}
+	if builder.keyI18nKeyFlag {
+		req.KeyI18nKey = &builder.keyI18nKey
+
+	}
+	if builder.valTypeFlag {
+		req.ValType = &builder.valType
+
+	}
+	if builder.valI18nKeyFlag {
+		req.ValI18nKey = &builder.valI18nKey
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type AuditAndroidContext struct {
 	Udid            *string `json:"udid,omitempty"`
@@ -120,6 +886,243 @@ type AuditAndroidContext struct {
 	IP              *string `json:"IP,omitempty"`
 }
 
+/**builder开始**/
+type AuditAndroidContextBuilder struct {
+	udid                string
+	udidFlag            bool
+	did                 string
+	didFlag             bool
+	appVer              string
+	appVerFlag          bool
+	ver                 string
+	verFlag             bool
+	region              string
+	regionFlag          bool
+	idI                 string
+	idIFlag             bool
+	idR                 string
+	idRFlag             bool
+	hwBrand             string
+	hwBrandFlag         bool
+	hwManuf             string
+	hwManufFlag         bool
+	wifip               string
+	wifipFlag           bool
+	routeIip            string
+	routeIipFlag        bool
+	routeGip            string
+	routeGipFlag        bool
+	envSu               string
+	envSuFlag           bool
+	envTz               string
+	envTzFlag           bool
+	envMl               string
+	envMlFlag           bool
+	location            string
+	locationFlag        bool
+	activeIp            string
+	activeIpFlag        bool
+	activeIpDetail      string
+	activeIpDetailFlag  bool
+	cellBaseStation     string
+	cellBaseStationFlag bool
+	iP                  string
+	iPFlag              bool
+}
+
+func NewAuditAndroidContextBuilder() *AuditAndroidContextBuilder {
+	builder := &AuditAndroidContextBuilder{}
+	return builder
+}
+
+func (builder *AuditAndroidContextBuilder) Udid(udid string) *AuditAndroidContextBuilder {
+	builder.udid = udid
+	builder.udidFlag = true
+	return builder
+}
+func (builder *AuditAndroidContextBuilder) Did(did string) *AuditAndroidContextBuilder {
+	builder.did = did
+	builder.didFlag = true
+	return builder
+}
+func (builder *AuditAndroidContextBuilder) AppVer(appVer string) *AuditAndroidContextBuilder {
+	builder.appVer = appVer
+	builder.appVerFlag = true
+	return builder
+}
+func (builder *AuditAndroidContextBuilder) Ver(ver string) *AuditAndroidContextBuilder {
+	builder.ver = ver
+	builder.verFlag = true
+	return builder
+}
+func (builder *AuditAndroidContextBuilder) Region(region string) *AuditAndroidContextBuilder {
+	builder.region = region
+	builder.regionFlag = true
+	return builder
+}
+func (builder *AuditAndroidContextBuilder) IdI(idI string) *AuditAndroidContextBuilder {
+	builder.idI = idI
+	builder.idIFlag = true
+	return builder
+}
+func (builder *AuditAndroidContextBuilder) IdR(idR string) *AuditAndroidContextBuilder {
+	builder.idR = idR
+	builder.idRFlag = true
+	return builder
+}
+func (builder *AuditAndroidContextBuilder) HwBrand(hwBrand string) *AuditAndroidContextBuilder {
+	builder.hwBrand = hwBrand
+	builder.hwBrandFlag = true
+	return builder
+}
+func (builder *AuditAndroidContextBuilder) HwManuf(hwManuf string) *AuditAndroidContextBuilder {
+	builder.hwManuf = hwManuf
+	builder.hwManufFlag = true
+	return builder
+}
+func (builder *AuditAndroidContextBuilder) Wifip(wifip string) *AuditAndroidContextBuilder {
+	builder.wifip = wifip
+	builder.wifipFlag = true
+	return builder
+}
+func (builder *AuditAndroidContextBuilder) RouteIip(routeIip string) *AuditAndroidContextBuilder {
+	builder.routeIip = routeIip
+	builder.routeIipFlag = true
+	return builder
+}
+func (builder *AuditAndroidContextBuilder) RouteGip(routeGip string) *AuditAndroidContextBuilder {
+	builder.routeGip = routeGip
+	builder.routeGipFlag = true
+	return builder
+}
+func (builder *AuditAndroidContextBuilder) EnvSu(envSu string) *AuditAndroidContextBuilder {
+	builder.envSu = envSu
+	builder.envSuFlag = true
+	return builder
+}
+func (builder *AuditAndroidContextBuilder) EnvTz(envTz string) *AuditAndroidContextBuilder {
+	builder.envTz = envTz
+	builder.envTzFlag = true
+	return builder
+}
+func (builder *AuditAndroidContextBuilder) EnvMl(envMl string) *AuditAndroidContextBuilder {
+	builder.envMl = envMl
+	builder.envMlFlag = true
+	return builder
+}
+func (builder *AuditAndroidContextBuilder) Location(location string) *AuditAndroidContextBuilder {
+	builder.location = location
+	builder.locationFlag = true
+	return builder
+}
+func (builder *AuditAndroidContextBuilder) ActiveIp(activeIp string) *AuditAndroidContextBuilder {
+	builder.activeIp = activeIp
+	builder.activeIpFlag = true
+	return builder
+}
+func (builder *AuditAndroidContextBuilder) ActiveIpDetail(activeIpDetail string) *AuditAndroidContextBuilder {
+	builder.activeIpDetail = activeIpDetail
+	builder.activeIpDetailFlag = true
+	return builder
+}
+func (builder *AuditAndroidContextBuilder) CellBaseStation(cellBaseStation string) *AuditAndroidContextBuilder {
+	builder.cellBaseStation = cellBaseStation
+	builder.cellBaseStationFlag = true
+	return builder
+}
+func (builder *AuditAndroidContextBuilder) IP(iP string) *AuditAndroidContextBuilder {
+	builder.iP = iP
+	builder.iPFlag = true
+	return builder
+}
+
+func (builder *AuditAndroidContextBuilder) Build() *AuditAndroidContext {
+	req := &AuditAndroidContext{}
+	if builder.udidFlag {
+		req.Udid = &builder.udid
+
+	}
+	if builder.didFlag {
+		req.Did = &builder.did
+
+	}
+	if builder.appVerFlag {
+		req.AppVer = &builder.appVer
+
+	}
+	if builder.verFlag {
+		req.Ver = &builder.ver
+
+	}
+	if builder.regionFlag {
+		req.Region = &builder.region
+
+	}
+	if builder.idIFlag {
+		req.IdI = &builder.idI
+
+	}
+	if builder.idRFlag {
+		req.IdR = &builder.idR
+
+	}
+	if builder.hwBrandFlag {
+		req.HwBrand = &builder.hwBrand
+
+	}
+	if builder.hwManufFlag {
+		req.HwManuf = &builder.hwManuf
+
+	}
+	if builder.wifipFlag {
+		req.Wifip = &builder.wifip
+
+	}
+	if builder.routeIipFlag {
+		req.RouteIip = &builder.routeIip
+
+	}
+	if builder.routeGipFlag {
+		req.RouteGip = &builder.routeGip
+
+	}
+	if builder.envSuFlag {
+		req.EnvSu = &builder.envSu
+
+	}
+	if builder.envTzFlag {
+		req.EnvTz = &builder.envTz
+
+	}
+	if builder.envMlFlag {
+		req.EnvMl = &builder.envMl
+
+	}
+	if builder.locationFlag {
+		req.Location = &builder.location
+
+	}
+	if builder.activeIpFlag {
+		req.ActiveIp = &builder.activeIp
+
+	}
+	if builder.activeIpDetailFlag {
+		req.ActiveIpDetail = &builder.activeIpDetail
+
+	}
+	if builder.cellBaseStationFlag {
+		req.CellBaseStation = &builder.cellBaseStation
+
+	}
+	if builder.iPFlag {
+		req.IP = &builder.iP
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type AuditContext struct {
 	TerminalType   *int                 `json:"terminal_type,omitempty"`
 	IosContext     *AuditIosContext     `json:"ios_context,omitempty"`
@@ -127,6 +1130,74 @@ type AuditContext struct {
 	WebContext     *AuditWebContext     `json:"web_context,omitempty"`
 	AndroidContext *AuditAndroidContext `json:"android_context,omitempty"`
 }
+
+/**builder开始**/
+type AuditContextBuilder struct {
+	terminalType       int
+	terminalTypeFlag   bool
+	iosContext         *AuditIosContext
+	iosContextFlag     bool
+	pcContext          *AuditPcContext
+	pcContextFlag      bool
+	webContext         *AuditWebContext
+	webContextFlag     bool
+	androidContext     *AuditAndroidContext
+	androidContextFlag bool
+}
+
+func NewAuditContextBuilder() *AuditContextBuilder {
+	builder := &AuditContextBuilder{}
+	return builder
+}
+
+func (builder *AuditContextBuilder) TerminalType(terminalType int) *AuditContextBuilder {
+	builder.terminalType = terminalType
+	builder.terminalTypeFlag = true
+	return builder
+}
+func (builder *AuditContextBuilder) IosContext(iosContext *AuditIosContext) *AuditContextBuilder {
+	builder.iosContext = iosContext
+	builder.iosContextFlag = true
+	return builder
+}
+func (builder *AuditContextBuilder) PcContext(pcContext *AuditPcContext) *AuditContextBuilder {
+	builder.pcContext = pcContext
+	builder.pcContextFlag = true
+	return builder
+}
+func (builder *AuditContextBuilder) WebContext(webContext *AuditWebContext) *AuditContextBuilder {
+	builder.webContext = webContext
+	builder.webContextFlag = true
+	return builder
+}
+func (builder *AuditContextBuilder) AndroidContext(androidContext *AuditAndroidContext) *AuditContextBuilder {
+	builder.androidContext = androidContext
+	builder.androidContextFlag = true
+	return builder
+}
+
+func (builder *AuditContextBuilder) Build() *AuditContext {
+	req := &AuditContext{}
+	if builder.terminalTypeFlag {
+		req.TerminalType = &builder.terminalType
+
+	}
+	if builder.iosContextFlag {
+		req.IosContext = builder.iosContext
+	}
+	if builder.pcContextFlag {
+		req.PcContext = builder.pcContext
+	}
+	if builder.webContextFlag {
+		req.WebContext = builder.webContext
+	}
+	if builder.androidContextFlag {
+		req.AndroidContext = builder.androidContext
+	}
+	return req
+}
+
+/**builder结束**/
 
 type AuditEventExtend struct {
 	CommentType                 *string `json:"comment_type,omitempty"`
@@ -140,6 +1211,133 @@ type AuditEventExtend struct {
 	QuitGroup                   *int    `json:"quit_group,omitempty"`
 	ExternalPeopleNumInDocShare *int    `json:"external_people_num_in_doc_share,omitempty"`
 }
+
+/**builder开始**/
+type AuditEventExtendBuilder struct {
+	commentType                     string
+	commentTypeFlag                 bool
+	appDetail                       string
+	appDetailFlag                   bool
+	twoStepValidation               bool
+	twoStepValidationFlag           bool
+	loginMethod                     string
+	loginMethodFlag                 bool
+	newPeopleNumInVideo             int
+	newPeopleNumInVideoFlag         bool
+	externalPeopleNumInVideo        int
+	externalPeopleNumInVideoFlag    bool
+	externalPeopleNumInChat         int
+	externalPeopleNumInChatFlag     bool
+	joinGroup                       int
+	joinGroupFlag                   bool
+	quitGroup                       int
+	quitGroupFlag                   bool
+	externalPeopleNumInDocShare     int
+	externalPeopleNumInDocShareFlag bool
+}
+
+func NewAuditEventExtendBuilder() *AuditEventExtendBuilder {
+	builder := &AuditEventExtendBuilder{}
+	return builder
+}
+
+func (builder *AuditEventExtendBuilder) CommentType(commentType string) *AuditEventExtendBuilder {
+	builder.commentType = commentType
+	builder.commentTypeFlag = true
+	return builder
+}
+func (builder *AuditEventExtendBuilder) AppDetail(appDetail string) *AuditEventExtendBuilder {
+	builder.appDetail = appDetail
+	builder.appDetailFlag = true
+	return builder
+}
+func (builder *AuditEventExtendBuilder) TwoStepValidation(twoStepValidation bool) *AuditEventExtendBuilder {
+	builder.twoStepValidation = twoStepValidation
+	builder.twoStepValidationFlag = true
+	return builder
+}
+func (builder *AuditEventExtendBuilder) LoginMethod(loginMethod string) *AuditEventExtendBuilder {
+	builder.loginMethod = loginMethod
+	builder.loginMethodFlag = true
+	return builder
+}
+func (builder *AuditEventExtendBuilder) NewPeopleNumInVideo(newPeopleNumInVideo int) *AuditEventExtendBuilder {
+	builder.newPeopleNumInVideo = newPeopleNumInVideo
+	builder.newPeopleNumInVideoFlag = true
+	return builder
+}
+func (builder *AuditEventExtendBuilder) ExternalPeopleNumInVideo(externalPeopleNumInVideo int) *AuditEventExtendBuilder {
+	builder.externalPeopleNumInVideo = externalPeopleNumInVideo
+	builder.externalPeopleNumInVideoFlag = true
+	return builder
+}
+func (builder *AuditEventExtendBuilder) ExternalPeopleNumInChat(externalPeopleNumInChat int) *AuditEventExtendBuilder {
+	builder.externalPeopleNumInChat = externalPeopleNumInChat
+	builder.externalPeopleNumInChatFlag = true
+	return builder
+}
+func (builder *AuditEventExtendBuilder) JoinGroup(joinGroup int) *AuditEventExtendBuilder {
+	builder.joinGroup = joinGroup
+	builder.joinGroupFlag = true
+	return builder
+}
+func (builder *AuditEventExtendBuilder) QuitGroup(quitGroup int) *AuditEventExtendBuilder {
+	builder.quitGroup = quitGroup
+	builder.quitGroupFlag = true
+	return builder
+}
+func (builder *AuditEventExtendBuilder) ExternalPeopleNumInDocShare(externalPeopleNumInDocShare int) *AuditEventExtendBuilder {
+	builder.externalPeopleNumInDocShare = externalPeopleNumInDocShare
+	builder.externalPeopleNumInDocShareFlag = true
+	return builder
+}
+
+func (builder *AuditEventExtendBuilder) Build() *AuditEventExtend {
+	req := &AuditEventExtend{}
+	if builder.commentTypeFlag {
+		req.CommentType = &builder.commentType
+
+	}
+	if builder.appDetailFlag {
+		req.AppDetail = &builder.appDetail
+
+	}
+	if builder.twoStepValidationFlag {
+		req.TwoStepValidation = &builder.twoStepValidation
+
+	}
+	if builder.loginMethodFlag {
+		req.LoginMethod = &builder.loginMethod
+
+	}
+	if builder.newPeopleNumInVideoFlag {
+		req.NewPeopleNumInVideo = &builder.newPeopleNumInVideo
+
+	}
+	if builder.externalPeopleNumInVideoFlag {
+		req.ExternalPeopleNumInVideo = &builder.externalPeopleNumInVideo
+
+	}
+	if builder.externalPeopleNumInChatFlag {
+		req.ExternalPeopleNumInChat = &builder.externalPeopleNumInChat
+
+	}
+	if builder.joinGroupFlag {
+		req.JoinGroup = &builder.joinGroup
+
+	}
+	if builder.quitGroupFlag {
+		req.QuitGroup = &builder.quitGroup
+
+	}
+	if builder.externalPeopleNumInDocShareFlag {
+		req.ExternalPeopleNumInDocShare = &builder.externalPeopleNumInDocShare
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type AuditInfo struct {
 	EventId         *string                 `json:"event_id,omitempty"`
@@ -160,6 +1358,193 @@ type AuditInfo struct {
 	CommonDrawers   *ApiAuditCommonDrawers  `json:"common_drawers,omitempty"`
 }
 
+/**builder开始**/
+type AuditInfoBuilder struct {
+	eventId             string
+	eventIdFlag         bool
+	uniqueId            string
+	uniqueIdFlag        bool
+	eventName           string
+	eventNameFlag       bool
+	departmentIds       []string
+	departmentIdsFlag   bool
+	eventModule         int
+	eventModuleFlag     bool
+	operatorType        int
+	operatorTypeFlag    bool
+	operatorValue       string
+	operatorValueFlag   bool
+	objects             []*AuditObjectEntity
+	objectsFlag         bool
+	recipients          []*AuditRecipientEntity
+	recipientsFlag      bool
+	eventTime           int
+	eventTimeFlag       bool
+	ip                  string
+	ipFlag              bool
+	operatorApp         string
+	operatorAppFlag     bool
+	auditContext        *AuditContext
+	auditContextFlag    bool
+	extend              *AuditEventExtend
+	extendFlag          bool
+	operatorAppName     string
+	operatorAppNameFlag bool
+	commonDrawers       *ApiAuditCommonDrawers
+	commonDrawersFlag   bool
+}
+
+func NewAuditInfoBuilder() *AuditInfoBuilder {
+	builder := &AuditInfoBuilder{}
+	return builder
+}
+
+func (builder *AuditInfoBuilder) EventId(eventId string) *AuditInfoBuilder {
+	builder.eventId = eventId
+	builder.eventIdFlag = true
+	return builder
+}
+func (builder *AuditInfoBuilder) UniqueId(uniqueId string) *AuditInfoBuilder {
+	builder.uniqueId = uniqueId
+	builder.uniqueIdFlag = true
+	return builder
+}
+func (builder *AuditInfoBuilder) EventName(eventName string) *AuditInfoBuilder {
+	builder.eventName = eventName
+	builder.eventNameFlag = true
+	return builder
+}
+func (builder *AuditInfoBuilder) DepartmentIds(departmentIds []string) *AuditInfoBuilder {
+	builder.departmentIds = departmentIds
+	builder.departmentIdsFlag = true
+	return builder
+}
+func (builder *AuditInfoBuilder) EventModule(eventModule int) *AuditInfoBuilder {
+	builder.eventModule = eventModule
+	builder.eventModuleFlag = true
+	return builder
+}
+func (builder *AuditInfoBuilder) OperatorType(operatorType int) *AuditInfoBuilder {
+	builder.operatorType = operatorType
+	builder.operatorTypeFlag = true
+	return builder
+}
+func (builder *AuditInfoBuilder) OperatorValue(operatorValue string) *AuditInfoBuilder {
+	builder.operatorValue = operatorValue
+	builder.operatorValueFlag = true
+	return builder
+}
+func (builder *AuditInfoBuilder) Objects(objects []*AuditObjectEntity) *AuditInfoBuilder {
+	builder.objects = objects
+	builder.objectsFlag = true
+	return builder
+}
+func (builder *AuditInfoBuilder) Recipients(recipients []*AuditRecipientEntity) *AuditInfoBuilder {
+	builder.recipients = recipients
+	builder.recipientsFlag = true
+	return builder
+}
+func (builder *AuditInfoBuilder) EventTime(eventTime int) *AuditInfoBuilder {
+	builder.eventTime = eventTime
+	builder.eventTimeFlag = true
+	return builder
+}
+func (builder *AuditInfoBuilder) Ip(ip string) *AuditInfoBuilder {
+	builder.ip = ip
+	builder.ipFlag = true
+	return builder
+}
+func (builder *AuditInfoBuilder) OperatorApp(operatorApp string) *AuditInfoBuilder {
+	builder.operatorApp = operatorApp
+	builder.operatorAppFlag = true
+	return builder
+}
+func (builder *AuditInfoBuilder) AuditContext(auditContext *AuditContext) *AuditInfoBuilder {
+	builder.auditContext = auditContext
+	builder.auditContextFlag = true
+	return builder
+}
+func (builder *AuditInfoBuilder) Extend(extend *AuditEventExtend) *AuditInfoBuilder {
+	builder.extend = extend
+	builder.extendFlag = true
+	return builder
+}
+func (builder *AuditInfoBuilder) OperatorAppName(operatorAppName string) *AuditInfoBuilder {
+	builder.operatorAppName = operatorAppName
+	builder.operatorAppNameFlag = true
+	return builder
+}
+func (builder *AuditInfoBuilder) CommonDrawers(commonDrawers *ApiAuditCommonDrawers) *AuditInfoBuilder {
+	builder.commonDrawers = commonDrawers
+	builder.commonDrawersFlag = true
+	return builder
+}
+
+func (builder *AuditInfoBuilder) Build() *AuditInfo {
+	req := &AuditInfo{}
+	if builder.eventIdFlag {
+		req.EventId = &builder.eventId
+
+	}
+	if builder.uniqueIdFlag {
+		req.UniqueId = &builder.uniqueId
+
+	}
+	if builder.eventNameFlag {
+		req.EventName = &builder.eventName
+
+	}
+	if builder.departmentIdsFlag {
+		req.DepartmentIds = builder.departmentIds
+	}
+	if builder.eventModuleFlag {
+		req.EventModule = &builder.eventModule
+
+	}
+	if builder.operatorTypeFlag {
+		req.OperatorType = &builder.operatorType
+
+	}
+	if builder.operatorValueFlag {
+		req.OperatorValue = &builder.operatorValue
+
+	}
+	if builder.objectsFlag {
+		req.Objects = builder.objects
+	}
+	if builder.recipientsFlag {
+		req.Recipients = builder.recipients
+	}
+	if builder.eventTimeFlag {
+		req.EventTime = &builder.eventTime
+
+	}
+	if builder.ipFlag {
+		req.Ip = &builder.ip
+
+	}
+	if builder.operatorAppFlag {
+		req.OperatorApp = &builder.operatorApp
+
+	}
+	if builder.auditContextFlag {
+		req.AuditContext = builder.auditContext
+	}
+	if builder.extendFlag {
+		req.Extend = builder.extend
+	}
+	if builder.operatorAppNameFlag {
+		req.OperatorAppName = &builder.operatorAppName
+
+	}
+	if builder.commonDrawersFlag {
+		req.CommonDrawers = builder.commonDrawers
+	}
+	return req
+}
+
+/**builder结束**/
+
 type AuditIosContext struct {
 	Udid            *string `json:"udid,omitempty"`
 	Did             *string `json:"did,omitempty"`
@@ -178,6 +1563,188 @@ type AuditIosContext struct {
 	IP              *string `json:"IP,omitempty"`
 }
 
+/**builder开始**/
+type AuditIosContextBuilder struct {
+	udid                string
+	udidFlag            bool
+	did                 string
+	didFlag             bool
+	appVer              string
+	appVerFlag          bool
+	ver                 string
+	verFlag             bool
+	os                  string
+	osFlag              bool
+	sTZone              string
+	sTZoneFlag          bool
+	mL                  string
+	mLFlag              bool
+	sjd                 string
+	sjdFlag             bool
+	proxyip             string
+	proxyipFlag         bool
+	wifip               string
+	wifipFlag           bool
+	location            string
+	locationFlag        bool
+	activeIp            string
+	activeIpFlag        bool
+	activeIpDetail      string
+	activeIpDetailFlag  bool
+	cellBaseStation     string
+	cellBaseStationFlag bool
+	iP                  string
+	iPFlag              bool
+}
+
+func NewAuditIosContextBuilder() *AuditIosContextBuilder {
+	builder := &AuditIosContextBuilder{}
+	return builder
+}
+
+func (builder *AuditIosContextBuilder) Udid(udid string) *AuditIosContextBuilder {
+	builder.udid = udid
+	builder.udidFlag = true
+	return builder
+}
+func (builder *AuditIosContextBuilder) Did(did string) *AuditIosContextBuilder {
+	builder.did = did
+	builder.didFlag = true
+	return builder
+}
+func (builder *AuditIosContextBuilder) AppVer(appVer string) *AuditIosContextBuilder {
+	builder.appVer = appVer
+	builder.appVerFlag = true
+	return builder
+}
+func (builder *AuditIosContextBuilder) Ver(ver string) *AuditIosContextBuilder {
+	builder.ver = ver
+	builder.verFlag = true
+	return builder
+}
+func (builder *AuditIosContextBuilder) Os(os string) *AuditIosContextBuilder {
+	builder.os = os
+	builder.osFlag = true
+	return builder
+}
+func (builder *AuditIosContextBuilder) STZone(sTZone string) *AuditIosContextBuilder {
+	builder.sTZone = sTZone
+	builder.sTZoneFlag = true
+	return builder
+}
+func (builder *AuditIosContextBuilder) ML(mL string) *AuditIosContextBuilder {
+	builder.mL = mL
+	builder.mLFlag = true
+	return builder
+}
+func (builder *AuditIosContextBuilder) Sjd(sjd string) *AuditIosContextBuilder {
+	builder.sjd = sjd
+	builder.sjdFlag = true
+	return builder
+}
+func (builder *AuditIosContextBuilder) Proxyip(proxyip string) *AuditIosContextBuilder {
+	builder.proxyip = proxyip
+	builder.proxyipFlag = true
+	return builder
+}
+func (builder *AuditIosContextBuilder) Wifip(wifip string) *AuditIosContextBuilder {
+	builder.wifip = wifip
+	builder.wifipFlag = true
+	return builder
+}
+func (builder *AuditIosContextBuilder) Location(location string) *AuditIosContextBuilder {
+	builder.location = location
+	builder.locationFlag = true
+	return builder
+}
+func (builder *AuditIosContextBuilder) ActiveIp(activeIp string) *AuditIosContextBuilder {
+	builder.activeIp = activeIp
+	builder.activeIpFlag = true
+	return builder
+}
+func (builder *AuditIosContextBuilder) ActiveIpDetail(activeIpDetail string) *AuditIosContextBuilder {
+	builder.activeIpDetail = activeIpDetail
+	builder.activeIpDetailFlag = true
+	return builder
+}
+func (builder *AuditIosContextBuilder) CellBaseStation(cellBaseStation string) *AuditIosContextBuilder {
+	builder.cellBaseStation = cellBaseStation
+	builder.cellBaseStationFlag = true
+	return builder
+}
+func (builder *AuditIosContextBuilder) IP(iP string) *AuditIosContextBuilder {
+	builder.iP = iP
+	builder.iPFlag = true
+	return builder
+}
+
+func (builder *AuditIosContextBuilder) Build() *AuditIosContext {
+	req := &AuditIosContext{}
+	if builder.udidFlag {
+		req.Udid = &builder.udid
+
+	}
+	if builder.didFlag {
+		req.Did = &builder.did
+
+	}
+	if builder.appVerFlag {
+		req.AppVer = &builder.appVer
+
+	}
+	if builder.verFlag {
+		req.Ver = &builder.ver
+
+	}
+	if builder.osFlag {
+		req.Os = &builder.os
+
+	}
+	if builder.sTZoneFlag {
+		req.STZone = &builder.sTZone
+
+	}
+	if builder.mLFlag {
+		req.ML = &builder.mL
+
+	}
+	if builder.sjdFlag {
+		req.Sjd = &builder.sjd
+
+	}
+	if builder.proxyipFlag {
+		req.Proxyip = &builder.proxyip
+
+	}
+	if builder.wifipFlag {
+		req.Wifip = &builder.wifip
+
+	}
+	if builder.locationFlag {
+		req.Location = &builder.location
+
+	}
+	if builder.activeIpFlag {
+		req.ActiveIp = &builder.activeIp
+
+	}
+	if builder.activeIpDetailFlag {
+		req.ActiveIpDetail = &builder.activeIpDetail
+
+	}
+	if builder.cellBaseStationFlag {
+		req.CellBaseStation = &builder.cellBaseStation
+
+	}
+	if builder.iPFlag {
+		req.IP = &builder.iP
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type AuditObjectDetail struct {
 	CloneSource                  *string `json:"clone_source,omitempty"`
 	TextDetail                   *string `json:"text_detail,omitempty"`
@@ -194,6 +1761,166 @@ type AuditObjectDetail struct {
 	CurrentPage                  *string `json:"current_page,omitempty"`
 }
 
+/**builder开始**/
+type AuditObjectDetailBuilder struct {
+	cloneSource                      string
+	cloneSourceFlag                  bool
+	textDetail                       string
+	textDetailFlag                   bool
+	fileName                         string
+	fileNameFlag                     bool
+	thirdPartyAppID                  string
+	thirdPartyAppIDFlag              bool
+	containFileNum                   int
+	containFileNumFlag               bool
+	permissionSettingType            string
+	permissionSettingTypeFlag        bool
+	permissionExternalAccessType     bool
+	permissionExternalAccessTypeFlag bool
+	permissionShareType              string
+	permissionShareTypeFlag          bool
+	fileServiceSource                string
+	fileServiceSourceFlag            bool
+	okrDownloadContent               string
+	okrDownloadContentFlag           bool
+	containerType                    string
+	containerTypeFlag                bool
+	containerId                      string
+	containerIdFlag                  bool
+	currentPage                      string
+	currentPageFlag                  bool
+}
+
+func NewAuditObjectDetailBuilder() *AuditObjectDetailBuilder {
+	builder := &AuditObjectDetailBuilder{}
+	return builder
+}
+
+func (builder *AuditObjectDetailBuilder) CloneSource(cloneSource string) *AuditObjectDetailBuilder {
+	builder.cloneSource = cloneSource
+	builder.cloneSourceFlag = true
+	return builder
+}
+func (builder *AuditObjectDetailBuilder) TextDetail(textDetail string) *AuditObjectDetailBuilder {
+	builder.textDetail = textDetail
+	builder.textDetailFlag = true
+	return builder
+}
+func (builder *AuditObjectDetailBuilder) FileName(fileName string) *AuditObjectDetailBuilder {
+	builder.fileName = fileName
+	builder.fileNameFlag = true
+	return builder
+}
+func (builder *AuditObjectDetailBuilder) ThirdPartyAppID(thirdPartyAppID string) *AuditObjectDetailBuilder {
+	builder.thirdPartyAppID = thirdPartyAppID
+	builder.thirdPartyAppIDFlag = true
+	return builder
+}
+func (builder *AuditObjectDetailBuilder) ContainFileNum(containFileNum int) *AuditObjectDetailBuilder {
+	builder.containFileNum = containFileNum
+	builder.containFileNumFlag = true
+	return builder
+}
+func (builder *AuditObjectDetailBuilder) PermissionSettingType(permissionSettingType string) *AuditObjectDetailBuilder {
+	builder.permissionSettingType = permissionSettingType
+	builder.permissionSettingTypeFlag = true
+	return builder
+}
+func (builder *AuditObjectDetailBuilder) PermissionExternalAccessType(permissionExternalAccessType bool) *AuditObjectDetailBuilder {
+	builder.permissionExternalAccessType = permissionExternalAccessType
+	builder.permissionExternalAccessTypeFlag = true
+	return builder
+}
+func (builder *AuditObjectDetailBuilder) PermissionShareType(permissionShareType string) *AuditObjectDetailBuilder {
+	builder.permissionShareType = permissionShareType
+	builder.permissionShareTypeFlag = true
+	return builder
+}
+func (builder *AuditObjectDetailBuilder) FileServiceSource(fileServiceSource string) *AuditObjectDetailBuilder {
+	builder.fileServiceSource = fileServiceSource
+	builder.fileServiceSourceFlag = true
+	return builder
+}
+func (builder *AuditObjectDetailBuilder) OkrDownloadContent(okrDownloadContent string) *AuditObjectDetailBuilder {
+	builder.okrDownloadContent = okrDownloadContent
+	builder.okrDownloadContentFlag = true
+	return builder
+}
+func (builder *AuditObjectDetailBuilder) ContainerType(containerType string) *AuditObjectDetailBuilder {
+	builder.containerType = containerType
+	builder.containerTypeFlag = true
+	return builder
+}
+func (builder *AuditObjectDetailBuilder) ContainerId(containerId string) *AuditObjectDetailBuilder {
+	builder.containerId = containerId
+	builder.containerIdFlag = true
+	return builder
+}
+func (builder *AuditObjectDetailBuilder) CurrentPage(currentPage string) *AuditObjectDetailBuilder {
+	builder.currentPage = currentPage
+	builder.currentPageFlag = true
+	return builder
+}
+
+func (builder *AuditObjectDetailBuilder) Build() *AuditObjectDetail {
+	req := &AuditObjectDetail{}
+	if builder.cloneSourceFlag {
+		req.CloneSource = &builder.cloneSource
+
+	}
+	if builder.textDetailFlag {
+		req.TextDetail = &builder.textDetail
+
+	}
+	if builder.fileNameFlag {
+		req.FileName = &builder.fileName
+
+	}
+	if builder.thirdPartyAppIDFlag {
+		req.ThirdPartyAppID = &builder.thirdPartyAppID
+
+	}
+	if builder.containFileNumFlag {
+		req.ContainFileNum = &builder.containFileNum
+
+	}
+	if builder.permissionSettingTypeFlag {
+		req.PermissionSettingType = &builder.permissionSettingType
+
+	}
+	if builder.permissionExternalAccessTypeFlag {
+		req.PermissionExternalAccessType = &builder.permissionExternalAccessType
+
+	}
+	if builder.permissionShareTypeFlag {
+		req.PermissionShareType = &builder.permissionShareType
+
+	}
+	if builder.fileServiceSourceFlag {
+		req.FileServiceSource = &builder.fileServiceSource
+
+	}
+	if builder.okrDownloadContentFlag {
+		req.OkrDownloadContent = &builder.okrDownloadContent
+
+	}
+	if builder.containerTypeFlag {
+		req.ContainerType = &builder.containerType
+
+	}
+	if builder.containerIdFlag {
+		req.ContainerId = &builder.containerId
+
+	}
+	if builder.currentPageFlag {
+		req.CurrentPage = &builder.currentPage
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type AuditObjectEntity struct {
 	ObjectType   *string            `json:"object_type,omitempty"`
 	ObjectValue  *string            `json:"object_value,omitempty"`
@@ -201,6 +1928,77 @@ type AuditObjectEntity struct {
 	ObjectOwner  *string            `json:"object_owner,omitempty"`
 	ObjectDetail *AuditObjectDetail `json:"object_detail,omitempty"`
 }
+
+/**builder开始**/
+type AuditObjectEntityBuilder struct {
+	objectType       string
+	objectTypeFlag   bool
+	objectValue      string
+	objectValueFlag  bool
+	objectName       string
+	objectNameFlag   bool
+	objectOwner      string
+	objectOwnerFlag  bool
+	objectDetail     *AuditObjectDetail
+	objectDetailFlag bool
+}
+
+func NewAuditObjectEntityBuilder() *AuditObjectEntityBuilder {
+	builder := &AuditObjectEntityBuilder{}
+	return builder
+}
+
+func (builder *AuditObjectEntityBuilder) ObjectType(objectType string) *AuditObjectEntityBuilder {
+	builder.objectType = objectType
+	builder.objectTypeFlag = true
+	return builder
+}
+func (builder *AuditObjectEntityBuilder) ObjectValue(objectValue string) *AuditObjectEntityBuilder {
+	builder.objectValue = objectValue
+	builder.objectValueFlag = true
+	return builder
+}
+func (builder *AuditObjectEntityBuilder) ObjectName(objectName string) *AuditObjectEntityBuilder {
+	builder.objectName = objectName
+	builder.objectNameFlag = true
+	return builder
+}
+func (builder *AuditObjectEntityBuilder) ObjectOwner(objectOwner string) *AuditObjectEntityBuilder {
+	builder.objectOwner = objectOwner
+	builder.objectOwnerFlag = true
+	return builder
+}
+func (builder *AuditObjectEntityBuilder) ObjectDetail(objectDetail *AuditObjectDetail) *AuditObjectEntityBuilder {
+	builder.objectDetail = objectDetail
+	builder.objectDetailFlag = true
+	return builder
+}
+
+func (builder *AuditObjectEntityBuilder) Build() *AuditObjectEntity {
+	req := &AuditObjectEntity{}
+	if builder.objectTypeFlag {
+		req.ObjectType = &builder.objectType
+
+	}
+	if builder.objectValueFlag {
+		req.ObjectValue = &builder.objectValue
+
+	}
+	if builder.objectNameFlag {
+		req.ObjectName = &builder.objectName
+
+	}
+	if builder.objectOwnerFlag {
+		req.ObjectOwner = &builder.objectOwner
+
+	}
+	if builder.objectDetailFlag {
+		req.ObjectDetail = builder.objectDetail
+	}
+	return req
+}
+
+/**builder结束**/
 
 type AuditPcContext struct {
 	Udid   *string `json:"udid,omitempty"`
@@ -213,9 +2011,142 @@ type AuditPcContext struct {
 	IP     *string `json:"IP,omitempty"`
 }
 
+/**builder开始**/
+type AuditPcContextBuilder struct {
+	udid       string
+	udidFlag   bool
+	did        string
+	didFlag    bool
+	appVer     string
+	appVerFlag bool
+	ver        string
+	verFlag    bool
+	os         string
+	osFlag     bool
+	wifip      string
+	wifipFlag  bool
+	region     string
+	regionFlag bool
+	iP         string
+	iPFlag     bool
+}
+
+func NewAuditPcContextBuilder() *AuditPcContextBuilder {
+	builder := &AuditPcContextBuilder{}
+	return builder
+}
+
+func (builder *AuditPcContextBuilder) Udid(udid string) *AuditPcContextBuilder {
+	builder.udid = udid
+	builder.udidFlag = true
+	return builder
+}
+func (builder *AuditPcContextBuilder) Did(did string) *AuditPcContextBuilder {
+	builder.did = did
+	builder.didFlag = true
+	return builder
+}
+func (builder *AuditPcContextBuilder) AppVer(appVer string) *AuditPcContextBuilder {
+	builder.appVer = appVer
+	builder.appVerFlag = true
+	return builder
+}
+func (builder *AuditPcContextBuilder) Ver(ver string) *AuditPcContextBuilder {
+	builder.ver = ver
+	builder.verFlag = true
+	return builder
+}
+func (builder *AuditPcContextBuilder) Os(os string) *AuditPcContextBuilder {
+	builder.os = os
+	builder.osFlag = true
+	return builder
+}
+func (builder *AuditPcContextBuilder) Wifip(wifip string) *AuditPcContextBuilder {
+	builder.wifip = wifip
+	builder.wifipFlag = true
+	return builder
+}
+func (builder *AuditPcContextBuilder) Region(region string) *AuditPcContextBuilder {
+	builder.region = region
+	builder.regionFlag = true
+	return builder
+}
+func (builder *AuditPcContextBuilder) IP(iP string) *AuditPcContextBuilder {
+	builder.iP = iP
+	builder.iPFlag = true
+	return builder
+}
+
+func (builder *AuditPcContextBuilder) Build() *AuditPcContext {
+	req := &AuditPcContext{}
+	if builder.udidFlag {
+		req.Udid = &builder.udid
+
+	}
+	if builder.didFlag {
+		req.Did = &builder.did
+
+	}
+	if builder.appVerFlag {
+		req.AppVer = &builder.appVer
+
+	}
+	if builder.verFlag {
+		req.Ver = &builder.ver
+
+	}
+	if builder.osFlag {
+		req.Os = &builder.os
+
+	}
+	if builder.wifipFlag {
+		req.Wifip = &builder.wifip
+
+	}
+	if builder.regionFlag {
+		req.Region = &builder.region
+
+	}
+	if builder.iPFlag {
+		req.IP = &builder.iP
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type AuditRecipientDetail struct {
 	PermissionActionType *string `json:"permission_action_type,omitempty"`
 }
+
+/**builder开始**/
+type AuditRecipientDetailBuilder struct {
+	permissionActionType     string
+	permissionActionTypeFlag bool
+}
+
+func NewAuditRecipientDetailBuilder() *AuditRecipientDetailBuilder {
+	builder := &AuditRecipientDetailBuilder{}
+	return builder
+}
+
+func (builder *AuditRecipientDetailBuilder) PermissionActionType(permissionActionType string) *AuditRecipientDetailBuilder {
+	builder.permissionActionType = permissionActionType
+	builder.permissionActionTypeFlag = true
+	return builder
+}
+
+func (builder *AuditRecipientDetailBuilder) Build() *AuditRecipientDetail {
+	req := &AuditRecipientDetail{}
+	if builder.permissionActionTypeFlag {
+		req.PermissionActionType = &builder.permissionActionType
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type AuditRecipientEntity struct {
 	RecipientType   *string               `json:"recipient_type,omitempty"`
@@ -223,10 +2154,98 @@ type AuditRecipientEntity struct {
 	RecipientDetail *AuditRecipientDetail `json:"recipient_detail,omitempty"`
 }
 
+/**builder开始**/
+type AuditRecipientEntityBuilder struct {
+	recipientType       string
+	recipientTypeFlag   bool
+	recipientValue      string
+	recipientValueFlag  bool
+	recipientDetail     *AuditRecipientDetail
+	recipientDetailFlag bool
+}
+
+func NewAuditRecipientEntityBuilder() *AuditRecipientEntityBuilder {
+	builder := &AuditRecipientEntityBuilder{}
+	return builder
+}
+
+func (builder *AuditRecipientEntityBuilder) RecipientType(recipientType string) *AuditRecipientEntityBuilder {
+	builder.recipientType = recipientType
+	builder.recipientTypeFlag = true
+	return builder
+}
+func (builder *AuditRecipientEntityBuilder) RecipientValue(recipientValue string) *AuditRecipientEntityBuilder {
+	builder.recipientValue = recipientValue
+	builder.recipientValueFlag = true
+	return builder
+}
+func (builder *AuditRecipientEntityBuilder) RecipientDetail(recipientDetail *AuditRecipientDetail) *AuditRecipientEntityBuilder {
+	builder.recipientDetail = recipientDetail
+	builder.recipientDetailFlag = true
+	return builder
+}
+
+func (builder *AuditRecipientEntityBuilder) Build() *AuditRecipientEntity {
+	req := &AuditRecipientEntity{}
+	if builder.recipientTypeFlag {
+		req.RecipientType = &builder.recipientType
+
+	}
+	if builder.recipientValueFlag {
+		req.RecipientValue = &builder.recipientValue
+
+	}
+	if builder.recipientDetailFlag {
+		req.RecipientDetail = builder.recipientDetail
+	}
+	return req
+}
+
+/**builder结束**/
+
 type AuditWebContext struct {
 	UserAgent *string `json:"user_agent,omitempty"`
 	IP        *string `json:"IP,omitempty"`
 }
+
+/**builder开始**/
+type AuditWebContextBuilder struct {
+	userAgent     string
+	userAgentFlag bool
+	iP            string
+	iPFlag        bool
+}
+
+func NewAuditWebContextBuilder() *AuditWebContextBuilder {
+	builder := &AuditWebContextBuilder{}
+	return builder
+}
+
+func (builder *AuditWebContextBuilder) UserAgent(userAgent string) *AuditWebContextBuilder {
+	builder.userAgent = userAgent
+	builder.userAgentFlag = true
+	return builder
+}
+func (builder *AuditWebContextBuilder) IP(iP string) *AuditWebContextBuilder {
+	builder.iP = iP
+	builder.iPFlag = true
+	return builder
+}
+
+func (builder *AuditWebContextBuilder) Build() *AuditWebContext {
+	req := &AuditWebContext{}
+	if builder.userAgentFlag {
+		req.UserAgent = &builder.userAgent
+
+	}
+	if builder.iPFlag {
+		req.IP = &builder.iP
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type Badge struct {
 	Id          *string `json:"id,omitempty"`
@@ -235,6 +2254,78 @@ type Badge struct {
 	DetailImage *string `json:"detail_image,omitempty"`
 	ShowImage   *string `json:"show_image,omitempty"`
 }
+
+/**builder开始**/
+type BadgeBuilder struct {
+	id              string
+	idFlag          bool
+	name            string
+	nameFlag        bool
+	explanation     string
+	explanationFlag bool
+	detailImage     string
+	detailImageFlag bool
+	showImage       string
+	showImageFlag   bool
+}
+
+func NewBadgeBuilder() *BadgeBuilder {
+	builder := &BadgeBuilder{}
+	return builder
+}
+
+func (builder *BadgeBuilder) Id(id string) *BadgeBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *BadgeBuilder) Name(name string) *BadgeBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *BadgeBuilder) Explanation(explanation string) *BadgeBuilder {
+	builder.explanation = explanation
+	builder.explanationFlag = true
+	return builder
+}
+func (builder *BadgeBuilder) DetailImage(detailImage string) *BadgeBuilder {
+	builder.detailImage = detailImage
+	builder.detailImageFlag = true
+	return builder
+}
+func (builder *BadgeBuilder) ShowImage(showImage string) *BadgeBuilder {
+	builder.showImage = showImage
+	builder.showImageFlag = true
+	return builder
+}
+
+func (builder *BadgeBuilder) Build() *Badge {
+	req := &Badge{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.explanationFlag {
+		req.Explanation = &builder.explanation
+
+	}
+	if builder.detailImageFlag {
+		req.DetailImage = &builder.detailImage
+
+	}
+	if builder.showImageFlag {
+		req.ShowImage = &builder.showImage
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type File struct {
 	Title      *string `json:"title,omitempty"`
@@ -246,9 +2337,129 @@ type File struct {
 	Token      *string `json:"token,omitempty"`
 }
 
+/**builder开始**/
+type FileBuilder struct {
+	title          string
+	titleFlag      bool
+	type_          string
+	typeFlag       bool
+	owner          *User
+	ownerFlag      bool
+	size           string
+	sizeFlag       bool
+	lastOpTime     string
+	lastOpTimeFlag bool
+	status         string
+	statusFlag     bool
+	token          string
+	tokenFlag      bool
+}
+
+func NewFileBuilder() *FileBuilder {
+	builder := &FileBuilder{}
+	return builder
+}
+
+func (builder *FileBuilder) Title(title string) *FileBuilder {
+	builder.title = title
+	builder.titleFlag = true
+	return builder
+}
+func (builder *FileBuilder) Type(type_ string) *FileBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+func (builder *FileBuilder) Owner(owner *User) *FileBuilder {
+	builder.owner = owner
+	builder.ownerFlag = true
+	return builder
+}
+func (builder *FileBuilder) Size(size string) *FileBuilder {
+	builder.size = size
+	builder.sizeFlag = true
+	return builder
+}
+func (builder *FileBuilder) LastOpTime(lastOpTime string) *FileBuilder {
+	builder.lastOpTime = lastOpTime
+	builder.lastOpTimeFlag = true
+	return builder
+}
+func (builder *FileBuilder) Status(status string) *FileBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+func (builder *FileBuilder) Token(token string) *FileBuilder {
+	builder.token = token
+	builder.tokenFlag = true
+	return builder
+}
+
+func (builder *FileBuilder) Build() *File {
+	req := &File{}
+	if builder.titleFlag {
+		req.Title = &builder.title
+
+	}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.ownerFlag {
+		req.Owner = builder.owner
+	}
+	if builder.sizeFlag {
+		req.Size = &builder.size
+
+	}
+	if builder.lastOpTimeFlag {
+		req.LastOpTime = &builder.lastOpTime
+
+	}
+	if builder.statusFlag {
+		req.Status = &builder.status
+
+	}
+	if builder.tokenFlag {
+		req.Token = &builder.token
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type FileList struct {
 	Files []*File `json:"files,omitempty"`
 }
+
+/**builder开始**/
+type FileListBuilder struct {
+	files     []*File
+	filesFlag bool
+}
+
+func NewFileListBuilder() *FileListBuilder {
+	builder := &FileListBuilder{}
+	return builder
+}
+
+func (builder *FileListBuilder) Files(files []*File) *FileListBuilder {
+	builder.files = files
+	builder.filesFlag = true
+	return builder
+}
+
+func (builder *FileListBuilder) Build() *FileList {
+	req := &FileList{}
+	if builder.filesFlag {
+		req.Files = builder.files
+	}
+	return req
+}
+
+/**builder结束**/
 
 type Grant struct {
 	Id            *string     `json:"id,omitempty"`
@@ -263,9 +2474,160 @@ type Grant struct {
 	GroupIds      []string    `json:"group_ids,omitempty"`
 }
 
+/**builder开始**/
+type GrantBuilder struct {
+	id                string
+	idFlag            bool
+	badgeId           string
+	badgeIdFlag       bool
+	name              string
+	nameFlag          bool
+	grantType         int
+	grantTypeFlag     bool
+	timeZone          string
+	timeZoneFlag      bool
+	ruleDetail        *RuleDetail
+	ruleDetailFlag    bool
+	isGrantAll        bool
+	isGrantAllFlag    bool
+	userIds           []string
+	userIdsFlag       bool
+	departmentIds     []string
+	departmentIdsFlag bool
+	groupIds          []string
+	groupIdsFlag      bool
+}
+
+func NewGrantBuilder() *GrantBuilder {
+	builder := &GrantBuilder{}
+	return builder
+}
+
+func (builder *GrantBuilder) Id(id string) *GrantBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *GrantBuilder) BadgeId(badgeId string) *GrantBuilder {
+	builder.badgeId = badgeId
+	builder.badgeIdFlag = true
+	return builder
+}
+func (builder *GrantBuilder) Name(name string) *GrantBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *GrantBuilder) GrantType(grantType int) *GrantBuilder {
+	builder.grantType = grantType
+	builder.grantTypeFlag = true
+	return builder
+}
+func (builder *GrantBuilder) TimeZone(timeZone string) *GrantBuilder {
+	builder.timeZone = timeZone
+	builder.timeZoneFlag = true
+	return builder
+}
+func (builder *GrantBuilder) RuleDetail(ruleDetail *RuleDetail) *GrantBuilder {
+	builder.ruleDetail = ruleDetail
+	builder.ruleDetailFlag = true
+	return builder
+}
+func (builder *GrantBuilder) IsGrantAll(isGrantAll bool) *GrantBuilder {
+	builder.isGrantAll = isGrantAll
+	builder.isGrantAllFlag = true
+	return builder
+}
+func (builder *GrantBuilder) UserIds(userIds []string) *GrantBuilder {
+	builder.userIds = userIds
+	builder.userIdsFlag = true
+	return builder
+}
+func (builder *GrantBuilder) DepartmentIds(departmentIds []string) *GrantBuilder {
+	builder.departmentIds = departmentIds
+	builder.departmentIdsFlag = true
+	return builder
+}
+func (builder *GrantBuilder) GroupIds(groupIds []string) *GrantBuilder {
+	builder.groupIds = groupIds
+	builder.groupIdsFlag = true
+	return builder
+}
+
+func (builder *GrantBuilder) Build() *Grant {
+	req := &Grant{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.badgeIdFlag {
+		req.BadgeId = &builder.badgeId
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.grantTypeFlag {
+		req.GrantType = &builder.grantType
+
+	}
+	if builder.timeZoneFlag {
+		req.TimeZone = &builder.timeZone
+
+	}
+	if builder.ruleDetailFlag {
+		req.RuleDetail = builder.ruleDetail
+	}
+	if builder.isGrantAllFlag {
+		req.IsGrantAll = &builder.isGrantAll
+
+	}
+	if builder.userIdsFlag {
+		req.UserIds = builder.userIds
+	}
+	if builder.departmentIdsFlag {
+		req.DepartmentIds = builder.departmentIds
+	}
+	if builder.groupIdsFlag {
+		req.GroupIds = builder.groupIds
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Password struct {
 	EntEmailPassword *string `json:"ent_email_password,omitempty"`
 }
+
+/**builder开始**/
+type PasswordBuilder struct {
+	entEmailPassword     string
+	entEmailPasswordFlag bool
+}
+
+func NewPasswordBuilder() *PasswordBuilder {
+	builder := &PasswordBuilder{}
+	return builder
+}
+
+func (builder *PasswordBuilder) EntEmailPassword(entEmailPassword string) *PasswordBuilder {
+	builder.entEmailPassword = entEmailPassword
+	builder.entEmailPasswordFlag = true
+	return builder
+}
+
+func (builder *PasswordBuilder) Build() *Password {
+	req := &Password{}
+	if builder.entEmailPasswordFlag {
+		req.EntEmailPassword = &builder.entEmailPassword
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type RuleDetail struct {
 	EffectiveTime   *int64 `json:"effective_time,omitempty,string"`
@@ -273,6 +2635,67 @@ type RuleDetail struct {
 	Anniversary     *int   `json:"anniversary,omitempty"`
 	EffectivePeriod *int   `json:"effective_period,omitempty"`
 }
+
+/**builder开始**/
+type RuleDetailBuilder struct {
+	effectiveTime       int64
+	effectiveTimeFlag   bool
+	expirationTime      int64
+	expirationTimeFlag  bool
+	anniversary         int
+	anniversaryFlag     bool
+	effectivePeriod     int
+	effectivePeriodFlag bool
+}
+
+func NewRuleDetailBuilder() *RuleDetailBuilder {
+	builder := &RuleDetailBuilder{}
+	return builder
+}
+
+func (builder *RuleDetailBuilder) EffectiveTime(effectiveTime int64) *RuleDetailBuilder {
+	builder.effectiveTime = effectiveTime
+	builder.effectiveTimeFlag = true
+	return builder
+}
+func (builder *RuleDetailBuilder) ExpirationTime(expirationTime int64) *RuleDetailBuilder {
+	builder.expirationTime = expirationTime
+	builder.expirationTimeFlag = true
+	return builder
+}
+func (builder *RuleDetailBuilder) Anniversary(anniversary int) *RuleDetailBuilder {
+	builder.anniversary = anniversary
+	builder.anniversaryFlag = true
+	return builder
+}
+func (builder *RuleDetailBuilder) EffectivePeriod(effectivePeriod int) *RuleDetailBuilder {
+	builder.effectivePeriod = effectivePeriod
+	builder.effectivePeriodFlag = true
+	return builder
+}
+
+func (builder *RuleDetailBuilder) Build() *RuleDetail {
+	req := &RuleDetail{}
+	if builder.effectiveTimeFlag {
+		req.EffectiveTime = &builder.effectiveTime
+
+	}
+	if builder.expirationTimeFlag {
+		req.ExpirationTime = &builder.expirationTime
+
+	}
+	if builder.anniversaryFlag {
+		req.Anniversary = &builder.anniversary
+
+	}
+	if builder.effectivePeriodFlag {
+		req.EffectivePeriod = &builder.effectivePeriod
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type SplashPageStat struct {
 	Date                      *string `json:"date,omitempty"`
@@ -285,15 +2708,197 @@ type SplashPageStat struct {
 	SkipCountAccumulate       *int    `json:"skip_count_accumulate,omitempty"`
 }
 
+/**builder开始**/
+type SplashPageStatBuilder struct {
+	date                          string
+	dateFlag                      bool
+	splashId                      string
+	splashIdFlag                  bool
+	impressionCount               int
+	impressionCountFlag           bool
+	clickCount                    int
+	clickCountFlag                bool
+	skipCount                     int
+	skipCountFlag                 bool
+	impressionCountAccumulate     int
+	impressionCountAccumulateFlag bool
+	clickCountAccumulate          int
+	clickCountAccumulateFlag      bool
+	skipCountAccumulate           int
+	skipCountAccumulateFlag       bool
+}
+
+func NewSplashPageStatBuilder() *SplashPageStatBuilder {
+	builder := &SplashPageStatBuilder{}
+	return builder
+}
+
+func (builder *SplashPageStatBuilder) Date(date string) *SplashPageStatBuilder {
+	builder.date = date
+	builder.dateFlag = true
+	return builder
+}
+func (builder *SplashPageStatBuilder) SplashId(splashId string) *SplashPageStatBuilder {
+	builder.splashId = splashId
+	builder.splashIdFlag = true
+	return builder
+}
+func (builder *SplashPageStatBuilder) ImpressionCount(impressionCount int) *SplashPageStatBuilder {
+	builder.impressionCount = impressionCount
+	builder.impressionCountFlag = true
+	return builder
+}
+func (builder *SplashPageStatBuilder) ClickCount(clickCount int) *SplashPageStatBuilder {
+	builder.clickCount = clickCount
+	builder.clickCountFlag = true
+	return builder
+}
+func (builder *SplashPageStatBuilder) SkipCount(skipCount int) *SplashPageStatBuilder {
+	builder.skipCount = skipCount
+	builder.skipCountFlag = true
+	return builder
+}
+func (builder *SplashPageStatBuilder) ImpressionCountAccumulate(impressionCountAccumulate int) *SplashPageStatBuilder {
+	builder.impressionCountAccumulate = impressionCountAccumulate
+	builder.impressionCountAccumulateFlag = true
+	return builder
+}
+func (builder *SplashPageStatBuilder) ClickCountAccumulate(clickCountAccumulate int) *SplashPageStatBuilder {
+	builder.clickCountAccumulate = clickCountAccumulate
+	builder.clickCountAccumulateFlag = true
+	return builder
+}
+func (builder *SplashPageStatBuilder) SkipCountAccumulate(skipCountAccumulate int) *SplashPageStatBuilder {
+	builder.skipCountAccumulate = skipCountAccumulate
+	builder.skipCountAccumulateFlag = true
+	return builder
+}
+
+func (builder *SplashPageStatBuilder) Build() *SplashPageStat {
+	req := &SplashPageStat{}
+	if builder.dateFlag {
+		req.Date = &builder.date
+
+	}
+	if builder.splashIdFlag {
+		req.SplashId = &builder.splashId
+
+	}
+	if builder.impressionCountFlag {
+		req.ImpressionCount = &builder.impressionCount
+
+	}
+	if builder.clickCountFlag {
+		req.ClickCount = &builder.clickCount
+
+	}
+	if builder.skipCountFlag {
+		req.SkipCount = &builder.skipCount
+
+	}
+	if builder.impressionCountAccumulateFlag {
+		req.ImpressionCountAccumulate = &builder.impressionCountAccumulate
+
+	}
+	if builder.clickCountAccumulateFlag {
+		req.ClickCountAccumulate = &builder.clickCountAccumulate
+
+	}
+	if builder.skipCountAccumulateFlag {
+		req.SkipCountAccumulate = &builder.skipCountAccumulate
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type User struct {
 	Name   *string `json:"name,omitempty"`
 	Avatar *string `json:"avatar,omitempty"`
 	Id     *string `json:"id,omitempty"`
 }
 
+/**builder开始**/
+type UserBuilder struct {
+	name       string
+	nameFlag   bool
+	avatar     string
+	avatarFlag bool
+	id         string
+	idFlag     bool
+}
+
+func NewUserBuilder() *UserBuilder {
+	builder := &UserBuilder{}
+	return builder
+}
+
+func (builder *UserBuilder) Name(name string) *UserBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *UserBuilder) Avatar(avatar string) *UserBuilder {
+	builder.avatar = avatar
+	builder.avatarFlag = true
+	return builder
+}
+func (builder *UserBuilder) Id(id string) *UserBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+func (builder *UserBuilder) Build() *User {
+	req := &User{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.avatarFlag {
+		req.Avatar = &builder.avatar
+
+	}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type UserAnnualReport struct {
 	Year2021 *UserReport2021 `json:"year_2021,omitempty"`
 }
+
+/**builder开始**/
+type UserAnnualReportBuilder struct {
+	year2021     *UserReport2021
+	year2021Flag bool
+}
+
+func NewUserAnnualReportBuilder() *UserAnnualReportBuilder {
+	builder := &UserAnnualReportBuilder{}
+	return builder
+}
+
+func (builder *UserAnnualReportBuilder) Year2021(year2021 *UserReport2021) *UserAnnualReportBuilder {
+	builder.year2021 = year2021
+	builder.year2021Flag = true
+	return builder
+}
+
+func (builder *UserAnnualReportBuilder) Build() *UserAnnualReport {
+	req := &UserAnnualReport{}
+	if builder.year2021Flag {
+		req.Year2021 = builder.year2021
+	}
+	return req
+}
+
+/**builder结束**/
 
 type UserReport2021 struct {
 	ActiveDayCount                *int     `json:"active_day_count,omitempty"`
@@ -322,6 +2927,298 @@ type UserReport2021 struct {
 	BusyWeekActDays               *int     `json:"busy_week_act_days,omitempty"`
 	CreateReadUserCount           *string  `json:"create_read_user_count,omitempty"`
 }
+
+/**builder开始**/
+type UserReport2021Builder struct {
+	activeDayCount                    int
+	activeDayCountFlag                bool
+	busyWeek                          string
+	busyWeekFlag                      bool
+	p2pChatCount                      string
+	p2pChatCountFlag                  bool
+	talkedChatCount                   string
+	talkedChatCountFlag               bool
+	favoriteEmoji                     string
+	favoriteEmojiFlag                 bool
+	reactionCount                     string
+	reactionCountFlag                 bool
+	conferenceCreateCount             string
+	conferenceCreateCountFlag         bool
+	totalPartiCount                   string
+	totalPartiCountFlag               bool
+	minutesObjectCount                string
+	minutesObjectCountFlag            bool
+	minutesDuration                   float64
+	minutesDurationFlag               bool
+	createEditFileCount               string
+	createEditFileCountFlag           bool
+	createFileCount                   string
+	createFileCountFlag               bool
+	cooperateEditFileCount            string
+	cooperateEditFileCountFlag        bool
+	likeRecordCount                   string
+	likeRecordCountFlag               bool
+	okrCumOCount                      string
+	okrCumOCountFlag                  bool
+	okrCumKrCount                     string
+	okrCumKrCountFlag                 bool
+	okrAlignedUserRankfirst           string
+	okrAlignedUserRankfirstFlag       bool
+	approvalStartCount                string
+	approvalStartCountFlag            bool
+	approvalExecuteCount              string
+	approvalExecuteCountFlag          bool
+	approvalRelationUserRankfirst     string
+	approvalRelationUserRankfirstFlag bool
+	userId                            string
+	userIdFlag                        bool
+	busyWeekSumDuration               string
+	busyWeekSumDurationFlag           bool
+	busyWeekMdate                     string
+	busyWeekMdateFlag                 bool
+	busyWeekActDays                   int
+	busyWeekActDaysFlag               bool
+	createReadUserCount               string
+	createReadUserCountFlag           bool
+}
+
+func NewUserReport2021Builder() *UserReport2021Builder {
+	builder := &UserReport2021Builder{}
+	return builder
+}
+
+func (builder *UserReport2021Builder) ActiveDayCount(activeDayCount int) *UserReport2021Builder {
+	builder.activeDayCount = activeDayCount
+	builder.activeDayCountFlag = true
+	return builder
+}
+func (builder *UserReport2021Builder) BusyWeek(busyWeek string) *UserReport2021Builder {
+	builder.busyWeek = busyWeek
+	builder.busyWeekFlag = true
+	return builder
+}
+func (builder *UserReport2021Builder) P2pChatCount(p2pChatCount string) *UserReport2021Builder {
+	builder.p2pChatCount = p2pChatCount
+	builder.p2pChatCountFlag = true
+	return builder
+}
+func (builder *UserReport2021Builder) TalkedChatCount(talkedChatCount string) *UserReport2021Builder {
+	builder.talkedChatCount = talkedChatCount
+	builder.talkedChatCountFlag = true
+	return builder
+}
+func (builder *UserReport2021Builder) FavoriteEmoji(favoriteEmoji string) *UserReport2021Builder {
+	builder.favoriteEmoji = favoriteEmoji
+	builder.favoriteEmojiFlag = true
+	return builder
+}
+func (builder *UserReport2021Builder) ReactionCount(reactionCount string) *UserReport2021Builder {
+	builder.reactionCount = reactionCount
+	builder.reactionCountFlag = true
+	return builder
+}
+func (builder *UserReport2021Builder) ConferenceCreateCount(conferenceCreateCount string) *UserReport2021Builder {
+	builder.conferenceCreateCount = conferenceCreateCount
+	builder.conferenceCreateCountFlag = true
+	return builder
+}
+func (builder *UserReport2021Builder) TotalPartiCount(totalPartiCount string) *UserReport2021Builder {
+	builder.totalPartiCount = totalPartiCount
+	builder.totalPartiCountFlag = true
+	return builder
+}
+func (builder *UserReport2021Builder) MinutesObjectCount(minutesObjectCount string) *UserReport2021Builder {
+	builder.minutesObjectCount = minutesObjectCount
+	builder.minutesObjectCountFlag = true
+	return builder
+}
+func (builder *UserReport2021Builder) MinutesDuration(minutesDuration float64) *UserReport2021Builder {
+	builder.minutesDuration = minutesDuration
+	builder.minutesDurationFlag = true
+	return builder
+}
+func (builder *UserReport2021Builder) CreateEditFileCount(createEditFileCount string) *UserReport2021Builder {
+	builder.createEditFileCount = createEditFileCount
+	builder.createEditFileCountFlag = true
+	return builder
+}
+func (builder *UserReport2021Builder) CreateFileCount(createFileCount string) *UserReport2021Builder {
+	builder.createFileCount = createFileCount
+	builder.createFileCountFlag = true
+	return builder
+}
+func (builder *UserReport2021Builder) CooperateEditFileCount(cooperateEditFileCount string) *UserReport2021Builder {
+	builder.cooperateEditFileCount = cooperateEditFileCount
+	builder.cooperateEditFileCountFlag = true
+	return builder
+}
+func (builder *UserReport2021Builder) LikeRecordCount(likeRecordCount string) *UserReport2021Builder {
+	builder.likeRecordCount = likeRecordCount
+	builder.likeRecordCountFlag = true
+	return builder
+}
+func (builder *UserReport2021Builder) OkrCumOCount(okrCumOCount string) *UserReport2021Builder {
+	builder.okrCumOCount = okrCumOCount
+	builder.okrCumOCountFlag = true
+	return builder
+}
+func (builder *UserReport2021Builder) OkrCumKrCount(okrCumKrCount string) *UserReport2021Builder {
+	builder.okrCumKrCount = okrCumKrCount
+	builder.okrCumKrCountFlag = true
+	return builder
+}
+func (builder *UserReport2021Builder) OkrAlignedUserRankfirst(okrAlignedUserRankfirst string) *UserReport2021Builder {
+	builder.okrAlignedUserRankfirst = okrAlignedUserRankfirst
+	builder.okrAlignedUserRankfirstFlag = true
+	return builder
+}
+func (builder *UserReport2021Builder) ApprovalStartCount(approvalStartCount string) *UserReport2021Builder {
+	builder.approvalStartCount = approvalStartCount
+	builder.approvalStartCountFlag = true
+	return builder
+}
+func (builder *UserReport2021Builder) ApprovalExecuteCount(approvalExecuteCount string) *UserReport2021Builder {
+	builder.approvalExecuteCount = approvalExecuteCount
+	builder.approvalExecuteCountFlag = true
+	return builder
+}
+func (builder *UserReport2021Builder) ApprovalRelationUserRankfirst(approvalRelationUserRankfirst string) *UserReport2021Builder {
+	builder.approvalRelationUserRankfirst = approvalRelationUserRankfirst
+	builder.approvalRelationUserRankfirstFlag = true
+	return builder
+}
+func (builder *UserReport2021Builder) UserId(userId string) *UserReport2021Builder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *UserReport2021Builder) BusyWeekSumDuration(busyWeekSumDuration string) *UserReport2021Builder {
+	builder.busyWeekSumDuration = busyWeekSumDuration
+	builder.busyWeekSumDurationFlag = true
+	return builder
+}
+func (builder *UserReport2021Builder) BusyWeekMdate(busyWeekMdate string) *UserReport2021Builder {
+	builder.busyWeekMdate = busyWeekMdate
+	builder.busyWeekMdateFlag = true
+	return builder
+}
+func (builder *UserReport2021Builder) BusyWeekActDays(busyWeekActDays int) *UserReport2021Builder {
+	builder.busyWeekActDays = busyWeekActDays
+	builder.busyWeekActDaysFlag = true
+	return builder
+}
+func (builder *UserReport2021Builder) CreateReadUserCount(createReadUserCount string) *UserReport2021Builder {
+	builder.createReadUserCount = createReadUserCount
+	builder.createReadUserCountFlag = true
+	return builder
+}
+
+func (builder *UserReport2021Builder) Build() *UserReport2021 {
+	req := &UserReport2021{}
+	if builder.activeDayCountFlag {
+		req.ActiveDayCount = &builder.activeDayCount
+
+	}
+	if builder.busyWeekFlag {
+		req.BusyWeek = &builder.busyWeek
+
+	}
+	if builder.p2pChatCountFlag {
+		req.P2pChatCount = &builder.p2pChatCount
+
+	}
+	if builder.talkedChatCountFlag {
+		req.TalkedChatCount = &builder.talkedChatCount
+
+	}
+	if builder.favoriteEmojiFlag {
+		req.FavoriteEmoji = &builder.favoriteEmoji
+
+	}
+	if builder.reactionCountFlag {
+		req.ReactionCount = &builder.reactionCount
+
+	}
+	if builder.conferenceCreateCountFlag {
+		req.ConferenceCreateCount = &builder.conferenceCreateCount
+
+	}
+	if builder.totalPartiCountFlag {
+		req.TotalPartiCount = &builder.totalPartiCount
+
+	}
+	if builder.minutesObjectCountFlag {
+		req.MinutesObjectCount = &builder.minutesObjectCount
+
+	}
+	if builder.minutesDurationFlag {
+		req.MinutesDuration = &builder.minutesDuration
+
+	}
+	if builder.createEditFileCountFlag {
+		req.CreateEditFileCount = &builder.createEditFileCount
+
+	}
+	if builder.createFileCountFlag {
+		req.CreateFileCount = &builder.createFileCount
+
+	}
+	if builder.cooperateEditFileCountFlag {
+		req.CooperateEditFileCount = &builder.cooperateEditFileCount
+
+	}
+	if builder.likeRecordCountFlag {
+		req.LikeRecordCount = &builder.likeRecordCount
+
+	}
+	if builder.okrCumOCountFlag {
+		req.OkrCumOCount = &builder.okrCumOCount
+
+	}
+	if builder.okrCumKrCountFlag {
+		req.OkrCumKrCount = &builder.okrCumKrCount
+
+	}
+	if builder.okrAlignedUserRankfirstFlag {
+		req.OkrAlignedUserRankfirst = &builder.okrAlignedUserRankfirst
+
+	}
+	if builder.approvalStartCountFlag {
+		req.ApprovalStartCount = &builder.approvalStartCount
+
+	}
+	if builder.approvalExecuteCountFlag {
+		req.ApprovalExecuteCount = &builder.approvalExecuteCount
+
+	}
+	if builder.approvalRelationUserRankfirstFlag {
+		req.ApprovalRelationUserRankfirst = &builder.approvalRelationUserRankfirst
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.busyWeekSumDurationFlag {
+		req.BusyWeekSumDuration = &builder.busyWeekSumDuration
+
+	}
+	if builder.busyWeekMdateFlag {
+		req.BusyWeekMdate = &builder.busyWeekMdate
+
+	}
+	if builder.busyWeekActDaysFlag {
+		req.BusyWeekActDays = &builder.busyWeekActDays
+
+	}
+	if builder.createReadUserCountFlag {
+		req.CreateReadUserCount = &builder.createReadUserCount
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 /**生成请求和响应结果类型，以及请求对象的Builder构造器 **/
 

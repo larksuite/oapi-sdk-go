@@ -166,6 +166,36 @@ func (a *appRole) Update(ctx context.Context, req *UpdateAppRoleReq, options ...
 	}
 	return resp, err
 }
+func (a *appRoleMember) BatchCreate(ctx context.Context, req *BatchCreateAppRoleMemberReq, options ...core.RequestOptionFunc) (*BatchCreateAppRoleMemberResp, error) {
+	// 发起请求
+	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodPost,
+		"/open-apis/bitable/v1/apps/:app_token/roles/:role_id/members/batch_create", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &BatchCreateAppRoleMemberResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (a *appRoleMember) BatchDelete(ctx context.Context, req *BatchDeleteAppRoleMemberReq, options ...core.RequestOptionFunc) (*BatchDeleteAppRoleMemberResp, error) {
+	// 发起请求
+	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodPost,
+		"/open-apis/bitable/v1/apps/:app_token/roles/:role_id/members/batch_delete", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &BatchDeleteAppRoleMemberResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
 func (a *appRoleMember) Create(ctx context.Context, req *CreateAppRoleMemberReq, options ...core.RequestOptionFunc) (*CreateAppRoleMemberResp, error) {
 	// 发起请求
 	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodPost,

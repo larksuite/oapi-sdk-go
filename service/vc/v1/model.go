@@ -45,20 +45,231 @@ type Material struct {
 	MaterialSource *int    `json:"material_source,omitempty"`
 }
 
+/**builder开始**/
+type MaterialBuilder struct {
+	name               string
+	nameFlag           bool
+	fileToken          string
+	fileTokenFlag      bool
+	fileSize           int
+	fileSizeFlag       bool
+	deviceType         int
+	deviceTypeFlag     bool
+	materialType       int
+	materialTypeFlag   bool
+	reviewResult       int
+	reviewResultFlag   bool
+	materialSource     int
+	materialSourceFlag bool
+}
+
+func NewMaterialBuilder() *MaterialBuilder {
+	builder := &MaterialBuilder{}
+	return builder
+}
+
+func (builder *MaterialBuilder) Name(name string) *MaterialBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *MaterialBuilder) FileToken(fileToken string) *MaterialBuilder {
+	builder.fileToken = fileToken
+	builder.fileTokenFlag = true
+	return builder
+}
+func (builder *MaterialBuilder) FileSize(fileSize int) *MaterialBuilder {
+	builder.fileSize = fileSize
+	builder.fileSizeFlag = true
+	return builder
+}
+func (builder *MaterialBuilder) DeviceType(deviceType int) *MaterialBuilder {
+	builder.deviceType = deviceType
+	builder.deviceTypeFlag = true
+	return builder
+}
+func (builder *MaterialBuilder) MaterialType(materialType int) *MaterialBuilder {
+	builder.materialType = materialType
+	builder.materialTypeFlag = true
+	return builder
+}
+func (builder *MaterialBuilder) ReviewResult(reviewResult int) *MaterialBuilder {
+	builder.reviewResult = reviewResult
+	builder.reviewResultFlag = true
+	return builder
+}
+func (builder *MaterialBuilder) MaterialSource(materialSource int) *MaterialBuilder {
+	builder.materialSource = materialSource
+	builder.materialSourceFlag = true
+	return builder
+}
+
+func (builder *MaterialBuilder) Build() *Material {
+	req := &Material{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.fileTokenFlag {
+		req.FileToken = &builder.fileToken
+
+	}
+	if builder.fileSizeFlag {
+		req.FileSize = &builder.fileSize
+
+	}
+	if builder.deviceTypeFlag {
+		req.DeviceType = &builder.deviceType
+
+	}
+	if builder.materialTypeFlag {
+		req.MaterialType = &builder.materialType
+
+	}
+	if builder.reviewResultFlag {
+		req.ReviewResult = &builder.reviewResult
+
+	}
+	if builder.materialSourceFlag {
+		req.MaterialSource = &builder.materialSource
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type MaterialDeleteResult struct {
 	FileToken *string `json:"file_token,omitempty"`
 	Result    *int    `json:"result,omitempty"`
 }
+
+/**builder开始**/
+type MaterialDeleteResultBuilder struct {
+	fileToken     string
+	fileTokenFlag bool
+	result        int
+	resultFlag    bool
+}
+
+func NewMaterialDeleteResultBuilder() *MaterialDeleteResultBuilder {
+	builder := &MaterialDeleteResultBuilder{}
+	return builder
+}
+
+func (builder *MaterialDeleteResultBuilder) FileToken(fileToken string) *MaterialDeleteResultBuilder {
+	builder.fileToken = fileToken
+	builder.fileTokenFlag = true
+	return builder
+}
+func (builder *MaterialDeleteResultBuilder) Result(result int) *MaterialDeleteResultBuilder {
+	builder.result = result
+	builder.resultFlag = true
+	return builder
+}
+
+func (builder *MaterialDeleteResultBuilder) Build() *MaterialDeleteResult {
+	req := &MaterialDeleteResult{}
+	if builder.fileTokenFlag {
+		req.FileToken = &builder.fileToken
+
+	}
+	if builder.resultFlag {
+		req.Result = &builder.result
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type MaterialReviewResult struct {
 	FileToken *string `json:"file_token,omitempty"`
 	Result    *int    `json:"result,omitempty"`
 }
 
+/**builder开始**/
+type MaterialReviewResultBuilder struct {
+	fileToken     string
+	fileTokenFlag bool
+	result        int
+	resultFlag    bool
+}
+
+func NewMaterialReviewResultBuilder() *MaterialReviewResultBuilder {
+	builder := &MaterialReviewResultBuilder{}
+	return builder
+}
+
+func (builder *MaterialReviewResultBuilder) FileToken(fileToken string) *MaterialReviewResultBuilder {
+	builder.fileToken = fileToken
+	builder.fileTokenFlag = true
+	return builder
+}
+func (builder *MaterialReviewResultBuilder) Result(result int) *MaterialReviewResultBuilder {
+	builder.result = result
+	builder.resultFlag = true
+	return builder
+}
+
+func (builder *MaterialReviewResultBuilder) Build() *MaterialReviewResult {
+	req := &MaterialReviewResult{}
+	if builder.fileTokenFlag {
+		req.FileToken = &builder.fileToken
+
+	}
+	if builder.resultFlag {
+		req.Result = &builder.result
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type MaterialUploadResult struct {
 	FileToken *string `json:"file_token,omitempty"`
 	Result    *int    `json:"result,omitempty"`
 }
+
+/**builder开始**/
+type MaterialUploadResultBuilder struct {
+	fileToken     string
+	fileTokenFlag bool
+	result        int
+	resultFlag    bool
+}
+
+func NewMaterialUploadResultBuilder() *MaterialUploadResultBuilder {
+	builder := &MaterialUploadResultBuilder{}
+	return builder
+}
+
+func (builder *MaterialUploadResultBuilder) FileToken(fileToken string) *MaterialUploadResultBuilder {
+	builder.fileToken = fileToken
+	builder.fileTokenFlag = true
+	return builder
+}
+func (builder *MaterialUploadResultBuilder) Result(result int) *MaterialUploadResultBuilder {
+	builder.result = result
+	builder.resultFlag = true
+	return builder
+}
+
+func (builder *MaterialUploadResultBuilder) Build() *MaterialUploadResult {
+	req := &MaterialUploadResult{}
+	if builder.fileTokenFlag {
+		req.FileToken = &builder.fileToken
+
+	}
+	if builder.resultFlag {
+		req.Result = &builder.result
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type Meeting struct {
 	Id                          *int64                `json:"id,omitempty,string"`
@@ -76,12 +287,230 @@ type Meeting struct {
 	Ability                     *MeetingAbility       `json:"ability,omitempty"`
 }
 
+/**builder开始**/
+type MeetingBuilder struct {
+	id                              int64
+	idFlag                          bool
+	topic                           string
+	topicFlag                       bool
+	url                             string
+	urlFlag                         bool
+	meetingNo                       string
+	meetingNoFlag                   bool
+	createTime                      int64
+	createTimeFlag                  bool
+	startTime                       int64
+	startTimeFlag                   bool
+	endTime                         int64
+	endTimeFlag                     bool
+	hostUser                        *MeetingUser
+	hostUserFlag                    bool
+	status                          int
+	statusFlag                      bool
+	participantCount                int64
+	participantCountFlag            bool
+	participantCountAccumulated     int64
+	participantCountAccumulatedFlag bool
+	participants                    []*MeetingParticipant
+	participantsFlag                bool
+	ability                         *MeetingAbility
+	abilityFlag                     bool
+}
+
+func NewMeetingBuilder() *MeetingBuilder {
+	builder := &MeetingBuilder{}
+	return builder
+}
+
+func (builder *MeetingBuilder) Id(id int64) *MeetingBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *MeetingBuilder) Topic(topic string) *MeetingBuilder {
+	builder.topic = topic
+	builder.topicFlag = true
+	return builder
+}
+func (builder *MeetingBuilder) Url(url string) *MeetingBuilder {
+	builder.url = url
+	builder.urlFlag = true
+	return builder
+}
+func (builder *MeetingBuilder) MeetingNo(meetingNo string) *MeetingBuilder {
+	builder.meetingNo = meetingNo
+	builder.meetingNoFlag = true
+	return builder
+}
+func (builder *MeetingBuilder) CreateTime(createTime int64) *MeetingBuilder {
+	builder.createTime = createTime
+	builder.createTimeFlag = true
+	return builder
+}
+func (builder *MeetingBuilder) StartTime(startTime int64) *MeetingBuilder {
+	builder.startTime = startTime
+	builder.startTimeFlag = true
+	return builder
+}
+func (builder *MeetingBuilder) EndTime(endTime int64) *MeetingBuilder {
+	builder.endTime = endTime
+	builder.endTimeFlag = true
+	return builder
+}
+func (builder *MeetingBuilder) HostUser(hostUser *MeetingUser) *MeetingBuilder {
+	builder.hostUser = hostUser
+	builder.hostUserFlag = true
+	return builder
+}
+func (builder *MeetingBuilder) Status(status int) *MeetingBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+func (builder *MeetingBuilder) ParticipantCount(participantCount int64) *MeetingBuilder {
+	builder.participantCount = participantCount
+	builder.participantCountFlag = true
+	return builder
+}
+func (builder *MeetingBuilder) ParticipantCountAccumulated(participantCountAccumulated int64) *MeetingBuilder {
+	builder.participantCountAccumulated = participantCountAccumulated
+	builder.participantCountAccumulatedFlag = true
+	return builder
+}
+func (builder *MeetingBuilder) Participants(participants []*MeetingParticipant) *MeetingBuilder {
+	builder.participants = participants
+	builder.participantsFlag = true
+	return builder
+}
+func (builder *MeetingBuilder) Ability(ability *MeetingAbility) *MeetingBuilder {
+	builder.ability = ability
+	builder.abilityFlag = true
+	return builder
+}
+
+func (builder *MeetingBuilder) Build() *Meeting {
+	req := &Meeting{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.topicFlag {
+		req.Topic = &builder.topic
+
+	}
+	if builder.urlFlag {
+		req.Url = &builder.url
+
+	}
+	if builder.meetingNoFlag {
+		req.MeetingNo = &builder.meetingNo
+
+	}
+	if builder.createTimeFlag {
+		req.CreateTime = &builder.createTime
+
+	}
+	if builder.startTimeFlag {
+		req.StartTime = &builder.startTime
+
+	}
+	if builder.endTimeFlag {
+		req.EndTime = &builder.endTime
+
+	}
+	if builder.hostUserFlag {
+		req.HostUser = builder.hostUser
+	}
+	if builder.statusFlag {
+		req.Status = &builder.status
+
+	}
+	if builder.participantCountFlag {
+		req.ParticipantCount = &builder.participantCount
+
+	}
+	if builder.participantCountAccumulatedFlag {
+		req.ParticipantCountAccumulated = &builder.participantCountAccumulated
+
+	}
+	if builder.participantsFlag {
+		req.Participants = builder.participants
+	}
+	if builder.abilityFlag {
+		req.Ability = builder.ability
+	}
+	return req
+}
+
+/**builder结束**/
+
 type MeetingRecording struct {
 	Id        *int64  `json:"id,omitempty,string"`
 	MeetingId *int64  `json:"meeting_id,omitempty,string"`
 	Url       *string `json:"url,omitempty"`
 	Duration  *int64  `json:"duration,omitempty,string"`
 }
+
+/**builder开始**/
+type MeetingRecordingBuilder struct {
+	id            int64
+	idFlag        bool
+	meetingId     int64
+	meetingIdFlag bool
+	url           string
+	urlFlag       bool
+	duration      int64
+	durationFlag  bool
+}
+
+func NewMeetingRecordingBuilder() *MeetingRecordingBuilder {
+	builder := &MeetingRecordingBuilder{}
+	return builder
+}
+
+func (builder *MeetingRecordingBuilder) Id(id int64) *MeetingRecordingBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *MeetingRecordingBuilder) MeetingId(meetingId int64) *MeetingRecordingBuilder {
+	builder.meetingId = meetingId
+	builder.meetingIdFlag = true
+	return builder
+}
+func (builder *MeetingRecordingBuilder) Url(url string) *MeetingRecordingBuilder {
+	builder.url = url
+	builder.urlFlag = true
+	return builder
+}
+func (builder *MeetingRecordingBuilder) Duration(duration int64) *MeetingRecordingBuilder {
+	builder.duration = duration
+	builder.durationFlag = true
+	return builder
+}
+
+func (builder *MeetingRecordingBuilder) Build() *MeetingRecording {
+	req := &MeetingRecording{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.meetingIdFlag {
+		req.MeetingId = &builder.meetingId
+
+	}
+	if builder.urlFlag {
+		req.Url = &builder.url
+
+	}
+	if builder.durationFlag {
+		req.Duration = &builder.duration
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type MeetingAbility struct {
 	UseVideo        *bool `json:"use_video,omitempty"`
@@ -91,6 +520,89 @@ type MeetingAbility struct {
 	UseRecording    *bool `json:"use_recording,omitempty"`
 	UsePstn         *bool `json:"use_pstn,omitempty"`
 }
+
+/**builder开始**/
+type MeetingAbilityBuilder struct {
+	useVideo            bool
+	useVideoFlag        bool
+	useAudio            bool
+	useAudioFlag        bool
+	useShareScreen      bool
+	useShareScreenFlag  bool
+	useFollowScreen     bool
+	useFollowScreenFlag bool
+	useRecording        bool
+	useRecordingFlag    bool
+	usePstn             bool
+	usePstnFlag         bool
+}
+
+func NewMeetingAbilityBuilder() *MeetingAbilityBuilder {
+	builder := &MeetingAbilityBuilder{}
+	return builder
+}
+
+func (builder *MeetingAbilityBuilder) UseVideo(useVideo bool) *MeetingAbilityBuilder {
+	builder.useVideo = useVideo
+	builder.useVideoFlag = true
+	return builder
+}
+func (builder *MeetingAbilityBuilder) UseAudio(useAudio bool) *MeetingAbilityBuilder {
+	builder.useAudio = useAudio
+	builder.useAudioFlag = true
+	return builder
+}
+func (builder *MeetingAbilityBuilder) UseShareScreen(useShareScreen bool) *MeetingAbilityBuilder {
+	builder.useShareScreen = useShareScreen
+	builder.useShareScreenFlag = true
+	return builder
+}
+func (builder *MeetingAbilityBuilder) UseFollowScreen(useFollowScreen bool) *MeetingAbilityBuilder {
+	builder.useFollowScreen = useFollowScreen
+	builder.useFollowScreenFlag = true
+	return builder
+}
+func (builder *MeetingAbilityBuilder) UseRecording(useRecording bool) *MeetingAbilityBuilder {
+	builder.useRecording = useRecording
+	builder.useRecordingFlag = true
+	return builder
+}
+func (builder *MeetingAbilityBuilder) UsePstn(usePstn bool) *MeetingAbilityBuilder {
+	builder.usePstn = usePstn
+	builder.usePstnFlag = true
+	return builder
+}
+
+func (builder *MeetingAbilityBuilder) Build() *MeetingAbility {
+	req := &MeetingAbility{}
+	if builder.useVideoFlag {
+		req.UseVideo = &builder.useVideo
+
+	}
+	if builder.useAudioFlag {
+		req.UseAudio = &builder.useAudio
+
+	}
+	if builder.useShareScreenFlag {
+		req.UseShareScreen = &builder.useShareScreen
+
+	}
+	if builder.useFollowScreenFlag {
+		req.UseFollowScreen = &builder.useFollowScreen
+
+	}
+	if builder.useRecordingFlag {
+		req.UseRecording = &builder.useRecording
+
+	}
+	if builder.usePstnFlag {
+		req.UsePstn = &builder.usePstn
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type MeetingEventMeeting struct {
 	Id        *int64            `json:"id,omitempty,string"`
@@ -102,17 +614,208 @@ type MeetingEventMeeting struct {
 	Owner     *MeetingEventUser `json:"owner,omitempty"`
 }
 
+/**builder开始**/
+type MeetingEventMeetingBuilder struct {
+	id            int64
+	idFlag        bool
+	topic         string
+	topicFlag     bool
+	meetingNo     string
+	meetingNoFlag bool
+	startTime     int64
+	startTimeFlag bool
+	endTime       int64
+	endTimeFlag   bool
+	hostUser      *MeetingEventUser
+	hostUserFlag  bool
+	owner         *MeetingEventUser
+	ownerFlag     bool
+}
+
+func NewMeetingEventMeetingBuilder() *MeetingEventMeetingBuilder {
+	builder := &MeetingEventMeetingBuilder{}
+	return builder
+}
+
+func (builder *MeetingEventMeetingBuilder) Id(id int64) *MeetingEventMeetingBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *MeetingEventMeetingBuilder) Topic(topic string) *MeetingEventMeetingBuilder {
+	builder.topic = topic
+	builder.topicFlag = true
+	return builder
+}
+func (builder *MeetingEventMeetingBuilder) MeetingNo(meetingNo string) *MeetingEventMeetingBuilder {
+	builder.meetingNo = meetingNo
+	builder.meetingNoFlag = true
+	return builder
+}
+func (builder *MeetingEventMeetingBuilder) StartTime(startTime int64) *MeetingEventMeetingBuilder {
+	builder.startTime = startTime
+	builder.startTimeFlag = true
+	return builder
+}
+func (builder *MeetingEventMeetingBuilder) EndTime(endTime int64) *MeetingEventMeetingBuilder {
+	builder.endTime = endTime
+	builder.endTimeFlag = true
+	return builder
+}
+func (builder *MeetingEventMeetingBuilder) HostUser(hostUser *MeetingEventUser) *MeetingEventMeetingBuilder {
+	builder.hostUser = hostUser
+	builder.hostUserFlag = true
+	return builder
+}
+func (builder *MeetingEventMeetingBuilder) Owner(owner *MeetingEventUser) *MeetingEventMeetingBuilder {
+	builder.owner = owner
+	builder.ownerFlag = true
+	return builder
+}
+
+func (builder *MeetingEventMeetingBuilder) Build() *MeetingEventMeeting {
+	req := &MeetingEventMeeting{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.topicFlag {
+		req.Topic = &builder.topic
+
+	}
+	if builder.meetingNoFlag {
+		req.MeetingNo = &builder.meetingNo
+
+	}
+	if builder.startTimeFlag {
+		req.StartTime = &builder.startTime
+
+	}
+	if builder.endTimeFlag {
+		req.EndTime = &builder.endTime
+
+	}
+	if builder.hostUserFlag {
+		req.HostUser = builder.hostUser
+	}
+	if builder.ownerFlag {
+		req.Owner = builder.owner
+	}
+	return req
+}
+
+/**builder结束**/
+
 type MeetingEventUser struct {
 	Id       *UserId `json:"id,omitempty"`
 	UserRole *int    `json:"user_role,omitempty"`
 	UserType *int    `json:"user_type,omitempty"`
 }
 
+/**builder开始**/
+type MeetingEventUserBuilder struct {
+	id           *UserId
+	idFlag       bool
+	userRole     int
+	userRoleFlag bool
+	userType     int
+	userTypeFlag bool
+}
+
+func NewMeetingEventUserBuilder() *MeetingEventUserBuilder {
+	builder := &MeetingEventUserBuilder{}
+	return builder
+}
+
+func (builder *MeetingEventUserBuilder) Id(id *UserId) *MeetingEventUserBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *MeetingEventUserBuilder) UserRole(userRole int) *MeetingEventUserBuilder {
+	builder.userRole = userRole
+	builder.userRoleFlag = true
+	return builder
+}
+func (builder *MeetingEventUserBuilder) UserType(userType int) *MeetingEventUserBuilder {
+	builder.userType = userType
+	builder.userTypeFlag = true
+	return builder
+}
+
+func (builder *MeetingEventUserBuilder) Build() *MeetingEventUser {
+	req := &MeetingEventUser{}
+	if builder.idFlag {
+		req.Id = builder.id
+	}
+	if builder.userRoleFlag {
+		req.UserRole = &builder.userRole
+
+	}
+	if builder.userTypeFlag {
+		req.UserType = &builder.userType
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type MeetingInviteStatus struct {
 	Id       *string `json:"id,omitempty"`
 	UserType *int    `json:"user_type,omitempty"`
 	Status   *int    `json:"status,omitempty"`
 }
+
+/**builder开始**/
+type MeetingInviteStatusBuilder struct {
+	id           string
+	idFlag       bool
+	userType     int
+	userTypeFlag bool
+	status       int
+	statusFlag   bool
+}
+
+func NewMeetingInviteStatusBuilder() *MeetingInviteStatusBuilder {
+	builder := &MeetingInviteStatusBuilder{}
+	return builder
+}
+
+func (builder *MeetingInviteStatusBuilder) Id(id string) *MeetingInviteStatusBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *MeetingInviteStatusBuilder) UserType(userType int) *MeetingInviteStatusBuilder {
+	builder.userType = userType
+	builder.userTypeFlag = true
+	return builder
+}
+func (builder *MeetingInviteStatusBuilder) Status(status int) *MeetingInviteStatusBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+
+func (builder *MeetingInviteStatusBuilder) Build() *MeetingInviteStatus {
+	req := &MeetingInviteStatus{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.userTypeFlag {
+		req.UserType = &builder.userType
+
+	}
+	if builder.statusFlag {
+		req.Status = &builder.status
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type MeetingParticipant struct {
 	Id                *string `json:"id,omitempty"`
@@ -126,27 +829,321 @@ type MeetingParticipant struct {
 	Status            *int    `json:"status,omitempty"`
 }
 
+/**builder开始**/
+type MeetingParticipantBuilder struct {
+	id                    string
+	idFlag                bool
+	firstJoinTime         int64
+	firstJoinTimeFlag     bool
+	finalLeaveTime        int64
+	finalLeaveTimeFlag    bool
+	inMeetingDuration     int64
+	inMeetingDurationFlag bool
+	userType              int
+	userTypeFlag          bool
+	isHost                bool
+	isHostFlag            bool
+	isCohost              bool
+	isCohostFlag          bool
+	isExternal            bool
+	isExternalFlag        bool
+	status                int
+	statusFlag            bool
+}
+
+func NewMeetingParticipantBuilder() *MeetingParticipantBuilder {
+	builder := &MeetingParticipantBuilder{}
+	return builder
+}
+
+func (builder *MeetingParticipantBuilder) Id(id string) *MeetingParticipantBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *MeetingParticipantBuilder) FirstJoinTime(firstJoinTime int64) *MeetingParticipantBuilder {
+	builder.firstJoinTime = firstJoinTime
+	builder.firstJoinTimeFlag = true
+	return builder
+}
+func (builder *MeetingParticipantBuilder) FinalLeaveTime(finalLeaveTime int64) *MeetingParticipantBuilder {
+	builder.finalLeaveTime = finalLeaveTime
+	builder.finalLeaveTimeFlag = true
+	return builder
+}
+func (builder *MeetingParticipantBuilder) InMeetingDuration(inMeetingDuration int64) *MeetingParticipantBuilder {
+	builder.inMeetingDuration = inMeetingDuration
+	builder.inMeetingDurationFlag = true
+	return builder
+}
+func (builder *MeetingParticipantBuilder) UserType(userType int) *MeetingParticipantBuilder {
+	builder.userType = userType
+	builder.userTypeFlag = true
+	return builder
+}
+func (builder *MeetingParticipantBuilder) IsHost(isHost bool) *MeetingParticipantBuilder {
+	builder.isHost = isHost
+	builder.isHostFlag = true
+	return builder
+}
+func (builder *MeetingParticipantBuilder) IsCohost(isCohost bool) *MeetingParticipantBuilder {
+	builder.isCohost = isCohost
+	builder.isCohostFlag = true
+	return builder
+}
+func (builder *MeetingParticipantBuilder) IsExternal(isExternal bool) *MeetingParticipantBuilder {
+	builder.isExternal = isExternal
+	builder.isExternalFlag = true
+	return builder
+}
+func (builder *MeetingParticipantBuilder) Status(status int) *MeetingParticipantBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+
+func (builder *MeetingParticipantBuilder) Build() *MeetingParticipant {
+	req := &MeetingParticipant{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.firstJoinTimeFlag {
+		req.FirstJoinTime = &builder.firstJoinTime
+
+	}
+	if builder.finalLeaveTimeFlag {
+		req.FinalLeaveTime = &builder.finalLeaveTime
+
+	}
+	if builder.inMeetingDurationFlag {
+		req.InMeetingDuration = &builder.inMeetingDuration
+
+	}
+	if builder.userTypeFlag {
+		req.UserType = &builder.userType
+
+	}
+	if builder.isHostFlag {
+		req.IsHost = &builder.isHost
+
+	}
+	if builder.isCohostFlag {
+		req.IsCohost = &builder.isCohost
+
+	}
+	if builder.isExternalFlag {
+		req.IsExternal = &builder.isExternal
+
+	}
+	if builder.statusFlag {
+		req.Status = &builder.status
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type MeetingParticipantResult struct {
 	Id       *string `json:"id,omitempty"`
 	UserType *int    `json:"user_type,omitempty"`
 	Result   *int    `json:"result,omitempty"`
 }
 
+/**builder开始**/
+type MeetingParticipantResultBuilder struct {
+	id           string
+	idFlag       bool
+	userType     int
+	userTypeFlag bool
+	result       int
+	resultFlag   bool
+}
+
+func NewMeetingParticipantResultBuilder() *MeetingParticipantResultBuilder {
+	builder := &MeetingParticipantResultBuilder{}
+	return builder
+}
+
+func (builder *MeetingParticipantResultBuilder) Id(id string) *MeetingParticipantResultBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *MeetingParticipantResultBuilder) UserType(userType int) *MeetingParticipantResultBuilder {
+	builder.userType = userType
+	builder.userTypeFlag = true
+	return builder
+}
+func (builder *MeetingParticipantResultBuilder) Result(result int) *MeetingParticipantResultBuilder {
+	builder.result = result
+	builder.resultFlag = true
+	return builder
+}
+
+func (builder *MeetingParticipantResultBuilder) Build() *MeetingParticipantResult {
+	req := &MeetingParticipantResult{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.userTypeFlag {
+		req.UserType = &builder.userType
+
+	}
+	if builder.resultFlag {
+		req.Result = &builder.result
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type MeetingUser struct {
 	Id       *string `json:"id,omitempty"`
 	UserType *int    `json:"user_type,omitempty"`
 }
+
+/**builder开始**/
+type MeetingUserBuilder struct {
+	id           string
+	idFlag       bool
+	userType     int
+	userTypeFlag bool
+}
+
+func NewMeetingUserBuilder() *MeetingUserBuilder {
+	builder := &MeetingUserBuilder{}
+	return builder
+}
+
+func (builder *MeetingUserBuilder) Id(id string) *MeetingUserBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *MeetingUserBuilder) UserType(userType int) *MeetingUserBuilder {
+	builder.userType = userType
+	builder.userTypeFlag = true
+	return builder
+}
+
+func (builder *MeetingUserBuilder) Build() *MeetingUser {
+	req := &MeetingUser{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.userTypeFlag {
+		req.UserType = &builder.userType
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type PstnSipInfo struct {
 	Nickname    *string `json:"nickname,omitempty"`
 	MainAddress *string `json:"main_address,omitempty"`
 }
 
+/**builder开始**/
+type PstnSipInfoBuilder struct {
+	nickname        string
+	nicknameFlag    bool
+	mainAddress     string
+	mainAddressFlag bool
+}
+
+func NewPstnSipInfoBuilder() *PstnSipInfoBuilder {
+	builder := &PstnSipInfoBuilder{}
+	return builder
+}
+
+func (builder *PstnSipInfoBuilder) Nickname(nickname string) *PstnSipInfoBuilder {
+	builder.nickname = nickname
+	builder.nicknameFlag = true
+	return builder
+}
+func (builder *PstnSipInfoBuilder) MainAddress(mainAddress string) *PstnSipInfoBuilder {
+	builder.mainAddress = mainAddress
+	builder.mainAddressFlag = true
+	return builder
+}
+
+func (builder *PstnSipInfoBuilder) Build() *PstnSipInfo {
+	req := &PstnSipInfo{}
+	if builder.nicknameFlag {
+		req.Nickname = &builder.nickname
+
+	}
+	if builder.mainAddressFlag {
+		req.MainAddress = &builder.mainAddress
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type RecordingPermissionObject struct {
 	Id         *string `json:"id,omitempty"`
 	Type       *int    `json:"type,omitempty"`
 	Permission *int    `json:"permission,omitempty"`
 }
+
+/**builder开始**/
+type RecordingPermissionObjectBuilder struct {
+	id             string
+	idFlag         bool
+	type_          int
+	typeFlag       bool
+	permission     int
+	permissionFlag bool
+}
+
+func NewRecordingPermissionObjectBuilder() *RecordingPermissionObjectBuilder {
+	builder := &RecordingPermissionObjectBuilder{}
+	return builder
+}
+
+func (builder *RecordingPermissionObjectBuilder) Id(id string) *RecordingPermissionObjectBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *RecordingPermissionObjectBuilder) Type(type_ int) *RecordingPermissionObjectBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+func (builder *RecordingPermissionObjectBuilder) Permission(permission int) *RecordingPermissionObjectBuilder {
+	builder.permission = permission
+	builder.permissionFlag = true
+	return builder
+}
+
+func (builder *RecordingPermissionObjectBuilder) Build() *RecordingPermissionObject {
+	req := &RecordingPermissionObject{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.permissionFlag {
+		req.Permission = &builder.permission
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type Report struct {
 	TotalMeetingCount     *int64                `json:"total_meeting_count,omitempty,string"`
@@ -155,12 +1152,133 @@ type Report struct {
 	DailyReport           []*ReportMeetingDaily `json:"daily_report,omitempty"`
 }
 
+/**builder开始**/
+type ReportBuilder struct {
+	totalMeetingCount         int64
+	totalMeetingCountFlag     bool
+	totalMeetingDuration      int64
+	totalMeetingDurationFlag  bool
+	totalParticipantCount     int64
+	totalParticipantCountFlag bool
+	dailyReport               []*ReportMeetingDaily
+	dailyReportFlag           bool
+}
+
+func NewReportBuilder() *ReportBuilder {
+	builder := &ReportBuilder{}
+	return builder
+}
+
+func (builder *ReportBuilder) TotalMeetingCount(totalMeetingCount int64) *ReportBuilder {
+	builder.totalMeetingCount = totalMeetingCount
+	builder.totalMeetingCountFlag = true
+	return builder
+}
+func (builder *ReportBuilder) TotalMeetingDuration(totalMeetingDuration int64) *ReportBuilder {
+	builder.totalMeetingDuration = totalMeetingDuration
+	builder.totalMeetingDurationFlag = true
+	return builder
+}
+func (builder *ReportBuilder) TotalParticipantCount(totalParticipantCount int64) *ReportBuilder {
+	builder.totalParticipantCount = totalParticipantCount
+	builder.totalParticipantCountFlag = true
+	return builder
+}
+func (builder *ReportBuilder) DailyReport(dailyReport []*ReportMeetingDaily) *ReportBuilder {
+	builder.dailyReport = dailyReport
+	builder.dailyReportFlag = true
+	return builder
+}
+
+func (builder *ReportBuilder) Build() *Report {
+	req := &Report{}
+	if builder.totalMeetingCountFlag {
+		req.TotalMeetingCount = &builder.totalMeetingCount
+
+	}
+	if builder.totalMeetingDurationFlag {
+		req.TotalMeetingDuration = &builder.totalMeetingDuration
+
+	}
+	if builder.totalParticipantCountFlag {
+		req.TotalParticipantCount = &builder.totalParticipantCount
+
+	}
+	if builder.dailyReportFlag {
+		req.DailyReport = builder.dailyReport
+	}
+	return req
+}
+
+/**builder结束**/
+
 type ReportMeetingDaily struct {
 	Date             *int64 `json:"date,omitempty,string"`
 	MeetingCount     *int64 `json:"meeting_count,omitempty,string"`
 	MeetingDuration  *int64 `json:"meeting_duration,omitempty,string"`
 	ParticipantCount *int64 `json:"participant_count,omitempty,string"`
 }
+
+/**builder开始**/
+type ReportMeetingDailyBuilder struct {
+	date                 int64
+	dateFlag             bool
+	meetingCount         int64
+	meetingCountFlag     bool
+	meetingDuration      int64
+	meetingDurationFlag  bool
+	participantCount     int64
+	participantCountFlag bool
+}
+
+func NewReportMeetingDailyBuilder() *ReportMeetingDailyBuilder {
+	builder := &ReportMeetingDailyBuilder{}
+	return builder
+}
+
+func (builder *ReportMeetingDailyBuilder) Date(date int64) *ReportMeetingDailyBuilder {
+	builder.date = date
+	builder.dateFlag = true
+	return builder
+}
+func (builder *ReportMeetingDailyBuilder) MeetingCount(meetingCount int64) *ReportMeetingDailyBuilder {
+	builder.meetingCount = meetingCount
+	builder.meetingCountFlag = true
+	return builder
+}
+func (builder *ReportMeetingDailyBuilder) MeetingDuration(meetingDuration int64) *ReportMeetingDailyBuilder {
+	builder.meetingDuration = meetingDuration
+	builder.meetingDurationFlag = true
+	return builder
+}
+func (builder *ReportMeetingDailyBuilder) ParticipantCount(participantCount int64) *ReportMeetingDailyBuilder {
+	builder.participantCount = participantCount
+	builder.participantCountFlag = true
+	return builder
+}
+
+func (builder *ReportMeetingDailyBuilder) Build() *ReportMeetingDaily {
+	req := &ReportMeetingDaily{}
+	if builder.dateFlag {
+		req.Date = &builder.date
+
+	}
+	if builder.meetingCountFlag {
+		req.MeetingCount = &builder.meetingCount
+
+	}
+	if builder.meetingDurationFlag {
+		req.MeetingDuration = &builder.meetingDuration
+
+	}
+	if builder.participantCountFlag {
+		req.ParticipantCount = &builder.participantCount
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type ReportTopUser struct {
 	Id              *int64  `json:"id,omitempty,string"`
@@ -169,6 +1287,78 @@ type ReportTopUser struct {
 	MeetingCount    *int64  `json:"meeting_count,omitempty,string"`
 	MeetingDuration *int64  `json:"meeting_duration,omitempty,string"`
 }
+
+/**builder开始**/
+type ReportTopUserBuilder struct {
+	id                  int64
+	idFlag              bool
+	name                string
+	nameFlag            bool
+	userType            int
+	userTypeFlag        bool
+	meetingCount        int64
+	meetingCountFlag    bool
+	meetingDuration     int64
+	meetingDurationFlag bool
+}
+
+func NewReportTopUserBuilder() *ReportTopUserBuilder {
+	builder := &ReportTopUserBuilder{}
+	return builder
+}
+
+func (builder *ReportTopUserBuilder) Id(id int64) *ReportTopUserBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *ReportTopUserBuilder) Name(name string) *ReportTopUserBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *ReportTopUserBuilder) UserType(userType int) *ReportTopUserBuilder {
+	builder.userType = userType
+	builder.userTypeFlag = true
+	return builder
+}
+func (builder *ReportTopUserBuilder) MeetingCount(meetingCount int64) *ReportTopUserBuilder {
+	builder.meetingCount = meetingCount
+	builder.meetingCountFlag = true
+	return builder
+}
+func (builder *ReportTopUserBuilder) MeetingDuration(meetingDuration int64) *ReportTopUserBuilder {
+	builder.meetingDuration = meetingDuration
+	builder.meetingDurationFlag = true
+	return builder
+}
+
+func (builder *ReportTopUserBuilder) Build() *ReportTopUser {
+	req := &ReportTopUser{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.userTypeFlag {
+		req.UserType = &builder.userType
+
+	}
+	if builder.meetingCountFlag {
+		req.MeetingCount = &builder.meetingCount
+
+	}
+	if builder.meetingDurationFlag {
+		req.MeetingDuration = &builder.meetingDuration
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type Reserve struct {
 	Id              *int64                 `json:"id,omitempty,string"`
@@ -182,20 +1372,249 @@ type Reserve struct {
 	MeetingSettings *ReserveMeetingSetting `json:"meeting_settings,omitempty"`
 }
 
+/**builder开始**/
+type ReserveBuilder struct {
+	id                  int64
+	idFlag              bool
+	meetingNo           string
+	meetingNoFlag       bool
+	url                 string
+	urlFlag             bool
+	appLink             string
+	appLinkFlag         bool
+	liveLink            string
+	liveLinkFlag        bool
+	endTime             int64
+	endTimeFlag         bool
+	expireStatus        int
+	expireStatusFlag    bool
+	reserveUserId       string
+	reserveUserIdFlag   bool
+	meetingSettings     *ReserveMeetingSetting
+	meetingSettingsFlag bool
+}
+
+func NewReserveBuilder() *ReserveBuilder {
+	builder := &ReserveBuilder{}
+	return builder
+}
+
+func (builder *ReserveBuilder) Id(id int64) *ReserveBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *ReserveBuilder) MeetingNo(meetingNo string) *ReserveBuilder {
+	builder.meetingNo = meetingNo
+	builder.meetingNoFlag = true
+	return builder
+}
+func (builder *ReserveBuilder) Url(url string) *ReserveBuilder {
+	builder.url = url
+	builder.urlFlag = true
+	return builder
+}
+func (builder *ReserveBuilder) AppLink(appLink string) *ReserveBuilder {
+	builder.appLink = appLink
+	builder.appLinkFlag = true
+	return builder
+}
+func (builder *ReserveBuilder) LiveLink(liveLink string) *ReserveBuilder {
+	builder.liveLink = liveLink
+	builder.liveLinkFlag = true
+	return builder
+}
+func (builder *ReserveBuilder) EndTime(endTime int64) *ReserveBuilder {
+	builder.endTime = endTime
+	builder.endTimeFlag = true
+	return builder
+}
+func (builder *ReserveBuilder) ExpireStatus(expireStatus int) *ReserveBuilder {
+	builder.expireStatus = expireStatus
+	builder.expireStatusFlag = true
+	return builder
+}
+func (builder *ReserveBuilder) ReserveUserId(reserveUserId string) *ReserveBuilder {
+	builder.reserveUserId = reserveUserId
+	builder.reserveUserIdFlag = true
+	return builder
+}
+func (builder *ReserveBuilder) MeetingSettings(meetingSettings *ReserveMeetingSetting) *ReserveBuilder {
+	builder.meetingSettings = meetingSettings
+	builder.meetingSettingsFlag = true
+	return builder
+}
+
+func (builder *ReserveBuilder) Build() *Reserve {
+	req := &Reserve{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.meetingNoFlag {
+		req.MeetingNo = &builder.meetingNo
+
+	}
+	if builder.urlFlag {
+		req.Url = &builder.url
+
+	}
+	if builder.appLinkFlag {
+		req.AppLink = &builder.appLink
+
+	}
+	if builder.liveLinkFlag {
+		req.LiveLink = &builder.liveLink
+
+	}
+	if builder.endTimeFlag {
+		req.EndTime = &builder.endTime
+
+	}
+	if builder.expireStatusFlag {
+		req.ExpireStatus = &builder.expireStatus
+
+	}
+	if builder.reserveUserIdFlag {
+		req.ReserveUserId = &builder.reserveUserId
+
+	}
+	if builder.meetingSettingsFlag {
+		req.MeetingSettings = builder.meetingSettings
+	}
+	return req
+}
+
+/**builder结束**/
+
 type ReserveActionPermission struct {
 	Permission         *int                        `json:"permission,omitempty"`
 	PermissionCheckers []*ReservePermissionChecker `json:"permission_checkers,omitempty"`
 }
 
+/**builder开始**/
+type ReserveActionPermissionBuilder struct {
+	permission             int
+	permissionFlag         bool
+	permissionCheckers     []*ReservePermissionChecker
+	permissionCheckersFlag bool
+}
+
+func NewReserveActionPermissionBuilder() *ReserveActionPermissionBuilder {
+	builder := &ReserveActionPermissionBuilder{}
+	return builder
+}
+
+func (builder *ReserveActionPermissionBuilder) Permission(permission int) *ReserveActionPermissionBuilder {
+	builder.permission = permission
+	builder.permissionFlag = true
+	return builder
+}
+func (builder *ReserveActionPermissionBuilder) PermissionCheckers(permissionCheckers []*ReservePermissionChecker) *ReserveActionPermissionBuilder {
+	builder.permissionCheckers = permissionCheckers
+	builder.permissionCheckersFlag = true
+	return builder
+}
+
+func (builder *ReserveActionPermissionBuilder) Build() *ReserveActionPermission {
+	req := &ReserveActionPermission{}
+	if builder.permissionFlag {
+		req.Permission = &builder.permission
+
+	}
+	if builder.permissionCheckersFlag {
+		req.PermissionCheckers = builder.permissionCheckers
+	}
+	return req
+}
+
+/**builder结束**/
+
 type ReserveCallSetting struct {
 	Callee *ReserveCallee `json:"callee,omitempty"`
 }
+
+/**builder开始**/
+type ReserveCallSettingBuilder struct {
+	callee     *ReserveCallee
+	calleeFlag bool
+}
+
+func NewReserveCallSettingBuilder() *ReserveCallSettingBuilder {
+	builder := &ReserveCallSettingBuilder{}
+	return builder
+}
+
+func (builder *ReserveCallSettingBuilder) Callee(callee *ReserveCallee) *ReserveCallSettingBuilder {
+	builder.callee = callee
+	builder.calleeFlag = true
+	return builder
+}
+
+func (builder *ReserveCallSettingBuilder) Build() *ReserveCallSetting {
+	req := &ReserveCallSetting{}
+	if builder.calleeFlag {
+		req.Callee = builder.callee
+	}
+	return req
+}
+
+/**builder结束**/
 
 type ReserveCallee struct {
 	Id          *string      `json:"id,omitempty"`
 	UserType    *int         `json:"user_type,omitempty"`
 	PstnSipInfo *PstnSipInfo `json:"pstn_sip_info,omitempty"`
 }
+
+/**builder开始**/
+type ReserveCalleeBuilder struct {
+	id              string
+	idFlag          bool
+	userType        int
+	userTypeFlag    bool
+	pstnSipInfo     *PstnSipInfo
+	pstnSipInfoFlag bool
+}
+
+func NewReserveCalleeBuilder() *ReserveCalleeBuilder {
+	builder := &ReserveCalleeBuilder{}
+	return builder
+}
+
+func (builder *ReserveCalleeBuilder) Id(id string) *ReserveCalleeBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *ReserveCalleeBuilder) UserType(userType int) *ReserveCalleeBuilder {
+	builder.userType = userType
+	builder.userTypeFlag = true
+	return builder
+}
+func (builder *ReserveCalleeBuilder) PstnSipInfo(pstnSipInfo *PstnSipInfo) *ReserveCalleeBuilder {
+	builder.pstnSipInfo = pstnSipInfo
+	builder.pstnSipInfoFlag = true
+	return builder
+}
+
+func (builder *ReserveCalleeBuilder) Build() *ReserveCallee {
+	req := &ReserveCallee{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.userTypeFlag {
+		req.UserType = &builder.userType
+
+	}
+	if builder.pstnSipInfoFlag {
+		req.PstnSipInfo = builder.pstnSipInfo
+	}
+	return req
+}
+
+/**builder结束**/
 
 type ReserveMeetingSetting struct {
 	Topic              *string                    `json:"topic,omitempty"`
@@ -204,18 +1623,196 @@ type ReserveMeetingSetting struct {
 	CallSetting        *ReserveCallSetting        `json:"call_setting,omitempty"`
 }
 
+/**builder开始**/
+type ReserveMeetingSettingBuilder struct {
+	topic                  string
+	topicFlag              bool
+	actionPermissions      []*ReserveActionPermission
+	actionPermissionsFlag  bool
+	meetingInitialType     int
+	meetingInitialTypeFlag bool
+	callSetting            *ReserveCallSetting
+	callSettingFlag        bool
+}
+
+func NewReserveMeetingSettingBuilder() *ReserveMeetingSettingBuilder {
+	builder := &ReserveMeetingSettingBuilder{}
+	return builder
+}
+
+func (builder *ReserveMeetingSettingBuilder) Topic(topic string) *ReserveMeetingSettingBuilder {
+	builder.topic = topic
+	builder.topicFlag = true
+	return builder
+}
+func (builder *ReserveMeetingSettingBuilder) ActionPermissions(actionPermissions []*ReserveActionPermission) *ReserveMeetingSettingBuilder {
+	builder.actionPermissions = actionPermissions
+	builder.actionPermissionsFlag = true
+	return builder
+}
+func (builder *ReserveMeetingSettingBuilder) MeetingInitialType(meetingInitialType int) *ReserveMeetingSettingBuilder {
+	builder.meetingInitialType = meetingInitialType
+	builder.meetingInitialTypeFlag = true
+	return builder
+}
+func (builder *ReserveMeetingSettingBuilder) CallSetting(callSetting *ReserveCallSetting) *ReserveMeetingSettingBuilder {
+	builder.callSetting = callSetting
+	builder.callSettingFlag = true
+	return builder
+}
+
+func (builder *ReserveMeetingSettingBuilder) Build() *ReserveMeetingSetting {
+	req := &ReserveMeetingSetting{}
+	if builder.topicFlag {
+		req.Topic = &builder.topic
+
+	}
+	if builder.actionPermissionsFlag {
+		req.ActionPermissions = builder.actionPermissions
+	}
+	if builder.meetingInitialTypeFlag {
+		req.MeetingInitialType = &builder.meetingInitialType
+
+	}
+	if builder.callSettingFlag {
+		req.CallSetting = builder.callSetting
+	}
+	return req
+}
+
+/**builder结束**/
+
 type ReservePermissionChecker struct {
 	CheckField *int     `json:"check_field,omitempty"`
 	CheckMode  *int     `json:"check_mode,omitempty"`
 	CheckList  []string `json:"check_list,omitempty"`
 }
 
+/**builder开始**/
+type ReservePermissionCheckerBuilder struct {
+	checkField     int
+	checkFieldFlag bool
+	checkMode      int
+	checkModeFlag  bool
+	checkList      []string
+	checkListFlag  bool
+}
+
+func NewReservePermissionCheckerBuilder() *ReservePermissionCheckerBuilder {
+	builder := &ReservePermissionCheckerBuilder{}
+	return builder
+}
+
+func (builder *ReservePermissionCheckerBuilder) CheckField(checkField int) *ReservePermissionCheckerBuilder {
+	builder.checkField = checkField
+	builder.checkFieldFlag = true
+	return builder
+}
+func (builder *ReservePermissionCheckerBuilder) CheckMode(checkMode int) *ReservePermissionCheckerBuilder {
+	builder.checkMode = checkMode
+	builder.checkModeFlag = true
+	return builder
+}
+func (builder *ReservePermissionCheckerBuilder) CheckList(checkList []string) *ReservePermissionCheckerBuilder {
+	builder.checkList = checkList
+	builder.checkListFlag = true
+	return builder
+}
+
+func (builder *ReservePermissionCheckerBuilder) Build() *ReservePermissionChecker {
+	req := &ReservePermissionChecker{}
+	if builder.checkFieldFlag {
+		req.CheckField = &builder.checkField
+
+	}
+	if builder.checkModeFlag {
+		req.CheckMode = &builder.checkMode
+
+	}
+	if builder.checkListFlag {
+		req.CheckList = builder.checkList
+	}
+	return req
+}
+
+/**builder结束**/
+
 type RoomConfig struct {
 	RoomBackground        *string             `json:"room_background,omitempty"`
 	DisplayBackground     *string             `json:"display_background,omitempty"`
 	DigitalSignage        *RoomDigitalSignage `json:"digital_signage,omitempty"`
 	RoomBoxDigitalSignage *RoomDigitalSignage `json:"room_box_digital_signage,omitempty"`
+	RoomStatus            *RoomStatus         `json:"room_status,omitempty"`
 }
+
+/**builder开始**/
+type RoomConfigBuilder struct {
+	roomBackground            string
+	roomBackgroundFlag        bool
+	displayBackground         string
+	displayBackgroundFlag     bool
+	digitalSignage            *RoomDigitalSignage
+	digitalSignageFlag        bool
+	roomBoxDigitalSignage     *RoomDigitalSignage
+	roomBoxDigitalSignageFlag bool
+	roomStatus                *RoomStatus
+	roomStatusFlag            bool
+}
+
+func NewRoomConfigBuilder() *RoomConfigBuilder {
+	builder := &RoomConfigBuilder{}
+	return builder
+}
+
+func (builder *RoomConfigBuilder) RoomBackground(roomBackground string) *RoomConfigBuilder {
+	builder.roomBackground = roomBackground
+	builder.roomBackgroundFlag = true
+	return builder
+}
+func (builder *RoomConfigBuilder) DisplayBackground(displayBackground string) *RoomConfigBuilder {
+	builder.displayBackground = displayBackground
+	builder.displayBackgroundFlag = true
+	return builder
+}
+func (builder *RoomConfigBuilder) DigitalSignage(digitalSignage *RoomDigitalSignage) *RoomConfigBuilder {
+	builder.digitalSignage = digitalSignage
+	builder.digitalSignageFlag = true
+	return builder
+}
+func (builder *RoomConfigBuilder) RoomBoxDigitalSignage(roomBoxDigitalSignage *RoomDigitalSignage) *RoomConfigBuilder {
+	builder.roomBoxDigitalSignage = roomBoxDigitalSignage
+	builder.roomBoxDigitalSignageFlag = true
+	return builder
+}
+func (builder *RoomConfigBuilder) RoomStatus(roomStatus *RoomStatus) *RoomConfigBuilder {
+	builder.roomStatus = roomStatus
+	builder.roomStatusFlag = true
+	return builder
+}
+
+func (builder *RoomConfigBuilder) Build() *RoomConfig {
+	req := &RoomConfig{}
+	if builder.roomBackgroundFlag {
+		req.RoomBackground = &builder.roomBackground
+
+	}
+	if builder.displayBackgroundFlag {
+		req.DisplayBackground = &builder.displayBackground
+
+	}
+	if builder.digitalSignageFlag {
+		req.DigitalSignage = builder.digitalSignage
+	}
+	if builder.roomBoxDigitalSignageFlag {
+		req.RoomBoxDigitalSignage = builder.roomBoxDigitalSignage
+	}
+	if builder.roomStatusFlag {
+		req.RoomStatus = builder.roomStatus
+	}
+	return req
+}
+
+/**builder结束**/
 
 type RoomDigitalSignage struct {
 	Enable       *bool                         `json:"enable,omitempty"`
@@ -224,6 +1821,77 @@ type RoomDigitalSignage struct {
 	StopDisplay  *int                          `json:"stop_display,omitempty"`
 	Materials    []*RoomDigitalSignageMaterial `json:"materials,omitempty"`
 }
+
+/**builder开始**/
+type RoomDigitalSignageBuilder struct {
+	enable           bool
+	enableFlag       bool
+	mute             bool
+	muteFlag         bool
+	startDisplay     int
+	startDisplayFlag bool
+	stopDisplay      int
+	stopDisplayFlag  bool
+	materials        []*RoomDigitalSignageMaterial
+	materialsFlag    bool
+}
+
+func NewRoomDigitalSignageBuilder() *RoomDigitalSignageBuilder {
+	builder := &RoomDigitalSignageBuilder{}
+	return builder
+}
+
+func (builder *RoomDigitalSignageBuilder) Enable(enable bool) *RoomDigitalSignageBuilder {
+	builder.enable = enable
+	builder.enableFlag = true
+	return builder
+}
+func (builder *RoomDigitalSignageBuilder) Mute(mute bool) *RoomDigitalSignageBuilder {
+	builder.mute = mute
+	builder.muteFlag = true
+	return builder
+}
+func (builder *RoomDigitalSignageBuilder) StartDisplay(startDisplay int) *RoomDigitalSignageBuilder {
+	builder.startDisplay = startDisplay
+	builder.startDisplayFlag = true
+	return builder
+}
+func (builder *RoomDigitalSignageBuilder) StopDisplay(stopDisplay int) *RoomDigitalSignageBuilder {
+	builder.stopDisplay = stopDisplay
+	builder.stopDisplayFlag = true
+	return builder
+}
+func (builder *RoomDigitalSignageBuilder) Materials(materials []*RoomDigitalSignageMaterial) *RoomDigitalSignageBuilder {
+	builder.materials = materials
+	builder.materialsFlag = true
+	return builder
+}
+
+func (builder *RoomDigitalSignageBuilder) Build() *RoomDigitalSignage {
+	req := &RoomDigitalSignage{}
+	if builder.enableFlag {
+		req.Enable = &builder.enable
+
+	}
+	if builder.muteFlag {
+		req.Mute = &builder.mute
+
+	}
+	if builder.startDisplayFlag {
+		req.StartDisplay = &builder.startDisplay
+
+	}
+	if builder.stopDisplayFlag {
+		req.StopDisplay = &builder.stopDisplay
+
+	}
+	if builder.materialsFlag {
+		req.Materials = builder.materials
+	}
+	return req
+}
+
+/**builder结束**/
 
 type RoomDigitalSignageMaterial struct {
 	Id           *string `json:"id,omitempty"`
@@ -237,11 +1905,292 @@ type RoomDigitalSignageMaterial struct {
 	Size         *string `json:"size,omitempty"`
 }
 
+/**builder开始**/
+type RoomDigitalSignageMaterialBuilder struct {
+	id               string
+	idFlag           bool
+	name             string
+	nameFlag         bool
+	materialType     int
+	materialTypeFlag bool
+	url              string
+	urlFlag          bool
+	duration         int
+	durationFlag     bool
+	cover            string
+	coverFlag        bool
+	md5              string
+	md5Flag          bool
+	vid              string
+	vidFlag          bool
+	size             string
+	sizeFlag         bool
+}
+
+func NewRoomDigitalSignageMaterialBuilder() *RoomDigitalSignageMaterialBuilder {
+	builder := &RoomDigitalSignageMaterialBuilder{}
+	return builder
+}
+
+func (builder *RoomDigitalSignageMaterialBuilder) Id(id string) *RoomDigitalSignageMaterialBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *RoomDigitalSignageMaterialBuilder) Name(name string) *RoomDigitalSignageMaterialBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *RoomDigitalSignageMaterialBuilder) MaterialType(materialType int) *RoomDigitalSignageMaterialBuilder {
+	builder.materialType = materialType
+	builder.materialTypeFlag = true
+	return builder
+}
+func (builder *RoomDigitalSignageMaterialBuilder) Url(url string) *RoomDigitalSignageMaterialBuilder {
+	builder.url = url
+	builder.urlFlag = true
+	return builder
+}
+func (builder *RoomDigitalSignageMaterialBuilder) Duration(duration int) *RoomDigitalSignageMaterialBuilder {
+	builder.duration = duration
+	builder.durationFlag = true
+	return builder
+}
+func (builder *RoomDigitalSignageMaterialBuilder) Cover(cover string) *RoomDigitalSignageMaterialBuilder {
+	builder.cover = cover
+	builder.coverFlag = true
+	return builder
+}
+func (builder *RoomDigitalSignageMaterialBuilder) Md5(md5 string) *RoomDigitalSignageMaterialBuilder {
+	builder.md5 = md5
+	builder.md5Flag = true
+	return builder
+}
+func (builder *RoomDigitalSignageMaterialBuilder) Vid(vid string) *RoomDigitalSignageMaterialBuilder {
+	builder.vid = vid
+	builder.vidFlag = true
+	return builder
+}
+func (builder *RoomDigitalSignageMaterialBuilder) Size(size string) *RoomDigitalSignageMaterialBuilder {
+	builder.size = size
+	builder.sizeFlag = true
+	return builder
+}
+
+func (builder *RoomDigitalSignageMaterialBuilder) Build() *RoomDigitalSignageMaterial {
+	req := &RoomDigitalSignageMaterial{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.materialTypeFlag {
+		req.MaterialType = &builder.materialType
+
+	}
+	if builder.urlFlag {
+		req.Url = &builder.url
+
+	}
+	if builder.durationFlag {
+		req.Duration = &builder.duration
+
+	}
+	if builder.coverFlag {
+		req.Cover = &builder.cover
+
+	}
+	if builder.md5Flag {
+		req.Md5 = &builder.md5
+
+	}
+	if builder.vidFlag {
+		req.Vid = &builder.vid
+
+	}
+	if builder.sizeFlag {
+		req.Size = &builder.size
+
+	}
+	return req
+}
+
+/**builder结束**/
+
+type RoomStatus struct {
+	Status           *bool    `json:"status,omitempty"`
+	ScheduleStatus   *bool    `json:"schedule_status,omitempty"`
+	DisableStartTime *int64   `json:"disable_start_time,omitempty,string"`
+	DisableEndTime   *int64   `json:"disable_end_time,omitempty,string"`
+	DisableReason    *string  `json:"disable_reason,omitempty"`
+	ContactIds       []string `json:"contact_ids,omitempty"`
+	DisableNotice    *bool    `json:"disable_notice,omitempty"`
+	ResumeNotice     *bool    `json:"resume_notice,omitempty"`
+}
+
+/**builder开始**/
+type RoomStatusBuilder struct {
+	status               bool
+	statusFlag           bool
+	scheduleStatus       bool
+	scheduleStatusFlag   bool
+	disableStartTime     int64
+	disableStartTimeFlag bool
+	disableEndTime       int64
+	disableEndTimeFlag   bool
+	disableReason        string
+	disableReasonFlag    bool
+	contactIds           []string
+	contactIdsFlag       bool
+	disableNotice        bool
+	disableNoticeFlag    bool
+	resumeNotice         bool
+	resumeNoticeFlag     bool
+}
+
+func NewRoomStatusBuilder() *RoomStatusBuilder {
+	builder := &RoomStatusBuilder{}
+	return builder
+}
+
+func (builder *RoomStatusBuilder) Status(status bool) *RoomStatusBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+func (builder *RoomStatusBuilder) ScheduleStatus(scheduleStatus bool) *RoomStatusBuilder {
+	builder.scheduleStatus = scheduleStatus
+	builder.scheduleStatusFlag = true
+	return builder
+}
+func (builder *RoomStatusBuilder) DisableStartTime(disableStartTime int64) *RoomStatusBuilder {
+	builder.disableStartTime = disableStartTime
+	builder.disableStartTimeFlag = true
+	return builder
+}
+func (builder *RoomStatusBuilder) DisableEndTime(disableEndTime int64) *RoomStatusBuilder {
+	builder.disableEndTime = disableEndTime
+	builder.disableEndTimeFlag = true
+	return builder
+}
+func (builder *RoomStatusBuilder) DisableReason(disableReason string) *RoomStatusBuilder {
+	builder.disableReason = disableReason
+	builder.disableReasonFlag = true
+	return builder
+}
+func (builder *RoomStatusBuilder) ContactIds(contactIds []string) *RoomStatusBuilder {
+	builder.contactIds = contactIds
+	builder.contactIdsFlag = true
+	return builder
+}
+func (builder *RoomStatusBuilder) DisableNotice(disableNotice bool) *RoomStatusBuilder {
+	builder.disableNotice = disableNotice
+	builder.disableNoticeFlag = true
+	return builder
+}
+func (builder *RoomStatusBuilder) ResumeNotice(resumeNotice bool) *RoomStatusBuilder {
+	builder.resumeNotice = resumeNotice
+	builder.resumeNoticeFlag = true
+	return builder
+}
+
+func (builder *RoomStatusBuilder) Build() *RoomStatus {
+	req := &RoomStatus{}
+	if builder.statusFlag {
+		req.Status = &builder.status
+
+	}
+	if builder.scheduleStatusFlag {
+		req.ScheduleStatus = &builder.scheduleStatus
+
+	}
+	if builder.disableStartTimeFlag {
+		req.DisableStartTime = &builder.disableStartTime
+
+	}
+	if builder.disableEndTimeFlag {
+		req.DisableEndTime = &builder.disableEndTime
+
+	}
+	if builder.disableReasonFlag {
+		req.DisableReason = &builder.disableReason
+
+	}
+	if builder.contactIdsFlag {
+		req.ContactIds = builder.contactIds
+	}
+	if builder.disableNoticeFlag {
+		req.DisableNotice = &builder.disableNotice
+
+	}
+	if builder.resumeNoticeFlag {
+		req.ResumeNotice = &builder.resumeNotice
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type UserId struct {
 	UserId  *string `json:"user_id,omitempty"`
 	OpenId  *string `json:"open_id,omitempty"`
 	UnionId *string `json:"union_id,omitempty"`
 }
+
+/**builder开始**/
+type UserIdBuilder struct {
+	userId      string
+	userIdFlag  bool
+	openId      string
+	openIdFlag  bool
+	unionId     string
+	unionIdFlag bool
+}
+
+func NewUserIdBuilder() *UserIdBuilder {
+	builder := &UserIdBuilder{}
+	return builder
+}
+
+func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
+	builder.openId = openId
+	builder.openIdFlag = true
+	return builder
+}
+func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
+	builder.unionId = unionId
+	builder.unionIdFlag = true
+	return builder
+}
+
+func (builder *UserIdBuilder) Build() *UserId {
+	req := &UserId{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.openIdFlag {
+		req.OpenId = &builder.openId
+
+	}
+	if builder.unionIdFlag {
+		req.UnionId = &builder.unionId
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 /**生成请求和响应结果类型，以及请求对象的Builder构造器 **/
 
@@ -1797,6 +3746,8 @@ type QueryRoomConfigReqBuilder struct {
 	floorNameFlag  bool
 	roomId         string
 	roomIdFlag     bool
+	userIdType     string
+	userIdTypeFlag bool
 }
 
 // 生成请求的New构造器
@@ -1836,6 +3787,11 @@ func (builder *QueryRoomConfigReqBuilder) RoomId(roomId string) *QueryRoomConfig
 	builder.roomIdFlag = true
 	return builder
 }
+func (builder *QueryRoomConfigReqBuilder) UserIdType(userIdType string) *QueryRoomConfigReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
+}
 
 /*1.5 生成请求的builder的build方法*/
 func (builder *QueryRoomConfigReqBuilder) Build() *QueryRoomConfigReq {
@@ -1858,6 +3814,9 @@ func (builder *QueryRoomConfigReqBuilder) Build() *QueryRoomConfigReq {
 	if builder.roomIdFlag {
 		req.RoomId = &builder.roomId
 	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
 	return req
 }
 
@@ -1868,6 +3827,7 @@ type QueryRoomConfigReq struct {
 	BuildingId *string `query:"building_id"`
 	FloorName  *string `query:"floor_name"`
 	RoomId     *string `query:"room_id"`
+	UserIdType *string `query:"user_id_type"`
 }
 
 type QueryRoomConfigRespData struct {
@@ -1875,6 +3835,7 @@ type QueryRoomConfigRespData struct {
 	DisplayBackground     *string             `json:"display_background,omitempty"`
 	DigitalSignage        *RoomDigitalSignage `json:"digital_signage,omitempty"`
 	RoomBoxDigitalSignage *RoomDigitalSignage `json:"room_box_digital_signage,omitempty"`
+	RoomStatus            *RoomStatus         `json:"room_status,omitempty"`
 }
 
 type QueryRoomConfigResp struct {
@@ -2075,8 +4036,10 @@ func (builder *SetRoomConfigPathReqBodyBuilder) Build() (*SetRoomConfigReqBody, 
 
 /*1.4 生成请求的builder结构体*/
 type SetRoomConfigReqBuilder struct {
-	body     *SetRoomConfigReqBody
-	bodyFlag bool
+	userIdType     string
+	userIdTypeFlag bool
+	body           *SetRoomConfigReqBody
+	bodyFlag       bool
 }
 
 // 生成请求的New构造器
@@ -2086,6 +4049,11 @@ func NewSetRoomConfigReqBuilder() *SetRoomConfigReqBuilder {
 }
 
 /*1.5 生成请求的builder属性方法*/
+func (builder *SetRoomConfigReqBuilder) UserIdType(userIdType string) *SetRoomConfigReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
+}
 func (builder *SetRoomConfigReqBuilder) Body(body *SetRoomConfigReqBody) *SetRoomConfigReqBuilder {
 	builder.body = body
 	builder.bodyFlag = true
@@ -2095,6 +4063,9 @@ func (builder *SetRoomConfigReqBuilder) Body(body *SetRoomConfigReqBody) *SetRoo
 /*1.5 生成请求的builder的build方法*/
 func (builder *SetRoomConfigReqBuilder) Build() *SetRoomConfigReq {
 	req := &SetRoomConfigReq{}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
 	if builder.bodyFlag {
 		req.Body = builder.body
 	}
@@ -2112,7 +4083,8 @@ type SetRoomConfigReqBody struct {
 }
 
 type SetRoomConfigReq struct {
-	Body *SetRoomConfigReqBody `body:""`
+	UserIdType *string               `query:"user_id_type"`
+	Body       *SetRoomConfigReqBody `body:""`
 }
 
 type SetRoomConfigResp struct {

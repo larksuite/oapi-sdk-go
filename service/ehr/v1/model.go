@@ -35,10 +35,110 @@ type Attachment struct {
 	Size     *int64  `json:"size,omitempty"`
 }
 
+/**builder开始**/
+type AttachmentBuilder struct {
+	id           string
+	idFlag       bool
+	mimeType     string
+	mimeTypeFlag bool
+	name         string
+	nameFlag     bool
+	size         int64
+	sizeFlag     bool
+}
+
+func NewAttachmentBuilder() *AttachmentBuilder {
+	builder := &AttachmentBuilder{}
+	return builder
+}
+
+func (builder *AttachmentBuilder) Id(id string) *AttachmentBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *AttachmentBuilder) MimeType(mimeType string) *AttachmentBuilder {
+	builder.mimeType = mimeType
+	builder.mimeTypeFlag = true
+	return builder
+}
+func (builder *AttachmentBuilder) Name(name string) *AttachmentBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *AttachmentBuilder) Size(size int64) *AttachmentBuilder {
+	builder.size = size
+	builder.sizeFlag = true
+	return builder
+}
+
+func (builder *AttachmentBuilder) Build() *Attachment {
+	req := &Attachment{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.mimeTypeFlag {
+		req.MimeType = &builder.mimeType
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.sizeFlag {
+		req.Size = &builder.size
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type ContractCompany struct {
 	Id   *int64  `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
 }
+
+/**builder开始**/
+type ContractCompanyBuilder struct {
+	id       int64
+	idFlag   bool
+	name     string
+	nameFlag bool
+}
+
+func NewContractCompanyBuilder() *ContractCompanyBuilder {
+	builder := &ContractCompanyBuilder{}
+	return builder
+}
+
+func (builder *ContractCompanyBuilder) Id(id int64) *ContractCompanyBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *ContractCompanyBuilder) Name(name string) *ContractCompanyBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+func (builder *ContractCompanyBuilder) Build() *ContractCompany {
+	req := &ContractCompany{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type CustomFields struct {
 	Key   *string `json:"key,omitempty"`
@@ -46,6 +146,67 @@ type CustomFields struct {
 	Type  *string `json:"type,omitempty"`
 	Value *string `json:"value,omitempty"`
 }
+
+/**builder开始**/
+type CustomFieldsBuilder struct {
+	key       string
+	keyFlag   bool
+	label     string
+	labelFlag bool
+	type_     string
+	typeFlag  bool
+	value     string
+	valueFlag bool
+}
+
+func NewCustomFieldsBuilder() *CustomFieldsBuilder {
+	builder := &CustomFieldsBuilder{}
+	return builder
+}
+
+func (builder *CustomFieldsBuilder) Key(key string) *CustomFieldsBuilder {
+	builder.key = key
+	builder.keyFlag = true
+	return builder
+}
+func (builder *CustomFieldsBuilder) Label(label string) *CustomFieldsBuilder {
+	builder.label = label
+	builder.labelFlag = true
+	return builder
+}
+func (builder *CustomFieldsBuilder) Type(type_ string) *CustomFieldsBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+func (builder *CustomFieldsBuilder) Value(value string) *CustomFieldsBuilder {
+	builder.value = value
+	builder.valueFlag = true
+	return builder
+}
+
+func (builder *CustomFieldsBuilder) Build() *CustomFields {
+	req := &CustomFields{}
+	if builder.keyFlag {
+		req.Key = &builder.key
+
+	}
+	if builder.labelFlag {
+		req.Label = &builder.label
+
+	}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.valueFlag {
+		req.Value = &builder.value
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type Education struct {
 	Level  *int    `json:"level,omitempty"`
@@ -56,11 +217,144 @@ type Education struct {
 	End    *string `json:"end,omitempty"`
 }
 
+/**builder开始**/
+type EducationBuilder struct {
+	level      int
+	levelFlag  bool
+	school     string
+	schoolFlag bool
+	major      string
+	majorFlag  bool
+	degree     int
+	degreeFlag bool
+	start      string
+	startFlag  bool
+	end        string
+	endFlag    bool
+}
+
+func NewEducationBuilder() *EducationBuilder {
+	builder := &EducationBuilder{}
+	return builder
+}
+
+func (builder *EducationBuilder) Level(level int) *EducationBuilder {
+	builder.level = level
+	builder.levelFlag = true
+	return builder
+}
+func (builder *EducationBuilder) School(school string) *EducationBuilder {
+	builder.school = school
+	builder.schoolFlag = true
+	return builder
+}
+func (builder *EducationBuilder) Major(major string) *EducationBuilder {
+	builder.major = major
+	builder.majorFlag = true
+	return builder
+}
+func (builder *EducationBuilder) Degree(degree int) *EducationBuilder {
+	builder.degree = degree
+	builder.degreeFlag = true
+	return builder
+}
+func (builder *EducationBuilder) Start(start string) *EducationBuilder {
+	builder.start = start
+	builder.startFlag = true
+	return builder
+}
+func (builder *EducationBuilder) End(end string) *EducationBuilder {
+	builder.end = end
+	builder.endFlag = true
+	return builder
+}
+
+func (builder *EducationBuilder) Build() *Education {
+	req := &Education{}
+	if builder.levelFlag {
+		req.Level = &builder.level
+
+	}
+	if builder.schoolFlag {
+		req.School = &builder.school
+
+	}
+	if builder.majorFlag {
+		req.Major = &builder.major
+
+	}
+	if builder.degreeFlag {
+		req.Degree = &builder.degree
+
+	}
+	if builder.startFlag {
+		req.Start = &builder.start
+
+	}
+	if builder.endFlag {
+		req.End = &builder.end
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type EmergencyContact struct {
 	Name         *string `json:"name,omitempty"`
 	Relationship *int    `json:"relationship,omitempty"`
 	Mobile       *string `json:"mobile,omitempty"`
 }
+
+/**builder开始**/
+type EmergencyContactBuilder struct {
+	name             string
+	nameFlag         bool
+	relationship     int
+	relationshipFlag bool
+	mobile           string
+	mobileFlag       bool
+}
+
+func NewEmergencyContactBuilder() *EmergencyContactBuilder {
+	builder := &EmergencyContactBuilder{}
+	return builder
+}
+
+func (builder *EmergencyContactBuilder) Name(name string) *EmergencyContactBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *EmergencyContactBuilder) Relationship(relationship int) *EmergencyContactBuilder {
+	builder.relationship = relationship
+	builder.relationshipFlag = true
+	return builder
+}
+func (builder *EmergencyContactBuilder) Mobile(mobile string) *EmergencyContactBuilder {
+	builder.mobile = mobile
+	builder.mobileFlag = true
+	return builder
+}
+
+func (builder *EmergencyContactBuilder) Build() *EmergencyContact {
+	req := &EmergencyContact{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.relationshipFlag {
+		req.Relationship = &builder.relationship
+
+	}
+	if builder.mobileFlag {
+		req.Mobile = &builder.mobile
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type Employee struct {
 	UserId       *string         `json:"user_id,omitempty"`
@@ -68,15 +362,141 @@ type Employee struct {
 	CustomFields []*CustomFields `json:"custom_fields,omitempty"`
 }
 
+/**builder开始**/
+type EmployeeBuilder struct {
+	userId           string
+	userIdFlag       bool
+	systemFields     *SystemFields
+	systemFieldsFlag bool
+	customFields     []*CustomFields
+	customFieldsFlag bool
+}
+
+func NewEmployeeBuilder() *EmployeeBuilder {
+	builder := &EmployeeBuilder{}
+	return builder
+}
+
+func (builder *EmployeeBuilder) UserId(userId string) *EmployeeBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *EmployeeBuilder) SystemFields(systemFields *SystemFields) *EmployeeBuilder {
+	builder.systemFields = systemFields
+	builder.systemFieldsFlag = true
+	return builder
+}
+func (builder *EmployeeBuilder) CustomFields(customFields []*CustomFields) *EmployeeBuilder {
+	builder.customFields = customFields
+	builder.customFieldsFlag = true
+	return builder
+}
+
+func (builder *EmployeeBuilder) Build() *Employee {
+	req := &Employee{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.systemFieldsFlag {
+		req.SystemFields = builder.systemFields
+	}
+	if builder.customFieldsFlag {
+		req.CustomFields = builder.customFields
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Job struct {
 	Id   *int64  `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
 }
 
+/**builder开始**/
+type JobBuilder struct {
+	id       int64
+	idFlag   bool
+	name     string
+	nameFlag bool
+}
+
+func NewJobBuilder() *JobBuilder {
+	builder := &JobBuilder{}
+	return builder
+}
+
+func (builder *JobBuilder) Id(id int64) *JobBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *JobBuilder) Name(name string) *JobBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+func (builder *JobBuilder) Build() *Job {
+	req := &Job{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type JobLevel struct {
 	Id   *int64  `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
 }
+
+/**builder开始**/
+type JobLevelBuilder struct {
+	id       int64
+	idFlag   bool
+	name     string
+	nameFlag bool
+}
+
+func NewJobLevelBuilder() *JobLevelBuilder {
+	builder := &JobLevelBuilder{}
+	return builder
+}
+
+func (builder *JobLevelBuilder) Id(id int64) *JobLevelBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *JobLevelBuilder) Name(name string) *JobLevelBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+func (builder *JobLevelBuilder) Build() *JobLevel {
+	req := &JobLevel{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type Manager struct {
 	UserId *string `json:"user_id,omitempty"`
@@ -84,10 +504,99 @@ type Manager struct {
 	EnName *string `json:"en_name,omitempty"`
 }
 
+/**builder开始**/
+type ManagerBuilder struct {
+	userId     string
+	userIdFlag bool
+	name       string
+	nameFlag   bool
+	enName     string
+	enNameFlag bool
+}
+
+func NewManagerBuilder() *ManagerBuilder {
+	builder := &ManagerBuilder{}
+	return builder
+}
+
+func (builder *ManagerBuilder) UserId(userId string) *ManagerBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *ManagerBuilder) Name(name string) *ManagerBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *ManagerBuilder) EnName(enName string) *ManagerBuilder {
+	builder.enName = enName
+	builder.enNameFlag = true
+	return builder
+}
+
+func (builder *ManagerBuilder) Build() *Manager {
+	req := &Manager{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.enNameFlag {
+		req.EnName = &builder.enName
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type NativeRegion struct {
 	IsoCode *string `json:"iso_code,omitempty"`
 	Name    *string `json:"name,omitempty"`
 }
+
+/**builder开始**/
+type NativeRegionBuilder struct {
+	isoCode     string
+	isoCodeFlag bool
+	name        string
+	nameFlag    bool
+}
+
+func NewNativeRegionBuilder() *NativeRegionBuilder {
+	builder := &NativeRegionBuilder{}
+	return builder
+}
+
+func (builder *NativeRegionBuilder) IsoCode(isoCode string) *NativeRegionBuilder {
+	builder.isoCode = isoCode
+	builder.isoCodeFlag = true
+	return builder
+}
+func (builder *NativeRegionBuilder) Name(name string) *NativeRegionBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+func (builder *NativeRegionBuilder) Build() *NativeRegion {
+	req := &NativeRegion{}
+	if builder.isoCodeFlag {
+		req.IsoCode = &builder.isoCode
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type SystemFields struct {
 	Name                    *string             `json:"name,omitempty"`
@@ -153,6 +662,675 @@ type SystemFields struct {
 	UpdateTime              *int64              `json:"update_time,omitempty"`
 }
 
+/**builder开始**/
+type SystemFieldsBuilder struct {
+	name                        string
+	nameFlag                    bool
+	enName                      string
+	enNameFlag                  bool
+	email                       string
+	emailFlag                   bool
+	mobile                      string
+	mobileFlag                  bool
+	departmentId                string
+	departmentIdFlag            bool
+	manager                     *Manager
+	managerFlag                 bool
+	job                         *Job
+	jobFlag                     bool
+	jobLevel                    *JobLevel
+	jobLevelFlag                bool
+	workLocation                *WorkLocation
+	workLocationFlag            bool
+	gender                      int
+	genderFlag                  bool
+	birthday                    string
+	birthdayFlag                bool
+	nativeRegion                *NativeRegion
+	nativeRegionFlag            bool
+	ethnicity                   int
+	ethnicityFlag               bool
+	maritalStatus               int
+	maritalStatusFlag           bool
+	politicalStatus             int
+	politicalStatusFlag         bool
+	enteredWorkforceDate        string
+	enteredWorkforceDateFlag    bool
+	idType                      int
+	idTypeFlag                  bool
+	idNumber                    string
+	idNumberFlag                bool
+	hukouType                   int
+	hukouTypeFlag               bool
+	hukouLocation               string
+	hukouLocationFlag           bool
+	bankAccountNumber           string
+	bankAccountNumberFlag       bool
+	bankName                    string
+	bankNameFlag                bool
+	socialSecurityAccount       string
+	socialSecurityAccountFlag   bool
+	providentFundAccount        string
+	providentFundAccountFlag    bool
+	employeeNo                  string
+	employeeNoFlag              bool
+	employeeType                int
+	employeeTypeFlag            bool
+	status                      int
+	statusFlag                  bool
+	hireDate                    string
+	hireDateFlag                bool
+	probationMonths             float64
+	probationMonthsFlag         bool
+	conversionDate              string
+	conversionDateFlag          bool
+	application                 int
+	applicationFlag             bool
+	applicationStatus           int
+	applicationStatusFlag       bool
+	lastDay                     string
+	lastDayFlag                 bool
+	departureType               int
+	departureTypeFlag           bool
+	departureReason             int
+	departureReasonFlag         bool
+	departureNotes              string
+	departureNotesFlag          bool
+	contractCompany             *ContractCompany
+	contractCompanyFlag         bool
+	contractType                int
+	contractTypeFlag            bool
+	contractStartDate           string
+	contractStartDateFlag       bool
+	contractExpirationDate      string
+	contractExpirationDateFlag  bool
+	contractSignTimes           int
+	contractSignTimesFlag       bool
+	personalEmail               string
+	personalEmailFlag           bool
+	familyAddress               string
+	familyAddressFlag           bool
+	primaryEmergencyContact     *EmergencyContact
+	primaryEmergencyContactFlag bool
+	emergencyContact            []*EmergencyContact
+	emergencyContactFlag        bool
+	highestLevelOfEdu           *Education
+	highestLevelOfEduFlag       bool
+	education                   []*Education
+	educationFlag               bool
+	formerWorkExp               *WorkExperience
+	formerWorkExpFlag           bool
+	workExp                     []*WorkExperience
+	workExpFlag                 bool
+	idPhotoPoSide               []*Attachment
+	idPhotoPoSideFlag           bool
+	idPhotoEmSide               []*Attachment
+	idPhotoEmSideFlag           bool
+	idPhoto                     []*Attachment
+	idPhotoFlag                 bool
+	diplomaPhoto                []*Attachment
+	diplomaPhotoFlag            bool
+	graduationCert              []*Attachment
+	graduationCertFlag          bool
+	certOfMerit                 []*Attachment
+	certOfMeritFlag             bool
+	offboardingFile             []*Attachment
+	offboardingFileFlag         bool
+	cancelOnboardingReason      int
+	cancelOnboardingReasonFlag  bool
+	cancelOnboardingNotes       string
+	cancelOnboardingNotesFlag   bool
+	employeeFormStatus          int
+	employeeFormStatusFlag      bool
+	createTime                  int64
+	createTimeFlag              bool
+	updateTime                  int64
+	updateTimeFlag              bool
+}
+
+func NewSystemFieldsBuilder() *SystemFieldsBuilder {
+	builder := &SystemFieldsBuilder{}
+	return builder
+}
+
+func (builder *SystemFieldsBuilder) Name(name string) *SystemFieldsBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) EnName(enName string) *SystemFieldsBuilder {
+	builder.enName = enName
+	builder.enNameFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) Email(email string) *SystemFieldsBuilder {
+	builder.email = email
+	builder.emailFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) Mobile(mobile string) *SystemFieldsBuilder {
+	builder.mobile = mobile
+	builder.mobileFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) DepartmentId(departmentId string) *SystemFieldsBuilder {
+	builder.departmentId = departmentId
+	builder.departmentIdFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) Manager(manager *Manager) *SystemFieldsBuilder {
+	builder.manager = manager
+	builder.managerFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) Job(job *Job) *SystemFieldsBuilder {
+	builder.job = job
+	builder.jobFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) JobLevel(jobLevel *JobLevel) *SystemFieldsBuilder {
+	builder.jobLevel = jobLevel
+	builder.jobLevelFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) WorkLocation(workLocation *WorkLocation) *SystemFieldsBuilder {
+	builder.workLocation = workLocation
+	builder.workLocationFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) Gender(gender int) *SystemFieldsBuilder {
+	builder.gender = gender
+	builder.genderFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) Birthday(birthday string) *SystemFieldsBuilder {
+	builder.birthday = birthday
+	builder.birthdayFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) NativeRegion(nativeRegion *NativeRegion) *SystemFieldsBuilder {
+	builder.nativeRegion = nativeRegion
+	builder.nativeRegionFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) Ethnicity(ethnicity int) *SystemFieldsBuilder {
+	builder.ethnicity = ethnicity
+	builder.ethnicityFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) MaritalStatus(maritalStatus int) *SystemFieldsBuilder {
+	builder.maritalStatus = maritalStatus
+	builder.maritalStatusFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) PoliticalStatus(politicalStatus int) *SystemFieldsBuilder {
+	builder.politicalStatus = politicalStatus
+	builder.politicalStatusFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) EnteredWorkforceDate(enteredWorkforceDate string) *SystemFieldsBuilder {
+	builder.enteredWorkforceDate = enteredWorkforceDate
+	builder.enteredWorkforceDateFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) IdType(idType int) *SystemFieldsBuilder {
+	builder.idType = idType
+	builder.idTypeFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) IdNumber(idNumber string) *SystemFieldsBuilder {
+	builder.idNumber = idNumber
+	builder.idNumberFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) HukouType(hukouType int) *SystemFieldsBuilder {
+	builder.hukouType = hukouType
+	builder.hukouTypeFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) HukouLocation(hukouLocation string) *SystemFieldsBuilder {
+	builder.hukouLocation = hukouLocation
+	builder.hukouLocationFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) BankAccountNumber(bankAccountNumber string) *SystemFieldsBuilder {
+	builder.bankAccountNumber = bankAccountNumber
+	builder.bankAccountNumberFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) BankName(bankName string) *SystemFieldsBuilder {
+	builder.bankName = bankName
+	builder.bankNameFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) SocialSecurityAccount(socialSecurityAccount string) *SystemFieldsBuilder {
+	builder.socialSecurityAccount = socialSecurityAccount
+	builder.socialSecurityAccountFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) ProvidentFundAccount(providentFundAccount string) *SystemFieldsBuilder {
+	builder.providentFundAccount = providentFundAccount
+	builder.providentFundAccountFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) EmployeeNo(employeeNo string) *SystemFieldsBuilder {
+	builder.employeeNo = employeeNo
+	builder.employeeNoFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) EmployeeType(employeeType int) *SystemFieldsBuilder {
+	builder.employeeType = employeeType
+	builder.employeeTypeFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) Status(status int) *SystemFieldsBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) HireDate(hireDate string) *SystemFieldsBuilder {
+	builder.hireDate = hireDate
+	builder.hireDateFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) ProbationMonths(probationMonths float64) *SystemFieldsBuilder {
+	builder.probationMonths = probationMonths
+	builder.probationMonthsFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) ConversionDate(conversionDate string) *SystemFieldsBuilder {
+	builder.conversionDate = conversionDate
+	builder.conversionDateFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) Application(application int) *SystemFieldsBuilder {
+	builder.application = application
+	builder.applicationFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) ApplicationStatus(applicationStatus int) *SystemFieldsBuilder {
+	builder.applicationStatus = applicationStatus
+	builder.applicationStatusFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) LastDay(lastDay string) *SystemFieldsBuilder {
+	builder.lastDay = lastDay
+	builder.lastDayFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) DepartureType(departureType int) *SystemFieldsBuilder {
+	builder.departureType = departureType
+	builder.departureTypeFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) DepartureReason(departureReason int) *SystemFieldsBuilder {
+	builder.departureReason = departureReason
+	builder.departureReasonFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) DepartureNotes(departureNotes string) *SystemFieldsBuilder {
+	builder.departureNotes = departureNotes
+	builder.departureNotesFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) ContractCompany(contractCompany *ContractCompany) *SystemFieldsBuilder {
+	builder.contractCompany = contractCompany
+	builder.contractCompanyFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) ContractType(contractType int) *SystemFieldsBuilder {
+	builder.contractType = contractType
+	builder.contractTypeFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) ContractStartDate(contractStartDate string) *SystemFieldsBuilder {
+	builder.contractStartDate = contractStartDate
+	builder.contractStartDateFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) ContractExpirationDate(contractExpirationDate string) *SystemFieldsBuilder {
+	builder.contractExpirationDate = contractExpirationDate
+	builder.contractExpirationDateFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) ContractSignTimes(contractSignTimes int) *SystemFieldsBuilder {
+	builder.contractSignTimes = contractSignTimes
+	builder.contractSignTimesFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) PersonalEmail(personalEmail string) *SystemFieldsBuilder {
+	builder.personalEmail = personalEmail
+	builder.personalEmailFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) FamilyAddress(familyAddress string) *SystemFieldsBuilder {
+	builder.familyAddress = familyAddress
+	builder.familyAddressFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) PrimaryEmergencyContact(primaryEmergencyContact *EmergencyContact) *SystemFieldsBuilder {
+	builder.primaryEmergencyContact = primaryEmergencyContact
+	builder.primaryEmergencyContactFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) EmergencyContact(emergencyContact []*EmergencyContact) *SystemFieldsBuilder {
+	builder.emergencyContact = emergencyContact
+	builder.emergencyContactFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) HighestLevelOfEdu(highestLevelOfEdu *Education) *SystemFieldsBuilder {
+	builder.highestLevelOfEdu = highestLevelOfEdu
+	builder.highestLevelOfEduFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) Education(education []*Education) *SystemFieldsBuilder {
+	builder.education = education
+	builder.educationFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) FormerWorkExp(formerWorkExp *WorkExperience) *SystemFieldsBuilder {
+	builder.formerWorkExp = formerWorkExp
+	builder.formerWorkExpFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) WorkExp(workExp []*WorkExperience) *SystemFieldsBuilder {
+	builder.workExp = workExp
+	builder.workExpFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) IdPhotoPoSide(idPhotoPoSide []*Attachment) *SystemFieldsBuilder {
+	builder.idPhotoPoSide = idPhotoPoSide
+	builder.idPhotoPoSideFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) IdPhotoEmSide(idPhotoEmSide []*Attachment) *SystemFieldsBuilder {
+	builder.idPhotoEmSide = idPhotoEmSide
+	builder.idPhotoEmSideFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) IdPhoto(idPhoto []*Attachment) *SystemFieldsBuilder {
+	builder.idPhoto = idPhoto
+	builder.idPhotoFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) DiplomaPhoto(diplomaPhoto []*Attachment) *SystemFieldsBuilder {
+	builder.diplomaPhoto = diplomaPhoto
+	builder.diplomaPhotoFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) GraduationCert(graduationCert []*Attachment) *SystemFieldsBuilder {
+	builder.graduationCert = graduationCert
+	builder.graduationCertFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) CertOfMerit(certOfMerit []*Attachment) *SystemFieldsBuilder {
+	builder.certOfMerit = certOfMerit
+	builder.certOfMeritFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) OffboardingFile(offboardingFile []*Attachment) *SystemFieldsBuilder {
+	builder.offboardingFile = offboardingFile
+	builder.offboardingFileFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) CancelOnboardingReason(cancelOnboardingReason int) *SystemFieldsBuilder {
+	builder.cancelOnboardingReason = cancelOnboardingReason
+	builder.cancelOnboardingReasonFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) CancelOnboardingNotes(cancelOnboardingNotes string) *SystemFieldsBuilder {
+	builder.cancelOnboardingNotes = cancelOnboardingNotes
+	builder.cancelOnboardingNotesFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) EmployeeFormStatus(employeeFormStatus int) *SystemFieldsBuilder {
+	builder.employeeFormStatus = employeeFormStatus
+	builder.employeeFormStatusFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) CreateTime(createTime int64) *SystemFieldsBuilder {
+	builder.createTime = createTime
+	builder.createTimeFlag = true
+	return builder
+}
+func (builder *SystemFieldsBuilder) UpdateTime(updateTime int64) *SystemFieldsBuilder {
+	builder.updateTime = updateTime
+	builder.updateTimeFlag = true
+	return builder
+}
+
+func (builder *SystemFieldsBuilder) Build() *SystemFields {
+	req := &SystemFields{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.enNameFlag {
+		req.EnName = &builder.enName
+
+	}
+	if builder.emailFlag {
+		req.Email = &builder.email
+
+	}
+	if builder.mobileFlag {
+		req.Mobile = &builder.mobile
+
+	}
+	if builder.departmentIdFlag {
+		req.DepartmentId = &builder.departmentId
+
+	}
+	if builder.managerFlag {
+		req.Manager = builder.manager
+	}
+	if builder.jobFlag {
+		req.Job = builder.job
+	}
+	if builder.jobLevelFlag {
+		req.JobLevel = builder.jobLevel
+	}
+	if builder.workLocationFlag {
+		req.WorkLocation = builder.workLocation
+	}
+	if builder.genderFlag {
+		req.Gender = &builder.gender
+
+	}
+	if builder.birthdayFlag {
+		req.Birthday = &builder.birthday
+
+	}
+	if builder.nativeRegionFlag {
+		req.NativeRegion = builder.nativeRegion
+	}
+	if builder.ethnicityFlag {
+		req.Ethnicity = &builder.ethnicity
+
+	}
+	if builder.maritalStatusFlag {
+		req.MaritalStatus = &builder.maritalStatus
+
+	}
+	if builder.politicalStatusFlag {
+		req.PoliticalStatus = &builder.politicalStatus
+
+	}
+	if builder.enteredWorkforceDateFlag {
+		req.EnteredWorkforceDate = &builder.enteredWorkforceDate
+
+	}
+	if builder.idTypeFlag {
+		req.IdType = &builder.idType
+
+	}
+	if builder.idNumberFlag {
+		req.IdNumber = &builder.idNumber
+
+	}
+	if builder.hukouTypeFlag {
+		req.HukouType = &builder.hukouType
+
+	}
+	if builder.hukouLocationFlag {
+		req.HukouLocation = &builder.hukouLocation
+
+	}
+	if builder.bankAccountNumberFlag {
+		req.BankAccountNumber = &builder.bankAccountNumber
+
+	}
+	if builder.bankNameFlag {
+		req.BankName = &builder.bankName
+
+	}
+	if builder.socialSecurityAccountFlag {
+		req.SocialSecurityAccount = &builder.socialSecurityAccount
+
+	}
+	if builder.providentFundAccountFlag {
+		req.ProvidentFundAccount = &builder.providentFundAccount
+
+	}
+	if builder.employeeNoFlag {
+		req.EmployeeNo = &builder.employeeNo
+
+	}
+	if builder.employeeTypeFlag {
+		req.EmployeeType = &builder.employeeType
+
+	}
+	if builder.statusFlag {
+		req.Status = &builder.status
+
+	}
+	if builder.hireDateFlag {
+		req.HireDate = &builder.hireDate
+
+	}
+	if builder.probationMonthsFlag {
+		req.ProbationMonths = &builder.probationMonths
+
+	}
+	if builder.conversionDateFlag {
+		req.ConversionDate = &builder.conversionDate
+
+	}
+	if builder.applicationFlag {
+		req.Application = &builder.application
+
+	}
+	if builder.applicationStatusFlag {
+		req.ApplicationStatus = &builder.applicationStatus
+
+	}
+	if builder.lastDayFlag {
+		req.LastDay = &builder.lastDay
+
+	}
+	if builder.departureTypeFlag {
+		req.DepartureType = &builder.departureType
+
+	}
+	if builder.departureReasonFlag {
+		req.DepartureReason = &builder.departureReason
+
+	}
+	if builder.departureNotesFlag {
+		req.DepartureNotes = &builder.departureNotes
+
+	}
+	if builder.contractCompanyFlag {
+		req.ContractCompany = builder.contractCompany
+	}
+	if builder.contractTypeFlag {
+		req.ContractType = &builder.contractType
+
+	}
+	if builder.contractStartDateFlag {
+		req.ContractStartDate = &builder.contractStartDate
+
+	}
+	if builder.contractExpirationDateFlag {
+		req.ContractExpirationDate = &builder.contractExpirationDate
+
+	}
+	if builder.contractSignTimesFlag {
+		req.ContractSignTimes = &builder.contractSignTimes
+
+	}
+	if builder.personalEmailFlag {
+		req.PersonalEmail = &builder.personalEmail
+
+	}
+	if builder.familyAddressFlag {
+		req.FamilyAddress = &builder.familyAddress
+
+	}
+	if builder.primaryEmergencyContactFlag {
+		req.PrimaryEmergencyContact = builder.primaryEmergencyContact
+	}
+	if builder.emergencyContactFlag {
+		req.EmergencyContact = builder.emergencyContact
+	}
+	if builder.highestLevelOfEduFlag {
+		req.HighestLevelOfEdu = builder.highestLevelOfEdu
+	}
+	if builder.educationFlag {
+		req.Education = builder.education
+	}
+	if builder.formerWorkExpFlag {
+		req.FormerWorkExp = builder.formerWorkExp
+	}
+	if builder.workExpFlag {
+		req.WorkExp = builder.workExp
+	}
+	if builder.idPhotoPoSideFlag {
+		req.IdPhotoPoSide = builder.idPhotoPoSide
+	}
+	if builder.idPhotoEmSideFlag {
+		req.IdPhotoEmSide = builder.idPhotoEmSide
+	}
+	if builder.idPhotoFlag {
+		req.IdPhoto = builder.idPhoto
+	}
+	if builder.diplomaPhotoFlag {
+		req.DiplomaPhoto = builder.diplomaPhoto
+	}
+	if builder.graduationCertFlag {
+		req.GraduationCert = builder.graduationCert
+	}
+	if builder.certOfMeritFlag {
+		req.CertOfMerit = builder.certOfMerit
+	}
+	if builder.offboardingFileFlag {
+		req.OffboardingFile = builder.offboardingFile
+	}
+	if builder.cancelOnboardingReasonFlag {
+		req.CancelOnboardingReason = &builder.cancelOnboardingReason
+
+	}
+	if builder.cancelOnboardingNotesFlag {
+		req.CancelOnboardingNotes = &builder.cancelOnboardingNotes
+
+	}
+	if builder.employeeFormStatusFlag {
+		req.EmployeeFormStatus = &builder.employeeFormStatus
+
+	}
+	if builder.createTimeFlag {
+		req.CreateTime = &builder.createTime
+
+	}
+	if builder.updateTimeFlag {
+		req.UpdateTime = &builder.updateTime
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type WorkExperience struct {
 	Company     *string `json:"company,omitempty"`
 	Department  *string `json:"department,omitempty"`
@@ -162,10 +1340,132 @@ type WorkExperience struct {
 	Description *string `json:"description,omitempty"`
 }
 
+/**builder开始**/
+type WorkExperienceBuilder struct {
+	company         string
+	companyFlag     bool
+	department      string
+	departmentFlag  bool
+	job             string
+	jobFlag         bool
+	start           string
+	startFlag       bool
+	end             string
+	endFlag         bool
+	description     string
+	descriptionFlag bool
+}
+
+func NewWorkExperienceBuilder() *WorkExperienceBuilder {
+	builder := &WorkExperienceBuilder{}
+	return builder
+}
+
+func (builder *WorkExperienceBuilder) Company(company string) *WorkExperienceBuilder {
+	builder.company = company
+	builder.companyFlag = true
+	return builder
+}
+func (builder *WorkExperienceBuilder) Department(department string) *WorkExperienceBuilder {
+	builder.department = department
+	builder.departmentFlag = true
+	return builder
+}
+func (builder *WorkExperienceBuilder) Job(job string) *WorkExperienceBuilder {
+	builder.job = job
+	builder.jobFlag = true
+	return builder
+}
+func (builder *WorkExperienceBuilder) Start(start string) *WorkExperienceBuilder {
+	builder.start = start
+	builder.startFlag = true
+	return builder
+}
+func (builder *WorkExperienceBuilder) End(end string) *WorkExperienceBuilder {
+	builder.end = end
+	builder.endFlag = true
+	return builder
+}
+func (builder *WorkExperienceBuilder) Description(description string) *WorkExperienceBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+
+func (builder *WorkExperienceBuilder) Build() *WorkExperience {
+	req := &WorkExperience{}
+	if builder.companyFlag {
+		req.Company = &builder.company
+
+	}
+	if builder.departmentFlag {
+		req.Department = &builder.department
+
+	}
+	if builder.jobFlag {
+		req.Job = &builder.job
+
+	}
+	if builder.startFlag {
+		req.Start = &builder.start
+
+	}
+	if builder.endFlag {
+		req.End = &builder.end
+
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type WorkLocation struct {
 	Id   *int64  `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
 }
+
+/**builder开始**/
+type WorkLocationBuilder struct {
+	id       int64
+	idFlag   bool
+	name     string
+	nameFlag bool
+}
+
+func NewWorkLocationBuilder() *WorkLocationBuilder {
+	builder := &WorkLocationBuilder{}
+	return builder
+}
+
+func (builder *WorkLocationBuilder) Id(id int64) *WorkLocationBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *WorkLocationBuilder) Name(name string) *WorkLocationBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+func (builder *WorkLocationBuilder) Build() *WorkLocation {
+	req := &WorkLocation{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 /**生成请求和响应结果类型，以及请求对象的Builder构造器 **/
 

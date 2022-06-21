@@ -23,21 +23,176 @@ type Abbreviation struct {
 	Id *string `json:"id,omitempty"`
 }
 
+/**builder开始**/
+type AbbreviationBuilder struct {
+	id     string
+	idFlag bool
+}
+
+func NewAbbreviationBuilder() *AbbreviationBuilder {
+	builder := &AbbreviationBuilder{}
+	return builder
+}
+
+func (builder *AbbreviationBuilder) Id(id string) *AbbreviationBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+func (builder *AbbreviationBuilder) Build() *Abbreviation {
+	req := &Abbreviation{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Classification struct {
 	Id       *string `json:"id,omitempty"`
 	Name     *string `json:"name,omitempty"`
 	FatherId *string `json:"father_id,omitempty"`
 }
 
+/**builder开始**/
+type ClassificationBuilder struct {
+	id           string
+	idFlag       bool
+	name         string
+	nameFlag     bool
+	fatherId     string
+	fatherIdFlag bool
+}
+
+func NewClassificationBuilder() *ClassificationBuilder {
+	builder := &ClassificationBuilder{}
+	return builder
+}
+
+func (builder *ClassificationBuilder) Id(id string) *ClassificationBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *ClassificationBuilder) Name(name string) *ClassificationBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *ClassificationBuilder) FatherId(fatherId string) *ClassificationBuilder {
+	builder.fatherId = fatherId
+	builder.fatherIdFlag = true
+	return builder
+}
+
+func (builder *ClassificationBuilder) Build() *Classification {
+	req := &Classification{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.fatherIdFlag {
+		req.FatherId = &builder.fatherId
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type DisplayStatus struct {
 	AllowHighlight *bool `json:"allow_highlight,omitempty"`
 	AllowSearch    *bool `json:"allow_search,omitempty"`
 }
 
+/**builder开始**/
+type DisplayStatusBuilder struct {
+	allowHighlight     bool
+	allowHighlightFlag bool
+	allowSearch        bool
+	allowSearchFlag    bool
+}
+
+func NewDisplayStatusBuilder() *DisplayStatusBuilder {
+	builder := &DisplayStatusBuilder{}
+	return builder
+}
+
+func (builder *DisplayStatusBuilder) AllowHighlight(allowHighlight bool) *DisplayStatusBuilder {
+	builder.allowHighlight = allowHighlight
+	builder.allowHighlightFlag = true
+	return builder
+}
+func (builder *DisplayStatusBuilder) AllowSearch(allowSearch bool) *DisplayStatusBuilder {
+	builder.allowSearch = allowSearch
+	builder.allowSearchFlag = true
+	return builder
+}
+
+func (builder *DisplayStatusBuilder) Build() *DisplayStatus {
+	req := &DisplayStatus{}
+	if builder.allowHighlightFlag {
+		req.AllowHighlight = &builder.allowHighlight
+
+	}
+	if builder.allowSearchFlag {
+		req.AllowSearch = &builder.allowSearch
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Draft struct {
 	DraftId *int64  `json:"draft_id,omitempty,string"`
 	Entity  *Entity `json:"entity,omitempty"`
 }
+
+/**builder开始**/
+type DraftBuilder struct {
+	draftId     int64
+	draftIdFlag bool
+	entity      *Entity
+	entityFlag  bool
+}
+
+func NewDraftBuilder() *DraftBuilder {
+	builder := &DraftBuilder{}
+	return builder
+}
+
+func (builder *DraftBuilder) DraftId(draftId int64) *DraftBuilder {
+	builder.draftId = draftId
+	builder.draftIdFlag = true
+	return builder
+}
+func (builder *DraftBuilder) Entity(entity *Entity) *DraftBuilder {
+	builder.entity = entity
+	builder.entityFlag = true
+	return builder
+}
+
+func (builder *DraftBuilder) Build() *Draft {
+	req := &Draft{}
+	if builder.draftIdFlag {
+		req.DraftId = &builder.draftId
+
+	}
+	if builder.entityFlag {
+		req.Entity = builder.entity
+	}
+	return req
+}
+
+/**builder结束**/
 
 type Entity struct {
 	Id       *string `json:"id,omitempty"`
@@ -54,15 +209,228 @@ type Entity struct {
 	RichText    *string      `json:"rich_text,omitempty"`
 }
 
+/**builder开始**/
+type EntityBuilder struct {
+	id           string
+	idFlag       bool
+	mainKeys     []*Term
+	mainKeysFlag bool
+
+	aliases         []*Term
+	aliasesFlag     bool
+	description     string
+	descriptionFlag bool
+	createTime      int64
+	createTimeFlag  bool
+	updateTime      int64
+	updateTimeFlag  bool
+	relatedMeta     *RelatedMeta
+	relatedMetaFlag bool
+	categories      []string
+	categoriesFlag  bool
+	statistics      *Statistics
+	statisticsFlag  bool
+	outerInfo       *OuterInfo
+	outerInfoFlag   bool
+	richText        string
+	richTextFlag    bool
+}
+
+func NewEntityBuilder() *EntityBuilder {
+	builder := &EntityBuilder{}
+	return builder
+}
+
+func (builder *EntityBuilder) Id(id string) *EntityBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *EntityBuilder) MainKeys(mainKeys []*Term) *EntityBuilder {
+	builder.mainKeys = mainKeys
+	builder.mainKeysFlag = true
+	return builder
+}
+
+func (builder *EntityBuilder) Aliases(aliases []*Term) *EntityBuilder {
+	builder.aliases = aliases
+	builder.aliasesFlag = true
+	return builder
+}
+func (builder *EntityBuilder) Description(description string) *EntityBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+func (builder *EntityBuilder) CreateTime(createTime int64) *EntityBuilder {
+	builder.createTime = createTime
+	builder.createTimeFlag = true
+	return builder
+}
+func (builder *EntityBuilder) UpdateTime(updateTime int64) *EntityBuilder {
+	builder.updateTime = updateTime
+	builder.updateTimeFlag = true
+	return builder
+}
+func (builder *EntityBuilder) RelatedMeta(relatedMeta *RelatedMeta) *EntityBuilder {
+	builder.relatedMeta = relatedMeta
+	builder.relatedMetaFlag = true
+	return builder
+}
+func (builder *EntityBuilder) Categories(categories []string) *EntityBuilder {
+	builder.categories = categories
+	builder.categoriesFlag = true
+	return builder
+}
+func (builder *EntityBuilder) Statistics(statistics *Statistics) *EntityBuilder {
+	builder.statistics = statistics
+	builder.statisticsFlag = true
+	return builder
+}
+func (builder *EntityBuilder) OuterInfo(outerInfo *OuterInfo) *EntityBuilder {
+	builder.outerInfo = outerInfo
+	builder.outerInfoFlag = true
+	return builder
+}
+func (builder *EntityBuilder) RichText(richText string) *EntityBuilder {
+	builder.richText = richText
+	builder.richTextFlag = true
+	return builder
+}
+
+func (builder *EntityBuilder) Build() *Entity {
+	req := &Entity{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.mainKeysFlag {
+		req.MainKeys = builder.mainKeys
+	}
+
+	if builder.aliasesFlag {
+		req.Aliases = builder.aliases
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	if builder.createTimeFlag {
+		req.CreateTime = &builder.createTime
+
+	}
+	if builder.updateTimeFlag {
+		req.UpdateTime = &builder.updateTime
+
+	}
+	if builder.relatedMetaFlag {
+		req.RelatedMeta = builder.relatedMeta
+	}
+	if builder.categoriesFlag {
+		req.Categories = builder.categories
+	}
+	if builder.statisticsFlag {
+		req.Statistics = builder.statistics
+	}
+	if builder.outerInfoFlag {
+		req.OuterInfo = builder.outerInfo
+	}
+	if builder.richTextFlag {
+		req.RichText = &builder.richText
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type MatchInfo struct {
 	EntityId *string `json:"entity_id,omitempty"`
 	Type     *int    `json:"type,omitempty"`
 }
 
+/**builder开始**/
+type MatchInfoBuilder struct {
+	entityId     string
+	entityIdFlag bool
+	type_        int
+	typeFlag     bool
+}
+
+func NewMatchInfoBuilder() *MatchInfoBuilder {
+	builder := &MatchInfoBuilder{}
+	return builder
+}
+
+func (builder *MatchInfoBuilder) EntityId(entityId string) *MatchInfoBuilder {
+	builder.entityId = entityId
+	builder.entityIdFlag = true
+	return builder
+}
+func (builder *MatchInfoBuilder) Type(type_ int) *MatchInfoBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+
+func (builder *MatchInfoBuilder) Build() *MatchInfo {
+	req := &MatchInfo{}
+	if builder.entityIdFlag {
+		req.EntityId = &builder.entityId
+
+	}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type OuterInfo struct {
 	Provider *string `json:"provider,omitempty"`
 	OuterId  *string `json:"outer_id,omitempty"`
 }
+
+/**builder开始**/
+type OuterInfoBuilder struct {
+	provider     string
+	providerFlag bool
+	outerId      string
+	outerIdFlag  bool
+}
+
+func NewOuterInfoBuilder() *OuterInfoBuilder {
+	builder := &OuterInfoBuilder{}
+	return builder
+}
+
+func (builder *OuterInfoBuilder) Provider(provider string) *OuterInfoBuilder {
+	builder.provider = provider
+	builder.providerFlag = true
+	return builder
+}
+func (builder *OuterInfoBuilder) OuterId(outerId string) *OuterInfoBuilder {
+	builder.outerId = outerId
+	builder.outerIdFlag = true
+	return builder
+}
+
+func (builder *OuterInfoBuilder) Build() *OuterInfo {
+	req := &OuterInfo{}
+	if builder.providerFlag {
+		req.Provider = &builder.provider
+
+	}
+	if builder.outerIdFlag {
+		req.OuterId = &builder.outerId
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type Phrase struct {
 	Name      *string  `json:"name,omitempty"`
@@ -70,11 +438,109 @@ type Phrase struct {
 	Span      *Span    `json:"span,omitempty"`
 }
 
+/**builder开始**/
+type PhraseBuilder struct {
+	name          string
+	nameFlag      bool
+	entityIds     []string
+	entityIdsFlag bool
+	span          *Span
+	spanFlag      bool
+}
+
+func NewPhraseBuilder() *PhraseBuilder {
+	builder := &PhraseBuilder{}
+	return builder
+}
+
+func (builder *PhraseBuilder) Name(name string) *PhraseBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *PhraseBuilder) EntityIds(entityIds []string) *PhraseBuilder {
+	builder.entityIds = entityIds
+	builder.entityIdsFlag = true
+	return builder
+}
+func (builder *PhraseBuilder) Span(span *Span) *PhraseBuilder {
+	builder.span = span
+	builder.spanFlag = true
+	return builder
+}
+
+func (builder *PhraseBuilder) Build() *Phrase {
+	req := &Phrase{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.entityIdsFlag {
+		req.EntityIds = builder.entityIds
+	}
+	if builder.spanFlag {
+		req.Span = builder.span
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Referer struct {
 	Id    *string `json:"id,omitempty"`
 	Title *string `json:"title,omitempty"`
 	Url   *string `json:"url,omitempty"`
 }
+
+/**builder开始**/
+type RefererBuilder struct {
+	id        string
+	idFlag    bool
+	title     string
+	titleFlag bool
+	url       string
+	urlFlag   bool
+}
+
+func NewRefererBuilder() *RefererBuilder {
+	builder := &RefererBuilder{}
+	return builder
+}
+
+func (builder *RefererBuilder) Id(id string) *RefererBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *RefererBuilder) Title(title string) *RefererBuilder {
+	builder.title = title
+	builder.titleFlag = true
+	return builder
+}
+func (builder *RefererBuilder) Url(url string) *RefererBuilder {
+	builder.url = url
+	builder.urlFlag = true
+	return builder
+}
+
+func (builder *RefererBuilder) Build() *Referer {
+	req := &Referer{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.titleFlag {
+		req.Title = &builder.title
+
+	}
+	if builder.urlFlag {
+		req.Url = &builder.url
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type RelatedMeta struct {
 	Users           []*Referer        `json:"users,omitempty"`
@@ -86,20 +552,223 @@ type RelatedMeta struct {
 	Classifications []*Classification `json:"classifications,omitempty"`
 }
 
+/**builder开始**/
+type RelatedMetaBuilder struct {
+	users               []*Referer
+	usersFlag           bool
+	chats               []*Referer
+	chatsFlag           bool
+	docs                []*Referer
+	docsFlag            bool
+	oncalls             []*Referer
+	oncallsFlag         bool
+	links               []*Referer
+	linksFlag           bool
+	abbreviations       []*Abbreviation
+	abbreviationsFlag   bool
+	classifications     []*Classification
+	classificationsFlag bool
+}
+
+func NewRelatedMetaBuilder() *RelatedMetaBuilder {
+	builder := &RelatedMetaBuilder{}
+	return builder
+}
+
+func (builder *RelatedMetaBuilder) Users(users []*Referer) *RelatedMetaBuilder {
+	builder.users = users
+	builder.usersFlag = true
+	return builder
+}
+func (builder *RelatedMetaBuilder) Chats(chats []*Referer) *RelatedMetaBuilder {
+	builder.chats = chats
+	builder.chatsFlag = true
+	return builder
+}
+func (builder *RelatedMetaBuilder) Docs(docs []*Referer) *RelatedMetaBuilder {
+	builder.docs = docs
+	builder.docsFlag = true
+	return builder
+}
+func (builder *RelatedMetaBuilder) Oncalls(oncalls []*Referer) *RelatedMetaBuilder {
+	builder.oncalls = oncalls
+	builder.oncallsFlag = true
+	return builder
+}
+func (builder *RelatedMetaBuilder) Links(links []*Referer) *RelatedMetaBuilder {
+	builder.links = links
+	builder.linksFlag = true
+	return builder
+}
+func (builder *RelatedMetaBuilder) Abbreviations(abbreviations []*Abbreviation) *RelatedMetaBuilder {
+	builder.abbreviations = abbreviations
+	builder.abbreviationsFlag = true
+	return builder
+}
+func (builder *RelatedMetaBuilder) Classifications(classifications []*Classification) *RelatedMetaBuilder {
+	builder.classifications = classifications
+	builder.classificationsFlag = true
+	return builder
+}
+
+func (builder *RelatedMetaBuilder) Build() *RelatedMeta {
+	req := &RelatedMeta{}
+	if builder.usersFlag {
+		req.Users = builder.users
+	}
+	if builder.chatsFlag {
+		req.Chats = builder.chats
+	}
+	if builder.docsFlag {
+		req.Docs = builder.docs
+	}
+	if builder.oncallsFlag {
+		req.Oncalls = builder.oncalls
+	}
+	if builder.linksFlag {
+		req.Links = builder.links
+	}
+	if builder.abbreviationsFlag {
+		req.Abbreviations = builder.abbreviations
+	}
+	if builder.classificationsFlag {
+		req.Classifications = builder.classifications
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Span struct {
 	Start *int `json:"start,omitempty"`
 	End   *int `json:"end,omitempty"`
 }
+
+/**builder开始**/
+type SpanBuilder struct {
+	start     int
+	startFlag bool
+	end       int
+	endFlag   bool
+}
+
+func NewSpanBuilder() *SpanBuilder {
+	builder := &SpanBuilder{}
+	return builder
+}
+
+func (builder *SpanBuilder) Start(start int) *SpanBuilder {
+	builder.start = start
+	builder.startFlag = true
+	return builder
+}
+func (builder *SpanBuilder) End(end int) *SpanBuilder {
+	builder.end = end
+	builder.endFlag = true
+	return builder
+}
+
+func (builder *SpanBuilder) Build() *Span {
+	req := &Span{}
+	if builder.startFlag {
+		req.Start = &builder.start
+
+	}
+	if builder.endFlag {
+		req.End = &builder.end
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type Statistics struct {
 	LikeCount    *int `json:"like_count,omitempty"`
 	DislikeCount *int `json:"dislike_count,omitempty"`
 }
 
+/**builder开始**/
+type StatisticsBuilder struct {
+	likeCount        int
+	likeCountFlag    bool
+	dislikeCount     int
+	dislikeCountFlag bool
+}
+
+func NewStatisticsBuilder() *StatisticsBuilder {
+	builder := &StatisticsBuilder{}
+	return builder
+}
+
+func (builder *StatisticsBuilder) LikeCount(likeCount int) *StatisticsBuilder {
+	builder.likeCount = likeCount
+	builder.likeCountFlag = true
+	return builder
+}
+func (builder *StatisticsBuilder) DislikeCount(dislikeCount int) *StatisticsBuilder {
+	builder.dislikeCount = dislikeCount
+	builder.dislikeCountFlag = true
+	return builder
+}
+
+func (builder *StatisticsBuilder) Build() *Statistics {
+	req := &Statistics{}
+	if builder.likeCountFlag {
+		req.LikeCount = &builder.likeCount
+
+	}
+	if builder.dislikeCountFlag {
+		req.DislikeCount = &builder.dislikeCount
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Term struct {
 	Key           *string        `json:"key,omitempty"`
 	DisplayStatus *DisplayStatus `json:"display_status,omitempty"`
 }
+
+/**builder开始**/
+type TermBuilder struct {
+	key               string
+	keyFlag           bool
+	displayStatus     *DisplayStatus
+	displayStatusFlag bool
+}
+
+func NewTermBuilder() *TermBuilder {
+	builder := &TermBuilder{}
+	return builder
+}
+
+func (builder *TermBuilder) Key(key string) *TermBuilder {
+	builder.key = key
+	builder.keyFlag = true
+	return builder
+}
+func (builder *TermBuilder) DisplayStatus(displayStatus *DisplayStatus) *TermBuilder {
+	builder.displayStatus = displayStatus
+	builder.displayStatusFlag = true
+	return builder
+}
+
+func (builder *TermBuilder) Build() *Term {
+	req := &Term{}
+	if builder.keyFlag {
+		req.Key = &builder.key
+
+	}
+	if builder.displayStatusFlag {
+		req.DisplayStatus = builder.displayStatus
+	}
+	return req
+}
+
+/**builder结束**/
 
 /**生成请求和响应结果类型，以及请求对象的Builder构造器 **/
 

@@ -30,6 +30,45 @@ type Bitable struct {
 	ViewType *int    `json:"view_type,omitempty"`
 }
 
+/**builder开始**/
+type BitableBuilder struct {
+	token        string
+	tokenFlag    bool
+	viewType     int
+	viewTypeFlag bool
+}
+
+func NewBitableBuilder() *BitableBuilder {
+	builder := &BitableBuilder{}
+	return builder
+}
+
+func (builder *BitableBuilder) Token(token string) *BitableBuilder {
+	builder.token = token
+	builder.tokenFlag = true
+	return builder
+}
+func (builder *BitableBuilder) ViewType(viewType int) *BitableBuilder {
+	builder.viewType = viewType
+	builder.viewTypeFlag = true
+	return builder
+}
+
+func (builder *BitableBuilder) Build() *Bitable {
+	req := &Bitable{}
+	if builder.tokenFlag {
+		req.Token = &builder.token
+
+	}
+	if builder.viewTypeFlag {
+		req.ViewType = &builder.viewType
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Block struct {
 	BlockId        *string         `json:"block_id,omitempty"`
 	ParentId       *string         `json:"parent_id,omitempty"`
@@ -72,6 +111,416 @@ type Block struct {
 	QuoteContainer *QuoteContainer `json:"quote_container,omitempty"`
 }
 
+/**builder开始**/
+type BlockBuilder struct {
+	blockId            string
+	blockIdFlag        bool
+	parentId           string
+	parentIdFlag       bool
+	children           []string
+	childrenFlag       bool
+	blockType          int
+	blockTypeFlag      bool
+	page               *Text
+	pageFlag           bool
+	text               *Text
+	textFlag           bool
+	heading1           *Text
+	heading1Flag       bool
+	heading2           *Text
+	heading2Flag       bool
+	heading3           *Text
+	heading3Flag       bool
+	heading4           *Text
+	heading4Flag       bool
+	heading5           *Text
+	heading5Flag       bool
+	heading6           *Text
+	heading6Flag       bool
+	heading7           *Text
+	heading7Flag       bool
+	heading8           *Text
+	heading8Flag       bool
+	heading9           *Text
+	heading9Flag       bool
+	bullet             *Text
+	bulletFlag         bool
+	ordered            *Text
+	orderedFlag        bool
+	code               *Text
+	codeFlag           bool
+	quote              *Text
+	quoteFlag          bool
+	equation           *Text
+	equationFlag       bool
+	todo               *Text
+	todoFlag           bool
+	bitable            *Bitable
+	bitableFlag        bool
+	callout            *Callout
+	calloutFlag        bool
+	chatCard           *ChatCard
+	chatCardFlag       bool
+	diagram            *Diagram
+	diagramFlag        bool
+	divider            *Divider
+	dividerFlag        bool
+	file               *File
+	fileFlag           bool
+	grid               *Grid
+	gridFlag           bool
+	gridColumn         *GridColumn
+	gridColumnFlag     bool
+	iframe             *Iframe
+	iframeFlag         bool
+	image              *Image
+	imageFlag          bool
+	isv                *Isv
+	isvFlag            bool
+	mindnote           *Mindnote
+	mindnoteFlag       bool
+	sheet              *Sheet
+	sheetFlag          bool
+	table              *Table
+	tableFlag          bool
+	tableCell          *TableCell
+	tableCellFlag      bool
+	view               *View
+	viewFlag           bool
+	undefined          *Undefined
+	undefinedFlag      bool
+	quoteContainer     *QuoteContainer
+	quoteContainerFlag bool
+}
+
+func NewBlockBuilder() *BlockBuilder {
+	builder := &BlockBuilder{}
+	return builder
+}
+
+func (builder *BlockBuilder) BlockId(blockId string) *BlockBuilder {
+	builder.blockId = blockId
+	builder.blockIdFlag = true
+	return builder
+}
+func (builder *BlockBuilder) ParentId(parentId string) *BlockBuilder {
+	builder.parentId = parentId
+	builder.parentIdFlag = true
+	return builder
+}
+func (builder *BlockBuilder) Children(children []string) *BlockBuilder {
+	builder.children = children
+	builder.childrenFlag = true
+	return builder
+}
+func (builder *BlockBuilder) BlockType(blockType int) *BlockBuilder {
+	builder.blockType = blockType
+	builder.blockTypeFlag = true
+	return builder
+}
+func (builder *BlockBuilder) Page(page *Text) *BlockBuilder {
+	builder.page = page
+	builder.pageFlag = true
+	return builder
+}
+func (builder *BlockBuilder) Text(text *Text) *BlockBuilder {
+	builder.text = text
+	builder.textFlag = true
+	return builder
+}
+func (builder *BlockBuilder) Heading1(heading1 *Text) *BlockBuilder {
+	builder.heading1 = heading1
+	builder.heading1Flag = true
+	return builder
+}
+func (builder *BlockBuilder) Heading2(heading2 *Text) *BlockBuilder {
+	builder.heading2 = heading2
+	builder.heading2Flag = true
+	return builder
+}
+func (builder *BlockBuilder) Heading3(heading3 *Text) *BlockBuilder {
+	builder.heading3 = heading3
+	builder.heading3Flag = true
+	return builder
+}
+func (builder *BlockBuilder) Heading4(heading4 *Text) *BlockBuilder {
+	builder.heading4 = heading4
+	builder.heading4Flag = true
+	return builder
+}
+func (builder *BlockBuilder) Heading5(heading5 *Text) *BlockBuilder {
+	builder.heading5 = heading5
+	builder.heading5Flag = true
+	return builder
+}
+func (builder *BlockBuilder) Heading6(heading6 *Text) *BlockBuilder {
+	builder.heading6 = heading6
+	builder.heading6Flag = true
+	return builder
+}
+func (builder *BlockBuilder) Heading7(heading7 *Text) *BlockBuilder {
+	builder.heading7 = heading7
+	builder.heading7Flag = true
+	return builder
+}
+func (builder *BlockBuilder) Heading8(heading8 *Text) *BlockBuilder {
+	builder.heading8 = heading8
+	builder.heading8Flag = true
+	return builder
+}
+func (builder *BlockBuilder) Heading9(heading9 *Text) *BlockBuilder {
+	builder.heading9 = heading9
+	builder.heading9Flag = true
+	return builder
+}
+func (builder *BlockBuilder) Bullet(bullet *Text) *BlockBuilder {
+	builder.bullet = bullet
+	builder.bulletFlag = true
+	return builder
+}
+func (builder *BlockBuilder) Ordered(ordered *Text) *BlockBuilder {
+	builder.ordered = ordered
+	builder.orderedFlag = true
+	return builder
+}
+func (builder *BlockBuilder) Code(code *Text) *BlockBuilder {
+	builder.code = code
+	builder.codeFlag = true
+	return builder
+}
+func (builder *BlockBuilder) Quote(quote *Text) *BlockBuilder {
+	builder.quote = quote
+	builder.quoteFlag = true
+	return builder
+}
+func (builder *BlockBuilder) Equation(equation *Text) *BlockBuilder {
+	builder.equation = equation
+	builder.equationFlag = true
+	return builder
+}
+func (builder *BlockBuilder) Todo(todo *Text) *BlockBuilder {
+	builder.todo = todo
+	builder.todoFlag = true
+	return builder
+}
+func (builder *BlockBuilder) Bitable(bitable *Bitable) *BlockBuilder {
+	builder.bitable = bitable
+	builder.bitableFlag = true
+	return builder
+}
+func (builder *BlockBuilder) Callout(callout *Callout) *BlockBuilder {
+	builder.callout = callout
+	builder.calloutFlag = true
+	return builder
+}
+func (builder *BlockBuilder) ChatCard(chatCard *ChatCard) *BlockBuilder {
+	builder.chatCard = chatCard
+	builder.chatCardFlag = true
+	return builder
+}
+func (builder *BlockBuilder) Diagram(diagram *Diagram) *BlockBuilder {
+	builder.diagram = diagram
+	builder.diagramFlag = true
+	return builder
+}
+func (builder *BlockBuilder) Divider(divider *Divider) *BlockBuilder {
+	builder.divider = divider
+	builder.dividerFlag = true
+	return builder
+}
+func (builder *BlockBuilder) File(file *File) *BlockBuilder {
+	builder.file = file
+	builder.fileFlag = true
+	return builder
+}
+func (builder *BlockBuilder) Grid(grid *Grid) *BlockBuilder {
+	builder.grid = grid
+	builder.gridFlag = true
+	return builder
+}
+func (builder *BlockBuilder) GridColumn(gridColumn *GridColumn) *BlockBuilder {
+	builder.gridColumn = gridColumn
+	builder.gridColumnFlag = true
+	return builder
+}
+func (builder *BlockBuilder) Iframe(iframe *Iframe) *BlockBuilder {
+	builder.iframe = iframe
+	builder.iframeFlag = true
+	return builder
+}
+func (builder *BlockBuilder) Image(image *Image) *BlockBuilder {
+	builder.image = image
+	builder.imageFlag = true
+	return builder
+}
+func (builder *BlockBuilder) Isv(isv *Isv) *BlockBuilder {
+	builder.isv = isv
+	builder.isvFlag = true
+	return builder
+}
+func (builder *BlockBuilder) Mindnote(mindnote *Mindnote) *BlockBuilder {
+	builder.mindnote = mindnote
+	builder.mindnoteFlag = true
+	return builder
+}
+func (builder *BlockBuilder) Sheet(sheet *Sheet) *BlockBuilder {
+	builder.sheet = sheet
+	builder.sheetFlag = true
+	return builder
+}
+func (builder *BlockBuilder) Table(table *Table) *BlockBuilder {
+	builder.table = table
+	builder.tableFlag = true
+	return builder
+}
+func (builder *BlockBuilder) TableCell(tableCell *TableCell) *BlockBuilder {
+	builder.tableCell = tableCell
+	builder.tableCellFlag = true
+	return builder
+}
+func (builder *BlockBuilder) View(view *View) *BlockBuilder {
+	builder.view = view
+	builder.viewFlag = true
+	return builder
+}
+func (builder *BlockBuilder) Undefined(undefined *Undefined) *BlockBuilder {
+	builder.undefined = undefined
+	builder.undefinedFlag = true
+	return builder
+}
+func (builder *BlockBuilder) QuoteContainer(quoteContainer *QuoteContainer) *BlockBuilder {
+	builder.quoteContainer = quoteContainer
+	builder.quoteContainerFlag = true
+	return builder
+}
+
+func (builder *BlockBuilder) Build() *Block {
+	req := &Block{}
+	if builder.blockIdFlag {
+		req.BlockId = &builder.blockId
+
+	}
+	if builder.parentIdFlag {
+		req.ParentId = &builder.parentId
+
+	}
+	if builder.childrenFlag {
+		req.Children = builder.children
+	}
+	if builder.blockTypeFlag {
+		req.BlockType = &builder.blockType
+
+	}
+	if builder.pageFlag {
+		req.Page = builder.page
+	}
+	if builder.textFlag {
+		req.Text = builder.text
+	}
+	if builder.heading1Flag {
+		req.Heading1 = builder.heading1
+	}
+	if builder.heading2Flag {
+		req.Heading2 = builder.heading2
+	}
+	if builder.heading3Flag {
+		req.Heading3 = builder.heading3
+	}
+	if builder.heading4Flag {
+		req.Heading4 = builder.heading4
+	}
+	if builder.heading5Flag {
+		req.Heading5 = builder.heading5
+	}
+	if builder.heading6Flag {
+		req.Heading6 = builder.heading6
+	}
+	if builder.heading7Flag {
+		req.Heading7 = builder.heading7
+	}
+	if builder.heading8Flag {
+		req.Heading8 = builder.heading8
+	}
+	if builder.heading9Flag {
+		req.Heading9 = builder.heading9
+	}
+	if builder.bulletFlag {
+		req.Bullet = builder.bullet
+	}
+	if builder.orderedFlag {
+		req.Ordered = builder.ordered
+	}
+	if builder.codeFlag {
+		req.Code = builder.code
+	}
+	if builder.quoteFlag {
+		req.Quote = builder.quote
+	}
+	if builder.equationFlag {
+		req.Equation = builder.equation
+	}
+	if builder.todoFlag {
+		req.Todo = builder.todo
+	}
+	if builder.bitableFlag {
+		req.Bitable = builder.bitable
+	}
+	if builder.calloutFlag {
+		req.Callout = builder.callout
+	}
+	if builder.chatCardFlag {
+		req.ChatCard = builder.chatCard
+	}
+	if builder.diagramFlag {
+		req.Diagram = builder.diagram
+	}
+	if builder.dividerFlag {
+		req.Divider = builder.divider
+	}
+	if builder.fileFlag {
+		req.File = builder.file
+	}
+	if builder.gridFlag {
+		req.Grid = builder.grid
+	}
+	if builder.gridColumnFlag {
+		req.GridColumn = builder.gridColumn
+	}
+	if builder.iframeFlag {
+		req.Iframe = builder.iframe
+	}
+	if builder.imageFlag {
+		req.Image = builder.image
+	}
+	if builder.isvFlag {
+		req.Isv = builder.isv
+	}
+	if builder.mindnoteFlag {
+		req.Mindnote = builder.mindnote
+	}
+	if builder.sheetFlag {
+		req.Sheet = builder.sheet
+	}
+	if builder.tableFlag {
+		req.Table = builder.table
+	}
+	if builder.tableCellFlag {
+		req.TableCell = builder.tableCell
+	}
+	if builder.viewFlag {
+		req.View = builder.view
+	}
+	if builder.undefinedFlag {
+		req.Undefined = builder.undefined
+	}
+	if builder.quoteContainerFlag {
+		req.QuoteContainer = builder.quoteContainer
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Callout struct {
 	BackgroundColor *int    `json:"background_color,omitempty"`
 	BorderColor     *int    `json:"border_color,omitempty"`
@@ -79,31 +528,268 @@ type Callout struct {
 	EmojiId         *string `json:"emoji_id,omitempty"`
 }
 
+/**builder开始**/
+type CalloutBuilder struct {
+	backgroundColor     int
+	backgroundColorFlag bool
+	borderColor         int
+	borderColorFlag     bool
+	textColor           int
+	textColorFlag       bool
+	emojiId             string
+	emojiIdFlag         bool
+}
+
+func NewCalloutBuilder() *CalloutBuilder {
+	builder := &CalloutBuilder{}
+	return builder
+}
+
+func (builder *CalloutBuilder) BackgroundColor(backgroundColor int) *CalloutBuilder {
+	builder.backgroundColor = backgroundColor
+	builder.backgroundColorFlag = true
+	return builder
+}
+func (builder *CalloutBuilder) BorderColor(borderColor int) *CalloutBuilder {
+	builder.borderColor = borderColor
+	builder.borderColorFlag = true
+	return builder
+}
+func (builder *CalloutBuilder) TextColor(textColor int) *CalloutBuilder {
+	builder.textColor = textColor
+	builder.textColorFlag = true
+	return builder
+}
+func (builder *CalloutBuilder) EmojiId(emojiId string) *CalloutBuilder {
+	builder.emojiId = emojiId
+	builder.emojiIdFlag = true
+	return builder
+}
+
+func (builder *CalloutBuilder) Build() *Callout {
+	req := &Callout{}
+	if builder.backgroundColorFlag {
+		req.BackgroundColor = &builder.backgroundColor
+
+	}
+	if builder.borderColorFlag {
+		req.BorderColor = &builder.borderColor
+
+	}
+	if builder.textColorFlag {
+		req.TextColor = &builder.textColor
+
+	}
+	if builder.emojiIdFlag {
+		req.EmojiId = &builder.emojiId
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type ChatCard struct {
 	ChatId *int64 `json:"chat_id,omitempty,string"`
 	Align  *int   `json:"align,omitempty"`
 }
 
+/**builder开始**/
+type ChatCardBuilder struct {
+	chatId     int64
+	chatIdFlag bool
+	align      int
+	alignFlag  bool
+}
+
+func NewChatCardBuilder() *ChatCardBuilder {
+	builder := &ChatCardBuilder{}
+	return builder
+}
+
+func (builder *ChatCardBuilder) ChatId(chatId int64) *ChatCardBuilder {
+	builder.chatId = chatId
+	builder.chatIdFlag = true
+	return builder
+}
+func (builder *ChatCardBuilder) Align(align int) *ChatCardBuilder {
+	builder.align = align
+	builder.alignFlag = true
+	return builder
+}
+
+func (builder *ChatCardBuilder) Build() *ChatCard {
+	req := &ChatCard{}
+	if builder.chatIdFlag {
+		req.ChatId = &builder.chatId
+
+	}
+	if builder.alignFlag {
+		req.Align = &builder.align
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type DeleteGridColumnRequest struct {
 	ColumnIndex *int `json:"column_index,omitempty"`
 }
+
+/**builder开始**/
+type DeleteGridColumnRequestBuilder struct {
+	columnIndex     int
+	columnIndexFlag bool
+}
+
+func NewDeleteGridColumnRequestBuilder() *DeleteGridColumnRequestBuilder {
+	builder := &DeleteGridColumnRequestBuilder{}
+	return builder
+}
+
+func (builder *DeleteGridColumnRequestBuilder) ColumnIndex(columnIndex int) *DeleteGridColumnRequestBuilder {
+	builder.columnIndex = columnIndex
+	builder.columnIndexFlag = true
+	return builder
+}
+
+func (builder *DeleteGridColumnRequestBuilder) Build() *DeleteGridColumnRequest {
+	req := &DeleteGridColumnRequest{}
+	if builder.columnIndexFlag {
+		req.ColumnIndex = &builder.columnIndex
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type DeleteTableColumnsRequest struct {
 	ColumnStartIndex *int `json:"column_start_index,omitempty"`
 	ColumnEndIndex   *int `json:"column_end_index,omitempty"`
 }
 
+/**builder开始**/
+type DeleteTableColumnsRequestBuilder struct {
+	columnStartIndex     int
+	columnStartIndexFlag bool
+	columnEndIndex       int
+	columnEndIndexFlag   bool
+}
+
+func NewDeleteTableColumnsRequestBuilder() *DeleteTableColumnsRequestBuilder {
+	builder := &DeleteTableColumnsRequestBuilder{}
+	return builder
+}
+
+func (builder *DeleteTableColumnsRequestBuilder) ColumnStartIndex(columnStartIndex int) *DeleteTableColumnsRequestBuilder {
+	builder.columnStartIndex = columnStartIndex
+	builder.columnStartIndexFlag = true
+	return builder
+}
+func (builder *DeleteTableColumnsRequestBuilder) ColumnEndIndex(columnEndIndex int) *DeleteTableColumnsRequestBuilder {
+	builder.columnEndIndex = columnEndIndex
+	builder.columnEndIndexFlag = true
+	return builder
+}
+
+func (builder *DeleteTableColumnsRequestBuilder) Build() *DeleteTableColumnsRequest {
+	req := &DeleteTableColumnsRequest{}
+	if builder.columnStartIndexFlag {
+		req.ColumnStartIndex = &builder.columnStartIndex
+
+	}
+	if builder.columnEndIndexFlag {
+		req.ColumnEndIndex = &builder.columnEndIndex
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type DeleteTableRowsRequest struct {
 	RowStartIndex *int `json:"row_start_index,omitempty"`
 	RowEndIndex   *int `json:"row_end_index,omitempty"`
 }
 
+/**builder开始**/
+type DeleteTableRowsRequestBuilder struct {
+	rowStartIndex     int
+	rowStartIndexFlag bool
+	rowEndIndex       int
+	rowEndIndexFlag   bool
+}
+
+func NewDeleteTableRowsRequestBuilder() *DeleteTableRowsRequestBuilder {
+	builder := &DeleteTableRowsRequestBuilder{}
+	return builder
+}
+
+func (builder *DeleteTableRowsRequestBuilder) RowStartIndex(rowStartIndex int) *DeleteTableRowsRequestBuilder {
+	builder.rowStartIndex = rowStartIndex
+	builder.rowStartIndexFlag = true
+	return builder
+}
+func (builder *DeleteTableRowsRequestBuilder) RowEndIndex(rowEndIndex int) *DeleteTableRowsRequestBuilder {
+	builder.rowEndIndex = rowEndIndex
+	builder.rowEndIndexFlag = true
+	return builder
+}
+
+func (builder *DeleteTableRowsRequestBuilder) Build() *DeleteTableRowsRequest {
+	req := &DeleteTableRowsRequest{}
+	if builder.rowStartIndexFlag {
+		req.RowStartIndex = &builder.rowStartIndex
+
+	}
+	if builder.rowEndIndexFlag {
+		req.RowEndIndex = &builder.rowEndIndex
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Diagram struct {
 	DiagramType *int `json:"diagram_type,omitempty"`
 }
 
+/**builder开始**/
+type DiagramBuilder struct {
+	diagramType     int
+	diagramTypeFlag bool
+}
+
+func NewDiagramBuilder() *DiagramBuilder {
+	builder := &DiagramBuilder{}
+	return builder
+}
+
+func (builder *DiagramBuilder) DiagramType(diagramType int) *DiagramBuilder {
+	builder.diagramType = diagramType
+	builder.diagramTypeFlag = true
+	return builder
+}
+
+func (builder *DiagramBuilder) Build() *Diagram {
+	req := &Diagram{}
+	if builder.diagramTypeFlag {
+		req.DiagramType = &builder.diagramType
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Divider struct {
 }
+
+/**builder开始**/
+/**builder结束**/
 
 type Document struct {
 	DocumentId *string `json:"document_id,omitempty"`
@@ -111,31 +797,270 @@ type Document struct {
 	Title      *string `json:"title,omitempty"`
 }
 
+/**builder开始**/
+type DocumentBuilder struct {
+	documentId     string
+	documentIdFlag bool
+	revisionId     int
+	revisionIdFlag bool
+	title          string
+	titleFlag      bool
+}
+
+func NewDocumentBuilder() *DocumentBuilder {
+	builder := &DocumentBuilder{}
+	return builder
+}
+
+func (builder *DocumentBuilder) DocumentId(documentId string) *DocumentBuilder {
+	builder.documentId = documentId
+	builder.documentIdFlag = true
+	return builder
+}
+func (builder *DocumentBuilder) RevisionId(revisionId int) *DocumentBuilder {
+	builder.revisionId = revisionId
+	builder.revisionIdFlag = true
+	return builder
+}
+func (builder *DocumentBuilder) Title(title string) *DocumentBuilder {
+	builder.title = title
+	builder.titleFlag = true
+	return builder
+}
+
+func (builder *DocumentBuilder) Build() *Document {
+	req := &Document{}
+	if builder.documentIdFlag {
+		req.DocumentId = &builder.documentId
+
+	}
+	if builder.revisionIdFlag {
+		req.RevisionId = &builder.revisionId
+
+	}
+	if builder.titleFlag {
+		req.Title = &builder.title
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Equation struct {
 	Content *string `json:"content,omitempty"`
 }
+
+/**builder开始**/
+type EquationBuilder struct {
+	content     string
+	contentFlag bool
+}
+
+func NewEquationBuilder() *EquationBuilder {
+	builder := &EquationBuilder{}
+	return builder
+}
+
+func (builder *EquationBuilder) Content(content string) *EquationBuilder {
+	builder.content = content
+	builder.contentFlag = true
+	return builder
+}
+
+func (builder *EquationBuilder) Build() *Equation {
+	req := &Equation{}
+	if builder.contentFlag {
+		req.Content = &builder.content
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type File struct {
 	Token *string `json:"token,omitempty"`
 	Name  *string `json:"name,omitempty"`
 }
 
+/**builder开始**/
+type FileBuilder struct {
+	token     string
+	tokenFlag bool
+	name      string
+	nameFlag  bool
+}
+
+func NewFileBuilder() *FileBuilder {
+	builder := &FileBuilder{}
+	return builder
+}
+
+func (builder *FileBuilder) Token(token string) *FileBuilder {
+	builder.token = token
+	builder.tokenFlag = true
+	return builder
+}
+func (builder *FileBuilder) Name(name string) *FileBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+func (builder *FileBuilder) Build() *File {
+	req := &File{}
+	if builder.tokenFlag {
+		req.Token = &builder.token
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Grid struct {
 	ColumnSize *int `json:"column_size,omitempty"`
 }
+
+/**builder开始**/
+type GridBuilder struct {
+	columnSize     int
+	columnSizeFlag bool
+}
+
+func NewGridBuilder() *GridBuilder {
+	builder := &GridBuilder{}
+	return builder
+}
+
+func (builder *GridBuilder) ColumnSize(columnSize int) *GridBuilder {
+	builder.columnSize = columnSize
+	builder.columnSizeFlag = true
+	return builder
+}
+
+func (builder *GridBuilder) Build() *Grid {
+	req := &Grid{}
+	if builder.columnSizeFlag {
+		req.ColumnSize = &builder.columnSize
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type GridColumn struct {
 	WidthRatio *int `json:"width_ratio,omitempty"`
 }
 
+/**builder开始**/
+type GridColumnBuilder struct {
+	widthRatio     int
+	widthRatioFlag bool
+}
+
+func NewGridColumnBuilder() *GridColumnBuilder {
+	builder := &GridColumnBuilder{}
+	return builder
+}
+
+func (builder *GridColumnBuilder) WidthRatio(widthRatio int) *GridColumnBuilder {
+	builder.widthRatio = widthRatio
+	builder.widthRatioFlag = true
+	return builder
+}
+
+func (builder *GridColumnBuilder) Build() *GridColumn {
+	req := &GridColumn{}
+	if builder.widthRatioFlag {
+		req.WidthRatio = &builder.widthRatio
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Iframe struct {
 	Component *IframeComponent `json:"component,omitempty"`
 }
+
+/**builder开始**/
+type IframeBuilder struct {
+	component     *IframeComponent
+	componentFlag bool
+}
+
+func NewIframeBuilder() *IframeBuilder {
+	builder := &IframeBuilder{}
+	return builder
+}
+
+func (builder *IframeBuilder) Component(component *IframeComponent) *IframeBuilder {
+	builder.component = component
+	builder.componentFlag = true
+	return builder
+}
+
+func (builder *IframeBuilder) Build() *Iframe {
+	req := &Iframe{}
+	if builder.componentFlag {
+		req.Component = builder.component
+	}
+	return req
+}
+
+/**builder结束**/
 
 type IframeComponent struct {
 	IframeType *int    `json:"iframe_type,omitempty"`
 	Url        *string `json:"url,omitempty"`
 }
+
+/**builder开始**/
+type IframeComponentBuilder struct {
+	iframeType     int
+	iframeTypeFlag bool
+	url            string
+	urlFlag        bool
+}
+
+func NewIframeComponentBuilder() *IframeComponentBuilder {
+	builder := &IframeComponentBuilder{}
+	return builder
+}
+
+func (builder *IframeComponentBuilder) IframeType(iframeType int) *IframeComponentBuilder {
+	builder.iframeType = iframeType
+	builder.iframeTypeFlag = true
+	return builder
+}
+func (builder *IframeComponentBuilder) Url(url string) *IframeComponentBuilder {
+	builder.url = url
+	builder.urlFlag = true
+	return builder
+}
+
+func (builder *IframeComponentBuilder) Build() *IframeComponent {
+	req := &IframeComponent{}
+	if builder.iframeTypeFlag {
+		req.IframeType = &builder.iframeType
+
+	}
+	if builder.urlFlag {
+		req.Url = &builder.url
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type Image struct {
 	Width  *int    `json:"width,omitempty"`
@@ -143,35 +1068,303 @@ type Image struct {
 	Token  *string `json:"token,omitempty"`
 }
 
+/**builder开始**/
+type ImageBuilder struct {
+	width      int
+	widthFlag  bool
+	height     int
+	heightFlag bool
+	token      string
+	tokenFlag  bool
+}
+
+func NewImageBuilder() *ImageBuilder {
+	builder := &ImageBuilder{}
+	return builder
+}
+
+func (builder *ImageBuilder) Width(width int) *ImageBuilder {
+	builder.width = width
+	builder.widthFlag = true
+	return builder
+}
+func (builder *ImageBuilder) Height(height int) *ImageBuilder {
+	builder.height = height
+	builder.heightFlag = true
+	return builder
+}
+func (builder *ImageBuilder) Token(token string) *ImageBuilder {
+	builder.token = token
+	builder.tokenFlag = true
+	return builder
+}
+
+func (builder *ImageBuilder) Build() *Image {
+	req := &Image{}
+	if builder.widthFlag {
+		req.Width = &builder.width
+
+	}
+	if builder.heightFlag {
+		req.Height = &builder.height
+
+	}
+	if builder.tokenFlag {
+		req.Token = &builder.token
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type InlineBlock struct {
 	BlockId *string `json:"block_id,omitempty"`
 }
+
+/**builder开始**/
+type InlineBlockBuilder struct {
+	blockId     string
+	blockIdFlag bool
+}
+
+func NewInlineBlockBuilder() *InlineBlockBuilder {
+	builder := &InlineBlockBuilder{}
+	return builder
+}
+
+func (builder *InlineBlockBuilder) BlockId(blockId string) *InlineBlockBuilder {
+	builder.blockId = blockId
+	builder.blockIdFlag = true
+	return builder
+}
+
+func (builder *InlineBlockBuilder) Build() *InlineBlock {
+	req := &InlineBlock{}
+	if builder.blockIdFlag {
+		req.BlockId = &builder.blockId
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type InlineFile struct {
 	FileToken     *string `json:"file_token,omitempty"`
 	SourceBlockId *string `json:"source_block_id,omitempty"`
 }
 
+/**builder开始**/
+type InlineFileBuilder struct {
+	fileToken         string
+	fileTokenFlag     bool
+	sourceBlockId     string
+	sourceBlockIdFlag bool
+}
+
+func NewInlineFileBuilder() *InlineFileBuilder {
+	builder := &InlineFileBuilder{}
+	return builder
+}
+
+func (builder *InlineFileBuilder) FileToken(fileToken string) *InlineFileBuilder {
+	builder.fileToken = fileToken
+	builder.fileTokenFlag = true
+	return builder
+}
+func (builder *InlineFileBuilder) SourceBlockId(sourceBlockId string) *InlineFileBuilder {
+	builder.sourceBlockId = sourceBlockId
+	builder.sourceBlockIdFlag = true
+	return builder
+}
+
+func (builder *InlineFileBuilder) Build() *InlineFile {
+	req := &InlineFile{}
+	if builder.fileTokenFlag {
+		req.FileToken = &builder.fileToken
+
+	}
+	if builder.sourceBlockIdFlag {
+		req.SourceBlockId = &builder.sourceBlockId
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type InsertGridColumnRequest struct {
 	ColumnIndex *int `json:"column_index,omitempty"`
 }
+
+/**builder开始**/
+type InsertGridColumnRequestBuilder struct {
+	columnIndex     int
+	columnIndexFlag bool
+}
+
+func NewInsertGridColumnRequestBuilder() *InsertGridColumnRequestBuilder {
+	builder := &InsertGridColumnRequestBuilder{}
+	return builder
+}
+
+func (builder *InsertGridColumnRequestBuilder) ColumnIndex(columnIndex int) *InsertGridColumnRequestBuilder {
+	builder.columnIndex = columnIndex
+	builder.columnIndexFlag = true
+	return builder
+}
+
+func (builder *InsertGridColumnRequestBuilder) Build() *InsertGridColumnRequest {
+	req := &InsertGridColumnRequest{}
+	if builder.columnIndexFlag {
+		req.ColumnIndex = &builder.columnIndex
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type InsertTableColumnRequest struct {
 	ColumnIndex *int `json:"column_index,omitempty"`
 }
 
+/**builder开始**/
+type InsertTableColumnRequestBuilder struct {
+	columnIndex     int
+	columnIndexFlag bool
+}
+
+func NewInsertTableColumnRequestBuilder() *InsertTableColumnRequestBuilder {
+	builder := &InsertTableColumnRequestBuilder{}
+	return builder
+}
+
+func (builder *InsertTableColumnRequestBuilder) ColumnIndex(columnIndex int) *InsertTableColumnRequestBuilder {
+	builder.columnIndex = columnIndex
+	builder.columnIndexFlag = true
+	return builder
+}
+
+func (builder *InsertTableColumnRequestBuilder) Build() *InsertTableColumnRequest {
+	req := &InsertTableColumnRequest{}
+	if builder.columnIndexFlag {
+		req.ColumnIndex = &builder.columnIndex
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type InsertTableRowRequest struct {
 	RowIndex *int `json:"row_index,omitempty"`
 }
+
+/**builder开始**/
+type InsertTableRowRequestBuilder struct {
+	rowIndex     int
+	rowIndexFlag bool
+}
+
+func NewInsertTableRowRequestBuilder() *InsertTableRowRequestBuilder {
+	builder := &InsertTableRowRequestBuilder{}
+	return builder
+}
+
+func (builder *InsertTableRowRequestBuilder) RowIndex(rowIndex int) *InsertTableRowRequestBuilder {
+	builder.rowIndex = rowIndex
+	builder.rowIndexFlag = true
+	return builder
+}
+
+func (builder *InsertTableRowRequestBuilder) Build() *InsertTableRowRequest {
+	req := &InsertTableRowRequest{}
+	if builder.rowIndexFlag {
+		req.RowIndex = &builder.rowIndex
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type Isv struct {
 	ComponentId     *string `json:"component_id,omitempty"`
 	ComponentTypeId *string `json:"component_type_id,omitempty"`
 }
 
+/**builder开始**/
+type IsvBuilder struct {
+	componentId         string
+	componentIdFlag     bool
+	componentTypeId     string
+	componentTypeIdFlag bool
+}
+
+func NewIsvBuilder() *IsvBuilder {
+	builder := &IsvBuilder{}
+	return builder
+}
+
+func (builder *IsvBuilder) ComponentId(componentId string) *IsvBuilder {
+	builder.componentId = componentId
+	builder.componentIdFlag = true
+	return builder
+}
+func (builder *IsvBuilder) ComponentTypeId(componentTypeId string) *IsvBuilder {
+	builder.componentTypeId = componentTypeId
+	builder.componentTypeIdFlag = true
+	return builder
+}
+
+func (builder *IsvBuilder) Build() *Isv {
+	req := &Isv{}
+	if builder.componentIdFlag {
+		req.ComponentId = &builder.componentId
+
+	}
+	if builder.componentTypeIdFlag {
+		req.ComponentTypeId = &builder.componentTypeId
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Link struct {
 	Url *string `json:"url,omitempty"`
 }
+
+/**builder开始**/
+type LinkBuilder struct {
+	url     string
+	urlFlag bool
+}
+
+func NewLinkBuilder() *LinkBuilder {
+	builder := &LinkBuilder{}
+	return builder
+}
+
+func (builder *LinkBuilder) Url(url string) *LinkBuilder {
+	builder.url = url
+	builder.urlFlag = true
+	return builder
+}
+
+func (builder *LinkBuilder) Build() *Link {
+	req := &Link{}
+	if builder.urlFlag {
+		req.Url = &builder.url
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type MentionDoc struct {
 	Token   *string `json:"token,omitempty"`
@@ -180,9 +1373,98 @@ type MentionDoc struct {
 	Title   *string `json:"title,omitempty"`
 }
 
+/**builder开始**/
+type MentionDocBuilder struct {
+	token       string
+	tokenFlag   bool
+	objType     int
+	objTypeFlag bool
+	url         string
+	urlFlag     bool
+	title       string
+	titleFlag   bool
+}
+
+func NewMentionDocBuilder() *MentionDocBuilder {
+	builder := &MentionDocBuilder{}
+	return builder
+}
+
+func (builder *MentionDocBuilder) Token(token string) *MentionDocBuilder {
+	builder.token = token
+	builder.tokenFlag = true
+	return builder
+}
+func (builder *MentionDocBuilder) ObjType(objType int) *MentionDocBuilder {
+	builder.objType = objType
+	builder.objTypeFlag = true
+	return builder
+}
+func (builder *MentionDocBuilder) Url(url string) *MentionDocBuilder {
+	builder.url = url
+	builder.urlFlag = true
+	return builder
+}
+func (builder *MentionDocBuilder) Title(title string) *MentionDocBuilder {
+	builder.title = title
+	builder.titleFlag = true
+	return builder
+}
+
+func (builder *MentionDocBuilder) Build() *MentionDoc {
+	req := &MentionDoc{}
+	if builder.tokenFlag {
+		req.Token = &builder.token
+
+	}
+	if builder.objTypeFlag {
+		req.ObjType = &builder.objType
+
+	}
+	if builder.urlFlag {
+		req.Url = &builder.url
+
+	}
+	if builder.titleFlag {
+		req.Title = &builder.title
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type MentionUser struct {
 	UserId *string `json:"user_id,omitempty"`
 }
+
+/**builder开始**/
+type MentionUserBuilder struct {
+	userId     string
+	userIdFlag bool
+}
+
+func NewMentionUserBuilder() *MentionUserBuilder {
+	builder := &MentionUserBuilder{}
+	return builder
+}
+
+func (builder *MentionUserBuilder) UserId(userId string) *MentionUserBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+func (builder *MentionUserBuilder) Build() *MentionUser {
+	req := &MentionUser{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type MergeTableCellsRequest struct {
 	RowStartIndex    *int `json:"row_start_index,omitempty"`
@@ -191,12 +1473,104 @@ type MergeTableCellsRequest struct {
 	ColumnEndIndex   *int `json:"column_end_index,omitempty"`
 }
 
+/**builder开始**/
+type MergeTableCellsRequestBuilder struct {
+	rowStartIndex        int
+	rowStartIndexFlag    bool
+	rowEndIndex          int
+	rowEndIndexFlag      bool
+	columnStartIndex     int
+	columnStartIndexFlag bool
+	columnEndIndex       int
+	columnEndIndexFlag   bool
+}
+
+func NewMergeTableCellsRequestBuilder() *MergeTableCellsRequestBuilder {
+	builder := &MergeTableCellsRequestBuilder{}
+	return builder
+}
+
+func (builder *MergeTableCellsRequestBuilder) RowStartIndex(rowStartIndex int) *MergeTableCellsRequestBuilder {
+	builder.rowStartIndex = rowStartIndex
+	builder.rowStartIndexFlag = true
+	return builder
+}
+func (builder *MergeTableCellsRequestBuilder) RowEndIndex(rowEndIndex int) *MergeTableCellsRequestBuilder {
+	builder.rowEndIndex = rowEndIndex
+	builder.rowEndIndexFlag = true
+	return builder
+}
+func (builder *MergeTableCellsRequestBuilder) ColumnStartIndex(columnStartIndex int) *MergeTableCellsRequestBuilder {
+	builder.columnStartIndex = columnStartIndex
+	builder.columnStartIndexFlag = true
+	return builder
+}
+func (builder *MergeTableCellsRequestBuilder) ColumnEndIndex(columnEndIndex int) *MergeTableCellsRequestBuilder {
+	builder.columnEndIndex = columnEndIndex
+	builder.columnEndIndexFlag = true
+	return builder
+}
+
+func (builder *MergeTableCellsRequestBuilder) Build() *MergeTableCellsRequest {
+	req := &MergeTableCellsRequest{}
+	if builder.rowStartIndexFlag {
+		req.RowStartIndex = &builder.rowStartIndex
+
+	}
+	if builder.rowEndIndexFlag {
+		req.RowEndIndex = &builder.rowEndIndex
+
+	}
+	if builder.columnStartIndexFlag {
+		req.ColumnStartIndex = &builder.columnStartIndex
+
+	}
+	if builder.columnEndIndexFlag {
+		req.ColumnEndIndex = &builder.columnEndIndex
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Mindnote struct {
 	Token *string `json:"token,omitempty"`
 }
 
+/**builder开始**/
+type MindnoteBuilder struct {
+	token     string
+	tokenFlag bool
+}
+
+func NewMindnoteBuilder() *MindnoteBuilder {
+	builder := &MindnoteBuilder{}
+	return builder
+}
+
+func (builder *MindnoteBuilder) Token(token string) *MindnoteBuilder {
+	builder.token = token
+	builder.tokenFlag = true
+	return builder
+}
+
+func (builder *MindnoteBuilder) Build() *Mindnote {
+	req := &Mindnote{}
+	if builder.tokenFlag {
+		req.Token = &builder.token
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type QuoteContainer struct {
 }
+
+/**builder开始**/
+/**builder结束**/
 
 type Reminder struct {
 	CreateUserId *string `json:"create_user_id,omitempty"`
@@ -206,13 +1580,141 @@ type Reminder struct {
 	NotifyTime   *int64  `json:"notify_time,omitempty,string"`
 }
 
+/**builder开始**/
+type ReminderBuilder struct {
+	createUserId     string
+	createUserIdFlag bool
+	isNotify         bool
+	isNotifyFlag     bool
+	isWholeDay       bool
+	isWholeDayFlag   bool
+	expireTime       int64
+	expireTimeFlag   bool
+	notifyTime       int64
+	notifyTimeFlag   bool
+}
+
+func NewReminderBuilder() *ReminderBuilder {
+	builder := &ReminderBuilder{}
+	return builder
+}
+
+func (builder *ReminderBuilder) CreateUserId(createUserId string) *ReminderBuilder {
+	builder.createUserId = createUserId
+	builder.createUserIdFlag = true
+	return builder
+}
+func (builder *ReminderBuilder) IsNotify(isNotify bool) *ReminderBuilder {
+	builder.isNotify = isNotify
+	builder.isNotifyFlag = true
+	return builder
+}
+func (builder *ReminderBuilder) IsWholeDay(isWholeDay bool) *ReminderBuilder {
+	builder.isWholeDay = isWholeDay
+	builder.isWholeDayFlag = true
+	return builder
+}
+func (builder *ReminderBuilder) ExpireTime(expireTime int64) *ReminderBuilder {
+	builder.expireTime = expireTime
+	builder.expireTimeFlag = true
+	return builder
+}
+func (builder *ReminderBuilder) NotifyTime(notifyTime int64) *ReminderBuilder {
+	builder.notifyTime = notifyTime
+	builder.notifyTimeFlag = true
+	return builder
+}
+
+func (builder *ReminderBuilder) Build() *Reminder {
+	req := &Reminder{}
+	if builder.createUserIdFlag {
+		req.CreateUserId = &builder.createUserId
+
+	}
+	if builder.isNotifyFlag {
+		req.IsNotify = &builder.isNotify
+
+	}
+	if builder.isWholeDayFlag {
+		req.IsWholeDay = &builder.isWholeDay
+
+	}
+	if builder.expireTimeFlag {
+		req.ExpireTime = &builder.expireTime
+
+	}
+	if builder.notifyTimeFlag {
+		req.NotifyTime = &builder.notifyTime
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type ReplaceFileRequest struct {
 	Token *string `json:"token,omitempty"`
 }
 
+/**builder开始**/
+type ReplaceFileRequestBuilder struct {
+	token     string
+	tokenFlag bool
+}
+
+func NewReplaceFileRequestBuilder() *ReplaceFileRequestBuilder {
+	builder := &ReplaceFileRequestBuilder{}
+	return builder
+}
+
+func (builder *ReplaceFileRequestBuilder) Token(token string) *ReplaceFileRequestBuilder {
+	builder.token = token
+	builder.tokenFlag = true
+	return builder
+}
+
+func (builder *ReplaceFileRequestBuilder) Build() *ReplaceFileRequest {
+	req := &ReplaceFileRequest{}
+	if builder.tokenFlag {
+		req.Token = &builder.token
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type ReplaceImageRequest struct {
 	Token *string `json:"token,omitempty"`
 }
+
+/**builder开始**/
+type ReplaceImageRequestBuilder struct {
+	token     string
+	tokenFlag bool
+}
+
+func NewReplaceImageRequestBuilder() *ReplaceImageRequestBuilder {
+	builder := &ReplaceImageRequestBuilder{}
+	return builder
+}
+
+func (builder *ReplaceImageRequestBuilder) Token(token string) *ReplaceImageRequestBuilder {
+	builder.token = token
+	builder.tokenFlag = true
+	return builder
+}
+
+func (builder *ReplaceImageRequestBuilder) Build() *ReplaceImageRequest {
+	req := &ReplaceImageRequest{}
+	if builder.tokenFlag {
+		req.Token = &builder.token
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type Sheet struct {
 	Token      *string `json:"token,omitempty"`
@@ -220,18 +1722,147 @@ type Sheet struct {
 	ColumnSize *int    `json:"column_size,omitempty"`
 }
 
+/**builder开始**/
+type SheetBuilder struct {
+	token          string
+	tokenFlag      bool
+	rowSize        int
+	rowSizeFlag    bool
+	columnSize     int
+	columnSizeFlag bool
+}
+
+func NewSheetBuilder() *SheetBuilder {
+	builder := &SheetBuilder{}
+	return builder
+}
+
+func (builder *SheetBuilder) Token(token string) *SheetBuilder {
+	builder.token = token
+	builder.tokenFlag = true
+	return builder
+}
+func (builder *SheetBuilder) RowSize(rowSize int) *SheetBuilder {
+	builder.rowSize = rowSize
+	builder.rowSizeFlag = true
+	return builder
+}
+func (builder *SheetBuilder) ColumnSize(columnSize int) *SheetBuilder {
+	builder.columnSize = columnSize
+	builder.columnSizeFlag = true
+	return builder
+}
+
+func (builder *SheetBuilder) Build() *Sheet {
+	req := &Sheet{}
+	if builder.tokenFlag {
+		req.Token = &builder.token
+
+	}
+	if builder.rowSizeFlag {
+		req.RowSize = &builder.rowSize
+
+	}
+	if builder.columnSizeFlag {
+		req.ColumnSize = &builder.columnSize
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Table struct {
 	Cells    []string       `json:"cells,omitempty"`
 	Property *TableProperty `json:"property,omitempty"`
 }
 
+/**builder开始**/
+type TableBuilder struct {
+	cells        []string
+	cellsFlag    bool
+	property     *TableProperty
+	propertyFlag bool
+}
+
+func NewTableBuilder() *TableBuilder {
+	builder := &TableBuilder{}
+	return builder
+}
+
+func (builder *TableBuilder) Cells(cells []string) *TableBuilder {
+	builder.cells = cells
+	builder.cellsFlag = true
+	return builder
+}
+func (builder *TableBuilder) Property(property *TableProperty) *TableBuilder {
+	builder.property = property
+	builder.propertyFlag = true
+	return builder
+}
+
+func (builder *TableBuilder) Build() *Table {
+	req := &Table{}
+	if builder.cellsFlag {
+		req.Cells = builder.cells
+	}
+	if builder.propertyFlag {
+		req.Property = builder.property
+	}
+	return req
+}
+
+/**builder结束**/
+
 type TableCell struct {
 }
+
+/**builder开始**/
+/**builder结束**/
 
 type TableMergeInfo struct {
 	RowSpan *int `json:"row_span,omitempty"`
 	ColSpan *int `json:"col_span,omitempty"`
 }
+
+/**builder开始**/
+type TableMergeInfoBuilder struct {
+	rowSpan     int
+	rowSpanFlag bool
+	colSpan     int
+	colSpanFlag bool
+}
+
+func NewTableMergeInfoBuilder() *TableMergeInfoBuilder {
+	builder := &TableMergeInfoBuilder{}
+	return builder
+}
+
+func (builder *TableMergeInfoBuilder) RowSpan(rowSpan int) *TableMergeInfoBuilder {
+	builder.rowSpan = rowSpan
+	builder.rowSpanFlag = true
+	return builder
+}
+func (builder *TableMergeInfoBuilder) ColSpan(colSpan int) *TableMergeInfoBuilder {
+	builder.colSpan = colSpan
+	builder.colSpanFlag = true
+	return builder
+}
+
+func (builder *TableMergeInfoBuilder) Build() *TableMergeInfo {
+	req := &TableMergeInfo{}
+	if builder.rowSpanFlag {
+		req.RowSpan = &builder.rowSpan
+
+	}
+	if builder.colSpanFlag {
+		req.ColSpan = &builder.colSpan
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type TableProperty struct {
 	RowSize     *int              `json:"row_size,omitempty"`
@@ -240,10 +1871,106 @@ type TableProperty struct {
 	MergeInfo   []*TableMergeInfo `json:"merge_info,omitempty"`
 }
 
+/**builder开始**/
+type TablePropertyBuilder struct {
+	rowSize         int
+	rowSizeFlag     bool
+	columnSize      int
+	columnSizeFlag  bool
+	columnWidth     []int
+	columnWidthFlag bool
+	mergeInfo       []*TableMergeInfo
+	mergeInfoFlag   bool
+}
+
+func NewTablePropertyBuilder() *TablePropertyBuilder {
+	builder := &TablePropertyBuilder{}
+	return builder
+}
+
+func (builder *TablePropertyBuilder) RowSize(rowSize int) *TablePropertyBuilder {
+	builder.rowSize = rowSize
+	builder.rowSizeFlag = true
+	return builder
+}
+func (builder *TablePropertyBuilder) ColumnSize(columnSize int) *TablePropertyBuilder {
+	builder.columnSize = columnSize
+	builder.columnSizeFlag = true
+	return builder
+}
+func (builder *TablePropertyBuilder) ColumnWidth(columnWidth []int) *TablePropertyBuilder {
+	builder.columnWidth = columnWidth
+	builder.columnWidthFlag = true
+	return builder
+}
+func (builder *TablePropertyBuilder) MergeInfo(mergeInfo []*TableMergeInfo) *TablePropertyBuilder {
+	builder.mergeInfo = mergeInfo
+	builder.mergeInfoFlag = true
+	return builder
+}
+
+func (builder *TablePropertyBuilder) Build() *TableProperty {
+	req := &TableProperty{}
+	if builder.rowSizeFlag {
+		req.RowSize = &builder.rowSize
+
+	}
+	if builder.columnSizeFlag {
+		req.ColumnSize = &builder.columnSize
+
+	}
+	if builder.columnWidthFlag {
+		req.ColumnWidth = builder.columnWidth
+	}
+	if builder.mergeInfoFlag {
+		req.MergeInfo = builder.mergeInfo
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Text struct {
 	Style    *TextStyle     `json:"style,omitempty"`
 	Elements []*TextElement `json:"elements,omitempty"`
 }
+
+/**builder开始**/
+type TextBuilder struct {
+	style        *TextStyle
+	styleFlag    bool
+	elements     []*TextElement
+	elementsFlag bool
+}
+
+func NewTextBuilder() *TextBuilder {
+	builder := &TextBuilder{}
+	return builder
+}
+
+func (builder *TextBuilder) Style(style *TextStyle) *TextBuilder {
+	builder.style = style
+	builder.styleFlag = true
+	return builder
+}
+func (builder *TextBuilder) Elements(elements []*TextElement) *TextBuilder {
+	builder.elements = elements
+	builder.elementsFlag = true
+	return builder
+}
+
+func (builder *TextBuilder) Build() *Text {
+	req := &Text{}
+	if builder.styleFlag {
+		req.Style = builder.style
+	}
+	if builder.elementsFlag {
+		req.Elements = builder.elements
+	}
+	return req
+}
+
+/**builder结束**/
 
 type TextElement struct {
 	TextRun     *TextRun          `json:"text_run,omitempty"`
@@ -256,6 +1983,103 @@ type TextElement struct {
 	Equation    *Equation         `json:"equation,omitempty"`
 }
 
+/**builder开始**/
+type TextElementBuilder struct {
+	textRun         *TextRun
+	textRunFlag     bool
+	mentionUser     *MentionUser
+	mentionUserFlag bool
+	mentionDoc      *MentionDoc
+	mentionDocFlag  bool
+	reminder        *Reminder
+	reminderFlag    bool
+	file            *InlineFile
+	fileFlag        bool
+	undefined       *UndefinedElement
+	undefinedFlag   bool
+	inlineBlock     *InlineBlock
+	inlineBlockFlag bool
+	equation        *Equation
+	equationFlag    bool
+}
+
+func NewTextElementBuilder() *TextElementBuilder {
+	builder := &TextElementBuilder{}
+	return builder
+}
+
+func (builder *TextElementBuilder) TextRun(textRun *TextRun) *TextElementBuilder {
+	builder.textRun = textRun
+	builder.textRunFlag = true
+	return builder
+}
+func (builder *TextElementBuilder) MentionUser(mentionUser *MentionUser) *TextElementBuilder {
+	builder.mentionUser = mentionUser
+	builder.mentionUserFlag = true
+	return builder
+}
+func (builder *TextElementBuilder) MentionDoc(mentionDoc *MentionDoc) *TextElementBuilder {
+	builder.mentionDoc = mentionDoc
+	builder.mentionDocFlag = true
+	return builder
+}
+func (builder *TextElementBuilder) Reminder(reminder *Reminder) *TextElementBuilder {
+	builder.reminder = reminder
+	builder.reminderFlag = true
+	return builder
+}
+func (builder *TextElementBuilder) File(file *InlineFile) *TextElementBuilder {
+	builder.file = file
+	builder.fileFlag = true
+	return builder
+}
+func (builder *TextElementBuilder) Undefined(undefined *UndefinedElement) *TextElementBuilder {
+	builder.undefined = undefined
+	builder.undefinedFlag = true
+	return builder
+}
+func (builder *TextElementBuilder) InlineBlock(inlineBlock *InlineBlock) *TextElementBuilder {
+	builder.inlineBlock = inlineBlock
+	builder.inlineBlockFlag = true
+	return builder
+}
+func (builder *TextElementBuilder) Equation(equation *Equation) *TextElementBuilder {
+	builder.equation = equation
+	builder.equationFlag = true
+	return builder
+}
+
+func (builder *TextElementBuilder) Build() *TextElement {
+	req := &TextElement{}
+	if builder.textRunFlag {
+		req.TextRun = builder.textRun
+	}
+	if builder.mentionUserFlag {
+		req.MentionUser = builder.mentionUser
+	}
+	if builder.mentionDocFlag {
+		req.MentionDoc = builder.mentionDoc
+	}
+	if builder.reminderFlag {
+		req.Reminder = builder.reminder
+	}
+	if builder.fileFlag {
+		req.File = builder.file
+	}
+	if builder.undefinedFlag {
+		req.Undefined = builder.undefined
+	}
+	if builder.inlineBlockFlag {
+		req.InlineBlock = builder.inlineBlock
+	}
+	if builder.equationFlag {
+		req.Equation = builder.equation
+	}
+	return req
+}
+
+/**builder结束**/
+
 type TextElementStyle struct {
 	Bold            *bool `json:"bold,omitempty"`
 	Italic          *bool `json:"italic,omitempty"`
@@ -267,10 +2091,152 @@ type TextElementStyle struct {
 	Link            *Link `json:"link,omitempty"`
 }
 
+/**builder开始**/
+type TextElementStyleBuilder struct {
+	bold                bool
+	boldFlag            bool
+	italic              bool
+	italicFlag          bool
+	strikethrough       bool
+	strikethroughFlag   bool
+	underline           bool
+	underlineFlag       bool
+	inlineCode          bool
+	inlineCodeFlag      bool
+	backgroundColor     int
+	backgroundColorFlag bool
+	textColor           int
+	textColorFlag       bool
+	link                *Link
+	linkFlag            bool
+}
+
+func NewTextElementStyleBuilder() *TextElementStyleBuilder {
+	builder := &TextElementStyleBuilder{}
+	return builder
+}
+
+func (builder *TextElementStyleBuilder) Bold(bold bool) *TextElementStyleBuilder {
+	builder.bold = bold
+	builder.boldFlag = true
+	return builder
+}
+func (builder *TextElementStyleBuilder) Italic(italic bool) *TextElementStyleBuilder {
+	builder.italic = italic
+	builder.italicFlag = true
+	return builder
+}
+func (builder *TextElementStyleBuilder) Strikethrough(strikethrough bool) *TextElementStyleBuilder {
+	builder.strikethrough = strikethrough
+	builder.strikethroughFlag = true
+	return builder
+}
+func (builder *TextElementStyleBuilder) Underline(underline bool) *TextElementStyleBuilder {
+	builder.underline = underline
+	builder.underlineFlag = true
+	return builder
+}
+func (builder *TextElementStyleBuilder) InlineCode(inlineCode bool) *TextElementStyleBuilder {
+	builder.inlineCode = inlineCode
+	builder.inlineCodeFlag = true
+	return builder
+}
+func (builder *TextElementStyleBuilder) BackgroundColor(backgroundColor int) *TextElementStyleBuilder {
+	builder.backgroundColor = backgroundColor
+	builder.backgroundColorFlag = true
+	return builder
+}
+func (builder *TextElementStyleBuilder) TextColor(textColor int) *TextElementStyleBuilder {
+	builder.textColor = textColor
+	builder.textColorFlag = true
+	return builder
+}
+func (builder *TextElementStyleBuilder) Link(link *Link) *TextElementStyleBuilder {
+	builder.link = link
+	builder.linkFlag = true
+	return builder
+}
+
+func (builder *TextElementStyleBuilder) Build() *TextElementStyle {
+	req := &TextElementStyle{}
+	if builder.boldFlag {
+		req.Bold = &builder.bold
+
+	}
+	if builder.italicFlag {
+		req.Italic = &builder.italic
+
+	}
+	if builder.strikethroughFlag {
+		req.Strikethrough = &builder.strikethrough
+
+	}
+	if builder.underlineFlag {
+		req.Underline = &builder.underline
+
+	}
+	if builder.inlineCodeFlag {
+		req.InlineCode = &builder.inlineCode
+
+	}
+	if builder.backgroundColorFlag {
+		req.BackgroundColor = &builder.backgroundColor
+
+	}
+	if builder.textColorFlag {
+		req.TextColor = &builder.textColor
+
+	}
+	if builder.linkFlag {
+		req.Link = builder.link
+	}
+	return req
+}
+
+/**builder结束**/
+
 type TextRun struct {
 	Content          *string           `json:"content,omitempty"`
 	TextElementStyle *TextElementStyle `json:"text_element_style,omitempty"`
 }
+
+/**builder开始**/
+type TextRunBuilder struct {
+	content              string
+	contentFlag          bool
+	textElementStyle     *TextElementStyle
+	textElementStyleFlag bool
+}
+
+func NewTextRunBuilder() *TextRunBuilder {
+	builder := &TextRunBuilder{}
+	return builder
+}
+
+func (builder *TextRunBuilder) Content(content string) *TextRunBuilder {
+	builder.content = content
+	builder.contentFlag = true
+	return builder
+}
+func (builder *TextRunBuilder) TextElementStyle(textElementStyle *TextElementStyle) *TextRunBuilder {
+	builder.textElementStyle = textElementStyle
+	builder.textElementStyleFlag = true
+	return builder
+}
+
+func (builder *TextRunBuilder) Build() *TextRun {
+	req := &TextRun{}
+	if builder.contentFlag {
+		req.Content = &builder.content
+
+	}
+	if builder.textElementStyleFlag {
+		req.TextElementStyle = builder.textElementStyle
+	}
+	return req
+}
+
+/**builder结束**/
 
 type TextStyle struct {
 	Align    *int  `json:"align,omitempty"`
@@ -280,16 +2246,133 @@ type TextStyle struct {
 	Wrap     *bool `json:"wrap,omitempty"`
 }
 
+/**builder开始**/
+type TextStyleBuilder struct {
+	align        int
+	alignFlag    bool
+	done         bool
+	doneFlag     bool
+	folded       bool
+	foldedFlag   bool
+	language     int
+	languageFlag bool
+	wrap         bool
+	wrapFlag     bool
+}
+
+func NewTextStyleBuilder() *TextStyleBuilder {
+	builder := &TextStyleBuilder{}
+	return builder
+}
+
+func (builder *TextStyleBuilder) Align(align int) *TextStyleBuilder {
+	builder.align = align
+	builder.alignFlag = true
+	return builder
+}
+func (builder *TextStyleBuilder) Done(done bool) *TextStyleBuilder {
+	builder.done = done
+	builder.doneFlag = true
+	return builder
+}
+func (builder *TextStyleBuilder) Folded(folded bool) *TextStyleBuilder {
+	builder.folded = folded
+	builder.foldedFlag = true
+	return builder
+}
+func (builder *TextStyleBuilder) Language(language int) *TextStyleBuilder {
+	builder.language = language
+	builder.languageFlag = true
+	return builder
+}
+func (builder *TextStyleBuilder) Wrap(wrap bool) *TextStyleBuilder {
+	builder.wrap = wrap
+	builder.wrapFlag = true
+	return builder
+}
+
+func (builder *TextStyleBuilder) Build() *TextStyle {
+	req := &TextStyle{}
+	if builder.alignFlag {
+		req.Align = &builder.align
+
+	}
+	if builder.doneFlag {
+		req.Done = &builder.done
+
+	}
+	if builder.foldedFlag {
+		req.Folded = &builder.folded
+
+	}
+	if builder.languageFlag {
+		req.Language = &builder.language
+
+	}
+	if builder.wrapFlag {
+		req.Wrap = &builder.wrap
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Undefined struct {
 }
 
+/**builder开始**/
+/**builder结束**/
+
 type UndefinedElement struct {
 }
+
+/**builder开始**/
+/**builder结束**/
 
 type UnmergeTableCellsRequest struct {
 	RowIndex    *int `json:"row_index,omitempty"`
 	ColumnIndex *int `json:"column_index,omitempty"`
 }
+
+/**builder开始**/
+type UnmergeTableCellsRequestBuilder struct {
+	rowIndex        int
+	rowIndexFlag    bool
+	columnIndex     int
+	columnIndexFlag bool
+}
+
+func NewUnmergeTableCellsRequestBuilder() *UnmergeTableCellsRequestBuilder {
+	builder := &UnmergeTableCellsRequestBuilder{}
+	return builder
+}
+
+func (builder *UnmergeTableCellsRequestBuilder) RowIndex(rowIndex int) *UnmergeTableCellsRequestBuilder {
+	builder.rowIndex = rowIndex
+	builder.rowIndexFlag = true
+	return builder
+}
+func (builder *UnmergeTableCellsRequestBuilder) ColumnIndex(columnIndex int) *UnmergeTableCellsRequestBuilder {
+	builder.columnIndex = columnIndex
+	builder.columnIndexFlag = true
+	return builder
+}
+
+func (builder *UnmergeTableCellsRequestBuilder) Build() *UnmergeTableCellsRequest {
+	req := &UnmergeTableCellsRequest{}
+	if builder.rowIndexFlag {
+		req.RowIndex = &builder.rowIndex
+
+	}
+	if builder.columnIndexFlag {
+		req.ColumnIndex = &builder.columnIndex
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type UpdateBlockRequest struct {
 	UpdateTextElements         *UpdateTextElementsRequest         `json:"update_text_elements,omitempty"`
@@ -310,18 +2393,289 @@ type UpdateBlockRequest struct {
 	UpdateText                 *UpdateTextRequest                 `json:"update_text,omitempty"`
 }
 
+/**builder开始**/
+type UpdateBlockRequestBuilder struct {
+	updateTextElements             *UpdateTextElementsRequest
+	updateTextElementsFlag         bool
+	updateTextStyle                *UpdateTextStyleRequest
+	updateTextStyleFlag            bool
+	updateTableProperty            *UpdateTablePropertyRequest
+	updateTablePropertyFlag        bool
+	insertTableRow                 *InsertTableRowRequest
+	insertTableRowFlag             bool
+	insertTableColumn              *InsertTableColumnRequest
+	insertTableColumnFlag          bool
+	deleteTableRows                *DeleteTableRowsRequest
+	deleteTableRowsFlag            bool
+	deleteTableColumns             *DeleteTableColumnsRequest
+	deleteTableColumnsFlag         bool
+	mergeTableCells                *MergeTableCellsRequest
+	mergeTableCellsFlag            bool
+	unmergeTableCells              *UnmergeTableCellsRequest
+	unmergeTableCellsFlag          bool
+	insertGridColumn               *InsertGridColumnRequest
+	insertGridColumnFlag           bool
+	deleteGridColumn               *DeleteGridColumnRequest
+	deleteGridColumnFlag           bool
+	updateGridColumnWidthRatio     *UpdateGridColumnWidthRatioRequest
+	updateGridColumnWidthRatioFlag bool
+	replaceImage                   *ReplaceImageRequest
+	replaceImageFlag               bool
+	replaceFile                    *ReplaceFileRequest
+	replaceFileFlag                bool
+	blockId                        string
+	blockIdFlag                    bool
+	updateText                     *UpdateTextRequest
+	updateTextFlag                 bool
+}
+
+func NewUpdateBlockRequestBuilder() *UpdateBlockRequestBuilder {
+	builder := &UpdateBlockRequestBuilder{}
+	return builder
+}
+
+func (builder *UpdateBlockRequestBuilder) UpdateTextElements(updateTextElements *UpdateTextElementsRequest) *UpdateBlockRequestBuilder {
+	builder.updateTextElements = updateTextElements
+	builder.updateTextElementsFlag = true
+	return builder
+}
+func (builder *UpdateBlockRequestBuilder) UpdateTextStyle(updateTextStyle *UpdateTextStyleRequest) *UpdateBlockRequestBuilder {
+	builder.updateTextStyle = updateTextStyle
+	builder.updateTextStyleFlag = true
+	return builder
+}
+func (builder *UpdateBlockRequestBuilder) UpdateTableProperty(updateTableProperty *UpdateTablePropertyRequest) *UpdateBlockRequestBuilder {
+	builder.updateTableProperty = updateTableProperty
+	builder.updateTablePropertyFlag = true
+	return builder
+}
+func (builder *UpdateBlockRequestBuilder) InsertTableRow(insertTableRow *InsertTableRowRequest) *UpdateBlockRequestBuilder {
+	builder.insertTableRow = insertTableRow
+	builder.insertTableRowFlag = true
+	return builder
+}
+func (builder *UpdateBlockRequestBuilder) InsertTableColumn(insertTableColumn *InsertTableColumnRequest) *UpdateBlockRequestBuilder {
+	builder.insertTableColumn = insertTableColumn
+	builder.insertTableColumnFlag = true
+	return builder
+}
+func (builder *UpdateBlockRequestBuilder) DeleteTableRows(deleteTableRows *DeleteTableRowsRequest) *UpdateBlockRequestBuilder {
+	builder.deleteTableRows = deleteTableRows
+	builder.deleteTableRowsFlag = true
+	return builder
+}
+func (builder *UpdateBlockRequestBuilder) DeleteTableColumns(deleteTableColumns *DeleteTableColumnsRequest) *UpdateBlockRequestBuilder {
+	builder.deleteTableColumns = deleteTableColumns
+	builder.deleteTableColumnsFlag = true
+	return builder
+}
+func (builder *UpdateBlockRequestBuilder) MergeTableCells(mergeTableCells *MergeTableCellsRequest) *UpdateBlockRequestBuilder {
+	builder.mergeTableCells = mergeTableCells
+	builder.mergeTableCellsFlag = true
+	return builder
+}
+func (builder *UpdateBlockRequestBuilder) UnmergeTableCells(unmergeTableCells *UnmergeTableCellsRequest) *UpdateBlockRequestBuilder {
+	builder.unmergeTableCells = unmergeTableCells
+	builder.unmergeTableCellsFlag = true
+	return builder
+}
+func (builder *UpdateBlockRequestBuilder) InsertGridColumn(insertGridColumn *InsertGridColumnRequest) *UpdateBlockRequestBuilder {
+	builder.insertGridColumn = insertGridColumn
+	builder.insertGridColumnFlag = true
+	return builder
+}
+func (builder *UpdateBlockRequestBuilder) DeleteGridColumn(deleteGridColumn *DeleteGridColumnRequest) *UpdateBlockRequestBuilder {
+	builder.deleteGridColumn = deleteGridColumn
+	builder.deleteGridColumnFlag = true
+	return builder
+}
+func (builder *UpdateBlockRequestBuilder) UpdateGridColumnWidthRatio(updateGridColumnWidthRatio *UpdateGridColumnWidthRatioRequest) *UpdateBlockRequestBuilder {
+	builder.updateGridColumnWidthRatio = updateGridColumnWidthRatio
+	builder.updateGridColumnWidthRatioFlag = true
+	return builder
+}
+func (builder *UpdateBlockRequestBuilder) ReplaceImage(replaceImage *ReplaceImageRequest) *UpdateBlockRequestBuilder {
+	builder.replaceImage = replaceImage
+	builder.replaceImageFlag = true
+	return builder
+}
+func (builder *UpdateBlockRequestBuilder) ReplaceFile(replaceFile *ReplaceFileRequest) *UpdateBlockRequestBuilder {
+	builder.replaceFile = replaceFile
+	builder.replaceFileFlag = true
+	return builder
+}
+func (builder *UpdateBlockRequestBuilder) BlockId(blockId string) *UpdateBlockRequestBuilder {
+	builder.blockId = blockId
+	builder.blockIdFlag = true
+	return builder
+}
+func (builder *UpdateBlockRequestBuilder) UpdateText(updateText *UpdateTextRequest) *UpdateBlockRequestBuilder {
+	builder.updateText = updateText
+	builder.updateTextFlag = true
+	return builder
+}
+
+func (builder *UpdateBlockRequestBuilder) Build() *UpdateBlockRequest {
+	req := &UpdateBlockRequest{}
+	if builder.updateTextElementsFlag {
+		req.UpdateTextElements = builder.updateTextElements
+	}
+	if builder.updateTextStyleFlag {
+		req.UpdateTextStyle = builder.updateTextStyle
+	}
+	if builder.updateTablePropertyFlag {
+		req.UpdateTableProperty = builder.updateTableProperty
+	}
+	if builder.insertTableRowFlag {
+		req.InsertTableRow = builder.insertTableRow
+	}
+	if builder.insertTableColumnFlag {
+		req.InsertTableColumn = builder.insertTableColumn
+	}
+	if builder.deleteTableRowsFlag {
+		req.DeleteTableRows = builder.deleteTableRows
+	}
+	if builder.deleteTableColumnsFlag {
+		req.DeleteTableColumns = builder.deleteTableColumns
+	}
+	if builder.mergeTableCellsFlag {
+		req.MergeTableCells = builder.mergeTableCells
+	}
+	if builder.unmergeTableCellsFlag {
+		req.UnmergeTableCells = builder.unmergeTableCells
+	}
+	if builder.insertGridColumnFlag {
+		req.InsertGridColumn = builder.insertGridColumn
+	}
+	if builder.deleteGridColumnFlag {
+		req.DeleteGridColumn = builder.deleteGridColumn
+	}
+	if builder.updateGridColumnWidthRatioFlag {
+		req.UpdateGridColumnWidthRatio = builder.updateGridColumnWidthRatio
+	}
+	if builder.replaceImageFlag {
+		req.ReplaceImage = builder.replaceImage
+	}
+	if builder.replaceFileFlag {
+		req.ReplaceFile = builder.replaceFile
+	}
+	if builder.blockIdFlag {
+		req.BlockId = &builder.blockId
+
+	}
+	if builder.updateTextFlag {
+		req.UpdateText = builder.updateText
+	}
+	return req
+}
+
+/**builder结束**/
+
 type UpdateGridColumnWidthRatioRequest struct {
 	WidthRatios []int `json:"width_ratios,omitempty"`
 }
+
+/**builder开始**/
+type UpdateGridColumnWidthRatioRequestBuilder struct {
+	widthRatios     []int
+	widthRatiosFlag bool
+}
+
+func NewUpdateGridColumnWidthRatioRequestBuilder() *UpdateGridColumnWidthRatioRequestBuilder {
+	builder := &UpdateGridColumnWidthRatioRequestBuilder{}
+	return builder
+}
+
+func (builder *UpdateGridColumnWidthRatioRequestBuilder) WidthRatios(widthRatios []int) *UpdateGridColumnWidthRatioRequestBuilder {
+	builder.widthRatios = widthRatios
+	builder.widthRatiosFlag = true
+	return builder
+}
+
+func (builder *UpdateGridColumnWidthRatioRequestBuilder) Build() *UpdateGridColumnWidthRatioRequest {
+	req := &UpdateGridColumnWidthRatioRequest{}
+	if builder.widthRatiosFlag {
+		req.WidthRatios = builder.widthRatios
+	}
+	return req
+}
+
+/**builder结束**/
 
 type UpdateTablePropertyRequest struct {
 	ColumnWidth *int `json:"column_width,omitempty"`
 	ColumnIndex *int `json:"column_index,omitempty"`
 }
 
+/**builder开始**/
+type UpdateTablePropertyRequestBuilder struct {
+	columnWidth     int
+	columnWidthFlag bool
+	columnIndex     int
+	columnIndexFlag bool
+}
+
+func NewUpdateTablePropertyRequestBuilder() *UpdateTablePropertyRequestBuilder {
+	builder := &UpdateTablePropertyRequestBuilder{}
+	return builder
+}
+
+func (builder *UpdateTablePropertyRequestBuilder) ColumnWidth(columnWidth int) *UpdateTablePropertyRequestBuilder {
+	builder.columnWidth = columnWidth
+	builder.columnWidthFlag = true
+	return builder
+}
+func (builder *UpdateTablePropertyRequestBuilder) ColumnIndex(columnIndex int) *UpdateTablePropertyRequestBuilder {
+	builder.columnIndex = columnIndex
+	builder.columnIndexFlag = true
+	return builder
+}
+
+func (builder *UpdateTablePropertyRequestBuilder) Build() *UpdateTablePropertyRequest {
+	req := &UpdateTablePropertyRequest{}
+	if builder.columnWidthFlag {
+		req.ColumnWidth = &builder.columnWidth
+
+	}
+	if builder.columnIndexFlag {
+		req.ColumnIndex = &builder.columnIndex
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type UpdateTextElementsRequest struct {
 	Elements []*TextElement `json:"elements,omitempty"`
 }
+
+/**builder开始**/
+type UpdateTextElementsRequestBuilder struct {
+	elements     []*TextElement
+	elementsFlag bool
+}
+
+func NewUpdateTextElementsRequestBuilder() *UpdateTextElementsRequestBuilder {
+	builder := &UpdateTextElementsRequestBuilder{}
+	return builder
+}
+
+func (builder *UpdateTextElementsRequestBuilder) Elements(elements []*TextElement) *UpdateTextElementsRequestBuilder {
+	builder.elements = elements
+	builder.elementsFlag = true
+	return builder
+}
+
+func (builder *UpdateTextElementsRequestBuilder) Build() *UpdateTextElementsRequest {
+	req := &UpdateTextElementsRequest{}
+	if builder.elementsFlag {
+		req.Elements = builder.elements
+	}
+	return req
+}
+
+/**builder结束**/
 
 type UpdateTextRequest struct {
 	Elements []*TextElement `json:"elements,omitempty"`
@@ -329,14 +2683,126 @@ type UpdateTextRequest struct {
 	Fields   []int          `json:"fields,omitempty"`
 }
 
+/**builder开始**/
+type UpdateTextRequestBuilder struct {
+	elements     []*TextElement
+	elementsFlag bool
+	style        *TextStyle
+	styleFlag    bool
+	fields       []int
+	fieldsFlag   bool
+}
+
+func NewUpdateTextRequestBuilder() *UpdateTextRequestBuilder {
+	builder := &UpdateTextRequestBuilder{}
+	return builder
+}
+
+func (builder *UpdateTextRequestBuilder) Elements(elements []*TextElement) *UpdateTextRequestBuilder {
+	builder.elements = elements
+	builder.elementsFlag = true
+	return builder
+}
+func (builder *UpdateTextRequestBuilder) Style(style *TextStyle) *UpdateTextRequestBuilder {
+	builder.style = style
+	builder.styleFlag = true
+	return builder
+}
+func (builder *UpdateTextRequestBuilder) Fields(fields []int) *UpdateTextRequestBuilder {
+	builder.fields = fields
+	builder.fieldsFlag = true
+	return builder
+}
+
+func (builder *UpdateTextRequestBuilder) Build() *UpdateTextRequest {
+	req := &UpdateTextRequest{}
+	if builder.elementsFlag {
+		req.Elements = builder.elements
+	}
+	if builder.styleFlag {
+		req.Style = builder.style
+	}
+	if builder.fieldsFlag {
+		req.Fields = builder.fields
+	}
+	return req
+}
+
+/**builder结束**/
+
 type UpdateTextStyleRequest struct {
 	Style  *TextStyle `json:"style,omitempty"`
 	Fields []int      `json:"fields,omitempty"`
 }
 
+/**builder开始**/
+type UpdateTextStyleRequestBuilder struct {
+	style      *TextStyle
+	styleFlag  bool
+	fields     []int
+	fieldsFlag bool
+}
+
+func NewUpdateTextStyleRequestBuilder() *UpdateTextStyleRequestBuilder {
+	builder := &UpdateTextStyleRequestBuilder{}
+	return builder
+}
+
+func (builder *UpdateTextStyleRequestBuilder) Style(style *TextStyle) *UpdateTextStyleRequestBuilder {
+	builder.style = style
+	builder.styleFlag = true
+	return builder
+}
+func (builder *UpdateTextStyleRequestBuilder) Fields(fields []int) *UpdateTextStyleRequestBuilder {
+	builder.fields = fields
+	builder.fieldsFlag = true
+	return builder
+}
+
+func (builder *UpdateTextStyleRequestBuilder) Build() *UpdateTextStyleRequest {
+	req := &UpdateTextStyleRequest{}
+	if builder.styleFlag {
+		req.Style = builder.style
+	}
+	if builder.fieldsFlag {
+		req.Fields = builder.fields
+	}
+	return req
+}
+
+/**builder结束**/
+
 type View struct {
 	ViewType *int `json:"view_type,omitempty"`
 }
+
+/**builder开始**/
+type ViewBuilder struct {
+	viewType     int
+	viewTypeFlag bool
+}
+
+func NewViewBuilder() *ViewBuilder {
+	builder := &ViewBuilder{}
+	return builder
+}
+
+func (builder *ViewBuilder) ViewType(viewType int) *ViewBuilder {
+	builder.viewType = viewType
+	builder.viewTypeFlag = true
+	return builder
+}
+
+func (builder *ViewBuilder) Build() *View {
+	req := &View{}
+	if builder.viewTypeFlag {
+		req.ViewType = &builder.viewType
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 /**生成请求和响应结果类型，以及请求对象的Builder构造器 **/
 

@@ -21,18 +21,149 @@ type Credentials struct {
 	UserId *string `json:"user_id,omitempty"`
 }
 
+/**builder开始**/
+type CredentialsBuilder struct {
+	email      string
+	emailFlag  bool
+	mobile     string
+	mobileFlag bool
+	userId     string
+	userIdFlag bool
+}
+
+func NewCredentialsBuilder() *CredentialsBuilder {
+	builder := &CredentialsBuilder{}
+	return builder
+}
+
+func (builder *CredentialsBuilder) Email(email string) *CredentialsBuilder {
+	builder.email = email
+	builder.emailFlag = true
+	return builder
+}
+func (builder *CredentialsBuilder) Mobile(mobile string) *CredentialsBuilder {
+	builder.mobile = mobile
+	builder.mobileFlag = true
+	return builder
+}
+func (builder *CredentialsBuilder) UserId(userId string) *CredentialsBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+func (builder *CredentialsBuilder) Build() *Credentials {
+	req := &Credentials{}
+	if builder.emailFlag {
+		req.Email = &builder.email
+
+	}
+	if builder.mobileFlag {
+		req.Mobile = &builder.mobile
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type IdpCredential struct {
 }
+
+/**builder开始**/
+/**builder结束**/
 
 type IdpCredentialId struct {
 	IdpCredentialId *string `json:"idp_credential_id,omitempty"`
 }
+
+/**builder开始**/
+type IdpCredentialIdBuilder struct {
+	idpCredentialId     string
+	idpCredentialIdFlag bool
+}
+
+func NewIdpCredentialIdBuilder() *IdpCredentialIdBuilder {
+	builder := &IdpCredentialIdBuilder{}
+	return builder
+}
+
+func (builder *IdpCredentialIdBuilder) IdpCredentialId(idpCredentialId string) *IdpCredentialIdBuilder {
+	builder.idpCredentialId = idpCredentialId
+	builder.idpCredentialIdFlag = true
+	return builder
+}
+
+func (builder *IdpCredentialIdBuilder) Build() *IdpCredentialId {
+	req := &IdpCredentialId{}
+	if builder.idpCredentialIdFlag {
+		req.IdpCredentialId = &builder.idpCredentialId
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type MaskSession struct {
 	CreateTime   *int64  `json:"create_time,omitempty,string"`
 	TerminalType *int    `json:"terminal_type,omitempty"`
 	UserId       *string `json:"user_id,omitempty"`
 }
+
+/**builder开始**/
+type MaskSessionBuilder struct {
+	createTime       int64
+	createTimeFlag   bool
+	terminalType     int
+	terminalTypeFlag bool
+	userId           string
+	userIdFlag       bool
+}
+
+func NewMaskSessionBuilder() *MaskSessionBuilder {
+	builder := &MaskSessionBuilder{}
+	return builder
+}
+
+func (builder *MaskSessionBuilder) CreateTime(createTime int64) *MaskSessionBuilder {
+	builder.createTime = createTime
+	builder.createTimeFlag = true
+	return builder
+}
+func (builder *MaskSessionBuilder) TerminalType(terminalType int) *MaskSessionBuilder {
+	builder.terminalType = terminalType
+	builder.terminalTypeFlag = true
+	return builder
+}
+func (builder *MaskSessionBuilder) UserId(userId string) *MaskSessionBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+func (builder *MaskSessionBuilder) Build() *MaskSession {
+	req := &MaskSession{}
+	if builder.createTimeFlag {
+		req.CreateTime = &builder.createTime
+
+	}
+	if builder.terminalTypeFlag {
+		req.TerminalType = &builder.terminalType
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 /**生成请求和响应结果类型，以及请求对象的Builder构造器 **/
 

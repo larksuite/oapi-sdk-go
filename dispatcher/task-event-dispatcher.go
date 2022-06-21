@@ -7,14 +7,26 @@ import (
 )
 
 func (dispatcher *EventReqDispatcher) OnTaskUpdateTenantV1(handler func(ctx context.Context, event *task.TaskUpdateTenantEvent) error) *EventReqDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["task.task.update_tenant_v1"]
+	if existed {
+		panic("event: multiple handler registrations for " + "task.task.update_tenant_v1")
+	}
 	dispatcher.eventType2EventHandler["task.task.update_tenant_v1"] = task.NewTaskUpdateTenantEventHandler(handler)
 	return dispatcher
 }
 func (dispatcher *EventReqDispatcher) OnTaskUpdatedV1(handler func(ctx context.Context, event *task.TaskUpdatedEvent) error) *EventReqDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["task.task.updated_v1"]
+	if existed {
+		panic("event: multiple handler registrations for " + "task.task.updated_v1")
+	}
 	dispatcher.eventType2EventHandler["task.task.updated_v1"] = task.NewTaskUpdatedEventHandler(handler)
 	return dispatcher
 }
 func (dispatcher *EventReqDispatcher) OnTaskCommentUpdatedV1(handler func(ctx context.Context, event *task.TaskCommentUpdatedEvent) error) *EventReqDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["task.task.comment.updated_v1"]
+	if existed {
+		panic("event: multiple handler registrations for " + "task.task.comment.updated_v1")
+	}
 	dispatcher.eventType2EventHandler["task.task.comment.updated_v1"] = task.NewTaskCommentUpdatedEventHandler(handler)
 	return dispatcher
 }

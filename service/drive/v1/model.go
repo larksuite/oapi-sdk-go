@@ -112,6 +112,45 @@ type ApplyMemberRequest struct {
 	Remark *string `json:"remark,omitempty"`
 }
 
+/**builder开始**/
+type ApplyMemberRequestBuilder struct {
+	perm       string
+	permFlag   bool
+	remark     string
+	remarkFlag bool
+}
+
+func NewApplyMemberRequestBuilder() *ApplyMemberRequestBuilder {
+	builder := &ApplyMemberRequestBuilder{}
+	return builder
+}
+
+func (builder *ApplyMemberRequestBuilder) Perm(perm string) *ApplyMemberRequestBuilder {
+	builder.perm = perm
+	builder.permFlag = true
+	return builder
+}
+func (builder *ApplyMemberRequestBuilder) Remark(remark string) *ApplyMemberRequestBuilder {
+	builder.remark = remark
+	builder.remarkFlag = true
+	return builder
+}
+
+func (builder *ApplyMemberRequestBuilder) Build() *ApplyMemberRequest {
+	req := &ApplyMemberRequest{}
+	if builder.permFlag {
+		req.Perm = &builder.perm
+
+	}
+	if builder.remarkFlag {
+		req.Remark = &builder.remark
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type BitableTableRecordAction struct {
 	RecordId    *string                          `json:"record_id,omitempty"`
 	Action      *string                          `json:"action,omitempty"`
@@ -119,10 +158,108 @@ type BitableTableRecordAction struct {
 	AfterValue  []*BitableTableRecordActionField `json:"after_value,omitempty"`
 }
 
+/**builder开始**/
+type BitableTableRecordActionBuilder struct {
+	recordId        string
+	recordIdFlag    bool
+	action          string
+	actionFlag      bool
+	beforeValue     []*BitableTableRecordActionField
+	beforeValueFlag bool
+	afterValue      []*BitableTableRecordActionField
+	afterValueFlag  bool
+}
+
+func NewBitableTableRecordActionBuilder() *BitableTableRecordActionBuilder {
+	builder := &BitableTableRecordActionBuilder{}
+	return builder
+}
+
+func (builder *BitableTableRecordActionBuilder) RecordId(recordId string) *BitableTableRecordActionBuilder {
+	builder.recordId = recordId
+	builder.recordIdFlag = true
+	return builder
+}
+func (builder *BitableTableRecordActionBuilder) Action(action string) *BitableTableRecordActionBuilder {
+	builder.action = action
+	builder.actionFlag = true
+	return builder
+}
+func (builder *BitableTableRecordActionBuilder) BeforeValue(beforeValue []*BitableTableRecordActionField) *BitableTableRecordActionBuilder {
+	builder.beforeValue = beforeValue
+	builder.beforeValueFlag = true
+	return builder
+}
+func (builder *BitableTableRecordActionBuilder) AfterValue(afterValue []*BitableTableRecordActionField) *BitableTableRecordActionBuilder {
+	builder.afterValue = afterValue
+	builder.afterValueFlag = true
+	return builder
+}
+
+func (builder *BitableTableRecordActionBuilder) Build() *BitableTableRecordAction {
+	req := &BitableTableRecordAction{}
+	if builder.recordIdFlag {
+		req.RecordId = &builder.recordId
+
+	}
+	if builder.actionFlag {
+		req.Action = &builder.action
+
+	}
+	if builder.beforeValueFlag {
+		req.BeforeValue = builder.beforeValue
+	}
+	if builder.afterValueFlag {
+		req.AfterValue = builder.afterValue
+	}
+	return req
+}
+
+/**builder结束**/
+
 type BitableTableRecordActionField struct {
 	FieldId    *string `json:"field_id,omitempty"`
 	FieldValue *string `json:"field_value,omitempty"`
 }
+
+/**builder开始**/
+type BitableTableRecordActionFieldBuilder struct {
+	fieldId        string
+	fieldIdFlag    bool
+	fieldValue     string
+	fieldValueFlag bool
+}
+
+func NewBitableTableRecordActionFieldBuilder() *BitableTableRecordActionFieldBuilder {
+	builder := &BitableTableRecordActionFieldBuilder{}
+	return builder
+}
+
+func (builder *BitableTableRecordActionFieldBuilder) FieldId(fieldId string) *BitableTableRecordActionFieldBuilder {
+	builder.fieldId = fieldId
+	builder.fieldIdFlag = true
+	return builder
+}
+func (builder *BitableTableRecordActionFieldBuilder) FieldValue(fieldValue string) *BitableTableRecordActionFieldBuilder {
+	builder.fieldValue = fieldValue
+	builder.fieldValueFlag = true
+	return builder
+}
+
+func (builder *BitableTableRecordActionFieldBuilder) Build() *BitableTableRecordActionField {
+	req := &BitableTableRecordActionField{}
+	if builder.fieldIdFlag {
+		req.FieldId = &builder.fieldId
+
+	}
+	if builder.fieldValueFlag {
+		req.FieldValue = &builder.fieldValue
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type Collaborator struct {
 	MemberType   *string `json:"member_type,omitempty"`
@@ -131,9 +268,98 @@ type Collaborator struct {
 	Perm         *string `json:"perm,omitempty"`
 }
 
+/**builder开始**/
+type CollaboratorBuilder struct {
+	memberType       string
+	memberTypeFlag   bool
+	memberOpenId     string
+	memberOpenIdFlag bool
+	memberUserId     string
+	memberUserIdFlag bool
+	perm             string
+	permFlag         bool
+}
+
+func NewCollaboratorBuilder() *CollaboratorBuilder {
+	builder := &CollaboratorBuilder{}
+	return builder
+}
+
+func (builder *CollaboratorBuilder) MemberType(memberType string) *CollaboratorBuilder {
+	builder.memberType = memberType
+	builder.memberTypeFlag = true
+	return builder
+}
+func (builder *CollaboratorBuilder) MemberOpenId(memberOpenId string) *CollaboratorBuilder {
+	builder.memberOpenId = memberOpenId
+	builder.memberOpenIdFlag = true
+	return builder
+}
+func (builder *CollaboratorBuilder) MemberUserId(memberUserId string) *CollaboratorBuilder {
+	builder.memberUserId = memberUserId
+	builder.memberUserIdFlag = true
+	return builder
+}
+func (builder *CollaboratorBuilder) Perm(perm string) *CollaboratorBuilder {
+	builder.perm = perm
+	builder.permFlag = true
+	return builder
+}
+
+func (builder *CollaboratorBuilder) Build() *Collaborator {
+	req := &Collaborator{}
+	if builder.memberTypeFlag {
+		req.MemberType = &builder.memberType
+
+	}
+	if builder.memberOpenIdFlag {
+		req.MemberOpenId = &builder.memberOpenId
+
+	}
+	if builder.memberUserIdFlag {
+		req.MemberUserId = &builder.memberUserId
+
+	}
+	if builder.permFlag {
+		req.Perm = &builder.perm
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type DocsLink struct {
 	Url *string `json:"url,omitempty"`
 }
+
+/**builder开始**/
+type DocsLinkBuilder struct {
+	url     string
+	urlFlag bool
+}
+
+func NewDocsLinkBuilder() *DocsLinkBuilder {
+	builder := &DocsLinkBuilder{}
+	return builder
+}
+
+func (builder *DocsLinkBuilder) Url(url string) *DocsLinkBuilder {
+	builder.url = url
+	builder.urlFlag = true
+	return builder
+}
+
+func (builder *DocsLinkBuilder) Build() *DocsLink {
+	req := &DocsLink{}
+	if builder.urlFlag {
+		req.Url = &builder.url
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type ExportTask struct {
 	FileExtension *string `json:"file_extension,omitempty"`
@@ -146,6 +372,111 @@ type ExportTask struct {
 	JobStatus     *int    `json:"job_status,omitempty"`
 }
 
+/**builder开始**/
+type ExportTaskBuilder struct {
+	fileExtension     string
+	fileExtensionFlag bool
+	token             string
+	tokenFlag         bool
+	type_             string
+	typeFlag          bool
+	fileName          string
+	fileNameFlag      bool
+	fileToken         string
+	fileTokenFlag     bool
+	fileSize          int
+	fileSizeFlag      bool
+	jobErrorMsg       string
+	jobErrorMsgFlag   bool
+	jobStatus         int
+	jobStatusFlag     bool
+}
+
+func NewExportTaskBuilder() *ExportTaskBuilder {
+	builder := &ExportTaskBuilder{}
+	return builder
+}
+
+func (builder *ExportTaskBuilder) FileExtension(fileExtension string) *ExportTaskBuilder {
+	builder.fileExtension = fileExtension
+	builder.fileExtensionFlag = true
+	return builder
+}
+func (builder *ExportTaskBuilder) Token(token string) *ExportTaskBuilder {
+	builder.token = token
+	builder.tokenFlag = true
+	return builder
+}
+func (builder *ExportTaskBuilder) Type(type_ string) *ExportTaskBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+func (builder *ExportTaskBuilder) FileName(fileName string) *ExportTaskBuilder {
+	builder.fileName = fileName
+	builder.fileNameFlag = true
+	return builder
+}
+func (builder *ExportTaskBuilder) FileToken(fileToken string) *ExportTaskBuilder {
+	builder.fileToken = fileToken
+	builder.fileTokenFlag = true
+	return builder
+}
+func (builder *ExportTaskBuilder) FileSize(fileSize int) *ExportTaskBuilder {
+	builder.fileSize = fileSize
+	builder.fileSizeFlag = true
+	return builder
+}
+func (builder *ExportTaskBuilder) JobErrorMsg(jobErrorMsg string) *ExportTaskBuilder {
+	builder.jobErrorMsg = jobErrorMsg
+	builder.jobErrorMsgFlag = true
+	return builder
+}
+func (builder *ExportTaskBuilder) JobStatus(jobStatus int) *ExportTaskBuilder {
+	builder.jobStatus = jobStatus
+	builder.jobStatusFlag = true
+	return builder
+}
+
+func (builder *ExportTaskBuilder) Build() *ExportTask {
+	req := &ExportTask{}
+	if builder.fileExtensionFlag {
+		req.FileExtension = &builder.fileExtension
+
+	}
+	if builder.tokenFlag {
+		req.Token = &builder.token
+
+	}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.fileNameFlag {
+		req.FileName = &builder.fileName
+
+	}
+	if builder.fileTokenFlag {
+		req.FileToken = &builder.fileToken
+
+	}
+	if builder.fileSizeFlag {
+		req.FileSize = &builder.fileSize
+
+	}
+	if builder.jobErrorMsgFlag {
+		req.JobErrorMsg = &builder.jobErrorMsg
+
+	}
+	if builder.jobStatusFlag {
+		req.JobStatus = &builder.jobStatus
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type File struct {
 	Token        *string       `json:"token,omitempty"`
 	Name         *string       `json:"name,omitempty"`
@@ -154,6 +485,88 @@ type File struct {
 	Url          *string       `json:"url,omitempty"`
 	ShortcutInfo *ShortcutInfo `json:"shortcut_info,omitempty"`
 }
+
+/**builder开始**/
+type FileBuilder struct {
+	token            string
+	tokenFlag        bool
+	name             string
+	nameFlag         bool
+	type_            string
+	typeFlag         bool
+	parentToken      string
+	parentTokenFlag  bool
+	url              string
+	urlFlag          bool
+	shortcutInfo     *ShortcutInfo
+	shortcutInfoFlag bool
+}
+
+func NewFileBuilder() *FileBuilder {
+	builder := &FileBuilder{}
+	return builder
+}
+
+func (builder *FileBuilder) Token(token string) *FileBuilder {
+	builder.token = token
+	builder.tokenFlag = true
+	return builder
+}
+func (builder *FileBuilder) Name(name string) *FileBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *FileBuilder) Type(type_ string) *FileBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+func (builder *FileBuilder) ParentToken(parentToken string) *FileBuilder {
+	builder.parentToken = parentToken
+	builder.parentTokenFlag = true
+	return builder
+}
+func (builder *FileBuilder) Url(url string) *FileBuilder {
+	builder.url = url
+	builder.urlFlag = true
+	return builder
+}
+func (builder *FileBuilder) ShortcutInfo(shortcutInfo *ShortcutInfo) *FileBuilder {
+	builder.shortcutInfo = shortcutInfo
+	builder.shortcutInfoFlag = true
+	return builder
+}
+
+func (builder *FileBuilder) Build() *File {
+	req := &File{}
+	if builder.tokenFlag {
+		req.Token = &builder.token
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.parentTokenFlag {
+		req.ParentToken = &builder.parentToken
+
+	}
+	if builder.urlFlag {
+		req.Url = &builder.url
+
+	}
+	if builder.shortcutInfoFlag {
+		req.ShortcutInfo = builder.shortcutInfo
+	}
+	return req
+}
+
+/**builder结束**/
 
 type FileComment struct {
 	CommentId    *string    `json:"comment_id,omitempty"`
@@ -166,6 +579,110 @@ type FileComment struct {
 	ReplyList    *ReplyList `json:"reply_list,omitempty"`
 }
 
+/**builder开始**/
+type FileCommentBuilder struct {
+	commentId        string
+	commentIdFlag    bool
+	userId           string
+	userIdFlag       bool
+	createTime       int
+	createTimeFlag   bool
+	updateTime       int
+	updateTimeFlag   bool
+	isSolved         bool
+	isSolvedFlag     bool
+	solvedTime       int
+	solvedTimeFlag   bool
+	solverUserId     string
+	solverUserIdFlag bool
+	replyList        *ReplyList
+	replyListFlag    bool
+}
+
+func NewFileCommentBuilder() *FileCommentBuilder {
+	builder := &FileCommentBuilder{}
+	return builder
+}
+
+func (builder *FileCommentBuilder) CommentId(commentId string) *FileCommentBuilder {
+	builder.commentId = commentId
+	builder.commentIdFlag = true
+	return builder
+}
+func (builder *FileCommentBuilder) UserId(userId string) *FileCommentBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *FileCommentBuilder) CreateTime(createTime int) *FileCommentBuilder {
+	builder.createTime = createTime
+	builder.createTimeFlag = true
+	return builder
+}
+func (builder *FileCommentBuilder) UpdateTime(updateTime int) *FileCommentBuilder {
+	builder.updateTime = updateTime
+	builder.updateTimeFlag = true
+	return builder
+}
+func (builder *FileCommentBuilder) IsSolved(isSolved bool) *FileCommentBuilder {
+	builder.isSolved = isSolved
+	builder.isSolvedFlag = true
+	return builder
+}
+func (builder *FileCommentBuilder) SolvedTime(solvedTime int) *FileCommentBuilder {
+	builder.solvedTime = solvedTime
+	builder.solvedTimeFlag = true
+	return builder
+}
+func (builder *FileCommentBuilder) SolverUserId(solverUserId string) *FileCommentBuilder {
+	builder.solverUserId = solverUserId
+	builder.solverUserIdFlag = true
+	return builder
+}
+func (builder *FileCommentBuilder) ReplyList(replyList *ReplyList) *FileCommentBuilder {
+	builder.replyList = replyList
+	builder.replyListFlag = true
+	return builder
+}
+
+func (builder *FileCommentBuilder) Build() *FileComment {
+	req := &FileComment{}
+	if builder.commentIdFlag {
+		req.CommentId = &builder.commentId
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.createTimeFlag {
+		req.CreateTime = &builder.createTime
+
+	}
+	if builder.updateTimeFlag {
+		req.UpdateTime = &builder.updateTime
+
+	}
+	if builder.isSolvedFlag {
+		req.IsSolved = &builder.isSolved
+
+	}
+	if builder.solvedTimeFlag {
+		req.SolvedTime = &builder.solvedTime
+
+	}
+	if builder.solverUserIdFlag {
+		req.SolverUserId = &builder.solverUserId
+
+	}
+	if builder.replyListFlag {
+		req.ReplyList = builder.replyList
+	}
+	return req
+}
+
+/**builder结束**/
+
 type FileCommentReply struct {
 	ReplyId    *string       `json:"reply_id,omitempty"`
 	UserId     *string       `json:"user_id,omitempty"`
@@ -174,12 +691,144 @@ type FileCommentReply struct {
 	Content    *ReplyContent `json:"content,omitempty"`
 }
 
+/**builder开始**/
+type FileCommentReplyBuilder struct {
+	replyId        string
+	replyIdFlag    bool
+	userId         string
+	userIdFlag     bool
+	createTime     int
+	createTimeFlag bool
+	updateTime     int
+	updateTimeFlag bool
+	content        *ReplyContent
+	contentFlag    bool
+}
+
+func NewFileCommentReplyBuilder() *FileCommentReplyBuilder {
+	builder := &FileCommentReplyBuilder{}
+	return builder
+}
+
+func (builder *FileCommentReplyBuilder) ReplyId(replyId string) *FileCommentReplyBuilder {
+	builder.replyId = replyId
+	builder.replyIdFlag = true
+	return builder
+}
+func (builder *FileCommentReplyBuilder) UserId(userId string) *FileCommentReplyBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *FileCommentReplyBuilder) CreateTime(createTime int) *FileCommentReplyBuilder {
+	builder.createTime = createTime
+	builder.createTimeFlag = true
+	return builder
+}
+func (builder *FileCommentReplyBuilder) UpdateTime(updateTime int) *FileCommentReplyBuilder {
+	builder.updateTime = updateTime
+	builder.updateTimeFlag = true
+	return builder
+}
+func (builder *FileCommentReplyBuilder) Content(content *ReplyContent) *FileCommentReplyBuilder {
+	builder.content = content
+	builder.contentFlag = true
+	return builder
+}
+
+func (builder *FileCommentReplyBuilder) Build() *FileCommentReply {
+	req := &FileCommentReply{}
+	if builder.replyIdFlag {
+		req.ReplyId = &builder.replyId
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.createTimeFlag {
+		req.CreateTime = &builder.createTime
+
+	}
+	if builder.updateTimeFlag {
+		req.UpdateTime = &builder.updateTime
+
+	}
+	if builder.contentFlag {
+		req.Content = builder.content
+	}
+	return req
+}
+
+/**builder结束**/
+
 type FileSubscription struct {
 	SubscriptionId   *string `json:"subscription_id,omitempty"`
 	SubscriptionType *string `json:"subscription_type,omitempty"`
 	IsSubcribe       *bool   `json:"is_subcribe,omitempty"`
 	FileType         *string `json:"file_type,omitempty"`
 }
+
+/**builder开始**/
+type FileSubscriptionBuilder struct {
+	subscriptionId       string
+	subscriptionIdFlag   bool
+	subscriptionType     string
+	subscriptionTypeFlag bool
+	isSubcribe           bool
+	isSubcribeFlag       bool
+	fileType             string
+	fileTypeFlag         bool
+}
+
+func NewFileSubscriptionBuilder() *FileSubscriptionBuilder {
+	builder := &FileSubscriptionBuilder{}
+	return builder
+}
+
+func (builder *FileSubscriptionBuilder) SubscriptionId(subscriptionId string) *FileSubscriptionBuilder {
+	builder.subscriptionId = subscriptionId
+	builder.subscriptionIdFlag = true
+	return builder
+}
+func (builder *FileSubscriptionBuilder) SubscriptionType(subscriptionType string) *FileSubscriptionBuilder {
+	builder.subscriptionType = subscriptionType
+	builder.subscriptionTypeFlag = true
+	return builder
+}
+func (builder *FileSubscriptionBuilder) IsSubcribe(isSubcribe bool) *FileSubscriptionBuilder {
+	builder.isSubcribe = isSubcribe
+	builder.isSubcribeFlag = true
+	return builder
+}
+func (builder *FileSubscriptionBuilder) FileType(fileType string) *FileSubscriptionBuilder {
+	builder.fileType = fileType
+	builder.fileTypeFlag = true
+	return builder
+}
+
+func (builder *FileSubscriptionBuilder) Build() *FileSubscription {
+	req := &FileSubscription{}
+	if builder.subscriptionIdFlag {
+		req.SubscriptionId = &builder.subscriptionId
+
+	}
+	if builder.subscriptionTypeFlag {
+		req.SubscriptionType = &builder.subscriptionType
+
+	}
+	if builder.isSubcribeFlag {
+		req.IsSubcribe = &builder.isSubcribe
+
+	}
+	if builder.fileTypeFlag {
+		req.FileType = &builder.fileType
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type FileSearch struct {
 	DocsToken *string `json:"docs_token,omitempty"`
@@ -188,6 +837,67 @@ type FileSearch struct {
 	OwnerId   *string `json:"owner_id,omitempty"`
 }
 
+/**builder开始**/
+type FileSearchBuilder struct {
+	docsToken     string
+	docsTokenFlag bool
+	docsType      string
+	docsTypeFlag  bool
+	title         string
+	titleFlag     bool
+	ownerId       string
+	ownerIdFlag   bool
+}
+
+func NewFileSearchBuilder() *FileSearchBuilder {
+	builder := &FileSearchBuilder{}
+	return builder
+}
+
+func (builder *FileSearchBuilder) DocsToken(docsToken string) *FileSearchBuilder {
+	builder.docsToken = docsToken
+	builder.docsTokenFlag = true
+	return builder
+}
+func (builder *FileSearchBuilder) DocsType(docsType string) *FileSearchBuilder {
+	builder.docsType = docsType
+	builder.docsTypeFlag = true
+	return builder
+}
+func (builder *FileSearchBuilder) Title(title string) *FileSearchBuilder {
+	builder.title = title
+	builder.titleFlag = true
+	return builder
+}
+func (builder *FileSearchBuilder) OwnerId(ownerId string) *FileSearchBuilder {
+	builder.ownerId = ownerId
+	builder.ownerIdFlag = true
+	return builder
+}
+
+func (builder *FileSearchBuilder) Build() *FileSearch {
+	req := &FileSearch{}
+	if builder.docsTokenFlag {
+		req.DocsToken = &builder.docsToken
+
+	}
+	if builder.docsTypeFlag {
+		req.DocsType = &builder.docsType
+
+	}
+	if builder.titleFlag {
+		req.Title = &builder.title
+
+	}
+	if builder.ownerIdFlag {
+		req.OwnerId = &builder.ownerId
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type FileStatistics struct {
 	Uv        *int `json:"uv,omitempty"`
 	Pv        *int `json:"pv,omitempty"`
@@ -195,12 +905,134 @@ type FileStatistics struct {
 	Timestamp *int `json:"timestamp,omitempty"`
 }
 
+/**builder开始**/
+type FileStatisticsBuilder struct {
+	uv            int
+	uvFlag        bool
+	pv            int
+	pvFlag        bool
+	likeCount     int
+	likeCountFlag bool
+	timestamp     int
+	timestampFlag bool
+}
+
+func NewFileStatisticsBuilder() *FileStatisticsBuilder {
+	builder := &FileStatisticsBuilder{}
+	return builder
+}
+
+func (builder *FileStatisticsBuilder) Uv(uv int) *FileStatisticsBuilder {
+	builder.uv = uv
+	builder.uvFlag = true
+	return builder
+}
+func (builder *FileStatisticsBuilder) Pv(pv int) *FileStatisticsBuilder {
+	builder.pv = pv
+	builder.pvFlag = true
+	return builder
+}
+func (builder *FileStatisticsBuilder) LikeCount(likeCount int) *FileStatisticsBuilder {
+	builder.likeCount = likeCount
+	builder.likeCountFlag = true
+	return builder
+}
+func (builder *FileStatisticsBuilder) Timestamp(timestamp int) *FileStatisticsBuilder {
+	builder.timestamp = timestamp
+	builder.timestampFlag = true
+	return builder
+}
+
+func (builder *FileStatisticsBuilder) Build() *FileStatistics {
+	req := &FileStatistics{}
+	if builder.uvFlag {
+		req.Uv = &builder.uv
+
+	}
+	if builder.pvFlag {
+		req.Pv = &builder.pv
+
+	}
+	if builder.likeCountFlag {
+		req.LikeCount = &builder.likeCount
+
+	}
+	if builder.timestampFlag {
+		req.Timestamp = &builder.timestamp
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type FileUploadInfo struct {
 	FileName   *string `json:"file_name,omitempty"`
 	ParentType *string `json:"parent_type,omitempty"`
 	ParentNode *string `json:"parent_node,omitempty"`
 	Size       *int    `json:"size,omitempty"`
 }
+
+/**builder开始**/
+type FileUploadInfoBuilder struct {
+	fileName       string
+	fileNameFlag   bool
+	parentType     string
+	parentTypeFlag bool
+	parentNode     string
+	parentNodeFlag bool
+	size           int
+	sizeFlag       bool
+}
+
+func NewFileUploadInfoBuilder() *FileUploadInfoBuilder {
+	builder := &FileUploadInfoBuilder{}
+	return builder
+}
+
+func (builder *FileUploadInfoBuilder) FileName(fileName string) *FileUploadInfoBuilder {
+	builder.fileName = fileName
+	builder.fileNameFlag = true
+	return builder
+}
+func (builder *FileUploadInfoBuilder) ParentType(parentType string) *FileUploadInfoBuilder {
+	builder.parentType = parentType
+	builder.parentTypeFlag = true
+	return builder
+}
+func (builder *FileUploadInfoBuilder) ParentNode(parentNode string) *FileUploadInfoBuilder {
+	builder.parentNode = parentNode
+	builder.parentNodeFlag = true
+	return builder
+}
+func (builder *FileUploadInfoBuilder) Size(size int) *FileUploadInfoBuilder {
+	builder.size = size
+	builder.sizeFlag = true
+	return builder
+}
+
+func (builder *FileUploadInfoBuilder) Build() *FileUploadInfo {
+	req := &FileUploadInfo{}
+	if builder.fileNameFlag {
+		req.FileName = &builder.fileName
+
+	}
+	if builder.parentTypeFlag {
+		req.ParentType = &builder.parentType
+
+	}
+	if builder.parentNodeFlag {
+		req.ParentNode = &builder.parentNode
+
+	}
+	if builder.sizeFlag {
+		req.Size = &builder.size
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type ImportTask struct {
 	Ticket        *string               `json:"ticket,omitempty"`
@@ -216,10 +1048,185 @@ type ImportTask struct {
 	Extra         []string              `json:"extra,omitempty"`
 }
 
+/**builder开始**/
+type ImportTaskBuilder struct {
+	ticket            string
+	ticketFlag        bool
+	fileExtension     string
+	fileExtensionFlag bool
+	fileToken         string
+	fileTokenFlag     bool
+	type_             string
+	typeFlag          bool
+	fileName          string
+	fileNameFlag      bool
+	point             *ImportTaskMountPoint
+	pointFlag         bool
+	jobStatus         int
+	jobStatusFlag     bool
+	jobErrorMsg       string
+	jobErrorMsgFlag   bool
+	token             string
+	tokenFlag         bool
+	url               string
+	urlFlag           bool
+	extra             []string
+	extraFlag         bool
+}
+
+func NewImportTaskBuilder() *ImportTaskBuilder {
+	builder := &ImportTaskBuilder{}
+	return builder
+}
+
+func (builder *ImportTaskBuilder) Ticket(ticket string) *ImportTaskBuilder {
+	builder.ticket = ticket
+	builder.ticketFlag = true
+	return builder
+}
+func (builder *ImportTaskBuilder) FileExtension(fileExtension string) *ImportTaskBuilder {
+	builder.fileExtension = fileExtension
+	builder.fileExtensionFlag = true
+	return builder
+}
+func (builder *ImportTaskBuilder) FileToken(fileToken string) *ImportTaskBuilder {
+	builder.fileToken = fileToken
+	builder.fileTokenFlag = true
+	return builder
+}
+func (builder *ImportTaskBuilder) Type(type_ string) *ImportTaskBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+func (builder *ImportTaskBuilder) FileName(fileName string) *ImportTaskBuilder {
+	builder.fileName = fileName
+	builder.fileNameFlag = true
+	return builder
+}
+func (builder *ImportTaskBuilder) Point(point *ImportTaskMountPoint) *ImportTaskBuilder {
+	builder.point = point
+	builder.pointFlag = true
+	return builder
+}
+func (builder *ImportTaskBuilder) JobStatus(jobStatus int) *ImportTaskBuilder {
+	builder.jobStatus = jobStatus
+	builder.jobStatusFlag = true
+	return builder
+}
+func (builder *ImportTaskBuilder) JobErrorMsg(jobErrorMsg string) *ImportTaskBuilder {
+	builder.jobErrorMsg = jobErrorMsg
+	builder.jobErrorMsgFlag = true
+	return builder
+}
+func (builder *ImportTaskBuilder) Token(token string) *ImportTaskBuilder {
+	builder.token = token
+	builder.tokenFlag = true
+	return builder
+}
+func (builder *ImportTaskBuilder) Url(url string) *ImportTaskBuilder {
+	builder.url = url
+	builder.urlFlag = true
+	return builder
+}
+func (builder *ImportTaskBuilder) Extra(extra []string) *ImportTaskBuilder {
+	builder.extra = extra
+	builder.extraFlag = true
+	return builder
+}
+
+func (builder *ImportTaskBuilder) Build() *ImportTask {
+	req := &ImportTask{}
+	if builder.ticketFlag {
+		req.Ticket = &builder.ticket
+
+	}
+	if builder.fileExtensionFlag {
+		req.FileExtension = &builder.fileExtension
+
+	}
+	if builder.fileTokenFlag {
+		req.FileToken = &builder.fileToken
+
+	}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.fileNameFlag {
+		req.FileName = &builder.fileName
+
+	}
+	if builder.pointFlag {
+		req.Point = builder.point
+	}
+	if builder.jobStatusFlag {
+		req.JobStatus = &builder.jobStatus
+
+	}
+	if builder.jobErrorMsgFlag {
+		req.JobErrorMsg = &builder.jobErrorMsg
+
+	}
+	if builder.tokenFlag {
+		req.Token = &builder.token
+
+	}
+	if builder.urlFlag {
+		req.Url = &builder.url
+
+	}
+	if builder.extraFlag {
+		req.Extra = builder.extra
+	}
+	return req
+}
+
+/**builder结束**/
+
 type ImportTaskMountPoint struct {
 	MountType *int    `json:"mount_type,omitempty"`
 	MountKey  *string `json:"mount_key,omitempty"`
 }
+
+/**builder开始**/
+type ImportTaskMountPointBuilder struct {
+	mountType     int
+	mountTypeFlag bool
+	mountKey      string
+	mountKeyFlag  bool
+}
+
+func NewImportTaskMountPointBuilder() *ImportTaskMountPointBuilder {
+	builder := &ImportTaskMountPointBuilder{}
+	return builder
+}
+
+func (builder *ImportTaskMountPointBuilder) MountType(mountType int) *ImportTaskMountPointBuilder {
+	builder.mountType = mountType
+	builder.mountTypeFlag = true
+	return builder
+}
+func (builder *ImportTaskMountPointBuilder) MountKey(mountKey string) *ImportTaskMountPointBuilder {
+	builder.mountKey = mountKey
+	builder.mountKeyFlag = true
+	return builder
+}
+
+func (builder *ImportTaskMountPointBuilder) Build() *ImportTaskMountPoint {
+	req := &ImportTaskMountPoint{}
+	if builder.mountTypeFlag {
+		req.MountType = &builder.mountType
+
+	}
+	if builder.mountKeyFlag {
+		req.MountKey = &builder.mountKey
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type Media struct {
 	FileToken *string `json:"file_token,omitempty"`
@@ -227,6 +1234,67 @@ type Media struct {
 	Size      *int    `json:"size,omitempty"`
 	MimeType  *string `json:"mime_type,omitempty"`
 }
+
+/**builder开始**/
+type MediaBuilder struct {
+	fileToken     string
+	fileTokenFlag bool
+	fileName      string
+	fileNameFlag  bool
+	size          int
+	sizeFlag      bool
+	mimeType      string
+	mimeTypeFlag  bool
+}
+
+func NewMediaBuilder() *MediaBuilder {
+	builder := &MediaBuilder{}
+	return builder
+}
+
+func (builder *MediaBuilder) FileToken(fileToken string) *MediaBuilder {
+	builder.fileToken = fileToken
+	builder.fileTokenFlag = true
+	return builder
+}
+func (builder *MediaBuilder) FileName(fileName string) *MediaBuilder {
+	builder.fileName = fileName
+	builder.fileNameFlag = true
+	return builder
+}
+func (builder *MediaBuilder) Size(size int) *MediaBuilder {
+	builder.size = size
+	builder.sizeFlag = true
+	return builder
+}
+func (builder *MediaBuilder) MimeType(mimeType string) *MediaBuilder {
+	builder.mimeType = mimeType
+	builder.mimeTypeFlag = true
+	return builder
+}
+
+func (builder *MediaBuilder) Build() *Media {
+	req := &Media{}
+	if builder.fileTokenFlag {
+		req.FileToken = &builder.fileToken
+
+	}
+	if builder.fileNameFlag {
+		req.FileName = &builder.fileName
+
+	}
+	if builder.sizeFlag {
+		req.Size = &builder.size
+
+	}
+	if builder.mimeTypeFlag {
+		req.MimeType = &builder.mimeType
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type MediaUploadInfo struct {
 	FileName   *string `json:"file_name,omitempty"`
@@ -236,11 +1304,133 @@ type MediaUploadInfo struct {
 	Extra      *string `json:"extra,omitempty"`
 }
 
+/**builder开始**/
+type MediaUploadInfoBuilder struct {
+	fileName       string
+	fileNameFlag   bool
+	parentType     string
+	parentTypeFlag bool
+	parentNode     string
+	parentNodeFlag bool
+	size           int
+	sizeFlag       bool
+	extra          string
+	extraFlag      bool
+}
+
+func NewMediaUploadInfoBuilder() *MediaUploadInfoBuilder {
+	builder := &MediaUploadInfoBuilder{}
+	return builder
+}
+
+func (builder *MediaUploadInfoBuilder) FileName(fileName string) *MediaUploadInfoBuilder {
+	builder.fileName = fileName
+	builder.fileNameFlag = true
+	return builder
+}
+func (builder *MediaUploadInfoBuilder) ParentType(parentType string) *MediaUploadInfoBuilder {
+	builder.parentType = parentType
+	builder.parentTypeFlag = true
+	return builder
+}
+func (builder *MediaUploadInfoBuilder) ParentNode(parentNode string) *MediaUploadInfoBuilder {
+	builder.parentNode = parentNode
+	builder.parentNodeFlag = true
+	return builder
+}
+func (builder *MediaUploadInfoBuilder) Size(size int) *MediaUploadInfoBuilder {
+	builder.size = size
+	builder.sizeFlag = true
+	return builder
+}
+func (builder *MediaUploadInfoBuilder) Extra(extra string) *MediaUploadInfoBuilder {
+	builder.extra = extra
+	builder.extraFlag = true
+	return builder
+}
+
+func (builder *MediaUploadInfoBuilder) Build() *MediaUploadInfo {
+	req := &MediaUploadInfo{}
+	if builder.fileNameFlag {
+		req.FileName = &builder.fileName
+
+	}
+	if builder.parentTypeFlag {
+		req.ParentType = &builder.parentType
+
+	}
+	if builder.parentNodeFlag {
+		req.ParentNode = &builder.parentNode
+
+	}
+	if builder.sizeFlag {
+		req.Size = &builder.size
+
+	}
+	if builder.extraFlag {
+		req.Extra = &builder.extra
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Member struct {
 	MemberType *string `json:"member_type,omitempty"`
 	MemberId   *string `json:"member_id,omitempty"`
 	Perm       *string `json:"perm,omitempty"`
 }
+
+/**builder开始**/
+type MemberBuilder struct {
+	memberType     string
+	memberTypeFlag bool
+	memberId       string
+	memberIdFlag   bool
+	perm           string
+	permFlag       bool
+}
+
+func NewMemberBuilder() *MemberBuilder {
+	builder := &MemberBuilder{}
+	return builder
+}
+
+func (builder *MemberBuilder) MemberType(memberType string) *MemberBuilder {
+	builder.memberType = memberType
+	builder.memberTypeFlag = true
+	return builder
+}
+func (builder *MemberBuilder) MemberId(memberId string) *MemberBuilder {
+	builder.memberId = memberId
+	builder.memberIdFlag = true
+	return builder
+}
+func (builder *MemberBuilder) Perm(perm string) *MemberBuilder {
+	builder.perm = perm
+	builder.permFlag = true
+	return builder
+}
+
+func (builder *MemberBuilder) Build() *Member {
+	req := &Member{}
+	if builder.memberTypeFlag {
+		req.MemberType = &builder.memberType
+
+	}
+	if builder.memberIdFlag {
+		req.MemberId = &builder.memberId
+
+	}
+	if builder.permFlag {
+		req.Perm = &builder.perm
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type Meta struct {
 	DocToken         *string `json:"doc_token,omitempty"`
@@ -253,20 +1443,241 @@ type Meta struct {
 	Url              *string `json:"url,omitempty"`
 }
 
+/**builder开始**/
+type MetaBuilder struct {
+	docToken             string
+	docTokenFlag         bool
+	docType              string
+	docTypeFlag          bool
+	title                string
+	titleFlag            bool
+	ownerId              string
+	ownerIdFlag          bool
+	createTime           int64
+	createTimeFlag       bool
+	latestModifyUser     string
+	latestModifyUserFlag bool
+	latestModifyTime     int64
+	latestModifyTimeFlag bool
+	url                  string
+	urlFlag              bool
+}
+
+func NewMetaBuilder() *MetaBuilder {
+	builder := &MetaBuilder{}
+	return builder
+}
+
+func (builder *MetaBuilder) DocToken(docToken string) *MetaBuilder {
+	builder.docToken = docToken
+	builder.docTokenFlag = true
+	return builder
+}
+func (builder *MetaBuilder) DocType(docType string) *MetaBuilder {
+	builder.docType = docType
+	builder.docTypeFlag = true
+	return builder
+}
+func (builder *MetaBuilder) Title(title string) *MetaBuilder {
+	builder.title = title
+	builder.titleFlag = true
+	return builder
+}
+func (builder *MetaBuilder) OwnerId(ownerId string) *MetaBuilder {
+	builder.ownerId = ownerId
+	builder.ownerIdFlag = true
+	return builder
+}
+func (builder *MetaBuilder) CreateTime(createTime int64) *MetaBuilder {
+	builder.createTime = createTime
+	builder.createTimeFlag = true
+	return builder
+}
+func (builder *MetaBuilder) LatestModifyUser(latestModifyUser string) *MetaBuilder {
+	builder.latestModifyUser = latestModifyUser
+	builder.latestModifyUserFlag = true
+	return builder
+}
+func (builder *MetaBuilder) LatestModifyTime(latestModifyTime int64) *MetaBuilder {
+	builder.latestModifyTime = latestModifyTime
+	builder.latestModifyTimeFlag = true
+	return builder
+}
+func (builder *MetaBuilder) Url(url string) *MetaBuilder {
+	builder.url = url
+	builder.urlFlag = true
+	return builder
+}
+
+func (builder *MetaBuilder) Build() *Meta {
+	req := &Meta{}
+	if builder.docTokenFlag {
+		req.DocToken = &builder.docToken
+
+	}
+	if builder.docTypeFlag {
+		req.DocType = &builder.docType
+
+	}
+	if builder.titleFlag {
+		req.Title = &builder.title
+
+	}
+	if builder.ownerIdFlag {
+		req.OwnerId = &builder.ownerId
+
+	}
+	if builder.createTimeFlag {
+		req.CreateTime = &builder.createTime
+
+	}
+	if builder.latestModifyUserFlag {
+		req.LatestModifyUser = &builder.latestModifyUser
+
+	}
+	if builder.latestModifyTimeFlag {
+		req.LatestModifyTime = &builder.latestModifyTime
+
+	}
+	if builder.urlFlag {
+		req.Url = &builder.url
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type MetaFailed struct {
 	Token *string `json:"token,omitempty"`
 	Code  *int    `json:"code,omitempty"`
 }
+
+/**builder开始**/
+type MetaFailedBuilder struct {
+	token     string
+	tokenFlag bool
+	code      int
+	codeFlag  bool
+}
+
+func NewMetaFailedBuilder() *MetaFailedBuilder {
+	builder := &MetaFailedBuilder{}
+	return builder
+}
+
+func (builder *MetaFailedBuilder) Token(token string) *MetaFailedBuilder {
+	builder.token = token
+	builder.tokenFlag = true
+	return builder
+}
+func (builder *MetaFailedBuilder) Code(code int) *MetaFailedBuilder {
+	builder.code = code
+	builder.codeFlag = true
+	return builder
+}
+
+func (builder *MetaFailedBuilder) Build() *MetaFailed {
+	req := &MetaFailed{}
+	if builder.tokenFlag {
+		req.Token = &builder.token
+
+	}
+	if builder.codeFlag {
+		req.Code = &builder.code
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type MetaRequest struct {
 	RequestDocs []*RequestDoc `json:"request_docs,omitempty"`
 	WithUrl     *bool         `json:"with_url,omitempty"`
 }
 
+/**builder开始**/
+type MetaRequestBuilder struct {
+	requestDocs     []*RequestDoc
+	requestDocsFlag bool
+	withUrl         bool
+	withUrlFlag     bool
+}
+
+func NewMetaRequestBuilder() *MetaRequestBuilder {
+	builder := &MetaRequestBuilder{}
+	return builder
+}
+
+func (builder *MetaRequestBuilder) RequestDocs(requestDocs []*RequestDoc) *MetaRequestBuilder {
+	builder.requestDocs = requestDocs
+	builder.requestDocsFlag = true
+	return builder
+}
+func (builder *MetaRequestBuilder) WithUrl(withUrl bool) *MetaRequestBuilder {
+	builder.withUrl = withUrl
+	builder.withUrlFlag = true
+	return builder
+}
+
+func (builder *MetaRequestBuilder) Build() *MetaRequest {
+	req := &MetaRequest{}
+	if builder.requestDocsFlag {
+		req.RequestDocs = builder.requestDocs
+	}
+	if builder.withUrlFlag {
+		req.WithUrl = &builder.withUrl
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Owner struct {
 	MemberType *string `json:"member_type,omitempty"`
 	MemberId   *string `json:"member_id,omitempty"`
 }
+
+/**builder开始**/
+type OwnerBuilder struct {
+	memberType     string
+	memberTypeFlag bool
+	memberId       string
+	memberIdFlag   bool
+}
+
+func NewOwnerBuilder() *OwnerBuilder {
+	builder := &OwnerBuilder{}
+	return builder
+}
+
+func (builder *OwnerBuilder) MemberType(memberType string) *OwnerBuilder {
+	builder.memberType = memberType
+	builder.memberTypeFlag = true
+	return builder
+}
+func (builder *OwnerBuilder) MemberId(memberId string) *OwnerBuilder {
+	builder.memberId = memberId
+	builder.memberIdFlag = true
+	return builder
+}
+
+func (builder *OwnerBuilder) Build() *Owner {
+	req := &Owner{}
+	if builder.memberTypeFlag {
+		req.MemberType = &builder.memberType
+
+	}
+	if builder.memberIdFlag {
+		req.MemberId = &builder.memberId
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type PermissionPublic struct {
 	ExternalAccess  *bool   `json:"external_access,omitempty"`
@@ -278,6 +1689,100 @@ type PermissionPublic struct {
 	LockSwitch      *bool   `json:"lock_switch,omitempty"`
 }
 
+/**builder开始**/
+type PermissionPublicBuilder struct {
+	externalAccess      bool
+	externalAccessFlag  bool
+	securityEntity      string
+	securityEntityFlag  bool
+	commentEntity       string
+	commentEntityFlag   bool
+	shareEntity         string
+	shareEntityFlag     bool
+	linkShareEntity     string
+	linkShareEntityFlag bool
+	inviteExternal      bool
+	inviteExternalFlag  bool
+	lockSwitch          bool
+	lockSwitchFlag      bool
+}
+
+func NewPermissionPublicBuilder() *PermissionPublicBuilder {
+	builder := &PermissionPublicBuilder{}
+	return builder
+}
+
+func (builder *PermissionPublicBuilder) ExternalAccess(externalAccess bool) *PermissionPublicBuilder {
+	builder.externalAccess = externalAccess
+	builder.externalAccessFlag = true
+	return builder
+}
+func (builder *PermissionPublicBuilder) SecurityEntity(securityEntity string) *PermissionPublicBuilder {
+	builder.securityEntity = securityEntity
+	builder.securityEntityFlag = true
+	return builder
+}
+func (builder *PermissionPublicBuilder) CommentEntity(commentEntity string) *PermissionPublicBuilder {
+	builder.commentEntity = commentEntity
+	builder.commentEntityFlag = true
+	return builder
+}
+func (builder *PermissionPublicBuilder) ShareEntity(shareEntity string) *PermissionPublicBuilder {
+	builder.shareEntity = shareEntity
+	builder.shareEntityFlag = true
+	return builder
+}
+func (builder *PermissionPublicBuilder) LinkShareEntity(linkShareEntity string) *PermissionPublicBuilder {
+	builder.linkShareEntity = linkShareEntity
+	builder.linkShareEntityFlag = true
+	return builder
+}
+func (builder *PermissionPublicBuilder) InviteExternal(inviteExternal bool) *PermissionPublicBuilder {
+	builder.inviteExternal = inviteExternal
+	builder.inviteExternalFlag = true
+	return builder
+}
+func (builder *PermissionPublicBuilder) LockSwitch(lockSwitch bool) *PermissionPublicBuilder {
+	builder.lockSwitch = lockSwitch
+	builder.lockSwitchFlag = true
+	return builder
+}
+
+func (builder *PermissionPublicBuilder) Build() *PermissionPublic {
+	req := &PermissionPublic{}
+	if builder.externalAccessFlag {
+		req.ExternalAccess = &builder.externalAccess
+
+	}
+	if builder.securityEntityFlag {
+		req.SecurityEntity = &builder.securityEntity
+
+	}
+	if builder.commentEntityFlag {
+		req.CommentEntity = &builder.commentEntity
+
+	}
+	if builder.shareEntityFlag {
+		req.ShareEntity = &builder.shareEntity
+
+	}
+	if builder.linkShareEntityFlag {
+		req.LinkShareEntity = &builder.linkShareEntity
+
+	}
+	if builder.inviteExternalFlag {
+		req.InviteExternal = &builder.inviteExternal
+
+	}
+	if builder.lockSwitchFlag {
+		req.LockSwitch = &builder.lockSwitch
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type PermissionPublicRequest struct {
 	ExternalAccess  *bool   `json:"external_access,omitempty"`
 	SecurityEntity  *string `json:"security_entity,omitempty"`
@@ -287,13 +1792,151 @@ type PermissionPublicRequest struct {
 	InviteExternal  *bool   `json:"invite_external,omitempty"`
 }
 
+/**builder开始**/
+type PermissionPublicRequestBuilder struct {
+	externalAccess      bool
+	externalAccessFlag  bool
+	securityEntity      string
+	securityEntityFlag  bool
+	commentEntity       string
+	commentEntityFlag   bool
+	shareEntity         string
+	shareEntityFlag     bool
+	linkShareEntity     string
+	linkShareEntityFlag bool
+	inviteExternal      bool
+	inviteExternalFlag  bool
+}
+
+func NewPermissionPublicRequestBuilder() *PermissionPublicRequestBuilder {
+	builder := &PermissionPublicRequestBuilder{}
+	return builder
+}
+
+func (builder *PermissionPublicRequestBuilder) ExternalAccess(externalAccess bool) *PermissionPublicRequestBuilder {
+	builder.externalAccess = externalAccess
+	builder.externalAccessFlag = true
+	return builder
+}
+func (builder *PermissionPublicRequestBuilder) SecurityEntity(securityEntity string) *PermissionPublicRequestBuilder {
+	builder.securityEntity = securityEntity
+	builder.securityEntityFlag = true
+	return builder
+}
+func (builder *PermissionPublicRequestBuilder) CommentEntity(commentEntity string) *PermissionPublicRequestBuilder {
+	builder.commentEntity = commentEntity
+	builder.commentEntityFlag = true
+	return builder
+}
+func (builder *PermissionPublicRequestBuilder) ShareEntity(shareEntity string) *PermissionPublicRequestBuilder {
+	builder.shareEntity = shareEntity
+	builder.shareEntityFlag = true
+	return builder
+}
+func (builder *PermissionPublicRequestBuilder) LinkShareEntity(linkShareEntity string) *PermissionPublicRequestBuilder {
+	builder.linkShareEntity = linkShareEntity
+	builder.linkShareEntityFlag = true
+	return builder
+}
+func (builder *PermissionPublicRequestBuilder) InviteExternal(inviteExternal bool) *PermissionPublicRequestBuilder {
+	builder.inviteExternal = inviteExternal
+	builder.inviteExternalFlag = true
+	return builder
+}
+
+func (builder *PermissionPublicRequestBuilder) Build() *PermissionPublicRequest {
+	req := &PermissionPublicRequest{}
+	if builder.externalAccessFlag {
+		req.ExternalAccess = &builder.externalAccess
+
+	}
+	if builder.securityEntityFlag {
+		req.SecurityEntity = &builder.securityEntity
+
+	}
+	if builder.commentEntityFlag {
+		req.CommentEntity = &builder.commentEntity
+
+	}
+	if builder.shareEntityFlag {
+		req.ShareEntity = &builder.shareEntity
+
+	}
+	if builder.linkShareEntityFlag {
+		req.LinkShareEntity = &builder.linkShareEntity
+
+	}
+	if builder.inviteExternalFlag {
+		req.InviteExternal = &builder.inviteExternal
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Person struct {
 	UserId *string `json:"user_id,omitempty"`
 }
 
+/**builder开始**/
+type PersonBuilder struct {
+	userId     string
+	userIdFlag bool
+}
+
+func NewPersonBuilder() *PersonBuilder {
+	builder := &PersonBuilder{}
+	return builder
+}
+
+func (builder *PersonBuilder) UserId(userId string) *PersonBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+func (builder *PersonBuilder) Build() *Person {
+	req := &Person{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type ReplyContent struct {
 	Elements []*ReplyElement `json:"elements,omitempty"`
 }
+
+/**builder开始**/
+type ReplyContentBuilder struct {
+	elements     []*ReplyElement
+	elementsFlag bool
+}
+
+func NewReplyContentBuilder() *ReplyContentBuilder {
+	builder := &ReplyContentBuilder{}
+	return builder
+}
+
+func (builder *ReplyContentBuilder) Elements(elements []*ReplyElement) *ReplyContentBuilder {
+	builder.elements = elements
+	builder.elementsFlag = true
+	return builder
+}
+
+func (builder *ReplyContentBuilder) Build() *ReplyContent {
+	req := &ReplyContent{}
+	if builder.elementsFlag {
+		req.Elements = builder.elements
+	}
+	return req
+}
+
+/**builder结束**/
 
 type ReplyElement struct {
 	Type     *string   `json:"type,omitempty"`
@@ -302,33 +1945,302 @@ type ReplyElement struct {
 	Person   *Person   `json:"person,omitempty"`
 }
 
+/**builder开始**/
+type ReplyElementBuilder struct {
+	type_        string
+	typeFlag     bool
+	textRun      *TextRun
+	textRunFlag  bool
+	docsLink     *DocsLink
+	docsLinkFlag bool
+	person       *Person
+	personFlag   bool
+}
+
+func NewReplyElementBuilder() *ReplyElementBuilder {
+	builder := &ReplyElementBuilder{}
+	return builder
+}
+
+func (builder *ReplyElementBuilder) Type(type_ string) *ReplyElementBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+func (builder *ReplyElementBuilder) TextRun(textRun *TextRun) *ReplyElementBuilder {
+	builder.textRun = textRun
+	builder.textRunFlag = true
+	return builder
+}
+func (builder *ReplyElementBuilder) DocsLink(docsLink *DocsLink) *ReplyElementBuilder {
+	builder.docsLink = docsLink
+	builder.docsLinkFlag = true
+	return builder
+}
+func (builder *ReplyElementBuilder) Person(person *Person) *ReplyElementBuilder {
+	builder.person = person
+	builder.personFlag = true
+	return builder
+}
+
+func (builder *ReplyElementBuilder) Build() *ReplyElement {
+	req := &ReplyElement{}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.textRunFlag {
+		req.TextRun = builder.textRun
+	}
+	if builder.docsLinkFlag {
+		req.DocsLink = builder.docsLink
+	}
+	if builder.personFlag {
+		req.Person = builder.person
+	}
+	return req
+}
+
+/**builder结束**/
+
 type ReplyList struct {
 	Replies []*FileCommentReply `json:"replies,omitempty"`
 }
+
+/**builder开始**/
+type ReplyListBuilder struct {
+	replies     []*FileCommentReply
+	repliesFlag bool
+}
+
+func NewReplyListBuilder() *ReplyListBuilder {
+	builder := &ReplyListBuilder{}
+	return builder
+}
+
+func (builder *ReplyListBuilder) Replies(replies []*FileCommentReply) *ReplyListBuilder {
+	builder.replies = replies
+	builder.repliesFlag = true
+	return builder
+}
+
+func (builder *ReplyListBuilder) Build() *ReplyList {
+	req := &ReplyList{}
+	if builder.repliesFlag {
+		req.Replies = builder.replies
+	}
+	return req
+}
+
+/**builder结束**/
 
 type RequestDoc struct {
 	DocToken *string `json:"doc_token,omitempty"`
 	DocType  *string `json:"doc_type,omitempty"`
 }
 
+/**builder开始**/
+type RequestDocBuilder struct {
+	docToken     string
+	docTokenFlag bool
+	docType      string
+	docTypeFlag  bool
+}
+
+func NewRequestDocBuilder() *RequestDocBuilder {
+	builder := &RequestDocBuilder{}
+	return builder
+}
+
+func (builder *RequestDocBuilder) DocToken(docToken string) *RequestDocBuilder {
+	builder.docToken = docToken
+	builder.docTokenFlag = true
+	return builder
+}
+func (builder *RequestDocBuilder) DocType(docType string) *RequestDocBuilder {
+	builder.docType = docType
+	builder.docTypeFlag = true
+	return builder
+}
+
+func (builder *RequestDocBuilder) Build() *RequestDoc {
+	req := &RequestDoc{}
+	if builder.docTokenFlag {
+		req.DocToken = &builder.docToken
+
+	}
+	if builder.docTypeFlag {
+		req.DocType = &builder.docType
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type ShortcutInfo struct {
 	TargetType  *string `json:"target_type,omitempty"`
 	TargetToken *string `json:"target_token,omitempty"`
 }
 
+/**builder开始**/
+type ShortcutInfoBuilder struct {
+	targetType      string
+	targetTypeFlag  bool
+	targetToken     string
+	targetTokenFlag bool
+}
+
+func NewShortcutInfoBuilder() *ShortcutInfoBuilder {
+	builder := &ShortcutInfoBuilder{}
+	return builder
+}
+
+func (builder *ShortcutInfoBuilder) TargetType(targetType string) *ShortcutInfoBuilder {
+	builder.targetType = targetType
+	builder.targetTypeFlag = true
+	return builder
+}
+func (builder *ShortcutInfoBuilder) TargetToken(targetToken string) *ShortcutInfoBuilder {
+	builder.targetToken = targetToken
+	builder.targetTokenFlag = true
+	return builder
+}
+
+func (builder *ShortcutInfoBuilder) Build() *ShortcutInfo {
+	req := &ShortcutInfo{}
+	if builder.targetTypeFlag {
+		req.TargetType = &builder.targetType
+
+	}
+	if builder.targetTokenFlag {
+		req.TargetToken = &builder.targetToken
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type TextRun struct {
 	Text *string `json:"text,omitempty"`
 }
+
+/**builder开始**/
+type TextRunBuilder struct {
+	text     string
+	textFlag bool
+}
+
+func NewTextRunBuilder() *TextRunBuilder {
+	builder := &TextRunBuilder{}
+	return builder
+}
+
+func (builder *TextRunBuilder) Text(text string) *TextRunBuilder {
+	builder.text = text
+	builder.textFlag = true
+	return builder
+}
+
+func (builder *TextRunBuilder) Build() *TextRun {
+	req := &TextRun{}
+	if builder.textFlag {
+		req.Text = &builder.text
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type TmpDownloadUrl struct {
 	FileToken      *string `json:"file_token,omitempty"`
 	TmpDownloadUrl *string `json:"tmp_download_url,omitempty"`
 }
 
+/**builder开始**/
+type TmpDownloadUrlBuilder struct {
+	fileToken          string
+	fileTokenFlag      bool
+	tmpDownloadUrl     string
+	tmpDownloadUrlFlag bool
+}
+
+func NewTmpDownloadUrlBuilder() *TmpDownloadUrlBuilder {
+	builder := &TmpDownloadUrlBuilder{}
+	return builder
+}
+
+func (builder *TmpDownloadUrlBuilder) FileToken(fileToken string) *TmpDownloadUrlBuilder {
+	builder.fileToken = fileToken
+	builder.fileTokenFlag = true
+	return builder
+}
+func (builder *TmpDownloadUrlBuilder) TmpDownloadUrl(tmpDownloadUrl string) *TmpDownloadUrlBuilder {
+	builder.tmpDownloadUrl = tmpDownloadUrl
+	builder.tmpDownloadUrlFlag = true
+	return builder
+}
+
+func (builder *TmpDownloadUrlBuilder) Build() *TmpDownloadUrl {
+	req := &TmpDownloadUrl{}
+	if builder.fileTokenFlag {
+		req.FileToken = &builder.fileToken
+
+	}
+	if builder.tmpDownloadUrlFlag {
+		req.TmpDownloadUrl = &builder.tmpDownloadUrl
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type TokenType struct {
 	Token *string `json:"token,omitempty"`
 	Type  *string `json:"type,omitempty"`
 }
+
+/**builder开始**/
+type TokenTypeBuilder struct {
+	token     string
+	tokenFlag bool
+	type_     string
+	typeFlag  bool
+}
+
+func NewTokenTypeBuilder() *TokenTypeBuilder {
+	builder := &TokenTypeBuilder{}
+	return builder
+}
+
+func (builder *TokenTypeBuilder) Token(token string) *TokenTypeBuilder {
+	builder.token = token
+	builder.tokenFlag = true
+	return builder
+}
+func (builder *TokenTypeBuilder) Type(type_ string) *TokenTypeBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+
+func (builder *TokenTypeBuilder) Build() *TokenType {
+	req := &TokenType{}
+	if builder.tokenFlag {
+		req.Token = &builder.token
+
+	}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type UploadInfo struct {
 	FileName   *string `json:"file_name,omitempty"`
@@ -337,11 +2249,122 @@ type UploadInfo struct {
 	Size       *int    `json:"size,omitempty"`
 }
 
+/**builder开始**/
+type UploadInfoBuilder struct {
+	fileName       string
+	fileNameFlag   bool
+	parentType     string
+	parentTypeFlag bool
+	parentNode     string
+	parentNodeFlag bool
+	size           int
+	sizeFlag       bool
+}
+
+func NewUploadInfoBuilder() *UploadInfoBuilder {
+	builder := &UploadInfoBuilder{}
+	return builder
+}
+
+func (builder *UploadInfoBuilder) FileName(fileName string) *UploadInfoBuilder {
+	builder.fileName = fileName
+	builder.fileNameFlag = true
+	return builder
+}
+func (builder *UploadInfoBuilder) ParentType(parentType string) *UploadInfoBuilder {
+	builder.parentType = parentType
+	builder.parentTypeFlag = true
+	return builder
+}
+func (builder *UploadInfoBuilder) ParentNode(parentNode string) *UploadInfoBuilder {
+	builder.parentNode = parentNode
+	builder.parentNodeFlag = true
+	return builder
+}
+func (builder *UploadInfoBuilder) Size(size int) *UploadInfoBuilder {
+	builder.size = size
+	builder.sizeFlag = true
+	return builder
+}
+
+func (builder *UploadInfoBuilder) Build() *UploadInfo {
+	req := &UploadInfo{}
+	if builder.fileNameFlag {
+		req.FileName = &builder.fileName
+
+	}
+	if builder.parentTypeFlag {
+		req.ParentType = &builder.parentType
+
+	}
+	if builder.parentNodeFlag {
+		req.ParentNode = &builder.parentNode
+
+	}
+	if builder.sizeFlag {
+		req.Size = &builder.size
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type UserId struct {
 	UserId  *string `json:"user_id,omitempty"`
 	OpenId  *string `json:"open_id,omitempty"`
 	UnionId *string `json:"union_id,omitempty"`
 }
+
+/**builder开始**/
+type UserIdBuilder struct {
+	userId      string
+	userIdFlag  bool
+	openId      string
+	openIdFlag  bool
+	unionId     string
+	unionIdFlag bool
+}
+
+func NewUserIdBuilder() *UserIdBuilder {
+	builder := &UserIdBuilder{}
+	return builder
+}
+
+func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
+	builder.openId = openId
+	builder.openIdFlag = true
+	return builder
+}
+func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
+	builder.unionId = unionId
+	builder.unionIdFlag = true
+	return builder
+}
+
+func (builder *UserIdBuilder) Build() *UserId {
+	req := &UserId{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.openIdFlag {
+		req.OpenId = &builder.openId
+
+	}
+	if builder.unionIdFlag {
+		req.UnionId = &builder.unionId
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 /**生成请求和响应结果类型，以及请求对象的Builder构造器 **/
 

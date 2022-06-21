@@ -29,11 +29,111 @@ type Acl struct {
 	Type   *string `json:"type,omitempty"`
 }
 
+/**builder开始**/
+type AclBuilder struct {
+	access     string
+	accessFlag bool
+	value      string
+	valueFlag  bool
+	type_      string
+	typeFlag   bool
+}
+
+func NewAclBuilder() *AclBuilder {
+	builder := &AclBuilder{}
+	return builder
+}
+
+func (builder *AclBuilder) Access(access string) *AclBuilder {
+	builder.access = access
+	builder.accessFlag = true
+	return builder
+}
+func (builder *AclBuilder) Value(value string) *AclBuilder {
+	builder.value = value
+	builder.valueFlag = true
+	return builder
+}
+func (builder *AclBuilder) Type(type_ string) *AclBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+
+func (builder *AclBuilder) Build() *Acl {
+	req := &Acl{}
+	if builder.accessFlag {
+		req.Access = &builder.access
+
+	}
+	if builder.valueFlag {
+		req.Value = &builder.value
+
+	}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type BatchItemResult struct {
 	ItemId    *string `json:"item_id,omitempty"`
 	IsSuccess *bool   `json:"is_success,omitempty"`
 	Err       *string `json:"err,omitempty"`
 }
+
+/**builder开始**/
+type BatchItemResultBuilder struct {
+	itemId        string
+	itemIdFlag    bool
+	isSuccess     bool
+	isSuccessFlag bool
+	err           string
+	errFlag       bool
+}
+
+func NewBatchItemResultBuilder() *BatchItemResultBuilder {
+	builder := &BatchItemResultBuilder{}
+	return builder
+}
+
+func (builder *BatchItemResultBuilder) ItemId(itemId string) *BatchItemResultBuilder {
+	builder.itemId = itemId
+	builder.itemIdFlag = true
+	return builder
+}
+func (builder *BatchItemResultBuilder) IsSuccess(isSuccess bool) *BatchItemResultBuilder {
+	builder.isSuccess = isSuccess
+	builder.isSuccessFlag = true
+	return builder
+}
+func (builder *BatchItemResultBuilder) Err(err string) *BatchItemResultBuilder {
+	builder.err = err
+	builder.errFlag = true
+	return builder
+}
+
+func (builder *BatchItemResultBuilder) Build() *BatchItemResult {
+	req := &BatchItemResult{}
+	if builder.itemIdFlag {
+		req.ItemId = &builder.itemId
+
+	}
+	if builder.isSuccessFlag {
+		req.IsSuccess = &builder.isSuccess
+
+	}
+	if builder.errFlag {
+		req.Err = &builder.err
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type ConnectDataSource struct {
 	ServiceUrl         *string `json:"service_url,omitempty"`
@@ -45,6 +145,111 @@ type ConnectDataSource struct {
 	ContactEmail       *string `json:"contact_email,omitempty"`
 	TenantName         *string `json:"tenant_name,omitempty"`
 }
+
+/**builder开始**/
+type ConnectDataSourceBuilder struct {
+	serviceUrl             string
+	serviceUrlFlag         bool
+	projectName            string
+	projectNameFlag        bool
+	displayName            string
+	displayNameFlag        bool
+	description            string
+	descriptionFlag        bool
+	iconUrl                string
+	iconUrlFlag            bool
+	projectDescription     string
+	projectDescriptionFlag bool
+	contactEmail           string
+	contactEmailFlag       bool
+	tenantName             string
+	tenantNameFlag         bool
+}
+
+func NewConnectDataSourceBuilder() *ConnectDataSourceBuilder {
+	builder := &ConnectDataSourceBuilder{}
+	return builder
+}
+
+func (builder *ConnectDataSourceBuilder) ServiceUrl(serviceUrl string) *ConnectDataSourceBuilder {
+	builder.serviceUrl = serviceUrl
+	builder.serviceUrlFlag = true
+	return builder
+}
+func (builder *ConnectDataSourceBuilder) ProjectName(projectName string) *ConnectDataSourceBuilder {
+	builder.projectName = projectName
+	builder.projectNameFlag = true
+	return builder
+}
+func (builder *ConnectDataSourceBuilder) DisplayName(displayName string) *ConnectDataSourceBuilder {
+	builder.displayName = displayName
+	builder.displayNameFlag = true
+	return builder
+}
+func (builder *ConnectDataSourceBuilder) Description(description string) *ConnectDataSourceBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+func (builder *ConnectDataSourceBuilder) IconUrl(iconUrl string) *ConnectDataSourceBuilder {
+	builder.iconUrl = iconUrl
+	builder.iconUrlFlag = true
+	return builder
+}
+func (builder *ConnectDataSourceBuilder) ProjectDescription(projectDescription string) *ConnectDataSourceBuilder {
+	builder.projectDescription = projectDescription
+	builder.projectDescriptionFlag = true
+	return builder
+}
+func (builder *ConnectDataSourceBuilder) ContactEmail(contactEmail string) *ConnectDataSourceBuilder {
+	builder.contactEmail = contactEmail
+	builder.contactEmailFlag = true
+	return builder
+}
+func (builder *ConnectDataSourceBuilder) TenantName(tenantName string) *ConnectDataSourceBuilder {
+	builder.tenantName = tenantName
+	builder.tenantNameFlag = true
+	return builder
+}
+
+func (builder *ConnectDataSourceBuilder) Build() *ConnectDataSource {
+	req := &ConnectDataSource{}
+	if builder.serviceUrlFlag {
+		req.ServiceUrl = &builder.serviceUrl
+
+	}
+	if builder.projectNameFlag {
+		req.ProjectName = &builder.projectName
+
+	}
+	if builder.displayNameFlag {
+		req.DisplayName = &builder.displayName
+
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	if builder.iconUrlFlag {
+		req.IconUrl = &builder.iconUrl
+
+	}
+	if builder.projectDescriptionFlag {
+		req.ProjectDescription = &builder.projectDescription
+
+	}
+	if builder.contactEmailFlag {
+		req.ContactEmail = &builder.contactEmail
+
+	}
+	if builder.tenantNameFlag {
+		req.TenantName = &builder.tenantName
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type DataSource struct {
 	Id               *int64    `json:"id,omitempty,string"`
@@ -62,11 +267,218 @@ type DataSource struct {
 	SchemaId         *string   `json:"schema_id,omitempty"`
 }
 
+/**builder开始**/
+type DataSourceBuilder struct {
+	id                   int64
+	idFlag               bool
+	name                 string
+	nameFlag             bool
+	state                int
+	stateFlag            bool
+	description          string
+	descriptionFlag      bool
+	createTime           string
+	createTimeFlag       bool
+	updateTime           string
+	updateTimeFlag       bool
+	isExceedQuota        bool
+	isExceedQuotaFlag    bool
+	iconUrl              string
+	iconUrlFlag          bool
+	template             string
+	templateFlag         bool
+	searchableFields     []string
+	searchableFieldsFlag bool
+	i18nName             *I18nMeta
+	i18nNameFlag         bool
+	i18nDescription      *I18nMeta
+	i18nDescriptionFlag  bool
+	schemaId             string
+	schemaIdFlag         bool
+}
+
+func NewDataSourceBuilder() *DataSourceBuilder {
+	builder := &DataSourceBuilder{}
+	return builder
+}
+
+func (builder *DataSourceBuilder) Id(id int64) *DataSourceBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *DataSourceBuilder) Name(name string) *DataSourceBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *DataSourceBuilder) State(state int) *DataSourceBuilder {
+	builder.state = state
+	builder.stateFlag = true
+	return builder
+}
+func (builder *DataSourceBuilder) Description(description string) *DataSourceBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+func (builder *DataSourceBuilder) CreateTime(createTime string) *DataSourceBuilder {
+	builder.createTime = createTime
+	builder.createTimeFlag = true
+	return builder
+}
+func (builder *DataSourceBuilder) UpdateTime(updateTime string) *DataSourceBuilder {
+	builder.updateTime = updateTime
+	builder.updateTimeFlag = true
+	return builder
+}
+func (builder *DataSourceBuilder) IsExceedQuota(isExceedQuota bool) *DataSourceBuilder {
+	builder.isExceedQuota = isExceedQuota
+	builder.isExceedQuotaFlag = true
+	return builder
+}
+func (builder *DataSourceBuilder) IconUrl(iconUrl string) *DataSourceBuilder {
+	builder.iconUrl = iconUrl
+	builder.iconUrlFlag = true
+	return builder
+}
+func (builder *DataSourceBuilder) Template(template string) *DataSourceBuilder {
+	builder.template = template
+	builder.templateFlag = true
+	return builder
+}
+func (builder *DataSourceBuilder) SearchableFields(searchableFields []string) *DataSourceBuilder {
+	builder.searchableFields = searchableFields
+	builder.searchableFieldsFlag = true
+	return builder
+}
+func (builder *DataSourceBuilder) I18nName(i18nName *I18nMeta) *DataSourceBuilder {
+	builder.i18nName = i18nName
+	builder.i18nNameFlag = true
+	return builder
+}
+func (builder *DataSourceBuilder) I18nDescription(i18nDescription *I18nMeta) *DataSourceBuilder {
+	builder.i18nDescription = i18nDescription
+	builder.i18nDescriptionFlag = true
+	return builder
+}
+func (builder *DataSourceBuilder) SchemaId(schemaId string) *DataSourceBuilder {
+	builder.schemaId = schemaId
+	builder.schemaIdFlag = true
+	return builder
+}
+
+func (builder *DataSourceBuilder) Build() *DataSource {
+	req := &DataSource{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.stateFlag {
+		req.State = &builder.state
+
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	if builder.createTimeFlag {
+		req.CreateTime = &builder.createTime
+
+	}
+	if builder.updateTimeFlag {
+		req.UpdateTime = &builder.updateTime
+
+	}
+	if builder.isExceedQuotaFlag {
+		req.IsExceedQuota = &builder.isExceedQuota
+
+	}
+	if builder.iconUrlFlag {
+		req.IconUrl = &builder.iconUrl
+
+	}
+	if builder.templateFlag {
+		req.Template = &builder.template
+
+	}
+	if builder.searchableFieldsFlag {
+		req.SearchableFields = builder.searchableFields
+	}
+	if builder.i18nNameFlag {
+		req.I18nName = builder.i18nName
+	}
+	if builder.i18nDescriptionFlag {
+		req.I18nDescription = builder.i18nDescription
+	}
+	if builder.schemaIdFlag {
+		req.SchemaId = &builder.schemaId
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type I18nMeta struct {
 	ZhCn *string `json:"zh_cn,omitempty"`
 	EnUs *string `json:"en_us,omitempty"`
 	JaJp *string `json:"ja_jp,omitempty"`
 }
+
+/**builder开始**/
+type I18nMetaBuilder struct {
+	zhCn     string
+	zhCnFlag bool
+	enUs     string
+	enUsFlag bool
+	jaJp     string
+	jaJpFlag bool
+}
+
+func NewI18nMetaBuilder() *I18nMetaBuilder {
+	builder := &I18nMetaBuilder{}
+	return builder
+}
+
+func (builder *I18nMetaBuilder) ZhCn(zhCn string) *I18nMetaBuilder {
+	builder.zhCn = zhCn
+	builder.zhCnFlag = true
+	return builder
+}
+func (builder *I18nMetaBuilder) EnUs(enUs string) *I18nMetaBuilder {
+	builder.enUs = enUs
+	builder.enUsFlag = true
+	return builder
+}
+func (builder *I18nMetaBuilder) JaJp(jaJp string) *I18nMetaBuilder {
+	builder.jaJp = jaJp
+	builder.jaJpFlag = true
+	return builder
+}
+
+func (builder *I18nMetaBuilder) Build() *I18nMeta {
+	req := &I18nMeta{}
+	if builder.zhCnFlag {
+		req.ZhCn = &builder.zhCn
+
+	}
+	if builder.enUsFlag {
+		req.EnUs = &builder.enUs
+
+	}
+	if builder.jaJpFlag {
+		req.JaJp = &builder.jaJp
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type Item struct {
 	Id             *string       `json:"id,omitempty"`
@@ -76,10 +488,118 @@ type Item struct {
 	Content        *ItemContent  `json:"content,omitempty"`
 }
 
+/**builder开始**/
+type ItemBuilder struct {
+	id                 string
+	idFlag             bool
+	acl                []*Acl
+	aclFlag            bool
+	metadata           *ItemMetadata
+	metadataFlag       bool
+	structuredData     string
+	structuredDataFlag bool
+	content            *ItemContent
+	contentFlag        bool
+}
+
+func NewItemBuilder() *ItemBuilder {
+	builder := &ItemBuilder{}
+	return builder
+}
+
+func (builder *ItemBuilder) Id(id string) *ItemBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *ItemBuilder) Acl(acl []*Acl) *ItemBuilder {
+	builder.acl = acl
+	builder.aclFlag = true
+	return builder
+}
+func (builder *ItemBuilder) Metadata(metadata *ItemMetadata) *ItemBuilder {
+	builder.metadata = metadata
+	builder.metadataFlag = true
+	return builder
+}
+func (builder *ItemBuilder) StructuredData(structuredData string) *ItemBuilder {
+	builder.structuredData = structuredData
+	builder.structuredDataFlag = true
+	return builder
+}
+func (builder *ItemBuilder) Content(content *ItemContent) *ItemBuilder {
+	builder.content = content
+	builder.contentFlag = true
+	return builder
+}
+
+func (builder *ItemBuilder) Build() *Item {
+	req := &Item{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.aclFlag {
+		req.Acl = builder.acl
+	}
+	if builder.metadataFlag {
+		req.Metadata = builder.metadata
+	}
+	if builder.structuredDataFlag {
+		req.StructuredData = &builder.structuredData
+
+	}
+	if builder.contentFlag {
+		req.Content = builder.content
+	}
+	return req
+}
+
+/**builder结束**/
+
 type ItemContent struct {
 	Format      *string `json:"format,omitempty"`
 	ContentData *string `json:"content_data,omitempty"`
 }
+
+/**builder开始**/
+type ItemContentBuilder struct {
+	format          string
+	formatFlag      bool
+	contentData     string
+	contentDataFlag bool
+}
+
+func NewItemContentBuilder() *ItemContentBuilder {
+	builder := &ItemContentBuilder{}
+	return builder
+}
+
+func (builder *ItemContentBuilder) Format(format string) *ItemContentBuilder {
+	builder.format = format
+	builder.formatFlag = true
+	return builder
+}
+func (builder *ItemContentBuilder) ContentData(contentData string) *ItemContentBuilder {
+	builder.contentData = contentData
+	builder.contentDataFlag = true
+	return builder
+}
+
+func (builder *ItemContentBuilder) Build() *ItemContent {
+	req := &ItemContent{}
+	if builder.formatFlag {
+		req.Format = &builder.format
+
+	}
+	if builder.contentDataFlag {
+		req.ContentData = &builder.contentData
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type ItemMetadata struct {
 	Title           *string `json:"title,omitempty"`
@@ -89,6 +609,78 @@ type ItemMetadata struct {
 	SourceUrlMobile *string `json:"source_url_mobile,omitempty"`
 }
 
+/**builder开始**/
+type ItemMetadataBuilder struct {
+	title               string
+	titleFlag           bool
+	sourceUrl           string
+	sourceUrlFlag       bool
+	createTime          int
+	createTimeFlag      bool
+	updateTime          int
+	updateTimeFlag      bool
+	sourceUrlMobile     string
+	sourceUrlMobileFlag bool
+}
+
+func NewItemMetadataBuilder() *ItemMetadataBuilder {
+	builder := &ItemMetadataBuilder{}
+	return builder
+}
+
+func (builder *ItemMetadataBuilder) Title(title string) *ItemMetadataBuilder {
+	builder.title = title
+	builder.titleFlag = true
+	return builder
+}
+func (builder *ItemMetadataBuilder) SourceUrl(sourceUrl string) *ItemMetadataBuilder {
+	builder.sourceUrl = sourceUrl
+	builder.sourceUrlFlag = true
+	return builder
+}
+func (builder *ItemMetadataBuilder) CreateTime(createTime int) *ItemMetadataBuilder {
+	builder.createTime = createTime
+	builder.createTimeFlag = true
+	return builder
+}
+func (builder *ItemMetadataBuilder) UpdateTime(updateTime int) *ItemMetadataBuilder {
+	builder.updateTime = updateTime
+	builder.updateTimeFlag = true
+	return builder
+}
+func (builder *ItemMetadataBuilder) SourceUrlMobile(sourceUrlMobile string) *ItemMetadataBuilder {
+	builder.sourceUrlMobile = sourceUrlMobile
+	builder.sourceUrlMobileFlag = true
+	return builder
+}
+
+func (builder *ItemMetadataBuilder) Build() *ItemMetadata {
+	req := &ItemMetadata{}
+	if builder.titleFlag {
+		req.Title = &builder.title
+
+	}
+	if builder.sourceUrlFlag {
+		req.SourceUrl = &builder.sourceUrl
+
+	}
+	if builder.createTimeFlag {
+		req.CreateTime = &builder.createTime
+
+	}
+	if builder.updateTimeFlag {
+		req.UpdateTime = &builder.updateTime
+
+	}
+	if builder.sourceUrlMobileFlag {
+		req.SourceUrlMobile = &builder.sourceUrlMobile
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type ItemRecord struct {
 	ItemId       *string `json:"item_id,omitempty"`
 	DataSourceId *string `json:"data_source_id,omitempty"`
@@ -97,26 +689,262 @@ type ItemRecord struct {
 	UpdatedAt    *string `json:"updated_at,omitempty"`
 }
 
+/**builder开始**/
+type ItemRecordBuilder struct {
+	itemId           string
+	itemIdFlag       bool
+	dataSourceId     string
+	dataSourceIdFlag bool
+	version          string
+	versionFlag      bool
+	createdAt        string
+	createdAtFlag    bool
+	updatedAt        string
+	updatedAtFlag    bool
+}
+
+func NewItemRecordBuilder() *ItemRecordBuilder {
+	builder := &ItemRecordBuilder{}
+	return builder
+}
+
+func (builder *ItemRecordBuilder) ItemId(itemId string) *ItemRecordBuilder {
+	builder.itemId = itemId
+	builder.itemIdFlag = true
+	return builder
+}
+func (builder *ItemRecordBuilder) DataSourceId(dataSourceId string) *ItemRecordBuilder {
+	builder.dataSourceId = dataSourceId
+	builder.dataSourceIdFlag = true
+	return builder
+}
+func (builder *ItemRecordBuilder) Version(version string) *ItemRecordBuilder {
+	builder.version = version
+	builder.versionFlag = true
+	return builder
+}
+func (builder *ItemRecordBuilder) CreatedAt(createdAt string) *ItemRecordBuilder {
+	builder.createdAt = createdAt
+	builder.createdAtFlag = true
+	return builder
+}
+func (builder *ItemRecordBuilder) UpdatedAt(updatedAt string) *ItemRecordBuilder {
+	builder.updatedAt = updatedAt
+	builder.updatedAtFlag = true
+	return builder
+}
+
+func (builder *ItemRecordBuilder) Build() *ItemRecord {
+	req := &ItemRecord{}
+	if builder.itemIdFlag {
+		req.ItemId = &builder.itemId
+
+	}
+	if builder.dataSourceIdFlag {
+		req.DataSourceId = &builder.dataSourceId
+
+	}
+	if builder.versionFlag {
+		req.Version = &builder.version
+
+	}
+	if builder.createdAtFlag {
+		req.CreatedAt = &builder.createdAt
+
+	}
+	if builder.updatedAtFlag {
+		req.UpdatedAt = &builder.updatedAt
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Schema struct {
 	Properties []*SchemaProperty `json:"properties,omitempty"`
 	Display    *SchemaDisplay    `json:"display,omitempty"`
 	SchemaId   *string           `json:"schema_id,omitempty"`
 }
 
+/**builder开始**/
+type SchemaBuilder struct {
+	properties     []*SchemaProperty
+	propertiesFlag bool
+	display        *SchemaDisplay
+	displayFlag    bool
+	schemaId       string
+	schemaIdFlag   bool
+}
+
+func NewSchemaBuilder() *SchemaBuilder {
+	builder := &SchemaBuilder{}
+	return builder
+}
+
+func (builder *SchemaBuilder) Properties(properties []*SchemaProperty) *SchemaBuilder {
+	builder.properties = properties
+	builder.propertiesFlag = true
+	return builder
+}
+func (builder *SchemaBuilder) Display(display *SchemaDisplay) *SchemaBuilder {
+	builder.display = display
+	builder.displayFlag = true
+	return builder
+}
+func (builder *SchemaBuilder) SchemaId(schemaId string) *SchemaBuilder {
+	builder.schemaId = schemaId
+	builder.schemaIdFlag = true
+	return builder
+}
+
+func (builder *SchemaBuilder) Build() *Schema {
+	req := &Schema{}
+	if builder.propertiesFlag {
+		req.Properties = builder.properties
+	}
+	if builder.displayFlag {
+		req.Display = builder.display
+	}
+	if builder.schemaIdFlag {
+		req.SchemaId = &builder.schemaId
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type SchemaDisplay struct {
 	CardKey       *string                      `json:"card_key,omitempty"`
 	FieldsMapping []*SchemaDisplayFieldMapping `json:"fields_mapping,omitempty"`
 }
+
+/**builder开始**/
+type SchemaDisplayBuilder struct {
+	cardKey           string
+	cardKeyFlag       bool
+	fieldsMapping     []*SchemaDisplayFieldMapping
+	fieldsMappingFlag bool
+}
+
+func NewSchemaDisplayBuilder() *SchemaDisplayBuilder {
+	builder := &SchemaDisplayBuilder{}
+	return builder
+}
+
+func (builder *SchemaDisplayBuilder) CardKey(cardKey string) *SchemaDisplayBuilder {
+	builder.cardKey = cardKey
+	builder.cardKeyFlag = true
+	return builder
+}
+func (builder *SchemaDisplayBuilder) FieldsMapping(fieldsMapping []*SchemaDisplayFieldMapping) *SchemaDisplayBuilder {
+	builder.fieldsMapping = fieldsMapping
+	builder.fieldsMappingFlag = true
+	return builder
+}
+
+func (builder *SchemaDisplayBuilder) Build() *SchemaDisplay {
+	req := &SchemaDisplay{}
+	if builder.cardKeyFlag {
+		req.CardKey = &builder.cardKey
+
+	}
+	if builder.fieldsMappingFlag {
+		req.FieldsMapping = builder.fieldsMapping
+	}
+	return req
+}
+
+/**builder结束**/
 
 type SchemaDisplayFieldMapping struct {
 	DisplayField *string `json:"display_field,omitempty"`
 	DataField    *string `json:"data_field,omitempty"`
 }
 
+/**builder开始**/
+type SchemaDisplayFieldMappingBuilder struct {
+	displayField     string
+	displayFieldFlag bool
+	dataField        string
+	dataFieldFlag    bool
+}
+
+func NewSchemaDisplayFieldMappingBuilder() *SchemaDisplayFieldMappingBuilder {
+	builder := &SchemaDisplayFieldMappingBuilder{}
+	return builder
+}
+
+func (builder *SchemaDisplayFieldMappingBuilder) DisplayField(displayField string) *SchemaDisplayFieldMappingBuilder {
+	builder.displayField = displayField
+	builder.displayFieldFlag = true
+	return builder
+}
+func (builder *SchemaDisplayFieldMappingBuilder) DataField(dataField string) *SchemaDisplayFieldMappingBuilder {
+	builder.dataField = dataField
+	builder.dataFieldFlag = true
+	return builder
+}
+
+func (builder *SchemaDisplayFieldMappingBuilder) Build() *SchemaDisplayFieldMapping {
+	req := &SchemaDisplayFieldMapping{}
+	if builder.displayFieldFlag {
+		req.DisplayField = &builder.displayField
+
+	}
+	if builder.dataFieldFlag {
+		req.DataField = &builder.dataField
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type SchemaDisplayOption struct {
 	DisplayLabel *string `json:"display_label,omitempty"`
 	DisplayType  *string `json:"display_type,omitempty"`
 }
+
+/**builder开始**/
+type SchemaDisplayOptionBuilder struct {
+	displayLabel     string
+	displayLabelFlag bool
+	displayType      string
+	displayTypeFlag  bool
+}
+
+func NewSchemaDisplayOptionBuilder() *SchemaDisplayOptionBuilder {
+	builder := &SchemaDisplayOptionBuilder{}
+	return builder
+}
+
+func (builder *SchemaDisplayOptionBuilder) DisplayLabel(displayLabel string) *SchemaDisplayOptionBuilder {
+	builder.displayLabel = displayLabel
+	builder.displayLabelFlag = true
+	return builder
+}
+func (builder *SchemaDisplayOptionBuilder) DisplayType(displayType string) *SchemaDisplayOptionBuilder {
+	builder.displayType = displayType
+	builder.displayTypeFlag = true
+	return builder
+}
+
+func (builder *SchemaDisplayOptionBuilder) Build() *SchemaDisplayOption {
+	req := &SchemaDisplayOption{}
+	if builder.displayLabelFlag {
+		req.DisplayLabel = &builder.displayLabel
+
+	}
+	if builder.displayTypeFlag {
+		req.DisplayType = &builder.displayType
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type SchemaProperty struct {
 	Name            *string                `json:"name,omitempty"`
@@ -129,6 +957,108 @@ type SchemaProperty struct {
 	SearchOptions   *SchemaSearchOptions   `json:"search_options,omitempty"`
 }
 
+/**builder开始**/
+type SchemaPropertyBuilder struct {
+	name                string
+	nameFlag            bool
+	type_               string
+	typeFlag            bool
+	isSearchable        bool
+	isSearchableFlag    bool
+	isSortable          bool
+	isSortableFlag      bool
+	isReturnable        bool
+	isReturnableFlag    bool
+	sortOptions         *SchemaSortOptions
+	sortOptionsFlag     bool
+	typeDefinitions     *SchemaTypeDefinitions
+	typeDefinitionsFlag bool
+	searchOptions       *SchemaSearchOptions
+	searchOptionsFlag   bool
+}
+
+func NewSchemaPropertyBuilder() *SchemaPropertyBuilder {
+	builder := &SchemaPropertyBuilder{}
+	return builder
+}
+
+func (builder *SchemaPropertyBuilder) Name(name string) *SchemaPropertyBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *SchemaPropertyBuilder) Type(type_ string) *SchemaPropertyBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+func (builder *SchemaPropertyBuilder) IsSearchable(isSearchable bool) *SchemaPropertyBuilder {
+	builder.isSearchable = isSearchable
+	builder.isSearchableFlag = true
+	return builder
+}
+func (builder *SchemaPropertyBuilder) IsSortable(isSortable bool) *SchemaPropertyBuilder {
+	builder.isSortable = isSortable
+	builder.isSortableFlag = true
+	return builder
+}
+func (builder *SchemaPropertyBuilder) IsReturnable(isReturnable bool) *SchemaPropertyBuilder {
+	builder.isReturnable = isReturnable
+	builder.isReturnableFlag = true
+	return builder
+}
+func (builder *SchemaPropertyBuilder) SortOptions(sortOptions *SchemaSortOptions) *SchemaPropertyBuilder {
+	builder.sortOptions = sortOptions
+	builder.sortOptionsFlag = true
+	return builder
+}
+func (builder *SchemaPropertyBuilder) TypeDefinitions(typeDefinitions *SchemaTypeDefinitions) *SchemaPropertyBuilder {
+	builder.typeDefinitions = typeDefinitions
+	builder.typeDefinitionsFlag = true
+	return builder
+}
+func (builder *SchemaPropertyBuilder) SearchOptions(searchOptions *SchemaSearchOptions) *SchemaPropertyBuilder {
+	builder.searchOptions = searchOptions
+	builder.searchOptionsFlag = true
+	return builder
+}
+
+func (builder *SchemaPropertyBuilder) Build() *SchemaProperty {
+	req := &SchemaProperty{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.isSearchableFlag {
+		req.IsSearchable = &builder.isSearchable
+
+	}
+	if builder.isSortableFlag {
+		req.IsSortable = &builder.isSortable
+
+	}
+	if builder.isReturnableFlag {
+		req.IsReturnable = &builder.isReturnable
+
+	}
+	if builder.sortOptionsFlag {
+		req.SortOptions = builder.sortOptions
+	}
+	if builder.typeDefinitionsFlag {
+		req.TypeDefinitions = builder.typeDefinitions
+	}
+	if builder.searchOptionsFlag {
+		req.SearchOptions = builder.searchOptions
+	}
+	return req
+}
+
+/**builder结束**/
+
 type SchemaPropertyDefinition struct {
 	Name                 *string              `json:"name,omitempty"`
 	IsReturnable         *bool                `json:"is_returnable,omitempty"`
@@ -140,6 +1070,110 @@ type SchemaPropertyDefinition struct {
 	DisplayOptions       *SchemaDisplayOption `json:"display_options,omitempty"`
 }
 
+/**builder开始**/
+type SchemaPropertyDefinitionBuilder struct {
+	name                     string
+	nameFlag                 bool
+	isReturnable             bool
+	isReturnableFlag         bool
+	isRepeatable             bool
+	isRepeatableFlag         bool
+	isSortable               bool
+	isSortableFlag           bool
+	isFacetable              bool
+	isFacetableFlag          bool
+	isWildcardSearchable     bool
+	isWildcardSearchableFlag bool
+	type_                    string
+	typeFlag                 bool
+	displayOptions           *SchemaDisplayOption
+	displayOptionsFlag       bool
+}
+
+func NewSchemaPropertyDefinitionBuilder() *SchemaPropertyDefinitionBuilder {
+	builder := &SchemaPropertyDefinitionBuilder{}
+	return builder
+}
+
+func (builder *SchemaPropertyDefinitionBuilder) Name(name string) *SchemaPropertyDefinitionBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *SchemaPropertyDefinitionBuilder) IsReturnable(isReturnable bool) *SchemaPropertyDefinitionBuilder {
+	builder.isReturnable = isReturnable
+	builder.isReturnableFlag = true
+	return builder
+}
+func (builder *SchemaPropertyDefinitionBuilder) IsRepeatable(isRepeatable bool) *SchemaPropertyDefinitionBuilder {
+	builder.isRepeatable = isRepeatable
+	builder.isRepeatableFlag = true
+	return builder
+}
+func (builder *SchemaPropertyDefinitionBuilder) IsSortable(isSortable bool) *SchemaPropertyDefinitionBuilder {
+	builder.isSortable = isSortable
+	builder.isSortableFlag = true
+	return builder
+}
+func (builder *SchemaPropertyDefinitionBuilder) IsFacetable(isFacetable bool) *SchemaPropertyDefinitionBuilder {
+	builder.isFacetable = isFacetable
+	builder.isFacetableFlag = true
+	return builder
+}
+func (builder *SchemaPropertyDefinitionBuilder) IsWildcardSearchable(isWildcardSearchable bool) *SchemaPropertyDefinitionBuilder {
+	builder.isWildcardSearchable = isWildcardSearchable
+	builder.isWildcardSearchableFlag = true
+	return builder
+}
+func (builder *SchemaPropertyDefinitionBuilder) Type(type_ string) *SchemaPropertyDefinitionBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+func (builder *SchemaPropertyDefinitionBuilder) DisplayOptions(displayOptions *SchemaDisplayOption) *SchemaPropertyDefinitionBuilder {
+	builder.displayOptions = displayOptions
+	builder.displayOptionsFlag = true
+	return builder
+}
+
+func (builder *SchemaPropertyDefinitionBuilder) Build() *SchemaPropertyDefinition {
+	req := &SchemaPropertyDefinition{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.isReturnableFlag {
+		req.IsReturnable = &builder.isReturnable
+
+	}
+	if builder.isRepeatableFlag {
+		req.IsRepeatable = &builder.isRepeatable
+
+	}
+	if builder.isSortableFlag {
+		req.IsSortable = &builder.isSortable
+
+	}
+	if builder.isFacetableFlag {
+		req.IsFacetable = &builder.isFacetable
+
+	}
+	if builder.isWildcardSearchableFlag {
+		req.IsWildcardSearchable = &builder.isWildcardSearchable
+
+	}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.displayOptionsFlag {
+		req.DisplayOptions = builder.displayOptions
+	}
+	return req
+}
+
+/**builder结束**/
+
 type SchemaSearchOptions struct {
 	EnableSemanticMatch     *bool `json:"enable_semantic_match,omitempty"`
 	EnableExactMatch        *bool `json:"enable_exact_match,omitempty"`
@@ -148,10 +1182,121 @@ type SchemaSearchOptions struct {
 	EnableCamelMatch        *bool `json:"enable_camel_match,omitempty"`
 }
 
+/**builder开始**/
+type SchemaSearchOptionsBuilder struct {
+	enableSemanticMatch         bool
+	enableSemanticMatchFlag     bool
+	enableExactMatch            bool
+	enableExactMatchFlag        bool
+	enablePrefixMatch           bool
+	enablePrefixMatchFlag       bool
+	enableNumberSuffixMatch     bool
+	enableNumberSuffixMatchFlag bool
+	enableCamelMatch            bool
+	enableCamelMatchFlag        bool
+}
+
+func NewSchemaSearchOptionsBuilder() *SchemaSearchOptionsBuilder {
+	builder := &SchemaSearchOptionsBuilder{}
+	return builder
+}
+
+func (builder *SchemaSearchOptionsBuilder) EnableSemanticMatch(enableSemanticMatch bool) *SchemaSearchOptionsBuilder {
+	builder.enableSemanticMatch = enableSemanticMatch
+	builder.enableSemanticMatchFlag = true
+	return builder
+}
+func (builder *SchemaSearchOptionsBuilder) EnableExactMatch(enableExactMatch bool) *SchemaSearchOptionsBuilder {
+	builder.enableExactMatch = enableExactMatch
+	builder.enableExactMatchFlag = true
+	return builder
+}
+func (builder *SchemaSearchOptionsBuilder) EnablePrefixMatch(enablePrefixMatch bool) *SchemaSearchOptionsBuilder {
+	builder.enablePrefixMatch = enablePrefixMatch
+	builder.enablePrefixMatchFlag = true
+	return builder
+}
+func (builder *SchemaSearchOptionsBuilder) EnableNumberSuffixMatch(enableNumberSuffixMatch bool) *SchemaSearchOptionsBuilder {
+	builder.enableNumberSuffixMatch = enableNumberSuffixMatch
+	builder.enableNumberSuffixMatchFlag = true
+	return builder
+}
+func (builder *SchemaSearchOptionsBuilder) EnableCamelMatch(enableCamelMatch bool) *SchemaSearchOptionsBuilder {
+	builder.enableCamelMatch = enableCamelMatch
+	builder.enableCamelMatchFlag = true
+	return builder
+}
+
+func (builder *SchemaSearchOptionsBuilder) Build() *SchemaSearchOptions {
+	req := &SchemaSearchOptions{}
+	if builder.enableSemanticMatchFlag {
+		req.EnableSemanticMatch = &builder.enableSemanticMatch
+
+	}
+	if builder.enableExactMatchFlag {
+		req.EnableExactMatch = &builder.enableExactMatch
+
+	}
+	if builder.enablePrefixMatchFlag {
+		req.EnablePrefixMatch = &builder.enablePrefixMatch
+
+	}
+	if builder.enableNumberSuffixMatchFlag {
+		req.EnableNumberSuffixMatch = &builder.enableNumberSuffixMatch
+
+	}
+	if builder.enableCamelMatchFlag {
+		req.EnableCamelMatch = &builder.enableCamelMatch
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type SchemaSortOptions struct {
 	Priority *int    `json:"priority,omitempty"`
 	Order    *string `json:"order,omitempty"`
 }
+
+/**builder开始**/
+type SchemaSortOptionsBuilder struct {
+	priority     int
+	priorityFlag bool
+	order        string
+	orderFlag    bool
+}
+
+func NewSchemaSortOptionsBuilder() *SchemaSortOptionsBuilder {
+	builder := &SchemaSortOptionsBuilder{}
+	return builder
+}
+
+func (builder *SchemaSortOptionsBuilder) Priority(priority int) *SchemaSortOptionsBuilder {
+	builder.priority = priority
+	builder.priorityFlag = true
+	return builder
+}
+func (builder *SchemaSortOptionsBuilder) Order(order string) *SchemaSortOptionsBuilder {
+	builder.order = order
+	builder.orderFlag = true
+	return builder
+}
+
+func (builder *SchemaSortOptionsBuilder) Build() *SchemaSortOptions {
+	req := &SchemaSortOptions{}
+	if builder.priorityFlag {
+		req.Priority = &builder.priority
+
+	}
+	if builder.orderFlag {
+		req.Order = &builder.order
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type SchemaTagOptions struct {
 	Name  *string `json:"name,omitempty"`
@@ -159,9 +1304,86 @@ type SchemaTagOptions struct {
 	Text  *string `json:"text,omitempty"`
 }
 
+/**builder开始**/
+type SchemaTagOptionsBuilder struct {
+	name      string
+	nameFlag  bool
+	color     string
+	colorFlag bool
+	text      string
+	textFlag  bool
+}
+
+func NewSchemaTagOptionsBuilder() *SchemaTagOptionsBuilder {
+	builder := &SchemaTagOptionsBuilder{}
+	return builder
+}
+
+func (builder *SchemaTagOptionsBuilder) Name(name string) *SchemaTagOptionsBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *SchemaTagOptionsBuilder) Color(color string) *SchemaTagOptionsBuilder {
+	builder.color = color
+	builder.colorFlag = true
+	return builder
+}
+func (builder *SchemaTagOptionsBuilder) Text(text string) *SchemaTagOptionsBuilder {
+	builder.text = text
+	builder.textFlag = true
+	return builder
+}
+
+func (builder *SchemaTagOptionsBuilder) Build() *SchemaTagOptions {
+	req := &SchemaTagOptions{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.colorFlag {
+		req.Color = &builder.color
+
+	}
+	if builder.textFlag {
+		req.Text = &builder.text
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type SchemaTypeDefinitions struct {
 	Tag []*SchemaTagOptions `json:"tag,omitempty"`
 }
+
+/**builder开始**/
+type SchemaTypeDefinitionsBuilder struct {
+	tag     []*SchemaTagOptions
+	tagFlag bool
+}
+
+func NewSchemaTypeDefinitionsBuilder() *SchemaTypeDefinitionsBuilder {
+	builder := &SchemaTypeDefinitionsBuilder{}
+	return builder
+}
+
+func (builder *SchemaTypeDefinitionsBuilder) Tag(tag []*SchemaTagOptions) *SchemaTypeDefinitionsBuilder {
+	builder.tag = tag
+	builder.tagFlag = true
+	return builder
+}
+
+func (builder *SchemaTypeDefinitionsBuilder) Build() *SchemaTypeDefinitions {
+	req := &SchemaTypeDefinitions{}
+	if builder.tagFlag {
+		req.Tag = builder.tag
+	}
+	return req
+}
+
+/**builder结束**/
 
 /**生成请求和响应结果类型，以及请求对象的Builder构造器 **/
 

@@ -50,6 +50,7 @@ const (
 	ViewTypeKanban  string = "kanban"
 	ViewTypeGallery string = "gallery"
 	ViewTypeGantt   string = "gantt"
+	ViewTypeForm    string = "form"
 )
 
 /**生成数据类型 **/
@@ -62,11 +63,132 @@ type App struct {
 	Url         *string `json:"url,omitempty"`
 }
 
+/**builder开始**/
+type AppBuilder struct {
+	appToken        string
+	appTokenFlag    bool
+	name            string
+	nameFlag        bool
+	revision        int
+	revisionFlag    bool
+	folderToken     string
+	folderTokenFlag bool
+	url             string
+	urlFlag         bool
+}
+
+func NewAppBuilder() *AppBuilder {
+	builder := &AppBuilder{}
+	return builder
+}
+
+func (builder *AppBuilder) AppToken(appToken string) *AppBuilder {
+	builder.appToken = appToken
+	builder.appTokenFlag = true
+	return builder
+}
+func (builder *AppBuilder) Name(name string) *AppBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *AppBuilder) Revision(revision int) *AppBuilder {
+	builder.revision = revision
+	builder.revisionFlag = true
+	return builder
+}
+func (builder *AppBuilder) FolderToken(folderToken string) *AppBuilder {
+	builder.folderToken = folderToken
+	builder.folderTokenFlag = true
+	return builder
+}
+func (builder *AppBuilder) Url(url string) *AppBuilder {
+	builder.url = url
+	builder.urlFlag = true
+	return builder
+}
+
+func (builder *AppBuilder) Build() *App {
+	req := &App{}
+	if builder.appTokenFlag {
+		req.AppToken = &builder.appToken
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.revisionFlag {
+		req.Revision = &builder.revision
+
+	}
+	if builder.folderTokenFlag {
+		req.FolderToken = &builder.folderToken
+
+	}
+	if builder.urlFlag {
+		req.Url = &builder.url
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type AppRole struct {
 	RoleName   *string             `json:"role_name,omitempty"`
 	RoleId     *string             `json:"role_id,omitempty"`
 	TableRoles []*AppRoleTableRole `json:"table_roles,omitempty"`
 }
+
+/**builder开始**/
+type AppRoleBuilder struct {
+	roleName       string
+	roleNameFlag   bool
+	roleId         string
+	roleIdFlag     bool
+	tableRoles     []*AppRoleTableRole
+	tableRolesFlag bool
+}
+
+func NewAppRoleBuilder() *AppRoleBuilder {
+	builder := &AppRoleBuilder{}
+	return builder
+}
+
+func (builder *AppRoleBuilder) RoleName(roleName string) *AppRoleBuilder {
+	builder.roleName = roleName
+	builder.roleNameFlag = true
+	return builder
+}
+func (builder *AppRoleBuilder) RoleId(roleId string) *AppRoleBuilder {
+	builder.roleId = roleId
+	builder.roleIdFlag = true
+	return builder
+}
+func (builder *AppRoleBuilder) TableRoles(tableRoles []*AppRoleTableRole) *AppRoleBuilder {
+	builder.tableRoles = tableRoles
+	builder.tableRolesFlag = true
+	return builder
+}
+
+func (builder *AppRoleBuilder) Build() *AppRole {
+	req := &AppRole{}
+	if builder.roleNameFlag {
+		req.RoleName = &builder.roleName
+
+	}
+	if builder.roleIdFlag {
+		req.RoleId = &builder.roleId
+
+	}
+	if builder.tableRolesFlag {
+		req.TableRoles = builder.tableRoles
+	}
+	return req
+}
+
+/**builder结束**/
 
 type AppRoleMember struct {
 	MemberId         *string `json:"member_id,omitempty"`
@@ -81,6 +203,177 @@ type AppRoleMember struct {
 	MemberType       *string `json:"member_type,omitempty"`
 }
 
+/**builder开始**/
+type AppRoleMemberBuilder struct {
+	memberId             string
+	memberIdFlag         bool
+	openId               string
+	openIdFlag           bool
+	unionId              string
+	unionIdFlag          bool
+	userId               string
+	userIdFlag           bool
+	chatId               string
+	chatIdFlag           bool
+	departmentId         string
+	departmentIdFlag     bool
+	openDepartmentId     string
+	openDepartmentIdFlag bool
+	memberName           string
+	memberNameFlag       bool
+	memberEnName         string
+	memberEnNameFlag     bool
+	memberType           string
+	memberTypeFlag       bool
+}
+
+func NewAppRoleMemberBuilder() *AppRoleMemberBuilder {
+	builder := &AppRoleMemberBuilder{}
+	return builder
+}
+
+func (builder *AppRoleMemberBuilder) MemberId(memberId string) *AppRoleMemberBuilder {
+	builder.memberId = memberId
+	builder.memberIdFlag = true
+	return builder
+}
+func (builder *AppRoleMemberBuilder) OpenId(openId string) *AppRoleMemberBuilder {
+	builder.openId = openId
+	builder.openIdFlag = true
+	return builder
+}
+func (builder *AppRoleMemberBuilder) UnionId(unionId string) *AppRoleMemberBuilder {
+	builder.unionId = unionId
+	builder.unionIdFlag = true
+	return builder
+}
+func (builder *AppRoleMemberBuilder) UserId(userId string) *AppRoleMemberBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *AppRoleMemberBuilder) ChatId(chatId string) *AppRoleMemberBuilder {
+	builder.chatId = chatId
+	builder.chatIdFlag = true
+	return builder
+}
+func (builder *AppRoleMemberBuilder) DepartmentId(departmentId string) *AppRoleMemberBuilder {
+	builder.departmentId = departmentId
+	builder.departmentIdFlag = true
+	return builder
+}
+func (builder *AppRoleMemberBuilder) OpenDepartmentId(openDepartmentId string) *AppRoleMemberBuilder {
+	builder.openDepartmentId = openDepartmentId
+	builder.openDepartmentIdFlag = true
+	return builder
+}
+func (builder *AppRoleMemberBuilder) MemberName(memberName string) *AppRoleMemberBuilder {
+	builder.memberName = memberName
+	builder.memberNameFlag = true
+	return builder
+}
+func (builder *AppRoleMemberBuilder) MemberEnName(memberEnName string) *AppRoleMemberBuilder {
+	builder.memberEnName = memberEnName
+	builder.memberEnNameFlag = true
+	return builder
+}
+func (builder *AppRoleMemberBuilder) MemberType(memberType string) *AppRoleMemberBuilder {
+	builder.memberType = memberType
+	builder.memberTypeFlag = true
+	return builder
+}
+
+func (builder *AppRoleMemberBuilder) Build() *AppRoleMember {
+	req := &AppRoleMember{}
+	if builder.memberIdFlag {
+		req.MemberId = &builder.memberId
+
+	}
+	if builder.openIdFlag {
+		req.OpenId = &builder.openId
+
+	}
+	if builder.unionIdFlag {
+		req.UnionId = &builder.unionId
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.chatIdFlag {
+		req.ChatId = &builder.chatId
+
+	}
+	if builder.departmentIdFlag {
+		req.DepartmentId = &builder.departmentId
+
+	}
+	if builder.openDepartmentIdFlag {
+		req.OpenDepartmentId = &builder.openDepartmentId
+
+	}
+	if builder.memberNameFlag {
+		req.MemberName = &builder.memberName
+
+	}
+	if builder.memberEnNameFlag {
+		req.MemberEnName = &builder.memberEnName
+
+	}
+	if builder.memberTypeFlag {
+		req.MemberType = &builder.memberType
+
+	}
+	return req
+}
+
+/**builder结束**/
+
+type AppRoleMemberId struct {
+	Type *string `json:"type,omitempty"`
+	Id   *string `json:"id,omitempty"`
+}
+
+/**builder开始**/
+type AppRoleMemberIdBuilder struct {
+	type_    string
+	typeFlag bool
+	id       string
+	idFlag   bool
+}
+
+func NewAppRoleMemberIdBuilder() *AppRoleMemberIdBuilder {
+	builder := &AppRoleMemberIdBuilder{}
+	return builder
+}
+
+func (builder *AppRoleMemberIdBuilder) Type(type_ string) *AppRoleMemberIdBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+func (builder *AppRoleMemberIdBuilder) Id(id string) *AppRoleMemberIdBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+func (builder *AppRoleMemberIdBuilder) Build() *AppRoleMemberId {
+	req := &AppRoleMemberId{}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type AppRoleTableRole struct {
 	TableName *string                    `json:"table_name,omitempty"`
 	TablePerm *int                       `json:"table_perm,omitempty"`
@@ -88,14 +381,125 @@ type AppRoleTableRole struct {
 	FieldPerm *AppRoleTableRoleFieldPerm `json:"field_perm,omitempty"`
 }
 
+/**builder开始**/
+type AppRoleTableRoleBuilder struct {
+	tableName     string
+	tableNameFlag bool
+	tablePerm     int
+	tablePermFlag bool
+	recRule       *AppRoleTableRoleRecRule
+	recRuleFlag   bool
+	fieldPerm     *AppRoleTableRoleFieldPerm
+	fieldPermFlag bool
+}
+
+func NewAppRoleTableRoleBuilder() *AppRoleTableRoleBuilder {
+	builder := &AppRoleTableRoleBuilder{}
+	return builder
+}
+
+func (builder *AppRoleTableRoleBuilder) TableName(tableName string) *AppRoleTableRoleBuilder {
+	builder.tableName = tableName
+	builder.tableNameFlag = true
+	return builder
+}
+func (builder *AppRoleTableRoleBuilder) TablePerm(tablePerm int) *AppRoleTableRoleBuilder {
+	builder.tablePerm = tablePerm
+	builder.tablePermFlag = true
+	return builder
+}
+func (builder *AppRoleTableRoleBuilder) RecRule(recRule *AppRoleTableRoleRecRule) *AppRoleTableRoleBuilder {
+	builder.recRule = recRule
+	builder.recRuleFlag = true
+	return builder
+}
+func (builder *AppRoleTableRoleBuilder) FieldPerm(fieldPerm *AppRoleTableRoleFieldPerm) *AppRoleTableRoleBuilder {
+	builder.fieldPerm = fieldPerm
+	builder.fieldPermFlag = true
+	return builder
+}
+
+func (builder *AppRoleTableRoleBuilder) Build() *AppRoleTableRole {
+	req := &AppRoleTableRole{}
+	if builder.tableNameFlag {
+		req.TableName = &builder.tableName
+
+	}
+	if builder.tablePermFlag {
+		req.TablePerm = &builder.tablePerm
+
+	}
+	if builder.recRuleFlag {
+		req.RecRule = builder.recRule
+	}
+	if builder.fieldPermFlag {
+		req.FieldPerm = builder.fieldPerm
+	}
+	return req
+}
+
+/**builder结束**/
+
 type AppRoleTableRoleFieldPerm struct {
 }
+
+/**builder开始**/
+/**builder结束**/
 
 type AppRoleTableRoleRecRule struct {
 	Conditions  []*AppRoleTableRoleRecRuleCondition `json:"conditions,omitempty"`
 	Conjunction *string                             `json:"conjunction,omitempty"`
 	OtherPerm   *int                                `json:"other_perm,omitempty"`
 }
+
+/**builder开始**/
+type AppRoleTableRoleRecRuleBuilder struct {
+	conditions      []*AppRoleTableRoleRecRuleCondition
+	conditionsFlag  bool
+	conjunction     string
+	conjunctionFlag bool
+	otherPerm       int
+	otherPermFlag   bool
+}
+
+func NewAppRoleTableRoleRecRuleBuilder() *AppRoleTableRoleRecRuleBuilder {
+	builder := &AppRoleTableRoleRecRuleBuilder{}
+	return builder
+}
+
+func (builder *AppRoleTableRoleRecRuleBuilder) Conditions(conditions []*AppRoleTableRoleRecRuleCondition) *AppRoleTableRoleRecRuleBuilder {
+	builder.conditions = conditions
+	builder.conditionsFlag = true
+	return builder
+}
+func (builder *AppRoleTableRoleRecRuleBuilder) Conjunction(conjunction string) *AppRoleTableRoleRecRuleBuilder {
+	builder.conjunction = conjunction
+	builder.conjunctionFlag = true
+	return builder
+}
+func (builder *AppRoleTableRoleRecRuleBuilder) OtherPerm(otherPerm int) *AppRoleTableRoleRecRuleBuilder {
+	builder.otherPerm = otherPerm
+	builder.otherPermFlag = true
+	return builder
+}
+
+func (builder *AppRoleTableRoleRecRuleBuilder) Build() *AppRoleTableRoleRecRule {
+	req := &AppRoleTableRoleRecRule{}
+	if builder.conditionsFlag {
+		req.Conditions = builder.conditions
+	}
+	if builder.conjunctionFlag {
+		req.Conjunction = &builder.conjunction
+
+	}
+	if builder.otherPermFlag {
+		req.OtherPerm = &builder.otherPerm
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type AppRoleTableRoleRecRuleCondition struct {
 	FieldName *string  `json:"field_name,omitempty"`
@@ -104,11 +508,121 @@ type AppRoleTableRoleRecRuleCondition struct {
 	FieldType *int     `json:"field_type,omitempty"`
 }
 
+/**builder开始**/
+type AppRoleTableRoleRecRuleConditionBuilder struct {
+	fieldName     string
+	fieldNameFlag bool
+	operator      string
+	operatorFlag  bool
+	value         []string
+	valueFlag     bool
+	fieldType     int
+	fieldTypeFlag bool
+}
+
+func NewAppRoleTableRoleRecRuleConditionBuilder() *AppRoleTableRoleRecRuleConditionBuilder {
+	builder := &AppRoleTableRoleRecRuleConditionBuilder{}
+	return builder
+}
+
+func (builder *AppRoleTableRoleRecRuleConditionBuilder) FieldName(fieldName string) *AppRoleTableRoleRecRuleConditionBuilder {
+	builder.fieldName = fieldName
+	builder.fieldNameFlag = true
+	return builder
+}
+func (builder *AppRoleTableRoleRecRuleConditionBuilder) Operator(operator string) *AppRoleTableRoleRecRuleConditionBuilder {
+	builder.operator = operator
+	builder.operatorFlag = true
+	return builder
+}
+func (builder *AppRoleTableRoleRecRuleConditionBuilder) Value(value []string) *AppRoleTableRoleRecRuleConditionBuilder {
+	builder.value = value
+	builder.valueFlag = true
+	return builder
+}
+func (builder *AppRoleTableRoleRecRuleConditionBuilder) FieldType(fieldType int) *AppRoleTableRoleRecRuleConditionBuilder {
+	builder.fieldType = fieldType
+	builder.fieldTypeFlag = true
+	return builder
+}
+
+func (builder *AppRoleTableRoleRecRuleConditionBuilder) Build() *AppRoleTableRoleRecRuleCondition {
+	req := &AppRoleTableRoleRecRuleCondition{}
+	if builder.fieldNameFlag {
+		req.FieldName = &builder.fieldName
+
+	}
+	if builder.operatorFlag {
+		req.Operator = &builder.operator
+
+	}
+	if builder.valueFlag {
+		req.Value = builder.value
+	}
+	if builder.fieldTypeFlag {
+		req.FieldType = &builder.fieldType
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type AppTable struct {
 	TableId  *string `json:"table_id,omitempty"`
 	Revision *int    `json:"revision,omitempty"`
 	Name     *string `json:"name,omitempty"`
 }
+
+/**builder开始**/
+type AppTableBuilder struct {
+	tableId      string
+	tableIdFlag  bool
+	revision     int
+	revisionFlag bool
+	name         string
+	nameFlag     bool
+}
+
+func NewAppTableBuilder() *AppTableBuilder {
+	builder := &AppTableBuilder{}
+	return builder
+}
+
+func (builder *AppTableBuilder) TableId(tableId string) *AppTableBuilder {
+	builder.tableId = tableId
+	builder.tableIdFlag = true
+	return builder
+}
+func (builder *AppTableBuilder) Revision(revision int) *AppTableBuilder {
+	builder.revision = revision
+	builder.revisionFlag = true
+	return builder
+}
+func (builder *AppTableBuilder) Name(name string) *AppTableBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+func (builder *AppTableBuilder) Build() *AppTable {
+	req := &AppTable{}
+	if builder.tableIdFlag {
+		req.TableId = &builder.tableId
+
+	}
+	if builder.revisionFlag {
+		req.Revision = &builder.revision
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type AppTableField struct {
 	FieldId   *string                `json:"field_id,omitempty"`
@@ -116,6 +630,66 @@ type AppTableField struct {
 	Type      *int                   `json:"type,omitempty"`
 	Property  *AppTableFieldProperty `json:"property,omitempty"`
 }
+
+/**builder开始**/
+type AppTableFieldBuilder struct {
+	fieldId       string
+	fieldIdFlag   bool
+	fieldName     string
+	fieldNameFlag bool
+	type_         int
+	typeFlag      bool
+	property      *AppTableFieldProperty
+	propertyFlag  bool
+}
+
+func NewAppTableFieldBuilder() *AppTableFieldBuilder {
+	builder := &AppTableFieldBuilder{}
+	return builder
+}
+
+func (builder *AppTableFieldBuilder) FieldId(fieldId string) *AppTableFieldBuilder {
+	builder.fieldId = fieldId
+	builder.fieldIdFlag = true
+	return builder
+}
+func (builder *AppTableFieldBuilder) FieldName(fieldName string) *AppTableFieldBuilder {
+	builder.fieldName = fieldName
+	builder.fieldNameFlag = true
+	return builder
+}
+func (builder *AppTableFieldBuilder) Type(type_ int) *AppTableFieldBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+func (builder *AppTableFieldBuilder) Property(property *AppTableFieldProperty) *AppTableFieldBuilder {
+	builder.property = property
+	builder.propertyFlag = true
+	return builder
+}
+
+func (builder *AppTableFieldBuilder) Build() *AppTableField {
+	req := &AppTableField{}
+	if builder.fieldIdFlag {
+		req.FieldId = &builder.fieldId
+
+	}
+	if builder.fieldNameFlag {
+		req.FieldName = &builder.fieldName
+
+	}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.propertyFlag {
+		req.Property = builder.property
+	}
+	return req
+}
+
+/**builder结束**/
 
 type AppTableFieldProperty struct {
 	Options       []*AppTableFieldPropertyOption `json:"options,omitempty"`
@@ -128,11 +702,417 @@ type AppTableFieldProperty struct {
 	BackFieldName *string                        `json:"back_field_name,omitempty"`
 }
 
+/**builder开始**/
+type AppTableFieldPropertyBuilder struct {
+	options           []*AppTableFieldPropertyOption
+	optionsFlag       bool
+	formatter         string
+	formatterFlag     bool
+	dateFormatter     string
+	dateFormatterFlag bool
+	autoFill          bool
+	autoFillFlag      bool
+	multiple          bool
+	multipleFlag      bool
+	tableId           string
+	tableIdFlag       bool
+	tableName         string
+	tableNameFlag     bool
+	backFieldName     string
+	backFieldNameFlag bool
+}
+
+func NewAppTableFieldPropertyBuilder() *AppTableFieldPropertyBuilder {
+	builder := &AppTableFieldPropertyBuilder{}
+	return builder
+}
+
+func (builder *AppTableFieldPropertyBuilder) Options(options []*AppTableFieldPropertyOption) *AppTableFieldPropertyBuilder {
+	builder.options = options
+	builder.optionsFlag = true
+	return builder
+}
+func (builder *AppTableFieldPropertyBuilder) Formatter(formatter string) *AppTableFieldPropertyBuilder {
+	builder.formatter = formatter
+	builder.formatterFlag = true
+	return builder
+}
+func (builder *AppTableFieldPropertyBuilder) DateFormatter(dateFormatter string) *AppTableFieldPropertyBuilder {
+	builder.dateFormatter = dateFormatter
+	builder.dateFormatterFlag = true
+	return builder
+}
+func (builder *AppTableFieldPropertyBuilder) AutoFill(autoFill bool) *AppTableFieldPropertyBuilder {
+	builder.autoFill = autoFill
+	builder.autoFillFlag = true
+	return builder
+}
+func (builder *AppTableFieldPropertyBuilder) Multiple(multiple bool) *AppTableFieldPropertyBuilder {
+	builder.multiple = multiple
+	builder.multipleFlag = true
+	return builder
+}
+func (builder *AppTableFieldPropertyBuilder) TableId(tableId string) *AppTableFieldPropertyBuilder {
+	builder.tableId = tableId
+	builder.tableIdFlag = true
+	return builder
+}
+func (builder *AppTableFieldPropertyBuilder) TableName(tableName string) *AppTableFieldPropertyBuilder {
+	builder.tableName = tableName
+	builder.tableNameFlag = true
+	return builder
+}
+func (builder *AppTableFieldPropertyBuilder) BackFieldName(backFieldName string) *AppTableFieldPropertyBuilder {
+	builder.backFieldName = backFieldName
+	builder.backFieldNameFlag = true
+	return builder
+}
+
+func (builder *AppTableFieldPropertyBuilder) Build() *AppTableFieldProperty {
+	req := &AppTableFieldProperty{}
+	if builder.optionsFlag {
+		req.Options = builder.options
+	}
+	if builder.formatterFlag {
+		req.Formatter = &builder.formatter
+
+	}
+	if builder.dateFormatterFlag {
+		req.DateFormatter = &builder.dateFormatter
+
+	}
+	if builder.autoFillFlag {
+		req.AutoFill = &builder.autoFill
+
+	}
+	if builder.multipleFlag {
+		req.Multiple = &builder.multiple
+
+	}
+	if builder.tableIdFlag {
+		req.TableId = &builder.tableId
+
+	}
+	if builder.tableNameFlag {
+		req.TableName = &builder.tableName
+
+	}
+	if builder.backFieldNameFlag {
+		req.BackFieldName = &builder.backFieldName
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type AppTableFieldPropertyOption struct {
 	Name  *string `json:"name,omitempty"`
 	Id    *string `json:"id,omitempty"`
 	Color *int    `json:"color,omitempty"`
 }
+
+/**builder开始**/
+type AppTableFieldPropertyOptionBuilder struct {
+	name      string
+	nameFlag  bool
+	id        string
+	idFlag    bool
+	color     int
+	colorFlag bool
+}
+
+func NewAppTableFieldPropertyOptionBuilder() *AppTableFieldPropertyOptionBuilder {
+	builder := &AppTableFieldPropertyOptionBuilder{}
+	return builder
+}
+
+func (builder *AppTableFieldPropertyOptionBuilder) Name(name string) *AppTableFieldPropertyOptionBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *AppTableFieldPropertyOptionBuilder) Id(id string) *AppTableFieldPropertyOptionBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *AppTableFieldPropertyOptionBuilder) Color(color int) *AppTableFieldPropertyOptionBuilder {
+	builder.color = color
+	builder.colorFlag = true
+	return builder
+}
+
+func (builder *AppTableFieldPropertyOptionBuilder) Build() *AppTableFieldPropertyOption {
+	req := &AppTableFieldPropertyOption{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.colorFlag {
+		req.Color = &builder.color
+
+	}
+	return req
+}
+
+/**builder结束**/
+
+type AppTableForm struct {
+	Name            *string `json:"name,omitempty"`
+	Description     *string `json:"description,omitempty"`
+	Shared          *bool   `json:"shared,omitempty"`
+	SharedUrl       *string `json:"shared_url,omitempty"`
+	SharedLimit     *int    `json:"shared_limit,omitempty"`
+	SubmitLimitOnce *bool   `json:"submit_limit_once,omitempty"`
+}
+
+/**builder开始**/
+type AppTableFormBuilder struct {
+	name                string
+	nameFlag            bool
+	description         string
+	descriptionFlag     bool
+	shared              bool
+	sharedFlag          bool
+	sharedUrl           string
+	sharedUrlFlag       bool
+	sharedLimit         int
+	sharedLimitFlag     bool
+	submitLimitOnce     bool
+	submitLimitOnceFlag bool
+}
+
+func NewAppTableFormBuilder() *AppTableFormBuilder {
+	builder := &AppTableFormBuilder{}
+	return builder
+}
+
+func (builder *AppTableFormBuilder) Name(name string) *AppTableFormBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *AppTableFormBuilder) Description(description string) *AppTableFormBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+func (builder *AppTableFormBuilder) Shared(shared bool) *AppTableFormBuilder {
+	builder.shared = shared
+	builder.sharedFlag = true
+	return builder
+}
+func (builder *AppTableFormBuilder) SharedUrl(sharedUrl string) *AppTableFormBuilder {
+	builder.sharedUrl = sharedUrl
+	builder.sharedUrlFlag = true
+	return builder
+}
+func (builder *AppTableFormBuilder) SharedLimit(sharedLimit int) *AppTableFormBuilder {
+	builder.sharedLimit = sharedLimit
+	builder.sharedLimitFlag = true
+	return builder
+}
+func (builder *AppTableFormBuilder) SubmitLimitOnce(submitLimitOnce bool) *AppTableFormBuilder {
+	builder.submitLimitOnce = submitLimitOnce
+	builder.submitLimitOnceFlag = true
+	return builder
+}
+
+func (builder *AppTableFormBuilder) Build() *AppTableForm {
+	req := &AppTableForm{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	if builder.sharedFlag {
+		req.Shared = &builder.shared
+
+	}
+	if builder.sharedUrlFlag {
+		req.SharedUrl = &builder.sharedUrl
+
+	}
+	if builder.sharedLimitFlag {
+		req.SharedLimit = &builder.sharedLimit
+
+	}
+	if builder.submitLimitOnceFlag {
+		req.SubmitLimitOnce = &builder.submitLimitOnce
+
+	}
+	return req
+}
+
+/**builder结束**/
+
+type AppTableFormField struct {
+	FieldId     *string `json:"field_id,omitempty"`
+	Title       *string `json:"title,omitempty"`
+	Description *string `json:"description,omitempty"`
+	Required    *bool   `json:"required,omitempty"`
+	Visible     *bool   `json:"visible,omitempty"`
+}
+
+/**builder开始**/
+type AppTableFormFieldBuilder struct {
+	fieldId         string
+	fieldIdFlag     bool
+	title           string
+	titleFlag       bool
+	description     string
+	descriptionFlag bool
+	required        bool
+	requiredFlag    bool
+	visible         bool
+	visibleFlag     bool
+}
+
+func NewAppTableFormFieldBuilder() *AppTableFormFieldBuilder {
+	builder := &AppTableFormFieldBuilder{}
+	return builder
+}
+
+func (builder *AppTableFormFieldBuilder) FieldId(fieldId string) *AppTableFormFieldBuilder {
+	builder.fieldId = fieldId
+	builder.fieldIdFlag = true
+	return builder
+}
+func (builder *AppTableFormFieldBuilder) Title(title string) *AppTableFormFieldBuilder {
+	builder.title = title
+	builder.titleFlag = true
+	return builder
+}
+func (builder *AppTableFormFieldBuilder) Description(description string) *AppTableFormFieldBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+func (builder *AppTableFormFieldBuilder) Required(required bool) *AppTableFormFieldBuilder {
+	builder.required = required
+	builder.requiredFlag = true
+	return builder
+}
+func (builder *AppTableFormFieldBuilder) Visible(visible bool) *AppTableFormFieldBuilder {
+	builder.visible = visible
+	builder.visibleFlag = true
+	return builder
+}
+
+func (builder *AppTableFormFieldBuilder) Build() *AppTableFormField {
+	req := &AppTableFormField{}
+	if builder.fieldIdFlag {
+		req.FieldId = &builder.fieldId
+
+	}
+	if builder.titleFlag {
+		req.Title = &builder.title
+
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	if builder.requiredFlag {
+		req.Required = &builder.required
+
+	}
+	if builder.visibleFlag {
+		req.Visible = &builder.visible
+
+	}
+	return req
+}
+
+/**builder结束**/
+
+type AppTableFormPatchedField struct {
+	PreFieldId  *string `json:"pre_field_id,omitempty"`
+	Title       *string `json:"title,omitempty"`
+	Description *string `json:"description,omitempty"`
+	Required    *bool   `json:"required,omitempty"`
+	Visible     *bool   `json:"visible,omitempty"`
+}
+
+/**builder开始**/
+type AppTableFormPatchedFieldBuilder struct {
+	preFieldId      string
+	preFieldIdFlag  bool
+	title           string
+	titleFlag       bool
+	description     string
+	descriptionFlag bool
+	required        bool
+	requiredFlag    bool
+	visible         bool
+	visibleFlag     bool
+}
+
+func NewAppTableFormPatchedFieldBuilder() *AppTableFormPatchedFieldBuilder {
+	builder := &AppTableFormPatchedFieldBuilder{}
+	return builder
+}
+
+func (builder *AppTableFormPatchedFieldBuilder) PreFieldId(preFieldId string) *AppTableFormPatchedFieldBuilder {
+	builder.preFieldId = preFieldId
+	builder.preFieldIdFlag = true
+	return builder
+}
+func (builder *AppTableFormPatchedFieldBuilder) Title(title string) *AppTableFormPatchedFieldBuilder {
+	builder.title = title
+	builder.titleFlag = true
+	return builder
+}
+func (builder *AppTableFormPatchedFieldBuilder) Description(description string) *AppTableFormPatchedFieldBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+func (builder *AppTableFormPatchedFieldBuilder) Required(required bool) *AppTableFormPatchedFieldBuilder {
+	builder.required = required
+	builder.requiredFlag = true
+	return builder
+}
+func (builder *AppTableFormPatchedFieldBuilder) Visible(visible bool) *AppTableFormPatchedFieldBuilder {
+	builder.visible = visible
+	builder.visibleFlag = true
+	return builder
+}
+
+func (builder *AppTableFormPatchedFieldBuilder) Build() *AppTableFormPatchedField {
+	req := &AppTableFormPatchedField{}
+	if builder.preFieldIdFlag {
+		req.PreFieldId = &builder.preFieldId
+
+	}
+	if builder.titleFlag {
+		req.Title = &builder.title
+
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	if builder.requiredFlag {
+		req.Required = &builder.required
+
+	}
+	if builder.visibleFlag {
+		req.Visible = &builder.visible
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type AppTableRecord struct {
 	RecordId         *string                `json:"record_id,omitempty"`
@@ -143,11 +1123,141 @@ type AppTableRecord struct {
 	Fields           map[string]interface{} `json:"fields,omitempty"`
 }
 
+/**builder开始**/
+type AppTableRecordBuilder struct {
+	recordId             string
+	recordIdFlag         bool
+	createdBy            *Person
+	createdByFlag        bool
+	createdTime          int
+	createdTimeFlag      bool
+	lastModifiedBy       *Person
+	lastModifiedByFlag   bool
+	lastModifiedTime     int
+	lastModifiedTimeFlag bool
+	fields               map[string]interface{}
+	fieldsFlag           bool
+}
+
+func NewAppTableRecordBuilder() *AppTableRecordBuilder {
+	builder := &AppTableRecordBuilder{}
+	return builder
+}
+
+func (builder *AppTableRecordBuilder) RecordId(recordId string) *AppTableRecordBuilder {
+	builder.recordId = recordId
+	builder.recordIdFlag = true
+	return builder
+}
+func (builder *AppTableRecordBuilder) CreatedBy(createdBy *Person) *AppTableRecordBuilder {
+	builder.createdBy = createdBy
+	builder.createdByFlag = true
+	return builder
+}
+func (builder *AppTableRecordBuilder) CreatedTime(createdTime int) *AppTableRecordBuilder {
+	builder.createdTime = createdTime
+	builder.createdTimeFlag = true
+	return builder
+}
+func (builder *AppTableRecordBuilder) LastModifiedBy(lastModifiedBy *Person) *AppTableRecordBuilder {
+	builder.lastModifiedBy = lastModifiedBy
+	builder.lastModifiedByFlag = true
+	return builder
+}
+func (builder *AppTableRecordBuilder) LastModifiedTime(lastModifiedTime int) *AppTableRecordBuilder {
+	builder.lastModifiedTime = lastModifiedTime
+	builder.lastModifiedTimeFlag = true
+	return builder
+}
+func (builder *AppTableRecordBuilder) Fields(fields map[string]interface{}) *AppTableRecordBuilder {
+	builder.fields = fields
+	builder.fieldsFlag = true
+	return builder
+}
+
+func (builder *AppTableRecordBuilder) Build() *AppTableRecord {
+	req := &AppTableRecord{}
+	if builder.recordIdFlag {
+		req.RecordId = &builder.recordId
+
+	}
+	if builder.createdByFlag {
+		req.CreatedBy = builder.createdBy
+	}
+	if builder.createdTimeFlag {
+		req.CreatedTime = &builder.createdTime
+
+	}
+	if builder.lastModifiedByFlag {
+		req.LastModifiedBy = builder.lastModifiedBy
+	}
+	if builder.lastModifiedTimeFlag {
+		req.LastModifiedTime = &builder.lastModifiedTime
+
+	}
+	if builder.fieldsFlag {
+		req.Fields = builder.fields
+	}
+	return req
+}
+
+/**builder结束**/
+
 type AppTableView struct {
 	ViewId   *string `json:"view_id,omitempty"`
 	ViewName *string `json:"view_name,omitempty"`
 	ViewType *string `json:"view_type,omitempty"`
 }
+
+/**builder开始**/
+type AppTableViewBuilder struct {
+	viewId       string
+	viewIdFlag   bool
+	viewName     string
+	viewNameFlag bool
+	viewType     string
+	viewTypeFlag bool
+}
+
+func NewAppTableViewBuilder() *AppTableViewBuilder {
+	builder := &AppTableViewBuilder{}
+	return builder
+}
+
+func (builder *AppTableViewBuilder) ViewId(viewId string) *AppTableViewBuilder {
+	builder.viewId = viewId
+	builder.viewIdFlag = true
+	return builder
+}
+func (builder *AppTableViewBuilder) ViewName(viewName string) *AppTableViewBuilder {
+	builder.viewName = viewName
+	builder.viewNameFlag = true
+	return builder
+}
+func (builder *AppTableViewBuilder) ViewType(viewType string) *AppTableViewBuilder {
+	builder.viewType = viewType
+	builder.viewTypeFlag = true
+	return builder
+}
+
+func (builder *AppTableViewBuilder) Build() *AppTableView {
+	req := &AppTableView{}
+	if builder.viewIdFlag {
+		req.ViewId = &builder.viewId
+
+	}
+	if builder.viewNameFlag {
+		req.ViewName = &builder.viewName
+
+	}
+	if builder.viewTypeFlag {
+		req.ViewType = &builder.viewType
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type Attachment struct {
 	FileToken *string `json:"file_token,omitempty"`
@@ -158,10 +1268,132 @@ type Attachment struct {
 	TmpUrl    *string `json:"tmp_url,omitempty"`
 }
 
+/**builder开始**/
+type AttachmentBuilder struct {
+	fileToken     string
+	fileTokenFlag bool
+	name          string
+	nameFlag      bool
+	type_         string
+	typeFlag      bool
+	size          int
+	sizeFlag      bool
+	url           string
+	urlFlag       bool
+	tmpUrl        string
+	tmpUrlFlag    bool
+}
+
+func NewAttachmentBuilder() *AttachmentBuilder {
+	builder := &AttachmentBuilder{}
+	return builder
+}
+
+func (builder *AttachmentBuilder) FileToken(fileToken string) *AttachmentBuilder {
+	builder.fileToken = fileToken
+	builder.fileTokenFlag = true
+	return builder
+}
+func (builder *AttachmentBuilder) Name(name string) *AttachmentBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *AttachmentBuilder) Type(type_ string) *AttachmentBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+func (builder *AttachmentBuilder) Size(size int) *AttachmentBuilder {
+	builder.size = size
+	builder.sizeFlag = true
+	return builder
+}
+func (builder *AttachmentBuilder) Url(url string) *AttachmentBuilder {
+	builder.url = url
+	builder.urlFlag = true
+	return builder
+}
+func (builder *AttachmentBuilder) TmpUrl(tmpUrl string) *AttachmentBuilder {
+	builder.tmpUrl = tmpUrl
+	builder.tmpUrlFlag = true
+	return builder
+}
+
+func (builder *AttachmentBuilder) Build() *Attachment {
+	req := &Attachment{}
+	if builder.fileTokenFlag {
+		req.FileToken = &builder.fileToken
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.sizeFlag {
+		req.Size = &builder.size
+
+	}
+	if builder.urlFlag {
+		req.Url = &builder.url
+
+	}
+	if builder.tmpUrlFlag {
+		req.TmpUrl = &builder.tmpUrl
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type DeleteRecord struct {
 	Deleted  *bool   `json:"deleted,omitempty"`
 	RecordId *string `json:"record_id,omitempty"`
 }
+
+/**builder开始**/
+type DeleteRecordBuilder struct {
+	deleted      bool
+	deletedFlag  bool
+	recordId     string
+	recordIdFlag bool
+}
+
+func NewDeleteRecordBuilder() *DeleteRecordBuilder {
+	builder := &DeleteRecordBuilder{}
+	return builder
+}
+
+func (builder *DeleteRecordBuilder) Deleted(deleted bool) *DeleteRecordBuilder {
+	builder.deleted = deleted
+	builder.deletedFlag = true
+	return builder
+}
+func (builder *DeleteRecordBuilder) RecordId(recordId string) *DeleteRecordBuilder {
+	builder.recordId = recordId
+	builder.recordIdFlag = true
+	return builder
+}
+
+func (builder *DeleteRecordBuilder) Build() *DeleteRecord {
+	req := &DeleteRecord{}
+	if builder.deletedFlag {
+		req.Deleted = &builder.deleted
+
+	}
+	if builder.recordIdFlag {
+		req.RecordId = &builder.recordId
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type DisplayApp struct {
 	AppToken   *string `json:"app_token,omitempty"`
@@ -170,11 +1402,122 @@ type DisplayApp struct {
 	IsAdvanced *bool   `json:"is_advanced,omitempty"`
 }
 
+/**builder开始**/
+type DisplayAppBuilder struct {
+	appToken       string
+	appTokenFlag   bool
+	name           string
+	nameFlag       bool
+	revision       int
+	revisionFlag   bool
+	isAdvanced     bool
+	isAdvancedFlag bool
+}
+
+func NewDisplayAppBuilder() *DisplayAppBuilder {
+	builder := &DisplayAppBuilder{}
+	return builder
+}
+
+func (builder *DisplayAppBuilder) AppToken(appToken string) *DisplayAppBuilder {
+	builder.appToken = appToken
+	builder.appTokenFlag = true
+	return builder
+}
+func (builder *DisplayAppBuilder) Name(name string) *DisplayAppBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *DisplayAppBuilder) Revision(revision int) *DisplayAppBuilder {
+	builder.revision = revision
+	builder.revisionFlag = true
+	return builder
+}
+func (builder *DisplayAppBuilder) IsAdvanced(isAdvanced bool) *DisplayAppBuilder {
+	builder.isAdvanced = isAdvanced
+	builder.isAdvancedFlag = true
+	return builder
+}
+
+func (builder *DisplayAppBuilder) Build() *DisplayApp {
+	req := &DisplayApp{}
+	if builder.appTokenFlag {
+		req.AppToken = &builder.appToken
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.revisionFlag {
+		req.Revision = &builder.revision
+
+	}
+	if builder.isAdvancedFlag {
+		req.IsAdvanced = &builder.isAdvanced
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type DisplayAppV2 struct {
 	AppToken   *string `json:"app_token,omitempty"`
 	Name       *string `json:"name,omitempty"`
 	IsAdvanced *bool   `json:"is_advanced,omitempty"`
 }
+
+/**builder开始**/
+type DisplayAppV2Builder struct {
+	appToken       string
+	appTokenFlag   bool
+	name           string
+	nameFlag       bool
+	isAdvanced     bool
+	isAdvancedFlag bool
+}
+
+func NewDisplayAppV2Builder() *DisplayAppV2Builder {
+	builder := &DisplayAppV2Builder{}
+	return builder
+}
+
+func (builder *DisplayAppV2Builder) AppToken(appToken string) *DisplayAppV2Builder {
+	builder.appToken = appToken
+	builder.appTokenFlag = true
+	return builder
+}
+func (builder *DisplayAppV2Builder) Name(name string) *DisplayAppV2Builder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *DisplayAppV2Builder) IsAdvanced(isAdvanced bool) *DisplayAppV2Builder {
+	builder.isAdvanced = isAdvanced
+	builder.isAdvancedFlag = true
+	return builder
+}
+
+func (builder *DisplayAppV2Builder) Build() *DisplayAppV2 {
+	req := &DisplayAppV2{}
+	if builder.appTokenFlag {
+		req.AppToken = &builder.appToken
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.isAdvancedFlag {
+		req.IsAdvanced = &builder.isAdvanced
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type Person struct {
 	Id     *string `json:"id,omitempty"`
@@ -183,24 +1526,230 @@ type Person struct {
 	Email  *string `json:"email,omitempty"`
 }
 
+/**builder开始**/
+type PersonBuilder struct {
+	id         string
+	idFlag     bool
+	name       string
+	nameFlag   bool
+	enName     string
+	enNameFlag bool
+	email      string
+	emailFlag  bool
+}
+
+func NewPersonBuilder() *PersonBuilder {
+	builder := &PersonBuilder{}
+	return builder
+}
+
+func (builder *PersonBuilder) Id(id string) *PersonBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *PersonBuilder) Name(name string) *PersonBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *PersonBuilder) EnName(enName string) *PersonBuilder {
+	builder.enName = enName
+	builder.enNameFlag = true
+	return builder
+}
+func (builder *PersonBuilder) Email(email string) *PersonBuilder {
+	builder.email = email
+	builder.emailFlag = true
+	return builder
+}
+
+func (builder *PersonBuilder) Build() *Person {
+	req := &Person{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.enNameFlag {
+		req.EnName = &builder.enName
+
+	}
+	if builder.emailFlag {
+		req.Email = &builder.email
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type ReqApp struct {
 	Name        *string `json:"name,omitempty"`
 	FolderToken *string `json:"folder_token,omitempty"`
 }
 
+/**builder开始**/
+type ReqAppBuilder struct {
+	name            string
+	nameFlag        bool
+	folderToken     string
+	folderTokenFlag bool
+}
+
+func NewReqAppBuilder() *ReqAppBuilder {
+	builder := &ReqAppBuilder{}
+	return builder
+}
+
+func (builder *ReqAppBuilder) Name(name string) *ReqAppBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *ReqAppBuilder) FolderToken(folderToken string) *ReqAppBuilder {
+	builder.folderToken = folderToken
+	builder.folderTokenFlag = true
+	return builder
+}
+
+func (builder *ReqAppBuilder) Build() *ReqApp {
+	req := &ReqApp{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.folderTokenFlag {
+		req.FolderToken = &builder.folderToken
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type ReqTable struct {
 	Name *string `json:"name,omitempty"`
 }
+
+/**builder开始**/
+type ReqTableBuilder struct {
+	name     string
+	nameFlag bool
+}
+
+func NewReqTableBuilder() *ReqTableBuilder {
+	builder := &ReqTableBuilder{}
+	return builder
+}
+
+func (builder *ReqTableBuilder) Name(name string) *ReqTableBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+func (builder *ReqTableBuilder) Build() *ReqTable {
+	req := &ReqTable{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type ReqView struct {
 	ViewName *string `json:"view_name,omitempty"`
 	ViewType *string `json:"view_type,omitempty"`
 }
 
+/**builder开始**/
+type ReqViewBuilder struct {
+	viewName     string
+	viewNameFlag bool
+	viewType     string
+	viewTypeFlag bool
+}
+
+func NewReqViewBuilder() *ReqViewBuilder {
+	builder := &ReqViewBuilder{}
+	return builder
+}
+
+func (builder *ReqViewBuilder) ViewName(viewName string) *ReqViewBuilder {
+	builder.viewName = viewName
+	builder.viewNameFlag = true
+	return builder
+}
+func (builder *ReqViewBuilder) ViewType(viewType string) *ReqViewBuilder {
+	builder.viewType = viewType
+	builder.viewTypeFlag = true
+	return builder
+}
+
+func (builder *ReqViewBuilder) Build() *ReqView {
+	req := &ReqView{}
+	if builder.viewNameFlag {
+		req.ViewName = &builder.viewName
+
+	}
+	if builder.viewTypeFlag {
+		req.ViewType = &builder.viewType
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Url struct {
 	Text *string `json:"text,omitempty"`
 	Link *string `json:"link,omitempty"`
 }
+
+/**builder开始**/
+type UrlBuilder struct {
+	text     string
+	textFlag bool
+	link     string
+	linkFlag bool
+}
+
+func NewUrlBuilder() *UrlBuilder {
+	builder := &UrlBuilder{}
+	return builder
+}
+
+func (builder *UrlBuilder) Text(text string) *UrlBuilder {
+	builder.text = text
+	builder.textFlag = true
+	return builder
+}
+func (builder *UrlBuilder) Link(link string) *UrlBuilder {
+	builder.link = link
+	builder.linkFlag = true
+	return builder
+}
+
+func (builder *UrlBuilder) Build() *Url {
+	req := &Url{}
+	if builder.textFlag {
+		req.Text = &builder.text
+
+	}
+	if builder.linkFlag {
+		req.Link = &builder.link
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 /**生成请求和响应结果类型，以及请求对象的Builder构造器 **/
 
@@ -641,6 +2190,248 @@ type UpdateAppRoleResp struct {
 }
 
 func (resp *UpdateAppRoleResp) Success() bool {
+	return resp.Code == 0
+}
+
+type BatchCreateAppRoleMemberReqBodyBuilder struct {
+	memberList     []*AppRoleMemberId
+	memberListFlag bool
+}
+
+// 生成body的New构造器
+func NewBatchCreateAppRoleMemberReqBodyBuilder() *BatchCreateAppRoleMemberReqBodyBuilder {
+	builder := &BatchCreateAppRoleMemberReqBodyBuilder{}
+	return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder *BatchCreateAppRoleMemberReqBodyBuilder) MemberList(memberList []*AppRoleMemberId) *BatchCreateAppRoleMemberReqBodyBuilder {
+	builder.memberList = memberList
+	builder.memberListFlag = true
+	return builder
+}
+
+/*1.3 生成body的build方法*/
+func (builder *BatchCreateAppRoleMemberReqBodyBuilder) Build() *BatchCreateAppRoleMemberReqBody {
+	req := &BatchCreateAppRoleMemberReqBody{}
+	if builder.memberListFlag {
+		req.MemberList = builder.memberList
+
+	}
+	return req
+}
+
+/**上传文件path开始**/
+type BatchCreateAppRoleMemberPathReqBodyBuilder struct {
+	memberList     []*AppRoleMemberId
+	memberListFlag bool
+}
+
+func NewBatchCreateAppRoleMemberPathReqBodyBuilder() *BatchCreateAppRoleMemberPathReqBodyBuilder {
+	builder := &BatchCreateAppRoleMemberPathReqBodyBuilder{}
+	return builder
+}
+func (builder *BatchCreateAppRoleMemberPathReqBodyBuilder) MemberList(memberList []*AppRoleMemberId) *BatchCreateAppRoleMemberPathReqBodyBuilder {
+	builder.memberList = memberList
+	builder.memberListFlag = true
+	return builder
+}
+
+func (builder *BatchCreateAppRoleMemberPathReqBodyBuilder) Build() (*BatchCreateAppRoleMemberReqBody, error) {
+	req := &BatchCreateAppRoleMemberReqBody{}
+	if builder.memberListFlag {
+		req.MemberList = builder.memberList
+	}
+	return req, nil
+}
+
+/**上传文件path结束**/
+
+/*1.4 生成请求的builder结构体*/
+type BatchCreateAppRoleMemberReqBuilder struct {
+	appToken     string
+	appTokenFlag bool
+	roleId       string
+	roleIdFlag   bool
+	body         *BatchCreateAppRoleMemberReqBody
+	bodyFlag     bool
+}
+
+// 生成请求的New构造器
+func NewBatchCreateAppRoleMemberReqBuilder() *BatchCreateAppRoleMemberReqBuilder {
+	builder := &BatchCreateAppRoleMemberReqBuilder{}
+	return builder
+}
+
+/*1.5 生成请求的builder属性方法*/
+func (builder *BatchCreateAppRoleMemberReqBuilder) AppToken(appToken string) *BatchCreateAppRoleMemberReqBuilder {
+	builder.appToken = appToken
+	builder.appTokenFlag = true
+	return builder
+}
+func (builder *BatchCreateAppRoleMemberReqBuilder) RoleId(roleId string) *BatchCreateAppRoleMemberReqBuilder {
+	builder.roleId = roleId
+	builder.roleIdFlag = true
+	return builder
+}
+func (builder *BatchCreateAppRoleMemberReqBuilder) Body(body *BatchCreateAppRoleMemberReqBody) *BatchCreateAppRoleMemberReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
+}
+
+/*1.5 生成请求的builder的build方法*/
+func (builder *BatchCreateAppRoleMemberReqBuilder) Build() *BatchCreateAppRoleMemberReq {
+	req := &BatchCreateAppRoleMemberReq{}
+	if builder.appTokenFlag {
+		req.AppToken = builder.appToken
+	}
+	if builder.roleIdFlag {
+		req.RoleId = builder.roleId
+	}
+	if builder.bodyFlag {
+		req.Body = builder.body
+	}
+	return req
+}
+
+type BatchCreateAppRoleMemberReqBody struct {
+	MemberList []*AppRoleMemberId `json:"member_list,omitempty"`
+}
+
+type BatchCreateAppRoleMemberReq struct {
+	AppToken string                           `path:"app_token"`
+	RoleId   string                           `path:"role_id"`
+	Body     *BatchCreateAppRoleMemberReqBody `body:""`
+}
+
+type BatchCreateAppRoleMemberResp struct {
+	*core.RawResponse `json:"-"`
+	core.CodeError
+}
+
+func (resp *BatchCreateAppRoleMemberResp) Success() bool {
+	return resp.Code == 0
+}
+
+type BatchDeleteAppRoleMemberReqBodyBuilder struct {
+	memberList     []*AppRoleMemberId
+	memberListFlag bool
+}
+
+// 生成body的New构造器
+func NewBatchDeleteAppRoleMemberReqBodyBuilder() *BatchDeleteAppRoleMemberReqBodyBuilder {
+	builder := &BatchDeleteAppRoleMemberReqBodyBuilder{}
+	return builder
+}
+
+/*1.2 生成body的builder属性方法*/
+func (builder *BatchDeleteAppRoleMemberReqBodyBuilder) MemberList(memberList []*AppRoleMemberId) *BatchDeleteAppRoleMemberReqBodyBuilder {
+	builder.memberList = memberList
+	builder.memberListFlag = true
+	return builder
+}
+
+/*1.3 生成body的build方法*/
+func (builder *BatchDeleteAppRoleMemberReqBodyBuilder) Build() *BatchDeleteAppRoleMemberReqBody {
+	req := &BatchDeleteAppRoleMemberReqBody{}
+	if builder.memberListFlag {
+		req.MemberList = builder.memberList
+
+	}
+	return req
+}
+
+/**上传文件path开始**/
+type BatchDeleteAppRoleMemberPathReqBodyBuilder struct {
+	memberList     []*AppRoleMemberId
+	memberListFlag bool
+}
+
+func NewBatchDeleteAppRoleMemberPathReqBodyBuilder() *BatchDeleteAppRoleMemberPathReqBodyBuilder {
+	builder := &BatchDeleteAppRoleMemberPathReqBodyBuilder{}
+	return builder
+}
+func (builder *BatchDeleteAppRoleMemberPathReqBodyBuilder) MemberList(memberList []*AppRoleMemberId) *BatchDeleteAppRoleMemberPathReqBodyBuilder {
+	builder.memberList = memberList
+	builder.memberListFlag = true
+	return builder
+}
+
+func (builder *BatchDeleteAppRoleMemberPathReqBodyBuilder) Build() (*BatchDeleteAppRoleMemberReqBody, error) {
+	req := &BatchDeleteAppRoleMemberReqBody{}
+	if builder.memberListFlag {
+		req.MemberList = builder.memberList
+	}
+	return req, nil
+}
+
+/**上传文件path结束**/
+
+/*1.4 生成请求的builder结构体*/
+type BatchDeleteAppRoleMemberReqBuilder struct {
+	appToken     string
+	appTokenFlag bool
+	roleId       string
+	roleIdFlag   bool
+	body         *BatchDeleteAppRoleMemberReqBody
+	bodyFlag     bool
+}
+
+// 生成请求的New构造器
+func NewBatchDeleteAppRoleMemberReqBuilder() *BatchDeleteAppRoleMemberReqBuilder {
+	builder := &BatchDeleteAppRoleMemberReqBuilder{}
+	return builder
+}
+
+/*1.5 生成请求的builder属性方法*/
+func (builder *BatchDeleteAppRoleMemberReqBuilder) AppToken(appToken string) *BatchDeleteAppRoleMemberReqBuilder {
+	builder.appToken = appToken
+	builder.appTokenFlag = true
+	return builder
+}
+func (builder *BatchDeleteAppRoleMemberReqBuilder) RoleId(roleId string) *BatchDeleteAppRoleMemberReqBuilder {
+	builder.roleId = roleId
+	builder.roleIdFlag = true
+	return builder
+}
+func (builder *BatchDeleteAppRoleMemberReqBuilder) Body(body *BatchDeleteAppRoleMemberReqBody) *BatchDeleteAppRoleMemberReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
+}
+
+/*1.5 生成请求的builder的build方法*/
+func (builder *BatchDeleteAppRoleMemberReqBuilder) Build() *BatchDeleteAppRoleMemberReq {
+	req := &BatchDeleteAppRoleMemberReq{}
+	if builder.appTokenFlag {
+		req.AppToken = builder.appToken
+	}
+	if builder.roleIdFlag {
+		req.RoleId = builder.roleId
+	}
+	if builder.bodyFlag {
+		req.Body = builder.body
+	}
+	return req
+}
+
+type BatchDeleteAppRoleMemberReqBody struct {
+	MemberList []*AppRoleMemberId `json:"member_list,omitempty"`
+}
+
+type BatchDeleteAppRoleMemberReq struct {
+	AppToken string                           `path:"app_token"`
+	RoleId   string                           `path:"role_id"`
+	Body     *BatchDeleteAppRoleMemberReqBody `body:""`
+}
+
+type BatchDeleteAppRoleMemberResp struct {
+	*core.RawResponse `json:"-"`
+	core.CodeError
+}
+
+func (resp *BatchDeleteAppRoleMemberResp) Success() bool {
 	return resp.Code == 0
 }
 

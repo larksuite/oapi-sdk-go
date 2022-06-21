@@ -30,11 +30,89 @@ type Collaborator struct {
 	Id *string `json:"id,omitempty"`
 }
 
+/**builder开始**/
+type CollaboratorBuilder struct {
+	id     string
+	idFlag bool
+}
+
+func NewCollaboratorBuilder() *CollaboratorBuilder {
+	builder := &CollaboratorBuilder{}
+	return builder
+}
+
+func (builder *CollaboratorBuilder) Id(id string) *CollaboratorBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+func (builder *CollaboratorBuilder) Build() *Collaborator {
+	req := &Collaborator{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Comment struct {
 	Content  *string `json:"content,omitempty"`
 	ParentId *int64  `json:"parent_id,omitempty,string"`
 	Id       *int64  `json:"id,omitempty,string"`
 }
+
+/**builder开始**/
+type CommentBuilder struct {
+	content      string
+	contentFlag  bool
+	parentId     int64
+	parentIdFlag bool
+	id           int64
+	idFlag       bool
+}
+
+func NewCommentBuilder() *CommentBuilder {
+	builder := &CommentBuilder{}
+	return builder
+}
+
+func (builder *CommentBuilder) Content(content string) *CommentBuilder {
+	builder.content = content
+	builder.contentFlag = true
+	return builder
+}
+func (builder *CommentBuilder) ParentId(parentId int64) *CommentBuilder {
+	builder.parentId = parentId
+	builder.parentIdFlag = true
+	return builder
+}
+func (builder *CommentBuilder) Id(id int64) *CommentBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+func (builder *CommentBuilder) Build() *Comment {
+	req := &Comment{}
+	if builder.contentFlag {
+		req.Content = &builder.content
+
+	}
+	if builder.parentIdFlag {
+		req.ParentId = &builder.parentId
+
+	}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type Due struct {
 	Time     *int64  `json:"time,omitempty,string"`
@@ -42,24 +120,218 @@ type Due struct {
 	IsAllDay *bool   `json:"is_all_day,omitempty"`
 }
 
+/**builder开始**/
+type DueBuilder struct {
+	time         int64
+	timeFlag     bool
+	timezone     string
+	timezoneFlag bool
+	isAllDay     bool
+	isAllDayFlag bool
+}
+
+func NewDueBuilder() *DueBuilder {
+	builder := &DueBuilder{}
+	return builder
+}
+
+func (builder *DueBuilder) Time(time int64) *DueBuilder {
+	builder.time = time
+	builder.timeFlag = true
+	return builder
+}
+func (builder *DueBuilder) Timezone(timezone string) *DueBuilder {
+	builder.timezone = timezone
+	builder.timezoneFlag = true
+	return builder
+}
+func (builder *DueBuilder) IsAllDay(isAllDay bool) *DueBuilder {
+	builder.isAllDay = isAllDay
+	builder.isAllDayFlag = true
+	return builder
+}
+
+func (builder *DueBuilder) Build() *Due {
+	req := &Due{}
+	if builder.timeFlag {
+		req.Time = &builder.time
+
+	}
+	if builder.timezoneFlag {
+		req.Timezone = &builder.timezone
+
+	}
+	if builder.isAllDayFlag {
+		req.IsAllDay = &builder.isAllDay
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Follower struct {
 	Id *string `json:"id,omitempty"`
 }
+
+/**builder开始**/
+type FollowerBuilder struct {
+	id     string
+	idFlag bool
+}
+
+func NewFollowerBuilder() *FollowerBuilder {
+	builder := &FollowerBuilder{}
+	return builder
+}
+
+func (builder *FollowerBuilder) Id(id string) *FollowerBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+func (builder *FollowerBuilder) Build() *Follower {
+	req := &Follower{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type Href struct {
 	Url   *string `json:"url,omitempty"`
 	Title *string `json:"title,omitempty"`
 }
 
+/**builder开始**/
+type HrefBuilder struct {
+	url       string
+	urlFlag   bool
+	title     string
+	titleFlag bool
+}
+
+func NewHrefBuilder() *HrefBuilder {
+	builder := &HrefBuilder{}
+	return builder
+}
+
+func (builder *HrefBuilder) Url(url string) *HrefBuilder {
+	builder.url = url
+	builder.urlFlag = true
+	return builder
+}
+func (builder *HrefBuilder) Title(title string) *HrefBuilder {
+	builder.title = title
+	builder.titleFlag = true
+	return builder
+}
+
+func (builder *HrefBuilder) Build() *Href {
+	req := &Href{}
+	if builder.urlFlag {
+		req.Url = &builder.url
+
+	}
+	if builder.titleFlag {
+		req.Title = &builder.title
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Origin struct {
 	PlatformI18nName *string `json:"platform_i18n_name,omitempty"`
 	Href             *Href   `json:"href,omitempty"`
 }
 
+/**builder开始**/
+type OriginBuilder struct {
+	platformI18nName     string
+	platformI18nNameFlag bool
+	href                 *Href
+	hrefFlag             bool
+}
+
+func NewOriginBuilder() *OriginBuilder {
+	builder := &OriginBuilder{}
+	return builder
+}
+
+func (builder *OriginBuilder) PlatformI18nName(platformI18nName string) *OriginBuilder {
+	builder.platformI18nName = platformI18nName
+	builder.platformI18nNameFlag = true
+	return builder
+}
+func (builder *OriginBuilder) Href(href *Href) *OriginBuilder {
+	builder.href = href
+	builder.hrefFlag = true
+	return builder
+}
+
+func (builder *OriginBuilder) Build() *Origin {
+	req := &Origin{}
+	if builder.platformI18nNameFlag {
+		req.PlatformI18nName = &builder.platformI18nName
+
+	}
+	if builder.hrefFlag {
+		req.Href = builder.href
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Reminder struct {
 	Id                 *int64 `json:"id,omitempty,string"`
 	RelativeFireMinute *int   `json:"relative_fire_minute,omitempty"`
 }
+
+/**builder开始**/
+type ReminderBuilder struct {
+	id                     int64
+	idFlag                 bool
+	relativeFireMinute     int
+	relativeFireMinuteFlag bool
+}
+
+func NewReminderBuilder() *ReminderBuilder {
+	builder := &ReminderBuilder{}
+	return builder
+}
+
+func (builder *ReminderBuilder) Id(id int64) *ReminderBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *ReminderBuilder) RelativeFireMinute(relativeFireMinute int) *ReminderBuilder {
+	builder.relativeFireMinute = relativeFireMinute
+	builder.relativeFireMinuteFlag = true
+	return builder
+}
+
+func (builder *ReminderBuilder) Build() *Reminder {
+	req := &Reminder{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.relativeFireMinuteFlag {
+		req.RelativeFireMinute = &builder.relativeFireMinute
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type Task struct {
 	Id            *string         `json:"id,omitempty"`
@@ -79,15 +351,270 @@ type Task struct {
 	Collaborators []*Collaborator `json:"collaborators,omitempty"`
 }
 
+/**builder开始**/
+type TaskBuilder struct {
+	id                string
+	idFlag            bool
+	summary           string
+	summaryFlag       bool
+	description       string
+	descriptionFlag   bool
+	completeTime      int64
+	completeTimeFlag  bool
+	creatorId         string
+	creatorIdFlag     bool
+	extra             string
+	extraFlag         bool
+	createTime        int64
+	createTimeFlag    bool
+	updateTime        int64
+	updateTimeFlag    bool
+	due               *Due
+	dueFlag           bool
+	origin            *Origin
+	originFlag        bool
+	canEdit           bool
+	canEditFlag       bool
+	custom            string
+	customFlag        bool
+	source            int
+	sourceFlag        bool
+	followers         []*Follower
+	followersFlag     bool
+	collaborators     []*Collaborator
+	collaboratorsFlag bool
+}
+
+func NewTaskBuilder() *TaskBuilder {
+	builder := &TaskBuilder{}
+	return builder
+}
+
+func (builder *TaskBuilder) Id(id string) *TaskBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *TaskBuilder) Summary(summary string) *TaskBuilder {
+	builder.summary = summary
+	builder.summaryFlag = true
+	return builder
+}
+func (builder *TaskBuilder) Description(description string) *TaskBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+func (builder *TaskBuilder) CompleteTime(completeTime int64) *TaskBuilder {
+	builder.completeTime = completeTime
+	builder.completeTimeFlag = true
+	return builder
+}
+func (builder *TaskBuilder) CreatorId(creatorId string) *TaskBuilder {
+	builder.creatorId = creatorId
+	builder.creatorIdFlag = true
+	return builder
+}
+func (builder *TaskBuilder) Extra(extra string) *TaskBuilder {
+	builder.extra = extra
+	builder.extraFlag = true
+	return builder
+}
+func (builder *TaskBuilder) CreateTime(createTime int64) *TaskBuilder {
+	builder.createTime = createTime
+	builder.createTimeFlag = true
+	return builder
+}
+func (builder *TaskBuilder) UpdateTime(updateTime int64) *TaskBuilder {
+	builder.updateTime = updateTime
+	builder.updateTimeFlag = true
+	return builder
+}
+func (builder *TaskBuilder) Due(due *Due) *TaskBuilder {
+	builder.due = due
+	builder.dueFlag = true
+	return builder
+}
+func (builder *TaskBuilder) Origin(origin *Origin) *TaskBuilder {
+	builder.origin = origin
+	builder.originFlag = true
+	return builder
+}
+func (builder *TaskBuilder) CanEdit(canEdit bool) *TaskBuilder {
+	builder.canEdit = canEdit
+	builder.canEditFlag = true
+	return builder
+}
+func (builder *TaskBuilder) Custom(custom string) *TaskBuilder {
+	builder.custom = custom
+	builder.customFlag = true
+	return builder
+}
+func (builder *TaskBuilder) Source(source int) *TaskBuilder {
+	builder.source = source
+	builder.sourceFlag = true
+	return builder
+}
+func (builder *TaskBuilder) Followers(followers []*Follower) *TaskBuilder {
+	builder.followers = followers
+	builder.followersFlag = true
+	return builder
+}
+func (builder *TaskBuilder) Collaborators(collaborators []*Collaborator) *TaskBuilder {
+	builder.collaborators = collaborators
+	builder.collaboratorsFlag = true
+	return builder
+}
+
+func (builder *TaskBuilder) Build() *Task {
+	req := &Task{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.summaryFlag {
+		req.Summary = &builder.summary
+
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	if builder.completeTimeFlag {
+		req.CompleteTime = &builder.completeTime
+
+	}
+	if builder.creatorIdFlag {
+		req.CreatorId = &builder.creatorId
+
+	}
+	if builder.extraFlag {
+		req.Extra = &builder.extra
+
+	}
+	if builder.createTimeFlag {
+		req.CreateTime = &builder.createTime
+
+	}
+	if builder.updateTimeFlag {
+		req.UpdateTime = &builder.updateTime
+
+	}
+	if builder.dueFlag {
+		req.Due = builder.due
+	}
+	if builder.originFlag {
+		req.Origin = builder.origin
+	}
+	if builder.canEditFlag {
+		req.CanEdit = &builder.canEdit
+
+	}
+	if builder.customFlag {
+		req.Custom = &builder.custom
+
+	}
+	if builder.sourceFlag {
+		req.Source = &builder.source
+
+	}
+	if builder.followersFlag {
+		req.Followers = builder.followers
+	}
+	if builder.collaboratorsFlag {
+		req.Collaborators = builder.collaborators
+	}
+	return req
+}
+
+/**builder结束**/
+
 type UserId struct {
 	UserId  *string `json:"user_id,omitempty"`
 	OpenId  *string `json:"open_id,omitempty"`
 	UnionId *string `json:"union_id,omitempty"`
 }
 
+/**builder开始**/
+type UserIdBuilder struct {
+	userId      string
+	userIdFlag  bool
+	openId      string
+	openIdFlag  bool
+	unionId     string
+	unionIdFlag bool
+}
+
+func NewUserIdBuilder() *UserIdBuilder {
+	builder := &UserIdBuilder{}
+	return builder
+}
+
+func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
+	builder.openId = openId
+	builder.openIdFlag = true
+	return builder
+}
+func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
+	builder.unionId = unionId
+	builder.unionIdFlag = true
+	return builder
+}
+
+func (builder *UserIdBuilder) Build() *UserId {
+	req := &UserId{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.openIdFlag {
+		req.OpenId = &builder.openId
+
+	}
+	if builder.unionIdFlag {
+		req.UnionId = &builder.unionId
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type UserIdList struct {
 	UserIdList []*UserId `json:"user_id_list,omitempty"`
 }
+
+/**builder开始**/
+type UserIdListBuilder struct {
+	userIdList     []*UserId
+	userIdListFlag bool
+}
+
+func NewUserIdListBuilder() *UserIdListBuilder {
+	builder := &UserIdListBuilder{}
+	return builder
+}
+
+func (builder *UserIdListBuilder) UserIdList(userIdList []*UserId) *UserIdListBuilder {
+	builder.userIdList = userIdList
+	builder.userIdListFlag = true
+	return builder
+}
+
+func (builder *UserIdListBuilder) Build() *UserIdList {
+	req := &UserIdList{}
+	if builder.userIdListFlag {
+		req.UserIdList = builder.userIdList
+	}
+	return req
+}
+
+/**builder结束**/
 
 /**生成请求和响应结果类型，以及请求对象的Builder构造器 **/
 

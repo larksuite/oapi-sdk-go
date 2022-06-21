@@ -8,11 +8,12 @@ import (
 
 	"github.com/larksuite/oapi-sdk-go"
 	"github.com/larksuite/oapi-sdk-go/core"
+	"github.com/larksuite/oapi-sdk-go/service/gray_test_open_sg/v1"
 	"github.com/larksuite/oapi-sdk-go/service/im/v1"
 )
 
 func uploadImage(client *client.Client) {
-	pdf, err := os.Open("/Users/bytedance/Downloads/guava-ratelimiterl.jpg")
+	pdf, err := os.Open("/Users/bytedance/Downloads/a.jpg")
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -63,7 +64,10 @@ func uploadFile(client *client.Client) {
 }
 
 func uploadImage2(client *client.Client) {
-	body, err := im.NewCreateImagePathReqBodyBuilder().ImagePath("/Users/bytedance/Downloads/a.jpg").ImageType(im.ImageTypeMessage).Build()
+	body, err := im.NewCreateImagePathReqBodyBuilder().
+		ImagePath("/Users/bytedance/Downloads/a.jpg").
+		ImageType(im.ImageTypeMessage).
+		Build()
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -152,7 +156,7 @@ func sendTextMsg(client *client.Client) {
 		Build())
 
 	if err != nil {
-		fmt.Println(core.Prettify(err))
+		fmt.Println((err))
 		return
 	}
 	fmt.Println(core.Prettify(resp))
@@ -435,16 +439,51 @@ func sendPostMsgUseBuilder(client *client.Client) {
 	}
 
 }
+
+func testCreate(client *client.Client) {
+	resp, err := client.GrayTestOpenSg.Moto.Create(context.Background(), gray_test_open_sg.
+		NewCreateMotoReqBuilder().
+		Level(gray_test_open_sg.
+			NewLevelBuilder().
+			Body("ss").
+			Level("level").
+			Type("ss").
+			Build()).
+		Build())
+	if err != nil {
+		switch er := err.(type) {
+		case *core.IllegalParamError:
+			fmt.Println(er.Error()) // 处理错误
+		case *core.ClientTimeoutError:
+			fmt.Println(er.Error()) // 处理错误
+		case *core.ServerTimeoutError:
+			fmt.Println(er.Error()) // 处理错误
+		case *core.DialFailedError:
+			fmt.Println(er.Error()) // 处理错误
+		default:
+			//其他处理
+			fmt.Println(err)
+		}
+		return
+	}
+
+	if resp.Success() {
+		fmt.Println(core.Prettify(resp))
+	} else {
+		fmt.Println(resp.RequestId(), resp.Msg, resp.Code)
+	}
+}
+
 func main() {
 	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
 	var feishu_client = client.NewClient(appID, appSecret, client.WithLogLevel(core.LogLevelInfo))
-	//downLoadImageV2(client)
+	//downLoadImageV2(feishu_client)
 	//uploadImage(feishu_client)
 	//uploadImage(client)
 	//downLoadImage(client)
-	//uploadImage2(client)
-	//sendTextMsg(client)
-	sendImageMsg(feishu_client)
+	//uploadImage2(feishu_client)
+	//sendTextMsg(feishu_client)
+	//sendImageMsg(feishu_client)
 	//uploadFile(feishu_client)
 	//sendFileMsg(feishu_client)
 	//sendAudioMsg(client)
@@ -453,4 +492,5 @@ func main() {
 	//sendShardUserMsg(client)
 	//sendPostMsg(feishu_client)
 	//sendPostMsgUseBuilder(feishu_client)
+	testCreate(feishu_client)
 }

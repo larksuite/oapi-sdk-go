@@ -15,10 +15,99 @@ type FileConfig struct {
 	EngineType *string `json:"engine_type,omitempty"`
 }
 
+/**builder开始**/
+type FileConfigBuilder struct {
+	fileId         string
+	fileIdFlag     bool
+	format         string
+	formatFlag     bool
+	engineType     string
+	engineTypeFlag bool
+}
+
+func NewFileConfigBuilder() *FileConfigBuilder {
+	builder := &FileConfigBuilder{}
+	return builder
+}
+
+func (builder *FileConfigBuilder) FileId(fileId string) *FileConfigBuilder {
+	builder.fileId = fileId
+	builder.fileIdFlag = true
+	return builder
+}
+func (builder *FileConfigBuilder) Format(format string) *FileConfigBuilder {
+	builder.format = format
+	builder.formatFlag = true
+	return builder
+}
+func (builder *FileConfigBuilder) EngineType(engineType string) *FileConfigBuilder {
+	builder.engineType = engineType
+	builder.engineTypeFlag = true
+	return builder
+}
+
+func (builder *FileConfigBuilder) Build() *FileConfig {
+	req := &FileConfig{}
+	if builder.fileIdFlag {
+		req.FileId = &builder.fileId
+
+	}
+	if builder.formatFlag {
+		req.Format = &builder.format
+
+	}
+	if builder.engineTypeFlag {
+		req.EngineType = &builder.engineType
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Speech struct {
 	Speech    *string `json:"speech,omitempty"`
 	SpeechKey *string `json:"speech_key,omitempty"`
 }
+
+/**builder开始**/
+type SpeechBuilder struct {
+	speech        string
+	speechFlag    bool
+	speechKey     string
+	speechKeyFlag bool
+}
+
+func NewSpeechBuilder() *SpeechBuilder {
+	builder := &SpeechBuilder{}
+	return builder
+}
+
+func (builder *SpeechBuilder) Speech(speech string) *SpeechBuilder {
+	builder.speech = speech
+	builder.speechFlag = true
+	return builder
+}
+func (builder *SpeechBuilder) SpeechKey(speechKey string) *SpeechBuilder {
+	builder.speechKey = speechKey
+	builder.speechKeyFlag = true
+	return builder
+}
+
+func (builder *SpeechBuilder) Build() *Speech {
+	req := &Speech{}
+	if builder.speechFlag {
+		req.Speech = &builder.speech
+
+	}
+	if builder.speechKeyFlag {
+		req.SpeechKey = &builder.speechKey
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type StreamConfig struct {
 	StreamId   *string `json:"stream_id,omitempty"`
@@ -27,6 +116,78 @@ type StreamConfig struct {
 	Format     *string `json:"format,omitempty"`
 	EngineType *string `json:"engine_type,omitempty"`
 }
+
+/**builder开始**/
+type StreamConfigBuilder struct {
+	streamId       string
+	streamIdFlag   bool
+	sequenceId     int
+	sequenceIdFlag bool
+	action         int
+	actionFlag     bool
+	format         string
+	formatFlag     bool
+	engineType     string
+	engineTypeFlag bool
+}
+
+func NewStreamConfigBuilder() *StreamConfigBuilder {
+	builder := &StreamConfigBuilder{}
+	return builder
+}
+
+func (builder *StreamConfigBuilder) StreamId(streamId string) *StreamConfigBuilder {
+	builder.streamId = streamId
+	builder.streamIdFlag = true
+	return builder
+}
+func (builder *StreamConfigBuilder) SequenceId(sequenceId int) *StreamConfigBuilder {
+	builder.sequenceId = sequenceId
+	builder.sequenceIdFlag = true
+	return builder
+}
+func (builder *StreamConfigBuilder) Action(action int) *StreamConfigBuilder {
+	builder.action = action
+	builder.actionFlag = true
+	return builder
+}
+func (builder *StreamConfigBuilder) Format(format string) *StreamConfigBuilder {
+	builder.format = format
+	builder.formatFlag = true
+	return builder
+}
+func (builder *StreamConfigBuilder) EngineType(engineType string) *StreamConfigBuilder {
+	builder.engineType = engineType
+	builder.engineTypeFlag = true
+	return builder
+}
+
+func (builder *StreamConfigBuilder) Build() *StreamConfig {
+	req := &StreamConfig{}
+	if builder.streamIdFlag {
+		req.StreamId = &builder.streamId
+
+	}
+	if builder.sequenceIdFlag {
+		req.SequenceId = &builder.sequenceId
+
+	}
+	if builder.actionFlag {
+		req.Action = &builder.action
+
+	}
+	if builder.formatFlag {
+		req.Format = &builder.format
+
+	}
+	if builder.engineTypeFlag {
+		req.EngineType = &builder.engineType
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 /**生成请求和响应结果类型，以及请求对象的Builder构造器 **/
 

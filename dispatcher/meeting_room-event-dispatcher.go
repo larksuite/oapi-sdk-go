@@ -7,18 +7,34 @@ import (
 )
 
 func (dispatcher *EventReqDispatcher) OnMeetingRoomCreatedV1(handler func(ctx context.Context, event *meeting_room.MeetingRoomCreatedEvent) error) *EventReqDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["meeting_room.meeting_room.created_v1"]
+	if existed {
+		panic("event: multiple handler registrations for " + "meeting_room.meeting_room.created_v1")
+	}
 	dispatcher.eventType2EventHandler["meeting_room.meeting_room.created_v1"] = meeting_room.NewMeetingRoomCreatedEventHandler(handler)
 	return dispatcher
 }
 func (dispatcher *EventReqDispatcher) OnMeetingRoomDeletedV1(handler func(ctx context.Context, event *meeting_room.MeetingRoomDeletedEvent) error) *EventReqDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["meeting_room.meeting_room.deleted_v1"]
+	if existed {
+		panic("event: multiple handler registrations for " + "meeting_room.meeting_room.deleted_v1")
+	}
 	dispatcher.eventType2EventHandler["meeting_room.meeting_room.deleted_v1"] = meeting_room.NewMeetingRoomDeletedEventHandler(handler)
 	return dispatcher
 }
 func (dispatcher *EventReqDispatcher) OnMeetingRoomStatusChangedV1(handler func(ctx context.Context, event *meeting_room.MeetingRoomStatusChangedEvent) error) *EventReqDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["meeting_room.meeting_room.status_changed_v1"]
+	if existed {
+		panic("event: multiple handler registrations for " + "meeting_room.meeting_room.status_changed_v1")
+	}
 	dispatcher.eventType2EventHandler["meeting_room.meeting_room.status_changed_v1"] = meeting_room.NewMeetingRoomStatusChangedEventHandler(handler)
 	return dispatcher
 }
 func (dispatcher *EventReqDispatcher) OnMeetingRoomUpdatedV1(handler func(ctx context.Context, event *meeting_room.MeetingRoomUpdatedEvent) error) *EventReqDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["meeting_room.meeting_room.updated_v1"]
+	if existed {
+		panic("event: multiple handler registrations for " + "meeting_room.meeting_room.updated_v1")
+	}
 	dispatcher.eventType2EventHandler["meeting_room.meeting_room.updated_v1"] = meeting_room.NewMeetingRoomUpdatedEventHandler(handler)
 	return dispatcher
 }

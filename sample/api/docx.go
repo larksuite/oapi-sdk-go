@@ -89,6 +89,6 @@ func main() {
 
 	feishuClient := client.NewClient(appID, appSecret)
 
-	listBlocks(feishuClient)
-	//listBlocksIter(feishuClient)
+	//listBlocks(feishuClient)
+	listBlocksIter(feishuClient)
 }

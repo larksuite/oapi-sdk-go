@@ -7,10 +7,18 @@ import (
 )
 
 func (dispatcher *EventReqDispatcher) OnUserFlowCreatedV1(handler func(ctx context.Context, event *attendance.UserFlowCreatedEvent) error) *EventReqDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["attendance.user_flow.created_v1"]
+	if existed {
+		panic("event: multiple handler registrations for " + "attendance.user_flow.created_v1")
+	}
 	dispatcher.eventType2EventHandler["attendance.user_flow.created_v1"] = attendance.NewUserFlowCreatedEventHandler(handler)
 	return dispatcher
 }
 func (dispatcher *EventReqDispatcher) OnUserTaskUpdatedV1(handler func(ctx context.Context, event *attendance.UserTaskUpdatedEvent) error) *EventReqDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["attendance.user_task.updated_v1"]
+	if existed {
+		panic("event: multiple handler registrations for " + "attendance.user_task.updated_v1")
+	}
 	dispatcher.eventType2EventHandler["attendance.user_task.updated_v1"] = attendance.NewUserTaskUpdatedEventHandler(handler)
 	return dispatcher
 }

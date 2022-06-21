@@ -64,6 +64,67 @@ type AvatarInfo struct {
 	AvatarOrigin *string `json:"avatar_origin,omitempty"`
 }
 
+/**builder开始**/
+type AvatarInfoBuilder struct {
+	avatar72         string
+	avatar72Flag     bool
+	avatar240        string
+	avatar240Flag    bool
+	avatar640        string
+	avatar640Flag    bool
+	avatarOrigin     string
+	avatarOriginFlag bool
+}
+
+func NewAvatarInfoBuilder() *AvatarInfoBuilder {
+	builder := &AvatarInfoBuilder{}
+	return builder
+}
+
+func (builder *AvatarInfoBuilder) Avatar72(avatar72 string) *AvatarInfoBuilder {
+	builder.avatar72 = avatar72
+	builder.avatar72Flag = true
+	return builder
+}
+func (builder *AvatarInfoBuilder) Avatar240(avatar240 string) *AvatarInfoBuilder {
+	builder.avatar240 = avatar240
+	builder.avatar240Flag = true
+	return builder
+}
+func (builder *AvatarInfoBuilder) Avatar640(avatar640 string) *AvatarInfoBuilder {
+	builder.avatar640 = avatar640
+	builder.avatar640Flag = true
+	return builder
+}
+func (builder *AvatarInfoBuilder) AvatarOrigin(avatarOrigin string) *AvatarInfoBuilder {
+	builder.avatarOrigin = avatarOrigin
+	builder.avatarOriginFlag = true
+	return builder
+}
+
+func (builder *AvatarInfoBuilder) Build() *AvatarInfo {
+	req := &AvatarInfo{}
+	if builder.avatar72Flag {
+		req.Avatar72 = &builder.avatar72
+
+	}
+	if builder.avatar240Flag {
+		req.Avatar240 = &builder.avatar240
+
+	}
+	if builder.avatar640Flag {
+		req.Avatar640 = &builder.avatar640
+
+	}
+	if builder.avatarOriginFlag {
+		req.AvatarOrigin = &builder.avatarOrigin
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type CustomAttr struct {
 	Id       *string            `json:"id,omitempty"`
 	Type     *string            `json:"type,omitempty"`
@@ -71,15 +132,151 @@ type CustomAttr struct {
 	I18nName []*I18nContent     `json:"i18n_name,omitempty"`
 }
 
+/**builder开始**/
+type CustomAttrBuilder struct {
+	id           string
+	idFlag       bool
+	type_        string
+	typeFlag     bool
+	options      *CustomAttrOptions
+	optionsFlag  bool
+	i18nName     []*I18nContent
+	i18nNameFlag bool
+}
+
+func NewCustomAttrBuilder() *CustomAttrBuilder {
+	builder := &CustomAttrBuilder{}
+	return builder
+}
+
+func (builder *CustomAttrBuilder) Id(id string) *CustomAttrBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *CustomAttrBuilder) Type(type_ string) *CustomAttrBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+func (builder *CustomAttrBuilder) Options(options *CustomAttrOptions) *CustomAttrBuilder {
+	builder.options = options
+	builder.optionsFlag = true
+	return builder
+}
+func (builder *CustomAttrBuilder) I18nName(i18nName []*I18nContent) *CustomAttrBuilder {
+	builder.i18nName = i18nName
+	builder.i18nNameFlag = true
+	return builder
+}
+
+func (builder *CustomAttrBuilder) Build() *CustomAttr {
+	req := &CustomAttr{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.optionsFlag {
+		req.Options = builder.options
+	}
+	if builder.i18nNameFlag {
+		req.I18nName = builder.i18nName
+	}
+	return req
+}
+
+/**builder结束**/
+
 type CustomAttrEvent struct {
 	ContactFieldKey []string `json:"contact_field_key,omitempty"`
 	AllowOpenQuery  *bool    `json:"allow_open_query,omitempty"`
 }
 
+/**builder开始**/
+type CustomAttrEventBuilder struct {
+	contactFieldKey     []string
+	contactFieldKeyFlag bool
+	allowOpenQuery      bool
+	allowOpenQueryFlag  bool
+}
+
+func NewCustomAttrEventBuilder() *CustomAttrEventBuilder {
+	builder := &CustomAttrEventBuilder{}
+	return builder
+}
+
+func (builder *CustomAttrEventBuilder) ContactFieldKey(contactFieldKey []string) *CustomAttrEventBuilder {
+	builder.contactFieldKey = contactFieldKey
+	builder.contactFieldKeyFlag = true
+	return builder
+}
+func (builder *CustomAttrEventBuilder) AllowOpenQuery(allowOpenQuery bool) *CustomAttrEventBuilder {
+	builder.allowOpenQuery = allowOpenQuery
+	builder.allowOpenQueryFlag = true
+	return builder
+}
+
+func (builder *CustomAttrEventBuilder) Build() *CustomAttrEvent {
+	req := &CustomAttrEvent{}
+	if builder.contactFieldKeyFlag {
+		req.ContactFieldKey = builder.contactFieldKey
+	}
+	if builder.allowOpenQueryFlag {
+		req.AllowOpenQuery = &builder.allowOpenQuery
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type CustomAttrGenericUser struct {
 	Id   *string `json:"id,omitempty"`
 	Type *int    `json:"type,omitempty"`
 }
+
+/**builder开始**/
+type CustomAttrGenericUserBuilder struct {
+	id       string
+	idFlag   bool
+	type_    int
+	typeFlag bool
+}
+
+func NewCustomAttrGenericUserBuilder() *CustomAttrGenericUserBuilder {
+	builder := &CustomAttrGenericUserBuilder{}
+	return builder
+}
+
+func (builder *CustomAttrGenericUserBuilder) Id(id string) *CustomAttrGenericUserBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *CustomAttrGenericUserBuilder) Type(type_ int) *CustomAttrGenericUserBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+
+func (builder *CustomAttrGenericUserBuilder) Build() *CustomAttrGenericUser {
+	req := &CustomAttrGenericUser{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type CustomAttrOption struct {
 	Id    *string `json:"id,omitempty"`
@@ -87,11 +284,110 @@ type CustomAttrOption struct {
 	Name  *string `json:"name,omitempty"`
 }
 
+/**builder开始**/
+type CustomAttrOptionBuilder struct {
+	id        string
+	idFlag    bool
+	value     string
+	valueFlag bool
+	name      string
+	nameFlag  bool
+}
+
+func NewCustomAttrOptionBuilder() *CustomAttrOptionBuilder {
+	builder := &CustomAttrOptionBuilder{}
+	return builder
+}
+
+func (builder *CustomAttrOptionBuilder) Id(id string) *CustomAttrOptionBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *CustomAttrOptionBuilder) Value(value string) *CustomAttrOptionBuilder {
+	builder.value = value
+	builder.valueFlag = true
+	return builder
+}
+func (builder *CustomAttrOptionBuilder) Name(name string) *CustomAttrOptionBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+func (builder *CustomAttrOptionBuilder) Build() *CustomAttrOption {
+	req := &CustomAttrOption{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.valueFlag {
+		req.Value = &builder.value
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type CustomAttrOptions struct {
 	DefaultOptionId *string             `json:"default_option_id,omitempty"`
 	OptionType      *string             `json:"option_type,omitempty"`
 	Options         []*CustomAttrOption `json:"options,omitempty"`
 }
+
+/**builder开始**/
+type CustomAttrOptionsBuilder struct {
+	defaultOptionId     string
+	defaultOptionIdFlag bool
+	optionType          string
+	optionTypeFlag      bool
+	options             []*CustomAttrOption
+	optionsFlag         bool
+}
+
+func NewCustomAttrOptionsBuilder() *CustomAttrOptionsBuilder {
+	builder := &CustomAttrOptionsBuilder{}
+	return builder
+}
+
+func (builder *CustomAttrOptionsBuilder) DefaultOptionId(defaultOptionId string) *CustomAttrOptionsBuilder {
+	builder.defaultOptionId = defaultOptionId
+	builder.defaultOptionIdFlag = true
+	return builder
+}
+func (builder *CustomAttrOptionsBuilder) OptionType(optionType string) *CustomAttrOptionsBuilder {
+	builder.optionType = optionType
+	builder.optionTypeFlag = true
+	return builder
+}
+func (builder *CustomAttrOptionsBuilder) Options(options []*CustomAttrOption) *CustomAttrOptionsBuilder {
+	builder.options = options
+	builder.optionsFlag = true
+	return builder
+}
+
+func (builder *CustomAttrOptionsBuilder) Build() *CustomAttrOptions {
+	req := &CustomAttrOptions{}
+	if builder.defaultOptionIdFlag {
+		req.DefaultOptionId = &builder.defaultOptionId
+
+	}
+	if builder.optionTypeFlag {
+		req.OptionType = &builder.optionType
+
+	}
+	if builder.optionsFlag {
+		req.Options = builder.options
+	}
+	return req
+}
+
+/**builder结束**/
 
 type Department struct {
 	Name               *string             `json:"name,omitempty"`
@@ -108,6 +404,152 @@ type Department struct {
 	CreateGroupChat    *bool               `json:"create_group_chat,omitempty"`
 }
 
+/**builder开始**/
+type DepartmentBuilder struct {
+	name                   string
+	nameFlag               bool
+	i18nName               *DepartmentI18nName
+	i18nNameFlag           bool
+	parentDepartmentId     string
+	parentDepartmentIdFlag bool
+	departmentId           string
+	departmentIdFlag       bool
+	openDepartmentId       string
+	openDepartmentIdFlag   bool
+	leaderUserId           string
+	leaderUserIdFlag       bool
+	chatId                 string
+	chatIdFlag             bool
+	order                  int64
+	orderFlag              bool
+	unitIds                []string
+	unitIdsFlag            bool
+	memberCount            int
+	memberCountFlag        bool
+	status                 *DepartmentStatus
+	statusFlag             bool
+	createGroupChat        bool
+	createGroupChatFlag    bool
+}
+
+func NewDepartmentBuilder() *DepartmentBuilder {
+	builder := &DepartmentBuilder{}
+	return builder
+}
+
+func (builder *DepartmentBuilder) Name(name string) *DepartmentBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *DepartmentBuilder) I18nName(i18nName *DepartmentI18nName) *DepartmentBuilder {
+	builder.i18nName = i18nName
+	builder.i18nNameFlag = true
+	return builder
+}
+func (builder *DepartmentBuilder) ParentDepartmentId(parentDepartmentId string) *DepartmentBuilder {
+	builder.parentDepartmentId = parentDepartmentId
+	builder.parentDepartmentIdFlag = true
+	return builder
+}
+func (builder *DepartmentBuilder) DepartmentId(departmentId string) *DepartmentBuilder {
+	builder.departmentId = departmentId
+	builder.departmentIdFlag = true
+	return builder
+}
+func (builder *DepartmentBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentBuilder {
+	builder.openDepartmentId = openDepartmentId
+	builder.openDepartmentIdFlag = true
+	return builder
+}
+func (builder *DepartmentBuilder) LeaderUserId(leaderUserId string) *DepartmentBuilder {
+	builder.leaderUserId = leaderUserId
+	builder.leaderUserIdFlag = true
+	return builder
+}
+func (builder *DepartmentBuilder) ChatId(chatId string) *DepartmentBuilder {
+	builder.chatId = chatId
+	builder.chatIdFlag = true
+	return builder
+}
+func (builder *DepartmentBuilder) Order(order int64) *DepartmentBuilder {
+	builder.order = order
+	builder.orderFlag = true
+	return builder
+}
+func (builder *DepartmentBuilder) UnitIds(unitIds []string) *DepartmentBuilder {
+	builder.unitIds = unitIds
+	builder.unitIdsFlag = true
+	return builder
+}
+func (builder *DepartmentBuilder) MemberCount(memberCount int) *DepartmentBuilder {
+	builder.memberCount = memberCount
+	builder.memberCountFlag = true
+	return builder
+}
+func (builder *DepartmentBuilder) Status(status *DepartmentStatus) *DepartmentBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+func (builder *DepartmentBuilder) CreateGroupChat(createGroupChat bool) *DepartmentBuilder {
+	builder.createGroupChat = createGroupChat
+	builder.createGroupChatFlag = true
+	return builder
+}
+
+func (builder *DepartmentBuilder) Build() *Department {
+	req := &Department{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.i18nNameFlag {
+		req.I18nName = builder.i18nName
+	}
+	if builder.parentDepartmentIdFlag {
+		req.ParentDepartmentId = &builder.parentDepartmentId
+
+	}
+	if builder.departmentIdFlag {
+		req.DepartmentId = &builder.departmentId
+
+	}
+	if builder.openDepartmentIdFlag {
+		req.OpenDepartmentId = &builder.openDepartmentId
+
+	}
+	if builder.leaderUserIdFlag {
+		req.LeaderUserId = &builder.leaderUserId
+
+	}
+	if builder.chatIdFlag {
+		req.ChatId = &builder.chatId
+
+	}
+	if builder.orderFlag {
+		req.Order = &builder.order
+
+	}
+	if builder.unitIdsFlag {
+		req.UnitIds = builder.unitIds
+	}
+	if builder.memberCountFlag {
+		req.MemberCount = &builder.memberCount
+
+	}
+	if builder.statusFlag {
+		req.Status = builder.status
+	}
+	if builder.createGroupChatFlag {
+		req.CreateGroupChat = &builder.createGroupChat
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type DepartmentCount struct {
 	DepartmentId          *string `json:"department_id,omitempty"`
 	DirectDepartmentCount *int    `json:"direct_department_count,omitempty"`
@@ -115,6 +557,78 @@ type DepartmentCount struct {
 	DepartmentCount       *int    `json:"department_count,omitempty"`
 	UserCount             *int    `json:"user_count,omitempty"`
 }
+
+/**builder开始**/
+type DepartmentCountBuilder struct {
+	departmentId              string
+	departmentIdFlag          bool
+	directDepartmentCount     int
+	directDepartmentCountFlag bool
+	directUserCount           int
+	directUserCountFlag       bool
+	departmentCount           int
+	departmentCountFlag       bool
+	userCount                 int
+	userCountFlag             bool
+}
+
+func NewDepartmentCountBuilder() *DepartmentCountBuilder {
+	builder := &DepartmentCountBuilder{}
+	return builder
+}
+
+func (builder *DepartmentCountBuilder) DepartmentId(departmentId string) *DepartmentCountBuilder {
+	builder.departmentId = departmentId
+	builder.departmentIdFlag = true
+	return builder
+}
+func (builder *DepartmentCountBuilder) DirectDepartmentCount(directDepartmentCount int) *DepartmentCountBuilder {
+	builder.directDepartmentCount = directDepartmentCount
+	builder.directDepartmentCountFlag = true
+	return builder
+}
+func (builder *DepartmentCountBuilder) DirectUserCount(directUserCount int) *DepartmentCountBuilder {
+	builder.directUserCount = directUserCount
+	builder.directUserCountFlag = true
+	return builder
+}
+func (builder *DepartmentCountBuilder) DepartmentCount(departmentCount int) *DepartmentCountBuilder {
+	builder.departmentCount = departmentCount
+	builder.departmentCountFlag = true
+	return builder
+}
+func (builder *DepartmentCountBuilder) UserCount(userCount int) *DepartmentCountBuilder {
+	builder.userCount = userCount
+	builder.userCountFlag = true
+	return builder
+}
+
+func (builder *DepartmentCountBuilder) Build() *DepartmentCount {
+	req := &DepartmentCount{}
+	if builder.departmentIdFlag {
+		req.DepartmentId = &builder.departmentId
+
+	}
+	if builder.directDepartmentCountFlag {
+		req.DirectDepartmentCount = &builder.directDepartmentCount
+
+	}
+	if builder.directUserCountFlag {
+		req.DirectUserCount = &builder.directUserCount
+
+	}
+	if builder.departmentCountFlag {
+		req.DepartmentCount = &builder.departmentCount
+
+	}
+	if builder.userCountFlag {
+		req.UserCount = &builder.userCount
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type DepartmentEvent struct {
 	Name               *string `json:"name,omitempty"`
@@ -128,26 +642,299 @@ type DepartmentEvent struct {
 	Status *DepartmentStatus `json:"status,omitempty"`
 }
 
+/**builder开始**/
+type DepartmentEventBuilder struct {
+	name                   string
+	nameFlag               bool
+	parentDepartmentId     string
+	parentDepartmentIdFlag bool
+	departmentId           string
+	departmentIdFlag       bool
+	openDepartmentId       string
+	openDepartmentIdFlag   bool
+	leaderUserId           string
+	leaderUserIdFlag       bool
+	chatId                 string
+	chatIdFlag             bool
+	order                  int
+	orderFlag              bool
+
+	status     *DepartmentStatus
+	statusFlag bool
+}
+
+func NewDepartmentEventBuilder() *DepartmentEventBuilder {
+	builder := &DepartmentEventBuilder{}
+	return builder
+}
+
+func (builder *DepartmentEventBuilder) Name(name string) *DepartmentEventBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *DepartmentEventBuilder) ParentDepartmentId(parentDepartmentId string) *DepartmentEventBuilder {
+	builder.parentDepartmentId = parentDepartmentId
+	builder.parentDepartmentIdFlag = true
+	return builder
+}
+func (builder *DepartmentEventBuilder) DepartmentId(departmentId string) *DepartmentEventBuilder {
+	builder.departmentId = departmentId
+	builder.departmentIdFlag = true
+	return builder
+}
+func (builder *DepartmentEventBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentEventBuilder {
+	builder.openDepartmentId = openDepartmentId
+	builder.openDepartmentIdFlag = true
+	return builder
+}
+func (builder *DepartmentEventBuilder) LeaderUserId(leaderUserId string) *DepartmentEventBuilder {
+	builder.leaderUserId = leaderUserId
+	builder.leaderUserIdFlag = true
+	return builder
+}
+func (builder *DepartmentEventBuilder) ChatId(chatId string) *DepartmentEventBuilder {
+	builder.chatId = chatId
+	builder.chatIdFlag = true
+	return builder
+}
+func (builder *DepartmentEventBuilder) Order(order int) *DepartmentEventBuilder {
+	builder.order = order
+	builder.orderFlag = true
+	return builder
+}
+
+func (builder *DepartmentEventBuilder) Status(status *DepartmentStatus) *DepartmentEventBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+
+func (builder *DepartmentEventBuilder) Build() *DepartmentEvent {
+	req := &DepartmentEvent{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.parentDepartmentIdFlag {
+		req.ParentDepartmentId = &builder.parentDepartmentId
+
+	}
+	if builder.departmentIdFlag {
+		req.DepartmentId = &builder.departmentId
+
+	}
+	if builder.openDepartmentIdFlag {
+		req.OpenDepartmentId = &builder.openDepartmentId
+
+	}
+	if builder.leaderUserIdFlag {
+		req.LeaderUserId = &builder.leaderUserId
+
+	}
+	if builder.chatIdFlag {
+		req.ChatId = &builder.chatId
+
+	}
+	if builder.orderFlag {
+		req.Order = &builder.order
+
+	}
+
+	if builder.statusFlag {
+		req.Status = builder.status
+	}
+	return req
+}
+
+/**builder结束**/
+
 type DepartmentI18nName struct {
 	ZhCn *string `json:"zh_cn,omitempty"`
 	JaJp *string `json:"ja_jp,omitempty"`
 	EnUs *string `json:"en_us,omitempty"`
 }
 
+/**builder开始**/
+type DepartmentI18nNameBuilder struct {
+	zhCn     string
+	zhCnFlag bool
+	jaJp     string
+	jaJpFlag bool
+	enUs     string
+	enUsFlag bool
+}
+
+func NewDepartmentI18nNameBuilder() *DepartmentI18nNameBuilder {
+	builder := &DepartmentI18nNameBuilder{}
+	return builder
+}
+
+func (builder *DepartmentI18nNameBuilder) ZhCn(zhCn string) *DepartmentI18nNameBuilder {
+	builder.zhCn = zhCn
+	builder.zhCnFlag = true
+	return builder
+}
+func (builder *DepartmentI18nNameBuilder) JaJp(jaJp string) *DepartmentI18nNameBuilder {
+	builder.jaJp = jaJp
+	builder.jaJpFlag = true
+	return builder
+}
+func (builder *DepartmentI18nNameBuilder) EnUs(enUs string) *DepartmentI18nNameBuilder {
+	builder.enUs = enUs
+	builder.enUsFlag = true
+	return builder
+}
+
+func (builder *DepartmentI18nNameBuilder) Build() *DepartmentI18nName {
+	req := &DepartmentI18nName{}
+	if builder.zhCnFlag {
+		req.ZhCn = &builder.zhCn
+
+	}
+	if builder.jaJpFlag {
+		req.JaJp = &builder.jaJp
+
+	}
+	if builder.enUsFlag {
+		req.EnUs = &builder.enUs
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type DepartmentParent struct {
 	DepartmentId *string  `json:"department_id,omitempty"`
 	ParentIds    []string `json:"parent_ids,omitempty"`
 }
 
+/**builder开始**/
+type DepartmentParentBuilder struct {
+	departmentId     string
+	departmentIdFlag bool
+	parentIds        []string
+	parentIdsFlag    bool
+}
+
+func NewDepartmentParentBuilder() *DepartmentParentBuilder {
+	builder := &DepartmentParentBuilder{}
+	return builder
+}
+
+func (builder *DepartmentParentBuilder) DepartmentId(departmentId string) *DepartmentParentBuilder {
+	builder.departmentId = departmentId
+	builder.departmentIdFlag = true
+	return builder
+}
+func (builder *DepartmentParentBuilder) ParentIds(parentIds []string) *DepartmentParentBuilder {
+	builder.parentIds = parentIds
+	builder.parentIdsFlag = true
+	return builder
+}
+
+func (builder *DepartmentParentBuilder) Build() *DepartmentParent {
+	req := &DepartmentParent{}
+	if builder.departmentIdFlag {
+		req.DepartmentId = &builder.departmentId
+
+	}
+	if builder.parentIdsFlag {
+		req.ParentIds = builder.parentIds
+	}
+	return req
+}
+
+/**builder结束**/
+
 type DepartmentStatus struct {
 	IsDeleted *bool `json:"is_deleted,omitempty"`
 }
+
+/**builder开始**/
+type DepartmentStatusBuilder struct {
+	isDeleted     bool
+	isDeletedFlag bool
+}
+
+func NewDepartmentStatusBuilder() *DepartmentStatusBuilder {
+	builder := &DepartmentStatusBuilder{}
+	return builder
+}
+
+func (builder *DepartmentStatusBuilder) IsDeleted(isDeleted bool) *DepartmentStatusBuilder {
+	builder.isDeleted = isDeleted
+	builder.isDeletedFlag = true
+	return builder
+}
+
+func (builder *DepartmentStatusBuilder) Build() *DepartmentStatus {
+	req := &DepartmentStatus{}
+	if builder.isDeletedFlag {
+		req.IsDeleted = &builder.isDeleted
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type DepartmentUnit struct {
 	UnitId   *string `json:"unit_id,omitempty"`
 	UnitType *string `json:"unit_type,omitempty"`
 	UnitName *string `json:"unit_name,omitempty"`
 }
+
+/**builder开始**/
+type DepartmentUnitBuilder struct {
+	unitId       string
+	unitIdFlag   bool
+	unitType     string
+	unitTypeFlag bool
+	unitName     string
+	unitNameFlag bool
+}
+
+func NewDepartmentUnitBuilder() *DepartmentUnitBuilder {
+	builder := &DepartmentUnitBuilder{}
+	return builder
+}
+
+func (builder *DepartmentUnitBuilder) UnitId(unitId string) *DepartmentUnitBuilder {
+	builder.unitId = unitId
+	builder.unitIdFlag = true
+	return builder
+}
+func (builder *DepartmentUnitBuilder) UnitType(unitType string) *DepartmentUnitBuilder {
+	builder.unitType = unitType
+	builder.unitTypeFlag = true
+	return builder
+}
+func (builder *DepartmentUnitBuilder) UnitName(unitName string) *DepartmentUnitBuilder {
+	builder.unitName = unitName
+	builder.unitNameFlag = true
+	return builder
+}
+
+func (builder *DepartmentUnitBuilder) Build() *DepartmentUnit {
+	req := &DepartmentUnit{}
+	if builder.unitIdFlag {
+		req.UnitId = &builder.unitId
+
+	}
+	if builder.unitTypeFlag {
+		req.UnitType = &builder.unitType
+
+	}
+	if builder.unitNameFlag {
+		req.UnitName = &builder.unitName
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type EmployeeTypeEnum struct {
 	EnumId      *string        `json:"enum_id,omitempty"`
@@ -158,6 +945,88 @@ type EmployeeTypeEnum struct {
 	I18nContent []*I18nContent `json:"i18n_content,omitempty"`
 }
 
+/**builder开始**/
+type EmployeeTypeEnumBuilder struct {
+	enumId          string
+	enumIdFlag      bool
+	enumValue       int64
+	enumValueFlag   bool
+	content         string
+	contentFlag     bool
+	enumType        int
+	enumTypeFlag    bool
+	enumStatus      int
+	enumStatusFlag  bool
+	i18nContent     []*I18nContent
+	i18nContentFlag bool
+}
+
+func NewEmployeeTypeEnumBuilder() *EmployeeTypeEnumBuilder {
+	builder := &EmployeeTypeEnumBuilder{}
+	return builder
+}
+
+func (builder *EmployeeTypeEnumBuilder) EnumId(enumId string) *EmployeeTypeEnumBuilder {
+	builder.enumId = enumId
+	builder.enumIdFlag = true
+	return builder
+}
+func (builder *EmployeeTypeEnumBuilder) EnumValue(enumValue int64) *EmployeeTypeEnumBuilder {
+	builder.enumValue = enumValue
+	builder.enumValueFlag = true
+	return builder
+}
+func (builder *EmployeeTypeEnumBuilder) Content(content string) *EmployeeTypeEnumBuilder {
+	builder.content = content
+	builder.contentFlag = true
+	return builder
+}
+func (builder *EmployeeTypeEnumBuilder) EnumType(enumType int) *EmployeeTypeEnumBuilder {
+	builder.enumType = enumType
+	builder.enumTypeFlag = true
+	return builder
+}
+func (builder *EmployeeTypeEnumBuilder) EnumStatus(enumStatus int) *EmployeeTypeEnumBuilder {
+	builder.enumStatus = enumStatus
+	builder.enumStatusFlag = true
+	return builder
+}
+func (builder *EmployeeTypeEnumBuilder) I18nContent(i18nContent []*I18nContent) *EmployeeTypeEnumBuilder {
+	builder.i18nContent = i18nContent
+	builder.i18nContentFlag = true
+	return builder
+}
+
+func (builder *EmployeeTypeEnumBuilder) Build() *EmployeeTypeEnum {
+	req := &EmployeeTypeEnum{}
+	if builder.enumIdFlag {
+		req.EnumId = &builder.enumId
+
+	}
+	if builder.enumValueFlag {
+		req.EnumValue = &builder.enumValue
+
+	}
+	if builder.contentFlag {
+		req.Content = &builder.content
+
+	}
+	if builder.enumTypeFlag {
+		req.EnumType = &builder.enumType
+
+	}
+	if builder.enumStatusFlag {
+		req.EnumStatus = &builder.enumStatus
+
+	}
+	if builder.i18nContentFlag {
+		req.I18nContent = builder.i18nContent
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Group struct {
 	Id                    *string `json:"id,omitempty"`
 	Name                  *string `json:"name,omitempty"`
@@ -166,20 +1035,209 @@ type Group struct {
 	MemberDepartmentCount *int    `json:"member_department_count,omitempty"`
 }
 
+/**builder开始**/
+type GroupBuilder struct {
+	id                        string
+	idFlag                    bool
+	name                      string
+	nameFlag                  bool
+	description               string
+	descriptionFlag           bool
+	memberUserCount           int
+	memberUserCountFlag       bool
+	memberDepartmentCount     int
+	memberDepartmentCountFlag bool
+}
+
+func NewGroupBuilder() *GroupBuilder {
+	builder := &GroupBuilder{}
+	return builder
+}
+
+func (builder *GroupBuilder) Id(id string) *GroupBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *GroupBuilder) Name(name string) *GroupBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *GroupBuilder) Description(description string) *GroupBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+func (builder *GroupBuilder) MemberUserCount(memberUserCount int) *GroupBuilder {
+	builder.memberUserCount = memberUserCount
+	builder.memberUserCountFlag = true
+	return builder
+}
+func (builder *GroupBuilder) MemberDepartmentCount(memberDepartmentCount int) *GroupBuilder {
+	builder.memberDepartmentCount = memberDepartmentCount
+	builder.memberDepartmentCountFlag = true
+	return builder
+}
+
+func (builder *GroupBuilder) Build() *Group {
+	req := &Group{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	if builder.memberUserCountFlag {
+		req.MemberUserCount = &builder.memberUserCount
+
+	}
+	if builder.memberDepartmentCountFlag {
+		req.MemberDepartmentCount = &builder.memberDepartmentCount
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type GroupEvent struct {
 	UserGroupId *string `json:"user_group_id,omitempty"`
 	Name        *string `json:"name,omitempty"`
 }
+
+/**builder开始**/
+type GroupEventBuilder struct {
+	userGroupId     string
+	userGroupIdFlag bool
+	name            string
+	nameFlag        bool
+}
+
+func NewGroupEventBuilder() *GroupEventBuilder {
+	builder := &GroupEventBuilder{}
+	return builder
+}
+
+func (builder *GroupEventBuilder) UserGroupId(userGroupId string) *GroupEventBuilder {
+	builder.userGroupId = userGroupId
+	builder.userGroupIdFlag = true
+	return builder
+}
+func (builder *GroupEventBuilder) Name(name string) *GroupEventBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+func (builder *GroupEventBuilder) Build() *GroupEvent {
+	req := &GroupEvent{}
+	if builder.userGroupIdFlag {
+		req.UserGroupId = &builder.userGroupId
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type I18nContent struct {
 	Locale *string `json:"locale,omitempty"`
 	Value  *string `json:"value,omitempty"`
 }
 
+/**builder开始**/
+type I18nContentBuilder struct {
+	locale     string
+	localeFlag bool
+	value      string
+	valueFlag  bool
+}
+
+func NewI18nContentBuilder() *I18nContentBuilder {
+	builder := &I18nContentBuilder{}
+	return builder
+}
+
+func (builder *I18nContentBuilder) Locale(locale string) *I18nContentBuilder {
+	builder.locale = locale
+	builder.localeFlag = true
+	return builder
+}
+func (builder *I18nContentBuilder) Value(value string) *I18nContentBuilder {
+	builder.value = value
+	builder.valueFlag = true
+	return builder
+}
+
+func (builder *I18nContentBuilder) Build() *I18nContent {
+	req := &I18nContent{}
+	if builder.localeFlag {
+		req.Locale = &builder.locale
+
+	}
+	if builder.valueFlag {
+		req.Value = &builder.value
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type MemberResult struct {
 	MemberId *string `json:"member_id,omitempty"`
 	Code     *int    `json:"code,omitempty"`
 }
+
+/**builder开始**/
+type MemberResultBuilder struct {
+	memberId     string
+	memberIdFlag bool
+	code         int
+	codeFlag     bool
+}
+
+func NewMemberResultBuilder() *MemberResultBuilder {
+	builder := &MemberResultBuilder{}
+	return builder
+}
+
+func (builder *MemberResultBuilder) MemberId(memberId string) *MemberResultBuilder {
+	builder.memberId = memberId
+	builder.memberIdFlag = true
+	return builder
+}
+func (builder *MemberResultBuilder) Code(code int) *MemberResultBuilder {
+	builder.code = code
+	builder.codeFlag = true
+	return builder
+}
+
+func (builder *MemberResultBuilder) Build() *MemberResult {
+	req := &MemberResult{}
+	if builder.memberIdFlag {
+		req.MemberId = &builder.memberId
+
+	}
+	if builder.codeFlag {
+		req.Code = &builder.code
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type Memberlist struct {
 	MemberId     *string `json:"member_id,omitempty"`
@@ -187,20 +1245,184 @@ type Memberlist struct {
 	MemberIdType *string `json:"member_id_type,omitempty"`
 }
 
+/**builder开始**/
+type MemberlistBuilder struct {
+	memberId         string
+	memberIdFlag     bool
+	memberType       string
+	memberTypeFlag   bool
+	memberIdType     string
+	memberIdTypeFlag bool
+}
+
+func NewMemberlistBuilder() *MemberlistBuilder {
+	builder := &MemberlistBuilder{}
+	return builder
+}
+
+func (builder *MemberlistBuilder) MemberId(memberId string) *MemberlistBuilder {
+	builder.memberId = memberId
+	builder.memberIdFlag = true
+	return builder
+}
+func (builder *MemberlistBuilder) MemberType(memberType string) *MemberlistBuilder {
+	builder.memberType = memberType
+	builder.memberTypeFlag = true
+	return builder
+}
+func (builder *MemberlistBuilder) MemberIdType(memberIdType string) *MemberlistBuilder {
+	builder.memberIdType = memberIdType
+	builder.memberIdTypeFlag = true
+	return builder
+}
+
+func (builder *MemberlistBuilder) Build() *Memberlist {
+	req := &Memberlist{}
+	if builder.memberIdFlag {
+		req.MemberId = &builder.memberId
+
+	}
+	if builder.memberTypeFlag {
+		req.MemberType = &builder.memberType
+
+	}
+	if builder.memberIdTypeFlag {
+		req.MemberIdType = &builder.memberIdType
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type NotificationOption struct {
 	Channels []string `json:"channels,omitempty"`
 	Language *string  `json:"language,omitempty"`
 }
+
+/**builder开始**/
+type NotificationOptionBuilder struct {
+	channels     []string
+	channelsFlag bool
+	language     string
+	languageFlag bool
+}
+
+func NewNotificationOptionBuilder() *NotificationOptionBuilder {
+	builder := &NotificationOptionBuilder{}
+	return builder
+}
+
+func (builder *NotificationOptionBuilder) Channels(channels []string) *NotificationOptionBuilder {
+	builder.channels = channels
+	builder.channelsFlag = true
+	return builder
+}
+func (builder *NotificationOptionBuilder) Language(language string) *NotificationOptionBuilder {
+	builder.language = language
+	builder.languageFlag = true
+	return builder
+}
+
+func (builder *NotificationOptionBuilder) Build() *NotificationOption {
+	req := &NotificationOption{}
+	if builder.channelsFlag {
+		req.Channels = builder.channels
+	}
+	if builder.languageFlag {
+		req.Language = &builder.language
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type OldDepartmentObject struct {
 	Status           *DepartmentStatus `json:"status,omitempty"`
 	OpenDepartmentId *string           `json:"open_department_id,omitempty"`
 }
 
+/**builder开始**/
+type OldDepartmentObjectBuilder struct {
+	status               *DepartmentStatus
+	statusFlag           bool
+	openDepartmentId     string
+	openDepartmentIdFlag bool
+}
+
+func NewOldDepartmentObjectBuilder() *OldDepartmentObjectBuilder {
+	builder := &OldDepartmentObjectBuilder{}
+	return builder
+}
+
+func (builder *OldDepartmentObjectBuilder) Status(status *DepartmentStatus) *OldDepartmentObjectBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+func (builder *OldDepartmentObjectBuilder) OpenDepartmentId(openDepartmentId string) *OldDepartmentObjectBuilder {
+	builder.openDepartmentId = openDepartmentId
+	builder.openDepartmentIdFlag = true
+	return builder
+}
+
+func (builder *OldDepartmentObjectBuilder) Build() *OldDepartmentObject {
+	req := &OldDepartmentObject{}
+	if builder.statusFlag {
+		req.Status = builder.status
+	}
+	if builder.openDepartmentIdFlag {
+		req.OpenDepartmentId = &builder.openDepartmentId
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type OldUserObject struct {
 	DepartmentIds []string `json:"department_ids,omitempty"`
 	OpenId        *string  `json:"open_id,omitempty"`
 }
+
+/**builder开始**/
+type OldUserObjectBuilder struct {
+	departmentIds     []string
+	departmentIdsFlag bool
+	openId            string
+	openIdFlag        bool
+}
+
+func NewOldUserObjectBuilder() *OldUserObjectBuilder {
+	builder := &OldUserObjectBuilder{}
+	return builder
+}
+
+func (builder *OldUserObjectBuilder) DepartmentIds(departmentIds []string) *OldUserObjectBuilder {
+	builder.departmentIds = departmentIds
+	builder.departmentIdsFlag = true
+	return builder
+}
+func (builder *OldUserObjectBuilder) OpenId(openId string) *OldUserObjectBuilder {
+	builder.openId = openId
+	builder.openIdFlag = true
+	return builder
+}
+
+func (builder *OldUserObjectBuilder) Build() *OldUserObject {
+	req := &OldUserObject{}
+	if builder.departmentIdsFlag {
+		req.DepartmentIds = builder.departmentIds
+	}
+	if builder.openIdFlag {
+		req.OpenId = &builder.openId
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type Scope struct {
 	Departments []*Department `json:"departments,omitempty"`
@@ -208,16 +1430,152 @@ type Scope struct {
 	UserGroups  []*UserGroup  `json:"user_groups,omitempty"`
 }
 
+/**builder开始**/
+type ScopeBuilder struct {
+	departments     []*Department
+	departmentsFlag bool
+	users           []*User
+	usersFlag       bool
+	userGroups      []*UserGroup
+	userGroupsFlag  bool
+}
+
+func NewScopeBuilder() *ScopeBuilder {
+	builder := &ScopeBuilder{}
+	return builder
+}
+
+func (builder *ScopeBuilder) Departments(departments []*Department) *ScopeBuilder {
+	builder.departments = departments
+	builder.departmentsFlag = true
+	return builder
+}
+func (builder *ScopeBuilder) Users(users []*User) *ScopeBuilder {
+	builder.users = users
+	builder.usersFlag = true
+	return builder
+}
+func (builder *ScopeBuilder) UserGroups(userGroups []*UserGroup) *ScopeBuilder {
+	builder.userGroups = userGroups
+	builder.userGroupsFlag = true
+	return builder
+}
+
+func (builder *ScopeBuilder) Build() *Scope {
+	req := &Scope{}
+	if builder.departmentsFlag {
+		req.Departments = builder.departments
+	}
+	if builder.usersFlag {
+		req.Users = builder.users
+	}
+	if builder.userGroupsFlag {
+		req.UserGroups = builder.userGroups
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Unit struct {
 	UnitId   *string `json:"unit_id,omitempty"`
 	Name     *string `json:"name,omitempty"`
 	UnitType *string `json:"unit_type,omitempty"`
 }
 
+/**builder开始**/
+type UnitBuilder struct {
+	unitId       string
+	unitIdFlag   bool
+	name         string
+	nameFlag     bool
+	unitType     string
+	unitTypeFlag bool
+}
+
+func NewUnitBuilder() *UnitBuilder {
+	builder := &UnitBuilder{}
+	return builder
+}
+
+func (builder *UnitBuilder) UnitId(unitId string) *UnitBuilder {
+	builder.unitId = unitId
+	builder.unitIdFlag = true
+	return builder
+}
+func (builder *UnitBuilder) Name(name string) *UnitBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *UnitBuilder) UnitType(unitType string) *UnitBuilder {
+	builder.unitType = unitType
+	builder.unitTypeFlag = true
+	return builder
+}
+
+func (builder *UnitBuilder) Build() *Unit {
+	req := &Unit{}
+	if builder.unitIdFlag {
+		req.UnitId = &builder.unitId
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.unitTypeFlag {
+		req.UnitType = &builder.unitType
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type UnitDepartment struct {
 	UnitId       *string `json:"unit_id,omitempty"`
 	DepartmentId *string `json:"department_id,omitempty"`
 }
+
+/**builder开始**/
+type UnitDepartmentBuilder struct {
+	unitId           string
+	unitIdFlag       bool
+	departmentId     string
+	departmentIdFlag bool
+}
+
+func NewUnitDepartmentBuilder() *UnitDepartmentBuilder {
+	builder := &UnitDepartmentBuilder{}
+	return builder
+}
+
+func (builder *UnitDepartmentBuilder) UnitId(unitId string) *UnitDepartmentBuilder {
+	builder.unitId = unitId
+	builder.unitIdFlag = true
+	return builder
+}
+func (builder *UnitDepartmentBuilder) DepartmentId(departmentId string) *UnitDepartmentBuilder {
+	builder.departmentId = departmentId
+	builder.departmentIdFlag = true
+	return builder
+}
+
+func (builder *UnitDepartmentBuilder) Build() *UnitDepartment {
+	req := &UnitDepartment{}
+	if builder.unitIdFlag {
+		req.UnitId = &builder.unitId
+
+	}
+	if builder.departmentIdFlag {
+		req.DepartmentId = &builder.departmentId
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type User struct {
 	UnionId         *string     `json:"union_id,omitempty"`
@@ -253,17 +1611,445 @@ type User struct {
 	EntEmailPassword *string `json:"ent_email_password,omitempty"`
 }
 
+/**builder开始**/
+type UserBuilder struct {
+	unionId             string
+	unionIdFlag         bool
+	userId              string
+	userIdFlag          bool
+	openId              string
+	openIdFlag          bool
+	name                string
+	nameFlag            bool
+	enName              string
+	enNameFlag          bool
+	nickname            string
+	nicknameFlag        bool
+	email               string
+	emailFlag           bool
+	mobile              string
+	mobileFlag          bool
+	mobileVisible       bool
+	mobileVisibleFlag   bool
+	gender              int
+	genderFlag          bool
+	avatarKey           string
+	avatarKeyFlag       bool
+	avatar              *AvatarInfo
+	avatarFlag          bool
+	status              *UserStatus
+	statusFlag          bool
+	departmentIds       []string
+	departmentIdsFlag   bool
+	leaderUserId        string
+	leaderUserIdFlag    bool
+	city                string
+	cityFlag            bool
+	country             string
+	countryFlag         bool
+	workStation         string
+	workStationFlag     bool
+	joinTime            int
+	joinTimeFlag        bool
+	isTenantManager     bool
+	isTenantManagerFlag bool
+	employeeNo          string
+	employeeNoFlag      bool
+	employeeType        int
+	employeeTypeFlag    bool
+
+	orders              []*UserOrder
+	ordersFlag          bool
+	customAttrs         []*UserCustomAttr
+	customAttrsFlag     bool
+	enterpriseEmail     string
+	enterpriseEmailFlag bool
+
+	jobTitle     string
+	jobTitleFlag bool
+
+	isFrozen             bool
+	isFrozenFlag         bool
+	entEmailPassword     string
+	entEmailPasswordFlag bool
+}
+
+func NewUserBuilder() *UserBuilder {
+	builder := &UserBuilder{}
+	return builder
+}
+
+func (builder *UserBuilder) UnionId(unionId string) *UserBuilder {
+	builder.unionId = unionId
+	builder.unionIdFlag = true
+	return builder
+}
+func (builder *UserBuilder) UserId(userId string) *UserBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *UserBuilder) OpenId(openId string) *UserBuilder {
+	builder.openId = openId
+	builder.openIdFlag = true
+	return builder
+}
+func (builder *UserBuilder) Name(name string) *UserBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *UserBuilder) EnName(enName string) *UserBuilder {
+	builder.enName = enName
+	builder.enNameFlag = true
+	return builder
+}
+func (builder *UserBuilder) Nickname(nickname string) *UserBuilder {
+	builder.nickname = nickname
+	builder.nicknameFlag = true
+	return builder
+}
+func (builder *UserBuilder) Email(email string) *UserBuilder {
+	builder.email = email
+	builder.emailFlag = true
+	return builder
+}
+func (builder *UserBuilder) Mobile(mobile string) *UserBuilder {
+	builder.mobile = mobile
+	builder.mobileFlag = true
+	return builder
+}
+func (builder *UserBuilder) MobileVisible(mobileVisible bool) *UserBuilder {
+	builder.mobileVisible = mobileVisible
+	builder.mobileVisibleFlag = true
+	return builder
+}
+func (builder *UserBuilder) Gender(gender int) *UserBuilder {
+	builder.gender = gender
+	builder.genderFlag = true
+	return builder
+}
+func (builder *UserBuilder) AvatarKey(avatarKey string) *UserBuilder {
+	builder.avatarKey = avatarKey
+	builder.avatarKeyFlag = true
+	return builder
+}
+func (builder *UserBuilder) Avatar(avatar *AvatarInfo) *UserBuilder {
+	builder.avatar = avatar
+	builder.avatarFlag = true
+	return builder
+}
+func (builder *UserBuilder) Status(status *UserStatus) *UserBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+func (builder *UserBuilder) DepartmentIds(departmentIds []string) *UserBuilder {
+	builder.departmentIds = departmentIds
+	builder.departmentIdsFlag = true
+	return builder
+}
+func (builder *UserBuilder) LeaderUserId(leaderUserId string) *UserBuilder {
+	builder.leaderUserId = leaderUserId
+	builder.leaderUserIdFlag = true
+	return builder
+}
+func (builder *UserBuilder) City(city string) *UserBuilder {
+	builder.city = city
+	builder.cityFlag = true
+	return builder
+}
+func (builder *UserBuilder) Country(country string) *UserBuilder {
+	builder.country = country
+	builder.countryFlag = true
+	return builder
+}
+func (builder *UserBuilder) WorkStation(workStation string) *UserBuilder {
+	builder.workStation = workStation
+	builder.workStationFlag = true
+	return builder
+}
+func (builder *UserBuilder) JoinTime(joinTime int) *UserBuilder {
+	builder.joinTime = joinTime
+	builder.joinTimeFlag = true
+	return builder
+}
+func (builder *UserBuilder) IsTenantManager(isTenantManager bool) *UserBuilder {
+	builder.isTenantManager = isTenantManager
+	builder.isTenantManagerFlag = true
+	return builder
+}
+func (builder *UserBuilder) EmployeeNo(employeeNo string) *UserBuilder {
+	builder.employeeNo = employeeNo
+	builder.employeeNoFlag = true
+	return builder
+}
+func (builder *UserBuilder) EmployeeType(employeeType int) *UserBuilder {
+	builder.employeeType = employeeType
+	builder.employeeTypeFlag = true
+	return builder
+}
+
+func (builder *UserBuilder) Orders(orders []*UserOrder) *UserBuilder {
+	builder.orders = orders
+	builder.ordersFlag = true
+	return builder
+}
+func (builder *UserBuilder) CustomAttrs(customAttrs []*UserCustomAttr) *UserBuilder {
+	builder.customAttrs = customAttrs
+	builder.customAttrsFlag = true
+	return builder
+}
+func (builder *UserBuilder) EnterpriseEmail(enterpriseEmail string) *UserBuilder {
+	builder.enterpriseEmail = enterpriseEmail
+	builder.enterpriseEmailFlag = true
+	return builder
+}
+
+func (builder *UserBuilder) JobTitle(jobTitle string) *UserBuilder {
+	builder.jobTitle = jobTitle
+	builder.jobTitleFlag = true
+	return builder
+}
+
+func (builder *UserBuilder) IsFrozen(isFrozen bool) *UserBuilder {
+	builder.isFrozen = isFrozen
+	builder.isFrozenFlag = true
+	return builder
+}
+func (builder *UserBuilder) EntEmailPassword(entEmailPassword string) *UserBuilder {
+	builder.entEmailPassword = entEmailPassword
+	builder.entEmailPasswordFlag = true
+	return builder
+}
+
+func (builder *UserBuilder) Build() *User {
+	req := &User{}
+	if builder.unionIdFlag {
+		req.UnionId = &builder.unionId
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.openIdFlag {
+		req.OpenId = &builder.openId
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.enNameFlag {
+		req.EnName = &builder.enName
+
+	}
+	if builder.nicknameFlag {
+		req.Nickname = &builder.nickname
+
+	}
+	if builder.emailFlag {
+		req.Email = &builder.email
+
+	}
+	if builder.mobileFlag {
+		req.Mobile = &builder.mobile
+
+	}
+	if builder.mobileVisibleFlag {
+		req.MobileVisible = &builder.mobileVisible
+
+	}
+	if builder.genderFlag {
+		req.Gender = &builder.gender
+
+	}
+	if builder.avatarKeyFlag {
+		req.AvatarKey = &builder.avatarKey
+
+	}
+	if builder.avatarFlag {
+		req.Avatar = builder.avatar
+	}
+	if builder.statusFlag {
+		req.Status = builder.status
+	}
+	if builder.departmentIdsFlag {
+		req.DepartmentIds = builder.departmentIds
+	}
+	if builder.leaderUserIdFlag {
+		req.LeaderUserId = &builder.leaderUserId
+
+	}
+	if builder.cityFlag {
+		req.City = &builder.city
+
+	}
+	if builder.countryFlag {
+		req.Country = &builder.country
+
+	}
+	if builder.workStationFlag {
+		req.WorkStation = &builder.workStation
+
+	}
+	if builder.joinTimeFlag {
+		req.JoinTime = &builder.joinTime
+
+	}
+	if builder.isTenantManagerFlag {
+		req.IsTenantManager = &builder.isTenantManager
+
+	}
+	if builder.employeeNoFlag {
+		req.EmployeeNo = &builder.employeeNo
+
+	}
+	if builder.employeeTypeFlag {
+		req.EmployeeType = &builder.employeeType
+
+	}
+
+	if builder.ordersFlag {
+		req.Orders = builder.orders
+	}
+	if builder.customAttrsFlag {
+		req.CustomAttrs = builder.customAttrs
+	}
+	if builder.enterpriseEmailFlag {
+		req.EnterpriseEmail = &builder.enterpriseEmail
+
+	}
+
+	if builder.jobTitleFlag {
+		req.JobTitle = &builder.jobTitle
+
+	}
+
+	if builder.isFrozenFlag {
+		req.IsFrozen = &builder.isFrozen
+
+	}
+	if builder.entEmailPasswordFlag {
+		req.EntEmailPassword = &builder.entEmailPassword
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type UserContactInfo struct {
 	UserId *string `json:"user_id,omitempty"`
 	Mobile *string `json:"mobile,omitempty"`
 	Email  *string `json:"email,omitempty"`
 }
 
+/**builder开始**/
+type UserContactInfoBuilder struct {
+	userId     string
+	userIdFlag bool
+	mobile     string
+	mobileFlag bool
+	email      string
+	emailFlag  bool
+}
+
+func NewUserContactInfoBuilder() *UserContactInfoBuilder {
+	builder := &UserContactInfoBuilder{}
+	return builder
+}
+
+func (builder *UserContactInfoBuilder) UserId(userId string) *UserContactInfoBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *UserContactInfoBuilder) Mobile(mobile string) *UserContactInfoBuilder {
+	builder.mobile = mobile
+	builder.mobileFlag = true
+	return builder
+}
+func (builder *UserContactInfoBuilder) Email(email string) *UserContactInfoBuilder {
+	builder.email = email
+	builder.emailFlag = true
+	return builder
+}
+
+func (builder *UserContactInfoBuilder) Build() *UserContactInfo {
+	req := &UserContactInfo{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.mobileFlag {
+		req.Mobile = &builder.mobile
+
+	}
+	if builder.emailFlag {
+		req.Email = &builder.email
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type UserCustomAttr struct {
 	Type  *string              `json:"type,omitempty"`
 	Id    *string              `json:"id,omitempty"`
 	Value *UserCustomAttrValue `json:"value,omitempty"`
 }
+
+/**builder开始**/
+type UserCustomAttrBuilder struct {
+	type_     string
+	typeFlag  bool
+	id        string
+	idFlag    bool
+	value     *UserCustomAttrValue
+	valueFlag bool
+}
+
+func NewUserCustomAttrBuilder() *UserCustomAttrBuilder {
+	builder := &UserCustomAttrBuilder{}
+	return builder
+}
+
+func (builder *UserCustomAttrBuilder) Type(type_ string) *UserCustomAttrBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+func (builder *UserCustomAttrBuilder) Id(id string) *UserCustomAttrBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *UserCustomAttrBuilder) Value(value *UserCustomAttrValue) *UserCustomAttrBuilder {
+	builder.value = value
+	builder.valueFlag = true
+	return builder
+}
+
+func (builder *UserCustomAttrBuilder) Build() *UserCustomAttr {
+	req := &UserCustomAttr{}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.valueFlag {
+		req.Value = builder.value
+	}
+	return req
+}
+
+/**builder结束**/
 
 type UserCustomAttrValue struct {
 	Text        *string                `json:"text,omitempty"`
@@ -275,6 +2061,110 @@ type UserCustomAttrValue struct {
 	PictureUrl  *string                `json:"picture_url,omitempty"`
 	GenericUser *CustomAttrGenericUser `json:"generic_user,omitempty"`
 }
+
+/**builder开始**/
+type UserCustomAttrValueBuilder struct {
+	text            string
+	textFlag        bool
+	url             string
+	urlFlag         bool
+	pcUrl           string
+	pcUrlFlag       bool
+	optionId        string
+	optionIdFlag    bool
+	optionValue     string
+	optionValueFlag bool
+	name            string
+	nameFlag        bool
+	pictureUrl      string
+	pictureUrlFlag  bool
+	genericUser     *CustomAttrGenericUser
+	genericUserFlag bool
+}
+
+func NewUserCustomAttrValueBuilder() *UserCustomAttrValueBuilder {
+	builder := &UserCustomAttrValueBuilder{}
+	return builder
+}
+
+func (builder *UserCustomAttrValueBuilder) Text(text string) *UserCustomAttrValueBuilder {
+	builder.text = text
+	builder.textFlag = true
+	return builder
+}
+func (builder *UserCustomAttrValueBuilder) Url(url string) *UserCustomAttrValueBuilder {
+	builder.url = url
+	builder.urlFlag = true
+	return builder
+}
+func (builder *UserCustomAttrValueBuilder) PcUrl(pcUrl string) *UserCustomAttrValueBuilder {
+	builder.pcUrl = pcUrl
+	builder.pcUrlFlag = true
+	return builder
+}
+func (builder *UserCustomAttrValueBuilder) OptionId(optionId string) *UserCustomAttrValueBuilder {
+	builder.optionId = optionId
+	builder.optionIdFlag = true
+	return builder
+}
+func (builder *UserCustomAttrValueBuilder) OptionValue(optionValue string) *UserCustomAttrValueBuilder {
+	builder.optionValue = optionValue
+	builder.optionValueFlag = true
+	return builder
+}
+func (builder *UserCustomAttrValueBuilder) Name(name string) *UserCustomAttrValueBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *UserCustomAttrValueBuilder) PictureUrl(pictureUrl string) *UserCustomAttrValueBuilder {
+	builder.pictureUrl = pictureUrl
+	builder.pictureUrlFlag = true
+	return builder
+}
+func (builder *UserCustomAttrValueBuilder) GenericUser(genericUser *CustomAttrGenericUser) *UserCustomAttrValueBuilder {
+	builder.genericUser = genericUser
+	builder.genericUserFlag = true
+	return builder
+}
+
+func (builder *UserCustomAttrValueBuilder) Build() *UserCustomAttrValue {
+	req := &UserCustomAttrValue{}
+	if builder.textFlag {
+		req.Text = &builder.text
+
+	}
+	if builder.urlFlag {
+		req.Url = &builder.url
+
+	}
+	if builder.pcUrlFlag {
+		req.PcUrl = &builder.pcUrl
+
+	}
+	if builder.optionIdFlag {
+		req.OptionId = &builder.optionId
+
+	}
+	if builder.optionValueFlag {
+		req.OptionValue = &builder.optionValue
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.pictureUrlFlag {
+		req.PictureUrl = &builder.pictureUrl
+
+	}
+	if builder.genericUserFlag {
+		req.GenericUser = builder.genericUser
+	}
+	return req
+}
+
+/**builder结束**/
 
 type UserEvent struct {
 	OpenId          *string `json:"open_id,omitempty"`
@@ -306,6 +2196,283 @@ type UserEvent struct {
 	CustomAttrs []*UserCustomAttr `json:"custom_attrs,omitempty"`
 }
 
+/**builder开始**/
+type UserEventBuilder struct {
+	openId              string
+	openIdFlag          bool
+	unionId             string
+	unionIdFlag         bool
+	userId              string
+	userIdFlag          bool
+	name                string
+	nameFlag            bool
+	enName              string
+	enNameFlag          bool
+	nickname            string
+	nicknameFlag        bool
+	email               string
+	emailFlag           bool
+	enterpriseEmail     string
+	enterpriseEmailFlag bool
+	jobTitle            string
+	jobTitleFlag        bool
+	mobile              string
+	mobileFlag          bool
+
+	gender            int
+	genderFlag        bool
+	avatar            *AvatarInfo
+	avatarFlag        bool
+	status            *UserStatus
+	statusFlag        bool
+	departmentIds     []string
+	departmentIdsFlag bool
+	leaderUserId      string
+	leaderUserIdFlag  bool
+	city              string
+	cityFlag          bool
+	country           string
+	countryFlag       bool
+	workStation       string
+	workStationFlag   bool
+	joinTime          int
+	joinTimeFlag      bool
+
+	employeeNo       string
+	employeeNoFlag   bool
+	employeeType     int
+	employeeTypeFlag bool
+
+	orders     []*UserOrder
+	ordersFlag bool
+
+	customAttrs     []*UserCustomAttr
+	customAttrsFlag bool
+}
+
+func NewUserEventBuilder() *UserEventBuilder {
+	builder := &UserEventBuilder{}
+	return builder
+}
+
+func (builder *UserEventBuilder) OpenId(openId string) *UserEventBuilder {
+	builder.openId = openId
+	builder.openIdFlag = true
+	return builder
+}
+func (builder *UserEventBuilder) UnionId(unionId string) *UserEventBuilder {
+	builder.unionId = unionId
+	builder.unionIdFlag = true
+	return builder
+}
+func (builder *UserEventBuilder) UserId(userId string) *UserEventBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *UserEventBuilder) Name(name string) *UserEventBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *UserEventBuilder) EnName(enName string) *UserEventBuilder {
+	builder.enName = enName
+	builder.enNameFlag = true
+	return builder
+}
+func (builder *UserEventBuilder) Nickname(nickname string) *UserEventBuilder {
+	builder.nickname = nickname
+	builder.nicknameFlag = true
+	return builder
+}
+func (builder *UserEventBuilder) Email(email string) *UserEventBuilder {
+	builder.email = email
+	builder.emailFlag = true
+	return builder
+}
+func (builder *UserEventBuilder) EnterpriseEmail(enterpriseEmail string) *UserEventBuilder {
+	builder.enterpriseEmail = enterpriseEmail
+	builder.enterpriseEmailFlag = true
+	return builder
+}
+func (builder *UserEventBuilder) JobTitle(jobTitle string) *UserEventBuilder {
+	builder.jobTitle = jobTitle
+	builder.jobTitleFlag = true
+	return builder
+}
+func (builder *UserEventBuilder) Mobile(mobile string) *UserEventBuilder {
+	builder.mobile = mobile
+	builder.mobileFlag = true
+	return builder
+}
+
+func (builder *UserEventBuilder) Gender(gender int) *UserEventBuilder {
+	builder.gender = gender
+	builder.genderFlag = true
+	return builder
+}
+func (builder *UserEventBuilder) Avatar(avatar *AvatarInfo) *UserEventBuilder {
+	builder.avatar = avatar
+	builder.avatarFlag = true
+	return builder
+}
+func (builder *UserEventBuilder) Status(status *UserStatus) *UserEventBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+func (builder *UserEventBuilder) DepartmentIds(departmentIds []string) *UserEventBuilder {
+	builder.departmentIds = departmentIds
+	builder.departmentIdsFlag = true
+	return builder
+}
+func (builder *UserEventBuilder) LeaderUserId(leaderUserId string) *UserEventBuilder {
+	builder.leaderUserId = leaderUserId
+	builder.leaderUserIdFlag = true
+	return builder
+}
+func (builder *UserEventBuilder) City(city string) *UserEventBuilder {
+	builder.city = city
+	builder.cityFlag = true
+	return builder
+}
+func (builder *UserEventBuilder) Country(country string) *UserEventBuilder {
+	builder.country = country
+	builder.countryFlag = true
+	return builder
+}
+func (builder *UserEventBuilder) WorkStation(workStation string) *UserEventBuilder {
+	builder.workStation = workStation
+	builder.workStationFlag = true
+	return builder
+}
+func (builder *UserEventBuilder) JoinTime(joinTime int) *UserEventBuilder {
+	builder.joinTime = joinTime
+	builder.joinTimeFlag = true
+	return builder
+}
+
+func (builder *UserEventBuilder) EmployeeNo(employeeNo string) *UserEventBuilder {
+	builder.employeeNo = employeeNo
+	builder.employeeNoFlag = true
+	return builder
+}
+func (builder *UserEventBuilder) EmployeeType(employeeType int) *UserEventBuilder {
+	builder.employeeType = employeeType
+	builder.employeeTypeFlag = true
+	return builder
+}
+
+func (builder *UserEventBuilder) Orders(orders []*UserOrder) *UserEventBuilder {
+	builder.orders = orders
+	builder.ordersFlag = true
+	return builder
+}
+
+func (builder *UserEventBuilder) CustomAttrs(customAttrs []*UserCustomAttr) *UserEventBuilder {
+	builder.customAttrs = customAttrs
+	builder.customAttrsFlag = true
+	return builder
+}
+
+func (builder *UserEventBuilder) Build() *UserEvent {
+	req := &UserEvent{}
+	if builder.openIdFlag {
+		req.OpenId = &builder.openId
+
+	}
+	if builder.unionIdFlag {
+		req.UnionId = &builder.unionId
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.enNameFlag {
+		req.EnName = &builder.enName
+
+	}
+	if builder.nicknameFlag {
+		req.Nickname = &builder.nickname
+
+	}
+	if builder.emailFlag {
+		req.Email = &builder.email
+
+	}
+	if builder.enterpriseEmailFlag {
+		req.EnterpriseEmail = &builder.enterpriseEmail
+
+	}
+	if builder.jobTitleFlag {
+		req.JobTitle = &builder.jobTitle
+
+	}
+	if builder.mobileFlag {
+		req.Mobile = &builder.mobile
+
+	}
+
+	if builder.genderFlag {
+		req.Gender = &builder.gender
+
+	}
+	if builder.avatarFlag {
+		req.Avatar = builder.avatar
+	}
+	if builder.statusFlag {
+		req.Status = builder.status
+	}
+	if builder.departmentIdsFlag {
+		req.DepartmentIds = builder.departmentIds
+	}
+	if builder.leaderUserIdFlag {
+		req.LeaderUserId = &builder.leaderUserId
+
+	}
+	if builder.cityFlag {
+		req.City = &builder.city
+
+	}
+	if builder.countryFlag {
+		req.Country = &builder.country
+
+	}
+	if builder.workStationFlag {
+		req.WorkStation = &builder.workStation
+
+	}
+	if builder.joinTimeFlag {
+		req.JoinTime = &builder.joinTime
+
+	}
+
+	if builder.employeeNoFlag {
+		req.EmployeeNo = &builder.employeeNo
+
+	}
+	if builder.employeeTypeFlag {
+		req.EmployeeType = &builder.employeeType
+
+	}
+
+	if builder.ordersFlag {
+		req.Orders = builder.orders
+	}
+
+	if builder.customAttrsFlag {
+		req.CustomAttrs = builder.customAttrs
+	}
+	return req
+}
+
+/**builder结束**/
+
 type UserGroup struct {
 	UserGroupId *string `json:"user_group_id,omitempty"`
 	Name        *string `json:"name,omitempty"`
@@ -314,14 +2481,139 @@ type UserGroup struct {
 	Status      *int    `json:"status,omitempty"`
 }
 
+/**builder开始**/
+type UserGroupBuilder struct {
+	userGroupId     string
+	userGroupIdFlag bool
+	name            string
+	nameFlag        bool
+	type_           int
+	typeFlag        bool
+	memberCount     int
+	memberCountFlag bool
+	status          int
+	statusFlag      bool
+}
+
+func NewUserGroupBuilder() *UserGroupBuilder {
+	builder := &UserGroupBuilder{}
+	return builder
+}
+
+func (builder *UserGroupBuilder) UserGroupId(userGroupId string) *UserGroupBuilder {
+	builder.userGroupId = userGroupId
+	builder.userGroupIdFlag = true
+	return builder
+}
+func (builder *UserGroupBuilder) Name(name string) *UserGroupBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *UserGroupBuilder) Type(type_ int) *UserGroupBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+func (builder *UserGroupBuilder) MemberCount(memberCount int) *UserGroupBuilder {
+	builder.memberCount = memberCount
+	builder.memberCountFlag = true
+	return builder
+}
+func (builder *UserGroupBuilder) Status(status int) *UserGroupBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+
+func (builder *UserGroupBuilder) Build() *UserGroup {
+	req := &UserGroup{}
+	if builder.userGroupIdFlag {
+		req.UserGroupId = &builder.userGroupId
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.memberCountFlag {
+		req.MemberCount = &builder.memberCount
+
+	}
+	if builder.statusFlag {
+		req.Status = &builder.status
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type UserGroupMember struct {
 }
+
+/**builder开始**/
+/**builder结束**/
 
 type UserOrder struct {
 	DepartmentId    *string `json:"department_id,omitempty"`
 	UserOrder       *int    `json:"user_order,omitempty"`
 	DepartmentOrder *int    `json:"department_order,omitempty"`
 }
+
+/**builder开始**/
+type UserOrderBuilder struct {
+	departmentId        string
+	departmentIdFlag    bool
+	userOrder           int
+	userOrderFlag       bool
+	departmentOrder     int
+	departmentOrderFlag bool
+}
+
+func NewUserOrderBuilder() *UserOrderBuilder {
+	builder := &UserOrderBuilder{}
+	return builder
+}
+
+func (builder *UserOrderBuilder) DepartmentId(departmentId string) *UserOrderBuilder {
+	builder.departmentId = departmentId
+	builder.departmentIdFlag = true
+	return builder
+}
+func (builder *UserOrderBuilder) UserOrder(userOrder int) *UserOrderBuilder {
+	builder.userOrder = userOrder
+	builder.userOrderFlag = true
+	return builder
+}
+func (builder *UserOrderBuilder) DepartmentOrder(departmentOrder int) *UserOrderBuilder {
+	builder.departmentOrder = departmentOrder
+	builder.departmentOrderFlag = true
+	return builder
+}
+
+func (builder *UserOrderBuilder) Build() *UserOrder {
+	req := &UserOrder{}
+	if builder.departmentIdFlag {
+		req.DepartmentId = &builder.departmentId
+
+	}
+	if builder.userOrderFlag {
+		req.UserOrder = &builder.userOrder
+
+	}
+	if builder.departmentOrderFlag {
+		req.DepartmentOrder = &builder.departmentOrder
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type UserPosition struct {
 	PositionCode       *string `json:"position_code,omitempty"`
@@ -332,6 +2624,89 @@ type UserPosition struct {
 	IsMajor            *bool   `json:"is_major,omitempty"`
 }
 
+/**builder开始**/
+type UserPositionBuilder struct {
+	positionCode           string
+	positionCodeFlag       bool
+	positionName           string
+	positionNameFlag       bool
+	departmentId           string
+	departmentIdFlag       bool
+	leaderUserId           string
+	leaderUserIdFlag       bool
+	leaderPositionCode     string
+	leaderPositionCodeFlag bool
+	isMajor                bool
+	isMajorFlag            bool
+}
+
+func NewUserPositionBuilder() *UserPositionBuilder {
+	builder := &UserPositionBuilder{}
+	return builder
+}
+
+func (builder *UserPositionBuilder) PositionCode(positionCode string) *UserPositionBuilder {
+	builder.positionCode = positionCode
+	builder.positionCodeFlag = true
+	return builder
+}
+func (builder *UserPositionBuilder) PositionName(positionName string) *UserPositionBuilder {
+	builder.positionName = positionName
+	builder.positionNameFlag = true
+	return builder
+}
+func (builder *UserPositionBuilder) DepartmentId(departmentId string) *UserPositionBuilder {
+	builder.departmentId = departmentId
+	builder.departmentIdFlag = true
+	return builder
+}
+func (builder *UserPositionBuilder) LeaderUserId(leaderUserId string) *UserPositionBuilder {
+	builder.leaderUserId = leaderUserId
+	builder.leaderUserIdFlag = true
+	return builder
+}
+func (builder *UserPositionBuilder) LeaderPositionCode(leaderPositionCode string) *UserPositionBuilder {
+	builder.leaderPositionCode = leaderPositionCode
+	builder.leaderPositionCodeFlag = true
+	return builder
+}
+func (builder *UserPositionBuilder) IsMajor(isMajor bool) *UserPositionBuilder {
+	builder.isMajor = isMajor
+	builder.isMajorFlag = true
+	return builder
+}
+
+func (builder *UserPositionBuilder) Build() *UserPosition {
+	req := &UserPosition{}
+	if builder.positionCodeFlag {
+		req.PositionCode = &builder.positionCode
+
+	}
+	if builder.positionNameFlag {
+		req.PositionName = &builder.positionName
+
+	}
+	if builder.departmentIdFlag {
+		req.DepartmentId = &builder.departmentId
+
+	}
+	if builder.leaderUserIdFlag {
+		req.LeaderUserId = &builder.leaderUserId
+
+	}
+	if builder.leaderPositionCodeFlag {
+		req.LeaderPositionCode = &builder.leaderPositionCode
+
+	}
+	if builder.isMajorFlag {
+		req.IsMajor = &builder.isMajor
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type UserStatus struct {
 	IsFrozen    *bool `json:"is_frozen,omitempty"`
 	IsResigned  *bool `json:"is_resigned,omitempty"`
@@ -339,6 +2714,78 @@ type UserStatus struct {
 	IsExited    *bool `json:"is_exited,omitempty"`
 	IsUnjoin    *bool `json:"is_unjoin,omitempty"`
 }
+
+/**builder开始**/
+type UserStatusBuilder struct {
+	isFrozen        bool
+	isFrozenFlag    bool
+	isResigned      bool
+	isResignedFlag  bool
+	isActivated     bool
+	isActivatedFlag bool
+	isExited        bool
+	isExitedFlag    bool
+	isUnjoin        bool
+	isUnjoinFlag    bool
+}
+
+func NewUserStatusBuilder() *UserStatusBuilder {
+	builder := &UserStatusBuilder{}
+	return builder
+}
+
+func (builder *UserStatusBuilder) IsFrozen(isFrozen bool) *UserStatusBuilder {
+	builder.isFrozen = isFrozen
+	builder.isFrozenFlag = true
+	return builder
+}
+func (builder *UserStatusBuilder) IsResigned(isResigned bool) *UserStatusBuilder {
+	builder.isResigned = isResigned
+	builder.isResignedFlag = true
+	return builder
+}
+func (builder *UserStatusBuilder) IsActivated(isActivated bool) *UserStatusBuilder {
+	builder.isActivated = isActivated
+	builder.isActivatedFlag = true
+	return builder
+}
+func (builder *UserStatusBuilder) IsExited(isExited bool) *UserStatusBuilder {
+	builder.isExited = isExited
+	builder.isExitedFlag = true
+	return builder
+}
+func (builder *UserStatusBuilder) IsUnjoin(isUnjoin bool) *UserStatusBuilder {
+	builder.isUnjoin = isUnjoin
+	builder.isUnjoinFlag = true
+	return builder
+}
+
+func (builder *UserStatusBuilder) Build() *UserStatus {
+	req := &UserStatus{}
+	if builder.isFrozenFlag {
+		req.IsFrozen = &builder.isFrozen
+
+	}
+	if builder.isResignedFlag {
+		req.IsResigned = &builder.isResigned
+
+	}
+	if builder.isActivatedFlag {
+		req.IsActivated = &builder.isActivated
+
+	}
+	if builder.isExitedFlag {
+		req.IsExited = &builder.isExited
+
+	}
+	if builder.isUnjoinFlag {
+		req.IsUnjoin = &builder.isUnjoin
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 /**生成请求和响应结果类型，以及请求对象的Builder构造器 **/
 

@@ -83,15 +83,141 @@ type BatchMessage struct {
 	BatchRecallProgress *BatchRecallProgress `json:"batch_recall_progress,omitempty"`
 }
 
+/**builder开始**/
+type BatchMessageBuilder struct {
+	batchMessageId          string
+	batchMessageIdFlag      bool
+	batchSendProgress       *BatchSendProgress
+	batchSendProgressFlag   bool
+	batchRecallProgress     *BatchRecallProgress
+	batchRecallProgressFlag bool
+}
+
+func NewBatchMessageBuilder() *BatchMessageBuilder {
+	builder := &BatchMessageBuilder{}
+	return builder
+}
+
+func (builder *BatchMessageBuilder) BatchMessageId(batchMessageId string) *BatchMessageBuilder {
+	builder.batchMessageId = batchMessageId
+	builder.batchMessageIdFlag = true
+	return builder
+}
+func (builder *BatchMessageBuilder) BatchSendProgress(batchSendProgress *BatchSendProgress) *BatchMessageBuilder {
+	builder.batchSendProgress = batchSendProgress
+	builder.batchSendProgressFlag = true
+	return builder
+}
+func (builder *BatchMessageBuilder) BatchRecallProgress(batchRecallProgress *BatchRecallProgress) *BatchMessageBuilder {
+	builder.batchRecallProgress = batchRecallProgress
+	builder.batchRecallProgressFlag = true
+	return builder
+}
+
+func (builder *BatchMessageBuilder) Build() *BatchMessage {
+	req := &BatchMessage{}
+	if builder.batchMessageIdFlag {
+		req.BatchMessageId = &builder.batchMessageId
+
+	}
+	if builder.batchSendProgressFlag {
+		req.BatchSendProgress = builder.batchSendProgress
+	}
+	if builder.batchRecallProgressFlag {
+		req.BatchRecallProgress = builder.batchRecallProgress
+	}
+	return req
+}
+
+/**builder结束**/
+
 type BatchMessageReadUser struct {
 	ReadCount  *string `json:"read_count,omitempty"`
 	TotalCount *string `json:"total_count,omitempty"`
 }
 
+/**builder开始**/
+type BatchMessageReadUserBuilder struct {
+	readCount      string
+	readCountFlag  bool
+	totalCount     string
+	totalCountFlag bool
+}
+
+func NewBatchMessageReadUserBuilder() *BatchMessageReadUserBuilder {
+	builder := &BatchMessageReadUserBuilder{}
+	return builder
+}
+
+func (builder *BatchMessageReadUserBuilder) ReadCount(readCount string) *BatchMessageReadUserBuilder {
+	builder.readCount = readCount
+	builder.readCountFlag = true
+	return builder
+}
+func (builder *BatchMessageReadUserBuilder) TotalCount(totalCount string) *BatchMessageReadUserBuilder {
+	builder.totalCount = totalCount
+	builder.totalCountFlag = true
+	return builder
+}
+
+func (builder *BatchMessageReadUserBuilder) Build() *BatchMessageReadUser {
+	req := &BatchMessageReadUser{}
+	if builder.readCountFlag {
+		req.ReadCount = &builder.readCount
+
+	}
+	if builder.totalCountFlag {
+		req.TotalCount = &builder.totalCount
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type BatchMessageRecallProgress struct {
 	Recall      *bool `json:"recall,omitempty"`
 	RecallCount *int  `json:"recall_count,omitempty"`
 }
+
+/**builder开始**/
+type BatchMessageRecallProgressBuilder struct {
+	recall          bool
+	recallFlag      bool
+	recallCount     int
+	recallCountFlag bool
+}
+
+func NewBatchMessageRecallProgressBuilder() *BatchMessageRecallProgressBuilder {
+	builder := &BatchMessageRecallProgressBuilder{}
+	return builder
+}
+
+func (builder *BatchMessageRecallProgressBuilder) Recall(recall bool) *BatchMessageRecallProgressBuilder {
+	builder.recall = recall
+	builder.recallFlag = true
+	return builder
+}
+func (builder *BatchMessageRecallProgressBuilder) RecallCount(recallCount int) *BatchMessageRecallProgressBuilder {
+	builder.recallCount = recallCount
+	builder.recallCountFlag = true
+	return builder
+}
+
+func (builder *BatchMessageRecallProgressBuilder) Build() *BatchMessageRecallProgress {
+	req := &BatchMessageRecallProgress{}
+	if builder.recallFlag {
+		req.Recall = &builder.recall
+
+	}
+	if builder.recallCountFlag {
+		req.RecallCount = &builder.recallCount
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type BatchMessageSendProgress struct {
 	ValidUserIdsCount   *int `json:"valid_user_ids_count,omitempty"`
@@ -99,15 +225,143 @@ type BatchMessageSendProgress struct {
 	ReadUserIdsCount    *int `json:"read_user_ids_count,omitempty"`
 }
 
+/**builder开始**/
+type BatchMessageSendProgressBuilder struct {
+	validUserIdsCount       int
+	validUserIdsCountFlag   bool
+	successUserIdsCount     int
+	successUserIdsCountFlag bool
+	readUserIdsCount        int
+	readUserIdsCountFlag    bool
+}
+
+func NewBatchMessageSendProgressBuilder() *BatchMessageSendProgressBuilder {
+	builder := &BatchMessageSendProgressBuilder{}
+	return builder
+}
+
+func (builder *BatchMessageSendProgressBuilder) ValidUserIdsCount(validUserIdsCount int) *BatchMessageSendProgressBuilder {
+	builder.validUserIdsCount = validUserIdsCount
+	builder.validUserIdsCountFlag = true
+	return builder
+}
+func (builder *BatchMessageSendProgressBuilder) SuccessUserIdsCount(successUserIdsCount int) *BatchMessageSendProgressBuilder {
+	builder.successUserIdsCount = successUserIdsCount
+	builder.successUserIdsCountFlag = true
+	return builder
+}
+func (builder *BatchMessageSendProgressBuilder) ReadUserIdsCount(readUserIdsCount int) *BatchMessageSendProgressBuilder {
+	builder.readUserIdsCount = readUserIdsCount
+	builder.readUserIdsCountFlag = true
+	return builder
+}
+
+func (builder *BatchMessageSendProgressBuilder) Build() *BatchMessageSendProgress {
+	req := &BatchMessageSendProgress{}
+	if builder.validUserIdsCountFlag {
+		req.ValidUserIdsCount = &builder.validUserIdsCount
+
+	}
+	if builder.successUserIdsCountFlag {
+		req.SuccessUserIdsCount = &builder.successUserIdsCount
+
+	}
+	if builder.readUserIdsCountFlag {
+		req.ReadUserIdsCount = &builder.readUserIdsCount
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type BatchRecallProgress struct {
 	RecallCount      *string `json:"recall_count,omitempty"`
 	TotalRecallCount *string `json:"total_recall_count,omitempty"`
 }
 
+/**builder开始**/
+type BatchRecallProgressBuilder struct {
+	recallCount          string
+	recallCountFlag      bool
+	totalRecallCount     string
+	totalRecallCountFlag bool
+}
+
+func NewBatchRecallProgressBuilder() *BatchRecallProgressBuilder {
+	builder := &BatchRecallProgressBuilder{}
+	return builder
+}
+
+func (builder *BatchRecallProgressBuilder) RecallCount(recallCount string) *BatchRecallProgressBuilder {
+	builder.recallCount = recallCount
+	builder.recallCountFlag = true
+	return builder
+}
+func (builder *BatchRecallProgressBuilder) TotalRecallCount(totalRecallCount string) *BatchRecallProgressBuilder {
+	builder.totalRecallCount = totalRecallCount
+	builder.totalRecallCountFlag = true
+	return builder
+}
+
+func (builder *BatchRecallProgressBuilder) Build() *BatchRecallProgress {
+	req := &BatchRecallProgress{}
+	if builder.recallCountFlag {
+		req.RecallCount = &builder.recallCount
+
+	}
+	if builder.totalRecallCountFlag {
+		req.TotalRecallCount = &builder.totalRecallCount
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type BatchSendProgress struct {
 	SendCount      *string `json:"send_count,omitempty"`
 	TotalSendCount *string `json:"total_send_count,omitempty"`
 }
+
+/**builder开始**/
+type BatchSendProgressBuilder struct {
+	sendCount          string
+	sendCountFlag      bool
+	totalSendCount     string
+	totalSendCountFlag bool
+}
+
+func NewBatchSendProgressBuilder() *BatchSendProgressBuilder {
+	builder := &BatchSendProgressBuilder{}
+	return builder
+}
+
+func (builder *BatchSendProgressBuilder) SendCount(sendCount string) *BatchSendProgressBuilder {
+	builder.sendCount = sendCount
+	builder.sendCountFlag = true
+	return builder
+}
+func (builder *BatchSendProgressBuilder) TotalSendCount(totalSendCount string) *BatchSendProgressBuilder {
+	builder.totalSendCount = totalSendCount
+	builder.totalSendCountFlag = true
+	return builder
+}
+
+func (builder *BatchSendProgressBuilder) Build() *BatchSendProgress {
+	req := &BatchSendProgress{}
+	if builder.sendCountFlag {
+		req.SendCount = &builder.sendCount
+
+	}
+	if builder.totalSendCountFlag {
+		req.TotalSendCount = &builder.totalSendCount
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type Chat struct {
 	ChatId         *string    `json:"chat_id,omitempty"`
@@ -123,20 +377,245 @@ type Chat struct {
 	Type           *string    `json:"type,omitempty"`
 }
 
+/**builder开始**/
+type ChatBuilder struct {
+	chatId             string
+	chatIdFlag         bool
+	avatar             string
+	avatarFlag         bool
+	name               string
+	nameFlag           bool
+	description        string
+	descriptionFlag    bool
+	i18nNames          *I18nNames
+	i18nNamesFlag      bool
+	onlyOwnerAdd       bool
+	onlyOwnerAddFlag   bool
+	shareAllowed       bool
+	shareAllowedFlag   bool
+	onlyOwnerAtAll     bool
+	onlyOwnerAtAllFlag bool
+	onlyOwnerEdit      bool
+	onlyOwnerEditFlag  bool
+	ownerUserId        string
+	ownerUserIdFlag    bool
+	type_              string
+	typeFlag           bool
+}
+
+func NewChatBuilder() *ChatBuilder {
+	builder := &ChatBuilder{}
+	return builder
+}
+
+func (builder *ChatBuilder) ChatId(chatId string) *ChatBuilder {
+	builder.chatId = chatId
+	builder.chatIdFlag = true
+	return builder
+}
+func (builder *ChatBuilder) Avatar(avatar string) *ChatBuilder {
+	builder.avatar = avatar
+	builder.avatarFlag = true
+	return builder
+}
+func (builder *ChatBuilder) Name(name string) *ChatBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *ChatBuilder) Description(description string) *ChatBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+func (builder *ChatBuilder) I18nNames(i18nNames *I18nNames) *ChatBuilder {
+	builder.i18nNames = i18nNames
+	builder.i18nNamesFlag = true
+	return builder
+}
+func (builder *ChatBuilder) OnlyOwnerAdd(onlyOwnerAdd bool) *ChatBuilder {
+	builder.onlyOwnerAdd = onlyOwnerAdd
+	builder.onlyOwnerAddFlag = true
+	return builder
+}
+func (builder *ChatBuilder) ShareAllowed(shareAllowed bool) *ChatBuilder {
+	builder.shareAllowed = shareAllowed
+	builder.shareAllowedFlag = true
+	return builder
+}
+func (builder *ChatBuilder) OnlyOwnerAtAll(onlyOwnerAtAll bool) *ChatBuilder {
+	builder.onlyOwnerAtAll = onlyOwnerAtAll
+	builder.onlyOwnerAtAllFlag = true
+	return builder
+}
+func (builder *ChatBuilder) OnlyOwnerEdit(onlyOwnerEdit bool) *ChatBuilder {
+	builder.onlyOwnerEdit = onlyOwnerEdit
+	builder.onlyOwnerEditFlag = true
+	return builder
+}
+func (builder *ChatBuilder) OwnerUserId(ownerUserId string) *ChatBuilder {
+	builder.ownerUserId = ownerUserId
+	builder.ownerUserIdFlag = true
+	return builder
+}
+func (builder *ChatBuilder) Type(type_ string) *ChatBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+
+func (builder *ChatBuilder) Build() *Chat {
+	req := &Chat{}
+	if builder.chatIdFlag {
+		req.ChatId = &builder.chatId
+
+	}
+	if builder.avatarFlag {
+		req.Avatar = &builder.avatar
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	if builder.i18nNamesFlag {
+		req.I18nNames = builder.i18nNames
+	}
+	if builder.onlyOwnerAddFlag {
+		req.OnlyOwnerAdd = &builder.onlyOwnerAdd
+
+	}
+	if builder.shareAllowedFlag {
+		req.ShareAllowed = &builder.shareAllowed
+
+	}
+	if builder.onlyOwnerAtAllFlag {
+		req.OnlyOwnerAtAll = &builder.onlyOwnerAtAll
+
+	}
+	if builder.onlyOwnerEditFlag {
+		req.OnlyOwnerEdit = &builder.onlyOwnerEdit
+
+	}
+	if builder.ownerUserIdFlag {
+		req.OwnerUserId = &builder.ownerUserId
+
+	}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+
+	return req
+}
+
+/**builder结束**/
+
 type ChatAnnouncement struct {
 }
+
+/**builder开始**/
+/**builder结束**/
 
 type ChatManagers struct {
 	ManagerId *int64 `json:"manager_id,omitempty,string"`
 }
 
+/**builder开始**/
+type ChatManagersBuilder struct {
+	managerId     int64
+	managerIdFlag bool
+}
+
+func NewChatManagersBuilder() *ChatManagersBuilder {
+	builder := &ChatManagersBuilder{}
+	return builder
+}
+
+func (builder *ChatManagersBuilder) ManagerId(managerId int64) *ChatManagersBuilder {
+	builder.managerId = managerId
+	builder.managerIdFlag = true
+	return builder
+}
+
+func (builder *ChatManagersBuilder) Build() *ChatManagers {
+	req := &ChatManagers{}
+	if builder.managerIdFlag {
+		req.ManagerId = &builder.managerId
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type ChatMember struct {
 	UserId *string `json:"user_id,omitempty"`
 }
 
+/**builder开始**/
+type ChatMemberBuilder struct {
+	userId     string
+	userIdFlag bool
+}
+
+func NewChatMemberBuilder() *ChatMemberBuilder {
+	builder := &ChatMemberBuilder{}
+	return builder
+}
+
+func (builder *ChatMemberBuilder) UserId(userId string) *ChatMemberBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+func (builder *ChatMemberBuilder) Build() *ChatMember {
+	req := &ChatMember{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type ChatMemberBot struct {
 	BotId *string `json:"bot_id,omitempty"`
 }
+
+/**builder开始**/
+type ChatMemberBotBuilder struct {
+	botId     string
+	botIdFlag bool
+}
+
+func NewChatMemberBotBuilder() *ChatMemberBotBuilder {
+	builder := &ChatMemberBotBuilder{}
+	return builder
+}
+
+func (builder *ChatMemberBotBuilder) BotId(botId string) *ChatMemberBotBuilder {
+	builder.botId = botId
+	builder.botIdFlag = true
+	return builder
+}
+
+func (builder *ChatMemberBotBuilder) Build() *ChatMemberBot {
+	req := &ChatMemberBot{}
+	if builder.botIdFlag {
+		req.BotId = &builder.botId
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type ChatMemberUser struct {
 	Name      *string `json:"name,omitempty"`
@@ -144,9 +623,86 @@ type ChatMemberUser struct {
 	UserId    *UserId `json:"user_id,omitempty"`
 }
 
+/**builder开始**/
+type ChatMemberUserBuilder struct {
+	name          string
+	nameFlag      bool
+	tenantKey     string
+	tenantKeyFlag bool
+	userId        *UserId
+	userIdFlag    bool
+}
+
+func NewChatMemberUserBuilder() *ChatMemberUserBuilder {
+	builder := &ChatMemberUserBuilder{}
+	return builder
+}
+
+func (builder *ChatMemberUserBuilder) Name(name string) *ChatMemberUserBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *ChatMemberUserBuilder) TenantKey(tenantKey string) *ChatMemberUserBuilder {
+	builder.tenantKey = tenantKey
+	builder.tenantKeyFlag = true
+	return builder
+}
+func (builder *ChatMemberUserBuilder) UserId(userId *UserId) *ChatMemberUserBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+func (builder *ChatMemberUserBuilder) Build() *ChatMemberUser {
+	req := &ChatMemberUser{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.tenantKeyFlag {
+		req.TenantKey = &builder.tenantKey
+
+	}
+	if builder.userIdFlag {
+		req.UserId = builder.userId
+	}
+	return req
+}
+
+/**builder结束**/
+
 type ChatMembers struct {
 	UserId *string `json:"user_id,omitempty"`
 }
+
+/**builder开始**/
+type ChatMembersBuilder struct {
+	userId     string
+	userIdFlag bool
+}
+
+func NewChatMembersBuilder() *ChatMembersBuilder {
+	builder := &ChatMembersBuilder{}
+	return builder
+}
+
+func (builder *ChatMembersBuilder) UserId(userId string) *ChatMembersBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+func (builder *ChatMembersBuilder) Build() *ChatMembers {
+	req := &ChatMembers{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type ChatTab struct {
 	TabId      *string         `json:"tab_id,omitempty"`
@@ -155,10 +711,109 @@ type ChatTab struct {
 	TabContent *ChatTabContent `json:"tab_content,omitempty"`
 }
 
+/**builder开始**/
+type ChatTabBuilder struct {
+	tabId          string
+	tabIdFlag      bool
+	tabName        string
+	tabNameFlag    bool
+	tabType        string
+	tabTypeFlag    bool
+	tabContent     *ChatTabContent
+	tabContentFlag bool
+}
+
+func NewChatTabBuilder() *ChatTabBuilder {
+	builder := &ChatTabBuilder{}
+	return builder
+}
+
+func (builder *ChatTabBuilder) TabId(tabId string) *ChatTabBuilder {
+	builder.tabId = tabId
+	builder.tabIdFlag = true
+	return builder
+}
+func (builder *ChatTabBuilder) TabName(tabName string) *ChatTabBuilder {
+	builder.tabName = tabName
+	builder.tabNameFlag = true
+	return builder
+}
+func (builder *ChatTabBuilder) TabType(tabType string) *ChatTabBuilder {
+	builder.tabType = tabType
+	builder.tabTypeFlag = true
+	return builder
+}
+func (builder *ChatTabBuilder) TabContent(tabContent *ChatTabContent) *ChatTabBuilder {
+	builder.tabContent = tabContent
+	builder.tabContentFlag = true
+	return builder
+}
+
+func (builder *ChatTabBuilder) Build() *ChatTab {
+	req := &ChatTab{}
+	if builder.tabIdFlag {
+		req.TabId = &builder.tabId
+
+	}
+	if builder.tabNameFlag {
+		req.TabName = &builder.tabName
+
+	}
+	if builder.tabTypeFlag {
+		req.TabType = &builder.tabType
+
+	}
+	if builder.tabContentFlag {
+		req.TabContent = builder.tabContent
+	}
+	return req
+}
+
+/**builder结束**/
+
 type ChatTopNotice struct {
 	ActionType *string `json:"action_type,omitempty"`
 	MessageId  *string `json:"message_id,omitempty"`
 }
+
+/**builder开始**/
+type ChatTopNoticeBuilder struct {
+	actionType     string
+	actionTypeFlag bool
+	messageId      string
+	messageIdFlag  bool
+}
+
+func NewChatTopNoticeBuilder() *ChatTopNoticeBuilder {
+	builder := &ChatTopNoticeBuilder{}
+	return builder
+}
+
+func (builder *ChatTopNoticeBuilder) ActionType(actionType string) *ChatTopNoticeBuilder {
+	builder.actionType = actionType
+	builder.actionTypeFlag = true
+	return builder
+}
+func (builder *ChatTopNoticeBuilder) MessageId(messageId string) *ChatTopNoticeBuilder {
+	builder.messageId = messageId
+	builder.messageIdFlag = true
+	return builder
+}
+
+func (builder *ChatTopNoticeBuilder) Build() *ChatTopNotice {
+	req := &ChatTopNotice{}
+	if builder.actionTypeFlag {
+		req.ActionType = &builder.actionType
+
+	}
+	if builder.messageIdFlag {
+		req.MessageId = &builder.messageId
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type ChatChange struct {
 	Avatar                 *string    `json:"avatar,omitempty"`
@@ -176,15 +831,252 @@ type ChatChange struct {
 	OwnerId                *UserId    `json:"owner_id,omitempty"`
 }
 
+/**builder开始**/
+type ChatChangeBuilder struct {
+	avatar                     string
+	avatarFlag                 bool
+	name                       string
+	nameFlag                   bool
+	description                string
+	descriptionFlag            bool
+	i18nNames                  *I18nNames
+	i18nNamesFlag              bool
+	addMemberPermission        string
+	addMemberPermissionFlag    bool
+	shareCardPermission        string
+	shareCardPermissionFlag    bool
+	atAllPermission            string
+	atAllPermissionFlag        bool
+	editPermission             string
+	editPermissionFlag         bool
+	membershipApproval         string
+	membershipApprovalFlag     bool
+	joinMessageVisibility      string
+	joinMessageVisibilityFlag  bool
+	leaveMessageVisibility     string
+	leaveMessageVisibilityFlag bool
+	moderationPermission       string
+	moderationPermissionFlag   bool
+	ownerId                    *UserId
+	ownerIdFlag                bool
+}
+
+func NewChatChangeBuilder() *ChatChangeBuilder {
+	builder := &ChatChangeBuilder{}
+	return builder
+}
+
+func (builder *ChatChangeBuilder) Avatar(avatar string) *ChatChangeBuilder {
+	builder.avatar = avatar
+	builder.avatarFlag = true
+	return builder
+}
+func (builder *ChatChangeBuilder) Name(name string) *ChatChangeBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *ChatChangeBuilder) Description(description string) *ChatChangeBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+func (builder *ChatChangeBuilder) I18nNames(i18nNames *I18nNames) *ChatChangeBuilder {
+	builder.i18nNames = i18nNames
+	builder.i18nNamesFlag = true
+	return builder
+}
+func (builder *ChatChangeBuilder) AddMemberPermission(addMemberPermission string) *ChatChangeBuilder {
+	builder.addMemberPermission = addMemberPermission
+	builder.addMemberPermissionFlag = true
+	return builder
+}
+func (builder *ChatChangeBuilder) ShareCardPermission(shareCardPermission string) *ChatChangeBuilder {
+	builder.shareCardPermission = shareCardPermission
+	builder.shareCardPermissionFlag = true
+	return builder
+}
+func (builder *ChatChangeBuilder) AtAllPermission(atAllPermission string) *ChatChangeBuilder {
+	builder.atAllPermission = atAllPermission
+	builder.atAllPermissionFlag = true
+	return builder
+}
+func (builder *ChatChangeBuilder) EditPermission(editPermission string) *ChatChangeBuilder {
+	builder.editPermission = editPermission
+	builder.editPermissionFlag = true
+	return builder
+}
+func (builder *ChatChangeBuilder) MembershipApproval(membershipApproval string) *ChatChangeBuilder {
+	builder.membershipApproval = membershipApproval
+	builder.membershipApprovalFlag = true
+	return builder
+}
+func (builder *ChatChangeBuilder) JoinMessageVisibility(joinMessageVisibility string) *ChatChangeBuilder {
+	builder.joinMessageVisibility = joinMessageVisibility
+	builder.joinMessageVisibilityFlag = true
+	return builder
+}
+func (builder *ChatChangeBuilder) LeaveMessageVisibility(leaveMessageVisibility string) *ChatChangeBuilder {
+	builder.leaveMessageVisibility = leaveMessageVisibility
+	builder.leaveMessageVisibilityFlag = true
+	return builder
+}
+func (builder *ChatChangeBuilder) ModerationPermission(moderationPermission string) *ChatChangeBuilder {
+	builder.moderationPermission = moderationPermission
+	builder.moderationPermissionFlag = true
+	return builder
+}
+func (builder *ChatChangeBuilder) OwnerId(ownerId *UserId) *ChatChangeBuilder {
+	builder.ownerId = ownerId
+	builder.ownerIdFlag = true
+	return builder
+}
+
+func (builder *ChatChangeBuilder) Build() *ChatChange {
+	req := &ChatChange{}
+	if builder.avatarFlag {
+		req.Avatar = &builder.avatar
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	if builder.i18nNamesFlag {
+		req.I18nNames = builder.i18nNames
+	}
+	if builder.addMemberPermissionFlag {
+		req.AddMemberPermission = &builder.addMemberPermission
+
+	}
+	if builder.shareCardPermissionFlag {
+		req.ShareCardPermission = &builder.shareCardPermission
+
+	}
+	if builder.atAllPermissionFlag {
+		req.AtAllPermission = &builder.atAllPermission
+
+	}
+	if builder.editPermissionFlag {
+		req.EditPermission = &builder.editPermission
+
+	}
+	if builder.membershipApprovalFlag {
+		req.MembershipApproval = &builder.membershipApproval
+
+	}
+	if builder.joinMessageVisibilityFlag {
+		req.JoinMessageVisibility = &builder.joinMessageVisibility
+
+	}
+	if builder.leaveMessageVisibilityFlag {
+		req.LeaveMessageVisibility = &builder.leaveMessageVisibility
+
+	}
+	if builder.moderationPermissionFlag {
+		req.ModerationPermission = &builder.moderationPermission
+
+	}
+	if builder.ownerIdFlag {
+		req.OwnerId = builder.ownerId
+	}
+
+	return req
+}
+
+/**builder结束**/
+
 type ChatTabContent struct {
 	Url           *string `json:"url,omitempty"`
 	Doc           *string `json:"doc,omitempty"`
 	MeetingMinute *string `json:"meeting_minute,omitempty"`
 }
 
+/**builder开始**/
+type ChatTabContentBuilder struct {
+	url               string
+	urlFlag           bool
+	doc               string
+	docFlag           bool
+	meetingMinute     string
+	meetingMinuteFlag bool
+}
+
+func NewChatTabContentBuilder() *ChatTabContentBuilder {
+	builder := &ChatTabContentBuilder{}
+	return builder
+}
+
+func (builder *ChatTabContentBuilder) Url(url string) *ChatTabContentBuilder {
+	builder.url = url
+	builder.urlFlag = true
+	return builder
+}
+func (builder *ChatTabContentBuilder) Doc(doc string) *ChatTabContentBuilder {
+	builder.doc = doc
+	builder.docFlag = true
+	return builder
+}
+func (builder *ChatTabContentBuilder) MeetingMinute(meetingMinute string) *ChatTabContentBuilder {
+	builder.meetingMinute = meetingMinute
+	builder.meetingMinuteFlag = true
+	return builder
+}
+
+func (builder *ChatTabContentBuilder) Build() *ChatTabContent {
+	req := &ChatTabContent{}
+	if builder.urlFlag {
+		req.Url = &builder.url
+
+	}
+	if builder.docFlag {
+		req.Doc = &builder.doc
+
+	}
+	if builder.meetingMinuteFlag {
+		req.MeetingMinute = &builder.meetingMinute
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Emoji struct {
 	EmojiType *string `json:"emoji_type,omitempty"`
 }
+
+/**builder开始**/
+type EmojiBuilder struct {
+	emojiType     string
+	emojiTypeFlag bool
+}
+
+func NewEmojiBuilder() *EmojiBuilder {
+	builder := &EmojiBuilder{}
+	return builder
+}
+
+func (builder *EmojiBuilder) EmojiType(emojiType string) *EmojiBuilder {
+	builder.emojiType = emojiType
+	builder.emojiTypeFlag = true
+	return builder
+}
+
+func (builder *EmojiBuilder) Build() *Emoji {
+	req := &Emoji{}
+	if builder.emojiTypeFlag {
+		req.EmojiType = &builder.emojiType
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type EventMessage struct {
 	MessageId   *string         `json:"message_id,omitempty"`
@@ -198,11 +1090,175 @@ type EventMessage struct {
 	Mentions    []*MentionEvent `json:"mentions,omitempty"`
 }
 
+/**builder开始**/
+type EventMessageBuilder struct {
+	messageId       string
+	messageIdFlag   bool
+	rootId          string
+	rootIdFlag      bool
+	parentId        string
+	parentIdFlag    bool
+	createTime      int64
+	createTimeFlag  bool
+	chatId          string
+	chatIdFlag      bool
+	chatType        string
+	chatTypeFlag    bool
+	messageType     string
+	messageTypeFlag bool
+	content         string
+	contentFlag     bool
+	mentions        []*MentionEvent
+	mentionsFlag    bool
+}
+
+func NewEventMessageBuilder() *EventMessageBuilder {
+	builder := &EventMessageBuilder{}
+	return builder
+}
+
+func (builder *EventMessageBuilder) MessageId(messageId string) *EventMessageBuilder {
+	builder.messageId = messageId
+	builder.messageIdFlag = true
+	return builder
+}
+func (builder *EventMessageBuilder) RootId(rootId string) *EventMessageBuilder {
+	builder.rootId = rootId
+	builder.rootIdFlag = true
+	return builder
+}
+func (builder *EventMessageBuilder) ParentId(parentId string) *EventMessageBuilder {
+	builder.parentId = parentId
+	builder.parentIdFlag = true
+	return builder
+}
+func (builder *EventMessageBuilder) CreateTime(createTime int64) *EventMessageBuilder {
+	builder.createTime = createTime
+	builder.createTimeFlag = true
+	return builder
+}
+func (builder *EventMessageBuilder) ChatId(chatId string) *EventMessageBuilder {
+	builder.chatId = chatId
+	builder.chatIdFlag = true
+	return builder
+}
+func (builder *EventMessageBuilder) ChatType(chatType string) *EventMessageBuilder {
+	builder.chatType = chatType
+	builder.chatTypeFlag = true
+	return builder
+}
+func (builder *EventMessageBuilder) MessageType(messageType string) *EventMessageBuilder {
+	builder.messageType = messageType
+	builder.messageTypeFlag = true
+	return builder
+}
+func (builder *EventMessageBuilder) Content(content string) *EventMessageBuilder {
+	builder.content = content
+	builder.contentFlag = true
+	return builder
+}
+func (builder *EventMessageBuilder) Mentions(mentions []*MentionEvent) *EventMessageBuilder {
+	builder.mentions = mentions
+	builder.mentionsFlag = true
+	return builder
+}
+
+func (builder *EventMessageBuilder) Build() *EventMessage {
+	req := &EventMessage{}
+	if builder.messageIdFlag {
+		req.MessageId = &builder.messageId
+
+	}
+	if builder.rootIdFlag {
+		req.RootId = &builder.rootId
+
+	}
+	if builder.parentIdFlag {
+		req.ParentId = &builder.parentId
+
+	}
+	if builder.createTimeFlag {
+		req.CreateTime = &builder.createTime
+
+	}
+	if builder.chatIdFlag {
+		req.ChatId = &builder.chatId
+
+	}
+	if builder.chatTypeFlag {
+		req.ChatType = &builder.chatType
+
+	}
+	if builder.messageTypeFlag {
+		req.MessageType = &builder.messageType
+
+	}
+	if builder.contentFlag {
+		req.Content = &builder.content
+
+	}
+	if builder.mentionsFlag {
+		req.Mentions = builder.mentions
+	}
+	return req
+}
+
+/**builder结束**/
+
 type EventMessageReader struct {
 	ReaderId  *UserId `json:"reader_id,omitempty"`
 	ReadTime  *string `json:"read_time,omitempty"`
 	TenantKey *string `json:"tenant_key,omitempty"`
 }
+
+/**builder开始**/
+type EventMessageReaderBuilder struct {
+	readerId      *UserId
+	readerIdFlag  bool
+	readTime      string
+	readTimeFlag  bool
+	tenantKey     string
+	tenantKeyFlag bool
+}
+
+func NewEventMessageReaderBuilder() *EventMessageReaderBuilder {
+	builder := &EventMessageReaderBuilder{}
+	return builder
+}
+
+func (builder *EventMessageReaderBuilder) ReaderId(readerId *UserId) *EventMessageReaderBuilder {
+	builder.readerId = readerId
+	builder.readerIdFlag = true
+	return builder
+}
+func (builder *EventMessageReaderBuilder) ReadTime(readTime string) *EventMessageReaderBuilder {
+	builder.readTime = readTime
+	builder.readTimeFlag = true
+	return builder
+}
+func (builder *EventMessageReaderBuilder) TenantKey(tenantKey string) *EventMessageReaderBuilder {
+	builder.tenantKey = tenantKey
+	builder.tenantKeyFlag = true
+	return builder
+}
+
+func (builder *EventMessageReaderBuilder) Build() *EventMessageReader {
+	req := &EventMessageReader{}
+	if builder.readerIdFlag {
+		req.ReaderId = builder.readerId
+	}
+	if builder.readTimeFlag {
+		req.ReadTime = &builder.readTime
+
+	}
+	if builder.tenantKeyFlag {
+		req.TenantKey = &builder.tenantKey
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type EventSender struct {
 	SenderId   *UserId `json:"sender_id,omitempty"`
@@ -210,14 +1266,116 @@ type EventSender struct {
 	TenantKey  *string `json:"tenant_key,omitempty"`
 }
 
+/**builder开始**/
+type EventSenderBuilder struct {
+	senderId       *UserId
+	senderIdFlag   bool
+	senderType     string
+	senderTypeFlag bool
+	tenantKey      string
+	tenantKeyFlag  bool
+}
+
+func NewEventSenderBuilder() *EventSenderBuilder {
+	builder := &EventSenderBuilder{}
+	return builder
+}
+
+func (builder *EventSenderBuilder) SenderId(senderId *UserId) *EventSenderBuilder {
+	builder.senderId = senderId
+	builder.senderIdFlag = true
+	return builder
+}
+func (builder *EventSenderBuilder) SenderType(senderType string) *EventSenderBuilder {
+	builder.senderType = senderType
+	builder.senderTypeFlag = true
+	return builder
+}
+func (builder *EventSenderBuilder) TenantKey(tenantKey string) *EventSenderBuilder {
+	builder.tenantKey = tenantKey
+	builder.tenantKeyFlag = true
+	return builder
+}
+
+func (builder *EventSenderBuilder) Build() *EventSender {
+	req := &EventSender{}
+	if builder.senderIdFlag {
+		req.SenderId = builder.senderId
+	}
+	if builder.senderTypeFlag {
+		req.SenderType = &builder.senderType
+
+	}
+	if builder.tenantKeyFlag {
+		req.TenantKey = &builder.tenantKey
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type File struct {
 }
+
+/**builder开始**/
+/**builder结束**/
 
 type I18nNames struct {
 	ZhCn *string `json:"zh_cn,omitempty"`
 	EnUs *string `json:"en_us,omitempty"`
 	JaJp *string `json:"ja_jp,omitempty"`
 }
+
+/**builder开始**/
+type I18nNamesBuilder struct {
+	zhCn     string
+	zhCnFlag bool
+	enUs     string
+	enUsFlag bool
+	jaJp     string
+	jaJpFlag bool
+}
+
+func NewI18nNamesBuilder() *I18nNamesBuilder {
+	builder := &I18nNamesBuilder{}
+	return builder
+}
+
+func (builder *I18nNamesBuilder) ZhCn(zhCn string) *I18nNamesBuilder {
+	builder.zhCn = zhCn
+	builder.zhCnFlag = true
+	return builder
+}
+func (builder *I18nNamesBuilder) EnUs(enUs string) *I18nNamesBuilder {
+	builder.enUs = enUs
+	builder.enUsFlag = true
+	return builder
+}
+func (builder *I18nNamesBuilder) JaJp(jaJp string) *I18nNamesBuilder {
+	builder.jaJp = jaJp
+	builder.jaJpFlag = true
+	return builder
+}
+
+func (builder *I18nNamesBuilder) Build() *I18nNames {
+	req := &I18nNames{}
+	if builder.zhCnFlag {
+		req.ZhCn = &builder.zhCn
+
+	}
+	if builder.enUsFlag {
+		req.EnUs = &builder.enUs
+
+	}
+	if builder.jaJpFlag {
+		req.JaJp = &builder.jaJp
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type ImDepthData struct {
 	PDate                   *string  `json:"p_date,omitempty"`
@@ -243,8 +1401,259 @@ type ImDepthData struct {
 	PostSendMsgRate         *float64 `json:"post_send_msg_rate,omitempty"`
 }
 
+/**builder开始**/
+type ImDepthDataBuilder struct {
+	pDate                       string
+	pDateFlag                   bool
+	departmentId                string
+	departmentIdFlag            bool
+	departmentPath              string
+	departmentPathFlag          bool
+	sendMsgRate                 float64
+	sendMsgRateFlag             bool
+	avgSendMsgCnt               float64
+	avgSendMsgCntFlag           bool
+	pcSendMsgRate               float64
+	pcSendMsgRateFlag           bool
+	pcAvgSendMsgCnt             float64
+	pcAvgSendMsgCntFlag         bool
+	mobileSendMsgRate           float64
+	mobileSendMsgRateFlag       bool
+	mobileAvgSendMsgCnt         float64
+	mobileAvgSendMsgCntFlag     bool
+	meetingGroupSendMsgRate     float64
+	meetingGroupSendMsgRateFlag bool
+	tenantGroupSendMsgRate      float64
+	tenantGroupSendMsgRateFlag  bool
+	deptGroupSendMsgRate        float64
+	deptGroupSendMsgRateFlag    bool
+	topicGroupSendMsgRate       float64
+	topicGroupSendMsgRateFlag   bool
+	groupAtMsgRate              float64
+	groupAtMsgRateFlag          bool
+	groupReplyMsgRate           float64
+	groupReplyMsgRateFlag       bool
+	reactionRate                float64
+	reactionRateFlag            bool
+	p2pSendMsgRate              float64
+	p2pSendMsgRateFlag          bool
+	imgSendMsgRate              float64
+	imgSendMsgRateFlag          bool
+	fileSendMsgRate             float64
+	fileSendMsgRateFlag         bool
+	stickerSendMsgRate          float64
+	stickerSendMsgRateFlag      bool
+	postSendMsgRate             float64
+	postSendMsgRateFlag         bool
+}
+
+func NewImDepthDataBuilder() *ImDepthDataBuilder {
+	builder := &ImDepthDataBuilder{}
+	return builder
+}
+
+func (builder *ImDepthDataBuilder) PDate(pDate string) *ImDepthDataBuilder {
+	builder.pDate = pDate
+	builder.pDateFlag = true
+	return builder
+}
+func (builder *ImDepthDataBuilder) DepartmentId(departmentId string) *ImDepthDataBuilder {
+	builder.departmentId = departmentId
+	builder.departmentIdFlag = true
+	return builder
+}
+func (builder *ImDepthDataBuilder) DepartmentPath(departmentPath string) *ImDepthDataBuilder {
+	builder.departmentPath = departmentPath
+	builder.departmentPathFlag = true
+	return builder
+}
+func (builder *ImDepthDataBuilder) SendMsgRate(sendMsgRate float64) *ImDepthDataBuilder {
+	builder.sendMsgRate = sendMsgRate
+	builder.sendMsgRateFlag = true
+	return builder
+}
+func (builder *ImDepthDataBuilder) AvgSendMsgCnt(avgSendMsgCnt float64) *ImDepthDataBuilder {
+	builder.avgSendMsgCnt = avgSendMsgCnt
+	builder.avgSendMsgCntFlag = true
+	return builder
+}
+func (builder *ImDepthDataBuilder) PcSendMsgRate(pcSendMsgRate float64) *ImDepthDataBuilder {
+	builder.pcSendMsgRate = pcSendMsgRate
+	builder.pcSendMsgRateFlag = true
+	return builder
+}
+func (builder *ImDepthDataBuilder) PcAvgSendMsgCnt(pcAvgSendMsgCnt float64) *ImDepthDataBuilder {
+	builder.pcAvgSendMsgCnt = pcAvgSendMsgCnt
+	builder.pcAvgSendMsgCntFlag = true
+	return builder
+}
+func (builder *ImDepthDataBuilder) MobileSendMsgRate(mobileSendMsgRate float64) *ImDepthDataBuilder {
+	builder.mobileSendMsgRate = mobileSendMsgRate
+	builder.mobileSendMsgRateFlag = true
+	return builder
+}
+func (builder *ImDepthDataBuilder) MobileAvgSendMsgCnt(mobileAvgSendMsgCnt float64) *ImDepthDataBuilder {
+	builder.mobileAvgSendMsgCnt = mobileAvgSendMsgCnt
+	builder.mobileAvgSendMsgCntFlag = true
+	return builder
+}
+func (builder *ImDepthDataBuilder) MeetingGroupSendMsgRate(meetingGroupSendMsgRate float64) *ImDepthDataBuilder {
+	builder.meetingGroupSendMsgRate = meetingGroupSendMsgRate
+	builder.meetingGroupSendMsgRateFlag = true
+	return builder
+}
+func (builder *ImDepthDataBuilder) TenantGroupSendMsgRate(tenantGroupSendMsgRate float64) *ImDepthDataBuilder {
+	builder.tenantGroupSendMsgRate = tenantGroupSendMsgRate
+	builder.tenantGroupSendMsgRateFlag = true
+	return builder
+}
+func (builder *ImDepthDataBuilder) DeptGroupSendMsgRate(deptGroupSendMsgRate float64) *ImDepthDataBuilder {
+	builder.deptGroupSendMsgRate = deptGroupSendMsgRate
+	builder.deptGroupSendMsgRateFlag = true
+	return builder
+}
+func (builder *ImDepthDataBuilder) TopicGroupSendMsgRate(topicGroupSendMsgRate float64) *ImDepthDataBuilder {
+	builder.topicGroupSendMsgRate = topicGroupSendMsgRate
+	builder.topicGroupSendMsgRateFlag = true
+	return builder
+}
+func (builder *ImDepthDataBuilder) GroupAtMsgRate(groupAtMsgRate float64) *ImDepthDataBuilder {
+	builder.groupAtMsgRate = groupAtMsgRate
+	builder.groupAtMsgRateFlag = true
+	return builder
+}
+func (builder *ImDepthDataBuilder) GroupReplyMsgRate(groupReplyMsgRate float64) *ImDepthDataBuilder {
+	builder.groupReplyMsgRate = groupReplyMsgRate
+	builder.groupReplyMsgRateFlag = true
+	return builder
+}
+func (builder *ImDepthDataBuilder) ReactionRate(reactionRate float64) *ImDepthDataBuilder {
+	builder.reactionRate = reactionRate
+	builder.reactionRateFlag = true
+	return builder
+}
+func (builder *ImDepthDataBuilder) P2pSendMsgRate(p2pSendMsgRate float64) *ImDepthDataBuilder {
+	builder.p2pSendMsgRate = p2pSendMsgRate
+	builder.p2pSendMsgRateFlag = true
+	return builder
+}
+func (builder *ImDepthDataBuilder) ImgSendMsgRate(imgSendMsgRate float64) *ImDepthDataBuilder {
+	builder.imgSendMsgRate = imgSendMsgRate
+	builder.imgSendMsgRateFlag = true
+	return builder
+}
+func (builder *ImDepthDataBuilder) FileSendMsgRate(fileSendMsgRate float64) *ImDepthDataBuilder {
+	builder.fileSendMsgRate = fileSendMsgRate
+	builder.fileSendMsgRateFlag = true
+	return builder
+}
+func (builder *ImDepthDataBuilder) StickerSendMsgRate(stickerSendMsgRate float64) *ImDepthDataBuilder {
+	builder.stickerSendMsgRate = stickerSendMsgRate
+	builder.stickerSendMsgRateFlag = true
+	return builder
+}
+func (builder *ImDepthDataBuilder) PostSendMsgRate(postSendMsgRate float64) *ImDepthDataBuilder {
+	builder.postSendMsgRate = postSendMsgRate
+	builder.postSendMsgRateFlag = true
+	return builder
+}
+
+func (builder *ImDepthDataBuilder) Build() *ImDepthData {
+	req := &ImDepthData{}
+	if builder.pDateFlag {
+		req.PDate = &builder.pDate
+
+	}
+	if builder.departmentIdFlag {
+		req.DepartmentId = &builder.departmentId
+
+	}
+	if builder.departmentPathFlag {
+		req.DepartmentPath = &builder.departmentPath
+
+	}
+	if builder.sendMsgRateFlag {
+		req.SendMsgRate = &builder.sendMsgRate
+
+	}
+	if builder.avgSendMsgCntFlag {
+		req.AvgSendMsgCnt = &builder.avgSendMsgCnt
+
+	}
+	if builder.pcSendMsgRateFlag {
+		req.PcSendMsgRate = &builder.pcSendMsgRate
+
+	}
+	if builder.pcAvgSendMsgCntFlag {
+		req.PcAvgSendMsgCnt = &builder.pcAvgSendMsgCnt
+
+	}
+	if builder.mobileSendMsgRateFlag {
+		req.MobileSendMsgRate = &builder.mobileSendMsgRate
+
+	}
+	if builder.mobileAvgSendMsgCntFlag {
+		req.MobileAvgSendMsgCnt = &builder.mobileAvgSendMsgCnt
+
+	}
+	if builder.meetingGroupSendMsgRateFlag {
+		req.MeetingGroupSendMsgRate = &builder.meetingGroupSendMsgRate
+
+	}
+	if builder.tenantGroupSendMsgRateFlag {
+		req.TenantGroupSendMsgRate = &builder.tenantGroupSendMsgRate
+
+	}
+	if builder.deptGroupSendMsgRateFlag {
+		req.DeptGroupSendMsgRate = &builder.deptGroupSendMsgRate
+
+	}
+	if builder.topicGroupSendMsgRateFlag {
+		req.TopicGroupSendMsgRate = &builder.topicGroupSendMsgRate
+
+	}
+	if builder.groupAtMsgRateFlag {
+		req.GroupAtMsgRate = &builder.groupAtMsgRate
+
+	}
+	if builder.groupReplyMsgRateFlag {
+		req.GroupReplyMsgRate = &builder.groupReplyMsgRate
+
+	}
+	if builder.reactionRateFlag {
+		req.ReactionRate = &builder.reactionRate
+
+	}
+	if builder.p2pSendMsgRateFlag {
+		req.P2pSendMsgRate = &builder.p2pSendMsgRate
+
+	}
+	if builder.imgSendMsgRateFlag {
+		req.ImgSendMsgRate = &builder.imgSendMsgRate
+
+	}
+	if builder.fileSendMsgRateFlag {
+		req.FileSendMsgRate = &builder.fileSendMsgRate
+
+	}
+	if builder.stickerSendMsgRateFlag {
+		req.StickerSendMsgRate = &builder.stickerSendMsgRate
+
+	}
+	if builder.postSendMsgRateFlag {
+		req.PostSendMsgRate = &builder.postSendMsgRate
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Image struct {
 }
+
+/**builder开始**/
+/**builder结束**/
 
 type ListChat struct {
 	ChatId      *string `json:"chat_id,omitempty"`
@@ -257,10 +1666,154 @@ type ListChat struct {
 	TenantKey   *string `json:"tenant_key,omitempty"`
 }
 
+/**builder开始**/
+type ListChatBuilder struct {
+	chatId          string
+	chatIdFlag      bool
+	avatar          string
+	avatarFlag      bool
+	name            string
+	nameFlag        bool
+	description     string
+	descriptionFlag bool
+	ownerId         string
+	ownerIdFlag     bool
+	ownerIdType     string
+	ownerIdTypeFlag bool
+	external        bool
+	externalFlag    bool
+	tenantKey       string
+	tenantKeyFlag   bool
+}
+
+func NewListChatBuilder() *ListChatBuilder {
+	builder := &ListChatBuilder{}
+	return builder
+}
+
+func (builder *ListChatBuilder) ChatId(chatId string) *ListChatBuilder {
+	builder.chatId = chatId
+	builder.chatIdFlag = true
+	return builder
+}
+func (builder *ListChatBuilder) Avatar(avatar string) *ListChatBuilder {
+	builder.avatar = avatar
+	builder.avatarFlag = true
+	return builder
+}
+func (builder *ListChatBuilder) Name(name string) *ListChatBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *ListChatBuilder) Description(description string) *ListChatBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+func (builder *ListChatBuilder) OwnerId(ownerId string) *ListChatBuilder {
+	builder.ownerId = ownerId
+	builder.ownerIdFlag = true
+	return builder
+}
+func (builder *ListChatBuilder) OwnerIdType(ownerIdType string) *ListChatBuilder {
+	builder.ownerIdType = ownerIdType
+	builder.ownerIdTypeFlag = true
+	return builder
+}
+func (builder *ListChatBuilder) External(external bool) *ListChatBuilder {
+	builder.external = external
+	builder.externalFlag = true
+	return builder
+}
+func (builder *ListChatBuilder) TenantKey(tenantKey string) *ListChatBuilder {
+	builder.tenantKey = tenantKey
+	builder.tenantKeyFlag = true
+	return builder
+}
+
+func (builder *ListChatBuilder) Build() *ListChat {
+	req := &ListChat{}
+	if builder.chatIdFlag {
+		req.ChatId = &builder.chatId
+
+	}
+	if builder.avatarFlag {
+		req.Avatar = &builder.avatar
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	if builder.ownerIdFlag {
+		req.OwnerId = &builder.ownerId
+
+	}
+	if builder.ownerIdTypeFlag {
+		req.OwnerIdType = &builder.ownerIdType
+
+	}
+	if builder.externalFlag {
+		req.External = &builder.external
+
+	}
+	if builder.tenantKeyFlag {
+		req.TenantKey = &builder.tenantKey
+
+	}
+
+	return req
+}
+
+/**builder结束**/
+
 type ListEventModerator struct {
 	TenantKey *string `json:"tenant_key,omitempty"`
 	UserId    *UserId `json:"user_id,omitempty"`
 }
+
+/**builder开始**/
+type ListEventModeratorBuilder struct {
+	tenantKey     string
+	tenantKeyFlag bool
+	userId        *UserId
+	userIdFlag    bool
+}
+
+func NewListEventModeratorBuilder() *ListEventModeratorBuilder {
+	builder := &ListEventModeratorBuilder{}
+	return builder
+}
+
+func (builder *ListEventModeratorBuilder) TenantKey(tenantKey string) *ListEventModeratorBuilder {
+	builder.tenantKey = tenantKey
+	builder.tenantKeyFlag = true
+	return builder
+}
+func (builder *ListEventModeratorBuilder) UserId(userId *UserId) *ListEventModeratorBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+func (builder *ListEventModeratorBuilder) Build() *ListEventModerator {
+	req := &ListEventModerator{}
+	if builder.tenantKeyFlag {
+		req.TenantKey = &builder.tenantKey
+
+	}
+	if builder.userIdFlag {
+		req.UserId = builder.userId
+	}
+	return req
+}
+
+/**builder结束**/
 
 type ListMember struct {
 	MemberIdType *string `json:"member_id_type,omitempty"`
@@ -269,11 +1822,122 @@ type ListMember struct {
 	TenantKey    *string `json:"tenant_key,omitempty"`
 }
 
+/**builder开始**/
+type ListMemberBuilder struct {
+	memberIdType     string
+	memberIdTypeFlag bool
+	memberId         string
+	memberIdFlag     bool
+	name             string
+	nameFlag         bool
+	tenantKey        string
+	tenantKeyFlag    bool
+}
+
+func NewListMemberBuilder() *ListMemberBuilder {
+	builder := &ListMemberBuilder{}
+	return builder
+}
+
+func (builder *ListMemberBuilder) MemberIdType(memberIdType string) *ListMemberBuilder {
+	builder.memberIdType = memberIdType
+	builder.memberIdTypeFlag = true
+	return builder
+}
+func (builder *ListMemberBuilder) MemberId(memberId string) *ListMemberBuilder {
+	builder.memberId = memberId
+	builder.memberIdFlag = true
+	return builder
+}
+func (builder *ListMemberBuilder) Name(name string) *ListMemberBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *ListMemberBuilder) TenantKey(tenantKey string) *ListMemberBuilder {
+	builder.tenantKey = tenantKey
+	builder.tenantKeyFlag = true
+	return builder
+}
+
+func (builder *ListMemberBuilder) Build() *ListMember {
+	req := &ListMember{}
+	if builder.memberIdTypeFlag {
+		req.MemberIdType = &builder.memberIdType
+
+	}
+	if builder.memberIdFlag {
+		req.MemberId = &builder.memberId
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.tenantKeyFlag {
+		req.TenantKey = &builder.tenantKey
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type ListModerator struct {
 	UserIdType *string `json:"user_id_type,omitempty"`
 	UserId     *string `json:"user_id,omitempty"`
 	TenantKey  *string `json:"tenant_key,omitempty"`
 }
+
+/**builder开始**/
+type ListModeratorBuilder struct {
+	userIdType     string
+	userIdTypeFlag bool
+	userId         string
+	userIdFlag     bool
+	tenantKey      string
+	tenantKeyFlag  bool
+}
+
+func NewListModeratorBuilder() *ListModeratorBuilder {
+	builder := &ListModeratorBuilder{}
+	return builder
+}
+
+func (builder *ListModeratorBuilder) UserIdType(userIdType string) *ListModeratorBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
+}
+func (builder *ListModeratorBuilder) UserId(userId string) *ListModeratorBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *ListModeratorBuilder) TenantKey(tenantKey string) *ListModeratorBuilder {
+	builder.tenantKey = tenantKey
+	builder.tenantKeyFlag = true
+	return builder
+}
+
+func (builder *ListModeratorBuilder) Build() *ListModerator {
+	req := &ListModerator{}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.tenantKeyFlag {
+		req.TenantKey = &builder.tenantKey
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type Mention struct {
 	Key       *string `json:"key,omitempty"`
@@ -283,12 +1947,144 @@ type Mention struct {
 	TenantKey *string `json:"tenant_key,omitempty"`
 }
 
+/**builder开始**/
+type MentionBuilder struct {
+	key           string
+	keyFlag       bool
+	id            string
+	idFlag        bool
+	idType        string
+	idTypeFlag    bool
+	name          string
+	nameFlag      bool
+	tenantKey     string
+	tenantKeyFlag bool
+}
+
+func NewMentionBuilder() *MentionBuilder {
+	builder := &MentionBuilder{}
+	return builder
+}
+
+func (builder *MentionBuilder) Key(key string) *MentionBuilder {
+	builder.key = key
+	builder.keyFlag = true
+	return builder
+}
+func (builder *MentionBuilder) Id(id string) *MentionBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *MentionBuilder) IdType(idType string) *MentionBuilder {
+	builder.idType = idType
+	builder.idTypeFlag = true
+	return builder
+}
+func (builder *MentionBuilder) Name(name string) *MentionBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *MentionBuilder) TenantKey(tenantKey string) *MentionBuilder {
+	builder.tenantKey = tenantKey
+	builder.tenantKeyFlag = true
+	return builder
+}
+
+func (builder *MentionBuilder) Build() *Mention {
+	req := &Mention{}
+	if builder.keyFlag {
+		req.Key = &builder.key
+
+	}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.idTypeFlag {
+		req.IdType = &builder.idType
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.tenantKeyFlag {
+		req.TenantKey = &builder.tenantKey
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type MentionEvent struct {
 	Key       *string `json:"key,omitempty"`
 	Id        *UserId `json:"id,omitempty"`
 	Name      *string `json:"name,omitempty"`
 	TenantKey *string `json:"tenant_key,omitempty"`
 }
+
+/**builder开始**/
+type MentionEventBuilder struct {
+	key           string
+	keyFlag       bool
+	id            *UserId
+	idFlag        bool
+	name          string
+	nameFlag      bool
+	tenantKey     string
+	tenantKeyFlag bool
+}
+
+func NewMentionEventBuilder() *MentionEventBuilder {
+	builder := &MentionEventBuilder{}
+	return builder
+}
+
+func (builder *MentionEventBuilder) Key(key string) *MentionEventBuilder {
+	builder.key = key
+	builder.keyFlag = true
+	return builder
+}
+func (builder *MentionEventBuilder) Id(id *UserId) *MentionEventBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *MentionEventBuilder) Name(name string) *MentionEventBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *MentionEventBuilder) TenantKey(tenantKey string) *MentionEventBuilder {
+	builder.tenantKey = tenantKey
+	builder.tenantKeyFlag = true
+	return builder
+}
+
+func (builder *MentionEventBuilder) Build() *MentionEvent {
+	req := &MentionEvent{}
+	if builder.keyFlag {
+		req.Key = &builder.key
+
+	}
+	if builder.idFlag {
+		req.Id = builder.id
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.tenantKeyFlag {
+		req.TenantKey = &builder.tenantKey
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type Message struct {
 	MessageId      *string      `json:"message_id,omitempty"`
@@ -306,6 +2102,163 @@ type Message struct {
 	UpperMessageId *string      `json:"upper_message_id,omitempty"`
 }
 
+/**builder开始**/
+type MessageBuilder struct {
+	messageId          string
+	messageIdFlag      bool
+	rootId             string
+	rootIdFlag         bool
+	parentId           string
+	parentIdFlag       bool
+	msgType            string
+	msgTypeFlag        bool
+	createTime         int64
+	createTimeFlag     bool
+	updateTime         int64
+	updateTimeFlag     bool
+	deleted            bool
+	deletedFlag        bool
+	updated            bool
+	updatedFlag        bool
+	chatId             string
+	chatIdFlag         bool
+	sender             *Sender
+	senderFlag         bool
+	body               *MessageBody
+	bodyFlag           bool
+	mentions           []*Mention
+	mentionsFlag       bool
+	upperMessageId     string
+	upperMessageIdFlag bool
+}
+
+func NewMessageBuilder() *MessageBuilder {
+	builder := &MessageBuilder{}
+	return builder
+}
+
+func (builder *MessageBuilder) MessageId(messageId string) *MessageBuilder {
+	builder.messageId = messageId
+	builder.messageIdFlag = true
+	return builder
+}
+func (builder *MessageBuilder) RootId(rootId string) *MessageBuilder {
+	builder.rootId = rootId
+	builder.rootIdFlag = true
+	return builder
+}
+func (builder *MessageBuilder) ParentId(parentId string) *MessageBuilder {
+	builder.parentId = parentId
+	builder.parentIdFlag = true
+	return builder
+}
+func (builder *MessageBuilder) MsgType(msgType string) *MessageBuilder {
+	builder.msgType = msgType
+	builder.msgTypeFlag = true
+	return builder
+}
+func (builder *MessageBuilder) CreateTime(createTime int64) *MessageBuilder {
+	builder.createTime = createTime
+	builder.createTimeFlag = true
+	return builder
+}
+func (builder *MessageBuilder) UpdateTime(updateTime int64) *MessageBuilder {
+	builder.updateTime = updateTime
+	builder.updateTimeFlag = true
+	return builder
+}
+func (builder *MessageBuilder) Deleted(deleted bool) *MessageBuilder {
+	builder.deleted = deleted
+	builder.deletedFlag = true
+	return builder
+}
+func (builder *MessageBuilder) Updated(updated bool) *MessageBuilder {
+	builder.updated = updated
+	builder.updatedFlag = true
+	return builder
+}
+func (builder *MessageBuilder) ChatId(chatId string) *MessageBuilder {
+	builder.chatId = chatId
+	builder.chatIdFlag = true
+	return builder
+}
+func (builder *MessageBuilder) Sender(sender *Sender) *MessageBuilder {
+	builder.sender = sender
+	builder.senderFlag = true
+	return builder
+}
+func (builder *MessageBuilder) Body(body *MessageBody) *MessageBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
+}
+func (builder *MessageBuilder) Mentions(mentions []*Mention) *MessageBuilder {
+	builder.mentions = mentions
+	builder.mentionsFlag = true
+	return builder
+}
+func (builder *MessageBuilder) UpperMessageId(upperMessageId string) *MessageBuilder {
+	builder.upperMessageId = upperMessageId
+	builder.upperMessageIdFlag = true
+	return builder
+}
+
+func (builder *MessageBuilder) Build() *Message {
+	req := &Message{}
+	if builder.messageIdFlag {
+		req.MessageId = &builder.messageId
+
+	}
+	if builder.rootIdFlag {
+		req.RootId = &builder.rootId
+
+	}
+	if builder.parentIdFlag {
+		req.ParentId = &builder.parentId
+
+	}
+	if builder.msgTypeFlag {
+		req.MsgType = &builder.msgType
+
+	}
+	if builder.createTimeFlag {
+		req.CreateTime = &builder.createTime
+
+	}
+	if builder.updateTimeFlag {
+		req.UpdateTime = &builder.updateTime
+
+	}
+	if builder.deletedFlag {
+		req.Deleted = &builder.deleted
+
+	}
+	if builder.updatedFlag {
+		req.Updated = &builder.updated
+
+	}
+	if builder.chatIdFlag {
+		req.ChatId = &builder.chatId
+
+	}
+	if builder.senderFlag {
+		req.Sender = builder.sender
+	}
+	if builder.bodyFlag {
+		req.Body = builder.body
+	}
+	if builder.mentionsFlag {
+		req.Mentions = builder.mentions
+	}
+	if builder.upperMessageIdFlag {
+		req.UpperMessageId = &builder.upperMessageId
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type MessageReaction struct {
 	ReactionId   *string   `json:"reaction_id,omitempty"`
 	Operator     *Operator `json:"operator,omitempty"`
@@ -313,17 +2266,144 @@ type MessageReaction struct {
 	ReactionType *Emoji    `json:"reaction_type,omitempty"`
 }
 
+/**builder开始**/
+type MessageReactionBuilder struct {
+	reactionId       string
+	reactionIdFlag   bool
+	operator         *Operator
+	operatorFlag     bool
+	actionTime       int64
+	actionTimeFlag   bool
+	reactionType     *Emoji
+	reactionTypeFlag bool
+}
+
+func NewMessageReactionBuilder() *MessageReactionBuilder {
+	builder := &MessageReactionBuilder{}
+	return builder
+}
+
+func (builder *MessageReactionBuilder) ReactionId(reactionId string) *MessageReactionBuilder {
+	builder.reactionId = reactionId
+	builder.reactionIdFlag = true
+	return builder
+}
+func (builder *MessageReactionBuilder) Operator(operator *Operator) *MessageReactionBuilder {
+	builder.operator = operator
+	builder.operatorFlag = true
+	return builder
+}
+func (builder *MessageReactionBuilder) ActionTime(actionTime int64) *MessageReactionBuilder {
+	builder.actionTime = actionTime
+	builder.actionTimeFlag = true
+	return builder
+}
+func (builder *MessageReactionBuilder) ReactionType(reactionType *Emoji) *MessageReactionBuilder {
+	builder.reactionType = reactionType
+	builder.reactionTypeFlag = true
+	return builder
+}
+
+func (builder *MessageReactionBuilder) Build() *MessageReaction {
+	req := &MessageReaction{}
+	if builder.reactionIdFlag {
+		req.ReactionId = &builder.reactionId
+
+	}
+	if builder.operatorFlag {
+		req.Operator = builder.operator
+	}
+	if builder.actionTimeFlag {
+		req.ActionTime = &builder.actionTime
+
+	}
+	if builder.reactionTypeFlag {
+		req.ReactionType = builder.reactionType
+	}
+	return req
+}
+
+/**builder结束**/
+
 type MessageResource struct {
 }
+
+/**builder开始**/
+/**builder结束**/
 
 type MessageBody struct {
 	Content *string `json:"content,omitempty"`
 }
 
+/**builder开始**/
+type MessageBodyBuilder struct {
+	content     string
+	contentFlag bool
+}
+
+func NewMessageBodyBuilder() *MessageBodyBuilder {
+	builder := &MessageBodyBuilder{}
+	return builder
+}
+
+func (builder *MessageBodyBuilder) Content(content string) *MessageBodyBuilder {
+	builder.content = content
+	builder.contentFlag = true
+	return builder
+}
+
+func (builder *MessageBodyBuilder) Build() *MessageBody {
+	req := &MessageBody{}
+	if builder.contentFlag {
+		req.Content = &builder.content
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type ModeratorList struct {
 	AddedMemberList   []*ListEventModerator `json:"added_member_list,omitempty"`
 	RemovedMemberList []*ListEventModerator `json:"removed_member_list,omitempty"`
 }
+
+/**builder开始**/
+type ModeratorListBuilder struct {
+	addedMemberList       []*ListEventModerator
+	addedMemberListFlag   bool
+	removedMemberList     []*ListEventModerator
+	removedMemberListFlag bool
+}
+
+func NewModeratorListBuilder() *ModeratorListBuilder {
+	builder := &ModeratorListBuilder{}
+	return builder
+}
+
+func (builder *ModeratorListBuilder) AddedMemberList(addedMemberList []*ListEventModerator) *ModeratorListBuilder {
+	builder.addedMemberList = addedMemberList
+	builder.addedMemberListFlag = true
+	return builder
+}
+func (builder *ModeratorListBuilder) RemovedMemberList(removedMemberList []*ListEventModerator) *ModeratorListBuilder {
+	builder.removedMemberList = removedMemberList
+	builder.removedMemberListFlag = true
+	return builder
+}
+
+func (builder *ModeratorListBuilder) Build() *ModeratorList {
+	req := &ModeratorList{}
+	if builder.addedMemberListFlag {
+		req.AddedMemberList = builder.addedMemberList
+	}
+	if builder.removedMemberListFlag {
+		req.RemovedMemberList = builder.removedMemberList
+	}
+	return req
+}
+
+/**builder结束**/
 
 type MsgProcessData struct {
 	PDate                   *string  `json:"p_date,omitempty"`
@@ -347,10 +2427,275 @@ type MsgProcessData struct {
 	AvgReceiveImpMsgChatCnt *float64 `json:"avg_receive_imp_msg_chat_cnt,omitempty"`
 }
 
+/**builder开始**/
+type MsgProcessDataBuilder struct {
+	pDate                       string
+	pDateFlag                   bool
+	departmentId                string
+	departmentIdFlag            bool
+	departmentPath              string
+	departmentPathFlag          bool
+	avgImpMsgReadRate12h        float64
+	avgImpMsgReadRate12hFlag    bool
+	msgReadRate12h              float64
+	msgReadRate12hFlag          bool
+	avgReceiveMsgCnt            float64
+	avgReceiveMsgCntFlag        bool
+	avgReadMsgCnt               float64
+	avgReadMsgCntFlag           bool
+	avgImpReadMsgCnt            float64
+	avgImpReadMsgCntFlag        bool
+	avgImpReceiveMsgCnt         float64
+	avgImpReceiveMsgCntFlag     bool
+	highLoadRate                float64
+	highLoadRateFlag            bool
+	bigGroupMsgRate             float64
+	bigGroupMsgRateFlag         bool
+	bigGroupTopicMsgRate        float64
+	bigGroupTopicMsgRateFlag    bool
+	avgReceiveBotMsgCnt         float64
+	avgReceiveBotMsgCntFlag     bool
+	avgBotImpMsgReadRate12h     float64
+	avgBotImpMsgReadRate12hFlag bool
+	receiveBotMsgRate           float64
+	receiveBotMsgRateFlag       bool
+	useChatBoxRate              float64
+	useChatBoxRateFlag          bool
+	receiveMuteMsgRate          float64
+	receiveMuteMsgRateFlag      bool
+	readMuteMsgRate             float64
+	readMuteMsgRateFlag         bool
+	avgReceiveImpMsgChatCnt     float64
+	avgReceiveImpMsgChatCntFlag bool
+}
+
+func NewMsgProcessDataBuilder() *MsgProcessDataBuilder {
+	builder := &MsgProcessDataBuilder{}
+	return builder
+}
+
+func (builder *MsgProcessDataBuilder) PDate(pDate string) *MsgProcessDataBuilder {
+	builder.pDate = pDate
+	builder.pDateFlag = true
+	return builder
+}
+func (builder *MsgProcessDataBuilder) DepartmentId(departmentId string) *MsgProcessDataBuilder {
+	builder.departmentId = departmentId
+	builder.departmentIdFlag = true
+	return builder
+}
+func (builder *MsgProcessDataBuilder) DepartmentPath(departmentPath string) *MsgProcessDataBuilder {
+	builder.departmentPath = departmentPath
+	builder.departmentPathFlag = true
+	return builder
+}
+func (builder *MsgProcessDataBuilder) AvgImpMsgReadRate12h(avgImpMsgReadRate12h float64) *MsgProcessDataBuilder {
+	builder.avgImpMsgReadRate12h = avgImpMsgReadRate12h
+	builder.avgImpMsgReadRate12hFlag = true
+	return builder
+}
+func (builder *MsgProcessDataBuilder) MsgReadRate12h(msgReadRate12h float64) *MsgProcessDataBuilder {
+	builder.msgReadRate12h = msgReadRate12h
+	builder.msgReadRate12hFlag = true
+	return builder
+}
+func (builder *MsgProcessDataBuilder) AvgReceiveMsgCnt(avgReceiveMsgCnt float64) *MsgProcessDataBuilder {
+	builder.avgReceiveMsgCnt = avgReceiveMsgCnt
+	builder.avgReceiveMsgCntFlag = true
+	return builder
+}
+func (builder *MsgProcessDataBuilder) AvgReadMsgCnt(avgReadMsgCnt float64) *MsgProcessDataBuilder {
+	builder.avgReadMsgCnt = avgReadMsgCnt
+	builder.avgReadMsgCntFlag = true
+	return builder
+}
+func (builder *MsgProcessDataBuilder) AvgImpReadMsgCnt(avgImpReadMsgCnt float64) *MsgProcessDataBuilder {
+	builder.avgImpReadMsgCnt = avgImpReadMsgCnt
+	builder.avgImpReadMsgCntFlag = true
+	return builder
+}
+func (builder *MsgProcessDataBuilder) AvgImpReceiveMsgCnt(avgImpReceiveMsgCnt float64) *MsgProcessDataBuilder {
+	builder.avgImpReceiveMsgCnt = avgImpReceiveMsgCnt
+	builder.avgImpReceiveMsgCntFlag = true
+	return builder
+}
+func (builder *MsgProcessDataBuilder) HighLoadRate(highLoadRate float64) *MsgProcessDataBuilder {
+	builder.highLoadRate = highLoadRate
+	builder.highLoadRateFlag = true
+	return builder
+}
+func (builder *MsgProcessDataBuilder) BigGroupMsgRate(bigGroupMsgRate float64) *MsgProcessDataBuilder {
+	builder.bigGroupMsgRate = bigGroupMsgRate
+	builder.bigGroupMsgRateFlag = true
+	return builder
+}
+func (builder *MsgProcessDataBuilder) BigGroupTopicMsgRate(bigGroupTopicMsgRate float64) *MsgProcessDataBuilder {
+	builder.bigGroupTopicMsgRate = bigGroupTopicMsgRate
+	builder.bigGroupTopicMsgRateFlag = true
+	return builder
+}
+func (builder *MsgProcessDataBuilder) AvgReceiveBotMsgCnt(avgReceiveBotMsgCnt float64) *MsgProcessDataBuilder {
+	builder.avgReceiveBotMsgCnt = avgReceiveBotMsgCnt
+	builder.avgReceiveBotMsgCntFlag = true
+	return builder
+}
+func (builder *MsgProcessDataBuilder) AvgBotImpMsgReadRate12h(avgBotImpMsgReadRate12h float64) *MsgProcessDataBuilder {
+	builder.avgBotImpMsgReadRate12h = avgBotImpMsgReadRate12h
+	builder.avgBotImpMsgReadRate12hFlag = true
+	return builder
+}
+func (builder *MsgProcessDataBuilder) ReceiveBotMsgRate(receiveBotMsgRate float64) *MsgProcessDataBuilder {
+	builder.receiveBotMsgRate = receiveBotMsgRate
+	builder.receiveBotMsgRateFlag = true
+	return builder
+}
+func (builder *MsgProcessDataBuilder) UseChatBoxRate(useChatBoxRate float64) *MsgProcessDataBuilder {
+	builder.useChatBoxRate = useChatBoxRate
+	builder.useChatBoxRateFlag = true
+	return builder
+}
+func (builder *MsgProcessDataBuilder) ReceiveMuteMsgRate(receiveMuteMsgRate float64) *MsgProcessDataBuilder {
+	builder.receiveMuteMsgRate = receiveMuteMsgRate
+	builder.receiveMuteMsgRateFlag = true
+	return builder
+}
+func (builder *MsgProcessDataBuilder) ReadMuteMsgRate(readMuteMsgRate float64) *MsgProcessDataBuilder {
+	builder.readMuteMsgRate = readMuteMsgRate
+	builder.readMuteMsgRateFlag = true
+	return builder
+}
+func (builder *MsgProcessDataBuilder) AvgReceiveImpMsgChatCnt(avgReceiveImpMsgChatCnt float64) *MsgProcessDataBuilder {
+	builder.avgReceiveImpMsgChatCnt = avgReceiveImpMsgChatCnt
+	builder.avgReceiveImpMsgChatCntFlag = true
+	return builder
+}
+
+func (builder *MsgProcessDataBuilder) Build() *MsgProcessData {
+	req := &MsgProcessData{}
+	if builder.pDateFlag {
+		req.PDate = &builder.pDate
+
+	}
+	if builder.departmentIdFlag {
+		req.DepartmentId = &builder.departmentId
+
+	}
+	if builder.departmentPathFlag {
+		req.DepartmentPath = &builder.departmentPath
+
+	}
+	if builder.avgImpMsgReadRate12hFlag {
+		req.AvgImpMsgReadRate12h = &builder.avgImpMsgReadRate12h
+
+	}
+	if builder.msgReadRate12hFlag {
+		req.MsgReadRate12h = &builder.msgReadRate12h
+
+	}
+	if builder.avgReceiveMsgCntFlag {
+		req.AvgReceiveMsgCnt = &builder.avgReceiveMsgCnt
+
+	}
+	if builder.avgReadMsgCntFlag {
+		req.AvgReadMsgCnt = &builder.avgReadMsgCnt
+
+	}
+	if builder.avgImpReadMsgCntFlag {
+		req.AvgImpReadMsgCnt = &builder.avgImpReadMsgCnt
+
+	}
+	if builder.avgImpReceiveMsgCntFlag {
+		req.AvgImpReceiveMsgCnt = &builder.avgImpReceiveMsgCnt
+
+	}
+	if builder.highLoadRateFlag {
+		req.HighLoadRate = &builder.highLoadRate
+
+	}
+	if builder.bigGroupMsgRateFlag {
+		req.BigGroupMsgRate = &builder.bigGroupMsgRate
+
+	}
+	if builder.bigGroupTopicMsgRateFlag {
+		req.BigGroupTopicMsgRate = &builder.bigGroupTopicMsgRate
+
+	}
+	if builder.avgReceiveBotMsgCntFlag {
+		req.AvgReceiveBotMsgCnt = &builder.avgReceiveBotMsgCnt
+
+	}
+	if builder.avgBotImpMsgReadRate12hFlag {
+		req.AvgBotImpMsgReadRate12h = &builder.avgBotImpMsgReadRate12h
+
+	}
+	if builder.receiveBotMsgRateFlag {
+		req.ReceiveBotMsgRate = &builder.receiveBotMsgRate
+
+	}
+	if builder.useChatBoxRateFlag {
+		req.UseChatBoxRate = &builder.useChatBoxRate
+
+	}
+	if builder.receiveMuteMsgRateFlag {
+		req.ReceiveMuteMsgRate = &builder.receiveMuteMsgRate
+
+	}
+	if builder.readMuteMsgRateFlag {
+		req.ReadMuteMsgRate = &builder.readMuteMsgRate
+
+	}
+	if builder.avgReceiveImpMsgChatCntFlag {
+		req.AvgReceiveImpMsgChatCnt = &builder.avgReceiveImpMsgChatCnt
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Operator struct {
 	OperatorId   *string `json:"operator_id,omitempty"`
 	OperatorType *string `json:"operator_type,omitempty"`
 }
+
+/**builder开始**/
+type OperatorBuilder struct {
+	operatorId       string
+	operatorIdFlag   bool
+	operatorType     string
+	operatorTypeFlag bool
+}
+
+func NewOperatorBuilder() *OperatorBuilder {
+	builder := &OperatorBuilder{}
+	return builder
+}
+
+func (builder *OperatorBuilder) OperatorId(operatorId string) *OperatorBuilder {
+	builder.operatorId = operatorId
+	builder.operatorIdFlag = true
+	return builder
+}
+func (builder *OperatorBuilder) OperatorType(operatorType string) *OperatorBuilder {
+	builder.operatorType = operatorType
+	builder.operatorTypeFlag = true
+	return builder
+}
+
+func (builder *OperatorBuilder) Build() *Operator {
+	req := &Operator{}
+	if builder.operatorIdFlag {
+		req.OperatorId = &builder.operatorId
+
+	}
+	if builder.operatorTypeFlag {
+		req.OperatorType = &builder.operatorType
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type ReadUser struct {
 	UserIdType *string `json:"user_id_type,omitempty"`
@@ -359,6 +2704,67 @@ type ReadUser struct {
 	TenantKey  *string `json:"tenant_key,omitempty"`
 }
 
+/**builder开始**/
+type ReadUserBuilder struct {
+	userIdType     string
+	userIdTypeFlag bool
+	userId         string
+	userIdFlag     bool
+	timestamp      string
+	timestampFlag  bool
+	tenantKey      string
+	tenantKeyFlag  bool
+}
+
+func NewReadUserBuilder() *ReadUserBuilder {
+	builder := &ReadUserBuilder{}
+	return builder
+}
+
+func (builder *ReadUserBuilder) UserIdType(userIdType string) *ReadUserBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
+}
+func (builder *ReadUserBuilder) UserId(userId string) *ReadUserBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *ReadUserBuilder) Timestamp(timestamp string) *ReadUserBuilder {
+	builder.timestamp = timestamp
+	builder.timestampFlag = true
+	return builder
+}
+func (builder *ReadUserBuilder) TenantKey(tenantKey string) *ReadUserBuilder {
+	builder.tenantKey = tenantKey
+	builder.tenantKeyFlag = true
+	return builder
+}
+
+func (builder *ReadUserBuilder) Build() *ReadUser {
+	req := &ReadUser{}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.timestampFlag {
+		req.Timestamp = &builder.timestamp
+
+	}
+	if builder.tenantKeyFlag {
+		req.TenantKey = &builder.tenantKey
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Sender struct {
 	Id         *string `json:"id,omitempty"`
 	IdType     *string `json:"id_type,omitempty"`
@@ -366,10 +2772,110 @@ type Sender struct {
 	TenantKey  *string `json:"tenant_key,omitempty"`
 }
 
+/**builder开始**/
+type SenderBuilder struct {
+	id             string
+	idFlag         bool
+	idType         string
+	idTypeFlag     bool
+	senderType     string
+	senderTypeFlag bool
+	tenantKey      string
+	tenantKeyFlag  bool
+}
+
+func NewSenderBuilder() *SenderBuilder {
+	builder := &SenderBuilder{}
+	return builder
+}
+
+func (builder *SenderBuilder) Id(id string) *SenderBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *SenderBuilder) IdType(idType string) *SenderBuilder {
+	builder.idType = idType
+	builder.idTypeFlag = true
+	return builder
+}
+func (builder *SenderBuilder) SenderType(senderType string) *SenderBuilder {
+	builder.senderType = senderType
+	builder.senderTypeFlag = true
+	return builder
+}
+func (builder *SenderBuilder) TenantKey(tenantKey string) *SenderBuilder {
+	builder.tenantKey = tenantKey
+	builder.tenantKeyFlag = true
+	return builder
+}
+
+func (builder *SenderBuilder) Build() *Sender {
+	req := &Sender{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.idTypeFlag {
+		req.IdType = &builder.idType
+
+	}
+	if builder.senderTypeFlag {
+		req.SenderType = &builder.senderType
+
+	}
+	if builder.tenantKeyFlag {
+		req.TenantKey = &builder.tenantKey
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type SpecialFocus struct {
 	Id     *string `json:"id,omitempty"`
 	IdType *string `json:"id_type,omitempty"`
 }
+
+/**builder开始**/
+type SpecialFocusBuilder struct {
+	id         string
+	idFlag     bool
+	idType     string
+	idTypeFlag bool
+}
+
+func NewSpecialFocusBuilder() *SpecialFocusBuilder {
+	builder := &SpecialFocusBuilder{}
+	return builder
+}
+
+func (builder *SpecialFocusBuilder) Id(id string) *SpecialFocusBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *SpecialFocusBuilder) IdType(idType string) *SpecialFocusBuilder {
+	builder.idType = idType
+	builder.idTypeFlag = true
+	return builder
+}
+
+func (builder *SpecialFocusBuilder) Build() *SpecialFocus {
+	req := &SpecialFocus{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.idTypeFlag {
+		req.IdType = &builder.idType
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type SpecialFocusUnread struct {
 	Id          *string `json:"id,omitempty"`
@@ -377,15 +2883,142 @@ type SpecialFocusUnread struct {
 	UnreadCount *string `json:"unread_count,omitempty"`
 }
 
+/**builder开始**/
+type SpecialFocusUnreadBuilder struct {
+	id              string
+	idFlag          bool
+	idType          string
+	idTypeFlag      bool
+	unreadCount     string
+	unreadCountFlag bool
+}
+
+func NewSpecialFocusUnreadBuilder() *SpecialFocusUnreadBuilder {
+	builder := &SpecialFocusUnreadBuilder{}
+	return builder
+}
+
+func (builder *SpecialFocusUnreadBuilder) Id(id string) *SpecialFocusUnreadBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *SpecialFocusUnreadBuilder) IdType(idType string) *SpecialFocusUnreadBuilder {
+	builder.idType = idType
+	builder.idTypeFlag = true
+	return builder
+}
+func (builder *SpecialFocusUnreadBuilder) UnreadCount(unreadCount string) *SpecialFocusUnreadBuilder {
+	builder.unreadCount = unreadCount
+	builder.unreadCountFlag = true
+	return builder
+}
+
+func (builder *SpecialFocusUnreadBuilder) Build() *SpecialFocusUnread {
+	req := &SpecialFocusUnread{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.idTypeFlag {
+		req.IdType = &builder.idType
+
+	}
+	if builder.unreadCountFlag {
+		req.UnreadCount = &builder.unreadCount
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type UrgentReceivers struct {
 	UserIdList []string `json:"user_id_list,omitempty"`
 }
+
+/**builder开始**/
+type UrgentReceiversBuilder struct {
+	userIdList     []string
+	userIdListFlag bool
+}
+
+func NewUrgentReceiversBuilder() *UrgentReceiversBuilder {
+	builder := &UrgentReceiversBuilder{}
+	return builder
+}
+
+func (builder *UrgentReceiversBuilder) UserIdList(userIdList []string) *UrgentReceiversBuilder {
+	builder.userIdList = userIdList
+	builder.userIdListFlag = true
+	return builder
+}
+
+func (builder *UrgentReceiversBuilder) Build() *UrgentReceivers {
+	req := &UrgentReceivers{}
+	if builder.userIdListFlag {
+		req.UserIdList = builder.userIdList
+	}
+	return req
+}
+
+/**builder结束**/
 
 type UserId struct {
 	UserId  *string `json:"user_id,omitempty"`
 	OpenId  *string `json:"open_id,omitempty"`
 	UnionId *string `json:"union_id,omitempty"`
 }
+
+/**builder开始**/
+type UserIdBuilder struct {
+	userId      string
+	userIdFlag  bool
+	openId      string
+	openIdFlag  bool
+	unionId     string
+	unionIdFlag bool
+}
+
+func NewUserIdBuilder() *UserIdBuilder {
+	builder := &UserIdBuilder{}
+	return builder
+}
+
+func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
+	builder.openId = openId
+	builder.openIdFlag = true
+	return builder
+}
+func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
+	builder.unionId = unionId
+	builder.unionIdFlag = true
+	return builder
+}
+
+func (builder *UserIdBuilder) Build() *UserId {
+	req := &UserId{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.openIdFlag {
+		req.OpenId = &builder.openId
+
+	}
+	if builder.unionIdFlag {
+		req.UnionId = &builder.unionId
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 /**生成请求和响应结果类型，以及请求对象的Builder构造器 **/
 

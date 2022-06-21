@@ -21,6 +21,56 @@ type Identity struct {
 	Mobile       *string `json:"mobile,omitempty"`
 }
 
+/**builder开始**/
+type IdentityBuilder struct {
+	identityName     string
+	identityNameFlag bool
+	identityCode     string
+	identityCodeFlag bool
+	mobile           string
+	mobileFlag       bool
+}
+
+func NewIdentityBuilder() *IdentityBuilder {
+	builder := &IdentityBuilder{}
+	return builder
+}
+
+func (builder *IdentityBuilder) IdentityName(identityName string) *IdentityBuilder {
+	builder.identityName = identityName
+	builder.identityNameFlag = true
+	return builder
+}
+func (builder *IdentityBuilder) IdentityCode(identityCode string) *IdentityBuilder {
+	builder.identityCode = identityCode
+	builder.identityCodeFlag = true
+	return builder
+}
+func (builder *IdentityBuilder) Mobile(mobile string) *IdentityBuilder {
+	builder.mobile = mobile
+	builder.mobileFlag = true
+	return builder
+}
+
+func (builder *IdentityBuilder) Build() *Identity {
+	req := &Identity{}
+	if builder.identityNameFlag {
+		req.IdentityName = &builder.identityName
+
+	}
+	if builder.identityCodeFlag {
+		req.IdentityCode = &builder.identityCode
+
+	}
+	if builder.mobileFlag {
+		req.Mobile = &builder.mobile
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 /**生成请求和响应结果类型，以及请求对象的Builder构造器 **/
 
 type CreateIdentityReqBodyBuilder struct {

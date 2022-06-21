@@ -36,16 +36,210 @@ type AccessRecord struct {
 	IsDoorOpen     *bool   `json:"is_door_open,omitempty"`
 }
 
+/**builder开始**/
+type AccessRecordBuilder struct {
+	accessRecordId     int64
+	accessRecordIdFlag bool
+	userId             string
+	userIdFlag         bool
+	deviceId           int64
+	deviceIdFlag       bool
+	isClockIn          bool
+	isClockInFlag      bool
+	accessTime         int64
+	accessTimeFlag     bool
+	accessType         string
+	accessTypeFlag     bool
+	accessData         string
+	accessDataFlag     bool
+	isDoorOpen         bool
+	isDoorOpenFlag     bool
+}
+
+func NewAccessRecordBuilder() *AccessRecordBuilder {
+	builder := &AccessRecordBuilder{}
+	return builder
+}
+
+func (builder *AccessRecordBuilder) AccessRecordId(accessRecordId int64) *AccessRecordBuilder {
+	builder.accessRecordId = accessRecordId
+	builder.accessRecordIdFlag = true
+	return builder
+}
+func (builder *AccessRecordBuilder) UserId(userId string) *AccessRecordBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *AccessRecordBuilder) DeviceId(deviceId int64) *AccessRecordBuilder {
+	builder.deviceId = deviceId
+	builder.deviceIdFlag = true
+	return builder
+}
+func (builder *AccessRecordBuilder) IsClockIn(isClockIn bool) *AccessRecordBuilder {
+	builder.isClockIn = isClockIn
+	builder.isClockInFlag = true
+	return builder
+}
+func (builder *AccessRecordBuilder) AccessTime(accessTime int64) *AccessRecordBuilder {
+	builder.accessTime = accessTime
+	builder.accessTimeFlag = true
+	return builder
+}
+func (builder *AccessRecordBuilder) AccessType(accessType string) *AccessRecordBuilder {
+	builder.accessType = accessType
+	builder.accessTypeFlag = true
+	return builder
+}
+func (builder *AccessRecordBuilder) AccessData(accessData string) *AccessRecordBuilder {
+	builder.accessData = accessData
+	builder.accessDataFlag = true
+	return builder
+}
+func (builder *AccessRecordBuilder) IsDoorOpen(isDoorOpen bool) *AccessRecordBuilder {
+	builder.isDoorOpen = isDoorOpen
+	builder.isDoorOpenFlag = true
+	return builder
+}
+
+func (builder *AccessRecordBuilder) Build() *AccessRecord {
+	req := &AccessRecord{}
+	if builder.accessRecordIdFlag {
+		req.AccessRecordId = &builder.accessRecordId
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.deviceIdFlag {
+		req.DeviceId = &builder.deviceId
+
+	}
+	if builder.isClockInFlag {
+		req.IsClockIn = &builder.isClockIn
+
+	}
+	if builder.accessTimeFlag {
+		req.AccessTime = &builder.accessTime
+
+	}
+	if builder.accessTypeFlag {
+		req.AccessType = &builder.accessType
+
+	}
+	if builder.accessDataFlag {
+		req.AccessData = &builder.accessData
+
+	}
+	if builder.isDoorOpenFlag {
+		req.IsDoorOpen = &builder.isDoorOpen
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Device struct {
 	DeviceId   *int64  `json:"device_id,omitempty,string"`
 	DeviceName *string `json:"device_name,omitempty"`
 	DeviceSn   *string `json:"device_sn,omitempty"`
 }
 
+/**builder开始**/
+type DeviceBuilder struct {
+	deviceId       int64
+	deviceIdFlag   bool
+	deviceName     string
+	deviceNameFlag bool
+	deviceSn       string
+	deviceSnFlag   bool
+}
+
+func NewDeviceBuilder() *DeviceBuilder {
+	builder := &DeviceBuilder{}
+	return builder
+}
+
+func (builder *DeviceBuilder) DeviceId(deviceId int64) *DeviceBuilder {
+	builder.deviceId = deviceId
+	builder.deviceIdFlag = true
+	return builder
+}
+func (builder *DeviceBuilder) DeviceName(deviceName string) *DeviceBuilder {
+	builder.deviceName = deviceName
+	builder.deviceNameFlag = true
+	return builder
+}
+func (builder *DeviceBuilder) DeviceSn(deviceSn string) *DeviceBuilder {
+	builder.deviceSn = deviceSn
+	builder.deviceSnFlag = true
+	return builder
+}
+
+func (builder *DeviceBuilder) Build() *Device {
+	req := &Device{}
+	if builder.deviceIdFlag {
+		req.DeviceId = &builder.deviceId
+
+	}
+	if builder.deviceNameFlag {
+		req.DeviceName = &builder.deviceName
+
+	}
+	if builder.deviceSnFlag {
+		req.DeviceSn = &builder.deviceSn
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Feature struct {
 	Card         *int  `json:"card,omitempty"`
 	FaceUploaded *bool `json:"face_uploaded,omitempty"`
 }
+
+/**builder开始**/
+type FeatureBuilder struct {
+	card             int
+	cardFlag         bool
+	faceUploaded     bool
+	faceUploadedFlag bool
+}
+
+func NewFeatureBuilder() *FeatureBuilder {
+	builder := &FeatureBuilder{}
+	return builder
+}
+
+func (builder *FeatureBuilder) Card(card int) *FeatureBuilder {
+	builder.card = card
+	builder.cardFlag = true
+	return builder
+}
+func (builder *FeatureBuilder) FaceUploaded(faceUploaded bool) *FeatureBuilder {
+	builder.faceUploaded = faceUploaded
+	builder.faceUploadedFlag = true
+	return builder
+}
+
+func (builder *FeatureBuilder) Build() *Feature {
+	req := &Feature{}
+	if builder.cardFlag {
+		req.Card = &builder.card
+
+	}
+	if builder.faceUploadedFlag {
+		req.FaceUploaded = &builder.faceUploaded
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type File struct {
 	Files    io.Reader `json:"files,omitempty"`
@@ -53,16 +247,153 @@ type File struct {
 	FileName *string   `json:"file_name,omitempty"`
 }
 
+/**builder开始**/
+type FileBuilder struct {
+	files        io.Reader
+	filesFlag    bool
+	fileType     string
+	fileTypeFlag bool
+	fileName     string
+	fileNameFlag bool
+}
+
+func NewFileBuilder() *FileBuilder {
+	builder := &FileBuilder{}
+	return builder
+}
+
+func (builder *FileBuilder) Files(files io.Reader) *FileBuilder {
+	builder.files = files
+	builder.filesFlag = true
+	return builder
+}
+func (builder *FileBuilder) FileType(fileType string) *FileBuilder {
+	builder.fileType = fileType
+	builder.fileTypeFlag = true
+	return builder
+}
+func (builder *FileBuilder) FileName(fileName string) *FileBuilder {
+	builder.fileName = fileName
+	builder.fileNameFlag = true
+	return builder
+}
+
+func (builder *FileBuilder) Build() *File {
+	req := &File{}
+	if builder.filesFlag {
+		req.Files = builder.files
+	}
+	if builder.fileTypeFlag {
+		req.FileType = &builder.fileType
+
+	}
+	if builder.fileNameFlag {
+		req.FileName = &builder.fileName
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type User struct {
 	Feature *Feature `json:"feature,omitempty"`
 	UserId  *string  `json:"user_id,omitempty"`
 }
+
+/**builder开始**/
+type UserBuilder struct {
+	feature     *Feature
+	featureFlag bool
+	userId      string
+	userIdFlag  bool
+}
+
+func NewUserBuilder() *UserBuilder {
+	builder := &UserBuilder{}
+	return builder
+}
+
+func (builder *UserBuilder) Feature(feature *Feature) *UserBuilder {
+	builder.feature = feature
+	builder.featureFlag = true
+	return builder
+}
+func (builder *UserBuilder) UserId(userId string) *UserBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+func (builder *UserBuilder) Build() *User {
+	req := &User{}
+	if builder.featureFlag {
+		req.Feature = builder.feature
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type UserId struct {
 	UserId  *string `json:"user_id,omitempty"`
 	OpenId  *string `json:"open_id,omitempty"`
 	UnionId *string `json:"union_id,omitempty"`
 }
+
+/**builder开始**/
+type UserIdBuilder struct {
+	userId      string
+	userIdFlag  bool
+	openId      string
+	openIdFlag  bool
+	unionId     string
+	unionIdFlag bool
+}
+
+func NewUserIdBuilder() *UserIdBuilder {
+	builder := &UserIdBuilder{}
+	return builder
+}
+
+func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
+	builder.openId = openId
+	builder.openIdFlag = true
+	return builder
+}
+func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
+	builder.unionId = unionId
+	builder.unionIdFlag = true
+	return builder
+}
+
+func (builder *UserIdBuilder) Build() *UserId {
+	req := &UserId{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.openIdFlag {
+		req.OpenId = &builder.openId
+
+	}
+	if builder.unionIdFlag {
+		req.UnionId = &builder.unionId
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 /**生成请求和响应结果类型，以及请求对象的Builder构造器 **/
 

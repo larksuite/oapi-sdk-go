@@ -78,6 +78,56 @@ type ApprovalInfo struct {
 	Status       *int    `json:"status,omitempty"`
 }
 
+/**builder开始**/
+type ApprovalInfoBuilder struct {
+	approvalId       string
+	approvalIdFlag   bool
+	approvalType     string
+	approvalTypeFlag bool
+	status           int
+	statusFlag       bool
+}
+
+func NewApprovalInfoBuilder() *ApprovalInfoBuilder {
+	builder := &ApprovalInfoBuilder{}
+	return builder
+}
+
+func (builder *ApprovalInfoBuilder) ApprovalId(approvalId string) *ApprovalInfoBuilder {
+	builder.approvalId = approvalId
+	builder.approvalIdFlag = true
+	return builder
+}
+func (builder *ApprovalInfoBuilder) ApprovalType(approvalType string) *ApprovalInfoBuilder {
+	builder.approvalType = approvalType
+	builder.approvalTypeFlag = true
+	return builder
+}
+func (builder *ApprovalInfoBuilder) Status(status int) *ApprovalInfoBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+
+func (builder *ApprovalInfoBuilder) Build() *ApprovalInfo {
+	req := &ApprovalInfo{}
+	if builder.approvalIdFlag {
+		req.ApprovalId = &builder.approvalId
+
+	}
+	if builder.approvalTypeFlag {
+		req.ApprovalType = &builder.approvalType
+
+	}
+	if builder.statusFlag {
+		req.Status = &builder.status
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Area struct {
 	Type   *string       `json:"type,omitempty"`
 	Center *Coordinate   `json:"center,omitempty"`
@@ -85,11 +135,120 @@ type Area struct {
 	Coords []*Coordinate `json:"coords,omitempty"`
 }
 
+/**builder开始**/
+type AreaBuilder struct {
+	type_      string
+	typeFlag   bool
+	center     *Coordinate
+	centerFlag bool
+	radius     int64
+	radiusFlag bool
+	coords     []*Coordinate
+	coordsFlag bool
+}
+
+func NewAreaBuilder() *AreaBuilder {
+	builder := &AreaBuilder{}
+	return builder
+}
+
+func (builder *AreaBuilder) Type(type_ string) *AreaBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+func (builder *AreaBuilder) Center(center *Coordinate) *AreaBuilder {
+	builder.center = center
+	builder.centerFlag = true
+	return builder
+}
+func (builder *AreaBuilder) Radius(radius int64) *AreaBuilder {
+	builder.radius = radius
+	builder.radiusFlag = true
+	return builder
+}
+func (builder *AreaBuilder) Coords(coords []*Coordinate) *AreaBuilder {
+	builder.coords = coords
+	builder.coordsFlag = true
+	return builder
+}
+
+func (builder *AreaBuilder) Build() *Area {
+	req := &Area{}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.centerFlag {
+		req.Center = builder.center
+	}
+	if builder.radiusFlag {
+		req.Radius = &builder.radius
+
+	}
+	if builder.coordsFlag {
+		req.Coords = builder.coords
+	}
+	return req
+}
+
+/**builder结束**/
+
 type ChildField struct {
 	Code     *string `json:"code,omitempty"`
 	Title    *string `json:"title,omitempty"`
 	TimeUnit *string `json:"time_unit,omitempty"`
 }
+
+/**builder开始**/
+type ChildFieldBuilder struct {
+	code         string
+	codeFlag     bool
+	title        string
+	titleFlag    bool
+	timeUnit     string
+	timeUnitFlag bool
+}
+
+func NewChildFieldBuilder() *ChildFieldBuilder {
+	builder := &ChildFieldBuilder{}
+	return builder
+}
+
+func (builder *ChildFieldBuilder) Code(code string) *ChildFieldBuilder {
+	builder.code = code
+	builder.codeFlag = true
+	return builder
+}
+func (builder *ChildFieldBuilder) Title(title string) *ChildFieldBuilder {
+	builder.title = title
+	builder.titleFlag = true
+	return builder
+}
+func (builder *ChildFieldBuilder) TimeUnit(timeUnit string) *ChildFieldBuilder {
+	builder.timeUnit = timeUnit
+	builder.timeUnitFlag = true
+	return builder
+}
+
+func (builder *ChildFieldBuilder) Build() *ChildField {
+	req := &ChildField{}
+	if builder.codeFlag {
+		req.Code = &builder.code
+
+	}
+	if builder.titleFlag {
+		req.Title = &builder.title
+
+	}
+	if builder.timeUnitFlag {
+		req.TimeUnit = &builder.timeUnit
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type ChildItem struct {
 	Code       *string `json:"code,omitempty"`
@@ -101,11 +260,155 @@ type ChildItem struct {
 	MaxValue   *string `json:"max_value,omitempty"`
 }
 
+/**builder开始**/
+type ChildItemBuilder struct {
+	code           string
+	codeFlag       bool
+	value          string
+	valueFlag      bool
+	title          string
+	titleFlag      bool
+	columnType     int
+	columnTypeFlag bool
+	readOnly       bool
+	readOnlyFlag   bool
+	minValue       string
+	minValueFlag   bool
+	maxValue       string
+	maxValueFlag   bool
+}
+
+func NewChildItemBuilder() *ChildItemBuilder {
+	builder := &ChildItemBuilder{}
+	return builder
+}
+
+func (builder *ChildItemBuilder) Code(code string) *ChildItemBuilder {
+	builder.code = code
+	builder.codeFlag = true
+	return builder
+}
+func (builder *ChildItemBuilder) Value(value string) *ChildItemBuilder {
+	builder.value = value
+	builder.valueFlag = true
+	return builder
+}
+func (builder *ChildItemBuilder) Title(title string) *ChildItemBuilder {
+	builder.title = title
+	builder.titleFlag = true
+	return builder
+}
+func (builder *ChildItemBuilder) ColumnType(columnType int) *ChildItemBuilder {
+	builder.columnType = columnType
+	builder.columnTypeFlag = true
+	return builder
+}
+func (builder *ChildItemBuilder) ReadOnly(readOnly bool) *ChildItemBuilder {
+	builder.readOnly = readOnly
+	builder.readOnlyFlag = true
+	return builder
+}
+func (builder *ChildItemBuilder) MinValue(minValue string) *ChildItemBuilder {
+	builder.minValue = minValue
+	builder.minValueFlag = true
+	return builder
+}
+func (builder *ChildItemBuilder) MaxValue(maxValue string) *ChildItemBuilder {
+	builder.maxValue = maxValue
+	builder.maxValueFlag = true
+	return builder
+}
+
+func (builder *ChildItemBuilder) Build() *ChildItem {
+	req := &ChildItem{}
+	if builder.codeFlag {
+		req.Code = &builder.code
+
+	}
+	if builder.valueFlag {
+		req.Value = &builder.value
+
+	}
+	if builder.titleFlag {
+		req.Title = &builder.title
+
+	}
+	if builder.columnTypeFlag {
+		req.ColumnType = &builder.columnType
+
+	}
+	if builder.readOnlyFlag {
+		req.ReadOnly = &builder.readOnly
+
+	}
+	if builder.minValueFlag {
+		req.MinValue = &builder.minValue
+
+	}
+	if builder.maxValueFlag {
+		req.MaxValue = &builder.maxValue
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Coordinate struct {
 	Longitude *float64 `json:"longitude,omitempty"`
 	Latitude  *float64 `json:"latitude,omitempty"`
 	Accuracy  *float64 `json:"accuracy,omitempty"`
 }
+
+/**builder开始**/
+type CoordinateBuilder struct {
+	longitude     float64
+	longitudeFlag bool
+	latitude      float64
+	latitudeFlag  bool
+	accuracy      float64
+	accuracyFlag  bool
+}
+
+func NewCoordinateBuilder() *CoordinateBuilder {
+	builder := &CoordinateBuilder{}
+	return builder
+}
+
+func (builder *CoordinateBuilder) Longitude(longitude float64) *CoordinateBuilder {
+	builder.longitude = longitude
+	builder.longitudeFlag = true
+	return builder
+}
+func (builder *CoordinateBuilder) Latitude(latitude float64) *CoordinateBuilder {
+	builder.latitude = latitude
+	builder.latitudeFlag = true
+	return builder
+}
+func (builder *CoordinateBuilder) Accuracy(accuracy float64) *CoordinateBuilder {
+	builder.accuracy = accuracy
+	builder.accuracyFlag = true
+	return builder
+}
+
+func (builder *CoordinateBuilder) Build() *Coordinate {
+	req := &Coordinate{}
+	if builder.longitudeFlag {
+		req.Longitude = &builder.longitude
+
+	}
+	if builder.latitudeFlag {
+		req.Latitude = &builder.latitude
+
+	}
+	if builder.accuracyFlag {
+		req.Accuracy = &builder.accuracy
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type Field struct {
 	Code        *string       `json:"code,omitempty"`
@@ -113,9 +416,86 @@ type Field struct {
 	ChildFields []*ChildField `json:"child_fields,omitempty"`
 }
 
+/**builder开始**/
+type FieldBuilder struct {
+	code            string
+	codeFlag        bool
+	title           string
+	titleFlag       bool
+	childFields     []*ChildField
+	childFieldsFlag bool
+}
+
+func NewFieldBuilder() *FieldBuilder {
+	builder := &FieldBuilder{}
+	return builder
+}
+
+func (builder *FieldBuilder) Code(code string) *FieldBuilder {
+	builder.code = code
+	builder.codeFlag = true
+	return builder
+}
+func (builder *FieldBuilder) Title(title string) *FieldBuilder {
+	builder.title = title
+	builder.titleFlag = true
+	return builder
+}
+func (builder *FieldBuilder) ChildFields(childFields []*ChildField) *FieldBuilder {
+	builder.childFields = childFields
+	builder.childFieldsFlag = true
+	return builder
+}
+
+func (builder *FieldBuilder) Build() *Field {
+	req := &Field{}
+	if builder.codeFlag {
+		req.Code = &builder.code
+
+	}
+	if builder.titleFlag {
+		req.Title = &builder.title
+
+	}
+	if builder.childFieldsFlag {
+		req.ChildFields = builder.childFields
+	}
+	return req
+}
+
+/**builder结束**/
+
 type File struct {
 	FileId *string `json:"file_id,omitempty"`
 }
+
+/**builder开始**/
+type FileBuilder struct {
+	fileId     string
+	fileIdFlag bool
+}
+
+func NewFileBuilder() *FileBuilder {
+	builder := &FileBuilder{}
+	return builder
+}
+
+func (builder *FileBuilder) FileId(fileId string) *FileBuilder {
+	builder.fileId = fileId
+	builder.fileIdFlag = true
+	return builder
+}
+
+func (builder *FileBuilder) Build() *File {
+	req := &File{}
+	if builder.fileIdFlag {
+		req.FileId = &builder.fileId
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type FreePunchCfg struct {
 	FreeStartTime        *string `json:"free_start_time,omitempty"`
@@ -123,6 +503,67 @@ type FreePunchCfg struct {
 	PunchDay             *int    `json:"punch_day,omitempty"`
 	WorkDayNoPunchAsLack *bool   `json:"work_day_no_punch_as_lack,omitempty"`
 }
+
+/**builder开始**/
+type FreePunchCfgBuilder struct {
+	freeStartTime            string
+	freeStartTimeFlag        bool
+	freeEndTime              string
+	freeEndTimeFlag          bool
+	punchDay                 int
+	punchDayFlag             bool
+	workDayNoPunchAsLack     bool
+	workDayNoPunchAsLackFlag bool
+}
+
+func NewFreePunchCfgBuilder() *FreePunchCfgBuilder {
+	builder := &FreePunchCfgBuilder{}
+	return builder
+}
+
+func (builder *FreePunchCfgBuilder) FreeStartTime(freeStartTime string) *FreePunchCfgBuilder {
+	builder.freeStartTime = freeStartTime
+	builder.freeStartTimeFlag = true
+	return builder
+}
+func (builder *FreePunchCfgBuilder) FreeEndTime(freeEndTime string) *FreePunchCfgBuilder {
+	builder.freeEndTime = freeEndTime
+	builder.freeEndTimeFlag = true
+	return builder
+}
+func (builder *FreePunchCfgBuilder) PunchDay(punchDay int) *FreePunchCfgBuilder {
+	builder.punchDay = punchDay
+	builder.punchDayFlag = true
+	return builder
+}
+func (builder *FreePunchCfgBuilder) WorkDayNoPunchAsLack(workDayNoPunchAsLack bool) *FreePunchCfgBuilder {
+	builder.workDayNoPunchAsLack = workDayNoPunchAsLack
+	builder.workDayNoPunchAsLackFlag = true
+	return builder
+}
+
+func (builder *FreePunchCfgBuilder) Build() *FreePunchCfg {
+	req := &FreePunchCfg{}
+	if builder.freeStartTimeFlag {
+		req.FreeStartTime = &builder.freeStartTime
+
+	}
+	if builder.freeEndTimeFlag {
+		req.FreeEndTime = &builder.freeEndTime
+
+	}
+	if builder.punchDayFlag {
+		req.PunchDay = &builder.punchDay
+
+	}
+	if builder.workDayNoPunchAsLackFlag {
+		req.WorkDayNoPunchAsLack = &builder.workDayNoPunchAsLack
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type Group struct {
 	GroupId                *string                  `json:"group_id,omitempty"`
@@ -163,10 +604,451 @@ type Group struct {
 	PunchType              *int                     `json:"punch_type,omitempty"`
 }
 
+/**builder开始**/
+type GroupBuilder struct {
+	groupId                    string
+	groupIdFlag                bool
+	groupName                  string
+	groupNameFlag              bool
+	timeZone                   string
+	timeZoneFlag               bool
+	bindDeptIds                []string
+	bindDeptIdsFlag            bool
+	exceptDeptIds              []string
+	exceptDeptIdsFlag          bool
+	bindUserIds                []string
+	bindUserIdsFlag            bool
+	exceptUserIds              []string
+	exceptUserIdsFlag          bool
+	groupLeaderIds             []string
+	groupLeaderIdsFlag         bool
+	allowOutPunch              bool
+	allowOutPunchFlag          bool
+	allowPcPunch               bool
+	allowPcPunchFlag           bool
+	allowRemedy                bool
+	allowRemedyFlag            bool
+	remedyLimit                bool
+	remedyLimitFlag            bool
+	remedyLimitCount           int
+	remedyLimitCountFlag       bool
+	remedyDateLimit            bool
+	remedyDateLimitFlag        bool
+	remedyDateNum              int
+	remedyDateNumFlag          bool
+	showCumulativeTime         bool
+	showCumulativeTimeFlag     bool
+	showOverTime               bool
+	showOverTimeFlag           bool
+	hideStaffPunchTime         bool
+	hideStaffPunchTimeFlag     bool
+	facePunch                  bool
+	facePunchFlag              bool
+	facePunchCfg               int
+	facePunchCfgFlag           bool
+	faceDowngrade              bool
+	faceDowngradeFlag          bool
+	replaceBasicPic            bool
+	replaceBasicPicFlag        bool
+	machines                   []*Machine
+	machinesFlag               bool
+	gpsRange                   int
+	gpsRangeFlag               bool
+	locations                  []*Location
+	locationsFlag              bool
+	groupType                  int
+	groupTypeFlag              bool
+	punchDayShiftIds           []string
+	punchDayShiftIdsFlag       bool
+	freePunchCfg               *FreePunchCfg
+	freePunchCfgFlag           bool
+	calendarId                 int
+	calendarIdFlag             bool
+	needPunchSpecialDays       []*PunchSpecialDateShift
+	needPunchSpecialDaysFlag   bool
+	noNeedPunchSpecialDays     []*PunchSpecialDateShift
+	noNeedPunchSpecialDaysFlag bool
+	workDayNoPunchAsLack       bool
+	workDayNoPunchAsLackFlag   bool
+	effectNow                  bool
+	effectNowFlag              bool
+	remedyPeriodType           int
+	remedyPeriodTypeFlag       bool
+	remedyPeriodCustomDate     int
+	remedyPeriodCustomDateFlag bool
+	punchType                  int
+	punchTypeFlag              bool
+}
+
+func NewGroupBuilder() *GroupBuilder {
+	builder := &GroupBuilder{}
+	return builder
+}
+
+func (builder *GroupBuilder) GroupId(groupId string) *GroupBuilder {
+	builder.groupId = groupId
+	builder.groupIdFlag = true
+	return builder
+}
+func (builder *GroupBuilder) GroupName(groupName string) *GroupBuilder {
+	builder.groupName = groupName
+	builder.groupNameFlag = true
+	return builder
+}
+func (builder *GroupBuilder) TimeZone(timeZone string) *GroupBuilder {
+	builder.timeZone = timeZone
+	builder.timeZoneFlag = true
+	return builder
+}
+func (builder *GroupBuilder) BindDeptIds(bindDeptIds []string) *GroupBuilder {
+	builder.bindDeptIds = bindDeptIds
+	builder.bindDeptIdsFlag = true
+	return builder
+}
+func (builder *GroupBuilder) ExceptDeptIds(exceptDeptIds []string) *GroupBuilder {
+	builder.exceptDeptIds = exceptDeptIds
+	builder.exceptDeptIdsFlag = true
+	return builder
+}
+func (builder *GroupBuilder) BindUserIds(bindUserIds []string) *GroupBuilder {
+	builder.bindUserIds = bindUserIds
+	builder.bindUserIdsFlag = true
+	return builder
+}
+func (builder *GroupBuilder) ExceptUserIds(exceptUserIds []string) *GroupBuilder {
+	builder.exceptUserIds = exceptUserIds
+	builder.exceptUserIdsFlag = true
+	return builder
+}
+func (builder *GroupBuilder) GroupLeaderIds(groupLeaderIds []string) *GroupBuilder {
+	builder.groupLeaderIds = groupLeaderIds
+	builder.groupLeaderIdsFlag = true
+	return builder
+}
+func (builder *GroupBuilder) AllowOutPunch(allowOutPunch bool) *GroupBuilder {
+	builder.allowOutPunch = allowOutPunch
+	builder.allowOutPunchFlag = true
+	return builder
+}
+func (builder *GroupBuilder) AllowPcPunch(allowPcPunch bool) *GroupBuilder {
+	builder.allowPcPunch = allowPcPunch
+	builder.allowPcPunchFlag = true
+	return builder
+}
+func (builder *GroupBuilder) AllowRemedy(allowRemedy bool) *GroupBuilder {
+	builder.allowRemedy = allowRemedy
+	builder.allowRemedyFlag = true
+	return builder
+}
+func (builder *GroupBuilder) RemedyLimit(remedyLimit bool) *GroupBuilder {
+	builder.remedyLimit = remedyLimit
+	builder.remedyLimitFlag = true
+	return builder
+}
+func (builder *GroupBuilder) RemedyLimitCount(remedyLimitCount int) *GroupBuilder {
+	builder.remedyLimitCount = remedyLimitCount
+	builder.remedyLimitCountFlag = true
+	return builder
+}
+func (builder *GroupBuilder) RemedyDateLimit(remedyDateLimit bool) *GroupBuilder {
+	builder.remedyDateLimit = remedyDateLimit
+	builder.remedyDateLimitFlag = true
+	return builder
+}
+func (builder *GroupBuilder) RemedyDateNum(remedyDateNum int) *GroupBuilder {
+	builder.remedyDateNum = remedyDateNum
+	builder.remedyDateNumFlag = true
+	return builder
+}
+func (builder *GroupBuilder) ShowCumulativeTime(showCumulativeTime bool) *GroupBuilder {
+	builder.showCumulativeTime = showCumulativeTime
+	builder.showCumulativeTimeFlag = true
+	return builder
+}
+func (builder *GroupBuilder) ShowOverTime(showOverTime bool) *GroupBuilder {
+	builder.showOverTime = showOverTime
+	builder.showOverTimeFlag = true
+	return builder
+}
+func (builder *GroupBuilder) HideStaffPunchTime(hideStaffPunchTime bool) *GroupBuilder {
+	builder.hideStaffPunchTime = hideStaffPunchTime
+	builder.hideStaffPunchTimeFlag = true
+	return builder
+}
+func (builder *GroupBuilder) FacePunch(facePunch bool) *GroupBuilder {
+	builder.facePunch = facePunch
+	builder.facePunchFlag = true
+	return builder
+}
+func (builder *GroupBuilder) FacePunchCfg(facePunchCfg int) *GroupBuilder {
+	builder.facePunchCfg = facePunchCfg
+	builder.facePunchCfgFlag = true
+	return builder
+}
+func (builder *GroupBuilder) FaceDowngrade(faceDowngrade bool) *GroupBuilder {
+	builder.faceDowngrade = faceDowngrade
+	builder.faceDowngradeFlag = true
+	return builder
+}
+func (builder *GroupBuilder) ReplaceBasicPic(replaceBasicPic bool) *GroupBuilder {
+	builder.replaceBasicPic = replaceBasicPic
+	builder.replaceBasicPicFlag = true
+	return builder
+}
+func (builder *GroupBuilder) Machines(machines []*Machine) *GroupBuilder {
+	builder.machines = machines
+	builder.machinesFlag = true
+	return builder
+}
+func (builder *GroupBuilder) GpsRange(gpsRange int) *GroupBuilder {
+	builder.gpsRange = gpsRange
+	builder.gpsRangeFlag = true
+	return builder
+}
+func (builder *GroupBuilder) Locations(locations []*Location) *GroupBuilder {
+	builder.locations = locations
+	builder.locationsFlag = true
+	return builder
+}
+func (builder *GroupBuilder) GroupType(groupType int) *GroupBuilder {
+	builder.groupType = groupType
+	builder.groupTypeFlag = true
+	return builder
+}
+func (builder *GroupBuilder) PunchDayShiftIds(punchDayShiftIds []string) *GroupBuilder {
+	builder.punchDayShiftIds = punchDayShiftIds
+	builder.punchDayShiftIdsFlag = true
+	return builder
+}
+func (builder *GroupBuilder) FreePunchCfg(freePunchCfg *FreePunchCfg) *GroupBuilder {
+	builder.freePunchCfg = freePunchCfg
+	builder.freePunchCfgFlag = true
+	return builder
+}
+func (builder *GroupBuilder) CalendarId(calendarId int) *GroupBuilder {
+	builder.calendarId = calendarId
+	builder.calendarIdFlag = true
+	return builder
+}
+func (builder *GroupBuilder) NeedPunchSpecialDays(needPunchSpecialDays []*PunchSpecialDateShift) *GroupBuilder {
+	builder.needPunchSpecialDays = needPunchSpecialDays
+	builder.needPunchSpecialDaysFlag = true
+	return builder
+}
+func (builder *GroupBuilder) NoNeedPunchSpecialDays(noNeedPunchSpecialDays []*PunchSpecialDateShift) *GroupBuilder {
+	builder.noNeedPunchSpecialDays = noNeedPunchSpecialDays
+	builder.noNeedPunchSpecialDaysFlag = true
+	return builder
+}
+func (builder *GroupBuilder) WorkDayNoPunchAsLack(workDayNoPunchAsLack bool) *GroupBuilder {
+	builder.workDayNoPunchAsLack = workDayNoPunchAsLack
+	builder.workDayNoPunchAsLackFlag = true
+	return builder
+}
+func (builder *GroupBuilder) EffectNow(effectNow bool) *GroupBuilder {
+	builder.effectNow = effectNow
+	builder.effectNowFlag = true
+	return builder
+}
+func (builder *GroupBuilder) RemedyPeriodType(remedyPeriodType int) *GroupBuilder {
+	builder.remedyPeriodType = remedyPeriodType
+	builder.remedyPeriodTypeFlag = true
+	return builder
+}
+func (builder *GroupBuilder) RemedyPeriodCustomDate(remedyPeriodCustomDate int) *GroupBuilder {
+	builder.remedyPeriodCustomDate = remedyPeriodCustomDate
+	builder.remedyPeriodCustomDateFlag = true
+	return builder
+}
+func (builder *GroupBuilder) PunchType(punchType int) *GroupBuilder {
+	builder.punchType = punchType
+	builder.punchTypeFlag = true
+	return builder
+}
+
+func (builder *GroupBuilder) Build() *Group {
+	req := &Group{}
+	if builder.groupIdFlag {
+		req.GroupId = &builder.groupId
+
+	}
+	if builder.groupNameFlag {
+		req.GroupName = &builder.groupName
+
+	}
+	if builder.timeZoneFlag {
+		req.TimeZone = &builder.timeZone
+
+	}
+	if builder.bindDeptIdsFlag {
+		req.BindDeptIds = builder.bindDeptIds
+	}
+	if builder.exceptDeptIdsFlag {
+		req.ExceptDeptIds = builder.exceptDeptIds
+	}
+	if builder.bindUserIdsFlag {
+		req.BindUserIds = builder.bindUserIds
+	}
+	if builder.exceptUserIdsFlag {
+		req.ExceptUserIds = builder.exceptUserIds
+	}
+	if builder.groupLeaderIdsFlag {
+		req.GroupLeaderIds = builder.groupLeaderIds
+	}
+	if builder.allowOutPunchFlag {
+		req.AllowOutPunch = &builder.allowOutPunch
+
+	}
+	if builder.allowPcPunchFlag {
+		req.AllowPcPunch = &builder.allowPcPunch
+
+	}
+	if builder.allowRemedyFlag {
+		req.AllowRemedy = &builder.allowRemedy
+
+	}
+	if builder.remedyLimitFlag {
+		req.RemedyLimit = &builder.remedyLimit
+
+	}
+	if builder.remedyLimitCountFlag {
+		req.RemedyLimitCount = &builder.remedyLimitCount
+
+	}
+	if builder.remedyDateLimitFlag {
+		req.RemedyDateLimit = &builder.remedyDateLimit
+
+	}
+	if builder.remedyDateNumFlag {
+		req.RemedyDateNum = &builder.remedyDateNum
+
+	}
+	if builder.showCumulativeTimeFlag {
+		req.ShowCumulativeTime = &builder.showCumulativeTime
+
+	}
+	if builder.showOverTimeFlag {
+		req.ShowOverTime = &builder.showOverTime
+
+	}
+	if builder.hideStaffPunchTimeFlag {
+		req.HideStaffPunchTime = &builder.hideStaffPunchTime
+
+	}
+	if builder.facePunchFlag {
+		req.FacePunch = &builder.facePunch
+
+	}
+	if builder.facePunchCfgFlag {
+		req.FacePunchCfg = &builder.facePunchCfg
+
+	}
+	if builder.faceDowngradeFlag {
+		req.FaceDowngrade = &builder.faceDowngrade
+
+	}
+	if builder.replaceBasicPicFlag {
+		req.ReplaceBasicPic = &builder.replaceBasicPic
+
+	}
+	if builder.machinesFlag {
+		req.Machines = builder.machines
+	}
+	if builder.gpsRangeFlag {
+		req.GpsRange = &builder.gpsRange
+
+	}
+	if builder.locationsFlag {
+		req.Locations = builder.locations
+	}
+	if builder.groupTypeFlag {
+		req.GroupType = &builder.groupType
+
+	}
+	if builder.punchDayShiftIdsFlag {
+		req.PunchDayShiftIds = builder.punchDayShiftIds
+	}
+	if builder.freePunchCfgFlag {
+		req.FreePunchCfg = builder.freePunchCfg
+	}
+	if builder.calendarIdFlag {
+		req.CalendarId = &builder.calendarId
+
+	}
+	if builder.needPunchSpecialDaysFlag {
+		req.NeedPunchSpecialDays = builder.needPunchSpecialDays
+	}
+	if builder.noNeedPunchSpecialDaysFlag {
+		req.NoNeedPunchSpecialDays = builder.noNeedPunchSpecialDays
+	}
+	if builder.workDayNoPunchAsLackFlag {
+		req.WorkDayNoPunchAsLack = &builder.workDayNoPunchAsLack
+
+	}
+	if builder.effectNowFlag {
+		req.EffectNow = &builder.effectNow
+
+	}
+	if builder.remedyPeriodTypeFlag {
+		req.RemedyPeriodType = &builder.remedyPeriodType
+
+	}
+	if builder.remedyPeriodCustomDateFlag {
+		req.RemedyPeriodCustomDate = &builder.remedyPeriodCustomDate
+
+	}
+	if builder.punchTypeFlag {
+		req.PunchType = &builder.punchType
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type GroupMeta struct {
 	GroupId   *string `json:"group_id,omitempty"`
 	GroupName *string `json:"group_name,omitempty"`
 }
+
+/**builder开始**/
+type GroupMetaBuilder struct {
+	groupId       string
+	groupIdFlag   bool
+	groupName     string
+	groupNameFlag bool
+}
+
+func NewGroupMetaBuilder() *GroupMetaBuilder {
+	builder := &GroupMetaBuilder{}
+	return builder
+}
+
+func (builder *GroupMetaBuilder) GroupId(groupId string) *GroupMetaBuilder {
+	builder.groupId = groupId
+	builder.groupIdFlag = true
+	return builder
+}
+func (builder *GroupMetaBuilder) GroupName(groupName string) *GroupMetaBuilder {
+	builder.groupName = groupName
+	builder.groupNameFlag = true
+	return builder
+}
+
+func (builder *GroupMetaBuilder) Build() *GroupMeta {
+	req := &GroupMeta{}
+	if builder.groupIdFlag {
+		req.GroupId = &builder.groupId
+
+	}
+	if builder.groupNameFlag {
+		req.GroupName = &builder.groupName
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type I18nNames struct {
 	Ch *string `json:"ch,omitempty"`
@@ -174,16 +1056,154 @@ type I18nNames struct {
 	Ja *string `json:"ja,omitempty"`
 }
 
+/**builder开始**/
+type I18nNamesBuilder struct {
+	ch     string
+	chFlag bool
+	en     string
+	enFlag bool
+	ja     string
+	jaFlag bool
+}
+
+func NewI18nNamesBuilder() *I18nNamesBuilder {
+	builder := &I18nNamesBuilder{}
+	return builder
+}
+
+func (builder *I18nNamesBuilder) Ch(ch string) *I18nNamesBuilder {
+	builder.ch = ch
+	builder.chFlag = true
+	return builder
+}
+func (builder *I18nNamesBuilder) En(en string) *I18nNamesBuilder {
+	builder.en = en
+	builder.enFlag = true
+	return builder
+}
+func (builder *I18nNamesBuilder) Ja(ja string) *I18nNamesBuilder {
+	builder.ja = ja
+	builder.jaFlag = true
+	return builder
+}
+
+func (builder *I18nNamesBuilder) Build() *I18nNames {
+	req := &I18nNames{}
+	if builder.chFlag {
+		req.Ch = &builder.ch
+
+	}
+	if builder.enFlag {
+		req.En = &builder.en
+
+	}
+	if builder.jaFlag {
+		req.Ja = &builder.ja
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Item struct {
 	Code       *string      `json:"code,omitempty"`
 	Title      *string      `json:"title,omitempty"`
 	ChildItems []*ChildItem `json:"child_items,omitempty"`
 }
 
+/**builder开始**/
+type ItemBuilder struct {
+	code           string
+	codeFlag       bool
+	title          string
+	titleFlag      bool
+	childItems     []*ChildItem
+	childItemsFlag bool
+}
+
+func NewItemBuilder() *ItemBuilder {
+	builder := &ItemBuilder{}
+	return builder
+}
+
+func (builder *ItemBuilder) Code(code string) *ItemBuilder {
+	builder.code = code
+	builder.codeFlag = true
+	return builder
+}
+func (builder *ItemBuilder) Title(title string) *ItemBuilder {
+	builder.title = title
+	builder.titleFlag = true
+	return builder
+}
+func (builder *ItemBuilder) ChildItems(childItems []*ChildItem) *ItemBuilder {
+	builder.childItems = childItems
+	builder.childItemsFlag = true
+	return builder
+}
+
+func (builder *ItemBuilder) Build() *Item {
+	req := &Item{}
+	if builder.codeFlag {
+		req.Code = &builder.code
+
+	}
+	if builder.titleFlag {
+		req.Title = &builder.title
+
+	}
+	if builder.childItemsFlag {
+		req.ChildItems = builder.childItems
+	}
+	return req
+}
+
+/**builder结束**/
+
 type LateOffLateOnRule struct {
 	LateOffMinutes *int `json:"late_off_minutes,omitempty"`
 	LateOnMinutes  *int `json:"late_on_minutes,omitempty"`
 }
+
+/**builder开始**/
+type LateOffLateOnRuleBuilder struct {
+	lateOffMinutes     int
+	lateOffMinutesFlag bool
+	lateOnMinutes      int
+	lateOnMinutesFlag  bool
+}
+
+func NewLateOffLateOnRuleBuilder() *LateOffLateOnRuleBuilder {
+	builder := &LateOffLateOnRuleBuilder{}
+	return builder
+}
+
+func (builder *LateOffLateOnRuleBuilder) LateOffMinutes(lateOffMinutes int) *LateOffLateOnRuleBuilder {
+	builder.lateOffMinutes = lateOffMinutes
+	builder.lateOffMinutesFlag = true
+	return builder
+}
+func (builder *LateOffLateOnRuleBuilder) LateOnMinutes(lateOnMinutes int) *LateOffLateOnRuleBuilder {
+	builder.lateOnMinutes = lateOnMinutes
+	builder.lateOnMinutesFlag = true
+	return builder
+}
+
+func (builder *LateOffLateOnRuleBuilder) Build() *LateOffLateOnRule {
+	req := &LateOffLateOnRule{}
+	if builder.lateOffMinutesFlag {
+		req.LateOffMinutes = &builder.lateOffMinutes
+
+	}
+	if builder.lateOnMinutesFlag {
+		req.LateOnMinutes = &builder.lateOnMinutes
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type Location struct {
 	LocationId   *string  `json:"location_id,omitempty"`
@@ -200,14 +1220,228 @@ type Location struct {
 	GpsRange     *int     `json:"gps_range,omitempty"`
 }
 
+/**builder开始**/
+type LocationBuilder struct {
+	locationId       string
+	locationIdFlag   bool
+	locationName     string
+	locationNameFlag bool
+	locationType     int
+	locationTypeFlag bool
+	latitude         float64
+	latitudeFlag     bool
+	longitude        float64
+	longitudeFlag    bool
+	ssid             string
+	ssidFlag         bool
+	bssid            string
+	bssidFlag        bool
+	mapType          int
+	mapTypeFlag      bool
+	address          string
+	addressFlag      bool
+	ip               string
+	ipFlag           bool
+	feature          string
+	featureFlag      bool
+	gpsRange         int
+	gpsRangeFlag     bool
+}
+
+func NewLocationBuilder() *LocationBuilder {
+	builder := &LocationBuilder{}
+	return builder
+}
+
+func (builder *LocationBuilder) LocationId(locationId string) *LocationBuilder {
+	builder.locationId = locationId
+	builder.locationIdFlag = true
+	return builder
+}
+func (builder *LocationBuilder) LocationName(locationName string) *LocationBuilder {
+	builder.locationName = locationName
+	builder.locationNameFlag = true
+	return builder
+}
+func (builder *LocationBuilder) LocationType(locationType int) *LocationBuilder {
+	builder.locationType = locationType
+	builder.locationTypeFlag = true
+	return builder
+}
+func (builder *LocationBuilder) Latitude(latitude float64) *LocationBuilder {
+	builder.latitude = latitude
+	builder.latitudeFlag = true
+	return builder
+}
+func (builder *LocationBuilder) Longitude(longitude float64) *LocationBuilder {
+	builder.longitude = longitude
+	builder.longitudeFlag = true
+	return builder
+}
+func (builder *LocationBuilder) Ssid(ssid string) *LocationBuilder {
+	builder.ssid = ssid
+	builder.ssidFlag = true
+	return builder
+}
+func (builder *LocationBuilder) Bssid(bssid string) *LocationBuilder {
+	builder.bssid = bssid
+	builder.bssidFlag = true
+	return builder
+}
+func (builder *LocationBuilder) MapType(mapType int) *LocationBuilder {
+	builder.mapType = mapType
+	builder.mapTypeFlag = true
+	return builder
+}
+func (builder *LocationBuilder) Address(address string) *LocationBuilder {
+	builder.address = address
+	builder.addressFlag = true
+	return builder
+}
+func (builder *LocationBuilder) Ip(ip string) *LocationBuilder {
+	builder.ip = ip
+	builder.ipFlag = true
+	return builder
+}
+func (builder *LocationBuilder) Feature(feature string) *LocationBuilder {
+	builder.feature = feature
+	builder.featureFlag = true
+	return builder
+}
+func (builder *LocationBuilder) GpsRange(gpsRange int) *LocationBuilder {
+	builder.gpsRange = gpsRange
+	builder.gpsRangeFlag = true
+	return builder
+}
+
+func (builder *LocationBuilder) Build() *Location {
+	req := &Location{}
+	if builder.locationIdFlag {
+		req.LocationId = &builder.locationId
+
+	}
+	if builder.locationNameFlag {
+		req.LocationName = &builder.locationName
+
+	}
+	if builder.locationTypeFlag {
+		req.LocationType = &builder.locationType
+
+	}
+	if builder.latitudeFlag {
+		req.Latitude = &builder.latitude
+
+	}
+	if builder.longitudeFlag {
+		req.Longitude = &builder.longitude
+
+	}
+	if builder.ssidFlag {
+		req.Ssid = &builder.ssid
+
+	}
+	if builder.bssidFlag {
+		req.Bssid = &builder.bssid
+
+	}
+	if builder.mapTypeFlag {
+		req.MapType = &builder.mapType
+
+	}
+	if builder.addressFlag {
+		req.Address = &builder.address
+
+	}
+	if builder.ipFlag {
+		req.Ip = &builder.ip
+
+	}
+	if builder.featureFlag {
+		req.Feature = &builder.feature
+
+	}
+	if builder.gpsRangeFlag {
+		req.GpsRange = &builder.gpsRange
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type LocationInfo struct {
 	Status    *int    `json:"status,omitempty"`
 	Geofences []*Area `json:"geofences,omitempty"`
 }
 
+/**builder开始**/
+type LocationInfoBuilder struct {
+	status        int
+	statusFlag    bool
+	geofences     []*Area
+	geofencesFlag bool
+}
+
+func NewLocationInfoBuilder() *LocationInfoBuilder {
+	builder := &LocationInfoBuilder{}
+	return builder
+}
+
+func (builder *LocationInfoBuilder) Status(status int) *LocationInfoBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+func (builder *LocationInfoBuilder) Geofences(geofences []*Area) *LocationInfoBuilder {
+	builder.geofences = geofences
+	builder.geofencesFlag = true
+	return builder
+}
+
+func (builder *LocationInfoBuilder) Build() *LocationInfo {
+	req := &LocationInfo{}
+	if builder.statusFlag {
+		req.Status = &builder.status
+
+	}
+	if builder.geofencesFlag {
+		req.Geofences = builder.geofences
+	}
+	return req
+}
+
+/**builder结束**/
+
 type LocationInfoEvent struct {
 	Coord *Coordinate `json:"coord,omitempty"`
 }
+
+/**builder开始**/
+type LocationInfoEventBuilder struct {
+	coord     *Coordinate
+	coordFlag bool
+}
+
+func NewLocationInfoEventBuilder() *LocationInfoEventBuilder {
+	builder := &LocationInfoEventBuilder{}
+	return builder
+}
+
+func (builder *LocationInfoEventBuilder) Coord(coord *Coordinate) *LocationInfoEventBuilder {
+	builder.coord = coord
+	builder.coordFlag = true
+	return builder
+}
+
+func (builder *LocationInfoEventBuilder) Build() *LocationInfoEvent {
+	req := &LocationInfoEvent{}
+	if builder.coordFlag {
+		req.Coord = builder.coord
+	}
+	return req
+}
+
+/**builder结束**/
 
 type LocationRecord struct {
 	UserId         *UserId            `json:"user_id,omitempty"`
@@ -221,21 +1455,259 @@ type LocationRecord struct {
 	ClientInfo     *string            `json:"client_info,omitempty"`
 }
 
+/**builder开始**/
+type LocationRecordBuilder struct {
+	userId             *UserId
+	userIdFlag         bool
+	timestamp          string
+	timestampFlag      bool
+	location           *LocationInfoEvent
+	locationFlag       bool
+	wifi               *WifiInfoEvent
+	wifiFlag           bool
+	ruleSnapshotId     string
+	ruleSnapshotIdFlag bool
+	type_              string
+	typeFlag           bool
+	scanWifiList       []*ScanWifiInfo
+	scanWifiListFlag   bool
+	deviceId           string
+	deviceIdFlag       bool
+	clientInfo         string
+	clientInfoFlag     bool
+}
+
+func NewLocationRecordBuilder() *LocationRecordBuilder {
+	builder := &LocationRecordBuilder{}
+	return builder
+}
+
+func (builder *LocationRecordBuilder) UserId(userId *UserId) *LocationRecordBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *LocationRecordBuilder) Timestamp(timestamp string) *LocationRecordBuilder {
+	builder.timestamp = timestamp
+	builder.timestampFlag = true
+	return builder
+}
+func (builder *LocationRecordBuilder) Location(location *LocationInfoEvent) *LocationRecordBuilder {
+	builder.location = location
+	builder.locationFlag = true
+	return builder
+}
+func (builder *LocationRecordBuilder) Wifi(wifi *WifiInfoEvent) *LocationRecordBuilder {
+	builder.wifi = wifi
+	builder.wifiFlag = true
+	return builder
+}
+func (builder *LocationRecordBuilder) RuleSnapshotId(ruleSnapshotId string) *LocationRecordBuilder {
+	builder.ruleSnapshotId = ruleSnapshotId
+	builder.ruleSnapshotIdFlag = true
+	return builder
+}
+func (builder *LocationRecordBuilder) Type(type_ string) *LocationRecordBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+func (builder *LocationRecordBuilder) ScanWifiList(scanWifiList []*ScanWifiInfo) *LocationRecordBuilder {
+	builder.scanWifiList = scanWifiList
+	builder.scanWifiListFlag = true
+	return builder
+}
+func (builder *LocationRecordBuilder) DeviceId(deviceId string) *LocationRecordBuilder {
+	builder.deviceId = deviceId
+	builder.deviceIdFlag = true
+	return builder
+}
+func (builder *LocationRecordBuilder) ClientInfo(clientInfo string) *LocationRecordBuilder {
+	builder.clientInfo = clientInfo
+	builder.clientInfoFlag = true
+	return builder
+}
+
+func (builder *LocationRecordBuilder) Build() *LocationRecord {
+	req := &LocationRecord{}
+	if builder.userIdFlag {
+		req.UserId = builder.userId
+	}
+	if builder.timestampFlag {
+		req.Timestamp = &builder.timestamp
+
+	}
+	if builder.locationFlag {
+		req.Location = builder.location
+	}
+	if builder.wifiFlag {
+		req.Wifi = builder.wifi
+	}
+	if builder.ruleSnapshotIdFlag {
+		req.RuleSnapshotId = &builder.ruleSnapshotId
+
+	}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.scanWifiListFlag {
+		req.ScanWifiList = builder.scanWifiList
+	}
+	if builder.deviceIdFlag {
+		req.DeviceId = &builder.deviceId
+
+	}
+	if builder.clientInfoFlag {
+		req.ClientInfo = &builder.clientInfo
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type LocationSetting struct {
 	Location *LocationInfo `json:"location,omitempty"`
 	Wifi     *WifiInfo     `json:"wifi,omitempty"`
 	UserId   *string       `json:"user_id,omitempty"`
 }
 
+/**builder开始**/
+type LocationSettingBuilder struct {
+	location     *LocationInfo
+	locationFlag bool
+	wifi         *WifiInfo
+	wifiFlag     bool
+	userId       string
+	userIdFlag   bool
+}
+
+func NewLocationSettingBuilder() *LocationSettingBuilder {
+	builder := &LocationSettingBuilder{}
+	return builder
+}
+
+func (builder *LocationSettingBuilder) Location(location *LocationInfo) *LocationSettingBuilder {
+	builder.location = location
+	builder.locationFlag = true
+	return builder
+}
+func (builder *LocationSettingBuilder) Wifi(wifi *WifiInfo) *LocationSettingBuilder {
+	builder.wifi = wifi
+	builder.wifiFlag = true
+	return builder
+}
+func (builder *LocationSettingBuilder) UserId(userId string) *LocationSettingBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+func (builder *LocationSettingBuilder) Build() *LocationSetting {
+	req := &LocationSetting{}
+	if builder.locationFlag {
+		req.Location = builder.location
+	}
+	if builder.wifiFlag {
+		req.Wifi = builder.wifi
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Machine struct {
 	MachineSn   *string `json:"machine_sn,omitempty"`
 	MachineName *string `json:"machine_name,omitempty"`
 }
 
+/**builder开始**/
+type MachineBuilder struct {
+	machineSn       string
+	machineSnFlag   bool
+	machineName     string
+	machineNameFlag bool
+}
+
+func NewMachineBuilder() *MachineBuilder {
+	builder := &MachineBuilder{}
+	return builder
+}
+
+func (builder *MachineBuilder) MachineSn(machineSn string) *MachineBuilder {
+	builder.machineSn = machineSn
+	builder.machineSnFlag = true
+	return builder
+}
+func (builder *MachineBuilder) MachineName(machineName string) *MachineBuilder {
+	builder.machineName = machineName
+	builder.machineNameFlag = true
+	return builder
+}
+
+func (builder *MachineBuilder) Build() *Machine {
+	req := &Machine{}
+	if builder.machineSnFlag {
+		req.MachineSn = &builder.machineSn
+
+	}
+	if builder.machineNameFlag {
+		req.MachineName = &builder.machineName
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type PunchSpecialDateShift struct {
 	PunchDay *int    `json:"punch_day,omitempty"`
 	ShiftId  *string `json:"shift_id,omitempty"`
 }
+
+/**builder开始**/
+type PunchSpecialDateShiftBuilder struct {
+	punchDay     int
+	punchDayFlag bool
+	shiftId      string
+	shiftIdFlag  bool
+}
+
+func NewPunchSpecialDateShiftBuilder() *PunchSpecialDateShiftBuilder {
+	builder := &PunchSpecialDateShiftBuilder{}
+	return builder
+}
+
+func (builder *PunchSpecialDateShiftBuilder) PunchDay(punchDay int) *PunchSpecialDateShiftBuilder {
+	builder.punchDay = punchDay
+	builder.punchDayFlag = true
+	return builder
+}
+func (builder *PunchSpecialDateShiftBuilder) ShiftId(shiftId string) *PunchSpecialDateShiftBuilder {
+	builder.shiftId = shiftId
+	builder.shiftIdFlag = true
+	return builder
+}
+
+func (builder *PunchSpecialDateShiftBuilder) Build() *PunchSpecialDateShift {
+	req := &PunchSpecialDateShift{}
+	if builder.punchDayFlag {
+		req.PunchDay = &builder.punchDay
+
+	}
+	if builder.shiftIdFlag {
+		req.ShiftId = &builder.shiftId
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type PunchTimeRule struct {
 	OnTime              *string `json:"on_time,omitempty"`
@@ -248,20 +1720,241 @@ type PunchTimeRule struct {
 	OffDelayMinutes     *int    `json:"off_delay_minutes,omitempty"`
 }
 
+/**builder开始**/
+type PunchTimeRuleBuilder struct {
+	onTime                  string
+	onTimeFlag              bool
+	offTime                 string
+	offTimeFlag             bool
+	lateMinutesAsLate       int
+	lateMinutesAsLateFlag   bool
+	lateMinutesAsLack       int
+	lateMinutesAsLackFlag   bool
+	onAdvanceMinutes        int
+	onAdvanceMinutesFlag    bool
+	earlyMinutesAsEarly     int
+	earlyMinutesAsEarlyFlag bool
+	earlyMinutesAsLack      int
+	earlyMinutesAsLackFlag  bool
+	offDelayMinutes         int
+	offDelayMinutesFlag     bool
+}
+
+func NewPunchTimeRuleBuilder() *PunchTimeRuleBuilder {
+	builder := &PunchTimeRuleBuilder{}
+	return builder
+}
+
+func (builder *PunchTimeRuleBuilder) OnTime(onTime string) *PunchTimeRuleBuilder {
+	builder.onTime = onTime
+	builder.onTimeFlag = true
+	return builder
+}
+func (builder *PunchTimeRuleBuilder) OffTime(offTime string) *PunchTimeRuleBuilder {
+	builder.offTime = offTime
+	builder.offTimeFlag = true
+	return builder
+}
+func (builder *PunchTimeRuleBuilder) LateMinutesAsLate(lateMinutesAsLate int) *PunchTimeRuleBuilder {
+	builder.lateMinutesAsLate = lateMinutesAsLate
+	builder.lateMinutesAsLateFlag = true
+	return builder
+}
+func (builder *PunchTimeRuleBuilder) LateMinutesAsLack(lateMinutesAsLack int) *PunchTimeRuleBuilder {
+	builder.lateMinutesAsLack = lateMinutesAsLack
+	builder.lateMinutesAsLackFlag = true
+	return builder
+}
+func (builder *PunchTimeRuleBuilder) OnAdvanceMinutes(onAdvanceMinutes int) *PunchTimeRuleBuilder {
+	builder.onAdvanceMinutes = onAdvanceMinutes
+	builder.onAdvanceMinutesFlag = true
+	return builder
+}
+func (builder *PunchTimeRuleBuilder) EarlyMinutesAsEarly(earlyMinutesAsEarly int) *PunchTimeRuleBuilder {
+	builder.earlyMinutesAsEarly = earlyMinutesAsEarly
+	builder.earlyMinutesAsEarlyFlag = true
+	return builder
+}
+func (builder *PunchTimeRuleBuilder) EarlyMinutesAsLack(earlyMinutesAsLack int) *PunchTimeRuleBuilder {
+	builder.earlyMinutesAsLack = earlyMinutesAsLack
+	builder.earlyMinutesAsLackFlag = true
+	return builder
+}
+func (builder *PunchTimeRuleBuilder) OffDelayMinutes(offDelayMinutes int) *PunchTimeRuleBuilder {
+	builder.offDelayMinutes = offDelayMinutes
+	builder.offDelayMinutesFlag = true
+	return builder
+}
+
+func (builder *PunchTimeRuleBuilder) Build() *PunchTimeRule {
+	req := &PunchTimeRule{}
+	if builder.onTimeFlag {
+		req.OnTime = &builder.onTime
+
+	}
+	if builder.offTimeFlag {
+		req.OffTime = &builder.offTime
+
+	}
+	if builder.lateMinutesAsLateFlag {
+		req.LateMinutesAsLate = &builder.lateMinutesAsLate
+
+	}
+	if builder.lateMinutesAsLackFlag {
+		req.LateMinutesAsLack = &builder.lateMinutesAsLack
+
+	}
+	if builder.onAdvanceMinutesFlag {
+		req.OnAdvanceMinutes = &builder.onAdvanceMinutes
+
+	}
+	if builder.earlyMinutesAsEarlyFlag {
+		req.EarlyMinutesAsEarly = &builder.earlyMinutesAsEarly
+
+	}
+	if builder.earlyMinutesAsLackFlag {
+		req.EarlyMinutesAsLack = &builder.earlyMinutesAsLack
+
+	}
+	if builder.offDelayMinutesFlag {
+		req.OffDelayMinutes = &builder.offDelayMinutes
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type RestRule struct {
 	RestBeginTime *string `json:"rest_begin_time,omitempty"`
 	RestEndTime   *string `json:"rest_end_time,omitempty"`
 }
+
+/**builder开始**/
+type RestRuleBuilder struct {
+	restBeginTime     string
+	restBeginTimeFlag bool
+	restEndTime       string
+	restEndTimeFlag   bool
+}
+
+func NewRestRuleBuilder() *RestRuleBuilder {
+	builder := &RestRuleBuilder{}
+	return builder
+}
+
+func (builder *RestRuleBuilder) RestBeginTime(restBeginTime string) *RestRuleBuilder {
+	builder.restBeginTime = restBeginTime
+	builder.restBeginTimeFlag = true
+	return builder
+}
+func (builder *RestRuleBuilder) RestEndTime(restEndTime string) *RestRuleBuilder {
+	builder.restEndTime = restEndTime
+	builder.restEndTimeFlag = true
+	return builder
+}
+
+func (builder *RestRuleBuilder) Build() *RestRule {
+	req := &RestRule{}
+	if builder.restBeginTimeFlag {
+		req.RestBeginTime = &builder.restBeginTime
+
+	}
+	if builder.restEndTimeFlag {
+		req.RestEndTime = &builder.restEndTime
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type ScanWifiInfo struct {
 	Ssid  *string `json:"ssid,omitempty"`
 	Bssid *string `json:"bssid,omitempty"`
 }
 
+/**builder开始**/
+type ScanWifiInfoBuilder struct {
+	ssid      string
+	ssidFlag  bool
+	bssid     string
+	bssidFlag bool
+}
+
+func NewScanWifiInfoBuilder() *ScanWifiInfoBuilder {
+	builder := &ScanWifiInfoBuilder{}
+	return builder
+}
+
+func (builder *ScanWifiInfoBuilder) Ssid(ssid string) *ScanWifiInfoBuilder {
+	builder.ssid = ssid
+	builder.ssidFlag = true
+	return builder
+}
+func (builder *ScanWifiInfoBuilder) Bssid(bssid string) *ScanWifiInfoBuilder {
+	builder.bssid = bssid
+	builder.bssidFlag = true
+	return builder
+}
+
+func (builder *ScanWifiInfoBuilder) Build() *ScanWifiInfo {
+	req := &ScanWifiInfo{}
+	if builder.ssidFlag {
+		req.Ssid = &builder.ssid
+
+	}
+	if builder.bssidFlag {
+		req.Bssid = &builder.bssid
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Schedule struct {
 	GroupId *string  `json:"group_id,omitempty"`
 	Shifts  []string `json:"shifts,omitempty"`
 }
+
+/**builder开始**/
+type ScheduleBuilder struct {
+	groupId     string
+	groupIdFlag bool
+	shifts      []string
+	shiftsFlag  bool
+}
+
+func NewScheduleBuilder() *ScheduleBuilder {
+	builder := &ScheduleBuilder{}
+	return builder
+}
+
+func (builder *ScheduleBuilder) GroupId(groupId string) *ScheduleBuilder {
+	builder.groupId = groupId
+	builder.groupIdFlag = true
+	return builder
+}
+func (builder *ScheduleBuilder) Shifts(shifts []string) *ScheduleBuilder {
+	builder.shifts = shifts
+	builder.shiftsFlag = true
+	return builder
+}
+
+func (builder *ScheduleBuilder) Build() *Schedule {
+	req := &Schedule{}
+	if builder.groupIdFlag {
+		req.GroupId = &builder.groupId
+
+	}
+	if builder.shiftsFlag {
+		req.Shifts = builder.shifts
+	}
+	return req
+}
+
+/**builder结束**/
 
 type Shift struct {
 	ShiftId           *string              `json:"shift_id,omitempty"`
@@ -275,6 +1968,119 @@ type Shift struct {
 	RestTimeRule      []*RestRule          `json:"rest_time_rule,omitempty"`
 }
 
+/**builder开始**/
+type ShiftBuilder struct {
+	shiftId               string
+	shiftIdFlag           bool
+	shiftName             string
+	shiftNameFlag         bool
+	punchTimes            int
+	punchTimesFlag        bool
+	isFlexible            bool
+	isFlexibleFlag        bool
+	flexibleMinutes       int
+	flexibleMinutesFlag   bool
+	noNeedOff             bool
+	noNeedOffFlag         bool
+	punchTimeRule         []*PunchTimeRule
+	punchTimeRuleFlag     bool
+	lateOffLateOnRule     []*LateOffLateOnRule
+	lateOffLateOnRuleFlag bool
+	restTimeRule          []*RestRule
+	restTimeRuleFlag      bool
+}
+
+func NewShiftBuilder() *ShiftBuilder {
+	builder := &ShiftBuilder{}
+	return builder
+}
+
+func (builder *ShiftBuilder) ShiftId(shiftId string) *ShiftBuilder {
+	builder.shiftId = shiftId
+	builder.shiftIdFlag = true
+	return builder
+}
+func (builder *ShiftBuilder) ShiftName(shiftName string) *ShiftBuilder {
+	builder.shiftName = shiftName
+	builder.shiftNameFlag = true
+	return builder
+}
+func (builder *ShiftBuilder) PunchTimes(punchTimes int) *ShiftBuilder {
+	builder.punchTimes = punchTimes
+	builder.punchTimesFlag = true
+	return builder
+}
+func (builder *ShiftBuilder) IsFlexible(isFlexible bool) *ShiftBuilder {
+	builder.isFlexible = isFlexible
+	builder.isFlexibleFlag = true
+	return builder
+}
+func (builder *ShiftBuilder) FlexibleMinutes(flexibleMinutes int) *ShiftBuilder {
+	builder.flexibleMinutes = flexibleMinutes
+	builder.flexibleMinutesFlag = true
+	return builder
+}
+func (builder *ShiftBuilder) NoNeedOff(noNeedOff bool) *ShiftBuilder {
+	builder.noNeedOff = noNeedOff
+	builder.noNeedOffFlag = true
+	return builder
+}
+func (builder *ShiftBuilder) PunchTimeRule(punchTimeRule []*PunchTimeRule) *ShiftBuilder {
+	builder.punchTimeRule = punchTimeRule
+	builder.punchTimeRuleFlag = true
+	return builder
+}
+func (builder *ShiftBuilder) LateOffLateOnRule(lateOffLateOnRule []*LateOffLateOnRule) *ShiftBuilder {
+	builder.lateOffLateOnRule = lateOffLateOnRule
+	builder.lateOffLateOnRuleFlag = true
+	return builder
+}
+func (builder *ShiftBuilder) RestTimeRule(restTimeRule []*RestRule) *ShiftBuilder {
+	builder.restTimeRule = restTimeRule
+	builder.restTimeRuleFlag = true
+	return builder
+}
+
+func (builder *ShiftBuilder) Build() *Shift {
+	req := &Shift{}
+	if builder.shiftIdFlag {
+		req.ShiftId = &builder.shiftId
+
+	}
+	if builder.shiftNameFlag {
+		req.ShiftName = &builder.shiftName
+
+	}
+	if builder.punchTimesFlag {
+		req.PunchTimes = &builder.punchTimes
+
+	}
+	if builder.isFlexibleFlag {
+		req.IsFlexible = &builder.isFlexible
+
+	}
+	if builder.flexibleMinutesFlag {
+		req.FlexibleMinutes = &builder.flexibleMinutes
+
+	}
+	if builder.noNeedOffFlag {
+		req.NoNeedOff = &builder.noNeedOff
+
+	}
+	if builder.punchTimeRuleFlag {
+		req.PunchTimeRule = builder.punchTimeRule
+	}
+	if builder.lateOffLateOnRuleFlag {
+		req.LateOffLateOnRule = builder.lateOffLateOnRule
+	}
+	if builder.restTimeRuleFlag {
+		req.RestTimeRule = builder.restTimeRule
+	}
+	return req
+}
+
+/**builder结束**/
+
 type StatusChange struct {
 	Index             *int    `json:"index,omitempty"`
 	BeforeStatus      *string `json:"before_status,omitempty"`
@@ -283,6 +2089,89 @@ type StatusChange struct {
 	CurrentSupplement *string `json:"current_supplement,omitempty"`
 	WorkType          *string `json:"work_type,omitempty"`
 }
+
+/**builder开始**/
+type StatusChangeBuilder struct {
+	index                 int
+	indexFlag             bool
+	beforeStatus          string
+	beforeStatusFlag      bool
+	currentStatus         string
+	currentStatusFlag     bool
+	beforeSupplement      string
+	beforeSupplementFlag  bool
+	currentSupplement     string
+	currentSupplementFlag bool
+	workType              string
+	workTypeFlag          bool
+}
+
+func NewStatusChangeBuilder() *StatusChangeBuilder {
+	builder := &StatusChangeBuilder{}
+	return builder
+}
+
+func (builder *StatusChangeBuilder) Index(index int) *StatusChangeBuilder {
+	builder.index = index
+	builder.indexFlag = true
+	return builder
+}
+func (builder *StatusChangeBuilder) BeforeStatus(beforeStatus string) *StatusChangeBuilder {
+	builder.beforeStatus = beforeStatus
+	builder.beforeStatusFlag = true
+	return builder
+}
+func (builder *StatusChangeBuilder) CurrentStatus(currentStatus string) *StatusChangeBuilder {
+	builder.currentStatus = currentStatus
+	builder.currentStatusFlag = true
+	return builder
+}
+func (builder *StatusChangeBuilder) BeforeSupplement(beforeSupplement string) *StatusChangeBuilder {
+	builder.beforeSupplement = beforeSupplement
+	builder.beforeSupplementFlag = true
+	return builder
+}
+func (builder *StatusChangeBuilder) CurrentSupplement(currentSupplement string) *StatusChangeBuilder {
+	builder.currentSupplement = currentSupplement
+	builder.currentSupplementFlag = true
+	return builder
+}
+func (builder *StatusChangeBuilder) WorkType(workType string) *StatusChangeBuilder {
+	builder.workType = workType
+	builder.workTypeFlag = true
+	return builder
+}
+
+func (builder *StatusChangeBuilder) Build() *StatusChange {
+	req := &StatusChange{}
+	if builder.indexFlag {
+		req.Index = &builder.index
+
+	}
+	if builder.beforeStatusFlag {
+		req.BeforeStatus = &builder.beforeStatus
+
+	}
+	if builder.currentStatusFlag {
+		req.CurrentStatus = &builder.currentStatus
+
+	}
+	if builder.beforeSupplementFlag {
+		req.BeforeSupplement = &builder.beforeSupplement
+
+	}
+	if builder.currentSupplementFlag {
+		req.CurrentSupplement = &builder.currentSupplement
+
+	}
+	if builder.workTypeFlag {
+		req.WorkType = &builder.workType
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type TaskResult struct {
 	CheckInRecordId          *string   `json:"check_in_record_id,omitempty"`
@@ -297,6 +2186,131 @@ type TaskResult struct {
 	CheckOutShiftTime        *string   `json:"check_out_shift_time,omitempty"`
 }
 
+/**builder开始**/
+type TaskResultBuilder struct {
+	checkInRecordId              string
+	checkInRecordIdFlag          bool
+	checkInRecord                *UserFlow
+	checkInRecordFlag            bool
+	checkOutRecordId             string
+	checkOutRecordIdFlag         bool
+	checkOutRecord               *UserFlow
+	checkOutRecordFlag           bool
+	checkInResult                string
+	checkInResultFlag            bool
+	checkOutResult               string
+	checkOutResultFlag           bool
+	checkInResultSupplement      string
+	checkInResultSupplementFlag  bool
+	checkOutResultSupplement     string
+	checkOutResultSupplementFlag bool
+	checkInShiftTime             string
+	checkInShiftTimeFlag         bool
+	checkOutShiftTime            string
+	checkOutShiftTimeFlag        bool
+}
+
+func NewTaskResultBuilder() *TaskResultBuilder {
+	builder := &TaskResultBuilder{}
+	return builder
+}
+
+func (builder *TaskResultBuilder) CheckInRecordId(checkInRecordId string) *TaskResultBuilder {
+	builder.checkInRecordId = checkInRecordId
+	builder.checkInRecordIdFlag = true
+	return builder
+}
+func (builder *TaskResultBuilder) CheckInRecord(checkInRecord *UserFlow) *TaskResultBuilder {
+	builder.checkInRecord = checkInRecord
+	builder.checkInRecordFlag = true
+	return builder
+}
+func (builder *TaskResultBuilder) CheckOutRecordId(checkOutRecordId string) *TaskResultBuilder {
+	builder.checkOutRecordId = checkOutRecordId
+	builder.checkOutRecordIdFlag = true
+	return builder
+}
+func (builder *TaskResultBuilder) CheckOutRecord(checkOutRecord *UserFlow) *TaskResultBuilder {
+	builder.checkOutRecord = checkOutRecord
+	builder.checkOutRecordFlag = true
+	return builder
+}
+func (builder *TaskResultBuilder) CheckInResult(checkInResult string) *TaskResultBuilder {
+	builder.checkInResult = checkInResult
+	builder.checkInResultFlag = true
+	return builder
+}
+func (builder *TaskResultBuilder) CheckOutResult(checkOutResult string) *TaskResultBuilder {
+	builder.checkOutResult = checkOutResult
+	builder.checkOutResultFlag = true
+	return builder
+}
+func (builder *TaskResultBuilder) CheckInResultSupplement(checkInResultSupplement string) *TaskResultBuilder {
+	builder.checkInResultSupplement = checkInResultSupplement
+	builder.checkInResultSupplementFlag = true
+	return builder
+}
+func (builder *TaskResultBuilder) CheckOutResultSupplement(checkOutResultSupplement string) *TaskResultBuilder {
+	builder.checkOutResultSupplement = checkOutResultSupplement
+	builder.checkOutResultSupplementFlag = true
+	return builder
+}
+func (builder *TaskResultBuilder) CheckInShiftTime(checkInShiftTime string) *TaskResultBuilder {
+	builder.checkInShiftTime = checkInShiftTime
+	builder.checkInShiftTimeFlag = true
+	return builder
+}
+func (builder *TaskResultBuilder) CheckOutShiftTime(checkOutShiftTime string) *TaskResultBuilder {
+	builder.checkOutShiftTime = checkOutShiftTime
+	builder.checkOutShiftTimeFlag = true
+	return builder
+}
+
+func (builder *TaskResultBuilder) Build() *TaskResult {
+	req := &TaskResult{}
+	if builder.checkInRecordIdFlag {
+		req.CheckInRecordId = &builder.checkInRecordId
+
+	}
+	if builder.checkInRecordFlag {
+		req.CheckInRecord = builder.checkInRecord
+	}
+	if builder.checkOutRecordIdFlag {
+		req.CheckOutRecordId = &builder.checkOutRecordId
+
+	}
+	if builder.checkOutRecordFlag {
+		req.CheckOutRecord = builder.checkOutRecord
+	}
+	if builder.checkInResultFlag {
+		req.CheckInResult = &builder.checkInResult
+
+	}
+	if builder.checkOutResultFlag {
+		req.CheckOutResult = &builder.checkOutResult
+
+	}
+	if builder.checkInResultSupplementFlag {
+		req.CheckInResultSupplement = &builder.checkInResultSupplement
+
+	}
+	if builder.checkOutResultSupplementFlag {
+		req.CheckOutResultSupplement = &builder.checkOutResultSupplement
+
+	}
+	if builder.checkInShiftTimeFlag {
+		req.CheckInShiftTime = &builder.checkInShiftTime
+
+	}
+	if builder.checkOutShiftTimeFlag {
+		req.CheckOutShiftTime = &builder.checkOutShiftTime
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type UserAllowedRemedy struct {
 	UserId          *string `json:"user_id,omitempty"`
 	RemedyDate      *int    `json:"remedy_date,omitempty"`
@@ -309,6 +2323,122 @@ type UserAllowedRemedy struct {
 	RemedyEndTime   *string `json:"remedy_end_time,omitempty"`
 }
 
+/**builder开始**/
+type UserAllowedRemedyBuilder struct {
+	userId              string
+	userIdFlag          bool
+	remedyDate          int
+	remedyDateFlag      bool
+	isFreePunch         bool
+	isFreePunchFlag     bool
+	punchNo             int
+	punchNoFlag         bool
+	workType            int
+	workTypeFlag        bool
+	punchStatus         string
+	punchStatusFlag     bool
+	normalPunchTime     string
+	normalPunchTimeFlag bool
+	remedyStartTime     string
+	remedyStartTimeFlag bool
+	remedyEndTime       string
+	remedyEndTimeFlag   bool
+}
+
+func NewUserAllowedRemedyBuilder() *UserAllowedRemedyBuilder {
+	builder := &UserAllowedRemedyBuilder{}
+	return builder
+}
+
+func (builder *UserAllowedRemedyBuilder) UserId(userId string) *UserAllowedRemedyBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *UserAllowedRemedyBuilder) RemedyDate(remedyDate int) *UserAllowedRemedyBuilder {
+	builder.remedyDate = remedyDate
+	builder.remedyDateFlag = true
+	return builder
+}
+func (builder *UserAllowedRemedyBuilder) IsFreePunch(isFreePunch bool) *UserAllowedRemedyBuilder {
+	builder.isFreePunch = isFreePunch
+	builder.isFreePunchFlag = true
+	return builder
+}
+func (builder *UserAllowedRemedyBuilder) PunchNo(punchNo int) *UserAllowedRemedyBuilder {
+	builder.punchNo = punchNo
+	builder.punchNoFlag = true
+	return builder
+}
+func (builder *UserAllowedRemedyBuilder) WorkType(workType int) *UserAllowedRemedyBuilder {
+	builder.workType = workType
+	builder.workTypeFlag = true
+	return builder
+}
+func (builder *UserAllowedRemedyBuilder) PunchStatus(punchStatus string) *UserAllowedRemedyBuilder {
+	builder.punchStatus = punchStatus
+	builder.punchStatusFlag = true
+	return builder
+}
+func (builder *UserAllowedRemedyBuilder) NormalPunchTime(normalPunchTime string) *UserAllowedRemedyBuilder {
+	builder.normalPunchTime = normalPunchTime
+	builder.normalPunchTimeFlag = true
+	return builder
+}
+func (builder *UserAllowedRemedyBuilder) RemedyStartTime(remedyStartTime string) *UserAllowedRemedyBuilder {
+	builder.remedyStartTime = remedyStartTime
+	builder.remedyStartTimeFlag = true
+	return builder
+}
+func (builder *UserAllowedRemedyBuilder) RemedyEndTime(remedyEndTime string) *UserAllowedRemedyBuilder {
+	builder.remedyEndTime = remedyEndTime
+	builder.remedyEndTimeFlag = true
+	return builder
+}
+
+func (builder *UserAllowedRemedyBuilder) Build() *UserAllowedRemedy {
+	req := &UserAllowedRemedy{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.remedyDateFlag {
+		req.RemedyDate = &builder.remedyDate
+
+	}
+	if builder.isFreePunchFlag {
+		req.IsFreePunch = &builder.isFreePunch
+
+	}
+	if builder.punchNoFlag {
+		req.PunchNo = &builder.punchNo
+
+	}
+	if builder.workTypeFlag {
+		req.WorkType = &builder.workType
+
+	}
+	if builder.punchStatusFlag {
+		req.PunchStatus = &builder.punchStatus
+
+	}
+	if builder.normalPunchTimeFlag {
+		req.NormalPunchTime = &builder.normalPunchTime
+
+	}
+	if builder.remedyStartTimeFlag {
+		req.RemedyStartTime = &builder.remedyStartTime
+
+	}
+	if builder.remedyEndTimeFlag {
+		req.RemedyEndTime = &builder.remedyEndTime
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type UserApproval struct {
 	UserId        *string             `json:"user_id,omitempty"`
 	Date          *string             `json:"date,omitempty"`
@@ -318,6 +2448,85 @@ type UserApproval struct {
 	Trips         []*UserTrip         `json:"trips,omitempty"`
 }
 
+/**builder开始**/
+type UserApprovalBuilder struct {
+	userId            string
+	userIdFlag        bool
+	date              string
+	dateFlag          bool
+	outs              []*UserOut
+	outsFlag          bool
+	leaves            []*UserLeave
+	leavesFlag        bool
+	overtimeWorks     []*UserOvertimeWork
+	overtimeWorksFlag bool
+	trips             []*UserTrip
+	tripsFlag         bool
+}
+
+func NewUserApprovalBuilder() *UserApprovalBuilder {
+	builder := &UserApprovalBuilder{}
+	return builder
+}
+
+func (builder *UserApprovalBuilder) UserId(userId string) *UserApprovalBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *UserApprovalBuilder) Date(date string) *UserApprovalBuilder {
+	builder.date = date
+	builder.dateFlag = true
+	return builder
+}
+func (builder *UserApprovalBuilder) Outs(outs []*UserOut) *UserApprovalBuilder {
+	builder.outs = outs
+	builder.outsFlag = true
+	return builder
+}
+func (builder *UserApprovalBuilder) Leaves(leaves []*UserLeave) *UserApprovalBuilder {
+	builder.leaves = leaves
+	builder.leavesFlag = true
+	return builder
+}
+func (builder *UserApprovalBuilder) OvertimeWorks(overtimeWorks []*UserOvertimeWork) *UserApprovalBuilder {
+	builder.overtimeWorks = overtimeWorks
+	builder.overtimeWorksFlag = true
+	return builder
+}
+func (builder *UserApprovalBuilder) Trips(trips []*UserTrip) *UserApprovalBuilder {
+	builder.trips = trips
+	builder.tripsFlag = true
+	return builder
+}
+
+func (builder *UserApprovalBuilder) Build() *UserApproval {
+	req := &UserApproval{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.dateFlag {
+		req.Date = &builder.date
+
+	}
+	if builder.outsFlag {
+		req.Outs = builder.outs
+	}
+	if builder.leavesFlag {
+		req.Leaves = builder.leaves
+	}
+	if builder.overtimeWorksFlag {
+		req.OvertimeWorks = builder.overtimeWorks
+	}
+	if builder.tripsFlag {
+		req.Trips = builder.trips
+	}
+	return req
+}
+
+/**builder结束**/
+
 type UserDailyShift struct {
 	GroupId *string `json:"group_id,omitempty"`
 	ShiftId *string `json:"shift_id,omitempty"`
@@ -325,6 +2534,78 @@ type UserDailyShift struct {
 	UserId  *string `json:"user_id,omitempty"`
 	DayNo   *int    `json:"day_no,omitempty"`
 }
+
+/**builder开始**/
+type UserDailyShiftBuilder struct {
+	groupId     string
+	groupIdFlag bool
+	shiftId     string
+	shiftIdFlag bool
+	month       int
+	monthFlag   bool
+	userId      string
+	userIdFlag  bool
+	dayNo       int
+	dayNoFlag   bool
+}
+
+func NewUserDailyShiftBuilder() *UserDailyShiftBuilder {
+	builder := &UserDailyShiftBuilder{}
+	return builder
+}
+
+func (builder *UserDailyShiftBuilder) GroupId(groupId string) *UserDailyShiftBuilder {
+	builder.groupId = groupId
+	builder.groupIdFlag = true
+	return builder
+}
+func (builder *UserDailyShiftBuilder) ShiftId(shiftId string) *UserDailyShiftBuilder {
+	builder.shiftId = shiftId
+	builder.shiftIdFlag = true
+	return builder
+}
+func (builder *UserDailyShiftBuilder) Month(month int) *UserDailyShiftBuilder {
+	builder.month = month
+	builder.monthFlag = true
+	return builder
+}
+func (builder *UserDailyShiftBuilder) UserId(userId string) *UserDailyShiftBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *UserDailyShiftBuilder) DayNo(dayNo int) *UserDailyShiftBuilder {
+	builder.dayNo = dayNo
+	builder.dayNoFlag = true
+	return builder
+}
+
+func (builder *UserDailyShiftBuilder) Build() *UserDailyShift {
+	req := &UserDailyShift{}
+	if builder.groupIdFlag {
+		req.GroupId = &builder.groupId
+
+	}
+	if builder.shiftIdFlag {
+		req.ShiftId = &builder.shiftId
+
+	}
+	if builder.monthFlag {
+		req.Month = &builder.month
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.dayNoFlag {
+		req.DayNo = &builder.dayNo
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type UserFlow struct {
 	UserId       *string  `json:"user_id,omitempty"`
@@ -345,11 +2626,253 @@ type UserFlow struct {
 	CheckResult  *string  `json:"check_result,omitempty"`
 }
 
+/**builder开始**/
+type UserFlowBuilder struct {
+	userId           string
+	userIdFlag       bool
+	creatorId        string
+	creatorIdFlag    bool
+	locationName     string
+	locationNameFlag bool
+	checkTime        string
+	checkTimeFlag    bool
+	comment          string
+	commentFlag      bool
+	recordId         string
+	recordIdFlag     bool
+	longitude        float64
+	longitudeFlag    bool
+	latitude         float64
+	latitudeFlag     bool
+	ssid             string
+	ssidFlag         bool
+	bssid            string
+	bssidFlag        bool
+	isField          bool
+	isFieldFlag      bool
+	isWifi           bool
+	isWifiFlag       bool
+	type_            int
+	typeFlag         bool
+	photoUrls        []string
+	photoUrlsFlag    bool
+	deviceId         string
+	deviceIdFlag     bool
+	checkResult      string
+	checkResultFlag  bool
+}
+
+func NewUserFlowBuilder() *UserFlowBuilder {
+	builder := &UserFlowBuilder{}
+	return builder
+}
+
+func (builder *UserFlowBuilder) UserId(userId string) *UserFlowBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *UserFlowBuilder) CreatorId(creatorId string) *UserFlowBuilder {
+	builder.creatorId = creatorId
+	builder.creatorIdFlag = true
+	return builder
+}
+func (builder *UserFlowBuilder) LocationName(locationName string) *UserFlowBuilder {
+	builder.locationName = locationName
+	builder.locationNameFlag = true
+	return builder
+}
+func (builder *UserFlowBuilder) CheckTime(checkTime string) *UserFlowBuilder {
+	builder.checkTime = checkTime
+	builder.checkTimeFlag = true
+	return builder
+}
+func (builder *UserFlowBuilder) Comment(comment string) *UserFlowBuilder {
+	builder.comment = comment
+	builder.commentFlag = true
+	return builder
+}
+func (builder *UserFlowBuilder) RecordId(recordId string) *UserFlowBuilder {
+	builder.recordId = recordId
+	builder.recordIdFlag = true
+	return builder
+}
+func (builder *UserFlowBuilder) Longitude(longitude float64) *UserFlowBuilder {
+	builder.longitude = longitude
+	builder.longitudeFlag = true
+	return builder
+}
+func (builder *UserFlowBuilder) Latitude(latitude float64) *UserFlowBuilder {
+	builder.latitude = latitude
+	builder.latitudeFlag = true
+	return builder
+}
+func (builder *UserFlowBuilder) Ssid(ssid string) *UserFlowBuilder {
+	builder.ssid = ssid
+	builder.ssidFlag = true
+	return builder
+}
+func (builder *UserFlowBuilder) Bssid(bssid string) *UserFlowBuilder {
+	builder.bssid = bssid
+	builder.bssidFlag = true
+	return builder
+}
+func (builder *UserFlowBuilder) IsField(isField bool) *UserFlowBuilder {
+	builder.isField = isField
+	builder.isFieldFlag = true
+	return builder
+}
+func (builder *UserFlowBuilder) IsWifi(isWifi bool) *UserFlowBuilder {
+	builder.isWifi = isWifi
+	builder.isWifiFlag = true
+	return builder
+}
+func (builder *UserFlowBuilder) Type(type_ int) *UserFlowBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+func (builder *UserFlowBuilder) PhotoUrls(photoUrls []string) *UserFlowBuilder {
+	builder.photoUrls = photoUrls
+	builder.photoUrlsFlag = true
+	return builder
+}
+func (builder *UserFlowBuilder) DeviceId(deviceId string) *UserFlowBuilder {
+	builder.deviceId = deviceId
+	builder.deviceIdFlag = true
+	return builder
+}
+func (builder *UserFlowBuilder) CheckResult(checkResult string) *UserFlowBuilder {
+	builder.checkResult = checkResult
+	builder.checkResultFlag = true
+	return builder
+}
+
+func (builder *UserFlowBuilder) Build() *UserFlow {
+	req := &UserFlow{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.creatorIdFlag {
+		req.CreatorId = &builder.creatorId
+
+	}
+	if builder.locationNameFlag {
+		req.LocationName = &builder.locationName
+
+	}
+	if builder.checkTimeFlag {
+		req.CheckTime = &builder.checkTime
+
+	}
+	if builder.commentFlag {
+		req.Comment = &builder.comment
+
+	}
+	if builder.recordIdFlag {
+		req.RecordId = &builder.recordId
+
+	}
+	if builder.longitudeFlag {
+		req.Longitude = &builder.longitude
+
+	}
+	if builder.latitudeFlag {
+		req.Latitude = &builder.latitude
+
+	}
+	if builder.ssidFlag {
+		req.Ssid = &builder.ssid
+
+	}
+	if builder.bssidFlag {
+		req.Bssid = &builder.bssid
+
+	}
+	if builder.isFieldFlag {
+		req.IsField = &builder.isField
+
+	}
+	if builder.isWifiFlag {
+		req.IsWifi = &builder.isWifi
+
+	}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.photoUrlsFlag {
+		req.PhotoUrls = builder.photoUrls
+	}
+	if builder.deviceIdFlag {
+		req.DeviceId = &builder.deviceId
+
+	}
+	if builder.checkResultFlag {
+		req.CheckResult = &builder.checkResult
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type UserId struct {
 	UserId  *string `json:"user_id,omitempty"`
 	OpenId  *string `json:"open_id,omitempty"`
 	UnionId *string `json:"union_id,omitempty"`
 }
+
+/**builder开始**/
+type UserIdBuilder struct {
+	userId      string
+	userIdFlag  bool
+	openId      string
+	openIdFlag  bool
+	unionId     string
+	unionIdFlag bool
+}
+
+func NewUserIdBuilder() *UserIdBuilder {
+	builder := &UserIdBuilder{}
+	return builder
+}
+
+func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
+	builder.openId = openId
+	builder.openIdFlag = true
+	return builder
+}
+func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
+	builder.unionId = unionId
+	builder.unionIdFlag = true
+	return builder
+}
+
+func (builder *UserIdBuilder) Build() *UserId {
+	req := &UserId{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.openIdFlag {
+		req.OpenId = &builder.openId
+
+	}
+	if builder.unionIdFlag {
+		req.UnionId = &builder.unionId
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type UserLeave struct {
 	ApprovalId       *string    `json:"approval_id,omitempty"`
@@ -365,6 +2888,143 @@ type UserLeave struct {
 	ApproveApplyTime *string    `json:"approve_apply_time,omitempty"`
 }
 
+/**builder开始**/
+type UserLeaveBuilder struct {
+	approvalId           string
+	approvalIdFlag       bool
+	uniqId               string
+	uniqIdFlag           bool
+	unit                 int
+	unitFlag             bool
+	interval             int
+	intervalFlag         bool
+	startTime            string
+	startTimeFlag        bool
+	endTime              string
+	endTimeFlag          bool
+	i18nNames            *I18nNames
+	i18nNamesFlag        bool
+	defaultLocale        string
+	defaultLocaleFlag    bool
+	reason               string
+	reasonFlag           bool
+	approvePassTime      string
+	approvePassTimeFlag  bool
+	approveApplyTime     string
+	approveApplyTimeFlag bool
+}
+
+func NewUserLeaveBuilder() *UserLeaveBuilder {
+	builder := &UserLeaveBuilder{}
+	return builder
+}
+
+func (builder *UserLeaveBuilder) ApprovalId(approvalId string) *UserLeaveBuilder {
+	builder.approvalId = approvalId
+	builder.approvalIdFlag = true
+	return builder
+}
+func (builder *UserLeaveBuilder) UniqId(uniqId string) *UserLeaveBuilder {
+	builder.uniqId = uniqId
+	builder.uniqIdFlag = true
+	return builder
+}
+func (builder *UserLeaveBuilder) Unit(unit int) *UserLeaveBuilder {
+	builder.unit = unit
+	builder.unitFlag = true
+	return builder
+}
+func (builder *UserLeaveBuilder) Interval(interval int) *UserLeaveBuilder {
+	builder.interval = interval
+	builder.intervalFlag = true
+	return builder
+}
+func (builder *UserLeaveBuilder) StartTime(startTime string) *UserLeaveBuilder {
+	builder.startTime = startTime
+	builder.startTimeFlag = true
+	return builder
+}
+func (builder *UserLeaveBuilder) EndTime(endTime string) *UserLeaveBuilder {
+	builder.endTime = endTime
+	builder.endTimeFlag = true
+	return builder
+}
+func (builder *UserLeaveBuilder) I18nNames(i18nNames *I18nNames) *UserLeaveBuilder {
+	builder.i18nNames = i18nNames
+	builder.i18nNamesFlag = true
+	return builder
+}
+func (builder *UserLeaveBuilder) DefaultLocale(defaultLocale string) *UserLeaveBuilder {
+	builder.defaultLocale = defaultLocale
+	builder.defaultLocaleFlag = true
+	return builder
+}
+func (builder *UserLeaveBuilder) Reason(reason string) *UserLeaveBuilder {
+	builder.reason = reason
+	builder.reasonFlag = true
+	return builder
+}
+func (builder *UserLeaveBuilder) ApprovePassTime(approvePassTime string) *UserLeaveBuilder {
+	builder.approvePassTime = approvePassTime
+	builder.approvePassTimeFlag = true
+	return builder
+}
+func (builder *UserLeaveBuilder) ApproveApplyTime(approveApplyTime string) *UserLeaveBuilder {
+	builder.approveApplyTime = approveApplyTime
+	builder.approveApplyTimeFlag = true
+	return builder
+}
+
+func (builder *UserLeaveBuilder) Build() *UserLeave {
+	req := &UserLeave{}
+	if builder.approvalIdFlag {
+		req.ApprovalId = &builder.approvalId
+
+	}
+	if builder.uniqIdFlag {
+		req.UniqId = &builder.uniqId
+
+	}
+	if builder.unitFlag {
+		req.Unit = &builder.unit
+
+	}
+	if builder.intervalFlag {
+		req.Interval = &builder.interval
+
+	}
+	if builder.startTimeFlag {
+		req.StartTime = &builder.startTime
+
+	}
+	if builder.endTimeFlag {
+		req.EndTime = &builder.endTime
+
+	}
+	if builder.i18nNamesFlag {
+		req.I18nNames = builder.i18nNames
+	}
+	if builder.defaultLocaleFlag {
+		req.DefaultLocale = &builder.defaultLocale
+
+	}
+	if builder.reasonFlag {
+		req.Reason = &builder.reason
+
+	}
+	if builder.approvePassTimeFlag {
+		req.ApprovePassTime = &builder.approvePassTime
+
+	}
+	if builder.approveApplyTimeFlag {
+		req.ApproveApplyTime = &builder.approveApplyTime
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type UserOut struct {
 	ApprovalId       *string    `json:"approval_id,omitempty"`
 	UniqId           *string    `json:"uniq_id,omitempty"`
@@ -379,6 +3039,143 @@ type UserOut struct {
 	ApproveApplyTime *string    `json:"approve_apply_time,omitempty"`
 }
 
+/**builder开始**/
+type UserOutBuilder struct {
+	approvalId           string
+	approvalIdFlag       bool
+	uniqId               string
+	uniqIdFlag           bool
+	unit                 int
+	unitFlag             bool
+	interval             int
+	intervalFlag         bool
+	startTime            string
+	startTimeFlag        bool
+	endTime              string
+	endTimeFlag          bool
+	i18nNames            *I18nNames
+	i18nNamesFlag        bool
+	defaultLocale        string
+	defaultLocaleFlag    bool
+	reason               string
+	reasonFlag           bool
+	approvePassTime      string
+	approvePassTimeFlag  bool
+	approveApplyTime     string
+	approveApplyTimeFlag bool
+}
+
+func NewUserOutBuilder() *UserOutBuilder {
+	builder := &UserOutBuilder{}
+	return builder
+}
+
+func (builder *UserOutBuilder) ApprovalId(approvalId string) *UserOutBuilder {
+	builder.approvalId = approvalId
+	builder.approvalIdFlag = true
+	return builder
+}
+func (builder *UserOutBuilder) UniqId(uniqId string) *UserOutBuilder {
+	builder.uniqId = uniqId
+	builder.uniqIdFlag = true
+	return builder
+}
+func (builder *UserOutBuilder) Unit(unit int) *UserOutBuilder {
+	builder.unit = unit
+	builder.unitFlag = true
+	return builder
+}
+func (builder *UserOutBuilder) Interval(interval int) *UserOutBuilder {
+	builder.interval = interval
+	builder.intervalFlag = true
+	return builder
+}
+func (builder *UserOutBuilder) StartTime(startTime string) *UserOutBuilder {
+	builder.startTime = startTime
+	builder.startTimeFlag = true
+	return builder
+}
+func (builder *UserOutBuilder) EndTime(endTime string) *UserOutBuilder {
+	builder.endTime = endTime
+	builder.endTimeFlag = true
+	return builder
+}
+func (builder *UserOutBuilder) I18nNames(i18nNames *I18nNames) *UserOutBuilder {
+	builder.i18nNames = i18nNames
+	builder.i18nNamesFlag = true
+	return builder
+}
+func (builder *UserOutBuilder) DefaultLocale(defaultLocale string) *UserOutBuilder {
+	builder.defaultLocale = defaultLocale
+	builder.defaultLocaleFlag = true
+	return builder
+}
+func (builder *UserOutBuilder) Reason(reason string) *UserOutBuilder {
+	builder.reason = reason
+	builder.reasonFlag = true
+	return builder
+}
+func (builder *UserOutBuilder) ApprovePassTime(approvePassTime string) *UserOutBuilder {
+	builder.approvePassTime = approvePassTime
+	builder.approvePassTimeFlag = true
+	return builder
+}
+func (builder *UserOutBuilder) ApproveApplyTime(approveApplyTime string) *UserOutBuilder {
+	builder.approveApplyTime = approveApplyTime
+	builder.approveApplyTimeFlag = true
+	return builder
+}
+
+func (builder *UserOutBuilder) Build() *UserOut {
+	req := &UserOut{}
+	if builder.approvalIdFlag {
+		req.ApprovalId = &builder.approvalId
+
+	}
+	if builder.uniqIdFlag {
+		req.UniqId = &builder.uniqId
+
+	}
+	if builder.unitFlag {
+		req.Unit = &builder.unit
+
+	}
+	if builder.intervalFlag {
+		req.Interval = &builder.interval
+
+	}
+	if builder.startTimeFlag {
+		req.StartTime = &builder.startTime
+
+	}
+	if builder.endTimeFlag {
+		req.EndTime = &builder.endTime
+
+	}
+	if builder.i18nNamesFlag {
+		req.I18nNames = builder.i18nNames
+	}
+	if builder.defaultLocaleFlag {
+		req.DefaultLocale = &builder.defaultLocale
+
+	}
+	if builder.reasonFlag {
+		req.Reason = &builder.reason
+
+	}
+	if builder.approvePassTimeFlag {
+		req.ApprovePassTime = &builder.approvePassTime
+
+	}
+	if builder.approveApplyTimeFlag {
+		req.ApproveApplyTime = &builder.approveApplyTime
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type UserOvertimeWork struct {
 	ApprovalId *string  `json:"approval_id,omitempty"`
 	Duration   *float64 `json:"duration,omitempty"`
@@ -389,11 +3186,155 @@ type UserOvertimeWork struct {
 	EndTime    *string  `json:"end_time,omitempty"`
 }
 
+/**builder开始**/
+type UserOvertimeWorkBuilder struct {
+	approvalId     string
+	approvalIdFlag bool
+	duration       float64
+	durationFlag   bool
+	unit           int
+	unitFlag       bool
+	category       int
+	categoryFlag   bool
+	type_          int
+	typeFlag       bool
+	startTime      string
+	startTimeFlag  bool
+	endTime        string
+	endTimeFlag    bool
+}
+
+func NewUserOvertimeWorkBuilder() *UserOvertimeWorkBuilder {
+	builder := &UserOvertimeWorkBuilder{}
+	return builder
+}
+
+func (builder *UserOvertimeWorkBuilder) ApprovalId(approvalId string) *UserOvertimeWorkBuilder {
+	builder.approvalId = approvalId
+	builder.approvalIdFlag = true
+	return builder
+}
+func (builder *UserOvertimeWorkBuilder) Duration(duration float64) *UserOvertimeWorkBuilder {
+	builder.duration = duration
+	builder.durationFlag = true
+	return builder
+}
+func (builder *UserOvertimeWorkBuilder) Unit(unit int) *UserOvertimeWorkBuilder {
+	builder.unit = unit
+	builder.unitFlag = true
+	return builder
+}
+func (builder *UserOvertimeWorkBuilder) Category(category int) *UserOvertimeWorkBuilder {
+	builder.category = category
+	builder.categoryFlag = true
+	return builder
+}
+func (builder *UserOvertimeWorkBuilder) Type(type_ int) *UserOvertimeWorkBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+func (builder *UserOvertimeWorkBuilder) StartTime(startTime string) *UserOvertimeWorkBuilder {
+	builder.startTime = startTime
+	builder.startTimeFlag = true
+	return builder
+}
+func (builder *UserOvertimeWorkBuilder) EndTime(endTime string) *UserOvertimeWorkBuilder {
+	builder.endTime = endTime
+	builder.endTimeFlag = true
+	return builder
+}
+
+func (builder *UserOvertimeWorkBuilder) Build() *UserOvertimeWork {
+	req := &UserOvertimeWork{}
+	if builder.approvalIdFlag {
+		req.ApprovalId = &builder.approvalId
+
+	}
+	if builder.durationFlag {
+		req.Duration = &builder.duration
+
+	}
+	if builder.unitFlag {
+		req.Unit = &builder.unit
+
+	}
+	if builder.categoryFlag {
+		req.Category = &builder.category
+
+	}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.startTimeFlag {
+		req.StartTime = &builder.startTime
+
+	}
+	if builder.endTimeFlag {
+		req.EndTime = &builder.endTime
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type UserSetting struct {
 	UserId            *string `json:"user_id,omitempty"`
 	FaceKey           *string `json:"face_key,omitempty"`
 	FaceKeyUpdateTime *string `json:"face_key_update_time,omitempty"`
 }
+
+/**builder开始**/
+type UserSettingBuilder struct {
+	userId                string
+	userIdFlag            bool
+	faceKey               string
+	faceKeyFlag           bool
+	faceKeyUpdateTime     string
+	faceKeyUpdateTimeFlag bool
+}
+
+func NewUserSettingBuilder() *UserSettingBuilder {
+	builder := &UserSettingBuilder{}
+	return builder
+}
+
+func (builder *UserSettingBuilder) UserId(userId string) *UserSettingBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *UserSettingBuilder) FaceKey(faceKey string) *UserSettingBuilder {
+	builder.faceKey = faceKey
+	builder.faceKeyFlag = true
+	return builder
+}
+func (builder *UserSettingBuilder) FaceKeyUpdateTime(faceKeyUpdateTime string) *UserSettingBuilder {
+	builder.faceKeyUpdateTime = faceKeyUpdateTime
+	builder.faceKeyUpdateTimeFlag = true
+	return builder
+}
+
+func (builder *UserSettingBuilder) Build() *UserSetting {
+	req := &UserSetting{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.faceKeyFlag {
+		req.FaceKey = &builder.faceKey
+
+	}
+	if builder.faceKeyUpdateTimeFlag {
+		req.FaceKeyUpdateTime = &builder.faceKeyUpdateTime
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type UserStatsData struct {
 	Name   *string              `json:"name,omitempty"`
@@ -401,16 +3342,153 @@ type UserStatsData struct {
 	Datas  []*UserStatsDataCell `json:"datas,omitempty"`
 }
 
+/**builder开始**/
+type UserStatsDataBuilder struct {
+	name       string
+	nameFlag   bool
+	userId     string
+	userIdFlag bool
+	datas      []*UserStatsDataCell
+	datasFlag  bool
+}
+
+func NewUserStatsDataBuilder() *UserStatsDataBuilder {
+	builder := &UserStatsDataBuilder{}
+	return builder
+}
+
+func (builder *UserStatsDataBuilder) Name(name string) *UserStatsDataBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *UserStatsDataBuilder) UserId(userId string) *UserStatsDataBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *UserStatsDataBuilder) Datas(datas []*UserStatsDataCell) *UserStatsDataBuilder {
+	builder.datas = datas
+	builder.datasFlag = true
+	return builder
+}
+
+func (builder *UserStatsDataBuilder) Build() *UserStatsData {
+	req := &UserStatsData{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.datasFlag {
+		req.Datas = builder.datas
+	}
+	return req
+}
+
+/**builder结束**/
+
 type UserStatsDataCell struct {
 	Code     *string                 `json:"code,omitempty"`
 	Value    *string                 `json:"value,omitempty"`
 	Features []*UserStatsDataFeature `json:"features,omitempty"`
 }
 
+/**builder开始**/
+type UserStatsDataCellBuilder struct {
+	code         string
+	codeFlag     bool
+	value        string
+	valueFlag    bool
+	features     []*UserStatsDataFeature
+	featuresFlag bool
+}
+
+func NewUserStatsDataCellBuilder() *UserStatsDataCellBuilder {
+	builder := &UserStatsDataCellBuilder{}
+	return builder
+}
+
+func (builder *UserStatsDataCellBuilder) Code(code string) *UserStatsDataCellBuilder {
+	builder.code = code
+	builder.codeFlag = true
+	return builder
+}
+func (builder *UserStatsDataCellBuilder) Value(value string) *UserStatsDataCellBuilder {
+	builder.value = value
+	builder.valueFlag = true
+	return builder
+}
+func (builder *UserStatsDataCellBuilder) Features(features []*UserStatsDataFeature) *UserStatsDataCellBuilder {
+	builder.features = features
+	builder.featuresFlag = true
+	return builder
+}
+
+func (builder *UserStatsDataCellBuilder) Build() *UserStatsDataCell {
+	req := &UserStatsDataCell{}
+	if builder.codeFlag {
+		req.Code = &builder.code
+
+	}
+	if builder.valueFlag {
+		req.Value = &builder.value
+
+	}
+	if builder.featuresFlag {
+		req.Features = builder.features
+	}
+	return req
+}
+
+/**builder结束**/
+
 type UserStatsDataFeature struct {
 	Key   *string `json:"key,omitempty"`
 	Value *string `json:"value,omitempty"`
 }
+
+/**builder开始**/
+type UserStatsDataFeatureBuilder struct {
+	key       string
+	keyFlag   bool
+	value     string
+	valueFlag bool
+}
+
+func NewUserStatsDataFeatureBuilder() *UserStatsDataFeatureBuilder {
+	builder := &UserStatsDataFeatureBuilder{}
+	return builder
+}
+
+func (builder *UserStatsDataFeatureBuilder) Key(key string) *UserStatsDataFeatureBuilder {
+	builder.key = key
+	builder.keyFlag = true
+	return builder
+}
+func (builder *UserStatsDataFeatureBuilder) Value(value string) *UserStatsDataFeatureBuilder {
+	builder.value = value
+	builder.valueFlag = true
+	return builder
+}
+
+func (builder *UserStatsDataFeatureBuilder) Build() *UserStatsDataFeature {
+	req := &UserStatsDataFeature{}
+	if builder.keyFlag {
+		req.Key = &builder.key
+
+	}
+	if builder.valueFlag {
+		req.Value = &builder.value
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type UserStatsField struct {
 	StatsType *string  `json:"stats_type,omitempty"`
@@ -418,12 +3496,121 @@ type UserStatsField struct {
 	Fields    []*Field `json:"fields,omitempty"`
 }
 
+/**builder开始**/
+type UserStatsFieldBuilder struct {
+	statsType     string
+	statsTypeFlag bool
+	userId        string
+	userIdFlag    bool
+	fields        []*Field
+	fieldsFlag    bool
+}
+
+func NewUserStatsFieldBuilder() *UserStatsFieldBuilder {
+	builder := &UserStatsFieldBuilder{}
+	return builder
+}
+
+func (builder *UserStatsFieldBuilder) StatsType(statsType string) *UserStatsFieldBuilder {
+	builder.statsType = statsType
+	builder.statsTypeFlag = true
+	return builder
+}
+func (builder *UserStatsFieldBuilder) UserId(userId string) *UserStatsFieldBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *UserStatsFieldBuilder) Fields(fields []*Field) *UserStatsFieldBuilder {
+	builder.fields = fields
+	builder.fieldsFlag = true
+	return builder
+}
+
+func (builder *UserStatsFieldBuilder) Build() *UserStatsField {
+	req := &UserStatsField{}
+	if builder.statsTypeFlag {
+		req.StatsType = &builder.statsType
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.fieldsFlag {
+		req.Fields = builder.fields
+	}
+	return req
+}
+
+/**builder结束**/
+
 type UserStatsView struct {
 	ViewId    *string `json:"view_id,omitempty"`
 	StatsType *string `json:"stats_type,omitempty"`
 	UserId    *string `json:"user_id,omitempty"`
 	Items     []*Item `json:"items,omitempty"`
 }
+
+/**builder开始**/
+type UserStatsViewBuilder struct {
+	viewId        string
+	viewIdFlag    bool
+	statsType     string
+	statsTypeFlag bool
+	userId        string
+	userIdFlag    bool
+	items         []*Item
+	itemsFlag     bool
+}
+
+func NewUserStatsViewBuilder() *UserStatsViewBuilder {
+	builder := &UserStatsViewBuilder{}
+	return builder
+}
+
+func (builder *UserStatsViewBuilder) ViewId(viewId string) *UserStatsViewBuilder {
+	builder.viewId = viewId
+	builder.viewIdFlag = true
+	return builder
+}
+func (builder *UserStatsViewBuilder) StatsType(statsType string) *UserStatsViewBuilder {
+	builder.statsType = statsType
+	builder.statsTypeFlag = true
+	return builder
+}
+func (builder *UserStatsViewBuilder) UserId(userId string) *UserStatsViewBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *UserStatsViewBuilder) Items(items []*Item) *UserStatsViewBuilder {
+	builder.items = items
+	builder.itemsFlag = true
+	return builder
+}
+
+func (builder *UserStatsViewBuilder) Build() *UserStatsView {
+	req := &UserStatsView{}
+	if builder.viewIdFlag {
+		req.ViewId = &builder.viewId
+
+	}
+	if builder.statsTypeFlag {
+		req.StatsType = &builder.statsType
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.itemsFlag {
+		req.Items = builder.items
+	}
+	return req
+}
+
+/**builder结束**/
 
 type UserTask struct {
 	ResultId     *string       `json:"result_id,omitempty"`
@@ -434,6 +3621,99 @@ type UserTask struct {
 	ShiftId      *string       `json:"shift_id,omitempty"`
 	Records      []*TaskResult `json:"records,omitempty"`
 }
+
+/**builder开始**/
+type UserTaskBuilder struct {
+	resultId         string
+	resultIdFlag     bool
+	userId           string
+	userIdFlag       bool
+	employeeName     string
+	employeeNameFlag bool
+	day              int
+	dayFlag          bool
+	groupId          string
+	groupIdFlag      bool
+	shiftId          string
+	shiftIdFlag      bool
+	records          []*TaskResult
+	recordsFlag      bool
+}
+
+func NewUserTaskBuilder() *UserTaskBuilder {
+	builder := &UserTaskBuilder{}
+	return builder
+}
+
+func (builder *UserTaskBuilder) ResultId(resultId string) *UserTaskBuilder {
+	builder.resultId = resultId
+	builder.resultIdFlag = true
+	return builder
+}
+func (builder *UserTaskBuilder) UserId(userId string) *UserTaskBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *UserTaskBuilder) EmployeeName(employeeName string) *UserTaskBuilder {
+	builder.employeeName = employeeName
+	builder.employeeNameFlag = true
+	return builder
+}
+func (builder *UserTaskBuilder) Day(day int) *UserTaskBuilder {
+	builder.day = day
+	builder.dayFlag = true
+	return builder
+}
+func (builder *UserTaskBuilder) GroupId(groupId string) *UserTaskBuilder {
+	builder.groupId = groupId
+	builder.groupIdFlag = true
+	return builder
+}
+func (builder *UserTaskBuilder) ShiftId(shiftId string) *UserTaskBuilder {
+	builder.shiftId = shiftId
+	builder.shiftIdFlag = true
+	return builder
+}
+func (builder *UserTaskBuilder) Records(records []*TaskResult) *UserTaskBuilder {
+	builder.records = records
+	builder.recordsFlag = true
+	return builder
+}
+
+func (builder *UserTaskBuilder) Build() *UserTask {
+	req := &UserTask{}
+	if builder.resultIdFlag {
+		req.ResultId = &builder.resultId
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.employeeNameFlag {
+		req.EmployeeName = &builder.employeeName
+
+	}
+	if builder.dayFlag {
+		req.Day = &builder.day
+
+	}
+	if builder.groupIdFlag {
+		req.GroupId = &builder.groupId
+
+	}
+	if builder.shiftIdFlag {
+		req.ShiftId = &builder.shiftId
+
+	}
+	if builder.recordsFlag {
+		req.Records = builder.records
+	}
+	return req
+}
+
+/**builder结束**/
 
 type UserTaskRemedy struct {
 	UserId     *string `json:"user_id,omitempty"`
@@ -450,6 +3730,155 @@ type UserTaskRemedy struct {
 	UpdateTime *string `json:"update_time,omitempty"`
 }
 
+/**builder开始**/
+type UserTaskRemedyBuilder struct {
+	userId         string
+	userIdFlag     bool
+	remedyDate     int
+	remedyDateFlag bool
+	punchNo        int
+	punchNoFlag    bool
+	workType       int
+	workTypeFlag   bool
+	approvalId     string
+	approvalIdFlag bool
+	remedyTime     string
+	remedyTimeFlag bool
+	status         int
+	statusFlag     bool
+	reason         string
+	reasonFlag     bool
+	time           string
+	timeFlag       bool
+	timeZone       string
+	timeZoneFlag   bool
+	createTime     string
+	createTimeFlag bool
+	updateTime     string
+	updateTimeFlag bool
+}
+
+func NewUserTaskRemedyBuilder() *UserTaskRemedyBuilder {
+	builder := &UserTaskRemedyBuilder{}
+	return builder
+}
+
+func (builder *UserTaskRemedyBuilder) UserId(userId string) *UserTaskRemedyBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *UserTaskRemedyBuilder) RemedyDate(remedyDate int) *UserTaskRemedyBuilder {
+	builder.remedyDate = remedyDate
+	builder.remedyDateFlag = true
+	return builder
+}
+func (builder *UserTaskRemedyBuilder) PunchNo(punchNo int) *UserTaskRemedyBuilder {
+	builder.punchNo = punchNo
+	builder.punchNoFlag = true
+	return builder
+}
+func (builder *UserTaskRemedyBuilder) WorkType(workType int) *UserTaskRemedyBuilder {
+	builder.workType = workType
+	builder.workTypeFlag = true
+	return builder
+}
+func (builder *UserTaskRemedyBuilder) ApprovalId(approvalId string) *UserTaskRemedyBuilder {
+	builder.approvalId = approvalId
+	builder.approvalIdFlag = true
+	return builder
+}
+func (builder *UserTaskRemedyBuilder) RemedyTime(remedyTime string) *UserTaskRemedyBuilder {
+	builder.remedyTime = remedyTime
+	builder.remedyTimeFlag = true
+	return builder
+}
+func (builder *UserTaskRemedyBuilder) Status(status int) *UserTaskRemedyBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+func (builder *UserTaskRemedyBuilder) Reason(reason string) *UserTaskRemedyBuilder {
+	builder.reason = reason
+	builder.reasonFlag = true
+	return builder
+}
+func (builder *UserTaskRemedyBuilder) Time(time string) *UserTaskRemedyBuilder {
+	builder.time = time
+	builder.timeFlag = true
+	return builder
+}
+func (builder *UserTaskRemedyBuilder) TimeZone(timeZone string) *UserTaskRemedyBuilder {
+	builder.timeZone = timeZone
+	builder.timeZoneFlag = true
+	return builder
+}
+func (builder *UserTaskRemedyBuilder) CreateTime(createTime string) *UserTaskRemedyBuilder {
+	builder.createTime = createTime
+	builder.createTimeFlag = true
+	return builder
+}
+func (builder *UserTaskRemedyBuilder) UpdateTime(updateTime string) *UserTaskRemedyBuilder {
+	builder.updateTime = updateTime
+	builder.updateTimeFlag = true
+	return builder
+}
+
+func (builder *UserTaskRemedyBuilder) Build() *UserTaskRemedy {
+	req := &UserTaskRemedy{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.remedyDateFlag {
+		req.RemedyDate = &builder.remedyDate
+
+	}
+	if builder.punchNoFlag {
+		req.PunchNo = &builder.punchNo
+
+	}
+	if builder.workTypeFlag {
+		req.WorkType = &builder.workType
+
+	}
+	if builder.approvalIdFlag {
+		req.ApprovalId = &builder.approvalId
+
+	}
+	if builder.remedyTimeFlag {
+		req.RemedyTime = &builder.remedyTime
+
+	}
+	if builder.statusFlag {
+		req.Status = &builder.status
+
+	}
+	if builder.reasonFlag {
+		req.Reason = &builder.reason
+
+	}
+	if builder.timeFlag {
+		req.Time = &builder.time
+
+	}
+	if builder.timeZoneFlag {
+		req.TimeZone = &builder.timeZone
+
+	}
+	if builder.createTimeFlag {
+		req.CreateTime = &builder.createTime
+
+	}
+	if builder.updateTimeFlag {
+		req.UpdateTime = &builder.updateTime
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type UserTrip struct {
 	ApprovalId       *string `json:"approval_id,omitempty"`
 	StartTime        *string `json:"start_time,omitempty"`
@@ -459,9 +3888,120 @@ type UserTrip struct {
 	ApproveApplyTime *string `json:"approve_apply_time,omitempty"`
 }
 
+/**builder开始**/
+type UserTripBuilder struct {
+	approvalId           string
+	approvalIdFlag       bool
+	startTime            string
+	startTimeFlag        bool
+	endTime              string
+	endTimeFlag          bool
+	reason               string
+	reasonFlag           bool
+	approvePassTime      string
+	approvePassTimeFlag  bool
+	approveApplyTime     string
+	approveApplyTimeFlag bool
+}
+
+func NewUserTripBuilder() *UserTripBuilder {
+	builder := &UserTripBuilder{}
+	return builder
+}
+
+func (builder *UserTripBuilder) ApprovalId(approvalId string) *UserTripBuilder {
+	builder.approvalId = approvalId
+	builder.approvalIdFlag = true
+	return builder
+}
+func (builder *UserTripBuilder) StartTime(startTime string) *UserTripBuilder {
+	builder.startTime = startTime
+	builder.startTimeFlag = true
+	return builder
+}
+func (builder *UserTripBuilder) EndTime(endTime string) *UserTripBuilder {
+	builder.endTime = endTime
+	builder.endTimeFlag = true
+	return builder
+}
+func (builder *UserTripBuilder) Reason(reason string) *UserTripBuilder {
+	builder.reason = reason
+	builder.reasonFlag = true
+	return builder
+}
+func (builder *UserTripBuilder) ApprovePassTime(approvePassTime string) *UserTripBuilder {
+	builder.approvePassTime = approvePassTime
+	builder.approvePassTimeFlag = true
+	return builder
+}
+func (builder *UserTripBuilder) ApproveApplyTime(approveApplyTime string) *UserTripBuilder {
+	builder.approveApplyTime = approveApplyTime
+	builder.approveApplyTimeFlag = true
+	return builder
+}
+
+func (builder *UserTripBuilder) Build() *UserTrip {
+	req := &UserTrip{}
+	if builder.approvalIdFlag {
+		req.ApprovalId = &builder.approvalId
+
+	}
+	if builder.startTimeFlag {
+		req.StartTime = &builder.startTime
+
+	}
+	if builder.endTimeFlag {
+		req.EndTime = &builder.endTime
+
+	}
+	if builder.reasonFlag {
+		req.Reason = &builder.reason
+
+	}
+	if builder.approvePassTimeFlag {
+		req.ApprovePassTime = &builder.approvePassTime
+
+	}
+	if builder.approveApplyTimeFlag {
+		req.ApproveApplyTime = &builder.approveApplyTime
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type WifiInfo struct {
 	Status *int `json:"status,omitempty"`
 }
+
+/**builder开始**/
+type WifiInfoBuilder struct {
+	status     int
+	statusFlag bool
+}
+
+func NewWifiInfoBuilder() *WifiInfoBuilder {
+	builder := &WifiInfoBuilder{}
+	return builder
+}
+
+func (builder *WifiInfoBuilder) Status(status int) *WifiInfoBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+
+func (builder *WifiInfoBuilder) Build() *WifiInfo {
+	req := &WifiInfo{}
+	if builder.statusFlag {
+		req.Status = &builder.status
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type WifiInfoEvent struct {
 	Ssid      *string `json:"ssid,omitempty"`
@@ -469,6 +4009,67 @@ type WifiInfoEvent struct {
 	Lastssid  *string `json:"lastssid,omitempty"`
 	Lastbssid *string `json:"lastbssid,omitempty"`
 }
+
+/**builder开始**/
+type WifiInfoEventBuilder struct {
+	ssid          string
+	ssidFlag      bool
+	bssid         string
+	bssidFlag     bool
+	lastssid      string
+	lastssidFlag  bool
+	lastbssid     string
+	lastbssidFlag bool
+}
+
+func NewWifiInfoEventBuilder() *WifiInfoEventBuilder {
+	builder := &WifiInfoEventBuilder{}
+	return builder
+}
+
+func (builder *WifiInfoEventBuilder) Ssid(ssid string) *WifiInfoEventBuilder {
+	builder.ssid = ssid
+	builder.ssidFlag = true
+	return builder
+}
+func (builder *WifiInfoEventBuilder) Bssid(bssid string) *WifiInfoEventBuilder {
+	builder.bssid = bssid
+	builder.bssidFlag = true
+	return builder
+}
+func (builder *WifiInfoEventBuilder) Lastssid(lastssid string) *WifiInfoEventBuilder {
+	builder.lastssid = lastssid
+	builder.lastssidFlag = true
+	return builder
+}
+func (builder *WifiInfoEventBuilder) Lastbssid(lastbssid string) *WifiInfoEventBuilder {
+	builder.lastbssid = lastbssid
+	builder.lastbssidFlag = true
+	return builder
+}
+
+func (builder *WifiInfoEventBuilder) Build() *WifiInfoEvent {
+	req := &WifiInfoEvent{}
+	if builder.ssidFlag {
+		req.Ssid = &builder.ssid
+
+	}
+	if builder.bssidFlag {
+		req.Bssid = &builder.bssid
+
+	}
+	if builder.lastssidFlag {
+		req.Lastssid = &builder.lastssid
+
+	}
+	if builder.lastbssidFlag {
+		req.Lastbssid = &builder.lastbssid
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 /**生成请求和响应结果类型，以及请求对象的Builder构造器 **/
 

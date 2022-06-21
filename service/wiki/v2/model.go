@@ -46,11 +46,110 @@ type Member struct {
 	MemberRole *string `json:"member_role,omitempty"`
 }
 
+/**builder开始**/
+type MemberBuilder struct {
+	memberType     string
+	memberTypeFlag bool
+	memberId       string
+	memberIdFlag   bool
+	memberRole     string
+	memberRoleFlag bool
+}
+
+func NewMemberBuilder() *MemberBuilder {
+	builder := &MemberBuilder{}
+	return builder
+}
+
+func (builder *MemberBuilder) MemberType(memberType string) *MemberBuilder {
+	builder.memberType = memberType
+	builder.memberTypeFlag = true
+	return builder
+}
+func (builder *MemberBuilder) MemberId(memberId string) *MemberBuilder {
+	builder.memberId = memberId
+	builder.memberIdFlag = true
+	return builder
+}
+func (builder *MemberBuilder) MemberRole(memberRole string) *MemberBuilder {
+	builder.memberRole = memberRole
+	builder.memberRoleFlag = true
+	return builder
+}
+
+func (builder *MemberBuilder) Build() *Member {
+	req := &Member{}
+	if builder.memberTypeFlag {
+		req.MemberType = &builder.memberType
+
+	}
+	if builder.memberIdFlag {
+		req.MemberId = &builder.memberId
+
+	}
+	if builder.memberRoleFlag {
+		req.MemberRole = &builder.memberRole
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type MoveResult struct {
 	Node      *Node   `json:"node,omitempty"`
 	Status    *int    `json:"status,omitempty"`
 	StatusMsg *string `json:"status_msg,omitempty"`
 }
+
+/**builder开始**/
+type MoveResultBuilder struct {
+	node          *Node
+	nodeFlag      bool
+	status        int
+	statusFlag    bool
+	statusMsg     string
+	statusMsgFlag bool
+}
+
+func NewMoveResultBuilder() *MoveResultBuilder {
+	builder := &MoveResultBuilder{}
+	return builder
+}
+
+func (builder *MoveResultBuilder) Node(node *Node) *MoveResultBuilder {
+	builder.node = node
+	builder.nodeFlag = true
+	return builder
+}
+func (builder *MoveResultBuilder) Status(status int) *MoveResultBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+func (builder *MoveResultBuilder) StatusMsg(statusMsg string) *MoveResultBuilder {
+	builder.statusMsg = statusMsg
+	builder.statusMsgFlag = true
+	return builder
+}
+
+func (builder *MoveResultBuilder) Build() *MoveResult {
+	req := &MoveResult{}
+	if builder.nodeFlag {
+		req.Node = builder.node
+	}
+	if builder.statusFlag {
+		req.Status = &builder.status
+
+	}
+	if builder.statusMsgFlag {
+		req.StatusMsg = &builder.statusMsg
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type Node struct {
 	SpaceId         *int64  `json:"space_id,omitempty,string"`
@@ -70,6 +169,188 @@ type Node struct {
 	Owner           *string `json:"owner,omitempty"`
 }
 
+/**builder开始**/
+type NodeBuilder struct {
+	spaceId             int64
+	spaceIdFlag         bool
+	nodeToken           string
+	nodeTokenFlag       bool
+	objToken            string
+	objTokenFlag        bool
+	objType             string
+	objTypeFlag         bool
+	parentNodeToken     string
+	parentNodeTokenFlag bool
+	nodeType            string
+	nodeTypeFlag        bool
+	originNodeToken     string
+	originNodeTokenFlag bool
+	originSpaceId       int64
+	originSpaceIdFlag   bool
+	hasChild            bool
+	hasChildFlag        bool
+	title               string
+	titleFlag           bool
+	objCreateTime       int64
+	objCreateTimeFlag   bool
+	objEditTime         int64
+	objEditTimeFlag     bool
+	nodeCreateTime      int64
+	nodeCreateTimeFlag  bool
+	creator             string
+	creatorFlag         bool
+	owner               string
+	ownerFlag           bool
+}
+
+func NewNodeBuilder() *NodeBuilder {
+	builder := &NodeBuilder{}
+	return builder
+}
+
+func (builder *NodeBuilder) SpaceId(spaceId int64) *NodeBuilder {
+	builder.spaceId = spaceId
+	builder.spaceIdFlag = true
+	return builder
+}
+func (builder *NodeBuilder) NodeToken(nodeToken string) *NodeBuilder {
+	builder.nodeToken = nodeToken
+	builder.nodeTokenFlag = true
+	return builder
+}
+func (builder *NodeBuilder) ObjToken(objToken string) *NodeBuilder {
+	builder.objToken = objToken
+	builder.objTokenFlag = true
+	return builder
+}
+func (builder *NodeBuilder) ObjType(objType string) *NodeBuilder {
+	builder.objType = objType
+	builder.objTypeFlag = true
+	return builder
+}
+func (builder *NodeBuilder) ParentNodeToken(parentNodeToken string) *NodeBuilder {
+	builder.parentNodeToken = parentNodeToken
+	builder.parentNodeTokenFlag = true
+	return builder
+}
+func (builder *NodeBuilder) NodeType(nodeType string) *NodeBuilder {
+	builder.nodeType = nodeType
+	builder.nodeTypeFlag = true
+	return builder
+}
+func (builder *NodeBuilder) OriginNodeToken(originNodeToken string) *NodeBuilder {
+	builder.originNodeToken = originNodeToken
+	builder.originNodeTokenFlag = true
+	return builder
+}
+func (builder *NodeBuilder) OriginSpaceId(originSpaceId int64) *NodeBuilder {
+	builder.originSpaceId = originSpaceId
+	builder.originSpaceIdFlag = true
+	return builder
+}
+func (builder *NodeBuilder) HasChild(hasChild bool) *NodeBuilder {
+	builder.hasChild = hasChild
+	builder.hasChildFlag = true
+	return builder
+}
+func (builder *NodeBuilder) Title(title string) *NodeBuilder {
+	builder.title = title
+	builder.titleFlag = true
+	return builder
+}
+func (builder *NodeBuilder) ObjCreateTime(objCreateTime int64) *NodeBuilder {
+	builder.objCreateTime = objCreateTime
+	builder.objCreateTimeFlag = true
+	return builder
+}
+func (builder *NodeBuilder) ObjEditTime(objEditTime int64) *NodeBuilder {
+	builder.objEditTime = objEditTime
+	builder.objEditTimeFlag = true
+	return builder
+}
+func (builder *NodeBuilder) NodeCreateTime(nodeCreateTime int64) *NodeBuilder {
+	builder.nodeCreateTime = nodeCreateTime
+	builder.nodeCreateTimeFlag = true
+	return builder
+}
+func (builder *NodeBuilder) Creator(creator string) *NodeBuilder {
+	builder.creator = creator
+	builder.creatorFlag = true
+	return builder
+}
+func (builder *NodeBuilder) Owner(owner string) *NodeBuilder {
+	builder.owner = owner
+	builder.ownerFlag = true
+	return builder
+}
+
+func (builder *NodeBuilder) Build() *Node {
+	req := &Node{}
+	if builder.spaceIdFlag {
+		req.SpaceId = &builder.spaceId
+
+	}
+	if builder.nodeTokenFlag {
+		req.NodeToken = &builder.nodeToken
+
+	}
+	if builder.objTokenFlag {
+		req.ObjToken = &builder.objToken
+
+	}
+	if builder.objTypeFlag {
+		req.ObjType = &builder.objType
+
+	}
+	if builder.parentNodeTokenFlag {
+		req.ParentNodeToken = &builder.parentNodeToken
+
+	}
+	if builder.nodeTypeFlag {
+		req.NodeType = &builder.nodeType
+
+	}
+	if builder.originNodeTokenFlag {
+		req.OriginNodeToken = &builder.originNodeToken
+
+	}
+	if builder.originSpaceIdFlag {
+		req.OriginSpaceId = &builder.originSpaceId
+
+	}
+	if builder.hasChildFlag {
+		req.HasChild = &builder.hasChild
+
+	}
+	if builder.titleFlag {
+		req.Title = &builder.title
+
+	}
+	if builder.objCreateTimeFlag {
+		req.ObjCreateTime = &builder.objCreateTime
+
+	}
+	if builder.objEditTimeFlag {
+		req.ObjEditTime = &builder.objEditTime
+
+	}
+	if builder.nodeCreateTimeFlag {
+		req.NodeCreateTime = &builder.nodeCreateTime
+
+	}
+	if builder.creatorFlag {
+		req.Creator = &builder.creator
+
+	}
+	if builder.ownerFlag {
+		req.Owner = &builder.owner
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type NodeSearch struct {
 	NodeId   *string  `json:"node_id,omitempty"`
 	SpaceId  *string  `json:"space_id,omitempty"`
@@ -84,11 +365,199 @@ type NodeSearch struct {
 	ObjToken *string  `json:"obj_token,omitempty"`
 }
 
+/**builder开始**/
+type NodeSearchBuilder struct {
+	nodeId       string
+	nodeIdFlag   bool
+	spaceId      string
+	spaceIdFlag  bool
+	parentId     string
+	parentIdFlag bool
+	objType      int
+	objTypeFlag  bool
+	title        string
+	titleFlag    bool
+	url          string
+	urlFlag      bool
+	icon         string
+	iconFlag     bool
+	areaId       string
+	areaIdFlag   bool
+	sortId       float64
+	sortIdFlag   bool
+	domain       string
+	domainFlag   bool
+	objToken     string
+	objTokenFlag bool
+}
+
+func NewNodeSearchBuilder() *NodeSearchBuilder {
+	builder := &NodeSearchBuilder{}
+	return builder
+}
+
+func (builder *NodeSearchBuilder) NodeId(nodeId string) *NodeSearchBuilder {
+	builder.nodeId = nodeId
+	builder.nodeIdFlag = true
+	return builder
+}
+func (builder *NodeSearchBuilder) SpaceId(spaceId string) *NodeSearchBuilder {
+	builder.spaceId = spaceId
+	builder.spaceIdFlag = true
+	return builder
+}
+func (builder *NodeSearchBuilder) ParentId(parentId string) *NodeSearchBuilder {
+	builder.parentId = parentId
+	builder.parentIdFlag = true
+	return builder
+}
+func (builder *NodeSearchBuilder) ObjType(objType int) *NodeSearchBuilder {
+	builder.objType = objType
+	builder.objTypeFlag = true
+	return builder
+}
+func (builder *NodeSearchBuilder) Title(title string) *NodeSearchBuilder {
+	builder.title = title
+	builder.titleFlag = true
+	return builder
+}
+func (builder *NodeSearchBuilder) Url(url string) *NodeSearchBuilder {
+	builder.url = url
+	builder.urlFlag = true
+	return builder
+}
+func (builder *NodeSearchBuilder) Icon(icon string) *NodeSearchBuilder {
+	builder.icon = icon
+	builder.iconFlag = true
+	return builder
+}
+func (builder *NodeSearchBuilder) AreaId(areaId string) *NodeSearchBuilder {
+	builder.areaId = areaId
+	builder.areaIdFlag = true
+	return builder
+}
+func (builder *NodeSearchBuilder) SortId(sortId float64) *NodeSearchBuilder {
+	builder.sortId = sortId
+	builder.sortIdFlag = true
+	return builder
+}
+func (builder *NodeSearchBuilder) Domain(domain string) *NodeSearchBuilder {
+	builder.domain = domain
+	builder.domainFlag = true
+	return builder
+}
+func (builder *NodeSearchBuilder) ObjToken(objToken string) *NodeSearchBuilder {
+	builder.objToken = objToken
+	builder.objTokenFlag = true
+	return builder
+}
+
+func (builder *NodeSearchBuilder) Build() *NodeSearch {
+	req := &NodeSearch{}
+	if builder.nodeIdFlag {
+		req.NodeId = &builder.nodeId
+
+	}
+	if builder.spaceIdFlag {
+		req.SpaceId = &builder.spaceId
+
+	}
+	if builder.parentIdFlag {
+		req.ParentId = &builder.parentId
+
+	}
+	if builder.objTypeFlag {
+		req.ObjType = &builder.objType
+
+	}
+	if builder.titleFlag {
+		req.Title = &builder.title
+
+	}
+	if builder.urlFlag {
+		req.Url = &builder.url
+
+	}
+	if builder.iconFlag {
+		req.Icon = &builder.icon
+
+	}
+	if builder.areaIdFlag {
+		req.AreaId = &builder.areaId
+
+	}
+	if builder.sortIdFlag {
+		req.SortId = &builder.sortId
+
+	}
+	if builder.domainFlag {
+		req.Domain = &builder.domain
+
+	}
+	if builder.objTokenFlag {
+		req.ObjToken = &builder.objToken
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Setting struct {
 	CreateSetting   *string `json:"create_setting,omitempty"`
 	SecuritySetting *string `json:"security_setting,omitempty"`
 	CommentSetting  *string `json:"comment_setting,omitempty"`
 }
+
+/**builder开始**/
+type SettingBuilder struct {
+	createSetting       string
+	createSettingFlag   bool
+	securitySetting     string
+	securitySettingFlag bool
+	commentSetting      string
+	commentSettingFlag  bool
+}
+
+func NewSettingBuilder() *SettingBuilder {
+	builder := &SettingBuilder{}
+	return builder
+}
+
+func (builder *SettingBuilder) CreateSetting(createSetting string) *SettingBuilder {
+	builder.createSetting = createSetting
+	builder.createSettingFlag = true
+	return builder
+}
+func (builder *SettingBuilder) SecuritySetting(securitySetting string) *SettingBuilder {
+	builder.securitySetting = securitySetting
+	builder.securitySettingFlag = true
+	return builder
+}
+func (builder *SettingBuilder) CommentSetting(commentSetting string) *SettingBuilder {
+	builder.commentSetting = commentSetting
+	builder.commentSettingFlag = true
+	return builder
+}
+
+func (builder *SettingBuilder) Build() *Setting {
+	req := &Setting{}
+	if builder.createSettingFlag {
+		req.CreateSetting = &builder.createSetting
+
+	}
+	if builder.securitySettingFlag {
+		req.SecuritySetting = &builder.securitySetting
+
+	}
+	if builder.commentSettingFlag {
+		req.CommentSetting = &builder.commentSetting
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type Space struct {
 	Name        *string `json:"name,omitempty"`
@@ -98,10 +567,120 @@ type Space struct {
 	Visibility  *string `json:"visibility,omitempty"`
 }
 
+/**builder开始**/
+type SpaceBuilder struct {
+	name            string
+	nameFlag        bool
+	description     string
+	descriptionFlag bool
+	spaceId         string
+	spaceIdFlag     bool
+	spaceType       string
+	spaceTypeFlag   bool
+	visibility      string
+	visibilityFlag  bool
+}
+
+func NewSpaceBuilder() *SpaceBuilder {
+	builder := &SpaceBuilder{}
+	return builder
+}
+
+func (builder *SpaceBuilder) Name(name string) *SpaceBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *SpaceBuilder) Description(description string) *SpaceBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+func (builder *SpaceBuilder) SpaceId(spaceId string) *SpaceBuilder {
+	builder.spaceId = spaceId
+	builder.spaceIdFlag = true
+	return builder
+}
+func (builder *SpaceBuilder) SpaceType(spaceType string) *SpaceBuilder {
+	builder.spaceType = spaceType
+	builder.spaceTypeFlag = true
+	return builder
+}
+func (builder *SpaceBuilder) Visibility(visibility string) *SpaceBuilder {
+	builder.visibility = visibility
+	builder.visibilityFlag = true
+	return builder
+}
+
+func (builder *SpaceBuilder) Build() *Space {
+	req := &Space{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	if builder.spaceIdFlag {
+		req.SpaceId = &builder.spaceId
+
+	}
+	if builder.spaceTypeFlag {
+		req.SpaceType = &builder.spaceType
+
+	}
+	if builder.visibilityFlag {
+		req.Visibility = &builder.visibility
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type TaskResult struct {
 	TaskId     *string       `json:"task_id,omitempty"`
 	MoveResult []*MoveResult `json:"move_result,omitempty"`
 }
+
+/**builder开始**/
+type TaskResultBuilder struct {
+	taskId         string
+	taskIdFlag     bool
+	moveResult     []*MoveResult
+	moveResultFlag bool
+}
+
+func NewTaskResultBuilder() *TaskResultBuilder {
+	builder := &TaskResultBuilder{}
+	return builder
+}
+
+func (builder *TaskResultBuilder) TaskId(taskId string) *TaskResultBuilder {
+	builder.taskId = taskId
+	builder.taskIdFlag = true
+	return builder
+}
+func (builder *TaskResultBuilder) MoveResult(moveResult []*MoveResult) *TaskResultBuilder {
+	builder.moveResult = moveResult
+	builder.moveResultFlag = true
+	return builder
+}
+
+func (builder *TaskResultBuilder) Build() *TaskResult {
+	req := &TaskResult{}
+	if builder.taskIdFlag {
+		req.TaskId = &builder.taskId
+
+	}
+	if builder.moveResultFlag {
+		req.MoveResult = builder.moveResult
+	}
+	return req
+}
+
+/**builder结束**/
 
 /**生成请求和响应结果类型，以及请求对象的Builder构造器 **/
 

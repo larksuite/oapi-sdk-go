@@ -22,6 +22,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/service/drive/v1"
 	"github.com/larksuite/oapi-sdk-go/service/ehr/v1"
 	"github.com/larksuite/oapi-sdk-go/service/event/v1"
+	"github.com/larksuite/oapi-sdk-go/service/gray_test_open_sg/v1"
 	"github.com/larksuite/oapi-sdk-go/service/human_authentication/v1"
 	"github.com/larksuite/oapi-sdk-go/service/im/v1"
 	"github.com/larksuite/oapi-sdk-go/service/mail/v1"
@@ -51,6 +52,7 @@ type Client struct {
 	Drive                  *drive.DriveService
 	Ehr                    *ehr.EhrService
 	Event                  *event.EventService
+	GrayTestOpenSg         *gray_test_open_sg.GrayTestOpenSgService
 	HumanAuthentication    *human_authentication.HumanAuthenticationService
 	Im                     *im.ImService
 	Mail                   *mail.MailService
@@ -162,6 +164,7 @@ func initService(client *Client, httpClient *http.Client, config *core.Config) {
 	client.Drive = drive.NewService(httpClient, config)
 	client.Ehr = ehr.NewService(httpClient, config)
 	client.Event = event.NewService(httpClient, config)
+	client.GrayTestOpenSg = gray_test_open_sg.NewService(httpClient, config)
 	client.HumanAuthentication = human_authentication.NewService(httpClient, config)
 	client.Im = im.NewService(httpClient, config)
 	client.Mail = mail.NewService(httpClient, config)

@@ -15,11 +15,109 @@ type Condition struct {
 	Expected    []string `json:"expected,omitempty"`
 }
 
+/**builder开始**/
+type ConditionBuilder struct {
+	filterType      string
+	filterTypeFlag  bool
+	compareType     string
+	compareTypeFlag bool
+	expected        []string
+	expectedFlag    bool
+}
+
+func NewConditionBuilder() *ConditionBuilder {
+	builder := &ConditionBuilder{}
+	return builder
+}
+
+func (builder *ConditionBuilder) FilterType(filterType string) *ConditionBuilder {
+	builder.filterType = filterType
+	builder.filterTypeFlag = true
+	return builder
+}
+func (builder *ConditionBuilder) CompareType(compareType string) *ConditionBuilder {
+	builder.compareType = compareType
+	builder.compareTypeFlag = true
+	return builder
+}
+func (builder *ConditionBuilder) Expected(expected []string) *ConditionBuilder {
+	builder.expected = expected
+	builder.expectedFlag = true
+	return builder
+}
+
+func (builder *ConditionBuilder) Build() *Condition {
+	req := &Condition{}
+	if builder.filterTypeFlag {
+		req.FilterType = &builder.filterType
+
+	}
+	if builder.compareTypeFlag {
+		req.CompareType = &builder.compareType
+
+	}
+	if builder.expectedFlag {
+		req.Expected = builder.expected
+	}
+	return req
+}
+
+/**builder结束**/
+
 type CreateSheetFilter struct {
 	Range     *string    `json:"range,omitempty"`
 	Col       *string    `json:"col,omitempty"`
 	Condition *Condition `json:"condition,omitempty"`
 }
+
+/**builder开始**/
+type CreateSheetFilterBuilder struct {
+	range_        string
+	rangeFlag     bool
+	col           string
+	colFlag       bool
+	condition     *Condition
+	conditionFlag bool
+}
+
+func NewCreateSheetFilterBuilder() *CreateSheetFilterBuilder {
+	builder := &CreateSheetFilterBuilder{}
+	return builder
+}
+
+func (builder *CreateSheetFilterBuilder) Range(range_ string) *CreateSheetFilterBuilder {
+	builder.range_ = range_
+	builder.rangeFlag = true
+	return builder
+}
+func (builder *CreateSheetFilterBuilder) Col(col string) *CreateSheetFilterBuilder {
+	builder.col = col
+	builder.colFlag = true
+	return builder
+}
+func (builder *CreateSheetFilterBuilder) Condition(condition *Condition) *CreateSheetFilterBuilder {
+	builder.condition = condition
+	builder.conditionFlag = true
+	return builder
+}
+
+func (builder *CreateSheetFilterBuilder) Build() *CreateSheetFilter {
+	req := &CreateSheetFilter{}
+	if builder.rangeFlag {
+		req.Range = &builder.range_
+
+	}
+	if builder.colFlag {
+		req.Col = &builder.col
+
+	}
+	if builder.conditionFlag {
+		req.Condition = builder.condition
+	}
+	return req
+}
+
+/**builder结束**/
 
 type Dimension struct {
 	MajorDimension *string `json:"major_dimension,omitempty"`
@@ -27,16 +125,154 @@ type Dimension struct {
 	EndIndex       *int    `json:"end_index,omitempty"`
 }
 
+/**builder开始**/
+type DimensionBuilder struct {
+	majorDimension     string
+	majorDimensionFlag bool
+	startIndex         int
+	startIndexFlag     bool
+	endIndex           int
+	endIndexFlag       bool
+}
+
+func NewDimensionBuilder() *DimensionBuilder {
+	builder := &DimensionBuilder{}
+	return builder
+}
+
+func (builder *DimensionBuilder) MajorDimension(majorDimension string) *DimensionBuilder {
+	builder.majorDimension = majorDimension
+	builder.majorDimensionFlag = true
+	return builder
+}
+func (builder *DimensionBuilder) StartIndex(startIndex int) *DimensionBuilder {
+	builder.startIndex = startIndex
+	builder.startIndexFlag = true
+	return builder
+}
+func (builder *DimensionBuilder) EndIndex(endIndex int) *DimensionBuilder {
+	builder.endIndex = endIndex
+	builder.endIndexFlag = true
+	return builder
+}
+
+func (builder *DimensionBuilder) Build() *Dimension {
+	req := &Dimension{}
+	if builder.majorDimensionFlag {
+		req.MajorDimension = &builder.majorDimension
+
+	}
+	if builder.startIndexFlag {
+		req.StartIndex = &builder.startIndex
+
+	}
+	if builder.endIndexFlag {
+		req.EndIndex = &builder.endIndex
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type FilterInfo struct {
 	Col        *string      `json:"col,omitempty"`
 	Conditions []*Condition `json:"conditions,omitempty"`
 }
+
+/**builder开始**/
+type FilterInfoBuilder struct {
+	col            string
+	colFlag        bool
+	conditions     []*Condition
+	conditionsFlag bool
+}
+
+func NewFilterInfoBuilder() *FilterInfoBuilder {
+	builder := &FilterInfoBuilder{}
+	return builder
+}
+
+func (builder *FilterInfoBuilder) Col(col string) *FilterInfoBuilder {
+	builder.col = col
+	builder.colFlag = true
+	return builder
+}
+func (builder *FilterInfoBuilder) Conditions(conditions []*Condition) *FilterInfoBuilder {
+	builder.conditions = conditions
+	builder.conditionsFlag = true
+	return builder
+}
+
+func (builder *FilterInfoBuilder) Build() *FilterInfo {
+	req := &FilterInfo{}
+	if builder.colFlag {
+		req.Col = &builder.col
+
+	}
+	if builder.conditionsFlag {
+		req.Conditions = builder.conditions
+	}
+	return req
+}
+
+/**builder结束**/
 
 type FilterView struct {
 	FilterViewId   *string `json:"filter_view_id,omitempty"`
 	FilterViewName *string `json:"filter_view_name,omitempty"`
 	Range          *string `json:"range,omitempty"`
 }
+
+/**builder开始**/
+type FilterViewBuilder struct {
+	filterViewId       string
+	filterViewIdFlag   bool
+	filterViewName     string
+	filterViewNameFlag bool
+	range_             string
+	rangeFlag          bool
+}
+
+func NewFilterViewBuilder() *FilterViewBuilder {
+	builder := &FilterViewBuilder{}
+	return builder
+}
+
+func (builder *FilterViewBuilder) FilterViewId(filterViewId string) *FilterViewBuilder {
+	builder.filterViewId = filterViewId
+	builder.filterViewIdFlag = true
+	return builder
+}
+func (builder *FilterViewBuilder) FilterViewName(filterViewName string) *FilterViewBuilder {
+	builder.filterViewName = filterViewName
+	builder.filterViewNameFlag = true
+	return builder
+}
+func (builder *FilterViewBuilder) Range(range_ string) *FilterViewBuilder {
+	builder.range_ = range_
+	builder.rangeFlag = true
+	return builder
+}
+
+func (builder *FilterViewBuilder) Build() *FilterView {
+	req := &FilterView{}
+	if builder.filterViewIdFlag {
+		req.FilterViewId = &builder.filterViewId
+
+	}
+	if builder.filterViewNameFlag {
+		req.FilterViewName = &builder.filterViewName
+
+	}
+	if builder.rangeFlag {
+		req.Range = &builder.range_
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type FilterViewCondition struct {
 	ConditionId *string  `json:"condition_id,omitempty"`
@@ -45,10 +281,108 @@ type FilterViewCondition struct {
 	Expected    []string `json:"expected,omitempty"`
 }
 
+/**builder开始**/
+type FilterViewConditionBuilder struct {
+	conditionId     string
+	conditionIdFlag bool
+	filterType      string
+	filterTypeFlag  bool
+	compareType     string
+	compareTypeFlag bool
+	expected        []string
+	expectedFlag    bool
+}
+
+func NewFilterViewConditionBuilder() *FilterViewConditionBuilder {
+	builder := &FilterViewConditionBuilder{}
+	return builder
+}
+
+func (builder *FilterViewConditionBuilder) ConditionId(conditionId string) *FilterViewConditionBuilder {
+	builder.conditionId = conditionId
+	builder.conditionIdFlag = true
+	return builder
+}
+func (builder *FilterViewConditionBuilder) FilterType(filterType string) *FilterViewConditionBuilder {
+	builder.filterType = filterType
+	builder.filterTypeFlag = true
+	return builder
+}
+func (builder *FilterViewConditionBuilder) CompareType(compareType string) *FilterViewConditionBuilder {
+	builder.compareType = compareType
+	builder.compareTypeFlag = true
+	return builder
+}
+func (builder *FilterViewConditionBuilder) Expected(expected []string) *FilterViewConditionBuilder {
+	builder.expected = expected
+	builder.expectedFlag = true
+	return builder
+}
+
+func (builder *FilterViewConditionBuilder) Build() *FilterViewCondition {
+	req := &FilterViewCondition{}
+	if builder.conditionIdFlag {
+		req.ConditionId = &builder.conditionId
+
+	}
+	if builder.filterTypeFlag {
+		req.FilterType = &builder.filterType
+
+	}
+	if builder.compareTypeFlag {
+		req.CompareType = &builder.compareType
+
+	}
+	if builder.expectedFlag {
+		req.Expected = builder.expected
+	}
+	return req
+}
+
+/**builder结束**/
+
 type Find struct {
 	FindCondition *FindCondition `json:"find_condition,omitempty"`
 	Find          *string        `json:"find,omitempty"`
 }
+
+/**builder开始**/
+type FindBuilder struct {
+	findCondition     *FindCondition
+	findConditionFlag bool
+	find              string
+	findFlag          bool
+}
+
+func NewFindBuilder() *FindBuilder {
+	builder := &FindBuilder{}
+	return builder
+}
+
+func (builder *FindBuilder) FindCondition(findCondition *FindCondition) *FindBuilder {
+	builder.findCondition = findCondition
+	builder.findConditionFlag = true
+	return builder
+}
+func (builder *FindBuilder) Find(find string) *FindBuilder {
+	builder.find = find
+	builder.findFlag = true
+	return builder
+}
+
+func (builder *FindBuilder) Build() *Find {
+	req := &Find{}
+	if builder.findConditionFlag {
+		req.FindCondition = builder.findCondition
+	}
+	if builder.findFlag {
+		req.Find = &builder.find
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type FindCondition struct {
 	Range           *string `json:"range,omitempty"`
@@ -58,11 +392,131 @@ type FindCondition struct {
 	IncludeFormulas *bool   `json:"include_formulas,omitempty"`
 }
 
+/**builder开始**/
+type FindConditionBuilder struct {
+	range_              string
+	rangeFlag           bool
+	matchCase           bool
+	matchCaseFlag       bool
+	matchEntireCell     bool
+	matchEntireCellFlag bool
+	searchByRegex       bool
+	searchByRegexFlag   bool
+	includeFormulas     bool
+	includeFormulasFlag bool
+}
+
+func NewFindConditionBuilder() *FindConditionBuilder {
+	builder := &FindConditionBuilder{}
+	return builder
+}
+
+func (builder *FindConditionBuilder) Range(range_ string) *FindConditionBuilder {
+	builder.range_ = range_
+	builder.rangeFlag = true
+	return builder
+}
+func (builder *FindConditionBuilder) MatchCase(matchCase bool) *FindConditionBuilder {
+	builder.matchCase = matchCase
+	builder.matchCaseFlag = true
+	return builder
+}
+func (builder *FindConditionBuilder) MatchEntireCell(matchEntireCell bool) *FindConditionBuilder {
+	builder.matchEntireCell = matchEntireCell
+	builder.matchEntireCellFlag = true
+	return builder
+}
+func (builder *FindConditionBuilder) SearchByRegex(searchByRegex bool) *FindConditionBuilder {
+	builder.searchByRegex = searchByRegex
+	builder.searchByRegexFlag = true
+	return builder
+}
+func (builder *FindConditionBuilder) IncludeFormulas(includeFormulas bool) *FindConditionBuilder {
+	builder.includeFormulas = includeFormulas
+	builder.includeFormulasFlag = true
+	return builder
+}
+
+func (builder *FindConditionBuilder) Build() *FindCondition {
+	req := &FindCondition{}
+	if builder.rangeFlag {
+		req.Range = &builder.range_
+
+	}
+	if builder.matchCaseFlag {
+		req.MatchCase = &builder.matchCase
+
+	}
+	if builder.matchEntireCellFlag {
+		req.MatchEntireCell = &builder.matchEntireCell
+
+	}
+	if builder.searchByRegexFlag {
+		req.SearchByRegex = &builder.searchByRegex
+
+	}
+	if builder.includeFormulasFlag {
+		req.IncludeFormulas = &builder.includeFormulas
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type FindReplaceResult struct {
 	MatchedCells        []string `json:"matched_cells,omitempty"`
 	MatchedFormulaCells []string `json:"matched_formula_cells,omitempty"`
 	RowsCount           *int     `json:"rows_count,omitempty"`
 }
+
+/**builder开始**/
+type FindReplaceResultBuilder struct {
+	matchedCells            []string
+	matchedCellsFlag        bool
+	matchedFormulaCells     []string
+	matchedFormulaCellsFlag bool
+	rowsCount               int
+	rowsCountFlag           bool
+}
+
+func NewFindReplaceResultBuilder() *FindReplaceResultBuilder {
+	builder := &FindReplaceResultBuilder{}
+	return builder
+}
+
+func (builder *FindReplaceResultBuilder) MatchedCells(matchedCells []string) *FindReplaceResultBuilder {
+	builder.matchedCells = matchedCells
+	builder.matchedCellsFlag = true
+	return builder
+}
+func (builder *FindReplaceResultBuilder) MatchedFormulaCells(matchedFormulaCells []string) *FindReplaceResultBuilder {
+	builder.matchedFormulaCells = matchedFormulaCells
+	builder.matchedFormulaCellsFlag = true
+	return builder
+}
+func (builder *FindReplaceResultBuilder) RowsCount(rowsCount int) *FindReplaceResultBuilder {
+	builder.rowsCount = rowsCount
+	builder.rowsCountFlag = true
+	return builder
+}
+
+func (builder *FindReplaceResultBuilder) Build() *FindReplaceResult {
+	req := &FindReplaceResult{}
+	if builder.matchedCellsFlag {
+		req.MatchedCells = builder.matchedCells
+	}
+	if builder.matchedFormulaCellsFlag {
+		req.MatchedFormulaCells = builder.matchedFormulaCells
+	}
+	if builder.rowsCountFlag {
+		req.RowsCount = &builder.rowsCount
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type FloatImage struct {
 	FloatImageId    *string  `json:"float_image_id,omitempty"`
@@ -74,10 +528,142 @@ type FloatImage struct {
 	OffsetY         *float64 `json:"offset_y,omitempty"`
 }
 
+/**builder开始**/
+type FloatImageBuilder struct {
+	floatImageId        string
+	floatImageIdFlag    bool
+	floatImageToken     string
+	floatImageTokenFlag bool
+	range_              string
+	rangeFlag           bool
+	width               float64
+	widthFlag           bool
+	height              float64
+	heightFlag          bool
+	offsetX             float64
+	offsetXFlag         bool
+	offsetY             float64
+	offsetYFlag         bool
+}
+
+func NewFloatImageBuilder() *FloatImageBuilder {
+	builder := &FloatImageBuilder{}
+	return builder
+}
+
+func (builder *FloatImageBuilder) FloatImageId(floatImageId string) *FloatImageBuilder {
+	builder.floatImageId = floatImageId
+	builder.floatImageIdFlag = true
+	return builder
+}
+func (builder *FloatImageBuilder) FloatImageToken(floatImageToken string) *FloatImageBuilder {
+	builder.floatImageToken = floatImageToken
+	builder.floatImageTokenFlag = true
+	return builder
+}
+func (builder *FloatImageBuilder) Range(range_ string) *FloatImageBuilder {
+	builder.range_ = range_
+	builder.rangeFlag = true
+	return builder
+}
+func (builder *FloatImageBuilder) Width(width float64) *FloatImageBuilder {
+	builder.width = width
+	builder.widthFlag = true
+	return builder
+}
+func (builder *FloatImageBuilder) Height(height float64) *FloatImageBuilder {
+	builder.height = height
+	builder.heightFlag = true
+	return builder
+}
+func (builder *FloatImageBuilder) OffsetX(offsetX float64) *FloatImageBuilder {
+	builder.offsetX = offsetX
+	builder.offsetXFlag = true
+	return builder
+}
+func (builder *FloatImageBuilder) OffsetY(offsetY float64) *FloatImageBuilder {
+	builder.offsetY = offsetY
+	builder.offsetYFlag = true
+	return builder
+}
+
+func (builder *FloatImageBuilder) Build() *FloatImage {
+	req := &FloatImage{}
+	if builder.floatImageIdFlag {
+		req.FloatImageId = &builder.floatImageId
+
+	}
+	if builder.floatImageTokenFlag {
+		req.FloatImageToken = &builder.floatImageToken
+
+	}
+	if builder.rangeFlag {
+		req.Range = &builder.range_
+
+	}
+	if builder.widthFlag {
+		req.Width = &builder.width
+
+	}
+	if builder.heightFlag {
+		req.Height = &builder.height
+
+	}
+	if builder.offsetXFlag {
+		req.OffsetX = &builder.offsetX
+
+	}
+	if builder.offsetYFlag {
+		req.OffsetY = &builder.offsetY
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type MoveDimension struct {
 	Source           *Dimension `json:"source,omitempty"`
 	DestinationIndex *int       `json:"destination_index,omitempty"`
 }
+
+/**builder开始**/
+type MoveDimensionBuilder struct {
+	source               *Dimension
+	sourceFlag           bool
+	destinationIndex     int
+	destinationIndexFlag bool
+}
+
+func NewMoveDimensionBuilder() *MoveDimensionBuilder {
+	builder := &MoveDimensionBuilder{}
+	return builder
+}
+
+func (builder *MoveDimensionBuilder) Source(source *Dimension) *MoveDimensionBuilder {
+	builder.source = source
+	builder.sourceFlag = true
+	return builder
+}
+func (builder *MoveDimensionBuilder) DestinationIndex(destinationIndex int) *MoveDimensionBuilder {
+	builder.destinationIndex = destinationIndex
+	builder.destinationIndexFlag = true
+	return builder
+}
+
+func (builder *MoveDimensionBuilder) Build() *MoveDimension {
+	req := &MoveDimension{}
+	if builder.sourceFlag {
+		req.Source = builder.source
+	}
+	if builder.destinationIndexFlag {
+		req.DestinationIndex = &builder.destinationIndex
+
+	}
+	return req
+}
+
+/**builder结束**/
 
 type Replace struct {
 	FindCondition *FindCondition `json:"find_condition,omitempty"`
@@ -85,11 +671,108 @@ type Replace struct {
 	Replacement   *string        `json:"replacement,omitempty"`
 }
 
+/**builder开始**/
+type ReplaceBuilder struct {
+	findCondition     *FindCondition
+	findConditionFlag bool
+	find              string
+	findFlag          bool
+	replacement       string
+	replacementFlag   bool
+}
+
+func NewReplaceBuilder() *ReplaceBuilder {
+	builder := &ReplaceBuilder{}
+	return builder
+}
+
+func (builder *ReplaceBuilder) FindCondition(findCondition *FindCondition) *ReplaceBuilder {
+	builder.findCondition = findCondition
+	builder.findConditionFlag = true
+	return builder
+}
+func (builder *ReplaceBuilder) Find(find string) *ReplaceBuilder {
+	builder.find = find
+	builder.findFlag = true
+	return builder
+}
+func (builder *ReplaceBuilder) Replacement(replacement string) *ReplaceBuilder {
+	builder.replacement = replacement
+	builder.replacementFlag = true
+	return builder
+}
+
+func (builder *ReplaceBuilder) Build() *Replace {
+	req := &Replace{}
+	if builder.findConditionFlag {
+		req.FindCondition = builder.findCondition
+	}
+	if builder.findFlag {
+		req.Find = &builder.find
+
+	}
+	if builder.replacementFlag {
+		req.Replacement = &builder.replacement
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type SheetFilterInfo struct {
 	Range           *string       `json:"range,omitempty"`
 	FilteredOutRows []int         `json:"filtered_out_rows,omitempty"`
 	FilterInfos     []*FilterInfo `json:"filter_infos,omitempty"`
 }
+
+/**builder开始**/
+type SheetFilterInfoBuilder struct {
+	range_              string
+	rangeFlag           bool
+	filteredOutRows     []int
+	filteredOutRowsFlag bool
+	filterInfos         []*FilterInfo
+	filterInfosFlag     bool
+}
+
+func NewSheetFilterInfoBuilder() *SheetFilterInfoBuilder {
+	builder := &SheetFilterInfoBuilder{}
+	return builder
+}
+
+func (builder *SheetFilterInfoBuilder) Range(range_ string) *SheetFilterInfoBuilder {
+	builder.range_ = range_
+	builder.rangeFlag = true
+	return builder
+}
+func (builder *SheetFilterInfoBuilder) FilteredOutRows(filteredOutRows []int) *SheetFilterInfoBuilder {
+	builder.filteredOutRows = filteredOutRows
+	builder.filteredOutRowsFlag = true
+	return builder
+}
+func (builder *SheetFilterInfoBuilder) FilterInfos(filterInfos []*FilterInfo) *SheetFilterInfoBuilder {
+	builder.filterInfos = filterInfos
+	builder.filterInfosFlag = true
+	return builder
+}
+
+func (builder *SheetFilterInfoBuilder) Build() *SheetFilterInfo {
+	req := &SheetFilterInfo{}
+	if builder.rangeFlag {
+		req.Range = &builder.range_
+
+	}
+	if builder.filteredOutRowsFlag {
+		req.FilteredOutRows = builder.filteredOutRows
+	}
+	if builder.filterInfosFlag {
+		req.FilterInfos = builder.filterInfos
+	}
+	return req
+}
+
+/**builder结束**/
 
 type Spreadsheet struct {
 	Title            *string `json:"title,omitempty"`
@@ -98,10 +781,109 @@ type Spreadsheet struct {
 	SpreadsheetToken *string `json:"spreadsheet_token,omitempty"`
 }
 
+/**builder开始**/
+type SpreadsheetBuilder struct {
+	title                string
+	titleFlag            bool
+	folderToken          string
+	folderTokenFlag      bool
+	url                  string
+	urlFlag              bool
+	spreadsheetToken     string
+	spreadsheetTokenFlag bool
+}
+
+func NewSpreadsheetBuilder() *SpreadsheetBuilder {
+	builder := &SpreadsheetBuilder{}
+	return builder
+}
+
+func (builder *SpreadsheetBuilder) Title(title string) *SpreadsheetBuilder {
+	builder.title = title
+	builder.titleFlag = true
+	return builder
+}
+func (builder *SpreadsheetBuilder) FolderToken(folderToken string) *SpreadsheetBuilder {
+	builder.folderToken = folderToken
+	builder.folderTokenFlag = true
+	return builder
+}
+func (builder *SpreadsheetBuilder) Url(url string) *SpreadsheetBuilder {
+	builder.url = url
+	builder.urlFlag = true
+	return builder
+}
+func (builder *SpreadsheetBuilder) SpreadsheetToken(spreadsheetToken string) *SpreadsheetBuilder {
+	builder.spreadsheetToken = spreadsheetToken
+	builder.spreadsheetTokenFlag = true
+	return builder
+}
+
+func (builder *SpreadsheetBuilder) Build() *Spreadsheet {
+	req := &Spreadsheet{}
+	if builder.titleFlag {
+		req.Title = &builder.title
+
+	}
+	if builder.folderTokenFlag {
+		req.FolderToken = &builder.folderToken
+
+	}
+	if builder.urlFlag {
+		req.Url = &builder.url
+
+	}
+	if builder.spreadsheetTokenFlag {
+		req.SpreadsheetToken = &builder.spreadsheetToken
+
+	}
+	return req
+}
+
+/**builder结束**/
+
 type UpdateSheetFilter struct {
 	Col       *string    `json:"col,omitempty"`
 	Condition *Condition `json:"condition,omitempty"`
 }
+
+/**builder开始**/
+type UpdateSheetFilterBuilder struct {
+	col           string
+	colFlag       bool
+	condition     *Condition
+	conditionFlag bool
+}
+
+func NewUpdateSheetFilterBuilder() *UpdateSheetFilterBuilder {
+	builder := &UpdateSheetFilterBuilder{}
+	return builder
+}
+
+func (builder *UpdateSheetFilterBuilder) Col(col string) *UpdateSheetFilterBuilder {
+	builder.col = col
+	builder.colFlag = true
+	return builder
+}
+func (builder *UpdateSheetFilterBuilder) Condition(condition *Condition) *UpdateSheetFilterBuilder {
+	builder.condition = condition
+	builder.conditionFlag = true
+	return builder
+}
+
+func (builder *UpdateSheetFilterBuilder) Build() *UpdateSheetFilter {
+	req := &UpdateSheetFilter{}
+	if builder.colFlag {
+		req.Col = &builder.col
+
+	}
+	if builder.conditionFlag {
+		req.Condition = builder.condition
+	}
+	return req
+}
+
+/**builder结束**/
 
 /**生成请求和响应结果类型，以及请求对象的Builder构造器 **/
 

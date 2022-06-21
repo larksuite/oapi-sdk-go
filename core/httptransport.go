@@ -123,6 +123,7 @@ func doSendRequest(ctx context.Context, config *Config, httpMethod string, httpP
 	accessTokenType AccessTokenType, input interface{}, option *RequestOption) (*RawResponse, error) {
 
 	var rawResp *RawResponse
+	var errResult error
 	for i := 0; i < 2; i++ {
 		req, err := reqTranslator.translate(ctx, input, accessTokenType, config, httpMethod, httpPath, option)
 		if err != nil {
@@ -131,10 +132,15 @@ func doSendRequest(ctx context.Context, config *Config, httpMethod string, httpP
 
 		config.Logger.Debug(ctx, fmt.Sprintf("req:%v", req))
 		rawResp, err = doSend(ctx, req, config.HttpClient)
-		if err != nil {
-			return rawResp, err
-		}
 		config.Logger.Debug(ctx, fmt.Sprintf("req:%v,resp:%v", req, rawResp))
+		_, isDialError := err.(*DialFailedError)
+		if err != nil && !isDialError {
+			return nil, err
+		}
+		errResult = err
+		if isDialError {
+			continue
+		}
 
 		fileDownloadSuccess := option.FileDownload && rawResp.StatusCode == http.StatusOK
 		if fileDownloadSuccess || !strings.Contains(rawResp.Header.Get(contentTypeHeader), contentTypeJson) {
@@ -152,6 +158,10 @@ func doSendRequest(ctx context.Context, config *Config, httpMethod string, httpP
 			applyAppTicket(ctx, config)
 		}
 
+		if accessTokenType == accessTokenTypeNone {
+			break
+		}
+
 		if !config.EnableTokenCache {
 			break
 		}
@@ -160,6 +170,11 @@ func doSendRequest(ctx context.Context, config *Config, httpMethod string, httpP
 			code != errCodeTenantAccessTokenInvalid {
 			break
 		}
+
+	}
+
+	if errResult != nil {
+		return nil, errResult
 	}
 
 	return rawResp, nil
