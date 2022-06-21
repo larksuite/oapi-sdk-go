@@ -44,7 +44,7 @@ func (h *CardActionHandler) Event() interface{} {
 	return &CardAction{}
 }
 
-var notFoundCardHandlerErr = errors.New("card not found handler")
+var notFoundCardHandlerErr = errors.New("card action handler not found")
 
 func (h *CardActionHandler) VerifyUrl(ctx context.Context, plainEventJsonStr string) (*event.EventResp, error) {
 	// 反序列化
@@ -61,7 +61,7 @@ func (h *CardActionHandler) VerifyUrl(ctx context.Context, plainEventJsonStr str
 	challenge := challengeMsg.Challenge
 	if hookType == event.WebhookTypeChallenge {
 		if h.verificationToken != challengeMsg.Token {
-			err = errors.New("card challenge token not equal settings token")
+			err = errors.New("card verificationToken not equal setting handler verificationToken")
 			return nil, err
 		}
 		eventResp := event.EventResp{
@@ -174,7 +174,7 @@ func (h *CardActionHandler) VerifySign(ctx context.Context, req *event.EventReq)
 	if targetSign == sourceSign {
 		return nil
 	}
-	return errors.New("signature error")
+	return errors.New("signature verification error")
 }
 
 func Signature(timestamp, nonce, token, body string) string {

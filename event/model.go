@@ -68,7 +68,8 @@ const (
 type WebhookType string
 
 const (
-	WebhookTypeChallenge WebhookType = "url_verification"
+	WebhookTypeChallenge     WebhookType = "url_verification"
+	WebhookTypeEventCallBack WebhookType = "event_callback"
 )
 
 const userAgentHeader = "User-Agent"

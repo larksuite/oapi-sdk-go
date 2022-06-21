@@ -11,7 +11,7 @@ func mockConfig() *core.Config {
 	config := &core.Config{
 		AppId:            "xxx",
 		AppSecret:        "xxxx",
-		Logger:           core.NewDefaultLogger(core.LogLevelDebug),
+		Logger:           core.NewEventLogger(),
 		LogLevel:         core.LogLevelDebug,
 		EnableTokenCache: true,
 		AppType:          core.AppTypeCustom,

@@ -108,7 +108,7 @@ func (d *EventReqDispatcher) VerifySign(ctx context.Context, req *event.EventReq
 	if targetSign == sourceSign {
 		return nil
 	}
-	return errors.New("signature error")
+	return errors.New("signature verification error")
 }
 
 func parse(plainEventJsonStr string) (event.WebhookType, string, string, string, error) {
@@ -162,7 +162,7 @@ func (d *EventReqDispatcher) VerifyUrl(ctx context.Context, plainEventJsonStr st
 	// 处理url验证
 	if hookType == event.WebhookTypeChallenge {
 		if token != d.verificationToken {
-			err = errors.New("event token not equal settings token")
+			err = errors.New("event verificationToken not equal setting handler verificationToken")
 			return nil, err
 		}
 		eventResp := event.EventResp{
