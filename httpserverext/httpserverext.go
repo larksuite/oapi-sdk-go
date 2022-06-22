@@ -42,10 +42,10 @@ func NewCardActionHandlerFunc(cardActionHandler *card.CardActionHandler, options
 	}
 }
 
-func NewEventHandlerFunc(eventReqDispatcher *dispatcher.EventReqDispatcher, options ...event.OptionFunc) func(writer http.ResponseWriter, req *http.Request) {
-	eventReqDispatcher.InitConfig(options...)
+func NewEventHandlerFunc(eventDispatcher *dispatcher.EventDispatcher, options ...event.OptionFunc) func(writer http.ResponseWriter, req *http.Request) {
+	eventDispatcher.InitConfig(options...)
 	return func(writer http.ResponseWriter, req *http.Request) {
-		doProcess(writer, req, eventReqDispatcher)
+		doProcess(writer, req, eventDispatcher)
 	}
 }
 
