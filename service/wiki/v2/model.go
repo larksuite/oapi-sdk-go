@@ -1934,7 +1934,7 @@ type ListSpaceIterator struct {
 
 func (iterator *ListSpaceIterator) Next() (bool, *Space, error) {
 	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
 		return false, nil, nil
 	}
 
@@ -1989,7 +1989,7 @@ type ListSpaceNodeIterator struct {
 
 func (iterator *ListSpaceNodeIterator) Next() (bool, *Node, error) {
 	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
 		return false, nil, nil
 	}
 

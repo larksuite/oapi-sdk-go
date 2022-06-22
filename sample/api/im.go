@@ -5,8 +5,9 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"time"
 
-	"github.com/larksuite/oapi-sdk-go"
+	client "github.com/larksuite/oapi-sdk-go"
 	"github.com/larksuite/oapi-sdk-go/core"
 	"github.com/larksuite/oapi-sdk-go/service/gray_test_open_sg/v1"
 	"github.com/larksuite/oapi-sdk-go/service/im/v1"
@@ -29,7 +30,7 @@ func uploadImage(client *client.Client) {
 			Build())
 
 	if err != nil {
-		fmt.Println(core.Prettify(err))
+		fmt.Println(err)
 		return
 	}
 	fmt.Println(core.Prettify(resp))
@@ -55,7 +56,7 @@ func uploadFile(client *client.Client) {
 			Build())
 
 	if err != nil {
-		fmt.Println(core.Prettify(err))
+		fmt.Println(err)
 		return
 	}
 	fmt.Println(core.Prettify(resp))
@@ -116,12 +117,12 @@ func downLoadImageV2(client *client.Client) {
 	resp, err := client.Im.Image.Get(context.Background(), im.NewGetImageReqBuilder().ImageKey("img_v2_cd2657c7-ad1e-410a-8e76-942c89203bfg").Build())
 
 	if err != nil {
-		fmt.Println(core.Prettify(err))
+		fmt.Println(err)
 		return
 	}
 
 	if resp.Code != 0 {
-		fmt.Println(core.Prettify(resp))
+		fmt.Println(resp)
 		return
 	}
 	fmt.Println(resp.FileName)
@@ -156,7 +157,7 @@ func sendTextMsg(client *client.Client) {
 		Build())
 
 	if err != nil {
-		fmt.Println((err))
+		fmt.Println(err)
 		return
 	}
 	fmt.Println(core.Prettify(resp))
@@ -476,9 +477,9 @@ func testCreate(client *client.Client) {
 
 func main() {
 	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
-	var feishu_client = client.NewClient(appID, appSecret, client.WithLogLevel(core.LogLevelInfo))
+	var feishu_client = client.NewClient(appID, appSecret, client.WithLogLevel(core.LogLevelInfo), client.WithReqTimeout(3*time.Second))
 	//downLoadImageV2(feishu_client)
-	//uploadImage(feishu_client)
+	uploadImage(feishu_client)
 	//uploadImage(client)
 	//downLoadImage(client)
 	//uploadImage2(feishu_client)
@@ -492,5 +493,5 @@ func main() {
 	//sendShardUserMsg(client)
 	//sendPostMsg(feishu_client)
 	//sendPostMsgUseBuilder(feishu_client)
-	testCreate(feishu_client)
+	//testCreate(feishu_client)
 }

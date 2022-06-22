@@ -6,7 +6,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/larksuite/oapi-sdk-go"
+	client "github.com/larksuite/oapi-sdk-go"
 	"github.com/larksuite/oapi-sdk-go/core"
 	"github.com/larksuite/oapi-sdk-go/service/docx/v1"
 )
@@ -31,11 +31,11 @@ func listBlocks(client *client.Client) {
 		docx.NewListDocumentBlockReqBuilder().
 			DocumentId("doxcnku1W0IhiZBDPkxlEVSn6Tf").
 			PageSize(100).
-			Build(), core.WithUserAccessToken("u-JDboiwm9RnJbtNc1gdJ0Qd"),
+			Build(), core.WithUserAccessToken("u-3vEh2SpiF2WoJzYJOdiGKQ41mJrQ1hebh0G0hg.02CgW"),
 	)
 
 	if err != nil {
-		fmt.Println(core.Prettify(err))
+		fmt.Println(err)
 		return
 	}
 
@@ -56,13 +56,13 @@ func listBlocksIter(client *client.Client) {
 	iter, err := client.Docx.DocumentBlock.ListDocumentBlock(context.Background(),
 		docx.NewListDocumentBlockReqBuilder().
 			DocumentId("doxcnku1W0IhiZBDPkxlEVSn6Tf").
-			PageSize(2).
-			Limit(100).
-			Build(), core.WithUserAccessToken("u-JDboiwm9RnJbtNc1gdJ0Qd"),
+			PageSize(1).
+			Limit(3).
+			Build(), core.WithUserAccessToken("u-3vEh2SpiF2WoJzYJOdiGKQ41mJrQ1hebh0G0hg.02CgW"),
 	)
 
 	if err != nil {
-		fmt.Println(core.Prettify(err))
+		fmt.Println(err)
 		return
 	}
 
@@ -87,8 +87,8 @@ func listBlocksIter(client *client.Client) {
 func main() {
 	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
 
-	feishuClient := client.NewClient(appID, appSecret)
+	feishuClient := client.NewClient(appID, appSecret, client.WithLogLevel(core.LogLevelDebug), client.WithAppType(core.AppTypeMarketplace))
 
-	//listBlocks(feishuClient)
-	listBlocksIter(feishuClient)
+	listBlocks(feishuClient)
+	//listBlocksIter(feishuClient)
 }

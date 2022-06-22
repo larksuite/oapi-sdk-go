@@ -5102,7 +5102,7 @@ type SearchCalendarIterator struct {
 
 func (iterator *SearchCalendarIterator) Next() (bool, *Calendar, error) {
 	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
 		return false, nil, nil
 	}
 
@@ -5157,7 +5157,7 @@ type ListCalendarAclIterator struct {
 
 func (iterator *ListCalendarAclIterator) Next() (bool, *CalendarAcl, error) {
 	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
 		return false, nil, nil
 	}
 
@@ -5212,7 +5212,7 @@ type SearchCalendarEventIterator struct {
 
 func (iterator *SearchCalendarEventIterator) Next() (bool, *CalendarEvent, error) {
 	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
 		return false, nil, nil
 	}
 
@@ -5267,7 +5267,7 @@ type ListCalendarEventAttendeeIterator struct {
 
 func (iterator *ListCalendarEventAttendeeIterator) Next() (bool, *CalendarEventAttendee, error) {
 	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
 		return false, nil, nil
 	}
 
@@ -5322,7 +5322,7 @@ type ListCalendarEventAttendeeChatMemberIterator struct {
 
 func (iterator *ListCalendarEventAttendeeChatMemberIterator) Next() (bool, *CalendarEventAttendeeChatMember, error) {
 	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
 		return false, nil, nil
 	}
 

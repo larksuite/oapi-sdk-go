@@ -2850,7 +2850,7 @@ type ListMailgroupIterator struct {
 
 func (iterator *ListMailgroupIterator) Next() (bool, *Mailgroup, error) {
 	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
 		return false, nil, nil
 	}
 
@@ -2905,7 +2905,7 @@ type ListMailgroupMemberIterator struct {
 
 func (iterator *ListMailgroupMemberIterator) Next() (bool, *MailgroupMember, error) {
 	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
 		return false, nil, nil
 	}
 
@@ -2960,7 +2960,7 @@ type ListMailgroupPermissionMemberIterator struct {
 
 func (iterator *ListMailgroupPermissionMemberIterator) Next() (bool, *MailgroupPermissionMember, error) {
 	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
 		return false, nil, nil
 	}
 
@@ -3015,7 +3015,7 @@ type ListPublicMailboxIterator struct {
 
 func (iterator *ListPublicMailboxIterator) Next() (bool, *PublicMailbox, error) {
 	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
 		return false, nil, nil
 	}
 
@@ -3070,7 +3070,7 @@ type ListPublicMailboxMemberIterator struct {
 
 func (iterator *ListPublicMailboxMemberIterator) Next() (bool, *PublicMailboxMember, error) {
 	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
 		return false, nil, nil
 	}
 

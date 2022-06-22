@@ -7091,7 +7091,7 @@ type ListCustomAttrIterator struct {
 
 func (iterator *ListCustomAttrIterator) Next() (bool, *CustomAttr, error) {
 	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
 		return false, nil, nil
 	}
 
@@ -7146,7 +7146,7 @@ type ChildrenDepartmentIterator struct {
 
 func (iterator *ChildrenDepartmentIterator) Next() (bool, *Department, error) {
 	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
 		return false, nil, nil
 	}
 
@@ -7201,7 +7201,7 @@ type ListDepartmentIterator struct {
 
 func (iterator *ListDepartmentIterator) Next() (bool, *Department, error) {
 	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
 		return false, nil, nil
 	}
 
@@ -7256,7 +7256,7 @@ type ParentDepartmentIterator struct {
 
 func (iterator *ParentDepartmentIterator) Next() (bool, *Department, error) {
 	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
 		return false, nil, nil
 	}
 
@@ -7311,7 +7311,7 @@ type SearchDepartmentIterator struct {
 
 func (iterator *SearchDepartmentIterator) Next() (bool, *Department, error) {
 	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
 		return false, nil, nil
 	}
 
@@ -7366,7 +7366,7 @@ type ListEmployeeTypeEnumIterator struct {
 
 func (iterator *ListEmployeeTypeEnumIterator) Next() (bool, *EmployeeTypeEnum, error) {
 	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
 		return false, nil, nil
 	}
 
@@ -7421,7 +7421,7 @@ type SimplelistGroupIterator struct {
 
 func (iterator *SimplelistGroupIterator) Next() (bool, *Group, error) {
 	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
 		return false, nil, nil
 	}
 
@@ -7476,7 +7476,7 @@ type FindByDepartmentUserIterator struct {
 
 func (iterator *FindByDepartmentUserIterator) Next() (bool, *User, error) {
 	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
 		return false, nil, nil
 	}
 
@@ -7531,7 +7531,7 @@ type ListUserIterator struct {
 
 func (iterator *ListUserIterator) Next() (bool, *User, error) {
 	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
 		return false, nil, nil
 	}
 

@@ -7390,7 +7390,7 @@ type ListChatIterator struct {
 
 func (iterator *ListChatIterator) Next() (bool, *ListChat, error) {
 	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
 		return false, nil, nil
 	}
 
@@ -7445,7 +7445,7 @@ type SearchChatIterator struct {
 
 func (iterator *SearchChatIterator) Next() (bool, *ListChat, error) {
 	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
 		return false, nil, nil
 	}
 
@@ -7500,7 +7500,7 @@ type GetChatMembersIterator struct {
 
 func (iterator *GetChatMembersIterator) Next() (bool, *ListMember, error) {
 	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
 		return false, nil, nil
 	}
 
@@ -7555,7 +7555,7 @@ type GetChatModerationIterator struct {
 
 func (iterator *GetChatModerationIterator) Next() (bool, *ListModerator, error) {
 	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
 		return false, nil, nil
 	}
 
@@ -7610,7 +7610,7 @@ type ListMessageIterator struct {
 
 func (iterator *ListMessageIterator) Next() (bool, *Message, error) {
 	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
 		return false, nil, nil
 	}
 
@@ -7665,7 +7665,7 @@ type ListMessageReactionIterator struct {
 
 func (iterator *ListMessageReactionIterator) Next() (bool, *MessageReaction, error) {
 	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
 		return false, nil, nil
 	}
 

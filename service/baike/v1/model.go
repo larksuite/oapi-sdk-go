@@ -1628,7 +1628,7 @@ type ListClassificationIterator struct {
 
 func (iterator *ListClassificationIterator) Next() (bool, *Classification, error) {
 	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
 		return false, nil, nil
 	}
 
@@ -1683,7 +1683,7 @@ type ListEntityIterator struct {
 
 func (iterator *ListEntityIterator) Next() (bool, *Entity, error) {
 	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
 		return false, nil, nil
 	}
 
@@ -1738,7 +1738,7 @@ type SearchEntityIterator struct {
 
 func (iterator *SearchEntityIterator) Next() (bool, *Entity, error) {
 	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
 		return false, nil, nil
 	}
 

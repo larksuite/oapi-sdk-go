@@ -961,7 +961,7 @@ type ListAccessRecordIterator struct {
 
 func (iterator *ListAccessRecordIterator) Next() (bool, *AccessRecord, error) {
 	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
 		return false, nil, nil
 	}
 
@@ -1016,7 +1016,7 @@ type ListUserIterator struct {
 
 func (iterator *ListUserIterator) Next() (bool, *User, error) {
 	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
 		return false, nil, nil
 	}
 

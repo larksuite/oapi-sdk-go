@@ -4452,7 +4452,7 @@ type UnderauditlistApplicationIterator struct {
 
 func (iterator *UnderauditlistApplicationIterator) Next() (bool, *Application, error) {
 	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
 		return false, nil, nil
 	}
 

@@ -6180,7 +6180,7 @@ type ListFileCommentIterator struct {
 
 func (iterator *ListFileCommentIterator) Next() (bool, *FileComment, error) {
 	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
 		return false, nil, nil
 	}
 

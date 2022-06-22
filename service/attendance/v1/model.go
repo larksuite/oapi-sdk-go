@@ -7660,7 +7660,7 @@ type ListGroupIterator struct {
 
 func (iterator *ListGroupIterator) Next() (bool, *GroupMeta, error) {
 	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
 		return false, nil, nil
 	}
 
@@ -7715,7 +7715,7 @@ type ListShiftIterator struct {
 
 func (iterator *ListShiftIterator) Next() (bool, *Shift, error) {
 	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
 		return false, nil, nil
 	}
 

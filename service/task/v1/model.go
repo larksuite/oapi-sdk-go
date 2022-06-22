@@ -2149,7 +2149,7 @@ type ListTaskIterator struct {
 
 func (iterator *ListTaskIterator) Next() (bool, *Task, error) {
 	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
 		return false, nil, nil
 	}
 
@@ -2204,7 +2204,7 @@ type ListTaskCollaboratorIterator struct {
 
 func (iterator *ListTaskCollaboratorIterator) Next() (bool, *Collaborator, error) {
 	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
 		return false, nil, nil
 	}
 
@@ -2259,7 +2259,7 @@ type ListTaskCommentIterator struct {
 
 func (iterator *ListTaskCommentIterator) Next() (bool, *Comment, error) {
 	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
 		return false, nil, nil
 	}
 
@@ -2314,7 +2314,7 @@ type ListTaskFollowerIterator struct {
 
 func (iterator *ListTaskFollowerIterator) Next() (bool, *Follower, error) {
 	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
 		return false, nil, nil
 	}
 
@@ -2369,7 +2369,7 @@ type ListTaskReminderIterator struct {
 
 func (iterator *ListTaskReminderIterator) Next() (bool, *Reminder, error) {
 	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum > iterator.limit {
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
 		return false, nil, nil
 	}
 
