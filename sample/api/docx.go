@@ -90,5 +90,5 @@ func main() {
 	feishuClient := client.NewClient(appID, appSecret, client.WithLogLevel(core.LogLevelDebug), client.WithAppType(core.AppTypeMarketplace))
 
 	listBlocks(feishuClient)
-	//listBlocksIter(feishuClient)
+	listBlocksIter(feishuClient)
 }

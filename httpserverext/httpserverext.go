@@ -12,7 +12,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/event/dispatcher"
 )
 
-func doProcess(writer http.ResponseWriter, req *http.Request, reqHandler *event.ReqHandler) {
+func doProcess(writer http.ResponseWriter, req *http.Request, reqHandler event.IReqHandler) {
 	// 转换http请求对象为标准请求对象
 	ctx := context.Background()
 	eventReq, err := translate(ctx, req)
@@ -25,31 +25,31 @@ func doProcess(writer http.ResponseWriter, req *http.Request, reqHandler *event.
 	//处理请求
 	eventResp, err := reqHandler.Handle(ctx, eventReq)
 	if err != nil {
-		eventResp = processError(ctx, reqHandler.Config, req.RequestURI, err)
+		eventResp = processError(ctx, reqHandler.Logger(), req.RequestURI, err)
 	}
 
 	// 回写结果
 	err = write(ctx, writer, eventResp)
 	if err != nil {
-		reqHandler.Logger.Error(ctx, fmt.Sprintf("write resp result error:%s", err.Error()))
+		reqHandler.Logger().Error(ctx, fmt.Sprintf("write resp result error:%s", err.Error()))
 	}
 }
 
 func NewCardActionHandlerFunc(cardActionHandler *card.CardActionHandler, options ...event.OptionFunc) func(writer http.ResponseWriter, req *http.Request) {
-	reqHandler := card.NewReqHandlerTemplate(cardActionHandler, options...)
+	cardActionHandler.InitConfig(options...)
 	return func(writer http.ResponseWriter, req *http.Request) {
-		doProcess(writer, req, reqHandler)
+		doProcess(writer, req, cardActionHandler)
 	}
 }
 
 func NewEventHandlerFunc(eventReqDispatcher *dispatcher.EventReqDispatcher, options ...event.OptionFunc) func(writer http.ResponseWriter, req *http.Request) {
-	reqHandler := dispatcher.NewReqHandlerTemplate(eventReqDispatcher, options...)
+	eventReqDispatcher.InitConfig(options...)
 	return func(writer http.ResponseWriter, req *http.Request) {
-		doProcess(writer, req, reqHandler)
+		doProcess(writer, req, eventReqDispatcher)
 	}
 }
 
-func processError(ctx context.Context, config *core.Config, path string, err error) *event.EventResp {
+func processError(ctx context.Context, logger core.Logger, path string, err error) *event.EventResp {
 	header := map[string][]string{}
 	header[event.ContentTypeHeader] = []string{event.DefaultContentType}
 	eventResp := &event.EventResp{
@@ -57,7 +57,7 @@ func processError(ctx context.Context, config *core.Config, path string, err err
 		Body:       []byte(fmt.Sprintf(event.WebhookResponseFormat, err.Error())),
 		StatusCode: http.StatusInternalServerError,
 	}
-	config.Logger.Error(ctx, fmt.Sprintf("event handle err:%s, %v", path, err))
+	logger.Error(ctx, fmt.Sprintf("event handle err:%s, %v", path, err))
 	return eventResp
 }
 

@@ -65,11 +65,11 @@ const (
 	EventSignature        = "X-Lark-Signature"
 )
 
-type WebhookType string
+type ReqType string
 
 const (
-	WebhookTypeChallenge     WebhookType = "url_verification"
-	WebhookTypeEventCallBack WebhookType = "event_callback"
+	ReqTypeChallenge     ReqType = "url_verification"
+	ReqTypeEventCallBack ReqType = "event_callback"
 )
 
 const userAgentHeader = "User-Agent"

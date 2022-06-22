@@ -22,7 +22,7 @@ func TestStartHttpServer(t *testing.T) {
 	})
 
 	// 创建事件处理器
-	handler := dispatcher.NewEventReqDispatcher("v", "e").OnMessageReceiveV1(func(ctx context.Context, event *im.MessageReceiveEvent) error {
+	handler := dispatcher.NewEventReqDispatcher("v", "1212121212").OnMessageReceiveV1(func(ctx context.Context, event *im.MessageReceiveEvent) error {
 		fmt.Println(core.Prettify(event))
 		return nil
 	}).OnMessageMessageReadV1(func(ctx context.Context, event *im.MessageMessageReadEvent) error {
@@ -35,10 +35,10 @@ func TestStartHttpServer(t *testing.T) {
 	http.HandleFunc("/webhook/card", NewCardActionHandlerFunc(cardHandler))
 
 	// 启动服务
-	err := http.ListenAndServe(":9999", nil)
-	if err != nil {
-		panic(err)
-	}
+	//err := http.ListenAndServe(":9999", nil)
+	//if err != nil {
+	//	panic(err)
+	//}
 }
 
 func mockRequest() *http.Request {

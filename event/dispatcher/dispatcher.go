@@ -17,18 +17,18 @@ type EventReqDispatcher struct {
 	// 事件回调签名token，消息解密key
 	verificationToken string
 	eventEncryptKey   string
-	event.ReqHandler
 	*core.Config
 }
 
-func NewReqHandlerTemplate(handler *EventReqDispatcher, options ...event.OptionFunc) *event.ReqHandler {
-	reqHandler := event.ReqHandler{IReqHandler: handler, Config: handler.Config}
-	for _, option := range options {
-		option(handler.Config)
-	}
+func (dispatcher *EventReqDispatcher) Logger() core.Logger {
+	return dispatcher.Config.Logger
+}
 
-	core.NewLogger(handler.Config)
-	return &reqHandler
+func (d *EventReqDispatcher) InitConfig(options ...event.OptionFunc) {
+	for _, option := range options {
+		option(d.Config)
+	}
+	core.NewLogger(d.Config)
 }
 
 func NewEventReqDispatcher(verificationToken, eventEncryptKey string) *EventReqDispatcher {
@@ -44,18 +44,40 @@ func NewEventReqDispatcher(verificationToken, eventEncryptKey string) *EventReqD
 	return reqDispatcher
 }
 
+func (d *EventReqDispatcher) Handle(ctx context.Context, req *event.EventReq) (*event.EventResp, error) {
+	cipherEventJsonStr, err := d.ParseReq(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+
+	plainEventJsonStr, err := d.DecryptEvent(ctx, cipherEventJsonStr)
+	if err != nil {
+		return nil, err
+	}
+
+	reqType, challenge, token, eventType, err := parse(plainEventJsonStr)
+	if reqType != event.ReqTypeChallenge {
+		err = d.VerifySign(ctx, req)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	return d.DoHandle(ctx, reqType, eventType, challenge, token, plainEventJsonStr)
+
+}
 func (d *EventReqDispatcher) ParseReq(ctx context.Context, req *event.EventReq) (string, error) {
 	d.Config.Logger.Debug(ctx, fmt.Sprintf("event request: header:%v,body:%s", req.Header, string(req.Body)))
 	if d.eventEncryptKey != "" {
 		var encrypt event.EventEncryptMsg
 		err := json.Unmarshal(req.Body, &encrypt)
 		if err != nil {
-			err = fmt.Errorf("event json unmarshal, err:%v", err)
+			err = fmt.Errorf("event message unmarshal failed:%v", err)
 			return "", err
 		}
 
 		if encrypt.Encrypt == "" {
-			err = fmt.Errorf("event json unmarshal error,%v", "encrypt content is blank")
+			err = fmt.Errorf("event  unmarshal failed,%s", "encrypted message is blank")
 			return "", err
 		}
 
@@ -69,7 +91,7 @@ func (d *EventReqDispatcher) DecryptEvent(ctx context.Context, cipherEventJsonSt
 	if d.eventEncryptKey != "" {
 		body, err := event.EventDecrypt(cipherEventJsonStr, d.eventEncryptKey)
 		if err != nil {
-			err = fmt.Errorf("event decrypt, err:%v", err)
+			err = fmt.Errorf("event message decryption failed:%v", err)
 			return "", err
 		}
 		return string(body), nil
@@ -108,10 +130,10 @@ func (d *EventReqDispatcher) VerifySign(ctx context.Context, req *event.EventReq
 	if targetSign == sourceSign {
 		return nil
 	}
-	return errors.New("signature verification error")
+	return errors.New("the result of signature verification failed")
 }
 
-func parse(plainEventJsonStr string) (event.WebhookType, string, string, string, error) {
+func parse(plainEventJsonStr string) (event.ReqType, string, string, string, error) {
 	fuzzy := &event.EventFuzzy{}
 	err := json.Unmarshal([]byte(plainEventJsonStr), fuzzy)
 	if err != nil {
@@ -123,7 +145,7 @@ func parse(plainEventJsonStr string) (event.WebhookType, string, string, string,
 		return "", "", "", "", err
 	}
 
-	hookType := event.WebhookType(fuzzy.Type)
+	reqType := event.ReqType(fuzzy.Type)
 	var eventType string
 	token := fuzzy.Token
 	challenge := fuzzy.Challenge
@@ -137,7 +159,7 @@ func parse(plainEventJsonStr string) (event.WebhookType, string, string, string,
 		eventType = fuzzy.Header.EventType
 	}
 
-	return hookType, challenge, token, eventType, nil
+	return reqType, challenge, token, eventType, nil
 }
 
 func (d *EventReqDispatcher) getErrorResp(ctx context.Context, header map[string][]string, err error) *event.EventResp {
@@ -150,21 +172,15 @@ func (d *EventReqDispatcher) getErrorResp(ctx context.Context, header map[string
 	return eventResp
 }
 
-func (d *EventReqDispatcher) VerifyUrl(ctx context.Context, plainEventJsonStr string) (*event.EventResp, error) {
-	// 解析数据
-	header := map[string][]string{}
-	header[event.ContentTypeHeader] = []string{event.DefaultContentType}
-	hookType, challenge, token, _, err := parse(plainEventJsonStr)
-	if err != nil {
-		return nil, err
-	}
-
-	// 处理url验证
-	if hookType == event.WebhookTypeChallenge {
+func (d *EventReqDispatcher) AuthByChallenge(ctx context.Context, reqType event.ReqType, challenge, token string) (*event.EventResp, error) {
+	if reqType == event.ReqTypeChallenge {
 		if token != d.verificationToken {
-			err = errors.New("event verificationToken not equal setting handler verificationToken")
+			err := errors.New("the result of auth by challenge failed")
 			return nil, err
 		}
+
+		header := map[string][]string{}
+		header[event.ContentTypeHeader] = []string{event.DefaultContentType}
 		eventResp := event.EventResp{
 			Header:     header,
 			Body:       []byte(fmt.Sprintf(event.ChallengeResponseFormat, challenge)),
@@ -177,13 +193,14 @@ func (d *EventReqDispatcher) VerifyUrl(ctx context.Context, plainEventJsonStr st
 
 }
 
-func (d *EventReqDispatcher) DoHandle(ctx context.Context, plainEventJsonStr string) (*event.EventResp, error) {
-	// 解析数据
-	header := map[string][]string{}
-	header[event.ContentTypeHeader] = []string{event.DefaultContentType}
-	_, _, _, eventType, err := parse(plainEventJsonStr)
+func (d *EventReqDispatcher) DoHandle(ctx context.Context, reqType event.ReqType, eventType, challenge, token, plainEventJsonStr string) (*event.EventResp, error) {
+	// auth by challenge
+	resp, err := d.AuthByChallenge(ctx, reqType, challenge, token)
 	if err != nil {
 		return nil, err
+	}
+	if resp != nil {
+		return resp, nil
 	}
 
 	// 查找处理器
@@ -209,14 +226,14 @@ func (d *EventReqDispatcher) DoHandle(ctx context.Context, plainEventJsonStr str
 	}
 
 	//返回结果
+	header := map[string][]string{}
+	header[event.ContentTypeHeader] = []string{event.DefaultContentType}
 	eventResp := &event.EventResp{
 		Header:     header,
 		Body:       []byte(fmt.Sprintf(event.WebhookResponseFormat, "success")),
 		StatusCode: http.StatusOK,
 	}
-
 	return eventResp, nil
-
 }
 
 type notFoundEventHandlerErr struct {

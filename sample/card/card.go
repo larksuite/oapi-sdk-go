@@ -8,6 +8,7 @@ import (
 
 	"github.com/larksuite/oapi-sdk-go/card"
 	"github.com/larksuite/oapi-sdk-go/core"
+	"github.com/larksuite/oapi-sdk-go/event"
 	"github.com/larksuite/oapi-sdk-go/httpserverext"
 )
 
@@ -61,17 +62,17 @@ func main() {
 		fmt.Println(core.Prettify(cardAction))
 
 		// 返回卡片消息
-		//return getCard(),nil
+		//return getCard(), nil
 
 		//custom resp
-		//return getCustomResp(),nil
+		return getCustomResp(), nil
 
 		// 无返回值
 		return nil, nil
 	})
 
 	// 注册处理器
-	http.HandleFunc("/webhook/card", httpserverext.NewCardActionHandlerFunc(cardHandler))
+	http.HandleFunc("/webhook/card", httpserverext.NewCardActionHandlerFunc(cardHandler, event.WithLogLevel(core.LogLevelDebug)))
 
 	// 开发者启动服务
 	err := http.ListenAndServe(":9999", nil)

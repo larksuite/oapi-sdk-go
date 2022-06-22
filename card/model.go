@@ -66,6 +66,8 @@ type CardAction struct {
 	TenantKey     string `json:"tenant_key"`
 	Token         string `json:"token"`
 	Timezone      string `json:"timezone"`
+	Challenge     string `json:"challenge"`
+	Type          string `json:"type"`
 
 	Action *struct {
 		Value    map[string]interface{} `json:"value"`

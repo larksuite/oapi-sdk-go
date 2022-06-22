@@ -18,54 +18,8 @@ type EventHandler interface {
 }
 
 type IReqHandler interface {
-	ParseReq(ctx context.Context, req *EventReq) (string, error)
-	DecryptEvent(ctx context.Context, cipherEventJsonStr string) (string, error)
-	VerifyUrl(ctx context.Context, plainEventJsonStr string) (*EventResp, error)
-	VerifySign(ctx context.Context, req *EventReq) error
-	DoHandle(ctx context.Context, plainEventJsonStr string) (*EventResp, error)
-}
-
-type ReqHandler struct {
-	IReqHandler
-	*core.Config
-}
-
-func (h *ReqHandler) Handle(ctx context.Context, req *EventReq) (*EventResp, error) {
-
-	// 解析请求
-	cipherEventJsonStr, err := h.IReqHandler.ParseReq(ctx, req)
-	if err != nil {
-		return nil, err
-	}
-
-	// 消息解密
-	plainEventJsonStr, err := h.IReqHandler.DecryptEvent(ctx, cipherEventJsonStr)
-	if err != nil {
-		return nil, err
-	}
-
-	// url验证逻辑处理
-	resp, err := h.IReqHandler.VerifyUrl(ctx, plainEventJsonStr)
-	if err != nil {
-		return nil, err
-	}
-	if resp != nil {
-		return resp, nil
-	}
-
-	// 签名验证
-	err = h.IReqHandler.VerifySign(ctx, req)
-	if err != nil {
-		return nil, err
-	}
-
-	// 执行逻辑
-	eventResp, err := h.IReqHandler.DoHandle(ctx, plainEventJsonStr)
-	if err != nil {
-		return nil, err
-	}
-
-	return eventResp, nil
+	Handle(ctx context.Context, req *EventReq) (*EventResp, error)
+	Logger() core.Logger
 }
 
 type DecryptErr struct {

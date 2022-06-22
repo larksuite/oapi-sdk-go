@@ -477,9 +477,9 @@ func testCreate(client *client.Client) {
 
 func main() {
 	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
-	var feishu_client = client.NewClient(appID, appSecret, client.WithLogLevel(core.LogLevelInfo), client.WithReqTimeout(3*time.Second))
+	var feishu_client = client.NewClient(appID, appSecret, client.WithLogLevel(core.LogLevelDebug), client.WithReqTimeout(7*time.Second))
 	//downLoadImageV2(feishu_client)
-	uploadImage(feishu_client)
+	//uploadImage(feishu_client)
 	//uploadImage(client)
 	//downLoadImage(client)
 	//uploadImage2(feishu_client)
@@ -493,5 +493,5 @@ func main() {
 	//sendShardUserMsg(client)
 	//sendPostMsg(feishu_client)
 	//sendPostMsgUseBuilder(feishu_client)
-	//testCreate(feishu_client)
+	testCreate(feishu_client)
 }

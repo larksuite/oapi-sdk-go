@@ -17,19 +17,40 @@ type CardActionHandler struct {
 	verificationToken string
 	eventEncryptKey   string
 	handler           func(context.Context, *CardAction) (interface{}, error)
-	event.ReqHandler
 	*core.Config
 }
 
-func NewReqHandlerTemplate(handler *CardActionHandler, options ...event.OptionFunc) *event.ReqHandler {
-	reqHandler := event.ReqHandler{IReqHandler: handler, Config: handler.Config}
-	for _, option := range options {
-		option(handler.Config)
+func (h *CardActionHandler) Handle(ctx context.Context, req *event.EventReq) (*event.EventResp, error) {
+	h.Config.Logger.Debug(ctx, fmt.Sprintf("card request: header:%v,body:%s", req.Header, string(req.Body)))
+
+	cardAction := &CardAction{}
+	err := json.Unmarshal(req.Body, cardAction)
+	if err != nil {
+		return nil, err
 	}
 
-	core.NewLogger(handler.Config)
-	return &reqHandler
+	if event.ReqType(cardAction.Type) != event.ReqTypeChallenge {
+		err = h.VerifySign(ctx, req)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	return h.DoHandle(ctx, cardAction)
+
 }
+
+func (h *CardActionHandler) Logger() core.Logger {
+	return h.Config.Logger
+}
+
+func (h *CardActionHandler) InitConfig(options ...event.OptionFunc) {
+	for _, option := range options {
+		option(h.Config)
+	}
+	core.NewLogger(h.Config)
+}
+
 func NewCardActionHandler(verificationToken, eventEncryptKey string, handler func(context.Context, *CardAction) (interface{}, error)) *CardActionHandler {
 	h := &CardActionHandler{
 		verificationToken: verificationToken,
@@ -46,22 +67,14 @@ func (h *CardActionHandler) Event() interface{} {
 
 var notFoundCardHandlerErr = errors.New("card action handler not found")
 
-func (h *CardActionHandler) VerifyUrl(ctx context.Context, plainEventJsonStr string) (*event.EventResp, error) {
-	// 反序列化
-	challengeMsg := &cardChallenge{}
-	err := json.Unmarshal([]byte(plainEventJsonStr), challengeMsg)
-	if err != nil {
-		return nil, err
-	}
-
-	//URL验证
+func (h *CardActionHandler) AuthByChallenge(ctx context.Context, cardAction *CardAction) (*event.EventResp, error) {
 	header := map[string][]string{}
 	header[event.ContentTypeHeader] = []string{event.DefaultContentType}
-	hookType := event.WebhookType(challengeMsg.Type)
-	challenge := challengeMsg.Challenge
-	if hookType == event.WebhookTypeChallenge {
-		if h.verificationToken != challengeMsg.Token {
-			err = errors.New("card verificationToken not equal setting handler verificationToken")
+	hookType := event.ReqType(cardAction.Type)
+	challenge := cardAction.Challenge
+	if hookType == event.ReqTypeChallenge {
+		if h.verificationToken != cardAction.Token {
+			err := errors.New("the result of auth by challenge failed")
 			return nil, err
 		}
 		eventResp := event.EventResp{
@@ -73,20 +86,24 @@ func (h *CardActionHandler) VerifyUrl(ctx context.Context, plainEventJsonStr str
 	}
 	return nil, nil
 }
-func (h *CardActionHandler) DoHandle(ctx context.Context, plainEventJsonStr string) (*event.EventResp, error) {
-	// 校验行为执行器
+func (h *CardActionHandler) DoHandle(ctx context.Context, cardAction *CardAction) (*event.EventResp, error) {
 	var err error
+	// auth by challenge
+	resp, err := h.AuthByChallenge(ctx, cardAction)
+	if err != nil {
+		return nil, err
+	}
+	if resp != nil {
+		return resp, nil
+	}
+
+	// 校验行为执行器
 	handler := h.handler
 	if handler == nil {
 		err = notFoundCardHandlerErr
 		return nil, err
 	}
-	// 反序列化事件内容
-	cardAction := &CardAction{}
-	err = json.Unmarshal([]byte(plainEventJsonStr), cardAction)
-	if err != nil {
-		return nil, err
-	}
+
 	// 执行事件行为处理器
 	result, err := handler(ctx, cardAction)
 	if err != nil {
@@ -132,15 +149,6 @@ func (h *CardActionHandler) DoHandle(ctx context.Context, plainEventJsonStr stri
 	return eventResp, err
 }
 
-func (h *CardActionHandler) ParseReq(ctx context.Context, req *event.EventReq) (string, error) {
-	h.Config.Logger.Debug(ctx, fmt.Sprintf("event request: header:%v,body:%s", req.Header, string(req.Body)))
-	return string(req.Body), nil
-}
-
-func (h *CardActionHandler) DecryptEvent(ctx context.Context, cipherEventJsonStr string) (string, error) {
-	return cipherEventJsonStr, nil
-}
-
 func (h *CardActionHandler) VerifySign(ctx context.Context, req *event.EventReq) error {
 	if h.verificationToken == "" {
 		return nil
@@ -174,7 +182,7 @@ func (h *CardActionHandler) VerifySign(ctx context.Context, req *event.EventReq)
 	if targetSign == sourceSign {
 		return nil
 	}
-	return errors.New("signature verification error")
+	return errors.New("the result of signature verification failed")
 }
 
 func Signature(timestamp, nonce, token, body string) string {
