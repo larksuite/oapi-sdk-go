@@ -165,16 +165,14 @@ func TestDoHandleResultError(t *testing.T) {
 func TestDoHandleResultCustomRespOk(t *testing.T) {
 	// 创建card处理器
 	cardHandler := NewCardActionHandler("12", "", func(ctx context.Context, cardAction *CardAction) (interface{}, error) {
-		//custom resp
-		toastBody := CustomToastBody{
-			Content: "sfsfsdfsd",
-			I18n: &I18n{
-				ZhCn: "ZhCn",
-				EnCn: "EnCn",
-				JaJp: "JaJp",
-			},
-		}
-		body, _ := json.Marshal(toastBody)
+		body := make(map[string]interface{})
+		body["content"] = "hello"
+
+		i18n := make(map[string]string)
+		i18n["zh_cn"] = "你好"
+		i18n["en_us"] = "hello"
+		i18n["ja_jp"] = "こんにちは"
+		body["i18n"] = i18n
 
 		resp := CustomResp{
 			StatusCode: 400,

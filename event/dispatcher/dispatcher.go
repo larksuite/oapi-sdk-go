@@ -11,7 +11,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/event"
 )
 
-type EventReqDispatcher struct {
+type EventDispatcher struct {
 	// 事件map,key为事件类型，value为事件处理器
 	eventType2EventHandler map[string]event.EventHandler
 	// 事件回调签名token，消息解密key
@@ -20,19 +20,19 @@ type EventReqDispatcher struct {
 	*core.Config
 }
 
-func (dispatcher *EventReqDispatcher) Logger() core.Logger {
+func (dispatcher *EventDispatcher) Logger() core.Logger {
 	return dispatcher.Config.Logger
 }
 
-func (d *EventReqDispatcher) InitConfig(options ...event.OptionFunc) {
+func (d *EventDispatcher) InitConfig(options ...event.OptionFunc) {
 	for _, option := range options {
 		option(d.Config)
 	}
 	core.NewLogger(d.Config)
 }
 
-func NewEventReqDispatcher(verificationToken, eventEncryptKey string) *EventReqDispatcher {
-	reqDispatcher := &EventReqDispatcher{
+func NewEventDispatcher(verificationToken, eventEncryptKey string) *EventDispatcher {
+	reqDispatcher := &EventDispatcher{
 		eventType2EventHandler: make(map[string]event.EventHandler),
 		verificationToken:      verificationToken,
 		eventEncryptKey:        eventEncryptKey,
@@ -44,7 +44,7 @@ func NewEventReqDispatcher(verificationToken, eventEncryptKey string) *EventReqD
 	return reqDispatcher
 }
 
-func (d *EventReqDispatcher) Handle(ctx context.Context, req *event.EventReq) (*event.EventResp, error) {
+func (d *EventDispatcher) Handle(ctx context.Context, req *event.EventReq) (*event.EventResp, error) {
 	cipherEventJsonStr, err := d.ParseReq(ctx, req)
 	if err != nil {
 		return nil, err
@@ -66,7 +66,7 @@ func (d *EventReqDispatcher) Handle(ctx context.Context, req *event.EventReq) (*
 	return d.DoHandle(ctx, reqType, eventType, challenge, token, plainEventJsonStr)
 
 }
-func (d *EventReqDispatcher) ParseReq(ctx context.Context, req *event.EventReq) (string, error) {
+func (d *EventDispatcher) ParseReq(ctx context.Context, req *event.EventReq) (string, error) {
 	d.Config.Logger.Debug(ctx, fmt.Sprintf("event request: header:%v,body:%s", req.Header, string(req.Body)))
 	if d.eventEncryptKey != "" {
 		var encrypt event.EventEncryptMsg
@@ -87,7 +87,7 @@ func (d *EventReqDispatcher) ParseReq(ctx context.Context, req *event.EventReq) 
 	return string(req.Body), nil
 }
 
-func (d *EventReqDispatcher) DecryptEvent(ctx context.Context, cipherEventJsonStr string) (string, error) {
+func (d *EventDispatcher) DecryptEvent(ctx context.Context, cipherEventJsonStr string) (string, error) {
 	if d.eventEncryptKey != "" {
 		body, err := event.EventDecrypt(cipherEventJsonStr, d.eventEncryptKey)
 		if err != nil {
@@ -99,7 +99,7 @@ func (d *EventReqDispatcher) DecryptEvent(ctx context.Context, cipherEventJsonSt
 	return cipherEventJsonStr, nil
 }
 
-func (d *EventReqDispatcher) VerifySign(ctx context.Context, req *event.EventReq) error {
+func (d *EventDispatcher) VerifySign(ctx context.Context, req *event.EventReq) error {
 	if d.eventEncryptKey == "" {
 		return nil
 	}
@@ -162,7 +162,7 @@ func parse(plainEventJsonStr string) (event.ReqType, string, string, string, err
 	return reqType, challenge, token, eventType, nil
 }
 
-func (d *EventReqDispatcher) getErrorResp(ctx context.Context, header map[string][]string, err error) *event.EventResp {
+func (d *EventDispatcher) getErrorResp(ctx context.Context, header map[string][]string, err error) *event.EventResp {
 	eventResp := &event.EventResp{
 		Header:     header,
 		Body:       []byte(fmt.Sprintf(event.WebhookResponseFormat, err.Error())),
@@ -172,7 +172,7 @@ func (d *EventReqDispatcher) getErrorResp(ctx context.Context, header map[string
 	return eventResp
 }
 
-func (d *EventReqDispatcher) AuthByChallenge(ctx context.Context, reqType event.ReqType, challenge, token string) (*event.EventResp, error) {
+func (d *EventDispatcher) AuthByChallenge(ctx context.Context, reqType event.ReqType, challenge, token string) (*event.EventResp, error) {
 	if reqType == event.ReqTypeChallenge {
 		if token != d.verificationToken {
 			err := errors.New("the result of auth by challenge failed")
@@ -193,7 +193,7 @@ func (d *EventReqDispatcher) AuthByChallenge(ctx context.Context, reqType event.
 
 }
 
-func (d *EventReqDispatcher) DoHandle(ctx context.Context, reqType event.ReqType, eventType, challenge, token, plainEventJsonStr string) (*event.EventResp, error) {
+func (d *EventDispatcher) DoHandle(ctx context.Context, reqType event.ReqType, eventType, challenge, token, plainEventJsonStr string) (*event.EventResp, error) {
 	// auth by challenge
 	resp, err := d.AuthByChallenge(ctx, reqType, challenge, token)
 	if err != nil {

@@ -130,9 +130,15 @@ func doSendRequest(ctx context.Context, config *Config, httpMethod string, httpP
 			return nil, err
 		}
 
-		config.Logger.Debug(ctx, fmt.Sprintf("req:%v", req))
+		if accessTokenType != accessTokenTypeNone {
+			config.Logger.Debug(ctx, fmt.Sprintf("req:%v", req))
+		} else {
+			config.Logger.Debug(ctx, fmt.Sprintf("req:%s,%s", httpMethod, httpPath))
+		}
 		rawResp, err = doSend(ctx, req, config.HttpClient)
-		config.Logger.Debug(ctx, fmt.Sprintf("req:%v,resp:%v", req, rawResp))
+		if accessTokenType != accessTokenTypeNone {
+			config.Logger.Debug(ctx, fmt.Sprintf("req:%v,resp:%v", req, rawResp))
+		}
 		_, isDialError := err.(*DialFailedError)
 		if err != nil && !isDialError {
 			return nil, err

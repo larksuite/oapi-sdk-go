@@ -84,7 +84,7 @@ type cardChallenge struct {
 }
 type CustomResp struct {
 	StatusCode int
-	Body       []byte
+	Body       map[string]interface{}
 }
 
 type CustomToastBody struct {

@@ -35,7 +35,7 @@ func mockEvent() []byte {
 }
 
 func TestVerifyUrlOk(t *testing.T) {
-	handler := NewEventReqDispatcher("v", "1212121212").OnMessageReceiveV1(func(ctx context.Context, event *im.MessageReceiveEvent) error {
+	handler := NewEventDispatcher("v", "1212121212").OnMessageReceiveV1(func(ctx context.Context, event *im.MessageReceiveEvent) error {
 		fmt.Println(core.Prettify(event))
 		return nil
 	}).OnUserCreatedV3(func(ctx context.Context, event *contact.UserCreatedEvent) error {
@@ -53,7 +53,7 @@ func TestVerifyUrlOk(t *testing.T) {
 
 func TestVerifyUrlFailed(t *testing.T) {
 	// 创建card处理器
-	handler := NewEventReqDispatcher("v", "1212121212").OnMessageReceiveV1(func(ctx context.Context, event *im.MessageReceiveEvent) error {
+	handler := NewEventDispatcher("v", "1212121212").OnMessageReceiveV1(func(ctx context.Context, event *im.MessageReceiveEvent) error {
 		fmt.Println(core.Prettify(event))
 		return nil
 	}).OnUserCreatedV3(func(ctx context.Context, event *contact.UserCreatedEvent) error {
@@ -93,7 +93,7 @@ func mockEventReq(token string) *event.EventReq {
 
 func TestParseReq(t *testing.T) {
 	// 创建card处理器
-	handler := NewEventReqDispatcher("", "").OnMessageReceiveV1(func(ctx context.Context, event *im.MessageReceiveEvent) error {
+	handler := NewEventDispatcher("", "").OnMessageReceiveV1(func(ctx context.Context, event *im.MessageReceiveEvent) error {
 		fmt.Println(core.Prettify(event))
 		return nil
 	}).OnUserCreatedV3(func(ctx context.Context, event *contact.UserCreatedEvent) error {
@@ -118,7 +118,7 @@ func TestParseReq(t *testing.T) {
 
 func TestDecryptEvent(t *testing.T) {
 	// 创建card处理器
-	handler := NewEventReqDispatcher("v", "1212121212").OnMessageReceiveV1(func(ctx context.Context, event *im.MessageReceiveEvent) error {
+	handler := NewEventDispatcher("v", "1212121212").OnMessageReceiveV1(func(ctx context.Context, event *im.MessageReceiveEvent) error {
 		fmt.Println(core.Prettify(event))
 		return nil
 	}).OnUserCreatedV3(func(ctx context.Context, event *contact.UserCreatedEvent) error {
@@ -141,7 +141,7 @@ func TestDecryptEvent(t *testing.T) {
 
 func TestVerifySignOk(t *testing.T) {
 	// 创建card处理器
-	handler := NewEventReqDispatcher("v", "1212121212").OnMessageReceiveV1(func(ctx context.Context, event *im.MessageReceiveEvent) error {
+	handler := NewEventDispatcher("v", "1212121212").OnMessageReceiveV1(func(ctx context.Context, event *im.MessageReceiveEvent) error {
 		fmt.Println(core.Prettify(event))
 		return nil
 	}).OnUserCreatedV3(func(ctx context.Context, event *contact.UserCreatedEvent) error {

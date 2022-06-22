@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"net/http"
 
@@ -39,15 +38,14 @@ func getCard() *card.CardAction {
 }
 
 func getCustomResp() interface{} {
-	toastBody := card.CustomToastBody{
-		Content: "sfsfsdfsd",
-		I18n: &card.I18n{
-			ZhCn: "ZhCn",
-			EnCn: "EnCn",
-			JaJp: "JaJp",
-		},
-	}
-	body, _ := json.Marshal(toastBody)
+	body := make(map[string]interface{})
+	body["content"] = "hello"
+
+	i18n := make(map[string]string)
+	i18n["zh_cn"] = "你好"
+	i18n["en_us"] = "hello"
+	i18n["ja_jp"] = "こんにちは"
+	body["i18n"] = i18n
 
 	resp := card.CustomResp{
 		StatusCode: 400,
@@ -62,10 +60,10 @@ func main() {
 		fmt.Println(core.Prettify(cardAction))
 
 		// 返回卡片消息
-		//return getCard(), nil
+		return getCard(), nil
 
 		//custom resp
-		return getCustomResp(), nil
+		//return getCustomResp(), nil
 
 		// 无返回值
 		return nil, nil

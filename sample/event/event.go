@@ -16,7 +16,7 @@ import (
 func main() {
 
 	//1212121212
-	handler := dispatcher.NewEventReqDispatcher("v", "1212121212").OnMessageReceiveV1(func(ctx context.Context, event *im.MessageReceiveEvent) error {
+	handler := dispatcher.NewEventDispatcher("v", "1212121212").OnMessageReceiveV1(func(ctx context.Context, event *im.MessageReceiveEvent) error {
 		fmt.Println(core.Prettify(event))
 		return nil
 	}).OnMessageMessageReadV1(func(ctx context.Context, event *im.MessageMessageReadEvent) error {

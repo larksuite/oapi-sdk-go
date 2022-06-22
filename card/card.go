@@ -130,9 +130,15 @@ func (h *CardActionHandler) DoHandle(ctx context.Context, cardAction *CardAction
 		if statusCode == 0 {
 			statusCode = http.StatusOK
 		}
+
+		b, err := json.Marshal(r.Body)
+		if err != nil {
+			return nil, err
+		}
+
 		eventResp := &event.EventResp{
 			Header:     header,
-			Body:       r.Body,
+			Body:       b,
 			StatusCode: statusCode,
 		}
 		return eventResp, nil
