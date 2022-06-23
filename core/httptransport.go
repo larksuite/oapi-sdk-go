@@ -49,6 +49,13 @@ func determineTokenType(accessTokenTypes []AccessTokenType, option *RequestOptio
 }
 
 func validate(config *Config, option *RequestOption, accessTokenType AccessTokenType) error {
+	if config.AppId == "" {
+		return &IllegalParamError{msg: "AppId is empty"}
+	}
+	if config.AppSecret == "" {
+		return &IllegalParamError{msg: "AppSecret is empty"}
+	}
+
 	if config.EnableTokenCache == false && option.UserAccessToken == "" && option.TenantAccessToken == "" && option.AppAccessToken == "" {
 		return &IllegalParamError{msg: "accessToken is empty"}
 	}

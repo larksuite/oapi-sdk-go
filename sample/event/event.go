@@ -9,7 +9,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/event"
 	"github.com/larksuite/oapi-sdk-go/event/dispatcher"
 	"github.com/larksuite/oapi-sdk-go/httpserverext"
-	"github.com/larksuite/oapi-sdk-go/service/contact/v3"
 	"github.com/larksuite/oapi-sdk-go/service/im/v1"
 )
 
@@ -22,10 +21,11 @@ func main() {
 	}).OnMessageMessageReadV1(func(ctx context.Context, event *im.MessageMessageReadEvent) error {
 		fmt.Println(core.Prettify(event))
 		return nil
-	}).OnUserCreatedV3(func(ctx context.Context, event *contact.UserCreatedEvent) error {
-		fmt.Println(core.Prettify(event))
-		return nil
 	})
+	//.OnUserCreatedV3(func(ctx context.Context, event *contact.UserCreatedEvent) error {
+	//	fmt.Println(core.Prettify(event))
+	//	return nil
+	//})
 
 	http.HandleFunc("/webhook/event", httpserverext.NewEventHandlerFunc(handler, event.WithLogLevel(core.LogLevelDebug)))
 

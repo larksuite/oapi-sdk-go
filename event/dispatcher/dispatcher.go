@@ -207,7 +207,14 @@ func (d *EventDispatcher) DoHandle(ctx context.Context, reqType event.ReqType, e
 	handler := d.eventType2EventHandler[eventType]
 	if handler == nil {
 		err = &notFoundEventHandlerErr{eventType: eventType}
-		return nil, err
+		header := map[string][]string{}
+		header[event.ContentTypeHeader] = []string{event.DefaultContentType}
+		eventResp := &event.EventResp{
+			Header:     header,
+			Body:       []byte(fmt.Sprintf(event.WebhookResponseFormat, err.Error())),
+			StatusCode: http.StatusOK,
+		}
+		return eventResp, nil
 	}
 
 	// 反序列化
