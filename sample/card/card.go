@@ -56,7 +56,7 @@ func getCustomResp() interface{} {
 func main() {
 
 	// 创建card处理器
-	cardHandler := card.NewCardActionHandler("12", "", func(ctx context.Context, cardAction *card.CardAction) (interface{}, error) {
+	cardHandler := card.NewCardActionHandler("v", "", func(ctx context.Context, cardAction *card.CardAction) (interface{}, error) {
 		fmt.Println(core.Prettify(cardAction))
 
 		// 返回卡片消息

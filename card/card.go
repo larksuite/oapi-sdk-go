@@ -20,24 +20,40 @@ type CardActionHandler struct {
 	*core.Config
 }
 
-func (h *CardActionHandler) Handle(ctx context.Context, req *event.EventReq) (*event.EventResp, error) {
+func processError(ctx context.Context, logger core.Logger, err error) *event.EventResp {
+	header := map[string][]string{}
+	statusCode := http.StatusInternalServerError
+	header[event.ContentTypeHeader] = []string{event.DefaultContentType}
+	eventResp := &event.EventResp{
+		Header:     header,
+		Body:       []byte(fmt.Sprintf(event.WebhookResponseFormat, err.Error())),
+		StatusCode: statusCode,
+	}
+	logger.Error(ctx, fmt.Sprintf("card handle err: %v", err))
+	return eventResp
+}
+
+func (h *CardActionHandler) Handle(ctx context.Context, req *event.EventReq) *event.EventResp {
 	h.Config.Logger.Debug(ctx, fmt.Sprintf("card request: header:%v,body:%s", req.Header, string(req.Body)))
 
 	cardAction := &CardAction{}
 	err := json.Unmarshal(req.Body, cardAction)
 	if err != nil {
-		return nil, err
+		return processError(ctx, h.Config.Logger, err)
 	}
 
 	if event.ReqType(cardAction.Type) != event.ReqTypeChallenge {
 		err = h.VerifySign(ctx, req)
 		if err != nil {
-			return nil, err
+			return processError(ctx, h.Config.Logger, err)
 		}
 	}
 
-	return h.DoHandle(ctx, cardAction)
-
+	result, err := h.DoHandle(ctx, cardAction)
+	if err != nil {
+		return processError(ctx, h.Config.Logger, err)
+	}
+	return result
 }
 
 func (h *CardActionHandler) Logger() core.Logger {

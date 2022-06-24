@@ -7,7 +7,6 @@ import (
 	"net/http"
 
 	"github.com/larksuite/oapi-sdk-go/card"
-	"github.com/larksuite/oapi-sdk-go/core"
 	"github.com/larksuite/oapi-sdk-go/event"
 	"github.com/larksuite/oapi-sdk-go/event/dispatcher"
 )
@@ -22,11 +21,8 @@ func doProcess(writer http.ResponseWriter, req *http.Request, reqHandler event.I
 		return
 	}
 
-	//处理请求
-	eventResp, err := reqHandler.Handle(ctx, eventReq)
-	if err != nil {
-		eventResp = processError(ctx, reqHandler.Logger(), req.RequestURI, err)
-	}
+	// 处理请求
+	eventResp := reqHandler.Handle(ctx, eventReq)
 
 	// 回写结果
 	err = write(ctx, writer, eventResp)
@@ -47,19 +43,6 @@ func NewEventHandlerFunc(eventDispatcher *dispatcher.EventDispatcher, options ..
 	return func(writer http.ResponseWriter, req *http.Request) {
 		doProcess(writer, req, eventDispatcher)
 	}
-}
-
-func processError(ctx context.Context, logger core.Logger, path string, err error) *event.EventResp {
-	header := map[string][]string{}
-	statusCode := http.StatusInternalServerError
-	header[event.ContentTypeHeader] = []string{event.DefaultContentType}
-	eventResp := &event.EventResp{
-		Header:     header,
-		Body:       []byte(fmt.Sprintf(event.WebhookResponseFormat, err.Error())),
-		StatusCode: statusCode,
-	}
-	logger.Error(ctx, fmt.Sprintf("event handle err:%s, %v", path, err))
-	return eventResp
 }
 
 func write(ctx context.Context, writer http.ResponseWriter, eventResp *event.EventResp) error {

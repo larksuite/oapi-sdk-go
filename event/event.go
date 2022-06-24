@@ -18,7 +18,7 @@ type EventHandler interface {
 }
 
 type IReqHandler interface {
-	Handle(ctx context.Context, req *EventReq) (*EventResp, error)
+	Handle(ctx context.Context, req *EventReq) *EventResp
 	Logger() core.Logger
 }
 

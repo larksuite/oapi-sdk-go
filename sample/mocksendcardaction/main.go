@@ -13,7 +13,7 @@ import (
 )
 
 func mockCardAction() []byte {
-	var token = "12"
+	var token = "v"
 	value := map[string]interface{}{}
 	value["value"] = "sdfsfd"
 	value["tag"] = "button"
@@ -58,7 +58,7 @@ func main() {
 	// 计算签名
 	var timestamp = "timestamp"
 	var nonce = "nonce"
-	var token = "12"
+	var token = "v"
 	sourceSign := card.Signature(timestamp, nonce, token, string(body))
 
 	// 添加header

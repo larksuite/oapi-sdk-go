@@ -182,3 +182,4 @@ func initService(client *Client, httpClient *http.Client, config *core.Config) {
 }
 
 var FeishuDomain = "https://open.feishu.cn"
+var LarkDomain = "https://open.larksuite.com"
