@@ -11,29 +11,29 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
-/**生成枚举值 **/
+// 生成枚举值
 
 const (
-	UserIdTypeUserId  string = "user_id"
-	UserIdTypeUnionId string = "union_id"
-	UserIdTypeOpenId  string = "open_id"
+	UserIdTypeUserId  = "user_id"
+	UserIdTypeUnionId = "union_id"
+	UserIdTypeOpenId  = "open_id"
 )
 
 const (
-	TopUserOrderByMeetingCount    string = "1"
-	TopUserOrderByMeetingDuration string = "2"
+	TopUserOrderByMeetingCount    = 1
+	TopUserOrderByMeetingDuration = 2
 )
 
 const (
-	NodeScopeTenant          string = "1"
-	NodeScopeCountryDistrict string = "2"
-	NodeScopeCity            string = "3"
-	NodeScopeBuilding        string = "4"
-	NodeScopeFloor           string = "5"
-	NodeScopeRoom            string = "6"
+	NodeScopeTenant          = 1
+	NodeScopeCountryDistrict = 2
+	NodeScopeCity            = 3
+	NodeScopeBuilding        = 4
+	NodeScopeFloor           = 5
+	NodeScopeRoom            = 6
 )
 
-/**生成数据类型 **/
+// 生成数据类型
 
 type Material struct {
 	Name           *string `json:"name,omitempty"`
@@ -45,7 +45,7 @@ type Material struct {
 	MaterialSource *int    `json:"material_source,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type MaterialBuilder struct {
 	name               string
 	nameFlag           bool
@@ -137,14 +137,14 @@ func (builder *MaterialBuilder) Build() *Material {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type MaterialDeleteResult struct {
 	FileToken *string `json:"file_token,omitempty"`
 	Result    *int    `json:"result,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type MaterialDeleteResultBuilder struct {
 	fileToken     string
 	fileTokenFlag bool
@@ -181,14 +181,14 @@ func (builder *MaterialDeleteResultBuilder) Build() *MaterialDeleteResult {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type MaterialReviewResult struct {
 	FileToken *string `json:"file_token,omitempty"`
 	Result    *int    `json:"result,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type MaterialReviewResultBuilder struct {
 	fileToken     string
 	fileTokenFlag bool
@@ -225,14 +225,14 @@ func (builder *MaterialReviewResultBuilder) Build() *MaterialReviewResult {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type MaterialUploadResult struct {
 	FileToken *string `json:"file_token,omitempty"`
 	Result    *int    `json:"result,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type MaterialUploadResultBuilder struct {
 	fileToken     string
 	fileTokenFlag bool
@@ -269,7 +269,7 @@ func (builder *MaterialUploadResultBuilder) Build() *MaterialUploadResult {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Meeting struct {
 	Id                          *int64                `json:"id,omitempty,string"`
@@ -287,7 +287,7 @@ type Meeting struct {
 	Ability                     *MeetingAbility       `json:"ability,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type MeetingBuilder struct {
 	id                              int64
 	idFlag                          bool
@@ -442,7 +442,7 @@ func (builder *MeetingBuilder) Build() *Meeting {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type MeetingRecording struct {
 	Id        *int64  `json:"id,omitempty,string"`
@@ -451,7 +451,7 @@ type MeetingRecording struct {
 	Duration  *int64  `json:"duration,omitempty,string"`
 }
 
-/**builder开始**/
+// builder开始
 type MeetingRecordingBuilder struct {
 	id            int64
 	idFlag        bool
@@ -510,7 +510,7 @@ func (builder *MeetingRecordingBuilder) Build() *MeetingRecording {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type MeetingAbility struct {
 	UseVideo        *bool `json:"use_video,omitempty"`
@@ -521,7 +521,7 @@ type MeetingAbility struct {
 	UsePstn         *bool `json:"use_pstn,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type MeetingAbilityBuilder struct {
 	useVideo            bool
 	useVideoFlag        bool
@@ -602,7 +602,7 @@ func (builder *MeetingAbilityBuilder) Build() *MeetingAbility {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type MeetingEventMeeting struct {
 	Id        *int64            `json:"id,omitempty,string"`
@@ -614,7 +614,7 @@ type MeetingEventMeeting struct {
 	Owner     *MeetingEventUser `json:"owner,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type MeetingEventMeetingBuilder struct {
 	id            int64
 	idFlag        bool
@@ -704,7 +704,7 @@ func (builder *MeetingEventMeetingBuilder) Build() *MeetingEventMeeting {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type MeetingEventUser struct {
 	Id       *UserId `json:"id,omitempty"`
@@ -712,7 +712,7 @@ type MeetingEventUser struct {
 	UserType *int    `json:"user_type,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type MeetingEventUserBuilder struct {
 	id           *UserId
 	idFlag       bool
@@ -759,7 +759,7 @@ func (builder *MeetingEventUserBuilder) Build() *MeetingEventUser {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type MeetingInviteStatus struct {
 	Id       *string `json:"id,omitempty"`
@@ -767,7 +767,7 @@ type MeetingInviteStatus struct {
 	Status   *int    `json:"status,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type MeetingInviteStatusBuilder struct {
 	id           string
 	idFlag       bool
@@ -815,7 +815,7 @@ func (builder *MeetingInviteStatusBuilder) Build() *MeetingInviteStatus {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type MeetingParticipant struct {
 	Id                *string `json:"id,omitempty"`
@@ -829,7 +829,7 @@ type MeetingParticipant struct {
 	Status            *int    `json:"status,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type MeetingParticipantBuilder struct {
 	id                    string
 	idFlag                bool
@@ -943,7 +943,7 @@ func (builder *MeetingParticipantBuilder) Build() *MeetingParticipant {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type MeetingParticipantResult struct {
 	Id       *string `json:"id,omitempty"`
@@ -951,7 +951,7 @@ type MeetingParticipantResult struct {
 	Result   *int    `json:"result,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type MeetingParticipantResultBuilder struct {
 	id           string
 	idFlag       bool
@@ -999,14 +999,14 @@ func (builder *MeetingParticipantResultBuilder) Build() *MeetingParticipantResul
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type MeetingUser struct {
 	Id       *string `json:"id,omitempty"`
 	UserType *int    `json:"user_type,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type MeetingUserBuilder struct {
 	id           string
 	idFlag       bool
@@ -1043,14 +1043,14 @@ func (builder *MeetingUserBuilder) Build() *MeetingUser {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type PstnSipInfo struct {
 	Nickname    *string `json:"nickname,omitempty"`
 	MainAddress *string `json:"main_address,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type PstnSipInfoBuilder struct {
 	nickname        string
 	nicknameFlag    bool
@@ -1087,7 +1087,7 @@ func (builder *PstnSipInfoBuilder) Build() *PstnSipInfo {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type RecordingPermissionObject struct {
 	Id         *string `json:"id,omitempty"`
@@ -1095,7 +1095,7 @@ type RecordingPermissionObject struct {
 	Permission *int    `json:"permission,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type RecordingPermissionObjectBuilder struct {
 	id             string
 	idFlag         bool
@@ -1143,7 +1143,7 @@ func (builder *RecordingPermissionObjectBuilder) Build() *RecordingPermissionObj
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Report struct {
 	TotalMeetingCount     *int64                `json:"total_meeting_count,omitempty,string"`
@@ -1152,7 +1152,7 @@ type Report struct {
 	DailyReport           []*ReportMeetingDaily `json:"daily_report,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ReportBuilder struct {
 	totalMeetingCount         int64
 	totalMeetingCountFlag     bool
@@ -1210,7 +1210,7 @@ func (builder *ReportBuilder) Build() *Report {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ReportMeetingDaily struct {
 	Date             *int64 `json:"date,omitempty,string"`
@@ -1219,7 +1219,7 @@ type ReportMeetingDaily struct {
 	ParticipantCount *int64 `json:"participant_count,omitempty,string"`
 }
 
-/**builder开始**/
+// builder开始
 type ReportMeetingDailyBuilder struct {
 	date                 int64
 	dateFlag             bool
@@ -1278,7 +1278,7 @@ func (builder *ReportMeetingDailyBuilder) Build() *ReportMeetingDaily {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ReportTopUser struct {
 	Id              *int64  `json:"id,omitempty,string"`
@@ -1288,7 +1288,7 @@ type ReportTopUser struct {
 	MeetingDuration *int64  `json:"meeting_duration,omitempty,string"`
 }
 
-/**builder开始**/
+// builder开始
 type ReportTopUserBuilder struct {
 	id                  int64
 	idFlag              bool
@@ -1358,7 +1358,7 @@ func (builder *ReportTopUserBuilder) Build() *ReportTopUser {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Reserve struct {
 	Id              *int64                 `json:"id,omitempty,string"`
@@ -1372,7 +1372,7 @@ type Reserve struct {
 	MeetingSettings *ReserveMeetingSetting `json:"meeting_settings,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ReserveBuilder struct {
 	id                  int64
 	idFlag              bool
@@ -1485,14 +1485,14 @@ func (builder *ReserveBuilder) Build() *Reserve {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ReserveActionPermission struct {
 	Permission         *int                        `json:"permission,omitempty"`
 	PermissionCheckers []*ReservePermissionChecker `json:"permission_checkers,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ReserveActionPermissionBuilder struct {
 	permission             int
 	permissionFlag         bool
@@ -1528,13 +1528,13 @@ func (builder *ReserveActionPermissionBuilder) Build() *ReserveActionPermission 
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ReserveCallSetting struct {
 	Callee *ReserveCallee `json:"callee,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ReserveCallSettingBuilder struct {
 	callee     *ReserveCallee
 	calleeFlag bool
@@ -1559,7 +1559,7 @@ func (builder *ReserveCallSettingBuilder) Build() *ReserveCallSetting {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ReserveCallee struct {
 	Id          *string      `json:"id,omitempty"`
@@ -1567,7 +1567,7 @@ type ReserveCallee struct {
 	PstnSipInfo *PstnSipInfo `json:"pstn_sip_info,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ReserveCalleeBuilder struct {
 	id              string
 	idFlag          bool
@@ -1614,7 +1614,7 @@ func (builder *ReserveCalleeBuilder) Build() *ReserveCallee {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ReserveMeetingSetting struct {
 	Topic              *string                    `json:"topic,omitempty"`
@@ -1623,7 +1623,7 @@ type ReserveMeetingSetting struct {
 	CallSetting        *ReserveCallSetting        `json:"call_setting,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ReserveMeetingSettingBuilder struct {
 	topic                  string
 	topicFlag              bool
@@ -1680,7 +1680,7 @@ func (builder *ReserveMeetingSettingBuilder) Build() *ReserveMeetingSetting {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ReservePermissionChecker struct {
 	CheckField *int     `json:"check_field,omitempty"`
@@ -1688,7 +1688,7 @@ type ReservePermissionChecker struct {
 	CheckList  []string `json:"check_list,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ReservePermissionCheckerBuilder struct {
 	checkField     int
 	checkFieldFlag bool
@@ -1735,7 +1735,7 @@ func (builder *ReservePermissionCheckerBuilder) Build() *ReservePermissionChecke
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type RoomConfig struct {
 	RoomBackground        *string             `json:"room_background,omitempty"`
@@ -1745,7 +1745,7 @@ type RoomConfig struct {
 	RoomStatus            *RoomStatus         `json:"room_status,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type RoomConfigBuilder struct {
 	roomBackground            string
 	roomBackgroundFlag        bool
@@ -1812,7 +1812,7 @@ func (builder *RoomConfigBuilder) Build() *RoomConfig {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type RoomDigitalSignage struct {
 	Enable       *bool                         `json:"enable,omitempty"`
@@ -1822,7 +1822,7 @@ type RoomDigitalSignage struct {
 	Materials    []*RoomDigitalSignageMaterial `json:"materials,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type RoomDigitalSignageBuilder struct {
 	enable           bool
 	enableFlag       bool
@@ -1891,7 +1891,7 @@ func (builder *RoomDigitalSignageBuilder) Build() *RoomDigitalSignage {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type RoomDigitalSignageMaterial struct {
 	Id           *string `json:"id,omitempty"`
@@ -1905,7 +1905,7 @@ type RoomDigitalSignageMaterial struct {
 	Size         *string `json:"size,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type RoomDigitalSignageMaterialBuilder struct {
 	id               string
 	idFlag           bool
@@ -2019,7 +2019,7 @@ func (builder *RoomDigitalSignageMaterialBuilder) Build() *RoomDigitalSignageMat
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type RoomStatus struct {
 	Status           *bool    `json:"status,omitempty"`
@@ -2032,7 +2032,7 @@ type RoomStatus struct {
 	ResumeNotice     *bool    `json:"resume_notice,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type RoomStatusBuilder struct {
 	status               bool
 	statusFlag           bool
@@ -2134,7 +2134,7 @@ func (builder *RoomStatusBuilder) Build() *RoomStatus {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type UserId struct {
 	UserId  *string `json:"user_id,omitempty"`
@@ -2142,7 +2142,7 @@ type UserId struct {
 	UnionId *string `json:"union_id,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type UserIdBuilder struct {
 	userId      string
 	userIdFlag  bool
@@ -2190,11 +2190,11 @@ func (builder *UserIdBuilder) Build() *UserId {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
-/**生成请求和响应结果类型，以及请求对象的Builder构造器 **/
+// 生成请求和响应结果类型，以及请求对象的Builder构造器
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type EndMeetingReqBuilder struct {
 	meetingId     int64
 	meetingIdFlag bool
@@ -2206,14 +2206,14 @@ func NewEndMeetingReqBuilder() *EndMeetingReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *EndMeetingReqBuilder) MeetingId(meetingId int64) *EndMeetingReqBuilder {
 	builder.meetingId = meetingId
 	builder.meetingIdFlag = true
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *EndMeetingReqBuilder) Build() *EndMeetingReq {
 	req := &EndMeetingReq{}
 	if builder.meetingIdFlag {
@@ -2235,7 +2235,7 @@ func (resp *EndMeetingResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type GetMeetingReqBuilder struct {
 	meetingId              int64
 	meetingIdFlag          bool
@@ -2253,7 +2253,7 @@ func NewGetMeetingReqBuilder() *GetMeetingReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *GetMeetingReqBuilder) MeetingId(meetingId int64) *GetMeetingReqBuilder {
 	builder.meetingId = meetingId
 	builder.meetingIdFlag = true
@@ -2275,7 +2275,7 @@ func (builder *GetMeetingReqBuilder) UserIdType(userIdType string) *GetMeetingRe
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *GetMeetingReqBuilder) Build() *GetMeetingReq {
 	req := &GetMeetingReq{}
 	if builder.meetingIdFlag {
@@ -2325,14 +2325,14 @@ func NewInviteMeetingReqBodyBuilder() *InviteMeetingReqBodyBuilder {
 	return builder
 }
 
-/*1.2 生成body的builder属性方法*/
+// 1.2 生成body的builder属性方法
 func (builder *InviteMeetingReqBodyBuilder) Invitees(invitees []*MeetingUser) *InviteMeetingReqBodyBuilder {
 	builder.invitees = invitees
 	builder.inviteesFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
+// 1.3 生成body的build方法
 func (builder *InviteMeetingReqBodyBuilder) Build() *InviteMeetingReqBody {
 	req := &InviteMeetingReqBody{}
 	if builder.inviteesFlag {
@@ -2342,7 +2342,7 @@ func (builder *InviteMeetingReqBodyBuilder) Build() *InviteMeetingReqBody {
 	return req
 }
 
-/**上传文件path开始**/
+// 上传文件path开始
 type InviteMeetingPathReqBodyBuilder struct {
 	invitees     []*MeetingUser
 	inviteesFlag bool
@@ -2366,9 +2366,9 @@ func (builder *InviteMeetingPathReqBodyBuilder) Build() (*InviteMeetingReqBody, 
 	return req, nil
 }
 
-/**上传文件path结束**/
+// 上传文件path结束
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type InviteMeetingReqBuilder struct {
 	meetingId      int64
 	meetingIdFlag  bool
@@ -2384,7 +2384,7 @@ func NewInviteMeetingReqBuilder() *InviteMeetingReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *InviteMeetingReqBuilder) MeetingId(meetingId int64) *InviteMeetingReqBuilder {
 	builder.meetingId = meetingId
 	builder.meetingIdFlag = true
@@ -2401,7 +2401,7 @@ func (builder *InviteMeetingReqBuilder) Body(body *InviteMeetingReqBody) *Invite
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *InviteMeetingReqBuilder) Build() *InviteMeetingReq {
 	req := &InviteMeetingReq{}
 	if builder.meetingIdFlag {
@@ -2451,14 +2451,14 @@ func NewKickoutMeetingReqBodyBuilder() *KickoutMeetingReqBodyBuilder {
 	return builder
 }
 
-/*1.2 生成body的builder属性方法*/
+// 1.2 生成body的builder属性方法
 func (builder *KickoutMeetingReqBodyBuilder) KickoutUsers(kickoutUsers []*MeetingUser) *KickoutMeetingReqBodyBuilder {
 	builder.kickoutUsers = kickoutUsers
 	builder.kickoutUsersFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
+// 1.3 生成body的build方法
 func (builder *KickoutMeetingReqBodyBuilder) Build() *KickoutMeetingReqBody {
 	req := &KickoutMeetingReqBody{}
 	if builder.kickoutUsersFlag {
@@ -2468,7 +2468,7 @@ func (builder *KickoutMeetingReqBodyBuilder) Build() *KickoutMeetingReqBody {
 	return req
 }
 
-/**上传文件path开始**/
+// 上传文件path开始
 type KickoutMeetingPathReqBodyBuilder struct {
 	kickoutUsers     []*MeetingUser
 	kickoutUsersFlag bool
@@ -2492,9 +2492,9 @@ func (builder *KickoutMeetingPathReqBodyBuilder) Build() (*KickoutMeetingReqBody
 	return req, nil
 }
 
-/**上传文件path结束**/
+// 上传文件path结束
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type KickoutMeetingReqBuilder struct {
 	meetingId      int64
 	meetingIdFlag  bool
@@ -2510,7 +2510,7 @@ func NewKickoutMeetingReqBuilder() *KickoutMeetingReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *KickoutMeetingReqBuilder) MeetingId(meetingId int64) *KickoutMeetingReqBuilder {
 	builder.meetingId = meetingId
 	builder.meetingIdFlag = true
@@ -2527,7 +2527,7 @@ func (builder *KickoutMeetingReqBuilder) Body(body *KickoutMeetingReqBody) *Kick
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *KickoutMeetingReqBuilder) Build() *KickoutMeetingReq {
 	req := &KickoutMeetingReq{}
 	if builder.meetingIdFlag {
@@ -2566,7 +2566,7 @@ func (resp *KickoutMeetingResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type ListByNoMeetingReqBuilder struct {
 	meetingNo     string
 	meetingNoFlag bool
@@ -2587,7 +2587,7 @@ func NewListByNoMeetingReqBuilder() *ListByNoMeetingReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *ListByNoMeetingReqBuilder) Limit(limit int) *ListByNoMeetingReqBuilder {
 	builder.limit = limit
 	return builder
@@ -2618,7 +2618,7 @@ func (builder *ListByNoMeetingReqBuilder) PageSize(pageSize int) *ListByNoMeetin
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *ListByNoMeetingReqBuilder) Build() *ListByNoMeetingReq {
 	req := &ListByNoMeetingReq{}
 	req.Limit = builder.limit
@@ -2678,7 +2678,7 @@ func NewSetHostMeetingReqBodyBuilder() *SetHostMeetingReqBodyBuilder {
 	return builder
 }
 
-/*1.2 生成body的builder属性方法*/
+// 1.2 生成body的builder属性方法
 func (builder *SetHostMeetingReqBodyBuilder) HostUser(hostUser *MeetingUser) *SetHostMeetingReqBodyBuilder {
 	builder.hostUser = hostUser
 	builder.hostUserFlag = true
@@ -2690,7 +2690,7 @@ func (builder *SetHostMeetingReqBodyBuilder) OldHostUser(oldHostUser *MeetingUse
 	return builder
 }
 
-/*1.3 生成body的build方法*/
+// 1.3 生成body的build方法
 func (builder *SetHostMeetingReqBodyBuilder) Build() *SetHostMeetingReqBody {
 	req := &SetHostMeetingReqBody{}
 	if builder.hostUserFlag {
@@ -2704,7 +2704,7 @@ func (builder *SetHostMeetingReqBodyBuilder) Build() *SetHostMeetingReqBody {
 	return req
 }
 
-/**上传文件path开始**/
+// 上传文件path开始
 type SetHostMeetingPathReqBodyBuilder struct {
 	hostUser        *MeetingUser
 	hostUserFlag    bool
@@ -2738,9 +2738,9 @@ func (builder *SetHostMeetingPathReqBodyBuilder) Build() (*SetHostMeetingReqBody
 	return req, nil
 }
 
-/**上传文件path结束**/
+// 上传文件path结束
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type SetHostMeetingReqBuilder struct {
 	meetingId      int64
 	meetingIdFlag  bool
@@ -2756,7 +2756,7 @@ func NewSetHostMeetingReqBuilder() *SetHostMeetingReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *SetHostMeetingReqBuilder) MeetingId(meetingId int64) *SetHostMeetingReqBuilder {
 	builder.meetingId = meetingId
 	builder.meetingIdFlag = true
@@ -2773,7 +2773,7 @@ func (builder *SetHostMeetingReqBuilder) Body(body *SetHostMeetingReqBody) *SetH
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *SetHostMeetingReqBuilder) Build() *SetHostMeetingReq {
 	req := &SetHostMeetingReq{}
 	if builder.meetingIdFlag {
@@ -2813,7 +2813,7 @@ func (resp *SetHostMeetingResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type GetMeetingRecordingReqBuilder struct {
 	meetingId     int64
 	meetingIdFlag bool
@@ -2825,14 +2825,14 @@ func NewGetMeetingRecordingReqBuilder() *GetMeetingRecordingReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *GetMeetingRecordingReqBuilder) MeetingId(meetingId int64) *GetMeetingRecordingReqBuilder {
 	builder.meetingId = meetingId
 	builder.meetingIdFlag = true
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *GetMeetingRecordingReqBuilder) Build() *GetMeetingRecordingReq {
 	req := &GetMeetingRecordingReq{}
 	if builder.meetingIdFlag {
@@ -2870,14 +2870,14 @@ func NewSetPermissionMeetingRecordingReqBodyBuilder() *SetPermissionMeetingRecor
 	return builder
 }
 
-/*1.2 生成body的builder属性方法*/
+// 1.2 生成body的builder属性方法
 func (builder *SetPermissionMeetingRecordingReqBodyBuilder) PermissionObjects(permissionObjects []*RecordingPermissionObject) *SetPermissionMeetingRecordingReqBodyBuilder {
 	builder.permissionObjects = permissionObjects
 	builder.permissionObjectsFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
+// 1.3 生成body的build方法
 func (builder *SetPermissionMeetingRecordingReqBodyBuilder) Build() *SetPermissionMeetingRecordingReqBody {
 	req := &SetPermissionMeetingRecordingReqBody{}
 	if builder.permissionObjectsFlag {
@@ -2887,7 +2887,7 @@ func (builder *SetPermissionMeetingRecordingReqBodyBuilder) Build() *SetPermissi
 	return req
 }
 
-/**上传文件path开始**/
+// 上传文件path开始
 type SetPermissionMeetingRecordingPathReqBodyBuilder struct {
 	permissionObjects     []*RecordingPermissionObject
 	permissionObjectsFlag bool
@@ -2911,9 +2911,9 @@ func (builder *SetPermissionMeetingRecordingPathReqBodyBuilder) Build() (*SetPer
 	return req, nil
 }
 
-/**上传文件path结束**/
+// 上传文件path结束
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type SetPermissionMeetingRecordingReqBuilder struct {
 	meetingId      int64
 	meetingIdFlag  bool
@@ -2929,7 +2929,7 @@ func NewSetPermissionMeetingRecordingReqBuilder() *SetPermissionMeetingRecording
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *SetPermissionMeetingRecordingReqBuilder) MeetingId(meetingId int64) *SetPermissionMeetingRecordingReqBuilder {
 	builder.meetingId = meetingId
 	builder.meetingIdFlag = true
@@ -2946,7 +2946,7 @@ func (builder *SetPermissionMeetingRecordingReqBuilder) Body(body *SetPermission
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *SetPermissionMeetingRecordingReqBuilder) Build() *SetPermissionMeetingRecordingReq {
 	req := &SetPermissionMeetingRecordingReq{}
 	if builder.meetingIdFlag {
@@ -2991,14 +2991,14 @@ func NewStartMeetingRecordingReqBodyBuilder() *StartMeetingRecordingReqBodyBuild
 	return builder
 }
 
-/*1.2 生成body的builder属性方法*/
+// 1.2 生成body的builder属性方法
 func (builder *StartMeetingRecordingReqBodyBuilder) Timezone(timezone int) *StartMeetingRecordingReqBodyBuilder {
 	builder.timezone = timezone
 	builder.timezoneFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
+// 1.3 生成body的build方法
 func (builder *StartMeetingRecordingReqBodyBuilder) Build() *StartMeetingRecordingReqBody {
 	req := &StartMeetingRecordingReqBody{}
 	if builder.timezoneFlag {
@@ -3008,7 +3008,7 @@ func (builder *StartMeetingRecordingReqBodyBuilder) Build() *StartMeetingRecordi
 	return req
 }
 
-/**上传文件path开始**/
+// 上传文件path开始
 type StartMeetingRecordingPathReqBodyBuilder struct {
 	timezone     int
 	timezoneFlag bool
@@ -3033,9 +3033,9 @@ func (builder *StartMeetingRecordingPathReqBodyBuilder) Build() (*StartMeetingRe
 	return req, nil
 }
 
-/**上传文件path结束**/
+// 上传文件path结束
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type StartMeetingRecordingReqBuilder struct {
 	meetingId     int64
 	meetingIdFlag bool
@@ -3049,7 +3049,7 @@ func NewStartMeetingRecordingReqBuilder() *StartMeetingRecordingReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *StartMeetingRecordingReqBuilder) MeetingId(meetingId int64) *StartMeetingRecordingReqBuilder {
 	builder.meetingId = meetingId
 	builder.meetingIdFlag = true
@@ -3061,7 +3061,7 @@ func (builder *StartMeetingRecordingReqBuilder) Body(body *StartMeetingRecording
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *StartMeetingRecordingReqBuilder) Build() *StartMeetingRecordingReq {
 	req := &StartMeetingRecordingReq{}
 	if builder.meetingIdFlag {
@@ -3091,7 +3091,7 @@ func (resp *StartMeetingRecordingResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type StopMeetingRecordingReqBuilder struct {
 	meetingId     int64
 	meetingIdFlag bool
@@ -3103,14 +3103,14 @@ func NewStopMeetingRecordingReqBuilder() *StopMeetingRecordingReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *StopMeetingRecordingReqBuilder) MeetingId(meetingId int64) *StopMeetingRecordingReqBuilder {
 	builder.meetingId = meetingId
 	builder.meetingIdFlag = true
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *StopMeetingRecordingReqBuilder) Build() *StopMeetingRecordingReq {
 	req := &StopMeetingRecordingReq{}
 	if builder.meetingIdFlag {
@@ -3132,7 +3132,7 @@ func (resp *StopMeetingRecordingResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type GetDailyReportReqBuilder struct {
 	startTime     int64
 	startTimeFlag bool
@@ -3146,7 +3146,7 @@ func NewGetDailyReportReqBuilder() *GetDailyReportReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *GetDailyReportReqBuilder) StartTime(startTime int64) *GetDailyReportReqBuilder {
 	builder.startTime = startTime
 	builder.startTimeFlag = true
@@ -3158,7 +3158,7 @@ func (builder *GetDailyReportReqBuilder) EndTime(endTime int64) *GetDailyReportR
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *GetDailyReportReqBuilder) Build() *GetDailyReportReq {
 	req := &GetDailyReportReq{}
 	if builder.startTimeFlag {
@@ -3189,7 +3189,7 @@ func (resp *GetDailyReportResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type GetTopUserReportReqBuilder struct {
 	startTime      int64
 	startTimeFlag  bool
@@ -3209,7 +3209,7 @@ func NewGetTopUserReportReqBuilder() *GetTopUserReportReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *GetTopUserReportReqBuilder) StartTime(startTime int64) *GetTopUserReportReqBuilder {
 	builder.startTime = startTime
 	builder.startTimeFlag = true
@@ -3236,7 +3236,7 @@ func (builder *GetTopUserReportReqBuilder) UserIdType(userIdType string) *GetTop
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *GetTopUserReportReqBuilder) Build() *GetTopUserReportReq {
 	req := &GetTopUserReportReq{}
 	if builder.startTimeFlag {
@@ -3292,7 +3292,7 @@ func NewApplyReserveReqBodyBuilder() *ApplyReserveReqBodyBuilder {
 	return builder
 }
 
-/*1.2 生成body的builder属性方法*/
+// 1.2 生成body的builder属性方法
 func (builder *ApplyReserveReqBodyBuilder) EndTime(endTime int64) *ApplyReserveReqBodyBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
@@ -3304,7 +3304,7 @@ func (builder *ApplyReserveReqBodyBuilder) MeetingSettings(meetingSettings *Rese
 	return builder
 }
 
-/*1.3 生成body的build方法*/
+// 1.3 生成body的build方法
 func (builder *ApplyReserveReqBodyBuilder) Build() *ApplyReserveReqBody {
 	req := &ApplyReserveReqBody{}
 	if builder.endTimeFlag {
@@ -3318,7 +3318,7 @@ func (builder *ApplyReserveReqBodyBuilder) Build() *ApplyReserveReqBody {
 	return req
 }
 
-/**上传文件path开始**/
+// 上传文件path开始
 type ApplyReservePathReqBodyBuilder struct {
 	endTime             int64
 	endTimeFlag         bool
@@ -3353,9 +3353,9 @@ func (builder *ApplyReservePathReqBodyBuilder) Build() (*ApplyReserveReqBody, er
 	return req, nil
 }
 
-/**上传文件path结束**/
+// 上传文件path结束
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type ApplyReserveReqBuilder struct {
 	userIdType     string
 	userIdTypeFlag bool
@@ -3369,7 +3369,7 @@ func NewApplyReserveReqBuilder() *ApplyReserveReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *ApplyReserveReqBuilder) UserIdType(userIdType string) *ApplyReserveReqBuilder {
 	builder.userIdType = userIdType
 	builder.userIdTypeFlag = true
@@ -3381,7 +3381,7 @@ func (builder *ApplyReserveReqBuilder) Body(body *ApplyReserveReqBody) *ApplyRes
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *ApplyReserveReqBuilder) Build() *ApplyReserveReq {
 	req := &ApplyReserveReq{}
 	if builder.userIdTypeFlag {
@@ -3417,7 +3417,7 @@ func (resp *ApplyReserveResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type DeleteReserveReqBuilder struct {
 	reserveId     int64
 	reserveIdFlag bool
@@ -3429,14 +3429,14 @@ func NewDeleteReserveReqBuilder() *DeleteReserveReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *DeleteReserveReqBuilder) ReserveId(reserveId int64) *DeleteReserveReqBuilder {
 	builder.reserveId = reserveId
 	builder.reserveIdFlag = true
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *DeleteReserveReqBuilder) Build() *DeleteReserveReq {
 	req := &DeleteReserveReq{}
 	if builder.reserveIdFlag {
@@ -3458,7 +3458,7 @@ func (resp *DeleteReserveResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type GetReserveReqBuilder struct {
 	reserveId      int64
 	reserveIdFlag  bool
@@ -3472,7 +3472,7 @@ func NewGetReserveReqBuilder() *GetReserveReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *GetReserveReqBuilder) ReserveId(reserveId int64) *GetReserveReqBuilder {
 	builder.reserveId = reserveId
 	builder.reserveIdFlag = true
@@ -3484,7 +3484,7 @@ func (builder *GetReserveReqBuilder) UserIdType(userIdType string) *GetReserveRe
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *GetReserveReqBuilder) Build() *GetReserveReq {
 	req := &GetReserveReq{}
 	if builder.reserveIdFlag {
@@ -3515,7 +3515,7 @@ func (resp *GetReserveResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type GetActiveMeetingReserveReqBuilder struct {
 	reserveId            int64
 	reserveIdFlag        bool
@@ -3531,7 +3531,7 @@ func NewGetActiveMeetingReserveReqBuilder() *GetActiveMeetingReserveReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *GetActiveMeetingReserveReqBuilder) ReserveId(reserveId int64) *GetActiveMeetingReserveReqBuilder {
 	builder.reserveId = reserveId
 	builder.reserveIdFlag = true
@@ -3548,7 +3548,7 @@ func (builder *GetActiveMeetingReserveReqBuilder) UserIdType(userIdType string) 
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *GetActiveMeetingReserveReqBuilder) Build() *GetActiveMeetingReserveReq {
 	req := &GetActiveMeetingReserveReq{}
 	if builder.reserveIdFlag {
@@ -3596,7 +3596,7 @@ func NewUpdateReserveReqBodyBuilder() *UpdateReserveReqBodyBuilder {
 	return builder
 }
 
-/*1.2 生成body的builder属性方法*/
+// 1.2 生成body的builder属性方法
 func (builder *UpdateReserveReqBodyBuilder) EndTime(endTime int64) *UpdateReserveReqBodyBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
@@ -3608,7 +3608,7 @@ func (builder *UpdateReserveReqBodyBuilder) MeetingSettings(meetingSettings *Res
 	return builder
 }
 
-/*1.3 生成body的build方法*/
+// 1.3 生成body的build方法
 func (builder *UpdateReserveReqBodyBuilder) Build() *UpdateReserveReqBody {
 	req := &UpdateReserveReqBody{}
 	if builder.endTimeFlag {
@@ -3622,7 +3622,7 @@ func (builder *UpdateReserveReqBodyBuilder) Build() *UpdateReserveReqBody {
 	return req
 }
 
-/**上传文件path开始**/
+// 上传文件path开始
 type UpdateReservePathReqBodyBuilder struct {
 	endTime             int64
 	endTimeFlag         bool
@@ -3657,9 +3657,9 @@ func (builder *UpdateReservePathReqBodyBuilder) Build() (*UpdateReserveReqBody, 
 	return req, nil
 }
 
-/**上传文件path结束**/
+// 上传文件path结束
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type UpdateReserveReqBuilder struct {
 	reserveId      int64
 	reserveIdFlag  bool
@@ -3675,7 +3675,7 @@ func NewUpdateReserveReqBuilder() *UpdateReserveReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *UpdateReserveReqBuilder) ReserveId(reserveId int64) *UpdateReserveReqBuilder {
 	builder.reserveId = reserveId
 	builder.reserveIdFlag = true
@@ -3692,7 +3692,7 @@ func (builder *UpdateReserveReqBuilder) Body(body *UpdateReserveReqBody) *Update
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *UpdateReserveReqBuilder) Build() *UpdateReserveReq {
 	req := &UpdateReserveReq{}
 	if builder.reserveIdFlag {
@@ -3732,7 +3732,7 @@ func (resp *UpdateReserveResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type QueryRoomConfigReqBuilder struct {
 	scope          int
 	scopeFlag      bool
@@ -3756,7 +3756,7 @@ func NewQueryRoomConfigReqBuilder() *QueryRoomConfigReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *QueryRoomConfigReqBuilder) Scope(scope int) *QueryRoomConfigReqBuilder {
 	builder.scope = scope
 	builder.scopeFlag = true
@@ -3793,7 +3793,7 @@ func (builder *QueryRoomConfigReqBuilder) UserIdType(userIdType string) *QueryRo
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *QueryRoomConfigReqBuilder) Build() *QueryRoomConfigReq {
 	req := &QueryRoomConfigReq{}
 	if builder.scopeFlag {
@@ -3871,7 +3871,7 @@ func NewSetRoomConfigReqBodyBuilder() *SetRoomConfigReqBodyBuilder {
 	return builder
 }
 
-/*1.2 生成body的builder属性方法*/
+// 1.2 生成body的builder属性方法
 func (builder *SetRoomConfigReqBodyBuilder) Scope(scope int) *SetRoomConfigReqBodyBuilder {
 	builder.scope = scope
 	builder.scopeFlag = true
@@ -3908,7 +3908,7 @@ func (builder *SetRoomConfigReqBodyBuilder) RoomConfig(roomConfig *RoomConfig) *
 	return builder
 }
 
-/*1.3 生成body的build方法*/
+// 1.3 生成body的build方法
 func (builder *SetRoomConfigReqBodyBuilder) Build() *SetRoomConfigReqBody {
 	req := &SetRoomConfigReqBody{}
 	if builder.scopeFlag {
@@ -3942,7 +3942,7 @@ func (builder *SetRoomConfigReqBodyBuilder) Build() *SetRoomConfigReqBody {
 	return req
 }
 
-/**上传文件path开始**/
+// 上传文件path开始
 type SetRoomConfigPathReqBodyBuilder struct {
 	scope          int
 	scopeFlag      bool
@@ -4032,9 +4032,9 @@ func (builder *SetRoomConfigPathReqBodyBuilder) Build() (*SetRoomConfigReqBody, 
 	return req, nil
 }
 
-/**上传文件path结束**/
+// 上传文件path结束
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type SetRoomConfigReqBuilder struct {
 	userIdType     string
 	userIdTypeFlag bool
@@ -4048,7 +4048,7 @@ func NewSetRoomConfigReqBuilder() *SetRoomConfigReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *SetRoomConfigReqBuilder) UserIdType(userIdType string) *SetRoomConfigReqBuilder {
 	builder.userIdType = userIdType
 	builder.userIdTypeFlag = true
@@ -4060,7 +4060,7 @@ func (builder *SetRoomConfigReqBuilder) Body(body *SetRoomConfigReqBody) *SetRoo
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *SetRoomConfigReqBuilder) Build() *SetRoomConfigReq {
 	req := &SetRoomConfigReq{}
 	if builder.userIdTypeFlag {
@@ -4096,7 +4096,7 @@ func (resp *SetRoomConfigResp) Success() bool {
 	return resp.Code == 0
 }
 
-/**生成消息事件结构体 **/
+// 生成消息事件结构体
 
 type MeetingJoinMeetingEventData struct {
 	Meeting  *MeetingEventMeeting `json:"meeting,omitempty"`
@@ -4190,9 +4190,8 @@ type MeetingShareStartedEvent struct {
 	Event *MeetingShareStartedEventData `json:"event"`
 }
 
-/* 生成请求的builder构造器*/
-/*1.1 生成body的builder结构体*/
-/**如果是分页查询，则添加迭代器定义**/
+// 生成请求的builder构造器
+// 1.1 生成body的builder结构体
 type ListByNoMeetingIterator struct {
 	nextPageToken *string
 	items         []*Meeting

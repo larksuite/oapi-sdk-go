@@ -9,9 +9,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
-/**
-构建业务域服务实例
-**/
+// 构建业务域服务实例
 func NewService(httpClient *http.Client, config *core.Config) *AttendanceService {
 	a := &AttendanceService{httpClient: httpClient, config: config}
 	a.ApprovalInfo = &approvalInfo{service: a}
@@ -30,9 +28,7 @@ func NewService(httpClient *http.Client, config *core.Config) *AttendanceService
 	return a
 }
 
-/**
-业务域服务定义
-**/
+// 业务域服务定义
 type AttendanceService struct {
 	httpClient     *http.Client
 	config         *core.Config
@@ -51,9 +47,7 @@ type AttendanceService struct {
 	UserTaskRemedy *userTaskRemedy
 }
 
-/**
-资源服务定义
-**/
+// 资源服务定义
 type approvalInfo struct {
 	service *AttendanceService
 }
@@ -94,9 +88,7 @@ type userTaskRemedy struct {
 	service *AttendanceService
 }
 
-/**
-资源服务方法定义
-**/
+// 资源服务方法定义
 func (a *approvalInfo) Process(ctx context.Context, req *ProcessApprovalInfoReq, options ...core.RequestOptionFunc) (*ProcessApprovalInfoResp, error) {
 	// 发起请求
 	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodPost,
@@ -209,8 +201,6 @@ func (g *group) List(ctx context.Context, req *ListGroupReq, options ...core.Req
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (g *group) ListGroup(ctx context.Context, req *ListGroupReq, options ...core.RequestOptionFunc) (*ListGroupIterator, error) {
 	return &ListGroupIterator{
 		ctx:      ctx,
@@ -294,8 +284,6 @@ func (s *shift) List(ctx context.Context, req *ListShiftReq, options ...core.Req
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (s *shift) ListShift(ctx context.Context, req *ListShiftReq, options ...core.RequestOptionFunc) (*ListShiftIterator, error) {
 	return &ListShiftIterator{
 		ctx:      ctx,

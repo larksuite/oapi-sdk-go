@@ -5,9 +5,7 @@ import (
 	"context"
 )
 
-/**
-消息处理器定义
-**/
+// 消息处理器定义
 type CustomAttrEventUpdatedEventHandler struct {
 	handler func(context.Context, *CustomAttrEventUpdatedEvent) error
 }
@@ -17,23 +15,17 @@ func NewCustomAttrEventUpdatedEventHandler(handler func(context.Context, *Custom
 	return h
 }
 
-/**
-返回事件的消息体的实例，用于反序列化用
-**/
+// 返回事件的消息体的实例，用于反序列化用
 func (h *CustomAttrEventUpdatedEventHandler) Event() interface{} {
 	return &CustomAttrEventUpdatedEvent{}
 }
 
-/**
-回调开发者注册的handle
-r**/
+// 回调开发者注册的handle
 func (h *CustomAttrEventUpdatedEventHandler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*CustomAttrEventUpdatedEvent))
 }
 
-/**
-消息处理器定义
-**/
+// 消息处理器定义
 type DepartmentCreatedEventHandler struct {
 	handler func(context.Context, *DepartmentCreatedEvent) error
 }
@@ -43,23 +35,17 @@ func NewDepartmentCreatedEventHandler(handler func(context.Context, *DepartmentC
 	return h
 }
 
-/**
-返回事件的消息体的实例，用于反序列化用
-**/
+// 返回事件的消息体的实例，用于反序列化用
 func (h *DepartmentCreatedEventHandler) Event() interface{} {
 	return &DepartmentCreatedEvent{}
 }
 
-/**
-回调开发者注册的handle
-r**/
+// 回调开发者注册的handle
 func (h *DepartmentCreatedEventHandler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*DepartmentCreatedEvent))
 }
 
-/**
-消息处理器定义
-**/
+// 消息处理器定义
 type DepartmentDeletedEventHandler struct {
 	handler func(context.Context, *DepartmentDeletedEvent) error
 }
@@ -69,23 +55,17 @@ func NewDepartmentDeletedEventHandler(handler func(context.Context, *DepartmentD
 	return h
 }
 
-/**
-返回事件的消息体的实例，用于反序列化用
-**/
+// 返回事件的消息体的实例，用于反序列化用
 func (h *DepartmentDeletedEventHandler) Event() interface{} {
 	return &DepartmentDeletedEvent{}
 }
 
-/**
-回调开发者注册的handle
-r**/
+// 回调开发者注册的handle
 func (h *DepartmentDeletedEventHandler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*DepartmentDeletedEvent))
 }
 
-/**
-消息处理器定义
-**/
+// 消息处理器定义
 type DepartmentUpdatedEventHandler struct {
 	handler func(context.Context, *DepartmentUpdatedEvent) error
 }
@@ -95,23 +75,17 @@ func NewDepartmentUpdatedEventHandler(handler func(context.Context, *DepartmentU
 	return h
 }
 
-/**
-返回事件的消息体的实例，用于反序列化用
-**/
+// 返回事件的消息体的实例，用于反序列化用
 func (h *DepartmentUpdatedEventHandler) Event() interface{} {
 	return &DepartmentUpdatedEvent{}
 }
 
-/**
-回调开发者注册的handle
-r**/
+// 回调开发者注册的handle
 func (h *DepartmentUpdatedEventHandler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*DepartmentUpdatedEvent))
 }
 
-/**
-消息处理器定义
-**/
+// 消息处理器定义
 type EmployeeTypeEnumActivedEventHandler struct {
 	handler func(context.Context, *EmployeeTypeEnumActivedEvent) error
 }
@@ -121,23 +95,17 @@ func NewEmployeeTypeEnumActivedEventHandler(handler func(context.Context, *Emplo
 	return h
 }
 
-/**
-返回事件的消息体的实例，用于反序列化用
-**/
+// 返回事件的消息体的实例，用于反序列化用
 func (h *EmployeeTypeEnumActivedEventHandler) Event() interface{} {
 	return &EmployeeTypeEnumActivedEvent{}
 }
 
-/**
-回调开发者注册的handle
-r**/
+// 回调开发者注册的handle
 func (h *EmployeeTypeEnumActivedEventHandler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*EmployeeTypeEnumActivedEvent))
 }
 
-/**
-消息处理器定义
-**/
+// 消息处理器定义
 type EmployeeTypeEnumCreatedEventHandler struct {
 	handler func(context.Context, *EmployeeTypeEnumCreatedEvent) error
 }
@@ -147,23 +115,17 @@ func NewEmployeeTypeEnumCreatedEventHandler(handler func(context.Context, *Emplo
 	return h
 }
 
-/**
-返回事件的消息体的实例，用于反序列化用
-**/
+// 返回事件的消息体的实例，用于反序列化用
 func (h *EmployeeTypeEnumCreatedEventHandler) Event() interface{} {
 	return &EmployeeTypeEnumCreatedEvent{}
 }
 
-/**
-回调开发者注册的handle
-r**/
+// 回调开发者注册的handle
 func (h *EmployeeTypeEnumCreatedEventHandler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*EmployeeTypeEnumCreatedEvent))
 }
 
-/**
-消息处理器定义
-**/
+// 消息处理器定义
 type EmployeeTypeEnumDeactivatedEventHandler struct {
 	handler func(context.Context, *EmployeeTypeEnumDeactivatedEvent) error
 }
@@ -173,23 +135,17 @@ func NewEmployeeTypeEnumDeactivatedEventHandler(handler func(context.Context, *E
 	return h
 }
 
-/**
-返回事件的消息体的实例，用于反序列化用
-**/
+// 返回事件的消息体的实例，用于反序列化用
 func (h *EmployeeTypeEnumDeactivatedEventHandler) Event() interface{} {
 	return &EmployeeTypeEnumDeactivatedEvent{}
 }
 
-/**
-回调开发者注册的handle
-r**/
+// 回调开发者注册的handle
 func (h *EmployeeTypeEnumDeactivatedEventHandler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*EmployeeTypeEnumDeactivatedEvent))
 }
 
-/**
-消息处理器定义
-**/
+// 消息处理器定义
 type EmployeeTypeEnumDeletedEventHandler struct {
 	handler func(context.Context, *EmployeeTypeEnumDeletedEvent) error
 }
@@ -199,23 +155,17 @@ func NewEmployeeTypeEnumDeletedEventHandler(handler func(context.Context, *Emplo
 	return h
 }
 
-/**
-返回事件的消息体的实例，用于反序列化用
-**/
+// 返回事件的消息体的实例，用于反序列化用
 func (h *EmployeeTypeEnumDeletedEventHandler) Event() interface{} {
 	return &EmployeeTypeEnumDeletedEvent{}
 }
 
-/**
-回调开发者注册的handle
-r**/
+// 回调开发者注册的handle
 func (h *EmployeeTypeEnumDeletedEventHandler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*EmployeeTypeEnumDeletedEvent))
 }
 
-/**
-消息处理器定义
-**/
+// 消息处理器定义
 type EmployeeTypeEnumUpdatedEventHandler struct {
 	handler func(context.Context, *EmployeeTypeEnumUpdatedEvent) error
 }
@@ -225,23 +175,17 @@ func NewEmployeeTypeEnumUpdatedEventHandler(handler func(context.Context, *Emplo
 	return h
 }
 
-/**
-返回事件的消息体的实例，用于反序列化用
-**/
+// 返回事件的消息体的实例，用于反序列化用
 func (h *EmployeeTypeEnumUpdatedEventHandler) Event() interface{} {
 	return &EmployeeTypeEnumUpdatedEvent{}
 }
 
-/**
-回调开发者注册的handle
-r**/
+// 回调开发者注册的handle
 func (h *EmployeeTypeEnumUpdatedEventHandler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*EmployeeTypeEnumUpdatedEvent))
 }
 
-/**
-消息处理器定义
-**/
+// 消息处理器定义
 type ScopeUpdatedEventHandler struct {
 	handler func(context.Context, *ScopeUpdatedEvent) error
 }
@@ -251,23 +195,17 @@ func NewScopeUpdatedEventHandler(handler func(context.Context, *ScopeUpdatedEven
 	return h
 }
 
-/**
-返回事件的消息体的实例，用于反序列化用
-**/
+// 返回事件的消息体的实例，用于反序列化用
 func (h *ScopeUpdatedEventHandler) Event() interface{} {
 	return &ScopeUpdatedEvent{}
 }
 
-/**
-回调开发者注册的handle
-r**/
+// 回调开发者注册的handle
 func (h *ScopeUpdatedEventHandler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*ScopeUpdatedEvent))
 }
 
-/**
-消息处理器定义
-**/
+// 消息处理器定义
 type UserCreatedEventHandler struct {
 	handler func(context.Context, *UserCreatedEvent) error
 }
@@ -277,23 +215,17 @@ func NewUserCreatedEventHandler(handler func(context.Context, *UserCreatedEvent)
 	return h
 }
 
-/**
-返回事件的消息体的实例，用于反序列化用
-**/
+// 返回事件的消息体的实例，用于反序列化用
 func (h *UserCreatedEventHandler) Event() interface{} {
 	return &UserCreatedEvent{}
 }
 
-/**
-回调开发者注册的handle
-r**/
+// 回调开发者注册的handle
 func (h *UserCreatedEventHandler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*UserCreatedEvent))
 }
 
-/**
-消息处理器定义
-**/
+// 消息处理器定义
 type UserDeletedEventHandler struct {
 	handler func(context.Context, *UserDeletedEvent) error
 }
@@ -303,23 +235,17 @@ func NewUserDeletedEventHandler(handler func(context.Context, *UserDeletedEvent)
 	return h
 }
 
-/**
-返回事件的消息体的实例，用于反序列化用
-**/
+// 返回事件的消息体的实例，用于反序列化用
 func (h *UserDeletedEventHandler) Event() interface{} {
 	return &UserDeletedEvent{}
 }
 
-/**
-回调开发者注册的handle
-r**/
+// 回调开发者注册的handle
 func (h *UserDeletedEventHandler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*UserDeletedEvent))
 }
 
-/**
-消息处理器定义
-**/
+// 消息处理器定义
 type UserUpdatedEventHandler struct {
 	handler func(context.Context, *UserUpdatedEvent) error
 }
@@ -329,16 +255,12 @@ func NewUserUpdatedEventHandler(handler func(context.Context, *UserUpdatedEvent)
 	return h
 }
 
-/**
-返回事件的消息体的实例，用于反序列化用
-**/
+// 返回事件的消息体的实例，用于反序列化用
 func (h *UserUpdatedEventHandler) Event() interface{} {
 	return &UserUpdatedEvent{}
 }
 
-/**
-回调开发者注册的handle
-r**/
+// 回调开发者注册的handle
 func (h *UserUpdatedEventHandler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*UserUpdatedEvent))
 }

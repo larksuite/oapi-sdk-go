@@ -13,20 +13,20 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
-/**生成枚举值 **/
+// 生成枚举值
 
 const (
-	ViewBasic string = "basic"
-	ViewFull  string = "full"
+	ViewBasic = "basic"
+	ViewFull  = "full"
 )
 
 const (
-	UserIdTypeUserId  string = "user_id"
-	UserIdTypeUnionId string = "union_id"
-	UserIdTypeOpenId  string = "open_id"
+	UserIdTypeUserId  = "user_id"
+	UserIdTypeUnionId = "union_id"
+	UserIdTypeOpenId  = "open_id"
 )
 
-/**生成数据类型 **/
+// 生成数据类型
 
 type Attachment struct {
 	Id       *string `json:"id,omitempty"`
@@ -35,7 +35,7 @@ type Attachment struct {
 	Size     *int64  `json:"size,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type AttachmentBuilder struct {
 	id           string
 	idFlag       bool
@@ -94,14 +94,14 @@ func (builder *AttachmentBuilder) Build() *Attachment {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ContractCompany struct {
 	Id   *int64  `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ContractCompanyBuilder struct {
 	id       int64
 	idFlag   bool
@@ -138,7 +138,7 @@ func (builder *ContractCompanyBuilder) Build() *ContractCompany {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type CustomFields struct {
 	Key   *string `json:"key,omitempty"`
@@ -147,7 +147,7 @@ type CustomFields struct {
 	Value *string `json:"value,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type CustomFieldsBuilder struct {
 	key       string
 	keyFlag   bool
@@ -206,7 +206,7 @@ func (builder *CustomFieldsBuilder) Build() *CustomFields {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Education struct {
 	Level  *int    `json:"level,omitempty"`
@@ -217,7 +217,7 @@ type Education struct {
 	End    *string `json:"end,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type EducationBuilder struct {
 	level      int
 	levelFlag  bool
@@ -298,7 +298,7 @@ func (builder *EducationBuilder) Build() *Education {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type EmergencyContact struct {
 	Name         *string `json:"name,omitempty"`
@@ -306,7 +306,7 @@ type EmergencyContact struct {
 	Mobile       *string `json:"mobile,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type EmergencyContactBuilder struct {
 	name             string
 	nameFlag         bool
@@ -354,7 +354,7 @@ func (builder *EmergencyContactBuilder) Build() *EmergencyContact {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Employee struct {
 	UserId       *string         `json:"user_id,omitempty"`
@@ -362,7 +362,7 @@ type Employee struct {
 	CustomFields []*CustomFields `json:"custom_fields,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type EmployeeBuilder struct {
 	userId           string
 	userIdFlag       bool
@@ -408,14 +408,14 @@ func (builder *EmployeeBuilder) Build() *Employee {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Job struct {
 	Id   *int64  `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type JobBuilder struct {
 	id       int64
 	idFlag   bool
@@ -452,14 +452,14 @@ func (builder *JobBuilder) Build() *Job {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type JobLevel struct {
 	Id   *int64  `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type JobLevelBuilder struct {
 	id       int64
 	idFlag   bool
@@ -496,7 +496,7 @@ func (builder *JobLevelBuilder) Build() *JobLevel {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Manager struct {
 	UserId *string `json:"user_id,omitempty"`
@@ -504,7 +504,7 @@ type Manager struct {
 	EnName *string `json:"en_name,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ManagerBuilder struct {
 	userId     string
 	userIdFlag bool
@@ -552,14 +552,14 @@ func (builder *ManagerBuilder) Build() *Manager {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type NativeRegion struct {
 	IsoCode *string `json:"iso_code,omitempty"`
 	Name    *string `json:"name,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type NativeRegionBuilder struct {
 	isoCode     string
 	isoCodeFlag bool
@@ -596,7 +596,7 @@ func (builder *NativeRegionBuilder) Build() *NativeRegion {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type SystemFields struct {
 	Name                    *string             `json:"name,omitempty"`
@@ -662,7 +662,7 @@ type SystemFields struct {
 	UpdateTime              *int64              `json:"update_time,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type SystemFieldsBuilder struct {
 	name                        string
 	nameFlag                    bool
@@ -1329,7 +1329,7 @@ func (builder *SystemFieldsBuilder) Build() *SystemFields {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type WorkExperience struct {
 	Company     *string `json:"company,omitempty"`
@@ -1340,7 +1340,7 @@ type WorkExperience struct {
 	Description *string `json:"description,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type WorkExperienceBuilder struct {
 	company         string
 	companyFlag     bool
@@ -1421,14 +1421,14 @@ func (builder *WorkExperienceBuilder) Build() *WorkExperience {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type WorkLocation struct {
 	Id   *int64  `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type WorkLocationBuilder struct {
 	id       int64
 	idFlag   bool
@@ -1465,11 +1465,11 @@ func (builder *WorkLocationBuilder) Build() *WorkLocation {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
-/**生成请求和响应结果类型，以及请求对象的Builder构造器 **/
+// 生成请求和响应结果类型，以及请求对象的Builder构造器
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type GetAttachmentReqBuilder struct {
 	token     string
 	tokenFlag bool
@@ -1481,14 +1481,14 @@ func NewGetAttachmentReqBuilder() *GetAttachmentReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *GetAttachmentReqBuilder) Token(token string) *GetAttachmentReqBuilder {
 	builder.token = token
 	builder.tokenFlag = true
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *GetAttachmentReqBuilder) Build() *GetAttachmentReq {
 	req := &GetAttachmentReq{}
 	if builder.tokenFlag {
@@ -1512,7 +1512,7 @@ func (resp *GetAttachmentResp) Success() bool {
 	return resp.Code == 0
 }
 
-/**下载api,生成WriteFile方法**/
+// 下载api,生成WriteFile方法
 func (resp *GetAttachmentResp) WriteFile(fileName string) error {
 	bs, err := ioutil.ReadAll(resp.File)
 	if err != nil {
@@ -1526,7 +1526,7 @@ func (resp *GetAttachmentResp) WriteFile(fileName string) error {
 	return nil
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type ListEmployeeReqBuilder struct {
 	view           string
 	viewFlag       bool
@@ -1555,7 +1555,7 @@ func NewListEmployeeReqBuilder() *ListEmployeeReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *ListEmployeeReqBuilder) Limit(limit int) *ListEmployeeReqBuilder {
 	builder.limit = limit
 	return builder
@@ -1606,7 +1606,7 @@ func (builder *ListEmployeeReqBuilder) PageSize(pageSize int) *ListEmployeeReqBu
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *ListEmployeeReqBuilder) Build() *ListEmployeeReq {
 	req := &ListEmployeeReq{}
 	req.Limit = builder.limit
@@ -1669,11 +1669,10 @@ func (resp *ListEmployeeResp) Success() bool {
 	return resp.Code == 0
 }
 
-/**生成消息事件结构体 **/
+// 生成消息事件结构体
 
-/* 生成请求的builder构造器*/
-/*1.1 生成body的builder结构体*/
-/**如果是分页查询，则添加迭代器定义**/
+// 生成请求的builder构造器
+// 1.1 生成body的builder结构体
 type ListEmployeeIterator struct {
 	nextPageToken *string
 	items         []*Employee

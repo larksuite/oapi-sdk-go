@@ -8,34 +8,26 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
-/**
-构建业务域服务实例
-**/
+// 构建业务域服务实例
 func NewService(httpClient *http.Client, config *core.Config) *OpticalCharRecognitionService {
 	o := &OpticalCharRecognitionService{httpClient: httpClient, config: config}
 	o.Image = &image{service: o}
 	return o
 }
 
-/**
-业务域服务定义
-**/
+// 业务域服务定义
 type OpticalCharRecognitionService struct {
 	httpClient *http.Client
 	config     *core.Config
 	Image      *image
 }
 
-/**
-资源服务定义
-**/
+// 资源服务定义
 type image struct {
 	service *OpticalCharRecognitionService
 }
 
-/**
-资源服务方法定义
-**/
+// 资源服务方法定义
 func (i *image) BasicRecognize(ctx context.Context, req *BasicRecognizeImageReq, options ...core.RequestOptionFunc) (*BasicRecognizeImageResp, error) {
 	// 发起请求
 	rawResp, err := core.SendRequest(ctx, i.service.config, http.MethodPost,

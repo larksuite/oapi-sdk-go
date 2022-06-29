@@ -5,9 +5,7 @@ import (
 	"context"
 )
 
-/**
-消息处理器定义
-**/
+// 消息处理器定义
 type MeetingRoomCreatedEventHandler struct {
 	handler func(context.Context, *MeetingRoomCreatedEvent) error
 }
@@ -17,23 +15,17 @@ func NewMeetingRoomCreatedEventHandler(handler func(context.Context, *MeetingRoo
 	return h
 }
 
-/**
-返回事件的消息体的实例，用于反序列化用
-**/
+// 返回事件的消息体的实例，用于反序列化用
 func (h *MeetingRoomCreatedEventHandler) Event() interface{} {
 	return &MeetingRoomCreatedEvent{}
 }
 
-/**
-回调开发者注册的handle
-r**/
+// 回调开发者注册的handle
 func (h *MeetingRoomCreatedEventHandler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*MeetingRoomCreatedEvent))
 }
 
-/**
-消息处理器定义
-**/
+// 消息处理器定义
 type MeetingRoomDeletedEventHandler struct {
 	handler func(context.Context, *MeetingRoomDeletedEvent) error
 }
@@ -43,23 +35,17 @@ func NewMeetingRoomDeletedEventHandler(handler func(context.Context, *MeetingRoo
 	return h
 }
 
-/**
-返回事件的消息体的实例，用于反序列化用
-**/
+// 返回事件的消息体的实例，用于反序列化用
 func (h *MeetingRoomDeletedEventHandler) Event() interface{} {
 	return &MeetingRoomDeletedEvent{}
 }
 
-/**
-回调开发者注册的handle
-r**/
+// 回调开发者注册的handle
 func (h *MeetingRoomDeletedEventHandler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*MeetingRoomDeletedEvent))
 }
 
-/**
-消息处理器定义
-**/
+// 消息处理器定义
 type MeetingRoomStatusChangedEventHandler struct {
 	handler func(context.Context, *MeetingRoomStatusChangedEvent) error
 }
@@ -69,23 +55,17 @@ func NewMeetingRoomStatusChangedEventHandler(handler func(context.Context, *Meet
 	return h
 }
 
-/**
-返回事件的消息体的实例，用于反序列化用
-**/
+// 返回事件的消息体的实例，用于反序列化用
 func (h *MeetingRoomStatusChangedEventHandler) Event() interface{} {
 	return &MeetingRoomStatusChangedEvent{}
 }
 
-/**
-回调开发者注册的handle
-r**/
+// 回调开发者注册的handle
 func (h *MeetingRoomStatusChangedEventHandler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*MeetingRoomStatusChangedEvent))
 }
 
-/**
-消息处理器定义
-**/
+// 消息处理器定义
 type MeetingRoomUpdatedEventHandler struct {
 	handler func(context.Context, *MeetingRoomUpdatedEvent) error
 }
@@ -95,16 +75,12 @@ func NewMeetingRoomUpdatedEventHandler(handler func(context.Context, *MeetingRoo
 	return h
 }
 
-/**
-返回事件的消息体的实例，用于反序列化用
-**/
+// 返回事件的消息体的实例，用于反序列化用
 func (h *MeetingRoomUpdatedEventHandler) Event() interface{} {
 	return &MeetingRoomUpdatedEvent{}
 }
 
-/**
-回调开发者注册的handle
-r**/
+// 回调开发者注册的handle
 func (h *MeetingRoomUpdatedEventHandler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*MeetingRoomUpdatedEvent))
 }

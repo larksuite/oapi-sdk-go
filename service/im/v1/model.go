@@ -17,65 +17,65 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
-/**生成枚举值 **/
+// 生成枚举值
 
 const (
-	UserIdTypeUserId  string = "user_id"
-	UserIdTypeUnionId string = "union_id"
-	UserIdTypeOpenId  string = "open_id"
+	UserIdTypeUserId  = "user_id"
+	UserIdTypeUnionId = "union_id"
+	UserIdTypeOpenId  = "open_id"
 )
 
 const (
-	OwnerIdTypeUserId  string = "user_id"
-	OwnerIdTypeUnionId string = "union_id"
-	OwnerIdTypeOpenId  string = "open_id"
-	OwnerIdTypeAppId   string = "app_id"
+	OwnerIdTypeUserId  = "user_id"
+	OwnerIdTypeUnionId = "union_id"
+	OwnerIdTypeOpenId  = "open_id"
+	OwnerIdTypeAppId   = "app_id"
 )
 
 const (
-	ModifierIdTypeUserId  string = "user_id"
-	ModifierIdTypeUnionId string = "union_id"
-	ModifierIdTypeOpenId  string = "open_id"
-	ModifierIdTypeAppId   string = "app_id"
+	ModifierIdTypeUserId  = "user_id"
+	ModifierIdTypeUnionId = "union_id"
+	ModifierIdTypeOpenId  = "open_id"
+	ModifierIdTypeAppId   = "app_id"
 )
 
 const (
-	MemberIdTypeUserId  string = "user_id"
-	MemberIdTypeUnionId string = "union_id"
-	MemberIdTypeOpenId  string = "open_id"
-	MemberIdTypeAppId   string = "app_id"
+	MemberIdTypeUserId  = "user_id"
+	MemberIdTypeUnionId = "union_id"
+	MemberIdTypeOpenId  = "open_id"
+	MemberIdTypeAppId   = "app_id"
 )
 
 const (
-	SucceedType0 string = "0"
-	SucceedType1 string = "1"
-	SucceedType2 string = "2"
+	SucceedType0 = 0
+	SucceedType1 = 1
+	SucceedType2 = 2
 )
 
 const (
-	FileTypeOpus   string = "opus"
-	FileTypeMp4    string = "mp4"
-	FileTypePdf    string = "pdf"
-	FileTypeDoc    string = "doc"
-	FileTypeXls    string = "xls"
-	FileTypePpt    string = "ppt"
-	FileTypeStream string = "stream"
+	FileTypeOpus   = "opus"
+	FileTypeMp4    = "mp4"
+	FileTypePdf    = "pdf"
+	FileTypeDoc    = "doc"
+	FileTypeXls    = "xls"
+	FileTypePpt    = "ppt"
+	FileTypeStream = "stream"
 )
 
 const (
-	ImageTypeMessage string = "message"
-	ImageTypeAvatar  string = "avatar"
+	ImageTypeMessage = "message"
+	ImageTypeAvatar  = "avatar"
 )
 
 const (
-	ReceiveIdTypeOpenId  string = "open_id"
-	ReceiveIdTypeUserId  string = "user_id"
-	ReceiveIdTypeUnionId string = "union_id"
-	ReceiveIdTypeEmail   string = "email"
-	ReceiveIdTypeChatId  string = "chat_id"
+	ReceiveIdTypeOpenId  = "open_id"
+	ReceiveIdTypeUserId  = "user_id"
+	ReceiveIdTypeUnionId = "union_id"
+	ReceiveIdTypeEmail   = "email"
+	ReceiveIdTypeChatId  = "chat_id"
 )
 
-/**生成数据类型 **/
+// 生成数据类型
 
 type BatchMessage struct {
 	BatchMessageId      *string              `json:"batch_message_id,omitempty"`
@@ -83,7 +83,7 @@ type BatchMessage struct {
 	BatchRecallProgress *BatchRecallProgress `json:"batch_recall_progress,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type BatchMessageBuilder struct {
 	batchMessageId          string
 	batchMessageIdFlag      bool
@@ -129,14 +129,14 @@ func (builder *BatchMessageBuilder) Build() *BatchMessage {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type BatchMessageReadUser struct {
 	ReadCount  *string `json:"read_count,omitempty"`
 	TotalCount *string `json:"total_count,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type BatchMessageReadUserBuilder struct {
 	readCount      string
 	readCountFlag  bool
@@ -173,14 +173,14 @@ func (builder *BatchMessageReadUserBuilder) Build() *BatchMessageReadUser {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type BatchMessageRecallProgress struct {
 	Recall      *bool `json:"recall,omitempty"`
 	RecallCount *int  `json:"recall_count,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type BatchMessageRecallProgressBuilder struct {
 	recall          bool
 	recallFlag      bool
@@ -217,7 +217,7 @@ func (builder *BatchMessageRecallProgressBuilder) Build() *BatchMessageRecallPro
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type BatchMessageSendProgress struct {
 	ValidUserIdsCount   *int `json:"valid_user_ids_count,omitempty"`
@@ -225,7 +225,7 @@ type BatchMessageSendProgress struct {
 	ReadUserIdsCount    *int `json:"read_user_ids_count,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type BatchMessageSendProgressBuilder struct {
 	validUserIdsCount       int
 	validUserIdsCountFlag   bool
@@ -273,14 +273,14 @@ func (builder *BatchMessageSendProgressBuilder) Build() *BatchMessageSendProgres
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type BatchRecallProgress struct {
 	RecallCount      *string `json:"recall_count,omitempty"`
 	TotalRecallCount *string `json:"total_recall_count,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type BatchRecallProgressBuilder struct {
 	recallCount          string
 	recallCountFlag      bool
@@ -317,14 +317,14 @@ func (builder *BatchRecallProgressBuilder) Build() *BatchRecallProgress {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type BatchSendProgress struct {
 	SendCount      *string `json:"send_count,omitempty"`
 	TotalSendCount *string `json:"total_send_count,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type BatchSendProgressBuilder struct {
 	sendCount          string
 	sendCountFlag      bool
@@ -361,7 +361,7 @@ func (builder *BatchSendProgressBuilder) Build() *BatchSendProgress {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Chat struct {
 	ChatId         *string    `json:"chat_id,omitempty"`
@@ -377,7 +377,7 @@ type Chat struct {
 	Type           *string    `json:"type,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ChatBuilder struct {
 	chatId             string
 	chatIdFlag         bool
@@ -513,19 +513,19 @@ func (builder *ChatBuilder) Build() *Chat {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ChatAnnouncement struct {
 }
 
-/**builder开始**/
-/**builder结束**/
+// builder开始
+// builder结束
 
 type ChatManagers struct {
 	ManagerId *int64 `json:"manager_id,omitempty,string"`
 }
 
-/**builder开始**/
+// builder开始
 type ChatManagersBuilder struct {
 	managerId     int64
 	managerIdFlag bool
@@ -551,13 +551,13 @@ func (builder *ChatManagersBuilder) Build() *ChatManagers {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ChatMember struct {
 	UserId *string `json:"user_id,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ChatMemberBuilder struct {
 	userId     string
 	userIdFlag bool
@@ -583,13 +583,13 @@ func (builder *ChatMemberBuilder) Build() *ChatMember {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ChatMemberBot struct {
 	BotId *string `json:"bot_id,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ChatMemberBotBuilder struct {
 	botId     string
 	botIdFlag bool
@@ -615,7 +615,7 @@ func (builder *ChatMemberBotBuilder) Build() *ChatMemberBot {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ChatMemberUser struct {
 	Name      *string `json:"name,omitempty"`
@@ -623,7 +623,7 @@ type ChatMemberUser struct {
 	UserId    *UserId `json:"user_id,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ChatMemberUserBuilder struct {
 	name          string
 	nameFlag      bool
@@ -670,13 +670,13 @@ func (builder *ChatMemberUserBuilder) Build() *ChatMemberUser {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ChatMembers struct {
 	UserId *string `json:"user_id,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ChatMembersBuilder struct {
 	userId     string
 	userIdFlag bool
@@ -702,7 +702,7 @@ func (builder *ChatMembersBuilder) Build() *ChatMembers {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ChatTab struct {
 	TabId      *string         `json:"tab_id,omitempty"`
@@ -711,7 +711,7 @@ type ChatTab struct {
 	TabContent *ChatTabContent `json:"tab_content,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ChatTabBuilder struct {
 	tabId          string
 	tabIdFlag      bool
@@ -769,14 +769,14 @@ func (builder *ChatTabBuilder) Build() *ChatTab {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ChatTopNotice struct {
 	ActionType *string `json:"action_type,omitempty"`
 	MessageId  *string `json:"message_id,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ChatTopNoticeBuilder struct {
 	actionType     string
 	actionTypeFlag bool
@@ -813,7 +813,7 @@ func (builder *ChatTopNoticeBuilder) Build() *ChatTopNotice {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ChatChange struct {
 	Avatar                 *string    `json:"avatar,omitempty"`
@@ -831,7 +831,7 @@ type ChatChange struct {
 	OwnerId                *UserId    `json:"owner_id,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ChatChangeBuilder struct {
 	avatar                     string
 	avatarFlag                 bool
@@ -988,7 +988,7 @@ func (builder *ChatChangeBuilder) Build() *ChatChange {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ChatTabContent struct {
 	Url           *string `json:"url,omitempty"`
@@ -996,7 +996,7 @@ type ChatTabContent struct {
 	MeetingMinute *string `json:"meeting_minute,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ChatTabContentBuilder struct {
 	url               string
 	urlFlag           bool
@@ -1044,13 +1044,13 @@ func (builder *ChatTabContentBuilder) Build() *ChatTabContent {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Emoji struct {
 	EmojiType *string `json:"emoji_type,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type EmojiBuilder struct {
 	emojiType     string
 	emojiTypeFlag bool
@@ -1076,7 +1076,7 @@ func (builder *EmojiBuilder) Build() *Emoji {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type EventMessage struct {
 	MessageId   *string         `json:"message_id,omitempty"`
@@ -1090,7 +1090,7 @@ type EventMessage struct {
 	Mentions    []*MentionEvent `json:"mentions,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type EventMessageBuilder struct {
 	messageId       string
 	messageIdFlag   bool
@@ -1203,7 +1203,7 @@ func (builder *EventMessageBuilder) Build() *EventMessage {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type EventMessageReader struct {
 	ReaderId  *UserId `json:"reader_id,omitempty"`
@@ -1211,7 +1211,7 @@ type EventMessageReader struct {
 	TenantKey *string `json:"tenant_key,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type EventMessageReaderBuilder struct {
 	readerId      *UserId
 	readerIdFlag  bool
@@ -1258,7 +1258,7 @@ func (builder *EventMessageReaderBuilder) Build() *EventMessageReader {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type EventSender struct {
 	SenderId   *UserId `json:"sender_id,omitempty"`
@@ -1266,7 +1266,7 @@ type EventSender struct {
 	TenantKey  *string `json:"tenant_key,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type EventSenderBuilder struct {
 	senderId       *UserId
 	senderIdFlag   bool
@@ -1313,13 +1313,13 @@ func (builder *EventSenderBuilder) Build() *EventSender {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type File struct {
 }
 
-/**builder开始**/
-/**builder结束**/
+// builder开始
+// builder结束
 
 type I18nNames struct {
 	ZhCn *string `json:"zh_cn,omitempty"`
@@ -1327,7 +1327,7 @@ type I18nNames struct {
 	JaJp *string `json:"ja_jp,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type I18nNamesBuilder struct {
 	zhCn     string
 	zhCnFlag bool
@@ -1375,7 +1375,7 @@ func (builder *I18nNamesBuilder) Build() *I18nNames {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ImDepthData struct {
 	PDate                   *string  `json:"p_date,omitempty"`
@@ -1401,7 +1401,7 @@ type ImDepthData struct {
 	PostSendMsgRate         *float64 `json:"post_send_msg_rate,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ImDepthDataBuilder struct {
 	pDate                       string
 	pDateFlag                   bool
@@ -1647,13 +1647,13 @@ func (builder *ImDepthDataBuilder) Build() *ImDepthData {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Image struct {
 }
 
-/**builder开始**/
-/**builder结束**/
+// builder开始
+// builder结束
 
 type ListChat struct {
 	ChatId      *string `json:"chat_id,omitempty"`
@@ -1666,7 +1666,7 @@ type ListChat struct {
 	TenantKey   *string `json:"tenant_key,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ListChatBuilder struct {
 	chatId          string
 	chatIdFlag      bool
@@ -1770,14 +1770,14 @@ func (builder *ListChatBuilder) Build() *ListChat {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ListEventModerator struct {
 	TenantKey *string `json:"tenant_key,omitempty"`
 	UserId    *UserId `json:"user_id,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ListEventModeratorBuilder struct {
 	tenantKey     string
 	tenantKeyFlag bool
@@ -1813,7 +1813,7 @@ func (builder *ListEventModeratorBuilder) Build() *ListEventModerator {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ListMember struct {
 	MemberIdType *string `json:"member_id_type,omitempty"`
@@ -1822,7 +1822,7 @@ type ListMember struct {
 	TenantKey    *string `json:"tenant_key,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ListMemberBuilder struct {
 	memberIdType     string
 	memberIdTypeFlag bool
@@ -1881,7 +1881,7 @@ func (builder *ListMemberBuilder) Build() *ListMember {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ListModerator struct {
 	UserIdType *string `json:"user_id_type,omitempty"`
@@ -1889,7 +1889,7 @@ type ListModerator struct {
 	TenantKey  *string `json:"tenant_key,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ListModeratorBuilder struct {
 	userIdType     string
 	userIdTypeFlag bool
@@ -1937,7 +1937,7 @@ func (builder *ListModeratorBuilder) Build() *ListModerator {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Mention struct {
 	Key       *string `json:"key,omitempty"`
@@ -1947,7 +1947,7 @@ type Mention struct {
 	TenantKey *string `json:"tenant_key,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type MentionBuilder struct {
 	key           string
 	keyFlag       bool
@@ -2017,7 +2017,7 @@ func (builder *MentionBuilder) Build() *Mention {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type MentionEvent struct {
 	Key       *string `json:"key,omitempty"`
@@ -2026,7 +2026,7 @@ type MentionEvent struct {
 	TenantKey *string `json:"tenant_key,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type MentionEventBuilder struct {
 	key           string
 	keyFlag       bool
@@ -2084,7 +2084,7 @@ func (builder *MentionEventBuilder) Build() *MentionEvent {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Message struct {
 	MessageId      *string      `json:"message_id,omitempty"`
@@ -2102,7 +2102,7 @@ type Message struct {
 	UpperMessageId *string      `json:"upper_message_id,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type MessageBuilder struct {
 	messageId          string
 	messageIdFlag      bool
@@ -2257,7 +2257,7 @@ func (builder *MessageBuilder) Build() *Message {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type MessageReaction struct {
 	ReactionId   *string   `json:"reaction_id,omitempty"`
@@ -2266,7 +2266,7 @@ type MessageReaction struct {
 	ReactionType *Emoji    `json:"reaction_type,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type MessageReactionBuilder struct {
 	reactionId       string
 	reactionIdFlag   bool
@@ -2323,19 +2323,19 @@ func (builder *MessageReactionBuilder) Build() *MessageReaction {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type MessageResource struct {
 }
 
-/**builder开始**/
-/**builder结束**/
+// builder开始
+// builder结束
 
 type MessageBody struct {
 	Content *string `json:"content,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type MessageBodyBuilder struct {
 	content     string
 	contentFlag bool
@@ -2361,14 +2361,14 @@ func (builder *MessageBodyBuilder) Build() *MessageBody {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ModeratorList struct {
 	AddedMemberList   []*ListEventModerator `json:"added_member_list,omitempty"`
 	RemovedMemberList []*ListEventModerator `json:"removed_member_list,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ModeratorListBuilder struct {
 	addedMemberList       []*ListEventModerator
 	addedMemberListFlag   bool
@@ -2403,7 +2403,7 @@ func (builder *ModeratorListBuilder) Build() *ModeratorList {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type MsgProcessData struct {
 	PDate                   *string  `json:"p_date,omitempty"`
@@ -2427,7 +2427,7 @@ type MsgProcessData struct {
 	AvgReceiveImpMsgChatCnt *float64 `json:"avg_receive_imp_msg_chat_cnt,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type MsgProcessDataBuilder struct {
 	pDate                       string
 	pDateFlag                   bool
@@ -2651,14 +2651,14 @@ func (builder *MsgProcessDataBuilder) Build() *MsgProcessData {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Operator struct {
 	OperatorId   *string `json:"operator_id,omitempty"`
 	OperatorType *string `json:"operator_type,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type OperatorBuilder struct {
 	operatorId       string
 	operatorIdFlag   bool
@@ -2695,7 +2695,7 @@ func (builder *OperatorBuilder) Build() *Operator {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ReadUser struct {
 	UserIdType *string `json:"user_id_type,omitempty"`
@@ -2704,7 +2704,7 @@ type ReadUser struct {
 	TenantKey  *string `json:"tenant_key,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ReadUserBuilder struct {
 	userIdType     string
 	userIdTypeFlag bool
@@ -2763,7 +2763,7 @@ func (builder *ReadUserBuilder) Build() *ReadUser {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Sender struct {
 	Id         *string `json:"id,omitempty"`
@@ -2772,7 +2772,7 @@ type Sender struct {
 	TenantKey  *string `json:"tenant_key,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type SenderBuilder struct {
 	id             string
 	idFlag         bool
@@ -2831,14 +2831,14 @@ func (builder *SenderBuilder) Build() *Sender {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type SpecialFocus struct {
 	Id     *string `json:"id,omitempty"`
 	IdType *string `json:"id_type,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type SpecialFocusBuilder struct {
 	id         string
 	idFlag     bool
@@ -2875,7 +2875,7 @@ func (builder *SpecialFocusBuilder) Build() *SpecialFocus {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type SpecialFocusUnread struct {
 	Id          *string `json:"id,omitempty"`
@@ -2883,7 +2883,7 @@ type SpecialFocusUnread struct {
 	UnreadCount *string `json:"unread_count,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type SpecialFocusUnreadBuilder struct {
 	id              string
 	idFlag          bool
@@ -2931,13 +2931,13 @@ func (builder *SpecialFocusUnreadBuilder) Build() *SpecialFocusUnread {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type UrgentReceivers struct {
 	UserIdList []string `json:"user_id_list,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type UrgentReceiversBuilder struct {
 	userIdList     []string
 	userIdListFlag bool
@@ -2962,7 +2962,7 @@ func (builder *UrgentReceiversBuilder) Build() *UrgentReceivers {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type UserId struct {
 	UserId  *string `json:"user_id,omitempty"`
@@ -2970,7 +2970,7 @@ type UserId struct {
 	UnionId *string `json:"union_id,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type UserIdBuilder struct {
 	userId      string
 	userIdFlag  bool
@@ -3018,11 +3018,11 @@ func (builder *UserIdBuilder) Build() *UserId {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
-/**生成请求和响应结果类型，以及请求对象的Builder构造器 **/
+// 生成请求和响应结果类型，以及请求对象的Builder构造器
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type DeleteBatchMessageReqBuilder struct {
 	batchMessageId     string
 	batchMessageIdFlag bool
@@ -3034,14 +3034,14 @@ func NewDeleteBatchMessageReqBuilder() *DeleteBatchMessageReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *DeleteBatchMessageReqBuilder) BatchMessageId(batchMessageId string) *DeleteBatchMessageReqBuilder {
 	builder.batchMessageId = batchMessageId
 	builder.batchMessageIdFlag = true
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *DeleteBatchMessageReqBuilder) Build() *DeleteBatchMessageReq {
 	req := &DeleteBatchMessageReq{}
 	if builder.batchMessageIdFlag {
@@ -3063,7 +3063,7 @@ func (resp *DeleteBatchMessageResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type GetProgressBatchMessageReqBuilder struct {
 	batchMessageId     string
 	batchMessageIdFlag bool
@@ -3075,14 +3075,14 @@ func NewGetProgressBatchMessageReqBuilder() *GetProgressBatchMessageReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *GetProgressBatchMessageReqBuilder) BatchMessageId(batchMessageId string) *GetProgressBatchMessageReqBuilder {
 	builder.batchMessageId = batchMessageId
 	builder.batchMessageIdFlag = true
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *GetProgressBatchMessageReqBuilder) Build() *GetProgressBatchMessageReq {
 	req := &GetProgressBatchMessageReq{}
 	if builder.batchMessageIdFlag {
@@ -3110,7 +3110,7 @@ func (resp *GetProgressBatchMessageResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type ReadUserBatchMessageReqBuilder struct {
 	batchMessageId     string
 	batchMessageIdFlag bool
@@ -3122,14 +3122,14 @@ func NewReadUserBatchMessageReqBuilder() *ReadUserBatchMessageReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *ReadUserBatchMessageReqBuilder) BatchMessageId(batchMessageId string) *ReadUserBatchMessageReqBuilder {
 	builder.batchMessageId = batchMessageId
 	builder.batchMessageIdFlag = true
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *ReadUserBatchMessageReqBuilder) Build() *ReadUserBatchMessageReq {
 	req := &ReadUserBatchMessageReq{}
 	if builder.batchMessageIdFlag {
@@ -3191,7 +3191,7 @@ func NewCreateChatReqBodyBuilder() *CreateChatReqBodyBuilder {
 	return builder
 }
 
-/*1.2 生成body的builder属性方法*/
+// 1.2 生成body的builder属性方法
 func (builder *CreateChatReqBodyBuilder) Avatar(avatar string) *CreateChatReqBodyBuilder {
 	builder.avatar = avatar
 	builder.avatarFlag = true
@@ -3258,7 +3258,7 @@ func (builder *CreateChatReqBodyBuilder) MembershipApproval(membershipApproval s
 	return builder
 }
 
-/*1.3 生成body的build方法*/
+// 1.3 生成body的build方法
 func (builder *CreateChatReqBodyBuilder) Build() *CreateChatReqBody {
 	req := &CreateChatReqBody{}
 	if builder.avatarFlag {
@@ -3317,7 +3317,7 @@ func (builder *CreateChatReqBodyBuilder) Build() *CreateChatReqBody {
 	return req
 }
 
-/**上传文件path开始**/
+// 上传文件path开始
 type CreateChatPathReqBodyBuilder struct {
 	avatar                     string
 	avatarFlag                 bool
@@ -3474,9 +3474,9 @@ func (builder *CreateChatPathReqBodyBuilder) Build() (*CreateChatReqBody, error)
 	return req, nil
 }
 
-/**上传文件path结束**/
+// 上传文件path结束
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type CreateChatReqBuilder struct {
 	userIdType        string
 	userIdTypeFlag    bool
@@ -3492,7 +3492,7 @@ func NewCreateChatReqBuilder() *CreateChatReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *CreateChatReqBuilder) UserIdType(userIdType string) *CreateChatReqBuilder {
 	builder.userIdType = userIdType
 	builder.userIdTypeFlag = true
@@ -3509,7 +3509,7 @@ func (builder *CreateChatReqBuilder) Body(body *CreateChatReqBody) *CreateChatRe
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *CreateChatReqBuilder) Build() *CreateChatReq {
 	req := &CreateChatReq{}
 	if builder.userIdTypeFlag {
@@ -3579,7 +3579,7 @@ func (resp *CreateChatResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type DeleteChatReqBuilder struct {
 	chatId     string
 	chatIdFlag bool
@@ -3591,14 +3591,14 @@ func NewDeleteChatReqBuilder() *DeleteChatReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *DeleteChatReqBuilder) ChatId(chatId string) *DeleteChatReqBuilder {
 	builder.chatId = chatId
 	builder.chatIdFlag = true
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *DeleteChatReqBuilder) Build() *DeleteChatReq {
 	req := &DeleteChatReq{}
 	if builder.chatIdFlag {
@@ -3620,7 +3620,7 @@ func (resp *DeleteChatResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type GetChatReqBuilder struct {
 	chatId         string
 	chatIdFlag     bool
@@ -3634,7 +3634,7 @@ func NewGetChatReqBuilder() *GetChatReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *GetChatReqBuilder) ChatId(chatId string) *GetChatReqBuilder {
 	builder.chatId = chatId
 	builder.chatIdFlag = true
@@ -3646,7 +3646,7 @@ func (builder *GetChatReqBuilder) UserIdType(userIdType string) *GetChatReqBuild
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *GetChatReqBuilder) Build() *GetChatReq {
 	req := &GetChatReq{}
 	if builder.chatIdFlag {
@@ -3697,7 +3697,7 @@ func (resp *GetChatResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type ListChatReqBuilder struct {
 	userIdType     string
 	userIdTypeFlag bool
@@ -3714,7 +3714,7 @@ func NewListChatReqBuilder() *ListChatReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *ListChatReqBuilder) Limit(limit int) *ListChatReqBuilder {
 	builder.limit = limit
 	return builder
@@ -3735,7 +3735,7 @@ func (builder *ListChatReqBuilder) PageSize(pageSize int) *ListChatReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *ListChatReqBuilder) Build() *ListChatReq {
 	req := &ListChatReq{}
 	req.Limit = builder.limit
@@ -3774,7 +3774,7 @@ func (resp *ListChatResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type SearchChatReqBuilder struct {
 	userIdType     string
 	userIdTypeFlag bool
@@ -3793,7 +3793,7 @@ func NewSearchChatReqBuilder() *SearchChatReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *SearchChatReqBuilder) Limit(limit int) *SearchChatReqBuilder {
 	builder.limit = limit
 	return builder
@@ -3819,7 +3819,7 @@ func (builder *SearchChatReqBuilder) PageSize(pageSize int) *SearchChatReqBuilde
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *SearchChatReqBuilder) Build() *SearchChatReq {
 	req := &SearchChatReq{}
 	req.Limit = builder.limit
@@ -3895,7 +3895,7 @@ func NewUpdateChatReqBodyBuilder() *UpdateChatReqBodyBuilder {
 	return builder
 }
 
-/*1.2 生成body的builder属性方法*/
+// 1.2 生成body的builder属性方法
 func (builder *UpdateChatReqBodyBuilder) Avatar(avatar string) *UpdateChatReqBodyBuilder {
 	builder.avatar = avatar
 	builder.avatarFlag = true
@@ -3957,7 +3957,7 @@ func (builder *UpdateChatReqBodyBuilder) MembershipApproval(membershipApproval s
 	return builder
 }
 
-/*1.3 生成body的build方法*/
+// 1.3 生成body的build方法
 func (builder *UpdateChatReqBodyBuilder) Build() *UpdateChatReqBody {
 	req := &UpdateChatReqBody{}
 	if builder.avatarFlag {
@@ -4012,7 +4012,7 @@ func (builder *UpdateChatReqBodyBuilder) Build() *UpdateChatReqBody {
 	return req
 }
 
-/**上传文件path开始**/
+// 上传文件path开始
 type UpdateChatPathReqBodyBuilder struct {
 	avatar                     string
 	avatarFlag                 bool
@@ -4160,9 +4160,9 @@ func (builder *UpdateChatPathReqBodyBuilder) Build() (*UpdateChatReqBody, error)
 	return req, nil
 }
 
-/**上传文件path结束**/
+// 上传文件path结束
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type UpdateChatReqBuilder struct {
 	chatId         string
 	chatIdFlag     bool
@@ -4178,7 +4178,7 @@ func NewUpdateChatReqBuilder() *UpdateChatReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *UpdateChatReqBuilder) ChatId(chatId string) *UpdateChatReqBuilder {
 	builder.chatId = chatId
 	builder.chatIdFlag = true
@@ -4195,7 +4195,7 @@ func (builder *UpdateChatReqBuilder) Body(body *UpdateChatReqBody) *UpdateChatRe
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *UpdateChatReqBuilder) Build() *UpdateChatReq {
 	req := &UpdateChatReq{}
 	if builder.chatIdFlag {
@@ -4240,7 +4240,7 @@ func (resp *UpdateChatResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type GetChatAnnouncementReqBuilder struct {
 	chatId         string
 	chatIdFlag     bool
@@ -4254,7 +4254,7 @@ func NewGetChatAnnouncementReqBuilder() *GetChatAnnouncementReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *GetChatAnnouncementReqBuilder) ChatId(chatId string) *GetChatAnnouncementReqBuilder {
 	builder.chatId = chatId
 	builder.chatIdFlag = true
@@ -4266,7 +4266,7 @@ func (builder *GetChatAnnouncementReqBuilder) UserIdType(userIdType string) *Get
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *GetChatAnnouncementReqBuilder) Build() *GetChatAnnouncementReq {
 	req := &GetChatAnnouncementReq{}
 	if builder.chatIdFlag {
@@ -4317,7 +4317,7 @@ func NewPatchChatAnnouncementReqBodyBuilder() *PatchChatAnnouncementReqBodyBuild
 	return builder
 }
 
-/*1.2 生成body的builder属性方法*/
+// 1.2 生成body的builder属性方法
 func (builder *PatchChatAnnouncementReqBodyBuilder) Revision(revision string) *PatchChatAnnouncementReqBodyBuilder {
 	builder.revision = revision
 	builder.revisionFlag = true
@@ -4329,7 +4329,7 @@ func (builder *PatchChatAnnouncementReqBodyBuilder) Requests(requests []string) 
 	return builder
 }
 
-/*1.3 生成body的build方法*/
+// 1.3 生成body的build方法
 func (builder *PatchChatAnnouncementReqBodyBuilder) Build() *PatchChatAnnouncementReqBody {
 	req := &PatchChatAnnouncementReqBody{}
 	if builder.revisionFlag {
@@ -4343,7 +4343,7 @@ func (builder *PatchChatAnnouncementReqBodyBuilder) Build() *PatchChatAnnounceme
 	return req
 }
 
-/**上传文件path开始**/
+// 上传文件path开始
 type PatchChatAnnouncementPathReqBodyBuilder struct {
 	revision     string
 	revisionFlag bool
@@ -4378,9 +4378,9 @@ func (builder *PatchChatAnnouncementPathReqBodyBuilder) Build() (*PatchChatAnnou
 	return req, nil
 }
 
-/**上传文件path结束**/
+// 上传文件path结束
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type PatchChatAnnouncementReqBuilder struct {
 	chatId     string
 	chatIdFlag bool
@@ -4394,7 +4394,7 @@ func NewPatchChatAnnouncementReqBuilder() *PatchChatAnnouncementReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *PatchChatAnnouncementReqBuilder) ChatId(chatId string) *PatchChatAnnouncementReqBuilder {
 	builder.chatId = chatId
 	builder.chatIdFlag = true
@@ -4406,7 +4406,7 @@ func (builder *PatchChatAnnouncementReqBuilder) Body(body *PatchChatAnnouncement
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *PatchChatAnnouncementReqBuilder) Build() *PatchChatAnnouncementReq {
 	req := &PatchChatAnnouncementReq{}
 	if builder.chatIdFlag {
@@ -4448,14 +4448,14 @@ func NewAddManagersChatManagersReqBodyBuilder() *AddManagersChatManagersReqBodyB
 	return builder
 }
 
-/*1.2 生成body的builder属性方法*/
+// 1.2 生成body的builder属性方法
 func (builder *AddManagersChatManagersReqBodyBuilder) ManagerIds(managerIds []string) *AddManagersChatManagersReqBodyBuilder {
 	builder.managerIds = managerIds
 	builder.managerIdsFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
+// 1.3 生成body的build方法
 func (builder *AddManagersChatManagersReqBodyBuilder) Build() *AddManagersChatManagersReqBody {
 	req := &AddManagersChatManagersReqBody{}
 	if builder.managerIdsFlag {
@@ -4465,7 +4465,7 @@ func (builder *AddManagersChatManagersReqBodyBuilder) Build() *AddManagersChatMa
 	return req
 }
 
-/**上传文件path开始**/
+// 上传文件path开始
 type AddManagersChatManagersPathReqBodyBuilder struct {
 	managerIds     []string
 	managerIdsFlag bool
@@ -4489,9 +4489,9 @@ func (builder *AddManagersChatManagersPathReqBodyBuilder) Build() (*AddManagersC
 	return req, nil
 }
 
-/**上传文件path结束**/
+// 上传文件path结束
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type AddManagersChatManagersReqBuilder struct {
 	chatId           string
 	chatIdFlag       bool
@@ -4507,7 +4507,7 @@ func NewAddManagersChatManagersReqBuilder() *AddManagersChatManagersReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *AddManagersChatManagersReqBuilder) ChatId(chatId string) *AddManagersChatManagersReqBuilder {
 	builder.chatId = chatId
 	builder.chatIdFlag = true
@@ -4524,7 +4524,7 @@ func (builder *AddManagersChatManagersReqBuilder) Body(body *AddManagersChatMana
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *AddManagersChatManagersReqBuilder) Build() *AddManagersChatManagersReq {
 	req := &AddManagersChatManagersReq{}
 	if builder.chatIdFlag {
@@ -4575,14 +4575,14 @@ func NewDeleteManagersChatManagersReqBodyBuilder() *DeleteManagersChatManagersRe
 	return builder
 }
 
-/*1.2 生成body的builder属性方法*/
+// 1.2 生成body的builder属性方法
 func (builder *DeleteManagersChatManagersReqBodyBuilder) ManagerIds(managerIds []string) *DeleteManagersChatManagersReqBodyBuilder {
 	builder.managerIds = managerIds
 	builder.managerIdsFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
+// 1.3 生成body的build方法
 func (builder *DeleteManagersChatManagersReqBodyBuilder) Build() *DeleteManagersChatManagersReqBody {
 	req := &DeleteManagersChatManagersReqBody{}
 	if builder.managerIdsFlag {
@@ -4592,7 +4592,7 @@ func (builder *DeleteManagersChatManagersReqBodyBuilder) Build() *DeleteManagers
 	return req
 }
 
-/**上传文件path开始**/
+// 上传文件path开始
 type DeleteManagersChatManagersPathReqBodyBuilder struct {
 	managerIds     []string
 	managerIdsFlag bool
@@ -4616,9 +4616,9 @@ func (builder *DeleteManagersChatManagersPathReqBodyBuilder) Build() (*DeleteMan
 	return req, nil
 }
 
-/**上传文件path结束**/
+// 上传文件path结束
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type DeleteManagersChatManagersReqBuilder struct {
 	chatId           string
 	chatIdFlag       bool
@@ -4634,7 +4634,7 @@ func NewDeleteManagersChatManagersReqBuilder() *DeleteManagersChatManagersReqBui
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *DeleteManagersChatManagersReqBuilder) ChatId(chatId string) *DeleteManagersChatManagersReqBuilder {
 	builder.chatId = chatId
 	builder.chatIdFlag = true
@@ -4651,7 +4651,7 @@ func (builder *DeleteManagersChatManagersReqBuilder) Body(body *DeleteManagersCh
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *DeleteManagersChatManagersReqBuilder) Build() *DeleteManagersChatManagersReq {
 	req := &DeleteManagersChatManagersReq{}
 	if builder.chatIdFlag {
@@ -4702,14 +4702,14 @@ func NewCreateChatMembersReqBodyBuilder() *CreateChatMembersReqBodyBuilder {
 	return builder
 }
 
-/*1.2 生成body的builder属性方法*/
+// 1.2 生成body的builder属性方法
 func (builder *CreateChatMembersReqBodyBuilder) IdList(idList []string) *CreateChatMembersReqBodyBuilder {
 	builder.idList = idList
 	builder.idListFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
+// 1.3 生成body的build方法
 func (builder *CreateChatMembersReqBodyBuilder) Build() *CreateChatMembersReqBody {
 	req := &CreateChatMembersReqBody{}
 	if builder.idListFlag {
@@ -4719,7 +4719,7 @@ func (builder *CreateChatMembersReqBodyBuilder) Build() *CreateChatMembersReqBod
 	return req
 }
 
-/**上传文件path开始**/
+// 上传文件path开始
 type CreateChatMembersPathReqBodyBuilder struct {
 	idList     []string
 	idListFlag bool
@@ -4743,9 +4743,9 @@ func (builder *CreateChatMembersPathReqBodyBuilder) Build() (*CreateChatMembersR
 	return req, nil
 }
 
-/**上传文件path结束**/
+// 上传文件path结束
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type CreateChatMembersReqBuilder struct {
 	chatId           string
 	chatIdFlag       bool
@@ -4763,7 +4763,7 @@ func NewCreateChatMembersReqBuilder() *CreateChatMembersReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *CreateChatMembersReqBuilder) ChatId(chatId string) *CreateChatMembersReqBuilder {
 	builder.chatId = chatId
 	builder.chatIdFlag = true
@@ -4785,7 +4785,7 @@ func (builder *CreateChatMembersReqBuilder) Body(body *CreateChatMembersReqBody)
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *CreateChatMembersReqBuilder) Build() *CreateChatMembersReq {
 	req := &CreateChatMembersReq{}
 	if builder.chatIdFlag {
@@ -4840,14 +4840,14 @@ func NewDeleteChatMembersReqBodyBuilder() *DeleteChatMembersReqBodyBuilder {
 	return builder
 }
 
-/*1.2 生成body的builder属性方法*/
+// 1.2 生成body的builder属性方法
 func (builder *DeleteChatMembersReqBodyBuilder) IdList(idList []string) *DeleteChatMembersReqBodyBuilder {
 	builder.idList = idList
 	builder.idListFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
+// 1.3 生成body的build方法
 func (builder *DeleteChatMembersReqBodyBuilder) Build() *DeleteChatMembersReqBody {
 	req := &DeleteChatMembersReqBody{}
 	if builder.idListFlag {
@@ -4857,7 +4857,7 @@ func (builder *DeleteChatMembersReqBodyBuilder) Build() *DeleteChatMembersReqBod
 	return req
 }
 
-/**上传文件path开始**/
+// 上传文件path开始
 type DeleteChatMembersPathReqBodyBuilder struct {
 	idList     []string
 	idListFlag bool
@@ -4881,9 +4881,9 @@ func (builder *DeleteChatMembersPathReqBodyBuilder) Build() (*DeleteChatMembersR
 	return req, nil
 }
 
-/**上传文件path结束**/
+// 上传文件path结束
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type DeleteChatMembersReqBuilder struct {
 	chatId           string
 	chatIdFlag       bool
@@ -4899,7 +4899,7 @@ func NewDeleteChatMembersReqBuilder() *DeleteChatMembersReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *DeleteChatMembersReqBuilder) ChatId(chatId string) *DeleteChatMembersReqBuilder {
 	builder.chatId = chatId
 	builder.chatIdFlag = true
@@ -4916,7 +4916,7 @@ func (builder *DeleteChatMembersReqBuilder) Body(body *DeleteChatMembersReqBody)
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *DeleteChatMembersReqBuilder) Build() *DeleteChatMembersReq {
 	req := &DeleteChatMembersReq{}
 	if builder.chatIdFlag {
@@ -4955,7 +4955,7 @@ func (resp *DeleteChatMembersResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type GetChatMembersReqBuilder struct {
 	chatId           string
 	chatIdFlag       bool
@@ -4974,7 +4974,7 @@ func NewGetChatMembersReqBuilder() *GetChatMembersReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *GetChatMembersReqBuilder) Limit(limit int) *GetChatMembersReqBuilder {
 	builder.limit = limit
 	return builder
@@ -5000,7 +5000,7 @@ func (builder *GetChatMembersReqBuilder) PageSize(pageSize int) *GetChatMembersR
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *GetChatMembersReqBuilder) Build() *GetChatMembersReq {
 	req := &GetChatMembersReq{}
 	req.Limit = builder.limit
@@ -5044,7 +5044,7 @@ func (resp *GetChatMembersResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type IsInChatChatMembersReqBuilder struct {
 	chatId     string
 	chatIdFlag bool
@@ -5056,14 +5056,14 @@ func NewIsInChatChatMembersReqBuilder() *IsInChatChatMembersReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *IsInChatChatMembersReqBuilder) ChatId(chatId string) *IsInChatChatMembersReqBuilder {
 	builder.chatId = chatId
 	builder.chatIdFlag = true
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *IsInChatChatMembersReqBuilder) Build() *IsInChatChatMembersReq {
 	req := &IsInChatChatMembersReq{}
 	if builder.chatIdFlag {
@@ -5090,7 +5090,7 @@ func (resp *IsInChatChatMembersResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type MeJoinChatMembersReqBuilder struct {
 	chatId     string
 	chatIdFlag bool
@@ -5102,14 +5102,14 @@ func NewMeJoinChatMembersReqBuilder() *MeJoinChatMembersReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *MeJoinChatMembersReqBuilder) ChatId(chatId string) *MeJoinChatMembersReqBuilder {
 	builder.chatId = chatId
 	builder.chatIdFlag = true
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *MeJoinChatMembersReqBuilder) Build() *MeJoinChatMembersReq {
 	req := &MeJoinChatMembersReq{}
 	if builder.chatIdFlag {
@@ -5131,7 +5131,7 @@ func (resp *MeJoinChatMembersResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type GetChatModerationReqBuilder struct {
 	chatId         string
 	chatIdFlag     bool
@@ -5150,7 +5150,7 @@ func NewGetChatModerationReqBuilder() *GetChatModerationReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *GetChatModerationReqBuilder) Limit(limit int) *GetChatModerationReqBuilder {
 	builder.limit = limit
 	return builder
@@ -5176,7 +5176,7 @@ func (builder *GetChatModerationReqBuilder) PageSize(pageSize int) *GetChatModer
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *GetChatModerationReqBuilder) Build() *GetChatModerationReq {
 	req := &GetChatModerationReq{}
 	req.Limit = builder.limit
@@ -5235,7 +5235,7 @@ func NewUpdateChatModerationReqBodyBuilder() *UpdateChatModerationReqBodyBuilder
 	return builder
 }
 
-/*1.2 生成body的builder属性方法*/
+// 1.2 生成body的builder属性方法
 func (builder *UpdateChatModerationReqBodyBuilder) ModerationSetting(moderationSetting string) *UpdateChatModerationReqBodyBuilder {
 	builder.moderationSetting = moderationSetting
 	builder.moderationSettingFlag = true
@@ -5252,7 +5252,7 @@ func (builder *UpdateChatModerationReqBodyBuilder) ModeratorRemovedList(moderato
 	return builder
 }
 
-/*1.3 生成body的build方法*/
+// 1.3 生成body的build方法
 func (builder *UpdateChatModerationReqBodyBuilder) Build() *UpdateChatModerationReqBody {
 	req := &UpdateChatModerationReqBody{}
 	if builder.moderationSettingFlag {
@@ -5270,7 +5270,7 @@ func (builder *UpdateChatModerationReqBodyBuilder) Build() *UpdateChatModeration
 	return req
 }
 
-/**上传文件path开始**/
+// 上传文件path开始
 type UpdateChatModerationPathReqBodyBuilder struct {
 	moderationSetting        string
 	moderationSettingFlag    bool
@@ -5315,9 +5315,9 @@ func (builder *UpdateChatModerationPathReqBodyBuilder) Build() (*UpdateChatModer
 	return req, nil
 }
 
-/**上传文件path结束**/
+// 上传文件path结束
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type UpdateChatModerationReqBuilder struct {
 	chatId         string
 	chatIdFlag     bool
@@ -5333,7 +5333,7 @@ func NewUpdateChatModerationReqBuilder() *UpdateChatModerationReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *UpdateChatModerationReqBuilder) ChatId(chatId string) *UpdateChatModerationReqBuilder {
 	builder.chatId = chatId
 	builder.chatIdFlag = true
@@ -5350,7 +5350,7 @@ func (builder *UpdateChatModerationReqBuilder) Body(body *UpdateChatModerationRe
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *UpdateChatModerationReqBuilder) Build() *UpdateChatModerationReq {
 	req := &UpdateChatModerationReq{}
 	if builder.chatIdFlag {
@@ -5386,7 +5386,7 @@ func (resp *UpdateChatModerationResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type DeleteTopNoticeChatTopNoticeReqBuilder struct {
 	chatId     string
 	chatIdFlag bool
@@ -5398,14 +5398,14 @@ func NewDeleteTopNoticeChatTopNoticeReqBuilder() *DeleteTopNoticeChatTopNoticeRe
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *DeleteTopNoticeChatTopNoticeReqBuilder) ChatId(chatId string) *DeleteTopNoticeChatTopNoticeReqBuilder {
 	builder.chatId = chatId
 	builder.chatIdFlag = true
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *DeleteTopNoticeChatTopNoticeReqBuilder) Build() *DeleteTopNoticeChatTopNoticeReq {
 	req := &DeleteTopNoticeChatTopNoticeReq{}
 	if builder.chatIdFlag {
@@ -5438,14 +5438,14 @@ func NewPutTopNoticeChatTopNoticeReqBodyBuilder() *PutTopNoticeChatTopNoticeReqB
 	return builder
 }
 
-/*1.2 生成body的builder属性方法*/
+// 1.2 生成body的builder属性方法
 func (builder *PutTopNoticeChatTopNoticeReqBodyBuilder) ChatTopNotice(chatTopNotice []*ChatTopNotice) *PutTopNoticeChatTopNoticeReqBodyBuilder {
 	builder.chatTopNotice = chatTopNotice
 	builder.chatTopNoticeFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
+// 1.3 生成body的build方法
 func (builder *PutTopNoticeChatTopNoticeReqBodyBuilder) Build() *PutTopNoticeChatTopNoticeReqBody {
 	req := &PutTopNoticeChatTopNoticeReqBody{}
 	if builder.chatTopNoticeFlag {
@@ -5455,7 +5455,7 @@ func (builder *PutTopNoticeChatTopNoticeReqBodyBuilder) Build() *PutTopNoticeCha
 	return req
 }
 
-/**上传文件path开始**/
+// 上传文件path开始
 type PutTopNoticeChatTopNoticePathReqBodyBuilder struct {
 	chatTopNotice     []*ChatTopNotice
 	chatTopNoticeFlag bool
@@ -5479,9 +5479,9 @@ func (builder *PutTopNoticeChatTopNoticePathReqBodyBuilder) Build() (*PutTopNoti
 	return req, nil
 }
 
-/**上传文件path结束**/
+// 上传文件path结束
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type PutTopNoticeChatTopNoticeReqBuilder struct {
 	chatId     string
 	chatIdFlag bool
@@ -5495,7 +5495,7 @@ func NewPutTopNoticeChatTopNoticeReqBuilder() *PutTopNoticeChatTopNoticeReqBuild
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *PutTopNoticeChatTopNoticeReqBuilder) ChatId(chatId string) *PutTopNoticeChatTopNoticeReqBuilder {
 	builder.chatId = chatId
 	builder.chatIdFlag = true
@@ -5507,7 +5507,7 @@ func (builder *PutTopNoticeChatTopNoticeReqBuilder) Body(body *PutTopNoticeChatT
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *PutTopNoticeChatTopNoticeReqBuilder) Build() *PutTopNoticeChatTopNoticeReq {
 	req := &PutTopNoticeChatTopNoticeReq{}
 	if builder.chatIdFlag {
@@ -5554,7 +5554,7 @@ func NewCreateFileReqBodyBuilder() *CreateFileReqBodyBuilder {
 	return builder
 }
 
-/*1.2 生成body的builder属性方法*/
+// 1.2 生成body的builder属性方法
 func (builder *CreateFileReqBodyBuilder) FileType(fileType string) *CreateFileReqBodyBuilder {
 	builder.fileType = fileType
 	builder.fileTypeFlag = true
@@ -5576,7 +5576,7 @@ func (builder *CreateFileReqBodyBuilder) File(file io.Reader) *CreateFileReqBody
 	return builder
 }
 
-/*1.3 生成body的build方法*/
+// 1.3 生成body的build方法
 func (builder *CreateFileReqBodyBuilder) Build() *CreateFileReqBody {
 	req := &CreateFileReqBody{}
 	if builder.fileTypeFlag {
@@ -5598,7 +5598,7 @@ func (builder *CreateFileReqBodyBuilder) Build() *CreateFileReqBody {
 	return req
 }
 
-/**上传文件path开始**/
+// 上传文件path开始
 type CreateFilePathReqBodyBuilder struct {
 	fileType     string
 	fileTypeFlag bool
@@ -5659,9 +5659,9 @@ func (builder *CreateFilePathReqBodyBuilder) Build() (*CreateFileReqBody, error)
 	return req, nil
 }
 
-/**上传文件path结束**/
+// 上传文件path结束
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type CreateFileReqBuilder struct {
 	body     *CreateFileReqBody
 	bodyFlag bool
@@ -5673,14 +5673,14 @@ func NewCreateFileReqBuilder() *CreateFileReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *CreateFileReqBuilder) Body(body *CreateFileReqBody) *CreateFileReqBuilder {
 	builder.body = body
 	builder.bodyFlag = true
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *CreateFileReqBuilder) Build() *CreateFileReq {
 	req := &CreateFileReq{}
 	if builder.bodyFlag {
@@ -5714,7 +5714,7 @@ func (resp *CreateFileResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type GetFileReqBuilder struct {
 	fileKey     string
 	fileKeyFlag bool
@@ -5726,14 +5726,14 @@ func NewGetFileReqBuilder() *GetFileReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *GetFileReqBuilder) FileKey(fileKey string) *GetFileReqBuilder {
 	builder.fileKey = fileKey
 	builder.fileKeyFlag = true
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *GetFileReqBuilder) Build() *GetFileReq {
 	req := &GetFileReq{}
 	if builder.fileKeyFlag {
@@ -5757,7 +5757,7 @@ func (resp *GetFileResp) Success() bool {
 	return resp.Code == 0
 }
 
-/**下载api,生成WriteFile方法**/
+// 下载api,生成WriteFile方法
 func (resp *GetFileResp) WriteFile(fileName string) error {
 	bs, err := ioutil.ReadAll(resp.File)
 	if err != nil {
@@ -5784,7 +5784,7 @@ func NewCreateImageReqBodyBuilder() *CreateImageReqBodyBuilder {
 	return builder
 }
 
-/*1.2 生成body的builder属性方法*/
+// 1.2 生成body的builder属性方法
 func (builder *CreateImageReqBodyBuilder) ImageType(imageType string) *CreateImageReqBodyBuilder {
 	builder.imageType = imageType
 	builder.imageTypeFlag = true
@@ -5796,7 +5796,7 @@ func (builder *CreateImageReqBodyBuilder) Image(image io.Reader) *CreateImageReq
 	return builder
 }
 
-/*1.3 生成body的build方法*/
+// 1.3 生成body的build方法
 func (builder *CreateImageReqBodyBuilder) Build() *CreateImageReqBody {
 	req := &CreateImageReqBody{}
 	if builder.imageTypeFlag {
@@ -5810,7 +5810,7 @@ func (builder *CreateImageReqBodyBuilder) Build() *CreateImageReqBody {
 	return req
 }
 
-/**上传文件path开始**/
+// 上传文件path开始
 type CreateImagePathReqBodyBuilder struct {
 	imageType     string
 	imageTypeFlag bool
@@ -5849,9 +5849,9 @@ func (builder *CreateImagePathReqBodyBuilder) Build() (*CreateImageReqBody, erro
 	return req, nil
 }
 
-/**上传文件path结束**/
+// 上传文件path结束
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type CreateImageReqBuilder struct {
 	body     *CreateImageReqBody
 	bodyFlag bool
@@ -5863,14 +5863,14 @@ func NewCreateImageReqBuilder() *CreateImageReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *CreateImageReqBuilder) Body(body *CreateImageReqBody) *CreateImageReqBuilder {
 	builder.body = body
 	builder.bodyFlag = true
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *CreateImageReqBuilder) Build() *CreateImageReq {
 	req := &CreateImageReq{}
 	if builder.bodyFlag {
@@ -5902,7 +5902,7 @@ func (resp *CreateImageResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type GetImageReqBuilder struct {
 	imageKey     string
 	imageKeyFlag bool
@@ -5914,14 +5914,14 @@ func NewGetImageReqBuilder() *GetImageReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *GetImageReqBuilder) ImageKey(imageKey string) *GetImageReqBuilder {
 	builder.imageKey = imageKey
 	builder.imageKeyFlag = true
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *GetImageReqBuilder) Build() *GetImageReq {
 	req := &GetImageReq{}
 	if builder.imageKeyFlag {
@@ -5945,7 +5945,7 @@ func (resp *GetImageResp) Success() bool {
 	return resp.Code == 0
 }
 
-/**下载api,生成WriteFile方法**/
+// 下载api,生成WriteFile方法
 func (resp *GetImageResp) WriteFile(fileName string) error {
 	bs, err := ioutil.ReadAll(resp.File)
 	if err != nil {
@@ -5974,7 +5974,7 @@ func NewCreateMessageReqBodyBuilder() *CreateMessageReqBodyBuilder {
 	return builder
 }
 
-/*1.2 生成body的builder属性方法*/
+// 1.2 生成body的builder属性方法
 func (builder *CreateMessageReqBodyBuilder) ReceiveId(receiveId string) *CreateMessageReqBodyBuilder {
 	builder.receiveId = receiveId
 	builder.receiveIdFlag = true
@@ -5991,7 +5991,7 @@ func (builder *CreateMessageReqBodyBuilder) MsgType(msgType string) *CreateMessa
 	return builder
 }
 
-/*1.3 生成body的build方法*/
+// 1.3 生成body的build方法
 func (builder *CreateMessageReqBodyBuilder) Build() *CreateMessageReqBody {
 	req := &CreateMessageReqBody{}
 	if builder.receiveIdFlag {
@@ -6009,7 +6009,7 @@ func (builder *CreateMessageReqBodyBuilder) Build() *CreateMessageReqBody {
 	return req
 }
 
-/**上传文件path开始**/
+// 上传文件path开始
 type CreateMessagePathReqBodyBuilder struct {
 	receiveId     string
 	receiveIdFlag bool
@@ -6056,9 +6056,9 @@ func (builder *CreateMessagePathReqBodyBuilder) Build() (*CreateMessageReqBody, 
 	return req, nil
 }
 
-/**上传文件path结束**/
+// 上传文件path结束
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type CreateMessageReqBuilder struct {
 	receiveIdType     string
 	receiveIdTypeFlag bool
@@ -6072,7 +6072,7 @@ func NewCreateMessageReqBuilder() *CreateMessageReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *CreateMessageReqBuilder) ReceiveIdType(receiveIdType string) *CreateMessageReqBuilder {
 	builder.receiveIdType = receiveIdType
 	builder.receiveIdTypeFlag = true
@@ -6084,7 +6084,7 @@ func (builder *CreateMessageReqBuilder) Body(body *CreateMessageReqBody) *Create
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *CreateMessageReqBuilder) Build() *CreateMessageReq {
 	req := &CreateMessageReq{}
 	if builder.receiveIdTypeFlag {
@@ -6133,7 +6133,7 @@ func (resp *CreateMessageResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type DeleteMessageReqBuilder struct {
 	messageId     string
 	messageIdFlag bool
@@ -6145,14 +6145,14 @@ func NewDeleteMessageReqBuilder() *DeleteMessageReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *DeleteMessageReqBuilder) MessageId(messageId string) *DeleteMessageReqBuilder {
 	builder.messageId = messageId
 	builder.messageIdFlag = true
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *DeleteMessageReqBuilder) Build() *DeleteMessageReq {
 	req := &DeleteMessageReq{}
 	if builder.messageIdFlag {
@@ -6174,7 +6174,7 @@ func (resp *DeleteMessageResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type GetMessageReqBuilder struct {
 	messageId     string
 	messageIdFlag bool
@@ -6186,14 +6186,14 @@ func NewGetMessageReqBuilder() *GetMessageReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *GetMessageReqBuilder) MessageId(messageId string) *GetMessageReqBuilder {
 	builder.messageId = messageId
 	builder.messageIdFlag = true
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *GetMessageReqBuilder) Build() *GetMessageReq {
 	req := &GetMessageReq{}
 	if builder.messageIdFlag {
@@ -6220,7 +6220,7 @@ func (resp *GetMessageResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type ListMessageReqBuilder struct {
 	containerIdType     string
 	containerIdTypeFlag bool
@@ -6243,7 +6243,7 @@ func NewListMessageReqBuilder() *ListMessageReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *ListMessageReqBuilder) Limit(limit int) *ListMessageReqBuilder {
 	builder.limit = limit
 	return builder
@@ -6279,7 +6279,7 @@ func (builder *ListMessageReqBuilder) PageSize(pageSize int) *ListMessageReqBuil
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *ListMessageReqBuilder) Build() *ListMessageReq {
 	req := &ListMessageReq{}
 	req.Limit = builder.limit
@@ -6341,14 +6341,14 @@ func NewPatchMessageReqBodyBuilder() *PatchMessageReqBodyBuilder {
 	return builder
 }
 
-/*1.2 生成body的builder属性方法*/
+// 1.2 生成body的builder属性方法
 func (builder *PatchMessageReqBodyBuilder) Content(content string) *PatchMessageReqBodyBuilder {
 	builder.content = content
 	builder.contentFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
+// 1.3 生成body的build方法
 func (builder *PatchMessageReqBodyBuilder) Build() *PatchMessageReqBody {
 	req := &PatchMessageReqBody{}
 	if builder.contentFlag {
@@ -6358,7 +6358,7 @@ func (builder *PatchMessageReqBodyBuilder) Build() *PatchMessageReqBody {
 	return req
 }
 
-/**上传文件path开始**/
+// 上传文件path开始
 type PatchMessagePathReqBodyBuilder struct {
 	content     string
 	contentFlag bool
@@ -6383,9 +6383,9 @@ func (builder *PatchMessagePathReqBodyBuilder) Build() (*PatchMessageReqBody, er
 	return req, nil
 }
 
-/**上传文件path结束**/
+// 上传文件path结束
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type PatchMessageReqBuilder struct {
 	messageId     string
 	messageIdFlag bool
@@ -6399,7 +6399,7 @@ func NewPatchMessageReqBuilder() *PatchMessageReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *PatchMessageReqBuilder) MessageId(messageId string) *PatchMessageReqBuilder {
 	builder.messageId = messageId
 	builder.messageIdFlag = true
@@ -6411,7 +6411,7 @@ func (builder *PatchMessageReqBuilder) Body(body *PatchMessageReqBody) *PatchMes
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *PatchMessageReqBuilder) Build() *PatchMessageReq {
 	req := &PatchMessageReq{}
 	if builder.messageIdFlag {
@@ -6441,7 +6441,7 @@ func (resp *PatchMessageResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type ReadUsersMessageReqBuilder struct {
 	messageId      string
 	messageIdFlag  bool
@@ -6459,7 +6459,7 @@ func NewReadUsersMessageReqBuilder() *ReadUsersMessageReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *ReadUsersMessageReqBuilder) MessageId(messageId string) *ReadUsersMessageReqBuilder {
 	builder.messageId = messageId
 	builder.messageIdFlag = true
@@ -6481,7 +6481,7 @@ func (builder *ReadUsersMessageReqBuilder) PageToken(pageToken string) *ReadUser
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *ReadUsersMessageReqBuilder) Build() *ReadUsersMessageReq {
 	req := &ReadUsersMessageReq{}
 	if builder.messageIdFlag {
@@ -6535,7 +6535,7 @@ func NewReplyMessageReqBodyBuilder() *ReplyMessageReqBodyBuilder {
 	return builder
 }
 
-/*1.2 生成body的builder属性方法*/
+// 1.2 生成body的builder属性方法
 func (builder *ReplyMessageReqBodyBuilder) Content(content string) *ReplyMessageReqBodyBuilder {
 	builder.content = content
 	builder.contentFlag = true
@@ -6547,7 +6547,7 @@ func (builder *ReplyMessageReqBodyBuilder) MsgType(msgType string) *ReplyMessage
 	return builder
 }
 
-/*1.3 生成body的build方法*/
+// 1.3 生成body的build方法
 func (builder *ReplyMessageReqBodyBuilder) Build() *ReplyMessageReqBody {
 	req := &ReplyMessageReqBody{}
 	if builder.contentFlag {
@@ -6561,7 +6561,7 @@ func (builder *ReplyMessageReqBodyBuilder) Build() *ReplyMessageReqBody {
 	return req
 }
 
-/**上传文件path开始**/
+// 上传文件path开始
 type ReplyMessagePathReqBodyBuilder struct {
 	content     string
 	contentFlag bool
@@ -6597,9 +6597,9 @@ func (builder *ReplyMessagePathReqBodyBuilder) Build() (*ReplyMessageReqBody, er
 	return req, nil
 }
 
-/**上传文件path结束**/
+// 上传文件path结束
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type ReplyMessageReqBuilder struct {
 	messageId     string
 	messageIdFlag bool
@@ -6613,7 +6613,7 @@ func NewReplyMessageReqBuilder() *ReplyMessageReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *ReplyMessageReqBuilder) MessageId(messageId string) *ReplyMessageReqBuilder {
 	builder.messageId = messageId
 	builder.messageIdFlag = true
@@ -6625,7 +6625,7 @@ func (builder *ReplyMessageReqBuilder) Body(body *ReplyMessageReqBody) *ReplyMes
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *ReplyMessageReqBuilder) Build() *ReplyMessageReq {
 	req := &ReplyMessageReq{}
 	if builder.messageIdFlag {
@@ -6673,7 +6673,7 @@ func (resp *ReplyMessageResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type UrgentAppMessageReqBuilder struct {
 	messageId           string
 	messageIdFlag       bool
@@ -6689,7 +6689,7 @@ func NewUrgentAppMessageReqBuilder() *UrgentAppMessageReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *UrgentAppMessageReqBuilder) MessageId(messageId string) *UrgentAppMessageReqBuilder {
 	builder.messageId = messageId
 	builder.messageIdFlag = true
@@ -6706,7 +6706,7 @@ func (builder *UrgentAppMessageReqBuilder) UrgentReceivers(urgentReceivers *Urge
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *UrgentAppMessageReqBuilder) Build() *UrgentAppMessageReq {
 	req := &UrgentAppMessageReq{}
 	if builder.messageIdFlag {
@@ -6741,7 +6741,7 @@ func (resp *UrgentAppMessageResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type UrgentPhoneMessageReqBuilder struct {
 	messageId           string
 	messageIdFlag       bool
@@ -6757,7 +6757,7 @@ func NewUrgentPhoneMessageReqBuilder() *UrgentPhoneMessageReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *UrgentPhoneMessageReqBuilder) MessageId(messageId string) *UrgentPhoneMessageReqBuilder {
 	builder.messageId = messageId
 	builder.messageIdFlag = true
@@ -6774,7 +6774,7 @@ func (builder *UrgentPhoneMessageReqBuilder) UrgentReceivers(urgentReceivers *Ur
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *UrgentPhoneMessageReqBuilder) Build() *UrgentPhoneMessageReq {
 	req := &UrgentPhoneMessageReq{}
 	if builder.messageIdFlag {
@@ -6809,7 +6809,7 @@ func (resp *UrgentPhoneMessageResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type UrgentSmsMessageReqBuilder struct {
 	messageId           string
 	messageIdFlag       bool
@@ -6825,7 +6825,7 @@ func NewUrgentSmsMessageReqBuilder() *UrgentSmsMessageReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *UrgentSmsMessageReqBuilder) MessageId(messageId string) *UrgentSmsMessageReqBuilder {
 	builder.messageId = messageId
 	builder.messageIdFlag = true
@@ -6842,7 +6842,7 @@ func (builder *UrgentSmsMessageReqBuilder) UrgentReceivers(urgentReceivers *Urge
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *UrgentSmsMessageReqBuilder) Build() *UrgentSmsMessageReq {
 	req := &UrgentSmsMessageReq{}
 	if builder.messageIdFlag {
@@ -6888,14 +6888,14 @@ func NewCreateMessageReactionReqBodyBuilder() *CreateMessageReactionReqBodyBuild
 	return builder
 }
 
-/*1.2 生成body的builder属性方法*/
+// 1.2 生成body的builder属性方法
 func (builder *CreateMessageReactionReqBodyBuilder) ReactionType(reactionType *Emoji) *CreateMessageReactionReqBodyBuilder {
 	builder.reactionType = reactionType
 	builder.reactionTypeFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
+// 1.3 生成body的build方法
 func (builder *CreateMessageReactionReqBodyBuilder) Build() *CreateMessageReactionReqBody {
 	req := &CreateMessageReactionReqBody{}
 	if builder.reactionTypeFlag {
@@ -6905,7 +6905,7 @@ func (builder *CreateMessageReactionReqBodyBuilder) Build() *CreateMessageReacti
 	return req
 }
 
-/**上传文件path开始**/
+// 上传文件path开始
 type CreateMessageReactionPathReqBodyBuilder struct {
 	reactionType     *Emoji
 	reactionTypeFlag bool
@@ -6929,9 +6929,9 @@ func (builder *CreateMessageReactionPathReqBodyBuilder) Build() (*CreateMessageR
 	return req, nil
 }
 
-/**上传文件path结束**/
+// 上传文件path结束
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type CreateMessageReactionReqBuilder struct {
 	messageId     string
 	messageIdFlag bool
@@ -6945,7 +6945,7 @@ func NewCreateMessageReactionReqBuilder() *CreateMessageReactionReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *CreateMessageReactionReqBuilder) MessageId(messageId string) *CreateMessageReactionReqBuilder {
 	builder.messageId = messageId
 	builder.messageIdFlag = true
@@ -6957,7 +6957,7 @@ func (builder *CreateMessageReactionReqBuilder) Body(body *CreateMessageReaction
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *CreateMessageReactionReqBuilder) Build() *CreateMessageReactionReq {
 	req := &CreateMessageReactionReq{}
 	if builder.messageIdFlag {
@@ -6995,7 +6995,7 @@ func (resp *CreateMessageReactionResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type DeleteMessageReactionReqBuilder struct {
 	messageId      string
 	messageIdFlag  bool
@@ -7009,7 +7009,7 @@ func NewDeleteMessageReactionReqBuilder() *DeleteMessageReactionReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *DeleteMessageReactionReqBuilder) MessageId(messageId string) *DeleteMessageReactionReqBuilder {
 	builder.messageId = messageId
 	builder.messageIdFlag = true
@@ -7021,7 +7021,7 @@ func (builder *DeleteMessageReactionReqBuilder) ReactionId(reactionId string) *D
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *DeleteMessageReactionReqBuilder) Build() *DeleteMessageReactionReq {
 	req := &DeleteMessageReactionReq{}
 	if builder.messageIdFlag {
@@ -7055,7 +7055,7 @@ func (resp *DeleteMessageReactionResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type ListMessageReactionReqBuilder struct {
 	messageId        string
 	messageIdFlag    bool
@@ -7076,7 +7076,7 @@ func NewListMessageReactionReqBuilder() *ListMessageReactionReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *ListMessageReactionReqBuilder) Limit(limit int) *ListMessageReactionReqBuilder {
 	builder.limit = limit
 	return builder
@@ -7107,7 +7107,7 @@ func (builder *ListMessageReactionReqBuilder) UserIdType(userIdType string) *Lis
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *ListMessageReactionReqBuilder) Build() *ListMessageReactionReq {
 	req := &ListMessageReactionReq{}
 	req.Limit = builder.limit
@@ -7154,7 +7154,7 @@ func (resp *ListMessageReactionResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type GetMessageResourceReqBuilder struct {
 	messageId     string
 	messageIdFlag bool
@@ -7170,7 +7170,7 @@ func NewGetMessageResourceReqBuilder() *GetMessageResourceReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *GetMessageResourceReqBuilder) MessageId(messageId string) *GetMessageResourceReqBuilder {
 	builder.messageId = messageId
 	builder.messageIdFlag = true
@@ -7187,7 +7187,7 @@ func (builder *GetMessageResourceReqBuilder) Type(type_ string) *GetMessageResou
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *GetMessageResourceReqBuilder) Build() *GetMessageResourceReq {
 	req := &GetMessageResourceReq{}
 	if builder.messageIdFlag {
@@ -7219,7 +7219,7 @@ func (resp *GetMessageResourceResp) Success() bool {
 	return resp.Code == 0
 }
 
-/**下载api,生成WriteFile方法**/
+// 下载api,生成WriteFile方法
 func (resp *GetMessageResourceResp) WriteFile(fileName string) error {
 	bs, err := ioutil.ReadAll(resp.File)
 	if err != nil {
@@ -7233,7 +7233,7 @@ func (resp *GetMessageResourceResp) WriteFile(fileName string) error {
 	return nil
 }
 
-/**生成消息事件结构体 **/
+// 生成消息事件结构体
 
 type ChatDisbandedEventData struct {
 	ChatId            *string `json:"chat_id,omitempty"`
@@ -7373,9 +7373,8 @@ type MessageReactionDeletedEvent struct {
 	Event *MessageReactionDeletedEventData `json:"event"`
 }
 
-/* 生成请求的builder构造器*/
-/*1.1 生成body的builder结构体*/
-/**如果是分页查询，则添加迭代器定义**/
+// 生成请求的builder构造器
+// 1.1 生成body的builder结构体
 type ListChatIterator struct {
 	nextPageToken *string
 	items         []*ListChat
@@ -7430,7 +7429,6 @@ func (iterator *ListChatIterator) NextPageToken() *string {
 	return iterator.nextPageToken
 }
 
-/**如果是分页查询，则添加迭代器定义**/
 type SearchChatIterator struct {
 	nextPageToken *string
 	items         []*ListChat
@@ -7485,7 +7483,6 @@ func (iterator *SearchChatIterator) NextPageToken() *string {
 	return iterator.nextPageToken
 }
 
-/**如果是分页查询，则添加迭代器定义**/
 type GetChatMembersIterator struct {
 	nextPageToken *string
 	items         []*ListMember
@@ -7540,7 +7537,6 @@ func (iterator *GetChatMembersIterator) NextPageToken() *string {
 	return iterator.nextPageToken
 }
 
-/**如果是分页查询，则添加迭代器定义**/
 type GetChatModerationIterator struct {
 	nextPageToken *string
 	items         []*ListModerator
@@ -7595,7 +7591,6 @@ func (iterator *GetChatModerationIterator) NextPageToken() *string {
 	return iterator.nextPageToken
 }
 
-/**如果是分页查询，则添加迭代器定义**/
 type ListMessageIterator struct {
 	nextPageToken *string
 	items         []*Message
@@ -7650,7 +7645,6 @@ func (iterator *ListMessageIterator) NextPageToken() *string {
 	return iterator.nextPageToken
 }
 
-/**如果是分页查询，则添加迭代器定义**/
 type ListMessageReactionIterator struct {
 	nextPageToken *string
 	items         []*MessageReaction

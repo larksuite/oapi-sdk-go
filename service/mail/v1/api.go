@@ -8,9 +8,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
-/**
-构建业务域服务实例
-**/
+// 构建业务域服务实例
 func NewService(httpClient *http.Client, config *core.Config) *MailService {
 	m := &MailService{httpClient: httpClient, config: config}
 	m.Mailgroup = &mailgroup{service: m}
@@ -26,9 +24,7 @@ func NewService(httpClient *http.Client, config *core.Config) *MailService {
 	return m
 }
 
-/**
-业务域服务定义
-**/
+// 业务域服务定义
 type MailService struct {
 	httpClient                *http.Client
 	config                    *core.Config
@@ -44,9 +40,7 @@ type MailService struct {
 	UserMailboxAlias          *userMailboxAlias
 }
 
-/**
-资源服务定义
-**/
+// 资源服务定义
 type mailgroup struct {
 	service *MailService
 }
@@ -78,9 +72,7 @@ type userMailboxAlias struct {
 	service *MailService
 }
 
-/**
-资源服务方法定义
-**/
+// 资源服务方法定义
 func (m *mailgroup) Create(ctx context.Context, req *CreateMailgroupReq, options ...core.RequestOptionFunc) (*CreateMailgroupResp, error) {
 	// 发起请求
 	rawResp, err := core.SendRequest(ctx, m.service.config, http.MethodPost,
@@ -141,8 +133,6 @@ func (m *mailgroup) List(ctx context.Context, req *ListMailgroupReq, options ...
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (m *mailgroup) ListMailgroup(ctx context.Context, req *ListMailgroupReq, options ...core.RequestOptionFunc) (*ListMailgroupIterator, error) {
 	return &ListMailgroupIterator{
 		ctx:      ctx,
@@ -286,8 +276,6 @@ func (m *mailgroupMember) List(ctx context.Context, req *ListMailgroupMemberReq,
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (m *mailgroupMember) ListMailgroupMember(ctx context.Context, req *ListMailgroupMemberReq, options ...core.RequestOptionFunc) (*ListMailgroupMemberIterator, error) {
 	return &ListMailgroupMemberIterator{
 		ctx:      ctx,
@@ -356,8 +344,6 @@ func (m *mailgroupPermissionMember) List(ctx context.Context, req *ListMailgroup
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (m *mailgroupPermissionMember) ListMailgroupPermissionMember(ctx context.Context, req *ListMailgroupPermissionMemberReq, options ...core.RequestOptionFunc) (*ListMailgroupPermissionMemberIterator, error) {
 	return &ListMailgroupPermissionMemberIterator{
 		ctx:      ctx,
@@ -426,8 +412,6 @@ func (p *publicMailbox) List(ctx context.Context, req *ListPublicMailboxReq, opt
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (p *publicMailbox) ListPublicMailbox(ctx context.Context, req *ListPublicMailboxReq, options ...core.RequestOptionFunc) (*ListPublicMailboxIterator, error) {
 	return &ListPublicMailboxIterator{
 		ctx:      ctx,
@@ -586,8 +570,6 @@ func (p *publicMailboxMember) List(ctx context.Context, req *ListPublicMailboxMe
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (p *publicMailboxMember) ListPublicMailboxMember(ctx context.Context, req *ListPublicMailboxMemberReq, options ...core.RequestOptionFunc) (*ListPublicMailboxMemberIterator, error) {
 	return &ListPublicMailboxMemberIterator{
 		ctx:      ctx,

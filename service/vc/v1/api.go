@@ -8,9 +8,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
-/**
-构建业务域服务实例
-**/
+// 构建业务域服务实例
 func NewService(httpClient *http.Client, config *core.Config) *VcService {
 	v := &VcService{httpClient: httpClient, config: config}
 	v.Meeting = &meeting{service: v}
@@ -21,9 +19,7 @@ func NewService(httpClient *http.Client, config *core.Config) *VcService {
 	return v
 }
 
-/**
-业务域服务定义
-**/
+// 业务域服务定义
 type VcService struct {
 	httpClient       *http.Client
 	config           *core.Config
@@ -34,9 +30,7 @@ type VcService struct {
 	RoomConfig       *roomConfig
 }
 
-/**
-资源服务定义
-**/
+// 资源服务定义
 type meeting struct {
 	service *VcService
 }
@@ -53,9 +47,7 @@ type roomConfig struct {
 	service *VcService
 }
 
-/**
-资源服务方法定义
-**/
+// 资源服务方法定义
 func (m *meeting) End(ctx context.Context, req *EndMeetingReq, options ...core.RequestOptionFunc) (*EndMeetingResp, error) {
 	// 发起请求
 	rawResp, err := core.SendRequest(ctx, m.service.config, http.MethodPatch,
@@ -131,8 +123,6 @@ func (m *meeting) ListByNo(ctx context.Context, req *ListByNoMeetingReq, options
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (m *meeting) ListByNoMeeting(ctx context.Context, req *ListByNoMeetingReq, options ...core.RequestOptionFunc) (*ListByNoMeetingIterator, error) {
 	return &ListByNoMeetingIterator{
 		ctx:      ctx,

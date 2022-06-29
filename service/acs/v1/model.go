@@ -15,15 +15,15 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
-/**生成枚举值 **/
+// 生成枚举值
 
 const (
-	UserIdTypeUserId  string = "user_id"
-	UserIdTypeUnionId string = "union_id"
-	UserIdTypeOpenId  string = "open_id"
+	UserIdTypeUserId  = "user_id"
+	UserIdTypeUnionId = "union_id"
+	UserIdTypeOpenId  = "open_id"
 )
 
-/**生成数据类型 **/
+// 生成数据类型
 
 type AccessRecord struct {
 	AccessRecordId *int64  `json:"access_record_id,omitempty,string"`
@@ -36,7 +36,7 @@ type AccessRecord struct {
 	IsDoorOpen     *bool   `json:"is_door_open,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type AccessRecordBuilder struct {
 	accessRecordId     int64
 	accessRecordIdFlag bool
@@ -139,7 +139,7 @@ func (builder *AccessRecordBuilder) Build() *AccessRecord {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Device struct {
 	DeviceId   *int64  `json:"device_id,omitempty,string"`
@@ -147,7 +147,7 @@ type Device struct {
 	DeviceSn   *string `json:"device_sn,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type DeviceBuilder struct {
 	deviceId       int64
 	deviceIdFlag   bool
@@ -195,14 +195,14 @@ func (builder *DeviceBuilder) Build() *Device {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Feature struct {
 	Card         *int  `json:"card,omitempty"`
 	FaceUploaded *bool `json:"face_uploaded,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type FeatureBuilder struct {
 	card             int
 	cardFlag         bool
@@ -239,7 +239,7 @@ func (builder *FeatureBuilder) Build() *Feature {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type File struct {
 	Files    io.Reader `json:"files,omitempty"`
@@ -247,7 +247,7 @@ type File struct {
 	FileName *string   `json:"file_name,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type FileBuilder struct {
 	files        io.Reader
 	filesFlag    bool
@@ -294,14 +294,14 @@ func (builder *FileBuilder) Build() *File {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type User struct {
 	Feature *Feature `json:"feature,omitempty"`
 	UserId  *string  `json:"user_id,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type UserBuilder struct {
 	feature     *Feature
 	featureFlag bool
@@ -337,7 +337,7 @@ func (builder *UserBuilder) Build() *User {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type UserId struct {
 	UserId  *string `json:"user_id,omitempty"`
@@ -345,7 +345,7 @@ type UserId struct {
 	UnionId *string `json:"union_id,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type UserIdBuilder struct {
 	userId      string
 	userIdFlag  bool
@@ -393,11 +393,11 @@ func (builder *UserIdBuilder) Build() *UserId {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
-/**生成请求和响应结果类型，以及请求对象的Builder构造器 **/
+// 生成请求和响应结果类型，以及请求对象的Builder构造器
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type ListAccessRecordReqBuilder struct {
 	pageSize       int
 	pageSizeFlag   bool
@@ -420,7 +420,7 @@ func NewListAccessRecordReqBuilder() *ListAccessRecordReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *ListAccessRecordReqBuilder) Limit(limit int) *ListAccessRecordReqBuilder {
 	builder.limit = limit
 	return builder
@@ -456,7 +456,7 @@ func (builder *ListAccessRecordReqBuilder) UserIdType(userIdType string) *ListAc
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *ListAccessRecordReqBuilder) Build() *ListAccessRecordReq {
 	req := &ListAccessRecordReq{}
 	req.Limit = builder.limit
@@ -507,7 +507,7 @@ func (resp *ListAccessRecordResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type GetAccessRecordAccessPhotoReqBuilder struct {
 	accessRecordId     int64
 	accessRecordIdFlag bool
@@ -519,14 +519,14 @@ func NewGetAccessRecordAccessPhotoReqBuilder() *GetAccessRecordAccessPhotoReqBui
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *GetAccessRecordAccessPhotoReqBuilder) AccessRecordId(accessRecordId int64) *GetAccessRecordAccessPhotoReqBuilder {
 	builder.accessRecordId = accessRecordId
 	builder.accessRecordIdFlag = true
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *GetAccessRecordAccessPhotoReqBuilder) Build() *GetAccessRecordAccessPhotoReq {
 	req := &GetAccessRecordAccessPhotoReq{}
 	if builder.accessRecordIdFlag {
@@ -550,7 +550,7 @@ func (resp *GetAccessRecordAccessPhotoResp) Success() bool {
 	return resp.Code == 0
 }
 
-/**下载api,生成WriteFile方法**/
+// 下载api,生成WriteFile方法
 func (resp *GetAccessRecordAccessPhotoResp) WriteFile(fileName string) error {
 	bs, err := ioutil.ReadAll(resp.File)
 	if err != nil {
@@ -578,7 +578,7 @@ func (resp *ListDeviceResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type GetUserReqBuilder struct {
 	userId         string
 	userIdFlag     bool
@@ -592,7 +592,7 @@ func NewGetUserReqBuilder() *GetUserReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *GetUserReqBuilder) UserId(userId string) *GetUserReqBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
@@ -604,7 +604,7 @@ func (builder *GetUserReqBuilder) UserIdType(userIdType string) *GetUserReqBuild
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *GetUserReqBuilder) Build() *GetUserReq {
 	req := &GetUserReq{}
 	if builder.userIdFlag {
@@ -635,7 +635,7 @@ func (resp *GetUserResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type ListUserReqBuilder struct {
 	pageSize       int
 	pageSizeFlag   bool
@@ -652,7 +652,7 @@ func NewListUserReqBuilder() *ListUserReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *ListUserReqBuilder) Limit(limit int) *ListUserReqBuilder {
 	builder.limit = limit
 	return builder
@@ -673,7 +673,7 @@ func (builder *ListUserReqBuilder) UserIdType(userIdType string) *ListUserReqBui
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *ListUserReqBuilder) Build() *ListUserReq {
 	req := &ListUserReq{}
 	req.Limit = builder.limit
@@ -712,7 +712,7 @@ func (resp *ListUserResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type PatchUserReqBuilder struct {
 	userId         string
 	userIdFlag     bool
@@ -728,7 +728,7 @@ func NewPatchUserReqBuilder() *PatchUserReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *PatchUserReqBuilder) UserId(userId string) *PatchUserReqBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
@@ -745,7 +745,7 @@ func (builder *PatchUserReqBuilder) User(user *User) *PatchUserReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *PatchUserReqBuilder) Build() *PatchUserReq {
 	req := &PatchUserReq{}
 	if builder.userIdFlag {
@@ -775,7 +775,7 @@ func (resp *PatchUserResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type GetUserFaceReqBuilder struct {
 	userId         string
 	userIdFlag     bool
@@ -791,7 +791,7 @@ func NewGetUserFaceReqBuilder() *GetUserFaceReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *GetUserFaceReqBuilder) UserId(userId string) *GetUserFaceReqBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
@@ -808,7 +808,7 @@ func (builder *GetUserFaceReqBuilder) UserIdType(userIdType string) *GetUserFace
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *GetUserFaceReqBuilder) Build() *GetUserFaceReq {
 	req := &GetUserFaceReq{}
 	if builder.userIdFlag {
@@ -840,7 +840,7 @@ func (resp *GetUserFaceResp) Success() bool {
 	return resp.Code == 0
 }
 
-/**下载api,生成WriteFile方法**/
+// 下载api,生成WriteFile方法
 func (resp *GetUserFaceResp) WriteFile(fileName string) error {
 	bs, err := ioutil.ReadAll(resp.File)
 	if err != nil {
@@ -854,7 +854,7 @@ func (resp *GetUserFaceResp) WriteFile(fileName string) error {
 	return nil
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type UpdateUserFaceReqBuilder struct {
 	userId         string
 	userIdFlag     bool
@@ -870,7 +870,7 @@ func NewUpdateUserFaceReqBuilder() *UpdateUserFaceReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *UpdateUserFaceReqBuilder) UserId(userId string) *UpdateUserFaceReqBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
@@ -887,7 +887,7 @@ func (builder *UpdateUserFaceReqBuilder) File(file *File) *UpdateUserFaceReqBuil
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *UpdateUserFaceReqBuilder) Build() *UpdateUserFaceReq {
 	req := &UpdateUserFaceReq{}
 	if builder.userIdFlag {
@@ -917,7 +917,7 @@ func (resp *UpdateUserFaceResp) Success() bool {
 	return resp.Code == 0
 }
 
-/**生成消息事件结构体 **/
+// 生成消息事件结构体
 
 type AccessRecordCreatedEventData struct {
 	AccessRecordId *string `json:"access_record_id,omitempty"`
@@ -944,9 +944,8 @@ type UserUpdatedEvent struct {
 	Event *UserUpdatedEventData `json:"event"`
 }
 
-/* 生成请求的builder构造器*/
-/*1.1 生成body的builder结构体*/
-/**如果是分页查询，则添加迭代器定义**/
+// 生成请求的builder构造器
+// 1.1 生成body的builder结构体
 type ListAccessRecordIterator struct {
 	nextPageToken *string
 	items         []*AccessRecord
@@ -1001,7 +1000,6 @@ func (iterator *ListAccessRecordIterator) NextPageToken() *string {
 	return iterator.nextPageToken
 }
 
-/**如果是分页查询，则添加迭代器定义**/
 type ListUserIterator struct {
 	nextPageToken *string
 	items         []*User

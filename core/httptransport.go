@@ -72,6 +72,9 @@ func validate(config *Config, option *RequestOption, accessTokenType AccessToken
 }
 
 func doSend(ctx context.Context, rawRequest *http.Request, httpClient *http.Client) (*RawResponse, error) {
+	if httpClient == nil {
+		httpClient = http.DefaultClient
+	}
 	resp, err := httpClient.Do(rawRequest)
 	if err != nil {
 		if er, ok := err.(*url.Error); ok {
@@ -128,7 +131,6 @@ func SendRequest(ctx context.Context, config *Config, httpMethod string, httpPat
 
 func doSendRequest(ctx context.Context, config *Config, httpMethod string, httpPath string,
 	accessTokenType AccessTokenType, input interface{}, option *RequestOption) (*RawResponse, error) {
-
 	var rawResp *RawResponse
 	var errResult error
 	for i := 0; i < 2; i++ {

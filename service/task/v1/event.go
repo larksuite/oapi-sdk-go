@@ -5,9 +5,7 @@ import (
 	"context"
 )
 
-/**
-消息处理器定义
-**/
+// 消息处理器定义
 type TaskUpdateTenantEventHandler struct {
 	handler func(context.Context, *TaskUpdateTenantEvent) error
 }
@@ -17,23 +15,17 @@ func NewTaskUpdateTenantEventHandler(handler func(context.Context, *TaskUpdateTe
 	return h
 }
 
-/**
-返回事件的消息体的实例，用于反序列化用
-**/
+// 返回事件的消息体的实例，用于反序列化用
 func (h *TaskUpdateTenantEventHandler) Event() interface{} {
 	return &TaskUpdateTenantEvent{}
 }
 
-/**
-回调开发者注册的handle
-r**/
+// 回调开发者注册的handle
 func (h *TaskUpdateTenantEventHandler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*TaskUpdateTenantEvent))
 }
 
-/**
-消息处理器定义
-**/
+// 消息处理器定义
 type TaskUpdatedEventHandler struct {
 	handler func(context.Context, *TaskUpdatedEvent) error
 }
@@ -43,23 +35,17 @@ func NewTaskUpdatedEventHandler(handler func(context.Context, *TaskUpdatedEvent)
 	return h
 }
 
-/**
-返回事件的消息体的实例，用于反序列化用
-**/
+// 返回事件的消息体的实例，用于反序列化用
 func (h *TaskUpdatedEventHandler) Event() interface{} {
 	return &TaskUpdatedEvent{}
 }
 
-/**
-回调开发者注册的handle
-r**/
+// 回调开发者注册的handle
 func (h *TaskUpdatedEventHandler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*TaskUpdatedEvent))
 }
 
-/**
-消息处理器定义
-**/
+// 消息处理器定义
 type TaskCommentUpdatedEventHandler struct {
 	handler func(context.Context, *TaskCommentUpdatedEvent) error
 }
@@ -69,16 +55,12 @@ func NewTaskCommentUpdatedEventHandler(handler func(context.Context, *TaskCommen
 	return h
 }
 
-/**
-返回事件的消息体的实例，用于反序列化用
-**/
+// 返回事件的消息体的实例，用于反序列化用
 func (h *TaskCommentUpdatedEventHandler) Event() interface{} {
 	return &TaskCommentUpdatedEvent{}
 }
 
-/**
-回调开发者注册的handle
-r**/
+// 回调开发者注册的handle
 func (h *TaskCommentUpdatedEventHandler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*TaskCommentUpdatedEvent))
 }

@@ -9,28 +9,28 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
-/**生成枚举值 **/
+// 生成枚举值
 
 const (
-	LangZH string = "0"
-	LangEN string = "1"
-	LangJP string = "2"
+	LangZH = 0
+	LangEN = 1
+	LangJP = 2
 )
 
 const (
-	UserIdTypeUserId  string = "user_id"
-	UserIdTypeUnionId string = "union_id"
-	UserIdTypeOpenId  string = "open_id"
+	UserIdTypeUserId  = "user_id"
+	UserIdTypeUnionId = "union_id"
+	UserIdTypeOpenId  = "open_id"
 )
 
-/**生成数据类型 **/
+// 生成数据类型
 
 type Bitable struct {
 	Token    *string `json:"token,omitempty"`
 	ViewType *int    `json:"view_type,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type BitableBuilder struct {
 	token        string
 	tokenFlag    bool
@@ -67,7 +67,7 @@ func (builder *BitableBuilder) Build() *Bitable {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Block struct {
 	BlockId        *string         `json:"block_id,omitempty"`
@@ -111,7 +111,7 @@ type Block struct {
 	QuoteContainer *QuoteContainer `json:"quote_container,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type BlockBuilder struct {
 	blockId            string
 	blockIdFlag        bool
@@ -519,7 +519,7 @@ func (builder *BlockBuilder) Build() *Block {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Callout struct {
 	BackgroundColor *int    `json:"background_color,omitempty"`
@@ -528,7 +528,7 @@ type Callout struct {
 	EmojiId         *string `json:"emoji_id,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type CalloutBuilder struct {
 	backgroundColor     int
 	backgroundColorFlag bool
@@ -587,14 +587,14 @@ func (builder *CalloutBuilder) Build() *Callout {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ChatCard struct {
 	ChatId *int64 `json:"chat_id,omitempty,string"`
 	Align  *int   `json:"align,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ChatCardBuilder struct {
 	chatId     int64
 	chatIdFlag bool
@@ -631,13 +631,13 @@ func (builder *ChatCardBuilder) Build() *ChatCard {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type DeleteGridColumnRequest struct {
 	ColumnIndex *int `json:"column_index,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type DeleteGridColumnRequestBuilder struct {
 	columnIndex     int
 	columnIndexFlag bool
@@ -663,14 +663,14 @@ func (builder *DeleteGridColumnRequestBuilder) Build() *DeleteGridColumnRequest 
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type DeleteTableColumnsRequest struct {
 	ColumnStartIndex *int `json:"column_start_index,omitempty"`
 	ColumnEndIndex   *int `json:"column_end_index,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type DeleteTableColumnsRequestBuilder struct {
 	columnStartIndex     int
 	columnStartIndexFlag bool
@@ -707,14 +707,14 @@ func (builder *DeleteTableColumnsRequestBuilder) Build() *DeleteTableColumnsRequ
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type DeleteTableRowsRequest struct {
 	RowStartIndex *int `json:"row_start_index,omitempty"`
 	RowEndIndex   *int `json:"row_end_index,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type DeleteTableRowsRequestBuilder struct {
 	rowStartIndex     int
 	rowStartIndexFlag bool
@@ -751,13 +751,13 @@ func (builder *DeleteTableRowsRequestBuilder) Build() *DeleteTableRowsRequest {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Diagram struct {
 	DiagramType *int `json:"diagram_type,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type DiagramBuilder struct {
 	diagramType     int
 	diagramTypeFlag bool
@@ -783,13 +783,13 @@ func (builder *DiagramBuilder) Build() *Diagram {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Divider struct {
 }
 
-/**builder开始**/
-/**builder结束**/
+// builder开始
+// builder结束
 
 type Document struct {
 	DocumentId *string `json:"document_id,omitempty"`
@@ -797,7 +797,7 @@ type Document struct {
 	Title      *string `json:"title,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type DocumentBuilder struct {
 	documentId     string
 	documentIdFlag bool
@@ -845,13 +845,13 @@ func (builder *DocumentBuilder) Build() *Document {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Equation struct {
 	Content *string `json:"content,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type EquationBuilder struct {
 	content     string
 	contentFlag bool
@@ -877,14 +877,14 @@ func (builder *EquationBuilder) Build() *Equation {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type File struct {
 	Token *string `json:"token,omitempty"`
 	Name  *string `json:"name,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type FileBuilder struct {
 	token     string
 	tokenFlag bool
@@ -921,13 +921,13 @@ func (builder *FileBuilder) Build() *File {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Grid struct {
 	ColumnSize *int `json:"column_size,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type GridBuilder struct {
 	columnSize     int
 	columnSizeFlag bool
@@ -953,13 +953,13 @@ func (builder *GridBuilder) Build() *Grid {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type GridColumn struct {
 	WidthRatio *int `json:"width_ratio,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type GridColumnBuilder struct {
 	widthRatio     int
 	widthRatioFlag bool
@@ -985,13 +985,13 @@ func (builder *GridColumnBuilder) Build() *GridColumn {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Iframe struct {
 	Component *IframeComponent `json:"component,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type IframeBuilder struct {
 	component     *IframeComponent
 	componentFlag bool
@@ -1016,14 +1016,14 @@ func (builder *IframeBuilder) Build() *Iframe {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type IframeComponent struct {
 	IframeType *int    `json:"iframe_type,omitempty"`
 	Url        *string `json:"url,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type IframeComponentBuilder struct {
 	iframeType     int
 	iframeTypeFlag bool
@@ -1060,7 +1060,7 @@ func (builder *IframeComponentBuilder) Build() *IframeComponent {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Image struct {
 	Width  *int    `json:"width,omitempty"`
@@ -1068,7 +1068,7 @@ type Image struct {
 	Token  *string `json:"token,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ImageBuilder struct {
 	width      int
 	widthFlag  bool
@@ -1116,13 +1116,13 @@ func (builder *ImageBuilder) Build() *Image {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type InlineBlock struct {
 	BlockId *string `json:"block_id,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type InlineBlockBuilder struct {
 	blockId     string
 	blockIdFlag bool
@@ -1148,14 +1148,14 @@ func (builder *InlineBlockBuilder) Build() *InlineBlock {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type InlineFile struct {
 	FileToken     *string `json:"file_token,omitempty"`
 	SourceBlockId *string `json:"source_block_id,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type InlineFileBuilder struct {
 	fileToken         string
 	fileTokenFlag     bool
@@ -1192,13 +1192,13 @@ func (builder *InlineFileBuilder) Build() *InlineFile {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type InsertGridColumnRequest struct {
 	ColumnIndex *int `json:"column_index,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type InsertGridColumnRequestBuilder struct {
 	columnIndex     int
 	columnIndexFlag bool
@@ -1224,13 +1224,13 @@ func (builder *InsertGridColumnRequestBuilder) Build() *InsertGridColumnRequest 
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type InsertTableColumnRequest struct {
 	ColumnIndex *int `json:"column_index,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type InsertTableColumnRequestBuilder struct {
 	columnIndex     int
 	columnIndexFlag bool
@@ -1256,13 +1256,13 @@ func (builder *InsertTableColumnRequestBuilder) Build() *InsertTableColumnReques
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type InsertTableRowRequest struct {
 	RowIndex *int `json:"row_index,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type InsertTableRowRequestBuilder struct {
 	rowIndex     int
 	rowIndexFlag bool
@@ -1288,14 +1288,14 @@ func (builder *InsertTableRowRequestBuilder) Build() *InsertTableRowRequest {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Isv struct {
 	ComponentId     *string `json:"component_id,omitempty"`
 	ComponentTypeId *string `json:"component_type_id,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type IsvBuilder struct {
 	componentId         string
 	componentIdFlag     bool
@@ -1332,13 +1332,13 @@ func (builder *IsvBuilder) Build() *Isv {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Link struct {
 	Url *string `json:"url,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type LinkBuilder struct {
 	url     string
 	urlFlag bool
@@ -1364,7 +1364,7 @@ func (builder *LinkBuilder) Build() *Link {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type MentionDoc struct {
 	Token   *string `json:"token,omitempty"`
@@ -1373,7 +1373,7 @@ type MentionDoc struct {
 	Title   *string `json:"title,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type MentionDocBuilder struct {
 	token       string
 	tokenFlag   bool
@@ -1432,13 +1432,13 @@ func (builder *MentionDocBuilder) Build() *MentionDoc {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type MentionUser struct {
 	UserId *string `json:"user_id,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type MentionUserBuilder struct {
 	userId     string
 	userIdFlag bool
@@ -1464,7 +1464,7 @@ func (builder *MentionUserBuilder) Build() *MentionUser {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type MergeTableCellsRequest struct {
 	RowStartIndex    *int `json:"row_start_index,omitempty"`
@@ -1473,7 +1473,7 @@ type MergeTableCellsRequest struct {
 	ColumnEndIndex   *int `json:"column_end_index,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type MergeTableCellsRequestBuilder struct {
 	rowStartIndex        int
 	rowStartIndexFlag    bool
@@ -1532,13 +1532,13 @@ func (builder *MergeTableCellsRequestBuilder) Build() *MergeTableCellsRequest {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Mindnote struct {
 	Token *string `json:"token,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type MindnoteBuilder struct {
 	token     string
 	tokenFlag bool
@@ -1564,13 +1564,13 @@ func (builder *MindnoteBuilder) Build() *Mindnote {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type QuoteContainer struct {
 }
 
-/**builder开始**/
-/**builder结束**/
+// builder开始
+// builder结束
 
 type Reminder struct {
 	CreateUserId *string `json:"create_user_id,omitempty"`
@@ -1580,7 +1580,7 @@ type Reminder struct {
 	NotifyTime   *int64  `json:"notify_time,omitempty,string"`
 }
 
-/**builder开始**/
+// builder开始
 type ReminderBuilder struct {
 	createUserId     string
 	createUserIdFlag bool
@@ -1650,13 +1650,13 @@ func (builder *ReminderBuilder) Build() *Reminder {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ReplaceFileRequest struct {
 	Token *string `json:"token,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ReplaceFileRequestBuilder struct {
 	token     string
 	tokenFlag bool
@@ -1682,13 +1682,13 @@ func (builder *ReplaceFileRequestBuilder) Build() *ReplaceFileRequest {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ReplaceImageRequest struct {
 	Token *string `json:"token,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ReplaceImageRequestBuilder struct {
 	token     string
 	tokenFlag bool
@@ -1714,7 +1714,7 @@ func (builder *ReplaceImageRequestBuilder) Build() *ReplaceImageRequest {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Sheet struct {
 	Token      *string `json:"token,omitempty"`
@@ -1722,7 +1722,7 @@ type Sheet struct {
 	ColumnSize *int    `json:"column_size,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type SheetBuilder struct {
 	token          string
 	tokenFlag      bool
@@ -1770,14 +1770,14 @@ func (builder *SheetBuilder) Build() *Sheet {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Table struct {
 	Cells    []string       `json:"cells,omitempty"`
 	Property *TableProperty `json:"property,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type TableBuilder struct {
 	cells        []string
 	cellsFlag    bool
@@ -1812,20 +1812,20 @@ func (builder *TableBuilder) Build() *Table {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type TableCell struct {
 }
 
-/**builder开始**/
-/**builder结束**/
+// builder开始
+// builder结束
 
 type TableMergeInfo struct {
 	RowSpan *int `json:"row_span,omitempty"`
 	ColSpan *int `json:"col_span,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type TableMergeInfoBuilder struct {
 	rowSpan     int
 	rowSpanFlag bool
@@ -1862,7 +1862,7 @@ func (builder *TableMergeInfoBuilder) Build() *TableMergeInfo {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type TableProperty struct {
 	RowSize     *int              `json:"row_size,omitempty"`
@@ -1871,7 +1871,7 @@ type TableProperty struct {
 	MergeInfo   []*TableMergeInfo `json:"merge_info,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type TablePropertyBuilder struct {
 	rowSize         int
 	rowSizeFlag     bool
@@ -1928,14 +1928,14 @@ func (builder *TablePropertyBuilder) Build() *TableProperty {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Text struct {
 	Style    *TextStyle     `json:"style,omitempty"`
 	Elements []*TextElement `json:"elements,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type TextBuilder struct {
 	style        *TextStyle
 	styleFlag    bool
@@ -1970,7 +1970,7 @@ func (builder *TextBuilder) Build() *Text {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type TextElement struct {
 	TextRun     *TextRun          `json:"text_run,omitempty"`
@@ -1983,7 +1983,7 @@ type TextElement struct {
 	Equation    *Equation         `json:"equation,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type TextElementBuilder struct {
 	textRun         *TextRun
 	textRunFlag     bool
@@ -2078,7 +2078,7 @@ func (builder *TextElementBuilder) Build() *TextElement {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type TextElementStyle struct {
 	Bold            *bool `json:"bold,omitempty"`
@@ -2091,7 +2091,7 @@ type TextElementStyle struct {
 	Link            *Link `json:"link,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type TextElementStyleBuilder struct {
 	bold                bool
 	boldFlag            bool
@@ -2193,14 +2193,14 @@ func (builder *TextElementStyleBuilder) Build() *TextElementStyle {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type TextRun struct {
 	Content          *string           `json:"content,omitempty"`
 	TextElementStyle *TextElementStyle `json:"text_element_style,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type TextRunBuilder struct {
 	content              string
 	contentFlag          bool
@@ -2236,7 +2236,7 @@ func (builder *TextRunBuilder) Build() *TextRun {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type TextStyle struct {
 	Align    *int  `json:"align,omitempty"`
@@ -2246,7 +2246,7 @@ type TextStyle struct {
 	Wrap     *bool `json:"wrap,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type TextStyleBuilder struct {
 	align        int
 	alignFlag    bool
@@ -2316,26 +2316,26 @@ func (builder *TextStyleBuilder) Build() *TextStyle {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Undefined struct {
 }
 
-/**builder开始**/
-/**builder结束**/
+// builder开始
+// builder结束
 
 type UndefinedElement struct {
 }
 
-/**builder开始**/
-/**builder结束**/
+// builder开始
+// builder结束
 
 type UnmergeTableCellsRequest struct {
 	RowIndex    *int `json:"row_index,omitempty"`
 	ColumnIndex *int `json:"column_index,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type UnmergeTableCellsRequestBuilder struct {
 	rowIndex        int
 	rowIndexFlag    bool
@@ -2372,7 +2372,7 @@ func (builder *UnmergeTableCellsRequestBuilder) Build() *UnmergeTableCellsReques
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type UpdateBlockRequest struct {
 	UpdateTextElements         *UpdateTextElementsRequest         `json:"update_text_elements,omitempty"`
@@ -2393,7 +2393,7 @@ type UpdateBlockRequest struct {
 	UpdateText                 *UpdateTextRequest                 `json:"update_text,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type UpdateBlockRequestBuilder struct {
 	updateTextElements             *UpdateTextElementsRequest
 	updateTextElementsFlag         bool
@@ -2569,13 +2569,13 @@ func (builder *UpdateBlockRequestBuilder) Build() *UpdateBlockRequest {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type UpdateGridColumnWidthRatioRequest struct {
 	WidthRatios []int `json:"width_ratios,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type UpdateGridColumnWidthRatioRequestBuilder struct {
 	widthRatios     []int
 	widthRatiosFlag bool
@@ -2600,14 +2600,14 @@ func (builder *UpdateGridColumnWidthRatioRequestBuilder) Build() *UpdateGridColu
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type UpdateTablePropertyRequest struct {
 	ColumnWidth *int `json:"column_width,omitempty"`
 	ColumnIndex *int `json:"column_index,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type UpdateTablePropertyRequestBuilder struct {
 	columnWidth     int
 	columnWidthFlag bool
@@ -2644,13 +2644,13 @@ func (builder *UpdateTablePropertyRequestBuilder) Build() *UpdateTablePropertyRe
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type UpdateTextElementsRequest struct {
 	Elements []*TextElement `json:"elements,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type UpdateTextElementsRequestBuilder struct {
 	elements     []*TextElement
 	elementsFlag bool
@@ -2675,7 +2675,7 @@ func (builder *UpdateTextElementsRequestBuilder) Build() *UpdateTextElementsRequ
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type UpdateTextRequest struct {
 	Elements []*TextElement `json:"elements,omitempty"`
@@ -2683,7 +2683,7 @@ type UpdateTextRequest struct {
 	Fields   []int          `json:"fields,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type UpdateTextRequestBuilder struct {
 	elements     []*TextElement
 	elementsFlag bool
@@ -2728,14 +2728,14 @@ func (builder *UpdateTextRequestBuilder) Build() *UpdateTextRequest {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type UpdateTextStyleRequest struct {
 	Style  *TextStyle `json:"style,omitempty"`
 	Fields []int      `json:"fields,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type UpdateTextStyleRequestBuilder struct {
 	style      *TextStyle
 	styleFlag  bool
@@ -2770,13 +2770,13 @@ func (builder *UpdateTextStyleRequestBuilder) Build() *UpdateTextStyleRequest {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type View struct {
 	ViewType *int `json:"view_type,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ViewBuilder struct {
 	viewType     int
 	viewTypeFlag bool
@@ -2802,9 +2802,9 @@ func (builder *ViewBuilder) Build() *View {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
-/**生成请求和响应结果类型，以及请求对象的Builder构造器 **/
+// 生成请求和响应结果类型，以及请求对象的Builder构造器
 
 type CreateDocumentReqBodyBuilder struct {
 	folderToken     string
@@ -2819,7 +2819,7 @@ func NewCreateDocumentReqBodyBuilder() *CreateDocumentReqBodyBuilder {
 	return builder
 }
 
-/*1.2 生成body的builder属性方法*/
+// 1.2 生成body的builder属性方法
 func (builder *CreateDocumentReqBodyBuilder) FolderToken(folderToken string) *CreateDocumentReqBodyBuilder {
 	builder.folderToken = folderToken
 	builder.folderTokenFlag = true
@@ -2831,7 +2831,7 @@ func (builder *CreateDocumentReqBodyBuilder) Title(title string) *CreateDocument
 	return builder
 }
 
-/*1.3 生成body的build方法*/
+// 1.3 生成body的build方法
 func (builder *CreateDocumentReqBodyBuilder) Build() *CreateDocumentReqBody {
 	req := &CreateDocumentReqBody{}
 	if builder.folderTokenFlag {
@@ -2845,7 +2845,7 @@ func (builder *CreateDocumentReqBodyBuilder) Build() *CreateDocumentReqBody {
 	return req
 }
 
-/**上传文件path开始**/
+// 上传文件path开始
 type CreateDocumentPathReqBodyBuilder struct {
 	folderToken     string
 	folderTokenFlag bool
@@ -2881,9 +2881,9 @@ func (builder *CreateDocumentPathReqBodyBuilder) Build() (*CreateDocumentReqBody
 	return req, nil
 }
 
-/**上传文件path结束**/
+// 上传文件path结束
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type CreateDocumentReqBuilder struct {
 	body     *CreateDocumentReqBody
 	bodyFlag bool
@@ -2895,14 +2895,14 @@ func NewCreateDocumentReqBuilder() *CreateDocumentReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *CreateDocumentReqBuilder) Body(body *CreateDocumentReqBody) *CreateDocumentReqBuilder {
 	builder.body = body
 	builder.bodyFlag = true
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *CreateDocumentReqBuilder) Build() *CreateDocumentReq {
 	req := &CreateDocumentReq{}
 	if builder.bodyFlag {
@@ -2934,7 +2934,7 @@ func (resp *CreateDocumentResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type GetDocumentReqBuilder struct {
 	documentId     string
 	documentIdFlag bool
@@ -2946,14 +2946,14 @@ func NewGetDocumentReqBuilder() *GetDocumentReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *GetDocumentReqBuilder) DocumentId(documentId string) *GetDocumentReqBuilder {
 	builder.documentId = documentId
 	builder.documentIdFlag = true
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *GetDocumentReqBuilder) Build() *GetDocumentReq {
 	req := &GetDocumentReq{}
 	if builder.documentIdFlag {
@@ -2980,7 +2980,7 @@ func (resp *GetDocumentResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type RawContentDocumentReqBuilder struct {
 	documentId     string
 	documentIdFlag bool
@@ -2994,7 +2994,7 @@ func NewRawContentDocumentReqBuilder() *RawContentDocumentReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *RawContentDocumentReqBuilder) DocumentId(documentId string) *RawContentDocumentReqBuilder {
 	builder.documentId = documentId
 	builder.documentIdFlag = true
@@ -3006,7 +3006,7 @@ func (builder *RawContentDocumentReqBuilder) Lang(lang int) *RawContentDocumentR
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *RawContentDocumentReqBuilder) Build() *RawContentDocumentReq {
 	req := &RawContentDocumentReq{}
 	if builder.documentIdFlag {
@@ -3048,14 +3048,14 @@ func NewBatchUpdateDocumentBlockReqBodyBuilder() *BatchUpdateDocumentBlockReqBod
 	return builder
 }
 
-/*1.2 生成body的builder属性方法*/
+// 1.2 生成body的builder属性方法
 func (builder *BatchUpdateDocumentBlockReqBodyBuilder) Requests(requests []*UpdateBlockRequest) *BatchUpdateDocumentBlockReqBodyBuilder {
 	builder.requests = requests
 	builder.requestsFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
+// 1.3 生成body的build方法
 func (builder *BatchUpdateDocumentBlockReqBodyBuilder) Build() *BatchUpdateDocumentBlockReqBody {
 	req := &BatchUpdateDocumentBlockReqBody{}
 	if builder.requestsFlag {
@@ -3065,7 +3065,7 @@ func (builder *BatchUpdateDocumentBlockReqBodyBuilder) Build() *BatchUpdateDocum
 	return req
 }
 
-/**上传文件path开始**/
+// 上传文件path开始
 type BatchUpdateDocumentBlockPathReqBodyBuilder struct {
 	requests     []*UpdateBlockRequest
 	requestsFlag bool
@@ -3089,9 +3089,9 @@ func (builder *BatchUpdateDocumentBlockPathReqBodyBuilder) Build() (*BatchUpdate
 	return req, nil
 }
 
-/**上传文件path结束**/
+// 上传文件path结束
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type BatchUpdateDocumentBlockReqBuilder struct {
 	documentId             string
 	documentIdFlag         bool
@@ -3111,7 +3111,7 @@ func NewBatchUpdateDocumentBlockReqBuilder() *BatchUpdateDocumentBlockReqBuilder
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *BatchUpdateDocumentBlockReqBuilder) DocumentId(documentId string) *BatchUpdateDocumentBlockReqBuilder {
 	builder.documentId = documentId
 	builder.documentIdFlag = true
@@ -3138,7 +3138,7 @@ func (builder *BatchUpdateDocumentBlockReqBuilder) Body(body *BatchUpdateDocumen
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *BatchUpdateDocumentBlockReqBuilder) Build() *BatchUpdateDocumentBlockReq {
 	req := &BatchUpdateDocumentBlockReq{}
 	if builder.documentIdFlag {
@@ -3187,7 +3187,7 @@ func (resp *BatchUpdateDocumentBlockResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type GetDocumentBlockReqBuilder struct {
 	documentId             string
 	documentIdFlag         bool
@@ -3205,7 +3205,7 @@ func NewGetDocumentBlockReqBuilder() *GetDocumentBlockReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *GetDocumentBlockReqBuilder) DocumentId(documentId string) *GetDocumentBlockReqBuilder {
 	builder.documentId = documentId
 	builder.documentIdFlag = true
@@ -3227,7 +3227,7 @@ func (builder *GetDocumentBlockReqBuilder) UserIdType(userIdType string) *GetDoc
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *GetDocumentBlockReqBuilder) Build() *GetDocumentBlockReq {
 	req := &GetDocumentBlockReq{}
 	if builder.documentIdFlag {
@@ -3266,7 +3266,7 @@ func (resp *GetDocumentBlockResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type ListDocumentBlockReqBuilder struct {
 	documentId             string
 	documentIdFlag         bool
@@ -3287,7 +3287,7 @@ func NewListDocumentBlockReqBuilder() *ListDocumentBlockReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *ListDocumentBlockReqBuilder) Limit(limit int) *ListDocumentBlockReqBuilder {
 	builder.limit = limit
 	return builder
@@ -3318,7 +3318,7 @@ func (builder *ListDocumentBlockReqBuilder) UserIdType(userIdType string) *ListD
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *ListDocumentBlockReqBuilder) Build() *ListDocumentBlockReq {
 	req := &ListDocumentBlockReq{}
 	req.Limit = builder.limit
@@ -3365,7 +3365,7 @@ func (resp *ListDocumentBlockResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type PatchDocumentBlockReqBuilder struct {
 	documentId             string
 	documentIdFlag         bool
@@ -3387,7 +3387,7 @@ func NewPatchDocumentBlockReqBuilder() *PatchDocumentBlockReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *PatchDocumentBlockReqBuilder) DocumentId(documentId string) *PatchDocumentBlockReqBuilder {
 	builder.documentId = documentId
 	builder.documentIdFlag = true
@@ -3419,7 +3419,7 @@ func (builder *PatchDocumentBlockReqBuilder) UpdateBlockRequest(updateBlockReque
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *PatchDocumentBlockReqBuilder) Build() *PatchDocumentBlockReq {
 	req := &PatchDocumentBlockReq{}
 	if builder.documentIdFlag {
@@ -3481,7 +3481,7 @@ func NewBatchDeleteDocumentBlockChildrenReqBodyBuilder() *BatchDeleteDocumentBlo
 	return builder
 }
 
-/*1.2 生成body的builder属性方法*/
+// 1.2 生成body的builder属性方法
 func (builder *BatchDeleteDocumentBlockChildrenReqBodyBuilder) StartIndex(startIndex int) *BatchDeleteDocumentBlockChildrenReqBodyBuilder {
 	builder.startIndex = startIndex
 	builder.startIndexFlag = true
@@ -3493,7 +3493,7 @@ func (builder *BatchDeleteDocumentBlockChildrenReqBodyBuilder) EndIndex(endIndex
 	return builder
 }
 
-/*1.3 生成body的build方法*/
+// 1.3 生成body的build方法
 func (builder *BatchDeleteDocumentBlockChildrenReqBodyBuilder) Build() *BatchDeleteDocumentBlockChildrenReqBody {
 	req := &BatchDeleteDocumentBlockChildrenReqBody{}
 	if builder.startIndexFlag {
@@ -3507,7 +3507,7 @@ func (builder *BatchDeleteDocumentBlockChildrenReqBodyBuilder) Build() *BatchDel
 	return req
 }
 
-/**上传文件path开始**/
+// 上传文件path开始
 type BatchDeleteDocumentBlockChildrenPathReqBodyBuilder struct {
 	startIndex     int
 	startIndexFlag bool
@@ -3543,9 +3543,9 @@ func (builder *BatchDeleteDocumentBlockChildrenPathReqBodyBuilder) Build() (*Bat
 	return req, nil
 }
 
-/**上传文件path结束**/
+// 上传文件path结束
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type BatchDeleteDocumentBlockChildrenReqBuilder struct {
 	documentId             string
 	documentIdFlag         bool
@@ -3565,7 +3565,7 @@ func NewBatchDeleteDocumentBlockChildrenReqBuilder() *BatchDeleteDocumentBlockCh
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *BatchDeleteDocumentBlockChildrenReqBuilder) DocumentId(documentId string) *BatchDeleteDocumentBlockChildrenReqBuilder {
 	builder.documentId = documentId
 	builder.documentIdFlag = true
@@ -3592,7 +3592,7 @@ func (builder *BatchDeleteDocumentBlockChildrenReqBuilder) Body(body *BatchDelet
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *BatchDeleteDocumentBlockChildrenReqBuilder) Build() *BatchDeleteDocumentBlockChildrenReq {
 	req := &BatchDeleteDocumentBlockChildrenReq{}
 	if builder.documentIdFlag {
@@ -3654,7 +3654,7 @@ func NewCreateDocumentBlockChildrenReqBodyBuilder() *CreateDocumentBlockChildren
 	return builder
 }
 
-/*1.2 生成body的builder属性方法*/
+// 1.2 生成body的builder属性方法
 func (builder *CreateDocumentBlockChildrenReqBodyBuilder) Children(children []*Block) *CreateDocumentBlockChildrenReqBodyBuilder {
 	builder.children = children
 	builder.childrenFlag = true
@@ -3666,7 +3666,7 @@ func (builder *CreateDocumentBlockChildrenReqBodyBuilder) Index(index int) *Crea
 	return builder
 }
 
-/*1.3 生成body的build方法*/
+// 1.3 生成body的build方法
 func (builder *CreateDocumentBlockChildrenReqBodyBuilder) Build() *CreateDocumentBlockChildrenReqBody {
 	req := &CreateDocumentBlockChildrenReqBody{}
 	if builder.childrenFlag {
@@ -3680,7 +3680,7 @@ func (builder *CreateDocumentBlockChildrenReqBodyBuilder) Build() *CreateDocumen
 	return req
 }
 
-/**上传文件path开始**/
+// 上传文件path开始
 type CreateDocumentBlockChildrenPathReqBodyBuilder struct {
 	children     []*Block
 	childrenFlag bool
@@ -3715,9 +3715,9 @@ func (builder *CreateDocumentBlockChildrenPathReqBodyBuilder) Build() (*CreateDo
 	return req, nil
 }
 
-/**上传文件path结束**/
+// 上传文件path结束
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type CreateDocumentBlockChildrenReqBuilder struct {
 	documentId             string
 	documentIdFlag         bool
@@ -3739,7 +3739,7 @@ func NewCreateDocumentBlockChildrenReqBuilder() *CreateDocumentBlockChildrenReqB
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *CreateDocumentBlockChildrenReqBuilder) DocumentId(documentId string) *CreateDocumentBlockChildrenReqBuilder {
 	builder.documentId = documentId
 	builder.documentIdFlag = true
@@ -3771,7 +3771,7 @@ func (builder *CreateDocumentBlockChildrenReqBuilder) Body(body *CreateDocumentB
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *CreateDocumentBlockChildrenReqBuilder) Build() *CreateDocumentBlockChildrenReq {
 	req := &CreateDocumentBlockChildrenReq{}
 	if builder.documentIdFlag {
@@ -3825,7 +3825,7 @@ func (resp *CreateDocumentBlockChildrenResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type GetDocumentBlockChildrenReqBuilder struct {
 	documentId             string
 	documentIdFlag         bool
@@ -3848,7 +3848,7 @@ func NewGetDocumentBlockChildrenReqBuilder() *GetDocumentBlockChildrenReqBuilder
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *GetDocumentBlockChildrenReqBuilder) Limit(limit int) *GetDocumentBlockChildrenReqBuilder {
 	builder.limit = limit
 	return builder
@@ -3884,7 +3884,7 @@ func (builder *GetDocumentBlockChildrenReqBuilder) UserIdType(userIdType string)
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *GetDocumentBlockChildrenReqBuilder) Build() *GetDocumentBlockChildrenReq {
 	req := &GetDocumentBlockChildrenReq{}
 	req.Limit = builder.limit
@@ -3935,11 +3935,10 @@ func (resp *GetDocumentBlockChildrenResp) Success() bool {
 	return resp.Code == 0
 }
 
-/**生成消息事件结构体 **/
+// 生成消息事件结构体
 
-/* 生成请求的builder构造器*/
-/*1.1 生成body的builder结构体*/
-/**如果是分页查询，则添加迭代器定义**/
+// 生成请求的builder构造器
+// 1.1 生成body的builder结构体
 type ListDocumentBlockIterator struct {
 	nextPageToken *string
 	items         []*Block
@@ -3994,7 +3993,6 @@ func (iterator *ListDocumentBlockIterator) NextPageToken() *string {
 	return iterator.nextPageToken
 }
 
-/**如果是分页查询，则添加迭代器定义**/
 type GetDocumentBlockChildrenIterator struct {
 	nextPageToken *string
 	items         []*Block

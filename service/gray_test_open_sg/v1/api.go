@@ -8,34 +8,26 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
-/**
-构建业务域服务实例
-**/
+// 构建业务域服务实例
 func NewService(httpClient *http.Client, config *core.Config) *GrayTestOpenSgService {
 	g := &GrayTestOpenSgService{httpClient: httpClient, config: config}
 	g.Moto = &moto{service: g}
 	return g
 }
 
-/**
-业务域服务定义
-**/
+// 业务域服务定义
 type GrayTestOpenSgService struct {
 	httpClient *http.Client
 	config     *core.Config
 	Moto       *moto
 }
 
-/**
-资源服务定义
-**/
+// 资源服务定义
 type moto struct {
 	service *GrayTestOpenSgService
 }
 
-/**
-资源服务方法定义
-**/
+// 资源服务方法定义
 func (m *moto) Create(ctx context.Context, req *CreateMotoReq, options ...core.RequestOptionFunc) (*CreateMotoResp, error) {
 	// 发起请求
 	rawResp, err := core.SendRequest(ctx, m.service.config, http.MethodPost,
@@ -81,8 +73,6 @@ func (m *moto) List(ctx context.Context, req *ListMotoReq, options ...core.Reque
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (m *moto) ListMoto(ctx context.Context, req *ListMotoReq, options ...core.RequestOptionFunc) (*ListMotoIterator, error) {
 	return &ListMotoIterator{
 		ctx:      ctx,

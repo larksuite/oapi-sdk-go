@@ -5,9 +5,7 @@ import (
 	"context"
 )
 
-/**
-消息处理器定义
-**/
+// 消息处理器定义
 type ApprovalUpdatedEventHandler struct {
 	handler func(context.Context, *ApprovalUpdatedEvent) error
 }
@@ -17,16 +15,12 @@ func NewApprovalUpdatedEventHandler(handler func(context.Context, *ApprovalUpdat
 	return h
 }
 
-/**
-返回事件的消息体的实例，用于反序列化用
-**/
+// 返回事件的消息体的实例，用于反序列化用
 func (h *ApprovalUpdatedEventHandler) Event() interface{} {
 	return &ApprovalUpdatedEvent{}
 }
 
-/**
-回调开发者注册的handle
-r**/
+// 回调开发者注册的handle
 func (h *ApprovalUpdatedEventHandler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*ApprovalUpdatedEvent))
 }

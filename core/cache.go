@@ -2,6 +2,7 @@ package core
 
 import (
 	"context"
+	"fmt"
 	"sync"
 	"time"
 )
@@ -27,6 +28,9 @@ type localCache struct {
 func (s *localCache) Get(ctx context.Context, key string) (string, error) {
 	if val, ok := s.m.Load(key); ok {
 		ev := val.(*Value)
+		//TODO del
+		fmt.Println(fmt.Sprintf("get key:%s,hit cache,time left %f seconds",
+			key, ev.expireTime.Sub(time.Now()).Seconds()))
 		if ev.expireTime.After(time.Now()) {
 			return ev.value, nil
 		}

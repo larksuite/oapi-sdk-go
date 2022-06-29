@@ -8,34 +8,26 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
-/**
-构建业务域服务实例
-**/
+// 构建业务域服务实例
 func NewService(httpClient *http.Client, config *core.Config) *SpeechToTextService {
 	s := &SpeechToTextService{httpClient: httpClient, config: config}
 	s.Speech = &speech{service: s}
 	return s
 }
 
-/**
-业务域服务定义
-**/
+// 业务域服务定义
 type SpeechToTextService struct {
 	httpClient *http.Client
 	config     *core.Config
 	Speech     *speech
 }
 
-/**
-资源服务定义
-**/
+// 资源服务定义
 type speech struct {
 	service *SpeechToTextService
 }
 
-/**
-资源服务方法定义
-**/
+// 资源服务方法定义
 func (s *speech) FileRecognize(ctx context.Context, req *FileRecognizeSpeechReq, options ...core.RequestOptionFunc) (*FileRecognizeSpeechResp, error) {
 	// 发起请求
 	rawResp, err := core.SendRequest(ctx, s.service.config, http.MethodPost,

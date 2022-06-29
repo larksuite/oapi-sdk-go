@@ -9,9 +9,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
-/**
-构建业务域服务实例
-**/
+// 构建业务域服务实例
 func NewService(httpClient *http.Client, config *core.Config) *ImService {
 	i := &ImService{httpClient: httpClient, config: config}
 	i.BatchMessage = &batchMessage{service: i}
@@ -31,9 +29,7 @@ func NewService(httpClient *http.Client, config *core.Config) *ImService {
 	return i
 }
 
-/**
-业务域服务定义
-**/
+// 业务域服务定义
 type ImService struct {
 	httpClient       *http.Client
 	config           *core.Config
@@ -53,9 +49,7 @@ type ImService struct {
 	MessageResource  *messageResource
 }
 
-/**
-资源服务定义
-**/
+// 资源服务定义
 type batchMessage struct {
 	service *ImService
 }
@@ -99,9 +93,7 @@ type messageResource struct {
 	service *ImService
 }
 
-/**
-资源服务方法定义
-**/
+// 资源服务方法定义
 func (b *batchMessage) Delete(ctx context.Context, req *DeleteBatchMessageReq, options ...core.RequestOptionFunc) (*DeleteBatchMessageResp, error) {
 	// 发起请求
 	rawResp, err := core.SendRequest(ctx, b.service.config, http.MethodDelete,
@@ -207,8 +199,6 @@ func (c *chat) List(ctx context.Context, req *ListChatReq, options ...core.Reque
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (c *chat) ListChat(ctx context.Context, req *ListChatReq, options ...core.RequestOptionFunc) (*ListChatIterator, error) {
 	return &ListChatIterator{
 		ctx:      ctx,
@@ -232,8 +222,6 @@ func (c *chat) Search(ctx context.Context, req *SearchChatReq, options ...core.R
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (c *chat) SearchChat(ctx context.Context, req *SearchChatReq, options ...core.RequestOptionFunc) (*SearchChatIterator, error) {
 	return &SearchChatIterator{
 		ctx:      ctx,
@@ -362,8 +350,6 @@ func (c *chatMembers) Get(ctx context.Context, req *GetChatMembersReq, options .
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (c *chatMembers) GetChatMembers(ctx context.Context, req *GetChatMembersReq, options ...core.RequestOptionFunc) (*GetChatMembersIterator, error) {
 	return &GetChatMembersIterator{
 		ctx:      ctx,
@@ -417,8 +403,6 @@ func (c *chatModeration) Get(ctx context.Context, req *GetChatModerationReq, opt
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (c *chatModeration) GetChatModeration(ctx context.Context, req *GetChatModerationReq, options ...core.RequestOptionFunc) (*GetChatModerationIterator, error) {
 	return &GetChatModerationIterator{
 		ctx:      ctx,
@@ -606,8 +590,6 @@ func (m *message) List(ctx context.Context, req *ListMessageReq, options ...core
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (m *message) ListMessage(ctx context.Context, req *ListMessageReq, options ...core.RequestOptionFunc) (*ListMessageIterator, error) {
 	return &ListMessageIterator{
 		ctx:      ctx,
@@ -751,8 +733,6 @@ func (m *messageReaction) List(ctx context.Context, req *ListMessageReactionReq,
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (m *messageReaction) ListMessageReaction(ctx context.Context, req *ListMessageReactionReq, options ...core.RequestOptionFunc) (*ListMessageReactionIterator, error) {
 	return &ListMessageReactionIterator{
 		ctx:      ctx,

@@ -5,15 +5,15 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
-/**生成枚举值 **/
+// 生成枚举值
 
 const (
-	UserIdTypeOpenId  string = "open_id"
-	UserIdTypeUnionId string = "union_id"
-	UserIdTypeUserId  string = "user_id"
+	UserIdTypeOpenId  = "open_id"
+	UserIdTypeUnionId = "union_id"
+	UserIdTypeUserId  = "user_id"
 )
 
-/**生成数据类型 **/
+// 生成数据类型
 
 type Credentials struct {
 	Email  *string `json:"email,omitempty"`
@@ -21,7 +21,7 @@ type Credentials struct {
 	UserId *string `json:"user_id,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type CredentialsBuilder struct {
 	email      string
 	emailFlag  bool
@@ -69,19 +69,19 @@ func (builder *CredentialsBuilder) Build() *Credentials {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type IdpCredential struct {
 }
 
-/**builder开始**/
-/**builder结束**/
+// builder开始
+// builder结束
 
 type IdpCredentialId struct {
 	IdpCredentialId *string `json:"idp_credential_id,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type IdpCredentialIdBuilder struct {
 	idpCredentialId     string
 	idpCredentialIdFlag bool
@@ -107,7 +107,7 @@ func (builder *IdpCredentialIdBuilder) Build() *IdpCredentialId {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type MaskSession struct {
 	CreateTime   *int64  `json:"create_time,omitempty,string"`
@@ -115,7 +115,7 @@ type MaskSession struct {
 	UserId       *string `json:"user_id,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type MaskSessionBuilder struct {
 	createTime       int64
 	createTimeFlag   bool
@@ -163,9 +163,9 @@ func (builder *MaskSessionBuilder) Build() *MaskSession {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
-/**生成请求和响应结果类型，以及请求对象的Builder构造器 **/
+// 生成请求和响应结果类型，以及请求对象的Builder构造器
 
 type QuerySessionReqBodyBuilder struct {
 	userIds     []string
@@ -178,14 +178,14 @@ func NewQuerySessionReqBodyBuilder() *QuerySessionReqBodyBuilder {
 	return builder
 }
 
-/*1.2 生成body的builder属性方法*/
+// 1.2 生成body的builder属性方法
 func (builder *QuerySessionReqBodyBuilder) UserIds(userIds []string) *QuerySessionReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
+// 1.3 生成body的build方法
 func (builder *QuerySessionReqBodyBuilder) Build() *QuerySessionReqBody {
 	req := &QuerySessionReqBody{}
 	if builder.userIdsFlag {
@@ -195,7 +195,7 @@ func (builder *QuerySessionReqBodyBuilder) Build() *QuerySessionReqBody {
 	return req
 }
 
-/**上传文件path开始**/
+// 上传文件path开始
 type QuerySessionPathReqBodyBuilder struct {
 	userIds     []string
 	userIdsFlag bool
@@ -219,9 +219,9 @@ func (builder *QuerySessionPathReqBodyBuilder) Build() (*QuerySessionReqBody, er
 	return req, nil
 }
 
-/**上传文件path结束**/
+// 上传文件path结束
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type QuerySessionReqBuilder struct {
 	userIdType     string
 	userIdTypeFlag bool
@@ -235,7 +235,7 @@ func NewQuerySessionReqBuilder() *QuerySessionReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *QuerySessionReqBuilder) UserIdType(userIdType string) *QuerySessionReqBuilder {
 	builder.userIdType = userIdType
 	builder.userIdTypeFlag = true
@@ -247,7 +247,7 @@ func (builder *QuerySessionReqBuilder) Body(body *QuerySessionReqBody) *QuerySes
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *QuerySessionReqBuilder) Build() *QuerySessionReq {
 	req := &QuerySessionReq{}
 	if builder.userIdTypeFlag {
@@ -282,7 +282,7 @@ func (resp *QuerySessionResp) Success() bool {
 	return resp.Code == 0
 }
 
-/**生成消息事件结构体 **/
+// 生成消息事件结构体
 
-/* 生成请求的builder构造器*/
-/*1.1 生成body的builder结构体*/
+// 生成请求的builder构造器
+// 1.1 生成body的builder结构体

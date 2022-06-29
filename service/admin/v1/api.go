@@ -8,9 +8,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
-/**
-构建业务域服务实例
-**/
+// 构建业务域服务实例
 func NewService(httpClient *http.Client, config *core.Config) *AdminService {
 	a := &AdminService{httpClient: httpClient, config: config}
 	a.AdminDeptStat = &adminDeptStat{service: a}
@@ -19,9 +17,7 @@ func NewService(httpClient *http.Client, config *core.Config) *AdminService {
 	return a
 }
 
-/**
-业务域服务定义
-**/
+// 业务域服务定义
 type AdminService struct {
 	httpClient    *http.Client
 	config        *core.Config
@@ -30,9 +26,7 @@ type AdminService struct {
 	Password      *password
 }
 
-/**
-资源服务定义
-**/
+// 资源服务定义
 type adminDeptStat struct {
 	service *AdminService
 }
@@ -43,9 +37,7 @@ type password struct {
 	service *AdminService
 }
 
-/**
-资源服务方法定义
-**/
+// 资源服务方法定义
 func (a *adminDeptStat) List(ctx context.Context, req *ListAdminDeptStatReq, options ...core.RequestOptionFunc) (*ListAdminDeptStatResp, error) {
 	// 发起请求
 	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodGet,

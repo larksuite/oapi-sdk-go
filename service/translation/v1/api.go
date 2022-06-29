@@ -8,34 +8,26 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
-/**
-构建业务域服务实例
-**/
+// 构建业务域服务实例
 func NewService(httpClient *http.Client, config *core.Config) *TranslationService {
 	t := &TranslationService{httpClient: httpClient, config: config}
 	t.Text = &text{service: t}
 	return t
 }
 
-/**
-业务域服务定义
-**/
+// 业务域服务定义
 type TranslationService struct {
 	httpClient *http.Client
 	config     *core.Config
 	Text       *text
 }
 
-/**
-资源服务定义
-**/
+// 资源服务定义
 type text struct {
 	service *TranslationService
 }
 
-/**
-资源服务方法定义
-**/
+// 资源服务方法定义
 func (t *text) Detect(ctx context.Context, req *DetectTextReq, options ...core.RequestOptionFunc) (*DetectTextResp, error) {
 	// 发起请求
 	rawResp, err := core.SendRequest(ctx, t.service.config, http.MethodPost,

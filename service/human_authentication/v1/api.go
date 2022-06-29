@@ -8,34 +8,26 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
-/**
-构建业务域服务实例
-**/
+// 构建业务域服务实例
 func NewService(httpClient *http.Client, config *core.Config) *HumanAuthenticationService {
 	h := &HumanAuthenticationService{httpClient: httpClient, config: config}
 	h.Identity = &identity{service: h}
 	return h
 }
 
-/**
-业务域服务定义
-**/
+// 业务域服务定义
 type HumanAuthenticationService struct {
 	httpClient *http.Client
 	config     *core.Config
 	Identity   *identity
 }
 
-/**
-资源服务定义
-**/
+// 资源服务定义
 type identity struct {
 	service *HumanAuthenticationService
 }
 
-/**
-资源服务方法定义
-**/
+// 资源服务方法定义
 func (i *identity) Create(ctx context.Context, req *CreateIdentityReq, options ...core.RequestOptionFunc) (*CreateIdentityResp, error) {
 	// 发起请求
 	rawResp, err := core.SendRequest(ctx, i.service.config, http.MethodPost,

@@ -8,34 +8,26 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
-/**
-构建业务域服务实例
-**/
+// 构建业务域服务实例
 func NewService(httpClient *http.Client, config *core.Config) *EventService {
 	e := &EventService{httpClient: httpClient, config: config}
 	e.OutboundIp = &outboundIp{service: e}
 	return e
 }
 
-/**
-业务域服务定义
-**/
+// 业务域服务定义
 type EventService struct {
 	httpClient *http.Client
 	config     *core.Config
 	OutboundIp *outboundIp
 }
 
-/**
-资源服务定义
-**/
+// 资源服务定义
 type outboundIp struct {
 	service *EventService
 }
 
-/**
-资源服务方法定义
-**/
+// 资源服务方法定义
 func (o *outboundIp) List(ctx context.Context, req *ListOutboundIpReq, options ...core.RequestOptionFunc) (*ListOutboundIpResp, error) {
 	// 发起请求
 	rawResp, err := core.SendRequest(ctx, o.service.config, http.MethodGet,
@@ -51,8 +43,6 @@ func (o *outboundIp) List(ctx context.Context, req *ListOutboundIpReq, options .
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (o *outboundIp) ListOutboundIp(ctx context.Context, req *ListOutboundIpReq, options ...core.RequestOptionFunc) (*ListOutboundIpIterator, error) {
 	return &ListOutboundIpIterator{
 		ctx:      ctx,

@@ -9,9 +9,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
-/**
-构建业务域服务实例
-**/
+// 构建业务域服务实例
 func NewService(httpClient *http.Client, config *core.Config) *DriveService {
 	d := &DriveService{httpClient: httpClient, config: config}
 	d.ExportTask = &exportTask{service: d}
@@ -28,9 +26,7 @@ func NewService(httpClient *http.Client, config *core.Config) *DriveService {
 	return d
 }
 
-/**
-业务域服务定义
-**/
+// 业务域服务定义
 type DriveService struct {
 	httpClient       *http.Client
 	config           *core.Config
@@ -47,9 +43,7 @@ type DriveService struct {
 	PermissionPublic *permissionPublic
 }
 
-/**
-资源服务定义
-**/
+// 资源服务定义
 type exportTask struct {
 	service *DriveService
 }
@@ -84,9 +78,7 @@ type permissionPublic struct {
 	service *DriveService
 }
 
-/**
-资源服务方法定义
-**/
+// 资源服务方法定义
 func (e *exportTask) Create(ctx context.Context, req *CreateExportTaskReq, options ...core.RequestOptionFunc) (*CreateExportTaskResp, error) {
 	// 发起请求
 	rawResp, err := core.SendRequest(ctx, e.service.config, http.MethodPost,
@@ -371,8 +363,6 @@ func (f *fileComment) List(ctx context.Context, req *ListFileCommentReq, options
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (f *fileComment) ListFileComment(ctx context.Context, req *ListFileCommentReq, options ...core.RequestOptionFunc) (*ListFileCommentIterator, error) {
 	return &ListFileCommentIterator{
 		ctx:      ctx,

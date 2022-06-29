@@ -8,9 +8,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
-/**
-构建业务域服务实例
-**/
+// 构建业务域服务实例
 func NewService(httpClient *http.Client, config *core.Config) *BaikeService {
 	b := &BaikeService{httpClient: httpClient, config: config}
 	b.Classification = &classification{service: b}
@@ -19,9 +17,7 @@ func NewService(httpClient *http.Client, config *core.Config) *BaikeService {
 	return b
 }
 
-/**
-业务域服务定义
-**/
+// 业务域服务定义
 type BaikeService struct {
 	httpClient     *http.Client
 	config         *core.Config
@@ -30,9 +26,7 @@ type BaikeService struct {
 	Entity         *entity
 }
 
-/**
-资源服务定义
-**/
+// 资源服务定义
 type classification struct {
 	service *BaikeService
 }
@@ -43,9 +37,7 @@ type entity struct {
 	service *BaikeService
 }
 
-/**
-资源服务方法定义
-**/
+// 资源服务方法定义
 func (c *classification) List(ctx context.Context, req *ListClassificationReq, options ...core.RequestOptionFunc) (*ListClassificationResp, error) {
 	// 发起请求
 	rawResp, err := core.SendRequest(ctx, c.service.config, http.MethodGet,
@@ -61,8 +53,6 @@ func (c *classification) List(ctx context.Context, req *ListClassificationReq, o
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (c *classification) ListClassification(ctx context.Context, req *ListClassificationReq, options ...core.RequestOptionFunc) (*ListClassificationIterator, error) {
 	return &ListClassificationIterator{
 		ctx:      ctx,
@@ -161,8 +151,6 @@ func (e *entity) List(ctx context.Context, req *ListEntityReq, options ...core.R
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (e *entity) ListEntity(ctx context.Context, req *ListEntityReq, options ...core.RequestOptionFunc) (*ListEntityIterator, error) {
 	return &ListEntityIterator{
 		ctx:      ctx,
@@ -201,8 +189,6 @@ func (e *entity) Search(ctx context.Context, req *SearchEntityReq, options ...co
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (e *entity) SearchEntity(ctx context.Context, req *SearchEntityReq, options ...core.RequestOptionFunc) (*SearchEntityIterator, error) {
 	return &SearchEntityIterator{
 		ctx:      ctx,

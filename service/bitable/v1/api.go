@@ -8,9 +8,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
-/**
-构建业务域服务实例
-**/
+// 构建业务域服务实例
 func NewService(httpClient *http.Client, config *core.Config) *BitableService {
 	b := &BitableService{httpClient: httpClient, config: config}
 	b.App = &app{service: b}
@@ -18,29 +16,27 @@ func NewService(httpClient *http.Client, config *core.Config) *BitableService {
 	b.AppRoleMember = &appRoleMember{service: b}
 	b.AppTable = &appTable{service: b}
 	b.AppTableField = &appTableField{service: b}
+	b.AppTableFormField = &appTableFormField{service: b}
 	b.AppTableRecord = &appTableRecord{service: b}
 	b.AppTableView = &appTableView{service: b}
 	return b
 }
 
-/**
-业务域服务定义
-**/
+// 业务域服务定义
 type BitableService struct {
-	httpClient     *http.Client
-	config         *core.Config
-	App            *app
-	AppRole        *appRole
-	AppRoleMember  *appRoleMember
-	AppTable       *appTable
-	AppTableField  *appTableField
-	AppTableRecord *appTableRecord
-	AppTableView   *appTableView
+	httpClient        *http.Client
+	config            *core.Config
+	App               *app
+	AppRole           *appRole
+	AppRoleMember     *appRoleMember
+	AppTable          *appTable
+	AppTableField     *appTableField
+	AppTableFormField *appTableFormField
+	AppTableRecord    *appTableRecord
+	AppTableView      *appTableView
 }
 
-/**
-资源服务定义
-**/
+// 资源服务定义
 type app struct {
 	service *BitableService
 }
@@ -56,6 +52,9 @@ type appTable struct {
 type appTableField struct {
 	service *BitableService
 }
+type appTableFormField struct {
+	service *BitableService
+}
 type appTableRecord struct {
 	service *BitableService
 }
@@ -63,9 +62,7 @@ type appTableView struct {
 	service *BitableService
 }
 
-/**
-资源服务方法定义
-**/
+// 资源服务方法定义
 func (a *app) Get(ctx context.Context, req *GetAppReq, options ...core.RequestOptionFunc) (*GetAppResp, error) {
 	// 发起请求
 	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodGet,
@@ -141,8 +138,6 @@ func (a *appRole) List(ctx context.Context, req *ListAppRoleReq, options ...core
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (a *appRole) ListAppRole(ctx context.Context, req *ListAppRoleReq, options ...core.RequestOptionFunc) (*ListAppRoleIterator, error) {
 	return &ListAppRoleIterator{
 		ctx:      ctx,
@@ -241,8 +236,6 @@ func (a *appRoleMember) List(ctx context.Context, req *ListAppRoleMemberReq, opt
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (a *appRoleMember) ListAppRoleMember(ctx context.Context, req *ListAppRoleMemberReq, options ...core.RequestOptionFunc) (*ListAppRoleMemberIterator, error) {
 	return &ListAppRoleMemberIterator{
 		ctx:      ctx,
@@ -326,8 +319,6 @@ func (a *appTable) List(ctx context.Context, req *ListAppTableReq, options ...co
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (a *appTable) ListAppTable(ctx context.Context, req *ListAppTableReq, options ...core.RequestOptionFunc) (*ListAppTableIterator, error) {
 	return &ListAppTableIterator{
 		ctx:      ctx,
@@ -381,8 +372,6 @@ func (a *appTableField) List(ctx context.Context, req *ListAppTableFieldReq, opt
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (a *appTableField) ListAppTableField(ctx context.Context, req *ListAppTableFieldReq, options ...core.RequestOptionFunc) (*ListAppTableFieldIterator, error) {
 	return &ListAppTableFieldIterator{
 		ctx:      ctx,
@@ -400,6 +389,44 @@ func (a *appTableField) Update(ctx context.Context, req *UpdateAppTableFieldReq,
 	}
 	// 反序列响应结果
 	resp := &UpdateAppTableFieldResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (a *appTableFormField) List(ctx context.Context, req *ListAppTableFormFieldReq, options ...core.RequestOptionFunc) (*ListAppTableFormFieldResp, error) {
+	// 发起请求
+	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodGet,
+		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/forms/:form_id/fields", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListAppTableFormFieldResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (a *appTableFormField) ListAppTableFormField(ctx context.Context, req *ListAppTableFormFieldReq, options ...core.RequestOptionFunc) (*ListAppTableFormFieldIterator, error) {
+	return &ListAppTableFormFieldIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: a.List,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+func (a *appTableFormField) Patch(ctx context.Context, req *PatchAppTableFormFieldReq, options ...core.RequestOptionFunc) (*PatchAppTableFormFieldResp, error) {
+	// 发起请求
+	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodPatch,
+		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/forms/:form_id/fields/:field_id", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &PatchAppTableFormFieldResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
 	if err != nil {
 		return nil, err
@@ -511,8 +538,6 @@ func (a *appTableRecord) List(ctx context.Context, req *ListAppTableRecordReq, o
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (a *appTableRecord) ListAppTableRecord(ctx context.Context, req *ListAppTableRecordReq, options ...core.RequestOptionFunc) (*ListAppTableRecordIterator, error) {
 	return &ListAppTableRecordIterator{
 		ctx:      ctx,
@@ -581,8 +606,6 @@ func (a *appTableView) List(ctx context.Context, req *ListAppTableViewReq, optio
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (a *appTableView) ListAppTableView(ctx context.Context, req *ListAppTableViewReq, options ...core.RequestOptionFunc) (*ListAppTableViewIterator, error) {
 	return &ListAppTableViewIterator{
 		ctx:      ctx,

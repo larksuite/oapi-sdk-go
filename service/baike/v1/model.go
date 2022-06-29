@@ -9,21 +9,21 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
-/**生成枚举值 **/
+// 生成枚举值
 
 const (
-	UserIdTypeUserId  string = "user_id"
-	UserIdTypeUnionId string = "union_id"
-	UserIdTypeOpenId  string = "open_id"
+	UserIdTypeUserId  = "user_id"
+	UserIdTypeUnionId = "union_id"
+	UserIdTypeOpenId  = "open_id"
 )
 
-/**生成数据类型 **/
+// 生成数据类型
 
 type Abbreviation struct {
 	Id *string `json:"id,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type AbbreviationBuilder struct {
 	id     string
 	idFlag bool
@@ -49,7 +49,7 @@ func (builder *AbbreviationBuilder) Build() *Abbreviation {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Classification struct {
 	Id       *string `json:"id,omitempty"`
@@ -57,7 +57,7 @@ type Classification struct {
 	FatherId *string `json:"father_id,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ClassificationBuilder struct {
 	id           string
 	idFlag       bool
@@ -105,14 +105,14 @@ func (builder *ClassificationBuilder) Build() *Classification {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type DisplayStatus struct {
 	AllowHighlight *bool `json:"allow_highlight,omitempty"`
 	AllowSearch    *bool `json:"allow_search,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type DisplayStatusBuilder struct {
 	allowHighlight     bool
 	allowHighlightFlag bool
@@ -149,14 +149,14 @@ func (builder *DisplayStatusBuilder) Build() *DisplayStatus {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Draft struct {
 	DraftId *int64  `json:"draft_id,omitempty,string"`
 	Entity  *Entity `json:"entity,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type DraftBuilder struct {
 	draftId     int64
 	draftIdFlag bool
@@ -192,7 +192,7 @@ func (builder *DraftBuilder) Build() *Draft {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Entity struct {
 	Id       *string `json:"id,omitempty"`
@@ -209,7 +209,7 @@ type Entity struct {
 	RichText    *string      `json:"rich_text,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type EntityBuilder struct {
 	id           string
 	idFlag       bool
@@ -342,14 +342,14 @@ func (builder *EntityBuilder) Build() *Entity {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type MatchInfo struct {
 	EntityId *string `json:"entity_id,omitempty"`
 	Type     *int    `json:"type,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type MatchInfoBuilder struct {
 	entityId     string
 	entityIdFlag bool
@@ -386,14 +386,14 @@ func (builder *MatchInfoBuilder) Build() *MatchInfo {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type OuterInfo struct {
 	Provider *string `json:"provider,omitempty"`
 	OuterId  *string `json:"outer_id,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type OuterInfoBuilder struct {
 	provider     string
 	providerFlag bool
@@ -430,7 +430,7 @@ func (builder *OuterInfoBuilder) Build() *OuterInfo {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Phrase struct {
 	Name      *string  `json:"name,omitempty"`
@@ -438,7 +438,7 @@ type Phrase struct {
 	Span      *Span    `json:"span,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type PhraseBuilder struct {
 	name          string
 	nameFlag      bool
@@ -484,7 +484,7 @@ func (builder *PhraseBuilder) Build() *Phrase {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Referer struct {
 	Id    *string `json:"id,omitempty"`
@@ -492,7 +492,7 @@ type Referer struct {
 	Url   *string `json:"url,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type RefererBuilder struct {
 	id        string
 	idFlag    bool
@@ -540,7 +540,7 @@ func (builder *RefererBuilder) Build() *Referer {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type RelatedMeta struct {
 	Users           []*Referer        `json:"users,omitempty"`
@@ -552,7 +552,7 @@ type RelatedMeta struct {
 	Classifications []*Classification `json:"classifications,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type RelatedMetaBuilder struct {
 	users               []*Referer
 	usersFlag           bool
@@ -637,14 +637,14 @@ func (builder *RelatedMetaBuilder) Build() *RelatedMeta {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Span struct {
 	Start *int `json:"start,omitempty"`
 	End   *int `json:"end,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type SpanBuilder struct {
 	start     int
 	startFlag bool
@@ -681,14 +681,14 @@ func (builder *SpanBuilder) Build() *Span {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Statistics struct {
 	LikeCount    *int `json:"like_count,omitempty"`
 	DislikeCount *int `json:"dislike_count,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type StatisticsBuilder struct {
 	likeCount        int
 	likeCountFlag    bool
@@ -725,14 +725,14 @@ func (builder *StatisticsBuilder) Build() *Statistics {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Term struct {
 	Key           *string        `json:"key,omitempty"`
 	DisplayStatus *DisplayStatus `json:"display_status,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type TermBuilder struct {
 	key               string
 	keyFlag           bool
@@ -768,11 +768,11 @@ func (builder *TermBuilder) Build() *Term {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
-/**生成请求和响应结果类型，以及请求对象的Builder构造器 **/
+// 生成请求和响应结果类型，以及请求对象的Builder构造器
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type ListClassificationReqBuilder struct {
 	pageSize      int
 	pageSizeFlag  bool
@@ -787,7 +787,7 @@ func NewListClassificationReqBuilder() *ListClassificationReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *ListClassificationReqBuilder) Limit(limit int) *ListClassificationReqBuilder {
 	builder.limit = limit
 	return builder
@@ -803,7 +803,7 @@ func (builder *ListClassificationReqBuilder) PageToken(pageToken string) *ListCl
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *ListClassificationReqBuilder) Build() *ListClassificationReq {
 	req := &ListClassificationReq{}
 	req.Limit = builder.limit
@@ -837,7 +837,7 @@ func (resp *ListClassificationResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type CreateDraftReqBuilder struct {
 	userIdType     string
 	userIdTypeFlag bool
@@ -851,7 +851,7 @@ func NewCreateDraftReqBuilder() *CreateDraftReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *CreateDraftReqBuilder) UserIdType(userIdType string) *CreateDraftReqBuilder {
 	builder.userIdType = userIdType
 	builder.userIdTypeFlag = true
@@ -863,7 +863,7 @@ func (builder *CreateDraftReqBuilder) Entity(entity *Entity) *CreateDraftReqBuil
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *CreateDraftReqBuilder) Build() *CreateDraftReq {
 	req := &CreateDraftReq{}
 	if builder.userIdTypeFlag {
@@ -894,7 +894,7 @@ func (resp *CreateDraftResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type UpdateDraftReqBuilder struct {
 	draftId        int64
 	draftIdFlag    bool
@@ -910,7 +910,7 @@ func NewUpdateDraftReqBuilder() *UpdateDraftReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *UpdateDraftReqBuilder) DraftId(draftId int64) *UpdateDraftReqBuilder {
 	builder.draftId = draftId
 	builder.draftIdFlag = true
@@ -927,7 +927,7 @@ func (builder *UpdateDraftReqBuilder) Entity(entity *Entity) *UpdateDraftReqBuil
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *UpdateDraftReqBuilder) Build() *UpdateDraftReq {
 	req := &UpdateDraftReq{}
 	if builder.draftIdFlag {
@@ -962,7 +962,7 @@ func (resp *UpdateDraftResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type CreateEntityReqBuilder struct {
 	userIdType     string
 	userIdTypeFlag bool
@@ -976,7 +976,7 @@ func NewCreateEntityReqBuilder() *CreateEntityReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *CreateEntityReqBuilder) UserIdType(userIdType string) *CreateEntityReqBuilder {
 	builder.userIdType = userIdType
 	builder.userIdTypeFlag = true
@@ -988,7 +988,7 @@ func (builder *CreateEntityReqBuilder) Entity(entity *Entity) *CreateEntityReqBu
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *CreateEntityReqBuilder) Build() *CreateEntityReq {
 	req := &CreateEntityReq{}
 	if builder.userIdTypeFlag {
@@ -1019,7 +1019,7 @@ func (resp *CreateEntityResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type GetEntityReqBuilder struct {
 	entityId       string
 	entityIdFlag   bool
@@ -1037,7 +1037,7 @@ func NewGetEntityReqBuilder() *GetEntityReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *GetEntityReqBuilder) EntityId(entityId string) *GetEntityReqBuilder {
 	builder.entityId = entityId
 	builder.entityIdFlag = true
@@ -1059,7 +1059,7 @@ func (builder *GetEntityReqBuilder) UserIdType(userIdType string) *GetEntityReqB
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *GetEntityReqBuilder) Build() *GetEntityReq {
 	req := &GetEntityReq{}
 	if builder.entityIdFlag {
@@ -1109,14 +1109,14 @@ func NewHighlightEntityReqBodyBuilder() *HighlightEntityReqBodyBuilder {
 	return builder
 }
 
-/*1.2 生成body的builder属性方法*/
+// 1.2 生成body的builder属性方法
 func (builder *HighlightEntityReqBodyBuilder) Text(text string) *HighlightEntityReqBodyBuilder {
 	builder.text = text
 	builder.textFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
+// 1.3 生成body的build方法
 func (builder *HighlightEntityReqBodyBuilder) Build() *HighlightEntityReqBody {
 	req := &HighlightEntityReqBody{}
 	if builder.textFlag {
@@ -1126,7 +1126,7 @@ func (builder *HighlightEntityReqBodyBuilder) Build() *HighlightEntityReqBody {
 	return req
 }
 
-/**上传文件path开始**/
+// 上传文件path开始
 type HighlightEntityPathReqBodyBuilder struct {
 	text     string
 	textFlag bool
@@ -1151,9 +1151,9 @@ func (builder *HighlightEntityPathReqBodyBuilder) Build() (*HighlightEntityReqBo
 	return req, nil
 }
 
-/**上传文件path结束**/
+// 上传文件path结束
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type HighlightEntityReqBuilder struct {
 	body     *HighlightEntityReqBody
 	bodyFlag bool
@@ -1165,14 +1165,14 @@ func NewHighlightEntityReqBuilder() *HighlightEntityReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *HighlightEntityReqBuilder) Body(body *HighlightEntityReqBody) *HighlightEntityReqBuilder {
 	builder.body = body
 	builder.bodyFlag = true
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *HighlightEntityReqBuilder) Build() *HighlightEntityReq {
 	req := &HighlightEntityReq{}
 	if builder.bodyFlag {
@@ -1203,7 +1203,7 @@ func (resp *HighlightEntityResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type ListEntityReqBuilder struct {
 	pageSize       int
 	pageSizeFlag   bool
@@ -1222,7 +1222,7 @@ func NewListEntityReqBuilder() *ListEntityReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *ListEntityReqBuilder) Limit(limit int) *ListEntityReqBuilder {
 	builder.limit = limit
 	return builder
@@ -1248,7 +1248,7 @@ func (builder *ListEntityReqBuilder) UserIdType(userIdType string) *ListEntityRe
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *ListEntityReqBuilder) Build() *ListEntityReq {
 	req := &ListEntityReq{}
 	req.Limit = builder.limit
@@ -1301,14 +1301,14 @@ func NewMatchEntityReqBodyBuilder() *MatchEntityReqBodyBuilder {
 	return builder
 }
 
-/*1.2 生成body的builder属性方法*/
+// 1.2 生成body的builder属性方法
 func (builder *MatchEntityReqBodyBuilder) Word(word string) *MatchEntityReqBodyBuilder {
 	builder.word = word
 	builder.wordFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
+// 1.3 生成body的build方法
 func (builder *MatchEntityReqBodyBuilder) Build() *MatchEntityReqBody {
 	req := &MatchEntityReqBody{}
 	if builder.wordFlag {
@@ -1318,7 +1318,7 @@ func (builder *MatchEntityReqBodyBuilder) Build() *MatchEntityReqBody {
 	return req
 }
 
-/**上传文件path开始**/
+// 上传文件path开始
 type MatchEntityPathReqBodyBuilder struct {
 	word     string
 	wordFlag bool
@@ -1343,9 +1343,9 @@ func (builder *MatchEntityPathReqBodyBuilder) Build() (*MatchEntityReqBody, erro
 	return req, nil
 }
 
-/**上传文件path结束**/
+// 上传文件path结束
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type MatchEntityReqBuilder struct {
 	body     *MatchEntityReqBody
 	bodyFlag bool
@@ -1357,14 +1357,14 @@ func NewMatchEntityReqBuilder() *MatchEntityReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *MatchEntityReqBuilder) Body(body *MatchEntityReqBody) *MatchEntityReqBuilder {
 	builder.body = body
 	builder.bodyFlag = true
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *MatchEntityReqBuilder) Build() *MatchEntityReq {
 	req := &MatchEntityReq{}
 	if builder.bodyFlag {
@@ -1406,14 +1406,14 @@ func NewSearchEntityReqBodyBuilder() *SearchEntityReqBodyBuilder {
 	return builder
 }
 
-/*1.2 生成body的builder属性方法*/
+// 1.2 生成body的builder属性方法
 func (builder *SearchEntityReqBodyBuilder) Query(query string) *SearchEntityReqBodyBuilder {
 	builder.query = query
 	builder.queryFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
+// 1.3 生成body的build方法
 func (builder *SearchEntityReqBodyBuilder) Build() *SearchEntityReqBody {
 	req := &SearchEntityReqBody{}
 	if builder.queryFlag {
@@ -1423,7 +1423,7 @@ func (builder *SearchEntityReqBodyBuilder) Build() *SearchEntityReqBody {
 	return req
 }
 
-/**上传文件path开始**/
+// 上传文件path开始
 type SearchEntityPathReqBodyBuilder struct {
 	query     string
 	queryFlag bool
@@ -1448,9 +1448,9 @@ func (builder *SearchEntityPathReqBodyBuilder) Build() (*SearchEntityReqBody, er
 	return req, nil
 }
 
-/**上传文件path结束**/
+// 上传文件path结束
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type SearchEntityReqBuilder struct {
 	pageToken      string
 	pageTokenFlag  bool
@@ -1469,7 +1469,7 @@ func NewSearchEntityReqBuilder() *SearchEntityReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *SearchEntityReqBuilder) Limit(limit int) *SearchEntityReqBuilder {
 	builder.limit = limit
 	return builder
@@ -1495,7 +1495,7 @@ func (builder *SearchEntityReqBuilder) Body(body *SearchEntityReqBody) *SearchEn
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *SearchEntityReqBuilder) Build() *SearchEntityReq {
 	req := &SearchEntityReq{}
 	req.Limit = builder.limit
@@ -1541,7 +1541,7 @@ func (resp *SearchEntityResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type UpdateEntityReqBuilder struct {
 	entityId       string
 	entityIdFlag   bool
@@ -1557,7 +1557,7 @@ func NewUpdateEntityReqBuilder() *UpdateEntityReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *UpdateEntityReqBuilder) EntityId(entityId string) *UpdateEntityReqBuilder {
 	builder.entityId = entityId
 	builder.entityIdFlag = true
@@ -1574,7 +1574,7 @@ func (builder *UpdateEntityReqBuilder) Entity(entity *Entity) *UpdateEntityReqBu
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *UpdateEntityReqBuilder) Build() *UpdateEntityReq {
 	req := &UpdateEntityReq{}
 	if builder.entityIdFlag {
@@ -1609,11 +1609,10 @@ func (resp *UpdateEntityResp) Success() bool {
 	return resp.Code == 0
 }
 
-/**生成消息事件结构体 **/
+// 生成消息事件结构体
 
-/* 生成请求的builder构造器*/
-/*1.1 生成body的builder结构体*/
-/**如果是分页查询，则添加迭代器定义**/
+// 生成请求的builder构造器
+// 1.1 生成body的builder结构体
 type ListClassificationIterator struct {
 	nextPageToken *string
 	items         []*Classification
@@ -1668,7 +1667,6 @@ func (iterator *ListClassificationIterator) NextPageToken() *string {
 	return iterator.nextPageToken
 }
 
-/**如果是分页查询，则添加迭代器定义**/
 type ListEntityIterator struct {
 	nextPageToken *string
 	items         []*Entity
@@ -1723,7 +1721,6 @@ func (iterator *ListEntityIterator) NextPageToken() *string {
 	return iterator.nextPageToken
 }
 
-/**如果是分页查询，则添加迭代器定义**/
 type SearchEntityIterator struct {
 	nextPageToken *string
 	items         []*Entity

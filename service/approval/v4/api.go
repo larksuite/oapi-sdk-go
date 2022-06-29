@@ -8,9 +8,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
-/**
-构建业务域服务实例
-**/
+// 构建业务域服务实例
 func NewService(httpClient *http.Client, config *core.Config) *ApprovalService {
 	a := &ApprovalService{httpClient: httpClient, config: config}
 	a.Approval = &approval{service: a}
@@ -19,9 +17,7 @@ func NewService(httpClient *http.Client, config *core.Config) *ApprovalService {
 	return a
 }
 
-/**
-业务域服务定义
-**/
+// 业务域服务定义
 type ApprovalService struct {
 	httpClient *http.Client
 	config     *core.Config
@@ -30,9 +26,7 @@ type ApprovalService struct {
 	Task       *task
 }
 
-/**
-资源服务定义
-**/
+// 资源服务定义
 type approval struct {
 	service *ApprovalService
 }
@@ -43,9 +37,7 @@ type task struct {
 	service *ApprovalService
 }
 
-/**
-资源服务方法定义
-**/
+// 资源服务方法定义
 func (i *instance) AddSign(ctx context.Context, req *AddSignInstanceReq, options ...core.RequestOptionFunc) (*AddSignInstanceResp, error) {
 	// 发起请求
 	rawResp, err := core.SendRequest(ctx, i.service.config, http.MethodPost,
@@ -91,8 +83,6 @@ func (t *task) Query(ctx context.Context, req *QueryTaskReq, options ...core.Req
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (t *task) QueryTask(ctx context.Context, req *QueryTaskReq, options ...core.RequestOptionFunc) (*QueryTaskIterator, error) {
 	return &QueryTaskIterator{
 		ctx:      ctx,

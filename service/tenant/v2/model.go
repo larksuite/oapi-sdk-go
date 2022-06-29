@@ -5,9 +5,9 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
-/**生成枚举值 **/
+// 生成枚举值
 
-/**生成数据类型 **/
+// 生成数据类型
 
 type Avatar struct {
 	AvatarOrigin *string `json:"avatar_origin,omitempty"`
@@ -16,7 +16,7 @@ type Avatar struct {
 	Avatar640    *string `json:"avatar_640,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type AvatarBuilder struct {
 	avatarOrigin     string
 	avatarOriginFlag bool
@@ -75,7 +75,7 @@ func (builder *AvatarBuilder) Build() *Avatar {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Tenant struct {
 	Name      *string `json:"name,omitempty"`
@@ -85,7 +85,7 @@ type Tenant struct {
 	Avatar    *Avatar `json:"avatar,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type TenantBuilder struct {
 	name          string
 	nameFlag      bool
@@ -154,9 +154,9 @@ func (builder *TenantBuilder) Build() *Tenant {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
-/**生成请求和响应结果类型，以及请求对象的Builder构造器 **/
+// 生成请求和响应结果类型，以及请求对象的Builder构造器
 
 type QueryTenantRespData struct {
 	Tenant *Tenant `json:"tenant,omitempty"`
@@ -172,7 +172,7 @@ func (resp *QueryTenantResp) Success() bool {
 	return resp.Code == 0
 }
 
-/**生成消息事件结构体 **/
+// 生成消息事件结构体
 
-/* 生成请求的builder构造器*/
-/*1.1 生成body的builder结构体*/
+// 生成请求的builder构造器
+// 1.1 生成body的builder结构体

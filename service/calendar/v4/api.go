@@ -8,9 +8,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
-/**
-构建业务域服务实例
-**/
+// 构建业务域服务实例
 func NewService(httpClient *http.Client, config *core.Config) *CalendarService {
 	c := &CalendarService{httpClient: httpClient, config: config}
 	c.Calendar = &calendar{service: c}
@@ -25,9 +23,7 @@ func NewService(httpClient *http.Client, config *core.Config) *CalendarService {
 	return c
 }
 
-/**
-业务域服务定义
-**/
+// 业务域服务定义
 type CalendarService struct {
 	httpClient                      *http.Client
 	config                          *core.Config
@@ -42,9 +38,7 @@ type CalendarService struct {
 	TimeoffEvent                    *timeoffEvent
 }
 
-/**
-资源服务定义
-**/
+// 资源服务定义
 type calendar struct {
 	service *CalendarService
 }
@@ -73,9 +67,7 @@ type timeoffEvent struct {
 	service *CalendarService
 }
 
-/**
-资源服务方法定义
-**/
+// 资源服务方法定义
 func (c *calendar) Create(ctx context.Context, req *CreateCalendarReq, options ...core.RequestOptionFunc) (*CreateCalendarResp, error) {
 	// 发起请求
 	rawResp, err := core.SendRequest(ctx, c.service.config, http.MethodPost,
@@ -181,8 +173,6 @@ func (c *calendar) Search(ctx context.Context, req *SearchCalendarReq, options .
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (c *calendar) SearchCalendar(ctx context.Context, req *SearchCalendarReq, options ...core.RequestOptionFunc) (*SearchCalendarIterator, error) {
 	return &SearchCalendarIterator{
 		ctx:      ctx,
@@ -281,8 +271,6 @@ func (c *calendarAcl) List(ctx context.Context, req *ListCalendarAclReq, options
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (c *calendarAcl) ListCalendarAcl(ctx context.Context, req *ListCalendarAclReq, options ...core.RequestOptionFunc) (*ListCalendarAclIterator, error) {
 	return &ListCalendarAclIterator{
 		ctx:      ctx,
@@ -396,8 +384,6 @@ func (c *calendarEvent) Search(ctx context.Context, req *SearchCalendarEventReq,
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (c *calendarEvent) SearchCalendarEvent(ctx context.Context, req *SearchCalendarEventReq, options ...core.RequestOptionFunc) (*SearchCalendarEventIterator, error) {
 	return &SearchCalendarEventIterator{
 		ctx:      ctx,
@@ -466,8 +452,6 @@ func (c *calendarEventAttendee) List(ctx context.Context, req *ListCalendarEvent
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (c *calendarEventAttendee) ListCalendarEventAttendee(ctx context.Context, req *ListCalendarEventAttendeeReq, options ...core.RequestOptionFunc) (*ListCalendarEventAttendeeIterator, error) {
 	return &ListCalendarEventAttendeeIterator{
 		ctx:      ctx,
@@ -491,8 +475,6 @@ func (c *calendarEventAttendeeChatMember) List(ctx context.Context, req *ListCal
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (c *calendarEventAttendeeChatMember) ListCalendarEventAttendeeChatMember(ctx context.Context, req *ListCalendarEventAttendeeChatMemberReq, options ...core.RequestOptionFunc) (*ListCalendarEventAttendeeChatMemberIterator, error) {
 	return &ListCalendarEventAttendeeChatMemberIterator{
 		ctx:      ctx,

@@ -9,36 +9,36 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
-/**生成枚举值 **/
+// 生成枚举值
 
 const (
-	ObjTypeObjTypeDoc      string = "doc"
-	ObjTypeObjTypeSheet    string = "sheet"
-	ObjTypeObjTypeMindNote string = "mindnote"
-	ObjTypeObjTypeBitable  string = "bitable"
-	ObjTypeObjTypeFile     string = "file"
-	ObjTypeObjTypeDocx     string = "docx"
+	ObjTypeObjTypeDoc      = "doc"
+	ObjTypeObjTypeSheet    = "sheet"
+	ObjTypeObjTypeMindNote = "mindnote"
+	ObjTypeObjTypeBitable  = "bitable"
+	ObjTypeObjTypeFile     = "file"
+	ObjTypeObjTypeDocx     = "docx"
 )
 
 const (
-	NodeTypeNodeTypeEntity   string = "origin"
-	NodeTypeNodeTypeShortCut string = "shortcut"
+	NodeTypeNodeTypeEntity   = "origin"
+	NodeTypeNodeTypeShortCut = "shortcut"
 )
 
 const (
-	MoveDocsToWikiObjTypeObjTypeDoc      string = "doc"
-	MoveDocsToWikiObjTypeObjTypeSheet    string = "sheet"
-	MoveDocsToWikiObjTypeObjTypeBitable  string = "bitable"
-	MoveDocsToWikiObjTypeObjTypeMindNote string = "mindnote"
-	MoveDocsToWikiObjTypeObjTypeDocx     string = "docx"
-	MoveDocsToWikiObjTypeObjTypeFile     string = "file"
+	MoveDocsToWikiObjTypeObjTypeDoc      = "doc"
+	MoveDocsToWikiObjTypeObjTypeSheet    = "sheet"
+	MoveDocsToWikiObjTypeObjTypeBitable  = "bitable"
+	MoveDocsToWikiObjTypeObjTypeMindNote = "mindnote"
+	MoveDocsToWikiObjTypeObjTypeDocx     = "docx"
+	MoveDocsToWikiObjTypeObjTypeFile     = "file"
 )
 
 const (
-	TaskTypeMove string = "move"
+	TaskTypeMove = "move"
 )
 
-/**生成数据类型 **/
+// 生成数据类型
 
 type Member struct {
 	MemberType *string `json:"member_type,omitempty"`
@@ -46,7 +46,7 @@ type Member struct {
 	MemberRole *string `json:"member_role,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type MemberBuilder struct {
 	memberType     string
 	memberTypeFlag bool
@@ -94,7 +94,7 @@ func (builder *MemberBuilder) Build() *Member {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type MoveResult struct {
 	Node      *Node   `json:"node,omitempty"`
@@ -102,7 +102,7 @@ type MoveResult struct {
 	StatusMsg *string `json:"status_msg,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type MoveResultBuilder struct {
 	node          *Node
 	nodeFlag      bool
@@ -149,7 +149,7 @@ func (builder *MoveResultBuilder) Build() *MoveResult {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Node struct {
 	SpaceId         *int64  `json:"space_id,omitempty,string"`
@@ -169,7 +169,7 @@ type Node struct {
 	Owner           *string `json:"owner,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type NodeBuilder struct {
 	spaceId             int64
 	spaceIdFlag         bool
@@ -349,7 +349,7 @@ func (builder *NodeBuilder) Build() *Node {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type NodeSearch struct {
 	NodeId   *string  `json:"node_id,omitempty"`
@@ -365,7 +365,7 @@ type NodeSearch struct {
 	ObjToken *string  `json:"obj_token,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type NodeSearchBuilder struct {
 	nodeId       string
 	nodeIdFlag   bool
@@ -501,7 +501,7 @@ func (builder *NodeSearchBuilder) Build() *NodeSearch {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Setting struct {
 	CreateSetting   *string `json:"create_setting,omitempty"`
@@ -509,7 +509,7 @@ type Setting struct {
 	CommentSetting  *string `json:"comment_setting,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type SettingBuilder struct {
 	createSetting       string
 	createSettingFlag   bool
@@ -557,7 +557,7 @@ func (builder *SettingBuilder) Build() *Setting {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Space struct {
 	Name        *string `json:"name,omitempty"`
@@ -567,7 +567,7 @@ type Space struct {
 	Visibility  *string `json:"visibility,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type SpaceBuilder struct {
 	name            string
 	nameFlag        bool
@@ -637,14 +637,14 @@ func (builder *SpaceBuilder) Build() *Space {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type TaskResult struct {
 	TaskId     *string       `json:"task_id,omitempty"`
 	MoveResult []*MoveResult `json:"move_result,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type TaskResultBuilder struct {
 	taskId         string
 	taskIdFlag     bool
@@ -680,11 +680,11 @@ func (builder *TaskResultBuilder) Build() *TaskResult {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
-/**生成请求和响应结果类型，以及请求对象的Builder构造器 **/
+// 生成请求和响应结果类型，以及请求对象的Builder构造器
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type CreateSpaceReqBuilder struct {
 	space     *Space
 	spaceFlag bool
@@ -696,14 +696,14 @@ func NewCreateSpaceReqBuilder() *CreateSpaceReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *CreateSpaceReqBuilder) Space(space *Space) *CreateSpaceReqBuilder {
 	builder.space = space
 	builder.spaceFlag = true
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *CreateSpaceReqBuilder) Build() *CreateSpaceReq {
 	req := &CreateSpaceReq{}
 	if builder.spaceFlag {
@@ -730,7 +730,7 @@ func (resp *CreateSpaceResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type GetSpaceReqBuilder struct {
 	spaceId     string
 	spaceIdFlag bool
@@ -742,14 +742,14 @@ func NewGetSpaceReqBuilder() *GetSpaceReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *GetSpaceReqBuilder) SpaceId(spaceId string) *GetSpaceReqBuilder {
 	builder.spaceId = spaceId
 	builder.spaceIdFlag = true
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *GetSpaceReqBuilder) Build() *GetSpaceReq {
 	req := &GetSpaceReq{}
 	if builder.spaceIdFlag {
@@ -776,7 +776,7 @@ func (resp *GetSpaceResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type GetNodeSpaceReqBuilder struct {
 	token     string
 	tokenFlag bool
@@ -788,14 +788,14 @@ func NewGetNodeSpaceReqBuilder() *GetNodeSpaceReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *GetNodeSpaceReqBuilder) Token(token string) *GetNodeSpaceReqBuilder {
 	builder.token = token
 	builder.tokenFlag = true
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *GetNodeSpaceReqBuilder) Build() *GetNodeSpaceReq {
 	req := &GetNodeSpaceReq{}
 	if builder.tokenFlag {
@@ -822,7 +822,7 @@ func (resp *GetNodeSpaceResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type ListSpaceReqBuilder struct {
 	pageSize      int
 	pageSizeFlag  bool
@@ -837,7 +837,7 @@ func NewListSpaceReqBuilder() *ListSpaceReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *ListSpaceReqBuilder) Limit(limit int) *ListSpaceReqBuilder {
 	builder.limit = limit
 	return builder
@@ -853,7 +853,7 @@ func (builder *ListSpaceReqBuilder) PageToken(pageToken string) *ListSpaceReqBui
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *ListSpaceReqBuilder) Build() *ListSpaceReq {
 	req := &ListSpaceReq{}
 	req.Limit = builder.limit
@@ -888,7 +888,7 @@ func (resp *ListSpaceResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type CreateSpaceMemberReqBuilder struct {
 	spaceId              string
 	spaceIdFlag          bool
@@ -904,7 +904,7 @@ func NewCreateSpaceMemberReqBuilder() *CreateSpaceMemberReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *CreateSpaceMemberReqBuilder) SpaceId(spaceId string) *CreateSpaceMemberReqBuilder {
 	builder.spaceId = spaceId
 	builder.spaceIdFlag = true
@@ -921,7 +921,7 @@ func (builder *CreateSpaceMemberReqBuilder) Member(member *Member) *CreateSpaceM
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *CreateSpaceMemberReqBuilder) Build() *CreateSpaceMemberReq {
 	req := &CreateSpaceMemberReq{}
 	if builder.spaceIdFlag {
@@ -956,7 +956,7 @@ func (resp *CreateSpaceMemberResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type DeleteSpaceMemberReqBuilder struct {
 	spaceId      string
 	spaceIdFlag  bool
@@ -972,7 +972,7 @@ func NewDeleteSpaceMemberReqBuilder() *DeleteSpaceMemberReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *DeleteSpaceMemberReqBuilder) SpaceId(spaceId string) *DeleteSpaceMemberReqBuilder {
 	builder.spaceId = spaceId
 	builder.spaceIdFlag = true
@@ -989,7 +989,7 @@ func (builder *DeleteSpaceMemberReqBuilder) Member(member *Member) *DeleteSpaceM
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *DeleteSpaceMemberReqBuilder) Build() *DeleteSpaceMemberReq {
 	req := &DeleteSpaceMemberReq{}
 	if builder.spaceIdFlag {
@@ -1039,7 +1039,7 @@ func NewCopySpaceNodeReqBodyBuilder() *CopySpaceNodeReqBodyBuilder {
 	return builder
 }
 
-/*1.2 生成body的builder属性方法*/
+// 1.2 生成body的builder属性方法
 func (builder *CopySpaceNodeReqBodyBuilder) TargetParentToken(targetParentToken string) *CopySpaceNodeReqBodyBuilder {
 	builder.targetParentToken = targetParentToken
 	builder.targetParentTokenFlag = true
@@ -1056,7 +1056,7 @@ func (builder *CopySpaceNodeReqBodyBuilder) Title(title string) *CopySpaceNodeRe
 	return builder
 }
 
-/*1.3 生成body的build方法*/
+// 1.3 生成body的build方法
 func (builder *CopySpaceNodeReqBodyBuilder) Build() *CopySpaceNodeReqBody {
 	req := &CopySpaceNodeReqBody{}
 	if builder.targetParentTokenFlag {
@@ -1074,7 +1074,7 @@ func (builder *CopySpaceNodeReqBodyBuilder) Build() *CopySpaceNodeReqBody {
 	return req
 }
 
-/**上传文件path开始**/
+// 上传文件path开始
 type CopySpaceNodePathReqBodyBuilder struct {
 	targetParentToken     string
 	targetParentTokenFlag bool
@@ -1121,9 +1121,9 @@ func (builder *CopySpaceNodePathReqBodyBuilder) Build() (*CopySpaceNodeReqBody, 
 	return req, nil
 }
 
-/**上传文件path结束**/
+// 上传文件path结束
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type CopySpaceNodeReqBuilder struct {
 	spaceId       int64
 	spaceIdFlag   bool
@@ -1139,7 +1139,7 @@ func NewCopySpaceNodeReqBuilder() *CopySpaceNodeReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *CopySpaceNodeReqBuilder) SpaceId(spaceId int64) *CopySpaceNodeReqBuilder {
 	builder.spaceId = spaceId
 	builder.spaceIdFlag = true
@@ -1156,7 +1156,7 @@ func (builder *CopySpaceNodeReqBuilder) Body(body *CopySpaceNodeReqBody) *CopySp
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *CopySpaceNodeReqBuilder) Build() *CopySpaceNodeReq {
 	req := &CopySpaceNodeReq{}
 	if builder.spaceIdFlag {
@@ -1197,7 +1197,7 @@ func (resp *CopySpaceNodeResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type CreateSpaceNodeReqBuilder struct {
 	spaceId     string
 	spaceIdFlag bool
@@ -1211,7 +1211,7 @@ func NewCreateSpaceNodeReqBuilder() *CreateSpaceNodeReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *CreateSpaceNodeReqBuilder) SpaceId(spaceId string) *CreateSpaceNodeReqBuilder {
 	builder.spaceId = spaceId
 	builder.spaceIdFlag = true
@@ -1223,7 +1223,7 @@ func (builder *CreateSpaceNodeReqBuilder) Node(node *Node) *CreateSpaceNodeReqBu
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *CreateSpaceNodeReqBuilder) Build() *CreateSpaceNodeReq {
 	req := &CreateSpaceNodeReq{}
 	if builder.spaceIdFlag {
@@ -1254,7 +1254,7 @@ func (resp *CreateSpaceNodeResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type ListSpaceNodeReqBuilder struct {
 	spaceId             string
 	spaceIdFlag         bool
@@ -1273,7 +1273,7 @@ func NewListSpaceNodeReqBuilder() *ListSpaceNodeReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *ListSpaceNodeReqBuilder) Limit(limit int) *ListSpaceNodeReqBuilder {
 	builder.limit = limit
 	return builder
@@ -1299,7 +1299,7 @@ func (builder *ListSpaceNodeReqBuilder) ParentNodeToken(parentNodeToken string) 
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *ListSpaceNodeReqBuilder) Build() *ListSpaceNodeReq {
 	req := &ListSpaceNodeReq{}
 	req.Limit = builder.limit
@@ -1355,7 +1355,7 @@ func NewMoveSpaceNodeReqBodyBuilder() *MoveSpaceNodeReqBodyBuilder {
 	return builder
 }
 
-/*1.2 生成body的builder属性方法*/
+// 1.2 生成body的builder属性方法
 func (builder *MoveSpaceNodeReqBodyBuilder) TargetParentToken(targetParentToken string) *MoveSpaceNodeReqBodyBuilder {
 	builder.targetParentToken = targetParentToken
 	builder.targetParentTokenFlag = true
@@ -1367,7 +1367,7 @@ func (builder *MoveSpaceNodeReqBodyBuilder) TargetSpaceId(targetSpaceId string) 
 	return builder
 }
 
-/*1.3 生成body的build方法*/
+// 1.3 生成body的build方法
 func (builder *MoveSpaceNodeReqBodyBuilder) Build() *MoveSpaceNodeReqBody {
 	req := &MoveSpaceNodeReqBody{}
 	if builder.targetParentTokenFlag {
@@ -1381,7 +1381,7 @@ func (builder *MoveSpaceNodeReqBodyBuilder) Build() *MoveSpaceNodeReqBody {
 	return req
 }
 
-/**上传文件path开始**/
+// 上传文件path开始
 type MoveSpaceNodePathReqBodyBuilder struct {
 	targetParentToken     string
 	targetParentTokenFlag bool
@@ -1417,9 +1417,9 @@ func (builder *MoveSpaceNodePathReqBodyBuilder) Build() (*MoveSpaceNodeReqBody, 
 	return req, nil
 }
 
-/**上传文件path结束**/
+// 上传文件path结束
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type MoveSpaceNodeReqBuilder struct {
 	spaceId       string
 	spaceIdFlag   bool
@@ -1435,7 +1435,7 @@ func NewMoveSpaceNodeReqBuilder() *MoveSpaceNodeReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *MoveSpaceNodeReqBuilder) SpaceId(spaceId string) *MoveSpaceNodeReqBuilder {
 	builder.spaceId = spaceId
 	builder.spaceIdFlag = true
@@ -1452,7 +1452,7 @@ func (builder *MoveSpaceNodeReqBuilder) Body(body *MoveSpaceNodeReqBody) *MoveSp
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *MoveSpaceNodeReqBuilder) Build() *MoveSpaceNodeReq {
 	req := &MoveSpaceNodeReq{}
 	if builder.spaceIdFlag {
@@ -1509,7 +1509,7 @@ func NewMoveDocsToWikiSpaceNodeReqBodyBuilder() *MoveDocsToWikiSpaceNodeReqBodyB
 	return builder
 }
 
-/*1.2 生成body的builder属性方法*/
+// 1.2 生成body的builder属性方法
 func (builder *MoveDocsToWikiSpaceNodeReqBodyBuilder) ParentWikiToken(parentWikiToken string) *MoveDocsToWikiSpaceNodeReqBodyBuilder {
 	builder.parentWikiToken = parentWikiToken
 	builder.parentWikiTokenFlag = true
@@ -1531,7 +1531,7 @@ func (builder *MoveDocsToWikiSpaceNodeReqBodyBuilder) Apply(apply bool) *MoveDoc
 	return builder
 }
 
-/*1.3 生成body的build方法*/
+// 1.3 生成body的build方法
 func (builder *MoveDocsToWikiSpaceNodeReqBodyBuilder) Build() *MoveDocsToWikiSpaceNodeReqBody {
 	req := &MoveDocsToWikiSpaceNodeReqBody{}
 	if builder.parentWikiTokenFlag {
@@ -1553,7 +1553,7 @@ func (builder *MoveDocsToWikiSpaceNodeReqBodyBuilder) Build() *MoveDocsToWikiSpa
 	return req
 }
 
-/**上传文件path开始**/
+// 上传文件path开始
 type MoveDocsToWikiSpaceNodePathReqBodyBuilder struct {
 	parentWikiToken     string
 	parentWikiTokenFlag bool
@@ -1611,9 +1611,9 @@ func (builder *MoveDocsToWikiSpaceNodePathReqBodyBuilder) Build() (*MoveDocsToWi
 	return req, nil
 }
 
-/**上传文件path结束**/
+// 上传文件path结束
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type MoveDocsToWikiSpaceNodeReqBuilder struct {
 	spaceId     int64
 	spaceIdFlag bool
@@ -1627,7 +1627,7 @@ func NewMoveDocsToWikiSpaceNodeReqBuilder() *MoveDocsToWikiSpaceNodeReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *MoveDocsToWikiSpaceNodeReqBuilder) SpaceId(spaceId int64) *MoveDocsToWikiSpaceNodeReqBuilder {
 	builder.spaceId = spaceId
 	builder.spaceIdFlag = true
@@ -1639,7 +1639,7 @@ func (builder *MoveDocsToWikiSpaceNodeReqBuilder) Body(body *MoveDocsToWikiSpace
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *MoveDocsToWikiSpaceNodeReqBuilder) Build() *MoveDocsToWikiSpaceNodeReq {
 	req := &MoveDocsToWikiSpaceNodeReq{}
 	if builder.spaceIdFlag {
@@ -1690,14 +1690,14 @@ func NewUpdateTitleSpaceNodeReqBodyBuilder() *UpdateTitleSpaceNodeReqBodyBuilder
 	return builder
 }
 
-/*1.2 生成body的builder属性方法*/
+// 1.2 生成body的builder属性方法
 func (builder *UpdateTitleSpaceNodeReqBodyBuilder) Title(title string) *UpdateTitleSpaceNodeReqBodyBuilder {
 	builder.title = title
 	builder.titleFlag = true
 	return builder
 }
 
-/*1.3 生成body的build方法*/
+// 1.3 生成body的build方法
 func (builder *UpdateTitleSpaceNodeReqBodyBuilder) Build() *UpdateTitleSpaceNodeReqBody {
 	req := &UpdateTitleSpaceNodeReqBody{}
 	if builder.titleFlag {
@@ -1707,7 +1707,7 @@ func (builder *UpdateTitleSpaceNodeReqBodyBuilder) Build() *UpdateTitleSpaceNode
 	return req
 }
 
-/**上传文件path开始**/
+// 上传文件path开始
 type UpdateTitleSpaceNodePathReqBodyBuilder struct {
 	title     string
 	titleFlag bool
@@ -1732,9 +1732,9 @@ func (builder *UpdateTitleSpaceNodePathReqBodyBuilder) Build() (*UpdateTitleSpac
 	return req, nil
 }
 
-/**上传文件path结束**/
+// 上传文件path结束
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type UpdateTitleSpaceNodeReqBuilder struct {
 	spaceId       int64
 	spaceIdFlag   bool
@@ -1750,7 +1750,7 @@ func NewUpdateTitleSpaceNodeReqBuilder() *UpdateTitleSpaceNodeReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *UpdateTitleSpaceNodeReqBuilder) SpaceId(spaceId int64) *UpdateTitleSpaceNodeReqBuilder {
 	builder.spaceId = spaceId
 	builder.spaceIdFlag = true
@@ -1767,7 +1767,7 @@ func (builder *UpdateTitleSpaceNodeReqBuilder) Body(body *UpdateTitleSpaceNodeRe
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *UpdateTitleSpaceNodeReqBuilder) Build() *UpdateTitleSpaceNodeReq {
 	req := &UpdateTitleSpaceNodeReq{}
 	if builder.spaceIdFlag {
@@ -1801,7 +1801,7 @@ func (resp *UpdateTitleSpaceNodeResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type UpdateSpaceSettingReqBuilder struct {
 	spaceId     string
 	spaceIdFlag bool
@@ -1815,7 +1815,7 @@ func NewUpdateSpaceSettingReqBuilder() *UpdateSpaceSettingReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *UpdateSpaceSettingReqBuilder) SpaceId(spaceId string) *UpdateSpaceSettingReqBuilder {
 	builder.spaceId = spaceId
 	builder.spaceIdFlag = true
@@ -1827,7 +1827,7 @@ func (builder *UpdateSpaceSettingReqBuilder) Setting(setting *Setting) *UpdateSp
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *UpdateSpaceSettingReqBuilder) Build() *UpdateSpaceSettingReq {
 	req := &UpdateSpaceSettingReq{}
 	if builder.spaceIdFlag {
@@ -1858,7 +1858,7 @@ func (resp *UpdateSpaceSettingResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type GetTaskReqBuilder struct {
 	taskId       string
 	taskIdFlag   bool
@@ -1872,7 +1872,7 @@ func NewGetTaskReqBuilder() *GetTaskReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *GetTaskReqBuilder) TaskId(taskId string) *GetTaskReqBuilder {
 	builder.taskId = taskId
 	builder.taskIdFlag = true
@@ -1884,7 +1884,7 @@ func (builder *GetTaskReqBuilder) TaskType(taskType string) *GetTaskReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *GetTaskReqBuilder) Build() *GetTaskReq {
 	req := &GetTaskReq{}
 	if builder.taskIdFlag {
@@ -1915,11 +1915,10 @@ func (resp *GetTaskResp) Success() bool {
 	return resp.Code == 0
 }
 
-/**生成消息事件结构体 **/
+// 生成消息事件结构体
 
-/* 生成请求的builder构造器*/
-/*1.1 生成body的builder结构体*/
-/**如果是分页查询，则添加迭代器定义**/
+// 生成请求的builder构造器
+// 1.1 生成body的builder结构体
 type ListSpaceIterator struct {
 	nextPageToken *string
 	items         []*Space
@@ -1974,7 +1973,6 @@ func (iterator *ListSpaceIterator) NextPageToken() *string {
 	return iterator.nextPageToken
 }
 
-/**如果是分页查询，则添加迭代器定义**/
 type ListSpaceNodeIterator struct {
 	nextPageToken *string
 	items         []*Node

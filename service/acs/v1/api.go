@@ -9,9 +9,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
-/**
-构建业务域服务实例
-**/
+// 构建业务域服务实例
 func NewService(httpClient *http.Client, config *core.Config) *AcsService {
 	a := &AcsService{httpClient: httpClient, config: config}
 	a.AccessRecord = &accessRecord{service: a}
@@ -22,9 +20,7 @@ func NewService(httpClient *http.Client, config *core.Config) *AcsService {
 	return a
 }
 
-/**
-业务域服务定义
-**/
+// 业务域服务定义
 type AcsService struct {
 	httpClient              *http.Client
 	config                  *core.Config
@@ -35,9 +31,7 @@ type AcsService struct {
 	UserFace                *userFace
 }
 
-/**
-资源服务定义
-**/
+// 资源服务定义
 type accessRecord struct {
 	service *AcsService
 }
@@ -54,9 +48,7 @@ type userFace struct {
 	service *AcsService
 }
 
-/**
-资源服务方法定义
-**/
+// 资源服务方法定义
 func (a *accessRecord) List(ctx context.Context, req *ListAccessRecordReq, options ...core.RequestOptionFunc) (*ListAccessRecordResp, error) {
 	// 发起请求
 	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodGet,
@@ -72,8 +64,6 @@ func (a *accessRecord) List(ctx context.Context, req *ListAccessRecordReq, optio
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (a *accessRecord) ListAccessRecord(ctx context.Context, req *ListAccessRecordReq, options ...core.RequestOptionFunc) (*ListAccessRecordIterator, error) {
 	return &ListAccessRecordIterator{
 		ctx:      ctx,
@@ -148,8 +138,6 @@ func (u *user) List(ctx context.Context, req *ListUserReq, options ...core.Reque
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (u *user) ListUser(ctx context.Context, req *ListUserReq, options ...core.RequestOptionFunc) (*ListUserIterator, error) {
 	return &ListUserIterator{
 		ctx:      ctx,

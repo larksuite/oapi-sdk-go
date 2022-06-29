@@ -8,9 +8,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
-/**
-构建业务域服务实例
-**/
+// 构建业务域服务实例
 func NewService(httpClient *http.Client, config *core.Config) *ApplicationService {
 	a := &ApplicationService{httpClient: httpClient, config: config}
 	a.Application = &application{service: a}
@@ -21,9 +19,7 @@ func NewService(httpClient *http.Client, config *core.Config) *ApplicationServic
 	return a
 }
 
-/**
-业务域服务定义
-**/
+// 业务域服务定义
 type ApplicationService struct {
 	httpClient            *http.Client
 	config                *core.Config
@@ -34,9 +30,7 @@ type ApplicationService struct {
 	ApplicationVisibility *applicationVisibility
 }
 
-/**
-资源服务定义
-**/
+// 资源服务定义
 type application struct {
 	service *ApplicationService
 }
@@ -53,9 +47,7 @@ type applicationVisibility struct {
 	service *ApplicationService
 }
 
-/**
-资源服务方法定义
-**/
+// 资源服务方法定义
 func (a *application) Get(ctx context.Context, req *GetApplicationReq, options ...core.RequestOptionFunc) (*GetApplicationResp, error) {
 	// 发起请求
 	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodGet,
@@ -101,8 +93,6 @@ func (a *application) Underauditlist(ctx context.Context, req *UnderauditlistApp
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (a *application) UnderauditlistApplication(ctx context.Context, req *UnderauditlistApplicationReq, options ...core.RequestOptionFunc) (*UnderauditlistApplicationIterator, error) {
 	return &UnderauditlistApplicationIterator{
 		ctx:      ctx,

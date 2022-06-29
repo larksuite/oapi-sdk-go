@@ -9,9 +9,9 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
-/**生成枚举值 **/
+// 生成枚举值
 
-/**生成数据类型 **/
+// 生成数据类型
 
 type Level struct {
 	Level *string `json:"level,omitempty"`
@@ -19,7 +19,7 @@ type Level struct {
 	Type  *string `json:"type,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type LevelBuilder struct {
 	level     string
 	levelFlag bool
@@ -67,7 +67,7 @@ func (builder *LevelBuilder) Build() *Level {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Moto struct {
 	MotoId   *string `json:"moto_id,omitempty"`
@@ -76,7 +76,7 @@ type Moto struct {
 	Type     *string `json:"type,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type MotoBuilder struct {
 	motoId       string
 	motoIdFlag   bool
@@ -135,11 +135,11 @@ func (builder *MotoBuilder) Build() *Moto {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
-/**生成请求和响应结果类型，以及请求对象的Builder构造器 **/
+// 生成请求和响应结果类型，以及请求对象的Builder构造器
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type CreateMotoReqBuilder struct {
 	departmentIdType     string
 	departmentIdTypeFlag bool
@@ -153,7 +153,7 @@ func NewCreateMotoReqBuilder() *CreateMotoReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *CreateMotoReqBuilder) DepartmentIdType(departmentIdType string) *CreateMotoReqBuilder {
 	builder.departmentIdType = departmentIdType
 	builder.departmentIdTypeFlag = true
@@ -165,7 +165,7 @@ func (builder *CreateMotoReqBuilder) Level(level *Level) *CreateMotoReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *CreateMotoReqBuilder) Build() *CreateMotoReq {
 	req := &CreateMotoReq{}
 	if builder.departmentIdTypeFlag {
@@ -196,7 +196,7 @@ func (resp *CreateMotoResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type GetMotoReqBuilder struct {
 	motoId        string
 	motoIdFlag    bool
@@ -210,7 +210,7 @@ func NewGetMotoReqBuilder() *GetMotoReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *GetMotoReqBuilder) MotoId(motoId string) *GetMotoReqBuilder {
 	builder.motoId = motoId
 	builder.motoIdFlag = true
@@ -222,7 +222,7 @@ func (builder *GetMotoReqBuilder) BodyLevel(bodyLevel string) *GetMotoReqBuilder
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *GetMotoReqBuilder) Build() *GetMotoReq {
 	req := &GetMotoReq{}
 	if builder.motoIdFlag {
@@ -253,7 +253,7 @@ func (resp *GetMotoResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type ListMotoReqBuilder struct {
 	pageSize      int
 	pageSizeFlag  bool
@@ -270,7 +270,7 @@ func NewListMotoReqBuilder() *ListMotoReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *ListMotoReqBuilder) Limit(limit int) *ListMotoReqBuilder {
 	builder.limit = limit
 	return builder
@@ -291,7 +291,7 @@ func (builder *ListMotoReqBuilder) Level(level int) *ListMotoReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *ListMotoReqBuilder) Build() *ListMotoReq {
 	req := &ListMotoReq{}
 	req.Limit = builder.limit
@@ -330,11 +330,10 @@ func (resp *ListMotoResp) Success() bool {
 	return resp.Code == 0
 }
 
-/**生成消息事件结构体 **/
+// 生成消息事件结构体
 
-/* 生成请求的builder构造器*/
-/*1.1 生成body的builder结构体*/
-/**如果是分页查询，则添加迭代器定义**/
+// 生成请求的builder构造器
+// 1.1 生成body的builder结构体
 type ListMotoIterator struct {
 	nextPageToken *string
 	items         []string

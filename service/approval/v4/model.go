@@ -11,34 +11,34 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
-/**生成枚举值 **/
+// 生成枚举值
 
 const (
-	AddSignEnumAddSignPre      string = "1"
-	AddSignEnumAddSignPost     string = "2"
-	AddSignEnumAddSignParallel string = "3"
+	AddSignEnumAddSignPre      = 1
+	AddSignEnumAddSignPost     = 2
+	AddSignEnumAddSignParallel = 3
 )
 
 const (
-	ApprovalMethodEnumOrSign  string = "1"
-	ApprovalMethodEnumAddSign string = "2"
+	ApprovalMethodEnumOrSign  = 1
+	ApprovalMethodEnumAddSign = 2
 )
 
 const (
-	UserIdTypeOpenId  string = "open_id"
-	UserIdTypeUserId  string = "user_id"
-	UserIdTypeUnionId string = "union_id"
+	UserIdTypeOpenId  = "open_id"
+	UserIdTypeUserId  = "user_id"
+	UserIdTypeUnionId = "union_id"
 )
 
 const (
-	TopicTodoApproval      string = "1"
-	TopicDoneApproval      string = "2"
-	TopicInitiatedApproval string = "3"
-	TopicUnreadNotice      string = "17"
-	TopicReadNotice        string = "18"
+	TopicTodoApproval      = "1"
+	TopicDoneApproval      = "2"
+	TopicInitiatedApproval = "3"
+	TopicUnreadNotice      = "17"
+	TopicReadNotice        = "18"
 )
 
-/**生成数据类型 **/
+// 生成数据类型
 
 type ActionConfig struct {
 	ActionType       *string `json:"action_type,omitempty"`
@@ -48,7 +48,7 @@ type ActionConfig struct {
 	IsNeedAttachment *bool   `json:"is_need_attachment,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ActionConfigBuilder struct {
 	actionType           string
 	actionTypeFlag       bool
@@ -118,14 +118,14 @@ func (builder *ActionConfigBuilder) Build() *ActionConfig {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Approval struct {
 	ApprovalCode *string `json:"approval_code,omitempty"`
 	ApprovalName *string `json:"approval_name,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ApprovalBuilder struct {
 	approvalCode     string
 	approvalCodeFlag bool
@@ -162,7 +162,7 @@ func (builder *ApprovalBuilder) Build() *Approval {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ApprovalApproverCcer struct {
 	Type   *string `json:"type,omitempty"`
@@ -170,7 +170,7 @@ type ApprovalApproverCcer struct {
 	Level  *string `json:"level,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ApprovalApproverCcerBuilder struct {
 	type_      string
 	typeFlag   bool
@@ -218,7 +218,7 @@ func (builder *ApprovalApproverCcerBuilder) Build() *ApprovalApproverCcer {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ApprovalConfig struct {
 	CanUpdateViewer  *bool   `json:"can_update_viewer,omitempty"`
@@ -228,7 +228,7 @@ type ApprovalConfig struct {
 	HelpUrl          *string `json:"help_url,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ApprovalConfigBuilder struct {
 	canUpdateViewer      bool
 	canUpdateViewerFlag  bool
@@ -298,7 +298,7 @@ func (builder *ApprovalConfigBuilder) Build() *ApprovalConfig {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ApprovalCreate struct {
 	ApprovalName  *string                  `json:"approval_name,omitempty"`
@@ -313,7 +313,7 @@ type ApprovalCreate struct {
 	I18nResources []*I18nResource          `json:"i18n_resources,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ApprovalCreateBuilder struct {
 	approvalName      string
 	approvalNameFlag  bool
@@ -432,7 +432,7 @@ func (builder *ApprovalCreateBuilder) Build() *ApprovalCreate {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ApprovalCreateExternal struct {
 	BizName             *string `json:"biz_name,omitempty"`
@@ -449,7 +449,7 @@ type ApprovalCreateExternal struct {
 	ActionCallbackKey   *string `json:"action_callback_key,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ApprovalCreateExternalBuilder struct {
 	bizName                 string
 	bizNameFlag             bool
@@ -596,7 +596,7 @@ func (builder *ApprovalCreateExternalBuilder) Build() *ApprovalCreateExternal {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ApprovalCreateViewers struct {
 	ViewerType         *string `json:"viewer_type,omitempty"`
@@ -604,7 +604,7 @@ type ApprovalCreateViewers struct {
 	ViewerDepartmentId *string `json:"viewer_department_id,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ApprovalCreateViewersBuilder struct {
 	viewerType             string
 	viewerTypeFlag         bool
@@ -652,7 +652,7 @@ func (builder *ApprovalCreateViewersBuilder) Build() *ApprovalCreateViewers {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ApprovalEvent struct {
 	ApprovalId       *string `json:"approval_id,omitempty"`
@@ -665,7 +665,7 @@ type ApprovalEvent struct {
 	Extra            *string `json:"extra,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ApprovalEventBuilder struct {
 	approvalId           string
 	approvalIdFlag       bool
@@ -768,13 +768,13 @@ func (builder *ApprovalEventBuilder) Build() *ApprovalEvent {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ApprovalForm struct {
 	FormContent *string `json:"form_content,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ApprovalFormBuilder struct {
 	formContent     string
 	formContentFlag bool
@@ -800,7 +800,7 @@ func (builder *ApprovalFormBuilder) Build() *ApprovalForm {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ApprovalNode struct {
 	Id             *string                 `json:"id,omitempty"`
@@ -811,7 +811,7 @@ type ApprovalNode struct {
 	PrivilegeField *FieldGroup             `json:"privilege_field,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ApprovalNodeBuilder struct {
 	id                 string
 	idFlag             bool
@@ -889,7 +889,7 @@ func (builder *ApprovalNodeBuilder) Build() *ApprovalNode {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ApprovalNodeInfo struct {
 	Name         *string `json:"name,omitempty"`
@@ -899,7 +899,7 @@ type ApprovalNodeInfo struct {
 	NodeType     *string `json:"node_type,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ApprovalNodeInfoBuilder struct {
 	name             string
 	nameFlag         bool
@@ -969,14 +969,14 @@ func (builder *ApprovalNodeInfoBuilder) Build() *ApprovalNodeInfo {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ApprovalSetting struct {
 	RevertInterval *int `json:"revert_interval,omitempty"`
 	RevertOption   *int `json:"revert_option,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ApprovalSettingBuilder struct {
 	revertInterval     int
 	revertIntervalFlag bool
@@ -1013,7 +1013,7 @@ func (builder *ApprovalSettingBuilder) Build() *ApprovalSetting {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ApprovalViewer struct {
 	Type    *string `json:"type,omitempty"`
@@ -1022,7 +1022,7 @@ type ApprovalViewer struct {
 	UnionId *string `json:"union_id,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ApprovalViewerBuilder struct {
 	type_       string
 	typeFlag    bool
@@ -1081,7 +1081,7 @@ func (builder *ApprovalViewerBuilder) Build() *ApprovalViewer {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ApprovalViewerInfo struct {
 	Type   *string `json:"type,omitempty"`
@@ -1089,7 +1089,7 @@ type ApprovalViewerInfo struct {
 	UserId *string `json:"user_id,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ApprovalViewerInfoBuilder struct {
 	type_      string
 	typeFlag   bool
@@ -1137,7 +1137,7 @@ func (builder *ApprovalViewerInfoBuilder) Build() *ApprovalViewerInfo {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type CcNode struct {
 	CcId          *string               `json:"cc_id,omitempty"`
@@ -1152,7 +1152,7 @@ type CcNode struct {
 	DisplayMethod *string               `json:"display_method,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type CcNodeBuilder struct {
 	ccId              string
 	ccIdFlag          bool
@@ -1276,7 +1276,7 @@ func (builder *CcNodeBuilder) Build() *CcNode {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type CcSearch struct {
 	UserId             *string `json:"user_id,omitempty"`
@@ -1291,7 +1291,7 @@ type CcSearch struct {
 	Locale             *string `json:"locale,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type CcSearchBuilder struct {
 	userId                 string
 	userIdFlag             bool
@@ -1416,7 +1416,7 @@ func (builder *CcSearchBuilder) Build() *CcSearch {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type CcSearchItem struct {
 	Approval *InstanceSearchApproval `json:"approval,omitempty"`
@@ -1425,7 +1425,7 @@ type CcSearchItem struct {
 	Cc       *CcSearchNode           `json:"cc,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type CcSearchItemBuilder struct {
 	approval     *InstanceSearchApproval
 	approvalFlag bool
@@ -1480,7 +1480,7 @@ func (builder *CcSearchItemBuilder) Build() *CcSearchItem {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type CcSearchNode struct {
 	UserId     *string             `json:"user_id,omitempty"`
@@ -1491,7 +1491,7 @@ type CcSearchNode struct {
 	Link       *InstanceSearchLink `json:"link,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type CcSearchNodeBuilder struct {
 	userId         string
 	userIdFlag     bool
@@ -1571,7 +1571,7 @@ func (builder *CcSearchNodeBuilder) Build() *CcSearchNode {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Comment struct {
 	Id          *int64           `json:"id,omitempty,string"`
@@ -1585,7 +1585,7 @@ type Comment struct {
 	Extra       *string          `json:"extra,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type CommentBuilder struct {
 	id              int64
 	idFlag          bool
@@ -1697,7 +1697,7 @@ func (builder *CommentBuilder) Build() *Comment {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type CommentAtInfo struct {
 	UserId *int64  `json:"user_id,omitempty,string"`
@@ -1705,7 +1705,7 @@ type CommentAtInfo struct {
 	Offset *int64  `json:"offset,omitempty,string"`
 }
 
-/**builder开始**/
+// builder开始
 type CommentAtInfoBuilder struct {
 	userId     int64
 	userIdFlag bool
@@ -1753,7 +1753,7 @@ func (builder *CommentAtInfoBuilder) Build() *CommentAtInfo {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type CommentReply struct {
 	Id          *int64           `json:"id,omitempty,string"`
@@ -1766,7 +1766,7 @@ type CommentReply struct {
 	Extra       *string          `json:"extra,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type CommentReplyBuilder struct {
 	id              int64
 	idFlag          bool
@@ -1868,7 +1868,7 @@ func (builder *CommentReplyBuilder) Build() *CommentReply {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type CommentRequest struct {
 	Content         *string          `json:"content,omitempty"`
@@ -1879,7 +1879,7 @@ type CommentRequest struct {
 	Extra           *string          `json:"extra,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type CommentRequestBuilder struct {
 	content             string
 	contentFlag         bool
@@ -1959,14 +1959,14 @@ func (builder *CommentRequestBuilder) Build() *CommentRequest {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Count struct {
 	Total   *int  `json:"total,omitempty"`
 	HasMore *bool `json:"has_more,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type CountBuilder struct {
 	total       int
 	totalFlag   bool
@@ -2003,7 +2003,7 @@ func (builder *CountBuilder) Build() *Count {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ExteranlInstanceCheck struct {
 	InstanceId *string                 `json:"instance_id,omitempty"`
@@ -2011,7 +2011,7 @@ type ExteranlInstanceCheck struct {
 	Tasks      []*ExternalInstanceTask `json:"tasks,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ExteranlInstanceCheckBuilder struct {
 	instanceId     string
 	instanceIdFlag bool
@@ -2058,7 +2058,7 @@ func (builder *ExteranlInstanceCheckBuilder) Build() *ExteranlInstanceCheck {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ExteranlInstanceCheckResponse struct {
 	InstanceId *string                 `json:"instance_id,omitempty"`
@@ -2066,7 +2066,7 @@ type ExteranlInstanceCheckResponse struct {
 	Tasks      []*ExternalInstanceTask `json:"tasks,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ExteranlInstanceCheckResponseBuilder struct {
 	instanceId     string
 	instanceIdFlag bool
@@ -2113,7 +2113,7 @@ func (builder *ExteranlInstanceCheckResponseBuilder) Build() *ExteranlInstanceCh
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ExternalApproval struct {
 	ApprovalName  *string                  `json:"approval_name,omitempty"`
@@ -2126,7 +2126,7 @@ type ExternalApproval struct {
 	I18nResources []*I18nResource          `json:"i18n_resources,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ExternalApprovalBuilder struct {
 	approvalName      string
 	approvalNameFlag  bool
@@ -2226,7 +2226,7 @@ func (builder *ExternalApprovalBuilder) Build() *ExternalApproval {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ExternalInstance struct {
 	ApprovalCode   *string                     `json:"approval_code,omitempty"`
@@ -2251,7 +2251,7 @@ type ExternalInstance struct {
 	I18nResources  []*I18nResource             `json:"i18n_resources,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ExternalInstanceBuilder struct {
 	approvalCode       string
 	approvalCodeFlag   bool
@@ -2481,14 +2481,14 @@ func (builder *ExternalInstanceBuilder) Build() *ExternalInstance {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ExternalInstanceForm struct {
 	Name  *string `json:"name,omitempty"`
 	Value *string `json:"value,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ExternalInstanceFormBuilder struct {
 	name      string
 	nameFlag  bool
@@ -2525,14 +2525,14 @@ func (builder *ExternalInstanceFormBuilder) Build() *ExternalInstanceForm {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ExternalInstanceLink struct {
 	PcLink     *string `json:"pc_link,omitempty"`
 	MobileLink *string `json:"mobile_link,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ExternalInstanceLinkBuilder struct {
 	pcLink         string
 	pcLinkFlag     bool
@@ -2569,14 +2569,14 @@ func (builder *ExternalInstanceLinkBuilder) Build() *ExternalInstanceLink {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ExternalInstanceTask struct {
 	TaskId     *string `json:"task_id,omitempty"`
 	UpdateTime *int64  `json:"update_time,omitempty,string"`
 }
 
-/**builder开始**/
+// builder开始
 type ExternalInstanceTaskBuilder struct {
 	taskId         string
 	taskIdFlag     bool
@@ -2613,7 +2613,7 @@ func (builder *ExternalInstanceTaskBuilder) Build() *ExternalInstanceTask {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ExternalInstanceTaskNode struct {
 	TaskId        *string               `json:"task_id,omitempty"`
@@ -2631,7 +2631,7 @@ type ExternalInstanceTaskNode struct {
 	DisplayMethod *string               `json:"display_method,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ExternalInstanceTaskNodeBuilder struct {
 	taskId            string
 	taskIdFlag        bool
@@ -2787,7 +2787,7 @@ func (builder *ExternalInstanceTaskNodeBuilder) Build() *ExternalInstanceTaskNod
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ExternalTaskItem struct {
 	Id         *string `json:"id,omitempty"`
@@ -2795,7 +2795,7 @@ type ExternalTaskItem struct {
 	UpdateTime *int64  `json:"update_time,omitempty,string"`
 }
 
-/**builder开始**/
+// builder开始
 type ExternalTaskItemBuilder struct {
 	id             string
 	idFlag         bool
@@ -2843,7 +2843,7 @@ func (builder *ExternalTaskItemBuilder) Build() *ExternalTaskItem {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ExternalTaskList struct {
 	InstanceId   *string             `json:"instance_id,omitempty"`
@@ -2854,7 +2854,7 @@ type ExternalTaskList struct {
 	Tasks        []*ExternalTaskItem `json:"tasks,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ExternalTaskListBuilder struct {
 	instanceId       string
 	instanceIdFlag   bool
@@ -2934,14 +2934,14 @@ func (builder *ExternalTaskListBuilder) Build() *ExternalTaskList {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type FieldGroup struct {
 	Writable []string `json:"writable,omitempty"`
 	Readable []string `json:"readable,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type FieldGroupBuilder struct {
 	writable     []string
 	writableFlag bool
@@ -2976,7 +2976,7 @@ func (builder *FieldGroupBuilder) Build() *FieldGroup {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type File struct {
 	Url      *string `json:"url,omitempty"`
@@ -2985,7 +2985,7 @@ type File struct {
 	Type     *string `json:"type,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type FileBuilder struct {
 	url          string
 	urlFlag      bool
@@ -3044,7 +3044,7 @@ func (builder *FileBuilder) Build() *File {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type I18nResource struct {
 	Locale    *string             `json:"locale,omitempty"`
@@ -3052,7 +3052,7 @@ type I18nResource struct {
 	IsDefault *bool               `json:"is_default,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type I18nResourceBuilder struct {
 	locale        string
 	localeFlag    bool
@@ -3099,14 +3099,14 @@ func (builder *I18nResourceBuilder) Build() *I18nResource {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type I18nResourceText struct {
 	Key   *string `json:"key,omitempty"`
 	Value *string `json:"value,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type I18nResourceTextBuilder struct {
 	key       string
 	keyFlag   bool
@@ -3143,7 +3143,7 @@ func (builder *I18nResourceTextBuilder) Build() *I18nResourceText {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Instance struct {
 	InstanceCode *string `json:"instance_code,omitempty"`
@@ -3154,7 +3154,7 @@ type Instance struct {
 	SerialId     *string `json:"serial_id,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type InstanceBuilder struct {
 	instanceCode     string
 	instanceCodeFlag bool
@@ -3235,7 +3235,7 @@ func (builder *InstanceBuilder) Build() *Instance {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type InstanceCancel struct {
 	ApprovalCode  *string `json:"approval_code,omitempty"`
@@ -3244,7 +3244,7 @@ type InstanceCancel struct {
 	NotifyStarter *bool   `json:"notify_starter,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type InstanceCancelBuilder struct {
 	approvalCode      string
 	approvalCodeFlag  bool
@@ -3303,7 +3303,7 @@ func (builder *InstanceCancelBuilder) Build() *InstanceCancel {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type InstanceCc struct {
 	ApprovalCode *string  `json:"approval_code,omitempty"`
@@ -3313,7 +3313,7 @@ type InstanceCc struct {
 	Comment      *string  `json:"comment,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type InstanceCcBuilder struct {
 	approvalCode     string
 	approvalCodeFlag bool
@@ -3382,7 +3382,7 @@ func (builder *InstanceCcBuilder) Build() *InstanceCc {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type InstanceCcUser struct {
 	UserId *string `json:"user_id,omitempty"`
@@ -3390,7 +3390,7 @@ type InstanceCcUser struct {
 	OpenId *string `json:"open_id,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type InstanceCcUserBuilder struct {
 	userId     string
 	userIdFlag bool
@@ -3438,7 +3438,7 @@ func (builder *InstanceCcUserBuilder) Build() *InstanceCcUser {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type InstanceComment struct {
 	Id         *string `json:"id,omitempty"`
@@ -3448,7 +3448,7 @@ type InstanceComment struct {
 	CreateTime *int64  `json:"create_time,omitempty,string"`
 }
 
-/**builder开始**/
+// builder开始
 type InstanceCommentBuilder struct {
 	id             string
 	idFlag         bool
@@ -3518,7 +3518,7 @@ func (builder *InstanceCommentBuilder) Build() *InstanceComment {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type InstanceCreate struct {
 	ApprovalCode           *string         `json:"approval_code,omitempty"`
@@ -3533,7 +3533,7 @@ type InstanceCreate struct {
 	Uuid                   *string         `json:"uuid,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type InstanceCreateBuilder struct {
 	approvalCode               string
 	approvalCodeFlag           bool
@@ -3654,7 +3654,7 @@ func (builder *InstanceCreateBuilder) Build() *InstanceCreate {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type InstanceInfo struct {
 	ApprovalCode *string             `json:"approval_code,omitempty"`
@@ -3673,7 +3673,7 @@ type InstanceInfo struct {
 	Timeline     []*InstanceTimeline `json:"timeline,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type InstanceInfoBuilder struct {
 	approvalCode     string
 	approvalCodeFlag bool
@@ -3839,7 +3839,7 @@ func (builder *InstanceInfoBuilder) Build() *InstanceInfo {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type InstanceSearch struct {
 	UserId                *string `json:"user_id,omitempty"`
@@ -3854,7 +3854,7 @@ type InstanceSearch struct {
 	Locale                *string `json:"locale,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type InstanceSearchBuilder struct {
 	userId                    string
 	userIdFlag                bool
@@ -3979,7 +3979,7 @@ func (builder *InstanceSearchBuilder) Build() *InstanceSearch {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type InstanceSearchApproval struct {
 	Code       *string                         `json:"code,omitempty"`
@@ -3988,7 +3988,7 @@ type InstanceSearchApproval struct {
 	External   *InstanceSearchApprovalExternal `json:"external,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type InstanceSearchApprovalBuilder struct {
 	code           string
 	codeFlag       bool
@@ -4046,13 +4046,13 @@ func (builder *InstanceSearchApprovalBuilder) Build() *InstanceSearchApproval {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type InstanceSearchApprovalExternal struct {
 	BatchCcRead *bool `json:"batch_cc_read,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type InstanceSearchApprovalExternalBuilder struct {
 	batchCcRead     bool
 	batchCcReadFlag bool
@@ -4078,14 +4078,14 @@ func (builder *InstanceSearchApprovalExternalBuilder) Build() *InstanceSearchApp
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type InstanceSearchGroup struct {
 	ExternalId *string `json:"external_id,omitempty"`
 	Name       *string `json:"name,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type InstanceSearchGroupBuilder struct {
 	externalId     string
 	externalIdFlag bool
@@ -4122,7 +4122,7 @@ func (builder *InstanceSearchGroupBuilder) Build() *InstanceSearchGroup {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type InstanceSearchItem struct {
 	Approval *InstanceSearchApproval `json:"approval,omitempty"`
@@ -4130,7 +4130,7 @@ type InstanceSearchItem struct {
 	Instance *InstanceSearchNode     `json:"instance,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type InstanceSearchItemBuilder struct {
 	approval     *InstanceSearchApproval
 	approvalFlag bool
@@ -4175,14 +4175,14 @@ func (builder *InstanceSearchItemBuilder) Build() *InstanceSearchItem {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type InstanceSearchLink struct {
 	PcLink     *string `json:"pc_link,omitempty"`
 	MobileLink *string `json:"mobile_link,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type InstanceSearchLinkBuilder struct {
 	pcLink         string
 	pcLinkFlag     bool
@@ -4219,7 +4219,7 @@ func (builder *InstanceSearchLinkBuilder) Build() *InstanceSearchLink {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type InstanceSearchNode struct {
 	Code       *string             `json:"code,omitempty"`
@@ -4234,7 +4234,7 @@ type InstanceSearchNode struct {
 	Link       *InstanceSearchLink `json:"link,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type InstanceSearchNodeBuilder struct {
 	code           string
 	codeFlag       bool
@@ -4358,7 +4358,7 @@ func (builder *InstanceSearchNodeBuilder) Build() *InstanceSearchNode {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type InstanceTask struct {
 	Id           *string `json:"id,omitempty"`
@@ -4373,7 +4373,7 @@ type InstanceTask struct {
 	EndTime      *int64  `json:"end_time,omitempty,string"`
 }
 
-/**builder开始**/
+// builder开始
 type InstanceTaskBuilder struct {
 	id               string
 	idFlag           bool
@@ -4498,7 +4498,7 @@ func (builder *InstanceTaskBuilder) Build() *InstanceTask {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type InstanceTimeline struct {
 	Type       *string           `json:"type,omitempty"`
@@ -4514,7 +4514,7 @@ type InstanceTimeline struct {
 	NodeKey    *string           `json:"node_key,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type InstanceTimelineBuilder struct {
 	type_          string
 	typeFlag       bool
@@ -4647,7 +4647,7 @@ func (builder *InstanceTimelineBuilder) Build() *InstanceTimeline {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Message struct {
 	Id        *string `json:"id,omitempty"`
@@ -4659,7 +4659,7 @@ type Message struct {
 	Uuid      *string `json:"uuid,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type MessageBuilder struct {
 	id            string
 	idFlag        bool
@@ -4751,14 +4751,14 @@ func (builder *MessageBuilder) Build() *Message {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type NodeApprover struct {
 	Key   *string  `json:"key,omitempty"`
 	Value []string `json:"value,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type NodeApproverBuilder struct {
 	key       string
 	keyFlag   bool
@@ -4794,14 +4794,14 @@ func (builder *NodeApproverBuilder) Build() *NodeApprover {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type NodeCc struct {
 	Key   *string  `json:"key,omitempty"`
 	Value []string `json:"value,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type NodeCcBuilder struct {
 	key       string
 	keyFlag   bool
@@ -4837,7 +4837,7 @@ func (builder *NodeCcBuilder) Build() *NodeCc {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type PreviewNode struct {
 	NodeId             *string  `json:"node_id,omitempty"`
@@ -4852,7 +4852,7 @@ type PreviewNode struct {
 	HasCcTypeFree      *bool    `json:"has_cc_type_free,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type PreviewNodeBuilder struct {
 	nodeId                 string
 	nodeIdFlag             bool
@@ -4974,14 +4974,14 @@ func (builder *PreviewNodeBuilder) Build() *PreviewNode {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Reason struct {
 	Text  *string `json:"text,omitempty"`
 	Files []*File `json:"files,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ReasonBuilder struct {
 	text      string
 	textFlag  bool
@@ -5017,7 +5017,7 @@ func (builder *ReasonBuilder) Build() *Reason {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type RemedyGroup struct {
 	Type         *string `json:"type,omitempty"`
@@ -5030,7 +5030,7 @@ type RemedyGroup struct {
 	Status       *string `json:"status,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type RemedyGroupBuilder struct {
 	type_            string
 	typeFlag         bool
@@ -5133,7 +5133,7 @@ func (builder *RemedyGroupBuilder) Build() *RemedyGroup {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type SignGroup struct {
 	InstanceCode          *string `json:"instance_code,omitempty"`
@@ -5145,7 +5145,7 @@ type SignGroup struct {
 	Type                  *string `json:"type,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type SignGroupBuilder struct {
 	instanceCode              string
 	instanceCodeFlag          bool
@@ -5236,7 +5236,7 @@ func (builder *SignGroupBuilder) Build() *SignGroup {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type SpecifiedRollback struct {
 	UserId         *string  `json:"user_id,omitempty"`
@@ -5246,7 +5246,7 @@ type SpecifiedRollback struct {
 	TaskDefKeyList []string `json:"task_def_key_list,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type SpecifiedRollbackBuilder struct {
 	userId             string
 	userIdFlag         bool
@@ -5315,7 +5315,7 @@ func (builder *SpecifiedRollbackBuilder) Build() *SpecifiedRollback {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Task struct {
 	Topic               *int64    `json:"topic,omitempty,string"`
@@ -5338,7 +5338,7 @@ type Task struct {
 	DefinitionName      *string   `json:"definition_name,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type TaskBuilder struct {
 	topic                   int64
 	topicFlag               bool
@@ -5548,7 +5548,7 @@ func (builder *TaskBuilder) Build() *Task {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type TaskApprove struct {
 	ApprovalCode *string `json:"approval_code,omitempty"`
@@ -5558,7 +5558,7 @@ type TaskApprove struct {
 	TaskId       *string `json:"task_id,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type TaskApproveBuilder struct {
 	approvalCode     string
 	approvalCodeFlag bool
@@ -5628,7 +5628,7 @@ func (builder *TaskApproveBuilder) Build() *TaskApprove {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type TaskSearch struct {
 	UserId                *string `json:"user_id,omitempty"`
@@ -5643,7 +5643,7 @@ type TaskSearch struct {
 	Locale                *string `json:"locale,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type TaskSearchBuilder struct {
 	userId                    string
 	userIdFlag                bool
@@ -5768,7 +5768,7 @@ func (builder *TaskSearchBuilder) Build() *TaskSearch {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type TaskSearchItem struct {
 	Approval *InstanceSearchApproval `json:"approval,omitempty"`
@@ -5777,7 +5777,7 @@ type TaskSearchItem struct {
 	Task     *TaskSearchNode         `json:"task,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type TaskSearchItemBuilder struct {
 	approval     *InstanceSearchApproval
 	approvalFlag bool
@@ -5832,7 +5832,7 @@ func (builder *TaskSearchItemBuilder) Build() *TaskSearchItem {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type TaskSearchNode struct {
 	UserId    *string             `json:"user_id,omitempty"`
@@ -5844,7 +5844,7 @@ type TaskSearchNode struct {
 	Link      *InstanceSearchLink `json:"link,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type TaskSearchNodeBuilder struct {
 	userId        string
 	userIdFlag    bool
@@ -5935,7 +5935,7 @@ func (builder *TaskSearchNodeBuilder) Build() *TaskSearchNode {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type TaskTransfer struct {
 	ApprovalCode   *string `json:"approval_code,omitempty"`
@@ -5946,7 +5946,7 @@ type TaskTransfer struct {
 	TaskId         *string `json:"task_id,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type TaskTransferBuilder struct {
 	approvalCode       string
 	approvalCodeFlag   bool
@@ -6027,7 +6027,7 @@ func (builder *TaskTransferBuilder) Build() *TaskTransfer {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type TaskUrls struct {
 	Helpdesk *string `json:"helpdesk,omitempty"`
@@ -6035,7 +6035,7 @@ type TaskUrls struct {
 	Pc       *string `json:"pc,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type TaskUrlsBuilder struct {
 	helpdesk     string
 	helpdeskFlag bool
@@ -6083,7 +6083,7 @@ func (builder *TaskUrlsBuilder) Build() *TaskUrls {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type TripGroup struct {
 	Type         *string              `json:"type,omitempty"`
@@ -6097,7 +6097,7 @@ type TripGroup struct {
 	TripPeers    []*User              `json:"trip_peers,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type TripGroupBuilder struct {
 	type_            string
 	typeFlag         bool
@@ -6208,7 +6208,7 @@ func (builder *TripGroupBuilder) Build() *TripGroup {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type TripGroupSchedule struct {
 	TripStartTime  *string `json:"trip_start_time,omitempty"`
@@ -6221,7 +6221,7 @@ type TripGroupSchedule struct {
 	Remark         *string `json:"remark,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type TripGroupScheduleBuilder struct {
 	tripStartTime      string
 	tripStartTimeFlag  bool
@@ -6324,14 +6324,14 @@ func (builder *TripGroupScheduleBuilder) Build() *TripGroupSchedule {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type User struct {
 	Id   *UserId `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type UserBuilder struct {
 	id       *UserId
 	idFlag   bool
@@ -6367,7 +6367,7 @@ func (builder *UserBuilder) Build() *User {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type UserId struct {
 	UserId  *string `json:"user_id,omitempty"`
@@ -6375,7 +6375,7 @@ type UserId struct {
 	UnionId *string `json:"union_id,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type UserIdBuilder struct {
 	userId      string
 	userIdFlag  bool
@@ -6423,9 +6423,9 @@ func (builder *UserIdBuilder) Build() *UserId {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
-/**生成请求和响应结果类型，以及请求对象的Builder构造器 **/
+// 生成请求和响应结果类型，以及请求对象的Builder构造器
 
 type AddSignInstanceReqBodyBuilder struct {
 	userId             string
@@ -6452,7 +6452,7 @@ func NewAddSignInstanceReqBodyBuilder() *AddSignInstanceReqBodyBuilder {
 	return builder
 }
 
-/*1.2 生成body的builder属性方法*/
+// 1.2 生成body的builder属性方法
 func (builder *AddSignInstanceReqBodyBuilder) UserId(userId string) *AddSignInstanceReqBodyBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
@@ -6494,7 +6494,7 @@ func (builder *AddSignInstanceReqBodyBuilder) ApprovalMethod(approvalMethod int)
 	return builder
 }
 
-/*1.3 生成body的build方法*/
+// 1.3 生成body的build方法
 func (builder *AddSignInstanceReqBodyBuilder) Build() *AddSignInstanceReqBody {
 	req := &AddSignInstanceReqBody{}
 	if builder.userIdFlag {
@@ -6532,7 +6532,7 @@ func (builder *AddSignInstanceReqBodyBuilder) Build() *AddSignInstanceReqBody {
 	return req
 }
 
-/**上传文件path开始**/
+// 上传文件path开始
 type AddSignInstancePathReqBodyBuilder struct {
 	userId             string
 	userIdFlag         bool
@@ -6633,9 +6633,9 @@ func (builder *AddSignInstancePathReqBodyBuilder) Build() (*AddSignInstanceReqBo
 	return req, nil
 }
 
-/**上传文件path结束**/
+// 上传文件path结束
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type AddSignInstanceReqBuilder struct {
 	body     *AddSignInstanceReqBody
 	bodyFlag bool
@@ -6647,14 +6647,14 @@ func NewAddSignInstanceReqBuilder() *AddSignInstanceReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *AddSignInstanceReqBuilder) Body(body *AddSignInstanceReqBody) *AddSignInstanceReqBuilder {
 	builder.body = body
 	builder.bodyFlag = true
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *AddSignInstanceReqBuilder) Build() *AddSignInstanceReq {
 	req := &AddSignInstanceReq{}
 	if builder.bodyFlag {
@@ -6710,7 +6710,7 @@ func NewPreviewInstanceReqBodyBuilder() *PreviewInstanceReqBodyBuilder {
 	return builder
 }
 
-/*1.2 生成body的builder属性方法*/
+// 1.2 生成body的builder属性方法
 func (builder *PreviewInstanceReqBodyBuilder) UserId(userId string) *PreviewInstanceReqBodyBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
@@ -6747,7 +6747,7 @@ func (builder *PreviewInstanceReqBodyBuilder) TaskId(taskId string) *PreviewInst
 	return builder
 }
 
-/*1.3 生成body的build方法*/
+// 1.3 生成body的build方法
 func (builder *PreviewInstanceReqBodyBuilder) Build() *PreviewInstanceReqBody {
 	req := &PreviewInstanceReqBody{}
 	if builder.userIdFlag {
@@ -6781,7 +6781,7 @@ func (builder *PreviewInstanceReqBodyBuilder) Build() *PreviewInstanceReqBody {
 	return req
 }
 
-/**上传文件path开始**/
+// 上传文件path开始
 type PreviewInstancePathReqBodyBuilder struct {
 	userId           string
 	userIdFlag       bool
@@ -6872,9 +6872,9 @@ func (builder *PreviewInstancePathReqBodyBuilder) Build() (*PreviewInstanceReqBo
 	return req, nil
 }
 
-/**上传文件path结束**/
+// 上传文件path结束
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type PreviewInstanceReqBuilder struct {
 	userIdType     string
 	userIdTypeFlag bool
@@ -6888,7 +6888,7 @@ func NewPreviewInstanceReqBuilder() *PreviewInstanceReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *PreviewInstanceReqBuilder) UserIdType(userIdType string) *PreviewInstanceReqBuilder {
 	builder.userIdType = userIdType
 	builder.userIdTypeFlag = true
@@ -6900,7 +6900,7 @@ func (builder *PreviewInstanceReqBuilder) Body(body *PreviewInstanceReqBody) *Pr
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *PreviewInstanceReqBuilder) Build() *PreviewInstanceReq {
 	req := &PreviewInstanceReq{}
 	if builder.userIdTypeFlag {
@@ -6941,7 +6941,7 @@ func (resp *PreviewInstanceResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type QueryTaskReqBuilder struct {
 	pageSize       int
 	pageSizeFlag   bool
@@ -6962,7 +6962,7 @@ func NewQueryTaskReqBuilder() *QueryTaskReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *QueryTaskReqBuilder) Limit(limit int) *QueryTaskReqBuilder {
 	builder.limit = limit
 	return builder
@@ -6993,7 +6993,7 @@ func (builder *QueryTaskReqBuilder) UserIdType(userIdType string) *QueryTaskReqB
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *QueryTaskReqBuilder) Build() *QueryTaskReq {
 	req := &QueryTaskReq{}
 	req.Limit = builder.limit
@@ -7041,7 +7041,7 @@ func (resp *QueryTaskResp) Success() bool {
 	return resp.Code == 0
 }
 
-/**生成消息事件结构体 **/
+// 生成消息事件结构体
 
 type ApprovalUpdatedEventData struct {
 	Object *ApprovalEvent `json:"object,omitempty"`
@@ -7052,9 +7052,8 @@ type ApprovalUpdatedEvent struct {
 	Event *ApprovalUpdatedEventData `json:"event"`
 }
 
-/* 生成请求的builder构造器*/
-/*1.1 生成body的builder结构体*/
-/**如果是分页查询，则添加迭代器定义**/
+// 生成请求的builder构造器
+// 1.1 生成body的builder结构体
 type QueryTaskIterator struct {
 	nextPageToken *string
 	items         []*Task

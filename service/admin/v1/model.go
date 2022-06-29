@@ -5,20 +5,20 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
-/**生成枚举值 **/
+// 生成枚举值
 
 const (
-	DepartmentIdTypeDepartmentId     string = "department_id"
-	DepartmentIdTypeOpenDepartmentId string = "open_department_id"
+	DepartmentIdTypeDepartmentId     = "department_id"
+	DepartmentIdTypeOpenDepartmentId = "open_department_id"
 )
 
 const (
-	UserIdTypeUserId  string = "user_id"
-	UserIdTypeUnionId string = "union_id"
-	UserIdTypeOpenId  string = "open_id"
+	UserIdTypeUserId  = "user_id"
+	UserIdTypeUnionId = "union_id"
+	UserIdTypeOpenId  = "open_id"
 )
 
-/**生成数据类型 **/
+// 生成数据类型
 
 type AdminDeptStat struct {
 	Date                 *string `json:"date,omitempty"`
@@ -55,7 +55,7 @@ type AdminDeptStat struct {
 	AvgCreateTaskNum     *string `json:"avg_create_task_num,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type AdminDeptStatBuilder struct {
 	date                     string
 	dateFlag                 bool
@@ -422,7 +422,7 @@ func (builder *AdminDeptStatBuilder) Build() *AdminDeptStat {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type AdminUserStat struct {
 	Date             *string `json:"date,omitempty"`
@@ -448,7 +448,7 @@ type AdminUserStat struct {
 	VcNum            *int    `json:"vc_num,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type AdminUserStatBuilder struct {
 	date                 string
 	dateFlag             bool
@@ -694,7 +694,7 @@ func (builder *AdminUserStatBuilder) Build() *AdminUserStat {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Administrator struct {
 	UserId               *int64 `json:"user_id,omitempty,string"`
@@ -702,7 +702,7 @@ type Administrator struct {
 	IsAdministrator      *bool  `json:"is_administrator,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type AdministratorBuilder struct {
 	userId                   int64
 	userIdFlag               bool
@@ -750,13 +750,13 @@ func (builder *AdministratorBuilder) Build() *Administrator {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ApiAuditCommonDrawers struct {
 	CommonDrawInfoList []*ApiAuditDrawerInfo `json:"common_draw_info_list,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ApiAuditCommonDrawersBuilder struct {
 	commonDrawInfoList     []*ApiAuditDrawerInfo
 	commonDrawInfoListFlag bool
@@ -781,7 +781,7 @@ func (builder *ApiAuditCommonDrawersBuilder) Build() *ApiAuditCommonDrawers {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ApiAuditDrawerInfo struct {
 	InfoKey    *string `json:"info_key,omitempty"`
@@ -791,7 +791,7 @@ type ApiAuditDrawerInfo struct {
 	ValI18nKey *string `json:"val_i18n_key,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ApiAuditDrawerInfoBuilder struct {
 	infoKey        string
 	infoKeyFlag    bool
@@ -861,7 +861,7 @@ func (builder *ApiAuditDrawerInfoBuilder) Build() *ApiAuditDrawerInfo {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type AuditAndroidContext struct {
 	Udid            *string `json:"udid,omitempty"`
@@ -886,7 +886,7 @@ type AuditAndroidContext struct {
 	IP              *string `json:"IP,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type AuditAndroidContextBuilder struct {
 	udid                string
 	udidFlag            bool
@@ -1121,7 +1121,7 @@ func (builder *AuditAndroidContextBuilder) Build() *AuditAndroidContext {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type AuditContext struct {
 	TerminalType   *int                 `json:"terminal_type,omitempty"`
@@ -1131,7 +1131,7 @@ type AuditContext struct {
 	AndroidContext *AuditAndroidContext `json:"android_context,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type AuditContextBuilder struct {
 	terminalType       int
 	terminalTypeFlag   bool
@@ -1197,7 +1197,7 @@ func (builder *AuditContextBuilder) Build() *AuditContext {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type AuditEventExtend struct {
 	CommentType                 *string `json:"comment_type,omitempty"`
@@ -1212,7 +1212,7 @@ type AuditEventExtend struct {
 	ExternalPeopleNumInDocShare *int    `json:"external_people_num_in_doc_share,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type AuditEventExtendBuilder struct {
 	commentType                     string
 	commentTypeFlag                 bool
@@ -1337,7 +1337,7 @@ func (builder *AuditEventExtendBuilder) Build() *AuditEventExtend {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type AuditInfo struct {
 	EventId         *string                 `json:"event_id,omitempty"`
@@ -1358,7 +1358,7 @@ type AuditInfo struct {
 	CommonDrawers   *ApiAuditCommonDrawers  `json:"common_drawers,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type AuditInfoBuilder struct {
 	eventId             string
 	eventIdFlag         bool
@@ -1543,7 +1543,7 @@ func (builder *AuditInfoBuilder) Build() *AuditInfo {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type AuditIosContext struct {
 	Udid            *string `json:"udid,omitempty"`
@@ -1563,7 +1563,7 @@ type AuditIosContext struct {
 	IP              *string `json:"IP,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type AuditIosContextBuilder struct {
 	udid                string
 	udidFlag            bool
@@ -1743,7 +1743,7 @@ func (builder *AuditIosContextBuilder) Build() *AuditIosContext {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type AuditObjectDetail struct {
 	CloneSource                  *string `json:"clone_source,omitempty"`
@@ -1761,7 +1761,7 @@ type AuditObjectDetail struct {
 	CurrentPage                  *string `json:"current_page,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type AuditObjectDetailBuilder struct {
 	cloneSource                      string
 	cloneSourceFlag                  bool
@@ -1919,7 +1919,7 @@ func (builder *AuditObjectDetailBuilder) Build() *AuditObjectDetail {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type AuditObjectEntity struct {
 	ObjectType   *string            `json:"object_type,omitempty"`
@@ -1929,7 +1929,7 @@ type AuditObjectEntity struct {
 	ObjectDetail *AuditObjectDetail `json:"object_detail,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type AuditObjectEntityBuilder struct {
 	objectType       string
 	objectTypeFlag   bool
@@ -1998,7 +1998,7 @@ func (builder *AuditObjectEntityBuilder) Build() *AuditObjectEntity {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type AuditPcContext struct {
 	Udid   *string `json:"udid,omitempty"`
@@ -2011,7 +2011,7 @@ type AuditPcContext struct {
 	IP     *string `json:"IP,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type AuditPcContextBuilder struct {
 	udid       string
 	udidFlag   bool
@@ -2114,13 +2114,13 @@ func (builder *AuditPcContextBuilder) Build() *AuditPcContext {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type AuditRecipientDetail struct {
 	PermissionActionType *string `json:"permission_action_type,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type AuditRecipientDetailBuilder struct {
 	permissionActionType     string
 	permissionActionTypeFlag bool
@@ -2146,7 +2146,7 @@ func (builder *AuditRecipientDetailBuilder) Build() *AuditRecipientDetail {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type AuditRecipientEntity struct {
 	RecipientType   *string               `json:"recipient_type,omitempty"`
@@ -2154,7 +2154,7 @@ type AuditRecipientEntity struct {
 	RecipientDetail *AuditRecipientDetail `json:"recipient_detail,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type AuditRecipientEntityBuilder struct {
 	recipientType       string
 	recipientTypeFlag   bool
@@ -2201,14 +2201,14 @@ func (builder *AuditRecipientEntityBuilder) Build() *AuditRecipientEntity {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type AuditWebContext struct {
 	UserAgent *string `json:"user_agent,omitempty"`
 	IP        *string `json:"IP,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type AuditWebContextBuilder struct {
 	userAgent     string
 	userAgentFlag bool
@@ -2245,7 +2245,7 @@ func (builder *AuditWebContextBuilder) Build() *AuditWebContext {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Badge struct {
 	Id          *string `json:"id,omitempty"`
@@ -2255,7 +2255,7 @@ type Badge struct {
 	ShowImage   *string `json:"show_image,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type BadgeBuilder struct {
 	id              string
 	idFlag          bool
@@ -2325,7 +2325,7 @@ func (builder *BadgeBuilder) Build() *Badge {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type File struct {
 	Title      *string `json:"title,omitempty"`
@@ -2337,7 +2337,7 @@ type File struct {
 	Token      *string `json:"token,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type FileBuilder struct {
 	title          string
 	titleFlag      bool
@@ -2428,13 +2428,13 @@ func (builder *FileBuilder) Build() *File {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type FileList struct {
 	Files []*File `json:"files,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type FileListBuilder struct {
 	files     []*File
 	filesFlag bool
@@ -2459,7 +2459,7 @@ func (builder *FileListBuilder) Build() *FileList {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Grant struct {
 	Id            *string     `json:"id,omitempty"`
@@ -2474,7 +2474,7 @@ type Grant struct {
 	GroupIds      []string    `json:"group_ids,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type GrantBuilder struct {
 	id                string
 	idFlag            bool
@@ -2595,13 +2595,13 @@ func (builder *GrantBuilder) Build() *Grant {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Password struct {
 	EntEmailPassword *string `json:"ent_email_password,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type PasswordBuilder struct {
 	entEmailPassword     string
 	entEmailPasswordFlag bool
@@ -2627,7 +2627,7 @@ func (builder *PasswordBuilder) Build() *Password {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type RuleDetail struct {
 	EffectiveTime   *int64 `json:"effective_time,omitempty,string"`
@@ -2636,7 +2636,7 @@ type RuleDetail struct {
 	EffectivePeriod *int   `json:"effective_period,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type RuleDetailBuilder struct {
 	effectiveTime       int64
 	effectiveTimeFlag   bool
@@ -2695,7 +2695,7 @@ func (builder *RuleDetailBuilder) Build() *RuleDetail {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type SplashPageStat struct {
 	Date                      *string `json:"date,omitempty"`
@@ -2708,7 +2708,7 @@ type SplashPageStat struct {
 	SkipCountAccumulate       *int    `json:"skip_count_accumulate,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type SplashPageStatBuilder struct {
 	date                          string
 	dateFlag                      bool
@@ -2811,7 +2811,7 @@ func (builder *SplashPageStatBuilder) Build() *SplashPageStat {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type User struct {
 	Name   *string `json:"name,omitempty"`
@@ -2819,7 +2819,7 @@ type User struct {
 	Id     *string `json:"id,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type UserBuilder struct {
 	name       string
 	nameFlag   bool
@@ -2867,13 +2867,13 @@ func (builder *UserBuilder) Build() *User {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type UserAnnualReport struct {
 	Year2021 *UserReport2021 `json:"year_2021,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type UserAnnualReportBuilder struct {
 	year2021     *UserReport2021
 	year2021Flag bool
@@ -2898,7 +2898,7 @@ func (builder *UserAnnualReportBuilder) Build() *UserAnnualReport {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type UserReport2021 struct {
 	ActiveDayCount                *int     `json:"active_day_count,omitempty"`
@@ -2928,7 +2928,7 @@ type UserReport2021 struct {
 	CreateReadUserCount           *string  `json:"create_read_user_count,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type UserReport2021Builder struct {
 	activeDayCount                    int
 	activeDayCountFlag                bool
@@ -3218,11 +3218,11 @@ func (builder *UserReport2021Builder) Build() *UserReport2021 {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
-/**生成请求和响应结果类型，以及请求对象的Builder构造器 **/
+// 生成请求和响应结果类型，以及请求对象的Builder构造器
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type ListAdminDeptStatReqBuilder struct {
 	departmentIdType      string
 	departmentIdTypeFlag  bool
@@ -3246,7 +3246,7 @@ func NewListAdminDeptStatReqBuilder() *ListAdminDeptStatReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *ListAdminDeptStatReqBuilder) DepartmentIdType(departmentIdType string) *ListAdminDeptStatReqBuilder {
 	builder.departmentIdType = departmentIdType
 	builder.departmentIdTypeFlag = true
@@ -3283,7 +3283,7 @@ func (builder *ListAdminDeptStatReqBuilder) PageToken(pageToken string) *ListAdm
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *ListAdminDeptStatReqBuilder) Build() *ListAdminDeptStatReq {
 	req := &ListAdminDeptStatReq{}
 	if builder.departmentIdTypeFlag {
@@ -3336,7 +3336,7 @@ func (resp *ListAdminDeptStatResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type ListAdminUserStatReqBuilder struct {
 	userIdType           string
 	userIdTypeFlag       bool
@@ -3362,7 +3362,7 @@ func NewListAdminUserStatReqBuilder() *ListAdminUserStatReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *ListAdminUserStatReqBuilder) UserIdType(userIdType string) *ListAdminUserStatReqBuilder {
 	builder.userIdType = userIdType
 	builder.userIdTypeFlag = true
@@ -3404,7 +3404,7 @@ func (builder *ListAdminUserStatReqBuilder) PageToken(pageToken string) *ListAdm
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *ListAdminUserStatReqBuilder) Build() *ListAdminUserStatReq {
 	req := &ListAdminUserStatReq{}
 	if builder.userIdTypeFlag {
@@ -3474,7 +3474,7 @@ func NewResetPasswordReqBodyBuilder() *ResetPasswordReqBodyBuilder {
 	return builder
 }
 
-/*1.2 生成body的builder属性方法*/
+// 1.2 生成body的builder属性方法
 func (builder *ResetPasswordReqBodyBuilder) Password(password *Password) *ResetPasswordReqBodyBuilder {
 	builder.password = password
 	builder.passwordFlag = true
@@ -3486,7 +3486,7 @@ func (builder *ResetPasswordReqBodyBuilder) UserId(userId string) *ResetPassword
 	return builder
 }
 
-/*1.3 生成body的build方法*/
+// 1.3 生成body的build方法
 func (builder *ResetPasswordReqBodyBuilder) Build() *ResetPasswordReqBody {
 	req := &ResetPasswordReqBody{}
 	if builder.passwordFlag {
@@ -3500,7 +3500,7 @@ func (builder *ResetPasswordReqBodyBuilder) Build() *ResetPasswordReqBody {
 	return req
 }
 
-/**上传文件path开始**/
+// 上传文件path开始
 type ResetPasswordPathReqBodyBuilder struct {
 	password     *Password
 	passwordFlag bool
@@ -3535,9 +3535,9 @@ func (builder *ResetPasswordPathReqBodyBuilder) Build() (*ResetPasswordReqBody, 
 	return req, nil
 }
 
-/**上传文件path结束**/
+// 上传文件path结束
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type ResetPasswordReqBuilder struct {
 	userIdType     string
 	userIdTypeFlag bool
@@ -3551,7 +3551,7 @@ func NewResetPasswordReqBuilder() *ResetPasswordReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *ResetPasswordReqBuilder) UserIdType(userIdType string) *ResetPasswordReqBuilder {
 	builder.userIdType = userIdType
 	builder.userIdTypeFlag = true
@@ -3563,7 +3563,7 @@ func (builder *ResetPasswordReqBuilder) Body(body *ResetPasswordReqBody) *ResetP
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *ResetPasswordReqBuilder) Build() *ResetPasswordReq {
 	req := &ResetPasswordReq{}
 	if builder.userIdTypeFlag {
@@ -3594,7 +3594,7 @@ func (resp *ResetPasswordResp) Success() bool {
 	return resp.Code == 0
 }
 
-/**生成消息事件结构体 **/
+// 生成消息事件结构体
 
-/* 生成请求的builder构造器*/
-/*1.1 生成body的builder结构体*/
+// 生成请求的builder构造器
+// 1.1 生成body的builder结构体

@@ -9,9 +9,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
-/**
-构建业务域服务实例
-**/
+// 构建业务域服务实例
 func NewService(httpClient *http.Client, config *core.Config) *EhrService {
 	e := &EhrService{httpClient: httpClient, config: config}
 	e.Attachment = &attachment{service: e}
@@ -19,9 +17,7 @@ func NewService(httpClient *http.Client, config *core.Config) *EhrService {
 	return e
 }
 
-/**
-业务域服务定义
-**/
+// 业务域服务定义
 type EhrService struct {
 	httpClient *http.Client
 	config     *core.Config
@@ -29,9 +25,7 @@ type EhrService struct {
 	Employee   *employee
 }
 
-/**
-资源服务定义
-**/
+// 资源服务定义
 type attachment struct {
 	service *EhrService
 }
@@ -39,9 +33,7 @@ type employee struct {
 	service *EhrService
 }
 
-/**
-资源服务方法定义
-**/
+// 资源服务方法定义
 func (a *attachment) Get(ctx context.Context, req *GetAttachmentReq, options ...core.RequestOptionFunc) (*GetAttachmentResp, error) {
 	// 发起请求
 	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodGet,
@@ -78,8 +70,6 @@ func (e *employee) List(ctx context.Context, req *ListEmployeeReq, options ...co
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (e *employee) ListEmployee(ctx context.Context, req *ListEmployeeReq, options ...core.RequestOptionFunc) (*ListEmployeeIterator, error) {
 	return &ListEmployeeIterator{
 		ctx:      ctx,

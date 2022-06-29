@@ -8,9 +8,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
-/**
-构建业务域服务实例
-**/
+// 构建业务域服务实例
 func NewService(httpClient *http.Client, config *core.Config) *TaskService {
 	t := &TaskService{httpClient: httpClient, config: config}
 	t.Task = &task{service: t}
@@ -21,9 +19,7 @@ func NewService(httpClient *http.Client, config *core.Config) *TaskService {
 	return t
 }
 
-/**
-业务域服务定义
-**/
+// 业务域服务定义
 type TaskService struct {
 	httpClient       *http.Client
 	config           *core.Config
@@ -34,9 +30,7 @@ type TaskService struct {
 	TaskReminder     *taskReminder
 }
 
-/**
-资源服务定义
-**/
+// 资源服务定义
 type task struct {
 	service *TaskService
 }
@@ -53,9 +47,7 @@ type taskReminder struct {
 	service *TaskService
 }
 
-/**
-资源服务方法定义
-**/
+// 资源服务方法定义
 func (t *task) Complete(ctx context.Context, req *CompleteTaskReq, options ...core.RequestOptionFunc) (*CompleteTaskResp, error) {
 	// 发起请求
 	rawResp, err := core.SendRequest(ctx, t.service.config, http.MethodPost,
@@ -131,8 +123,6 @@ func (t *task) List(ctx context.Context, req *ListTaskReq, options ...core.Reque
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (t *task) ListTask(ctx context.Context, req *ListTaskReq, options ...core.RequestOptionFunc) (*ListTaskIterator, error) {
 	return &ListTaskIterator{
 		ctx:      ctx,
@@ -216,8 +206,6 @@ func (t *taskCollaborator) List(ctx context.Context, req *ListTaskCollaboratorRe
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (t *taskCollaborator) ListTaskCollaborator(ctx context.Context, req *ListTaskCollaboratorReq, options ...core.RequestOptionFunc) (*ListTaskCollaboratorIterator, error) {
 	return &ListTaskCollaboratorIterator{
 		ctx:      ctx,
@@ -286,8 +274,6 @@ func (t *taskComment) List(ctx context.Context, req *ListTaskCommentReq, options
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (t *taskComment) ListTaskComment(ctx context.Context, req *ListTaskCommentReq, options ...core.RequestOptionFunc) (*ListTaskCommentIterator, error) {
 	return &ListTaskCommentIterator{
 		ctx:      ctx,
@@ -356,8 +342,6 @@ func (t *taskFollower) List(ctx context.Context, req *ListTaskFollowerReq, optio
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (t *taskFollower) ListTaskFollower(ctx context.Context, req *ListTaskFollowerReq, options ...core.RequestOptionFunc) (*ListTaskFollowerIterator, error) {
 	return &ListTaskFollowerIterator{
 		ctx:      ctx,
@@ -411,8 +395,6 @@ func (t *taskReminder) List(ctx context.Context, req *ListTaskReminderReq, optio
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (t *taskReminder) ListTaskReminder(ctx context.Context, req *ListTaskReminderReq, options ...core.RequestOptionFunc) (*ListTaskReminderIterator, error) {
 	return &ListTaskReminderIterator{
 		ctx:      ctx,

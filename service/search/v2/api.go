@@ -8,9 +8,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
-/**
-构建业务域服务实例
-**/
+// 构建业务域服务实例
 func NewService(httpClient *http.Client, config *core.Config) *SearchService {
 	s := &SearchService{httpClient: httpClient, config: config}
 	s.DataSource = &dataSource{service: s}
@@ -18,9 +16,7 @@ func NewService(httpClient *http.Client, config *core.Config) *SearchService {
 	return s
 }
 
-/**
-业务域服务定义
-**/
+// 业务域服务定义
 type SearchService struct {
 	httpClient     *http.Client
 	config         *core.Config
@@ -28,9 +24,7 @@ type SearchService struct {
 	DataSourceItem *dataSourceItem
 }
 
-/**
-资源服务定义
-**/
+// 资源服务定义
 type dataSource struct {
 	service *SearchService
 }
@@ -38,9 +32,7 @@ type dataSourceItem struct {
 	service *SearchService
 }
 
-/**
-资源服务方法定义
-**/
+// 资源服务方法定义
 func (d *dataSource) Create(ctx context.Context, req *CreateDataSourceReq, options ...core.RequestOptionFunc) (*CreateDataSourceResp, error) {
 	// 发起请求
 	rawResp, err := core.SendRequest(ctx, d.service.config, http.MethodPost,
@@ -101,8 +93,6 @@ func (d *dataSource) List(ctx context.Context, req *ListDataSourceReq, options .
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (d *dataSource) ListDataSource(ctx context.Context, req *ListDataSourceReq, options ...core.RequestOptionFunc) (*ListDataSourceIterator, error) {
 	return &ListDataSourceIterator{
 		ctx:      ctx,

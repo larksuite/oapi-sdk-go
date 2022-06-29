@@ -8,9 +8,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
-/**
-构建业务域服务实例
-**/
+// 构建业务域服务实例
 func NewService(httpClient *http.Client, config *core.Config) *DocxService {
 	d := &DocxService{httpClient: httpClient, config: config}
 	d.Document = &document{service: d}
@@ -19,9 +17,7 @@ func NewService(httpClient *http.Client, config *core.Config) *DocxService {
 	return d
 }
 
-/**
-业务域服务定义
-**/
+// 业务域服务定义
 type DocxService struct {
 	httpClient            *http.Client
 	config                *core.Config
@@ -30,9 +26,7 @@ type DocxService struct {
 	DocumentBlockChildren *documentBlockChildren
 }
 
-/**
-资源服务定义
-**/
+// 资源服务定义
 type document struct {
 	service *DocxService
 }
@@ -43,9 +37,7 @@ type documentBlockChildren struct {
 	service *DocxService
 }
 
-/**
-资源服务方法定义
-**/
+// 资源服务方法定义
 func (d *document) Create(ctx context.Context, req *CreateDocumentReq, options ...core.RequestOptionFunc) (*CreateDocumentResp, error) {
 	// 发起请求
 	rawResp, err := core.SendRequest(ctx, d.service.config, http.MethodPost,
@@ -136,8 +128,6 @@ func (d *documentBlock) List(ctx context.Context, req *ListDocumentBlockReq, opt
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (d *documentBlock) ListDocumentBlock(ctx context.Context, req *ListDocumentBlockReq, options ...core.RequestOptionFunc) (*ListDocumentBlockIterator, error) {
 	return &ListDocumentBlockIterator{
 		ctx:      ctx,
@@ -206,8 +196,6 @@ func (d *documentBlockChildren) Get(ctx context.Context, req *GetDocumentBlockCh
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (d *documentBlockChildren) GetDocumentBlockChildren(ctx context.Context, req *GetDocumentBlockChildrenReq, options ...core.RequestOptionFunc) (*GetDocumentBlockChildrenIterator, error) {
 	return &GetDocumentBlockChildrenIterator{
 		ctx:      ctx,

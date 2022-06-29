@@ -5,9 +5,7 @@ import (
 	"context"
 )
 
-/**
-消息处理器定义
-**/
+// 消息处理器定义
 type CalendarChangedEventHandler struct {
 	handler func(context.Context, *CalendarChangedEvent) error
 }
@@ -17,23 +15,17 @@ func NewCalendarChangedEventHandler(handler func(context.Context, *CalendarChang
 	return h
 }
 
-/**
-返回事件的消息体的实例，用于反序列化用
-**/
+// 返回事件的消息体的实例，用于反序列化用
 func (h *CalendarChangedEventHandler) Event() interface{} {
 	return &CalendarChangedEvent{}
 }
 
-/**
-回调开发者注册的handle
-r**/
+// 回调开发者注册的handle
 func (h *CalendarChangedEventHandler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*CalendarChangedEvent))
 }
 
-/**
-消息处理器定义
-**/
+// 消息处理器定义
 type CalendarAclCreatedEventHandler struct {
 	handler func(context.Context, *CalendarAclCreatedEvent) error
 }
@@ -43,23 +35,17 @@ func NewCalendarAclCreatedEventHandler(handler func(context.Context, *CalendarAc
 	return h
 }
 
-/**
-返回事件的消息体的实例，用于反序列化用
-**/
+// 返回事件的消息体的实例，用于反序列化用
 func (h *CalendarAclCreatedEventHandler) Event() interface{} {
 	return &CalendarAclCreatedEvent{}
 }
 
-/**
-回调开发者注册的handle
-r**/
+// 回调开发者注册的handle
 func (h *CalendarAclCreatedEventHandler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*CalendarAclCreatedEvent))
 }
 
-/**
-消息处理器定义
-**/
+// 消息处理器定义
 type CalendarAclDeletedEventHandler struct {
 	handler func(context.Context, *CalendarAclDeletedEvent) error
 }
@@ -69,23 +55,17 @@ func NewCalendarAclDeletedEventHandler(handler func(context.Context, *CalendarAc
 	return h
 }
 
-/**
-返回事件的消息体的实例，用于反序列化用
-**/
+// 返回事件的消息体的实例，用于反序列化用
 func (h *CalendarAclDeletedEventHandler) Event() interface{} {
 	return &CalendarAclDeletedEvent{}
 }
 
-/**
-回调开发者注册的handle
-r**/
+// 回调开发者注册的handle
 func (h *CalendarAclDeletedEventHandler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*CalendarAclDeletedEvent))
 }
 
-/**
-消息处理器定义
-**/
+// 消息处理器定义
 type CalendarEventChangedEventHandler struct {
 	handler func(context.Context, *CalendarEventChangedEvent) error
 }
@@ -95,16 +75,12 @@ func NewCalendarEventChangedEventHandler(handler func(context.Context, *Calendar
 	return h
 }
 
-/**
-返回事件的消息体的实例，用于反序列化用
-**/
+// 返回事件的消息体的实例，用于反序列化用
 func (h *CalendarEventChangedEventHandler) Event() interface{} {
 	return &CalendarEventChangedEvent{}
 }
 
-/**
-回调开发者注册的handle
-r**/
+// 回调开发者注册的handle
 func (h *CalendarEventChangedEventHandler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*CalendarEventChangedEvent))
 }

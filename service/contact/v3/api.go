@@ -8,9 +8,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
-/**
-构建业务域服务实例
-**/
+// 构建业务域服务实例
 func NewService(httpClient *http.Client, config *core.Config) *ContactService {
 	c := &ContactService{httpClient: httpClient, config: config}
 	c.CustomAttr = &customAttr{service: c}
@@ -25,9 +23,7 @@ func NewService(httpClient *http.Client, config *core.Config) *ContactService {
 	return c
 }
 
-/**
-业务域服务定义
-**/
+// 业务域服务定义
 type ContactService struct {
 	httpClient       *http.Client
 	config           *core.Config
@@ -42,9 +38,7 @@ type ContactService struct {
 	User             *user
 }
 
-/**
-资源服务定义
-**/
+// 资源服务定义
 type customAttr struct {
 	service *ContactService
 }
@@ -73,9 +67,7 @@ type user struct {
 	service *ContactService
 }
 
-/**
-资源服务方法定义
-**/
+// 资源服务方法定义
 func (c *customAttr) List(ctx context.Context, req *ListCustomAttrReq, options ...core.RequestOptionFunc) (*ListCustomAttrResp, error) {
 	// 发起请求
 	rawResp, err := core.SendRequest(ctx, c.service.config, http.MethodGet,
@@ -91,8 +83,6 @@ func (c *customAttr) List(ctx context.Context, req *ListCustomAttrReq, options .
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (c *customAttr) ListCustomAttr(ctx context.Context, req *ListCustomAttrReq, options ...core.RequestOptionFunc) (*ListCustomAttrIterator, error) {
 	return &ListCustomAttrIterator{
 		ctx:      ctx,
@@ -116,8 +106,6 @@ func (d *department) Children(ctx context.Context, req *ChildrenDepartmentReq, o
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (d *department) ChildrenDepartment(ctx context.Context, req *ChildrenDepartmentReq, options ...core.RequestOptionFunc) (*ChildrenDepartmentIterator, error) {
 	return &ChildrenDepartmentIterator{
 		ctx:      ctx,
@@ -186,8 +174,6 @@ func (d *department) List(ctx context.Context, req *ListDepartmentReq, options .
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (d *department) ListDepartment(ctx context.Context, req *ListDepartmentReq, options ...core.RequestOptionFunc) (*ListDepartmentIterator, error) {
 	return &ListDepartmentIterator{
 		ctx:      ctx,
@@ -211,8 +197,6 @@ func (d *department) Parent(ctx context.Context, req *ParentDepartmentReq, optio
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (d *department) ParentDepartment(ctx context.Context, req *ParentDepartmentReq, options ...core.RequestOptionFunc) (*ParentDepartmentIterator, error) {
 	return &ParentDepartmentIterator{
 		ctx:      ctx,
@@ -251,8 +235,6 @@ func (d *department) Search(ctx context.Context, req *SearchDepartmentReq, optio
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (d *department) SearchDepartment(ctx context.Context, req *SearchDepartmentReq, options ...core.RequestOptionFunc) (*SearchDepartmentIterator, error) {
 	return &SearchDepartmentIterator{
 		ctx:      ctx,
@@ -336,8 +318,6 @@ func (e *employeeTypeEnum) List(ctx context.Context, req *ListEmployeeTypeEnumRe
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (e *employeeTypeEnum) ListEmployeeTypeEnum(ctx context.Context, req *ListEmployeeTypeEnumReq, options ...core.RequestOptionFunc) (*ListEmployeeTypeEnumIterator, error) {
 	return &ListEmployeeTypeEnumIterator{
 		ctx:      ctx,
@@ -451,8 +431,6 @@ func (g *group) Simplelist(ctx context.Context, req *SimplelistGroupReq, options
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (g *group) SimplelistGroup(ctx context.Context, req *SimplelistGroupReq, options ...core.RequestOptionFunc) (*SimplelistGroupIterator, error) {
 	return &SimplelistGroupIterator{
 		ctx:      ctx,
@@ -731,8 +709,6 @@ func (u *user) FindByDepartment(ctx context.Context, req *FindByDepartmentUserRe
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (u *user) FindByDepartmentUser(ctx context.Context, req *FindByDepartmentUserReq, options ...core.RequestOptionFunc) (*FindByDepartmentUserIterator, error) {
 	return &FindByDepartmentUserIterator{
 		ctx:      ctx,
@@ -771,8 +747,6 @@ func (u *user) List(ctx context.Context, req *ListUserReq, options ...core.Reque
 	}
 	return resp, err
 }
-
-/**如果是分页查询，则添加迭代器函数**/
 func (u *user) ListUser(ctx context.Context, req *ListUserReq, options ...core.RequestOptionFunc) (*ListUserIterator, error) {
 	return &ListUserIterator{
 		ctx:      ctx,

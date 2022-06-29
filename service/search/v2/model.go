@@ -9,19 +9,19 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
-/**生成枚举值 **/
+// 生成枚举值
 
 const (
-	StateOnline  string = "0"
-	StateOffline string = "1"
+	StateOnline  = 0
+	StateOffline = 1
 )
 
 const (
-	ViewFULL  string = "0"
-	ViewBASIC string = "1"
+	ViewFULL  = 0
+	ViewBASIC = 1
 )
 
-/**生成数据类型 **/
+// 生成数据类型
 
 type Acl struct {
 	Access *string `json:"access,omitempty"`
@@ -29,7 +29,7 @@ type Acl struct {
 	Type   *string `json:"type,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type AclBuilder struct {
 	access     string
 	accessFlag bool
@@ -77,7 +77,7 @@ func (builder *AclBuilder) Build() *Acl {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type BatchItemResult struct {
 	ItemId    *string `json:"item_id,omitempty"`
@@ -85,7 +85,7 @@ type BatchItemResult struct {
 	Err       *string `json:"err,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type BatchItemResultBuilder struct {
 	itemId        string
 	itemIdFlag    bool
@@ -133,7 +133,7 @@ func (builder *BatchItemResultBuilder) Build() *BatchItemResult {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ConnectDataSource struct {
 	ServiceUrl         *string `json:"service_url,omitempty"`
@@ -146,7 +146,7 @@ type ConnectDataSource struct {
 	TenantName         *string `json:"tenant_name,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ConnectDataSourceBuilder struct {
 	serviceUrl             string
 	serviceUrlFlag         bool
@@ -249,7 +249,7 @@ func (builder *ConnectDataSourceBuilder) Build() *ConnectDataSource {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type DataSource struct {
 	Id               *int64    `json:"id,omitempty,string"`
@@ -267,7 +267,7 @@ type DataSource struct {
 	SchemaId         *string   `json:"schema_id,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type DataSourceBuilder struct {
 	id                   int64
 	idFlag               bool
@@ -422,7 +422,7 @@ func (builder *DataSourceBuilder) Build() *DataSource {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type I18nMeta struct {
 	ZhCn *string `json:"zh_cn,omitempty"`
@@ -430,7 +430,7 @@ type I18nMeta struct {
 	JaJp *string `json:"ja_jp,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type I18nMetaBuilder struct {
 	zhCn     string
 	zhCnFlag bool
@@ -478,7 +478,7 @@ func (builder *I18nMetaBuilder) Build() *I18nMeta {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Item struct {
 	Id             *string       `json:"id,omitempty"`
@@ -488,7 +488,7 @@ type Item struct {
 	Content        *ItemContent  `json:"content,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ItemBuilder struct {
 	id                 string
 	idFlag             bool
@@ -555,14 +555,14 @@ func (builder *ItemBuilder) Build() *Item {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ItemContent struct {
 	Format      *string `json:"format,omitempty"`
 	ContentData *string `json:"content_data,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ItemContentBuilder struct {
 	format          string
 	formatFlag      bool
@@ -599,7 +599,7 @@ func (builder *ItemContentBuilder) Build() *ItemContent {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ItemMetadata struct {
 	Title           *string `json:"title,omitempty"`
@@ -609,7 +609,7 @@ type ItemMetadata struct {
 	SourceUrlMobile *string `json:"source_url_mobile,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ItemMetadataBuilder struct {
 	title               string
 	titleFlag           bool
@@ -679,7 +679,7 @@ func (builder *ItemMetadataBuilder) Build() *ItemMetadata {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type ItemRecord struct {
 	ItemId       *string `json:"item_id,omitempty"`
@@ -689,7 +689,7 @@ type ItemRecord struct {
 	UpdatedAt    *string `json:"updated_at,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type ItemRecordBuilder struct {
 	itemId           string
 	itemIdFlag       bool
@@ -759,7 +759,7 @@ func (builder *ItemRecordBuilder) Build() *ItemRecord {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type Schema struct {
 	Properties []*SchemaProperty `json:"properties,omitempty"`
@@ -767,7 +767,7 @@ type Schema struct {
 	SchemaId   *string           `json:"schema_id,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type SchemaBuilder struct {
 	properties     []*SchemaProperty
 	propertiesFlag bool
@@ -813,14 +813,14 @@ func (builder *SchemaBuilder) Build() *Schema {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type SchemaDisplay struct {
 	CardKey       *string                      `json:"card_key,omitempty"`
 	FieldsMapping []*SchemaDisplayFieldMapping `json:"fields_mapping,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type SchemaDisplayBuilder struct {
 	cardKey           string
 	cardKeyFlag       bool
@@ -856,14 +856,14 @@ func (builder *SchemaDisplayBuilder) Build() *SchemaDisplay {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type SchemaDisplayFieldMapping struct {
 	DisplayField *string `json:"display_field,omitempty"`
 	DataField    *string `json:"data_field,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type SchemaDisplayFieldMappingBuilder struct {
 	displayField     string
 	displayFieldFlag bool
@@ -900,14 +900,14 @@ func (builder *SchemaDisplayFieldMappingBuilder) Build() *SchemaDisplayFieldMapp
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type SchemaDisplayOption struct {
 	DisplayLabel *string `json:"display_label,omitempty"`
 	DisplayType  *string `json:"display_type,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type SchemaDisplayOptionBuilder struct {
 	displayLabel     string
 	displayLabelFlag bool
@@ -944,7 +944,7 @@ func (builder *SchemaDisplayOptionBuilder) Build() *SchemaDisplayOption {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type SchemaProperty struct {
 	Name            *string                `json:"name,omitempty"`
@@ -957,7 +957,7 @@ type SchemaProperty struct {
 	SearchOptions   *SchemaSearchOptions   `json:"search_options,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type SchemaPropertyBuilder struct {
 	name                string
 	nameFlag            bool
@@ -1057,7 +1057,7 @@ func (builder *SchemaPropertyBuilder) Build() *SchemaProperty {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type SchemaPropertyDefinition struct {
 	Name                 *string              `json:"name,omitempty"`
@@ -1070,7 +1070,7 @@ type SchemaPropertyDefinition struct {
 	DisplayOptions       *SchemaDisplayOption `json:"display_options,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type SchemaPropertyDefinitionBuilder struct {
 	name                     string
 	nameFlag                 bool
@@ -1172,7 +1172,7 @@ func (builder *SchemaPropertyDefinitionBuilder) Build() *SchemaPropertyDefinitio
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type SchemaSearchOptions struct {
 	EnableSemanticMatch     *bool `json:"enable_semantic_match,omitempty"`
@@ -1182,7 +1182,7 @@ type SchemaSearchOptions struct {
 	EnableCamelMatch        *bool `json:"enable_camel_match,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type SchemaSearchOptionsBuilder struct {
 	enableSemanticMatch         bool
 	enableSemanticMatchFlag     bool
@@ -1252,14 +1252,14 @@ func (builder *SchemaSearchOptionsBuilder) Build() *SchemaSearchOptions {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type SchemaSortOptions struct {
 	Priority *int    `json:"priority,omitempty"`
 	Order    *string `json:"order,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type SchemaSortOptionsBuilder struct {
 	priority     int
 	priorityFlag bool
@@ -1296,7 +1296,7 @@ func (builder *SchemaSortOptionsBuilder) Build() *SchemaSortOptions {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type SchemaTagOptions struct {
 	Name  *string `json:"name,omitempty"`
@@ -1304,7 +1304,7 @@ type SchemaTagOptions struct {
 	Text  *string `json:"text,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type SchemaTagOptionsBuilder struct {
 	name      string
 	nameFlag  bool
@@ -1352,13 +1352,13 @@ func (builder *SchemaTagOptionsBuilder) Build() *SchemaTagOptions {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
 type SchemaTypeDefinitions struct {
 	Tag []*SchemaTagOptions `json:"tag,omitempty"`
 }
 
-/**builder开始**/
+// builder开始
 type SchemaTypeDefinitionsBuilder struct {
 	tag     []*SchemaTagOptions
 	tagFlag bool
@@ -1383,11 +1383,11 @@ func (builder *SchemaTypeDefinitionsBuilder) Build() *SchemaTypeDefinitions {
 	return req
 }
 
-/**builder结束**/
+// builder结束
 
-/**生成请求和响应结果类型，以及请求对象的Builder构造器 **/
+// 生成请求和响应结果类型，以及请求对象的Builder构造器
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type CreateDataSourceReqBuilder struct {
 	dataSource     *DataSource
 	dataSourceFlag bool
@@ -1399,14 +1399,14 @@ func NewCreateDataSourceReqBuilder() *CreateDataSourceReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *CreateDataSourceReqBuilder) DataSource(dataSource *DataSource) *CreateDataSourceReqBuilder {
 	builder.dataSource = dataSource
 	builder.dataSourceFlag = true
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *CreateDataSourceReqBuilder) Build() *CreateDataSourceReq {
 	req := &CreateDataSourceReq{}
 	if builder.dataSourceFlag {
@@ -1433,7 +1433,7 @@ func (resp *CreateDataSourceResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type DeleteDataSourceReqBuilder struct {
 	dataSourceId     string
 	dataSourceIdFlag bool
@@ -1445,14 +1445,14 @@ func NewDeleteDataSourceReqBuilder() *DeleteDataSourceReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *DeleteDataSourceReqBuilder) DataSourceId(dataSourceId string) *DeleteDataSourceReqBuilder {
 	builder.dataSourceId = dataSourceId
 	builder.dataSourceIdFlag = true
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *DeleteDataSourceReqBuilder) Build() *DeleteDataSourceReq {
 	req := &DeleteDataSourceReq{}
 	if builder.dataSourceIdFlag {
@@ -1474,7 +1474,7 @@ func (resp *DeleteDataSourceResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type GetDataSourceReqBuilder struct {
 	dataSourceId     string
 	dataSourceIdFlag bool
@@ -1486,14 +1486,14 @@ func NewGetDataSourceReqBuilder() *GetDataSourceReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *GetDataSourceReqBuilder) DataSourceId(dataSourceId string) *GetDataSourceReqBuilder {
 	builder.dataSourceId = dataSourceId
 	builder.dataSourceIdFlag = true
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *GetDataSourceReqBuilder) Build() *GetDataSourceReq {
 	req := &GetDataSourceReq{}
 	if builder.dataSourceIdFlag {
@@ -1520,7 +1520,7 @@ func (resp *GetDataSourceResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type ListDataSourceReqBuilder struct {
 	view          int
 	viewFlag      bool
@@ -1537,7 +1537,7 @@ func NewListDataSourceReqBuilder() *ListDataSourceReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *ListDataSourceReqBuilder) Limit(limit int) *ListDataSourceReqBuilder {
 	builder.limit = limit
 	return builder
@@ -1558,7 +1558,7 @@ func (builder *ListDataSourceReqBuilder) PageSize(pageSize int) *ListDataSourceR
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *ListDataSourceReqBuilder) Build() *ListDataSourceReq {
 	req := &ListDataSourceReq{}
 	req.Limit = builder.limit
@@ -1618,7 +1618,7 @@ func NewPatchDataSourceReqBodyBuilder() *PatchDataSourceReqBodyBuilder {
 	return builder
 }
 
-/*1.2 生成body的builder属性方法*/
+// 1.2 生成body的builder属性方法
 func (builder *PatchDataSourceReqBodyBuilder) Name(name string) *PatchDataSourceReqBodyBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -1650,7 +1650,7 @@ func (builder *PatchDataSourceReqBodyBuilder) I18nDescription(i18nDescription *I
 	return builder
 }
 
-/*1.3 生成body的build方法*/
+// 1.3 生成body的build方法
 func (builder *PatchDataSourceReqBodyBuilder) Build() *PatchDataSourceReqBody {
 	req := &PatchDataSourceReqBody{}
 	if builder.nameFlag {
@@ -1680,7 +1680,7 @@ func (builder *PatchDataSourceReqBodyBuilder) Build() *PatchDataSourceReqBody {
 	return req
 }
 
-/**上传文件path开始**/
+// 上传文件path开始
 type PatchDataSourcePathReqBodyBuilder struct {
 	name                string
 	nameFlag            bool
@@ -1758,9 +1758,9 @@ func (builder *PatchDataSourcePathReqBodyBuilder) Build() (*PatchDataSourceReqBo
 	return req, nil
 }
 
-/**上传文件path结束**/
+// 上传文件path结束
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type PatchDataSourceReqBuilder struct {
 	dataSourceId     string
 	dataSourceIdFlag bool
@@ -1774,7 +1774,7 @@ func NewPatchDataSourceReqBuilder() *PatchDataSourceReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *PatchDataSourceReqBuilder) DataSourceId(dataSourceId string) *PatchDataSourceReqBuilder {
 	builder.dataSourceId = dataSourceId
 	builder.dataSourceIdFlag = true
@@ -1786,7 +1786,7 @@ func (builder *PatchDataSourceReqBuilder) Body(body *PatchDataSourceReqBody) *Pa
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *PatchDataSourceReqBuilder) Build() *PatchDataSourceReq {
 	req := &PatchDataSourceReq{}
 	if builder.dataSourceIdFlag {
@@ -1826,7 +1826,7 @@ func (resp *PatchDataSourceResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type CreateDataSourceItemReqBuilder struct {
 	dataSourceId     string
 	dataSourceIdFlag bool
@@ -1840,7 +1840,7 @@ func NewCreateDataSourceItemReqBuilder() *CreateDataSourceItemReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *CreateDataSourceItemReqBuilder) DataSourceId(dataSourceId string) *CreateDataSourceItemReqBuilder {
 	builder.dataSourceId = dataSourceId
 	builder.dataSourceIdFlag = true
@@ -1852,7 +1852,7 @@ func (builder *CreateDataSourceItemReqBuilder) Item(item *Item) *CreateDataSourc
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *CreateDataSourceItemReqBuilder) Build() *CreateDataSourceItemReq {
 	req := &CreateDataSourceItemReq{}
 	if builder.dataSourceIdFlag {
@@ -1878,7 +1878,7 @@ func (resp *CreateDataSourceItemResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type DeleteDataSourceItemReqBuilder struct {
 	dataSourceId     string
 	dataSourceIdFlag bool
@@ -1892,7 +1892,7 @@ func NewDeleteDataSourceItemReqBuilder() *DeleteDataSourceItemReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *DeleteDataSourceItemReqBuilder) DataSourceId(dataSourceId string) *DeleteDataSourceItemReqBuilder {
 	builder.dataSourceId = dataSourceId
 	builder.dataSourceIdFlag = true
@@ -1904,7 +1904,7 @@ func (builder *DeleteDataSourceItemReqBuilder) ItemId(itemId string) *DeleteData
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *DeleteDataSourceItemReqBuilder) Build() *DeleteDataSourceItemReq {
 	req := &DeleteDataSourceItemReq{}
 	if builder.dataSourceIdFlag {
@@ -1930,7 +1930,7 @@ func (resp *DeleteDataSourceItemResp) Success() bool {
 	return resp.Code == 0
 }
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type GetDataSourceItemReqBuilder struct {
 	dataSourceId     string
 	dataSourceIdFlag bool
@@ -1944,7 +1944,7 @@ func NewGetDataSourceItemReqBuilder() *GetDataSourceItemReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *GetDataSourceItemReqBuilder) DataSourceId(dataSourceId string) *GetDataSourceItemReqBuilder {
 	builder.dataSourceId = dataSourceId
 	builder.dataSourceIdFlag = true
@@ -1956,7 +1956,7 @@ func (builder *GetDataSourceItemReqBuilder) ItemId(itemId string) *GetDataSource
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *GetDataSourceItemReqBuilder) Build() *GetDataSourceItemReq {
 	req := &GetDataSourceItemReq{}
 	if builder.dataSourceIdFlag {
@@ -1987,11 +1987,10 @@ func (resp *GetDataSourceItemResp) Success() bool {
 	return resp.Code == 0
 }
 
-/**生成消息事件结构体 **/
+// 生成消息事件结构体
 
-/* 生成请求的builder构造器*/
-/*1.1 生成body的builder结构体*/
-/**如果是分页查询，则添加迭代器定义**/
+// 生成请求的builder构造器
+// 1.1 生成body的builder结构体
 type ListDataSourceIterator struct {
 	nextPageToken *string
 	items         []*DataSource

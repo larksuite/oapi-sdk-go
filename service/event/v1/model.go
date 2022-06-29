@@ -9,13 +9,13 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
-/**生成枚举值 **/
+// 生成枚举值
 
-/**生成数据类型 **/
+// 生成数据类型
 
-/**生成请求和响应结果类型，以及请求对象的Builder构造器 **/
+// 生成请求和响应结果类型，以及请求对象的Builder构造器
 
-/*1.4 生成请求的builder结构体*/
+// 1.4 生成请求的builder结构体
 type ListOutboundIpReqBuilder struct {
 	pageSize      int
 	pageSizeFlag  bool
@@ -30,7 +30,7 @@ func NewListOutboundIpReqBuilder() *ListOutboundIpReqBuilder {
 	return builder
 }
 
-/*1.5 生成请求的builder属性方法*/
+// 1.5 生成请求的builder属性方法
 func (builder *ListOutboundIpReqBuilder) Limit(limit int) *ListOutboundIpReqBuilder {
 	builder.limit = limit
 	return builder
@@ -46,7 +46,7 @@ func (builder *ListOutboundIpReqBuilder) PageToken(pageToken string) *ListOutbou
 	return builder
 }
 
-/*1.5 生成请求的builder的build方法*/
+// 1.5 生成请求的builder的build方法
 func (builder *ListOutboundIpReqBuilder) Build() *ListOutboundIpReq {
 	req := &ListOutboundIpReq{}
 	req.Limit = builder.limit
@@ -81,11 +81,10 @@ func (resp *ListOutboundIpResp) Success() bool {
 	return resp.Code == 0
 }
 
-/**生成消息事件结构体 **/
+// 生成消息事件结构体
 
-/* 生成请求的builder构造器*/
-/*1.1 生成body的builder结构体*/
-/**如果是分页查询，则添加迭代器定义**/
+// 生成请求的builder构造器
+// 1.1 生成body的builder结构体
 type ListOutboundIpIterator struct {
 	nextPageToken *string
 	items         []string

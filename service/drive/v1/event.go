@@ -5,9 +5,7 @@ import (
 	"context"
 )
 
-/**
-消息处理器定义
-**/
+// 消息处理器定义
 type FileDeletedEventHandler struct {
 	handler func(context.Context, *FileDeletedEvent) error
 }
@@ -17,23 +15,17 @@ func NewFileDeletedEventHandler(handler func(context.Context, *FileDeletedEvent)
 	return h
 }
 
-/**
-返回事件的消息体的实例，用于反序列化用
-**/
+// 返回事件的消息体的实例，用于反序列化用
 func (h *FileDeletedEventHandler) Event() interface{} {
 	return &FileDeletedEvent{}
 }
 
-/**
-回调开发者注册的handle
-r**/
+// 回调开发者注册的handle
 func (h *FileDeletedEventHandler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*FileDeletedEvent))
 }
 
-/**
-消息处理器定义
-**/
+// 消息处理器定义
 type FileEditEventHandler struct {
 	handler func(context.Context, *FileEditEvent) error
 }
@@ -43,23 +35,17 @@ func NewFileEditEventHandler(handler func(context.Context, *FileEditEvent) error
 	return h
 }
 
-/**
-返回事件的消息体的实例，用于反序列化用
-**/
+// 返回事件的消息体的实例，用于反序列化用
 func (h *FileEditEventHandler) Event() interface{} {
 	return &FileEditEvent{}
 }
 
-/**
-回调开发者注册的handle
-r**/
+// 回调开发者注册的handle
 func (h *FileEditEventHandler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*FileEditEvent))
 }
 
-/**
-消息处理器定义
-**/
+// 消息处理器定义
 type FilePermissionMemberAddedEventHandler struct {
 	handler func(context.Context, *FilePermissionMemberAddedEvent) error
 }
@@ -69,23 +55,17 @@ func NewFilePermissionMemberAddedEventHandler(handler func(context.Context, *Fil
 	return h
 }
 
-/**
-返回事件的消息体的实例，用于反序列化用
-**/
+// 返回事件的消息体的实例，用于反序列化用
 func (h *FilePermissionMemberAddedEventHandler) Event() interface{} {
 	return &FilePermissionMemberAddedEvent{}
 }
 
-/**
-回调开发者注册的handle
-r**/
+// 回调开发者注册的handle
 func (h *FilePermissionMemberAddedEventHandler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*FilePermissionMemberAddedEvent))
 }
 
-/**
-消息处理器定义
-**/
+// 消息处理器定义
 type FilePermissionMemberRemovedEventHandler struct {
 	handler func(context.Context, *FilePermissionMemberRemovedEvent) error
 }
@@ -95,23 +75,17 @@ func NewFilePermissionMemberRemovedEventHandler(handler func(context.Context, *F
 	return h
 }
 
-/**
-返回事件的消息体的实例，用于反序列化用
-**/
+// 返回事件的消息体的实例，用于反序列化用
 func (h *FilePermissionMemberRemovedEventHandler) Event() interface{} {
 	return &FilePermissionMemberRemovedEvent{}
 }
 
-/**
-回调开发者注册的handle
-r**/
+// 回调开发者注册的handle
 func (h *FilePermissionMemberRemovedEventHandler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*FilePermissionMemberRemovedEvent))
 }
 
-/**
-消息处理器定义
-**/
+// 消息处理器定义
 type FileReadEventHandler struct {
 	handler func(context.Context, *FileReadEvent) error
 }
@@ -121,23 +95,17 @@ func NewFileReadEventHandler(handler func(context.Context, *FileReadEvent) error
 	return h
 }
 
-/**
-返回事件的消息体的实例，用于反序列化用
-**/
+// 返回事件的消息体的实例，用于反序列化用
 func (h *FileReadEventHandler) Event() interface{} {
 	return &FileReadEvent{}
 }
 
-/**
-回调开发者注册的handle
-r**/
+// 回调开发者注册的handle
 func (h *FileReadEventHandler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*FileReadEvent))
 }
 
-/**
-消息处理器定义
-**/
+// 消息处理器定义
 type FileTitleUpdatedEventHandler struct {
 	handler func(context.Context, *FileTitleUpdatedEvent) error
 }
@@ -147,23 +115,17 @@ func NewFileTitleUpdatedEventHandler(handler func(context.Context, *FileTitleUpd
 	return h
 }
 
-/**
-返回事件的消息体的实例，用于反序列化用
-**/
+// 返回事件的消息体的实例，用于反序列化用
 func (h *FileTitleUpdatedEventHandler) Event() interface{} {
 	return &FileTitleUpdatedEvent{}
 }
 
-/**
-回调开发者注册的handle
-r**/
+// 回调开发者注册的handle
 func (h *FileTitleUpdatedEventHandler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*FileTitleUpdatedEvent))
 }
 
-/**
-消息处理器定义
-**/
+// 消息处理器定义
 type FileTrashedEventHandler struct {
 	handler func(context.Context, *FileTrashedEvent) error
 }
@@ -173,16 +135,12 @@ func NewFileTrashedEventHandler(handler func(context.Context, *FileTrashedEvent)
 	return h
 }
 
-/**
-返回事件的消息体的实例，用于反序列化用
-**/
+// 返回事件的消息体的实例，用于反序列化用
 func (h *FileTrashedEventHandler) Event() interface{} {
 	return &FileTrashedEvent{}
 }
 
-/**
-回调开发者注册的handle
-r**/
+// 回调开发者注册的handle
 func (h *FileTrashedEventHandler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*FileTrashedEvent))
 }

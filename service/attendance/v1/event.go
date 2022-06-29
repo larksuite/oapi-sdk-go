@@ -5,9 +5,7 @@ import (
 	"context"
 )
 
-/**
-消息处理器定义
-**/
+// 消息处理器定义
 type UserFlowCreatedEventHandler struct {
 	handler func(context.Context, *UserFlowCreatedEvent) error
 }
@@ -17,23 +15,17 @@ func NewUserFlowCreatedEventHandler(handler func(context.Context, *UserFlowCreat
 	return h
 }
 
-/**
-返回事件的消息体的实例，用于反序列化用
-**/
+// 返回事件的消息体的实例，用于反序列化用
 func (h *UserFlowCreatedEventHandler) Event() interface{} {
 	return &UserFlowCreatedEvent{}
 }
 
-/**
-回调开发者注册的handle
-r**/
+// 回调开发者注册的handle
 func (h *UserFlowCreatedEventHandler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*UserFlowCreatedEvent))
 }
 
-/**
-消息处理器定义
-**/
+// 消息处理器定义
 type UserTaskUpdatedEventHandler struct {
 	handler func(context.Context, *UserTaskUpdatedEvent) error
 }
@@ -43,16 +35,12 @@ func NewUserTaskUpdatedEventHandler(handler func(context.Context, *UserTaskUpdat
 	return h
 }
 
-/**
-返回事件的消息体的实例，用于反序列化用
-**/
+// 返回事件的消息体的实例，用于反序列化用
 func (h *UserTaskUpdatedEventHandler) Event() interface{} {
 	return &UserTaskUpdatedEvent{}
 }
 
-/**
-回调开发者注册的handle
-r**/
+// 回调开发者注册的handle
 func (h *UserTaskUpdatedEventHandler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*UserTaskUpdatedEvent))
 }
