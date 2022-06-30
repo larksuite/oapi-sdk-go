@@ -12,8 +12,6 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/larksuite/oapi-sdk-go/event"
-
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
@@ -7604,44 +7602,6 @@ func (resp *QueryUserAllowedRemedysUserTaskRemedyResp) Success() bool {
 }
 
 // 生成消息事件结构体
-
-type UserFlowCreatedEventData struct {
-	EmployeeId   *string  `json:"employee_id,omitempty"`
-	EmployeeNo   *string  `json:"employee_no,omitempty"`
-	LocationName *string  `json:"location_name,omitempty"`
-	CheckTime    *string  `json:"check_time,omitempty"`
-	Comment      *string  `json:"comment,omitempty"`
-	RecordId     *string  `json:"record_id,omitempty"`
-	Longitude    *float64 `json:"longitude,omitempty"`
-	Latitude     *float64 `json:"latitude,omitempty"`
-	Ssid         *string  `json:"ssid,omitempty"`
-	Bssid        *string  `json:"bssid,omitempty"`
-	IsField      *bool    `json:"is_field,omitempty"`
-	IsWifi       *bool    `json:"is_wifi,omitempty"`
-	Type         *int     `json:"type,omitempty"`
-	PhotoUrls    []string `json:"photo_urls,omitempty"`
-}
-
-type UserFlowCreatedEvent struct {
-	*event.EventV2Base
-	Event *UserFlowCreatedEventData `json:"event"`
-}
-
-type UserTaskUpdatedEventData struct {
-	TaskId        *string         `json:"task_id,omitempty"`
-	EmployeeId    *string         `json:"employee_id,omitempty"`
-	GroupId       *string         `json:"group_id,omitempty"`
-	ShiftId       *string         `json:"shift_id,omitempty"`
-	Date          *int            `json:"date,omitempty"`
-	TimeZone      *string         `json:"time_zone,omitempty"`
-	StatusChanges []*StatusChange `json:"status_changes,omitempty"`
-	EmployeeNo    *string         `json:"employee_no,omitempty"`
-}
-
-type UserTaskUpdatedEvent struct {
-	*event.EventV2Base
-	Event *UserTaskUpdatedEventData `json:"event"`
-}
 
 // 生成请求的builder构造器
 // 1.1 生成body的builder结构体

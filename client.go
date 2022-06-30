@@ -106,6 +106,12 @@ func WithTokenCache(cache core.Cache) ClientOptionFunc {
 	}
 }
 
+func WithLogReqRespInfoAtDebugLevel(printReqRespLog bool) ClientOptionFunc {
+	return func(config *core.Config) {
+		config.LogReqRespInfoAtDebugLevel = printReqRespLog
+	}
+}
+
 func WithHelpdeskCredential(helpdeskID, helpdeskToken string) ClientOptionFunc {
 	return func(config *core.Config) {
 		config.HelpDeskId = helpdeskID

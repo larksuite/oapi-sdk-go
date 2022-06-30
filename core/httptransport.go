@@ -68,6 +68,18 @@ func validate(config *Config, option *RequestOption, accessTokenType AccessToken
 		return &IllegalParamError{msg: "user access token is empty"}
 	}
 
+	if option.Header != nil {
+		if option.Header.Get(httpHeaderKeyRequestId) != "" {
+			return &IllegalParamError{msg: fmt.Sprintf("use %s as header key is not allowed", httpHeaderKeyRequestId)}
+		}
+		if option.Header.Get(httpHeaderRequestId) != "" {
+			return &IllegalParamError{msg: fmt.Sprintf("use %s as header key is not allowed", httpHeaderRequestId)}
+		}
+		if option.Header.Get(httpHeaderKeyLogId) != "" {
+			return &IllegalParamError{msg: fmt.Sprintf("use %s as header key is not allowed", httpHeaderKeyLogId)}
+		}
+	}
+
 	return nil
 }
 
@@ -139,14 +151,14 @@ func doSendRequest(ctx context.Context, config *Config, httpMethod string, httpP
 			return nil, err
 		}
 
-		if accessTokenType != accessTokenTypeNone {
+		if config.LogReqRespInfoAtDebugLevel {
 			config.Logger.Debug(ctx, fmt.Sprintf("req:%v", req))
 		} else {
 			config.Logger.Debug(ctx, fmt.Sprintf("req:%s,%s", httpMethod, httpPath))
 		}
 		rawResp, err = doSend(ctx, req, config.HttpClient)
-		if accessTokenType != accessTokenTypeNone {
-			config.Logger.Debug(ctx, fmt.Sprintf("req:%v,resp:%v", req, rawResp))
+		if config.LogReqRespInfoAtDebugLevel {
+			config.Logger.Debug(ctx, fmt.Sprintf("resp:%v", rawResp))
 		}
 		_, isDialError := err.(*DialFailedError)
 		if err != nil && !isDialError {

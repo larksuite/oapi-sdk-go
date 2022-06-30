@@ -14,6 +14,41 @@ import (
 // 生成枚举值
 
 const (
+	DepartmentIdTypeDepartmentId     = "department_id"
+	DepartmentIdTypeOpenDepartmentId = "open_department_id"
+)
+
+const (
+	UserIdTypeUserId  = "user_id"
+	UserIdTypeUnionId = "union_id"
+	UserIdTypeOpenId  = "open_id"
+)
+
+const (
+	LocaleZhcn = "zh-CN"
+	LocaleEnus = "en-US"
+	LocaleJajp = "ja-JP"
+)
+
+const (
+	StatusACTIVE   = "ACTIVE"
+	StatusINACTIVE = "INACTIVE"
+	StatusDELETED  = "DELETED"
+	StatusUNKNOWN  = "UNKNOWN"
+)
+
+const (
+	DisplayMethodBrowser = "BROWSER"
+	DisplayMethodSIdebar = "SIDEBAR"
+	DisplayMethodNormal  = "NORMAL"
+)
+
+const (
+	UpdateModeReplace = "REPLACE"
+	UpdateModeUpdate  = "UPDATE"
+)
+
+const (
 	AddSignEnumAddSignPre      = 1
 	AddSignEnumAddSignPost     = 2
 	AddSignEnumAddSignParallel = 3
@@ -25,17 +60,11 @@ const (
 )
 
 const (
-	UserIdTypeOpenId  = "open_id"
-	UserIdTypeUserId  = "user_id"
-	UserIdTypeUnionId = "union_id"
-)
-
-const (
-	TopicTodoApproval      = "1"
-	TopicDoneApproval      = "2"
-	TopicInitiatedApproval = "3"
-	TopicUnreadNotice      = "17"
-	TopicReadNotice        = "18"
+	TopicTodoApproval      = 1
+	TopicDoneApproval      = 2
+	TopicInitiatedApproval = 3
+	TopicUnreadNotice      = 17
+	TopicReadNotice        = 18
 )
 
 // 生成数据类型
@@ -6427,6 +6456,354 @@ func (builder *UserIdBuilder) Build() *UserId {
 
 // 生成请求和响应结果类型，以及请求对象的Builder构造器
 
+// 1.4 生成请求的builder结构体
+type CreateApprovalReqBuilder struct {
+	departmentIdType     string
+	departmentIdTypeFlag bool
+	userIdType           string
+	userIdTypeFlag       bool
+	approvalCreate       *ApprovalCreate
+	approvalCreateFlag   bool
+}
+
+// 生成请求的New构造器
+func NewCreateApprovalReqBuilder() *CreateApprovalReqBuilder {
+	builder := &CreateApprovalReqBuilder{}
+	return builder
+}
+
+// 1.5 生成请求的builder属性方法
+func (builder *CreateApprovalReqBuilder) DepartmentIdType(departmentIdType string) *CreateApprovalReqBuilder {
+	builder.departmentIdType = departmentIdType
+	builder.departmentIdTypeFlag = true
+	return builder
+}
+func (builder *CreateApprovalReqBuilder) UserIdType(userIdType string) *CreateApprovalReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
+}
+func (builder *CreateApprovalReqBuilder) ApprovalCreate(approvalCreate *ApprovalCreate) *CreateApprovalReqBuilder {
+	builder.approvalCreate = approvalCreate
+	builder.approvalCreateFlag = true
+	return builder
+}
+
+// 1.5 生成请求的builder的build方法
+func (builder *CreateApprovalReqBuilder) Build() *CreateApprovalReq {
+	req := &CreateApprovalReq{}
+	if builder.departmentIdTypeFlag {
+		req.DepartmentIdType = &builder.departmentIdType
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	if builder.approvalCreateFlag {
+		req.ApprovalCreate = builder.approvalCreate
+	}
+	return req
+}
+
+type CreateApprovalReq struct {
+	DepartmentIdType *string         `query:"department_id_type"`
+	UserIdType       *string         `query:"user_id_type"`
+	ApprovalCreate   *ApprovalCreate `body:""`
+}
+
+type CreateApprovalRespData struct {
+	ApprovalCode *string `json:"approval_code,omitempty"`
+	ApprovalId   *int64  `json:"approval_id,omitempty,string"`
+}
+
+type CreateApprovalResp struct {
+	*core.RawResponse `json:"-"`
+	core.CodeError
+	Data *CreateApprovalRespData `json:"data"`
+}
+
+func (resp *CreateApprovalResp) Success() bool {
+	return resp.Code == 0
+}
+
+// 1.4 生成请求的builder结构体
+type GetApprovalReqBuilder struct {
+	approvalCode     string
+	approvalCodeFlag bool
+	locale           string
+	localeFlag       bool
+}
+
+// 生成请求的New构造器
+func NewGetApprovalReqBuilder() *GetApprovalReqBuilder {
+	builder := &GetApprovalReqBuilder{}
+	return builder
+}
+
+// 1.5 生成请求的builder属性方法
+func (builder *GetApprovalReqBuilder) ApprovalCode(approvalCode string) *GetApprovalReqBuilder {
+	builder.approvalCode = approvalCode
+	builder.approvalCodeFlag = true
+	return builder
+}
+func (builder *GetApprovalReqBuilder) Locale(locale string) *GetApprovalReqBuilder {
+	builder.locale = locale
+	builder.localeFlag = true
+	return builder
+}
+
+// 1.5 生成请求的builder的build方法
+func (builder *GetApprovalReqBuilder) Build() *GetApprovalReq {
+	req := &GetApprovalReq{}
+	if builder.approvalCodeFlag {
+		req.ApprovalCode = builder.approvalCode
+	}
+	if builder.localeFlag {
+		req.Locale = &builder.locale
+	}
+	return req
+}
+
+type GetApprovalReq struct {
+	ApprovalCode string  `path:"approval_code"`
+	Locale       *string `query:"locale"`
+}
+
+type GetApprovalRespData struct {
+	ApprovalName *string               `json:"approval_name,omitempty"`
+	Status       *string               `json:"status,omitempty"`
+	Form         *string               `json:"form,omitempty"`
+	NodeList     []*ApprovalNodeInfo   `json:"node_list,omitempty"`
+	Viewers      []*ApprovalViewerInfo `json:"viewers,omitempty"`
+}
+
+type GetApprovalResp struct {
+	*core.RawResponse `json:"-"`
+	core.CodeError
+	Data *GetApprovalRespData `json:"data"`
+}
+
+func (resp *GetApprovalResp) Success() bool {
+	return resp.Code == 0
+}
+
+// 1.4 生成请求的builder结构体
+type CreateExternalApprovalReqBuilder struct {
+	departmentIdType     string
+	departmentIdTypeFlag bool
+	userIdType           string
+	userIdTypeFlag       bool
+	externalApproval     *ExternalApproval
+	externalApprovalFlag bool
+}
+
+// 生成请求的New构造器
+func NewCreateExternalApprovalReqBuilder() *CreateExternalApprovalReqBuilder {
+	builder := &CreateExternalApprovalReqBuilder{}
+	return builder
+}
+
+// 1.5 生成请求的builder属性方法
+func (builder *CreateExternalApprovalReqBuilder) DepartmentIdType(departmentIdType string) *CreateExternalApprovalReqBuilder {
+	builder.departmentIdType = departmentIdType
+	builder.departmentIdTypeFlag = true
+	return builder
+}
+func (builder *CreateExternalApprovalReqBuilder) UserIdType(userIdType string) *CreateExternalApprovalReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
+}
+func (builder *CreateExternalApprovalReqBuilder) ExternalApproval(externalApproval *ExternalApproval) *CreateExternalApprovalReqBuilder {
+	builder.externalApproval = externalApproval
+	builder.externalApprovalFlag = true
+	return builder
+}
+
+// 1.5 生成请求的builder的build方法
+func (builder *CreateExternalApprovalReqBuilder) Build() *CreateExternalApprovalReq {
+	req := &CreateExternalApprovalReq{}
+	if builder.departmentIdTypeFlag {
+		req.DepartmentIdType = &builder.departmentIdType
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	if builder.externalApprovalFlag {
+		req.ExternalApproval = builder.externalApproval
+	}
+	return req
+}
+
+type CreateExternalApprovalReq struct {
+	DepartmentIdType *string           `query:"department_id_type"`
+	UserIdType       *string           `query:"user_id_type"`
+	ExternalApproval *ExternalApproval `body:""`
+}
+
+type CreateExternalApprovalRespData struct {
+	ApprovalCode *string `json:"approval_code,omitempty"`
+}
+
+type CreateExternalApprovalResp struct {
+	*core.RawResponse `json:"-"`
+	core.CodeError
+	Data *CreateExternalApprovalRespData `json:"data"`
+}
+
+func (resp *CreateExternalApprovalResp) Success() bool {
+	return resp.Code == 0
+}
+
+type CheckExternalInstanceReqBodyBuilder struct {
+	instances     []*ExteranlInstanceCheck
+	instancesFlag bool
+}
+
+// 生成body的New构造器
+func NewCheckExternalInstanceReqBodyBuilder() *CheckExternalInstanceReqBodyBuilder {
+	builder := &CheckExternalInstanceReqBodyBuilder{}
+	return builder
+}
+
+// 1.2 生成body的builder属性方法
+func (builder *CheckExternalInstanceReqBodyBuilder) Instances(instances []*ExteranlInstanceCheck) *CheckExternalInstanceReqBodyBuilder {
+	builder.instances = instances
+	builder.instancesFlag = true
+	return builder
+}
+
+// 1.3 生成body的build方法
+func (builder *CheckExternalInstanceReqBodyBuilder) Build() *CheckExternalInstanceReqBody {
+	req := &CheckExternalInstanceReqBody{}
+	if builder.instancesFlag {
+		req.Instances = builder.instances
+
+	}
+	return req
+}
+
+// 上传文件path开始
+type CheckExternalInstancePathReqBodyBuilder struct {
+	instances     []*ExteranlInstanceCheck
+	instancesFlag bool
+}
+
+func NewCheckExternalInstancePathReqBodyBuilder() *CheckExternalInstancePathReqBodyBuilder {
+	builder := &CheckExternalInstancePathReqBodyBuilder{}
+	return builder
+}
+func (builder *CheckExternalInstancePathReqBodyBuilder) Instances(instances []*ExteranlInstanceCheck) *CheckExternalInstancePathReqBodyBuilder {
+	builder.instances = instances
+	builder.instancesFlag = true
+	return builder
+}
+
+func (builder *CheckExternalInstancePathReqBodyBuilder) Build() (*CheckExternalInstanceReqBody, error) {
+	req := &CheckExternalInstanceReqBody{}
+	if builder.instancesFlag {
+		req.Instances = builder.instances
+	}
+	return req, nil
+}
+
+// 上传文件path结束
+
+// 1.4 生成请求的builder结构体
+type CheckExternalInstanceReqBuilder struct {
+	body     *CheckExternalInstanceReqBody
+	bodyFlag bool
+}
+
+// 生成请求的New构造器
+func NewCheckExternalInstanceReqBuilder() *CheckExternalInstanceReqBuilder {
+	builder := &CheckExternalInstanceReqBuilder{}
+	return builder
+}
+
+// 1.5 生成请求的builder属性方法
+func (builder *CheckExternalInstanceReqBuilder) Body(body *CheckExternalInstanceReqBody) *CheckExternalInstanceReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
+}
+
+// 1.5 生成请求的builder的build方法
+func (builder *CheckExternalInstanceReqBuilder) Build() *CheckExternalInstanceReq {
+	req := &CheckExternalInstanceReq{}
+	if builder.bodyFlag {
+		req.Body = builder.body
+	}
+	return req
+}
+
+type CheckExternalInstanceReqBody struct {
+	Instances []*ExteranlInstanceCheck `json:"instances,omitempty"`
+}
+
+type CheckExternalInstanceReq struct {
+	Body *CheckExternalInstanceReqBody `body:""`
+}
+
+type CheckExternalInstanceRespData struct {
+	DiffInstances []*ExteranlInstanceCheckResponse `json:"diff_instances,omitempty"`
+}
+
+type CheckExternalInstanceResp struct {
+	*core.RawResponse `json:"-"`
+	core.CodeError
+	Data *CheckExternalInstanceRespData `json:"data"`
+}
+
+func (resp *CheckExternalInstanceResp) Success() bool {
+	return resp.Code == 0
+}
+
+// 1.4 生成请求的builder结构体
+type CreateExternalInstanceReqBuilder struct {
+	externalInstance     *ExternalInstance
+	externalInstanceFlag bool
+}
+
+// 生成请求的New构造器
+func NewCreateExternalInstanceReqBuilder() *CreateExternalInstanceReqBuilder {
+	builder := &CreateExternalInstanceReqBuilder{}
+	return builder
+}
+
+// 1.5 生成请求的builder属性方法
+func (builder *CreateExternalInstanceReqBuilder) ExternalInstance(externalInstance *ExternalInstance) *CreateExternalInstanceReqBuilder {
+	builder.externalInstance = externalInstance
+	builder.externalInstanceFlag = true
+	return builder
+}
+
+// 1.5 生成请求的builder的build方法
+func (builder *CreateExternalInstanceReqBuilder) Build() *CreateExternalInstanceReq {
+	req := &CreateExternalInstanceReq{}
+	if builder.externalInstanceFlag {
+		req.ExternalInstance = builder.externalInstance
+	}
+	return req
+}
+
+type CreateExternalInstanceReq struct {
+	ExternalInstance *ExternalInstance `body:""`
+}
+
+type CreateExternalInstanceRespData struct {
+	Data *ExternalInstance `json:"data,omitempty"`
+}
+
+type CreateExternalInstanceResp struct {
+	*core.RawResponse `json:"-"`
+	core.CodeError
+	Data *CreateExternalInstanceRespData `json:"data"`
+}
+
+func (resp *CreateExternalInstanceResp) Success() bool {
+	return resp.Code == 0
+}
+
 type AddSignInstanceReqBodyBuilder struct {
 	userId             string
 	userIdFlag         bool
@@ -6687,6 +7064,350 @@ func (resp *AddSignInstanceResp) Success() bool {
 	return resp.Code == 0
 }
 
+// 1.4 生成请求的builder结构体
+type CancelInstanceReqBuilder struct {
+	userIdType         string
+	userIdTypeFlag     bool
+	instanceCancel     *InstanceCancel
+	instanceCancelFlag bool
+}
+
+// 生成请求的New构造器
+func NewCancelInstanceReqBuilder() *CancelInstanceReqBuilder {
+	builder := &CancelInstanceReqBuilder{}
+	return builder
+}
+
+// 1.5 生成请求的builder属性方法
+func (builder *CancelInstanceReqBuilder) UserIdType(userIdType string) *CancelInstanceReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
+}
+func (builder *CancelInstanceReqBuilder) InstanceCancel(instanceCancel *InstanceCancel) *CancelInstanceReqBuilder {
+	builder.instanceCancel = instanceCancel
+	builder.instanceCancelFlag = true
+	return builder
+}
+
+// 1.5 生成请求的builder的build方法
+func (builder *CancelInstanceReqBuilder) Build() *CancelInstanceReq {
+	req := &CancelInstanceReq{}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	if builder.instanceCancelFlag {
+		req.InstanceCancel = builder.instanceCancel
+	}
+	return req
+}
+
+type CancelInstanceReq struct {
+	UserIdType     *string         `query:"user_id_type"`
+	InstanceCancel *InstanceCancel `body:""`
+}
+
+type CancelInstanceResp struct {
+	*core.RawResponse `json:"-"`
+	core.CodeError
+}
+
+func (resp *CancelInstanceResp) Success() bool {
+	return resp.Code == 0
+}
+
+// 1.4 生成请求的builder结构体
+type CcInstanceReqBuilder struct {
+	userIdType     string
+	userIdTypeFlag bool
+	instanceCc     *InstanceCc
+	instanceCcFlag bool
+}
+
+// 生成请求的New构造器
+func NewCcInstanceReqBuilder() *CcInstanceReqBuilder {
+	builder := &CcInstanceReqBuilder{}
+	return builder
+}
+
+// 1.5 生成请求的builder属性方法
+func (builder *CcInstanceReqBuilder) UserIdType(userIdType string) *CcInstanceReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
+}
+func (builder *CcInstanceReqBuilder) InstanceCc(instanceCc *InstanceCc) *CcInstanceReqBuilder {
+	builder.instanceCc = instanceCc
+	builder.instanceCcFlag = true
+	return builder
+}
+
+// 1.5 生成请求的builder的build方法
+func (builder *CcInstanceReqBuilder) Build() *CcInstanceReq {
+	req := &CcInstanceReq{}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	if builder.instanceCcFlag {
+		req.InstanceCc = builder.instanceCc
+	}
+	return req
+}
+
+type CcInstanceReq struct {
+	UserIdType *string     `query:"user_id_type"`
+	InstanceCc *InstanceCc `body:""`
+}
+
+type CcInstanceResp struct {
+	*core.RawResponse `json:"-"`
+	core.CodeError
+}
+
+func (resp *CcInstanceResp) Success() bool {
+	return resp.Code == 0
+}
+
+// 1.4 生成请求的builder结构体
+type CreateInstanceReqBuilder struct {
+	instanceCreate     *InstanceCreate
+	instanceCreateFlag bool
+}
+
+// 生成请求的New构造器
+func NewCreateInstanceReqBuilder() *CreateInstanceReqBuilder {
+	builder := &CreateInstanceReqBuilder{}
+	return builder
+}
+
+// 1.5 生成请求的builder属性方法
+func (builder *CreateInstanceReqBuilder) InstanceCreate(instanceCreate *InstanceCreate) *CreateInstanceReqBuilder {
+	builder.instanceCreate = instanceCreate
+	builder.instanceCreateFlag = true
+	return builder
+}
+
+// 1.5 生成请求的builder的build方法
+func (builder *CreateInstanceReqBuilder) Build() *CreateInstanceReq {
+	req := &CreateInstanceReq{}
+	if builder.instanceCreateFlag {
+		req.InstanceCreate = builder.instanceCreate
+	}
+	return req
+}
+
+type CreateInstanceReq struct {
+	InstanceCreate *InstanceCreate `body:""`
+}
+
+type CreateInstanceRespData struct {
+	InstanceCode *string `json:"instance_code,omitempty"`
+}
+
+type CreateInstanceResp struct {
+	*core.RawResponse `json:"-"`
+	core.CodeError
+	Data *CreateInstanceRespData `json:"data"`
+}
+
+func (resp *CreateInstanceResp) Success() bool {
+	return resp.Code == 0
+}
+
+// 1.4 生成请求的builder结构体
+type GetInstanceReqBuilder struct {
+	instanceId     string
+	instanceIdFlag bool
+	locale         string
+	localeFlag     bool
+	userId         string
+	userIdFlag     bool
+	userIdType     string
+	userIdTypeFlag bool
+}
+
+// 生成请求的New构造器
+func NewGetInstanceReqBuilder() *GetInstanceReqBuilder {
+	builder := &GetInstanceReqBuilder{}
+	return builder
+}
+
+// 1.5 生成请求的builder属性方法
+func (builder *GetInstanceReqBuilder) InstanceId(instanceId string) *GetInstanceReqBuilder {
+	builder.instanceId = instanceId
+	builder.instanceIdFlag = true
+	return builder
+}
+func (builder *GetInstanceReqBuilder) Locale(locale string) *GetInstanceReqBuilder {
+	builder.locale = locale
+	builder.localeFlag = true
+	return builder
+}
+func (builder *GetInstanceReqBuilder) UserId(userId string) *GetInstanceReqBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *GetInstanceReqBuilder) UserIdType(userIdType string) *GetInstanceReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
+}
+
+// 1.5 生成请求的builder的build方法
+func (builder *GetInstanceReqBuilder) Build() *GetInstanceReq {
+	req := &GetInstanceReq{}
+	if builder.instanceIdFlag {
+		req.InstanceId = builder.instanceId
+	}
+	if builder.localeFlag {
+		req.Locale = &builder.locale
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	return req
+}
+
+type GetInstanceReq struct {
+	InstanceId string  `path:"instance_id"`
+	Locale     *string `query:"locale"`
+	UserId     *string `query:"user_id"`
+	UserIdType *string `query:"user_id_type"`
+}
+
+type GetInstanceRespData struct {
+	ApprovalName         *string             `json:"approval_name,omitempty"`
+	StartTime            *int64              `json:"start_time,omitempty,string"`
+	EndTime              *int64              `json:"end_time,omitempty,string"`
+	UserId               *string             `json:"user_id,omitempty"`
+	OpenId               *string             `json:"open_id,omitempty"`
+	SerialNumber         *string             `json:"serial_number,omitempty"`
+	DepartmentId         *string             `json:"department_id,omitempty"`
+	Status               *string             `json:"status,omitempty"`
+	Uuid                 *string             `json:"uuid,omitempty"`
+	Form                 *string             `json:"form,omitempty"`
+	TaskList             []*InstanceTask     `json:"task_list,omitempty"`
+	CommentList          []*InstanceComment  `json:"comment_list,omitempty"`
+	Timeline             []*InstanceTimeline `json:"timeline,omitempty"`
+	ModifiedInstanceCode *string             `json:"modified_instance_code,omitempty"`
+	RevertedInstanceCode *string             `json:"reverted_instance_code,omitempty"`
+	ApprovalCode         *string             `json:"approval_code,omitempty"`
+	Reverted             *bool               `json:"reverted,omitempty"`
+}
+
+type GetInstanceResp struct {
+	*core.RawResponse `json:"-"`
+	core.CodeError
+	Data *GetInstanceRespData `json:"data"`
+}
+
+func (resp *GetInstanceResp) Success() bool {
+	return resp.Code == 0
+}
+
+// 1.4 生成请求的builder结构体
+type ListInstanceReqBuilder struct {
+	pageSize         int
+	pageSizeFlag     bool
+	pageToken        string
+	pageTokenFlag    bool
+	approvalCode     string
+	approvalCodeFlag bool
+	startTime        int64
+	startTimeFlag    bool
+	endTime          int64
+	endTimeFlag      bool
+	limit            int
+}
+
+// 生成请求的New构造器
+func NewListInstanceReqBuilder() *ListInstanceReqBuilder {
+	builder := &ListInstanceReqBuilder{}
+	return builder
+}
+
+// 1.5 生成请求的builder属性方法
+func (builder *ListInstanceReqBuilder) Limit(limit int) *ListInstanceReqBuilder {
+	builder.limit = limit
+	return builder
+}
+func (builder *ListInstanceReqBuilder) PageSize(pageSize int) *ListInstanceReqBuilder {
+	builder.pageSize = pageSize
+	builder.pageSizeFlag = true
+	return builder
+}
+func (builder *ListInstanceReqBuilder) PageToken(pageToken string) *ListInstanceReqBuilder {
+	builder.pageToken = pageToken
+	builder.pageTokenFlag = true
+	return builder
+}
+func (builder *ListInstanceReqBuilder) ApprovalCode(approvalCode string) *ListInstanceReqBuilder {
+	builder.approvalCode = approvalCode
+	builder.approvalCodeFlag = true
+	return builder
+}
+func (builder *ListInstanceReqBuilder) StartTime(startTime int64) *ListInstanceReqBuilder {
+	builder.startTime = startTime
+	builder.startTimeFlag = true
+	return builder
+}
+func (builder *ListInstanceReqBuilder) EndTime(endTime int64) *ListInstanceReqBuilder {
+	builder.endTime = endTime
+	builder.endTimeFlag = true
+	return builder
+}
+
+// 1.5 生成请求的builder的build方法
+func (builder *ListInstanceReqBuilder) Build() *ListInstanceReq {
+	req := &ListInstanceReq{}
+	req.Limit = builder.limit
+	if builder.pageSizeFlag {
+		req.PageSize = &builder.pageSize
+	}
+	if builder.pageTokenFlag {
+		req.PageToken = &builder.pageToken
+	}
+	if builder.approvalCodeFlag {
+		req.ApprovalCode = &builder.approvalCode
+	}
+	if builder.startTimeFlag {
+		req.StartTime = &builder.startTime
+	}
+	if builder.endTimeFlag {
+		req.EndTime = &builder.endTime
+	}
+	return req
+}
+
+type ListInstanceReq struct {
+	PageSize     *int    `query:"page_size"`
+	PageToken    *string `query:"page_token"`
+	ApprovalCode *string `query:"approval_code"`
+	StartTime    *int64  `query:"start_time"`
+	EndTime      *int64  `query:"end_time"`
+	Limit        int
+}
+
+type ListInstanceRespData struct {
+	InstanceCodeList []string `json:"instance_code_list,omitempty"`
+	PageToken        *string  `json:"page_token,omitempty"`
+	HasMore          *bool    `json:"has_more,omitempty"`
+}
+
+type ListInstanceResp struct {
+	*core.RawResponse `json:"-"`
+	core.CodeError
+	Data *ListInstanceRespData `json:"data"`
+}
+
+func (resp *ListInstanceResp) Success() bool {
+	return resp.Code == 0
+}
+
 type PreviewInstanceReqBodyBuilder struct {
 	userId           string
 	userIdFlag       bool
@@ -6942,6 +7663,58 @@ func (resp *PreviewInstanceResp) Success() bool {
 }
 
 // 1.4 生成请求的builder结构体
+type ApproveTaskReqBuilder struct {
+	userIdType      string
+	userIdTypeFlag  bool
+	taskApprove     *TaskApprove
+	taskApproveFlag bool
+}
+
+// 生成请求的New构造器
+func NewApproveTaskReqBuilder() *ApproveTaskReqBuilder {
+	builder := &ApproveTaskReqBuilder{}
+	return builder
+}
+
+// 1.5 生成请求的builder属性方法
+func (builder *ApproveTaskReqBuilder) UserIdType(userIdType string) *ApproveTaskReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
+}
+func (builder *ApproveTaskReqBuilder) TaskApprove(taskApprove *TaskApprove) *ApproveTaskReqBuilder {
+	builder.taskApprove = taskApprove
+	builder.taskApproveFlag = true
+	return builder
+}
+
+// 1.5 生成请求的builder的build方法
+func (builder *ApproveTaskReqBuilder) Build() *ApproveTaskReq {
+	req := &ApproveTaskReq{}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	if builder.taskApproveFlag {
+		req.TaskApprove = builder.taskApprove
+	}
+	return req
+}
+
+type ApproveTaskReq struct {
+	UserIdType  *string      `query:"user_id_type"`
+	TaskApprove *TaskApprove `body:""`
+}
+
+type ApproveTaskResp struct {
+	*core.RawResponse `json:"-"`
+	core.CodeError
+}
+
+func (resp *ApproveTaskResp) Success() bool {
+	return resp.Code == 0
+}
+
+// 1.4 生成请求的builder结构体
 type QueryTaskReqBuilder struct {
 	pageSize       int
 	pageSizeFlag   bool
@@ -7041,6 +7814,110 @@ func (resp *QueryTaskResp) Success() bool {
 	return resp.Code == 0
 }
 
+// 1.4 生成请求的builder结构体
+type RejectTaskReqBuilder struct {
+	userIdType      string
+	userIdTypeFlag  bool
+	taskApprove     *TaskApprove
+	taskApproveFlag bool
+}
+
+// 生成请求的New构造器
+func NewRejectTaskReqBuilder() *RejectTaskReqBuilder {
+	builder := &RejectTaskReqBuilder{}
+	return builder
+}
+
+// 1.5 生成请求的builder属性方法
+func (builder *RejectTaskReqBuilder) UserIdType(userIdType string) *RejectTaskReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
+}
+func (builder *RejectTaskReqBuilder) TaskApprove(taskApprove *TaskApprove) *RejectTaskReqBuilder {
+	builder.taskApprove = taskApprove
+	builder.taskApproveFlag = true
+	return builder
+}
+
+// 1.5 生成请求的builder的build方法
+func (builder *RejectTaskReqBuilder) Build() *RejectTaskReq {
+	req := &RejectTaskReq{}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	if builder.taskApproveFlag {
+		req.TaskApprove = builder.taskApprove
+	}
+	return req
+}
+
+type RejectTaskReq struct {
+	UserIdType  *string      `query:"user_id_type"`
+	TaskApprove *TaskApprove `body:""`
+}
+
+type RejectTaskResp struct {
+	*core.RawResponse `json:"-"`
+	core.CodeError
+}
+
+func (resp *RejectTaskResp) Success() bool {
+	return resp.Code == 0
+}
+
+// 1.4 生成请求的builder结构体
+type TransferTaskReqBuilder struct {
+	userIdType       string
+	userIdTypeFlag   bool
+	taskTransfer     *TaskTransfer
+	taskTransferFlag bool
+}
+
+// 生成请求的New构造器
+func NewTransferTaskReqBuilder() *TransferTaskReqBuilder {
+	builder := &TransferTaskReqBuilder{}
+	return builder
+}
+
+// 1.5 生成请求的builder属性方法
+func (builder *TransferTaskReqBuilder) UserIdType(userIdType string) *TransferTaskReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
+}
+func (builder *TransferTaskReqBuilder) TaskTransfer(taskTransfer *TaskTransfer) *TransferTaskReqBuilder {
+	builder.taskTransfer = taskTransfer
+	builder.taskTransferFlag = true
+	return builder
+}
+
+// 1.5 生成请求的builder的build方法
+func (builder *TransferTaskReqBuilder) Build() *TransferTaskReq {
+	req := &TransferTaskReq{}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	if builder.taskTransferFlag {
+		req.TaskTransfer = builder.taskTransfer
+	}
+	return req
+}
+
+type TransferTaskReq struct {
+	UserIdType   *string       `query:"user_id_type"`
+	TaskTransfer *TaskTransfer `body:""`
+}
+
+type TransferTaskResp struct {
+	*core.RawResponse `json:"-"`
+	core.CodeError
+}
+
+func (resp *TransferTaskResp) Success() bool {
+	return resp.Code == 0
+}
+
 // 生成消息事件结构体
 
 type ApprovalUpdatedEventData struct {
@@ -7054,6 +7931,60 @@ type ApprovalUpdatedEvent struct {
 
 // 生成请求的builder构造器
 // 1.1 生成body的builder结构体
+type ListInstanceIterator struct {
+	nextPageToken *string
+	items         []string
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListInstanceReq
+	listFunc      func(ctx context.Context, req *ListInstanceReq, options ...core.RequestOptionFunc) (*ListInstanceResp, error)
+	options       []core.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *ListInstanceIterator) Next() (bool, string, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, "", nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, "", nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.PageToken = iterator.nextPageToken
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, "", err
+		}
+
+		if resp.Code != 0 {
+			return false, "", errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.InstanceCodeList) == 0 {
+			return false, "", nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.InstanceCodeList
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *ListInstanceIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
+
 type QueryTaskIterator struct {
 	nextPageToken *string
 	items         []*Task

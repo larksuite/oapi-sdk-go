@@ -35,6 +35,10 @@ const (
 )
 
 const (
+	CreateGroupTypeAssign = 1
+)
+
+const (
 	MemberIdTypeOpenID  = "open_id"
 	MemberIdTypeUnionID = "union_id"
 	MemberIdTypeUserID  = "user_id"

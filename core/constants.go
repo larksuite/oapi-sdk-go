@@ -9,6 +9,7 @@ const userAgentHeader = "User-Agent"
 
 const (
 	httpHeaderKeyRequestId = "X-Request-Id"
+	httpHeaderRequestId    = "Request-Id"
 	httpHeaderKeyLogId     = "X-Tt-Logid"
 	contentTypeHeader      = "Content-Type"
 	contentTypeJson        = "application/json"

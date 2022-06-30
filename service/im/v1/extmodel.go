@@ -378,14 +378,14 @@ func formatAsString(v reflect.Value, kind reflect.Kind) string {
 消息类型，枚举值
 */
 const (
-	MSG_TYPE_TEXT        string = "text"
-	MSG_TYPE_POST        string = "post"
-	MSG_TYPE_IMAGE       string = "image"
-	MSG_TYPE_FILE        string = "file"
-	MSG_TYPE_AUDIO       string = "audio"
-	MSG_TYPE_MEDIA       string = "media"
-	MSG_TYPE_STICKER     string = "sticker"
-	MSG_TYPE_INTERACTIVE string = "interactive"
-	MSG_TYPE_SHARE_CHAT  string = "share_chat"
-	MSG_TYPE_SHARE_USER  string = "share_user"
+	MsgTypeText        string = "text"
+	MsgTypePost        string = "post"
+	MsgTypeImage       string = "image"
+	MsgTypeFile        string = "file"
+	MsgTypeAudio       string = "audio"
+	MsgTypeMedia       string = "media"
+	MsgTypeSticker     string = "sticker"
+	MsgTypeInteractive string = "interactive"
+	MsgTypeShareChat   string = "share_chat"
+	MsgTypeShareUser   string = "share_user"
 )

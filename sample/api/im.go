@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"io/ioutil"
+	"net/http"
 	"os"
 
 	client "github.com/larksuite/oapi-sdk-go"
@@ -38,7 +39,7 @@ func uploadImage(client *client.Client) {
 }
 
 func uploadFile(client *client.Client) {
-	pdf, err := os.Open("/Users/bytedance/Downloads/open-gateway.pdf")
+	pdf, err := os.Open("/Users/bytedance/Downloads/redis.pdf")
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -49,7 +50,7 @@ func uploadFile(client *client.Client) {
 		im.NewCreateFileReqBuilder().
 			Body(im.NewCreateFileReqBodyBuilder().
 				FileType(im.FileTypePdf).
-				FileName("open-redis.pdf").
+				FileName("redis.pdf").
 				File(pdf).
 				Build()).
 			Build())
@@ -65,7 +66,7 @@ func uploadFile(client *client.Client) {
 
 func uploadImage2(client *client.Client) {
 	body, err := im.NewCreateImagePathReqBodyBuilder().
-		ImagePath("/Users/bytedance/Downloads/a.jpg").
+		ImagePath("/Users/bytedance/Downloads/b.jpg").
 		ImageType(im.ImageTypeMessage).
 		Build()
 	if err != nil {
@@ -85,7 +86,7 @@ func uploadImage2(client *client.Client) {
 }
 
 func downLoadImage(client *client.Client) {
-	resp, err := client.Im.Image.Get(context.Background(), im.NewGetImageReqBuilder().ImageKey("img_v2_cd2657c7-ad1e-410a-8e76-942c89203bfg").Build())
+	resp, err := client.Im.Image.Get(context.Background(), im.NewGetImageReqBuilder().ImageKey("img_v2_9068cbd5-71d8-4799-b29e-a01650b1328g").Build())
 
 	if err != nil {
 		fmt.Println(core.Prettify(err))
@@ -113,7 +114,7 @@ func downLoadImage(client *client.Client) {
 }
 
 func downLoadImageV2(client *client.Client) {
-	resp, err := client.Im.Image.Get(context.Background(), im.NewGetImageReqBuilder().ImageKey("img_v2_cd2657c7-ad1e-410a-8e76-942c89203bfg").Build())
+	resp, err := client.Im.Image.Get(context.Background(), im.NewGetImageReqBuilder().ImageKey("img_v112_cd2657c7-ad1e-410a-8e76-942c89203bfg").Build())
 
 	if err != nil {
 		fmt.Println(err)
@@ -146,14 +147,16 @@ func sendTextMsg(client *client.Client) {
 		return
 	}
 
+	header := make(http.Header)
+
 	resp, err := client.Im.Message.Create(context.Background(), im.NewCreateMessageReqBuilder().
 		ReceiveIdType(im.ReceiveIdTypeOpenId).
 		Body(im.NewCreateMessageReqBodyBuilder().
-			MsgType(im.MSG_TYPE_TEXT).
+			MsgType(im.MsgTypeText).
 			ReceiveId("ou_c245b0a7dff2725cfa2fb104f8b48b9d").
 			Content(content).
 			Build()).
-		Build())
+		Build(), core.WithHeaders(header))
 
 	if err != nil {
 		fmt.Println(err)
@@ -174,7 +177,7 @@ func sendImageMsg(client *client.Client) {
 	resp, err := client.Im.Message.Create(context.Background(), im.NewCreateMessageReqBuilder().
 		ReceiveIdType(im.ReceiveIdTypeOpenId).
 		Body(im.NewCreateMessageReqBodyBuilder().
-			MsgType(im.MSG_TYPE_IMAGE).
+			MsgType(im.MsgTypeImage).
 			ReceiveId("ou_c245b0a7dff2725cfa2fb104f8b48b9d").
 			Content(content).
 			Build()).
@@ -199,7 +202,7 @@ func sendShardChatMsg(client *client.Client) {
 	resp, err := client.Im.Message.Create(context.Background(), im.NewCreateMessageReqBuilder().
 		ReceiveIdType(im.ReceiveIdTypeOpenId).
 		Body(im.NewCreateMessageReqBodyBuilder().
-			MsgType(im.MSG_TYPE_SHARE_CHAT).
+			MsgType(im.MsgTypeShareChat).
 			ReceiveId("ou_c245b0a7dff2725cfa2fb104f8b48b9d").
 			Content(content).
 			Build()).
@@ -224,7 +227,7 @@ func sendShardUserMsg(client *client.Client) {
 	resp, err := client.Im.Message.Create(context.Background(), im.NewCreateMessageReqBuilder().
 		ReceiveIdType(im.ReceiveIdTypeOpenId).
 		Body(im.NewCreateMessageReqBodyBuilder().
-			MsgType(im.MSG_TYPE_SHARE_USER).
+			MsgType(im.MsgTypeShareUser).
 			ReceiveId("ou_c245b0a7dff2725cfa2fb104f8b48b9d").
 			Content(content).
 			Build()).
@@ -249,7 +252,7 @@ func sendAudioMsg(client *client.Client) {
 	resp, err := client.Im.Message.Create(context.Background(), im.NewCreateMessageReqBuilder().
 		ReceiveIdType(im.ReceiveIdTypeOpenId).
 		Body(im.NewCreateMessageReqBodyBuilder().
-			MsgType(im.MSG_TYPE_AUDIO).
+			MsgType(im.MsgTypeAudio).
 			ReceiveId("ou_c245b0a7dff2725cfa2fb104f8b48b9d").
 			Content(content).
 			Build()).
@@ -274,7 +277,7 @@ func sendMediaMsg(client *client.Client) {
 	resp, err := client.Im.Message.Create(context.Background(), im.NewCreateMessageReqBuilder().
 		ReceiveIdType(im.ReceiveIdTypeOpenId).
 		Body(im.NewCreateMessageReqBodyBuilder().
-			MsgType(im.MSG_TYPE_MEDIA).
+			MsgType(im.MsgTypeMedia).
 			ReceiveId("ou_c245b0a7dff2725cfa2fb104f8b48b9d").
 			Content(content).
 			Build()).
@@ -299,7 +302,7 @@ func sendFileMsg(client *client.Client) {
 	resp, err := client.Im.Message.Create(context.Background(), im.NewCreateMessageReqBuilder().
 		ReceiveIdType(im.ReceiveIdTypeOpenId).
 		Body(im.NewCreateMessageReqBodyBuilder().
-			MsgType(im.MSG_TYPE_FILE).
+			MsgType(im.MsgTypeFile).
 			ReceiveId("ou_c245b0a7dff2725cfa2fb104f8b48b9d").
 			Content(content).
 			Build()).
@@ -324,7 +327,7 @@ func sendStickerMsg(client *client.Client) {
 	resp, err := client.Im.Message.Create(context.Background(), im.NewCreateMessageReqBuilder().
 		ReceiveIdType(im.ReceiveIdTypeChatId).
 		Body(im.NewCreateMessageReqBodyBuilder().
-			MsgType(im.MSG_TYPE_STICKER).
+			MsgType(im.MsgTypeSticker).
 			ReceiveId("121212").
 			Content(content).
 			Build()).
@@ -359,7 +362,7 @@ func sendPostMsg(client *client.Client) {
 	resp, err := client.Im.Message.Create(context.Background(), im.NewCreateMessageReqBuilder().
 		ReceiveIdType(im.ReceiveIdTypeOpenId).
 		Body(im.NewCreateMessageReqBodyBuilder().
-			MsgType(im.MSG_TYPE_POST).
+			MsgType(im.MsgTypePost).
 			ReceiveId("ou_c245b0a7dff2725cfa2fb104f8b48b9d").
 			Content(content).
 			Build()).
@@ -409,7 +412,7 @@ func sendPostMsgUseBuilder(client *client.Client) {
 	resp, err := client.Im.Message.Create(context.Background(), im.NewCreateMessageReqBuilder().
 		ReceiveIdType(im.ReceiveIdTypeOpenId).
 		Body(im.NewCreateMessageReqBodyBuilder().
-			MsgType(im.MSG_TYPE_POST).
+			MsgType(im.MsgTypePost).
 			ReceiveId("ou_c245b0a7dff2725cfa2fb104f8b48b9d").
 			Content(postText).
 			Build()).
@@ -477,16 +480,14 @@ func testCreate(client *client.Client) {
 func main() {
 	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
 
-	var feishu_client = client.NewClient(appID, appSecret, client.WithLogLevel(core.LogLevelInfo))
+	var feishu_client = client.NewClient(appID, appSecret, client.WithLogLevel(core.LogLevelDebug), client.WithLogReqRespInfoAtDebugLevel(false))
 
 	//downLoadImageV2(feishu_client)
 	//uploadImage(feishu_client)
 	//uploadImage(client)
-	//downLoadImage(client)
+	//downLoadImage(feishu_client)
 	//uploadImage2(feishu_client)
-	for i := 0; i < 2; i++ {
-		sendTextMsg(feishu_client)
-	}
+	sendTextMsg(feishu_client)
 	//sendImageMsg(feishu_client)
 	//uploadFile(feishu_client)
 	//sendFileMsg(feishu_client)
