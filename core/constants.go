@@ -19,8 +19,8 @@ const (
 type AppType string
 
 const (
-	AppTypeCustom      AppType = "Custom App"
-	AppTypeMarketplace AppType = "Marketplace App"
+	AppTypeSelfBuilt   AppType = "SelfBuilt"
+	AppTypeMarketplace AppType = "Marketplace"
 )
 
 const (

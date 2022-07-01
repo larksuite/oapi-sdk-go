@@ -22,7 +22,7 @@ func createClientWithAllOptions() {
 	var feishu_client = client.NewClient("appID", "appSecret",
 		client.WithLogLevel(core.LogLevelDebug),
 		client.WithDomain(client.LarkDomain),
-		client.WithAppType(core.AppTypeCustom),
+		client.WithAppType(core.AppTypeSelfBuilt),
 		client.WithReqTimeout(3*time.Second),
 		client.WithDisableTokenCache(),
 		client.WithHelpdeskCredential("id", "token"),

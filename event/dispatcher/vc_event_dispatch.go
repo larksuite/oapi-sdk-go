@@ -6,75 +6,75 @@ import (
 	"github.com/larksuite/oapi-sdk-go/service/vc/v1"
 )
 
-func (dispatcher *EventDispatcher) OnMeetingJoinMeetingV1(handler func(ctx context.Context, event *vc.MeetingJoinMeetingEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnMeetingJoinMeetingV1(handler func(ctx context.Context, event *larkvc.MeetingJoinMeetingEvent) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["vc.meeting.join_meeting_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "vc.meeting.join_meeting_v1")
 	}
-	dispatcher.eventType2EventHandler["vc.meeting.join_meeting_v1"] = vc.NewMeetingJoinMeetingEventHandler(handler)
+	dispatcher.eventType2EventHandler["vc.meeting.join_meeting_v1"] = larkvc.NewMeetingJoinMeetingEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnMeetingLeaveMeetingV1(handler func(ctx context.Context, event *vc.MeetingLeaveMeetingEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnMeetingLeaveMeetingV1(handler func(ctx context.Context, event *larkvc.MeetingLeaveMeetingEvent) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["vc.meeting.leave_meeting_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "vc.meeting.leave_meeting_v1")
 	}
-	dispatcher.eventType2EventHandler["vc.meeting.leave_meeting_v1"] = vc.NewMeetingLeaveMeetingEventHandler(handler)
+	dispatcher.eventType2EventHandler["vc.meeting.leave_meeting_v1"] = larkvc.NewMeetingLeaveMeetingEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnMeetingMeetingEndedV1(handler func(ctx context.Context, event *vc.MeetingMeetingEndedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnMeetingEndedV1(handler func(ctx context.Context, event *larkvc.MeetingMeetingEndedEvent) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["vc.meeting.meeting_ended_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "vc.meeting.meeting_ended_v1")
 	}
-	dispatcher.eventType2EventHandler["vc.meeting.meeting_ended_v1"] = vc.NewMeetingMeetingEndedEventHandler(handler)
+	dispatcher.eventType2EventHandler["vc.meeting.meeting_ended_v1"] = larkvc.NewMeetingMeetingEndedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnMeetingMeetingStartedV1(handler func(ctx context.Context, event *vc.MeetingMeetingStartedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnMeetingStartedV1(handler func(ctx context.Context, event *larkvc.MeetingMeetingStartedEvent) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["vc.meeting.meeting_started_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "vc.meeting.meeting_started_v1")
 	}
-	dispatcher.eventType2EventHandler["vc.meeting.meeting_started_v1"] = vc.NewMeetingMeetingStartedEventHandler(handler)
+	dispatcher.eventType2EventHandler["vc.meeting.meeting_started_v1"] = larkvc.NewMeetingMeetingStartedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnMeetingRecordingEndedV1(handler func(ctx context.Context, event *vc.MeetingRecordingEndedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnMeetingRecordingEndedV1(handler func(ctx context.Context, event *larkvc.MeetingRecordingEndedEvent) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["vc.meeting.recording_ended_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "vc.meeting.recording_ended_v1")
 	}
-	dispatcher.eventType2EventHandler["vc.meeting.recording_ended_v1"] = vc.NewMeetingRecordingEndedEventHandler(handler)
+	dispatcher.eventType2EventHandler["vc.meeting.recording_ended_v1"] = larkvc.NewMeetingRecordingEndedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnMeetingRecordingReadyV1(handler func(ctx context.Context, event *vc.MeetingRecordingReadyEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnMeetingRecordingReadyV1(handler func(ctx context.Context, event *larkvc.MeetingRecordingReadyEvent) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["vc.meeting.recording_ready_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "vc.meeting.recording_ready_v1")
 	}
-	dispatcher.eventType2EventHandler["vc.meeting.recording_ready_v1"] = vc.NewMeetingRecordingReadyEventHandler(handler)
+	dispatcher.eventType2EventHandler["vc.meeting.recording_ready_v1"] = larkvc.NewMeetingRecordingReadyEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnMeetingRecordingStartedV1(handler func(ctx context.Context, event *vc.MeetingRecordingStartedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnMeetingRecordingStartedV1(handler func(ctx context.Context, event *larkvc.MeetingRecordingStartedEvent) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["vc.meeting.recording_started_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "vc.meeting.recording_started_v1")
 	}
-	dispatcher.eventType2EventHandler["vc.meeting.recording_started_v1"] = vc.NewMeetingRecordingStartedEventHandler(handler)
+	dispatcher.eventType2EventHandler["vc.meeting.recording_started_v1"] = larkvc.NewMeetingRecordingStartedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnMeetingShareEndedV1(handler func(ctx context.Context, event *vc.MeetingShareEndedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnMeetingShareEndedV1(handler func(ctx context.Context, event *larkvc.MeetingShareEndedEvent) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["vc.meeting.share_ended_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "vc.meeting.share_ended_v1")
 	}
-	dispatcher.eventType2EventHandler["vc.meeting.share_ended_v1"] = vc.NewMeetingShareEndedEventHandler(handler)
+	dispatcher.eventType2EventHandler["vc.meeting.share_ended_v1"] = larkvc.NewMeetingShareEndedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnMeetingShareStartedV1(handler func(ctx context.Context, event *vc.MeetingShareStartedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnMeetingShareStartedV1(handler func(ctx context.Context, event *larkvc.MeetingShareStartedEvent) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["vc.meeting.share_started_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "vc.meeting.share_started_v1")
 	}
-	dispatcher.eventType2EventHandler["vc.meeting.share_started_v1"] = vc.NewMeetingShareStartedEventHandler(handler)
+	dispatcher.eventType2EventHandler["vc.meeting.share_started_v1"] = larkvc.NewMeetingShareStartedEventHandler(handler)
 	return dispatcher
 }

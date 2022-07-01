@@ -6,91 +6,91 @@ import (
 	"github.com/larksuite/oapi-sdk-go/service/im/v1"
 )
 
-func (dispatcher *EventDispatcher) OnChatDisbandedV1(handler func(ctx context.Context, event *im.ChatDisbandedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnChatDisbandedV1(handler func(ctx context.Context, event *larkim.ChatDisbandedEvent) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["im.chat.disbanded_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "im.chat.disbanded_v1")
 	}
-	dispatcher.eventType2EventHandler["im.chat.disbanded_v1"] = im.NewChatDisbandedEventHandler(handler)
+	dispatcher.eventType2EventHandler["im.chat.disbanded_v1"] = larkim.NewChatDisbandedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnChatUpdatedV1(handler func(ctx context.Context, event *im.ChatUpdatedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnChatUpdatedV1(handler func(ctx context.Context, event *larkim.ChatUpdatedEvent) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["im.chat.updated_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "im.chat.updated_v1")
 	}
-	dispatcher.eventType2EventHandler["im.chat.updated_v1"] = im.NewChatUpdatedEventHandler(handler)
+	dispatcher.eventType2EventHandler["im.chat.updated_v1"] = larkim.NewChatUpdatedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnChatMemberBotAddedV1(handler func(ctx context.Context, event *im.ChatMemberBotAddedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnChatMemberBotAddedV1(handler func(ctx context.Context, event *larkim.ChatMemberBotAddedEvent) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["im.chat.member.bot.added_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "im.chat.member.bot.added_v1")
 	}
-	dispatcher.eventType2EventHandler["im.chat.member.bot.added_v1"] = im.NewChatMemberBotAddedEventHandler(handler)
+	dispatcher.eventType2EventHandler["im.chat.member.bot.added_v1"] = larkim.NewChatMemberBotAddedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnChatMemberBotDeletedV1(handler func(ctx context.Context, event *im.ChatMemberBotDeletedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnChatMemberBotDeletedV1(handler func(ctx context.Context, event *larkim.ChatMemberBotDeletedEvent) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["im.chat.member.bot.deleted_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "im.chat.member.bot.deleted_v1")
 	}
-	dispatcher.eventType2EventHandler["im.chat.member.bot.deleted_v1"] = im.NewChatMemberBotDeletedEventHandler(handler)
+	dispatcher.eventType2EventHandler["im.chat.member.bot.deleted_v1"] = larkim.NewChatMemberBotDeletedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnChatMemberUserAddedV1(handler func(ctx context.Context, event *im.ChatMemberUserAddedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnChatMemberUserAddedV1(handler func(ctx context.Context, event *larkim.ChatMemberUserAddedEvent) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["im.chat.member.user.added_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "im.chat.member.user.added_v1")
 	}
-	dispatcher.eventType2EventHandler["im.chat.member.user.added_v1"] = im.NewChatMemberUserAddedEventHandler(handler)
+	dispatcher.eventType2EventHandler["im.chat.member.user.added_v1"] = larkim.NewChatMemberUserAddedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnChatMemberUserDeletedV1(handler func(ctx context.Context, event *im.ChatMemberUserDeletedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnChatMemberUserDeletedV1(handler func(ctx context.Context, event *larkim.ChatMemberUserDeletedEvent) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["im.chat.member.user.deleted_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "im.chat.member.user.deleted_v1")
 	}
-	dispatcher.eventType2EventHandler["im.chat.member.user.deleted_v1"] = im.NewChatMemberUserDeletedEventHandler(handler)
+	dispatcher.eventType2EventHandler["im.chat.member.user.deleted_v1"] = larkim.NewChatMemberUserDeletedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnChatMemberUserWithdrawnV1(handler func(ctx context.Context, event *im.ChatMemberUserWithdrawnEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnChatMemberUserWithdrawnV1(handler func(ctx context.Context, event *larkim.ChatMemberUserWithdrawnEvent) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["im.chat.member.user.withdrawn_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "im.chat.member.user.withdrawn_v1")
 	}
-	dispatcher.eventType2EventHandler["im.chat.member.user.withdrawn_v1"] = im.NewChatMemberUserWithdrawnEventHandler(handler)
+	dispatcher.eventType2EventHandler["im.chat.member.user.withdrawn_v1"] = larkim.NewChatMemberUserWithdrawnEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnMessageMessageReadV1(handler func(ctx context.Context, event *im.MessageMessageReadEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnMessageReadV1(handler func(ctx context.Context, event *larkim.MessageMessageReadEvent) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["im.message.message_read_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "im.message.message_read_v1")
 	}
-	dispatcher.eventType2EventHandler["im.message.message_read_v1"] = im.NewMessageMessageReadEventHandler(handler)
+	dispatcher.eventType2EventHandler["im.message.message_read_v1"] = larkim.NewMessageMessageReadEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnMessageReceiveV1(handler func(ctx context.Context, event *im.MessageReceiveEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnMessageReceiveV1(handler func(ctx context.Context, event *larkim.MessageReceiveEvent) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["im.message.receive_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "im.message.receive_v1")
 	}
-	dispatcher.eventType2EventHandler["im.message.receive_v1"] = im.NewMessageReceiveEventHandler(handler)
+	dispatcher.eventType2EventHandler["im.message.receive_v1"] = larkim.NewMessageReceiveEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnMessageReactionCreatedV1(handler func(ctx context.Context, event *im.MessageReactionCreatedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnMessageReactionCreatedV1(handler func(ctx context.Context, event *larkim.MessageReactionCreatedEvent) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["im.message.reaction.created_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "im.message.reaction.created_v1")
 	}
-	dispatcher.eventType2EventHandler["im.message.reaction.created_v1"] = im.NewMessageReactionCreatedEventHandler(handler)
+	dispatcher.eventType2EventHandler["im.message.reaction.created_v1"] = larkim.NewMessageReactionCreatedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnMessageReactionDeletedV1(handler func(ctx context.Context, event *im.MessageReactionDeletedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnMessageReactionDeletedV1(handler func(ctx context.Context, event *larkim.MessageReactionDeletedEvent) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["im.message.reaction.deleted_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "im.message.reaction.deleted_v1")
 	}
-	dispatcher.eventType2EventHandler["im.message.reaction.deleted_v1"] = im.NewMessageReactionDeletedEventHandler(handler)
+	dispatcher.eventType2EventHandler["im.message.reaction.deleted_v1"] = larkim.NewMessageReactionDeletedEventHandler(handler)
 	return dispatcher
 }

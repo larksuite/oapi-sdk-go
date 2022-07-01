@@ -52,6 +52,7 @@ func validate(config *Config, option *RequestOption, accessTokenType AccessToken
 	if config.AppId == "" {
 		return &IllegalParamError{msg: "AppId is empty"}
 	}
+
 	if config.AppSecret == "" {
 		return &IllegalParamError{msg: "AppSecret is empty"}
 	}
@@ -123,21 +124,18 @@ type applyAppTicketReq struct {
 
 func SendRequest(ctx context.Context, config *Config, httpMethod string, httpPath string,
 	accessTokenTypes []AccessTokenType, input interface{}, options ...RequestOptionFunc) (*RawResponse, error) {
-
 	option := &RequestOption{}
 	for _, optionFunc := range options {
 		optionFunc(option)
 	}
 
 	accessTokenType := determineTokenType(accessTokenTypes, option, config.EnableTokenCache)
-
 	err := validate(config, option, accessTokenType)
 	if err != nil {
 		return nil, err
 	}
 
 	rawResp, err := doSendRequest(ctx, config, httpMethod, httpPath, accessTokenType, input, option)
-
 	return rawResp, err
 }
 
@@ -197,13 +195,11 @@ func doSendRequest(ctx context.Context, config *Config, httpMethod string, httpP
 			code != errCodeTenantAccessTokenInvalid {
 			break
 		}
-
 	}
 
 	if errResult != nil {
 		return nil, errResult
 	}
-
 	return rawResp, nil
 }
 

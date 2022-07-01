@@ -13,8 +13,8 @@ import (
 )
 
 func createDocument(client *client.Client) {
-	resp, err := client.Docx.Document.Create(context.Background(), docx.NewCreateDocumentReqBuilder().
-		Body(docx.NewCreateDocumentReqBodyBuilder().
+	resp, err := client.Docx.Document.Create(context.Background(), larkdocx.NewCreateDocumentReqBuilder().
+		Body(larkdocx.NewCreateDocumentReqBodyBuilder().
 			FolderToken("token").
 			Title("title").
 			Build()).
@@ -29,7 +29,7 @@ func createDocument(client *client.Client) {
 
 func listBlocks(client *client.Client) {
 	resp, err := client.Docx.DocumentBlock.List(context.Background(),
-		docx.NewListDocumentBlockReqBuilder().
+		larkdocx.NewListDocumentBlockReqBuilder().
 			DocumentId("doxcnku1W0IhiZBDPkxlEVSn6Tf").
 			PageSize(100).
 			Build(), core.WithUserAccessToken("u-3vEh2SpiF2WoJzYJOdiGKQ41mJrQ1hebh0G0hg.02CgW"),
@@ -48,7 +48,7 @@ func listBlocks(client *client.Client) {
 
 func downloadFile(client *client.Client) {
 	resp, err := client.Drive.File.Download(context.Background(),
-		drive.NewDownloadFileReqBuilder().
+		larkdrive.NewDownloadFileReqBuilder().
 			FileToken("boxcnTrRml0GB9E3NFDEyNtMeOb").
 			Build(),
 		core.WithUserAccessToken("u-11ETll3Kd1O8NxVwd_uVVN0hnoUAlhcbWi00kg.yyIsw"))
@@ -72,7 +72,7 @@ func listBlocksIter(client *client.Client) {
 	}()
 
 	iter, err := client.Docx.DocumentBlock.ListDocumentBlock(context.Background(),
-		docx.NewListDocumentBlockReqBuilder().
+		larkdocx.NewListDocumentBlockReqBuilder().
 			DocumentId("doxcnku1W0IhiZBDPkxlEVSn6Tf").
 			PageSize(1).
 			Limit(3).

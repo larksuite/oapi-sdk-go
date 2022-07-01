@@ -14,7 +14,7 @@ func mockConfig() *core.Config {
 		Logger:           core.NewEventLogger(),
 		LogLevel:         core.LogLevelDebug,
 		EnableTokenCache: true,
-		AppType:          core.AppTypeCustom,
+		AppType:          core.AppTypeSelfBuilt,
 		Domain:           "https://open.feishu.cn",
 	}
 	return config

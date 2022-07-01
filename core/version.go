@@ -1,3 +1,3 @@
 package core
 
-const version = "v2.0.8"
+const version = "v3.0.0"

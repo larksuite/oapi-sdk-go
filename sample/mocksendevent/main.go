@@ -14,14 +14,14 @@ import (
 )
 
 type EventV2Body struct {
-	contact.UserCreatedEvent        // 什么类型消息就替换为什么
-	Challenge                string `json:"challenge"`
-	Type                     string `json:"type"`
+	larkcontact.UserCreatedEvent        // 什么类型消息就替换为什么
+	Challenge                    string `json:"challenge"`
+	Type                         string `json:"type"`
 }
 
 func mockEncryptedBody(encrypteKey string) []byte {
 
-	userEvent := &contact.UserEvent{
+	userEvent := &larkcontact.UserEvent{
 		OpenId:     core.StringPtr("ou_7dab8a3d3cdcc9da365777c7ad535d62"),
 		UnionId:    core.StringPtr("on_576833b917gda3d939b9a3c2d53e72c8"),
 		UserId:     core.StringPtr("e33ggbyz"),
@@ -29,7 +29,7 @@ func mockEncryptedBody(encrypteKey string) []byte {
 		EmployeeNo: core.StringPtr("employee_no"),
 	}
 
-	usersCreatedEvent := contact.UserCreatedEvent{
+	usersCreatedEvent := larkcontact.UserCreatedEvent{
 		EventV2Base: &event.EventV2Base{
 			Schema: "2.0",
 			Header: &event.EventHeader{
@@ -41,7 +41,7 @@ func mockEncryptedBody(encrypteKey string) []byte {
 				Token:      "v",
 			},
 		},
-		Event: &contact.UserCreatedEventData{Object: userEvent},
+		Event: &larkcontact.UserCreatedEventData{Object: userEvent},
 	}
 
 	eventBody := EventV2Body{
@@ -60,7 +60,7 @@ func mockEncryptedBody(encrypteKey string) []byte {
 }
 
 func mockEvent() []byte {
-	userEvent := &contact.UserEvent{
+	userEvent := &larkcontact.UserEvent{
 		OpenId:     core.StringPtr("ou_7dab8a3d3cdcc9da365777c7ad535d62"),
 		UnionId:    core.StringPtr("on_576833b917gda3d939b9a3c2d53e72c8"),
 		UserId:     core.StringPtr("e33ggbyz"),
@@ -68,7 +68,7 @@ func mockEvent() []byte {
 		EmployeeNo: core.StringPtr("employee_no"),
 	}
 
-	usersCreatedEvent := contact.UserCreatedEvent{
+	usersCreatedEvent := larkcontact.UserCreatedEvent{
 		EventV2Base: &event.EventV2Base{
 			Schema: "2.0",
 			Header: &event.EventHeader{
@@ -80,7 +80,7 @@ func mockEvent() []byte {
 				Token:      "v",
 			},
 		},
-		Event: &contact.UserCreatedEventData{Object: userEvent},
+		Event: &larkcontact.UserCreatedEventData{Object: userEvent},
 	}
 
 	eventBody := EventV2Body{
@@ -95,7 +95,6 @@ func mockEvent() []byte {
 }
 
 func mockAppTicketEvent() []byte {
-
 	body := "{\"ts\":\"\",\"uuid\":\"\",\"token\":\"1212121212\",\"type\":\"\",\"event\":{\"app_id\":\"jiaduoappId\",\"type\":\"app_ticket\",\"app_ticket\":\"AppTicketvalue\"}}"
 	return []byte(body)
 }

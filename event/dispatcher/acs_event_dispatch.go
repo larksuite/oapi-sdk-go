@@ -6,19 +6,19 @@ import (
 	"github.com/larksuite/oapi-sdk-go/service/acs/v1"
 )
 
-func (dispatcher *EventDispatcher) OnAccessRecordCreatedV1(handler func(ctx context.Context, event *acs.AccessRecordCreatedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnAccessRecordCreatedV1(handler func(ctx context.Context, event *larkacs.AccessRecordCreatedEvent) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["acs.access_record.created_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "acs.access_record.created_v1")
 	}
-	dispatcher.eventType2EventHandler["acs.access_record.created_v1"] = acs.NewAccessRecordCreatedEventHandler(handler)
+	dispatcher.eventType2EventHandler["acs.access_record.created_v1"] = larkacs.NewAccessRecordCreatedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnUserUpdatedV1(handler func(ctx context.Context, event *acs.UserUpdatedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnUserUpdatedV1(handler func(ctx context.Context, event *larkacs.UserUpdatedEvent) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["acs.user.updated_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "acs.user.updated_v1")
 	}
-	dispatcher.eventType2EventHandler["acs.user.updated_v1"] = acs.NewUserUpdatedEventHandler(handler)
+	dispatcher.eventType2EventHandler["acs.user.updated_v1"] = larkacs.NewUserUpdatedEventHandler(handler)
 	return dispatcher
 }

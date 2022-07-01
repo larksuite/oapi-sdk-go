@@ -1,4 +1,4 @@
-package im
+package larkim
 
 import (
 	"encoding/json"

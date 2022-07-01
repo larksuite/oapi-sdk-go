@@ -402,7 +402,7 @@ func isEmptyValue(v reflect.Value) bool {
 }
 
 func userAgent() string {
-	return fmt.Sprintf("oapi-sdk-go-v3/%s", version)
+	return fmt.Sprintf("oapi-sdk-go/%s", version)
 }
 
 func readResponse(resp *http.Response) ([]byte, error) {
@@ -472,7 +472,6 @@ func cBCEncrypter(buf []byte, keyStr string) ([]byte, error) {
 	return ciphertext, nil
 }
 func EncryptedEventMsg(ctx context.Context, data interface{}, encryptKey string) (string, error) {
-
 	var bs []byte
 	var err error
 

@@ -37,7 +37,6 @@ func (translator *ReqTranslator) translate(ctx context.Context, input interface{
 	if err != nil {
 		return nil, err
 	}
-
 	return req, nil
 }
 func authorizationToHeader(req *http.Request, token string) {

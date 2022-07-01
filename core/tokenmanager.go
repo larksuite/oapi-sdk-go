@@ -23,7 +23,7 @@ func (m *TokenManager) getAppAccessToken(ctx context.Context, config *Config) (s
 
 	appType := config.AppType
 	if token == "" {
-		if appType == AppTypeCustom {
+		if appType == AppTypeSelfBuilt {
 			token, err = m.getCustomAppAccessTokenThenCache(ctx, config)
 			if err != nil {
 				return "", err
@@ -37,7 +37,6 @@ func (m *TokenManager) getAppAccessToken(ctx context.Context, config *Config) (s
 			return token, nil
 		}
 	}
-
 	return token, nil
 }
 
@@ -48,7 +47,7 @@ func (m *TokenManager) getTenantAccessToken(ctx context.Context, config *Config,
 	}
 
 	if token == "" {
-		if config.AppType == AppTypeCustom {
+		if config.AppType == AppTypeSelfBuilt {
 			token, err = m.getCustomTenantAccessTokenThenCache(ctx, config, tenantKey)
 			if err != nil {
 				return "", err
@@ -62,7 +61,6 @@ func (m *TokenManager) getTenantAccessToken(ctx context.Context, config *Config,
 			return token, nil
 		}
 	}
-
 	return token, nil
 }
 

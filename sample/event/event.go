@@ -16,13 +16,13 @@ import (
 func main() {
 
 	//1212121212
-	handler := dispatcher.NewEventDispatcher("v", "1212121212").OnMessageReceiveV1(func(ctx context.Context, event *im.MessageReceiveEvent) error {
+	handler := dispatcher.NewEventDispatcher("v", "1212121212").OnMessageReceiveV1(func(ctx context.Context, event *larkim.MessageReceiveEvent) error {
 		fmt.Println(core.Prettify(event))
 		return nil
-	}).OnMessageMessageReadV1(func(ctx context.Context, event *im.MessageMessageReadEvent) error {
+	}).OnMessageReadV1(func(ctx context.Context, event *larkim.MessageMessageReadEvent) error {
 		fmt.Println(core.Prettify(event))
 		return nil
-	}).OnUserCreatedV3(func(ctx context.Context, event *contact.UserCreatedEvent) error {
+	}).OnUserCreatedV3(func(ctx context.Context, event *larkcontact.UserCreatedEvent) error {
 		fmt.Println(core.Prettify(event))
 		return nil
 	})

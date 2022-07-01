@@ -76,7 +76,6 @@ func NewLogger(config *Config) {
 		})
 		config.Logger = logger
 	}
-
 }
 
 func NewEventLogger() Logger {

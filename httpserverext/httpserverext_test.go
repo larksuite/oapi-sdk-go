@@ -22,10 +22,10 @@ func TestStartHttpServer(t *testing.T) {
 	})
 
 	// 创建事件处理器
-	handler := dispatcher.NewEventDispatcher("v", "1212121212").OnMessageReceiveV1(func(ctx context.Context, event *im.MessageReceiveEvent) error {
+	handler := dispatcher.NewEventDispatcher("v", "1212121212").OnMessageReceiveV1(func(ctx context.Context, event *larkim.MessageReceiveEvent) error {
 		fmt.Println(core.Prettify(event))
 		return nil
-	}).OnMessageMessageReadV1(func(ctx context.Context, event *im.MessageMessageReadEvent) error {
+	}).OnMessageReadV1(func(ctx context.Context, event *larkim.MessageMessageReadEvent) error {
 		fmt.Println(core.Prettify(event))
 		return nil
 	})

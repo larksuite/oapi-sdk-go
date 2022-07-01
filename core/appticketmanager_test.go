@@ -16,7 +16,7 @@ func mockConfig() *Config {
 		LogLevel:         LogLevelInfo,
 		EnableTokenCache: true,
 		HttpClient:       http.DefaultClient,
-		AppType:          AppTypeCustom,
+		AppType:          AppTypeSelfBuilt,
 		Domain:           "https://www.baidu.com",
 	}
 	return config

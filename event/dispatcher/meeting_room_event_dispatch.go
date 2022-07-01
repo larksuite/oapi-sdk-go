@@ -6,35 +6,35 @@ import (
 	"github.com/larksuite/oapi-sdk-go/service/meeting_room/v1"
 )
 
-func (dispatcher *EventDispatcher) OnMeetingRoomCreatedV1(handler func(ctx context.Context, event *meeting_room.MeetingRoomCreatedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnMeetingRoomCreatedV1(handler func(ctx context.Context, event *larkmeeting_room.MeetingRoomCreatedEvent) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["meeting_room.meeting_room.created_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "meeting_room.meeting_room.created_v1")
 	}
-	dispatcher.eventType2EventHandler["meeting_room.meeting_room.created_v1"] = meeting_room.NewMeetingRoomCreatedEventHandler(handler)
+	dispatcher.eventType2EventHandler["meeting_room.meeting_room.created_v1"] = larkmeeting_room.NewMeetingRoomCreatedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnMeetingRoomDeletedV1(handler func(ctx context.Context, event *meeting_room.MeetingRoomDeletedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnMeetingRoomDeletedV1(handler func(ctx context.Context, event *larkmeeting_room.MeetingRoomDeletedEvent) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["meeting_room.meeting_room.deleted_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "meeting_room.meeting_room.deleted_v1")
 	}
-	dispatcher.eventType2EventHandler["meeting_room.meeting_room.deleted_v1"] = meeting_room.NewMeetingRoomDeletedEventHandler(handler)
+	dispatcher.eventType2EventHandler["meeting_room.meeting_room.deleted_v1"] = larkmeeting_room.NewMeetingRoomDeletedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnMeetingRoomStatusChangedV1(handler func(ctx context.Context, event *meeting_room.MeetingRoomStatusChangedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnMeetingRoomStatusChangedV1(handler func(ctx context.Context, event *larkmeeting_room.MeetingRoomStatusChangedEvent) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["meeting_room.meeting_room.status_changed_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "meeting_room.meeting_room.status_changed_v1")
 	}
-	dispatcher.eventType2EventHandler["meeting_room.meeting_room.status_changed_v1"] = meeting_room.NewMeetingRoomStatusChangedEventHandler(handler)
+	dispatcher.eventType2EventHandler["meeting_room.meeting_room.status_changed_v1"] = larkmeeting_room.NewMeetingRoomStatusChangedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnMeetingRoomUpdatedV1(handler func(ctx context.Context, event *meeting_room.MeetingRoomUpdatedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnMeetingRoomUpdatedV1(handler func(ctx context.Context, event *larkmeeting_room.MeetingRoomUpdatedEvent) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["meeting_room.meeting_room.updated_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "meeting_room.meeting_room.updated_v1")
 	}
-	dispatcher.eventType2EventHandler["meeting_room.meeting_room.updated_v1"] = meeting_room.NewMeetingRoomUpdatedEventHandler(handler)
+	dispatcher.eventType2EventHandler["meeting_room.meeting_room.updated_v1"] = larkmeeting_room.NewMeetingRoomUpdatedEventHandler(handler)
 	return dispatcher
 }

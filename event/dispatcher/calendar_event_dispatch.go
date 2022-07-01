@@ -6,35 +6,35 @@ import (
 	"github.com/larksuite/oapi-sdk-go/service/calendar/v4"
 )
 
-func (dispatcher *EventDispatcher) OnCalendarChangedV4(handler func(ctx context.Context, event *calendar.CalendarChangedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnCalendarChangedV4(handler func(ctx context.Context, event *larkcalendar.CalendarChangedEvent) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["calendar.calendar.changed_v4"]
 	if existed {
 		panic("event: multiple handler registrations for " + "calendar.calendar.changed_v4")
 	}
-	dispatcher.eventType2EventHandler["calendar.calendar.changed_v4"] = calendar.NewCalendarChangedEventHandler(handler)
+	dispatcher.eventType2EventHandler["calendar.calendar.changed_v4"] = larkcalendar.NewCalendarChangedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnCalendarAclCreatedV4(handler func(ctx context.Context, event *calendar.CalendarAclCreatedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnCalendarAclCreatedV4(handler func(ctx context.Context, event *larkcalendar.CalendarAclCreatedEvent) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["calendar.calendar.acl.created_v4"]
 	if existed {
 		panic("event: multiple handler registrations for " + "calendar.calendar.acl.created_v4")
 	}
-	dispatcher.eventType2EventHandler["calendar.calendar.acl.created_v4"] = calendar.NewCalendarAclCreatedEventHandler(handler)
+	dispatcher.eventType2EventHandler["calendar.calendar.acl.created_v4"] = larkcalendar.NewCalendarAclCreatedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnCalendarAclDeletedV4(handler func(ctx context.Context, event *calendar.CalendarAclDeletedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnCalendarAclDeletedV4(handler func(ctx context.Context, event *larkcalendar.CalendarAclDeletedEvent) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["calendar.calendar.acl.deleted_v4"]
 	if existed {
 		panic("event: multiple handler registrations for " + "calendar.calendar.acl.deleted_v4")
 	}
-	dispatcher.eventType2EventHandler["calendar.calendar.acl.deleted_v4"] = calendar.NewCalendarAclDeletedEventHandler(handler)
+	dispatcher.eventType2EventHandler["calendar.calendar.acl.deleted_v4"] = larkcalendar.NewCalendarAclDeletedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnCalendarEventChangedV4(handler func(ctx context.Context, event *calendar.CalendarEventChangedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnCalendarEventChangedV4(handler func(ctx context.Context, event *larkcalendar.CalendarEventChangedEvent) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["calendar.calendar.event.changed_v4"]
 	if existed {
 		panic("event: multiple handler registrations for " + "calendar.calendar.event.changed_v4")
 	}
-	dispatcher.eventType2EventHandler["calendar.calendar.event.changed_v4"] = calendar.NewCalendarEventChangedEventHandler(handler)
+	dispatcher.eventType2EventHandler["calendar.calendar.event.changed_v4"] = larkcalendar.NewCalendarEventChangedEventHandler(handler)
 	return dispatcher
 }

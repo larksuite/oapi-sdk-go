@@ -40,7 +40,6 @@ func NewEventDispatcher(verificationToken, eventEncryptKey string) *EventDispatc
 	}
 	// 注册app_ticket事件
 	reqDispatcher.eventType2EventHandler["app_ticket"] = &appTicketEventHandler{}
-
 	return reqDispatcher
 }
 
@@ -92,14 +91,11 @@ func (d *EventDispatcher) ParseReq(ctx context.Context, req *event.EventReq) (st
 			err = fmt.Errorf("event message unmarshal failed:%v", err)
 			return "", err
 		}
-
 		if encrypt.Encrypt == "" {
 			err = fmt.Errorf("event  unmarshal failed,%s", "encrypted message is blank")
 			return "", err
 		}
-
 		return encrypt.Encrypt, nil
-
 	}
 	return string(req.Body), nil
 }
@@ -120,7 +116,6 @@ func (d *EventDispatcher) VerifySign(ctx context.Context, req *event.EventReq) e
 	if d.eventEncryptKey == "" {
 		return nil
 	}
-
 	// 解析签名头
 	requestTimestamps := req.Header[event.EventRequestTimestamp]
 	requestNonces := req.Header[event.EventRequestNonce]
@@ -132,7 +127,6 @@ func (d *EventDispatcher) VerifySign(ctx context.Context, req *event.EventReq) e
 	if len(requestNonces) > 0 {
 		requestNonce = requestNonces[0]
 	}
-
 	// 执行sha256签名计算
 	targetSign := event.Signature(requestTimestamp, requestNonce,
 		d.eventEncryptKey, string(req.Body))
@@ -205,9 +199,7 @@ func (d *EventDispatcher) AuthByChallenge(ctx context.Context, reqType event.Req
 		}
 		return &eventResp, nil
 	}
-
 	return nil, nil
-
 }
 
 func (d *EventDispatcher) DoHandle(ctx context.Context, reqType event.ReqType, eventType, challenge, token, plainEventJsonStr string) (*event.EventResp, error) {
