@@ -203,47 +203,63 @@ func doSendRequest(ctx context.Context, config *Config, httpMethod string, httpP
 	return rawResp, nil
 }
 
-func SendPost(ctx context.Context, config *Config, httpPath string,
-	accessTokeType AccessTokenType, input interface{}, options ...RequestOptionFunc) (*RawResponse, error) {
-	return SendRequest(ctx, config, http.MethodPost, httpPath, []AccessTokenType{accessTokeType}, input, options...)
+func GetConfig(appId, appSecret string) *Config {
+	config := &Config{
+		Domain:           "https://open.feishu.cn",
+		AppType:          AppTypeSelfBuilt,
+		EnableTokenCache: true,
+		AppSecret:        appSecret,
+		AppId:            appId,
+	}
+
+	NewLogger(config)
+	NewCache(config)
+
+	return config
 }
 
-func SendGet(ctx context.Context, config *Config, httpPath string,
-	accessTokeType AccessTokenType, input interface{}, options ...RequestOptionFunc) (*RawResponse, error) {
-	return SendRequest(ctx, config, http.MethodGet, httpPath, []AccessTokenType{accessTokeType}, input, options...)
-}
-
-func SendHead(ctx context.Context, config *Config, httpPath string,
-	accessTokeType AccessTokenType, input interface{}, options ...RequestOptionFunc) (*RawResponse, error) {
-	return SendRequest(ctx, config, http.MethodHead, httpPath, []AccessTokenType{accessTokeType}, input, options...)
-}
-
-func SendPut(ctx context.Context, config *Config, httpPath string,
-	accessTokeType AccessTokenType, input interface{}, options ...RequestOptionFunc) (*RawResponse, error) {
-	return SendRequest(ctx, config, http.MethodPut, httpPath, []AccessTokenType{accessTokeType}, input, options...)
-}
-
-func SendPatch(ctx context.Context, config *Config, httpPath string,
-	accessTokeType AccessTokenType, input interface{}, options ...RequestOptionFunc) (*RawResponse, error) {
-	return SendRequest(ctx, config, http.MethodPatch, httpPath, []AccessTokenType{accessTokeType}, input, options...)
-}
-
-func SendDelete(ctx context.Context, config *Config, httpPath string,
-	accessTokeType AccessTokenType, input interface{}, options ...RequestOptionFunc) (*RawResponse, error) {
-	return SendRequest(ctx, config, http.MethodDelete, httpPath, []AccessTokenType{accessTokeType}, input, options...)
-}
-
-func SendConnect(ctx context.Context, config *Config, httpPath string,
-	accessTokeType AccessTokenType, input interface{}, options ...RequestOptionFunc) (*RawResponse, error) {
-	return SendRequest(ctx, config, http.MethodConnect, httpPath, []AccessTokenType{accessTokeType}, input, options...)
-}
-
-func SendOptions(ctx context.Context, config *Config, httpPath string,
-	accessTokeType AccessTokenType, input interface{}, options ...RequestOptionFunc) (*RawResponse, error) {
-	return SendRequest(ctx, config, http.MethodOptions, httpPath, []AccessTokenType{accessTokeType}, input, options...)
-}
-
-func SendTrace(ctx context.Context, config *Config, httpPath string,
-	accessTokeType AccessTokenType, input interface{}, options ...RequestOptionFunc) (*RawResponse, error) {
-	return SendRequest(ctx, config, http.MethodTrace, httpPath, []AccessTokenType{accessTokeType}, input, options...)
-}
+//
+//func Post(ctx context.Context, config *Config, httpPath string,
+//	body interface{}, accessTokeType AccessTokenType, options ...RequestOptionFunc) (*RawResponse, error) {
+//	return SendRequest(ctx, config, http.MethodPost, httpPath, []AccessTokenType{accessTokeType}, body, options...)
+//}
+//
+//func Get(ctx context.Context, config *Config, httpPath string,
+//	body interface{}, accessTokeType AccessTokenType, options ...RequestOptionFunc) (*RawResponse, error) {
+//	return SendRequest(ctx, config, http.MethodGet, httpPath, []AccessTokenType{accessTokeType}, body, options...)
+//}
+//
+//func Head(ctx context.Context, config *Config, httpPath string,
+//	body interface{}, accessTokeType AccessTokenType, options ...RequestOptionFunc) (*RawResponse, error) {
+//	return SendRequest(ctx, config, http.MethodHead, httpPath, []AccessTokenType{accessTokeType}, body, options...)
+//}
+//
+//func Put(ctx context.Context, config *Config, httpPath string,
+//	body interface{}, accessTokeType AccessTokenType, options ...RequestOptionFunc) (*RawResponse, error) {
+//	return SendRequest(ctx, config, http.MethodPut, httpPath, []AccessTokenType{accessTokeType}, body, options...)
+//}
+//
+//func Patch(ctx context.Context, config *Config, httpPath string,
+//	body interface{}, accessTokeType AccessTokenType, options ...RequestOptionFunc) (*RawResponse, error) {
+//	return SendRequest(ctx, config, http.MethodPatch, httpPath, []AccessTokenType{accessTokeType}, body, options...)
+//}
+//
+//func Delete(ctx context.Context, config *Config, httpPath string,
+//	body interface{}, accessTokeType AccessTokenType, options ...RequestOptionFunc) (*RawResponse, error) {
+//	return SendRequest(ctx, config, http.MethodDelete, httpPath, []AccessTokenType{accessTokeType}, body, options...)
+//}
+//
+//func Connect(ctx context.Context, config *Config, httpPath string,
+//	body interface{}, accessTokeType AccessTokenType, options ...RequestOptionFunc) (*RawResponse, error) {
+//	return SendRequest(ctx, config, http.MethodConnect, httpPath, []AccessTokenType{accessTokeType}, body, options...)
+//}
+//
+//func SendOptions(ctx context.Context, config *Config, httpPath string,
+//	body interface{}, accessTokeType AccessTokenType, options ...RequestOptionFunc) (*RawResponse, error) {
+//	return SendRequest(ctx, config, http.MethodOptions, httpPath, []AccessTokenType{accessTokeType}, body, options...)
+//}
+//
+//func SendTrace(ctx context.Context, config *Config, httpPath string,
+//	body interface{}, accessTokeType AccessTokenType, options ...RequestOptionFunc) (*RawResponse, error) {
+//	return SendRequest(ctx, config, http.MethodTrace, httpPath, []AccessTokenType{accessTokeType}, body, options...)
+//}

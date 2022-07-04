@@ -129,7 +129,7 @@ func downLoadImageV2(client *client.Client) {
 }
 
 func sendTextMsg(client *client.Client) {
-	content, err := larkim.NewTextMsgBuilder().
+	content := larkim.NewTextMsgBuilder().
 		Text("加多").
 		Line().
 		TextLine("hello").
@@ -137,11 +137,6 @@ func sendTextMsg(client *client.Client) {
 		AtUser("ou_c245b0a7dff2725cfa2fb104f8b48b9d", "陆续").
 		//AtAll().
 		Build()
-
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
 
 	header := make(http.Header)
 
@@ -471,6 +466,49 @@ func testCreate(client *client.Client) {
 	}
 }
 
+func sendRawReq(cli *client.Client) {
+	content := larkim.NewTextMsgBuilder().
+		Text("加多").
+		Line().
+		TextLine("hello").
+		TextLine("world").
+		AtUser("ou_c245b0a7dff2725cfa2fb104f8b48b9d", "陆续").
+		Build()
+
+	// 放到client里面
+	resp, err := cli.Post(context.Background(), "/open-apis/im/v1/messages?receive_id_type=open_id", map[string]interface{}{
+		"receive_id": "ou_c245b0a7dff2725cfa2fb104f8b48b9d",
+		"msg_type":   "text",
+		"content":    "{\"text\":\"<at user_id=\\\"ou_155184d1e73cbfb8973e5a9e698e74f2\\\">Tom</at> test content\"}",
+	}, core.AccessTokenTypeTenant)
+
+	if err != nil {
+		fmt.Println(err, content)
+		return
+	}
+
+	fmt.Println(resp)
+}
+
+func sendRawImageReq(cli *client.Client) {
+	img, err := os.Open("/Users/bytedance/Downloads/go-icon.png")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	defer img.Close()
+
+	formData := core.NewFormdata().AddField("image_type", "message").AddFile("image", img)
+
+	resp, err := cli.Post(context.Background(), "/open-apis/im/v1/images", formData, core.AccessTokenTypeTenant)
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	fmt.Println(resp)
+}
 func main() {
 	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
 	var feishu_client = client.NewClient(appID, appSecret, client.WithLogLevel(core.LogLevelDebug), client.WithLogReqRespInfoAtDebugLevel(false))
@@ -480,7 +518,9 @@ func main() {
 	//uploadImage(client)
 	//downLoadImage(feishu_client)
 	//uploadImage2(feishu_client)
-	sendTextMsg(feishu_client)
+	//sendTextMsg(feishu_client)
+	//sendRawReq(feishu_client)
+	sendRawImageReq(feishu_client)
 	//sendImageMsg(feishu_client)
 	//uploadFile(feishu_client)
 	//sendFileMsg(feishu_client)
@@ -491,4 +531,5 @@ func main() {
 	//sendPostMsg(feishu_client)
 	//sendPostMsgUseBuilder(feishu_client)
 	//testCreate(feishu_client)
+
 }

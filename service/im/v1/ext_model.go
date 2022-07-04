@@ -52,9 +52,9 @@ func (t *MessageText) AtAll() *MessageText {
 	return t
 }
 
-func (t *MessageText) Build() (string, error) {
+func (t *MessageText) Build() string {
 	t.builder.WriteString("\"}")
-	return t.builder.String(), nil
+	return t.builder.String()
 }
 
 /**
@@ -170,7 +170,8 @@ func (m *MessagePostA) MarshalJSON() ([]byte, error) {
 }
 
 type MessagePostAt struct {
-	UserId string `json:"user_id,omitempty"`
+	UserId   string `json:"user_id,omitempty"`
+	UserName string `json:"user_name,omitempty"`
 }
 
 func (m *MessagePostAt) Tag() string {

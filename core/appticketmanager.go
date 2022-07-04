@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"net/http"
 	"strings"
 	"time"
 )
@@ -38,7 +39,7 @@ func appTicketKey(appID string) string {
 }
 
 func applyAppTicket(ctx context.Context, config *Config) {
-	rawResp, err := SendPost(ctx, config, applyAppTicketPath, accessTokenTypeNone, &applyAppTicketReq{
+	rawResp, err := SendRequest(ctx, config, http.MethodPost, applyAppTicketPath, []AccessTokenType{accessTokenTypeNone}, &applyAppTicketReq{
 		AppID:     config.AppId,
 		AppSecret: config.AppSecret,
 	})

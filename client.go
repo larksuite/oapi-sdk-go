@@ -2,6 +2,7 @@
 package client
 
 import (
+	"context"
 	"encoding/base64"
 	"fmt"
 	"net/http"
@@ -39,6 +40,7 @@ import (
 )
 
 type Client struct {
+	config                 *core.Config
 	Acs                    *larkacs.AcsService
 	Admin                  *larkadmin.AdminService
 	Application            *larkapplication.ApplicationService
@@ -151,7 +153,7 @@ func NewClient(appId, appSecret string, options ...ClientOptionFunc) *Client {
 	httpClient := httpclient.NewHttpClient(config)
 
 	// 创建sdk-client，并初始化服务
-	client := &Client{}
+	client := &Client{config: config}
 	initService(client, httpClient, config)
 	return client
 }
@@ -184,6 +186,39 @@ func initService(client *Client, httpClient *http.Client, config *core.Config) {
 	client.Translation = larktranslation.NewService(httpClient, config)
 	client.Vc = larkvc.NewService(httpClient, config)
 	client.Wiki = larkwiki.NewService(httpClient, config)
+
+}
+
+func (cli *Client) Post(ctx context.Context, httpPath string, body interface{}, accessTokeType core.AccessTokenType, options ...core.RequestOptionFunc) (*core.RawResponse, error) {
+	return core.SendRequest(ctx, cli.config, http.MethodPost, httpPath, []core.AccessTokenType{accessTokeType}, body, options...)
+}
+
+func (cli *Client) Get(ctx context.Context, httpPath string, body interface{}, accessTokeType core.AccessTokenType, options ...core.RequestOptionFunc) (*core.RawResponse, error) {
+	return core.SendRequest(ctx, cli.config, http.MethodGet, httpPath, []core.AccessTokenType{accessTokeType}, body, options...)
+}
+
+func (cli *Client) Delete(ctx context.Context, httpPath string, body interface{}, accessTokeType core.AccessTokenType, options ...core.RequestOptionFunc) (*core.RawResponse, error) {
+	return core.SendRequest(ctx, cli.config, http.MethodDelete, httpPath, []core.AccessTokenType{accessTokeType}, body, options...)
+}
+
+func (cli *Client) Put(ctx context.Context, httpPath string, body interface{}, accessTokeType core.AccessTokenType, options ...core.RequestOptionFunc) (*core.RawResponse, error) {
+	return core.SendRequest(ctx, cli.config, http.MethodPut, httpPath, []core.AccessTokenType{accessTokeType}, body, options...)
+}
+
+func (cli *Client) Patch(ctx context.Context, httpPath string, body interface{}, accessTokeType core.AccessTokenType, options ...core.RequestOptionFunc) (*core.RawResponse, error) {
+	return core.SendRequest(ctx, cli.config, http.MethodPatch, httpPath, []core.AccessTokenType{accessTokeType}, body, options...)
+}
+
+func (cli *Client) Head(ctx context.Context, httpPath string, body interface{}, accessTokeType core.AccessTokenType, options ...core.RequestOptionFunc) (*core.RawResponse, error) {
+	return core.SendRequest(ctx, cli.config, http.MethodHead, httpPath, []core.AccessTokenType{accessTokeType}, body, options...)
+}
+
+func (cli *Client) Options(ctx context.Context, httpPath string, body interface{}, accessTokeType core.AccessTokenType, options ...core.RequestOptionFunc) (*core.RawResponse, error) {
+	return core.SendRequest(ctx, cli.config, http.MethodOptions, httpPath, []core.AccessTokenType{accessTokeType}, body, options...)
+}
+
+func (cli *Client) Trace(ctx context.Context, httpPath string, body interface{}, accessTokeType core.AccessTokenType, options ...core.RequestOptionFunc) (*core.RawResponse, error) {
+	return core.SendRequest(ctx, cli.config, http.MethodTrace, httpPath, []core.AccessTokenType{accessTokeType}, body, options...)
 }
 
 var FeishuDomain = "https://open.feishu.cn"
