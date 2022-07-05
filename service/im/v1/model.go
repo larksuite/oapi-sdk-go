@@ -7240,14 +7240,14 @@ type ChatMemberUserWithdrawnEvent struct {
 	Event *ChatMemberUserWithdrawnEventData `json:"event"`
 }
 
-type MessageMessageReadEventData struct {
+type MessageReadEventData struct {
 	Reader        *EventMessageReader `json:"reader,omitempty"`
 	MessageIdList []string            `json:"message_id_list,omitempty"`
 }
 
-type MessageMessageReadEvent struct {
+type MessageReadEvent struct {
 	*event.EventV2Base
-	Event *MessageMessageReadEventData `json:"event"`
+	Event *MessageReadEventData `json:"event"`
 }
 
 type MessageReceiveEventData struct {

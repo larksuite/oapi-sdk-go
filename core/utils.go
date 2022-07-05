@@ -301,7 +301,7 @@ func prettify(v reflect.Value, indent int, buf *bytes.Buffer) {
 	}
 }
 
-func structToMap(val interface{}) (map[string]interface{}, error) {
+func StructToMap(val interface{}) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	s := reflect.Indirect(reflect.ValueOf(val))
 	st := s.Type()
@@ -309,7 +309,7 @@ func structToMap(val interface{}) (map[string]interface{}, error) {
 		fieldDesc := st.Field(i)
 		fieldVal := s.Field(i)
 		if fieldDesc.Anonymous {
-			embeddedMap, err := structToMap(fieldVal.Interface())
+			embeddedMap, err := StructToMap(fieldVal.Interface())
 			if err != nil {
 				return nil, err
 			}

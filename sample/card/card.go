@@ -11,30 +11,60 @@ import (
 	"github.com/larksuite/oapi-sdk-go/httpserverext"
 )
 
-func getCard() *card.CardAction {
-	// 返回卡片消息
-	value := map[string]interface{}{}
-	value["value"] = "sdfsfd"
-	value["tag"] = "button"
+func getCard() *card.MessageCard {
+	// config
+	config := card.NewMessageCardConfig().
+		WideScreenMode(true).
+		EnableForward(true).
+		UpdateMulti(false).
+		Build()
 
-	result := &card.CardAction{
-		OpenID:        "ou_sdfimx9948345",
-		UserID:        "eu_sd923r0sdf5",
-		OpenMessageID: "om_abcdefg1234567890",
-		TenantKey:     "d32004232",
-		Token:         "121",
-		Action: &struct {
-			Value    map[string]interface{} `json:"value"`
-			Tag      string                 `json:"tag"`
-			Option   string                 `json:"option"`
-			Timezone string                 `json:"timezone"`
-		}{
-			Value: value,
-			Tag:   "button",
-		},
-	}
-	fmt.Println(result)
-	return result
+	// CardUrl
+	cardLink := card.NewMessageCardURL().
+		PcUrl("http://www.baidu.com").
+		IoSUrl("http://www.google.com").
+		Url("http://open.feishu.com").
+		AndroidUrl("http://www.jianshu.com").
+		Build()
+
+	// header
+	header := card.NewMessageCardHeader().
+		Template("turquoise").
+		Title(card.NewMessageCardPlainText().
+			Content("[已处理] 1 级报警 - 数据平台").
+			Build()).
+		Build()
+
+	// Elements
+	divElement := card.NewMessageCardDiv().
+		Fields([]*card.MessageCardField{card.NewMessageCardField().
+			Text(card.NewMessageCardLarkMd().
+				Content("**🕐 时间：**\\n2021-02-23 20:17:51").
+				Build()).
+			IsShort(true).
+			Build()}).
+		Build()
+
+	// 谁处理了问题
+	content := "✅ " + "name" + "已处理了此告警"
+	processPersonElement := card.NewMessageCardDiv().
+		Fields([]*card.MessageCardField{card.NewMessageCardField().
+			Text(card.NewMessageCardLarkMd().
+				Content(content).
+				Build()).
+			IsShort(true).
+			Build()}).
+		Build()
+
+	// 卡片消息体
+	messageCard := card.NewMessageCard().
+		Config(config).
+		Header(header).
+		Elements([]card.MessageCardElement{divElement, processPersonElement}).
+		CardLink(cardLink).
+		Build()
+
+	return messageCard
 }
 
 func getCustomResp() interface{} {

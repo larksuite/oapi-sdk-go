@@ -8,6 +8,7 @@ import (
 	"os"
 
 	client "github.com/larksuite/oapi-sdk-go"
+	"github.com/larksuite/oapi-sdk-go/card"
 	"github.com/larksuite/oapi-sdk-go/core"
 	"github.com/larksuite/oapi-sdk-go/service/gray_test_open_sg/v1"
 	"github.com/larksuite/oapi-sdk-go/service/im/v1"
@@ -148,6 +149,244 @@ func sendTextMsg(client *client.Client) {
 			Content(content).
 			Build()).
 		Build(), core.WithHeaders(header))
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(core.Prettify(resp))
+	fmt.Println(resp.RequestId())
+}
+
+func sendInteractiveMsg(client *client.Client) {
+	// config
+	config := card.NewMessageCardConfig().
+		WideScreenMode(true).
+		EnableForward(true).
+		UpdateMulti(false).
+		Build()
+
+	// CardUrl
+	cardLink := card.NewMessageCardURL().
+		PcUrl("http://www.baidu.com").
+		IoSUrl("http://www.google.com").
+		Url("http://open.feishu.com").
+		AndroidUrl("http://www.jianshu.com").
+		Build()
+
+	// header
+	header := card.NewMessageCardHeader().
+		Template("red").
+		Title(card.NewMessageCardPlainText().
+			Content("1 级报警 - 数据平台").
+			Build()).
+		Build()
+
+	// Elements
+	divElement := card.NewMessageCardDiv().
+		Fields([]*card.MessageCardField{card.NewMessageCardField().
+			Text(card.NewMessageCardLarkMd().
+				Content("**🕐 时间：**\\n2021-02-23 20:17:51").
+				Build()).
+			IsShort(true).
+			Build()}).
+		Build()
+
+	// 谁处理了问题
+	content := "✅ " + "name" + "已处理了此告警"
+	processPersonElement := card.NewMessageCardDiv().
+		Fields([]*card.MessageCardField{card.NewMessageCardField().
+			Text(card.NewMessageCardLarkMd().
+				Content(content).
+				Build()).
+			IsShort(true).
+			Build()}).
+		Build()
+
+	// 卡片消息体
+	cardContent, err := card.NewMessageCard().
+		Config(config).
+		Header(header).
+		Elements([]card.MessageCardElement{divElement, processPersonElement}).
+		CardLink(cardLink).
+		String()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	resp, err := client.Im.Message.Create(context.Background(), larkim.NewCreateMessageReqBuilder().
+		ReceiveIdType(larkim.ReceiveIdTypeOpenId).
+		Body(larkim.NewCreateMessageReqBodyBuilder().
+			MsgType(larkim.MsgTypeInteractive).
+			ReceiveId("ou_c245b0a7dff2725cfa2fb104f8b48b9d").
+			Content(cardContent).
+			Build()).
+		Build())
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(core.Prettify(resp))
+	fmt.Println(resp.RequestId())
+}
+
+// 运维报警通知
+//https://open.feishu.cn/tool/cardbuilder?from=cotentmodule
+func sendInteractiveMonitorMsg(client *client.Client) {
+	// config
+	config := card.NewMessageCardConfig().
+		WideScreenMode(true).
+		EnableForward(false).
+		UpdateMulti(false).
+		Build()
+
+	// CardUrl
+	cardLink := card.NewMessageCardURL().
+		PcUrl("http://www.baidu.com").
+		IoSUrl("http://www.google.com").
+		Url("http://open.feishu.com").
+		AndroidUrl("http://www.jianshu.com").
+		Build()
+
+	// header
+	header := card.NewMessageCardHeader().
+		Template("red").
+		Title(card.NewMessageCardPlainText().
+			Content("1 级报警 - 数据平台").
+			Build()).
+		Build()
+
+	// Elements
+	divElement1 := card.NewMessageCardDiv().
+		Fields([]*card.MessageCardField{
+			card.NewMessageCardField().
+				Text(card.NewMessageCardLarkMd().
+					Content("**🕐 时间：**2021-02-23 20:17:51").
+					Build()).
+				IsShort(true).
+				Build(),
+			card.NewMessageCardField().
+				Text(card.NewMessageCardLarkMd().
+					Content("**🔢 事件 ID：：**336720").
+					Build()).
+				IsShort(true).
+				Build(),
+			card.NewMessageCardField().
+				Text(card.NewMessageCardLarkMd().
+					Content("").
+					Build()).
+				IsShort(false).
+				Build(),
+			card.NewMessageCardField().
+				Text(card.NewMessageCardLarkMd().
+					Content("**📋 项目：**\nQA 7").
+					Build()).
+				IsShort(true).
+				Build(),
+			card.NewMessageCardField().
+				Text(card.NewMessageCardLarkMd().
+					Content("**👤 一级值班：**\n<at id=ou_c245b0a7dff2725cfa2fb104f8b48b9d>加多</at>").
+					Build()).
+				IsShort(true).
+				Build(),
+			card.NewMessageCardField().
+				Text(card.NewMessageCardLarkMd().
+					Content("").
+					Build()).
+				IsShort(false).
+				Build(),
+			card.NewMessageCardField().
+				Text(card.NewMessageCardLarkMd().
+					Content("**👤 二级值班：**\n<at id=ou_c245b0a7dff2725cfa2fb104f8b48b9d>加多</at>").
+					Build()).
+				IsShort(true).
+				Build()}).
+		Build()
+
+	divElement2 := card.NewMessageCardImage().
+		Alt(card.NewMessageCardPlainText().
+			Content("").
+			Build()).
+		ImgKey("img_v2_8b2ebeaf-c97c-411d-a4dc-4323e8cba10g").
+		Title(card.NewMessageCardLarkMd().
+			Content("支付方式 支付成功率低于 50%：").
+			Build()).
+		Build()
+
+	divElement3 := card.NewMessageCardNote().
+		Elements([]card.MessageCardNoteElement{card.NewMessageCardPlainText().
+			Content("🔴 支付失败数  🔵 支付成功数").
+			Build()}).
+		Build()
+
+	divElement4 := card.NewMessageCardAction().
+		Actions([]card.MessageCardActionElement{card.NewMessageCardEmbedButton().
+			Type(card.MessageCardButtonTypePrimary).
+			Value(map[string]interface{}{"key1": "value1"}).
+			Text(card.NewMessageCardPlainText().
+				Content("跟进处理").
+				Build()),
+			card.NewMessageCardEmbedSelectMenuStatic().
+				MessageCardEmbedSelectMenuStatic(card.NewMessageCardEmbedSelectMenuBase().
+					Options([]*card.MessageCardEmbedSelectOption{card.NewMessageCardEmbedSelectOption().
+						Value("1").
+						Text(card.NewMessageCardPlainText().
+							Content("屏蔽10分钟").
+							Build()),
+						card.NewMessageCardEmbedSelectOption().
+							Value("2").
+							Text(card.NewMessageCardPlainText().
+								Content("屏蔽30分钟").
+								Build()),
+						card.NewMessageCardEmbedSelectOption().
+							Value("3").
+							Text(card.NewMessageCardPlainText().
+								Content("屏蔽1小时").
+								Build()),
+						card.NewMessageCardEmbedSelectOption().
+							Value("4").
+							Text(card.NewMessageCardPlainText().
+								Content("屏蔽24小时").
+								Build()),
+					}).
+					Placeholder(card.NewMessageCardPlainText().
+						Content("暂时屏蔽报警").
+						Build()).
+					Value(map[string]interface{}{"key": "value"}).
+					Build()).
+				Build()}).
+		Build()
+
+	divElement5 := card.NewMessageCardHr().Build()
+
+	divElement6 := card.NewMessageCardDiv().
+		Text(card.NewMessageCardLarkMd().
+			Content("🙋🏼 [我要反馈误报](https://open.feishu.cn/) | 📝 [录入报警处理过程](https://open.feishu.cn/)").
+			Build()).
+		Build()
+
+	// 卡片消息体
+	cardContent, err := card.NewMessageCard().
+		Config(config).
+		Header(header).
+		Elements([]card.MessageCardElement{divElement1, divElement2, divElement3, divElement4, divElement5, divElement6}).
+		CardLink(cardLink).
+		String()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	resp, err := client.Im.Message.Create(context.Background(), larkim.NewCreateMessageReqBuilder().
+		ReceiveIdType(larkim.ReceiveIdTypeOpenId).
+		Body(larkim.NewCreateMessageReqBodyBuilder().
+			MsgType(larkim.MsgTypeInteractive).
+			ReceiveId("ou_c245b0a7dff2725cfa2fb104f8b48b9d").
+			Content(cardContent).
+			Build()).
+		Build())
 
 	if err != nil {
 		fmt.Println(err)
@@ -520,7 +759,7 @@ func main() {
 	//uploadImage2(feishu_client)
 	//sendTextMsg(feishu_client)
 	//sendRawReq(feishu_client)
-	sendRawImageReq(feishu_client)
+	//sendRawImageReq(feishu_client)
 	//sendImageMsg(feishu_client)
 	//uploadFile(feishu_client)
 	//sendFileMsg(feishu_client)
@@ -531,5 +770,7 @@ func main() {
 	//sendPostMsg(feishu_client)
 	//sendPostMsgUseBuilder(feishu_client)
 	//testCreate(feishu_client)
+	//sendInteractiveMsg(feishu_client)
+	sendInteractiveMonitorMsg(feishu_client)
 
 }

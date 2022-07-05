@@ -46,43 +46,43 @@ func (h *MeetingLeaveMeetingEventHandler) Handle(ctx context.Context, event inte
 }
 
 // 消息处理器定义
-type MeetingMeetingEndedEventHandler struct {
-	handler func(context.Context, *MeetingMeetingEndedEvent) error
+type MeetingEndedEventHandler struct {
+	handler func(context.Context, *MeetingEndedEvent) error
 }
 
-func NewMeetingMeetingEndedEventHandler(handler func(context.Context, *MeetingMeetingEndedEvent) error) *MeetingMeetingEndedEventHandler {
-	h := &MeetingMeetingEndedEventHandler{handler: handler}
+func NewMeetingEndedEventHandler(handler func(context.Context, *MeetingEndedEvent) error) *MeetingEndedEventHandler {
+	h := &MeetingEndedEventHandler{handler: handler}
 	return h
 }
 
 // 返回事件的消息体的实例，用于反序列化用
-func (h *MeetingMeetingEndedEventHandler) Event() interface{} {
-	return &MeetingMeetingEndedEvent{}
+func (h *MeetingEndedEventHandler) Event() interface{} {
+	return &MeetingEndedEvent{}
 }
 
 // 回调开发者注册的handle
-func (h *MeetingMeetingEndedEventHandler) Handle(ctx context.Context, event interface{}) error {
-	return h.handler(ctx, event.(*MeetingMeetingEndedEvent))
+func (h *MeetingEndedEventHandler) Handle(ctx context.Context, event interface{}) error {
+	return h.handler(ctx, event.(*MeetingEndedEvent))
 }
 
 // 消息处理器定义
-type MeetingMeetingStartedEventHandler struct {
-	handler func(context.Context, *MeetingMeetingStartedEvent) error
+type MeetingStartedEventHandler struct {
+	handler func(context.Context, *MeetingStartedEvent) error
 }
 
-func NewMeetingMeetingStartedEventHandler(handler func(context.Context, *MeetingMeetingStartedEvent) error) *MeetingMeetingStartedEventHandler {
-	h := &MeetingMeetingStartedEventHandler{handler: handler}
+func NewMeetingStartedEventHandler(handler func(context.Context, *MeetingStartedEvent) error) *MeetingStartedEventHandler {
+	h := &MeetingStartedEventHandler{handler: handler}
 	return h
 }
 
 // 返回事件的消息体的实例，用于反序列化用
-func (h *MeetingMeetingStartedEventHandler) Event() interface{} {
-	return &MeetingMeetingStartedEvent{}
+func (h *MeetingStartedEventHandler) Event() interface{} {
+	return &MeetingStartedEvent{}
 }
 
 // 回调开发者注册的handle
-func (h *MeetingMeetingStartedEventHandler) Handle(ctx context.Context, event interface{}) error {
-	return h.handler(ctx, event.(*MeetingMeetingStartedEvent))
+func (h *MeetingStartedEventHandler) Handle(ctx context.Context, event interface{}) error {
+	return h.handler(ctx, event.(*MeetingStartedEvent))
 }
 
 // 消息处理器定义

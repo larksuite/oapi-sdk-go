@@ -4093,24 +4093,24 @@ type MeetingLeaveMeetingEvent struct {
 	Event *MeetingLeaveMeetingEventData `json:"event"`
 }
 
-type MeetingMeetingEndedEventData struct {
+type MeetingEndedEventData struct {
 	Meeting  *MeetingEventMeeting `json:"meeting,omitempty"`
 	Operator *MeetingEventUser    `json:"operator,omitempty"`
 }
 
-type MeetingMeetingEndedEvent struct {
+type MeetingEndedEvent struct {
 	*event.EventV2Base
-	Event *MeetingMeetingEndedEventData `json:"event"`
+	Event *MeetingEndedEventData `json:"event"`
 }
 
-type MeetingMeetingStartedEventData struct {
+type MeetingStartedEventData struct {
 	Meeting  *MeetingEventMeeting `json:"meeting,omitempty"`
 	Operator *MeetingEventUser    `json:"operator,omitempty"`
 }
 
-type MeetingMeetingStartedEvent struct {
+type MeetingStartedEvent struct {
 	*event.EventV2Base
-	Event *MeetingMeetingStartedEventData `json:"event"`
+	Event *MeetingStartedEventData `json:"event"`
 }
 
 type MeetingRecordingEndedEventData struct {

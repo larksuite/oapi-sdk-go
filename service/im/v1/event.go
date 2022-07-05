@@ -146,23 +146,23 @@ func (h *ChatMemberUserWithdrawnEventHandler) Handle(ctx context.Context, event 
 }
 
 // 消息处理器定义
-type MessageMessageReadEventHandler struct {
-	handler func(context.Context, *MessageMessageReadEvent) error
+type MessageReadEventHandler struct {
+	handler func(context.Context, *MessageReadEvent) error
 }
 
-func NewMessageMessageReadEventHandler(handler func(context.Context, *MessageMessageReadEvent) error) *MessageMessageReadEventHandler {
-	h := &MessageMessageReadEventHandler{handler: handler}
+func NewMessageReadEventHandler(handler func(context.Context, *MessageReadEvent) error) *MessageReadEventHandler {
+	h := &MessageReadEventHandler{handler: handler}
 	return h
 }
 
 // 返回事件的消息体的实例，用于反序列化用
-func (h *MessageMessageReadEventHandler) Event() interface{} {
-	return &MessageMessageReadEvent{}
+func (h *MessageReadEventHandler) Event() interface{} {
+	return &MessageReadEvent{}
 }
 
 // 回调开发者注册的handle
-func (h *MessageMessageReadEventHandler) Handle(ctx context.Context, event interface{}) error {
-	return h.handler(ctx, event.(*MessageMessageReadEvent))
+func (h *MessageReadEventHandler) Handle(ctx context.Context, event interface{}) error {
+	return h.handler(ctx, event.(*MessageReadEvent))
 }
 
 // 消息处理器定义

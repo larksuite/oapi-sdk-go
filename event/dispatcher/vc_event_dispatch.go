@@ -3,6 +3,7 @@ package dispatcher
 
 import (
 	"context"
+
 	"github.com/larksuite/oapi-sdk-go/service/vc/v1"
 )
 
@@ -22,20 +23,20 @@ func (dispatcher *EventDispatcher) OnMeetingLeaveMeetingV1(handler func(ctx cont
 	dispatcher.eventType2EventHandler["vc.meeting.leave_meeting_v1"] = larkvc.NewMeetingLeaveMeetingEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnMeetingEndedV1(handler func(ctx context.Context, event *larkvc.MeetingMeetingEndedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnMeetingEndedV1(handler func(ctx context.Context, event *larkvc.MeetingEndedEvent) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["vc.meeting.meeting_ended_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "vc.meeting.meeting_ended_v1")
 	}
-	dispatcher.eventType2EventHandler["vc.meeting.meeting_ended_v1"] = larkvc.NewMeetingMeetingEndedEventHandler(handler)
+	dispatcher.eventType2EventHandler["vc.meeting.meeting_ended_v1"] = larkvc.NewMeetingEndedEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnMeetingStartedV1(handler func(ctx context.Context, event *larkvc.MeetingMeetingStartedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnMeetingStartedV1(handler func(ctx context.Context, event *larkvc.MeetingStartedEvent) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["vc.meeting.meeting_started_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "vc.meeting.meeting_started_v1")
 	}
-	dispatcher.eventType2EventHandler["vc.meeting.meeting_started_v1"] = larkvc.NewMeetingMeetingStartedEventHandler(handler)
+	dispatcher.eventType2EventHandler["vc.meeting.meeting_started_v1"] = larkvc.NewMeetingStartedEventHandler(handler)
 	return dispatcher
 }
 func (dispatcher *EventDispatcher) OnMeetingRecordingEndedV1(handler func(ctx context.Context, event *larkvc.MeetingRecordingEndedEvent) error) *EventDispatcher {

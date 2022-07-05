@@ -25,7 +25,7 @@ func TestStartHttpServer(t *testing.T) {
 	handler := dispatcher.NewEventDispatcher("v", "1212121212").OnMessageReceiveV1(func(ctx context.Context, event *larkim.MessageReceiveEvent) error {
 		fmt.Println(core.Prettify(event))
 		return nil
-	}).OnMessageReadV1(func(ctx context.Context, event *larkim.MessageMessageReadEvent) error {
+	}).OnMessageReadV1(func(ctx context.Context, event *larkim.MessageReadEvent) error {
 		fmt.Println(core.Prettify(event))
 		return nil
 	})

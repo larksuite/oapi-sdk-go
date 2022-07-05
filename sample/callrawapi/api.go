@@ -14,7 +14,7 @@ func main() {
 	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
 	var cli = client.NewClient(appID, appSecret,
 		client.WithLogLevel(core.LogLevelDebug),
-		client.WithLogReqRespInfoAtDebugLevel(false),
+		client.WithLogReqRespInfoAtDebugLevel(true),
 		client.WithAppType(core.AppTypeMarketplace))
 
 	content := larkim.NewTextMsgBuilder().

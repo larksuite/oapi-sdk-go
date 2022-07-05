@@ -62,12 +62,12 @@ func (dispatcher *EventDispatcher) OnChatMemberUserWithdrawnV1(handler func(ctx 
 	dispatcher.eventType2EventHandler["im.chat.member.user.withdrawn_v1"] = larkim.NewChatMemberUserWithdrawnEventHandler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnMessageReadV1(handler func(ctx context.Context, event *larkim.MessageMessageReadEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnMessageReadV1(handler func(ctx context.Context, event *larkim.MessageReadEvent) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["im.message.message_read_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "im.message.message_read_v1")
 	}
-	dispatcher.eventType2EventHandler["im.message.message_read_v1"] = larkim.NewMessageMessageReadEventHandler(handler)
+	dispatcher.eventType2EventHandler["im.message.message_read_v1"] = larkim.NewMessageReadEventHandler(handler)
 	return dispatcher
 }
 func (dispatcher *EventDispatcher) OnMessageReceiveV1(handler func(ctx context.Context, event *larkim.MessageReceiveEvent) error) *EventDispatcher {
