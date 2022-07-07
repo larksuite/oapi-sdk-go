@@ -71,7 +71,7 @@ func listBlocksIter(client *client.Client) {
 
 	}()
 
-	iter, err := client.Docx.DocumentBlock.ListDocumentBlock(context.Background(),
+	iter, err := client.Docx.DocumentBlock.ListByIterator(context.Background(),
 		larkdocx.NewListDocumentBlockReqBuilder().
 			DocumentId("doxcnku1W0IhiZBDPkxlEVSn6Tf").
 			PageSize(1).

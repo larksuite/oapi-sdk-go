@@ -9,8 +9,8 @@ import (
 )
 
 // 构建业务域服务实例
-func NewService(httpClient *http.Client, config *core.Config) *AdminService {
-	a := &AdminService{httpClient: httpClient, config: config}
+func NewService(config *core.Config) *AdminService {
+	a := &AdminService{config: config}
 	a.AdminDeptStat = &adminDeptStat{service: a}
 	a.AdminUserStat = &adminUserStat{service: a}
 	a.Password = &password{service: a}
@@ -19,7 +19,6 @@ func NewService(httpClient *http.Client, config *core.Config) *AdminService {
 
 // 业务域服务定义
 type AdminService struct {
-	httpClient    *http.Client
 	config        *core.Config
 	AdminDeptStat *adminDeptStat
 	AdminUserStat *adminUserStat

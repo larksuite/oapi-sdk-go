@@ -176,7 +176,7 @@ func sendInteractiveMsg(client *client.Client) {
 
 	// header
 	header := card.NewMessageCardHeader().
-		Template("red").
+		Template(card.TemplateRed).
 		Title(card.NewMessageCardPlainText().
 			Content("1 级报警 - 数据平台").
 			Build()).
@@ -252,7 +252,7 @@ func sendInteractiveMonitorMsg(client *client.Client) {
 
 	// header
 	header := card.NewMessageCardHeader().
-		Template("red").
+		Template(card.TemplateRed).
 		Title(card.NewMessageCardPlainText().
 			Content("1 级报警 - 数据平台").
 			Build()).
@@ -279,6 +279,7 @@ func sendInteractiveMonitorMsg(client *client.Client) {
 					Build()).
 				IsShort(false).
 				Build(),
+
 			card.NewMessageCardField().
 				Text(card.NewMessageCardLarkMd().
 					Content("**📋 项目：**\nQA 7").
@@ -291,6 +292,7 @@ func sendInteractiveMonitorMsg(client *client.Client) {
 					Build()).
 				IsShort(true).
 				Build(),
+
 			card.NewMessageCardField().
 				Text(card.NewMessageCardLarkMd().
 					Content("").
@@ -750,7 +752,10 @@ func sendRawImageReq(cli *client.Client) {
 }
 func main() {
 	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
-	var feishu_client = client.NewClient(appID, appSecret, client.WithLogLevel(core.LogLevelDebug), client.WithLogReqRespInfoAtDebugLevel(false))
+	var feishu_client = client.NewClient(appID, appSecret,
+		client.WithLogLevel(core.LogLevelDebug),
+		client.WithLogReqRespInfoAtDebugLevel(false),
+	)
 
 	//downLoadImageV2(feishu_client)
 	//uploadImage(feishu_client)

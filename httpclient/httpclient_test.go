@@ -2,32 +2,27 @@ package httpclient
 
 import (
 	"fmt"
+	"net/http"
 	"testing"
-
-	"github.com/larksuite/oapi-sdk-go/core"
 )
 
-func mockConfig() *core.Config {
-	config := &core.Config{
-		AppId:            "xxx",
-		AppSecret:        "xxxx",
-		Logger:           core.NewEventLogger(),
-		LogLevel:         core.LogLevelDebug,
-		EnableTokenCache: true,
-		AppType:          core.AppTypeSelfBuilt,
-		Domain:           "https://open.feishu.cn",
-	}
-	return config
+type CustomHttpClient struct {
 }
+
+func (client *CustomHttpClient) Do(*http.Request) (*http.Response, error) {
+	return nil, nil
+}
+
 func TestHttpClient(t *testing.T) {
 
-	config := mockConfig()
-	httpClient := NewHttpClient(config)
-	resp, err := httpClient.Get("http://www.baidu.com")
+	httpClient := &CustomHttpClient{}
+
+	req, _ := http.NewRequest("GET", "http://www.baidu.com", nil)
+	resp, err := httpClient.Do(req)
 	if err != nil {
 		t.Errorf("TestHttpClient failed ,%v", err)
 	}
 
-	fmt.Println(resp.StatusCode)
+	fmt.Println(resp)
 
 }

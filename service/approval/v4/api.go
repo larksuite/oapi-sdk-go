@@ -9,8 +9,8 @@ import (
 )
 
 // 构建业务域服务实例
-func NewService(httpClient *http.Client, config *core.Config) *ApprovalService {
-	a := &ApprovalService{httpClient: httpClient, config: config}
+func NewService(config *core.Config) *ApprovalService {
+	a := &ApprovalService{config: config}
 	a.Approval = &approval{service: a}
 	a.ExternalApproval = &externalApproval{service: a}
 	a.ExternalInstance = &externalInstance{service: a}
@@ -21,7 +21,6 @@ func NewService(httpClient *http.Client, config *core.Config) *ApprovalService {
 
 // 业务域服务定义
 type ApprovalService struct {
-	httpClient       *http.Client
 	config           *core.Config
 	Approval         *approval
 	ExternalApproval *externalApproval
@@ -213,7 +212,7 @@ func (i *instance) List(ctx context.Context, req *ListInstanceReq, options ...co
 	}
 	return resp, err
 }
-func (i *instance) ListInstance(ctx context.Context, req *ListInstanceReq, options ...core.RequestOptionFunc) (*ListInstanceIterator, error) {
+func (i *instance) ListByIterator(ctx context.Context, req *ListInstanceReq, options ...core.RequestOptionFunc) (*ListInstanceIterator, error) {
 	return &ListInstanceIterator{
 		ctx:      ctx,
 		req:      req,
@@ -266,7 +265,7 @@ func (t *task) Query(ctx context.Context, req *QueryTaskReq, options ...core.Req
 	}
 	return resp, err
 }
-func (t *task) QueryTask(ctx context.Context, req *QueryTaskReq, options ...core.RequestOptionFunc) (*QueryTaskIterator, error) {
+func (t *task) QueryByIterator(ctx context.Context, req *QueryTaskReq, options ...core.RequestOptionFunc) (*QueryTaskIterator, error) {
 	return &QueryTaskIterator{
 		ctx:      ctx,
 		req:      req,

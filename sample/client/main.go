@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"net/http"
 	"time"
 
 	client "github.com/larksuite/oapi-sdk-go"
@@ -26,8 +27,10 @@ func createClientWithAllOptions() {
 		client.WithReqTimeout(3*time.Second),
 		client.WithDisableTokenCache(),
 		client.WithHelpdeskCredential("id", "token"),
-		client.WithLogger(core.NewEventLogger()))
+		client.WithLogger(core.NewEventLogger()),
+		client.WithHttpClient(http.DefaultClient))
 	fmt.Println(feishu_client)
+
 }
 
 func main() {

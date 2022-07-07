@@ -5325,6 +5325,508 @@ func (resp *UpdateChatModerationResp) Success() bool {
 	return resp.Code == 0
 }
 
+type CreateChatTabReqBodyBuilder struct {
+	chatTabs     []*ChatTab
+	chatTabsFlag bool
+}
+
+// 生成body的New构造器
+func NewCreateChatTabReqBodyBuilder() *CreateChatTabReqBodyBuilder {
+	builder := &CreateChatTabReqBodyBuilder{}
+	return builder
+}
+
+// 1.2 生成body的builder属性方法
+func (builder *CreateChatTabReqBodyBuilder) ChatTabs(chatTabs []*ChatTab) *CreateChatTabReqBodyBuilder {
+	builder.chatTabs = chatTabs
+	builder.chatTabsFlag = true
+	return builder
+}
+
+// 1.3 生成body的build方法
+func (builder *CreateChatTabReqBodyBuilder) Build() *CreateChatTabReqBody {
+	req := &CreateChatTabReqBody{}
+	if builder.chatTabsFlag {
+		req.ChatTabs = builder.chatTabs
+	}
+	return req
+}
+
+// 上传文件path开始
+type CreateChatTabPathReqBodyBuilder struct {
+	chatTabs     []*ChatTab
+	chatTabsFlag bool
+}
+
+func NewCreateChatTabPathReqBodyBuilder() *CreateChatTabPathReqBodyBuilder {
+	builder := &CreateChatTabPathReqBodyBuilder{}
+	return builder
+}
+func (builder *CreateChatTabPathReqBodyBuilder) ChatTabs(chatTabs []*ChatTab) *CreateChatTabPathReqBodyBuilder {
+	builder.chatTabs = chatTabs
+	builder.chatTabsFlag = true
+	return builder
+}
+
+func (builder *CreateChatTabPathReqBodyBuilder) Build() (*CreateChatTabReqBody, error) {
+	req := &CreateChatTabReqBody{}
+	if builder.chatTabsFlag {
+		req.ChatTabs = builder.chatTabs
+	}
+	return req, nil
+}
+
+// 上传文件path结束
+
+// 1.4 生成请求的builder结构体
+type CreateChatTabReqBuilder struct {
+	chatId     string
+	chatIdFlag bool
+	body       *CreateChatTabReqBody
+	bodyFlag   bool
+}
+
+// 生成请求的New构造器
+func NewCreateChatTabReqBuilder() *CreateChatTabReqBuilder {
+	builder := &CreateChatTabReqBuilder{}
+	return builder
+}
+
+// 1.5 生成请求的builder属性方法
+func (builder *CreateChatTabReqBuilder) ChatId(chatId string) *CreateChatTabReqBuilder {
+	builder.chatId = chatId
+	builder.chatIdFlag = true
+	return builder
+}
+func (builder *CreateChatTabReqBuilder) Body(body *CreateChatTabReqBody) *CreateChatTabReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
+}
+
+// 1.5 生成请求的builder的build方法
+func (builder *CreateChatTabReqBuilder) Build() *CreateChatTabReq {
+	req := &CreateChatTabReq{}
+	if builder.chatIdFlag {
+		req.ChatId = builder.chatId
+	}
+	if builder.bodyFlag {
+		req.Body = builder.body
+	}
+	return req
+}
+
+type CreateChatTabReqBody struct {
+	ChatTabs []*ChatTab `json:"chat_tabs,omitempty"`
+}
+
+type CreateChatTabReq struct {
+	ChatId string                `path:"chat_id"`
+	Body   *CreateChatTabReqBody `body:""`
+}
+
+type CreateChatTabRespData struct {
+	ChatTabs []*ChatTab `json:"chat_tabs,omitempty"`
+}
+
+type CreateChatTabResp struct {
+	*core.RawResponse `json:"-"`
+	core.CodeError
+	Data *CreateChatTabRespData `json:"data"`
+}
+
+func (resp *CreateChatTabResp) Success() bool {
+	return resp.Code == 0
+}
+
+type DeleteTabsChatTabReqBodyBuilder struct {
+	tabIds     []string
+	tabIdsFlag bool
+}
+
+// 生成body的New构造器
+func NewDeleteTabsChatTabReqBodyBuilder() *DeleteTabsChatTabReqBodyBuilder {
+	builder := &DeleteTabsChatTabReqBodyBuilder{}
+	return builder
+}
+
+// 1.2 生成body的builder属性方法
+func (builder *DeleteTabsChatTabReqBodyBuilder) TabIds(tabIds []string) *DeleteTabsChatTabReqBodyBuilder {
+	builder.tabIds = tabIds
+	builder.tabIdsFlag = true
+	return builder
+}
+
+// 1.3 生成body的build方法
+func (builder *DeleteTabsChatTabReqBodyBuilder) Build() *DeleteTabsChatTabReqBody {
+	req := &DeleteTabsChatTabReqBody{}
+	if builder.tabIdsFlag {
+		req.TabIds = builder.tabIds
+	}
+	return req
+}
+
+// 上传文件path开始
+type DeleteTabsChatTabPathReqBodyBuilder struct {
+	tabIds     []string
+	tabIdsFlag bool
+}
+
+func NewDeleteTabsChatTabPathReqBodyBuilder() *DeleteTabsChatTabPathReqBodyBuilder {
+	builder := &DeleteTabsChatTabPathReqBodyBuilder{}
+	return builder
+}
+func (builder *DeleteTabsChatTabPathReqBodyBuilder) TabIds(tabIds []string) *DeleteTabsChatTabPathReqBodyBuilder {
+	builder.tabIds = tabIds
+	builder.tabIdsFlag = true
+	return builder
+}
+
+func (builder *DeleteTabsChatTabPathReqBodyBuilder) Build() (*DeleteTabsChatTabReqBody, error) {
+	req := &DeleteTabsChatTabReqBody{}
+	if builder.tabIdsFlag {
+		req.TabIds = builder.tabIds
+	}
+	return req, nil
+}
+
+// 上传文件path结束
+
+// 1.4 生成请求的builder结构体
+type DeleteTabsChatTabReqBuilder struct {
+	chatId     string
+	chatIdFlag bool
+	body       *DeleteTabsChatTabReqBody
+	bodyFlag   bool
+}
+
+// 生成请求的New构造器
+func NewDeleteTabsChatTabReqBuilder() *DeleteTabsChatTabReqBuilder {
+	builder := &DeleteTabsChatTabReqBuilder{}
+	return builder
+}
+
+// 1.5 生成请求的builder属性方法
+func (builder *DeleteTabsChatTabReqBuilder) ChatId(chatId string) *DeleteTabsChatTabReqBuilder {
+	builder.chatId = chatId
+	builder.chatIdFlag = true
+	return builder
+}
+func (builder *DeleteTabsChatTabReqBuilder) Body(body *DeleteTabsChatTabReqBody) *DeleteTabsChatTabReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
+}
+
+// 1.5 生成请求的builder的build方法
+func (builder *DeleteTabsChatTabReqBuilder) Build() *DeleteTabsChatTabReq {
+	req := &DeleteTabsChatTabReq{}
+	if builder.chatIdFlag {
+		req.ChatId = builder.chatId
+	}
+	if builder.bodyFlag {
+		req.Body = builder.body
+	}
+	return req
+}
+
+type DeleteTabsChatTabReqBody struct {
+	TabIds []string `json:"tab_ids,omitempty"`
+}
+
+type DeleteTabsChatTabReq struct {
+	ChatId string                    `path:"chat_id"`
+	Body   *DeleteTabsChatTabReqBody `body:""`
+}
+
+type DeleteTabsChatTabRespData struct {
+	ChatTabs []*ChatTab `json:"chat_tabs,omitempty"`
+}
+
+type DeleteTabsChatTabResp struct {
+	*core.RawResponse `json:"-"`
+	core.CodeError
+	Data *DeleteTabsChatTabRespData `json:"data"`
+}
+
+func (resp *DeleteTabsChatTabResp) Success() bool {
+	return resp.Code == 0
+}
+
+// 1.4 生成请求的builder结构体
+type ListTabsChatTabReqBuilder struct {
+	chatId     string
+	chatIdFlag bool
+}
+
+// 生成请求的New构造器
+func NewListTabsChatTabReqBuilder() *ListTabsChatTabReqBuilder {
+	builder := &ListTabsChatTabReqBuilder{}
+	return builder
+}
+
+// 1.5 生成请求的builder属性方法
+func (builder *ListTabsChatTabReqBuilder) ChatId(chatId string) *ListTabsChatTabReqBuilder {
+	builder.chatId = chatId
+	builder.chatIdFlag = true
+	return builder
+}
+
+// 1.5 生成请求的builder的build方法
+func (builder *ListTabsChatTabReqBuilder) Build() *ListTabsChatTabReq {
+	req := &ListTabsChatTabReq{}
+	if builder.chatIdFlag {
+		req.ChatId = builder.chatId
+	}
+	return req
+}
+
+type ListTabsChatTabReq struct {
+	ChatId string `path:"chat_id"`
+}
+
+type ListTabsChatTabRespData struct {
+	ChatTabs []*ChatTab `json:"chat_tabs,omitempty"`
+}
+
+type ListTabsChatTabResp struct {
+	*core.RawResponse `json:"-"`
+	core.CodeError
+	Data *ListTabsChatTabRespData `json:"data"`
+}
+
+func (resp *ListTabsChatTabResp) Success() bool {
+	return resp.Code == 0
+}
+
+type SortTabsChatTabReqBodyBuilder struct {
+	tabIds     []string
+	tabIdsFlag bool
+}
+
+// 生成body的New构造器
+func NewSortTabsChatTabReqBodyBuilder() *SortTabsChatTabReqBodyBuilder {
+	builder := &SortTabsChatTabReqBodyBuilder{}
+	return builder
+}
+
+// 1.2 生成body的builder属性方法
+func (builder *SortTabsChatTabReqBodyBuilder) TabIds(tabIds []string) *SortTabsChatTabReqBodyBuilder {
+	builder.tabIds = tabIds
+	builder.tabIdsFlag = true
+	return builder
+}
+
+// 1.3 生成body的build方法
+func (builder *SortTabsChatTabReqBodyBuilder) Build() *SortTabsChatTabReqBody {
+	req := &SortTabsChatTabReqBody{}
+	if builder.tabIdsFlag {
+		req.TabIds = builder.tabIds
+	}
+	return req
+}
+
+// 上传文件path开始
+type SortTabsChatTabPathReqBodyBuilder struct {
+	tabIds     []string
+	tabIdsFlag bool
+}
+
+func NewSortTabsChatTabPathReqBodyBuilder() *SortTabsChatTabPathReqBodyBuilder {
+	builder := &SortTabsChatTabPathReqBodyBuilder{}
+	return builder
+}
+func (builder *SortTabsChatTabPathReqBodyBuilder) TabIds(tabIds []string) *SortTabsChatTabPathReqBodyBuilder {
+	builder.tabIds = tabIds
+	builder.tabIdsFlag = true
+	return builder
+}
+
+func (builder *SortTabsChatTabPathReqBodyBuilder) Build() (*SortTabsChatTabReqBody, error) {
+	req := &SortTabsChatTabReqBody{}
+	if builder.tabIdsFlag {
+		req.TabIds = builder.tabIds
+	}
+	return req, nil
+}
+
+// 上传文件path结束
+
+// 1.4 生成请求的builder结构体
+type SortTabsChatTabReqBuilder struct {
+	chatId     string
+	chatIdFlag bool
+	body       *SortTabsChatTabReqBody
+	bodyFlag   bool
+}
+
+// 生成请求的New构造器
+func NewSortTabsChatTabReqBuilder() *SortTabsChatTabReqBuilder {
+	builder := &SortTabsChatTabReqBuilder{}
+	return builder
+}
+
+// 1.5 生成请求的builder属性方法
+func (builder *SortTabsChatTabReqBuilder) ChatId(chatId string) *SortTabsChatTabReqBuilder {
+	builder.chatId = chatId
+	builder.chatIdFlag = true
+	return builder
+}
+func (builder *SortTabsChatTabReqBuilder) Body(body *SortTabsChatTabReqBody) *SortTabsChatTabReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
+}
+
+// 1.5 生成请求的builder的build方法
+func (builder *SortTabsChatTabReqBuilder) Build() *SortTabsChatTabReq {
+	req := &SortTabsChatTabReq{}
+	if builder.chatIdFlag {
+		req.ChatId = builder.chatId
+	}
+	if builder.bodyFlag {
+		req.Body = builder.body
+	}
+	return req
+}
+
+type SortTabsChatTabReqBody struct {
+	TabIds []string `json:"tab_ids,omitempty"`
+}
+
+type SortTabsChatTabReq struct {
+	ChatId string                  `path:"chat_id"`
+	Body   *SortTabsChatTabReqBody `body:""`
+}
+
+type SortTabsChatTabRespData struct {
+	ChatTabs []*ChatTab `json:"chat_tabs,omitempty"`
+}
+
+type SortTabsChatTabResp struct {
+	*core.RawResponse `json:"-"`
+	core.CodeError
+	Data *SortTabsChatTabRespData `json:"data"`
+}
+
+func (resp *SortTabsChatTabResp) Success() bool {
+	return resp.Code == 0
+}
+
+type UpdateTabsChatTabReqBodyBuilder struct {
+	chatTabs     []*ChatTab
+	chatTabsFlag bool
+}
+
+// 生成body的New构造器
+func NewUpdateTabsChatTabReqBodyBuilder() *UpdateTabsChatTabReqBodyBuilder {
+	builder := &UpdateTabsChatTabReqBodyBuilder{}
+	return builder
+}
+
+// 1.2 生成body的builder属性方法
+func (builder *UpdateTabsChatTabReqBodyBuilder) ChatTabs(chatTabs []*ChatTab) *UpdateTabsChatTabReqBodyBuilder {
+	builder.chatTabs = chatTabs
+	builder.chatTabsFlag = true
+	return builder
+}
+
+// 1.3 生成body的build方法
+func (builder *UpdateTabsChatTabReqBodyBuilder) Build() *UpdateTabsChatTabReqBody {
+	req := &UpdateTabsChatTabReqBody{}
+	if builder.chatTabsFlag {
+		req.ChatTabs = builder.chatTabs
+	}
+	return req
+}
+
+// 上传文件path开始
+type UpdateTabsChatTabPathReqBodyBuilder struct {
+	chatTabs     []*ChatTab
+	chatTabsFlag bool
+}
+
+func NewUpdateTabsChatTabPathReqBodyBuilder() *UpdateTabsChatTabPathReqBodyBuilder {
+	builder := &UpdateTabsChatTabPathReqBodyBuilder{}
+	return builder
+}
+func (builder *UpdateTabsChatTabPathReqBodyBuilder) ChatTabs(chatTabs []*ChatTab) *UpdateTabsChatTabPathReqBodyBuilder {
+	builder.chatTabs = chatTabs
+	builder.chatTabsFlag = true
+	return builder
+}
+
+func (builder *UpdateTabsChatTabPathReqBodyBuilder) Build() (*UpdateTabsChatTabReqBody, error) {
+	req := &UpdateTabsChatTabReqBody{}
+	if builder.chatTabsFlag {
+		req.ChatTabs = builder.chatTabs
+	}
+	return req, nil
+}
+
+// 上传文件path结束
+
+// 1.4 生成请求的builder结构体
+type UpdateTabsChatTabReqBuilder struct {
+	chatId     string
+	chatIdFlag bool
+	body       *UpdateTabsChatTabReqBody
+	bodyFlag   bool
+}
+
+// 生成请求的New构造器
+func NewUpdateTabsChatTabReqBuilder() *UpdateTabsChatTabReqBuilder {
+	builder := &UpdateTabsChatTabReqBuilder{}
+	return builder
+}
+
+// 1.5 生成请求的builder属性方法
+func (builder *UpdateTabsChatTabReqBuilder) ChatId(chatId string) *UpdateTabsChatTabReqBuilder {
+	builder.chatId = chatId
+	builder.chatIdFlag = true
+	return builder
+}
+func (builder *UpdateTabsChatTabReqBuilder) Body(body *UpdateTabsChatTabReqBody) *UpdateTabsChatTabReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
+}
+
+// 1.5 生成请求的builder的build方法
+func (builder *UpdateTabsChatTabReqBuilder) Build() *UpdateTabsChatTabReq {
+	req := &UpdateTabsChatTabReq{}
+	if builder.chatIdFlag {
+		req.ChatId = builder.chatId
+	}
+	if builder.bodyFlag {
+		req.Body = builder.body
+	}
+	return req
+}
+
+type UpdateTabsChatTabReqBody struct {
+	ChatTabs []*ChatTab `json:"chat_tabs,omitempty"`
+}
+
+type UpdateTabsChatTabReq struct {
+	ChatId string                    `path:"chat_id"`
+	Body   *UpdateTabsChatTabReqBody `body:""`
+}
+
+type UpdateTabsChatTabRespData struct {
+	ChatTabs []*ChatTab `json:"chat_tabs,omitempty"`
+}
+
+type UpdateTabsChatTabResp struct {
+	*core.RawResponse `json:"-"`
+	core.CodeError
+	Data *UpdateTabsChatTabRespData `json:"data"`
+}
+
+func (resp *UpdateTabsChatTabResp) Success() bool {
+	return resp.Code == 0
+}
+
 // 1.4 生成请求的builder结构体
 type DeleteTopNoticeChatTopNoticeReqBuilder struct {
 	chatId     string

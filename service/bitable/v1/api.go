@@ -9,8 +9,8 @@ import (
 )
 
 // 构建业务域服务实例
-func NewService(httpClient *http.Client, config *core.Config) *BitableService {
-	b := &BitableService{httpClient: httpClient, config: config}
+func NewService(config *core.Config) *BitableService {
+	b := &BitableService{config: config}
 	b.App = &app{service: b}
 	b.AppRole = &appRole{service: b}
 	b.AppRoleMember = &appRoleMember{service: b}
@@ -24,7 +24,6 @@ func NewService(httpClient *http.Client, config *core.Config) *BitableService {
 
 // 业务域服务定义
 type BitableService struct {
-	httpClient        *http.Client
 	config            *core.Config
 	App               *app
 	AppRole           *appRole
@@ -138,7 +137,7 @@ func (a *appRole) List(ctx context.Context, req *ListAppRoleReq, options ...core
 	}
 	return resp, err
 }
-func (a *appRole) ListAppRole(ctx context.Context, req *ListAppRoleReq, options ...core.RequestOptionFunc) (*ListAppRoleIterator, error) {
+func (a *appRole) ListByIterator(ctx context.Context, req *ListAppRoleReq, options ...core.RequestOptionFunc) (*ListAppRoleIterator, error) {
 	return &ListAppRoleIterator{
 		ctx:      ctx,
 		req:      req,
@@ -236,7 +235,7 @@ func (a *appRoleMember) List(ctx context.Context, req *ListAppRoleMemberReq, opt
 	}
 	return resp, err
 }
-func (a *appRoleMember) ListAppRoleMember(ctx context.Context, req *ListAppRoleMemberReq, options ...core.RequestOptionFunc) (*ListAppRoleMemberIterator, error) {
+func (a *appRoleMember) ListByIterator(ctx context.Context, req *ListAppRoleMemberReq, options ...core.RequestOptionFunc) (*ListAppRoleMemberIterator, error) {
 	return &ListAppRoleMemberIterator{
 		ctx:      ctx,
 		req:      req,
@@ -319,7 +318,7 @@ func (a *appTable) List(ctx context.Context, req *ListAppTableReq, options ...co
 	}
 	return resp, err
 }
-func (a *appTable) ListAppTable(ctx context.Context, req *ListAppTableReq, options ...core.RequestOptionFunc) (*ListAppTableIterator, error) {
+func (a *appTable) ListByIterator(ctx context.Context, req *ListAppTableReq, options ...core.RequestOptionFunc) (*ListAppTableIterator, error) {
 	return &ListAppTableIterator{
 		ctx:      ctx,
 		req:      req,
@@ -372,7 +371,7 @@ func (a *appTableField) List(ctx context.Context, req *ListAppTableFieldReq, opt
 	}
 	return resp, err
 }
-func (a *appTableField) ListAppTableField(ctx context.Context, req *ListAppTableFieldReq, options ...core.RequestOptionFunc) (*ListAppTableFieldIterator, error) {
+func (a *appTableField) ListByIterator(ctx context.Context, req *ListAppTableFieldReq, options ...core.RequestOptionFunc) (*ListAppTableFieldIterator, error) {
 	return &ListAppTableFieldIterator{
 		ctx:      ctx,
 		req:      req,
@@ -410,7 +409,7 @@ func (a *appTableFormField) List(ctx context.Context, req *ListAppTableFormField
 	}
 	return resp, err
 }
-func (a *appTableFormField) ListAppTableFormField(ctx context.Context, req *ListAppTableFormFieldReq, options ...core.RequestOptionFunc) (*ListAppTableFormFieldIterator, error) {
+func (a *appTableFormField) ListByIterator(ctx context.Context, req *ListAppTableFormFieldReq, options ...core.RequestOptionFunc) (*ListAppTableFormFieldIterator, error) {
 	return &ListAppTableFormFieldIterator{
 		ctx:      ctx,
 		req:      req,
@@ -538,7 +537,7 @@ func (a *appTableRecord) List(ctx context.Context, req *ListAppTableRecordReq, o
 	}
 	return resp, err
 }
-func (a *appTableRecord) ListAppTableRecord(ctx context.Context, req *ListAppTableRecordReq, options ...core.RequestOptionFunc) (*ListAppTableRecordIterator, error) {
+func (a *appTableRecord) ListByIterator(ctx context.Context, req *ListAppTableRecordReq, options ...core.RequestOptionFunc) (*ListAppTableRecordIterator, error) {
 	return &ListAppTableRecordIterator{
 		ctx:      ctx,
 		req:      req,
@@ -606,7 +605,7 @@ func (a *appTableView) List(ctx context.Context, req *ListAppTableViewReq, optio
 	}
 	return resp, err
 }
-func (a *appTableView) ListAppTableView(ctx context.Context, req *ListAppTableViewReq, options ...core.RequestOptionFunc) (*ListAppTableViewIterator, error) {
+func (a *appTableView) ListByIterator(ctx context.Context, req *ListAppTableViewReq, options ...core.RequestOptionFunc) (*ListAppTableViewIterator, error) {
 	return &ListAppTableViewIterator{
 		ctx:      ctx,
 		req:      req,

@@ -9,17 +9,16 @@ import (
 )
 
 // 构建业务域服务实例
-func NewService(httpClient *http.Client, config *core.Config) *PassportService {
-	p := &PassportService{httpClient: httpClient, config: config}
+func NewService(config *core.Config) *PassportService {
+	p := &PassportService{config: config}
 	p.Session = &session{service: p}
 	return p
 }
 
 // 业务域服务定义
 type PassportService struct {
-	httpClient *http.Client
-	config     *core.Config
-	Session    *session
+	config  *core.Config
+	Session *session
 }
 
 // 资源服务定义

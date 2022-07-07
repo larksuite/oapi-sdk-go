@@ -114,6 +114,12 @@ func WithLogReqRespInfoAtDebugLevel(printReqRespLog bool) ClientOptionFunc {
 	}
 }
 
+func WithHttpClient(httpClient httpclient.HttpClient) ClientOptionFunc {
+	return func(config *core.Config) {
+		config.HttpClient = httpClient
+	}
+}
+
 func WithHelpdeskCredential(helpdeskID, helpdeskToken string) ClientOptionFunc {
 	return func(config *core.Config) {
 		config.HelpDeskId = helpdeskID
@@ -150,42 +156,42 @@ func NewClient(appId, appSecret string, options ...ClientOptionFunc) *Client {
 	core.NewCache(config)
 
 	// 创建httpclient
-	httpClient := httpclient.NewHttpClient(config)
+	core.NewHttpClient(config)
 
 	// 创建sdk-client，并初始化服务
 	client := &Client{config: config}
-	initService(client, httpClient, config)
+	initService(client, config)
 	return client
 }
 
-func initService(client *Client, httpClient *http.Client, config *core.Config) {
-	client.Acs = larkacs.NewService(httpClient, config)
-	client.Admin = larkadmin.NewService(httpClient, config)
-	client.Application = larkapplication.NewService(httpClient, config)
-	client.Approval = larkapproval.NewService(httpClient, config)
-	client.Attendance = larkattendance.NewService(httpClient, config)
-	client.Baike = larkbaike.NewService(httpClient, config)
-	client.Bitable = larkbitable.NewService(httpClient, config)
-	client.Calendar = larkcalendar.NewService(httpClient, config)
-	client.Contact = larkcontact.NewService(httpClient, config)
-	client.Docx = larkdocx.NewService(httpClient, config)
-	client.Drive = larkdrive.NewService(httpClient, config)
-	client.Ehr = larkehr.NewService(httpClient, config)
-	client.Event = larkevent.NewService(httpClient, config)
-	client.GrayTestOpenSg = larkgray_test_open_sg.NewService(httpClient, config)
-	client.HumanAuthentication = larkhuman_authentication.NewService(httpClient, config)
-	client.Im = larkim.NewService(httpClient, config)
-	client.Mail = larkmail.NewService(httpClient, config)
-	client.OpticalCharRecognition = larkoptical_char_recognition.NewService(httpClient, config)
-	client.Passport = larkpassport.NewService(httpClient, config)
-	client.Search = larksearch.NewService(httpClient, config)
-	client.Sheets = larksheets.NewService(httpClient, config)
-	client.SpeechToText = larkspeech_to_text.NewService(httpClient, config)
-	client.Task = larktask.NewService(httpClient, config)
-	client.Tenant = larktenant.NewService(httpClient, config)
-	client.Translation = larktranslation.NewService(httpClient, config)
-	client.Vc = larkvc.NewService(httpClient, config)
-	client.Wiki = larkwiki.NewService(httpClient, config)
+func initService(client *Client, config *core.Config) {
+	client.Acs = larkacs.NewService(config)
+	client.Admin = larkadmin.NewService(config)
+	client.Application = larkapplication.NewService(config)
+	client.Approval = larkapproval.NewService(config)
+	client.Attendance = larkattendance.NewService(config)
+	client.Baike = larkbaike.NewService(config)
+	client.Bitable = larkbitable.NewService(config)
+	client.Calendar = larkcalendar.NewService(config)
+	client.Contact = larkcontact.NewService(config)
+	client.Docx = larkdocx.NewService(config)
+	client.Drive = larkdrive.NewService(config)
+	client.Ehr = larkehr.NewService(config)
+	client.Event = larkevent.NewService(config)
+	client.GrayTestOpenSg = larkgray_test_open_sg.NewService(config)
+	client.HumanAuthentication = larkhuman_authentication.NewService(config)
+	client.Im = larkim.NewService(config)
+	client.Mail = larkmail.NewService(config)
+	client.OpticalCharRecognition = larkoptical_char_recognition.NewService(config)
+	client.Passport = larkpassport.NewService(config)
+	client.Search = larksearch.NewService(config)
+	client.Sheets = larksheets.NewService(config)
+	client.SpeechToText = larkspeech_to_text.NewService(config)
+	client.Task = larktask.NewService(config)
+	client.Tenant = larktenant.NewService(config)
+	client.Translation = larktranslation.NewService(config)
+	client.Vc = larkvc.NewService(config)
+	client.Wiki = larkwiki.NewService(config)
 
 }
 

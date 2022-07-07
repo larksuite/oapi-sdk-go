@@ -10,8 +10,8 @@ import (
 )
 
 // 构建业务域服务实例
-func NewService(httpClient *http.Client, config *core.Config) *EhrService {
-	e := &EhrService{httpClient: httpClient, config: config}
+func NewService(config *core.Config) *EhrService {
+	e := &EhrService{config: config}
 	e.Attachment = &attachment{service: e}
 	e.Employee = &employee{service: e}
 	return e
@@ -19,7 +19,6 @@ func NewService(httpClient *http.Client, config *core.Config) *EhrService {
 
 // 业务域服务定义
 type EhrService struct {
-	httpClient *http.Client
 	config     *core.Config
 	Attachment *attachment
 	Employee   *employee
@@ -70,7 +69,7 @@ func (e *employee) List(ctx context.Context, req *ListEmployeeReq, options ...co
 	}
 	return resp, err
 }
-func (e *employee) ListEmployee(ctx context.Context, req *ListEmployeeReq, options ...core.RequestOptionFunc) (*ListEmployeeIterator, error) {
+func (e *employee) ListByIterator(ctx context.Context, req *ListEmployeeReq, options ...core.RequestOptionFunc) (*ListEmployeeIterator, error) {
 	return &ListEmployeeIterator{
 		ctx:      ctx,
 		req:      req,

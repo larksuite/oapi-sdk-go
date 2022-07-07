@@ -9,8 +9,8 @@ import (
 )
 
 // 构建业务域服务实例
-func NewService(httpClient *http.Client, config *core.Config) *TaskService {
-	t := &TaskService{httpClient: httpClient, config: config}
+func NewService(config *core.Config) *TaskService {
+	t := &TaskService{config: config}
 	t.Task = &task{service: t}
 	t.TaskCollaborator = &taskCollaborator{service: t}
 	t.TaskComment = &taskComment{service: t}
@@ -21,7 +21,6 @@ func NewService(httpClient *http.Client, config *core.Config) *TaskService {
 
 // 业务域服务定义
 type TaskService struct {
-	httpClient       *http.Client
 	config           *core.Config
 	Task             *task
 	TaskCollaborator *taskCollaborator
@@ -123,7 +122,7 @@ func (t *task) List(ctx context.Context, req *ListTaskReq, options ...core.Reque
 	}
 	return resp, err
 }
-func (t *task) ListTask(ctx context.Context, req *ListTaskReq, options ...core.RequestOptionFunc) (*ListTaskIterator, error) {
+func (t *task) ListByIterator(ctx context.Context, req *ListTaskReq, options ...core.RequestOptionFunc) (*ListTaskIterator, error) {
 	return &ListTaskIterator{
 		ctx:      ctx,
 		req:      req,
@@ -206,7 +205,7 @@ func (t *taskCollaborator) List(ctx context.Context, req *ListTaskCollaboratorRe
 	}
 	return resp, err
 }
-func (t *taskCollaborator) ListTaskCollaborator(ctx context.Context, req *ListTaskCollaboratorReq, options ...core.RequestOptionFunc) (*ListTaskCollaboratorIterator, error) {
+func (t *taskCollaborator) ListByIterator(ctx context.Context, req *ListTaskCollaboratorReq, options ...core.RequestOptionFunc) (*ListTaskCollaboratorIterator, error) {
 	return &ListTaskCollaboratorIterator{
 		ctx:      ctx,
 		req:      req,
@@ -274,7 +273,7 @@ func (t *taskComment) List(ctx context.Context, req *ListTaskCommentReq, options
 	}
 	return resp, err
 }
-func (t *taskComment) ListTaskComment(ctx context.Context, req *ListTaskCommentReq, options ...core.RequestOptionFunc) (*ListTaskCommentIterator, error) {
+func (t *taskComment) ListByIterator(ctx context.Context, req *ListTaskCommentReq, options ...core.RequestOptionFunc) (*ListTaskCommentIterator, error) {
 	return &ListTaskCommentIterator{
 		ctx:      ctx,
 		req:      req,
@@ -342,7 +341,7 @@ func (t *taskFollower) List(ctx context.Context, req *ListTaskFollowerReq, optio
 	}
 	return resp, err
 }
-func (t *taskFollower) ListTaskFollower(ctx context.Context, req *ListTaskFollowerReq, options ...core.RequestOptionFunc) (*ListTaskFollowerIterator, error) {
+func (t *taskFollower) ListByIterator(ctx context.Context, req *ListTaskFollowerReq, options ...core.RequestOptionFunc) (*ListTaskFollowerIterator, error) {
 	return &ListTaskFollowerIterator{
 		ctx:      ctx,
 		req:      req,
@@ -395,7 +394,7 @@ func (t *taskReminder) List(ctx context.Context, req *ListTaskReminderReq, optio
 	}
 	return resp, err
 }
-func (t *taskReminder) ListTaskReminder(ctx context.Context, req *ListTaskReminderReq, options ...core.RequestOptionFunc) (*ListTaskReminderIterator, error) {
+func (t *taskReminder) ListByIterator(ctx context.Context, req *ListTaskReminderReq, options ...core.RequestOptionFunc) (*ListTaskReminderIterator, error) {
 	return &ListTaskReminderIterator{
 		ctx:      ctx,
 		req:      req,

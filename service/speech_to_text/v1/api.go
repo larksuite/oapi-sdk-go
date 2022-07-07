@@ -9,17 +9,16 @@ import (
 )
 
 // 构建业务域服务实例
-func NewService(httpClient *http.Client, config *core.Config) *SpeechToTextService {
-	s := &SpeechToTextService{httpClient: httpClient, config: config}
+func NewService(config *core.Config) *SpeechToTextService {
+	s := &SpeechToTextService{config: config}
 	s.Speech = &speech{service: s}
 	return s
 }
 
 // 业务域服务定义
 type SpeechToTextService struct {
-	httpClient *http.Client
-	config     *core.Config
-	Speech     *speech
+	config *core.Config
+	Speech *speech
 }
 
 // 资源服务定义

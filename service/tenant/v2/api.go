@@ -9,17 +9,16 @@ import (
 )
 
 // 构建业务域服务实例
-func NewService(httpClient *http.Client, config *core.Config) *TenantService {
-	t := &TenantService{httpClient: httpClient, config: config}
+func NewService(config *core.Config) *TenantService {
+	t := &TenantService{config: config}
 	t.Tenant = &tenant{service: t}
 	return t
 }
 
 // 业务域服务定义
 type TenantService struct {
-	httpClient *http.Client
-	config     *core.Config
-	Tenant     *tenant
+	config *core.Config
+	Tenant *tenant
 }
 
 // 资源服务定义

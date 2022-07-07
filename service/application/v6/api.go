@@ -9,8 +9,8 @@ import (
 )
 
 // 构建业务域服务实例
-func NewService(httpClient *http.Client, config *core.Config) *ApplicationService {
-	a := &ApplicationService{httpClient: httpClient, config: config}
+func NewService(config *core.Config) *ApplicationService {
+	a := &ApplicationService{config: config}
 	a.Application = &application{service: a}
 	a.ApplicationAppUsage = &applicationAppUsage{service: a}
 	a.ApplicationAppVersion = &applicationAppVersion{service: a}
@@ -21,7 +21,6 @@ func NewService(httpClient *http.Client, config *core.Config) *ApplicationServic
 
 // 业务域服务定义
 type ApplicationService struct {
-	httpClient            *http.Client
 	config                *core.Config
 	Application           *application
 	ApplicationAppUsage   *applicationAppUsage
@@ -93,7 +92,7 @@ func (a *application) Underauditlist(ctx context.Context, req *UnderauditlistApp
 	}
 	return resp, err
 }
-func (a *application) UnderauditlistApplication(ctx context.Context, req *UnderauditlistApplicationReq, options ...core.RequestOptionFunc) (*UnderauditlistApplicationIterator, error) {
+func (a *application) UnderauditlistByIterator(ctx context.Context, req *UnderauditlistApplicationReq, options ...core.RequestOptionFunc) (*UnderauditlistApplicationIterator, error) {
 	return &UnderauditlistApplicationIterator{
 		ctx:      ctx,
 		req:      req,

@@ -6,6 +6,21 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
+const (
+	TemplateBlue      = "blue"
+	TemplateWathet    = "wathet"
+	TemplateTurquoise = "turquoise"
+	TemplateGreen     = "green"
+	TemplateYellow    = "yellow"
+	TemplateOrange    = "orange"
+	TemplateRed       = "red"
+	TemplateCarmine   = "carmine"
+	TemplateViolet    = "violet"
+	TemplatePurple    = "purple"
+	TemplateIndigo    = "indigo"
+	TemplateGrey      = "grey"
+)
+
 type MessageCard struct {
 	Config_       *MessageCardConfig       `json:"config,omitempty"`
 	Header_       *MessageCardHeader       `json:"header,omitempty"`

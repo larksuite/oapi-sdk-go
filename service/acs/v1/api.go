@@ -10,8 +10,8 @@ import (
 )
 
 // 构建业务域服务实例
-func NewService(httpClient *http.Client, config *core.Config) *AcsService {
-	a := &AcsService{httpClient: httpClient, config: config}
+func NewService(config *core.Config) *AcsService {
+	a := &AcsService{config: config}
 	a.AccessRecord = &accessRecord{service: a}
 	a.AccessRecordAccessPhoto = &accessRecordAccessPhoto{service: a}
 	a.Device = &device{service: a}
@@ -22,7 +22,6 @@ func NewService(httpClient *http.Client, config *core.Config) *AcsService {
 
 // 业务域服务定义
 type AcsService struct {
-	httpClient              *http.Client
 	config                  *core.Config
 	AccessRecord            *accessRecord
 	AccessRecordAccessPhoto *accessRecordAccessPhoto
@@ -64,7 +63,7 @@ func (a *accessRecord) List(ctx context.Context, req *ListAccessRecordReq, optio
 	}
 	return resp, err
 }
-func (a *accessRecord) ListAccessRecord(ctx context.Context, req *ListAccessRecordReq, options ...core.RequestOptionFunc) (*ListAccessRecordIterator, error) {
+func (a *accessRecord) ListByIterator(ctx context.Context, req *ListAccessRecordReq, options ...core.RequestOptionFunc) (*ListAccessRecordIterator, error) {
 	return &ListAccessRecordIterator{
 		ctx:      ctx,
 		req:      req,
@@ -138,7 +137,7 @@ func (u *user) List(ctx context.Context, req *ListUserReq, options ...core.Reque
 	}
 	return resp, err
 }
-func (u *user) ListUser(ctx context.Context, req *ListUserReq, options ...core.RequestOptionFunc) (*ListUserIterator, error) {
+func (u *user) ListByIterator(ctx context.Context, req *ListUserReq, options ...core.RequestOptionFunc) (*ListUserIterator, error) {
 	return &ListUserIterator{
 		ctx:      ctx,
 		req:      req,

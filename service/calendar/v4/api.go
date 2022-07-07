@@ -9,8 +9,8 @@ import (
 )
 
 // 构建业务域服务实例
-func NewService(httpClient *http.Client, config *core.Config) *CalendarService {
-	c := &CalendarService{httpClient: httpClient, config: config}
+func NewService(config *core.Config) *CalendarService {
+	c := &CalendarService{config: config}
 	c.Calendar = &calendar{service: c}
 	c.CalendarAcl = &calendarAcl{service: c}
 	c.CalendarEvent = &calendarEvent{service: c}
@@ -25,7 +25,6 @@ func NewService(httpClient *http.Client, config *core.Config) *CalendarService {
 
 // 业务域服务定义
 type CalendarService struct {
-	httpClient                      *http.Client
 	config                          *core.Config
 	Calendar                        *calendar
 	CalendarAcl                     *calendarAcl
@@ -173,7 +172,7 @@ func (c *calendar) Search(ctx context.Context, req *SearchCalendarReq, options .
 	}
 	return resp, err
 }
-func (c *calendar) SearchCalendar(ctx context.Context, req *SearchCalendarReq, options ...core.RequestOptionFunc) (*SearchCalendarIterator, error) {
+func (c *calendar) SearchByIterator(ctx context.Context, req *SearchCalendarReq, options ...core.RequestOptionFunc) (*SearchCalendarIterator, error) {
 	return &SearchCalendarIterator{
 		ctx:      ctx,
 		req:      req,
@@ -271,7 +270,7 @@ func (c *calendarAcl) List(ctx context.Context, req *ListCalendarAclReq, options
 	}
 	return resp, err
 }
-func (c *calendarAcl) ListCalendarAcl(ctx context.Context, req *ListCalendarAclReq, options ...core.RequestOptionFunc) (*ListCalendarAclIterator, error) {
+func (c *calendarAcl) ListByIterator(ctx context.Context, req *ListCalendarAclReq, options ...core.RequestOptionFunc) (*ListCalendarAclIterator, error) {
 	return &ListCalendarAclIterator{
 		ctx:      ctx,
 		req:      req,
@@ -384,7 +383,7 @@ func (c *calendarEvent) Search(ctx context.Context, req *SearchCalendarEventReq,
 	}
 	return resp, err
 }
-func (c *calendarEvent) SearchCalendarEvent(ctx context.Context, req *SearchCalendarEventReq, options ...core.RequestOptionFunc) (*SearchCalendarEventIterator, error) {
+func (c *calendarEvent) SearchByIterator(ctx context.Context, req *SearchCalendarEventReq, options ...core.RequestOptionFunc) (*SearchCalendarEventIterator, error) {
 	return &SearchCalendarEventIterator{
 		ctx:      ctx,
 		req:      req,
@@ -452,7 +451,7 @@ func (c *calendarEventAttendee) List(ctx context.Context, req *ListCalendarEvent
 	}
 	return resp, err
 }
-func (c *calendarEventAttendee) ListCalendarEventAttendee(ctx context.Context, req *ListCalendarEventAttendeeReq, options ...core.RequestOptionFunc) (*ListCalendarEventAttendeeIterator, error) {
+func (c *calendarEventAttendee) ListByIterator(ctx context.Context, req *ListCalendarEventAttendeeReq, options ...core.RequestOptionFunc) (*ListCalendarEventAttendeeIterator, error) {
 	return &ListCalendarEventAttendeeIterator{
 		ctx:      ctx,
 		req:      req,
@@ -475,7 +474,7 @@ func (c *calendarEventAttendeeChatMember) List(ctx context.Context, req *ListCal
 	}
 	return resp, err
 }
-func (c *calendarEventAttendeeChatMember) ListCalendarEventAttendeeChatMember(ctx context.Context, req *ListCalendarEventAttendeeChatMemberReq, options ...core.RequestOptionFunc) (*ListCalendarEventAttendeeChatMemberIterator, error) {
+func (c *calendarEventAttendeeChatMember) ListByIterator(ctx context.Context, req *ListCalendarEventAttendeeChatMemberReq, options ...core.RequestOptionFunc) (*ListCalendarEventAttendeeChatMemberIterator, error) {
 	return &ListCalendarEventAttendeeChatMemberIterator{
 		ctx:      ctx,
 		req:      req,

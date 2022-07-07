@@ -9,8 +9,8 @@ import (
 )
 
 // 构建业务域服务实例
-func NewService(httpClient *http.Client, config *core.Config) *ContactService {
-	c := &ContactService{httpClient: httpClient, config: config}
+func NewService(config *core.Config) *ContactService {
+	c := &ContactService{config: config}
 	c.CustomAttr = &customAttr{service: c}
 	c.CustomAttrEvent = &customAttrEvent{service: c}
 	c.Department = &department{service: c}
@@ -25,7 +25,6 @@ func NewService(httpClient *http.Client, config *core.Config) *ContactService {
 
 // 业务域服务定义
 type ContactService struct {
-	httpClient       *http.Client
 	config           *core.Config
 	CustomAttr       *customAttr
 	CustomAttrEvent  *customAttrEvent
@@ -83,7 +82,7 @@ func (c *customAttr) List(ctx context.Context, req *ListCustomAttrReq, options .
 	}
 	return resp, err
 }
-func (c *customAttr) ListCustomAttr(ctx context.Context, req *ListCustomAttrReq, options ...core.RequestOptionFunc) (*ListCustomAttrIterator, error) {
+func (c *customAttr) ListByIterator(ctx context.Context, req *ListCustomAttrReq, options ...core.RequestOptionFunc) (*ListCustomAttrIterator, error) {
 	return &ListCustomAttrIterator{
 		ctx:      ctx,
 		req:      req,
@@ -106,7 +105,7 @@ func (d *department) Children(ctx context.Context, req *ChildrenDepartmentReq, o
 	}
 	return resp, err
 }
-func (d *department) ChildrenDepartment(ctx context.Context, req *ChildrenDepartmentReq, options ...core.RequestOptionFunc) (*ChildrenDepartmentIterator, error) {
+func (d *department) ChildrenByIterator(ctx context.Context, req *ChildrenDepartmentReq, options ...core.RequestOptionFunc) (*ChildrenDepartmentIterator, error) {
 	return &ChildrenDepartmentIterator{
 		ctx:      ctx,
 		req:      req,
@@ -174,7 +173,7 @@ func (d *department) List(ctx context.Context, req *ListDepartmentReq, options .
 	}
 	return resp, err
 }
-func (d *department) ListDepartment(ctx context.Context, req *ListDepartmentReq, options ...core.RequestOptionFunc) (*ListDepartmentIterator, error) {
+func (d *department) ListByIterator(ctx context.Context, req *ListDepartmentReq, options ...core.RequestOptionFunc) (*ListDepartmentIterator, error) {
 	return &ListDepartmentIterator{
 		ctx:      ctx,
 		req:      req,
@@ -197,7 +196,7 @@ func (d *department) Parent(ctx context.Context, req *ParentDepartmentReq, optio
 	}
 	return resp, err
 }
-func (d *department) ParentDepartment(ctx context.Context, req *ParentDepartmentReq, options ...core.RequestOptionFunc) (*ParentDepartmentIterator, error) {
+func (d *department) ParentByIterator(ctx context.Context, req *ParentDepartmentReq, options ...core.RequestOptionFunc) (*ParentDepartmentIterator, error) {
 	return &ParentDepartmentIterator{
 		ctx:      ctx,
 		req:      req,
@@ -235,7 +234,7 @@ func (d *department) Search(ctx context.Context, req *SearchDepartmentReq, optio
 	}
 	return resp, err
 }
-func (d *department) SearchDepartment(ctx context.Context, req *SearchDepartmentReq, options ...core.RequestOptionFunc) (*SearchDepartmentIterator, error) {
+func (d *department) SearchByIterator(ctx context.Context, req *SearchDepartmentReq, options ...core.RequestOptionFunc) (*SearchDepartmentIterator, error) {
 	return &SearchDepartmentIterator{
 		ctx:      ctx,
 		req:      req,
@@ -318,7 +317,7 @@ func (e *employeeTypeEnum) List(ctx context.Context, req *ListEmployeeTypeEnumRe
 	}
 	return resp, err
 }
-func (e *employeeTypeEnum) ListEmployeeTypeEnum(ctx context.Context, req *ListEmployeeTypeEnumReq, options ...core.RequestOptionFunc) (*ListEmployeeTypeEnumIterator, error) {
+func (e *employeeTypeEnum) ListByIterator(ctx context.Context, req *ListEmployeeTypeEnumReq, options ...core.RequestOptionFunc) (*ListEmployeeTypeEnumIterator, error) {
 	return &ListEmployeeTypeEnumIterator{
 		ctx:      ctx,
 		req:      req,
@@ -431,7 +430,7 @@ func (g *group) Simplelist(ctx context.Context, req *SimplelistGroupReq, options
 	}
 	return resp, err
 }
-func (g *group) SimplelistGroup(ctx context.Context, req *SimplelistGroupReq, options ...core.RequestOptionFunc) (*SimplelistGroupIterator, error) {
+func (g *group) SimplelistByIterator(ctx context.Context, req *SimplelistGroupReq, options ...core.RequestOptionFunc) (*SimplelistGroupIterator, error) {
 	return &SimplelistGroupIterator{
 		ctx:      ctx,
 		req:      req,
@@ -709,7 +708,7 @@ func (u *user) FindByDepartment(ctx context.Context, req *FindByDepartmentUserRe
 	}
 	return resp, err
 }
-func (u *user) FindByDepartmentUser(ctx context.Context, req *FindByDepartmentUserReq, options ...core.RequestOptionFunc) (*FindByDepartmentUserIterator, error) {
+func (u *user) FindByDepartmentByIterator(ctx context.Context, req *FindByDepartmentUserReq, options ...core.RequestOptionFunc) (*FindByDepartmentUserIterator, error) {
 	return &FindByDepartmentUserIterator{
 		ctx:      ctx,
 		req:      req,
@@ -747,7 +746,7 @@ func (u *user) List(ctx context.Context, req *ListUserReq, options ...core.Reque
 	}
 	return resp, err
 }
-func (u *user) ListUser(ctx context.Context, req *ListUserReq, options ...core.RequestOptionFunc) (*ListUserIterator, error) {
+func (u *user) ListByIterator(ctx context.Context, req *ListUserReq, options ...core.RequestOptionFunc) (*ListUserIterator, error) {
 	return &ListUserIterator{
 		ctx:      ctx,
 		req:      req,

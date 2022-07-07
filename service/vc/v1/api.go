@@ -9,8 +9,8 @@ import (
 )
 
 // 构建业务域服务实例
-func NewService(httpClient *http.Client, config *core.Config) *VcService {
-	v := &VcService{httpClient: httpClient, config: config}
+func NewService(config *core.Config) *VcService {
+	v := &VcService{config: config}
 	v.Meeting = &meeting{service: v}
 	v.MeetingRecording = &meetingRecording{service: v}
 	v.Report = &report{service: v}
@@ -21,7 +21,6 @@ func NewService(httpClient *http.Client, config *core.Config) *VcService {
 
 // 业务域服务定义
 type VcService struct {
-	httpClient       *http.Client
 	config           *core.Config
 	Meeting          *meeting
 	MeetingRecording *meetingRecording
@@ -123,7 +122,7 @@ func (m *meeting) ListByNo(ctx context.Context, req *ListByNoMeetingReq, options
 	}
 	return resp, err
 }
-func (m *meeting) ListByNoMeeting(ctx context.Context, req *ListByNoMeetingReq, options ...core.RequestOptionFunc) (*ListByNoMeetingIterator, error) {
+func (m *meeting) ListByNoByIterator(ctx context.Context, req *ListByNoMeetingReq, options ...core.RequestOptionFunc) (*ListByNoMeetingIterator, error) {
 	return &ListByNoMeetingIterator{
 		ctx:      ctx,
 		req:      req,

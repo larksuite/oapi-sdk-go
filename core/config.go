@@ -1,8 +1,9 @@
 package core
 
 import (
-	"net/http"
 	"time"
+
+	"github.com/larksuite/oapi-sdk-go/httpclient"
 )
 
 type Config struct {
@@ -14,7 +15,7 @@ type Config struct {
 	HelpdeskAuthToken          string
 	ReqTimeout                 time.Duration
 	LogLevel                   LogLevel
-	HttpClient                 *http.Client
+	HttpClient                 httpclient.HttpClient
 	Logger                     Logger
 	AppType                    AppType
 	EnableTokenCache           bool

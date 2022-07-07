@@ -9,17 +9,16 @@ import (
 )
 
 // 构建业务域服务实例
-func NewService(httpClient *http.Client, config *core.Config) *OpticalCharRecognitionService {
-	o := &OpticalCharRecognitionService{httpClient: httpClient, config: config}
+func NewService(config *core.Config) *OpticalCharRecognitionService {
+	o := &OpticalCharRecognitionService{config: config}
 	o.Image = &image{service: o}
 	return o
 }
 
 // 业务域服务定义
 type OpticalCharRecognitionService struct {
-	httpClient *http.Client
-	config     *core.Config
-	Image      *image
+	config *core.Config
+	Image  *image
 }
 
 // 资源服务定义

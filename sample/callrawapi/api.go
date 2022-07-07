@@ -14,8 +14,7 @@ func main() {
 	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
 	var cli = client.NewClient(appID, appSecret,
 		client.WithLogLevel(core.LogLevelDebug),
-		client.WithLogReqRespInfoAtDebugLevel(true),
-		client.WithAppType(core.AppTypeMarketplace))
+		client.WithLogReqRespInfoAtDebugLevel(true))
 
 	content := larkim.NewTextMsgBuilder().
 		Text("加多").
@@ -29,7 +28,7 @@ func main() {
 		"receive_id": "ou_c245b0a7dff2725cfa2fb104f8b48b9d",
 		"msg_type":   "text",
 		"content":    "{\"text\":\"<at user_id=\\\"ou_155184d1e73cbfb8973e5a9e698e74f2\\\">Tom</at> test content\"}",
-	}, core.AccessTokenTypeTenant, core.WithTenantKey("sss"))
+	}, core.AccessTokenTypeTenant)
 
 	if err != nil {
 		fmt.Println(err, content)

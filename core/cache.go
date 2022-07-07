@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"sync"
 	"time"
+
+	"github.com/larksuite/oapi-sdk-go/httpclient"
 )
 
 var cache = &localCache{}
@@ -13,6 +15,12 @@ func NewCache(config *Config) {
 	if config.TokenCache != nil {
 		tokenManager = TokenManager{cache: config.TokenCache}
 		appTicketManager = AppTicketManager{cache: config.TokenCache}
+	}
+}
+
+func NewHttpClient(config *Config) {
+	if config.HttpClient == nil {
+		config.HttpClient = httpclient.NewHttpClient(config.ReqTimeout)
 	}
 }
 

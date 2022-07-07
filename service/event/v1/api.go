@@ -9,15 +9,14 @@ import (
 )
 
 // 构建业务域服务实例
-func NewService(httpClient *http.Client, config *core.Config) *EventService {
-	e := &EventService{httpClient: httpClient, config: config}
+func NewService(config *core.Config) *EventService {
+	e := &EventService{config: config}
 	e.OutboundIp = &outboundIp{service: e}
 	return e
 }
 
 // 业务域服务定义
 type EventService struct {
-	httpClient *http.Client
 	config     *core.Config
 	OutboundIp *outboundIp
 }
@@ -43,7 +42,7 @@ func (o *outboundIp) List(ctx context.Context, req *ListOutboundIpReq, options .
 	}
 	return resp, err
 }
-func (o *outboundIp) ListOutboundIp(ctx context.Context, req *ListOutboundIpReq, options ...core.RequestOptionFunc) (*ListOutboundIpIterator, error) {
+func (o *outboundIp) ListByIterator(ctx context.Context, req *ListOutboundIpReq, options ...core.RequestOptionFunc) (*ListOutboundIpIterator, error) {
 	return &ListOutboundIpIterator{
 		ctx:      ctx,
 		req:      req,

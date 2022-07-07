@@ -9,8 +9,8 @@ import (
 )
 
 // 构建业务域服务实例
-func NewService(httpClient *http.Client, config *core.Config) *BaikeService {
-	b := &BaikeService{httpClient: httpClient, config: config}
+func NewService(config *core.Config) *BaikeService {
+	b := &BaikeService{config: config}
 	b.Classification = &classification{service: b}
 	b.Draft = &draft{service: b}
 	b.Entity = &entity{service: b}
@@ -19,7 +19,6 @@ func NewService(httpClient *http.Client, config *core.Config) *BaikeService {
 
 // 业务域服务定义
 type BaikeService struct {
-	httpClient     *http.Client
 	config         *core.Config
 	Classification *classification
 	Draft          *draft
@@ -53,7 +52,7 @@ func (c *classification) List(ctx context.Context, req *ListClassificationReq, o
 	}
 	return resp, err
 }
-func (c *classification) ListClassification(ctx context.Context, req *ListClassificationReq, options ...core.RequestOptionFunc) (*ListClassificationIterator, error) {
+func (c *classification) ListByIterator(ctx context.Context, req *ListClassificationReq, options ...core.RequestOptionFunc) (*ListClassificationIterator, error) {
 	return &ListClassificationIterator{
 		ctx:      ctx,
 		req:      req,
@@ -151,7 +150,7 @@ func (e *entity) List(ctx context.Context, req *ListEntityReq, options ...core.R
 	}
 	return resp, err
 }
-func (e *entity) ListEntity(ctx context.Context, req *ListEntityReq, options ...core.RequestOptionFunc) (*ListEntityIterator, error) {
+func (e *entity) ListByIterator(ctx context.Context, req *ListEntityReq, options ...core.RequestOptionFunc) (*ListEntityIterator, error) {
 	return &ListEntityIterator{
 		ctx:      ctx,
 		req:      req,
@@ -189,7 +188,7 @@ func (e *entity) Search(ctx context.Context, req *SearchEntityReq, options ...co
 	}
 	return resp, err
 }
-func (e *entity) SearchEntity(ctx context.Context, req *SearchEntityReq, options ...core.RequestOptionFunc) (*SearchEntityIterator, error) {
+func (e *entity) SearchByIterator(ctx context.Context, req *SearchEntityReq, options ...core.RequestOptionFunc) (*SearchEntityIterator, error) {
 	return &SearchEntityIterator{
 		ctx:      ctx,
 		req:      req,

@@ -9,17 +9,16 @@ import (
 )
 
 // 构建业务域服务实例
-func NewService(httpClient *http.Client, config *core.Config) *HumanAuthenticationService {
-	h := &HumanAuthenticationService{httpClient: httpClient, config: config}
+func NewService(config *core.Config) *HumanAuthenticationService {
+	h := &HumanAuthenticationService{config: config}
 	h.Identity = &identity{service: h}
 	return h
 }
 
 // 业务域服务定义
 type HumanAuthenticationService struct {
-	httpClient *http.Client
-	config     *core.Config
-	Identity   *identity
+	config   *core.Config
+	Identity *identity
 }
 
 // 资源服务定义

@@ -9,17 +9,16 @@ import (
 )
 
 // 构建业务域服务实例
-func NewService(httpClient *http.Client, config *core.Config) *TranslationService {
-	t := &TranslationService{httpClient: httpClient, config: config}
+func NewService(config *core.Config) *TranslationService {
+	t := &TranslationService{config: config}
 	t.Text = &text{service: t}
 	return t
 }
 
 // 业务域服务定义
 type TranslationService struct {
-	httpClient *http.Client
-	config     *core.Config
-	Text       *text
+	config *core.Config
+	Text   *text
 }
 
 // 资源服务定义

@@ -68,6 +68,9 @@ func (d *EventDispatcher) Handle(ctx context.Context, req *event.EventReq) *even
 	}
 
 	reqType, challenge, token, eventType, err := parse(plainEventJsonStr)
+	if err != nil {
+		return processError(ctx, d.Config.Logger, err)
+	}
 	if reqType != event.ReqTypeChallenge {
 		err = d.VerifySign(ctx, req)
 		if err != nil {

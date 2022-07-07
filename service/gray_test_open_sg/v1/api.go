@@ -9,17 +9,16 @@ import (
 )
 
 // 构建业务域服务实例
-func NewService(httpClient *http.Client, config *core.Config) *GrayTestOpenSgService {
-	g := &GrayTestOpenSgService{httpClient: httpClient, config: config}
+func NewService(config *core.Config) *GrayTestOpenSgService {
+	g := &GrayTestOpenSgService{config: config}
 	g.Moto = &moto{service: g}
 	return g
 }
 
 // 业务域服务定义
 type GrayTestOpenSgService struct {
-	httpClient *http.Client
-	config     *core.Config
-	Moto       *moto
+	config *core.Config
+	Moto   *moto
 }
 
 // 资源服务定义
@@ -73,7 +72,7 @@ func (m *moto) List(ctx context.Context, req *ListMotoReq, options ...core.Reque
 	}
 	return resp, err
 }
-func (m *moto) ListMoto(ctx context.Context, req *ListMotoReq, options ...core.RequestOptionFunc) (*ListMotoIterator, error) {
+func (m *moto) ListByIterator(ctx context.Context, req *ListMotoReq, options ...core.RequestOptionFunc) (*ListMotoIterator, error) {
 	return &ListMotoIterator{
 		ctx:      ctx,
 		req:      req,

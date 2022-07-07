@@ -9,8 +9,8 @@ import (
 )
 
 // 构建业务域服务实例
-func NewService(httpClient *http.Client, config *core.Config) *DocxService {
-	d := &DocxService{httpClient: httpClient, config: config}
+func NewService(config *core.Config) *DocxService {
+	d := &DocxService{config: config}
 	d.Document = &document{service: d}
 	d.DocumentBlock = &documentBlock{service: d}
 	d.DocumentBlockChildren = &documentBlockChildren{service: d}
@@ -19,7 +19,6 @@ func NewService(httpClient *http.Client, config *core.Config) *DocxService {
 
 // 业务域服务定义
 type DocxService struct {
-	httpClient            *http.Client
 	config                *core.Config
 	Document              *document
 	DocumentBlock         *documentBlock
@@ -128,7 +127,7 @@ func (d *documentBlock) List(ctx context.Context, req *ListDocumentBlockReq, opt
 	}
 	return resp, err
 }
-func (d *documentBlock) ListDocumentBlock(ctx context.Context, req *ListDocumentBlockReq, options ...core.RequestOptionFunc) (*ListDocumentBlockIterator, error) {
+func (d *documentBlock) ListByIterator(ctx context.Context, req *ListDocumentBlockReq, options ...core.RequestOptionFunc) (*ListDocumentBlockIterator, error) {
 	return &ListDocumentBlockIterator{
 		ctx:      ctx,
 		req:      req,
@@ -196,7 +195,7 @@ func (d *documentBlockChildren) Get(ctx context.Context, req *GetDocumentBlockCh
 	}
 	return resp, err
 }
-func (d *documentBlockChildren) GetDocumentBlockChildren(ctx context.Context, req *GetDocumentBlockChildrenReq, options ...core.RequestOptionFunc) (*GetDocumentBlockChildrenIterator, error) {
+func (d *documentBlockChildren) GetByIterator(ctx context.Context, req *GetDocumentBlockChildrenReq, options ...core.RequestOptionFunc) (*GetDocumentBlockChildrenIterator, error) {
 	return &GetDocumentBlockChildrenIterator{
 		ctx:      ctx,
 		req:      req,

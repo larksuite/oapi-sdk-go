@@ -10,8 +10,8 @@ import (
 )
 
 // 构建业务域服务实例
-func NewService(httpClient *http.Client, config *core.Config) *AttendanceService {
-	a := &AttendanceService{httpClient: httpClient, config: config}
+func NewService(config *core.Config) *AttendanceService {
+	a := &AttendanceService{config: config}
 	a.ApprovalInfo = &approvalInfo{service: a}
 	a.File = &file{service: a}
 	a.Group = &group{service: a}
@@ -30,7 +30,6 @@ func NewService(httpClient *http.Client, config *core.Config) *AttendanceService
 
 // 业务域服务定义
 type AttendanceService struct {
-	httpClient     *http.Client
 	config         *core.Config
 	ApprovalInfo   *approvalInfo
 	File           *file
@@ -201,7 +200,7 @@ func (g *group) List(ctx context.Context, req *ListGroupReq, options ...core.Req
 	}
 	return resp, err
 }
-func (g *group) ListGroup(ctx context.Context, req *ListGroupReq, options ...core.RequestOptionFunc) (*ListGroupIterator, error) {
+func (g *group) ListByIterator(ctx context.Context, req *ListGroupReq, options ...core.RequestOptionFunc) (*ListGroupIterator, error) {
 	return &ListGroupIterator{
 		ctx:      ctx,
 		req:      req,
@@ -284,7 +283,7 @@ func (s *shift) List(ctx context.Context, req *ListShiftReq, options ...core.Req
 	}
 	return resp, err
 }
-func (s *shift) ListShift(ctx context.Context, req *ListShiftReq, options ...core.RequestOptionFunc) (*ListShiftIterator, error) {
+func (s *shift) ListByIterator(ctx context.Context, req *ListShiftReq, options ...core.RequestOptionFunc) (*ListShiftIterator, error) {
 	return &ListShiftIterator{
 		ctx:      ctx,
 		req:      req,

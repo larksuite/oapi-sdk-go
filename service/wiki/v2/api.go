@@ -9,8 +9,8 @@ import (
 )
 
 // 构建业务域服务实例
-func NewService(httpClient *http.Client, config *core.Config) *WikiService {
-	w := &WikiService{httpClient: httpClient, config: config}
+func NewService(config *core.Config) *WikiService {
+	w := &WikiService{config: config}
 	w.Space = &space{service: w}
 	w.SpaceMember = &spaceMember{service: w}
 	w.SpaceNode = &spaceNode{service: w}
@@ -21,7 +21,6 @@ func NewService(httpClient *http.Client, config *core.Config) *WikiService {
 
 // 业务域服务定义
 type WikiService struct {
-	httpClient   *http.Client
 	config       *core.Config
 	Space        *space
 	SpaceMember  *spaceMember
@@ -108,7 +107,7 @@ func (s *space) List(ctx context.Context, req *ListSpaceReq, options ...core.Req
 	}
 	return resp, err
 }
-func (s *space) ListSpace(ctx context.Context, req *ListSpaceReq, options ...core.RequestOptionFunc) (*ListSpaceIterator, error) {
+func (s *space) ListByIterator(ctx context.Context, req *ListSpaceReq, options ...core.RequestOptionFunc) (*ListSpaceIterator, error) {
 	return &ListSpaceIterator{
 		ctx:      ctx,
 		req:      req,
@@ -191,7 +190,7 @@ func (s *spaceNode) List(ctx context.Context, req *ListSpaceNodeReq, options ...
 	}
 	return resp, err
 }
-func (s *spaceNode) ListSpaceNode(ctx context.Context, req *ListSpaceNodeReq, options ...core.RequestOptionFunc) (*ListSpaceNodeIterator, error) {
+func (s *spaceNode) ListByIterator(ctx context.Context, req *ListSpaceNodeReq, options ...core.RequestOptionFunc) (*ListSpaceNodeIterator, error) {
 	return &ListSpaceNodeIterator{
 		ctx:      ctx,
 		req:      req,

@@ -10,8 +10,8 @@ import (
 )
 
 // 构建业务域服务实例
-func NewService(httpClient *http.Client, config *core.Config) *ImService {
-	i := &ImService{httpClient: httpClient, config: config}
+func NewService(config *core.Config) *ImService {
+	i := &ImService{config: config}
 	i.BatchMessage = &batchMessage{service: i}
 	i.Chat = &chat{service: i}
 	i.ChatAnnouncement = &chatAnnouncement{service: i}
@@ -20,6 +20,7 @@ func NewService(httpClient *http.Client, config *core.Config) *ImService {
 	i.ChatMemberUser = &chatMemberUser{service: i}
 	i.ChatMembers = &chatMembers{service: i}
 	i.ChatModeration = &chatModeration{service: i}
+	i.ChatTab = &chatTab{service: i}
 	i.ChatTopNotice = &chatTopNotice{service: i}
 	i.File = &file{service: i}
 	i.Image = &image{service: i}
@@ -31,7 +32,6 @@ func NewService(httpClient *http.Client, config *core.Config) *ImService {
 
 // 业务域服务定义
 type ImService struct {
-	httpClient       *http.Client
 	config           *core.Config
 	BatchMessage     *batchMessage
 	Chat             *chat
@@ -41,6 +41,7 @@ type ImService struct {
 	ChatMemberUser   *chatMemberUser
 	ChatMembers      *chatMembers
 	ChatModeration   *chatModeration
+	ChatTab          *chatTab
 	ChatTopNotice    *chatTopNotice
 	File             *file
 	Image            *image
@@ -72,6 +73,9 @@ type chatMembers struct {
 	service *ImService
 }
 type chatModeration struct {
+	service *ImService
+}
+type chatTab struct {
 	service *ImService
 }
 type chatTopNotice struct {
@@ -199,7 +203,7 @@ func (c *chat) List(ctx context.Context, req *ListChatReq, options ...core.Reque
 	}
 	return resp, err
 }
-func (c *chat) ListChat(ctx context.Context, req *ListChatReq, options ...core.RequestOptionFunc) (*ListChatIterator, error) {
+func (c *chat) ListByIterator(ctx context.Context, req *ListChatReq, options ...core.RequestOptionFunc) (*ListChatIterator, error) {
 	return &ListChatIterator{
 		ctx:      ctx,
 		req:      req,
@@ -222,7 +226,7 @@ func (c *chat) Search(ctx context.Context, req *SearchChatReq, options ...core.R
 	}
 	return resp, err
 }
-func (c *chat) SearchChat(ctx context.Context, req *SearchChatReq, options ...core.RequestOptionFunc) (*SearchChatIterator, error) {
+func (c *chat) SearchByIterator(ctx context.Context, req *SearchChatReq, options ...core.RequestOptionFunc) (*SearchChatIterator, error) {
 	return &SearchChatIterator{
 		ctx:      ctx,
 		req:      req,
@@ -350,7 +354,7 @@ func (c *chatMembers) Get(ctx context.Context, req *GetChatMembersReq, options .
 	}
 	return resp, err
 }
-func (c *chatMembers) GetChatMembers(ctx context.Context, req *GetChatMembersReq, options ...core.RequestOptionFunc) (*GetChatMembersIterator, error) {
+func (c *chatMembers) GetByIterator(ctx context.Context, req *GetChatMembersReq, options ...core.RequestOptionFunc) (*GetChatMembersIterator, error) {
 	return &GetChatMembersIterator{
 		ctx:      ctx,
 		req:      req,
@@ -403,7 +407,7 @@ func (c *chatModeration) Get(ctx context.Context, req *GetChatModerationReq, opt
 	}
 	return resp, err
 }
-func (c *chatModeration) GetChatModeration(ctx context.Context, req *GetChatModerationReq, options ...core.RequestOptionFunc) (*GetChatModerationIterator, error) {
+func (c *chatModeration) GetByIterator(ctx context.Context, req *GetChatModerationReq, options ...core.RequestOptionFunc) (*GetChatModerationIterator, error) {
 	return &GetChatModerationIterator{
 		ctx:      ctx,
 		req:      req,
@@ -420,6 +424,81 @@ func (c *chatModeration) Update(ctx context.Context, req *UpdateChatModerationRe
 	}
 	// 反序列响应结果
 	resp := &UpdateChatModerationResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (c *chatTab) Create(ctx context.Context, req *CreateChatTabReq, options ...core.RequestOptionFunc) (*CreateChatTabResp, error) {
+	// 发起请求
+	rawResp, err := core.SendRequest(ctx, c.service.config, http.MethodPost,
+		"/open-apis/im/v1/chats/:chat_id/chat_tabs", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateChatTabResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (c *chatTab) DeleteTabs(ctx context.Context, req *DeleteTabsChatTabReq, options ...core.RequestOptionFunc) (*DeleteTabsChatTabResp, error) {
+	// 发起请求
+	rawResp, err := core.SendRequest(ctx, c.service.config, http.MethodDelete,
+		"/open-apis/im/v1/chats/:chat_id/chat_tabs/delete_tabs", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &DeleteTabsChatTabResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (c *chatTab) ListTabs(ctx context.Context, req *ListTabsChatTabReq, options ...core.RequestOptionFunc) (*ListTabsChatTabResp, error) {
+	// 发起请求
+	rawResp, err := core.SendRequest(ctx, c.service.config, http.MethodGet,
+		"/open-apis/im/v1/chats/:chat_id/chat_tabs/list_tabs", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListTabsChatTabResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (c *chatTab) SortTabs(ctx context.Context, req *SortTabsChatTabReq, options ...core.RequestOptionFunc) (*SortTabsChatTabResp, error) {
+	// 发起请求
+	rawResp, err := core.SendRequest(ctx, c.service.config, http.MethodPost,
+		"/open-apis/im/v1/chats/:chat_id/chat_tabs/sort_tabs", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &SortTabsChatTabResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (c *chatTab) UpdateTabs(ctx context.Context, req *UpdateTabsChatTabReq, options ...core.RequestOptionFunc) (*UpdateTabsChatTabResp, error) {
+	// 发起请求
+	rawResp, err := core.SendRequest(ctx, c.service.config, http.MethodPost,
+		"/open-apis/im/v1/chats/:chat_id/chat_tabs/update_tabs", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &UpdateTabsChatTabResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
 	if err != nil {
 		return nil, err
@@ -590,7 +669,7 @@ func (m *message) List(ctx context.Context, req *ListMessageReq, options ...core
 	}
 	return resp, err
 }
-func (m *message) ListMessage(ctx context.Context, req *ListMessageReq, options ...core.RequestOptionFunc) (*ListMessageIterator, error) {
+func (m *message) ListByIterator(ctx context.Context, req *ListMessageReq, options ...core.RequestOptionFunc) (*ListMessageIterator, error) {
 	return &ListMessageIterator{
 		ctx:      ctx,
 		req:      req,
@@ -733,7 +812,7 @@ func (m *messageReaction) List(ctx context.Context, req *ListMessageReactionReq,
 	}
 	return resp, err
 }
-func (m *messageReaction) ListMessageReaction(ctx context.Context, req *ListMessageReactionReq, options ...core.RequestOptionFunc) (*ListMessageReactionIterator, error) {
+func (m *messageReaction) ListByIterator(ctx context.Context, req *ListMessageReactionReq, options ...core.RequestOptionFunc) (*ListMessageReactionIterator, error) {
 	return &ListMessageReactionIterator{
 		ctx:      ctx,
 		req:      req,

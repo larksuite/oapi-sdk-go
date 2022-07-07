@@ -8,6 +8,8 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+
+	"github.com/larksuite/oapi-sdk-go/httpclient"
 )
 
 var reqTranslator ReqTranslator
@@ -84,7 +86,7 @@ func validate(config *Config, option *RequestOption, accessTokenType AccessToken
 	return nil
 }
 
-func doSend(ctx context.Context, rawRequest *http.Request, httpClient *http.Client) (*RawResponse, error) {
+func doSend(ctx context.Context, rawRequest *http.Request, httpClient httpclient.HttpClient) (*RawResponse, error) {
 	if httpClient == nil {
 		httpClient = http.DefaultClient
 	}

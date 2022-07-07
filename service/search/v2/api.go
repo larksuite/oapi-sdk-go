@@ -9,8 +9,8 @@ import (
 )
 
 // 构建业务域服务实例
-func NewService(httpClient *http.Client, config *core.Config) *SearchService {
-	s := &SearchService{httpClient: httpClient, config: config}
+func NewService(config *core.Config) *SearchService {
+	s := &SearchService{config: config}
 	s.DataSource = &dataSource{service: s}
 	s.DataSourceItem = &dataSourceItem{service: s}
 	return s
@@ -18,7 +18,6 @@ func NewService(httpClient *http.Client, config *core.Config) *SearchService {
 
 // 业务域服务定义
 type SearchService struct {
-	httpClient     *http.Client
 	config         *core.Config
 	DataSource     *dataSource
 	DataSourceItem *dataSourceItem
@@ -93,7 +92,7 @@ func (d *dataSource) List(ctx context.Context, req *ListDataSourceReq, options .
 	}
 	return resp, err
 }
-func (d *dataSource) ListDataSource(ctx context.Context, req *ListDataSourceReq, options ...core.RequestOptionFunc) (*ListDataSourceIterator, error) {
+func (d *dataSource) ListByIterator(ctx context.Context, req *ListDataSourceReq, options ...core.RequestOptionFunc) (*ListDataSourceIterator, error) {
 	return &ListDataSourceIterator{
 		ctx:      ctx,
 		req:      req,

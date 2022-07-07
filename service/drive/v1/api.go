@@ -10,8 +10,8 @@ import (
 )
 
 // 构建业务域服务实例
-func NewService(httpClient *http.Client, config *core.Config) *DriveService {
-	d := &DriveService{httpClient: httpClient, config: config}
+func NewService(config *core.Config) *DriveService {
+	d := &DriveService{config: config}
 	d.ExportTask = &exportTask{service: d}
 	d.File = &file{service: d}
 	d.FileComment = &fileComment{service: d}
@@ -28,7 +28,6 @@ func NewService(httpClient *http.Client, config *core.Config) *DriveService {
 
 // 业务域服务定义
 type DriveService struct {
-	httpClient       *http.Client
 	config           *core.Config
 	ExportTask       *exportTask
 	File             *file
@@ -363,7 +362,7 @@ func (f *fileComment) List(ctx context.Context, req *ListFileCommentReq, options
 	}
 	return resp, err
 }
-func (f *fileComment) ListFileComment(ctx context.Context, req *ListFileCommentReq, options ...core.RequestOptionFunc) (*ListFileCommentIterator, error) {
+func (f *fileComment) ListByIterator(ctx context.Context, req *ListFileCommentReq, options ...core.RequestOptionFunc) (*ListFileCommentIterator, error) {
 	return &ListFileCommentIterator{
 		ctx:      ctx,
 		req:      req,
