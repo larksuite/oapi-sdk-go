@@ -66,8 +66,9 @@ func translate(ctx context.Context, req *http.Request) (*event.EventReq, error) 
 		return nil, err
 	}
 	eventReq := &event.EventReq{
-		Header: req.Header,
-		Body:   rawBody,
+		Header:     req.Header,
+		Body:       rawBody,
+		RequestURI: req.RequestURI,
 	}
 	return eventReq, nil
 }

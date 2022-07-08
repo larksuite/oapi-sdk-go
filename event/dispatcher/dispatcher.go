@@ -43,7 +43,7 @@ func NewEventDispatcher(verificationToken, eventEncryptKey string) *EventDispatc
 	return reqDispatcher
 }
 
-func processError(ctx context.Context, logger core.Logger, err error) *event.EventResp {
+func processError(ctx context.Context, logger core.Logger, path string, err error) *event.EventResp {
 	header := map[string][]string{}
 	statusCode := http.StatusInternalServerError
 	header[event.ContentTypeHeader] = []string{event.DefaultContentType}
@@ -52,35 +52,54 @@ func processError(ctx context.Context, logger core.Logger, err error) *event.Eve
 		Body:       []byte(fmt.Sprintf(event.WebhookResponseFormat, err.Error())),
 		StatusCode: statusCode,
 	}
-	logger.Error(ctx, fmt.Sprintf("event handle err: %v", err))
+	logger.Error(ctx, fmt.Sprintf("handle event,path:%s,err: %v", path, err))
 	return eventResp
 }
 
-func (d *EventDispatcher) Handle(ctx context.Context, req *event.EventReq) *event.EventResp {
+func recoveryResult() *event.EventResp {
+	header := map[string][]string{}
+	statusCode := http.StatusInternalServerError
+	header[event.ContentTypeHeader] = []string{event.DefaultContentType}
+	eventResp := &event.EventResp{
+		Header:     header,
+		Body:       []byte(fmt.Sprintf(event.WebhookResponseFormat, "Server Internal Error")),
+		StatusCode: statusCode,
+	}
+	return eventResp
+}
+
+func (d *EventDispatcher) Handle(ctx context.Context, req *event.EventReq) (eventResp *event.EventResp) {
+	defer func() {
+		if err := recover(); err != nil {
+			d.Config.Logger.Error(ctx, fmt.Sprintf("handle event,path:%s, error:%v", req.RequestURI, err))
+			eventResp = recoveryResult()
+		}
+	}()
+
 	cipherEventJsonStr, err := d.ParseReq(ctx, req)
 	if err != nil {
-		return processError(ctx, d.Config.Logger, err)
+		return processError(ctx, d.Config.Logger, req.RequestURI, err)
 	}
 
 	plainEventJsonStr, err := d.DecryptEvent(ctx, cipherEventJsonStr)
 	if err != nil {
-		return processError(ctx, d.Config.Logger, err)
+		return processError(ctx, d.Config.Logger, req.RequestURI, err)
 	}
 
 	reqType, challenge, token, eventType, err := parse(plainEventJsonStr)
 	if err != nil {
-		return processError(ctx, d.Config.Logger, err)
+		return processError(ctx, d.Config.Logger, req.RequestURI, err)
 	}
 	if reqType != event.ReqTypeChallenge {
 		err = d.VerifySign(ctx, req)
 		if err != nil {
-			return processError(ctx, d.Config.Logger, err)
+			return processError(ctx, d.Config.Logger, req.RequestURI, err)
 		}
 	}
 
 	result, err := d.DoHandle(ctx, reqType, eventType, challenge, token, plainEventJsonStr)
 	if err != nil {
-		return processError(ctx, d.Config.Logger, err)
+		return processError(ctx, d.Config.Logger, req.RequestURI, err)
 	}
 	return result
 }
@@ -103,7 +122,7 @@ func (d *EventDispatcher) ParseReq(ctx context.Context, req *event.EventReq) (st
 	return string(req.Body), nil
 }
 
-func (d *EventDispatcher) DecryptEvent(ctx context.Context, cipherEventJsonStr string) (string, error) {
+func (d *EventDispatcher) DecryptEvent(ctx context.Context, cipherEventJsonStr string) (str string, er error) {
 	if d.eventEncryptKey != "" {
 		body, err := event.EventDecrypt(cipherEventJsonStr, d.eventEncryptKey)
 		if err != nil {
@@ -226,6 +245,7 @@ func (d *EventDispatcher) DoHandle(ctx context.Context, reqType event.ReqType, e
 			Body:       []byte(fmt.Sprintf(event.WebhookResponseFormat, err.Error())),
 			StatusCode: http.StatusOK,
 		}
+		d.Config.Logger.Error(ctx, fmt.Sprintf(event.WebhookResponseFormat, err.Error()))
 		return eventResp, nil
 	}
 

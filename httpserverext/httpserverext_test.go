@@ -16,7 +16,7 @@ import (
 
 func TestStartHttpServer(t *testing.T) {
 	// 创建card处理器
-	cardHandler := card.NewCardActionHandler("12", "", func(ctx context.Context, cardAction *card.CardAction) (interface{}, error) {
+	cardHandler := card.NewCardActionHandler("12", "12", func(ctx context.Context, cardAction *card.CardAction) (interface{}, error) {
 		fmt.Println(core.Prettify(cardAction))
 		return nil, nil
 	})

@@ -90,9 +90,9 @@ func WithLogger(logger core.Logger) ClientOptionFunc {
 	}
 }
 
-func WithDomain(domain string) ClientOptionFunc {
+func WithOpenBaseUrl(baseUrl string) ClientOptionFunc {
 	return func(config *core.Config) {
-		config.Domain = domain
+		config.BaseUrl = baseUrl
 	}
 }
 
@@ -139,7 +139,7 @@ func WithReqTimeout(reqTimeout time.Duration) ClientOptionFunc {
 func NewClient(appId, appSecret string, options ...ClientOptionFunc) *Client {
 	// 构建配置
 	config := &core.Config{
-		Domain:           FeishuDomain,
+		BaseUrl:          FeishuBaseUrl,
 		AppId:            appId,
 		AppSecret:        appSecret,
 		EnableTokenCache: true,
@@ -196,6 +196,7 @@ func initService(client *Client, config *core.Config) {
 }
 
 func (cli *Client) Post(ctx context.Context, httpPath string, body interface{}, accessTokeType core.AccessTokenType, options ...core.RequestOptionFunc) (*core.RawResponse, error) {
+
 	return core.SendRequest(ctx, cli.config, http.MethodPost, httpPath, []core.AccessTokenType{accessTokeType}, body, options...)
 }
 
@@ -227,5 +228,5 @@ func (cli *Client) Trace(ctx context.Context, httpPath string, body interface{},
 	return core.SendRequest(ctx, cli.config, http.MethodTrace, httpPath, []core.AccessTokenType{accessTokeType}, body, options...)
 }
 
-var FeishuDomain = "https://open.feishu.cn"
-var LarkDomain = "https://open.larksuite.com"
+var FeishuBaseUrl = "https://open.feishu.cn"
+var LarkBaseUrl = "https://open.larksuite.com"

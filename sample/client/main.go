@@ -22,7 +22,7 @@ func createClientWithLogLevel() {
 func createClientWithAllOptions() {
 	var feishu_client = client.NewClient("appID", "appSecret",
 		client.WithLogLevel(core.LogLevelDebug),
-		client.WithDomain(client.LarkDomain),
+		client.WithOpenBaseUrl(client.FeishuBaseUrl),
 		client.WithAppType(core.AppTypeSelfBuilt),
 		client.WithReqTimeout(3*time.Second),
 		client.WithDisableTokenCache(),

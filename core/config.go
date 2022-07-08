@@ -7,7 +7,7 @@ import (
 )
 
 type Config struct {
-	Domain                     string
+	BaseUrl                    string
 	AppId                      string
 	AppSecret                  string
 	HelpDeskId                 string

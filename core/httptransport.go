@@ -14,6 +14,12 @@ import (
 
 var reqTranslator ReqTranslator
 
+func NewHttpClient(config *Config) {
+	if config.HttpClient == nil {
+		config.HttpClient = httpclient.NewHttpClient(config.ReqTimeout)
+	}
+}
+
 func determineTokenType(accessTokenTypes []AccessTokenType, option *RequestOption, enableTokenCache bool) AccessTokenType {
 	if !enableTokenCache {
 		if option.UserAccessToken != "" {
@@ -207,7 +213,7 @@ func doSendRequest(ctx context.Context, config *Config, httpMethod string, httpP
 
 func GetConfig(appId, appSecret string) *Config {
 	config := &Config{
-		Domain:           "https://open.feishu.cn",
+		BaseUrl:          "https://open.feishu.cn",
 		AppType:          AppTypeSelfBuilt,
 		EnableTokenCache: true,
 		AppSecret:        appSecret,

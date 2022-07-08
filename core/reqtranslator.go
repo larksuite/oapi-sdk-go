@@ -28,7 +28,7 @@ func (translator *ReqTranslator) translate(ctx context.Context, input interface{
 		return nil, err
 	}
 
-	fullURL, err := translator.getFullReqUrl(config.Domain, httpPath, paths, queries)
+	fullURL, err := translator.getFullReqUrl(config.BaseUrl, httpPath, paths, queries)
 	if err != nil {
 		return nil, err
 	}
@@ -129,11 +129,7 @@ func (translator *ReqTranslator) getFullReqUrl(domain string, httpPath string, p
 	}
 	newPath := strings.Join(pathSegs, "/")
 	if strings.Index(newPath, "http") != 0 {
-		if strings.Index(newPath, "/open-apis") == 0 {
-			newPath = fmt.Sprintf("%s%s", domain, newPath)
-		} else {
-			newPath = fmt.Sprintf("%s/open-apis/%s", domain, newPath)
-		}
+		newPath = fmt.Sprintf("%s%s", domain, newPath)
 	}
 	// query
 	query := make(url.Values)

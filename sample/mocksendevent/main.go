@@ -86,7 +86,7 @@ func mockEvent() []byte {
 	eventBody := EventV2Body{
 		UserCreatedEvent: usersCreatedEvent,
 		Challenge:        "1212",
-		Type:             "url_verification",
+		Type:             "url_verification1",
 	}
 
 	body1, _ := json.Marshal(eventBody)
@@ -102,7 +102,7 @@ func mockAppTicketEvent() []byte {
 func main() {
 
 	//mock body
-	encryptedKey := "1212121212"
+	encryptedKey := "1212121212 "
 	body := mockEncryptedBody(encryptedKey)
 	//body := mockEvent()
 	//body := mockAppTicketEvent()

@@ -26,8 +26,9 @@ type EventV2Body struct {
 }
 
 type EventReq struct {
-	Header map[string][]string
-	Body   []byte
+	Header     map[string][]string
+	Body       []byte
+	RequestURI string
 }
 
 type EventResp struct {
