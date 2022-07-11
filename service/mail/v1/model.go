@@ -5,598 +5,611 @@ import (
 	"context"
 	"errors"
 	"fmt"
-
+	
 	"github.com/larksuite/oapi-sdk-go/core"
+	
+
 )
 
 // 生成枚举值
 
 const (
-	WhoCanSendMailANYONE           = "ANYONE"
-	WhoCanSendMailALLINTERNALUSERS = "ALL_INTERNAL_USERS"
-	WhoCanSendMailALLGROUPMEMBERS  = "ALL_GROUP_MEMBERS"
-	WhoCanSendMailCUSTOMMEMBERS    = "CUSTOM_MEMBERS"
+
+	  WhoCanSendMailANYONE = "ANYONE"
+	  WhoCanSendMailALLINTERNALUSERS = "ALL_INTERNAL_USERS"
+	  WhoCanSendMailALLGROUPMEMBERS = "ALL_GROUP_MEMBERS"
+	  WhoCanSendMailCUSTOMMEMBERS = "CUSTOM_MEMBERS"
 )
 
 const (
-	UserIdTypeUserId  = "user_id"
-	UserIdTypeUnionId = "union_id"
-	UserIdTypeOpenId  = "open_id"
+
+	  UserIdTypeUserId = "user_id"
+	  UserIdTypeUnionId = "union_id"
+	  UserIdTypeOpenId = "open_id"
 )
 
 const (
-	TypeUSER          = "USER"
-	TypeDEPARTMENT    = "DEPARTMENT"
-	TypeCOMPANY       = "COMPANY"
-	TypeEXTERNALUSER  = "EXTERNAL_USER"
-	TypeMAILGROUP     = "MAIL_GROUP"
-	TypePUBLICMAILBOX = "PUBLIC_MAILBOX"
-	TypeOTHERMEMBER   = "OTHER_MEMBER"
+
+	  TypeUSER = "USER"
+	  TypeDEPARTMENT = "DEPARTMENT"
+	  TypeCOMPANY = "COMPANY"
+	  TypeEXTERNALUSER = "EXTERNAL_USER"
+	  TypeMAILGROUP = "MAIL_GROUP"
+	  TypePUBLICMAILBOX = "PUBLIC_MAILBOX"
+	  TypeOTHERMEMBER = "OTHER_MEMBER"
 )
 
 const (
-	DepartmentIdTypeDepartmentId     = "department_id"
-	DepartmentIdTypeOpenDepartmentId = "open_department_id"
+
+	  DepartmentIdTypeDepartmentId = "department_id"
+	  DepartmentIdTypeOpenDepartmentId = "open_department_id"
 )
+
+
 
 // 生成数据类型
 
 type EmailAlias struct {
-	PrimaryEmail *string `json:"primary_email,omitempty"`
-	EmailAlias   *string `json:"email_alias,omitempty"`
+	PrimaryEmail  *string `json:"primary_email,omitempty"`
+	EmailAlias  *string `json:"email_alias,omitempty"`
 }
 
 // builder开始
 type EmailAliasBuilder struct {
-	primaryEmail     string
-	primaryEmailFlag bool
-	emailAlias       string
-	emailAliasFlag   bool
+	primaryEmail  string
+	primaryEmailFlag  bool
+	emailAlias  string
+	emailAliasFlag  bool
 }
 
-func NewEmailAliasBuilder() *EmailAliasBuilder {
-	builder := &EmailAliasBuilder{}
-	return builder
+func NewEmailAliasBuilder() * EmailAliasBuilder{
+   builder := &EmailAliasBuilder{}
+   return builder
 }
 
-func (builder *EmailAliasBuilder) PrimaryEmail(primaryEmail string) *EmailAliasBuilder {
-	builder.primaryEmail = primaryEmail
-	builder.primaryEmailFlag = true
-	return builder
+
+func (builder * EmailAliasBuilder) PrimaryEmail(primaryEmail string) *EmailAliasBuilder  {
+  builder.primaryEmail = primaryEmail
+  builder.primaryEmailFlag = true
+  return builder
 }
-func (builder *EmailAliasBuilder) EmailAlias(emailAlias string) *EmailAliasBuilder {
-	builder.emailAlias = emailAlias
-	builder.emailAliasFlag = true
-	return builder
-}
-
-func (builder *EmailAliasBuilder) Build() *EmailAlias {
-	req := &EmailAlias{}
-	if builder.primaryEmailFlag {
-		req.PrimaryEmail = &builder.primaryEmail
-
-	}
-	if builder.emailAliasFlag {
-		req.EmailAlias = &builder.emailAlias
-
-	}
-	return req
+func (builder * EmailAliasBuilder) EmailAlias(emailAlias string) *EmailAliasBuilder  {
+  builder.emailAlias = emailAlias
+  builder.emailAliasFlag = true
+  return builder
 }
 
+func (builder * EmailAliasBuilder ) Build() *EmailAlias {
+   req := &EmailAlias{}
+   if builder.primaryEmailFlag {
+	  req.PrimaryEmail = &builder.primaryEmail
+	  
+   }
+   if builder.emailAliasFlag {
+	  req.EmailAlias = &builder.emailAlias
+	  
+   }
+   return req
+}
 // builder结束
 
 type Mailgroup struct {
-	MailgroupId             *string `json:"mailgroup_id,omitempty"`
-	Email                   *string `json:"email,omitempty"`
-	Name                    *string `json:"name,omitempty"`
-	Description             *string `json:"description,omitempty"`
-	DirectMembersCount      *string `json:"direct_members_count,omitempty"`
-	IncludeExternalMember   *bool   `json:"include_external_member,omitempty"`
-	IncludeAllCompanyMember *bool   `json:"include_all_company_member,omitempty"`
-	WhoCanSendMail          *string `json:"who_can_send_mail,omitempty"`
+	MailgroupId  *string `json:"mailgroup_id,omitempty"`
+	Email  *string `json:"email,omitempty"`
+	Name  *string `json:"name,omitempty"`
+	Description  *string `json:"description,omitempty"`
+	DirectMembersCount  *string `json:"direct_members_count,omitempty"`
+	IncludeExternalMember  *bool `json:"include_external_member,omitempty"`
+	IncludeAllCompanyMember  *bool `json:"include_all_company_member,omitempty"`
+	WhoCanSendMail  *string `json:"who_can_send_mail,omitempty"`
 }
 
 // builder开始
 type MailgroupBuilder struct {
-	mailgroupId                 string
-	mailgroupIdFlag             bool
-	email                       string
-	emailFlag                   bool
-	name                        string
-	nameFlag                    bool
-	description                 string
-	descriptionFlag             bool
-	directMembersCount          string
-	directMembersCountFlag      bool
-	includeExternalMember       bool
-	includeExternalMemberFlag   bool
-	includeAllCompanyMember     bool
-	includeAllCompanyMemberFlag bool
-	whoCanSendMail              string
-	whoCanSendMailFlag          bool
+	mailgroupId  string
+	mailgroupIdFlag  bool
+	email  string
+	emailFlag  bool
+	name  string
+	nameFlag  bool
+	description  string
+	descriptionFlag  bool
+	directMembersCount  string
+	directMembersCountFlag  bool
+	includeExternalMember  bool
+	includeExternalMemberFlag  bool
+	includeAllCompanyMember  bool
+	includeAllCompanyMemberFlag  bool
+	whoCanSendMail  string
+	whoCanSendMailFlag  bool
 }
 
-func NewMailgroupBuilder() *MailgroupBuilder {
-	builder := &MailgroupBuilder{}
-	return builder
+func NewMailgroupBuilder() * MailgroupBuilder{
+   builder := &MailgroupBuilder{}
+   return builder
 }
 
-func (builder *MailgroupBuilder) MailgroupId(mailgroupId string) *MailgroupBuilder {
-	builder.mailgroupId = mailgroupId
-	builder.mailgroupIdFlag = true
-	return builder
+
+func (builder * MailgroupBuilder) MailgroupId(mailgroupId string) *MailgroupBuilder  {
+  builder.mailgroupId = mailgroupId
+  builder.mailgroupIdFlag = true
+  return builder
 }
-func (builder *MailgroupBuilder) Email(email string) *MailgroupBuilder {
-	builder.email = email
-	builder.emailFlag = true
-	return builder
+func (builder * MailgroupBuilder) Email(email string) *MailgroupBuilder  {
+  builder.email = email
+  builder.emailFlag = true
+  return builder
 }
-func (builder *MailgroupBuilder) Name(name string) *MailgroupBuilder {
-	builder.name = name
-	builder.nameFlag = true
-	return builder
+func (builder * MailgroupBuilder) Name(name string) *MailgroupBuilder  {
+  builder.name = name
+  builder.nameFlag = true
+  return builder
 }
-func (builder *MailgroupBuilder) Description(description string) *MailgroupBuilder {
-	builder.description = description
-	builder.descriptionFlag = true
-	return builder
+func (builder * MailgroupBuilder) Description(description string) *MailgroupBuilder  {
+  builder.description = description
+  builder.descriptionFlag = true
+  return builder
 }
-func (builder *MailgroupBuilder) DirectMembersCount(directMembersCount string) *MailgroupBuilder {
-	builder.directMembersCount = directMembersCount
-	builder.directMembersCountFlag = true
-	return builder
+func (builder * MailgroupBuilder) DirectMembersCount(directMembersCount string) *MailgroupBuilder  {
+  builder.directMembersCount = directMembersCount
+  builder.directMembersCountFlag = true
+  return builder
 }
-func (builder *MailgroupBuilder) IncludeExternalMember(includeExternalMember bool) *MailgroupBuilder {
-	builder.includeExternalMember = includeExternalMember
-	builder.includeExternalMemberFlag = true
-	return builder
+func (builder * MailgroupBuilder) IncludeExternalMember(includeExternalMember bool) *MailgroupBuilder  {
+  builder.includeExternalMember = includeExternalMember
+  builder.includeExternalMemberFlag = true
+  return builder
 }
-func (builder *MailgroupBuilder) IncludeAllCompanyMember(includeAllCompanyMember bool) *MailgroupBuilder {
-	builder.includeAllCompanyMember = includeAllCompanyMember
-	builder.includeAllCompanyMemberFlag = true
-	return builder
+func (builder * MailgroupBuilder) IncludeAllCompanyMember(includeAllCompanyMember bool) *MailgroupBuilder  {
+  builder.includeAllCompanyMember = includeAllCompanyMember
+  builder.includeAllCompanyMemberFlag = true
+  return builder
 }
-func (builder *MailgroupBuilder) WhoCanSendMail(whoCanSendMail string) *MailgroupBuilder {
-	builder.whoCanSendMail = whoCanSendMail
-	builder.whoCanSendMailFlag = true
-	return builder
-}
-
-func (builder *MailgroupBuilder) Build() *Mailgroup {
-	req := &Mailgroup{}
-	if builder.mailgroupIdFlag {
-		req.MailgroupId = &builder.mailgroupId
-
-	}
-	if builder.emailFlag {
-		req.Email = &builder.email
-
-	}
-	if builder.nameFlag {
-		req.Name = &builder.name
-
-	}
-	if builder.descriptionFlag {
-		req.Description = &builder.description
-
-	}
-	if builder.directMembersCountFlag {
-		req.DirectMembersCount = &builder.directMembersCount
-
-	}
-	if builder.includeExternalMemberFlag {
-		req.IncludeExternalMember = &builder.includeExternalMember
-
-	}
-	if builder.includeAllCompanyMemberFlag {
-		req.IncludeAllCompanyMember = &builder.includeAllCompanyMember
-
-	}
-	if builder.whoCanSendMailFlag {
-		req.WhoCanSendMail = &builder.whoCanSendMail
-
-	}
-	return req
+func (builder * MailgroupBuilder) WhoCanSendMail(whoCanSendMail string) *MailgroupBuilder  {
+  builder.whoCanSendMail = whoCanSendMail
+  builder.whoCanSendMailFlag = true
+  return builder
 }
 
+func (builder * MailgroupBuilder ) Build() *Mailgroup {
+   req := &Mailgroup{}
+   if builder.mailgroupIdFlag {
+	  req.MailgroupId = &builder.mailgroupId
+	  
+   }
+   if builder.emailFlag {
+	  req.Email = &builder.email
+	  
+   }
+   if builder.nameFlag {
+	  req.Name = &builder.name
+	  
+   }
+   if builder.descriptionFlag {
+	  req.Description = &builder.description
+	  
+   }
+   if builder.directMembersCountFlag {
+	  req.DirectMembersCount = &builder.directMembersCount
+	  
+   }
+   if builder.includeExternalMemberFlag {
+	  req.IncludeExternalMember = &builder.includeExternalMember
+	  
+   }
+   if builder.includeAllCompanyMemberFlag {
+	  req.IncludeAllCompanyMember = &builder.includeAllCompanyMember
+	  
+   }
+   if builder.whoCanSendMailFlag {
+	  req.WhoCanSendMail = &builder.whoCanSendMail
+	  
+   }
+   return req
+}
 // builder结束
 
 type MailgroupMember struct {
-	MemberId     *string `json:"member_id,omitempty"`
-	Email        *string `json:"email,omitempty"`
-	UserId       *string `json:"user_id,omitempty"`
-	DepartmentId *string `json:"department_id,omitempty"`
-	Type         *string `json:"type,omitempty"`
+	MemberId  *string `json:"member_id,omitempty"`
+	Email  *string `json:"email,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
+	DepartmentId  *string `json:"department_id,omitempty"`
+	Type  *string `json:"type,omitempty"`
 }
 
 // builder开始
 type MailgroupMemberBuilder struct {
-	memberId         string
-	memberIdFlag     bool
-	email            string
-	emailFlag        bool
-	userId           string
-	userIdFlag       bool
-	departmentId     string
-	departmentIdFlag bool
-	type_            string
-	typeFlag         bool
+	memberId  string
+	memberIdFlag  bool
+	email  string
+	emailFlag  bool
+	userId  string
+	userIdFlag  bool
+	departmentId  string
+	departmentIdFlag  bool
+	type_  string
+	typeFlag  bool
 }
 
-func NewMailgroupMemberBuilder() *MailgroupMemberBuilder {
-	builder := &MailgroupMemberBuilder{}
-	return builder
+func NewMailgroupMemberBuilder() * MailgroupMemberBuilder{
+   builder := &MailgroupMemberBuilder{}
+   return builder
 }
 
-func (builder *MailgroupMemberBuilder) MemberId(memberId string) *MailgroupMemberBuilder {
-	builder.memberId = memberId
-	builder.memberIdFlag = true
-	return builder
+
+func (builder * MailgroupMemberBuilder) MemberId(memberId string) *MailgroupMemberBuilder  {
+  builder.memberId = memberId
+  builder.memberIdFlag = true
+  return builder
 }
-func (builder *MailgroupMemberBuilder) Email(email string) *MailgroupMemberBuilder {
-	builder.email = email
-	builder.emailFlag = true
-	return builder
+func (builder * MailgroupMemberBuilder) Email(email string) *MailgroupMemberBuilder  {
+  builder.email = email
+  builder.emailFlag = true
+  return builder
 }
-func (builder *MailgroupMemberBuilder) UserId(userId string) *MailgroupMemberBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
+func (builder * MailgroupMemberBuilder) UserId(userId string) *MailgroupMemberBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
-func (builder *MailgroupMemberBuilder) DepartmentId(departmentId string) *MailgroupMemberBuilder {
-	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
-	return builder
+func (builder * MailgroupMemberBuilder) DepartmentId(departmentId string) *MailgroupMemberBuilder  {
+  builder.departmentId = departmentId
+  builder.departmentIdFlag = true
+  return builder
 }
-func (builder *MailgroupMemberBuilder) Type(type_ string) *MailgroupMemberBuilder {
-	builder.type_ = type_
-	builder.typeFlag = true
-	return builder
-}
-
-func (builder *MailgroupMemberBuilder) Build() *MailgroupMember {
-	req := &MailgroupMember{}
-	if builder.memberIdFlag {
-		req.MemberId = &builder.memberId
-
-	}
-	if builder.emailFlag {
-		req.Email = &builder.email
-
-	}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	if builder.departmentIdFlag {
-		req.DepartmentId = &builder.departmentId
-
-	}
-	if builder.typeFlag {
-		req.Type = &builder.type_
-
-	}
-	return req
+func (builder * MailgroupMemberBuilder) Type(type_ string) *MailgroupMemberBuilder  {
+  builder.type_ = type_
+  builder.typeFlag = true
+  return builder
 }
 
+func (builder * MailgroupMemberBuilder ) Build() *MailgroupMember {
+   req := &MailgroupMember{}
+   if builder.memberIdFlag {
+	  req.MemberId = &builder.memberId
+	  
+   }
+   if builder.emailFlag {
+	  req.Email = &builder.email
+	  
+   }
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.departmentIdFlag {
+	  req.DepartmentId = &builder.departmentId
+	  
+   }
+   if builder.typeFlag {
+	  req.Type = &builder.type_
+	  
+   }
+   return req
+}
 // builder结束
 
 type MailgroupPermissionMember struct {
-	PermissionMemberId *string `json:"permission_member_id,omitempty"`
-	UserId             *string `json:"user_id,omitempty"`
-	DepartmentId       *string `json:"department_id,omitempty"`
-	Type               *string `json:"type,omitempty"`
+	PermissionMemberId  *string `json:"permission_member_id,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
+	DepartmentId  *string `json:"department_id,omitempty"`
+	Type  *string `json:"type,omitempty"`
 }
 
 // builder开始
 type MailgroupPermissionMemberBuilder struct {
-	permissionMemberId     string
-	permissionMemberIdFlag bool
-	userId                 string
-	userIdFlag             bool
-	departmentId           string
-	departmentIdFlag       bool
-	type_                  string
-	typeFlag               bool
+	permissionMemberId  string
+	permissionMemberIdFlag  bool
+	userId  string
+	userIdFlag  bool
+	departmentId  string
+	departmentIdFlag  bool
+	type_  string
+	typeFlag  bool
 }
 
-func NewMailgroupPermissionMemberBuilder() *MailgroupPermissionMemberBuilder {
-	builder := &MailgroupPermissionMemberBuilder{}
-	return builder
+func NewMailgroupPermissionMemberBuilder() * MailgroupPermissionMemberBuilder{
+   builder := &MailgroupPermissionMemberBuilder{}
+   return builder
 }
 
-func (builder *MailgroupPermissionMemberBuilder) PermissionMemberId(permissionMemberId string) *MailgroupPermissionMemberBuilder {
-	builder.permissionMemberId = permissionMemberId
-	builder.permissionMemberIdFlag = true
-	return builder
+
+func (builder * MailgroupPermissionMemberBuilder) PermissionMemberId(permissionMemberId string) *MailgroupPermissionMemberBuilder  {
+  builder.permissionMemberId = permissionMemberId
+  builder.permissionMemberIdFlag = true
+  return builder
 }
-func (builder *MailgroupPermissionMemberBuilder) UserId(userId string) *MailgroupPermissionMemberBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
+func (builder * MailgroupPermissionMemberBuilder) UserId(userId string) *MailgroupPermissionMemberBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
-func (builder *MailgroupPermissionMemberBuilder) DepartmentId(departmentId string) *MailgroupPermissionMemberBuilder {
-	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
-	return builder
+func (builder * MailgroupPermissionMemberBuilder) DepartmentId(departmentId string) *MailgroupPermissionMemberBuilder  {
+  builder.departmentId = departmentId
+  builder.departmentIdFlag = true
+  return builder
 }
-func (builder *MailgroupPermissionMemberBuilder) Type(type_ string) *MailgroupPermissionMemberBuilder {
-	builder.type_ = type_
-	builder.typeFlag = true
-	return builder
-}
-
-func (builder *MailgroupPermissionMemberBuilder) Build() *MailgroupPermissionMember {
-	req := &MailgroupPermissionMember{}
-	if builder.permissionMemberIdFlag {
-		req.PermissionMemberId = &builder.permissionMemberId
-
-	}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	if builder.departmentIdFlag {
-		req.DepartmentId = &builder.departmentId
-
-	}
-	if builder.typeFlag {
-		req.Type = &builder.type_
-
-	}
-	return req
+func (builder * MailgroupPermissionMemberBuilder) Type(type_ string) *MailgroupPermissionMemberBuilder  {
+  builder.type_ = type_
+  builder.typeFlag = true
+  return builder
 }
 
+func (builder * MailgroupPermissionMemberBuilder ) Build() *MailgroupPermissionMember {
+   req := &MailgroupPermissionMember{}
+   if builder.permissionMemberIdFlag {
+	  req.PermissionMemberId = &builder.permissionMemberId
+	  
+   }
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.departmentIdFlag {
+	  req.DepartmentId = &builder.departmentId
+	  
+   }
+   if builder.typeFlag {
+	  req.Type = &builder.type_
+	  
+   }
+   return req
+}
 // builder结束
 
 type Message struct {
-	Raw *string `json:"raw,omitempty"`
+	Raw  *string `json:"raw,omitempty"`
 }
 
 // builder开始
 type MessageBuilder struct {
-	raw     string
-	rawFlag bool
+	raw  string
+	rawFlag  bool
 }
 
-func NewMessageBuilder() *MessageBuilder {
-	builder := &MessageBuilder{}
-	return builder
+func NewMessageBuilder() * MessageBuilder{
+   builder := &MessageBuilder{}
+   return builder
 }
 
-func (builder *MessageBuilder) Raw(raw string) *MessageBuilder {
-	builder.raw = raw
-	builder.rawFlag = true
-	return builder
+
+func (builder * MessageBuilder) Raw(raw string) *MessageBuilder  {
+  builder.raw = raw
+  builder.rawFlag = true
+  return builder
 }
 
-func (builder *MessageBuilder) Build() *Message {
-	req := &Message{}
-	if builder.rawFlag {
-		req.Raw = &builder.raw
-
-	}
-	return req
+func (builder * MessageBuilder ) Build() *Message {
+   req := &Message{}
+   if builder.rawFlag {
+	  req.Raw = &builder.raw
+	  
+   }
+   return req
 }
-
 // builder结束
 
 type PublicMailbox struct {
-	PublicMailboxId *string `json:"public_mailbox_id,omitempty"`
-	Email           *string `json:"email,omitempty"`
-	Name            *string `json:"name,omitempty"`
+	PublicMailboxId  *string `json:"public_mailbox_id,omitempty"`
+	Email  *string `json:"email,omitempty"`
+	Name  *string `json:"name,omitempty"`
 }
 
 // builder开始
 type PublicMailboxBuilder struct {
-	publicMailboxId     string
-	publicMailboxIdFlag bool
-	email               string
-	emailFlag           bool
-	name                string
-	nameFlag            bool
+	publicMailboxId  string
+	publicMailboxIdFlag  bool
+	email  string
+	emailFlag  bool
+	name  string
+	nameFlag  bool
 }
 
-func NewPublicMailboxBuilder() *PublicMailboxBuilder {
-	builder := &PublicMailboxBuilder{}
-	return builder
+func NewPublicMailboxBuilder() * PublicMailboxBuilder{
+   builder := &PublicMailboxBuilder{}
+   return builder
 }
 
-func (builder *PublicMailboxBuilder) PublicMailboxId(publicMailboxId string) *PublicMailboxBuilder {
-	builder.publicMailboxId = publicMailboxId
-	builder.publicMailboxIdFlag = true
-	return builder
+
+func (builder * PublicMailboxBuilder) PublicMailboxId(publicMailboxId string) *PublicMailboxBuilder  {
+  builder.publicMailboxId = publicMailboxId
+  builder.publicMailboxIdFlag = true
+  return builder
 }
-func (builder *PublicMailboxBuilder) Email(email string) *PublicMailboxBuilder {
-	builder.email = email
-	builder.emailFlag = true
-	return builder
+func (builder * PublicMailboxBuilder) Email(email string) *PublicMailboxBuilder  {
+  builder.email = email
+  builder.emailFlag = true
+  return builder
 }
-func (builder *PublicMailboxBuilder) Name(name string) *PublicMailboxBuilder {
-	builder.name = name
-	builder.nameFlag = true
-	return builder
-}
-
-func (builder *PublicMailboxBuilder) Build() *PublicMailbox {
-	req := &PublicMailbox{}
-	if builder.publicMailboxIdFlag {
-		req.PublicMailboxId = &builder.publicMailboxId
-
-	}
-	if builder.emailFlag {
-		req.Email = &builder.email
-
-	}
-	if builder.nameFlag {
-		req.Name = &builder.name
-
-	}
-	return req
+func (builder * PublicMailboxBuilder) Name(name string) *PublicMailboxBuilder  {
+  builder.name = name
+  builder.nameFlag = true
+  return builder
 }
 
+func (builder * PublicMailboxBuilder ) Build() *PublicMailbox {
+   req := &PublicMailbox{}
+   if builder.publicMailboxIdFlag {
+	  req.PublicMailboxId = &builder.publicMailboxId
+	  
+   }
+   if builder.emailFlag {
+	  req.Email = &builder.email
+	  
+   }
+   if builder.nameFlag {
+	  req.Name = &builder.name
+	  
+   }
+   return req
+}
 // builder结束
 
 type PublicMailboxMember struct {
-	MemberId *string `json:"member_id,omitempty"`
-	UserId   *string `json:"user_id,omitempty"`
-	Type     *string `json:"type,omitempty"`
+	MemberId  *string `json:"member_id,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
+	Type  *string `json:"type,omitempty"`
 }
 
 // builder开始
 type PublicMailboxMemberBuilder struct {
-	memberId     string
-	memberIdFlag bool
-	userId       string
-	userIdFlag   bool
-	type_        string
-	typeFlag     bool
+	memberId  string
+	memberIdFlag  bool
+	userId  string
+	userIdFlag  bool
+	type_  string
+	typeFlag  bool
 }
 
-func NewPublicMailboxMemberBuilder() *PublicMailboxMemberBuilder {
-	builder := &PublicMailboxMemberBuilder{}
-	return builder
+func NewPublicMailboxMemberBuilder() * PublicMailboxMemberBuilder{
+   builder := &PublicMailboxMemberBuilder{}
+   return builder
 }
 
-func (builder *PublicMailboxMemberBuilder) MemberId(memberId string) *PublicMailboxMemberBuilder {
-	builder.memberId = memberId
-	builder.memberIdFlag = true
-	return builder
+
+func (builder * PublicMailboxMemberBuilder) MemberId(memberId string) *PublicMailboxMemberBuilder  {
+  builder.memberId = memberId
+  builder.memberIdFlag = true
+  return builder
 }
-func (builder *PublicMailboxMemberBuilder) UserId(userId string) *PublicMailboxMemberBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
+func (builder * PublicMailboxMemberBuilder) UserId(userId string) *PublicMailboxMemberBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
-func (builder *PublicMailboxMemberBuilder) Type(type_ string) *PublicMailboxMemberBuilder {
-	builder.type_ = type_
-	builder.typeFlag = true
-	return builder
-}
-
-func (builder *PublicMailboxMemberBuilder) Build() *PublicMailboxMember {
-	req := &PublicMailboxMember{}
-	if builder.memberIdFlag {
-		req.MemberId = &builder.memberId
-
-	}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	if builder.typeFlag {
-		req.Type = &builder.type_
-
-	}
-	return req
+func (builder * PublicMailboxMemberBuilder) Type(type_ string) *PublicMailboxMemberBuilder  {
+  builder.type_ = type_
+  builder.typeFlag = true
+  return builder
 }
 
+func (builder * PublicMailboxMemberBuilder ) Build() *PublicMailboxMember {
+   req := &PublicMailboxMember{}
+   if builder.memberIdFlag {
+	  req.MemberId = &builder.memberId
+	  
+   }
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.typeFlag {
+	  req.Type = &builder.type_
+	  
+   }
+   return req
+}
 // builder结束
 
 type User struct {
 	Email  *string `json:"email,omitempty"`
-	Status *int    `json:"status,omitempty"`
-	Type   *int    `json:"type,omitempty"`
+	Status  *int `json:"status,omitempty"`
+	Type  *int `json:"type,omitempty"`
 }
 
 // builder开始
 type UserBuilder struct {
-	email      string
+	email  string
 	emailFlag  bool
-	status     int
-	statusFlag bool
-	type_      int
-	typeFlag   bool
+	status  int
+	statusFlag  bool
+	type_  int
+	typeFlag  bool
 }
 
-func NewUserBuilder() *UserBuilder {
-	builder := &UserBuilder{}
-	return builder
+func NewUserBuilder() * UserBuilder{
+   builder := &UserBuilder{}
+   return builder
 }
 
-func (builder *UserBuilder) Email(email string) *UserBuilder {
-	builder.email = email
-	builder.emailFlag = true
-	return builder
+
+func (builder * UserBuilder) Email(email string) *UserBuilder  {
+  builder.email = email
+  builder.emailFlag = true
+  return builder
 }
-func (builder *UserBuilder) Status(status int) *UserBuilder {
-	builder.status = status
-	builder.statusFlag = true
-	return builder
+func (builder * UserBuilder) Status(status int) *UserBuilder  {
+  builder.status = status
+  builder.statusFlag = true
+  return builder
 }
-func (builder *UserBuilder) Type(type_ int) *UserBuilder {
-	builder.type_ = type_
-	builder.typeFlag = true
-	return builder
-}
-
-func (builder *UserBuilder) Build() *User {
-	req := &User{}
-	if builder.emailFlag {
-		req.Email = &builder.email
-
-	}
-	if builder.statusFlag {
-		req.Status = &builder.status
-
-	}
-	if builder.typeFlag {
-		req.Type = &builder.type_
-
-	}
-	return req
+func (builder * UserBuilder) Type(type_ int) *UserBuilder  {
+  builder.type_ = type_
+  builder.typeFlag = true
+  return builder
 }
 
+func (builder * UserBuilder ) Build() *User {
+   req := &User{}
+   if builder.emailFlag {
+	  req.Email = &builder.email
+	  
+   }
+   if builder.statusFlag {
+	  req.Status = &builder.status
+	  
+   }
+   if builder.typeFlag {
+	  req.Type = &builder.type_
+	  
+   }
+   return req
+}
 // builder结束
+
 
 // 生成请求和响应结果类型，以及请求对象的Builder构造器
 
+
 // 1.4 生成请求的builder结构体
 type CreateMailgroupReqBuilder struct {
-	mailgroup     *Mailgroup
+	mailgroup *Mailgroup
 	mailgroupFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewCreateMailgroupReqBuilder() *CreateMailgroupReqBuilder {
-	builder := &CreateMailgroupReqBuilder{}
-	return builder
+func NewCreateMailgroupReqBuilder() * CreateMailgroupReqBuilder{
+   builder := &CreateMailgroupReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *CreateMailgroupReqBuilder) Mailgroup(mailgroup *Mailgroup) *CreateMailgroupReqBuilder {
-	builder.mailgroup = mailgroup
-	builder.mailgroupFlag = true
-	return builder
+func (builder * CreateMailgroupReqBuilder) Mailgroup(mailgroup *Mailgroup) *CreateMailgroupReqBuilder  {
+  builder.mailgroup = mailgroup
+  builder.mailgroupFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *CreateMailgroupReqBuilder) Build() *CreateMailgroupReq {
-	req := &CreateMailgroupReq{}
-	if builder.mailgroupFlag {
-		req.Mailgroup = builder.mailgroup
-	}
-	return req
+func (builder * CreateMailgroupReqBuilder ) Build() *CreateMailgroupReq {
+   req := &CreateMailgroupReq{}
+   if builder.mailgroupFlag {
+	  req.Mailgroup = builder.mailgroup
+   }
+   return req
 }
+
 
 type CreateMailgroupReq struct {
 	Mailgroup *Mailgroup `body:""`
+
 }
 
 type CreateMailgroupRespData struct {
-	MailgroupId             *string `json:"mailgroup_id,omitempty"`
-	Email                   *string `json:"email,omitempty"`
-	Name                    *string `json:"name,omitempty"`
-	Description             *string `json:"description,omitempty"`
-	DirectMembersCount      *string `json:"direct_members_count,omitempty"`
-	IncludeExternalMember   *bool   `json:"include_external_member,omitempty"`
-	IncludeAllCompanyMember *bool   `json:"include_all_company_member,omitempty"`
-	WhoCanSendMail          *string `json:"who_can_send_mail,omitempty"`
+	MailgroupId  *string `json:"mailgroup_id,omitempty"`
+	Email  *string `json:"email,omitempty"`
+	Name  *string `json:"name,omitempty"`
+	Description  *string `json:"description,omitempty"`
+	DirectMembersCount  *string `json:"direct_members_count,omitempty"`
+	IncludeExternalMember  *bool `json:"include_external_member,omitempty"`
+	IncludeAllCompanyMember  *bool `json:"include_all_company_member,omitempty"`
+	WhoCanSendMail  *string `json:"who_can_send_mail,omitempty"`
 }
 
 type CreateMailgroupResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *CreateMailgroupRespData `json:"data"`
 }
 
@@ -604,93 +617,102 @@ func (resp *CreateMailgroupResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type DeleteMailgroupReqBuilder struct {
-	mailgroupId     string
-	mailgroupIdFlag bool
+	mailgroupId  string
+	mailgroupIdFlag  bool
+
 }
 
 // 生成请求的New构造器
-func NewDeleteMailgroupReqBuilder() *DeleteMailgroupReqBuilder {
-	builder := &DeleteMailgroupReqBuilder{}
-	return builder
+func NewDeleteMailgroupReqBuilder() * DeleteMailgroupReqBuilder{
+   builder := &DeleteMailgroupReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *DeleteMailgroupReqBuilder) MailgroupId(mailgroupId string) *DeleteMailgroupReqBuilder {
-	builder.mailgroupId = mailgroupId
-	builder.mailgroupIdFlag = true
-	return builder
+func (builder * DeleteMailgroupReqBuilder) MailgroupId(mailgroupId string) *DeleteMailgroupReqBuilder  {
+  builder.mailgroupId = mailgroupId
+  builder.mailgroupIdFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *DeleteMailgroupReqBuilder) Build() *DeleteMailgroupReq {
-	req := &DeleteMailgroupReq{}
-	if builder.mailgroupIdFlag {
-		req.MailgroupId = builder.mailgroupId
-	}
-	return req
+func (builder * DeleteMailgroupReqBuilder ) Build() *DeleteMailgroupReq {
+   req := &DeleteMailgroupReq{}
+   if builder.mailgroupIdFlag {
+	  req.MailgroupId = builder.mailgroupId
+   }
+   return req
 }
+
 
 type DeleteMailgroupReq struct {
-	MailgroupId string `path:"mailgroup_id"`
+	MailgroupId  string `path:"mailgroup_id"`
+
 }
 
+
 type DeleteMailgroupResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 }
 
 func (resp *DeleteMailgroupResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type GetMailgroupReqBuilder struct {
-	mailgroupId     string
-	mailgroupIdFlag bool
+	mailgroupId  string
+	mailgroupIdFlag  bool
+
 }
 
 // 生成请求的New构造器
-func NewGetMailgroupReqBuilder() *GetMailgroupReqBuilder {
-	builder := &GetMailgroupReqBuilder{}
-	return builder
+func NewGetMailgroupReqBuilder() * GetMailgroupReqBuilder{
+   builder := &GetMailgroupReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *GetMailgroupReqBuilder) MailgroupId(mailgroupId string) *GetMailgroupReqBuilder {
-	builder.mailgroupId = mailgroupId
-	builder.mailgroupIdFlag = true
-	return builder
+func (builder * GetMailgroupReqBuilder) MailgroupId(mailgroupId string) *GetMailgroupReqBuilder  {
+  builder.mailgroupId = mailgroupId
+  builder.mailgroupIdFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *GetMailgroupReqBuilder) Build() *GetMailgroupReq {
-	req := &GetMailgroupReq{}
-	if builder.mailgroupIdFlag {
-		req.MailgroupId = builder.mailgroupId
-	}
-	return req
+func (builder * GetMailgroupReqBuilder ) Build() *GetMailgroupReq {
+   req := &GetMailgroupReq{}
+   if builder.mailgroupIdFlag {
+	  req.MailgroupId = builder.mailgroupId
+   }
+   return req
 }
 
+
 type GetMailgroupReq struct {
-	MailgroupId string `path:"mailgroup_id"`
+	MailgroupId  string `path:"mailgroup_id"`
+
 }
 
 type GetMailgroupRespData struct {
-	MailgroupId             *string `json:"mailgroup_id,omitempty"`
-	Email                   *string `json:"email,omitempty"`
-	Name                    *string `json:"name,omitempty"`
-	Description             *string `json:"description,omitempty"`
-	DirectMembersCount      *string `json:"direct_members_count,omitempty"`
-	IncludeExternalMember   *bool   `json:"include_external_member,omitempty"`
-	IncludeAllCompanyMember *bool   `json:"include_all_company_member,omitempty"`
-	WhoCanSendMail          *string `json:"who_can_send_mail,omitempty"`
+	MailgroupId  *string `json:"mailgroup_id,omitempty"`
+	Email  *string `json:"email,omitempty"`
+	Name  *string `json:"name,omitempty"`
+	Description  *string `json:"description,omitempty"`
+	DirectMembersCount  *string `json:"direct_members_count,omitempty"`
+	IncludeExternalMember  *bool `json:"include_external_member,omitempty"`
+	IncludeAllCompanyMember  *bool `json:"include_all_company_member,omitempty"`
+	WhoCanSendMail  *string `json:"who_can_send_mail,omitempty"`
 }
 
 type GetMailgroupResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *GetMailgroupRespData `json:"data"`
 }
 
@@ -698,87 +720,91 @@ func (resp *GetMailgroupResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type ListMailgroupReqBuilder struct {
-	managerUserId     string
-	managerUserIdFlag bool
-	userIdType        string
-	userIdTypeFlag    bool
-	pageToken         string
-	pageTokenFlag     bool
-	pageSize          int
-	pageSizeFlag      bool
-	limit             int
+	managerUserId  string
+	managerUserIdFlag  bool
+	userIdType  string
+	userIdTypeFlag  bool
+	pageToken  string
+	pageTokenFlag  bool
+	pageSize  int
+	pageSizeFlag  bool
+	limit int
+
 }
 
 // 生成请求的New构造器
-func NewListMailgroupReqBuilder() *ListMailgroupReqBuilder {
-	builder := &ListMailgroupReqBuilder{}
-	return builder
+func NewListMailgroupReqBuilder() * ListMailgroupReqBuilder{
+   builder := &ListMailgroupReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *ListMailgroupReqBuilder) Limit(limit int) *ListMailgroupReqBuilder {
-	builder.limit = limit
-	return builder
+func (builder * ListMailgroupReqBuilder) Limit(limit int ) *ListMailgroupReqBuilder  {
+  builder.limit = limit
+  return builder
 }
-func (builder *ListMailgroupReqBuilder) ManagerUserId(managerUserId string) *ListMailgroupReqBuilder {
-	builder.managerUserId = managerUserId
-	builder.managerUserIdFlag = true
-	return builder
+func (builder * ListMailgroupReqBuilder) ManagerUserId(managerUserId string) *ListMailgroupReqBuilder  {
+  builder.managerUserId = managerUserId
+  builder.managerUserIdFlag = true
+  return builder
 }
-func (builder *ListMailgroupReqBuilder) UserIdType(userIdType string) *ListMailgroupReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
-	return builder
+func (builder * ListMailgroupReqBuilder) UserIdType(userIdType string) *ListMailgroupReqBuilder  {
+  builder.userIdType = userIdType
+  builder.userIdTypeFlag = true
+  return builder
 }
-func (builder *ListMailgroupReqBuilder) PageToken(pageToken string) *ListMailgroupReqBuilder {
-	builder.pageToken = pageToken
-	builder.pageTokenFlag = true
-	return builder
+func (builder * ListMailgroupReqBuilder) PageToken(pageToken string) *ListMailgroupReqBuilder  {
+  builder.pageToken = pageToken
+  builder.pageTokenFlag = true
+  return builder
 }
-func (builder *ListMailgroupReqBuilder) PageSize(pageSize int) *ListMailgroupReqBuilder {
-	builder.pageSize = pageSize
-	builder.pageSizeFlag = true
-	return builder
+func (builder * ListMailgroupReqBuilder) PageSize(pageSize int) *ListMailgroupReqBuilder  {
+  builder.pageSize = pageSize
+  builder.pageSizeFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *ListMailgroupReqBuilder) Build() *ListMailgroupReq {
-	req := &ListMailgroupReq{}
-	req.Limit = builder.limit
-	if builder.managerUserIdFlag {
-		req.ManagerUserId = &builder.managerUserId
-	}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
-	if builder.pageTokenFlag {
-		req.PageToken = &builder.pageToken
-	}
-	if builder.pageSizeFlag {
-		req.PageSize = &builder.pageSize
-	}
-	return req
+func (builder * ListMailgroupReqBuilder ) Build() *ListMailgroupReq {
+   req := &ListMailgroupReq{}
+   req.Limit = builder.limit
+   if builder.managerUserIdFlag {
+	  req.ManagerUserId = &builder.managerUserId
+   }
+   if builder.userIdTypeFlag {
+	  req.UserIdType = &builder.userIdType
+   }
+   if builder.pageTokenFlag {
+	  req.PageToken = &builder.pageToken
+   }
+   if builder.pageSizeFlag {
+	  req.PageSize = &builder.pageSize
+   }
+   return req
 }
 
+
 type ListMailgroupReq struct {
-	ManagerUserId *string `query:"manager_user_id"`
-	UserIdType    *string `query:"user_id_type"`
-	PageToken     *string `query:"page_token"`
-	PageSize      *int    `query:"page_size"`
-	Limit         int
+	ManagerUserId  *string `query:"manager_user_id"`
+	UserIdType  *string `query:"user_id_type"`
+	PageToken  *string `query:"page_token"`
+	PageSize  *int `query:"page_size"`
+	Limit int
+
 }
 
 type ListMailgroupRespData struct {
-	HasMore   *bool        `json:"has_more,omitempty"`
-	PageToken *string      `json:"page_token,omitempty"`
-	Items     []*Mailgroup `json:"items,omitempty"`
+	HasMore  *bool `json:"has_more,omitempty"`
+	PageToken  *string `json:"page_token,omitempty"`
+	Items  []*Mailgroup `json:"items,omitempty"`
 }
 
 type ListMailgroupResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *ListMailgroupRespData `json:"data"`
 }
 
@@ -786,63 +812,67 @@ func (resp *ListMailgroupResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type PatchMailgroupReqBuilder struct {
-	mailgroupId     string
-	mailgroupIdFlag bool
-	mailgroup       *Mailgroup
-	mailgroupFlag   bool
+	mailgroupId  string
+	mailgroupIdFlag  bool
+	mailgroup *Mailgroup
+	mailgroupFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewPatchMailgroupReqBuilder() *PatchMailgroupReqBuilder {
-	builder := &PatchMailgroupReqBuilder{}
-	return builder
+func NewPatchMailgroupReqBuilder() * PatchMailgroupReqBuilder{
+   builder := &PatchMailgroupReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *PatchMailgroupReqBuilder) MailgroupId(mailgroupId string) *PatchMailgroupReqBuilder {
-	builder.mailgroupId = mailgroupId
-	builder.mailgroupIdFlag = true
-	return builder
+func (builder * PatchMailgroupReqBuilder) MailgroupId(mailgroupId string) *PatchMailgroupReqBuilder  {
+  builder.mailgroupId = mailgroupId
+  builder.mailgroupIdFlag = true
+  return builder
 }
-func (builder *PatchMailgroupReqBuilder) Mailgroup(mailgroup *Mailgroup) *PatchMailgroupReqBuilder {
-	builder.mailgroup = mailgroup
-	builder.mailgroupFlag = true
-	return builder
+func (builder * PatchMailgroupReqBuilder) Mailgroup(mailgroup *Mailgroup) *PatchMailgroupReqBuilder  {
+  builder.mailgroup = mailgroup
+  builder.mailgroupFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *PatchMailgroupReqBuilder) Build() *PatchMailgroupReq {
-	req := &PatchMailgroupReq{}
-	if builder.mailgroupIdFlag {
-		req.MailgroupId = builder.mailgroupId
-	}
-	if builder.mailgroupFlag {
-		req.Mailgroup = builder.mailgroup
-	}
-	return req
+func (builder * PatchMailgroupReqBuilder ) Build() *PatchMailgroupReq {
+   req := &PatchMailgroupReq{}
+   if builder.mailgroupIdFlag {
+	  req.MailgroupId = builder.mailgroupId
+   }
+   if builder.mailgroupFlag {
+	  req.Mailgroup = builder.mailgroup
+   }
+   return req
 }
 
+
 type PatchMailgroupReq struct {
-	MailgroupId string     `path:"mailgroup_id"`
-	Mailgroup   *Mailgroup `body:""`
+	MailgroupId  string `path:"mailgroup_id"`
+	Mailgroup *Mailgroup `body:""`
+
 }
 
 type PatchMailgroupRespData struct {
-	MailgroupId             *string `json:"mailgroup_id,omitempty"`
-	Email                   *string `json:"email,omitempty"`
-	Name                    *string `json:"name,omitempty"`
-	Description             *string `json:"description,omitempty"`
-	DirectMembersCount      *string `json:"direct_members_count,omitempty"`
-	IncludeExternalMember   *bool   `json:"include_external_member,omitempty"`
-	IncludeAllCompanyMember *bool   `json:"include_all_company_member,omitempty"`
-	WhoCanSendMail          *string `json:"who_can_send_mail,omitempty"`
+	MailgroupId  *string `json:"mailgroup_id,omitempty"`
+	Email  *string `json:"email,omitempty"`
+	Name  *string `json:"name,omitempty"`
+	Description  *string `json:"description,omitempty"`
+	DirectMembersCount  *string `json:"direct_members_count,omitempty"`
+	IncludeExternalMember  *bool `json:"include_external_member,omitempty"`
+	IncludeAllCompanyMember  *bool `json:"include_all_company_member,omitempty"`
+	WhoCanSendMail  *string `json:"who_can_send_mail,omitempty"`
 }
 
 type PatchMailgroupResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *PatchMailgroupRespData `json:"data"`
 }
 
@@ -850,63 +880,67 @@ func (resp *PatchMailgroupResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type UpdateMailgroupReqBuilder struct {
-	mailgroupId     string
-	mailgroupIdFlag bool
-	mailgroup       *Mailgroup
-	mailgroupFlag   bool
+	mailgroupId  string
+	mailgroupIdFlag  bool
+	mailgroup *Mailgroup
+	mailgroupFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewUpdateMailgroupReqBuilder() *UpdateMailgroupReqBuilder {
-	builder := &UpdateMailgroupReqBuilder{}
-	return builder
+func NewUpdateMailgroupReqBuilder() * UpdateMailgroupReqBuilder{
+   builder := &UpdateMailgroupReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *UpdateMailgroupReqBuilder) MailgroupId(mailgroupId string) *UpdateMailgroupReqBuilder {
-	builder.mailgroupId = mailgroupId
-	builder.mailgroupIdFlag = true
-	return builder
+func (builder * UpdateMailgroupReqBuilder) MailgroupId(mailgroupId string) *UpdateMailgroupReqBuilder  {
+  builder.mailgroupId = mailgroupId
+  builder.mailgroupIdFlag = true
+  return builder
 }
-func (builder *UpdateMailgroupReqBuilder) Mailgroup(mailgroup *Mailgroup) *UpdateMailgroupReqBuilder {
-	builder.mailgroup = mailgroup
-	builder.mailgroupFlag = true
-	return builder
+func (builder * UpdateMailgroupReqBuilder) Mailgroup(mailgroup *Mailgroup) *UpdateMailgroupReqBuilder  {
+  builder.mailgroup = mailgroup
+  builder.mailgroupFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *UpdateMailgroupReqBuilder) Build() *UpdateMailgroupReq {
-	req := &UpdateMailgroupReq{}
-	if builder.mailgroupIdFlag {
-		req.MailgroupId = builder.mailgroupId
-	}
-	if builder.mailgroupFlag {
-		req.Mailgroup = builder.mailgroup
-	}
-	return req
+func (builder * UpdateMailgroupReqBuilder ) Build() *UpdateMailgroupReq {
+   req := &UpdateMailgroupReq{}
+   if builder.mailgroupIdFlag {
+	  req.MailgroupId = builder.mailgroupId
+   }
+   if builder.mailgroupFlag {
+	  req.Mailgroup = builder.mailgroup
+   }
+   return req
 }
 
+
 type UpdateMailgroupReq struct {
-	MailgroupId string     `path:"mailgroup_id"`
-	Mailgroup   *Mailgroup `body:""`
+	MailgroupId  string `path:"mailgroup_id"`
+	Mailgroup *Mailgroup `body:""`
+
 }
 
 type UpdateMailgroupRespData struct {
-	MailgroupId             *string `json:"mailgroup_id,omitempty"`
-	Email                   *string `json:"email,omitempty"`
-	Name                    *string `json:"name,omitempty"`
-	Description             *string `json:"description,omitempty"`
-	DirectMembersCount      *string `json:"direct_members_count,omitempty"`
-	IncludeExternalMember   *bool   `json:"include_external_member,omitempty"`
-	IncludeAllCompanyMember *bool   `json:"include_all_company_member,omitempty"`
-	WhoCanSendMail          *string `json:"who_can_send_mail,omitempty"`
+	MailgroupId  *string `json:"mailgroup_id,omitempty"`
+	Email  *string `json:"email,omitempty"`
+	Name  *string `json:"name,omitempty"`
+	Description  *string `json:"description,omitempty"`
+	DirectMembersCount  *string `json:"direct_members_count,omitempty"`
+	IncludeExternalMember  *bool `json:"include_external_member,omitempty"`
+	IncludeAllCompanyMember  *bool `json:"include_all_company_member,omitempty"`
+	WhoCanSendMail  *string `json:"who_can_send_mail,omitempty"`
 }
 
 type UpdateMailgroupResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *UpdateMailgroupRespData `json:"data"`
 }
 
@@ -914,56 +948,60 @@ func (resp *UpdateMailgroupResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type CreateMailgroupAliasReqBuilder struct {
-	mailgroupId     string
-	mailgroupIdFlag bool
-	emailAlias      *EmailAlias
-	emailAliasFlag  bool
+	mailgroupId  string
+	mailgroupIdFlag  bool
+	emailAlias *EmailAlias
+	emailAliasFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewCreateMailgroupAliasReqBuilder() *CreateMailgroupAliasReqBuilder {
-	builder := &CreateMailgroupAliasReqBuilder{}
-	return builder
+func NewCreateMailgroupAliasReqBuilder() * CreateMailgroupAliasReqBuilder{
+   builder := &CreateMailgroupAliasReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *CreateMailgroupAliasReqBuilder) MailgroupId(mailgroupId string) *CreateMailgroupAliasReqBuilder {
-	builder.mailgroupId = mailgroupId
-	builder.mailgroupIdFlag = true
-	return builder
+func (builder * CreateMailgroupAliasReqBuilder) MailgroupId(mailgroupId string) *CreateMailgroupAliasReqBuilder  {
+  builder.mailgroupId = mailgroupId
+  builder.mailgroupIdFlag = true
+  return builder
 }
-func (builder *CreateMailgroupAliasReqBuilder) EmailAlias(emailAlias *EmailAlias) *CreateMailgroupAliasReqBuilder {
-	builder.emailAlias = emailAlias
-	builder.emailAliasFlag = true
-	return builder
+func (builder * CreateMailgroupAliasReqBuilder) EmailAlias(emailAlias *EmailAlias) *CreateMailgroupAliasReqBuilder  {
+  builder.emailAlias = emailAlias
+  builder.emailAliasFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *CreateMailgroupAliasReqBuilder) Build() *CreateMailgroupAliasReq {
-	req := &CreateMailgroupAliasReq{}
-	if builder.mailgroupIdFlag {
-		req.MailgroupId = builder.mailgroupId
-	}
-	if builder.emailAliasFlag {
-		req.EmailAlias = builder.emailAlias
-	}
-	return req
+func (builder * CreateMailgroupAliasReqBuilder ) Build() *CreateMailgroupAliasReq {
+   req := &CreateMailgroupAliasReq{}
+   if builder.mailgroupIdFlag {
+	  req.MailgroupId = builder.mailgroupId
+   }
+   if builder.emailAliasFlag {
+	  req.EmailAlias = builder.emailAlias
+   }
+   return req
 }
 
+
 type CreateMailgroupAliasReq struct {
-	MailgroupId string      `path:"mailgroup_id"`
-	EmailAlias  *EmailAlias `body:""`
+	MailgroupId  string `path:"mailgroup_id"`
+	EmailAlias *EmailAlias `body:""`
+
 }
 
 type CreateMailgroupAliasRespData struct {
-	MailgroupAlias *EmailAlias `json:"mailgroup_alias,omitempty"`
+	MailgroupAlias  *EmailAlias `json:"mailgroup_alias,omitempty"`
 }
 
 type CreateMailgroupAliasResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *CreateMailgroupAliasRespData `json:"data"`
 }
 
@@ -971,97 +1009,106 @@ func (resp *CreateMailgroupAliasResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type DeleteMailgroupAliasReqBuilder struct {
-	mailgroupId     string
-	mailgroupIdFlag bool
-	aliasId         string
-	aliasIdFlag     bool
+	mailgroupId  string
+	mailgroupIdFlag  bool
+	aliasId  string
+	aliasIdFlag  bool
+
 }
 
 // 生成请求的New构造器
-func NewDeleteMailgroupAliasReqBuilder() *DeleteMailgroupAliasReqBuilder {
-	builder := &DeleteMailgroupAliasReqBuilder{}
-	return builder
+func NewDeleteMailgroupAliasReqBuilder() * DeleteMailgroupAliasReqBuilder{
+   builder := &DeleteMailgroupAliasReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *DeleteMailgroupAliasReqBuilder) MailgroupId(mailgroupId string) *DeleteMailgroupAliasReqBuilder {
-	builder.mailgroupId = mailgroupId
-	builder.mailgroupIdFlag = true
-	return builder
+func (builder * DeleteMailgroupAliasReqBuilder) MailgroupId(mailgroupId string) *DeleteMailgroupAliasReqBuilder  {
+  builder.mailgroupId = mailgroupId
+  builder.mailgroupIdFlag = true
+  return builder
 }
-func (builder *DeleteMailgroupAliasReqBuilder) AliasId(aliasId string) *DeleteMailgroupAliasReqBuilder {
-	builder.aliasId = aliasId
-	builder.aliasIdFlag = true
-	return builder
+func (builder * DeleteMailgroupAliasReqBuilder) AliasId(aliasId string) *DeleteMailgroupAliasReqBuilder  {
+  builder.aliasId = aliasId
+  builder.aliasIdFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *DeleteMailgroupAliasReqBuilder) Build() *DeleteMailgroupAliasReq {
-	req := &DeleteMailgroupAliasReq{}
-	if builder.mailgroupIdFlag {
-		req.MailgroupId = builder.mailgroupId
-	}
-	if builder.aliasIdFlag {
-		req.AliasId = builder.aliasId
-	}
-	return req
+func (builder * DeleteMailgroupAliasReqBuilder ) Build() *DeleteMailgroupAliasReq {
+   req := &DeleteMailgroupAliasReq{}
+   if builder.mailgroupIdFlag {
+	  req.MailgroupId = builder.mailgroupId
+   }
+   if builder.aliasIdFlag {
+	  req.AliasId = builder.aliasId
+   }
+   return req
 }
+
 
 type DeleteMailgroupAliasReq struct {
-	MailgroupId string `path:"mailgroup_id"`
-	AliasId     string `path:"alias_id"`
+	MailgroupId  string `path:"mailgroup_id"`
+	AliasId  string `path:"alias_id"`
+
 }
 
+
 type DeleteMailgroupAliasResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 }
 
 func (resp *DeleteMailgroupAliasResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type ListMailgroupAliasReqBuilder struct {
-	mailgroupId     string
-	mailgroupIdFlag bool
+	mailgroupId  string
+	mailgroupIdFlag  bool
+
 }
 
 // 生成请求的New构造器
-func NewListMailgroupAliasReqBuilder() *ListMailgroupAliasReqBuilder {
-	builder := &ListMailgroupAliasReqBuilder{}
-	return builder
+func NewListMailgroupAliasReqBuilder() * ListMailgroupAliasReqBuilder{
+   builder := &ListMailgroupAliasReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *ListMailgroupAliasReqBuilder) MailgroupId(mailgroupId string) *ListMailgroupAliasReqBuilder {
-	builder.mailgroupId = mailgroupId
-	builder.mailgroupIdFlag = true
-	return builder
+func (builder * ListMailgroupAliasReqBuilder) MailgroupId(mailgroupId string) *ListMailgroupAliasReqBuilder  {
+  builder.mailgroupId = mailgroupId
+  builder.mailgroupIdFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *ListMailgroupAliasReqBuilder) Build() *ListMailgroupAliasReq {
-	req := &ListMailgroupAliasReq{}
-	if builder.mailgroupIdFlag {
-		req.MailgroupId = builder.mailgroupId
-	}
-	return req
+func (builder * ListMailgroupAliasReqBuilder ) Build() *ListMailgroupAliasReq {
+   req := &ListMailgroupAliasReq{}
+   if builder.mailgroupIdFlag {
+	  req.MailgroupId = builder.mailgroupId
+   }
+   return req
 }
 
+
 type ListMailgroupAliasReq struct {
-	MailgroupId string `path:"mailgroup_id"`
+	MailgroupId  string `path:"mailgroup_id"`
+
 }
 
 type ListMailgroupAliasRespData struct {
-	Items []*EmailAlias `json:"items,omitempty"`
+	Items  []*EmailAlias `json:"items,omitempty"`
 }
 
 type ListMailgroupAliasResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *ListMailgroupAliasRespData `json:"data"`
 }
 
@@ -1069,82 +1116,86 @@ func (resp *ListMailgroupAliasResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type CreateMailgroupMemberReqBuilder struct {
-	mailgroupId          string
-	mailgroupIdFlag      bool
-	userIdType           string
-	userIdTypeFlag       bool
-	departmentIdType     string
-	departmentIdTypeFlag bool
-	mailgroupMember      *MailgroupMember
-	mailgroupMemberFlag  bool
+	mailgroupId  string
+	mailgroupIdFlag  bool
+	userIdType  string
+	userIdTypeFlag  bool
+	departmentIdType  string
+	departmentIdTypeFlag  bool
+	mailgroupMember *MailgroupMember
+	mailgroupMemberFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewCreateMailgroupMemberReqBuilder() *CreateMailgroupMemberReqBuilder {
-	builder := &CreateMailgroupMemberReqBuilder{}
-	return builder
+func NewCreateMailgroupMemberReqBuilder() * CreateMailgroupMemberReqBuilder{
+   builder := &CreateMailgroupMemberReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *CreateMailgroupMemberReqBuilder) MailgroupId(mailgroupId string) *CreateMailgroupMemberReqBuilder {
-	builder.mailgroupId = mailgroupId
-	builder.mailgroupIdFlag = true
-	return builder
+func (builder * CreateMailgroupMemberReqBuilder) MailgroupId(mailgroupId string) *CreateMailgroupMemberReqBuilder  {
+  builder.mailgroupId = mailgroupId
+  builder.mailgroupIdFlag = true
+  return builder
 }
-func (builder *CreateMailgroupMemberReqBuilder) UserIdType(userIdType string) *CreateMailgroupMemberReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
-	return builder
+func (builder * CreateMailgroupMemberReqBuilder) UserIdType(userIdType string) *CreateMailgroupMemberReqBuilder  {
+  builder.userIdType = userIdType
+  builder.userIdTypeFlag = true
+  return builder
 }
-func (builder *CreateMailgroupMemberReqBuilder) DepartmentIdType(departmentIdType string) *CreateMailgroupMemberReqBuilder {
-	builder.departmentIdType = departmentIdType
-	builder.departmentIdTypeFlag = true
-	return builder
+func (builder * CreateMailgroupMemberReqBuilder) DepartmentIdType(departmentIdType string) *CreateMailgroupMemberReqBuilder  {
+  builder.departmentIdType = departmentIdType
+  builder.departmentIdTypeFlag = true
+  return builder
 }
-func (builder *CreateMailgroupMemberReqBuilder) MailgroupMember(mailgroupMember *MailgroupMember) *CreateMailgroupMemberReqBuilder {
-	builder.mailgroupMember = mailgroupMember
-	builder.mailgroupMemberFlag = true
-	return builder
+func (builder * CreateMailgroupMemberReqBuilder) MailgroupMember(mailgroupMember *MailgroupMember) *CreateMailgroupMemberReqBuilder  {
+  builder.mailgroupMember = mailgroupMember
+  builder.mailgroupMemberFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *CreateMailgroupMemberReqBuilder) Build() *CreateMailgroupMemberReq {
-	req := &CreateMailgroupMemberReq{}
-	if builder.mailgroupIdFlag {
-		req.MailgroupId = builder.mailgroupId
-	}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
-	if builder.departmentIdTypeFlag {
-		req.DepartmentIdType = &builder.departmentIdType
-	}
-	if builder.mailgroupMemberFlag {
-		req.MailgroupMember = builder.mailgroupMember
-	}
-	return req
+func (builder * CreateMailgroupMemberReqBuilder ) Build() *CreateMailgroupMemberReq {
+   req := &CreateMailgroupMemberReq{}
+   if builder.mailgroupIdFlag {
+	  req.MailgroupId = builder.mailgroupId
+   }
+   if builder.userIdTypeFlag {
+	  req.UserIdType = &builder.userIdType
+   }
+   if builder.departmentIdTypeFlag {
+	  req.DepartmentIdType = &builder.departmentIdType
+   }
+   if builder.mailgroupMemberFlag {
+	  req.MailgroupMember = builder.mailgroupMember
+   }
+   return req
 }
 
+
 type CreateMailgroupMemberReq struct {
-	MailgroupId      string           `path:"mailgroup_id"`
-	UserIdType       *string          `query:"user_id_type"`
-	DepartmentIdType *string          `query:"department_id_type"`
-	MailgroupMember  *MailgroupMember `body:""`
+	MailgroupId  string `path:"mailgroup_id"`
+	UserIdType  *string `query:"user_id_type"`
+	DepartmentIdType  *string `query:"department_id_type"`
+	MailgroupMember *MailgroupMember `body:""`
+
 }
 
 type CreateMailgroupMemberRespData struct {
-	MemberId     *string `json:"member_id,omitempty"`
-	Email        *string `json:"email,omitempty"`
-	UserId       *string `json:"user_id,omitempty"`
-	DepartmentId *string `json:"department_id,omitempty"`
-	Type         *string `json:"type,omitempty"`
+	MemberId  *string `json:"member_id,omitempty"`
+	Email  *string `json:"email,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
+	DepartmentId  *string `json:"department_id,omitempty"`
+	Type  *string `json:"type,omitempty"`
 }
 
 type CreateMailgroupMemberResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *CreateMailgroupMemberRespData `json:"data"`
 }
 
@@ -1152,134 +1203,143 @@ func (resp *CreateMailgroupMemberResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type DeleteMailgroupMemberReqBuilder struct {
-	mailgroupId     string
-	mailgroupIdFlag bool
-	memberId        string
-	memberIdFlag    bool
+	mailgroupId  string
+	mailgroupIdFlag  bool
+	memberId  string
+	memberIdFlag  bool
+
 }
 
 // 生成请求的New构造器
-func NewDeleteMailgroupMemberReqBuilder() *DeleteMailgroupMemberReqBuilder {
-	builder := &DeleteMailgroupMemberReqBuilder{}
-	return builder
+func NewDeleteMailgroupMemberReqBuilder() * DeleteMailgroupMemberReqBuilder{
+   builder := &DeleteMailgroupMemberReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *DeleteMailgroupMemberReqBuilder) MailgroupId(mailgroupId string) *DeleteMailgroupMemberReqBuilder {
-	builder.mailgroupId = mailgroupId
-	builder.mailgroupIdFlag = true
-	return builder
+func (builder * DeleteMailgroupMemberReqBuilder) MailgroupId(mailgroupId string) *DeleteMailgroupMemberReqBuilder  {
+  builder.mailgroupId = mailgroupId
+  builder.mailgroupIdFlag = true
+  return builder
 }
-func (builder *DeleteMailgroupMemberReqBuilder) MemberId(memberId string) *DeleteMailgroupMemberReqBuilder {
-	builder.memberId = memberId
-	builder.memberIdFlag = true
-	return builder
+func (builder * DeleteMailgroupMemberReqBuilder) MemberId(memberId string) *DeleteMailgroupMemberReqBuilder  {
+  builder.memberId = memberId
+  builder.memberIdFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *DeleteMailgroupMemberReqBuilder) Build() *DeleteMailgroupMemberReq {
-	req := &DeleteMailgroupMemberReq{}
-	if builder.mailgroupIdFlag {
-		req.MailgroupId = builder.mailgroupId
-	}
-	if builder.memberIdFlag {
-		req.MemberId = builder.memberId
-	}
-	return req
+func (builder * DeleteMailgroupMemberReqBuilder ) Build() *DeleteMailgroupMemberReq {
+   req := &DeleteMailgroupMemberReq{}
+   if builder.mailgroupIdFlag {
+	  req.MailgroupId = builder.mailgroupId
+   }
+   if builder.memberIdFlag {
+	  req.MemberId = builder.memberId
+   }
+   return req
 }
+
 
 type DeleteMailgroupMemberReq struct {
-	MailgroupId string `path:"mailgroup_id"`
-	MemberId    string `path:"member_id"`
+	MailgroupId  string `path:"mailgroup_id"`
+	MemberId  string `path:"member_id"`
+
 }
 
+
 type DeleteMailgroupMemberResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 }
 
 func (resp *DeleteMailgroupMemberResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type GetMailgroupMemberReqBuilder struct {
-	mailgroupId          string
-	mailgroupIdFlag      bool
-	memberId             string
-	memberIdFlag         bool
-	userIdType           string
-	userIdTypeFlag       bool
-	departmentIdType     string
-	departmentIdTypeFlag bool
+	mailgroupId  string
+	mailgroupIdFlag  bool
+	memberId  string
+	memberIdFlag  bool
+	userIdType  string
+	userIdTypeFlag  bool
+	departmentIdType  string
+	departmentIdTypeFlag  bool
+
 }
 
 // 生成请求的New构造器
-func NewGetMailgroupMemberReqBuilder() *GetMailgroupMemberReqBuilder {
-	builder := &GetMailgroupMemberReqBuilder{}
-	return builder
+func NewGetMailgroupMemberReqBuilder() * GetMailgroupMemberReqBuilder{
+   builder := &GetMailgroupMemberReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *GetMailgroupMemberReqBuilder) MailgroupId(mailgroupId string) *GetMailgroupMemberReqBuilder {
-	builder.mailgroupId = mailgroupId
-	builder.mailgroupIdFlag = true
-	return builder
+func (builder * GetMailgroupMemberReqBuilder) MailgroupId(mailgroupId string) *GetMailgroupMemberReqBuilder  {
+  builder.mailgroupId = mailgroupId
+  builder.mailgroupIdFlag = true
+  return builder
 }
-func (builder *GetMailgroupMemberReqBuilder) MemberId(memberId string) *GetMailgroupMemberReqBuilder {
-	builder.memberId = memberId
-	builder.memberIdFlag = true
-	return builder
+func (builder * GetMailgroupMemberReqBuilder) MemberId(memberId string) *GetMailgroupMemberReqBuilder  {
+  builder.memberId = memberId
+  builder.memberIdFlag = true
+  return builder
 }
-func (builder *GetMailgroupMemberReqBuilder) UserIdType(userIdType string) *GetMailgroupMemberReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
-	return builder
+func (builder * GetMailgroupMemberReqBuilder) UserIdType(userIdType string) *GetMailgroupMemberReqBuilder  {
+  builder.userIdType = userIdType
+  builder.userIdTypeFlag = true
+  return builder
 }
-func (builder *GetMailgroupMemberReqBuilder) DepartmentIdType(departmentIdType string) *GetMailgroupMemberReqBuilder {
-	builder.departmentIdType = departmentIdType
-	builder.departmentIdTypeFlag = true
-	return builder
+func (builder * GetMailgroupMemberReqBuilder) DepartmentIdType(departmentIdType string) *GetMailgroupMemberReqBuilder  {
+  builder.departmentIdType = departmentIdType
+  builder.departmentIdTypeFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *GetMailgroupMemberReqBuilder) Build() *GetMailgroupMemberReq {
-	req := &GetMailgroupMemberReq{}
-	if builder.mailgroupIdFlag {
-		req.MailgroupId = builder.mailgroupId
-	}
-	if builder.memberIdFlag {
-		req.MemberId = builder.memberId
-	}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
-	if builder.departmentIdTypeFlag {
-		req.DepartmentIdType = &builder.departmentIdType
-	}
-	return req
+func (builder * GetMailgroupMemberReqBuilder ) Build() *GetMailgroupMemberReq {
+   req := &GetMailgroupMemberReq{}
+   if builder.mailgroupIdFlag {
+	  req.MailgroupId = builder.mailgroupId
+   }
+   if builder.memberIdFlag {
+	  req.MemberId = builder.memberId
+   }
+   if builder.userIdTypeFlag {
+	  req.UserIdType = &builder.userIdType
+   }
+   if builder.departmentIdTypeFlag {
+	  req.DepartmentIdType = &builder.departmentIdType
+   }
+   return req
 }
 
+
 type GetMailgroupMemberReq struct {
-	MailgroupId      string  `path:"mailgroup_id"`
-	MemberId         string  `path:"member_id"`
-	UserIdType       *string `query:"user_id_type"`
-	DepartmentIdType *string `query:"department_id_type"`
+	MailgroupId  string `path:"mailgroup_id"`
+	MemberId  string `path:"member_id"`
+	UserIdType  *string `query:"user_id_type"`
+	DepartmentIdType  *string `query:"department_id_type"`
+
 }
 
 type GetMailgroupMemberRespData struct {
-	MemberId     *string `json:"member_id,omitempty"`
-	Email        *string `json:"email,omitempty"`
-	UserId       *string `json:"user_id,omitempty"`
-	DepartmentId *string `json:"department_id,omitempty"`
-	Type         *string `json:"type,omitempty"`
+	MemberId  *string `json:"member_id,omitempty"`
+	Email  *string `json:"email,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
+	DepartmentId  *string `json:"department_id,omitempty"`
+	Type  *string `json:"type,omitempty"`
 }
 
 type GetMailgroupMemberResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *GetMailgroupMemberRespData `json:"data"`
 }
 
@@ -1287,98 +1347,102 @@ func (resp *GetMailgroupMemberResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type ListMailgroupMemberReqBuilder struct {
-	mailgroupId          string
-	mailgroupIdFlag      bool
-	userIdType           string
-	userIdTypeFlag       bool
-	departmentIdType     string
-	departmentIdTypeFlag bool
-	pageToken            string
-	pageTokenFlag        bool
-	pageSize             int
-	pageSizeFlag         bool
-	limit                int
+	mailgroupId  string
+	mailgroupIdFlag  bool
+	userIdType  string
+	userIdTypeFlag  bool
+	departmentIdType  string
+	departmentIdTypeFlag  bool
+	pageToken  string
+	pageTokenFlag  bool
+	pageSize  int
+	pageSizeFlag  bool
+	limit int
+
 }
 
 // 生成请求的New构造器
-func NewListMailgroupMemberReqBuilder() *ListMailgroupMemberReqBuilder {
-	builder := &ListMailgroupMemberReqBuilder{}
-	return builder
+func NewListMailgroupMemberReqBuilder() * ListMailgroupMemberReqBuilder{
+   builder := &ListMailgroupMemberReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *ListMailgroupMemberReqBuilder) Limit(limit int) *ListMailgroupMemberReqBuilder {
-	builder.limit = limit
-	return builder
+func (builder * ListMailgroupMemberReqBuilder) Limit(limit int ) *ListMailgroupMemberReqBuilder  {
+  builder.limit = limit
+  return builder
 }
-func (builder *ListMailgroupMemberReqBuilder) MailgroupId(mailgroupId string) *ListMailgroupMemberReqBuilder {
-	builder.mailgroupId = mailgroupId
-	builder.mailgroupIdFlag = true
-	return builder
+func (builder * ListMailgroupMemberReqBuilder) MailgroupId(mailgroupId string) *ListMailgroupMemberReqBuilder  {
+  builder.mailgroupId = mailgroupId
+  builder.mailgroupIdFlag = true
+  return builder
 }
-func (builder *ListMailgroupMemberReqBuilder) UserIdType(userIdType string) *ListMailgroupMemberReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
-	return builder
+func (builder * ListMailgroupMemberReqBuilder) UserIdType(userIdType string) *ListMailgroupMemberReqBuilder  {
+  builder.userIdType = userIdType
+  builder.userIdTypeFlag = true
+  return builder
 }
-func (builder *ListMailgroupMemberReqBuilder) DepartmentIdType(departmentIdType string) *ListMailgroupMemberReqBuilder {
-	builder.departmentIdType = departmentIdType
-	builder.departmentIdTypeFlag = true
-	return builder
+func (builder * ListMailgroupMemberReqBuilder) DepartmentIdType(departmentIdType string) *ListMailgroupMemberReqBuilder  {
+  builder.departmentIdType = departmentIdType
+  builder.departmentIdTypeFlag = true
+  return builder
 }
-func (builder *ListMailgroupMemberReqBuilder) PageToken(pageToken string) *ListMailgroupMemberReqBuilder {
-	builder.pageToken = pageToken
-	builder.pageTokenFlag = true
-	return builder
+func (builder * ListMailgroupMemberReqBuilder) PageToken(pageToken string) *ListMailgroupMemberReqBuilder  {
+  builder.pageToken = pageToken
+  builder.pageTokenFlag = true
+  return builder
 }
-func (builder *ListMailgroupMemberReqBuilder) PageSize(pageSize int) *ListMailgroupMemberReqBuilder {
-	builder.pageSize = pageSize
-	builder.pageSizeFlag = true
-	return builder
+func (builder * ListMailgroupMemberReqBuilder) PageSize(pageSize int) *ListMailgroupMemberReqBuilder  {
+  builder.pageSize = pageSize
+  builder.pageSizeFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *ListMailgroupMemberReqBuilder) Build() *ListMailgroupMemberReq {
-	req := &ListMailgroupMemberReq{}
-	req.Limit = builder.limit
-	if builder.mailgroupIdFlag {
-		req.MailgroupId = builder.mailgroupId
-	}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
-	if builder.departmentIdTypeFlag {
-		req.DepartmentIdType = &builder.departmentIdType
-	}
-	if builder.pageTokenFlag {
-		req.PageToken = &builder.pageToken
-	}
-	if builder.pageSizeFlag {
-		req.PageSize = &builder.pageSize
-	}
-	return req
+func (builder * ListMailgroupMemberReqBuilder ) Build() *ListMailgroupMemberReq {
+   req := &ListMailgroupMemberReq{}
+   req.Limit = builder.limit
+   if builder.mailgroupIdFlag {
+	  req.MailgroupId = builder.mailgroupId
+   }
+   if builder.userIdTypeFlag {
+	  req.UserIdType = &builder.userIdType
+   }
+   if builder.departmentIdTypeFlag {
+	  req.DepartmentIdType = &builder.departmentIdType
+   }
+   if builder.pageTokenFlag {
+	  req.PageToken = &builder.pageToken
+   }
+   if builder.pageSizeFlag {
+	  req.PageSize = &builder.pageSize
+   }
+   return req
 }
 
+
 type ListMailgroupMemberReq struct {
-	MailgroupId      string  `path:"mailgroup_id"`
-	UserIdType       *string `query:"user_id_type"`
-	DepartmentIdType *string `query:"department_id_type"`
-	PageToken        *string `query:"page_token"`
-	PageSize         *int    `query:"page_size"`
-	Limit            int
+	MailgroupId  string `path:"mailgroup_id"`
+	UserIdType  *string `query:"user_id_type"`
+	DepartmentIdType  *string `query:"department_id_type"`
+	PageToken  *string `query:"page_token"`
+	PageSize  *int `query:"page_size"`
+	Limit int
+
 }
 
 type ListMailgroupMemberRespData struct {
-	HasMore   *bool              `json:"has_more,omitempty"`
-	PageToken *string            `json:"page_token,omitempty"`
-	Items     []*MailgroupMember `json:"items,omitempty"`
+	HasMore  *bool `json:"has_more,omitempty"`
+	PageToken  *string `json:"page_token,omitempty"`
+	Items  []*MailgroupMember `json:"items,omitempty"`
 }
 
 type ListMailgroupMemberResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *ListMailgroupMemberRespData `json:"data"`
 }
 
@@ -1386,81 +1450,85 @@ func (resp *ListMailgroupMemberResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type CreateMailgroupPermissionMemberReqBuilder struct {
-	mailgroupId                   string
-	mailgroupIdFlag               bool
-	userIdType                    string
-	userIdTypeFlag                bool
-	departmentIdType              string
-	departmentIdTypeFlag          bool
-	mailgroupPermissionMember     *MailgroupPermissionMember
+	mailgroupId  string
+	mailgroupIdFlag  bool
+	userIdType  string
+	userIdTypeFlag  bool
+	departmentIdType  string
+	departmentIdTypeFlag  bool
+	mailgroupPermissionMember *MailgroupPermissionMember
 	mailgroupPermissionMemberFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewCreateMailgroupPermissionMemberReqBuilder() *CreateMailgroupPermissionMemberReqBuilder {
-	builder := &CreateMailgroupPermissionMemberReqBuilder{}
-	return builder
+func NewCreateMailgroupPermissionMemberReqBuilder() * CreateMailgroupPermissionMemberReqBuilder{
+   builder := &CreateMailgroupPermissionMemberReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *CreateMailgroupPermissionMemberReqBuilder) MailgroupId(mailgroupId string) *CreateMailgroupPermissionMemberReqBuilder {
-	builder.mailgroupId = mailgroupId
-	builder.mailgroupIdFlag = true
-	return builder
+func (builder * CreateMailgroupPermissionMemberReqBuilder) MailgroupId(mailgroupId string) *CreateMailgroupPermissionMemberReqBuilder  {
+  builder.mailgroupId = mailgroupId
+  builder.mailgroupIdFlag = true
+  return builder
 }
-func (builder *CreateMailgroupPermissionMemberReqBuilder) UserIdType(userIdType string) *CreateMailgroupPermissionMemberReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
-	return builder
+func (builder * CreateMailgroupPermissionMemberReqBuilder) UserIdType(userIdType string) *CreateMailgroupPermissionMemberReqBuilder  {
+  builder.userIdType = userIdType
+  builder.userIdTypeFlag = true
+  return builder
 }
-func (builder *CreateMailgroupPermissionMemberReqBuilder) DepartmentIdType(departmentIdType string) *CreateMailgroupPermissionMemberReqBuilder {
-	builder.departmentIdType = departmentIdType
-	builder.departmentIdTypeFlag = true
-	return builder
+func (builder * CreateMailgroupPermissionMemberReqBuilder) DepartmentIdType(departmentIdType string) *CreateMailgroupPermissionMemberReqBuilder  {
+  builder.departmentIdType = departmentIdType
+  builder.departmentIdTypeFlag = true
+  return builder
 }
-func (builder *CreateMailgroupPermissionMemberReqBuilder) MailgroupPermissionMember(mailgroupPermissionMember *MailgroupPermissionMember) *CreateMailgroupPermissionMemberReqBuilder {
-	builder.mailgroupPermissionMember = mailgroupPermissionMember
-	builder.mailgroupPermissionMemberFlag = true
-	return builder
+func (builder * CreateMailgroupPermissionMemberReqBuilder) MailgroupPermissionMember(mailgroupPermissionMember *MailgroupPermissionMember) *CreateMailgroupPermissionMemberReqBuilder  {
+  builder.mailgroupPermissionMember = mailgroupPermissionMember
+  builder.mailgroupPermissionMemberFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *CreateMailgroupPermissionMemberReqBuilder) Build() *CreateMailgroupPermissionMemberReq {
-	req := &CreateMailgroupPermissionMemberReq{}
-	if builder.mailgroupIdFlag {
-		req.MailgroupId = builder.mailgroupId
-	}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
-	if builder.departmentIdTypeFlag {
-		req.DepartmentIdType = &builder.departmentIdType
-	}
-	if builder.mailgroupPermissionMemberFlag {
-		req.MailgroupPermissionMember = builder.mailgroupPermissionMember
-	}
-	return req
+func (builder * CreateMailgroupPermissionMemberReqBuilder ) Build() *CreateMailgroupPermissionMemberReq {
+   req := &CreateMailgroupPermissionMemberReq{}
+   if builder.mailgroupIdFlag {
+	  req.MailgroupId = builder.mailgroupId
+   }
+   if builder.userIdTypeFlag {
+	  req.UserIdType = &builder.userIdType
+   }
+   if builder.departmentIdTypeFlag {
+	  req.DepartmentIdType = &builder.departmentIdType
+   }
+   if builder.mailgroupPermissionMemberFlag {
+	  req.MailgroupPermissionMember = builder.mailgroupPermissionMember
+   }
+   return req
 }
 
+
 type CreateMailgroupPermissionMemberReq struct {
-	MailgroupId               string                     `path:"mailgroup_id"`
-	UserIdType                *string                    `query:"user_id_type"`
-	DepartmentIdType          *string                    `query:"department_id_type"`
+	MailgroupId  string `path:"mailgroup_id"`
+	UserIdType  *string `query:"user_id_type"`
+	DepartmentIdType  *string `query:"department_id_type"`
 	MailgroupPermissionMember *MailgroupPermissionMember `body:""`
+
 }
 
 type CreateMailgroupPermissionMemberRespData struct {
-	PermissionMemberId *string `json:"permission_member_id,omitempty"`
-	UserId             *string `json:"user_id,omitempty"`
-	DepartmentId       *string `json:"department_id,omitempty"`
-	Type               *string `json:"type,omitempty"`
+	PermissionMemberId  *string `json:"permission_member_id,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
+	DepartmentId  *string `json:"department_id,omitempty"`
+	Type  *string `json:"type,omitempty"`
 }
 
 type CreateMailgroupPermissionMemberResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *CreateMailgroupPermissionMemberRespData `json:"data"`
 }
 
@@ -1468,133 +1536,142 @@ func (resp *CreateMailgroupPermissionMemberResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type DeleteMailgroupPermissionMemberReqBuilder struct {
-	mailgroupId            string
-	mailgroupIdFlag        bool
-	permissionMemberId     string
-	permissionMemberIdFlag bool
+	mailgroupId  string
+	mailgroupIdFlag  bool
+	permissionMemberId  string
+	permissionMemberIdFlag  bool
+
 }
 
 // 生成请求的New构造器
-func NewDeleteMailgroupPermissionMemberReqBuilder() *DeleteMailgroupPermissionMemberReqBuilder {
-	builder := &DeleteMailgroupPermissionMemberReqBuilder{}
-	return builder
+func NewDeleteMailgroupPermissionMemberReqBuilder() * DeleteMailgroupPermissionMemberReqBuilder{
+   builder := &DeleteMailgroupPermissionMemberReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *DeleteMailgroupPermissionMemberReqBuilder) MailgroupId(mailgroupId string) *DeleteMailgroupPermissionMemberReqBuilder {
-	builder.mailgroupId = mailgroupId
-	builder.mailgroupIdFlag = true
-	return builder
+func (builder * DeleteMailgroupPermissionMemberReqBuilder) MailgroupId(mailgroupId string) *DeleteMailgroupPermissionMemberReqBuilder  {
+  builder.mailgroupId = mailgroupId
+  builder.mailgroupIdFlag = true
+  return builder
 }
-func (builder *DeleteMailgroupPermissionMemberReqBuilder) PermissionMemberId(permissionMemberId string) *DeleteMailgroupPermissionMemberReqBuilder {
-	builder.permissionMemberId = permissionMemberId
-	builder.permissionMemberIdFlag = true
-	return builder
+func (builder * DeleteMailgroupPermissionMemberReqBuilder) PermissionMemberId(permissionMemberId string) *DeleteMailgroupPermissionMemberReqBuilder  {
+  builder.permissionMemberId = permissionMemberId
+  builder.permissionMemberIdFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *DeleteMailgroupPermissionMemberReqBuilder) Build() *DeleteMailgroupPermissionMemberReq {
-	req := &DeleteMailgroupPermissionMemberReq{}
-	if builder.mailgroupIdFlag {
-		req.MailgroupId = builder.mailgroupId
-	}
-	if builder.permissionMemberIdFlag {
-		req.PermissionMemberId = builder.permissionMemberId
-	}
-	return req
+func (builder * DeleteMailgroupPermissionMemberReqBuilder ) Build() *DeleteMailgroupPermissionMemberReq {
+   req := &DeleteMailgroupPermissionMemberReq{}
+   if builder.mailgroupIdFlag {
+	  req.MailgroupId = builder.mailgroupId
+   }
+   if builder.permissionMemberIdFlag {
+	  req.PermissionMemberId = builder.permissionMemberId
+   }
+   return req
 }
+
 
 type DeleteMailgroupPermissionMemberReq struct {
-	MailgroupId        string `path:"mailgroup_id"`
-	PermissionMemberId string `path:"permission_member_id"`
+	MailgroupId  string `path:"mailgroup_id"`
+	PermissionMemberId  string `path:"permission_member_id"`
+
 }
 
+
 type DeleteMailgroupPermissionMemberResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 }
 
 func (resp *DeleteMailgroupPermissionMemberResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type GetMailgroupPermissionMemberReqBuilder struct {
-	mailgroupId            string
-	mailgroupIdFlag        bool
-	permissionMemberId     string
-	permissionMemberIdFlag bool
-	userIdType             string
-	userIdTypeFlag         bool
-	departmentIdType       string
-	departmentIdTypeFlag   bool
+	mailgroupId  string
+	mailgroupIdFlag  bool
+	permissionMemberId  string
+	permissionMemberIdFlag  bool
+	userIdType  string
+	userIdTypeFlag  bool
+	departmentIdType  string
+	departmentIdTypeFlag  bool
+
 }
 
 // 生成请求的New构造器
-func NewGetMailgroupPermissionMemberReqBuilder() *GetMailgroupPermissionMemberReqBuilder {
-	builder := &GetMailgroupPermissionMemberReqBuilder{}
-	return builder
+func NewGetMailgroupPermissionMemberReqBuilder() * GetMailgroupPermissionMemberReqBuilder{
+   builder := &GetMailgroupPermissionMemberReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *GetMailgroupPermissionMemberReqBuilder) MailgroupId(mailgroupId string) *GetMailgroupPermissionMemberReqBuilder {
-	builder.mailgroupId = mailgroupId
-	builder.mailgroupIdFlag = true
-	return builder
+func (builder * GetMailgroupPermissionMemberReqBuilder) MailgroupId(mailgroupId string) *GetMailgroupPermissionMemberReqBuilder  {
+  builder.mailgroupId = mailgroupId
+  builder.mailgroupIdFlag = true
+  return builder
 }
-func (builder *GetMailgroupPermissionMemberReqBuilder) PermissionMemberId(permissionMemberId string) *GetMailgroupPermissionMemberReqBuilder {
-	builder.permissionMemberId = permissionMemberId
-	builder.permissionMemberIdFlag = true
-	return builder
+func (builder * GetMailgroupPermissionMemberReqBuilder) PermissionMemberId(permissionMemberId string) *GetMailgroupPermissionMemberReqBuilder  {
+  builder.permissionMemberId = permissionMemberId
+  builder.permissionMemberIdFlag = true
+  return builder
 }
-func (builder *GetMailgroupPermissionMemberReqBuilder) UserIdType(userIdType string) *GetMailgroupPermissionMemberReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
-	return builder
+func (builder * GetMailgroupPermissionMemberReqBuilder) UserIdType(userIdType string) *GetMailgroupPermissionMemberReqBuilder  {
+  builder.userIdType = userIdType
+  builder.userIdTypeFlag = true
+  return builder
 }
-func (builder *GetMailgroupPermissionMemberReqBuilder) DepartmentIdType(departmentIdType string) *GetMailgroupPermissionMemberReqBuilder {
-	builder.departmentIdType = departmentIdType
-	builder.departmentIdTypeFlag = true
-	return builder
+func (builder * GetMailgroupPermissionMemberReqBuilder) DepartmentIdType(departmentIdType string) *GetMailgroupPermissionMemberReqBuilder  {
+  builder.departmentIdType = departmentIdType
+  builder.departmentIdTypeFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *GetMailgroupPermissionMemberReqBuilder) Build() *GetMailgroupPermissionMemberReq {
-	req := &GetMailgroupPermissionMemberReq{}
-	if builder.mailgroupIdFlag {
-		req.MailgroupId = builder.mailgroupId
-	}
-	if builder.permissionMemberIdFlag {
-		req.PermissionMemberId = builder.permissionMemberId
-	}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
-	if builder.departmentIdTypeFlag {
-		req.DepartmentIdType = &builder.departmentIdType
-	}
-	return req
+func (builder * GetMailgroupPermissionMemberReqBuilder ) Build() *GetMailgroupPermissionMemberReq {
+   req := &GetMailgroupPermissionMemberReq{}
+   if builder.mailgroupIdFlag {
+	  req.MailgroupId = builder.mailgroupId
+   }
+   if builder.permissionMemberIdFlag {
+	  req.PermissionMemberId = builder.permissionMemberId
+   }
+   if builder.userIdTypeFlag {
+	  req.UserIdType = &builder.userIdType
+   }
+   if builder.departmentIdTypeFlag {
+	  req.DepartmentIdType = &builder.departmentIdType
+   }
+   return req
 }
 
+
 type GetMailgroupPermissionMemberReq struct {
-	MailgroupId        string  `path:"mailgroup_id"`
-	PermissionMemberId string  `path:"permission_member_id"`
-	UserIdType         *string `query:"user_id_type"`
-	DepartmentIdType   *string `query:"department_id_type"`
+	MailgroupId  string `path:"mailgroup_id"`
+	PermissionMemberId  string `path:"permission_member_id"`
+	UserIdType  *string `query:"user_id_type"`
+	DepartmentIdType  *string `query:"department_id_type"`
+
 }
 
 type GetMailgroupPermissionMemberRespData struct {
-	PermissionMemberId *string `json:"permission_member_id,omitempty"`
-	UserId             *string `json:"user_id,omitempty"`
-	DepartmentId       *string `json:"department_id,omitempty"`
-	Type               *string `json:"type,omitempty"`
+	PermissionMemberId  *string `json:"permission_member_id,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
+	DepartmentId  *string `json:"department_id,omitempty"`
+	Type  *string `json:"type,omitempty"`
 }
 
 type GetMailgroupPermissionMemberResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *GetMailgroupPermissionMemberRespData `json:"data"`
 }
 
@@ -1602,98 +1679,102 @@ func (resp *GetMailgroupPermissionMemberResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type ListMailgroupPermissionMemberReqBuilder struct {
-	mailgroupId          string
-	mailgroupIdFlag      bool
-	userIdType           string
-	userIdTypeFlag       bool
-	departmentIdType     string
-	departmentIdTypeFlag bool
-	pageToken            string
-	pageTokenFlag        bool
-	pageSize             int
-	pageSizeFlag         bool
-	limit                int
+	mailgroupId  string
+	mailgroupIdFlag  bool
+	userIdType  string
+	userIdTypeFlag  bool
+	departmentIdType  string
+	departmentIdTypeFlag  bool
+	pageToken  string
+	pageTokenFlag  bool
+	pageSize  int
+	pageSizeFlag  bool
+	limit int
+
 }
 
 // 生成请求的New构造器
-func NewListMailgroupPermissionMemberReqBuilder() *ListMailgroupPermissionMemberReqBuilder {
-	builder := &ListMailgroupPermissionMemberReqBuilder{}
-	return builder
+func NewListMailgroupPermissionMemberReqBuilder() * ListMailgroupPermissionMemberReqBuilder{
+   builder := &ListMailgroupPermissionMemberReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *ListMailgroupPermissionMemberReqBuilder) Limit(limit int) *ListMailgroupPermissionMemberReqBuilder {
-	builder.limit = limit
-	return builder
+func (builder * ListMailgroupPermissionMemberReqBuilder) Limit(limit int ) *ListMailgroupPermissionMemberReqBuilder  {
+  builder.limit = limit
+  return builder
 }
-func (builder *ListMailgroupPermissionMemberReqBuilder) MailgroupId(mailgroupId string) *ListMailgroupPermissionMemberReqBuilder {
-	builder.mailgroupId = mailgroupId
-	builder.mailgroupIdFlag = true
-	return builder
+func (builder * ListMailgroupPermissionMemberReqBuilder) MailgroupId(mailgroupId string) *ListMailgroupPermissionMemberReqBuilder  {
+  builder.mailgroupId = mailgroupId
+  builder.mailgroupIdFlag = true
+  return builder
 }
-func (builder *ListMailgroupPermissionMemberReqBuilder) UserIdType(userIdType string) *ListMailgroupPermissionMemberReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
-	return builder
+func (builder * ListMailgroupPermissionMemberReqBuilder) UserIdType(userIdType string) *ListMailgroupPermissionMemberReqBuilder  {
+  builder.userIdType = userIdType
+  builder.userIdTypeFlag = true
+  return builder
 }
-func (builder *ListMailgroupPermissionMemberReqBuilder) DepartmentIdType(departmentIdType string) *ListMailgroupPermissionMemberReqBuilder {
-	builder.departmentIdType = departmentIdType
-	builder.departmentIdTypeFlag = true
-	return builder
+func (builder * ListMailgroupPermissionMemberReqBuilder) DepartmentIdType(departmentIdType string) *ListMailgroupPermissionMemberReqBuilder  {
+  builder.departmentIdType = departmentIdType
+  builder.departmentIdTypeFlag = true
+  return builder
 }
-func (builder *ListMailgroupPermissionMemberReqBuilder) PageToken(pageToken string) *ListMailgroupPermissionMemberReqBuilder {
-	builder.pageToken = pageToken
-	builder.pageTokenFlag = true
-	return builder
+func (builder * ListMailgroupPermissionMemberReqBuilder) PageToken(pageToken string) *ListMailgroupPermissionMemberReqBuilder  {
+  builder.pageToken = pageToken
+  builder.pageTokenFlag = true
+  return builder
 }
-func (builder *ListMailgroupPermissionMemberReqBuilder) PageSize(pageSize int) *ListMailgroupPermissionMemberReqBuilder {
-	builder.pageSize = pageSize
-	builder.pageSizeFlag = true
-	return builder
+func (builder * ListMailgroupPermissionMemberReqBuilder) PageSize(pageSize int) *ListMailgroupPermissionMemberReqBuilder  {
+  builder.pageSize = pageSize
+  builder.pageSizeFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *ListMailgroupPermissionMemberReqBuilder) Build() *ListMailgroupPermissionMemberReq {
-	req := &ListMailgroupPermissionMemberReq{}
-	req.Limit = builder.limit
-	if builder.mailgroupIdFlag {
-		req.MailgroupId = builder.mailgroupId
-	}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
-	if builder.departmentIdTypeFlag {
-		req.DepartmentIdType = &builder.departmentIdType
-	}
-	if builder.pageTokenFlag {
-		req.PageToken = &builder.pageToken
-	}
-	if builder.pageSizeFlag {
-		req.PageSize = &builder.pageSize
-	}
-	return req
+func (builder * ListMailgroupPermissionMemberReqBuilder ) Build() *ListMailgroupPermissionMemberReq {
+   req := &ListMailgroupPermissionMemberReq{}
+   req.Limit = builder.limit
+   if builder.mailgroupIdFlag {
+	  req.MailgroupId = builder.mailgroupId
+   }
+   if builder.userIdTypeFlag {
+	  req.UserIdType = &builder.userIdType
+   }
+   if builder.departmentIdTypeFlag {
+	  req.DepartmentIdType = &builder.departmentIdType
+   }
+   if builder.pageTokenFlag {
+	  req.PageToken = &builder.pageToken
+   }
+   if builder.pageSizeFlag {
+	  req.PageSize = &builder.pageSize
+   }
+   return req
 }
 
+
 type ListMailgroupPermissionMemberReq struct {
-	MailgroupId      string  `path:"mailgroup_id"`
-	UserIdType       *string `query:"user_id_type"`
-	DepartmentIdType *string `query:"department_id_type"`
-	PageToken        *string `query:"page_token"`
-	PageSize         *int    `query:"page_size"`
-	Limit            int
+	MailgroupId  string `path:"mailgroup_id"`
+	UserIdType  *string `query:"user_id_type"`
+	DepartmentIdType  *string `query:"department_id_type"`
+	PageToken  *string `query:"page_token"`
+	PageSize  *int `query:"page_size"`
+	Limit int
+
 }
 
 type ListMailgroupPermissionMemberRespData struct {
-	HasMore   *bool                        `json:"has_more,omitempty"`
-	PageToken *string                      `json:"page_token,omitempty"`
-	Items     []*MailgroupPermissionMember `json:"items,omitempty"`
+	HasMore  *bool `json:"has_more,omitempty"`
+	PageToken  *string `json:"page_token,omitempty"`
+	Items  []*MailgroupPermissionMember `json:"items,omitempty"`
 }
 
 type ListMailgroupPermissionMemberResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *ListMailgroupPermissionMemberRespData `json:"data"`
 }
 
@@ -1701,47 +1782,51 @@ func (resp *ListMailgroupPermissionMemberResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type CreatePublicMailboxReqBuilder struct {
-	publicMailbox     *PublicMailbox
+	publicMailbox *PublicMailbox
 	publicMailboxFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewCreatePublicMailboxReqBuilder() *CreatePublicMailboxReqBuilder {
-	builder := &CreatePublicMailboxReqBuilder{}
-	return builder
+func NewCreatePublicMailboxReqBuilder() * CreatePublicMailboxReqBuilder{
+   builder := &CreatePublicMailboxReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *CreatePublicMailboxReqBuilder) PublicMailbox(publicMailbox *PublicMailbox) *CreatePublicMailboxReqBuilder {
-	builder.publicMailbox = publicMailbox
-	builder.publicMailboxFlag = true
-	return builder
+func (builder * CreatePublicMailboxReqBuilder) PublicMailbox(publicMailbox *PublicMailbox) *CreatePublicMailboxReqBuilder  {
+  builder.publicMailbox = publicMailbox
+  builder.publicMailboxFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *CreatePublicMailboxReqBuilder) Build() *CreatePublicMailboxReq {
-	req := &CreatePublicMailboxReq{}
-	if builder.publicMailboxFlag {
-		req.PublicMailbox = builder.publicMailbox
-	}
-	return req
+func (builder * CreatePublicMailboxReqBuilder ) Build() *CreatePublicMailboxReq {
+   req := &CreatePublicMailboxReq{}
+   if builder.publicMailboxFlag {
+	  req.PublicMailbox = builder.publicMailbox
+   }
+   return req
 }
+
 
 type CreatePublicMailboxReq struct {
 	PublicMailbox *PublicMailbox `body:""`
+
 }
 
 type CreatePublicMailboxRespData struct {
-	PublicMailboxId *string `json:"public_mailbox_id,omitempty"`
-	Email           *string `json:"email,omitempty"`
-	Name            *string `json:"name,omitempty"`
+	PublicMailboxId  *string `json:"public_mailbox_id,omitempty"`
+	Email  *string `json:"email,omitempty"`
+	Name  *string `json:"name,omitempty"`
 }
 
 type CreatePublicMailboxResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *CreatePublicMailboxRespData `json:"data"`
 }
 
@@ -1749,88 +1834,97 @@ func (resp *CreatePublicMailboxResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type DeletePublicMailboxReqBuilder struct {
-	publicMailboxId     string
-	publicMailboxIdFlag bool
+	publicMailboxId  string
+	publicMailboxIdFlag  bool
+
 }
 
 // 生成请求的New构造器
-func NewDeletePublicMailboxReqBuilder() *DeletePublicMailboxReqBuilder {
-	builder := &DeletePublicMailboxReqBuilder{}
-	return builder
+func NewDeletePublicMailboxReqBuilder() * DeletePublicMailboxReqBuilder{
+   builder := &DeletePublicMailboxReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *DeletePublicMailboxReqBuilder) PublicMailboxId(publicMailboxId string) *DeletePublicMailboxReqBuilder {
-	builder.publicMailboxId = publicMailboxId
-	builder.publicMailboxIdFlag = true
-	return builder
+func (builder * DeletePublicMailboxReqBuilder) PublicMailboxId(publicMailboxId string) *DeletePublicMailboxReqBuilder  {
+  builder.publicMailboxId = publicMailboxId
+  builder.publicMailboxIdFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *DeletePublicMailboxReqBuilder) Build() *DeletePublicMailboxReq {
-	req := &DeletePublicMailboxReq{}
-	if builder.publicMailboxIdFlag {
-		req.PublicMailboxId = builder.publicMailboxId
-	}
-	return req
+func (builder * DeletePublicMailboxReqBuilder ) Build() *DeletePublicMailboxReq {
+   req := &DeletePublicMailboxReq{}
+   if builder.publicMailboxIdFlag {
+	  req.PublicMailboxId = builder.publicMailboxId
+   }
+   return req
 }
+
 
 type DeletePublicMailboxReq struct {
-	PublicMailboxId string `path:"public_mailbox_id"`
+	PublicMailboxId  string `path:"public_mailbox_id"`
+
 }
 
+
 type DeletePublicMailboxResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 }
 
 func (resp *DeletePublicMailboxResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type GetPublicMailboxReqBuilder struct {
-	publicMailboxId     string
-	publicMailboxIdFlag bool
+	publicMailboxId  string
+	publicMailboxIdFlag  bool
+
 }
 
 // 生成请求的New构造器
-func NewGetPublicMailboxReqBuilder() *GetPublicMailboxReqBuilder {
-	builder := &GetPublicMailboxReqBuilder{}
-	return builder
+func NewGetPublicMailboxReqBuilder() * GetPublicMailboxReqBuilder{
+   builder := &GetPublicMailboxReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *GetPublicMailboxReqBuilder) PublicMailboxId(publicMailboxId string) *GetPublicMailboxReqBuilder {
-	builder.publicMailboxId = publicMailboxId
-	builder.publicMailboxIdFlag = true
-	return builder
+func (builder * GetPublicMailboxReqBuilder) PublicMailboxId(publicMailboxId string) *GetPublicMailboxReqBuilder  {
+  builder.publicMailboxId = publicMailboxId
+  builder.publicMailboxIdFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *GetPublicMailboxReqBuilder) Build() *GetPublicMailboxReq {
-	req := &GetPublicMailboxReq{}
-	if builder.publicMailboxIdFlag {
-		req.PublicMailboxId = builder.publicMailboxId
-	}
-	return req
+func (builder * GetPublicMailboxReqBuilder ) Build() *GetPublicMailboxReq {
+   req := &GetPublicMailboxReq{}
+   if builder.publicMailboxIdFlag {
+	  req.PublicMailboxId = builder.publicMailboxId
+   }
+   return req
 }
 
+
 type GetPublicMailboxReq struct {
-	PublicMailboxId string `path:"public_mailbox_id"`
+	PublicMailboxId  string `path:"public_mailbox_id"`
+
 }
 
 type GetPublicMailboxRespData struct {
-	PublicMailboxId *string `json:"public_mailbox_id,omitempty"`
-	Email           *string `json:"email,omitempty"`
-	Name            *string `json:"name,omitempty"`
+	PublicMailboxId  *string `json:"public_mailbox_id,omitempty"`
+	Email  *string `json:"email,omitempty"`
+	Name  *string `json:"name,omitempty"`
 }
 
 type GetPublicMailboxResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *GetPublicMailboxRespData `json:"data"`
 }
 
@@ -1838,65 +1932,69 @@ func (resp *GetPublicMailboxResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type ListPublicMailboxReqBuilder struct {
-	pageToken     string
-	pageTokenFlag bool
-	pageSize      int
+	pageToken  string
+	pageTokenFlag  bool
+	pageSize  int
 	pageSizeFlag  bool
-	limit         int
+	limit int
+
 }
 
 // 生成请求的New构造器
-func NewListPublicMailboxReqBuilder() *ListPublicMailboxReqBuilder {
-	builder := &ListPublicMailboxReqBuilder{}
-	return builder
+func NewListPublicMailboxReqBuilder() * ListPublicMailboxReqBuilder{
+   builder := &ListPublicMailboxReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *ListPublicMailboxReqBuilder) Limit(limit int) *ListPublicMailboxReqBuilder {
-	builder.limit = limit
-	return builder
+func (builder * ListPublicMailboxReqBuilder) Limit(limit int ) *ListPublicMailboxReqBuilder  {
+  builder.limit = limit
+  return builder
 }
-func (builder *ListPublicMailboxReqBuilder) PageToken(pageToken string) *ListPublicMailboxReqBuilder {
-	builder.pageToken = pageToken
-	builder.pageTokenFlag = true
-	return builder
+func (builder * ListPublicMailboxReqBuilder) PageToken(pageToken string) *ListPublicMailboxReqBuilder  {
+  builder.pageToken = pageToken
+  builder.pageTokenFlag = true
+  return builder
 }
-func (builder *ListPublicMailboxReqBuilder) PageSize(pageSize int) *ListPublicMailboxReqBuilder {
-	builder.pageSize = pageSize
-	builder.pageSizeFlag = true
-	return builder
+func (builder * ListPublicMailboxReqBuilder) PageSize(pageSize int) *ListPublicMailboxReqBuilder  {
+  builder.pageSize = pageSize
+  builder.pageSizeFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *ListPublicMailboxReqBuilder) Build() *ListPublicMailboxReq {
-	req := &ListPublicMailboxReq{}
-	req.Limit = builder.limit
-	if builder.pageTokenFlag {
-		req.PageToken = &builder.pageToken
-	}
-	if builder.pageSizeFlag {
-		req.PageSize = &builder.pageSize
-	}
-	return req
+func (builder * ListPublicMailboxReqBuilder ) Build() *ListPublicMailboxReq {
+   req := &ListPublicMailboxReq{}
+   req.Limit = builder.limit
+   if builder.pageTokenFlag {
+	  req.PageToken = &builder.pageToken
+   }
+   if builder.pageSizeFlag {
+	  req.PageSize = &builder.pageSize
+   }
+   return req
 }
 
+
 type ListPublicMailboxReq struct {
-	PageToken *string `query:"page_token"`
-	PageSize  *int    `query:"page_size"`
-	Limit     int
+	PageToken  *string `query:"page_token"`
+	PageSize  *int `query:"page_size"`
+	Limit int
+
 }
 
 type ListPublicMailboxRespData struct {
-	HasMore   *bool            `json:"has_more,omitempty"`
-	PageToken *string          `json:"page_token,omitempty"`
-	Items     []*PublicMailbox `json:"items,omitempty"`
+	HasMore  *bool `json:"has_more,omitempty"`
+	PageToken  *string `json:"page_token,omitempty"`
+	Items  []*PublicMailbox `json:"items,omitempty"`
 }
 
 type ListPublicMailboxResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *ListPublicMailboxRespData `json:"data"`
 }
 
@@ -1904,58 +2002,62 @@ func (resp *ListPublicMailboxResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type PatchPublicMailboxReqBuilder struct {
-	publicMailboxId     string
-	publicMailboxIdFlag bool
-	publicMailbox       *PublicMailbox
-	publicMailboxFlag   bool
+	publicMailboxId  string
+	publicMailboxIdFlag  bool
+	publicMailbox *PublicMailbox
+	publicMailboxFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewPatchPublicMailboxReqBuilder() *PatchPublicMailboxReqBuilder {
-	builder := &PatchPublicMailboxReqBuilder{}
-	return builder
+func NewPatchPublicMailboxReqBuilder() * PatchPublicMailboxReqBuilder{
+   builder := &PatchPublicMailboxReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *PatchPublicMailboxReqBuilder) PublicMailboxId(publicMailboxId string) *PatchPublicMailboxReqBuilder {
-	builder.publicMailboxId = publicMailboxId
-	builder.publicMailboxIdFlag = true
-	return builder
+func (builder * PatchPublicMailboxReqBuilder) PublicMailboxId(publicMailboxId string) *PatchPublicMailboxReqBuilder  {
+  builder.publicMailboxId = publicMailboxId
+  builder.publicMailboxIdFlag = true
+  return builder
 }
-func (builder *PatchPublicMailboxReqBuilder) PublicMailbox(publicMailbox *PublicMailbox) *PatchPublicMailboxReqBuilder {
-	builder.publicMailbox = publicMailbox
-	builder.publicMailboxFlag = true
-	return builder
+func (builder * PatchPublicMailboxReqBuilder) PublicMailbox(publicMailbox *PublicMailbox) *PatchPublicMailboxReqBuilder  {
+  builder.publicMailbox = publicMailbox
+  builder.publicMailboxFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *PatchPublicMailboxReqBuilder) Build() *PatchPublicMailboxReq {
-	req := &PatchPublicMailboxReq{}
-	if builder.publicMailboxIdFlag {
-		req.PublicMailboxId = builder.publicMailboxId
-	}
-	if builder.publicMailboxFlag {
-		req.PublicMailbox = builder.publicMailbox
-	}
-	return req
+func (builder * PatchPublicMailboxReqBuilder ) Build() *PatchPublicMailboxReq {
+   req := &PatchPublicMailboxReq{}
+   if builder.publicMailboxIdFlag {
+	  req.PublicMailboxId = builder.publicMailboxId
+   }
+   if builder.publicMailboxFlag {
+	  req.PublicMailbox = builder.publicMailbox
+   }
+   return req
 }
 
+
 type PatchPublicMailboxReq struct {
-	PublicMailboxId string         `path:"public_mailbox_id"`
-	PublicMailbox   *PublicMailbox `body:""`
+	PublicMailboxId  string `path:"public_mailbox_id"`
+	PublicMailbox *PublicMailbox `body:""`
+
 }
 
 type PatchPublicMailboxRespData struct {
-	PublicMailboxId *string `json:"public_mailbox_id,omitempty"`
-	Email           *string `json:"email,omitempty"`
-	Name            *string `json:"name,omitempty"`
+	PublicMailboxId  *string `json:"public_mailbox_id,omitempty"`
+	Email  *string `json:"email,omitempty"`
+	Name  *string `json:"name,omitempty"`
 }
 
 type PatchPublicMailboxResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *PatchPublicMailboxRespData `json:"data"`
 }
 
@@ -1963,58 +2065,62 @@ func (resp *PatchPublicMailboxResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type UpdatePublicMailboxReqBuilder struct {
-	publicMailboxId     string
-	publicMailboxIdFlag bool
-	publicMailbox       *PublicMailbox
-	publicMailboxFlag   bool
+	publicMailboxId  string
+	publicMailboxIdFlag  bool
+	publicMailbox *PublicMailbox
+	publicMailboxFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewUpdatePublicMailboxReqBuilder() *UpdatePublicMailboxReqBuilder {
-	builder := &UpdatePublicMailboxReqBuilder{}
-	return builder
+func NewUpdatePublicMailboxReqBuilder() * UpdatePublicMailboxReqBuilder{
+   builder := &UpdatePublicMailboxReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *UpdatePublicMailboxReqBuilder) PublicMailboxId(publicMailboxId string) *UpdatePublicMailboxReqBuilder {
-	builder.publicMailboxId = publicMailboxId
-	builder.publicMailboxIdFlag = true
-	return builder
+func (builder * UpdatePublicMailboxReqBuilder) PublicMailboxId(publicMailboxId string) *UpdatePublicMailboxReqBuilder  {
+  builder.publicMailboxId = publicMailboxId
+  builder.publicMailboxIdFlag = true
+  return builder
 }
-func (builder *UpdatePublicMailboxReqBuilder) PublicMailbox(publicMailbox *PublicMailbox) *UpdatePublicMailboxReqBuilder {
-	builder.publicMailbox = publicMailbox
-	builder.publicMailboxFlag = true
-	return builder
+func (builder * UpdatePublicMailboxReqBuilder) PublicMailbox(publicMailbox *PublicMailbox) *UpdatePublicMailboxReqBuilder  {
+  builder.publicMailbox = publicMailbox
+  builder.publicMailboxFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *UpdatePublicMailboxReqBuilder) Build() *UpdatePublicMailboxReq {
-	req := &UpdatePublicMailboxReq{}
-	if builder.publicMailboxIdFlag {
-		req.PublicMailboxId = builder.publicMailboxId
-	}
-	if builder.publicMailboxFlag {
-		req.PublicMailbox = builder.publicMailbox
-	}
-	return req
+func (builder * UpdatePublicMailboxReqBuilder ) Build() *UpdatePublicMailboxReq {
+   req := &UpdatePublicMailboxReq{}
+   if builder.publicMailboxIdFlag {
+	  req.PublicMailboxId = builder.publicMailboxId
+   }
+   if builder.publicMailboxFlag {
+	  req.PublicMailbox = builder.publicMailbox
+   }
+   return req
 }
 
+
 type UpdatePublicMailboxReq struct {
-	PublicMailboxId string         `path:"public_mailbox_id"`
-	PublicMailbox   *PublicMailbox `body:""`
+	PublicMailboxId  string `path:"public_mailbox_id"`
+	PublicMailbox *PublicMailbox `body:""`
+
 }
 
 type UpdatePublicMailboxRespData struct {
-	PublicMailboxId *string `json:"public_mailbox_id,omitempty"`
-	Email           *string `json:"email,omitempty"`
-	Name            *string `json:"name,omitempty"`
+	PublicMailboxId  *string `json:"public_mailbox_id,omitempty"`
+	Email  *string `json:"email,omitempty"`
+	Name  *string `json:"name,omitempty"`
 }
 
 type UpdatePublicMailboxResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *UpdatePublicMailboxRespData `json:"data"`
 }
 
@@ -2022,56 +2128,60 @@ func (resp *UpdatePublicMailboxResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type CreatePublicMailboxAliasReqBuilder struct {
-	publicMailboxId     string
-	publicMailboxIdFlag bool
-	emailAlias          *EmailAlias
-	emailAliasFlag      bool
+	publicMailboxId  string
+	publicMailboxIdFlag  bool
+	emailAlias *EmailAlias
+	emailAliasFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewCreatePublicMailboxAliasReqBuilder() *CreatePublicMailboxAliasReqBuilder {
-	builder := &CreatePublicMailboxAliasReqBuilder{}
-	return builder
+func NewCreatePublicMailboxAliasReqBuilder() * CreatePublicMailboxAliasReqBuilder{
+   builder := &CreatePublicMailboxAliasReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *CreatePublicMailboxAliasReqBuilder) PublicMailboxId(publicMailboxId string) *CreatePublicMailboxAliasReqBuilder {
-	builder.publicMailboxId = publicMailboxId
-	builder.publicMailboxIdFlag = true
-	return builder
+func (builder * CreatePublicMailboxAliasReqBuilder) PublicMailboxId(publicMailboxId string) *CreatePublicMailboxAliasReqBuilder  {
+  builder.publicMailboxId = publicMailboxId
+  builder.publicMailboxIdFlag = true
+  return builder
 }
-func (builder *CreatePublicMailboxAliasReqBuilder) EmailAlias(emailAlias *EmailAlias) *CreatePublicMailboxAliasReqBuilder {
-	builder.emailAlias = emailAlias
-	builder.emailAliasFlag = true
-	return builder
+func (builder * CreatePublicMailboxAliasReqBuilder) EmailAlias(emailAlias *EmailAlias) *CreatePublicMailboxAliasReqBuilder  {
+  builder.emailAlias = emailAlias
+  builder.emailAliasFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *CreatePublicMailboxAliasReqBuilder) Build() *CreatePublicMailboxAliasReq {
-	req := &CreatePublicMailboxAliasReq{}
-	if builder.publicMailboxIdFlag {
-		req.PublicMailboxId = builder.publicMailboxId
-	}
-	if builder.emailAliasFlag {
-		req.EmailAlias = builder.emailAlias
-	}
-	return req
+func (builder * CreatePublicMailboxAliasReqBuilder ) Build() *CreatePublicMailboxAliasReq {
+   req := &CreatePublicMailboxAliasReq{}
+   if builder.publicMailboxIdFlag {
+	  req.PublicMailboxId = builder.publicMailboxId
+   }
+   if builder.emailAliasFlag {
+	  req.EmailAlias = builder.emailAlias
+   }
+   return req
 }
 
+
 type CreatePublicMailboxAliasReq struct {
-	PublicMailboxId string      `path:"public_mailbox_id"`
-	EmailAlias      *EmailAlias `body:""`
+	PublicMailboxId  string `path:"public_mailbox_id"`
+	EmailAlias *EmailAlias `body:""`
+
 }
 
 type CreatePublicMailboxAliasRespData struct {
-	PublicMailboxAlias *EmailAlias `json:"public_mailbox_alias,omitempty"`
+	PublicMailboxAlias  *EmailAlias `json:"public_mailbox_alias,omitempty"`
 }
 
 type CreatePublicMailboxAliasResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *CreatePublicMailboxAliasRespData `json:"data"`
 }
 
@@ -2079,97 +2189,106 @@ func (resp *CreatePublicMailboxAliasResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type DeletePublicMailboxAliasReqBuilder struct {
-	publicMailboxId     string
-	publicMailboxIdFlag bool
-	aliasId             string
-	aliasIdFlag         bool
+	publicMailboxId  string
+	publicMailboxIdFlag  bool
+	aliasId  string
+	aliasIdFlag  bool
+
 }
 
 // 生成请求的New构造器
-func NewDeletePublicMailboxAliasReqBuilder() *DeletePublicMailboxAliasReqBuilder {
-	builder := &DeletePublicMailboxAliasReqBuilder{}
-	return builder
+func NewDeletePublicMailboxAliasReqBuilder() * DeletePublicMailboxAliasReqBuilder{
+   builder := &DeletePublicMailboxAliasReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *DeletePublicMailboxAliasReqBuilder) PublicMailboxId(publicMailboxId string) *DeletePublicMailboxAliasReqBuilder {
-	builder.publicMailboxId = publicMailboxId
-	builder.publicMailboxIdFlag = true
-	return builder
+func (builder * DeletePublicMailboxAliasReqBuilder) PublicMailboxId(publicMailboxId string) *DeletePublicMailboxAliasReqBuilder  {
+  builder.publicMailboxId = publicMailboxId
+  builder.publicMailboxIdFlag = true
+  return builder
 }
-func (builder *DeletePublicMailboxAliasReqBuilder) AliasId(aliasId string) *DeletePublicMailboxAliasReqBuilder {
-	builder.aliasId = aliasId
-	builder.aliasIdFlag = true
-	return builder
+func (builder * DeletePublicMailboxAliasReqBuilder) AliasId(aliasId string) *DeletePublicMailboxAliasReqBuilder  {
+  builder.aliasId = aliasId
+  builder.aliasIdFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *DeletePublicMailboxAliasReqBuilder) Build() *DeletePublicMailboxAliasReq {
-	req := &DeletePublicMailboxAliasReq{}
-	if builder.publicMailboxIdFlag {
-		req.PublicMailboxId = builder.publicMailboxId
-	}
-	if builder.aliasIdFlag {
-		req.AliasId = builder.aliasId
-	}
-	return req
+func (builder * DeletePublicMailboxAliasReqBuilder ) Build() *DeletePublicMailboxAliasReq {
+   req := &DeletePublicMailboxAliasReq{}
+   if builder.publicMailboxIdFlag {
+	  req.PublicMailboxId = builder.publicMailboxId
+   }
+   if builder.aliasIdFlag {
+	  req.AliasId = builder.aliasId
+   }
+   return req
 }
+
 
 type DeletePublicMailboxAliasReq struct {
-	PublicMailboxId string `path:"public_mailbox_id"`
-	AliasId         string `path:"alias_id"`
+	PublicMailboxId  string `path:"public_mailbox_id"`
+	AliasId  string `path:"alias_id"`
+
 }
 
+
 type DeletePublicMailboxAliasResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 }
 
 func (resp *DeletePublicMailboxAliasResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type ListPublicMailboxAliasReqBuilder struct {
-	publicMailboxId     string
-	publicMailboxIdFlag bool
+	publicMailboxId  string
+	publicMailboxIdFlag  bool
+
 }
 
 // 生成请求的New构造器
-func NewListPublicMailboxAliasReqBuilder() *ListPublicMailboxAliasReqBuilder {
-	builder := &ListPublicMailboxAliasReqBuilder{}
-	return builder
+func NewListPublicMailboxAliasReqBuilder() * ListPublicMailboxAliasReqBuilder{
+   builder := &ListPublicMailboxAliasReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *ListPublicMailboxAliasReqBuilder) PublicMailboxId(publicMailboxId string) *ListPublicMailboxAliasReqBuilder {
-	builder.publicMailboxId = publicMailboxId
-	builder.publicMailboxIdFlag = true
-	return builder
+func (builder * ListPublicMailboxAliasReqBuilder) PublicMailboxId(publicMailboxId string) *ListPublicMailboxAliasReqBuilder  {
+  builder.publicMailboxId = publicMailboxId
+  builder.publicMailboxIdFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *ListPublicMailboxAliasReqBuilder) Build() *ListPublicMailboxAliasReq {
-	req := &ListPublicMailboxAliasReq{}
-	if builder.publicMailboxIdFlag {
-		req.PublicMailboxId = builder.publicMailboxId
-	}
-	return req
+func (builder * ListPublicMailboxAliasReqBuilder ) Build() *ListPublicMailboxAliasReq {
+   req := &ListPublicMailboxAliasReq{}
+   if builder.publicMailboxIdFlag {
+	  req.PublicMailboxId = builder.publicMailboxId
+   }
+   return req
 }
 
+
 type ListPublicMailboxAliasReq struct {
-	PublicMailboxId string `path:"public_mailbox_id"`
+	PublicMailboxId  string `path:"public_mailbox_id"`
+
 }
 
 type ListPublicMailboxAliasRespData struct {
-	Items []*EmailAlias `json:"items,omitempty"`
+	Items  []*EmailAlias `json:"items,omitempty"`
 }
 
 type ListPublicMailboxAliasResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *ListPublicMailboxAliasRespData `json:"data"`
 }
 
@@ -2177,110 +2296,119 @@ func (resp *ListPublicMailboxAliasResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type ClearPublicMailboxMemberReqBuilder struct {
-	publicMailboxId     string
-	publicMailboxIdFlag bool
+	publicMailboxId  string
+	publicMailboxIdFlag  bool
+
 }
 
 // 生成请求的New构造器
-func NewClearPublicMailboxMemberReqBuilder() *ClearPublicMailboxMemberReqBuilder {
-	builder := &ClearPublicMailboxMemberReqBuilder{}
-	return builder
+func NewClearPublicMailboxMemberReqBuilder() * ClearPublicMailboxMemberReqBuilder{
+   builder := &ClearPublicMailboxMemberReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *ClearPublicMailboxMemberReqBuilder) PublicMailboxId(publicMailboxId string) *ClearPublicMailboxMemberReqBuilder {
-	builder.publicMailboxId = publicMailboxId
-	builder.publicMailboxIdFlag = true
-	return builder
+func (builder * ClearPublicMailboxMemberReqBuilder) PublicMailboxId(publicMailboxId string) *ClearPublicMailboxMemberReqBuilder  {
+  builder.publicMailboxId = publicMailboxId
+  builder.publicMailboxIdFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *ClearPublicMailboxMemberReqBuilder) Build() *ClearPublicMailboxMemberReq {
-	req := &ClearPublicMailboxMemberReq{}
-	if builder.publicMailboxIdFlag {
-		req.PublicMailboxId = builder.publicMailboxId
-	}
-	return req
+func (builder * ClearPublicMailboxMemberReqBuilder ) Build() *ClearPublicMailboxMemberReq {
+   req := &ClearPublicMailboxMemberReq{}
+   if builder.publicMailboxIdFlag {
+	  req.PublicMailboxId = builder.publicMailboxId
+   }
+   return req
 }
+
 
 type ClearPublicMailboxMemberReq struct {
-	PublicMailboxId string `path:"public_mailbox_id"`
+	PublicMailboxId  string `path:"public_mailbox_id"`
+
 }
 
+
 type ClearPublicMailboxMemberResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 }
 
 func (resp *ClearPublicMailboxMemberResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type CreatePublicMailboxMemberReqBuilder struct {
-	publicMailboxId         string
-	publicMailboxIdFlag     bool
-	userIdType              string
-	userIdTypeFlag          bool
-	publicMailboxMember     *PublicMailboxMember
+	publicMailboxId  string
+	publicMailboxIdFlag  bool
+	userIdType  string
+	userIdTypeFlag  bool
+	publicMailboxMember *PublicMailboxMember
 	publicMailboxMemberFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewCreatePublicMailboxMemberReqBuilder() *CreatePublicMailboxMemberReqBuilder {
-	builder := &CreatePublicMailboxMemberReqBuilder{}
-	return builder
+func NewCreatePublicMailboxMemberReqBuilder() * CreatePublicMailboxMemberReqBuilder{
+   builder := &CreatePublicMailboxMemberReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *CreatePublicMailboxMemberReqBuilder) PublicMailboxId(publicMailboxId string) *CreatePublicMailboxMemberReqBuilder {
-	builder.publicMailboxId = publicMailboxId
-	builder.publicMailboxIdFlag = true
-	return builder
+func (builder * CreatePublicMailboxMemberReqBuilder) PublicMailboxId(publicMailboxId string) *CreatePublicMailboxMemberReqBuilder  {
+  builder.publicMailboxId = publicMailboxId
+  builder.publicMailboxIdFlag = true
+  return builder
 }
-func (builder *CreatePublicMailboxMemberReqBuilder) UserIdType(userIdType string) *CreatePublicMailboxMemberReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
-	return builder
+func (builder * CreatePublicMailboxMemberReqBuilder) UserIdType(userIdType string) *CreatePublicMailboxMemberReqBuilder  {
+  builder.userIdType = userIdType
+  builder.userIdTypeFlag = true
+  return builder
 }
-func (builder *CreatePublicMailboxMemberReqBuilder) PublicMailboxMember(publicMailboxMember *PublicMailboxMember) *CreatePublicMailboxMemberReqBuilder {
-	builder.publicMailboxMember = publicMailboxMember
-	builder.publicMailboxMemberFlag = true
-	return builder
+func (builder * CreatePublicMailboxMemberReqBuilder) PublicMailboxMember(publicMailboxMember *PublicMailboxMember) *CreatePublicMailboxMemberReqBuilder  {
+  builder.publicMailboxMember = publicMailboxMember
+  builder.publicMailboxMemberFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *CreatePublicMailboxMemberReqBuilder) Build() *CreatePublicMailboxMemberReq {
-	req := &CreatePublicMailboxMemberReq{}
-	if builder.publicMailboxIdFlag {
-		req.PublicMailboxId = builder.publicMailboxId
-	}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
-	if builder.publicMailboxMemberFlag {
-		req.PublicMailboxMember = builder.publicMailboxMember
-	}
-	return req
+func (builder * CreatePublicMailboxMemberReqBuilder ) Build() *CreatePublicMailboxMemberReq {
+   req := &CreatePublicMailboxMemberReq{}
+   if builder.publicMailboxIdFlag {
+	  req.PublicMailboxId = builder.publicMailboxId
+   }
+   if builder.userIdTypeFlag {
+	  req.UserIdType = &builder.userIdType
+   }
+   if builder.publicMailboxMemberFlag {
+	  req.PublicMailboxMember = builder.publicMailboxMember
+   }
+   return req
 }
 
+
 type CreatePublicMailboxMemberReq struct {
-	PublicMailboxId     string               `path:"public_mailbox_id"`
-	UserIdType          *string              `query:"user_id_type"`
+	PublicMailboxId  string `path:"public_mailbox_id"`
+	UserIdType  *string `query:"user_id_type"`
 	PublicMailboxMember *PublicMailboxMember `body:""`
+
 }
 
 type CreatePublicMailboxMemberRespData struct {
-	MemberId *string `json:"member_id,omitempty"`
-	UserId   *string `json:"user_id,omitempty"`
-	Type     *string `json:"type,omitempty"`
+	MemberId  *string `json:"member_id,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
+	Type  *string `json:"type,omitempty"`
 }
 
 type CreatePublicMailboxMemberResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *CreatePublicMailboxMemberRespData `json:"data"`
 }
 
@@ -2288,121 +2416,130 @@ func (resp *CreatePublicMailboxMemberResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type DeletePublicMailboxMemberReqBuilder struct {
-	publicMailboxId     string
-	publicMailboxIdFlag bool
-	memberId            string
-	memberIdFlag        bool
+	publicMailboxId  string
+	publicMailboxIdFlag  bool
+	memberId  string
+	memberIdFlag  bool
+
 }
 
 // 生成请求的New构造器
-func NewDeletePublicMailboxMemberReqBuilder() *DeletePublicMailboxMemberReqBuilder {
-	builder := &DeletePublicMailboxMemberReqBuilder{}
-	return builder
+func NewDeletePublicMailboxMemberReqBuilder() * DeletePublicMailboxMemberReqBuilder{
+   builder := &DeletePublicMailboxMemberReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *DeletePublicMailboxMemberReqBuilder) PublicMailboxId(publicMailboxId string) *DeletePublicMailboxMemberReqBuilder {
-	builder.publicMailboxId = publicMailboxId
-	builder.publicMailboxIdFlag = true
-	return builder
+func (builder * DeletePublicMailboxMemberReqBuilder) PublicMailboxId(publicMailboxId string) *DeletePublicMailboxMemberReqBuilder  {
+  builder.publicMailboxId = publicMailboxId
+  builder.publicMailboxIdFlag = true
+  return builder
 }
-func (builder *DeletePublicMailboxMemberReqBuilder) MemberId(memberId string) *DeletePublicMailboxMemberReqBuilder {
-	builder.memberId = memberId
-	builder.memberIdFlag = true
-	return builder
+func (builder * DeletePublicMailboxMemberReqBuilder) MemberId(memberId string) *DeletePublicMailboxMemberReqBuilder  {
+  builder.memberId = memberId
+  builder.memberIdFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *DeletePublicMailboxMemberReqBuilder) Build() *DeletePublicMailboxMemberReq {
-	req := &DeletePublicMailboxMemberReq{}
-	if builder.publicMailboxIdFlag {
-		req.PublicMailboxId = builder.publicMailboxId
-	}
-	if builder.memberIdFlag {
-		req.MemberId = builder.memberId
-	}
-	return req
+func (builder * DeletePublicMailboxMemberReqBuilder ) Build() *DeletePublicMailboxMemberReq {
+   req := &DeletePublicMailboxMemberReq{}
+   if builder.publicMailboxIdFlag {
+	  req.PublicMailboxId = builder.publicMailboxId
+   }
+   if builder.memberIdFlag {
+	  req.MemberId = builder.memberId
+   }
+   return req
 }
+
 
 type DeletePublicMailboxMemberReq struct {
-	PublicMailboxId string `path:"public_mailbox_id"`
-	MemberId        string `path:"member_id"`
+	PublicMailboxId  string `path:"public_mailbox_id"`
+	MemberId  string `path:"member_id"`
+
 }
 
+
 type DeletePublicMailboxMemberResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 }
 
 func (resp *DeletePublicMailboxMemberResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type GetPublicMailboxMemberReqBuilder struct {
-	publicMailboxId     string
-	publicMailboxIdFlag bool
-	memberId            string
-	memberIdFlag        bool
-	userIdType          string
-	userIdTypeFlag      bool
+	publicMailboxId  string
+	publicMailboxIdFlag  bool
+	memberId  string
+	memberIdFlag  bool
+	userIdType  string
+	userIdTypeFlag  bool
+
 }
 
 // 生成请求的New构造器
-func NewGetPublicMailboxMemberReqBuilder() *GetPublicMailboxMemberReqBuilder {
-	builder := &GetPublicMailboxMemberReqBuilder{}
-	return builder
+func NewGetPublicMailboxMemberReqBuilder() * GetPublicMailboxMemberReqBuilder{
+   builder := &GetPublicMailboxMemberReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *GetPublicMailboxMemberReqBuilder) PublicMailboxId(publicMailboxId string) *GetPublicMailboxMemberReqBuilder {
-	builder.publicMailboxId = publicMailboxId
-	builder.publicMailboxIdFlag = true
-	return builder
+func (builder * GetPublicMailboxMemberReqBuilder) PublicMailboxId(publicMailboxId string) *GetPublicMailboxMemberReqBuilder  {
+  builder.publicMailboxId = publicMailboxId
+  builder.publicMailboxIdFlag = true
+  return builder
 }
-func (builder *GetPublicMailboxMemberReqBuilder) MemberId(memberId string) *GetPublicMailboxMemberReqBuilder {
-	builder.memberId = memberId
-	builder.memberIdFlag = true
-	return builder
+func (builder * GetPublicMailboxMemberReqBuilder) MemberId(memberId string) *GetPublicMailboxMemberReqBuilder  {
+  builder.memberId = memberId
+  builder.memberIdFlag = true
+  return builder
 }
-func (builder *GetPublicMailboxMemberReqBuilder) UserIdType(userIdType string) *GetPublicMailboxMemberReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
-	return builder
+func (builder * GetPublicMailboxMemberReqBuilder) UserIdType(userIdType string) *GetPublicMailboxMemberReqBuilder  {
+  builder.userIdType = userIdType
+  builder.userIdTypeFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *GetPublicMailboxMemberReqBuilder) Build() *GetPublicMailboxMemberReq {
-	req := &GetPublicMailboxMemberReq{}
-	if builder.publicMailboxIdFlag {
-		req.PublicMailboxId = builder.publicMailboxId
-	}
-	if builder.memberIdFlag {
-		req.MemberId = builder.memberId
-	}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
-	return req
+func (builder * GetPublicMailboxMemberReqBuilder ) Build() *GetPublicMailboxMemberReq {
+   req := &GetPublicMailboxMemberReq{}
+   if builder.publicMailboxIdFlag {
+	  req.PublicMailboxId = builder.publicMailboxId
+   }
+   if builder.memberIdFlag {
+	  req.MemberId = builder.memberId
+   }
+   if builder.userIdTypeFlag {
+	  req.UserIdType = &builder.userIdType
+   }
+   return req
 }
 
+
 type GetPublicMailboxMemberReq struct {
-	PublicMailboxId string  `path:"public_mailbox_id"`
-	MemberId        string  `path:"member_id"`
-	UserIdType      *string `query:"user_id_type"`
+	PublicMailboxId  string `path:"public_mailbox_id"`
+	MemberId  string `path:"member_id"`
+	UserIdType  *string `query:"user_id_type"`
+
 }
 
 type GetPublicMailboxMemberRespData struct {
-	MemberId *string `json:"member_id,omitempty"`
-	UserId   *string `json:"user_id,omitempty"`
-	Type     *string `json:"type,omitempty"`
+	MemberId  *string `json:"member_id,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
+	Type  *string `json:"type,omitempty"`
 }
 
 type GetPublicMailboxMemberResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *GetPublicMailboxMemberRespData `json:"data"`
 }
 
@@ -2410,87 +2547,91 @@ func (resp *GetPublicMailboxMemberResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type ListPublicMailboxMemberReqBuilder struct {
-	publicMailboxId     string
-	publicMailboxIdFlag bool
-	userIdType          string
-	userIdTypeFlag      bool
-	pageToken           string
-	pageTokenFlag       bool
-	pageSize            int
-	pageSizeFlag        bool
-	limit               int
+	publicMailboxId  string
+	publicMailboxIdFlag  bool
+	userIdType  string
+	userIdTypeFlag  bool
+	pageToken  string
+	pageTokenFlag  bool
+	pageSize  int
+	pageSizeFlag  bool
+	limit int
+
 }
 
 // 生成请求的New构造器
-func NewListPublicMailboxMemberReqBuilder() *ListPublicMailboxMemberReqBuilder {
-	builder := &ListPublicMailboxMemberReqBuilder{}
-	return builder
+func NewListPublicMailboxMemberReqBuilder() * ListPublicMailboxMemberReqBuilder{
+   builder := &ListPublicMailboxMemberReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *ListPublicMailboxMemberReqBuilder) Limit(limit int) *ListPublicMailboxMemberReqBuilder {
-	builder.limit = limit
-	return builder
+func (builder * ListPublicMailboxMemberReqBuilder) Limit(limit int ) *ListPublicMailboxMemberReqBuilder  {
+  builder.limit = limit
+  return builder
 }
-func (builder *ListPublicMailboxMemberReqBuilder) PublicMailboxId(publicMailboxId string) *ListPublicMailboxMemberReqBuilder {
-	builder.publicMailboxId = publicMailboxId
-	builder.publicMailboxIdFlag = true
-	return builder
+func (builder * ListPublicMailboxMemberReqBuilder) PublicMailboxId(publicMailboxId string) *ListPublicMailboxMemberReqBuilder  {
+  builder.publicMailboxId = publicMailboxId
+  builder.publicMailboxIdFlag = true
+  return builder
 }
-func (builder *ListPublicMailboxMemberReqBuilder) UserIdType(userIdType string) *ListPublicMailboxMemberReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
-	return builder
+func (builder * ListPublicMailboxMemberReqBuilder) UserIdType(userIdType string) *ListPublicMailboxMemberReqBuilder  {
+  builder.userIdType = userIdType
+  builder.userIdTypeFlag = true
+  return builder
 }
-func (builder *ListPublicMailboxMemberReqBuilder) PageToken(pageToken string) *ListPublicMailboxMemberReqBuilder {
-	builder.pageToken = pageToken
-	builder.pageTokenFlag = true
-	return builder
+func (builder * ListPublicMailboxMemberReqBuilder) PageToken(pageToken string) *ListPublicMailboxMemberReqBuilder  {
+  builder.pageToken = pageToken
+  builder.pageTokenFlag = true
+  return builder
 }
-func (builder *ListPublicMailboxMemberReqBuilder) PageSize(pageSize int) *ListPublicMailboxMemberReqBuilder {
-	builder.pageSize = pageSize
-	builder.pageSizeFlag = true
-	return builder
+func (builder * ListPublicMailboxMemberReqBuilder) PageSize(pageSize int) *ListPublicMailboxMemberReqBuilder  {
+  builder.pageSize = pageSize
+  builder.pageSizeFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *ListPublicMailboxMemberReqBuilder) Build() *ListPublicMailboxMemberReq {
-	req := &ListPublicMailboxMemberReq{}
-	req.Limit = builder.limit
-	if builder.publicMailboxIdFlag {
-		req.PublicMailboxId = builder.publicMailboxId
-	}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
-	if builder.pageTokenFlag {
-		req.PageToken = &builder.pageToken
-	}
-	if builder.pageSizeFlag {
-		req.PageSize = &builder.pageSize
-	}
-	return req
+func (builder * ListPublicMailboxMemberReqBuilder ) Build() *ListPublicMailboxMemberReq {
+   req := &ListPublicMailboxMemberReq{}
+   req.Limit = builder.limit
+   if builder.publicMailboxIdFlag {
+	  req.PublicMailboxId = builder.publicMailboxId
+   }
+   if builder.userIdTypeFlag {
+	  req.UserIdType = &builder.userIdType
+   }
+   if builder.pageTokenFlag {
+	  req.PageToken = &builder.pageToken
+   }
+   if builder.pageSizeFlag {
+	  req.PageSize = &builder.pageSize
+   }
+   return req
 }
 
+
 type ListPublicMailboxMemberReq struct {
-	PublicMailboxId string  `path:"public_mailbox_id"`
-	UserIdType      *string `query:"user_id_type"`
-	PageToken       *string `query:"page_token"`
-	PageSize        *int    `query:"page_size"`
-	Limit           int
+	PublicMailboxId  string `path:"public_mailbox_id"`
+	UserIdType  *string `query:"user_id_type"`
+	PageToken  *string `query:"page_token"`
+	PageSize  *int `query:"page_size"`
+	Limit int
+
 }
 
 type ListPublicMailboxMemberRespData struct {
-	HasMore   *bool                  `json:"has_more,omitempty"`
-	PageToken *string                `json:"page_token,omitempty"`
-	Items     []*PublicMailboxMember `json:"items,omitempty"`
+	HasMore  *bool `json:"has_more,omitempty"`
+	PageToken  *string `json:"page_token,omitempty"`
+	Items  []*PublicMailboxMember `json:"items,omitempty"`
 }
 
 type ListPublicMailboxMemberResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *ListPublicMailboxMemberRespData `json:"data"`
 }
 
@@ -2499,101 +2640,104 @@ func (resp *ListPublicMailboxMemberResp) Success() bool {
 }
 
 type QueryUserReqBodyBuilder struct {
-	emailList     []string
-	emailListFlag bool
+	emailList  []string
+	emailListFlag  bool
 }
 
 // 生成body的New构造器
-func NewQueryUserReqBodyBuilder() *QueryUserReqBodyBuilder {
-	builder := &QueryUserReqBodyBuilder{}
-	return builder
+func NewQueryUserReqBodyBuilder() * QueryUserReqBodyBuilder{
+  builder := &QueryUserReqBodyBuilder{}
+  return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder *QueryUserReqBodyBuilder) EmailList(emailList []string) *QueryUserReqBodyBuilder {
-	builder.emailList = emailList
-	builder.emailListFlag = true
-	return builder
+func (builder * QueryUserReqBodyBuilder ) EmailList(emailList []string) *QueryUserReqBodyBuilder {
+  builder.emailList = emailList
+  builder.emailListFlag = true
+  return builder
 }
 
+
 // 1.3 生成body的build方法
-func (builder *QueryUserReqBodyBuilder) Build() *QueryUserReqBody {
-	req := &QueryUserReqBody{}
-	if builder.emailListFlag {
-		req.EmailList = builder.emailList
-	}
-	return req
+func (builder * QueryUserReqBodyBuilder ) Build() *QueryUserReqBody {
+   req := &QueryUserReqBody{}
+   if builder.emailListFlag {
+	  req.EmailList = builder.emailList
+   }
+   return req
 }
 
 // 上传文件path开始
 type QueryUserPathReqBodyBuilder struct {
-	emailList     []string
-	emailListFlag bool
+	emailList  []string
+	emailListFlag  bool
 }
 
-func NewQueryUserPathReqBodyBuilder() *QueryUserPathReqBodyBuilder {
-	builder := &QueryUserPathReqBodyBuilder{}
-	return builder
+func NewQueryUserPathReqBodyBuilder() * QueryUserPathReqBodyBuilder{
+  builder := &QueryUserPathReqBodyBuilder{}
+  return builder
 }
-func (builder *QueryUserPathReqBodyBuilder) EmailList(emailList []string) *QueryUserPathReqBodyBuilder {
-	builder.emailList = emailList
-	builder.emailListFlag = true
-	return builder
-}
-
-func (builder *QueryUserPathReqBodyBuilder) Build() (*QueryUserReqBody, error) {
-	req := &QueryUserReqBody{}
-	if builder.emailListFlag {
-		req.EmailList = builder.emailList
-	}
-	return req, nil
+func (builder * QueryUserPathReqBodyBuilder ) EmailList(emailList []string) *QueryUserPathReqBodyBuilder {
+  builder.emailList = emailList
+  builder.emailListFlag = true
+  return builder
 }
 
+
+func (builder * QueryUserPathReqBodyBuilder ) Build() (*QueryUserReqBody, error) {
+   req := &QueryUserReqBody{}
+   if builder.emailListFlag {
+	   req.EmailList = builder.emailList
+   }
+   return req, nil
+}
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type QueryUserReqBuilder struct {
-	body     *QueryUserReqBody
+	body *QueryUserReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewQueryUserReqBuilder() *QueryUserReqBuilder {
-	builder := &QueryUserReqBuilder{}
-	return builder
+func NewQueryUserReqBuilder() * QueryUserReqBuilder{
+   builder := &QueryUserReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *QueryUserReqBuilder) Body(body *QueryUserReqBody) *QueryUserReqBuilder {
-	builder.body = body
-	builder.bodyFlag = true
-	return builder
+func (builder * QueryUserReqBuilder) Body(body *QueryUserReqBody) *QueryUserReqBuilder  {
+  builder.body = body
+  builder.bodyFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *QueryUserReqBuilder) Build() *QueryUserReq {
-	req := &QueryUserReq{}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
-	return req
+func (builder * QueryUserReqBuilder ) Build() *QueryUserReq {
+   req := &QueryUserReq{}
+   if builder.bodyFlag {
+	  req.Body = builder.body
+   }
+   return req
 }
 
 type QueryUserReqBody struct {
-	EmailList []string `json:"email_list,omitempty"`
+	EmailList  []string `json:"email_list,omitempty"`
 }
 
 type QueryUserReq struct {
 	Body *QueryUserReqBody `body:""`
+
 }
 
 type QueryUserRespData struct {
-	UserList []*User `json:"user_list,omitempty"`
+	UserList  []*User `json:"user_list,omitempty"`
 }
 
 type QueryUserResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *QueryUserRespData `json:"data"`
 }
 
@@ -2601,108 +2745,117 @@ func (resp *QueryUserResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type DeleteUserMailboxReqBuilder struct {
-	userMailboxId       string
-	userMailboxIdFlag   bool
-	transferMailbox     string
-	transferMailboxFlag bool
+	userMailboxId  string
+	userMailboxIdFlag  bool
+	transferMailbox  string
+	transferMailboxFlag  bool
+
 }
 
 // 生成请求的New构造器
-func NewDeleteUserMailboxReqBuilder() *DeleteUserMailboxReqBuilder {
-	builder := &DeleteUserMailboxReqBuilder{}
-	return builder
+func NewDeleteUserMailboxReqBuilder() * DeleteUserMailboxReqBuilder{
+   builder := &DeleteUserMailboxReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *DeleteUserMailboxReqBuilder) UserMailboxId(userMailboxId string) *DeleteUserMailboxReqBuilder {
-	builder.userMailboxId = userMailboxId
-	builder.userMailboxIdFlag = true
-	return builder
+func (builder * DeleteUserMailboxReqBuilder) UserMailboxId(userMailboxId string) *DeleteUserMailboxReqBuilder  {
+  builder.userMailboxId = userMailboxId
+  builder.userMailboxIdFlag = true
+  return builder
 }
-func (builder *DeleteUserMailboxReqBuilder) TransferMailbox(transferMailbox string) *DeleteUserMailboxReqBuilder {
-	builder.transferMailbox = transferMailbox
-	builder.transferMailboxFlag = true
-	return builder
+func (builder * DeleteUserMailboxReqBuilder) TransferMailbox(transferMailbox string) *DeleteUserMailboxReqBuilder  {
+  builder.transferMailbox = transferMailbox
+  builder.transferMailboxFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *DeleteUserMailboxReqBuilder) Build() *DeleteUserMailboxReq {
-	req := &DeleteUserMailboxReq{}
-	if builder.userMailboxIdFlag {
-		req.UserMailboxId = builder.userMailboxId
-	}
-	if builder.transferMailboxFlag {
-		req.TransferMailbox = &builder.transferMailbox
-	}
-	return req
+func (builder * DeleteUserMailboxReqBuilder ) Build() *DeleteUserMailboxReq {
+   req := &DeleteUserMailboxReq{}
+   if builder.userMailboxIdFlag {
+	  req.UserMailboxId = builder.userMailboxId
+   }
+   if builder.transferMailboxFlag {
+	  req.TransferMailbox = &builder.transferMailbox
+   }
+   return req
 }
+
 
 type DeleteUserMailboxReq struct {
-	UserMailboxId   string  `path:"user_mailbox_id"`
-	TransferMailbox *string `query:"transfer_mailbox"`
+	UserMailboxId  string `path:"user_mailbox_id"`
+	TransferMailbox  *string `query:"transfer_mailbox"`
+
 }
 
+
 type DeleteUserMailboxResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 }
 
 func (resp *DeleteUserMailboxResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type CreateUserMailboxAliasReqBuilder struct {
-	userMailboxId     string
-	userMailboxIdFlag bool
-	emailAlias        *EmailAlias
-	emailAliasFlag    bool
+	userMailboxId  string
+	userMailboxIdFlag  bool
+	emailAlias *EmailAlias
+	emailAliasFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewCreateUserMailboxAliasReqBuilder() *CreateUserMailboxAliasReqBuilder {
-	builder := &CreateUserMailboxAliasReqBuilder{}
-	return builder
+func NewCreateUserMailboxAliasReqBuilder() * CreateUserMailboxAliasReqBuilder{
+   builder := &CreateUserMailboxAliasReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *CreateUserMailboxAliasReqBuilder) UserMailboxId(userMailboxId string) *CreateUserMailboxAliasReqBuilder {
-	builder.userMailboxId = userMailboxId
-	builder.userMailboxIdFlag = true
-	return builder
+func (builder * CreateUserMailboxAliasReqBuilder) UserMailboxId(userMailboxId string) *CreateUserMailboxAliasReqBuilder  {
+  builder.userMailboxId = userMailboxId
+  builder.userMailboxIdFlag = true
+  return builder
 }
-func (builder *CreateUserMailboxAliasReqBuilder) EmailAlias(emailAlias *EmailAlias) *CreateUserMailboxAliasReqBuilder {
-	builder.emailAlias = emailAlias
-	builder.emailAliasFlag = true
-	return builder
+func (builder * CreateUserMailboxAliasReqBuilder) EmailAlias(emailAlias *EmailAlias) *CreateUserMailboxAliasReqBuilder  {
+  builder.emailAlias = emailAlias
+  builder.emailAliasFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *CreateUserMailboxAliasReqBuilder) Build() *CreateUserMailboxAliasReq {
-	req := &CreateUserMailboxAliasReq{}
-	if builder.userMailboxIdFlag {
-		req.UserMailboxId = builder.userMailboxId
-	}
-	if builder.emailAliasFlag {
-		req.EmailAlias = builder.emailAlias
-	}
-	return req
+func (builder * CreateUserMailboxAliasReqBuilder ) Build() *CreateUserMailboxAliasReq {
+   req := &CreateUserMailboxAliasReq{}
+   if builder.userMailboxIdFlag {
+	  req.UserMailboxId = builder.userMailboxId
+   }
+   if builder.emailAliasFlag {
+	  req.EmailAlias = builder.emailAlias
+   }
+   return req
 }
 
+
 type CreateUserMailboxAliasReq struct {
-	UserMailboxId string      `path:"user_mailbox_id"`
-	EmailAlias    *EmailAlias `body:""`
+	UserMailboxId  string `path:"user_mailbox_id"`
+	EmailAlias *EmailAlias `body:""`
+
 }
 
 type CreateUserMailboxAliasRespData struct {
-	UserMailboxAlias *EmailAlias `json:"user_mailbox_alias,omitempty"`
+	UserMailboxAlias  *EmailAlias `json:"user_mailbox_alias,omitempty"`
 }
 
 type CreateUserMailboxAliasResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *CreateUserMailboxAliasRespData `json:"data"`
 }
 
@@ -2710,119 +2863,128 @@ func (resp *CreateUserMailboxAliasResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type DeleteUserMailboxAliasReqBuilder struct {
-	userMailboxId     string
-	userMailboxIdFlag bool
-	aliasId           string
-	aliasIdFlag       bool
+	userMailboxId  string
+	userMailboxIdFlag  bool
+	aliasId  string
+	aliasIdFlag  bool
+
 }
 
 // 生成请求的New构造器
-func NewDeleteUserMailboxAliasReqBuilder() *DeleteUserMailboxAliasReqBuilder {
-	builder := &DeleteUserMailboxAliasReqBuilder{}
-	return builder
+func NewDeleteUserMailboxAliasReqBuilder() * DeleteUserMailboxAliasReqBuilder{
+   builder := &DeleteUserMailboxAliasReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *DeleteUserMailboxAliasReqBuilder) UserMailboxId(userMailboxId string) *DeleteUserMailboxAliasReqBuilder {
-	builder.userMailboxId = userMailboxId
-	builder.userMailboxIdFlag = true
-	return builder
+func (builder * DeleteUserMailboxAliasReqBuilder) UserMailboxId(userMailboxId string) *DeleteUserMailboxAliasReqBuilder  {
+  builder.userMailboxId = userMailboxId
+  builder.userMailboxIdFlag = true
+  return builder
 }
-func (builder *DeleteUserMailboxAliasReqBuilder) AliasId(aliasId string) *DeleteUserMailboxAliasReqBuilder {
-	builder.aliasId = aliasId
-	builder.aliasIdFlag = true
-	return builder
+func (builder * DeleteUserMailboxAliasReqBuilder) AliasId(aliasId string) *DeleteUserMailboxAliasReqBuilder  {
+  builder.aliasId = aliasId
+  builder.aliasIdFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *DeleteUserMailboxAliasReqBuilder) Build() *DeleteUserMailboxAliasReq {
-	req := &DeleteUserMailboxAliasReq{}
-	if builder.userMailboxIdFlag {
-		req.UserMailboxId = builder.userMailboxId
-	}
-	if builder.aliasIdFlag {
-		req.AliasId = builder.aliasId
-	}
-	return req
+func (builder * DeleteUserMailboxAliasReqBuilder ) Build() *DeleteUserMailboxAliasReq {
+   req := &DeleteUserMailboxAliasReq{}
+   if builder.userMailboxIdFlag {
+	  req.UserMailboxId = builder.userMailboxId
+   }
+   if builder.aliasIdFlag {
+	  req.AliasId = builder.aliasId
+   }
+   return req
 }
+
 
 type DeleteUserMailboxAliasReq struct {
-	UserMailboxId string `path:"user_mailbox_id"`
-	AliasId       string `path:"alias_id"`
+	UserMailboxId  string `path:"user_mailbox_id"`
+	AliasId  string `path:"alias_id"`
+
 }
 
+
 type DeleteUserMailboxAliasResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 }
 
 func (resp *DeleteUserMailboxAliasResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type ListUserMailboxAliasReqBuilder struct {
-	userMailboxId     string
-	userMailboxIdFlag bool
-	pageToken         string
-	pageTokenFlag     bool
-	pageSize          int
-	pageSizeFlag      bool
+	userMailboxId  string
+	userMailboxIdFlag  bool
+	pageToken  string
+	pageTokenFlag  bool
+	pageSize  int
+	pageSizeFlag  bool
+
 }
 
 // 生成请求的New构造器
-func NewListUserMailboxAliasReqBuilder() *ListUserMailboxAliasReqBuilder {
-	builder := &ListUserMailboxAliasReqBuilder{}
-	return builder
+func NewListUserMailboxAliasReqBuilder() * ListUserMailboxAliasReqBuilder{
+   builder := &ListUserMailboxAliasReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *ListUserMailboxAliasReqBuilder) UserMailboxId(userMailboxId string) *ListUserMailboxAliasReqBuilder {
-	builder.userMailboxId = userMailboxId
-	builder.userMailboxIdFlag = true
-	return builder
+func (builder * ListUserMailboxAliasReqBuilder) UserMailboxId(userMailboxId string) *ListUserMailboxAliasReqBuilder  {
+  builder.userMailboxId = userMailboxId
+  builder.userMailboxIdFlag = true
+  return builder
 }
-func (builder *ListUserMailboxAliasReqBuilder) PageToken(pageToken string) *ListUserMailboxAliasReqBuilder {
-	builder.pageToken = pageToken
-	builder.pageTokenFlag = true
-	return builder
+func (builder * ListUserMailboxAliasReqBuilder) PageToken(pageToken string) *ListUserMailboxAliasReqBuilder  {
+  builder.pageToken = pageToken
+  builder.pageTokenFlag = true
+  return builder
 }
-func (builder *ListUserMailboxAliasReqBuilder) PageSize(pageSize int) *ListUserMailboxAliasReqBuilder {
-	builder.pageSize = pageSize
-	builder.pageSizeFlag = true
-	return builder
+func (builder * ListUserMailboxAliasReqBuilder) PageSize(pageSize int) *ListUserMailboxAliasReqBuilder  {
+  builder.pageSize = pageSize
+  builder.pageSizeFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *ListUserMailboxAliasReqBuilder) Build() *ListUserMailboxAliasReq {
-	req := &ListUserMailboxAliasReq{}
-	if builder.userMailboxIdFlag {
-		req.UserMailboxId = builder.userMailboxId
-	}
-	if builder.pageTokenFlag {
-		req.PageToken = &builder.pageToken
-	}
-	if builder.pageSizeFlag {
-		req.PageSize = &builder.pageSize
-	}
-	return req
+func (builder * ListUserMailboxAliasReqBuilder ) Build() *ListUserMailboxAliasReq {
+   req := &ListUserMailboxAliasReq{}
+   if builder.userMailboxIdFlag {
+	  req.UserMailboxId = builder.userMailboxId
+   }
+   if builder.pageTokenFlag {
+	  req.PageToken = &builder.pageToken
+   }
+   if builder.pageSizeFlag {
+	  req.PageSize = &builder.pageSize
+   }
+   return req
 }
 
+
 type ListUserMailboxAliasReq struct {
-	UserMailboxId string  `path:"user_mailbox_id"`
-	PageToken     *string `query:"page_token"`
-	PageSize      *int    `query:"page_size"`
+	UserMailboxId  string `path:"user_mailbox_id"`
+	PageToken  *string `query:"page_token"`
+	PageSize  *int `query:"page_size"`
+
 }
 
 type ListUserMailboxAliasRespData struct {
-	Items []*EmailAlias `json:"items,omitempty"`
+	Items  []*EmailAlias `json:"items,omitempty"`
 }
 
 type ListUserMailboxAliasResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *ListUserMailboxAliasRespData `json:"data"`
 }
 
@@ -2832,274 +2994,273 @@ func (resp *ListUserMailboxAliasResp) Success() bool {
 
 // 生成消息事件结构体
 
+
 // 生成请求的builder构造器
 // 1.1 生成body的builder结构体
-type ListMailgroupIterator struct {
-	nextPageToken *string
-	items         []*Mailgroup
-	index         int
-	limit         int
-	ctx           context.Context
-	req           *ListMailgroupReq
-	listFunc      func(ctx context.Context, req *ListMailgroupReq, options ...core.RequestOptionFunc) (*ListMailgroupResp, error)
-	options       []core.RequestOptionFunc
-	curlNum       int
-}
+   type ListMailgroupIterator struct{
+	 nextPageToken *string
+	 items	 []*Mailgroup
+	 index	 int
+	 limit	 int
+	 ctx	   context.Context
+	 req	   *ListMailgroupReq
+	 listFunc  func (ctx context.Context, req *ListMailgroupReq, options ...larkcore.RequestOptionFunc) (*ListMailgroupResp, error)
+	 options   []larkcore.RequestOptionFunc
+   	 curlNum	   int
+   }
 
-func (iterator *ListMailgroupIterator) Next() (bool, *Mailgroup, error) {
-	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
-		return false, nil, nil
-	}
-
-	// 为0则拉取数据
-	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
-			return false, nil, nil
-		}
-		if iterator.nextPageToken != nil {
-			iterator.req.PageToken = iterator.nextPageToken
-		}
-		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-		if err != nil {
-			return false, nil, err
-		}
-
-		if resp.Code != 0 {
-			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
-		}
-
-		if len(resp.Data.Items) == 0 {
+   func (iterator *ListMailgroupIterator) Next() (bool, *Mailgroup, error) {
+		// 达到最大量，则返回
+		if iterator.limit >0 && iterator.curlNum >= iterator.limit {
 			return false, nil, nil
 		}
 
-		iterator.nextPageToken = resp.Data.PageToken
-		iterator.items = resp.Data.Items
-		iterator.index = 0
-	}
+		// 为0则拉取数据
+		if iterator.index == 0 || iterator.index >= len(iterator.items) {
+			if iterator.index != 0 && iterator.nextPageToken == nil {
+				return false, nil, nil
+			}
+			if iterator.nextPageToken != nil {
+				iterator.req.PageToken = iterator.nextPageToken
+			}
+			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+			if err != nil {
+				return false, nil, err
+			}
 
-	block := iterator.items[iterator.index]
-	iterator.index++
-	iterator.curlNum++
-	return true, block, nil
-}
+			if resp.Code != 0 {
+				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+			}
 
-func (iterator *ListMailgroupIterator) NextPageToken() *string {
-	return iterator.nextPageToken
-}
+			if len(resp.Data.Items) == 0 {
+				return false, nil, nil
+			}
 
-type ListMailgroupMemberIterator struct {
-	nextPageToken *string
-	items         []*MailgroupMember
-	index         int
-	limit         int
-	ctx           context.Context
-	req           *ListMailgroupMemberReq
-	listFunc      func(ctx context.Context, req *ListMailgroupMemberReq, options ...core.RequestOptionFunc) (*ListMailgroupMemberResp, error)
-	options       []core.RequestOptionFunc
-	curlNum       int
-}
-
-func (iterator *ListMailgroupMemberIterator) Next() (bool, *MailgroupMember, error) {
-	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
-		return false, nil, nil
-	}
-
-	// 为0则拉取数据
-	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
-			return false, nil, nil
-		}
-		if iterator.nextPageToken != nil {
-			iterator.req.PageToken = iterator.nextPageToken
-		}
-		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-		if err != nil {
-			return false, nil, err
+			iterator.nextPageToken = resp.Data.PageToken
+			iterator.items = resp.Data.Items
+			iterator.index = 0
 		}
 
-		if resp.Code != 0 {
-			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
-		}
+		block := iterator.items[iterator.index]
+		iterator.index++
+		iterator.curlNum++
+		return true, block, nil
+   }
 
-		if len(resp.Data.Items) == 0 {
-			return false, nil, nil
-		}
+   func (iterator *ListMailgroupIterator) NextPageToken() *string {
+	  return iterator.nextPageToken
+   }
+   type ListMailgroupMemberIterator struct{
+	 nextPageToken *string
+	 items	 []*MailgroupMember
+	 index	 int
+	 limit	 int
+	 ctx	   context.Context
+	 req	   *ListMailgroupMemberReq
+	 listFunc  func (ctx context.Context, req *ListMailgroupMemberReq, options ...larkcore.RequestOptionFunc) (*ListMailgroupMemberResp, error)
+	 options   []larkcore.RequestOptionFunc
+   	 curlNum	   int
+   }
 
-		iterator.nextPageToken = resp.Data.PageToken
-		iterator.items = resp.Data.Items
-		iterator.index = 0
-	}
-
-	block := iterator.items[iterator.index]
-	iterator.index++
-	iterator.curlNum++
-	return true, block, nil
-}
-
-func (iterator *ListMailgroupMemberIterator) NextPageToken() *string {
-	return iterator.nextPageToken
-}
-
-type ListMailgroupPermissionMemberIterator struct {
-	nextPageToken *string
-	items         []*MailgroupPermissionMember
-	index         int
-	limit         int
-	ctx           context.Context
-	req           *ListMailgroupPermissionMemberReq
-	listFunc      func(ctx context.Context, req *ListMailgroupPermissionMemberReq, options ...core.RequestOptionFunc) (*ListMailgroupPermissionMemberResp, error)
-	options       []core.RequestOptionFunc
-	curlNum       int
-}
-
-func (iterator *ListMailgroupPermissionMemberIterator) Next() (bool, *MailgroupPermissionMember, error) {
-	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
-		return false, nil, nil
-	}
-
-	// 为0则拉取数据
-	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
-			return false, nil, nil
-		}
-		if iterator.nextPageToken != nil {
-			iterator.req.PageToken = iterator.nextPageToken
-		}
-		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-		if err != nil {
-			return false, nil, err
-		}
-
-		if resp.Code != 0 {
-			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
-		}
-
-		if len(resp.Data.Items) == 0 {
+   func (iterator *ListMailgroupMemberIterator) Next() (bool, *MailgroupMember, error) {
+		// 达到最大量，则返回
+		if iterator.limit >0 && iterator.curlNum >= iterator.limit {
 			return false, nil, nil
 		}
 
-		iterator.nextPageToken = resp.Data.PageToken
-		iterator.items = resp.Data.Items
-		iterator.index = 0
-	}
+		// 为0则拉取数据
+		if iterator.index == 0 || iterator.index >= len(iterator.items) {
+			if iterator.index != 0 && iterator.nextPageToken == nil {
+				return false, nil, nil
+			}
+			if iterator.nextPageToken != nil {
+				iterator.req.PageToken = iterator.nextPageToken
+			}
+			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+			if err != nil {
+				return false, nil, err
+			}
 
-	block := iterator.items[iterator.index]
-	iterator.index++
-	iterator.curlNum++
-	return true, block, nil
-}
+			if resp.Code != 0 {
+				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+			}
 
-func (iterator *ListMailgroupPermissionMemberIterator) NextPageToken() *string {
-	return iterator.nextPageToken
-}
+			if len(resp.Data.Items) == 0 {
+				return false, nil, nil
+			}
 
-type ListPublicMailboxIterator struct {
-	nextPageToken *string
-	items         []*PublicMailbox
-	index         int
-	limit         int
-	ctx           context.Context
-	req           *ListPublicMailboxReq
-	listFunc      func(ctx context.Context, req *ListPublicMailboxReq, options ...core.RequestOptionFunc) (*ListPublicMailboxResp, error)
-	options       []core.RequestOptionFunc
-	curlNum       int
-}
-
-func (iterator *ListPublicMailboxIterator) Next() (bool, *PublicMailbox, error) {
-	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
-		return false, nil, nil
-	}
-
-	// 为0则拉取数据
-	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
-			return false, nil, nil
-		}
-		if iterator.nextPageToken != nil {
-			iterator.req.PageToken = iterator.nextPageToken
-		}
-		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-		if err != nil {
-			return false, nil, err
+			iterator.nextPageToken = resp.Data.PageToken
+			iterator.items = resp.Data.Items
+			iterator.index = 0
 		}
 
-		if resp.Code != 0 {
-			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
-		}
+		block := iterator.items[iterator.index]
+		iterator.index++
+		iterator.curlNum++
+		return true, block, nil
+   }
 
-		if len(resp.Data.Items) == 0 {
-			return false, nil, nil
-		}
+   func (iterator *ListMailgroupMemberIterator) NextPageToken() *string {
+	  return iterator.nextPageToken
+   }
+   type ListMailgroupPermissionMemberIterator struct{
+	 nextPageToken *string
+	 items	 []*MailgroupPermissionMember
+	 index	 int
+	 limit	 int
+	 ctx	   context.Context
+	 req	   *ListMailgroupPermissionMemberReq
+	 listFunc  func (ctx context.Context, req *ListMailgroupPermissionMemberReq, options ...larkcore.RequestOptionFunc) (*ListMailgroupPermissionMemberResp, error)
+	 options   []larkcore.RequestOptionFunc
+   	 curlNum	   int
+   }
 
-		iterator.nextPageToken = resp.Data.PageToken
-		iterator.items = resp.Data.Items
-		iterator.index = 0
-	}
-
-	block := iterator.items[iterator.index]
-	iterator.index++
-	iterator.curlNum++
-	return true, block, nil
-}
-
-func (iterator *ListPublicMailboxIterator) NextPageToken() *string {
-	return iterator.nextPageToken
-}
-
-type ListPublicMailboxMemberIterator struct {
-	nextPageToken *string
-	items         []*PublicMailboxMember
-	index         int
-	limit         int
-	ctx           context.Context
-	req           *ListPublicMailboxMemberReq
-	listFunc      func(ctx context.Context, req *ListPublicMailboxMemberReq, options ...core.RequestOptionFunc) (*ListPublicMailboxMemberResp, error)
-	options       []core.RequestOptionFunc
-	curlNum       int
-}
-
-func (iterator *ListPublicMailboxMemberIterator) Next() (bool, *PublicMailboxMember, error) {
-	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
-		return false, nil, nil
-	}
-
-	// 为0则拉取数据
-	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
-			return false, nil, nil
-		}
-		if iterator.nextPageToken != nil {
-			iterator.req.PageToken = iterator.nextPageToken
-		}
-		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-		if err != nil {
-			return false, nil, err
-		}
-
-		if resp.Code != 0 {
-			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
-		}
-
-		if len(resp.Data.Items) == 0 {
+   func (iterator *ListMailgroupPermissionMemberIterator) Next() (bool, *MailgroupPermissionMember, error) {
+		// 达到最大量，则返回
+		if iterator.limit >0 && iterator.curlNum >= iterator.limit {
 			return false, nil, nil
 		}
 
-		iterator.nextPageToken = resp.Data.PageToken
-		iterator.items = resp.Data.Items
-		iterator.index = 0
-	}
+		// 为0则拉取数据
+		if iterator.index == 0 || iterator.index >= len(iterator.items) {
+			if iterator.index != 0 && iterator.nextPageToken == nil {
+				return false, nil, nil
+			}
+			if iterator.nextPageToken != nil {
+				iterator.req.PageToken = iterator.nextPageToken
+			}
+			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+			if err != nil {
+				return false, nil, err
+			}
 
-	block := iterator.items[iterator.index]
-	iterator.index++
-	iterator.curlNum++
-	return true, block, nil
-}
+			if resp.Code != 0 {
+				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+			}
 
-func (iterator *ListPublicMailboxMemberIterator) NextPageToken() *string {
-	return iterator.nextPageToken
-}
+			if len(resp.Data.Items) == 0 {
+				return false, nil, nil
+			}
+
+			iterator.nextPageToken = resp.Data.PageToken
+			iterator.items = resp.Data.Items
+			iterator.index = 0
+		}
+
+		block := iterator.items[iterator.index]
+		iterator.index++
+		iterator.curlNum++
+		return true, block, nil
+   }
+
+   func (iterator *ListMailgroupPermissionMemberIterator) NextPageToken() *string {
+	  return iterator.nextPageToken
+   }
+   type ListPublicMailboxIterator struct{
+	 nextPageToken *string
+	 items	 []*PublicMailbox
+	 index	 int
+	 limit	 int
+	 ctx	   context.Context
+	 req	   *ListPublicMailboxReq
+	 listFunc  func (ctx context.Context, req *ListPublicMailboxReq, options ...larkcore.RequestOptionFunc) (*ListPublicMailboxResp, error)
+	 options   []larkcore.RequestOptionFunc
+   	 curlNum	   int
+   }
+
+   func (iterator *ListPublicMailboxIterator) Next() (bool, *PublicMailbox, error) {
+		// 达到最大量，则返回
+		if iterator.limit >0 && iterator.curlNum >= iterator.limit {
+			return false, nil, nil
+		}
+
+		// 为0则拉取数据
+		if iterator.index == 0 || iterator.index >= len(iterator.items) {
+			if iterator.index != 0 && iterator.nextPageToken == nil {
+				return false, nil, nil
+			}
+			if iterator.nextPageToken != nil {
+				iterator.req.PageToken = iterator.nextPageToken
+			}
+			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+			if err != nil {
+				return false, nil, err
+			}
+
+			if resp.Code != 0 {
+				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+			}
+
+			if len(resp.Data.Items) == 0 {
+				return false, nil, nil
+			}
+
+			iterator.nextPageToken = resp.Data.PageToken
+			iterator.items = resp.Data.Items
+			iterator.index = 0
+		}
+
+		block := iterator.items[iterator.index]
+		iterator.index++
+		iterator.curlNum++
+		return true, block, nil
+   }
+
+   func (iterator *ListPublicMailboxIterator) NextPageToken() *string {
+	  return iterator.nextPageToken
+   }
+   type ListPublicMailboxMemberIterator struct{
+	 nextPageToken *string
+	 items	 []*PublicMailboxMember
+	 index	 int
+	 limit	 int
+	 ctx	   context.Context
+	 req	   *ListPublicMailboxMemberReq
+	 listFunc  func (ctx context.Context, req *ListPublicMailboxMemberReq, options ...larkcore.RequestOptionFunc) (*ListPublicMailboxMemberResp, error)
+	 options   []larkcore.RequestOptionFunc
+   	 curlNum	   int
+   }
+
+   func (iterator *ListPublicMailboxMemberIterator) Next() (bool, *PublicMailboxMember, error) {
+		// 达到最大量，则返回
+		if iterator.limit >0 && iterator.curlNum >= iterator.limit {
+			return false, nil, nil
+		}
+
+		// 为0则拉取数据
+		if iterator.index == 0 || iterator.index >= len(iterator.items) {
+			if iterator.index != 0 && iterator.nextPageToken == nil {
+				return false, nil, nil
+			}
+			if iterator.nextPageToken != nil {
+				iterator.req.PageToken = iterator.nextPageToken
+			}
+			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+			if err != nil {
+				return false, nil, err
+			}
+
+			if resp.Code != 0 {
+				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+			}
+
+			if len(resp.Data.Items) == 0 {
+				return false, nil, nil
+			}
+
+			iterator.nextPageToken = resp.Data.PageToken
+			iterator.items = resp.Data.Items
+			iterator.index = 0
+		}
+
+		block := iterator.items[iterator.index]
+		iterator.index++
+		iterator.curlNum++
+		return true, block, nil
+   }
+
+   func (iterator *ListPublicMailboxMemberIterator) NextPageToken() *string {
+	  return iterator.nextPageToken
+   }
+
+

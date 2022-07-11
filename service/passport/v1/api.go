@@ -2,35 +2,38 @@
 package larkpassport
 
 import (
-	"context"
 	"net/http"
-
+	"context"
+	
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
+
 // 构建业务域服务实例
-func NewService(config *core.Config) *PassportService {
-	p := &PassportService{config: config}
+func NewService(config *larkcore.Config) *PassportService {
+	p := &PassportService{config:config}
 	p.Session = &session{service: p}
 	return p
 }
 
+
 // 业务域服务定义
 type PassportService struct {
-	config  *core.Config
+	config *larkcore.Config
 	Session *session
 }
 
+
+
 // 资源服务定义
 type session struct {
-	service *PassportService
+   service *PassportService
 }
-
 // 资源服务方法定义
-func (s *session) Query(ctx context.Context, req *QuerySessionReq, options ...core.RequestOptionFunc) (*QuerySessionResp, error) {
+func (s *session) Query(ctx context.Context, req *QuerySessionReq, options ...larkcore.RequestOptionFunc) (*QuerySessionResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, s.service.config, http.MethodPost,
-		"/open-apis/passport/v1/sessions/query", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,s.service.config, http.MethodPost,
+		"/open-apis/passport/v1/sessions/query", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}

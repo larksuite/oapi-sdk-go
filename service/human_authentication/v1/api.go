@@ -2,35 +2,38 @@
 package larkhuman_authentication
 
 import (
-	"context"
 	"net/http"
-
+	"context"
+	
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
+
 // 构建业务域服务实例
-func NewService(config *core.Config) *HumanAuthenticationService {
-	h := &HumanAuthenticationService{config: config}
+func NewService(config *larkcore.Config) *HumanAuthenticationService {
+	h := &HumanAuthenticationService{config:config}
 	h.Identity = &identity{service: h}
 	return h
 }
 
+
 // 业务域服务定义
 type HumanAuthenticationService struct {
-	config   *core.Config
+	config *larkcore.Config
 	Identity *identity
 }
 
+
+
 // 资源服务定义
 type identity struct {
-	service *HumanAuthenticationService
+   service *HumanAuthenticationService
 }
-
 // 资源服务方法定义
-func (i *identity) Create(ctx context.Context, req *CreateIdentityReq, options ...core.RequestOptionFunc) (*CreateIdentityResp, error) {
+func (i *identity) Create(ctx context.Context, req *CreateIdentityReq, options ...larkcore.RequestOptionFunc) (*CreateIdentityResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, i.service.config, http.MethodPost,
-		"/open-apis/human_authentication/v1/identities", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,i.service.config, http.MethodPost,
+		"/open-apis/human_authentication/v1/identities", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}

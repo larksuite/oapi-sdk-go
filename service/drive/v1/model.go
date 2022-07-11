@@ -3,2410 +3,2434 @@ package larkdrive
 
 import (
 	"io"
-
+	
 	"bytes"
+		
 
+	
 	"io/ioutil"
-
+	
 	"context"
 	"errors"
 	"fmt"
-
+	
 	"github.com/larksuite/oapi-sdk-go/event"
-
+	
 	"github.com/larksuite/oapi-sdk-go/core"
+	
+
 )
 
 // 生成枚举值
 
 const (
-	FileExtensionDocx = "docx"
-	FileExtensionPdf  = "pdf"
-	FileExtensionXlsx = "xlsx"
+
+	  FileExtensionDocx = "docx"
+	  FileExtensionPdf = "pdf"
+	  FileExtensionXlsx = "xlsx"
 )
 
 const (
-	TypeDoc     = "doc"
-	TypeSheet   = "sheet"
-	TypeBitable = "bitable"
-	TypeDocx    = "docx"
+
+	  TypeDoc = "doc"
+	  TypeSheet = "sheet"
+	  TypeBitable = "bitable"
+	  TypeDocx = "docx"
 )
 
 const (
-	FileTypeDoc     = "doc"
-	FileTypeDocx    = "docx"
-	FileTypeSheet   = "sheet"
-	FileTypeBitable = "bitable"
+
+	  FileTypeDoc = "doc"
+	  FileTypeDocx = "docx"
+	  FileTypeSheet = "sheet"
+	  FileTypeBitable = "bitable"
 )
 
 const (
-	ParentTypeExplorer = "explorer"
+
+	  ParentTypeExplorer = "explorer"
 )
 
 const (
-	UserIdTypeUserId  = "user_id"
-	UserIdTypeUnionId = "union_id"
-	UserIdTypeOpenId  = "open_id"
+
+	  UserIdTypeUserId = "user_id"
+	  UserIdTypeUnionId = "union_id"
+	  UserIdTypeOpenId = "open_id"
 )
 
 const (
-	SubscriptionTypeCommentUpdate = "comment_update"
+
+	  SubscriptionTypeCommentUpdate = "comment_update"
 )
 
 const (
-	TokenTypeV2Doc     = "doc"
-	TokenTypeV2Sheet   = "sheet"
-	TokenTypeV2File    = "file"
-	TokenTypeV2Wiki    = "wiki"
-	TokenTypeV2Bitable = "bitable"
-	TokenTypeV2Docx    = "docx"
-	TokenTypeV2Folder  = "folder"
+
+	  TokenTypeV2Doc = "doc"
+	  TokenTypeV2Sheet = "sheet"
+	  TokenTypeV2File = "file"
+	  TokenTypeV2Wiki = "wiki"
+	  TokenTypeV2Bitable = "bitable"
+	  TokenTypeV2Docx = "docx"
+	  TokenTypeV2Folder = "folder"
 )
 
 const (
-	MemberTypeEmail            = "email"
-	MemberTypeOpenID           = "openid"
-	MemberTypeOpenChatID       = "openchat"
-	MemberTypeOpenDepartmentID = "opendepartmentid"
-	MemberTypeUserID           = "userid"
+
+	  MemberTypeEmail = "email"
+	  MemberTypeOpenID = "openid"
+	  MemberTypeOpenChatID = "openchat"
+	  MemberTypeOpenDepartmentID = "opendepartmentid"
+	  MemberTypeUserID = "userid"
 )
 
 const (
-	TokenTypeDoc     = "doc"
-	TokenTypeSheet   = "sheet"
-	TokenTypeFile    = "file"
-	TokenTypeWiki    = "wiki"
-	TokenTypeBitable = "bitable"
-	TokenTypeDocx    = "docx"
+
+	  TokenTypeDoc = "doc"
+	  TokenTypeSheet = "sheet"
+	  TokenTypeFile = "file"
+	  TokenTypeWiki = "wiki"
+	  TokenTypeBitable = "bitable"
+	  TokenTypeDocx = "docx"
 )
 
 const (
-	SecurityEntityAnyoneCanView  = "anyone_can_view"
-	SecurityEntityAnyoneCanEdit  = "anyone_can_edit"
-	SecurityEntityOnlyFullAccess = "only_full_access"
+
+	  SecurityEntityAnyoneCanView = "anyone_can_view"
+	  SecurityEntityAnyoneCanEdit = "anyone_can_edit"
+	  SecurityEntityOnlyFullAccess = "only_full_access"
 )
 
 const (
-	CommentEntityAnyoneCanView = "anyone_can_view"
-	CommentEntityAnyoneCanEdit = "anyone_can_edit"
+
+	  CommentEntityAnyoneCanView = "anyone_can_view"
+	  CommentEntityAnyoneCanEdit = "anyone_can_edit"
 )
 
 const (
-	ShareEntityAnyone         = "anyone"
-	ShareEntitySameTenant     = "same_tenant"
-	ShareEntityOnlyFullAccess = "only_full_access"
+
+	  ShareEntityAnyone = "anyone"
+	  ShareEntitySameTenant = "same_tenant"
+	  ShareEntityOnlyFullAccess = "only_full_access"
 )
 
 const (
-	LinkShareEntityTenantReadable = "tenant_readable"
-	LinkShareEntityTenantEditable = "tenant_editable"
-	LinkShareEntityAnyoneReadable = "anyone_readable"
-	LinkShareEntityAnyoneEditable = "anyone_editable"
-	LinkShareEntityClosed         = "closed"
+
+	  LinkShareEntityTenantReadable = "tenant_readable"
+	  LinkShareEntityTenantEditable = "tenant_editable"
+	  LinkShareEntityAnyoneReadable = "anyone_readable"
+	  LinkShareEntityAnyoneEditable = "anyone_editable"
+	  LinkShareEntityClosed = "closed"
 )
+
+
 
 // 生成数据类型
 
 type ApplyMemberRequest struct {
-	Perm   *string `json:"perm,omitempty"`
-	Remark *string `json:"remark,omitempty"`
+	Perm  *string `json:"perm,omitempty"`
+	Remark  *string `json:"remark,omitempty"`
 }
 
 // builder开始
 type ApplyMemberRequestBuilder struct {
-	perm       string
-	permFlag   bool
-	remark     string
-	remarkFlag bool
+	perm  string
+	permFlag  bool
+	remark  string
+	remarkFlag  bool
 }
 
-func NewApplyMemberRequestBuilder() *ApplyMemberRequestBuilder {
-	builder := &ApplyMemberRequestBuilder{}
-	return builder
+func NewApplyMemberRequestBuilder() * ApplyMemberRequestBuilder{
+   builder := &ApplyMemberRequestBuilder{}
+   return builder
 }
 
-func (builder *ApplyMemberRequestBuilder) Perm(perm string) *ApplyMemberRequestBuilder {
-	builder.perm = perm
-	builder.permFlag = true
-	return builder
+
+func (builder * ApplyMemberRequestBuilder) Perm(perm string) *ApplyMemberRequestBuilder  {
+  builder.perm = perm
+  builder.permFlag = true
+  return builder
 }
-func (builder *ApplyMemberRequestBuilder) Remark(remark string) *ApplyMemberRequestBuilder {
-	builder.remark = remark
-	builder.remarkFlag = true
-	return builder
-}
-
-func (builder *ApplyMemberRequestBuilder) Build() *ApplyMemberRequest {
-	req := &ApplyMemberRequest{}
-	if builder.permFlag {
-		req.Perm = &builder.perm
-
-	}
-	if builder.remarkFlag {
-		req.Remark = &builder.remark
-
-	}
-	return req
+func (builder * ApplyMemberRequestBuilder) Remark(remark string) *ApplyMemberRequestBuilder  {
+  builder.remark = remark
+  builder.remarkFlag = true
+  return builder
 }
 
+func (builder * ApplyMemberRequestBuilder ) Build() *ApplyMemberRequest {
+   req := &ApplyMemberRequest{}
+   if builder.permFlag {
+	  req.Perm = &builder.perm
+	  
+   }
+   if builder.remarkFlag {
+	  req.Remark = &builder.remark
+	  
+   }
+   return req
+}
 // builder结束
 
 type BitableTableRecordAction struct {
-	RecordId    *string                          `json:"record_id,omitempty"`
-	Action      *string                          `json:"action,omitempty"`
-	BeforeValue []*BitableTableRecordActionField `json:"before_value,omitempty"`
+	RecordId  *string `json:"record_id,omitempty"`
+	Action  *string `json:"action,omitempty"`
+	BeforeValue  []*BitableTableRecordActionField `json:"before_value,omitempty"`
 	AfterValue  []*BitableTableRecordActionField `json:"after_value,omitempty"`
 }
 
 // builder开始
 type BitableTableRecordActionBuilder struct {
-	recordId        string
-	recordIdFlag    bool
-	action          string
-	actionFlag      bool
-	beforeValue     []*BitableTableRecordActionField
-	beforeValueFlag bool
-	afterValue      []*BitableTableRecordActionField
+	recordId  string
+	recordIdFlag  bool
+	action  string
+	actionFlag  bool
+	beforeValue  []*BitableTableRecordActionField
+	beforeValueFlag  bool
+	afterValue  []*BitableTableRecordActionField
 	afterValueFlag  bool
 }
 
-func NewBitableTableRecordActionBuilder() *BitableTableRecordActionBuilder {
-	builder := &BitableTableRecordActionBuilder{}
-	return builder
+func NewBitableTableRecordActionBuilder() * BitableTableRecordActionBuilder{
+   builder := &BitableTableRecordActionBuilder{}
+   return builder
 }
 
-func (builder *BitableTableRecordActionBuilder) RecordId(recordId string) *BitableTableRecordActionBuilder {
-	builder.recordId = recordId
-	builder.recordIdFlag = true
-	return builder
+
+func (builder * BitableTableRecordActionBuilder) RecordId(recordId string) *BitableTableRecordActionBuilder  {
+  builder.recordId = recordId
+  builder.recordIdFlag = true
+  return builder
 }
-func (builder *BitableTableRecordActionBuilder) Action(action string) *BitableTableRecordActionBuilder {
-	builder.action = action
-	builder.actionFlag = true
-	return builder
+func (builder * BitableTableRecordActionBuilder) Action(action string) *BitableTableRecordActionBuilder  {
+  builder.action = action
+  builder.actionFlag = true
+  return builder
 }
-func (builder *BitableTableRecordActionBuilder) BeforeValue(beforeValue []*BitableTableRecordActionField) *BitableTableRecordActionBuilder {
-	builder.beforeValue = beforeValue
-	builder.beforeValueFlag = true
-	return builder
+func (builder * BitableTableRecordActionBuilder) BeforeValue(beforeValue []*BitableTableRecordActionField) *BitableTableRecordActionBuilder  {
+  builder.beforeValue = beforeValue
+  builder.beforeValueFlag = true
+  return builder
 }
-func (builder *BitableTableRecordActionBuilder) AfterValue(afterValue []*BitableTableRecordActionField) *BitableTableRecordActionBuilder {
-	builder.afterValue = afterValue
-	builder.afterValueFlag = true
-	return builder
+func (builder * BitableTableRecordActionBuilder) AfterValue(afterValue []*BitableTableRecordActionField) *BitableTableRecordActionBuilder  {
+  builder.afterValue = afterValue
+  builder.afterValueFlag = true
+  return builder
 }
 
-func (builder *BitableTableRecordActionBuilder) Build() *BitableTableRecordAction {
-	req := &BitableTableRecordAction{}
-	if builder.recordIdFlag {
-		req.RecordId = &builder.recordId
-
-	}
-	if builder.actionFlag {
-		req.Action = &builder.action
-
-	}
-	if builder.beforeValueFlag {
-		req.BeforeValue = builder.beforeValue
-	}
-	if builder.afterValueFlag {
-		req.AfterValue = builder.afterValue
-	}
-	return req
+func (builder * BitableTableRecordActionBuilder ) Build() *BitableTableRecordAction {
+   req := &BitableTableRecordAction{}
+   if builder.recordIdFlag {
+	  req.RecordId = &builder.recordId
+	  
+   }
+   if builder.actionFlag {
+	  req.Action = &builder.action
+	  
+   }
+   if builder.beforeValueFlag {
+	  req.BeforeValue = builder.beforeValue
+   }
+   if builder.afterValueFlag {
+	  req.AfterValue = builder.afterValue
+   }
+   return req
 }
-
 // builder结束
 
 type BitableTableRecordActionField struct {
-	FieldId    *string `json:"field_id,omitempty"`
-	FieldValue *string `json:"field_value,omitempty"`
+	FieldId  *string `json:"field_id,omitempty"`
+	FieldValue  *string `json:"field_value,omitempty"`
 }
 
 // builder开始
 type BitableTableRecordActionFieldBuilder struct {
-	fieldId        string
-	fieldIdFlag    bool
-	fieldValue     string
-	fieldValueFlag bool
+	fieldId  string
+	fieldIdFlag  bool
+	fieldValue  string
+	fieldValueFlag  bool
 }
 
-func NewBitableTableRecordActionFieldBuilder() *BitableTableRecordActionFieldBuilder {
-	builder := &BitableTableRecordActionFieldBuilder{}
-	return builder
+func NewBitableTableRecordActionFieldBuilder() * BitableTableRecordActionFieldBuilder{
+   builder := &BitableTableRecordActionFieldBuilder{}
+   return builder
 }
 
-func (builder *BitableTableRecordActionFieldBuilder) FieldId(fieldId string) *BitableTableRecordActionFieldBuilder {
-	builder.fieldId = fieldId
-	builder.fieldIdFlag = true
-	return builder
+
+func (builder * BitableTableRecordActionFieldBuilder) FieldId(fieldId string) *BitableTableRecordActionFieldBuilder  {
+  builder.fieldId = fieldId
+  builder.fieldIdFlag = true
+  return builder
 }
-func (builder *BitableTableRecordActionFieldBuilder) FieldValue(fieldValue string) *BitableTableRecordActionFieldBuilder {
-	builder.fieldValue = fieldValue
-	builder.fieldValueFlag = true
-	return builder
-}
-
-func (builder *BitableTableRecordActionFieldBuilder) Build() *BitableTableRecordActionField {
-	req := &BitableTableRecordActionField{}
-	if builder.fieldIdFlag {
-		req.FieldId = &builder.fieldId
-
-	}
-	if builder.fieldValueFlag {
-		req.FieldValue = &builder.fieldValue
-
-	}
-	return req
+func (builder * BitableTableRecordActionFieldBuilder) FieldValue(fieldValue string) *BitableTableRecordActionFieldBuilder  {
+  builder.fieldValue = fieldValue
+  builder.fieldValueFlag = true
+  return builder
 }
 
+func (builder * BitableTableRecordActionFieldBuilder ) Build() *BitableTableRecordActionField {
+   req := &BitableTableRecordActionField{}
+   if builder.fieldIdFlag {
+	  req.FieldId = &builder.fieldId
+	  
+   }
+   if builder.fieldValueFlag {
+	  req.FieldValue = &builder.fieldValue
+	  
+   }
+   return req
+}
 // builder结束
 
 type Collaborator struct {
-	MemberType   *string `json:"member_type,omitempty"`
-	MemberOpenId *string `json:"member_open_id,omitempty"`
-	MemberUserId *string `json:"member_user_id,omitempty"`
-	Perm         *string `json:"perm,omitempty"`
+	MemberType  *string `json:"member_type,omitempty"`
+	MemberOpenId  *string `json:"member_open_id,omitempty"`
+	MemberUserId  *string `json:"member_user_id,omitempty"`
+	Perm  *string `json:"perm,omitempty"`
 }
 
 // builder开始
 type CollaboratorBuilder struct {
-	memberType       string
-	memberTypeFlag   bool
-	memberOpenId     string
-	memberOpenIdFlag bool
-	memberUserId     string
-	memberUserIdFlag bool
-	perm             string
-	permFlag         bool
+	memberType  string
+	memberTypeFlag  bool
+	memberOpenId  string
+	memberOpenIdFlag  bool
+	memberUserId  string
+	memberUserIdFlag  bool
+	perm  string
+	permFlag  bool
 }
 
-func NewCollaboratorBuilder() *CollaboratorBuilder {
-	builder := &CollaboratorBuilder{}
-	return builder
+func NewCollaboratorBuilder() * CollaboratorBuilder{
+   builder := &CollaboratorBuilder{}
+   return builder
 }
 
-func (builder *CollaboratorBuilder) MemberType(memberType string) *CollaboratorBuilder {
-	builder.memberType = memberType
-	builder.memberTypeFlag = true
-	return builder
+
+func (builder * CollaboratorBuilder) MemberType(memberType string) *CollaboratorBuilder  {
+  builder.memberType = memberType
+  builder.memberTypeFlag = true
+  return builder
 }
-func (builder *CollaboratorBuilder) MemberOpenId(memberOpenId string) *CollaboratorBuilder {
-	builder.memberOpenId = memberOpenId
-	builder.memberOpenIdFlag = true
-	return builder
+func (builder * CollaboratorBuilder) MemberOpenId(memberOpenId string) *CollaboratorBuilder  {
+  builder.memberOpenId = memberOpenId
+  builder.memberOpenIdFlag = true
+  return builder
 }
-func (builder *CollaboratorBuilder) MemberUserId(memberUserId string) *CollaboratorBuilder {
-	builder.memberUserId = memberUserId
-	builder.memberUserIdFlag = true
-	return builder
+func (builder * CollaboratorBuilder) MemberUserId(memberUserId string) *CollaboratorBuilder  {
+  builder.memberUserId = memberUserId
+  builder.memberUserIdFlag = true
+  return builder
 }
-func (builder *CollaboratorBuilder) Perm(perm string) *CollaboratorBuilder {
-	builder.perm = perm
-	builder.permFlag = true
-	return builder
-}
-
-func (builder *CollaboratorBuilder) Build() *Collaborator {
-	req := &Collaborator{}
-	if builder.memberTypeFlag {
-		req.MemberType = &builder.memberType
-
-	}
-	if builder.memberOpenIdFlag {
-		req.MemberOpenId = &builder.memberOpenId
-
-	}
-	if builder.memberUserIdFlag {
-		req.MemberUserId = &builder.memberUserId
-
-	}
-	if builder.permFlag {
-		req.Perm = &builder.perm
-
-	}
-	return req
+func (builder * CollaboratorBuilder) Perm(perm string) *CollaboratorBuilder  {
+  builder.perm = perm
+  builder.permFlag = true
+  return builder
 }
 
+func (builder * CollaboratorBuilder ) Build() *Collaborator {
+   req := &Collaborator{}
+   if builder.memberTypeFlag {
+	  req.MemberType = &builder.memberType
+	  
+   }
+   if builder.memberOpenIdFlag {
+	  req.MemberOpenId = &builder.memberOpenId
+	  
+   }
+   if builder.memberUserIdFlag {
+	  req.MemberUserId = &builder.memberUserId
+	  
+   }
+   if builder.permFlag {
+	  req.Perm = &builder.perm
+	  
+   }
+   return req
+}
 // builder结束
 
 type DocsLink struct {
-	Url *string `json:"url,omitempty"`
+	Url  *string `json:"url,omitempty"`
 }
 
 // builder开始
 type DocsLinkBuilder struct {
-	url     string
-	urlFlag bool
+	url  string
+	urlFlag  bool
 }
 
-func NewDocsLinkBuilder() *DocsLinkBuilder {
-	builder := &DocsLinkBuilder{}
-	return builder
+func NewDocsLinkBuilder() * DocsLinkBuilder{
+   builder := &DocsLinkBuilder{}
+   return builder
 }
 
-func (builder *DocsLinkBuilder) Url(url string) *DocsLinkBuilder {
-	builder.url = url
-	builder.urlFlag = true
-	return builder
+
+func (builder * DocsLinkBuilder) Url(url string) *DocsLinkBuilder  {
+  builder.url = url
+  builder.urlFlag = true
+  return builder
 }
 
-func (builder *DocsLinkBuilder) Build() *DocsLink {
-	req := &DocsLink{}
-	if builder.urlFlag {
-		req.Url = &builder.url
-
-	}
-	return req
+func (builder * DocsLinkBuilder ) Build() *DocsLink {
+   req := &DocsLink{}
+   if builder.urlFlag {
+	  req.Url = &builder.url
+	  
+   }
+   return req
 }
-
 // builder结束
 
 type ExportTask struct {
-	FileExtension *string `json:"file_extension,omitempty"`
-	Token         *string `json:"token,omitempty"`
-	Type          *string `json:"type,omitempty"`
-	FileName      *string `json:"file_name,omitempty"`
-	FileToken     *string `json:"file_token,omitempty"`
-	FileSize      *int    `json:"file_size,omitempty"`
-	JobErrorMsg   *string `json:"job_error_msg,omitempty"`
-	JobStatus     *int    `json:"job_status,omitempty"`
+	FileExtension  *string `json:"file_extension,omitempty"`
+	Token  *string `json:"token,omitempty"`
+	Type  *string `json:"type,omitempty"`
+	FileName  *string `json:"file_name,omitempty"`
+	FileToken  *string `json:"file_token,omitempty"`
+	FileSize  *int `json:"file_size,omitempty"`
+	JobErrorMsg  *string `json:"job_error_msg,omitempty"`
+	JobStatus  *int `json:"job_status,omitempty"`
 }
 
 // builder开始
 type ExportTaskBuilder struct {
-	fileExtension     string
-	fileExtensionFlag bool
-	token             string
-	tokenFlag         bool
-	type_             string
-	typeFlag          bool
-	fileName          string
-	fileNameFlag      bool
-	fileToken         string
-	fileTokenFlag     bool
-	fileSize          int
-	fileSizeFlag      bool
-	jobErrorMsg       string
-	jobErrorMsgFlag   bool
-	jobStatus         int
-	jobStatusFlag     bool
+	fileExtension  string
+	fileExtensionFlag  bool
+	token  string
+	tokenFlag  bool
+	type_  string
+	typeFlag  bool
+	fileName  string
+	fileNameFlag  bool
+	fileToken  string
+	fileTokenFlag  bool
+	fileSize  int
+	fileSizeFlag  bool
+	jobErrorMsg  string
+	jobErrorMsgFlag  bool
+	jobStatus  int
+	jobStatusFlag  bool
 }
 
-func NewExportTaskBuilder() *ExportTaskBuilder {
-	builder := &ExportTaskBuilder{}
-	return builder
+func NewExportTaskBuilder() * ExportTaskBuilder{
+   builder := &ExportTaskBuilder{}
+   return builder
 }
 
-func (builder *ExportTaskBuilder) FileExtension(fileExtension string) *ExportTaskBuilder {
-	builder.fileExtension = fileExtension
-	builder.fileExtensionFlag = true
-	return builder
+
+func (builder * ExportTaskBuilder) FileExtension(fileExtension string) *ExportTaskBuilder  {
+  builder.fileExtension = fileExtension
+  builder.fileExtensionFlag = true
+  return builder
 }
-func (builder *ExportTaskBuilder) Token(token string) *ExportTaskBuilder {
-	builder.token = token
-	builder.tokenFlag = true
-	return builder
+func (builder * ExportTaskBuilder) Token(token string) *ExportTaskBuilder  {
+  builder.token = token
+  builder.tokenFlag = true
+  return builder
 }
-func (builder *ExportTaskBuilder) Type(type_ string) *ExportTaskBuilder {
-	builder.type_ = type_
-	builder.typeFlag = true
-	return builder
+func (builder * ExportTaskBuilder) Type(type_ string) *ExportTaskBuilder  {
+  builder.type_ = type_
+  builder.typeFlag = true
+  return builder
 }
-func (builder *ExportTaskBuilder) FileName(fileName string) *ExportTaskBuilder {
-	builder.fileName = fileName
-	builder.fileNameFlag = true
-	return builder
+func (builder * ExportTaskBuilder) FileName(fileName string) *ExportTaskBuilder  {
+  builder.fileName = fileName
+  builder.fileNameFlag = true
+  return builder
 }
-func (builder *ExportTaskBuilder) FileToken(fileToken string) *ExportTaskBuilder {
-	builder.fileToken = fileToken
-	builder.fileTokenFlag = true
-	return builder
+func (builder * ExportTaskBuilder) FileToken(fileToken string) *ExportTaskBuilder  {
+  builder.fileToken = fileToken
+  builder.fileTokenFlag = true
+  return builder
 }
-func (builder *ExportTaskBuilder) FileSize(fileSize int) *ExportTaskBuilder {
-	builder.fileSize = fileSize
-	builder.fileSizeFlag = true
-	return builder
+func (builder * ExportTaskBuilder) FileSize(fileSize int) *ExportTaskBuilder  {
+  builder.fileSize = fileSize
+  builder.fileSizeFlag = true
+  return builder
 }
-func (builder *ExportTaskBuilder) JobErrorMsg(jobErrorMsg string) *ExportTaskBuilder {
-	builder.jobErrorMsg = jobErrorMsg
-	builder.jobErrorMsgFlag = true
-	return builder
+func (builder * ExportTaskBuilder) JobErrorMsg(jobErrorMsg string) *ExportTaskBuilder  {
+  builder.jobErrorMsg = jobErrorMsg
+  builder.jobErrorMsgFlag = true
+  return builder
 }
-func (builder *ExportTaskBuilder) JobStatus(jobStatus int) *ExportTaskBuilder {
-	builder.jobStatus = jobStatus
-	builder.jobStatusFlag = true
-	return builder
-}
-
-func (builder *ExportTaskBuilder) Build() *ExportTask {
-	req := &ExportTask{}
-	if builder.fileExtensionFlag {
-		req.FileExtension = &builder.fileExtension
-
-	}
-	if builder.tokenFlag {
-		req.Token = &builder.token
-
-	}
-	if builder.typeFlag {
-		req.Type = &builder.type_
-
-	}
-	if builder.fileNameFlag {
-		req.FileName = &builder.fileName
-
-	}
-	if builder.fileTokenFlag {
-		req.FileToken = &builder.fileToken
-
-	}
-	if builder.fileSizeFlag {
-		req.FileSize = &builder.fileSize
-
-	}
-	if builder.jobErrorMsgFlag {
-		req.JobErrorMsg = &builder.jobErrorMsg
-
-	}
-	if builder.jobStatusFlag {
-		req.JobStatus = &builder.jobStatus
-
-	}
-	return req
+func (builder * ExportTaskBuilder) JobStatus(jobStatus int) *ExportTaskBuilder  {
+  builder.jobStatus = jobStatus
+  builder.jobStatusFlag = true
+  return builder
 }
 
+func (builder * ExportTaskBuilder ) Build() *ExportTask {
+   req := &ExportTask{}
+   if builder.fileExtensionFlag {
+	  req.FileExtension = &builder.fileExtension
+	  
+   }
+   if builder.tokenFlag {
+	  req.Token = &builder.token
+	  
+   }
+   if builder.typeFlag {
+	  req.Type = &builder.type_
+	  
+   }
+   if builder.fileNameFlag {
+	  req.FileName = &builder.fileName
+	  
+   }
+   if builder.fileTokenFlag {
+	  req.FileToken = &builder.fileToken
+	  
+   }
+   if builder.fileSizeFlag {
+	  req.FileSize = &builder.fileSize
+	  
+   }
+   if builder.jobErrorMsgFlag {
+	  req.JobErrorMsg = &builder.jobErrorMsg
+	  
+   }
+   if builder.jobStatusFlag {
+	  req.JobStatus = &builder.jobStatus
+	  
+   }
+   return req
+}
 // builder结束
 
 type File struct {
-	Token        *string       `json:"token,omitempty"`
-	Name         *string       `json:"name,omitempty"`
-	Type         *string       `json:"type,omitempty"`
-	ParentToken  *string       `json:"parent_token,omitempty"`
-	Url          *string       `json:"url,omitempty"`
-	ShortcutInfo *ShortcutInfo `json:"shortcut_info,omitempty"`
+	Token  *string `json:"token,omitempty"`
+	Name  *string `json:"name,omitempty"`
+	Type  *string `json:"type,omitempty"`
+	ParentToken  *string `json:"parent_token,omitempty"`
+	Url  *string `json:"url,omitempty"`
+	ShortcutInfo  *ShortcutInfo `json:"shortcut_info,omitempty"`
 }
 
 // builder开始
 type FileBuilder struct {
-	token            string
-	tokenFlag        bool
-	name             string
-	nameFlag         bool
-	type_            string
-	typeFlag         bool
-	parentToken      string
+	token  string
+	tokenFlag  bool
+	name  string
+	nameFlag  bool
+	type_  string
+	typeFlag  bool
+	parentToken  string
 	parentTokenFlag  bool
-	url              string
-	urlFlag          bool
-	shortcutInfo     *ShortcutInfo
-	shortcutInfoFlag bool
+	url  string
+	urlFlag  bool
+	shortcutInfo  *ShortcutInfo
+	shortcutInfoFlag  bool
 }
 
-func NewFileBuilder() *FileBuilder {
-	builder := &FileBuilder{}
-	return builder
+func NewFileBuilder() * FileBuilder{
+   builder := &FileBuilder{}
+   return builder
 }
 
-func (builder *FileBuilder) Token(token string) *FileBuilder {
-	builder.token = token
-	builder.tokenFlag = true
-	return builder
-}
-func (builder *FileBuilder) Name(name string) *FileBuilder {
-	builder.name = name
-	builder.nameFlag = true
-	return builder
-}
-func (builder *FileBuilder) Type(type_ string) *FileBuilder {
-	builder.type_ = type_
-	builder.typeFlag = true
-	return builder
-}
-func (builder *FileBuilder) ParentToken(parentToken string) *FileBuilder {
-	builder.parentToken = parentToken
-	builder.parentTokenFlag = true
-	return builder
-}
-func (builder *FileBuilder) Url(url string) *FileBuilder {
-	builder.url = url
-	builder.urlFlag = true
-	return builder
-}
-func (builder *FileBuilder) ShortcutInfo(shortcutInfo *ShortcutInfo) *FileBuilder {
-	builder.shortcutInfo = shortcutInfo
-	builder.shortcutInfoFlag = true
-	return builder
-}
 
-func (builder *FileBuilder) Build() *File {
-	req := &File{}
-	if builder.tokenFlag {
-		req.Token = &builder.token
-
-	}
-	if builder.nameFlag {
-		req.Name = &builder.name
-
-	}
-	if builder.typeFlag {
-		req.Type = &builder.type_
-
-	}
-	if builder.parentTokenFlag {
-		req.ParentToken = &builder.parentToken
-
-	}
-	if builder.urlFlag {
-		req.Url = &builder.url
-
-	}
-	if builder.shortcutInfoFlag {
-		req.ShortcutInfo = builder.shortcutInfo
-	}
-	return req
+func (builder * FileBuilder) Token(token string) *FileBuilder  {
+  builder.token = token
+  builder.tokenFlag = true
+  return builder
+}
+func (builder * FileBuilder) Name(name string) *FileBuilder  {
+  builder.name = name
+  builder.nameFlag = true
+  return builder
+}
+func (builder * FileBuilder) Type(type_ string) *FileBuilder  {
+  builder.type_ = type_
+  builder.typeFlag = true
+  return builder
+}
+func (builder * FileBuilder) ParentToken(parentToken string) *FileBuilder  {
+  builder.parentToken = parentToken
+  builder.parentTokenFlag = true
+  return builder
+}
+func (builder * FileBuilder) Url(url string) *FileBuilder  {
+  builder.url = url
+  builder.urlFlag = true
+  return builder
+}
+func (builder * FileBuilder) ShortcutInfo(shortcutInfo *ShortcutInfo) *FileBuilder  {
+  builder.shortcutInfo = shortcutInfo
+  builder.shortcutInfoFlag = true
+  return builder
 }
 
+func (builder * FileBuilder ) Build() *File {
+   req := &File{}
+   if builder.tokenFlag {
+	  req.Token = &builder.token
+	  
+   }
+   if builder.nameFlag {
+	  req.Name = &builder.name
+	  
+   }
+   if builder.typeFlag {
+	  req.Type = &builder.type_
+	  
+   }
+   if builder.parentTokenFlag {
+	  req.ParentToken = &builder.parentToken
+	  
+   }
+   if builder.urlFlag {
+	  req.Url = &builder.url
+	  
+   }
+   if builder.shortcutInfoFlag {
+	  req.ShortcutInfo = builder.shortcutInfo
+   }
+   return req
+}
 // builder结束
 
 type FileComment struct {
-	CommentId    *string    `json:"comment_id,omitempty"`
-	UserId       *string    `json:"user_id,omitempty"`
-	CreateTime   *int       `json:"create_time,omitempty"`
-	UpdateTime   *int       `json:"update_time,omitempty"`
-	IsSolved     *bool      `json:"is_solved,omitempty"`
-	SolvedTime   *int       `json:"solved_time,omitempty"`
-	SolverUserId *string    `json:"solver_user_id,omitempty"`
-	ReplyList    *ReplyList `json:"reply_list,omitempty"`
+	CommentId  *string `json:"comment_id,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
+	CreateTime  *int `json:"create_time,omitempty"`
+	UpdateTime  *int `json:"update_time,omitempty"`
+	IsSolved  *bool `json:"is_solved,omitempty"`
+	SolvedTime  *int `json:"solved_time,omitempty"`
+	SolverUserId  *string `json:"solver_user_id,omitempty"`
+	ReplyList  *ReplyList `json:"reply_list,omitempty"`
 }
 
 // builder开始
 type FileCommentBuilder struct {
-	commentId        string
-	commentIdFlag    bool
-	userId           string
-	userIdFlag       bool
-	createTime       int
-	createTimeFlag   bool
-	updateTime       int
-	updateTimeFlag   bool
-	isSolved         bool
-	isSolvedFlag     bool
-	solvedTime       int
-	solvedTimeFlag   bool
-	solverUserId     string
-	solverUserIdFlag bool
-	replyList        *ReplyList
-	replyListFlag    bool
+	commentId  string
+	commentIdFlag  bool
+	userId  string
+	userIdFlag  bool
+	createTime  int
+	createTimeFlag  bool
+	updateTime  int
+	updateTimeFlag  bool
+	isSolved  bool
+	isSolvedFlag  bool
+	solvedTime  int
+	solvedTimeFlag  bool
+	solverUserId  string
+	solverUserIdFlag  bool
+	replyList  *ReplyList
+	replyListFlag  bool
 }
 
-func NewFileCommentBuilder() *FileCommentBuilder {
-	builder := &FileCommentBuilder{}
-	return builder
+func NewFileCommentBuilder() * FileCommentBuilder{
+   builder := &FileCommentBuilder{}
+   return builder
 }
 
-func (builder *FileCommentBuilder) CommentId(commentId string) *FileCommentBuilder {
-	builder.commentId = commentId
-	builder.commentIdFlag = true
-	return builder
-}
-func (builder *FileCommentBuilder) UserId(userId string) *FileCommentBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
-}
-func (builder *FileCommentBuilder) CreateTime(createTime int) *FileCommentBuilder {
-	builder.createTime = createTime
-	builder.createTimeFlag = true
-	return builder
-}
-func (builder *FileCommentBuilder) UpdateTime(updateTime int) *FileCommentBuilder {
-	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
-	return builder
-}
-func (builder *FileCommentBuilder) IsSolved(isSolved bool) *FileCommentBuilder {
-	builder.isSolved = isSolved
-	builder.isSolvedFlag = true
-	return builder
-}
-func (builder *FileCommentBuilder) SolvedTime(solvedTime int) *FileCommentBuilder {
-	builder.solvedTime = solvedTime
-	builder.solvedTimeFlag = true
-	return builder
-}
-func (builder *FileCommentBuilder) SolverUserId(solverUserId string) *FileCommentBuilder {
-	builder.solverUserId = solverUserId
-	builder.solverUserIdFlag = true
-	return builder
-}
-func (builder *FileCommentBuilder) ReplyList(replyList *ReplyList) *FileCommentBuilder {
-	builder.replyList = replyList
-	builder.replyListFlag = true
-	return builder
-}
 
-func (builder *FileCommentBuilder) Build() *FileComment {
-	req := &FileComment{}
-	if builder.commentIdFlag {
-		req.CommentId = &builder.commentId
-
-	}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	if builder.createTimeFlag {
-		req.CreateTime = &builder.createTime
-
-	}
-	if builder.updateTimeFlag {
-		req.UpdateTime = &builder.updateTime
-
-	}
-	if builder.isSolvedFlag {
-		req.IsSolved = &builder.isSolved
-
-	}
-	if builder.solvedTimeFlag {
-		req.SolvedTime = &builder.solvedTime
-
-	}
-	if builder.solverUserIdFlag {
-		req.SolverUserId = &builder.solverUserId
-
-	}
-	if builder.replyListFlag {
-		req.ReplyList = builder.replyList
-	}
-	return req
+func (builder * FileCommentBuilder) CommentId(commentId string) *FileCommentBuilder  {
+  builder.commentId = commentId
+  builder.commentIdFlag = true
+  return builder
+}
+func (builder * FileCommentBuilder) UserId(userId string) *FileCommentBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
+}
+func (builder * FileCommentBuilder) CreateTime(createTime int) *FileCommentBuilder  {
+  builder.createTime = createTime
+  builder.createTimeFlag = true
+  return builder
+}
+func (builder * FileCommentBuilder) UpdateTime(updateTime int) *FileCommentBuilder  {
+  builder.updateTime = updateTime
+  builder.updateTimeFlag = true
+  return builder
+}
+func (builder * FileCommentBuilder) IsSolved(isSolved bool) *FileCommentBuilder  {
+  builder.isSolved = isSolved
+  builder.isSolvedFlag = true
+  return builder
+}
+func (builder * FileCommentBuilder) SolvedTime(solvedTime int) *FileCommentBuilder  {
+  builder.solvedTime = solvedTime
+  builder.solvedTimeFlag = true
+  return builder
+}
+func (builder * FileCommentBuilder) SolverUserId(solverUserId string) *FileCommentBuilder  {
+  builder.solverUserId = solverUserId
+  builder.solverUserIdFlag = true
+  return builder
+}
+func (builder * FileCommentBuilder) ReplyList(replyList *ReplyList) *FileCommentBuilder  {
+  builder.replyList = replyList
+  builder.replyListFlag = true
+  return builder
 }
 
+func (builder * FileCommentBuilder ) Build() *FileComment {
+   req := &FileComment{}
+   if builder.commentIdFlag {
+	  req.CommentId = &builder.commentId
+	  
+   }
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.createTimeFlag {
+	  req.CreateTime = &builder.createTime
+	  
+   }
+   if builder.updateTimeFlag {
+	  req.UpdateTime = &builder.updateTime
+	  
+   }
+   if builder.isSolvedFlag {
+	  req.IsSolved = &builder.isSolved
+	  
+   }
+   if builder.solvedTimeFlag {
+	  req.SolvedTime = &builder.solvedTime
+	  
+   }
+   if builder.solverUserIdFlag {
+	  req.SolverUserId = &builder.solverUserId
+	  
+   }
+   if builder.replyListFlag {
+	  req.ReplyList = builder.replyList
+   }
+   return req
+}
 // builder结束
 
 type FileCommentReply struct {
-	ReplyId    *string       `json:"reply_id,omitempty"`
-	UserId     *string       `json:"user_id,omitempty"`
-	CreateTime *int          `json:"create_time,omitempty"`
-	UpdateTime *int          `json:"update_time,omitempty"`
-	Content    *ReplyContent `json:"content,omitempty"`
+	ReplyId  *string `json:"reply_id,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
+	CreateTime  *int `json:"create_time,omitempty"`
+	UpdateTime  *int `json:"update_time,omitempty"`
+	Content  *ReplyContent `json:"content,omitempty"`
 }
 
 // builder开始
 type FileCommentReplyBuilder struct {
-	replyId        string
-	replyIdFlag    bool
-	userId         string
-	userIdFlag     bool
-	createTime     int
-	createTimeFlag bool
-	updateTime     int
-	updateTimeFlag bool
-	content        *ReplyContent
-	contentFlag    bool
+	replyId  string
+	replyIdFlag  bool
+	userId  string
+	userIdFlag  bool
+	createTime  int
+	createTimeFlag  bool
+	updateTime  int
+	updateTimeFlag  bool
+	content  *ReplyContent
+	contentFlag  bool
 }
 
-func NewFileCommentReplyBuilder() *FileCommentReplyBuilder {
-	builder := &FileCommentReplyBuilder{}
-	return builder
+func NewFileCommentReplyBuilder() * FileCommentReplyBuilder{
+   builder := &FileCommentReplyBuilder{}
+   return builder
 }
 
-func (builder *FileCommentReplyBuilder) ReplyId(replyId string) *FileCommentReplyBuilder {
-	builder.replyId = replyId
-	builder.replyIdFlag = true
-	return builder
-}
-func (builder *FileCommentReplyBuilder) UserId(userId string) *FileCommentReplyBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
-}
-func (builder *FileCommentReplyBuilder) CreateTime(createTime int) *FileCommentReplyBuilder {
-	builder.createTime = createTime
-	builder.createTimeFlag = true
-	return builder
-}
-func (builder *FileCommentReplyBuilder) UpdateTime(updateTime int) *FileCommentReplyBuilder {
-	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
-	return builder
-}
-func (builder *FileCommentReplyBuilder) Content(content *ReplyContent) *FileCommentReplyBuilder {
-	builder.content = content
-	builder.contentFlag = true
-	return builder
-}
 
-func (builder *FileCommentReplyBuilder) Build() *FileCommentReply {
-	req := &FileCommentReply{}
-	if builder.replyIdFlag {
-		req.ReplyId = &builder.replyId
-
-	}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	if builder.createTimeFlag {
-		req.CreateTime = &builder.createTime
-
-	}
-	if builder.updateTimeFlag {
-		req.UpdateTime = &builder.updateTime
-
-	}
-	if builder.contentFlag {
-		req.Content = builder.content
-	}
-	return req
+func (builder * FileCommentReplyBuilder) ReplyId(replyId string) *FileCommentReplyBuilder  {
+  builder.replyId = replyId
+  builder.replyIdFlag = true
+  return builder
+}
+func (builder * FileCommentReplyBuilder) UserId(userId string) *FileCommentReplyBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
+}
+func (builder * FileCommentReplyBuilder) CreateTime(createTime int) *FileCommentReplyBuilder  {
+  builder.createTime = createTime
+  builder.createTimeFlag = true
+  return builder
+}
+func (builder * FileCommentReplyBuilder) UpdateTime(updateTime int) *FileCommentReplyBuilder  {
+  builder.updateTime = updateTime
+  builder.updateTimeFlag = true
+  return builder
+}
+func (builder * FileCommentReplyBuilder) Content(content *ReplyContent) *FileCommentReplyBuilder  {
+  builder.content = content
+  builder.contentFlag = true
+  return builder
 }
 
+func (builder * FileCommentReplyBuilder ) Build() *FileCommentReply {
+   req := &FileCommentReply{}
+   if builder.replyIdFlag {
+	  req.ReplyId = &builder.replyId
+	  
+   }
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.createTimeFlag {
+	  req.CreateTime = &builder.createTime
+	  
+   }
+   if builder.updateTimeFlag {
+	  req.UpdateTime = &builder.updateTime
+	  
+   }
+   if builder.contentFlag {
+	  req.Content = builder.content
+   }
+   return req
+}
 // builder结束
 
 type FileSubscription struct {
-	SubscriptionId   *string `json:"subscription_id,omitempty"`
-	SubscriptionType *string `json:"subscription_type,omitempty"`
-	IsSubcribe       *bool   `json:"is_subcribe,omitempty"`
-	FileType         *string `json:"file_type,omitempty"`
+	SubscriptionId  *string `json:"subscription_id,omitempty"`
+	SubscriptionType  *string `json:"subscription_type,omitempty"`
+	IsSubcribe  *bool `json:"is_subcribe,omitempty"`
+	FileType  *string `json:"file_type,omitempty"`
 }
 
 // builder开始
 type FileSubscriptionBuilder struct {
-	subscriptionId       string
-	subscriptionIdFlag   bool
-	subscriptionType     string
-	subscriptionTypeFlag bool
-	isSubcribe           bool
-	isSubcribeFlag       bool
-	fileType             string
-	fileTypeFlag         bool
+	subscriptionId  string
+	subscriptionIdFlag  bool
+	subscriptionType  string
+	subscriptionTypeFlag  bool
+	isSubcribe  bool
+	isSubcribeFlag  bool
+	fileType  string
+	fileTypeFlag  bool
 }
 
-func NewFileSubscriptionBuilder() *FileSubscriptionBuilder {
-	builder := &FileSubscriptionBuilder{}
-	return builder
+func NewFileSubscriptionBuilder() * FileSubscriptionBuilder{
+   builder := &FileSubscriptionBuilder{}
+   return builder
 }
 
-func (builder *FileSubscriptionBuilder) SubscriptionId(subscriptionId string) *FileSubscriptionBuilder {
-	builder.subscriptionId = subscriptionId
-	builder.subscriptionIdFlag = true
-	return builder
+
+func (builder * FileSubscriptionBuilder) SubscriptionId(subscriptionId string) *FileSubscriptionBuilder  {
+  builder.subscriptionId = subscriptionId
+  builder.subscriptionIdFlag = true
+  return builder
 }
-func (builder *FileSubscriptionBuilder) SubscriptionType(subscriptionType string) *FileSubscriptionBuilder {
-	builder.subscriptionType = subscriptionType
-	builder.subscriptionTypeFlag = true
-	return builder
+func (builder * FileSubscriptionBuilder) SubscriptionType(subscriptionType string) *FileSubscriptionBuilder  {
+  builder.subscriptionType = subscriptionType
+  builder.subscriptionTypeFlag = true
+  return builder
 }
-func (builder *FileSubscriptionBuilder) IsSubcribe(isSubcribe bool) *FileSubscriptionBuilder {
-	builder.isSubcribe = isSubcribe
-	builder.isSubcribeFlag = true
-	return builder
+func (builder * FileSubscriptionBuilder) IsSubcribe(isSubcribe bool) *FileSubscriptionBuilder  {
+  builder.isSubcribe = isSubcribe
+  builder.isSubcribeFlag = true
+  return builder
 }
-func (builder *FileSubscriptionBuilder) FileType(fileType string) *FileSubscriptionBuilder {
-	builder.fileType = fileType
-	builder.fileTypeFlag = true
-	return builder
-}
-
-func (builder *FileSubscriptionBuilder) Build() *FileSubscription {
-	req := &FileSubscription{}
-	if builder.subscriptionIdFlag {
-		req.SubscriptionId = &builder.subscriptionId
-
-	}
-	if builder.subscriptionTypeFlag {
-		req.SubscriptionType = &builder.subscriptionType
-
-	}
-	if builder.isSubcribeFlag {
-		req.IsSubcribe = &builder.isSubcribe
-
-	}
-	if builder.fileTypeFlag {
-		req.FileType = &builder.fileType
-
-	}
-	return req
+func (builder * FileSubscriptionBuilder) FileType(fileType string) *FileSubscriptionBuilder  {
+  builder.fileType = fileType
+  builder.fileTypeFlag = true
+  return builder
 }
 
+func (builder * FileSubscriptionBuilder ) Build() *FileSubscription {
+   req := &FileSubscription{}
+   if builder.subscriptionIdFlag {
+	  req.SubscriptionId = &builder.subscriptionId
+	  
+   }
+   if builder.subscriptionTypeFlag {
+	  req.SubscriptionType = &builder.subscriptionType
+	  
+   }
+   if builder.isSubcribeFlag {
+	  req.IsSubcribe = &builder.isSubcribe
+	  
+   }
+   if builder.fileTypeFlag {
+	  req.FileType = &builder.fileType
+	  
+   }
+   return req
+}
 // builder结束
 
 type FileSearch struct {
-	DocsToken *string `json:"docs_token,omitempty"`
+	DocsToken  *string `json:"docs_token,omitempty"`
 	DocsType  *string `json:"docs_type,omitempty"`
-	Title     *string `json:"title,omitempty"`
-	OwnerId   *string `json:"owner_id,omitempty"`
+	Title  *string `json:"title,omitempty"`
+	OwnerId  *string `json:"owner_id,omitempty"`
 }
 
 // builder开始
 type FileSearchBuilder struct {
-	docsToken     string
-	docsTokenFlag bool
-	docsType      string
+	docsToken  string
+	docsTokenFlag  bool
+	docsType  string
 	docsTypeFlag  bool
-	title         string
-	titleFlag     bool
-	ownerId       string
-	ownerIdFlag   bool
+	title  string
+	titleFlag  bool
+	ownerId  string
+	ownerIdFlag  bool
 }
 
-func NewFileSearchBuilder() *FileSearchBuilder {
-	builder := &FileSearchBuilder{}
-	return builder
+func NewFileSearchBuilder() * FileSearchBuilder{
+   builder := &FileSearchBuilder{}
+   return builder
 }
 
-func (builder *FileSearchBuilder) DocsToken(docsToken string) *FileSearchBuilder {
-	builder.docsToken = docsToken
-	builder.docsTokenFlag = true
-	return builder
+
+func (builder * FileSearchBuilder) DocsToken(docsToken string) *FileSearchBuilder  {
+  builder.docsToken = docsToken
+  builder.docsTokenFlag = true
+  return builder
 }
-func (builder *FileSearchBuilder) DocsType(docsType string) *FileSearchBuilder {
-	builder.docsType = docsType
-	builder.docsTypeFlag = true
-	return builder
+func (builder * FileSearchBuilder) DocsType(docsType string) *FileSearchBuilder  {
+  builder.docsType = docsType
+  builder.docsTypeFlag = true
+  return builder
 }
-func (builder *FileSearchBuilder) Title(title string) *FileSearchBuilder {
-	builder.title = title
-	builder.titleFlag = true
-	return builder
+func (builder * FileSearchBuilder) Title(title string) *FileSearchBuilder  {
+  builder.title = title
+  builder.titleFlag = true
+  return builder
 }
-func (builder *FileSearchBuilder) OwnerId(ownerId string) *FileSearchBuilder {
-	builder.ownerId = ownerId
-	builder.ownerIdFlag = true
-	return builder
-}
-
-func (builder *FileSearchBuilder) Build() *FileSearch {
-	req := &FileSearch{}
-	if builder.docsTokenFlag {
-		req.DocsToken = &builder.docsToken
-
-	}
-	if builder.docsTypeFlag {
-		req.DocsType = &builder.docsType
-
-	}
-	if builder.titleFlag {
-		req.Title = &builder.title
-
-	}
-	if builder.ownerIdFlag {
-		req.OwnerId = &builder.ownerId
-
-	}
-	return req
+func (builder * FileSearchBuilder) OwnerId(ownerId string) *FileSearchBuilder  {
+  builder.ownerId = ownerId
+  builder.ownerIdFlag = true
+  return builder
 }
 
+func (builder * FileSearchBuilder ) Build() *FileSearch {
+   req := &FileSearch{}
+   if builder.docsTokenFlag {
+	  req.DocsToken = &builder.docsToken
+	  
+   }
+   if builder.docsTypeFlag {
+	  req.DocsType = &builder.docsType
+	  
+   }
+   if builder.titleFlag {
+	  req.Title = &builder.title
+	  
+   }
+   if builder.ownerIdFlag {
+	  req.OwnerId = &builder.ownerId
+	  
+   }
+   return req
+}
 // builder结束
 
 type FileStatistics struct {
-	Uv        *int `json:"uv,omitempty"`
-	Pv        *int `json:"pv,omitempty"`
-	LikeCount *int `json:"like_count,omitempty"`
-	Timestamp *int `json:"timestamp,omitempty"`
+	Uv  *int `json:"uv,omitempty"`
+	Pv  *int `json:"pv,omitempty"`
+	LikeCount  *int `json:"like_count,omitempty"`
+	Timestamp  *int `json:"timestamp,omitempty"`
 }
 
 // builder开始
 type FileStatisticsBuilder struct {
-	uv            int
-	uvFlag        bool
-	pv            int
-	pvFlag        bool
-	likeCount     int
-	likeCountFlag bool
-	timestamp     int
-	timestampFlag bool
+	uv  int
+	uvFlag  bool
+	pv  int
+	pvFlag  bool
+	likeCount  int
+	likeCountFlag  bool
+	timestamp  int
+	timestampFlag  bool
 }
 
-func NewFileStatisticsBuilder() *FileStatisticsBuilder {
-	builder := &FileStatisticsBuilder{}
-	return builder
+func NewFileStatisticsBuilder() * FileStatisticsBuilder{
+   builder := &FileStatisticsBuilder{}
+   return builder
 }
 
-func (builder *FileStatisticsBuilder) Uv(uv int) *FileStatisticsBuilder {
-	builder.uv = uv
-	builder.uvFlag = true
-	return builder
+
+func (builder * FileStatisticsBuilder) Uv(uv int) *FileStatisticsBuilder  {
+  builder.uv = uv
+  builder.uvFlag = true
+  return builder
 }
-func (builder *FileStatisticsBuilder) Pv(pv int) *FileStatisticsBuilder {
-	builder.pv = pv
-	builder.pvFlag = true
-	return builder
+func (builder * FileStatisticsBuilder) Pv(pv int) *FileStatisticsBuilder  {
+  builder.pv = pv
+  builder.pvFlag = true
+  return builder
 }
-func (builder *FileStatisticsBuilder) LikeCount(likeCount int) *FileStatisticsBuilder {
-	builder.likeCount = likeCount
-	builder.likeCountFlag = true
-	return builder
+func (builder * FileStatisticsBuilder) LikeCount(likeCount int) *FileStatisticsBuilder  {
+  builder.likeCount = likeCount
+  builder.likeCountFlag = true
+  return builder
 }
-func (builder *FileStatisticsBuilder) Timestamp(timestamp int) *FileStatisticsBuilder {
-	builder.timestamp = timestamp
-	builder.timestampFlag = true
-	return builder
-}
-
-func (builder *FileStatisticsBuilder) Build() *FileStatistics {
-	req := &FileStatistics{}
-	if builder.uvFlag {
-		req.Uv = &builder.uv
-
-	}
-	if builder.pvFlag {
-		req.Pv = &builder.pv
-
-	}
-	if builder.likeCountFlag {
-		req.LikeCount = &builder.likeCount
-
-	}
-	if builder.timestampFlag {
-		req.Timestamp = &builder.timestamp
-
-	}
-	return req
+func (builder * FileStatisticsBuilder) Timestamp(timestamp int) *FileStatisticsBuilder  {
+  builder.timestamp = timestamp
+  builder.timestampFlag = true
+  return builder
 }
 
+func (builder * FileStatisticsBuilder ) Build() *FileStatistics {
+   req := &FileStatistics{}
+   if builder.uvFlag {
+	  req.Uv = &builder.uv
+	  
+   }
+   if builder.pvFlag {
+	  req.Pv = &builder.pv
+	  
+   }
+   if builder.likeCountFlag {
+	  req.LikeCount = &builder.likeCount
+	  
+   }
+   if builder.timestampFlag {
+	  req.Timestamp = &builder.timestamp
+	  
+   }
+   return req
+}
 // builder结束
 
 type FileUploadInfo struct {
-	FileName   *string `json:"file_name,omitempty"`
-	ParentType *string `json:"parent_type,omitempty"`
-	ParentNode *string `json:"parent_node,omitempty"`
-	Size       *int    `json:"size,omitempty"`
+	FileName  *string `json:"file_name,omitempty"`
+	ParentType  *string `json:"parent_type,omitempty"`
+	ParentNode  *string `json:"parent_node,omitempty"`
+	Size  *int `json:"size,omitempty"`
 }
 
 // builder开始
 type FileUploadInfoBuilder struct {
-	fileName       string
-	fileNameFlag   bool
-	parentType     string
-	parentTypeFlag bool
-	parentNode     string
-	parentNodeFlag bool
-	size           int
-	sizeFlag       bool
+	fileName  string
+	fileNameFlag  bool
+	parentType  string
+	parentTypeFlag  bool
+	parentNode  string
+	parentNodeFlag  bool
+	size  int
+	sizeFlag  bool
 }
 
-func NewFileUploadInfoBuilder() *FileUploadInfoBuilder {
-	builder := &FileUploadInfoBuilder{}
-	return builder
+func NewFileUploadInfoBuilder() * FileUploadInfoBuilder{
+   builder := &FileUploadInfoBuilder{}
+   return builder
 }
 
-func (builder *FileUploadInfoBuilder) FileName(fileName string) *FileUploadInfoBuilder {
-	builder.fileName = fileName
-	builder.fileNameFlag = true
-	return builder
+
+func (builder * FileUploadInfoBuilder) FileName(fileName string) *FileUploadInfoBuilder  {
+  builder.fileName = fileName
+  builder.fileNameFlag = true
+  return builder
 }
-func (builder *FileUploadInfoBuilder) ParentType(parentType string) *FileUploadInfoBuilder {
-	builder.parentType = parentType
-	builder.parentTypeFlag = true
-	return builder
+func (builder * FileUploadInfoBuilder) ParentType(parentType string) *FileUploadInfoBuilder  {
+  builder.parentType = parentType
+  builder.parentTypeFlag = true
+  return builder
 }
-func (builder *FileUploadInfoBuilder) ParentNode(parentNode string) *FileUploadInfoBuilder {
-	builder.parentNode = parentNode
-	builder.parentNodeFlag = true
-	return builder
+func (builder * FileUploadInfoBuilder) ParentNode(parentNode string) *FileUploadInfoBuilder  {
+  builder.parentNode = parentNode
+  builder.parentNodeFlag = true
+  return builder
 }
-func (builder *FileUploadInfoBuilder) Size(size int) *FileUploadInfoBuilder {
-	builder.size = size
-	builder.sizeFlag = true
-	return builder
-}
-
-func (builder *FileUploadInfoBuilder) Build() *FileUploadInfo {
-	req := &FileUploadInfo{}
-	if builder.fileNameFlag {
-		req.FileName = &builder.fileName
-
-	}
-	if builder.parentTypeFlag {
-		req.ParentType = &builder.parentType
-
-	}
-	if builder.parentNodeFlag {
-		req.ParentNode = &builder.parentNode
-
-	}
-	if builder.sizeFlag {
-		req.Size = &builder.size
-
-	}
-	return req
+func (builder * FileUploadInfoBuilder) Size(size int) *FileUploadInfoBuilder  {
+  builder.size = size
+  builder.sizeFlag = true
+  return builder
 }
 
+func (builder * FileUploadInfoBuilder ) Build() *FileUploadInfo {
+   req := &FileUploadInfo{}
+   if builder.fileNameFlag {
+	  req.FileName = &builder.fileName
+	  
+   }
+   if builder.parentTypeFlag {
+	  req.ParentType = &builder.parentType
+	  
+   }
+   if builder.parentNodeFlag {
+	  req.ParentNode = &builder.parentNode
+	  
+   }
+   if builder.sizeFlag {
+	  req.Size = &builder.size
+	  
+   }
+   return req
+}
 // builder结束
 
 type ImportTask struct {
-	Ticket        *string               `json:"ticket,omitempty"`
-	FileExtension *string               `json:"file_extension,omitempty"`
-	FileToken     *string               `json:"file_token,omitempty"`
-	Type          *string               `json:"type,omitempty"`
-	FileName      *string               `json:"file_name,omitempty"`
-	Point         *ImportTaskMountPoint `json:"point,omitempty"`
-	JobStatus     *int                  `json:"job_status,omitempty"`
-	JobErrorMsg   *string               `json:"job_error_msg,omitempty"`
-	Token         *string               `json:"token,omitempty"`
-	Url           *string               `json:"url,omitempty"`
-	Extra         []string              `json:"extra,omitempty"`
+	Ticket  *string `json:"ticket,omitempty"`
+	FileExtension  *string `json:"file_extension,omitempty"`
+	FileToken  *string `json:"file_token,omitempty"`
+	Type  *string `json:"type,omitempty"`
+	FileName  *string `json:"file_name,omitempty"`
+	Point  *ImportTaskMountPoint `json:"point,omitempty"`
+	JobStatus  *int `json:"job_status,omitempty"`
+	JobErrorMsg  *string `json:"job_error_msg,omitempty"`
+	Token  *string `json:"token,omitempty"`
+	Url  *string `json:"url,omitempty"`
+	Extra  []string `json:"extra,omitempty"`
 }
 
 // builder开始
 type ImportTaskBuilder struct {
-	ticket            string
-	ticketFlag        bool
-	fileExtension     string
-	fileExtensionFlag bool
-	fileToken         string
-	fileTokenFlag     bool
-	type_             string
-	typeFlag          bool
-	fileName          string
-	fileNameFlag      bool
-	point             *ImportTaskMountPoint
-	pointFlag         bool
-	jobStatus         int
-	jobStatusFlag     bool
-	jobErrorMsg       string
-	jobErrorMsgFlag   bool
-	token             string
-	tokenFlag         bool
-	url               string
-	urlFlag           bool
-	extra             []string
-	extraFlag         bool
+	ticket  string
+	ticketFlag  bool
+	fileExtension  string
+	fileExtensionFlag  bool
+	fileToken  string
+	fileTokenFlag  bool
+	type_  string
+	typeFlag  bool
+	fileName  string
+	fileNameFlag  bool
+	point  *ImportTaskMountPoint
+	pointFlag  bool
+	jobStatus  int
+	jobStatusFlag  bool
+	jobErrorMsg  string
+	jobErrorMsgFlag  bool
+	token  string
+	tokenFlag  bool
+	url  string
+	urlFlag  bool
+	extra  []string
+	extraFlag  bool
 }
 
-func NewImportTaskBuilder() *ImportTaskBuilder {
-	builder := &ImportTaskBuilder{}
-	return builder
+func NewImportTaskBuilder() * ImportTaskBuilder{
+   builder := &ImportTaskBuilder{}
+   return builder
 }
 
-func (builder *ImportTaskBuilder) Ticket(ticket string) *ImportTaskBuilder {
-	builder.ticket = ticket
-	builder.ticketFlag = true
-	return builder
+
+func (builder * ImportTaskBuilder) Ticket(ticket string) *ImportTaskBuilder  {
+  builder.ticket = ticket
+  builder.ticketFlag = true
+  return builder
 }
-func (builder *ImportTaskBuilder) FileExtension(fileExtension string) *ImportTaskBuilder {
-	builder.fileExtension = fileExtension
-	builder.fileExtensionFlag = true
-	return builder
+func (builder * ImportTaskBuilder) FileExtension(fileExtension string) *ImportTaskBuilder  {
+  builder.fileExtension = fileExtension
+  builder.fileExtensionFlag = true
+  return builder
 }
-func (builder *ImportTaskBuilder) FileToken(fileToken string) *ImportTaskBuilder {
-	builder.fileToken = fileToken
-	builder.fileTokenFlag = true
-	return builder
+func (builder * ImportTaskBuilder) FileToken(fileToken string) *ImportTaskBuilder  {
+  builder.fileToken = fileToken
+  builder.fileTokenFlag = true
+  return builder
 }
-func (builder *ImportTaskBuilder) Type(type_ string) *ImportTaskBuilder {
-	builder.type_ = type_
-	builder.typeFlag = true
-	return builder
+func (builder * ImportTaskBuilder) Type(type_ string) *ImportTaskBuilder  {
+  builder.type_ = type_
+  builder.typeFlag = true
+  return builder
 }
-func (builder *ImportTaskBuilder) FileName(fileName string) *ImportTaskBuilder {
-	builder.fileName = fileName
-	builder.fileNameFlag = true
-	return builder
+func (builder * ImportTaskBuilder) FileName(fileName string) *ImportTaskBuilder  {
+  builder.fileName = fileName
+  builder.fileNameFlag = true
+  return builder
 }
-func (builder *ImportTaskBuilder) Point(point *ImportTaskMountPoint) *ImportTaskBuilder {
-	builder.point = point
-	builder.pointFlag = true
-	return builder
+func (builder * ImportTaskBuilder) Point(point *ImportTaskMountPoint) *ImportTaskBuilder  {
+  builder.point = point
+  builder.pointFlag = true
+  return builder
 }
-func (builder *ImportTaskBuilder) JobStatus(jobStatus int) *ImportTaskBuilder {
-	builder.jobStatus = jobStatus
-	builder.jobStatusFlag = true
-	return builder
+func (builder * ImportTaskBuilder) JobStatus(jobStatus int) *ImportTaskBuilder  {
+  builder.jobStatus = jobStatus
+  builder.jobStatusFlag = true
+  return builder
 }
-func (builder *ImportTaskBuilder) JobErrorMsg(jobErrorMsg string) *ImportTaskBuilder {
-	builder.jobErrorMsg = jobErrorMsg
-	builder.jobErrorMsgFlag = true
-	return builder
+func (builder * ImportTaskBuilder) JobErrorMsg(jobErrorMsg string) *ImportTaskBuilder  {
+  builder.jobErrorMsg = jobErrorMsg
+  builder.jobErrorMsgFlag = true
+  return builder
 }
-func (builder *ImportTaskBuilder) Token(token string) *ImportTaskBuilder {
-	builder.token = token
-	builder.tokenFlag = true
-	return builder
+func (builder * ImportTaskBuilder) Token(token string) *ImportTaskBuilder  {
+  builder.token = token
+  builder.tokenFlag = true
+  return builder
 }
-func (builder *ImportTaskBuilder) Url(url string) *ImportTaskBuilder {
-	builder.url = url
-	builder.urlFlag = true
-	return builder
+func (builder * ImportTaskBuilder) Url(url string) *ImportTaskBuilder  {
+  builder.url = url
+  builder.urlFlag = true
+  return builder
 }
-func (builder *ImportTaskBuilder) Extra(extra []string) *ImportTaskBuilder {
-	builder.extra = extra
-	builder.extraFlag = true
-	return builder
+func (builder * ImportTaskBuilder) Extra(extra []string) *ImportTaskBuilder  {
+  builder.extra = extra
+  builder.extraFlag = true
+  return builder
 }
 
-func (builder *ImportTaskBuilder) Build() *ImportTask {
-	req := &ImportTask{}
-	if builder.ticketFlag {
-		req.Ticket = &builder.ticket
-
-	}
-	if builder.fileExtensionFlag {
-		req.FileExtension = &builder.fileExtension
-
-	}
-	if builder.fileTokenFlag {
-		req.FileToken = &builder.fileToken
-
-	}
-	if builder.typeFlag {
-		req.Type = &builder.type_
-
-	}
-	if builder.fileNameFlag {
-		req.FileName = &builder.fileName
-
-	}
-	if builder.pointFlag {
-		req.Point = builder.point
-	}
-	if builder.jobStatusFlag {
-		req.JobStatus = &builder.jobStatus
-
-	}
-	if builder.jobErrorMsgFlag {
-		req.JobErrorMsg = &builder.jobErrorMsg
-
-	}
-	if builder.tokenFlag {
-		req.Token = &builder.token
-
-	}
-	if builder.urlFlag {
-		req.Url = &builder.url
-
-	}
-	if builder.extraFlag {
-		req.Extra = builder.extra
-	}
-	return req
+func (builder * ImportTaskBuilder ) Build() *ImportTask {
+   req := &ImportTask{}
+   if builder.ticketFlag {
+	  req.Ticket = &builder.ticket
+	  
+   }
+   if builder.fileExtensionFlag {
+	  req.FileExtension = &builder.fileExtension
+	  
+   }
+   if builder.fileTokenFlag {
+	  req.FileToken = &builder.fileToken
+	  
+   }
+   if builder.typeFlag {
+	  req.Type = &builder.type_
+	  
+   }
+   if builder.fileNameFlag {
+	  req.FileName = &builder.fileName
+	  
+   }
+   if builder.pointFlag {
+	  req.Point = builder.point
+   }
+   if builder.jobStatusFlag {
+	  req.JobStatus = &builder.jobStatus
+	  
+   }
+   if builder.jobErrorMsgFlag {
+	  req.JobErrorMsg = &builder.jobErrorMsg
+	  
+   }
+   if builder.tokenFlag {
+	  req.Token = &builder.token
+	  
+   }
+   if builder.urlFlag {
+	  req.Url = &builder.url
+	  
+   }
+   if builder.extraFlag {
+	  req.Extra = builder.extra
+   }
+   return req
 }
-
 // builder结束
 
 type ImportTaskMountPoint struct {
-	MountType *int    `json:"mount_type,omitempty"`
+	MountType  *int `json:"mount_type,omitempty"`
 	MountKey  *string `json:"mount_key,omitempty"`
 }
 
 // builder开始
 type ImportTaskMountPointBuilder struct {
-	mountType     int
-	mountTypeFlag bool
-	mountKey      string
+	mountType  int
+	mountTypeFlag  bool
+	mountKey  string
 	mountKeyFlag  bool
 }
 
-func NewImportTaskMountPointBuilder() *ImportTaskMountPointBuilder {
-	builder := &ImportTaskMountPointBuilder{}
-	return builder
+func NewImportTaskMountPointBuilder() * ImportTaskMountPointBuilder{
+   builder := &ImportTaskMountPointBuilder{}
+   return builder
 }
 
-func (builder *ImportTaskMountPointBuilder) MountType(mountType int) *ImportTaskMountPointBuilder {
-	builder.mountType = mountType
-	builder.mountTypeFlag = true
-	return builder
+
+func (builder * ImportTaskMountPointBuilder) MountType(mountType int) *ImportTaskMountPointBuilder  {
+  builder.mountType = mountType
+  builder.mountTypeFlag = true
+  return builder
 }
-func (builder *ImportTaskMountPointBuilder) MountKey(mountKey string) *ImportTaskMountPointBuilder {
-	builder.mountKey = mountKey
-	builder.mountKeyFlag = true
-	return builder
-}
-
-func (builder *ImportTaskMountPointBuilder) Build() *ImportTaskMountPoint {
-	req := &ImportTaskMountPoint{}
-	if builder.mountTypeFlag {
-		req.MountType = &builder.mountType
-
-	}
-	if builder.mountKeyFlag {
-		req.MountKey = &builder.mountKey
-
-	}
-	return req
+func (builder * ImportTaskMountPointBuilder) MountKey(mountKey string) *ImportTaskMountPointBuilder  {
+  builder.mountKey = mountKey
+  builder.mountKeyFlag = true
+  return builder
 }
 
+func (builder * ImportTaskMountPointBuilder ) Build() *ImportTaskMountPoint {
+   req := &ImportTaskMountPoint{}
+   if builder.mountTypeFlag {
+	  req.MountType = &builder.mountType
+	  
+   }
+   if builder.mountKeyFlag {
+	  req.MountKey = &builder.mountKey
+	  
+   }
+   return req
+}
 // builder结束
 
 type Media struct {
-	FileToken *string `json:"file_token,omitempty"`
+	FileToken  *string `json:"file_token,omitempty"`
 	FileName  *string `json:"file_name,omitempty"`
-	Size      *int    `json:"size,omitempty"`
+	Size  *int `json:"size,omitempty"`
 	MimeType  *string `json:"mime_type,omitempty"`
 }
 
 // builder开始
 type MediaBuilder struct {
-	fileToken     string
-	fileTokenFlag bool
-	fileName      string
+	fileToken  string
+	fileTokenFlag  bool
+	fileName  string
 	fileNameFlag  bool
-	size          int
-	sizeFlag      bool
-	mimeType      string
+	size  int
+	sizeFlag  bool
+	mimeType  string
 	mimeTypeFlag  bool
 }
 
-func NewMediaBuilder() *MediaBuilder {
-	builder := &MediaBuilder{}
-	return builder
+func NewMediaBuilder() * MediaBuilder{
+   builder := &MediaBuilder{}
+   return builder
 }
 
-func (builder *MediaBuilder) FileToken(fileToken string) *MediaBuilder {
-	builder.fileToken = fileToken
-	builder.fileTokenFlag = true
-	return builder
+
+func (builder * MediaBuilder) FileToken(fileToken string) *MediaBuilder  {
+  builder.fileToken = fileToken
+  builder.fileTokenFlag = true
+  return builder
 }
-func (builder *MediaBuilder) FileName(fileName string) *MediaBuilder {
-	builder.fileName = fileName
-	builder.fileNameFlag = true
-	return builder
+func (builder * MediaBuilder) FileName(fileName string) *MediaBuilder  {
+  builder.fileName = fileName
+  builder.fileNameFlag = true
+  return builder
 }
-func (builder *MediaBuilder) Size(size int) *MediaBuilder {
-	builder.size = size
-	builder.sizeFlag = true
-	return builder
+func (builder * MediaBuilder) Size(size int) *MediaBuilder  {
+  builder.size = size
+  builder.sizeFlag = true
+  return builder
 }
-func (builder *MediaBuilder) MimeType(mimeType string) *MediaBuilder {
-	builder.mimeType = mimeType
-	builder.mimeTypeFlag = true
-	return builder
-}
-
-func (builder *MediaBuilder) Build() *Media {
-	req := &Media{}
-	if builder.fileTokenFlag {
-		req.FileToken = &builder.fileToken
-
-	}
-	if builder.fileNameFlag {
-		req.FileName = &builder.fileName
-
-	}
-	if builder.sizeFlag {
-		req.Size = &builder.size
-
-	}
-	if builder.mimeTypeFlag {
-		req.MimeType = &builder.mimeType
-
-	}
-	return req
+func (builder * MediaBuilder) MimeType(mimeType string) *MediaBuilder  {
+  builder.mimeType = mimeType
+  builder.mimeTypeFlag = true
+  return builder
 }
 
+func (builder * MediaBuilder ) Build() *Media {
+   req := &Media{}
+   if builder.fileTokenFlag {
+	  req.FileToken = &builder.fileToken
+	  
+   }
+   if builder.fileNameFlag {
+	  req.FileName = &builder.fileName
+	  
+   }
+   if builder.sizeFlag {
+	  req.Size = &builder.size
+	  
+   }
+   if builder.mimeTypeFlag {
+	  req.MimeType = &builder.mimeType
+	  
+   }
+   return req
+}
 // builder结束
 
 type MediaUploadInfo struct {
-	FileName   *string `json:"file_name,omitempty"`
-	ParentType *string `json:"parent_type,omitempty"`
-	ParentNode *string `json:"parent_node,omitempty"`
-	Size       *int    `json:"size,omitempty"`
-	Extra      *string `json:"extra,omitempty"`
+	FileName  *string `json:"file_name,omitempty"`
+	ParentType  *string `json:"parent_type,omitempty"`
+	ParentNode  *string `json:"parent_node,omitempty"`
+	Size  *int `json:"size,omitempty"`
+	Extra  *string `json:"extra,omitempty"`
 }
 
 // builder开始
 type MediaUploadInfoBuilder struct {
-	fileName       string
-	fileNameFlag   bool
-	parentType     string
-	parentTypeFlag bool
-	parentNode     string
-	parentNodeFlag bool
-	size           int
-	sizeFlag       bool
-	extra          string
-	extraFlag      bool
+	fileName  string
+	fileNameFlag  bool
+	parentType  string
+	parentTypeFlag  bool
+	parentNode  string
+	parentNodeFlag  bool
+	size  int
+	sizeFlag  bool
+	extra  string
+	extraFlag  bool
 }
 
-func NewMediaUploadInfoBuilder() *MediaUploadInfoBuilder {
-	builder := &MediaUploadInfoBuilder{}
-	return builder
+func NewMediaUploadInfoBuilder() * MediaUploadInfoBuilder{
+   builder := &MediaUploadInfoBuilder{}
+   return builder
 }
 
-func (builder *MediaUploadInfoBuilder) FileName(fileName string) *MediaUploadInfoBuilder {
-	builder.fileName = fileName
-	builder.fileNameFlag = true
-	return builder
+
+func (builder * MediaUploadInfoBuilder) FileName(fileName string) *MediaUploadInfoBuilder  {
+  builder.fileName = fileName
+  builder.fileNameFlag = true
+  return builder
 }
-func (builder *MediaUploadInfoBuilder) ParentType(parentType string) *MediaUploadInfoBuilder {
-	builder.parentType = parentType
-	builder.parentTypeFlag = true
-	return builder
+func (builder * MediaUploadInfoBuilder) ParentType(parentType string) *MediaUploadInfoBuilder  {
+  builder.parentType = parentType
+  builder.parentTypeFlag = true
+  return builder
 }
-func (builder *MediaUploadInfoBuilder) ParentNode(parentNode string) *MediaUploadInfoBuilder {
-	builder.parentNode = parentNode
-	builder.parentNodeFlag = true
-	return builder
+func (builder * MediaUploadInfoBuilder) ParentNode(parentNode string) *MediaUploadInfoBuilder  {
+  builder.parentNode = parentNode
+  builder.parentNodeFlag = true
+  return builder
 }
-func (builder *MediaUploadInfoBuilder) Size(size int) *MediaUploadInfoBuilder {
-	builder.size = size
-	builder.sizeFlag = true
-	return builder
+func (builder * MediaUploadInfoBuilder) Size(size int) *MediaUploadInfoBuilder  {
+  builder.size = size
+  builder.sizeFlag = true
+  return builder
 }
-func (builder *MediaUploadInfoBuilder) Extra(extra string) *MediaUploadInfoBuilder {
-	builder.extra = extra
-	builder.extraFlag = true
-	return builder
-}
-
-func (builder *MediaUploadInfoBuilder) Build() *MediaUploadInfo {
-	req := &MediaUploadInfo{}
-	if builder.fileNameFlag {
-		req.FileName = &builder.fileName
-
-	}
-	if builder.parentTypeFlag {
-		req.ParentType = &builder.parentType
-
-	}
-	if builder.parentNodeFlag {
-		req.ParentNode = &builder.parentNode
-
-	}
-	if builder.sizeFlag {
-		req.Size = &builder.size
-
-	}
-	if builder.extraFlag {
-		req.Extra = &builder.extra
-
-	}
-	return req
+func (builder * MediaUploadInfoBuilder) Extra(extra string) *MediaUploadInfoBuilder  {
+  builder.extra = extra
+  builder.extraFlag = true
+  return builder
 }
 
+func (builder * MediaUploadInfoBuilder ) Build() *MediaUploadInfo {
+   req := &MediaUploadInfo{}
+   if builder.fileNameFlag {
+	  req.FileName = &builder.fileName
+	  
+   }
+   if builder.parentTypeFlag {
+	  req.ParentType = &builder.parentType
+	  
+   }
+   if builder.parentNodeFlag {
+	  req.ParentNode = &builder.parentNode
+	  
+   }
+   if builder.sizeFlag {
+	  req.Size = &builder.size
+	  
+   }
+   if builder.extraFlag {
+	  req.Extra = &builder.extra
+	  
+   }
+   return req
+}
 // builder结束
 
 type Member struct {
-	MemberType *string `json:"member_type,omitempty"`
-	MemberId   *string `json:"member_id,omitempty"`
-	Perm       *string `json:"perm,omitempty"`
+	MemberType  *string `json:"member_type,omitempty"`
+	MemberId  *string `json:"member_id,omitempty"`
+	Perm  *string `json:"perm,omitempty"`
 }
 
 // builder开始
 type MemberBuilder struct {
-	memberType     string
-	memberTypeFlag bool
-	memberId       string
-	memberIdFlag   bool
-	perm           string
-	permFlag       bool
+	memberType  string
+	memberTypeFlag  bool
+	memberId  string
+	memberIdFlag  bool
+	perm  string
+	permFlag  bool
 }
 
-func NewMemberBuilder() *MemberBuilder {
-	builder := &MemberBuilder{}
-	return builder
+func NewMemberBuilder() * MemberBuilder{
+   builder := &MemberBuilder{}
+   return builder
 }
 
-func (builder *MemberBuilder) MemberType(memberType string) *MemberBuilder {
-	builder.memberType = memberType
-	builder.memberTypeFlag = true
-	return builder
+
+func (builder * MemberBuilder) MemberType(memberType string) *MemberBuilder  {
+  builder.memberType = memberType
+  builder.memberTypeFlag = true
+  return builder
 }
-func (builder *MemberBuilder) MemberId(memberId string) *MemberBuilder {
-	builder.memberId = memberId
-	builder.memberIdFlag = true
-	return builder
+func (builder * MemberBuilder) MemberId(memberId string) *MemberBuilder  {
+  builder.memberId = memberId
+  builder.memberIdFlag = true
+  return builder
 }
-func (builder *MemberBuilder) Perm(perm string) *MemberBuilder {
-	builder.perm = perm
-	builder.permFlag = true
-	return builder
-}
-
-func (builder *MemberBuilder) Build() *Member {
-	req := &Member{}
-	if builder.memberTypeFlag {
-		req.MemberType = &builder.memberType
-
-	}
-	if builder.memberIdFlag {
-		req.MemberId = &builder.memberId
-
-	}
-	if builder.permFlag {
-		req.Perm = &builder.perm
-
-	}
-	return req
+func (builder * MemberBuilder) Perm(perm string) *MemberBuilder  {
+  builder.perm = perm
+  builder.permFlag = true
+  return builder
 }
 
+func (builder * MemberBuilder ) Build() *Member {
+   req := &Member{}
+   if builder.memberTypeFlag {
+	  req.MemberType = &builder.memberType
+	  
+   }
+   if builder.memberIdFlag {
+	  req.MemberId = &builder.memberId
+	  
+   }
+   if builder.permFlag {
+	  req.Perm = &builder.perm
+	  
+   }
+   return req
+}
 // builder结束
 
 type Meta struct {
-	DocToken         *string `json:"doc_token,omitempty"`
-	DocType          *string `json:"doc_type,omitempty"`
-	Title            *string `json:"title,omitempty"`
-	OwnerId          *string `json:"owner_id,omitempty"`
-	CreateTime       *int64  `json:"create_time,omitempty,string"`
-	LatestModifyUser *string `json:"latest_modify_user,omitempty"`
-	LatestModifyTime *int64  `json:"latest_modify_time,omitempty,string"`
-	Url              *string `json:"url,omitempty"`
+	DocToken  *string `json:"doc_token,omitempty"`
+	DocType  *string `json:"doc_type,omitempty"`
+	Title  *string `json:"title,omitempty"`
+	OwnerId  *string `json:"owner_id,omitempty"`
+	CreateTime  *int64 `json:"create_time,omitempty,string"`
+	LatestModifyUser  *string `json:"latest_modify_user,omitempty"`
+	LatestModifyTime  *int64 `json:"latest_modify_time,omitempty,string"`
+	Url  *string `json:"url,omitempty"`
 }
 
 // builder开始
 type MetaBuilder struct {
-	docToken             string
-	docTokenFlag         bool
-	docType              string
-	docTypeFlag          bool
-	title                string
-	titleFlag            bool
-	ownerId              string
-	ownerIdFlag          bool
-	createTime           int64
-	createTimeFlag       bool
-	latestModifyUser     string
-	latestModifyUserFlag bool
-	latestModifyTime     int64
-	latestModifyTimeFlag bool
-	url                  string
-	urlFlag              bool
+	docToken  string
+	docTokenFlag  bool
+	docType  string
+	docTypeFlag  bool
+	title  string
+	titleFlag  bool
+	ownerId  string
+	ownerIdFlag  bool
+	createTime  int64
+	createTimeFlag  bool
+	latestModifyUser  string
+	latestModifyUserFlag  bool
+	latestModifyTime  int64
+	latestModifyTimeFlag  bool
+	url  string
+	urlFlag  bool
 }
 
-func NewMetaBuilder() *MetaBuilder {
-	builder := &MetaBuilder{}
-	return builder
+func NewMetaBuilder() * MetaBuilder{
+   builder := &MetaBuilder{}
+   return builder
 }
 
-func (builder *MetaBuilder) DocToken(docToken string) *MetaBuilder {
-	builder.docToken = docToken
-	builder.docTokenFlag = true
-	return builder
+
+func (builder * MetaBuilder) DocToken(docToken string) *MetaBuilder  {
+  builder.docToken = docToken
+  builder.docTokenFlag = true
+  return builder
 }
-func (builder *MetaBuilder) DocType(docType string) *MetaBuilder {
-	builder.docType = docType
-	builder.docTypeFlag = true
-	return builder
+func (builder * MetaBuilder) DocType(docType string) *MetaBuilder  {
+  builder.docType = docType
+  builder.docTypeFlag = true
+  return builder
 }
-func (builder *MetaBuilder) Title(title string) *MetaBuilder {
-	builder.title = title
-	builder.titleFlag = true
-	return builder
+func (builder * MetaBuilder) Title(title string) *MetaBuilder  {
+  builder.title = title
+  builder.titleFlag = true
+  return builder
 }
-func (builder *MetaBuilder) OwnerId(ownerId string) *MetaBuilder {
-	builder.ownerId = ownerId
-	builder.ownerIdFlag = true
-	return builder
+func (builder * MetaBuilder) OwnerId(ownerId string) *MetaBuilder  {
+  builder.ownerId = ownerId
+  builder.ownerIdFlag = true
+  return builder
 }
-func (builder *MetaBuilder) CreateTime(createTime int64) *MetaBuilder {
-	builder.createTime = createTime
-	builder.createTimeFlag = true
-	return builder
+func (builder * MetaBuilder) CreateTime(createTime int64) *MetaBuilder  {
+  builder.createTime = createTime
+  builder.createTimeFlag = true
+  return builder
 }
-func (builder *MetaBuilder) LatestModifyUser(latestModifyUser string) *MetaBuilder {
-	builder.latestModifyUser = latestModifyUser
-	builder.latestModifyUserFlag = true
-	return builder
+func (builder * MetaBuilder) LatestModifyUser(latestModifyUser string) *MetaBuilder  {
+  builder.latestModifyUser = latestModifyUser
+  builder.latestModifyUserFlag = true
+  return builder
 }
-func (builder *MetaBuilder) LatestModifyTime(latestModifyTime int64) *MetaBuilder {
-	builder.latestModifyTime = latestModifyTime
-	builder.latestModifyTimeFlag = true
-	return builder
+func (builder * MetaBuilder) LatestModifyTime(latestModifyTime int64) *MetaBuilder  {
+  builder.latestModifyTime = latestModifyTime
+  builder.latestModifyTimeFlag = true
+  return builder
 }
-func (builder *MetaBuilder) Url(url string) *MetaBuilder {
-	builder.url = url
-	builder.urlFlag = true
-	return builder
-}
-
-func (builder *MetaBuilder) Build() *Meta {
-	req := &Meta{}
-	if builder.docTokenFlag {
-		req.DocToken = &builder.docToken
-
-	}
-	if builder.docTypeFlag {
-		req.DocType = &builder.docType
-
-	}
-	if builder.titleFlag {
-		req.Title = &builder.title
-
-	}
-	if builder.ownerIdFlag {
-		req.OwnerId = &builder.ownerId
-
-	}
-	if builder.createTimeFlag {
-		req.CreateTime = &builder.createTime
-
-	}
-	if builder.latestModifyUserFlag {
-		req.LatestModifyUser = &builder.latestModifyUser
-
-	}
-	if builder.latestModifyTimeFlag {
-		req.LatestModifyTime = &builder.latestModifyTime
-
-	}
-	if builder.urlFlag {
-		req.Url = &builder.url
-
-	}
-	return req
+func (builder * MetaBuilder) Url(url string) *MetaBuilder  {
+  builder.url = url
+  builder.urlFlag = true
+  return builder
 }
 
+func (builder * MetaBuilder ) Build() *Meta {
+   req := &Meta{}
+   if builder.docTokenFlag {
+	  req.DocToken = &builder.docToken
+	  
+   }
+   if builder.docTypeFlag {
+	  req.DocType = &builder.docType
+	  
+   }
+   if builder.titleFlag {
+	  req.Title = &builder.title
+	  
+   }
+   if builder.ownerIdFlag {
+	  req.OwnerId = &builder.ownerId
+	  
+   }
+   if builder.createTimeFlag {
+	  req.CreateTime = &builder.createTime
+	  
+   }
+   if builder.latestModifyUserFlag {
+	  req.LatestModifyUser = &builder.latestModifyUser
+	  
+   }
+   if builder.latestModifyTimeFlag {
+	  req.LatestModifyTime = &builder.latestModifyTime
+	  
+   }
+   if builder.urlFlag {
+	  req.Url = &builder.url
+	  
+   }
+   return req
+}
 // builder结束
 
 type MetaFailed struct {
-	Token *string `json:"token,omitempty"`
-	Code  *int    `json:"code,omitempty"`
+	Token  *string `json:"token,omitempty"`
+	Code  *int `json:"code,omitempty"`
 }
 
 // builder开始
 type MetaFailedBuilder struct {
-	token     string
-	tokenFlag bool
-	code      int
+	token  string
+	tokenFlag  bool
+	code  int
 	codeFlag  bool
 }
 
-func NewMetaFailedBuilder() *MetaFailedBuilder {
-	builder := &MetaFailedBuilder{}
-	return builder
+func NewMetaFailedBuilder() * MetaFailedBuilder{
+   builder := &MetaFailedBuilder{}
+   return builder
 }
 
-func (builder *MetaFailedBuilder) Token(token string) *MetaFailedBuilder {
-	builder.token = token
-	builder.tokenFlag = true
-	return builder
+
+func (builder * MetaFailedBuilder) Token(token string) *MetaFailedBuilder  {
+  builder.token = token
+  builder.tokenFlag = true
+  return builder
 }
-func (builder *MetaFailedBuilder) Code(code int) *MetaFailedBuilder {
-	builder.code = code
-	builder.codeFlag = true
-	return builder
-}
-
-func (builder *MetaFailedBuilder) Build() *MetaFailed {
-	req := &MetaFailed{}
-	if builder.tokenFlag {
-		req.Token = &builder.token
-
-	}
-	if builder.codeFlag {
-		req.Code = &builder.code
-
-	}
-	return req
+func (builder * MetaFailedBuilder) Code(code int) *MetaFailedBuilder  {
+  builder.code = code
+  builder.codeFlag = true
+  return builder
 }
 
+func (builder * MetaFailedBuilder ) Build() *MetaFailed {
+   req := &MetaFailed{}
+   if builder.tokenFlag {
+	  req.Token = &builder.token
+	  
+   }
+   if builder.codeFlag {
+	  req.Code = &builder.code
+	  
+   }
+   return req
+}
 // builder结束
 
 type MetaRequest struct {
-	RequestDocs []*RequestDoc `json:"request_docs,omitempty"`
-	WithUrl     *bool         `json:"with_url,omitempty"`
+	RequestDocs  []*RequestDoc `json:"request_docs,omitempty"`
+	WithUrl  *bool `json:"with_url,omitempty"`
 }
 
 // builder开始
 type MetaRequestBuilder struct {
-	requestDocs     []*RequestDoc
-	requestDocsFlag bool
-	withUrl         bool
-	withUrlFlag     bool
+	requestDocs  []*RequestDoc
+	requestDocsFlag  bool
+	withUrl  bool
+	withUrlFlag  bool
 }
 
-func NewMetaRequestBuilder() *MetaRequestBuilder {
-	builder := &MetaRequestBuilder{}
-	return builder
+func NewMetaRequestBuilder() * MetaRequestBuilder{
+   builder := &MetaRequestBuilder{}
+   return builder
 }
 
-func (builder *MetaRequestBuilder) RequestDocs(requestDocs []*RequestDoc) *MetaRequestBuilder {
-	builder.requestDocs = requestDocs
-	builder.requestDocsFlag = true
-	return builder
-}
-func (builder *MetaRequestBuilder) WithUrl(withUrl bool) *MetaRequestBuilder {
-	builder.withUrl = withUrl
-	builder.withUrlFlag = true
-	return builder
-}
 
-func (builder *MetaRequestBuilder) Build() *MetaRequest {
-	req := &MetaRequest{}
-	if builder.requestDocsFlag {
-		req.RequestDocs = builder.requestDocs
-	}
-	if builder.withUrlFlag {
-		req.WithUrl = &builder.withUrl
-
-	}
-	return req
+func (builder * MetaRequestBuilder) RequestDocs(requestDocs []*RequestDoc) *MetaRequestBuilder  {
+  builder.requestDocs = requestDocs
+  builder.requestDocsFlag = true
+  return builder
+}
+func (builder * MetaRequestBuilder) WithUrl(withUrl bool) *MetaRequestBuilder  {
+  builder.withUrl = withUrl
+  builder.withUrlFlag = true
+  return builder
 }
 
+func (builder * MetaRequestBuilder ) Build() *MetaRequest {
+   req := &MetaRequest{}
+   if builder.requestDocsFlag {
+	  req.RequestDocs = builder.requestDocs
+   }
+   if builder.withUrlFlag {
+	  req.WithUrl = &builder.withUrl
+	  
+   }
+   return req
+}
 // builder结束
 
 type Owner struct {
-	MemberType *string `json:"member_type,omitempty"`
-	MemberId   *string `json:"member_id,omitempty"`
+	MemberType  *string `json:"member_type,omitempty"`
+	MemberId  *string `json:"member_id,omitempty"`
 }
 
 // builder开始
 type OwnerBuilder struct {
-	memberType     string
-	memberTypeFlag bool
-	memberId       string
-	memberIdFlag   bool
+	memberType  string
+	memberTypeFlag  bool
+	memberId  string
+	memberIdFlag  bool
 }
 
-func NewOwnerBuilder() *OwnerBuilder {
-	builder := &OwnerBuilder{}
-	return builder
+func NewOwnerBuilder() * OwnerBuilder{
+   builder := &OwnerBuilder{}
+   return builder
 }
 
-func (builder *OwnerBuilder) MemberType(memberType string) *OwnerBuilder {
-	builder.memberType = memberType
-	builder.memberTypeFlag = true
-	return builder
+
+func (builder * OwnerBuilder) MemberType(memberType string) *OwnerBuilder  {
+  builder.memberType = memberType
+  builder.memberTypeFlag = true
+  return builder
 }
-func (builder *OwnerBuilder) MemberId(memberId string) *OwnerBuilder {
-	builder.memberId = memberId
-	builder.memberIdFlag = true
-	return builder
-}
-
-func (builder *OwnerBuilder) Build() *Owner {
-	req := &Owner{}
-	if builder.memberTypeFlag {
-		req.MemberType = &builder.memberType
-
-	}
-	if builder.memberIdFlag {
-		req.MemberId = &builder.memberId
-
-	}
-	return req
+func (builder * OwnerBuilder) MemberId(memberId string) *OwnerBuilder  {
+  builder.memberId = memberId
+  builder.memberIdFlag = true
+  return builder
 }
 
+func (builder * OwnerBuilder ) Build() *Owner {
+   req := &Owner{}
+   if builder.memberTypeFlag {
+	  req.MemberType = &builder.memberType
+	  
+   }
+   if builder.memberIdFlag {
+	  req.MemberId = &builder.memberId
+	  
+   }
+   return req
+}
 // builder结束
 
 type PermissionPublic struct {
-	ExternalAccess  *bool   `json:"external_access,omitempty"`
+	ExternalAccess  *bool `json:"external_access,omitempty"`
 	SecurityEntity  *string `json:"security_entity,omitempty"`
-	CommentEntity   *string `json:"comment_entity,omitempty"`
-	ShareEntity     *string `json:"share_entity,omitempty"`
-	LinkShareEntity *string `json:"link_share_entity,omitempty"`
-	InviteExternal  *bool   `json:"invite_external,omitempty"`
-	LockSwitch      *bool   `json:"lock_switch,omitempty"`
+	CommentEntity  *string `json:"comment_entity,omitempty"`
+	ShareEntity  *string `json:"share_entity,omitempty"`
+	LinkShareEntity  *string `json:"link_share_entity,omitempty"`
+	InviteExternal  *bool `json:"invite_external,omitempty"`
+	LockSwitch  *bool `json:"lock_switch,omitempty"`
 }
 
 // builder开始
 type PermissionPublicBuilder struct {
-	externalAccess      bool
+	externalAccess  bool
 	externalAccessFlag  bool
-	securityEntity      string
+	securityEntity  string
 	securityEntityFlag  bool
-	commentEntity       string
-	commentEntityFlag   bool
-	shareEntity         string
-	shareEntityFlag     bool
-	linkShareEntity     string
-	linkShareEntityFlag bool
-	inviteExternal      bool
+	commentEntity  string
+	commentEntityFlag  bool
+	shareEntity  string
+	shareEntityFlag  bool
+	linkShareEntity  string
+	linkShareEntityFlag  bool
+	inviteExternal  bool
 	inviteExternalFlag  bool
-	lockSwitch          bool
-	lockSwitchFlag      bool
+	lockSwitch  bool
+	lockSwitchFlag  bool
 }
 
-func NewPermissionPublicBuilder() *PermissionPublicBuilder {
-	builder := &PermissionPublicBuilder{}
-	return builder
+func NewPermissionPublicBuilder() * PermissionPublicBuilder{
+   builder := &PermissionPublicBuilder{}
+   return builder
 }
 
-func (builder *PermissionPublicBuilder) ExternalAccess(externalAccess bool) *PermissionPublicBuilder {
-	builder.externalAccess = externalAccess
-	builder.externalAccessFlag = true
-	return builder
+
+func (builder * PermissionPublicBuilder) ExternalAccess(externalAccess bool) *PermissionPublicBuilder  {
+  builder.externalAccess = externalAccess
+  builder.externalAccessFlag = true
+  return builder
 }
-func (builder *PermissionPublicBuilder) SecurityEntity(securityEntity string) *PermissionPublicBuilder {
-	builder.securityEntity = securityEntity
-	builder.securityEntityFlag = true
-	return builder
+func (builder * PermissionPublicBuilder) SecurityEntity(securityEntity string) *PermissionPublicBuilder  {
+  builder.securityEntity = securityEntity
+  builder.securityEntityFlag = true
+  return builder
 }
-func (builder *PermissionPublicBuilder) CommentEntity(commentEntity string) *PermissionPublicBuilder {
-	builder.commentEntity = commentEntity
-	builder.commentEntityFlag = true
-	return builder
+func (builder * PermissionPublicBuilder) CommentEntity(commentEntity string) *PermissionPublicBuilder  {
+  builder.commentEntity = commentEntity
+  builder.commentEntityFlag = true
+  return builder
 }
-func (builder *PermissionPublicBuilder) ShareEntity(shareEntity string) *PermissionPublicBuilder {
-	builder.shareEntity = shareEntity
-	builder.shareEntityFlag = true
-	return builder
+func (builder * PermissionPublicBuilder) ShareEntity(shareEntity string) *PermissionPublicBuilder  {
+  builder.shareEntity = shareEntity
+  builder.shareEntityFlag = true
+  return builder
 }
-func (builder *PermissionPublicBuilder) LinkShareEntity(linkShareEntity string) *PermissionPublicBuilder {
-	builder.linkShareEntity = linkShareEntity
-	builder.linkShareEntityFlag = true
-	return builder
+func (builder * PermissionPublicBuilder) LinkShareEntity(linkShareEntity string) *PermissionPublicBuilder  {
+  builder.linkShareEntity = linkShareEntity
+  builder.linkShareEntityFlag = true
+  return builder
 }
-func (builder *PermissionPublicBuilder) InviteExternal(inviteExternal bool) *PermissionPublicBuilder {
-	builder.inviteExternal = inviteExternal
-	builder.inviteExternalFlag = true
-	return builder
+func (builder * PermissionPublicBuilder) InviteExternal(inviteExternal bool) *PermissionPublicBuilder  {
+  builder.inviteExternal = inviteExternal
+  builder.inviteExternalFlag = true
+  return builder
 }
-func (builder *PermissionPublicBuilder) LockSwitch(lockSwitch bool) *PermissionPublicBuilder {
-	builder.lockSwitch = lockSwitch
-	builder.lockSwitchFlag = true
-	return builder
-}
-
-func (builder *PermissionPublicBuilder) Build() *PermissionPublic {
-	req := &PermissionPublic{}
-	if builder.externalAccessFlag {
-		req.ExternalAccess = &builder.externalAccess
-
-	}
-	if builder.securityEntityFlag {
-		req.SecurityEntity = &builder.securityEntity
-
-	}
-	if builder.commentEntityFlag {
-		req.CommentEntity = &builder.commentEntity
-
-	}
-	if builder.shareEntityFlag {
-		req.ShareEntity = &builder.shareEntity
-
-	}
-	if builder.linkShareEntityFlag {
-		req.LinkShareEntity = &builder.linkShareEntity
-
-	}
-	if builder.inviteExternalFlag {
-		req.InviteExternal = &builder.inviteExternal
-
-	}
-	if builder.lockSwitchFlag {
-		req.LockSwitch = &builder.lockSwitch
-
-	}
-	return req
+func (builder * PermissionPublicBuilder) LockSwitch(lockSwitch bool) *PermissionPublicBuilder  {
+  builder.lockSwitch = lockSwitch
+  builder.lockSwitchFlag = true
+  return builder
 }
 
+func (builder * PermissionPublicBuilder ) Build() *PermissionPublic {
+   req := &PermissionPublic{}
+   if builder.externalAccessFlag {
+	  req.ExternalAccess = &builder.externalAccess
+	  
+   }
+   if builder.securityEntityFlag {
+	  req.SecurityEntity = &builder.securityEntity
+	  
+   }
+   if builder.commentEntityFlag {
+	  req.CommentEntity = &builder.commentEntity
+	  
+   }
+   if builder.shareEntityFlag {
+	  req.ShareEntity = &builder.shareEntity
+	  
+   }
+   if builder.linkShareEntityFlag {
+	  req.LinkShareEntity = &builder.linkShareEntity
+	  
+   }
+   if builder.inviteExternalFlag {
+	  req.InviteExternal = &builder.inviteExternal
+	  
+   }
+   if builder.lockSwitchFlag {
+	  req.LockSwitch = &builder.lockSwitch
+	  
+   }
+   return req
+}
 // builder结束
 
 type PermissionPublicRequest struct {
-	ExternalAccess  *bool   `json:"external_access,omitempty"`
+	ExternalAccess  *bool `json:"external_access,omitempty"`
 	SecurityEntity  *string `json:"security_entity,omitempty"`
-	CommentEntity   *string `json:"comment_entity,omitempty"`
-	ShareEntity     *string `json:"share_entity,omitempty"`
-	LinkShareEntity *string `json:"link_share_entity,omitempty"`
-	InviteExternal  *bool   `json:"invite_external,omitempty"`
+	CommentEntity  *string `json:"comment_entity,omitempty"`
+	ShareEntity  *string `json:"share_entity,omitempty"`
+	LinkShareEntity  *string `json:"link_share_entity,omitempty"`
+	InviteExternal  *bool `json:"invite_external,omitempty"`
 }
 
 // builder开始
 type PermissionPublicRequestBuilder struct {
-	externalAccess      bool
+	externalAccess  bool
 	externalAccessFlag  bool
-	securityEntity      string
+	securityEntity  string
 	securityEntityFlag  bool
-	commentEntity       string
-	commentEntityFlag   bool
-	shareEntity         string
-	shareEntityFlag     bool
-	linkShareEntity     string
-	linkShareEntityFlag bool
-	inviteExternal      bool
+	commentEntity  string
+	commentEntityFlag  bool
+	shareEntity  string
+	shareEntityFlag  bool
+	linkShareEntity  string
+	linkShareEntityFlag  bool
+	inviteExternal  bool
 	inviteExternalFlag  bool
 }
 
-func NewPermissionPublicRequestBuilder() *PermissionPublicRequestBuilder {
-	builder := &PermissionPublicRequestBuilder{}
-	return builder
+func NewPermissionPublicRequestBuilder() * PermissionPublicRequestBuilder{
+   builder := &PermissionPublicRequestBuilder{}
+   return builder
 }
 
-func (builder *PermissionPublicRequestBuilder) ExternalAccess(externalAccess bool) *PermissionPublicRequestBuilder {
-	builder.externalAccess = externalAccess
-	builder.externalAccessFlag = true
-	return builder
+
+func (builder * PermissionPublicRequestBuilder) ExternalAccess(externalAccess bool) *PermissionPublicRequestBuilder  {
+  builder.externalAccess = externalAccess
+  builder.externalAccessFlag = true
+  return builder
 }
-func (builder *PermissionPublicRequestBuilder) SecurityEntity(securityEntity string) *PermissionPublicRequestBuilder {
-	builder.securityEntity = securityEntity
-	builder.securityEntityFlag = true
-	return builder
+func (builder * PermissionPublicRequestBuilder) SecurityEntity(securityEntity string) *PermissionPublicRequestBuilder  {
+  builder.securityEntity = securityEntity
+  builder.securityEntityFlag = true
+  return builder
 }
-func (builder *PermissionPublicRequestBuilder) CommentEntity(commentEntity string) *PermissionPublicRequestBuilder {
-	builder.commentEntity = commentEntity
-	builder.commentEntityFlag = true
-	return builder
+func (builder * PermissionPublicRequestBuilder) CommentEntity(commentEntity string) *PermissionPublicRequestBuilder  {
+  builder.commentEntity = commentEntity
+  builder.commentEntityFlag = true
+  return builder
 }
-func (builder *PermissionPublicRequestBuilder) ShareEntity(shareEntity string) *PermissionPublicRequestBuilder {
-	builder.shareEntity = shareEntity
-	builder.shareEntityFlag = true
-	return builder
+func (builder * PermissionPublicRequestBuilder) ShareEntity(shareEntity string) *PermissionPublicRequestBuilder  {
+  builder.shareEntity = shareEntity
+  builder.shareEntityFlag = true
+  return builder
 }
-func (builder *PermissionPublicRequestBuilder) LinkShareEntity(linkShareEntity string) *PermissionPublicRequestBuilder {
-	builder.linkShareEntity = linkShareEntity
-	builder.linkShareEntityFlag = true
-	return builder
+func (builder * PermissionPublicRequestBuilder) LinkShareEntity(linkShareEntity string) *PermissionPublicRequestBuilder  {
+  builder.linkShareEntity = linkShareEntity
+  builder.linkShareEntityFlag = true
+  return builder
 }
-func (builder *PermissionPublicRequestBuilder) InviteExternal(inviteExternal bool) *PermissionPublicRequestBuilder {
-	builder.inviteExternal = inviteExternal
-	builder.inviteExternalFlag = true
-	return builder
-}
-
-func (builder *PermissionPublicRequestBuilder) Build() *PermissionPublicRequest {
-	req := &PermissionPublicRequest{}
-	if builder.externalAccessFlag {
-		req.ExternalAccess = &builder.externalAccess
-
-	}
-	if builder.securityEntityFlag {
-		req.SecurityEntity = &builder.securityEntity
-
-	}
-	if builder.commentEntityFlag {
-		req.CommentEntity = &builder.commentEntity
-
-	}
-	if builder.shareEntityFlag {
-		req.ShareEntity = &builder.shareEntity
-
-	}
-	if builder.linkShareEntityFlag {
-		req.LinkShareEntity = &builder.linkShareEntity
-
-	}
-	if builder.inviteExternalFlag {
-		req.InviteExternal = &builder.inviteExternal
-
-	}
-	return req
+func (builder * PermissionPublicRequestBuilder) InviteExternal(inviteExternal bool) *PermissionPublicRequestBuilder  {
+  builder.inviteExternal = inviteExternal
+  builder.inviteExternalFlag = true
+  return builder
 }
 
+func (builder * PermissionPublicRequestBuilder ) Build() *PermissionPublicRequest {
+   req := &PermissionPublicRequest{}
+   if builder.externalAccessFlag {
+	  req.ExternalAccess = &builder.externalAccess
+	  
+   }
+   if builder.securityEntityFlag {
+	  req.SecurityEntity = &builder.securityEntity
+	  
+   }
+   if builder.commentEntityFlag {
+	  req.CommentEntity = &builder.commentEntity
+	  
+   }
+   if builder.shareEntityFlag {
+	  req.ShareEntity = &builder.shareEntity
+	  
+   }
+   if builder.linkShareEntityFlag {
+	  req.LinkShareEntity = &builder.linkShareEntity
+	  
+   }
+   if builder.inviteExternalFlag {
+	  req.InviteExternal = &builder.inviteExternal
+	  
+   }
+   return req
+}
 // builder结束
 
 type Person struct {
-	UserId *string `json:"user_id,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
 }
 
 // builder开始
 type PersonBuilder struct {
-	userId     string
-	userIdFlag bool
+	userId  string
+	userIdFlag  bool
 }
 
-func NewPersonBuilder() *PersonBuilder {
-	builder := &PersonBuilder{}
-	return builder
+func NewPersonBuilder() * PersonBuilder{
+   builder := &PersonBuilder{}
+   return builder
 }
 
-func (builder *PersonBuilder) UserId(userId string) *PersonBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
+
+func (builder * PersonBuilder) UserId(userId string) *PersonBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
 
-func (builder *PersonBuilder) Build() *Person {
-	req := &Person{}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	return req
+func (builder * PersonBuilder ) Build() *Person {
+   req := &Person{}
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   return req
 }
-
 // builder结束
 
 type ReplyContent struct {
-	Elements []*ReplyElement `json:"elements,omitempty"`
+	Elements  []*ReplyElement `json:"elements,omitempty"`
 }
 
 // builder开始
 type ReplyContentBuilder struct {
-	elements     []*ReplyElement
-	elementsFlag bool
+	elements  []*ReplyElement
+	elementsFlag  bool
 }
 
-func NewReplyContentBuilder() *ReplyContentBuilder {
-	builder := &ReplyContentBuilder{}
-	return builder
+func NewReplyContentBuilder() * ReplyContentBuilder{
+   builder := &ReplyContentBuilder{}
+   return builder
 }
 
-func (builder *ReplyContentBuilder) Elements(elements []*ReplyElement) *ReplyContentBuilder {
-	builder.elements = elements
-	builder.elementsFlag = true
-	return builder
+
+func (builder * ReplyContentBuilder) Elements(elements []*ReplyElement) *ReplyContentBuilder  {
+  builder.elements = elements
+  builder.elementsFlag = true
+  return builder
 }
 
-func (builder *ReplyContentBuilder) Build() *ReplyContent {
-	req := &ReplyContent{}
-	if builder.elementsFlag {
-		req.Elements = builder.elements
-	}
-	return req
+func (builder * ReplyContentBuilder ) Build() *ReplyContent {
+   req := &ReplyContent{}
+   if builder.elementsFlag {
+	  req.Elements = builder.elements
+   }
+   return req
 }
-
 // builder结束
 
 type ReplyElement struct {
-	Type     *string   `json:"type,omitempty"`
-	TextRun  *TextRun  `json:"text_run,omitempty"`
-	DocsLink *DocsLink `json:"docs_link,omitempty"`
-	Person   *Person   `json:"person,omitempty"`
+	Type  *string `json:"type,omitempty"`
+	TextRun  *TextRun `json:"text_run,omitempty"`
+	DocsLink  *DocsLink `json:"docs_link,omitempty"`
+	Person  *Person `json:"person,omitempty"`
 }
 
 // builder开始
 type ReplyElementBuilder struct {
-	type_        string
-	typeFlag     bool
-	textRun      *TextRun
+	type_  string
+	typeFlag  bool
+	textRun  *TextRun
 	textRunFlag  bool
-	docsLink     *DocsLink
-	docsLinkFlag bool
-	person       *Person
-	personFlag   bool
+	docsLink  *DocsLink
+	docsLinkFlag  bool
+	person  *Person
+	personFlag  bool
 }
 
-func NewReplyElementBuilder() *ReplyElementBuilder {
-	builder := &ReplyElementBuilder{}
-	return builder
+func NewReplyElementBuilder() * ReplyElementBuilder{
+   builder := &ReplyElementBuilder{}
+   return builder
 }
 
-func (builder *ReplyElementBuilder) Type(type_ string) *ReplyElementBuilder {
-	builder.type_ = type_
-	builder.typeFlag = true
-	return builder
+
+func (builder * ReplyElementBuilder) Type(type_ string) *ReplyElementBuilder  {
+  builder.type_ = type_
+  builder.typeFlag = true
+  return builder
 }
-func (builder *ReplyElementBuilder) TextRun(textRun *TextRun) *ReplyElementBuilder {
-	builder.textRun = textRun
-	builder.textRunFlag = true
-	return builder
+func (builder * ReplyElementBuilder) TextRun(textRun *TextRun) *ReplyElementBuilder  {
+  builder.textRun = textRun
+  builder.textRunFlag = true
+  return builder
 }
-func (builder *ReplyElementBuilder) DocsLink(docsLink *DocsLink) *ReplyElementBuilder {
-	builder.docsLink = docsLink
-	builder.docsLinkFlag = true
-	return builder
+func (builder * ReplyElementBuilder) DocsLink(docsLink *DocsLink) *ReplyElementBuilder  {
+  builder.docsLink = docsLink
+  builder.docsLinkFlag = true
+  return builder
 }
-func (builder *ReplyElementBuilder) Person(person *Person) *ReplyElementBuilder {
-	builder.person = person
-	builder.personFlag = true
-	return builder
+func (builder * ReplyElementBuilder) Person(person *Person) *ReplyElementBuilder  {
+  builder.person = person
+  builder.personFlag = true
+  return builder
 }
 
-func (builder *ReplyElementBuilder) Build() *ReplyElement {
-	req := &ReplyElement{}
-	if builder.typeFlag {
-		req.Type = &builder.type_
-
-	}
-	if builder.textRunFlag {
-		req.TextRun = builder.textRun
-	}
-	if builder.docsLinkFlag {
-		req.DocsLink = builder.docsLink
-	}
-	if builder.personFlag {
-		req.Person = builder.person
-	}
-	return req
+func (builder * ReplyElementBuilder ) Build() *ReplyElement {
+   req := &ReplyElement{}
+   if builder.typeFlag {
+	  req.Type = &builder.type_
+	  
+   }
+   if builder.textRunFlag {
+	  req.TextRun = builder.textRun
+   }
+   if builder.docsLinkFlag {
+	  req.DocsLink = builder.docsLink
+   }
+   if builder.personFlag {
+	  req.Person = builder.person
+   }
+   return req
 }
-
 // builder结束
 
 type ReplyList struct {
-	Replies []*FileCommentReply `json:"replies,omitempty"`
+	Replies  []*FileCommentReply `json:"replies,omitempty"`
 }
 
 // builder开始
 type ReplyListBuilder struct {
-	replies     []*FileCommentReply
-	repliesFlag bool
+	replies  []*FileCommentReply
+	repliesFlag  bool
 }
 
-func NewReplyListBuilder() *ReplyListBuilder {
-	builder := &ReplyListBuilder{}
-	return builder
+func NewReplyListBuilder() * ReplyListBuilder{
+   builder := &ReplyListBuilder{}
+   return builder
 }
 
-func (builder *ReplyListBuilder) Replies(replies []*FileCommentReply) *ReplyListBuilder {
-	builder.replies = replies
-	builder.repliesFlag = true
-	return builder
+
+func (builder * ReplyListBuilder) Replies(replies []*FileCommentReply) *ReplyListBuilder  {
+  builder.replies = replies
+  builder.repliesFlag = true
+  return builder
 }
 
-func (builder *ReplyListBuilder) Build() *ReplyList {
-	req := &ReplyList{}
-	if builder.repliesFlag {
-		req.Replies = builder.replies
-	}
-	return req
+func (builder * ReplyListBuilder ) Build() *ReplyList {
+   req := &ReplyList{}
+   if builder.repliesFlag {
+	  req.Replies = builder.replies
+   }
+   return req
 }
-
 // builder结束
 
 type RequestDoc struct {
-	DocToken *string `json:"doc_token,omitempty"`
+	DocToken  *string `json:"doc_token,omitempty"`
 	DocType  *string `json:"doc_type,omitempty"`
 }
 
 // builder开始
 type RequestDocBuilder struct {
-	docToken     string
-	docTokenFlag bool
-	docType      string
+	docToken  string
+	docTokenFlag  bool
+	docType  string
 	docTypeFlag  bool
 }
 
-func NewRequestDocBuilder() *RequestDocBuilder {
-	builder := &RequestDocBuilder{}
-	return builder
+func NewRequestDocBuilder() * RequestDocBuilder{
+   builder := &RequestDocBuilder{}
+   return builder
 }
 
-func (builder *RequestDocBuilder) DocToken(docToken string) *RequestDocBuilder {
-	builder.docToken = docToken
-	builder.docTokenFlag = true
-	return builder
+
+func (builder * RequestDocBuilder) DocToken(docToken string) *RequestDocBuilder  {
+  builder.docToken = docToken
+  builder.docTokenFlag = true
+  return builder
 }
-func (builder *RequestDocBuilder) DocType(docType string) *RequestDocBuilder {
-	builder.docType = docType
-	builder.docTypeFlag = true
-	return builder
-}
-
-func (builder *RequestDocBuilder) Build() *RequestDoc {
-	req := &RequestDoc{}
-	if builder.docTokenFlag {
-		req.DocToken = &builder.docToken
-
-	}
-	if builder.docTypeFlag {
-		req.DocType = &builder.docType
-
-	}
-	return req
+func (builder * RequestDocBuilder) DocType(docType string) *RequestDocBuilder  {
+  builder.docType = docType
+  builder.docTypeFlag = true
+  return builder
 }
 
+func (builder * RequestDocBuilder ) Build() *RequestDoc {
+   req := &RequestDoc{}
+   if builder.docTokenFlag {
+	  req.DocToken = &builder.docToken
+	  
+   }
+   if builder.docTypeFlag {
+	  req.DocType = &builder.docType
+	  
+   }
+   return req
+}
 // builder结束
 
 type ShortcutInfo struct {
 	TargetType  *string `json:"target_type,omitempty"`
-	TargetToken *string `json:"target_token,omitempty"`
+	TargetToken  *string `json:"target_token,omitempty"`
 }
 
 // builder开始
 type ShortcutInfoBuilder struct {
-	targetType      string
+	targetType  string
 	targetTypeFlag  bool
-	targetToken     string
-	targetTokenFlag bool
+	targetToken  string
+	targetTokenFlag  bool
 }
 
-func NewShortcutInfoBuilder() *ShortcutInfoBuilder {
-	builder := &ShortcutInfoBuilder{}
-	return builder
+func NewShortcutInfoBuilder() * ShortcutInfoBuilder{
+   builder := &ShortcutInfoBuilder{}
+   return builder
 }
 
-func (builder *ShortcutInfoBuilder) TargetType(targetType string) *ShortcutInfoBuilder {
-	builder.targetType = targetType
-	builder.targetTypeFlag = true
-	return builder
+
+func (builder * ShortcutInfoBuilder) TargetType(targetType string) *ShortcutInfoBuilder  {
+  builder.targetType = targetType
+  builder.targetTypeFlag = true
+  return builder
 }
-func (builder *ShortcutInfoBuilder) TargetToken(targetToken string) *ShortcutInfoBuilder {
-	builder.targetToken = targetToken
-	builder.targetTokenFlag = true
-	return builder
-}
-
-func (builder *ShortcutInfoBuilder) Build() *ShortcutInfo {
-	req := &ShortcutInfo{}
-	if builder.targetTypeFlag {
-		req.TargetType = &builder.targetType
-
-	}
-	if builder.targetTokenFlag {
-		req.TargetToken = &builder.targetToken
-
-	}
-	return req
+func (builder * ShortcutInfoBuilder) TargetToken(targetToken string) *ShortcutInfoBuilder  {
+  builder.targetToken = targetToken
+  builder.targetTokenFlag = true
+  return builder
 }
 
+func (builder * ShortcutInfoBuilder ) Build() *ShortcutInfo {
+   req := &ShortcutInfo{}
+   if builder.targetTypeFlag {
+	  req.TargetType = &builder.targetType
+	  
+   }
+   if builder.targetTokenFlag {
+	  req.TargetToken = &builder.targetToken
+	  
+   }
+   return req
+}
 // builder结束
 
 type TextRun struct {
-	Text *string `json:"text,omitempty"`
+	Text  *string `json:"text,omitempty"`
 }
 
 // builder开始
 type TextRunBuilder struct {
-	text     string
-	textFlag bool
+	text  string
+	textFlag  bool
 }
 
-func NewTextRunBuilder() *TextRunBuilder {
-	builder := &TextRunBuilder{}
-	return builder
+func NewTextRunBuilder() * TextRunBuilder{
+   builder := &TextRunBuilder{}
+   return builder
 }
 
-func (builder *TextRunBuilder) Text(text string) *TextRunBuilder {
-	builder.text = text
-	builder.textFlag = true
-	return builder
+
+func (builder * TextRunBuilder) Text(text string) *TextRunBuilder  {
+  builder.text = text
+  builder.textFlag = true
+  return builder
 }
 
-func (builder *TextRunBuilder) Build() *TextRun {
-	req := &TextRun{}
-	if builder.textFlag {
-		req.Text = &builder.text
-
-	}
-	return req
+func (builder * TextRunBuilder ) Build() *TextRun {
+   req := &TextRun{}
+   if builder.textFlag {
+	  req.Text = &builder.text
+	  
+   }
+   return req
 }
-
 // builder结束
 
 type TmpDownloadUrl struct {
-	FileToken      *string `json:"file_token,omitempty"`
-	TmpDownloadUrl *string `json:"tmp_download_url,omitempty"`
+	FileToken  *string `json:"file_token,omitempty"`
+	TmpDownloadUrl  *string `json:"tmp_download_url,omitempty"`
 }
 
 // builder开始
 type TmpDownloadUrlBuilder struct {
-	fileToken          string
-	fileTokenFlag      bool
-	tmpDownloadUrl     string
-	tmpDownloadUrlFlag bool
+	fileToken  string
+	fileTokenFlag  bool
+	tmpDownloadUrl  string
+	tmpDownloadUrlFlag  bool
 }
 
-func NewTmpDownloadUrlBuilder() *TmpDownloadUrlBuilder {
-	builder := &TmpDownloadUrlBuilder{}
-	return builder
+func NewTmpDownloadUrlBuilder() * TmpDownloadUrlBuilder{
+   builder := &TmpDownloadUrlBuilder{}
+   return builder
 }
 
-func (builder *TmpDownloadUrlBuilder) FileToken(fileToken string) *TmpDownloadUrlBuilder {
-	builder.fileToken = fileToken
-	builder.fileTokenFlag = true
-	return builder
+
+func (builder * TmpDownloadUrlBuilder) FileToken(fileToken string) *TmpDownloadUrlBuilder  {
+  builder.fileToken = fileToken
+  builder.fileTokenFlag = true
+  return builder
 }
-func (builder *TmpDownloadUrlBuilder) TmpDownloadUrl(tmpDownloadUrl string) *TmpDownloadUrlBuilder {
-	builder.tmpDownloadUrl = tmpDownloadUrl
-	builder.tmpDownloadUrlFlag = true
-	return builder
-}
-
-func (builder *TmpDownloadUrlBuilder) Build() *TmpDownloadUrl {
-	req := &TmpDownloadUrl{}
-	if builder.fileTokenFlag {
-		req.FileToken = &builder.fileToken
-
-	}
-	if builder.tmpDownloadUrlFlag {
-		req.TmpDownloadUrl = &builder.tmpDownloadUrl
-
-	}
-	return req
+func (builder * TmpDownloadUrlBuilder) TmpDownloadUrl(tmpDownloadUrl string) *TmpDownloadUrlBuilder  {
+  builder.tmpDownloadUrl = tmpDownloadUrl
+  builder.tmpDownloadUrlFlag = true
+  return builder
 }
 
+func (builder * TmpDownloadUrlBuilder ) Build() *TmpDownloadUrl {
+   req := &TmpDownloadUrl{}
+   if builder.fileTokenFlag {
+	  req.FileToken = &builder.fileToken
+	  
+   }
+   if builder.tmpDownloadUrlFlag {
+	  req.TmpDownloadUrl = &builder.tmpDownloadUrl
+	  
+   }
+   return req
+}
 // builder结束
 
 type TokenType struct {
-	Token *string `json:"token,omitempty"`
+	Token  *string `json:"token,omitempty"`
 	Type  *string `json:"type,omitempty"`
 }
 
 // builder开始
 type TokenTypeBuilder struct {
-	token     string
-	tokenFlag bool
-	type_     string
+	token  string
+	tokenFlag  bool
+	type_  string
 	typeFlag  bool
 }
 
-func NewTokenTypeBuilder() *TokenTypeBuilder {
-	builder := &TokenTypeBuilder{}
-	return builder
+func NewTokenTypeBuilder() * TokenTypeBuilder{
+   builder := &TokenTypeBuilder{}
+   return builder
 }
 
-func (builder *TokenTypeBuilder) Token(token string) *TokenTypeBuilder {
-	builder.token = token
-	builder.tokenFlag = true
-	return builder
+
+func (builder * TokenTypeBuilder) Token(token string) *TokenTypeBuilder  {
+  builder.token = token
+  builder.tokenFlag = true
+  return builder
 }
-func (builder *TokenTypeBuilder) Type(type_ string) *TokenTypeBuilder {
-	builder.type_ = type_
-	builder.typeFlag = true
-	return builder
-}
-
-func (builder *TokenTypeBuilder) Build() *TokenType {
-	req := &TokenType{}
-	if builder.tokenFlag {
-		req.Token = &builder.token
-
-	}
-	if builder.typeFlag {
-		req.Type = &builder.type_
-
-	}
-	return req
+func (builder * TokenTypeBuilder) Type(type_ string) *TokenTypeBuilder  {
+  builder.type_ = type_
+  builder.typeFlag = true
+  return builder
 }
 
+func (builder * TokenTypeBuilder ) Build() *TokenType {
+   req := &TokenType{}
+   if builder.tokenFlag {
+	  req.Token = &builder.token
+	  
+   }
+   if builder.typeFlag {
+	  req.Type = &builder.type_
+	  
+   }
+   return req
+}
 // builder结束
 
 type UploadInfo struct {
-	FileName   *string `json:"file_name,omitempty"`
-	ParentType *string `json:"parent_type,omitempty"`
-	ParentNode *string `json:"parent_node,omitempty"`
-	Size       *int    `json:"size,omitempty"`
+	FileName  *string `json:"file_name,omitempty"`
+	ParentType  *string `json:"parent_type,omitempty"`
+	ParentNode  *string `json:"parent_node,omitempty"`
+	Size  *int `json:"size,omitempty"`
 }
 
 // builder开始
 type UploadInfoBuilder struct {
-	fileName       string
-	fileNameFlag   bool
-	parentType     string
-	parentTypeFlag bool
-	parentNode     string
-	parentNodeFlag bool
-	size           int
-	sizeFlag       bool
+	fileName  string
+	fileNameFlag  bool
+	parentType  string
+	parentTypeFlag  bool
+	parentNode  string
+	parentNodeFlag  bool
+	size  int
+	sizeFlag  bool
 }
 
-func NewUploadInfoBuilder() *UploadInfoBuilder {
-	builder := &UploadInfoBuilder{}
-	return builder
+func NewUploadInfoBuilder() * UploadInfoBuilder{
+   builder := &UploadInfoBuilder{}
+   return builder
 }
 
-func (builder *UploadInfoBuilder) FileName(fileName string) *UploadInfoBuilder {
-	builder.fileName = fileName
-	builder.fileNameFlag = true
-	return builder
+
+func (builder * UploadInfoBuilder) FileName(fileName string) *UploadInfoBuilder  {
+  builder.fileName = fileName
+  builder.fileNameFlag = true
+  return builder
 }
-func (builder *UploadInfoBuilder) ParentType(parentType string) *UploadInfoBuilder {
-	builder.parentType = parentType
-	builder.parentTypeFlag = true
-	return builder
+func (builder * UploadInfoBuilder) ParentType(parentType string) *UploadInfoBuilder  {
+  builder.parentType = parentType
+  builder.parentTypeFlag = true
+  return builder
 }
-func (builder *UploadInfoBuilder) ParentNode(parentNode string) *UploadInfoBuilder {
-	builder.parentNode = parentNode
-	builder.parentNodeFlag = true
-	return builder
+func (builder * UploadInfoBuilder) ParentNode(parentNode string) *UploadInfoBuilder  {
+  builder.parentNode = parentNode
+  builder.parentNodeFlag = true
+  return builder
 }
-func (builder *UploadInfoBuilder) Size(size int) *UploadInfoBuilder {
-	builder.size = size
-	builder.sizeFlag = true
-	return builder
-}
-
-func (builder *UploadInfoBuilder) Build() *UploadInfo {
-	req := &UploadInfo{}
-	if builder.fileNameFlag {
-		req.FileName = &builder.fileName
-
-	}
-	if builder.parentTypeFlag {
-		req.ParentType = &builder.parentType
-
-	}
-	if builder.parentNodeFlag {
-		req.ParentNode = &builder.parentNode
-
-	}
-	if builder.sizeFlag {
-		req.Size = &builder.size
-
-	}
-	return req
+func (builder * UploadInfoBuilder) Size(size int) *UploadInfoBuilder  {
+  builder.size = size
+  builder.sizeFlag = true
+  return builder
 }
 
+func (builder * UploadInfoBuilder ) Build() *UploadInfo {
+   req := &UploadInfo{}
+   if builder.fileNameFlag {
+	  req.FileName = &builder.fileName
+	  
+   }
+   if builder.parentTypeFlag {
+	  req.ParentType = &builder.parentType
+	  
+   }
+   if builder.parentNodeFlag {
+	  req.ParentNode = &builder.parentNode
+	  
+   }
+   if builder.sizeFlag {
+	  req.Size = &builder.size
+	  
+   }
+   return req
+}
 // builder结束
 
 type UserId struct {
 	UserId  *string `json:"user_id,omitempty"`
 	OpenId  *string `json:"open_id,omitempty"`
-	UnionId *string `json:"union_id,omitempty"`
+	UnionId  *string `json:"union_id,omitempty"`
 }
 
 // builder开始
 type UserIdBuilder struct {
-	userId      string
+	userId  string
 	userIdFlag  bool
-	openId      string
+	openId  string
 	openIdFlag  bool
-	unionId     string
-	unionIdFlag bool
+	unionId  string
+	unionIdFlag  bool
 }
 
-func NewUserIdBuilder() *UserIdBuilder {
-	builder := &UserIdBuilder{}
-	return builder
+func NewUserIdBuilder() * UserIdBuilder{
+   builder := &UserIdBuilder{}
+   return builder
 }
 
-func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
+
+func (builder * UserIdBuilder) UserId(userId string) *UserIdBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
-func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
-	builder.openId = openId
-	builder.openIdFlag = true
-	return builder
+func (builder * UserIdBuilder) OpenId(openId string) *UserIdBuilder  {
+  builder.openId = openId
+  builder.openIdFlag = true
+  return builder
 }
-func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
-	builder.unionId = unionId
-	builder.unionIdFlag = true
-	return builder
-}
-
-func (builder *UserIdBuilder) Build() *UserId {
-	req := &UserId{}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	if builder.openIdFlag {
-		req.OpenId = &builder.openId
-
-	}
-	if builder.unionIdFlag {
-		req.UnionId = &builder.unionId
-
-	}
-	return req
+func (builder * UserIdBuilder) UnionId(unionId string) *UserIdBuilder  {
+  builder.unionId = unionId
+  builder.unionIdFlag = true
+  return builder
 }
 
+func (builder * UserIdBuilder ) Build() *UserId {
+   req := &UserId{}
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.openIdFlag {
+	  req.OpenId = &builder.openId
+	  
+   }
+   if builder.unionIdFlag {
+	  req.UnionId = &builder.unionId
+	  
+   }
+   return req
+}
 // builder结束
+
 
 // 生成请求和响应结果类型，以及请求对象的Builder构造器
 
+
 // 1.4 生成请求的builder结构体
 type CreateExportTaskReqBuilder struct {
-	exportTask     *ExportTask
+	exportTask *ExportTask
 	exportTaskFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewCreateExportTaskReqBuilder() *CreateExportTaskReqBuilder {
-	builder := &CreateExportTaskReqBuilder{}
-	return builder
+func NewCreateExportTaskReqBuilder() * CreateExportTaskReqBuilder{
+   builder := &CreateExportTaskReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *CreateExportTaskReqBuilder) ExportTask(exportTask *ExportTask) *CreateExportTaskReqBuilder {
-	builder.exportTask = exportTask
-	builder.exportTaskFlag = true
-	return builder
+func (builder * CreateExportTaskReqBuilder) ExportTask(exportTask *ExportTask) *CreateExportTaskReqBuilder  {
+  builder.exportTask = exportTask
+  builder.exportTaskFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *CreateExportTaskReqBuilder) Build() *CreateExportTaskReq {
-	req := &CreateExportTaskReq{}
-	if builder.exportTaskFlag {
-		req.ExportTask = builder.exportTask
-	}
-	return req
+func (builder * CreateExportTaskReqBuilder ) Build() *CreateExportTaskReq {
+   req := &CreateExportTaskReq{}
+   if builder.exportTaskFlag {
+	  req.ExportTask = builder.exportTask
+   }
+   return req
 }
+
 
 type CreateExportTaskReq struct {
 	ExportTask *ExportTask `body:""`
+
 }
 
 type CreateExportTaskRespData struct {
-	Ticket *string `json:"ticket,omitempty"`
+	Ticket  *string `json:"ticket,omitempty"`
 }
 
 type CreateExportTaskResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *CreateExportTaskRespData `json:"data"`
 }
 
@@ -2414,51 +2438,55 @@ func (resp *CreateExportTaskResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type DownloadExportTaskReqBuilder struct {
-	fileToken     string
-	fileTokenFlag bool
+	fileToken  string
+	fileTokenFlag  bool
+
 }
 
 // 生成请求的New构造器
-func NewDownloadExportTaskReqBuilder() *DownloadExportTaskReqBuilder {
-	builder := &DownloadExportTaskReqBuilder{}
-	return builder
+func NewDownloadExportTaskReqBuilder() * DownloadExportTaskReqBuilder{
+   builder := &DownloadExportTaskReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *DownloadExportTaskReqBuilder) FileToken(fileToken string) *DownloadExportTaskReqBuilder {
-	builder.fileToken = fileToken
-	builder.fileTokenFlag = true
-	return builder
+func (builder * DownloadExportTaskReqBuilder) FileToken(fileToken string) *DownloadExportTaskReqBuilder  {
+  builder.fileToken = fileToken
+  builder.fileTokenFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *DownloadExportTaskReqBuilder) Build() *DownloadExportTaskReq {
-	req := &DownloadExportTaskReq{}
-	if builder.fileTokenFlag {
-		req.FileToken = builder.fileToken
-	}
-	return req
+func (builder * DownloadExportTaskReqBuilder ) Build() *DownloadExportTaskReq {
+   req := &DownloadExportTaskReq{}
+   if builder.fileTokenFlag {
+	  req.FileToken = builder.fileToken
+   }
+   return req
 }
+
 
 type DownloadExportTaskReq struct {
-	FileToken string `path:"file_token"`
+	FileToken  string `path:"file_token"`
+
 }
 
+
 type DownloadExportTaskResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
-	File     io.Reader `json:"-"`
-	FileName string    `json:"-"`
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
+	File	 io.Reader `json:"-"`
+	FileName string	`json:"-"`
 }
 
 func (resp *DownloadExportTaskResp) Success() bool {
 	return resp.Code == 0
 }
-
 // 下载api,生成WriteFile方法
-func (resp *DownloadExportTaskResp) WriteFile(fileName string) error {
+func (resp * DownloadExportTaskResp) WriteFile(fileName string ) error {
 	bs, err := ioutil.ReadAll(resp.File)
 	if err != nil {
 		return err
@@ -2471,56 +2499,60 @@ func (resp *DownloadExportTaskResp) WriteFile(fileName string) error {
 	return nil
 }
 
+
 // 1.4 生成请求的builder结构体
 type GetExportTaskReqBuilder struct {
-	ticket     string
-	ticketFlag bool
-	token      string
+	ticket  string
+	ticketFlag  bool
+	token  string
 	tokenFlag  bool
+
 }
 
 // 生成请求的New构造器
-func NewGetExportTaskReqBuilder() *GetExportTaskReqBuilder {
-	builder := &GetExportTaskReqBuilder{}
-	return builder
+func NewGetExportTaskReqBuilder() * GetExportTaskReqBuilder{
+   builder := &GetExportTaskReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *GetExportTaskReqBuilder) Ticket(ticket string) *GetExportTaskReqBuilder {
-	builder.ticket = ticket
-	builder.ticketFlag = true
-	return builder
+func (builder * GetExportTaskReqBuilder) Ticket(ticket string) *GetExportTaskReqBuilder  {
+  builder.ticket = ticket
+  builder.ticketFlag = true
+  return builder
 }
-func (builder *GetExportTaskReqBuilder) Token(token string) *GetExportTaskReqBuilder {
-	builder.token = token
-	builder.tokenFlag = true
-	return builder
+func (builder * GetExportTaskReqBuilder) Token(token string) *GetExportTaskReqBuilder  {
+  builder.token = token
+  builder.tokenFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *GetExportTaskReqBuilder) Build() *GetExportTaskReq {
-	req := &GetExportTaskReq{}
-	if builder.ticketFlag {
-		req.Ticket = builder.ticket
-	}
-	if builder.tokenFlag {
-		req.Token = &builder.token
-	}
-	return req
+func (builder * GetExportTaskReqBuilder ) Build() *GetExportTaskReq {
+   req := &GetExportTaskReq{}
+   if builder.ticketFlag {
+	  req.Ticket = builder.ticket
+   }
+   if builder.tokenFlag {
+	  req.Token = &builder.token
+   }
+   return req
 }
 
+
 type GetExportTaskReq struct {
-	Ticket string  `path:"ticket"`
+	Ticket  string `path:"ticket"`
 	Token  *string `query:"token"`
+
 }
 
 type GetExportTaskRespData struct {
-	Result *ExportTask `json:"result,omitempty"`
+	Result  *ExportTask `json:"result,omitempty"`
 }
 
 type GetExportTaskResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *GetExportTaskRespData `json:"data"`
 }
 
@@ -2529,154 +2561,157 @@ func (resp *GetExportTaskResp) Success() bool {
 }
 
 type CopyFileReqBodyBuilder struct {
-	name            string
-	nameFlag        bool
-	type_           string
-	typeFlag        bool
-	folderToken     string
-	folderTokenFlag bool
+	name  string
+	nameFlag  bool
+	type_  string
+	typeFlag  bool
+	folderToken  string
+	folderTokenFlag  bool
 }
 
 // 生成body的New构造器
-func NewCopyFileReqBodyBuilder() *CopyFileReqBodyBuilder {
-	builder := &CopyFileReqBodyBuilder{}
-	return builder
+func NewCopyFileReqBodyBuilder() * CopyFileReqBodyBuilder{
+  builder := &CopyFileReqBodyBuilder{}
+  return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder *CopyFileReqBodyBuilder) Name(name string) *CopyFileReqBodyBuilder {
-	builder.name = name
-	builder.nameFlag = true
-	return builder
+func (builder * CopyFileReqBodyBuilder ) Name(name string) *CopyFileReqBodyBuilder {
+  builder.name = name
+  builder.nameFlag = true
+  return builder
 }
-func (builder *CopyFileReqBodyBuilder) Type(type_ string) *CopyFileReqBodyBuilder {
-	builder.type_ = type_
-	builder.typeFlag = true
-	return builder
+func (builder * CopyFileReqBodyBuilder ) Type(type_ string) *CopyFileReqBodyBuilder {
+  builder.type_ = type_
+  builder.typeFlag = true
+  return builder
 }
-func (builder *CopyFileReqBodyBuilder) FolderToken(folderToken string) *CopyFileReqBodyBuilder {
-	builder.folderToken = folderToken
-	builder.folderTokenFlag = true
-	return builder
+func (builder * CopyFileReqBodyBuilder ) FolderToken(folderToken string) *CopyFileReqBodyBuilder {
+  builder.folderToken = folderToken
+  builder.folderTokenFlag = true
+  return builder
 }
 
+
 // 1.3 生成body的build方法
-func (builder *CopyFileReqBodyBuilder) Build() *CopyFileReqBody {
-	req := &CopyFileReqBody{}
-	if builder.nameFlag {
-		req.Name = &builder.name
-	}
-	if builder.typeFlag {
-		req.Type = &builder.type_
-	}
-	if builder.folderTokenFlag {
-		req.FolderToken = &builder.folderToken
-	}
-	return req
+func (builder * CopyFileReqBodyBuilder ) Build() *CopyFileReqBody {
+   req := &CopyFileReqBody{}
+   if builder.nameFlag {
+	  req.Name = &builder.name
+   }
+   if builder.typeFlag {
+	  req.Type = &builder.type_
+   }
+   if builder.folderTokenFlag {
+	  req.FolderToken = &builder.folderToken
+   }
+   return req
 }
 
 // 上传文件path开始
 type CopyFilePathReqBodyBuilder struct {
-	name            string
-	nameFlag        bool
-	type_           string
-	typeFlag        bool
-	folderToken     string
-	folderTokenFlag bool
+	name  string
+	nameFlag  bool
+	type_  string
+	typeFlag  bool
+	folderToken  string
+	folderTokenFlag  bool
 }
 
-func NewCopyFilePathReqBodyBuilder() *CopyFilePathReqBodyBuilder {
-	builder := &CopyFilePathReqBodyBuilder{}
-	return builder
+func NewCopyFilePathReqBodyBuilder() * CopyFilePathReqBodyBuilder{
+  builder := &CopyFilePathReqBodyBuilder{}
+  return builder
 }
-func (builder *CopyFilePathReqBodyBuilder) Name(name string) *CopyFilePathReqBodyBuilder {
-	builder.name = name
-	builder.nameFlag = true
-	return builder
+func (builder * CopyFilePathReqBodyBuilder ) Name(name string) *CopyFilePathReqBodyBuilder {
+  builder.name = name
+  builder.nameFlag = true
+  return builder
 }
-func (builder *CopyFilePathReqBodyBuilder) Type(type_ string) *CopyFilePathReqBodyBuilder {
-	builder.type_ = type_
-	builder.typeFlag = true
-	return builder
+func (builder * CopyFilePathReqBodyBuilder ) Type(type_ string) *CopyFilePathReqBodyBuilder {
+  builder.type_ = type_
+  builder.typeFlag = true
+  return builder
 }
-func (builder *CopyFilePathReqBodyBuilder) FolderToken(folderToken string) *CopyFilePathReqBodyBuilder {
-	builder.folderToken = folderToken
-	builder.folderTokenFlag = true
-	return builder
-}
-
-func (builder *CopyFilePathReqBodyBuilder) Build() (*CopyFileReqBody, error) {
-	req := &CopyFileReqBody{}
-	if builder.nameFlag {
-		req.Name = &builder.name
-	}
-	if builder.typeFlag {
-		req.Type = &builder.type_
-	}
-	if builder.folderTokenFlag {
-		req.FolderToken = &builder.folderToken
-	}
-	return req, nil
+func (builder * CopyFilePathReqBodyBuilder ) FolderToken(folderToken string) *CopyFilePathReqBodyBuilder {
+  builder.folderToken = folderToken
+  builder.folderTokenFlag = true
+  return builder
 }
 
+
+func (builder * CopyFilePathReqBodyBuilder ) Build() (*CopyFileReqBody, error) {
+   req := &CopyFileReqBody{}
+   if builder.nameFlag {
+	  req.Name = &builder.name
+   }
+   if builder.typeFlag {
+	  req.Type = &builder.type_
+   }
+   if builder.folderTokenFlag {
+	  req.FolderToken = &builder.folderToken
+   }
+   return req, nil
+}
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type CopyFileReqBuilder struct {
-	fileToken     string
-	fileTokenFlag bool
-	body          *CopyFileReqBody
-	bodyFlag      bool
+	fileToken  string
+	fileTokenFlag  bool
+	body *CopyFileReqBody
+	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewCopyFileReqBuilder() *CopyFileReqBuilder {
-	builder := &CopyFileReqBuilder{}
-	return builder
+func NewCopyFileReqBuilder() * CopyFileReqBuilder{
+   builder := &CopyFileReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *CopyFileReqBuilder) FileToken(fileToken string) *CopyFileReqBuilder {
-	builder.fileToken = fileToken
-	builder.fileTokenFlag = true
-	return builder
+func (builder * CopyFileReqBuilder) FileToken(fileToken string) *CopyFileReqBuilder  {
+  builder.fileToken = fileToken
+  builder.fileTokenFlag = true
+  return builder
 }
-func (builder *CopyFileReqBuilder) Body(body *CopyFileReqBody) *CopyFileReqBuilder {
-	builder.body = body
-	builder.bodyFlag = true
-	return builder
+func (builder * CopyFileReqBuilder) Body(body *CopyFileReqBody) *CopyFileReqBuilder  {
+  builder.body = body
+  builder.bodyFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *CopyFileReqBuilder) Build() *CopyFileReq {
-	req := &CopyFileReq{}
-	if builder.fileTokenFlag {
-		req.FileToken = builder.fileToken
-	}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
-	return req
+func (builder * CopyFileReqBuilder ) Build() *CopyFileReq {
+   req := &CopyFileReq{}
+   if builder.fileTokenFlag {
+	  req.FileToken = builder.fileToken
+   }
+   if builder.bodyFlag {
+	  req.Body = builder.body
+   }
+   return req
 }
 
 type CopyFileReqBody struct {
-	Name        *string `json:"name,omitempty"`
-	Type        *string `json:"type,omitempty"`
-	FolderToken *string `json:"folder_token,omitempty"`
+	Name  *string `json:"name,omitempty"`
+	Type  *string `json:"type,omitempty"`
+	FolderToken  *string `json:"folder_token,omitempty"`
 }
 
 type CopyFileReq struct {
-	FileToken string           `path:"file_token"`
-	Body      *CopyFileReqBody `body:""`
+	FileToken  string `path:"file_token"`
+	Body *CopyFileReqBody `body:""`
+
 }
 
 type CopyFileRespData struct {
-	File *File `json:"file,omitempty"`
+	File  *File `json:"file,omitempty"`
 }
 
 type CopyFileResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *CopyFileRespData `json:"data"`
 }
 
@@ -2685,123 +2720,126 @@ func (resp *CopyFileResp) Success() bool {
 }
 
 type CreateFolderFileReqBodyBuilder struct {
-	name            string
-	nameFlag        bool
-	folderToken     string
-	folderTokenFlag bool
+	name  string
+	nameFlag  bool
+	folderToken  string
+	folderTokenFlag  bool
 }
 
 // 生成body的New构造器
-func NewCreateFolderFileReqBodyBuilder() *CreateFolderFileReqBodyBuilder {
-	builder := &CreateFolderFileReqBodyBuilder{}
-	return builder
+func NewCreateFolderFileReqBodyBuilder() * CreateFolderFileReqBodyBuilder{
+  builder := &CreateFolderFileReqBodyBuilder{}
+  return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder *CreateFolderFileReqBodyBuilder) Name(name string) *CreateFolderFileReqBodyBuilder {
-	builder.name = name
-	builder.nameFlag = true
-	return builder
+func (builder * CreateFolderFileReqBodyBuilder ) Name(name string) *CreateFolderFileReqBodyBuilder {
+  builder.name = name
+  builder.nameFlag = true
+  return builder
 }
-func (builder *CreateFolderFileReqBodyBuilder) FolderToken(folderToken string) *CreateFolderFileReqBodyBuilder {
-	builder.folderToken = folderToken
-	builder.folderTokenFlag = true
-	return builder
+func (builder * CreateFolderFileReqBodyBuilder ) FolderToken(folderToken string) *CreateFolderFileReqBodyBuilder {
+  builder.folderToken = folderToken
+  builder.folderTokenFlag = true
+  return builder
 }
 
+
 // 1.3 生成body的build方法
-func (builder *CreateFolderFileReqBodyBuilder) Build() *CreateFolderFileReqBody {
-	req := &CreateFolderFileReqBody{}
-	if builder.nameFlag {
-		req.Name = &builder.name
-	}
-	if builder.folderTokenFlag {
-		req.FolderToken = &builder.folderToken
-	}
-	return req
+func (builder * CreateFolderFileReqBodyBuilder ) Build() *CreateFolderFileReqBody {
+   req := &CreateFolderFileReqBody{}
+   if builder.nameFlag {
+	  req.Name = &builder.name
+   }
+   if builder.folderTokenFlag {
+	  req.FolderToken = &builder.folderToken
+   }
+   return req
 }
 
 // 上传文件path开始
 type CreateFolderFilePathReqBodyBuilder struct {
-	name            string
-	nameFlag        bool
-	folderToken     string
-	folderTokenFlag bool
+	name  string
+	nameFlag  bool
+	folderToken  string
+	folderTokenFlag  bool
 }
 
-func NewCreateFolderFilePathReqBodyBuilder() *CreateFolderFilePathReqBodyBuilder {
-	builder := &CreateFolderFilePathReqBodyBuilder{}
-	return builder
+func NewCreateFolderFilePathReqBodyBuilder() * CreateFolderFilePathReqBodyBuilder{
+  builder := &CreateFolderFilePathReqBodyBuilder{}
+  return builder
 }
-func (builder *CreateFolderFilePathReqBodyBuilder) Name(name string) *CreateFolderFilePathReqBodyBuilder {
-	builder.name = name
-	builder.nameFlag = true
-	return builder
+func (builder * CreateFolderFilePathReqBodyBuilder ) Name(name string) *CreateFolderFilePathReqBodyBuilder {
+  builder.name = name
+  builder.nameFlag = true
+  return builder
 }
-func (builder *CreateFolderFilePathReqBodyBuilder) FolderToken(folderToken string) *CreateFolderFilePathReqBodyBuilder {
-	builder.folderToken = folderToken
-	builder.folderTokenFlag = true
-	return builder
-}
-
-func (builder *CreateFolderFilePathReqBodyBuilder) Build() (*CreateFolderFileReqBody, error) {
-	req := &CreateFolderFileReqBody{}
-	if builder.nameFlag {
-		req.Name = &builder.name
-	}
-	if builder.folderTokenFlag {
-		req.FolderToken = &builder.folderToken
-	}
-	return req, nil
+func (builder * CreateFolderFilePathReqBodyBuilder ) FolderToken(folderToken string) *CreateFolderFilePathReqBodyBuilder {
+  builder.folderToken = folderToken
+  builder.folderTokenFlag = true
+  return builder
 }
 
+
+func (builder * CreateFolderFilePathReqBodyBuilder ) Build() (*CreateFolderFileReqBody, error) {
+   req := &CreateFolderFileReqBody{}
+   if builder.nameFlag {
+	  req.Name = &builder.name
+   }
+   if builder.folderTokenFlag {
+	  req.FolderToken = &builder.folderToken
+   }
+   return req, nil
+}
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type CreateFolderFileReqBuilder struct {
-	body     *CreateFolderFileReqBody
+	body *CreateFolderFileReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewCreateFolderFileReqBuilder() *CreateFolderFileReqBuilder {
-	builder := &CreateFolderFileReqBuilder{}
-	return builder
+func NewCreateFolderFileReqBuilder() * CreateFolderFileReqBuilder{
+   builder := &CreateFolderFileReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *CreateFolderFileReqBuilder) Body(body *CreateFolderFileReqBody) *CreateFolderFileReqBuilder {
-	builder.body = body
-	builder.bodyFlag = true
-	return builder
+func (builder * CreateFolderFileReqBuilder) Body(body *CreateFolderFileReqBody) *CreateFolderFileReqBuilder  {
+  builder.body = body
+  builder.bodyFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *CreateFolderFileReqBuilder) Build() *CreateFolderFileReq {
-	req := &CreateFolderFileReq{}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
-	return req
+func (builder * CreateFolderFileReqBuilder ) Build() *CreateFolderFileReq {
+   req := &CreateFolderFileReq{}
+   if builder.bodyFlag {
+	  req.Body = builder.body
+   }
+   return req
 }
 
 type CreateFolderFileReqBody struct {
-	Name        *string `json:"name,omitempty"`
-	FolderToken *string `json:"folder_token,omitempty"`
+	Name  *string `json:"name,omitempty"`
+	FolderToken  *string `json:"folder_token,omitempty"`
 }
 
 type CreateFolderFileReq struct {
 	Body *CreateFolderFileReqBody `body:""`
+
 }
 
 type CreateFolderFileRespData struct {
-	Token *string `json:"token,omitempty"`
-	Url   *string `json:"url,omitempty"`
+	Token  *string `json:"token,omitempty"`
+	Url  *string `json:"url,omitempty"`
 }
 
 type CreateFolderFileResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *CreateFolderFileRespData `json:"data"`
 }
 
@@ -2809,56 +2847,60 @@ func (resp *CreateFolderFileResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type DeleteFileReqBuilder struct {
-	fileToken     string
-	fileTokenFlag bool
-	type_         string
-	typeFlag      bool
+	fileToken  string
+	fileTokenFlag  bool
+	type_  string
+	typeFlag  bool
+
 }
 
 // 生成请求的New构造器
-func NewDeleteFileReqBuilder() *DeleteFileReqBuilder {
-	builder := &DeleteFileReqBuilder{}
-	return builder
+func NewDeleteFileReqBuilder() * DeleteFileReqBuilder{
+   builder := &DeleteFileReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *DeleteFileReqBuilder) FileToken(fileToken string) *DeleteFileReqBuilder {
-	builder.fileToken = fileToken
-	builder.fileTokenFlag = true
-	return builder
+func (builder * DeleteFileReqBuilder) FileToken(fileToken string) *DeleteFileReqBuilder  {
+  builder.fileToken = fileToken
+  builder.fileTokenFlag = true
+  return builder
 }
-func (builder *DeleteFileReqBuilder) Type(type_ string) *DeleteFileReqBuilder {
-	builder.type_ = type_
-	builder.typeFlag = true
-	return builder
+func (builder * DeleteFileReqBuilder) Type(type_ string) *DeleteFileReqBuilder  {
+  builder.type_ = type_
+  builder.typeFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *DeleteFileReqBuilder) Build() *DeleteFileReq {
-	req := &DeleteFileReq{}
-	if builder.fileTokenFlag {
-		req.FileToken = builder.fileToken
-	}
-	if builder.typeFlag {
-		req.Type = &builder.type_
-	}
-	return req
+func (builder * DeleteFileReqBuilder ) Build() *DeleteFileReq {
+   req := &DeleteFileReq{}
+   if builder.fileTokenFlag {
+	  req.FileToken = builder.fileToken
+   }
+   if builder.typeFlag {
+	  req.Type = &builder.type_
+   }
+   return req
 }
 
+
 type DeleteFileReq struct {
-	FileToken string  `path:"file_token"`
-	Type      *string `query:"type"`
+	FileToken  string `path:"file_token"`
+	Type  *string `query:"type"`
+
 }
 
 type DeleteFileRespData struct {
-	TaskId *string `json:"task_id,omitempty"`
+	TaskId  *string `json:"task_id,omitempty"`
 }
 
 type DeleteFileResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *DeleteFileRespData `json:"data"`
 }
 
@@ -2866,51 +2908,55 @@ func (resp *DeleteFileResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type DownloadFileReqBuilder struct {
-	fileToken     string
-	fileTokenFlag bool
+	fileToken  string
+	fileTokenFlag  bool
+
 }
 
 // 生成请求的New构造器
-func NewDownloadFileReqBuilder() *DownloadFileReqBuilder {
-	builder := &DownloadFileReqBuilder{}
-	return builder
+func NewDownloadFileReqBuilder() * DownloadFileReqBuilder{
+   builder := &DownloadFileReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *DownloadFileReqBuilder) FileToken(fileToken string) *DownloadFileReqBuilder {
-	builder.fileToken = fileToken
-	builder.fileTokenFlag = true
-	return builder
+func (builder * DownloadFileReqBuilder) FileToken(fileToken string) *DownloadFileReqBuilder  {
+  builder.fileToken = fileToken
+  builder.fileTokenFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *DownloadFileReqBuilder) Build() *DownloadFileReq {
-	req := &DownloadFileReq{}
-	if builder.fileTokenFlag {
-		req.FileToken = builder.fileToken
-	}
-	return req
+func (builder * DownloadFileReqBuilder ) Build() *DownloadFileReq {
+   req := &DownloadFileReq{}
+   if builder.fileTokenFlag {
+	  req.FileToken = builder.fileToken
+   }
+   return req
 }
+
 
 type DownloadFileReq struct {
-	FileToken string `path:"file_token"`
+	FileToken  string `path:"file_token"`
+
 }
 
+
 type DownloadFileResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
-	File     io.Reader `json:"-"`
-	FileName string    `json:"-"`
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
+	File	 io.Reader `json:"-"`
+	FileName string	`json:"-"`
 }
 
 func (resp *DownloadFileResp) Success() bool {
 	return resp.Code == 0
 }
-
 // 下载api,生成WriteFile方法
-func (resp *DownloadFileResp) WriteFile(fileName string) error {
+func (resp * DownloadFileResp) WriteFile(fileName string ) error {
 	bs, err := ioutil.ReadAll(resp.File)
 	if err != nil {
 		return err
@@ -2923,69 +2969,73 @@ func (resp *DownloadFileResp) WriteFile(fileName string) error {
 	return nil
 }
 
+
 // 1.4 生成请求的builder结构体
 type ListFileReqBuilder struct {
-	pageSize        int
-	pageSizeFlag    bool
-	pageToken       string
-	pageTokenFlag   bool
-	folderToken     string
-	folderTokenFlag bool
+	pageSize  int
+	pageSizeFlag  bool
+	pageToken  string
+	pageTokenFlag  bool
+	folderToken  string
+	folderTokenFlag  bool
+
 }
 
 // 生成请求的New构造器
-func NewListFileReqBuilder() *ListFileReqBuilder {
-	builder := &ListFileReqBuilder{}
-	return builder
+func NewListFileReqBuilder() * ListFileReqBuilder{
+   builder := &ListFileReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *ListFileReqBuilder) PageSize(pageSize int) *ListFileReqBuilder {
-	builder.pageSize = pageSize
-	builder.pageSizeFlag = true
-	return builder
+func (builder * ListFileReqBuilder) PageSize(pageSize int) *ListFileReqBuilder  {
+  builder.pageSize = pageSize
+  builder.pageSizeFlag = true
+  return builder
 }
-func (builder *ListFileReqBuilder) PageToken(pageToken string) *ListFileReqBuilder {
-	builder.pageToken = pageToken
-	builder.pageTokenFlag = true
-	return builder
+func (builder * ListFileReqBuilder) PageToken(pageToken string) *ListFileReqBuilder  {
+  builder.pageToken = pageToken
+  builder.pageTokenFlag = true
+  return builder
 }
-func (builder *ListFileReqBuilder) FolderToken(folderToken string) *ListFileReqBuilder {
-	builder.folderToken = folderToken
-	builder.folderTokenFlag = true
-	return builder
+func (builder * ListFileReqBuilder) FolderToken(folderToken string) *ListFileReqBuilder  {
+  builder.folderToken = folderToken
+  builder.folderTokenFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *ListFileReqBuilder) Build() *ListFileReq {
-	req := &ListFileReq{}
-	if builder.pageSizeFlag {
-		req.PageSize = &builder.pageSize
-	}
-	if builder.pageTokenFlag {
-		req.PageToken = &builder.pageToken
-	}
-	if builder.folderTokenFlag {
-		req.FolderToken = &builder.folderToken
-	}
-	return req
+func (builder * ListFileReqBuilder ) Build() *ListFileReq {
+   req := &ListFileReq{}
+   if builder.pageSizeFlag {
+	  req.PageSize = &builder.pageSize
+   }
+   if builder.pageTokenFlag {
+	  req.PageToken = &builder.pageToken
+   }
+   if builder.folderTokenFlag {
+	  req.FolderToken = &builder.folderToken
+   }
+   return req
 }
 
+
 type ListFileReq struct {
-	PageSize    *int    `query:"page_size"`
-	PageToken   *string `query:"page_token"`
-	FolderToken *string `query:"folder_token"`
+	PageSize  *int `query:"page_size"`
+	PageToken  *string `query:"page_token"`
+	FolderToken  *string `query:"folder_token"`
+
 }
 
 type ListFileRespData struct {
-	Files         []*File `json:"files,omitempty"`
-	NextPageToken *string `json:"next_page_token,omitempty"`
-	HasMore       *bool   `json:"has_more,omitempty"`
+	Files  []*File `json:"files,omitempty"`
+	NextPageToken  *string `json:"next_page_token,omitempty"`
+	HasMore  *bool `json:"has_more,omitempty"`
 }
 
 type ListFileResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *ListFileRespData `json:"data"`
 }
 
@@ -2994,133 +3044,136 @@ func (resp *ListFileResp) Success() bool {
 }
 
 type MoveFileReqBodyBuilder struct {
-	type_           string
-	typeFlag        bool
-	folderToken     string
-	folderTokenFlag bool
+	type_  string
+	typeFlag  bool
+	folderToken  string
+	folderTokenFlag  bool
 }
 
 // 生成body的New构造器
-func NewMoveFileReqBodyBuilder() *MoveFileReqBodyBuilder {
-	builder := &MoveFileReqBodyBuilder{}
-	return builder
+func NewMoveFileReqBodyBuilder() * MoveFileReqBodyBuilder{
+  builder := &MoveFileReqBodyBuilder{}
+  return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder *MoveFileReqBodyBuilder) Type(type_ string) *MoveFileReqBodyBuilder {
-	builder.type_ = type_
-	builder.typeFlag = true
-	return builder
+func (builder * MoveFileReqBodyBuilder ) Type(type_ string) *MoveFileReqBodyBuilder {
+  builder.type_ = type_
+  builder.typeFlag = true
+  return builder
 }
-func (builder *MoveFileReqBodyBuilder) FolderToken(folderToken string) *MoveFileReqBodyBuilder {
-	builder.folderToken = folderToken
-	builder.folderTokenFlag = true
-	return builder
+func (builder * MoveFileReqBodyBuilder ) FolderToken(folderToken string) *MoveFileReqBodyBuilder {
+  builder.folderToken = folderToken
+  builder.folderTokenFlag = true
+  return builder
 }
 
+
 // 1.3 生成body的build方法
-func (builder *MoveFileReqBodyBuilder) Build() *MoveFileReqBody {
-	req := &MoveFileReqBody{}
-	if builder.typeFlag {
-		req.Type = &builder.type_
-	}
-	if builder.folderTokenFlag {
-		req.FolderToken = &builder.folderToken
-	}
-	return req
+func (builder * MoveFileReqBodyBuilder ) Build() *MoveFileReqBody {
+   req := &MoveFileReqBody{}
+   if builder.typeFlag {
+	  req.Type = &builder.type_
+   }
+   if builder.folderTokenFlag {
+	  req.FolderToken = &builder.folderToken
+   }
+   return req
 }
 
 // 上传文件path开始
 type MoveFilePathReqBodyBuilder struct {
-	type_           string
-	typeFlag        bool
-	folderToken     string
-	folderTokenFlag bool
+	type_  string
+	typeFlag  bool
+	folderToken  string
+	folderTokenFlag  bool
 }
 
-func NewMoveFilePathReqBodyBuilder() *MoveFilePathReqBodyBuilder {
-	builder := &MoveFilePathReqBodyBuilder{}
-	return builder
+func NewMoveFilePathReqBodyBuilder() * MoveFilePathReqBodyBuilder{
+  builder := &MoveFilePathReqBodyBuilder{}
+  return builder
 }
-func (builder *MoveFilePathReqBodyBuilder) Type(type_ string) *MoveFilePathReqBodyBuilder {
-	builder.type_ = type_
-	builder.typeFlag = true
-	return builder
+func (builder * MoveFilePathReqBodyBuilder ) Type(type_ string) *MoveFilePathReqBodyBuilder {
+  builder.type_ = type_
+  builder.typeFlag = true
+  return builder
 }
-func (builder *MoveFilePathReqBodyBuilder) FolderToken(folderToken string) *MoveFilePathReqBodyBuilder {
-	builder.folderToken = folderToken
-	builder.folderTokenFlag = true
-	return builder
-}
-
-func (builder *MoveFilePathReqBodyBuilder) Build() (*MoveFileReqBody, error) {
-	req := &MoveFileReqBody{}
-	if builder.typeFlag {
-		req.Type = &builder.type_
-	}
-	if builder.folderTokenFlag {
-		req.FolderToken = &builder.folderToken
-	}
-	return req, nil
+func (builder * MoveFilePathReqBodyBuilder ) FolderToken(folderToken string) *MoveFilePathReqBodyBuilder {
+  builder.folderToken = folderToken
+  builder.folderTokenFlag = true
+  return builder
 }
 
+
+func (builder * MoveFilePathReqBodyBuilder ) Build() (*MoveFileReqBody, error) {
+   req := &MoveFileReqBody{}
+   if builder.typeFlag {
+	  req.Type = &builder.type_
+   }
+   if builder.folderTokenFlag {
+	  req.FolderToken = &builder.folderToken
+   }
+   return req, nil
+}
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type MoveFileReqBuilder struct {
-	fileToken     string
-	fileTokenFlag bool
-	body          *MoveFileReqBody
-	bodyFlag      bool
+	fileToken  string
+	fileTokenFlag  bool
+	body *MoveFileReqBody
+	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewMoveFileReqBuilder() *MoveFileReqBuilder {
-	builder := &MoveFileReqBuilder{}
-	return builder
+func NewMoveFileReqBuilder() * MoveFileReqBuilder{
+   builder := &MoveFileReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *MoveFileReqBuilder) FileToken(fileToken string) *MoveFileReqBuilder {
-	builder.fileToken = fileToken
-	builder.fileTokenFlag = true
-	return builder
+func (builder * MoveFileReqBuilder) FileToken(fileToken string) *MoveFileReqBuilder  {
+  builder.fileToken = fileToken
+  builder.fileTokenFlag = true
+  return builder
 }
-func (builder *MoveFileReqBuilder) Body(body *MoveFileReqBody) *MoveFileReqBuilder {
-	builder.body = body
-	builder.bodyFlag = true
-	return builder
+func (builder * MoveFileReqBuilder) Body(body *MoveFileReqBody) *MoveFileReqBuilder  {
+  builder.body = body
+  builder.bodyFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *MoveFileReqBuilder) Build() *MoveFileReq {
-	req := &MoveFileReq{}
-	if builder.fileTokenFlag {
-		req.FileToken = builder.fileToken
-	}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
-	return req
+func (builder * MoveFileReqBuilder ) Build() *MoveFileReq {
+   req := &MoveFileReq{}
+   if builder.fileTokenFlag {
+	  req.FileToken = builder.fileToken
+   }
+   if builder.bodyFlag {
+	  req.Body = builder.body
+   }
+   return req
 }
 
 type MoveFileReqBody struct {
-	Type        *string `json:"type,omitempty"`
-	FolderToken *string `json:"folder_token,omitempty"`
+	Type  *string `json:"type,omitempty"`
+	FolderToken  *string `json:"folder_token,omitempty"`
 }
 
 type MoveFileReq struct {
-	FileToken string           `path:"file_token"`
-	Body      *MoveFileReqBody `body:""`
+	FileToken  string `path:"file_token"`
+	Body *MoveFileReqBody `body:""`
+
 }
 
 type MoveFileRespData struct {
-	TaskId *string `json:"task_id,omitempty"`
+	TaskId  *string `json:"task_id,omitempty"`
 }
 
 type MoveFileResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *MoveFileRespData `json:"data"`
 }
 
@@ -3128,97 +3181,106 @@ func (resp *MoveFileResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type SubscribeFileReqBuilder struct {
-	fileToken     string
-	fileTokenFlag bool
-	fileType      string
+	fileToken  string
+	fileTokenFlag  bool
+	fileType  string
 	fileTypeFlag  bool
+
 }
 
 // 生成请求的New构造器
-func NewSubscribeFileReqBuilder() *SubscribeFileReqBuilder {
-	builder := &SubscribeFileReqBuilder{}
-	return builder
+func NewSubscribeFileReqBuilder() * SubscribeFileReqBuilder{
+   builder := &SubscribeFileReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *SubscribeFileReqBuilder) FileToken(fileToken string) *SubscribeFileReqBuilder {
-	builder.fileToken = fileToken
-	builder.fileTokenFlag = true
-	return builder
+func (builder * SubscribeFileReqBuilder) FileToken(fileToken string) *SubscribeFileReqBuilder  {
+  builder.fileToken = fileToken
+  builder.fileTokenFlag = true
+  return builder
 }
-func (builder *SubscribeFileReqBuilder) FileType(fileType string) *SubscribeFileReqBuilder {
-	builder.fileType = fileType
-	builder.fileTypeFlag = true
-	return builder
+func (builder * SubscribeFileReqBuilder) FileType(fileType string) *SubscribeFileReqBuilder  {
+  builder.fileType = fileType
+  builder.fileTypeFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *SubscribeFileReqBuilder) Build() *SubscribeFileReq {
-	req := &SubscribeFileReq{}
-	if builder.fileTokenFlag {
-		req.FileToken = builder.fileToken
-	}
-	if builder.fileTypeFlag {
-		req.FileType = &builder.fileType
-	}
-	return req
+func (builder * SubscribeFileReqBuilder ) Build() *SubscribeFileReq {
+   req := &SubscribeFileReq{}
+   if builder.fileTokenFlag {
+	  req.FileToken = builder.fileToken
+   }
+   if builder.fileTypeFlag {
+	  req.FileType = &builder.fileType
+   }
+   return req
 }
+
 
 type SubscribeFileReq struct {
-	FileToken string  `path:"file_token"`
+	FileToken  string `path:"file_token"`
 	FileType  *string `query:"file_type"`
+
 }
 
+
 type SubscribeFileResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 }
 
 func (resp *SubscribeFileResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type TaskCheckFileReqBuilder struct {
-	taskId     string
-	taskIdFlag bool
+	taskId  string
+	taskIdFlag  bool
+
 }
 
 // 生成请求的New构造器
-func NewTaskCheckFileReqBuilder() *TaskCheckFileReqBuilder {
-	builder := &TaskCheckFileReqBuilder{}
-	return builder
+func NewTaskCheckFileReqBuilder() * TaskCheckFileReqBuilder{
+   builder := &TaskCheckFileReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *TaskCheckFileReqBuilder) TaskId(taskId string) *TaskCheckFileReqBuilder {
-	builder.taskId = taskId
-	builder.taskIdFlag = true
-	return builder
+func (builder * TaskCheckFileReqBuilder) TaskId(taskId string) *TaskCheckFileReqBuilder  {
+  builder.taskId = taskId
+  builder.taskIdFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *TaskCheckFileReqBuilder) Build() *TaskCheckFileReq {
-	req := &TaskCheckFileReq{}
-	if builder.taskIdFlag {
-		req.TaskId = &builder.taskId
-	}
-	return req
+func (builder * TaskCheckFileReqBuilder ) Build() *TaskCheckFileReq {
+   req := &TaskCheckFileReq{}
+   if builder.taskIdFlag {
+	  req.TaskId = &builder.taskId
+   }
+   return req
 }
 
+
 type TaskCheckFileReq struct {
-	TaskId *string `query:"task_id"`
+	TaskId  *string `query:"task_id"`
+
 }
 
 type TaskCheckFileRespData struct {
-	Status *string `json:"status,omitempty"`
+	Status  *string `json:"status,omitempty"`
 }
 
 type TaskCheckFileResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *TaskCheckFileRespData `json:"data"`
 }
 
@@ -3227,210 +3289,213 @@ func (resp *TaskCheckFileResp) Success() bool {
 }
 
 type UploadAllFileReqBodyBuilder struct {
-	fileName       string
-	fileNameFlag   bool
-	parentType     string
-	parentTypeFlag bool
-	parentNode     string
-	parentNodeFlag bool
-	size           int
-	sizeFlag       bool
-	checksum       string
-	checksumFlag   bool
-	file           io.Reader
-	fileFlag       bool
+	fileName  string
+	fileNameFlag  bool
+	parentType  string
+	parentTypeFlag  bool
+	parentNode  string
+	parentNodeFlag  bool
+	size  int
+	sizeFlag  bool
+	checksum  string
+	checksumFlag  bool
+	file  io.Reader
+	fileFlag  bool
 }
 
 // 生成body的New构造器
-func NewUploadAllFileReqBodyBuilder() *UploadAllFileReqBodyBuilder {
-	builder := &UploadAllFileReqBodyBuilder{}
-	return builder
+func NewUploadAllFileReqBodyBuilder() * UploadAllFileReqBodyBuilder{
+  builder := &UploadAllFileReqBodyBuilder{}
+  return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder *UploadAllFileReqBodyBuilder) FileName(fileName string) *UploadAllFileReqBodyBuilder {
-	builder.fileName = fileName
-	builder.fileNameFlag = true
-	return builder
+func (builder * UploadAllFileReqBodyBuilder ) FileName(fileName string) *UploadAllFileReqBodyBuilder {
+  builder.fileName = fileName
+  builder.fileNameFlag = true
+  return builder
 }
-func (builder *UploadAllFileReqBodyBuilder) ParentType(parentType string) *UploadAllFileReqBodyBuilder {
-	builder.parentType = parentType
-	builder.parentTypeFlag = true
-	return builder
+func (builder * UploadAllFileReqBodyBuilder ) ParentType(parentType string) *UploadAllFileReqBodyBuilder {
+  builder.parentType = parentType
+  builder.parentTypeFlag = true
+  return builder
 }
-func (builder *UploadAllFileReqBodyBuilder) ParentNode(parentNode string) *UploadAllFileReqBodyBuilder {
-	builder.parentNode = parentNode
-	builder.parentNodeFlag = true
-	return builder
+func (builder * UploadAllFileReqBodyBuilder ) ParentNode(parentNode string) *UploadAllFileReqBodyBuilder {
+  builder.parentNode = parentNode
+  builder.parentNodeFlag = true
+  return builder
 }
-func (builder *UploadAllFileReqBodyBuilder) Size(size int) *UploadAllFileReqBodyBuilder {
-	builder.size = size
-	builder.sizeFlag = true
-	return builder
+func (builder * UploadAllFileReqBodyBuilder ) Size(size int) *UploadAllFileReqBodyBuilder {
+  builder.size = size
+  builder.sizeFlag = true
+  return builder
 }
-func (builder *UploadAllFileReqBodyBuilder) Checksum(checksum string) *UploadAllFileReqBodyBuilder {
-	builder.checksum = checksum
-	builder.checksumFlag = true
-	return builder
+func (builder * UploadAllFileReqBodyBuilder ) Checksum(checksum string) *UploadAllFileReqBodyBuilder {
+  builder.checksum = checksum
+  builder.checksumFlag = true
+  return builder
 }
-func (builder *UploadAllFileReqBodyBuilder) File(file io.Reader) *UploadAllFileReqBodyBuilder {
-	builder.file = file
-	builder.fileFlag = true
-	return builder
+func (builder * UploadAllFileReqBodyBuilder ) File(file io.Reader) *UploadAllFileReqBodyBuilder {
+  builder.file = file
+  builder.fileFlag = true
+  return builder
 }
 
+
 // 1.3 生成body的build方法
-func (builder *UploadAllFileReqBodyBuilder) Build() *UploadAllFileReqBody {
-	req := &UploadAllFileReqBody{}
-	if builder.fileNameFlag {
-		req.FileName = &builder.fileName
-	}
-	if builder.parentTypeFlag {
-		req.ParentType = &builder.parentType
-	}
-	if builder.parentNodeFlag {
-		req.ParentNode = &builder.parentNode
-	}
-	if builder.sizeFlag {
-		req.Size = &builder.size
-	}
-	if builder.checksumFlag {
-		req.Checksum = &builder.checksum
-	}
-	if builder.fileFlag {
-		req.File = builder.file
-	}
-	return req
+func (builder * UploadAllFileReqBodyBuilder ) Build() *UploadAllFileReqBody {
+   req := &UploadAllFileReqBody{}
+   if builder.fileNameFlag {
+	  req.FileName = &builder.fileName
+   }
+   if builder.parentTypeFlag {
+	  req.ParentType = &builder.parentType
+   }
+   if builder.parentNodeFlag {
+	  req.ParentNode = &builder.parentNode
+   }
+   if builder.sizeFlag {
+	  req.Size = &builder.size
+   }
+   if builder.checksumFlag {
+	  req.Checksum = &builder.checksum
+   }
+   if builder.fileFlag {
+	  req.File = builder.file
+   }
+   return req
 }
 
 // 上传文件path开始
 type UploadAllFilePathReqBodyBuilder struct {
-	fileName       string
-	fileNameFlag   bool
-	parentType     string
-	parentTypeFlag bool
-	parentNode     string
-	parentNodeFlag bool
-	size           int
-	sizeFlag       bool
-	checksum       string
-	checksumFlag   bool
-	filePath       string
-	filePathFlag   bool
+	fileName  string
+	fileNameFlag  bool
+	parentType  string
+	parentTypeFlag  bool
+	parentNode  string
+	parentNodeFlag  bool
+	size  int
+	sizeFlag  bool
+	checksum  string
+	checksumFlag  bool
+	filePath  string
+	filePathFlag  bool
 }
 
-func NewUploadAllFilePathReqBodyBuilder() *UploadAllFilePathReqBodyBuilder {
-	builder := &UploadAllFilePathReqBodyBuilder{}
-	return builder
+func NewUploadAllFilePathReqBodyBuilder() * UploadAllFilePathReqBodyBuilder{
+  builder := &UploadAllFilePathReqBodyBuilder{}
+  return builder
 }
-func (builder *UploadAllFilePathReqBodyBuilder) FileName(fileName string) *UploadAllFilePathReqBodyBuilder {
-	builder.fileName = fileName
-	builder.fileNameFlag = true
-	return builder
+func (builder * UploadAllFilePathReqBodyBuilder ) FileName(fileName string) *UploadAllFilePathReqBodyBuilder {
+  builder.fileName = fileName
+  builder.fileNameFlag = true
+  return builder
 }
-func (builder *UploadAllFilePathReqBodyBuilder) ParentType(parentType string) *UploadAllFilePathReqBodyBuilder {
-	builder.parentType = parentType
-	builder.parentTypeFlag = true
-	return builder
+func (builder * UploadAllFilePathReqBodyBuilder ) ParentType(parentType string) *UploadAllFilePathReqBodyBuilder {
+  builder.parentType = parentType
+  builder.parentTypeFlag = true
+  return builder
 }
-func (builder *UploadAllFilePathReqBodyBuilder) ParentNode(parentNode string) *UploadAllFilePathReqBodyBuilder {
-	builder.parentNode = parentNode
-	builder.parentNodeFlag = true
-	return builder
+func (builder * UploadAllFilePathReqBodyBuilder ) ParentNode(parentNode string) *UploadAllFilePathReqBodyBuilder {
+  builder.parentNode = parentNode
+  builder.parentNodeFlag = true
+  return builder
 }
-func (builder *UploadAllFilePathReqBodyBuilder) Size(size int) *UploadAllFilePathReqBodyBuilder {
-	builder.size = size
-	builder.sizeFlag = true
-	return builder
+func (builder * UploadAllFilePathReqBodyBuilder ) Size(size int) *UploadAllFilePathReqBodyBuilder {
+  builder.size = size
+  builder.sizeFlag = true
+  return builder
 }
-func (builder *UploadAllFilePathReqBodyBuilder) Checksum(checksum string) *UploadAllFilePathReqBodyBuilder {
-	builder.checksum = checksum
-	builder.checksumFlag = true
-	return builder
+func (builder * UploadAllFilePathReqBodyBuilder ) Checksum(checksum string) *UploadAllFilePathReqBodyBuilder {
+  builder.checksum = checksum
+  builder.checksumFlag = true
+  return builder
 }
-func (builder *UploadAllFilePathReqBodyBuilder) FilePath(filePath string) *UploadAllFilePathReqBodyBuilder {
-	builder.filePath = filePath
-	builder.filePathFlag = true
-	return builder
-}
-
-func (builder *UploadAllFilePathReqBodyBuilder) Build() (*UploadAllFileReqBody, error) {
-	req := &UploadAllFileReqBody{}
-	if builder.fileNameFlag {
-		req.FileName = &builder.fileName
-	}
-	if builder.parentTypeFlag {
-		req.ParentType = &builder.parentType
-	}
-	if builder.parentNodeFlag {
-		req.ParentNode = &builder.parentNode
-	}
-	if builder.sizeFlag {
-		req.Size = &builder.size
-	}
-	if builder.checksumFlag {
-		req.Checksum = &builder.checksum
-	}
-	if builder.filePathFlag {
-		data, err := core.File2Bytes(builder.filePath)
-		if err != nil {
-			return nil, err
-		}
-		req.File = bytes.NewBuffer(data)
-	}
-	return req, nil
+func (builder * UploadAllFilePathReqBodyBuilder ) FilePath(filePath string) *UploadAllFilePathReqBodyBuilder {
+  builder.filePath = filePath
+  builder.filePathFlag = true
+  return builder
 }
 
+
+func (builder * UploadAllFilePathReqBodyBuilder ) Build() (*UploadAllFileReqBody, error) {
+   req := &UploadAllFileReqBody{}
+   if builder.fileNameFlag {
+	  req.FileName = &builder.fileName
+   }
+   if builder.parentTypeFlag {
+	  req.ParentType = &builder.parentType
+   }
+   if builder.parentNodeFlag {
+	  req.ParentNode = &builder.parentNode
+   }
+   if builder.sizeFlag {
+	  req.Size = &builder.size
+   }
+   if builder.checksumFlag {
+	  req.Checksum = &builder.checksum
+   }
+   if builder.filePathFlag {
+	  data, err := larkcore.File2Bytes(builder.filePath)
+	  if err != nil {
+		return nil, err
+	  }
+	  req.File = bytes.NewBuffer(data)
+   }
+   return req, nil
+}
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type UploadAllFileReqBuilder struct {
-	body     *UploadAllFileReqBody
+	body *UploadAllFileReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewUploadAllFileReqBuilder() *UploadAllFileReqBuilder {
-	builder := &UploadAllFileReqBuilder{}
-	return builder
+func NewUploadAllFileReqBuilder() * UploadAllFileReqBuilder{
+   builder := &UploadAllFileReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *UploadAllFileReqBuilder) Body(body *UploadAllFileReqBody) *UploadAllFileReqBuilder {
-	builder.body = body
-	builder.bodyFlag = true
-	return builder
+func (builder * UploadAllFileReqBuilder) Body(body *UploadAllFileReqBody) *UploadAllFileReqBuilder  {
+  builder.body = body
+  builder.bodyFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *UploadAllFileReqBuilder) Build() *UploadAllFileReq {
-	req := &UploadAllFileReq{}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
-	return req
+func (builder * UploadAllFileReqBuilder ) Build() *UploadAllFileReq {
+   req := &UploadAllFileReq{}
+   if builder.bodyFlag {
+	  req.Body = builder.body
+   }
+   return req
 }
 
 type UploadAllFileReqBody struct {
-	FileName   *string   `json:"file_name,omitempty"`
-	ParentType *string   `json:"parent_type,omitempty"`
-	ParentNode *string   `json:"parent_node,omitempty"`
-	Size       *int      `json:"size,omitempty"`
-	Checksum   *string   `json:"checksum,omitempty"`
-	File       io.Reader `json:"file,omitempty"`
+	FileName  *string `json:"file_name,omitempty"`
+	ParentType  *string `json:"parent_type,omitempty"`
+	ParentNode  *string `json:"parent_node,omitempty"`
+	Size  *int `json:"size,omitempty"`
+	Checksum  *string `json:"checksum,omitempty"`
+	File  io.Reader `json:"file,omitempty"`
 }
 
 type UploadAllFileReq struct {
 	Body *UploadAllFileReqBody `body:""`
+
 }
 
 type UploadAllFileRespData struct {
-	FileToken *string `json:"file_token,omitempty"`
+	FileToken  *string `json:"file_token,omitempty"`
 }
 
 type UploadAllFileResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *UploadAllFileRespData `json:"data"`
 }
 
@@ -3439,122 +3504,125 @@ func (resp *UploadAllFileResp) Success() bool {
 }
 
 type UploadFinishFileReqBodyBuilder struct {
-	uploadId     string
-	uploadIdFlag bool
-	blockNum     int
-	blockNumFlag bool
+	uploadId  string
+	uploadIdFlag  bool
+	blockNum  int
+	blockNumFlag  bool
 }
 
 // 生成body的New构造器
-func NewUploadFinishFileReqBodyBuilder() *UploadFinishFileReqBodyBuilder {
-	builder := &UploadFinishFileReqBodyBuilder{}
-	return builder
+func NewUploadFinishFileReqBodyBuilder() * UploadFinishFileReqBodyBuilder{
+  builder := &UploadFinishFileReqBodyBuilder{}
+  return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder *UploadFinishFileReqBodyBuilder) UploadId(uploadId string) *UploadFinishFileReqBodyBuilder {
-	builder.uploadId = uploadId
-	builder.uploadIdFlag = true
-	return builder
+func (builder * UploadFinishFileReqBodyBuilder ) UploadId(uploadId string) *UploadFinishFileReqBodyBuilder {
+  builder.uploadId = uploadId
+  builder.uploadIdFlag = true
+  return builder
 }
-func (builder *UploadFinishFileReqBodyBuilder) BlockNum(blockNum int) *UploadFinishFileReqBodyBuilder {
-	builder.blockNum = blockNum
-	builder.blockNumFlag = true
-	return builder
+func (builder * UploadFinishFileReqBodyBuilder ) BlockNum(blockNum int) *UploadFinishFileReqBodyBuilder {
+  builder.blockNum = blockNum
+  builder.blockNumFlag = true
+  return builder
 }
 
+
 // 1.3 生成body的build方法
-func (builder *UploadFinishFileReqBodyBuilder) Build() *UploadFinishFileReqBody {
-	req := &UploadFinishFileReqBody{}
-	if builder.uploadIdFlag {
-		req.UploadId = &builder.uploadId
-	}
-	if builder.blockNumFlag {
-		req.BlockNum = &builder.blockNum
-	}
-	return req
+func (builder * UploadFinishFileReqBodyBuilder ) Build() *UploadFinishFileReqBody {
+   req := &UploadFinishFileReqBody{}
+   if builder.uploadIdFlag {
+	  req.UploadId = &builder.uploadId
+   }
+   if builder.blockNumFlag {
+	  req.BlockNum = &builder.blockNum
+   }
+   return req
 }
 
 // 上传文件path开始
 type UploadFinishFilePathReqBodyBuilder struct {
-	uploadId     string
-	uploadIdFlag bool
-	blockNum     int
-	blockNumFlag bool
+	uploadId  string
+	uploadIdFlag  bool
+	blockNum  int
+	blockNumFlag  bool
 }
 
-func NewUploadFinishFilePathReqBodyBuilder() *UploadFinishFilePathReqBodyBuilder {
-	builder := &UploadFinishFilePathReqBodyBuilder{}
-	return builder
+func NewUploadFinishFilePathReqBodyBuilder() * UploadFinishFilePathReqBodyBuilder{
+  builder := &UploadFinishFilePathReqBodyBuilder{}
+  return builder
 }
-func (builder *UploadFinishFilePathReqBodyBuilder) UploadId(uploadId string) *UploadFinishFilePathReqBodyBuilder {
-	builder.uploadId = uploadId
-	builder.uploadIdFlag = true
-	return builder
+func (builder * UploadFinishFilePathReqBodyBuilder ) UploadId(uploadId string) *UploadFinishFilePathReqBodyBuilder {
+  builder.uploadId = uploadId
+  builder.uploadIdFlag = true
+  return builder
 }
-func (builder *UploadFinishFilePathReqBodyBuilder) BlockNum(blockNum int) *UploadFinishFilePathReqBodyBuilder {
-	builder.blockNum = blockNum
-	builder.blockNumFlag = true
-	return builder
-}
-
-func (builder *UploadFinishFilePathReqBodyBuilder) Build() (*UploadFinishFileReqBody, error) {
-	req := &UploadFinishFileReqBody{}
-	if builder.uploadIdFlag {
-		req.UploadId = &builder.uploadId
-	}
-	if builder.blockNumFlag {
-		req.BlockNum = &builder.blockNum
-	}
-	return req, nil
+func (builder * UploadFinishFilePathReqBodyBuilder ) BlockNum(blockNum int) *UploadFinishFilePathReqBodyBuilder {
+  builder.blockNum = blockNum
+  builder.blockNumFlag = true
+  return builder
 }
 
+
+func (builder * UploadFinishFilePathReqBodyBuilder ) Build() (*UploadFinishFileReqBody, error) {
+   req := &UploadFinishFileReqBody{}
+   if builder.uploadIdFlag {
+	  req.UploadId = &builder.uploadId
+   }
+   if builder.blockNumFlag {
+	  req.BlockNum = &builder.blockNum
+   }
+   return req, nil
+}
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type UploadFinishFileReqBuilder struct {
-	body     *UploadFinishFileReqBody
+	body *UploadFinishFileReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewUploadFinishFileReqBuilder() *UploadFinishFileReqBuilder {
-	builder := &UploadFinishFileReqBuilder{}
-	return builder
+func NewUploadFinishFileReqBuilder() * UploadFinishFileReqBuilder{
+   builder := &UploadFinishFileReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *UploadFinishFileReqBuilder) Body(body *UploadFinishFileReqBody) *UploadFinishFileReqBuilder {
-	builder.body = body
-	builder.bodyFlag = true
-	return builder
+func (builder * UploadFinishFileReqBuilder) Body(body *UploadFinishFileReqBody) *UploadFinishFileReqBuilder  {
+  builder.body = body
+  builder.bodyFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *UploadFinishFileReqBuilder) Build() *UploadFinishFileReq {
-	req := &UploadFinishFileReq{}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
-	return req
+func (builder * UploadFinishFileReqBuilder ) Build() *UploadFinishFileReq {
+   req := &UploadFinishFileReq{}
+   if builder.bodyFlag {
+	  req.Body = builder.body
+   }
+   return req
 }
 
 type UploadFinishFileReqBody struct {
-	UploadId *string `json:"upload_id,omitempty"`
-	BlockNum *int    `json:"block_num,omitempty"`
+	UploadId  *string `json:"upload_id,omitempty"`
+	BlockNum  *int `json:"block_num,omitempty"`
 }
 
 type UploadFinishFileReq struct {
 	Body *UploadFinishFileReqBody `body:""`
+
 }
 
 type UploadFinishFileRespData struct {
-	FileToken *string `json:"file_token,omitempty"`
+	FileToken  *string `json:"file_token,omitempty"`
 }
 
 type UploadFinishFileResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *UploadFinishFileRespData `json:"data"`
 }
 
@@ -3563,232 +3631,240 @@ func (resp *UploadFinishFileResp) Success() bool {
 }
 
 type UploadPartFileReqBodyBuilder struct {
-	uploadId     string
-	uploadIdFlag bool
-	seq          int
-	seqFlag      bool
-	size         int
-	sizeFlag     bool
-	checksum     string
-	checksumFlag bool
-	file         io.Reader
-	fileFlag     bool
+	uploadId  string
+	uploadIdFlag  bool
+	seq  int
+	seqFlag  bool
+	size  int
+	sizeFlag  bool
+	checksum  string
+	checksumFlag  bool
+	file  io.Reader
+	fileFlag  bool
 }
 
 // 生成body的New构造器
-func NewUploadPartFileReqBodyBuilder() *UploadPartFileReqBodyBuilder {
-	builder := &UploadPartFileReqBodyBuilder{}
-	return builder
+func NewUploadPartFileReqBodyBuilder() * UploadPartFileReqBodyBuilder{
+  builder := &UploadPartFileReqBodyBuilder{}
+  return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder *UploadPartFileReqBodyBuilder) UploadId(uploadId string) *UploadPartFileReqBodyBuilder {
-	builder.uploadId = uploadId
-	builder.uploadIdFlag = true
-	return builder
+func (builder * UploadPartFileReqBodyBuilder ) UploadId(uploadId string) *UploadPartFileReqBodyBuilder {
+  builder.uploadId = uploadId
+  builder.uploadIdFlag = true
+  return builder
 }
-func (builder *UploadPartFileReqBodyBuilder) Seq(seq int) *UploadPartFileReqBodyBuilder {
-	builder.seq = seq
-	builder.seqFlag = true
-	return builder
+func (builder * UploadPartFileReqBodyBuilder ) Seq(seq int) *UploadPartFileReqBodyBuilder {
+  builder.seq = seq
+  builder.seqFlag = true
+  return builder
 }
-func (builder *UploadPartFileReqBodyBuilder) Size(size int) *UploadPartFileReqBodyBuilder {
-	builder.size = size
-	builder.sizeFlag = true
-	return builder
+func (builder * UploadPartFileReqBodyBuilder ) Size(size int) *UploadPartFileReqBodyBuilder {
+  builder.size = size
+  builder.sizeFlag = true
+  return builder
 }
-func (builder *UploadPartFileReqBodyBuilder) Checksum(checksum string) *UploadPartFileReqBodyBuilder {
-	builder.checksum = checksum
-	builder.checksumFlag = true
-	return builder
+func (builder * UploadPartFileReqBodyBuilder ) Checksum(checksum string) *UploadPartFileReqBodyBuilder {
+  builder.checksum = checksum
+  builder.checksumFlag = true
+  return builder
 }
-func (builder *UploadPartFileReqBodyBuilder) File(file io.Reader) *UploadPartFileReqBodyBuilder {
-	builder.file = file
-	builder.fileFlag = true
-	return builder
+func (builder * UploadPartFileReqBodyBuilder ) File(file io.Reader) *UploadPartFileReqBodyBuilder {
+  builder.file = file
+  builder.fileFlag = true
+  return builder
 }
 
+
 // 1.3 生成body的build方法
-func (builder *UploadPartFileReqBodyBuilder) Build() *UploadPartFileReqBody {
-	req := &UploadPartFileReqBody{}
-	if builder.uploadIdFlag {
-		req.UploadId = &builder.uploadId
-	}
-	if builder.seqFlag {
-		req.Seq = &builder.seq
-	}
-	if builder.sizeFlag {
-		req.Size = &builder.size
-	}
-	if builder.checksumFlag {
-		req.Checksum = &builder.checksum
-	}
-	if builder.fileFlag {
-		req.File = builder.file
-	}
-	return req
+func (builder * UploadPartFileReqBodyBuilder ) Build() *UploadPartFileReqBody {
+   req := &UploadPartFileReqBody{}
+   if builder.uploadIdFlag {
+	  req.UploadId = &builder.uploadId
+   }
+   if builder.seqFlag {
+	  req.Seq = &builder.seq
+   }
+   if builder.sizeFlag {
+	  req.Size = &builder.size
+   }
+   if builder.checksumFlag {
+	  req.Checksum = &builder.checksum
+   }
+   if builder.fileFlag {
+	  req.File = builder.file
+   }
+   return req
 }
 
 // 上传文件path开始
 type UploadPartFilePathReqBodyBuilder struct {
-	uploadId     string
-	uploadIdFlag bool
-	seq          int
-	seqFlag      bool
-	size         int
-	sizeFlag     bool
-	checksum     string
-	checksumFlag bool
-	filePath     string
-	filePathFlag bool
+	uploadId  string
+	uploadIdFlag  bool
+	seq  int
+	seqFlag  bool
+	size  int
+	sizeFlag  bool
+	checksum  string
+	checksumFlag  bool
+	filePath  string
+	filePathFlag  bool
 }
 
-func NewUploadPartFilePathReqBodyBuilder() *UploadPartFilePathReqBodyBuilder {
-	builder := &UploadPartFilePathReqBodyBuilder{}
-	return builder
+func NewUploadPartFilePathReqBodyBuilder() * UploadPartFilePathReqBodyBuilder{
+  builder := &UploadPartFilePathReqBodyBuilder{}
+  return builder
 }
-func (builder *UploadPartFilePathReqBodyBuilder) UploadId(uploadId string) *UploadPartFilePathReqBodyBuilder {
-	builder.uploadId = uploadId
-	builder.uploadIdFlag = true
-	return builder
+func (builder * UploadPartFilePathReqBodyBuilder ) UploadId(uploadId string) *UploadPartFilePathReqBodyBuilder {
+  builder.uploadId = uploadId
+  builder.uploadIdFlag = true
+  return builder
 }
-func (builder *UploadPartFilePathReqBodyBuilder) Seq(seq int) *UploadPartFilePathReqBodyBuilder {
-	builder.seq = seq
-	builder.seqFlag = true
-	return builder
+func (builder * UploadPartFilePathReqBodyBuilder ) Seq(seq int) *UploadPartFilePathReqBodyBuilder {
+  builder.seq = seq
+  builder.seqFlag = true
+  return builder
 }
-func (builder *UploadPartFilePathReqBodyBuilder) Size(size int) *UploadPartFilePathReqBodyBuilder {
-	builder.size = size
-	builder.sizeFlag = true
-	return builder
+func (builder * UploadPartFilePathReqBodyBuilder ) Size(size int) *UploadPartFilePathReqBodyBuilder {
+  builder.size = size
+  builder.sizeFlag = true
+  return builder
 }
-func (builder *UploadPartFilePathReqBodyBuilder) Checksum(checksum string) *UploadPartFilePathReqBodyBuilder {
-	builder.checksum = checksum
-	builder.checksumFlag = true
-	return builder
+func (builder * UploadPartFilePathReqBodyBuilder ) Checksum(checksum string) *UploadPartFilePathReqBodyBuilder {
+  builder.checksum = checksum
+  builder.checksumFlag = true
+  return builder
 }
-func (builder *UploadPartFilePathReqBodyBuilder) FilePath(filePath string) *UploadPartFilePathReqBodyBuilder {
-	builder.filePath = filePath
-	builder.filePathFlag = true
-	return builder
-}
-
-func (builder *UploadPartFilePathReqBodyBuilder) Build() (*UploadPartFileReqBody, error) {
-	req := &UploadPartFileReqBody{}
-	if builder.uploadIdFlag {
-		req.UploadId = &builder.uploadId
-	}
-	if builder.seqFlag {
-		req.Seq = &builder.seq
-	}
-	if builder.sizeFlag {
-		req.Size = &builder.size
-	}
-	if builder.checksumFlag {
-		req.Checksum = &builder.checksum
-	}
-	if builder.filePathFlag {
-		data, err := core.File2Bytes(builder.filePath)
-		if err != nil {
-			return nil, err
-		}
-		req.File = bytes.NewBuffer(data)
-	}
-	return req, nil
+func (builder * UploadPartFilePathReqBodyBuilder ) FilePath(filePath string) *UploadPartFilePathReqBodyBuilder {
+  builder.filePath = filePath
+  builder.filePathFlag = true
+  return builder
 }
 
+
+func (builder * UploadPartFilePathReqBodyBuilder ) Build() (*UploadPartFileReqBody, error) {
+   req := &UploadPartFileReqBody{}
+   if builder.uploadIdFlag {
+	  req.UploadId = &builder.uploadId
+   }
+   if builder.seqFlag {
+	  req.Seq = &builder.seq
+   }
+   if builder.sizeFlag {
+	  req.Size = &builder.size
+   }
+   if builder.checksumFlag {
+	  req.Checksum = &builder.checksum
+   }
+   if builder.filePathFlag {
+	  data, err := larkcore.File2Bytes(builder.filePath)
+	  if err != nil {
+		return nil, err
+	  }
+	  req.File = bytes.NewBuffer(data)
+   }
+   return req, nil
+}
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type UploadPartFileReqBuilder struct {
-	body     *UploadPartFileReqBody
+	body *UploadPartFileReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewUploadPartFileReqBuilder() *UploadPartFileReqBuilder {
-	builder := &UploadPartFileReqBuilder{}
-	return builder
+func NewUploadPartFileReqBuilder() * UploadPartFileReqBuilder{
+   builder := &UploadPartFileReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *UploadPartFileReqBuilder) Body(body *UploadPartFileReqBody) *UploadPartFileReqBuilder {
-	builder.body = body
-	builder.bodyFlag = true
-	return builder
+func (builder * UploadPartFileReqBuilder) Body(body *UploadPartFileReqBody) *UploadPartFileReqBuilder  {
+  builder.body = body
+  builder.bodyFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *UploadPartFileReqBuilder) Build() *UploadPartFileReq {
-	req := &UploadPartFileReq{}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
-	return req
+func (builder * UploadPartFileReqBuilder ) Build() *UploadPartFileReq {
+   req := &UploadPartFileReq{}
+   if builder.bodyFlag {
+	  req.Body = builder.body
+   }
+   return req
 }
 
 type UploadPartFileReqBody struct {
-	UploadId *string   `json:"upload_id,omitempty"`
-	Seq      *int      `json:"seq,omitempty"`
-	Size     *int      `json:"size,omitempty"`
-	Checksum *string   `json:"checksum,omitempty"`
-	File     io.Reader `json:"file,omitempty"`
+	UploadId  *string `json:"upload_id,omitempty"`
+	Seq  *int `json:"seq,omitempty"`
+	Size  *int `json:"size,omitempty"`
+	Checksum  *string `json:"checksum,omitempty"`
+	File  io.Reader `json:"file,omitempty"`
 }
 
 type UploadPartFileReq struct {
 	Body *UploadPartFileReqBody `body:""`
+
 }
 
+
 type UploadPartFileResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 }
 
 func (resp *UploadPartFileResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type UploadPrepareFileReqBuilder struct {
-	fileUploadInfo     *FileUploadInfo
+	fileUploadInfo *FileUploadInfo
 	fileUploadInfoFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewUploadPrepareFileReqBuilder() *UploadPrepareFileReqBuilder {
-	builder := &UploadPrepareFileReqBuilder{}
-	return builder
+func NewUploadPrepareFileReqBuilder() * UploadPrepareFileReqBuilder{
+   builder := &UploadPrepareFileReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *UploadPrepareFileReqBuilder) FileUploadInfo(fileUploadInfo *FileUploadInfo) *UploadPrepareFileReqBuilder {
-	builder.fileUploadInfo = fileUploadInfo
-	builder.fileUploadInfoFlag = true
-	return builder
+func (builder * UploadPrepareFileReqBuilder) FileUploadInfo(fileUploadInfo *FileUploadInfo) *UploadPrepareFileReqBuilder  {
+  builder.fileUploadInfo = fileUploadInfo
+  builder.fileUploadInfoFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *UploadPrepareFileReqBuilder) Build() *UploadPrepareFileReq {
-	req := &UploadPrepareFileReq{}
-	if builder.fileUploadInfoFlag {
-		req.FileUploadInfo = builder.fileUploadInfo
-	}
-	return req
+func (builder * UploadPrepareFileReqBuilder ) Build() *UploadPrepareFileReq {
+   req := &UploadPrepareFileReq{}
+   if builder.fileUploadInfoFlag {
+	  req.FileUploadInfo = builder.fileUploadInfo
+   }
+   return req
 }
+
 
 type UploadPrepareFileReq struct {
 	FileUploadInfo *FileUploadInfo `body:""`
+
 }
 
 type UploadPrepareFileRespData struct {
 	UploadId  *string `json:"upload_id,omitempty"`
-	BlockSize *int    `json:"block_size,omitempty"`
-	BlockNum  *int    `json:"block_num,omitempty"`
+	BlockSize  *int `json:"block_size,omitempty"`
+	BlockNum  *int `json:"block_num,omitempty"`
 }
 
 type UploadPrepareFileResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *UploadPrepareFileRespData `json:"data"`
 }
 
@@ -3796,85 +3872,89 @@ func (resp *UploadPrepareFileResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type CreateFileCommentReqBuilder struct {
-	fileToken       string
-	fileTokenFlag   bool
-	fileType        string
-	fileTypeFlag    bool
-	userIdType      string
+	fileToken  string
+	fileTokenFlag  bool
+	fileType  string
+	fileTypeFlag  bool
+	userIdType  string
 	userIdTypeFlag  bool
-	fileComment     *FileComment
+	fileComment *FileComment
 	fileCommentFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewCreateFileCommentReqBuilder() *CreateFileCommentReqBuilder {
-	builder := &CreateFileCommentReqBuilder{}
-	return builder
+func NewCreateFileCommentReqBuilder() * CreateFileCommentReqBuilder{
+   builder := &CreateFileCommentReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *CreateFileCommentReqBuilder) FileToken(fileToken string) *CreateFileCommentReqBuilder {
-	builder.fileToken = fileToken
-	builder.fileTokenFlag = true
-	return builder
+func (builder * CreateFileCommentReqBuilder) FileToken(fileToken string) *CreateFileCommentReqBuilder  {
+  builder.fileToken = fileToken
+  builder.fileTokenFlag = true
+  return builder
 }
-func (builder *CreateFileCommentReqBuilder) FileType(fileType string) *CreateFileCommentReqBuilder {
-	builder.fileType = fileType
-	builder.fileTypeFlag = true
-	return builder
+func (builder * CreateFileCommentReqBuilder) FileType(fileType string) *CreateFileCommentReqBuilder  {
+  builder.fileType = fileType
+  builder.fileTypeFlag = true
+  return builder
 }
-func (builder *CreateFileCommentReqBuilder) UserIdType(userIdType string) *CreateFileCommentReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
-	return builder
+func (builder * CreateFileCommentReqBuilder) UserIdType(userIdType string) *CreateFileCommentReqBuilder  {
+  builder.userIdType = userIdType
+  builder.userIdTypeFlag = true
+  return builder
 }
-func (builder *CreateFileCommentReqBuilder) FileComment(fileComment *FileComment) *CreateFileCommentReqBuilder {
-	builder.fileComment = fileComment
-	builder.fileCommentFlag = true
-	return builder
+func (builder * CreateFileCommentReqBuilder) FileComment(fileComment *FileComment) *CreateFileCommentReqBuilder  {
+  builder.fileComment = fileComment
+  builder.fileCommentFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *CreateFileCommentReqBuilder) Build() *CreateFileCommentReq {
-	req := &CreateFileCommentReq{}
-	if builder.fileTokenFlag {
-		req.FileToken = builder.fileToken
-	}
-	if builder.fileTypeFlag {
-		req.FileType = &builder.fileType
-	}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
-	if builder.fileCommentFlag {
-		req.FileComment = builder.fileComment
-	}
-	return req
+func (builder * CreateFileCommentReqBuilder ) Build() *CreateFileCommentReq {
+   req := &CreateFileCommentReq{}
+   if builder.fileTokenFlag {
+	  req.FileToken = builder.fileToken
+   }
+   if builder.fileTypeFlag {
+	  req.FileType = &builder.fileType
+   }
+   if builder.userIdTypeFlag {
+	  req.UserIdType = &builder.userIdType
+   }
+   if builder.fileCommentFlag {
+	  req.FileComment = builder.fileComment
+   }
+   return req
 }
 
+
 type CreateFileCommentReq struct {
-	FileToken   string       `path:"file_token"`
-	FileType    *string      `query:"file_type"`
-	UserIdType  *string      `query:"user_id_type"`
+	FileToken  string `path:"file_token"`
+	FileType  *string `query:"file_type"`
+	UserIdType  *string `query:"user_id_type"`
 	FileComment *FileComment `body:""`
+
 }
 
 type CreateFileCommentRespData struct {
-	CommentId    *string    `json:"comment_id,omitempty"`
-	UserId       *string    `json:"user_id,omitempty"`
-	CreateTime   *int       `json:"create_time,omitempty"`
-	UpdateTime   *int       `json:"update_time,omitempty"`
-	IsSolved     *bool      `json:"is_solved,omitempty"`
-	SolvedTime   *int       `json:"solved_time,omitempty"`
-	SolverUserId *string    `json:"solver_user_id,omitempty"`
-	ReplyList    *ReplyList `json:"reply_list,omitempty"`
+	CommentId  *string `json:"comment_id,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
+	CreateTime  *int `json:"create_time,omitempty"`
+	UpdateTime  *int `json:"update_time,omitempty"`
+	IsSolved  *bool `json:"is_solved,omitempty"`
+	SolvedTime  *int `json:"solved_time,omitempty"`
+	SolverUserId  *string `json:"solver_user_id,omitempty"`
+	ReplyList  *ReplyList `json:"reply_list,omitempty"`
 }
 
 type CreateFileCommentResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *CreateFileCommentRespData `json:"data"`
 }
 
@@ -3882,85 +3962,89 @@ func (resp *CreateFileCommentResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type GetFileCommentReqBuilder struct {
-	fileToken      string
+	fileToken  string
 	fileTokenFlag  bool
-	commentId      int64
+	commentId  int64
 	commentIdFlag  bool
-	fileType       string
-	fileTypeFlag   bool
-	userIdType     string
-	userIdTypeFlag bool
+	fileType  string
+	fileTypeFlag  bool
+	userIdType  string
+	userIdTypeFlag  bool
+
 }
 
 // 生成请求的New构造器
-func NewGetFileCommentReqBuilder() *GetFileCommentReqBuilder {
-	builder := &GetFileCommentReqBuilder{}
-	return builder
+func NewGetFileCommentReqBuilder() * GetFileCommentReqBuilder{
+   builder := &GetFileCommentReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *GetFileCommentReqBuilder) FileToken(fileToken string) *GetFileCommentReqBuilder {
-	builder.fileToken = fileToken
-	builder.fileTokenFlag = true
-	return builder
+func (builder * GetFileCommentReqBuilder) FileToken(fileToken string) *GetFileCommentReqBuilder  {
+  builder.fileToken = fileToken
+  builder.fileTokenFlag = true
+  return builder
 }
-func (builder *GetFileCommentReqBuilder) CommentId(commentId int64) *GetFileCommentReqBuilder {
-	builder.commentId = commentId
-	builder.commentIdFlag = true
-	return builder
+func (builder * GetFileCommentReqBuilder) CommentId(commentId int64) *GetFileCommentReqBuilder  {
+  builder.commentId = commentId
+  builder.commentIdFlag = true
+  return builder
 }
-func (builder *GetFileCommentReqBuilder) FileType(fileType string) *GetFileCommentReqBuilder {
-	builder.fileType = fileType
-	builder.fileTypeFlag = true
-	return builder
+func (builder * GetFileCommentReqBuilder) FileType(fileType string) *GetFileCommentReqBuilder  {
+  builder.fileType = fileType
+  builder.fileTypeFlag = true
+  return builder
 }
-func (builder *GetFileCommentReqBuilder) UserIdType(userIdType string) *GetFileCommentReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
-	return builder
+func (builder * GetFileCommentReqBuilder) UserIdType(userIdType string) *GetFileCommentReqBuilder  {
+  builder.userIdType = userIdType
+  builder.userIdTypeFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *GetFileCommentReqBuilder) Build() *GetFileCommentReq {
-	req := &GetFileCommentReq{}
-	if builder.fileTokenFlag {
-		req.FileToken = builder.fileToken
-	}
-	if builder.commentIdFlag {
-		req.CommentId = builder.commentId
-	}
-	if builder.fileTypeFlag {
-		req.FileType = &builder.fileType
-	}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
-	return req
+func (builder * GetFileCommentReqBuilder ) Build() *GetFileCommentReq {
+   req := &GetFileCommentReq{}
+   if builder.fileTokenFlag {
+	  req.FileToken = builder.fileToken
+   }
+   if builder.commentIdFlag {
+	  req.CommentId = builder.commentId
+   }
+   if builder.fileTypeFlag {
+	  req.FileType = &builder.fileType
+   }
+   if builder.userIdTypeFlag {
+	  req.UserIdType = &builder.userIdType
+   }
+   return req
 }
 
+
 type GetFileCommentReq struct {
-	FileToken  string  `path:"file_token"`
-	CommentId  int64   `path:"comment_id"`
-	FileType   *string `query:"file_type"`
-	UserIdType *string `query:"user_id_type"`
+	FileToken  string `path:"file_token"`
+	CommentId  int64 `path:"comment_id"`
+	FileType  *string `query:"file_type"`
+	UserIdType  *string `query:"user_id_type"`
+
 }
 
 type GetFileCommentRespData struct {
-	CommentId    *string    `json:"comment_id,omitempty"`
-	UserId       *string    `json:"user_id,omitempty"`
-	CreateTime   *int       `json:"create_time,omitempty"`
-	UpdateTime   *int       `json:"update_time,omitempty"`
-	IsSolved     *bool      `json:"is_solved,omitempty"`
-	SolvedTime   *int       `json:"solved_time,omitempty"`
-	SolverUserId *string    `json:"solver_user_id,omitempty"`
-	ReplyList    *ReplyList `json:"reply_list,omitempty"`
+	CommentId  *string `json:"comment_id,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
+	CreateTime  *int `json:"create_time,omitempty"`
+	UpdateTime  *int `json:"update_time,omitempty"`
+	IsSolved  *bool `json:"is_solved,omitempty"`
+	SolvedTime  *int `json:"solved_time,omitempty"`
+	SolverUserId  *string `json:"solver_user_id,omitempty"`
+	ReplyList  *ReplyList `json:"reply_list,omitempty"`
 }
 
 type GetFileCommentResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *GetFileCommentRespData `json:"data"`
 }
 
@@ -3968,109 +4052,113 @@ func (resp *GetFileCommentResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type ListFileCommentReqBuilder struct {
-	fileToken      string
+	fileToken  string
 	fileTokenFlag  bool
-	fileType       string
-	fileTypeFlag   bool
-	userIdType     string
-	userIdTypeFlag bool
-	isSolved       bool
-	isSolvedFlag   bool
-	pageToken      string
+	fileType  string
+	fileTypeFlag  bool
+	userIdType  string
+	userIdTypeFlag  bool
+	isSolved  bool
+	isSolvedFlag  bool
+	pageToken  string
 	pageTokenFlag  bool
-	pageSize       int
-	pageSizeFlag   bool
-	limit          int
+	pageSize  int
+	pageSizeFlag  bool
+	limit int
+
 }
 
 // 生成请求的New构造器
-func NewListFileCommentReqBuilder() *ListFileCommentReqBuilder {
-	builder := &ListFileCommentReqBuilder{}
-	return builder
+func NewListFileCommentReqBuilder() * ListFileCommentReqBuilder{
+   builder := &ListFileCommentReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *ListFileCommentReqBuilder) Limit(limit int) *ListFileCommentReqBuilder {
-	builder.limit = limit
-	return builder
+func (builder * ListFileCommentReqBuilder) Limit(limit int ) *ListFileCommentReqBuilder  {
+  builder.limit = limit
+  return builder
 }
-func (builder *ListFileCommentReqBuilder) FileToken(fileToken string) *ListFileCommentReqBuilder {
-	builder.fileToken = fileToken
-	builder.fileTokenFlag = true
-	return builder
+func (builder * ListFileCommentReqBuilder) FileToken(fileToken string) *ListFileCommentReqBuilder  {
+  builder.fileToken = fileToken
+  builder.fileTokenFlag = true
+  return builder
 }
-func (builder *ListFileCommentReqBuilder) FileType(fileType string) *ListFileCommentReqBuilder {
-	builder.fileType = fileType
-	builder.fileTypeFlag = true
-	return builder
+func (builder * ListFileCommentReqBuilder) FileType(fileType string) *ListFileCommentReqBuilder  {
+  builder.fileType = fileType
+  builder.fileTypeFlag = true
+  return builder
 }
-func (builder *ListFileCommentReqBuilder) UserIdType(userIdType string) *ListFileCommentReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
-	return builder
+func (builder * ListFileCommentReqBuilder) UserIdType(userIdType string) *ListFileCommentReqBuilder  {
+  builder.userIdType = userIdType
+  builder.userIdTypeFlag = true
+  return builder
 }
-func (builder *ListFileCommentReqBuilder) IsSolved(isSolved bool) *ListFileCommentReqBuilder {
-	builder.isSolved = isSolved
-	builder.isSolvedFlag = true
-	return builder
+func (builder * ListFileCommentReqBuilder) IsSolved(isSolved bool) *ListFileCommentReqBuilder  {
+  builder.isSolved = isSolved
+  builder.isSolvedFlag = true
+  return builder
 }
-func (builder *ListFileCommentReqBuilder) PageToken(pageToken string) *ListFileCommentReqBuilder {
-	builder.pageToken = pageToken
-	builder.pageTokenFlag = true
-	return builder
+func (builder * ListFileCommentReqBuilder) PageToken(pageToken string) *ListFileCommentReqBuilder  {
+  builder.pageToken = pageToken
+  builder.pageTokenFlag = true
+  return builder
 }
-func (builder *ListFileCommentReqBuilder) PageSize(pageSize int) *ListFileCommentReqBuilder {
-	builder.pageSize = pageSize
-	builder.pageSizeFlag = true
-	return builder
+func (builder * ListFileCommentReqBuilder) PageSize(pageSize int) *ListFileCommentReqBuilder  {
+  builder.pageSize = pageSize
+  builder.pageSizeFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *ListFileCommentReqBuilder) Build() *ListFileCommentReq {
-	req := &ListFileCommentReq{}
-	req.Limit = builder.limit
-	if builder.fileTokenFlag {
-		req.FileToken = builder.fileToken
-	}
-	if builder.fileTypeFlag {
-		req.FileType = &builder.fileType
-	}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
-	if builder.isSolvedFlag {
-		req.IsSolved = &builder.isSolved
-	}
-	if builder.pageTokenFlag {
-		req.PageToken = &builder.pageToken
-	}
-	if builder.pageSizeFlag {
-		req.PageSize = &builder.pageSize
-	}
-	return req
+func (builder * ListFileCommentReqBuilder ) Build() *ListFileCommentReq {
+   req := &ListFileCommentReq{}
+   req.Limit = builder.limit
+   if builder.fileTokenFlag {
+	  req.FileToken = builder.fileToken
+   }
+   if builder.fileTypeFlag {
+	  req.FileType = &builder.fileType
+   }
+   if builder.userIdTypeFlag {
+	  req.UserIdType = &builder.userIdType
+   }
+   if builder.isSolvedFlag {
+	  req.IsSolved = &builder.isSolved
+   }
+   if builder.pageTokenFlag {
+	  req.PageToken = &builder.pageToken
+   }
+   if builder.pageSizeFlag {
+	  req.PageSize = &builder.pageSize
+   }
+   return req
 }
 
+
 type ListFileCommentReq struct {
-	FileToken  string  `path:"file_token"`
-	FileType   *string `query:"file_type"`
-	UserIdType *string `query:"user_id_type"`
-	IsSolved   *bool   `query:"is_solved"`
+	FileToken  string `path:"file_token"`
+	FileType  *string `query:"file_type"`
+	UserIdType  *string `query:"user_id_type"`
+	IsSolved  *bool `query:"is_solved"`
 	PageToken  *string `query:"page_token"`
-	PageSize   *int    `query:"page_size"`
-	Limit      int
+	PageSize  *int `query:"page_size"`
+	Limit int
+
 }
 
 type ListFileCommentRespData struct {
-	HasMore   *bool          `json:"has_more,omitempty"`
-	PageToken *string        `json:"page_token,omitempty"`
-	Items     []*FileComment `json:"items,omitempty"`
+	HasMore  *bool `json:"has_more,omitempty"`
+	PageToken  *string `json:"page_token,omitempty"`
+	Items  []*FileComment `json:"items,omitempty"`
 }
 
 type ListFileCommentResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *ListFileCommentRespData `json:"data"`
 }
 
@@ -4079,204 +4167,213 @@ func (resp *ListFileCommentResp) Success() bool {
 }
 
 type PatchFileCommentReqBodyBuilder struct {
-	isSolved     bool
-	isSolvedFlag bool
+	isSolved  bool
+	isSolvedFlag  bool
 }
 
 // 生成body的New构造器
-func NewPatchFileCommentReqBodyBuilder() *PatchFileCommentReqBodyBuilder {
-	builder := &PatchFileCommentReqBodyBuilder{}
-	return builder
+func NewPatchFileCommentReqBodyBuilder() * PatchFileCommentReqBodyBuilder{
+  builder := &PatchFileCommentReqBodyBuilder{}
+  return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder *PatchFileCommentReqBodyBuilder) IsSolved(isSolved bool) *PatchFileCommentReqBodyBuilder {
-	builder.isSolved = isSolved
-	builder.isSolvedFlag = true
-	return builder
+func (builder * PatchFileCommentReqBodyBuilder ) IsSolved(isSolved bool) *PatchFileCommentReqBodyBuilder {
+  builder.isSolved = isSolved
+  builder.isSolvedFlag = true
+  return builder
 }
 
+
 // 1.3 生成body的build方法
-func (builder *PatchFileCommentReqBodyBuilder) Build() *PatchFileCommentReqBody {
-	req := &PatchFileCommentReqBody{}
-	if builder.isSolvedFlag {
-		req.IsSolved = &builder.isSolved
-	}
-	return req
+func (builder * PatchFileCommentReqBodyBuilder ) Build() *PatchFileCommentReqBody {
+   req := &PatchFileCommentReqBody{}
+   if builder.isSolvedFlag {
+	  req.IsSolved = &builder.isSolved
+   }
+   return req
 }
 
 // 上传文件path开始
 type PatchFileCommentPathReqBodyBuilder struct {
-	isSolved     bool
-	isSolvedFlag bool
+	isSolved  bool
+	isSolvedFlag  bool
 }
 
-func NewPatchFileCommentPathReqBodyBuilder() *PatchFileCommentPathReqBodyBuilder {
-	builder := &PatchFileCommentPathReqBodyBuilder{}
-	return builder
+func NewPatchFileCommentPathReqBodyBuilder() * PatchFileCommentPathReqBodyBuilder{
+  builder := &PatchFileCommentPathReqBodyBuilder{}
+  return builder
 }
-func (builder *PatchFileCommentPathReqBodyBuilder) IsSolved(isSolved bool) *PatchFileCommentPathReqBodyBuilder {
-	builder.isSolved = isSolved
-	builder.isSolvedFlag = true
-	return builder
-}
-
-func (builder *PatchFileCommentPathReqBodyBuilder) Build() (*PatchFileCommentReqBody, error) {
-	req := &PatchFileCommentReqBody{}
-	if builder.isSolvedFlag {
-		req.IsSolved = &builder.isSolved
-	}
-	return req, nil
+func (builder * PatchFileCommentPathReqBodyBuilder ) IsSolved(isSolved bool) *PatchFileCommentPathReqBodyBuilder {
+  builder.isSolved = isSolved
+  builder.isSolvedFlag = true
+  return builder
 }
 
+
+func (builder * PatchFileCommentPathReqBodyBuilder ) Build() (*PatchFileCommentReqBody, error) {
+   req := &PatchFileCommentReqBody{}
+   if builder.isSolvedFlag {
+	  req.IsSolved = &builder.isSolved
+   }
+   return req, nil
+}
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type PatchFileCommentReqBuilder struct {
-	fileToken     string
-	fileTokenFlag bool
-	commentId     int64
-	commentIdFlag bool
-	fileType      string
+	fileToken  string
+	fileTokenFlag  bool
+	commentId  int64
+	commentIdFlag  bool
+	fileType  string
 	fileTypeFlag  bool
-	body          *PatchFileCommentReqBody
-	bodyFlag      bool
+	body *PatchFileCommentReqBody
+	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewPatchFileCommentReqBuilder() *PatchFileCommentReqBuilder {
-	builder := &PatchFileCommentReqBuilder{}
-	return builder
+func NewPatchFileCommentReqBuilder() * PatchFileCommentReqBuilder{
+   builder := &PatchFileCommentReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *PatchFileCommentReqBuilder) FileToken(fileToken string) *PatchFileCommentReqBuilder {
-	builder.fileToken = fileToken
-	builder.fileTokenFlag = true
-	return builder
+func (builder * PatchFileCommentReqBuilder) FileToken(fileToken string) *PatchFileCommentReqBuilder  {
+  builder.fileToken = fileToken
+  builder.fileTokenFlag = true
+  return builder
 }
-func (builder *PatchFileCommentReqBuilder) CommentId(commentId int64) *PatchFileCommentReqBuilder {
-	builder.commentId = commentId
-	builder.commentIdFlag = true
-	return builder
+func (builder * PatchFileCommentReqBuilder) CommentId(commentId int64) *PatchFileCommentReqBuilder  {
+  builder.commentId = commentId
+  builder.commentIdFlag = true
+  return builder
 }
-func (builder *PatchFileCommentReqBuilder) FileType(fileType string) *PatchFileCommentReqBuilder {
-	builder.fileType = fileType
-	builder.fileTypeFlag = true
-	return builder
+func (builder * PatchFileCommentReqBuilder) FileType(fileType string) *PatchFileCommentReqBuilder  {
+  builder.fileType = fileType
+  builder.fileTypeFlag = true
+  return builder
 }
-func (builder *PatchFileCommentReqBuilder) Body(body *PatchFileCommentReqBody) *PatchFileCommentReqBuilder {
-	builder.body = body
-	builder.bodyFlag = true
-	return builder
+func (builder * PatchFileCommentReqBuilder) Body(body *PatchFileCommentReqBody) *PatchFileCommentReqBuilder  {
+  builder.body = body
+  builder.bodyFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *PatchFileCommentReqBuilder) Build() *PatchFileCommentReq {
-	req := &PatchFileCommentReq{}
-	if builder.fileTokenFlag {
-		req.FileToken = builder.fileToken
-	}
-	if builder.commentIdFlag {
-		req.CommentId = builder.commentId
-	}
-	if builder.fileTypeFlag {
-		req.FileType = &builder.fileType
-	}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
-	return req
+func (builder * PatchFileCommentReqBuilder ) Build() *PatchFileCommentReq {
+   req := &PatchFileCommentReq{}
+   if builder.fileTokenFlag {
+	  req.FileToken = builder.fileToken
+   }
+   if builder.commentIdFlag {
+	  req.CommentId = builder.commentId
+   }
+   if builder.fileTypeFlag {
+	  req.FileType = &builder.fileType
+   }
+   if builder.bodyFlag {
+	  req.Body = builder.body
+   }
+   return req
 }
 
 type PatchFileCommentReqBody struct {
-	IsSolved *bool `json:"is_solved,omitempty"`
+	IsSolved  *bool `json:"is_solved,omitempty"`
 }
 
 type PatchFileCommentReq struct {
-	FileToken string                   `path:"file_token"`
-	CommentId int64                    `path:"comment_id"`
-	FileType  *string                  `query:"file_type"`
-	Body      *PatchFileCommentReqBody `body:""`
+	FileToken  string `path:"file_token"`
+	CommentId  int64 `path:"comment_id"`
+	FileType  *string `query:"file_type"`
+	Body *PatchFileCommentReqBody `body:""`
+
 }
 
+
 type PatchFileCommentResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 }
 
 func (resp *PatchFileCommentResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type DeleteFileCommentReplyReqBuilder struct {
-	fileToken     string
-	fileTokenFlag bool
-	commentId     int64
-	commentIdFlag bool
-	replyId       int64
-	replyIdFlag   bool
-	fileType      string
+	fileToken  string
+	fileTokenFlag  bool
+	commentId  int64
+	commentIdFlag  bool
+	replyId  int64
+	replyIdFlag  bool
+	fileType  string
 	fileTypeFlag  bool
+
 }
 
 // 生成请求的New构造器
-func NewDeleteFileCommentReplyReqBuilder() *DeleteFileCommentReplyReqBuilder {
-	builder := &DeleteFileCommentReplyReqBuilder{}
-	return builder
+func NewDeleteFileCommentReplyReqBuilder() * DeleteFileCommentReplyReqBuilder{
+   builder := &DeleteFileCommentReplyReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *DeleteFileCommentReplyReqBuilder) FileToken(fileToken string) *DeleteFileCommentReplyReqBuilder {
-	builder.fileToken = fileToken
-	builder.fileTokenFlag = true
-	return builder
+func (builder * DeleteFileCommentReplyReqBuilder) FileToken(fileToken string) *DeleteFileCommentReplyReqBuilder  {
+  builder.fileToken = fileToken
+  builder.fileTokenFlag = true
+  return builder
 }
-func (builder *DeleteFileCommentReplyReqBuilder) CommentId(commentId int64) *DeleteFileCommentReplyReqBuilder {
-	builder.commentId = commentId
-	builder.commentIdFlag = true
-	return builder
+func (builder * DeleteFileCommentReplyReqBuilder) CommentId(commentId int64) *DeleteFileCommentReplyReqBuilder  {
+  builder.commentId = commentId
+  builder.commentIdFlag = true
+  return builder
 }
-func (builder *DeleteFileCommentReplyReqBuilder) ReplyId(replyId int64) *DeleteFileCommentReplyReqBuilder {
-	builder.replyId = replyId
-	builder.replyIdFlag = true
-	return builder
+func (builder * DeleteFileCommentReplyReqBuilder) ReplyId(replyId int64) *DeleteFileCommentReplyReqBuilder  {
+  builder.replyId = replyId
+  builder.replyIdFlag = true
+  return builder
 }
-func (builder *DeleteFileCommentReplyReqBuilder) FileType(fileType string) *DeleteFileCommentReplyReqBuilder {
-	builder.fileType = fileType
-	builder.fileTypeFlag = true
-	return builder
+func (builder * DeleteFileCommentReplyReqBuilder) FileType(fileType string) *DeleteFileCommentReplyReqBuilder  {
+  builder.fileType = fileType
+  builder.fileTypeFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *DeleteFileCommentReplyReqBuilder) Build() *DeleteFileCommentReplyReq {
-	req := &DeleteFileCommentReplyReq{}
-	if builder.fileTokenFlag {
-		req.FileToken = builder.fileToken
-	}
-	if builder.commentIdFlag {
-		req.CommentId = builder.commentId
-	}
-	if builder.replyIdFlag {
-		req.ReplyId = builder.replyId
-	}
-	if builder.fileTypeFlag {
-		req.FileType = &builder.fileType
-	}
-	return req
+func (builder * DeleteFileCommentReplyReqBuilder ) Build() *DeleteFileCommentReplyReq {
+   req := &DeleteFileCommentReplyReq{}
+   if builder.fileTokenFlag {
+	  req.FileToken = builder.fileToken
+   }
+   if builder.commentIdFlag {
+	  req.CommentId = builder.commentId
+   }
+   if builder.replyIdFlag {
+	  req.ReplyId = builder.replyId
+   }
+   if builder.fileTypeFlag {
+	  req.FileType = &builder.fileType
+   }
+   return req
 }
+
 
 type DeleteFileCommentReplyReq struct {
-	FileToken string  `path:"file_token"`
-	CommentId int64   `path:"comment_id"`
-	ReplyId   int64   `path:"reply_id"`
+	FileToken  string `path:"file_token"`
+	CommentId  int64 `path:"comment_id"`
+	ReplyId  int64 `path:"reply_id"`
 	FileType  *string `query:"file_type"`
+
 }
 
+
 type DeleteFileCommentReplyResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 }
 
 func (resp *DeleteFileCommentReplyResp) Success() bool {
@@ -4284,210 +4381,218 @@ func (resp *DeleteFileCommentReplyResp) Success() bool {
 }
 
 type UpdateFileCommentReplyReqBodyBuilder struct {
-	content     *ReplyContent
-	contentFlag bool
+	content  *ReplyContent
+	contentFlag  bool
 }
 
 // 生成body的New构造器
-func NewUpdateFileCommentReplyReqBodyBuilder() *UpdateFileCommentReplyReqBodyBuilder {
-	builder := &UpdateFileCommentReplyReqBodyBuilder{}
-	return builder
+func NewUpdateFileCommentReplyReqBodyBuilder() * UpdateFileCommentReplyReqBodyBuilder{
+  builder := &UpdateFileCommentReplyReqBodyBuilder{}
+  return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder *UpdateFileCommentReplyReqBodyBuilder) Content(content *ReplyContent) *UpdateFileCommentReplyReqBodyBuilder {
-	builder.content = content
-	builder.contentFlag = true
-	return builder
+func (builder * UpdateFileCommentReplyReqBodyBuilder ) Content(content *ReplyContent) *UpdateFileCommentReplyReqBodyBuilder {
+  builder.content = content
+  builder.contentFlag = true
+  return builder
 }
 
+
 // 1.3 生成body的build方法
-func (builder *UpdateFileCommentReplyReqBodyBuilder) Build() *UpdateFileCommentReplyReqBody {
-	req := &UpdateFileCommentReplyReqBody{}
-	if builder.contentFlag {
-		req.Content = builder.content
-	}
-	return req
+func (builder * UpdateFileCommentReplyReqBodyBuilder ) Build() *UpdateFileCommentReplyReqBody {
+   req := &UpdateFileCommentReplyReqBody{}
+   if builder.contentFlag {
+	  req.Content = builder.content
+   }
+   return req
 }
 
 // 上传文件path开始
 type UpdateFileCommentReplyPathReqBodyBuilder struct {
-	content     *ReplyContent
-	contentFlag bool
+	content  *ReplyContent
+	contentFlag  bool
 }
 
-func NewUpdateFileCommentReplyPathReqBodyBuilder() *UpdateFileCommentReplyPathReqBodyBuilder {
-	builder := &UpdateFileCommentReplyPathReqBodyBuilder{}
-	return builder
+func NewUpdateFileCommentReplyPathReqBodyBuilder() * UpdateFileCommentReplyPathReqBodyBuilder{
+  builder := &UpdateFileCommentReplyPathReqBodyBuilder{}
+  return builder
 }
-func (builder *UpdateFileCommentReplyPathReqBodyBuilder) Content(content *ReplyContent) *UpdateFileCommentReplyPathReqBodyBuilder {
-	builder.content = content
-	builder.contentFlag = true
-	return builder
-}
-
-func (builder *UpdateFileCommentReplyPathReqBodyBuilder) Build() (*UpdateFileCommentReplyReqBody, error) {
-	req := &UpdateFileCommentReplyReqBody{}
-	if builder.contentFlag {
-		req.Content = builder.content
-	}
-	return req, nil
+func (builder * UpdateFileCommentReplyPathReqBodyBuilder ) Content(content *ReplyContent) *UpdateFileCommentReplyPathReqBodyBuilder {
+  builder.content = content
+  builder.contentFlag = true
+  return builder
 }
 
+
+func (builder * UpdateFileCommentReplyPathReqBodyBuilder ) Build() (*UpdateFileCommentReplyReqBody, error) {
+   req := &UpdateFileCommentReplyReqBody{}
+   if builder.contentFlag {
+	   req.Content = builder.content
+   }
+   return req, nil
+}
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type UpdateFileCommentReplyReqBuilder struct {
-	fileToken      string
+	fileToken  string
 	fileTokenFlag  bool
-	commentId      int64
+	commentId  int64
 	commentIdFlag  bool
-	replyId        int64
-	replyIdFlag    bool
-	fileType       string
-	fileTypeFlag   bool
-	userIdType     string
-	userIdTypeFlag bool
-	body           *UpdateFileCommentReplyReqBody
-	bodyFlag       bool
+	replyId  int64
+	replyIdFlag  bool
+	fileType  string
+	fileTypeFlag  bool
+	userIdType  string
+	userIdTypeFlag  bool
+	body *UpdateFileCommentReplyReqBody
+	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewUpdateFileCommentReplyReqBuilder() *UpdateFileCommentReplyReqBuilder {
-	builder := &UpdateFileCommentReplyReqBuilder{}
-	return builder
+func NewUpdateFileCommentReplyReqBuilder() * UpdateFileCommentReplyReqBuilder{
+   builder := &UpdateFileCommentReplyReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *UpdateFileCommentReplyReqBuilder) FileToken(fileToken string) *UpdateFileCommentReplyReqBuilder {
-	builder.fileToken = fileToken
-	builder.fileTokenFlag = true
-	return builder
+func (builder * UpdateFileCommentReplyReqBuilder) FileToken(fileToken string) *UpdateFileCommentReplyReqBuilder  {
+  builder.fileToken = fileToken
+  builder.fileTokenFlag = true
+  return builder
 }
-func (builder *UpdateFileCommentReplyReqBuilder) CommentId(commentId int64) *UpdateFileCommentReplyReqBuilder {
-	builder.commentId = commentId
-	builder.commentIdFlag = true
-	return builder
+func (builder * UpdateFileCommentReplyReqBuilder) CommentId(commentId int64) *UpdateFileCommentReplyReqBuilder  {
+  builder.commentId = commentId
+  builder.commentIdFlag = true
+  return builder
 }
-func (builder *UpdateFileCommentReplyReqBuilder) ReplyId(replyId int64) *UpdateFileCommentReplyReqBuilder {
-	builder.replyId = replyId
-	builder.replyIdFlag = true
-	return builder
+func (builder * UpdateFileCommentReplyReqBuilder) ReplyId(replyId int64) *UpdateFileCommentReplyReqBuilder  {
+  builder.replyId = replyId
+  builder.replyIdFlag = true
+  return builder
 }
-func (builder *UpdateFileCommentReplyReqBuilder) FileType(fileType string) *UpdateFileCommentReplyReqBuilder {
-	builder.fileType = fileType
-	builder.fileTypeFlag = true
-	return builder
+func (builder * UpdateFileCommentReplyReqBuilder) FileType(fileType string) *UpdateFileCommentReplyReqBuilder  {
+  builder.fileType = fileType
+  builder.fileTypeFlag = true
+  return builder
 }
-func (builder *UpdateFileCommentReplyReqBuilder) UserIdType(userIdType string) *UpdateFileCommentReplyReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
-	return builder
+func (builder * UpdateFileCommentReplyReqBuilder) UserIdType(userIdType string) *UpdateFileCommentReplyReqBuilder  {
+  builder.userIdType = userIdType
+  builder.userIdTypeFlag = true
+  return builder
 }
-func (builder *UpdateFileCommentReplyReqBuilder) Body(body *UpdateFileCommentReplyReqBody) *UpdateFileCommentReplyReqBuilder {
-	builder.body = body
-	builder.bodyFlag = true
-	return builder
+func (builder * UpdateFileCommentReplyReqBuilder) Body(body *UpdateFileCommentReplyReqBody) *UpdateFileCommentReplyReqBuilder  {
+  builder.body = body
+  builder.bodyFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *UpdateFileCommentReplyReqBuilder) Build() *UpdateFileCommentReplyReq {
-	req := &UpdateFileCommentReplyReq{}
-	if builder.fileTokenFlag {
-		req.FileToken = builder.fileToken
-	}
-	if builder.commentIdFlag {
-		req.CommentId = builder.commentId
-	}
-	if builder.replyIdFlag {
-		req.ReplyId = builder.replyId
-	}
-	if builder.fileTypeFlag {
-		req.FileType = &builder.fileType
-	}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
-	return req
+func (builder * UpdateFileCommentReplyReqBuilder ) Build() *UpdateFileCommentReplyReq {
+   req := &UpdateFileCommentReplyReq{}
+   if builder.fileTokenFlag {
+	  req.FileToken = builder.fileToken
+   }
+   if builder.commentIdFlag {
+	  req.CommentId = builder.commentId
+   }
+   if builder.replyIdFlag {
+	  req.ReplyId = builder.replyId
+   }
+   if builder.fileTypeFlag {
+	  req.FileType = &builder.fileType
+   }
+   if builder.userIdTypeFlag {
+	  req.UserIdType = &builder.userIdType
+   }
+   if builder.bodyFlag {
+	  req.Body = builder.body
+   }
+   return req
 }
 
 type UpdateFileCommentReplyReqBody struct {
-	Content *ReplyContent `json:"content,omitempty"`
+	Content  *ReplyContent `json:"content,omitempty"`
 }
 
 type UpdateFileCommentReplyReq struct {
-	FileToken  string                         `path:"file_token"`
-	CommentId  int64                          `path:"comment_id"`
-	ReplyId    int64                          `path:"reply_id"`
-	FileType   *string                        `query:"file_type"`
-	UserIdType *string                        `query:"user_id_type"`
-	Body       *UpdateFileCommentReplyReqBody `body:""`
+	FileToken  string `path:"file_token"`
+	CommentId  int64 `path:"comment_id"`
+	ReplyId  int64 `path:"reply_id"`
+	FileType  *string `query:"file_type"`
+	UserIdType  *string `query:"user_id_type"`
+	Body *UpdateFileCommentReplyReqBody `body:""`
+
 }
 
+
 type UpdateFileCommentReplyResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 }
 
 func (resp *UpdateFileCommentReplyResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type GetFileStatisticsReqBuilder struct {
-	fileToken     string
-	fileTokenFlag bool
-	fileType      string
+	fileToken  string
+	fileTokenFlag  bool
+	fileType  string
 	fileTypeFlag  bool
+
 }
 
 // 生成请求的New构造器
-func NewGetFileStatisticsReqBuilder() *GetFileStatisticsReqBuilder {
-	builder := &GetFileStatisticsReqBuilder{}
-	return builder
+func NewGetFileStatisticsReqBuilder() * GetFileStatisticsReqBuilder{
+   builder := &GetFileStatisticsReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *GetFileStatisticsReqBuilder) FileToken(fileToken string) *GetFileStatisticsReqBuilder {
-	builder.fileToken = fileToken
-	builder.fileTokenFlag = true
-	return builder
+func (builder * GetFileStatisticsReqBuilder) FileToken(fileToken string) *GetFileStatisticsReqBuilder  {
+  builder.fileToken = fileToken
+  builder.fileTokenFlag = true
+  return builder
 }
-func (builder *GetFileStatisticsReqBuilder) FileType(fileType string) *GetFileStatisticsReqBuilder {
-	builder.fileType = fileType
-	builder.fileTypeFlag = true
-	return builder
+func (builder * GetFileStatisticsReqBuilder) FileType(fileType string) *GetFileStatisticsReqBuilder  {
+  builder.fileType = fileType
+  builder.fileTypeFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *GetFileStatisticsReqBuilder) Build() *GetFileStatisticsReq {
-	req := &GetFileStatisticsReq{}
-	if builder.fileTokenFlag {
-		req.FileToken = builder.fileToken
-	}
-	if builder.fileTypeFlag {
-		req.FileType = &builder.fileType
-	}
-	return req
+func (builder * GetFileStatisticsReqBuilder ) Build() *GetFileStatisticsReq {
+   req := &GetFileStatisticsReq{}
+   if builder.fileTokenFlag {
+	  req.FileToken = builder.fileToken
+   }
+   if builder.fileTypeFlag {
+	  req.FileType = &builder.fileType
+   }
+   return req
 }
 
+
 type GetFileStatisticsReq struct {
-	FileToken string  `path:"file_token"`
+	FileToken  string `path:"file_token"`
 	FileType  *string `query:"file_type"`
+
 }
 
 type GetFileStatisticsRespData struct {
-	FileToken  *string         `json:"file_token,omitempty"`
-	FileType   *string         `json:"file_type,omitempty"`
-	Statistics *FileStatistics `json:"statistics,omitempty"`
+	FileToken  *string `json:"file_token,omitempty"`
+	FileType  *string `json:"file_type,omitempty"`
+	Statistics  *FileStatistics `json:"statistics,omitempty"`
 }
 
 type GetFileStatisticsResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *GetFileStatisticsRespData `json:"data"`
 }
 
@@ -4495,56 +4600,60 @@ func (resp *GetFileStatisticsResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type CreateFileSubscriptionReqBuilder struct {
-	fileToken            string
-	fileTokenFlag        bool
-	fileSubscription     *FileSubscription
+	fileToken  string
+	fileTokenFlag  bool
+	fileSubscription *FileSubscription
 	fileSubscriptionFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewCreateFileSubscriptionReqBuilder() *CreateFileSubscriptionReqBuilder {
-	builder := &CreateFileSubscriptionReqBuilder{}
-	return builder
+func NewCreateFileSubscriptionReqBuilder() * CreateFileSubscriptionReqBuilder{
+   builder := &CreateFileSubscriptionReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *CreateFileSubscriptionReqBuilder) FileToken(fileToken string) *CreateFileSubscriptionReqBuilder {
-	builder.fileToken = fileToken
-	builder.fileTokenFlag = true
-	return builder
+func (builder * CreateFileSubscriptionReqBuilder) FileToken(fileToken string) *CreateFileSubscriptionReqBuilder  {
+  builder.fileToken = fileToken
+  builder.fileTokenFlag = true
+  return builder
 }
-func (builder *CreateFileSubscriptionReqBuilder) FileSubscription(fileSubscription *FileSubscription) *CreateFileSubscriptionReqBuilder {
-	builder.fileSubscription = fileSubscription
-	builder.fileSubscriptionFlag = true
-	return builder
+func (builder * CreateFileSubscriptionReqBuilder) FileSubscription(fileSubscription *FileSubscription) *CreateFileSubscriptionReqBuilder  {
+  builder.fileSubscription = fileSubscription
+  builder.fileSubscriptionFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *CreateFileSubscriptionReqBuilder) Build() *CreateFileSubscriptionReq {
-	req := &CreateFileSubscriptionReq{}
-	if builder.fileTokenFlag {
-		req.FileToken = builder.fileToken
-	}
-	if builder.fileSubscriptionFlag {
-		req.FileSubscription = builder.fileSubscription
-	}
-	return req
+func (builder * CreateFileSubscriptionReqBuilder ) Build() *CreateFileSubscriptionReq {
+   req := &CreateFileSubscriptionReq{}
+   if builder.fileTokenFlag {
+	  req.FileToken = builder.fileToken
+   }
+   if builder.fileSubscriptionFlag {
+	  req.FileSubscription = builder.fileSubscription
+   }
+   return req
 }
 
+
 type CreateFileSubscriptionReq struct {
-	FileToken        string            `path:"file_token"`
+	FileToken  string `path:"file_token"`
 	FileSubscription *FileSubscription `body:""`
+
 }
 
 type CreateFileSubscriptionRespData struct {
-	Subscription *FileSubscription `json:"subscription,omitempty"`
+	Subscription  *FileSubscription `json:"subscription,omitempty"`
 }
 
 type CreateFileSubscriptionResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *CreateFileSubscriptionRespData `json:"data"`
 }
 
@@ -4552,67 +4661,71 @@ func (resp *CreateFileSubscriptionResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type GetFileSubscriptionReqBuilder struct {
-	fileToken            string
-	fileTokenFlag        bool
-	subscriptionId       string
-	subscriptionIdFlag   bool
-	fileSubscription     *FileSubscription
+	fileToken  string
+	fileTokenFlag  bool
+	subscriptionId  string
+	subscriptionIdFlag  bool
+	fileSubscription *FileSubscription
 	fileSubscriptionFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewGetFileSubscriptionReqBuilder() *GetFileSubscriptionReqBuilder {
-	builder := &GetFileSubscriptionReqBuilder{}
-	return builder
+func NewGetFileSubscriptionReqBuilder() * GetFileSubscriptionReqBuilder{
+   builder := &GetFileSubscriptionReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *GetFileSubscriptionReqBuilder) FileToken(fileToken string) *GetFileSubscriptionReqBuilder {
-	builder.fileToken = fileToken
-	builder.fileTokenFlag = true
-	return builder
+func (builder * GetFileSubscriptionReqBuilder) FileToken(fileToken string) *GetFileSubscriptionReqBuilder  {
+  builder.fileToken = fileToken
+  builder.fileTokenFlag = true
+  return builder
 }
-func (builder *GetFileSubscriptionReqBuilder) SubscriptionId(subscriptionId string) *GetFileSubscriptionReqBuilder {
-	builder.subscriptionId = subscriptionId
-	builder.subscriptionIdFlag = true
-	return builder
+func (builder * GetFileSubscriptionReqBuilder) SubscriptionId(subscriptionId string) *GetFileSubscriptionReqBuilder  {
+  builder.subscriptionId = subscriptionId
+  builder.subscriptionIdFlag = true
+  return builder
 }
-func (builder *GetFileSubscriptionReqBuilder) FileSubscription(fileSubscription *FileSubscription) *GetFileSubscriptionReqBuilder {
-	builder.fileSubscription = fileSubscription
-	builder.fileSubscriptionFlag = true
-	return builder
+func (builder * GetFileSubscriptionReqBuilder) FileSubscription(fileSubscription *FileSubscription) *GetFileSubscriptionReqBuilder  {
+  builder.fileSubscription = fileSubscription
+  builder.fileSubscriptionFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *GetFileSubscriptionReqBuilder) Build() *GetFileSubscriptionReq {
-	req := &GetFileSubscriptionReq{}
-	if builder.fileTokenFlag {
-		req.FileToken = builder.fileToken
-	}
-	if builder.subscriptionIdFlag {
-		req.SubscriptionId = builder.subscriptionId
-	}
-	if builder.fileSubscriptionFlag {
-		req.FileSubscription = builder.fileSubscription
-	}
-	return req
+func (builder * GetFileSubscriptionReqBuilder ) Build() *GetFileSubscriptionReq {
+   req := &GetFileSubscriptionReq{}
+   if builder.fileTokenFlag {
+	  req.FileToken = builder.fileToken
+   }
+   if builder.subscriptionIdFlag {
+	  req.SubscriptionId = builder.subscriptionId
+   }
+   if builder.fileSubscriptionFlag {
+	  req.FileSubscription = builder.fileSubscription
+   }
+   return req
 }
 
+
 type GetFileSubscriptionReq struct {
-	FileToken        string            `path:"file_token"`
-	SubscriptionId   string            `path:"subscription_id"`
+	FileToken  string `path:"file_token"`
+	SubscriptionId  string `path:"subscription_id"`
 	FileSubscription *FileSubscription `body:""`
+
 }
 
 type GetFileSubscriptionRespData struct {
-	Subscription *FileSubscription `json:"subscription,omitempty"`
+	Subscription  *FileSubscription `json:"subscription,omitempty"`
 }
 
 type GetFileSubscriptionResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *GetFileSubscriptionRespData `json:"data"`
 }
 
@@ -4621,144 +4734,147 @@ func (resp *GetFileSubscriptionResp) Success() bool {
 }
 
 type PatchFileSubscriptionReqBodyBuilder struct {
-	isSubscribe     bool
-	isSubscribeFlag bool
-	fileType        string
-	fileTypeFlag    bool
+	isSubscribe  bool
+	isSubscribeFlag  bool
+	fileType  string
+	fileTypeFlag  bool
 }
 
 // 生成body的New构造器
-func NewPatchFileSubscriptionReqBodyBuilder() *PatchFileSubscriptionReqBodyBuilder {
-	builder := &PatchFileSubscriptionReqBodyBuilder{}
-	return builder
+func NewPatchFileSubscriptionReqBodyBuilder() * PatchFileSubscriptionReqBodyBuilder{
+  builder := &PatchFileSubscriptionReqBodyBuilder{}
+  return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder *PatchFileSubscriptionReqBodyBuilder) IsSubscribe(isSubscribe bool) *PatchFileSubscriptionReqBodyBuilder {
-	builder.isSubscribe = isSubscribe
-	builder.isSubscribeFlag = true
-	return builder
+func (builder * PatchFileSubscriptionReqBodyBuilder ) IsSubscribe(isSubscribe bool) *PatchFileSubscriptionReqBodyBuilder {
+  builder.isSubscribe = isSubscribe
+  builder.isSubscribeFlag = true
+  return builder
 }
-func (builder *PatchFileSubscriptionReqBodyBuilder) FileType(fileType string) *PatchFileSubscriptionReqBodyBuilder {
-	builder.fileType = fileType
-	builder.fileTypeFlag = true
-	return builder
+func (builder * PatchFileSubscriptionReqBodyBuilder ) FileType(fileType string) *PatchFileSubscriptionReqBodyBuilder {
+  builder.fileType = fileType
+  builder.fileTypeFlag = true
+  return builder
 }
 
+
 // 1.3 生成body的build方法
-func (builder *PatchFileSubscriptionReqBodyBuilder) Build() *PatchFileSubscriptionReqBody {
-	req := &PatchFileSubscriptionReqBody{}
-	if builder.isSubscribeFlag {
-		req.IsSubscribe = &builder.isSubscribe
-	}
-	if builder.fileTypeFlag {
-		req.FileType = &builder.fileType
-	}
-	return req
+func (builder * PatchFileSubscriptionReqBodyBuilder ) Build() *PatchFileSubscriptionReqBody {
+   req := &PatchFileSubscriptionReqBody{}
+   if builder.isSubscribeFlag {
+	  req.IsSubscribe = &builder.isSubscribe
+   }
+   if builder.fileTypeFlag {
+	  req.FileType = &builder.fileType
+   }
+   return req
 }
 
 // 上传文件path开始
 type PatchFileSubscriptionPathReqBodyBuilder struct {
-	isSubscribe     bool
-	isSubscribeFlag bool
-	fileType        string
-	fileTypeFlag    bool
+	isSubscribe  bool
+	isSubscribeFlag  bool
+	fileType  string
+	fileTypeFlag  bool
 }
 
-func NewPatchFileSubscriptionPathReqBodyBuilder() *PatchFileSubscriptionPathReqBodyBuilder {
-	builder := &PatchFileSubscriptionPathReqBodyBuilder{}
-	return builder
+func NewPatchFileSubscriptionPathReqBodyBuilder() * PatchFileSubscriptionPathReqBodyBuilder{
+  builder := &PatchFileSubscriptionPathReqBodyBuilder{}
+  return builder
 }
-func (builder *PatchFileSubscriptionPathReqBodyBuilder) IsSubscribe(isSubscribe bool) *PatchFileSubscriptionPathReqBodyBuilder {
-	builder.isSubscribe = isSubscribe
-	builder.isSubscribeFlag = true
-	return builder
+func (builder * PatchFileSubscriptionPathReqBodyBuilder ) IsSubscribe(isSubscribe bool) *PatchFileSubscriptionPathReqBodyBuilder {
+  builder.isSubscribe = isSubscribe
+  builder.isSubscribeFlag = true
+  return builder
 }
-func (builder *PatchFileSubscriptionPathReqBodyBuilder) FileType(fileType string) *PatchFileSubscriptionPathReqBodyBuilder {
-	builder.fileType = fileType
-	builder.fileTypeFlag = true
-	return builder
-}
-
-func (builder *PatchFileSubscriptionPathReqBodyBuilder) Build() (*PatchFileSubscriptionReqBody, error) {
-	req := &PatchFileSubscriptionReqBody{}
-	if builder.isSubscribeFlag {
-		req.IsSubscribe = &builder.isSubscribe
-	}
-	if builder.fileTypeFlag {
-		req.FileType = &builder.fileType
-	}
-	return req, nil
+func (builder * PatchFileSubscriptionPathReqBodyBuilder ) FileType(fileType string) *PatchFileSubscriptionPathReqBodyBuilder {
+  builder.fileType = fileType
+  builder.fileTypeFlag = true
+  return builder
 }
 
+
+func (builder * PatchFileSubscriptionPathReqBodyBuilder ) Build() (*PatchFileSubscriptionReqBody, error) {
+   req := &PatchFileSubscriptionReqBody{}
+   if builder.isSubscribeFlag {
+	  req.IsSubscribe = &builder.isSubscribe
+   }
+   if builder.fileTypeFlag {
+	  req.FileType = &builder.fileType
+   }
+   return req, nil
+}
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type PatchFileSubscriptionReqBuilder struct {
-	fileToken          string
-	fileTokenFlag      bool
-	subscriptionId     string
-	subscriptionIdFlag bool
-	body               *PatchFileSubscriptionReqBody
-	bodyFlag           bool
+	fileToken  string
+	fileTokenFlag  bool
+	subscriptionId  string
+	subscriptionIdFlag  bool
+	body *PatchFileSubscriptionReqBody
+	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewPatchFileSubscriptionReqBuilder() *PatchFileSubscriptionReqBuilder {
-	builder := &PatchFileSubscriptionReqBuilder{}
-	return builder
+func NewPatchFileSubscriptionReqBuilder() * PatchFileSubscriptionReqBuilder{
+   builder := &PatchFileSubscriptionReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *PatchFileSubscriptionReqBuilder) FileToken(fileToken string) *PatchFileSubscriptionReqBuilder {
-	builder.fileToken = fileToken
-	builder.fileTokenFlag = true
-	return builder
+func (builder * PatchFileSubscriptionReqBuilder) FileToken(fileToken string) *PatchFileSubscriptionReqBuilder  {
+  builder.fileToken = fileToken
+  builder.fileTokenFlag = true
+  return builder
 }
-func (builder *PatchFileSubscriptionReqBuilder) SubscriptionId(subscriptionId string) *PatchFileSubscriptionReqBuilder {
-	builder.subscriptionId = subscriptionId
-	builder.subscriptionIdFlag = true
-	return builder
+func (builder * PatchFileSubscriptionReqBuilder) SubscriptionId(subscriptionId string) *PatchFileSubscriptionReqBuilder  {
+  builder.subscriptionId = subscriptionId
+  builder.subscriptionIdFlag = true
+  return builder
 }
-func (builder *PatchFileSubscriptionReqBuilder) Body(body *PatchFileSubscriptionReqBody) *PatchFileSubscriptionReqBuilder {
-	builder.body = body
-	builder.bodyFlag = true
-	return builder
+func (builder * PatchFileSubscriptionReqBuilder) Body(body *PatchFileSubscriptionReqBody) *PatchFileSubscriptionReqBuilder  {
+  builder.body = body
+  builder.bodyFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *PatchFileSubscriptionReqBuilder) Build() *PatchFileSubscriptionReq {
-	req := &PatchFileSubscriptionReq{}
-	if builder.fileTokenFlag {
-		req.FileToken = builder.fileToken
-	}
-	if builder.subscriptionIdFlag {
-		req.SubscriptionId = builder.subscriptionId
-	}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
-	return req
+func (builder * PatchFileSubscriptionReqBuilder ) Build() *PatchFileSubscriptionReq {
+   req := &PatchFileSubscriptionReq{}
+   if builder.fileTokenFlag {
+	  req.FileToken = builder.fileToken
+   }
+   if builder.subscriptionIdFlag {
+	  req.SubscriptionId = builder.subscriptionId
+   }
+   if builder.bodyFlag {
+	  req.Body = builder.body
+   }
+   return req
 }
 
 type PatchFileSubscriptionReqBody struct {
-	IsSubscribe *bool   `json:"is_subscribe,omitempty"`
-	FileType    *string `json:"file_type,omitempty"`
+	IsSubscribe  *bool `json:"is_subscribe,omitempty"`
+	FileType  *string `json:"file_type,omitempty"`
 }
 
 type PatchFileSubscriptionReq struct {
-	FileToken      string                        `path:"file_token"`
-	SubscriptionId string                        `path:"subscription_id"`
-	Body           *PatchFileSubscriptionReqBody `body:""`
+	FileToken  string `path:"file_token"`
+	SubscriptionId  string `path:"subscription_id"`
+	Body *PatchFileSubscriptionReqBody `body:""`
+
 }
 
 type PatchFileSubscriptionRespData struct {
-	Subscription *FileSubscription `json:"subscription,omitempty"`
+	Subscription  *FileSubscription `json:"subscription,omitempty"`
 }
 
 type PatchFileSubscriptionResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *PatchFileSubscriptionRespData `json:"data"`
 }
 
@@ -4766,45 +4882,49 @@ func (resp *PatchFileSubscriptionResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type CreateImportTaskReqBuilder struct {
-	importTask     *ImportTask
+	importTask *ImportTask
 	importTaskFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewCreateImportTaskReqBuilder() *CreateImportTaskReqBuilder {
-	builder := &CreateImportTaskReqBuilder{}
-	return builder
+func NewCreateImportTaskReqBuilder() * CreateImportTaskReqBuilder{
+   builder := &CreateImportTaskReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *CreateImportTaskReqBuilder) ImportTask(importTask *ImportTask) *CreateImportTaskReqBuilder {
-	builder.importTask = importTask
-	builder.importTaskFlag = true
-	return builder
+func (builder * CreateImportTaskReqBuilder) ImportTask(importTask *ImportTask) *CreateImportTaskReqBuilder  {
+  builder.importTask = importTask
+  builder.importTaskFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *CreateImportTaskReqBuilder) Build() *CreateImportTaskReq {
-	req := &CreateImportTaskReq{}
-	if builder.importTaskFlag {
-		req.ImportTask = builder.importTask
-	}
-	return req
+func (builder * CreateImportTaskReqBuilder ) Build() *CreateImportTaskReq {
+   req := &CreateImportTaskReq{}
+   if builder.importTaskFlag {
+	  req.ImportTask = builder.importTask
+   }
+   return req
 }
+
 
 type CreateImportTaskReq struct {
 	ImportTask *ImportTask `body:""`
+
 }
 
 type CreateImportTaskRespData struct {
-	Ticket *string `json:"ticket,omitempty"`
+	Ticket  *string `json:"ticket,omitempty"`
 }
 
 type CreateImportTaskResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *CreateImportTaskRespData `json:"data"`
 }
 
@@ -4812,45 +4932,49 @@ func (resp *CreateImportTaskResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type GetImportTaskReqBuilder struct {
-	ticket     string
-	ticketFlag bool
+	ticket  string
+	ticketFlag  bool
+
 }
 
 // 生成请求的New构造器
-func NewGetImportTaskReqBuilder() *GetImportTaskReqBuilder {
-	builder := &GetImportTaskReqBuilder{}
-	return builder
+func NewGetImportTaskReqBuilder() * GetImportTaskReqBuilder{
+   builder := &GetImportTaskReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *GetImportTaskReqBuilder) Ticket(ticket string) *GetImportTaskReqBuilder {
-	builder.ticket = ticket
-	builder.ticketFlag = true
-	return builder
+func (builder * GetImportTaskReqBuilder) Ticket(ticket string) *GetImportTaskReqBuilder  {
+  builder.ticket = ticket
+  builder.ticketFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *GetImportTaskReqBuilder) Build() *GetImportTaskReq {
-	req := &GetImportTaskReq{}
-	if builder.ticketFlag {
-		req.Ticket = builder.ticket
-	}
-	return req
+func (builder * GetImportTaskReqBuilder ) Build() *GetImportTaskReq {
+   req := &GetImportTaskReq{}
+   if builder.ticketFlag {
+	  req.Ticket = builder.ticket
+   }
+   return req
 }
 
+
 type GetImportTaskReq struct {
-	Ticket string `path:"ticket"`
+	Ticket  string `path:"ticket"`
+
 }
 
 type GetImportTaskRespData struct {
-	Result *ImportTask `json:"result,omitempty"`
+	Result  *ImportTask `json:"result,omitempty"`
 }
 
 type GetImportTaskResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *GetImportTaskRespData `json:"data"`
 }
 
@@ -4858,56 +4982,60 @@ func (resp *GetImportTaskResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type BatchGetTmpDownloadUrlMediaReqBuilder struct {
-	fileTokens     []string
-	fileTokensFlag bool
-	extra          string
-	extraFlag      bool
+	fileTokens  []string
+	fileTokensFlag  bool
+	extra  string
+	extraFlag  bool
+
 }
 
 // 生成请求的New构造器
-func NewBatchGetTmpDownloadUrlMediaReqBuilder() *BatchGetTmpDownloadUrlMediaReqBuilder {
-	builder := &BatchGetTmpDownloadUrlMediaReqBuilder{}
-	return builder
+func NewBatchGetTmpDownloadUrlMediaReqBuilder() * BatchGetTmpDownloadUrlMediaReqBuilder{
+   builder := &BatchGetTmpDownloadUrlMediaReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *BatchGetTmpDownloadUrlMediaReqBuilder) FileTokens(fileTokens []string) *BatchGetTmpDownloadUrlMediaReqBuilder {
-	builder.fileTokens = fileTokens
-	builder.fileTokensFlag = true
-	return builder
+func (builder * BatchGetTmpDownloadUrlMediaReqBuilder) FileTokens(fileTokens []string) *BatchGetTmpDownloadUrlMediaReqBuilder  {
+  builder.fileTokens = fileTokens
+  builder.fileTokensFlag = true
+  return builder
 }
-func (builder *BatchGetTmpDownloadUrlMediaReqBuilder) Extra(extra string) *BatchGetTmpDownloadUrlMediaReqBuilder {
-	builder.extra = extra
-	builder.extraFlag = true
-	return builder
+func (builder * BatchGetTmpDownloadUrlMediaReqBuilder) Extra(extra string) *BatchGetTmpDownloadUrlMediaReqBuilder  {
+  builder.extra = extra
+  builder.extraFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *BatchGetTmpDownloadUrlMediaReqBuilder) Build() *BatchGetTmpDownloadUrlMediaReq {
-	req := &BatchGetTmpDownloadUrlMediaReq{}
-	if builder.fileTokensFlag {
-		req.FileTokens = builder.fileTokens
-	}
-	if builder.extraFlag {
-		req.Extra = &builder.extra
-	}
-	return req
+func (builder * BatchGetTmpDownloadUrlMediaReqBuilder ) Build() *BatchGetTmpDownloadUrlMediaReq {
+   req := &BatchGetTmpDownloadUrlMediaReq{}
+   if builder.fileTokensFlag {
+	  req.FileTokens = builder.fileTokens
+   }
+   if builder.extraFlag {
+	  req.Extra = &builder.extra
+   }
+   return req
 }
 
+
 type BatchGetTmpDownloadUrlMediaReq struct {
-	FileTokens []string `query:"file_tokens"`
-	Extra      *string  `query:"extra"`
+	FileTokens  []string `query:"file_tokens"`
+	Extra  *string `query:"extra"`
+
 }
 
 type BatchGetTmpDownloadUrlMediaRespData struct {
-	TmpDownloadUrls []*TmpDownloadUrl `json:"tmp_download_urls,omitempty"`
+	TmpDownloadUrls  []*TmpDownloadUrl `json:"tmp_download_urls,omitempty"`
 }
 
 type BatchGetTmpDownloadUrlMediaResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *BatchGetTmpDownloadUrlMediaRespData `json:"data"`
 }
 
@@ -4915,62 +5043,66 @@ func (resp *BatchGetTmpDownloadUrlMediaResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type DownloadMediaReqBuilder struct {
-	fileToken     string
-	fileTokenFlag bool
-	extra         string
-	extraFlag     bool
+	fileToken  string
+	fileTokenFlag  bool
+	extra  string
+	extraFlag  bool
+
 }
 
 // 生成请求的New构造器
-func NewDownloadMediaReqBuilder() *DownloadMediaReqBuilder {
-	builder := &DownloadMediaReqBuilder{}
-	return builder
+func NewDownloadMediaReqBuilder() * DownloadMediaReqBuilder{
+   builder := &DownloadMediaReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *DownloadMediaReqBuilder) FileToken(fileToken string) *DownloadMediaReqBuilder {
-	builder.fileToken = fileToken
-	builder.fileTokenFlag = true
-	return builder
+func (builder * DownloadMediaReqBuilder) FileToken(fileToken string) *DownloadMediaReqBuilder  {
+  builder.fileToken = fileToken
+  builder.fileTokenFlag = true
+  return builder
 }
-func (builder *DownloadMediaReqBuilder) Extra(extra string) *DownloadMediaReqBuilder {
-	builder.extra = extra
-	builder.extraFlag = true
-	return builder
+func (builder * DownloadMediaReqBuilder) Extra(extra string) *DownloadMediaReqBuilder  {
+  builder.extra = extra
+  builder.extraFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *DownloadMediaReqBuilder) Build() *DownloadMediaReq {
-	req := &DownloadMediaReq{}
-	if builder.fileTokenFlag {
-		req.FileToken = builder.fileToken
-	}
-	if builder.extraFlag {
-		req.Extra = &builder.extra
-	}
-	return req
+func (builder * DownloadMediaReqBuilder ) Build() *DownloadMediaReq {
+   req := &DownloadMediaReq{}
+   if builder.fileTokenFlag {
+	  req.FileToken = builder.fileToken
+   }
+   if builder.extraFlag {
+	  req.Extra = &builder.extra
+   }
+   return req
 }
+
 
 type DownloadMediaReq struct {
-	FileToken string  `path:"file_token"`
-	Extra     *string `query:"extra"`
+	FileToken  string `path:"file_token"`
+	Extra  *string `query:"extra"`
+
 }
 
+
 type DownloadMediaResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
-	File     io.Reader `json:"-"`
-	FileName string    `json:"-"`
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
+	File	 io.Reader `json:"-"`
+	FileName string	`json:"-"`
 }
 
 func (resp *DownloadMediaResp) Success() bool {
 	return resp.Code == 0
 }
-
 // 下载api,生成WriteFile方法
-func (resp *DownloadMediaResp) WriteFile(fileName string) error {
+func (resp * DownloadMediaResp) WriteFile(fileName string ) error {
 	bs, err := ioutil.ReadAll(resp.File)
 	if err != nil {
 		return err
@@ -4984,231 +5116,234 @@ func (resp *DownloadMediaResp) WriteFile(fileName string) error {
 }
 
 type UploadAllMediaReqBodyBuilder struct {
-	fileName       string
-	fileNameFlag   bool
-	parentType     string
-	parentTypeFlag bool
-	parentNode     string
-	parentNodeFlag bool
-	size           int
-	sizeFlag       bool
-	checksum       string
-	checksumFlag   bool
-	extra          string
-	extraFlag      bool
-	file           io.Reader
-	fileFlag       bool
+	fileName  string
+	fileNameFlag  bool
+	parentType  string
+	parentTypeFlag  bool
+	parentNode  string
+	parentNodeFlag  bool
+	size  int
+	sizeFlag  bool
+	checksum  string
+	checksumFlag  bool
+	extra  string
+	extraFlag  bool
+	file  io.Reader
+	fileFlag  bool
 }
 
 // 生成body的New构造器
-func NewUploadAllMediaReqBodyBuilder() *UploadAllMediaReqBodyBuilder {
-	builder := &UploadAllMediaReqBodyBuilder{}
-	return builder
+func NewUploadAllMediaReqBodyBuilder() * UploadAllMediaReqBodyBuilder{
+  builder := &UploadAllMediaReqBodyBuilder{}
+  return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder *UploadAllMediaReqBodyBuilder) FileName(fileName string) *UploadAllMediaReqBodyBuilder {
-	builder.fileName = fileName
-	builder.fileNameFlag = true
-	return builder
+func (builder * UploadAllMediaReqBodyBuilder ) FileName(fileName string) *UploadAllMediaReqBodyBuilder {
+  builder.fileName = fileName
+  builder.fileNameFlag = true
+  return builder
 }
-func (builder *UploadAllMediaReqBodyBuilder) ParentType(parentType string) *UploadAllMediaReqBodyBuilder {
-	builder.parentType = parentType
-	builder.parentTypeFlag = true
-	return builder
+func (builder * UploadAllMediaReqBodyBuilder ) ParentType(parentType string) *UploadAllMediaReqBodyBuilder {
+  builder.parentType = parentType
+  builder.parentTypeFlag = true
+  return builder
 }
-func (builder *UploadAllMediaReqBodyBuilder) ParentNode(parentNode string) *UploadAllMediaReqBodyBuilder {
-	builder.parentNode = parentNode
-	builder.parentNodeFlag = true
-	return builder
+func (builder * UploadAllMediaReqBodyBuilder ) ParentNode(parentNode string) *UploadAllMediaReqBodyBuilder {
+  builder.parentNode = parentNode
+  builder.parentNodeFlag = true
+  return builder
 }
-func (builder *UploadAllMediaReqBodyBuilder) Size(size int) *UploadAllMediaReqBodyBuilder {
-	builder.size = size
-	builder.sizeFlag = true
-	return builder
+func (builder * UploadAllMediaReqBodyBuilder ) Size(size int) *UploadAllMediaReqBodyBuilder {
+  builder.size = size
+  builder.sizeFlag = true
+  return builder
 }
-func (builder *UploadAllMediaReqBodyBuilder) Checksum(checksum string) *UploadAllMediaReqBodyBuilder {
-	builder.checksum = checksum
-	builder.checksumFlag = true
-	return builder
+func (builder * UploadAllMediaReqBodyBuilder ) Checksum(checksum string) *UploadAllMediaReqBodyBuilder {
+  builder.checksum = checksum
+  builder.checksumFlag = true
+  return builder
 }
-func (builder *UploadAllMediaReqBodyBuilder) Extra(extra string) *UploadAllMediaReqBodyBuilder {
-	builder.extra = extra
-	builder.extraFlag = true
-	return builder
+func (builder * UploadAllMediaReqBodyBuilder ) Extra(extra string) *UploadAllMediaReqBodyBuilder {
+  builder.extra = extra
+  builder.extraFlag = true
+  return builder
 }
-func (builder *UploadAllMediaReqBodyBuilder) File(file io.Reader) *UploadAllMediaReqBodyBuilder {
-	builder.file = file
-	builder.fileFlag = true
-	return builder
+func (builder * UploadAllMediaReqBodyBuilder ) File(file io.Reader) *UploadAllMediaReqBodyBuilder {
+  builder.file = file
+  builder.fileFlag = true
+  return builder
 }
 
+
 // 1.3 生成body的build方法
-func (builder *UploadAllMediaReqBodyBuilder) Build() *UploadAllMediaReqBody {
-	req := &UploadAllMediaReqBody{}
-	if builder.fileNameFlag {
-		req.FileName = &builder.fileName
-	}
-	if builder.parentTypeFlag {
-		req.ParentType = &builder.parentType
-	}
-	if builder.parentNodeFlag {
-		req.ParentNode = &builder.parentNode
-	}
-	if builder.sizeFlag {
-		req.Size = &builder.size
-	}
-	if builder.checksumFlag {
-		req.Checksum = &builder.checksum
-	}
-	if builder.extraFlag {
-		req.Extra = &builder.extra
-	}
-	if builder.fileFlag {
-		req.File = builder.file
-	}
-	return req
+func (builder * UploadAllMediaReqBodyBuilder ) Build() *UploadAllMediaReqBody {
+   req := &UploadAllMediaReqBody{}
+   if builder.fileNameFlag {
+	  req.FileName = &builder.fileName
+   }
+   if builder.parentTypeFlag {
+	  req.ParentType = &builder.parentType
+   }
+   if builder.parentNodeFlag {
+	  req.ParentNode = &builder.parentNode
+   }
+   if builder.sizeFlag {
+	  req.Size = &builder.size
+   }
+   if builder.checksumFlag {
+	  req.Checksum = &builder.checksum
+   }
+   if builder.extraFlag {
+	  req.Extra = &builder.extra
+   }
+   if builder.fileFlag {
+	  req.File = builder.file
+   }
+   return req
 }
 
 // 上传文件path开始
 type UploadAllMediaPathReqBodyBuilder struct {
-	fileName       string
-	fileNameFlag   bool
-	parentType     string
-	parentTypeFlag bool
-	parentNode     string
-	parentNodeFlag bool
-	size           int
-	sizeFlag       bool
-	checksum       string
-	checksumFlag   bool
-	extra          string
-	extraFlag      bool
-	filePath       string
-	filePathFlag   bool
+	fileName  string
+	fileNameFlag  bool
+	parentType  string
+	parentTypeFlag  bool
+	parentNode  string
+	parentNodeFlag  bool
+	size  int
+	sizeFlag  bool
+	checksum  string
+	checksumFlag  bool
+	extra  string
+	extraFlag  bool
+	filePath  string
+	filePathFlag  bool
 }
 
-func NewUploadAllMediaPathReqBodyBuilder() *UploadAllMediaPathReqBodyBuilder {
-	builder := &UploadAllMediaPathReqBodyBuilder{}
-	return builder
+func NewUploadAllMediaPathReqBodyBuilder() * UploadAllMediaPathReqBodyBuilder{
+  builder := &UploadAllMediaPathReqBodyBuilder{}
+  return builder
 }
-func (builder *UploadAllMediaPathReqBodyBuilder) FileName(fileName string) *UploadAllMediaPathReqBodyBuilder {
-	builder.fileName = fileName
-	builder.fileNameFlag = true
-	return builder
+func (builder * UploadAllMediaPathReqBodyBuilder ) FileName(fileName string) *UploadAllMediaPathReqBodyBuilder {
+  builder.fileName = fileName
+  builder.fileNameFlag = true
+  return builder
 }
-func (builder *UploadAllMediaPathReqBodyBuilder) ParentType(parentType string) *UploadAllMediaPathReqBodyBuilder {
-	builder.parentType = parentType
-	builder.parentTypeFlag = true
-	return builder
+func (builder * UploadAllMediaPathReqBodyBuilder ) ParentType(parentType string) *UploadAllMediaPathReqBodyBuilder {
+  builder.parentType = parentType
+  builder.parentTypeFlag = true
+  return builder
 }
-func (builder *UploadAllMediaPathReqBodyBuilder) ParentNode(parentNode string) *UploadAllMediaPathReqBodyBuilder {
-	builder.parentNode = parentNode
-	builder.parentNodeFlag = true
-	return builder
+func (builder * UploadAllMediaPathReqBodyBuilder ) ParentNode(parentNode string) *UploadAllMediaPathReqBodyBuilder {
+  builder.parentNode = parentNode
+  builder.parentNodeFlag = true
+  return builder
 }
-func (builder *UploadAllMediaPathReqBodyBuilder) Size(size int) *UploadAllMediaPathReqBodyBuilder {
-	builder.size = size
-	builder.sizeFlag = true
-	return builder
+func (builder * UploadAllMediaPathReqBodyBuilder ) Size(size int) *UploadAllMediaPathReqBodyBuilder {
+  builder.size = size
+  builder.sizeFlag = true
+  return builder
 }
-func (builder *UploadAllMediaPathReqBodyBuilder) Checksum(checksum string) *UploadAllMediaPathReqBodyBuilder {
-	builder.checksum = checksum
-	builder.checksumFlag = true
-	return builder
+func (builder * UploadAllMediaPathReqBodyBuilder ) Checksum(checksum string) *UploadAllMediaPathReqBodyBuilder {
+  builder.checksum = checksum
+  builder.checksumFlag = true
+  return builder
 }
-func (builder *UploadAllMediaPathReqBodyBuilder) Extra(extra string) *UploadAllMediaPathReqBodyBuilder {
-	builder.extra = extra
-	builder.extraFlag = true
-	return builder
+func (builder * UploadAllMediaPathReqBodyBuilder ) Extra(extra string) *UploadAllMediaPathReqBodyBuilder {
+  builder.extra = extra
+  builder.extraFlag = true
+  return builder
 }
-func (builder *UploadAllMediaPathReqBodyBuilder) FilePath(filePath string) *UploadAllMediaPathReqBodyBuilder {
-	builder.filePath = filePath
-	builder.filePathFlag = true
-	return builder
-}
-
-func (builder *UploadAllMediaPathReqBodyBuilder) Build() (*UploadAllMediaReqBody, error) {
-	req := &UploadAllMediaReqBody{}
-	if builder.fileNameFlag {
-		req.FileName = &builder.fileName
-	}
-	if builder.parentTypeFlag {
-		req.ParentType = &builder.parentType
-	}
-	if builder.parentNodeFlag {
-		req.ParentNode = &builder.parentNode
-	}
-	if builder.sizeFlag {
-		req.Size = &builder.size
-	}
-	if builder.checksumFlag {
-		req.Checksum = &builder.checksum
-	}
-	if builder.extraFlag {
-		req.Extra = &builder.extra
-	}
-	if builder.filePathFlag {
-		data, err := core.File2Bytes(builder.filePath)
-		if err != nil {
-			return nil, err
-		}
-		req.File = bytes.NewBuffer(data)
-	}
-	return req, nil
+func (builder * UploadAllMediaPathReqBodyBuilder ) FilePath(filePath string) *UploadAllMediaPathReqBodyBuilder {
+  builder.filePath = filePath
+  builder.filePathFlag = true
+  return builder
 }
 
+
+func (builder * UploadAllMediaPathReqBodyBuilder ) Build() (*UploadAllMediaReqBody, error) {
+   req := &UploadAllMediaReqBody{}
+   if builder.fileNameFlag {
+	  req.FileName = &builder.fileName
+   }
+   if builder.parentTypeFlag {
+	  req.ParentType = &builder.parentType
+   }
+   if builder.parentNodeFlag {
+	  req.ParentNode = &builder.parentNode
+   }
+   if builder.sizeFlag {
+	  req.Size = &builder.size
+   }
+   if builder.checksumFlag {
+	  req.Checksum = &builder.checksum
+   }
+   if builder.extraFlag {
+	  req.Extra = &builder.extra
+   }
+   if builder.filePathFlag {
+	  data, err := larkcore.File2Bytes(builder.filePath)
+	  if err != nil {
+		return nil, err
+	  }
+	  req.File = bytes.NewBuffer(data)
+   }
+   return req, nil
+}
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type UploadAllMediaReqBuilder struct {
-	body     *UploadAllMediaReqBody
+	body *UploadAllMediaReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewUploadAllMediaReqBuilder() *UploadAllMediaReqBuilder {
-	builder := &UploadAllMediaReqBuilder{}
-	return builder
+func NewUploadAllMediaReqBuilder() * UploadAllMediaReqBuilder{
+   builder := &UploadAllMediaReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *UploadAllMediaReqBuilder) Body(body *UploadAllMediaReqBody) *UploadAllMediaReqBuilder {
-	builder.body = body
-	builder.bodyFlag = true
-	return builder
+func (builder * UploadAllMediaReqBuilder) Body(body *UploadAllMediaReqBody) *UploadAllMediaReqBuilder  {
+  builder.body = body
+  builder.bodyFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *UploadAllMediaReqBuilder) Build() *UploadAllMediaReq {
-	req := &UploadAllMediaReq{}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
-	return req
+func (builder * UploadAllMediaReqBuilder ) Build() *UploadAllMediaReq {
+   req := &UploadAllMediaReq{}
+   if builder.bodyFlag {
+	  req.Body = builder.body
+   }
+   return req
 }
 
 type UploadAllMediaReqBody struct {
-	FileName   *string   `json:"file_name,omitempty"`
-	ParentType *string   `json:"parent_type,omitempty"`
-	ParentNode *string   `json:"parent_node,omitempty"`
-	Size       *int      `json:"size,omitempty"`
-	Checksum   *string   `json:"checksum,omitempty"`
-	Extra      *string   `json:"extra,omitempty"`
-	File       io.Reader `json:"file,omitempty"`
+	FileName  *string `json:"file_name,omitempty"`
+	ParentType  *string `json:"parent_type,omitempty"`
+	ParentNode  *string `json:"parent_node,omitempty"`
+	Size  *int `json:"size,omitempty"`
+	Checksum  *string `json:"checksum,omitempty"`
+	Extra  *string `json:"extra,omitempty"`
+	File  io.Reader `json:"file,omitempty"`
 }
 
 type UploadAllMediaReq struct {
 	Body *UploadAllMediaReqBody `body:""`
+
 }
 
 type UploadAllMediaRespData struct {
-	FileToken *string `json:"file_token,omitempty"`
+	FileToken  *string `json:"file_token,omitempty"`
 }
 
 type UploadAllMediaResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *UploadAllMediaRespData `json:"data"`
 }
 
@@ -5217,122 +5352,125 @@ func (resp *UploadAllMediaResp) Success() bool {
 }
 
 type UploadFinishMediaReqBodyBuilder struct {
-	uploadId     string
-	uploadIdFlag bool
-	blockNum     int
-	blockNumFlag bool
+	uploadId  string
+	uploadIdFlag  bool
+	blockNum  int
+	blockNumFlag  bool
 }
 
 // 生成body的New构造器
-func NewUploadFinishMediaReqBodyBuilder() *UploadFinishMediaReqBodyBuilder {
-	builder := &UploadFinishMediaReqBodyBuilder{}
-	return builder
+func NewUploadFinishMediaReqBodyBuilder() * UploadFinishMediaReqBodyBuilder{
+  builder := &UploadFinishMediaReqBodyBuilder{}
+  return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder *UploadFinishMediaReqBodyBuilder) UploadId(uploadId string) *UploadFinishMediaReqBodyBuilder {
-	builder.uploadId = uploadId
-	builder.uploadIdFlag = true
-	return builder
+func (builder * UploadFinishMediaReqBodyBuilder ) UploadId(uploadId string) *UploadFinishMediaReqBodyBuilder {
+  builder.uploadId = uploadId
+  builder.uploadIdFlag = true
+  return builder
 }
-func (builder *UploadFinishMediaReqBodyBuilder) BlockNum(blockNum int) *UploadFinishMediaReqBodyBuilder {
-	builder.blockNum = blockNum
-	builder.blockNumFlag = true
-	return builder
+func (builder * UploadFinishMediaReqBodyBuilder ) BlockNum(blockNum int) *UploadFinishMediaReqBodyBuilder {
+  builder.blockNum = blockNum
+  builder.blockNumFlag = true
+  return builder
 }
 
+
 // 1.3 生成body的build方法
-func (builder *UploadFinishMediaReqBodyBuilder) Build() *UploadFinishMediaReqBody {
-	req := &UploadFinishMediaReqBody{}
-	if builder.uploadIdFlag {
-		req.UploadId = &builder.uploadId
-	}
-	if builder.blockNumFlag {
-		req.BlockNum = &builder.blockNum
-	}
-	return req
+func (builder * UploadFinishMediaReqBodyBuilder ) Build() *UploadFinishMediaReqBody {
+   req := &UploadFinishMediaReqBody{}
+   if builder.uploadIdFlag {
+	  req.UploadId = &builder.uploadId
+   }
+   if builder.blockNumFlag {
+	  req.BlockNum = &builder.blockNum
+   }
+   return req
 }
 
 // 上传文件path开始
 type UploadFinishMediaPathReqBodyBuilder struct {
-	uploadId     string
-	uploadIdFlag bool
-	blockNum     int
-	blockNumFlag bool
+	uploadId  string
+	uploadIdFlag  bool
+	blockNum  int
+	blockNumFlag  bool
 }
 
-func NewUploadFinishMediaPathReqBodyBuilder() *UploadFinishMediaPathReqBodyBuilder {
-	builder := &UploadFinishMediaPathReqBodyBuilder{}
-	return builder
+func NewUploadFinishMediaPathReqBodyBuilder() * UploadFinishMediaPathReqBodyBuilder{
+  builder := &UploadFinishMediaPathReqBodyBuilder{}
+  return builder
 }
-func (builder *UploadFinishMediaPathReqBodyBuilder) UploadId(uploadId string) *UploadFinishMediaPathReqBodyBuilder {
-	builder.uploadId = uploadId
-	builder.uploadIdFlag = true
-	return builder
+func (builder * UploadFinishMediaPathReqBodyBuilder ) UploadId(uploadId string) *UploadFinishMediaPathReqBodyBuilder {
+  builder.uploadId = uploadId
+  builder.uploadIdFlag = true
+  return builder
 }
-func (builder *UploadFinishMediaPathReqBodyBuilder) BlockNum(blockNum int) *UploadFinishMediaPathReqBodyBuilder {
-	builder.blockNum = blockNum
-	builder.blockNumFlag = true
-	return builder
-}
-
-func (builder *UploadFinishMediaPathReqBodyBuilder) Build() (*UploadFinishMediaReqBody, error) {
-	req := &UploadFinishMediaReqBody{}
-	if builder.uploadIdFlag {
-		req.UploadId = &builder.uploadId
-	}
-	if builder.blockNumFlag {
-		req.BlockNum = &builder.blockNum
-	}
-	return req, nil
+func (builder * UploadFinishMediaPathReqBodyBuilder ) BlockNum(blockNum int) *UploadFinishMediaPathReqBodyBuilder {
+  builder.blockNum = blockNum
+  builder.blockNumFlag = true
+  return builder
 }
 
+
+func (builder * UploadFinishMediaPathReqBodyBuilder ) Build() (*UploadFinishMediaReqBody, error) {
+   req := &UploadFinishMediaReqBody{}
+   if builder.uploadIdFlag {
+	  req.UploadId = &builder.uploadId
+   }
+   if builder.blockNumFlag {
+	  req.BlockNum = &builder.blockNum
+   }
+   return req, nil
+}
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type UploadFinishMediaReqBuilder struct {
-	body     *UploadFinishMediaReqBody
+	body *UploadFinishMediaReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewUploadFinishMediaReqBuilder() *UploadFinishMediaReqBuilder {
-	builder := &UploadFinishMediaReqBuilder{}
-	return builder
+func NewUploadFinishMediaReqBuilder() * UploadFinishMediaReqBuilder{
+   builder := &UploadFinishMediaReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *UploadFinishMediaReqBuilder) Body(body *UploadFinishMediaReqBody) *UploadFinishMediaReqBuilder {
-	builder.body = body
-	builder.bodyFlag = true
-	return builder
+func (builder * UploadFinishMediaReqBuilder) Body(body *UploadFinishMediaReqBody) *UploadFinishMediaReqBuilder  {
+  builder.body = body
+  builder.bodyFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *UploadFinishMediaReqBuilder) Build() *UploadFinishMediaReq {
-	req := &UploadFinishMediaReq{}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
-	return req
+func (builder * UploadFinishMediaReqBuilder ) Build() *UploadFinishMediaReq {
+   req := &UploadFinishMediaReq{}
+   if builder.bodyFlag {
+	  req.Body = builder.body
+   }
+   return req
 }
 
 type UploadFinishMediaReqBody struct {
-	UploadId *string `json:"upload_id,omitempty"`
-	BlockNum *int    `json:"block_num,omitempty"`
+	UploadId  *string `json:"upload_id,omitempty"`
+	BlockNum  *int `json:"block_num,omitempty"`
 }
 
 type UploadFinishMediaReq struct {
 	Body *UploadFinishMediaReqBody `body:""`
+
 }
 
 type UploadFinishMediaRespData struct {
-	FileToken *string `json:"file_token,omitempty"`
+	FileToken  *string `json:"file_token,omitempty"`
 }
 
 type UploadFinishMediaResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *UploadFinishMediaRespData `json:"data"`
 }
 
@@ -5341,232 +5479,240 @@ func (resp *UploadFinishMediaResp) Success() bool {
 }
 
 type UploadPartMediaReqBodyBuilder struct {
-	uploadId     string
-	uploadIdFlag bool
-	seq          int
-	seqFlag      bool
-	size         int
-	sizeFlag     bool
-	checksum     string
-	checksumFlag bool
-	file         io.Reader
-	fileFlag     bool
+	uploadId  string
+	uploadIdFlag  bool
+	seq  int
+	seqFlag  bool
+	size  int
+	sizeFlag  bool
+	checksum  string
+	checksumFlag  bool
+	file  io.Reader
+	fileFlag  bool
 }
 
 // 生成body的New构造器
-func NewUploadPartMediaReqBodyBuilder() *UploadPartMediaReqBodyBuilder {
-	builder := &UploadPartMediaReqBodyBuilder{}
-	return builder
+func NewUploadPartMediaReqBodyBuilder() * UploadPartMediaReqBodyBuilder{
+  builder := &UploadPartMediaReqBodyBuilder{}
+  return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder *UploadPartMediaReqBodyBuilder) UploadId(uploadId string) *UploadPartMediaReqBodyBuilder {
-	builder.uploadId = uploadId
-	builder.uploadIdFlag = true
-	return builder
+func (builder * UploadPartMediaReqBodyBuilder ) UploadId(uploadId string) *UploadPartMediaReqBodyBuilder {
+  builder.uploadId = uploadId
+  builder.uploadIdFlag = true
+  return builder
 }
-func (builder *UploadPartMediaReqBodyBuilder) Seq(seq int) *UploadPartMediaReqBodyBuilder {
-	builder.seq = seq
-	builder.seqFlag = true
-	return builder
+func (builder * UploadPartMediaReqBodyBuilder ) Seq(seq int) *UploadPartMediaReqBodyBuilder {
+  builder.seq = seq
+  builder.seqFlag = true
+  return builder
 }
-func (builder *UploadPartMediaReqBodyBuilder) Size(size int) *UploadPartMediaReqBodyBuilder {
-	builder.size = size
-	builder.sizeFlag = true
-	return builder
+func (builder * UploadPartMediaReqBodyBuilder ) Size(size int) *UploadPartMediaReqBodyBuilder {
+  builder.size = size
+  builder.sizeFlag = true
+  return builder
 }
-func (builder *UploadPartMediaReqBodyBuilder) Checksum(checksum string) *UploadPartMediaReqBodyBuilder {
-	builder.checksum = checksum
-	builder.checksumFlag = true
-	return builder
+func (builder * UploadPartMediaReqBodyBuilder ) Checksum(checksum string) *UploadPartMediaReqBodyBuilder {
+  builder.checksum = checksum
+  builder.checksumFlag = true
+  return builder
 }
-func (builder *UploadPartMediaReqBodyBuilder) File(file io.Reader) *UploadPartMediaReqBodyBuilder {
-	builder.file = file
-	builder.fileFlag = true
-	return builder
+func (builder * UploadPartMediaReqBodyBuilder ) File(file io.Reader) *UploadPartMediaReqBodyBuilder {
+  builder.file = file
+  builder.fileFlag = true
+  return builder
 }
 
+
 // 1.3 生成body的build方法
-func (builder *UploadPartMediaReqBodyBuilder) Build() *UploadPartMediaReqBody {
-	req := &UploadPartMediaReqBody{}
-	if builder.uploadIdFlag {
-		req.UploadId = &builder.uploadId
-	}
-	if builder.seqFlag {
-		req.Seq = &builder.seq
-	}
-	if builder.sizeFlag {
-		req.Size = &builder.size
-	}
-	if builder.checksumFlag {
-		req.Checksum = &builder.checksum
-	}
-	if builder.fileFlag {
-		req.File = builder.file
-	}
-	return req
+func (builder * UploadPartMediaReqBodyBuilder ) Build() *UploadPartMediaReqBody {
+   req := &UploadPartMediaReqBody{}
+   if builder.uploadIdFlag {
+	  req.UploadId = &builder.uploadId
+   }
+   if builder.seqFlag {
+	  req.Seq = &builder.seq
+   }
+   if builder.sizeFlag {
+	  req.Size = &builder.size
+   }
+   if builder.checksumFlag {
+	  req.Checksum = &builder.checksum
+   }
+   if builder.fileFlag {
+	  req.File = builder.file
+   }
+   return req
 }
 
 // 上传文件path开始
 type UploadPartMediaPathReqBodyBuilder struct {
-	uploadId     string
-	uploadIdFlag bool
-	seq          int
-	seqFlag      bool
-	size         int
-	sizeFlag     bool
-	checksum     string
-	checksumFlag bool
-	filePath     string
-	filePathFlag bool
+	uploadId  string
+	uploadIdFlag  bool
+	seq  int
+	seqFlag  bool
+	size  int
+	sizeFlag  bool
+	checksum  string
+	checksumFlag  bool
+	filePath  string
+	filePathFlag  bool
 }
 
-func NewUploadPartMediaPathReqBodyBuilder() *UploadPartMediaPathReqBodyBuilder {
-	builder := &UploadPartMediaPathReqBodyBuilder{}
-	return builder
+func NewUploadPartMediaPathReqBodyBuilder() * UploadPartMediaPathReqBodyBuilder{
+  builder := &UploadPartMediaPathReqBodyBuilder{}
+  return builder
 }
-func (builder *UploadPartMediaPathReqBodyBuilder) UploadId(uploadId string) *UploadPartMediaPathReqBodyBuilder {
-	builder.uploadId = uploadId
-	builder.uploadIdFlag = true
-	return builder
+func (builder * UploadPartMediaPathReqBodyBuilder ) UploadId(uploadId string) *UploadPartMediaPathReqBodyBuilder {
+  builder.uploadId = uploadId
+  builder.uploadIdFlag = true
+  return builder
 }
-func (builder *UploadPartMediaPathReqBodyBuilder) Seq(seq int) *UploadPartMediaPathReqBodyBuilder {
-	builder.seq = seq
-	builder.seqFlag = true
-	return builder
+func (builder * UploadPartMediaPathReqBodyBuilder ) Seq(seq int) *UploadPartMediaPathReqBodyBuilder {
+  builder.seq = seq
+  builder.seqFlag = true
+  return builder
 }
-func (builder *UploadPartMediaPathReqBodyBuilder) Size(size int) *UploadPartMediaPathReqBodyBuilder {
-	builder.size = size
-	builder.sizeFlag = true
-	return builder
+func (builder * UploadPartMediaPathReqBodyBuilder ) Size(size int) *UploadPartMediaPathReqBodyBuilder {
+  builder.size = size
+  builder.sizeFlag = true
+  return builder
 }
-func (builder *UploadPartMediaPathReqBodyBuilder) Checksum(checksum string) *UploadPartMediaPathReqBodyBuilder {
-	builder.checksum = checksum
-	builder.checksumFlag = true
-	return builder
+func (builder * UploadPartMediaPathReqBodyBuilder ) Checksum(checksum string) *UploadPartMediaPathReqBodyBuilder {
+  builder.checksum = checksum
+  builder.checksumFlag = true
+  return builder
 }
-func (builder *UploadPartMediaPathReqBodyBuilder) FilePath(filePath string) *UploadPartMediaPathReqBodyBuilder {
-	builder.filePath = filePath
-	builder.filePathFlag = true
-	return builder
-}
-
-func (builder *UploadPartMediaPathReqBodyBuilder) Build() (*UploadPartMediaReqBody, error) {
-	req := &UploadPartMediaReqBody{}
-	if builder.uploadIdFlag {
-		req.UploadId = &builder.uploadId
-	}
-	if builder.seqFlag {
-		req.Seq = &builder.seq
-	}
-	if builder.sizeFlag {
-		req.Size = &builder.size
-	}
-	if builder.checksumFlag {
-		req.Checksum = &builder.checksum
-	}
-	if builder.filePathFlag {
-		data, err := core.File2Bytes(builder.filePath)
-		if err != nil {
-			return nil, err
-		}
-		req.File = bytes.NewBuffer(data)
-	}
-	return req, nil
+func (builder * UploadPartMediaPathReqBodyBuilder ) FilePath(filePath string) *UploadPartMediaPathReqBodyBuilder {
+  builder.filePath = filePath
+  builder.filePathFlag = true
+  return builder
 }
 
+
+func (builder * UploadPartMediaPathReqBodyBuilder ) Build() (*UploadPartMediaReqBody, error) {
+   req := &UploadPartMediaReqBody{}
+   if builder.uploadIdFlag {
+	  req.UploadId = &builder.uploadId
+   }
+   if builder.seqFlag {
+	  req.Seq = &builder.seq
+   }
+   if builder.sizeFlag {
+	  req.Size = &builder.size
+   }
+   if builder.checksumFlag {
+	  req.Checksum = &builder.checksum
+   }
+   if builder.filePathFlag {
+	  data, err := larkcore.File2Bytes(builder.filePath)
+	  if err != nil {
+		return nil, err
+	  }
+	  req.File = bytes.NewBuffer(data)
+   }
+   return req, nil
+}
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type UploadPartMediaReqBuilder struct {
-	body     *UploadPartMediaReqBody
+	body *UploadPartMediaReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewUploadPartMediaReqBuilder() *UploadPartMediaReqBuilder {
-	builder := &UploadPartMediaReqBuilder{}
-	return builder
+func NewUploadPartMediaReqBuilder() * UploadPartMediaReqBuilder{
+   builder := &UploadPartMediaReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *UploadPartMediaReqBuilder) Body(body *UploadPartMediaReqBody) *UploadPartMediaReqBuilder {
-	builder.body = body
-	builder.bodyFlag = true
-	return builder
+func (builder * UploadPartMediaReqBuilder) Body(body *UploadPartMediaReqBody) *UploadPartMediaReqBuilder  {
+  builder.body = body
+  builder.bodyFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *UploadPartMediaReqBuilder) Build() *UploadPartMediaReq {
-	req := &UploadPartMediaReq{}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
-	return req
+func (builder * UploadPartMediaReqBuilder ) Build() *UploadPartMediaReq {
+   req := &UploadPartMediaReq{}
+   if builder.bodyFlag {
+	  req.Body = builder.body
+   }
+   return req
 }
 
 type UploadPartMediaReqBody struct {
-	UploadId *string   `json:"upload_id,omitempty"`
-	Seq      *int      `json:"seq,omitempty"`
-	Size     *int      `json:"size,omitempty"`
-	Checksum *string   `json:"checksum,omitempty"`
-	File     io.Reader `json:"file,omitempty"`
+	UploadId  *string `json:"upload_id,omitempty"`
+	Seq  *int `json:"seq,omitempty"`
+	Size  *int `json:"size,omitempty"`
+	Checksum  *string `json:"checksum,omitempty"`
+	File  io.Reader `json:"file,omitempty"`
 }
 
 type UploadPartMediaReq struct {
 	Body *UploadPartMediaReqBody `body:""`
+
 }
 
+
 type UploadPartMediaResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 }
 
 func (resp *UploadPartMediaResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type UploadPrepareMediaReqBuilder struct {
-	mediaUploadInfo     *MediaUploadInfo
+	mediaUploadInfo *MediaUploadInfo
 	mediaUploadInfoFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewUploadPrepareMediaReqBuilder() *UploadPrepareMediaReqBuilder {
-	builder := &UploadPrepareMediaReqBuilder{}
-	return builder
+func NewUploadPrepareMediaReqBuilder() * UploadPrepareMediaReqBuilder{
+   builder := &UploadPrepareMediaReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *UploadPrepareMediaReqBuilder) MediaUploadInfo(mediaUploadInfo *MediaUploadInfo) *UploadPrepareMediaReqBuilder {
-	builder.mediaUploadInfo = mediaUploadInfo
-	builder.mediaUploadInfoFlag = true
-	return builder
+func (builder * UploadPrepareMediaReqBuilder) MediaUploadInfo(mediaUploadInfo *MediaUploadInfo) *UploadPrepareMediaReqBuilder  {
+  builder.mediaUploadInfo = mediaUploadInfo
+  builder.mediaUploadInfoFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *UploadPrepareMediaReqBuilder) Build() *UploadPrepareMediaReq {
-	req := &UploadPrepareMediaReq{}
-	if builder.mediaUploadInfoFlag {
-		req.MediaUploadInfo = builder.mediaUploadInfo
-	}
-	return req
+func (builder * UploadPrepareMediaReqBuilder ) Build() *UploadPrepareMediaReq {
+   req := &UploadPrepareMediaReq{}
+   if builder.mediaUploadInfoFlag {
+	  req.MediaUploadInfo = builder.mediaUploadInfo
+   }
+   return req
 }
+
 
 type UploadPrepareMediaReq struct {
 	MediaUploadInfo *MediaUploadInfo `body:""`
+
 }
 
 type UploadPrepareMediaRespData struct {
 	UploadId  *string `json:"upload_id,omitempty"`
-	BlockSize *int    `json:"block_size,omitempty"`
-	BlockNum  *int    `json:"block_num,omitempty"`
+	BlockSize  *int `json:"block_size,omitempty"`
+	BlockNum  *int `json:"block_num,omitempty"`
 }
 
 type UploadPrepareMediaResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *UploadPrepareMediaRespData `json:"data"`
 }
 
@@ -5574,57 +5720,61 @@ func (resp *UploadPrepareMediaResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type BatchQueryMetaReqBuilder struct {
-	userIdType      string
+	userIdType  string
 	userIdTypeFlag  bool
-	metaRequest     *MetaRequest
+	metaRequest *MetaRequest
 	metaRequestFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewBatchQueryMetaReqBuilder() *BatchQueryMetaReqBuilder {
-	builder := &BatchQueryMetaReqBuilder{}
-	return builder
+func NewBatchQueryMetaReqBuilder() * BatchQueryMetaReqBuilder{
+   builder := &BatchQueryMetaReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *BatchQueryMetaReqBuilder) UserIdType(userIdType string) *BatchQueryMetaReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
-	return builder
+func (builder * BatchQueryMetaReqBuilder) UserIdType(userIdType string) *BatchQueryMetaReqBuilder  {
+  builder.userIdType = userIdType
+  builder.userIdTypeFlag = true
+  return builder
 }
-func (builder *BatchQueryMetaReqBuilder) MetaRequest(metaRequest *MetaRequest) *BatchQueryMetaReqBuilder {
-	builder.metaRequest = metaRequest
-	builder.metaRequestFlag = true
-	return builder
+func (builder * BatchQueryMetaReqBuilder) MetaRequest(metaRequest *MetaRequest) *BatchQueryMetaReqBuilder  {
+  builder.metaRequest = metaRequest
+  builder.metaRequestFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *BatchQueryMetaReqBuilder) Build() *BatchQueryMetaReq {
-	req := &BatchQueryMetaReq{}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
-	if builder.metaRequestFlag {
-		req.MetaRequest = builder.metaRequest
-	}
-	return req
+func (builder * BatchQueryMetaReqBuilder ) Build() *BatchQueryMetaReq {
+   req := &BatchQueryMetaReq{}
+   if builder.userIdTypeFlag {
+	  req.UserIdType = &builder.userIdType
+   }
+   if builder.metaRequestFlag {
+	  req.MetaRequest = builder.metaRequest
+   }
+   return req
 }
 
+
 type BatchQueryMetaReq struct {
-	UserIdType  *string      `query:"user_id_type"`
+	UserIdType  *string `query:"user_id_type"`
 	MetaRequest *MetaRequest `body:""`
+
 }
 
 type BatchQueryMetaRespData struct {
-	Metas      []*Meta       `json:"metas,omitempty"`
-	FailedList []*MetaFailed `json:"failed_list,omitempty"`
+	Metas  []*Meta `json:"metas,omitempty"`
+	FailedList  []*MetaFailed `json:"failed_list,omitempty"`
 }
 
 type BatchQueryMetaResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *BatchQueryMetaRespData `json:"data"`
 }
 
@@ -5632,78 +5782,82 @@ func (resp *BatchQueryMetaResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type CreatePermissionMemberReqBuilder struct {
-	token                string
-	tokenFlag            bool
-	type_                string
-	typeFlag             bool
-	needNotification     bool
-	needNotificationFlag bool
-	member               *Member
-	memberFlag           bool
+	token  string
+	tokenFlag  bool
+	type_  string
+	typeFlag  bool
+	needNotification  bool
+	needNotificationFlag  bool
+	member *Member
+	memberFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewCreatePermissionMemberReqBuilder() *CreatePermissionMemberReqBuilder {
-	builder := &CreatePermissionMemberReqBuilder{}
-	return builder
+func NewCreatePermissionMemberReqBuilder() * CreatePermissionMemberReqBuilder{
+   builder := &CreatePermissionMemberReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *CreatePermissionMemberReqBuilder) Token(token string) *CreatePermissionMemberReqBuilder {
-	builder.token = token
-	builder.tokenFlag = true
-	return builder
+func (builder * CreatePermissionMemberReqBuilder) Token(token string) *CreatePermissionMemberReqBuilder  {
+  builder.token = token
+  builder.tokenFlag = true
+  return builder
 }
-func (builder *CreatePermissionMemberReqBuilder) Type(type_ string) *CreatePermissionMemberReqBuilder {
-	builder.type_ = type_
-	builder.typeFlag = true
-	return builder
+func (builder * CreatePermissionMemberReqBuilder) Type(type_ string) *CreatePermissionMemberReqBuilder  {
+  builder.type_ = type_
+  builder.typeFlag = true
+  return builder
 }
-func (builder *CreatePermissionMemberReqBuilder) NeedNotification(needNotification bool) *CreatePermissionMemberReqBuilder {
-	builder.needNotification = needNotification
-	builder.needNotificationFlag = true
-	return builder
+func (builder * CreatePermissionMemberReqBuilder) NeedNotification(needNotification bool) *CreatePermissionMemberReqBuilder  {
+  builder.needNotification = needNotification
+  builder.needNotificationFlag = true
+  return builder
 }
-func (builder *CreatePermissionMemberReqBuilder) Member(member *Member) *CreatePermissionMemberReqBuilder {
-	builder.member = member
-	builder.memberFlag = true
-	return builder
+func (builder * CreatePermissionMemberReqBuilder) Member(member *Member) *CreatePermissionMemberReqBuilder  {
+  builder.member = member
+  builder.memberFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *CreatePermissionMemberReqBuilder) Build() *CreatePermissionMemberReq {
-	req := &CreatePermissionMemberReq{}
-	if builder.tokenFlag {
-		req.Token = builder.token
-	}
-	if builder.typeFlag {
-		req.Type = &builder.type_
-	}
-	if builder.needNotificationFlag {
-		req.NeedNotification = &builder.needNotification
-	}
-	if builder.memberFlag {
-		req.Member = builder.member
-	}
-	return req
+func (builder * CreatePermissionMemberReqBuilder ) Build() *CreatePermissionMemberReq {
+   req := &CreatePermissionMemberReq{}
+   if builder.tokenFlag {
+	  req.Token = builder.token
+   }
+   if builder.typeFlag {
+	  req.Type = &builder.type_
+   }
+   if builder.needNotificationFlag {
+	  req.NeedNotification = &builder.needNotification
+   }
+   if builder.memberFlag {
+	  req.Member = builder.member
+   }
+   return req
 }
 
+
 type CreatePermissionMemberReq struct {
-	Token            string  `path:"token"`
-	Type             *string `query:"type"`
-	NeedNotification *bool   `query:"need_notification"`
-	Member           *Member `body:""`
+	Token  string `path:"token"`
+	Type  *string `query:"type"`
+	NeedNotification  *bool `query:"need_notification"`
+	Member *Member `body:""`
+
 }
 
 type CreatePermissionMemberRespData struct {
-	Member *Member `json:"member,omitempty"`
+	Member  *Member `json:"member,omitempty"`
 }
 
 type CreatePermissionMemberResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *CreatePermissionMemberRespData `json:"data"`
 }
 
@@ -5711,163 +5865,172 @@ func (resp *CreatePermissionMemberResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type DeletePermissionMemberReqBuilder struct {
-	token          string
-	tokenFlag      bool
-	memberId       string
-	memberIdFlag   bool
-	type_          string
-	typeFlag       bool
-	memberType     string
-	memberTypeFlag bool
+	token  string
+	tokenFlag  bool
+	memberId  string
+	memberIdFlag  bool
+	type_  string
+	typeFlag  bool
+	memberType  string
+	memberTypeFlag  bool
+
 }
 
 // 生成请求的New构造器
-func NewDeletePermissionMemberReqBuilder() *DeletePermissionMemberReqBuilder {
-	builder := &DeletePermissionMemberReqBuilder{}
-	return builder
+func NewDeletePermissionMemberReqBuilder() * DeletePermissionMemberReqBuilder{
+   builder := &DeletePermissionMemberReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *DeletePermissionMemberReqBuilder) Token(token string) *DeletePermissionMemberReqBuilder {
-	builder.token = token
-	builder.tokenFlag = true
-	return builder
+func (builder * DeletePermissionMemberReqBuilder) Token(token string) *DeletePermissionMemberReqBuilder  {
+  builder.token = token
+  builder.tokenFlag = true
+  return builder
 }
-func (builder *DeletePermissionMemberReqBuilder) MemberId(memberId string) *DeletePermissionMemberReqBuilder {
-	builder.memberId = memberId
-	builder.memberIdFlag = true
-	return builder
+func (builder * DeletePermissionMemberReqBuilder) MemberId(memberId string) *DeletePermissionMemberReqBuilder  {
+  builder.memberId = memberId
+  builder.memberIdFlag = true
+  return builder
 }
-func (builder *DeletePermissionMemberReqBuilder) Type(type_ string) *DeletePermissionMemberReqBuilder {
-	builder.type_ = type_
-	builder.typeFlag = true
-	return builder
+func (builder * DeletePermissionMemberReqBuilder) Type(type_ string) *DeletePermissionMemberReqBuilder  {
+  builder.type_ = type_
+  builder.typeFlag = true
+  return builder
 }
-func (builder *DeletePermissionMemberReqBuilder) MemberType(memberType string) *DeletePermissionMemberReqBuilder {
-	builder.memberType = memberType
-	builder.memberTypeFlag = true
-	return builder
+func (builder * DeletePermissionMemberReqBuilder) MemberType(memberType string) *DeletePermissionMemberReqBuilder  {
+  builder.memberType = memberType
+  builder.memberTypeFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *DeletePermissionMemberReqBuilder) Build() *DeletePermissionMemberReq {
-	req := &DeletePermissionMemberReq{}
-	if builder.tokenFlag {
-		req.Token = builder.token
-	}
-	if builder.memberIdFlag {
-		req.MemberId = builder.memberId
-	}
-	if builder.typeFlag {
-		req.Type = &builder.type_
-	}
-	if builder.memberTypeFlag {
-		req.MemberType = &builder.memberType
-	}
-	return req
+func (builder * DeletePermissionMemberReqBuilder ) Build() *DeletePermissionMemberReq {
+   req := &DeletePermissionMemberReq{}
+   if builder.tokenFlag {
+	  req.Token = builder.token
+   }
+   if builder.memberIdFlag {
+	  req.MemberId = builder.memberId
+   }
+   if builder.typeFlag {
+	  req.Type = &builder.type_
+   }
+   if builder.memberTypeFlag {
+	  req.MemberType = &builder.memberType
+   }
+   return req
 }
+
 
 type DeletePermissionMemberReq struct {
-	Token      string  `path:"token"`
-	MemberId   string  `path:"member_id"`
-	Type       *string `query:"type"`
-	MemberType *string `query:"member_type"`
+	Token  string `path:"token"`
+	MemberId  string `path:"member_id"`
+	Type  *string `query:"type"`
+	MemberType  *string `query:"member_type"`
+
 }
 
+
 type DeletePermissionMemberResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 }
 
 func (resp *DeletePermissionMemberResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type UpdatePermissionMemberReqBuilder struct {
-	token                string
-	tokenFlag            bool
-	memberId             string
-	memberIdFlag         bool
-	needNotification     bool
-	needNotificationFlag bool
-	type_                string
-	typeFlag             bool
-	member               *Member
-	memberFlag           bool
+	token  string
+	tokenFlag  bool
+	memberId  string
+	memberIdFlag  bool
+	needNotification  bool
+	needNotificationFlag  bool
+	type_  string
+	typeFlag  bool
+	member *Member
+	memberFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewUpdatePermissionMemberReqBuilder() *UpdatePermissionMemberReqBuilder {
-	builder := &UpdatePermissionMemberReqBuilder{}
-	return builder
+func NewUpdatePermissionMemberReqBuilder() * UpdatePermissionMemberReqBuilder{
+   builder := &UpdatePermissionMemberReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *UpdatePermissionMemberReqBuilder) Token(token string) *UpdatePermissionMemberReqBuilder {
-	builder.token = token
-	builder.tokenFlag = true
-	return builder
+func (builder * UpdatePermissionMemberReqBuilder) Token(token string) *UpdatePermissionMemberReqBuilder  {
+  builder.token = token
+  builder.tokenFlag = true
+  return builder
 }
-func (builder *UpdatePermissionMemberReqBuilder) MemberId(memberId string) *UpdatePermissionMemberReqBuilder {
-	builder.memberId = memberId
-	builder.memberIdFlag = true
-	return builder
+func (builder * UpdatePermissionMemberReqBuilder) MemberId(memberId string) *UpdatePermissionMemberReqBuilder  {
+  builder.memberId = memberId
+  builder.memberIdFlag = true
+  return builder
 }
-func (builder *UpdatePermissionMemberReqBuilder) NeedNotification(needNotification bool) *UpdatePermissionMemberReqBuilder {
-	builder.needNotification = needNotification
-	builder.needNotificationFlag = true
-	return builder
+func (builder * UpdatePermissionMemberReqBuilder) NeedNotification(needNotification bool) *UpdatePermissionMemberReqBuilder  {
+  builder.needNotification = needNotification
+  builder.needNotificationFlag = true
+  return builder
 }
-func (builder *UpdatePermissionMemberReqBuilder) Type(type_ string) *UpdatePermissionMemberReqBuilder {
-	builder.type_ = type_
-	builder.typeFlag = true
-	return builder
+func (builder * UpdatePermissionMemberReqBuilder) Type(type_ string) *UpdatePermissionMemberReqBuilder  {
+  builder.type_ = type_
+  builder.typeFlag = true
+  return builder
 }
-func (builder *UpdatePermissionMemberReqBuilder) Member(member *Member) *UpdatePermissionMemberReqBuilder {
-	builder.member = member
-	builder.memberFlag = true
-	return builder
+func (builder * UpdatePermissionMemberReqBuilder) Member(member *Member) *UpdatePermissionMemberReqBuilder  {
+  builder.member = member
+  builder.memberFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *UpdatePermissionMemberReqBuilder) Build() *UpdatePermissionMemberReq {
-	req := &UpdatePermissionMemberReq{}
-	if builder.tokenFlag {
-		req.Token = builder.token
-	}
-	if builder.memberIdFlag {
-		req.MemberId = builder.memberId
-	}
-	if builder.needNotificationFlag {
-		req.NeedNotification = &builder.needNotification
-	}
-	if builder.typeFlag {
-		req.Type = &builder.type_
-	}
-	if builder.memberFlag {
-		req.Member = builder.member
-	}
-	return req
+func (builder * UpdatePermissionMemberReqBuilder ) Build() *UpdatePermissionMemberReq {
+   req := &UpdatePermissionMemberReq{}
+   if builder.tokenFlag {
+	  req.Token = builder.token
+   }
+   if builder.memberIdFlag {
+	  req.MemberId = builder.memberId
+   }
+   if builder.needNotificationFlag {
+	  req.NeedNotification = &builder.needNotification
+   }
+   if builder.typeFlag {
+	  req.Type = &builder.type_
+   }
+   if builder.memberFlag {
+	  req.Member = builder.member
+   }
+   return req
 }
 
+
 type UpdatePermissionMemberReq struct {
-	Token            string  `path:"token"`
-	MemberId         string  `path:"member_id"`
-	NeedNotification *bool   `query:"need_notification"`
-	Type             *string `query:"type"`
-	Member           *Member `body:""`
+	Token  string `path:"token"`
+	MemberId  string `path:"member_id"`
+	NeedNotification  *bool `query:"need_notification"`
+	Type  *string `query:"type"`
+	Member *Member `body:""`
+
 }
 
 type UpdatePermissionMemberRespData struct {
-	Member *Member `json:"member,omitempty"`
+	Member  *Member `json:"member,omitempty"`
 }
 
 type UpdatePermissionMemberResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *UpdatePermissionMemberRespData `json:"data"`
 }
 
@@ -5875,56 +6038,60 @@ func (resp *UpdatePermissionMemberResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type GetPermissionPublicReqBuilder struct {
-	token     string
-	tokenFlag bool
-	type_     string
+	token  string
+	tokenFlag  bool
+	type_  string
 	typeFlag  bool
+
 }
 
 // 生成请求的New构造器
-func NewGetPermissionPublicReqBuilder() *GetPermissionPublicReqBuilder {
-	builder := &GetPermissionPublicReqBuilder{}
-	return builder
+func NewGetPermissionPublicReqBuilder() * GetPermissionPublicReqBuilder{
+   builder := &GetPermissionPublicReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *GetPermissionPublicReqBuilder) Token(token string) *GetPermissionPublicReqBuilder {
-	builder.token = token
-	builder.tokenFlag = true
-	return builder
+func (builder * GetPermissionPublicReqBuilder) Token(token string) *GetPermissionPublicReqBuilder  {
+  builder.token = token
+  builder.tokenFlag = true
+  return builder
 }
-func (builder *GetPermissionPublicReqBuilder) Type(type_ string) *GetPermissionPublicReqBuilder {
-	builder.type_ = type_
-	builder.typeFlag = true
-	return builder
+func (builder * GetPermissionPublicReqBuilder) Type(type_ string) *GetPermissionPublicReqBuilder  {
+  builder.type_ = type_
+  builder.typeFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *GetPermissionPublicReqBuilder) Build() *GetPermissionPublicReq {
-	req := &GetPermissionPublicReq{}
-	if builder.tokenFlag {
-		req.Token = builder.token
-	}
-	if builder.typeFlag {
-		req.Type = &builder.type_
-	}
-	return req
+func (builder * GetPermissionPublicReqBuilder ) Build() *GetPermissionPublicReq {
+   req := &GetPermissionPublicReq{}
+   if builder.tokenFlag {
+	  req.Token = builder.token
+   }
+   if builder.typeFlag {
+	  req.Type = &builder.type_
+   }
+   return req
 }
 
+
 type GetPermissionPublicReq struct {
-	Token string  `path:"token"`
+	Token  string `path:"token"`
 	Type  *string `query:"type"`
+
 }
 
 type GetPermissionPublicRespData struct {
-	PermissionPublic *PermissionPublic `json:"permission_public,omitempty"`
+	PermissionPublic  *PermissionPublic `json:"permission_public,omitempty"`
 }
 
 type GetPermissionPublicResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *GetPermissionPublicRespData `json:"data"`
 }
 
@@ -5932,67 +6099,71 @@ func (resp *GetPermissionPublicResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type PatchPermissionPublicReqBuilder struct {
-	token                       string
-	tokenFlag                   bool
-	type_                       string
-	typeFlag                    bool
-	permissionPublicRequest     *PermissionPublicRequest
+	token  string
+	tokenFlag  bool
+	type_  string
+	typeFlag  bool
+	permissionPublicRequest *PermissionPublicRequest
 	permissionPublicRequestFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewPatchPermissionPublicReqBuilder() *PatchPermissionPublicReqBuilder {
-	builder := &PatchPermissionPublicReqBuilder{}
-	return builder
+func NewPatchPermissionPublicReqBuilder() * PatchPermissionPublicReqBuilder{
+   builder := &PatchPermissionPublicReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *PatchPermissionPublicReqBuilder) Token(token string) *PatchPermissionPublicReqBuilder {
-	builder.token = token
-	builder.tokenFlag = true
-	return builder
+func (builder * PatchPermissionPublicReqBuilder) Token(token string) *PatchPermissionPublicReqBuilder  {
+  builder.token = token
+  builder.tokenFlag = true
+  return builder
 }
-func (builder *PatchPermissionPublicReqBuilder) Type(type_ string) *PatchPermissionPublicReqBuilder {
-	builder.type_ = type_
-	builder.typeFlag = true
-	return builder
+func (builder * PatchPermissionPublicReqBuilder) Type(type_ string) *PatchPermissionPublicReqBuilder  {
+  builder.type_ = type_
+  builder.typeFlag = true
+  return builder
 }
-func (builder *PatchPermissionPublicReqBuilder) PermissionPublicRequest(permissionPublicRequest *PermissionPublicRequest) *PatchPermissionPublicReqBuilder {
-	builder.permissionPublicRequest = permissionPublicRequest
-	builder.permissionPublicRequestFlag = true
-	return builder
+func (builder * PatchPermissionPublicReqBuilder) PermissionPublicRequest(permissionPublicRequest *PermissionPublicRequest) *PatchPermissionPublicReqBuilder  {
+  builder.permissionPublicRequest = permissionPublicRequest
+  builder.permissionPublicRequestFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *PatchPermissionPublicReqBuilder) Build() *PatchPermissionPublicReq {
-	req := &PatchPermissionPublicReq{}
-	if builder.tokenFlag {
-		req.Token = builder.token
-	}
-	if builder.typeFlag {
-		req.Type = &builder.type_
-	}
-	if builder.permissionPublicRequestFlag {
-		req.PermissionPublicRequest = builder.permissionPublicRequest
-	}
-	return req
+func (builder * PatchPermissionPublicReqBuilder ) Build() *PatchPermissionPublicReq {
+   req := &PatchPermissionPublicReq{}
+   if builder.tokenFlag {
+	  req.Token = builder.token
+   }
+   if builder.typeFlag {
+	  req.Type = &builder.type_
+   }
+   if builder.permissionPublicRequestFlag {
+	  req.PermissionPublicRequest = builder.permissionPublicRequest
+   }
+   return req
 }
 
+
 type PatchPermissionPublicReq struct {
-	Token                   string                   `path:"token"`
-	Type                    *string                  `query:"type"`
+	Token  string `path:"token"`
+	Type  *string `query:"type"`
 	PermissionPublicRequest *PermissionPublicRequest `body:""`
+
 }
 
 type PatchPermissionPublicRespData struct {
-	PermissionPublic *PermissionPublic `json:"permission_public,omitempty"`
+	PermissionPublic  *PermissionPublic `json:"permission_public,omitempty"`
 }
 
 type PatchPermissionPublicResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *PatchPermissionPublicRespData `json:"data"`
 }
 
@@ -6002,148 +6173,186 @@ func (resp *PatchPermissionPublicResp) Success() bool {
 
 // 生成消息事件结构体
 
-type FileDeletedEventData struct {
-	FileType         *string   `json:"file_type,omitempty"`
-	FileToken        *string   `json:"file_token,omitempty"`
-	OperatorId       *UserId   `json:"operator_id,omitempty"`
-	SubscriberIdList []*UserId `json:"subscriber_id_list,omitempty"`
+type P2FileDeletedV1Data struct {
+	FileType  *string `json:"file_type,omitempty"`
+	FileToken  *string `json:"file_token,omitempty"`
+	OperatorId  *UserId `json:"operator_id,omitempty"`
+	SubscriberIdList  []*UserId `json:"subscriber_id_list,omitempty"`
 }
 
-type FileDeletedEvent struct {
-	*event.EventV2Base
-	Event *FileDeletedEventData `json:"event"`
+type P2FileDeletedV1 struct {
+	*larkevent.EventV2Base
+	*larkevent.EventReq
+	Event * P2FileDeletedV1Data `json:"event"`
 }
 
-type FileEditEventData struct {
-	FileType         *string   `json:"file_type,omitempty"`
-	FileToken        *string   `json:"file_token,omitempty"`
-	OperatorIdList   []*UserId `json:"operator_id_list,omitempty"`
-	SubscriberIdList []*UserId `json:"subscriber_id_list,omitempty"`
+func (m *P2FileDeletedV1) RawReq( req *larkevent.EventReq){
+	m.EventReq = req
 }
 
-type FileEditEvent struct {
-	*event.EventV2Base
-	Event *FileEditEventData `json:"event"`
+type P2FileEditV1Data struct {
+	FileType  *string `json:"file_type,omitempty"`
+	FileToken  *string `json:"file_token,omitempty"`
+	OperatorIdList  []*UserId `json:"operator_id_list,omitempty"`
+	SubscriberIdList  []*UserId `json:"subscriber_id_list,omitempty"`
 }
 
-type FilePermissionMemberAddedEventData struct {
-	FileType             *string   `json:"file_type,omitempty"`
-	FileToken            *string   `json:"file_token,omitempty"`
-	OperatorId           *UserId   `json:"operator_id,omitempty"`
-	UserList             []*UserId `json:"user_list,omitempty"`
-	ChatList             []string  `json:"chat_list,omitempty"`
-	OpenDepartmentIdList []string  `json:"open_department_id_list,omitempty"`
-	SubscriberIdList     []*UserId `json:"subscriber_id_list,omitempty"`
+type P2FileEditV1 struct {
+	*larkevent.EventV2Base
+	*larkevent.EventReq
+	Event * P2FileEditV1Data `json:"event"`
 }
 
-type FilePermissionMemberAddedEvent struct {
-	*event.EventV2Base
-	Event *FilePermissionMemberAddedEventData `json:"event"`
+func (m *P2FileEditV1) RawReq( req *larkevent.EventReq){
+	m.EventReq = req
 }
 
-type FilePermissionMemberRemovedEventData struct {
-	FileType             *string   `json:"file_type,omitempty"`
-	FileToken            *string   `json:"file_token,omitempty"`
-	OperatorId           *UserId   `json:"operator_id,omitempty"`
-	UserList             []*UserId `json:"user_list,omitempty"`
-	ChatList             []string  `json:"chat_list,omitempty"`
-	OpenDepartmentIdList []string  `json:"open_department_id_list,omitempty"`
-	SubscriberIdList     []*UserId `json:"subscriber_id_list,omitempty"`
+type P2FilePermissionMemberAddedV1Data struct {
+	FileType  *string `json:"file_type,omitempty"`
+	FileToken  *string `json:"file_token,omitempty"`
+	OperatorId  *UserId `json:"operator_id,omitempty"`
+	UserList  []*UserId `json:"user_list,omitempty"`
+	ChatList  []string `json:"chat_list,omitempty"`
+	OpenDepartmentIdList  []string `json:"open_department_id_list,omitempty"`
+	SubscriberIdList  []*UserId `json:"subscriber_id_list,omitempty"`
 }
 
-type FilePermissionMemberRemovedEvent struct {
-	*event.EventV2Base
-	Event *FilePermissionMemberRemovedEventData `json:"event"`
+type P2FilePermissionMemberAddedV1 struct {
+	*larkevent.EventV2Base
+	*larkevent.EventReq
+	Event * P2FilePermissionMemberAddedV1Data `json:"event"`
 }
 
-type FileReadEventData struct {
-	FileType         *string   `json:"file_type,omitempty"`
-	FileToken        *string   `json:"file_token,omitempty"`
-	OperatorIdList   []*UserId `json:"operator_id_list,omitempty"`
-	SubscriberIdList []*UserId `json:"subscriber_id_list,omitempty"`
+func (m *P2FilePermissionMemberAddedV1) RawReq( req *larkevent.EventReq){
+	m.EventReq = req
 }
 
-type FileReadEvent struct {
-	*event.EventV2Base
-	Event *FileReadEventData `json:"event"`
+type P2FilePermissionMemberRemovedV1Data struct {
+	FileType  *string `json:"file_type,omitempty"`
+	FileToken  *string `json:"file_token,omitempty"`
+	OperatorId  *UserId `json:"operator_id,omitempty"`
+	UserList  []*UserId `json:"user_list,omitempty"`
+	ChatList  []string `json:"chat_list,omitempty"`
+	OpenDepartmentIdList  []string `json:"open_department_id_list,omitempty"`
+	SubscriberIdList  []*UserId `json:"subscriber_id_list,omitempty"`
 }
 
-type FileTitleUpdatedEventData struct {
-	FileType         *string   `json:"file_type,omitempty"`
-	FileToken        *string   `json:"file_token,omitempty"`
-	OperatorId       *UserId   `json:"operator_id,omitempty"`
-	SubscriberIdList []*UserId `json:"subscriber_id_list,omitempty"`
+type P2FilePermissionMemberRemovedV1 struct {
+	*larkevent.EventV2Base
+	*larkevent.EventReq
+	Event * P2FilePermissionMemberRemovedV1Data `json:"event"`
 }
 
-type FileTitleUpdatedEvent struct {
-	*event.EventV2Base
-	Event *FileTitleUpdatedEventData `json:"event"`
+func (m *P2FilePermissionMemberRemovedV1) RawReq( req *larkevent.EventReq){
+	m.EventReq = req
 }
 
-type FileTrashedEventData struct {
-	FileType         *string   `json:"file_type,omitempty"`
-	FileToken        *string   `json:"file_token,omitempty"`
-	OperatorId       *UserId   `json:"operator_id,omitempty"`
-	SubscriberIdList []*UserId `json:"subscriber_id_list,omitempty"`
+type P2FileReadV1Data struct {
+	FileType  *string `json:"file_type,omitempty"`
+	FileToken  *string `json:"file_token,omitempty"`
+	OperatorIdList  []*UserId `json:"operator_id_list,omitempty"`
+	SubscriberIdList  []*UserId `json:"subscriber_id_list,omitempty"`
 }
 
-type FileTrashedEvent struct {
-	*event.EventV2Base
-	Event *FileTrashedEventData `json:"event"`
+type P2FileReadV1 struct {
+	*larkevent.EventV2Base
+	*larkevent.EventReq
+	Event * P2FileReadV1Data `json:"event"`
 }
+
+func (m *P2FileReadV1) RawReq( req *larkevent.EventReq){
+	m.EventReq = req
+}
+
+type P2FileTitleUpdatedV1Data struct {
+	FileType  *string `json:"file_type,omitempty"`
+	FileToken  *string `json:"file_token,omitempty"`
+	OperatorId  *UserId `json:"operator_id,omitempty"`
+	SubscriberIdList  []*UserId `json:"subscriber_id_list,omitempty"`
+}
+
+type P2FileTitleUpdatedV1 struct {
+	*larkevent.EventV2Base
+	*larkevent.EventReq
+	Event * P2FileTitleUpdatedV1Data `json:"event"`
+}
+
+func (m *P2FileTitleUpdatedV1) RawReq( req *larkevent.EventReq){
+	m.EventReq = req
+}
+
+type P2FileTrashedV1Data struct {
+	FileType  *string `json:"file_type,omitempty"`
+	FileToken  *string `json:"file_token,omitempty"`
+	OperatorId  *UserId `json:"operator_id,omitempty"`
+	SubscriberIdList  []*UserId `json:"subscriber_id_list,omitempty"`
+}
+
+type P2FileTrashedV1 struct {
+	*larkevent.EventV2Base
+	*larkevent.EventReq
+	Event * P2FileTrashedV1Data `json:"event"`
+}
+
+func (m *P2FileTrashedV1) RawReq( req *larkevent.EventReq){
+	m.EventReq = req
+}
+
 
 // 生成请求的builder构造器
 // 1.1 生成body的builder结构体
-type ListFileCommentIterator struct {
-	nextPageToken *string
-	items         []*FileComment
-	index         int
-	limit         int
-	ctx           context.Context
-	req           *ListFileCommentReq
-	listFunc      func(ctx context.Context, req *ListFileCommentReq, options ...core.RequestOptionFunc) (*ListFileCommentResp, error)
-	options       []core.RequestOptionFunc
-	curlNum       int
-}
+   type ListFileCommentIterator struct{
+	 nextPageToken *string
+	 items	 []*FileComment
+	 index	 int
+	 limit	 int
+	 ctx	   context.Context
+	 req	   *ListFileCommentReq
+	 listFunc  func (ctx context.Context, req *ListFileCommentReq, options ...larkcore.RequestOptionFunc) (*ListFileCommentResp, error)
+	 options   []larkcore.RequestOptionFunc
+   	 curlNum	   int
+   }
 
-func (iterator *ListFileCommentIterator) Next() (bool, *FileComment, error) {
-	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
-		return false, nil, nil
-	}
-
-	// 为0则拉取数据
-	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
-			return false, nil, nil
-		}
-		if iterator.nextPageToken != nil {
-			iterator.req.PageToken = iterator.nextPageToken
-		}
-		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-		if err != nil {
-			return false, nil, err
-		}
-
-		if resp.Code != 0 {
-			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
-		}
-
-		if len(resp.Data.Items) == 0 {
+   func (iterator *ListFileCommentIterator) Next() (bool, *FileComment, error) {
+		// 达到最大量，则返回
+		if iterator.limit >0 && iterator.curlNum >= iterator.limit {
 			return false, nil, nil
 		}
 
-		iterator.nextPageToken = resp.Data.PageToken
-		iterator.items = resp.Data.Items
-		iterator.index = 0
-	}
+		// 为0则拉取数据
+		if iterator.index == 0 || iterator.index >= len(iterator.items) {
+			if iterator.index != 0 && iterator.nextPageToken == nil {
+				return false, nil, nil
+			}
+			if iterator.nextPageToken != nil {
+				iterator.req.PageToken = iterator.nextPageToken
+			}
+			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+			if err != nil {
+				return false, nil, err
+			}
 
-	block := iterator.items[iterator.index]
-	iterator.index++
-	iterator.curlNum++
-	return true, block, nil
-}
+			if resp.Code != 0 {
+				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+			}
 
-func (iterator *ListFileCommentIterator) NextPageToken() *string {
-	return iterator.nextPageToken
-}
+			if len(resp.Data.Items) == 0 {
+				return false, nil, nil
+			}
+
+			iterator.nextPageToken = resp.Data.PageToken
+			iterator.items = resp.Data.Items
+			iterator.index = 0
+		}
+
+		block := iterator.items[iterator.index]
+		iterator.index++
+		iterator.curlNum++
+		return true, block, nil
+   }
+
+   func (iterator *ListFileCommentIterator) NextPageToken() *string {
+	  return iterator.nextPageToken
+   }
+
+

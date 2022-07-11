@@ -1,9 +1,7 @@
-package core
+package larkcore
 
 import (
 	"time"
-
-	"github.com/larksuite/oapi-sdk-go/httpclient"
 )
 
 type Config struct {
@@ -15,7 +13,7 @@ type Config struct {
 	HelpdeskAuthToken          string
 	ReqTimeout                 time.Duration
 	LogLevel                   LogLevel
-	HttpClient                 httpclient.HttpClient
+	HttpClient                 HttpClient
 	Logger                     Logger
 	AppType                    AppType
 	EnableTokenCache           bool

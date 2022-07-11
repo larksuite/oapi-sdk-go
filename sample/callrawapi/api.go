@@ -5,21 +5,21 @@ import (
 	"fmt"
 	"os"
 
-	client "github.com/larksuite/oapi-sdk-go"
+	"github.com/larksuite/oapi-sdk-go"
 	"github.com/larksuite/oapi-sdk-go/core"
-	larkim "github.com/larksuite/oapi-sdk-go/service/im/v1"
+	"github.com/larksuite/oapi-sdk-go/service/im/v1"
 )
 
 func rawApi1() {
 	// 历史base url 需要在httppath上拼接上baseurl
 	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
-	var cli = client.NewClient(appID, appSecret,
-		client.WithLogLevel(core.LogLevelDebug),
-		client.WithLogReqRespInfoAtDebugLevel(true))
+	var cli = lark.NewClient(appID, appSecret,
+		lark.WithLogLevel(larkcore.LogLevelDebug),
+		lark.WithLogReqRespInfoAtDebugLevel(true))
 
 	resp, err := cli.Post(context.Background(), "https://www.feishu.cn/approval/openapi/v2/approval/get", map[string]interface{}{
 		"approval_code": "ou_c245b0a7dff2725cfa2fb104f8b48b9d",
-	}, core.AccessTokenTypeTenant)
+	}, larkcore.AccessTokenTypeTenant)
 
 	if err != nil {
 		fmt.Println(err)
@@ -31,9 +31,9 @@ func rawApi1() {
 
 func rawApi2() {
 	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
-	var cli = client.NewClient(appID, appSecret,
-		client.WithLogLevel(core.LogLevelDebug),
-		client.WithLogReqRespInfoAtDebugLevel(true))
+	var cli = lark.NewClient(appID, appSecret,
+		lark.WithLogLevel(larkcore.LogLevelDebug),
+		lark.WithLogReqRespInfoAtDebugLevel(true))
 
 	content := larkim.NewTextMsgBuilder().
 		Text("加多").
@@ -47,7 +47,7 @@ func rawApi2() {
 		"receive_id": "ou_c245b0a7dff2725cfa2fb104f8b48b9d",
 		"msg_type":   "text",
 		"content":    "{\"text\":\"<at user_id=\\\"ou_155184d1e73cbfb8973e5a9e698e74f2\\\">Tom</at> test content\"}",
-	}, core.AccessTokenTypeTenant)
+	}, larkcore.AccessTokenTypeTenant)
 
 	if err != nil {
 		fmt.Println(err, content)
@@ -58,5 +58,5 @@ func rawApi2() {
 }
 
 func main() {
-	rawApi1()
+	rawApi2()
 }

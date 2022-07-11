@@ -6,33 +6,33 @@ import (
 	"os"
 	"time"
 
-	client "github.com/larksuite/oapi-sdk-go"
+	"github.com/larksuite/oapi-sdk-go"
 	"github.com/larksuite/oapi-sdk-go/core"
 	"github.com/larksuite/oapi-sdk-go/service/docx/v1"
 	"github.com/larksuite/oapi-sdk-go/service/drive/v1"
 )
 
-func createDocument(client *client.Client) {
+func createDocument(client *lark.Client) {
 	resp, err := client.Docx.Document.Create(context.Background(), larkdocx.NewCreateDocumentReqBuilder().
 		Body(larkdocx.NewCreateDocumentReqBodyBuilder().
 			FolderToken("token").
 			Title("title").
 			Build()).
 		Build(),
-		core.WithUserAccessToken("usertoken"))
+		larkcore.WithUserAccessToken("usertoken"))
 
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(resp.Code, resp.Msg, resp.RequestId(), core.Prettify(resp.Data))
+	fmt.Println(resp.Code, resp.Msg, resp.RequestId(), larkcore.Prettify(resp.Data))
 }
 
-func listBlocks(client *client.Client) {
+func listBlocks(client *lark.Client) {
 	resp, err := client.Docx.DocumentBlock.List(context.Background(),
 		larkdocx.NewListDocumentBlockReqBuilder().
 			DocumentId("doxcnku1W0IhiZBDPkxlEVSn6Tf").
 			PageSize(100).
-			Build(), core.WithUserAccessToken("u-3vEh2SpiF2WoJzYJOdiGKQ41mJrQ1hebh0G0hg.02CgW"),
+			Build(), larkcore.WithUserAccessToken("u-3vEh2SpiF2WoJzYJOdiGKQ41mJrQ1hebh0G0hg.02CgW"),
 	)
 
 	if err != nil {
@@ -41,17 +41,17 @@ func listBlocks(client *client.Client) {
 	}
 
 	fmt.Println(resp.RequestId())
-	fmt.Println(core.Prettify(resp))
+	fmt.Println(larkcore.Prettify(resp))
 	fmt.Println(len(resp.Data.Items))
 
 }
 
-func downloadFile(client *client.Client) {
+func downloadFile(client *lark.Client) {
 	resp, err := client.Drive.File.Download(context.Background(),
 		larkdrive.NewDownloadFileReqBuilder().
 			FileToken("boxcnTrRml0GB9E3NFDEyNtMeOb").
 			Build(),
-		core.WithUserAccessToken("u-11ETll3Kd1O8NxVwd_uVVN0hnoUAlhcbWi00kg.yyIsw"))
+		larkcore.WithUserAccessToken("u-11ETll3Kd1O8NxVwd_uVVN0hnoUAlhcbWi00kg.yyIsw"))
 
 	if err != nil {
 		fmt.Println(err)
@@ -59,11 +59,11 @@ func downloadFile(client *client.Client) {
 	}
 
 	fmt.Println(resp.RequestId())
-	fmt.Println(core.Prettify(resp))
+	fmt.Println(larkcore.Prettify(resp))
 
 }
 
-func listBlocksIter(client *client.Client) {
+func listBlocksIter(client *lark.Client) {
 	var count = 0
 
 	defer func() {
@@ -76,7 +76,7 @@ func listBlocksIter(client *client.Client) {
 			DocumentId("doxcnku1W0IhiZBDPkxlEVSn6Tf").
 			PageSize(1).
 			Limit(3).
-			Build(), core.WithUserAccessToken("u-11ETll3Kd1O8NxVwd_uVVN0hnoUAlhcbWi00kg.yyIsw"),
+			Build(), larkcore.WithUserAccessToken("u-11ETll3Kd1O8NxVwd_uVVN0hnoUAlhcbWi00kg.yyIsw"),
 	)
 
 	if err != nil {
@@ -95,7 +95,7 @@ func listBlocksIter(client *client.Client) {
 			return
 		}
 
-		fmt.Println(core.Prettify(block))
+		fmt.Println(larkcore.Prettify(block))
 		time.Sleep(time.Second)
 		count++
 	}
@@ -105,7 +105,7 @@ func listBlocksIter(client *client.Client) {
 func main() {
 	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
 
-	feishuClient := client.NewClient(appID, appSecret, client.WithLogLevel(core.LogLevelDebug))
+	feishuClient := lark.NewClient(appID, appSecret, lark.WithLogLevel(larkcore.LogLevelDebug))
 	downloadFile(feishuClient)
 	//listBlocks(feishuClient)
 	//listBlocksIter(feishuClient)

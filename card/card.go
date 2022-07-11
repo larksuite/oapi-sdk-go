@@ -10,17 +10,17 @@ import (
 	"strings"
 
 	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/larkevent"
+	"github.com/larksuite/oapi-sdk-go/event"
 )
 
 type CardActionHandler struct {
 	verificationToken string
 	eventEncryptKey   string
 	handler           func(context.Context, *CardAction) (interface{}, error)
-	*core.Config
+	*larkcore.Config
 }
 
-func processError(ctx context.Context, logger core.Logger, path string, err error) *larkevent.EventResp {
+func processError(ctx context.Context, logger larkcore.Logger, path string, err error) *larkevent.EventResp {
 	header := map[string][]string{}
 	statusCode := http.StatusInternalServerError
 	header[larkevent.ContentTypeHeader] = []string{larkevent.DefaultContentType}
@@ -73,7 +73,7 @@ func (h *CardActionHandler) Handle(ctx context.Context, req *larkevent.EventReq)
 	return result
 }
 
-func (h *CardActionHandler) Logger() core.Logger {
+func (h *CardActionHandler) Logger() larkcore.Logger {
 	return h.Config.Logger
 }
 
@@ -81,7 +81,7 @@ func (h *CardActionHandler) InitConfig(options ...larkevent.OptionFunc) {
 	for _, option := range options {
 		option(h.Config)
 	}
-	core.NewLogger(h.Config)
+	larkcore.NewLogger(h.Config)
 }
 
 func NewCardActionHandler(verificationToken, eventEncryptKey string, handler func(context.Context, *CardAction) (interface{}, error)) *CardActionHandler {
@@ -89,7 +89,7 @@ func NewCardActionHandler(verificationToken, eventEncryptKey string, handler fun
 		verificationToken: verificationToken,
 		eventEncryptKey:   eventEncryptKey,
 		handler:           handler,
-		Config:            &core.Config{Logger: core.NewEventLogger()},
+		Config:            &larkcore.Config{Logger: larkcore.NewEventLogger()},
 	}
 	return h
 }

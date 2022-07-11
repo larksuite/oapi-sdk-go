@@ -17,7 +17,7 @@ func mockCardAction() []byte {
 	value := map[string]interface{}{}
 	value["value"] = "sdfsfd"
 	value["tag"] = "button"
-	cardAction := &card.CardAction{
+	cardAction := &larkcard.CardAction{
 		OpenID:        "ou_sdfimx9948345",
 		UserID:        "eu_sd923r0sdf5",
 		OpenMessageID: "om_abcdefg1234567890",
@@ -34,10 +34,10 @@ func mockCardAction() []byte {
 		},
 	}
 
-	cardActionBody := &card.CardActionBody{
+	cardActionBody := &larkcard.CardActionBody{
 		CardAction: cardAction,
 		Challenge:  "121212",
-		Type:       "url_verification1",
+		Type:       "url_verification",
 	}
 
 	body, _ := json.Marshal(cardActionBody)
@@ -58,13 +58,13 @@ func main() {
 	// 计算签名
 	var timestamp = "timestamp"
 	var nonce = "nonce"
-	var token = "v "
-	sourceSign := card.Signature(timestamp, nonce, token, string(body))
+	var token = "v"
+	sourceSign := larkcard.Signature(timestamp, nonce, token, string(body))
 
 	// 添加header
-	req.Header.Set(event.EventRequestTimestamp, timestamp)
-	req.Header.Set(event.EventRequestNonce, nonce)
-	req.Header.Set(event.EventSignature, sourceSign)
+	req.Header.Set(larkevent.EventRequestTimestamp, timestamp)
+	req.Header.Set(larkevent.EventRequestNonce, nonce)
+	req.Header.Set(larkevent.EventSignature, sourceSign)
 
 	// 模拟推送卡片消息
 	resp, err := http.DefaultClient.Do(req)
@@ -75,7 +75,7 @@ func main() {
 
 	// 结果处理
 	fmt.Println(resp.StatusCode)
-	fmt.Println(core.Prettify(resp.Header))
+	fmt.Println(larkcore.Prettify(resp.Header))
 	body, err = ioutil.ReadAll(resp.Body)
 	if err != nil {
 		fmt.Println(err)

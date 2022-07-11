@@ -2,35 +2,38 @@
 package larktenant
 
 import (
-	"context"
 	"net/http"
-
+	"context"
+	
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
+
 // 构建业务域服务实例
-func NewService(config *core.Config) *TenantService {
-	t := &TenantService{config: config}
+func NewService(config *larkcore.Config) *TenantService {
+	t := &TenantService{config:config}
 	t.Tenant = &tenant{service: t}
 	return t
 }
 
+
 // 业务域服务定义
 type TenantService struct {
-	config *core.Config
+	config *larkcore.Config
 	Tenant *tenant
 }
 
+
+
 // 资源服务定义
 type tenant struct {
-	service *TenantService
+   service *TenantService
 }
-
 // 资源服务方法定义
-func (t *tenant) Query(ctx context.Context, options ...core.RequestOptionFunc) (*QueryTenantResp, error) {
+func (t *tenant) Query(ctx context.Context,  options ...larkcore.RequestOptionFunc) (*QueryTenantResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, t.service.config, http.MethodGet,
-		"/open-apis/tenant/v2/tenant/query", []core.AccessTokenType{core.AccessTokenTypeTenant}, nil, options...)
+	rawResp, err := larkcore.SendRequest(ctx,t.service.config, http.MethodGet,
+		"/open-apis/tenant/v2/tenant/query", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, nil, options...)
 	if err != nil {
 		return nil, err
 	}

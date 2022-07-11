@@ -1,4 +1,4 @@
-package httpclient
+package larkcore
 
 import (
 	"fmt"

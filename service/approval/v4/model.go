@@ -5,6519 +5,6563 @@ import (
 	"context"
 	"errors"
 	"fmt"
-
+	
 	"github.com/larksuite/oapi-sdk-go/event"
-
+	
 	"github.com/larksuite/oapi-sdk-go/core"
+	
+
 )
 
 // 生成枚举值
 
 const (
-	DepartmentIdTypeDepartmentId     = "department_id"
-	DepartmentIdTypeOpenDepartmentId = "open_department_id"
+
+	  DepartmentIdTypeDepartmentId = "department_id"
+	  DepartmentIdTypeOpenDepartmentId = "open_department_id"
 )
 
 const (
-	UserIdTypeUserId  = "user_id"
-	UserIdTypeUnionId = "union_id"
-	UserIdTypeOpenId  = "open_id"
+
+	  UserIdTypeUserId = "user_id"
+	  UserIdTypeUnionId = "union_id"
+	  UserIdTypeOpenId = "open_id"
 )
 
 const (
-	LocaleZhcn = "zh-CN"
-	LocaleEnus = "en-US"
-	LocaleJajp = "ja-JP"
+
+	  LocaleZhcn = "zh-CN"
+	  LocaleEnus = "en-US"
+	  LocaleJajp = "ja-JP"
 )
 
 const (
-	StatusACTIVE   = "ACTIVE"
-	StatusINACTIVE = "INACTIVE"
-	StatusDELETED  = "DELETED"
-	StatusUNKNOWN  = "UNKNOWN"
+
+	  StatusACTIVE = "ACTIVE"
+	  StatusINACTIVE = "INACTIVE"
+	  StatusDELETED = "DELETED"
+	  StatusUNKNOWN = "UNKNOWN"
 )
 
 const (
-	DisplayMethodBrowser = "BROWSER"
-	DisplayMethodSIdebar = "SIDEBAR"
-	DisplayMethodNormal  = "NORMAL"
+
+	  DisplayMethodBrowser = "BROWSER"
+	  DisplayMethodSIdebar = "SIDEBAR"
+	  DisplayMethodNormal = "NORMAL"
 )
 
 const (
-	UpdateModeReplace = "REPLACE"
-	UpdateModeUpdate  = "UPDATE"
+
+	  UpdateModeReplace = "REPLACE"
+	  UpdateModeUpdate = "UPDATE"
 )
 
 const (
-	AddSignEnumAddSignPre      = 1
-	AddSignEnumAddSignPost     = 2
+AddSignEnumAddSignPre = 1
+	AddSignEnumAddSignPost = 2
 	AddSignEnumAddSignParallel = 3
+	
 )
 
 const (
-	ApprovalMethodEnumOrSign  = 1
+ApprovalMethodEnumOrSign = 1
 	ApprovalMethodEnumAddSign = 2
+	
 )
 
 const (
-	TopicTodoApproval      = 1
-	TopicDoneApproval      = 2
-	TopicInitiatedApproval = 3
-	TopicUnreadNotice      = 17
-	TopicReadNotice        = 18
+
+	  InstanceStatusPending = "PENDING"
+	  InstanceStatusRecall = "RECALL"
+	  InstanceStatusReject = "REJECT"
+	  InstanceStatusDeleted = "DELETED"
+	  InstanceStatusApproverd = "APPROVED"
 )
+
+const (
+
+	  ReadStatusREAD = "READ"
+	  ReadStatusUNREAD = "UNREAD"
+)
+
+const (
+TopicTodoApproval = 1
+	TopicDoneApproval = 2
+	TopicInitiatedApproval = 3
+	TopicUnreadNotice = 17
+	TopicReadNotice = 18
+	
+)
+
+const (
+
+	  TaskStatusPending = "PENDING"
+	  TaskStatusReject = "REJECTED"
+	  TaskStatusApproverd = "APPROVED"
+	  TaskStatusTRANSFERRED = "TRANSFERRED"
+	  TaskStatusDONE = "DONE"
+	  TaskStatusRMREPEAT = "RM_REPEAT"
+	  TaskStatusPROCESSED = "PROCESSED"
+)
+
+
 
 // 生成数据类型
 
 type ActionConfig struct {
-	ActionType       *string `json:"action_type,omitempty"`
-	ActionName       *string `json:"action_name,omitempty"`
-	IsNeedReason     *bool   `json:"is_need_reason,omitempty"`
-	IsReasonRequired *bool   `json:"is_reason_required,omitempty"`
-	IsNeedAttachment *bool   `json:"is_need_attachment,omitempty"`
+	ActionType  *string `json:"action_type,omitempty"`
+	ActionName  *string `json:"action_name,omitempty"`
+	IsNeedReason  *bool `json:"is_need_reason,omitempty"`
+	IsReasonRequired  *bool `json:"is_reason_required,omitempty"`
+	IsNeedAttachment  *bool `json:"is_need_attachment,omitempty"`
 }
 
 // builder开始
 type ActionConfigBuilder struct {
-	actionType           string
-	actionTypeFlag       bool
-	actionName           string
-	actionNameFlag       bool
-	isNeedReason         bool
-	isNeedReasonFlag     bool
-	isReasonRequired     bool
-	isReasonRequiredFlag bool
-	isNeedAttachment     bool
-	isNeedAttachmentFlag bool
+	actionType  string
+	actionTypeFlag  bool
+	actionName  string
+	actionNameFlag  bool
+	isNeedReason  bool
+	isNeedReasonFlag  bool
+	isReasonRequired  bool
+	isReasonRequiredFlag  bool
+	isNeedAttachment  bool
+	isNeedAttachmentFlag  bool
 }
 
-func NewActionConfigBuilder() *ActionConfigBuilder {
-	builder := &ActionConfigBuilder{}
-	return builder
+func NewActionConfigBuilder() * ActionConfigBuilder{
+   builder := &ActionConfigBuilder{}
+   return builder
 }
 
-func (builder *ActionConfigBuilder) ActionType(actionType string) *ActionConfigBuilder {
-	builder.actionType = actionType
-	builder.actionTypeFlag = true
-	return builder
+
+func (builder * ActionConfigBuilder) ActionType(actionType string) *ActionConfigBuilder  {
+  builder.actionType = actionType
+  builder.actionTypeFlag = true
+  return builder
 }
-func (builder *ActionConfigBuilder) ActionName(actionName string) *ActionConfigBuilder {
-	builder.actionName = actionName
-	builder.actionNameFlag = true
-	return builder
+func (builder * ActionConfigBuilder) ActionName(actionName string) *ActionConfigBuilder  {
+  builder.actionName = actionName
+  builder.actionNameFlag = true
+  return builder
 }
-func (builder *ActionConfigBuilder) IsNeedReason(isNeedReason bool) *ActionConfigBuilder {
-	builder.isNeedReason = isNeedReason
-	builder.isNeedReasonFlag = true
-	return builder
+func (builder * ActionConfigBuilder) IsNeedReason(isNeedReason bool) *ActionConfigBuilder  {
+  builder.isNeedReason = isNeedReason
+  builder.isNeedReasonFlag = true
+  return builder
 }
-func (builder *ActionConfigBuilder) IsReasonRequired(isReasonRequired bool) *ActionConfigBuilder {
-	builder.isReasonRequired = isReasonRequired
-	builder.isReasonRequiredFlag = true
-	return builder
+func (builder * ActionConfigBuilder) IsReasonRequired(isReasonRequired bool) *ActionConfigBuilder  {
+  builder.isReasonRequired = isReasonRequired
+  builder.isReasonRequiredFlag = true
+  return builder
 }
-func (builder *ActionConfigBuilder) IsNeedAttachment(isNeedAttachment bool) *ActionConfigBuilder {
-	builder.isNeedAttachment = isNeedAttachment
-	builder.isNeedAttachmentFlag = true
-	return builder
-}
-
-func (builder *ActionConfigBuilder) Build() *ActionConfig {
-	req := &ActionConfig{}
-	if builder.actionTypeFlag {
-		req.ActionType = &builder.actionType
-
-	}
-	if builder.actionNameFlag {
-		req.ActionName = &builder.actionName
-
-	}
-	if builder.isNeedReasonFlag {
-		req.IsNeedReason = &builder.isNeedReason
-
-	}
-	if builder.isReasonRequiredFlag {
-		req.IsReasonRequired = &builder.isReasonRequired
-
-	}
-	if builder.isNeedAttachmentFlag {
-		req.IsNeedAttachment = &builder.isNeedAttachment
-
-	}
-	return req
+func (builder * ActionConfigBuilder) IsNeedAttachment(isNeedAttachment bool) *ActionConfigBuilder  {
+  builder.isNeedAttachment = isNeedAttachment
+  builder.isNeedAttachmentFlag = true
+  return builder
 }
 
+func (builder * ActionConfigBuilder ) Build() *ActionConfig {
+   req := &ActionConfig{}
+   if builder.actionTypeFlag {
+	  req.ActionType = &builder.actionType
+	  
+   }
+   if builder.actionNameFlag {
+	  req.ActionName = &builder.actionName
+	  
+   }
+   if builder.isNeedReasonFlag {
+	  req.IsNeedReason = &builder.isNeedReason
+	  
+   }
+   if builder.isReasonRequiredFlag {
+	  req.IsReasonRequired = &builder.isReasonRequired
+	  
+   }
+   if builder.isNeedAttachmentFlag {
+	  req.IsNeedAttachment = &builder.isNeedAttachment
+	  
+   }
+   return req
+}
 // builder结束
 
 type Approval struct {
-	ApprovalCode *string `json:"approval_code,omitempty"`
-	ApprovalName *string `json:"approval_name,omitempty"`
+	ApprovalCode  *string `json:"approval_code,omitempty"`
+	ApprovalName  *string `json:"approval_name,omitempty"`
 }
 
 // builder开始
 type ApprovalBuilder struct {
-	approvalCode     string
-	approvalCodeFlag bool
-	approvalName     string
-	approvalNameFlag bool
+	approvalCode  string
+	approvalCodeFlag  bool
+	approvalName  string
+	approvalNameFlag  bool
 }
 
-func NewApprovalBuilder() *ApprovalBuilder {
-	builder := &ApprovalBuilder{}
-	return builder
+func NewApprovalBuilder() * ApprovalBuilder{
+   builder := &ApprovalBuilder{}
+   return builder
 }
 
-func (builder *ApprovalBuilder) ApprovalCode(approvalCode string) *ApprovalBuilder {
-	builder.approvalCode = approvalCode
-	builder.approvalCodeFlag = true
-	return builder
+
+func (builder * ApprovalBuilder) ApprovalCode(approvalCode string) *ApprovalBuilder  {
+  builder.approvalCode = approvalCode
+  builder.approvalCodeFlag = true
+  return builder
 }
-func (builder *ApprovalBuilder) ApprovalName(approvalName string) *ApprovalBuilder {
-	builder.approvalName = approvalName
-	builder.approvalNameFlag = true
-	return builder
-}
-
-func (builder *ApprovalBuilder) Build() *Approval {
-	req := &Approval{}
-	if builder.approvalCodeFlag {
-		req.ApprovalCode = &builder.approvalCode
-
-	}
-	if builder.approvalNameFlag {
-		req.ApprovalName = &builder.approvalName
-
-	}
-	return req
+func (builder * ApprovalBuilder) ApprovalName(approvalName string) *ApprovalBuilder  {
+  builder.approvalName = approvalName
+  builder.approvalNameFlag = true
+  return builder
 }
 
+func (builder * ApprovalBuilder ) Build() *Approval {
+   req := &Approval{}
+   if builder.approvalCodeFlag {
+	  req.ApprovalCode = &builder.approvalCode
+	  
+   }
+   if builder.approvalNameFlag {
+	  req.ApprovalName = &builder.approvalName
+	  
+   }
+   return req
+}
 // builder结束
 
 type ApprovalApproverCcer struct {
-	Type   *string `json:"type,omitempty"`
-	UserId *string `json:"user_id,omitempty"`
+	Type  *string `json:"type,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
 	Level  *string `json:"level,omitempty"`
 }
 
 // builder开始
 type ApprovalApproverCcerBuilder struct {
-	type_      string
-	typeFlag   bool
-	userId     string
-	userIdFlag bool
-	level      string
+	type_  string
+	typeFlag  bool
+	userId  string
+	userIdFlag  bool
+	level  string
 	levelFlag  bool
 }
 
-func NewApprovalApproverCcerBuilder() *ApprovalApproverCcerBuilder {
-	builder := &ApprovalApproverCcerBuilder{}
-	return builder
+func NewApprovalApproverCcerBuilder() * ApprovalApproverCcerBuilder{
+   builder := &ApprovalApproverCcerBuilder{}
+   return builder
 }
 
-func (builder *ApprovalApproverCcerBuilder) Type(type_ string) *ApprovalApproverCcerBuilder {
-	builder.type_ = type_
-	builder.typeFlag = true
-	return builder
+
+func (builder * ApprovalApproverCcerBuilder) Type(type_ string) *ApprovalApproverCcerBuilder  {
+  builder.type_ = type_
+  builder.typeFlag = true
+  return builder
 }
-func (builder *ApprovalApproverCcerBuilder) UserId(userId string) *ApprovalApproverCcerBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
+func (builder * ApprovalApproverCcerBuilder) UserId(userId string) *ApprovalApproverCcerBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
-func (builder *ApprovalApproverCcerBuilder) Level(level string) *ApprovalApproverCcerBuilder {
-	builder.level = level
-	builder.levelFlag = true
-	return builder
-}
-
-func (builder *ApprovalApproverCcerBuilder) Build() *ApprovalApproverCcer {
-	req := &ApprovalApproverCcer{}
-	if builder.typeFlag {
-		req.Type = &builder.type_
-
-	}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	if builder.levelFlag {
-		req.Level = &builder.level
-
-	}
-	return req
+func (builder * ApprovalApproverCcerBuilder) Level(level string) *ApprovalApproverCcerBuilder  {
+  builder.level = level
+  builder.levelFlag = true
+  return builder
 }
 
+func (builder * ApprovalApproverCcerBuilder ) Build() *ApprovalApproverCcer {
+   req := &ApprovalApproverCcer{}
+   if builder.typeFlag {
+	  req.Type = &builder.type_
+	  
+   }
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.levelFlag {
+	  req.Level = &builder.level
+	  
+   }
+   return req
+}
 // builder结束
 
 type ApprovalConfig struct {
-	CanUpdateViewer  *bool   `json:"can_update_viewer,omitempty"`
-	CanUpdateForm    *bool   `json:"can_update_form,omitempty"`
-	CanUpdateProcess *bool   `json:"can_update_process,omitempty"`
-	CanUpdateRevert  *bool   `json:"can_update_revert,omitempty"`
-	HelpUrl          *string `json:"help_url,omitempty"`
+	CanUpdateViewer  *bool `json:"can_update_viewer,omitempty"`
+	CanUpdateForm  *bool `json:"can_update_form,omitempty"`
+	CanUpdateProcess  *bool `json:"can_update_process,omitempty"`
+	CanUpdateRevert  *bool `json:"can_update_revert,omitempty"`
+	HelpUrl  *string `json:"help_url,omitempty"`
 }
 
 // builder开始
 type ApprovalConfigBuilder struct {
-	canUpdateViewer      bool
+	canUpdateViewer  bool
 	canUpdateViewerFlag  bool
-	canUpdateForm        bool
-	canUpdateFormFlag    bool
-	canUpdateProcess     bool
-	canUpdateProcessFlag bool
-	canUpdateRevert      bool
+	canUpdateForm  bool
+	canUpdateFormFlag  bool
+	canUpdateProcess  bool
+	canUpdateProcessFlag  bool
+	canUpdateRevert  bool
 	canUpdateRevertFlag  bool
-	helpUrl              string
-	helpUrlFlag          bool
+	helpUrl  string
+	helpUrlFlag  bool
 }
 
-func NewApprovalConfigBuilder() *ApprovalConfigBuilder {
-	builder := &ApprovalConfigBuilder{}
-	return builder
+func NewApprovalConfigBuilder() * ApprovalConfigBuilder{
+   builder := &ApprovalConfigBuilder{}
+   return builder
 }
 
-func (builder *ApprovalConfigBuilder) CanUpdateViewer(canUpdateViewer bool) *ApprovalConfigBuilder {
-	builder.canUpdateViewer = canUpdateViewer
-	builder.canUpdateViewerFlag = true
-	return builder
+
+func (builder * ApprovalConfigBuilder) CanUpdateViewer(canUpdateViewer bool) *ApprovalConfigBuilder  {
+  builder.canUpdateViewer = canUpdateViewer
+  builder.canUpdateViewerFlag = true
+  return builder
 }
-func (builder *ApprovalConfigBuilder) CanUpdateForm(canUpdateForm bool) *ApprovalConfigBuilder {
-	builder.canUpdateForm = canUpdateForm
-	builder.canUpdateFormFlag = true
-	return builder
+func (builder * ApprovalConfigBuilder) CanUpdateForm(canUpdateForm bool) *ApprovalConfigBuilder  {
+  builder.canUpdateForm = canUpdateForm
+  builder.canUpdateFormFlag = true
+  return builder
 }
-func (builder *ApprovalConfigBuilder) CanUpdateProcess(canUpdateProcess bool) *ApprovalConfigBuilder {
-	builder.canUpdateProcess = canUpdateProcess
-	builder.canUpdateProcessFlag = true
-	return builder
+func (builder * ApprovalConfigBuilder) CanUpdateProcess(canUpdateProcess bool) *ApprovalConfigBuilder  {
+  builder.canUpdateProcess = canUpdateProcess
+  builder.canUpdateProcessFlag = true
+  return builder
 }
-func (builder *ApprovalConfigBuilder) CanUpdateRevert(canUpdateRevert bool) *ApprovalConfigBuilder {
-	builder.canUpdateRevert = canUpdateRevert
-	builder.canUpdateRevertFlag = true
-	return builder
+func (builder * ApprovalConfigBuilder) CanUpdateRevert(canUpdateRevert bool) *ApprovalConfigBuilder  {
+  builder.canUpdateRevert = canUpdateRevert
+  builder.canUpdateRevertFlag = true
+  return builder
 }
-func (builder *ApprovalConfigBuilder) HelpUrl(helpUrl string) *ApprovalConfigBuilder {
-	builder.helpUrl = helpUrl
-	builder.helpUrlFlag = true
-	return builder
-}
-
-func (builder *ApprovalConfigBuilder) Build() *ApprovalConfig {
-	req := &ApprovalConfig{}
-	if builder.canUpdateViewerFlag {
-		req.CanUpdateViewer = &builder.canUpdateViewer
-
-	}
-	if builder.canUpdateFormFlag {
-		req.CanUpdateForm = &builder.canUpdateForm
-
-	}
-	if builder.canUpdateProcessFlag {
-		req.CanUpdateProcess = &builder.canUpdateProcess
-
-	}
-	if builder.canUpdateRevertFlag {
-		req.CanUpdateRevert = &builder.canUpdateRevert
-
-	}
-	if builder.helpUrlFlag {
-		req.HelpUrl = &builder.helpUrl
-
-	}
-	return req
+func (builder * ApprovalConfigBuilder) HelpUrl(helpUrl string) *ApprovalConfigBuilder  {
+  builder.helpUrl = helpUrl
+  builder.helpUrlFlag = true
+  return builder
 }
 
+func (builder * ApprovalConfigBuilder ) Build() *ApprovalConfig {
+   req := &ApprovalConfig{}
+   if builder.canUpdateViewerFlag {
+	  req.CanUpdateViewer = &builder.canUpdateViewer
+	  
+   }
+   if builder.canUpdateFormFlag {
+	  req.CanUpdateForm = &builder.canUpdateForm
+	  
+   }
+   if builder.canUpdateProcessFlag {
+	  req.CanUpdateProcess = &builder.canUpdateProcess
+	  
+   }
+   if builder.canUpdateRevertFlag {
+	  req.CanUpdateRevert = &builder.canUpdateRevert
+	  
+   }
+   if builder.helpUrlFlag {
+	  req.HelpUrl = &builder.helpUrl
+	  
+   }
+   return req
+}
 // builder结束
 
 type ApprovalCreate struct {
-	ApprovalName  *string                  `json:"approval_name,omitempty"`
-	ApprovalCode  *string                  `json:"approval_code,omitempty"`
-	Description   *string                  `json:"description,omitempty"`
-	Viewers       []*ApprovalCreateViewers `json:"viewers,omitempty"`
-	Form          *ApprovalForm            `json:"form,omitempty"`
-	NodeList      []*ApprovalNode          `json:"node_list,omitempty"`
-	Settings      *ApprovalSetting         `json:"settings,omitempty"`
-	Config        *ApprovalConfig          `json:"config,omitempty"`
-	Icon          *int                     `json:"icon,omitempty"`
-	I18nResources []*I18nResource          `json:"i18n_resources,omitempty"`
+	ApprovalName  *string `json:"approval_name,omitempty"`
+	ApprovalCode  *string `json:"approval_code,omitempty"`
+	Description  *string `json:"description,omitempty"`
+	Viewers  []*ApprovalCreateViewers `json:"viewers,omitempty"`
+	Form  *ApprovalForm `json:"form,omitempty"`
+	NodeList  []*ApprovalNode `json:"node_list,omitempty"`
+	Settings  *ApprovalSetting `json:"settings,omitempty"`
+	Config  *ApprovalConfig `json:"config,omitempty"`
+	Icon  *int `json:"icon,omitempty"`
+	I18nResources  []*I18nResource `json:"i18n_resources,omitempty"`
 }
 
 // builder开始
 type ApprovalCreateBuilder struct {
-	approvalName      string
+	approvalName  string
 	approvalNameFlag  bool
-	approvalCode      string
+	approvalCode  string
 	approvalCodeFlag  bool
-	description       string
-	descriptionFlag   bool
-	viewers           []*ApprovalCreateViewers
-	viewersFlag       bool
-	form              *ApprovalForm
-	formFlag          bool
-	nodeList          []*ApprovalNode
-	nodeListFlag      bool
-	settings          *ApprovalSetting
-	settingsFlag      bool
-	config            *ApprovalConfig
-	configFlag        bool
-	icon              int
-	iconFlag          bool
-	i18nResources     []*I18nResource
-	i18nResourcesFlag bool
+	description  string
+	descriptionFlag  bool
+	viewers  []*ApprovalCreateViewers
+	viewersFlag  bool
+	form  *ApprovalForm
+	formFlag  bool
+	nodeList  []*ApprovalNode
+	nodeListFlag  bool
+	settings  *ApprovalSetting
+	settingsFlag  bool
+	config  *ApprovalConfig
+	configFlag  bool
+	icon  int
+	iconFlag  bool
+	i18nResources  []*I18nResource
+	i18nResourcesFlag  bool
 }
 
-func NewApprovalCreateBuilder() *ApprovalCreateBuilder {
-	builder := &ApprovalCreateBuilder{}
-	return builder
+func NewApprovalCreateBuilder() * ApprovalCreateBuilder{
+   builder := &ApprovalCreateBuilder{}
+   return builder
 }
 
-func (builder *ApprovalCreateBuilder) ApprovalName(approvalName string) *ApprovalCreateBuilder {
-	builder.approvalName = approvalName
-	builder.approvalNameFlag = true
-	return builder
+
+func (builder * ApprovalCreateBuilder) ApprovalName(approvalName string) *ApprovalCreateBuilder  {
+  builder.approvalName = approvalName
+  builder.approvalNameFlag = true
+  return builder
 }
-func (builder *ApprovalCreateBuilder) ApprovalCode(approvalCode string) *ApprovalCreateBuilder {
-	builder.approvalCode = approvalCode
-	builder.approvalCodeFlag = true
-	return builder
+func (builder * ApprovalCreateBuilder) ApprovalCode(approvalCode string) *ApprovalCreateBuilder  {
+  builder.approvalCode = approvalCode
+  builder.approvalCodeFlag = true
+  return builder
 }
-func (builder *ApprovalCreateBuilder) Description(description string) *ApprovalCreateBuilder {
-	builder.description = description
-	builder.descriptionFlag = true
-	return builder
+func (builder * ApprovalCreateBuilder) Description(description string) *ApprovalCreateBuilder  {
+  builder.description = description
+  builder.descriptionFlag = true
+  return builder
 }
-func (builder *ApprovalCreateBuilder) Viewers(viewers []*ApprovalCreateViewers) *ApprovalCreateBuilder {
-	builder.viewers = viewers
-	builder.viewersFlag = true
-	return builder
+func (builder * ApprovalCreateBuilder) Viewers(viewers []*ApprovalCreateViewers) *ApprovalCreateBuilder  {
+  builder.viewers = viewers
+  builder.viewersFlag = true
+  return builder
 }
-func (builder *ApprovalCreateBuilder) Form(form *ApprovalForm) *ApprovalCreateBuilder {
-	builder.form = form
-	builder.formFlag = true
-	return builder
+func (builder * ApprovalCreateBuilder) Form(form *ApprovalForm) *ApprovalCreateBuilder  {
+  builder.form = form
+  builder.formFlag = true
+  return builder
 }
-func (builder *ApprovalCreateBuilder) NodeList(nodeList []*ApprovalNode) *ApprovalCreateBuilder {
-	builder.nodeList = nodeList
-	builder.nodeListFlag = true
-	return builder
+func (builder * ApprovalCreateBuilder) NodeList(nodeList []*ApprovalNode) *ApprovalCreateBuilder  {
+  builder.nodeList = nodeList
+  builder.nodeListFlag = true
+  return builder
 }
-func (builder *ApprovalCreateBuilder) Settings(settings *ApprovalSetting) *ApprovalCreateBuilder {
-	builder.settings = settings
-	builder.settingsFlag = true
-	return builder
+func (builder * ApprovalCreateBuilder) Settings(settings *ApprovalSetting) *ApprovalCreateBuilder  {
+  builder.settings = settings
+  builder.settingsFlag = true
+  return builder
 }
-func (builder *ApprovalCreateBuilder) Config(config *ApprovalConfig) *ApprovalCreateBuilder {
-	builder.config = config
-	builder.configFlag = true
-	return builder
+func (builder * ApprovalCreateBuilder) Config(config *ApprovalConfig) *ApprovalCreateBuilder  {
+  builder.config = config
+  builder.configFlag = true
+  return builder
 }
-func (builder *ApprovalCreateBuilder) Icon(icon int) *ApprovalCreateBuilder {
-	builder.icon = icon
-	builder.iconFlag = true
-	return builder
+func (builder * ApprovalCreateBuilder) Icon(icon int) *ApprovalCreateBuilder  {
+  builder.icon = icon
+  builder.iconFlag = true
+  return builder
 }
-func (builder *ApprovalCreateBuilder) I18nResources(i18nResources []*I18nResource) *ApprovalCreateBuilder {
-	builder.i18nResources = i18nResources
-	builder.i18nResourcesFlag = true
-	return builder
+func (builder * ApprovalCreateBuilder) I18nResources(i18nResources []*I18nResource) *ApprovalCreateBuilder  {
+  builder.i18nResources = i18nResources
+  builder.i18nResourcesFlag = true
+  return builder
 }
 
-func (builder *ApprovalCreateBuilder) Build() *ApprovalCreate {
-	req := &ApprovalCreate{}
-	if builder.approvalNameFlag {
-		req.ApprovalName = &builder.approvalName
-
-	}
-	if builder.approvalCodeFlag {
-		req.ApprovalCode = &builder.approvalCode
-
-	}
-	if builder.descriptionFlag {
-		req.Description = &builder.description
-
-	}
-	if builder.viewersFlag {
-		req.Viewers = builder.viewers
-	}
-	if builder.formFlag {
-		req.Form = builder.form
-	}
-	if builder.nodeListFlag {
-		req.NodeList = builder.nodeList
-	}
-	if builder.settingsFlag {
-		req.Settings = builder.settings
-	}
-	if builder.configFlag {
-		req.Config = builder.config
-	}
-	if builder.iconFlag {
-		req.Icon = &builder.icon
-
-	}
-	if builder.i18nResourcesFlag {
-		req.I18nResources = builder.i18nResources
-	}
-	return req
+func (builder * ApprovalCreateBuilder ) Build() *ApprovalCreate {
+   req := &ApprovalCreate{}
+   if builder.approvalNameFlag {
+	  req.ApprovalName = &builder.approvalName
+	  
+   }
+   if builder.approvalCodeFlag {
+	  req.ApprovalCode = &builder.approvalCode
+	  
+   }
+   if builder.descriptionFlag {
+	  req.Description = &builder.description
+	  
+   }
+   if builder.viewersFlag {
+	  req.Viewers = builder.viewers
+   }
+   if builder.formFlag {
+	  req.Form = builder.form
+   }
+   if builder.nodeListFlag {
+	  req.NodeList = builder.nodeList
+   }
+   if builder.settingsFlag {
+	  req.Settings = builder.settings
+   }
+   if builder.configFlag {
+	  req.Config = builder.config
+   }
+   if builder.iconFlag {
+	  req.Icon = &builder.icon
+	  
+   }
+   if builder.i18nResourcesFlag {
+	  req.I18nResources = builder.i18nResources
+   }
+   return req
 }
-
 // builder结束
 
 type ApprovalCreateExternal struct {
-	BizName             *string `json:"biz_name,omitempty"`
-	BizType             *string `json:"biz_type,omitempty"`
-	CreateLinkMobile    *string `json:"create_link_mobile,omitempty"`
-	CreateLinkPc        *string `json:"create_link_pc,omitempty"`
-	SupportPc           *bool   `json:"support_pc,omitempty"`
-	SupportMobile       *bool   `json:"support_mobile,omitempty"`
-	SupportBatchRead    *bool   `json:"support_batch_read,omitempty"`
-	EnableMarkReaded    *bool   `json:"enable_mark_readed,omitempty"`
-	EnableQuickOperate  *bool   `json:"enable_quick_operate,omitempty"`
-	ActionCallbackUrl   *string `json:"action_callback_url,omitempty"`
-	ActionCallbackToken *string `json:"action_callback_token,omitempty"`
-	ActionCallbackKey   *string `json:"action_callback_key,omitempty"`
+	BizName  *string `json:"biz_name,omitempty"`
+	BizType  *string `json:"biz_type,omitempty"`
+	CreateLinkMobile  *string `json:"create_link_mobile,omitempty"`
+	CreateLinkPc  *string `json:"create_link_pc,omitempty"`
+	SupportPc  *bool `json:"support_pc,omitempty"`
+	SupportMobile  *bool `json:"support_mobile,omitempty"`
+	SupportBatchRead  *bool `json:"support_batch_read,omitempty"`
+	EnableMarkReaded  *bool `json:"enable_mark_readed,omitempty"`
+	EnableQuickOperate  *bool `json:"enable_quick_operate,omitempty"`
+	ActionCallbackUrl  *string `json:"action_callback_url,omitempty"`
+	ActionCallbackToken  *string `json:"action_callback_token,omitempty"`
+	ActionCallbackKey  *string `json:"action_callback_key,omitempty"`
 }
 
 // builder开始
 type ApprovalCreateExternalBuilder struct {
-	bizName                 string
-	bizNameFlag             bool
-	bizType                 string
-	bizTypeFlag             bool
-	createLinkMobile        string
-	createLinkMobileFlag    bool
-	createLinkPc            string
-	createLinkPcFlag        bool
-	supportPc               bool
-	supportPcFlag           bool
-	supportMobile           bool
-	supportMobileFlag       bool
-	supportBatchRead        bool
-	supportBatchReadFlag    bool
-	enableMarkReaded        bool
-	enableMarkReadedFlag    bool
-	enableQuickOperate      bool
+	bizName  string
+	bizNameFlag  bool
+	bizType  string
+	bizTypeFlag  bool
+	createLinkMobile  string
+	createLinkMobileFlag  bool
+	createLinkPc  string
+	createLinkPcFlag  bool
+	supportPc  bool
+	supportPcFlag  bool
+	supportMobile  bool
+	supportMobileFlag  bool
+	supportBatchRead  bool
+	supportBatchReadFlag  bool
+	enableMarkReaded  bool
+	enableMarkReadedFlag  bool
+	enableQuickOperate  bool
 	enableQuickOperateFlag  bool
-	actionCallbackUrl       string
-	actionCallbackUrlFlag   bool
-	actionCallbackToken     string
-	actionCallbackTokenFlag bool
-	actionCallbackKey       string
-	actionCallbackKeyFlag   bool
+	actionCallbackUrl  string
+	actionCallbackUrlFlag  bool
+	actionCallbackToken  string
+	actionCallbackTokenFlag  bool
+	actionCallbackKey  string
+	actionCallbackKeyFlag  bool
 }
 
-func NewApprovalCreateExternalBuilder() *ApprovalCreateExternalBuilder {
-	builder := &ApprovalCreateExternalBuilder{}
-	return builder
+func NewApprovalCreateExternalBuilder() * ApprovalCreateExternalBuilder{
+   builder := &ApprovalCreateExternalBuilder{}
+   return builder
 }
 
-func (builder *ApprovalCreateExternalBuilder) BizName(bizName string) *ApprovalCreateExternalBuilder {
-	builder.bizName = bizName
-	builder.bizNameFlag = true
-	return builder
+
+func (builder * ApprovalCreateExternalBuilder) BizName(bizName string) *ApprovalCreateExternalBuilder  {
+  builder.bizName = bizName
+  builder.bizNameFlag = true
+  return builder
 }
-func (builder *ApprovalCreateExternalBuilder) BizType(bizType string) *ApprovalCreateExternalBuilder {
-	builder.bizType = bizType
-	builder.bizTypeFlag = true
-	return builder
+func (builder * ApprovalCreateExternalBuilder) BizType(bizType string) *ApprovalCreateExternalBuilder  {
+  builder.bizType = bizType
+  builder.bizTypeFlag = true
+  return builder
 }
-func (builder *ApprovalCreateExternalBuilder) CreateLinkMobile(createLinkMobile string) *ApprovalCreateExternalBuilder {
-	builder.createLinkMobile = createLinkMobile
-	builder.createLinkMobileFlag = true
-	return builder
+func (builder * ApprovalCreateExternalBuilder) CreateLinkMobile(createLinkMobile string) *ApprovalCreateExternalBuilder  {
+  builder.createLinkMobile = createLinkMobile
+  builder.createLinkMobileFlag = true
+  return builder
 }
-func (builder *ApprovalCreateExternalBuilder) CreateLinkPc(createLinkPc string) *ApprovalCreateExternalBuilder {
-	builder.createLinkPc = createLinkPc
-	builder.createLinkPcFlag = true
-	return builder
+func (builder * ApprovalCreateExternalBuilder) CreateLinkPc(createLinkPc string) *ApprovalCreateExternalBuilder  {
+  builder.createLinkPc = createLinkPc
+  builder.createLinkPcFlag = true
+  return builder
 }
-func (builder *ApprovalCreateExternalBuilder) SupportPc(supportPc bool) *ApprovalCreateExternalBuilder {
-	builder.supportPc = supportPc
-	builder.supportPcFlag = true
-	return builder
+func (builder * ApprovalCreateExternalBuilder) SupportPc(supportPc bool) *ApprovalCreateExternalBuilder  {
+  builder.supportPc = supportPc
+  builder.supportPcFlag = true
+  return builder
 }
-func (builder *ApprovalCreateExternalBuilder) SupportMobile(supportMobile bool) *ApprovalCreateExternalBuilder {
-	builder.supportMobile = supportMobile
-	builder.supportMobileFlag = true
-	return builder
+func (builder * ApprovalCreateExternalBuilder) SupportMobile(supportMobile bool) *ApprovalCreateExternalBuilder  {
+  builder.supportMobile = supportMobile
+  builder.supportMobileFlag = true
+  return builder
 }
-func (builder *ApprovalCreateExternalBuilder) SupportBatchRead(supportBatchRead bool) *ApprovalCreateExternalBuilder {
-	builder.supportBatchRead = supportBatchRead
-	builder.supportBatchReadFlag = true
-	return builder
+func (builder * ApprovalCreateExternalBuilder) SupportBatchRead(supportBatchRead bool) *ApprovalCreateExternalBuilder  {
+  builder.supportBatchRead = supportBatchRead
+  builder.supportBatchReadFlag = true
+  return builder
 }
-func (builder *ApprovalCreateExternalBuilder) EnableMarkReaded(enableMarkReaded bool) *ApprovalCreateExternalBuilder {
-	builder.enableMarkReaded = enableMarkReaded
-	builder.enableMarkReadedFlag = true
-	return builder
+func (builder * ApprovalCreateExternalBuilder) EnableMarkReaded(enableMarkReaded bool) *ApprovalCreateExternalBuilder  {
+  builder.enableMarkReaded = enableMarkReaded
+  builder.enableMarkReadedFlag = true
+  return builder
 }
-func (builder *ApprovalCreateExternalBuilder) EnableQuickOperate(enableQuickOperate bool) *ApprovalCreateExternalBuilder {
-	builder.enableQuickOperate = enableQuickOperate
-	builder.enableQuickOperateFlag = true
-	return builder
+func (builder * ApprovalCreateExternalBuilder) EnableQuickOperate(enableQuickOperate bool) *ApprovalCreateExternalBuilder  {
+  builder.enableQuickOperate = enableQuickOperate
+  builder.enableQuickOperateFlag = true
+  return builder
 }
-func (builder *ApprovalCreateExternalBuilder) ActionCallbackUrl(actionCallbackUrl string) *ApprovalCreateExternalBuilder {
-	builder.actionCallbackUrl = actionCallbackUrl
-	builder.actionCallbackUrlFlag = true
-	return builder
+func (builder * ApprovalCreateExternalBuilder) ActionCallbackUrl(actionCallbackUrl string) *ApprovalCreateExternalBuilder  {
+  builder.actionCallbackUrl = actionCallbackUrl
+  builder.actionCallbackUrlFlag = true
+  return builder
 }
-func (builder *ApprovalCreateExternalBuilder) ActionCallbackToken(actionCallbackToken string) *ApprovalCreateExternalBuilder {
-	builder.actionCallbackToken = actionCallbackToken
-	builder.actionCallbackTokenFlag = true
-	return builder
+func (builder * ApprovalCreateExternalBuilder) ActionCallbackToken(actionCallbackToken string) *ApprovalCreateExternalBuilder  {
+  builder.actionCallbackToken = actionCallbackToken
+  builder.actionCallbackTokenFlag = true
+  return builder
 }
-func (builder *ApprovalCreateExternalBuilder) ActionCallbackKey(actionCallbackKey string) *ApprovalCreateExternalBuilder {
-	builder.actionCallbackKey = actionCallbackKey
-	builder.actionCallbackKeyFlag = true
-	return builder
-}
-
-func (builder *ApprovalCreateExternalBuilder) Build() *ApprovalCreateExternal {
-	req := &ApprovalCreateExternal{}
-	if builder.bizNameFlag {
-		req.BizName = &builder.bizName
-
-	}
-	if builder.bizTypeFlag {
-		req.BizType = &builder.bizType
-
-	}
-	if builder.createLinkMobileFlag {
-		req.CreateLinkMobile = &builder.createLinkMobile
-
-	}
-	if builder.createLinkPcFlag {
-		req.CreateLinkPc = &builder.createLinkPc
-
-	}
-	if builder.supportPcFlag {
-		req.SupportPc = &builder.supportPc
-
-	}
-	if builder.supportMobileFlag {
-		req.SupportMobile = &builder.supportMobile
-
-	}
-	if builder.supportBatchReadFlag {
-		req.SupportBatchRead = &builder.supportBatchRead
-
-	}
-	if builder.enableMarkReadedFlag {
-		req.EnableMarkReaded = &builder.enableMarkReaded
-
-	}
-	if builder.enableQuickOperateFlag {
-		req.EnableQuickOperate = &builder.enableQuickOperate
-
-	}
-	if builder.actionCallbackUrlFlag {
-		req.ActionCallbackUrl = &builder.actionCallbackUrl
-
-	}
-	if builder.actionCallbackTokenFlag {
-		req.ActionCallbackToken = &builder.actionCallbackToken
-
-	}
-	if builder.actionCallbackKeyFlag {
-		req.ActionCallbackKey = &builder.actionCallbackKey
-
-	}
-	return req
+func (builder * ApprovalCreateExternalBuilder) ActionCallbackKey(actionCallbackKey string) *ApprovalCreateExternalBuilder  {
+  builder.actionCallbackKey = actionCallbackKey
+  builder.actionCallbackKeyFlag = true
+  return builder
 }
 
+func (builder * ApprovalCreateExternalBuilder ) Build() *ApprovalCreateExternal {
+   req := &ApprovalCreateExternal{}
+   if builder.bizNameFlag {
+	  req.BizName = &builder.bizName
+	  
+   }
+   if builder.bizTypeFlag {
+	  req.BizType = &builder.bizType
+	  
+   }
+   if builder.createLinkMobileFlag {
+	  req.CreateLinkMobile = &builder.createLinkMobile
+	  
+   }
+   if builder.createLinkPcFlag {
+	  req.CreateLinkPc = &builder.createLinkPc
+	  
+   }
+   if builder.supportPcFlag {
+	  req.SupportPc = &builder.supportPc
+	  
+   }
+   if builder.supportMobileFlag {
+	  req.SupportMobile = &builder.supportMobile
+	  
+   }
+   if builder.supportBatchReadFlag {
+	  req.SupportBatchRead = &builder.supportBatchRead
+	  
+   }
+   if builder.enableMarkReadedFlag {
+	  req.EnableMarkReaded = &builder.enableMarkReaded
+	  
+   }
+   if builder.enableQuickOperateFlag {
+	  req.EnableQuickOperate = &builder.enableQuickOperate
+	  
+   }
+   if builder.actionCallbackUrlFlag {
+	  req.ActionCallbackUrl = &builder.actionCallbackUrl
+	  
+   }
+   if builder.actionCallbackTokenFlag {
+	  req.ActionCallbackToken = &builder.actionCallbackToken
+	  
+   }
+   if builder.actionCallbackKeyFlag {
+	  req.ActionCallbackKey = &builder.actionCallbackKey
+	  
+   }
+   return req
+}
 // builder结束
 
 type ApprovalCreateViewers struct {
-	ViewerType         *string `json:"viewer_type,omitempty"`
-	ViewerUserId       *string `json:"viewer_user_id,omitempty"`
-	ViewerDepartmentId *string `json:"viewer_department_id,omitempty"`
+	ViewerType  *string `json:"viewer_type,omitempty"`
+	ViewerUserId  *string `json:"viewer_user_id,omitempty"`
+	ViewerDepartmentId  *string `json:"viewer_department_id,omitempty"`
 }
 
 // builder开始
 type ApprovalCreateViewersBuilder struct {
-	viewerType             string
-	viewerTypeFlag         bool
-	viewerUserId           string
-	viewerUserIdFlag       bool
-	viewerDepartmentId     string
-	viewerDepartmentIdFlag bool
+	viewerType  string
+	viewerTypeFlag  bool
+	viewerUserId  string
+	viewerUserIdFlag  bool
+	viewerDepartmentId  string
+	viewerDepartmentIdFlag  bool
 }
 
-func NewApprovalCreateViewersBuilder() *ApprovalCreateViewersBuilder {
-	builder := &ApprovalCreateViewersBuilder{}
-	return builder
+func NewApprovalCreateViewersBuilder() * ApprovalCreateViewersBuilder{
+   builder := &ApprovalCreateViewersBuilder{}
+   return builder
 }
 
-func (builder *ApprovalCreateViewersBuilder) ViewerType(viewerType string) *ApprovalCreateViewersBuilder {
-	builder.viewerType = viewerType
-	builder.viewerTypeFlag = true
-	return builder
+
+func (builder * ApprovalCreateViewersBuilder) ViewerType(viewerType string) *ApprovalCreateViewersBuilder  {
+  builder.viewerType = viewerType
+  builder.viewerTypeFlag = true
+  return builder
 }
-func (builder *ApprovalCreateViewersBuilder) ViewerUserId(viewerUserId string) *ApprovalCreateViewersBuilder {
-	builder.viewerUserId = viewerUserId
-	builder.viewerUserIdFlag = true
-	return builder
+func (builder * ApprovalCreateViewersBuilder) ViewerUserId(viewerUserId string) *ApprovalCreateViewersBuilder  {
+  builder.viewerUserId = viewerUserId
+  builder.viewerUserIdFlag = true
+  return builder
 }
-func (builder *ApprovalCreateViewersBuilder) ViewerDepartmentId(viewerDepartmentId string) *ApprovalCreateViewersBuilder {
-	builder.viewerDepartmentId = viewerDepartmentId
-	builder.viewerDepartmentIdFlag = true
-	return builder
-}
-
-func (builder *ApprovalCreateViewersBuilder) Build() *ApprovalCreateViewers {
-	req := &ApprovalCreateViewers{}
-	if builder.viewerTypeFlag {
-		req.ViewerType = &builder.viewerType
-
-	}
-	if builder.viewerUserIdFlag {
-		req.ViewerUserId = &builder.viewerUserId
-
-	}
-	if builder.viewerDepartmentIdFlag {
-		req.ViewerDepartmentId = &builder.viewerDepartmentId
-
-	}
-	return req
+func (builder * ApprovalCreateViewersBuilder) ViewerDepartmentId(viewerDepartmentId string) *ApprovalCreateViewersBuilder  {
+  builder.viewerDepartmentId = viewerDepartmentId
+  builder.viewerDepartmentIdFlag = true
+  return builder
 }
 
+func (builder * ApprovalCreateViewersBuilder ) Build() *ApprovalCreateViewers {
+   req := &ApprovalCreateViewers{}
+   if builder.viewerTypeFlag {
+	  req.ViewerType = &builder.viewerType
+	  
+   }
+   if builder.viewerUserIdFlag {
+	  req.ViewerUserId = &builder.viewerUserId
+	  
+   }
+   if builder.viewerDepartmentIdFlag {
+	  req.ViewerDepartmentId = &builder.viewerDepartmentId
+	  
+   }
+   return req
+}
 // builder结束
 
 type ApprovalEvent struct {
-	ApprovalId       *string `json:"approval_id,omitempty"`
-	ApprovalCode     *string `json:"approval_code,omitempty"`
-	VersionId        *string `json:"version_id,omitempty"`
-	WidgetGroupType  *int    `json:"widget_group_type,omitempty"`
-	FormDefinitionId *string `json:"form_definition_id,omitempty"`
-	ProcessObj       *string `json:"process_obj,omitempty"`
-	Timestamp        *string `json:"timestamp,omitempty"`
-	Extra            *string `json:"extra,omitempty"`
+	ApprovalId  *string `json:"approval_id,omitempty"`
+	ApprovalCode  *string `json:"approval_code,omitempty"`
+	VersionId  *string `json:"version_id,omitempty"`
+	WidgetGroupType  *int `json:"widget_group_type,omitempty"`
+	FormDefinitionId  *string `json:"form_definition_id,omitempty"`
+	ProcessObj  *string `json:"process_obj,omitempty"`
+	Timestamp  *string `json:"timestamp,omitempty"`
+	Extra  *string `json:"extra,omitempty"`
 }
 
 // builder开始
 type ApprovalEventBuilder struct {
-	approvalId           string
-	approvalIdFlag       bool
-	approvalCode         string
-	approvalCodeFlag     bool
-	versionId            string
-	versionIdFlag        bool
-	widgetGroupType      int
+	approvalId  string
+	approvalIdFlag  bool
+	approvalCode  string
+	approvalCodeFlag  bool
+	versionId  string
+	versionIdFlag  bool
+	widgetGroupType  int
 	widgetGroupTypeFlag  bool
-	formDefinitionId     string
-	formDefinitionIdFlag bool
-	processObj           string
-	processObjFlag       bool
-	timestamp            string
-	timestampFlag        bool
-	extra                string
-	extraFlag            bool
+	formDefinitionId  string
+	formDefinitionIdFlag  bool
+	processObj  string
+	processObjFlag  bool
+	timestamp  string
+	timestampFlag  bool
+	extra  string
+	extraFlag  bool
 }
 
-func NewApprovalEventBuilder() *ApprovalEventBuilder {
-	builder := &ApprovalEventBuilder{}
-	return builder
+func NewApprovalEventBuilder() * ApprovalEventBuilder{
+   builder := &ApprovalEventBuilder{}
+   return builder
 }
 
-func (builder *ApprovalEventBuilder) ApprovalId(approvalId string) *ApprovalEventBuilder {
-	builder.approvalId = approvalId
-	builder.approvalIdFlag = true
-	return builder
+
+func (builder * ApprovalEventBuilder) ApprovalId(approvalId string) *ApprovalEventBuilder  {
+  builder.approvalId = approvalId
+  builder.approvalIdFlag = true
+  return builder
 }
-func (builder *ApprovalEventBuilder) ApprovalCode(approvalCode string) *ApprovalEventBuilder {
-	builder.approvalCode = approvalCode
-	builder.approvalCodeFlag = true
-	return builder
+func (builder * ApprovalEventBuilder) ApprovalCode(approvalCode string) *ApprovalEventBuilder  {
+  builder.approvalCode = approvalCode
+  builder.approvalCodeFlag = true
+  return builder
 }
-func (builder *ApprovalEventBuilder) VersionId(versionId string) *ApprovalEventBuilder {
-	builder.versionId = versionId
-	builder.versionIdFlag = true
-	return builder
+func (builder * ApprovalEventBuilder) VersionId(versionId string) *ApprovalEventBuilder  {
+  builder.versionId = versionId
+  builder.versionIdFlag = true
+  return builder
 }
-func (builder *ApprovalEventBuilder) WidgetGroupType(widgetGroupType int) *ApprovalEventBuilder {
-	builder.widgetGroupType = widgetGroupType
-	builder.widgetGroupTypeFlag = true
-	return builder
+func (builder * ApprovalEventBuilder) WidgetGroupType(widgetGroupType int) *ApprovalEventBuilder  {
+  builder.widgetGroupType = widgetGroupType
+  builder.widgetGroupTypeFlag = true
+  return builder
 }
-func (builder *ApprovalEventBuilder) FormDefinitionId(formDefinitionId string) *ApprovalEventBuilder {
-	builder.formDefinitionId = formDefinitionId
-	builder.formDefinitionIdFlag = true
-	return builder
+func (builder * ApprovalEventBuilder) FormDefinitionId(formDefinitionId string) *ApprovalEventBuilder  {
+  builder.formDefinitionId = formDefinitionId
+  builder.formDefinitionIdFlag = true
+  return builder
 }
-func (builder *ApprovalEventBuilder) ProcessObj(processObj string) *ApprovalEventBuilder {
-	builder.processObj = processObj
-	builder.processObjFlag = true
-	return builder
+func (builder * ApprovalEventBuilder) ProcessObj(processObj string) *ApprovalEventBuilder  {
+  builder.processObj = processObj
+  builder.processObjFlag = true
+  return builder
 }
-func (builder *ApprovalEventBuilder) Timestamp(timestamp string) *ApprovalEventBuilder {
-	builder.timestamp = timestamp
-	builder.timestampFlag = true
-	return builder
+func (builder * ApprovalEventBuilder) Timestamp(timestamp string) *ApprovalEventBuilder  {
+  builder.timestamp = timestamp
+  builder.timestampFlag = true
+  return builder
 }
-func (builder *ApprovalEventBuilder) Extra(extra string) *ApprovalEventBuilder {
-	builder.extra = extra
-	builder.extraFlag = true
-	return builder
-}
-
-func (builder *ApprovalEventBuilder) Build() *ApprovalEvent {
-	req := &ApprovalEvent{}
-	if builder.approvalIdFlag {
-		req.ApprovalId = &builder.approvalId
-
-	}
-	if builder.approvalCodeFlag {
-		req.ApprovalCode = &builder.approvalCode
-
-	}
-	if builder.versionIdFlag {
-		req.VersionId = &builder.versionId
-
-	}
-	if builder.widgetGroupTypeFlag {
-		req.WidgetGroupType = &builder.widgetGroupType
-
-	}
-	if builder.formDefinitionIdFlag {
-		req.FormDefinitionId = &builder.formDefinitionId
-
-	}
-	if builder.processObjFlag {
-		req.ProcessObj = &builder.processObj
-
-	}
-	if builder.timestampFlag {
-		req.Timestamp = &builder.timestamp
-
-	}
-	if builder.extraFlag {
-		req.Extra = &builder.extra
-
-	}
-	return req
+func (builder * ApprovalEventBuilder) Extra(extra string) *ApprovalEventBuilder  {
+  builder.extra = extra
+  builder.extraFlag = true
+  return builder
 }
 
+func (builder * ApprovalEventBuilder ) Build() *ApprovalEvent {
+   req := &ApprovalEvent{}
+   if builder.approvalIdFlag {
+	  req.ApprovalId = &builder.approvalId
+	  
+   }
+   if builder.approvalCodeFlag {
+	  req.ApprovalCode = &builder.approvalCode
+	  
+   }
+   if builder.versionIdFlag {
+	  req.VersionId = &builder.versionId
+	  
+   }
+   if builder.widgetGroupTypeFlag {
+	  req.WidgetGroupType = &builder.widgetGroupType
+	  
+   }
+   if builder.formDefinitionIdFlag {
+	  req.FormDefinitionId = &builder.formDefinitionId
+	  
+   }
+   if builder.processObjFlag {
+	  req.ProcessObj = &builder.processObj
+	  
+   }
+   if builder.timestampFlag {
+	  req.Timestamp = &builder.timestamp
+	  
+   }
+   if builder.extraFlag {
+	  req.Extra = &builder.extra
+	  
+   }
+   return req
+}
 // builder结束
 
 type ApprovalForm struct {
-	FormContent *string `json:"form_content,omitempty"`
+	FormContent  *string `json:"form_content,omitempty"`
 }
 
 // builder开始
 type ApprovalFormBuilder struct {
-	formContent     string
-	formContentFlag bool
+	formContent  string
+	formContentFlag  bool
 }
 
-func NewApprovalFormBuilder() *ApprovalFormBuilder {
-	builder := &ApprovalFormBuilder{}
-	return builder
+func NewApprovalFormBuilder() * ApprovalFormBuilder{
+   builder := &ApprovalFormBuilder{}
+   return builder
 }
 
-func (builder *ApprovalFormBuilder) FormContent(formContent string) *ApprovalFormBuilder {
-	builder.formContent = formContent
-	builder.formContentFlag = true
-	return builder
+
+func (builder * ApprovalFormBuilder) FormContent(formContent string) *ApprovalFormBuilder  {
+  builder.formContent = formContent
+  builder.formContentFlag = true
+  return builder
 }
 
-func (builder *ApprovalFormBuilder) Build() *ApprovalForm {
-	req := &ApprovalForm{}
-	if builder.formContentFlag {
-		req.FormContent = &builder.formContent
-
-	}
-	return req
+func (builder * ApprovalFormBuilder ) Build() *ApprovalForm {
+   req := &ApprovalForm{}
+   if builder.formContentFlag {
+	  req.FormContent = &builder.formContent
+	  
+   }
+   return req
 }
-
 // builder结束
 
 type ApprovalNode struct {
-	Id             *string                 `json:"id,omitempty"`
-	Name           *string                 `json:"name,omitempty"`
-	NodeType       *string                 `json:"node_type,omitempty"`
-	Approver       []*ApprovalApproverCcer `json:"approver,omitempty"`
-	Ccer           []*ApprovalApproverCcer `json:"ccer,omitempty"`
-	PrivilegeField *FieldGroup             `json:"privilege_field,omitempty"`
+	Id  *string `json:"id,omitempty"`
+	Name  *string `json:"name,omitempty"`
+	NodeType  *string `json:"node_type,omitempty"`
+	Approver  []*ApprovalApproverCcer `json:"approver,omitempty"`
+	Ccer  []*ApprovalApproverCcer `json:"ccer,omitempty"`
+	PrivilegeField  *FieldGroup `json:"privilege_field,omitempty"`
 }
 
 // builder开始
 type ApprovalNodeBuilder struct {
-	id                 string
-	idFlag             bool
-	name               string
-	nameFlag           bool
-	nodeType           string
-	nodeTypeFlag       bool
-	approver           []*ApprovalApproverCcer
-	approverFlag       bool
-	ccer               []*ApprovalApproverCcer
-	ccerFlag           bool
-	privilegeField     *FieldGroup
-	privilegeFieldFlag bool
+	id  string
+	idFlag  bool
+	name  string
+	nameFlag  bool
+	nodeType  string
+	nodeTypeFlag  bool
+	approver  []*ApprovalApproverCcer
+	approverFlag  bool
+	ccer  []*ApprovalApproverCcer
+	ccerFlag  bool
+	privilegeField  *FieldGroup
+	privilegeFieldFlag  bool
 }
 
-func NewApprovalNodeBuilder() *ApprovalNodeBuilder {
-	builder := &ApprovalNodeBuilder{}
-	return builder
+func NewApprovalNodeBuilder() * ApprovalNodeBuilder{
+   builder := &ApprovalNodeBuilder{}
+   return builder
 }
 
-func (builder *ApprovalNodeBuilder) Id(id string) *ApprovalNodeBuilder {
-	builder.id = id
-	builder.idFlag = true
-	return builder
+
+func (builder * ApprovalNodeBuilder) Id(id string) *ApprovalNodeBuilder  {
+  builder.id = id
+  builder.idFlag = true
+  return builder
 }
-func (builder *ApprovalNodeBuilder) Name(name string) *ApprovalNodeBuilder {
-	builder.name = name
-	builder.nameFlag = true
-	return builder
+func (builder * ApprovalNodeBuilder) Name(name string) *ApprovalNodeBuilder  {
+  builder.name = name
+  builder.nameFlag = true
+  return builder
 }
-func (builder *ApprovalNodeBuilder) NodeType(nodeType string) *ApprovalNodeBuilder {
-	builder.nodeType = nodeType
-	builder.nodeTypeFlag = true
-	return builder
+func (builder * ApprovalNodeBuilder) NodeType(nodeType string) *ApprovalNodeBuilder  {
+  builder.nodeType = nodeType
+  builder.nodeTypeFlag = true
+  return builder
 }
-func (builder *ApprovalNodeBuilder) Approver(approver []*ApprovalApproverCcer) *ApprovalNodeBuilder {
-	builder.approver = approver
-	builder.approverFlag = true
-	return builder
+func (builder * ApprovalNodeBuilder) Approver(approver []*ApprovalApproverCcer) *ApprovalNodeBuilder  {
+  builder.approver = approver
+  builder.approverFlag = true
+  return builder
 }
-func (builder *ApprovalNodeBuilder) Ccer(ccer []*ApprovalApproverCcer) *ApprovalNodeBuilder {
-	builder.ccer = ccer
-	builder.ccerFlag = true
-	return builder
+func (builder * ApprovalNodeBuilder) Ccer(ccer []*ApprovalApproverCcer) *ApprovalNodeBuilder  {
+  builder.ccer = ccer
+  builder.ccerFlag = true
+  return builder
 }
-func (builder *ApprovalNodeBuilder) PrivilegeField(privilegeField *FieldGroup) *ApprovalNodeBuilder {
-	builder.privilegeField = privilegeField
-	builder.privilegeFieldFlag = true
-	return builder
+func (builder * ApprovalNodeBuilder) PrivilegeField(privilegeField *FieldGroup) *ApprovalNodeBuilder  {
+  builder.privilegeField = privilegeField
+  builder.privilegeFieldFlag = true
+  return builder
 }
 
-func (builder *ApprovalNodeBuilder) Build() *ApprovalNode {
-	req := &ApprovalNode{}
-	if builder.idFlag {
-		req.Id = &builder.id
-
-	}
-	if builder.nameFlag {
-		req.Name = &builder.name
-
-	}
-	if builder.nodeTypeFlag {
-		req.NodeType = &builder.nodeType
-
-	}
-	if builder.approverFlag {
-		req.Approver = builder.approver
-	}
-	if builder.ccerFlag {
-		req.Ccer = builder.ccer
-	}
-	if builder.privilegeFieldFlag {
-		req.PrivilegeField = builder.privilegeField
-	}
-	return req
+func (builder * ApprovalNodeBuilder ) Build() *ApprovalNode {
+   req := &ApprovalNode{}
+   if builder.idFlag {
+	  req.Id = &builder.id
+	  
+   }
+   if builder.nameFlag {
+	  req.Name = &builder.name
+	  
+   }
+   if builder.nodeTypeFlag {
+	  req.NodeType = &builder.nodeType
+	  
+   }
+   if builder.approverFlag {
+	  req.Approver = builder.approver
+   }
+   if builder.ccerFlag {
+	  req.Ccer = builder.ccer
+   }
+   if builder.privilegeFieldFlag {
+	  req.PrivilegeField = builder.privilegeField
+   }
+   return req
 }
-
 // builder结束
 
 type ApprovalNodeInfo struct {
-	Name         *string `json:"name,omitempty"`
-	NeedApprover *bool   `json:"need_approver,omitempty"`
-	NodeId       *string `json:"node_id,omitempty"`
-	CustomNodeId *string `json:"custom_node_id,omitempty"`
-	NodeType     *string `json:"node_type,omitempty"`
+	Name  *string `json:"name,omitempty"`
+	NeedApprover  *bool `json:"need_approver,omitempty"`
+	NodeId  *string `json:"node_id,omitempty"`
+	CustomNodeId  *string `json:"custom_node_id,omitempty"`
+	NodeType  *string `json:"node_type,omitempty"`
 }
 
 // builder开始
 type ApprovalNodeInfoBuilder struct {
-	name             string
-	nameFlag         bool
-	needApprover     bool
-	needApproverFlag bool
-	nodeId           string
-	nodeIdFlag       bool
-	customNodeId     string
-	customNodeIdFlag bool
-	nodeType         string
-	nodeTypeFlag     bool
+	name  string
+	nameFlag  bool
+	needApprover  bool
+	needApproverFlag  bool
+	nodeId  string
+	nodeIdFlag  bool
+	customNodeId  string
+	customNodeIdFlag  bool
+	nodeType  string
+	nodeTypeFlag  bool
 }
 
-func NewApprovalNodeInfoBuilder() *ApprovalNodeInfoBuilder {
-	builder := &ApprovalNodeInfoBuilder{}
-	return builder
+func NewApprovalNodeInfoBuilder() * ApprovalNodeInfoBuilder{
+   builder := &ApprovalNodeInfoBuilder{}
+   return builder
 }
 
-func (builder *ApprovalNodeInfoBuilder) Name(name string) *ApprovalNodeInfoBuilder {
-	builder.name = name
-	builder.nameFlag = true
-	return builder
+
+func (builder * ApprovalNodeInfoBuilder) Name(name string) *ApprovalNodeInfoBuilder  {
+  builder.name = name
+  builder.nameFlag = true
+  return builder
 }
-func (builder *ApprovalNodeInfoBuilder) NeedApprover(needApprover bool) *ApprovalNodeInfoBuilder {
-	builder.needApprover = needApprover
-	builder.needApproverFlag = true
-	return builder
+func (builder * ApprovalNodeInfoBuilder) NeedApprover(needApprover bool) *ApprovalNodeInfoBuilder  {
+  builder.needApprover = needApprover
+  builder.needApproverFlag = true
+  return builder
 }
-func (builder *ApprovalNodeInfoBuilder) NodeId(nodeId string) *ApprovalNodeInfoBuilder {
-	builder.nodeId = nodeId
-	builder.nodeIdFlag = true
-	return builder
+func (builder * ApprovalNodeInfoBuilder) NodeId(nodeId string) *ApprovalNodeInfoBuilder  {
+  builder.nodeId = nodeId
+  builder.nodeIdFlag = true
+  return builder
 }
-func (builder *ApprovalNodeInfoBuilder) CustomNodeId(customNodeId string) *ApprovalNodeInfoBuilder {
-	builder.customNodeId = customNodeId
-	builder.customNodeIdFlag = true
-	return builder
+func (builder * ApprovalNodeInfoBuilder) CustomNodeId(customNodeId string) *ApprovalNodeInfoBuilder  {
+  builder.customNodeId = customNodeId
+  builder.customNodeIdFlag = true
+  return builder
 }
-func (builder *ApprovalNodeInfoBuilder) NodeType(nodeType string) *ApprovalNodeInfoBuilder {
-	builder.nodeType = nodeType
-	builder.nodeTypeFlag = true
-	return builder
-}
-
-func (builder *ApprovalNodeInfoBuilder) Build() *ApprovalNodeInfo {
-	req := &ApprovalNodeInfo{}
-	if builder.nameFlag {
-		req.Name = &builder.name
-
-	}
-	if builder.needApproverFlag {
-		req.NeedApprover = &builder.needApprover
-
-	}
-	if builder.nodeIdFlag {
-		req.NodeId = &builder.nodeId
-
-	}
-	if builder.customNodeIdFlag {
-		req.CustomNodeId = &builder.customNodeId
-
-	}
-	if builder.nodeTypeFlag {
-		req.NodeType = &builder.nodeType
-
-	}
-	return req
+func (builder * ApprovalNodeInfoBuilder) NodeType(nodeType string) *ApprovalNodeInfoBuilder  {
+  builder.nodeType = nodeType
+  builder.nodeTypeFlag = true
+  return builder
 }
 
+func (builder * ApprovalNodeInfoBuilder ) Build() *ApprovalNodeInfo {
+   req := &ApprovalNodeInfo{}
+   if builder.nameFlag {
+	  req.Name = &builder.name
+	  
+   }
+   if builder.needApproverFlag {
+	  req.NeedApprover = &builder.needApprover
+	  
+   }
+   if builder.nodeIdFlag {
+	  req.NodeId = &builder.nodeId
+	  
+   }
+   if builder.customNodeIdFlag {
+	  req.CustomNodeId = &builder.customNodeId
+	  
+   }
+   if builder.nodeTypeFlag {
+	  req.NodeType = &builder.nodeType
+	  
+   }
+   return req
+}
 // builder结束
 
 type ApprovalSetting struct {
-	RevertInterval *int `json:"revert_interval,omitempty"`
-	RevertOption   *int `json:"revert_option,omitempty"`
+	RevertInterval  *int `json:"revert_interval,omitempty"`
+	RevertOption  *int `json:"revert_option,omitempty"`
 }
 
 // builder开始
 type ApprovalSettingBuilder struct {
-	revertInterval     int
-	revertIntervalFlag bool
-	revertOption       int
-	revertOptionFlag   bool
+	revertInterval  int
+	revertIntervalFlag  bool
+	revertOption  int
+	revertOptionFlag  bool
 }
 
-func NewApprovalSettingBuilder() *ApprovalSettingBuilder {
-	builder := &ApprovalSettingBuilder{}
-	return builder
+func NewApprovalSettingBuilder() * ApprovalSettingBuilder{
+   builder := &ApprovalSettingBuilder{}
+   return builder
 }
 
-func (builder *ApprovalSettingBuilder) RevertInterval(revertInterval int) *ApprovalSettingBuilder {
-	builder.revertInterval = revertInterval
-	builder.revertIntervalFlag = true
-	return builder
+
+func (builder * ApprovalSettingBuilder) RevertInterval(revertInterval int) *ApprovalSettingBuilder  {
+  builder.revertInterval = revertInterval
+  builder.revertIntervalFlag = true
+  return builder
 }
-func (builder *ApprovalSettingBuilder) RevertOption(revertOption int) *ApprovalSettingBuilder {
-	builder.revertOption = revertOption
-	builder.revertOptionFlag = true
-	return builder
-}
-
-func (builder *ApprovalSettingBuilder) Build() *ApprovalSetting {
-	req := &ApprovalSetting{}
-	if builder.revertIntervalFlag {
-		req.RevertInterval = &builder.revertInterval
-
-	}
-	if builder.revertOptionFlag {
-		req.RevertOption = &builder.revertOption
-
-	}
-	return req
+func (builder * ApprovalSettingBuilder) RevertOption(revertOption int) *ApprovalSettingBuilder  {
+  builder.revertOption = revertOption
+  builder.revertOptionFlag = true
+  return builder
 }
 
+func (builder * ApprovalSettingBuilder ) Build() *ApprovalSetting {
+   req := &ApprovalSetting{}
+   if builder.revertIntervalFlag {
+	  req.RevertInterval = &builder.revertInterval
+	  
+   }
+   if builder.revertOptionFlag {
+	  req.RevertOption = &builder.revertOption
+	  
+   }
+   return req
+}
 // builder结束
 
 type ApprovalViewer struct {
-	Type    *string `json:"type,omitempty"`
+	Type  *string `json:"type,omitempty"`
 	OpenId  *string `json:"open_id,omitempty"`
 	UserId  *string `json:"user_id,omitempty"`
-	UnionId *string `json:"union_id,omitempty"`
+	UnionId  *string `json:"union_id,omitempty"`
 }
 
 // builder开始
 type ApprovalViewerBuilder struct {
-	type_       string
-	typeFlag    bool
-	openId      string
+	type_  string
+	typeFlag  bool
+	openId  string
 	openIdFlag  bool
-	userId      string
+	userId  string
 	userIdFlag  bool
-	unionId     string
-	unionIdFlag bool
+	unionId  string
+	unionIdFlag  bool
 }
 
-func NewApprovalViewerBuilder() *ApprovalViewerBuilder {
-	builder := &ApprovalViewerBuilder{}
-	return builder
+func NewApprovalViewerBuilder() * ApprovalViewerBuilder{
+   builder := &ApprovalViewerBuilder{}
+   return builder
 }
 
-func (builder *ApprovalViewerBuilder) Type(type_ string) *ApprovalViewerBuilder {
-	builder.type_ = type_
-	builder.typeFlag = true
-	return builder
+
+func (builder * ApprovalViewerBuilder) Type(type_ string) *ApprovalViewerBuilder  {
+  builder.type_ = type_
+  builder.typeFlag = true
+  return builder
 }
-func (builder *ApprovalViewerBuilder) OpenId(openId string) *ApprovalViewerBuilder {
-	builder.openId = openId
-	builder.openIdFlag = true
-	return builder
+func (builder * ApprovalViewerBuilder) OpenId(openId string) *ApprovalViewerBuilder  {
+  builder.openId = openId
+  builder.openIdFlag = true
+  return builder
 }
-func (builder *ApprovalViewerBuilder) UserId(userId string) *ApprovalViewerBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
+func (builder * ApprovalViewerBuilder) UserId(userId string) *ApprovalViewerBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
-func (builder *ApprovalViewerBuilder) UnionId(unionId string) *ApprovalViewerBuilder {
-	builder.unionId = unionId
-	builder.unionIdFlag = true
-	return builder
-}
-
-func (builder *ApprovalViewerBuilder) Build() *ApprovalViewer {
-	req := &ApprovalViewer{}
-	if builder.typeFlag {
-		req.Type = &builder.type_
-
-	}
-	if builder.openIdFlag {
-		req.OpenId = &builder.openId
-
-	}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	if builder.unionIdFlag {
-		req.UnionId = &builder.unionId
-
-	}
-	return req
+func (builder * ApprovalViewerBuilder) UnionId(unionId string) *ApprovalViewerBuilder  {
+  builder.unionId = unionId
+  builder.unionIdFlag = true
+  return builder
 }
 
+func (builder * ApprovalViewerBuilder ) Build() *ApprovalViewer {
+   req := &ApprovalViewer{}
+   if builder.typeFlag {
+	  req.Type = &builder.type_
+	  
+   }
+   if builder.openIdFlag {
+	  req.OpenId = &builder.openId
+	  
+   }
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.unionIdFlag {
+	  req.UnionId = &builder.unionId
+	  
+   }
+   return req
+}
 // builder结束
 
 type ApprovalViewerInfo struct {
-	Type   *string `json:"type,omitempty"`
-	Id     *string `json:"id,omitempty"`
-	UserId *string `json:"user_id,omitempty"`
+	Type  *string `json:"type,omitempty"`
+	Id  *string `json:"id,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
 }
 
 // builder开始
 type ApprovalViewerInfoBuilder struct {
-	type_      string
-	typeFlag   bool
-	id         string
-	idFlag     bool
-	userId     string
-	userIdFlag bool
+	type_  string
+	typeFlag  bool
+	id  string
+	idFlag  bool
+	userId  string
+	userIdFlag  bool
 }
 
-func NewApprovalViewerInfoBuilder() *ApprovalViewerInfoBuilder {
-	builder := &ApprovalViewerInfoBuilder{}
-	return builder
+func NewApprovalViewerInfoBuilder() * ApprovalViewerInfoBuilder{
+   builder := &ApprovalViewerInfoBuilder{}
+   return builder
 }
 
-func (builder *ApprovalViewerInfoBuilder) Type(type_ string) *ApprovalViewerInfoBuilder {
-	builder.type_ = type_
-	builder.typeFlag = true
-	return builder
+
+func (builder * ApprovalViewerInfoBuilder) Type(type_ string) *ApprovalViewerInfoBuilder  {
+  builder.type_ = type_
+  builder.typeFlag = true
+  return builder
 }
-func (builder *ApprovalViewerInfoBuilder) Id(id string) *ApprovalViewerInfoBuilder {
-	builder.id = id
-	builder.idFlag = true
-	return builder
+func (builder * ApprovalViewerInfoBuilder) Id(id string) *ApprovalViewerInfoBuilder  {
+  builder.id = id
+  builder.idFlag = true
+  return builder
 }
-func (builder *ApprovalViewerInfoBuilder) UserId(userId string) *ApprovalViewerInfoBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
-}
-
-func (builder *ApprovalViewerInfoBuilder) Build() *ApprovalViewerInfo {
-	req := &ApprovalViewerInfo{}
-	if builder.typeFlag {
-		req.Type = &builder.type_
-
-	}
-	if builder.idFlag {
-		req.Id = &builder.id
-
-	}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	return req
+func (builder * ApprovalViewerInfoBuilder) UserId(userId string) *ApprovalViewerInfoBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
 
+func (builder * ApprovalViewerInfoBuilder ) Build() *ApprovalViewerInfo {
+   req := &ApprovalViewerInfo{}
+   if builder.typeFlag {
+	  req.Type = &builder.type_
+	  
+   }
+   if builder.idFlag {
+	  req.Id = &builder.id
+	  
+   }
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   return req
+}
 // builder结束
 
 type CcNode struct {
-	CcId          *string               `json:"cc_id,omitempty"`
-	UserId        *string               `json:"user_id,omitempty"`
-	OpenId        *string               `json:"open_id,omitempty"`
-	Links         *ExternalInstanceLink `json:"links,omitempty"`
-	ReadStatus    *string               `json:"read_status,omitempty"`
-	Extra         *string               `json:"extra,omitempty"`
-	Title         *string               `json:"title,omitempty"`
-	CreateTime    *int64                `json:"create_time,omitempty,string"`
-	UpdateTime    *int64                `json:"update_time,omitempty,string"`
-	DisplayMethod *string               `json:"display_method,omitempty"`
+	CcId  *string `json:"cc_id,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
+	OpenId  *string `json:"open_id,omitempty"`
+	Links  *ExternalInstanceLink `json:"links,omitempty"`
+	ReadStatus  *string `json:"read_status,omitempty"`
+	Extra  *string `json:"extra,omitempty"`
+	Title  *string `json:"title,omitempty"`
+	CreateTime  *int64 `json:"create_time,omitempty,string"`
+	UpdateTime  *int64 `json:"update_time,omitempty,string"`
+	DisplayMethod  *string `json:"display_method,omitempty"`
 }
 
 // builder开始
 type CcNodeBuilder struct {
-	ccId              string
-	ccIdFlag          bool
-	userId            string
-	userIdFlag        bool
-	openId            string
-	openIdFlag        bool
-	links             *ExternalInstanceLink
-	linksFlag         bool
-	readStatus        string
-	readStatusFlag    bool
-	extra             string
-	extraFlag         bool
-	title             string
-	titleFlag         bool
-	createTime        int64
-	createTimeFlag    bool
-	updateTime        int64
-	updateTimeFlag    bool
-	displayMethod     string
-	displayMethodFlag bool
+	ccId  string
+	ccIdFlag  bool
+	userId  string
+	userIdFlag  bool
+	openId  string
+	openIdFlag  bool
+	links  *ExternalInstanceLink
+	linksFlag  bool
+	readStatus  string
+	readStatusFlag  bool
+	extra  string
+	extraFlag  bool
+	title  string
+	titleFlag  bool
+	createTime  int64
+	createTimeFlag  bool
+	updateTime  int64
+	updateTimeFlag  bool
+	displayMethod  string
+	displayMethodFlag  bool
 }
 
-func NewCcNodeBuilder() *CcNodeBuilder {
-	builder := &CcNodeBuilder{}
-	return builder
+func NewCcNodeBuilder() * CcNodeBuilder{
+   builder := &CcNodeBuilder{}
+   return builder
 }
 
-func (builder *CcNodeBuilder) CcId(ccId string) *CcNodeBuilder {
-	builder.ccId = ccId
-	builder.ccIdFlag = true
-	return builder
-}
-func (builder *CcNodeBuilder) UserId(userId string) *CcNodeBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
-}
-func (builder *CcNodeBuilder) OpenId(openId string) *CcNodeBuilder {
-	builder.openId = openId
-	builder.openIdFlag = true
-	return builder
-}
-func (builder *CcNodeBuilder) Links(links *ExternalInstanceLink) *CcNodeBuilder {
-	builder.links = links
-	builder.linksFlag = true
-	return builder
-}
-func (builder *CcNodeBuilder) ReadStatus(readStatus string) *CcNodeBuilder {
-	builder.readStatus = readStatus
-	builder.readStatusFlag = true
-	return builder
-}
-func (builder *CcNodeBuilder) Extra(extra string) *CcNodeBuilder {
-	builder.extra = extra
-	builder.extraFlag = true
-	return builder
-}
-func (builder *CcNodeBuilder) Title(title string) *CcNodeBuilder {
-	builder.title = title
-	builder.titleFlag = true
-	return builder
-}
-func (builder *CcNodeBuilder) CreateTime(createTime int64) *CcNodeBuilder {
-	builder.createTime = createTime
-	builder.createTimeFlag = true
-	return builder
-}
-func (builder *CcNodeBuilder) UpdateTime(updateTime int64) *CcNodeBuilder {
-	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
-	return builder
-}
-func (builder *CcNodeBuilder) DisplayMethod(displayMethod string) *CcNodeBuilder {
-	builder.displayMethod = displayMethod
-	builder.displayMethodFlag = true
-	return builder
-}
 
-func (builder *CcNodeBuilder) Build() *CcNode {
-	req := &CcNode{}
-	if builder.ccIdFlag {
-		req.CcId = &builder.ccId
-
-	}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	if builder.openIdFlag {
-		req.OpenId = &builder.openId
-
-	}
-	if builder.linksFlag {
-		req.Links = builder.links
-	}
-	if builder.readStatusFlag {
-		req.ReadStatus = &builder.readStatus
-
-	}
-	if builder.extraFlag {
-		req.Extra = &builder.extra
-
-	}
-	if builder.titleFlag {
-		req.Title = &builder.title
-
-	}
-	if builder.createTimeFlag {
-		req.CreateTime = &builder.createTime
-
-	}
-	if builder.updateTimeFlag {
-		req.UpdateTime = &builder.updateTime
-
-	}
-	if builder.displayMethodFlag {
-		req.DisplayMethod = &builder.displayMethod
-
-	}
-	return req
+func (builder * CcNodeBuilder) CcId(ccId string) *CcNodeBuilder  {
+  builder.ccId = ccId
+  builder.ccIdFlag = true
+  return builder
+}
+func (builder * CcNodeBuilder) UserId(userId string) *CcNodeBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
+}
+func (builder * CcNodeBuilder) OpenId(openId string) *CcNodeBuilder  {
+  builder.openId = openId
+  builder.openIdFlag = true
+  return builder
+}
+func (builder * CcNodeBuilder) Links(links *ExternalInstanceLink) *CcNodeBuilder  {
+  builder.links = links
+  builder.linksFlag = true
+  return builder
+}
+func (builder * CcNodeBuilder) ReadStatus(readStatus string) *CcNodeBuilder  {
+  builder.readStatus = readStatus
+  builder.readStatusFlag = true
+  return builder
+}
+func (builder * CcNodeBuilder) Extra(extra string) *CcNodeBuilder  {
+  builder.extra = extra
+  builder.extraFlag = true
+  return builder
+}
+func (builder * CcNodeBuilder) Title(title string) *CcNodeBuilder  {
+  builder.title = title
+  builder.titleFlag = true
+  return builder
+}
+func (builder * CcNodeBuilder) CreateTime(createTime int64) *CcNodeBuilder  {
+  builder.createTime = createTime
+  builder.createTimeFlag = true
+  return builder
+}
+func (builder * CcNodeBuilder) UpdateTime(updateTime int64) *CcNodeBuilder  {
+  builder.updateTime = updateTime
+  builder.updateTimeFlag = true
+  return builder
+}
+func (builder * CcNodeBuilder) DisplayMethod(displayMethod string) *CcNodeBuilder  {
+  builder.displayMethod = displayMethod
+  builder.displayMethodFlag = true
+  return builder
 }
 
+func (builder * CcNodeBuilder ) Build() *CcNode {
+   req := &CcNode{}
+   if builder.ccIdFlag {
+	  req.CcId = &builder.ccId
+	  
+   }
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.openIdFlag {
+	  req.OpenId = &builder.openId
+	  
+   }
+   if builder.linksFlag {
+	  req.Links = builder.links
+   }
+   if builder.readStatusFlag {
+	  req.ReadStatus = &builder.readStatus
+	  
+   }
+   if builder.extraFlag {
+	  req.Extra = &builder.extra
+	  
+   }
+   if builder.titleFlag {
+	  req.Title = &builder.title
+	  
+   }
+   if builder.createTimeFlag {
+	  req.CreateTime = &builder.createTime
+	  
+   }
+   if builder.updateTimeFlag {
+	  req.UpdateTime = &builder.updateTime
+	  
+   }
+   if builder.displayMethodFlag {
+	  req.DisplayMethod = &builder.displayMethod
+	  
+   }
+   return req
+}
 // builder结束
 
 type CcSearch struct {
-	UserId             *string `json:"user_id,omitempty"`
-	ApprovalCode       *string `json:"approval_code,omitempty"`
-	InstanceCode       *string `json:"instance_code,omitempty"`
-	InstanceExternalId *string `json:"instance_external_id,omitempty"`
-	GroupExternalId    *string `json:"group_external_id,omitempty"`
-	CcTitle            *string `json:"cc_title,omitempty"`
-	ReadStatus         *string `json:"read_status,omitempty"`
-	CcCreateTimeFrom   *int64  `json:"cc_create_time_from,omitempty,string"`
-	CcCreateTimeTo     *int64  `json:"cc_create_time_to,omitempty,string"`
-	Locale             *string `json:"locale,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
+	ApprovalCode  *string `json:"approval_code,omitempty"`
+	InstanceCode  *string `json:"instance_code,omitempty"`
+	InstanceExternalId  *string `json:"instance_external_id,omitempty"`
+	GroupExternalId  *string `json:"group_external_id,omitempty"`
+	CcTitle  *string `json:"cc_title,omitempty"`
+	ReadStatus  *string `json:"read_status,omitempty"`
+	CcCreateTimeFrom  *int64 `json:"cc_create_time_from,omitempty,string"`
+	CcCreateTimeTo  *int64 `json:"cc_create_time_to,omitempty,string"`
+	Locale  *string `json:"locale,omitempty"`
 }
 
 // builder开始
 type CcSearchBuilder struct {
-	userId                 string
-	userIdFlag             bool
-	approvalCode           string
-	approvalCodeFlag       bool
-	instanceCode           string
-	instanceCodeFlag       bool
-	instanceExternalId     string
-	instanceExternalIdFlag bool
-	groupExternalId        string
-	groupExternalIdFlag    bool
-	ccTitle                string
-	ccTitleFlag            bool
-	readStatus             string
-	readStatusFlag         bool
-	ccCreateTimeFrom       int64
-	ccCreateTimeFromFlag   bool
-	ccCreateTimeTo         int64
-	ccCreateTimeToFlag     bool
-	locale                 string
-	localeFlag             bool
+	userId  string
+	userIdFlag  bool
+	approvalCode  string
+	approvalCodeFlag  bool
+	instanceCode  string
+	instanceCodeFlag  bool
+	instanceExternalId  string
+	instanceExternalIdFlag  bool
+	groupExternalId  string
+	groupExternalIdFlag  bool
+	ccTitle  string
+	ccTitleFlag  bool
+	readStatus  string
+	readStatusFlag  bool
+	ccCreateTimeFrom  int64
+	ccCreateTimeFromFlag  bool
+	ccCreateTimeTo  int64
+	ccCreateTimeToFlag  bool
+	locale  string
+	localeFlag  bool
 }
 
-func NewCcSearchBuilder() *CcSearchBuilder {
-	builder := &CcSearchBuilder{}
-	return builder
+func NewCcSearchBuilder() * CcSearchBuilder{
+   builder := &CcSearchBuilder{}
+   return builder
 }
 
-func (builder *CcSearchBuilder) UserId(userId string) *CcSearchBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
+
+func (builder * CcSearchBuilder) UserId(userId string) *CcSearchBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
-func (builder *CcSearchBuilder) ApprovalCode(approvalCode string) *CcSearchBuilder {
-	builder.approvalCode = approvalCode
-	builder.approvalCodeFlag = true
-	return builder
+func (builder * CcSearchBuilder) ApprovalCode(approvalCode string) *CcSearchBuilder  {
+  builder.approvalCode = approvalCode
+  builder.approvalCodeFlag = true
+  return builder
 }
-func (builder *CcSearchBuilder) InstanceCode(instanceCode string) *CcSearchBuilder {
-	builder.instanceCode = instanceCode
-	builder.instanceCodeFlag = true
-	return builder
+func (builder * CcSearchBuilder) InstanceCode(instanceCode string) *CcSearchBuilder  {
+  builder.instanceCode = instanceCode
+  builder.instanceCodeFlag = true
+  return builder
 }
-func (builder *CcSearchBuilder) InstanceExternalId(instanceExternalId string) *CcSearchBuilder {
-	builder.instanceExternalId = instanceExternalId
-	builder.instanceExternalIdFlag = true
-	return builder
+func (builder * CcSearchBuilder) InstanceExternalId(instanceExternalId string) *CcSearchBuilder  {
+  builder.instanceExternalId = instanceExternalId
+  builder.instanceExternalIdFlag = true
+  return builder
 }
-func (builder *CcSearchBuilder) GroupExternalId(groupExternalId string) *CcSearchBuilder {
-	builder.groupExternalId = groupExternalId
-	builder.groupExternalIdFlag = true
-	return builder
+func (builder * CcSearchBuilder) GroupExternalId(groupExternalId string) *CcSearchBuilder  {
+  builder.groupExternalId = groupExternalId
+  builder.groupExternalIdFlag = true
+  return builder
 }
-func (builder *CcSearchBuilder) CcTitle(ccTitle string) *CcSearchBuilder {
-	builder.ccTitle = ccTitle
-	builder.ccTitleFlag = true
-	return builder
+func (builder * CcSearchBuilder) CcTitle(ccTitle string) *CcSearchBuilder  {
+  builder.ccTitle = ccTitle
+  builder.ccTitleFlag = true
+  return builder
 }
-func (builder *CcSearchBuilder) ReadStatus(readStatus string) *CcSearchBuilder {
-	builder.readStatus = readStatus
-	builder.readStatusFlag = true
-	return builder
+func (builder * CcSearchBuilder) ReadStatus(readStatus string) *CcSearchBuilder  {
+  builder.readStatus = readStatus
+  builder.readStatusFlag = true
+  return builder
 }
-func (builder *CcSearchBuilder) CcCreateTimeFrom(ccCreateTimeFrom int64) *CcSearchBuilder {
-	builder.ccCreateTimeFrom = ccCreateTimeFrom
-	builder.ccCreateTimeFromFlag = true
-	return builder
+func (builder * CcSearchBuilder) CcCreateTimeFrom(ccCreateTimeFrom int64) *CcSearchBuilder  {
+  builder.ccCreateTimeFrom = ccCreateTimeFrom
+  builder.ccCreateTimeFromFlag = true
+  return builder
 }
-func (builder *CcSearchBuilder) CcCreateTimeTo(ccCreateTimeTo int64) *CcSearchBuilder {
-	builder.ccCreateTimeTo = ccCreateTimeTo
-	builder.ccCreateTimeToFlag = true
-	return builder
+func (builder * CcSearchBuilder) CcCreateTimeTo(ccCreateTimeTo int64) *CcSearchBuilder  {
+  builder.ccCreateTimeTo = ccCreateTimeTo
+  builder.ccCreateTimeToFlag = true
+  return builder
 }
-func (builder *CcSearchBuilder) Locale(locale string) *CcSearchBuilder {
-	builder.locale = locale
-	builder.localeFlag = true
-	return builder
-}
-
-func (builder *CcSearchBuilder) Build() *CcSearch {
-	req := &CcSearch{}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	if builder.approvalCodeFlag {
-		req.ApprovalCode = &builder.approvalCode
-
-	}
-	if builder.instanceCodeFlag {
-		req.InstanceCode = &builder.instanceCode
-
-	}
-	if builder.instanceExternalIdFlag {
-		req.InstanceExternalId = &builder.instanceExternalId
-
-	}
-	if builder.groupExternalIdFlag {
-		req.GroupExternalId = &builder.groupExternalId
-
-	}
-	if builder.ccTitleFlag {
-		req.CcTitle = &builder.ccTitle
-
-	}
-	if builder.readStatusFlag {
-		req.ReadStatus = &builder.readStatus
-
-	}
-	if builder.ccCreateTimeFromFlag {
-		req.CcCreateTimeFrom = &builder.ccCreateTimeFrom
-
-	}
-	if builder.ccCreateTimeToFlag {
-		req.CcCreateTimeTo = &builder.ccCreateTimeTo
-
-	}
-	if builder.localeFlag {
-		req.Locale = &builder.locale
-
-	}
-	return req
+func (builder * CcSearchBuilder) Locale(locale string) *CcSearchBuilder  {
+  builder.locale = locale
+  builder.localeFlag = true
+  return builder
 }
 
+func (builder * CcSearchBuilder ) Build() *CcSearch {
+   req := &CcSearch{}
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.approvalCodeFlag {
+	  req.ApprovalCode = &builder.approvalCode
+	  
+   }
+   if builder.instanceCodeFlag {
+	  req.InstanceCode = &builder.instanceCode
+	  
+   }
+   if builder.instanceExternalIdFlag {
+	  req.InstanceExternalId = &builder.instanceExternalId
+	  
+   }
+   if builder.groupExternalIdFlag {
+	  req.GroupExternalId = &builder.groupExternalId
+	  
+   }
+   if builder.ccTitleFlag {
+	  req.CcTitle = &builder.ccTitle
+	  
+   }
+   if builder.readStatusFlag {
+	  req.ReadStatus = &builder.readStatus
+	  
+   }
+   if builder.ccCreateTimeFromFlag {
+	  req.CcCreateTimeFrom = &builder.ccCreateTimeFrom
+	  
+   }
+   if builder.ccCreateTimeToFlag {
+	  req.CcCreateTimeTo = &builder.ccCreateTimeTo
+	  
+   }
+   if builder.localeFlag {
+	  req.Locale = &builder.locale
+	  
+   }
+   return req
+}
 // builder结束
 
 type CcSearchItem struct {
-	Approval *InstanceSearchApproval `json:"approval,omitempty"`
-	Group    *InstanceSearchGroup    `json:"group,omitempty"`
-	Instance *InstanceSearchNode     `json:"instance,omitempty"`
-	Cc       *CcSearchNode           `json:"cc,omitempty"`
+	Approval  *InstanceSearchApproval `json:"approval,omitempty"`
+	Group  *InstanceSearchGroup `json:"group,omitempty"`
+	Instance  *InstanceSearchNode `json:"instance,omitempty"`
+	Cc  *CcSearchNode `json:"cc,omitempty"`
 }
 
 // builder开始
 type CcSearchItemBuilder struct {
-	approval     *InstanceSearchApproval
-	approvalFlag bool
-	group        *InstanceSearchGroup
-	groupFlag    bool
-	instance     *InstanceSearchNode
-	instanceFlag bool
-	cc           *CcSearchNode
-	ccFlag       bool
+	approval  *InstanceSearchApproval
+	approvalFlag  bool
+	group  *InstanceSearchGroup
+	groupFlag  bool
+	instance  *InstanceSearchNode
+	instanceFlag  bool
+	cc  *CcSearchNode
+	ccFlag  bool
 }
 
-func NewCcSearchItemBuilder() *CcSearchItemBuilder {
-	builder := &CcSearchItemBuilder{}
-	return builder
+func NewCcSearchItemBuilder() * CcSearchItemBuilder{
+   builder := &CcSearchItemBuilder{}
+   return builder
 }
 
-func (builder *CcSearchItemBuilder) Approval(approval *InstanceSearchApproval) *CcSearchItemBuilder {
-	builder.approval = approval
-	builder.approvalFlag = true
-	return builder
+
+func (builder * CcSearchItemBuilder) Approval(approval *InstanceSearchApproval) *CcSearchItemBuilder  {
+  builder.approval = approval
+  builder.approvalFlag = true
+  return builder
 }
-func (builder *CcSearchItemBuilder) Group(group *InstanceSearchGroup) *CcSearchItemBuilder {
-	builder.group = group
-	builder.groupFlag = true
-	return builder
+func (builder * CcSearchItemBuilder) Group(group *InstanceSearchGroup) *CcSearchItemBuilder  {
+  builder.group = group
+  builder.groupFlag = true
+  return builder
 }
-func (builder *CcSearchItemBuilder) Instance(instance *InstanceSearchNode) *CcSearchItemBuilder {
-	builder.instance = instance
-	builder.instanceFlag = true
-	return builder
+func (builder * CcSearchItemBuilder) Instance(instance *InstanceSearchNode) *CcSearchItemBuilder  {
+  builder.instance = instance
+  builder.instanceFlag = true
+  return builder
 }
-func (builder *CcSearchItemBuilder) Cc(cc *CcSearchNode) *CcSearchItemBuilder {
-	builder.cc = cc
-	builder.ccFlag = true
-	return builder
+func (builder * CcSearchItemBuilder) Cc(cc *CcSearchNode) *CcSearchItemBuilder  {
+  builder.cc = cc
+  builder.ccFlag = true
+  return builder
 }
 
-func (builder *CcSearchItemBuilder) Build() *CcSearchItem {
-	req := &CcSearchItem{}
-	if builder.approvalFlag {
-		req.Approval = builder.approval
-	}
-	if builder.groupFlag {
-		req.Group = builder.group
-	}
-	if builder.instanceFlag {
-		req.Instance = builder.instance
-	}
-	if builder.ccFlag {
-		req.Cc = builder.cc
-	}
-	return req
+func (builder * CcSearchItemBuilder ) Build() *CcSearchItem {
+   req := &CcSearchItem{}
+   if builder.approvalFlag {
+	  req.Approval = builder.approval
+   }
+   if builder.groupFlag {
+	  req.Group = builder.group
+   }
+   if builder.instanceFlag {
+	  req.Instance = builder.instance
+   }
+   if builder.ccFlag {
+	  req.Cc = builder.cc
+   }
+   return req
 }
-
 // builder结束
 
 type CcSearchNode struct {
-	UserId     *string             `json:"user_id,omitempty"`
-	CreateTime *int64              `json:"create_time,omitempty,string"`
-	ReadStatus *string             `json:"read_status,omitempty"`
-	Title      *string             `json:"title,omitempty"`
-	Extra      *string             `json:"extra,omitempty"`
-	Link       *InstanceSearchLink `json:"link,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
+	CreateTime  *int64 `json:"create_time,omitempty,string"`
+	ReadStatus  *string `json:"read_status,omitempty"`
+	Title  *string `json:"title,omitempty"`
+	Extra  *string `json:"extra,omitempty"`
+	Link  *InstanceSearchLink `json:"link,omitempty"`
 }
 
 // builder开始
 type CcSearchNodeBuilder struct {
-	userId         string
-	userIdFlag     bool
-	createTime     int64
-	createTimeFlag bool
-	readStatus     string
-	readStatusFlag bool
-	title          string
-	titleFlag      bool
-	extra          string
-	extraFlag      bool
-	link           *InstanceSearchLink
-	linkFlag       bool
+	userId  string
+	userIdFlag  bool
+	createTime  int64
+	createTimeFlag  bool
+	readStatus  string
+	readStatusFlag  bool
+	title  string
+	titleFlag  bool
+	extra  string
+	extraFlag  bool
+	link  *InstanceSearchLink
+	linkFlag  bool
 }
 
-func NewCcSearchNodeBuilder() *CcSearchNodeBuilder {
-	builder := &CcSearchNodeBuilder{}
-	return builder
+func NewCcSearchNodeBuilder() * CcSearchNodeBuilder{
+   builder := &CcSearchNodeBuilder{}
+   return builder
 }
 
-func (builder *CcSearchNodeBuilder) UserId(userId string) *CcSearchNodeBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
-}
-func (builder *CcSearchNodeBuilder) CreateTime(createTime int64) *CcSearchNodeBuilder {
-	builder.createTime = createTime
-	builder.createTimeFlag = true
-	return builder
-}
-func (builder *CcSearchNodeBuilder) ReadStatus(readStatus string) *CcSearchNodeBuilder {
-	builder.readStatus = readStatus
-	builder.readStatusFlag = true
-	return builder
-}
-func (builder *CcSearchNodeBuilder) Title(title string) *CcSearchNodeBuilder {
-	builder.title = title
-	builder.titleFlag = true
-	return builder
-}
-func (builder *CcSearchNodeBuilder) Extra(extra string) *CcSearchNodeBuilder {
-	builder.extra = extra
-	builder.extraFlag = true
-	return builder
-}
-func (builder *CcSearchNodeBuilder) Link(link *InstanceSearchLink) *CcSearchNodeBuilder {
-	builder.link = link
-	builder.linkFlag = true
-	return builder
-}
 
-func (builder *CcSearchNodeBuilder) Build() *CcSearchNode {
-	req := &CcSearchNode{}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	if builder.createTimeFlag {
-		req.CreateTime = &builder.createTime
-
-	}
-	if builder.readStatusFlag {
-		req.ReadStatus = &builder.readStatus
-
-	}
-	if builder.titleFlag {
-		req.Title = &builder.title
-
-	}
-	if builder.extraFlag {
-		req.Extra = &builder.extra
-
-	}
-	if builder.linkFlag {
-		req.Link = builder.link
-	}
-	return req
+func (builder * CcSearchNodeBuilder) UserId(userId string) *CcSearchNodeBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
+}
+func (builder * CcSearchNodeBuilder) CreateTime(createTime int64) *CcSearchNodeBuilder  {
+  builder.createTime = createTime
+  builder.createTimeFlag = true
+  return builder
+}
+func (builder * CcSearchNodeBuilder) ReadStatus(readStatus string) *CcSearchNodeBuilder  {
+  builder.readStatus = readStatus
+  builder.readStatusFlag = true
+  return builder
+}
+func (builder * CcSearchNodeBuilder) Title(title string) *CcSearchNodeBuilder  {
+  builder.title = title
+  builder.titleFlag = true
+  return builder
+}
+func (builder * CcSearchNodeBuilder) Extra(extra string) *CcSearchNodeBuilder  {
+  builder.extra = extra
+  builder.extraFlag = true
+  return builder
+}
+func (builder * CcSearchNodeBuilder) Link(link *InstanceSearchLink) *CcSearchNodeBuilder  {
+  builder.link = link
+  builder.linkFlag = true
+  return builder
 }
 
+func (builder * CcSearchNodeBuilder ) Build() *CcSearchNode {
+   req := &CcSearchNode{}
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.createTimeFlag {
+	  req.CreateTime = &builder.createTime
+	  
+   }
+   if builder.readStatusFlag {
+	  req.ReadStatus = &builder.readStatus
+	  
+   }
+   if builder.titleFlag {
+	  req.Title = &builder.title
+	  
+   }
+   if builder.extraFlag {
+	  req.Extra = &builder.extra
+	  
+   }
+   if builder.linkFlag {
+	  req.Link = builder.link
+   }
+   return req
+}
 // builder结束
 
 type Comment struct {
-	Id          *int64           `json:"id,omitempty,string"`
-	Content     *string          `json:"content,omitempty"`
-	CreateTime  *int64           `json:"create_time,omitempty,string"`
-	UpdateTime  *int64           `json:"update_time,omitempty,string"`
-	IsDelete    *int             `json:"is_delete,omitempty"`
-	Replies     []*CommentReply  `json:"replies,omitempty"`
+	Id  *int64 `json:"id,omitempty,string"`
+	Content  *string `json:"content,omitempty"`
+	CreateTime  *int64 `json:"create_time,omitempty,string"`
+	UpdateTime  *int64 `json:"update_time,omitempty,string"`
+	IsDelete  *int `json:"is_delete,omitempty"`
+	Replies  []*CommentReply `json:"replies,omitempty"`
 	AtInfoList  []*CommentAtInfo `json:"at_info_list,omitempty"`
-	Commentator *string          `json:"commentator,omitempty"`
-	Extra       *string          `json:"extra,omitempty"`
+	Commentator  *string `json:"commentator,omitempty"`
+	Extra  *string `json:"extra,omitempty"`
 }
 
 // builder开始
 type CommentBuilder struct {
-	id              int64
-	idFlag          bool
-	content         string
-	contentFlag     bool
-	createTime      int64
+	id  int64
+	idFlag  bool
+	content  string
+	contentFlag  bool
+	createTime  int64
 	createTimeFlag  bool
-	updateTime      int64
+	updateTime  int64
 	updateTimeFlag  bool
-	isDelete        int
-	isDeleteFlag    bool
-	replies         []*CommentReply
-	repliesFlag     bool
-	atInfoList      []*CommentAtInfo
+	isDelete  int
+	isDeleteFlag  bool
+	replies  []*CommentReply
+	repliesFlag  bool
+	atInfoList  []*CommentAtInfo
 	atInfoListFlag  bool
-	commentator     string
-	commentatorFlag bool
-	extra           string
-	extraFlag       bool
+	commentator  string
+	commentatorFlag  bool
+	extra  string
+	extraFlag  bool
 }
 
-func NewCommentBuilder() *CommentBuilder {
-	builder := &CommentBuilder{}
-	return builder
+func NewCommentBuilder() * CommentBuilder{
+   builder := &CommentBuilder{}
+   return builder
 }
 
-func (builder *CommentBuilder) Id(id int64) *CommentBuilder {
-	builder.id = id
-	builder.idFlag = true
-	return builder
+
+func (builder * CommentBuilder) Id(id int64) *CommentBuilder  {
+  builder.id = id
+  builder.idFlag = true
+  return builder
 }
-func (builder *CommentBuilder) Content(content string) *CommentBuilder {
-	builder.content = content
-	builder.contentFlag = true
-	return builder
+func (builder * CommentBuilder) Content(content string) *CommentBuilder  {
+  builder.content = content
+  builder.contentFlag = true
+  return builder
 }
-func (builder *CommentBuilder) CreateTime(createTime int64) *CommentBuilder {
-	builder.createTime = createTime
-	builder.createTimeFlag = true
-	return builder
+func (builder * CommentBuilder) CreateTime(createTime int64) *CommentBuilder  {
+  builder.createTime = createTime
+  builder.createTimeFlag = true
+  return builder
 }
-func (builder *CommentBuilder) UpdateTime(updateTime int64) *CommentBuilder {
-	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
-	return builder
+func (builder * CommentBuilder) UpdateTime(updateTime int64) *CommentBuilder  {
+  builder.updateTime = updateTime
+  builder.updateTimeFlag = true
+  return builder
 }
-func (builder *CommentBuilder) IsDelete(isDelete int) *CommentBuilder {
-	builder.isDelete = isDelete
-	builder.isDeleteFlag = true
-	return builder
+func (builder * CommentBuilder) IsDelete(isDelete int) *CommentBuilder  {
+  builder.isDelete = isDelete
+  builder.isDeleteFlag = true
+  return builder
 }
-func (builder *CommentBuilder) Replies(replies []*CommentReply) *CommentBuilder {
-	builder.replies = replies
-	builder.repliesFlag = true
-	return builder
+func (builder * CommentBuilder) Replies(replies []*CommentReply) *CommentBuilder  {
+  builder.replies = replies
+  builder.repliesFlag = true
+  return builder
 }
-func (builder *CommentBuilder) AtInfoList(atInfoList []*CommentAtInfo) *CommentBuilder {
-	builder.atInfoList = atInfoList
-	builder.atInfoListFlag = true
-	return builder
+func (builder * CommentBuilder) AtInfoList(atInfoList []*CommentAtInfo) *CommentBuilder  {
+  builder.atInfoList = atInfoList
+  builder.atInfoListFlag = true
+  return builder
 }
-func (builder *CommentBuilder) Commentator(commentator string) *CommentBuilder {
-	builder.commentator = commentator
-	builder.commentatorFlag = true
-	return builder
+func (builder * CommentBuilder) Commentator(commentator string) *CommentBuilder  {
+  builder.commentator = commentator
+  builder.commentatorFlag = true
+  return builder
 }
-func (builder *CommentBuilder) Extra(extra string) *CommentBuilder {
-	builder.extra = extra
-	builder.extraFlag = true
-	return builder
+func (builder * CommentBuilder) Extra(extra string) *CommentBuilder  {
+  builder.extra = extra
+  builder.extraFlag = true
+  return builder
 }
 
-func (builder *CommentBuilder) Build() *Comment {
-	req := &Comment{}
-	if builder.idFlag {
-		req.Id = &builder.id
-
-	}
-	if builder.contentFlag {
-		req.Content = &builder.content
-
-	}
-	if builder.createTimeFlag {
-		req.CreateTime = &builder.createTime
-
-	}
-	if builder.updateTimeFlag {
-		req.UpdateTime = &builder.updateTime
-
-	}
-	if builder.isDeleteFlag {
-		req.IsDelete = &builder.isDelete
-
-	}
-	if builder.repliesFlag {
-		req.Replies = builder.replies
-	}
-	if builder.atInfoListFlag {
-		req.AtInfoList = builder.atInfoList
-	}
-	if builder.commentatorFlag {
-		req.Commentator = &builder.commentator
-
-	}
-	if builder.extraFlag {
-		req.Extra = &builder.extra
-
-	}
-	return req
+func (builder * CommentBuilder ) Build() *Comment {
+   req := &Comment{}
+   if builder.idFlag {
+	  req.Id = &builder.id
+	  
+   }
+   if builder.contentFlag {
+	  req.Content = &builder.content
+	  
+   }
+   if builder.createTimeFlag {
+	  req.CreateTime = &builder.createTime
+	  
+   }
+   if builder.updateTimeFlag {
+	  req.UpdateTime = &builder.updateTime
+	  
+   }
+   if builder.isDeleteFlag {
+	  req.IsDelete = &builder.isDelete
+	  
+   }
+   if builder.repliesFlag {
+	  req.Replies = builder.replies
+   }
+   if builder.atInfoListFlag {
+	  req.AtInfoList = builder.atInfoList
+   }
+   if builder.commentatorFlag {
+	  req.Commentator = &builder.commentator
+	  
+   }
+   if builder.extraFlag {
+	  req.Extra = &builder.extra
+	  
+   }
+   return req
 }
-
 // builder结束
 
 type CommentAtInfo struct {
-	UserId *int64  `json:"user_id,omitempty,string"`
-	Name   *string `json:"name,omitempty"`
-	Offset *int64  `json:"offset,omitempty,string"`
+	UserId  *int64 `json:"user_id,omitempty,string"`
+	Name  *string `json:"name,omitempty"`
+	Offset  *int64 `json:"offset,omitempty,string"`
 }
 
 // builder开始
 type CommentAtInfoBuilder struct {
-	userId     int64
-	userIdFlag bool
-	name       string
-	nameFlag   bool
-	offset     int64
-	offsetFlag bool
+	userId  int64
+	userIdFlag  bool
+	name  string
+	nameFlag  bool
+	offset  int64
+	offsetFlag  bool
 }
 
-func NewCommentAtInfoBuilder() *CommentAtInfoBuilder {
-	builder := &CommentAtInfoBuilder{}
-	return builder
+func NewCommentAtInfoBuilder() * CommentAtInfoBuilder{
+   builder := &CommentAtInfoBuilder{}
+   return builder
 }
 
-func (builder *CommentAtInfoBuilder) UserId(userId int64) *CommentAtInfoBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
+
+func (builder * CommentAtInfoBuilder) UserId(userId int64) *CommentAtInfoBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
-func (builder *CommentAtInfoBuilder) Name(name string) *CommentAtInfoBuilder {
-	builder.name = name
-	builder.nameFlag = true
-	return builder
+func (builder * CommentAtInfoBuilder) Name(name string) *CommentAtInfoBuilder  {
+  builder.name = name
+  builder.nameFlag = true
+  return builder
 }
-func (builder *CommentAtInfoBuilder) Offset(offset int64) *CommentAtInfoBuilder {
-	builder.offset = offset
-	builder.offsetFlag = true
-	return builder
-}
-
-func (builder *CommentAtInfoBuilder) Build() *CommentAtInfo {
-	req := &CommentAtInfo{}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	if builder.nameFlag {
-		req.Name = &builder.name
-
-	}
-	if builder.offsetFlag {
-		req.Offset = &builder.offset
-
-	}
-	return req
+func (builder * CommentAtInfoBuilder) Offset(offset int64) *CommentAtInfoBuilder  {
+  builder.offset = offset
+  builder.offsetFlag = true
+  return builder
 }
 
+func (builder * CommentAtInfoBuilder ) Build() *CommentAtInfo {
+   req := &CommentAtInfo{}
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.nameFlag {
+	  req.Name = &builder.name
+	  
+   }
+   if builder.offsetFlag {
+	  req.Offset = &builder.offset
+	  
+   }
+   return req
+}
 // builder结束
 
 type CommentReply struct {
-	Id          *int64           `json:"id,omitempty,string"`
-	Content     *string          `json:"content,omitempty"`
-	CreateTime  *int64           `json:"create_time,omitempty,string"`
-	UpdateTime  *int64           `json:"update_time,omitempty,string"`
-	IsDelete    *int             `json:"is_delete,omitempty"`
+	Id  *int64 `json:"id,omitempty,string"`
+	Content  *string `json:"content,omitempty"`
+	CreateTime  *int64 `json:"create_time,omitempty,string"`
+	UpdateTime  *int64 `json:"update_time,omitempty,string"`
+	IsDelete  *int `json:"is_delete,omitempty"`
 	AtInfoList  []*CommentAtInfo `json:"at_info_list,omitempty"`
-	Commentator *string          `json:"commentator,omitempty"`
-	Extra       *string          `json:"extra,omitempty"`
+	Commentator  *string `json:"commentator,omitempty"`
+	Extra  *string `json:"extra,omitempty"`
 }
 
 // builder开始
 type CommentReplyBuilder struct {
-	id              int64
-	idFlag          bool
-	content         string
-	contentFlag     bool
-	createTime      int64
+	id  int64
+	idFlag  bool
+	content  string
+	contentFlag  bool
+	createTime  int64
 	createTimeFlag  bool
-	updateTime      int64
+	updateTime  int64
 	updateTimeFlag  bool
-	isDelete        int
-	isDeleteFlag    bool
-	atInfoList      []*CommentAtInfo
+	isDelete  int
+	isDeleteFlag  bool
+	atInfoList  []*CommentAtInfo
 	atInfoListFlag  bool
-	commentator     string
-	commentatorFlag bool
-	extra           string
-	extraFlag       bool
+	commentator  string
+	commentatorFlag  bool
+	extra  string
+	extraFlag  bool
 }
 
-func NewCommentReplyBuilder() *CommentReplyBuilder {
-	builder := &CommentReplyBuilder{}
-	return builder
+func NewCommentReplyBuilder() * CommentReplyBuilder{
+   builder := &CommentReplyBuilder{}
+   return builder
 }
 
-func (builder *CommentReplyBuilder) Id(id int64) *CommentReplyBuilder {
-	builder.id = id
-	builder.idFlag = true
-	return builder
-}
-func (builder *CommentReplyBuilder) Content(content string) *CommentReplyBuilder {
-	builder.content = content
-	builder.contentFlag = true
-	return builder
-}
-func (builder *CommentReplyBuilder) CreateTime(createTime int64) *CommentReplyBuilder {
-	builder.createTime = createTime
-	builder.createTimeFlag = true
-	return builder
-}
-func (builder *CommentReplyBuilder) UpdateTime(updateTime int64) *CommentReplyBuilder {
-	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
-	return builder
-}
-func (builder *CommentReplyBuilder) IsDelete(isDelete int) *CommentReplyBuilder {
-	builder.isDelete = isDelete
-	builder.isDeleteFlag = true
-	return builder
-}
-func (builder *CommentReplyBuilder) AtInfoList(atInfoList []*CommentAtInfo) *CommentReplyBuilder {
-	builder.atInfoList = atInfoList
-	builder.atInfoListFlag = true
-	return builder
-}
-func (builder *CommentReplyBuilder) Commentator(commentator string) *CommentReplyBuilder {
-	builder.commentator = commentator
-	builder.commentatorFlag = true
-	return builder
-}
-func (builder *CommentReplyBuilder) Extra(extra string) *CommentReplyBuilder {
-	builder.extra = extra
-	builder.extraFlag = true
-	return builder
-}
 
-func (builder *CommentReplyBuilder) Build() *CommentReply {
-	req := &CommentReply{}
-	if builder.idFlag {
-		req.Id = &builder.id
-
-	}
-	if builder.contentFlag {
-		req.Content = &builder.content
-
-	}
-	if builder.createTimeFlag {
-		req.CreateTime = &builder.createTime
-
-	}
-	if builder.updateTimeFlag {
-		req.UpdateTime = &builder.updateTime
-
-	}
-	if builder.isDeleteFlag {
-		req.IsDelete = &builder.isDelete
-
-	}
-	if builder.atInfoListFlag {
-		req.AtInfoList = builder.atInfoList
-	}
-	if builder.commentatorFlag {
-		req.Commentator = &builder.commentator
-
-	}
-	if builder.extraFlag {
-		req.Extra = &builder.extra
-
-	}
-	return req
+func (builder * CommentReplyBuilder) Id(id int64) *CommentReplyBuilder  {
+  builder.id = id
+  builder.idFlag = true
+  return builder
+}
+func (builder * CommentReplyBuilder) Content(content string) *CommentReplyBuilder  {
+  builder.content = content
+  builder.contentFlag = true
+  return builder
+}
+func (builder * CommentReplyBuilder) CreateTime(createTime int64) *CommentReplyBuilder  {
+  builder.createTime = createTime
+  builder.createTimeFlag = true
+  return builder
+}
+func (builder * CommentReplyBuilder) UpdateTime(updateTime int64) *CommentReplyBuilder  {
+  builder.updateTime = updateTime
+  builder.updateTimeFlag = true
+  return builder
+}
+func (builder * CommentReplyBuilder) IsDelete(isDelete int) *CommentReplyBuilder  {
+  builder.isDelete = isDelete
+  builder.isDeleteFlag = true
+  return builder
+}
+func (builder * CommentReplyBuilder) AtInfoList(atInfoList []*CommentAtInfo) *CommentReplyBuilder  {
+  builder.atInfoList = atInfoList
+  builder.atInfoListFlag = true
+  return builder
+}
+func (builder * CommentReplyBuilder) Commentator(commentator string) *CommentReplyBuilder  {
+  builder.commentator = commentator
+  builder.commentatorFlag = true
+  return builder
+}
+func (builder * CommentReplyBuilder) Extra(extra string) *CommentReplyBuilder  {
+  builder.extra = extra
+  builder.extraFlag = true
+  return builder
 }
 
+func (builder * CommentReplyBuilder ) Build() *CommentReply {
+   req := &CommentReply{}
+   if builder.idFlag {
+	  req.Id = &builder.id
+	  
+   }
+   if builder.contentFlag {
+	  req.Content = &builder.content
+	  
+   }
+   if builder.createTimeFlag {
+	  req.CreateTime = &builder.createTime
+	  
+   }
+   if builder.updateTimeFlag {
+	  req.UpdateTime = &builder.updateTime
+	  
+   }
+   if builder.isDeleteFlag {
+	  req.IsDelete = &builder.isDelete
+	  
+   }
+   if builder.atInfoListFlag {
+	  req.AtInfoList = builder.atInfoList
+   }
+   if builder.commentatorFlag {
+	  req.Commentator = &builder.commentator
+	  
+   }
+   if builder.extraFlag {
+	  req.Extra = &builder.extra
+	  
+   }
+   return req
+}
 // builder结束
 
 type CommentRequest struct {
-	Content         *string          `json:"content,omitempty"`
-	AtInfoList      []*CommentAtInfo `json:"at_info_list,omitempty"`
-	ParentCommentId *int64           `json:"parent_comment_id,omitempty,string"`
-	CommentId       *int64           `json:"comment_id,omitempty,string"`
-	DisableBot      *bool            `json:"disable_bot,omitempty"`
-	Extra           *string          `json:"extra,omitempty"`
+	Content  *string `json:"content,omitempty"`
+	AtInfoList  []*CommentAtInfo `json:"at_info_list,omitempty"`
+	ParentCommentId  *int64 `json:"parent_comment_id,omitempty,string"`
+	CommentId  *int64 `json:"comment_id,omitempty,string"`
+	DisableBot  *bool `json:"disable_bot,omitempty"`
+	Extra  *string `json:"extra,omitempty"`
 }
 
 // builder开始
 type CommentRequestBuilder struct {
-	content             string
-	contentFlag         bool
-	atInfoList          []*CommentAtInfo
-	atInfoListFlag      bool
-	parentCommentId     int64
-	parentCommentIdFlag bool
-	commentId           int64
-	commentIdFlag       bool
-	disableBot          bool
-	disableBotFlag      bool
-	extra               string
-	extraFlag           bool
+	content  string
+	contentFlag  bool
+	atInfoList  []*CommentAtInfo
+	atInfoListFlag  bool
+	parentCommentId  int64
+	parentCommentIdFlag  bool
+	commentId  int64
+	commentIdFlag  bool
+	disableBot  bool
+	disableBotFlag  bool
+	extra  string
+	extraFlag  bool
 }
 
-func NewCommentRequestBuilder() *CommentRequestBuilder {
-	builder := &CommentRequestBuilder{}
-	return builder
+func NewCommentRequestBuilder() * CommentRequestBuilder{
+   builder := &CommentRequestBuilder{}
+   return builder
 }
 
-func (builder *CommentRequestBuilder) Content(content string) *CommentRequestBuilder {
-	builder.content = content
-	builder.contentFlag = true
-	return builder
-}
-func (builder *CommentRequestBuilder) AtInfoList(atInfoList []*CommentAtInfo) *CommentRequestBuilder {
-	builder.atInfoList = atInfoList
-	builder.atInfoListFlag = true
-	return builder
-}
-func (builder *CommentRequestBuilder) ParentCommentId(parentCommentId int64) *CommentRequestBuilder {
-	builder.parentCommentId = parentCommentId
-	builder.parentCommentIdFlag = true
-	return builder
-}
-func (builder *CommentRequestBuilder) CommentId(commentId int64) *CommentRequestBuilder {
-	builder.commentId = commentId
-	builder.commentIdFlag = true
-	return builder
-}
-func (builder *CommentRequestBuilder) DisableBot(disableBot bool) *CommentRequestBuilder {
-	builder.disableBot = disableBot
-	builder.disableBotFlag = true
-	return builder
-}
-func (builder *CommentRequestBuilder) Extra(extra string) *CommentRequestBuilder {
-	builder.extra = extra
-	builder.extraFlag = true
-	return builder
-}
 
-func (builder *CommentRequestBuilder) Build() *CommentRequest {
-	req := &CommentRequest{}
-	if builder.contentFlag {
-		req.Content = &builder.content
-
-	}
-	if builder.atInfoListFlag {
-		req.AtInfoList = builder.atInfoList
-	}
-	if builder.parentCommentIdFlag {
-		req.ParentCommentId = &builder.parentCommentId
-
-	}
-	if builder.commentIdFlag {
-		req.CommentId = &builder.commentId
-
-	}
-	if builder.disableBotFlag {
-		req.DisableBot = &builder.disableBot
-
-	}
-	if builder.extraFlag {
-		req.Extra = &builder.extra
-
-	}
-	return req
+func (builder * CommentRequestBuilder) Content(content string) *CommentRequestBuilder  {
+  builder.content = content
+  builder.contentFlag = true
+  return builder
+}
+func (builder * CommentRequestBuilder) AtInfoList(atInfoList []*CommentAtInfo) *CommentRequestBuilder  {
+  builder.atInfoList = atInfoList
+  builder.atInfoListFlag = true
+  return builder
+}
+func (builder * CommentRequestBuilder) ParentCommentId(parentCommentId int64) *CommentRequestBuilder  {
+  builder.parentCommentId = parentCommentId
+  builder.parentCommentIdFlag = true
+  return builder
+}
+func (builder * CommentRequestBuilder) CommentId(commentId int64) *CommentRequestBuilder  {
+  builder.commentId = commentId
+  builder.commentIdFlag = true
+  return builder
+}
+func (builder * CommentRequestBuilder) DisableBot(disableBot bool) *CommentRequestBuilder  {
+  builder.disableBot = disableBot
+  builder.disableBotFlag = true
+  return builder
+}
+func (builder * CommentRequestBuilder) Extra(extra string) *CommentRequestBuilder  {
+  builder.extra = extra
+  builder.extraFlag = true
+  return builder
 }
 
+func (builder * CommentRequestBuilder ) Build() *CommentRequest {
+   req := &CommentRequest{}
+   if builder.contentFlag {
+	  req.Content = &builder.content
+	  
+   }
+   if builder.atInfoListFlag {
+	  req.AtInfoList = builder.atInfoList
+   }
+   if builder.parentCommentIdFlag {
+	  req.ParentCommentId = &builder.parentCommentId
+	  
+   }
+   if builder.commentIdFlag {
+	  req.CommentId = &builder.commentId
+	  
+   }
+   if builder.disableBotFlag {
+	  req.DisableBot = &builder.disableBot
+	  
+   }
+   if builder.extraFlag {
+	  req.Extra = &builder.extra
+	  
+   }
+   return req
+}
 // builder结束
 
 type Count struct {
-	Total   *int  `json:"total,omitempty"`
-	HasMore *bool `json:"has_more,omitempty"`
+	Total  *int `json:"total,omitempty"`
+	HasMore  *bool `json:"has_more,omitempty"`
 }
 
 // builder开始
 type CountBuilder struct {
-	total       int
-	totalFlag   bool
-	hasMore     bool
-	hasMoreFlag bool
+	total  int
+	totalFlag  bool
+	hasMore  bool
+	hasMoreFlag  bool
 }
 
-func NewCountBuilder() *CountBuilder {
-	builder := &CountBuilder{}
-	return builder
+func NewCountBuilder() * CountBuilder{
+   builder := &CountBuilder{}
+   return builder
 }
 
-func (builder *CountBuilder) Total(total int) *CountBuilder {
-	builder.total = total
-	builder.totalFlag = true
-	return builder
+
+func (builder * CountBuilder) Total(total int) *CountBuilder  {
+  builder.total = total
+  builder.totalFlag = true
+  return builder
 }
-func (builder *CountBuilder) HasMore(hasMore bool) *CountBuilder {
-	builder.hasMore = hasMore
-	builder.hasMoreFlag = true
-	return builder
-}
-
-func (builder *CountBuilder) Build() *Count {
-	req := &Count{}
-	if builder.totalFlag {
-		req.Total = &builder.total
-
-	}
-	if builder.hasMoreFlag {
-		req.HasMore = &builder.hasMore
-
-	}
-	return req
+func (builder * CountBuilder) HasMore(hasMore bool) *CountBuilder  {
+  builder.hasMore = hasMore
+  builder.hasMoreFlag = true
+  return builder
 }
 
+func (builder * CountBuilder ) Build() *Count {
+   req := &Count{}
+   if builder.totalFlag {
+	  req.Total = &builder.total
+	  
+   }
+   if builder.hasMoreFlag {
+	  req.HasMore = &builder.hasMore
+	  
+   }
+   return req
+}
 // builder结束
 
 type ExteranlInstanceCheck struct {
-	InstanceId *string                 `json:"instance_id,omitempty"`
-	UpdateTime *int64                  `json:"update_time,omitempty,string"`
-	Tasks      []*ExternalInstanceTask `json:"tasks,omitempty"`
+	InstanceId  *string `json:"instance_id,omitempty"`
+	UpdateTime  *int64 `json:"update_time,omitempty,string"`
+	Tasks  []*ExternalInstanceTask `json:"tasks,omitempty"`
 }
 
 // builder开始
 type ExteranlInstanceCheckBuilder struct {
-	instanceId     string
-	instanceIdFlag bool
-	updateTime     int64
-	updateTimeFlag bool
-	tasks          []*ExternalInstanceTask
-	tasksFlag      bool
+	instanceId  string
+	instanceIdFlag  bool
+	updateTime  int64
+	updateTimeFlag  bool
+	tasks  []*ExternalInstanceTask
+	tasksFlag  bool
 }
 
-func NewExteranlInstanceCheckBuilder() *ExteranlInstanceCheckBuilder {
-	builder := &ExteranlInstanceCheckBuilder{}
-	return builder
+func NewExteranlInstanceCheckBuilder() * ExteranlInstanceCheckBuilder{
+   builder := &ExteranlInstanceCheckBuilder{}
+   return builder
 }
 
-func (builder *ExteranlInstanceCheckBuilder) InstanceId(instanceId string) *ExteranlInstanceCheckBuilder {
-	builder.instanceId = instanceId
-	builder.instanceIdFlag = true
-	return builder
-}
-func (builder *ExteranlInstanceCheckBuilder) UpdateTime(updateTime int64) *ExteranlInstanceCheckBuilder {
-	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
-	return builder
-}
-func (builder *ExteranlInstanceCheckBuilder) Tasks(tasks []*ExternalInstanceTask) *ExteranlInstanceCheckBuilder {
-	builder.tasks = tasks
-	builder.tasksFlag = true
-	return builder
-}
 
-func (builder *ExteranlInstanceCheckBuilder) Build() *ExteranlInstanceCheck {
-	req := &ExteranlInstanceCheck{}
-	if builder.instanceIdFlag {
-		req.InstanceId = &builder.instanceId
-
-	}
-	if builder.updateTimeFlag {
-		req.UpdateTime = &builder.updateTime
-
-	}
-	if builder.tasksFlag {
-		req.Tasks = builder.tasks
-	}
-	return req
+func (builder * ExteranlInstanceCheckBuilder) InstanceId(instanceId string) *ExteranlInstanceCheckBuilder  {
+  builder.instanceId = instanceId
+  builder.instanceIdFlag = true
+  return builder
+}
+func (builder * ExteranlInstanceCheckBuilder) UpdateTime(updateTime int64) *ExteranlInstanceCheckBuilder  {
+  builder.updateTime = updateTime
+  builder.updateTimeFlag = true
+  return builder
+}
+func (builder * ExteranlInstanceCheckBuilder) Tasks(tasks []*ExternalInstanceTask) *ExteranlInstanceCheckBuilder  {
+  builder.tasks = tasks
+  builder.tasksFlag = true
+  return builder
 }
 
+func (builder * ExteranlInstanceCheckBuilder ) Build() *ExteranlInstanceCheck {
+   req := &ExteranlInstanceCheck{}
+   if builder.instanceIdFlag {
+	  req.InstanceId = &builder.instanceId
+	  
+   }
+   if builder.updateTimeFlag {
+	  req.UpdateTime = &builder.updateTime
+	  
+   }
+   if builder.tasksFlag {
+	  req.Tasks = builder.tasks
+   }
+   return req
+}
 // builder结束
 
 type ExteranlInstanceCheckResponse struct {
-	InstanceId *string                 `json:"instance_id,omitempty"`
-	UpdateTime *int64                  `json:"update_time,omitempty,string"`
-	Tasks      []*ExternalInstanceTask `json:"tasks,omitempty"`
+	InstanceId  *string `json:"instance_id,omitempty"`
+	UpdateTime  *int64 `json:"update_time,omitempty,string"`
+	Tasks  []*ExternalInstanceTask `json:"tasks,omitempty"`
 }
 
 // builder开始
 type ExteranlInstanceCheckResponseBuilder struct {
-	instanceId     string
-	instanceIdFlag bool
-	updateTime     int64
-	updateTimeFlag bool
-	tasks          []*ExternalInstanceTask
-	tasksFlag      bool
+	instanceId  string
+	instanceIdFlag  bool
+	updateTime  int64
+	updateTimeFlag  bool
+	tasks  []*ExternalInstanceTask
+	tasksFlag  bool
 }
 
-func NewExteranlInstanceCheckResponseBuilder() *ExteranlInstanceCheckResponseBuilder {
-	builder := &ExteranlInstanceCheckResponseBuilder{}
-	return builder
+func NewExteranlInstanceCheckResponseBuilder() * ExteranlInstanceCheckResponseBuilder{
+   builder := &ExteranlInstanceCheckResponseBuilder{}
+   return builder
 }
 
-func (builder *ExteranlInstanceCheckResponseBuilder) InstanceId(instanceId string) *ExteranlInstanceCheckResponseBuilder {
-	builder.instanceId = instanceId
-	builder.instanceIdFlag = true
-	return builder
-}
-func (builder *ExteranlInstanceCheckResponseBuilder) UpdateTime(updateTime int64) *ExteranlInstanceCheckResponseBuilder {
-	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
-	return builder
-}
-func (builder *ExteranlInstanceCheckResponseBuilder) Tasks(tasks []*ExternalInstanceTask) *ExteranlInstanceCheckResponseBuilder {
-	builder.tasks = tasks
-	builder.tasksFlag = true
-	return builder
-}
 
-func (builder *ExteranlInstanceCheckResponseBuilder) Build() *ExteranlInstanceCheckResponse {
-	req := &ExteranlInstanceCheckResponse{}
-	if builder.instanceIdFlag {
-		req.InstanceId = &builder.instanceId
-
-	}
-	if builder.updateTimeFlag {
-		req.UpdateTime = &builder.updateTime
-
-	}
-	if builder.tasksFlag {
-		req.Tasks = builder.tasks
-	}
-	return req
+func (builder * ExteranlInstanceCheckResponseBuilder) InstanceId(instanceId string) *ExteranlInstanceCheckResponseBuilder  {
+  builder.instanceId = instanceId
+  builder.instanceIdFlag = true
+  return builder
+}
+func (builder * ExteranlInstanceCheckResponseBuilder) UpdateTime(updateTime int64) *ExteranlInstanceCheckResponseBuilder  {
+  builder.updateTime = updateTime
+  builder.updateTimeFlag = true
+  return builder
+}
+func (builder * ExteranlInstanceCheckResponseBuilder) Tasks(tasks []*ExternalInstanceTask) *ExteranlInstanceCheckResponseBuilder  {
+  builder.tasks = tasks
+  builder.tasksFlag = true
+  return builder
 }
 
+func (builder * ExteranlInstanceCheckResponseBuilder ) Build() *ExteranlInstanceCheckResponse {
+   req := &ExteranlInstanceCheckResponse{}
+   if builder.instanceIdFlag {
+	  req.InstanceId = &builder.instanceId
+	  
+   }
+   if builder.updateTimeFlag {
+	  req.UpdateTime = &builder.updateTime
+	  
+   }
+   if builder.tasksFlag {
+	  req.Tasks = builder.tasks
+   }
+   return req
+}
 // builder结束
 
 type ExternalApproval struct {
-	ApprovalName  *string                  `json:"approval_name,omitempty"`
-	ApprovalCode  *string                  `json:"approval_code,omitempty"`
-	GroupCode     *string                  `json:"group_code,omitempty"`
-	GroupName     *string                  `json:"group_name,omitempty"`
-	Description   *string                  `json:"description,omitempty"`
-	External      *ApprovalCreateExternal  `json:"external,omitempty"`
-	Viewers       []*ApprovalCreateViewers `json:"viewers,omitempty"`
-	I18nResources []*I18nResource          `json:"i18n_resources,omitempty"`
+	ApprovalName  *string `json:"approval_name,omitempty"`
+	ApprovalCode  *string `json:"approval_code,omitempty"`
+	GroupCode  *string `json:"group_code,omitempty"`
+	GroupName  *string `json:"group_name,omitempty"`
+	Description  *string `json:"description,omitempty"`
+	External  *ApprovalCreateExternal `json:"external,omitempty"`
+	Viewers  []*ApprovalCreateViewers `json:"viewers,omitempty"`
+	I18nResources  []*I18nResource `json:"i18n_resources,omitempty"`
 }
 
 // builder开始
 type ExternalApprovalBuilder struct {
-	approvalName      string
+	approvalName  string
 	approvalNameFlag  bool
-	approvalCode      string
+	approvalCode  string
 	approvalCodeFlag  bool
-	groupCode         string
-	groupCodeFlag     bool
-	groupName         string
-	groupNameFlag     bool
-	description       string
-	descriptionFlag   bool
-	external          *ApprovalCreateExternal
-	externalFlag      bool
-	viewers           []*ApprovalCreateViewers
-	viewersFlag       bool
-	i18nResources     []*I18nResource
-	i18nResourcesFlag bool
+	groupCode  string
+	groupCodeFlag  bool
+	groupName  string
+	groupNameFlag  bool
+	description  string
+	descriptionFlag  bool
+	external  *ApprovalCreateExternal
+	externalFlag  bool
+	viewers  []*ApprovalCreateViewers
+	viewersFlag  bool
+	i18nResources  []*I18nResource
+	i18nResourcesFlag  bool
 }
 
-func NewExternalApprovalBuilder() *ExternalApprovalBuilder {
-	builder := &ExternalApprovalBuilder{}
-	return builder
+func NewExternalApprovalBuilder() * ExternalApprovalBuilder{
+   builder := &ExternalApprovalBuilder{}
+   return builder
 }
 
-func (builder *ExternalApprovalBuilder) ApprovalName(approvalName string) *ExternalApprovalBuilder {
-	builder.approvalName = approvalName
-	builder.approvalNameFlag = true
-	return builder
+
+func (builder * ExternalApprovalBuilder) ApprovalName(approvalName string) *ExternalApprovalBuilder  {
+  builder.approvalName = approvalName
+  builder.approvalNameFlag = true
+  return builder
 }
-func (builder *ExternalApprovalBuilder) ApprovalCode(approvalCode string) *ExternalApprovalBuilder {
-	builder.approvalCode = approvalCode
-	builder.approvalCodeFlag = true
-	return builder
+func (builder * ExternalApprovalBuilder) ApprovalCode(approvalCode string) *ExternalApprovalBuilder  {
+  builder.approvalCode = approvalCode
+  builder.approvalCodeFlag = true
+  return builder
 }
-func (builder *ExternalApprovalBuilder) GroupCode(groupCode string) *ExternalApprovalBuilder {
-	builder.groupCode = groupCode
-	builder.groupCodeFlag = true
-	return builder
+func (builder * ExternalApprovalBuilder) GroupCode(groupCode string) *ExternalApprovalBuilder  {
+  builder.groupCode = groupCode
+  builder.groupCodeFlag = true
+  return builder
 }
-func (builder *ExternalApprovalBuilder) GroupName(groupName string) *ExternalApprovalBuilder {
-	builder.groupName = groupName
-	builder.groupNameFlag = true
-	return builder
+func (builder * ExternalApprovalBuilder) GroupName(groupName string) *ExternalApprovalBuilder  {
+  builder.groupName = groupName
+  builder.groupNameFlag = true
+  return builder
 }
-func (builder *ExternalApprovalBuilder) Description(description string) *ExternalApprovalBuilder {
-	builder.description = description
-	builder.descriptionFlag = true
-	return builder
+func (builder * ExternalApprovalBuilder) Description(description string) *ExternalApprovalBuilder  {
+  builder.description = description
+  builder.descriptionFlag = true
+  return builder
 }
-func (builder *ExternalApprovalBuilder) External(external *ApprovalCreateExternal) *ExternalApprovalBuilder {
-	builder.external = external
-	builder.externalFlag = true
-	return builder
+func (builder * ExternalApprovalBuilder) External(external *ApprovalCreateExternal) *ExternalApprovalBuilder  {
+  builder.external = external
+  builder.externalFlag = true
+  return builder
 }
-func (builder *ExternalApprovalBuilder) Viewers(viewers []*ApprovalCreateViewers) *ExternalApprovalBuilder {
-	builder.viewers = viewers
-	builder.viewersFlag = true
-	return builder
+func (builder * ExternalApprovalBuilder) Viewers(viewers []*ApprovalCreateViewers) *ExternalApprovalBuilder  {
+  builder.viewers = viewers
+  builder.viewersFlag = true
+  return builder
 }
-func (builder *ExternalApprovalBuilder) I18nResources(i18nResources []*I18nResource) *ExternalApprovalBuilder {
-	builder.i18nResources = i18nResources
-	builder.i18nResourcesFlag = true
-	return builder
+func (builder * ExternalApprovalBuilder) I18nResources(i18nResources []*I18nResource) *ExternalApprovalBuilder  {
+  builder.i18nResources = i18nResources
+  builder.i18nResourcesFlag = true
+  return builder
 }
 
-func (builder *ExternalApprovalBuilder) Build() *ExternalApproval {
-	req := &ExternalApproval{}
-	if builder.approvalNameFlag {
-		req.ApprovalName = &builder.approvalName
-
-	}
-	if builder.approvalCodeFlag {
-		req.ApprovalCode = &builder.approvalCode
-
-	}
-	if builder.groupCodeFlag {
-		req.GroupCode = &builder.groupCode
-
-	}
-	if builder.groupNameFlag {
-		req.GroupName = &builder.groupName
-
-	}
-	if builder.descriptionFlag {
-		req.Description = &builder.description
-
-	}
-	if builder.externalFlag {
-		req.External = builder.external
-	}
-	if builder.viewersFlag {
-		req.Viewers = builder.viewers
-	}
-	if builder.i18nResourcesFlag {
-		req.I18nResources = builder.i18nResources
-	}
-	return req
+func (builder * ExternalApprovalBuilder ) Build() *ExternalApproval {
+   req := &ExternalApproval{}
+   if builder.approvalNameFlag {
+	  req.ApprovalName = &builder.approvalName
+	  
+   }
+   if builder.approvalCodeFlag {
+	  req.ApprovalCode = &builder.approvalCode
+	  
+   }
+   if builder.groupCodeFlag {
+	  req.GroupCode = &builder.groupCode
+	  
+   }
+   if builder.groupNameFlag {
+	  req.GroupName = &builder.groupName
+	  
+   }
+   if builder.descriptionFlag {
+	  req.Description = &builder.description
+	  
+   }
+   if builder.externalFlag {
+	  req.External = builder.external
+   }
+   if builder.viewersFlag {
+	  req.Viewers = builder.viewers
+   }
+   if builder.i18nResourcesFlag {
+	  req.I18nResources = builder.i18nResources
+   }
+   return req
 }
-
 // builder结束
 
 type ExternalInstance struct {
-	ApprovalCode   *string                     `json:"approval_code,omitempty"`
-	Status         *string                     `json:"status,omitempty"`
-	Extra          *string                     `json:"extra,omitempty"`
-	InstanceId     *string                     `json:"instance_id,omitempty"`
-	Links          *ExternalInstanceLink       `json:"links,omitempty"`
-	Title          *string                     `json:"title,omitempty"`
-	Form           []*ExternalInstanceForm     `json:"form,omitempty"`
-	UserId         *string                     `json:"user_id,omitempty"`
-	UserName       *string                     `json:"user_name,omitempty"`
-	OpenId         *string                     `json:"open_id,omitempty"`
-	DepartmentId   *string                     `json:"department_id,omitempty"`
-	DepartmentName *string                     `json:"department_name,omitempty"`
-	StartTime      *int64                      `json:"start_time,omitempty,string"`
-	EndTime        *int64                      `json:"end_time,omitempty,string"`
-	UpdateTime     *int64                      `json:"update_time,omitempty,string"`
-	DisplayMethod  *string                     `json:"display_method,omitempty"`
-	UpdateMode     *string                     `json:"update_mode,omitempty"`
-	TaskList       []*ExternalInstanceTaskNode `json:"task_list,omitempty"`
-	CcList         []*CcNode                   `json:"cc_list,omitempty"`
-	I18nResources  []*I18nResource             `json:"i18n_resources,omitempty"`
+	ApprovalCode  *string `json:"approval_code,omitempty"`
+	Status  *string `json:"status,omitempty"`
+	Extra  *string `json:"extra,omitempty"`
+	InstanceId  *string `json:"instance_id,omitempty"`
+	Links  *ExternalInstanceLink `json:"links,omitempty"`
+	Title  *string `json:"title,omitempty"`
+	Form  []*ExternalInstanceForm `json:"form,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
+	UserName  *string `json:"user_name,omitempty"`
+	OpenId  *string `json:"open_id,omitempty"`
+	DepartmentId  *string `json:"department_id,omitempty"`
+	DepartmentName  *string `json:"department_name,omitempty"`
+	StartTime  *int64 `json:"start_time,omitempty,string"`
+	EndTime  *int64 `json:"end_time,omitempty,string"`
+	UpdateTime  *int64 `json:"update_time,omitempty,string"`
+	DisplayMethod  *string `json:"display_method,omitempty"`
+	UpdateMode  *string `json:"update_mode,omitempty"`
+	TaskList  []*ExternalInstanceTaskNode `json:"task_list,omitempty"`
+	CcList  []*CcNode `json:"cc_list,omitempty"`
+	I18nResources  []*I18nResource `json:"i18n_resources,omitempty"`
 }
 
 // builder开始
 type ExternalInstanceBuilder struct {
-	approvalCode       string
-	approvalCodeFlag   bool
-	status             string
-	statusFlag         bool
-	extra              string
-	extraFlag          bool
-	instanceId         string
-	instanceIdFlag     bool
-	links              *ExternalInstanceLink
-	linksFlag          bool
-	title              string
-	titleFlag          bool
-	form               []*ExternalInstanceForm
-	formFlag           bool
-	userId             string
-	userIdFlag         bool
-	userName           string
-	userNameFlag       bool
-	openId             string
-	openIdFlag         bool
-	departmentId       string
-	departmentIdFlag   bool
-	departmentName     string
-	departmentNameFlag bool
-	startTime          int64
-	startTimeFlag      bool
-	endTime            int64
-	endTimeFlag        bool
-	updateTime         int64
-	updateTimeFlag     bool
-	displayMethod      string
+	approvalCode  string
+	approvalCodeFlag  bool
+	status  string
+	statusFlag  bool
+	extra  string
+	extraFlag  bool
+	instanceId  string
+	instanceIdFlag  bool
+	links  *ExternalInstanceLink
+	linksFlag  bool
+	title  string
+	titleFlag  bool
+	form  []*ExternalInstanceForm
+	formFlag  bool
+	userId  string
+	userIdFlag  bool
+	userName  string
+	userNameFlag  bool
+	openId  string
+	openIdFlag  bool
+	departmentId  string
+	departmentIdFlag  bool
+	departmentName  string
+	departmentNameFlag  bool
+	startTime  int64
+	startTimeFlag  bool
+	endTime  int64
+	endTimeFlag  bool
+	updateTime  int64
+	updateTimeFlag  bool
+	displayMethod  string
 	displayMethodFlag  bool
-	updateMode         string
-	updateModeFlag     bool
-	taskList           []*ExternalInstanceTaskNode
-	taskListFlag       bool
-	ccList             []*CcNode
-	ccListFlag         bool
-	i18nResources      []*I18nResource
+	updateMode  string
+	updateModeFlag  bool
+	taskList  []*ExternalInstanceTaskNode
+	taskListFlag  bool
+	ccList  []*CcNode
+	ccListFlag  bool
+	i18nResources  []*I18nResource
 	i18nResourcesFlag  bool
 }
 
-func NewExternalInstanceBuilder() *ExternalInstanceBuilder {
-	builder := &ExternalInstanceBuilder{}
-	return builder
+func NewExternalInstanceBuilder() * ExternalInstanceBuilder{
+   builder := &ExternalInstanceBuilder{}
+   return builder
 }
 
-func (builder *ExternalInstanceBuilder) ApprovalCode(approvalCode string) *ExternalInstanceBuilder {
-	builder.approvalCode = approvalCode
-	builder.approvalCodeFlag = true
-	return builder
+
+func (builder * ExternalInstanceBuilder) ApprovalCode(approvalCode string) *ExternalInstanceBuilder  {
+  builder.approvalCode = approvalCode
+  builder.approvalCodeFlag = true
+  return builder
 }
-func (builder *ExternalInstanceBuilder) Status(status string) *ExternalInstanceBuilder {
-	builder.status = status
-	builder.statusFlag = true
-	return builder
+func (builder * ExternalInstanceBuilder) Status(status string) *ExternalInstanceBuilder  {
+  builder.status = status
+  builder.statusFlag = true
+  return builder
 }
-func (builder *ExternalInstanceBuilder) Extra(extra string) *ExternalInstanceBuilder {
-	builder.extra = extra
-	builder.extraFlag = true
-	return builder
+func (builder * ExternalInstanceBuilder) Extra(extra string) *ExternalInstanceBuilder  {
+  builder.extra = extra
+  builder.extraFlag = true
+  return builder
 }
-func (builder *ExternalInstanceBuilder) InstanceId(instanceId string) *ExternalInstanceBuilder {
-	builder.instanceId = instanceId
-	builder.instanceIdFlag = true
-	return builder
+func (builder * ExternalInstanceBuilder) InstanceId(instanceId string) *ExternalInstanceBuilder  {
+  builder.instanceId = instanceId
+  builder.instanceIdFlag = true
+  return builder
 }
-func (builder *ExternalInstanceBuilder) Links(links *ExternalInstanceLink) *ExternalInstanceBuilder {
-	builder.links = links
-	builder.linksFlag = true
-	return builder
+func (builder * ExternalInstanceBuilder) Links(links *ExternalInstanceLink) *ExternalInstanceBuilder  {
+  builder.links = links
+  builder.linksFlag = true
+  return builder
 }
-func (builder *ExternalInstanceBuilder) Title(title string) *ExternalInstanceBuilder {
-	builder.title = title
-	builder.titleFlag = true
-	return builder
+func (builder * ExternalInstanceBuilder) Title(title string) *ExternalInstanceBuilder  {
+  builder.title = title
+  builder.titleFlag = true
+  return builder
 }
-func (builder *ExternalInstanceBuilder) Form(form []*ExternalInstanceForm) *ExternalInstanceBuilder {
-	builder.form = form
-	builder.formFlag = true
-	return builder
+func (builder * ExternalInstanceBuilder) Form(form []*ExternalInstanceForm) *ExternalInstanceBuilder  {
+  builder.form = form
+  builder.formFlag = true
+  return builder
 }
-func (builder *ExternalInstanceBuilder) UserId(userId string) *ExternalInstanceBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
+func (builder * ExternalInstanceBuilder) UserId(userId string) *ExternalInstanceBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
-func (builder *ExternalInstanceBuilder) UserName(userName string) *ExternalInstanceBuilder {
-	builder.userName = userName
-	builder.userNameFlag = true
-	return builder
+func (builder * ExternalInstanceBuilder) UserName(userName string) *ExternalInstanceBuilder  {
+  builder.userName = userName
+  builder.userNameFlag = true
+  return builder
 }
-func (builder *ExternalInstanceBuilder) OpenId(openId string) *ExternalInstanceBuilder {
-	builder.openId = openId
-	builder.openIdFlag = true
-	return builder
+func (builder * ExternalInstanceBuilder) OpenId(openId string) *ExternalInstanceBuilder  {
+  builder.openId = openId
+  builder.openIdFlag = true
+  return builder
 }
-func (builder *ExternalInstanceBuilder) DepartmentId(departmentId string) *ExternalInstanceBuilder {
-	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
-	return builder
+func (builder * ExternalInstanceBuilder) DepartmentId(departmentId string) *ExternalInstanceBuilder  {
+  builder.departmentId = departmentId
+  builder.departmentIdFlag = true
+  return builder
 }
-func (builder *ExternalInstanceBuilder) DepartmentName(departmentName string) *ExternalInstanceBuilder {
-	builder.departmentName = departmentName
-	builder.departmentNameFlag = true
-	return builder
+func (builder * ExternalInstanceBuilder) DepartmentName(departmentName string) *ExternalInstanceBuilder  {
+  builder.departmentName = departmentName
+  builder.departmentNameFlag = true
+  return builder
 }
-func (builder *ExternalInstanceBuilder) StartTime(startTime int64) *ExternalInstanceBuilder {
-	builder.startTime = startTime
-	builder.startTimeFlag = true
-	return builder
+func (builder * ExternalInstanceBuilder) StartTime(startTime int64) *ExternalInstanceBuilder  {
+  builder.startTime = startTime
+  builder.startTimeFlag = true
+  return builder
 }
-func (builder *ExternalInstanceBuilder) EndTime(endTime int64) *ExternalInstanceBuilder {
-	builder.endTime = endTime
-	builder.endTimeFlag = true
-	return builder
+func (builder * ExternalInstanceBuilder) EndTime(endTime int64) *ExternalInstanceBuilder  {
+  builder.endTime = endTime
+  builder.endTimeFlag = true
+  return builder
 }
-func (builder *ExternalInstanceBuilder) UpdateTime(updateTime int64) *ExternalInstanceBuilder {
-	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
-	return builder
+func (builder * ExternalInstanceBuilder) UpdateTime(updateTime int64) *ExternalInstanceBuilder  {
+  builder.updateTime = updateTime
+  builder.updateTimeFlag = true
+  return builder
 }
-func (builder *ExternalInstanceBuilder) DisplayMethod(displayMethod string) *ExternalInstanceBuilder {
-	builder.displayMethod = displayMethod
-	builder.displayMethodFlag = true
-	return builder
+func (builder * ExternalInstanceBuilder) DisplayMethod(displayMethod string) *ExternalInstanceBuilder  {
+  builder.displayMethod = displayMethod
+  builder.displayMethodFlag = true
+  return builder
 }
-func (builder *ExternalInstanceBuilder) UpdateMode(updateMode string) *ExternalInstanceBuilder {
-	builder.updateMode = updateMode
-	builder.updateModeFlag = true
-	return builder
+func (builder * ExternalInstanceBuilder) UpdateMode(updateMode string) *ExternalInstanceBuilder  {
+  builder.updateMode = updateMode
+  builder.updateModeFlag = true
+  return builder
 }
-func (builder *ExternalInstanceBuilder) TaskList(taskList []*ExternalInstanceTaskNode) *ExternalInstanceBuilder {
-	builder.taskList = taskList
-	builder.taskListFlag = true
-	return builder
+func (builder * ExternalInstanceBuilder) TaskList(taskList []*ExternalInstanceTaskNode) *ExternalInstanceBuilder  {
+  builder.taskList = taskList
+  builder.taskListFlag = true
+  return builder
 }
-func (builder *ExternalInstanceBuilder) CcList(ccList []*CcNode) *ExternalInstanceBuilder {
-	builder.ccList = ccList
-	builder.ccListFlag = true
-	return builder
+func (builder * ExternalInstanceBuilder) CcList(ccList []*CcNode) *ExternalInstanceBuilder  {
+  builder.ccList = ccList
+  builder.ccListFlag = true
+  return builder
 }
-func (builder *ExternalInstanceBuilder) I18nResources(i18nResources []*I18nResource) *ExternalInstanceBuilder {
-	builder.i18nResources = i18nResources
-	builder.i18nResourcesFlag = true
-	return builder
+func (builder * ExternalInstanceBuilder) I18nResources(i18nResources []*I18nResource) *ExternalInstanceBuilder  {
+  builder.i18nResources = i18nResources
+  builder.i18nResourcesFlag = true
+  return builder
 }
 
-func (builder *ExternalInstanceBuilder) Build() *ExternalInstance {
-	req := &ExternalInstance{}
-	if builder.approvalCodeFlag {
-		req.ApprovalCode = &builder.approvalCode
-
-	}
-	if builder.statusFlag {
-		req.Status = &builder.status
-
-	}
-	if builder.extraFlag {
-		req.Extra = &builder.extra
-
-	}
-	if builder.instanceIdFlag {
-		req.InstanceId = &builder.instanceId
-
-	}
-	if builder.linksFlag {
-		req.Links = builder.links
-	}
-	if builder.titleFlag {
-		req.Title = &builder.title
-
-	}
-	if builder.formFlag {
-		req.Form = builder.form
-	}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	if builder.userNameFlag {
-		req.UserName = &builder.userName
-
-	}
-	if builder.openIdFlag {
-		req.OpenId = &builder.openId
-
-	}
-	if builder.departmentIdFlag {
-		req.DepartmentId = &builder.departmentId
-
-	}
-	if builder.departmentNameFlag {
-		req.DepartmentName = &builder.departmentName
-
-	}
-	if builder.startTimeFlag {
-		req.StartTime = &builder.startTime
-
-	}
-	if builder.endTimeFlag {
-		req.EndTime = &builder.endTime
-
-	}
-	if builder.updateTimeFlag {
-		req.UpdateTime = &builder.updateTime
-
-	}
-	if builder.displayMethodFlag {
-		req.DisplayMethod = &builder.displayMethod
-
-	}
-	if builder.updateModeFlag {
-		req.UpdateMode = &builder.updateMode
-
-	}
-	if builder.taskListFlag {
-		req.TaskList = builder.taskList
-	}
-	if builder.ccListFlag {
-		req.CcList = builder.ccList
-	}
-	if builder.i18nResourcesFlag {
-		req.I18nResources = builder.i18nResources
-	}
-	return req
+func (builder * ExternalInstanceBuilder ) Build() *ExternalInstance {
+   req := &ExternalInstance{}
+   if builder.approvalCodeFlag {
+	  req.ApprovalCode = &builder.approvalCode
+	  
+   }
+   if builder.statusFlag {
+	  req.Status = &builder.status
+	  
+   }
+   if builder.extraFlag {
+	  req.Extra = &builder.extra
+	  
+   }
+   if builder.instanceIdFlag {
+	  req.InstanceId = &builder.instanceId
+	  
+   }
+   if builder.linksFlag {
+	  req.Links = builder.links
+   }
+   if builder.titleFlag {
+	  req.Title = &builder.title
+	  
+   }
+   if builder.formFlag {
+	  req.Form = builder.form
+   }
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.userNameFlag {
+	  req.UserName = &builder.userName
+	  
+   }
+   if builder.openIdFlag {
+	  req.OpenId = &builder.openId
+	  
+   }
+   if builder.departmentIdFlag {
+	  req.DepartmentId = &builder.departmentId
+	  
+   }
+   if builder.departmentNameFlag {
+	  req.DepartmentName = &builder.departmentName
+	  
+   }
+   if builder.startTimeFlag {
+	  req.StartTime = &builder.startTime
+	  
+   }
+   if builder.endTimeFlag {
+	  req.EndTime = &builder.endTime
+	  
+   }
+   if builder.updateTimeFlag {
+	  req.UpdateTime = &builder.updateTime
+	  
+   }
+   if builder.displayMethodFlag {
+	  req.DisplayMethod = &builder.displayMethod
+	  
+   }
+   if builder.updateModeFlag {
+	  req.UpdateMode = &builder.updateMode
+	  
+   }
+   if builder.taskListFlag {
+	  req.TaskList = builder.taskList
+   }
+   if builder.ccListFlag {
+	  req.CcList = builder.ccList
+   }
+   if builder.i18nResourcesFlag {
+	  req.I18nResources = builder.i18nResources
+   }
+   return req
 }
-
 // builder结束
 
 type ExternalInstanceForm struct {
 	Name  *string `json:"name,omitempty"`
-	Value *string `json:"value,omitempty"`
+	Value  *string `json:"value,omitempty"`
 }
 
 // builder开始
 type ExternalInstanceFormBuilder struct {
-	name      string
+	name  string
 	nameFlag  bool
-	value     string
-	valueFlag bool
+	value  string
+	valueFlag  bool
 }
 
-func NewExternalInstanceFormBuilder() *ExternalInstanceFormBuilder {
-	builder := &ExternalInstanceFormBuilder{}
-	return builder
+func NewExternalInstanceFormBuilder() * ExternalInstanceFormBuilder{
+   builder := &ExternalInstanceFormBuilder{}
+   return builder
 }
 
-func (builder *ExternalInstanceFormBuilder) Name(name string) *ExternalInstanceFormBuilder {
-	builder.name = name
-	builder.nameFlag = true
-	return builder
+
+func (builder * ExternalInstanceFormBuilder) Name(name string) *ExternalInstanceFormBuilder  {
+  builder.name = name
+  builder.nameFlag = true
+  return builder
 }
-func (builder *ExternalInstanceFormBuilder) Value(value string) *ExternalInstanceFormBuilder {
-	builder.value = value
-	builder.valueFlag = true
-	return builder
-}
-
-func (builder *ExternalInstanceFormBuilder) Build() *ExternalInstanceForm {
-	req := &ExternalInstanceForm{}
-	if builder.nameFlag {
-		req.Name = &builder.name
-
-	}
-	if builder.valueFlag {
-		req.Value = &builder.value
-
-	}
-	return req
+func (builder * ExternalInstanceFormBuilder) Value(value string) *ExternalInstanceFormBuilder  {
+  builder.value = value
+  builder.valueFlag = true
+  return builder
 }
 
+func (builder * ExternalInstanceFormBuilder ) Build() *ExternalInstanceForm {
+   req := &ExternalInstanceForm{}
+   if builder.nameFlag {
+	  req.Name = &builder.name
+	  
+   }
+   if builder.valueFlag {
+	  req.Value = &builder.value
+	  
+   }
+   return req
+}
 // builder结束
 
 type ExternalInstanceLink struct {
-	PcLink     *string `json:"pc_link,omitempty"`
-	MobileLink *string `json:"mobile_link,omitempty"`
+	PcLink  *string `json:"pc_link,omitempty"`
+	MobileLink  *string `json:"mobile_link,omitempty"`
 }
 
 // builder开始
 type ExternalInstanceLinkBuilder struct {
-	pcLink         string
-	pcLinkFlag     bool
-	mobileLink     string
-	mobileLinkFlag bool
+	pcLink  string
+	pcLinkFlag  bool
+	mobileLink  string
+	mobileLinkFlag  bool
 }
 
-func NewExternalInstanceLinkBuilder() *ExternalInstanceLinkBuilder {
-	builder := &ExternalInstanceLinkBuilder{}
-	return builder
+func NewExternalInstanceLinkBuilder() * ExternalInstanceLinkBuilder{
+   builder := &ExternalInstanceLinkBuilder{}
+   return builder
 }
 
-func (builder *ExternalInstanceLinkBuilder) PcLink(pcLink string) *ExternalInstanceLinkBuilder {
-	builder.pcLink = pcLink
-	builder.pcLinkFlag = true
-	return builder
+
+func (builder * ExternalInstanceLinkBuilder) PcLink(pcLink string) *ExternalInstanceLinkBuilder  {
+  builder.pcLink = pcLink
+  builder.pcLinkFlag = true
+  return builder
 }
-func (builder *ExternalInstanceLinkBuilder) MobileLink(mobileLink string) *ExternalInstanceLinkBuilder {
-	builder.mobileLink = mobileLink
-	builder.mobileLinkFlag = true
-	return builder
-}
-
-func (builder *ExternalInstanceLinkBuilder) Build() *ExternalInstanceLink {
-	req := &ExternalInstanceLink{}
-	if builder.pcLinkFlag {
-		req.PcLink = &builder.pcLink
-
-	}
-	if builder.mobileLinkFlag {
-		req.MobileLink = &builder.mobileLink
-
-	}
-	return req
+func (builder * ExternalInstanceLinkBuilder) MobileLink(mobileLink string) *ExternalInstanceLinkBuilder  {
+  builder.mobileLink = mobileLink
+  builder.mobileLinkFlag = true
+  return builder
 }
 
+func (builder * ExternalInstanceLinkBuilder ) Build() *ExternalInstanceLink {
+   req := &ExternalInstanceLink{}
+   if builder.pcLinkFlag {
+	  req.PcLink = &builder.pcLink
+	  
+   }
+   if builder.mobileLinkFlag {
+	  req.MobileLink = &builder.mobileLink
+	  
+   }
+   return req
+}
 // builder结束
 
 type ExternalInstanceTask struct {
-	TaskId     *string `json:"task_id,omitempty"`
-	UpdateTime *int64  `json:"update_time,omitempty,string"`
+	TaskId  *string `json:"task_id,omitempty"`
+	UpdateTime  *int64 `json:"update_time,omitempty,string"`
 }
 
 // builder开始
 type ExternalInstanceTaskBuilder struct {
-	taskId         string
-	taskIdFlag     bool
-	updateTime     int64
-	updateTimeFlag bool
+	taskId  string
+	taskIdFlag  bool
+	updateTime  int64
+	updateTimeFlag  bool
 }
 
-func NewExternalInstanceTaskBuilder() *ExternalInstanceTaskBuilder {
-	builder := &ExternalInstanceTaskBuilder{}
-	return builder
+func NewExternalInstanceTaskBuilder() * ExternalInstanceTaskBuilder{
+   builder := &ExternalInstanceTaskBuilder{}
+   return builder
 }
 
-func (builder *ExternalInstanceTaskBuilder) TaskId(taskId string) *ExternalInstanceTaskBuilder {
-	builder.taskId = taskId
-	builder.taskIdFlag = true
-	return builder
+
+func (builder * ExternalInstanceTaskBuilder) TaskId(taskId string) *ExternalInstanceTaskBuilder  {
+  builder.taskId = taskId
+  builder.taskIdFlag = true
+  return builder
 }
-func (builder *ExternalInstanceTaskBuilder) UpdateTime(updateTime int64) *ExternalInstanceTaskBuilder {
-	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
-	return builder
-}
-
-func (builder *ExternalInstanceTaskBuilder) Build() *ExternalInstanceTask {
-	req := &ExternalInstanceTask{}
-	if builder.taskIdFlag {
-		req.TaskId = &builder.taskId
-
-	}
-	if builder.updateTimeFlag {
-		req.UpdateTime = &builder.updateTime
-
-	}
-	return req
+func (builder * ExternalInstanceTaskBuilder) UpdateTime(updateTime int64) *ExternalInstanceTaskBuilder  {
+  builder.updateTime = updateTime
+  builder.updateTimeFlag = true
+  return builder
 }
 
+func (builder * ExternalInstanceTaskBuilder ) Build() *ExternalInstanceTask {
+   req := &ExternalInstanceTask{}
+   if builder.taskIdFlag {
+	  req.TaskId = &builder.taskId
+	  
+   }
+   if builder.updateTimeFlag {
+	  req.UpdateTime = &builder.updateTime
+	  
+   }
+   return req
+}
 // builder结束
 
 type ExternalInstanceTaskNode struct {
-	TaskId        *string               `json:"task_id,omitempty"`
-	UserId        *string               `json:"user_id,omitempty"`
-	OpenId        *string               `json:"open_id,omitempty"`
-	Title         *string               `json:"title,omitempty"`
-	Links         *ExternalInstanceLink `json:"links,omitempty"`
-	Status        *string               `json:"status,omitempty"`
-	Extra         *string               `json:"extra,omitempty"`
-	CreateTime    *int64                `json:"create_time,omitempty,string"`
-	EndTime       *int64                `json:"end_time,omitempty,string"`
-	UpdateTime    *int64                `json:"update_time,omitempty,string"`
-	ActionContext *string               `json:"action_context,omitempty"`
-	ActionConfigs []*ActionConfig       `json:"action_configs,omitempty"`
-	DisplayMethod *string               `json:"display_method,omitempty"`
+	TaskId  *string `json:"task_id,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
+	OpenId  *string `json:"open_id,omitempty"`
+	Title  *string `json:"title,omitempty"`
+	Links  *ExternalInstanceLink `json:"links,omitempty"`
+	Status  *string `json:"status,omitempty"`
+	Extra  *string `json:"extra,omitempty"`
+	CreateTime  *int64 `json:"create_time,omitempty,string"`
+	EndTime  *int64 `json:"end_time,omitempty,string"`
+	UpdateTime  *int64 `json:"update_time,omitempty,string"`
+	ActionContext  *string `json:"action_context,omitempty"`
+	ActionConfigs  []*ActionConfig `json:"action_configs,omitempty"`
+	DisplayMethod  *string `json:"display_method,omitempty"`
 }
 
 // builder开始
 type ExternalInstanceTaskNodeBuilder struct {
-	taskId            string
-	taskIdFlag        bool
-	userId            string
-	userIdFlag        bool
-	openId            string
-	openIdFlag        bool
-	title             string
-	titleFlag         bool
-	links             *ExternalInstanceLink
-	linksFlag         bool
-	status            string
-	statusFlag        bool
-	extra             string
-	extraFlag         bool
-	createTime        int64
-	createTimeFlag    bool
-	endTime           int64
-	endTimeFlag       bool
-	updateTime        int64
-	updateTimeFlag    bool
-	actionContext     string
-	actionContextFlag bool
-	actionConfigs     []*ActionConfig
-	actionConfigsFlag bool
-	displayMethod     string
-	displayMethodFlag bool
+	taskId  string
+	taskIdFlag  bool
+	userId  string
+	userIdFlag  bool
+	openId  string
+	openIdFlag  bool
+	title  string
+	titleFlag  bool
+	links  *ExternalInstanceLink
+	linksFlag  bool
+	status  string
+	statusFlag  bool
+	extra  string
+	extraFlag  bool
+	createTime  int64
+	createTimeFlag  bool
+	endTime  int64
+	endTimeFlag  bool
+	updateTime  int64
+	updateTimeFlag  bool
+	actionContext  string
+	actionContextFlag  bool
+	actionConfigs  []*ActionConfig
+	actionConfigsFlag  bool
+	displayMethod  string
+	displayMethodFlag  bool
 }
 
-func NewExternalInstanceTaskNodeBuilder() *ExternalInstanceTaskNodeBuilder {
-	builder := &ExternalInstanceTaskNodeBuilder{}
-	return builder
+func NewExternalInstanceTaskNodeBuilder() * ExternalInstanceTaskNodeBuilder{
+   builder := &ExternalInstanceTaskNodeBuilder{}
+   return builder
 }
 
-func (builder *ExternalInstanceTaskNodeBuilder) TaskId(taskId string) *ExternalInstanceTaskNodeBuilder {
-	builder.taskId = taskId
-	builder.taskIdFlag = true
-	return builder
+
+func (builder * ExternalInstanceTaskNodeBuilder) TaskId(taskId string) *ExternalInstanceTaskNodeBuilder  {
+  builder.taskId = taskId
+  builder.taskIdFlag = true
+  return builder
 }
-func (builder *ExternalInstanceTaskNodeBuilder) UserId(userId string) *ExternalInstanceTaskNodeBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
+func (builder * ExternalInstanceTaskNodeBuilder) UserId(userId string) *ExternalInstanceTaskNodeBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
-func (builder *ExternalInstanceTaskNodeBuilder) OpenId(openId string) *ExternalInstanceTaskNodeBuilder {
-	builder.openId = openId
-	builder.openIdFlag = true
-	return builder
+func (builder * ExternalInstanceTaskNodeBuilder) OpenId(openId string) *ExternalInstanceTaskNodeBuilder  {
+  builder.openId = openId
+  builder.openIdFlag = true
+  return builder
 }
-func (builder *ExternalInstanceTaskNodeBuilder) Title(title string) *ExternalInstanceTaskNodeBuilder {
-	builder.title = title
-	builder.titleFlag = true
-	return builder
+func (builder * ExternalInstanceTaskNodeBuilder) Title(title string) *ExternalInstanceTaskNodeBuilder  {
+  builder.title = title
+  builder.titleFlag = true
+  return builder
 }
-func (builder *ExternalInstanceTaskNodeBuilder) Links(links *ExternalInstanceLink) *ExternalInstanceTaskNodeBuilder {
-	builder.links = links
-	builder.linksFlag = true
-	return builder
+func (builder * ExternalInstanceTaskNodeBuilder) Links(links *ExternalInstanceLink) *ExternalInstanceTaskNodeBuilder  {
+  builder.links = links
+  builder.linksFlag = true
+  return builder
 }
-func (builder *ExternalInstanceTaskNodeBuilder) Status(status string) *ExternalInstanceTaskNodeBuilder {
-	builder.status = status
-	builder.statusFlag = true
-	return builder
+func (builder * ExternalInstanceTaskNodeBuilder) Status(status string) *ExternalInstanceTaskNodeBuilder  {
+  builder.status = status
+  builder.statusFlag = true
+  return builder
 }
-func (builder *ExternalInstanceTaskNodeBuilder) Extra(extra string) *ExternalInstanceTaskNodeBuilder {
-	builder.extra = extra
-	builder.extraFlag = true
-	return builder
+func (builder * ExternalInstanceTaskNodeBuilder) Extra(extra string) *ExternalInstanceTaskNodeBuilder  {
+  builder.extra = extra
+  builder.extraFlag = true
+  return builder
 }
-func (builder *ExternalInstanceTaskNodeBuilder) CreateTime(createTime int64) *ExternalInstanceTaskNodeBuilder {
-	builder.createTime = createTime
-	builder.createTimeFlag = true
-	return builder
+func (builder * ExternalInstanceTaskNodeBuilder) CreateTime(createTime int64) *ExternalInstanceTaskNodeBuilder  {
+  builder.createTime = createTime
+  builder.createTimeFlag = true
+  return builder
 }
-func (builder *ExternalInstanceTaskNodeBuilder) EndTime(endTime int64) *ExternalInstanceTaskNodeBuilder {
-	builder.endTime = endTime
-	builder.endTimeFlag = true
-	return builder
+func (builder * ExternalInstanceTaskNodeBuilder) EndTime(endTime int64) *ExternalInstanceTaskNodeBuilder  {
+  builder.endTime = endTime
+  builder.endTimeFlag = true
+  return builder
 }
-func (builder *ExternalInstanceTaskNodeBuilder) UpdateTime(updateTime int64) *ExternalInstanceTaskNodeBuilder {
-	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
-	return builder
+func (builder * ExternalInstanceTaskNodeBuilder) UpdateTime(updateTime int64) *ExternalInstanceTaskNodeBuilder  {
+  builder.updateTime = updateTime
+  builder.updateTimeFlag = true
+  return builder
 }
-func (builder *ExternalInstanceTaskNodeBuilder) ActionContext(actionContext string) *ExternalInstanceTaskNodeBuilder {
-	builder.actionContext = actionContext
-	builder.actionContextFlag = true
-	return builder
+func (builder * ExternalInstanceTaskNodeBuilder) ActionContext(actionContext string) *ExternalInstanceTaskNodeBuilder  {
+  builder.actionContext = actionContext
+  builder.actionContextFlag = true
+  return builder
 }
-func (builder *ExternalInstanceTaskNodeBuilder) ActionConfigs(actionConfigs []*ActionConfig) *ExternalInstanceTaskNodeBuilder {
-	builder.actionConfigs = actionConfigs
-	builder.actionConfigsFlag = true
-	return builder
+func (builder * ExternalInstanceTaskNodeBuilder) ActionConfigs(actionConfigs []*ActionConfig) *ExternalInstanceTaskNodeBuilder  {
+  builder.actionConfigs = actionConfigs
+  builder.actionConfigsFlag = true
+  return builder
 }
-func (builder *ExternalInstanceTaskNodeBuilder) DisplayMethod(displayMethod string) *ExternalInstanceTaskNodeBuilder {
-	builder.displayMethod = displayMethod
-	builder.displayMethodFlag = true
-	return builder
+func (builder * ExternalInstanceTaskNodeBuilder) DisplayMethod(displayMethod string) *ExternalInstanceTaskNodeBuilder  {
+  builder.displayMethod = displayMethod
+  builder.displayMethodFlag = true
+  return builder
 }
 
-func (builder *ExternalInstanceTaskNodeBuilder) Build() *ExternalInstanceTaskNode {
-	req := &ExternalInstanceTaskNode{}
-	if builder.taskIdFlag {
-		req.TaskId = &builder.taskId
-
-	}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	if builder.openIdFlag {
-		req.OpenId = &builder.openId
-
-	}
-	if builder.titleFlag {
-		req.Title = &builder.title
-
-	}
-	if builder.linksFlag {
-		req.Links = builder.links
-	}
-	if builder.statusFlag {
-		req.Status = &builder.status
-
-	}
-	if builder.extraFlag {
-		req.Extra = &builder.extra
-
-	}
-	if builder.createTimeFlag {
-		req.CreateTime = &builder.createTime
-
-	}
-	if builder.endTimeFlag {
-		req.EndTime = &builder.endTime
-
-	}
-	if builder.updateTimeFlag {
-		req.UpdateTime = &builder.updateTime
-
-	}
-	if builder.actionContextFlag {
-		req.ActionContext = &builder.actionContext
-
-	}
-	if builder.actionConfigsFlag {
-		req.ActionConfigs = builder.actionConfigs
-	}
-	if builder.displayMethodFlag {
-		req.DisplayMethod = &builder.displayMethod
-
-	}
-	return req
+func (builder * ExternalInstanceTaskNodeBuilder ) Build() *ExternalInstanceTaskNode {
+   req := &ExternalInstanceTaskNode{}
+   if builder.taskIdFlag {
+	  req.TaskId = &builder.taskId
+	  
+   }
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.openIdFlag {
+	  req.OpenId = &builder.openId
+	  
+   }
+   if builder.titleFlag {
+	  req.Title = &builder.title
+	  
+   }
+   if builder.linksFlag {
+	  req.Links = builder.links
+   }
+   if builder.statusFlag {
+	  req.Status = &builder.status
+	  
+   }
+   if builder.extraFlag {
+	  req.Extra = &builder.extra
+	  
+   }
+   if builder.createTimeFlag {
+	  req.CreateTime = &builder.createTime
+	  
+   }
+   if builder.endTimeFlag {
+	  req.EndTime = &builder.endTime
+	  
+   }
+   if builder.updateTimeFlag {
+	  req.UpdateTime = &builder.updateTime
+	  
+   }
+   if builder.actionContextFlag {
+	  req.ActionContext = &builder.actionContext
+	  
+   }
+   if builder.actionConfigsFlag {
+	  req.ActionConfigs = builder.actionConfigs
+   }
+   if builder.displayMethodFlag {
+	  req.DisplayMethod = &builder.displayMethod
+	  
+   }
+   return req
 }
-
 // builder结束
 
 type ExternalTaskItem struct {
-	Id         *string `json:"id,omitempty"`
-	Status     *string `json:"status,omitempty"`
-	UpdateTime *int64  `json:"update_time,omitempty,string"`
+	Id  *string `json:"id,omitempty"`
+	Status  *string `json:"status,omitempty"`
+	UpdateTime  *int64 `json:"update_time,omitempty,string"`
 }
 
 // builder开始
 type ExternalTaskItemBuilder struct {
-	id             string
-	idFlag         bool
-	status         string
-	statusFlag     bool
-	updateTime     int64
-	updateTimeFlag bool
+	id  string
+	idFlag  bool
+	status  string
+	statusFlag  bool
+	updateTime  int64
+	updateTimeFlag  bool
 }
 
-func NewExternalTaskItemBuilder() *ExternalTaskItemBuilder {
-	builder := &ExternalTaskItemBuilder{}
-	return builder
+func NewExternalTaskItemBuilder() * ExternalTaskItemBuilder{
+   builder := &ExternalTaskItemBuilder{}
+   return builder
 }
 
-func (builder *ExternalTaskItemBuilder) Id(id string) *ExternalTaskItemBuilder {
-	builder.id = id
-	builder.idFlag = true
-	return builder
+
+func (builder * ExternalTaskItemBuilder) Id(id string) *ExternalTaskItemBuilder  {
+  builder.id = id
+  builder.idFlag = true
+  return builder
 }
-func (builder *ExternalTaskItemBuilder) Status(status string) *ExternalTaskItemBuilder {
-	builder.status = status
-	builder.statusFlag = true
-	return builder
+func (builder * ExternalTaskItemBuilder) Status(status string) *ExternalTaskItemBuilder  {
+  builder.status = status
+  builder.statusFlag = true
+  return builder
 }
-func (builder *ExternalTaskItemBuilder) UpdateTime(updateTime int64) *ExternalTaskItemBuilder {
-	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
-	return builder
-}
-
-func (builder *ExternalTaskItemBuilder) Build() *ExternalTaskItem {
-	req := &ExternalTaskItem{}
-	if builder.idFlag {
-		req.Id = &builder.id
-
-	}
-	if builder.statusFlag {
-		req.Status = &builder.status
-
-	}
-	if builder.updateTimeFlag {
-		req.UpdateTime = &builder.updateTime
-
-	}
-	return req
+func (builder * ExternalTaskItemBuilder) UpdateTime(updateTime int64) *ExternalTaskItemBuilder  {
+  builder.updateTime = updateTime
+  builder.updateTimeFlag = true
+  return builder
 }
 
+func (builder * ExternalTaskItemBuilder ) Build() *ExternalTaskItem {
+   req := &ExternalTaskItem{}
+   if builder.idFlag {
+	  req.Id = &builder.id
+	  
+   }
+   if builder.statusFlag {
+	  req.Status = &builder.status
+	  
+   }
+   if builder.updateTimeFlag {
+	  req.UpdateTime = &builder.updateTime
+	  
+   }
+   return req
+}
 // builder结束
 
 type ExternalTaskList struct {
-	InstanceId   *string             `json:"instance_id,omitempty"`
-	ApprovalId   *string             `json:"approval_id,omitempty"`
-	ApprovalCode *string             `json:"approval_code,omitempty"`
-	Status       *string             `json:"status,omitempty"`
-	UpdateTime   *int64              `json:"update_time,omitempty,string"`
-	Tasks        []*ExternalTaskItem `json:"tasks,omitempty"`
+	InstanceId  *string `json:"instance_id,omitempty"`
+	ApprovalId  *string `json:"approval_id,omitempty"`
+	ApprovalCode  *string `json:"approval_code,omitempty"`
+	Status  *string `json:"status,omitempty"`
+	UpdateTime  *int64 `json:"update_time,omitempty,string"`
+	Tasks  []*ExternalTaskItem `json:"tasks,omitempty"`
 }
 
 // builder开始
 type ExternalTaskListBuilder struct {
-	instanceId       string
-	instanceIdFlag   bool
-	approvalId       string
-	approvalIdFlag   bool
-	approvalCode     string
-	approvalCodeFlag bool
-	status           string
-	statusFlag       bool
-	updateTime       int64
-	updateTimeFlag   bool
-	tasks            []*ExternalTaskItem
-	tasksFlag        bool
+	instanceId  string
+	instanceIdFlag  bool
+	approvalId  string
+	approvalIdFlag  bool
+	approvalCode  string
+	approvalCodeFlag  bool
+	status  string
+	statusFlag  bool
+	updateTime  int64
+	updateTimeFlag  bool
+	tasks  []*ExternalTaskItem
+	tasksFlag  bool
 }
 
-func NewExternalTaskListBuilder() *ExternalTaskListBuilder {
-	builder := &ExternalTaskListBuilder{}
-	return builder
+func NewExternalTaskListBuilder() * ExternalTaskListBuilder{
+   builder := &ExternalTaskListBuilder{}
+   return builder
 }
 
-func (builder *ExternalTaskListBuilder) InstanceId(instanceId string) *ExternalTaskListBuilder {
-	builder.instanceId = instanceId
-	builder.instanceIdFlag = true
-	return builder
-}
-func (builder *ExternalTaskListBuilder) ApprovalId(approvalId string) *ExternalTaskListBuilder {
-	builder.approvalId = approvalId
-	builder.approvalIdFlag = true
-	return builder
-}
-func (builder *ExternalTaskListBuilder) ApprovalCode(approvalCode string) *ExternalTaskListBuilder {
-	builder.approvalCode = approvalCode
-	builder.approvalCodeFlag = true
-	return builder
-}
-func (builder *ExternalTaskListBuilder) Status(status string) *ExternalTaskListBuilder {
-	builder.status = status
-	builder.statusFlag = true
-	return builder
-}
-func (builder *ExternalTaskListBuilder) UpdateTime(updateTime int64) *ExternalTaskListBuilder {
-	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
-	return builder
-}
-func (builder *ExternalTaskListBuilder) Tasks(tasks []*ExternalTaskItem) *ExternalTaskListBuilder {
-	builder.tasks = tasks
-	builder.tasksFlag = true
-	return builder
-}
 
-func (builder *ExternalTaskListBuilder) Build() *ExternalTaskList {
-	req := &ExternalTaskList{}
-	if builder.instanceIdFlag {
-		req.InstanceId = &builder.instanceId
-
-	}
-	if builder.approvalIdFlag {
-		req.ApprovalId = &builder.approvalId
-
-	}
-	if builder.approvalCodeFlag {
-		req.ApprovalCode = &builder.approvalCode
-
-	}
-	if builder.statusFlag {
-		req.Status = &builder.status
-
-	}
-	if builder.updateTimeFlag {
-		req.UpdateTime = &builder.updateTime
-
-	}
-	if builder.tasksFlag {
-		req.Tasks = builder.tasks
-	}
-	return req
+func (builder * ExternalTaskListBuilder) InstanceId(instanceId string) *ExternalTaskListBuilder  {
+  builder.instanceId = instanceId
+  builder.instanceIdFlag = true
+  return builder
+}
+func (builder * ExternalTaskListBuilder) ApprovalId(approvalId string) *ExternalTaskListBuilder  {
+  builder.approvalId = approvalId
+  builder.approvalIdFlag = true
+  return builder
+}
+func (builder * ExternalTaskListBuilder) ApprovalCode(approvalCode string) *ExternalTaskListBuilder  {
+  builder.approvalCode = approvalCode
+  builder.approvalCodeFlag = true
+  return builder
+}
+func (builder * ExternalTaskListBuilder) Status(status string) *ExternalTaskListBuilder  {
+  builder.status = status
+  builder.statusFlag = true
+  return builder
+}
+func (builder * ExternalTaskListBuilder) UpdateTime(updateTime int64) *ExternalTaskListBuilder  {
+  builder.updateTime = updateTime
+  builder.updateTimeFlag = true
+  return builder
+}
+func (builder * ExternalTaskListBuilder) Tasks(tasks []*ExternalTaskItem) *ExternalTaskListBuilder  {
+  builder.tasks = tasks
+  builder.tasksFlag = true
+  return builder
 }
 
+func (builder * ExternalTaskListBuilder ) Build() *ExternalTaskList {
+   req := &ExternalTaskList{}
+   if builder.instanceIdFlag {
+	  req.InstanceId = &builder.instanceId
+	  
+   }
+   if builder.approvalIdFlag {
+	  req.ApprovalId = &builder.approvalId
+	  
+   }
+   if builder.approvalCodeFlag {
+	  req.ApprovalCode = &builder.approvalCode
+	  
+   }
+   if builder.statusFlag {
+	  req.Status = &builder.status
+	  
+   }
+   if builder.updateTimeFlag {
+	  req.UpdateTime = &builder.updateTime
+	  
+   }
+   if builder.tasksFlag {
+	  req.Tasks = builder.tasks
+   }
+   return req
+}
 // builder结束
 
 type FieldGroup struct {
-	Writable []string `json:"writable,omitempty"`
-	Readable []string `json:"readable,omitempty"`
+	Writable  []string `json:"writable,omitempty"`
+	Readable  []string `json:"readable,omitempty"`
 }
 
 // builder开始
 type FieldGroupBuilder struct {
-	writable     []string
-	writableFlag bool
-	readable     []string
-	readableFlag bool
+	writable  []string
+	writableFlag  bool
+	readable  []string
+	readableFlag  bool
 }
 
-func NewFieldGroupBuilder() *FieldGroupBuilder {
-	builder := &FieldGroupBuilder{}
-	return builder
+func NewFieldGroupBuilder() * FieldGroupBuilder{
+   builder := &FieldGroupBuilder{}
+   return builder
 }
 
-func (builder *FieldGroupBuilder) Writable(writable []string) *FieldGroupBuilder {
-	builder.writable = writable
-	builder.writableFlag = true
-	return builder
+
+func (builder * FieldGroupBuilder) Writable(writable []string) *FieldGroupBuilder  {
+  builder.writable = writable
+  builder.writableFlag = true
+  return builder
 }
-func (builder *FieldGroupBuilder) Readable(readable []string) *FieldGroupBuilder {
-	builder.readable = readable
-	builder.readableFlag = true
-	return builder
+func (builder * FieldGroupBuilder) Readable(readable []string) *FieldGroupBuilder  {
+  builder.readable = readable
+  builder.readableFlag = true
+  return builder
 }
 
-func (builder *FieldGroupBuilder) Build() *FieldGroup {
-	req := &FieldGroup{}
-	if builder.writableFlag {
-		req.Writable = builder.writable
-	}
-	if builder.readableFlag {
-		req.Readable = builder.readable
-	}
-	return req
+func (builder * FieldGroupBuilder ) Build() *FieldGroup {
+   req := &FieldGroup{}
+   if builder.writableFlag {
+	  req.Writable = builder.writable
+   }
+   if builder.readableFlag {
+	  req.Readable = builder.readable
+   }
+   return req
 }
-
 // builder结束
 
 type File struct {
-	Url      *string `json:"url,omitempty"`
-	FileSize *int    `json:"file_size,omitempty"`
-	Title    *string `json:"title,omitempty"`
-	Type     *string `json:"type,omitempty"`
+	Url  *string `json:"url,omitempty"`
+	FileSize  *int `json:"file_size,omitempty"`
+	Title  *string `json:"title,omitempty"`
+	Type  *string `json:"type,omitempty"`
 }
 
 // builder开始
 type FileBuilder struct {
-	url          string
-	urlFlag      bool
-	fileSize     int
-	fileSizeFlag bool
-	title        string
-	titleFlag    bool
-	type_        string
-	typeFlag     bool
+	url  string
+	urlFlag  bool
+	fileSize  int
+	fileSizeFlag  bool
+	title  string
+	titleFlag  bool
+	type_  string
+	typeFlag  bool
 }
 
-func NewFileBuilder() *FileBuilder {
-	builder := &FileBuilder{}
-	return builder
+func NewFileBuilder() * FileBuilder{
+   builder := &FileBuilder{}
+   return builder
 }
 
-func (builder *FileBuilder) Url(url string) *FileBuilder {
-	builder.url = url
-	builder.urlFlag = true
-	return builder
+
+func (builder * FileBuilder) Url(url string) *FileBuilder  {
+  builder.url = url
+  builder.urlFlag = true
+  return builder
 }
-func (builder *FileBuilder) FileSize(fileSize int) *FileBuilder {
-	builder.fileSize = fileSize
-	builder.fileSizeFlag = true
-	return builder
+func (builder * FileBuilder) FileSize(fileSize int) *FileBuilder  {
+  builder.fileSize = fileSize
+  builder.fileSizeFlag = true
+  return builder
 }
-func (builder *FileBuilder) Title(title string) *FileBuilder {
-	builder.title = title
-	builder.titleFlag = true
-	return builder
+func (builder * FileBuilder) Title(title string) *FileBuilder  {
+  builder.title = title
+  builder.titleFlag = true
+  return builder
 }
-func (builder *FileBuilder) Type(type_ string) *FileBuilder {
-	builder.type_ = type_
-	builder.typeFlag = true
-	return builder
-}
-
-func (builder *FileBuilder) Build() *File {
-	req := &File{}
-	if builder.urlFlag {
-		req.Url = &builder.url
-
-	}
-	if builder.fileSizeFlag {
-		req.FileSize = &builder.fileSize
-
-	}
-	if builder.titleFlag {
-		req.Title = &builder.title
-
-	}
-	if builder.typeFlag {
-		req.Type = &builder.type_
-
-	}
-	return req
+func (builder * FileBuilder) Type(type_ string) *FileBuilder  {
+  builder.type_ = type_
+  builder.typeFlag = true
+  return builder
 }
 
+func (builder * FileBuilder ) Build() *File {
+   req := &File{}
+   if builder.urlFlag {
+	  req.Url = &builder.url
+	  
+   }
+   if builder.fileSizeFlag {
+	  req.FileSize = &builder.fileSize
+	  
+   }
+   if builder.titleFlag {
+	  req.Title = &builder.title
+	  
+   }
+   if builder.typeFlag {
+	  req.Type = &builder.type_
+	  
+   }
+   return req
+}
 // builder结束
 
 type I18nResource struct {
-	Locale    *string             `json:"locale,omitempty"`
-	Texts     []*I18nResourceText `json:"texts,omitempty"`
-	IsDefault *bool               `json:"is_default,omitempty"`
+	Locale  *string `json:"locale,omitempty"`
+	Texts  []*I18nResourceText `json:"texts,omitempty"`
+	IsDefault  *bool `json:"is_default,omitempty"`
 }
 
 // builder开始
 type I18nResourceBuilder struct {
-	locale        string
-	localeFlag    bool
-	texts         []*I18nResourceText
-	textsFlag     bool
-	isDefault     bool
-	isDefaultFlag bool
+	locale  string
+	localeFlag  bool
+	texts  []*I18nResourceText
+	textsFlag  bool
+	isDefault  bool
+	isDefaultFlag  bool
 }
 
-func NewI18nResourceBuilder() *I18nResourceBuilder {
-	builder := &I18nResourceBuilder{}
-	return builder
+func NewI18nResourceBuilder() * I18nResourceBuilder{
+   builder := &I18nResourceBuilder{}
+   return builder
 }
 
-func (builder *I18nResourceBuilder) Locale(locale string) *I18nResourceBuilder {
-	builder.locale = locale
-	builder.localeFlag = true
-	return builder
-}
-func (builder *I18nResourceBuilder) Texts(texts []*I18nResourceText) *I18nResourceBuilder {
-	builder.texts = texts
-	builder.textsFlag = true
-	return builder
-}
-func (builder *I18nResourceBuilder) IsDefault(isDefault bool) *I18nResourceBuilder {
-	builder.isDefault = isDefault
-	builder.isDefaultFlag = true
-	return builder
-}
 
-func (builder *I18nResourceBuilder) Build() *I18nResource {
-	req := &I18nResource{}
-	if builder.localeFlag {
-		req.Locale = &builder.locale
-
-	}
-	if builder.textsFlag {
-		req.Texts = builder.texts
-	}
-	if builder.isDefaultFlag {
-		req.IsDefault = &builder.isDefault
-
-	}
-	return req
+func (builder * I18nResourceBuilder) Locale(locale string) *I18nResourceBuilder  {
+  builder.locale = locale
+  builder.localeFlag = true
+  return builder
+}
+func (builder * I18nResourceBuilder) Texts(texts []*I18nResourceText) *I18nResourceBuilder  {
+  builder.texts = texts
+  builder.textsFlag = true
+  return builder
+}
+func (builder * I18nResourceBuilder) IsDefault(isDefault bool) *I18nResourceBuilder  {
+  builder.isDefault = isDefault
+  builder.isDefaultFlag = true
+  return builder
 }
 
+func (builder * I18nResourceBuilder ) Build() *I18nResource {
+   req := &I18nResource{}
+   if builder.localeFlag {
+	  req.Locale = &builder.locale
+	  
+   }
+   if builder.textsFlag {
+	  req.Texts = builder.texts
+   }
+   if builder.isDefaultFlag {
+	  req.IsDefault = &builder.isDefault
+	  
+   }
+   return req
+}
 // builder结束
 
 type I18nResourceText struct {
-	Key   *string `json:"key,omitempty"`
-	Value *string `json:"value,omitempty"`
+	Key  *string `json:"key,omitempty"`
+	Value  *string `json:"value,omitempty"`
 }
 
 // builder开始
 type I18nResourceTextBuilder struct {
-	key       string
-	keyFlag   bool
-	value     string
-	valueFlag bool
+	key  string
+	keyFlag  bool
+	value  string
+	valueFlag  bool
 }
 
-func NewI18nResourceTextBuilder() *I18nResourceTextBuilder {
-	builder := &I18nResourceTextBuilder{}
-	return builder
+func NewI18nResourceTextBuilder() * I18nResourceTextBuilder{
+   builder := &I18nResourceTextBuilder{}
+   return builder
 }
 
-func (builder *I18nResourceTextBuilder) Key(key string) *I18nResourceTextBuilder {
-	builder.key = key
-	builder.keyFlag = true
-	return builder
+
+func (builder * I18nResourceTextBuilder) Key(key string) *I18nResourceTextBuilder  {
+  builder.key = key
+  builder.keyFlag = true
+  return builder
 }
-func (builder *I18nResourceTextBuilder) Value(value string) *I18nResourceTextBuilder {
-	builder.value = value
-	builder.valueFlag = true
-	return builder
-}
-
-func (builder *I18nResourceTextBuilder) Build() *I18nResourceText {
-	req := &I18nResourceText{}
-	if builder.keyFlag {
-		req.Key = &builder.key
-
-	}
-	if builder.valueFlag {
-		req.Value = &builder.value
-
-	}
-	return req
+func (builder * I18nResourceTextBuilder) Value(value string) *I18nResourceTextBuilder  {
+  builder.value = value
+  builder.valueFlag = true
+  return builder
 }
 
+func (builder * I18nResourceTextBuilder ) Build() *I18nResourceText {
+   req := &I18nResourceText{}
+   if builder.keyFlag {
+	  req.Key = &builder.key
+	  
+   }
+   if builder.valueFlag {
+	  req.Value = &builder.value
+	  
+   }
+   return req
+}
 // builder结束
 
 type Instance struct {
-	InstanceCode *string `json:"instance_code,omitempty"`
-	ApprovalName *string `json:"approval_name,omitempty"`
-	StartTime    *int64  `json:"start_time,omitempty,string"`
-	EndTime      *int64  `json:"end_time,omitempty,string"`
-	UserId       *string `json:"user_id,omitempty"`
-	SerialId     *string `json:"serial_id,omitempty"`
+	InstanceCode  *string `json:"instance_code,omitempty"`
+	ApprovalName  *string `json:"approval_name,omitempty"`
+	StartTime  *int64 `json:"start_time,omitempty,string"`
+	EndTime  *int64 `json:"end_time,omitempty,string"`
+	UserId  *string `json:"user_id,omitempty"`
+	SerialId  *string `json:"serial_id,omitempty"`
 }
 
 // builder开始
 type InstanceBuilder struct {
-	instanceCode     string
-	instanceCodeFlag bool
-	approvalName     string
-	approvalNameFlag bool
-	startTime        int64
-	startTimeFlag    bool
-	endTime          int64
-	endTimeFlag      bool
-	userId           string
-	userIdFlag       bool
-	serialId         string
-	serialIdFlag     bool
+	instanceCode  string
+	instanceCodeFlag  bool
+	approvalName  string
+	approvalNameFlag  bool
+	startTime  int64
+	startTimeFlag  bool
+	endTime  int64
+	endTimeFlag  bool
+	userId  string
+	userIdFlag  bool
+	serialId  string
+	serialIdFlag  bool
 }
 
-func NewInstanceBuilder() *InstanceBuilder {
-	builder := &InstanceBuilder{}
-	return builder
+func NewInstanceBuilder() * InstanceBuilder{
+   builder := &InstanceBuilder{}
+   return builder
 }
 
-func (builder *InstanceBuilder) InstanceCode(instanceCode string) *InstanceBuilder {
-	builder.instanceCode = instanceCode
-	builder.instanceCodeFlag = true
-	return builder
+
+func (builder * InstanceBuilder) InstanceCode(instanceCode string) *InstanceBuilder  {
+  builder.instanceCode = instanceCode
+  builder.instanceCodeFlag = true
+  return builder
 }
-func (builder *InstanceBuilder) ApprovalName(approvalName string) *InstanceBuilder {
-	builder.approvalName = approvalName
-	builder.approvalNameFlag = true
-	return builder
+func (builder * InstanceBuilder) ApprovalName(approvalName string) *InstanceBuilder  {
+  builder.approvalName = approvalName
+  builder.approvalNameFlag = true
+  return builder
 }
-func (builder *InstanceBuilder) StartTime(startTime int64) *InstanceBuilder {
-	builder.startTime = startTime
-	builder.startTimeFlag = true
-	return builder
+func (builder * InstanceBuilder) StartTime(startTime int64) *InstanceBuilder  {
+  builder.startTime = startTime
+  builder.startTimeFlag = true
+  return builder
 }
-func (builder *InstanceBuilder) EndTime(endTime int64) *InstanceBuilder {
-	builder.endTime = endTime
-	builder.endTimeFlag = true
-	return builder
+func (builder * InstanceBuilder) EndTime(endTime int64) *InstanceBuilder  {
+  builder.endTime = endTime
+  builder.endTimeFlag = true
+  return builder
 }
-func (builder *InstanceBuilder) UserId(userId string) *InstanceBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
+func (builder * InstanceBuilder) UserId(userId string) *InstanceBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
-func (builder *InstanceBuilder) SerialId(serialId string) *InstanceBuilder {
-	builder.serialId = serialId
-	builder.serialIdFlag = true
-	return builder
-}
-
-func (builder *InstanceBuilder) Build() *Instance {
-	req := &Instance{}
-	if builder.instanceCodeFlag {
-		req.InstanceCode = &builder.instanceCode
-
-	}
-	if builder.approvalNameFlag {
-		req.ApprovalName = &builder.approvalName
-
-	}
-	if builder.startTimeFlag {
-		req.StartTime = &builder.startTime
-
-	}
-	if builder.endTimeFlag {
-		req.EndTime = &builder.endTime
-
-	}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	if builder.serialIdFlag {
-		req.SerialId = &builder.serialId
-
-	}
-	return req
+func (builder * InstanceBuilder) SerialId(serialId string) *InstanceBuilder  {
+  builder.serialId = serialId
+  builder.serialIdFlag = true
+  return builder
 }
 
+func (builder * InstanceBuilder ) Build() *Instance {
+   req := &Instance{}
+   if builder.instanceCodeFlag {
+	  req.InstanceCode = &builder.instanceCode
+	  
+   }
+   if builder.approvalNameFlag {
+	  req.ApprovalName = &builder.approvalName
+	  
+   }
+   if builder.startTimeFlag {
+	  req.StartTime = &builder.startTime
+	  
+   }
+   if builder.endTimeFlag {
+	  req.EndTime = &builder.endTime
+	  
+   }
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.serialIdFlag {
+	  req.SerialId = &builder.serialId
+	  
+   }
+   return req
+}
 // builder结束
 
 type InstanceCancel struct {
 	ApprovalCode  *string `json:"approval_code,omitempty"`
 	InstanceCode  *string `json:"instance_code,omitempty"`
-	UserId        *string `json:"user_id,omitempty"`
-	NotifyStarter *bool   `json:"notify_starter,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
+	NotifyStarter  *bool `json:"notify_starter,omitempty"`
 }
 
 // builder开始
 type InstanceCancelBuilder struct {
-	approvalCode      string
+	approvalCode  string
 	approvalCodeFlag  bool
-	instanceCode      string
+	instanceCode  string
 	instanceCodeFlag  bool
-	userId            string
-	userIdFlag        bool
-	notifyStarter     bool
-	notifyStarterFlag bool
+	userId  string
+	userIdFlag  bool
+	notifyStarter  bool
+	notifyStarterFlag  bool
 }
 
-func NewInstanceCancelBuilder() *InstanceCancelBuilder {
-	builder := &InstanceCancelBuilder{}
-	return builder
+func NewInstanceCancelBuilder() * InstanceCancelBuilder{
+   builder := &InstanceCancelBuilder{}
+   return builder
 }
 
-func (builder *InstanceCancelBuilder) ApprovalCode(approvalCode string) *InstanceCancelBuilder {
-	builder.approvalCode = approvalCode
-	builder.approvalCodeFlag = true
-	return builder
+
+func (builder * InstanceCancelBuilder) ApprovalCode(approvalCode string) *InstanceCancelBuilder  {
+  builder.approvalCode = approvalCode
+  builder.approvalCodeFlag = true
+  return builder
 }
-func (builder *InstanceCancelBuilder) InstanceCode(instanceCode string) *InstanceCancelBuilder {
-	builder.instanceCode = instanceCode
-	builder.instanceCodeFlag = true
-	return builder
+func (builder * InstanceCancelBuilder) InstanceCode(instanceCode string) *InstanceCancelBuilder  {
+  builder.instanceCode = instanceCode
+  builder.instanceCodeFlag = true
+  return builder
 }
-func (builder *InstanceCancelBuilder) UserId(userId string) *InstanceCancelBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
+func (builder * InstanceCancelBuilder) UserId(userId string) *InstanceCancelBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
-func (builder *InstanceCancelBuilder) NotifyStarter(notifyStarter bool) *InstanceCancelBuilder {
-	builder.notifyStarter = notifyStarter
-	builder.notifyStarterFlag = true
-	return builder
-}
-
-func (builder *InstanceCancelBuilder) Build() *InstanceCancel {
-	req := &InstanceCancel{}
-	if builder.approvalCodeFlag {
-		req.ApprovalCode = &builder.approvalCode
-
-	}
-	if builder.instanceCodeFlag {
-		req.InstanceCode = &builder.instanceCode
-
-	}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	if builder.notifyStarterFlag {
-		req.NotifyStarter = &builder.notifyStarter
-
-	}
-	return req
+func (builder * InstanceCancelBuilder) NotifyStarter(notifyStarter bool) *InstanceCancelBuilder  {
+  builder.notifyStarter = notifyStarter
+  builder.notifyStarterFlag = true
+  return builder
 }
 
+func (builder * InstanceCancelBuilder ) Build() *InstanceCancel {
+   req := &InstanceCancel{}
+   if builder.approvalCodeFlag {
+	  req.ApprovalCode = &builder.approvalCode
+	  
+   }
+   if builder.instanceCodeFlag {
+	  req.InstanceCode = &builder.instanceCode
+	  
+   }
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.notifyStarterFlag {
+	  req.NotifyStarter = &builder.notifyStarter
+	  
+   }
+   return req
+}
 // builder结束
 
 type InstanceCc struct {
-	ApprovalCode *string  `json:"approval_code,omitempty"`
-	InstanceCode *string  `json:"instance_code,omitempty"`
-	UserId       *string  `json:"user_id,omitempty"`
-	CcUserIds    []string `json:"cc_user_ids,omitempty"`
-	Comment      *string  `json:"comment,omitempty"`
+	ApprovalCode  *string `json:"approval_code,omitempty"`
+	InstanceCode  *string `json:"instance_code,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
+	CcUserIds  []string `json:"cc_user_ids,omitempty"`
+	Comment  *string `json:"comment,omitempty"`
 }
 
 // builder开始
 type InstanceCcBuilder struct {
-	approvalCode     string
-	approvalCodeFlag bool
-	instanceCode     string
-	instanceCodeFlag bool
-	userId           string
-	userIdFlag       bool
-	ccUserIds        []string
-	ccUserIdsFlag    bool
-	comment          string
-	commentFlag      bool
+	approvalCode  string
+	approvalCodeFlag  bool
+	instanceCode  string
+	instanceCodeFlag  bool
+	userId  string
+	userIdFlag  bool
+	ccUserIds  []string
+	ccUserIdsFlag  bool
+	comment  string
+	commentFlag  bool
 }
 
-func NewInstanceCcBuilder() *InstanceCcBuilder {
-	builder := &InstanceCcBuilder{}
-	return builder
+func NewInstanceCcBuilder() * InstanceCcBuilder{
+   builder := &InstanceCcBuilder{}
+   return builder
 }
 
-func (builder *InstanceCcBuilder) ApprovalCode(approvalCode string) *InstanceCcBuilder {
-	builder.approvalCode = approvalCode
-	builder.approvalCodeFlag = true
-	return builder
-}
-func (builder *InstanceCcBuilder) InstanceCode(instanceCode string) *InstanceCcBuilder {
-	builder.instanceCode = instanceCode
-	builder.instanceCodeFlag = true
-	return builder
-}
-func (builder *InstanceCcBuilder) UserId(userId string) *InstanceCcBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
-}
-func (builder *InstanceCcBuilder) CcUserIds(ccUserIds []string) *InstanceCcBuilder {
-	builder.ccUserIds = ccUserIds
-	builder.ccUserIdsFlag = true
-	return builder
-}
-func (builder *InstanceCcBuilder) Comment(comment string) *InstanceCcBuilder {
-	builder.comment = comment
-	builder.commentFlag = true
-	return builder
-}
 
-func (builder *InstanceCcBuilder) Build() *InstanceCc {
-	req := &InstanceCc{}
-	if builder.approvalCodeFlag {
-		req.ApprovalCode = &builder.approvalCode
-
-	}
-	if builder.instanceCodeFlag {
-		req.InstanceCode = &builder.instanceCode
-
-	}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	if builder.ccUserIdsFlag {
-		req.CcUserIds = builder.ccUserIds
-	}
-	if builder.commentFlag {
-		req.Comment = &builder.comment
-
-	}
-	return req
+func (builder * InstanceCcBuilder) ApprovalCode(approvalCode string) *InstanceCcBuilder  {
+  builder.approvalCode = approvalCode
+  builder.approvalCodeFlag = true
+  return builder
+}
+func (builder * InstanceCcBuilder) InstanceCode(instanceCode string) *InstanceCcBuilder  {
+  builder.instanceCode = instanceCode
+  builder.instanceCodeFlag = true
+  return builder
+}
+func (builder * InstanceCcBuilder) UserId(userId string) *InstanceCcBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
+}
+func (builder * InstanceCcBuilder) CcUserIds(ccUserIds []string) *InstanceCcBuilder  {
+  builder.ccUserIds = ccUserIds
+  builder.ccUserIdsFlag = true
+  return builder
+}
+func (builder * InstanceCcBuilder) Comment(comment string) *InstanceCcBuilder  {
+  builder.comment = comment
+  builder.commentFlag = true
+  return builder
 }
 
+func (builder * InstanceCcBuilder ) Build() *InstanceCc {
+   req := &InstanceCc{}
+   if builder.approvalCodeFlag {
+	  req.ApprovalCode = &builder.approvalCode
+	  
+   }
+   if builder.instanceCodeFlag {
+	  req.InstanceCode = &builder.instanceCode
+	  
+   }
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.ccUserIdsFlag {
+	  req.CcUserIds = builder.ccUserIds
+   }
+   if builder.commentFlag {
+	  req.Comment = &builder.comment
+	  
+   }
+   return req
+}
 // builder结束
 
 type InstanceCcUser struct {
-	UserId *string `json:"user_id,omitempty"`
-	CcId   *string `json:"cc_id,omitempty"`
-	OpenId *string `json:"open_id,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
+	CcId  *string `json:"cc_id,omitempty"`
+	OpenId  *string `json:"open_id,omitempty"`
 }
 
 // builder开始
 type InstanceCcUserBuilder struct {
-	userId     string
-	userIdFlag bool
-	ccId       string
-	ccIdFlag   bool
-	openId     string
-	openIdFlag bool
+	userId  string
+	userIdFlag  bool
+	ccId  string
+	ccIdFlag  bool
+	openId  string
+	openIdFlag  bool
 }
 
-func NewInstanceCcUserBuilder() *InstanceCcUserBuilder {
-	builder := &InstanceCcUserBuilder{}
-	return builder
+func NewInstanceCcUserBuilder() * InstanceCcUserBuilder{
+   builder := &InstanceCcUserBuilder{}
+   return builder
 }
 
-func (builder *InstanceCcUserBuilder) UserId(userId string) *InstanceCcUserBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
+
+func (builder * InstanceCcUserBuilder) UserId(userId string) *InstanceCcUserBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
-func (builder *InstanceCcUserBuilder) CcId(ccId string) *InstanceCcUserBuilder {
-	builder.ccId = ccId
-	builder.ccIdFlag = true
-	return builder
+func (builder * InstanceCcUserBuilder) CcId(ccId string) *InstanceCcUserBuilder  {
+  builder.ccId = ccId
+  builder.ccIdFlag = true
+  return builder
 }
-func (builder *InstanceCcUserBuilder) OpenId(openId string) *InstanceCcUserBuilder {
-	builder.openId = openId
-	builder.openIdFlag = true
-	return builder
-}
-
-func (builder *InstanceCcUserBuilder) Build() *InstanceCcUser {
-	req := &InstanceCcUser{}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	if builder.ccIdFlag {
-		req.CcId = &builder.ccId
-
-	}
-	if builder.openIdFlag {
-		req.OpenId = &builder.openId
-
-	}
-	return req
+func (builder * InstanceCcUserBuilder) OpenId(openId string) *InstanceCcUserBuilder  {
+  builder.openId = openId
+  builder.openIdFlag = true
+  return builder
 }
 
+func (builder * InstanceCcUserBuilder ) Build() *InstanceCcUser {
+   req := &InstanceCcUser{}
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.ccIdFlag {
+	  req.CcId = &builder.ccId
+	  
+   }
+   if builder.openIdFlag {
+	  req.OpenId = &builder.openId
+	  
+   }
+   return req
+}
 // builder结束
 
 type InstanceComment struct {
-	Id         *string `json:"id,omitempty"`
-	UserId     *string `json:"user_id,omitempty"`
-	OpenId     *string `json:"open_id,omitempty"`
-	Comment    *string `json:"comment,omitempty"`
-	CreateTime *int64  `json:"create_time,omitempty,string"`
+	Id  *string `json:"id,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
+	OpenId  *string `json:"open_id,omitempty"`
+	Comment  *string `json:"comment,omitempty"`
+	CreateTime  *int64 `json:"create_time,omitempty,string"`
 }
 
 // builder开始
 type InstanceCommentBuilder struct {
-	id             string
-	idFlag         bool
-	userId         string
-	userIdFlag     bool
-	openId         string
-	openIdFlag     bool
-	comment        string
-	commentFlag    bool
-	createTime     int64
-	createTimeFlag bool
+	id  string
+	idFlag  bool
+	userId  string
+	userIdFlag  bool
+	openId  string
+	openIdFlag  bool
+	comment  string
+	commentFlag  bool
+	createTime  int64
+	createTimeFlag  bool
 }
 
-func NewInstanceCommentBuilder() *InstanceCommentBuilder {
-	builder := &InstanceCommentBuilder{}
-	return builder
+func NewInstanceCommentBuilder() * InstanceCommentBuilder{
+   builder := &InstanceCommentBuilder{}
+   return builder
 }
 
-func (builder *InstanceCommentBuilder) Id(id string) *InstanceCommentBuilder {
-	builder.id = id
-	builder.idFlag = true
-	return builder
+
+func (builder * InstanceCommentBuilder) Id(id string) *InstanceCommentBuilder  {
+  builder.id = id
+  builder.idFlag = true
+  return builder
 }
-func (builder *InstanceCommentBuilder) UserId(userId string) *InstanceCommentBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
+func (builder * InstanceCommentBuilder) UserId(userId string) *InstanceCommentBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
-func (builder *InstanceCommentBuilder) OpenId(openId string) *InstanceCommentBuilder {
-	builder.openId = openId
-	builder.openIdFlag = true
-	return builder
+func (builder * InstanceCommentBuilder) OpenId(openId string) *InstanceCommentBuilder  {
+  builder.openId = openId
+  builder.openIdFlag = true
+  return builder
 }
-func (builder *InstanceCommentBuilder) Comment(comment string) *InstanceCommentBuilder {
-	builder.comment = comment
-	builder.commentFlag = true
-	return builder
+func (builder * InstanceCommentBuilder) Comment(comment string) *InstanceCommentBuilder  {
+  builder.comment = comment
+  builder.commentFlag = true
+  return builder
 }
-func (builder *InstanceCommentBuilder) CreateTime(createTime int64) *InstanceCommentBuilder {
-	builder.createTime = createTime
-	builder.createTimeFlag = true
-	return builder
-}
-
-func (builder *InstanceCommentBuilder) Build() *InstanceComment {
-	req := &InstanceComment{}
-	if builder.idFlag {
-		req.Id = &builder.id
-
-	}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	if builder.openIdFlag {
-		req.OpenId = &builder.openId
-
-	}
-	if builder.commentFlag {
-		req.Comment = &builder.comment
-
-	}
-	if builder.createTimeFlag {
-		req.CreateTime = &builder.createTime
-
-	}
-	return req
+func (builder * InstanceCommentBuilder) CreateTime(createTime int64) *InstanceCommentBuilder  {
+  builder.createTime = createTime
+  builder.createTimeFlag = true
+  return builder
 }
 
+func (builder * InstanceCommentBuilder ) Build() *InstanceComment {
+   req := &InstanceComment{}
+   if builder.idFlag {
+	  req.Id = &builder.id
+	  
+   }
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.openIdFlag {
+	  req.OpenId = &builder.openId
+	  
+   }
+   if builder.commentFlag {
+	  req.Comment = &builder.comment
+	  
+   }
+   if builder.createTimeFlag {
+	  req.CreateTime = &builder.createTime
+	  
+   }
+   return req
+}
 // builder结束
 
 type InstanceCreate struct {
-	ApprovalCode           *string         `json:"approval_code,omitempty"`
-	UserId                 *string         `json:"user_id,omitempty"`
-	OpenId                 *string         `json:"open_id,omitempty"`
-	DepartmentId           *string         `json:"department_id,omitempty"`
-	Form                   *string         `json:"form,omitempty"`
-	NodeApproverUserIdList []*NodeApprover `json:"node_approver_user_id_list,omitempty"`
-	NodeApproverOpenIdList []*NodeApprover `json:"node_approver_open_id_list,omitempty"`
-	NodeCcUserIdList       []*NodeCc       `json:"node_cc_user_id_list,omitempty"`
-	NodeCcOpenIdList       []*NodeCc       `json:"node_cc_open_id_list,omitempty"`
-	Uuid                   *string         `json:"uuid,omitempty"`
+	ApprovalCode  *string `json:"approval_code,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
+	OpenId  *string `json:"open_id,omitempty"`
+	DepartmentId  *string `json:"department_id,omitempty"`
+	Form  *string `json:"form,omitempty"`
+	NodeApproverUserIdList  []*NodeApprover `json:"node_approver_user_id_list,omitempty"`
+	NodeApproverOpenIdList  []*NodeApprover `json:"node_approver_open_id_list,omitempty"`
+	NodeCcUserIdList  []*NodeCc `json:"node_cc_user_id_list,omitempty"`
+	NodeCcOpenIdList  []*NodeCc `json:"node_cc_open_id_list,omitempty"`
+	Uuid  *string `json:"uuid,omitempty"`
 }
 
 // builder开始
 type InstanceCreateBuilder struct {
-	approvalCode               string
-	approvalCodeFlag           bool
-	userId                     string
-	userIdFlag                 bool
-	openId                     string
-	openIdFlag                 bool
-	departmentId               string
-	departmentIdFlag           bool
-	form                       string
-	formFlag                   bool
-	nodeApproverUserIdList     []*NodeApprover
-	nodeApproverUserIdListFlag bool
-	nodeApproverOpenIdList     []*NodeApprover
-	nodeApproverOpenIdListFlag bool
-	nodeCcUserIdList           []*NodeCc
-	nodeCcUserIdListFlag       bool
-	nodeCcOpenIdList           []*NodeCc
-	nodeCcOpenIdListFlag       bool
-	uuid                       string
-	uuidFlag                   bool
+	approvalCode  string
+	approvalCodeFlag  bool
+	userId  string
+	userIdFlag  bool
+	openId  string
+	openIdFlag  bool
+	departmentId  string
+	departmentIdFlag  bool
+	form  string
+	formFlag  bool
+	nodeApproverUserIdList  []*NodeApprover
+	nodeApproverUserIdListFlag  bool
+	nodeApproverOpenIdList  []*NodeApprover
+	nodeApproverOpenIdListFlag  bool
+	nodeCcUserIdList  []*NodeCc
+	nodeCcUserIdListFlag  bool
+	nodeCcOpenIdList  []*NodeCc
+	nodeCcOpenIdListFlag  bool
+	uuid  string
+	uuidFlag  bool
 }
 
-func NewInstanceCreateBuilder() *InstanceCreateBuilder {
-	builder := &InstanceCreateBuilder{}
-	return builder
+func NewInstanceCreateBuilder() * InstanceCreateBuilder{
+   builder := &InstanceCreateBuilder{}
+   return builder
 }
 
-func (builder *InstanceCreateBuilder) ApprovalCode(approvalCode string) *InstanceCreateBuilder {
-	builder.approvalCode = approvalCode
-	builder.approvalCodeFlag = true
-	return builder
+
+func (builder * InstanceCreateBuilder) ApprovalCode(approvalCode string) *InstanceCreateBuilder  {
+  builder.approvalCode = approvalCode
+  builder.approvalCodeFlag = true
+  return builder
 }
-func (builder *InstanceCreateBuilder) UserId(userId string) *InstanceCreateBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
+func (builder * InstanceCreateBuilder) UserId(userId string) *InstanceCreateBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
-func (builder *InstanceCreateBuilder) OpenId(openId string) *InstanceCreateBuilder {
-	builder.openId = openId
-	builder.openIdFlag = true
-	return builder
+func (builder * InstanceCreateBuilder) OpenId(openId string) *InstanceCreateBuilder  {
+  builder.openId = openId
+  builder.openIdFlag = true
+  return builder
 }
-func (builder *InstanceCreateBuilder) DepartmentId(departmentId string) *InstanceCreateBuilder {
-	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
-	return builder
+func (builder * InstanceCreateBuilder) DepartmentId(departmentId string) *InstanceCreateBuilder  {
+  builder.departmentId = departmentId
+  builder.departmentIdFlag = true
+  return builder
 }
-func (builder *InstanceCreateBuilder) Form(form string) *InstanceCreateBuilder {
-	builder.form = form
-	builder.formFlag = true
-	return builder
+func (builder * InstanceCreateBuilder) Form(form string) *InstanceCreateBuilder  {
+  builder.form = form
+  builder.formFlag = true
+  return builder
 }
-func (builder *InstanceCreateBuilder) NodeApproverUserIdList(nodeApproverUserIdList []*NodeApprover) *InstanceCreateBuilder {
-	builder.nodeApproverUserIdList = nodeApproverUserIdList
-	builder.nodeApproverUserIdListFlag = true
-	return builder
+func (builder * InstanceCreateBuilder) NodeApproverUserIdList(nodeApproverUserIdList []*NodeApprover) *InstanceCreateBuilder  {
+  builder.nodeApproverUserIdList = nodeApproverUserIdList
+  builder.nodeApproverUserIdListFlag = true
+  return builder
 }
-func (builder *InstanceCreateBuilder) NodeApproverOpenIdList(nodeApproverOpenIdList []*NodeApprover) *InstanceCreateBuilder {
-	builder.nodeApproverOpenIdList = nodeApproverOpenIdList
-	builder.nodeApproverOpenIdListFlag = true
-	return builder
+func (builder * InstanceCreateBuilder) NodeApproverOpenIdList(nodeApproverOpenIdList []*NodeApprover) *InstanceCreateBuilder  {
+  builder.nodeApproverOpenIdList = nodeApproverOpenIdList
+  builder.nodeApproverOpenIdListFlag = true
+  return builder
 }
-func (builder *InstanceCreateBuilder) NodeCcUserIdList(nodeCcUserIdList []*NodeCc) *InstanceCreateBuilder {
-	builder.nodeCcUserIdList = nodeCcUserIdList
-	builder.nodeCcUserIdListFlag = true
-	return builder
+func (builder * InstanceCreateBuilder) NodeCcUserIdList(nodeCcUserIdList []*NodeCc) *InstanceCreateBuilder  {
+  builder.nodeCcUserIdList = nodeCcUserIdList
+  builder.nodeCcUserIdListFlag = true
+  return builder
 }
-func (builder *InstanceCreateBuilder) NodeCcOpenIdList(nodeCcOpenIdList []*NodeCc) *InstanceCreateBuilder {
-	builder.nodeCcOpenIdList = nodeCcOpenIdList
-	builder.nodeCcOpenIdListFlag = true
-	return builder
+func (builder * InstanceCreateBuilder) NodeCcOpenIdList(nodeCcOpenIdList []*NodeCc) *InstanceCreateBuilder  {
+  builder.nodeCcOpenIdList = nodeCcOpenIdList
+  builder.nodeCcOpenIdListFlag = true
+  return builder
 }
-func (builder *InstanceCreateBuilder) Uuid(uuid string) *InstanceCreateBuilder {
-	builder.uuid = uuid
-	builder.uuidFlag = true
-	return builder
+func (builder * InstanceCreateBuilder) Uuid(uuid string) *InstanceCreateBuilder  {
+  builder.uuid = uuid
+  builder.uuidFlag = true
+  return builder
 }
 
-func (builder *InstanceCreateBuilder) Build() *InstanceCreate {
-	req := &InstanceCreate{}
-	if builder.approvalCodeFlag {
-		req.ApprovalCode = &builder.approvalCode
-
-	}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	if builder.openIdFlag {
-		req.OpenId = &builder.openId
-
-	}
-	if builder.departmentIdFlag {
-		req.DepartmentId = &builder.departmentId
-
-	}
-	if builder.formFlag {
-		req.Form = &builder.form
-
-	}
-	if builder.nodeApproverUserIdListFlag {
-		req.NodeApproverUserIdList = builder.nodeApproverUserIdList
-	}
-	if builder.nodeApproverOpenIdListFlag {
-		req.NodeApproverOpenIdList = builder.nodeApproverOpenIdList
-	}
-	if builder.nodeCcUserIdListFlag {
-		req.NodeCcUserIdList = builder.nodeCcUserIdList
-	}
-	if builder.nodeCcOpenIdListFlag {
-		req.NodeCcOpenIdList = builder.nodeCcOpenIdList
-	}
-	if builder.uuidFlag {
-		req.Uuid = &builder.uuid
-
-	}
-	return req
+func (builder * InstanceCreateBuilder ) Build() *InstanceCreate {
+   req := &InstanceCreate{}
+   if builder.approvalCodeFlag {
+	  req.ApprovalCode = &builder.approvalCode
+	  
+   }
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.openIdFlag {
+	  req.OpenId = &builder.openId
+	  
+   }
+   if builder.departmentIdFlag {
+	  req.DepartmentId = &builder.departmentId
+	  
+   }
+   if builder.formFlag {
+	  req.Form = &builder.form
+	  
+   }
+   if builder.nodeApproverUserIdListFlag {
+	  req.NodeApproverUserIdList = builder.nodeApproverUserIdList
+   }
+   if builder.nodeApproverOpenIdListFlag {
+	  req.NodeApproverOpenIdList = builder.nodeApproverOpenIdList
+   }
+   if builder.nodeCcUserIdListFlag {
+	  req.NodeCcUserIdList = builder.nodeCcUserIdList
+   }
+   if builder.nodeCcOpenIdListFlag {
+	  req.NodeCcOpenIdList = builder.nodeCcOpenIdList
+   }
+   if builder.uuidFlag {
+	  req.Uuid = &builder.uuid
+	  
+   }
+   return req
 }
-
 // builder结束
 
 type InstanceInfo struct {
-	ApprovalCode *string             `json:"approval_code,omitempty"`
-	ApprovalName *string             `json:"approval_name,omitempty"`
-	StartTime    *int64              `json:"start_time,omitempty,string"`
-	EndTime      *int64              `json:"end_time,omitempty,string"`
-	UserId       *string             `json:"user_id,omitempty"`
-	OpenId       *string             `json:"open_id,omitempty"`
-	SerialNumber *string             `json:"serial_number,omitempty"`
-	DepartmentId *string             `json:"department_id,omitempty"`
-	Status       *string             `json:"status,omitempty"`
-	Uuid         *string             `json:"uuid,omitempty"`
-	Form         *string             `json:"form,omitempty"`
-	TaskList     []*InstanceTask     `json:"task_list,omitempty"`
-	CommentList  []*InstanceComment  `json:"comment_list,omitempty"`
-	Timeline     []*InstanceTimeline `json:"timeline,omitempty"`
+	ApprovalCode  *string `json:"approval_code,omitempty"`
+	ApprovalName  *string `json:"approval_name,omitempty"`
+	StartTime  *int64 `json:"start_time,omitempty,string"`
+	EndTime  *int64 `json:"end_time,omitempty,string"`
+	UserId  *string `json:"user_id,omitempty"`
+	OpenId  *string `json:"open_id,omitempty"`
+	SerialNumber  *string `json:"serial_number,omitempty"`
+	DepartmentId  *string `json:"department_id,omitempty"`
+	Status  *string `json:"status,omitempty"`
+	Uuid  *string `json:"uuid,omitempty"`
+	Form  *string `json:"form,omitempty"`
+	TaskList  []*InstanceTask `json:"task_list,omitempty"`
+	CommentList  []*InstanceComment `json:"comment_list,omitempty"`
+	Timeline  []*InstanceTimeline `json:"timeline,omitempty"`
 }
 
 // builder开始
 type InstanceInfoBuilder struct {
-	approvalCode     string
-	approvalCodeFlag bool
-	approvalName     string
-	approvalNameFlag bool
-	startTime        int64
-	startTimeFlag    bool
-	endTime          int64
-	endTimeFlag      bool
-	userId           string
-	userIdFlag       bool
-	openId           string
-	openIdFlag       bool
-	serialNumber     string
-	serialNumberFlag bool
-	departmentId     string
-	departmentIdFlag bool
-	status           string
-	statusFlag       bool
-	uuid             string
-	uuidFlag         bool
-	form             string
-	formFlag         bool
-	taskList         []*InstanceTask
-	taskListFlag     bool
-	commentList      []*InstanceComment
+	approvalCode  string
+	approvalCodeFlag  bool
+	approvalName  string
+	approvalNameFlag  bool
+	startTime  int64
+	startTimeFlag  bool
+	endTime  int64
+	endTimeFlag  bool
+	userId  string
+	userIdFlag  bool
+	openId  string
+	openIdFlag  bool
+	serialNumber  string
+	serialNumberFlag  bool
+	departmentId  string
+	departmentIdFlag  bool
+	status  string
+	statusFlag  bool
+	uuid  string
+	uuidFlag  bool
+	form  string
+	formFlag  bool
+	taskList  []*InstanceTask
+	taskListFlag  bool
+	commentList  []*InstanceComment
 	commentListFlag  bool
-	timeline         []*InstanceTimeline
-	timelineFlag     bool
+	timeline  []*InstanceTimeline
+	timelineFlag  bool
 }
 
-func NewInstanceInfoBuilder() *InstanceInfoBuilder {
-	builder := &InstanceInfoBuilder{}
-	return builder
+func NewInstanceInfoBuilder() * InstanceInfoBuilder{
+   builder := &InstanceInfoBuilder{}
+   return builder
 }
 
-func (builder *InstanceInfoBuilder) ApprovalCode(approvalCode string) *InstanceInfoBuilder {
-	builder.approvalCode = approvalCode
-	builder.approvalCodeFlag = true
-	return builder
+
+func (builder * InstanceInfoBuilder) ApprovalCode(approvalCode string) *InstanceInfoBuilder  {
+  builder.approvalCode = approvalCode
+  builder.approvalCodeFlag = true
+  return builder
 }
-func (builder *InstanceInfoBuilder) ApprovalName(approvalName string) *InstanceInfoBuilder {
-	builder.approvalName = approvalName
-	builder.approvalNameFlag = true
-	return builder
+func (builder * InstanceInfoBuilder) ApprovalName(approvalName string) *InstanceInfoBuilder  {
+  builder.approvalName = approvalName
+  builder.approvalNameFlag = true
+  return builder
 }
-func (builder *InstanceInfoBuilder) StartTime(startTime int64) *InstanceInfoBuilder {
-	builder.startTime = startTime
-	builder.startTimeFlag = true
-	return builder
+func (builder * InstanceInfoBuilder) StartTime(startTime int64) *InstanceInfoBuilder  {
+  builder.startTime = startTime
+  builder.startTimeFlag = true
+  return builder
 }
-func (builder *InstanceInfoBuilder) EndTime(endTime int64) *InstanceInfoBuilder {
-	builder.endTime = endTime
-	builder.endTimeFlag = true
-	return builder
+func (builder * InstanceInfoBuilder) EndTime(endTime int64) *InstanceInfoBuilder  {
+  builder.endTime = endTime
+  builder.endTimeFlag = true
+  return builder
 }
-func (builder *InstanceInfoBuilder) UserId(userId string) *InstanceInfoBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
+func (builder * InstanceInfoBuilder) UserId(userId string) *InstanceInfoBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
-func (builder *InstanceInfoBuilder) OpenId(openId string) *InstanceInfoBuilder {
-	builder.openId = openId
-	builder.openIdFlag = true
-	return builder
+func (builder * InstanceInfoBuilder) OpenId(openId string) *InstanceInfoBuilder  {
+  builder.openId = openId
+  builder.openIdFlag = true
+  return builder
 }
-func (builder *InstanceInfoBuilder) SerialNumber(serialNumber string) *InstanceInfoBuilder {
-	builder.serialNumber = serialNumber
-	builder.serialNumberFlag = true
-	return builder
+func (builder * InstanceInfoBuilder) SerialNumber(serialNumber string) *InstanceInfoBuilder  {
+  builder.serialNumber = serialNumber
+  builder.serialNumberFlag = true
+  return builder
 }
-func (builder *InstanceInfoBuilder) DepartmentId(departmentId string) *InstanceInfoBuilder {
-	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
-	return builder
+func (builder * InstanceInfoBuilder) DepartmentId(departmentId string) *InstanceInfoBuilder  {
+  builder.departmentId = departmentId
+  builder.departmentIdFlag = true
+  return builder
 }
-func (builder *InstanceInfoBuilder) Status(status string) *InstanceInfoBuilder {
-	builder.status = status
-	builder.statusFlag = true
-	return builder
+func (builder * InstanceInfoBuilder) Status(status string) *InstanceInfoBuilder  {
+  builder.status = status
+  builder.statusFlag = true
+  return builder
 }
-func (builder *InstanceInfoBuilder) Uuid(uuid string) *InstanceInfoBuilder {
-	builder.uuid = uuid
-	builder.uuidFlag = true
-	return builder
+func (builder * InstanceInfoBuilder) Uuid(uuid string) *InstanceInfoBuilder  {
+  builder.uuid = uuid
+  builder.uuidFlag = true
+  return builder
 }
-func (builder *InstanceInfoBuilder) Form(form string) *InstanceInfoBuilder {
-	builder.form = form
-	builder.formFlag = true
-	return builder
+func (builder * InstanceInfoBuilder) Form(form string) *InstanceInfoBuilder  {
+  builder.form = form
+  builder.formFlag = true
+  return builder
 }
-func (builder *InstanceInfoBuilder) TaskList(taskList []*InstanceTask) *InstanceInfoBuilder {
-	builder.taskList = taskList
-	builder.taskListFlag = true
-	return builder
+func (builder * InstanceInfoBuilder) TaskList(taskList []*InstanceTask) *InstanceInfoBuilder  {
+  builder.taskList = taskList
+  builder.taskListFlag = true
+  return builder
 }
-func (builder *InstanceInfoBuilder) CommentList(commentList []*InstanceComment) *InstanceInfoBuilder {
-	builder.commentList = commentList
-	builder.commentListFlag = true
-	return builder
+func (builder * InstanceInfoBuilder) CommentList(commentList []*InstanceComment) *InstanceInfoBuilder  {
+  builder.commentList = commentList
+  builder.commentListFlag = true
+  return builder
 }
-func (builder *InstanceInfoBuilder) Timeline(timeline []*InstanceTimeline) *InstanceInfoBuilder {
-	builder.timeline = timeline
-	builder.timelineFlag = true
-	return builder
+func (builder * InstanceInfoBuilder) Timeline(timeline []*InstanceTimeline) *InstanceInfoBuilder  {
+  builder.timeline = timeline
+  builder.timelineFlag = true
+  return builder
 }
 
-func (builder *InstanceInfoBuilder) Build() *InstanceInfo {
-	req := &InstanceInfo{}
-	if builder.approvalCodeFlag {
-		req.ApprovalCode = &builder.approvalCode
-
-	}
-	if builder.approvalNameFlag {
-		req.ApprovalName = &builder.approvalName
-
-	}
-	if builder.startTimeFlag {
-		req.StartTime = &builder.startTime
-
-	}
-	if builder.endTimeFlag {
-		req.EndTime = &builder.endTime
-
-	}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	if builder.openIdFlag {
-		req.OpenId = &builder.openId
-
-	}
-	if builder.serialNumberFlag {
-		req.SerialNumber = &builder.serialNumber
-
-	}
-	if builder.departmentIdFlag {
-		req.DepartmentId = &builder.departmentId
-
-	}
-	if builder.statusFlag {
-		req.Status = &builder.status
-
-	}
-	if builder.uuidFlag {
-		req.Uuid = &builder.uuid
-
-	}
-	if builder.formFlag {
-		req.Form = &builder.form
-
-	}
-	if builder.taskListFlag {
-		req.TaskList = builder.taskList
-	}
-	if builder.commentListFlag {
-		req.CommentList = builder.commentList
-	}
-	if builder.timelineFlag {
-		req.Timeline = builder.timeline
-	}
-	return req
+func (builder * InstanceInfoBuilder ) Build() *InstanceInfo {
+   req := &InstanceInfo{}
+   if builder.approvalCodeFlag {
+	  req.ApprovalCode = &builder.approvalCode
+	  
+   }
+   if builder.approvalNameFlag {
+	  req.ApprovalName = &builder.approvalName
+	  
+   }
+   if builder.startTimeFlag {
+	  req.StartTime = &builder.startTime
+	  
+   }
+   if builder.endTimeFlag {
+	  req.EndTime = &builder.endTime
+	  
+   }
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.openIdFlag {
+	  req.OpenId = &builder.openId
+	  
+   }
+   if builder.serialNumberFlag {
+	  req.SerialNumber = &builder.serialNumber
+	  
+   }
+   if builder.departmentIdFlag {
+	  req.DepartmentId = &builder.departmentId
+	  
+   }
+   if builder.statusFlag {
+	  req.Status = &builder.status
+	  
+   }
+   if builder.uuidFlag {
+	  req.Uuid = &builder.uuid
+	  
+   }
+   if builder.formFlag {
+	  req.Form = &builder.form
+	  
+   }
+   if builder.taskListFlag {
+	  req.TaskList = builder.taskList
+   }
+   if builder.commentListFlag {
+	  req.CommentList = builder.commentList
+   }
+   if builder.timelineFlag {
+	  req.Timeline = builder.timeline
+   }
+   return req
 }
-
 // builder结束
 
 type InstanceSearch struct {
-	UserId                *string `json:"user_id,omitempty"`
-	ApprovalCode          *string `json:"approval_code,omitempty"`
-	InstanceCode          *string `json:"instance_code,omitempty"`
-	InstanceExternalId    *string `json:"instance_external_id,omitempty"`
-	GroupExternalId       *string `json:"group_external_id,omitempty"`
-	InstanceTitle         *string `json:"instance_title,omitempty"`
-	InstanceStatus        *string `json:"instance_status,omitempty"`
-	InstanceStartTimeFrom *int64  `json:"instance_start_time_from,omitempty,string"`
-	InstanceStartTimeTo   *int64  `json:"instance_start_time_to,omitempty,string"`
-	Locale                *string `json:"locale,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
+	ApprovalCode  *string `json:"approval_code,omitempty"`
+	InstanceCode  *string `json:"instance_code,omitempty"`
+	InstanceExternalId  *string `json:"instance_external_id,omitempty"`
+	GroupExternalId  *string `json:"group_external_id,omitempty"`
+	InstanceTitle  *string `json:"instance_title,omitempty"`
+	InstanceStatus  *string `json:"instance_status,omitempty"`
+	InstanceStartTimeFrom  *int64 `json:"instance_start_time_from,omitempty,string"`
+	InstanceStartTimeTo  *int64 `json:"instance_start_time_to,omitempty,string"`
+	Locale  *string `json:"locale,omitempty"`
 }
 
 // builder开始
 type InstanceSearchBuilder struct {
-	userId                    string
-	userIdFlag                bool
-	approvalCode              string
-	approvalCodeFlag          bool
-	instanceCode              string
-	instanceCodeFlag          bool
-	instanceExternalId        string
-	instanceExternalIdFlag    bool
-	groupExternalId           string
-	groupExternalIdFlag       bool
-	instanceTitle             string
-	instanceTitleFlag         bool
-	instanceStatus            string
-	instanceStatusFlag        bool
-	instanceStartTimeFrom     int64
-	instanceStartTimeFromFlag bool
-	instanceStartTimeTo       int64
-	instanceStartTimeToFlag   bool
-	locale                    string
-	localeFlag                bool
+	userId  string
+	userIdFlag  bool
+	approvalCode  string
+	approvalCodeFlag  bool
+	instanceCode  string
+	instanceCodeFlag  bool
+	instanceExternalId  string
+	instanceExternalIdFlag  bool
+	groupExternalId  string
+	groupExternalIdFlag  bool
+	instanceTitle  string
+	instanceTitleFlag  bool
+	instanceStatus  string
+	instanceStatusFlag  bool
+	instanceStartTimeFrom  int64
+	instanceStartTimeFromFlag  bool
+	instanceStartTimeTo  int64
+	instanceStartTimeToFlag  bool
+	locale  string
+	localeFlag  bool
 }
 
-func NewInstanceSearchBuilder() *InstanceSearchBuilder {
-	builder := &InstanceSearchBuilder{}
-	return builder
+func NewInstanceSearchBuilder() * InstanceSearchBuilder{
+   builder := &InstanceSearchBuilder{}
+   return builder
 }
 
-func (builder *InstanceSearchBuilder) UserId(userId string) *InstanceSearchBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
+
+func (builder * InstanceSearchBuilder) UserId(userId string) *InstanceSearchBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
-func (builder *InstanceSearchBuilder) ApprovalCode(approvalCode string) *InstanceSearchBuilder {
-	builder.approvalCode = approvalCode
-	builder.approvalCodeFlag = true
-	return builder
+func (builder * InstanceSearchBuilder) ApprovalCode(approvalCode string) *InstanceSearchBuilder  {
+  builder.approvalCode = approvalCode
+  builder.approvalCodeFlag = true
+  return builder
 }
-func (builder *InstanceSearchBuilder) InstanceCode(instanceCode string) *InstanceSearchBuilder {
-	builder.instanceCode = instanceCode
-	builder.instanceCodeFlag = true
-	return builder
+func (builder * InstanceSearchBuilder) InstanceCode(instanceCode string) *InstanceSearchBuilder  {
+  builder.instanceCode = instanceCode
+  builder.instanceCodeFlag = true
+  return builder
 }
-func (builder *InstanceSearchBuilder) InstanceExternalId(instanceExternalId string) *InstanceSearchBuilder {
-	builder.instanceExternalId = instanceExternalId
-	builder.instanceExternalIdFlag = true
-	return builder
+func (builder * InstanceSearchBuilder) InstanceExternalId(instanceExternalId string) *InstanceSearchBuilder  {
+  builder.instanceExternalId = instanceExternalId
+  builder.instanceExternalIdFlag = true
+  return builder
 }
-func (builder *InstanceSearchBuilder) GroupExternalId(groupExternalId string) *InstanceSearchBuilder {
-	builder.groupExternalId = groupExternalId
-	builder.groupExternalIdFlag = true
-	return builder
+func (builder * InstanceSearchBuilder) GroupExternalId(groupExternalId string) *InstanceSearchBuilder  {
+  builder.groupExternalId = groupExternalId
+  builder.groupExternalIdFlag = true
+  return builder
 }
-func (builder *InstanceSearchBuilder) InstanceTitle(instanceTitle string) *InstanceSearchBuilder {
-	builder.instanceTitle = instanceTitle
-	builder.instanceTitleFlag = true
-	return builder
+func (builder * InstanceSearchBuilder) InstanceTitle(instanceTitle string) *InstanceSearchBuilder  {
+  builder.instanceTitle = instanceTitle
+  builder.instanceTitleFlag = true
+  return builder
 }
-func (builder *InstanceSearchBuilder) InstanceStatus(instanceStatus string) *InstanceSearchBuilder {
-	builder.instanceStatus = instanceStatus
-	builder.instanceStatusFlag = true
-	return builder
+func (builder * InstanceSearchBuilder) InstanceStatus(instanceStatus string) *InstanceSearchBuilder  {
+  builder.instanceStatus = instanceStatus
+  builder.instanceStatusFlag = true
+  return builder
 }
-func (builder *InstanceSearchBuilder) InstanceStartTimeFrom(instanceStartTimeFrom int64) *InstanceSearchBuilder {
-	builder.instanceStartTimeFrom = instanceStartTimeFrom
-	builder.instanceStartTimeFromFlag = true
-	return builder
+func (builder * InstanceSearchBuilder) InstanceStartTimeFrom(instanceStartTimeFrom int64) *InstanceSearchBuilder  {
+  builder.instanceStartTimeFrom = instanceStartTimeFrom
+  builder.instanceStartTimeFromFlag = true
+  return builder
 }
-func (builder *InstanceSearchBuilder) InstanceStartTimeTo(instanceStartTimeTo int64) *InstanceSearchBuilder {
-	builder.instanceStartTimeTo = instanceStartTimeTo
-	builder.instanceStartTimeToFlag = true
-	return builder
+func (builder * InstanceSearchBuilder) InstanceStartTimeTo(instanceStartTimeTo int64) *InstanceSearchBuilder  {
+  builder.instanceStartTimeTo = instanceStartTimeTo
+  builder.instanceStartTimeToFlag = true
+  return builder
 }
-func (builder *InstanceSearchBuilder) Locale(locale string) *InstanceSearchBuilder {
-	builder.locale = locale
-	builder.localeFlag = true
-	return builder
-}
-
-func (builder *InstanceSearchBuilder) Build() *InstanceSearch {
-	req := &InstanceSearch{}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	if builder.approvalCodeFlag {
-		req.ApprovalCode = &builder.approvalCode
-
-	}
-	if builder.instanceCodeFlag {
-		req.InstanceCode = &builder.instanceCode
-
-	}
-	if builder.instanceExternalIdFlag {
-		req.InstanceExternalId = &builder.instanceExternalId
-
-	}
-	if builder.groupExternalIdFlag {
-		req.GroupExternalId = &builder.groupExternalId
-
-	}
-	if builder.instanceTitleFlag {
-		req.InstanceTitle = &builder.instanceTitle
-
-	}
-	if builder.instanceStatusFlag {
-		req.InstanceStatus = &builder.instanceStatus
-
-	}
-	if builder.instanceStartTimeFromFlag {
-		req.InstanceStartTimeFrom = &builder.instanceStartTimeFrom
-
-	}
-	if builder.instanceStartTimeToFlag {
-		req.InstanceStartTimeTo = &builder.instanceStartTimeTo
-
-	}
-	if builder.localeFlag {
-		req.Locale = &builder.locale
-
-	}
-	return req
+func (builder * InstanceSearchBuilder) Locale(locale string) *InstanceSearchBuilder  {
+  builder.locale = locale
+  builder.localeFlag = true
+  return builder
 }
 
+func (builder * InstanceSearchBuilder ) Build() *InstanceSearch {
+   req := &InstanceSearch{}
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.approvalCodeFlag {
+	  req.ApprovalCode = &builder.approvalCode
+	  
+   }
+   if builder.instanceCodeFlag {
+	  req.InstanceCode = &builder.instanceCode
+	  
+   }
+   if builder.instanceExternalIdFlag {
+	  req.InstanceExternalId = &builder.instanceExternalId
+	  
+   }
+   if builder.groupExternalIdFlag {
+	  req.GroupExternalId = &builder.groupExternalId
+	  
+   }
+   if builder.instanceTitleFlag {
+	  req.InstanceTitle = &builder.instanceTitle
+	  
+   }
+   if builder.instanceStatusFlag {
+	  req.InstanceStatus = &builder.instanceStatus
+	  
+   }
+   if builder.instanceStartTimeFromFlag {
+	  req.InstanceStartTimeFrom = &builder.instanceStartTimeFrom
+	  
+   }
+   if builder.instanceStartTimeToFlag {
+	  req.InstanceStartTimeTo = &builder.instanceStartTimeTo
+	  
+   }
+   if builder.localeFlag {
+	  req.Locale = &builder.locale
+	  
+   }
+   return req
+}
 // builder结束
 
 type InstanceSearchApproval struct {
-	Code       *string                         `json:"code,omitempty"`
-	Name       *string                         `json:"name,omitempty"`
-	IsExternal *bool                           `json:"is_external,omitempty"`
-	External   *InstanceSearchApprovalExternal `json:"external,omitempty"`
+	Code  *string `json:"code,omitempty"`
+	Name  *string `json:"name,omitempty"`
+	IsExternal  *bool `json:"is_external,omitempty"`
+	External  *InstanceSearchApprovalExternal `json:"external,omitempty"`
 }
 
 // builder开始
 type InstanceSearchApprovalBuilder struct {
-	code           string
-	codeFlag       bool
-	name           string
-	nameFlag       bool
-	isExternal     bool
-	isExternalFlag bool
-	external       *InstanceSearchApprovalExternal
-	externalFlag   bool
+	code  string
+	codeFlag  bool
+	name  string
+	nameFlag  bool
+	isExternal  bool
+	isExternalFlag  bool
+	external  *InstanceSearchApprovalExternal
+	externalFlag  bool
 }
 
-func NewInstanceSearchApprovalBuilder() *InstanceSearchApprovalBuilder {
-	builder := &InstanceSearchApprovalBuilder{}
-	return builder
+func NewInstanceSearchApprovalBuilder() * InstanceSearchApprovalBuilder{
+   builder := &InstanceSearchApprovalBuilder{}
+   return builder
 }
 
-func (builder *InstanceSearchApprovalBuilder) Code(code string) *InstanceSearchApprovalBuilder {
-	builder.code = code
-	builder.codeFlag = true
-	return builder
-}
-func (builder *InstanceSearchApprovalBuilder) Name(name string) *InstanceSearchApprovalBuilder {
-	builder.name = name
-	builder.nameFlag = true
-	return builder
-}
-func (builder *InstanceSearchApprovalBuilder) IsExternal(isExternal bool) *InstanceSearchApprovalBuilder {
-	builder.isExternal = isExternal
-	builder.isExternalFlag = true
-	return builder
-}
-func (builder *InstanceSearchApprovalBuilder) External(external *InstanceSearchApprovalExternal) *InstanceSearchApprovalBuilder {
-	builder.external = external
-	builder.externalFlag = true
-	return builder
-}
 
-func (builder *InstanceSearchApprovalBuilder) Build() *InstanceSearchApproval {
-	req := &InstanceSearchApproval{}
-	if builder.codeFlag {
-		req.Code = &builder.code
-
-	}
-	if builder.nameFlag {
-		req.Name = &builder.name
-
-	}
-	if builder.isExternalFlag {
-		req.IsExternal = &builder.isExternal
-
-	}
-	if builder.externalFlag {
-		req.External = builder.external
-	}
-	return req
+func (builder * InstanceSearchApprovalBuilder) Code(code string) *InstanceSearchApprovalBuilder  {
+  builder.code = code
+  builder.codeFlag = true
+  return builder
+}
+func (builder * InstanceSearchApprovalBuilder) Name(name string) *InstanceSearchApprovalBuilder  {
+  builder.name = name
+  builder.nameFlag = true
+  return builder
+}
+func (builder * InstanceSearchApprovalBuilder) IsExternal(isExternal bool) *InstanceSearchApprovalBuilder  {
+  builder.isExternal = isExternal
+  builder.isExternalFlag = true
+  return builder
+}
+func (builder * InstanceSearchApprovalBuilder) External(external *InstanceSearchApprovalExternal) *InstanceSearchApprovalBuilder  {
+  builder.external = external
+  builder.externalFlag = true
+  return builder
 }
 
+func (builder * InstanceSearchApprovalBuilder ) Build() *InstanceSearchApproval {
+   req := &InstanceSearchApproval{}
+   if builder.codeFlag {
+	  req.Code = &builder.code
+	  
+   }
+   if builder.nameFlag {
+	  req.Name = &builder.name
+	  
+   }
+   if builder.isExternalFlag {
+	  req.IsExternal = &builder.isExternal
+	  
+   }
+   if builder.externalFlag {
+	  req.External = builder.external
+   }
+   return req
+}
 // builder结束
 
 type InstanceSearchApprovalExternal struct {
-	BatchCcRead *bool `json:"batch_cc_read,omitempty"`
+	BatchCcRead  *bool `json:"batch_cc_read,omitempty"`
 }
 
 // builder开始
 type InstanceSearchApprovalExternalBuilder struct {
-	batchCcRead     bool
-	batchCcReadFlag bool
+	batchCcRead  bool
+	batchCcReadFlag  bool
 }
 
-func NewInstanceSearchApprovalExternalBuilder() *InstanceSearchApprovalExternalBuilder {
-	builder := &InstanceSearchApprovalExternalBuilder{}
-	return builder
+func NewInstanceSearchApprovalExternalBuilder() * InstanceSearchApprovalExternalBuilder{
+   builder := &InstanceSearchApprovalExternalBuilder{}
+   return builder
 }
 
-func (builder *InstanceSearchApprovalExternalBuilder) BatchCcRead(batchCcRead bool) *InstanceSearchApprovalExternalBuilder {
-	builder.batchCcRead = batchCcRead
-	builder.batchCcReadFlag = true
-	return builder
+
+func (builder * InstanceSearchApprovalExternalBuilder) BatchCcRead(batchCcRead bool) *InstanceSearchApprovalExternalBuilder  {
+  builder.batchCcRead = batchCcRead
+  builder.batchCcReadFlag = true
+  return builder
 }
 
-func (builder *InstanceSearchApprovalExternalBuilder) Build() *InstanceSearchApprovalExternal {
-	req := &InstanceSearchApprovalExternal{}
-	if builder.batchCcReadFlag {
-		req.BatchCcRead = &builder.batchCcRead
-
-	}
-	return req
+func (builder * InstanceSearchApprovalExternalBuilder ) Build() *InstanceSearchApprovalExternal {
+   req := &InstanceSearchApprovalExternal{}
+   if builder.batchCcReadFlag {
+	  req.BatchCcRead = &builder.batchCcRead
+	  
+   }
+   return req
 }
-
 // builder结束
 
 type InstanceSearchGroup struct {
-	ExternalId *string `json:"external_id,omitempty"`
-	Name       *string `json:"name,omitempty"`
+	ExternalId  *string `json:"external_id,omitempty"`
+	Name  *string `json:"name,omitempty"`
 }
 
 // builder开始
 type InstanceSearchGroupBuilder struct {
-	externalId     string
-	externalIdFlag bool
-	name           string
-	nameFlag       bool
+	externalId  string
+	externalIdFlag  bool
+	name  string
+	nameFlag  bool
 }
 
-func NewInstanceSearchGroupBuilder() *InstanceSearchGroupBuilder {
-	builder := &InstanceSearchGroupBuilder{}
-	return builder
+func NewInstanceSearchGroupBuilder() * InstanceSearchGroupBuilder{
+   builder := &InstanceSearchGroupBuilder{}
+   return builder
 }
 
-func (builder *InstanceSearchGroupBuilder) ExternalId(externalId string) *InstanceSearchGroupBuilder {
-	builder.externalId = externalId
-	builder.externalIdFlag = true
-	return builder
+
+func (builder * InstanceSearchGroupBuilder) ExternalId(externalId string) *InstanceSearchGroupBuilder  {
+  builder.externalId = externalId
+  builder.externalIdFlag = true
+  return builder
 }
-func (builder *InstanceSearchGroupBuilder) Name(name string) *InstanceSearchGroupBuilder {
-	builder.name = name
-	builder.nameFlag = true
-	return builder
-}
-
-func (builder *InstanceSearchGroupBuilder) Build() *InstanceSearchGroup {
-	req := &InstanceSearchGroup{}
-	if builder.externalIdFlag {
-		req.ExternalId = &builder.externalId
-
-	}
-	if builder.nameFlag {
-		req.Name = &builder.name
-
-	}
-	return req
+func (builder * InstanceSearchGroupBuilder) Name(name string) *InstanceSearchGroupBuilder  {
+  builder.name = name
+  builder.nameFlag = true
+  return builder
 }
 
+func (builder * InstanceSearchGroupBuilder ) Build() *InstanceSearchGroup {
+   req := &InstanceSearchGroup{}
+   if builder.externalIdFlag {
+	  req.ExternalId = &builder.externalId
+	  
+   }
+   if builder.nameFlag {
+	  req.Name = &builder.name
+	  
+   }
+   return req
+}
 // builder结束
 
 type InstanceSearchItem struct {
-	Approval *InstanceSearchApproval `json:"approval,omitempty"`
-	Group    *InstanceSearchGroup    `json:"group,omitempty"`
-	Instance *InstanceSearchNode     `json:"instance,omitempty"`
+	Approval  *InstanceSearchApproval `json:"approval,omitempty"`
+	Group  *InstanceSearchGroup `json:"group,omitempty"`
+	Instance  *InstanceSearchNode `json:"instance,omitempty"`
 }
 
 // builder开始
 type InstanceSearchItemBuilder struct {
-	approval     *InstanceSearchApproval
-	approvalFlag bool
-	group        *InstanceSearchGroup
-	groupFlag    bool
-	instance     *InstanceSearchNode
-	instanceFlag bool
+	approval  *InstanceSearchApproval
+	approvalFlag  bool
+	group  *InstanceSearchGroup
+	groupFlag  bool
+	instance  *InstanceSearchNode
+	instanceFlag  bool
 }
 
-func NewInstanceSearchItemBuilder() *InstanceSearchItemBuilder {
-	builder := &InstanceSearchItemBuilder{}
-	return builder
+func NewInstanceSearchItemBuilder() * InstanceSearchItemBuilder{
+   builder := &InstanceSearchItemBuilder{}
+   return builder
 }
 
-func (builder *InstanceSearchItemBuilder) Approval(approval *InstanceSearchApproval) *InstanceSearchItemBuilder {
-	builder.approval = approval
-	builder.approvalFlag = true
-	return builder
+
+func (builder * InstanceSearchItemBuilder) Approval(approval *InstanceSearchApproval) *InstanceSearchItemBuilder  {
+  builder.approval = approval
+  builder.approvalFlag = true
+  return builder
 }
-func (builder *InstanceSearchItemBuilder) Group(group *InstanceSearchGroup) *InstanceSearchItemBuilder {
-	builder.group = group
-	builder.groupFlag = true
-	return builder
+func (builder * InstanceSearchItemBuilder) Group(group *InstanceSearchGroup) *InstanceSearchItemBuilder  {
+  builder.group = group
+  builder.groupFlag = true
+  return builder
 }
-func (builder *InstanceSearchItemBuilder) Instance(instance *InstanceSearchNode) *InstanceSearchItemBuilder {
-	builder.instance = instance
-	builder.instanceFlag = true
-	return builder
+func (builder * InstanceSearchItemBuilder) Instance(instance *InstanceSearchNode) *InstanceSearchItemBuilder  {
+  builder.instance = instance
+  builder.instanceFlag = true
+  return builder
 }
 
-func (builder *InstanceSearchItemBuilder) Build() *InstanceSearchItem {
-	req := &InstanceSearchItem{}
-	if builder.approvalFlag {
-		req.Approval = builder.approval
-	}
-	if builder.groupFlag {
-		req.Group = builder.group
-	}
-	if builder.instanceFlag {
-		req.Instance = builder.instance
-	}
-	return req
+func (builder * InstanceSearchItemBuilder ) Build() *InstanceSearchItem {
+   req := &InstanceSearchItem{}
+   if builder.approvalFlag {
+	  req.Approval = builder.approval
+   }
+   if builder.groupFlag {
+	  req.Group = builder.group
+   }
+   if builder.instanceFlag {
+	  req.Instance = builder.instance
+   }
+   return req
 }
-
 // builder结束
 
 type InstanceSearchLink struct {
-	PcLink     *string `json:"pc_link,omitempty"`
-	MobileLink *string `json:"mobile_link,omitempty"`
+	PcLink  *string `json:"pc_link,omitempty"`
+	MobileLink  *string `json:"mobile_link,omitempty"`
 }
 
 // builder开始
 type InstanceSearchLinkBuilder struct {
-	pcLink         string
-	pcLinkFlag     bool
-	mobileLink     string
-	mobileLinkFlag bool
+	pcLink  string
+	pcLinkFlag  bool
+	mobileLink  string
+	mobileLinkFlag  bool
 }
 
-func NewInstanceSearchLinkBuilder() *InstanceSearchLinkBuilder {
-	builder := &InstanceSearchLinkBuilder{}
-	return builder
+func NewInstanceSearchLinkBuilder() * InstanceSearchLinkBuilder{
+   builder := &InstanceSearchLinkBuilder{}
+   return builder
 }
 
-func (builder *InstanceSearchLinkBuilder) PcLink(pcLink string) *InstanceSearchLinkBuilder {
-	builder.pcLink = pcLink
-	builder.pcLinkFlag = true
-	return builder
+
+func (builder * InstanceSearchLinkBuilder) PcLink(pcLink string) *InstanceSearchLinkBuilder  {
+  builder.pcLink = pcLink
+  builder.pcLinkFlag = true
+  return builder
 }
-func (builder *InstanceSearchLinkBuilder) MobileLink(mobileLink string) *InstanceSearchLinkBuilder {
-	builder.mobileLink = mobileLink
-	builder.mobileLinkFlag = true
-	return builder
-}
-
-func (builder *InstanceSearchLinkBuilder) Build() *InstanceSearchLink {
-	req := &InstanceSearchLink{}
-	if builder.pcLinkFlag {
-		req.PcLink = &builder.pcLink
-
-	}
-	if builder.mobileLinkFlag {
-		req.MobileLink = &builder.mobileLink
-
-	}
-	return req
+func (builder * InstanceSearchLinkBuilder) MobileLink(mobileLink string) *InstanceSearchLinkBuilder  {
+  builder.mobileLink = mobileLink
+  builder.mobileLinkFlag = true
+  return builder
 }
 
+func (builder * InstanceSearchLinkBuilder ) Build() *InstanceSearchLink {
+   req := &InstanceSearchLink{}
+   if builder.pcLinkFlag {
+	  req.PcLink = &builder.pcLink
+	  
+   }
+   if builder.mobileLinkFlag {
+	  req.MobileLink = &builder.mobileLink
+	  
+   }
+   return req
+}
 // builder结束
 
 type InstanceSearchNode struct {
-	Code       *string             `json:"code,omitempty"`
-	ExternalId *string             `json:"external_id,omitempty"`
-	UserId     *string             `json:"user_id,omitempty"`
-	StartTime  *int64              `json:"start_time,omitempty,string"`
-	EndTime    *int64              `json:"end_time,omitempty,string"`
-	Status     *string             `json:"status,omitempty"`
-	Title      *string             `json:"title,omitempty"`
-	Extra      *string             `json:"extra,omitempty"`
-	SerialId   *string             `json:"serial_id,omitempty"`
-	Link       *InstanceSearchLink `json:"link,omitempty"`
+	Code  *string `json:"code,omitempty"`
+	ExternalId  *string `json:"external_id,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
+	StartTime  *int64 `json:"start_time,omitempty,string"`
+	EndTime  *int64 `json:"end_time,omitempty,string"`
+	Status  *string `json:"status,omitempty"`
+	Title  *string `json:"title,omitempty"`
+	Extra  *string `json:"extra,omitempty"`
+	SerialId  *string `json:"serial_id,omitempty"`
+	Link  *InstanceSearchLink `json:"link,omitempty"`
 }
 
 // builder开始
 type InstanceSearchNodeBuilder struct {
-	code           string
-	codeFlag       bool
-	externalId     string
-	externalIdFlag bool
-	userId         string
-	userIdFlag     bool
-	startTime      int64
+	code  string
+	codeFlag  bool
+	externalId  string
+	externalIdFlag  bool
+	userId  string
+	userIdFlag  bool
+	startTime  int64
 	startTimeFlag  bool
-	endTime        int64
-	endTimeFlag    bool
-	status         string
-	statusFlag     bool
-	title          string
-	titleFlag      bool
-	extra          string
-	extraFlag      bool
-	serialId       string
-	serialIdFlag   bool
-	link           *InstanceSearchLink
-	linkFlag       bool
+	endTime  int64
+	endTimeFlag  bool
+	status  string
+	statusFlag  bool
+	title  string
+	titleFlag  bool
+	extra  string
+	extraFlag  bool
+	serialId  string
+	serialIdFlag  bool
+	link  *InstanceSearchLink
+	linkFlag  bool
 }
 
-func NewInstanceSearchNodeBuilder() *InstanceSearchNodeBuilder {
-	builder := &InstanceSearchNodeBuilder{}
-	return builder
+func NewInstanceSearchNodeBuilder() * InstanceSearchNodeBuilder{
+   builder := &InstanceSearchNodeBuilder{}
+   return builder
 }
 
-func (builder *InstanceSearchNodeBuilder) Code(code string) *InstanceSearchNodeBuilder {
-	builder.code = code
-	builder.codeFlag = true
-	return builder
-}
-func (builder *InstanceSearchNodeBuilder) ExternalId(externalId string) *InstanceSearchNodeBuilder {
-	builder.externalId = externalId
-	builder.externalIdFlag = true
-	return builder
-}
-func (builder *InstanceSearchNodeBuilder) UserId(userId string) *InstanceSearchNodeBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
-}
-func (builder *InstanceSearchNodeBuilder) StartTime(startTime int64) *InstanceSearchNodeBuilder {
-	builder.startTime = startTime
-	builder.startTimeFlag = true
-	return builder
-}
-func (builder *InstanceSearchNodeBuilder) EndTime(endTime int64) *InstanceSearchNodeBuilder {
-	builder.endTime = endTime
-	builder.endTimeFlag = true
-	return builder
-}
-func (builder *InstanceSearchNodeBuilder) Status(status string) *InstanceSearchNodeBuilder {
-	builder.status = status
-	builder.statusFlag = true
-	return builder
-}
-func (builder *InstanceSearchNodeBuilder) Title(title string) *InstanceSearchNodeBuilder {
-	builder.title = title
-	builder.titleFlag = true
-	return builder
-}
-func (builder *InstanceSearchNodeBuilder) Extra(extra string) *InstanceSearchNodeBuilder {
-	builder.extra = extra
-	builder.extraFlag = true
-	return builder
-}
-func (builder *InstanceSearchNodeBuilder) SerialId(serialId string) *InstanceSearchNodeBuilder {
-	builder.serialId = serialId
-	builder.serialIdFlag = true
-	return builder
-}
-func (builder *InstanceSearchNodeBuilder) Link(link *InstanceSearchLink) *InstanceSearchNodeBuilder {
-	builder.link = link
-	builder.linkFlag = true
-	return builder
-}
 
-func (builder *InstanceSearchNodeBuilder) Build() *InstanceSearchNode {
-	req := &InstanceSearchNode{}
-	if builder.codeFlag {
-		req.Code = &builder.code
-
-	}
-	if builder.externalIdFlag {
-		req.ExternalId = &builder.externalId
-
-	}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	if builder.startTimeFlag {
-		req.StartTime = &builder.startTime
-
-	}
-	if builder.endTimeFlag {
-		req.EndTime = &builder.endTime
-
-	}
-	if builder.statusFlag {
-		req.Status = &builder.status
-
-	}
-	if builder.titleFlag {
-		req.Title = &builder.title
-
-	}
-	if builder.extraFlag {
-		req.Extra = &builder.extra
-
-	}
-	if builder.serialIdFlag {
-		req.SerialId = &builder.serialId
-
-	}
-	if builder.linkFlag {
-		req.Link = builder.link
-	}
-	return req
+func (builder * InstanceSearchNodeBuilder) Code(code string) *InstanceSearchNodeBuilder  {
+  builder.code = code
+  builder.codeFlag = true
+  return builder
+}
+func (builder * InstanceSearchNodeBuilder) ExternalId(externalId string) *InstanceSearchNodeBuilder  {
+  builder.externalId = externalId
+  builder.externalIdFlag = true
+  return builder
+}
+func (builder * InstanceSearchNodeBuilder) UserId(userId string) *InstanceSearchNodeBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
+}
+func (builder * InstanceSearchNodeBuilder) StartTime(startTime int64) *InstanceSearchNodeBuilder  {
+  builder.startTime = startTime
+  builder.startTimeFlag = true
+  return builder
+}
+func (builder * InstanceSearchNodeBuilder) EndTime(endTime int64) *InstanceSearchNodeBuilder  {
+  builder.endTime = endTime
+  builder.endTimeFlag = true
+  return builder
+}
+func (builder * InstanceSearchNodeBuilder) Status(status string) *InstanceSearchNodeBuilder  {
+  builder.status = status
+  builder.statusFlag = true
+  return builder
+}
+func (builder * InstanceSearchNodeBuilder) Title(title string) *InstanceSearchNodeBuilder  {
+  builder.title = title
+  builder.titleFlag = true
+  return builder
+}
+func (builder * InstanceSearchNodeBuilder) Extra(extra string) *InstanceSearchNodeBuilder  {
+  builder.extra = extra
+  builder.extraFlag = true
+  return builder
+}
+func (builder * InstanceSearchNodeBuilder) SerialId(serialId string) *InstanceSearchNodeBuilder  {
+  builder.serialId = serialId
+  builder.serialIdFlag = true
+  return builder
+}
+func (builder * InstanceSearchNodeBuilder) Link(link *InstanceSearchLink) *InstanceSearchNodeBuilder  {
+  builder.link = link
+  builder.linkFlag = true
+  return builder
 }
 
+func (builder * InstanceSearchNodeBuilder ) Build() *InstanceSearchNode {
+   req := &InstanceSearchNode{}
+   if builder.codeFlag {
+	  req.Code = &builder.code
+	  
+   }
+   if builder.externalIdFlag {
+	  req.ExternalId = &builder.externalId
+	  
+   }
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.startTimeFlag {
+	  req.StartTime = &builder.startTime
+	  
+   }
+   if builder.endTimeFlag {
+	  req.EndTime = &builder.endTime
+	  
+   }
+   if builder.statusFlag {
+	  req.Status = &builder.status
+	  
+   }
+   if builder.titleFlag {
+	  req.Title = &builder.title
+	  
+   }
+   if builder.extraFlag {
+	  req.Extra = &builder.extra
+	  
+   }
+   if builder.serialIdFlag {
+	  req.SerialId = &builder.serialId
+	  
+   }
+   if builder.linkFlag {
+	  req.Link = builder.link
+   }
+   return req
+}
 // builder结束
 
 type InstanceTask struct {
-	Id           *string `json:"id,omitempty"`
-	UserId       *string `json:"user_id,omitempty"`
-	OpenId       *string `json:"open_id,omitempty"`
-	Status       *string `json:"status,omitempty"`
-	NodeId       *string `json:"node_id,omitempty"`
-	NodeName     *string `json:"node_name,omitempty"`
-	CustomNodeId *string `json:"custom_node_id,omitempty"`
-	Type         *string `json:"type,omitempty"`
-	StartTime    *int64  `json:"start_time,omitempty,string"`
-	EndTime      *int64  `json:"end_time,omitempty,string"`
+	Id  *string `json:"id,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
+	OpenId  *string `json:"open_id,omitempty"`
+	Status  *string `json:"status,omitempty"`
+	NodeId  *string `json:"node_id,omitempty"`
+	NodeName  *string `json:"node_name,omitempty"`
+	CustomNodeId  *string `json:"custom_node_id,omitempty"`
+	Type  *string `json:"type,omitempty"`
+	StartTime  *int64 `json:"start_time,omitempty,string"`
+	EndTime  *int64 `json:"end_time,omitempty,string"`
 }
 
 // builder开始
 type InstanceTaskBuilder struct {
-	id               string
-	idFlag           bool
-	userId           string
-	userIdFlag       bool
-	openId           string
-	openIdFlag       bool
-	status           string
-	statusFlag       bool
-	nodeId           string
-	nodeIdFlag       bool
-	nodeName         string
-	nodeNameFlag     bool
-	customNodeId     string
-	customNodeIdFlag bool
-	type_            string
-	typeFlag         bool
-	startTime        int64
-	startTimeFlag    bool
-	endTime          int64
-	endTimeFlag      bool
+	id  string
+	idFlag  bool
+	userId  string
+	userIdFlag  bool
+	openId  string
+	openIdFlag  bool
+	status  string
+	statusFlag  bool
+	nodeId  string
+	nodeIdFlag  bool
+	nodeName  string
+	nodeNameFlag  bool
+	customNodeId  string
+	customNodeIdFlag  bool
+	type_  string
+	typeFlag  bool
+	startTime  int64
+	startTimeFlag  bool
+	endTime  int64
+	endTimeFlag  bool
 }
 
-func NewInstanceTaskBuilder() *InstanceTaskBuilder {
-	builder := &InstanceTaskBuilder{}
-	return builder
+func NewInstanceTaskBuilder() * InstanceTaskBuilder{
+   builder := &InstanceTaskBuilder{}
+   return builder
 }
 
-func (builder *InstanceTaskBuilder) Id(id string) *InstanceTaskBuilder {
-	builder.id = id
-	builder.idFlag = true
-	return builder
+
+func (builder * InstanceTaskBuilder) Id(id string) *InstanceTaskBuilder  {
+  builder.id = id
+  builder.idFlag = true
+  return builder
 }
-func (builder *InstanceTaskBuilder) UserId(userId string) *InstanceTaskBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
+func (builder * InstanceTaskBuilder) UserId(userId string) *InstanceTaskBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
-func (builder *InstanceTaskBuilder) OpenId(openId string) *InstanceTaskBuilder {
-	builder.openId = openId
-	builder.openIdFlag = true
-	return builder
+func (builder * InstanceTaskBuilder) OpenId(openId string) *InstanceTaskBuilder  {
+  builder.openId = openId
+  builder.openIdFlag = true
+  return builder
 }
-func (builder *InstanceTaskBuilder) Status(status string) *InstanceTaskBuilder {
-	builder.status = status
-	builder.statusFlag = true
-	return builder
+func (builder * InstanceTaskBuilder) Status(status string) *InstanceTaskBuilder  {
+  builder.status = status
+  builder.statusFlag = true
+  return builder
 }
-func (builder *InstanceTaskBuilder) NodeId(nodeId string) *InstanceTaskBuilder {
-	builder.nodeId = nodeId
-	builder.nodeIdFlag = true
-	return builder
+func (builder * InstanceTaskBuilder) NodeId(nodeId string) *InstanceTaskBuilder  {
+  builder.nodeId = nodeId
+  builder.nodeIdFlag = true
+  return builder
 }
-func (builder *InstanceTaskBuilder) NodeName(nodeName string) *InstanceTaskBuilder {
-	builder.nodeName = nodeName
-	builder.nodeNameFlag = true
-	return builder
+func (builder * InstanceTaskBuilder) NodeName(nodeName string) *InstanceTaskBuilder  {
+  builder.nodeName = nodeName
+  builder.nodeNameFlag = true
+  return builder
 }
-func (builder *InstanceTaskBuilder) CustomNodeId(customNodeId string) *InstanceTaskBuilder {
-	builder.customNodeId = customNodeId
-	builder.customNodeIdFlag = true
-	return builder
+func (builder * InstanceTaskBuilder) CustomNodeId(customNodeId string) *InstanceTaskBuilder  {
+  builder.customNodeId = customNodeId
+  builder.customNodeIdFlag = true
+  return builder
 }
-func (builder *InstanceTaskBuilder) Type(type_ string) *InstanceTaskBuilder {
-	builder.type_ = type_
-	builder.typeFlag = true
-	return builder
+func (builder * InstanceTaskBuilder) Type(type_ string) *InstanceTaskBuilder  {
+  builder.type_ = type_
+  builder.typeFlag = true
+  return builder
 }
-func (builder *InstanceTaskBuilder) StartTime(startTime int64) *InstanceTaskBuilder {
-	builder.startTime = startTime
-	builder.startTimeFlag = true
-	return builder
+func (builder * InstanceTaskBuilder) StartTime(startTime int64) *InstanceTaskBuilder  {
+  builder.startTime = startTime
+  builder.startTimeFlag = true
+  return builder
 }
-func (builder *InstanceTaskBuilder) EndTime(endTime int64) *InstanceTaskBuilder {
-	builder.endTime = endTime
-	builder.endTimeFlag = true
-	return builder
-}
-
-func (builder *InstanceTaskBuilder) Build() *InstanceTask {
-	req := &InstanceTask{}
-	if builder.idFlag {
-		req.Id = &builder.id
-
-	}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	if builder.openIdFlag {
-		req.OpenId = &builder.openId
-
-	}
-	if builder.statusFlag {
-		req.Status = &builder.status
-
-	}
-	if builder.nodeIdFlag {
-		req.NodeId = &builder.nodeId
-
-	}
-	if builder.nodeNameFlag {
-		req.NodeName = &builder.nodeName
-
-	}
-	if builder.customNodeIdFlag {
-		req.CustomNodeId = &builder.customNodeId
-
-	}
-	if builder.typeFlag {
-		req.Type = &builder.type_
-
-	}
-	if builder.startTimeFlag {
-		req.StartTime = &builder.startTime
-
-	}
-	if builder.endTimeFlag {
-		req.EndTime = &builder.endTime
-
-	}
-	return req
+func (builder * InstanceTaskBuilder) EndTime(endTime int64) *InstanceTaskBuilder  {
+  builder.endTime = endTime
+  builder.endTimeFlag = true
+  return builder
 }
 
+func (builder * InstanceTaskBuilder ) Build() *InstanceTask {
+   req := &InstanceTask{}
+   if builder.idFlag {
+	  req.Id = &builder.id
+	  
+   }
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.openIdFlag {
+	  req.OpenId = &builder.openId
+	  
+   }
+   if builder.statusFlag {
+	  req.Status = &builder.status
+	  
+   }
+   if builder.nodeIdFlag {
+	  req.NodeId = &builder.nodeId
+	  
+   }
+   if builder.nodeNameFlag {
+	  req.NodeName = &builder.nodeName
+	  
+   }
+   if builder.customNodeIdFlag {
+	  req.CustomNodeId = &builder.customNodeId
+	  
+   }
+   if builder.typeFlag {
+	  req.Type = &builder.type_
+	  
+   }
+   if builder.startTimeFlag {
+	  req.StartTime = &builder.startTime
+	  
+   }
+   if builder.endTimeFlag {
+	  req.EndTime = &builder.endTime
+	  
+   }
+   return req
+}
 // builder结束
 
 type InstanceTimeline struct {
-	Type       *string           `json:"type,omitempty"`
-	CreateTime *int64            `json:"create_time,omitempty,string"`
-	UserId     *string           `json:"user_id,omitempty"`
-	OpenId     *string           `json:"open_id,omitempty"`
-	UserIdList []string          `json:"user_id_list,omitempty"`
-	OpenIdList []string          `json:"open_id_list,omitempty"`
-	TaskId     *string           `json:"task_id,omitempty"`
-	Comment    *string           `json:"comment,omitempty"`
-	CcUserList []*InstanceCcUser `json:"cc_user_list,omitempty"`
-	Ext        *string           `json:"ext,omitempty"`
-	NodeKey    *string           `json:"node_key,omitempty"`
+	Type  *string `json:"type,omitempty"`
+	CreateTime  *int64 `json:"create_time,omitempty,string"`
+	UserId  *string `json:"user_id,omitempty"`
+	OpenId  *string `json:"open_id,omitempty"`
+	UserIdList  []string `json:"user_id_list,omitempty"`
+	OpenIdList  []string `json:"open_id_list,omitempty"`
+	TaskId  *string `json:"task_id,omitempty"`
+	Comment  *string `json:"comment,omitempty"`
+	CcUserList  []*InstanceCcUser `json:"cc_user_list,omitempty"`
+	Ext  *string `json:"ext,omitempty"`
+	NodeKey  *string `json:"node_key,omitempty"`
 }
 
 // builder开始
 type InstanceTimelineBuilder struct {
-	type_          string
-	typeFlag       bool
-	createTime     int64
-	createTimeFlag bool
-	userId         string
-	userIdFlag     bool
-	openId         string
-	openIdFlag     bool
-	userIdList     []string
-	userIdListFlag bool
-	openIdList     []string
-	openIdListFlag bool
-	taskId         string
-	taskIdFlag     bool
-	comment        string
-	commentFlag    bool
-	ccUserList     []*InstanceCcUser
-	ccUserListFlag bool
-	ext            string
-	extFlag        bool
-	nodeKey        string
-	nodeKeyFlag    bool
+	type_  string
+	typeFlag  bool
+	createTime  int64
+	createTimeFlag  bool
+	userId  string
+	userIdFlag  bool
+	openId  string
+	openIdFlag  bool
+	userIdList  []string
+	userIdListFlag  bool
+	openIdList  []string
+	openIdListFlag  bool
+	taskId  string
+	taskIdFlag  bool
+	comment  string
+	commentFlag  bool
+	ccUserList  []*InstanceCcUser
+	ccUserListFlag  bool
+	ext  string
+	extFlag  bool
+	nodeKey  string
+	nodeKeyFlag  bool
 }
 
-func NewInstanceTimelineBuilder() *InstanceTimelineBuilder {
-	builder := &InstanceTimelineBuilder{}
-	return builder
+func NewInstanceTimelineBuilder() * InstanceTimelineBuilder{
+   builder := &InstanceTimelineBuilder{}
+   return builder
 }
 
-func (builder *InstanceTimelineBuilder) Type(type_ string) *InstanceTimelineBuilder {
-	builder.type_ = type_
-	builder.typeFlag = true
-	return builder
+
+func (builder * InstanceTimelineBuilder) Type(type_ string) *InstanceTimelineBuilder  {
+  builder.type_ = type_
+  builder.typeFlag = true
+  return builder
 }
-func (builder *InstanceTimelineBuilder) CreateTime(createTime int64) *InstanceTimelineBuilder {
-	builder.createTime = createTime
-	builder.createTimeFlag = true
-	return builder
+func (builder * InstanceTimelineBuilder) CreateTime(createTime int64) *InstanceTimelineBuilder  {
+  builder.createTime = createTime
+  builder.createTimeFlag = true
+  return builder
 }
-func (builder *InstanceTimelineBuilder) UserId(userId string) *InstanceTimelineBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
+func (builder * InstanceTimelineBuilder) UserId(userId string) *InstanceTimelineBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
-func (builder *InstanceTimelineBuilder) OpenId(openId string) *InstanceTimelineBuilder {
-	builder.openId = openId
-	builder.openIdFlag = true
-	return builder
+func (builder * InstanceTimelineBuilder) OpenId(openId string) *InstanceTimelineBuilder  {
+  builder.openId = openId
+  builder.openIdFlag = true
+  return builder
 }
-func (builder *InstanceTimelineBuilder) UserIdList(userIdList []string) *InstanceTimelineBuilder {
-	builder.userIdList = userIdList
-	builder.userIdListFlag = true
-	return builder
+func (builder * InstanceTimelineBuilder) UserIdList(userIdList []string) *InstanceTimelineBuilder  {
+  builder.userIdList = userIdList
+  builder.userIdListFlag = true
+  return builder
 }
-func (builder *InstanceTimelineBuilder) OpenIdList(openIdList []string) *InstanceTimelineBuilder {
-	builder.openIdList = openIdList
-	builder.openIdListFlag = true
-	return builder
+func (builder * InstanceTimelineBuilder) OpenIdList(openIdList []string) *InstanceTimelineBuilder  {
+  builder.openIdList = openIdList
+  builder.openIdListFlag = true
+  return builder
 }
-func (builder *InstanceTimelineBuilder) TaskId(taskId string) *InstanceTimelineBuilder {
-	builder.taskId = taskId
-	builder.taskIdFlag = true
-	return builder
+func (builder * InstanceTimelineBuilder) TaskId(taskId string) *InstanceTimelineBuilder  {
+  builder.taskId = taskId
+  builder.taskIdFlag = true
+  return builder
 }
-func (builder *InstanceTimelineBuilder) Comment(comment string) *InstanceTimelineBuilder {
-	builder.comment = comment
-	builder.commentFlag = true
-	return builder
+func (builder * InstanceTimelineBuilder) Comment(comment string) *InstanceTimelineBuilder  {
+  builder.comment = comment
+  builder.commentFlag = true
+  return builder
 }
-func (builder *InstanceTimelineBuilder) CcUserList(ccUserList []*InstanceCcUser) *InstanceTimelineBuilder {
-	builder.ccUserList = ccUserList
-	builder.ccUserListFlag = true
-	return builder
+func (builder * InstanceTimelineBuilder) CcUserList(ccUserList []*InstanceCcUser) *InstanceTimelineBuilder  {
+  builder.ccUserList = ccUserList
+  builder.ccUserListFlag = true
+  return builder
 }
-func (builder *InstanceTimelineBuilder) Ext(ext string) *InstanceTimelineBuilder {
-	builder.ext = ext
-	builder.extFlag = true
-	return builder
+func (builder * InstanceTimelineBuilder) Ext(ext string) *InstanceTimelineBuilder  {
+  builder.ext = ext
+  builder.extFlag = true
+  return builder
 }
-func (builder *InstanceTimelineBuilder) NodeKey(nodeKey string) *InstanceTimelineBuilder {
-	builder.nodeKey = nodeKey
-	builder.nodeKeyFlag = true
-	return builder
+func (builder * InstanceTimelineBuilder) NodeKey(nodeKey string) *InstanceTimelineBuilder  {
+  builder.nodeKey = nodeKey
+  builder.nodeKeyFlag = true
+  return builder
 }
 
-func (builder *InstanceTimelineBuilder) Build() *InstanceTimeline {
-	req := &InstanceTimeline{}
-	if builder.typeFlag {
-		req.Type = &builder.type_
-
-	}
-	if builder.createTimeFlag {
-		req.CreateTime = &builder.createTime
-
-	}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	if builder.openIdFlag {
-		req.OpenId = &builder.openId
-
-	}
-	if builder.userIdListFlag {
-		req.UserIdList = builder.userIdList
-	}
-	if builder.openIdListFlag {
-		req.OpenIdList = builder.openIdList
-	}
-	if builder.taskIdFlag {
-		req.TaskId = &builder.taskId
-
-	}
-	if builder.commentFlag {
-		req.Comment = &builder.comment
-
-	}
-	if builder.ccUserListFlag {
-		req.CcUserList = builder.ccUserList
-	}
-	if builder.extFlag {
-		req.Ext = &builder.ext
-
-	}
-	if builder.nodeKeyFlag {
-		req.NodeKey = &builder.nodeKey
-
-	}
-	return req
+func (builder * InstanceTimelineBuilder ) Build() *InstanceTimeline {
+   req := &InstanceTimeline{}
+   if builder.typeFlag {
+	  req.Type = &builder.type_
+	  
+   }
+   if builder.createTimeFlag {
+	  req.CreateTime = &builder.createTime
+	  
+   }
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.openIdFlag {
+	  req.OpenId = &builder.openId
+	  
+   }
+   if builder.userIdListFlag {
+	  req.UserIdList = builder.userIdList
+   }
+   if builder.openIdListFlag {
+	  req.OpenIdList = builder.openIdList
+   }
+   if builder.taskIdFlag {
+	  req.TaskId = &builder.taskId
+	  
+   }
+   if builder.commentFlag {
+	  req.Comment = &builder.comment
+	  
+   }
+   if builder.ccUserListFlag {
+	  req.CcUserList = builder.ccUserList
+   }
+   if builder.extFlag {
+	  req.Ext = &builder.ext
+	  
+   }
+   if builder.nodeKeyFlag {
+	  req.NodeKey = &builder.nodeKey
+	  
+   }
+   return req
 }
-
 // builder结束
 
 type Message struct {
-	Id        *string `json:"id,omitempty"`
-	ReceiveId *string `json:"receive_id,omitempty"`
-	Content   *string `json:"content,omitempty"`
-	MsgType   *string `json:"msg_type,omitempty"`
-	Config    *string `json:"config,omitempty"`
-	Extra     *string `json:"extra,omitempty"`
-	Uuid      *string `json:"uuid,omitempty"`
+	Id  *string `json:"id,omitempty"`
+	ReceiveId  *string `json:"receive_id,omitempty"`
+	Content  *string `json:"content,omitempty"`
+	MsgType  *string `json:"msg_type,omitempty"`
+	Config  *string `json:"config,omitempty"`
+	Extra  *string `json:"extra,omitempty"`
+	Uuid  *string `json:"uuid,omitempty"`
 }
 
 // builder开始
 type MessageBuilder struct {
-	id            string
-	idFlag        bool
-	receiveId     string
-	receiveIdFlag bool
-	content       string
-	contentFlag   bool
-	msgType       string
-	msgTypeFlag   bool
-	config        string
-	configFlag    bool
-	extra         string
-	extraFlag     bool
-	uuid          string
-	uuidFlag      bool
+	id  string
+	idFlag  bool
+	receiveId  string
+	receiveIdFlag  bool
+	content  string
+	contentFlag  bool
+	msgType  string
+	msgTypeFlag  bool
+	config  string
+	configFlag  bool
+	extra  string
+	extraFlag  bool
+	uuid  string
+	uuidFlag  bool
 }
 
-func NewMessageBuilder() *MessageBuilder {
-	builder := &MessageBuilder{}
-	return builder
+func NewMessageBuilder() * MessageBuilder{
+   builder := &MessageBuilder{}
+   return builder
 }
 
-func (builder *MessageBuilder) Id(id string) *MessageBuilder {
-	builder.id = id
-	builder.idFlag = true
-	return builder
+
+func (builder * MessageBuilder) Id(id string) *MessageBuilder  {
+  builder.id = id
+  builder.idFlag = true
+  return builder
 }
-func (builder *MessageBuilder) ReceiveId(receiveId string) *MessageBuilder {
-	builder.receiveId = receiveId
-	builder.receiveIdFlag = true
-	return builder
+func (builder * MessageBuilder) ReceiveId(receiveId string) *MessageBuilder  {
+  builder.receiveId = receiveId
+  builder.receiveIdFlag = true
+  return builder
 }
-func (builder *MessageBuilder) Content(content string) *MessageBuilder {
-	builder.content = content
-	builder.contentFlag = true
-	return builder
+func (builder * MessageBuilder) Content(content string) *MessageBuilder  {
+  builder.content = content
+  builder.contentFlag = true
+  return builder
 }
-func (builder *MessageBuilder) MsgType(msgType string) *MessageBuilder {
-	builder.msgType = msgType
-	builder.msgTypeFlag = true
-	return builder
+func (builder * MessageBuilder) MsgType(msgType string) *MessageBuilder  {
+  builder.msgType = msgType
+  builder.msgTypeFlag = true
+  return builder
 }
-func (builder *MessageBuilder) Config(config string) *MessageBuilder {
-	builder.config = config
-	builder.configFlag = true
-	return builder
+func (builder * MessageBuilder) Config(config string) *MessageBuilder  {
+  builder.config = config
+  builder.configFlag = true
+  return builder
 }
-func (builder *MessageBuilder) Extra(extra string) *MessageBuilder {
-	builder.extra = extra
-	builder.extraFlag = true
-	return builder
+func (builder * MessageBuilder) Extra(extra string) *MessageBuilder  {
+  builder.extra = extra
+  builder.extraFlag = true
+  return builder
 }
-func (builder *MessageBuilder) Uuid(uuid string) *MessageBuilder {
-	builder.uuid = uuid
-	builder.uuidFlag = true
-	return builder
-}
-
-func (builder *MessageBuilder) Build() *Message {
-	req := &Message{}
-	if builder.idFlag {
-		req.Id = &builder.id
-
-	}
-	if builder.receiveIdFlag {
-		req.ReceiveId = &builder.receiveId
-
-	}
-	if builder.contentFlag {
-		req.Content = &builder.content
-
-	}
-	if builder.msgTypeFlag {
-		req.MsgType = &builder.msgType
-
-	}
-	if builder.configFlag {
-		req.Config = &builder.config
-
-	}
-	if builder.extraFlag {
-		req.Extra = &builder.extra
-
-	}
-	if builder.uuidFlag {
-		req.Uuid = &builder.uuid
-
-	}
-	return req
+func (builder * MessageBuilder) Uuid(uuid string) *MessageBuilder  {
+  builder.uuid = uuid
+  builder.uuidFlag = true
+  return builder
 }
 
+func (builder * MessageBuilder ) Build() *Message {
+   req := &Message{}
+   if builder.idFlag {
+	  req.Id = &builder.id
+	  
+   }
+   if builder.receiveIdFlag {
+	  req.ReceiveId = &builder.receiveId
+	  
+   }
+   if builder.contentFlag {
+	  req.Content = &builder.content
+	  
+   }
+   if builder.msgTypeFlag {
+	  req.MsgType = &builder.msgType
+	  
+   }
+   if builder.configFlag {
+	  req.Config = &builder.config
+	  
+   }
+   if builder.extraFlag {
+	  req.Extra = &builder.extra
+	  
+   }
+   if builder.uuidFlag {
+	  req.Uuid = &builder.uuid
+	  
+   }
+   return req
+}
 // builder结束
 
 type NodeApprover struct {
-	Key   *string  `json:"key,omitempty"`
-	Value []string `json:"value,omitempty"`
+	Key  *string `json:"key,omitempty"`
+	Value  []string `json:"value,omitempty"`
 }
 
 // builder开始
 type NodeApproverBuilder struct {
-	key       string
-	keyFlag   bool
-	value     []string
-	valueFlag bool
+	key  string
+	keyFlag  bool
+	value  []string
+	valueFlag  bool
 }
 
-func NewNodeApproverBuilder() *NodeApproverBuilder {
-	builder := &NodeApproverBuilder{}
-	return builder
+func NewNodeApproverBuilder() * NodeApproverBuilder{
+   builder := &NodeApproverBuilder{}
+   return builder
 }
 
-func (builder *NodeApproverBuilder) Key(key string) *NodeApproverBuilder {
-	builder.key = key
-	builder.keyFlag = true
-	return builder
-}
-func (builder *NodeApproverBuilder) Value(value []string) *NodeApproverBuilder {
-	builder.value = value
-	builder.valueFlag = true
-	return builder
-}
 
-func (builder *NodeApproverBuilder) Build() *NodeApprover {
-	req := &NodeApprover{}
-	if builder.keyFlag {
-		req.Key = &builder.key
-
-	}
-	if builder.valueFlag {
-		req.Value = builder.value
-	}
-	return req
+func (builder * NodeApproverBuilder) Key(key string) *NodeApproverBuilder  {
+  builder.key = key
+  builder.keyFlag = true
+  return builder
+}
+func (builder * NodeApproverBuilder) Value(value []string) *NodeApproverBuilder  {
+  builder.value = value
+  builder.valueFlag = true
+  return builder
 }
 
+func (builder * NodeApproverBuilder ) Build() *NodeApprover {
+   req := &NodeApprover{}
+   if builder.keyFlag {
+	  req.Key = &builder.key
+	  
+   }
+   if builder.valueFlag {
+	  req.Value = builder.value
+   }
+   return req
+}
 // builder结束
 
 type NodeCc struct {
-	Key   *string  `json:"key,omitempty"`
-	Value []string `json:"value,omitempty"`
+	Key  *string `json:"key,omitempty"`
+	Value  []string `json:"value,omitempty"`
 }
 
 // builder开始
 type NodeCcBuilder struct {
-	key       string
-	keyFlag   bool
-	value     []string
-	valueFlag bool
+	key  string
+	keyFlag  bool
+	value  []string
+	valueFlag  bool
 }
 
-func NewNodeCcBuilder() *NodeCcBuilder {
-	builder := &NodeCcBuilder{}
-	return builder
+func NewNodeCcBuilder() * NodeCcBuilder{
+   builder := &NodeCcBuilder{}
+   return builder
 }
 
-func (builder *NodeCcBuilder) Key(key string) *NodeCcBuilder {
-	builder.key = key
-	builder.keyFlag = true
-	return builder
-}
-func (builder *NodeCcBuilder) Value(value []string) *NodeCcBuilder {
-	builder.value = value
-	builder.valueFlag = true
-	return builder
-}
 
-func (builder *NodeCcBuilder) Build() *NodeCc {
-	req := &NodeCc{}
-	if builder.keyFlag {
-		req.Key = &builder.key
-
-	}
-	if builder.valueFlag {
-		req.Value = builder.value
-	}
-	return req
+func (builder * NodeCcBuilder) Key(key string) *NodeCcBuilder  {
+  builder.key = key
+  builder.keyFlag = true
+  return builder
+}
+func (builder * NodeCcBuilder) Value(value []string) *NodeCcBuilder  {
+  builder.value = value
+  builder.valueFlag = true
+  return builder
 }
 
+func (builder * NodeCcBuilder ) Build() *NodeCc {
+   req := &NodeCc{}
+   if builder.keyFlag {
+	  req.Key = &builder.key
+	  
+   }
+   if builder.valueFlag {
+	  req.Value = builder.value
+   }
+   return req
+}
 // builder结束
 
 type PreviewNode struct {
-	NodeId             *string  `json:"node_id,omitempty"`
-	NodeName           *string  `json:"node_name,omitempty"`
-	NodeType           *string  `json:"node_type,omitempty"`
-	Comments           []string `json:"comments,omitempty"`
-	CustomNodeId       *string  `json:"custom_node_id,omitempty"`
-	UserIdList         []string `json:"user_id_list,omitempty"`
-	EndCcIdList        []string `json:"end_cc_id_list,omitempty"`
-	IsEmptyLogic       *bool    `json:"is_empty_logic,omitempty"`
-	IsApproverTypeFree *bool    `json:"is_approver_type_free,omitempty"`
-	HasCcTypeFree      *bool    `json:"has_cc_type_free,omitempty"`
+	NodeId  *string `json:"node_id,omitempty"`
+	NodeName  *string `json:"node_name,omitempty"`
+	NodeType  *string `json:"node_type,omitempty"`
+	Comments  []string `json:"comments,omitempty"`
+	CustomNodeId  *string `json:"custom_node_id,omitempty"`
+	UserIdList  []string `json:"user_id_list,omitempty"`
+	EndCcIdList  []string `json:"end_cc_id_list,omitempty"`
+	IsEmptyLogic  *bool `json:"is_empty_logic,omitempty"`
+	IsApproverTypeFree  *bool `json:"is_approver_type_free,omitempty"`
+	HasCcTypeFree  *bool `json:"has_cc_type_free,omitempty"`
 }
 
 // builder开始
 type PreviewNodeBuilder struct {
-	nodeId                 string
-	nodeIdFlag             bool
-	nodeName               string
-	nodeNameFlag           bool
-	nodeType               string
-	nodeTypeFlag           bool
-	comments               []string
-	commentsFlag           bool
-	customNodeId           string
-	customNodeIdFlag       bool
-	userIdList             []string
-	userIdListFlag         bool
-	endCcIdList            []string
-	endCcIdListFlag        bool
-	isEmptyLogic           bool
-	isEmptyLogicFlag       bool
-	isApproverTypeFree     bool
-	isApproverTypeFreeFlag bool
-	hasCcTypeFree          bool
-	hasCcTypeFreeFlag      bool
+	nodeId  string
+	nodeIdFlag  bool
+	nodeName  string
+	nodeNameFlag  bool
+	nodeType  string
+	nodeTypeFlag  bool
+	comments  []string
+	commentsFlag  bool
+	customNodeId  string
+	customNodeIdFlag  bool
+	userIdList  []string
+	userIdListFlag  bool
+	endCcIdList  []string
+	endCcIdListFlag  bool
+	isEmptyLogic  bool
+	isEmptyLogicFlag  bool
+	isApproverTypeFree  bool
+	isApproverTypeFreeFlag  bool
+	hasCcTypeFree  bool
+	hasCcTypeFreeFlag  bool
 }
 
-func NewPreviewNodeBuilder() *PreviewNodeBuilder {
-	builder := &PreviewNodeBuilder{}
-	return builder
+func NewPreviewNodeBuilder() * PreviewNodeBuilder{
+   builder := &PreviewNodeBuilder{}
+   return builder
 }
 
-func (builder *PreviewNodeBuilder) NodeId(nodeId string) *PreviewNodeBuilder {
-	builder.nodeId = nodeId
-	builder.nodeIdFlag = true
-	return builder
+
+func (builder * PreviewNodeBuilder) NodeId(nodeId string) *PreviewNodeBuilder  {
+  builder.nodeId = nodeId
+  builder.nodeIdFlag = true
+  return builder
 }
-func (builder *PreviewNodeBuilder) NodeName(nodeName string) *PreviewNodeBuilder {
-	builder.nodeName = nodeName
-	builder.nodeNameFlag = true
-	return builder
+func (builder * PreviewNodeBuilder) NodeName(nodeName string) *PreviewNodeBuilder  {
+  builder.nodeName = nodeName
+  builder.nodeNameFlag = true
+  return builder
 }
-func (builder *PreviewNodeBuilder) NodeType(nodeType string) *PreviewNodeBuilder {
-	builder.nodeType = nodeType
-	builder.nodeTypeFlag = true
-	return builder
+func (builder * PreviewNodeBuilder) NodeType(nodeType string) *PreviewNodeBuilder  {
+  builder.nodeType = nodeType
+  builder.nodeTypeFlag = true
+  return builder
 }
-func (builder *PreviewNodeBuilder) Comments(comments []string) *PreviewNodeBuilder {
-	builder.comments = comments
-	builder.commentsFlag = true
-	return builder
+func (builder * PreviewNodeBuilder) Comments(comments []string) *PreviewNodeBuilder  {
+  builder.comments = comments
+  builder.commentsFlag = true
+  return builder
 }
-func (builder *PreviewNodeBuilder) CustomNodeId(customNodeId string) *PreviewNodeBuilder {
-	builder.customNodeId = customNodeId
-	builder.customNodeIdFlag = true
-	return builder
+func (builder * PreviewNodeBuilder) CustomNodeId(customNodeId string) *PreviewNodeBuilder  {
+  builder.customNodeId = customNodeId
+  builder.customNodeIdFlag = true
+  return builder
 }
-func (builder *PreviewNodeBuilder) UserIdList(userIdList []string) *PreviewNodeBuilder {
-	builder.userIdList = userIdList
-	builder.userIdListFlag = true
-	return builder
+func (builder * PreviewNodeBuilder) UserIdList(userIdList []string) *PreviewNodeBuilder  {
+  builder.userIdList = userIdList
+  builder.userIdListFlag = true
+  return builder
 }
-func (builder *PreviewNodeBuilder) EndCcIdList(endCcIdList []string) *PreviewNodeBuilder {
-	builder.endCcIdList = endCcIdList
-	builder.endCcIdListFlag = true
-	return builder
+func (builder * PreviewNodeBuilder) EndCcIdList(endCcIdList []string) *PreviewNodeBuilder  {
+  builder.endCcIdList = endCcIdList
+  builder.endCcIdListFlag = true
+  return builder
 }
-func (builder *PreviewNodeBuilder) IsEmptyLogic(isEmptyLogic bool) *PreviewNodeBuilder {
-	builder.isEmptyLogic = isEmptyLogic
-	builder.isEmptyLogicFlag = true
-	return builder
+func (builder * PreviewNodeBuilder) IsEmptyLogic(isEmptyLogic bool) *PreviewNodeBuilder  {
+  builder.isEmptyLogic = isEmptyLogic
+  builder.isEmptyLogicFlag = true
+  return builder
 }
-func (builder *PreviewNodeBuilder) IsApproverTypeFree(isApproverTypeFree bool) *PreviewNodeBuilder {
-	builder.isApproverTypeFree = isApproverTypeFree
-	builder.isApproverTypeFreeFlag = true
-	return builder
+func (builder * PreviewNodeBuilder) IsApproverTypeFree(isApproverTypeFree bool) *PreviewNodeBuilder  {
+  builder.isApproverTypeFree = isApproverTypeFree
+  builder.isApproverTypeFreeFlag = true
+  return builder
 }
-func (builder *PreviewNodeBuilder) HasCcTypeFree(hasCcTypeFree bool) *PreviewNodeBuilder {
-	builder.hasCcTypeFree = hasCcTypeFree
-	builder.hasCcTypeFreeFlag = true
-	return builder
+func (builder * PreviewNodeBuilder) HasCcTypeFree(hasCcTypeFree bool) *PreviewNodeBuilder  {
+  builder.hasCcTypeFree = hasCcTypeFree
+  builder.hasCcTypeFreeFlag = true
+  return builder
 }
 
-func (builder *PreviewNodeBuilder) Build() *PreviewNode {
-	req := &PreviewNode{}
-	if builder.nodeIdFlag {
-		req.NodeId = &builder.nodeId
-
-	}
-	if builder.nodeNameFlag {
-		req.NodeName = &builder.nodeName
-
-	}
-	if builder.nodeTypeFlag {
-		req.NodeType = &builder.nodeType
-
-	}
-	if builder.commentsFlag {
-		req.Comments = builder.comments
-	}
-	if builder.customNodeIdFlag {
-		req.CustomNodeId = &builder.customNodeId
-
-	}
-	if builder.userIdListFlag {
-		req.UserIdList = builder.userIdList
-	}
-	if builder.endCcIdListFlag {
-		req.EndCcIdList = builder.endCcIdList
-	}
-	if builder.isEmptyLogicFlag {
-		req.IsEmptyLogic = &builder.isEmptyLogic
-
-	}
-	if builder.isApproverTypeFreeFlag {
-		req.IsApproverTypeFree = &builder.isApproverTypeFree
-
-	}
-	if builder.hasCcTypeFreeFlag {
-		req.HasCcTypeFree = &builder.hasCcTypeFree
-
-	}
-	return req
+func (builder * PreviewNodeBuilder ) Build() *PreviewNode {
+   req := &PreviewNode{}
+   if builder.nodeIdFlag {
+	  req.NodeId = &builder.nodeId
+	  
+   }
+   if builder.nodeNameFlag {
+	  req.NodeName = &builder.nodeName
+	  
+   }
+   if builder.nodeTypeFlag {
+	  req.NodeType = &builder.nodeType
+	  
+   }
+   if builder.commentsFlag {
+	  req.Comments = builder.comments
+   }
+   if builder.customNodeIdFlag {
+	  req.CustomNodeId = &builder.customNodeId
+	  
+   }
+   if builder.userIdListFlag {
+	  req.UserIdList = builder.userIdList
+   }
+   if builder.endCcIdListFlag {
+	  req.EndCcIdList = builder.endCcIdList
+   }
+   if builder.isEmptyLogicFlag {
+	  req.IsEmptyLogic = &builder.isEmptyLogic
+	  
+   }
+   if builder.isApproverTypeFreeFlag {
+	  req.IsApproverTypeFree = &builder.isApproverTypeFree
+	  
+   }
+   if builder.hasCcTypeFreeFlag {
+	  req.HasCcTypeFree = &builder.hasCcTypeFree
+	  
+   }
+   return req
 }
-
 // builder结束
 
 type Reason struct {
 	Text  *string `json:"text,omitempty"`
-	Files []*File `json:"files,omitempty"`
+	Files  []*File `json:"files,omitempty"`
 }
 
 // builder开始
 type ReasonBuilder struct {
-	text      string
+	text  string
 	textFlag  bool
-	files     []*File
-	filesFlag bool
+	files  []*File
+	filesFlag  bool
 }
 
-func NewReasonBuilder() *ReasonBuilder {
-	builder := &ReasonBuilder{}
-	return builder
+func NewReasonBuilder() * ReasonBuilder{
+   builder := &ReasonBuilder{}
+   return builder
 }
 
-func (builder *ReasonBuilder) Text(text string) *ReasonBuilder {
-	builder.text = text
-	builder.textFlag = true
-	return builder
-}
-func (builder *ReasonBuilder) Files(files []*File) *ReasonBuilder {
-	builder.files = files
-	builder.filesFlag = true
-	return builder
-}
 
-func (builder *ReasonBuilder) Build() *Reason {
-	req := &Reason{}
-	if builder.textFlag {
-		req.Text = &builder.text
-
-	}
-	if builder.filesFlag {
-		req.Files = builder.files
-	}
-	return req
+func (builder * ReasonBuilder) Text(text string) *ReasonBuilder  {
+  builder.text = text
+  builder.textFlag = true
+  return builder
+}
+func (builder * ReasonBuilder) Files(files []*File) *ReasonBuilder  {
+  builder.files = files
+  builder.filesFlag = true
+  return builder
 }
 
+func (builder * ReasonBuilder ) Build() *Reason {
+   req := &Reason{}
+   if builder.textFlag {
+	  req.Text = &builder.text
+	  
+   }
+   if builder.filesFlag {
+	  req.Files = builder.files
+   }
+   return req
+}
 // builder结束
 
 type RemedyGroup struct {
-	Type         *string `json:"type,omitempty"`
-	InstanceCode *string `json:"instance_code,omitempty"`
-	EmployeeId   *string `json:"employee_id,omitempty"`
-	StartTime    *int    `json:"start_time,omitempty"`
-	EndTime      *int    `json:"end_time,omitempty"`
-	RemedyTime   *int    `json:"remedy_time,omitempty"`
-	RemedyReason *string `json:"remedy_reason,omitempty"`
-	Status       *string `json:"status,omitempty"`
+	Type  *string `json:"type,omitempty"`
+	InstanceCode  *string `json:"instance_code,omitempty"`
+	EmployeeId  *string `json:"employee_id,omitempty"`
+	StartTime  *int `json:"start_time,omitempty"`
+	EndTime  *int `json:"end_time,omitempty"`
+	RemedyTime  *int `json:"remedy_time,omitempty"`
+	RemedyReason  *string `json:"remedy_reason,omitempty"`
+	Status  *string `json:"status,omitempty"`
 }
 
 // builder开始
 type RemedyGroupBuilder struct {
-	type_            string
-	typeFlag         bool
-	instanceCode     string
-	instanceCodeFlag bool
-	employeeId       string
-	employeeIdFlag   bool
-	startTime        int
-	startTimeFlag    bool
-	endTime          int
-	endTimeFlag      bool
-	remedyTime       int
-	remedyTimeFlag   bool
-	remedyReason     string
-	remedyReasonFlag bool
-	status           string
-	statusFlag       bool
+	type_  string
+	typeFlag  bool
+	instanceCode  string
+	instanceCodeFlag  bool
+	employeeId  string
+	employeeIdFlag  bool
+	startTime  int
+	startTimeFlag  bool
+	endTime  int
+	endTimeFlag  bool
+	remedyTime  int
+	remedyTimeFlag  bool
+	remedyReason  string
+	remedyReasonFlag  bool
+	status  string
+	statusFlag  bool
 }
 
-func NewRemedyGroupBuilder() *RemedyGroupBuilder {
-	builder := &RemedyGroupBuilder{}
-	return builder
+func NewRemedyGroupBuilder() * RemedyGroupBuilder{
+   builder := &RemedyGroupBuilder{}
+   return builder
 }
 
-func (builder *RemedyGroupBuilder) Type(type_ string) *RemedyGroupBuilder {
-	builder.type_ = type_
-	builder.typeFlag = true
-	return builder
+
+func (builder * RemedyGroupBuilder) Type(type_ string) *RemedyGroupBuilder  {
+  builder.type_ = type_
+  builder.typeFlag = true
+  return builder
 }
-func (builder *RemedyGroupBuilder) InstanceCode(instanceCode string) *RemedyGroupBuilder {
-	builder.instanceCode = instanceCode
-	builder.instanceCodeFlag = true
-	return builder
+func (builder * RemedyGroupBuilder) InstanceCode(instanceCode string) *RemedyGroupBuilder  {
+  builder.instanceCode = instanceCode
+  builder.instanceCodeFlag = true
+  return builder
 }
-func (builder *RemedyGroupBuilder) EmployeeId(employeeId string) *RemedyGroupBuilder {
-	builder.employeeId = employeeId
-	builder.employeeIdFlag = true
-	return builder
+func (builder * RemedyGroupBuilder) EmployeeId(employeeId string) *RemedyGroupBuilder  {
+  builder.employeeId = employeeId
+  builder.employeeIdFlag = true
+  return builder
 }
-func (builder *RemedyGroupBuilder) StartTime(startTime int) *RemedyGroupBuilder {
-	builder.startTime = startTime
-	builder.startTimeFlag = true
-	return builder
+func (builder * RemedyGroupBuilder) StartTime(startTime int) *RemedyGroupBuilder  {
+  builder.startTime = startTime
+  builder.startTimeFlag = true
+  return builder
 }
-func (builder *RemedyGroupBuilder) EndTime(endTime int) *RemedyGroupBuilder {
-	builder.endTime = endTime
-	builder.endTimeFlag = true
-	return builder
+func (builder * RemedyGroupBuilder) EndTime(endTime int) *RemedyGroupBuilder  {
+  builder.endTime = endTime
+  builder.endTimeFlag = true
+  return builder
 }
-func (builder *RemedyGroupBuilder) RemedyTime(remedyTime int) *RemedyGroupBuilder {
-	builder.remedyTime = remedyTime
-	builder.remedyTimeFlag = true
-	return builder
+func (builder * RemedyGroupBuilder) RemedyTime(remedyTime int) *RemedyGroupBuilder  {
+  builder.remedyTime = remedyTime
+  builder.remedyTimeFlag = true
+  return builder
 }
-func (builder *RemedyGroupBuilder) RemedyReason(remedyReason string) *RemedyGroupBuilder {
-	builder.remedyReason = remedyReason
-	builder.remedyReasonFlag = true
-	return builder
+func (builder * RemedyGroupBuilder) RemedyReason(remedyReason string) *RemedyGroupBuilder  {
+  builder.remedyReason = remedyReason
+  builder.remedyReasonFlag = true
+  return builder
 }
-func (builder *RemedyGroupBuilder) Status(status string) *RemedyGroupBuilder {
-	builder.status = status
-	builder.statusFlag = true
-	return builder
-}
-
-func (builder *RemedyGroupBuilder) Build() *RemedyGroup {
-	req := &RemedyGroup{}
-	if builder.typeFlag {
-		req.Type = &builder.type_
-
-	}
-	if builder.instanceCodeFlag {
-		req.InstanceCode = &builder.instanceCode
-
-	}
-	if builder.employeeIdFlag {
-		req.EmployeeId = &builder.employeeId
-
-	}
-	if builder.startTimeFlag {
-		req.StartTime = &builder.startTime
-
-	}
-	if builder.endTimeFlag {
-		req.EndTime = &builder.endTime
-
-	}
-	if builder.remedyTimeFlag {
-		req.RemedyTime = &builder.remedyTime
-
-	}
-	if builder.remedyReasonFlag {
-		req.RemedyReason = &builder.remedyReason
-
-	}
-	if builder.statusFlag {
-		req.Status = &builder.status
-
-	}
-	return req
+func (builder * RemedyGroupBuilder) Status(status string) *RemedyGroupBuilder  {
+  builder.status = status
+  builder.statusFlag = true
+  return builder
 }
 
+func (builder * RemedyGroupBuilder ) Build() *RemedyGroup {
+   req := &RemedyGroup{}
+   if builder.typeFlag {
+	  req.Type = &builder.type_
+	  
+   }
+   if builder.instanceCodeFlag {
+	  req.InstanceCode = &builder.instanceCode
+	  
+   }
+   if builder.employeeIdFlag {
+	  req.EmployeeId = &builder.employeeId
+	  
+   }
+   if builder.startTimeFlag {
+	  req.StartTime = &builder.startTime
+	  
+   }
+   if builder.endTimeFlag {
+	  req.EndTime = &builder.endTime
+	  
+   }
+   if builder.remedyTimeFlag {
+	  req.RemedyTime = &builder.remedyTime
+	  
+   }
+   if builder.remedyReasonFlag {
+	  req.RemedyReason = &builder.remedyReason
+	  
+   }
+   if builder.statusFlag {
+	  req.Status = &builder.status
+	  
+   }
+   return req
+}
 // builder结束
 
 type SignGroup struct {
-	InstanceCode          *string `json:"instance_code,omitempty"`
-	UserId                *UserId `json:"user_id,omitempty"`
-	AccountCode           *string `json:"account_code,omitempty"`
-	BoilerplateUniqueCode *string `json:"boilerplate_unique_code,omitempty"`
-	StartTime             *int    `json:"start_time,omitempty"`
-	EndTime               *int    `json:"end_time,omitempty"`
-	Type                  *string `json:"type,omitempty"`
+	InstanceCode  *string `json:"instance_code,omitempty"`
+	UserId  *UserId `json:"user_id,omitempty"`
+	AccountCode  *string `json:"account_code,omitempty"`
+	BoilerplateUniqueCode  *string `json:"boilerplate_unique_code,omitempty"`
+	StartTime  *int `json:"start_time,omitempty"`
+	EndTime  *int `json:"end_time,omitempty"`
+	Type  *string `json:"type,omitempty"`
 }
 
 // builder开始
 type SignGroupBuilder struct {
-	instanceCode              string
-	instanceCodeFlag          bool
-	userId                    *UserId
-	userIdFlag                bool
-	accountCode               string
-	accountCodeFlag           bool
-	boilerplateUniqueCode     string
-	boilerplateUniqueCodeFlag bool
-	startTime                 int
-	startTimeFlag             bool
-	endTime                   int
-	endTimeFlag               bool
-	type_                     string
-	typeFlag                  bool
+	instanceCode  string
+	instanceCodeFlag  bool
+	userId  *UserId
+	userIdFlag  bool
+	accountCode  string
+	accountCodeFlag  bool
+	boilerplateUniqueCode  string
+	boilerplateUniqueCodeFlag  bool
+	startTime  int
+	startTimeFlag  bool
+	endTime  int
+	endTimeFlag  bool
+	type_  string
+	typeFlag  bool
 }
 
-func NewSignGroupBuilder() *SignGroupBuilder {
-	builder := &SignGroupBuilder{}
-	return builder
+func NewSignGroupBuilder() * SignGroupBuilder{
+   builder := &SignGroupBuilder{}
+   return builder
 }
 
-func (builder *SignGroupBuilder) InstanceCode(instanceCode string) *SignGroupBuilder {
-	builder.instanceCode = instanceCode
-	builder.instanceCodeFlag = true
-	return builder
-}
-func (builder *SignGroupBuilder) UserId(userId *UserId) *SignGroupBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
-}
-func (builder *SignGroupBuilder) AccountCode(accountCode string) *SignGroupBuilder {
-	builder.accountCode = accountCode
-	builder.accountCodeFlag = true
-	return builder
-}
-func (builder *SignGroupBuilder) BoilerplateUniqueCode(boilerplateUniqueCode string) *SignGroupBuilder {
-	builder.boilerplateUniqueCode = boilerplateUniqueCode
-	builder.boilerplateUniqueCodeFlag = true
-	return builder
-}
-func (builder *SignGroupBuilder) StartTime(startTime int) *SignGroupBuilder {
-	builder.startTime = startTime
-	builder.startTimeFlag = true
-	return builder
-}
-func (builder *SignGroupBuilder) EndTime(endTime int) *SignGroupBuilder {
-	builder.endTime = endTime
-	builder.endTimeFlag = true
-	return builder
-}
-func (builder *SignGroupBuilder) Type(type_ string) *SignGroupBuilder {
-	builder.type_ = type_
-	builder.typeFlag = true
-	return builder
-}
 
-func (builder *SignGroupBuilder) Build() *SignGroup {
-	req := &SignGroup{}
-	if builder.instanceCodeFlag {
-		req.InstanceCode = &builder.instanceCode
-
-	}
-	if builder.userIdFlag {
-		req.UserId = builder.userId
-	}
-	if builder.accountCodeFlag {
-		req.AccountCode = &builder.accountCode
-
-	}
-	if builder.boilerplateUniqueCodeFlag {
-		req.BoilerplateUniqueCode = &builder.boilerplateUniqueCode
-
-	}
-	if builder.startTimeFlag {
-		req.StartTime = &builder.startTime
-
-	}
-	if builder.endTimeFlag {
-		req.EndTime = &builder.endTime
-
-	}
-	if builder.typeFlag {
-		req.Type = &builder.type_
-
-	}
-	return req
+func (builder * SignGroupBuilder) InstanceCode(instanceCode string) *SignGroupBuilder  {
+  builder.instanceCode = instanceCode
+  builder.instanceCodeFlag = true
+  return builder
+}
+func (builder * SignGroupBuilder) UserId(userId *UserId) *SignGroupBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
+}
+func (builder * SignGroupBuilder) AccountCode(accountCode string) *SignGroupBuilder  {
+  builder.accountCode = accountCode
+  builder.accountCodeFlag = true
+  return builder
+}
+func (builder * SignGroupBuilder) BoilerplateUniqueCode(boilerplateUniqueCode string) *SignGroupBuilder  {
+  builder.boilerplateUniqueCode = boilerplateUniqueCode
+  builder.boilerplateUniqueCodeFlag = true
+  return builder
+}
+func (builder * SignGroupBuilder) StartTime(startTime int) *SignGroupBuilder  {
+  builder.startTime = startTime
+  builder.startTimeFlag = true
+  return builder
+}
+func (builder * SignGroupBuilder) EndTime(endTime int) *SignGroupBuilder  {
+  builder.endTime = endTime
+  builder.endTimeFlag = true
+  return builder
+}
+func (builder * SignGroupBuilder) Type(type_ string) *SignGroupBuilder  {
+  builder.type_ = type_
+  builder.typeFlag = true
+  return builder
 }
 
+func (builder * SignGroupBuilder ) Build() *SignGroup {
+   req := &SignGroup{}
+   if builder.instanceCodeFlag {
+	  req.InstanceCode = &builder.instanceCode
+	  
+   }
+   if builder.userIdFlag {
+	  req.UserId = builder.userId
+   }
+   if builder.accountCodeFlag {
+	  req.AccountCode = &builder.accountCode
+	  
+   }
+   if builder.boilerplateUniqueCodeFlag {
+	  req.BoilerplateUniqueCode = &builder.boilerplateUniqueCode
+	  
+   }
+   if builder.startTimeFlag {
+	  req.StartTime = &builder.startTime
+	  
+   }
+   if builder.endTimeFlag {
+	  req.EndTime = &builder.endTime
+	  
+   }
+   if builder.typeFlag {
+	  req.Type = &builder.type_
+	  
+   }
+   return req
+}
 // builder结束
 
 type SpecifiedRollback struct {
-	UserId         *string  `json:"user_id,omitempty"`
-	TaskId         *int64   `json:"task_id,omitempty,string"`
-	Reason         *string  `json:"reason,omitempty"`
-	Extra          *string  `json:"extra,omitempty"`
-	TaskDefKeyList []string `json:"task_def_key_list,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
+	TaskId  *int64 `json:"task_id,omitempty,string"`
+	Reason  *string `json:"reason,omitempty"`
+	Extra  *string `json:"extra,omitempty"`
+	TaskDefKeyList  []string `json:"task_def_key_list,omitempty"`
 }
 
 // builder开始
 type SpecifiedRollbackBuilder struct {
-	userId             string
-	userIdFlag         bool
-	taskId             int64
-	taskIdFlag         bool
-	reason             string
-	reasonFlag         bool
-	extra              string
-	extraFlag          bool
-	taskDefKeyList     []string
-	taskDefKeyListFlag bool
+	userId  string
+	userIdFlag  bool
+	taskId  int64
+	taskIdFlag  bool
+	reason  string
+	reasonFlag  bool
+	extra  string
+	extraFlag  bool
+	taskDefKeyList  []string
+	taskDefKeyListFlag  bool
 }
 
-func NewSpecifiedRollbackBuilder() *SpecifiedRollbackBuilder {
-	builder := &SpecifiedRollbackBuilder{}
-	return builder
+func NewSpecifiedRollbackBuilder() * SpecifiedRollbackBuilder{
+   builder := &SpecifiedRollbackBuilder{}
+   return builder
 }
 
-func (builder *SpecifiedRollbackBuilder) UserId(userId string) *SpecifiedRollbackBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
-}
-func (builder *SpecifiedRollbackBuilder) TaskId(taskId int64) *SpecifiedRollbackBuilder {
-	builder.taskId = taskId
-	builder.taskIdFlag = true
-	return builder
-}
-func (builder *SpecifiedRollbackBuilder) Reason(reason string) *SpecifiedRollbackBuilder {
-	builder.reason = reason
-	builder.reasonFlag = true
-	return builder
-}
-func (builder *SpecifiedRollbackBuilder) Extra(extra string) *SpecifiedRollbackBuilder {
-	builder.extra = extra
-	builder.extraFlag = true
-	return builder
-}
-func (builder *SpecifiedRollbackBuilder) TaskDefKeyList(taskDefKeyList []string) *SpecifiedRollbackBuilder {
-	builder.taskDefKeyList = taskDefKeyList
-	builder.taskDefKeyListFlag = true
-	return builder
-}
 
-func (builder *SpecifiedRollbackBuilder) Build() *SpecifiedRollback {
-	req := &SpecifiedRollback{}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	if builder.taskIdFlag {
-		req.TaskId = &builder.taskId
-
-	}
-	if builder.reasonFlag {
-		req.Reason = &builder.reason
-
-	}
-	if builder.extraFlag {
-		req.Extra = &builder.extra
-
-	}
-	if builder.taskDefKeyListFlag {
-		req.TaskDefKeyList = builder.taskDefKeyList
-	}
-	return req
+func (builder * SpecifiedRollbackBuilder) UserId(userId string) *SpecifiedRollbackBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
+}
+func (builder * SpecifiedRollbackBuilder) TaskId(taskId int64) *SpecifiedRollbackBuilder  {
+  builder.taskId = taskId
+  builder.taskIdFlag = true
+  return builder
+}
+func (builder * SpecifiedRollbackBuilder) Reason(reason string) *SpecifiedRollbackBuilder  {
+  builder.reason = reason
+  builder.reasonFlag = true
+  return builder
+}
+func (builder * SpecifiedRollbackBuilder) Extra(extra string) *SpecifiedRollbackBuilder  {
+  builder.extra = extra
+  builder.extraFlag = true
+  return builder
+}
+func (builder * SpecifiedRollbackBuilder) TaskDefKeyList(taskDefKeyList []string) *SpecifiedRollbackBuilder  {
+  builder.taskDefKeyList = taskDefKeyList
+  builder.taskDefKeyListFlag = true
+  return builder
 }
 
+func (builder * SpecifiedRollbackBuilder ) Build() *SpecifiedRollback {
+   req := &SpecifiedRollback{}
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.taskIdFlag {
+	  req.TaskId = &builder.taskId
+	  
+   }
+   if builder.reasonFlag {
+	  req.Reason = &builder.reason
+	  
+   }
+   if builder.extraFlag {
+	  req.Extra = &builder.extra
+	  
+   }
+   if builder.taskDefKeyListFlag {
+	  req.TaskDefKeyList = builder.taskDefKeyList
+   }
+   return req
+}
 // builder结束
 
 type Task struct {
-	Topic               *int64    `json:"topic,omitempty,string"`
-	UserId              *int64    `json:"user_id,omitempty,string"`
-	Title               *string   `json:"title,omitempty"`
-	Urls                *TaskUrls `json:"urls,omitempty"`
-	ProcessExternalId   *string   `json:"process_external_id,omitempty"`
-	TaskExternalId      *string   `json:"task_external_id,omitempty"`
-	Status              *string   `json:"status,omitempty"`
-	ProcessStatus       *string   `json:"process_status,omitempty"`
-	DefinitionCode      *string   `json:"definition_code,omitempty"`
-	Initiators          []string  `json:"initiators,omitempty"`
-	InitiatorNames      []string  `json:"initiator_names,omitempty"`
-	TaskId              *int64    `json:"task_id,omitempty,string"`
-	ProcessId           *int64    `json:"process_id,omitempty,string"`
-	ProcessCode         *string   `json:"process_code,omitempty"`
-	DefinitionGroupId   *int64    `json:"definition_group_id,omitempty,string"`
-	DefinitionGroupName *string   `json:"definition_group_name,omitempty"`
-	DefinitionId        *int64    `json:"definition_id,omitempty,string"`
-	DefinitionName      *string   `json:"definition_name,omitempty"`
+	Topic  *int64 `json:"topic,omitempty,string"`
+	UserId  *int64 `json:"user_id,omitempty,string"`
+	Title  *string `json:"title,omitempty"`
+	Urls  *TaskUrls `json:"urls,omitempty"`
+	ProcessExternalId  *string `json:"process_external_id,omitempty"`
+	TaskExternalId  *string `json:"task_external_id,omitempty"`
+	Status  *string `json:"status,omitempty"`
+	ProcessStatus  *string `json:"process_status,omitempty"`
+	DefinitionCode  *string `json:"definition_code,omitempty"`
+	Initiators  []string `json:"initiators,omitempty"`
+	InitiatorNames  []string `json:"initiator_names,omitempty"`
+	TaskId  *int64 `json:"task_id,omitempty,string"`
+	ProcessId  *int64 `json:"process_id,omitempty,string"`
+	ProcessCode  *string `json:"process_code,omitempty"`
+	DefinitionGroupId  *int64 `json:"definition_group_id,omitempty,string"`
+	DefinitionGroupName  *string `json:"definition_group_name,omitempty"`
+	DefinitionId  *int64 `json:"definition_id,omitempty,string"`
+	DefinitionName  *string `json:"definition_name,omitempty"`
 }
 
 // builder开始
 type TaskBuilder struct {
-	topic                   int64
-	topicFlag               bool
-	userId                  int64
-	userIdFlag              bool
-	title                   string
-	titleFlag               bool
-	urls                    *TaskUrls
-	urlsFlag                bool
-	processExternalId       string
-	processExternalIdFlag   bool
-	taskExternalId          string
-	taskExternalIdFlag      bool
-	status                  string
-	statusFlag              bool
-	processStatus           string
-	processStatusFlag       bool
-	definitionCode          string
-	definitionCodeFlag      bool
-	initiators              []string
-	initiatorsFlag          bool
-	initiatorNames          []string
-	initiatorNamesFlag      bool
-	taskId                  int64
-	taskIdFlag              bool
-	processId               int64
-	processIdFlag           bool
-	processCode             string
-	processCodeFlag         bool
-	definitionGroupId       int64
-	definitionGroupIdFlag   bool
-	definitionGroupName     string
-	definitionGroupNameFlag bool
-	definitionId            int64
-	definitionIdFlag        bool
-	definitionName          string
-	definitionNameFlag      bool
+	topic  int64
+	topicFlag  bool
+	userId  int64
+	userIdFlag  bool
+	title  string
+	titleFlag  bool
+	urls  *TaskUrls
+	urlsFlag  bool
+	processExternalId  string
+	processExternalIdFlag  bool
+	taskExternalId  string
+	taskExternalIdFlag  bool
+	status  string
+	statusFlag  bool
+	processStatus  string
+	processStatusFlag  bool
+	definitionCode  string
+	definitionCodeFlag  bool
+	initiators  []string
+	initiatorsFlag  bool
+	initiatorNames  []string
+	initiatorNamesFlag  bool
+	taskId  int64
+	taskIdFlag  bool
+	processId  int64
+	processIdFlag  bool
+	processCode  string
+	processCodeFlag  bool
+	definitionGroupId  int64
+	definitionGroupIdFlag  bool
+	definitionGroupName  string
+	definitionGroupNameFlag  bool
+	definitionId  int64
+	definitionIdFlag  bool
+	definitionName  string
+	definitionNameFlag  bool
 }
 
-func NewTaskBuilder() *TaskBuilder {
-	builder := &TaskBuilder{}
-	return builder
+func NewTaskBuilder() * TaskBuilder{
+   builder := &TaskBuilder{}
+   return builder
 }
 
-func (builder *TaskBuilder) Topic(topic int64) *TaskBuilder {
-	builder.topic = topic
-	builder.topicFlag = true
-	return builder
+
+func (builder * TaskBuilder) Topic(topic int64) *TaskBuilder  {
+  builder.topic = topic
+  builder.topicFlag = true
+  return builder
 }
-func (builder *TaskBuilder) UserId(userId int64) *TaskBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
+func (builder * TaskBuilder) UserId(userId int64) *TaskBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
-func (builder *TaskBuilder) Title(title string) *TaskBuilder {
-	builder.title = title
-	builder.titleFlag = true
-	return builder
+func (builder * TaskBuilder) Title(title string) *TaskBuilder  {
+  builder.title = title
+  builder.titleFlag = true
+  return builder
 }
-func (builder *TaskBuilder) Urls(urls *TaskUrls) *TaskBuilder {
-	builder.urls = urls
-	builder.urlsFlag = true
-	return builder
+func (builder * TaskBuilder) Urls(urls *TaskUrls) *TaskBuilder  {
+  builder.urls = urls
+  builder.urlsFlag = true
+  return builder
 }
-func (builder *TaskBuilder) ProcessExternalId(processExternalId string) *TaskBuilder {
-	builder.processExternalId = processExternalId
-	builder.processExternalIdFlag = true
-	return builder
+func (builder * TaskBuilder) ProcessExternalId(processExternalId string) *TaskBuilder  {
+  builder.processExternalId = processExternalId
+  builder.processExternalIdFlag = true
+  return builder
 }
-func (builder *TaskBuilder) TaskExternalId(taskExternalId string) *TaskBuilder {
-	builder.taskExternalId = taskExternalId
-	builder.taskExternalIdFlag = true
-	return builder
+func (builder * TaskBuilder) TaskExternalId(taskExternalId string) *TaskBuilder  {
+  builder.taskExternalId = taskExternalId
+  builder.taskExternalIdFlag = true
+  return builder
 }
-func (builder *TaskBuilder) Status(status string) *TaskBuilder {
-	builder.status = status
-	builder.statusFlag = true
-	return builder
+func (builder * TaskBuilder) Status(status string) *TaskBuilder  {
+  builder.status = status
+  builder.statusFlag = true
+  return builder
 }
-func (builder *TaskBuilder) ProcessStatus(processStatus string) *TaskBuilder {
-	builder.processStatus = processStatus
-	builder.processStatusFlag = true
-	return builder
+func (builder * TaskBuilder) ProcessStatus(processStatus string) *TaskBuilder  {
+  builder.processStatus = processStatus
+  builder.processStatusFlag = true
+  return builder
 }
-func (builder *TaskBuilder) DefinitionCode(definitionCode string) *TaskBuilder {
-	builder.definitionCode = definitionCode
-	builder.definitionCodeFlag = true
-	return builder
+func (builder * TaskBuilder) DefinitionCode(definitionCode string) *TaskBuilder  {
+  builder.definitionCode = definitionCode
+  builder.definitionCodeFlag = true
+  return builder
 }
-func (builder *TaskBuilder) Initiators(initiators []string) *TaskBuilder {
-	builder.initiators = initiators
-	builder.initiatorsFlag = true
-	return builder
+func (builder * TaskBuilder) Initiators(initiators []string) *TaskBuilder  {
+  builder.initiators = initiators
+  builder.initiatorsFlag = true
+  return builder
 }
-func (builder *TaskBuilder) InitiatorNames(initiatorNames []string) *TaskBuilder {
-	builder.initiatorNames = initiatorNames
-	builder.initiatorNamesFlag = true
-	return builder
+func (builder * TaskBuilder) InitiatorNames(initiatorNames []string) *TaskBuilder  {
+  builder.initiatorNames = initiatorNames
+  builder.initiatorNamesFlag = true
+  return builder
 }
-func (builder *TaskBuilder) TaskId(taskId int64) *TaskBuilder {
-	builder.taskId = taskId
-	builder.taskIdFlag = true
-	return builder
+func (builder * TaskBuilder) TaskId(taskId int64) *TaskBuilder  {
+  builder.taskId = taskId
+  builder.taskIdFlag = true
+  return builder
 }
-func (builder *TaskBuilder) ProcessId(processId int64) *TaskBuilder {
-	builder.processId = processId
-	builder.processIdFlag = true
-	return builder
+func (builder * TaskBuilder) ProcessId(processId int64) *TaskBuilder  {
+  builder.processId = processId
+  builder.processIdFlag = true
+  return builder
 }
-func (builder *TaskBuilder) ProcessCode(processCode string) *TaskBuilder {
-	builder.processCode = processCode
-	builder.processCodeFlag = true
-	return builder
+func (builder * TaskBuilder) ProcessCode(processCode string) *TaskBuilder  {
+  builder.processCode = processCode
+  builder.processCodeFlag = true
+  return builder
 }
-func (builder *TaskBuilder) DefinitionGroupId(definitionGroupId int64) *TaskBuilder {
-	builder.definitionGroupId = definitionGroupId
-	builder.definitionGroupIdFlag = true
-	return builder
+func (builder * TaskBuilder) DefinitionGroupId(definitionGroupId int64) *TaskBuilder  {
+  builder.definitionGroupId = definitionGroupId
+  builder.definitionGroupIdFlag = true
+  return builder
 }
-func (builder *TaskBuilder) DefinitionGroupName(definitionGroupName string) *TaskBuilder {
-	builder.definitionGroupName = definitionGroupName
-	builder.definitionGroupNameFlag = true
-	return builder
+func (builder * TaskBuilder) DefinitionGroupName(definitionGroupName string) *TaskBuilder  {
+  builder.definitionGroupName = definitionGroupName
+  builder.definitionGroupNameFlag = true
+  return builder
 }
-func (builder *TaskBuilder) DefinitionId(definitionId int64) *TaskBuilder {
-	builder.definitionId = definitionId
-	builder.definitionIdFlag = true
-	return builder
+func (builder * TaskBuilder) DefinitionId(definitionId int64) *TaskBuilder  {
+  builder.definitionId = definitionId
+  builder.definitionIdFlag = true
+  return builder
 }
-func (builder *TaskBuilder) DefinitionName(definitionName string) *TaskBuilder {
-	builder.definitionName = definitionName
-	builder.definitionNameFlag = true
-	return builder
+func (builder * TaskBuilder) DefinitionName(definitionName string) *TaskBuilder  {
+  builder.definitionName = definitionName
+  builder.definitionNameFlag = true
+  return builder
 }
 
-func (builder *TaskBuilder) Build() *Task {
-	req := &Task{}
-	if builder.topicFlag {
-		req.Topic = &builder.topic
-
-	}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	if builder.titleFlag {
-		req.Title = &builder.title
-
-	}
-	if builder.urlsFlag {
-		req.Urls = builder.urls
-	}
-	if builder.processExternalIdFlag {
-		req.ProcessExternalId = &builder.processExternalId
-
-	}
-	if builder.taskExternalIdFlag {
-		req.TaskExternalId = &builder.taskExternalId
-
-	}
-	if builder.statusFlag {
-		req.Status = &builder.status
-
-	}
-	if builder.processStatusFlag {
-		req.ProcessStatus = &builder.processStatus
-
-	}
-	if builder.definitionCodeFlag {
-		req.DefinitionCode = &builder.definitionCode
-
-	}
-	if builder.initiatorsFlag {
-		req.Initiators = builder.initiators
-	}
-	if builder.initiatorNamesFlag {
-		req.InitiatorNames = builder.initiatorNames
-	}
-	if builder.taskIdFlag {
-		req.TaskId = &builder.taskId
-
-	}
-	if builder.processIdFlag {
-		req.ProcessId = &builder.processId
-
-	}
-	if builder.processCodeFlag {
-		req.ProcessCode = &builder.processCode
-
-	}
-	if builder.definitionGroupIdFlag {
-		req.DefinitionGroupId = &builder.definitionGroupId
-
-	}
-	if builder.definitionGroupNameFlag {
-		req.DefinitionGroupName = &builder.definitionGroupName
-
-	}
-	if builder.definitionIdFlag {
-		req.DefinitionId = &builder.definitionId
-
-	}
-	if builder.definitionNameFlag {
-		req.DefinitionName = &builder.definitionName
-
-	}
-	return req
+func (builder * TaskBuilder ) Build() *Task {
+   req := &Task{}
+   if builder.topicFlag {
+	  req.Topic = &builder.topic
+	  
+   }
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.titleFlag {
+	  req.Title = &builder.title
+	  
+   }
+   if builder.urlsFlag {
+	  req.Urls = builder.urls
+   }
+   if builder.processExternalIdFlag {
+	  req.ProcessExternalId = &builder.processExternalId
+	  
+   }
+   if builder.taskExternalIdFlag {
+	  req.TaskExternalId = &builder.taskExternalId
+	  
+   }
+   if builder.statusFlag {
+	  req.Status = &builder.status
+	  
+   }
+   if builder.processStatusFlag {
+	  req.ProcessStatus = &builder.processStatus
+	  
+   }
+   if builder.definitionCodeFlag {
+	  req.DefinitionCode = &builder.definitionCode
+	  
+   }
+   if builder.initiatorsFlag {
+	  req.Initiators = builder.initiators
+   }
+   if builder.initiatorNamesFlag {
+	  req.InitiatorNames = builder.initiatorNames
+   }
+   if builder.taskIdFlag {
+	  req.TaskId = &builder.taskId
+	  
+   }
+   if builder.processIdFlag {
+	  req.ProcessId = &builder.processId
+	  
+   }
+   if builder.processCodeFlag {
+	  req.ProcessCode = &builder.processCode
+	  
+   }
+   if builder.definitionGroupIdFlag {
+	  req.DefinitionGroupId = &builder.definitionGroupId
+	  
+   }
+   if builder.definitionGroupNameFlag {
+	  req.DefinitionGroupName = &builder.definitionGroupName
+	  
+   }
+   if builder.definitionIdFlag {
+	  req.DefinitionId = &builder.definitionId
+	  
+   }
+   if builder.definitionNameFlag {
+	  req.DefinitionName = &builder.definitionName
+	  
+   }
+   return req
 }
-
 // builder结束
 
 type TaskApprove struct {
-	ApprovalCode *string `json:"approval_code,omitempty"`
-	InstanceCode *string `json:"instance_code,omitempty"`
-	UserId       *string `json:"user_id,omitempty"`
-	Comment      *string `json:"comment,omitempty"`
-	TaskId       *string `json:"task_id,omitempty"`
+	ApprovalCode  *string `json:"approval_code,omitempty"`
+	InstanceCode  *string `json:"instance_code,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
+	Comment  *string `json:"comment,omitempty"`
+	TaskId  *string `json:"task_id,omitempty"`
 }
 
 // builder开始
 type TaskApproveBuilder struct {
-	approvalCode     string
-	approvalCodeFlag bool
-	instanceCode     string
-	instanceCodeFlag bool
-	userId           string
-	userIdFlag       bool
-	comment          string
-	commentFlag      bool
-	taskId           string
-	taskIdFlag       bool
+	approvalCode  string
+	approvalCodeFlag  bool
+	instanceCode  string
+	instanceCodeFlag  bool
+	userId  string
+	userIdFlag  bool
+	comment  string
+	commentFlag  bool
+	taskId  string
+	taskIdFlag  bool
 }
 
-func NewTaskApproveBuilder() *TaskApproveBuilder {
-	builder := &TaskApproveBuilder{}
-	return builder
+func NewTaskApproveBuilder() * TaskApproveBuilder{
+   builder := &TaskApproveBuilder{}
+   return builder
 }
 
-func (builder *TaskApproveBuilder) ApprovalCode(approvalCode string) *TaskApproveBuilder {
-	builder.approvalCode = approvalCode
-	builder.approvalCodeFlag = true
-	return builder
+
+func (builder * TaskApproveBuilder) ApprovalCode(approvalCode string) *TaskApproveBuilder  {
+  builder.approvalCode = approvalCode
+  builder.approvalCodeFlag = true
+  return builder
 }
-func (builder *TaskApproveBuilder) InstanceCode(instanceCode string) *TaskApproveBuilder {
-	builder.instanceCode = instanceCode
-	builder.instanceCodeFlag = true
-	return builder
+func (builder * TaskApproveBuilder) InstanceCode(instanceCode string) *TaskApproveBuilder  {
+  builder.instanceCode = instanceCode
+  builder.instanceCodeFlag = true
+  return builder
 }
-func (builder *TaskApproveBuilder) UserId(userId string) *TaskApproveBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
+func (builder * TaskApproveBuilder) UserId(userId string) *TaskApproveBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
-func (builder *TaskApproveBuilder) Comment(comment string) *TaskApproveBuilder {
-	builder.comment = comment
-	builder.commentFlag = true
-	return builder
+func (builder * TaskApproveBuilder) Comment(comment string) *TaskApproveBuilder  {
+  builder.comment = comment
+  builder.commentFlag = true
+  return builder
 }
-func (builder *TaskApproveBuilder) TaskId(taskId string) *TaskApproveBuilder {
-	builder.taskId = taskId
-	builder.taskIdFlag = true
-	return builder
-}
-
-func (builder *TaskApproveBuilder) Build() *TaskApprove {
-	req := &TaskApprove{}
-	if builder.approvalCodeFlag {
-		req.ApprovalCode = &builder.approvalCode
-
-	}
-	if builder.instanceCodeFlag {
-		req.InstanceCode = &builder.instanceCode
-
-	}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	if builder.commentFlag {
-		req.Comment = &builder.comment
-
-	}
-	if builder.taskIdFlag {
-		req.TaskId = &builder.taskId
-
-	}
-	return req
+func (builder * TaskApproveBuilder) TaskId(taskId string) *TaskApproveBuilder  {
+  builder.taskId = taskId
+  builder.taskIdFlag = true
+  return builder
 }
 
+func (builder * TaskApproveBuilder ) Build() *TaskApprove {
+   req := &TaskApprove{}
+   if builder.approvalCodeFlag {
+	  req.ApprovalCode = &builder.approvalCode
+	  
+   }
+   if builder.instanceCodeFlag {
+	  req.InstanceCode = &builder.instanceCode
+	  
+   }
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.commentFlag {
+	  req.Comment = &builder.comment
+	  
+   }
+   if builder.taskIdFlag {
+	  req.TaskId = &builder.taskId
+	  
+   }
+   return req
+}
 // builder结束
 
 type TaskSearch struct {
-	UserId                *string `json:"user_id,omitempty"`
-	ApprovalCode          *string `json:"approval_code,omitempty"`
-	InstanceCode          *string `json:"instance_code,omitempty"`
-	InstanceExternalId    *string `json:"instance_external_id,omitempty"`
-	GroupExternalId       *string `json:"group_external_id,omitempty"`
-	TaskTitle             *string `json:"task_title,omitempty"`
-	TaskStatus            *string `json:"task_status,omitempty"`
-	InstanceStartTimeFrom *int64  `json:"instance_start_time_from,omitempty,string"`
-	InstanceStartTimeTo   *int64  `json:"instance_start_time_to,omitempty,string"`
-	Locale                *string `json:"locale,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
+	ApprovalCode  *string `json:"approval_code,omitempty"`
+	InstanceCode  *string `json:"instance_code,omitempty"`
+	InstanceExternalId  *string `json:"instance_external_id,omitempty"`
+	GroupExternalId  *string `json:"group_external_id,omitempty"`
+	TaskTitle  *string `json:"task_title,omitempty"`
+	TaskStatus  *string `json:"task_status,omitempty"`
+	InstanceStartTimeFrom  *int64 `json:"instance_start_time_from,omitempty,string"`
+	InstanceStartTimeTo  *int64 `json:"instance_start_time_to,omitempty,string"`
+	Locale  *string `json:"locale,omitempty"`
 }
 
 // builder开始
 type TaskSearchBuilder struct {
-	userId                    string
-	userIdFlag                bool
-	approvalCode              string
-	approvalCodeFlag          bool
-	instanceCode              string
-	instanceCodeFlag          bool
-	instanceExternalId        string
-	instanceExternalIdFlag    bool
-	groupExternalId           string
-	groupExternalIdFlag       bool
-	taskTitle                 string
-	taskTitleFlag             bool
-	taskStatus                string
-	taskStatusFlag            bool
-	instanceStartTimeFrom     int64
-	instanceStartTimeFromFlag bool
-	instanceStartTimeTo       int64
-	instanceStartTimeToFlag   bool
-	locale                    string
-	localeFlag                bool
+	userId  string
+	userIdFlag  bool
+	approvalCode  string
+	approvalCodeFlag  bool
+	instanceCode  string
+	instanceCodeFlag  bool
+	instanceExternalId  string
+	instanceExternalIdFlag  bool
+	groupExternalId  string
+	groupExternalIdFlag  bool
+	taskTitle  string
+	taskTitleFlag  bool
+	taskStatus  string
+	taskStatusFlag  bool
+	instanceStartTimeFrom  int64
+	instanceStartTimeFromFlag  bool
+	instanceStartTimeTo  int64
+	instanceStartTimeToFlag  bool
+	locale  string
+	localeFlag  bool
 }
 
-func NewTaskSearchBuilder() *TaskSearchBuilder {
-	builder := &TaskSearchBuilder{}
-	return builder
+func NewTaskSearchBuilder() * TaskSearchBuilder{
+   builder := &TaskSearchBuilder{}
+   return builder
 }
 
-func (builder *TaskSearchBuilder) UserId(userId string) *TaskSearchBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
+
+func (builder * TaskSearchBuilder) UserId(userId string) *TaskSearchBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
-func (builder *TaskSearchBuilder) ApprovalCode(approvalCode string) *TaskSearchBuilder {
-	builder.approvalCode = approvalCode
-	builder.approvalCodeFlag = true
-	return builder
+func (builder * TaskSearchBuilder) ApprovalCode(approvalCode string) *TaskSearchBuilder  {
+  builder.approvalCode = approvalCode
+  builder.approvalCodeFlag = true
+  return builder
 }
-func (builder *TaskSearchBuilder) InstanceCode(instanceCode string) *TaskSearchBuilder {
-	builder.instanceCode = instanceCode
-	builder.instanceCodeFlag = true
-	return builder
+func (builder * TaskSearchBuilder) InstanceCode(instanceCode string) *TaskSearchBuilder  {
+  builder.instanceCode = instanceCode
+  builder.instanceCodeFlag = true
+  return builder
 }
-func (builder *TaskSearchBuilder) InstanceExternalId(instanceExternalId string) *TaskSearchBuilder {
-	builder.instanceExternalId = instanceExternalId
-	builder.instanceExternalIdFlag = true
-	return builder
+func (builder * TaskSearchBuilder) InstanceExternalId(instanceExternalId string) *TaskSearchBuilder  {
+  builder.instanceExternalId = instanceExternalId
+  builder.instanceExternalIdFlag = true
+  return builder
 }
-func (builder *TaskSearchBuilder) GroupExternalId(groupExternalId string) *TaskSearchBuilder {
-	builder.groupExternalId = groupExternalId
-	builder.groupExternalIdFlag = true
-	return builder
+func (builder * TaskSearchBuilder) GroupExternalId(groupExternalId string) *TaskSearchBuilder  {
+  builder.groupExternalId = groupExternalId
+  builder.groupExternalIdFlag = true
+  return builder
 }
-func (builder *TaskSearchBuilder) TaskTitle(taskTitle string) *TaskSearchBuilder {
-	builder.taskTitle = taskTitle
-	builder.taskTitleFlag = true
-	return builder
+func (builder * TaskSearchBuilder) TaskTitle(taskTitle string) *TaskSearchBuilder  {
+  builder.taskTitle = taskTitle
+  builder.taskTitleFlag = true
+  return builder
 }
-func (builder *TaskSearchBuilder) TaskStatus(taskStatus string) *TaskSearchBuilder {
-	builder.taskStatus = taskStatus
-	builder.taskStatusFlag = true
-	return builder
+func (builder * TaskSearchBuilder) TaskStatus(taskStatus string) *TaskSearchBuilder  {
+  builder.taskStatus = taskStatus
+  builder.taskStatusFlag = true
+  return builder
 }
-func (builder *TaskSearchBuilder) InstanceStartTimeFrom(instanceStartTimeFrom int64) *TaskSearchBuilder {
-	builder.instanceStartTimeFrom = instanceStartTimeFrom
-	builder.instanceStartTimeFromFlag = true
-	return builder
+func (builder * TaskSearchBuilder) InstanceStartTimeFrom(instanceStartTimeFrom int64) *TaskSearchBuilder  {
+  builder.instanceStartTimeFrom = instanceStartTimeFrom
+  builder.instanceStartTimeFromFlag = true
+  return builder
 }
-func (builder *TaskSearchBuilder) InstanceStartTimeTo(instanceStartTimeTo int64) *TaskSearchBuilder {
-	builder.instanceStartTimeTo = instanceStartTimeTo
-	builder.instanceStartTimeToFlag = true
-	return builder
+func (builder * TaskSearchBuilder) InstanceStartTimeTo(instanceStartTimeTo int64) *TaskSearchBuilder  {
+  builder.instanceStartTimeTo = instanceStartTimeTo
+  builder.instanceStartTimeToFlag = true
+  return builder
 }
-func (builder *TaskSearchBuilder) Locale(locale string) *TaskSearchBuilder {
-	builder.locale = locale
-	builder.localeFlag = true
-	return builder
-}
-
-func (builder *TaskSearchBuilder) Build() *TaskSearch {
-	req := &TaskSearch{}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	if builder.approvalCodeFlag {
-		req.ApprovalCode = &builder.approvalCode
-
-	}
-	if builder.instanceCodeFlag {
-		req.InstanceCode = &builder.instanceCode
-
-	}
-	if builder.instanceExternalIdFlag {
-		req.InstanceExternalId = &builder.instanceExternalId
-
-	}
-	if builder.groupExternalIdFlag {
-		req.GroupExternalId = &builder.groupExternalId
-
-	}
-	if builder.taskTitleFlag {
-		req.TaskTitle = &builder.taskTitle
-
-	}
-	if builder.taskStatusFlag {
-		req.TaskStatus = &builder.taskStatus
-
-	}
-	if builder.instanceStartTimeFromFlag {
-		req.InstanceStartTimeFrom = &builder.instanceStartTimeFrom
-
-	}
-	if builder.instanceStartTimeToFlag {
-		req.InstanceStartTimeTo = &builder.instanceStartTimeTo
-
-	}
-	if builder.localeFlag {
-		req.Locale = &builder.locale
-
-	}
-	return req
+func (builder * TaskSearchBuilder) Locale(locale string) *TaskSearchBuilder  {
+  builder.locale = locale
+  builder.localeFlag = true
+  return builder
 }
 
+func (builder * TaskSearchBuilder ) Build() *TaskSearch {
+   req := &TaskSearch{}
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.approvalCodeFlag {
+	  req.ApprovalCode = &builder.approvalCode
+	  
+   }
+   if builder.instanceCodeFlag {
+	  req.InstanceCode = &builder.instanceCode
+	  
+   }
+   if builder.instanceExternalIdFlag {
+	  req.InstanceExternalId = &builder.instanceExternalId
+	  
+   }
+   if builder.groupExternalIdFlag {
+	  req.GroupExternalId = &builder.groupExternalId
+	  
+   }
+   if builder.taskTitleFlag {
+	  req.TaskTitle = &builder.taskTitle
+	  
+   }
+   if builder.taskStatusFlag {
+	  req.TaskStatus = &builder.taskStatus
+	  
+   }
+   if builder.instanceStartTimeFromFlag {
+	  req.InstanceStartTimeFrom = &builder.instanceStartTimeFrom
+	  
+   }
+   if builder.instanceStartTimeToFlag {
+	  req.InstanceStartTimeTo = &builder.instanceStartTimeTo
+	  
+   }
+   if builder.localeFlag {
+	  req.Locale = &builder.locale
+	  
+   }
+   return req
+}
 // builder结束
 
 type TaskSearchItem struct {
-	Approval *InstanceSearchApproval `json:"approval,omitempty"`
-	Group    *InstanceSearchGroup    `json:"group,omitempty"`
-	Instance *InstanceSearchNode     `json:"instance,omitempty"`
-	Task     *TaskSearchNode         `json:"task,omitempty"`
+	Approval  *InstanceSearchApproval `json:"approval,omitempty"`
+	Group  *InstanceSearchGroup `json:"group,omitempty"`
+	Instance  *InstanceSearchNode `json:"instance,omitempty"`
+	Task  *TaskSearchNode `json:"task,omitempty"`
 }
 
 // builder开始
 type TaskSearchItemBuilder struct {
-	approval     *InstanceSearchApproval
-	approvalFlag bool
-	group        *InstanceSearchGroup
-	groupFlag    bool
-	instance     *InstanceSearchNode
-	instanceFlag bool
-	task         *TaskSearchNode
-	taskFlag     bool
+	approval  *InstanceSearchApproval
+	approvalFlag  bool
+	group  *InstanceSearchGroup
+	groupFlag  bool
+	instance  *InstanceSearchNode
+	instanceFlag  bool
+	task  *TaskSearchNode
+	taskFlag  bool
 }
 
-func NewTaskSearchItemBuilder() *TaskSearchItemBuilder {
-	builder := &TaskSearchItemBuilder{}
-	return builder
+func NewTaskSearchItemBuilder() * TaskSearchItemBuilder{
+   builder := &TaskSearchItemBuilder{}
+   return builder
 }
 
-func (builder *TaskSearchItemBuilder) Approval(approval *InstanceSearchApproval) *TaskSearchItemBuilder {
-	builder.approval = approval
-	builder.approvalFlag = true
-	return builder
+
+func (builder * TaskSearchItemBuilder) Approval(approval *InstanceSearchApproval) *TaskSearchItemBuilder  {
+  builder.approval = approval
+  builder.approvalFlag = true
+  return builder
 }
-func (builder *TaskSearchItemBuilder) Group(group *InstanceSearchGroup) *TaskSearchItemBuilder {
-	builder.group = group
-	builder.groupFlag = true
-	return builder
+func (builder * TaskSearchItemBuilder) Group(group *InstanceSearchGroup) *TaskSearchItemBuilder  {
+  builder.group = group
+  builder.groupFlag = true
+  return builder
 }
-func (builder *TaskSearchItemBuilder) Instance(instance *InstanceSearchNode) *TaskSearchItemBuilder {
-	builder.instance = instance
-	builder.instanceFlag = true
-	return builder
+func (builder * TaskSearchItemBuilder) Instance(instance *InstanceSearchNode) *TaskSearchItemBuilder  {
+  builder.instance = instance
+  builder.instanceFlag = true
+  return builder
 }
-func (builder *TaskSearchItemBuilder) Task(task *TaskSearchNode) *TaskSearchItemBuilder {
-	builder.task = task
-	builder.taskFlag = true
-	return builder
+func (builder * TaskSearchItemBuilder) Task(task *TaskSearchNode) *TaskSearchItemBuilder  {
+  builder.task = task
+  builder.taskFlag = true
+  return builder
 }
 
-func (builder *TaskSearchItemBuilder) Build() *TaskSearchItem {
-	req := &TaskSearchItem{}
-	if builder.approvalFlag {
-		req.Approval = builder.approval
-	}
-	if builder.groupFlag {
-		req.Group = builder.group
-	}
-	if builder.instanceFlag {
-		req.Instance = builder.instance
-	}
-	if builder.taskFlag {
-		req.Task = builder.task
-	}
-	return req
+func (builder * TaskSearchItemBuilder ) Build() *TaskSearchItem {
+   req := &TaskSearchItem{}
+   if builder.approvalFlag {
+	  req.Approval = builder.approval
+   }
+   if builder.groupFlag {
+	  req.Group = builder.group
+   }
+   if builder.instanceFlag {
+	  req.Instance = builder.instance
+   }
+   if builder.taskFlag {
+	  req.Task = builder.task
+   }
+   return req
 }
-
 // builder结束
 
 type TaskSearchNode struct {
-	UserId    *string             `json:"user_id,omitempty"`
-	StartTime *int64              `json:"start_time,omitempty,string"`
-	EndTime   *int64              `json:"end_time,omitempty,string"`
-	Status    *string             `json:"status,omitempty"`
-	Title     *string             `json:"title,omitempty"`
-	Extra     *string             `json:"extra,omitempty"`
-	Link      *InstanceSearchLink `json:"link,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
+	StartTime  *int64 `json:"start_time,omitempty,string"`
+	EndTime  *int64 `json:"end_time,omitempty,string"`
+	Status  *string `json:"status,omitempty"`
+	Title  *string `json:"title,omitempty"`
+	Extra  *string `json:"extra,omitempty"`
+	Link  *InstanceSearchLink `json:"link,omitempty"`
 }
 
 // builder开始
 type TaskSearchNodeBuilder struct {
-	userId        string
-	userIdFlag    bool
-	startTime     int64
-	startTimeFlag bool
-	endTime       int64
-	endTimeFlag   bool
-	status        string
-	statusFlag    bool
-	title         string
-	titleFlag     bool
-	extra         string
-	extraFlag     bool
-	link          *InstanceSearchLink
-	linkFlag      bool
+	userId  string
+	userIdFlag  bool
+	startTime  int64
+	startTimeFlag  bool
+	endTime  int64
+	endTimeFlag  bool
+	status  string
+	statusFlag  bool
+	title  string
+	titleFlag  bool
+	extra  string
+	extraFlag  bool
+	link  *InstanceSearchLink
+	linkFlag  bool
 }
 
-func NewTaskSearchNodeBuilder() *TaskSearchNodeBuilder {
-	builder := &TaskSearchNodeBuilder{}
-	return builder
+func NewTaskSearchNodeBuilder() * TaskSearchNodeBuilder{
+   builder := &TaskSearchNodeBuilder{}
+   return builder
 }
 
-func (builder *TaskSearchNodeBuilder) UserId(userId string) *TaskSearchNodeBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
-}
-func (builder *TaskSearchNodeBuilder) StartTime(startTime int64) *TaskSearchNodeBuilder {
-	builder.startTime = startTime
-	builder.startTimeFlag = true
-	return builder
-}
-func (builder *TaskSearchNodeBuilder) EndTime(endTime int64) *TaskSearchNodeBuilder {
-	builder.endTime = endTime
-	builder.endTimeFlag = true
-	return builder
-}
-func (builder *TaskSearchNodeBuilder) Status(status string) *TaskSearchNodeBuilder {
-	builder.status = status
-	builder.statusFlag = true
-	return builder
-}
-func (builder *TaskSearchNodeBuilder) Title(title string) *TaskSearchNodeBuilder {
-	builder.title = title
-	builder.titleFlag = true
-	return builder
-}
-func (builder *TaskSearchNodeBuilder) Extra(extra string) *TaskSearchNodeBuilder {
-	builder.extra = extra
-	builder.extraFlag = true
-	return builder
-}
-func (builder *TaskSearchNodeBuilder) Link(link *InstanceSearchLink) *TaskSearchNodeBuilder {
-	builder.link = link
-	builder.linkFlag = true
-	return builder
-}
 
-func (builder *TaskSearchNodeBuilder) Build() *TaskSearchNode {
-	req := &TaskSearchNode{}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	if builder.startTimeFlag {
-		req.StartTime = &builder.startTime
-
-	}
-	if builder.endTimeFlag {
-		req.EndTime = &builder.endTime
-
-	}
-	if builder.statusFlag {
-		req.Status = &builder.status
-
-	}
-	if builder.titleFlag {
-		req.Title = &builder.title
-
-	}
-	if builder.extraFlag {
-		req.Extra = &builder.extra
-
-	}
-	if builder.linkFlag {
-		req.Link = builder.link
-	}
-	return req
+func (builder * TaskSearchNodeBuilder) UserId(userId string) *TaskSearchNodeBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
+}
+func (builder * TaskSearchNodeBuilder) StartTime(startTime int64) *TaskSearchNodeBuilder  {
+  builder.startTime = startTime
+  builder.startTimeFlag = true
+  return builder
+}
+func (builder * TaskSearchNodeBuilder) EndTime(endTime int64) *TaskSearchNodeBuilder  {
+  builder.endTime = endTime
+  builder.endTimeFlag = true
+  return builder
+}
+func (builder * TaskSearchNodeBuilder) Status(status string) *TaskSearchNodeBuilder  {
+  builder.status = status
+  builder.statusFlag = true
+  return builder
+}
+func (builder * TaskSearchNodeBuilder) Title(title string) *TaskSearchNodeBuilder  {
+  builder.title = title
+  builder.titleFlag = true
+  return builder
+}
+func (builder * TaskSearchNodeBuilder) Extra(extra string) *TaskSearchNodeBuilder  {
+  builder.extra = extra
+  builder.extraFlag = true
+  return builder
+}
+func (builder * TaskSearchNodeBuilder) Link(link *InstanceSearchLink) *TaskSearchNodeBuilder  {
+  builder.link = link
+  builder.linkFlag = true
+  return builder
 }
 
+func (builder * TaskSearchNodeBuilder ) Build() *TaskSearchNode {
+   req := &TaskSearchNode{}
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.startTimeFlag {
+	  req.StartTime = &builder.startTime
+	  
+   }
+   if builder.endTimeFlag {
+	  req.EndTime = &builder.endTime
+	  
+   }
+   if builder.statusFlag {
+	  req.Status = &builder.status
+	  
+   }
+   if builder.titleFlag {
+	  req.Title = &builder.title
+	  
+   }
+   if builder.extraFlag {
+	  req.Extra = &builder.extra
+	  
+   }
+   if builder.linkFlag {
+	  req.Link = builder.link
+   }
+   return req
+}
 // builder结束
 
 type TaskTransfer struct {
-	ApprovalCode   *string `json:"approval_code,omitempty"`
-	InstanceCode   *string `json:"instance_code,omitempty"`
-	UserId         *string `json:"user_id,omitempty"`
-	Comment        *string `json:"comment,omitempty"`
-	TransferUserId *string `json:"transfer_user_id,omitempty"`
-	TaskId         *string `json:"task_id,omitempty"`
+	ApprovalCode  *string `json:"approval_code,omitempty"`
+	InstanceCode  *string `json:"instance_code,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
+	Comment  *string `json:"comment,omitempty"`
+	TransferUserId  *string `json:"transfer_user_id,omitempty"`
+	TaskId  *string `json:"task_id,omitempty"`
 }
 
 // builder开始
 type TaskTransferBuilder struct {
-	approvalCode       string
-	approvalCodeFlag   bool
-	instanceCode       string
-	instanceCodeFlag   bool
-	userId             string
-	userIdFlag         bool
-	comment            string
-	commentFlag        bool
-	transferUserId     string
-	transferUserIdFlag bool
-	taskId             string
-	taskIdFlag         bool
+	approvalCode  string
+	approvalCodeFlag  bool
+	instanceCode  string
+	instanceCodeFlag  bool
+	userId  string
+	userIdFlag  bool
+	comment  string
+	commentFlag  bool
+	transferUserId  string
+	transferUserIdFlag  bool
+	taskId  string
+	taskIdFlag  bool
 }
 
-func NewTaskTransferBuilder() *TaskTransferBuilder {
-	builder := &TaskTransferBuilder{}
-	return builder
+func NewTaskTransferBuilder() * TaskTransferBuilder{
+   builder := &TaskTransferBuilder{}
+   return builder
 }
 
-func (builder *TaskTransferBuilder) ApprovalCode(approvalCode string) *TaskTransferBuilder {
-	builder.approvalCode = approvalCode
-	builder.approvalCodeFlag = true
-	return builder
+
+func (builder * TaskTransferBuilder) ApprovalCode(approvalCode string) *TaskTransferBuilder  {
+  builder.approvalCode = approvalCode
+  builder.approvalCodeFlag = true
+  return builder
 }
-func (builder *TaskTransferBuilder) InstanceCode(instanceCode string) *TaskTransferBuilder {
-	builder.instanceCode = instanceCode
-	builder.instanceCodeFlag = true
-	return builder
+func (builder * TaskTransferBuilder) InstanceCode(instanceCode string) *TaskTransferBuilder  {
+  builder.instanceCode = instanceCode
+  builder.instanceCodeFlag = true
+  return builder
 }
-func (builder *TaskTransferBuilder) UserId(userId string) *TaskTransferBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
+func (builder * TaskTransferBuilder) UserId(userId string) *TaskTransferBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
-func (builder *TaskTransferBuilder) Comment(comment string) *TaskTransferBuilder {
-	builder.comment = comment
-	builder.commentFlag = true
-	return builder
+func (builder * TaskTransferBuilder) Comment(comment string) *TaskTransferBuilder  {
+  builder.comment = comment
+  builder.commentFlag = true
+  return builder
 }
-func (builder *TaskTransferBuilder) TransferUserId(transferUserId string) *TaskTransferBuilder {
-	builder.transferUserId = transferUserId
-	builder.transferUserIdFlag = true
-	return builder
+func (builder * TaskTransferBuilder) TransferUserId(transferUserId string) *TaskTransferBuilder  {
+  builder.transferUserId = transferUserId
+  builder.transferUserIdFlag = true
+  return builder
 }
-func (builder *TaskTransferBuilder) TaskId(taskId string) *TaskTransferBuilder {
-	builder.taskId = taskId
-	builder.taskIdFlag = true
-	return builder
-}
-
-func (builder *TaskTransferBuilder) Build() *TaskTransfer {
-	req := &TaskTransfer{}
-	if builder.approvalCodeFlag {
-		req.ApprovalCode = &builder.approvalCode
-
-	}
-	if builder.instanceCodeFlag {
-		req.InstanceCode = &builder.instanceCode
-
-	}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	if builder.commentFlag {
-		req.Comment = &builder.comment
-
-	}
-	if builder.transferUserIdFlag {
-		req.TransferUserId = &builder.transferUserId
-
-	}
-	if builder.taskIdFlag {
-		req.TaskId = &builder.taskId
-
-	}
-	return req
+func (builder * TaskTransferBuilder) TaskId(taskId string) *TaskTransferBuilder  {
+  builder.taskId = taskId
+  builder.taskIdFlag = true
+  return builder
 }
 
+func (builder * TaskTransferBuilder ) Build() *TaskTransfer {
+   req := &TaskTransfer{}
+   if builder.approvalCodeFlag {
+	  req.ApprovalCode = &builder.approvalCode
+	  
+   }
+   if builder.instanceCodeFlag {
+	  req.InstanceCode = &builder.instanceCode
+	  
+   }
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.commentFlag {
+	  req.Comment = &builder.comment
+	  
+   }
+   if builder.transferUserIdFlag {
+	  req.TransferUserId = &builder.transferUserId
+	  
+   }
+   if builder.taskIdFlag {
+	  req.TaskId = &builder.taskId
+	  
+   }
+   return req
+}
 // builder结束
 
 type TaskUrls struct {
-	Helpdesk *string `json:"helpdesk,omitempty"`
-	Mobile   *string `json:"mobile,omitempty"`
-	Pc       *string `json:"pc,omitempty"`
+	Helpdesk  *string `json:"helpdesk,omitempty"`
+	Mobile  *string `json:"mobile,omitempty"`
+	Pc  *string `json:"pc,omitempty"`
 }
 
 // builder开始
 type TaskUrlsBuilder struct {
-	helpdesk     string
-	helpdeskFlag bool
-	mobile       string
-	mobileFlag   bool
-	pc           string
-	pcFlag       bool
+	helpdesk  string
+	helpdeskFlag  bool
+	mobile  string
+	mobileFlag  bool
+	pc  string
+	pcFlag  bool
 }
 
-func NewTaskUrlsBuilder() *TaskUrlsBuilder {
-	builder := &TaskUrlsBuilder{}
-	return builder
+func NewTaskUrlsBuilder() * TaskUrlsBuilder{
+   builder := &TaskUrlsBuilder{}
+   return builder
 }
 
-func (builder *TaskUrlsBuilder) Helpdesk(helpdesk string) *TaskUrlsBuilder {
-	builder.helpdesk = helpdesk
-	builder.helpdeskFlag = true
-	return builder
+
+func (builder * TaskUrlsBuilder) Helpdesk(helpdesk string) *TaskUrlsBuilder  {
+  builder.helpdesk = helpdesk
+  builder.helpdeskFlag = true
+  return builder
 }
-func (builder *TaskUrlsBuilder) Mobile(mobile string) *TaskUrlsBuilder {
-	builder.mobile = mobile
-	builder.mobileFlag = true
-	return builder
+func (builder * TaskUrlsBuilder) Mobile(mobile string) *TaskUrlsBuilder  {
+  builder.mobile = mobile
+  builder.mobileFlag = true
+  return builder
 }
-func (builder *TaskUrlsBuilder) Pc(pc string) *TaskUrlsBuilder {
-	builder.pc = pc
-	builder.pcFlag = true
-	return builder
-}
-
-func (builder *TaskUrlsBuilder) Build() *TaskUrls {
-	req := &TaskUrls{}
-	if builder.helpdeskFlag {
-		req.Helpdesk = &builder.helpdesk
-
-	}
-	if builder.mobileFlag {
-		req.Mobile = &builder.mobile
-
-	}
-	if builder.pcFlag {
-		req.Pc = &builder.pc
-
-	}
-	return req
+func (builder * TaskUrlsBuilder) Pc(pc string) *TaskUrlsBuilder  {
+  builder.pc = pc
+  builder.pcFlag = true
+  return builder
 }
 
+func (builder * TaskUrlsBuilder ) Build() *TaskUrls {
+   req := &TaskUrls{}
+   if builder.helpdeskFlag {
+	  req.Helpdesk = &builder.helpdesk
+	  
+   }
+   if builder.mobileFlag {
+	  req.Mobile = &builder.mobile
+	  
+   }
+   if builder.pcFlag {
+	  req.Pc = &builder.pc
+	  
+   }
+   return req
+}
 // builder结束
 
 type TripGroup struct {
-	Type         *string              `json:"type,omitempty"`
-	InstanceCode *string              `json:"instance_code,omitempty"`
-	StartUser    *User                `json:"start_user,omitempty"`
-	StartTime    *string              `json:"start_time,omitempty"`
-	EndTime      *string              `json:"end_time,omitempty"`
-	TripInterval *string              `json:"trip_interval,omitempty"`
-	TripReason   *string              `json:"trip_reason,omitempty"`
-	Schedules    []*TripGroupSchedule `json:"schedules,omitempty"`
-	TripPeers    []*User              `json:"trip_peers,omitempty"`
+	Type  *string `json:"type,omitempty"`
+	InstanceCode  *string `json:"instance_code,omitempty"`
+	StartUser  *User `json:"start_user,omitempty"`
+	StartTime  *string `json:"start_time,omitempty"`
+	EndTime  *string `json:"end_time,omitempty"`
+	TripInterval  *string `json:"trip_interval,omitempty"`
+	TripReason  *string `json:"trip_reason,omitempty"`
+	Schedules  []*TripGroupSchedule `json:"schedules,omitempty"`
+	TripPeers  []*User `json:"trip_peers,omitempty"`
 }
 
 // builder开始
 type TripGroupBuilder struct {
-	type_            string
-	typeFlag         bool
-	instanceCode     string
-	instanceCodeFlag bool
-	startUser        *User
-	startUserFlag    bool
-	startTime        string
-	startTimeFlag    bool
-	endTime          string
-	endTimeFlag      bool
-	tripInterval     string
-	tripIntervalFlag bool
-	tripReason       string
-	tripReasonFlag   bool
-	schedules        []*TripGroupSchedule
-	schedulesFlag    bool
-	tripPeers        []*User
-	tripPeersFlag    bool
+	type_  string
+	typeFlag  bool
+	instanceCode  string
+	instanceCodeFlag  bool
+	startUser  *User
+	startUserFlag  bool
+	startTime  string
+	startTimeFlag  bool
+	endTime  string
+	endTimeFlag  bool
+	tripInterval  string
+	tripIntervalFlag  bool
+	tripReason  string
+	tripReasonFlag  bool
+	schedules  []*TripGroupSchedule
+	schedulesFlag  bool
+	tripPeers  []*User
+	tripPeersFlag  bool
 }
 
-func NewTripGroupBuilder() *TripGroupBuilder {
-	builder := &TripGroupBuilder{}
-	return builder
+func NewTripGroupBuilder() * TripGroupBuilder{
+   builder := &TripGroupBuilder{}
+   return builder
 }
 
-func (builder *TripGroupBuilder) Type(type_ string) *TripGroupBuilder {
-	builder.type_ = type_
-	builder.typeFlag = true
-	return builder
+
+func (builder * TripGroupBuilder) Type(type_ string) *TripGroupBuilder  {
+  builder.type_ = type_
+  builder.typeFlag = true
+  return builder
 }
-func (builder *TripGroupBuilder) InstanceCode(instanceCode string) *TripGroupBuilder {
-	builder.instanceCode = instanceCode
-	builder.instanceCodeFlag = true
-	return builder
+func (builder * TripGroupBuilder) InstanceCode(instanceCode string) *TripGroupBuilder  {
+  builder.instanceCode = instanceCode
+  builder.instanceCodeFlag = true
+  return builder
 }
-func (builder *TripGroupBuilder) StartUser(startUser *User) *TripGroupBuilder {
-	builder.startUser = startUser
-	builder.startUserFlag = true
-	return builder
+func (builder * TripGroupBuilder) StartUser(startUser *User) *TripGroupBuilder  {
+  builder.startUser = startUser
+  builder.startUserFlag = true
+  return builder
 }
-func (builder *TripGroupBuilder) StartTime(startTime string) *TripGroupBuilder {
-	builder.startTime = startTime
-	builder.startTimeFlag = true
-	return builder
+func (builder * TripGroupBuilder) StartTime(startTime string) *TripGroupBuilder  {
+  builder.startTime = startTime
+  builder.startTimeFlag = true
+  return builder
 }
-func (builder *TripGroupBuilder) EndTime(endTime string) *TripGroupBuilder {
-	builder.endTime = endTime
-	builder.endTimeFlag = true
-	return builder
+func (builder * TripGroupBuilder) EndTime(endTime string) *TripGroupBuilder  {
+  builder.endTime = endTime
+  builder.endTimeFlag = true
+  return builder
 }
-func (builder *TripGroupBuilder) TripInterval(tripInterval string) *TripGroupBuilder {
-	builder.tripInterval = tripInterval
-	builder.tripIntervalFlag = true
-	return builder
+func (builder * TripGroupBuilder) TripInterval(tripInterval string) *TripGroupBuilder  {
+  builder.tripInterval = tripInterval
+  builder.tripIntervalFlag = true
+  return builder
 }
-func (builder *TripGroupBuilder) TripReason(tripReason string) *TripGroupBuilder {
-	builder.tripReason = tripReason
-	builder.tripReasonFlag = true
-	return builder
+func (builder * TripGroupBuilder) TripReason(tripReason string) *TripGroupBuilder  {
+  builder.tripReason = tripReason
+  builder.tripReasonFlag = true
+  return builder
 }
-func (builder *TripGroupBuilder) Schedules(schedules []*TripGroupSchedule) *TripGroupBuilder {
-	builder.schedules = schedules
-	builder.schedulesFlag = true
-	return builder
+func (builder * TripGroupBuilder) Schedules(schedules []*TripGroupSchedule) *TripGroupBuilder  {
+  builder.schedules = schedules
+  builder.schedulesFlag = true
+  return builder
 }
-func (builder *TripGroupBuilder) TripPeers(tripPeers []*User) *TripGroupBuilder {
-	builder.tripPeers = tripPeers
-	builder.tripPeersFlag = true
-	return builder
+func (builder * TripGroupBuilder) TripPeers(tripPeers []*User) *TripGroupBuilder  {
+  builder.tripPeers = tripPeers
+  builder.tripPeersFlag = true
+  return builder
 }
 
-func (builder *TripGroupBuilder) Build() *TripGroup {
-	req := &TripGroup{}
-	if builder.typeFlag {
-		req.Type = &builder.type_
-
-	}
-	if builder.instanceCodeFlag {
-		req.InstanceCode = &builder.instanceCode
-
-	}
-	if builder.startUserFlag {
-		req.StartUser = builder.startUser
-	}
-	if builder.startTimeFlag {
-		req.StartTime = &builder.startTime
-
-	}
-	if builder.endTimeFlag {
-		req.EndTime = &builder.endTime
-
-	}
-	if builder.tripIntervalFlag {
-		req.TripInterval = &builder.tripInterval
-
-	}
-	if builder.tripReasonFlag {
-		req.TripReason = &builder.tripReason
-
-	}
-	if builder.schedulesFlag {
-		req.Schedules = builder.schedules
-	}
-	if builder.tripPeersFlag {
-		req.TripPeers = builder.tripPeers
-	}
-	return req
+func (builder * TripGroupBuilder ) Build() *TripGroup {
+   req := &TripGroup{}
+   if builder.typeFlag {
+	  req.Type = &builder.type_
+	  
+   }
+   if builder.instanceCodeFlag {
+	  req.InstanceCode = &builder.instanceCode
+	  
+   }
+   if builder.startUserFlag {
+	  req.StartUser = builder.startUser
+   }
+   if builder.startTimeFlag {
+	  req.StartTime = &builder.startTime
+	  
+   }
+   if builder.endTimeFlag {
+	  req.EndTime = &builder.endTime
+	  
+   }
+   if builder.tripIntervalFlag {
+	  req.TripInterval = &builder.tripInterval
+	  
+   }
+   if builder.tripReasonFlag {
+	  req.TripReason = &builder.tripReason
+	  
+   }
+   if builder.schedulesFlag {
+	  req.Schedules = builder.schedules
+   }
+   if builder.tripPeersFlag {
+	  req.TripPeers = builder.tripPeers
+   }
+   return req
 }
-
 // builder结束
 
 type TripGroupSchedule struct {
 	TripStartTime  *string `json:"trip_start_time,omitempty"`
-	TripEndTime    *string `json:"trip_end_time,omitempty"`
-	TripInterval   *string `json:"trip_interval,omitempty"`
-	Departure      *string `json:"departure,omitempty"`
-	Destination    *string `json:"destination,omitempty"`
-	Transportation *string `json:"transportation,omitempty"`
-	TripType       *string `json:"trip_type,omitempty"`
-	Remark         *string `json:"remark,omitempty"`
+	TripEndTime  *string `json:"trip_end_time,omitempty"`
+	TripInterval  *string `json:"trip_interval,omitempty"`
+	Departure  *string `json:"departure,omitempty"`
+	Destination  *string `json:"destination,omitempty"`
+	Transportation  *string `json:"transportation,omitempty"`
+	TripType  *string `json:"trip_type,omitempty"`
+	Remark  *string `json:"remark,omitempty"`
 }
 
 // builder开始
 type TripGroupScheduleBuilder struct {
-	tripStartTime      string
+	tripStartTime  string
 	tripStartTimeFlag  bool
-	tripEndTime        string
-	tripEndTimeFlag    bool
-	tripInterval       string
-	tripIntervalFlag   bool
-	departure          string
-	departureFlag      bool
-	destination        string
-	destinationFlag    bool
-	transportation     string
-	transportationFlag bool
-	tripType           string
-	tripTypeFlag       bool
-	remark             string
-	remarkFlag         bool
+	tripEndTime  string
+	tripEndTimeFlag  bool
+	tripInterval  string
+	tripIntervalFlag  bool
+	departure  string
+	departureFlag  bool
+	destination  string
+	destinationFlag  bool
+	transportation  string
+	transportationFlag  bool
+	tripType  string
+	tripTypeFlag  bool
+	remark  string
+	remarkFlag  bool
 }
 
-func NewTripGroupScheduleBuilder() *TripGroupScheduleBuilder {
-	builder := &TripGroupScheduleBuilder{}
-	return builder
+func NewTripGroupScheduleBuilder() * TripGroupScheduleBuilder{
+   builder := &TripGroupScheduleBuilder{}
+   return builder
 }
 
-func (builder *TripGroupScheduleBuilder) TripStartTime(tripStartTime string) *TripGroupScheduleBuilder {
-	builder.tripStartTime = tripStartTime
-	builder.tripStartTimeFlag = true
-	return builder
+
+func (builder * TripGroupScheduleBuilder) TripStartTime(tripStartTime string) *TripGroupScheduleBuilder  {
+  builder.tripStartTime = tripStartTime
+  builder.tripStartTimeFlag = true
+  return builder
 }
-func (builder *TripGroupScheduleBuilder) TripEndTime(tripEndTime string) *TripGroupScheduleBuilder {
-	builder.tripEndTime = tripEndTime
-	builder.tripEndTimeFlag = true
-	return builder
+func (builder * TripGroupScheduleBuilder) TripEndTime(tripEndTime string) *TripGroupScheduleBuilder  {
+  builder.tripEndTime = tripEndTime
+  builder.tripEndTimeFlag = true
+  return builder
 }
-func (builder *TripGroupScheduleBuilder) TripInterval(tripInterval string) *TripGroupScheduleBuilder {
-	builder.tripInterval = tripInterval
-	builder.tripIntervalFlag = true
-	return builder
+func (builder * TripGroupScheduleBuilder) TripInterval(tripInterval string) *TripGroupScheduleBuilder  {
+  builder.tripInterval = tripInterval
+  builder.tripIntervalFlag = true
+  return builder
 }
-func (builder *TripGroupScheduleBuilder) Departure(departure string) *TripGroupScheduleBuilder {
-	builder.departure = departure
-	builder.departureFlag = true
-	return builder
+func (builder * TripGroupScheduleBuilder) Departure(departure string) *TripGroupScheduleBuilder  {
+  builder.departure = departure
+  builder.departureFlag = true
+  return builder
 }
-func (builder *TripGroupScheduleBuilder) Destination(destination string) *TripGroupScheduleBuilder {
-	builder.destination = destination
-	builder.destinationFlag = true
-	return builder
+func (builder * TripGroupScheduleBuilder) Destination(destination string) *TripGroupScheduleBuilder  {
+  builder.destination = destination
+  builder.destinationFlag = true
+  return builder
 }
-func (builder *TripGroupScheduleBuilder) Transportation(transportation string) *TripGroupScheduleBuilder {
-	builder.transportation = transportation
-	builder.transportationFlag = true
-	return builder
+func (builder * TripGroupScheduleBuilder) Transportation(transportation string) *TripGroupScheduleBuilder  {
+  builder.transportation = transportation
+  builder.transportationFlag = true
+  return builder
 }
-func (builder *TripGroupScheduleBuilder) TripType(tripType string) *TripGroupScheduleBuilder {
-	builder.tripType = tripType
-	builder.tripTypeFlag = true
-	return builder
+func (builder * TripGroupScheduleBuilder) TripType(tripType string) *TripGroupScheduleBuilder  {
+  builder.tripType = tripType
+  builder.tripTypeFlag = true
+  return builder
 }
-func (builder *TripGroupScheduleBuilder) Remark(remark string) *TripGroupScheduleBuilder {
-	builder.remark = remark
-	builder.remarkFlag = true
-	return builder
-}
-
-func (builder *TripGroupScheduleBuilder) Build() *TripGroupSchedule {
-	req := &TripGroupSchedule{}
-	if builder.tripStartTimeFlag {
-		req.TripStartTime = &builder.tripStartTime
-
-	}
-	if builder.tripEndTimeFlag {
-		req.TripEndTime = &builder.tripEndTime
-
-	}
-	if builder.tripIntervalFlag {
-		req.TripInterval = &builder.tripInterval
-
-	}
-	if builder.departureFlag {
-		req.Departure = &builder.departure
-
-	}
-	if builder.destinationFlag {
-		req.Destination = &builder.destination
-
-	}
-	if builder.transportationFlag {
-		req.Transportation = &builder.transportation
-
-	}
-	if builder.tripTypeFlag {
-		req.TripType = &builder.tripType
-
-	}
-	if builder.remarkFlag {
-		req.Remark = &builder.remark
-
-	}
-	return req
+func (builder * TripGroupScheduleBuilder) Remark(remark string) *TripGroupScheduleBuilder  {
+  builder.remark = remark
+  builder.remarkFlag = true
+  return builder
 }
 
+func (builder * TripGroupScheduleBuilder ) Build() *TripGroupSchedule {
+   req := &TripGroupSchedule{}
+   if builder.tripStartTimeFlag {
+	  req.TripStartTime = &builder.tripStartTime
+	  
+   }
+   if builder.tripEndTimeFlag {
+	  req.TripEndTime = &builder.tripEndTime
+	  
+   }
+   if builder.tripIntervalFlag {
+	  req.TripInterval = &builder.tripInterval
+	  
+   }
+   if builder.departureFlag {
+	  req.Departure = &builder.departure
+	  
+   }
+   if builder.destinationFlag {
+	  req.Destination = &builder.destination
+	  
+   }
+   if builder.transportationFlag {
+	  req.Transportation = &builder.transportation
+	  
+   }
+   if builder.tripTypeFlag {
+	  req.TripType = &builder.tripType
+	  
+   }
+   if builder.remarkFlag {
+	  req.Remark = &builder.remark
+	  
+   }
+   return req
+}
 // builder结束
 
 type User struct {
-	Id   *UserId `json:"id,omitempty"`
-	Name *string `json:"name,omitempty"`
+	Id  *UserId `json:"id,omitempty"`
+	Name  *string `json:"name,omitempty"`
 }
 
 // builder开始
 type UserBuilder struct {
-	id       *UserId
-	idFlag   bool
-	name     string
-	nameFlag bool
+	id  *UserId
+	idFlag  bool
+	name  string
+	nameFlag  bool
 }
 
-func NewUserBuilder() *UserBuilder {
-	builder := &UserBuilder{}
-	return builder
+func NewUserBuilder() * UserBuilder{
+   builder := &UserBuilder{}
+   return builder
 }
 
-func (builder *UserBuilder) Id(id *UserId) *UserBuilder {
-	builder.id = id
-	builder.idFlag = true
-	return builder
-}
-func (builder *UserBuilder) Name(name string) *UserBuilder {
-	builder.name = name
-	builder.nameFlag = true
-	return builder
-}
 
-func (builder *UserBuilder) Build() *User {
-	req := &User{}
-	if builder.idFlag {
-		req.Id = builder.id
-	}
-	if builder.nameFlag {
-		req.Name = &builder.name
-
-	}
-	return req
+func (builder * UserBuilder) Id(id *UserId) *UserBuilder  {
+  builder.id = id
+  builder.idFlag = true
+  return builder
+}
+func (builder * UserBuilder) Name(name string) *UserBuilder  {
+  builder.name = name
+  builder.nameFlag = true
+  return builder
 }
 
+func (builder * UserBuilder ) Build() *User {
+   req := &User{}
+   if builder.idFlag {
+	  req.Id = builder.id
+   }
+   if builder.nameFlag {
+	  req.Name = &builder.name
+	  
+   }
+   return req
+}
 // builder结束
 
 type UserId struct {
 	UserId  *string `json:"user_id,omitempty"`
 	OpenId  *string `json:"open_id,omitempty"`
-	UnionId *string `json:"union_id,omitempty"`
+	UnionId  *string `json:"union_id,omitempty"`
 }
 
 // builder开始
 type UserIdBuilder struct {
-	userId      string
+	userId  string
 	userIdFlag  bool
-	openId      string
+	openId  string
 	openIdFlag  bool
-	unionId     string
-	unionIdFlag bool
+	unionId  string
+	unionIdFlag  bool
 }
 
-func NewUserIdBuilder() *UserIdBuilder {
-	builder := &UserIdBuilder{}
-	return builder
+func NewUserIdBuilder() * UserIdBuilder{
+   builder := &UserIdBuilder{}
+   return builder
 }
 
-func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
+
+func (builder * UserIdBuilder) UserId(userId string) *UserIdBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
-func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
-	builder.openId = openId
-	builder.openIdFlag = true
-	return builder
+func (builder * UserIdBuilder) OpenId(openId string) *UserIdBuilder  {
+  builder.openId = openId
+  builder.openIdFlag = true
+  return builder
 }
-func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
-	builder.unionId = unionId
-	builder.unionIdFlag = true
-	return builder
-}
-
-func (builder *UserIdBuilder) Build() *UserId {
-	req := &UserId{}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	if builder.openIdFlag {
-		req.OpenId = &builder.openId
-
-	}
-	if builder.unionIdFlag {
-		req.UnionId = &builder.unionId
-
-	}
-	return req
+func (builder * UserIdBuilder) UnionId(unionId string) *UserIdBuilder  {
+  builder.unionId = unionId
+  builder.unionIdFlag = true
+  return builder
 }
 
+func (builder * UserIdBuilder ) Build() *UserId {
+   req := &UserId{}
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.openIdFlag {
+	  req.OpenId = &builder.openId
+	  
+   }
+   if builder.unionIdFlag {
+	  req.UnionId = &builder.unionId
+	  
+   }
+   return req
+}
 // builder结束
+
 
 // 生成请求和响应结果类型，以及请求对象的Builder构造器
 
+
 // 1.4 生成请求的builder结构体
 type CreateApprovalReqBuilder struct {
-	departmentIdType     string
-	departmentIdTypeFlag bool
-	userIdType           string
-	userIdTypeFlag       bool
-	approvalCreate       *ApprovalCreate
-	approvalCreateFlag   bool
+	departmentIdType  string
+	departmentIdTypeFlag  bool
+	userIdType  string
+	userIdTypeFlag  bool
+	approvalCreate *ApprovalCreate
+	approvalCreateFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewCreateApprovalReqBuilder() *CreateApprovalReqBuilder {
-	builder := &CreateApprovalReqBuilder{}
-	return builder
+func NewCreateApprovalReqBuilder() * CreateApprovalReqBuilder{
+   builder := &CreateApprovalReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *CreateApprovalReqBuilder) DepartmentIdType(departmentIdType string) *CreateApprovalReqBuilder {
-	builder.departmentIdType = departmentIdType
-	builder.departmentIdTypeFlag = true
-	return builder
+func (builder * CreateApprovalReqBuilder) DepartmentIdType(departmentIdType string) *CreateApprovalReqBuilder  {
+  builder.departmentIdType = departmentIdType
+  builder.departmentIdTypeFlag = true
+  return builder
 }
-func (builder *CreateApprovalReqBuilder) UserIdType(userIdType string) *CreateApprovalReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
-	return builder
+func (builder * CreateApprovalReqBuilder) UserIdType(userIdType string) *CreateApprovalReqBuilder  {
+  builder.userIdType = userIdType
+  builder.userIdTypeFlag = true
+  return builder
 }
-func (builder *CreateApprovalReqBuilder) ApprovalCreate(approvalCreate *ApprovalCreate) *CreateApprovalReqBuilder {
-	builder.approvalCreate = approvalCreate
-	builder.approvalCreateFlag = true
-	return builder
+func (builder * CreateApprovalReqBuilder) ApprovalCreate(approvalCreate *ApprovalCreate) *CreateApprovalReqBuilder  {
+  builder.approvalCreate = approvalCreate
+  builder.approvalCreateFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *CreateApprovalReqBuilder) Build() *CreateApprovalReq {
-	req := &CreateApprovalReq{}
-	if builder.departmentIdTypeFlag {
-		req.DepartmentIdType = &builder.departmentIdType
-	}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
-	if builder.approvalCreateFlag {
-		req.ApprovalCreate = builder.approvalCreate
-	}
-	return req
+func (builder * CreateApprovalReqBuilder ) Build() *CreateApprovalReq {
+   req := &CreateApprovalReq{}
+   if builder.departmentIdTypeFlag {
+	  req.DepartmentIdType = &builder.departmentIdType
+   }
+   if builder.userIdTypeFlag {
+	  req.UserIdType = &builder.userIdType
+   }
+   if builder.approvalCreateFlag {
+	  req.ApprovalCreate = builder.approvalCreate
+   }
+   return req
 }
 
+
 type CreateApprovalReq struct {
-	DepartmentIdType *string         `query:"department_id_type"`
-	UserIdType       *string         `query:"user_id_type"`
-	ApprovalCreate   *ApprovalCreate `body:""`
+	DepartmentIdType  *string `query:"department_id_type"`
+	UserIdType  *string `query:"user_id_type"`
+	ApprovalCreate *ApprovalCreate `body:""`
+
 }
 
 type CreateApprovalRespData struct {
-	ApprovalCode *string `json:"approval_code,omitempty"`
-	ApprovalId   *int64  `json:"approval_id,omitempty,string"`
+	ApprovalCode  *string `json:"approval_code,omitempty"`
+	ApprovalId  *int64 `json:"approval_id,omitempty,string"`
 }
 
 type CreateApprovalResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *CreateApprovalRespData `json:"data"`
 }
 
@@ -6525,60 +6569,64 @@ func (resp *CreateApprovalResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type GetApprovalReqBuilder struct {
-	approvalCode     string
-	approvalCodeFlag bool
-	locale           string
-	localeFlag       bool
+	approvalCode  string
+	approvalCodeFlag  bool
+	locale  string
+	localeFlag  bool
+
 }
 
 // 生成请求的New构造器
-func NewGetApprovalReqBuilder() *GetApprovalReqBuilder {
-	builder := &GetApprovalReqBuilder{}
-	return builder
+func NewGetApprovalReqBuilder() * GetApprovalReqBuilder{
+   builder := &GetApprovalReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *GetApprovalReqBuilder) ApprovalCode(approvalCode string) *GetApprovalReqBuilder {
-	builder.approvalCode = approvalCode
-	builder.approvalCodeFlag = true
-	return builder
+func (builder * GetApprovalReqBuilder) ApprovalCode(approvalCode string) *GetApprovalReqBuilder  {
+  builder.approvalCode = approvalCode
+  builder.approvalCodeFlag = true
+  return builder
 }
-func (builder *GetApprovalReqBuilder) Locale(locale string) *GetApprovalReqBuilder {
-	builder.locale = locale
-	builder.localeFlag = true
-	return builder
+func (builder * GetApprovalReqBuilder) Locale(locale string) *GetApprovalReqBuilder  {
+  builder.locale = locale
+  builder.localeFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *GetApprovalReqBuilder) Build() *GetApprovalReq {
-	req := &GetApprovalReq{}
-	if builder.approvalCodeFlag {
-		req.ApprovalCode = builder.approvalCode
-	}
-	if builder.localeFlag {
-		req.Locale = &builder.locale
-	}
-	return req
+func (builder * GetApprovalReqBuilder ) Build() *GetApprovalReq {
+   req := &GetApprovalReq{}
+   if builder.approvalCodeFlag {
+	  req.ApprovalCode = builder.approvalCode
+   }
+   if builder.localeFlag {
+	  req.Locale = &builder.locale
+   }
+   return req
 }
 
+
 type GetApprovalReq struct {
-	ApprovalCode string  `path:"approval_code"`
-	Locale       *string `query:"locale"`
+	ApprovalCode  string `path:"approval_code"`
+	Locale  *string `query:"locale"`
+
 }
 
 type GetApprovalRespData struct {
-	ApprovalName *string               `json:"approval_name,omitempty"`
-	Status       *string               `json:"status,omitempty"`
-	Form         *string               `json:"form,omitempty"`
-	NodeList     []*ApprovalNodeInfo   `json:"node_list,omitempty"`
-	Viewers      []*ApprovalViewerInfo `json:"viewers,omitempty"`
+	ApprovalName  *string `json:"approval_name,omitempty"`
+	Status  *string `json:"status,omitempty"`
+	Form  *string `json:"form,omitempty"`
+	NodeList  []*ApprovalNodeInfo `json:"node_list,omitempty"`
+	Viewers  []*ApprovalViewerInfo `json:"viewers,omitempty"`
 }
 
 type GetApprovalResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *GetApprovalRespData `json:"data"`
 }
 
@@ -6586,67 +6634,163 @@ func (resp *GetApprovalResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
-type CreateExternalApprovalReqBuilder struct {
-	departmentIdType     string
-	departmentIdTypeFlag bool
-	userIdType           string
-	userIdTypeFlag       bool
-	externalApproval     *ExternalApproval
-	externalApprovalFlag bool
+type SubscribeApprovalReqBuilder struct {
+	approvalCode  string
+	approvalCodeFlag  bool
+
 }
 
 // 生成请求的New构造器
-func NewCreateExternalApprovalReqBuilder() *CreateExternalApprovalReqBuilder {
-	builder := &CreateExternalApprovalReqBuilder{}
-	return builder
+func NewSubscribeApprovalReqBuilder() * SubscribeApprovalReqBuilder{
+   builder := &SubscribeApprovalReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *CreateExternalApprovalReqBuilder) DepartmentIdType(departmentIdType string) *CreateExternalApprovalReqBuilder {
-	builder.departmentIdType = departmentIdType
-	builder.departmentIdTypeFlag = true
-	return builder
-}
-func (builder *CreateExternalApprovalReqBuilder) UserIdType(userIdType string) *CreateExternalApprovalReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
-	return builder
-}
-func (builder *CreateExternalApprovalReqBuilder) ExternalApproval(externalApproval *ExternalApproval) *CreateExternalApprovalReqBuilder {
-	builder.externalApproval = externalApproval
-	builder.externalApprovalFlag = true
-	return builder
+func (builder * SubscribeApprovalReqBuilder) ApprovalCode(approvalCode string) *SubscribeApprovalReqBuilder  {
+  builder.approvalCode = approvalCode
+  builder.approvalCodeFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *CreateExternalApprovalReqBuilder) Build() *CreateExternalApprovalReq {
-	req := &CreateExternalApprovalReq{}
-	if builder.departmentIdTypeFlag {
-		req.DepartmentIdType = &builder.departmentIdType
-	}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
-	if builder.externalApprovalFlag {
-		req.ExternalApproval = builder.externalApproval
-	}
-	return req
+func (builder * SubscribeApprovalReqBuilder ) Build() *SubscribeApprovalReq {
+   req := &SubscribeApprovalReq{}
+   if builder.approvalCodeFlag {
+	  req.ApprovalCode = builder.approvalCode
+   }
+   return req
 }
 
+
+type SubscribeApprovalReq struct {
+	ApprovalCode  string `path:"approval_code"`
+
+}
+
+
+type SubscribeApprovalResp struct {
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *SubscribeApprovalResp) Success() bool {
+	return resp.Code == 0
+}
+
+
+// 1.4 生成请求的builder结构体
+type UnsubscribeApprovalReqBuilder struct {
+	approvalCode  string
+	approvalCodeFlag  bool
+
+}
+
+// 生成请求的New构造器
+func NewUnsubscribeApprovalReqBuilder() * UnsubscribeApprovalReqBuilder{
+   builder := &UnsubscribeApprovalReqBuilder{}
+   return builder
+}
+
+// 1.5 生成请求的builder属性方法
+func (builder * UnsubscribeApprovalReqBuilder) ApprovalCode(approvalCode string) *UnsubscribeApprovalReqBuilder  {
+  builder.approvalCode = approvalCode
+  builder.approvalCodeFlag = true
+  return builder
+}
+
+// 1.5 生成请求的builder的build方法
+func (builder * UnsubscribeApprovalReqBuilder ) Build() *UnsubscribeApprovalReq {
+   req := &UnsubscribeApprovalReq{}
+   if builder.approvalCodeFlag {
+	  req.ApprovalCode = builder.approvalCode
+   }
+   return req
+}
+
+
+type UnsubscribeApprovalReq struct {
+	ApprovalCode  string `path:"approval_code"`
+
+}
+
+
+type UnsubscribeApprovalResp struct {
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *UnsubscribeApprovalResp) Success() bool {
+	return resp.Code == 0
+}
+
+
+// 1.4 生成请求的builder结构体
+type CreateExternalApprovalReqBuilder struct {
+	departmentIdType  string
+	departmentIdTypeFlag  bool
+	userIdType  string
+	userIdTypeFlag  bool
+	externalApproval *ExternalApproval
+	externalApprovalFlag bool
+
+}
+
+// 生成请求的New构造器
+func NewCreateExternalApprovalReqBuilder() * CreateExternalApprovalReqBuilder{
+   builder := &CreateExternalApprovalReqBuilder{}
+   return builder
+}
+
+// 1.5 生成请求的builder属性方法
+func (builder * CreateExternalApprovalReqBuilder) DepartmentIdType(departmentIdType string) *CreateExternalApprovalReqBuilder  {
+  builder.departmentIdType = departmentIdType
+  builder.departmentIdTypeFlag = true
+  return builder
+}
+func (builder * CreateExternalApprovalReqBuilder) UserIdType(userIdType string) *CreateExternalApprovalReqBuilder  {
+  builder.userIdType = userIdType
+  builder.userIdTypeFlag = true
+  return builder
+}
+func (builder * CreateExternalApprovalReqBuilder) ExternalApproval(externalApproval *ExternalApproval) *CreateExternalApprovalReqBuilder  {
+  builder.externalApproval = externalApproval
+  builder.externalApprovalFlag = true
+  return builder
+}
+
+// 1.5 生成请求的builder的build方法
+func (builder * CreateExternalApprovalReqBuilder ) Build() *CreateExternalApprovalReq {
+   req := &CreateExternalApprovalReq{}
+   if builder.departmentIdTypeFlag {
+	  req.DepartmentIdType = &builder.departmentIdType
+   }
+   if builder.userIdTypeFlag {
+	  req.UserIdType = &builder.userIdType
+   }
+   if builder.externalApprovalFlag {
+	  req.ExternalApproval = builder.externalApproval
+   }
+   return req
+}
+
+
 type CreateExternalApprovalReq struct {
-	DepartmentIdType *string           `query:"department_id_type"`
-	UserIdType       *string           `query:"user_id_type"`
+	DepartmentIdType  *string `query:"department_id_type"`
+	UserIdType  *string `query:"user_id_type"`
 	ExternalApproval *ExternalApproval `body:""`
+
 }
 
 type CreateExternalApprovalRespData struct {
-	ApprovalCode *string `json:"approval_code,omitempty"`
+	ApprovalCode  *string `json:"approval_code,omitempty"`
 }
 
 type CreateExternalApprovalResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *CreateExternalApprovalRespData `json:"data"`
 }
 
@@ -6655,101 +6799,104 @@ func (resp *CreateExternalApprovalResp) Success() bool {
 }
 
 type CheckExternalInstanceReqBodyBuilder struct {
-	instances     []*ExteranlInstanceCheck
-	instancesFlag bool
+	instances  []*ExteranlInstanceCheck
+	instancesFlag  bool
 }
 
 // 生成body的New构造器
-func NewCheckExternalInstanceReqBodyBuilder() *CheckExternalInstanceReqBodyBuilder {
-	builder := &CheckExternalInstanceReqBodyBuilder{}
-	return builder
+func NewCheckExternalInstanceReqBodyBuilder() * CheckExternalInstanceReqBodyBuilder{
+  builder := &CheckExternalInstanceReqBodyBuilder{}
+  return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder *CheckExternalInstanceReqBodyBuilder) Instances(instances []*ExteranlInstanceCheck) *CheckExternalInstanceReqBodyBuilder {
-	builder.instances = instances
-	builder.instancesFlag = true
-	return builder
+func (builder * CheckExternalInstanceReqBodyBuilder ) Instances(instances []*ExteranlInstanceCheck) *CheckExternalInstanceReqBodyBuilder {
+  builder.instances = instances
+  builder.instancesFlag = true
+  return builder
 }
 
+
 // 1.3 生成body的build方法
-func (builder *CheckExternalInstanceReqBodyBuilder) Build() *CheckExternalInstanceReqBody {
-	req := &CheckExternalInstanceReqBody{}
-	if builder.instancesFlag {
-		req.Instances = builder.instances
-	}
-	return req
+func (builder * CheckExternalInstanceReqBodyBuilder ) Build() *CheckExternalInstanceReqBody {
+   req := &CheckExternalInstanceReqBody{}
+   if builder.instancesFlag {
+	  req.Instances = builder.instances
+   }
+   return req
 }
 
 // 上传文件path开始
 type CheckExternalInstancePathReqBodyBuilder struct {
-	instances     []*ExteranlInstanceCheck
-	instancesFlag bool
+	instances  []*ExteranlInstanceCheck
+	instancesFlag  bool
 }
 
-func NewCheckExternalInstancePathReqBodyBuilder() *CheckExternalInstancePathReqBodyBuilder {
-	builder := &CheckExternalInstancePathReqBodyBuilder{}
-	return builder
+func NewCheckExternalInstancePathReqBodyBuilder() * CheckExternalInstancePathReqBodyBuilder{
+  builder := &CheckExternalInstancePathReqBodyBuilder{}
+  return builder
 }
-func (builder *CheckExternalInstancePathReqBodyBuilder) Instances(instances []*ExteranlInstanceCheck) *CheckExternalInstancePathReqBodyBuilder {
-	builder.instances = instances
-	builder.instancesFlag = true
-	return builder
-}
-
-func (builder *CheckExternalInstancePathReqBodyBuilder) Build() (*CheckExternalInstanceReqBody, error) {
-	req := &CheckExternalInstanceReqBody{}
-	if builder.instancesFlag {
-		req.Instances = builder.instances
-	}
-	return req, nil
+func (builder * CheckExternalInstancePathReqBodyBuilder ) Instances(instances []*ExteranlInstanceCheck) *CheckExternalInstancePathReqBodyBuilder {
+  builder.instances = instances
+  builder.instancesFlag = true
+  return builder
 }
 
+
+func (builder * CheckExternalInstancePathReqBodyBuilder ) Build() (*CheckExternalInstanceReqBody, error) {
+   req := &CheckExternalInstanceReqBody{}
+   if builder.instancesFlag {
+	   req.Instances = builder.instances
+   }
+   return req, nil
+}
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type CheckExternalInstanceReqBuilder struct {
-	body     *CheckExternalInstanceReqBody
+	body *CheckExternalInstanceReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewCheckExternalInstanceReqBuilder() *CheckExternalInstanceReqBuilder {
-	builder := &CheckExternalInstanceReqBuilder{}
-	return builder
+func NewCheckExternalInstanceReqBuilder() * CheckExternalInstanceReqBuilder{
+   builder := &CheckExternalInstanceReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *CheckExternalInstanceReqBuilder) Body(body *CheckExternalInstanceReqBody) *CheckExternalInstanceReqBuilder {
-	builder.body = body
-	builder.bodyFlag = true
-	return builder
+func (builder * CheckExternalInstanceReqBuilder) Body(body *CheckExternalInstanceReqBody) *CheckExternalInstanceReqBuilder  {
+  builder.body = body
+  builder.bodyFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *CheckExternalInstanceReqBuilder) Build() *CheckExternalInstanceReq {
-	req := &CheckExternalInstanceReq{}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
-	return req
+func (builder * CheckExternalInstanceReqBuilder ) Build() *CheckExternalInstanceReq {
+   req := &CheckExternalInstanceReq{}
+   if builder.bodyFlag {
+	  req.Body = builder.body
+   }
+   return req
 }
 
 type CheckExternalInstanceReqBody struct {
-	Instances []*ExteranlInstanceCheck `json:"instances,omitempty"`
+	Instances  []*ExteranlInstanceCheck `json:"instances,omitempty"`
 }
 
 type CheckExternalInstanceReq struct {
 	Body *CheckExternalInstanceReqBody `body:""`
+
 }
 
 type CheckExternalInstanceRespData struct {
-	DiffInstances []*ExteranlInstanceCheckResponse `json:"diff_instances,omitempty"`
+	DiffInstances  []*ExteranlInstanceCheckResponse `json:"diff_instances,omitempty"`
 }
 
 type CheckExternalInstanceResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *CheckExternalInstanceRespData `json:"data"`
 }
 
@@ -6757,45 +6904,49 @@ func (resp *CheckExternalInstanceResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type CreateExternalInstanceReqBuilder struct {
-	externalInstance     *ExternalInstance
+	externalInstance *ExternalInstance
 	externalInstanceFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewCreateExternalInstanceReqBuilder() *CreateExternalInstanceReqBuilder {
-	builder := &CreateExternalInstanceReqBuilder{}
-	return builder
+func NewCreateExternalInstanceReqBuilder() * CreateExternalInstanceReqBuilder{
+   builder := &CreateExternalInstanceReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *CreateExternalInstanceReqBuilder) ExternalInstance(externalInstance *ExternalInstance) *CreateExternalInstanceReqBuilder {
-	builder.externalInstance = externalInstance
-	builder.externalInstanceFlag = true
-	return builder
+func (builder * CreateExternalInstanceReqBuilder) ExternalInstance(externalInstance *ExternalInstance) *CreateExternalInstanceReqBuilder  {
+  builder.externalInstance = externalInstance
+  builder.externalInstanceFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *CreateExternalInstanceReqBuilder) Build() *CreateExternalInstanceReq {
-	req := &CreateExternalInstanceReq{}
-	if builder.externalInstanceFlag {
-		req.ExternalInstance = builder.externalInstance
-	}
-	return req
+func (builder * CreateExternalInstanceReqBuilder ) Build() *CreateExternalInstanceReq {
+   req := &CreateExternalInstanceReq{}
+   if builder.externalInstanceFlag {
+	  req.ExternalInstance = builder.externalInstance
+   }
+   return req
 }
+
 
 type CreateExternalInstanceReq struct {
 	ExternalInstance *ExternalInstance `body:""`
+
 }
 
 type CreateExternalInstanceRespData struct {
-	Data *ExternalInstance `json:"data,omitempty"`
+	Data  *ExternalInstance `json:"data,omitempty"`
 }
 
 type CreateExternalInstanceResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *CreateExternalInstanceRespData `json:"data"`
 }
 
@@ -6803,394 +6954,612 @@ func (resp *CreateExternalInstanceResp) Success() bool {
 	return resp.Code == 0
 }
 
-type AddSignInstanceReqBodyBuilder struct {
-	userId             string
-	userIdFlag         bool
-	approvalCode       string
-	approvalCodeFlag   bool
-	instanceCode       string
-	instanceCodeFlag   bool
-	taskId             string
-	taskIdFlag         bool
-	comment            string
-	commentFlag        bool
-	addSignUserIds     []string
-	addSignUserIdsFlag bool
-	addSignType        int
-	addSignTypeFlag    bool
-	approvalMethod     int
-	approvalMethodFlag bool
+type ListExternalTaskReqBodyBuilder struct {
+	approvalCodes  []string
+	approvalCodesFlag  bool
+	instanceIds  []string
+	instanceIdsFlag  bool
+	userIds  []string
+	userIdsFlag  bool
+	status  string
+	statusFlag  bool
 }
 
 // 生成body的New构造器
-func NewAddSignInstanceReqBodyBuilder() *AddSignInstanceReqBodyBuilder {
-	builder := &AddSignInstanceReqBodyBuilder{}
-	return builder
+func NewListExternalTaskReqBodyBuilder() * ListExternalTaskReqBodyBuilder{
+  builder := &ListExternalTaskReqBodyBuilder{}
+  return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder *AddSignInstanceReqBodyBuilder) UserId(userId string) *AddSignInstanceReqBodyBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
+func (builder * ListExternalTaskReqBodyBuilder ) ApprovalCodes(approvalCodes []string) *ListExternalTaskReqBodyBuilder {
+  builder.approvalCodes = approvalCodes
+  builder.approvalCodesFlag = true
+  return builder
 }
-func (builder *AddSignInstanceReqBodyBuilder) ApprovalCode(approvalCode string) *AddSignInstanceReqBodyBuilder {
-	builder.approvalCode = approvalCode
-	builder.approvalCodeFlag = true
-	return builder
+func (builder * ListExternalTaskReqBodyBuilder ) InstanceIds(instanceIds []string) *ListExternalTaskReqBodyBuilder {
+  builder.instanceIds = instanceIds
+  builder.instanceIdsFlag = true
+  return builder
 }
-func (builder *AddSignInstanceReqBodyBuilder) InstanceCode(instanceCode string) *AddSignInstanceReqBodyBuilder {
-	builder.instanceCode = instanceCode
-	builder.instanceCodeFlag = true
-	return builder
+func (builder * ListExternalTaskReqBodyBuilder ) UserIds(userIds []string) *ListExternalTaskReqBodyBuilder {
+  builder.userIds = userIds
+  builder.userIdsFlag = true
+  return builder
 }
-func (builder *AddSignInstanceReqBodyBuilder) TaskId(taskId string) *AddSignInstanceReqBodyBuilder {
-	builder.taskId = taskId
-	builder.taskIdFlag = true
-	return builder
-}
-func (builder *AddSignInstanceReqBodyBuilder) Comment(comment string) *AddSignInstanceReqBodyBuilder {
-	builder.comment = comment
-	builder.commentFlag = true
-	return builder
-}
-func (builder *AddSignInstanceReqBodyBuilder) AddSignUserIds(addSignUserIds []string) *AddSignInstanceReqBodyBuilder {
-	builder.addSignUserIds = addSignUserIds
-	builder.addSignUserIdsFlag = true
-	return builder
-}
-func (builder *AddSignInstanceReqBodyBuilder) AddSignType(addSignType int) *AddSignInstanceReqBodyBuilder {
-	builder.addSignType = addSignType
-	builder.addSignTypeFlag = true
-	return builder
-}
-func (builder *AddSignInstanceReqBodyBuilder) ApprovalMethod(approvalMethod int) *AddSignInstanceReqBodyBuilder {
-	builder.approvalMethod = approvalMethod
-	builder.approvalMethodFlag = true
-	return builder
+func (builder * ListExternalTaskReqBodyBuilder ) Status(status string) *ListExternalTaskReqBodyBuilder {
+  builder.status = status
+  builder.statusFlag = true
+  return builder
 }
 
+
 // 1.3 生成body的build方法
-func (builder *AddSignInstanceReqBodyBuilder) Build() *AddSignInstanceReqBody {
-	req := &AddSignInstanceReqBody{}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-	}
-	if builder.approvalCodeFlag {
-		req.ApprovalCode = &builder.approvalCode
-	}
-	if builder.instanceCodeFlag {
-		req.InstanceCode = &builder.instanceCode
-	}
-	if builder.taskIdFlag {
-		req.TaskId = &builder.taskId
-	}
-	if builder.commentFlag {
-		req.Comment = &builder.comment
-	}
-	if builder.addSignUserIdsFlag {
-		req.AddSignUserIds = builder.addSignUserIds
-	}
-	if builder.addSignTypeFlag {
-		req.AddSignType = &builder.addSignType
-	}
-	if builder.approvalMethodFlag {
-		req.ApprovalMethod = &builder.approvalMethod
-	}
-	return req
+func (builder * ListExternalTaskReqBodyBuilder ) Build() *ListExternalTaskReqBody {
+   req := &ListExternalTaskReqBody{}
+   if builder.approvalCodesFlag {
+	  req.ApprovalCodes = builder.approvalCodes
+   }
+   if builder.instanceIdsFlag {
+	  req.InstanceIds = builder.instanceIds
+   }
+   if builder.userIdsFlag {
+	  req.UserIds = builder.userIds
+   }
+   if builder.statusFlag {
+	  req.Status = &builder.status
+   }
+   return req
+}
+
+// 上传文件path开始
+type ListExternalTaskPathReqBodyBuilder struct {
+	approvalCodes  []string
+	approvalCodesFlag  bool
+	instanceIds  []string
+	instanceIdsFlag  bool
+	userIds  []string
+	userIdsFlag  bool
+	status  string
+	statusFlag  bool
+}
+
+func NewListExternalTaskPathReqBodyBuilder() * ListExternalTaskPathReqBodyBuilder{
+  builder := &ListExternalTaskPathReqBodyBuilder{}
+  return builder
+}
+func (builder * ListExternalTaskPathReqBodyBuilder ) ApprovalCodes(approvalCodes []string) *ListExternalTaskPathReqBodyBuilder {
+  builder.approvalCodes = approvalCodes
+  builder.approvalCodesFlag = true
+  return builder
+}
+func (builder * ListExternalTaskPathReqBodyBuilder ) InstanceIds(instanceIds []string) *ListExternalTaskPathReqBodyBuilder {
+  builder.instanceIds = instanceIds
+  builder.instanceIdsFlag = true
+  return builder
+}
+func (builder * ListExternalTaskPathReqBodyBuilder ) UserIds(userIds []string) *ListExternalTaskPathReqBodyBuilder {
+  builder.userIds = userIds
+  builder.userIdsFlag = true
+  return builder
+}
+func (builder * ListExternalTaskPathReqBodyBuilder ) Status(status string) *ListExternalTaskPathReqBodyBuilder {
+  builder.status = status
+  builder.statusFlag = true
+  return builder
+}
+
+
+func (builder * ListExternalTaskPathReqBodyBuilder ) Build() (*ListExternalTaskReqBody, error) {
+   req := &ListExternalTaskReqBody{}
+   if builder.approvalCodesFlag {
+	   req.ApprovalCodes = builder.approvalCodes
+   }
+   if builder.instanceIdsFlag {
+	   req.InstanceIds = builder.instanceIds
+   }
+   if builder.userIdsFlag {
+	   req.UserIds = builder.userIds
+   }
+   if builder.statusFlag {
+	  req.Status = &builder.status
+   }
+   return req, nil
+}
+// 上传文件path结束
+
+// 1.4 生成请求的builder结构体
+type ListExternalTaskReqBuilder struct {
+	pageSize  int
+	pageSizeFlag  bool
+	pageToken  string
+	pageTokenFlag  bool
+	body *ListExternalTaskReqBody
+	bodyFlag bool
+	limit int
+
+}
+
+// 生成请求的New构造器
+func NewListExternalTaskReqBuilder() * ListExternalTaskReqBuilder{
+   builder := &ListExternalTaskReqBuilder{}
+   return builder
+}
+
+// 1.5 生成请求的builder属性方法
+func (builder * ListExternalTaskReqBuilder) Limit(limit int ) *ListExternalTaskReqBuilder  {
+  builder.limit = limit
+  return builder
+}
+func (builder * ListExternalTaskReqBuilder) PageSize(pageSize int) *ListExternalTaskReqBuilder  {
+  builder.pageSize = pageSize
+  builder.pageSizeFlag = true
+  return builder
+}
+func (builder * ListExternalTaskReqBuilder) PageToken(pageToken string) *ListExternalTaskReqBuilder  {
+  builder.pageToken = pageToken
+  builder.pageTokenFlag = true
+  return builder
+}
+func (builder * ListExternalTaskReqBuilder) Body(body *ListExternalTaskReqBody) *ListExternalTaskReqBuilder  {
+  builder.body = body
+  builder.bodyFlag = true
+  return builder
+}
+
+// 1.5 生成请求的builder的build方法
+func (builder * ListExternalTaskReqBuilder ) Build() *ListExternalTaskReq {
+   req := &ListExternalTaskReq{}
+   req.Limit = builder.limit
+   if builder.pageSizeFlag {
+	  req.PageSize = &builder.pageSize
+   }
+   if builder.pageTokenFlag {
+	  req.PageToken = &builder.pageToken
+   }
+   if builder.bodyFlag {
+	  req.Body = builder.body
+   }
+   return req
+}
+
+type ListExternalTaskReqBody struct {
+	ApprovalCodes  []string `json:"approval_codes,omitempty"`
+	InstanceIds  []string `json:"instance_ids,omitempty"`
+	UserIds  []string `json:"user_ids,omitempty"`
+	Status  *string `json:"status,omitempty"`
+}
+
+type ListExternalTaskReq struct {
+	PageSize  *int `query:"page_size"`
+	PageToken  *string `query:"page_token"`
+	Body *ListExternalTaskReqBody `body:""`
+	Limit int
+
+}
+
+type ListExternalTaskRespData struct {
+	Data  []*ExternalTaskList `json:"data,omitempty"`
+	PageToken  *string `json:"page_token,omitempty"`
+	HasMore  *bool `json:"has_more,omitempty"`
+}
+
+type ListExternalTaskResp struct {
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
+	Data *ListExternalTaskRespData `json:"data"`
+}
+
+func (resp *ListExternalTaskResp) Success() bool {
+	return resp.Code == 0
+}
+
+type AddSignInstanceReqBodyBuilder struct {
+	userId  string
+	userIdFlag  bool
+	approvalCode  string
+	approvalCodeFlag  bool
+	instanceCode  string
+	instanceCodeFlag  bool
+	taskId  string
+	taskIdFlag  bool
+	comment  string
+	commentFlag  bool
+	addSignUserIds  []string
+	addSignUserIdsFlag  bool
+	addSignType  int
+	addSignTypeFlag  bool
+	approvalMethod  int
+	approvalMethodFlag  bool
+}
+
+// 生成body的New构造器
+func NewAddSignInstanceReqBodyBuilder() * AddSignInstanceReqBodyBuilder{
+  builder := &AddSignInstanceReqBodyBuilder{}
+  return builder
+}
+
+// 1.2 生成body的builder属性方法
+func (builder * AddSignInstanceReqBodyBuilder ) UserId(userId string) *AddSignInstanceReqBodyBuilder {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
+}
+func (builder * AddSignInstanceReqBodyBuilder ) ApprovalCode(approvalCode string) *AddSignInstanceReqBodyBuilder {
+  builder.approvalCode = approvalCode
+  builder.approvalCodeFlag = true
+  return builder
+}
+func (builder * AddSignInstanceReqBodyBuilder ) InstanceCode(instanceCode string) *AddSignInstanceReqBodyBuilder {
+  builder.instanceCode = instanceCode
+  builder.instanceCodeFlag = true
+  return builder
+}
+func (builder * AddSignInstanceReqBodyBuilder ) TaskId(taskId string) *AddSignInstanceReqBodyBuilder {
+  builder.taskId = taskId
+  builder.taskIdFlag = true
+  return builder
+}
+func (builder * AddSignInstanceReqBodyBuilder ) Comment(comment string) *AddSignInstanceReqBodyBuilder {
+  builder.comment = comment
+  builder.commentFlag = true
+  return builder
+}
+func (builder * AddSignInstanceReqBodyBuilder ) AddSignUserIds(addSignUserIds []string) *AddSignInstanceReqBodyBuilder {
+  builder.addSignUserIds = addSignUserIds
+  builder.addSignUserIdsFlag = true
+  return builder
+}
+func (builder * AddSignInstanceReqBodyBuilder ) AddSignType(addSignType int) *AddSignInstanceReqBodyBuilder {
+  builder.addSignType = addSignType
+  builder.addSignTypeFlag = true
+  return builder
+}
+func (builder * AddSignInstanceReqBodyBuilder ) ApprovalMethod(approvalMethod int) *AddSignInstanceReqBodyBuilder {
+  builder.approvalMethod = approvalMethod
+  builder.approvalMethodFlag = true
+  return builder
+}
+
+
+// 1.3 生成body的build方法
+func (builder * AddSignInstanceReqBodyBuilder ) Build() *AddSignInstanceReqBody {
+   req := &AddSignInstanceReqBody{}
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+   }
+   if builder.approvalCodeFlag {
+	  req.ApprovalCode = &builder.approvalCode
+   }
+   if builder.instanceCodeFlag {
+	  req.InstanceCode = &builder.instanceCode
+   }
+   if builder.taskIdFlag {
+	  req.TaskId = &builder.taskId
+   }
+   if builder.commentFlag {
+	  req.Comment = &builder.comment
+   }
+   if builder.addSignUserIdsFlag {
+	  req.AddSignUserIds = builder.addSignUserIds
+   }
+   if builder.addSignTypeFlag {
+	  req.AddSignType = &builder.addSignType
+   }
+   if builder.approvalMethodFlag {
+	  req.ApprovalMethod = &builder.approvalMethod
+   }
+   return req
 }
 
 // 上传文件path开始
 type AddSignInstancePathReqBodyBuilder struct {
-	userId             string
-	userIdFlag         bool
-	approvalCode       string
-	approvalCodeFlag   bool
-	instanceCode       string
-	instanceCodeFlag   bool
-	taskId             string
-	taskIdFlag         bool
-	comment            string
-	commentFlag        bool
-	addSignUserIds     []string
-	addSignUserIdsFlag bool
-	addSignType        int
-	addSignTypeFlag    bool
-	approvalMethod     int
-	approvalMethodFlag bool
+	userId  string
+	userIdFlag  bool
+	approvalCode  string
+	approvalCodeFlag  bool
+	instanceCode  string
+	instanceCodeFlag  bool
+	taskId  string
+	taskIdFlag  bool
+	comment  string
+	commentFlag  bool
+	addSignUserIds  []string
+	addSignUserIdsFlag  bool
+	addSignType  int
+	addSignTypeFlag  bool
+	approvalMethod  int
+	approvalMethodFlag  bool
 }
 
-func NewAddSignInstancePathReqBodyBuilder() *AddSignInstancePathReqBodyBuilder {
-	builder := &AddSignInstancePathReqBodyBuilder{}
-	return builder
+func NewAddSignInstancePathReqBodyBuilder() * AddSignInstancePathReqBodyBuilder{
+  builder := &AddSignInstancePathReqBodyBuilder{}
+  return builder
 }
-func (builder *AddSignInstancePathReqBodyBuilder) UserId(userId string) *AddSignInstancePathReqBodyBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
+func (builder * AddSignInstancePathReqBodyBuilder ) UserId(userId string) *AddSignInstancePathReqBodyBuilder {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
-func (builder *AddSignInstancePathReqBodyBuilder) ApprovalCode(approvalCode string) *AddSignInstancePathReqBodyBuilder {
-	builder.approvalCode = approvalCode
-	builder.approvalCodeFlag = true
-	return builder
+func (builder * AddSignInstancePathReqBodyBuilder ) ApprovalCode(approvalCode string) *AddSignInstancePathReqBodyBuilder {
+  builder.approvalCode = approvalCode
+  builder.approvalCodeFlag = true
+  return builder
 }
-func (builder *AddSignInstancePathReqBodyBuilder) InstanceCode(instanceCode string) *AddSignInstancePathReqBodyBuilder {
-	builder.instanceCode = instanceCode
-	builder.instanceCodeFlag = true
-	return builder
+func (builder * AddSignInstancePathReqBodyBuilder ) InstanceCode(instanceCode string) *AddSignInstancePathReqBodyBuilder {
+  builder.instanceCode = instanceCode
+  builder.instanceCodeFlag = true
+  return builder
 }
-func (builder *AddSignInstancePathReqBodyBuilder) TaskId(taskId string) *AddSignInstancePathReqBodyBuilder {
-	builder.taskId = taskId
-	builder.taskIdFlag = true
-	return builder
+func (builder * AddSignInstancePathReqBodyBuilder ) TaskId(taskId string) *AddSignInstancePathReqBodyBuilder {
+  builder.taskId = taskId
+  builder.taskIdFlag = true
+  return builder
 }
-func (builder *AddSignInstancePathReqBodyBuilder) Comment(comment string) *AddSignInstancePathReqBodyBuilder {
-	builder.comment = comment
-	builder.commentFlag = true
-	return builder
+func (builder * AddSignInstancePathReqBodyBuilder ) Comment(comment string) *AddSignInstancePathReqBodyBuilder {
+  builder.comment = comment
+  builder.commentFlag = true
+  return builder
 }
-func (builder *AddSignInstancePathReqBodyBuilder) AddSignUserIds(addSignUserIds []string) *AddSignInstancePathReqBodyBuilder {
-	builder.addSignUserIds = addSignUserIds
-	builder.addSignUserIdsFlag = true
-	return builder
+func (builder * AddSignInstancePathReqBodyBuilder ) AddSignUserIds(addSignUserIds []string) *AddSignInstancePathReqBodyBuilder {
+  builder.addSignUserIds = addSignUserIds
+  builder.addSignUserIdsFlag = true
+  return builder
 }
-func (builder *AddSignInstancePathReqBodyBuilder) AddSignType(addSignType int) *AddSignInstancePathReqBodyBuilder {
-	builder.addSignType = addSignType
-	builder.addSignTypeFlag = true
-	return builder
+func (builder * AddSignInstancePathReqBodyBuilder ) AddSignType(addSignType int) *AddSignInstancePathReqBodyBuilder {
+  builder.addSignType = addSignType
+  builder.addSignTypeFlag = true
+  return builder
 }
-func (builder *AddSignInstancePathReqBodyBuilder) ApprovalMethod(approvalMethod int) *AddSignInstancePathReqBodyBuilder {
-	builder.approvalMethod = approvalMethod
-	builder.approvalMethodFlag = true
-	return builder
-}
-
-func (builder *AddSignInstancePathReqBodyBuilder) Build() (*AddSignInstanceReqBody, error) {
-	req := &AddSignInstanceReqBody{}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-	}
-	if builder.approvalCodeFlag {
-		req.ApprovalCode = &builder.approvalCode
-	}
-	if builder.instanceCodeFlag {
-		req.InstanceCode = &builder.instanceCode
-	}
-	if builder.taskIdFlag {
-		req.TaskId = &builder.taskId
-	}
-	if builder.commentFlag {
-		req.Comment = &builder.comment
-	}
-	if builder.addSignUserIdsFlag {
-		req.AddSignUserIds = builder.addSignUserIds
-	}
-	if builder.addSignTypeFlag {
-		req.AddSignType = &builder.addSignType
-	}
-	if builder.approvalMethodFlag {
-		req.ApprovalMethod = &builder.approvalMethod
-	}
-	return req, nil
+func (builder * AddSignInstancePathReqBodyBuilder ) ApprovalMethod(approvalMethod int) *AddSignInstancePathReqBodyBuilder {
+  builder.approvalMethod = approvalMethod
+  builder.approvalMethodFlag = true
+  return builder
 }
 
+
+func (builder * AddSignInstancePathReqBodyBuilder ) Build() (*AddSignInstanceReqBody, error) {
+   req := &AddSignInstanceReqBody{}
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+   }
+   if builder.approvalCodeFlag {
+	  req.ApprovalCode = &builder.approvalCode
+   }
+   if builder.instanceCodeFlag {
+	  req.InstanceCode = &builder.instanceCode
+   }
+   if builder.taskIdFlag {
+	  req.TaskId = &builder.taskId
+   }
+   if builder.commentFlag {
+	  req.Comment = &builder.comment
+   }
+   if builder.addSignUserIdsFlag {
+	   req.AddSignUserIds = builder.addSignUserIds
+   }
+   if builder.addSignTypeFlag {
+	  req.AddSignType = &builder.addSignType
+   }
+   if builder.approvalMethodFlag {
+	  req.ApprovalMethod = &builder.approvalMethod
+   }
+   return req, nil
+}
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type AddSignInstanceReqBuilder struct {
-	body     *AddSignInstanceReqBody
+	body *AddSignInstanceReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewAddSignInstanceReqBuilder() *AddSignInstanceReqBuilder {
-	builder := &AddSignInstanceReqBuilder{}
-	return builder
+func NewAddSignInstanceReqBuilder() * AddSignInstanceReqBuilder{
+   builder := &AddSignInstanceReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *AddSignInstanceReqBuilder) Body(body *AddSignInstanceReqBody) *AddSignInstanceReqBuilder {
-	builder.body = body
-	builder.bodyFlag = true
-	return builder
+func (builder * AddSignInstanceReqBuilder) Body(body *AddSignInstanceReqBody) *AddSignInstanceReqBuilder  {
+  builder.body = body
+  builder.bodyFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *AddSignInstanceReqBuilder) Build() *AddSignInstanceReq {
-	req := &AddSignInstanceReq{}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
-	return req
+func (builder * AddSignInstanceReqBuilder ) Build() *AddSignInstanceReq {
+   req := &AddSignInstanceReq{}
+   if builder.bodyFlag {
+	  req.Body = builder.body
+   }
+   return req
 }
 
 type AddSignInstanceReqBody struct {
-	UserId         *string  `json:"user_id,omitempty"`
-	ApprovalCode   *string  `json:"approval_code,omitempty"`
-	InstanceCode   *string  `json:"instance_code,omitempty"`
-	TaskId         *string  `json:"task_id,omitempty"`
-	Comment        *string  `json:"comment,omitempty"`
-	AddSignUserIds []string `json:"add_sign_user_ids,omitempty"`
-	AddSignType    *int     `json:"add_sign_type,omitempty"`
-	ApprovalMethod *int     `json:"approval_method,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
+	ApprovalCode  *string `json:"approval_code,omitempty"`
+	InstanceCode  *string `json:"instance_code,omitempty"`
+	TaskId  *string `json:"task_id,omitempty"`
+	Comment  *string `json:"comment,omitempty"`
+	AddSignUserIds  []string `json:"add_sign_user_ids,omitempty"`
+	AddSignType  *int `json:"add_sign_type,omitempty"`
+	ApprovalMethod  *int `json:"approval_method,omitempty"`
 }
 
 type AddSignInstanceReq struct {
 	Body *AddSignInstanceReqBody `body:""`
+
 }
 
+
 type AddSignInstanceResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 }
 
 func (resp *AddSignInstanceResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type CancelInstanceReqBuilder struct {
-	userIdType         string
-	userIdTypeFlag     bool
-	instanceCancel     *InstanceCancel
+	userIdType  string
+	userIdTypeFlag  bool
+	instanceCancel *InstanceCancel
 	instanceCancelFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewCancelInstanceReqBuilder() *CancelInstanceReqBuilder {
-	builder := &CancelInstanceReqBuilder{}
-	return builder
+func NewCancelInstanceReqBuilder() * CancelInstanceReqBuilder{
+   builder := &CancelInstanceReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *CancelInstanceReqBuilder) UserIdType(userIdType string) *CancelInstanceReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
-	return builder
+func (builder * CancelInstanceReqBuilder) UserIdType(userIdType string) *CancelInstanceReqBuilder  {
+  builder.userIdType = userIdType
+  builder.userIdTypeFlag = true
+  return builder
 }
-func (builder *CancelInstanceReqBuilder) InstanceCancel(instanceCancel *InstanceCancel) *CancelInstanceReqBuilder {
-	builder.instanceCancel = instanceCancel
-	builder.instanceCancelFlag = true
-	return builder
+func (builder * CancelInstanceReqBuilder) InstanceCancel(instanceCancel *InstanceCancel) *CancelInstanceReqBuilder  {
+  builder.instanceCancel = instanceCancel
+  builder.instanceCancelFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *CancelInstanceReqBuilder) Build() *CancelInstanceReq {
-	req := &CancelInstanceReq{}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
-	if builder.instanceCancelFlag {
-		req.InstanceCancel = builder.instanceCancel
-	}
-	return req
+func (builder * CancelInstanceReqBuilder ) Build() *CancelInstanceReq {
+   req := &CancelInstanceReq{}
+   if builder.userIdTypeFlag {
+	  req.UserIdType = &builder.userIdType
+   }
+   if builder.instanceCancelFlag {
+	  req.InstanceCancel = builder.instanceCancel
+   }
+   return req
 }
+
 
 type CancelInstanceReq struct {
-	UserIdType     *string         `query:"user_id_type"`
+	UserIdType  *string `query:"user_id_type"`
 	InstanceCancel *InstanceCancel `body:""`
+
 }
 
+
 type CancelInstanceResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 }
 
 func (resp *CancelInstanceResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type CcInstanceReqBuilder struct {
-	userIdType     string
-	userIdTypeFlag bool
-	instanceCc     *InstanceCc
+	userIdType  string
+	userIdTypeFlag  bool
+	instanceCc *InstanceCc
 	instanceCcFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewCcInstanceReqBuilder() *CcInstanceReqBuilder {
-	builder := &CcInstanceReqBuilder{}
-	return builder
+func NewCcInstanceReqBuilder() * CcInstanceReqBuilder{
+   builder := &CcInstanceReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *CcInstanceReqBuilder) UserIdType(userIdType string) *CcInstanceReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
-	return builder
+func (builder * CcInstanceReqBuilder) UserIdType(userIdType string) *CcInstanceReqBuilder  {
+  builder.userIdType = userIdType
+  builder.userIdTypeFlag = true
+  return builder
 }
-func (builder *CcInstanceReqBuilder) InstanceCc(instanceCc *InstanceCc) *CcInstanceReqBuilder {
-	builder.instanceCc = instanceCc
-	builder.instanceCcFlag = true
-	return builder
+func (builder * CcInstanceReqBuilder) InstanceCc(instanceCc *InstanceCc) *CcInstanceReqBuilder  {
+  builder.instanceCc = instanceCc
+  builder.instanceCcFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *CcInstanceReqBuilder) Build() *CcInstanceReq {
-	req := &CcInstanceReq{}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
-	if builder.instanceCcFlag {
-		req.InstanceCc = builder.instanceCc
-	}
-	return req
+func (builder * CcInstanceReqBuilder ) Build() *CcInstanceReq {
+   req := &CcInstanceReq{}
+   if builder.userIdTypeFlag {
+	  req.UserIdType = &builder.userIdType
+   }
+   if builder.instanceCcFlag {
+	  req.InstanceCc = builder.instanceCc
+   }
+   return req
 }
+
 
 type CcInstanceReq struct {
-	UserIdType *string     `query:"user_id_type"`
+	UserIdType  *string `query:"user_id_type"`
 	InstanceCc *InstanceCc `body:""`
+
 }
 
+
 type CcInstanceResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 }
 
 func (resp *CcInstanceResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type CreateInstanceReqBuilder struct {
-	instanceCreate     *InstanceCreate
+	instanceCreate *InstanceCreate
 	instanceCreateFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewCreateInstanceReqBuilder() *CreateInstanceReqBuilder {
-	builder := &CreateInstanceReqBuilder{}
-	return builder
+func NewCreateInstanceReqBuilder() * CreateInstanceReqBuilder{
+   builder := &CreateInstanceReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *CreateInstanceReqBuilder) InstanceCreate(instanceCreate *InstanceCreate) *CreateInstanceReqBuilder {
-	builder.instanceCreate = instanceCreate
-	builder.instanceCreateFlag = true
-	return builder
+func (builder * CreateInstanceReqBuilder) InstanceCreate(instanceCreate *InstanceCreate) *CreateInstanceReqBuilder  {
+  builder.instanceCreate = instanceCreate
+  builder.instanceCreateFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *CreateInstanceReqBuilder) Build() *CreateInstanceReq {
-	req := &CreateInstanceReq{}
-	if builder.instanceCreateFlag {
-		req.InstanceCreate = builder.instanceCreate
-	}
-	return req
+func (builder * CreateInstanceReqBuilder ) Build() *CreateInstanceReq {
+   req := &CreateInstanceReq{}
+   if builder.instanceCreateFlag {
+	  req.InstanceCreate = builder.instanceCreate
+   }
+   return req
 }
+
 
 type CreateInstanceReq struct {
 	InstanceCreate *InstanceCreate `body:""`
+
 }
 
 type CreateInstanceRespData struct {
-	InstanceCode *string `json:"instance_code,omitempty"`
+	InstanceCode  *string `json:"instance_code,omitempty"`
 }
 
 type CreateInstanceResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *CreateInstanceRespData `json:"data"`
 }
 
@@ -7198,94 +7567,98 @@ func (resp *CreateInstanceResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type GetInstanceReqBuilder struct {
-	instanceId     string
-	instanceIdFlag bool
-	locale         string
-	localeFlag     bool
-	userId         string
-	userIdFlag     bool
-	userIdType     string
-	userIdTypeFlag bool
+	instanceId  string
+	instanceIdFlag  bool
+	locale  string
+	localeFlag  bool
+	userId  string
+	userIdFlag  bool
+	userIdType  string
+	userIdTypeFlag  bool
+
 }
 
 // 生成请求的New构造器
-func NewGetInstanceReqBuilder() *GetInstanceReqBuilder {
-	builder := &GetInstanceReqBuilder{}
-	return builder
+func NewGetInstanceReqBuilder() * GetInstanceReqBuilder{
+   builder := &GetInstanceReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *GetInstanceReqBuilder) InstanceId(instanceId string) *GetInstanceReqBuilder {
-	builder.instanceId = instanceId
-	builder.instanceIdFlag = true
-	return builder
+func (builder * GetInstanceReqBuilder) InstanceId(instanceId string) *GetInstanceReqBuilder  {
+  builder.instanceId = instanceId
+  builder.instanceIdFlag = true
+  return builder
 }
-func (builder *GetInstanceReqBuilder) Locale(locale string) *GetInstanceReqBuilder {
-	builder.locale = locale
-	builder.localeFlag = true
-	return builder
+func (builder * GetInstanceReqBuilder) Locale(locale string) *GetInstanceReqBuilder  {
+  builder.locale = locale
+  builder.localeFlag = true
+  return builder
 }
-func (builder *GetInstanceReqBuilder) UserId(userId string) *GetInstanceReqBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
+func (builder * GetInstanceReqBuilder) UserId(userId string) *GetInstanceReqBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
-func (builder *GetInstanceReqBuilder) UserIdType(userIdType string) *GetInstanceReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
-	return builder
+func (builder * GetInstanceReqBuilder) UserIdType(userIdType string) *GetInstanceReqBuilder  {
+  builder.userIdType = userIdType
+  builder.userIdTypeFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *GetInstanceReqBuilder) Build() *GetInstanceReq {
-	req := &GetInstanceReq{}
-	if builder.instanceIdFlag {
-		req.InstanceId = builder.instanceId
-	}
-	if builder.localeFlag {
-		req.Locale = &builder.locale
-	}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-	}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
-	return req
+func (builder * GetInstanceReqBuilder ) Build() *GetInstanceReq {
+   req := &GetInstanceReq{}
+   if builder.instanceIdFlag {
+	  req.InstanceId = builder.instanceId
+   }
+   if builder.localeFlag {
+	  req.Locale = &builder.locale
+   }
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+   }
+   if builder.userIdTypeFlag {
+	  req.UserIdType = &builder.userIdType
+   }
+   return req
 }
 
+
 type GetInstanceReq struct {
-	InstanceId string  `path:"instance_id"`
-	Locale     *string `query:"locale"`
-	UserId     *string `query:"user_id"`
-	UserIdType *string `query:"user_id_type"`
+	InstanceId  string `path:"instance_id"`
+	Locale  *string `query:"locale"`
+	UserId  *string `query:"user_id"`
+	UserIdType  *string `query:"user_id_type"`
+
 }
 
 type GetInstanceRespData struct {
-	ApprovalName         *string             `json:"approval_name,omitempty"`
-	StartTime            *int64              `json:"start_time,omitempty,string"`
-	EndTime              *int64              `json:"end_time,omitempty,string"`
-	UserId               *string             `json:"user_id,omitempty"`
-	OpenId               *string             `json:"open_id,omitempty"`
-	SerialNumber         *string             `json:"serial_number,omitempty"`
-	DepartmentId         *string             `json:"department_id,omitempty"`
-	Status               *string             `json:"status,omitempty"`
-	Uuid                 *string             `json:"uuid,omitempty"`
-	Form                 *string             `json:"form,omitempty"`
-	TaskList             []*InstanceTask     `json:"task_list,omitempty"`
-	CommentList          []*InstanceComment  `json:"comment_list,omitempty"`
-	Timeline             []*InstanceTimeline `json:"timeline,omitempty"`
-	ModifiedInstanceCode *string             `json:"modified_instance_code,omitempty"`
-	RevertedInstanceCode *string             `json:"reverted_instance_code,omitempty"`
-	ApprovalCode         *string             `json:"approval_code,omitempty"`
-	Reverted             *bool               `json:"reverted,omitempty"`
+	ApprovalName  *string `json:"approval_name,omitempty"`
+	StartTime  *int64 `json:"start_time,omitempty,string"`
+	EndTime  *int64 `json:"end_time,omitempty,string"`
+	UserId  *string `json:"user_id,omitempty"`
+	OpenId  *string `json:"open_id,omitempty"`
+	SerialNumber  *string `json:"serial_number,omitempty"`
+	DepartmentId  *string `json:"department_id,omitempty"`
+	Status  *string `json:"status,omitempty"`
+	Uuid  *string `json:"uuid,omitempty"`
+	Form  *string `json:"form,omitempty"`
+	TaskList  []*InstanceTask `json:"task_list,omitempty"`
+	CommentList  []*InstanceComment `json:"comment_list,omitempty"`
+	Timeline  []*InstanceTimeline `json:"timeline,omitempty"`
+	ModifiedInstanceCode  *string `json:"modified_instance_code,omitempty"`
+	RevertedInstanceCode  *string `json:"reverted_instance_code,omitempty"`
+	ApprovalCode  *string `json:"approval_code,omitempty"`
+	Reverted  *bool `json:"reverted,omitempty"`
 }
 
 type GetInstanceResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *GetInstanceRespData `json:"data"`
 }
 
@@ -7293,98 +7666,102 @@ func (resp *GetInstanceResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type ListInstanceReqBuilder struct {
-	pageSize         int
-	pageSizeFlag     bool
-	pageToken        string
-	pageTokenFlag    bool
-	approvalCode     string
-	approvalCodeFlag bool
-	startTime        int64
-	startTimeFlag    bool
-	endTime          int64
-	endTimeFlag      bool
-	limit            int
+	pageSize  int
+	pageSizeFlag  bool
+	pageToken  string
+	pageTokenFlag  bool
+	approvalCode  string
+	approvalCodeFlag  bool
+	startTime  int64
+	startTimeFlag  bool
+	endTime  int64
+	endTimeFlag  bool
+	limit int
+
 }
 
 // 生成请求的New构造器
-func NewListInstanceReqBuilder() *ListInstanceReqBuilder {
-	builder := &ListInstanceReqBuilder{}
-	return builder
+func NewListInstanceReqBuilder() * ListInstanceReqBuilder{
+   builder := &ListInstanceReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *ListInstanceReqBuilder) Limit(limit int) *ListInstanceReqBuilder {
-	builder.limit = limit
-	return builder
+func (builder * ListInstanceReqBuilder) Limit(limit int ) *ListInstanceReqBuilder  {
+  builder.limit = limit
+  return builder
 }
-func (builder *ListInstanceReqBuilder) PageSize(pageSize int) *ListInstanceReqBuilder {
-	builder.pageSize = pageSize
-	builder.pageSizeFlag = true
-	return builder
+func (builder * ListInstanceReqBuilder) PageSize(pageSize int) *ListInstanceReqBuilder  {
+  builder.pageSize = pageSize
+  builder.pageSizeFlag = true
+  return builder
 }
-func (builder *ListInstanceReqBuilder) PageToken(pageToken string) *ListInstanceReqBuilder {
-	builder.pageToken = pageToken
-	builder.pageTokenFlag = true
-	return builder
+func (builder * ListInstanceReqBuilder) PageToken(pageToken string) *ListInstanceReqBuilder  {
+  builder.pageToken = pageToken
+  builder.pageTokenFlag = true
+  return builder
 }
-func (builder *ListInstanceReqBuilder) ApprovalCode(approvalCode string) *ListInstanceReqBuilder {
-	builder.approvalCode = approvalCode
-	builder.approvalCodeFlag = true
-	return builder
+func (builder * ListInstanceReqBuilder) ApprovalCode(approvalCode string) *ListInstanceReqBuilder  {
+  builder.approvalCode = approvalCode
+  builder.approvalCodeFlag = true
+  return builder
 }
-func (builder *ListInstanceReqBuilder) StartTime(startTime int64) *ListInstanceReqBuilder {
-	builder.startTime = startTime
-	builder.startTimeFlag = true
-	return builder
+func (builder * ListInstanceReqBuilder) StartTime(startTime int64) *ListInstanceReqBuilder  {
+  builder.startTime = startTime
+  builder.startTimeFlag = true
+  return builder
 }
-func (builder *ListInstanceReqBuilder) EndTime(endTime int64) *ListInstanceReqBuilder {
-	builder.endTime = endTime
-	builder.endTimeFlag = true
-	return builder
+func (builder * ListInstanceReqBuilder) EndTime(endTime int64) *ListInstanceReqBuilder  {
+  builder.endTime = endTime
+  builder.endTimeFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *ListInstanceReqBuilder) Build() *ListInstanceReq {
-	req := &ListInstanceReq{}
-	req.Limit = builder.limit
-	if builder.pageSizeFlag {
-		req.PageSize = &builder.pageSize
-	}
-	if builder.pageTokenFlag {
-		req.PageToken = &builder.pageToken
-	}
-	if builder.approvalCodeFlag {
-		req.ApprovalCode = &builder.approvalCode
-	}
-	if builder.startTimeFlag {
-		req.StartTime = &builder.startTime
-	}
-	if builder.endTimeFlag {
-		req.EndTime = &builder.endTime
-	}
-	return req
+func (builder * ListInstanceReqBuilder ) Build() *ListInstanceReq {
+   req := &ListInstanceReq{}
+   req.Limit = builder.limit
+   if builder.pageSizeFlag {
+	  req.PageSize = &builder.pageSize
+   }
+   if builder.pageTokenFlag {
+	  req.PageToken = &builder.pageToken
+   }
+   if builder.approvalCodeFlag {
+	  req.ApprovalCode = &builder.approvalCode
+   }
+   if builder.startTimeFlag {
+	  req.StartTime = &builder.startTime
+   }
+   if builder.endTimeFlag {
+	  req.EndTime = &builder.endTime
+   }
+   return req
 }
 
+
 type ListInstanceReq struct {
-	PageSize     *int    `query:"page_size"`
-	PageToken    *string `query:"page_token"`
-	ApprovalCode *string `query:"approval_code"`
-	StartTime    *int64  `query:"start_time"`
-	EndTime      *int64  `query:"end_time"`
-	Limit        int
+	PageSize  *int `query:"page_size"`
+	PageToken  *string `query:"page_token"`
+	ApprovalCode  *string `query:"approval_code"`
+	StartTime  *int64 `query:"start_time"`
+	EndTime  *int64 `query:"end_time"`
+	Limit int
+
 }
 
 type ListInstanceRespData struct {
-	InstanceCodeList []string `json:"instance_code_list,omitempty"`
-	PageToken        *string  `json:"page_token,omitempty"`
-	HasMore          *bool    `json:"has_more,omitempty"`
+	InstanceCodeList  []string `json:"instance_code_list,omitempty"`
+	PageToken  *string `json:"page_token,omitempty"`
+	HasMore  *bool `json:"has_more,omitempty"`
 }
 
 type ListInstanceResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *ListInstanceRespData `json:"data"`
 }
 
@@ -7393,238 +7770,241 @@ func (resp *ListInstanceResp) Success() bool {
 }
 
 type PreviewInstanceReqBodyBuilder struct {
-	userId           string
-	userIdFlag       bool
-	approvalCode     string
-	approvalCodeFlag bool
-	departmentId     string
-	departmentIdFlag bool
-	form             string
-	formFlag         bool
-	instanceCode     string
-	instanceCodeFlag bool
-	locale           string
-	localeFlag       bool
-	taskId           string
-	taskIdFlag       bool
+	userId  string
+	userIdFlag  bool
+	approvalCode  string
+	approvalCodeFlag  bool
+	departmentId  string
+	departmentIdFlag  bool
+	form  string
+	formFlag  bool
+	instanceCode  string
+	instanceCodeFlag  bool
+	locale  string
+	localeFlag  bool
+	taskId  string
+	taskIdFlag  bool
 }
 
 // 生成body的New构造器
-func NewPreviewInstanceReqBodyBuilder() *PreviewInstanceReqBodyBuilder {
-	builder := &PreviewInstanceReqBodyBuilder{}
-	return builder
+func NewPreviewInstanceReqBodyBuilder() * PreviewInstanceReqBodyBuilder{
+  builder := &PreviewInstanceReqBodyBuilder{}
+  return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder *PreviewInstanceReqBodyBuilder) UserId(userId string) *PreviewInstanceReqBodyBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
+func (builder * PreviewInstanceReqBodyBuilder ) UserId(userId string) *PreviewInstanceReqBodyBuilder {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
-func (builder *PreviewInstanceReqBodyBuilder) ApprovalCode(approvalCode string) *PreviewInstanceReqBodyBuilder {
-	builder.approvalCode = approvalCode
-	builder.approvalCodeFlag = true
-	return builder
+func (builder * PreviewInstanceReqBodyBuilder ) ApprovalCode(approvalCode string) *PreviewInstanceReqBodyBuilder {
+  builder.approvalCode = approvalCode
+  builder.approvalCodeFlag = true
+  return builder
 }
-func (builder *PreviewInstanceReqBodyBuilder) DepartmentId(departmentId string) *PreviewInstanceReqBodyBuilder {
-	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
-	return builder
+func (builder * PreviewInstanceReqBodyBuilder ) DepartmentId(departmentId string) *PreviewInstanceReqBodyBuilder {
+  builder.departmentId = departmentId
+  builder.departmentIdFlag = true
+  return builder
 }
-func (builder *PreviewInstanceReqBodyBuilder) Form(form string) *PreviewInstanceReqBodyBuilder {
-	builder.form = form
-	builder.formFlag = true
-	return builder
+func (builder * PreviewInstanceReqBodyBuilder ) Form(form string) *PreviewInstanceReqBodyBuilder {
+  builder.form = form
+  builder.formFlag = true
+  return builder
 }
-func (builder *PreviewInstanceReqBodyBuilder) InstanceCode(instanceCode string) *PreviewInstanceReqBodyBuilder {
-	builder.instanceCode = instanceCode
-	builder.instanceCodeFlag = true
-	return builder
+func (builder * PreviewInstanceReqBodyBuilder ) InstanceCode(instanceCode string) *PreviewInstanceReqBodyBuilder {
+  builder.instanceCode = instanceCode
+  builder.instanceCodeFlag = true
+  return builder
 }
-func (builder *PreviewInstanceReqBodyBuilder) Locale(locale string) *PreviewInstanceReqBodyBuilder {
-	builder.locale = locale
-	builder.localeFlag = true
-	return builder
+func (builder * PreviewInstanceReqBodyBuilder ) Locale(locale string) *PreviewInstanceReqBodyBuilder {
+  builder.locale = locale
+  builder.localeFlag = true
+  return builder
 }
-func (builder *PreviewInstanceReqBodyBuilder) TaskId(taskId string) *PreviewInstanceReqBodyBuilder {
-	builder.taskId = taskId
-	builder.taskIdFlag = true
-	return builder
+func (builder * PreviewInstanceReqBodyBuilder ) TaskId(taskId string) *PreviewInstanceReqBodyBuilder {
+  builder.taskId = taskId
+  builder.taskIdFlag = true
+  return builder
 }
 
+
 // 1.3 生成body的build方法
-func (builder *PreviewInstanceReqBodyBuilder) Build() *PreviewInstanceReqBody {
-	req := &PreviewInstanceReqBody{}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-	}
-	if builder.approvalCodeFlag {
-		req.ApprovalCode = &builder.approvalCode
-	}
-	if builder.departmentIdFlag {
-		req.DepartmentId = &builder.departmentId
-	}
-	if builder.formFlag {
-		req.Form = &builder.form
-	}
-	if builder.instanceCodeFlag {
-		req.InstanceCode = &builder.instanceCode
-	}
-	if builder.localeFlag {
-		req.Locale = &builder.locale
-	}
-	if builder.taskIdFlag {
-		req.TaskId = &builder.taskId
-	}
-	return req
+func (builder * PreviewInstanceReqBodyBuilder ) Build() *PreviewInstanceReqBody {
+   req := &PreviewInstanceReqBody{}
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+   }
+   if builder.approvalCodeFlag {
+	  req.ApprovalCode = &builder.approvalCode
+   }
+   if builder.departmentIdFlag {
+	  req.DepartmentId = &builder.departmentId
+   }
+   if builder.formFlag {
+	  req.Form = &builder.form
+   }
+   if builder.instanceCodeFlag {
+	  req.InstanceCode = &builder.instanceCode
+   }
+   if builder.localeFlag {
+	  req.Locale = &builder.locale
+   }
+   if builder.taskIdFlag {
+	  req.TaskId = &builder.taskId
+   }
+   return req
 }
 
 // 上传文件path开始
 type PreviewInstancePathReqBodyBuilder struct {
-	userId           string
-	userIdFlag       bool
-	approvalCode     string
-	approvalCodeFlag bool
-	departmentId     string
-	departmentIdFlag bool
-	form             string
-	formFlag         bool
-	instanceCode     string
-	instanceCodeFlag bool
-	locale           string
-	localeFlag       bool
-	taskId           string
-	taskIdFlag       bool
+	userId  string
+	userIdFlag  bool
+	approvalCode  string
+	approvalCodeFlag  bool
+	departmentId  string
+	departmentIdFlag  bool
+	form  string
+	formFlag  bool
+	instanceCode  string
+	instanceCodeFlag  bool
+	locale  string
+	localeFlag  bool
+	taskId  string
+	taskIdFlag  bool
 }
 
-func NewPreviewInstancePathReqBodyBuilder() *PreviewInstancePathReqBodyBuilder {
-	builder := &PreviewInstancePathReqBodyBuilder{}
-	return builder
+func NewPreviewInstancePathReqBodyBuilder() * PreviewInstancePathReqBodyBuilder{
+  builder := &PreviewInstancePathReqBodyBuilder{}
+  return builder
 }
-func (builder *PreviewInstancePathReqBodyBuilder) UserId(userId string) *PreviewInstancePathReqBodyBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
+func (builder * PreviewInstancePathReqBodyBuilder ) UserId(userId string) *PreviewInstancePathReqBodyBuilder {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
-func (builder *PreviewInstancePathReqBodyBuilder) ApprovalCode(approvalCode string) *PreviewInstancePathReqBodyBuilder {
-	builder.approvalCode = approvalCode
-	builder.approvalCodeFlag = true
-	return builder
+func (builder * PreviewInstancePathReqBodyBuilder ) ApprovalCode(approvalCode string) *PreviewInstancePathReqBodyBuilder {
+  builder.approvalCode = approvalCode
+  builder.approvalCodeFlag = true
+  return builder
 }
-func (builder *PreviewInstancePathReqBodyBuilder) DepartmentId(departmentId string) *PreviewInstancePathReqBodyBuilder {
-	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
-	return builder
+func (builder * PreviewInstancePathReqBodyBuilder ) DepartmentId(departmentId string) *PreviewInstancePathReqBodyBuilder {
+  builder.departmentId = departmentId
+  builder.departmentIdFlag = true
+  return builder
 }
-func (builder *PreviewInstancePathReqBodyBuilder) Form(form string) *PreviewInstancePathReqBodyBuilder {
-	builder.form = form
-	builder.formFlag = true
-	return builder
+func (builder * PreviewInstancePathReqBodyBuilder ) Form(form string) *PreviewInstancePathReqBodyBuilder {
+  builder.form = form
+  builder.formFlag = true
+  return builder
 }
-func (builder *PreviewInstancePathReqBodyBuilder) InstanceCode(instanceCode string) *PreviewInstancePathReqBodyBuilder {
-	builder.instanceCode = instanceCode
-	builder.instanceCodeFlag = true
-	return builder
+func (builder * PreviewInstancePathReqBodyBuilder ) InstanceCode(instanceCode string) *PreviewInstancePathReqBodyBuilder {
+  builder.instanceCode = instanceCode
+  builder.instanceCodeFlag = true
+  return builder
 }
-func (builder *PreviewInstancePathReqBodyBuilder) Locale(locale string) *PreviewInstancePathReqBodyBuilder {
-	builder.locale = locale
-	builder.localeFlag = true
-	return builder
+func (builder * PreviewInstancePathReqBodyBuilder ) Locale(locale string) *PreviewInstancePathReqBodyBuilder {
+  builder.locale = locale
+  builder.localeFlag = true
+  return builder
 }
-func (builder *PreviewInstancePathReqBodyBuilder) TaskId(taskId string) *PreviewInstancePathReqBodyBuilder {
-	builder.taskId = taskId
-	builder.taskIdFlag = true
-	return builder
-}
-
-func (builder *PreviewInstancePathReqBodyBuilder) Build() (*PreviewInstanceReqBody, error) {
-	req := &PreviewInstanceReqBody{}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-	}
-	if builder.approvalCodeFlag {
-		req.ApprovalCode = &builder.approvalCode
-	}
-	if builder.departmentIdFlag {
-		req.DepartmentId = &builder.departmentId
-	}
-	if builder.formFlag {
-		req.Form = &builder.form
-	}
-	if builder.instanceCodeFlag {
-		req.InstanceCode = &builder.instanceCode
-	}
-	if builder.localeFlag {
-		req.Locale = &builder.locale
-	}
-	if builder.taskIdFlag {
-		req.TaskId = &builder.taskId
-	}
-	return req, nil
+func (builder * PreviewInstancePathReqBodyBuilder ) TaskId(taskId string) *PreviewInstancePathReqBodyBuilder {
+  builder.taskId = taskId
+  builder.taskIdFlag = true
+  return builder
 }
 
+
+func (builder * PreviewInstancePathReqBodyBuilder ) Build() (*PreviewInstanceReqBody, error) {
+   req := &PreviewInstanceReqBody{}
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+   }
+   if builder.approvalCodeFlag {
+	  req.ApprovalCode = &builder.approvalCode
+   }
+   if builder.departmentIdFlag {
+	  req.DepartmentId = &builder.departmentId
+   }
+   if builder.formFlag {
+	  req.Form = &builder.form
+   }
+   if builder.instanceCodeFlag {
+	  req.InstanceCode = &builder.instanceCode
+   }
+   if builder.localeFlag {
+	  req.Locale = &builder.locale
+   }
+   if builder.taskIdFlag {
+	  req.TaskId = &builder.taskId
+   }
+   return req, nil
+}
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type PreviewInstanceReqBuilder struct {
-	userIdType     string
-	userIdTypeFlag bool
-	body           *PreviewInstanceReqBody
-	bodyFlag       bool
+	userIdType  string
+	userIdTypeFlag  bool
+	body *PreviewInstanceReqBody
+	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewPreviewInstanceReqBuilder() *PreviewInstanceReqBuilder {
-	builder := &PreviewInstanceReqBuilder{}
-	return builder
+func NewPreviewInstanceReqBuilder() * PreviewInstanceReqBuilder{
+   builder := &PreviewInstanceReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *PreviewInstanceReqBuilder) UserIdType(userIdType string) *PreviewInstanceReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
-	return builder
+func (builder * PreviewInstanceReqBuilder) UserIdType(userIdType string) *PreviewInstanceReqBuilder  {
+  builder.userIdType = userIdType
+  builder.userIdTypeFlag = true
+  return builder
 }
-func (builder *PreviewInstanceReqBuilder) Body(body *PreviewInstanceReqBody) *PreviewInstanceReqBuilder {
-	builder.body = body
-	builder.bodyFlag = true
-	return builder
+func (builder * PreviewInstanceReqBuilder) Body(body *PreviewInstanceReqBody) *PreviewInstanceReqBuilder  {
+  builder.body = body
+  builder.bodyFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *PreviewInstanceReqBuilder) Build() *PreviewInstanceReq {
-	req := &PreviewInstanceReq{}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
-	return req
+func (builder * PreviewInstanceReqBuilder ) Build() *PreviewInstanceReq {
+   req := &PreviewInstanceReq{}
+   if builder.userIdTypeFlag {
+	  req.UserIdType = &builder.userIdType
+   }
+   if builder.bodyFlag {
+	  req.Body = builder.body
+   }
+   return req
 }
 
 type PreviewInstanceReqBody struct {
-	UserId       *string `json:"user_id,omitempty"`
-	ApprovalCode *string `json:"approval_code,omitempty"`
-	DepartmentId *string `json:"department_id,omitempty"`
-	Form         *string `json:"form,omitempty"`
-	InstanceCode *string `json:"instance_code,omitempty"`
-	Locale       *string `json:"locale,omitempty"`
-	TaskId       *string `json:"task_id,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
+	ApprovalCode  *string `json:"approval_code,omitempty"`
+	DepartmentId  *string `json:"department_id,omitempty"`
+	Form  *string `json:"form,omitempty"`
+	InstanceCode  *string `json:"instance_code,omitempty"`
+	Locale  *string `json:"locale,omitempty"`
+	TaskId  *string `json:"task_id,omitempty"`
 }
 
 type PreviewInstanceReq struct {
-	UserIdType *string                 `query:"user_id_type"`
-	Body       *PreviewInstanceReqBody `body:""`
+	UserIdType  *string `query:"user_id_type"`
+	Body *PreviewInstanceReqBody `body:""`
+
 }
 
 type PreviewInstanceRespData struct {
-	PreviewNodes []*PreviewNode `json:"preview_nodes,omitempty"`
+	PreviewNodes  []*PreviewNode `json:"preview_nodes,omitempty"`
 }
 
 type PreviewInstanceResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *PreviewInstanceRespData `json:"data"`
 }
 
@@ -7632,151 +8012,720 @@ func (resp *PreviewInstanceResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
-type ApproveTaskReqBuilder struct {
-	userIdType      string
+type QueryInstanceReqBuilder struct {
+	pageSize  int
+	pageSizeFlag  bool
+	pageToken  string
+	pageTokenFlag  bool
+	userIdType  string
 	userIdTypeFlag  bool
-	taskApprove     *TaskApprove
-	taskApproveFlag bool
+	instanceSearch *InstanceSearch
+	instanceSearchFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewApproveTaskReqBuilder() *ApproveTaskReqBuilder {
-	builder := &ApproveTaskReqBuilder{}
-	return builder
+func NewQueryInstanceReqBuilder() * QueryInstanceReqBuilder{
+   builder := &QueryInstanceReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *ApproveTaskReqBuilder) UserIdType(userIdType string) *ApproveTaskReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
-	return builder
+func (builder * QueryInstanceReqBuilder) PageSize(pageSize int) *QueryInstanceReqBuilder  {
+  builder.pageSize = pageSize
+  builder.pageSizeFlag = true
+  return builder
 }
-func (builder *ApproveTaskReqBuilder) TaskApprove(taskApprove *TaskApprove) *ApproveTaskReqBuilder {
-	builder.taskApprove = taskApprove
-	builder.taskApproveFlag = true
-	return builder
+func (builder * QueryInstanceReqBuilder) PageToken(pageToken string) *QueryInstanceReqBuilder  {
+  builder.pageToken = pageToken
+  builder.pageTokenFlag = true
+  return builder
+}
+func (builder * QueryInstanceReqBuilder) UserIdType(userIdType string) *QueryInstanceReqBuilder  {
+  builder.userIdType = userIdType
+  builder.userIdTypeFlag = true
+  return builder
+}
+func (builder * QueryInstanceReqBuilder) InstanceSearch(instanceSearch *InstanceSearch) *QueryInstanceReqBuilder  {
+  builder.instanceSearch = instanceSearch
+  builder.instanceSearchFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *ApproveTaskReqBuilder) Build() *ApproveTaskReq {
-	req := &ApproveTaskReq{}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
-	if builder.taskApproveFlag {
-		req.TaskApprove = builder.taskApprove
-	}
-	return req
+func (builder * QueryInstanceReqBuilder ) Build() *QueryInstanceReq {
+   req := &QueryInstanceReq{}
+   if builder.pageSizeFlag {
+	  req.PageSize = &builder.pageSize
+   }
+   if builder.pageTokenFlag {
+	  req.PageToken = &builder.pageToken
+   }
+   if builder.userIdTypeFlag {
+	  req.UserIdType = &builder.userIdType
+   }
+   if builder.instanceSearchFlag {
+	  req.InstanceSearch = builder.instanceSearch
+   }
+   return req
 }
+
+
+type QueryInstanceReq struct {
+	PageSize  *int `query:"page_size"`
+	PageToken  *string `query:"page_token"`
+	UserIdType  *string `query:"user_id_type"`
+	InstanceSearch *InstanceSearch `body:""`
+
+}
+
+type QueryInstanceRespData struct {
+	Code  *int `json:"code,omitempty"`
+	InstanceList  *InstanceSearchItem `json:"instance_list,omitempty"`
+	PageToken  *string `json:"page_token,omitempty"`
+	HasMore  *bool `json:"has_more,omitempty"`
+}
+
+type QueryInstanceResp struct {
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
+	Data *QueryInstanceRespData `json:"data"`
+}
+
+func (resp *QueryInstanceResp) Success() bool {
+	return resp.Code == 0
+}
+
+
+// 1.4 生成请求的builder结构体
+type SearchCcInstanceReqBuilder struct {
+	pageSize  int
+	pageSizeFlag  bool
+	pageToken  string
+	pageTokenFlag  bool
+	userIdType  string
+	userIdTypeFlag  bool
+	ccSearch *CcSearch
+	ccSearchFlag bool
+
+}
+
+// 生成请求的New构造器
+func NewSearchCcInstanceReqBuilder() * SearchCcInstanceReqBuilder{
+   builder := &SearchCcInstanceReqBuilder{}
+   return builder
+}
+
+// 1.5 生成请求的builder属性方法
+func (builder * SearchCcInstanceReqBuilder) PageSize(pageSize int) *SearchCcInstanceReqBuilder  {
+  builder.pageSize = pageSize
+  builder.pageSizeFlag = true
+  return builder
+}
+func (builder * SearchCcInstanceReqBuilder) PageToken(pageToken string) *SearchCcInstanceReqBuilder  {
+  builder.pageToken = pageToken
+  builder.pageTokenFlag = true
+  return builder
+}
+func (builder * SearchCcInstanceReqBuilder) UserIdType(userIdType string) *SearchCcInstanceReqBuilder  {
+  builder.userIdType = userIdType
+  builder.userIdTypeFlag = true
+  return builder
+}
+func (builder * SearchCcInstanceReqBuilder) CcSearch(ccSearch *CcSearch) *SearchCcInstanceReqBuilder  {
+  builder.ccSearch = ccSearch
+  builder.ccSearchFlag = true
+  return builder
+}
+
+// 1.5 生成请求的builder的build方法
+func (builder * SearchCcInstanceReqBuilder ) Build() *SearchCcInstanceReq {
+   req := &SearchCcInstanceReq{}
+   if builder.pageSizeFlag {
+	  req.PageSize = &builder.pageSize
+   }
+   if builder.pageTokenFlag {
+	  req.PageToken = &builder.pageToken
+   }
+   if builder.userIdTypeFlag {
+	  req.UserIdType = &builder.userIdType
+   }
+   if builder.ccSearchFlag {
+	  req.CcSearch = builder.ccSearch
+   }
+   return req
+}
+
+
+type SearchCcInstanceReq struct {
+	PageSize  *int `query:"page_size"`
+	PageToken  *string `query:"page_token"`
+	UserIdType  *string `query:"user_id_type"`
+	CcSearch *CcSearch `body:""`
+
+}
+
+type SearchCcInstanceRespData struct {
+	Count  *int `json:"count,omitempty"`
+	CcList  *CcSearchItem `json:"cc_list,omitempty"`
+}
+
+type SearchCcInstanceResp struct {
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
+	Data *SearchCcInstanceRespData `json:"data"`
+}
+
+func (resp *SearchCcInstanceResp) Success() bool {
+	return resp.Code == 0
+}
+
+
+// 1.4 生成请求的builder结构体
+type SpecifiedRollbackInstanceReqBuilder struct {
+	userIdType  string
+	userIdTypeFlag  bool
+	specifiedRollback *SpecifiedRollback
+	specifiedRollbackFlag bool
+
+}
+
+// 生成请求的New构造器
+func NewSpecifiedRollbackInstanceReqBuilder() * SpecifiedRollbackInstanceReqBuilder{
+   builder := &SpecifiedRollbackInstanceReqBuilder{}
+   return builder
+}
+
+// 1.5 生成请求的builder属性方法
+func (builder * SpecifiedRollbackInstanceReqBuilder) UserIdType(userIdType string) *SpecifiedRollbackInstanceReqBuilder  {
+  builder.userIdType = userIdType
+  builder.userIdTypeFlag = true
+  return builder
+}
+func (builder * SpecifiedRollbackInstanceReqBuilder) SpecifiedRollback(specifiedRollback *SpecifiedRollback) *SpecifiedRollbackInstanceReqBuilder  {
+  builder.specifiedRollback = specifiedRollback
+  builder.specifiedRollbackFlag = true
+  return builder
+}
+
+// 1.5 生成请求的builder的build方法
+func (builder * SpecifiedRollbackInstanceReqBuilder ) Build() *SpecifiedRollbackInstanceReq {
+   req := &SpecifiedRollbackInstanceReq{}
+   if builder.userIdTypeFlag {
+	  req.UserIdType = &builder.userIdType
+   }
+   if builder.specifiedRollbackFlag {
+	  req.SpecifiedRollback = builder.specifiedRollback
+   }
+   return req
+}
+
+
+type SpecifiedRollbackInstanceReq struct {
+	UserIdType  *string `query:"user_id_type"`
+	SpecifiedRollback *SpecifiedRollback `body:""`
+
+}
+
+
+type SpecifiedRollbackInstanceResp struct {
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *SpecifiedRollbackInstanceResp) Success() bool {
+	return resp.Code == 0
+}
+
+
+// 1.4 生成请求的builder结构体
+type CreateInstanceCommentReqBuilder struct {
+	instanceId  string
+	instanceIdFlag  bool
+	userIdType  string
+	userIdTypeFlag  bool
+	userId  int64
+	userIdFlag  bool
+	commentRequest *CommentRequest
+	commentRequestFlag bool
+
+}
+
+// 生成请求的New构造器
+func NewCreateInstanceCommentReqBuilder() * CreateInstanceCommentReqBuilder{
+   builder := &CreateInstanceCommentReqBuilder{}
+   return builder
+}
+
+// 1.5 生成请求的builder属性方法
+func (builder * CreateInstanceCommentReqBuilder) InstanceId(instanceId string) *CreateInstanceCommentReqBuilder  {
+  builder.instanceId = instanceId
+  builder.instanceIdFlag = true
+  return builder
+}
+func (builder * CreateInstanceCommentReqBuilder) UserIdType(userIdType string) *CreateInstanceCommentReqBuilder  {
+  builder.userIdType = userIdType
+  builder.userIdTypeFlag = true
+  return builder
+}
+func (builder * CreateInstanceCommentReqBuilder) UserId(userId int64) *CreateInstanceCommentReqBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
+}
+func (builder * CreateInstanceCommentReqBuilder) CommentRequest(commentRequest *CommentRequest) *CreateInstanceCommentReqBuilder  {
+  builder.commentRequest = commentRequest
+  builder.commentRequestFlag = true
+  return builder
+}
+
+// 1.5 生成请求的builder的build方法
+func (builder * CreateInstanceCommentReqBuilder ) Build() *CreateInstanceCommentReq {
+   req := &CreateInstanceCommentReq{}
+   if builder.instanceIdFlag {
+	  req.InstanceId = builder.instanceId
+   }
+   if builder.userIdTypeFlag {
+	  req.UserIdType = &builder.userIdType
+   }
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+   }
+   if builder.commentRequestFlag {
+	  req.CommentRequest = builder.commentRequest
+   }
+   return req
+}
+
+
+type CreateInstanceCommentReq struct {
+	InstanceId  string `path:"instance_id"`
+	UserIdType  *string `query:"user_id_type"`
+	UserId  *int64 `query:"user_id"`
+	CommentRequest *CommentRequest `body:""`
+
+}
+
+type CreateInstanceCommentRespData struct {
+	CommentId  *int64 `json:"comment_id,omitempty,string"`
+}
+
+type CreateInstanceCommentResp struct {
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
+	Data *CreateInstanceCommentRespData `json:"data"`
+}
+
+func (resp *CreateInstanceCommentResp) Success() bool {
+	return resp.Code == 0
+}
+
+
+// 1.4 生成请求的builder结构体
+type DeleteInstanceCommentReqBuilder struct {
+	instanceId  string
+	instanceIdFlag  bool
+	commentId  int64
+	commentIdFlag  bool
+	userIdType  string
+	userIdTypeFlag  bool
+	userId  int64
+	userIdFlag  bool
+
+}
+
+// 生成请求的New构造器
+func NewDeleteInstanceCommentReqBuilder() * DeleteInstanceCommentReqBuilder{
+   builder := &DeleteInstanceCommentReqBuilder{}
+   return builder
+}
+
+// 1.5 生成请求的builder属性方法
+func (builder * DeleteInstanceCommentReqBuilder) InstanceId(instanceId string) *DeleteInstanceCommentReqBuilder  {
+  builder.instanceId = instanceId
+  builder.instanceIdFlag = true
+  return builder
+}
+func (builder * DeleteInstanceCommentReqBuilder) CommentId(commentId int64) *DeleteInstanceCommentReqBuilder  {
+  builder.commentId = commentId
+  builder.commentIdFlag = true
+  return builder
+}
+func (builder * DeleteInstanceCommentReqBuilder) UserIdType(userIdType string) *DeleteInstanceCommentReqBuilder  {
+  builder.userIdType = userIdType
+  builder.userIdTypeFlag = true
+  return builder
+}
+func (builder * DeleteInstanceCommentReqBuilder) UserId(userId int64) *DeleteInstanceCommentReqBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
+}
+
+// 1.5 生成请求的builder的build方法
+func (builder * DeleteInstanceCommentReqBuilder ) Build() *DeleteInstanceCommentReq {
+   req := &DeleteInstanceCommentReq{}
+   if builder.instanceIdFlag {
+	  req.InstanceId = builder.instanceId
+   }
+   if builder.commentIdFlag {
+	  req.CommentId = builder.commentId
+   }
+   if builder.userIdTypeFlag {
+	  req.UserIdType = &builder.userIdType
+   }
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+   }
+   return req
+}
+
+
+type DeleteInstanceCommentReq struct {
+	InstanceId  string `path:"instance_id"`
+	CommentId  int64 `path:"comment_id"`
+	UserIdType  *string `query:"user_id_type"`
+	UserId  *int64 `query:"user_id"`
+
+}
+
+type DeleteInstanceCommentRespData struct {
+	CommentId  *int64 `json:"comment_id,omitempty,string"`
+}
+
+type DeleteInstanceCommentResp struct {
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
+	Data *DeleteInstanceCommentRespData `json:"data"`
+}
+
+func (resp *DeleteInstanceCommentResp) Success() bool {
+	return resp.Code == 0
+}
+
+
+// 1.4 生成请求的builder结构体
+type ListInstanceCommentReqBuilder struct {
+	instanceId  string
+	instanceIdFlag  bool
+	userIdType  string
+	userIdTypeFlag  bool
+	userId  int64
+	userIdFlag  bool
+	pageToken  string
+	pageTokenFlag  bool
+	pageSize  int
+	pageSizeFlag  bool
+
+}
+
+// 生成请求的New构造器
+func NewListInstanceCommentReqBuilder() * ListInstanceCommentReqBuilder{
+   builder := &ListInstanceCommentReqBuilder{}
+   return builder
+}
+
+// 1.5 生成请求的builder属性方法
+func (builder * ListInstanceCommentReqBuilder) InstanceId(instanceId string) *ListInstanceCommentReqBuilder  {
+  builder.instanceId = instanceId
+  builder.instanceIdFlag = true
+  return builder
+}
+func (builder * ListInstanceCommentReqBuilder) UserIdType(userIdType string) *ListInstanceCommentReqBuilder  {
+  builder.userIdType = userIdType
+  builder.userIdTypeFlag = true
+  return builder
+}
+func (builder * ListInstanceCommentReqBuilder) UserId(userId int64) *ListInstanceCommentReqBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
+}
+func (builder * ListInstanceCommentReqBuilder) PageToken(pageToken string) *ListInstanceCommentReqBuilder  {
+  builder.pageToken = pageToken
+  builder.pageTokenFlag = true
+  return builder
+}
+func (builder * ListInstanceCommentReqBuilder) PageSize(pageSize int) *ListInstanceCommentReqBuilder  {
+  builder.pageSize = pageSize
+  builder.pageSizeFlag = true
+  return builder
+}
+
+// 1.5 生成请求的builder的build方法
+func (builder * ListInstanceCommentReqBuilder ) Build() *ListInstanceCommentReq {
+   req := &ListInstanceCommentReq{}
+   if builder.instanceIdFlag {
+	  req.InstanceId = builder.instanceId
+   }
+   if builder.userIdTypeFlag {
+	  req.UserIdType = &builder.userIdType
+   }
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+   }
+   if builder.pageTokenFlag {
+	  req.PageToken = &builder.pageToken
+   }
+   if builder.pageSizeFlag {
+	  req.PageSize = &builder.pageSize
+   }
+   return req
+}
+
+
+type ListInstanceCommentReq struct {
+	InstanceId  string `path:"instance_id"`
+	UserIdType  *string `query:"user_id_type"`
+	UserId  *int64 `query:"user_id"`
+	PageToken  *string `query:"page_token"`
+	PageSize  *int `query:"page_size"`
+
+}
+
+type ListInstanceCommentRespData struct {
+	Comments  []*Comment `json:"comments,omitempty"`
+}
+
+type ListInstanceCommentResp struct {
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
+	Data *ListInstanceCommentRespData `json:"data"`
+}
+
+func (resp *ListInstanceCommentResp) Success() bool {
+	return resp.Code == 0
+}
+
+
+// 1.4 生成请求的builder结构体
+type RemoveInstanceCommentReqBuilder struct {
+	instanceId  string
+	instanceIdFlag  bool
+	userIdType  string
+	userIdTypeFlag  bool
+	userId  int64
+	userIdFlag  bool
+
+}
+
+// 生成请求的New构造器
+func NewRemoveInstanceCommentReqBuilder() * RemoveInstanceCommentReqBuilder{
+   builder := &RemoveInstanceCommentReqBuilder{}
+   return builder
+}
+
+// 1.5 生成请求的builder属性方法
+func (builder * RemoveInstanceCommentReqBuilder) InstanceId(instanceId string) *RemoveInstanceCommentReqBuilder  {
+  builder.instanceId = instanceId
+  builder.instanceIdFlag = true
+  return builder
+}
+func (builder * RemoveInstanceCommentReqBuilder) UserIdType(userIdType string) *RemoveInstanceCommentReqBuilder  {
+  builder.userIdType = userIdType
+  builder.userIdTypeFlag = true
+  return builder
+}
+func (builder * RemoveInstanceCommentReqBuilder) UserId(userId int64) *RemoveInstanceCommentReqBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
+}
+
+// 1.5 生成请求的builder的build方法
+func (builder * RemoveInstanceCommentReqBuilder ) Build() *RemoveInstanceCommentReq {
+   req := &RemoveInstanceCommentReq{}
+   if builder.instanceIdFlag {
+	  req.InstanceId = builder.instanceId
+   }
+   if builder.userIdTypeFlag {
+	  req.UserIdType = &builder.userIdType
+   }
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+   }
+   return req
+}
+
+
+type RemoveInstanceCommentReq struct {
+	InstanceId  string `path:"instance_id"`
+	UserIdType  *string `query:"user_id_type"`
+	UserId  *int64 `query:"user_id"`
+
+}
+
+type RemoveInstanceCommentRespData struct {
+	InstanceId  *string `json:"instance_id,omitempty"`
+	ExternalId  *string `json:"external_id,omitempty"`
+}
+
+type RemoveInstanceCommentResp struct {
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
+	Data *RemoveInstanceCommentRespData `json:"data"`
+}
+
+func (resp *RemoveInstanceCommentResp) Success() bool {
+	return resp.Code == 0
+}
+
+
+// 1.4 生成请求的builder结构体
+type ApproveTaskReqBuilder struct {
+	userIdType  string
+	userIdTypeFlag  bool
+	taskApprove *TaskApprove
+	taskApproveFlag bool
+
+}
+
+// 生成请求的New构造器
+func NewApproveTaskReqBuilder() * ApproveTaskReqBuilder{
+   builder := &ApproveTaskReqBuilder{}
+   return builder
+}
+
+// 1.5 生成请求的builder属性方法
+func (builder * ApproveTaskReqBuilder) UserIdType(userIdType string) *ApproveTaskReqBuilder  {
+  builder.userIdType = userIdType
+  builder.userIdTypeFlag = true
+  return builder
+}
+func (builder * ApproveTaskReqBuilder) TaskApprove(taskApprove *TaskApprove) *ApproveTaskReqBuilder  {
+  builder.taskApprove = taskApprove
+  builder.taskApproveFlag = true
+  return builder
+}
+
+// 1.5 生成请求的builder的build方法
+func (builder * ApproveTaskReqBuilder ) Build() *ApproveTaskReq {
+   req := &ApproveTaskReq{}
+   if builder.userIdTypeFlag {
+	  req.UserIdType = &builder.userIdType
+   }
+   if builder.taskApproveFlag {
+	  req.TaskApprove = builder.taskApprove
+   }
+   return req
+}
+
 
 type ApproveTaskReq struct {
-	UserIdType  *string      `query:"user_id_type"`
+	UserIdType  *string `query:"user_id_type"`
 	TaskApprove *TaskApprove `body:""`
+
 }
 
+
 type ApproveTaskResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 }
 
 func (resp *ApproveTaskResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type QueryTaskReqBuilder struct {
-	pageSize       int
-	pageSizeFlag   bool
-	pageToken      string
+	pageSize  int
+	pageSizeFlag  bool
+	pageToken  string
 	pageTokenFlag  bool
-	userId         string
-	userIdFlag     bool
-	topic          int64
-	topicFlag      bool
-	userIdType     string
-	userIdTypeFlag bool
-	limit          int
+	userId  string
+	userIdFlag  bool
+	topic  int64
+	topicFlag  bool
+	userIdType  string
+	userIdTypeFlag  bool
+	limit int
+
 }
 
 // 生成请求的New构造器
-func NewQueryTaskReqBuilder() *QueryTaskReqBuilder {
-	builder := &QueryTaskReqBuilder{}
-	return builder
+func NewQueryTaskReqBuilder() * QueryTaskReqBuilder{
+   builder := &QueryTaskReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *QueryTaskReqBuilder) Limit(limit int) *QueryTaskReqBuilder {
-	builder.limit = limit
-	return builder
+func (builder * QueryTaskReqBuilder) Limit(limit int ) *QueryTaskReqBuilder  {
+  builder.limit = limit
+  return builder
 }
-func (builder *QueryTaskReqBuilder) PageSize(pageSize int) *QueryTaskReqBuilder {
-	builder.pageSize = pageSize
-	builder.pageSizeFlag = true
-	return builder
+func (builder * QueryTaskReqBuilder) PageSize(pageSize int) *QueryTaskReqBuilder  {
+  builder.pageSize = pageSize
+  builder.pageSizeFlag = true
+  return builder
 }
-func (builder *QueryTaskReqBuilder) PageToken(pageToken string) *QueryTaskReqBuilder {
-	builder.pageToken = pageToken
-	builder.pageTokenFlag = true
-	return builder
+func (builder * QueryTaskReqBuilder) PageToken(pageToken string) *QueryTaskReqBuilder  {
+  builder.pageToken = pageToken
+  builder.pageTokenFlag = true
+  return builder
 }
-func (builder *QueryTaskReqBuilder) UserId(userId string) *QueryTaskReqBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
+func (builder * QueryTaskReqBuilder) UserId(userId string) *QueryTaskReqBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
-func (builder *QueryTaskReqBuilder) Topic(topic int64) *QueryTaskReqBuilder {
-	builder.topic = topic
-	builder.topicFlag = true
-	return builder
+func (builder * QueryTaskReqBuilder) Topic(topic int64) *QueryTaskReqBuilder  {
+  builder.topic = topic
+  builder.topicFlag = true
+  return builder
 }
-func (builder *QueryTaskReqBuilder) UserIdType(userIdType string) *QueryTaskReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
-	return builder
+func (builder * QueryTaskReqBuilder) UserIdType(userIdType string) *QueryTaskReqBuilder  {
+  builder.userIdType = userIdType
+  builder.userIdTypeFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *QueryTaskReqBuilder) Build() *QueryTaskReq {
-	req := &QueryTaskReq{}
-	req.Limit = builder.limit
-	if builder.pageSizeFlag {
-		req.PageSize = &builder.pageSize
-	}
-	if builder.pageTokenFlag {
-		req.PageToken = &builder.pageToken
-	}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-	}
-	if builder.topicFlag {
-		req.Topic = &builder.topic
-	}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
-	return req
+func (builder * QueryTaskReqBuilder ) Build() *QueryTaskReq {
+   req := &QueryTaskReq{}
+   req.Limit = builder.limit
+   if builder.pageSizeFlag {
+	  req.PageSize = &builder.pageSize
+   }
+   if builder.pageTokenFlag {
+	  req.PageToken = &builder.pageToken
+   }
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+   }
+   if builder.topicFlag {
+	  req.Topic = &builder.topic
+   }
+   if builder.userIdTypeFlag {
+	  req.UserIdType = &builder.userIdType
+   }
+   return req
 }
 
+
 type QueryTaskReq struct {
-	PageSize   *int    `query:"page_size"`
+	PageSize  *int `query:"page_size"`
 	PageToken  *string `query:"page_token"`
-	UserId     *string `query:"user_id"`
-	Topic      *int64  `query:"topic"`
-	UserIdType *string `query:"user_id_type"`
-	Limit      int
+	UserId  *string `query:"user_id"`
+	Topic  *int64 `query:"topic"`
+	UserIdType  *string `query:"user_id_type"`
+	Limit int
+
 }
 
 type QueryTaskRespData struct {
-	Tasks     []*Task `json:"tasks,omitempty"`
-	PageToken *string `json:"page_token,omitempty"`
-	HasMore   *bool   `json:"has_more,omitempty"`
-	Count     *Count  `json:"count,omitempty"`
+	Tasks  []*Task `json:"tasks,omitempty"`
+	PageToken  *string `json:"page_token,omitempty"`
+	HasMore  *bool `json:"has_more,omitempty"`
+	Count  *Count `json:"count,omitempty"`
 }
 
 type QueryTaskResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *QueryTaskRespData `json:"data"`
 }
 
@@ -7784,104 +8733,200 @@ func (resp *QueryTaskResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type RejectTaskReqBuilder struct {
-	userIdType      string
+	userIdType  string
 	userIdTypeFlag  bool
-	taskApprove     *TaskApprove
+	taskApprove *TaskApprove
 	taskApproveFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewRejectTaskReqBuilder() *RejectTaskReqBuilder {
-	builder := &RejectTaskReqBuilder{}
-	return builder
+func NewRejectTaskReqBuilder() * RejectTaskReqBuilder{
+   builder := &RejectTaskReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *RejectTaskReqBuilder) UserIdType(userIdType string) *RejectTaskReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
-	return builder
+func (builder * RejectTaskReqBuilder) UserIdType(userIdType string) *RejectTaskReqBuilder  {
+  builder.userIdType = userIdType
+  builder.userIdTypeFlag = true
+  return builder
 }
-func (builder *RejectTaskReqBuilder) TaskApprove(taskApprove *TaskApprove) *RejectTaskReqBuilder {
-	builder.taskApprove = taskApprove
-	builder.taskApproveFlag = true
-	return builder
+func (builder * RejectTaskReqBuilder) TaskApprove(taskApprove *TaskApprove) *RejectTaskReqBuilder  {
+  builder.taskApprove = taskApprove
+  builder.taskApproveFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *RejectTaskReqBuilder) Build() *RejectTaskReq {
-	req := &RejectTaskReq{}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
-	if builder.taskApproveFlag {
-		req.TaskApprove = builder.taskApprove
-	}
-	return req
+func (builder * RejectTaskReqBuilder ) Build() *RejectTaskReq {
+   req := &RejectTaskReq{}
+   if builder.userIdTypeFlag {
+	  req.UserIdType = &builder.userIdType
+   }
+   if builder.taskApproveFlag {
+	  req.TaskApprove = builder.taskApprove
+   }
+   return req
 }
+
 
 type RejectTaskReq struct {
-	UserIdType  *string      `query:"user_id_type"`
+	UserIdType  *string `query:"user_id_type"`
 	TaskApprove *TaskApprove `body:""`
+
 }
 
+
 type RejectTaskResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 }
 
 func (resp *RejectTaskResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
-type TransferTaskReqBuilder struct {
-	userIdType       string
-	userIdTypeFlag   bool
-	taskTransfer     *TaskTransfer
-	taskTransferFlag bool
+type SearchTaskReqBuilder struct {
+	pageSize  int
+	pageSizeFlag  bool
+	pageToken  string
+	pageTokenFlag  bool
+	userIdType  string
+	userIdTypeFlag  bool
+	taskSearch *TaskSearch
+	taskSearchFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewTransferTaskReqBuilder() *TransferTaskReqBuilder {
-	builder := &TransferTaskReqBuilder{}
-	return builder
+func NewSearchTaskReqBuilder() * SearchTaskReqBuilder{
+   builder := &SearchTaskReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *TransferTaskReqBuilder) UserIdType(userIdType string) *TransferTaskReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
-	return builder
+func (builder * SearchTaskReqBuilder) PageSize(pageSize int) *SearchTaskReqBuilder  {
+  builder.pageSize = pageSize
+  builder.pageSizeFlag = true
+  return builder
 }
-func (builder *TransferTaskReqBuilder) TaskTransfer(taskTransfer *TaskTransfer) *TransferTaskReqBuilder {
-	builder.taskTransfer = taskTransfer
-	builder.taskTransferFlag = true
-	return builder
+func (builder * SearchTaskReqBuilder) PageToken(pageToken string) *SearchTaskReqBuilder  {
+  builder.pageToken = pageToken
+  builder.pageTokenFlag = true
+  return builder
+}
+func (builder * SearchTaskReqBuilder) UserIdType(userIdType string) *SearchTaskReqBuilder  {
+  builder.userIdType = userIdType
+  builder.userIdTypeFlag = true
+  return builder
+}
+func (builder * SearchTaskReqBuilder) TaskSearch(taskSearch *TaskSearch) *SearchTaskReqBuilder  {
+  builder.taskSearch = taskSearch
+  builder.taskSearchFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *TransferTaskReqBuilder) Build() *TransferTaskReq {
-	req := &TransferTaskReq{}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
-	if builder.taskTransferFlag {
-		req.TaskTransfer = builder.taskTransfer
-	}
-	return req
+func (builder * SearchTaskReqBuilder ) Build() *SearchTaskReq {
+   req := &SearchTaskReq{}
+   if builder.pageSizeFlag {
+	  req.PageSize = &builder.pageSize
+   }
+   if builder.pageTokenFlag {
+	  req.PageToken = &builder.pageToken
+   }
+   if builder.userIdTypeFlag {
+	  req.UserIdType = &builder.userIdType
+   }
+   if builder.taskSearchFlag {
+	  req.TaskSearch = builder.taskSearch
+   }
+   return req
 }
+
+
+type SearchTaskReq struct {
+	PageSize  *int `query:"page_size"`
+	PageToken  *string `query:"page_token"`
+	UserIdType  *string `query:"user_id_type"`
+	TaskSearch *TaskSearch `body:""`
+
+}
+
+type SearchTaskRespData struct {
+	Count  *int `json:"count,omitempty"`
+	TaskList  *TaskSearchItem `json:"task_list,omitempty"`
+	PageToken  *string `json:"page_token,omitempty"`
+	HasMore  *bool `json:"has_more,omitempty"`
+}
+
+type SearchTaskResp struct {
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
+	Data *SearchTaskRespData `json:"data"`
+}
+
+func (resp *SearchTaskResp) Success() bool {
+	return resp.Code == 0
+}
+
+
+// 1.4 生成请求的builder结构体
+type TransferTaskReqBuilder struct {
+	userIdType  string
+	userIdTypeFlag  bool
+	taskTransfer *TaskTransfer
+	taskTransferFlag bool
+
+}
+
+// 生成请求的New构造器
+func NewTransferTaskReqBuilder() * TransferTaskReqBuilder{
+   builder := &TransferTaskReqBuilder{}
+   return builder
+}
+
+// 1.5 生成请求的builder属性方法
+func (builder * TransferTaskReqBuilder) UserIdType(userIdType string) *TransferTaskReqBuilder  {
+  builder.userIdType = userIdType
+  builder.userIdTypeFlag = true
+  return builder
+}
+func (builder * TransferTaskReqBuilder) TaskTransfer(taskTransfer *TaskTransfer) *TransferTaskReqBuilder  {
+  builder.taskTransfer = taskTransfer
+  builder.taskTransferFlag = true
+  return builder
+}
+
+// 1.5 生成请求的builder的build方法
+func (builder * TransferTaskReqBuilder ) Build() *TransferTaskReq {
+   req := &TransferTaskReq{}
+   if builder.userIdTypeFlag {
+	  req.UserIdType = &builder.userIdType
+   }
+   if builder.taskTransferFlag {
+	  req.TaskTransfer = builder.taskTransfer
+   }
+   return req
+}
+
 
 type TransferTaskReq struct {
-	UserIdType   *string       `query:"user_id_type"`
+	UserIdType  *string `query:"user_id_type"`
 	TaskTransfer *TaskTransfer `body:""`
+
 }
 
+
 type TransferTaskResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 }
 
 func (resp *TransferTaskResp) Success() bool {
@@ -7890,121 +8935,181 @@ func (resp *TransferTaskResp) Success() bool {
 
 // 生成消息事件结构体
 
-type ApprovalUpdatedEventData struct {
-	Object *ApprovalEvent `json:"object,omitempty"`
+type P2ApprovalUpdatedV4Data struct {
+	Object  *ApprovalEvent `json:"object,omitempty"`
 }
 
-type ApprovalUpdatedEvent struct {
-	*event.EventV2Base
-	Event *ApprovalUpdatedEventData `json:"event"`
+type P2ApprovalUpdatedV4 struct {
+	*larkevent.EventV2Base
+	*larkevent.EventReq
+	Event * P2ApprovalUpdatedV4Data `json:"event"`
 }
+
+func (m *P2ApprovalUpdatedV4) RawReq( req *larkevent.EventReq){
+	m.EventReq = req
+}
+
 
 // 生成请求的builder构造器
 // 1.1 生成body的builder结构体
-type ListInstanceIterator struct {
-	nextPageToken *string
-	items         []string
-	index         int
-	limit         int
-	ctx           context.Context
-	req           *ListInstanceReq
-	listFunc      func(ctx context.Context, req *ListInstanceReq, options ...core.RequestOptionFunc) (*ListInstanceResp, error)
-	options       []core.RequestOptionFunc
-	curlNum       int
-}
+   type ListExternalTaskIterator struct{
+	 nextPageToken *string
+	 items	 []*ExternalTaskList
+	 index	 int
+	 limit	 int
+	 ctx	   context.Context
+	 req	   *ListExternalTaskReq
+	 listFunc  func (ctx context.Context, req *ListExternalTaskReq, options ...larkcore.RequestOptionFunc) (*ListExternalTaskResp, error)
+	 options   []larkcore.RequestOptionFunc
+   	 curlNum	   int
+   }
 
-func (iterator *ListInstanceIterator) Next() (bool, string, error) {
-	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
-		return false, "", nil
-	}
-
-	// 为0则拉取数据
-	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
-			return false, "", nil
-		}
-		if iterator.nextPageToken != nil {
-			iterator.req.PageToken = iterator.nextPageToken
-		}
-		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-		if err != nil {
-			return false, "", err
-		}
-
-		if resp.Code != 0 {
-			return false, "", errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
-		}
-
-		if len(resp.Data.InstanceCodeList) == 0 {
-			return false, "", nil
-		}
-
-		iterator.nextPageToken = resp.Data.PageToken
-		iterator.items = resp.Data.InstanceCodeList
-		iterator.index = 0
-	}
-
-	block := iterator.items[iterator.index]
-	iterator.index++
-	iterator.curlNum++
-	return true, block, nil
-}
-
-func (iterator *ListInstanceIterator) NextPageToken() *string {
-	return iterator.nextPageToken
-}
-
-type QueryTaskIterator struct {
-	nextPageToken *string
-	items         []*Task
-	index         int
-	limit         int
-	ctx           context.Context
-	req           *QueryTaskReq
-	listFunc      func(ctx context.Context, req *QueryTaskReq, options ...core.RequestOptionFunc) (*QueryTaskResp, error)
-	options       []core.RequestOptionFunc
-	curlNum       int
-}
-
-func (iterator *QueryTaskIterator) Next() (bool, *Task, error) {
-	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
-		return false, nil, nil
-	}
-
-	// 为0则拉取数据
-	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
-			return false, nil, nil
-		}
-		if iterator.nextPageToken != nil {
-			iterator.req.PageToken = iterator.nextPageToken
-		}
-		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-		if err != nil {
-			return false, nil, err
-		}
-
-		if resp.Code != 0 {
-			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
-		}
-
-		if len(resp.Data.Tasks) == 0 {
+   func (iterator *ListExternalTaskIterator) Next() (bool, *ExternalTaskList, error) {
+		// 达到最大量，则返回
+		if iterator.limit >0 && iterator.curlNum >= iterator.limit {
 			return false, nil, nil
 		}
 
-		iterator.nextPageToken = resp.Data.PageToken
-		iterator.items = resp.Data.Tasks
-		iterator.index = 0
-	}
+		// 为0则拉取数据
+		if iterator.index == 0 || iterator.index >= len(iterator.items) {
+			if iterator.index != 0 && iterator.nextPageToken == nil {
+				return false, nil, nil
+			}
+			if iterator.nextPageToken != nil {
+				iterator.req.PageToken = iterator.nextPageToken
+			}
+			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+			if err != nil {
+				return false, nil, err
+			}
 
-	block := iterator.items[iterator.index]
-	iterator.index++
-	iterator.curlNum++
-	return true, block, nil
-}
+			if resp.Code != 0 {
+				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+			}
 
-func (iterator *QueryTaskIterator) NextPageToken() *string {
-	return iterator.nextPageToken
-}
+			if len(resp.Data.Data) == 0 {
+				return false, nil, nil
+			}
+
+			iterator.nextPageToken = resp.Data.PageToken
+			iterator.items = resp.Data.Data
+			iterator.index = 0
+		}
+
+		block := iterator.items[iterator.index]
+		iterator.index++
+		iterator.curlNum++
+		return true, block, nil
+   }
+
+   func (iterator *ListExternalTaskIterator) NextPageToken() *string {
+	  return iterator.nextPageToken
+   }
+   type ListInstanceIterator struct{
+	 nextPageToken *string
+	 items	 []string
+	 index	 int
+	 limit	 int
+	 ctx	   context.Context
+	 req	   *ListInstanceReq
+	 listFunc  func (ctx context.Context, req *ListInstanceReq, options ...larkcore.RequestOptionFunc) (*ListInstanceResp, error)
+	 options   []larkcore.RequestOptionFunc
+   	 curlNum	   int
+   }
+
+   func (iterator *ListInstanceIterator) Next() (bool, string, error) {
+		// 达到最大量，则返回
+		if iterator.limit >0 && iterator.curlNum >= iterator.limit {
+			return false, "", nil
+		}
+
+		// 为0则拉取数据
+		if iterator.index == 0 || iterator.index >= len(iterator.items) {
+			if iterator.index != 0 && iterator.nextPageToken == nil {
+				return false, "", nil
+			}
+			if iterator.nextPageToken != nil {
+				iterator.req.PageToken = iterator.nextPageToken
+			}
+			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+			if err != nil {
+				return false, "", err
+			}
+
+			if resp.Code != 0 {
+				return false, "", errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+			}
+
+			if len(resp.Data.InstanceCodeList) == 0 {
+				return false, "", nil
+			}
+
+			iterator.nextPageToken = resp.Data.PageToken
+			iterator.items = resp.Data.InstanceCodeList
+			iterator.index = 0
+		}
+
+		block := iterator.items[iterator.index]
+		iterator.index++
+		iterator.curlNum++
+		return true, block, nil
+   }
+
+   func (iterator *ListInstanceIterator) NextPageToken() *string {
+	  return iterator.nextPageToken
+   }
+   type QueryTaskIterator struct{
+	 nextPageToken *string
+	 items	 []*Task
+	 index	 int
+	 limit	 int
+	 ctx	   context.Context
+	 req	   *QueryTaskReq
+	 listFunc  func (ctx context.Context, req *QueryTaskReq, options ...larkcore.RequestOptionFunc) (*QueryTaskResp, error)
+	 options   []larkcore.RequestOptionFunc
+   	 curlNum	   int
+   }
+
+   func (iterator *QueryTaskIterator) Next() (bool, *Task, error) {
+		// 达到最大量，则返回
+		if iterator.limit >0 && iterator.curlNum >= iterator.limit {
+			return false, nil, nil
+		}
+
+		// 为0则拉取数据
+		if iterator.index == 0 || iterator.index >= len(iterator.items) {
+			if iterator.index != 0 && iterator.nextPageToken == nil {
+				return false, nil, nil
+			}
+			if iterator.nextPageToken != nil {
+				iterator.req.PageToken = iterator.nextPageToken
+			}
+			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+			if err != nil {
+				return false, nil, err
+			}
+
+			if resp.Code != 0 {
+				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+			}
+
+			if len(resp.Data.Tasks) == 0 {
+				return false, nil, nil
+			}
+
+			iterator.nextPageToken = resp.Data.PageToken
+			iterator.items = resp.Data.Tasks
+			iterator.index = 0
+		}
+
+		block := iterator.items[iterator.index]
+		iterator.index++
+		iterator.curlNum++
+		return true, block, nil
+   }
+
+   func (iterator *QueryTaskIterator) NextPageToken() *string {
+	  return iterator.nextPageToken
+   }
+
+

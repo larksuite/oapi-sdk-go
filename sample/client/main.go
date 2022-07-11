@@ -5,30 +5,31 @@ import (
 	"net/http"
 	"time"
 
-	client "github.com/larksuite/oapi-sdk-go"
+	lark "github.com/larksuite/oapi-sdk-go"
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
 func createDefaultClient() {
-	var feishu_client = client.NewClient("appID", "appSecret")
+	var feishu_client = lark.NewClient("appID", "appSecret")
 	fmt.Println(feishu_client)
 }
 
 func createClientWithLogLevel() {
-	var feishu_client = client.NewClient("appID", "appSecret", client.WithLogLevel(core.LogLevelDebug))
+	var feishu_client = lark.NewClient("appID", "appSecret",
+		lark.WithLogLevel(larkcore.LogLevelDebug))
 	fmt.Println(feishu_client)
 }
 
 func createClientWithAllOptions() {
-	var feishu_client = client.NewClient("appID", "appSecret",
-		client.WithLogLevel(core.LogLevelDebug),
-		client.WithOpenBaseUrl(client.FeishuBaseUrl),
-		client.WithAppType(core.AppTypeSelfBuilt),
-		client.WithReqTimeout(3*time.Second),
-		client.WithDisableTokenCache(),
-		client.WithHelpdeskCredential("id", "token"),
-		client.WithLogger(core.NewEventLogger()),
-		client.WithHttpClient(http.DefaultClient))
+	var feishu_client = lark.NewClient("appID", "appSecret",
+		lark.WithLogLevel(larkcore.LogLevelDebug),
+		lark.WithOpenBaseUrl(lark.FeishuBaseUrl),
+		lark.WithAppType(larkcore.AppTypeSelfBuilt),
+		lark.WithReqTimeout(3*time.Second),
+		lark.WithDisableTokenCache(),
+		lark.WithHelpdeskCredential("id", "token"),
+		lark.WithLogger(larkcore.NewEventLogger()),
+		lark.WithHttpClient(http.DefaultClient))
 	fmt.Println(feishu_client)
 
 }

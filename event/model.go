@@ -2,6 +2,8 @@ package larkevent
 
 import (
 	"net/http"
+
+	"github.com/larksuite/oapi-sdk-go/core"
 )
 
 type EventHeader struct {
@@ -11,6 +13,14 @@ type EventHeader struct {
 	TenantKey  string `json:"tenant_key"`
 	CreateTime string `json:"create_time"`
 	Token      string `json:"token"`
+}
+
+type EventV1Header struct {
+	AppID     string `json:"app_id"`
+	OpenAppID string `json:"open_chat_id"`
+	OpenID    string `json:"open_id"`
+	TenantKey string `json:"tenant_key"`
+	Type      string `json:"type"`
 }
 
 type EventV2Base struct {
@@ -29,6 +39,18 @@ type EventReq struct {
 	Header     map[string][]string
 	Body       []byte
 	RequestURI string
+}
+
+func (req *EventReq) RequestId() string {
+	logID := req.Header[larkcore.HttpHeaderKeyLogId]
+	if len(logID) > 0 {
+		return logID[0]
+	}
+	logID = req.Header[larkcore.HttpHeaderKeyRequestId]
+	if len(logID) > 0 {
+		return logID[0]
+	}
+	return ""
 }
 
 type EventResp struct {

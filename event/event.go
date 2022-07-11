@@ -17,9 +17,13 @@ type EventHandler interface {
 	Handle(context.Context, interface{}) error // 用于处理事件
 }
 
+type EventHandlerModel interface {
+	RawReq(req *EventReq)
+}
+
 type IReqHandler interface {
 	Handle(ctx context.Context, req *EventReq) *EventResp
-	Logger() core.Logger
+	Logger() larkcore.Logger
 }
 
 type DecryptErr struct {
@@ -79,16 +83,16 @@ func Signature(timestamp string, nonce string, eventEncryptKey string, body stri
 	return fmt.Sprintf("%x", bs)
 }
 
-type OptionFunc func(config *core.Config)
+type OptionFunc func(config *larkcore.Config)
 
-func WithLogger(logger core.Logger) OptionFunc {
-	return func(config *core.Config) {
+func WithLogger(logger larkcore.Logger) OptionFunc {
+	return func(config *larkcore.Config) {
 		config.Logger = logger
 	}
 }
 
-func WithLogLevel(logLevel core.LogLevel) OptionFunc {
-	return func(config *core.Config) {
+func WithLogLevel(logLevel larkcore.LogLevel) OptionFunc {
+	return func(config *larkcore.Config) {
 		config.LogLevel = logLevel
 	}
 }

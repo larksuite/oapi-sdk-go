@@ -2,15 +2,16 @@
 package larkmail
 
 import (
-	"context"
 	"net/http"
-
+	"context"
+	
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
+
 // 构建业务域服务实例
-func NewService(config *core.Config) *MailService {
-	m := &MailService{config: config}
+func NewService(config *larkcore.Config) *MailService {
+	m := &MailService{config:config}
 	m.Mailgroup = &mailgroup{service: m}
 	m.MailgroupAlias = &mailgroupAlias{service: m}
 	m.MailgroupMember = &mailgroupMember{service: m}
@@ -24,58 +25,60 @@ func NewService(config *core.Config) *MailService {
 	return m
 }
 
+
 // 业务域服务定义
 type MailService struct {
-	config                    *core.Config
-	Mailgroup                 *mailgroup
-	MailgroupAlias            *mailgroupAlias
-	MailgroupMember           *mailgroupMember
+	config *larkcore.Config
+	Mailgroup *mailgroup
+	MailgroupAlias *mailgroupAlias
+	MailgroupMember *mailgroupMember
 	MailgroupPermissionMember *mailgroupPermissionMember
-	PublicMailbox             *publicMailbox
-	PublicMailboxAlias        *publicMailboxAlias
-	PublicMailboxMember       *publicMailboxMember
-	User                      *user
-	UserMailbox               *userMailbox
-	UserMailboxAlias          *userMailboxAlias
+	PublicMailbox *publicMailbox
+	PublicMailboxAlias *publicMailboxAlias
+	PublicMailboxMember *publicMailboxMember
+	User *user
+	UserMailbox *userMailbox
+	UserMailboxAlias *userMailboxAlias
 }
+
+
 
 // 资源服务定义
 type mailgroup struct {
-	service *MailService
+   service *MailService
 }
 type mailgroupAlias struct {
-	service *MailService
+   service *MailService
 }
 type mailgroupMember struct {
-	service *MailService
+   service *MailService
 }
 type mailgroupPermissionMember struct {
-	service *MailService
+   service *MailService
 }
 type publicMailbox struct {
-	service *MailService
+   service *MailService
 }
 type publicMailboxAlias struct {
-	service *MailService
+   service *MailService
 }
 type publicMailboxMember struct {
-	service *MailService
+   service *MailService
 }
 type user struct {
-	service *MailService
+   service *MailService
 }
 type userMailbox struct {
-	service *MailService
+   service *MailService
 }
 type userMailboxAlias struct {
-	service *MailService
+   service *MailService
 }
-
 // 资源服务方法定义
-func (m *mailgroup) Create(ctx context.Context, req *CreateMailgroupReq, options ...core.RequestOptionFunc) (*CreateMailgroupResp, error) {
+func (m *mailgroup) Create(ctx context.Context, req *CreateMailgroupReq, options ...larkcore.RequestOptionFunc) (*CreateMailgroupResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, m.service.config, http.MethodPost,
-		"/open-apis/mail/v1/mailgroups", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,m.service.config, http.MethodPost,
+		"/open-apis/mail/v1/mailgroups", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -87,10 +90,10 @@ func (m *mailgroup) Create(ctx context.Context, req *CreateMailgroupReq, options
 	}
 	return resp, err
 }
-func (m *mailgroup) Delete(ctx context.Context, req *DeleteMailgroupReq, options ...core.RequestOptionFunc) (*DeleteMailgroupResp, error) {
+func (m *mailgroup) Delete(ctx context.Context, req *DeleteMailgroupReq, options ...larkcore.RequestOptionFunc) (*DeleteMailgroupResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, m.service.config, http.MethodDelete,
-		"/open-apis/mail/v1/mailgroups/:mailgroup_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,m.service.config, http.MethodDelete,
+		"/open-apis/mail/v1/mailgroups/:mailgroup_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -102,10 +105,10 @@ func (m *mailgroup) Delete(ctx context.Context, req *DeleteMailgroupReq, options
 	}
 	return resp, err
 }
-func (m *mailgroup) Get(ctx context.Context, req *GetMailgroupReq, options ...core.RequestOptionFunc) (*GetMailgroupResp, error) {
+func (m *mailgroup) Get(ctx context.Context, req *GetMailgroupReq, options ...larkcore.RequestOptionFunc) (*GetMailgroupResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, m.service.config, http.MethodGet,
-		"/open-apis/mail/v1/mailgroups/:mailgroup_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,m.service.config, http.MethodGet,
+		"/open-apis/mail/v1/mailgroups/:mailgroup_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -117,10 +120,10 @@ func (m *mailgroup) Get(ctx context.Context, req *GetMailgroupReq, options ...co
 	}
 	return resp, err
 }
-func (m *mailgroup) List(ctx context.Context, req *ListMailgroupReq, options ...core.RequestOptionFunc) (*ListMailgroupResp, error) {
+func (m *mailgroup) List(ctx context.Context, req *ListMailgroupReq, options ...larkcore.RequestOptionFunc) (*ListMailgroupResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, m.service.config, http.MethodGet,
-		"/open-apis/mail/v1/mailgroups", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,m.service.config, http.MethodGet,
+		"/open-apis/mail/v1/mailgroups", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -132,18 +135,18 @@ func (m *mailgroup) List(ctx context.Context, req *ListMailgroupReq, options ...
 	}
 	return resp, err
 }
-func (m *mailgroup) ListByIterator(ctx context.Context, req *ListMailgroupReq, options ...core.RequestOptionFunc) (*ListMailgroupIterator, error) {
-	return &ListMailgroupIterator{
-		ctx:      ctx,
-		req:      req,
-		listFunc: m.List,
-		options:  options,
-		limit:    req.Limit}, nil
+func (m *mailgroup) ListByIterator(ctx context.Context, req *ListMailgroupReq, options ...larkcore.RequestOptionFunc) (*ListMailgroupIterator, error) {
+   return &ListMailgroupIterator{
+	  ctx:	  ctx,
+	  req:	  req,
+	  listFunc: m.List,
+	  options:  options,
+	  limit: req.Limit}, nil
 }
-func (m *mailgroup) Patch(ctx context.Context, req *PatchMailgroupReq, options ...core.RequestOptionFunc) (*PatchMailgroupResp, error) {
+func (m *mailgroup) Patch(ctx context.Context, req *PatchMailgroupReq, options ...larkcore.RequestOptionFunc) (*PatchMailgroupResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, m.service.config, http.MethodPatch,
-		"/open-apis/mail/v1/mailgroups/:mailgroup_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,m.service.config, http.MethodPatch,
+		"/open-apis/mail/v1/mailgroups/:mailgroup_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -155,10 +158,10 @@ func (m *mailgroup) Patch(ctx context.Context, req *PatchMailgroupReq, options .
 	}
 	return resp, err
 }
-func (m *mailgroup) Update(ctx context.Context, req *UpdateMailgroupReq, options ...core.RequestOptionFunc) (*UpdateMailgroupResp, error) {
+func (m *mailgroup) Update(ctx context.Context, req *UpdateMailgroupReq, options ...larkcore.RequestOptionFunc) (*UpdateMailgroupResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, m.service.config, http.MethodPut,
-		"/open-apis/mail/v1/mailgroups/:mailgroup_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,m.service.config, http.MethodPut,
+		"/open-apis/mail/v1/mailgroups/:mailgroup_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -170,10 +173,10 @@ func (m *mailgroup) Update(ctx context.Context, req *UpdateMailgroupReq, options
 	}
 	return resp, err
 }
-func (m *mailgroupAlias) Create(ctx context.Context, req *CreateMailgroupAliasReq, options ...core.RequestOptionFunc) (*CreateMailgroupAliasResp, error) {
+func (m *mailgroupAlias) Create(ctx context.Context, req *CreateMailgroupAliasReq, options ...larkcore.RequestOptionFunc) (*CreateMailgroupAliasResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, m.service.config, http.MethodPost,
-		"/open-apis/mail/v1/mailgroups/:mailgroup_id/aliases", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,m.service.config, http.MethodPost,
+		"/open-apis/mail/v1/mailgroups/:mailgroup_id/aliases", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -185,10 +188,10 @@ func (m *mailgroupAlias) Create(ctx context.Context, req *CreateMailgroupAliasRe
 	}
 	return resp, err
 }
-func (m *mailgroupAlias) Delete(ctx context.Context, req *DeleteMailgroupAliasReq, options ...core.RequestOptionFunc) (*DeleteMailgroupAliasResp, error) {
+func (m *mailgroupAlias) Delete(ctx context.Context, req *DeleteMailgroupAliasReq, options ...larkcore.RequestOptionFunc) (*DeleteMailgroupAliasResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, m.service.config, http.MethodDelete,
-		"/open-apis/mail/v1/mailgroups/:mailgroup_id/aliases/:alias_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,m.service.config, http.MethodDelete,
+		"/open-apis/mail/v1/mailgroups/:mailgroup_id/aliases/:alias_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -200,10 +203,10 @@ func (m *mailgroupAlias) Delete(ctx context.Context, req *DeleteMailgroupAliasRe
 	}
 	return resp, err
 }
-func (m *mailgroupAlias) List(ctx context.Context, req *ListMailgroupAliasReq, options ...core.RequestOptionFunc) (*ListMailgroupAliasResp, error) {
+func (m *mailgroupAlias) List(ctx context.Context, req *ListMailgroupAliasReq, options ...larkcore.RequestOptionFunc) (*ListMailgroupAliasResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, m.service.config, http.MethodGet,
-		"/open-apis/mail/v1/mailgroups/:mailgroup_id/aliases", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,m.service.config, http.MethodGet,
+		"/open-apis/mail/v1/mailgroups/:mailgroup_id/aliases", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -215,10 +218,10 @@ func (m *mailgroupAlias) List(ctx context.Context, req *ListMailgroupAliasReq, o
 	}
 	return resp, err
 }
-func (m *mailgroupMember) Create(ctx context.Context, req *CreateMailgroupMemberReq, options ...core.RequestOptionFunc) (*CreateMailgroupMemberResp, error) {
+func (m *mailgroupMember) Create(ctx context.Context, req *CreateMailgroupMemberReq, options ...larkcore.RequestOptionFunc) (*CreateMailgroupMemberResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, m.service.config, http.MethodPost,
-		"/open-apis/mail/v1/mailgroups/:mailgroup_id/members", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,m.service.config, http.MethodPost,
+		"/open-apis/mail/v1/mailgroups/:mailgroup_id/members", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -230,10 +233,10 @@ func (m *mailgroupMember) Create(ctx context.Context, req *CreateMailgroupMember
 	}
 	return resp, err
 }
-func (m *mailgroupMember) Delete(ctx context.Context, req *DeleteMailgroupMemberReq, options ...core.RequestOptionFunc) (*DeleteMailgroupMemberResp, error) {
+func (m *mailgroupMember) Delete(ctx context.Context, req *DeleteMailgroupMemberReq, options ...larkcore.RequestOptionFunc) (*DeleteMailgroupMemberResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, m.service.config, http.MethodDelete,
-		"/open-apis/mail/v1/mailgroups/:mailgroup_id/members/:member_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,m.service.config, http.MethodDelete,
+		"/open-apis/mail/v1/mailgroups/:mailgroup_id/members/:member_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -245,10 +248,10 @@ func (m *mailgroupMember) Delete(ctx context.Context, req *DeleteMailgroupMember
 	}
 	return resp, err
 }
-func (m *mailgroupMember) Get(ctx context.Context, req *GetMailgroupMemberReq, options ...core.RequestOptionFunc) (*GetMailgroupMemberResp, error) {
+func (m *mailgroupMember) Get(ctx context.Context, req *GetMailgroupMemberReq, options ...larkcore.RequestOptionFunc) (*GetMailgroupMemberResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, m.service.config, http.MethodGet,
-		"/open-apis/mail/v1/mailgroups/:mailgroup_id/members/:member_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,m.service.config, http.MethodGet,
+		"/open-apis/mail/v1/mailgroups/:mailgroup_id/members/:member_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -260,10 +263,10 @@ func (m *mailgroupMember) Get(ctx context.Context, req *GetMailgroupMemberReq, o
 	}
 	return resp, err
 }
-func (m *mailgroupMember) List(ctx context.Context, req *ListMailgroupMemberReq, options ...core.RequestOptionFunc) (*ListMailgroupMemberResp, error) {
+func (m *mailgroupMember) List(ctx context.Context, req *ListMailgroupMemberReq, options ...larkcore.RequestOptionFunc) (*ListMailgroupMemberResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, m.service.config, http.MethodGet,
-		"/open-apis/mail/v1/mailgroups/:mailgroup_id/members", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,m.service.config, http.MethodGet,
+		"/open-apis/mail/v1/mailgroups/:mailgroup_id/members", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -275,18 +278,18 @@ func (m *mailgroupMember) List(ctx context.Context, req *ListMailgroupMemberReq,
 	}
 	return resp, err
 }
-func (m *mailgroupMember) ListByIterator(ctx context.Context, req *ListMailgroupMemberReq, options ...core.RequestOptionFunc) (*ListMailgroupMemberIterator, error) {
-	return &ListMailgroupMemberIterator{
-		ctx:      ctx,
-		req:      req,
-		listFunc: m.List,
-		options:  options,
-		limit:    req.Limit}, nil
+func (m *mailgroupMember) ListByIterator(ctx context.Context, req *ListMailgroupMemberReq, options ...larkcore.RequestOptionFunc) (*ListMailgroupMemberIterator, error) {
+   return &ListMailgroupMemberIterator{
+	  ctx:	  ctx,
+	  req:	  req,
+	  listFunc: m.List,
+	  options:  options,
+	  limit: req.Limit}, nil
 }
-func (m *mailgroupPermissionMember) Create(ctx context.Context, req *CreateMailgroupPermissionMemberReq, options ...core.RequestOptionFunc) (*CreateMailgroupPermissionMemberResp, error) {
+func (m *mailgroupPermissionMember) Create(ctx context.Context, req *CreateMailgroupPermissionMemberReq, options ...larkcore.RequestOptionFunc) (*CreateMailgroupPermissionMemberResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, m.service.config, http.MethodPost,
-		"/open-apis/mail/v1/mailgroups/:mailgroup_id/permission_members", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,m.service.config, http.MethodPost,
+		"/open-apis/mail/v1/mailgroups/:mailgroup_id/permission_members", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -298,10 +301,10 @@ func (m *mailgroupPermissionMember) Create(ctx context.Context, req *CreateMailg
 	}
 	return resp, err
 }
-func (m *mailgroupPermissionMember) Delete(ctx context.Context, req *DeleteMailgroupPermissionMemberReq, options ...core.RequestOptionFunc) (*DeleteMailgroupPermissionMemberResp, error) {
+func (m *mailgroupPermissionMember) Delete(ctx context.Context, req *DeleteMailgroupPermissionMemberReq, options ...larkcore.RequestOptionFunc) (*DeleteMailgroupPermissionMemberResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, m.service.config, http.MethodDelete,
-		"/open-apis/mail/v1/mailgroups/:mailgroup_id/permission_members/:permission_member_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,m.service.config, http.MethodDelete,
+		"/open-apis/mail/v1/mailgroups/:mailgroup_id/permission_members/:permission_member_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -313,10 +316,10 @@ func (m *mailgroupPermissionMember) Delete(ctx context.Context, req *DeleteMailg
 	}
 	return resp, err
 }
-func (m *mailgroupPermissionMember) Get(ctx context.Context, req *GetMailgroupPermissionMemberReq, options ...core.RequestOptionFunc) (*GetMailgroupPermissionMemberResp, error) {
+func (m *mailgroupPermissionMember) Get(ctx context.Context, req *GetMailgroupPermissionMemberReq, options ...larkcore.RequestOptionFunc) (*GetMailgroupPermissionMemberResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, m.service.config, http.MethodGet,
-		"/open-apis/mail/v1/mailgroups/:mailgroup_id/permission_members/:permission_member_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,m.service.config, http.MethodGet,
+		"/open-apis/mail/v1/mailgroups/:mailgroup_id/permission_members/:permission_member_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -328,10 +331,10 @@ func (m *mailgroupPermissionMember) Get(ctx context.Context, req *GetMailgroupPe
 	}
 	return resp, err
 }
-func (m *mailgroupPermissionMember) List(ctx context.Context, req *ListMailgroupPermissionMemberReq, options ...core.RequestOptionFunc) (*ListMailgroupPermissionMemberResp, error) {
+func (m *mailgroupPermissionMember) List(ctx context.Context, req *ListMailgroupPermissionMemberReq, options ...larkcore.RequestOptionFunc) (*ListMailgroupPermissionMemberResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, m.service.config, http.MethodGet,
-		"/open-apis/mail/v1/mailgroups/:mailgroup_id/permission_members", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,m.service.config, http.MethodGet,
+		"/open-apis/mail/v1/mailgroups/:mailgroup_id/permission_members", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -343,18 +346,18 @@ func (m *mailgroupPermissionMember) List(ctx context.Context, req *ListMailgroup
 	}
 	return resp, err
 }
-func (m *mailgroupPermissionMember) ListByIterator(ctx context.Context, req *ListMailgroupPermissionMemberReq, options ...core.RequestOptionFunc) (*ListMailgroupPermissionMemberIterator, error) {
-	return &ListMailgroupPermissionMemberIterator{
-		ctx:      ctx,
-		req:      req,
-		listFunc: m.List,
-		options:  options,
-		limit:    req.Limit}, nil
+func (m *mailgroupPermissionMember) ListByIterator(ctx context.Context, req *ListMailgroupPermissionMemberReq, options ...larkcore.RequestOptionFunc) (*ListMailgroupPermissionMemberIterator, error) {
+   return &ListMailgroupPermissionMemberIterator{
+	  ctx:	  ctx,
+	  req:	  req,
+	  listFunc: m.List,
+	  options:  options,
+	  limit: req.Limit}, nil
 }
-func (p *publicMailbox) Create(ctx context.Context, req *CreatePublicMailboxReq, options ...core.RequestOptionFunc) (*CreatePublicMailboxResp, error) {
+func (p *publicMailbox) Create(ctx context.Context, req *CreatePublicMailboxReq, options ...larkcore.RequestOptionFunc) (*CreatePublicMailboxResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, p.service.config, http.MethodPost,
-		"/open-apis/mail/v1/public_mailboxes", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,p.service.config, http.MethodPost,
+		"/open-apis/mail/v1/public_mailboxes", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -366,10 +369,10 @@ func (p *publicMailbox) Create(ctx context.Context, req *CreatePublicMailboxReq,
 	}
 	return resp, err
 }
-func (p *publicMailbox) Delete(ctx context.Context, req *DeletePublicMailboxReq, options ...core.RequestOptionFunc) (*DeletePublicMailboxResp, error) {
+func (p *publicMailbox) Delete(ctx context.Context, req *DeletePublicMailboxReq, options ...larkcore.RequestOptionFunc) (*DeletePublicMailboxResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, p.service.config, http.MethodDelete,
-		"/open-apis/mail/v1/public_mailboxes/:public_mailbox_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,p.service.config, http.MethodDelete,
+		"/open-apis/mail/v1/public_mailboxes/:public_mailbox_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -381,10 +384,10 @@ func (p *publicMailbox) Delete(ctx context.Context, req *DeletePublicMailboxReq,
 	}
 	return resp, err
 }
-func (p *publicMailbox) Get(ctx context.Context, req *GetPublicMailboxReq, options ...core.RequestOptionFunc) (*GetPublicMailboxResp, error) {
+func (p *publicMailbox) Get(ctx context.Context, req *GetPublicMailboxReq, options ...larkcore.RequestOptionFunc) (*GetPublicMailboxResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, p.service.config, http.MethodGet,
-		"/open-apis/mail/v1/public_mailboxes/:public_mailbox_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,p.service.config, http.MethodGet,
+		"/open-apis/mail/v1/public_mailboxes/:public_mailbox_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -396,10 +399,10 @@ func (p *publicMailbox) Get(ctx context.Context, req *GetPublicMailboxReq, optio
 	}
 	return resp, err
 }
-func (p *publicMailbox) List(ctx context.Context, req *ListPublicMailboxReq, options ...core.RequestOptionFunc) (*ListPublicMailboxResp, error) {
+func (p *publicMailbox) List(ctx context.Context, req *ListPublicMailboxReq, options ...larkcore.RequestOptionFunc) (*ListPublicMailboxResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, p.service.config, http.MethodGet,
-		"/open-apis/mail/v1/public_mailboxes", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,p.service.config, http.MethodGet,
+		"/open-apis/mail/v1/public_mailboxes", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -411,18 +414,18 @@ func (p *publicMailbox) List(ctx context.Context, req *ListPublicMailboxReq, opt
 	}
 	return resp, err
 }
-func (p *publicMailbox) ListByIterator(ctx context.Context, req *ListPublicMailboxReq, options ...core.RequestOptionFunc) (*ListPublicMailboxIterator, error) {
-	return &ListPublicMailboxIterator{
-		ctx:      ctx,
-		req:      req,
-		listFunc: p.List,
-		options:  options,
-		limit:    req.Limit}, nil
+func (p *publicMailbox) ListByIterator(ctx context.Context, req *ListPublicMailboxReq, options ...larkcore.RequestOptionFunc) (*ListPublicMailboxIterator, error) {
+   return &ListPublicMailboxIterator{
+	  ctx:	  ctx,
+	  req:	  req,
+	  listFunc: p.List,
+	  options:  options,
+	  limit: req.Limit}, nil
 }
-func (p *publicMailbox) Patch(ctx context.Context, req *PatchPublicMailboxReq, options ...core.RequestOptionFunc) (*PatchPublicMailboxResp, error) {
+func (p *publicMailbox) Patch(ctx context.Context, req *PatchPublicMailboxReq, options ...larkcore.RequestOptionFunc) (*PatchPublicMailboxResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, p.service.config, http.MethodPatch,
-		"/open-apis/mail/v1/public_mailboxes/:public_mailbox_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,p.service.config, http.MethodPatch,
+		"/open-apis/mail/v1/public_mailboxes/:public_mailbox_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -434,10 +437,10 @@ func (p *publicMailbox) Patch(ctx context.Context, req *PatchPublicMailboxReq, o
 	}
 	return resp, err
 }
-func (p *publicMailbox) Update(ctx context.Context, req *UpdatePublicMailboxReq, options ...core.RequestOptionFunc) (*UpdatePublicMailboxResp, error) {
+func (p *publicMailbox) Update(ctx context.Context, req *UpdatePublicMailboxReq, options ...larkcore.RequestOptionFunc) (*UpdatePublicMailboxResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, p.service.config, http.MethodPut,
-		"/open-apis/mail/v1/public_mailboxes/:public_mailbox_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,p.service.config, http.MethodPut,
+		"/open-apis/mail/v1/public_mailboxes/:public_mailbox_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -449,10 +452,10 @@ func (p *publicMailbox) Update(ctx context.Context, req *UpdatePublicMailboxReq,
 	}
 	return resp, err
 }
-func (p *publicMailboxAlias) Create(ctx context.Context, req *CreatePublicMailboxAliasReq, options ...core.RequestOptionFunc) (*CreatePublicMailboxAliasResp, error) {
+func (p *publicMailboxAlias) Create(ctx context.Context, req *CreatePublicMailboxAliasReq, options ...larkcore.RequestOptionFunc) (*CreatePublicMailboxAliasResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, p.service.config, http.MethodPost,
-		"/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/aliases", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,p.service.config, http.MethodPost,
+		"/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/aliases", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -464,10 +467,10 @@ func (p *publicMailboxAlias) Create(ctx context.Context, req *CreatePublicMailbo
 	}
 	return resp, err
 }
-func (p *publicMailboxAlias) Delete(ctx context.Context, req *DeletePublicMailboxAliasReq, options ...core.RequestOptionFunc) (*DeletePublicMailboxAliasResp, error) {
+func (p *publicMailboxAlias) Delete(ctx context.Context, req *DeletePublicMailboxAliasReq, options ...larkcore.RequestOptionFunc) (*DeletePublicMailboxAliasResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, p.service.config, http.MethodDelete,
-		"/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/aliases/:alias_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,p.service.config, http.MethodDelete,
+		"/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/aliases/:alias_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -479,10 +482,10 @@ func (p *publicMailboxAlias) Delete(ctx context.Context, req *DeletePublicMailbo
 	}
 	return resp, err
 }
-func (p *publicMailboxAlias) List(ctx context.Context, req *ListPublicMailboxAliasReq, options ...core.RequestOptionFunc) (*ListPublicMailboxAliasResp, error) {
+func (p *publicMailboxAlias) List(ctx context.Context, req *ListPublicMailboxAliasReq, options ...larkcore.RequestOptionFunc) (*ListPublicMailboxAliasResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, p.service.config, http.MethodGet,
-		"/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/aliases", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,p.service.config, http.MethodGet,
+		"/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/aliases", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -494,10 +497,10 @@ func (p *publicMailboxAlias) List(ctx context.Context, req *ListPublicMailboxAli
 	}
 	return resp, err
 }
-func (p *publicMailboxMember) Clear(ctx context.Context, req *ClearPublicMailboxMemberReq, options ...core.RequestOptionFunc) (*ClearPublicMailboxMemberResp, error) {
+func (p *publicMailboxMember) Clear(ctx context.Context, req *ClearPublicMailboxMemberReq, options ...larkcore.RequestOptionFunc) (*ClearPublicMailboxMemberResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, p.service.config, http.MethodPost,
-		"/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members/clear", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,p.service.config, http.MethodPost,
+		"/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members/clear", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -509,10 +512,10 @@ func (p *publicMailboxMember) Clear(ctx context.Context, req *ClearPublicMailbox
 	}
 	return resp, err
 }
-func (p *publicMailboxMember) Create(ctx context.Context, req *CreatePublicMailboxMemberReq, options ...core.RequestOptionFunc) (*CreatePublicMailboxMemberResp, error) {
+func (p *publicMailboxMember) Create(ctx context.Context, req *CreatePublicMailboxMemberReq, options ...larkcore.RequestOptionFunc) (*CreatePublicMailboxMemberResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, p.service.config, http.MethodPost,
-		"/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,p.service.config, http.MethodPost,
+		"/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -524,10 +527,10 @@ func (p *publicMailboxMember) Create(ctx context.Context, req *CreatePublicMailb
 	}
 	return resp, err
 }
-func (p *publicMailboxMember) Delete(ctx context.Context, req *DeletePublicMailboxMemberReq, options ...core.RequestOptionFunc) (*DeletePublicMailboxMemberResp, error) {
+func (p *publicMailboxMember) Delete(ctx context.Context, req *DeletePublicMailboxMemberReq, options ...larkcore.RequestOptionFunc) (*DeletePublicMailboxMemberResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, p.service.config, http.MethodDelete,
-		"/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members/:member_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,p.service.config, http.MethodDelete,
+		"/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members/:member_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -539,10 +542,10 @@ func (p *publicMailboxMember) Delete(ctx context.Context, req *DeletePublicMailb
 	}
 	return resp, err
 }
-func (p *publicMailboxMember) Get(ctx context.Context, req *GetPublicMailboxMemberReq, options ...core.RequestOptionFunc) (*GetPublicMailboxMemberResp, error) {
+func (p *publicMailboxMember) Get(ctx context.Context, req *GetPublicMailboxMemberReq, options ...larkcore.RequestOptionFunc) (*GetPublicMailboxMemberResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, p.service.config, http.MethodGet,
-		"/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members/:member_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,p.service.config, http.MethodGet,
+		"/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members/:member_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -554,10 +557,10 @@ func (p *publicMailboxMember) Get(ctx context.Context, req *GetPublicMailboxMemb
 	}
 	return resp, err
 }
-func (p *publicMailboxMember) List(ctx context.Context, req *ListPublicMailboxMemberReq, options ...core.RequestOptionFunc) (*ListPublicMailboxMemberResp, error) {
+func (p *publicMailboxMember) List(ctx context.Context, req *ListPublicMailboxMemberReq, options ...larkcore.RequestOptionFunc) (*ListPublicMailboxMemberResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, p.service.config, http.MethodGet,
-		"/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,p.service.config, http.MethodGet,
+		"/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -569,18 +572,18 @@ func (p *publicMailboxMember) List(ctx context.Context, req *ListPublicMailboxMe
 	}
 	return resp, err
 }
-func (p *publicMailboxMember) ListByIterator(ctx context.Context, req *ListPublicMailboxMemberReq, options ...core.RequestOptionFunc) (*ListPublicMailboxMemberIterator, error) {
-	return &ListPublicMailboxMemberIterator{
-		ctx:      ctx,
-		req:      req,
-		listFunc: p.List,
-		options:  options,
-		limit:    req.Limit}, nil
+func (p *publicMailboxMember) ListByIterator(ctx context.Context, req *ListPublicMailboxMemberReq, options ...larkcore.RequestOptionFunc) (*ListPublicMailboxMemberIterator, error) {
+   return &ListPublicMailboxMemberIterator{
+	  ctx:	  ctx,
+	  req:	  req,
+	  listFunc: p.List,
+	  options:  options,
+	  limit: req.Limit}, nil
 }
-func (u *user) Query(ctx context.Context, req *QueryUserReq, options ...core.RequestOptionFunc) (*QueryUserResp, error) {
+func (u *user) Query(ctx context.Context, req *QueryUserReq, options ...larkcore.RequestOptionFunc) (*QueryUserResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, u.service.config, http.MethodPost,
-		"/open-apis/mail/v1/users/query", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,u.service.config, http.MethodPost,
+		"/open-apis/mail/v1/users/query", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -592,10 +595,10 @@ func (u *user) Query(ctx context.Context, req *QueryUserReq, options ...core.Req
 	}
 	return resp, err
 }
-func (u *userMailbox) Delete(ctx context.Context, req *DeleteUserMailboxReq, options ...core.RequestOptionFunc) (*DeleteUserMailboxResp, error) {
+func (u *userMailbox) Delete(ctx context.Context, req *DeleteUserMailboxReq, options ...larkcore.RequestOptionFunc) (*DeleteUserMailboxResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, u.service.config, http.MethodDelete,
-		"/open-apis/mail/v1/user_mailboxes/:user_mailbox_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,u.service.config, http.MethodDelete,
+		"/open-apis/mail/v1/user_mailboxes/:user_mailbox_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -607,10 +610,10 @@ func (u *userMailbox) Delete(ctx context.Context, req *DeleteUserMailboxReq, opt
 	}
 	return resp, err
 }
-func (u *userMailboxAlias) Create(ctx context.Context, req *CreateUserMailboxAliasReq, options ...core.RequestOptionFunc) (*CreateUserMailboxAliasResp, error) {
+func (u *userMailboxAlias) Create(ctx context.Context, req *CreateUserMailboxAliasReq, options ...larkcore.RequestOptionFunc) (*CreateUserMailboxAliasResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, u.service.config, http.MethodPost,
-		"/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/aliases", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,u.service.config, http.MethodPost,
+		"/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/aliases", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -622,10 +625,10 @@ func (u *userMailboxAlias) Create(ctx context.Context, req *CreateUserMailboxAli
 	}
 	return resp, err
 }
-func (u *userMailboxAlias) Delete(ctx context.Context, req *DeleteUserMailboxAliasReq, options ...core.RequestOptionFunc) (*DeleteUserMailboxAliasResp, error) {
+func (u *userMailboxAlias) Delete(ctx context.Context, req *DeleteUserMailboxAliasReq, options ...larkcore.RequestOptionFunc) (*DeleteUserMailboxAliasResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, u.service.config, http.MethodDelete,
-		"/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/aliases/:alias_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,u.service.config, http.MethodDelete,
+		"/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/aliases/:alias_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -637,10 +640,10 @@ func (u *userMailboxAlias) Delete(ctx context.Context, req *DeleteUserMailboxAli
 	}
 	return resp, err
 }
-func (u *userMailboxAlias) List(ctx context.Context, req *ListUserMailboxAliasReq, options ...core.RequestOptionFunc) (*ListUserMailboxAliasResp, error) {
+func (u *userMailboxAlias) List(ctx context.Context, req *ListUserMailboxAliasReq, options ...larkcore.RequestOptionFunc) (*ListUserMailboxAliasResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, u.service.config, http.MethodGet,
-		"/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/aliases", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,u.service.config, http.MethodGet,
+		"/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/aliases", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}

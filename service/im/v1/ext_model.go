@@ -5,7 +5,193 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
+
+	larkevent "github.com/larksuite/oapi-sdk-go/event"
 )
+
+type ChatI18nNames struct {
+	EnUs string `json:"en_us,omitempty"`
+	ZhCn string `json:"zh_cn,omitempty"`
+}
+
+type P1AddBotV1Data struct {
+	Type                string         `json:"type,omitempty"`
+	AppID               string         `json:"app_id,omitempty"`
+	ChatI18nNames       *ChatI18nNames `json:"chat_i18n_names,omitempty"`
+	ChatName            string         `json:"chat_name,omitempty"`
+	ChatOwnerEmployeeID string         `json:"chat_owner_employee_id,omitempty"`
+	ChatOwnerName       string         `json:"chat_owner_name,omitempty"`
+	ChatOwnerOpenID     string         `json:"chat_owner_open_id,omitempty"`
+	OpenChatID          string         `json:"open_chat_id,omitempty"`
+	OperatorEmployeeID  string         `json:"operator_employee_id,omitempty"`
+	OperatorName        string         `json:"operator_name,omitempty"`
+	OperatorOpenID      string         `json:"operator_open_id,omitempty"`
+	OwnerIsBot          bool           `json:"owner_is_bot,omitempty"`
+	TenantKey           string         `json:"tenant_key,omitempty"`
+}
+
+type P1AddBotV1 struct {
+	*larkevent.EventReq
+	*larkevent.EventBase
+	Event *P1AddBotV1Data `json:"event"`
+}
+
+func (m *P1AddBotV1) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
+}
+
+type P1RemoveBotV1Data struct {
+	Type                string         `json:"type,omitempty"`
+	AppID               string         `json:"app_id,omitempty"`
+	ChatI18nNames       *ChatI18nNames `json:"chat_i18n_names,omitempty"`
+	ChatName            string         `json:"chat_name,omitempty"`
+	ChatOwnerEmployeeID string         `json:"chat_owner_employee_id,omitempty"`
+	ChatOwnerName       string         `json:"chat_owner_name,omitempty"`
+	ChatOwnerOpenID     string         `json:"chat_owner_open_id,omitempty"`
+	OpenChatID          string         `json:"open_chat_id,omitempty"`
+	OperatorEmployeeID  string         `json:"operator_employee_id,omitempty"`
+	OperatorName        string         `json:"operator_name,omitempty"`
+	OperatorOpenID      string         `json:"operator_open_id,omitempty"`
+	OwnerIsBot          bool           `json:"owner_is_bot,omitempty"`
+	TenantKey           string         `json:"tenant_key,omitempty"`
+}
+
+type P1RemoveBotV1 struct {
+	*larkevent.EventReq
+	*larkevent.EventBase
+	Event *P1RemoveBotV1Data `json:"event"`
+}
+
+func (m *P1RemoveBotV1) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
+}
+
+type P1OperatorV1 struct {
+	OpenId string `json:"open_id,omitempty"`
+	UserId string `json:"user_id,omitempty"`
+}
+
+type P1UserV1 struct {
+	OpenId string `json:"open_id,omitempty"`
+	UserId string `json:"user_id,omitempty"`
+	Name   string `json:"name,omitempty"`
+}
+
+type P1UserInOutChatV1Data struct {
+	Type      string        `json:"type,omitempty"`
+	AppID     string        `json:"app_id,omitempty"`
+	ChatId    string        `json:"chat_id,omitempty"`
+	Operator  *P1OperatorV1 `json:"operator,omitempty"`
+	TenantKey string        `json:"tenant_key,omitempty"`
+	Users     []*P1UserV1   `json:"users,omitempty"`
+}
+
+type P1UserInOutChatV1 struct {
+	*larkevent.EventReq
+	*larkevent.EventBase
+	Event *P1UserInOutChatV1Data `json:"event"`
+}
+
+func (m *P1UserInOutChatV1) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
+}
+
+type P1ChatDisbandV1Data struct {
+	Type      string        `json:"type,omitempty"`
+	AppID     string        `json:"app_id,omitempty"`
+	ChatId    string        `json:"chat_id,omitempty"`
+	Operator  *P1OperatorV1 `json:"operator,omitempty"`
+	TenantKey string        `json:"tenant_key,omitempty"`
+}
+
+type P1ChatDisbandV1 struct {
+	*larkevent.EventReq
+	*larkevent.EventBase
+	Event *P1ChatDisbandV1Data `json:"event"`
+}
+
+func (m *P1ChatDisbandV1) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
+}
+
+type P1GroupSettingChangeV1 struct {
+	OwnerOpenId         string `json:"owner_open_id,omitempty"`
+	OwnerUserId         string `json:"owner_user_id,omitempty"`
+	AddMemberPermission string `json:"add_member_permission,omitempty"`
+	MessageNotification bool   `json:"message_notification,omitempty"`
+}
+type P1GroupSettingUpdatedV1Data struct {
+	Type         string                  `json:"type,omitempty"`
+	AppID        string                  `json:"app_id,omitempty"`
+	ChatId       string                  `json:"chat_id,omitempty"`
+	Operator     *P1OperatorV1           `json:"operator,omitempty"`
+	TenantKey    string                  `json:"tenant_key,omitempty"`
+	BeforeChange *P1GroupSettingChangeV1 `json:"before_change,omitempty"`
+	AfterChange  *P1GroupSettingChangeV1 `json:"after_change,omitempty"`
+}
+
+type P1GroupSettingUpdatedV1 struct {
+	*larkevent.EventReq
+	*larkevent.EventBase
+	Event *P1GroupSettingUpdatedV1Data `json:"event"`
+}
+
+func (m *P1GroupSettingUpdatedV1) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
+}
+
+// protocol v1的 Message_Read
+type P1MessageReadV1Data struct {
+	MessageIdList []string `json:"message_id_list,omitempty"`
+	AppID         string   `json:"app_id"`
+	OpenAppID     string   `json:"open_chat_id"`
+	OpenID        string   `json:"open_id"`
+	TenantKey     string   `json:"tenant_key"`
+	Type          string   `json:"type"`
+}
+
+type P1MessageReadV1 struct {
+	*larkevent.EventReq
+	*larkevent.EventBase
+	Event *P1MessageReadV1Data `json:"event"`
+}
+
+func (m *P1MessageReadV1) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
+}
+
+// protocol v1的 message
+type P1MessageReceiveV1 struct {
+	*larkevent.EventBase
+	*larkevent.EventReq
+	Event *P1MessageReceiveV1Data `json:"event"`
+}
+
+func (m *P1MessageReceiveV1) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
+}
+
+type P1MessageReceiveV1Data struct {
+	Type             string   `json:"type,omitempty"`
+	AppID            string   `json:"app_id,omitempty"`
+	TenantKey        string   `json:"tenant_key,omitempty"`
+	RootID           string   `json:"root_id,omitempty"`
+	ParentID         string   `json:"parent_id,omitempty"`
+	OpenChatID       string   `json:"open_chat_id,omitempty"`
+	ChatType         string   `json:"chat_type,omitempty"`
+	MsgType          string   `json:"msg_type,omitempty"`
+	OpenID           string   `json:"open_id,omitempty"`
+	EmployeeID       string   `json:"employee_id,omitempty"`
+	UnionID          string   `json:"union_id,omitempty"`
+	OpenMessageID    string   `json:"open_message_id,omitempty"`
+	IsMention        bool     `json:"is_mention,omitempty"`
+	Text             string   `json:"text,omitempty"`
+	TextWithoutAtBot string   `json:"text_without_at_bot,omitempty"`
+	Title            string   `json:"title,omitempty"`
+	ImageKeys        []string `json:"image_keys,omitempty"`
+	ImageKey         string   `json:"image_key,omitempty"`
+	FileKey          string   `json:"file_key,omitempty"`
+}
 
 /**
 text类型消息结构化
@@ -389,4 +575,9 @@ const (
 	MsgTypeInteractive string = "interactive"
 	MsgTypeShareChat   string = "share_chat"
 	MsgTypeShareUser   string = "share_user"
+)
+
+const (
+	ChatTypePrivate string = "private"
+	ChatTypePublic  string = "public"
 )

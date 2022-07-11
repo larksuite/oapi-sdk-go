@@ -2,15 +2,16 @@
 package larkbitable
 
 import (
-	"context"
 	"net/http"
-
+	"context"
+	
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
+
 // 构建业务域服务实例
-func NewService(config *core.Config) *BitableService {
-	b := &BitableService{config: config}
+func NewService(config *larkcore.Config) *BitableService {
+	b := &BitableService{config:config}
 	b.App = &app{service: b}
 	b.AppRole = &appRole{service: b}
 	b.AppRoleMember = &appRoleMember{service: b}
@@ -22,50 +23,52 @@ func NewService(config *core.Config) *BitableService {
 	return b
 }
 
+
 // 业务域服务定义
 type BitableService struct {
-	config            *core.Config
-	App               *app
-	AppRole           *appRole
-	AppRoleMember     *appRoleMember
-	AppTable          *appTable
-	AppTableField     *appTableField
+	config *larkcore.Config
+	App *app
+	AppRole *appRole
+	AppRoleMember *appRoleMember
+	AppTable *appTable
+	AppTableField *appTableField
 	AppTableFormField *appTableFormField
-	AppTableRecord    *appTableRecord
-	AppTableView      *appTableView
+	AppTableRecord *appTableRecord
+	AppTableView *appTableView
 }
+
+
 
 // 资源服务定义
 type app struct {
-	service *BitableService
+   service *BitableService
 }
 type appRole struct {
-	service *BitableService
+   service *BitableService
 }
 type appRoleMember struct {
-	service *BitableService
+   service *BitableService
 }
 type appTable struct {
-	service *BitableService
+   service *BitableService
 }
 type appTableField struct {
-	service *BitableService
+   service *BitableService
 }
 type appTableFormField struct {
-	service *BitableService
+   service *BitableService
 }
 type appTableRecord struct {
-	service *BitableService
+   service *BitableService
 }
 type appTableView struct {
-	service *BitableService
+   service *BitableService
 }
-
 // 资源服务方法定义
-func (a *app) Get(ctx context.Context, req *GetAppReq, options ...core.RequestOptionFunc) (*GetAppResp, error) {
+func (a *app) Get(ctx context.Context, req *GetAppReq, options ...larkcore.RequestOptionFunc) (*GetAppResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodGet,
-		"/open-apis/bitable/v1/apps/:app_token", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,a.service.config, http.MethodGet,
+		"/open-apis/bitable/v1/apps/:app_token", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -77,10 +80,10 @@ func (a *app) Get(ctx context.Context, req *GetAppReq, options ...core.RequestOp
 	}
 	return resp, err
 }
-func (a *app) Update(ctx context.Context, req *UpdateAppReq, options ...core.RequestOptionFunc) (*UpdateAppResp, error) {
+func (a *app) Update(ctx context.Context, req *UpdateAppReq, options ...larkcore.RequestOptionFunc) (*UpdateAppResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodPut,
-		"/open-apis/bitable/v1/apps/:app_token", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,a.service.config, http.MethodPut,
+		"/open-apis/bitable/v1/apps/:app_token", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -92,10 +95,10 @@ func (a *app) Update(ctx context.Context, req *UpdateAppReq, options ...core.Req
 	}
 	return resp, err
 }
-func (a *appRole) Create(ctx context.Context, req *CreateAppRoleReq, options ...core.RequestOptionFunc) (*CreateAppRoleResp, error) {
+func (a *appRole) Create(ctx context.Context, req *CreateAppRoleReq, options ...larkcore.RequestOptionFunc) (*CreateAppRoleResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodPost,
-		"/open-apis/bitable/v1/apps/:app_token/roles", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,a.service.config, http.MethodPost,
+		"/open-apis/bitable/v1/apps/:app_token/roles", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -107,10 +110,10 @@ func (a *appRole) Create(ctx context.Context, req *CreateAppRoleReq, options ...
 	}
 	return resp, err
 }
-func (a *appRole) Delete(ctx context.Context, req *DeleteAppRoleReq, options ...core.RequestOptionFunc) (*DeleteAppRoleResp, error) {
+func (a *appRole) Delete(ctx context.Context, req *DeleteAppRoleReq, options ...larkcore.RequestOptionFunc) (*DeleteAppRoleResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodDelete,
-		"/open-apis/bitable/v1/apps/:app_token/roles/:role_id", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,a.service.config, http.MethodDelete,
+		"/open-apis/bitable/v1/apps/:app_token/roles/:role_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -122,10 +125,10 @@ func (a *appRole) Delete(ctx context.Context, req *DeleteAppRoleReq, options ...
 	}
 	return resp, err
 }
-func (a *appRole) List(ctx context.Context, req *ListAppRoleReq, options ...core.RequestOptionFunc) (*ListAppRoleResp, error) {
+func (a *appRole) List(ctx context.Context, req *ListAppRoleReq, options ...larkcore.RequestOptionFunc) (*ListAppRoleResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodGet,
-		"/open-apis/bitable/v1/apps/:app_token/roles", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,a.service.config, http.MethodGet,
+		"/open-apis/bitable/v1/apps/:app_token/roles", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -137,18 +140,18 @@ func (a *appRole) List(ctx context.Context, req *ListAppRoleReq, options ...core
 	}
 	return resp, err
 }
-func (a *appRole) ListByIterator(ctx context.Context, req *ListAppRoleReq, options ...core.RequestOptionFunc) (*ListAppRoleIterator, error) {
-	return &ListAppRoleIterator{
-		ctx:      ctx,
-		req:      req,
-		listFunc: a.List,
-		options:  options,
-		limit:    req.Limit}, nil
+func (a *appRole) ListByIterator(ctx context.Context, req *ListAppRoleReq, options ...larkcore.RequestOptionFunc) (*ListAppRoleIterator, error) {
+   return &ListAppRoleIterator{
+	  ctx:	  ctx,
+	  req:	  req,
+	  listFunc: a.List,
+	  options:  options,
+	  limit: req.Limit}, nil
 }
-func (a *appRole) Update(ctx context.Context, req *UpdateAppRoleReq, options ...core.RequestOptionFunc) (*UpdateAppRoleResp, error) {
+func (a *appRole) Update(ctx context.Context, req *UpdateAppRoleReq, options ...larkcore.RequestOptionFunc) (*UpdateAppRoleResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodPut,
-		"/open-apis/bitable/v1/apps/:app_token/roles/:role_id", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,a.service.config, http.MethodPut,
+		"/open-apis/bitable/v1/apps/:app_token/roles/:role_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -160,10 +163,10 @@ func (a *appRole) Update(ctx context.Context, req *UpdateAppRoleReq, options ...
 	}
 	return resp, err
 }
-func (a *appRoleMember) BatchCreate(ctx context.Context, req *BatchCreateAppRoleMemberReq, options ...core.RequestOptionFunc) (*BatchCreateAppRoleMemberResp, error) {
+func (a *appRoleMember) BatchCreate(ctx context.Context, req *BatchCreateAppRoleMemberReq, options ...larkcore.RequestOptionFunc) (*BatchCreateAppRoleMemberResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodPost,
-		"/open-apis/bitable/v1/apps/:app_token/roles/:role_id/members/batch_create", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,a.service.config, http.MethodPost,
+		"/open-apis/bitable/v1/apps/:app_token/roles/:role_id/members/batch_create", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -175,10 +178,10 @@ func (a *appRoleMember) BatchCreate(ctx context.Context, req *BatchCreateAppRole
 	}
 	return resp, err
 }
-func (a *appRoleMember) BatchDelete(ctx context.Context, req *BatchDeleteAppRoleMemberReq, options ...core.RequestOptionFunc) (*BatchDeleteAppRoleMemberResp, error) {
+func (a *appRoleMember) BatchDelete(ctx context.Context, req *BatchDeleteAppRoleMemberReq, options ...larkcore.RequestOptionFunc) (*BatchDeleteAppRoleMemberResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodPost,
-		"/open-apis/bitable/v1/apps/:app_token/roles/:role_id/members/batch_delete", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,a.service.config, http.MethodPost,
+		"/open-apis/bitable/v1/apps/:app_token/roles/:role_id/members/batch_delete", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -190,10 +193,10 @@ func (a *appRoleMember) BatchDelete(ctx context.Context, req *BatchDeleteAppRole
 	}
 	return resp, err
 }
-func (a *appRoleMember) Create(ctx context.Context, req *CreateAppRoleMemberReq, options ...core.RequestOptionFunc) (*CreateAppRoleMemberResp, error) {
+func (a *appRoleMember) Create(ctx context.Context, req *CreateAppRoleMemberReq, options ...larkcore.RequestOptionFunc) (*CreateAppRoleMemberResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodPost,
-		"/open-apis/bitable/v1/apps/:app_token/roles/:role_id/members", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,a.service.config, http.MethodPost,
+		"/open-apis/bitable/v1/apps/:app_token/roles/:role_id/members", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -205,10 +208,10 @@ func (a *appRoleMember) Create(ctx context.Context, req *CreateAppRoleMemberReq,
 	}
 	return resp, err
 }
-func (a *appRoleMember) Delete(ctx context.Context, req *DeleteAppRoleMemberReq, options ...core.RequestOptionFunc) (*DeleteAppRoleMemberResp, error) {
+func (a *appRoleMember) Delete(ctx context.Context, req *DeleteAppRoleMemberReq, options ...larkcore.RequestOptionFunc) (*DeleteAppRoleMemberResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodDelete,
-		"/open-apis/bitable/v1/apps/:app_token/roles/:role_id/members/:member_id", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,a.service.config, http.MethodDelete,
+		"/open-apis/bitable/v1/apps/:app_token/roles/:role_id/members/:member_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -220,10 +223,10 @@ func (a *appRoleMember) Delete(ctx context.Context, req *DeleteAppRoleMemberReq,
 	}
 	return resp, err
 }
-func (a *appRoleMember) List(ctx context.Context, req *ListAppRoleMemberReq, options ...core.RequestOptionFunc) (*ListAppRoleMemberResp, error) {
+func (a *appRoleMember) List(ctx context.Context, req *ListAppRoleMemberReq, options ...larkcore.RequestOptionFunc) (*ListAppRoleMemberResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodGet,
-		"/open-apis/bitable/v1/apps/:app_token/roles/:role_id/members", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,a.service.config, http.MethodGet,
+		"/open-apis/bitable/v1/apps/:app_token/roles/:role_id/members", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -235,18 +238,18 @@ func (a *appRoleMember) List(ctx context.Context, req *ListAppRoleMemberReq, opt
 	}
 	return resp, err
 }
-func (a *appRoleMember) ListByIterator(ctx context.Context, req *ListAppRoleMemberReq, options ...core.RequestOptionFunc) (*ListAppRoleMemberIterator, error) {
-	return &ListAppRoleMemberIterator{
-		ctx:      ctx,
-		req:      req,
-		listFunc: a.List,
-		options:  options,
-		limit:    req.Limit}, nil
+func (a *appRoleMember) ListByIterator(ctx context.Context, req *ListAppRoleMemberReq, options ...larkcore.RequestOptionFunc) (*ListAppRoleMemberIterator, error) {
+   return &ListAppRoleMemberIterator{
+	  ctx:	  ctx,
+	  req:	  req,
+	  listFunc: a.List,
+	  options:  options,
+	  limit: req.Limit}, nil
 }
-func (a *appTable) BatchCreate(ctx context.Context, req *BatchCreateAppTableReq, options ...core.RequestOptionFunc) (*BatchCreateAppTableResp, error) {
+func (a *appTable) BatchCreate(ctx context.Context, req *BatchCreateAppTableReq, options ...larkcore.RequestOptionFunc) (*BatchCreateAppTableResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodPost,
-		"/open-apis/bitable/v1/apps/:app_token/tables/batch_create", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,a.service.config, http.MethodPost,
+		"/open-apis/bitable/v1/apps/:app_token/tables/batch_create", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -258,10 +261,10 @@ func (a *appTable) BatchCreate(ctx context.Context, req *BatchCreateAppTableReq,
 	}
 	return resp, err
 }
-func (a *appTable) BatchDelete(ctx context.Context, req *BatchDeleteAppTableReq, options ...core.RequestOptionFunc) (*BatchDeleteAppTableResp, error) {
+func (a *appTable) BatchDelete(ctx context.Context, req *BatchDeleteAppTableReq, options ...larkcore.RequestOptionFunc) (*BatchDeleteAppTableResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodPost,
-		"/open-apis/bitable/v1/apps/:app_token/tables/batch_delete", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,a.service.config, http.MethodPost,
+		"/open-apis/bitable/v1/apps/:app_token/tables/batch_delete", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -273,10 +276,10 @@ func (a *appTable) BatchDelete(ctx context.Context, req *BatchDeleteAppTableReq,
 	}
 	return resp, err
 }
-func (a *appTable) Create(ctx context.Context, req *CreateAppTableReq, options ...core.RequestOptionFunc) (*CreateAppTableResp, error) {
+func (a *appTable) Create(ctx context.Context, req *CreateAppTableReq, options ...larkcore.RequestOptionFunc) (*CreateAppTableResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodPost,
-		"/open-apis/bitable/v1/apps/:app_token/tables", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,a.service.config, http.MethodPost,
+		"/open-apis/bitable/v1/apps/:app_token/tables", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -288,10 +291,10 @@ func (a *appTable) Create(ctx context.Context, req *CreateAppTableReq, options .
 	}
 	return resp, err
 }
-func (a *appTable) Delete(ctx context.Context, req *DeleteAppTableReq, options ...core.RequestOptionFunc) (*DeleteAppTableResp, error) {
+func (a *appTable) Delete(ctx context.Context, req *DeleteAppTableReq, options ...larkcore.RequestOptionFunc) (*DeleteAppTableResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodDelete,
-		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,a.service.config, http.MethodDelete,
+		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -303,10 +306,10 @@ func (a *appTable) Delete(ctx context.Context, req *DeleteAppTableReq, options .
 	}
 	return resp, err
 }
-func (a *appTable) List(ctx context.Context, req *ListAppTableReq, options ...core.RequestOptionFunc) (*ListAppTableResp, error) {
+func (a *appTable) List(ctx context.Context, req *ListAppTableReq, options ...larkcore.RequestOptionFunc) (*ListAppTableResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodGet,
-		"/open-apis/bitable/v1/apps/:app_token/tables", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,a.service.config, http.MethodGet,
+		"/open-apis/bitable/v1/apps/:app_token/tables", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -318,18 +321,18 @@ func (a *appTable) List(ctx context.Context, req *ListAppTableReq, options ...co
 	}
 	return resp, err
 }
-func (a *appTable) ListByIterator(ctx context.Context, req *ListAppTableReq, options ...core.RequestOptionFunc) (*ListAppTableIterator, error) {
-	return &ListAppTableIterator{
-		ctx:      ctx,
-		req:      req,
-		listFunc: a.List,
-		options:  options,
-		limit:    req.Limit}, nil
+func (a *appTable) ListByIterator(ctx context.Context, req *ListAppTableReq, options ...larkcore.RequestOptionFunc) (*ListAppTableIterator, error) {
+   return &ListAppTableIterator{
+	  ctx:	  ctx,
+	  req:	  req,
+	  listFunc: a.List,
+	  options:  options,
+	  limit: req.Limit}, nil
 }
-func (a *appTableField) Create(ctx context.Context, req *CreateAppTableFieldReq, options ...core.RequestOptionFunc) (*CreateAppTableFieldResp, error) {
+func (a *appTableField) Create(ctx context.Context, req *CreateAppTableFieldReq, options ...larkcore.RequestOptionFunc) (*CreateAppTableFieldResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodPost,
-		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,a.service.config, http.MethodPost,
+		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -341,10 +344,10 @@ func (a *appTableField) Create(ctx context.Context, req *CreateAppTableFieldReq,
 	}
 	return resp, err
 }
-func (a *appTableField) Delete(ctx context.Context, req *DeleteAppTableFieldReq, options ...core.RequestOptionFunc) (*DeleteAppTableFieldResp, error) {
+func (a *appTableField) Delete(ctx context.Context, req *DeleteAppTableFieldReq, options ...larkcore.RequestOptionFunc) (*DeleteAppTableFieldResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodDelete,
-		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields/:field_id", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,a.service.config, http.MethodDelete,
+		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields/:field_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -356,10 +359,10 @@ func (a *appTableField) Delete(ctx context.Context, req *DeleteAppTableFieldReq,
 	}
 	return resp, err
 }
-func (a *appTableField) List(ctx context.Context, req *ListAppTableFieldReq, options ...core.RequestOptionFunc) (*ListAppTableFieldResp, error) {
+func (a *appTableField) List(ctx context.Context, req *ListAppTableFieldReq, options ...larkcore.RequestOptionFunc) (*ListAppTableFieldResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodGet,
-		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,a.service.config, http.MethodGet,
+		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -371,18 +374,18 @@ func (a *appTableField) List(ctx context.Context, req *ListAppTableFieldReq, opt
 	}
 	return resp, err
 }
-func (a *appTableField) ListByIterator(ctx context.Context, req *ListAppTableFieldReq, options ...core.RequestOptionFunc) (*ListAppTableFieldIterator, error) {
-	return &ListAppTableFieldIterator{
-		ctx:      ctx,
-		req:      req,
-		listFunc: a.List,
-		options:  options,
-		limit:    req.Limit}, nil
+func (a *appTableField) ListByIterator(ctx context.Context, req *ListAppTableFieldReq, options ...larkcore.RequestOptionFunc) (*ListAppTableFieldIterator, error) {
+   return &ListAppTableFieldIterator{
+	  ctx:	  ctx,
+	  req:	  req,
+	  listFunc: a.List,
+	  options:  options,
+	  limit: req.Limit}, nil
 }
-func (a *appTableField) Update(ctx context.Context, req *UpdateAppTableFieldReq, options ...core.RequestOptionFunc) (*UpdateAppTableFieldResp, error) {
+func (a *appTableField) Update(ctx context.Context, req *UpdateAppTableFieldReq, options ...larkcore.RequestOptionFunc) (*UpdateAppTableFieldResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodPut,
-		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields/:field_id", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,a.service.config, http.MethodPut,
+		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields/:field_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -394,10 +397,10 @@ func (a *appTableField) Update(ctx context.Context, req *UpdateAppTableFieldReq,
 	}
 	return resp, err
 }
-func (a *appTableFormField) List(ctx context.Context, req *ListAppTableFormFieldReq, options ...core.RequestOptionFunc) (*ListAppTableFormFieldResp, error) {
+func (a *appTableFormField) List(ctx context.Context, req *ListAppTableFormFieldReq, options ...larkcore.RequestOptionFunc) (*ListAppTableFormFieldResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodGet,
-		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/forms/:form_id/fields", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,a.service.config, http.MethodGet,
+		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/forms/:form_id/fields", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -409,18 +412,18 @@ func (a *appTableFormField) List(ctx context.Context, req *ListAppTableFormField
 	}
 	return resp, err
 }
-func (a *appTableFormField) ListByIterator(ctx context.Context, req *ListAppTableFormFieldReq, options ...core.RequestOptionFunc) (*ListAppTableFormFieldIterator, error) {
-	return &ListAppTableFormFieldIterator{
-		ctx:      ctx,
-		req:      req,
-		listFunc: a.List,
-		options:  options,
-		limit:    req.Limit}, nil
+func (a *appTableFormField) ListByIterator(ctx context.Context, req *ListAppTableFormFieldReq, options ...larkcore.RequestOptionFunc) (*ListAppTableFormFieldIterator, error) {
+   return &ListAppTableFormFieldIterator{
+	  ctx:	  ctx,
+	  req:	  req,
+	  listFunc: a.List,
+	  options:  options,
+	  limit: req.Limit}, nil
 }
-func (a *appTableFormField) Patch(ctx context.Context, req *PatchAppTableFormFieldReq, options ...core.RequestOptionFunc) (*PatchAppTableFormFieldResp, error) {
+func (a *appTableFormField) Patch(ctx context.Context, req *PatchAppTableFormFieldReq, options ...larkcore.RequestOptionFunc) (*PatchAppTableFormFieldResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodPatch,
-		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/forms/:form_id/fields/:field_id", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,a.service.config, http.MethodPatch,
+		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/forms/:form_id/fields/:field_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -432,10 +435,10 @@ func (a *appTableFormField) Patch(ctx context.Context, req *PatchAppTableFormFie
 	}
 	return resp, err
 }
-func (a *appTableRecord) BatchCreate(ctx context.Context, req *BatchCreateAppTableRecordReq, options ...core.RequestOptionFunc) (*BatchCreateAppTableRecordResp, error) {
+func (a *appTableRecord) BatchCreate(ctx context.Context, req *BatchCreateAppTableRecordReq, options ...larkcore.RequestOptionFunc) (*BatchCreateAppTableRecordResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodPost,
-		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/batch_create", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,a.service.config, http.MethodPost,
+		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/batch_create", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -447,10 +450,10 @@ func (a *appTableRecord) BatchCreate(ctx context.Context, req *BatchCreateAppTab
 	}
 	return resp, err
 }
-func (a *appTableRecord) BatchDelete(ctx context.Context, req *BatchDeleteAppTableRecordReq, options ...core.RequestOptionFunc) (*BatchDeleteAppTableRecordResp, error) {
+func (a *appTableRecord) BatchDelete(ctx context.Context, req *BatchDeleteAppTableRecordReq, options ...larkcore.RequestOptionFunc) (*BatchDeleteAppTableRecordResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodPost,
-		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/batch_delete", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,a.service.config, http.MethodPost,
+		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/batch_delete", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -462,10 +465,10 @@ func (a *appTableRecord) BatchDelete(ctx context.Context, req *BatchDeleteAppTab
 	}
 	return resp, err
 }
-func (a *appTableRecord) BatchUpdate(ctx context.Context, req *BatchUpdateAppTableRecordReq, options ...core.RequestOptionFunc) (*BatchUpdateAppTableRecordResp, error) {
+func (a *appTableRecord) BatchUpdate(ctx context.Context, req *BatchUpdateAppTableRecordReq, options ...larkcore.RequestOptionFunc) (*BatchUpdateAppTableRecordResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodPost,
-		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/batch_update", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,a.service.config, http.MethodPost,
+		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/batch_update", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -477,10 +480,10 @@ func (a *appTableRecord) BatchUpdate(ctx context.Context, req *BatchUpdateAppTab
 	}
 	return resp, err
 }
-func (a *appTableRecord) Create(ctx context.Context, req *CreateAppTableRecordReq, options ...core.RequestOptionFunc) (*CreateAppTableRecordResp, error) {
+func (a *appTableRecord) Create(ctx context.Context, req *CreateAppTableRecordReq, options ...larkcore.RequestOptionFunc) (*CreateAppTableRecordResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodPost,
-		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,a.service.config, http.MethodPost,
+		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -492,10 +495,10 @@ func (a *appTableRecord) Create(ctx context.Context, req *CreateAppTableRecordRe
 	}
 	return resp, err
 }
-func (a *appTableRecord) Delete(ctx context.Context, req *DeleteAppTableRecordReq, options ...core.RequestOptionFunc) (*DeleteAppTableRecordResp, error) {
+func (a *appTableRecord) Delete(ctx context.Context, req *DeleteAppTableRecordReq, options ...larkcore.RequestOptionFunc) (*DeleteAppTableRecordResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodDelete,
-		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,a.service.config, http.MethodDelete,
+		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -507,10 +510,10 @@ func (a *appTableRecord) Delete(ctx context.Context, req *DeleteAppTableRecordRe
 	}
 	return resp, err
 }
-func (a *appTableRecord) Get(ctx context.Context, req *GetAppTableRecordReq, options ...core.RequestOptionFunc) (*GetAppTableRecordResp, error) {
+func (a *appTableRecord) Get(ctx context.Context, req *GetAppTableRecordReq, options ...larkcore.RequestOptionFunc) (*GetAppTableRecordResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodGet,
-		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,a.service.config, http.MethodGet,
+		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -522,10 +525,10 @@ func (a *appTableRecord) Get(ctx context.Context, req *GetAppTableRecordReq, opt
 	}
 	return resp, err
 }
-func (a *appTableRecord) List(ctx context.Context, req *ListAppTableRecordReq, options ...core.RequestOptionFunc) (*ListAppTableRecordResp, error) {
+func (a *appTableRecord) List(ctx context.Context, req *ListAppTableRecordReq, options ...larkcore.RequestOptionFunc) (*ListAppTableRecordResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodGet,
-		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,a.service.config, http.MethodGet,
+		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -537,18 +540,18 @@ func (a *appTableRecord) List(ctx context.Context, req *ListAppTableRecordReq, o
 	}
 	return resp, err
 }
-func (a *appTableRecord) ListByIterator(ctx context.Context, req *ListAppTableRecordReq, options ...core.RequestOptionFunc) (*ListAppTableRecordIterator, error) {
-	return &ListAppTableRecordIterator{
-		ctx:      ctx,
-		req:      req,
-		listFunc: a.List,
-		options:  options,
-		limit:    req.Limit}, nil
+func (a *appTableRecord) ListByIterator(ctx context.Context, req *ListAppTableRecordReq, options ...larkcore.RequestOptionFunc) (*ListAppTableRecordIterator, error) {
+   return &ListAppTableRecordIterator{
+	  ctx:	  ctx,
+	  req:	  req,
+	  listFunc: a.List,
+	  options:  options,
+	  limit: req.Limit}, nil
 }
-func (a *appTableRecord) Update(ctx context.Context, req *UpdateAppTableRecordReq, options ...core.RequestOptionFunc) (*UpdateAppTableRecordResp, error) {
+func (a *appTableRecord) Update(ctx context.Context, req *UpdateAppTableRecordReq, options ...larkcore.RequestOptionFunc) (*UpdateAppTableRecordResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodPut,
-		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,a.service.config, http.MethodPut,
+		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -560,10 +563,10 @@ func (a *appTableRecord) Update(ctx context.Context, req *UpdateAppTableRecordRe
 	}
 	return resp, err
 }
-func (a *appTableView) Create(ctx context.Context, req *CreateAppTableViewReq, options ...core.RequestOptionFunc) (*CreateAppTableViewResp, error) {
+func (a *appTableView) Create(ctx context.Context, req *CreateAppTableViewReq, options ...larkcore.RequestOptionFunc) (*CreateAppTableViewResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodPost,
-		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/views", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,a.service.config, http.MethodPost,
+		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/views", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -575,10 +578,10 @@ func (a *appTableView) Create(ctx context.Context, req *CreateAppTableViewReq, o
 	}
 	return resp, err
 }
-func (a *appTableView) Delete(ctx context.Context, req *DeleteAppTableViewReq, options ...core.RequestOptionFunc) (*DeleteAppTableViewResp, error) {
+func (a *appTableView) Delete(ctx context.Context, req *DeleteAppTableViewReq, options ...larkcore.RequestOptionFunc) (*DeleteAppTableViewResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodDelete,
-		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/views/:view_id", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,a.service.config, http.MethodDelete,
+		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/views/:view_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -590,10 +593,10 @@ func (a *appTableView) Delete(ctx context.Context, req *DeleteAppTableViewReq, o
 	}
 	return resp, err
 }
-func (a *appTableView) List(ctx context.Context, req *ListAppTableViewReq, options ...core.RequestOptionFunc) (*ListAppTableViewResp, error) {
+func (a *appTableView) List(ctx context.Context, req *ListAppTableViewReq, options ...larkcore.RequestOptionFunc) (*ListAppTableViewResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodGet,
-		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/views", []core.AccessTokenType{core.AccessTokenTypeUser, core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,a.service.config, http.MethodGet,
+		"/open-apis/bitable/v1/apps/:app_token/tables/:table_id/views", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -605,11 +608,11 @@ func (a *appTableView) List(ctx context.Context, req *ListAppTableViewReq, optio
 	}
 	return resp, err
 }
-func (a *appTableView) ListByIterator(ctx context.Context, req *ListAppTableViewReq, options ...core.RequestOptionFunc) (*ListAppTableViewIterator, error) {
-	return &ListAppTableViewIterator{
-		ctx:      ctx,
-		req:      req,
-		listFunc: a.List,
-		options:  options,
-		limit:    req.Limit}, nil
+func (a *appTableView) ListByIterator(ctx context.Context, req *ListAppTableViewReq, options ...larkcore.RequestOptionFunc) (*ListAppTableViewIterator, error) {
+   return &ListAppTableViewIterator{
+	  ctx:	  ctx,
+	  req:	  req,
+	  listFunc: a.List,
+	  options:  options,
+	  limit: req.Limit}, nil
 }

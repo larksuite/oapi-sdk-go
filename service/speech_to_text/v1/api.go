@@ -2,35 +2,38 @@
 package larkspeech_to_text
 
 import (
-	"context"
 	"net/http"
-
+	"context"
+	
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
+
 // 构建业务域服务实例
-func NewService(config *core.Config) *SpeechToTextService {
-	s := &SpeechToTextService{config: config}
+func NewService(config *larkcore.Config) *SpeechToTextService {
+	s := &SpeechToTextService{config:config}
 	s.Speech = &speech{service: s}
 	return s
 }
 
+
 // 业务域服务定义
 type SpeechToTextService struct {
-	config *core.Config
+	config *larkcore.Config
 	Speech *speech
 }
 
+
+
 // 资源服务定义
 type speech struct {
-	service *SpeechToTextService
+   service *SpeechToTextService
 }
-
 // 资源服务方法定义
-func (s *speech) FileRecognize(ctx context.Context, req *FileRecognizeSpeechReq, options ...core.RequestOptionFunc) (*FileRecognizeSpeechResp, error) {
+func (s *speech) FileRecognize(ctx context.Context, req *FileRecognizeSpeechReq, options ...larkcore.RequestOptionFunc) (*FileRecognizeSpeechResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, s.service.config, http.MethodPost,
-		"/open-apis/speech_to_text/v1/speech/file_recognize", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,s.service.config, http.MethodPost,
+		"/open-apis/speech_to_text/v1/speech/file_recognize", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -42,10 +45,10 @@ func (s *speech) FileRecognize(ctx context.Context, req *FileRecognizeSpeechReq,
 	}
 	return resp, err
 }
-func (s *speech) StreamRecognize(ctx context.Context, req *StreamRecognizeSpeechReq, options ...core.RequestOptionFunc) (*StreamRecognizeSpeechResp, error) {
+func (s *speech) StreamRecognize(ctx context.Context, req *StreamRecognizeSpeechReq, options ...larkcore.RequestOptionFunc) (*StreamRecognizeSpeechResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, s.service.config, http.MethodPost,
-		"/open-apis/speech_to_text/v1/speech/stream_recognize", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,s.service.config, http.MethodPost,
+		"/open-apis/speech_to_text/v1/speech/stream_recognize", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}

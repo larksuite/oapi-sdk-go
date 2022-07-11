@@ -2,35 +2,38 @@
 package larktranslation
 
 import (
-	"context"
 	"net/http"
-
+	"context"
+	
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
+
 // 构建业务域服务实例
-func NewService(config *core.Config) *TranslationService {
-	t := &TranslationService{config: config}
+func NewService(config *larkcore.Config) *TranslationService {
+	t := &TranslationService{config:config}
 	t.Text = &text{service: t}
 	return t
 }
 
+
 // 业务域服务定义
 type TranslationService struct {
-	config *core.Config
-	Text   *text
+	config *larkcore.Config
+	Text *text
 }
+
+
 
 // 资源服务定义
 type text struct {
-	service *TranslationService
+   service *TranslationService
 }
-
 // 资源服务方法定义
-func (t *text) Detect(ctx context.Context, req *DetectTextReq, options ...core.RequestOptionFunc) (*DetectTextResp, error) {
+func (t *text) Detect(ctx context.Context, req *DetectTextReq, options ...larkcore.RequestOptionFunc) (*DetectTextResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, t.service.config, http.MethodPost,
-		"/open-apis/translation/v1/text/detect", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,t.service.config, http.MethodPost,
+		"/open-apis/translation/v1/text/detect", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -42,10 +45,10 @@ func (t *text) Detect(ctx context.Context, req *DetectTextReq, options ...core.R
 	}
 	return resp, err
 }
-func (t *text) Translate(ctx context.Context, req *TranslateTextReq, options ...core.RequestOptionFunc) (*TranslateTextResp, error) {
+func (t *text) Translate(ctx context.Context, req *TranslateTextReq, options ...larkcore.RequestOptionFunc) (*TranslateTextResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, t.service.config, http.MethodPost,
-		"/open-apis/translation/v1/text/translate", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,t.service.config, http.MethodPost,
+		"/open-apis/translation/v1/text/translate", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}

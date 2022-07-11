@@ -2,35 +2,38 @@
 package larkgray_test_open_sg
 
 import (
-	"context"
 	"net/http"
-
+	"context"
+	
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
+
 // 构建业务域服务实例
-func NewService(config *core.Config) *GrayTestOpenSgService {
-	g := &GrayTestOpenSgService{config: config}
+func NewService(config *larkcore.Config) *GrayTestOpenSgService {
+	g := &GrayTestOpenSgService{config:config}
 	g.Moto = &moto{service: g}
 	return g
 }
 
+
 // 业务域服务定义
 type GrayTestOpenSgService struct {
-	config *core.Config
-	Moto   *moto
+	config *larkcore.Config
+	Moto *moto
 }
+
+
 
 // 资源服务定义
 type moto struct {
-	service *GrayTestOpenSgService
+   service *GrayTestOpenSgService
 }
-
 // 资源服务方法定义
-func (m *moto) Create(ctx context.Context, req *CreateMotoReq, options ...core.RequestOptionFunc) (*CreateMotoResp, error) {
+func (m *moto) Create(ctx context.Context, req *CreateMotoReq, options ...larkcore.RequestOptionFunc) (*CreateMotoResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, m.service.config, http.MethodPost,
-		"/open-apis/gray_test_open_sg/v1/motos", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,m.service.config, http.MethodPost,
+		"/open-apis/gray_test_open_sg/v1/motos", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -42,10 +45,10 @@ func (m *moto) Create(ctx context.Context, req *CreateMotoReq, options ...core.R
 	}
 	return resp, err
 }
-func (m *moto) Get(ctx context.Context, req *GetMotoReq, options ...core.RequestOptionFunc) (*GetMotoResp, error) {
+func (m *moto) Get(ctx context.Context, req *GetMotoReq, options ...larkcore.RequestOptionFunc) (*GetMotoResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, m.service.config, http.MethodGet,
-		"/open-apis/gray_test_open_sg/v1/motos/:moto_id", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,m.service.config, http.MethodGet,
+		"/open-apis/gray_test_open_sg/v1/motos/:moto_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -57,10 +60,10 @@ func (m *moto) Get(ctx context.Context, req *GetMotoReq, options ...core.Request
 	}
 	return resp, err
 }
-func (m *moto) List(ctx context.Context, req *ListMotoReq, options ...core.RequestOptionFunc) (*ListMotoResp, error) {
+func (m *moto) List(ctx context.Context, req *ListMotoReq, options ...larkcore.RequestOptionFunc) (*ListMotoResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, m.service.config, http.MethodGet,
-		"/open-apis/gray_test_open_sg/v1/motos", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,m.service.config, http.MethodGet,
+		"/open-apis/gray_test_open_sg/v1/motos", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -72,11 +75,11 @@ func (m *moto) List(ctx context.Context, req *ListMotoReq, options ...core.Reque
 	}
 	return resp, err
 }
-func (m *moto) ListByIterator(ctx context.Context, req *ListMotoReq, options ...core.RequestOptionFunc) (*ListMotoIterator, error) {
-	return &ListMotoIterator{
-		ctx:      ctx,
-		req:      req,
-		listFunc: m.List,
-		options:  options,
-		limit:    req.Limit}, nil
+func (m *moto) ListByIterator(ctx context.Context, req *ListMotoReq, options ...larkcore.RequestOptionFunc) (*ListMotoIterator, error) {
+   return &ListMotoIterator{
+	  ctx:	  ctx,
+	  req:	  req,
+	  listFunc: m.List,
+	  options:  options,
+	  limit: req.Limit}, nil
 }

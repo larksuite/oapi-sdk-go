@@ -1,4 +1,4 @@
-package core
+package larkcore
 
 import "net/http"
 
@@ -55,12 +55,6 @@ func WithHeaders(header http.Header) RequestOptionFunc {
 func WithUserAccessToken(userAccessToken string) RequestOptionFunc {
 	return func(option *RequestOption) {
 		option.UserAccessToken = userAccessToken
-	}
-}
-
-func WithAppAccessToken(appAccessToken string) RequestOptionFunc {
-	return func(option *RequestOption) {
-		option.AppAccessToken = appAccessToken
 	}
 }
 

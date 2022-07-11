@@ -16,17 +16,17 @@ import (
 
 func TestStartHttpServer(t *testing.T) {
 	// 创建card处理器
-	cardHandler := card.NewCardActionHandler("12", "12", func(ctx context.Context, cardAction *card.CardAction) (interface{}, error) {
-		fmt.Println(core.Prettify(cardAction))
+	cardHandler := larkcard.NewCardActionHandler("12", "12", func(ctx context.Context, cardAction *larkcard.CardAction) (interface{}, error) {
+		fmt.Println(larkcore.Prettify(cardAction))
 		return nil, nil
 	})
 
 	// 创建事件处理器
-	handler := dispatcher.NewEventDispatcher("v", "1212121212").OnMessageReceiveV1(func(ctx context.Context, event *larkim.MessageReceiveEvent) error {
-		fmt.Println(core.Prettify(event))
+	handler := dispatcher.NewEventDispatcher("v", "1212121212").OnP2MessageReceiveV1(func(ctx context.Context, event *larkim.P2MessageReceiveV1) error {
+		fmt.Println(larkcore.Prettify(event))
 		return nil
-	}).OnMessageReadV1(func(ctx context.Context, event *larkim.MessageReadEvent) error {
-		fmt.Println(core.Prettify(event))
+	}).OnP2MessageReadV1(func(ctx context.Context, event *larkim.P2MessageReadV1) error {
+		fmt.Println(larkcore.Prettify(event))
 		return nil
 	})
 
@@ -47,7 +47,7 @@ func mockRequest() *http.Request {
 	value["value"] = "sdfsfd"
 	value["tag"] = "button"
 
-	cardAction := &card.CardAction{
+	cardAction := &larkcard.CardAction{
 		OpenID:        "ou_sdfimx9948345",
 		UserID:        "eu_sd923r0sdf5",
 		OpenMessageID: "om_abcdefg1234567890",
@@ -64,7 +64,7 @@ func mockRequest() *http.Request {
 		},
 	}
 
-	cardActionBody := &card.CardActionBody{
+	cardActionBody := &larkcard.CardActionBody{
 		CardAction: cardAction,
 		Challenge:  "121212",
 		Type:       "url_verification",
@@ -85,6 +85,6 @@ func TestTranslate(t *testing.T) {
 		return
 	}
 
-	fmt.Println(core.Prettify(eventReq.Header))
+	fmt.Println(larkcore.Prettify(eventReq.Header))
 	fmt.Println(string(eventReq.Body))
 }

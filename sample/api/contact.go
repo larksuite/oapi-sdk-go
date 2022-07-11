@@ -5,14 +5,16 @@ import (
 	"fmt"
 	"os"
 
-	client "github.com/larksuite/oapi-sdk-go"
+	"github.com/larksuite/oapi-sdk-go"
 	"github.com/larksuite/oapi-sdk-go/core"
-	larkcontact "github.com/larksuite/oapi-sdk-go/service/contact/v3"
+	"github.com/larksuite/oapi-sdk-go/service/contact/v3"
 )
 
 func main() {
 	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
-	var feishu_client = client.NewClient(appID, appSecret, client.WithLogLevel(core.LogLevelDebug), client.WithLogReqRespInfoAtDebugLevel(false))
+	var feishu_client = lark.NewClient(appID, appSecret,
+		lark.WithLogLevel(larkcore.LogLevelDebug),
+		lark.WithLogReqRespInfoAtDebugLevel(false))
 
 	user := larkcontact.NewUserBuilder().Build()
 	resp, err := feishu_client.Contact.User.Patch(context.Background(),

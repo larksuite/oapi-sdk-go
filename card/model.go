@@ -138,7 +138,7 @@ func (m *MessageCardHr) MarshalJSON() ([]byte, error) {
 }
 
 func messageCardElementJson(e MessageCardElement) ([]byte, error) {
-	data, err := core.StructToMap(e)
+	data, err := larkcore.StructToMap(e)
 	if err != nil {
 		return nil, err
 	}

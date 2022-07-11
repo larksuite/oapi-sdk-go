@@ -2,16 +2,17 @@
 package larkattendance
 
 import (
+	"net/http"
 	"bytes"
 	"context"
-	"net/http"
-
+	
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
+
 // 构建业务域服务实例
-func NewService(config *core.Config) *AttendanceService {
-	a := &AttendanceService{config: config}
+func NewService(config *larkcore.Config) *AttendanceService {
+	a := &AttendanceService{config:config}
 	a.ApprovalInfo = &approvalInfo{service: a}
 	a.File = &file{service: a}
 	a.Group = &group{service: a}
@@ -28,70 +29,72 @@ func NewService(config *core.Config) *AttendanceService {
 	return a
 }
 
+
 // 业务域服务定义
 type AttendanceService struct {
-	config         *core.Config
-	ApprovalInfo   *approvalInfo
-	File           *file
-	Group          *group
-	Shift          *shift
-	UserApproval   *userApproval
+	config *larkcore.Config
+	ApprovalInfo *approvalInfo
+	File *file
+	Group *group
+	Shift *shift
+	UserApproval *userApproval
 	UserDailyShift *userDailyShift
-	UserFlow       *userFlow
-	UserSetting    *userSetting
-	UserStatsData  *userStatsData
+	UserFlow *userFlow
+	UserSetting *userSetting
+	UserStatsData *userStatsData
 	UserStatsField *userStatsField
-	UserStatsView  *userStatsView
-	UserTask       *userTask
+	UserStatsView *userStatsView
+	UserTask *userTask
 	UserTaskRemedy *userTaskRemedy
 }
 
+
+
 // 资源服务定义
 type approvalInfo struct {
-	service *AttendanceService
+   service *AttendanceService
 }
 type file struct {
-	service *AttendanceService
+   service *AttendanceService
 }
 type group struct {
-	service *AttendanceService
+   service *AttendanceService
 }
 type shift struct {
-	service *AttendanceService
+   service *AttendanceService
 }
 type userApproval struct {
-	service *AttendanceService
+   service *AttendanceService
 }
 type userDailyShift struct {
-	service *AttendanceService
+   service *AttendanceService
 }
 type userFlow struct {
-	service *AttendanceService
+   service *AttendanceService
 }
 type userSetting struct {
-	service *AttendanceService
+   service *AttendanceService
 }
 type userStatsData struct {
-	service *AttendanceService
+   service *AttendanceService
 }
 type userStatsField struct {
-	service *AttendanceService
+   service *AttendanceService
 }
 type userStatsView struct {
-	service *AttendanceService
+   service *AttendanceService
 }
 type userTask struct {
-	service *AttendanceService
+   service *AttendanceService
 }
 type userTaskRemedy struct {
-	service *AttendanceService
+   service *AttendanceService
 }
-
 // 资源服务方法定义
-func (a *approvalInfo) Process(ctx context.Context, req *ProcessApprovalInfoReq, options ...core.RequestOptionFunc) (*ProcessApprovalInfoResp, error) {
+func (a *approvalInfo) Process(ctx context.Context, req *ProcessApprovalInfoReq, options ...larkcore.RequestOptionFunc) (*ProcessApprovalInfoResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodPost,
-		"/open-apis/attendance/v1/approval_infos/process", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,a.service.config, http.MethodPost,
+		"/open-apis/attendance/v1/approval_infos/process", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -103,10 +106,10 @@ func (a *approvalInfo) Process(ctx context.Context, req *ProcessApprovalInfoReq,
 	}
 	return resp, err
 }
-func (f *file) Download(ctx context.Context, req *DownloadFileReq, options ...core.RequestOptionFunc) (*DownloadFileResp, error) {
+func (f *file) Download(ctx context.Context, req *DownloadFileReq, options ...larkcore.RequestOptionFunc) (*DownloadFileResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, f.service.config, http.MethodGet,
-		"/open-apis/attendance/v1/files/:file_id/download", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,f.service.config, http.MethodGet,
+		"/open-apis/attendance/v1/files/:file_id/download", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -115,7 +118,7 @@ func (f *file) Download(ctx context.Context, req *DownloadFileReq, options ...co
 	// 如果是下载，则设置响应结果
 	if rawResp.StatusCode == http.StatusOK {
 		resp.File = bytes.NewBuffer(rawResp.RawBody)
-		resp.FileName = core.FileNameByHeader(rawResp.Header)
+		resp.FileName = larkcore.FileNameByHeader(rawResp.Header)
 		return resp, err
 	}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -124,11 +127,11 @@ func (f *file) Download(ctx context.Context, req *DownloadFileReq, options ...co
 	}
 	return resp, err
 }
-func (f *file) Upload(ctx context.Context, req *UploadFileReq, options ...core.RequestOptionFunc) (*UploadFileResp, error) {
-	options = append(options, core.WithFileUpload())
+func (f *file) Upload(ctx context.Context, req *UploadFileReq, options ...larkcore.RequestOptionFunc) (*UploadFileResp, error) {
+	options = append(options, larkcore.WithFileUpload())
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, f.service.config, http.MethodPost,
-		"/open-apis/attendance/v1/files/upload", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,f.service.config, http.MethodPost,
+		"/open-apis/attendance/v1/files/upload", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -140,10 +143,10 @@ func (f *file) Upload(ctx context.Context, req *UploadFileReq, options ...core.R
 	}
 	return resp, err
 }
-func (g *group) Create(ctx context.Context, req *CreateGroupReq, options ...core.RequestOptionFunc) (*CreateGroupResp, error) {
+func (g *group) Create(ctx context.Context, req *CreateGroupReq, options ...larkcore.RequestOptionFunc) (*CreateGroupResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, g.service.config, http.MethodPost,
-		"/open-apis/attendance/v1/groups", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,g.service.config, http.MethodPost,
+		"/open-apis/attendance/v1/groups", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -155,10 +158,10 @@ func (g *group) Create(ctx context.Context, req *CreateGroupReq, options ...core
 	}
 	return resp, err
 }
-func (g *group) Delete(ctx context.Context, req *DeleteGroupReq, options ...core.RequestOptionFunc) (*DeleteGroupResp, error) {
+func (g *group) Delete(ctx context.Context, req *DeleteGroupReq, options ...larkcore.RequestOptionFunc) (*DeleteGroupResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, g.service.config, http.MethodDelete,
-		"/open-apis/attendance/v1/groups/:group_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,g.service.config, http.MethodDelete,
+		"/open-apis/attendance/v1/groups/:group_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -170,10 +173,10 @@ func (g *group) Delete(ctx context.Context, req *DeleteGroupReq, options ...core
 	}
 	return resp, err
 }
-func (g *group) Get(ctx context.Context, req *GetGroupReq, options ...core.RequestOptionFunc) (*GetGroupResp, error) {
+func (g *group) Get(ctx context.Context, req *GetGroupReq, options ...larkcore.RequestOptionFunc) (*GetGroupResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, g.service.config, http.MethodGet,
-		"/open-apis/attendance/v1/groups/:group_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,g.service.config, http.MethodGet,
+		"/open-apis/attendance/v1/groups/:group_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -185,10 +188,10 @@ func (g *group) Get(ctx context.Context, req *GetGroupReq, options ...core.Reque
 	}
 	return resp, err
 }
-func (g *group) List(ctx context.Context, req *ListGroupReq, options ...core.RequestOptionFunc) (*ListGroupResp, error) {
+func (g *group) List(ctx context.Context, req *ListGroupReq, options ...larkcore.RequestOptionFunc) (*ListGroupResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, g.service.config, http.MethodGet,
-		"/open-apis/attendance/v1/groups", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,g.service.config, http.MethodGet,
+		"/open-apis/attendance/v1/groups", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -200,18 +203,18 @@ func (g *group) List(ctx context.Context, req *ListGroupReq, options ...core.Req
 	}
 	return resp, err
 }
-func (g *group) ListByIterator(ctx context.Context, req *ListGroupReq, options ...core.RequestOptionFunc) (*ListGroupIterator, error) {
-	return &ListGroupIterator{
-		ctx:      ctx,
-		req:      req,
-		listFunc: g.List,
-		options:  options,
-		limit:    req.Limit}, nil
+func (g *group) ListByIterator(ctx context.Context, req *ListGroupReq, options ...larkcore.RequestOptionFunc) (*ListGroupIterator, error) {
+   return &ListGroupIterator{
+	  ctx:	  ctx,
+	  req:	  req,
+	  listFunc: g.List,
+	  options:  options,
+	  limit: req.Limit}, nil
 }
-func (g *group) Search(ctx context.Context, req *SearchGroupReq, options ...core.RequestOptionFunc) (*SearchGroupResp, error) {
+func (g *group) Search(ctx context.Context, req *SearchGroupReq, options ...larkcore.RequestOptionFunc) (*SearchGroupResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, g.service.config, http.MethodPost,
-		"/open-apis/attendance/v1/groups/search", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,g.service.config, http.MethodPost,
+		"/open-apis/attendance/v1/groups/search", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -223,10 +226,10 @@ func (g *group) Search(ctx context.Context, req *SearchGroupReq, options ...core
 	}
 	return resp, err
 }
-func (s *shift) Create(ctx context.Context, req *CreateShiftReq, options ...core.RequestOptionFunc) (*CreateShiftResp, error) {
+func (s *shift) Create(ctx context.Context, req *CreateShiftReq, options ...larkcore.RequestOptionFunc) (*CreateShiftResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, s.service.config, http.MethodPost,
-		"/open-apis/attendance/v1/shifts", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,s.service.config, http.MethodPost,
+		"/open-apis/attendance/v1/shifts", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -238,10 +241,10 @@ func (s *shift) Create(ctx context.Context, req *CreateShiftReq, options ...core
 	}
 	return resp, err
 }
-func (s *shift) Delete(ctx context.Context, req *DeleteShiftReq, options ...core.RequestOptionFunc) (*DeleteShiftResp, error) {
+func (s *shift) Delete(ctx context.Context, req *DeleteShiftReq, options ...larkcore.RequestOptionFunc) (*DeleteShiftResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, s.service.config, http.MethodDelete,
-		"/open-apis/attendance/v1/shifts/:shift_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,s.service.config, http.MethodDelete,
+		"/open-apis/attendance/v1/shifts/:shift_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -253,10 +256,10 @@ func (s *shift) Delete(ctx context.Context, req *DeleteShiftReq, options ...core
 	}
 	return resp, err
 }
-func (s *shift) Get(ctx context.Context, req *GetShiftReq, options ...core.RequestOptionFunc) (*GetShiftResp, error) {
+func (s *shift) Get(ctx context.Context, req *GetShiftReq, options ...larkcore.RequestOptionFunc) (*GetShiftResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, s.service.config, http.MethodGet,
-		"/open-apis/attendance/v1/shifts/:shift_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,s.service.config, http.MethodGet,
+		"/open-apis/attendance/v1/shifts/:shift_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -268,10 +271,10 @@ func (s *shift) Get(ctx context.Context, req *GetShiftReq, options ...core.Reque
 	}
 	return resp, err
 }
-func (s *shift) List(ctx context.Context, req *ListShiftReq, options ...core.RequestOptionFunc) (*ListShiftResp, error) {
+func (s *shift) List(ctx context.Context, req *ListShiftReq, options ...larkcore.RequestOptionFunc) (*ListShiftResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, s.service.config, http.MethodGet,
-		"/open-apis/attendance/v1/shifts", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,s.service.config, http.MethodGet,
+		"/open-apis/attendance/v1/shifts", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -283,18 +286,18 @@ func (s *shift) List(ctx context.Context, req *ListShiftReq, options ...core.Req
 	}
 	return resp, err
 }
-func (s *shift) ListByIterator(ctx context.Context, req *ListShiftReq, options ...core.RequestOptionFunc) (*ListShiftIterator, error) {
-	return &ListShiftIterator{
-		ctx:      ctx,
-		req:      req,
-		listFunc: s.List,
-		options:  options,
-		limit:    req.Limit}, nil
+func (s *shift) ListByIterator(ctx context.Context, req *ListShiftReq, options ...larkcore.RequestOptionFunc) (*ListShiftIterator, error) {
+   return &ListShiftIterator{
+	  ctx:	  ctx,
+	  req:	  req,
+	  listFunc: s.List,
+	  options:  options,
+	  limit: req.Limit}, nil
 }
-func (s *shift) Query(ctx context.Context, req *QueryShiftReq, options ...core.RequestOptionFunc) (*QueryShiftResp, error) {
+func (s *shift) Query(ctx context.Context, req *QueryShiftReq, options ...larkcore.RequestOptionFunc) (*QueryShiftResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, s.service.config, http.MethodPost,
-		"/open-apis/attendance/v1/shifts/query", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,s.service.config, http.MethodPost,
+		"/open-apis/attendance/v1/shifts/query", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -306,10 +309,10 @@ func (s *shift) Query(ctx context.Context, req *QueryShiftReq, options ...core.R
 	}
 	return resp, err
 }
-func (u *userApproval) Create(ctx context.Context, req *CreateUserApprovalReq, options ...core.RequestOptionFunc) (*CreateUserApprovalResp, error) {
+func (u *userApproval) Create(ctx context.Context, req *CreateUserApprovalReq, options ...larkcore.RequestOptionFunc) (*CreateUserApprovalResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, u.service.config, http.MethodPost,
-		"/open-apis/attendance/v1/user_approvals", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,u.service.config, http.MethodPost,
+		"/open-apis/attendance/v1/user_approvals", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -321,10 +324,10 @@ func (u *userApproval) Create(ctx context.Context, req *CreateUserApprovalReq, o
 	}
 	return resp, err
 }
-func (u *userApproval) Query(ctx context.Context, req *QueryUserApprovalReq, options ...core.RequestOptionFunc) (*QueryUserApprovalResp, error) {
+func (u *userApproval) Query(ctx context.Context, req *QueryUserApprovalReq, options ...larkcore.RequestOptionFunc) (*QueryUserApprovalResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, u.service.config, http.MethodPost,
-		"/open-apis/attendance/v1/user_approvals/query", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,u.service.config, http.MethodPost,
+		"/open-apis/attendance/v1/user_approvals/query", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -336,10 +339,10 @@ func (u *userApproval) Query(ctx context.Context, req *QueryUserApprovalReq, opt
 	}
 	return resp, err
 }
-func (u *userDailyShift) BatchCreate(ctx context.Context, req *BatchCreateUserDailyShiftReq, options ...core.RequestOptionFunc) (*BatchCreateUserDailyShiftResp, error) {
+func (u *userDailyShift) BatchCreate(ctx context.Context, req *BatchCreateUserDailyShiftReq, options ...larkcore.RequestOptionFunc) (*BatchCreateUserDailyShiftResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, u.service.config, http.MethodPost,
-		"/open-apis/attendance/v1/user_daily_shifts/batch_create", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,u.service.config, http.MethodPost,
+		"/open-apis/attendance/v1/user_daily_shifts/batch_create", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -351,10 +354,10 @@ func (u *userDailyShift) BatchCreate(ctx context.Context, req *BatchCreateUserDa
 	}
 	return resp, err
 }
-func (u *userDailyShift) Query(ctx context.Context, req *QueryUserDailyShiftReq, options ...core.RequestOptionFunc) (*QueryUserDailyShiftResp, error) {
+func (u *userDailyShift) Query(ctx context.Context, req *QueryUserDailyShiftReq, options ...larkcore.RequestOptionFunc) (*QueryUserDailyShiftResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, u.service.config, http.MethodPost,
-		"/open-apis/attendance/v1/user_daily_shifts/query", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,u.service.config, http.MethodPost,
+		"/open-apis/attendance/v1/user_daily_shifts/query", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -366,10 +369,10 @@ func (u *userDailyShift) Query(ctx context.Context, req *QueryUserDailyShiftReq,
 	}
 	return resp, err
 }
-func (u *userFlow) BatchCreate(ctx context.Context, req *BatchCreateUserFlowReq, options ...core.RequestOptionFunc) (*BatchCreateUserFlowResp, error) {
+func (u *userFlow) BatchCreate(ctx context.Context, req *BatchCreateUserFlowReq, options ...larkcore.RequestOptionFunc) (*BatchCreateUserFlowResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, u.service.config, http.MethodPost,
-		"/open-apis/attendance/v1/user_flows/batch_create", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,u.service.config, http.MethodPost,
+		"/open-apis/attendance/v1/user_flows/batch_create", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -381,10 +384,10 @@ func (u *userFlow) BatchCreate(ctx context.Context, req *BatchCreateUserFlowReq,
 	}
 	return resp, err
 }
-func (u *userFlow) Get(ctx context.Context, req *GetUserFlowReq, options ...core.RequestOptionFunc) (*GetUserFlowResp, error) {
+func (u *userFlow) Get(ctx context.Context, req *GetUserFlowReq, options ...larkcore.RequestOptionFunc) (*GetUserFlowResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, u.service.config, http.MethodGet,
-		"/open-apis/attendance/v1/user_flows/:user_flow_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,u.service.config, http.MethodGet,
+		"/open-apis/attendance/v1/user_flows/:user_flow_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -396,10 +399,10 @@ func (u *userFlow) Get(ctx context.Context, req *GetUserFlowReq, options ...core
 	}
 	return resp, err
 }
-func (u *userFlow) Query(ctx context.Context, req *QueryUserFlowReq, options ...core.RequestOptionFunc) (*QueryUserFlowResp, error) {
+func (u *userFlow) Query(ctx context.Context, req *QueryUserFlowReq, options ...larkcore.RequestOptionFunc) (*QueryUserFlowResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, u.service.config, http.MethodPost,
-		"/open-apis/attendance/v1/user_flows/query", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,u.service.config, http.MethodPost,
+		"/open-apis/attendance/v1/user_flows/query", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -411,10 +414,10 @@ func (u *userFlow) Query(ctx context.Context, req *QueryUserFlowReq, options ...
 	}
 	return resp, err
 }
-func (u *userSetting) Modify(ctx context.Context, req *ModifyUserSettingReq, options ...core.RequestOptionFunc) (*ModifyUserSettingResp, error) {
+func (u *userSetting) Modify(ctx context.Context, req *ModifyUserSettingReq, options ...larkcore.RequestOptionFunc) (*ModifyUserSettingResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, u.service.config, http.MethodPost,
-		"/open-apis/attendance/v1/user_settings/modify", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,u.service.config, http.MethodPost,
+		"/open-apis/attendance/v1/user_settings/modify", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -426,10 +429,10 @@ func (u *userSetting) Modify(ctx context.Context, req *ModifyUserSettingReq, opt
 	}
 	return resp, err
 }
-func (u *userSetting) Query(ctx context.Context, req *QueryUserSettingReq, options ...core.RequestOptionFunc) (*QueryUserSettingResp, error) {
+func (u *userSetting) Query(ctx context.Context, req *QueryUserSettingReq, options ...larkcore.RequestOptionFunc) (*QueryUserSettingResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, u.service.config, http.MethodGet,
-		"/open-apis/attendance/v1/user_settings/query", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,u.service.config, http.MethodGet,
+		"/open-apis/attendance/v1/user_settings/query", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -441,10 +444,10 @@ func (u *userSetting) Query(ctx context.Context, req *QueryUserSettingReq, optio
 	}
 	return resp, err
 }
-func (u *userStatsData) Query(ctx context.Context, req *QueryUserStatsDataReq, options ...core.RequestOptionFunc) (*QueryUserStatsDataResp, error) {
+func (u *userStatsData) Query(ctx context.Context, req *QueryUserStatsDataReq, options ...larkcore.RequestOptionFunc) (*QueryUserStatsDataResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, u.service.config, http.MethodPost,
-		"/open-apis/attendance/v1/user_stats_datas/query", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,u.service.config, http.MethodPost,
+		"/open-apis/attendance/v1/user_stats_datas/query", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -456,10 +459,10 @@ func (u *userStatsData) Query(ctx context.Context, req *QueryUserStatsDataReq, o
 	}
 	return resp, err
 }
-func (u *userStatsField) Query(ctx context.Context, req *QueryUserStatsFieldReq, options ...core.RequestOptionFunc) (*QueryUserStatsFieldResp, error) {
+func (u *userStatsField) Query(ctx context.Context, req *QueryUserStatsFieldReq, options ...larkcore.RequestOptionFunc) (*QueryUserStatsFieldResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, u.service.config, http.MethodPost,
-		"/open-apis/attendance/v1/user_stats_fields/query", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,u.service.config, http.MethodPost,
+		"/open-apis/attendance/v1/user_stats_fields/query", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -471,10 +474,10 @@ func (u *userStatsField) Query(ctx context.Context, req *QueryUserStatsFieldReq,
 	}
 	return resp, err
 }
-func (u *userStatsView) Query(ctx context.Context, req *QueryUserStatsViewReq, options ...core.RequestOptionFunc) (*QueryUserStatsViewResp, error) {
+func (u *userStatsView) Query(ctx context.Context, req *QueryUserStatsViewReq, options ...larkcore.RequestOptionFunc) (*QueryUserStatsViewResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, u.service.config, http.MethodPost,
-		"/open-apis/attendance/v1/user_stats_views/query", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,u.service.config, http.MethodPost,
+		"/open-apis/attendance/v1/user_stats_views/query", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -486,10 +489,10 @@ func (u *userStatsView) Query(ctx context.Context, req *QueryUserStatsViewReq, o
 	}
 	return resp, err
 }
-func (u *userStatsView) Update(ctx context.Context, req *UpdateUserStatsViewReq, options ...core.RequestOptionFunc) (*UpdateUserStatsViewResp, error) {
+func (u *userStatsView) Update(ctx context.Context, req *UpdateUserStatsViewReq, options ...larkcore.RequestOptionFunc) (*UpdateUserStatsViewResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, u.service.config, http.MethodPut,
-		"/open-apis/attendance/v1/user_stats_views/:user_stats_view_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,u.service.config, http.MethodPut,
+		"/open-apis/attendance/v1/user_stats_views/:user_stats_view_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -501,10 +504,10 @@ func (u *userStatsView) Update(ctx context.Context, req *UpdateUserStatsViewReq,
 	}
 	return resp, err
 }
-func (u *userTask) Query(ctx context.Context, req *QueryUserTaskReq, options ...core.RequestOptionFunc) (*QueryUserTaskResp, error) {
+func (u *userTask) Query(ctx context.Context, req *QueryUserTaskReq, options ...larkcore.RequestOptionFunc) (*QueryUserTaskResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, u.service.config, http.MethodPost,
-		"/open-apis/attendance/v1/user_tasks/query", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,u.service.config, http.MethodPost,
+		"/open-apis/attendance/v1/user_tasks/query", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -516,10 +519,10 @@ func (u *userTask) Query(ctx context.Context, req *QueryUserTaskReq, options ...
 	}
 	return resp, err
 }
-func (u *userTaskRemedy) Create(ctx context.Context, req *CreateUserTaskRemedyReq, options ...core.RequestOptionFunc) (*CreateUserTaskRemedyResp, error) {
+func (u *userTaskRemedy) Create(ctx context.Context, req *CreateUserTaskRemedyReq, options ...larkcore.RequestOptionFunc) (*CreateUserTaskRemedyResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, u.service.config, http.MethodPost,
-		"/open-apis/attendance/v1/user_task_remedys", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,u.service.config, http.MethodPost,
+		"/open-apis/attendance/v1/user_task_remedys", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -531,10 +534,10 @@ func (u *userTaskRemedy) Create(ctx context.Context, req *CreateUserTaskRemedyRe
 	}
 	return resp, err
 }
-func (u *userTaskRemedy) Query(ctx context.Context, req *QueryUserTaskRemedyReq, options ...core.RequestOptionFunc) (*QueryUserTaskRemedyResp, error) {
+func (u *userTaskRemedy) Query(ctx context.Context, req *QueryUserTaskRemedyReq, options ...larkcore.RequestOptionFunc) (*QueryUserTaskRemedyResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, u.service.config, http.MethodPost,
-		"/open-apis/attendance/v1/user_task_remedys/query", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,u.service.config, http.MethodPost,
+		"/open-apis/attendance/v1/user_task_remedys/query", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -546,10 +549,10 @@ func (u *userTaskRemedy) Query(ctx context.Context, req *QueryUserTaskRemedyReq,
 	}
 	return resp, err
 }
-func (u *userTaskRemedy) QueryUserAllowedRemedys(ctx context.Context, req *QueryUserAllowedRemedysUserTaskRemedyReq, options ...core.RequestOptionFunc) (*QueryUserAllowedRemedysUserTaskRemedyResp, error) {
+func (u *userTaskRemedy) QueryUserAllowedRemedys(ctx context.Context, req *QueryUserAllowedRemedysUserTaskRemedyReq, options ...larkcore.RequestOptionFunc) (*QueryUserAllowedRemedysUserTaskRemedyResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, u.service.config, http.MethodPost,
-		"/open-apis/attendance/v1/user_task_remedys/query_user_allowed_remedys", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,u.service.config, http.MethodPost,
+		"/open-apis/attendance/v1/user_task_remedys/query_user_allowed_remedys", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}

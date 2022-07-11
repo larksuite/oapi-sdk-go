@@ -2,45 +2,48 @@
 package larkadmin
 
 import (
-	"context"
 	"net/http"
-
+	"context"
+	
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
+
 // 构建业务域服务实例
-func NewService(config *core.Config) *AdminService {
-	a := &AdminService{config: config}
+func NewService(config *larkcore.Config) *AdminService {
+	a := &AdminService{config:config}
 	a.AdminDeptStat = &adminDeptStat{service: a}
 	a.AdminUserStat = &adminUserStat{service: a}
 	a.Password = &password{service: a}
 	return a
 }
 
+
 // 业务域服务定义
 type AdminService struct {
-	config        *core.Config
+	config *larkcore.Config
 	AdminDeptStat *adminDeptStat
 	AdminUserStat *adminUserStat
-	Password      *password
+	Password *password
 }
+
+
 
 // 资源服务定义
 type adminDeptStat struct {
-	service *AdminService
+   service *AdminService
 }
 type adminUserStat struct {
-	service *AdminService
+   service *AdminService
 }
 type password struct {
-	service *AdminService
+   service *AdminService
 }
-
 // 资源服务方法定义
-func (a *adminDeptStat) List(ctx context.Context, req *ListAdminDeptStatReq, options ...core.RequestOptionFunc) (*ListAdminDeptStatResp, error) {
+func (a *adminDeptStat) List(ctx context.Context, req *ListAdminDeptStatReq, options ...larkcore.RequestOptionFunc) (*ListAdminDeptStatResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodGet,
-		"/open-apis/admin/v1/admin_dept_stats", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,a.service.config, http.MethodGet,
+		"/open-apis/admin/v1/admin_dept_stats", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -52,10 +55,10 @@ func (a *adminDeptStat) List(ctx context.Context, req *ListAdminDeptStatReq, opt
 	}
 	return resp, err
 }
-func (a *adminUserStat) List(ctx context.Context, req *ListAdminUserStatReq, options ...core.RequestOptionFunc) (*ListAdminUserStatResp, error) {
+func (a *adminUserStat) List(ctx context.Context, req *ListAdminUserStatReq, options ...larkcore.RequestOptionFunc) (*ListAdminUserStatResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodGet,
-		"/open-apis/admin/v1/admin_user_stats", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,a.service.config, http.MethodGet,
+		"/open-apis/admin/v1/admin_user_stats", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -67,10 +70,10 @@ func (a *adminUserStat) List(ctx context.Context, req *ListAdminUserStatReq, opt
 	}
 	return resp, err
 }
-func (p *password) Reset(ctx context.Context, req *ResetPasswordReq, options ...core.RequestOptionFunc) (*ResetPasswordResp, error) {
+func (p *password) Reset(ctx context.Context, req *ResetPasswordReq, options ...larkcore.RequestOptionFunc) (*ResetPasswordResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, p.service.config, http.MethodPost,
-		"/open-apis/admin/v1/password/reset", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,p.service.config, http.MethodPost,
+		"/open-apis/admin/v1/password/reset", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}

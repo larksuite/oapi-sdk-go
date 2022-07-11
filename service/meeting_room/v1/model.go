@@ -3,163 +3,191 @@ package larkmeeting_room
 
 import (
 	"github.com/larksuite/oapi-sdk-go/event"
+	
+
 )
 
 // 生成枚举值
 
+
+
 // 生成数据类型
 
 type EventTime struct {
-	TimeStamp *int `json:"time_stamp,omitempty"`
+	TimeStamp  *int `json:"time_stamp,omitempty"`
 }
 
 // builder开始
 type EventTimeBuilder struct {
-	timeStamp     int
-	timeStampFlag bool
+	timeStamp  int
+	timeStampFlag  bool
 }
 
-func NewEventTimeBuilder() *EventTimeBuilder {
-	builder := &EventTimeBuilder{}
-	return builder
+func NewEventTimeBuilder() * EventTimeBuilder{
+   builder := &EventTimeBuilder{}
+   return builder
 }
 
-func (builder *EventTimeBuilder) TimeStamp(timeStamp int) *EventTimeBuilder {
-	builder.timeStamp = timeStamp
-	builder.timeStampFlag = true
-	return builder
+
+func (builder * EventTimeBuilder) TimeStamp(timeStamp int) *EventTimeBuilder  {
+  builder.timeStamp = timeStamp
+  builder.timeStampFlag = true
+  return builder
 }
 
-func (builder *EventTimeBuilder) Build() *EventTime {
-	req := &EventTime{}
-	if builder.timeStampFlag {
-		req.TimeStamp = &builder.timeStamp
-
-	}
-	return req
+func (builder * EventTimeBuilder ) Build() *EventTime {
+   req := &EventTime{}
+   if builder.timeStampFlag {
+	  req.TimeStamp = &builder.timeStamp
+	  
+   }
+   return req
 }
-
 // builder结束
 
 type MeetingRoom struct {
-	RoomId *int `json:"room_id,omitempty"`
+	RoomId  *int `json:"room_id,omitempty"`
 }
 
 // builder开始
 type MeetingRoomBuilder struct {
-	roomId     int
-	roomIdFlag bool
+	roomId  int
+	roomIdFlag  bool
 }
 
-func NewMeetingRoomBuilder() *MeetingRoomBuilder {
-	builder := &MeetingRoomBuilder{}
-	return builder
+func NewMeetingRoomBuilder() * MeetingRoomBuilder{
+   builder := &MeetingRoomBuilder{}
+   return builder
 }
 
-func (builder *MeetingRoomBuilder) RoomId(roomId int) *MeetingRoomBuilder {
-	builder.roomId = roomId
-	builder.roomIdFlag = true
-	return builder
+
+func (builder * MeetingRoomBuilder) RoomId(roomId int) *MeetingRoomBuilder  {
+  builder.roomId = roomId
+  builder.roomIdFlag = true
+  return builder
 }
 
-func (builder *MeetingRoomBuilder) Build() *MeetingRoom {
-	req := &MeetingRoom{}
-	if builder.roomIdFlag {
-		req.RoomId = &builder.roomId
-
-	}
-	return req
+func (builder * MeetingRoomBuilder ) Build() *MeetingRoom {
+   req := &MeetingRoom{}
+   if builder.roomIdFlag {
+	  req.RoomId = &builder.roomId
+	  
+   }
+   return req
 }
-
 // builder结束
 
 type UserInfo struct {
-	OpenId *string `json:"open_id,omitempty"`
-	UserId *string `json:"user_id,omitempty"`
+	OpenId  *string `json:"open_id,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
 }
 
 // builder开始
 type UserInfoBuilder struct {
-	openId     string
-	openIdFlag bool
-	userId     string
-	userIdFlag bool
+	openId  string
+	openIdFlag  bool
+	userId  string
+	userIdFlag  bool
 }
 
-func NewUserInfoBuilder() *UserInfoBuilder {
-	builder := &UserInfoBuilder{}
-	return builder
+func NewUserInfoBuilder() * UserInfoBuilder{
+   builder := &UserInfoBuilder{}
+   return builder
 }
 
-func (builder *UserInfoBuilder) OpenId(openId string) *UserInfoBuilder {
-	builder.openId = openId
-	builder.openIdFlag = true
-	return builder
+
+func (builder * UserInfoBuilder) OpenId(openId string) *UserInfoBuilder  {
+  builder.openId = openId
+  builder.openIdFlag = true
+  return builder
 }
-func (builder *UserInfoBuilder) UserId(userId string) *UserInfoBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
-}
-
-func (builder *UserInfoBuilder) Build() *UserInfo {
-	req := &UserInfo{}
-	if builder.openIdFlag {
-		req.OpenId = &builder.openId
-
-	}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	return req
+func (builder * UserInfoBuilder) UserId(userId string) *UserInfoBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
 
+func (builder * UserInfoBuilder ) Build() *UserInfo {
+   req := &UserInfo{}
+   if builder.openIdFlag {
+	  req.OpenId = &builder.openId
+	  
+   }
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   return req
+}
 // builder结束
+
 
 // 生成请求和响应结果类型，以及请求对象的Builder构造器
 
 // 生成消息事件结构体
 
-type MeetingRoomCreatedEventData struct {
-	RoomName *string `json:"room_name,omitempty"`
-	RoomId   *string `json:"room_id,omitempty"`
+type P2MeetingRoomCreatedV1Data struct {
+	RoomName  *string `json:"room_name,omitempty"`
+	RoomId  *string `json:"room_id,omitempty"`
 }
 
-type MeetingRoomCreatedEvent struct {
-	*event.EventV2Base
-	Event *MeetingRoomCreatedEventData `json:"event"`
+type P2MeetingRoomCreatedV1 struct {
+	*larkevent.EventV2Base
+	*larkevent.EventReq
+	Event * P2MeetingRoomCreatedV1Data `json:"event"`
 }
 
-type MeetingRoomDeletedEventData struct {
-	RoomName *string `json:"room_name,omitempty"`
-	RoomId   *string `json:"room_id,omitempty"`
+func (m *P2MeetingRoomCreatedV1) RawReq( req *larkevent.EventReq){
+	m.EventReq = req
 }
 
-type MeetingRoomDeletedEvent struct {
-	*event.EventV2Base
-	Event *MeetingRoomDeletedEventData `json:"event"`
+type P2MeetingRoomDeletedV1Data struct {
+	RoomName  *string `json:"room_name,omitempty"`
+	RoomId  *string `json:"room_id,omitempty"`
 }
 
-type MeetingRoomStatusChangedEventData struct {
-	RoomName *string `json:"room_name,omitempty"`
-	RoomId   *string `json:"room_id,omitempty"`
+type P2MeetingRoomDeletedV1 struct {
+	*larkevent.EventV2Base
+	*larkevent.EventReq
+	Event * P2MeetingRoomDeletedV1Data `json:"event"`
 }
 
-type MeetingRoomStatusChangedEvent struct {
-	*event.EventV2Base
-	Event *MeetingRoomStatusChangedEventData `json:"event"`
+func (m *P2MeetingRoomDeletedV1) RawReq( req *larkevent.EventReq){
+	m.EventReq = req
 }
 
-type MeetingRoomUpdatedEventData struct {
-	RoomName *string `json:"room_name,omitempty"`
-	RoomId   *string `json:"room_id,omitempty"`
+type P2MeetingRoomStatusChangedV1Data struct {
+	RoomName  *string `json:"room_name,omitempty"`
+	RoomId  *string `json:"room_id,omitempty"`
 }
 
-type MeetingRoomUpdatedEvent struct {
-	*event.EventV2Base
-	Event *MeetingRoomUpdatedEventData `json:"event"`
+type P2MeetingRoomStatusChangedV1 struct {
+	*larkevent.EventV2Base
+	*larkevent.EventReq
+	Event * P2MeetingRoomStatusChangedV1Data `json:"event"`
 }
+
+func (m *P2MeetingRoomStatusChangedV1) RawReq( req *larkevent.EventReq){
+	m.EventReq = req
+}
+
+type P2MeetingRoomUpdatedV1Data struct {
+	RoomName  *string `json:"room_name,omitempty"`
+	RoomId  *string `json:"room_id,omitempty"`
+}
+
+type P2MeetingRoomUpdatedV1 struct {
+	*larkevent.EventV2Base
+	*larkevent.EventReq
+	Event * P2MeetingRoomUpdatedV1Data `json:"event"`
+}
+
+func (m *P2MeetingRoomUpdatedV1) RawReq( req *larkevent.EventReq){
+	m.EventReq = req
+}
+
 
 // 生成请求的builder构造器
 // 1.1 生成body的builder结构体
+
+

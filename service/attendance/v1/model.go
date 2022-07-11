@@ -3,4212 +3,4229 @@ package larkattendance
 
 import (
 	"io"
-
+	
 	"bytes"
+		
 
+	
 	"io/ioutil"
-
+	
 	"context"
 	"errors"
 	"fmt"
-
+	
 	"github.com/larksuite/oapi-sdk-go/core"
+	
+
 )
 
 // 生成枚举值
 
 const (
-	EmployeeTypeEmployeeId = "employee_id"
-	EmployeeTypeEmployeeNo = "employee_no"
+
+	  EmployeeTypeEmployeeId = "employee_id"
+	  EmployeeTypeEmployeeNo = "employee_no"
 )
 
 const (
-	DeptTypeOpenId = "open_id"
+
+	  DeptTypeOpenId = "open_id"
 )
 
 const (
-	TypeSelf                = 0
+TypeSelf = 0
 	TypeManagerModification = 1
-	TypeRemedy              = 2
-	TypeSystem              = 3
-	TypeFree                = 4
-	TypeMachine             = 5
-	TypeQuick               = 6
-	TypeImport              = 7
+	TypeRemedy = 2
+	TypeSystem = 3
+	TypeFree = 4
+	TypeMachine = 5
+	TypeQuick = 6
+	TypeImport = 7
+	
 )
 
 const (
-	CheckResultNoNeedCheck = "NoNeedCheck"
-	CheckResultSystemCheck = "SystemCheck"
-	CheckResultNormal      = "Normal"
-	CheckResultEarly       = "Early"
-	CheckResultLate        = "Late"
-	CheckResultSeriousLate = "SeriousLate"
-	CheckResultLack        = "Lack"
-	CheckResultInvalid     = "Invalid"
-	CheckResultNone        = "None"
-	CheckResultTodo        = "Todo"
+
+	  CheckResultNoNeedCheck = "NoNeedCheck"
+	  CheckResultSystemCheck = "SystemCheck"
+	  CheckResultNormal = "Normal"
+	  CheckResultEarly = "Early"
+	  CheckResultLate = "Late"
+	  CheckResultSeriousLate = "SeriousLate"
+	  CheckResultLack = "Lack"
+	  CheckResultInvalid = "Invalid"
+	  CheckResultNone = "None"
+	  CheckResultTodo = "Todo"
 )
 
 const (
-	LocaleEn = "en"
-	LocaleJa = "ja"
-	LocaleZh = "zh"
+
+	  LocaleEn = "en"
+	  LocaleJa = "ja"
+	  LocaleZh = "zh"
 )
 
 const (
-	StatsTypeDaily = "daily"
-	StatsTypeMonth = "month"
+
+	  StatsTypeDaily = "daily"
+	  StatsTypeMonth = "month"
 )
 
 const (
-	StatusPending  = 0
-	StatusPass     = 2
-	StatusCancel   = 3
+StatusPending = 0
+	StatusPass = 2
+	StatusCancel = 3
 	StatusWithdraw = 4
+	
 )
+
+
 
 // 生成数据类型
 
 type ApprovalInfo struct {
-	ApprovalId   *string `json:"approval_id,omitempty"`
-	ApprovalType *string `json:"approval_type,omitempty"`
-	Status       *int    `json:"status,omitempty"`
+	ApprovalId  *string `json:"approval_id,omitempty"`
+	ApprovalType  *string `json:"approval_type,omitempty"`
+	Status  *int `json:"status,omitempty"`
 }
 
 // builder开始
 type ApprovalInfoBuilder struct {
-	approvalId       string
-	approvalIdFlag   bool
-	approvalType     string
-	approvalTypeFlag bool
-	status           int
-	statusFlag       bool
+	approvalId  string
+	approvalIdFlag  bool
+	approvalType  string
+	approvalTypeFlag  bool
+	status  int
+	statusFlag  bool
 }
 
-func NewApprovalInfoBuilder() *ApprovalInfoBuilder {
-	builder := &ApprovalInfoBuilder{}
-	return builder
+func NewApprovalInfoBuilder() * ApprovalInfoBuilder{
+   builder := &ApprovalInfoBuilder{}
+   return builder
 }
 
-func (builder *ApprovalInfoBuilder) ApprovalId(approvalId string) *ApprovalInfoBuilder {
-	builder.approvalId = approvalId
-	builder.approvalIdFlag = true
-	return builder
+
+func (builder * ApprovalInfoBuilder) ApprovalId(approvalId string) *ApprovalInfoBuilder  {
+  builder.approvalId = approvalId
+  builder.approvalIdFlag = true
+  return builder
 }
-func (builder *ApprovalInfoBuilder) ApprovalType(approvalType string) *ApprovalInfoBuilder {
-	builder.approvalType = approvalType
-	builder.approvalTypeFlag = true
-	return builder
+func (builder * ApprovalInfoBuilder) ApprovalType(approvalType string) *ApprovalInfoBuilder  {
+  builder.approvalType = approvalType
+  builder.approvalTypeFlag = true
+  return builder
 }
-func (builder *ApprovalInfoBuilder) Status(status int) *ApprovalInfoBuilder {
-	builder.status = status
-	builder.statusFlag = true
-	return builder
-}
-
-func (builder *ApprovalInfoBuilder) Build() *ApprovalInfo {
-	req := &ApprovalInfo{}
-	if builder.approvalIdFlag {
-		req.ApprovalId = &builder.approvalId
-
-	}
-	if builder.approvalTypeFlag {
-		req.ApprovalType = &builder.approvalType
-
-	}
-	if builder.statusFlag {
-		req.Status = &builder.status
-
-	}
-	return req
+func (builder * ApprovalInfoBuilder) Status(status int) *ApprovalInfoBuilder  {
+  builder.status = status
+  builder.statusFlag = true
+  return builder
 }
 
+func (builder * ApprovalInfoBuilder ) Build() *ApprovalInfo {
+   req := &ApprovalInfo{}
+   if builder.approvalIdFlag {
+	  req.ApprovalId = &builder.approvalId
+	  
+   }
+   if builder.approvalTypeFlag {
+	  req.ApprovalType = &builder.approvalType
+	  
+   }
+   if builder.statusFlag {
+	  req.Status = &builder.status
+	  
+   }
+   return req
+}
 // builder结束
 
 type Area struct {
-	Type   *string       `json:"type,omitempty"`
-	Center *Coordinate   `json:"center,omitempty"`
-	Radius *int64        `json:"radius,omitempty,string"`
-	Coords []*Coordinate `json:"coords,omitempty"`
+	Type  *string `json:"type,omitempty"`
+	Center  *Coordinate `json:"center,omitempty"`
+	Radius  *int64 `json:"radius,omitempty,string"`
+	Coords  []*Coordinate `json:"coords,omitempty"`
 }
 
 // builder开始
 type AreaBuilder struct {
-	type_      string
-	typeFlag   bool
-	center     *Coordinate
-	centerFlag bool
-	radius     int64
-	radiusFlag bool
-	coords     []*Coordinate
-	coordsFlag bool
+	type_  string
+	typeFlag  bool
+	center  *Coordinate
+	centerFlag  bool
+	radius  int64
+	radiusFlag  bool
+	coords  []*Coordinate
+	coordsFlag  bool
 }
 
-func NewAreaBuilder() *AreaBuilder {
-	builder := &AreaBuilder{}
-	return builder
+func NewAreaBuilder() * AreaBuilder{
+   builder := &AreaBuilder{}
+   return builder
 }
 
-func (builder *AreaBuilder) Type(type_ string) *AreaBuilder {
-	builder.type_ = type_
-	builder.typeFlag = true
-	return builder
+
+func (builder * AreaBuilder) Type(type_ string) *AreaBuilder  {
+  builder.type_ = type_
+  builder.typeFlag = true
+  return builder
 }
-func (builder *AreaBuilder) Center(center *Coordinate) *AreaBuilder {
-	builder.center = center
-	builder.centerFlag = true
-	return builder
+func (builder * AreaBuilder) Center(center *Coordinate) *AreaBuilder  {
+  builder.center = center
+  builder.centerFlag = true
+  return builder
 }
-func (builder *AreaBuilder) Radius(radius int64) *AreaBuilder {
-	builder.radius = radius
-	builder.radiusFlag = true
-	return builder
+func (builder * AreaBuilder) Radius(radius int64) *AreaBuilder  {
+  builder.radius = radius
+  builder.radiusFlag = true
+  return builder
 }
-func (builder *AreaBuilder) Coords(coords []*Coordinate) *AreaBuilder {
-	builder.coords = coords
-	builder.coordsFlag = true
-	return builder
+func (builder * AreaBuilder) Coords(coords []*Coordinate) *AreaBuilder  {
+  builder.coords = coords
+  builder.coordsFlag = true
+  return builder
 }
 
-func (builder *AreaBuilder) Build() *Area {
-	req := &Area{}
-	if builder.typeFlag {
-		req.Type = &builder.type_
-
-	}
-	if builder.centerFlag {
-		req.Center = builder.center
-	}
-	if builder.radiusFlag {
-		req.Radius = &builder.radius
-
-	}
-	if builder.coordsFlag {
-		req.Coords = builder.coords
-	}
-	return req
+func (builder * AreaBuilder ) Build() *Area {
+   req := &Area{}
+   if builder.typeFlag {
+	  req.Type = &builder.type_
+	  
+   }
+   if builder.centerFlag {
+	  req.Center = builder.center
+   }
+   if builder.radiusFlag {
+	  req.Radius = &builder.radius
+	  
+   }
+   if builder.coordsFlag {
+	  req.Coords = builder.coords
+   }
+   return req
 }
-
 // builder结束
 
 type ChildField struct {
-	Code     *string `json:"code,omitempty"`
-	Title    *string `json:"title,omitempty"`
-	TimeUnit *string `json:"time_unit,omitempty"`
+	Code  *string `json:"code,omitempty"`
+	Title  *string `json:"title,omitempty"`
+	TimeUnit  *string `json:"time_unit,omitempty"`
 }
 
 // builder开始
 type ChildFieldBuilder struct {
-	code         string
-	codeFlag     bool
-	title        string
-	titleFlag    bool
-	timeUnit     string
-	timeUnitFlag bool
+	code  string
+	codeFlag  bool
+	title  string
+	titleFlag  bool
+	timeUnit  string
+	timeUnitFlag  bool
 }
 
-func NewChildFieldBuilder() *ChildFieldBuilder {
-	builder := &ChildFieldBuilder{}
-	return builder
+func NewChildFieldBuilder() * ChildFieldBuilder{
+   builder := &ChildFieldBuilder{}
+   return builder
 }
 
-func (builder *ChildFieldBuilder) Code(code string) *ChildFieldBuilder {
-	builder.code = code
-	builder.codeFlag = true
-	return builder
+
+func (builder * ChildFieldBuilder) Code(code string) *ChildFieldBuilder  {
+  builder.code = code
+  builder.codeFlag = true
+  return builder
 }
-func (builder *ChildFieldBuilder) Title(title string) *ChildFieldBuilder {
-	builder.title = title
-	builder.titleFlag = true
-	return builder
+func (builder * ChildFieldBuilder) Title(title string) *ChildFieldBuilder  {
+  builder.title = title
+  builder.titleFlag = true
+  return builder
 }
-func (builder *ChildFieldBuilder) TimeUnit(timeUnit string) *ChildFieldBuilder {
-	builder.timeUnit = timeUnit
-	builder.timeUnitFlag = true
-	return builder
-}
-
-func (builder *ChildFieldBuilder) Build() *ChildField {
-	req := &ChildField{}
-	if builder.codeFlag {
-		req.Code = &builder.code
-
-	}
-	if builder.titleFlag {
-		req.Title = &builder.title
-
-	}
-	if builder.timeUnitFlag {
-		req.TimeUnit = &builder.timeUnit
-
-	}
-	return req
+func (builder * ChildFieldBuilder) TimeUnit(timeUnit string) *ChildFieldBuilder  {
+  builder.timeUnit = timeUnit
+  builder.timeUnitFlag = true
+  return builder
 }
 
+func (builder * ChildFieldBuilder ) Build() *ChildField {
+   req := &ChildField{}
+   if builder.codeFlag {
+	  req.Code = &builder.code
+	  
+   }
+   if builder.titleFlag {
+	  req.Title = &builder.title
+	  
+   }
+   if builder.timeUnitFlag {
+	  req.TimeUnit = &builder.timeUnit
+	  
+   }
+   return req
+}
 // builder结束
 
 type ChildItem struct {
-	Code       *string `json:"code,omitempty"`
-	Value      *string `json:"value,omitempty"`
-	Title      *string `json:"title,omitempty"`
-	ColumnType *int    `json:"column_type,omitempty"`
-	ReadOnly   *bool   `json:"read_only,omitempty"`
-	MinValue   *string `json:"min_value,omitempty"`
-	MaxValue   *string `json:"max_value,omitempty"`
+	Code  *string `json:"code,omitempty"`
+	Value  *string `json:"value,omitempty"`
+	Title  *string `json:"title,omitempty"`
+	ColumnType  *int `json:"column_type,omitempty"`
+	ReadOnly  *bool `json:"read_only,omitempty"`
+	MinValue  *string `json:"min_value,omitempty"`
+	MaxValue  *string `json:"max_value,omitempty"`
 }
 
 // builder开始
 type ChildItemBuilder struct {
-	code           string
-	codeFlag       bool
-	value          string
-	valueFlag      bool
-	title          string
-	titleFlag      bool
-	columnType     int
-	columnTypeFlag bool
-	readOnly       bool
-	readOnlyFlag   bool
-	minValue       string
-	minValueFlag   bool
-	maxValue       string
-	maxValueFlag   bool
+	code  string
+	codeFlag  bool
+	value  string
+	valueFlag  bool
+	title  string
+	titleFlag  bool
+	columnType  int
+	columnTypeFlag  bool
+	readOnly  bool
+	readOnlyFlag  bool
+	minValue  string
+	minValueFlag  bool
+	maxValue  string
+	maxValueFlag  bool
 }
 
-func NewChildItemBuilder() *ChildItemBuilder {
-	builder := &ChildItemBuilder{}
-	return builder
+func NewChildItemBuilder() * ChildItemBuilder{
+   builder := &ChildItemBuilder{}
+   return builder
 }
 
-func (builder *ChildItemBuilder) Code(code string) *ChildItemBuilder {
-	builder.code = code
-	builder.codeFlag = true
-	return builder
+
+func (builder * ChildItemBuilder) Code(code string) *ChildItemBuilder  {
+  builder.code = code
+  builder.codeFlag = true
+  return builder
 }
-func (builder *ChildItemBuilder) Value(value string) *ChildItemBuilder {
-	builder.value = value
-	builder.valueFlag = true
-	return builder
+func (builder * ChildItemBuilder) Value(value string) *ChildItemBuilder  {
+  builder.value = value
+  builder.valueFlag = true
+  return builder
 }
-func (builder *ChildItemBuilder) Title(title string) *ChildItemBuilder {
-	builder.title = title
-	builder.titleFlag = true
-	return builder
+func (builder * ChildItemBuilder) Title(title string) *ChildItemBuilder  {
+  builder.title = title
+  builder.titleFlag = true
+  return builder
 }
-func (builder *ChildItemBuilder) ColumnType(columnType int) *ChildItemBuilder {
-	builder.columnType = columnType
-	builder.columnTypeFlag = true
-	return builder
+func (builder * ChildItemBuilder) ColumnType(columnType int) *ChildItemBuilder  {
+  builder.columnType = columnType
+  builder.columnTypeFlag = true
+  return builder
 }
-func (builder *ChildItemBuilder) ReadOnly(readOnly bool) *ChildItemBuilder {
-	builder.readOnly = readOnly
-	builder.readOnlyFlag = true
-	return builder
+func (builder * ChildItemBuilder) ReadOnly(readOnly bool) *ChildItemBuilder  {
+  builder.readOnly = readOnly
+  builder.readOnlyFlag = true
+  return builder
 }
-func (builder *ChildItemBuilder) MinValue(minValue string) *ChildItemBuilder {
-	builder.minValue = minValue
-	builder.minValueFlag = true
-	return builder
+func (builder * ChildItemBuilder) MinValue(minValue string) *ChildItemBuilder  {
+  builder.minValue = minValue
+  builder.minValueFlag = true
+  return builder
 }
-func (builder *ChildItemBuilder) MaxValue(maxValue string) *ChildItemBuilder {
-	builder.maxValue = maxValue
-	builder.maxValueFlag = true
-	return builder
-}
-
-func (builder *ChildItemBuilder) Build() *ChildItem {
-	req := &ChildItem{}
-	if builder.codeFlag {
-		req.Code = &builder.code
-
-	}
-	if builder.valueFlag {
-		req.Value = &builder.value
-
-	}
-	if builder.titleFlag {
-		req.Title = &builder.title
-
-	}
-	if builder.columnTypeFlag {
-		req.ColumnType = &builder.columnType
-
-	}
-	if builder.readOnlyFlag {
-		req.ReadOnly = &builder.readOnly
-
-	}
-	if builder.minValueFlag {
-		req.MinValue = &builder.minValue
-
-	}
-	if builder.maxValueFlag {
-		req.MaxValue = &builder.maxValue
-
-	}
-	return req
+func (builder * ChildItemBuilder) MaxValue(maxValue string) *ChildItemBuilder  {
+  builder.maxValue = maxValue
+  builder.maxValueFlag = true
+  return builder
 }
 
+func (builder * ChildItemBuilder ) Build() *ChildItem {
+   req := &ChildItem{}
+   if builder.codeFlag {
+	  req.Code = &builder.code
+	  
+   }
+   if builder.valueFlag {
+	  req.Value = &builder.value
+	  
+   }
+   if builder.titleFlag {
+	  req.Title = &builder.title
+	  
+   }
+   if builder.columnTypeFlag {
+	  req.ColumnType = &builder.columnType
+	  
+   }
+   if builder.readOnlyFlag {
+	  req.ReadOnly = &builder.readOnly
+	  
+   }
+   if builder.minValueFlag {
+	  req.MinValue = &builder.minValue
+	  
+   }
+   if builder.maxValueFlag {
+	  req.MaxValue = &builder.maxValue
+	  
+   }
+   return req
+}
 // builder结束
 
 type Coordinate struct {
-	Longitude *float64 `json:"longitude,omitempty"`
+	Longitude  *float64 `json:"longitude,omitempty"`
 	Latitude  *float64 `json:"latitude,omitempty"`
 	Accuracy  *float64 `json:"accuracy,omitempty"`
 }
 
 // builder开始
 type CoordinateBuilder struct {
-	longitude     float64
-	longitudeFlag bool
-	latitude      float64
+	longitude  float64
+	longitudeFlag  bool
+	latitude  float64
 	latitudeFlag  bool
-	accuracy      float64
+	accuracy  float64
 	accuracyFlag  bool
 }
 
-func NewCoordinateBuilder() *CoordinateBuilder {
-	builder := &CoordinateBuilder{}
-	return builder
+func NewCoordinateBuilder() * CoordinateBuilder{
+   builder := &CoordinateBuilder{}
+   return builder
 }
 
-func (builder *CoordinateBuilder) Longitude(longitude float64) *CoordinateBuilder {
-	builder.longitude = longitude
-	builder.longitudeFlag = true
-	return builder
+
+func (builder * CoordinateBuilder) Longitude(longitude float64) *CoordinateBuilder  {
+  builder.longitude = longitude
+  builder.longitudeFlag = true
+  return builder
 }
-func (builder *CoordinateBuilder) Latitude(latitude float64) *CoordinateBuilder {
-	builder.latitude = latitude
-	builder.latitudeFlag = true
-	return builder
+func (builder * CoordinateBuilder) Latitude(latitude float64) *CoordinateBuilder  {
+  builder.latitude = latitude
+  builder.latitudeFlag = true
+  return builder
 }
-func (builder *CoordinateBuilder) Accuracy(accuracy float64) *CoordinateBuilder {
-	builder.accuracy = accuracy
-	builder.accuracyFlag = true
-	return builder
-}
-
-func (builder *CoordinateBuilder) Build() *Coordinate {
-	req := &Coordinate{}
-	if builder.longitudeFlag {
-		req.Longitude = &builder.longitude
-
-	}
-	if builder.latitudeFlag {
-		req.Latitude = &builder.latitude
-
-	}
-	if builder.accuracyFlag {
-		req.Accuracy = &builder.accuracy
-
-	}
-	return req
+func (builder * CoordinateBuilder) Accuracy(accuracy float64) *CoordinateBuilder  {
+  builder.accuracy = accuracy
+  builder.accuracyFlag = true
+  return builder
 }
 
+func (builder * CoordinateBuilder ) Build() *Coordinate {
+   req := &Coordinate{}
+   if builder.longitudeFlag {
+	  req.Longitude = &builder.longitude
+	  
+   }
+   if builder.latitudeFlag {
+	  req.Latitude = &builder.latitude
+	  
+   }
+   if builder.accuracyFlag {
+	  req.Accuracy = &builder.accuracy
+	  
+   }
+   return req
+}
 // builder结束
 
 type Field struct {
-	Code        *string       `json:"code,omitempty"`
-	Title       *string       `json:"title,omitempty"`
-	ChildFields []*ChildField `json:"child_fields,omitempty"`
+	Code  *string `json:"code,omitempty"`
+	Title  *string `json:"title,omitempty"`
+	ChildFields  []*ChildField `json:"child_fields,omitempty"`
 }
 
 // builder开始
 type FieldBuilder struct {
-	code            string
-	codeFlag        bool
-	title           string
-	titleFlag       bool
-	childFields     []*ChildField
-	childFieldsFlag bool
+	code  string
+	codeFlag  bool
+	title  string
+	titleFlag  bool
+	childFields  []*ChildField
+	childFieldsFlag  bool
 }
 
-func NewFieldBuilder() *FieldBuilder {
-	builder := &FieldBuilder{}
-	return builder
+func NewFieldBuilder() * FieldBuilder{
+   builder := &FieldBuilder{}
+   return builder
 }
 
-func (builder *FieldBuilder) Code(code string) *FieldBuilder {
-	builder.code = code
-	builder.codeFlag = true
-	return builder
-}
-func (builder *FieldBuilder) Title(title string) *FieldBuilder {
-	builder.title = title
-	builder.titleFlag = true
-	return builder
-}
-func (builder *FieldBuilder) ChildFields(childFields []*ChildField) *FieldBuilder {
-	builder.childFields = childFields
-	builder.childFieldsFlag = true
-	return builder
-}
 
-func (builder *FieldBuilder) Build() *Field {
-	req := &Field{}
-	if builder.codeFlag {
-		req.Code = &builder.code
-
-	}
-	if builder.titleFlag {
-		req.Title = &builder.title
-
-	}
-	if builder.childFieldsFlag {
-		req.ChildFields = builder.childFields
-	}
-	return req
+func (builder * FieldBuilder) Code(code string) *FieldBuilder  {
+  builder.code = code
+  builder.codeFlag = true
+  return builder
+}
+func (builder * FieldBuilder) Title(title string) *FieldBuilder  {
+  builder.title = title
+  builder.titleFlag = true
+  return builder
+}
+func (builder * FieldBuilder) ChildFields(childFields []*ChildField) *FieldBuilder  {
+  builder.childFields = childFields
+  builder.childFieldsFlag = true
+  return builder
 }
 
+func (builder * FieldBuilder ) Build() *Field {
+   req := &Field{}
+   if builder.codeFlag {
+	  req.Code = &builder.code
+	  
+   }
+   if builder.titleFlag {
+	  req.Title = &builder.title
+	  
+   }
+   if builder.childFieldsFlag {
+	  req.ChildFields = builder.childFields
+   }
+   return req
+}
 // builder结束
 
 type File struct {
-	FileId *string `json:"file_id,omitempty"`
+	FileId  *string `json:"file_id,omitempty"`
 }
 
 // builder开始
 type FileBuilder struct {
-	fileId     string
-	fileIdFlag bool
+	fileId  string
+	fileIdFlag  bool
 }
 
-func NewFileBuilder() *FileBuilder {
-	builder := &FileBuilder{}
-	return builder
+func NewFileBuilder() * FileBuilder{
+   builder := &FileBuilder{}
+   return builder
 }
 
-func (builder *FileBuilder) FileId(fileId string) *FileBuilder {
-	builder.fileId = fileId
-	builder.fileIdFlag = true
-	return builder
+
+func (builder * FileBuilder) FileId(fileId string) *FileBuilder  {
+  builder.fileId = fileId
+  builder.fileIdFlag = true
+  return builder
 }
 
-func (builder *FileBuilder) Build() *File {
-	req := &File{}
-	if builder.fileIdFlag {
-		req.FileId = &builder.fileId
-
-	}
-	return req
+func (builder * FileBuilder ) Build() *File {
+   req := &File{}
+   if builder.fileIdFlag {
+	  req.FileId = &builder.fileId
+	  
+   }
+   return req
 }
-
 // builder结束
 
 type FreePunchCfg struct {
-	FreeStartTime        *string `json:"free_start_time,omitempty"`
-	FreeEndTime          *string `json:"free_end_time,omitempty"`
-	PunchDay             *int    `json:"punch_day,omitempty"`
-	WorkDayNoPunchAsLack *bool   `json:"work_day_no_punch_as_lack,omitempty"`
+	FreeStartTime  *string `json:"free_start_time,omitempty"`
+	FreeEndTime  *string `json:"free_end_time,omitempty"`
+	PunchDay  *int `json:"punch_day,omitempty"`
+	WorkDayNoPunchAsLack  *bool `json:"work_day_no_punch_as_lack,omitempty"`
 }
 
 // builder开始
 type FreePunchCfgBuilder struct {
-	freeStartTime            string
-	freeStartTimeFlag        bool
-	freeEndTime              string
-	freeEndTimeFlag          bool
-	punchDay                 int
-	punchDayFlag             bool
-	workDayNoPunchAsLack     bool
-	workDayNoPunchAsLackFlag bool
+	freeStartTime  string
+	freeStartTimeFlag  bool
+	freeEndTime  string
+	freeEndTimeFlag  bool
+	punchDay  int
+	punchDayFlag  bool
+	workDayNoPunchAsLack  bool
+	workDayNoPunchAsLackFlag  bool
 }
 
-func NewFreePunchCfgBuilder() *FreePunchCfgBuilder {
-	builder := &FreePunchCfgBuilder{}
-	return builder
+func NewFreePunchCfgBuilder() * FreePunchCfgBuilder{
+   builder := &FreePunchCfgBuilder{}
+   return builder
 }
 
-func (builder *FreePunchCfgBuilder) FreeStartTime(freeStartTime string) *FreePunchCfgBuilder {
-	builder.freeStartTime = freeStartTime
-	builder.freeStartTimeFlag = true
-	return builder
+
+func (builder * FreePunchCfgBuilder) FreeStartTime(freeStartTime string) *FreePunchCfgBuilder  {
+  builder.freeStartTime = freeStartTime
+  builder.freeStartTimeFlag = true
+  return builder
 }
-func (builder *FreePunchCfgBuilder) FreeEndTime(freeEndTime string) *FreePunchCfgBuilder {
-	builder.freeEndTime = freeEndTime
-	builder.freeEndTimeFlag = true
-	return builder
+func (builder * FreePunchCfgBuilder) FreeEndTime(freeEndTime string) *FreePunchCfgBuilder  {
+  builder.freeEndTime = freeEndTime
+  builder.freeEndTimeFlag = true
+  return builder
 }
-func (builder *FreePunchCfgBuilder) PunchDay(punchDay int) *FreePunchCfgBuilder {
-	builder.punchDay = punchDay
-	builder.punchDayFlag = true
-	return builder
+func (builder * FreePunchCfgBuilder) PunchDay(punchDay int) *FreePunchCfgBuilder  {
+  builder.punchDay = punchDay
+  builder.punchDayFlag = true
+  return builder
 }
-func (builder *FreePunchCfgBuilder) WorkDayNoPunchAsLack(workDayNoPunchAsLack bool) *FreePunchCfgBuilder {
-	builder.workDayNoPunchAsLack = workDayNoPunchAsLack
-	builder.workDayNoPunchAsLackFlag = true
-	return builder
-}
-
-func (builder *FreePunchCfgBuilder) Build() *FreePunchCfg {
-	req := &FreePunchCfg{}
-	if builder.freeStartTimeFlag {
-		req.FreeStartTime = &builder.freeStartTime
-
-	}
-	if builder.freeEndTimeFlag {
-		req.FreeEndTime = &builder.freeEndTime
-
-	}
-	if builder.punchDayFlag {
-		req.PunchDay = &builder.punchDay
-
-	}
-	if builder.workDayNoPunchAsLackFlag {
-		req.WorkDayNoPunchAsLack = &builder.workDayNoPunchAsLack
-
-	}
-	return req
+func (builder * FreePunchCfgBuilder) WorkDayNoPunchAsLack(workDayNoPunchAsLack bool) *FreePunchCfgBuilder  {
+  builder.workDayNoPunchAsLack = workDayNoPunchAsLack
+  builder.workDayNoPunchAsLackFlag = true
+  return builder
 }
 
+func (builder * FreePunchCfgBuilder ) Build() *FreePunchCfg {
+   req := &FreePunchCfg{}
+   if builder.freeStartTimeFlag {
+	  req.FreeStartTime = &builder.freeStartTime
+	  
+   }
+   if builder.freeEndTimeFlag {
+	  req.FreeEndTime = &builder.freeEndTime
+	  
+   }
+   if builder.punchDayFlag {
+	  req.PunchDay = &builder.punchDay
+	  
+   }
+   if builder.workDayNoPunchAsLackFlag {
+	  req.WorkDayNoPunchAsLack = &builder.workDayNoPunchAsLack
+	  
+   }
+   return req
+}
 // builder结束
 
 type Group struct {
-	GroupId                *string                  `json:"group_id,omitempty"`
-	GroupName              *string                  `json:"group_name,omitempty"`
-	TimeZone               *string                  `json:"time_zone,omitempty"`
-	BindDeptIds            []string                 `json:"bind_dept_ids,omitempty"`
-	ExceptDeptIds          []string                 `json:"except_dept_ids,omitempty"`
-	BindUserIds            []string                 `json:"bind_user_ids,omitempty"`
-	ExceptUserIds          []string                 `json:"except_user_ids,omitempty"`
-	GroupLeaderIds         []string                 `json:"group_leader_ids,omitempty"`
-	AllowOutPunch          *bool                    `json:"allow_out_punch,omitempty"`
-	AllowPcPunch           *bool                    `json:"allow_pc_punch,omitempty"`
-	AllowRemedy            *bool                    `json:"allow_remedy,omitempty"`
-	RemedyLimit            *bool                    `json:"remedy_limit,omitempty"`
-	RemedyLimitCount       *int                     `json:"remedy_limit_count,omitempty"`
-	RemedyDateLimit        *bool                    `json:"remedy_date_limit,omitempty"`
-	RemedyDateNum          *int                     `json:"remedy_date_num,omitempty"`
-	ShowCumulativeTime     *bool                    `json:"show_cumulative_time,omitempty"`
-	ShowOverTime           *bool                    `json:"show_over_time,omitempty"`
-	HideStaffPunchTime     *bool                    `json:"hide_staff_punch_time,omitempty"`
-	FacePunch              *bool                    `json:"face_punch,omitempty"`
-	FacePunchCfg           *int                     `json:"face_punch_cfg,omitempty"`
-	FaceDowngrade          *bool                    `json:"face_downgrade,omitempty"`
-	ReplaceBasicPic        *bool                    `json:"replace_basic_pic,omitempty"`
-	Machines               []*Machine               `json:"machines,omitempty"`
-	GpsRange               *int                     `json:"gps_range,omitempty"`
-	Locations              []*Location              `json:"locations,omitempty"`
-	GroupType              *int                     `json:"group_type,omitempty"`
-	PunchDayShiftIds       []string                 `json:"punch_day_shift_ids,omitempty"`
-	FreePunchCfg           *FreePunchCfg            `json:"free_punch_cfg,omitempty"`
-	CalendarId             *int                     `json:"calendar_id,omitempty"`
-	NeedPunchSpecialDays   []*PunchSpecialDateShift `json:"need_punch_special_days,omitempty"`
-	NoNeedPunchSpecialDays []*PunchSpecialDateShift `json:"no_need_punch_special_days,omitempty"`
-	WorkDayNoPunchAsLack   *bool                    `json:"work_day_no_punch_as_lack,omitempty"`
-	EffectNow              *bool                    `json:"effect_now,omitempty"`
-	RemedyPeriodType       *int                     `json:"remedy_period_type,omitempty"`
-	RemedyPeriodCustomDate *int                     `json:"remedy_period_custom_date,omitempty"`
-	PunchType              *int                     `json:"punch_type,omitempty"`
+	GroupId  *string `json:"group_id,omitempty"`
+	GroupName  *string `json:"group_name,omitempty"`
+	TimeZone  *string `json:"time_zone,omitempty"`
+	BindDeptIds  []string `json:"bind_dept_ids,omitempty"`
+	ExceptDeptIds  []string `json:"except_dept_ids,omitempty"`
+	BindUserIds  []string `json:"bind_user_ids,omitempty"`
+	ExceptUserIds  []string `json:"except_user_ids,omitempty"`
+	GroupLeaderIds  []string `json:"group_leader_ids,omitempty"`
+	AllowOutPunch  *bool `json:"allow_out_punch,omitempty"`
+	AllowPcPunch  *bool `json:"allow_pc_punch,omitempty"`
+	AllowRemedy  *bool `json:"allow_remedy,omitempty"`
+	RemedyLimit  *bool `json:"remedy_limit,omitempty"`
+	RemedyLimitCount  *int `json:"remedy_limit_count,omitempty"`
+	RemedyDateLimit  *bool `json:"remedy_date_limit,omitempty"`
+	RemedyDateNum  *int `json:"remedy_date_num,omitempty"`
+	ShowCumulativeTime  *bool `json:"show_cumulative_time,omitempty"`
+	ShowOverTime  *bool `json:"show_over_time,omitempty"`
+	HideStaffPunchTime  *bool `json:"hide_staff_punch_time,omitempty"`
+	FacePunch  *bool `json:"face_punch,omitempty"`
+	FacePunchCfg  *int `json:"face_punch_cfg,omitempty"`
+	FaceDowngrade  *bool `json:"face_downgrade,omitempty"`
+	ReplaceBasicPic  *bool `json:"replace_basic_pic,omitempty"`
+	Machines  []*Machine `json:"machines,omitempty"`
+	GpsRange  *int `json:"gps_range,omitempty"`
+	Locations  []*Location `json:"locations,omitempty"`
+	GroupType  *int `json:"group_type,omitempty"`
+	PunchDayShiftIds  []string `json:"punch_day_shift_ids,omitempty"`
+	FreePunchCfg  *FreePunchCfg `json:"free_punch_cfg,omitempty"`
+	CalendarId  *int `json:"calendar_id,omitempty"`
+	NeedPunchSpecialDays  []*PunchSpecialDateShift `json:"need_punch_special_days,omitempty"`
+	NoNeedPunchSpecialDays  []*PunchSpecialDateShift `json:"no_need_punch_special_days,omitempty"`
+	WorkDayNoPunchAsLack  *bool `json:"work_day_no_punch_as_lack,omitempty"`
+	EffectNow  *bool `json:"effect_now,omitempty"`
+	RemedyPeriodType  *int `json:"remedy_period_type,omitempty"`
+	RemedyPeriodCustomDate  *int `json:"remedy_period_custom_date,omitempty"`
+	PunchType  *int `json:"punch_type,omitempty"`
 }
 
 // builder开始
 type GroupBuilder struct {
-	groupId                    string
-	groupIdFlag                bool
-	groupName                  string
-	groupNameFlag              bool
-	timeZone                   string
-	timeZoneFlag               bool
-	bindDeptIds                []string
-	bindDeptIdsFlag            bool
-	exceptDeptIds              []string
-	exceptDeptIdsFlag          bool
-	bindUserIds                []string
-	bindUserIdsFlag            bool
-	exceptUserIds              []string
-	exceptUserIdsFlag          bool
-	groupLeaderIds             []string
-	groupLeaderIdsFlag         bool
-	allowOutPunch              bool
-	allowOutPunchFlag          bool
-	allowPcPunch               bool
-	allowPcPunchFlag           bool
-	allowRemedy                bool
-	allowRemedyFlag            bool
-	remedyLimit                bool
-	remedyLimitFlag            bool
-	remedyLimitCount           int
-	remedyLimitCountFlag       bool
-	remedyDateLimit            bool
-	remedyDateLimitFlag        bool
-	remedyDateNum              int
-	remedyDateNumFlag          bool
-	showCumulativeTime         bool
-	showCumulativeTimeFlag     bool
-	showOverTime               bool
-	showOverTimeFlag           bool
-	hideStaffPunchTime         bool
-	hideStaffPunchTimeFlag     bool
-	facePunch                  bool
-	facePunchFlag              bool
-	facePunchCfg               int
-	facePunchCfgFlag           bool
-	faceDowngrade              bool
-	faceDowngradeFlag          bool
-	replaceBasicPic            bool
-	replaceBasicPicFlag        bool
-	machines                   []*Machine
-	machinesFlag               bool
-	gpsRange                   int
-	gpsRangeFlag               bool
-	locations                  []*Location
-	locationsFlag              bool
-	groupType                  int
-	groupTypeFlag              bool
-	punchDayShiftIds           []string
-	punchDayShiftIdsFlag       bool
-	freePunchCfg               *FreePunchCfg
-	freePunchCfgFlag           bool
-	calendarId                 int
-	calendarIdFlag             bool
-	needPunchSpecialDays       []*PunchSpecialDateShift
-	needPunchSpecialDaysFlag   bool
-	noNeedPunchSpecialDays     []*PunchSpecialDateShift
-	noNeedPunchSpecialDaysFlag bool
-	workDayNoPunchAsLack       bool
-	workDayNoPunchAsLackFlag   bool
-	effectNow                  bool
-	effectNowFlag              bool
-	remedyPeriodType           int
-	remedyPeriodTypeFlag       bool
-	remedyPeriodCustomDate     int
-	remedyPeriodCustomDateFlag bool
-	punchType                  int
-	punchTypeFlag              bool
+	groupId  string
+	groupIdFlag  bool
+	groupName  string
+	groupNameFlag  bool
+	timeZone  string
+	timeZoneFlag  bool
+	bindDeptIds  []string
+	bindDeptIdsFlag  bool
+	exceptDeptIds  []string
+	exceptDeptIdsFlag  bool
+	bindUserIds  []string
+	bindUserIdsFlag  bool
+	exceptUserIds  []string
+	exceptUserIdsFlag  bool
+	groupLeaderIds  []string
+	groupLeaderIdsFlag  bool
+	allowOutPunch  bool
+	allowOutPunchFlag  bool
+	allowPcPunch  bool
+	allowPcPunchFlag  bool
+	allowRemedy  bool
+	allowRemedyFlag  bool
+	remedyLimit  bool
+	remedyLimitFlag  bool
+	remedyLimitCount  int
+	remedyLimitCountFlag  bool
+	remedyDateLimit  bool
+	remedyDateLimitFlag  bool
+	remedyDateNum  int
+	remedyDateNumFlag  bool
+	showCumulativeTime  bool
+	showCumulativeTimeFlag  bool
+	showOverTime  bool
+	showOverTimeFlag  bool
+	hideStaffPunchTime  bool
+	hideStaffPunchTimeFlag  bool
+	facePunch  bool
+	facePunchFlag  bool
+	facePunchCfg  int
+	facePunchCfgFlag  bool
+	faceDowngrade  bool
+	faceDowngradeFlag  bool
+	replaceBasicPic  bool
+	replaceBasicPicFlag  bool
+	machines  []*Machine
+	machinesFlag  bool
+	gpsRange  int
+	gpsRangeFlag  bool
+	locations  []*Location
+	locationsFlag  bool
+	groupType  int
+	groupTypeFlag  bool
+	punchDayShiftIds  []string
+	punchDayShiftIdsFlag  bool
+	freePunchCfg  *FreePunchCfg
+	freePunchCfgFlag  bool
+	calendarId  int
+	calendarIdFlag  bool
+	needPunchSpecialDays  []*PunchSpecialDateShift
+	needPunchSpecialDaysFlag  bool
+	noNeedPunchSpecialDays  []*PunchSpecialDateShift
+	noNeedPunchSpecialDaysFlag  bool
+	workDayNoPunchAsLack  bool
+	workDayNoPunchAsLackFlag  bool
+	effectNow  bool
+	effectNowFlag  bool
+	remedyPeriodType  int
+	remedyPeriodTypeFlag  bool
+	remedyPeriodCustomDate  int
+	remedyPeriodCustomDateFlag  bool
+	punchType  int
+	punchTypeFlag  bool
 }
 
-func NewGroupBuilder() *GroupBuilder {
-	builder := &GroupBuilder{}
-	return builder
+func NewGroupBuilder() * GroupBuilder{
+   builder := &GroupBuilder{}
+   return builder
 }
 
-func (builder *GroupBuilder) GroupId(groupId string) *GroupBuilder {
-	builder.groupId = groupId
-	builder.groupIdFlag = true
-	return builder
+
+func (builder * GroupBuilder) GroupId(groupId string) *GroupBuilder  {
+  builder.groupId = groupId
+  builder.groupIdFlag = true
+  return builder
 }
-func (builder *GroupBuilder) GroupName(groupName string) *GroupBuilder {
-	builder.groupName = groupName
-	builder.groupNameFlag = true
-	return builder
+func (builder * GroupBuilder) GroupName(groupName string) *GroupBuilder  {
+  builder.groupName = groupName
+  builder.groupNameFlag = true
+  return builder
 }
-func (builder *GroupBuilder) TimeZone(timeZone string) *GroupBuilder {
-	builder.timeZone = timeZone
-	builder.timeZoneFlag = true
-	return builder
+func (builder * GroupBuilder) TimeZone(timeZone string) *GroupBuilder  {
+  builder.timeZone = timeZone
+  builder.timeZoneFlag = true
+  return builder
 }
-func (builder *GroupBuilder) BindDeptIds(bindDeptIds []string) *GroupBuilder {
-	builder.bindDeptIds = bindDeptIds
-	builder.bindDeptIdsFlag = true
-	return builder
+func (builder * GroupBuilder) BindDeptIds(bindDeptIds []string) *GroupBuilder  {
+  builder.bindDeptIds = bindDeptIds
+  builder.bindDeptIdsFlag = true
+  return builder
 }
-func (builder *GroupBuilder) ExceptDeptIds(exceptDeptIds []string) *GroupBuilder {
-	builder.exceptDeptIds = exceptDeptIds
-	builder.exceptDeptIdsFlag = true
-	return builder
+func (builder * GroupBuilder) ExceptDeptIds(exceptDeptIds []string) *GroupBuilder  {
+  builder.exceptDeptIds = exceptDeptIds
+  builder.exceptDeptIdsFlag = true
+  return builder
 }
-func (builder *GroupBuilder) BindUserIds(bindUserIds []string) *GroupBuilder {
-	builder.bindUserIds = bindUserIds
-	builder.bindUserIdsFlag = true
-	return builder
+func (builder * GroupBuilder) BindUserIds(bindUserIds []string) *GroupBuilder  {
+  builder.bindUserIds = bindUserIds
+  builder.bindUserIdsFlag = true
+  return builder
 }
-func (builder *GroupBuilder) ExceptUserIds(exceptUserIds []string) *GroupBuilder {
-	builder.exceptUserIds = exceptUserIds
-	builder.exceptUserIdsFlag = true
-	return builder
+func (builder * GroupBuilder) ExceptUserIds(exceptUserIds []string) *GroupBuilder  {
+  builder.exceptUserIds = exceptUserIds
+  builder.exceptUserIdsFlag = true
+  return builder
 }
-func (builder *GroupBuilder) GroupLeaderIds(groupLeaderIds []string) *GroupBuilder {
-	builder.groupLeaderIds = groupLeaderIds
-	builder.groupLeaderIdsFlag = true
-	return builder
+func (builder * GroupBuilder) GroupLeaderIds(groupLeaderIds []string) *GroupBuilder  {
+  builder.groupLeaderIds = groupLeaderIds
+  builder.groupLeaderIdsFlag = true
+  return builder
 }
-func (builder *GroupBuilder) AllowOutPunch(allowOutPunch bool) *GroupBuilder {
-	builder.allowOutPunch = allowOutPunch
-	builder.allowOutPunchFlag = true
-	return builder
+func (builder * GroupBuilder) AllowOutPunch(allowOutPunch bool) *GroupBuilder  {
+  builder.allowOutPunch = allowOutPunch
+  builder.allowOutPunchFlag = true
+  return builder
 }
-func (builder *GroupBuilder) AllowPcPunch(allowPcPunch bool) *GroupBuilder {
-	builder.allowPcPunch = allowPcPunch
-	builder.allowPcPunchFlag = true
-	return builder
+func (builder * GroupBuilder) AllowPcPunch(allowPcPunch bool) *GroupBuilder  {
+  builder.allowPcPunch = allowPcPunch
+  builder.allowPcPunchFlag = true
+  return builder
 }
-func (builder *GroupBuilder) AllowRemedy(allowRemedy bool) *GroupBuilder {
-	builder.allowRemedy = allowRemedy
-	builder.allowRemedyFlag = true
-	return builder
+func (builder * GroupBuilder) AllowRemedy(allowRemedy bool) *GroupBuilder  {
+  builder.allowRemedy = allowRemedy
+  builder.allowRemedyFlag = true
+  return builder
 }
-func (builder *GroupBuilder) RemedyLimit(remedyLimit bool) *GroupBuilder {
-	builder.remedyLimit = remedyLimit
-	builder.remedyLimitFlag = true
-	return builder
+func (builder * GroupBuilder) RemedyLimit(remedyLimit bool) *GroupBuilder  {
+  builder.remedyLimit = remedyLimit
+  builder.remedyLimitFlag = true
+  return builder
 }
-func (builder *GroupBuilder) RemedyLimitCount(remedyLimitCount int) *GroupBuilder {
-	builder.remedyLimitCount = remedyLimitCount
-	builder.remedyLimitCountFlag = true
-	return builder
+func (builder * GroupBuilder) RemedyLimitCount(remedyLimitCount int) *GroupBuilder  {
+  builder.remedyLimitCount = remedyLimitCount
+  builder.remedyLimitCountFlag = true
+  return builder
 }
-func (builder *GroupBuilder) RemedyDateLimit(remedyDateLimit bool) *GroupBuilder {
-	builder.remedyDateLimit = remedyDateLimit
-	builder.remedyDateLimitFlag = true
-	return builder
+func (builder * GroupBuilder) RemedyDateLimit(remedyDateLimit bool) *GroupBuilder  {
+  builder.remedyDateLimit = remedyDateLimit
+  builder.remedyDateLimitFlag = true
+  return builder
 }
-func (builder *GroupBuilder) RemedyDateNum(remedyDateNum int) *GroupBuilder {
-	builder.remedyDateNum = remedyDateNum
-	builder.remedyDateNumFlag = true
-	return builder
+func (builder * GroupBuilder) RemedyDateNum(remedyDateNum int) *GroupBuilder  {
+  builder.remedyDateNum = remedyDateNum
+  builder.remedyDateNumFlag = true
+  return builder
 }
-func (builder *GroupBuilder) ShowCumulativeTime(showCumulativeTime bool) *GroupBuilder {
-	builder.showCumulativeTime = showCumulativeTime
-	builder.showCumulativeTimeFlag = true
-	return builder
+func (builder * GroupBuilder) ShowCumulativeTime(showCumulativeTime bool) *GroupBuilder  {
+  builder.showCumulativeTime = showCumulativeTime
+  builder.showCumulativeTimeFlag = true
+  return builder
 }
-func (builder *GroupBuilder) ShowOverTime(showOverTime bool) *GroupBuilder {
-	builder.showOverTime = showOverTime
-	builder.showOverTimeFlag = true
-	return builder
+func (builder * GroupBuilder) ShowOverTime(showOverTime bool) *GroupBuilder  {
+  builder.showOverTime = showOverTime
+  builder.showOverTimeFlag = true
+  return builder
 }
-func (builder *GroupBuilder) HideStaffPunchTime(hideStaffPunchTime bool) *GroupBuilder {
-	builder.hideStaffPunchTime = hideStaffPunchTime
-	builder.hideStaffPunchTimeFlag = true
-	return builder
+func (builder * GroupBuilder) HideStaffPunchTime(hideStaffPunchTime bool) *GroupBuilder  {
+  builder.hideStaffPunchTime = hideStaffPunchTime
+  builder.hideStaffPunchTimeFlag = true
+  return builder
 }
-func (builder *GroupBuilder) FacePunch(facePunch bool) *GroupBuilder {
-	builder.facePunch = facePunch
-	builder.facePunchFlag = true
-	return builder
+func (builder * GroupBuilder) FacePunch(facePunch bool) *GroupBuilder  {
+  builder.facePunch = facePunch
+  builder.facePunchFlag = true
+  return builder
 }
-func (builder *GroupBuilder) FacePunchCfg(facePunchCfg int) *GroupBuilder {
-	builder.facePunchCfg = facePunchCfg
-	builder.facePunchCfgFlag = true
-	return builder
+func (builder * GroupBuilder) FacePunchCfg(facePunchCfg int) *GroupBuilder  {
+  builder.facePunchCfg = facePunchCfg
+  builder.facePunchCfgFlag = true
+  return builder
 }
-func (builder *GroupBuilder) FaceDowngrade(faceDowngrade bool) *GroupBuilder {
-	builder.faceDowngrade = faceDowngrade
-	builder.faceDowngradeFlag = true
-	return builder
+func (builder * GroupBuilder) FaceDowngrade(faceDowngrade bool) *GroupBuilder  {
+  builder.faceDowngrade = faceDowngrade
+  builder.faceDowngradeFlag = true
+  return builder
 }
-func (builder *GroupBuilder) ReplaceBasicPic(replaceBasicPic bool) *GroupBuilder {
-	builder.replaceBasicPic = replaceBasicPic
-	builder.replaceBasicPicFlag = true
-	return builder
+func (builder * GroupBuilder) ReplaceBasicPic(replaceBasicPic bool) *GroupBuilder  {
+  builder.replaceBasicPic = replaceBasicPic
+  builder.replaceBasicPicFlag = true
+  return builder
 }
-func (builder *GroupBuilder) Machines(machines []*Machine) *GroupBuilder {
-	builder.machines = machines
-	builder.machinesFlag = true
-	return builder
+func (builder * GroupBuilder) Machines(machines []*Machine) *GroupBuilder  {
+  builder.machines = machines
+  builder.machinesFlag = true
+  return builder
 }
-func (builder *GroupBuilder) GpsRange(gpsRange int) *GroupBuilder {
-	builder.gpsRange = gpsRange
-	builder.gpsRangeFlag = true
-	return builder
+func (builder * GroupBuilder) GpsRange(gpsRange int) *GroupBuilder  {
+  builder.gpsRange = gpsRange
+  builder.gpsRangeFlag = true
+  return builder
 }
-func (builder *GroupBuilder) Locations(locations []*Location) *GroupBuilder {
-	builder.locations = locations
-	builder.locationsFlag = true
-	return builder
+func (builder * GroupBuilder) Locations(locations []*Location) *GroupBuilder  {
+  builder.locations = locations
+  builder.locationsFlag = true
+  return builder
 }
-func (builder *GroupBuilder) GroupType(groupType int) *GroupBuilder {
-	builder.groupType = groupType
-	builder.groupTypeFlag = true
-	return builder
+func (builder * GroupBuilder) GroupType(groupType int) *GroupBuilder  {
+  builder.groupType = groupType
+  builder.groupTypeFlag = true
+  return builder
 }
-func (builder *GroupBuilder) PunchDayShiftIds(punchDayShiftIds []string) *GroupBuilder {
-	builder.punchDayShiftIds = punchDayShiftIds
-	builder.punchDayShiftIdsFlag = true
-	return builder
+func (builder * GroupBuilder) PunchDayShiftIds(punchDayShiftIds []string) *GroupBuilder  {
+  builder.punchDayShiftIds = punchDayShiftIds
+  builder.punchDayShiftIdsFlag = true
+  return builder
 }
-func (builder *GroupBuilder) FreePunchCfg(freePunchCfg *FreePunchCfg) *GroupBuilder {
-	builder.freePunchCfg = freePunchCfg
-	builder.freePunchCfgFlag = true
-	return builder
+func (builder * GroupBuilder) FreePunchCfg(freePunchCfg *FreePunchCfg) *GroupBuilder  {
+  builder.freePunchCfg = freePunchCfg
+  builder.freePunchCfgFlag = true
+  return builder
 }
-func (builder *GroupBuilder) CalendarId(calendarId int) *GroupBuilder {
-	builder.calendarId = calendarId
-	builder.calendarIdFlag = true
-	return builder
+func (builder * GroupBuilder) CalendarId(calendarId int) *GroupBuilder  {
+  builder.calendarId = calendarId
+  builder.calendarIdFlag = true
+  return builder
 }
-func (builder *GroupBuilder) NeedPunchSpecialDays(needPunchSpecialDays []*PunchSpecialDateShift) *GroupBuilder {
-	builder.needPunchSpecialDays = needPunchSpecialDays
-	builder.needPunchSpecialDaysFlag = true
-	return builder
+func (builder * GroupBuilder) NeedPunchSpecialDays(needPunchSpecialDays []*PunchSpecialDateShift) *GroupBuilder  {
+  builder.needPunchSpecialDays = needPunchSpecialDays
+  builder.needPunchSpecialDaysFlag = true
+  return builder
 }
-func (builder *GroupBuilder) NoNeedPunchSpecialDays(noNeedPunchSpecialDays []*PunchSpecialDateShift) *GroupBuilder {
-	builder.noNeedPunchSpecialDays = noNeedPunchSpecialDays
-	builder.noNeedPunchSpecialDaysFlag = true
-	return builder
+func (builder * GroupBuilder) NoNeedPunchSpecialDays(noNeedPunchSpecialDays []*PunchSpecialDateShift) *GroupBuilder  {
+  builder.noNeedPunchSpecialDays = noNeedPunchSpecialDays
+  builder.noNeedPunchSpecialDaysFlag = true
+  return builder
 }
-func (builder *GroupBuilder) WorkDayNoPunchAsLack(workDayNoPunchAsLack bool) *GroupBuilder {
-	builder.workDayNoPunchAsLack = workDayNoPunchAsLack
-	builder.workDayNoPunchAsLackFlag = true
-	return builder
+func (builder * GroupBuilder) WorkDayNoPunchAsLack(workDayNoPunchAsLack bool) *GroupBuilder  {
+  builder.workDayNoPunchAsLack = workDayNoPunchAsLack
+  builder.workDayNoPunchAsLackFlag = true
+  return builder
 }
-func (builder *GroupBuilder) EffectNow(effectNow bool) *GroupBuilder {
-	builder.effectNow = effectNow
-	builder.effectNowFlag = true
-	return builder
+func (builder * GroupBuilder) EffectNow(effectNow bool) *GroupBuilder  {
+  builder.effectNow = effectNow
+  builder.effectNowFlag = true
+  return builder
 }
-func (builder *GroupBuilder) RemedyPeriodType(remedyPeriodType int) *GroupBuilder {
-	builder.remedyPeriodType = remedyPeriodType
-	builder.remedyPeriodTypeFlag = true
-	return builder
+func (builder * GroupBuilder) RemedyPeriodType(remedyPeriodType int) *GroupBuilder  {
+  builder.remedyPeriodType = remedyPeriodType
+  builder.remedyPeriodTypeFlag = true
+  return builder
 }
-func (builder *GroupBuilder) RemedyPeriodCustomDate(remedyPeriodCustomDate int) *GroupBuilder {
-	builder.remedyPeriodCustomDate = remedyPeriodCustomDate
-	builder.remedyPeriodCustomDateFlag = true
-	return builder
+func (builder * GroupBuilder) RemedyPeriodCustomDate(remedyPeriodCustomDate int) *GroupBuilder  {
+  builder.remedyPeriodCustomDate = remedyPeriodCustomDate
+  builder.remedyPeriodCustomDateFlag = true
+  return builder
 }
-func (builder *GroupBuilder) PunchType(punchType int) *GroupBuilder {
-	builder.punchType = punchType
-	builder.punchTypeFlag = true
-	return builder
+func (builder * GroupBuilder) PunchType(punchType int) *GroupBuilder  {
+  builder.punchType = punchType
+  builder.punchTypeFlag = true
+  return builder
 }
 
-func (builder *GroupBuilder) Build() *Group {
-	req := &Group{}
-	if builder.groupIdFlag {
-		req.GroupId = &builder.groupId
-
-	}
-	if builder.groupNameFlag {
-		req.GroupName = &builder.groupName
-
-	}
-	if builder.timeZoneFlag {
-		req.TimeZone = &builder.timeZone
-
-	}
-	if builder.bindDeptIdsFlag {
-		req.BindDeptIds = builder.bindDeptIds
-	}
-	if builder.exceptDeptIdsFlag {
-		req.ExceptDeptIds = builder.exceptDeptIds
-	}
-	if builder.bindUserIdsFlag {
-		req.BindUserIds = builder.bindUserIds
-	}
-	if builder.exceptUserIdsFlag {
-		req.ExceptUserIds = builder.exceptUserIds
-	}
-	if builder.groupLeaderIdsFlag {
-		req.GroupLeaderIds = builder.groupLeaderIds
-	}
-	if builder.allowOutPunchFlag {
-		req.AllowOutPunch = &builder.allowOutPunch
-
-	}
-	if builder.allowPcPunchFlag {
-		req.AllowPcPunch = &builder.allowPcPunch
-
-	}
-	if builder.allowRemedyFlag {
-		req.AllowRemedy = &builder.allowRemedy
-
-	}
-	if builder.remedyLimitFlag {
-		req.RemedyLimit = &builder.remedyLimit
-
-	}
-	if builder.remedyLimitCountFlag {
-		req.RemedyLimitCount = &builder.remedyLimitCount
-
-	}
-	if builder.remedyDateLimitFlag {
-		req.RemedyDateLimit = &builder.remedyDateLimit
-
-	}
-	if builder.remedyDateNumFlag {
-		req.RemedyDateNum = &builder.remedyDateNum
-
-	}
-	if builder.showCumulativeTimeFlag {
-		req.ShowCumulativeTime = &builder.showCumulativeTime
-
-	}
-	if builder.showOverTimeFlag {
-		req.ShowOverTime = &builder.showOverTime
-
-	}
-	if builder.hideStaffPunchTimeFlag {
-		req.HideStaffPunchTime = &builder.hideStaffPunchTime
-
-	}
-	if builder.facePunchFlag {
-		req.FacePunch = &builder.facePunch
-
-	}
-	if builder.facePunchCfgFlag {
-		req.FacePunchCfg = &builder.facePunchCfg
-
-	}
-	if builder.faceDowngradeFlag {
-		req.FaceDowngrade = &builder.faceDowngrade
-
-	}
-	if builder.replaceBasicPicFlag {
-		req.ReplaceBasicPic = &builder.replaceBasicPic
-
-	}
-	if builder.machinesFlag {
-		req.Machines = builder.machines
-	}
-	if builder.gpsRangeFlag {
-		req.GpsRange = &builder.gpsRange
-
-	}
-	if builder.locationsFlag {
-		req.Locations = builder.locations
-	}
-	if builder.groupTypeFlag {
-		req.GroupType = &builder.groupType
-
-	}
-	if builder.punchDayShiftIdsFlag {
-		req.PunchDayShiftIds = builder.punchDayShiftIds
-	}
-	if builder.freePunchCfgFlag {
-		req.FreePunchCfg = builder.freePunchCfg
-	}
-	if builder.calendarIdFlag {
-		req.CalendarId = &builder.calendarId
-
-	}
-	if builder.needPunchSpecialDaysFlag {
-		req.NeedPunchSpecialDays = builder.needPunchSpecialDays
-	}
-	if builder.noNeedPunchSpecialDaysFlag {
-		req.NoNeedPunchSpecialDays = builder.noNeedPunchSpecialDays
-	}
-	if builder.workDayNoPunchAsLackFlag {
-		req.WorkDayNoPunchAsLack = &builder.workDayNoPunchAsLack
-
-	}
-	if builder.effectNowFlag {
-		req.EffectNow = &builder.effectNow
-
-	}
-	if builder.remedyPeriodTypeFlag {
-		req.RemedyPeriodType = &builder.remedyPeriodType
-
-	}
-	if builder.remedyPeriodCustomDateFlag {
-		req.RemedyPeriodCustomDate = &builder.remedyPeriodCustomDate
-
-	}
-	if builder.punchTypeFlag {
-		req.PunchType = &builder.punchType
-
-	}
-	return req
+func (builder * GroupBuilder ) Build() *Group {
+   req := &Group{}
+   if builder.groupIdFlag {
+	  req.GroupId = &builder.groupId
+	  
+   }
+   if builder.groupNameFlag {
+	  req.GroupName = &builder.groupName
+	  
+   }
+   if builder.timeZoneFlag {
+	  req.TimeZone = &builder.timeZone
+	  
+   }
+   if builder.bindDeptIdsFlag {
+	  req.BindDeptIds = builder.bindDeptIds
+   }
+   if builder.exceptDeptIdsFlag {
+	  req.ExceptDeptIds = builder.exceptDeptIds
+   }
+   if builder.bindUserIdsFlag {
+	  req.BindUserIds = builder.bindUserIds
+   }
+   if builder.exceptUserIdsFlag {
+	  req.ExceptUserIds = builder.exceptUserIds
+   }
+   if builder.groupLeaderIdsFlag {
+	  req.GroupLeaderIds = builder.groupLeaderIds
+   }
+   if builder.allowOutPunchFlag {
+	  req.AllowOutPunch = &builder.allowOutPunch
+	  
+   }
+   if builder.allowPcPunchFlag {
+	  req.AllowPcPunch = &builder.allowPcPunch
+	  
+   }
+   if builder.allowRemedyFlag {
+	  req.AllowRemedy = &builder.allowRemedy
+	  
+   }
+   if builder.remedyLimitFlag {
+	  req.RemedyLimit = &builder.remedyLimit
+	  
+   }
+   if builder.remedyLimitCountFlag {
+	  req.RemedyLimitCount = &builder.remedyLimitCount
+	  
+   }
+   if builder.remedyDateLimitFlag {
+	  req.RemedyDateLimit = &builder.remedyDateLimit
+	  
+   }
+   if builder.remedyDateNumFlag {
+	  req.RemedyDateNum = &builder.remedyDateNum
+	  
+   }
+   if builder.showCumulativeTimeFlag {
+	  req.ShowCumulativeTime = &builder.showCumulativeTime
+	  
+   }
+   if builder.showOverTimeFlag {
+	  req.ShowOverTime = &builder.showOverTime
+	  
+   }
+   if builder.hideStaffPunchTimeFlag {
+	  req.HideStaffPunchTime = &builder.hideStaffPunchTime
+	  
+   }
+   if builder.facePunchFlag {
+	  req.FacePunch = &builder.facePunch
+	  
+   }
+   if builder.facePunchCfgFlag {
+	  req.FacePunchCfg = &builder.facePunchCfg
+	  
+   }
+   if builder.faceDowngradeFlag {
+	  req.FaceDowngrade = &builder.faceDowngrade
+	  
+   }
+   if builder.replaceBasicPicFlag {
+	  req.ReplaceBasicPic = &builder.replaceBasicPic
+	  
+   }
+   if builder.machinesFlag {
+	  req.Machines = builder.machines
+   }
+   if builder.gpsRangeFlag {
+	  req.GpsRange = &builder.gpsRange
+	  
+   }
+   if builder.locationsFlag {
+	  req.Locations = builder.locations
+   }
+   if builder.groupTypeFlag {
+	  req.GroupType = &builder.groupType
+	  
+   }
+   if builder.punchDayShiftIdsFlag {
+	  req.PunchDayShiftIds = builder.punchDayShiftIds
+   }
+   if builder.freePunchCfgFlag {
+	  req.FreePunchCfg = builder.freePunchCfg
+   }
+   if builder.calendarIdFlag {
+	  req.CalendarId = &builder.calendarId
+	  
+   }
+   if builder.needPunchSpecialDaysFlag {
+	  req.NeedPunchSpecialDays = builder.needPunchSpecialDays
+   }
+   if builder.noNeedPunchSpecialDaysFlag {
+	  req.NoNeedPunchSpecialDays = builder.noNeedPunchSpecialDays
+   }
+   if builder.workDayNoPunchAsLackFlag {
+	  req.WorkDayNoPunchAsLack = &builder.workDayNoPunchAsLack
+	  
+   }
+   if builder.effectNowFlag {
+	  req.EffectNow = &builder.effectNow
+	  
+   }
+   if builder.remedyPeriodTypeFlag {
+	  req.RemedyPeriodType = &builder.remedyPeriodType
+	  
+   }
+   if builder.remedyPeriodCustomDateFlag {
+	  req.RemedyPeriodCustomDate = &builder.remedyPeriodCustomDate
+	  
+   }
+   if builder.punchTypeFlag {
+	  req.PunchType = &builder.punchType
+	  
+   }
+   return req
 }
-
 // builder结束
 
 type GroupMeta struct {
-	GroupId   *string `json:"group_id,omitempty"`
-	GroupName *string `json:"group_name,omitempty"`
+	GroupId  *string `json:"group_id,omitempty"`
+	GroupName  *string `json:"group_name,omitempty"`
 }
 
 // builder开始
 type GroupMetaBuilder struct {
-	groupId       string
-	groupIdFlag   bool
-	groupName     string
-	groupNameFlag bool
+	groupId  string
+	groupIdFlag  bool
+	groupName  string
+	groupNameFlag  bool
 }
 
-func NewGroupMetaBuilder() *GroupMetaBuilder {
-	builder := &GroupMetaBuilder{}
-	return builder
+func NewGroupMetaBuilder() * GroupMetaBuilder{
+   builder := &GroupMetaBuilder{}
+   return builder
 }
 
-func (builder *GroupMetaBuilder) GroupId(groupId string) *GroupMetaBuilder {
-	builder.groupId = groupId
-	builder.groupIdFlag = true
-	return builder
+
+func (builder * GroupMetaBuilder) GroupId(groupId string) *GroupMetaBuilder  {
+  builder.groupId = groupId
+  builder.groupIdFlag = true
+  return builder
 }
-func (builder *GroupMetaBuilder) GroupName(groupName string) *GroupMetaBuilder {
-	builder.groupName = groupName
-	builder.groupNameFlag = true
-	return builder
-}
-
-func (builder *GroupMetaBuilder) Build() *GroupMeta {
-	req := &GroupMeta{}
-	if builder.groupIdFlag {
-		req.GroupId = &builder.groupId
-
-	}
-	if builder.groupNameFlag {
-		req.GroupName = &builder.groupName
-
-	}
-	return req
+func (builder * GroupMetaBuilder) GroupName(groupName string) *GroupMetaBuilder  {
+  builder.groupName = groupName
+  builder.groupNameFlag = true
+  return builder
 }
 
+func (builder * GroupMetaBuilder ) Build() *GroupMeta {
+   req := &GroupMeta{}
+   if builder.groupIdFlag {
+	  req.GroupId = &builder.groupId
+	  
+   }
+   if builder.groupNameFlag {
+	  req.GroupName = &builder.groupName
+	  
+   }
+   return req
+}
 // builder结束
 
 type I18nNames struct {
-	Ch *string `json:"ch,omitempty"`
-	En *string `json:"en,omitempty"`
-	Ja *string `json:"ja,omitempty"`
+	Ch  *string `json:"ch,omitempty"`
+	En  *string `json:"en,omitempty"`
+	Ja  *string `json:"ja,omitempty"`
 }
 
 // builder开始
 type I18nNamesBuilder struct {
-	ch     string
-	chFlag bool
-	en     string
-	enFlag bool
-	ja     string
-	jaFlag bool
+	ch  string
+	chFlag  bool
+	en  string
+	enFlag  bool
+	ja  string
+	jaFlag  bool
 }
 
-func NewI18nNamesBuilder() *I18nNamesBuilder {
-	builder := &I18nNamesBuilder{}
-	return builder
+func NewI18nNamesBuilder() * I18nNamesBuilder{
+   builder := &I18nNamesBuilder{}
+   return builder
 }
 
-func (builder *I18nNamesBuilder) Ch(ch string) *I18nNamesBuilder {
-	builder.ch = ch
-	builder.chFlag = true
-	return builder
+
+func (builder * I18nNamesBuilder) Ch(ch string) *I18nNamesBuilder  {
+  builder.ch = ch
+  builder.chFlag = true
+  return builder
 }
-func (builder *I18nNamesBuilder) En(en string) *I18nNamesBuilder {
-	builder.en = en
-	builder.enFlag = true
-	return builder
+func (builder * I18nNamesBuilder) En(en string) *I18nNamesBuilder  {
+  builder.en = en
+  builder.enFlag = true
+  return builder
 }
-func (builder *I18nNamesBuilder) Ja(ja string) *I18nNamesBuilder {
-	builder.ja = ja
-	builder.jaFlag = true
-	return builder
-}
-
-func (builder *I18nNamesBuilder) Build() *I18nNames {
-	req := &I18nNames{}
-	if builder.chFlag {
-		req.Ch = &builder.ch
-
-	}
-	if builder.enFlag {
-		req.En = &builder.en
-
-	}
-	if builder.jaFlag {
-		req.Ja = &builder.ja
-
-	}
-	return req
+func (builder * I18nNamesBuilder) Ja(ja string) *I18nNamesBuilder  {
+  builder.ja = ja
+  builder.jaFlag = true
+  return builder
 }
 
+func (builder * I18nNamesBuilder ) Build() *I18nNames {
+   req := &I18nNames{}
+   if builder.chFlag {
+	  req.Ch = &builder.ch
+	  
+   }
+   if builder.enFlag {
+	  req.En = &builder.en
+	  
+   }
+   if builder.jaFlag {
+	  req.Ja = &builder.ja
+	  
+   }
+   return req
+}
 // builder结束
 
 type Item struct {
-	Code       *string      `json:"code,omitempty"`
-	Title      *string      `json:"title,omitempty"`
-	ChildItems []*ChildItem `json:"child_items,omitempty"`
+	Code  *string `json:"code,omitempty"`
+	Title  *string `json:"title,omitempty"`
+	ChildItems  []*ChildItem `json:"child_items,omitempty"`
 }
 
 // builder开始
 type ItemBuilder struct {
-	code           string
-	codeFlag       bool
-	title          string
-	titleFlag      bool
-	childItems     []*ChildItem
-	childItemsFlag bool
+	code  string
+	codeFlag  bool
+	title  string
+	titleFlag  bool
+	childItems  []*ChildItem
+	childItemsFlag  bool
 }
 
-func NewItemBuilder() *ItemBuilder {
-	builder := &ItemBuilder{}
-	return builder
+func NewItemBuilder() * ItemBuilder{
+   builder := &ItemBuilder{}
+   return builder
 }
 
-func (builder *ItemBuilder) Code(code string) *ItemBuilder {
-	builder.code = code
-	builder.codeFlag = true
-	return builder
-}
-func (builder *ItemBuilder) Title(title string) *ItemBuilder {
-	builder.title = title
-	builder.titleFlag = true
-	return builder
-}
-func (builder *ItemBuilder) ChildItems(childItems []*ChildItem) *ItemBuilder {
-	builder.childItems = childItems
-	builder.childItemsFlag = true
-	return builder
-}
 
-func (builder *ItemBuilder) Build() *Item {
-	req := &Item{}
-	if builder.codeFlag {
-		req.Code = &builder.code
-
-	}
-	if builder.titleFlag {
-		req.Title = &builder.title
-
-	}
-	if builder.childItemsFlag {
-		req.ChildItems = builder.childItems
-	}
-	return req
+func (builder * ItemBuilder) Code(code string) *ItemBuilder  {
+  builder.code = code
+  builder.codeFlag = true
+  return builder
+}
+func (builder * ItemBuilder) Title(title string) *ItemBuilder  {
+  builder.title = title
+  builder.titleFlag = true
+  return builder
+}
+func (builder * ItemBuilder) ChildItems(childItems []*ChildItem) *ItemBuilder  {
+  builder.childItems = childItems
+  builder.childItemsFlag = true
+  return builder
 }
 
+func (builder * ItemBuilder ) Build() *Item {
+   req := &Item{}
+   if builder.codeFlag {
+	  req.Code = &builder.code
+	  
+   }
+   if builder.titleFlag {
+	  req.Title = &builder.title
+	  
+   }
+   if builder.childItemsFlag {
+	  req.ChildItems = builder.childItems
+   }
+   return req
+}
 // builder结束
 
 type LateOffLateOnRule struct {
-	LateOffMinutes *int `json:"late_off_minutes,omitempty"`
+	LateOffMinutes  *int `json:"late_off_minutes,omitempty"`
 	LateOnMinutes  *int `json:"late_on_minutes,omitempty"`
 }
 
 // builder开始
 type LateOffLateOnRuleBuilder struct {
-	lateOffMinutes     int
-	lateOffMinutesFlag bool
-	lateOnMinutes      int
+	lateOffMinutes  int
+	lateOffMinutesFlag  bool
+	lateOnMinutes  int
 	lateOnMinutesFlag  bool
 }
 
-func NewLateOffLateOnRuleBuilder() *LateOffLateOnRuleBuilder {
-	builder := &LateOffLateOnRuleBuilder{}
-	return builder
+func NewLateOffLateOnRuleBuilder() * LateOffLateOnRuleBuilder{
+   builder := &LateOffLateOnRuleBuilder{}
+   return builder
 }
 
-func (builder *LateOffLateOnRuleBuilder) LateOffMinutes(lateOffMinutes int) *LateOffLateOnRuleBuilder {
-	builder.lateOffMinutes = lateOffMinutes
-	builder.lateOffMinutesFlag = true
-	return builder
+
+func (builder * LateOffLateOnRuleBuilder) LateOffMinutes(lateOffMinutes int) *LateOffLateOnRuleBuilder  {
+  builder.lateOffMinutes = lateOffMinutes
+  builder.lateOffMinutesFlag = true
+  return builder
 }
-func (builder *LateOffLateOnRuleBuilder) LateOnMinutes(lateOnMinutes int) *LateOffLateOnRuleBuilder {
-	builder.lateOnMinutes = lateOnMinutes
-	builder.lateOnMinutesFlag = true
-	return builder
-}
-
-func (builder *LateOffLateOnRuleBuilder) Build() *LateOffLateOnRule {
-	req := &LateOffLateOnRule{}
-	if builder.lateOffMinutesFlag {
-		req.LateOffMinutes = &builder.lateOffMinutes
-
-	}
-	if builder.lateOnMinutesFlag {
-		req.LateOnMinutes = &builder.lateOnMinutes
-
-	}
-	return req
+func (builder * LateOffLateOnRuleBuilder) LateOnMinutes(lateOnMinutes int) *LateOffLateOnRuleBuilder  {
+  builder.lateOnMinutes = lateOnMinutes
+  builder.lateOnMinutesFlag = true
+  return builder
 }
 
+func (builder * LateOffLateOnRuleBuilder ) Build() *LateOffLateOnRule {
+   req := &LateOffLateOnRule{}
+   if builder.lateOffMinutesFlag {
+	  req.LateOffMinutes = &builder.lateOffMinutes
+	  
+   }
+   if builder.lateOnMinutesFlag {
+	  req.LateOnMinutes = &builder.lateOnMinutes
+	  
+   }
+   return req
+}
 // builder结束
 
 type Location struct {
-	LocationId   *string  `json:"location_id,omitempty"`
-	LocationName *string  `json:"location_name,omitempty"`
-	LocationType *int     `json:"location_type,omitempty"`
-	Latitude     *float64 `json:"latitude,omitempty"`
-	Longitude    *float64 `json:"longitude,omitempty"`
-	Ssid         *string  `json:"ssid,omitempty"`
-	Bssid        *string  `json:"bssid,omitempty"`
-	MapType      *int     `json:"map_type,omitempty"`
-	Address      *string  `json:"address,omitempty"`
-	Ip           *string  `json:"ip,omitempty"`
-	Feature      *string  `json:"feature,omitempty"`
-	GpsRange     *int     `json:"gps_range,omitempty"`
+	LocationId  *string `json:"location_id,omitempty"`
+	LocationName  *string `json:"location_name,omitempty"`
+	LocationType  *int `json:"location_type,omitempty"`
+	Latitude  *float64 `json:"latitude,omitempty"`
+	Longitude  *float64 `json:"longitude,omitempty"`
+	Ssid  *string `json:"ssid,omitempty"`
+	Bssid  *string `json:"bssid,omitempty"`
+	MapType  *int `json:"map_type,omitempty"`
+	Address  *string `json:"address,omitempty"`
+	Ip  *string `json:"ip,omitempty"`
+	Feature  *string `json:"feature,omitempty"`
+	GpsRange  *int `json:"gps_range,omitempty"`
 }
 
 // builder开始
 type LocationBuilder struct {
-	locationId       string
-	locationIdFlag   bool
-	locationName     string
-	locationNameFlag bool
-	locationType     int
-	locationTypeFlag bool
-	latitude         float64
-	latitudeFlag     bool
-	longitude        float64
-	longitudeFlag    bool
-	ssid             string
-	ssidFlag         bool
-	bssid            string
-	bssidFlag        bool
-	mapType          int
-	mapTypeFlag      bool
-	address          string
-	addressFlag      bool
-	ip               string
-	ipFlag           bool
-	feature          string
-	featureFlag      bool
-	gpsRange         int
-	gpsRangeFlag     bool
+	locationId  string
+	locationIdFlag  bool
+	locationName  string
+	locationNameFlag  bool
+	locationType  int
+	locationTypeFlag  bool
+	latitude  float64
+	latitudeFlag  bool
+	longitude  float64
+	longitudeFlag  bool
+	ssid  string
+	ssidFlag  bool
+	bssid  string
+	bssidFlag  bool
+	mapType  int
+	mapTypeFlag  bool
+	address  string
+	addressFlag  bool
+	ip  string
+	ipFlag  bool
+	feature  string
+	featureFlag  bool
+	gpsRange  int
+	gpsRangeFlag  bool
 }
 
-func NewLocationBuilder() *LocationBuilder {
-	builder := &LocationBuilder{}
-	return builder
+func NewLocationBuilder() * LocationBuilder{
+   builder := &LocationBuilder{}
+   return builder
 }
 
-func (builder *LocationBuilder) LocationId(locationId string) *LocationBuilder {
-	builder.locationId = locationId
-	builder.locationIdFlag = true
-	return builder
+
+func (builder * LocationBuilder) LocationId(locationId string) *LocationBuilder  {
+  builder.locationId = locationId
+  builder.locationIdFlag = true
+  return builder
 }
-func (builder *LocationBuilder) LocationName(locationName string) *LocationBuilder {
-	builder.locationName = locationName
-	builder.locationNameFlag = true
-	return builder
+func (builder * LocationBuilder) LocationName(locationName string) *LocationBuilder  {
+  builder.locationName = locationName
+  builder.locationNameFlag = true
+  return builder
 }
-func (builder *LocationBuilder) LocationType(locationType int) *LocationBuilder {
-	builder.locationType = locationType
-	builder.locationTypeFlag = true
-	return builder
+func (builder * LocationBuilder) LocationType(locationType int) *LocationBuilder  {
+  builder.locationType = locationType
+  builder.locationTypeFlag = true
+  return builder
 }
-func (builder *LocationBuilder) Latitude(latitude float64) *LocationBuilder {
-	builder.latitude = latitude
-	builder.latitudeFlag = true
-	return builder
+func (builder * LocationBuilder) Latitude(latitude float64) *LocationBuilder  {
+  builder.latitude = latitude
+  builder.latitudeFlag = true
+  return builder
 }
-func (builder *LocationBuilder) Longitude(longitude float64) *LocationBuilder {
-	builder.longitude = longitude
-	builder.longitudeFlag = true
-	return builder
+func (builder * LocationBuilder) Longitude(longitude float64) *LocationBuilder  {
+  builder.longitude = longitude
+  builder.longitudeFlag = true
+  return builder
 }
-func (builder *LocationBuilder) Ssid(ssid string) *LocationBuilder {
-	builder.ssid = ssid
-	builder.ssidFlag = true
-	return builder
+func (builder * LocationBuilder) Ssid(ssid string) *LocationBuilder  {
+  builder.ssid = ssid
+  builder.ssidFlag = true
+  return builder
 }
-func (builder *LocationBuilder) Bssid(bssid string) *LocationBuilder {
-	builder.bssid = bssid
-	builder.bssidFlag = true
-	return builder
+func (builder * LocationBuilder) Bssid(bssid string) *LocationBuilder  {
+  builder.bssid = bssid
+  builder.bssidFlag = true
+  return builder
 }
-func (builder *LocationBuilder) MapType(mapType int) *LocationBuilder {
-	builder.mapType = mapType
-	builder.mapTypeFlag = true
-	return builder
+func (builder * LocationBuilder) MapType(mapType int) *LocationBuilder  {
+  builder.mapType = mapType
+  builder.mapTypeFlag = true
+  return builder
 }
-func (builder *LocationBuilder) Address(address string) *LocationBuilder {
-	builder.address = address
-	builder.addressFlag = true
-	return builder
+func (builder * LocationBuilder) Address(address string) *LocationBuilder  {
+  builder.address = address
+  builder.addressFlag = true
+  return builder
 }
-func (builder *LocationBuilder) Ip(ip string) *LocationBuilder {
-	builder.ip = ip
-	builder.ipFlag = true
-	return builder
+func (builder * LocationBuilder) Ip(ip string) *LocationBuilder  {
+  builder.ip = ip
+  builder.ipFlag = true
+  return builder
 }
-func (builder *LocationBuilder) Feature(feature string) *LocationBuilder {
-	builder.feature = feature
-	builder.featureFlag = true
-	return builder
+func (builder * LocationBuilder) Feature(feature string) *LocationBuilder  {
+  builder.feature = feature
+  builder.featureFlag = true
+  return builder
 }
-func (builder *LocationBuilder) GpsRange(gpsRange int) *LocationBuilder {
-	builder.gpsRange = gpsRange
-	builder.gpsRangeFlag = true
-	return builder
-}
-
-func (builder *LocationBuilder) Build() *Location {
-	req := &Location{}
-	if builder.locationIdFlag {
-		req.LocationId = &builder.locationId
-
-	}
-	if builder.locationNameFlag {
-		req.LocationName = &builder.locationName
-
-	}
-	if builder.locationTypeFlag {
-		req.LocationType = &builder.locationType
-
-	}
-	if builder.latitudeFlag {
-		req.Latitude = &builder.latitude
-
-	}
-	if builder.longitudeFlag {
-		req.Longitude = &builder.longitude
-
-	}
-	if builder.ssidFlag {
-		req.Ssid = &builder.ssid
-
-	}
-	if builder.bssidFlag {
-		req.Bssid = &builder.bssid
-
-	}
-	if builder.mapTypeFlag {
-		req.MapType = &builder.mapType
-
-	}
-	if builder.addressFlag {
-		req.Address = &builder.address
-
-	}
-	if builder.ipFlag {
-		req.Ip = &builder.ip
-
-	}
-	if builder.featureFlag {
-		req.Feature = &builder.feature
-
-	}
-	if builder.gpsRangeFlag {
-		req.GpsRange = &builder.gpsRange
-
-	}
-	return req
+func (builder * LocationBuilder) GpsRange(gpsRange int) *LocationBuilder  {
+  builder.gpsRange = gpsRange
+  builder.gpsRangeFlag = true
+  return builder
 }
 
+func (builder * LocationBuilder ) Build() *Location {
+   req := &Location{}
+   if builder.locationIdFlag {
+	  req.LocationId = &builder.locationId
+	  
+   }
+   if builder.locationNameFlag {
+	  req.LocationName = &builder.locationName
+	  
+   }
+   if builder.locationTypeFlag {
+	  req.LocationType = &builder.locationType
+	  
+   }
+   if builder.latitudeFlag {
+	  req.Latitude = &builder.latitude
+	  
+   }
+   if builder.longitudeFlag {
+	  req.Longitude = &builder.longitude
+	  
+   }
+   if builder.ssidFlag {
+	  req.Ssid = &builder.ssid
+	  
+   }
+   if builder.bssidFlag {
+	  req.Bssid = &builder.bssid
+	  
+   }
+   if builder.mapTypeFlag {
+	  req.MapType = &builder.mapType
+	  
+   }
+   if builder.addressFlag {
+	  req.Address = &builder.address
+	  
+   }
+   if builder.ipFlag {
+	  req.Ip = &builder.ip
+	  
+   }
+   if builder.featureFlag {
+	  req.Feature = &builder.feature
+	  
+   }
+   if builder.gpsRangeFlag {
+	  req.GpsRange = &builder.gpsRange
+	  
+   }
+   return req
+}
 // builder结束
 
 type LocationInfo struct {
-	Status    *int    `json:"status,omitempty"`
-	Geofences []*Area `json:"geofences,omitempty"`
+	Status  *int `json:"status,omitempty"`
+	Geofences  []*Area `json:"geofences,omitempty"`
 }
 
 // builder开始
 type LocationInfoBuilder struct {
-	status        int
-	statusFlag    bool
-	geofences     []*Area
-	geofencesFlag bool
+	status  int
+	statusFlag  bool
+	geofences  []*Area
+	geofencesFlag  bool
 }
 
-func NewLocationInfoBuilder() *LocationInfoBuilder {
-	builder := &LocationInfoBuilder{}
-	return builder
+func NewLocationInfoBuilder() * LocationInfoBuilder{
+   builder := &LocationInfoBuilder{}
+   return builder
 }
 
-func (builder *LocationInfoBuilder) Status(status int) *LocationInfoBuilder {
-	builder.status = status
-	builder.statusFlag = true
-	return builder
-}
-func (builder *LocationInfoBuilder) Geofences(geofences []*Area) *LocationInfoBuilder {
-	builder.geofences = geofences
-	builder.geofencesFlag = true
-	return builder
-}
 
-func (builder *LocationInfoBuilder) Build() *LocationInfo {
-	req := &LocationInfo{}
-	if builder.statusFlag {
-		req.Status = &builder.status
-
-	}
-	if builder.geofencesFlag {
-		req.Geofences = builder.geofences
-	}
-	return req
+func (builder * LocationInfoBuilder) Status(status int) *LocationInfoBuilder  {
+  builder.status = status
+  builder.statusFlag = true
+  return builder
+}
+func (builder * LocationInfoBuilder) Geofences(geofences []*Area) *LocationInfoBuilder  {
+  builder.geofences = geofences
+  builder.geofencesFlag = true
+  return builder
 }
 
+func (builder * LocationInfoBuilder ) Build() *LocationInfo {
+   req := &LocationInfo{}
+   if builder.statusFlag {
+	  req.Status = &builder.status
+	  
+   }
+   if builder.geofencesFlag {
+	  req.Geofences = builder.geofences
+   }
+   return req
+}
 // builder结束
 
 type LocationInfoEvent struct {
-	Coord *Coordinate `json:"coord,omitempty"`
+	Coord  *Coordinate `json:"coord,omitempty"`
 }
 
 // builder开始
 type LocationInfoEventBuilder struct {
-	coord     *Coordinate
-	coordFlag bool
+	coord  *Coordinate
+	coordFlag  bool
 }
 
-func NewLocationInfoEventBuilder() *LocationInfoEventBuilder {
-	builder := &LocationInfoEventBuilder{}
-	return builder
+func NewLocationInfoEventBuilder() * LocationInfoEventBuilder{
+   builder := &LocationInfoEventBuilder{}
+   return builder
 }
 
-func (builder *LocationInfoEventBuilder) Coord(coord *Coordinate) *LocationInfoEventBuilder {
-	builder.coord = coord
-	builder.coordFlag = true
-	return builder
+
+func (builder * LocationInfoEventBuilder) Coord(coord *Coordinate) *LocationInfoEventBuilder  {
+  builder.coord = coord
+  builder.coordFlag = true
+  return builder
 }
 
-func (builder *LocationInfoEventBuilder) Build() *LocationInfoEvent {
-	req := &LocationInfoEvent{}
-	if builder.coordFlag {
-		req.Coord = builder.coord
-	}
-	return req
+func (builder * LocationInfoEventBuilder ) Build() *LocationInfoEvent {
+   req := &LocationInfoEvent{}
+   if builder.coordFlag {
+	  req.Coord = builder.coord
+   }
+   return req
 }
-
 // builder结束
 
 type LocationRecord struct {
-	UserId         *UserId            `json:"user_id,omitempty"`
-	Timestamp      *string            `json:"timestamp,omitempty"`
-	Location       *LocationInfoEvent `json:"location,omitempty"`
-	Wifi           *WifiInfoEvent     `json:"wifi,omitempty"`
-	RuleSnapshotId *string            `json:"rule_snapshot_id,omitempty"`
-	Type           *string            `json:"type,omitempty"`
-	ScanWifiList   []*ScanWifiInfo    `json:"scan_wifi_list,omitempty"`
-	DeviceId       *string            `json:"device_id,omitempty"`
-	ClientInfo     *string            `json:"client_info,omitempty"`
+	UserId  *UserId `json:"user_id,omitempty"`
+	Timestamp  *string `json:"timestamp,omitempty"`
+	Location  *LocationInfoEvent `json:"location,omitempty"`
+	Wifi  *WifiInfoEvent `json:"wifi,omitempty"`
+	RuleSnapshotId  *string `json:"rule_snapshot_id,omitempty"`
+	Type  *string `json:"type,omitempty"`
+	ScanWifiList  []*ScanWifiInfo `json:"scan_wifi_list,omitempty"`
+	DeviceId  *string `json:"device_id,omitempty"`
+	ClientInfo  *string `json:"client_info,omitempty"`
 }
 
 // builder开始
 type LocationRecordBuilder struct {
-	userId             *UserId
-	userIdFlag         bool
-	timestamp          string
-	timestampFlag      bool
-	location           *LocationInfoEvent
-	locationFlag       bool
-	wifi               *WifiInfoEvent
-	wifiFlag           bool
-	ruleSnapshotId     string
-	ruleSnapshotIdFlag bool
-	type_              string
-	typeFlag           bool
-	scanWifiList       []*ScanWifiInfo
-	scanWifiListFlag   bool
-	deviceId           string
-	deviceIdFlag       bool
-	clientInfo         string
-	clientInfoFlag     bool
+	userId  *UserId
+	userIdFlag  bool
+	timestamp  string
+	timestampFlag  bool
+	location  *LocationInfoEvent
+	locationFlag  bool
+	wifi  *WifiInfoEvent
+	wifiFlag  bool
+	ruleSnapshotId  string
+	ruleSnapshotIdFlag  bool
+	type_  string
+	typeFlag  bool
+	scanWifiList  []*ScanWifiInfo
+	scanWifiListFlag  bool
+	deviceId  string
+	deviceIdFlag  bool
+	clientInfo  string
+	clientInfoFlag  bool
 }
 
-func NewLocationRecordBuilder() *LocationRecordBuilder {
-	builder := &LocationRecordBuilder{}
-	return builder
+func NewLocationRecordBuilder() * LocationRecordBuilder{
+   builder := &LocationRecordBuilder{}
+   return builder
 }
 
-func (builder *LocationRecordBuilder) UserId(userId *UserId) *LocationRecordBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
+
+func (builder * LocationRecordBuilder) UserId(userId *UserId) *LocationRecordBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
-func (builder *LocationRecordBuilder) Timestamp(timestamp string) *LocationRecordBuilder {
-	builder.timestamp = timestamp
-	builder.timestampFlag = true
-	return builder
+func (builder * LocationRecordBuilder) Timestamp(timestamp string) *LocationRecordBuilder  {
+  builder.timestamp = timestamp
+  builder.timestampFlag = true
+  return builder
 }
-func (builder *LocationRecordBuilder) Location(location *LocationInfoEvent) *LocationRecordBuilder {
-	builder.location = location
-	builder.locationFlag = true
-	return builder
+func (builder * LocationRecordBuilder) Location(location *LocationInfoEvent) *LocationRecordBuilder  {
+  builder.location = location
+  builder.locationFlag = true
+  return builder
 }
-func (builder *LocationRecordBuilder) Wifi(wifi *WifiInfoEvent) *LocationRecordBuilder {
-	builder.wifi = wifi
-	builder.wifiFlag = true
-	return builder
+func (builder * LocationRecordBuilder) Wifi(wifi *WifiInfoEvent) *LocationRecordBuilder  {
+  builder.wifi = wifi
+  builder.wifiFlag = true
+  return builder
 }
-func (builder *LocationRecordBuilder) RuleSnapshotId(ruleSnapshotId string) *LocationRecordBuilder {
-	builder.ruleSnapshotId = ruleSnapshotId
-	builder.ruleSnapshotIdFlag = true
-	return builder
+func (builder * LocationRecordBuilder) RuleSnapshotId(ruleSnapshotId string) *LocationRecordBuilder  {
+  builder.ruleSnapshotId = ruleSnapshotId
+  builder.ruleSnapshotIdFlag = true
+  return builder
 }
-func (builder *LocationRecordBuilder) Type(type_ string) *LocationRecordBuilder {
-	builder.type_ = type_
-	builder.typeFlag = true
-	return builder
+func (builder * LocationRecordBuilder) Type(type_ string) *LocationRecordBuilder  {
+  builder.type_ = type_
+  builder.typeFlag = true
+  return builder
 }
-func (builder *LocationRecordBuilder) ScanWifiList(scanWifiList []*ScanWifiInfo) *LocationRecordBuilder {
-	builder.scanWifiList = scanWifiList
-	builder.scanWifiListFlag = true
-	return builder
+func (builder * LocationRecordBuilder) ScanWifiList(scanWifiList []*ScanWifiInfo) *LocationRecordBuilder  {
+  builder.scanWifiList = scanWifiList
+  builder.scanWifiListFlag = true
+  return builder
 }
-func (builder *LocationRecordBuilder) DeviceId(deviceId string) *LocationRecordBuilder {
-	builder.deviceId = deviceId
-	builder.deviceIdFlag = true
-	return builder
+func (builder * LocationRecordBuilder) DeviceId(deviceId string) *LocationRecordBuilder  {
+  builder.deviceId = deviceId
+  builder.deviceIdFlag = true
+  return builder
 }
-func (builder *LocationRecordBuilder) ClientInfo(clientInfo string) *LocationRecordBuilder {
-	builder.clientInfo = clientInfo
-	builder.clientInfoFlag = true
-	return builder
+func (builder * LocationRecordBuilder) ClientInfo(clientInfo string) *LocationRecordBuilder  {
+  builder.clientInfo = clientInfo
+  builder.clientInfoFlag = true
+  return builder
 }
 
-func (builder *LocationRecordBuilder) Build() *LocationRecord {
-	req := &LocationRecord{}
-	if builder.userIdFlag {
-		req.UserId = builder.userId
-	}
-	if builder.timestampFlag {
-		req.Timestamp = &builder.timestamp
-
-	}
-	if builder.locationFlag {
-		req.Location = builder.location
-	}
-	if builder.wifiFlag {
-		req.Wifi = builder.wifi
-	}
-	if builder.ruleSnapshotIdFlag {
-		req.RuleSnapshotId = &builder.ruleSnapshotId
-
-	}
-	if builder.typeFlag {
-		req.Type = &builder.type_
-
-	}
-	if builder.scanWifiListFlag {
-		req.ScanWifiList = builder.scanWifiList
-	}
-	if builder.deviceIdFlag {
-		req.DeviceId = &builder.deviceId
-
-	}
-	if builder.clientInfoFlag {
-		req.ClientInfo = &builder.clientInfo
-
-	}
-	return req
+func (builder * LocationRecordBuilder ) Build() *LocationRecord {
+   req := &LocationRecord{}
+   if builder.userIdFlag {
+	  req.UserId = builder.userId
+   }
+   if builder.timestampFlag {
+	  req.Timestamp = &builder.timestamp
+	  
+   }
+   if builder.locationFlag {
+	  req.Location = builder.location
+   }
+   if builder.wifiFlag {
+	  req.Wifi = builder.wifi
+   }
+   if builder.ruleSnapshotIdFlag {
+	  req.RuleSnapshotId = &builder.ruleSnapshotId
+	  
+   }
+   if builder.typeFlag {
+	  req.Type = &builder.type_
+	  
+   }
+   if builder.scanWifiListFlag {
+	  req.ScanWifiList = builder.scanWifiList
+   }
+   if builder.deviceIdFlag {
+	  req.DeviceId = &builder.deviceId
+	  
+   }
+   if builder.clientInfoFlag {
+	  req.ClientInfo = &builder.clientInfo
+	  
+   }
+   return req
 }
-
 // builder结束
 
 type LocationSetting struct {
-	Location *LocationInfo `json:"location,omitempty"`
-	Wifi     *WifiInfo     `json:"wifi,omitempty"`
-	UserId   *string       `json:"user_id,omitempty"`
+	Location  *LocationInfo `json:"location,omitempty"`
+	Wifi  *WifiInfo `json:"wifi,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
 }
 
 // builder开始
 type LocationSettingBuilder struct {
-	location     *LocationInfo
-	locationFlag bool
-	wifi         *WifiInfo
-	wifiFlag     bool
-	userId       string
-	userIdFlag   bool
+	location  *LocationInfo
+	locationFlag  bool
+	wifi  *WifiInfo
+	wifiFlag  bool
+	userId  string
+	userIdFlag  bool
 }
 
-func NewLocationSettingBuilder() *LocationSettingBuilder {
-	builder := &LocationSettingBuilder{}
-	return builder
+func NewLocationSettingBuilder() * LocationSettingBuilder{
+   builder := &LocationSettingBuilder{}
+   return builder
 }
 
-func (builder *LocationSettingBuilder) Location(location *LocationInfo) *LocationSettingBuilder {
-	builder.location = location
-	builder.locationFlag = true
-	return builder
+
+func (builder * LocationSettingBuilder) Location(location *LocationInfo) *LocationSettingBuilder  {
+  builder.location = location
+  builder.locationFlag = true
+  return builder
 }
-func (builder *LocationSettingBuilder) Wifi(wifi *WifiInfo) *LocationSettingBuilder {
-	builder.wifi = wifi
-	builder.wifiFlag = true
-	return builder
+func (builder * LocationSettingBuilder) Wifi(wifi *WifiInfo) *LocationSettingBuilder  {
+  builder.wifi = wifi
+  builder.wifiFlag = true
+  return builder
 }
-func (builder *LocationSettingBuilder) UserId(userId string) *LocationSettingBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
+func (builder * LocationSettingBuilder) UserId(userId string) *LocationSettingBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
 
-func (builder *LocationSettingBuilder) Build() *LocationSetting {
-	req := &LocationSetting{}
-	if builder.locationFlag {
-		req.Location = builder.location
-	}
-	if builder.wifiFlag {
-		req.Wifi = builder.wifi
-	}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	return req
+func (builder * LocationSettingBuilder ) Build() *LocationSetting {
+   req := &LocationSetting{}
+   if builder.locationFlag {
+	  req.Location = builder.location
+   }
+   if builder.wifiFlag {
+	  req.Wifi = builder.wifi
+   }
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   return req
 }
-
 // builder结束
 
 type Machine struct {
-	MachineSn   *string `json:"machine_sn,omitempty"`
-	MachineName *string `json:"machine_name,omitempty"`
+	MachineSn  *string `json:"machine_sn,omitempty"`
+	MachineName  *string `json:"machine_name,omitempty"`
 }
 
 // builder开始
 type MachineBuilder struct {
-	machineSn       string
-	machineSnFlag   bool
-	machineName     string
-	machineNameFlag bool
+	machineSn  string
+	machineSnFlag  bool
+	machineName  string
+	machineNameFlag  bool
 }
 
-func NewMachineBuilder() *MachineBuilder {
-	builder := &MachineBuilder{}
-	return builder
+func NewMachineBuilder() * MachineBuilder{
+   builder := &MachineBuilder{}
+   return builder
 }
 
-func (builder *MachineBuilder) MachineSn(machineSn string) *MachineBuilder {
-	builder.machineSn = machineSn
-	builder.machineSnFlag = true
-	return builder
+
+func (builder * MachineBuilder) MachineSn(machineSn string) *MachineBuilder  {
+  builder.machineSn = machineSn
+  builder.machineSnFlag = true
+  return builder
 }
-func (builder *MachineBuilder) MachineName(machineName string) *MachineBuilder {
-	builder.machineName = machineName
-	builder.machineNameFlag = true
-	return builder
-}
-
-func (builder *MachineBuilder) Build() *Machine {
-	req := &Machine{}
-	if builder.machineSnFlag {
-		req.MachineSn = &builder.machineSn
-
-	}
-	if builder.machineNameFlag {
-		req.MachineName = &builder.machineName
-
-	}
-	return req
+func (builder * MachineBuilder) MachineName(machineName string) *MachineBuilder  {
+  builder.machineName = machineName
+  builder.machineNameFlag = true
+  return builder
 }
 
+func (builder * MachineBuilder ) Build() *Machine {
+   req := &Machine{}
+   if builder.machineSnFlag {
+	  req.MachineSn = &builder.machineSn
+	  
+   }
+   if builder.machineNameFlag {
+	  req.MachineName = &builder.machineName
+	  
+   }
+   return req
+}
 // builder结束
 
 type PunchSpecialDateShift struct {
-	PunchDay *int    `json:"punch_day,omitempty"`
+	PunchDay  *int `json:"punch_day,omitempty"`
 	ShiftId  *string `json:"shift_id,omitempty"`
 }
 
 // builder开始
 type PunchSpecialDateShiftBuilder struct {
-	punchDay     int
-	punchDayFlag bool
-	shiftId      string
+	punchDay  int
+	punchDayFlag  bool
+	shiftId  string
 	shiftIdFlag  bool
 }
 
-func NewPunchSpecialDateShiftBuilder() *PunchSpecialDateShiftBuilder {
-	builder := &PunchSpecialDateShiftBuilder{}
-	return builder
+func NewPunchSpecialDateShiftBuilder() * PunchSpecialDateShiftBuilder{
+   builder := &PunchSpecialDateShiftBuilder{}
+   return builder
 }
 
-func (builder *PunchSpecialDateShiftBuilder) PunchDay(punchDay int) *PunchSpecialDateShiftBuilder {
-	builder.punchDay = punchDay
-	builder.punchDayFlag = true
-	return builder
+
+func (builder * PunchSpecialDateShiftBuilder) PunchDay(punchDay int) *PunchSpecialDateShiftBuilder  {
+  builder.punchDay = punchDay
+  builder.punchDayFlag = true
+  return builder
 }
-func (builder *PunchSpecialDateShiftBuilder) ShiftId(shiftId string) *PunchSpecialDateShiftBuilder {
-	builder.shiftId = shiftId
-	builder.shiftIdFlag = true
-	return builder
-}
-
-func (builder *PunchSpecialDateShiftBuilder) Build() *PunchSpecialDateShift {
-	req := &PunchSpecialDateShift{}
-	if builder.punchDayFlag {
-		req.PunchDay = &builder.punchDay
-
-	}
-	if builder.shiftIdFlag {
-		req.ShiftId = &builder.shiftId
-
-	}
-	return req
+func (builder * PunchSpecialDateShiftBuilder) ShiftId(shiftId string) *PunchSpecialDateShiftBuilder  {
+  builder.shiftId = shiftId
+  builder.shiftIdFlag = true
+  return builder
 }
 
+func (builder * PunchSpecialDateShiftBuilder ) Build() *PunchSpecialDateShift {
+   req := &PunchSpecialDateShift{}
+   if builder.punchDayFlag {
+	  req.PunchDay = &builder.punchDay
+	  
+   }
+   if builder.shiftIdFlag {
+	  req.ShiftId = &builder.shiftId
+	  
+   }
+   return req
+}
 // builder结束
 
 type PunchTimeRule struct {
-	OnTime              *string `json:"on_time,omitempty"`
-	OffTime             *string `json:"off_time,omitempty"`
-	LateMinutesAsLate   *int    `json:"late_minutes_as_late,omitempty"`
-	LateMinutesAsLack   *int    `json:"late_minutes_as_lack,omitempty"`
-	OnAdvanceMinutes    *int    `json:"on_advance_minutes,omitempty"`
-	EarlyMinutesAsEarly *int    `json:"early_minutes_as_early,omitempty"`
-	EarlyMinutesAsLack  *int    `json:"early_minutes_as_lack,omitempty"`
-	OffDelayMinutes     *int    `json:"off_delay_minutes,omitempty"`
+	OnTime  *string `json:"on_time,omitempty"`
+	OffTime  *string `json:"off_time,omitempty"`
+	LateMinutesAsLate  *int `json:"late_minutes_as_late,omitempty"`
+	LateMinutesAsLack  *int `json:"late_minutes_as_lack,omitempty"`
+	OnAdvanceMinutes  *int `json:"on_advance_minutes,omitempty"`
+	EarlyMinutesAsEarly  *int `json:"early_minutes_as_early,omitempty"`
+	EarlyMinutesAsLack  *int `json:"early_minutes_as_lack,omitempty"`
+	OffDelayMinutes  *int `json:"off_delay_minutes,omitempty"`
 }
 
 // builder开始
 type PunchTimeRuleBuilder struct {
-	onTime                  string
-	onTimeFlag              bool
-	offTime                 string
-	offTimeFlag             bool
-	lateMinutesAsLate       int
-	lateMinutesAsLateFlag   bool
-	lateMinutesAsLack       int
-	lateMinutesAsLackFlag   bool
-	onAdvanceMinutes        int
-	onAdvanceMinutesFlag    bool
-	earlyMinutesAsEarly     int
-	earlyMinutesAsEarlyFlag bool
-	earlyMinutesAsLack      int
+	onTime  string
+	onTimeFlag  bool
+	offTime  string
+	offTimeFlag  bool
+	lateMinutesAsLate  int
+	lateMinutesAsLateFlag  bool
+	lateMinutesAsLack  int
+	lateMinutesAsLackFlag  bool
+	onAdvanceMinutes  int
+	onAdvanceMinutesFlag  bool
+	earlyMinutesAsEarly  int
+	earlyMinutesAsEarlyFlag  bool
+	earlyMinutesAsLack  int
 	earlyMinutesAsLackFlag  bool
-	offDelayMinutes         int
-	offDelayMinutesFlag     bool
+	offDelayMinutes  int
+	offDelayMinutesFlag  bool
 }
 
-func NewPunchTimeRuleBuilder() *PunchTimeRuleBuilder {
-	builder := &PunchTimeRuleBuilder{}
-	return builder
+func NewPunchTimeRuleBuilder() * PunchTimeRuleBuilder{
+   builder := &PunchTimeRuleBuilder{}
+   return builder
 }
 
-func (builder *PunchTimeRuleBuilder) OnTime(onTime string) *PunchTimeRuleBuilder {
-	builder.onTime = onTime
-	builder.onTimeFlag = true
-	return builder
+
+func (builder * PunchTimeRuleBuilder) OnTime(onTime string) *PunchTimeRuleBuilder  {
+  builder.onTime = onTime
+  builder.onTimeFlag = true
+  return builder
 }
-func (builder *PunchTimeRuleBuilder) OffTime(offTime string) *PunchTimeRuleBuilder {
-	builder.offTime = offTime
-	builder.offTimeFlag = true
-	return builder
+func (builder * PunchTimeRuleBuilder) OffTime(offTime string) *PunchTimeRuleBuilder  {
+  builder.offTime = offTime
+  builder.offTimeFlag = true
+  return builder
 }
-func (builder *PunchTimeRuleBuilder) LateMinutesAsLate(lateMinutesAsLate int) *PunchTimeRuleBuilder {
-	builder.lateMinutesAsLate = lateMinutesAsLate
-	builder.lateMinutesAsLateFlag = true
-	return builder
+func (builder * PunchTimeRuleBuilder) LateMinutesAsLate(lateMinutesAsLate int) *PunchTimeRuleBuilder  {
+  builder.lateMinutesAsLate = lateMinutesAsLate
+  builder.lateMinutesAsLateFlag = true
+  return builder
 }
-func (builder *PunchTimeRuleBuilder) LateMinutesAsLack(lateMinutesAsLack int) *PunchTimeRuleBuilder {
-	builder.lateMinutesAsLack = lateMinutesAsLack
-	builder.lateMinutesAsLackFlag = true
-	return builder
+func (builder * PunchTimeRuleBuilder) LateMinutesAsLack(lateMinutesAsLack int) *PunchTimeRuleBuilder  {
+  builder.lateMinutesAsLack = lateMinutesAsLack
+  builder.lateMinutesAsLackFlag = true
+  return builder
 }
-func (builder *PunchTimeRuleBuilder) OnAdvanceMinutes(onAdvanceMinutes int) *PunchTimeRuleBuilder {
-	builder.onAdvanceMinutes = onAdvanceMinutes
-	builder.onAdvanceMinutesFlag = true
-	return builder
+func (builder * PunchTimeRuleBuilder) OnAdvanceMinutes(onAdvanceMinutes int) *PunchTimeRuleBuilder  {
+  builder.onAdvanceMinutes = onAdvanceMinutes
+  builder.onAdvanceMinutesFlag = true
+  return builder
 }
-func (builder *PunchTimeRuleBuilder) EarlyMinutesAsEarly(earlyMinutesAsEarly int) *PunchTimeRuleBuilder {
-	builder.earlyMinutesAsEarly = earlyMinutesAsEarly
-	builder.earlyMinutesAsEarlyFlag = true
-	return builder
+func (builder * PunchTimeRuleBuilder) EarlyMinutesAsEarly(earlyMinutesAsEarly int) *PunchTimeRuleBuilder  {
+  builder.earlyMinutesAsEarly = earlyMinutesAsEarly
+  builder.earlyMinutesAsEarlyFlag = true
+  return builder
 }
-func (builder *PunchTimeRuleBuilder) EarlyMinutesAsLack(earlyMinutesAsLack int) *PunchTimeRuleBuilder {
-	builder.earlyMinutesAsLack = earlyMinutesAsLack
-	builder.earlyMinutesAsLackFlag = true
-	return builder
+func (builder * PunchTimeRuleBuilder) EarlyMinutesAsLack(earlyMinutesAsLack int) *PunchTimeRuleBuilder  {
+  builder.earlyMinutesAsLack = earlyMinutesAsLack
+  builder.earlyMinutesAsLackFlag = true
+  return builder
 }
-func (builder *PunchTimeRuleBuilder) OffDelayMinutes(offDelayMinutes int) *PunchTimeRuleBuilder {
-	builder.offDelayMinutes = offDelayMinutes
-	builder.offDelayMinutesFlag = true
-	return builder
-}
-
-func (builder *PunchTimeRuleBuilder) Build() *PunchTimeRule {
-	req := &PunchTimeRule{}
-	if builder.onTimeFlag {
-		req.OnTime = &builder.onTime
-
-	}
-	if builder.offTimeFlag {
-		req.OffTime = &builder.offTime
-
-	}
-	if builder.lateMinutesAsLateFlag {
-		req.LateMinutesAsLate = &builder.lateMinutesAsLate
-
-	}
-	if builder.lateMinutesAsLackFlag {
-		req.LateMinutesAsLack = &builder.lateMinutesAsLack
-
-	}
-	if builder.onAdvanceMinutesFlag {
-		req.OnAdvanceMinutes = &builder.onAdvanceMinutes
-
-	}
-	if builder.earlyMinutesAsEarlyFlag {
-		req.EarlyMinutesAsEarly = &builder.earlyMinutesAsEarly
-
-	}
-	if builder.earlyMinutesAsLackFlag {
-		req.EarlyMinutesAsLack = &builder.earlyMinutesAsLack
-
-	}
-	if builder.offDelayMinutesFlag {
-		req.OffDelayMinutes = &builder.offDelayMinutes
-
-	}
-	return req
+func (builder * PunchTimeRuleBuilder) OffDelayMinutes(offDelayMinutes int) *PunchTimeRuleBuilder  {
+  builder.offDelayMinutes = offDelayMinutes
+  builder.offDelayMinutesFlag = true
+  return builder
 }
 
+func (builder * PunchTimeRuleBuilder ) Build() *PunchTimeRule {
+   req := &PunchTimeRule{}
+   if builder.onTimeFlag {
+	  req.OnTime = &builder.onTime
+	  
+   }
+   if builder.offTimeFlag {
+	  req.OffTime = &builder.offTime
+	  
+   }
+   if builder.lateMinutesAsLateFlag {
+	  req.LateMinutesAsLate = &builder.lateMinutesAsLate
+	  
+   }
+   if builder.lateMinutesAsLackFlag {
+	  req.LateMinutesAsLack = &builder.lateMinutesAsLack
+	  
+   }
+   if builder.onAdvanceMinutesFlag {
+	  req.OnAdvanceMinutes = &builder.onAdvanceMinutes
+	  
+   }
+   if builder.earlyMinutesAsEarlyFlag {
+	  req.EarlyMinutesAsEarly = &builder.earlyMinutesAsEarly
+	  
+   }
+   if builder.earlyMinutesAsLackFlag {
+	  req.EarlyMinutesAsLack = &builder.earlyMinutesAsLack
+	  
+   }
+   if builder.offDelayMinutesFlag {
+	  req.OffDelayMinutes = &builder.offDelayMinutes
+	  
+   }
+   return req
+}
 // builder结束
 
 type RestRule struct {
-	RestBeginTime *string `json:"rest_begin_time,omitempty"`
-	RestEndTime   *string `json:"rest_end_time,omitempty"`
+	RestBeginTime  *string `json:"rest_begin_time,omitempty"`
+	RestEndTime  *string `json:"rest_end_time,omitempty"`
 }
 
 // builder开始
 type RestRuleBuilder struct {
-	restBeginTime     string
-	restBeginTimeFlag bool
-	restEndTime       string
-	restEndTimeFlag   bool
+	restBeginTime  string
+	restBeginTimeFlag  bool
+	restEndTime  string
+	restEndTimeFlag  bool
 }
 
-func NewRestRuleBuilder() *RestRuleBuilder {
-	builder := &RestRuleBuilder{}
-	return builder
+func NewRestRuleBuilder() * RestRuleBuilder{
+   builder := &RestRuleBuilder{}
+   return builder
 }
 
-func (builder *RestRuleBuilder) RestBeginTime(restBeginTime string) *RestRuleBuilder {
-	builder.restBeginTime = restBeginTime
-	builder.restBeginTimeFlag = true
-	return builder
+
+func (builder * RestRuleBuilder) RestBeginTime(restBeginTime string) *RestRuleBuilder  {
+  builder.restBeginTime = restBeginTime
+  builder.restBeginTimeFlag = true
+  return builder
 }
-func (builder *RestRuleBuilder) RestEndTime(restEndTime string) *RestRuleBuilder {
-	builder.restEndTime = restEndTime
-	builder.restEndTimeFlag = true
-	return builder
-}
-
-func (builder *RestRuleBuilder) Build() *RestRule {
-	req := &RestRule{}
-	if builder.restBeginTimeFlag {
-		req.RestBeginTime = &builder.restBeginTime
-
-	}
-	if builder.restEndTimeFlag {
-		req.RestEndTime = &builder.restEndTime
-
-	}
-	return req
+func (builder * RestRuleBuilder) RestEndTime(restEndTime string) *RestRuleBuilder  {
+  builder.restEndTime = restEndTime
+  builder.restEndTimeFlag = true
+  return builder
 }
 
+func (builder * RestRuleBuilder ) Build() *RestRule {
+   req := &RestRule{}
+   if builder.restBeginTimeFlag {
+	  req.RestBeginTime = &builder.restBeginTime
+	  
+   }
+   if builder.restEndTimeFlag {
+	  req.RestEndTime = &builder.restEndTime
+	  
+   }
+   return req
+}
 // builder结束
 
 type ScanWifiInfo struct {
 	Ssid  *string `json:"ssid,omitempty"`
-	Bssid *string `json:"bssid,omitempty"`
+	Bssid  *string `json:"bssid,omitempty"`
 }
 
 // builder开始
 type ScanWifiInfoBuilder struct {
-	ssid      string
+	ssid  string
 	ssidFlag  bool
-	bssid     string
-	bssidFlag bool
+	bssid  string
+	bssidFlag  bool
 }
 
-func NewScanWifiInfoBuilder() *ScanWifiInfoBuilder {
-	builder := &ScanWifiInfoBuilder{}
-	return builder
+func NewScanWifiInfoBuilder() * ScanWifiInfoBuilder{
+   builder := &ScanWifiInfoBuilder{}
+   return builder
 }
 
-func (builder *ScanWifiInfoBuilder) Ssid(ssid string) *ScanWifiInfoBuilder {
-	builder.ssid = ssid
-	builder.ssidFlag = true
-	return builder
+
+func (builder * ScanWifiInfoBuilder) Ssid(ssid string) *ScanWifiInfoBuilder  {
+  builder.ssid = ssid
+  builder.ssidFlag = true
+  return builder
 }
-func (builder *ScanWifiInfoBuilder) Bssid(bssid string) *ScanWifiInfoBuilder {
-	builder.bssid = bssid
-	builder.bssidFlag = true
-	return builder
-}
-
-func (builder *ScanWifiInfoBuilder) Build() *ScanWifiInfo {
-	req := &ScanWifiInfo{}
-	if builder.ssidFlag {
-		req.Ssid = &builder.ssid
-
-	}
-	if builder.bssidFlag {
-		req.Bssid = &builder.bssid
-
-	}
-	return req
+func (builder * ScanWifiInfoBuilder) Bssid(bssid string) *ScanWifiInfoBuilder  {
+  builder.bssid = bssid
+  builder.bssidFlag = true
+  return builder
 }
 
+func (builder * ScanWifiInfoBuilder ) Build() *ScanWifiInfo {
+   req := &ScanWifiInfo{}
+   if builder.ssidFlag {
+	  req.Ssid = &builder.ssid
+	  
+   }
+   if builder.bssidFlag {
+	  req.Bssid = &builder.bssid
+	  
+   }
+   return req
+}
 // builder结束
 
 type Schedule struct {
-	GroupId *string  `json:"group_id,omitempty"`
+	GroupId  *string `json:"group_id,omitempty"`
 	Shifts  []string `json:"shifts,omitempty"`
 }
 
 // builder开始
 type ScheduleBuilder struct {
-	groupId     string
-	groupIdFlag bool
-	shifts      []string
+	groupId  string
+	groupIdFlag  bool
+	shifts  []string
 	shiftsFlag  bool
 }
 
-func NewScheduleBuilder() *ScheduleBuilder {
-	builder := &ScheduleBuilder{}
-	return builder
+func NewScheduleBuilder() * ScheduleBuilder{
+   builder := &ScheduleBuilder{}
+   return builder
 }
 
-func (builder *ScheduleBuilder) GroupId(groupId string) *ScheduleBuilder {
-	builder.groupId = groupId
-	builder.groupIdFlag = true
-	return builder
-}
-func (builder *ScheduleBuilder) Shifts(shifts []string) *ScheduleBuilder {
-	builder.shifts = shifts
-	builder.shiftsFlag = true
-	return builder
-}
 
-func (builder *ScheduleBuilder) Build() *Schedule {
-	req := &Schedule{}
-	if builder.groupIdFlag {
-		req.GroupId = &builder.groupId
-
-	}
-	if builder.shiftsFlag {
-		req.Shifts = builder.shifts
-	}
-	return req
+func (builder * ScheduleBuilder) GroupId(groupId string) *ScheduleBuilder  {
+  builder.groupId = groupId
+  builder.groupIdFlag = true
+  return builder
+}
+func (builder * ScheduleBuilder) Shifts(shifts []string) *ScheduleBuilder  {
+  builder.shifts = shifts
+  builder.shiftsFlag = true
+  return builder
 }
 
+func (builder * ScheduleBuilder ) Build() *Schedule {
+   req := &Schedule{}
+   if builder.groupIdFlag {
+	  req.GroupId = &builder.groupId
+	  
+   }
+   if builder.shiftsFlag {
+	  req.Shifts = builder.shifts
+   }
+   return req
+}
 // builder结束
 
 type Shift struct {
-	ShiftId           *string              `json:"shift_id,omitempty"`
-	ShiftName         *string              `json:"shift_name,omitempty"`
-	PunchTimes        *int                 `json:"punch_times,omitempty"`
-	IsFlexible        *bool                `json:"is_flexible,omitempty"`
-	FlexibleMinutes   *int                 `json:"flexible_minutes,omitempty"`
-	NoNeedOff         *bool                `json:"no_need_off,omitempty"`
-	PunchTimeRule     []*PunchTimeRule     `json:"punch_time_rule,omitempty"`
-	LateOffLateOnRule []*LateOffLateOnRule `json:"late_off_late_on_rule,omitempty"`
-	RestTimeRule      []*RestRule          `json:"rest_time_rule,omitempty"`
+	ShiftId  *string `json:"shift_id,omitempty"`
+	ShiftName  *string `json:"shift_name,omitempty"`
+	PunchTimes  *int `json:"punch_times,omitempty"`
+	IsFlexible  *bool `json:"is_flexible,omitempty"`
+	FlexibleMinutes  *int `json:"flexible_minutes,omitempty"`
+	NoNeedOff  *bool `json:"no_need_off,omitempty"`
+	PunchTimeRule  []*PunchTimeRule `json:"punch_time_rule,omitempty"`
+	LateOffLateOnRule  []*LateOffLateOnRule `json:"late_off_late_on_rule,omitempty"`
+	RestTimeRule  []*RestRule `json:"rest_time_rule,omitempty"`
 }
 
 // builder开始
 type ShiftBuilder struct {
-	shiftId               string
-	shiftIdFlag           bool
-	shiftName             string
-	shiftNameFlag         bool
-	punchTimes            int
-	punchTimesFlag        bool
-	isFlexible            bool
-	isFlexibleFlag        bool
-	flexibleMinutes       int
-	flexibleMinutesFlag   bool
-	noNeedOff             bool
-	noNeedOffFlag         bool
-	punchTimeRule         []*PunchTimeRule
-	punchTimeRuleFlag     bool
-	lateOffLateOnRule     []*LateOffLateOnRule
-	lateOffLateOnRuleFlag bool
-	restTimeRule          []*RestRule
-	restTimeRuleFlag      bool
+	shiftId  string
+	shiftIdFlag  bool
+	shiftName  string
+	shiftNameFlag  bool
+	punchTimes  int
+	punchTimesFlag  bool
+	isFlexible  bool
+	isFlexibleFlag  bool
+	flexibleMinutes  int
+	flexibleMinutesFlag  bool
+	noNeedOff  bool
+	noNeedOffFlag  bool
+	punchTimeRule  []*PunchTimeRule
+	punchTimeRuleFlag  bool
+	lateOffLateOnRule  []*LateOffLateOnRule
+	lateOffLateOnRuleFlag  bool
+	restTimeRule  []*RestRule
+	restTimeRuleFlag  bool
 }
 
-func NewShiftBuilder() *ShiftBuilder {
-	builder := &ShiftBuilder{}
-	return builder
+func NewShiftBuilder() * ShiftBuilder{
+   builder := &ShiftBuilder{}
+   return builder
 }
 
-func (builder *ShiftBuilder) ShiftId(shiftId string) *ShiftBuilder {
-	builder.shiftId = shiftId
-	builder.shiftIdFlag = true
-	return builder
+
+func (builder * ShiftBuilder) ShiftId(shiftId string) *ShiftBuilder  {
+  builder.shiftId = shiftId
+  builder.shiftIdFlag = true
+  return builder
 }
-func (builder *ShiftBuilder) ShiftName(shiftName string) *ShiftBuilder {
-	builder.shiftName = shiftName
-	builder.shiftNameFlag = true
-	return builder
+func (builder * ShiftBuilder) ShiftName(shiftName string) *ShiftBuilder  {
+  builder.shiftName = shiftName
+  builder.shiftNameFlag = true
+  return builder
 }
-func (builder *ShiftBuilder) PunchTimes(punchTimes int) *ShiftBuilder {
-	builder.punchTimes = punchTimes
-	builder.punchTimesFlag = true
-	return builder
+func (builder * ShiftBuilder) PunchTimes(punchTimes int) *ShiftBuilder  {
+  builder.punchTimes = punchTimes
+  builder.punchTimesFlag = true
+  return builder
 }
-func (builder *ShiftBuilder) IsFlexible(isFlexible bool) *ShiftBuilder {
-	builder.isFlexible = isFlexible
-	builder.isFlexibleFlag = true
-	return builder
+func (builder * ShiftBuilder) IsFlexible(isFlexible bool) *ShiftBuilder  {
+  builder.isFlexible = isFlexible
+  builder.isFlexibleFlag = true
+  return builder
 }
-func (builder *ShiftBuilder) FlexibleMinutes(flexibleMinutes int) *ShiftBuilder {
-	builder.flexibleMinutes = flexibleMinutes
-	builder.flexibleMinutesFlag = true
-	return builder
+func (builder * ShiftBuilder) FlexibleMinutes(flexibleMinutes int) *ShiftBuilder  {
+  builder.flexibleMinutes = flexibleMinutes
+  builder.flexibleMinutesFlag = true
+  return builder
 }
-func (builder *ShiftBuilder) NoNeedOff(noNeedOff bool) *ShiftBuilder {
-	builder.noNeedOff = noNeedOff
-	builder.noNeedOffFlag = true
-	return builder
+func (builder * ShiftBuilder) NoNeedOff(noNeedOff bool) *ShiftBuilder  {
+  builder.noNeedOff = noNeedOff
+  builder.noNeedOffFlag = true
+  return builder
 }
-func (builder *ShiftBuilder) PunchTimeRule(punchTimeRule []*PunchTimeRule) *ShiftBuilder {
-	builder.punchTimeRule = punchTimeRule
-	builder.punchTimeRuleFlag = true
-	return builder
+func (builder * ShiftBuilder) PunchTimeRule(punchTimeRule []*PunchTimeRule) *ShiftBuilder  {
+  builder.punchTimeRule = punchTimeRule
+  builder.punchTimeRuleFlag = true
+  return builder
 }
-func (builder *ShiftBuilder) LateOffLateOnRule(lateOffLateOnRule []*LateOffLateOnRule) *ShiftBuilder {
-	builder.lateOffLateOnRule = lateOffLateOnRule
-	builder.lateOffLateOnRuleFlag = true
-	return builder
+func (builder * ShiftBuilder) LateOffLateOnRule(lateOffLateOnRule []*LateOffLateOnRule) *ShiftBuilder  {
+  builder.lateOffLateOnRule = lateOffLateOnRule
+  builder.lateOffLateOnRuleFlag = true
+  return builder
 }
-func (builder *ShiftBuilder) RestTimeRule(restTimeRule []*RestRule) *ShiftBuilder {
-	builder.restTimeRule = restTimeRule
-	builder.restTimeRuleFlag = true
-	return builder
+func (builder * ShiftBuilder) RestTimeRule(restTimeRule []*RestRule) *ShiftBuilder  {
+  builder.restTimeRule = restTimeRule
+  builder.restTimeRuleFlag = true
+  return builder
 }
 
-func (builder *ShiftBuilder) Build() *Shift {
-	req := &Shift{}
-	if builder.shiftIdFlag {
-		req.ShiftId = &builder.shiftId
-
-	}
-	if builder.shiftNameFlag {
-		req.ShiftName = &builder.shiftName
-
-	}
-	if builder.punchTimesFlag {
-		req.PunchTimes = &builder.punchTimes
-
-	}
-	if builder.isFlexibleFlag {
-		req.IsFlexible = &builder.isFlexible
-
-	}
-	if builder.flexibleMinutesFlag {
-		req.FlexibleMinutes = &builder.flexibleMinutes
-
-	}
-	if builder.noNeedOffFlag {
-		req.NoNeedOff = &builder.noNeedOff
-
-	}
-	if builder.punchTimeRuleFlag {
-		req.PunchTimeRule = builder.punchTimeRule
-	}
-	if builder.lateOffLateOnRuleFlag {
-		req.LateOffLateOnRule = builder.lateOffLateOnRule
-	}
-	if builder.restTimeRuleFlag {
-		req.RestTimeRule = builder.restTimeRule
-	}
-	return req
+func (builder * ShiftBuilder ) Build() *Shift {
+   req := &Shift{}
+   if builder.shiftIdFlag {
+	  req.ShiftId = &builder.shiftId
+	  
+   }
+   if builder.shiftNameFlag {
+	  req.ShiftName = &builder.shiftName
+	  
+   }
+   if builder.punchTimesFlag {
+	  req.PunchTimes = &builder.punchTimes
+	  
+   }
+   if builder.isFlexibleFlag {
+	  req.IsFlexible = &builder.isFlexible
+	  
+   }
+   if builder.flexibleMinutesFlag {
+	  req.FlexibleMinutes = &builder.flexibleMinutes
+	  
+   }
+   if builder.noNeedOffFlag {
+	  req.NoNeedOff = &builder.noNeedOff
+	  
+   }
+   if builder.punchTimeRuleFlag {
+	  req.PunchTimeRule = builder.punchTimeRule
+   }
+   if builder.lateOffLateOnRuleFlag {
+	  req.LateOffLateOnRule = builder.lateOffLateOnRule
+   }
+   if builder.restTimeRuleFlag {
+	  req.RestTimeRule = builder.restTimeRule
+   }
+   return req
 }
-
 // builder结束
 
 type StatusChange struct {
-	Index             *int    `json:"index,omitempty"`
-	BeforeStatus      *string `json:"before_status,omitempty"`
-	CurrentStatus     *string `json:"current_status,omitempty"`
+	Index  *int `json:"index,omitempty"`
+	BeforeStatus  *string `json:"before_status,omitempty"`
+	CurrentStatus  *string `json:"current_status,omitempty"`
 	BeforeSupplement  *string `json:"before_supplement,omitempty"`
-	CurrentSupplement *string `json:"current_supplement,omitempty"`
-	WorkType          *string `json:"work_type,omitempty"`
+	CurrentSupplement  *string `json:"current_supplement,omitempty"`
+	WorkType  *string `json:"work_type,omitempty"`
 }
 
 // builder开始
 type StatusChangeBuilder struct {
-	index                 int
-	indexFlag             bool
-	beforeStatus          string
-	beforeStatusFlag      bool
-	currentStatus         string
-	currentStatusFlag     bool
-	beforeSupplement      string
+	index  int
+	indexFlag  bool
+	beforeStatus  string
+	beforeStatusFlag  bool
+	currentStatus  string
+	currentStatusFlag  bool
+	beforeSupplement  string
 	beforeSupplementFlag  bool
-	currentSupplement     string
-	currentSupplementFlag bool
-	workType              string
-	workTypeFlag          bool
+	currentSupplement  string
+	currentSupplementFlag  bool
+	workType  string
+	workTypeFlag  bool
 }
 
-func NewStatusChangeBuilder() *StatusChangeBuilder {
-	builder := &StatusChangeBuilder{}
-	return builder
+func NewStatusChangeBuilder() * StatusChangeBuilder{
+   builder := &StatusChangeBuilder{}
+   return builder
 }
 
-func (builder *StatusChangeBuilder) Index(index int) *StatusChangeBuilder {
-	builder.index = index
-	builder.indexFlag = true
-	return builder
+
+func (builder * StatusChangeBuilder) Index(index int) *StatusChangeBuilder  {
+  builder.index = index
+  builder.indexFlag = true
+  return builder
 }
-func (builder *StatusChangeBuilder) BeforeStatus(beforeStatus string) *StatusChangeBuilder {
-	builder.beforeStatus = beforeStatus
-	builder.beforeStatusFlag = true
-	return builder
+func (builder * StatusChangeBuilder) BeforeStatus(beforeStatus string) *StatusChangeBuilder  {
+  builder.beforeStatus = beforeStatus
+  builder.beforeStatusFlag = true
+  return builder
 }
-func (builder *StatusChangeBuilder) CurrentStatus(currentStatus string) *StatusChangeBuilder {
-	builder.currentStatus = currentStatus
-	builder.currentStatusFlag = true
-	return builder
+func (builder * StatusChangeBuilder) CurrentStatus(currentStatus string) *StatusChangeBuilder  {
+  builder.currentStatus = currentStatus
+  builder.currentStatusFlag = true
+  return builder
 }
-func (builder *StatusChangeBuilder) BeforeSupplement(beforeSupplement string) *StatusChangeBuilder {
-	builder.beforeSupplement = beforeSupplement
-	builder.beforeSupplementFlag = true
-	return builder
+func (builder * StatusChangeBuilder) BeforeSupplement(beforeSupplement string) *StatusChangeBuilder  {
+  builder.beforeSupplement = beforeSupplement
+  builder.beforeSupplementFlag = true
+  return builder
 }
-func (builder *StatusChangeBuilder) CurrentSupplement(currentSupplement string) *StatusChangeBuilder {
-	builder.currentSupplement = currentSupplement
-	builder.currentSupplementFlag = true
-	return builder
+func (builder * StatusChangeBuilder) CurrentSupplement(currentSupplement string) *StatusChangeBuilder  {
+  builder.currentSupplement = currentSupplement
+  builder.currentSupplementFlag = true
+  return builder
 }
-func (builder *StatusChangeBuilder) WorkType(workType string) *StatusChangeBuilder {
-	builder.workType = workType
-	builder.workTypeFlag = true
-	return builder
-}
-
-func (builder *StatusChangeBuilder) Build() *StatusChange {
-	req := &StatusChange{}
-	if builder.indexFlag {
-		req.Index = &builder.index
-
-	}
-	if builder.beforeStatusFlag {
-		req.BeforeStatus = &builder.beforeStatus
-
-	}
-	if builder.currentStatusFlag {
-		req.CurrentStatus = &builder.currentStatus
-
-	}
-	if builder.beforeSupplementFlag {
-		req.BeforeSupplement = &builder.beforeSupplement
-
-	}
-	if builder.currentSupplementFlag {
-		req.CurrentSupplement = &builder.currentSupplement
-
-	}
-	if builder.workTypeFlag {
-		req.WorkType = &builder.workType
-
-	}
-	return req
+func (builder * StatusChangeBuilder) WorkType(workType string) *StatusChangeBuilder  {
+  builder.workType = workType
+  builder.workTypeFlag = true
+  return builder
 }
 
+func (builder * StatusChangeBuilder ) Build() *StatusChange {
+   req := &StatusChange{}
+   if builder.indexFlag {
+	  req.Index = &builder.index
+	  
+   }
+   if builder.beforeStatusFlag {
+	  req.BeforeStatus = &builder.beforeStatus
+	  
+   }
+   if builder.currentStatusFlag {
+	  req.CurrentStatus = &builder.currentStatus
+	  
+   }
+   if builder.beforeSupplementFlag {
+	  req.BeforeSupplement = &builder.beforeSupplement
+	  
+   }
+   if builder.currentSupplementFlag {
+	  req.CurrentSupplement = &builder.currentSupplement
+	  
+   }
+   if builder.workTypeFlag {
+	  req.WorkType = &builder.workType
+	  
+   }
+   return req
+}
 // builder结束
 
 type TaskResult struct {
-	CheckInRecordId          *string   `json:"check_in_record_id,omitempty"`
-	CheckInRecord            *UserFlow `json:"check_in_record,omitempty"`
-	CheckOutRecordId         *string   `json:"check_out_record_id,omitempty"`
-	CheckOutRecord           *UserFlow `json:"check_out_record,omitempty"`
-	CheckInResult            *string   `json:"check_in_result,omitempty"`
-	CheckOutResult           *string   `json:"check_out_result,omitempty"`
-	CheckInResultSupplement  *string   `json:"check_in_result_supplement,omitempty"`
-	CheckOutResultSupplement *string   `json:"check_out_result_supplement,omitempty"`
-	CheckInShiftTime         *string   `json:"check_in_shift_time,omitempty"`
-	CheckOutShiftTime        *string   `json:"check_out_shift_time,omitempty"`
+	CheckInRecordId  *string `json:"check_in_record_id,omitempty"`
+	CheckInRecord  *UserFlow `json:"check_in_record,omitempty"`
+	CheckOutRecordId  *string `json:"check_out_record_id,omitempty"`
+	CheckOutRecord  *UserFlow `json:"check_out_record,omitempty"`
+	CheckInResult  *string `json:"check_in_result,omitempty"`
+	CheckOutResult  *string `json:"check_out_result,omitempty"`
+	CheckInResultSupplement  *string `json:"check_in_result_supplement,omitempty"`
+	CheckOutResultSupplement  *string `json:"check_out_result_supplement,omitempty"`
+	CheckInShiftTime  *string `json:"check_in_shift_time,omitempty"`
+	CheckOutShiftTime  *string `json:"check_out_shift_time,omitempty"`
 }
 
 // builder开始
 type TaskResultBuilder struct {
-	checkInRecordId              string
-	checkInRecordIdFlag          bool
-	checkInRecord                *UserFlow
-	checkInRecordFlag            bool
-	checkOutRecordId             string
-	checkOutRecordIdFlag         bool
-	checkOutRecord               *UserFlow
-	checkOutRecordFlag           bool
-	checkInResult                string
-	checkInResultFlag            bool
-	checkOutResult               string
-	checkOutResultFlag           bool
-	checkInResultSupplement      string
+	checkInRecordId  string
+	checkInRecordIdFlag  bool
+	checkInRecord  *UserFlow
+	checkInRecordFlag  bool
+	checkOutRecordId  string
+	checkOutRecordIdFlag  bool
+	checkOutRecord  *UserFlow
+	checkOutRecordFlag  bool
+	checkInResult  string
+	checkInResultFlag  bool
+	checkOutResult  string
+	checkOutResultFlag  bool
+	checkInResultSupplement  string
 	checkInResultSupplementFlag  bool
-	checkOutResultSupplement     string
-	checkOutResultSupplementFlag bool
-	checkInShiftTime             string
-	checkInShiftTimeFlag         bool
-	checkOutShiftTime            string
-	checkOutShiftTimeFlag        bool
+	checkOutResultSupplement  string
+	checkOutResultSupplementFlag  bool
+	checkInShiftTime  string
+	checkInShiftTimeFlag  bool
+	checkOutShiftTime  string
+	checkOutShiftTimeFlag  bool
 }
 
-func NewTaskResultBuilder() *TaskResultBuilder {
-	builder := &TaskResultBuilder{}
-	return builder
+func NewTaskResultBuilder() * TaskResultBuilder{
+   builder := &TaskResultBuilder{}
+   return builder
 }
 
-func (builder *TaskResultBuilder) CheckInRecordId(checkInRecordId string) *TaskResultBuilder {
-	builder.checkInRecordId = checkInRecordId
-	builder.checkInRecordIdFlag = true
-	return builder
+
+func (builder * TaskResultBuilder) CheckInRecordId(checkInRecordId string) *TaskResultBuilder  {
+  builder.checkInRecordId = checkInRecordId
+  builder.checkInRecordIdFlag = true
+  return builder
 }
-func (builder *TaskResultBuilder) CheckInRecord(checkInRecord *UserFlow) *TaskResultBuilder {
-	builder.checkInRecord = checkInRecord
-	builder.checkInRecordFlag = true
-	return builder
+func (builder * TaskResultBuilder) CheckInRecord(checkInRecord *UserFlow) *TaskResultBuilder  {
+  builder.checkInRecord = checkInRecord
+  builder.checkInRecordFlag = true
+  return builder
 }
-func (builder *TaskResultBuilder) CheckOutRecordId(checkOutRecordId string) *TaskResultBuilder {
-	builder.checkOutRecordId = checkOutRecordId
-	builder.checkOutRecordIdFlag = true
-	return builder
+func (builder * TaskResultBuilder) CheckOutRecordId(checkOutRecordId string) *TaskResultBuilder  {
+  builder.checkOutRecordId = checkOutRecordId
+  builder.checkOutRecordIdFlag = true
+  return builder
 }
-func (builder *TaskResultBuilder) CheckOutRecord(checkOutRecord *UserFlow) *TaskResultBuilder {
-	builder.checkOutRecord = checkOutRecord
-	builder.checkOutRecordFlag = true
-	return builder
+func (builder * TaskResultBuilder) CheckOutRecord(checkOutRecord *UserFlow) *TaskResultBuilder  {
+  builder.checkOutRecord = checkOutRecord
+  builder.checkOutRecordFlag = true
+  return builder
 }
-func (builder *TaskResultBuilder) CheckInResult(checkInResult string) *TaskResultBuilder {
-	builder.checkInResult = checkInResult
-	builder.checkInResultFlag = true
-	return builder
+func (builder * TaskResultBuilder) CheckInResult(checkInResult string) *TaskResultBuilder  {
+  builder.checkInResult = checkInResult
+  builder.checkInResultFlag = true
+  return builder
 }
-func (builder *TaskResultBuilder) CheckOutResult(checkOutResult string) *TaskResultBuilder {
-	builder.checkOutResult = checkOutResult
-	builder.checkOutResultFlag = true
-	return builder
+func (builder * TaskResultBuilder) CheckOutResult(checkOutResult string) *TaskResultBuilder  {
+  builder.checkOutResult = checkOutResult
+  builder.checkOutResultFlag = true
+  return builder
 }
-func (builder *TaskResultBuilder) CheckInResultSupplement(checkInResultSupplement string) *TaskResultBuilder {
-	builder.checkInResultSupplement = checkInResultSupplement
-	builder.checkInResultSupplementFlag = true
-	return builder
+func (builder * TaskResultBuilder) CheckInResultSupplement(checkInResultSupplement string) *TaskResultBuilder  {
+  builder.checkInResultSupplement = checkInResultSupplement
+  builder.checkInResultSupplementFlag = true
+  return builder
 }
-func (builder *TaskResultBuilder) CheckOutResultSupplement(checkOutResultSupplement string) *TaskResultBuilder {
-	builder.checkOutResultSupplement = checkOutResultSupplement
-	builder.checkOutResultSupplementFlag = true
-	return builder
+func (builder * TaskResultBuilder) CheckOutResultSupplement(checkOutResultSupplement string) *TaskResultBuilder  {
+  builder.checkOutResultSupplement = checkOutResultSupplement
+  builder.checkOutResultSupplementFlag = true
+  return builder
 }
-func (builder *TaskResultBuilder) CheckInShiftTime(checkInShiftTime string) *TaskResultBuilder {
-	builder.checkInShiftTime = checkInShiftTime
-	builder.checkInShiftTimeFlag = true
-	return builder
+func (builder * TaskResultBuilder) CheckInShiftTime(checkInShiftTime string) *TaskResultBuilder  {
+  builder.checkInShiftTime = checkInShiftTime
+  builder.checkInShiftTimeFlag = true
+  return builder
 }
-func (builder *TaskResultBuilder) CheckOutShiftTime(checkOutShiftTime string) *TaskResultBuilder {
-	builder.checkOutShiftTime = checkOutShiftTime
-	builder.checkOutShiftTimeFlag = true
-	return builder
+func (builder * TaskResultBuilder) CheckOutShiftTime(checkOutShiftTime string) *TaskResultBuilder  {
+  builder.checkOutShiftTime = checkOutShiftTime
+  builder.checkOutShiftTimeFlag = true
+  return builder
 }
 
-func (builder *TaskResultBuilder) Build() *TaskResult {
-	req := &TaskResult{}
-	if builder.checkInRecordIdFlag {
-		req.CheckInRecordId = &builder.checkInRecordId
-
-	}
-	if builder.checkInRecordFlag {
-		req.CheckInRecord = builder.checkInRecord
-	}
-	if builder.checkOutRecordIdFlag {
-		req.CheckOutRecordId = &builder.checkOutRecordId
-
-	}
-	if builder.checkOutRecordFlag {
-		req.CheckOutRecord = builder.checkOutRecord
-	}
-	if builder.checkInResultFlag {
-		req.CheckInResult = &builder.checkInResult
-
-	}
-	if builder.checkOutResultFlag {
-		req.CheckOutResult = &builder.checkOutResult
-
-	}
-	if builder.checkInResultSupplementFlag {
-		req.CheckInResultSupplement = &builder.checkInResultSupplement
-
-	}
-	if builder.checkOutResultSupplementFlag {
-		req.CheckOutResultSupplement = &builder.checkOutResultSupplement
-
-	}
-	if builder.checkInShiftTimeFlag {
-		req.CheckInShiftTime = &builder.checkInShiftTime
-
-	}
-	if builder.checkOutShiftTimeFlag {
-		req.CheckOutShiftTime = &builder.checkOutShiftTime
-
-	}
-	return req
+func (builder * TaskResultBuilder ) Build() *TaskResult {
+   req := &TaskResult{}
+   if builder.checkInRecordIdFlag {
+	  req.CheckInRecordId = &builder.checkInRecordId
+	  
+   }
+   if builder.checkInRecordFlag {
+	  req.CheckInRecord = builder.checkInRecord
+   }
+   if builder.checkOutRecordIdFlag {
+	  req.CheckOutRecordId = &builder.checkOutRecordId
+	  
+   }
+   if builder.checkOutRecordFlag {
+	  req.CheckOutRecord = builder.checkOutRecord
+   }
+   if builder.checkInResultFlag {
+	  req.CheckInResult = &builder.checkInResult
+	  
+   }
+   if builder.checkOutResultFlag {
+	  req.CheckOutResult = &builder.checkOutResult
+	  
+   }
+   if builder.checkInResultSupplementFlag {
+	  req.CheckInResultSupplement = &builder.checkInResultSupplement
+	  
+   }
+   if builder.checkOutResultSupplementFlag {
+	  req.CheckOutResultSupplement = &builder.checkOutResultSupplement
+	  
+   }
+   if builder.checkInShiftTimeFlag {
+	  req.CheckInShiftTime = &builder.checkInShiftTime
+	  
+   }
+   if builder.checkOutShiftTimeFlag {
+	  req.CheckOutShiftTime = &builder.checkOutShiftTime
+	  
+   }
+   return req
 }
-
 // builder结束
 
 type UserAllowedRemedy struct {
-	UserId          *string `json:"user_id,omitempty"`
-	RemedyDate      *int    `json:"remedy_date,omitempty"`
-	IsFreePunch     *bool   `json:"is_free_punch,omitempty"`
-	PunchNo         *int    `json:"punch_no,omitempty"`
-	WorkType        *int    `json:"work_type,omitempty"`
-	PunchStatus     *string `json:"punch_status,omitempty"`
-	NormalPunchTime *string `json:"normal_punch_time,omitempty"`
-	RemedyStartTime *string `json:"remedy_start_time,omitempty"`
-	RemedyEndTime   *string `json:"remedy_end_time,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
+	RemedyDate  *int `json:"remedy_date,omitempty"`
+	IsFreePunch  *bool `json:"is_free_punch,omitempty"`
+	PunchNo  *int `json:"punch_no,omitempty"`
+	WorkType  *int `json:"work_type,omitempty"`
+	PunchStatus  *string `json:"punch_status,omitempty"`
+	NormalPunchTime  *string `json:"normal_punch_time,omitempty"`
+	RemedyStartTime  *string `json:"remedy_start_time,omitempty"`
+	RemedyEndTime  *string `json:"remedy_end_time,omitempty"`
 }
 
 // builder开始
 type UserAllowedRemedyBuilder struct {
-	userId              string
-	userIdFlag          bool
-	remedyDate          int
-	remedyDateFlag      bool
-	isFreePunch         bool
-	isFreePunchFlag     bool
-	punchNo             int
-	punchNoFlag         bool
-	workType            int
-	workTypeFlag        bool
-	punchStatus         string
-	punchStatusFlag     bool
-	normalPunchTime     string
-	normalPunchTimeFlag bool
-	remedyStartTime     string
-	remedyStartTimeFlag bool
-	remedyEndTime       string
-	remedyEndTimeFlag   bool
+	userId  string
+	userIdFlag  bool
+	remedyDate  int
+	remedyDateFlag  bool
+	isFreePunch  bool
+	isFreePunchFlag  bool
+	punchNo  int
+	punchNoFlag  bool
+	workType  int
+	workTypeFlag  bool
+	punchStatus  string
+	punchStatusFlag  bool
+	normalPunchTime  string
+	normalPunchTimeFlag  bool
+	remedyStartTime  string
+	remedyStartTimeFlag  bool
+	remedyEndTime  string
+	remedyEndTimeFlag  bool
 }
 
-func NewUserAllowedRemedyBuilder() *UserAllowedRemedyBuilder {
-	builder := &UserAllowedRemedyBuilder{}
-	return builder
+func NewUserAllowedRemedyBuilder() * UserAllowedRemedyBuilder{
+   builder := &UserAllowedRemedyBuilder{}
+   return builder
 }
 
-func (builder *UserAllowedRemedyBuilder) UserId(userId string) *UserAllowedRemedyBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
+
+func (builder * UserAllowedRemedyBuilder) UserId(userId string) *UserAllowedRemedyBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
-func (builder *UserAllowedRemedyBuilder) RemedyDate(remedyDate int) *UserAllowedRemedyBuilder {
-	builder.remedyDate = remedyDate
-	builder.remedyDateFlag = true
-	return builder
+func (builder * UserAllowedRemedyBuilder) RemedyDate(remedyDate int) *UserAllowedRemedyBuilder  {
+  builder.remedyDate = remedyDate
+  builder.remedyDateFlag = true
+  return builder
 }
-func (builder *UserAllowedRemedyBuilder) IsFreePunch(isFreePunch bool) *UserAllowedRemedyBuilder {
-	builder.isFreePunch = isFreePunch
-	builder.isFreePunchFlag = true
-	return builder
+func (builder * UserAllowedRemedyBuilder) IsFreePunch(isFreePunch bool) *UserAllowedRemedyBuilder  {
+  builder.isFreePunch = isFreePunch
+  builder.isFreePunchFlag = true
+  return builder
 }
-func (builder *UserAllowedRemedyBuilder) PunchNo(punchNo int) *UserAllowedRemedyBuilder {
-	builder.punchNo = punchNo
-	builder.punchNoFlag = true
-	return builder
+func (builder * UserAllowedRemedyBuilder) PunchNo(punchNo int) *UserAllowedRemedyBuilder  {
+  builder.punchNo = punchNo
+  builder.punchNoFlag = true
+  return builder
 }
-func (builder *UserAllowedRemedyBuilder) WorkType(workType int) *UserAllowedRemedyBuilder {
-	builder.workType = workType
-	builder.workTypeFlag = true
-	return builder
+func (builder * UserAllowedRemedyBuilder) WorkType(workType int) *UserAllowedRemedyBuilder  {
+  builder.workType = workType
+  builder.workTypeFlag = true
+  return builder
 }
-func (builder *UserAllowedRemedyBuilder) PunchStatus(punchStatus string) *UserAllowedRemedyBuilder {
-	builder.punchStatus = punchStatus
-	builder.punchStatusFlag = true
-	return builder
+func (builder * UserAllowedRemedyBuilder) PunchStatus(punchStatus string) *UserAllowedRemedyBuilder  {
+  builder.punchStatus = punchStatus
+  builder.punchStatusFlag = true
+  return builder
 }
-func (builder *UserAllowedRemedyBuilder) NormalPunchTime(normalPunchTime string) *UserAllowedRemedyBuilder {
-	builder.normalPunchTime = normalPunchTime
-	builder.normalPunchTimeFlag = true
-	return builder
+func (builder * UserAllowedRemedyBuilder) NormalPunchTime(normalPunchTime string) *UserAllowedRemedyBuilder  {
+  builder.normalPunchTime = normalPunchTime
+  builder.normalPunchTimeFlag = true
+  return builder
 }
-func (builder *UserAllowedRemedyBuilder) RemedyStartTime(remedyStartTime string) *UserAllowedRemedyBuilder {
-	builder.remedyStartTime = remedyStartTime
-	builder.remedyStartTimeFlag = true
-	return builder
+func (builder * UserAllowedRemedyBuilder) RemedyStartTime(remedyStartTime string) *UserAllowedRemedyBuilder  {
+  builder.remedyStartTime = remedyStartTime
+  builder.remedyStartTimeFlag = true
+  return builder
 }
-func (builder *UserAllowedRemedyBuilder) RemedyEndTime(remedyEndTime string) *UserAllowedRemedyBuilder {
-	builder.remedyEndTime = remedyEndTime
-	builder.remedyEndTimeFlag = true
-	return builder
-}
-
-func (builder *UserAllowedRemedyBuilder) Build() *UserAllowedRemedy {
-	req := &UserAllowedRemedy{}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	if builder.remedyDateFlag {
-		req.RemedyDate = &builder.remedyDate
-
-	}
-	if builder.isFreePunchFlag {
-		req.IsFreePunch = &builder.isFreePunch
-
-	}
-	if builder.punchNoFlag {
-		req.PunchNo = &builder.punchNo
-
-	}
-	if builder.workTypeFlag {
-		req.WorkType = &builder.workType
-
-	}
-	if builder.punchStatusFlag {
-		req.PunchStatus = &builder.punchStatus
-
-	}
-	if builder.normalPunchTimeFlag {
-		req.NormalPunchTime = &builder.normalPunchTime
-
-	}
-	if builder.remedyStartTimeFlag {
-		req.RemedyStartTime = &builder.remedyStartTime
-
-	}
-	if builder.remedyEndTimeFlag {
-		req.RemedyEndTime = &builder.remedyEndTime
-
-	}
-	return req
+func (builder * UserAllowedRemedyBuilder) RemedyEndTime(remedyEndTime string) *UserAllowedRemedyBuilder  {
+  builder.remedyEndTime = remedyEndTime
+  builder.remedyEndTimeFlag = true
+  return builder
 }
 
+func (builder * UserAllowedRemedyBuilder ) Build() *UserAllowedRemedy {
+   req := &UserAllowedRemedy{}
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.remedyDateFlag {
+	  req.RemedyDate = &builder.remedyDate
+	  
+   }
+   if builder.isFreePunchFlag {
+	  req.IsFreePunch = &builder.isFreePunch
+	  
+   }
+   if builder.punchNoFlag {
+	  req.PunchNo = &builder.punchNo
+	  
+   }
+   if builder.workTypeFlag {
+	  req.WorkType = &builder.workType
+	  
+   }
+   if builder.punchStatusFlag {
+	  req.PunchStatus = &builder.punchStatus
+	  
+   }
+   if builder.normalPunchTimeFlag {
+	  req.NormalPunchTime = &builder.normalPunchTime
+	  
+   }
+   if builder.remedyStartTimeFlag {
+	  req.RemedyStartTime = &builder.remedyStartTime
+	  
+   }
+   if builder.remedyEndTimeFlag {
+	  req.RemedyEndTime = &builder.remedyEndTime
+	  
+   }
+   return req
+}
 // builder结束
 
 type UserApproval struct {
-	UserId        *string             `json:"user_id,omitempty"`
-	Date          *string             `json:"date,omitempty"`
-	Outs          []*UserOut          `json:"outs,omitempty"`
-	Leaves        []*UserLeave        `json:"leaves,omitempty"`
-	OvertimeWorks []*UserOvertimeWork `json:"overtime_works,omitempty"`
-	Trips         []*UserTrip         `json:"trips,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
+	Date  *string `json:"date,omitempty"`
+	Outs  []*UserOut `json:"outs,omitempty"`
+	Leaves  []*UserLeave `json:"leaves,omitempty"`
+	OvertimeWorks  []*UserOvertimeWork `json:"overtime_works,omitempty"`
+	Trips  []*UserTrip `json:"trips,omitempty"`
 }
 
 // builder开始
 type UserApprovalBuilder struct {
-	userId            string
-	userIdFlag        bool
-	date              string
-	dateFlag          bool
-	outs              []*UserOut
-	outsFlag          bool
-	leaves            []*UserLeave
-	leavesFlag        bool
-	overtimeWorks     []*UserOvertimeWork
-	overtimeWorksFlag bool
-	trips             []*UserTrip
-	tripsFlag         bool
+	userId  string
+	userIdFlag  bool
+	date  string
+	dateFlag  bool
+	outs  []*UserOut
+	outsFlag  bool
+	leaves  []*UserLeave
+	leavesFlag  bool
+	overtimeWorks  []*UserOvertimeWork
+	overtimeWorksFlag  bool
+	trips  []*UserTrip
+	tripsFlag  bool
 }
 
-func NewUserApprovalBuilder() *UserApprovalBuilder {
-	builder := &UserApprovalBuilder{}
-	return builder
+func NewUserApprovalBuilder() * UserApprovalBuilder{
+   builder := &UserApprovalBuilder{}
+   return builder
 }
 
-func (builder *UserApprovalBuilder) UserId(userId string) *UserApprovalBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
+
+func (builder * UserApprovalBuilder) UserId(userId string) *UserApprovalBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
-func (builder *UserApprovalBuilder) Date(date string) *UserApprovalBuilder {
-	builder.date = date
-	builder.dateFlag = true
-	return builder
+func (builder * UserApprovalBuilder) Date(date string) *UserApprovalBuilder  {
+  builder.date = date
+  builder.dateFlag = true
+  return builder
 }
-func (builder *UserApprovalBuilder) Outs(outs []*UserOut) *UserApprovalBuilder {
-	builder.outs = outs
-	builder.outsFlag = true
-	return builder
+func (builder * UserApprovalBuilder) Outs(outs []*UserOut) *UserApprovalBuilder  {
+  builder.outs = outs
+  builder.outsFlag = true
+  return builder
 }
-func (builder *UserApprovalBuilder) Leaves(leaves []*UserLeave) *UserApprovalBuilder {
-	builder.leaves = leaves
-	builder.leavesFlag = true
-	return builder
+func (builder * UserApprovalBuilder) Leaves(leaves []*UserLeave) *UserApprovalBuilder  {
+  builder.leaves = leaves
+  builder.leavesFlag = true
+  return builder
 }
-func (builder *UserApprovalBuilder) OvertimeWorks(overtimeWorks []*UserOvertimeWork) *UserApprovalBuilder {
-	builder.overtimeWorks = overtimeWorks
-	builder.overtimeWorksFlag = true
-	return builder
+func (builder * UserApprovalBuilder) OvertimeWorks(overtimeWorks []*UserOvertimeWork) *UserApprovalBuilder  {
+  builder.overtimeWorks = overtimeWorks
+  builder.overtimeWorksFlag = true
+  return builder
 }
-func (builder *UserApprovalBuilder) Trips(trips []*UserTrip) *UserApprovalBuilder {
-	builder.trips = trips
-	builder.tripsFlag = true
-	return builder
+func (builder * UserApprovalBuilder) Trips(trips []*UserTrip) *UserApprovalBuilder  {
+  builder.trips = trips
+  builder.tripsFlag = true
+  return builder
 }
 
-func (builder *UserApprovalBuilder) Build() *UserApproval {
-	req := &UserApproval{}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	if builder.dateFlag {
-		req.Date = &builder.date
-
-	}
-	if builder.outsFlag {
-		req.Outs = builder.outs
-	}
-	if builder.leavesFlag {
-		req.Leaves = builder.leaves
-	}
-	if builder.overtimeWorksFlag {
-		req.OvertimeWorks = builder.overtimeWorks
-	}
-	if builder.tripsFlag {
-		req.Trips = builder.trips
-	}
-	return req
+func (builder * UserApprovalBuilder ) Build() *UserApproval {
+   req := &UserApproval{}
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.dateFlag {
+	  req.Date = &builder.date
+	  
+   }
+   if builder.outsFlag {
+	  req.Outs = builder.outs
+   }
+   if builder.leavesFlag {
+	  req.Leaves = builder.leaves
+   }
+   if builder.overtimeWorksFlag {
+	  req.OvertimeWorks = builder.overtimeWorks
+   }
+   if builder.tripsFlag {
+	  req.Trips = builder.trips
+   }
+   return req
 }
-
 // builder结束
 
 type UserDailyShift struct {
-	GroupId *string `json:"group_id,omitempty"`
-	ShiftId *string `json:"shift_id,omitempty"`
-	Month   *int    `json:"month,omitempty"`
+	GroupId  *string `json:"group_id,omitempty"`
+	ShiftId  *string `json:"shift_id,omitempty"`
+	Month  *int `json:"month,omitempty"`
 	UserId  *string `json:"user_id,omitempty"`
-	DayNo   *int    `json:"day_no,omitempty"`
+	DayNo  *int `json:"day_no,omitempty"`
 }
 
 // builder开始
 type UserDailyShiftBuilder struct {
-	groupId     string
-	groupIdFlag bool
-	shiftId     string
-	shiftIdFlag bool
-	month       int
-	monthFlag   bool
-	userId      string
+	groupId  string
+	groupIdFlag  bool
+	shiftId  string
+	shiftIdFlag  bool
+	month  int
+	monthFlag  bool
+	userId  string
 	userIdFlag  bool
-	dayNo       int
-	dayNoFlag   bool
+	dayNo  int
+	dayNoFlag  bool
 }
 
-func NewUserDailyShiftBuilder() *UserDailyShiftBuilder {
-	builder := &UserDailyShiftBuilder{}
-	return builder
+func NewUserDailyShiftBuilder() * UserDailyShiftBuilder{
+   builder := &UserDailyShiftBuilder{}
+   return builder
 }
 
-func (builder *UserDailyShiftBuilder) GroupId(groupId string) *UserDailyShiftBuilder {
-	builder.groupId = groupId
-	builder.groupIdFlag = true
-	return builder
+
+func (builder * UserDailyShiftBuilder) GroupId(groupId string) *UserDailyShiftBuilder  {
+  builder.groupId = groupId
+  builder.groupIdFlag = true
+  return builder
 }
-func (builder *UserDailyShiftBuilder) ShiftId(shiftId string) *UserDailyShiftBuilder {
-	builder.shiftId = shiftId
-	builder.shiftIdFlag = true
-	return builder
+func (builder * UserDailyShiftBuilder) ShiftId(shiftId string) *UserDailyShiftBuilder  {
+  builder.shiftId = shiftId
+  builder.shiftIdFlag = true
+  return builder
 }
-func (builder *UserDailyShiftBuilder) Month(month int) *UserDailyShiftBuilder {
-	builder.month = month
-	builder.monthFlag = true
-	return builder
+func (builder * UserDailyShiftBuilder) Month(month int) *UserDailyShiftBuilder  {
+  builder.month = month
+  builder.monthFlag = true
+  return builder
 }
-func (builder *UserDailyShiftBuilder) UserId(userId string) *UserDailyShiftBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
+func (builder * UserDailyShiftBuilder) UserId(userId string) *UserDailyShiftBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
-func (builder *UserDailyShiftBuilder) DayNo(dayNo int) *UserDailyShiftBuilder {
-	builder.dayNo = dayNo
-	builder.dayNoFlag = true
-	return builder
-}
-
-func (builder *UserDailyShiftBuilder) Build() *UserDailyShift {
-	req := &UserDailyShift{}
-	if builder.groupIdFlag {
-		req.GroupId = &builder.groupId
-
-	}
-	if builder.shiftIdFlag {
-		req.ShiftId = &builder.shiftId
-
-	}
-	if builder.monthFlag {
-		req.Month = &builder.month
-
-	}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	if builder.dayNoFlag {
-		req.DayNo = &builder.dayNo
-
-	}
-	return req
+func (builder * UserDailyShiftBuilder) DayNo(dayNo int) *UserDailyShiftBuilder  {
+  builder.dayNo = dayNo
+  builder.dayNoFlag = true
+  return builder
 }
 
+func (builder * UserDailyShiftBuilder ) Build() *UserDailyShift {
+   req := &UserDailyShift{}
+   if builder.groupIdFlag {
+	  req.GroupId = &builder.groupId
+	  
+   }
+   if builder.shiftIdFlag {
+	  req.ShiftId = &builder.shiftId
+	  
+   }
+   if builder.monthFlag {
+	  req.Month = &builder.month
+	  
+   }
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.dayNoFlag {
+	  req.DayNo = &builder.dayNo
+	  
+   }
+   return req
+}
 // builder结束
 
 type UserFlow struct {
-	UserId       *string  `json:"user_id,omitempty"`
-	CreatorId    *string  `json:"creator_id,omitempty"`
-	LocationName *string  `json:"location_name,omitempty"`
-	CheckTime    *string  `json:"check_time,omitempty"`
-	Comment      *string  `json:"comment,omitempty"`
-	RecordId     *string  `json:"record_id,omitempty"`
-	Longitude    *float64 `json:"longitude,omitempty"`
-	Latitude     *float64 `json:"latitude,omitempty"`
-	Ssid         *string  `json:"ssid,omitempty"`
-	Bssid        *string  `json:"bssid,omitempty"`
-	IsField      *bool    `json:"is_field,omitempty"`
-	IsWifi       *bool    `json:"is_wifi,omitempty"`
-	Type         *int     `json:"type,omitempty"`
-	PhotoUrls    []string `json:"photo_urls,omitempty"`
-	DeviceId     *string  `json:"device_id,omitempty"`
-	CheckResult  *string  `json:"check_result,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
+	CreatorId  *string `json:"creator_id,omitempty"`
+	LocationName  *string `json:"location_name,omitempty"`
+	CheckTime  *string `json:"check_time,omitempty"`
+	Comment  *string `json:"comment,omitempty"`
+	RecordId  *string `json:"record_id,omitempty"`
+	Longitude  *float64 `json:"longitude,omitempty"`
+	Latitude  *float64 `json:"latitude,omitempty"`
+	Ssid  *string `json:"ssid,omitempty"`
+	Bssid  *string `json:"bssid,omitempty"`
+	IsField  *bool `json:"is_field,omitempty"`
+	IsWifi  *bool `json:"is_wifi,omitempty"`
+	Type  *int `json:"type,omitempty"`
+	PhotoUrls  []string `json:"photo_urls,omitempty"`
+	DeviceId  *string `json:"device_id,omitempty"`
+	CheckResult  *string `json:"check_result,omitempty"`
 }
 
 // builder开始
 type UserFlowBuilder struct {
-	userId           string
-	userIdFlag       bool
-	creatorId        string
-	creatorIdFlag    bool
-	locationName     string
-	locationNameFlag bool
-	checkTime        string
-	checkTimeFlag    bool
-	comment          string
-	commentFlag      bool
-	recordId         string
-	recordIdFlag     bool
-	longitude        float64
-	longitudeFlag    bool
-	latitude         float64
-	latitudeFlag     bool
-	ssid             string
-	ssidFlag         bool
-	bssid            string
-	bssidFlag        bool
-	isField          bool
-	isFieldFlag      bool
-	isWifi           bool
-	isWifiFlag       bool
-	type_            int
-	typeFlag         bool
-	photoUrls        []string
-	photoUrlsFlag    bool
-	deviceId         string
-	deviceIdFlag     bool
-	checkResult      string
+	userId  string
+	userIdFlag  bool
+	creatorId  string
+	creatorIdFlag  bool
+	locationName  string
+	locationNameFlag  bool
+	checkTime  string
+	checkTimeFlag  bool
+	comment  string
+	commentFlag  bool
+	recordId  string
+	recordIdFlag  bool
+	longitude  float64
+	longitudeFlag  bool
+	latitude  float64
+	latitudeFlag  bool
+	ssid  string
+	ssidFlag  bool
+	bssid  string
+	bssidFlag  bool
+	isField  bool
+	isFieldFlag  bool
+	isWifi  bool
+	isWifiFlag  bool
+	type_  int
+	typeFlag  bool
+	photoUrls  []string
+	photoUrlsFlag  bool
+	deviceId  string
+	deviceIdFlag  bool
+	checkResult  string
 	checkResultFlag  bool
 }
 
-func NewUserFlowBuilder() *UserFlowBuilder {
-	builder := &UserFlowBuilder{}
-	return builder
+func NewUserFlowBuilder() * UserFlowBuilder{
+   builder := &UserFlowBuilder{}
+   return builder
 }
 
-func (builder *UserFlowBuilder) UserId(userId string) *UserFlowBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
-}
-func (builder *UserFlowBuilder) CreatorId(creatorId string) *UserFlowBuilder {
-	builder.creatorId = creatorId
-	builder.creatorIdFlag = true
-	return builder
-}
-func (builder *UserFlowBuilder) LocationName(locationName string) *UserFlowBuilder {
-	builder.locationName = locationName
-	builder.locationNameFlag = true
-	return builder
-}
-func (builder *UserFlowBuilder) CheckTime(checkTime string) *UserFlowBuilder {
-	builder.checkTime = checkTime
-	builder.checkTimeFlag = true
-	return builder
-}
-func (builder *UserFlowBuilder) Comment(comment string) *UserFlowBuilder {
-	builder.comment = comment
-	builder.commentFlag = true
-	return builder
-}
-func (builder *UserFlowBuilder) RecordId(recordId string) *UserFlowBuilder {
-	builder.recordId = recordId
-	builder.recordIdFlag = true
-	return builder
-}
-func (builder *UserFlowBuilder) Longitude(longitude float64) *UserFlowBuilder {
-	builder.longitude = longitude
-	builder.longitudeFlag = true
-	return builder
-}
-func (builder *UserFlowBuilder) Latitude(latitude float64) *UserFlowBuilder {
-	builder.latitude = latitude
-	builder.latitudeFlag = true
-	return builder
-}
-func (builder *UserFlowBuilder) Ssid(ssid string) *UserFlowBuilder {
-	builder.ssid = ssid
-	builder.ssidFlag = true
-	return builder
-}
-func (builder *UserFlowBuilder) Bssid(bssid string) *UserFlowBuilder {
-	builder.bssid = bssid
-	builder.bssidFlag = true
-	return builder
-}
-func (builder *UserFlowBuilder) IsField(isField bool) *UserFlowBuilder {
-	builder.isField = isField
-	builder.isFieldFlag = true
-	return builder
-}
-func (builder *UserFlowBuilder) IsWifi(isWifi bool) *UserFlowBuilder {
-	builder.isWifi = isWifi
-	builder.isWifiFlag = true
-	return builder
-}
-func (builder *UserFlowBuilder) Type(type_ int) *UserFlowBuilder {
-	builder.type_ = type_
-	builder.typeFlag = true
-	return builder
-}
-func (builder *UserFlowBuilder) PhotoUrls(photoUrls []string) *UserFlowBuilder {
-	builder.photoUrls = photoUrls
-	builder.photoUrlsFlag = true
-	return builder
-}
-func (builder *UserFlowBuilder) DeviceId(deviceId string) *UserFlowBuilder {
-	builder.deviceId = deviceId
-	builder.deviceIdFlag = true
-	return builder
-}
-func (builder *UserFlowBuilder) CheckResult(checkResult string) *UserFlowBuilder {
-	builder.checkResult = checkResult
-	builder.checkResultFlag = true
-	return builder
-}
 
-func (builder *UserFlowBuilder) Build() *UserFlow {
-	req := &UserFlow{}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	if builder.creatorIdFlag {
-		req.CreatorId = &builder.creatorId
-
-	}
-	if builder.locationNameFlag {
-		req.LocationName = &builder.locationName
-
-	}
-	if builder.checkTimeFlag {
-		req.CheckTime = &builder.checkTime
-
-	}
-	if builder.commentFlag {
-		req.Comment = &builder.comment
-
-	}
-	if builder.recordIdFlag {
-		req.RecordId = &builder.recordId
-
-	}
-	if builder.longitudeFlag {
-		req.Longitude = &builder.longitude
-
-	}
-	if builder.latitudeFlag {
-		req.Latitude = &builder.latitude
-
-	}
-	if builder.ssidFlag {
-		req.Ssid = &builder.ssid
-
-	}
-	if builder.bssidFlag {
-		req.Bssid = &builder.bssid
-
-	}
-	if builder.isFieldFlag {
-		req.IsField = &builder.isField
-
-	}
-	if builder.isWifiFlag {
-		req.IsWifi = &builder.isWifi
-
-	}
-	if builder.typeFlag {
-		req.Type = &builder.type_
-
-	}
-	if builder.photoUrlsFlag {
-		req.PhotoUrls = builder.photoUrls
-	}
-	if builder.deviceIdFlag {
-		req.DeviceId = &builder.deviceId
-
-	}
-	if builder.checkResultFlag {
-		req.CheckResult = &builder.checkResult
-
-	}
-	return req
+func (builder * UserFlowBuilder) UserId(userId string) *UserFlowBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
+}
+func (builder * UserFlowBuilder) CreatorId(creatorId string) *UserFlowBuilder  {
+  builder.creatorId = creatorId
+  builder.creatorIdFlag = true
+  return builder
+}
+func (builder * UserFlowBuilder) LocationName(locationName string) *UserFlowBuilder  {
+  builder.locationName = locationName
+  builder.locationNameFlag = true
+  return builder
+}
+func (builder * UserFlowBuilder) CheckTime(checkTime string) *UserFlowBuilder  {
+  builder.checkTime = checkTime
+  builder.checkTimeFlag = true
+  return builder
+}
+func (builder * UserFlowBuilder) Comment(comment string) *UserFlowBuilder  {
+  builder.comment = comment
+  builder.commentFlag = true
+  return builder
+}
+func (builder * UserFlowBuilder) RecordId(recordId string) *UserFlowBuilder  {
+  builder.recordId = recordId
+  builder.recordIdFlag = true
+  return builder
+}
+func (builder * UserFlowBuilder) Longitude(longitude float64) *UserFlowBuilder  {
+  builder.longitude = longitude
+  builder.longitudeFlag = true
+  return builder
+}
+func (builder * UserFlowBuilder) Latitude(latitude float64) *UserFlowBuilder  {
+  builder.latitude = latitude
+  builder.latitudeFlag = true
+  return builder
+}
+func (builder * UserFlowBuilder) Ssid(ssid string) *UserFlowBuilder  {
+  builder.ssid = ssid
+  builder.ssidFlag = true
+  return builder
+}
+func (builder * UserFlowBuilder) Bssid(bssid string) *UserFlowBuilder  {
+  builder.bssid = bssid
+  builder.bssidFlag = true
+  return builder
+}
+func (builder * UserFlowBuilder) IsField(isField bool) *UserFlowBuilder  {
+  builder.isField = isField
+  builder.isFieldFlag = true
+  return builder
+}
+func (builder * UserFlowBuilder) IsWifi(isWifi bool) *UserFlowBuilder  {
+  builder.isWifi = isWifi
+  builder.isWifiFlag = true
+  return builder
+}
+func (builder * UserFlowBuilder) Type(type_ int) *UserFlowBuilder  {
+  builder.type_ = type_
+  builder.typeFlag = true
+  return builder
+}
+func (builder * UserFlowBuilder) PhotoUrls(photoUrls []string) *UserFlowBuilder  {
+  builder.photoUrls = photoUrls
+  builder.photoUrlsFlag = true
+  return builder
+}
+func (builder * UserFlowBuilder) DeviceId(deviceId string) *UserFlowBuilder  {
+  builder.deviceId = deviceId
+  builder.deviceIdFlag = true
+  return builder
+}
+func (builder * UserFlowBuilder) CheckResult(checkResult string) *UserFlowBuilder  {
+  builder.checkResult = checkResult
+  builder.checkResultFlag = true
+  return builder
 }
 
+func (builder * UserFlowBuilder ) Build() *UserFlow {
+   req := &UserFlow{}
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.creatorIdFlag {
+	  req.CreatorId = &builder.creatorId
+	  
+   }
+   if builder.locationNameFlag {
+	  req.LocationName = &builder.locationName
+	  
+   }
+   if builder.checkTimeFlag {
+	  req.CheckTime = &builder.checkTime
+	  
+   }
+   if builder.commentFlag {
+	  req.Comment = &builder.comment
+	  
+   }
+   if builder.recordIdFlag {
+	  req.RecordId = &builder.recordId
+	  
+   }
+   if builder.longitudeFlag {
+	  req.Longitude = &builder.longitude
+	  
+   }
+   if builder.latitudeFlag {
+	  req.Latitude = &builder.latitude
+	  
+   }
+   if builder.ssidFlag {
+	  req.Ssid = &builder.ssid
+	  
+   }
+   if builder.bssidFlag {
+	  req.Bssid = &builder.bssid
+	  
+   }
+   if builder.isFieldFlag {
+	  req.IsField = &builder.isField
+	  
+   }
+   if builder.isWifiFlag {
+	  req.IsWifi = &builder.isWifi
+	  
+   }
+   if builder.typeFlag {
+	  req.Type = &builder.type_
+	  
+   }
+   if builder.photoUrlsFlag {
+	  req.PhotoUrls = builder.photoUrls
+   }
+   if builder.deviceIdFlag {
+	  req.DeviceId = &builder.deviceId
+	  
+   }
+   if builder.checkResultFlag {
+	  req.CheckResult = &builder.checkResult
+	  
+   }
+   return req
+}
 // builder结束
 
 type UserId struct {
 	UserId  *string `json:"user_id,omitempty"`
 	OpenId  *string `json:"open_id,omitempty"`
-	UnionId *string `json:"union_id,omitempty"`
+	UnionId  *string `json:"union_id,omitempty"`
 }
 
 // builder开始
 type UserIdBuilder struct {
-	userId      string
+	userId  string
 	userIdFlag  bool
-	openId      string
+	openId  string
 	openIdFlag  bool
-	unionId     string
-	unionIdFlag bool
+	unionId  string
+	unionIdFlag  bool
 }
 
-func NewUserIdBuilder() *UserIdBuilder {
-	builder := &UserIdBuilder{}
-	return builder
+func NewUserIdBuilder() * UserIdBuilder{
+   builder := &UserIdBuilder{}
+   return builder
 }
 
-func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
+
+func (builder * UserIdBuilder) UserId(userId string) *UserIdBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
-func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
-	builder.openId = openId
-	builder.openIdFlag = true
-	return builder
+func (builder * UserIdBuilder) OpenId(openId string) *UserIdBuilder  {
+  builder.openId = openId
+  builder.openIdFlag = true
+  return builder
 }
-func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
-	builder.unionId = unionId
-	builder.unionIdFlag = true
-	return builder
-}
-
-func (builder *UserIdBuilder) Build() *UserId {
-	req := &UserId{}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	if builder.openIdFlag {
-		req.OpenId = &builder.openId
-
-	}
-	if builder.unionIdFlag {
-		req.UnionId = &builder.unionId
-
-	}
-	return req
+func (builder * UserIdBuilder) UnionId(unionId string) *UserIdBuilder  {
+  builder.unionId = unionId
+  builder.unionIdFlag = true
+  return builder
 }
 
+func (builder * UserIdBuilder ) Build() *UserId {
+   req := &UserId{}
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.openIdFlag {
+	  req.OpenId = &builder.openId
+	  
+   }
+   if builder.unionIdFlag {
+	  req.UnionId = &builder.unionId
+	  
+   }
+   return req
+}
 // builder结束
 
 type UserLeave struct {
-	ApprovalId       *string    `json:"approval_id,omitempty"`
-	UniqId           *string    `json:"uniq_id,omitempty"`
-	Unit             *int       `json:"unit,omitempty"`
-	Interval         *int       `json:"interval,omitempty"`
-	StartTime        *string    `json:"start_time,omitempty"`
-	EndTime          *string    `json:"end_time,omitempty"`
-	I18nNames        *I18nNames `json:"i18n_names,omitempty"`
-	DefaultLocale    *string    `json:"default_locale,omitempty"`
-	Reason           *string    `json:"reason,omitempty"`
-	ApprovePassTime  *string    `json:"approve_pass_time,omitempty"`
-	ApproveApplyTime *string    `json:"approve_apply_time,omitempty"`
+	ApprovalId  *string `json:"approval_id,omitempty"`
+	UniqId  *string `json:"uniq_id,omitempty"`
+	Unit  *int `json:"unit,omitempty"`
+	Interval  *int `json:"interval,omitempty"`
+	StartTime  *string `json:"start_time,omitempty"`
+	EndTime  *string `json:"end_time,omitempty"`
+	I18nNames  *I18nNames `json:"i18n_names,omitempty"`
+	DefaultLocale  *string `json:"default_locale,omitempty"`
+	Reason  *string `json:"reason,omitempty"`
+	ApprovePassTime  *string `json:"approve_pass_time,omitempty"`
+	ApproveApplyTime  *string `json:"approve_apply_time,omitempty"`
 }
 
 // builder开始
 type UserLeaveBuilder struct {
-	approvalId           string
-	approvalIdFlag       bool
-	uniqId               string
-	uniqIdFlag           bool
-	unit                 int
-	unitFlag             bool
-	interval             int
-	intervalFlag         bool
-	startTime            string
-	startTimeFlag        bool
-	endTime              string
-	endTimeFlag          bool
-	i18nNames            *I18nNames
-	i18nNamesFlag        bool
-	defaultLocale        string
-	defaultLocaleFlag    bool
-	reason               string
-	reasonFlag           bool
-	approvePassTime      string
+	approvalId  string
+	approvalIdFlag  bool
+	uniqId  string
+	uniqIdFlag  bool
+	unit  int
+	unitFlag  bool
+	interval  int
+	intervalFlag  bool
+	startTime  string
+	startTimeFlag  bool
+	endTime  string
+	endTimeFlag  bool
+	i18nNames  *I18nNames
+	i18nNamesFlag  bool
+	defaultLocale  string
+	defaultLocaleFlag  bool
+	reason  string
+	reasonFlag  bool
+	approvePassTime  string
 	approvePassTimeFlag  bool
-	approveApplyTime     string
-	approveApplyTimeFlag bool
+	approveApplyTime  string
+	approveApplyTimeFlag  bool
 }
 
-func NewUserLeaveBuilder() *UserLeaveBuilder {
-	builder := &UserLeaveBuilder{}
-	return builder
+func NewUserLeaveBuilder() * UserLeaveBuilder{
+   builder := &UserLeaveBuilder{}
+   return builder
 }
 
-func (builder *UserLeaveBuilder) ApprovalId(approvalId string) *UserLeaveBuilder {
-	builder.approvalId = approvalId
-	builder.approvalIdFlag = true
-	return builder
-}
-func (builder *UserLeaveBuilder) UniqId(uniqId string) *UserLeaveBuilder {
-	builder.uniqId = uniqId
-	builder.uniqIdFlag = true
-	return builder
-}
-func (builder *UserLeaveBuilder) Unit(unit int) *UserLeaveBuilder {
-	builder.unit = unit
-	builder.unitFlag = true
-	return builder
-}
-func (builder *UserLeaveBuilder) Interval(interval int) *UserLeaveBuilder {
-	builder.interval = interval
-	builder.intervalFlag = true
-	return builder
-}
-func (builder *UserLeaveBuilder) StartTime(startTime string) *UserLeaveBuilder {
-	builder.startTime = startTime
-	builder.startTimeFlag = true
-	return builder
-}
-func (builder *UserLeaveBuilder) EndTime(endTime string) *UserLeaveBuilder {
-	builder.endTime = endTime
-	builder.endTimeFlag = true
-	return builder
-}
-func (builder *UserLeaveBuilder) I18nNames(i18nNames *I18nNames) *UserLeaveBuilder {
-	builder.i18nNames = i18nNames
-	builder.i18nNamesFlag = true
-	return builder
-}
-func (builder *UserLeaveBuilder) DefaultLocale(defaultLocale string) *UserLeaveBuilder {
-	builder.defaultLocale = defaultLocale
-	builder.defaultLocaleFlag = true
-	return builder
-}
-func (builder *UserLeaveBuilder) Reason(reason string) *UserLeaveBuilder {
-	builder.reason = reason
-	builder.reasonFlag = true
-	return builder
-}
-func (builder *UserLeaveBuilder) ApprovePassTime(approvePassTime string) *UserLeaveBuilder {
-	builder.approvePassTime = approvePassTime
-	builder.approvePassTimeFlag = true
-	return builder
-}
-func (builder *UserLeaveBuilder) ApproveApplyTime(approveApplyTime string) *UserLeaveBuilder {
-	builder.approveApplyTime = approveApplyTime
-	builder.approveApplyTimeFlag = true
-	return builder
-}
 
-func (builder *UserLeaveBuilder) Build() *UserLeave {
-	req := &UserLeave{}
-	if builder.approvalIdFlag {
-		req.ApprovalId = &builder.approvalId
-
-	}
-	if builder.uniqIdFlag {
-		req.UniqId = &builder.uniqId
-
-	}
-	if builder.unitFlag {
-		req.Unit = &builder.unit
-
-	}
-	if builder.intervalFlag {
-		req.Interval = &builder.interval
-
-	}
-	if builder.startTimeFlag {
-		req.StartTime = &builder.startTime
-
-	}
-	if builder.endTimeFlag {
-		req.EndTime = &builder.endTime
-
-	}
-	if builder.i18nNamesFlag {
-		req.I18nNames = builder.i18nNames
-	}
-	if builder.defaultLocaleFlag {
-		req.DefaultLocale = &builder.defaultLocale
-
-	}
-	if builder.reasonFlag {
-		req.Reason = &builder.reason
-
-	}
-	if builder.approvePassTimeFlag {
-		req.ApprovePassTime = &builder.approvePassTime
-
-	}
-	if builder.approveApplyTimeFlag {
-		req.ApproveApplyTime = &builder.approveApplyTime
-
-	}
-	return req
+func (builder * UserLeaveBuilder) ApprovalId(approvalId string) *UserLeaveBuilder  {
+  builder.approvalId = approvalId
+  builder.approvalIdFlag = true
+  return builder
+}
+func (builder * UserLeaveBuilder) UniqId(uniqId string) *UserLeaveBuilder  {
+  builder.uniqId = uniqId
+  builder.uniqIdFlag = true
+  return builder
+}
+func (builder * UserLeaveBuilder) Unit(unit int) *UserLeaveBuilder  {
+  builder.unit = unit
+  builder.unitFlag = true
+  return builder
+}
+func (builder * UserLeaveBuilder) Interval(interval int) *UserLeaveBuilder  {
+  builder.interval = interval
+  builder.intervalFlag = true
+  return builder
+}
+func (builder * UserLeaveBuilder) StartTime(startTime string) *UserLeaveBuilder  {
+  builder.startTime = startTime
+  builder.startTimeFlag = true
+  return builder
+}
+func (builder * UserLeaveBuilder) EndTime(endTime string) *UserLeaveBuilder  {
+  builder.endTime = endTime
+  builder.endTimeFlag = true
+  return builder
+}
+func (builder * UserLeaveBuilder) I18nNames(i18nNames *I18nNames) *UserLeaveBuilder  {
+  builder.i18nNames = i18nNames
+  builder.i18nNamesFlag = true
+  return builder
+}
+func (builder * UserLeaveBuilder) DefaultLocale(defaultLocale string) *UserLeaveBuilder  {
+  builder.defaultLocale = defaultLocale
+  builder.defaultLocaleFlag = true
+  return builder
+}
+func (builder * UserLeaveBuilder) Reason(reason string) *UserLeaveBuilder  {
+  builder.reason = reason
+  builder.reasonFlag = true
+  return builder
+}
+func (builder * UserLeaveBuilder) ApprovePassTime(approvePassTime string) *UserLeaveBuilder  {
+  builder.approvePassTime = approvePassTime
+  builder.approvePassTimeFlag = true
+  return builder
+}
+func (builder * UserLeaveBuilder) ApproveApplyTime(approveApplyTime string) *UserLeaveBuilder  {
+  builder.approveApplyTime = approveApplyTime
+  builder.approveApplyTimeFlag = true
+  return builder
 }
 
+func (builder * UserLeaveBuilder ) Build() *UserLeave {
+   req := &UserLeave{}
+   if builder.approvalIdFlag {
+	  req.ApprovalId = &builder.approvalId
+	  
+   }
+   if builder.uniqIdFlag {
+	  req.UniqId = &builder.uniqId
+	  
+   }
+   if builder.unitFlag {
+	  req.Unit = &builder.unit
+	  
+   }
+   if builder.intervalFlag {
+	  req.Interval = &builder.interval
+	  
+   }
+   if builder.startTimeFlag {
+	  req.StartTime = &builder.startTime
+	  
+   }
+   if builder.endTimeFlag {
+	  req.EndTime = &builder.endTime
+	  
+   }
+   if builder.i18nNamesFlag {
+	  req.I18nNames = builder.i18nNames
+   }
+   if builder.defaultLocaleFlag {
+	  req.DefaultLocale = &builder.defaultLocale
+	  
+   }
+   if builder.reasonFlag {
+	  req.Reason = &builder.reason
+	  
+   }
+   if builder.approvePassTimeFlag {
+	  req.ApprovePassTime = &builder.approvePassTime
+	  
+   }
+   if builder.approveApplyTimeFlag {
+	  req.ApproveApplyTime = &builder.approveApplyTime
+	  
+   }
+   return req
+}
 // builder结束
 
 type UserOut struct {
-	ApprovalId       *string    `json:"approval_id,omitempty"`
-	UniqId           *string    `json:"uniq_id,omitempty"`
-	Unit             *int       `json:"unit,omitempty"`
-	Interval         *int       `json:"interval,omitempty"`
-	StartTime        *string    `json:"start_time,omitempty"`
-	EndTime          *string    `json:"end_time,omitempty"`
-	I18nNames        *I18nNames `json:"i18n_names,omitempty"`
-	DefaultLocale    *string    `json:"default_locale,omitempty"`
-	Reason           *string    `json:"reason,omitempty"`
-	ApprovePassTime  *string    `json:"approve_pass_time,omitempty"`
-	ApproveApplyTime *string    `json:"approve_apply_time,omitempty"`
+	ApprovalId  *string `json:"approval_id,omitempty"`
+	UniqId  *string `json:"uniq_id,omitempty"`
+	Unit  *int `json:"unit,omitempty"`
+	Interval  *int `json:"interval,omitempty"`
+	StartTime  *string `json:"start_time,omitempty"`
+	EndTime  *string `json:"end_time,omitempty"`
+	I18nNames  *I18nNames `json:"i18n_names,omitempty"`
+	DefaultLocale  *string `json:"default_locale,omitempty"`
+	Reason  *string `json:"reason,omitempty"`
+	ApprovePassTime  *string `json:"approve_pass_time,omitempty"`
+	ApproveApplyTime  *string `json:"approve_apply_time,omitempty"`
 }
 
 // builder开始
 type UserOutBuilder struct {
-	approvalId           string
-	approvalIdFlag       bool
-	uniqId               string
-	uniqIdFlag           bool
-	unit                 int
-	unitFlag             bool
-	interval             int
-	intervalFlag         bool
-	startTime            string
-	startTimeFlag        bool
-	endTime              string
-	endTimeFlag          bool
-	i18nNames            *I18nNames
-	i18nNamesFlag        bool
-	defaultLocale        string
-	defaultLocaleFlag    bool
-	reason               string
-	reasonFlag           bool
-	approvePassTime      string
+	approvalId  string
+	approvalIdFlag  bool
+	uniqId  string
+	uniqIdFlag  bool
+	unit  int
+	unitFlag  bool
+	interval  int
+	intervalFlag  bool
+	startTime  string
+	startTimeFlag  bool
+	endTime  string
+	endTimeFlag  bool
+	i18nNames  *I18nNames
+	i18nNamesFlag  bool
+	defaultLocale  string
+	defaultLocaleFlag  bool
+	reason  string
+	reasonFlag  bool
+	approvePassTime  string
 	approvePassTimeFlag  bool
-	approveApplyTime     string
-	approveApplyTimeFlag bool
+	approveApplyTime  string
+	approveApplyTimeFlag  bool
 }
 
-func NewUserOutBuilder() *UserOutBuilder {
-	builder := &UserOutBuilder{}
-	return builder
+func NewUserOutBuilder() * UserOutBuilder{
+   builder := &UserOutBuilder{}
+   return builder
 }
 
-func (builder *UserOutBuilder) ApprovalId(approvalId string) *UserOutBuilder {
-	builder.approvalId = approvalId
-	builder.approvalIdFlag = true
-	return builder
-}
-func (builder *UserOutBuilder) UniqId(uniqId string) *UserOutBuilder {
-	builder.uniqId = uniqId
-	builder.uniqIdFlag = true
-	return builder
-}
-func (builder *UserOutBuilder) Unit(unit int) *UserOutBuilder {
-	builder.unit = unit
-	builder.unitFlag = true
-	return builder
-}
-func (builder *UserOutBuilder) Interval(interval int) *UserOutBuilder {
-	builder.interval = interval
-	builder.intervalFlag = true
-	return builder
-}
-func (builder *UserOutBuilder) StartTime(startTime string) *UserOutBuilder {
-	builder.startTime = startTime
-	builder.startTimeFlag = true
-	return builder
-}
-func (builder *UserOutBuilder) EndTime(endTime string) *UserOutBuilder {
-	builder.endTime = endTime
-	builder.endTimeFlag = true
-	return builder
-}
-func (builder *UserOutBuilder) I18nNames(i18nNames *I18nNames) *UserOutBuilder {
-	builder.i18nNames = i18nNames
-	builder.i18nNamesFlag = true
-	return builder
-}
-func (builder *UserOutBuilder) DefaultLocale(defaultLocale string) *UserOutBuilder {
-	builder.defaultLocale = defaultLocale
-	builder.defaultLocaleFlag = true
-	return builder
-}
-func (builder *UserOutBuilder) Reason(reason string) *UserOutBuilder {
-	builder.reason = reason
-	builder.reasonFlag = true
-	return builder
-}
-func (builder *UserOutBuilder) ApprovePassTime(approvePassTime string) *UserOutBuilder {
-	builder.approvePassTime = approvePassTime
-	builder.approvePassTimeFlag = true
-	return builder
-}
-func (builder *UserOutBuilder) ApproveApplyTime(approveApplyTime string) *UserOutBuilder {
-	builder.approveApplyTime = approveApplyTime
-	builder.approveApplyTimeFlag = true
-	return builder
-}
 
-func (builder *UserOutBuilder) Build() *UserOut {
-	req := &UserOut{}
-	if builder.approvalIdFlag {
-		req.ApprovalId = &builder.approvalId
-
-	}
-	if builder.uniqIdFlag {
-		req.UniqId = &builder.uniqId
-
-	}
-	if builder.unitFlag {
-		req.Unit = &builder.unit
-
-	}
-	if builder.intervalFlag {
-		req.Interval = &builder.interval
-
-	}
-	if builder.startTimeFlag {
-		req.StartTime = &builder.startTime
-
-	}
-	if builder.endTimeFlag {
-		req.EndTime = &builder.endTime
-
-	}
-	if builder.i18nNamesFlag {
-		req.I18nNames = builder.i18nNames
-	}
-	if builder.defaultLocaleFlag {
-		req.DefaultLocale = &builder.defaultLocale
-
-	}
-	if builder.reasonFlag {
-		req.Reason = &builder.reason
-
-	}
-	if builder.approvePassTimeFlag {
-		req.ApprovePassTime = &builder.approvePassTime
-
-	}
-	if builder.approveApplyTimeFlag {
-		req.ApproveApplyTime = &builder.approveApplyTime
-
-	}
-	return req
+func (builder * UserOutBuilder) ApprovalId(approvalId string) *UserOutBuilder  {
+  builder.approvalId = approvalId
+  builder.approvalIdFlag = true
+  return builder
+}
+func (builder * UserOutBuilder) UniqId(uniqId string) *UserOutBuilder  {
+  builder.uniqId = uniqId
+  builder.uniqIdFlag = true
+  return builder
+}
+func (builder * UserOutBuilder) Unit(unit int) *UserOutBuilder  {
+  builder.unit = unit
+  builder.unitFlag = true
+  return builder
+}
+func (builder * UserOutBuilder) Interval(interval int) *UserOutBuilder  {
+  builder.interval = interval
+  builder.intervalFlag = true
+  return builder
+}
+func (builder * UserOutBuilder) StartTime(startTime string) *UserOutBuilder  {
+  builder.startTime = startTime
+  builder.startTimeFlag = true
+  return builder
+}
+func (builder * UserOutBuilder) EndTime(endTime string) *UserOutBuilder  {
+  builder.endTime = endTime
+  builder.endTimeFlag = true
+  return builder
+}
+func (builder * UserOutBuilder) I18nNames(i18nNames *I18nNames) *UserOutBuilder  {
+  builder.i18nNames = i18nNames
+  builder.i18nNamesFlag = true
+  return builder
+}
+func (builder * UserOutBuilder) DefaultLocale(defaultLocale string) *UserOutBuilder  {
+  builder.defaultLocale = defaultLocale
+  builder.defaultLocaleFlag = true
+  return builder
+}
+func (builder * UserOutBuilder) Reason(reason string) *UserOutBuilder  {
+  builder.reason = reason
+  builder.reasonFlag = true
+  return builder
+}
+func (builder * UserOutBuilder) ApprovePassTime(approvePassTime string) *UserOutBuilder  {
+  builder.approvePassTime = approvePassTime
+  builder.approvePassTimeFlag = true
+  return builder
+}
+func (builder * UserOutBuilder) ApproveApplyTime(approveApplyTime string) *UserOutBuilder  {
+  builder.approveApplyTime = approveApplyTime
+  builder.approveApplyTimeFlag = true
+  return builder
 }
 
+func (builder * UserOutBuilder ) Build() *UserOut {
+   req := &UserOut{}
+   if builder.approvalIdFlag {
+	  req.ApprovalId = &builder.approvalId
+	  
+   }
+   if builder.uniqIdFlag {
+	  req.UniqId = &builder.uniqId
+	  
+   }
+   if builder.unitFlag {
+	  req.Unit = &builder.unit
+	  
+   }
+   if builder.intervalFlag {
+	  req.Interval = &builder.interval
+	  
+   }
+   if builder.startTimeFlag {
+	  req.StartTime = &builder.startTime
+	  
+   }
+   if builder.endTimeFlag {
+	  req.EndTime = &builder.endTime
+	  
+   }
+   if builder.i18nNamesFlag {
+	  req.I18nNames = builder.i18nNames
+   }
+   if builder.defaultLocaleFlag {
+	  req.DefaultLocale = &builder.defaultLocale
+	  
+   }
+   if builder.reasonFlag {
+	  req.Reason = &builder.reason
+	  
+   }
+   if builder.approvePassTimeFlag {
+	  req.ApprovePassTime = &builder.approvePassTime
+	  
+   }
+   if builder.approveApplyTimeFlag {
+	  req.ApproveApplyTime = &builder.approveApplyTime
+	  
+   }
+   return req
+}
 // builder结束
 
 type UserOvertimeWork struct {
-	ApprovalId *string  `json:"approval_id,omitempty"`
-	Duration   *float64 `json:"duration,omitempty"`
-	Unit       *int     `json:"unit,omitempty"`
-	Category   *int     `json:"category,omitempty"`
-	Type       *int     `json:"type,omitempty"`
-	StartTime  *string  `json:"start_time,omitempty"`
-	EndTime    *string  `json:"end_time,omitempty"`
+	ApprovalId  *string `json:"approval_id,omitempty"`
+	Duration  *float64 `json:"duration,omitempty"`
+	Unit  *int `json:"unit,omitempty"`
+	Category  *int `json:"category,omitempty"`
+	Type  *int `json:"type,omitempty"`
+	StartTime  *string `json:"start_time,omitempty"`
+	EndTime  *string `json:"end_time,omitempty"`
 }
 
 // builder开始
 type UserOvertimeWorkBuilder struct {
-	approvalId     string
-	approvalIdFlag bool
-	duration       float64
-	durationFlag   bool
-	unit           int
-	unitFlag       bool
-	category       int
-	categoryFlag   bool
-	type_          int
-	typeFlag       bool
-	startTime      string
+	approvalId  string
+	approvalIdFlag  bool
+	duration  float64
+	durationFlag  bool
+	unit  int
+	unitFlag  bool
+	category  int
+	categoryFlag  bool
+	type_  int
+	typeFlag  bool
+	startTime  string
 	startTimeFlag  bool
-	endTime        string
-	endTimeFlag    bool
+	endTime  string
+	endTimeFlag  bool
 }
 
-func NewUserOvertimeWorkBuilder() *UserOvertimeWorkBuilder {
-	builder := &UserOvertimeWorkBuilder{}
-	return builder
+func NewUserOvertimeWorkBuilder() * UserOvertimeWorkBuilder{
+   builder := &UserOvertimeWorkBuilder{}
+   return builder
 }
 
-func (builder *UserOvertimeWorkBuilder) ApprovalId(approvalId string) *UserOvertimeWorkBuilder {
-	builder.approvalId = approvalId
-	builder.approvalIdFlag = true
-	return builder
+
+func (builder * UserOvertimeWorkBuilder) ApprovalId(approvalId string) *UserOvertimeWorkBuilder  {
+  builder.approvalId = approvalId
+  builder.approvalIdFlag = true
+  return builder
 }
-func (builder *UserOvertimeWorkBuilder) Duration(duration float64) *UserOvertimeWorkBuilder {
-	builder.duration = duration
-	builder.durationFlag = true
-	return builder
+func (builder * UserOvertimeWorkBuilder) Duration(duration float64) *UserOvertimeWorkBuilder  {
+  builder.duration = duration
+  builder.durationFlag = true
+  return builder
 }
-func (builder *UserOvertimeWorkBuilder) Unit(unit int) *UserOvertimeWorkBuilder {
-	builder.unit = unit
-	builder.unitFlag = true
-	return builder
+func (builder * UserOvertimeWorkBuilder) Unit(unit int) *UserOvertimeWorkBuilder  {
+  builder.unit = unit
+  builder.unitFlag = true
+  return builder
 }
-func (builder *UserOvertimeWorkBuilder) Category(category int) *UserOvertimeWorkBuilder {
-	builder.category = category
-	builder.categoryFlag = true
-	return builder
+func (builder * UserOvertimeWorkBuilder) Category(category int) *UserOvertimeWorkBuilder  {
+  builder.category = category
+  builder.categoryFlag = true
+  return builder
 }
-func (builder *UserOvertimeWorkBuilder) Type(type_ int) *UserOvertimeWorkBuilder {
-	builder.type_ = type_
-	builder.typeFlag = true
-	return builder
+func (builder * UserOvertimeWorkBuilder) Type(type_ int) *UserOvertimeWorkBuilder  {
+  builder.type_ = type_
+  builder.typeFlag = true
+  return builder
 }
-func (builder *UserOvertimeWorkBuilder) StartTime(startTime string) *UserOvertimeWorkBuilder {
-	builder.startTime = startTime
-	builder.startTimeFlag = true
-	return builder
+func (builder * UserOvertimeWorkBuilder) StartTime(startTime string) *UserOvertimeWorkBuilder  {
+  builder.startTime = startTime
+  builder.startTimeFlag = true
+  return builder
 }
-func (builder *UserOvertimeWorkBuilder) EndTime(endTime string) *UserOvertimeWorkBuilder {
-	builder.endTime = endTime
-	builder.endTimeFlag = true
-	return builder
-}
-
-func (builder *UserOvertimeWorkBuilder) Build() *UserOvertimeWork {
-	req := &UserOvertimeWork{}
-	if builder.approvalIdFlag {
-		req.ApprovalId = &builder.approvalId
-
-	}
-	if builder.durationFlag {
-		req.Duration = &builder.duration
-
-	}
-	if builder.unitFlag {
-		req.Unit = &builder.unit
-
-	}
-	if builder.categoryFlag {
-		req.Category = &builder.category
-
-	}
-	if builder.typeFlag {
-		req.Type = &builder.type_
-
-	}
-	if builder.startTimeFlag {
-		req.StartTime = &builder.startTime
-
-	}
-	if builder.endTimeFlag {
-		req.EndTime = &builder.endTime
-
-	}
-	return req
+func (builder * UserOvertimeWorkBuilder) EndTime(endTime string) *UserOvertimeWorkBuilder  {
+  builder.endTime = endTime
+  builder.endTimeFlag = true
+  return builder
 }
 
+func (builder * UserOvertimeWorkBuilder ) Build() *UserOvertimeWork {
+   req := &UserOvertimeWork{}
+   if builder.approvalIdFlag {
+	  req.ApprovalId = &builder.approvalId
+	  
+   }
+   if builder.durationFlag {
+	  req.Duration = &builder.duration
+	  
+   }
+   if builder.unitFlag {
+	  req.Unit = &builder.unit
+	  
+   }
+   if builder.categoryFlag {
+	  req.Category = &builder.category
+	  
+   }
+   if builder.typeFlag {
+	  req.Type = &builder.type_
+	  
+   }
+   if builder.startTimeFlag {
+	  req.StartTime = &builder.startTime
+	  
+   }
+   if builder.endTimeFlag {
+	  req.EndTime = &builder.endTime
+	  
+   }
+   return req
+}
 // builder结束
 
 type UserSetting struct {
-	UserId            *string `json:"user_id,omitempty"`
-	FaceKey           *string `json:"face_key,omitempty"`
-	FaceKeyUpdateTime *string `json:"face_key_update_time,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
+	FaceKey  *string `json:"face_key,omitempty"`
+	FaceKeyUpdateTime  *string `json:"face_key_update_time,omitempty"`
 }
 
 // builder开始
 type UserSettingBuilder struct {
-	userId                string
-	userIdFlag            bool
-	faceKey               string
-	faceKeyFlag           bool
-	faceKeyUpdateTime     string
-	faceKeyUpdateTimeFlag bool
+	userId  string
+	userIdFlag  bool
+	faceKey  string
+	faceKeyFlag  bool
+	faceKeyUpdateTime  string
+	faceKeyUpdateTimeFlag  bool
 }
 
-func NewUserSettingBuilder() *UserSettingBuilder {
-	builder := &UserSettingBuilder{}
-	return builder
+func NewUserSettingBuilder() * UserSettingBuilder{
+   builder := &UserSettingBuilder{}
+   return builder
 }
 
-func (builder *UserSettingBuilder) UserId(userId string) *UserSettingBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
+
+func (builder * UserSettingBuilder) UserId(userId string) *UserSettingBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
-func (builder *UserSettingBuilder) FaceKey(faceKey string) *UserSettingBuilder {
-	builder.faceKey = faceKey
-	builder.faceKeyFlag = true
-	return builder
+func (builder * UserSettingBuilder) FaceKey(faceKey string) *UserSettingBuilder  {
+  builder.faceKey = faceKey
+  builder.faceKeyFlag = true
+  return builder
 }
-func (builder *UserSettingBuilder) FaceKeyUpdateTime(faceKeyUpdateTime string) *UserSettingBuilder {
-	builder.faceKeyUpdateTime = faceKeyUpdateTime
-	builder.faceKeyUpdateTimeFlag = true
-	return builder
-}
-
-func (builder *UserSettingBuilder) Build() *UserSetting {
-	req := &UserSetting{}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	if builder.faceKeyFlag {
-		req.FaceKey = &builder.faceKey
-
-	}
-	if builder.faceKeyUpdateTimeFlag {
-		req.FaceKeyUpdateTime = &builder.faceKeyUpdateTime
-
-	}
-	return req
+func (builder * UserSettingBuilder) FaceKeyUpdateTime(faceKeyUpdateTime string) *UserSettingBuilder  {
+  builder.faceKeyUpdateTime = faceKeyUpdateTime
+  builder.faceKeyUpdateTimeFlag = true
+  return builder
 }
 
+func (builder * UserSettingBuilder ) Build() *UserSetting {
+   req := &UserSetting{}
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.faceKeyFlag {
+	  req.FaceKey = &builder.faceKey
+	  
+   }
+   if builder.faceKeyUpdateTimeFlag {
+	  req.FaceKeyUpdateTime = &builder.faceKeyUpdateTime
+	  
+   }
+   return req
+}
 // builder结束
 
 type UserStatsData struct {
-	Name   *string              `json:"name,omitempty"`
-	UserId *string              `json:"user_id,omitempty"`
+	Name  *string `json:"name,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
 	Datas  []*UserStatsDataCell `json:"datas,omitempty"`
 }
 
 // builder开始
 type UserStatsDataBuilder struct {
-	name       string
-	nameFlag   bool
-	userId     string
-	userIdFlag bool
-	datas      []*UserStatsDataCell
+	name  string
+	nameFlag  bool
+	userId  string
+	userIdFlag  bool
+	datas  []*UserStatsDataCell
 	datasFlag  bool
 }
 
-func NewUserStatsDataBuilder() *UserStatsDataBuilder {
-	builder := &UserStatsDataBuilder{}
-	return builder
+func NewUserStatsDataBuilder() * UserStatsDataBuilder{
+   builder := &UserStatsDataBuilder{}
+   return builder
 }
 
-func (builder *UserStatsDataBuilder) Name(name string) *UserStatsDataBuilder {
-	builder.name = name
-	builder.nameFlag = true
-	return builder
-}
-func (builder *UserStatsDataBuilder) UserId(userId string) *UserStatsDataBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
-}
-func (builder *UserStatsDataBuilder) Datas(datas []*UserStatsDataCell) *UserStatsDataBuilder {
-	builder.datas = datas
-	builder.datasFlag = true
-	return builder
-}
 
-func (builder *UserStatsDataBuilder) Build() *UserStatsData {
-	req := &UserStatsData{}
-	if builder.nameFlag {
-		req.Name = &builder.name
-
-	}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	if builder.datasFlag {
-		req.Datas = builder.datas
-	}
-	return req
+func (builder * UserStatsDataBuilder) Name(name string) *UserStatsDataBuilder  {
+  builder.name = name
+  builder.nameFlag = true
+  return builder
+}
+func (builder * UserStatsDataBuilder) UserId(userId string) *UserStatsDataBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
+}
+func (builder * UserStatsDataBuilder) Datas(datas []*UserStatsDataCell) *UserStatsDataBuilder  {
+  builder.datas = datas
+  builder.datasFlag = true
+  return builder
 }
 
+func (builder * UserStatsDataBuilder ) Build() *UserStatsData {
+   req := &UserStatsData{}
+   if builder.nameFlag {
+	  req.Name = &builder.name
+	  
+   }
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.datasFlag {
+	  req.Datas = builder.datas
+   }
+   return req
+}
 // builder结束
 
 type UserStatsDataCell struct {
-	Code     *string                 `json:"code,omitempty"`
-	Value    *string                 `json:"value,omitempty"`
-	Features []*UserStatsDataFeature `json:"features,omitempty"`
+	Code  *string `json:"code,omitempty"`
+	Value  *string `json:"value,omitempty"`
+	Features  []*UserStatsDataFeature `json:"features,omitempty"`
 }
 
 // builder开始
 type UserStatsDataCellBuilder struct {
-	code         string
-	codeFlag     bool
-	value        string
-	valueFlag    bool
-	features     []*UserStatsDataFeature
-	featuresFlag bool
+	code  string
+	codeFlag  bool
+	value  string
+	valueFlag  bool
+	features  []*UserStatsDataFeature
+	featuresFlag  bool
 }
 
-func NewUserStatsDataCellBuilder() *UserStatsDataCellBuilder {
-	builder := &UserStatsDataCellBuilder{}
-	return builder
+func NewUserStatsDataCellBuilder() * UserStatsDataCellBuilder{
+   builder := &UserStatsDataCellBuilder{}
+   return builder
 }
 
-func (builder *UserStatsDataCellBuilder) Code(code string) *UserStatsDataCellBuilder {
-	builder.code = code
-	builder.codeFlag = true
-	return builder
-}
-func (builder *UserStatsDataCellBuilder) Value(value string) *UserStatsDataCellBuilder {
-	builder.value = value
-	builder.valueFlag = true
-	return builder
-}
-func (builder *UserStatsDataCellBuilder) Features(features []*UserStatsDataFeature) *UserStatsDataCellBuilder {
-	builder.features = features
-	builder.featuresFlag = true
-	return builder
-}
 
-func (builder *UserStatsDataCellBuilder) Build() *UserStatsDataCell {
-	req := &UserStatsDataCell{}
-	if builder.codeFlag {
-		req.Code = &builder.code
-
-	}
-	if builder.valueFlag {
-		req.Value = &builder.value
-
-	}
-	if builder.featuresFlag {
-		req.Features = builder.features
-	}
-	return req
+func (builder * UserStatsDataCellBuilder) Code(code string) *UserStatsDataCellBuilder  {
+  builder.code = code
+  builder.codeFlag = true
+  return builder
+}
+func (builder * UserStatsDataCellBuilder) Value(value string) *UserStatsDataCellBuilder  {
+  builder.value = value
+  builder.valueFlag = true
+  return builder
+}
+func (builder * UserStatsDataCellBuilder) Features(features []*UserStatsDataFeature) *UserStatsDataCellBuilder  {
+  builder.features = features
+  builder.featuresFlag = true
+  return builder
 }
 
+func (builder * UserStatsDataCellBuilder ) Build() *UserStatsDataCell {
+   req := &UserStatsDataCell{}
+   if builder.codeFlag {
+	  req.Code = &builder.code
+	  
+   }
+   if builder.valueFlag {
+	  req.Value = &builder.value
+	  
+   }
+   if builder.featuresFlag {
+	  req.Features = builder.features
+   }
+   return req
+}
 // builder结束
 
 type UserStatsDataFeature struct {
-	Key   *string `json:"key,omitempty"`
-	Value *string `json:"value,omitempty"`
+	Key  *string `json:"key,omitempty"`
+	Value  *string `json:"value,omitempty"`
 }
 
 // builder开始
 type UserStatsDataFeatureBuilder struct {
-	key       string
-	keyFlag   bool
-	value     string
-	valueFlag bool
+	key  string
+	keyFlag  bool
+	value  string
+	valueFlag  bool
 }
 
-func NewUserStatsDataFeatureBuilder() *UserStatsDataFeatureBuilder {
-	builder := &UserStatsDataFeatureBuilder{}
-	return builder
+func NewUserStatsDataFeatureBuilder() * UserStatsDataFeatureBuilder{
+   builder := &UserStatsDataFeatureBuilder{}
+   return builder
 }
 
-func (builder *UserStatsDataFeatureBuilder) Key(key string) *UserStatsDataFeatureBuilder {
-	builder.key = key
-	builder.keyFlag = true
-	return builder
+
+func (builder * UserStatsDataFeatureBuilder) Key(key string) *UserStatsDataFeatureBuilder  {
+  builder.key = key
+  builder.keyFlag = true
+  return builder
 }
-func (builder *UserStatsDataFeatureBuilder) Value(value string) *UserStatsDataFeatureBuilder {
-	builder.value = value
-	builder.valueFlag = true
-	return builder
-}
-
-func (builder *UserStatsDataFeatureBuilder) Build() *UserStatsDataFeature {
-	req := &UserStatsDataFeature{}
-	if builder.keyFlag {
-		req.Key = &builder.key
-
-	}
-	if builder.valueFlag {
-		req.Value = &builder.value
-
-	}
-	return req
+func (builder * UserStatsDataFeatureBuilder) Value(value string) *UserStatsDataFeatureBuilder  {
+  builder.value = value
+  builder.valueFlag = true
+  return builder
 }
 
+func (builder * UserStatsDataFeatureBuilder ) Build() *UserStatsDataFeature {
+   req := &UserStatsDataFeature{}
+   if builder.keyFlag {
+	  req.Key = &builder.key
+	  
+   }
+   if builder.valueFlag {
+	  req.Value = &builder.value
+	  
+   }
+   return req
+}
 // builder结束
 
 type UserStatsField struct {
-	StatsType *string  `json:"stats_type,omitempty"`
-	UserId    *string  `json:"user_id,omitempty"`
-	Fields    []*Field `json:"fields,omitempty"`
+	StatsType  *string `json:"stats_type,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
+	Fields  []*Field `json:"fields,omitempty"`
 }
 
 // builder开始
 type UserStatsFieldBuilder struct {
-	statsType     string
-	statsTypeFlag bool
-	userId        string
-	userIdFlag    bool
-	fields        []*Field
-	fieldsFlag    bool
+	statsType  string
+	statsTypeFlag  bool
+	userId  string
+	userIdFlag  bool
+	fields  []*Field
+	fieldsFlag  bool
 }
 
-func NewUserStatsFieldBuilder() *UserStatsFieldBuilder {
-	builder := &UserStatsFieldBuilder{}
-	return builder
+func NewUserStatsFieldBuilder() * UserStatsFieldBuilder{
+   builder := &UserStatsFieldBuilder{}
+   return builder
 }
 
-func (builder *UserStatsFieldBuilder) StatsType(statsType string) *UserStatsFieldBuilder {
-	builder.statsType = statsType
-	builder.statsTypeFlag = true
-	return builder
-}
-func (builder *UserStatsFieldBuilder) UserId(userId string) *UserStatsFieldBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
-}
-func (builder *UserStatsFieldBuilder) Fields(fields []*Field) *UserStatsFieldBuilder {
-	builder.fields = fields
-	builder.fieldsFlag = true
-	return builder
-}
 
-func (builder *UserStatsFieldBuilder) Build() *UserStatsField {
-	req := &UserStatsField{}
-	if builder.statsTypeFlag {
-		req.StatsType = &builder.statsType
-
-	}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	if builder.fieldsFlag {
-		req.Fields = builder.fields
-	}
-	return req
+func (builder * UserStatsFieldBuilder) StatsType(statsType string) *UserStatsFieldBuilder  {
+  builder.statsType = statsType
+  builder.statsTypeFlag = true
+  return builder
+}
+func (builder * UserStatsFieldBuilder) UserId(userId string) *UserStatsFieldBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
+}
+func (builder * UserStatsFieldBuilder) Fields(fields []*Field) *UserStatsFieldBuilder  {
+  builder.fields = fields
+  builder.fieldsFlag = true
+  return builder
 }
 
+func (builder * UserStatsFieldBuilder ) Build() *UserStatsField {
+   req := &UserStatsField{}
+   if builder.statsTypeFlag {
+	  req.StatsType = &builder.statsType
+	  
+   }
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.fieldsFlag {
+	  req.Fields = builder.fields
+   }
+   return req
+}
 // builder结束
 
 type UserStatsView struct {
-	ViewId    *string `json:"view_id,omitempty"`
-	StatsType *string `json:"stats_type,omitempty"`
-	UserId    *string `json:"user_id,omitempty"`
-	Items     []*Item `json:"items,omitempty"`
+	ViewId  *string `json:"view_id,omitempty"`
+	StatsType  *string `json:"stats_type,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
+	Items  []*Item `json:"items,omitempty"`
 }
 
 // builder开始
 type UserStatsViewBuilder struct {
-	viewId        string
-	viewIdFlag    bool
-	statsType     string
-	statsTypeFlag bool
-	userId        string
-	userIdFlag    bool
-	items         []*Item
-	itemsFlag     bool
+	viewId  string
+	viewIdFlag  bool
+	statsType  string
+	statsTypeFlag  bool
+	userId  string
+	userIdFlag  bool
+	items  []*Item
+	itemsFlag  bool
 }
 
-func NewUserStatsViewBuilder() *UserStatsViewBuilder {
-	builder := &UserStatsViewBuilder{}
-	return builder
+func NewUserStatsViewBuilder() * UserStatsViewBuilder{
+   builder := &UserStatsViewBuilder{}
+   return builder
 }
 
-func (builder *UserStatsViewBuilder) ViewId(viewId string) *UserStatsViewBuilder {
-	builder.viewId = viewId
-	builder.viewIdFlag = true
-	return builder
-}
-func (builder *UserStatsViewBuilder) StatsType(statsType string) *UserStatsViewBuilder {
-	builder.statsType = statsType
-	builder.statsTypeFlag = true
-	return builder
-}
-func (builder *UserStatsViewBuilder) UserId(userId string) *UserStatsViewBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
-}
-func (builder *UserStatsViewBuilder) Items(items []*Item) *UserStatsViewBuilder {
-	builder.items = items
-	builder.itemsFlag = true
-	return builder
-}
 
-func (builder *UserStatsViewBuilder) Build() *UserStatsView {
-	req := &UserStatsView{}
-	if builder.viewIdFlag {
-		req.ViewId = &builder.viewId
-
-	}
-	if builder.statsTypeFlag {
-		req.StatsType = &builder.statsType
-
-	}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	if builder.itemsFlag {
-		req.Items = builder.items
-	}
-	return req
+func (builder * UserStatsViewBuilder) ViewId(viewId string) *UserStatsViewBuilder  {
+  builder.viewId = viewId
+  builder.viewIdFlag = true
+  return builder
+}
+func (builder * UserStatsViewBuilder) StatsType(statsType string) *UserStatsViewBuilder  {
+  builder.statsType = statsType
+  builder.statsTypeFlag = true
+  return builder
+}
+func (builder * UserStatsViewBuilder) UserId(userId string) *UserStatsViewBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
+}
+func (builder * UserStatsViewBuilder) Items(items []*Item) *UserStatsViewBuilder  {
+  builder.items = items
+  builder.itemsFlag = true
+  return builder
 }
 
+func (builder * UserStatsViewBuilder ) Build() *UserStatsView {
+   req := &UserStatsView{}
+   if builder.viewIdFlag {
+	  req.ViewId = &builder.viewId
+	  
+   }
+   if builder.statsTypeFlag {
+	  req.StatsType = &builder.statsType
+	  
+   }
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.itemsFlag {
+	  req.Items = builder.items
+   }
+   return req
+}
 // builder结束
 
 type UserTask struct {
-	ResultId     *string       `json:"result_id,omitempty"`
-	UserId       *string       `json:"user_id,omitempty"`
-	EmployeeName *string       `json:"employee_name,omitempty"`
-	Day          *int          `json:"day,omitempty"`
-	GroupId      *string       `json:"group_id,omitempty"`
-	ShiftId      *string       `json:"shift_id,omitempty"`
-	Records      []*TaskResult `json:"records,omitempty"`
+	ResultId  *string `json:"result_id,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
+	EmployeeName  *string `json:"employee_name,omitempty"`
+	Day  *int `json:"day,omitempty"`
+	GroupId  *string `json:"group_id,omitempty"`
+	ShiftId  *string `json:"shift_id,omitempty"`
+	Records  []*TaskResult `json:"records,omitempty"`
 }
 
 // builder开始
 type UserTaskBuilder struct {
-	resultId         string
-	resultIdFlag     bool
-	userId           string
-	userIdFlag       bool
-	employeeName     string
-	employeeNameFlag bool
-	day              int
-	dayFlag          bool
-	groupId          string
-	groupIdFlag      bool
-	shiftId          string
-	shiftIdFlag      bool
-	records          []*TaskResult
-	recordsFlag      bool
+	resultId  string
+	resultIdFlag  bool
+	userId  string
+	userIdFlag  bool
+	employeeName  string
+	employeeNameFlag  bool
+	day  int
+	dayFlag  bool
+	groupId  string
+	groupIdFlag  bool
+	shiftId  string
+	shiftIdFlag  bool
+	records  []*TaskResult
+	recordsFlag  bool
 }
 
-func NewUserTaskBuilder() *UserTaskBuilder {
-	builder := &UserTaskBuilder{}
-	return builder
+func NewUserTaskBuilder() * UserTaskBuilder{
+   builder := &UserTaskBuilder{}
+   return builder
 }
 
-func (builder *UserTaskBuilder) ResultId(resultId string) *UserTaskBuilder {
-	builder.resultId = resultId
-	builder.resultIdFlag = true
-	return builder
-}
-func (builder *UserTaskBuilder) UserId(userId string) *UserTaskBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
-}
-func (builder *UserTaskBuilder) EmployeeName(employeeName string) *UserTaskBuilder {
-	builder.employeeName = employeeName
-	builder.employeeNameFlag = true
-	return builder
-}
-func (builder *UserTaskBuilder) Day(day int) *UserTaskBuilder {
-	builder.day = day
-	builder.dayFlag = true
-	return builder
-}
-func (builder *UserTaskBuilder) GroupId(groupId string) *UserTaskBuilder {
-	builder.groupId = groupId
-	builder.groupIdFlag = true
-	return builder
-}
-func (builder *UserTaskBuilder) ShiftId(shiftId string) *UserTaskBuilder {
-	builder.shiftId = shiftId
-	builder.shiftIdFlag = true
-	return builder
-}
-func (builder *UserTaskBuilder) Records(records []*TaskResult) *UserTaskBuilder {
-	builder.records = records
-	builder.recordsFlag = true
-	return builder
-}
 
-func (builder *UserTaskBuilder) Build() *UserTask {
-	req := &UserTask{}
-	if builder.resultIdFlag {
-		req.ResultId = &builder.resultId
-
-	}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	if builder.employeeNameFlag {
-		req.EmployeeName = &builder.employeeName
-
-	}
-	if builder.dayFlag {
-		req.Day = &builder.day
-
-	}
-	if builder.groupIdFlag {
-		req.GroupId = &builder.groupId
-
-	}
-	if builder.shiftIdFlag {
-		req.ShiftId = &builder.shiftId
-
-	}
-	if builder.recordsFlag {
-		req.Records = builder.records
-	}
-	return req
+func (builder * UserTaskBuilder) ResultId(resultId string) *UserTaskBuilder  {
+  builder.resultId = resultId
+  builder.resultIdFlag = true
+  return builder
+}
+func (builder * UserTaskBuilder) UserId(userId string) *UserTaskBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
+}
+func (builder * UserTaskBuilder) EmployeeName(employeeName string) *UserTaskBuilder  {
+  builder.employeeName = employeeName
+  builder.employeeNameFlag = true
+  return builder
+}
+func (builder * UserTaskBuilder) Day(day int) *UserTaskBuilder  {
+  builder.day = day
+  builder.dayFlag = true
+  return builder
+}
+func (builder * UserTaskBuilder) GroupId(groupId string) *UserTaskBuilder  {
+  builder.groupId = groupId
+  builder.groupIdFlag = true
+  return builder
+}
+func (builder * UserTaskBuilder) ShiftId(shiftId string) *UserTaskBuilder  {
+  builder.shiftId = shiftId
+  builder.shiftIdFlag = true
+  return builder
+}
+func (builder * UserTaskBuilder) Records(records []*TaskResult) *UserTaskBuilder  {
+  builder.records = records
+  builder.recordsFlag = true
+  return builder
 }
 
+func (builder * UserTaskBuilder ) Build() *UserTask {
+   req := &UserTask{}
+   if builder.resultIdFlag {
+	  req.ResultId = &builder.resultId
+	  
+   }
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.employeeNameFlag {
+	  req.EmployeeName = &builder.employeeName
+	  
+   }
+   if builder.dayFlag {
+	  req.Day = &builder.day
+	  
+   }
+   if builder.groupIdFlag {
+	  req.GroupId = &builder.groupId
+	  
+   }
+   if builder.shiftIdFlag {
+	  req.ShiftId = &builder.shiftId
+	  
+   }
+   if builder.recordsFlag {
+	  req.Records = builder.records
+   }
+   return req
+}
 // builder结束
 
 type UserTaskRemedy struct {
-	UserId     *string `json:"user_id,omitempty"`
-	RemedyDate *int    `json:"remedy_date,omitempty"`
-	PunchNo    *int    `json:"punch_no,omitempty"`
-	WorkType   *int    `json:"work_type,omitempty"`
-	ApprovalId *string `json:"approval_id,omitempty"`
-	RemedyTime *string `json:"remedy_time,omitempty"`
-	Status     *int    `json:"status,omitempty"`
-	Reason     *string `json:"reason,omitempty"`
-	Time       *string `json:"time,omitempty"`
-	TimeZone   *string `json:"time_zone,omitempty"`
-	CreateTime *string `json:"create_time,omitempty"`
-	UpdateTime *string `json:"update_time,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
+	RemedyDate  *int `json:"remedy_date,omitempty"`
+	PunchNo  *int `json:"punch_no,omitempty"`
+	WorkType  *int `json:"work_type,omitempty"`
+	ApprovalId  *string `json:"approval_id,omitempty"`
+	RemedyTime  *string `json:"remedy_time,omitempty"`
+	Status  *int `json:"status,omitempty"`
+	Reason  *string `json:"reason,omitempty"`
+	Time  *string `json:"time,omitempty"`
+	TimeZone  *string `json:"time_zone,omitempty"`
+	CreateTime  *string `json:"create_time,omitempty"`
+	UpdateTime  *string `json:"update_time,omitempty"`
 }
 
 // builder开始
 type UserTaskRemedyBuilder struct {
-	userId         string
-	userIdFlag     bool
-	remedyDate     int
-	remedyDateFlag bool
-	punchNo        int
-	punchNoFlag    bool
-	workType       int
-	workTypeFlag   bool
-	approvalId     string
-	approvalIdFlag bool
-	remedyTime     string
-	remedyTimeFlag bool
-	status         int
-	statusFlag     bool
-	reason         string
-	reasonFlag     bool
-	time           string
-	timeFlag       bool
-	timeZone       string
-	timeZoneFlag   bool
-	createTime     string
-	createTimeFlag bool
-	updateTime     string
-	updateTimeFlag bool
+	userId  string
+	userIdFlag  bool
+	remedyDate  int
+	remedyDateFlag  bool
+	punchNo  int
+	punchNoFlag  bool
+	workType  int
+	workTypeFlag  bool
+	approvalId  string
+	approvalIdFlag  bool
+	remedyTime  string
+	remedyTimeFlag  bool
+	status  int
+	statusFlag  bool
+	reason  string
+	reasonFlag  bool
+	time  string
+	timeFlag  bool
+	timeZone  string
+	timeZoneFlag  bool
+	createTime  string
+	createTimeFlag  bool
+	updateTime  string
+	updateTimeFlag  bool
 }
 
-func NewUserTaskRemedyBuilder() *UserTaskRemedyBuilder {
-	builder := &UserTaskRemedyBuilder{}
-	return builder
+func NewUserTaskRemedyBuilder() * UserTaskRemedyBuilder{
+   builder := &UserTaskRemedyBuilder{}
+   return builder
 }
 
-func (builder *UserTaskRemedyBuilder) UserId(userId string) *UserTaskRemedyBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
+
+func (builder * UserTaskRemedyBuilder) UserId(userId string) *UserTaskRemedyBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
-func (builder *UserTaskRemedyBuilder) RemedyDate(remedyDate int) *UserTaskRemedyBuilder {
-	builder.remedyDate = remedyDate
-	builder.remedyDateFlag = true
-	return builder
+func (builder * UserTaskRemedyBuilder) RemedyDate(remedyDate int) *UserTaskRemedyBuilder  {
+  builder.remedyDate = remedyDate
+  builder.remedyDateFlag = true
+  return builder
 }
-func (builder *UserTaskRemedyBuilder) PunchNo(punchNo int) *UserTaskRemedyBuilder {
-	builder.punchNo = punchNo
-	builder.punchNoFlag = true
-	return builder
+func (builder * UserTaskRemedyBuilder) PunchNo(punchNo int) *UserTaskRemedyBuilder  {
+  builder.punchNo = punchNo
+  builder.punchNoFlag = true
+  return builder
 }
-func (builder *UserTaskRemedyBuilder) WorkType(workType int) *UserTaskRemedyBuilder {
-	builder.workType = workType
-	builder.workTypeFlag = true
-	return builder
+func (builder * UserTaskRemedyBuilder) WorkType(workType int) *UserTaskRemedyBuilder  {
+  builder.workType = workType
+  builder.workTypeFlag = true
+  return builder
 }
-func (builder *UserTaskRemedyBuilder) ApprovalId(approvalId string) *UserTaskRemedyBuilder {
-	builder.approvalId = approvalId
-	builder.approvalIdFlag = true
-	return builder
+func (builder * UserTaskRemedyBuilder) ApprovalId(approvalId string) *UserTaskRemedyBuilder  {
+  builder.approvalId = approvalId
+  builder.approvalIdFlag = true
+  return builder
 }
-func (builder *UserTaskRemedyBuilder) RemedyTime(remedyTime string) *UserTaskRemedyBuilder {
-	builder.remedyTime = remedyTime
-	builder.remedyTimeFlag = true
-	return builder
+func (builder * UserTaskRemedyBuilder) RemedyTime(remedyTime string) *UserTaskRemedyBuilder  {
+  builder.remedyTime = remedyTime
+  builder.remedyTimeFlag = true
+  return builder
 }
-func (builder *UserTaskRemedyBuilder) Status(status int) *UserTaskRemedyBuilder {
-	builder.status = status
-	builder.statusFlag = true
-	return builder
+func (builder * UserTaskRemedyBuilder) Status(status int) *UserTaskRemedyBuilder  {
+  builder.status = status
+  builder.statusFlag = true
+  return builder
 }
-func (builder *UserTaskRemedyBuilder) Reason(reason string) *UserTaskRemedyBuilder {
-	builder.reason = reason
-	builder.reasonFlag = true
-	return builder
+func (builder * UserTaskRemedyBuilder) Reason(reason string) *UserTaskRemedyBuilder  {
+  builder.reason = reason
+  builder.reasonFlag = true
+  return builder
 }
-func (builder *UserTaskRemedyBuilder) Time(time string) *UserTaskRemedyBuilder {
-	builder.time = time
-	builder.timeFlag = true
-	return builder
+func (builder * UserTaskRemedyBuilder) Time(time string) *UserTaskRemedyBuilder  {
+  builder.time = time
+  builder.timeFlag = true
+  return builder
 }
-func (builder *UserTaskRemedyBuilder) TimeZone(timeZone string) *UserTaskRemedyBuilder {
-	builder.timeZone = timeZone
-	builder.timeZoneFlag = true
-	return builder
+func (builder * UserTaskRemedyBuilder) TimeZone(timeZone string) *UserTaskRemedyBuilder  {
+  builder.timeZone = timeZone
+  builder.timeZoneFlag = true
+  return builder
 }
-func (builder *UserTaskRemedyBuilder) CreateTime(createTime string) *UserTaskRemedyBuilder {
-	builder.createTime = createTime
-	builder.createTimeFlag = true
-	return builder
+func (builder * UserTaskRemedyBuilder) CreateTime(createTime string) *UserTaskRemedyBuilder  {
+  builder.createTime = createTime
+  builder.createTimeFlag = true
+  return builder
 }
-func (builder *UserTaskRemedyBuilder) UpdateTime(updateTime string) *UserTaskRemedyBuilder {
-	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
-	return builder
-}
-
-func (builder *UserTaskRemedyBuilder) Build() *UserTaskRemedy {
-	req := &UserTaskRemedy{}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-
-	}
-	if builder.remedyDateFlag {
-		req.RemedyDate = &builder.remedyDate
-
-	}
-	if builder.punchNoFlag {
-		req.PunchNo = &builder.punchNo
-
-	}
-	if builder.workTypeFlag {
-		req.WorkType = &builder.workType
-
-	}
-	if builder.approvalIdFlag {
-		req.ApprovalId = &builder.approvalId
-
-	}
-	if builder.remedyTimeFlag {
-		req.RemedyTime = &builder.remedyTime
-
-	}
-	if builder.statusFlag {
-		req.Status = &builder.status
-
-	}
-	if builder.reasonFlag {
-		req.Reason = &builder.reason
-
-	}
-	if builder.timeFlag {
-		req.Time = &builder.time
-
-	}
-	if builder.timeZoneFlag {
-		req.TimeZone = &builder.timeZone
-
-	}
-	if builder.createTimeFlag {
-		req.CreateTime = &builder.createTime
-
-	}
-	if builder.updateTimeFlag {
-		req.UpdateTime = &builder.updateTime
-
-	}
-	return req
+func (builder * UserTaskRemedyBuilder) UpdateTime(updateTime string) *UserTaskRemedyBuilder  {
+  builder.updateTime = updateTime
+  builder.updateTimeFlag = true
+  return builder
 }
 
+func (builder * UserTaskRemedyBuilder ) Build() *UserTaskRemedy {
+   req := &UserTaskRemedy{}
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+	  
+   }
+   if builder.remedyDateFlag {
+	  req.RemedyDate = &builder.remedyDate
+	  
+   }
+   if builder.punchNoFlag {
+	  req.PunchNo = &builder.punchNo
+	  
+   }
+   if builder.workTypeFlag {
+	  req.WorkType = &builder.workType
+	  
+   }
+   if builder.approvalIdFlag {
+	  req.ApprovalId = &builder.approvalId
+	  
+   }
+   if builder.remedyTimeFlag {
+	  req.RemedyTime = &builder.remedyTime
+	  
+   }
+   if builder.statusFlag {
+	  req.Status = &builder.status
+	  
+   }
+   if builder.reasonFlag {
+	  req.Reason = &builder.reason
+	  
+   }
+   if builder.timeFlag {
+	  req.Time = &builder.time
+	  
+   }
+   if builder.timeZoneFlag {
+	  req.TimeZone = &builder.timeZone
+	  
+   }
+   if builder.createTimeFlag {
+	  req.CreateTime = &builder.createTime
+	  
+   }
+   if builder.updateTimeFlag {
+	  req.UpdateTime = &builder.updateTime
+	  
+   }
+   return req
+}
 // builder结束
 
 type UserTrip struct {
-	ApprovalId       *string `json:"approval_id,omitempty"`
-	StartTime        *string `json:"start_time,omitempty"`
-	EndTime          *string `json:"end_time,omitempty"`
-	Reason           *string `json:"reason,omitempty"`
+	ApprovalId  *string `json:"approval_id,omitempty"`
+	StartTime  *string `json:"start_time,omitempty"`
+	EndTime  *string `json:"end_time,omitempty"`
+	Reason  *string `json:"reason,omitempty"`
 	ApprovePassTime  *string `json:"approve_pass_time,omitempty"`
-	ApproveApplyTime *string `json:"approve_apply_time,omitempty"`
+	ApproveApplyTime  *string `json:"approve_apply_time,omitempty"`
 }
 
 // builder开始
 type UserTripBuilder struct {
-	approvalId           string
-	approvalIdFlag       bool
-	startTime            string
-	startTimeFlag        bool
-	endTime              string
-	endTimeFlag          bool
-	reason               string
-	reasonFlag           bool
-	approvePassTime      string
+	approvalId  string
+	approvalIdFlag  bool
+	startTime  string
+	startTimeFlag  bool
+	endTime  string
+	endTimeFlag  bool
+	reason  string
+	reasonFlag  bool
+	approvePassTime  string
 	approvePassTimeFlag  bool
-	approveApplyTime     string
-	approveApplyTimeFlag bool
+	approveApplyTime  string
+	approveApplyTimeFlag  bool
 }
 
-func NewUserTripBuilder() *UserTripBuilder {
-	builder := &UserTripBuilder{}
-	return builder
+func NewUserTripBuilder() * UserTripBuilder{
+   builder := &UserTripBuilder{}
+   return builder
 }
 
-func (builder *UserTripBuilder) ApprovalId(approvalId string) *UserTripBuilder {
-	builder.approvalId = approvalId
-	builder.approvalIdFlag = true
-	return builder
+
+func (builder * UserTripBuilder) ApprovalId(approvalId string) *UserTripBuilder  {
+  builder.approvalId = approvalId
+  builder.approvalIdFlag = true
+  return builder
 }
-func (builder *UserTripBuilder) StartTime(startTime string) *UserTripBuilder {
-	builder.startTime = startTime
-	builder.startTimeFlag = true
-	return builder
+func (builder * UserTripBuilder) StartTime(startTime string) *UserTripBuilder  {
+  builder.startTime = startTime
+  builder.startTimeFlag = true
+  return builder
 }
-func (builder *UserTripBuilder) EndTime(endTime string) *UserTripBuilder {
-	builder.endTime = endTime
-	builder.endTimeFlag = true
-	return builder
+func (builder * UserTripBuilder) EndTime(endTime string) *UserTripBuilder  {
+  builder.endTime = endTime
+  builder.endTimeFlag = true
+  return builder
 }
-func (builder *UserTripBuilder) Reason(reason string) *UserTripBuilder {
-	builder.reason = reason
-	builder.reasonFlag = true
-	return builder
+func (builder * UserTripBuilder) Reason(reason string) *UserTripBuilder  {
+  builder.reason = reason
+  builder.reasonFlag = true
+  return builder
 }
-func (builder *UserTripBuilder) ApprovePassTime(approvePassTime string) *UserTripBuilder {
-	builder.approvePassTime = approvePassTime
-	builder.approvePassTimeFlag = true
-	return builder
+func (builder * UserTripBuilder) ApprovePassTime(approvePassTime string) *UserTripBuilder  {
+  builder.approvePassTime = approvePassTime
+  builder.approvePassTimeFlag = true
+  return builder
 }
-func (builder *UserTripBuilder) ApproveApplyTime(approveApplyTime string) *UserTripBuilder {
-	builder.approveApplyTime = approveApplyTime
-	builder.approveApplyTimeFlag = true
-	return builder
-}
-
-func (builder *UserTripBuilder) Build() *UserTrip {
-	req := &UserTrip{}
-	if builder.approvalIdFlag {
-		req.ApprovalId = &builder.approvalId
-
-	}
-	if builder.startTimeFlag {
-		req.StartTime = &builder.startTime
-
-	}
-	if builder.endTimeFlag {
-		req.EndTime = &builder.endTime
-
-	}
-	if builder.reasonFlag {
-		req.Reason = &builder.reason
-
-	}
-	if builder.approvePassTimeFlag {
-		req.ApprovePassTime = &builder.approvePassTime
-
-	}
-	if builder.approveApplyTimeFlag {
-		req.ApproveApplyTime = &builder.approveApplyTime
-
-	}
-	return req
+func (builder * UserTripBuilder) ApproveApplyTime(approveApplyTime string) *UserTripBuilder  {
+  builder.approveApplyTime = approveApplyTime
+  builder.approveApplyTimeFlag = true
+  return builder
 }
 
+func (builder * UserTripBuilder ) Build() *UserTrip {
+   req := &UserTrip{}
+   if builder.approvalIdFlag {
+	  req.ApprovalId = &builder.approvalId
+	  
+   }
+   if builder.startTimeFlag {
+	  req.StartTime = &builder.startTime
+	  
+   }
+   if builder.endTimeFlag {
+	  req.EndTime = &builder.endTime
+	  
+   }
+   if builder.reasonFlag {
+	  req.Reason = &builder.reason
+	  
+   }
+   if builder.approvePassTimeFlag {
+	  req.ApprovePassTime = &builder.approvePassTime
+	  
+   }
+   if builder.approveApplyTimeFlag {
+	  req.ApproveApplyTime = &builder.approveApplyTime
+	  
+   }
+   return req
+}
 // builder结束
 
 type WifiInfo struct {
-	Status *int `json:"status,omitempty"`
+	Status  *int `json:"status,omitempty"`
 }
 
 // builder开始
 type WifiInfoBuilder struct {
-	status     int
-	statusFlag bool
+	status  int
+	statusFlag  bool
 }
 
-func NewWifiInfoBuilder() *WifiInfoBuilder {
-	builder := &WifiInfoBuilder{}
-	return builder
+func NewWifiInfoBuilder() * WifiInfoBuilder{
+   builder := &WifiInfoBuilder{}
+   return builder
 }
 
-func (builder *WifiInfoBuilder) Status(status int) *WifiInfoBuilder {
-	builder.status = status
-	builder.statusFlag = true
-	return builder
+
+func (builder * WifiInfoBuilder) Status(status int) *WifiInfoBuilder  {
+  builder.status = status
+  builder.statusFlag = true
+  return builder
 }
 
-func (builder *WifiInfoBuilder) Build() *WifiInfo {
-	req := &WifiInfo{}
-	if builder.statusFlag {
-		req.Status = &builder.status
-
-	}
-	return req
+func (builder * WifiInfoBuilder ) Build() *WifiInfo {
+   req := &WifiInfo{}
+   if builder.statusFlag {
+	  req.Status = &builder.status
+	  
+   }
+   return req
 }
-
 // builder结束
 
 type WifiInfoEvent struct {
-	Ssid      *string `json:"ssid,omitempty"`
-	Bssid     *string `json:"bssid,omitempty"`
+	Ssid  *string `json:"ssid,omitempty"`
+	Bssid  *string `json:"bssid,omitempty"`
 	Lastssid  *string `json:"lastssid,omitempty"`
-	Lastbssid *string `json:"lastbssid,omitempty"`
+	Lastbssid  *string `json:"lastbssid,omitempty"`
 }
 
 // builder开始
 type WifiInfoEventBuilder struct {
-	ssid          string
-	ssidFlag      bool
-	bssid         string
-	bssidFlag     bool
-	lastssid      string
+	ssid  string
+	ssidFlag  bool
+	bssid  string
+	bssidFlag  bool
+	lastssid  string
 	lastssidFlag  bool
-	lastbssid     string
-	lastbssidFlag bool
+	lastbssid  string
+	lastbssidFlag  bool
 }
 
-func NewWifiInfoEventBuilder() *WifiInfoEventBuilder {
-	builder := &WifiInfoEventBuilder{}
-	return builder
+func NewWifiInfoEventBuilder() * WifiInfoEventBuilder{
+   builder := &WifiInfoEventBuilder{}
+   return builder
 }
 
-func (builder *WifiInfoEventBuilder) Ssid(ssid string) *WifiInfoEventBuilder {
-	builder.ssid = ssid
-	builder.ssidFlag = true
-	return builder
+
+func (builder * WifiInfoEventBuilder) Ssid(ssid string) *WifiInfoEventBuilder  {
+  builder.ssid = ssid
+  builder.ssidFlag = true
+  return builder
 }
-func (builder *WifiInfoEventBuilder) Bssid(bssid string) *WifiInfoEventBuilder {
-	builder.bssid = bssid
-	builder.bssidFlag = true
-	return builder
+func (builder * WifiInfoEventBuilder) Bssid(bssid string) *WifiInfoEventBuilder  {
+  builder.bssid = bssid
+  builder.bssidFlag = true
+  return builder
 }
-func (builder *WifiInfoEventBuilder) Lastssid(lastssid string) *WifiInfoEventBuilder {
-	builder.lastssid = lastssid
-	builder.lastssidFlag = true
-	return builder
+func (builder * WifiInfoEventBuilder) Lastssid(lastssid string) *WifiInfoEventBuilder  {
+  builder.lastssid = lastssid
+  builder.lastssidFlag = true
+  return builder
 }
-func (builder *WifiInfoEventBuilder) Lastbssid(lastbssid string) *WifiInfoEventBuilder {
-	builder.lastbssid = lastbssid
-	builder.lastbssidFlag = true
-	return builder
-}
-
-func (builder *WifiInfoEventBuilder) Build() *WifiInfoEvent {
-	req := &WifiInfoEvent{}
-	if builder.ssidFlag {
-		req.Ssid = &builder.ssid
-
-	}
-	if builder.bssidFlag {
-		req.Bssid = &builder.bssid
-
-	}
-	if builder.lastssidFlag {
-		req.Lastssid = &builder.lastssid
-
-	}
-	if builder.lastbssidFlag {
-		req.Lastbssid = &builder.lastbssid
-
-	}
-	return req
+func (builder * WifiInfoEventBuilder) Lastbssid(lastbssid string) *WifiInfoEventBuilder  {
+  builder.lastbssid = lastbssid
+  builder.lastbssidFlag = true
+  return builder
 }
 
+func (builder * WifiInfoEventBuilder ) Build() *WifiInfoEvent {
+   req := &WifiInfoEvent{}
+   if builder.ssidFlag {
+	  req.Ssid = &builder.ssid
+	  
+   }
+   if builder.bssidFlag {
+	  req.Bssid = &builder.bssid
+	  
+   }
+   if builder.lastssidFlag {
+	  req.Lastssid = &builder.lastssid
+	  
+   }
+   if builder.lastbssidFlag {
+	  req.Lastbssid = &builder.lastbssid
+	  
+   }
+   return req
+}
 // builder结束
+
 
 // 生成请求和响应结果类型，以及请求对象的Builder构造器
 
 type ProcessApprovalInfoReqBodyBuilder struct {
-	approvalId       string
-	approvalIdFlag   bool
-	approvalType     string
-	approvalTypeFlag bool
-	status           int
-	statusFlag       bool
+	approvalId  string
+	approvalIdFlag  bool
+	approvalType  string
+	approvalTypeFlag  bool
+	status  int
+	statusFlag  bool
 }
 
 // 生成body的New构造器
-func NewProcessApprovalInfoReqBodyBuilder() *ProcessApprovalInfoReqBodyBuilder {
-	builder := &ProcessApprovalInfoReqBodyBuilder{}
-	return builder
+func NewProcessApprovalInfoReqBodyBuilder() * ProcessApprovalInfoReqBodyBuilder{
+  builder := &ProcessApprovalInfoReqBodyBuilder{}
+  return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder *ProcessApprovalInfoReqBodyBuilder) ApprovalId(approvalId string) *ProcessApprovalInfoReqBodyBuilder {
-	builder.approvalId = approvalId
-	builder.approvalIdFlag = true
-	return builder
+func (builder * ProcessApprovalInfoReqBodyBuilder ) ApprovalId(approvalId string) *ProcessApprovalInfoReqBodyBuilder {
+  builder.approvalId = approvalId
+  builder.approvalIdFlag = true
+  return builder
 }
-func (builder *ProcessApprovalInfoReqBodyBuilder) ApprovalType(approvalType string) *ProcessApprovalInfoReqBodyBuilder {
-	builder.approvalType = approvalType
-	builder.approvalTypeFlag = true
-	return builder
+func (builder * ProcessApprovalInfoReqBodyBuilder ) ApprovalType(approvalType string) *ProcessApprovalInfoReqBodyBuilder {
+  builder.approvalType = approvalType
+  builder.approvalTypeFlag = true
+  return builder
 }
-func (builder *ProcessApprovalInfoReqBodyBuilder) Status(status int) *ProcessApprovalInfoReqBodyBuilder {
-	builder.status = status
-	builder.statusFlag = true
-	return builder
+func (builder * ProcessApprovalInfoReqBodyBuilder ) Status(status int) *ProcessApprovalInfoReqBodyBuilder {
+  builder.status = status
+  builder.statusFlag = true
+  return builder
 }
 
+
 // 1.3 生成body的build方法
-func (builder *ProcessApprovalInfoReqBodyBuilder) Build() *ProcessApprovalInfoReqBody {
-	req := &ProcessApprovalInfoReqBody{}
-	if builder.approvalIdFlag {
-		req.ApprovalId = &builder.approvalId
-	}
-	if builder.approvalTypeFlag {
-		req.ApprovalType = &builder.approvalType
-	}
-	if builder.statusFlag {
-		req.Status = &builder.status
-	}
-	return req
+func (builder * ProcessApprovalInfoReqBodyBuilder ) Build() *ProcessApprovalInfoReqBody {
+   req := &ProcessApprovalInfoReqBody{}
+   if builder.approvalIdFlag {
+	  req.ApprovalId = &builder.approvalId
+   }
+   if builder.approvalTypeFlag {
+	  req.ApprovalType = &builder.approvalType
+   }
+   if builder.statusFlag {
+	  req.Status = &builder.status
+   }
+   return req
 }
 
 // 上传文件path开始
 type ProcessApprovalInfoPathReqBodyBuilder struct {
-	approvalId       string
-	approvalIdFlag   bool
-	approvalType     string
-	approvalTypeFlag bool
-	status           int
-	statusFlag       bool
+	approvalId  string
+	approvalIdFlag  bool
+	approvalType  string
+	approvalTypeFlag  bool
+	status  int
+	statusFlag  bool
 }
 
-func NewProcessApprovalInfoPathReqBodyBuilder() *ProcessApprovalInfoPathReqBodyBuilder {
-	builder := &ProcessApprovalInfoPathReqBodyBuilder{}
-	return builder
+func NewProcessApprovalInfoPathReqBodyBuilder() * ProcessApprovalInfoPathReqBodyBuilder{
+  builder := &ProcessApprovalInfoPathReqBodyBuilder{}
+  return builder
 }
-func (builder *ProcessApprovalInfoPathReqBodyBuilder) ApprovalId(approvalId string) *ProcessApprovalInfoPathReqBodyBuilder {
-	builder.approvalId = approvalId
-	builder.approvalIdFlag = true
-	return builder
+func (builder * ProcessApprovalInfoPathReqBodyBuilder ) ApprovalId(approvalId string) *ProcessApprovalInfoPathReqBodyBuilder {
+  builder.approvalId = approvalId
+  builder.approvalIdFlag = true
+  return builder
 }
-func (builder *ProcessApprovalInfoPathReqBodyBuilder) ApprovalType(approvalType string) *ProcessApprovalInfoPathReqBodyBuilder {
-	builder.approvalType = approvalType
-	builder.approvalTypeFlag = true
-	return builder
+func (builder * ProcessApprovalInfoPathReqBodyBuilder ) ApprovalType(approvalType string) *ProcessApprovalInfoPathReqBodyBuilder {
+  builder.approvalType = approvalType
+  builder.approvalTypeFlag = true
+  return builder
 }
-func (builder *ProcessApprovalInfoPathReqBodyBuilder) Status(status int) *ProcessApprovalInfoPathReqBodyBuilder {
-	builder.status = status
-	builder.statusFlag = true
-	return builder
-}
-
-func (builder *ProcessApprovalInfoPathReqBodyBuilder) Build() (*ProcessApprovalInfoReqBody, error) {
-	req := &ProcessApprovalInfoReqBody{}
-	if builder.approvalIdFlag {
-		req.ApprovalId = &builder.approvalId
-	}
-	if builder.approvalTypeFlag {
-		req.ApprovalType = &builder.approvalType
-	}
-	if builder.statusFlag {
-		req.Status = &builder.status
-	}
-	return req, nil
+func (builder * ProcessApprovalInfoPathReqBodyBuilder ) Status(status int) *ProcessApprovalInfoPathReqBodyBuilder {
+  builder.status = status
+  builder.statusFlag = true
+  return builder
 }
 
+
+func (builder * ProcessApprovalInfoPathReqBodyBuilder ) Build() (*ProcessApprovalInfoReqBody, error) {
+   req := &ProcessApprovalInfoReqBody{}
+   if builder.approvalIdFlag {
+	  req.ApprovalId = &builder.approvalId
+   }
+   if builder.approvalTypeFlag {
+	  req.ApprovalType = &builder.approvalType
+   }
+   if builder.statusFlag {
+	  req.Status = &builder.status
+   }
+   return req, nil
+}
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type ProcessApprovalInfoReqBuilder struct {
-	body     *ProcessApprovalInfoReqBody
+	body *ProcessApprovalInfoReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewProcessApprovalInfoReqBuilder() *ProcessApprovalInfoReqBuilder {
-	builder := &ProcessApprovalInfoReqBuilder{}
-	return builder
+func NewProcessApprovalInfoReqBuilder() * ProcessApprovalInfoReqBuilder{
+   builder := &ProcessApprovalInfoReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *ProcessApprovalInfoReqBuilder) Body(body *ProcessApprovalInfoReqBody) *ProcessApprovalInfoReqBuilder {
-	builder.body = body
-	builder.bodyFlag = true
-	return builder
+func (builder * ProcessApprovalInfoReqBuilder) Body(body *ProcessApprovalInfoReqBody) *ProcessApprovalInfoReqBuilder  {
+  builder.body = body
+  builder.bodyFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *ProcessApprovalInfoReqBuilder) Build() *ProcessApprovalInfoReq {
-	req := &ProcessApprovalInfoReq{}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
-	return req
+func (builder * ProcessApprovalInfoReqBuilder ) Build() *ProcessApprovalInfoReq {
+   req := &ProcessApprovalInfoReq{}
+   if builder.bodyFlag {
+	  req.Body = builder.body
+   }
+   return req
 }
 
 type ProcessApprovalInfoReqBody struct {
-	ApprovalId   *string `json:"approval_id,omitempty"`
-	ApprovalType *string `json:"approval_type,omitempty"`
-	Status       *int    `json:"status,omitempty"`
+	ApprovalId  *string `json:"approval_id,omitempty"`
+	ApprovalType  *string `json:"approval_type,omitempty"`
+	Status  *int `json:"status,omitempty"`
 }
 
 type ProcessApprovalInfoReq struct {
 	Body *ProcessApprovalInfoReqBody `body:""`
+
 }
 
 type ProcessApprovalInfoRespData struct {
-	ApprovalInfo *ApprovalInfo `json:"approval_info,omitempty"`
+	ApprovalInfo  *ApprovalInfo `json:"approval_info,omitempty"`
 }
 
 type ProcessApprovalInfoResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *ProcessApprovalInfoRespData `json:"data"`
 }
 
@@ -4216,51 +4233,55 @@ func (resp *ProcessApprovalInfoResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type DownloadFileReqBuilder struct {
-	fileId     string
-	fileIdFlag bool
+	fileId  string
+	fileIdFlag  bool
+
 }
 
 // 生成请求的New构造器
-func NewDownloadFileReqBuilder() *DownloadFileReqBuilder {
-	builder := &DownloadFileReqBuilder{}
-	return builder
+func NewDownloadFileReqBuilder() * DownloadFileReqBuilder{
+   builder := &DownloadFileReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *DownloadFileReqBuilder) FileId(fileId string) *DownloadFileReqBuilder {
-	builder.fileId = fileId
-	builder.fileIdFlag = true
-	return builder
+func (builder * DownloadFileReqBuilder) FileId(fileId string) *DownloadFileReqBuilder  {
+  builder.fileId = fileId
+  builder.fileIdFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *DownloadFileReqBuilder) Build() *DownloadFileReq {
-	req := &DownloadFileReq{}
-	if builder.fileIdFlag {
-		req.FileId = builder.fileId
-	}
-	return req
+func (builder * DownloadFileReqBuilder ) Build() *DownloadFileReq {
+   req := &DownloadFileReq{}
+   if builder.fileIdFlag {
+	  req.FileId = builder.fileId
+   }
+   return req
 }
+
 
 type DownloadFileReq struct {
-	FileId string `path:"file_id"`
+	FileId  string `path:"file_id"`
+
 }
 
+
 type DownloadFileResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
-	File     io.Reader `json:"-"`
-	FileName string    `json:"-"`
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
+	File	 io.Reader `json:"-"`
+	FileName string	`json:"-"`
 }
 
 func (resp *DownloadFileResp) Success() bool {
 	return resp.Code == 0
 }
-
 // 下载api,生成WriteFile方法
-func (resp *DownloadFileResp) WriteFile(fileName string) error {
+func (resp * DownloadFileResp) WriteFile(fileName string ) error {
 	bs, err := ioutil.ReadAll(resp.File)
 	if err != nil {
 		return err
@@ -4274,116 +4295,119 @@ func (resp *DownloadFileResp) WriteFile(fileName string) error {
 }
 
 type UploadFileReqBodyBuilder struct {
-	file     io.Reader
-	fileFlag bool
+	file  io.Reader
+	fileFlag  bool
 }
 
 // 生成body的New构造器
-func NewUploadFileReqBodyBuilder() *UploadFileReqBodyBuilder {
-	builder := &UploadFileReqBodyBuilder{}
-	return builder
+func NewUploadFileReqBodyBuilder() * UploadFileReqBodyBuilder{
+  builder := &UploadFileReqBodyBuilder{}
+  return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder *UploadFileReqBodyBuilder) File(file io.Reader) *UploadFileReqBodyBuilder {
-	builder.file = file
-	builder.fileFlag = true
-	return builder
+func (builder * UploadFileReqBodyBuilder ) File(file io.Reader) *UploadFileReqBodyBuilder {
+  builder.file = file
+  builder.fileFlag = true
+  return builder
 }
 
+
 // 1.3 生成body的build方法
-func (builder *UploadFileReqBodyBuilder) Build() *UploadFileReqBody {
-	req := &UploadFileReqBody{}
-	if builder.fileFlag {
-		req.File = builder.file
-	}
-	return req
+func (builder * UploadFileReqBodyBuilder ) Build() *UploadFileReqBody {
+   req := &UploadFileReqBody{}
+   if builder.fileFlag {
+	  req.File = builder.file
+   }
+   return req
 }
 
 // 上传文件path开始
 type UploadFilePathReqBodyBuilder struct {
-	filePath     string
-	filePathFlag bool
+	filePath  string
+	filePathFlag  bool
 }
 
-func NewUploadFilePathReqBodyBuilder() *UploadFilePathReqBodyBuilder {
-	builder := &UploadFilePathReqBodyBuilder{}
-	return builder
+func NewUploadFilePathReqBodyBuilder() * UploadFilePathReqBodyBuilder{
+  builder := &UploadFilePathReqBodyBuilder{}
+  return builder
 }
-func (builder *UploadFilePathReqBodyBuilder) FilePath(filePath string) *UploadFilePathReqBodyBuilder {
-	builder.filePath = filePath
-	builder.filePathFlag = true
-	return builder
-}
-
-func (builder *UploadFilePathReqBodyBuilder) Build() (*UploadFileReqBody, error) {
-	req := &UploadFileReqBody{}
-	if builder.filePathFlag {
-		data, err := core.File2Bytes(builder.filePath)
-		if err != nil {
-			return nil, err
-		}
-		req.File = bytes.NewBuffer(data)
-	}
-	return req, nil
+func (builder * UploadFilePathReqBodyBuilder ) FilePath(filePath string) *UploadFilePathReqBodyBuilder {
+  builder.filePath = filePath
+  builder.filePathFlag = true
+  return builder
 }
 
+
+func (builder * UploadFilePathReqBodyBuilder ) Build() (*UploadFileReqBody, error) {
+   req := &UploadFileReqBody{}
+   if builder.filePathFlag {
+	  data, err := larkcore.File2Bytes(builder.filePath)
+	  if err != nil {
+		return nil, err
+	  }
+	  req.File = bytes.NewBuffer(data)
+   }
+   return req, nil
+}
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type UploadFileReqBuilder struct {
-	fileName     string
-	fileNameFlag bool
-	body         *UploadFileReqBody
-	bodyFlag     bool
+	fileName  string
+	fileNameFlag  bool
+	body *UploadFileReqBody
+	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewUploadFileReqBuilder() *UploadFileReqBuilder {
-	builder := &UploadFileReqBuilder{}
-	return builder
+func NewUploadFileReqBuilder() * UploadFileReqBuilder{
+   builder := &UploadFileReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *UploadFileReqBuilder) FileName(fileName string) *UploadFileReqBuilder {
-	builder.fileName = fileName
-	builder.fileNameFlag = true
-	return builder
+func (builder * UploadFileReqBuilder) FileName(fileName string) *UploadFileReqBuilder  {
+  builder.fileName = fileName
+  builder.fileNameFlag = true
+  return builder
 }
-func (builder *UploadFileReqBuilder) Body(body *UploadFileReqBody) *UploadFileReqBuilder {
-	builder.body = body
-	builder.bodyFlag = true
-	return builder
+func (builder * UploadFileReqBuilder) Body(body *UploadFileReqBody) *UploadFileReqBuilder  {
+  builder.body = body
+  builder.bodyFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *UploadFileReqBuilder) Build() *UploadFileReq {
-	req := &UploadFileReq{}
-	if builder.fileNameFlag {
-		req.FileName = &builder.fileName
-	}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
-	return req
+func (builder * UploadFileReqBuilder ) Build() *UploadFileReq {
+   req := &UploadFileReq{}
+   if builder.fileNameFlag {
+	  req.FileName = &builder.fileName
+   }
+   if builder.bodyFlag {
+	  req.Body = builder.body
+   }
+   return req
 }
 
 type UploadFileReqBody struct {
-	File io.Reader `json:"file,omitempty"`
+	File  io.Reader `json:"file,omitempty"`
 }
 
 type UploadFileReq struct {
-	FileName *string            `query:"file_name"`
-	Body     *UploadFileReqBody `body:""`
+	FileName  *string `query:"file_name"`
+	Body *UploadFileReqBody `body:""`
+
 }
 
 type UploadFileRespData struct {
-	File *File `json:"file,omitempty"`
+	File  *File `json:"file,omitempty"`
 }
 
 type UploadFileResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *UploadFileRespData `json:"data"`
 }
 
@@ -4392,144 +4416,147 @@ func (resp *UploadFileResp) Success() bool {
 }
 
 type CreateGroupReqBodyBuilder struct {
-	group          *Group
-	groupFlag      bool
-	operatorId     string
-	operatorIdFlag bool
+	group  *Group
+	groupFlag  bool
+	operatorId  string
+	operatorIdFlag  bool
 }
 
 // 生成body的New构造器
-func NewCreateGroupReqBodyBuilder() *CreateGroupReqBodyBuilder {
-	builder := &CreateGroupReqBodyBuilder{}
-	return builder
+func NewCreateGroupReqBodyBuilder() * CreateGroupReqBodyBuilder{
+  builder := &CreateGroupReqBodyBuilder{}
+  return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder *CreateGroupReqBodyBuilder) Group(group *Group) *CreateGroupReqBodyBuilder {
-	builder.group = group
-	builder.groupFlag = true
-	return builder
+func (builder * CreateGroupReqBodyBuilder ) Group(group *Group) *CreateGroupReqBodyBuilder {
+  builder.group = group
+  builder.groupFlag = true
+  return builder
 }
-func (builder *CreateGroupReqBodyBuilder) OperatorId(operatorId string) *CreateGroupReqBodyBuilder {
-	builder.operatorId = operatorId
-	builder.operatorIdFlag = true
-	return builder
+func (builder * CreateGroupReqBodyBuilder ) OperatorId(operatorId string) *CreateGroupReqBodyBuilder {
+  builder.operatorId = operatorId
+  builder.operatorIdFlag = true
+  return builder
 }
 
+
 // 1.3 生成body的build方法
-func (builder *CreateGroupReqBodyBuilder) Build() *CreateGroupReqBody {
-	req := &CreateGroupReqBody{}
-	if builder.groupFlag {
-		req.Group = builder.group
-	}
-	if builder.operatorIdFlag {
-		req.OperatorId = &builder.operatorId
-	}
-	return req
+func (builder * CreateGroupReqBodyBuilder ) Build() *CreateGroupReqBody {
+   req := &CreateGroupReqBody{}
+   if builder.groupFlag {
+	  req.Group = builder.group
+   }
+   if builder.operatorIdFlag {
+	  req.OperatorId = &builder.operatorId
+   }
+   return req
 }
 
 // 上传文件path开始
 type CreateGroupPathReqBodyBuilder struct {
-	group          *Group
-	groupFlag      bool
-	operatorId     string
-	operatorIdFlag bool
+	group  *Group
+	groupFlag  bool
+	operatorId  string
+	operatorIdFlag  bool
 }
 
-func NewCreateGroupPathReqBodyBuilder() *CreateGroupPathReqBodyBuilder {
-	builder := &CreateGroupPathReqBodyBuilder{}
-	return builder
+func NewCreateGroupPathReqBodyBuilder() * CreateGroupPathReqBodyBuilder{
+  builder := &CreateGroupPathReqBodyBuilder{}
+  return builder
 }
-func (builder *CreateGroupPathReqBodyBuilder) Group(group *Group) *CreateGroupPathReqBodyBuilder {
-	builder.group = group
-	builder.groupFlag = true
-	return builder
+func (builder * CreateGroupPathReqBodyBuilder ) Group(group *Group) *CreateGroupPathReqBodyBuilder {
+  builder.group = group
+  builder.groupFlag = true
+  return builder
 }
-func (builder *CreateGroupPathReqBodyBuilder) OperatorId(operatorId string) *CreateGroupPathReqBodyBuilder {
-	builder.operatorId = operatorId
-	builder.operatorIdFlag = true
-	return builder
-}
-
-func (builder *CreateGroupPathReqBodyBuilder) Build() (*CreateGroupReqBody, error) {
-	req := &CreateGroupReqBody{}
-	if builder.groupFlag {
-		req.Group = builder.group
-	}
-	if builder.operatorIdFlag {
-		req.OperatorId = &builder.operatorId
-	}
-	return req, nil
+func (builder * CreateGroupPathReqBodyBuilder ) OperatorId(operatorId string) *CreateGroupPathReqBodyBuilder {
+  builder.operatorId = operatorId
+  builder.operatorIdFlag = true
+  return builder
 }
 
+
+func (builder * CreateGroupPathReqBodyBuilder ) Build() (*CreateGroupReqBody, error) {
+   req := &CreateGroupReqBody{}
+   if builder.groupFlag {
+	   req.Group = builder.group
+   }
+   if builder.operatorIdFlag {
+	  req.OperatorId = &builder.operatorId
+   }
+   return req, nil
+}
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type CreateGroupReqBuilder struct {
-	employeeType     string
-	employeeTypeFlag bool
-	deptType         string
-	deptTypeFlag     bool
-	body             *CreateGroupReqBody
-	bodyFlag         bool
+	employeeType  string
+	employeeTypeFlag  bool
+	deptType  string
+	deptTypeFlag  bool
+	body *CreateGroupReqBody
+	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewCreateGroupReqBuilder() *CreateGroupReqBuilder {
-	builder := &CreateGroupReqBuilder{}
-	return builder
+func NewCreateGroupReqBuilder() * CreateGroupReqBuilder{
+   builder := &CreateGroupReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *CreateGroupReqBuilder) EmployeeType(employeeType string) *CreateGroupReqBuilder {
-	builder.employeeType = employeeType
-	builder.employeeTypeFlag = true
-	return builder
+func (builder * CreateGroupReqBuilder) EmployeeType(employeeType string) *CreateGroupReqBuilder  {
+  builder.employeeType = employeeType
+  builder.employeeTypeFlag = true
+  return builder
 }
-func (builder *CreateGroupReqBuilder) DeptType(deptType string) *CreateGroupReqBuilder {
-	builder.deptType = deptType
-	builder.deptTypeFlag = true
-	return builder
+func (builder * CreateGroupReqBuilder) DeptType(deptType string) *CreateGroupReqBuilder  {
+  builder.deptType = deptType
+  builder.deptTypeFlag = true
+  return builder
 }
-func (builder *CreateGroupReqBuilder) Body(body *CreateGroupReqBody) *CreateGroupReqBuilder {
-	builder.body = body
-	builder.bodyFlag = true
-	return builder
+func (builder * CreateGroupReqBuilder) Body(body *CreateGroupReqBody) *CreateGroupReqBuilder  {
+  builder.body = body
+  builder.bodyFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *CreateGroupReqBuilder) Build() *CreateGroupReq {
-	req := &CreateGroupReq{}
-	if builder.employeeTypeFlag {
-		req.EmployeeType = &builder.employeeType
-	}
-	if builder.deptTypeFlag {
-		req.DeptType = &builder.deptType
-	}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
-	return req
+func (builder * CreateGroupReqBuilder ) Build() *CreateGroupReq {
+   req := &CreateGroupReq{}
+   if builder.employeeTypeFlag {
+	  req.EmployeeType = &builder.employeeType
+   }
+   if builder.deptTypeFlag {
+	  req.DeptType = &builder.deptType
+   }
+   if builder.bodyFlag {
+	  req.Body = builder.body
+   }
+   return req
 }
 
 type CreateGroupReqBody struct {
-	Group      *Group  `json:"group,omitempty"`
-	OperatorId *string `json:"operator_id,omitempty"`
+	Group  *Group `json:"group,omitempty"`
+	OperatorId  *string `json:"operator_id,omitempty"`
 }
 
 type CreateGroupReq struct {
-	EmployeeType *string             `query:"employee_type"`
-	DeptType     *string             `query:"dept_type"`
-	Body         *CreateGroupReqBody `body:""`
+	EmployeeType  *string `query:"employee_type"`
+	DeptType  *string `query:"dept_type"`
+	Body *CreateGroupReqBody `body:""`
+
 }
 
 type CreateGroupRespData struct {
-	Group *Group `json:"group,omitempty"`
+	Group  *Group `json:"group,omitempty"`
 }
 
 type CreateGroupResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *CreateGroupRespData `json:"data"`
 }
 
@@ -4537,143 +4564,152 @@ func (resp *CreateGroupResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type DeleteGroupReqBuilder struct {
-	groupId     string
-	groupIdFlag bool
+	groupId  string
+	groupIdFlag  bool
+
 }
 
 // 生成请求的New构造器
-func NewDeleteGroupReqBuilder() *DeleteGroupReqBuilder {
-	builder := &DeleteGroupReqBuilder{}
-	return builder
+func NewDeleteGroupReqBuilder() * DeleteGroupReqBuilder{
+   builder := &DeleteGroupReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *DeleteGroupReqBuilder) GroupId(groupId string) *DeleteGroupReqBuilder {
-	builder.groupId = groupId
-	builder.groupIdFlag = true
-	return builder
+func (builder * DeleteGroupReqBuilder) GroupId(groupId string) *DeleteGroupReqBuilder  {
+  builder.groupId = groupId
+  builder.groupIdFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *DeleteGroupReqBuilder) Build() *DeleteGroupReq {
-	req := &DeleteGroupReq{}
-	if builder.groupIdFlag {
-		req.GroupId = builder.groupId
-	}
-	return req
+func (builder * DeleteGroupReqBuilder ) Build() *DeleteGroupReq {
+   req := &DeleteGroupReq{}
+   if builder.groupIdFlag {
+	  req.GroupId = builder.groupId
+   }
+   return req
 }
+
 
 type DeleteGroupReq struct {
-	GroupId string `path:"group_id"`
+	GroupId  string `path:"group_id"`
+
 }
 
+
 type DeleteGroupResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 }
 
 func (resp *DeleteGroupResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type GetGroupReqBuilder struct {
-	groupId          string
-	groupIdFlag      bool
-	employeeType     string
-	employeeTypeFlag bool
-	deptType         string
-	deptTypeFlag     bool
+	groupId  string
+	groupIdFlag  bool
+	employeeType  string
+	employeeTypeFlag  bool
+	deptType  string
+	deptTypeFlag  bool
+
 }
 
 // 生成请求的New构造器
-func NewGetGroupReqBuilder() *GetGroupReqBuilder {
-	builder := &GetGroupReqBuilder{}
-	return builder
+func NewGetGroupReqBuilder() * GetGroupReqBuilder{
+   builder := &GetGroupReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *GetGroupReqBuilder) GroupId(groupId string) *GetGroupReqBuilder {
-	builder.groupId = groupId
-	builder.groupIdFlag = true
-	return builder
+func (builder * GetGroupReqBuilder) GroupId(groupId string) *GetGroupReqBuilder  {
+  builder.groupId = groupId
+  builder.groupIdFlag = true
+  return builder
 }
-func (builder *GetGroupReqBuilder) EmployeeType(employeeType string) *GetGroupReqBuilder {
-	builder.employeeType = employeeType
-	builder.employeeTypeFlag = true
-	return builder
+func (builder * GetGroupReqBuilder) EmployeeType(employeeType string) *GetGroupReqBuilder  {
+  builder.employeeType = employeeType
+  builder.employeeTypeFlag = true
+  return builder
 }
-func (builder *GetGroupReqBuilder) DeptType(deptType string) *GetGroupReqBuilder {
-	builder.deptType = deptType
-	builder.deptTypeFlag = true
-	return builder
+func (builder * GetGroupReqBuilder) DeptType(deptType string) *GetGroupReqBuilder  {
+  builder.deptType = deptType
+  builder.deptTypeFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *GetGroupReqBuilder) Build() *GetGroupReq {
-	req := &GetGroupReq{}
-	if builder.groupIdFlag {
-		req.GroupId = builder.groupId
-	}
-	if builder.employeeTypeFlag {
-		req.EmployeeType = &builder.employeeType
-	}
-	if builder.deptTypeFlag {
-		req.DeptType = &builder.deptType
-	}
-	return req
+func (builder * GetGroupReqBuilder ) Build() *GetGroupReq {
+   req := &GetGroupReq{}
+   if builder.groupIdFlag {
+	  req.GroupId = builder.groupId
+   }
+   if builder.employeeTypeFlag {
+	  req.EmployeeType = &builder.employeeType
+   }
+   if builder.deptTypeFlag {
+	  req.DeptType = &builder.deptType
+   }
+   return req
 }
 
+
 type GetGroupReq struct {
-	GroupId      string  `path:"group_id"`
-	EmployeeType *string `query:"employee_type"`
-	DeptType     *string `query:"dept_type"`
+	GroupId  string `path:"group_id"`
+	EmployeeType  *string `query:"employee_type"`
+	DeptType  *string `query:"dept_type"`
+
 }
 
 type GetGroupRespData struct {
-	GroupId                *string                  `json:"group_id,omitempty"`
-	GroupName              *string                  `json:"group_name,omitempty"`
-	TimeZone               *string                  `json:"time_zone,omitempty"`
-	BindDeptIds            []string                 `json:"bind_dept_ids,omitempty"`
-	ExceptDeptIds          []string                 `json:"except_dept_ids,omitempty"`
-	BindUserIds            []string                 `json:"bind_user_ids,omitempty"`
-	ExceptUserIds          []string                 `json:"except_user_ids,omitempty"`
-	GroupLeaderIds         []string                 `json:"group_leader_ids,omitempty"`
-	AllowOutPunch          *bool                    `json:"allow_out_punch,omitempty"`
-	AllowPcPunch           *bool                    `json:"allow_pc_punch,omitempty"`
-	AllowRemedy            *bool                    `json:"allow_remedy,omitempty"`
-	RemedyLimit            *bool                    `json:"remedy_limit,omitempty"`
-	RemedyLimitCount       *int                     `json:"remedy_limit_count,omitempty"`
-	RemedyDateLimit        *bool                    `json:"remedy_date_limit,omitempty"`
-	RemedyDateNum          *int                     `json:"remedy_date_num,omitempty"`
-	ShowCumulativeTime     *bool                    `json:"show_cumulative_time,omitempty"`
-	ShowOverTime           *bool                    `json:"show_over_time,omitempty"`
-	HideStaffPunchTime     *bool                    `json:"hide_staff_punch_time,omitempty"`
-	FacePunch              *bool                    `json:"face_punch,omitempty"`
-	FacePunchCfg           *int                     `json:"face_punch_cfg,omitempty"`
-	FaceDowngrade          *bool                    `json:"face_downgrade,omitempty"`
-	ReplaceBasicPic        *bool                    `json:"replace_basic_pic,omitempty"`
-	Machines               []*Machine               `json:"machines,omitempty"`
-	GpsRange               *int                     `json:"gps_range,omitempty"`
-	Locations              []*Location              `json:"locations,omitempty"`
-	GroupType              *int                     `json:"group_type,omitempty"`
-	PunchDayShiftIds       []string                 `json:"punch_day_shift_ids,omitempty"`
-	FreePunchCfg           *FreePunchCfg            `json:"free_punch_cfg,omitempty"`
-	CalendarId             *int                     `json:"calendar_id,omitempty"`
-	NeedPunchSpecialDays   []*PunchSpecialDateShift `json:"need_punch_special_days,omitempty"`
-	NoNeedPunchSpecialDays []*PunchSpecialDateShift `json:"no_need_punch_special_days,omitempty"`
-	WorkDayNoPunchAsLack   *bool                    `json:"work_day_no_punch_as_lack,omitempty"`
-	EffectNow              *bool                    `json:"effect_now,omitempty"`
-	RemedyPeriodType       *int                     `json:"remedy_period_type,omitempty"`
-	RemedyPeriodCustomDate *int                     `json:"remedy_period_custom_date,omitempty"`
-	PunchType              *int                     `json:"punch_type,omitempty"`
+	GroupId  *string `json:"group_id,omitempty"`
+	GroupName  *string `json:"group_name,omitempty"`
+	TimeZone  *string `json:"time_zone,omitempty"`
+	BindDeptIds  []string `json:"bind_dept_ids,omitempty"`
+	ExceptDeptIds  []string `json:"except_dept_ids,omitempty"`
+	BindUserIds  []string `json:"bind_user_ids,omitempty"`
+	ExceptUserIds  []string `json:"except_user_ids,omitempty"`
+	GroupLeaderIds  []string `json:"group_leader_ids,omitempty"`
+	AllowOutPunch  *bool `json:"allow_out_punch,omitempty"`
+	AllowPcPunch  *bool `json:"allow_pc_punch,omitempty"`
+	AllowRemedy  *bool `json:"allow_remedy,omitempty"`
+	RemedyLimit  *bool `json:"remedy_limit,omitempty"`
+	RemedyLimitCount  *int `json:"remedy_limit_count,omitempty"`
+	RemedyDateLimit  *bool `json:"remedy_date_limit,omitempty"`
+	RemedyDateNum  *int `json:"remedy_date_num,omitempty"`
+	ShowCumulativeTime  *bool `json:"show_cumulative_time,omitempty"`
+	ShowOverTime  *bool `json:"show_over_time,omitempty"`
+	HideStaffPunchTime  *bool `json:"hide_staff_punch_time,omitempty"`
+	FacePunch  *bool `json:"face_punch,omitempty"`
+	FacePunchCfg  *int `json:"face_punch_cfg,omitempty"`
+	FaceDowngrade  *bool `json:"face_downgrade,omitempty"`
+	ReplaceBasicPic  *bool `json:"replace_basic_pic,omitempty"`
+	Machines  []*Machine `json:"machines,omitempty"`
+	GpsRange  *int `json:"gps_range,omitempty"`
+	Locations  []*Location `json:"locations,omitempty"`
+	GroupType  *int `json:"group_type,omitempty"`
+	PunchDayShiftIds  []string `json:"punch_day_shift_ids,omitempty"`
+	FreePunchCfg  *FreePunchCfg `json:"free_punch_cfg,omitempty"`
+	CalendarId  *int `json:"calendar_id,omitempty"`
+	NeedPunchSpecialDays  []*PunchSpecialDateShift `json:"need_punch_special_days,omitempty"`
+	NoNeedPunchSpecialDays  []*PunchSpecialDateShift `json:"no_need_punch_special_days,omitempty"`
+	WorkDayNoPunchAsLack  *bool `json:"work_day_no_punch_as_lack,omitempty"`
+	EffectNow  *bool `json:"effect_now,omitempty"`
+	RemedyPeriodType  *int `json:"remedy_period_type,omitempty"`
+	RemedyPeriodCustomDate  *int `json:"remedy_period_custom_date,omitempty"`
+	PunchType  *int `json:"punch_type,omitempty"`
 }
 
 type GetGroupResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *GetGroupRespData `json:"data"`
 }
 
@@ -4681,65 +4717,69 @@ func (resp *GetGroupResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type ListGroupReqBuilder struct {
-	pageSize      int
+	pageSize  int
 	pageSizeFlag  bool
-	pageToken     string
-	pageTokenFlag bool
-	limit         int
+	pageToken  string
+	pageTokenFlag  bool
+	limit int
+
 }
 
 // 生成请求的New构造器
-func NewListGroupReqBuilder() *ListGroupReqBuilder {
-	builder := &ListGroupReqBuilder{}
-	return builder
+func NewListGroupReqBuilder() * ListGroupReqBuilder{
+   builder := &ListGroupReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *ListGroupReqBuilder) Limit(limit int) *ListGroupReqBuilder {
-	builder.limit = limit
-	return builder
+func (builder * ListGroupReqBuilder) Limit(limit int ) *ListGroupReqBuilder  {
+  builder.limit = limit
+  return builder
 }
-func (builder *ListGroupReqBuilder) PageSize(pageSize int) *ListGroupReqBuilder {
-	builder.pageSize = pageSize
-	builder.pageSizeFlag = true
-	return builder
+func (builder * ListGroupReqBuilder) PageSize(pageSize int) *ListGroupReqBuilder  {
+  builder.pageSize = pageSize
+  builder.pageSizeFlag = true
+  return builder
 }
-func (builder *ListGroupReqBuilder) PageToken(pageToken string) *ListGroupReqBuilder {
-	builder.pageToken = pageToken
-	builder.pageTokenFlag = true
-	return builder
+func (builder * ListGroupReqBuilder) PageToken(pageToken string) *ListGroupReqBuilder  {
+  builder.pageToken = pageToken
+  builder.pageTokenFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *ListGroupReqBuilder) Build() *ListGroupReq {
-	req := &ListGroupReq{}
-	req.Limit = builder.limit
-	if builder.pageSizeFlag {
-		req.PageSize = &builder.pageSize
-	}
-	if builder.pageTokenFlag {
-		req.PageToken = &builder.pageToken
-	}
-	return req
+func (builder * ListGroupReqBuilder ) Build() *ListGroupReq {
+   req := &ListGroupReq{}
+   req.Limit = builder.limit
+   if builder.pageSizeFlag {
+	  req.PageSize = &builder.pageSize
+   }
+   if builder.pageTokenFlag {
+	  req.PageToken = &builder.pageToken
+   }
+   return req
 }
 
+
 type ListGroupReq struct {
-	PageSize  *int    `query:"page_size"`
-	PageToken *string `query:"page_token"`
-	Limit     int
+	PageSize  *int `query:"page_size"`
+	PageToken  *string `query:"page_token"`
+	Limit int
+
 }
 
 type ListGroupRespData struct {
-	GroupList []*GroupMeta `json:"group_list,omitempty"`
-	PageToken *string      `json:"page_token,omitempty"`
-	HasMore   *bool        `json:"has_more,omitempty"`
+	GroupList  []*GroupMeta `json:"group_list,omitempty"`
+	PageToken  *string `json:"page_token,omitempty"`
+	HasMore  *bool `json:"has_more,omitempty"`
 }
 
 type ListGroupResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *ListGroupRespData `json:"data"`
 }
 
@@ -4748,122 +4788,125 @@ func (resp *ListGroupResp) Success() bool {
 }
 
 type SearchGroupReqBodyBuilder struct {
-	groupName          string
-	groupNameFlag      bool
-	exactlyMatched     bool
-	exactlyMatchedFlag bool
+	groupName  string
+	groupNameFlag  bool
+	exactlyMatched  bool
+	exactlyMatchedFlag  bool
 }
 
 // 生成body的New构造器
-func NewSearchGroupReqBodyBuilder() *SearchGroupReqBodyBuilder {
-	builder := &SearchGroupReqBodyBuilder{}
-	return builder
+func NewSearchGroupReqBodyBuilder() * SearchGroupReqBodyBuilder{
+  builder := &SearchGroupReqBodyBuilder{}
+  return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder *SearchGroupReqBodyBuilder) GroupName(groupName string) *SearchGroupReqBodyBuilder {
-	builder.groupName = groupName
-	builder.groupNameFlag = true
-	return builder
+func (builder * SearchGroupReqBodyBuilder ) GroupName(groupName string) *SearchGroupReqBodyBuilder {
+  builder.groupName = groupName
+  builder.groupNameFlag = true
+  return builder
 }
-func (builder *SearchGroupReqBodyBuilder) ExactlyMatched(exactlyMatched bool) *SearchGroupReqBodyBuilder {
-	builder.exactlyMatched = exactlyMatched
-	builder.exactlyMatchedFlag = true
-	return builder
+func (builder * SearchGroupReqBodyBuilder ) ExactlyMatched(exactlyMatched bool) *SearchGroupReqBodyBuilder {
+  builder.exactlyMatched = exactlyMatched
+  builder.exactlyMatchedFlag = true
+  return builder
 }
 
+
 // 1.3 生成body的build方法
-func (builder *SearchGroupReqBodyBuilder) Build() *SearchGroupReqBody {
-	req := &SearchGroupReqBody{}
-	if builder.groupNameFlag {
-		req.GroupName = &builder.groupName
-	}
-	if builder.exactlyMatchedFlag {
-		req.ExactlyMatched = &builder.exactlyMatched
-	}
-	return req
+func (builder * SearchGroupReqBodyBuilder ) Build() *SearchGroupReqBody {
+   req := &SearchGroupReqBody{}
+   if builder.groupNameFlag {
+	  req.GroupName = &builder.groupName
+   }
+   if builder.exactlyMatchedFlag {
+	  req.ExactlyMatched = &builder.exactlyMatched
+   }
+   return req
 }
 
 // 上传文件path开始
 type SearchGroupPathReqBodyBuilder struct {
-	groupName          string
-	groupNameFlag      bool
-	exactlyMatched     bool
-	exactlyMatchedFlag bool
+	groupName  string
+	groupNameFlag  bool
+	exactlyMatched  bool
+	exactlyMatchedFlag  bool
 }
 
-func NewSearchGroupPathReqBodyBuilder() *SearchGroupPathReqBodyBuilder {
-	builder := &SearchGroupPathReqBodyBuilder{}
-	return builder
+func NewSearchGroupPathReqBodyBuilder() * SearchGroupPathReqBodyBuilder{
+  builder := &SearchGroupPathReqBodyBuilder{}
+  return builder
 }
-func (builder *SearchGroupPathReqBodyBuilder) GroupName(groupName string) *SearchGroupPathReqBodyBuilder {
-	builder.groupName = groupName
-	builder.groupNameFlag = true
-	return builder
+func (builder * SearchGroupPathReqBodyBuilder ) GroupName(groupName string) *SearchGroupPathReqBodyBuilder {
+  builder.groupName = groupName
+  builder.groupNameFlag = true
+  return builder
 }
-func (builder *SearchGroupPathReqBodyBuilder) ExactlyMatched(exactlyMatched bool) *SearchGroupPathReqBodyBuilder {
-	builder.exactlyMatched = exactlyMatched
-	builder.exactlyMatchedFlag = true
-	return builder
-}
-
-func (builder *SearchGroupPathReqBodyBuilder) Build() (*SearchGroupReqBody, error) {
-	req := &SearchGroupReqBody{}
-	if builder.groupNameFlag {
-		req.GroupName = &builder.groupName
-	}
-	if builder.exactlyMatchedFlag {
-		req.ExactlyMatched = &builder.exactlyMatched
-	}
-	return req, nil
+func (builder * SearchGroupPathReqBodyBuilder ) ExactlyMatched(exactlyMatched bool) *SearchGroupPathReqBodyBuilder {
+  builder.exactlyMatched = exactlyMatched
+  builder.exactlyMatchedFlag = true
+  return builder
 }
 
+
+func (builder * SearchGroupPathReqBodyBuilder ) Build() (*SearchGroupReqBody, error) {
+   req := &SearchGroupReqBody{}
+   if builder.groupNameFlag {
+	  req.GroupName = &builder.groupName
+   }
+   if builder.exactlyMatchedFlag {
+	  req.ExactlyMatched = &builder.exactlyMatched
+   }
+   return req, nil
+}
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type SearchGroupReqBuilder struct {
-	body     *SearchGroupReqBody
+	body *SearchGroupReqBody
 	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewSearchGroupReqBuilder() *SearchGroupReqBuilder {
-	builder := &SearchGroupReqBuilder{}
-	return builder
+func NewSearchGroupReqBuilder() * SearchGroupReqBuilder{
+   builder := &SearchGroupReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *SearchGroupReqBuilder) Body(body *SearchGroupReqBody) *SearchGroupReqBuilder {
-	builder.body = body
-	builder.bodyFlag = true
-	return builder
+func (builder * SearchGroupReqBuilder) Body(body *SearchGroupReqBody) *SearchGroupReqBuilder  {
+  builder.body = body
+  builder.bodyFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *SearchGroupReqBuilder) Build() *SearchGroupReq {
-	req := &SearchGroupReq{}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
-	return req
+func (builder * SearchGroupReqBuilder ) Build() *SearchGroupReq {
+   req := &SearchGroupReq{}
+   if builder.bodyFlag {
+	  req.Body = builder.body
+   }
+   return req
 }
 
 type SearchGroupReqBody struct {
-	GroupName      *string `json:"group_name,omitempty"`
-	ExactlyMatched *bool   `json:"exactly_matched,omitempty"`
+	GroupName  *string `json:"group_name,omitempty"`
+	ExactlyMatched  *bool `json:"exactly_matched,omitempty"`
 }
 
 type SearchGroupReq struct {
 	Body *SearchGroupReqBody `body:""`
+
 }
 
 type SearchGroupRespData struct {
-	GroupList []*GroupMeta `json:"group_list,omitempty"`
+	GroupList  []*GroupMeta `json:"group_list,omitempty"`
 }
 
 type SearchGroupResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *SearchGroupRespData `json:"data"`
 }
 
@@ -4871,45 +4914,49 @@ func (resp *SearchGroupResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type CreateShiftReqBuilder struct {
-	shift     *Shift
+	shift *Shift
 	shiftFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewCreateShiftReqBuilder() *CreateShiftReqBuilder {
-	builder := &CreateShiftReqBuilder{}
-	return builder
+func NewCreateShiftReqBuilder() * CreateShiftReqBuilder{
+   builder := &CreateShiftReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *CreateShiftReqBuilder) Shift(shift *Shift) *CreateShiftReqBuilder {
-	builder.shift = shift
-	builder.shiftFlag = true
-	return builder
+func (builder * CreateShiftReqBuilder) Shift(shift *Shift) *CreateShiftReqBuilder  {
+  builder.shift = shift
+  builder.shiftFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *CreateShiftReqBuilder) Build() *CreateShiftReq {
-	req := &CreateShiftReq{}
-	if builder.shiftFlag {
-		req.Shift = builder.shift
-	}
-	return req
+func (builder * CreateShiftReqBuilder ) Build() *CreateShiftReq {
+   req := &CreateShiftReq{}
+   if builder.shiftFlag {
+	  req.Shift = builder.shift
+   }
+   return req
 }
+
 
 type CreateShiftReq struct {
 	Shift *Shift `body:""`
+
 }
 
 type CreateShiftRespData struct {
-	Shift *Shift `json:"shift,omitempty"`
+	Shift  *Shift `json:"shift,omitempty"`
 }
 
 type CreateShiftResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *CreateShiftRespData `json:"data"`
 }
 
@@ -4917,94 +4964,103 @@ func (resp *CreateShiftResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type DeleteShiftReqBuilder struct {
-	shiftId     string
-	shiftIdFlag bool
+	shiftId  string
+	shiftIdFlag  bool
+
 }
 
 // 生成请求的New构造器
-func NewDeleteShiftReqBuilder() *DeleteShiftReqBuilder {
-	builder := &DeleteShiftReqBuilder{}
-	return builder
+func NewDeleteShiftReqBuilder() * DeleteShiftReqBuilder{
+   builder := &DeleteShiftReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *DeleteShiftReqBuilder) ShiftId(shiftId string) *DeleteShiftReqBuilder {
-	builder.shiftId = shiftId
-	builder.shiftIdFlag = true
-	return builder
+func (builder * DeleteShiftReqBuilder) ShiftId(shiftId string) *DeleteShiftReqBuilder  {
+  builder.shiftId = shiftId
+  builder.shiftIdFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *DeleteShiftReqBuilder) Build() *DeleteShiftReq {
-	req := &DeleteShiftReq{}
-	if builder.shiftIdFlag {
-		req.ShiftId = builder.shiftId
-	}
-	return req
+func (builder * DeleteShiftReqBuilder ) Build() *DeleteShiftReq {
+   req := &DeleteShiftReq{}
+   if builder.shiftIdFlag {
+	  req.ShiftId = builder.shiftId
+   }
+   return req
 }
+
 
 type DeleteShiftReq struct {
-	ShiftId string `path:"shift_id"`
+	ShiftId  string `path:"shift_id"`
+
 }
 
+
 type DeleteShiftResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 }
 
 func (resp *DeleteShiftResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type GetShiftReqBuilder struct {
-	shiftId     string
-	shiftIdFlag bool
+	shiftId  string
+	shiftIdFlag  bool
+
 }
 
 // 生成请求的New构造器
-func NewGetShiftReqBuilder() *GetShiftReqBuilder {
-	builder := &GetShiftReqBuilder{}
-	return builder
+func NewGetShiftReqBuilder() * GetShiftReqBuilder{
+   builder := &GetShiftReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *GetShiftReqBuilder) ShiftId(shiftId string) *GetShiftReqBuilder {
-	builder.shiftId = shiftId
-	builder.shiftIdFlag = true
-	return builder
+func (builder * GetShiftReqBuilder) ShiftId(shiftId string) *GetShiftReqBuilder  {
+  builder.shiftId = shiftId
+  builder.shiftIdFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *GetShiftReqBuilder) Build() *GetShiftReq {
-	req := &GetShiftReq{}
-	if builder.shiftIdFlag {
-		req.ShiftId = builder.shiftId
-	}
-	return req
+func (builder * GetShiftReqBuilder ) Build() *GetShiftReq {
+   req := &GetShiftReq{}
+   if builder.shiftIdFlag {
+	  req.ShiftId = builder.shiftId
+   }
+   return req
 }
 
+
 type GetShiftReq struct {
-	ShiftId string `path:"shift_id"`
+	ShiftId  string `path:"shift_id"`
+
 }
 
 type GetShiftRespData struct {
-	ShiftId           *string              `json:"shift_id,omitempty"`
-	ShiftName         *string              `json:"shift_name,omitempty"`
-	PunchTimes        *int                 `json:"punch_times,omitempty"`
-	IsFlexible        *bool                `json:"is_flexible,omitempty"`
-	FlexibleMinutes   *int                 `json:"flexible_minutes,omitempty"`
-	NoNeedOff         *bool                `json:"no_need_off,omitempty"`
-	PunchTimeRule     []*PunchTimeRule     `json:"punch_time_rule,omitempty"`
-	LateOffLateOnRule []*LateOffLateOnRule `json:"late_off_late_on_rule,omitempty"`
-	RestTimeRule      []*RestRule          `json:"rest_time_rule,omitempty"`
+	ShiftId  *string `json:"shift_id,omitempty"`
+	ShiftName  *string `json:"shift_name,omitempty"`
+	PunchTimes  *int `json:"punch_times,omitempty"`
+	IsFlexible  *bool `json:"is_flexible,omitempty"`
+	FlexibleMinutes  *int `json:"flexible_minutes,omitempty"`
+	NoNeedOff  *bool `json:"no_need_off,omitempty"`
+	PunchTimeRule  []*PunchTimeRule `json:"punch_time_rule,omitempty"`
+	LateOffLateOnRule  []*LateOffLateOnRule `json:"late_off_late_on_rule,omitempty"`
+	RestTimeRule  []*RestRule `json:"rest_time_rule,omitempty"`
 }
 
 type GetShiftResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *GetShiftRespData `json:"data"`
 }
 
@@ -5012,65 +5068,69 @@ func (resp *GetShiftResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type ListShiftReqBuilder struct {
-	pageSize      int
+	pageSize  int
 	pageSizeFlag  bool
-	pageToken     string
-	pageTokenFlag bool
-	limit         int
+	pageToken  string
+	pageTokenFlag  bool
+	limit int
+
 }
 
 // 生成请求的New构造器
-func NewListShiftReqBuilder() *ListShiftReqBuilder {
-	builder := &ListShiftReqBuilder{}
-	return builder
+func NewListShiftReqBuilder() * ListShiftReqBuilder{
+   builder := &ListShiftReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *ListShiftReqBuilder) Limit(limit int) *ListShiftReqBuilder {
-	builder.limit = limit
-	return builder
+func (builder * ListShiftReqBuilder) Limit(limit int ) *ListShiftReqBuilder  {
+  builder.limit = limit
+  return builder
 }
-func (builder *ListShiftReqBuilder) PageSize(pageSize int) *ListShiftReqBuilder {
-	builder.pageSize = pageSize
-	builder.pageSizeFlag = true
-	return builder
+func (builder * ListShiftReqBuilder) PageSize(pageSize int) *ListShiftReqBuilder  {
+  builder.pageSize = pageSize
+  builder.pageSizeFlag = true
+  return builder
 }
-func (builder *ListShiftReqBuilder) PageToken(pageToken string) *ListShiftReqBuilder {
-	builder.pageToken = pageToken
-	builder.pageTokenFlag = true
-	return builder
+func (builder * ListShiftReqBuilder) PageToken(pageToken string) *ListShiftReqBuilder  {
+  builder.pageToken = pageToken
+  builder.pageTokenFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *ListShiftReqBuilder) Build() *ListShiftReq {
-	req := &ListShiftReq{}
-	req.Limit = builder.limit
-	if builder.pageSizeFlag {
-		req.PageSize = &builder.pageSize
-	}
-	if builder.pageTokenFlag {
-		req.PageToken = &builder.pageToken
-	}
-	return req
+func (builder * ListShiftReqBuilder ) Build() *ListShiftReq {
+   req := &ListShiftReq{}
+   req.Limit = builder.limit
+   if builder.pageSizeFlag {
+	  req.PageSize = &builder.pageSize
+   }
+   if builder.pageTokenFlag {
+	  req.PageToken = &builder.pageToken
+   }
+   return req
 }
 
+
 type ListShiftReq struct {
-	PageSize  *int    `query:"page_size"`
-	PageToken *string `query:"page_token"`
-	Limit     int
+	PageSize  *int `query:"page_size"`
+	PageToken  *string `query:"page_token"`
+	Limit int
+
 }
 
 type ListShiftRespData struct {
-	ShiftList []*Shift `json:"shift_list,omitempty"`
-	PageToken *string  `json:"page_token,omitempty"`
-	HasMore   *bool    `json:"has_more,omitempty"`
+	ShiftList  []*Shift `json:"shift_list,omitempty"`
+	PageToken  *string `json:"page_token,omitempty"`
+	HasMore  *bool `json:"has_more,omitempty"`
 }
 
 type ListShiftResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *ListShiftRespData `json:"data"`
 }
 
@@ -5078,53 +5138,57 @@ func (resp *ListShiftResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type QueryShiftReqBuilder struct {
-	shiftName     string
-	shiftNameFlag bool
+	shiftName  string
+	shiftNameFlag  bool
+
 }
 
 // 生成请求的New构造器
-func NewQueryShiftReqBuilder() *QueryShiftReqBuilder {
-	builder := &QueryShiftReqBuilder{}
-	return builder
+func NewQueryShiftReqBuilder() * QueryShiftReqBuilder{
+   builder := &QueryShiftReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *QueryShiftReqBuilder) ShiftName(shiftName string) *QueryShiftReqBuilder {
-	builder.shiftName = shiftName
-	builder.shiftNameFlag = true
-	return builder
+func (builder * QueryShiftReqBuilder) ShiftName(shiftName string) *QueryShiftReqBuilder  {
+  builder.shiftName = shiftName
+  builder.shiftNameFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *QueryShiftReqBuilder) Build() *QueryShiftReq {
-	req := &QueryShiftReq{}
-	if builder.shiftNameFlag {
-		req.ShiftName = &builder.shiftName
-	}
-	return req
+func (builder * QueryShiftReqBuilder ) Build() *QueryShiftReq {
+   req := &QueryShiftReq{}
+   if builder.shiftNameFlag {
+	  req.ShiftName = &builder.shiftName
+   }
+   return req
 }
 
+
 type QueryShiftReq struct {
-	ShiftName *string `query:"shift_name"`
+	ShiftName  *string `query:"shift_name"`
+
 }
 
 type QueryShiftRespData struct {
-	ShiftId           *string              `json:"shift_id,omitempty"`
-	ShiftName         *string              `json:"shift_name,omitempty"`
-	PunchTimes        *int                 `json:"punch_times,omitempty"`
-	IsFlexible        *bool                `json:"is_flexible,omitempty"`
-	FlexibleMinutes   *int                 `json:"flexible_minutes,omitempty"`
-	NoNeedOff         *bool                `json:"no_need_off,omitempty"`
-	PunchTimeRule     []*PunchTimeRule     `json:"punch_time_rule,omitempty"`
-	LateOffLateOnRule []*LateOffLateOnRule `json:"late_off_late_on_rule,omitempty"`
-	RestTimeRule      []*RestRule          `json:"rest_time_rule,omitempty"`
+	ShiftId  *string `json:"shift_id,omitempty"`
+	ShiftName  *string `json:"shift_name,omitempty"`
+	PunchTimes  *int `json:"punch_times,omitempty"`
+	IsFlexible  *bool `json:"is_flexible,omitempty"`
+	FlexibleMinutes  *int `json:"flexible_minutes,omitempty"`
+	NoNeedOff  *bool `json:"no_need_off,omitempty"`
+	PunchTimeRule  []*PunchTimeRule `json:"punch_time_rule,omitempty"`
+	LateOffLateOnRule  []*LateOffLateOnRule `json:"late_off_late_on_rule,omitempty"`
+	RestTimeRule  []*RestRule `json:"rest_time_rule,omitempty"`
 }
 
 type QueryShiftResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *QueryShiftRespData `json:"data"`
 }
 
@@ -5133,112 +5197,115 @@ func (resp *QueryShiftResp) Success() bool {
 }
 
 type CreateUserApprovalReqBodyBuilder struct {
-	userApproval     *UserApproval
-	userApprovalFlag bool
+	userApproval  *UserApproval
+	userApprovalFlag  bool
 }
 
 // 生成body的New构造器
-func NewCreateUserApprovalReqBodyBuilder() *CreateUserApprovalReqBodyBuilder {
-	builder := &CreateUserApprovalReqBodyBuilder{}
-	return builder
+func NewCreateUserApprovalReqBodyBuilder() * CreateUserApprovalReqBodyBuilder{
+  builder := &CreateUserApprovalReqBodyBuilder{}
+  return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder *CreateUserApprovalReqBodyBuilder) UserApproval(userApproval *UserApproval) *CreateUserApprovalReqBodyBuilder {
-	builder.userApproval = userApproval
-	builder.userApprovalFlag = true
-	return builder
+func (builder * CreateUserApprovalReqBodyBuilder ) UserApproval(userApproval *UserApproval) *CreateUserApprovalReqBodyBuilder {
+  builder.userApproval = userApproval
+  builder.userApprovalFlag = true
+  return builder
 }
 
+
 // 1.3 生成body的build方法
-func (builder *CreateUserApprovalReqBodyBuilder) Build() *CreateUserApprovalReqBody {
-	req := &CreateUserApprovalReqBody{}
-	if builder.userApprovalFlag {
-		req.UserApproval = builder.userApproval
-	}
-	return req
+func (builder * CreateUserApprovalReqBodyBuilder ) Build() *CreateUserApprovalReqBody {
+   req := &CreateUserApprovalReqBody{}
+   if builder.userApprovalFlag {
+	  req.UserApproval = builder.userApproval
+   }
+   return req
 }
 
 // 上传文件path开始
 type CreateUserApprovalPathReqBodyBuilder struct {
-	userApproval     *UserApproval
-	userApprovalFlag bool
+	userApproval  *UserApproval
+	userApprovalFlag  bool
 }
 
-func NewCreateUserApprovalPathReqBodyBuilder() *CreateUserApprovalPathReqBodyBuilder {
-	builder := &CreateUserApprovalPathReqBodyBuilder{}
-	return builder
+func NewCreateUserApprovalPathReqBodyBuilder() * CreateUserApprovalPathReqBodyBuilder{
+  builder := &CreateUserApprovalPathReqBodyBuilder{}
+  return builder
 }
-func (builder *CreateUserApprovalPathReqBodyBuilder) UserApproval(userApproval *UserApproval) *CreateUserApprovalPathReqBodyBuilder {
-	builder.userApproval = userApproval
-	builder.userApprovalFlag = true
-	return builder
-}
-
-func (builder *CreateUserApprovalPathReqBodyBuilder) Build() (*CreateUserApprovalReqBody, error) {
-	req := &CreateUserApprovalReqBody{}
-	if builder.userApprovalFlag {
-		req.UserApproval = builder.userApproval
-	}
-	return req, nil
+func (builder * CreateUserApprovalPathReqBodyBuilder ) UserApproval(userApproval *UserApproval) *CreateUserApprovalPathReqBodyBuilder {
+  builder.userApproval = userApproval
+  builder.userApprovalFlag = true
+  return builder
 }
 
+
+func (builder * CreateUserApprovalPathReqBodyBuilder ) Build() (*CreateUserApprovalReqBody, error) {
+   req := &CreateUserApprovalReqBody{}
+   if builder.userApprovalFlag {
+	   req.UserApproval = builder.userApproval
+   }
+   return req, nil
+}
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type CreateUserApprovalReqBuilder struct {
-	employeeType     string
-	employeeTypeFlag bool
-	body             *CreateUserApprovalReqBody
-	bodyFlag         bool
+	employeeType  string
+	employeeTypeFlag  bool
+	body *CreateUserApprovalReqBody
+	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewCreateUserApprovalReqBuilder() *CreateUserApprovalReqBuilder {
-	builder := &CreateUserApprovalReqBuilder{}
-	return builder
+func NewCreateUserApprovalReqBuilder() * CreateUserApprovalReqBuilder{
+   builder := &CreateUserApprovalReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *CreateUserApprovalReqBuilder) EmployeeType(employeeType string) *CreateUserApprovalReqBuilder {
-	builder.employeeType = employeeType
-	builder.employeeTypeFlag = true
-	return builder
+func (builder * CreateUserApprovalReqBuilder) EmployeeType(employeeType string) *CreateUserApprovalReqBuilder  {
+  builder.employeeType = employeeType
+  builder.employeeTypeFlag = true
+  return builder
 }
-func (builder *CreateUserApprovalReqBuilder) Body(body *CreateUserApprovalReqBody) *CreateUserApprovalReqBuilder {
-	builder.body = body
-	builder.bodyFlag = true
-	return builder
+func (builder * CreateUserApprovalReqBuilder) Body(body *CreateUserApprovalReqBody) *CreateUserApprovalReqBuilder  {
+  builder.body = body
+  builder.bodyFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *CreateUserApprovalReqBuilder) Build() *CreateUserApprovalReq {
-	req := &CreateUserApprovalReq{}
-	if builder.employeeTypeFlag {
-		req.EmployeeType = &builder.employeeType
-	}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
-	return req
+func (builder * CreateUserApprovalReqBuilder ) Build() *CreateUserApprovalReq {
+   req := &CreateUserApprovalReq{}
+   if builder.employeeTypeFlag {
+	  req.EmployeeType = &builder.employeeType
+   }
+   if builder.bodyFlag {
+	  req.Body = builder.body
+   }
+   return req
 }
 
 type CreateUserApprovalReqBody struct {
-	UserApproval *UserApproval `json:"user_approval,omitempty"`
+	UserApproval  *UserApproval `json:"user_approval,omitempty"`
 }
 
 type CreateUserApprovalReq struct {
-	EmployeeType *string                    `query:"employee_type"`
-	Body         *CreateUserApprovalReqBody `body:""`
+	EmployeeType  *string `query:"employee_type"`
+	Body *CreateUserApprovalReqBody `body:""`
+
 }
 
 type CreateUserApprovalRespData struct {
-	UserApproval *UserApproval `json:"user_approval,omitempty"`
+	UserApproval  *UserApproval `json:"user_approval,omitempty"`
 }
 
 type CreateUserApprovalResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *CreateUserApprovalRespData `json:"data"`
 }
 
@@ -5247,154 +5314,157 @@ func (resp *CreateUserApprovalResp) Success() bool {
 }
 
 type QueryUserApprovalReqBodyBuilder struct {
-	userIds           []string
-	userIdsFlag       bool
-	checkDateFrom     int
-	checkDateFromFlag bool
-	checkDateTo       int
-	checkDateToFlag   bool
+	userIds  []string
+	userIdsFlag  bool
+	checkDateFrom  int
+	checkDateFromFlag  bool
+	checkDateTo  int
+	checkDateToFlag  bool
 }
 
 // 生成body的New构造器
-func NewQueryUserApprovalReqBodyBuilder() *QueryUserApprovalReqBodyBuilder {
-	builder := &QueryUserApprovalReqBodyBuilder{}
-	return builder
+func NewQueryUserApprovalReqBodyBuilder() * QueryUserApprovalReqBodyBuilder{
+  builder := &QueryUserApprovalReqBodyBuilder{}
+  return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder *QueryUserApprovalReqBodyBuilder) UserIds(userIds []string) *QueryUserApprovalReqBodyBuilder {
-	builder.userIds = userIds
-	builder.userIdsFlag = true
-	return builder
+func (builder * QueryUserApprovalReqBodyBuilder ) UserIds(userIds []string) *QueryUserApprovalReqBodyBuilder {
+  builder.userIds = userIds
+  builder.userIdsFlag = true
+  return builder
 }
-func (builder *QueryUserApprovalReqBodyBuilder) CheckDateFrom(checkDateFrom int) *QueryUserApprovalReqBodyBuilder {
-	builder.checkDateFrom = checkDateFrom
-	builder.checkDateFromFlag = true
-	return builder
+func (builder * QueryUserApprovalReqBodyBuilder ) CheckDateFrom(checkDateFrom int) *QueryUserApprovalReqBodyBuilder {
+  builder.checkDateFrom = checkDateFrom
+  builder.checkDateFromFlag = true
+  return builder
 }
-func (builder *QueryUserApprovalReqBodyBuilder) CheckDateTo(checkDateTo int) *QueryUserApprovalReqBodyBuilder {
-	builder.checkDateTo = checkDateTo
-	builder.checkDateToFlag = true
-	return builder
+func (builder * QueryUserApprovalReqBodyBuilder ) CheckDateTo(checkDateTo int) *QueryUserApprovalReqBodyBuilder {
+  builder.checkDateTo = checkDateTo
+  builder.checkDateToFlag = true
+  return builder
 }
 
+
 // 1.3 生成body的build方法
-func (builder *QueryUserApprovalReqBodyBuilder) Build() *QueryUserApprovalReqBody {
-	req := &QueryUserApprovalReqBody{}
-	if builder.userIdsFlag {
-		req.UserIds = builder.userIds
-	}
-	if builder.checkDateFromFlag {
-		req.CheckDateFrom = &builder.checkDateFrom
-	}
-	if builder.checkDateToFlag {
-		req.CheckDateTo = &builder.checkDateTo
-	}
-	return req
+func (builder * QueryUserApprovalReqBodyBuilder ) Build() *QueryUserApprovalReqBody {
+   req := &QueryUserApprovalReqBody{}
+   if builder.userIdsFlag {
+	  req.UserIds = builder.userIds
+   }
+   if builder.checkDateFromFlag {
+	  req.CheckDateFrom = &builder.checkDateFrom
+   }
+   if builder.checkDateToFlag {
+	  req.CheckDateTo = &builder.checkDateTo
+   }
+   return req
 }
 
 // 上传文件path开始
 type QueryUserApprovalPathReqBodyBuilder struct {
-	userIds           []string
-	userIdsFlag       bool
-	checkDateFrom     int
-	checkDateFromFlag bool
-	checkDateTo       int
-	checkDateToFlag   bool
+	userIds  []string
+	userIdsFlag  bool
+	checkDateFrom  int
+	checkDateFromFlag  bool
+	checkDateTo  int
+	checkDateToFlag  bool
 }
 
-func NewQueryUserApprovalPathReqBodyBuilder() *QueryUserApprovalPathReqBodyBuilder {
-	builder := &QueryUserApprovalPathReqBodyBuilder{}
-	return builder
+func NewQueryUserApprovalPathReqBodyBuilder() * QueryUserApprovalPathReqBodyBuilder{
+  builder := &QueryUserApprovalPathReqBodyBuilder{}
+  return builder
 }
-func (builder *QueryUserApprovalPathReqBodyBuilder) UserIds(userIds []string) *QueryUserApprovalPathReqBodyBuilder {
-	builder.userIds = userIds
-	builder.userIdsFlag = true
-	return builder
+func (builder * QueryUserApprovalPathReqBodyBuilder ) UserIds(userIds []string) *QueryUserApprovalPathReqBodyBuilder {
+  builder.userIds = userIds
+  builder.userIdsFlag = true
+  return builder
 }
-func (builder *QueryUserApprovalPathReqBodyBuilder) CheckDateFrom(checkDateFrom int) *QueryUserApprovalPathReqBodyBuilder {
-	builder.checkDateFrom = checkDateFrom
-	builder.checkDateFromFlag = true
-	return builder
+func (builder * QueryUserApprovalPathReqBodyBuilder ) CheckDateFrom(checkDateFrom int) *QueryUserApprovalPathReqBodyBuilder {
+  builder.checkDateFrom = checkDateFrom
+  builder.checkDateFromFlag = true
+  return builder
 }
-func (builder *QueryUserApprovalPathReqBodyBuilder) CheckDateTo(checkDateTo int) *QueryUserApprovalPathReqBodyBuilder {
-	builder.checkDateTo = checkDateTo
-	builder.checkDateToFlag = true
-	return builder
-}
-
-func (builder *QueryUserApprovalPathReqBodyBuilder) Build() (*QueryUserApprovalReqBody, error) {
-	req := &QueryUserApprovalReqBody{}
-	if builder.userIdsFlag {
-		req.UserIds = builder.userIds
-	}
-	if builder.checkDateFromFlag {
-		req.CheckDateFrom = &builder.checkDateFrom
-	}
-	if builder.checkDateToFlag {
-		req.CheckDateTo = &builder.checkDateTo
-	}
-	return req, nil
+func (builder * QueryUserApprovalPathReqBodyBuilder ) CheckDateTo(checkDateTo int) *QueryUserApprovalPathReqBodyBuilder {
+  builder.checkDateTo = checkDateTo
+  builder.checkDateToFlag = true
+  return builder
 }
 
+
+func (builder * QueryUserApprovalPathReqBodyBuilder ) Build() (*QueryUserApprovalReqBody, error) {
+   req := &QueryUserApprovalReqBody{}
+   if builder.userIdsFlag {
+	   req.UserIds = builder.userIds
+   }
+   if builder.checkDateFromFlag {
+	  req.CheckDateFrom = &builder.checkDateFrom
+   }
+   if builder.checkDateToFlag {
+	  req.CheckDateTo = &builder.checkDateTo
+   }
+   return req, nil
+}
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type QueryUserApprovalReqBuilder struct {
-	employeeType     string
-	employeeTypeFlag bool
-	body             *QueryUserApprovalReqBody
-	bodyFlag         bool
+	employeeType  string
+	employeeTypeFlag  bool
+	body *QueryUserApprovalReqBody
+	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewQueryUserApprovalReqBuilder() *QueryUserApprovalReqBuilder {
-	builder := &QueryUserApprovalReqBuilder{}
-	return builder
+func NewQueryUserApprovalReqBuilder() * QueryUserApprovalReqBuilder{
+   builder := &QueryUserApprovalReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *QueryUserApprovalReqBuilder) EmployeeType(employeeType string) *QueryUserApprovalReqBuilder {
-	builder.employeeType = employeeType
-	builder.employeeTypeFlag = true
-	return builder
+func (builder * QueryUserApprovalReqBuilder) EmployeeType(employeeType string) *QueryUserApprovalReqBuilder  {
+  builder.employeeType = employeeType
+  builder.employeeTypeFlag = true
+  return builder
 }
-func (builder *QueryUserApprovalReqBuilder) Body(body *QueryUserApprovalReqBody) *QueryUserApprovalReqBuilder {
-	builder.body = body
-	builder.bodyFlag = true
-	return builder
+func (builder * QueryUserApprovalReqBuilder) Body(body *QueryUserApprovalReqBody) *QueryUserApprovalReqBuilder  {
+  builder.body = body
+  builder.bodyFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *QueryUserApprovalReqBuilder) Build() *QueryUserApprovalReq {
-	req := &QueryUserApprovalReq{}
-	if builder.employeeTypeFlag {
-		req.EmployeeType = &builder.employeeType
-	}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
-	return req
+func (builder * QueryUserApprovalReqBuilder ) Build() *QueryUserApprovalReq {
+   req := &QueryUserApprovalReq{}
+   if builder.employeeTypeFlag {
+	  req.EmployeeType = &builder.employeeType
+   }
+   if builder.bodyFlag {
+	  req.Body = builder.body
+   }
+   return req
 }
 
 type QueryUserApprovalReqBody struct {
-	UserIds       []string `json:"user_ids,omitempty"`
-	CheckDateFrom *int     `json:"check_date_from,omitempty"`
-	CheckDateTo   *int     `json:"check_date_to,omitempty"`
+	UserIds  []string `json:"user_ids,omitempty"`
+	CheckDateFrom  *int `json:"check_date_from,omitempty"`
+	CheckDateTo  *int `json:"check_date_to,omitempty"`
 }
 
 type QueryUserApprovalReq struct {
-	EmployeeType *string                   `query:"employee_type"`
-	Body         *QueryUserApprovalReqBody `body:""`
+	EmployeeType  *string `query:"employee_type"`
+	Body *QueryUserApprovalReqBody `body:""`
+
 }
 
 type QueryUserApprovalRespData struct {
-	UserApprovals []*UserApproval `json:"user_approvals,omitempty"`
+	UserApprovals  []*UserApproval `json:"user_approvals,omitempty"`
 }
 
 type QueryUserApprovalResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *QueryUserApprovalRespData `json:"data"`
 }
 
@@ -5403,133 +5473,136 @@ func (resp *QueryUserApprovalResp) Success() bool {
 }
 
 type BatchCreateUserDailyShiftReqBodyBuilder struct {
-	userDailyShifts     []*UserDailyShift
-	userDailyShiftsFlag bool
-	operatorId          string
-	operatorIdFlag      bool
+	userDailyShifts  []*UserDailyShift
+	userDailyShiftsFlag  bool
+	operatorId  string
+	operatorIdFlag  bool
 }
 
 // 生成body的New构造器
-func NewBatchCreateUserDailyShiftReqBodyBuilder() *BatchCreateUserDailyShiftReqBodyBuilder {
-	builder := &BatchCreateUserDailyShiftReqBodyBuilder{}
-	return builder
+func NewBatchCreateUserDailyShiftReqBodyBuilder() * BatchCreateUserDailyShiftReqBodyBuilder{
+  builder := &BatchCreateUserDailyShiftReqBodyBuilder{}
+  return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder *BatchCreateUserDailyShiftReqBodyBuilder) UserDailyShifts(userDailyShifts []*UserDailyShift) *BatchCreateUserDailyShiftReqBodyBuilder {
-	builder.userDailyShifts = userDailyShifts
-	builder.userDailyShiftsFlag = true
-	return builder
+func (builder * BatchCreateUserDailyShiftReqBodyBuilder ) UserDailyShifts(userDailyShifts []*UserDailyShift) *BatchCreateUserDailyShiftReqBodyBuilder {
+  builder.userDailyShifts = userDailyShifts
+  builder.userDailyShiftsFlag = true
+  return builder
 }
-func (builder *BatchCreateUserDailyShiftReqBodyBuilder) OperatorId(operatorId string) *BatchCreateUserDailyShiftReqBodyBuilder {
-	builder.operatorId = operatorId
-	builder.operatorIdFlag = true
-	return builder
+func (builder * BatchCreateUserDailyShiftReqBodyBuilder ) OperatorId(operatorId string) *BatchCreateUserDailyShiftReqBodyBuilder {
+  builder.operatorId = operatorId
+  builder.operatorIdFlag = true
+  return builder
 }
 
+
 // 1.3 生成body的build方法
-func (builder *BatchCreateUserDailyShiftReqBodyBuilder) Build() *BatchCreateUserDailyShiftReqBody {
-	req := &BatchCreateUserDailyShiftReqBody{}
-	if builder.userDailyShiftsFlag {
-		req.UserDailyShifts = builder.userDailyShifts
-	}
-	if builder.operatorIdFlag {
-		req.OperatorId = &builder.operatorId
-	}
-	return req
+func (builder * BatchCreateUserDailyShiftReqBodyBuilder ) Build() *BatchCreateUserDailyShiftReqBody {
+   req := &BatchCreateUserDailyShiftReqBody{}
+   if builder.userDailyShiftsFlag {
+	  req.UserDailyShifts = builder.userDailyShifts
+   }
+   if builder.operatorIdFlag {
+	  req.OperatorId = &builder.operatorId
+   }
+   return req
 }
 
 // 上传文件path开始
 type BatchCreateUserDailyShiftPathReqBodyBuilder struct {
-	userDailyShifts     []*UserDailyShift
-	userDailyShiftsFlag bool
-	operatorId          string
-	operatorIdFlag      bool
+	userDailyShifts  []*UserDailyShift
+	userDailyShiftsFlag  bool
+	operatorId  string
+	operatorIdFlag  bool
 }
 
-func NewBatchCreateUserDailyShiftPathReqBodyBuilder() *BatchCreateUserDailyShiftPathReqBodyBuilder {
-	builder := &BatchCreateUserDailyShiftPathReqBodyBuilder{}
-	return builder
+func NewBatchCreateUserDailyShiftPathReqBodyBuilder() * BatchCreateUserDailyShiftPathReqBodyBuilder{
+  builder := &BatchCreateUserDailyShiftPathReqBodyBuilder{}
+  return builder
 }
-func (builder *BatchCreateUserDailyShiftPathReqBodyBuilder) UserDailyShifts(userDailyShifts []*UserDailyShift) *BatchCreateUserDailyShiftPathReqBodyBuilder {
-	builder.userDailyShifts = userDailyShifts
-	builder.userDailyShiftsFlag = true
-	return builder
+func (builder * BatchCreateUserDailyShiftPathReqBodyBuilder ) UserDailyShifts(userDailyShifts []*UserDailyShift) *BatchCreateUserDailyShiftPathReqBodyBuilder {
+  builder.userDailyShifts = userDailyShifts
+  builder.userDailyShiftsFlag = true
+  return builder
 }
-func (builder *BatchCreateUserDailyShiftPathReqBodyBuilder) OperatorId(operatorId string) *BatchCreateUserDailyShiftPathReqBodyBuilder {
-	builder.operatorId = operatorId
-	builder.operatorIdFlag = true
-	return builder
-}
-
-func (builder *BatchCreateUserDailyShiftPathReqBodyBuilder) Build() (*BatchCreateUserDailyShiftReqBody, error) {
-	req := &BatchCreateUserDailyShiftReqBody{}
-	if builder.userDailyShiftsFlag {
-		req.UserDailyShifts = builder.userDailyShifts
-	}
-	if builder.operatorIdFlag {
-		req.OperatorId = &builder.operatorId
-	}
-	return req, nil
+func (builder * BatchCreateUserDailyShiftPathReqBodyBuilder ) OperatorId(operatorId string) *BatchCreateUserDailyShiftPathReqBodyBuilder {
+  builder.operatorId = operatorId
+  builder.operatorIdFlag = true
+  return builder
 }
 
+
+func (builder * BatchCreateUserDailyShiftPathReqBodyBuilder ) Build() (*BatchCreateUserDailyShiftReqBody, error) {
+   req := &BatchCreateUserDailyShiftReqBody{}
+   if builder.userDailyShiftsFlag {
+	   req.UserDailyShifts = builder.userDailyShifts
+   }
+   if builder.operatorIdFlag {
+	  req.OperatorId = &builder.operatorId
+   }
+   return req, nil
+}
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type BatchCreateUserDailyShiftReqBuilder struct {
-	employeeType     string
-	employeeTypeFlag bool
-	body             *BatchCreateUserDailyShiftReqBody
-	bodyFlag         bool
+	employeeType  string
+	employeeTypeFlag  bool
+	body *BatchCreateUserDailyShiftReqBody
+	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewBatchCreateUserDailyShiftReqBuilder() *BatchCreateUserDailyShiftReqBuilder {
-	builder := &BatchCreateUserDailyShiftReqBuilder{}
-	return builder
+func NewBatchCreateUserDailyShiftReqBuilder() * BatchCreateUserDailyShiftReqBuilder{
+   builder := &BatchCreateUserDailyShiftReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *BatchCreateUserDailyShiftReqBuilder) EmployeeType(employeeType string) *BatchCreateUserDailyShiftReqBuilder {
-	builder.employeeType = employeeType
-	builder.employeeTypeFlag = true
-	return builder
+func (builder * BatchCreateUserDailyShiftReqBuilder) EmployeeType(employeeType string) *BatchCreateUserDailyShiftReqBuilder  {
+  builder.employeeType = employeeType
+  builder.employeeTypeFlag = true
+  return builder
 }
-func (builder *BatchCreateUserDailyShiftReqBuilder) Body(body *BatchCreateUserDailyShiftReqBody) *BatchCreateUserDailyShiftReqBuilder {
-	builder.body = body
-	builder.bodyFlag = true
-	return builder
+func (builder * BatchCreateUserDailyShiftReqBuilder) Body(body *BatchCreateUserDailyShiftReqBody) *BatchCreateUserDailyShiftReqBuilder  {
+  builder.body = body
+  builder.bodyFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *BatchCreateUserDailyShiftReqBuilder) Build() *BatchCreateUserDailyShiftReq {
-	req := &BatchCreateUserDailyShiftReq{}
-	if builder.employeeTypeFlag {
-		req.EmployeeType = &builder.employeeType
-	}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
-	return req
+func (builder * BatchCreateUserDailyShiftReqBuilder ) Build() *BatchCreateUserDailyShiftReq {
+   req := &BatchCreateUserDailyShiftReq{}
+   if builder.employeeTypeFlag {
+	  req.EmployeeType = &builder.employeeType
+   }
+   if builder.bodyFlag {
+	  req.Body = builder.body
+   }
+   return req
 }
 
 type BatchCreateUserDailyShiftReqBody struct {
-	UserDailyShifts []*UserDailyShift `json:"user_daily_shifts,omitempty"`
-	OperatorId      *string           `json:"operator_id,omitempty"`
+	UserDailyShifts  []*UserDailyShift `json:"user_daily_shifts,omitempty"`
+	OperatorId  *string `json:"operator_id,omitempty"`
 }
 
 type BatchCreateUserDailyShiftReq struct {
-	EmployeeType *string                           `query:"employee_type"`
-	Body         *BatchCreateUserDailyShiftReqBody `body:""`
+	EmployeeType  *string `query:"employee_type"`
+	Body *BatchCreateUserDailyShiftReqBody `body:""`
+
 }
 
 type BatchCreateUserDailyShiftRespData struct {
-	UserDailyShifts []*UserDailyShift `json:"user_daily_shifts,omitempty"`
+	UserDailyShifts  []*UserDailyShift `json:"user_daily_shifts,omitempty"`
 }
 
 type BatchCreateUserDailyShiftResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *BatchCreateUserDailyShiftRespData `json:"data"`
 }
 
@@ -5538,154 +5611,157 @@ func (resp *BatchCreateUserDailyShiftResp) Success() bool {
 }
 
 type QueryUserDailyShiftReqBodyBuilder struct {
-	userIds           []string
-	userIdsFlag       bool
-	checkDateFrom     int
-	checkDateFromFlag bool
-	checkDateTo       int
-	checkDateToFlag   bool
+	userIds  []string
+	userIdsFlag  bool
+	checkDateFrom  int
+	checkDateFromFlag  bool
+	checkDateTo  int
+	checkDateToFlag  bool
 }
 
 // 生成body的New构造器
-func NewQueryUserDailyShiftReqBodyBuilder() *QueryUserDailyShiftReqBodyBuilder {
-	builder := &QueryUserDailyShiftReqBodyBuilder{}
-	return builder
+func NewQueryUserDailyShiftReqBodyBuilder() * QueryUserDailyShiftReqBodyBuilder{
+  builder := &QueryUserDailyShiftReqBodyBuilder{}
+  return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder *QueryUserDailyShiftReqBodyBuilder) UserIds(userIds []string) *QueryUserDailyShiftReqBodyBuilder {
-	builder.userIds = userIds
-	builder.userIdsFlag = true
-	return builder
+func (builder * QueryUserDailyShiftReqBodyBuilder ) UserIds(userIds []string) *QueryUserDailyShiftReqBodyBuilder {
+  builder.userIds = userIds
+  builder.userIdsFlag = true
+  return builder
 }
-func (builder *QueryUserDailyShiftReqBodyBuilder) CheckDateFrom(checkDateFrom int) *QueryUserDailyShiftReqBodyBuilder {
-	builder.checkDateFrom = checkDateFrom
-	builder.checkDateFromFlag = true
-	return builder
+func (builder * QueryUserDailyShiftReqBodyBuilder ) CheckDateFrom(checkDateFrom int) *QueryUserDailyShiftReqBodyBuilder {
+  builder.checkDateFrom = checkDateFrom
+  builder.checkDateFromFlag = true
+  return builder
 }
-func (builder *QueryUserDailyShiftReqBodyBuilder) CheckDateTo(checkDateTo int) *QueryUserDailyShiftReqBodyBuilder {
-	builder.checkDateTo = checkDateTo
-	builder.checkDateToFlag = true
-	return builder
+func (builder * QueryUserDailyShiftReqBodyBuilder ) CheckDateTo(checkDateTo int) *QueryUserDailyShiftReqBodyBuilder {
+  builder.checkDateTo = checkDateTo
+  builder.checkDateToFlag = true
+  return builder
 }
 
+
 // 1.3 生成body的build方法
-func (builder *QueryUserDailyShiftReqBodyBuilder) Build() *QueryUserDailyShiftReqBody {
-	req := &QueryUserDailyShiftReqBody{}
-	if builder.userIdsFlag {
-		req.UserIds = builder.userIds
-	}
-	if builder.checkDateFromFlag {
-		req.CheckDateFrom = &builder.checkDateFrom
-	}
-	if builder.checkDateToFlag {
-		req.CheckDateTo = &builder.checkDateTo
-	}
-	return req
+func (builder * QueryUserDailyShiftReqBodyBuilder ) Build() *QueryUserDailyShiftReqBody {
+   req := &QueryUserDailyShiftReqBody{}
+   if builder.userIdsFlag {
+	  req.UserIds = builder.userIds
+   }
+   if builder.checkDateFromFlag {
+	  req.CheckDateFrom = &builder.checkDateFrom
+   }
+   if builder.checkDateToFlag {
+	  req.CheckDateTo = &builder.checkDateTo
+   }
+   return req
 }
 
 // 上传文件path开始
 type QueryUserDailyShiftPathReqBodyBuilder struct {
-	userIds           []string
-	userIdsFlag       bool
-	checkDateFrom     int
-	checkDateFromFlag bool
-	checkDateTo       int
-	checkDateToFlag   bool
+	userIds  []string
+	userIdsFlag  bool
+	checkDateFrom  int
+	checkDateFromFlag  bool
+	checkDateTo  int
+	checkDateToFlag  bool
 }
 
-func NewQueryUserDailyShiftPathReqBodyBuilder() *QueryUserDailyShiftPathReqBodyBuilder {
-	builder := &QueryUserDailyShiftPathReqBodyBuilder{}
-	return builder
+func NewQueryUserDailyShiftPathReqBodyBuilder() * QueryUserDailyShiftPathReqBodyBuilder{
+  builder := &QueryUserDailyShiftPathReqBodyBuilder{}
+  return builder
 }
-func (builder *QueryUserDailyShiftPathReqBodyBuilder) UserIds(userIds []string) *QueryUserDailyShiftPathReqBodyBuilder {
-	builder.userIds = userIds
-	builder.userIdsFlag = true
-	return builder
+func (builder * QueryUserDailyShiftPathReqBodyBuilder ) UserIds(userIds []string) *QueryUserDailyShiftPathReqBodyBuilder {
+  builder.userIds = userIds
+  builder.userIdsFlag = true
+  return builder
 }
-func (builder *QueryUserDailyShiftPathReqBodyBuilder) CheckDateFrom(checkDateFrom int) *QueryUserDailyShiftPathReqBodyBuilder {
-	builder.checkDateFrom = checkDateFrom
-	builder.checkDateFromFlag = true
-	return builder
+func (builder * QueryUserDailyShiftPathReqBodyBuilder ) CheckDateFrom(checkDateFrom int) *QueryUserDailyShiftPathReqBodyBuilder {
+  builder.checkDateFrom = checkDateFrom
+  builder.checkDateFromFlag = true
+  return builder
 }
-func (builder *QueryUserDailyShiftPathReqBodyBuilder) CheckDateTo(checkDateTo int) *QueryUserDailyShiftPathReqBodyBuilder {
-	builder.checkDateTo = checkDateTo
-	builder.checkDateToFlag = true
-	return builder
-}
-
-func (builder *QueryUserDailyShiftPathReqBodyBuilder) Build() (*QueryUserDailyShiftReqBody, error) {
-	req := &QueryUserDailyShiftReqBody{}
-	if builder.userIdsFlag {
-		req.UserIds = builder.userIds
-	}
-	if builder.checkDateFromFlag {
-		req.CheckDateFrom = &builder.checkDateFrom
-	}
-	if builder.checkDateToFlag {
-		req.CheckDateTo = &builder.checkDateTo
-	}
-	return req, nil
+func (builder * QueryUserDailyShiftPathReqBodyBuilder ) CheckDateTo(checkDateTo int) *QueryUserDailyShiftPathReqBodyBuilder {
+  builder.checkDateTo = checkDateTo
+  builder.checkDateToFlag = true
+  return builder
 }
 
+
+func (builder * QueryUserDailyShiftPathReqBodyBuilder ) Build() (*QueryUserDailyShiftReqBody, error) {
+   req := &QueryUserDailyShiftReqBody{}
+   if builder.userIdsFlag {
+	   req.UserIds = builder.userIds
+   }
+   if builder.checkDateFromFlag {
+	  req.CheckDateFrom = &builder.checkDateFrom
+   }
+   if builder.checkDateToFlag {
+	  req.CheckDateTo = &builder.checkDateTo
+   }
+   return req, nil
+}
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type QueryUserDailyShiftReqBuilder struct {
-	employeeType     string
-	employeeTypeFlag bool
-	body             *QueryUserDailyShiftReqBody
-	bodyFlag         bool
+	employeeType  string
+	employeeTypeFlag  bool
+	body *QueryUserDailyShiftReqBody
+	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewQueryUserDailyShiftReqBuilder() *QueryUserDailyShiftReqBuilder {
-	builder := &QueryUserDailyShiftReqBuilder{}
-	return builder
+func NewQueryUserDailyShiftReqBuilder() * QueryUserDailyShiftReqBuilder{
+   builder := &QueryUserDailyShiftReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *QueryUserDailyShiftReqBuilder) EmployeeType(employeeType string) *QueryUserDailyShiftReqBuilder {
-	builder.employeeType = employeeType
-	builder.employeeTypeFlag = true
-	return builder
+func (builder * QueryUserDailyShiftReqBuilder) EmployeeType(employeeType string) *QueryUserDailyShiftReqBuilder  {
+  builder.employeeType = employeeType
+  builder.employeeTypeFlag = true
+  return builder
 }
-func (builder *QueryUserDailyShiftReqBuilder) Body(body *QueryUserDailyShiftReqBody) *QueryUserDailyShiftReqBuilder {
-	builder.body = body
-	builder.bodyFlag = true
-	return builder
+func (builder * QueryUserDailyShiftReqBuilder) Body(body *QueryUserDailyShiftReqBody) *QueryUserDailyShiftReqBuilder  {
+  builder.body = body
+  builder.bodyFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *QueryUserDailyShiftReqBuilder) Build() *QueryUserDailyShiftReq {
-	req := &QueryUserDailyShiftReq{}
-	if builder.employeeTypeFlag {
-		req.EmployeeType = &builder.employeeType
-	}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
-	return req
+func (builder * QueryUserDailyShiftReqBuilder ) Build() *QueryUserDailyShiftReq {
+   req := &QueryUserDailyShiftReq{}
+   if builder.employeeTypeFlag {
+	  req.EmployeeType = &builder.employeeType
+   }
+   if builder.bodyFlag {
+	  req.Body = builder.body
+   }
+   return req
 }
 
 type QueryUserDailyShiftReqBody struct {
-	UserIds       []string `json:"user_ids,omitempty"`
-	CheckDateFrom *int     `json:"check_date_from,omitempty"`
-	CheckDateTo   *int     `json:"check_date_to,omitempty"`
+	UserIds  []string `json:"user_ids,omitempty"`
+	CheckDateFrom  *int `json:"check_date_from,omitempty"`
+	CheckDateTo  *int `json:"check_date_to,omitempty"`
 }
 
 type QueryUserDailyShiftReq struct {
-	EmployeeType *string                     `query:"employee_type"`
-	Body         *QueryUserDailyShiftReqBody `body:""`
+	EmployeeType  *string `query:"employee_type"`
+	Body *QueryUserDailyShiftReqBody `body:""`
+
 }
 
 type QueryUserDailyShiftRespData struct {
-	UserDailyShifts []*UserDailyShift `json:"user_daily_shifts,omitempty"`
+	UserDailyShifts  []*UserDailyShift `json:"user_daily_shifts,omitempty"`
 }
 
 type QueryUserDailyShiftResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *QueryUserDailyShiftRespData `json:"data"`
 }
 
@@ -5694,112 +5770,115 @@ func (resp *QueryUserDailyShiftResp) Success() bool {
 }
 
 type BatchCreateUserFlowReqBodyBuilder struct {
-	flowRecords     []*UserFlow
-	flowRecordsFlag bool
+	flowRecords  []*UserFlow
+	flowRecordsFlag  bool
 }
 
 // 生成body的New构造器
-func NewBatchCreateUserFlowReqBodyBuilder() *BatchCreateUserFlowReqBodyBuilder {
-	builder := &BatchCreateUserFlowReqBodyBuilder{}
-	return builder
+func NewBatchCreateUserFlowReqBodyBuilder() * BatchCreateUserFlowReqBodyBuilder{
+  builder := &BatchCreateUserFlowReqBodyBuilder{}
+  return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder *BatchCreateUserFlowReqBodyBuilder) FlowRecords(flowRecords []*UserFlow) *BatchCreateUserFlowReqBodyBuilder {
-	builder.flowRecords = flowRecords
-	builder.flowRecordsFlag = true
-	return builder
+func (builder * BatchCreateUserFlowReqBodyBuilder ) FlowRecords(flowRecords []*UserFlow) *BatchCreateUserFlowReqBodyBuilder {
+  builder.flowRecords = flowRecords
+  builder.flowRecordsFlag = true
+  return builder
 }
 
+
 // 1.3 生成body的build方法
-func (builder *BatchCreateUserFlowReqBodyBuilder) Build() *BatchCreateUserFlowReqBody {
-	req := &BatchCreateUserFlowReqBody{}
-	if builder.flowRecordsFlag {
-		req.FlowRecords = builder.flowRecords
-	}
-	return req
+func (builder * BatchCreateUserFlowReqBodyBuilder ) Build() *BatchCreateUserFlowReqBody {
+   req := &BatchCreateUserFlowReqBody{}
+   if builder.flowRecordsFlag {
+	  req.FlowRecords = builder.flowRecords
+   }
+   return req
 }
 
 // 上传文件path开始
 type BatchCreateUserFlowPathReqBodyBuilder struct {
-	flowRecords     []*UserFlow
-	flowRecordsFlag bool
+	flowRecords  []*UserFlow
+	flowRecordsFlag  bool
 }
 
-func NewBatchCreateUserFlowPathReqBodyBuilder() *BatchCreateUserFlowPathReqBodyBuilder {
-	builder := &BatchCreateUserFlowPathReqBodyBuilder{}
-	return builder
+func NewBatchCreateUserFlowPathReqBodyBuilder() * BatchCreateUserFlowPathReqBodyBuilder{
+  builder := &BatchCreateUserFlowPathReqBodyBuilder{}
+  return builder
 }
-func (builder *BatchCreateUserFlowPathReqBodyBuilder) FlowRecords(flowRecords []*UserFlow) *BatchCreateUserFlowPathReqBodyBuilder {
-	builder.flowRecords = flowRecords
-	builder.flowRecordsFlag = true
-	return builder
-}
-
-func (builder *BatchCreateUserFlowPathReqBodyBuilder) Build() (*BatchCreateUserFlowReqBody, error) {
-	req := &BatchCreateUserFlowReqBody{}
-	if builder.flowRecordsFlag {
-		req.FlowRecords = builder.flowRecords
-	}
-	return req, nil
+func (builder * BatchCreateUserFlowPathReqBodyBuilder ) FlowRecords(flowRecords []*UserFlow) *BatchCreateUserFlowPathReqBodyBuilder {
+  builder.flowRecords = flowRecords
+  builder.flowRecordsFlag = true
+  return builder
 }
 
+
+func (builder * BatchCreateUserFlowPathReqBodyBuilder ) Build() (*BatchCreateUserFlowReqBody, error) {
+   req := &BatchCreateUserFlowReqBody{}
+   if builder.flowRecordsFlag {
+	   req.FlowRecords = builder.flowRecords
+   }
+   return req, nil
+}
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type BatchCreateUserFlowReqBuilder struct {
-	employeeType     string
-	employeeTypeFlag bool
-	body             *BatchCreateUserFlowReqBody
-	bodyFlag         bool
+	employeeType  string
+	employeeTypeFlag  bool
+	body *BatchCreateUserFlowReqBody
+	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewBatchCreateUserFlowReqBuilder() *BatchCreateUserFlowReqBuilder {
-	builder := &BatchCreateUserFlowReqBuilder{}
-	return builder
+func NewBatchCreateUserFlowReqBuilder() * BatchCreateUserFlowReqBuilder{
+   builder := &BatchCreateUserFlowReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *BatchCreateUserFlowReqBuilder) EmployeeType(employeeType string) *BatchCreateUserFlowReqBuilder {
-	builder.employeeType = employeeType
-	builder.employeeTypeFlag = true
-	return builder
+func (builder * BatchCreateUserFlowReqBuilder) EmployeeType(employeeType string) *BatchCreateUserFlowReqBuilder  {
+  builder.employeeType = employeeType
+  builder.employeeTypeFlag = true
+  return builder
 }
-func (builder *BatchCreateUserFlowReqBuilder) Body(body *BatchCreateUserFlowReqBody) *BatchCreateUserFlowReqBuilder {
-	builder.body = body
-	builder.bodyFlag = true
-	return builder
+func (builder * BatchCreateUserFlowReqBuilder) Body(body *BatchCreateUserFlowReqBody) *BatchCreateUserFlowReqBuilder  {
+  builder.body = body
+  builder.bodyFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *BatchCreateUserFlowReqBuilder) Build() *BatchCreateUserFlowReq {
-	req := &BatchCreateUserFlowReq{}
-	if builder.employeeTypeFlag {
-		req.EmployeeType = &builder.employeeType
-	}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
-	return req
+func (builder * BatchCreateUserFlowReqBuilder ) Build() *BatchCreateUserFlowReq {
+   req := &BatchCreateUserFlowReq{}
+   if builder.employeeTypeFlag {
+	  req.EmployeeType = &builder.employeeType
+   }
+   if builder.bodyFlag {
+	  req.Body = builder.body
+   }
+   return req
 }
 
 type BatchCreateUserFlowReqBody struct {
-	FlowRecords []*UserFlow `json:"flow_records,omitempty"`
+	FlowRecords  []*UserFlow `json:"flow_records,omitempty"`
 }
 
 type BatchCreateUserFlowReq struct {
-	EmployeeType *string                     `query:"employee_type"`
-	Body         *BatchCreateUserFlowReqBody `body:""`
+	EmployeeType  *string `query:"employee_type"`
+	Body *BatchCreateUserFlowReqBody `body:""`
+
 }
 
 type BatchCreateUserFlowRespData struct {
-	FlowRecords []*UserFlow `json:"flow_records,omitempty"`
+	FlowRecords  []*UserFlow `json:"flow_records,omitempty"`
 }
 
 type BatchCreateUserFlowResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *BatchCreateUserFlowRespData `json:"data"`
 }
 
@@ -5807,71 +5886,75 @@ func (resp *BatchCreateUserFlowResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type GetUserFlowReqBuilder struct {
-	userFlowId       string
-	userFlowIdFlag   bool
-	employeeType     string
-	employeeTypeFlag bool
+	userFlowId  string
+	userFlowIdFlag  bool
+	employeeType  string
+	employeeTypeFlag  bool
+
 }
 
 // 生成请求的New构造器
-func NewGetUserFlowReqBuilder() *GetUserFlowReqBuilder {
-	builder := &GetUserFlowReqBuilder{}
-	return builder
+func NewGetUserFlowReqBuilder() * GetUserFlowReqBuilder{
+   builder := &GetUserFlowReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *GetUserFlowReqBuilder) UserFlowId(userFlowId string) *GetUserFlowReqBuilder {
-	builder.userFlowId = userFlowId
-	builder.userFlowIdFlag = true
-	return builder
+func (builder * GetUserFlowReqBuilder) UserFlowId(userFlowId string) *GetUserFlowReqBuilder  {
+  builder.userFlowId = userFlowId
+  builder.userFlowIdFlag = true
+  return builder
 }
-func (builder *GetUserFlowReqBuilder) EmployeeType(employeeType string) *GetUserFlowReqBuilder {
-	builder.employeeType = employeeType
-	builder.employeeTypeFlag = true
-	return builder
+func (builder * GetUserFlowReqBuilder) EmployeeType(employeeType string) *GetUserFlowReqBuilder  {
+  builder.employeeType = employeeType
+  builder.employeeTypeFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *GetUserFlowReqBuilder) Build() *GetUserFlowReq {
-	req := &GetUserFlowReq{}
-	if builder.userFlowIdFlag {
-		req.UserFlowId = builder.userFlowId
-	}
-	if builder.employeeTypeFlag {
-		req.EmployeeType = &builder.employeeType
-	}
-	return req
+func (builder * GetUserFlowReqBuilder ) Build() *GetUserFlowReq {
+   req := &GetUserFlowReq{}
+   if builder.userFlowIdFlag {
+	  req.UserFlowId = builder.userFlowId
+   }
+   if builder.employeeTypeFlag {
+	  req.EmployeeType = &builder.employeeType
+   }
+   return req
 }
 
+
 type GetUserFlowReq struct {
-	UserFlowId   string  `path:"user_flow_id"`
-	EmployeeType *string `query:"employee_type"`
+	UserFlowId  string `path:"user_flow_id"`
+	EmployeeType  *string `query:"employee_type"`
+
 }
 
 type GetUserFlowRespData struct {
-	UserId       *string  `json:"user_id,omitempty"`
-	CreatorId    *string  `json:"creator_id,omitempty"`
-	LocationName *string  `json:"location_name,omitempty"`
-	CheckTime    *string  `json:"check_time,omitempty"`
-	Comment      *string  `json:"comment,omitempty"`
-	RecordId     *string  `json:"record_id,omitempty"`
-	Longitude    *float64 `json:"longitude,omitempty"`
-	Latitude     *float64 `json:"latitude,omitempty"`
-	Ssid         *string  `json:"ssid,omitempty"`
-	Bssid        *string  `json:"bssid,omitempty"`
-	IsField      *bool    `json:"is_field,omitempty"`
-	IsWifi       *bool    `json:"is_wifi,omitempty"`
-	Type         *int     `json:"type,omitempty"`
-	PhotoUrls    []string `json:"photo_urls,omitempty"`
-	DeviceId     *string  `json:"device_id,omitempty"`
-	CheckResult  *string  `json:"check_result,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
+	CreatorId  *string `json:"creator_id,omitempty"`
+	LocationName  *string `json:"location_name,omitempty"`
+	CheckTime  *string `json:"check_time,omitempty"`
+	Comment  *string `json:"comment,omitempty"`
+	RecordId  *string `json:"record_id,omitempty"`
+	Longitude  *float64 `json:"longitude,omitempty"`
+	Latitude  *float64 `json:"latitude,omitempty"`
+	Ssid  *string `json:"ssid,omitempty"`
+	Bssid  *string `json:"bssid,omitempty"`
+	IsField  *bool `json:"is_field,omitempty"`
+	IsWifi  *bool `json:"is_wifi,omitempty"`
+	Type  *int `json:"type,omitempty"`
+	PhotoUrls  []string `json:"photo_urls,omitempty"`
+	DeviceId  *string `json:"device_id,omitempty"`
+	CheckResult  *string `json:"check_result,omitempty"`
 }
 
 type GetUserFlowResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *GetUserFlowRespData `json:"data"`
 }
 
@@ -5880,165 +5963,168 @@ func (resp *GetUserFlowResp) Success() bool {
 }
 
 type QueryUserFlowReqBodyBuilder struct {
-	userIds           []string
-	userIdsFlag       bool
-	checkTimeFrom     string
-	checkTimeFromFlag bool
-	checkTimeTo       string
-	checkTimeToFlag   bool
+	userIds  []string
+	userIdsFlag  bool
+	checkTimeFrom  string
+	checkTimeFromFlag  bool
+	checkTimeTo  string
+	checkTimeToFlag  bool
 }
 
 // 生成body的New构造器
-func NewQueryUserFlowReqBodyBuilder() *QueryUserFlowReqBodyBuilder {
-	builder := &QueryUserFlowReqBodyBuilder{}
-	return builder
+func NewQueryUserFlowReqBodyBuilder() * QueryUserFlowReqBodyBuilder{
+  builder := &QueryUserFlowReqBodyBuilder{}
+  return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder *QueryUserFlowReqBodyBuilder) UserIds(userIds []string) *QueryUserFlowReqBodyBuilder {
-	builder.userIds = userIds
-	builder.userIdsFlag = true
-	return builder
+func (builder * QueryUserFlowReqBodyBuilder ) UserIds(userIds []string) *QueryUserFlowReqBodyBuilder {
+  builder.userIds = userIds
+  builder.userIdsFlag = true
+  return builder
 }
-func (builder *QueryUserFlowReqBodyBuilder) CheckTimeFrom(checkTimeFrom string) *QueryUserFlowReqBodyBuilder {
-	builder.checkTimeFrom = checkTimeFrom
-	builder.checkTimeFromFlag = true
-	return builder
+func (builder * QueryUserFlowReqBodyBuilder ) CheckTimeFrom(checkTimeFrom string) *QueryUserFlowReqBodyBuilder {
+  builder.checkTimeFrom = checkTimeFrom
+  builder.checkTimeFromFlag = true
+  return builder
 }
-func (builder *QueryUserFlowReqBodyBuilder) CheckTimeTo(checkTimeTo string) *QueryUserFlowReqBodyBuilder {
-	builder.checkTimeTo = checkTimeTo
-	builder.checkTimeToFlag = true
-	return builder
+func (builder * QueryUserFlowReqBodyBuilder ) CheckTimeTo(checkTimeTo string) *QueryUserFlowReqBodyBuilder {
+  builder.checkTimeTo = checkTimeTo
+  builder.checkTimeToFlag = true
+  return builder
 }
 
+
 // 1.3 生成body的build方法
-func (builder *QueryUserFlowReqBodyBuilder) Build() *QueryUserFlowReqBody {
-	req := &QueryUserFlowReqBody{}
-	if builder.userIdsFlag {
-		req.UserIds = builder.userIds
-	}
-	if builder.checkTimeFromFlag {
-		req.CheckTimeFrom = &builder.checkTimeFrom
-	}
-	if builder.checkTimeToFlag {
-		req.CheckTimeTo = &builder.checkTimeTo
-	}
-	return req
+func (builder * QueryUserFlowReqBodyBuilder ) Build() *QueryUserFlowReqBody {
+   req := &QueryUserFlowReqBody{}
+   if builder.userIdsFlag {
+	  req.UserIds = builder.userIds
+   }
+   if builder.checkTimeFromFlag {
+	  req.CheckTimeFrom = &builder.checkTimeFrom
+   }
+   if builder.checkTimeToFlag {
+	  req.CheckTimeTo = &builder.checkTimeTo
+   }
+   return req
 }
 
 // 上传文件path开始
 type QueryUserFlowPathReqBodyBuilder struct {
-	userIds           []string
-	userIdsFlag       bool
-	checkTimeFrom     string
-	checkTimeFromFlag bool
-	checkTimeTo       string
-	checkTimeToFlag   bool
+	userIds  []string
+	userIdsFlag  bool
+	checkTimeFrom  string
+	checkTimeFromFlag  bool
+	checkTimeTo  string
+	checkTimeToFlag  bool
 }
 
-func NewQueryUserFlowPathReqBodyBuilder() *QueryUserFlowPathReqBodyBuilder {
-	builder := &QueryUserFlowPathReqBodyBuilder{}
-	return builder
+func NewQueryUserFlowPathReqBodyBuilder() * QueryUserFlowPathReqBodyBuilder{
+  builder := &QueryUserFlowPathReqBodyBuilder{}
+  return builder
 }
-func (builder *QueryUserFlowPathReqBodyBuilder) UserIds(userIds []string) *QueryUserFlowPathReqBodyBuilder {
-	builder.userIds = userIds
-	builder.userIdsFlag = true
-	return builder
+func (builder * QueryUserFlowPathReqBodyBuilder ) UserIds(userIds []string) *QueryUserFlowPathReqBodyBuilder {
+  builder.userIds = userIds
+  builder.userIdsFlag = true
+  return builder
 }
-func (builder *QueryUserFlowPathReqBodyBuilder) CheckTimeFrom(checkTimeFrom string) *QueryUserFlowPathReqBodyBuilder {
-	builder.checkTimeFrom = checkTimeFrom
-	builder.checkTimeFromFlag = true
-	return builder
+func (builder * QueryUserFlowPathReqBodyBuilder ) CheckTimeFrom(checkTimeFrom string) *QueryUserFlowPathReqBodyBuilder {
+  builder.checkTimeFrom = checkTimeFrom
+  builder.checkTimeFromFlag = true
+  return builder
 }
-func (builder *QueryUserFlowPathReqBodyBuilder) CheckTimeTo(checkTimeTo string) *QueryUserFlowPathReqBodyBuilder {
-	builder.checkTimeTo = checkTimeTo
-	builder.checkTimeToFlag = true
-	return builder
-}
-
-func (builder *QueryUserFlowPathReqBodyBuilder) Build() (*QueryUserFlowReqBody, error) {
-	req := &QueryUserFlowReqBody{}
-	if builder.userIdsFlag {
-		req.UserIds = builder.userIds
-	}
-	if builder.checkTimeFromFlag {
-		req.CheckTimeFrom = &builder.checkTimeFrom
-	}
-	if builder.checkTimeToFlag {
-		req.CheckTimeTo = &builder.checkTimeTo
-	}
-	return req, nil
+func (builder * QueryUserFlowPathReqBodyBuilder ) CheckTimeTo(checkTimeTo string) *QueryUserFlowPathReqBodyBuilder {
+  builder.checkTimeTo = checkTimeTo
+  builder.checkTimeToFlag = true
+  return builder
 }
 
+
+func (builder * QueryUserFlowPathReqBodyBuilder ) Build() (*QueryUserFlowReqBody, error) {
+   req := &QueryUserFlowReqBody{}
+   if builder.userIdsFlag {
+	   req.UserIds = builder.userIds
+   }
+   if builder.checkTimeFromFlag {
+	  req.CheckTimeFrom = &builder.checkTimeFrom
+   }
+   if builder.checkTimeToFlag {
+	  req.CheckTimeTo = &builder.checkTimeTo
+   }
+   return req, nil
+}
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type QueryUserFlowReqBuilder struct {
-	employeeType              string
-	employeeTypeFlag          bool
-	includeTerminatedUser     bool
-	includeTerminatedUserFlag bool
-	body                      *QueryUserFlowReqBody
-	bodyFlag                  bool
+	employeeType  string
+	employeeTypeFlag  bool
+	includeTerminatedUser  bool
+	includeTerminatedUserFlag  bool
+	body *QueryUserFlowReqBody
+	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewQueryUserFlowReqBuilder() *QueryUserFlowReqBuilder {
-	builder := &QueryUserFlowReqBuilder{}
-	return builder
+func NewQueryUserFlowReqBuilder() * QueryUserFlowReqBuilder{
+   builder := &QueryUserFlowReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *QueryUserFlowReqBuilder) EmployeeType(employeeType string) *QueryUserFlowReqBuilder {
-	builder.employeeType = employeeType
-	builder.employeeTypeFlag = true
-	return builder
+func (builder * QueryUserFlowReqBuilder) EmployeeType(employeeType string) *QueryUserFlowReqBuilder  {
+  builder.employeeType = employeeType
+  builder.employeeTypeFlag = true
+  return builder
 }
-func (builder *QueryUserFlowReqBuilder) IncludeTerminatedUser(includeTerminatedUser bool) *QueryUserFlowReqBuilder {
-	builder.includeTerminatedUser = includeTerminatedUser
-	builder.includeTerminatedUserFlag = true
-	return builder
+func (builder * QueryUserFlowReqBuilder) IncludeTerminatedUser(includeTerminatedUser bool) *QueryUserFlowReqBuilder  {
+  builder.includeTerminatedUser = includeTerminatedUser
+  builder.includeTerminatedUserFlag = true
+  return builder
 }
-func (builder *QueryUserFlowReqBuilder) Body(body *QueryUserFlowReqBody) *QueryUserFlowReqBuilder {
-	builder.body = body
-	builder.bodyFlag = true
-	return builder
+func (builder * QueryUserFlowReqBuilder) Body(body *QueryUserFlowReqBody) *QueryUserFlowReqBuilder  {
+  builder.body = body
+  builder.bodyFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *QueryUserFlowReqBuilder) Build() *QueryUserFlowReq {
-	req := &QueryUserFlowReq{}
-	if builder.employeeTypeFlag {
-		req.EmployeeType = &builder.employeeType
-	}
-	if builder.includeTerminatedUserFlag {
-		req.IncludeTerminatedUser = &builder.includeTerminatedUser
-	}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
-	return req
+func (builder * QueryUserFlowReqBuilder ) Build() *QueryUserFlowReq {
+   req := &QueryUserFlowReq{}
+   if builder.employeeTypeFlag {
+	  req.EmployeeType = &builder.employeeType
+   }
+   if builder.includeTerminatedUserFlag {
+	  req.IncludeTerminatedUser = &builder.includeTerminatedUser
+   }
+   if builder.bodyFlag {
+	  req.Body = builder.body
+   }
+   return req
 }
 
 type QueryUserFlowReqBody struct {
-	UserIds       []string `json:"user_ids,omitempty"`
-	CheckTimeFrom *string  `json:"check_time_from,omitempty"`
-	CheckTimeTo   *string  `json:"check_time_to,omitempty"`
+	UserIds  []string `json:"user_ids,omitempty"`
+	CheckTimeFrom  *string `json:"check_time_from,omitempty"`
+	CheckTimeTo  *string `json:"check_time_to,omitempty"`
 }
 
 type QueryUserFlowReq struct {
-	EmployeeType          *string               `query:"employee_type"`
-	IncludeTerminatedUser *bool                 `query:"include_terminated_user"`
-	Body                  *QueryUserFlowReqBody `body:""`
+	EmployeeType  *string `query:"employee_type"`
+	IncludeTerminatedUser  *bool `query:"include_terminated_user"`
+	Body *QueryUserFlowReqBody `body:""`
+
 }
 
 type QueryUserFlowRespData struct {
-	UserFlowResults []*UserFlow `json:"user_flow_results,omitempty"`
+	UserFlowResults  []*UserFlow `json:"user_flow_results,omitempty"`
 }
 
 type QueryUserFlowResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *QueryUserFlowRespData `json:"data"`
 }
 
@@ -6047,112 +6133,115 @@ func (resp *QueryUserFlowResp) Success() bool {
 }
 
 type ModifyUserSettingReqBodyBuilder struct {
-	userSetting     *UserSetting
-	userSettingFlag bool
+	userSetting  *UserSetting
+	userSettingFlag  bool
 }
 
 // 生成body的New构造器
-func NewModifyUserSettingReqBodyBuilder() *ModifyUserSettingReqBodyBuilder {
-	builder := &ModifyUserSettingReqBodyBuilder{}
-	return builder
+func NewModifyUserSettingReqBodyBuilder() * ModifyUserSettingReqBodyBuilder{
+  builder := &ModifyUserSettingReqBodyBuilder{}
+  return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder *ModifyUserSettingReqBodyBuilder) UserSetting(userSetting *UserSetting) *ModifyUserSettingReqBodyBuilder {
-	builder.userSetting = userSetting
-	builder.userSettingFlag = true
-	return builder
+func (builder * ModifyUserSettingReqBodyBuilder ) UserSetting(userSetting *UserSetting) *ModifyUserSettingReqBodyBuilder {
+  builder.userSetting = userSetting
+  builder.userSettingFlag = true
+  return builder
 }
 
+
 // 1.3 生成body的build方法
-func (builder *ModifyUserSettingReqBodyBuilder) Build() *ModifyUserSettingReqBody {
-	req := &ModifyUserSettingReqBody{}
-	if builder.userSettingFlag {
-		req.UserSetting = builder.userSetting
-	}
-	return req
+func (builder * ModifyUserSettingReqBodyBuilder ) Build() *ModifyUserSettingReqBody {
+   req := &ModifyUserSettingReqBody{}
+   if builder.userSettingFlag {
+	  req.UserSetting = builder.userSetting
+   }
+   return req
 }
 
 // 上传文件path开始
 type ModifyUserSettingPathReqBodyBuilder struct {
-	userSetting     *UserSetting
-	userSettingFlag bool
+	userSetting  *UserSetting
+	userSettingFlag  bool
 }
 
-func NewModifyUserSettingPathReqBodyBuilder() *ModifyUserSettingPathReqBodyBuilder {
-	builder := &ModifyUserSettingPathReqBodyBuilder{}
-	return builder
+func NewModifyUserSettingPathReqBodyBuilder() * ModifyUserSettingPathReqBodyBuilder{
+  builder := &ModifyUserSettingPathReqBodyBuilder{}
+  return builder
 }
-func (builder *ModifyUserSettingPathReqBodyBuilder) UserSetting(userSetting *UserSetting) *ModifyUserSettingPathReqBodyBuilder {
-	builder.userSetting = userSetting
-	builder.userSettingFlag = true
-	return builder
-}
-
-func (builder *ModifyUserSettingPathReqBodyBuilder) Build() (*ModifyUserSettingReqBody, error) {
-	req := &ModifyUserSettingReqBody{}
-	if builder.userSettingFlag {
-		req.UserSetting = builder.userSetting
-	}
-	return req, nil
+func (builder * ModifyUserSettingPathReqBodyBuilder ) UserSetting(userSetting *UserSetting) *ModifyUserSettingPathReqBodyBuilder {
+  builder.userSetting = userSetting
+  builder.userSettingFlag = true
+  return builder
 }
 
+
+func (builder * ModifyUserSettingPathReqBodyBuilder ) Build() (*ModifyUserSettingReqBody, error) {
+   req := &ModifyUserSettingReqBody{}
+   if builder.userSettingFlag {
+	   req.UserSetting = builder.userSetting
+   }
+   return req, nil
+}
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type ModifyUserSettingReqBuilder struct {
-	employeeType     string
-	employeeTypeFlag bool
-	body             *ModifyUserSettingReqBody
-	bodyFlag         bool
+	employeeType  string
+	employeeTypeFlag  bool
+	body *ModifyUserSettingReqBody
+	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewModifyUserSettingReqBuilder() *ModifyUserSettingReqBuilder {
-	builder := &ModifyUserSettingReqBuilder{}
-	return builder
+func NewModifyUserSettingReqBuilder() * ModifyUserSettingReqBuilder{
+   builder := &ModifyUserSettingReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *ModifyUserSettingReqBuilder) EmployeeType(employeeType string) *ModifyUserSettingReqBuilder {
-	builder.employeeType = employeeType
-	builder.employeeTypeFlag = true
-	return builder
+func (builder * ModifyUserSettingReqBuilder) EmployeeType(employeeType string) *ModifyUserSettingReqBuilder  {
+  builder.employeeType = employeeType
+  builder.employeeTypeFlag = true
+  return builder
 }
-func (builder *ModifyUserSettingReqBuilder) Body(body *ModifyUserSettingReqBody) *ModifyUserSettingReqBuilder {
-	builder.body = body
-	builder.bodyFlag = true
-	return builder
+func (builder * ModifyUserSettingReqBuilder) Body(body *ModifyUserSettingReqBody) *ModifyUserSettingReqBuilder  {
+  builder.body = body
+  builder.bodyFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *ModifyUserSettingReqBuilder) Build() *ModifyUserSettingReq {
-	req := &ModifyUserSettingReq{}
-	if builder.employeeTypeFlag {
-		req.EmployeeType = &builder.employeeType
-	}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
-	return req
+func (builder * ModifyUserSettingReqBuilder ) Build() *ModifyUserSettingReq {
+   req := &ModifyUserSettingReq{}
+   if builder.employeeTypeFlag {
+	  req.EmployeeType = &builder.employeeType
+   }
+   if builder.bodyFlag {
+	  req.Body = builder.body
+   }
+   return req
 }
 
 type ModifyUserSettingReqBody struct {
-	UserSetting *UserSetting `json:"user_setting,omitempty"`
+	UserSetting  *UserSetting `json:"user_setting,omitempty"`
 }
 
 type ModifyUserSettingReq struct {
-	EmployeeType *string                   `query:"employee_type"`
-	Body         *ModifyUserSettingReqBody `body:""`
+	EmployeeType  *string `query:"employee_type"`
+	Body *ModifyUserSettingReqBody `body:""`
+
 }
 
 type ModifyUserSettingRespData struct {
-	UserSetting *UserSetting `json:"user_setting,omitempty"`
+	UserSetting  *UserSetting `json:"user_setting,omitempty"`
 }
 
 type ModifyUserSettingResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *ModifyUserSettingRespData `json:"data"`
 }
 
@@ -6161,112 +6250,115 @@ func (resp *ModifyUserSettingResp) Success() bool {
 }
 
 type QueryUserSettingReqBodyBuilder struct {
-	userIds     []string
-	userIdsFlag bool
+	userIds  []string
+	userIdsFlag  bool
 }
 
 // 生成body的New构造器
-func NewQueryUserSettingReqBodyBuilder() *QueryUserSettingReqBodyBuilder {
-	builder := &QueryUserSettingReqBodyBuilder{}
-	return builder
+func NewQueryUserSettingReqBodyBuilder() * QueryUserSettingReqBodyBuilder{
+  builder := &QueryUserSettingReqBodyBuilder{}
+  return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder *QueryUserSettingReqBodyBuilder) UserIds(userIds []string) *QueryUserSettingReqBodyBuilder {
-	builder.userIds = userIds
-	builder.userIdsFlag = true
-	return builder
+func (builder * QueryUserSettingReqBodyBuilder ) UserIds(userIds []string) *QueryUserSettingReqBodyBuilder {
+  builder.userIds = userIds
+  builder.userIdsFlag = true
+  return builder
 }
 
+
 // 1.3 生成body的build方法
-func (builder *QueryUserSettingReqBodyBuilder) Build() *QueryUserSettingReqBody {
-	req := &QueryUserSettingReqBody{}
-	if builder.userIdsFlag {
-		req.UserIds = builder.userIds
-	}
-	return req
+func (builder * QueryUserSettingReqBodyBuilder ) Build() *QueryUserSettingReqBody {
+   req := &QueryUserSettingReqBody{}
+   if builder.userIdsFlag {
+	  req.UserIds = builder.userIds
+   }
+   return req
 }
 
 // 上传文件path开始
 type QueryUserSettingPathReqBodyBuilder struct {
-	userIds     []string
-	userIdsFlag bool
+	userIds  []string
+	userIdsFlag  bool
 }
 
-func NewQueryUserSettingPathReqBodyBuilder() *QueryUserSettingPathReqBodyBuilder {
-	builder := &QueryUserSettingPathReqBodyBuilder{}
-	return builder
+func NewQueryUserSettingPathReqBodyBuilder() * QueryUserSettingPathReqBodyBuilder{
+  builder := &QueryUserSettingPathReqBodyBuilder{}
+  return builder
 }
-func (builder *QueryUserSettingPathReqBodyBuilder) UserIds(userIds []string) *QueryUserSettingPathReqBodyBuilder {
-	builder.userIds = userIds
-	builder.userIdsFlag = true
-	return builder
-}
-
-func (builder *QueryUserSettingPathReqBodyBuilder) Build() (*QueryUserSettingReqBody, error) {
-	req := &QueryUserSettingReqBody{}
-	if builder.userIdsFlag {
-		req.UserIds = builder.userIds
-	}
-	return req, nil
+func (builder * QueryUserSettingPathReqBodyBuilder ) UserIds(userIds []string) *QueryUserSettingPathReqBodyBuilder {
+  builder.userIds = userIds
+  builder.userIdsFlag = true
+  return builder
 }
 
+
+func (builder * QueryUserSettingPathReqBodyBuilder ) Build() (*QueryUserSettingReqBody, error) {
+   req := &QueryUserSettingReqBody{}
+   if builder.userIdsFlag {
+	   req.UserIds = builder.userIds
+   }
+   return req, nil
+}
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type QueryUserSettingReqBuilder struct {
-	employeeType     string
-	employeeTypeFlag bool
-	body             *QueryUserSettingReqBody
-	bodyFlag         bool
+	employeeType  string
+	employeeTypeFlag  bool
+	body *QueryUserSettingReqBody
+	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewQueryUserSettingReqBuilder() *QueryUserSettingReqBuilder {
-	builder := &QueryUserSettingReqBuilder{}
-	return builder
+func NewQueryUserSettingReqBuilder() * QueryUserSettingReqBuilder{
+   builder := &QueryUserSettingReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *QueryUserSettingReqBuilder) EmployeeType(employeeType string) *QueryUserSettingReqBuilder {
-	builder.employeeType = employeeType
-	builder.employeeTypeFlag = true
-	return builder
+func (builder * QueryUserSettingReqBuilder) EmployeeType(employeeType string) *QueryUserSettingReqBuilder  {
+  builder.employeeType = employeeType
+  builder.employeeTypeFlag = true
+  return builder
 }
-func (builder *QueryUserSettingReqBuilder) Body(body *QueryUserSettingReqBody) *QueryUserSettingReqBuilder {
-	builder.body = body
-	builder.bodyFlag = true
-	return builder
+func (builder * QueryUserSettingReqBuilder) Body(body *QueryUserSettingReqBody) *QueryUserSettingReqBuilder  {
+  builder.body = body
+  builder.bodyFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *QueryUserSettingReqBuilder) Build() *QueryUserSettingReq {
-	req := &QueryUserSettingReq{}
-	if builder.employeeTypeFlag {
-		req.EmployeeType = &builder.employeeType
-	}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
-	return req
+func (builder * QueryUserSettingReqBuilder ) Build() *QueryUserSettingReq {
+   req := &QueryUserSettingReq{}
+   if builder.employeeTypeFlag {
+	  req.EmployeeType = &builder.employeeType
+   }
+   if builder.bodyFlag {
+	  req.Body = builder.body
+   }
+   return req
 }
 
 type QueryUserSettingReqBody struct {
-	UserIds []string `json:"user_ids,omitempty"`
+	UserIds  []string `json:"user_ids,omitempty"`
 }
 
 type QueryUserSettingReq struct {
-	EmployeeType *string                  `query:"employee_type"`
-	Body         *QueryUserSettingReqBody `body:""`
+	EmployeeType  *string `query:"employee_type"`
+	Body *QueryUserSettingReqBody `body:""`
+
 }
 
 type QueryUserSettingRespData struct {
-	UserSettings []*UserSetting `json:"user_settings,omitempty"`
+	UserSettings  []*UserSetting `json:"user_settings,omitempty"`
 }
 
 type QueryUserSettingResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *QueryUserSettingRespData `json:"data"`
 }
 
@@ -6275,259 +6367,262 @@ func (resp *QueryUserSettingResp) Success() bool {
 }
 
 type QueryUserStatsDataReqBodyBuilder struct {
-	locale               string
-	localeFlag           bool
-	statsType            string
-	statsTypeFlag        bool
-	startDate            int
-	startDateFlag        bool
-	endDate              int
-	endDateFlag          bool
-	userIds              []string
-	userIdsFlag          bool
-	needHistory          bool
-	needHistoryFlag      bool
-	currentGroupOnly     bool
-	currentGroupOnlyFlag bool
-	userId               string
-	userIdFlag           bool
+	locale  string
+	localeFlag  bool
+	statsType  string
+	statsTypeFlag  bool
+	startDate  int
+	startDateFlag  bool
+	endDate  int
+	endDateFlag  bool
+	userIds  []string
+	userIdsFlag  bool
+	needHistory  bool
+	needHistoryFlag  bool
+	currentGroupOnly  bool
+	currentGroupOnlyFlag  bool
+	userId  string
+	userIdFlag  bool
 }
 
 // 生成body的New构造器
-func NewQueryUserStatsDataReqBodyBuilder() *QueryUserStatsDataReqBodyBuilder {
-	builder := &QueryUserStatsDataReqBodyBuilder{}
-	return builder
+func NewQueryUserStatsDataReqBodyBuilder() * QueryUserStatsDataReqBodyBuilder{
+  builder := &QueryUserStatsDataReqBodyBuilder{}
+  return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder *QueryUserStatsDataReqBodyBuilder) Locale(locale string) *QueryUserStatsDataReqBodyBuilder {
-	builder.locale = locale
-	builder.localeFlag = true
-	return builder
+func (builder * QueryUserStatsDataReqBodyBuilder ) Locale(locale string) *QueryUserStatsDataReqBodyBuilder {
+  builder.locale = locale
+  builder.localeFlag = true
+  return builder
 }
-func (builder *QueryUserStatsDataReqBodyBuilder) StatsType(statsType string) *QueryUserStatsDataReqBodyBuilder {
-	builder.statsType = statsType
-	builder.statsTypeFlag = true
-	return builder
+func (builder * QueryUserStatsDataReqBodyBuilder ) StatsType(statsType string) *QueryUserStatsDataReqBodyBuilder {
+  builder.statsType = statsType
+  builder.statsTypeFlag = true
+  return builder
 }
-func (builder *QueryUserStatsDataReqBodyBuilder) StartDate(startDate int) *QueryUserStatsDataReqBodyBuilder {
-	builder.startDate = startDate
-	builder.startDateFlag = true
-	return builder
+func (builder * QueryUserStatsDataReqBodyBuilder ) StartDate(startDate int) *QueryUserStatsDataReqBodyBuilder {
+  builder.startDate = startDate
+  builder.startDateFlag = true
+  return builder
 }
-func (builder *QueryUserStatsDataReqBodyBuilder) EndDate(endDate int) *QueryUserStatsDataReqBodyBuilder {
-	builder.endDate = endDate
-	builder.endDateFlag = true
-	return builder
+func (builder * QueryUserStatsDataReqBodyBuilder ) EndDate(endDate int) *QueryUserStatsDataReqBodyBuilder {
+  builder.endDate = endDate
+  builder.endDateFlag = true
+  return builder
 }
-func (builder *QueryUserStatsDataReqBodyBuilder) UserIds(userIds []string) *QueryUserStatsDataReqBodyBuilder {
-	builder.userIds = userIds
-	builder.userIdsFlag = true
-	return builder
+func (builder * QueryUserStatsDataReqBodyBuilder ) UserIds(userIds []string) *QueryUserStatsDataReqBodyBuilder {
+  builder.userIds = userIds
+  builder.userIdsFlag = true
+  return builder
 }
-func (builder *QueryUserStatsDataReqBodyBuilder) NeedHistory(needHistory bool) *QueryUserStatsDataReqBodyBuilder {
-	builder.needHistory = needHistory
-	builder.needHistoryFlag = true
-	return builder
+func (builder * QueryUserStatsDataReqBodyBuilder ) NeedHistory(needHistory bool) *QueryUserStatsDataReqBodyBuilder {
+  builder.needHistory = needHistory
+  builder.needHistoryFlag = true
+  return builder
 }
-func (builder *QueryUserStatsDataReqBodyBuilder) CurrentGroupOnly(currentGroupOnly bool) *QueryUserStatsDataReqBodyBuilder {
-	builder.currentGroupOnly = currentGroupOnly
-	builder.currentGroupOnlyFlag = true
-	return builder
+func (builder * QueryUserStatsDataReqBodyBuilder ) CurrentGroupOnly(currentGroupOnly bool) *QueryUserStatsDataReqBodyBuilder {
+  builder.currentGroupOnly = currentGroupOnly
+  builder.currentGroupOnlyFlag = true
+  return builder
 }
-func (builder *QueryUserStatsDataReqBodyBuilder) UserId(userId string) *QueryUserStatsDataReqBodyBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
+func (builder * QueryUserStatsDataReqBodyBuilder ) UserId(userId string) *QueryUserStatsDataReqBodyBuilder {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
 
+
 // 1.3 生成body的build方法
-func (builder *QueryUserStatsDataReqBodyBuilder) Build() *QueryUserStatsDataReqBody {
-	req := &QueryUserStatsDataReqBody{}
-	if builder.localeFlag {
-		req.Locale = &builder.locale
-	}
-	if builder.statsTypeFlag {
-		req.StatsType = &builder.statsType
-	}
-	if builder.startDateFlag {
-		req.StartDate = &builder.startDate
-	}
-	if builder.endDateFlag {
-		req.EndDate = &builder.endDate
-	}
-	if builder.userIdsFlag {
-		req.UserIds = builder.userIds
-	}
-	if builder.needHistoryFlag {
-		req.NeedHistory = &builder.needHistory
-	}
-	if builder.currentGroupOnlyFlag {
-		req.CurrentGroupOnly = &builder.currentGroupOnly
-	}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-	}
-	return req
+func (builder * QueryUserStatsDataReqBodyBuilder ) Build() *QueryUserStatsDataReqBody {
+   req := &QueryUserStatsDataReqBody{}
+   if builder.localeFlag {
+	  req.Locale = &builder.locale
+   }
+   if builder.statsTypeFlag {
+	  req.StatsType = &builder.statsType
+   }
+   if builder.startDateFlag {
+	  req.StartDate = &builder.startDate
+   }
+   if builder.endDateFlag {
+	  req.EndDate = &builder.endDate
+   }
+   if builder.userIdsFlag {
+	  req.UserIds = builder.userIds
+   }
+   if builder.needHistoryFlag {
+	  req.NeedHistory = &builder.needHistory
+   }
+   if builder.currentGroupOnlyFlag {
+	  req.CurrentGroupOnly = &builder.currentGroupOnly
+   }
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+   }
+   return req
 }
 
 // 上传文件path开始
 type QueryUserStatsDataPathReqBodyBuilder struct {
-	locale               string
-	localeFlag           bool
-	statsType            string
-	statsTypeFlag        bool
-	startDate            int
-	startDateFlag        bool
-	endDate              int
-	endDateFlag          bool
-	userIds              []string
-	userIdsFlag          bool
-	needHistory          bool
-	needHistoryFlag      bool
-	currentGroupOnly     bool
-	currentGroupOnlyFlag bool
-	userId               string
-	userIdFlag           bool
+	locale  string
+	localeFlag  bool
+	statsType  string
+	statsTypeFlag  bool
+	startDate  int
+	startDateFlag  bool
+	endDate  int
+	endDateFlag  bool
+	userIds  []string
+	userIdsFlag  bool
+	needHistory  bool
+	needHistoryFlag  bool
+	currentGroupOnly  bool
+	currentGroupOnlyFlag  bool
+	userId  string
+	userIdFlag  bool
 }
 
-func NewQueryUserStatsDataPathReqBodyBuilder() *QueryUserStatsDataPathReqBodyBuilder {
-	builder := &QueryUserStatsDataPathReqBodyBuilder{}
-	return builder
+func NewQueryUserStatsDataPathReqBodyBuilder() * QueryUserStatsDataPathReqBodyBuilder{
+  builder := &QueryUserStatsDataPathReqBodyBuilder{}
+  return builder
 }
-func (builder *QueryUserStatsDataPathReqBodyBuilder) Locale(locale string) *QueryUserStatsDataPathReqBodyBuilder {
-	builder.locale = locale
-	builder.localeFlag = true
-	return builder
+func (builder * QueryUserStatsDataPathReqBodyBuilder ) Locale(locale string) *QueryUserStatsDataPathReqBodyBuilder {
+  builder.locale = locale
+  builder.localeFlag = true
+  return builder
 }
-func (builder *QueryUserStatsDataPathReqBodyBuilder) StatsType(statsType string) *QueryUserStatsDataPathReqBodyBuilder {
-	builder.statsType = statsType
-	builder.statsTypeFlag = true
-	return builder
+func (builder * QueryUserStatsDataPathReqBodyBuilder ) StatsType(statsType string) *QueryUserStatsDataPathReqBodyBuilder {
+  builder.statsType = statsType
+  builder.statsTypeFlag = true
+  return builder
 }
-func (builder *QueryUserStatsDataPathReqBodyBuilder) StartDate(startDate int) *QueryUserStatsDataPathReqBodyBuilder {
-	builder.startDate = startDate
-	builder.startDateFlag = true
-	return builder
+func (builder * QueryUserStatsDataPathReqBodyBuilder ) StartDate(startDate int) *QueryUserStatsDataPathReqBodyBuilder {
+  builder.startDate = startDate
+  builder.startDateFlag = true
+  return builder
 }
-func (builder *QueryUserStatsDataPathReqBodyBuilder) EndDate(endDate int) *QueryUserStatsDataPathReqBodyBuilder {
-	builder.endDate = endDate
-	builder.endDateFlag = true
-	return builder
+func (builder * QueryUserStatsDataPathReqBodyBuilder ) EndDate(endDate int) *QueryUserStatsDataPathReqBodyBuilder {
+  builder.endDate = endDate
+  builder.endDateFlag = true
+  return builder
 }
-func (builder *QueryUserStatsDataPathReqBodyBuilder) UserIds(userIds []string) *QueryUserStatsDataPathReqBodyBuilder {
-	builder.userIds = userIds
-	builder.userIdsFlag = true
-	return builder
+func (builder * QueryUserStatsDataPathReqBodyBuilder ) UserIds(userIds []string) *QueryUserStatsDataPathReqBodyBuilder {
+  builder.userIds = userIds
+  builder.userIdsFlag = true
+  return builder
 }
-func (builder *QueryUserStatsDataPathReqBodyBuilder) NeedHistory(needHistory bool) *QueryUserStatsDataPathReqBodyBuilder {
-	builder.needHistory = needHistory
-	builder.needHistoryFlag = true
-	return builder
+func (builder * QueryUserStatsDataPathReqBodyBuilder ) NeedHistory(needHistory bool) *QueryUserStatsDataPathReqBodyBuilder {
+  builder.needHistory = needHistory
+  builder.needHistoryFlag = true
+  return builder
 }
-func (builder *QueryUserStatsDataPathReqBodyBuilder) CurrentGroupOnly(currentGroupOnly bool) *QueryUserStatsDataPathReqBodyBuilder {
-	builder.currentGroupOnly = currentGroupOnly
-	builder.currentGroupOnlyFlag = true
-	return builder
+func (builder * QueryUserStatsDataPathReqBodyBuilder ) CurrentGroupOnly(currentGroupOnly bool) *QueryUserStatsDataPathReqBodyBuilder {
+  builder.currentGroupOnly = currentGroupOnly
+  builder.currentGroupOnlyFlag = true
+  return builder
 }
-func (builder *QueryUserStatsDataPathReqBodyBuilder) UserId(userId string) *QueryUserStatsDataPathReqBodyBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
-}
-
-func (builder *QueryUserStatsDataPathReqBodyBuilder) Build() (*QueryUserStatsDataReqBody, error) {
-	req := &QueryUserStatsDataReqBody{}
-	if builder.localeFlag {
-		req.Locale = &builder.locale
-	}
-	if builder.statsTypeFlag {
-		req.StatsType = &builder.statsType
-	}
-	if builder.startDateFlag {
-		req.StartDate = &builder.startDate
-	}
-	if builder.endDateFlag {
-		req.EndDate = &builder.endDate
-	}
-	if builder.userIdsFlag {
-		req.UserIds = builder.userIds
-	}
-	if builder.needHistoryFlag {
-		req.NeedHistory = &builder.needHistory
-	}
-	if builder.currentGroupOnlyFlag {
-		req.CurrentGroupOnly = &builder.currentGroupOnly
-	}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-	}
-	return req, nil
+func (builder * QueryUserStatsDataPathReqBodyBuilder ) UserId(userId string) *QueryUserStatsDataPathReqBodyBuilder {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
 
+
+func (builder * QueryUserStatsDataPathReqBodyBuilder ) Build() (*QueryUserStatsDataReqBody, error) {
+   req := &QueryUserStatsDataReqBody{}
+   if builder.localeFlag {
+	  req.Locale = &builder.locale
+   }
+   if builder.statsTypeFlag {
+	  req.StatsType = &builder.statsType
+   }
+   if builder.startDateFlag {
+	  req.StartDate = &builder.startDate
+   }
+   if builder.endDateFlag {
+	  req.EndDate = &builder.endDate
+   }
+   if builder.userIdsFlag {
+	   req.UserIds = builder.userIds
+   }
+   if builder.needHistoryFlag {
+	  req.NeedHistory = &builder.needHistory
+   }
+   if builder.currentGroupOnlyFlag {
+	  req.CurrentGroupOnly = &builder.currentGroupOnly
+   }
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+   }
+   return req, nil
+}
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type QueryUserStatsDataReqBuilder struct {
-	employeeType     string
-	employeeTypeFlag bool
-	body             *QueryUserStatsDataReqBody
-	bodyFlag         bool
+	employeeType  string
+	employeeTypeFlag  bool
+	body *QueryUserStatsDataReqBody
+	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewQueryUserStatsDataReqBuilder() *QueryUserStatsDataReqBuilder {
-	builder := &QueryUserStatsDataReqBuilder{}
-	return builder
+func NewQueryUserStatsDataReqBuilder() * QueryUserStatsDataReqBuilder{
+   builder := &QueryUserStatsDataReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *QueryUserStatsDataReqBuilder) EmployeeType(employeeType string) *QueryUserStatsDataReqBuilder {
-	builder.employeeType = employeeType
-	builder.employeeTypeFlag = true
-	return builder
+func (builder * QueryUserStatsDataReqBuilder) EmployeeType(employeeType string) *QueryUserStatsDataReqBuilder  {
+  builder.employeeType = employeeType
+  builder.employeeTypeFlag = true
+  return builder
 }
-func (builder *QueryUserStatsDataReqBuilder) Body(body *QueryUserStatsDataReqBody) *QueryUserStatsDataReqBuilder {
-	builder.body = body
-	builder.bodyFlag = true
-	return builder
+func (builder * QueryUserStatsDataReqBuilder) Body(body *QueryUserStatsDataReqBody) *QueryUserStatsDataReqBuilder  {
+  builder.body = body
+  builder.bodyFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *QueryUserStatsDataReqBuilder) Build() *QueryUserStatsDataReq {
-	req := &QueryUserStatsDataReq{}
-	if builder.employeeTypeFlag {
-		req.EmployeeType = &builder.employeeType
-	}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
-	return req
+func (builder * QueryUserStatsDataReqBuilder ) Build() *QueryUserStatsDataReq {
+   req := &QueryUserStatsDataReq{}
+   if builder.employeeTypeFlag {
+	  req.EmployeeType = &builder.employeeType
+   }
+   if builder.bodyFlag {
+	  req.Body = builder.body
+   }
+   return req
 }
 
 type QueryUserStatsDataReqBody struct {
-	Locale           *string  `json:"locale,omitempty"`
-	StatsType        *string  `json:"stats_type,omitempty"`
-	StartDate        *int     `json:"start_date,omitempty"`
-	EndDate          *int     `json:"end_date,omitempty"`
-	UserIds          []string `json:"user_ids,omitempty"`
-	NeedHistory      *bool    `json:"need_history,omitempty"`
-	CurrentGroupOnly *bool    `json:"current_group_only,omitempty"`
-	UserId           *string  `json:"user_id,omitempty"`
+	Locale  *string `json:"locale,omitempty"`
+	StatsType  *string `json:"stats_type,omitempty"`
+	StartDate  *int `json:"start_date,omitempty"`
+	EndDate  *int `json:"end_date,omitempty"`
+	UserIds  []string `json:"user_ids,omitempty"`
+	NeedHistory  *bool `json:"need_history,omitempty"`
+	CurrentGroupOnly  *bool `json:"current_group_only,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
 }
 
 type QueryUserStatsDataReq struct {
-	EmployeeType *string                    `query:"employee_type"`
-	Body         *QueryUserStatsDataReqBody `body:""`
+	EmployeeType  *string `query:"employee_type"`
+	Body *QueryUserStatsDataReqBody `body:""`
+
 }
 
 type QueryUserStatsDataRespData struct {
-	UserDatas []*UserStatsData `json:"user_datas,omitempty"`
+	UserDatas  []*UserStatsData `json:"user_datas,omitempty"`
 }
 
 type QueryUserStatsDataResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *QueryUserStatsDataRespData `json:"data"`
 }
 
@@ -6536,175 +6631,178 @@ func (resp *QueryUserStatsDataResp) Success() bool {
 }
 
 type QueryUserStatsFieldReqBodyBuilder struct {
-	locale        string
-	localeFlag    bool
-	statsType     string
-	statsTypeFlag bool
-	startDate     int
-	startDateFlag bool
-	endDate       int
-	endDateFlag   bool
+	locale  string
+	localeFlag  bool
+	statsType  string
+	statsTypeFlag  bool
+	startDate  int
+	startDateFlag  bool
+	endDate  int
+	endDateFlag  bool
 }
 
 // 生成body的New构造器
-func NewQueryUserStatsFieldReqBodyBuilder() *QueryUserStatsFieldReqBodyBuilder {
-	builder := &QueryUserStatsFieldReqBodyBuilder{}
-	return builder
+func NewQueryUserStatsFieldReqBodyBuilder() * QueryUserStatsFieldReqBodyBuilder{
+  builder := &QueryUserStatsFieldReqBodyBuilder{}
+  return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder *QueryUserStatsFieldReqBodyBuilder) Locale(locale string) *QueryUserStatsFieldReqBodyBuilder {
-	builder.locale = locale
-	builder.localeFlag = true
-	return builder
+func (builder * QueryUserStatsFieldReqBodyBuilder ) Locale(locale string) *QueryUserStatsFieldReqBodyBuilder {
+  builder.locale = locale
+  builder.localeFlag = true
+  return builder
 }
-func (builder *QueryUserStatsFieldReqBodyBuilder) StatsType(statsType string) *QueryUserStatsFieldReqBodyBuilder {
-	builder.statsType = statsType
-	builder.statsTypeFlag = true
-	return builder
+func (builder * QueryUserStatsFieldReqBodyBuilder ) StatsType(statsType string) *QueryUserStatsFieldReqBodyBuilder {
+  builder.statsType = statsType
+  builder.statsTypeFlag = true
+  return builder
 }
-func (builder *QueryUserStatsFieldReqBodyBuilder) StartDate(startDate int) *QueryUserStatsFieldReqBodyBuilder {
-	builder.startDate = startDate
-	builder.startDateFlag = true
-	return builder
+func (builder * QueryUserStatsFieldReqBodyBuilder ) StartDate(startDate int) *QueryUserStatsFieldReqBodyBuilder {
+  builder.startDate = startDate
+  builder.startDateFlag = true
+  return builder
 }
-func (builder *QueryUserStatsFieldReqBodyBuilder) EndDate(endDate int) *QueryUserStatsFieldReqBodyBuilder {
-	builder.endDate = endDate
-	builder.endDateFlag = true
-	return builder
+func (builder * QueryUserStatsFieldReqBodyBuilder ) EndDate(endDate int) *QueryUserStatsFieldReqBodyBuilder {
+  builder.endDate = endDate
+  builder.endDateFlag = true
+  return builder
 }
 
+
 // 1.3 生成body的build方法
-func (builder *QueryUserStatsFieldReqBodyBuilder) Build() *QueryUserStatsFieldReqBody {
-	req := &QueryUserStatsFieldReqBody{}
-	if builder.localeFlag {
-		req.Locale = &builder.locale
-	}
-	if builder.statsTypeFlag {
-		req.StatsType = &builder.statsType
-	}
-	if builder.startDateFlag {
-		req.StartDate = &builder.startDate
-	}
-	if builder.endDateFlag {
-		req.EndDate = &builder.endDate
-	}
-	return req
+func (builder * QueryUserStatsFieldReqBodyBuilder ) Build() *QueryUserStatsFieldReqBody {
+   req := &QueryUserStatsFieldReqBody{}
+   if builder.localeFlag {
+	  req.Locale = &builder.locale
+   }
+   if builder.statsTypeFlag {
+	  req.StatsType = &builder.statsType
+   }
+   if builder.startDateFlag {
+	  req.StartDate = &builder.startDate
+   }
+   if builder.endDateFlag {
+	  req.EndDate = &builder.endDate
+   }
+   return req
 }
 
 // 上传文件path开始
 type QueryUserStatsFieldPathReqBodyBuilder struct {
-	locale        string
-	localeFlag    bool
-	statsType     string
-	statsTypeFlag bool
-	startDate     int
-	startDateFlag bool
-	endDate       int
-	endDateFlag   bool
+	locale  string
+	localeFlag  bool
+	statsType  string
+	statsTypeFlag  bool
+	startDate  int
+	startDateFlag  bool
+	endDate  int
+	endDateFlag  bool
 }
 
-func NewQueryUserStatsFieldPathReqBodyBuilder() *QueryUserStatsFieldPathReqBodyBuilder {
-	builder := &QueryUserStatsFieldPathReqBodyBuilder{}
-	return builder
+func NewQueryUserStatsFieldPathReqBodyBuilder() * QueryUserStatsFieldPathReqBodyBuilder{
+  builder := &QueryUserStatsFieldPathReqBodyBuilder{}
+  return builder
 }
-func (builder *QueryUserStatsFieldPathReqBodyBuilder) Locale(locale string) *QueryUserStatsFieldPathReqBodyBuilder {
-	builder.locale = locale
-	builder.localeFlag = true
-	return builder
+func (builder * QueryUserStatsFieldPathReqBodyBuilder ) Locale(locale string) *QueryUserStatsFieldPathReqBodyBuilder {
+  builder.locale = locale
+  builder.localeFlag = true
+  return builder
 }
-func (builder *QueryUserStatsFieldPathReqBodyBuilder) StatsType(statsType string) *QueryUserStatsFieldPathReqBodyBuilder {
-	builder.statsType = statsType
-	builder.statsTypeFlag = true
-	return builder
+func (builder * QueryUserStatsFieldPathReqBodyBuilder ) StatsType(statsType string) *QueryUserStatsFieldPathReqBodyBuilder {
+  builder.statsType = statsType
+  builder.statsTypeFlag = true
+  return builder
 }
-func (builder *QueryUserStatsFieldPathReqBodyBuilder) StartDate(startDate int) *QueryUserStatsFieldPathReqBodyBuilder {
-	builder.startDate = startDate
-	builder.startDateFlag = true
-	return builder
+func (builder * QueryUserStatsFieldPathReqBodyBuilder ) StartDate(startDate int) *QueryUserStatsFieldPathReqBodyBuilder {
+  builder.startDate = startDate
+  builder.startDateFlag = true
+  return builder
 }
-func (builder *QueryUserStatsFieldPathReqBodyBuilder) EndDate(endDate int) *QueryUserStatsFieldPathReqBodyBuilder {
-	builder.endDate = endDate
-	builder.endDateFlag = true
-	return builder
-}
-
-func (builder *QueryUserStatsFieldPathReqBodyBuilder) Build() (*QueryUserStatsFieldReqBody, error) {
-	req := &QueryUserStatsFieldReqBody{}
-	if builder.localeFlag {
-		req.Locale = &builder.locale
-	}
-	if builder.statsTypeFlag {
-		req.StatsType = &builder.statsType
-	}
-	if builder.startDateFlag {
-		req.StartDate = &builder.startDate
-	}
-	if builder.endDateFlag {
-		req.EndDate = &builder.endDate
-	}
-	return req, nil
+func (builder * QueryUserStatsFieldPathReqBodyBuilder ) EndDate(endDate int) *QueryUserStatsFieldPathReqBodyBuilder {
+  builder.endDate = endDate
+  builder.endDateFlag = true
+  return builder
 }
 
+
+func (builder * QueryUserStatsFieldPathReqBodyBuilder ) Build() (*QueryUserStatsFieldReqBody, error) {
+   req := &QueryUserStatsFieldReqBody{}
+   if builder.localeFlag {
+	  req.Locale = &builder.locale
+   }
+   if builder.statsTypeFlag {
+	  req.StatsType = &builder.statsType
+   }
+   if builder.startDateFlag {
+	  req.StartDate = &builder.startDate
+   }
+   if builder.endDateFlag {
+	  req.EndDate = &builder.endDate
+   }
+   return req, nil
+}
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type QueryUserStatsFieldReqBuilder struct {
-	employeeType     string
-	employeeTypeFlag bool
-	body             *QueryUserStatsFieldReqBody
-	bodyFlag         bool
+	employeeType  string
+	employeeTypeFlag  bool
+	body *QueryUserStatsFieldReqBody
+	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewQueryUserStatsFieldReqBuilder() *QueryUserStatsFieldReqBuilder {
-	builder := &QueryUserStatsFieldReqBuilder{}
-	return builder
+func NewQueryUserStatsFieldReqBuilder() * QueryUserStatsFieldReqBuilder{
+   builder := &QueryUserStatsFieldReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *QueryUserStatsFieldReqBuilder) EmployeeType(employeeType string) *QueryUserStatsFieldReqBuilder {
-	builder.employeeType = employeeType
-	builder.employeeTypeFlag = true
-	return builder
+func (builder * QueryUserStatsFieldReqBuilder) EmployeeType(employeeType string) *QueryUserStatsFieldReqBuilder  {
+  builder.employeeType = employeeType
+  builder.employeeTypeFlag = true
+  return builder
 }
-func (builder *QueryUserStatsFieldReqBuilder) Body(body *QueryUserStatsFieldReqBody) *QueryUserStatsFieldReqBuilder {
-	builder.body = body
-	builder.bodyFlag = true
-	return builder
+func (builder * QueryUserStatsFieldReqBuilder) Body(body *QueryUserStatsFieldReqBody) *QueryUserStatsFieldReqBuilder  {
+  builder.body = body
+  builder.bodyFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *QueryUserStatsFieldReqBuilder) Build() *QueryUserStatsFieldReq {
-	req := &QueryUserStatsFieldReq{}
-	if builder.employeeTypeFlag {
-		req.EmployeeType = &builder.employeeType
-	}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
-	return req
+func (builder * QueryUserStatsFieldReqBuilder ) Build() *QueryUserStatsFieldReq {
+   req := &QueryUserStatsFieldReq{}
+   if builder.employeeTypeFlag {
+	  req.EmployeeType = &builder.employeeType
+   }
+   if builder.bodyFlag {
+	  req.Body = builder.body
+   }
+   return req
 }
 
 type QueryUserStatsFieldReqBody struct {
-	Locale    *string `json:"locale,omitempty"`
-	StatsType *string `json:"stats_type,omitempty"`
-	StartDate *int    `json:"start_date,omitempty"`
-	EndDate   *int    `json:"end_date,omitempty"`
+	Locale  *string `json:"locale,omitempty"`
+	StatsType  *string `json:"stats_type,omitempty"`
+	StartDate  *int `json:"start_date,omitempty"`
+	EndDate  *int `json:"end_date,omitempty"`
 }
 
 type QueryUserStatsFieldReq struct {
-	EmployeeType *string                     `query:"employee_type"`
-	Body         *QueryUserStatsFieldReqBody `body:""`
+	EmployeeType  *string `query:"employee_type"`
+	Body *QueryUserStatsFieldReqBody `body:""`
+
 }
 
 type QueryUserStatsFieldRespData struct {
-	UserStatsField *UserStatsField `json:"user_stats_field,omitempty"`
+	UserStatsField  *UserStatsField `json:"user_stats_field,omitempty"`
 }
 
 type QueryUserStatsFieldResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *QueryUserStatsFieldRespData `json:"data"`
 }
 
@@ -6713,154 +6811,157 @@ func (resp *QueryUserStatsFieldResp) Success() bool {
 }
 
 type QueryUserStatsViewReqBodyBuilder struct {
-	locale        string
-	localeFlag    bool
-	statsType     string
-	statsTypeFlag bool
-	userId        string
-	userIdFlag    bool
+	locale  string
+	localeFlag  bool
+	statsType  string
+	statsTypeFlag  bool
+	userId  string
+	userIdFlag  bool
 }
 
 // 生成body的New构造器
-func NewQueryUserStatsViewReqBodyBuilder() *QueryUserStatsViewReqBodyBuilder {
-	builder := &QueryUserStatsViewReqBodyBuilder{}
-	return builder
+func NewQueryUserStatsViewReqBodyBuilder() * QueryUserStatsViewReqBodyBuilder{
+  builder := &QueryUserStatsViewReqBodyBuilder{}
+  return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder *QueryUserStatsViewReqBodyBuilder) Locale(locale string) *QueryUserStatsViewReqBodyBuilder {
-	builder.locale = locale
-	builder.localeFlag = true
-	return builder
+func (builder * QueryUserStatsViewReqBodyBuilder ) Locale(locale string) *QueryUserStatsViewReqBodyBuilder {
+  builder.locale = locale
+  builder.localeFlag = true
+  return builder
 }
-func (builder *QueryUserStatsViewReqBodyBuilder) StatsType(statsType string) *QueryUserStatsViewReqBodyBuilder {
-	builder.statsType = statsType
-	builder.statsTypeFlag = true
-	return builder
+func (builder * QueryUserStatsViewReqBodyBuilder ) StatsType(statsType string) *QueryUserStatsViewReqBodyBuilder {
+  builder.statsType = statsType
+  builder.statsTypeFlag = true
+  return builder
 }
-func (builder *QueryUserStatsViewReqBodyBuilder) UserId(userId string) *QueryUserStatsViewReqBodyBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
+func (builder * QueryUserStatsViewReqBodyBuilder ) UserId(userId string) *QueryUserStatsViewReqBodyBuilder {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
 
+
 // 1.3 生成body的build方法
-func (builder *QueryUserStatsViewReqBodyBuilder) Build() *QueryUserStatsViewReqBody {
-	req := &QueryUserStatsViewReqBody{}
-	if builder.localeFlag {
-		req.Locale = &builder.locale
-	}
-	if builder.statsTypeFlag {
-		req.StatsType = &builder.statsType
-	}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-	}
-	return req
+func (builder * QueryUserStatsViewReqBodyBuilder ) Build() *QueryUserStatsViewReqBody {
+   req := &QueryUserStatsViewReqBody{}
+   if builder.localeFlag {
+	  req.Locale = &builder.locale
+   }
+   if builder.statsTypeFlag {
+	  req.StatsType = &builder.statsType
+   }
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+   }
+   return req
 }
 
 // 上传文件path开始
 type QueryUserStatsViewPathReqBodyBuilder struct {
-	locale        string
-	localeFlag    bool
-	statsType     string
-	statsTypeFlag bool
-	userId        string
-	userIdFlag    bool
+	locale  string
+	localeFlag  bool
+	statsType  string
+	statsTypeFlag  bool
+	userId  string
+	userIdFlag  bool
 }
 
-func NewQueryUserStatsViewPathReqBodyBuilder() *QueryUserStatsViewPathReqBodyBuilder {
-	builder := &QueryUserStatsViewPathReqBodyBuilder{}
-	return builder
+func NewQueryUserStatsViewPathReqBodyBuilder() * QueryUserStatsViewPathReqBodyBuilder{
+  builder := &QueryUserStatsViewPathReqBodyBuilder{}
+  return builder
 }
-func (builder *QueryUserStatsViewPathReqBodyBuilder) Locale(locale string) *QueryUserStatsViewPathReqBodyBuilder {
-	builder.locale = locale
-	builder.localeFlag = true
-	return builder
+func (builder * QueryUserStatsViewPathReqBodyBuilder ) Locale(locale string) *QueryUserStatsViewPathReqBodyBuilder {
+  builder.locale = locale
+  builder.localeFlag = true
+  return builder
 }
-func (builder *QueryUserStatsViewPathReqBodyBuilder) StatsType(statsType string) *QueryUserStatsViewPathReqBodyBuilder {
-	builder.statsType = statsType
-	builder.statsTypeFlag = true
-	return builder
+func (builder * QueryUserStatsViewPathReqBodyBuilder ) StatsType(statsType string) *QueryUserStatsViewPathReqBodyBuilder {
+  builder.statsType = statsType
+  builder.statsTypeFlag = true
+  return builder
 }
-func (builder *QueryUserStatsViewPathReqBodyBuilder) UserId(userId string) *QueryUserStatsViewPathReqBodyBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
-}
-
-func (builder *QueryUserStatsViewPathReqBodyBuilder) Build() (*QueryUserStatsViewReqBody, error) {
-	req := &QueryUserStatsViewReqBody{}
-	if builder.localeFlag {
-		req.Locale = &builder.locale
-	}
-	if builder.statsTypeFlag {
-		req.StatsType = &builder.statsType
-	}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-	}
-	return req, nil
+func (builder * QueryUserStatsViewPathReqBodyBuilder ) UserId(userId string) *QueryUserStatsViewPathReqBodyBuilder {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
 
+
+func (builder * QueryUserStatsViewPathReqBodyBuilder ) Build() (*QueryUserStatsViewReqBody, error) {
+   req := &QueryUserStatsViewReqBody{}
+   if builder.localeFlag {
+	  req.Locale = &builder.locale
+   }
+   if builder.statsTypeFlag {
+	  req.StatsType = &builder.statsType
+   }
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+   }
+   return req, nil
+}
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type QueryUserStatsViewReqBuilder struct {
-	employeeType     string
-	employeeTypeFlag bool
-	body             *QueryUserStatsViewReqBody
-	bodyFlag         bool
+	employeeType  string
+	employeeTypeFlag  bool
+	body *QueryUserStatsViewReqBody
+	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewQueryUserStatsViewReqBuilder() *QueryUserStatsViewReqBuilder {
-	builder := &QueryUserStatsViewReqBuilder{}
-	return builder
+func NewQueryUserStatsViewReqBuilder() * QueryUserStatsViewReqBuilder{
+   builder := &QueryUserStatsViewReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *QueryUserStatsViewReqBuilder) EmployeeType(employeeType string) *QueryUserStatsViewReqBuilder {
-	builder.employeeType = employeeType
-	builder.employeeTypeFlag = true
-	return builder
+func (builder * QueryUserStatsViewReqBuilder) EmployeeType(employeeType string) *QueryUserStatsViewReqBuilder  {
+  builder.employeeType = employeeType
+  builder.employeeTypeFlag = true
+  return builder
 }
-func (builder *QueryUserStatsViewReqBuilder) Body(body *QueryUserStatsViewReqBody) *QueryUserStatsViewReqBuilder {
-	builder.body = body
-	builder.bodyFlag = true
-	return builder
+func (builder * QueryUserStatsViewReqBuilder) Body(body *QueryUserStatsViewReqBody) *QueryUserStatsViewReqBuilder  {
+  builder.body = body
+  builder.bodyFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *QueryUserStatsViewReqBuilder) Build() *QueryUserStatsViewReq {
-	req := &QueryUserStatsViewReq{}
-	if builder.employeeTypeFlag {
-		req.EmployeeType = &builder.employeeType
-	}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
-	return req
+func (builder * QueryUserStatsViewReqBuilder ) Build() *QueryUserStatsViewReq {
+   req := &QueryUserStatsViewReq{}
+   if builder.employeeTypeFlag {
+	  req.EmployeeType = &builder.employeeType
+   }
+   if builder.bodyFlag {
+	  req.Body = builder.body
+   }
+   return req
 }
 
 type QueryUserStatsViewReqBody struct {
-	Locale    *string `json:"locale,omitempty"`
-	StatsType *string `json:"stats_type,omitempty"`
-	UserId    *string `json:"user_id,omitempty"`
+	Locale  *string `json:"locale,omitempty"`
+	StatsType  *string `json:"stats_type,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
 }
 
 type QueryUserStatsViewReq struct {
-	EmployeeType *string                    `query:"employee_type"`
-	Body         *QueryUserStatsViewReqBody `body:""`
+	EmployeeType  *string `query:"employee_type"`
+	Body *QueryUserStatsViewReqBody `body:""`
+
 }
 
 type QueryUserStatsViewRespData struct {
-	View *UserStatsView `json:"view,omitempty"`
+	View  *UserStatsView `json:"view,omitempty"`
 }
 
 type QueryUserStatsViewResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *QueryUserStatsViewRespData `json:"data"`
 }
 
@@ -6869,123 +6970,126 @@ func (resp *QueryUserStatsViewResp) Success() bool {
 }
 
 type UpdateUserStatsViewReqBodyBuilder struct {
-	view     *UserStatsView
-	viewFlag bool
+	view  *UserStatsView
+	viewFlag  bool
 }
 
 // 生成body的New构造器
-func NewUpdateUserStatsViewReqBodyBuilder() *UpdateUserStatsViewReqBodyBuilder {
-	builder := &UpdateUserStatsViewReqBodyBuilder{}
-	return builder
+func NewUpdateUserStatsViewReqBodyBuilder() * UpdateUserStatsViewReqBodyBuilder{
+  builder := &UpdateUserStatsViewReqBodyBuilder{}
+  return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder *UpdateUserStatsViewReqBodyBuilder) View(view *UserStatsView) *UpdateUserStatsViewReqBodyBuilder {
-	builder.view = view
-	builder.viewFlag = true
-	return builder
+func (builder * UpdateUserStatsViewReqBodyBuilder ) View(view *UserStatsView) *UpdateUserStatsViewReqBodyBuilder {
+  builder.view = view
+  builder.viewFlag = true
+  return builder
 }
 
+
 // 1.3 生成body的build方法
-func (builder *UpdateUserStatsViewReqBodyBuilder) Build() *UpdateUserStatsViewReqBody {
-	req := &UpdateUserStatsViewReqBody{}
-	if builder.viewFlag {
-		req.View = builder.view
-	}
-	return req
+func (builder * UpdateUserStatsViewReqBodyBuilder ) Build() *UpdateUserStatsViewReqBody {
+   req := &UpdateUserStatsViewReqBody{}
+   if builder.viewFlag {
+	  req.View = builder.view
+   }
+   return req
 }
 
 // 上传文件path开始
 type UpdateUserStatsViewPathReqBodyBuilder struct {
-	view     *UserStatsView
-	viewFlag bool
+	view  *UserStatsView
+	viewFlag  bool
 }
 
-func NewUpdateUserStatsViewPathReqBodyBuilder() *UpdateUserStatsViewPathReqBodyBuilder {
-	builder := &UpdateUserStatsViewPathReqBodyBuilder{}
-	return builder
+func NewUpdateUserStatsViewPathReqBodyBuilder() * UpdateUserStatsViewPathReqBodyBuilder{
+  builder := &UpdateUserStatsViewPathReqBodyBuilder{}
+  return builder
 }
-func (builder *UpdateUserStatsViewPathReqBodyBuilder) View(view *UserStatsView) *UpdateUserStatsViewPathReqBodyBuilder {
-	builder.view = view
-	builder.viewFlag = true
-	return builder
-}
-
-func (builder *UpdateUserStatsViewPathReqBodyBuilder) Build() (*UpdateUserStatsViewReqBody, error) {
-	req := &UpdateUserStatsViewReqBody{}
-	if builder.viewFlag {
-		req.View = builder.view
-	}
-	return req, nil
+func (builder * UpdateUserStatsViewPathReqBodyBuilder ) View(view *UserStatsView) *UpdateUserStatsViewPathReqBodyBuilder {
+  builder.view = view
+  builder.viewFlag = true
+  return builder
 }
 
+
+func (builder * UpdateUserStatsViewPathReqBodyBuilder ) Build() (*UpdateUserStatsViewReqBody, error) {
+   req := &UpdateUserStatsViewReqBody{}
+   if builder.viewFlag {
+	   req.View = builder.view
+   }
+   return req, nil
+}
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type UpdateUserStatsViewReqBuilder struct {
-	userStatsViewId     string
-	userStatsViewIdFlag bool
-	employeeType        string
-	employeeTypeFlag    bool
-	body                *UpdateUserStatsViewReqBody
-	bodyFlag            bool
+	userStatsViewId  string
+	userStatsViewIdFlag  bool
+	employeeType  string
+	employeeTypeFlag  bool
+	body *UpdateUserStatsViewReqBody
+	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewUpdateUserStatsViewReqBuilder() *UpdateUserStatsViewReqBuilder {
-	builder := &UpdateUserStatsViewReqBuilder{}
-	return builder
+func NewUpdateUserStatsViewReqBuilder() * UpdateUserStatsViewReqBuilder{
+   builder := &UpdateUserStatsViewReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *UpdateUserStatsViewReqBuilder) UserStatsViewId(userStatsViewId string) *UpdateUserStatsViewReqBuilder {
-	builder.userStatsViewId = userStatsViewId
-	builder.userStatsViewIdFlag = true
-	return builder
+func (builder * UpdateUserStatsViewReqBuilder) UserStatsViewId(userStatsViewId string) *UpdateUserStatsViewReqBuilder  {
+  builder.userStatsViewId = userStatsViewId
+  builder.userStatsViewIdFlag = true
+  return builder
 }
-func (builder *UpdateUserStatsViewReqBuilder) EmployeeType(employeeType string) *UpdateUserStatsViewReqBuilder {
-	builder.employeeType = employeeType
-	builder.employeeTypeFlag = true
-	return builder
+func (builder * UpdateUserStatsViewReqBuilder) EmployeeType(employeeType string) *UpdateUserStatsViewReqBuilder  {
+  builder.employeeType = employeeType
+  builder.employeeTypeFlag = true
+  return builder
 }
-func (builder *UpdateUserStatsViewReqBuilder) Body(body *UpdateUserStatsViewReqBody) *UpdateUserStatsViewReqBuilder {
-	builder.body = body
-	builder.bodyFlag = true
-	return builder
+func (builder * UpdateUserStatsViewReqBuilder) Body(body *UpdateUserStatsViewReqBody) *UpdateUserStatsViewReqBuilder  {
+  builder.body = body
+  builder.bodyFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *UpdateUserStatsViewReqBuilder) Build() *UpdateUserStatsViewReq {
-	req := &UpdateUserStatsViewReq{}
-	if builder.userStatsViewIdFlag {
-		req.UserStatsViewId = builder.userStatsViewId
-	}
-	if builder.employeeTypeFlag {
-		req.EmployeeType = &builder.employeeType
-	}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
-	return req
+func (builder * UpdateUserStatsViewReqBuilder ) Build() *UpdateUserStatsViewReq {
+   req := &UpdateUserStatsViewReq{}
+   if builder.userStatsViewIdFlag {
+	  req.UserStatsViewId = builder.userStatsViewId
+   }
+   if builder.employeeTypeFlag {
+	  req.EmployeeType = &builder.employeeType
+   }
+   if builder.bodyFlag {
+	  req.Body = builder.body
+   }
+   return req
 }
 
 type UpdateUserStatsViewReqBody struct {
-	View *UserStatsView `json:"view,omitempty"`
+	View  *UserStatsView `json:"view,omitempty"`
 }
 
 type UpdateUserStatsViewReq struct {
-	UserStatsViewId string                      `path:"user_stats_view_id"`
-	EmployeeType    *string                     `query:"employee_type"`
-	Body            *UpdateUserStatsViewReqBody `body:""`
+	UserStatsViewId  string `path:"user_stats_view_id"`
+	EmployeeType  *string `query:"employee_type"`
+	Body *UpdateUserStatsViewReqBody `body:""`
+
 }
 
 type UpdateUserStatsViewRespData struct {
-	View *UserStatsView `json:"view,omitempty"`
+	View  *UserStatsView `json:"view,omitempty"`
 }
 
 type UpdateUserStatsViewResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *UpdateUserStatsViewRespData `json:"data"`
 }
 
@@ -6994,178 +7098,181 @@ func (resp *UpdateUserStatsViewResp) Success() bool {
 }
 
 type QueryUserTaskReqBodyBuilder struct {
-	userIds           []string
-	userIdsFlag       bool
-	checkDateFrom     int
-	checkDateFromFlag bool
-	checkDateTo       int
-	checkDateToFlag   bool
+	userIds  []string
+	userIdsFlag  bool
+	checkDateFrom  int
+	checkDateFromFlag  bool
+	checkDateTo  int
+	checkDateToFlag  bool
 }
 
 // 生成body的New构造器
-func NewQueryUserTaskReqBodyBuilder() *QueryUserTaskReqBodyBuilder {
-	builder := &QueryUserTaskReqBodyBuilder{}
-	return builder
+func NewQueryUserTaskReqBodyBuilder() * QueryUserTaskReqBodyBuilder{
+  builder := &QueryUserTaskReqBodyBuilder{}
+  return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder *QueryUserTaskReqBodyBuilder) UserIds(userIds []string) *QueryUserTaskReqBodyBuilder {
-	builder.userIds = userIds
-	builder.userIdsFlag = true
-	return builder
+func (builder * QueryUserTaskReqBodyBuilder ) UserIds(userIds []string) *QueryUserTaskReqBodyBuilder {
+  builder.userIds = userIds
+  builder.userIdsFlag = true
+  return builder
 }
-func (builder *QueryUserTaskReqBodyBuilder) CheckDateFrom(checkDateFrom int) *QueryUserTaskReqBodyBuilder {
-	builder.checkDateFrom = checkDateFrom
-	builder.checkDateFromFlag = true
-	return builder
+func (builder * QueryUserTaskReqBodyBuilder ) CheckDateFrom(checkDateFrom int) *QueryUserTaskReqBodyBuilder {
+  builder.checkDateFrom = checkDateFrom
+  builder.checkDateFromFlag = true
+  return builder
 }
-func (builder *QueryUserTaskReqBodyBuilder) CheckDateTo(checkDateTo int) *QueryUserTaskReqBodyBuilder {
-	builder.checkDateTo = checkDateTo
-	builder.checkDateToFlag = true
-	return builder
+func (builder * QueryUserTaskReqBodyBuilder ) CheckDateTo(checkDateTo int) *QueryUserTaskReqBodyBuilder {
+  builder.checkDateTo = checkDateTo
+  builder.checkDateToFlag = true
+  return builder
 }
 
+
 // 1.3 生成body的build方法
-func (builder *QueryUserTaskReqBodyBuilder) Build() *QueryUserTaskReqBody {
-	req := &QueryUserTaskReqBody{}
-	if builder.userIdsFlag {
-		req.UserIds = builder.userIds
-	}
-	if builder.checkDateFromFlag {
-		req.CheckDateFrom = &builder.checkDateFrom
-	}
-	if builder.checkDateToFlag {
-		req.CheckDateTo = &builder.checkDateTo
-	}
-	return req
+func (builder * QueryUserTaskReqBodyBuilder ) Build() *QueryUserTaskReqBody {
+   req := &QueryUserTaskReqBody{}
+   if builder.userIdsFlag {
+	  req.UserIds = builder.userIds
+   }
+   if builder.checkDateFromFlag {
+	  req.CheckDateFrom = &builder.checkDateFrom
+   }
+   if builder.checkDateToFlag {
+	  req.CheckDateTo = &builder.checkDateTo
+   }
+   return req
 }
 
 // 上传文件path开始
 type QueryUserTaskPathReqBodyBuilder struct {
-	userIds           []string
-	userIdsFlag       bool
-	checkDateFrom     int
-	checkDateFromFlag bool
-	checkDateTo       int
-	checkDateToFlag   bool
+	userIds  []string
+	userIdsFlag  bool
+	checkDateFrom  int
+	checkDateFromFlag  bool
+	checkDateTo  int
+	checkDateToFlag  bool
 }
 
-func NewQueryUserTaskPathReqBodyBuilder() *QueryUserTaskPathReqBodyBuilder {
-	builder := &QueryUserTaskPathReqBodyBuilder{}
-	return builder
+func NewQueryUserTaskPathReqBodyBuilder() * QueryUserTaskPathReqBodyBuilder{
+  builder := &QueryUserTaskPathReqBodyBuilder{}
+  return builder
 }
-func (builder *QueryUserTaskPathReqBodyBuilder) UserIds(userIds []string) *QueryUserTaskPathReqBodyBuilder {
-	builder.userIds = userIds
-	builder.userIdsFlag = true
-	return builder
+func (builder * QueryUserTaskPathReqBodyBuilder ) UserIds(userIds []string) *QueryUserTaskPathReqBodyBuilder {
+  builder.userIds = userIds
+  builder.userIdsFlag = true
+  return builder
 }
-func (builder *QueryUserTaskPathReqBodyBuilder) CheckDateFrom(checkDateFrom int) *QueryUserTaskPathReqBodyBuilder {
-	builder.checkDateFrom = checkDateFrom
-	builder.checkDateFromFlag = true
-	return builder
+func (builder * QueryUserTaskPathReqBodyBuilder ) CheckDateFrom(checkDateFrom int) *QueryUserTaskPathReqBodyBuilder {
+  builder.checkDateFrom = checkDateFrom
+  builder.checkDateFromFlag = true
+  return builder
 }
-func (builder *QueryUserTaskPathReqBodyBuilder) CheckDateTo(checkDateTo int) *QueryUserTaskPathReqBodyBuilder {
-	builder.checkDateTo = checkDateTo
-	builder.checkDateToFlag = true
-	return builder
-}
-
-func (builder *QueryUserTaskPathReqBodyBuilder) Build() (*QueryUserTaskReqBody, error) {
-	req := &QueryUserTaskReqBody{}
-	if builder.userIdsFlag {
-		req.UserIds = builder.userIds
-	}
-	if builder.checkDateFromFlag {
-		req.CheckDateFrom = &builder.checkDateFrom
-	}
-	if builder.checkDateToFlag {
-		req.CheckDateTo = &builder.checkDateTo
-	}
-	return req, nil
+func (builder * QueryUserTaskPathReqBodyBuilder ) CheckDateTo(checkDateTo int) *QueryUserTaskPathReqBodyBuilder {
+  builder.checkDateTo = checkDateTo
+  builder.checkDateToFlag = true
+  return builder
 }
 
+
+func (builder * QueryUserTaskPathReqBodyBuilder ) Build() (*QueryUserTaskReqBody, error) {
+   req := &QueryUserTaskReqBody{}
+   if builder.userIdsFlag {
+	   req.UserIds = builder.userIds
+   }
+   if builder.checkDateFromFlag {
+	  req.CheckDateFrom = &builder.checkDateFrom
+   }
+   if builder.checkDateToFlag {
+	  req.CheckDateTo = &builder.checkDateTo
+   }
+   return req, nil
+}
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type QueryUserTaskReqBuilder struct {
-	employeeType              string
-	employeeTypeFlag          bool
-	ignoreInvalidUsers        bool
-	ignoreInvalidUsersFlag    bool
-	includeTerminatedUser     bool
-	includeTerminatedUserFlag bool
-	body                      *QueryUserTaskReqBody
-	bodyFlag                  bool
+	employeeType  string
+	employeeTypeFlag  bool
+	ignoreInvalidUsers  bool
+	ignoreInvalidUsersFlag  bool
+	includeTerminatedUser  bool
+	includeTerminatedUserFlag  bool
+	body *QueryUserTaskReqBody
+	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewQueryUserTaskReqBuilder() *QueryUserTaskReqBuilder {
-	builder := &QueryUserTaskReqBuilder{}
-	return builder
+func NewQueryUserTaskReqBuilder() * QueryUserTaskReqBuilder{
+   builder := &QueryUserTaskReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *QueryUserTaskReqBuilder) EmployeeType(employeeType string) *QueryUserTaskReqBuilder {
-	builder.employeeType = employeeType
-	builder.employeeTypeFlag = true
-	return builder
+func (builder * QueryUserTaskReqBuilder) EmployeeType(employeeType string) *QueryUserTaskReqBuilder  {
+  builder.employeeType = employeeType
+  builder.employeeTypeFlag = true
+  return builder
 }
-func (builder *QueryUserTaskReqBuilder) IgnoreInvalidUsers(ignoreInvalidUsers bool) *QueryUserTaskReqBuilder {
-	builder.ignoreInvalidUsers = ignoreInvalidUsers
-	builder.ignoreInvalidUsersFlag = true
-	return builder
+func (builder * QueryUserTaskReqBuilder) IgnoreInvalidUsers(ignoreInvalidUsers bool) *QueryUserTaskReqBuilder  {
+  builder.ignoreInvalidUsers = ignoreInvalidUsers
+  builder.ignoreInvalidUsersFlag = true
+  return builder
 }
-func (builder *QueryUserTaskReqBuilder) IncludeTerminatedUser(includeTerminatedUser bool) *QueryUserTaskReqBuilder {
-	builder.includeTerminatedUser = includeTerminatedUser
-	builder.includeTerminatedUserFlag = true
-	return builder
+func (builder * QueryUserTaskReqBuilder) IncludeTerminatedUser(includeTerminatedUser bool) *QueryUserTaskReqBuilder  {
+  builder.includeTerminatedUser = includeTerminatedUser
+  builder.includeTerminatedUserFlag = true
+  return builder
 }
-func (builder *QueryUserTaskReqBuilder) Body(body *QueryUserTaskReqBody) *QueryUserTaskReqBuilder {
-	builder.body = body
-	builder.bodyFlag = true
-	return builder
+func (builder * QueryUserTaskReqBuilder) Body(body *QueryUserTaskReqBody) *QueryUserTaskReqBuilder  {
+  builder.body = body
+  builder.bodyFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *QueryUserTaskReqBuilder) Build() *QueryUserTaskReq {
-	req := &QueryUserTaskReq{}
-	if builder.employeeTypeFlag {
-		req.EmployeeType = &builder.employeeType
-	}
-	if builder.ignoreInvalidUsersFlag {
-		req.IgnoreInvalidUsers = &builder.ignoreInvalidUsers
-	}
-	if builder.includeTerminatedUserFlag {
-		req.IncludeTerminatedUser = &builder.includeTerminatedUser
-	}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
-	return req
+func (builder * QueryUserTaskReqBuilder ) Build() *QueryUserTaskReq {
+   req := &QueryUserTaskReq{}
+   if builder.employeeTypeFlag {
+	  req.EmployeeType = &builder.employeeType
+   }
+   if builder.ignoreInvalidUsersFlag {
+	  req.IgnoreInvalidUsers = &builder.ignoreInvalidUsers
+   }
+   if builder.includeTerminatedUserFlag {
+	  req.IncludeTerminatedUser = &builder.includeTerminatedUser
+   }
+   if builder.bodyFlag {
+	  req.Body = builder.body
+   }
+   return req
 }
 
 type QueryUserTaskReqBody struct {
-	UserIds       []string `json:"user_ids,omitempty"`
-	CheckDateFrom *int     `json:"check_date_from,omitempty"`
-	CheckDateTo   *int     `json:"check_date_to,omitempty"`
+	UserIds  []string `json:"user_ids,omitempty"`
+	CheckDateFrom  *int `json:"check_date_from,omitempty"`
+	CheckDateTo  *int `json:"check_date_to,omitempty"`
 }
 
 type QueryUserTaskReq struct {
-	EmployeeType          *string               `query:"employee_type"`
-	IgnoreInvalidUsers    *bool                 `query:"ignore_invalid_users"`
-	IncludeTerminatedUser *bool                 `query:"include_terminated_user"`
-	Body                  *QueryUserTaskReqBody `body:""`
+	EmployeeType  *string `query:"employee_type"`
+	IgnoreInvalidUsers  *bool `query:"ignore_invalid_users"`
+	IncludeTerminatedUser  *bool `query:"include_terminated_user"`
+	Body *QueryUserTaskReqBody `body:""`
+
 }
 
 type QueryUserTaskRespData struct {
-	UserTaskResults     []*UserTask `json:"user_task_results,omitempty"`
-	InvalidUserIds      []string    `json:"invalid_user_ids,omitempty"`
-	UnauthorizedUserIds []string    `json:"unauthorized_user_ids,omitempty"`
+	UserTaskResults  []*UserTask `json:"user_task_results,omitempty"`
+	InvalidUserIds  []string `json:"invalid_user_ids,omitempty"`
+	UnauthorizedUserIds  []string `json:"unauthorized_user_ids,omitempty"`
 }
 
 type QueryUserTaskResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *QueryUserTaskRespData `json:"data"`
 }
 
@@ -7173,56 +7280,60 @@ func (resp *QueryUserTaskResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type CreateUserTaskRemedyReqBuilder struct {
-	employeeType       string
-	employeeTypeFlag   bool
-	userTaskRemedy     *UserTaskRemedy
+	employeeType  string
+	employeeTypeFlag  bool
+	userTaskRemedy *UserTaskRemedy
 	userTaskRemedyFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewCreateUserTaskRemedyReqBuilder() *CreateUserTaskRemedyReqBuilder {
-	builder := &CreateUserTaskRemedyReqBuilder{}
-	return builder
+func NewCreateUserTaskRemedyReqBuilder() * CreateUserTaskRemedyReqBuilder{
+   builder := &CreateUserTaskRemedyReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *CreateUserTaskRemedyReqBuilder) EmployeeType(employeeType string) *CreateUserTaskRemedyReqBuilder {
-	builder.employeeType = employeeType
-	builder.employeeTypeFlag = true
-	return builder
+func (builder * CreateUserTaskRemedyReqBuilder) EmployeeType(employeeType string) *CreateUserTaskRemedyReqBuilder  {
+  builder.employeeType = employeeType
+  builder.employeeTypeFlag = true
+  return builder
 }
-func (builder *CreateUserTaskRemedyReqBuilder) UserTaskRemedy(userTaskRemedy *UserTaskRemedy) *CreateUserTaskRemedyReqBuilder {
-	builder.userTaskRemedy = userTaskRemedy
-	builder.userTaskRemedyFlag = true
-	return builder
+func (builder * CreateUserTaskRemedyReqBuilder) UserTaskRemedy(userTaskRemedy *UserTaskRemedy) *CreateUserTaskRemedyReqBuilder  {
+  builder.userTaskRemedy = userTaskRemedy
+  builder.userTaskRemedyFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *CreateUserTaskRemedyReqBuilder) Build() *CreateUserTaskRemedyReq {
-	req := &CreateUserTaskRemedyReq{}
-	if builder.employeeTypeFlag {
-		req.EmployeeType = &builder.employeeType
-	}
-	if builder.userTaskRemedyFlag {
-		req.UserTaskRemedy = builder.userTaskRemedy
-	}
-	return req
+func (builder * CreateUserTaskRemedyReqBuilder ) Build() *CreateUserTaskRemedyReq {
+   req := &CreateUserTaskRemedyReq{}
+   if builder.employeeTypeFlag {
+	  req.EmployeeType = &builder.employeeType
+   }
+   if builder.userTaskRemedyFlag {
+	  req.UserTaskRemedy = builder.userTaskRemedy
+   }
+   return req
 }
 
+
 type CreateUserTaskRemedyReq struct {
-	EmployeeType   *string         `query:"employee_type"`
+	EmployeeType  *string `query:"employee_type"`
 	UserTaskRemedy *UserTaskRemedy `body:""`
+
 }
 
 type CreateUserTaskRemedyRespData struct {
-	UserRemedy *UserTaskRemedy `json:"user_remedy,omitempty"`
+	UserRemedy  *UserTaskRemedy `json:"user_remedy,omitempty"`
 }
 
 type CreateUserTaskRemedyResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *CreateUserTaskRemedyRespData `json:"data"`
 }
 
@@ -7231,154 +7342,157 @@ func (resp *CreateUserTaskRemedyResp) Success() bool {
 }
 
 type QueryUserTaskRemedyReqBodyBuilder struct {
-	userIds           []string
-	userIdsFlag       bool
-	checkTimeFrom     string
-	checkTimeFromFlag bool
-	checkTimeTo       string
-	checkTimeToFlag   bool
+	userIds  []string
+	userIdsFlag  bool
+	checkTimeFrom  string
+	checkTimeFromFlag  bool
+	checkTimeTo  string
+	checkTimeToFlag  bool
 }
 
 // 生成body的New构造器
-func NewQueryUserTaskRemedyReqBodyBuilder() *QueryUserTaskRemedyReqBodyBuilder {
-	builder := &QueryUserTaskRemedyReqBodyBuilder{}
-	return builder
+func NewQueryUserTaskRemedyReqBodyBuilder() * QueryUserTaskRemedyReqBodyBuilder{
+  builder := &QueryUserTaskRemedyReqBodyBuilder{}
+  return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder *QueryUserTaskRemedyReqBodyBuilder) UserIds(userIds []string) *QueryUserTaskRemedyReqBodyBuilder {
-	builder.userIds = userIds
-	builder.userIdsFlag = true
-	return builder
+func (builder * QueryUserTaskRemedyReqBodyBuilder ) UserIds(userIds []string) *QueryUserTaskRemedyReqBodyBuilder {
+  builder.userIds = userIds
+  builder.userIdsFlag = true
+  return builder
 }
-func (builder *QueryUserTaskRemedyReqBodyBuilder) CheckTimeFrom(checkTimeFrom string) *QueryUserTaskRemedyReqBodyBuilder {
-	builder.checkTimeFrom = checkTimeFrom
-	builder.checkTimeFromFlag = true
-	return builder
+func (builder * QueryUserTaskRemedyReqBodyBuilder ) CheckTimeFrom(checkTimeFrom string) *QueryUserTaskRemedyReqBodyBuilder {
+  builder.checkTimeFrom = checkTimeFrom
+  builder.checkTimeFromFlag = true
+  return builder
 }
-func (builder *QueryUserTaskRemedyReqBodyBuilder) CheckTimeTo(checkTimeTo string) *QueryUserTaskRemedyReqBodyBuilder {
-	builder.checkTimeTo = checkTimeTo
-	builder.checkTimeToFlag = true
-	return builder
+func (builder * QueryUserTaskRemedyReqBodyBuilder ) CheckTimeTo(checkTimeTo string) *QueryUserTaskRemedyReqBodyBuilder {
+  builder.checkTimeTo = checkTimeTo
+  builder.checkTimeToFlag = true
+  return builder
 }
 
+
 // 1.3 生成body的build方法
-func (builder *QueryUserTaskRemedyReqBodyBuilder) Build() *QueryUserTaskRemedyReqBody {
-	req := &QueryUserTaskRemedyReqBody{}
-	if builder.userIdsFlag {
-		req.UserIds = builder.userIds
-	}
-	if builder.checkTimeFromFlag {
-		req.CheckTimeFrom = &builder.checkTimeFrom
-	}
-	if builder.checkTimeToFlag {
-		req.CheckTimeTo = &builder.checkTimeTo
-	}
-	return req
+func (builder * QueryUserTaskRemedyReqBodyBuilder ) Build() *QueryUserTaskRemedyReqBody {
+   req := &QueryUserTaskRemedyReqBody{}
+   if builder.userIdsFlag {
+	  req.UserIds = builder.userIds
+   }
+   if builder.checkTimeFromFlag {
+	  req.CheckTimeFrom = &builder.checkTimeFrom
+   }
+   if builder.checkTimeToFlag {
+	  req.CheckTimeTo = &builder.checkTimeTo
+   }
+   return req
 }
 
 // 上传文件path开始
 type QueryUserTaskRemedyPathReqBodyBuilder struct {
-	userIds           []string
-	userIdsFlag       bool
-	checkTimeFrom     string
-	checkTimeFromFlag bool
-	checkTimeTo       string
-	checkTimeToFlag   bool
+	userIds  []string
+	userIdsFlag  bool
+	checkTimeFrom  string
+	checkTimeFromFlag  bool
+	checkTimeTo  string
+	checkTimeToFlag  bool
 }
 
-func NewQueryUserTaskRemedyPathReqBodyBuilder() *QueryUserTaskRemedyPathReqBodyBuilder {
-	builder := &QueryUserTaskRemedyPathReqBodyBuilder{}
-	return builder
+func NewQueryUserTaskRemedyPathReqBodyBuilder() * QueryUserTaskRemedyPathReqBodyBuilder{
+  builder := &QueryUserTaskRemedyPathReqBodyBuilder{}
+  return builder
 }
-func (builder *QueryUserTaskRemedyPathReqBodyBuilder) UserIds(userIds []string) *QueryUserTaskRemedyPathReqBodyBuilder {
-	builder.userIds = userIds
-	builder.userIdsFlag = true
-	return builder
+func (builder * QueryUserTaskRemedyPathReqBodyBuilder ) UserIds(userIds []string) *QueryUserTaskRemedyPathReqBodyBuilder {
+  builder.userIds = userIds
+  builder.userIdsFlag = true
+  return builder
 }
-func (builder *QueryUserTaskRemedyPathReqBodyBuilder) CheckTimeFrom(checkTimeFrom string) *QueryUserTaskRemedyPathReqBodyBuilder {
-	builder.checkTimeFrom = checkTimeFrom
-	builder.checkTimeFromFlag = true
-	return builder
+func (builder * QueryUserTaskRemedyPathReqBodyBuilder ) CheckTimeFrom(checkTimeFrom string) *QueryUserTaskRemedyPathReqBodyBuilder {
+  builder.checkTimeFrom = checkTimeFrom
+  builder.checkTimeFromFlag = true
+  return builder
 }
-func (builder *QueryUserTaskRemedyPathReqBodyBuilder) CheckTimeTo(checkTimeTo string) *QueryUserTaskRemedyPathReqBodyBuilder {
-	builder.checkTimeTo = checkTimeTo
-	builder.checkTimeToFlag = true
-	return builder
-}
-
-func (builder *QueryUserTaskRemedyPathReqBodyBuilder) Build() (*QueryUserTaskRemedyReqBody, error) {
-	req := &QueryUserTaskRemedyReqBody{}
-	if builder.userIdsFlag {
-		req.UserIds = builder.userIds
-	}
-	if builder.checkTimeFromFlag {
-		req.CheckTimeFrom = &builder.checkTimeFrom
-	}
-	if builder.checkTimeToFlag {
-		req.CheckTimeTo = &builder.checkTimeTo
-	}
-	return req, nil
+func (builder * QueryUserTaskRemedyPathReqBodyBuilder ) CheckTimeTo(checkTimeTo string) *QueryUserTaskRemedyPathReqBodyBuilder {
+  builder.checkTimeTo = checkTimeTo
+  builder.checkTimeToFlag = true
+  return builder
 }
 
+
+func (builder * QueryUserTaskRemedyPathReqBodyBuilder ) Build() (*QueryUserTaskRemedyReqBody, error) {
+   req := &QueryUserTaskRemedyReqBody{}
+   if builder.userIdsFlag {
+	   req.UserIds = builder.userIds
+   }
+   if builder.checkTimeFromFlag {
+	  req.CheckTimeFrom = &builder.checkTimeFrom
+   }
+   if builder.checkTimeToFlag {
+	  req.CheckTimeTo = &builder.checkTimeTo
+   }
+   return req, nil
+}
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type QueryUserTaskRemedyReqBuilder struct {
-	employeeType     string
-	employeeTypeFlag bool
-	body             *QueryUserTaskRemedyReqBody
-	bodyFlag         bool
+	employeeType  string
+	employeeTypeFlag  bool
+	body *QueryUserTaskRemedyReqBody
+	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewQueryUserTaskRemedyReqBuilder() *QueryUserTaskRemedyReqBuilder {
-	builder := &QueryUserTaskRemedyReqBuilder{}
-	return builder
+func NewQueryUserTaskRemedyReqBuilder() * QueryUserTaskRemedyReqBuilder{
+   builder := &QueryUserTaskRemedyReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *QueryUserTaskRemedyReqBuilder) EmployeeType(employeeType string) *QueryUserTaskRemedyReqBuilder {
-	builder.employeeType = employeeType
-	builder.employeeTypeFlag = true
-	return builder
+func (builder * QueryUserTaskRemedyReqBuilder) EmployeeType(employeeType string) *QueryUserTaskRemedyReqBuilder  {
+  builder.employeeType = employeeType
+  builder.employeeTypeFlag = true
+  return builder
 }
-func (builder *QueryUserTaskRemedyReqBuilder) Body(body *QueryUserTaskRemedyReqBody) *QueryUserTaskRemedyReqBuilder {
-	builder.body = body
-	builder.bodyFlag = true
-	return builder
+func (builder * QueryUserTaskRemedyReqBuilder) Body(body *QueryUserTaskRemedyReqBody) *QueryUserTaskRemedyReqBuilder  {
+  builder.body = body
+  builder.bodyFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *QueryUserTaskRemedyReqBuilder) Build() *QueryUserTaskRemedyReq {
-	req := &QueryUserTaskRemedyReq{}
-	if builder.employeeTypeFlag {
-		req.EmployeeType = &builder.employeeType
-	}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
-	return req
+func (builder * QueryUserTaskRemedyReqBuilder ) Build() *QueryUserTaskRemedyReq {
+   req := &QueryUserTaskRemedyReq{}
+   if builder.employeeTypeFlag {
+	  req.EmployeeType = &builder.employeeType
+   }
+   if builder.bodyFlag {
+	  req.Body = builder.body
+   }
+   return req
 }
 
 type QueryUserTaskRemedyReqBody struct {
-	UserIds       []string `json:"user_ids,omitempty"`
-	CheckTimeFrom *string  `json:"check_time_from,omitempty"`
-	CheckTimeTo   *string  `json:"check_time_to,omitempty"`
+	UserIds  []string `json:"user_ids,omitempty"`
+	CheckTimeFrom  *string `json:"check_time_from,omitempty"`
+	CheckTimeTo  *string `json:"check_time_to,omitempty"`
 }
 
 type QueryUserTaskRemedyReq struct {
-	EmployeeType *string                     `query:"employee_type"`
-	Body         *QueryUserTaskRemedyReqBody `body:""`
+	EmployeeType  *string `query:"employee_type"`
+	Body *QueryUserTaskRemedyReqBody `body:""`
+
 }
 
 type QueryUserTaskRemedyRespData struct {
-	UserRemedys []*UserTaskRemedy `json:"user_remedys,omitempty"`
+	UserRemedys  []*UserTaskRemedy `json:"user_remedys,omitempty"`
 }
 
 type QueryUserTaskRemedyResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *QueryUserTaskRemedyRespData `json:"data"`
 }
 
@@ -7387,133 +7501,136 @@ func (resp *QueryUserTaskRemedyResp) Success() bool {
 }
 
 type QueryUserAllowedRemedysUserTaskRemedyReqBodyBuilder struct {
-	userId         string
-	userIdFlag     bool
-	remedyDate     int
-	remedyDateFlag bool
+	userId  string
+	userIdFlag  bool
+	remedyDate  int
+	remedyDateFlag  bool
 }
 
 // 生成body的New构造器
-func NewQueryUserAllowedRemedysUserTaskRemedyReqBodyBuilder() *QueryUserAllowedRemedysUserTaskRemedyReqBodyBuilder {
-	builder := &QueryUserAllowedRemedysUserTaskRemedyReqBodyBuilder{}
-	return builder
+func NewQueryUserAllowedRemedysUserTaskRemedyReqBodyBuilder() * QueryUserAllowedRemedysUserTaskRemedyReqBodyBuilder{
+  builder := &QueryUserAllowedRemedysUserTaskRemedyReqBodyBuilder{}
+  return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder *QueryUserAllowedRemedysUserTaskRemedyReqBodyBuilder) UserId(userId string) *QueryUserAllowedRemedysUserTaskRemedyReqBodyBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
+func (builder * QueryUserAllowedRemedysUserTaskRemedyReqBodyBuilder ) UserId(userId string) *QueryUserAllowedRemedysUserTaskRemedyReqBodyBuilder {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
-func (builder *QueryUserAllowedRemedysUserTaskRemedyReqBodyBuilder) RemedyDate(remedyDate int) *QueryUserAllowedRemedysUserTaskRemedyReqBodyBuilder {
-	builder.remedyDate = remedyDate
-	builder.remedyDateFlag = true
-	return builder
+func (builder * QueryUserAllowedRemedysUserTaskRemedyReqBodyBuilder ) RemedyDate(remedyDate int) *QueryUserAllowedRemedysUserTaskRemedyReqBodyBuilder {
+  builder.remedyDate = remedyDate
+  builder.remedyDateFlag = true
+  return builder
 }
 
+
 // 1.3 生成body的build方法
-func (builder *QueryUserAllowedRemedysUserTaskRemedyReqBodyBuilder) Build() *QueryUserAllowedRemedysUserTaskRemedyReqBody {
-	req := &QueryUserAllowedRemedysUserTaskRemedyReqBody{}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-	}
-	if builder.remedyDateFlag {
-		req.RemedyDate = &builder.remedyDate
-	}
-	return req
+func (builder * QueryUserAllowedRemedysUserTaskRemedyReqBodyBuilder ) Build() *QueryUserAllowedRemedysUserTaskRemedyReqBody {
+   req := &QueryUserAllowedRemedysUserTaskRemedyReqBody{}
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+   }
+   if builder.remedyDateFlag {
+	  req.RemedyDate = &builder.remedyDate
+   }
+   return req
 }
 
 // 上传文件path开始
 type QueryUserAllowedRemedysUserTaskRemedyPathReqBodyBuilder struct {
-	userId         string
-	userIdFlag     bool
-	remedyDate     int
-	remedyDateFlag bool
+	userId  string
+	userIdFlag  bool
+	remedyDate  int
+	remedyDateFlag  bool
 }
 
-func NewQueryUserAllowedRemedysUserTaskRemedyPathReqBodyBuilder() *QueryUserAllowedRemedysUserTaskRemedyPathReqBodyBuilder {
-	builder := &QueryUserAllowedRemedysUserTaskRemedyPathReqBodyBuilder{}
-	return builder
+func NewQueryUserAllowedRemedysUserTaskRemedyPathReqBodyBuilder() * QueryUserAllowedRemedysUserTaskRemedyPathReqBodyBuilder{
+  builder := &QueryUserAllowedRemedysUserTaskRemedyPathReqBodyBuilder{}
+  return builder
 }
-func (builder *QueryUserAllowedRemedysUserTaskRemedyPathReqBodyBuilder) UserId(userId string) *QueryUserAllowedRemedysUserTaskRemedyPathReqBodyBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
+func (builder * QueryUserAllowedRemedysUserTaskRemedyPathReqBodyBuilder ) UserId(userId string) *QueryUserAllowedRemedysUserTaskRemedyPathReqBodyBuilder {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
-func (builder *QueryUserAllowedRemedysUserTaskRemedyPathReqBodyBuilder) RemedyDate(remedyDate int) *QueryUserAllowedRemedysUserTaskRemedyPathReqBodyBuilder {
-	builder.remedyDate = remedyDate
-	builder.remedyDateFlag = true
-	return builder
-}
-
-func (builder *QueryUserAllowedRemedysUserTaskRemedyPathReqBodyBuilder) Build() (*QueryUserAllowedRemedysUserTaskRemedyReqBody, error) {
-	req := &QueryUserAllowedRemedysUserTaskRemedyReqBody{}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-	}
-	if builder.remedyDateFlag {
-		req.RemedyDate = &builder.remedyDate
-	}
-	return req, nil
+func (builder * QueryUserAllowedRemedysUserTaskRemedyPathReqBodyBuilder ) RemedyDate(remedyDate int) *QueryUserAllowedRemedysUserTaskRemedyPathReqBodyBuilder {
+  builder.remedyDate = remedyDate
+  builder.remedyDateFlag = true
+  return builder
 }
 
+
+func (builder * QueryUserAllowedRemedysUserTaskRemedyPathReqBodyBuilder ) Build() (*QueryUserAllowedRemedysUserTaskRemedyReqBody, error) {
+   req := &QueryUserAllowedRemedysUserTaskRemedyReqBody{}
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+   }
+   if builder.remedyDateFlag {
+	  req.RemedyDate = &builder.remedyDate
+   }
+   return req, nil
+}
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type QueryUserAllowedRemedysUserTaskRemedyReqBuilder struct {
-	employeeType     string
-	employeeTypeFlag bool
-	body             *QueryUserAllowedRemedysUserTaskRemedyReqBody
-	bodyFlag         bool
+	employeeType  string
+	employeeTypeFlag  bool
+	body *QueryUserAllowedRemedysUserTaskRemedyReqBody
+	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewQueryUserAllowedRemedysUserTaskRemedyReqBuilder() *QueryUserAllowedRemedysUserTaskRemedyReqBuilder {
-	builder := &QueryUserAllowedRemedysUserTaskRemedyReqBuilder{}
-	return builder
+func NewQueryUserAllowedRemedysUserTaskRemedyReqBuilder() * QueryUserAllowedRemedysUserTaskRemedyReqBuilder{
+   builder := &QueryUserAllowedRemedysUserTaskRemedyReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *QueryUserAllowedRemedysUserTaskRemedyReqBuilder) EmployeeType(employeeType string) *QueryUserAllowedRemedysUserTaskRemedyReqBuilder {
-	builder.employeeType = employeeType
-	builder.employeeTypeFlag = true
-	return builder
+func (builder * QueryUserAllowedRemedysUserTaskRemedyReqBuilder) EmployeeType(employeeType string) *QueryUserAllowedRemedysUserTaskRemedyReqBuilder  {
+  builder.employeeType = employeeType
+  builder.employeeTypeFlag = true
+  return builder
 }
-func (builder *QueryUserAllowedRemedysUserTaskRemedyReqBuilder) Body(body *QueryUserAllowedRemedysUserTaskRemedyReqBody) *QueryUserAllowedRemedysUserTaskRemedyReqBuilder {
-	builder.body = body
-	builder.bodyFlag = true
-	return builder
+func (builder * QueryUserAllowedRemedysUserTaskRemedyReqBuilder) Body(body *QueryUserAllowedRemedysUserTaskRemedyReqBody) *QueryUserAllowedRemedysUserTaskRemedyReqBuilder  {
+  builder.body = body
+  builder.bodyFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *QueryUserAllowedRemedysUserTaskRemedyReqBuilder) Build() *QueryUserAllowedRemedysUserTaskRemedyReq {
-	req := &QueryUserAllowedRemedysUserTaskRemedyReq{}
-	if builder.employeeTypeFlag {
-		req.EmployeeType = &builder.employeeType
-	}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
-	return req
+func (builder * QueryUserAllowedRemedysUserTaskRemedyReqBuilder ) Build() *QueryUserAllowedRemedysUserTaskRemedyReq {
+   req := &QueryUserAllowedRemedysUserTaskRemedyReq{}
+   if builder.employeeTypeFlag {
+	  req.EmployeeType = &builder.employeeType
+   }
+   if builder.bodyFlag {
+	  req.Body = builder.body
+   }
+   return req
 }
 
 type QueryUserAllowedRemedysUserTaskRemedyReqBody struct {
-	UserId     *string `json:"user_id,omitempty"`
-	RemedyDate *int    `json:"remedy_date,omitempty"`
+	UserId  *string `json:"user_id,omitempty"`
+	RemedyDate  *int `json:"remedy_date,omitempty"`
 }
 
 type QueryUserAllowedRemedysUserTaskRemedyReq struct {
-	EmployeeType *string                                       `query:"employee_type"`
-	Body         *QueryUserAllowedRemedysUserTaskRemedyReqBody `body:""`
+	EmployeeType  *string `query:"employee_type"`
+	Body *QueryUserAllowedRemedysUserTaskRemedyReqBody `body:""`
+
 }
 
 type QueryUserAllowedRemedysUserTaskRemedyRespData struct {
-	UserAllowedRemedys []*UserAllowedRemedy `json:"user_allowed_remedys,omitempty"`
+	UserAllowedRemedys  []*UserAllowedRemedy `json:"user_allowed_remedys,omitempty"`
 }
 
 type QueryUserAllowedRemedysUserTaskRemedyResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *QueryUserAllowedRemedysUserTaskRemedyRespData `json:"data"`
 }
 
@@ -7523,112 +7640,114 @@ func (resp *QueryUserAllowedRemedysUserTaskRemedyResp) Success() bool {
 
 // 生成消息事件结构体
 
+
 // 生成请求的builder构造器
 // 1.1 生成body的builder结构体
-type ListGroupIterator struct {
-	nextPageToken *string
-	items         []*GroupMeta
-	index         int
-	limit         int
-	ctx           context.Context
-	req           *ListGroupReq
-	listFunc      func(ctx context.Context, req *ListGroupReq, options ...core.RequestOptionFunc) (*ListGroupResp, error)
-	options       []core.RequestOptionFunc
-	curlNum       int
-}
+   type ListGroupIterator struct{
+	 nextPageToken *string
+	 items	 []*GroupMeta
+	 index	 int
+	 limit	 int
+	 ctx	   context.Context
+	 req	   *ListGroupReq
+	 listFunc  func (ctx context.Context, req *ListGroupReq, options ...larkcore.RequestOptionFunc) (*ListGroupResp, error)
+	 options   []larkcore.RequestOptionFunc
+   	 curlNum	   int
+   }
 
-func (iterator *ListGroupIterator) Next() (bool, *GroupMeta, error) {
-	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
-		return false, nil, nil
-	}
-
-	// 为0则拉取数据
-	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
-			return false, nil, nil
-		}
-		if iterator.nextPageToken != nil {
-			iterator.req.PageToken = iterator.nextPageToken
-		}
-		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-		if err != nil {
-			return false, nil, err
-		}
-
-		if resp.Code != 0 {
-			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
-		}
-
-		if len(resp.Data.GroupList) == 0 {
+   func (iterator *ListGroupIterator) Next() (bool, *GroupMeta, error) {
+		// 达到最大量，则返回
+		if iterator.limit >0 && iterator.curlNum >= iterator.limit {
 			return false, nil, nil
 		}
 
-		iterator.nextPageToken = resp.Data.PageToken
-		iterator.items = resp.Data.GroupList
-		iterator.index = 0
-	}
+		// 为0则拉取数据
+		if iterator.index == 0 || iterator.index >= len(iterator.items) {
+			if iterator.index != 0 && iterator.nextPageToken == nil {
+				return false, nil, nil
+			}
+			if iterator.nextPageToken != nil {
+				iterator.req.PageToken = iterator.nextPageToken
+			}
+			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+			if err != nil {
+				return false, nil, err
+			}
 
-	block := iterator.items[iterator.index]
-	iterator.index++
-	iterator.curlNum++
-	return true, block, nil
-}
+			if resp.Code != 0 {
+				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+			}
 
-func (iterator *ListGroupIterator) NextPageToken() *string {
-	return iterator.nextPageToken
-}
+			if len(resp.Data.GroupList) == 0 {
+				return false, nil, nil
+			}
 
-type ListShiftIterator struct {
-	nextPageToken *string
-	items         []*Shift
-	index         int
-	limit         int
-	ctx           context.Context
-	req           *ListShiftReq
-	listFunc      func(ctx context.Context, req *ListShiftReq, options ...core.RequestOptionFunc) (*ListShiftResp, error)
-	options       []core.RequestOptionFunc
-	curlNum       int
-}
+			iterator.nextPageToken = resp.Data.PageToken
+			iterator.items = resp.Data.GroupList
+			iterator.index = 0
+		}
 
-func (iterator *ListShiftIterator) Next() (bool, *Shift, error) {
-	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
-		return false, nil, nil
-	}
+		block := iterator.items[iterator.index]
+		iterator.index++
+		iterator.curlNum++
+		return true, block, nil
+   }
 
-	// 为0则拉取数据
-	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+   func (iterator *ListGroupIterator) NextPageToken() *string {
+	  return iterator.nextPageToken
+   }
+   type ListShiftIterator struct{
+	 nextPageToken *string
+	 items	 []*Shift
+	 index	 int
+	 limit	 int
+	 ctx	   context.Context
+	 req	   *ListShiftReq
+	 listFunc  func (ctx context.Context, req *ListShiftReq, options ...larkcore.RequestOptionFunc) (*ListShiftResp, error)
+	 options   []larkcore.RequestOptionFunc
+   	 curlNum	   int
+   }
+
+   func (iterator *ListShiftIterator) Next() (bool, *Shift, error) {
+		// 达到最大量，则返回
+		if iterator.limit >0 && iterator.curlNum >= iterator.limit {
 			return false, nil, nil
 		}
-		if iterator.nextPageToken != nil {
-			iterator.req.PageToken = iterator.nextPageToken
+
+		// 为0则拉取数据
+		if iterator.index == 0 || iterator.index >= len(iterator.items) {
+			if iterator.index != 0 && iterator.nextPageToken == nil {
+				return false, nil, nil
+			}
+			if iterator.nextPageToken != nil {
+				iterator.req.PageToken = iterator.nextPageToken
+			}
+			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+			if err != nil {
+				return false, nil, err
+			}
+
+			if resp.Code != 0 {
+				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+			}
+
+			if len(resp.Data.ShiftList) == 0 {
+				return false, nil, nil
+			}
+
+			iterator.nextPageToken = resp.Data.PageToken
+			iterator.items = resp.Data.ShiftList
+			iterator.index = 0
 		}
-		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-		if err != nil {
-			return false, nil, err
-		}
 
-		if resp.Code != 0 {
-			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
-		}
+		block := iterator.items[iterator.index]
+		iterator.index++
+		iterator.curlNum++
+		return true, block, nil
+   }
 
-		if len(resp.Data.ShiftList) == 0 {
-			return false, nil, nil
-		}
+   func (iterator *ListShiftIterator) NextPageToken() *string {
+	  return iterator.nextPageToken
+   }
 
-		iterator.nextPageToken = resp.Data.PageToken
-		iterator.items = resp.Data.ShiftList
-		iterator.index = 0
-	}
 
-	block := iterator.items[iterator.index]
-	iterator.index++
-	iterator.curlNum++
-	return true, block, nil
-}
-
-func (iterator *ListShiftIterator) NextPageToken() *string {
-	return iterator.nextPageToken
-}

@@ -2,55 +2,68 @@
 package larkapproval
 
 import (
-	"context"
 	"net/http"
-
+	"context"
+	
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
+
 // 构建业务域服务实例
-func NewService(config *core.Config) *ApprovalService {
-	a := &ApprovalService{config: config}
+func NewService(config *larkcore.Config) *ApprovalService {
+	a := &ApprovalService{config:config}
 	a.Approval = &approval{service: a}
 	a.ExternalApproval = &externalApproval{service: a}
 	a.ExternalInstance = &externalInstance{service: a}
+	a.ExternalTask = &externalTask{service: a}
 	a.Instance = &instance{service: a}
+	a.InstanceComment = &instanceComment{service: a}
 	a.Task = &task{service: a}
 	return a
 }
 
+
 // 业务域服务定义
 type ApprovalService struct {
-	config           *core.Config
-	Approval         *approval
+	config *larkcore.Config
+	Approval *approval
 	ExternalApproval *externalApproval
 	ExternalInstance *externalInstance
-	Instance         *instance
-	Task             *task
+	ExternalTask *externalTask
+	Instance *instance
+	InstanceComment *instanceComment
+	Task *task
 }
+
+
 
 // 资源服务定义
 type approval struct {
-	service *ApprovalService
+   service *ApprovalService
 }
 type externalApproval struct {
-	service *ApprovalService
+   service *ApprovalService
 }
 type externalInstance struct {
-	service *ApprovalService
+   service *ApprovalService
+}
+type externalTask struct {
+   service *ApprovalService
 }
 type instance struct {
-	service *ApprovalService
+   service *ApprovalService
+}
+type instanceComment struct {
+   service *ApprovalService
 }
 type task struct {
-	service *ApprovalService
+   service *ApprovalService
 }
-
 // 资源服务方法定义
-func (a *approval) Create(ctx context.Context, req *CreateApprovalReq, options ...core.RequestOptionFunc) (*CreateApprovalResp, error) {
+func (a *approval) Create(ctx context.Context, req *CreateApprovalReq, options ...larkcore.RequestOptionFunc) (*CreateApprovalResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodPost,
-		"/open-apis/approval/v4/approvals", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,a.service.config, http.MethodPost,
+		"/open-apis/approval/v4/approvals", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -62,10 +75,10 @@ func (a *approval) Create(ctx context.Context, req *CreateApprovalReq, options .
 	}
 	return resp, err
 }
-func (a *approval) Get(ctx context.Context, req *GetApprovalReq, options ...core.RequestOptionFunc) (*GetApprovalResp, error) {
+func (a *approval) Get(ctx context.Context, req *GetApprovalReq, options ...larkcore.RequestOptionFunc) (*GetApprovalResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodGet,
-		"/open-apis/approval/v4/approvals/:approval_code", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,a.service.config, http.MethodGet,
+		"/open-apis/approval/v4/approvals/:approval_code", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -77,10 +90,40 @@ func (a *approval) Get(ctx context.Context, req *GetApprovalReq, options ...core
 	}
 	return resp, err
 }
-func (e *externalApproval) Create(ctx context.Context, req *CreateExternalApprovalReq, options ...core.RequestOptionFunc) (*CreateExternalApprovalResp, error) {
+func (a *approval) Subscribe(ctx context.Context, req *SubscribeApprovalReq, options ...larkcore.RequestOptionFunc) (*SubscribeApprovalResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, e.service.config, http.MethodPost,
-		"/open-apis/approval/v4/external_approvals", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,a.service.config, http.MethodPost,
+		"/open-apis/approval/v4/approvals/:approval_code/subscribe", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &SubscribeApprovalResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (a *approval) Unsubscribe(ctx context.Context, req *UnsubscribeApprovalReq, options ...larkcore.RequestOptionFunc) (*UnsubscribeApprovalResp, error) {
+	// 发起请求
+	rawResp, err := larkcore.SendRequest(ctx,a.service.config, http.MethodPost,
+		"/open-apis/approval/v4/approvals/:approval_code/unsubscribe", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &UnsubscribeApprovalResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (e *externalApproval) Create(ctx context.Context, req *CreateExternalApprovalReq, options ...larkcore.RequestOptionFunc) (*CreateExternalApprovalResp, error) {
+	// 发起请求
+	rawResp, err := larkcore.SendRequest(ctx,e.service.config, http.MethodPost,
+		"/open-apis/approval/v4/external_approvals", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -92,10 +135,10 @@ func (e *externalApproval) Create(ctx context.Context, req *CreateExternalApprov
 	}
 	return resp, err
 }
-func (e *externalInstance) Check(ctx context.Context, req *CheckExternalInstanceReq, options ...core.RequestOptionFunc) (*CheckExternalInstanceResp, error) {
+func (e *externalInstance) Check(ctx context.Context, req *CheckExternalInstanceReq, options ...larkcore.RequestOptionFunc) (*CheckExternalInstanceResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, e.service.config, http.MethodPost,
-		"/open-apis/approval/v4/external_instances/check", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,e.service.config, http.MethodPost,
+		"/open-apis/approval/v4/external_instances/check", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -107,10 +150,10 @@ func (e *externalInstance) Check(ctx context.Context, req *CheckExternalInstance
 	}
 	return resp, err
 }
-func (e *externalInstance) Create(ctx context.Context, req *CreateExternalInstanceReq, options ...core.RequestOptionFunc) (*CreateExternalInstanceResp, error) {
+func (e *externalInstance) Create(ctx context.Context, req *CreateExternalInstanceReq, options ...larkcore.RequestOptionFunc) (*CreateExternalInstanceResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, e.service.config, http.MethodPost,
-		"/open-apis/approval/v4/external_instances", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,e.service.config, http.MethodPost,
+		"/open-apis/approval/v4/external_instances", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -122,10 +165,33 @@ func (e *externalInstance) Create(ctx context.Context, req *CreateExternalInstan
 	}
 	return resp, err
 }
-func (i *instance) AddSign(ctx context.Context, req *AddSignInstanceReq, options ...core.RequestOptionFunc) (*AddSignInstanceResp, error) {
+func (e *externalTask) List(ctx context.Context, req *ListExternalTaskReq, options ...larkcore.RequestOptionFunc) (*ListExternalTaskResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, i.service.config, http.MethodPost,
-		"/open-apis/approval/v4/instances/add_sign", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,e.service.config, http.MethodGet,
+		"/open-apis/approval/v4/external_tasks", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListExternalTaskResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (e *externalTask) ListByIterator(ctx context.Context, req *ListExternalTaskReq, options ...larkcore.RequestOptionFunc) (*ListExternalTaskIterator, error) {
+   return &ListExternalTaskIterator{
+	  ctx:	  ctx,
+	  req:	  req,
+	  listFunc: e.List,
+	  options:  options,
+	  limit: req.Limit}, nil
+}
+func (i *instance) AddSign(ctx context.Context, req *AddSignInstanceReq, options ...larkcore.RequestOptionFunc) (*AddSignInstanceResp, error) {
+	// 发起请求
+	rawResp, err := larkcore.SendRequest(ctx,i.service.config, http.MethodPost,
+		"/open-apis/approval/v4/instances/add_sign", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -137,10 +203,10 @@ func (i *instance) AddSign(ctx context.Context, req *AddSignInstanceReq, options
 	}
 	return resp, err
 }
-func (i *instance) Cancel(ctx context.Context, req *CancelInstanceReq, options ...core.RequestOptionFunc) (*CancelInstanceResp, error) {
+func (i *instance) Cancel(ctx context.Context, req *CancelInstanceReq, options ...larkcore.RequestOptionFunc) (*CancelInstanceResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, i.service.config, http.MethodPost,
-		"/open-apis/approval/v4/instances/cancel", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,i.service.config, http.MethodPost,
+		"/open-apis/approval/v4/instances/cancel", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -152,10 +218,10 @@ func (i *instance) Cancel(ctx context.Context, req *CancelInstanceReq, options .
 	}
 	return resp, err
 }
-func (i *instance) Cc(ctx context.Context, req *CcInstanceReq, options ...core.RequestOptionFunc) (*CcInstanceResp, error) {
+func (i *instance) Cc(ctx context.Context, req *CcInstanceReq, options ...larkcore.RequestOptionFunc) (*CcInstanceResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, i.service.config, http.MethodPost,
-		"/open-apis/approval/v4/instances/cc", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,i.service.config, http.MethodPost,
+		"/open-apis/approval/v4/instances/cc", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -167,10 +233,10 @@ func (i *instance) Cc(ctx context.Context, req *CcInstanceReq, options ...core.R
 	}
 	return resp, err
 }
-func (i *instance) Create(ctx context.Context, req *CreateInstanceReq, options ...core.RequestOptionFunc) (*CreateInstanceResp, error) {
+func (i *instance) Create(ctx context.Context, req *CreateInstanceReq, options ...larkcore.RequestOptionFunc) (*CreateInstanceResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, i.service.config, http.MethodPost,
-		"/open-apis/approval/v4/instances", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,i.service.config, http.MethodPost,
+		"/open-apis/approval/v4/instances", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -182,10 +248,10 @@ func (i *instance) Create(ctx context.Context, req *CreateInstanceReq, options .
 	}
 	return resp, err
 }
-func (i *instance) Get(ctx context.Context, req *GetInstanceReq, options ...core.RequestOptionFunc) (*GetInstanceResp, error) {
+func (i *instance) Get(ctx context.Context, req *GetInstanceReq, options ...larkcore.RequestOptionFunc) (*GetInstanceResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, i.service.config, http.MethodGet,
-		"/open-apis/approval/v4/instances/:instance_id", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,i.service.config, http.MethodGet,
+		"/open-apis/approval/v4/instances/:instance_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -197,10 +263,10 @@ func (i *instance) Get(ctx context.Context, req *GetInstanceReq, options ...core
 	}
 	return resp, err
 }
-func (i *instance) List(ctx context.Context, req *ListInstanceReq, options ...core.RequestOptionFunc) (*ListInstanceResp, error) {
+func (i *instance) List(ctx context.Context, req *ListInstanceReq, options ...larkcore.RequestOptionFunc) (*ListInstanceResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, i.service.config, http.MethodGet,
-		"/open-apis/approval/v4/instances", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,i.service.config, http.MethodGet,
+		"/open-apis/approval/v4/instances", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -212,18 +278,18 @@ func (i *instance) List(ctx context.Context, req *ListInstanceReq, options ...co
 	}
 	return resp, err
 }
-func (i *instance) ListByIterator(ctx context.Context, req *ListInstanceReq, options ...core.RequestOptionFunc) (*ListInstanceIterator, error) {
-	return &ListInstanceIterator{
-		ctx:      ctx,
-		req:      req,
-		listFunc: i.List,
-		options:  options,
-		limit:    req.Limit}, nil
+func (i *instance) ListByIterator(ctx context.Context, req *ListInstanceReq, options ...larkcore.RequestOptionFunc) (*ListInstanceIterator, error) {
+   return &ListInstanceIterator{
+	  ctx:	  ctx,
+	  req:	  req,
+	  listFunc: i.List,
+	  options:  options,
+	  limit: req.Limit}, nil
 }
-func (i *instance) Preview(ctx context.Context, req *PreviewInstanceReq, options ...core.RequestOptionFunc) (*PreviewInstanceResp, error) {
+func (i *instance) Preview(ctx context.Context, req *PreviewInstanceReq, options ...larkcore.RequestOptionFunc) (*PreviewInstanceResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, i.service.config, http.MethodPost,
-		"/open-apis/approval/v4/instances/preview", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,i.service.config, http.MethodPost,
+		"/open-apis/approval/v4/instances/preview", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -235,10 +301,115 @@ func (i *instance) Preview(ctx context.Context, req *PreviewInstanceReq, options
 	}
 	return resp, err
 }
-func (t *task) Approve(ctx context.Context, req *ApproveTaskReq, options ...core.RequestOptionFunc) (*ApproveTaskResp, error) {
+func (i *instance) Query(ctx context.Context, req *QueryInstanceReq, options ...larkcore.RequestOptionFunc) (*QueryInstanceResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, t.service.config, http.MethodPost,
-		"/open-apis/approval/v4/tasks/approve", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,i.service.config, http.MethodPost,
+		"/open-apis/approval/v4/instances/query", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &QueryInstanceResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (i *instance) SearchCc(ctx context.Context, req *SearchCcInstanceReq, options ...larkcore.RequestOptionFunc) (*SearchCcInstanceResp, error) {
+	// 发起请求
+	rawResp, err := larkcore.SendRequest(ctx,i.service.config, http.MethodPost,
+		"/open-apis/approval/v4/instances/search_cc", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &SearchCcInstanceResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (i *instance) SpecifiedRollback(ctx context.Context, req *SpecifiedRollbackInstanceReq, options ...larkcore.RequestOptionFunc) (*SpecifiedRollbackInstanceResp, error) {
+	// 发起请求
+	rawResp, err := larkcore.SendRequest(ctx,i.service.config, http.MethodPost,
+		"/open-apis/approval/v4/instances/specified_rollback", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &SpecifiedRollbackInstanceResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (i *instanceComment) Create(ctx context.Context, req *CreateInstanceCommentReq, options ...larkcore.RequestOptionFunc) (*CreateInstanceCommentResp, error) {
+	// 发起请求
+	rawResp, err := larkcore.SendRequest(ctx,i.service.config, http.MethodPost,
+		"/open-apis/approval/v4/instances/:instance_id/comments", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateInstanceCommentResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (i *instanceComment) Delete(ctx context.Context, req *DeleteInstanceCommentReq, options ...larkcore.RequestOptionFunc) (*DeleteInstanceCommentResp, error) {
+	// 发起请求
+	rawResp, err := larkcore.SendRequest(ctx,i.service.config, http.MethodDelete,
+		"/open-apis/approval/v4/instances/:instance_id/comments/:comment_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &DeleteInstanceCommentResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (i *instanceComment) List(ctx context.Context, req *ListInstanceCommentReq, options ...larkcore.RequestOptionFunc) (*ListInstanceCommentResp, error) {
+	// 发起请求
+	rawResp, err := larkcore.SendRequest(ctx,i.service.config, http.MethodGet,
+		"/open-apis/approval/v4/instances/:instance_id/comments", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListInstanceCommentResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (i *instanceComment) Remove(ctx context.Context, req *RemoveInstanceCommentReq, options ...larkcore.RequestOptionFunc) (*RemoveInstanceCommentResp, error) {
+	// 发起请求
+	rawResp, err := larkcore.SendRequest(ctx,i.service.config, http.MethodPost,
+		"/open-apis/approval/v4/instances/:instance_id/comments/remove", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &RemoveInstanceCommentResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (t *task) Approve(ctx context.Context, req *ApproveTaskReq, options ...larkcore.RequestOptionFunc) (*ApproveTaskResp, error) {
+	// 发起请求
+	rawResp, err := larkcore.SendRequest(ctx,t.service.config, http.MethodPost,
+		"/open-apis/approval/v4/tasks/approve", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -250,10 +421,10 @@ func (t *task) Approve(ctx context.Context, req *ApproveTaskReq, options ...core
 	}
 	return resp, err
 }
-func (t *task) Query(ctx context.Context, req *QueryTaskReq, options ...core.RequestOptionFunc) (*QueryTaskResp, error) {
+func (t *task) Query(ctx context.Context, req *QueryTaskReq, options ...larkcore.RequestOptionFunc) (*QueryTaskResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, t.service.config, http.MethodGet,
-		"/open-apis/approval/v4/tasks/query", []core.AccessTokenType{core.AccessTokenTypeTenant, core.AccessTokenTypeUser}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,t.service.config, http.MethodGet,
+		"/open-apis/approval/v4/tasks/query", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -265,18 +436,18 @@ func (t *task) Query(ctx context.Context, req *QueryTaskReq, options ...core.Req
 	}
 	return resp, err
 }
-func (t *task) QueryByIterator(ctx context.Context, req *QueryTaskReq, options ...core.RequestOptionFunc) (*QueryTaskIterator, error) {
-	return &QueryTaskIterator{
-		ctx:      ctx,
-		req:      req,
-		listFunc: t.Query,
-		options:  options,
-		limit:    req.Limit}, nil
+func (t *task) QueryByIterator(ctx context.Context, req *QueryTaskReq, options ...larkcore.RequestOptionFunc) (*QueryTaskIterator, error) {
+   return &QueryTaskIterator{
+	  ctx:	  ctx,
+	  req:	  req,
+	  listFunc: t.Query,
+	  options:  options,
+	  limit: req.Limit}, nil
 }
-func (t *task) Reject(ctx context.Context, req *RejectTaskReq, options ...core.RequestOptionFunc) (*RejectTaskResp, error) {
+func (t *task) Reject(ctx context.Context, req *RejectTaskReq, options ...larkcore.RequestOptionFunc) (*RejectTaskResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, t.service.config, http.MethodPost,
-		"/open-apis/approval/v4/tasks/reject", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,t.service.config, http.MethodPost,
+		"/open-apis/approval/v4/tasks/reject", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -288,10 +459,25 @@ func (t *task) Reject(ctx context.Context, req *RejectTaskReq, options ...core.R
 	}
 	return resp, err
 }
-func (t *task) Transfer(ctx context.Context, req *TransferTaskReq, options ...core.RequestOptionFunc) (*TransferTaskResp, error) {
+func (t *task) Search(ctx context.Context, req *SearchTaskReq, options ...larkcore.RequestOptionFunc) (*SearchTaskResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, t.service.config, http.MethodPost,
-		"/open-apis/approval/v4/tasks/transfer", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,t.service.config, http.MethodPost,
+		"/open-apis/approval/v4/tasks/search", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &SearchTaskResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (t *task) Transfer(ctx context.Context, req *TransferTaskReq, options ...larkcore.RequestOptionFunc) (*TransferTaskResp, error) {
+	// 发起请求
+	rawResp, err := larkcore.SendRequest(ctx,t.service.config, http.MethodPost,
+		"/open-apis/approval/v4/tasks/transfer", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}

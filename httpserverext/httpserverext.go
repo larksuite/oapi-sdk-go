@@ -11,7 +11,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/event/dispatcher"
 )
 
-func doProcess(writer http.ResponseWriter, req *http.Request, reqHandler event.IReqHandler) {
+func doProcess(writer http.ResponseWriter, req *http.Request, reqHandler larkevent.IReqHandler) {
 	// 转换http请求对象为标准请求对象
 	ctx := context.Background()
 	eventReq, err := translate(ctx, req)
@@ -31,21 +31,21 @@ func doProcess(writer http.ResponseWriter, req *http.Request, reqHandler event.I
 	}
 }
 
-func NewCardActionHandlerFunc(cardActionHandler *card.CardActionHandler, options ...event.OptionFunc) func(writer http.ResponseWriter, req *http.Request) {
+func NewCardActionHandlerFunc(cardActionHandler *larkcard.CardActionHandler, options ...larkevent.OptionFunc) func(writer http.ResponseWriter, req *http.Request) {
 	cardActionHandler.InitConfig(options...)
 	return func(writer http.ResponseWriter, req *http.Request) {
 		doProcess(writer, req, cardActionHandler)
 	}
 }
 
-func NewEventHandlerFunc(eventDispatcher *dispatcher.EventDispatcher, options ...event.OptionFunc) func(writer http.ResponseWriter, req *http.Request) {
+func NewEventHandlerFunc(eventDispatcher *dispatcher.EventDispatcher, options ...larkevent.OptionFunc) func(writer http.ResponseWriter, req *http.Request) {
 	eventDispatcher.InitConfig(options...)
 	return func(writer http.ResponseWriter, req *http.Request) {
 		doProcess(writer, req, eventDispatcher)
 	}
 }
 
-func write(ctx context.Context, writer http.ResponseWriter, eventResp *event.EventResp) error {
+func write(ctx context.Context, writer http.ResponseWriter, eventResp *larkevent.EventResp) error {
 	writer.WriteHeader(eventResp.StatusCode)
 	for k, vs := range eventResp.Header {
 		for _, v := range vs {
@@ -60,12 +60,12 @@ func write(ctx context.Context, writer http.ResponseWriter, eventResp *event.Eve
 	return nil
 }
 
-func translate(ctx context.Context, req *http.Request) (*event.EventReq, error) {
+func translate(ctx context.Context, req *http.Request) (*larkevent.EventReq, error) {
 	rawBody, err := ioutil.ReadAll(req.Body)
 	if err != nil {
 		return nil, err
 	}
-	eventReq := &event.EventReq{
+	eventReq := &larkevent.EventReq{
 		Header:     req.Header,
 		Body:       rawBody,
 		RequestURI: req.RequestURI,

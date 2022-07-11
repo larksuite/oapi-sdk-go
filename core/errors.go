@@ -1,4 +1,4 @@
-package core
+package larkcore
 
 type IllegalParamError struct {
 	msg string

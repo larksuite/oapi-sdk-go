@@ -1,4 +1,4 @@
-package core
+package larkcore
 
 import (
 	"encoding/json"
@@ -35,11 +35,11 @@ func (resp RawResponse) JSONUnmarshalBody(val interface{}) error {
 }
 
 func (resp RawResponse) RequestId() string {
-	logID := resp.Header.Get(httpHeaderKeyLogId)
+	logID := resp.Header.Get(HttpHeaderKeyLogId)
 	if logID != "" {
 		return logID
 	}
-	return resp.Header.Get(httpHeaderKeyRequestId)
+	return resp.Header.Get(HttpHeaderKeyRequestId)
 }
 
 func (resp RawResponse) String() string {

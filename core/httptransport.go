@@ -1,4 +1,4 @@
-package core
+package larkcore
 
 import (
 	"context"
@@ -8,15 +8,17 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
-
-	"github.com/larksuite/oapi-sdk-go/httpclient"
 )
 
 var reqTranslator ReqTranslator
 
 func NewHttpClient(config *Config) {
 	if config.HttpClient == nil {
-		config.HttpClient = httpclient.NewHttpClient(config.ReqTimeout)
+		if config.ReqTimeout == 0 {
+			config.HttpClient = http.DefaultClient
+		} else {
+			config.HttpClient = &http.Client{Timeout: config.ReqTimeout}
+		}
 	}
 }
 
@@ -78,21 +80,21 @@ func validate(config *Config, option *RequestOption, accessTokenType AccessToken
 	}
 
 	if option.Header != nil {
-		if option.Header.Get(httpHeaderKeyRequestId) != "" {
-			return &IllegalParamError{msg: fmt.Sprintf("use %s as header key is not allowed", httpHeaderKeyRequestId)}
+		if option.Header.Get(HttpHeaderKeyRequestId) != "" {
+			return &IllegalParamError{msg: fmt.Sprintf("use %s as header key is not allowed", HttpHeaderKeyRequestId)}
 		}
 		if option.Header.Get(httpHeaderRequestId) != "" {
 			return &IllegalParamError{msg: fmt.Sprintf("use %s as header key is not allowed", httpHeaderRequestId)}
 		}
-		if option.Header.Get(httpHeaderKeyLogId) != "" {
-			return &IllegalParamError{msg: fmt.Sprintf("use %s as header key is not allowed", httpHeaderKeyLogId)}
+		if option.Header.Get(HttpHeaderKeyLogId) != "" {
+			return &IllegalParamError{msg: fmt.Sprintf("use %s as header key is not allowed", HttpHeaderKeyLogId)}
 		}
 	}
 
 	return nil
 }
 
-func doSend(ctx context.Context, rawRequest *http.Request, httpClient httpclient.HttpClient) (*RawResponse, error) {
+func doSend(ctx context.Context, rawRequest *http.Request, httpClient HttpClient) (*RawResponse, error) {
 	if httpClient == nil {
 		httpClient = http.DefaultClient
 	}

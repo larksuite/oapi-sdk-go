@@ -11,16 +11,16 @@ import (
 	"github.com/larksuite/oapi-sdk-go/httpserverext"
 )
 
-func getCard() *card.MessageCard {
+func getCard() *larkcard.MessageCard {
 	// config
-	config := card.NewMessageCardConfig().
+	config := larkcard.NewMessageCardConfig().
 		WideScreenMode(true).
 		EnableForward(true).
 		UpdateMulti(false).
 		Build()
 
 	// CardUrl
-	cardLink := card.NewMessageCardURL().
+	cardLink := larkcard.NewMessageCardURL().
 		PcUrl("http://www.baidu.com").
 		IoSUrl("http://www.google.com").
 		Url("http://open.feishu.com").
@@ -28,17 +28,17 @@ func getCard() *card.MessageCard {
 		Build()
 
 	// header
-	header := card.NewMessageCardHeader().
+	header := larkcard.NewMessageCardHeader().
 		Template("turquoise").
-		Title(card.NewMessageCardPlainText().
+		Title(larkcard.NewMessageCardPlainText().
 			Content("[已处理] 1 级报警 - 数据平台").
 			Build()).
 		Build()
 
 	// Elements
-	divElement := card.NewMessageCardDiv().
-		Fields([]*card.MessageCardField{card.NewMessageCardField().
-			Text(card.NewMessageCardLarkMd().
+	divElement := larkcard.NewMessageCardDiv().
+		Fields([]*larkcard.MessageCardField{larkcard.NewMessageCardField().
+			Text(larkcard.NewMessageCardLarkMd().
 				Content("**🕐 时间：**\\n2021-02-23 20:17:51").
 				Build()).
 			IsShort(true).
@@ -47,9 +47,9 @@ func getCard() *card.MessageCard {
 
 	// 谁处理了问题
 	content := "✅ " + "name" + "已处理了此告警"
-	processPersonElement := card.NewMessageCardDiv().
-		Fields([]*card.MessageCardField{card.NewMessageCardField().
-			Text(card.NewMessageCardLarkMd().
+	processPersonElement := larkcard.NewMessageCardDiv().
+		Fields([]*larkcard.MessageCardField{larkcard.NewMessageCardField().
+			Text(larkcard.NewMessageCardLarkMd().
 				Content(content).
 				Build()).
 			IsShort(true).
@@ -57,10 +57,10 @@ func getCard() *card.MessageCard {
 		Build()
 
 	// 卡片消息体
-	messageCard := card.NewMessageCard().
+	messageCard := larkcard.NewMessageCard().
 		Config(config).
 		Header(header).
-		Elements([]card.MessageCardElement{divElement, processPersonElement}).
+		Elements([]larkcard.MessageCardElement{divElement, processPersonElement}).
 		CardLink(cardLink).
 		Build()
 
@@ -77,7 +77,7 @@ func getCustomResp() interface{} {
 	i18n["ja_jp"] = "こんにちは"
 	body["i18n"] = i18n
 
-	resp := card.CustomResp{
+	resp := larkcard.CustomResp{
 		StatusCode: 400,
 		Body:       body,
 	}
@@ -86,8 +86,8 @@ func getCustomResp() interface{} {
 func main() {
 
 	// 创建card处理器
-	cardHandler := card.NewCardActionHandler("v", "", func(ctx context.Context, cardAction *card.CardAction) (interface{}, error) {
-		fmt.Println(core.Prettify(cardAction))
+	cardHandler := larkcard.NewCardActionHandler("v", "", func(ctx context.Context, cardAction *larkcard.CardAction) (interface{}, error) {
+		fmt.Println(larkcore.Prettify(cardAction))
 
 		// 返回卡片消息
 		return getCard(), nil
@@ -100,7 +100,7 @@ func main() {
 	})
 
 	// 注册处理器
-	http.HandleFunc("/webhook/card", httpserverext.NewCardActionHandlerFunc(cardHandler, event.WithLogLevel(core.LogLevelDebug)))
+	http.HandleFunc("/webhook/card", httpserverext.NewCardActionHandlerFunc(cardHandler, larkevent.WithLogLevel(larkcore.LogLevelDebug)))
 
 	// 开发者启动服务
 	err := http.ListenAndServe(":9999", nil)

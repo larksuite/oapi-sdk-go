@@ -5,190 +5,199 @@ import (
 	"context"
 	"errors"
 	"fmt"
-
+	
 	"github.com/larksuite/oapi-sdk-go/core"
+	
+
 )
 
 // 生成枚举值
 
+
+
 // 生成数据类型
 
 type Level struct {
-	Level *string `json:"level,omitempty"`
+	Level  *string `json:"level,omitempty"`
 	Body  *string `json:"body,omitempty"`
 	Type  *string `json:"type,omitempty"`
 }
 
 // builder开始
 type LevelBuilder struct {
-	level     string
-	levelFlag bool
-	body      string
+	level  string
+	levelFlag  bool
+	body  string
 	bodyFlag  bool
-	type_     string
+	type_  string
 	typeFlag  bool
 }
 
-func NewLevelBuilder() *LevelBuilder {
-	builder := &LevelBuilder{}
-	return builder
+func NewLevelBuilder() * LevelBuilder{
+   builder := &LevelBuilder{}
+   return builder
 }
 
-func (builder *LevelBuilder) Level(level string) *LevelBuilder {
-	builder.level = level
-	builder.levelFlag = true
-	return builder
+
+func (builder * LevelBuilder) Level(level string) *LevelBuilder  {
+  builder.level = level
+  builder.levelFlag = true
+  return builder
 }
-func (builder *LevelBuilder) Body(body string) *LevelBuilder {
-	builder.body = body
-	builder.bodyFlag = true
-	return builder
+func (builder * LevelBuilder) Body(body string) *LevelBuilder  {
+  builder.body = body
+  builder.bodyFlag = true
+  return builder
 }
-func (builder *LevelBuilder) Type(type_ string) *LevelBuilder {
-	builder.type_ = type_
-	builder.typeFlag = true
-	return builder
-}
-
-func (builder *LevelBuilder) Build() *Level {
-	req := &Level{}
-	if builder.levelFlag {
-		req.Level = &builder.level
-
-	}
-	if builder.bodyFlag {
-		req.Body = &builder.body
-
-	}
-	if builder.typeFlag {
-		req.Type = &builder.type_
-
-	}
-	return req
+func (builder * LevelBuilder) Type(type_ string) *LevelBuilder  {
+  builder.type_ = type_
+  builder.typeFlag = true
+  return builder
 }
 
+func (builder * LevelBuilder ) Build() *Level {
+   req := &Level{}
+   if builder.levelFlag {
+	  req.Level = &builder.level
+	  
+   }
+   if builder.bodyFlag {
+	  req.Body = &builder.body
+	  
+   }
+   if builder.typeFlag {
+	  req.Type = &builder.type_
+	  
+   }
+   return req
+}
 // builder结束
 
 type Moto struct {
-	MotoId   *string `json:"moto_id,omitempty"`
-	Id       *string `json:"id,omitempty"`
-	UserName *string `json:"user_name,omitempty"`
-	Type     *string `json:"type,omitempty"`
+	MotoId  *string `json:"moto_id,omitempty"`
+	Id  *string `json:"id,omitempty"`
+	UserName  *string `json:"user_name,omitempty"`
+	Type  *string `json:"type,omitempty"`
 }
 
 // builder开始
 type MotoBuilder struct {
-	motoId       string
-	motoIdFlag   bool
-	id           string
-	idFlag       bool
-	userName     string
-	userNameFlag bool
-	type_        string
-	typeFlag     bool
+	motoId  string
+	motoIdFlag  bool
+	id  string
+	idFlag  bool
+	userName  string
+	userNameFlag  bool
+	type_  string
+	typeFlag  bool
 }
 
-func NewMotoBuilder() *MotoBuilder {
-	builder := &MotoBuilder{}
-	return builder
+func NewMotoBuilder() * MotoBuilder{
+   builder := &MotoBuilder{}
+   return builder
 }
 
-func (builder *MotoBuilder) MotoId(motoId string) *MotoBuilder {
-	builder.motoId = motoId
-	builder.motoIdFlag = true
-	return builder
+
+func (builder * MotoBuilder) MotoId(motoId string) *MotoBuilder  {
+  builder.motoId = motoId
+  builder.motoIdFlag = true
+  return builder
 }
-func (builder *MotoBuilder) Id(id string) *MotoBuilder {
-	builder.id = id
-	builder.idFlag = true
-	return builder
+func (builder * MotoBuilder) Id(id string) *MotoBuilder  {
+  builder.id = id
+  builder.idFlag = true
+  return builder
 }
-func (builder *MotoBuilder) UserName(userName string) *MotoBuilder {
-	builder.userName = userName
-	builder.userNameFlag = true
-	return builder
+func (builder * MotoBuilder) UserName(userName string) *MotoBuilder  {
+  builder.userName = userName
+  builder.userNameFlag = true
+  return builder
 }
-func (builder *MotoBuilder) Type(type_ string) *MotoBuilder {
-	builder.type_ = type_
-	builder.typeFlag = true
-	return builder
-}
-
-func (builder *MotoBuilder) Build() *Moto {
-	req := &Moto{}
-	if builder.motoIdFlag {
-		req.MotoId = &builder.motoId
-
-	}
-	if builder.idFlag {
-		req.Id = &builder.id
-
-	}
-	if builder.userNameFlag {
-		req.UserName = &builder.userName
-
-	}
-	if builder.typeFlag {
-		req.Type = &builder.type_
-
-	}
-	return req
+func (builder * MotoBuilder) Type(type_ string) *MotoBuilder  {
+  builder.type_ = type_
+  builder.typeFlag = true
+  return builder
 }
 
+func (builder * MotoBuilder ) Build() *Moto {
+   req := &Moto{}
+   if builder.motoIdFlag {
+	  req.MotoId = &builder.motoId
+	  
+   }
+   if builder.idFlag {
+	  req.Id = &builder.id
+	  
+   }
+   if builder.userNameFlag {
+	  req.UserName = &builder.userName
+	  
+   }
+   if builder.typeFlag {
+	  req.Type = &builder.type_
+	  
+   }
+   return req
+}
 // builder结束
+
 
 // 生成请求和响应结果类型，以及请求对象的Builder构造器
 
+
 // 1.4 生成请求的builder结构体
 type CreateMotoReqBuilder struct {
-	departmentIdType     string
-	departmentIdTypeFlag bool
-	level                *Level
-	levelFlag            bool
+	departmentIdType  string
+	departmentIdTypeFlag  bool
+	level *Level
+	levelFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewCreateMotoReqBuilder() *CreateMotoReqBuilder {
-	builder := &CreateMotoReqBuilder{}
-	return builder
+func NewCreateMotoReqBuilder() * CreateMotoReqBuilder{
+   builder := &CreateMotoReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *CreateMotoReqBuilder) DepartmentIdType(departmentIdType string) *CreateMotoReqBuilder {
-	builder.departmentIdType = departmentIdType
-	builder.departmentIdTypeFlag = true
-	return builder
+func (builder * CreateMotoReqBuilder) DepartmentIdType(departmentIdType string) *CreateMotoReqBuilder  {
+  builder.departmentIdType = departmentIdType
+  builder.departmentIdTypeFlag = true
+  return builder
 }
-func (builder *CreateMotoReqBuilder) Level(level *Level) *CreateMotoReqBuilder {
-	builder.level = level
-	builder.levelFlag = true
-	return builder
+func (builder * CreateMotoReqBuilder) Level(level *Level) *CreateMotoReqBuilder  {
+  builder.level = level
+  builder.levelFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *CreateMotoReqBuilder) Build() *CreateMotoReq {
-	req := &CreateMotoReq{}
-	if builder.departmentIdTypeFlag {
-		req.DepartmentIdType = &builder.departmentIdType
-	}
-	if builder.levelFlag {
-		req.Level = builder.level
-	}
-	return req
+func (builder * CreateMotoReqBuilder ) Build() *CreateMotoReq {
+   req := &CreateMotoReq{}
+   if builder.departmentIdTypeFlag {
+	  req.DepartmentIdType = &builder.departmentIdType
+   }
+   if builder.levelFlag {
+	  req.Level = builder.level
+   }
+   return req
 }
 
+
 type CreateMotoReq struct {
-	DepartmentIdType *string `query:"department_id_type"`
-	Level            *Level  `body:""`
+	DepartmentIdType  *string `query:"department_id_type"`
+	Level *Level `body:""`
+
 }
 
 type CreateMotoRespData struct {
-	Moto *Moto `json:"moto,omitempty"`
+	Moto  *Moto `json:"moto,omitempty"`
 }
 
 type CreateMotoResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *CreateMotoRespData `json:"data"`
 }
 
@@ -196,56 +205,60 @@ func (resp *CreateMotoResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type GetMotoReqBuilder struct {
-	motoId        string
-	motoIdFlag    bool
-	bodyLevel     string
-	bodyLevelFlag bool
+	motoId  string
+	motoIdFlag  bool
+	bodyLevel  string
+	bodyLevelFlag  bool
+
 }
 
 // 生成请求的New构造器
-func NewGetMotoReqBuilder() *GetMotoReqBuilder {
-	builder := &GetMotoReqBuilder{}
-	return builder
+func NewGetMotoReqBuilder() * GetMotoReqBuilder{
+   builder := &GetMotoReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *GetMotoReqBuilder) MotoId(motoId string) *GetMotoReqBuilder {
-	builder.motoId = motoId
-	builder.motoIdFlag = true
-	return builder
+func (builder * GetMotoReqBuilder) MotoId(motoId string) *GetMotoReqBuilder  {
+  builder.motoId = motoId
+  builder.motoIdFlag = true
+  return builder
 }
-func (builder *GetMotoReqBuilder) BodyLevel(bodyLevel string) *GetMotoReqBuilder {
-	builder.bodyLevel = bodyLevel
-	builder.bodyLevelFlag = true
-	return builder
+func (builder * GetMotoReqBuilder) BodyLevel(bodyLevel string) *GetMotoReqBuilder  {
+  builder.bodyLevel = bodyLevel
+  builder.bodyLevelFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *GetMotoReqBuilder) Build() *GetMotoReq {
-	req := &GetMotoReq{}
-	if builder.motoIdFlag {
-		req.MotoId = builder.motoId
-	}
-	if builder.bodyLevelFlag {
-		req.BodyLevel = &builder.bodyLevel
-	}
-	return req
+func (builder * GetMotoReqBuilder ) Build() *GetMotoReq {
+   req := &GetMotoReq{}
+   if builder.motoIdFlag {
+	  req.MotoId = builder.motoId
+   }
+   if builder.bodyLevelFlag {
+	  req.BodyLevel = &builder.bodyLevel
+   }
+   return req
 }
 
+
 type GetMotoReq struct {
-	MotoId    string  `path:"moto_id"`
-	BodyLevel *string `query:"body_level"`
+	MotoId  string `path:"moto_id"`
+	BodyLevel  *string `query:"body_level"`
+
 }
 
 type GetMotoRespData struct {
-	Moto *Moto `json:"moto,omitempty"`
+	Moto  *Moto `json:"moto,omitempty"`
 }
 
 type GetMotoResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *GetMotoRespData `json:"data"`
 }
 
@@ -253,76 +266,80 @@ func (resp *GetMotoResp) Success() bool {
 	return resp.Code == 0
 }
 
+
 // 1.4 生成请求的builder结构体
 type ListMotoReqBuilder struct {
-	pageSize      int
+	pageSize  int
 	pageSizeFlag  bool
-	pageToken     string
-	pageTokenFlag bool
-	level         int
-	levelFlag     bool
-	limit         int
+	pageToken  string
+	pageTokenFlag  bool
+	level  int
+	levelFlag  bool
+	limit int
+
 }
 
 // 生成请求的New构造器
-func NewListMotoReqBuilder() *ListMotoReqBuilder {
-	builder := &ListMotoReqBuilder{}
-	return builder
+func NewListMotoReqBuilder() * ListMotoReqBuilder{
+   builder := &ListMotoReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *ListMotoReqBuilder) Limit(limit int) *ListMotoReqBuilder {
-	builder.limit = limit
-	return builder
+func (builder * ListMotoReqBuilder) Limit(limit int ) *ListMotoReqBuilder  {
+  builder.limit = limit
+  return builder
 }
-func (builder *ListMotoReqBuilder) PageSize(pageSize int) *ListMotoReqBuilder {
-	builder.pageSize = pageSize
-	builder.pageSizeFlag = true
-	return builder
+func (builder * ListMotoReqBuilder) PageSize(pageSize int) *ListMotoReqBuilder  {
+  builder.pageSize = pageSize
+  builder.pageSizeFlag = true
+  return builder
 }
-func (builder *ListMotoReqBuilder) PageToken(pageToken string) *ListMotoReqBuilder {
-	builder.pageToken = pageToken
-	builder.pageTokenFlag = true
-	return builder
+func (builder * ListMotoReqBuilder) PageToken(pageToken string) *ListMotoReqBuilder  {
+  builder.pageToken = pageToken
+  builder.pageTokenFlag = true
+  return builder
 }
-func (builder *ListMotoReqBuilder) Level(level int) *ListMotoReqBuilder {
-	builder.level = level
-	builder.levelFlag = true
-	return builder
+func (builder * ListMotoReqBuilder) Level(level int) *ListMotoReqBuilder  {
+  builder.level = level
+  builder.levelFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *ListMotoReqBuilder) Build() *ListMotoReq {
-	req := &ListMotoReq{}
-	req.Limit = builder.limit
-	if builder.pageSizeFlag {
-		req.PageSize = &builder.pageSize
-	}
-	if builder.pageTokenFlag {
-		req.PageToken = &builder.pageToken
-	}
-	if builder.levelFlag {
-		req.Level = &builder.level
-	}
-	return req
+func (builder * ListMotoReqBuilder ) Build() *ListMotoReq {
+   req := &ListMotoReq{}
+   req.Limit = builder.limit
+   if builder.pageSizeFlag {
+	  req.PageSize = &builder.pageSize
+   }
+   if builder.pageTokenFlag {
+	  req.PageToken = &builder.pageToken
+   }
+   if builder.levelFlag {
+	  req.Level = &builder.level
+   }
+   return req
 }
 
+
 type ListMotoReq struct {
-	PageSize  *int    `query:"page_size"`
-	PageToken *string `query:"page_token"`
-	Level     *int    `query:"level"`
-	Limit     int
+	PageSize  *int `query:"page_size"`
+	PageToken  *string `query:"page_token"`
+	Level  *int `query:"level"`
+	Limit int
+
 }
 
 type ListMotoRespData struct {
-	Items     []string `json:"items,omitempty"`
-	PageToken *string  `json:"page_token,omitempty"`
-	HasMore   *bool    `json:"has_more,omitempty"`
+	Items  []string `json:"items,omitempty"`
+	PageToken  *string `json:"page_token,omitempty"`
+	HasMore  *bool `json:"has_more,omitempty"`
 }
 
 type ListMotoResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *ListMotoRespData `json:"data"`
 }
 
@@ -332,58 +349,61 @@ func (resp *ListMotoResp) Success() bool {
 
 // 生成消息事件结构体
 
+
 // 生成请求的builder构造器
 // 1.1 生成body的builder结构体
-type ListMotoIterator struct {
-	nextPageToken *string
-	items         []string
-	index         int
-	limit         int
-	ctx           context.Context
-	req           *ListMotoReq
-	listFunc      func(ctx context.Context, req *ListMotoReq, options ...core.RequestOptionFunc) (*ListMotoResp, error)
-	options       []core.RequestOptionFunc
-	curlNum       int
-}
+   type ListMotoIterator struct{
+	 nextPageToken *string
+	 items	 []string
+	 index	 int
+	 limit	 int
+	 ctx	   context.Context
+	 req	   *ListMotoReq
+	 listFunc  func (ctx context.Context, req *ListMotoReq, options ...larkcore.RequestOptionFunc) (*ListMotoResp, error)
+	 options   []larkcore.RequestOptionFunc
+   	 curlNum	   int
+   }
 
-func (iterator *ListMotoIterator) Next() (bool, string, error) {
-	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
-		return false, "", nil
-	}
-
-	// 为0则拉取数据
-	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
-			return false, "", nil
-		}
-		if iterator.nextPageToken != nil {
-			iterator.req.PageToken = iterator.nextPageToken
-		}
-		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-		if err != nil {
-			return false, "", err
-		}
-
-		if resp.Code != 0 {
-			return false, "", errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
-		}
-
-		if len(resp.Data.Items) == 0 {
+   func (iterator *ListMotoIterator) Next() (bool, string, error) {
+		// 达到最大量，则返回
+		if iterator.limit >0 && iterator.curlNum >= iterator.limit {
 			return false, "", nil
 		}
 
-		iterator.nextPageToken = resp.Data.PageToken
-		iterator.items = resp.Data.Items
-		iterator.index = 0
-	}
+		// 为0则拉取数据
+		if iterator.index == 0 || iterator.index >= len(iterator.items) {
+			if iterator.index != 0 && iterator.nextPageToken == nil {
+				return false, "", nil
+			}
+			if iterator.nextPageToken != nil {
+				iterator.req.PageToken = iterator.nextPageToken
+			}
+			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+			if err != nil {
+				return false, "", err
+			}
 
-	block := iterator.items[iterator.index]
-	iterator.index++
-	iterator.curlNum++
-	return true, block, nil
-}
+			if resp.Code != 0 {
+				return false, "", errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+			}
 
-func (iterator *ListMotoIterator) NextPageToken() *string {
-	return iterator.nextPageToken
-}
+			if len(resp.Data.Items) == 0 {
+				return false, "", nil
+			}
+
+			iterator.nextPageToken = resp.Data.PageToken
+			iterator.items = resp.Data.Items
+			iterator.index = 0
+		}
+
+		block := iterator.items[iterator.index]
+		iterator.index++
+		iterator.curlNum++
+		return true, block, nil
+   }
+
+   func (iterator *ListMotoIterator) NextPageToken() *string {
+	  return iterator.nextPageToken
+   }
+
+

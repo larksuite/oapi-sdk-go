@@ -1,4 +1,4 @@
-package core
+package larkcore
 
 import (
 	"time"
@@ -8,9 +8,9 @@ const defaultContentType = contentTypeJson + "; charset=utf-8"
 const userAgentHeader = "User-Agent"
 
 const (
-	httpHeaderKeyRequestId = "X-Request-Id"
+	HttpHeaderKeyRequestId = "X-Request-Id"
 	httpHeaderRequestId    = "Request-Id"
-	httpHeaderKeyLogId     = "X-Tt-Logid"
+	HttpHeaderKeyLogId     = "X-Tt-Logid"
 	contentTypeHeader      = "Content-Type"
 	contentTypeJson        = "application/json"
 	customRequestId        = "Oapi-Sdk-Request-Id"

@@ -2,41 +2,44 @@
 package larkehr
 
 import (
+	"net/http"
 	"bytes"
 	"context"
-	"net/http"
-
+	
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
+
 // 构建业务域服务实例
-func NewService(config *core.Config) *EhrService {
-	e := &EhrService{config: config}
+func NewService(config *larkcore.Config) *EhrService {
+	e := &EhrService{config:config}
 	e.Attachment = &attachment{service: e}
 	e.Employee = &employee{service: e}
 	return e
 }
 
+
 // 业务域服务定义
 type EhrService struct {
-	config     *core.Config
+	config *larkcore.Config
 	Attachment *attachment
-	Employee   *employee
+	Employee *employee
 }
+
+
 
 // 资源服务定义
 type attachment struct {
-	service *EhrService
+   service *EhrService
 }
 type employee struct {
-	service *EhrService
+   service *EhrService
 }
-
 // 资源服务方法定义
-func (a *attachment) Get(ctx context.Context, req *GetAttachmentReq, options ...core.RequestOptionFunc) (*GetAttachmentResp, error) {
+func (a *attachment) Get(ctx context.Context, req *GetAttachmentReq, options ...larkcore.RequestOptionFunc) (*GetAttachmentResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, a.service.config, http.MethodGet,
-		"/open-apis/ehr/v1/attachments/:token", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,a.service.config, http.MethodGet,
+		"/open-apis/ehr/v1/attachments/:token", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -45,7 +48,7 @@ func (a *attachment) Get(ctx context.Context, req *GetAttachmentReq, options ...
 	// 如果是下载，则设置响应结果
 	if rawResp.StatusCode == http.StatusOK {
 		resp.File = bytes.NewBuffer(rawResp.RawBody)
-		resp.FileName = core.FileNameByHeader(rawResp.Header)
+		resp.FileName = larkcore.FileNameByHeader(rawResp.Header)
 		return resp, err
 	}
 	err = rawResp.JSONUnmarshalBody(resp)
@@ -54,10 +57,10 @@ func (a *attachment) Get(ctx context.Context, req *GetAttachmentReq, options ...
 	}
 	return resp, err
 }
-func (e *employee) List(ctx context.Context, req *ListEmployeeReq, options ...core.RequestOptionFunc) (*ListEmployeeResp, error) {
+func (e *employee) List(ctx context.Context, req *ListEmployeeReq, options ...larkcore.RequestOptionFunc) (*ListEmployeeResp, error) {
 	// 发起请求
-	rawResp, err := core.SendRequest(ctx, e.service.config, http.MethodGet,
-		"/open-apis/ehr/v1/employees", []core.AccessTokenType{core.AccessTokenTypeTenant}, req, options...)
+	rawResp, err := larkcore.SendRequest(ctx,e.service.config, http.MethodGet,
+		"/open-apis/ehr/v1/employees", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -69,11 +72,11 @@ func (e *employee) List(ctx context.Context, req *ListEmployeeReq, options ...co
 	}
 	return resp, err
 }
-func (e *employee) ListByIterator(ctx context.Context, req *ListEmployeeReq, options ...core.RequestOptionFunc) (*ListEmployeeIterator, error) {
-	return &ListEmployeeIterator{
-		ctx:      ctx,
-		req:      req,
-		listFunc: e.List,
-		options:  options,
-		limit:    req.Limit}, nil
+func (e *employee) ListByIterator(ctx context.Context, req *ListEmployeeReq, options ...larkcore.RequestOptionFunc) (*ListEmployeeIterator, error) {
+   return &ListEmployeeIterator{
+	  ctx:	  ctx,
+	  req:	  req,
+	  listFunc: e.List,
+	  options:  options,
+	  limit: req.Limit}, nil
 }

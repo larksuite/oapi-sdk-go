@@ -9,7 +9,7 @@ import (
 	"testing"
 
 	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/larkevent"
+	"github.com/larksuite/oapi-sdk-go/event"
 )
 
 func TestVerifyUrlOk(t *testing.T) {
@@ -99,8 +99,8 @@ func TestVerifySignOk(t *testing.T) {
 		return nil, nil
 	})
 
-	config := &core.Config{}
-	core.NewLogger(config)
+	config := &larkcore.Config{}
+	larkcore.NewLogger(config)
 	cardHandler.Config = config
 
 	req := mockEventReq("121")
@@ -117,8 +117,8 @@ func TestVerifySignFailed(t *testing.T) {
 		return nil, nil
 	})
 
-	config := &core.Config{}
-	core.NewLogger(config)
+	config := &larkcore.Config{}
+	larkcore.NewLogger(config)
 	cardHandler.Config = config
 
 	req := mockEventReq("12")
@@ -143,7 +143,7 @@ func TestDoHandleResultNilOk(t *testing.T) {
 	}
 
 	fmt.Println(resp.StatusCode)
-	fmt.Println(core.Prettify(resp.Header))
+	fmt.Println(larkcore.Prettify(resp.Header))
 	fmt.Println(string(resp.Body))
 }
 
@@ -190,7 +190,7 @@ func TestDoHandleResultCustomRespOk(t *testing.T) {
 	}
 
 	fmt.Println(resp.StatusCode)
-	fmt.Println(core.Prettify(resp.Header))
+	fmt.Println(larkcore.Prettify(resp.Header))
 	fmt.Println(string(resp.Body))
 }
 
@@ -252,6 +252,6 @@ func TestDoHandleResultCardOk(t *testing.T) {
 	}
 
 	fmt.Println(resp.StatusCode)
-	fmt.Println(core.Prettify(resp.Header))
+	fmt.Println(larkcore.Prettify(resp.Header))
 	fmt.Println(string(resp.Body))
 }

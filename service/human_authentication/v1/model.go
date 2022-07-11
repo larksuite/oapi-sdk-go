@@ -3,236 +3,245 @@ package larkhuman_authentication
 
 import (
 	"github.com/larksuite/oapi-sdk-go/core"
+	
+
 )
 
 // 生成枚举值
 
 const (
-	UserIdTypeOpenId  = "open_id"
-	UserIdTypeUserId  = "user_id"
-	UserIdTypeUnionId = "union_id"
+
+	  UserIdTypeOpenId = "open_id"
+	  UserIdTypeUserId = "user_id"
+	  UserIdTypeUnionId = "union_id"
 )
+
+
 
 // 生成数据类型
 
 type Identity struct {
-	IdentityName *string `json:"identity_name,omitempty"`
-	IdentityCode *string `json:"identity_code,omitempty"`
-	Mobile       *string `json:"mobile,omitempty"`
+	IdentityName  *string `json:"identity_name,omitempty"`
+	IdentityCode  *string `json:"identity_code,omitempty"`
+	Mobile  *string `json:"mobile,omitempty"`
 }
 
 // builder开始
 type IdentityBuilder struct {
-	identityName     string
-	identityNameFlag bool
-	identityCode     string
-	identityCodeFlag bool
-	mobile           string
-	mobileFlag       bool
+	identityName  string
+	identityNameFlag  bool
+	identityCode  string
+	identityCodeFlag  bool
+	mobile  string
+	mobileFlag  bool
 }
 
-func NewIdentityBuilder() *IdentityBuilder {
-	builder := &IdentityBuilder{}
-	return builder
+func NewIdentityBuilder() * IdentityBuilder{
+   builder := &IdentityBuilder{}
+   return builder
 }
 
-func (builder *IdentityBuilder) IdentityName(identityName string) *IdentityBuilder {
-	builder.identityName = identityName
-	builder.identityNameFlag = true
-	return builder
+
+func (builder * IdentityBuilder) IdentityName(identityName string) *IdentityBuilder  {
+  builder.identityName = identityName
+  builder.identityNameFlag = true
+  return builder
 }
-func (builder *IdentityBuilder) IdentityCode(identityCode string) *IdentityBuilder {
-	builder.identityCode = identityCode
-	builder.identityCodeFlag = true
-	return builder
+func (builder * IdentityBuilder) IdentityCode(identityCode string) *IdentityBuilder  {
+  builder.identityCode = identityCode
+  builder.identityCodeFlag = true
+  return builder
 }
-func (builder *IdentityBuilder) Mobile(mobile string) *IdentityBuilder {
-	builder.mobile = mobile
-	builder.mobileFlag = true
-	return builder
-}
-
-func (builder *IdentityBuilder) Build() *Identity {
-	req := &Identity{}
-	if builder.identityNameFlag {
-		req.IdentityName = &builder.identityName
-
-	}
-	if builder.identityCodeFlag {
-		req.IdentityCode = &builder.identityCode
-
-	}
-	if builder.mobileFlag {
-		req.Mobile = &builder.mobile
-
-	}
-	return req
+func (builder * IdentityBuilder) Mobile(mobile string) *IdentityBuilder  {
+  builder.mobile = mobile
+  builder.mobileFlag = true
+  return builder
 }
 
+func (builder * IdentityBuilder ) Build() *Identity {
+   req := &Identity{}
+   if builder.identityNameFlag {
+	  req.IdentityName = &builder.identityName
+	  
+   }
+   if builder.identityCodeFlag {
+	  req.IdentityCode = &builder.identityCode
+	  
+   }
+   if builder.mobileFlag {
+	  req.Mobile = &builder.mobile
+	  
+   }
+   return req
+}
 // builder结束
+
 
 // 生成请求和响应结果类型，以及请求对象的Builder构造器
 
 type CreateIdentityReqBodyBuilder struct {
-	identityName     string
-	identityNameFlag bool
-	identityCode     string
-	identityCodeFlag bool
-	mobile           string
-	mobileFlag       bool
+	identityName  string
+	identityNameFlag  bool
+	identityCode  string
+	identityCodeFlag  bool
+	mobile  string
+	mobileFlag  bool
 }
 
 // 生成body的New构造器
-func NewCreateIdentityReqBodyBuilder() *CreateIdentityReqBodyBuilder {
-	builder := &CreateIdentityReqBodyBuilder{}
-	return builder
+func NewCreateIdentityReqBodyBuilder() * CreateIdentityReqBodyBuilder{
+  builder := &CreateIdentityReqBodyBuilder{}
+  return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder *CreateIdentityReqBodyBuilder) IdentityName(identityName string) *CreateIdentityReqBodyBuilder {
-	builder.identityName = identityName
-	builder.identityNameFlag = true
-	return builder
+func (builder * CreateIdentityReqBodyBuilder ) IdentityName(identityName string) *CreateIdentityReqBodyBuilder {
+  builder.identityName = identityName
+  builder.identityNameFlag = true
+  return builder
 }
-func (builder *CreateIdentityReqBodyBuilder) IdentityCode(identityCode string) *CreateIdentityReqBodyBuilder {
-	builder.identityCode = identityCode
-	builder.identityCodeFlag = true
-	return builder
+func (builder * CreateIdentityReqBodyBuilder ) IdentityCode(identityCode string) *CreateIdentityReqBodyBuilder {
+  builder.identityCode = identityCode
+  builder.identityCodeFlag = true
+  return builder
 }
-func (builder *CreateIdentityReqBodyBuilder) Mobile(mobile string) *CreateIdentityReqBodyBuilder {
-	builder.mobile = mobile
-	builder.mobileFlag = true
-	return builder
+func (builder * CreateIdentityReqBodyBuilder ) Mobile(mobile string) *CreateIdentityReqBodyBuilder {
+  builder.mobile = mobile
+  builder.mobileFlag = true
+  return builder
 }
 
+
 // 1.3 生成body的build方法
-func (builder *CreateIdentityReqBodyBuilder) Build() *CreateIdentityReqBody {
-	req := &CreateIdentityReqBody{}
-	if builder.identityNameFlag {
-		req.IdentityName = &builder.identityName
-	}
-	if builder.identityCodeFlag {
-		req.IdentityCode = &builder.identityCode
-	}
-	if builder.mobileFlag {
-		req.Mobile = &builder.mobile
-	}
-	return req
+func (builder * CreateIdentityReqBodyBuilder ) Build() *CreateIdentityReqBody {
+   req := &CreateIdentityReqBody{}
+   if builder.identityNameFlag {
+	  req.IdentityName = &builder.identityName
+   }
+   if builder.identityCodeFlag {
+	  req.IdentityCode = &builder.identityCode
+   }
+   if builder.mobileFlag {
+	  req.Mobile = &builder.mobile
+   }
+   return req
 }
 
 // 上传文件path开始
 type CreateIdentityPathReqBodyBuilder struct {
-	identityName     string
-	identityNameFlag bool
-	identityCode     string
-	identityCodeFlag bool
-	mobile           string
-	mobileFlag       bool
+	identityName  string
+	identityNameFlag  bool
+	identityCode  string
+	identityCodeFlag  bool
+	mobile  string
+	mobileFlag  bool
 }
 
-func NewCreateIdentityPathReqBodyBuilder() *CreateIdentityPathReqBodyBuilder {
-	builder := &CreateIdentityPathReqBodyBuilder{}
-	return builder
+func NewCreateIdentityPathReqBodyBuilder() * CreateIdentityPathReqBodyBuilder{
+  builder := &CreateIdentityPathReqBodyBuilder{}
+  return builder
 }
-func (builder *CreateIdentityPathReqBodyBuilder) IdentityName(identityName string) *CreateIdentityPathReqBodyBuilder {
-	builder.identityName = identityName
-	builder.identityNameFlag = true
-	return builder
+func (builder * CreateIdentityPathReqBodyBuilder ) IdentityName(identityName string) *CreateIdentityPathReqBodyBuilder {
+  builder.identityName = identityName
+  builder.identityNameFlag = true
+  return builder
 }
-func (builder *CreateIdentityPathReqBodyBuilder) IdentityCode(identityCode string) *CreateIdentityPathReqBodyBuilder {
-	builder.identityCode = identityCode
-	builder.identityCodeFlag = true
-	return builder
+func (builder * CreateIdentityPathReqBodyBuilder ) IdentityCode(identityCode string) *CreateIdentityPathReqBodyBuilder {
+  builder.identityCode = identityCode
+  builder.identityCodeFlag = true
+  return builder
 }
-func (builder *CreateIdentityPathReqBodyBuilder) Mobile(mobile string) *CreateIdentityPathReqBodyBuilder {
-	builder.mobile = mobile
-	builder.mobileFlag = true
-	return builder
-}
-
-func (builder *CreateIdentityPathReqBodyBuilder) Build() (*CreateIdentityReqBody, error) {
-	req := &CreateIdentityReqBody{}
-	if builder.identityNameFlag {
-		req.IdentityName = &builder.identityName
-	}
-	if builder.identityCodeFlag {
-		req.IdentityCode = &builder.identityCode
-	}
-	if builder.mobileFlag {
-		req.Mobile = &builder.mobile
-	}
-	return req, nil
+func (builder * CreateIdentityPathReqBodyBuilder ) Mobile(mobile string) *CreateIdentityPathReqBodyBuilder {
+  builder.mobile = mobile
+  builder.mobileFlag = true
+  return builder
 }
 
+
+func (builder * CreateIdentityPathReqBodyBuilder ) Build() (*CreateIdentityReqBody, error) {
+   req := &CreateIdentityReqBody{}
+   if builder.identityNameFlag {
+	  req.IdentityName = &builder.identityName
+   }
+   if builder.identityCodeFlag {
+	  req.IdentityCode = &builder.identityCode
+   }
+   if builder.mobileFlag {
+	  req.Mobile = &builder.mobile
+   }
+   return req, nil
+}
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type CreateIdentityReqBuilder struct {
-	userId         string
-	userIdFlag     bool
-	userIdType     string
-	userIdTypeFlag bool
-	body           *CreateIdentityReqBody
-	bodyFlag       bool
+	userId  string
+	userIdFlag  bool
+	userIdType  string
+	userIdTypeFlag  bool
+	body *CreateIdentityReqBody
+	bodyFlag bool
+
 }
 
 // 生成请求的New构造器
-func NewCreateIdentityReqBuilder() *CreateIdentityReqBuilder {
-	builder := &CreateIdentityReqBuilder{}
-	return builder
+func NewCreateIdentityReqBuilder() * CreateIdentityReqBuilder{
+   builder := &CreateIdentityReqBuilder{}
+   return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *CreateIdentityReqBuilder) UserId(userId string) *CreateIdentityReqBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
-	return builder
+func (builder * CreateIdentityReqBuilder) UserId(userId string) *CreateIdentityReqBuilder  {
+  builder.userId = userId
+  builder.userIdFlag = true
+  return builder
 }
-func (builder *CreateIdentityReqBuilder) UserIdType(userIdType string) *CreateIdentityReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
-	return builder
+func (builder * CreateIdentityReqBuilder) UserIdType(userIdType string) *CreateIdentityReqBuilder  {
+  builder.userIdType = userIdType
+  builder.userIdTypeFlag = true
+  return builder
 }
-func (builder *CreateIdentityReqBuilder) Body(body *CreateIdentityReqBody) *CreateIdentityReqBuilder {
-	builder.body = body
-	builder.bodyFlag = true
-	return builder
+func (builder * CreateIdentityReqBuilder) Body(body *CreateIdentityReqBody) *CreateIdentityReqBuilder  {
+  builder.body = body
+  builder.bodyFlag = true
+  return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder *CreateIdentityReqBuilder) Build() *CreateIdentityReq {
-	req := &CreateIdentityReq{}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-	}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
-	return req
+func (builder * CreateIdentityReqBuilder ) Build() *CreateIdentityReq {
+   req := &CreateIdentityReq{}
+   if builder.userIdFlag {
+	  req.UserId = &builder.userId
+   }
+   if builder.userIdTypeFlag {
+	  req.UserIdType = &builder.userIdType
+   }
+   if builder.bodyFlag {
+	  req.Body = builder.body
+   }
+   return req
 }
 
 type CreateIdentityReqBody struct {
-	IdentityName *string `json:"identity_name,omitempty"`
-	IdentityCode *string `json:"identity_code,omitempty"`
-	Mobile       *string `json:"mobile,omitempty"`
+	IdentityName  *string `json:"identity_name,omitempty"`
+	IdentityCode  *string `json:"identity_code,omitempty"`
+	Mobile  *string `json:"mobile,omitempty"`
 }
 
 type CreateIdentityReq struct {
-	UserId     *string                `query:"user_id"`
-	UserIdType *string                `query:"user_id_type"`
-	Body       *CreateIdentityReqBody `body:""`
+	UserId  *string `query:"user_id"`
+	UserIdType  *string `query:"user_id_type"`
+	Body *CreateIdentityReqBody `body:""`
+
 }
 
 type CreateIdentityRespData struct {
-	VerifyUid *string `json:"verify_uid,omitempty"`
+	VerifyUid  *string `json:"verify_uid,omitempty"`
 }
 
 type CreateIdentityResp struct {
-	*core.RawResponse `json:"-"`
-	core.CodeError
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
 	Data *CreateIdentityRespData `json:"data"`
 }
 
@@ -242,5 +251,8 @@ func (resp *CreateIdentityResp) Success() bool {
 
 // 生成消息事件结构体
 
+
 // 生成请求的builder构造器
 // 1.1 生成body的builder结构体
+
+
