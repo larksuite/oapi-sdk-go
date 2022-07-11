@@ -1,548 +1,752 @@
-[**README of Larksuite(Overseas)**](README.md) | 飞书
-
 # 飞书开放接口SDK
 
-## 概述
+旨在让开发者便捷的调用飞书开放API、处理服务端消息事件、处理服务端推送的卡片行为。
 
----
+# 目录
 
-- 飞书开放平台，便于企业应用与飞书集成，让协同与管理更加高效，[概述](https://open.feishu.cn/document/uQjL04CN/ucDOz4yN4MjL3gzM)
 
-- 飞书开发接口SDK，便捷调用服务端API与订阅服务端事件，例如：消息&群组、通讯录、日历、视频会议、云文档、 OKR等具体可以访问 [飞书开放平台文档](https://open.feishu.cn/document/) 看看【服务端
-  API】。
 
-## 问题反馈
+<!-- toc -->
 
----
+- [安装](#安装)
+- [API Client](#api-client)
+    - [创建API Client](##创建API Client)
+    - [配置API Client](##配置API Client)
 
-如有任何SDK使用相关问题，请提交 [Github Issues](https://github.com/larksuite/oapi-sdk-go/issues), 我们会在收到 Issues 的第一时间处理，并尽快给您答复。
+- [调用API](#调用API)
+    - [基本用法](##基本用法)
+    - [配置请求选项](##配置请求选项)
+    - [原生API调用方式](##原生API调用方式)
 
-- 优先升级一下包，如果还有问题， 请提交 Issues
+- [处理消息事件回调](#处理消息事件回调)
+    - [基本用法](##基本用法)
+    - [集成gin框架](##集成gin框架)
+        - [安装集成包](###安装集成包)
+        - [集成示例](##集成示例)
 
-## 运行环境
+- [处理卡片行为回调](#处理卡片行为回调)
+    - [基本用法](##基本用法)
+    - [返回卡片消息](##返回卡片消息)
+    - [返回自定义消息](##返回自定义消息)
+    - [集成gin框架](##集成gin框架)
+        - [安装集成包](###安装集成包)
+        - [集成示例](##集成示例)
 
----
+<!-- tocstop -->
 
-- Golang 1.5及以上
+# 安装
 
-## 安装方法
+go get -u github.com/larksuite/oapi-sdk-go
 
----
+# API Client
 
-```shell
-go get github.com/larksuite/oapi-sdk-go@v1.1.44
+开发者在调用API前，需要先创建一个API Client，然后基于API Client发起API调用：
+
+## 创建API Client
+
+- 对于自建应用可使用下面代码来创建一个API Client
+
+```
+var client = lark.NewClient("appID", "appSecret") // 默认配置为自建应用
 ```
 
-## 术语解释
-- 飞书（FeiShu）：Lark在中国的称呼，主要为国内的企业提供服务，拥有独立的[域名地址](https://www.feishu.cn)。
-- LarkSuite：Lark在海外的称呼，主要为海外的企业提供服务，拥有独立的[域名地址](https://www.larksuite.com/) 。
-- 开发文档：开放平台的开放接口的参考，**开发者必看，可以使用搜索功能，高效的查询文档**。[更多介绍说明](https://open.feishu.cn/document/) 。
-- 开发者后台：开发者开发应用的管理后台，[更多介绍说明](https://open.feishu.cn/app/) 。
-- 企业自建应用：应用仅仅可在本企业内安装使用，[更多介绍说明](https://open.feishu.cn/document/uQjL04CN/ukzM04SOzQjL5MDN) 。
-- 应用商店应用：应用会在 [应用目录](https://app.feishu.cn/?lang=zh-CN) 展示，各个企业可以选择安装，[更多介绍说明](https://open.feishu.cn/document/uQjL04CN/ugTO5UjL4kTO14CO5kTN) 。
-  
-![App type](doc/app_type.zh.png)
+- 对于商店应用需在创建API Client的时，需使用lark.WithMarketplaceApp指定AppType为商店应用
 
-## 快速使用
+```
+var client = lark.NewClient("appID", "appSecret",lark.WithMarketplaceApp()) // 设置App为商店应用
+```
 
----
+## 配置API Client
 
-### 调用服务端API
+创建API Client，可以对API Client进行一定的配置，比如我们可以在创建API Client 时设置日志级别、设置http请求超时时间等等：
 
-- **必看** [如何调用服务端API](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/guide-to-use-server-api)
-  ，了解调用服务端API的过程及注意事项。
-  - 由于SDK已经封装了 app_access_token、tenant_access_token 的获取，所以在调业务API的时候，不需要去获取 app_access_token、tenant_access_token。如果业务接口需要使用 user_access_token，需要进行设置（request.SetUserAccessToken("UserAccessToken")），具体请看 README.zh.md -> 如何构建请求（Request）
-- 更多示例，请看：[sample/api/api.go](sample/api/api.go)（含：文件的上传与下载）
+```
+var client = lark.NewClient("appID", "appSecret",
+	lark.WithLogLevel(larkcore.LogLevelDebug),
+	lark.WithReqTimeout(3*time.Second),
+	lark.WithEnableTokenCache(true),
+	lark.WithHelpdeskCredential("id", "token"),
+	lark.WithLogger(larkcore.NewEventLogger()),
+	lark.WithHttpClient(http.DefaultClient))
+```
 
-#### [使用`应用商店应用`调用 服务端API 示例](doc/ISV.APP.README.zh.md)
+每个配置选项的具体含义，如下表格：
 
-#### 使用`企业自建应用`访问 [发送消息API](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create) 示例
+<table>
+  <thead align=left>
+    <tr>
+      <th>
+        配置选项
+      </th>
+      <th>
+        配置方式
+      </th>
+       <th>
+        描述
+      </th>
+    </tr>
+  </thead>
+  <tbody align=left valign=top>
+    <tr>
+      <th>
+        <code>LogLevel</code>
+      </th>
+      <td>
+        <code>lark.WithLogLevel(logLevel larkcore.LogLevel)</code>
+      </td>
+      <td>
+设置API Client的日志输出级别(默认为Info级别)，枚举值如下：
 
-- 在 [service](./service) 下的业务 API，都是可以直接使用SDK。
+- LogLevelDebug
+- LogLevelInfo
+- LogLevelWarn
+- LogLevelError
+
+</td>
+</tr>
+
+<tr>
+      <th>
+        <code>AppType</code>
+      </th>
+      <td>
+        <code>lark.WithMarketplaceApp()</code>
+      </td>
+      <td>
+设置App类型为商店应用，ISV开发者必须要设置该选项，默认为自建应用
+
+</td>
+</tr>
+
+<tr>
+      <th>
+        <code>ReqTimeout</code>
+      </th>
+      <td>
+        <code>lark.WithReqTimeout(time time.Duration)</code>
+      </td>
+      <td>
+设置Http整个调用过程的超时时间，单位为time.Duration。
+默认为0，表示永不超时
+
+</td>
+</tr>
+
+
+<tr>
+      <th>
+        <code>BaseUrl</code>
+      </th>
+      <td>
+        <code>lark.WithOpenBaseUrl(baseUrl string)</code>
+      </td>
+      <td>
+设置飞书域名；默认为该值：
 
 ```go
-package main
+var FeishuBaseUrl = "https://open.feishu.cn"
+var LarkBaseUrl = "https://open.larksuite.com"
+```
 
+</td>
+</tr>
+
+<tr>
+      <th>
+        <code>EnableTokenCache</code>
+      </th>
+      <td>
+        <code>lark.WithEnableTokenCache(enableTokenCache bool)</code>
+      </td>
+      <td>
+是否开启UserAccessToken,TenantAccessToken的自动获取与缓存;
+默认开启，如需要关闭可传递false
+</td>
+</tr>
+
+<tr>
+      <th>
+        <code>HelpDeskId、HelpDeskToken</code>
+      </th>
+      <td>
+        <code>lark.WithHelpdeskCredential(helpdeskID, helpdeskToken string)</code>
+      </td>
+      <td>
+仅在调用服务台业务的API时需要传递
+</td>
+</tr>
+
+
+<tr>
+      <th>
+        <code>Logger</code>
+      </th>
+      <td>
+        <code>lark.WithLogger(logger larkcore.Logger)</code>
+      </td>
+      <td>
+设置自定义的日志器，开发者需要实现下面的日志接口:
+
+```go
+type Logger interface {
+Debug(context.Context, ...interface{})
+Info(context.Context, ...interface{})
+Warn(context.Context, ...interface{})
+Error(context.Context, ...interface{})
+}
+```
+
+默认为标准输出
+</td>
+</tr>
+
+<tr>
+      <th>
+        <code>HttpClient</code>
+      </th>
+      <td>
+        <code>lark.WithHttpClient(httpClient larkcore.HttpClient)</code>
+      </td>
+      <td>
+设置自定义的httpClient，开发者需要实现下面的日志接口:
+
+```go
+type HttpClient interface {
+Do(*http.Request) (*http.Response, error)
+}
+
+```
+
+</td>
+</tr>
+
+<tr>
+      <th>
+        <code>TokenCache</code>
+      </th>
+      <td>
+        <code>lark.WithTokenCache(cache larkcore.Cache)</code>
+      </td>
+      <td>
+设置自定义的token缓存，开发者需要实现下面的日志接口:
+
+```go
+type Cache interface {
+Set(ctx context.Context, key string, value string, expireTime time.Duration) error
+Get(ctx context.Context, key string) (string, error)
+}
+
+```
+
+</td>
+</tr>
+
+
+<tr>
+      <th>
+        <code>LogReqRespInfoAtDebugLevel</code>
+      </th>
+      <td>
+        <code>lark.WithLogReqRespInfoAtDebugLevel(printReqRespLog bool)</code>
+      </td>
+      <td>
+开启Http请求参数和响应参数的日志打印开关；开启后，在debug模式下会打印http请求的headers,body等信息
+
+</td>
+</tr>
+  </tbody>
+</table>
+
+# 调用API
+
+## 基本用法
+
+创建完毕API Client，我们可基于Client使用链式调用方式：Client.业务域.资源.方法名称 来定位具体的API方法，然后对具体的API发起调用; 如下代码我们通过client调用文档业务的Create方法，创建一个文档：
+
+``` go
 import (
 	"context"
 	"fmt"
-	"github.com/larksuite/oapi-sdk-go/api/core/response"
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/config"
-	"github.com/larksuite/oapi-sdk-go/core/tools"
-	im "github.com/larksuite/oapi-sdk-go/service/im/v1"
-)
-
-var conf *config.Config
-
-func init() {
-	// 企业自建应用的配置
-	// AppID、AppSecret: "开发者后台" -> "凭证与基础信息" -> 应用凭证（App ID、App Secret）
-	// EncryptKey、VerificationToken："开发者后台" -> "事件订阅" -> 事件订阅（Encrypt Key、Verification Token）
-	// HelpDeskID、HelpDeskToken, 服务台 token：https://open.feishu.cn/document/ukTMukTMukTM/ugDOyYjL4gjM24CO4IjN
-	// 更多介绍请看：Github->README.zh.md->如何构建应用配置（AppSettings）
-	appSettings := core.NewInternalAppSettings(
-		core.SetAppCredentials("AppID", "AppSecret"), // 必需
-		core.SetAppEventKey("VerificationToken", "EncryptKey"), // 非必需，订阅事件、消息卡片时必需
-		core.SetHelpDeskCredentials("HelpDeskID", "HelpDeskToken")) // 非必需，使用服务台API时必需
-
-	// 当前访问的是飞书，使用默认的内存存储（app/tenant access token）、默认日志（Error级别）
-	// 更多介绍请看：Github->README.zh.md->如何构建整体配置（Config）
-	conf = core.NewConfig(core.DomainFeiShu, appSettings, core.SetLoggerLevel(core.LoggerLevelError))
-}
-
-func main() {
-	imService := im.NewService(conf)
-	coreCtx := core.WrapContext(context.Background())
-	reqCall := imService.Messages.Create(coreCtx, &im.MessageCreateReqBody{
-		ReceiveId: "ou_a11d2bcc7d852afbcaf37e5b3ad01f7e",
-		Content:   `{"text":"<at user_id="ou_a11d2bcc7d852afbcaf37e5b3ad01f7e">Tom</at> test content"}`,
-		MsgType:   "text",
-	})
-	reqCall.SetReceiveIdType("open_id")
-	message, err := reqCall.Do()
-	// 打印 request_id 方便 oncall 时排查问题
-	fmt.Println(coreCtx.GetRequestID())
-	fmt.Println(coreCtx.GetHTTPStatusCode())
-	if err != nil {
-		fmt.Println(tools.Prettify(err))
-		e := err.(*response.Error)
-		fmt.Println(e.Code)
-		fmt.Println(e.Msg)
-		return
-	}
-	fmt.Println(tools.Prettify(message))
-}
-```
-
-#### 使用`企业自建应用`访问 [发送文本消息API](https://open.feishu.cn/document/ukTMukTMukTM/uUjNz4SN2MjL1YzM) 示例
-
-- 有些老版接口，没有直接可以使用的SDK，可以使用`原生`模式。
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"github.com/larksuite/oapi-sdk-go/api"
-	"github.com/larksuite/oapi-sdk-go/api/core/request"
-	"github.com/larksuite/oapi-sdk-go/api/core/response"
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/config"
-	"github.com/larksuite/oapi-sdk-go/core/tools"
-)
-
-var conf *config.Config
-
-func init() {
-	// 企业自建应用的配置
-	// AppID、AppSecret: "开发者后台" -> "凭证与基础信息" -> 应用凭证（App ID、App Secret）
-	// EncryptKey、VerificationToken："开发者后台" -> "事件订阅" -> 事件订阅（Encrypt Key、Verification Token）
-	// HelpDeskID、HelpDeskToken, 服务台 token：https://open.feishu.cn/document/ukTMukTMukTM/ugDOyYjL4gjM24CO4IjN
-	// 更多介绍请看：Github->README.zh.md->如何构建应用配置（AppSettings）
-	appSettings := core.NewInternalAppSettings(
-		core.SetAppCredentials("AppID", "AppSecret"), // 必需
-		core.SetAppEventKey("VerificationToken", "EncryptKey"), // 非必需，订阅事件、消息卡片时必需
-		core.SetHelpDeskCredentials("HelpDeskID", "HelpDeskToken")) // 非必需，使用服务台API时必需
-
-	// 当前访问的是飞书，使用默认的内存存储（app/tenant access token）、默认日志（Error级别）
-	// 更多介绍请看：Github->README.zh.md->如何构建整体配置（Config）
-	conf = core.NewConfig(core.DomainFeiShu, appSettings, core.SetLoggerLevel(core.LoggerLevelError))
-}
-
-func main() {
-	// 发送消息的内容
-	body := map[string]interface{}{
-		"open_id":  "user open id",
-		"msg_type": "text",
-		"content": map[string]interface{}{
-			"text": "test send message",
-		},
-	}
-	// 请求发送消息的结果
-	ret := make(map[string]interface{})
-	// 构建请求
-	req := request.NewRequestWithNative("/open-apis/message/v4/send", "POST", request.AccessTokenTypeTenant, body, &ret)
-	// 请求的上下文
-	coreCtx := core.WrapContext(context.Background())
-	// 发送请求
-	err := api.Send(coreCtx, conf, req)
-	// 打印请求的RequestID
-	fmt.Println(coreCtx.GetRequestID())
-	// 打印请求的响应状态吗
-	fmt.Println(coreCtx.GetHTTPStatusCode())
-	// 请求的error处理
-	if err != nil {
-		e := err.(*response.Error)
-		fmt.Println(e.Code)
-		fmt.Println(e.Msg)
-		fmt.Println(tools.Prettify(err))
-		return
-	}
-	// 打印请求的结果
-	fmt.Println(tools.Prettify(ret))
-}
-```
-
-### 订阅服务端事件
-
-- **必看** [订阅事件概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM) ，了解订阅事件的过程及注意事项。
-- 更多使用示例，请看[sample/event](sample/event)（含：结合gin的使用）
-
-#### 使用`企业自建应用`订阅 [员工变更事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/events/updated) 示例
-
-- 在 [service](./service) 下的业务 Event，都是可以直接使用SDK。
-
-```go
-package main
-
-import (
-	"fmt"
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/config"
-	"github.com/larksuite/oapi-sdk-go/core/tools"
-	eventhttpserver "github.com/larksuite/oapi-sdk-go/event/http/native"
-	contact "github.com/larksuite/oapi-sdk-go/service/contact/v3"
 	"net/http"
+	"os"
+
+	"github.com/larksuite/oapi-sdk-go"
+	"github.com/larksuite/oapi-sdk-go/core"
+	"github.com/larksuite/oapi-sdk-go/service/docx/v1"
 )
 
-var conf *config.Config
-
-func init() {
-	// 企业自建应用的配置
-	// AppID、AppSecret: "开发者后台" -> "凭证与基础信息" -> 应用凭证（App ID、App Secret）
-	// EncryptKey、VerificationToken："开发者后台" -> "事件订阅" -> 事件订阅（Encrypt Key、Verification Token）
-	// HelpDeskID、HelpDeskToken, 服务台 token：https://open.feishu.cn/document/ukTMukTMukTM/ugDOyYjL4gjM24CO4IjN
-	// 更多介绍请看：Github->README.zh.md->如何构建应用配置（AppSettings）
-	appSettings := core.NewInternalAppSettings(
-		core.SetAppCredentials("AppID", "AppSecret"), // 必需
-		core.SetAppEventKey("VerificationToken", "EncryptKey"), // 非必需，订阅事件、消息卡片时必需
-		core.SetHelpDeskCredentials("HelpDeskID", "HelpDeskToken")) // 非必需，使用服务台API时必需
-
-	// 当前访问的是飞书，使用默认的内存存储（app/tenant access token）、默认日志（Error级别）
-	// 更多介绍请看：Github->README.zh.md->如何构建整体配置（Config）
-	conf = core.NewConfig(core.DomainFeiShu, appSettings, core.SetLoggerLevel(core.LoggerLevelError))
-}
 
 func main() {
-	// 设置用户数据变更事件处理者
-	contact.SetUserUpdatedEventHandler(conf, func(ctx *core.Context, event *contact.UserUpdatedEvent) error {
-		// 打印请求的Request ID，方便 oncall 排查问题
-		fmt.Println(ctx.GetRequestID())
-		// 打印事件
-		fmt.Println(tools.Prettify(event))
-		return nil
-	})
+	// 创建client
+	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
+	client := lark.NewClient(appID, appSecret)
 
-	// 设置 "开发者后台" -> "事件订阅" 请求网址 URL：https://domain/webhook/event
-	// startup event http server, port: 8089
-	eventhttpserver.Register("/webhook/event", conf)
-	err := http.ListenAndServe(":8089", nil)
+	// 发起请求
+	resp, err := client.Docx.Document.Create(context.Background(), larkdocx.NewCreateDocumentReqBuilder().
+		Body(larkdocx.NewCreateDocumentReqBodyBuilder().
+			FolderToken("token").
+			Title("title").
+			Build()).
+		Build())
+
+	//处理错误
 	if err != nil {
-		panic(err)
+		// 处理err
+		return
 	}
+
+	// 服务端错误处理
+	if !resp.Success() {
+		fmt.Println(resp.Code, resp.Msg, resp.RequestId())
+	}
+
+	// 业务数据处理
+	fmt.Println(larkcore.Prettify(resp.Data))
 }
 ```
 
-#### 使用`企业自建应用` 订阅 [首次启用应用事件](https://open.feishu.cn/document/ukTMukTMukTM/uQTNxYjL0UTM24CN1EjN) 示例
+## 配置请求选项
 
-- 有些老的事件，没有直接可以使用的SDK，可以使用`原生`模式
+开发者在发起每次API调用时，可以设置请求级别的一些配置，比如传递UserAccessToken,自定义Headers等：
 
-```go
-package main
-
+```
 import (
+	"context"
 	"fmt"
+	"net/http"
+	"os"
+
+	"github.com/larksuite/oapi-sdk-go"
+	larkcore "github.com/larksuite/oapi-sdk-go/core"
+	"github.com/larksuite/oapi-sdk-go/service/docx/v1"
+)
+
+func main() {
+	// 创建client
+	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
+	client := lark.NewClient(appID, appSecret)
+
+	// 自定义请求headers
+	header := make(http.Header)
+	header.Add("k1", "v1")
+	header.Add("k2", "v2")
+
+	// 发起请求
+	resp, err := client.Docx.Document.Create(context.Background(), larkdocx.NewCreateDocumentReqBuilder().
+		Body(larkdocx.NewCreateDocumentReqBodyBuilder().
+			FolderToken("token").
+			Title("title").
+			Build(),
+		).
+		Build(),
+		larkcore.WithUserAccessToken("userToken"), // 设置用户Token
+		larkcore.WithHeaders(header),              // 设置自定义headers
+	)
+
+	//处理错误
+	if err != nil {
+		// 处理err
+		return
+	}
+
+	// 服务端错误处理
+	if !resp.Success() {
+		fmt.Println(resp.Code, resp.Msg, resp.RequestId())
+	}
+
+	// 业务数据处理
+	fmt.Println(larkcore.Prettify(resp.Data))
+}
+```
+
+如下表格，展示了所有请求级别可配置的选项：
+
+<table>
+  <thead align=left>
+    <tr>
+      <th>
+        配置选项
+      </th>
+      <th>
+        配置方式
+      </th>
+       <th>
+        描述
+      </th>
+    </tr>
+  </thead>
+  <tbody align=left valign=top>
+    <tr>
+      <th>
+        <code>Header</code>
+      </th>
+      <td>
+        <code>larkcore.WithHeaders(header http.Header)</code>
+      </td>
+      <td>
+设置自定义请求头
+
+</td>
+</tr>
+
+<tr>
+      <th>
+        <code>UserAccessToken</code>
+      </th>
+      <td>
+        <code>larkcore.WithUserAccessToken(userAccessToken string)</code>
+      </td>
+      <td>
+设置用户token，当需要以用户身份发起调用时，需要配置该选项
+
+</td>
+</tr>
+
+<tr>
+      <th>
+        <code>TenantAccessToken</code>
+      </th>
+      <td>
+        <code>larkcore.WithTenantAccessToken(tenantAccessToken string)</code>
+      </td>
+      <td>
+当开发者自己维护租户token时，可以通过该选项传递组合token
+
+</td>
+</tr>
+
+
+<tr>
+      <th>
+        <code>RequestId</code>
+      </th>
+      <td>
+        <code>larkCore.WithRequestId(requestId string)</code>
+      </td>
+      <td>
+设置请求ID
+
+</td>
+</tr>
+
+<tr>
+      <th>
+        <code>TenantKey</code>
+      </th>
+      <td>
+        <code>larkcore.WithTenantKey(tenantKey string)</code>
+      </td>
+      <td>
+设置租户key, 商店应用必须设置该选项
+</td>
+</tr>
+
+  </tbody>
+</table>
+
+## 原生API调用方式
+
+有些老版本的开放接口，不能生成结构化的API，这时可使用原生模式进行调用：
+
+```
+// 创建 API Client
+var client = lark.NewClient(appID, appSecret,
+	lark.WithLogLevel(larkcore.LogLevelDebug),
+	lark.WithLogReqRespInfoAtDebugLevel(true))
+
+// 发起请求
+resp, err := client.Post(context.Background(), "https://www.feishu.cn/approval/openapi/v2/approval/get", map[string]interface{}{
+	"approval_code": "ou_c245b0a7dff2725cfa2fb104f8b48b9d",
+}, larkcore.AccessTokenTypeTenant)
+
+// 错误处理
+if err != nil {
+	fmt.Println(err)
+	return
+}
+
+// 获取请求ID
+fmt.Println(resp.RequestId())
+
+// 处理请求结果
+fmt.Println(resp.StatusCode) // http status code
+fmt.Println(resp.Header)     // http header
+fmt.Println(resp.RawBody)    // http body
+```
+
+# 处理消息事件回调
+
+## 基本用法
+
+开发者订阅消息事件后，可以使用下面代码，对飞书开发平台推送的消息事件进行处理，如下代码基于go-sdk原生http server启动一个httpServer：
+
+```
+import (
+	"context"
+	"fmt"
+	"net/http"
+
 	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/config"
-	"github.com/larksuite/oapi-sdk-go/core/tools"
 	"github.com/larksuite/oapi-sdk-go/event"
-	eventhttpserver "github.com/larksuite/oapi-sdk-go/event/http/native"
-	"net/http"
+	"github.com/larksuite/oapi-sdk-go/event/dispatcher"
+	"github.com/larksuite/oapi-sdk-go/httpserverext"
+	"github.com/larksuite/oapi-sdk-go/service/contact/v3"
+	"github.com/larksuite/oapi-sdk-go/service/im/v1"
 )
 
-var conf *config.Config
-
-func init() {
-	// 企业自建应用的配置
-	// AppID、AppSecret: "开发者后台" -> "凭证与基础信息" -> 应用凭证（App ID、App Secret）
-	// EncryptKey、VerificationToken："开发者后台" -> "事件订阅" -> 事件订阅（Encrypt Key、Verification Token）
-	// HelpDeskID、HelpDeskToken, 服务台 token：https://open.feishu.cn/document/ukTMukTMukTM/ugDOyYjL4gjM24CO4IjN
-	// 更多介绍请看：Github->README.zh.md->如何构建应用配置（AppSettings）
-	appSettings := core.NewInternalAppSettings(
-		core.SetAppCredentials("AppID", "AppSecret"), // 必需
-		core.SetAppEventKey("VerificationToken", "EncryptKey"), // 非必需，订阅事件、消息卡片时必需
-		core.SetHelpDeskCredentials("HelpDeskID", "HelpDeskToken")) // 非必需，使用服务台API时必需
-
-	// 当前访问的是飞书，使用默认的内存存储（app/tenant access token）、默认日志（Error级别）
-	// 更多介绍请看：Github->README.zh.md->如何构建整体配置（Config）
-	conf = core.NewConfig(core.DomainFeiShu, appSettings, core.SetLoggerLevel(core.LoggerLevelError))
+func main() {
+    // 注册消息处理器
+    handler := dispatcher.NewEventDispatcher("verificationToken", "eventEncryptKey").OnP2MessageReceiveV1(func(ctx context.Context, event *larkim.P2MessageReceiveV1) error {
+        fmt.Println(larkcore.Prettify(event))
+        fmt.Println(event.RequestId())
+        return nil
+    }).OnP2MessageReadV1(func(ctx context.Context, event *larkim.P2MessageReadV1) error {
+        fmt.Println(larkcore.Prettify(event))
+        fmt.Println(event.RequestId())
+        return nil
+    })
+    
+    // 注册http 路由
+    http.HandleFunc("/webhook/event", httpserverext.NewEventHandlerFunc(handler, larkevent.WithLogLevel(larkcore.LogLevelDebug)))
+    
+    // 启动http服务
+    err := http.ListenAndServe(":9999", nil)
+    if err != nil {
+        panic(err)
+    }
 }
 
+```
+
+其中NewEventDispatcher方法的参数用于签名验证和消息解密使用，默认可以传递为空串；但是如果开发者在控制台开启了加密，则必须传递控制台上提供的值。
+
+## 集成gin框架
+
+要想集成已有gin框架，开发者需要引入集成包oapi-sdk-gin
+
+### 安装集成包
+
+```
+go get -u github.com/larksuite/oapi-sdk-gin
+```
+
+### 集成示例
+
+```
+import (
+	"context"
+	"fmt"
+
+	 "github.com/gin-gonic/gin"
+	 "github.com/larksuite/oapi-sdk-gin"
+	 "github.com/larksuite/oapi-sdk-go/card"
+	 "github.com/larksuite/oapi-sdk-go/core"
+	 "github.com/larksuite/oapi-sdk-go/event/dispatcher"
+	 "github.com/larksuite/oapi-sdk-go/service/contact/v3"
+	 "github.com/larksuite/oapi-sdk-go/service/im/v1"
+)
+
 func main() {
-	// 设置首次启用应用事件callback
-	event.SetTypeCallback(conf, "app_open", func(ctx *core.Context, e map[string]interface{}) error {
-		// 打印请求的Request ID
-		fmt.Println(ctx.GetRequestID())
-		// 打印事件
-		fmt.Println(tools.Prettify(e))
+	// 注册消息处理器
+	handler := dispatcher.NewEventDispatcher("verificationToken", "eventEncryptKey").OnP2MessageReceiveV1(func(ctx context.Context, event *larkim.P2MessageReceiveV1) error {
+		fmt.Println(larkcore.Prettify(event))
+		fmt.Println(event.RequestId())
+		return nil
+	}).OnP2MessageReadV1(func(ctx context.Context, event *larkim.P2MessageReadV1) error {
+		fmt.Println(larkcore.Prettify(event))
+		fmt.Println(event.RequestId())
+		return nil
+	}).OnP2UserCreatedV3(func(ctx context.Context, event *larkcontact.P2UserCreatedV3) error {
+		fmt.Println(larkcore.Prettify(event))
+		fmt.Println(event.RequestId())
 		return nil
 	})
 
-	// 设置 "开发者后台" -> "事件订阅" 请求网址 URL：https://domain/webhook/event
-	// startup event http server, port: 8089
-	eventhttpserver.Register("/webhook/event", conf)
-	err := http.ListenAndServe(":8089", nil)
-	if err != nil {
-		panic(err)
-	}
+	...
+
+	// 在已有gin实例上注册消息处理路由
+	gin.POST("/webhook/event", ginext.NewEventHandlerFunc(handler))
 }
 ```
 
-### 处理消息卡片回调
+# 处理卡片行为回调
 
-- **必看** [消息卡片开发流程](https://open.feishu.cn/document/ukTMukTMukTM/uAzMxEjLwMTMx4CMzETM) ，了解订阅事件的过程及注意事项
-- 更多使用示例，请看：[sample/card](sample/card) （含：结合gin的使用）
+开发者配置消息卡片回调地址后，飞书开发平台会推送的卡片行为到注册的回调地址；下面我们看如何对推送的卡片行为进行处理。
 
-#### 使用`企业自建应用`处理消息卡片回调示例
+## 基本用法
 
-```go
-package main
+开发者配置消息卡片回调地址后，可以使用下面代码，对飞书开发平台推送的卡片行为进行处理，如下代码基于go-sdk原生http server启动一个httpServer：
 
+```
 import (
+	"context"
 	"fmt"
-	"github.com/larksuite/oapi-sdk-go/card"
-	cardhttpserver "github.com/larksuite/oapi-sdk-go/card/http/native"
-	"github.com/larksuite/oapi-sdk-go/card/model"
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/config"
-	"github.com/larksuite/oapi-sdk-go/core/tools"
 	"net/http"
+
+	"github.com/larksuite/oapi-sdk-go/card"
+	"github.com/larksuite/oapi-sdk-go/core"
+	"github.com/larksuite/oapi-sdk-go/httpserverext"
 )
-
-var conf *config.Config
-
-func init() {
-	// 企业自建应用的配置
-	// AppID、AppSecret: "开发者后台" -> "凭证与基础信息" -> 应用凭证（App ID、App Secret）
-	// EncryptKey、VerificationToken："开发者后台" -> "事件订阅" -> 事件订阅（Encrypt Key、Verification Token）
-	// HelpDeskID、HelpDeskToken, 服务台 token：https://open.feishu.cn/document/ukTMukTMukTM/ugDOyYjL4gjM24CO4IjN
-	// 更多介绍请看：Github->README.zh.md->如何构建应用配置（AppSettings）
-	appSettings := core.NewInternalAppSettings(
-		core.SetAppCredentials("AppID", "AppSecret"),           // 必需
-		core.SetAppEventKey("VerificationToken", "EncryptKey"), // 非必需，订阅事件、消息卡片时必需
-		core.SetHelpDeskCredentials("HelpDeskID", "HelpDeskToken")) // 非必需，使用服务台API时必需
-
-	// 当前访问的是飞书，使用默认的内存存储（app/tenant access token）、默认日志（Error级别）
-	// 更多介绍请看：Github->README.zh.md->如何构建整体配置（Config）
-	conf = core.NewConfig(core.DomainFeiShu, appSettings, core.SetLoggerLevel(core.LoggerLevelError))
-}
 
 func main() {
-	// 设置消息卡片的处理者
-	// 返回值：可以为nil、新的消息卡片的Json字符串 
-	card.SetHandler(conf, func(ctx *core.Context, c *model.Card) (interface{}, error) {
-		// 打印消息卡片
-		fmt.Println(tools.Prettify(c))
-		return "{\"config\":{\"wide_screen_mode\":true},\"i18n_elements\":{\"zh_cn\":[{\"tag\":\"div\",\"text\":{\"tag\":\"lark_md\",\"content\":\"[飞书golang](https://www.feishu.cn)整合即时沟通、日历、音视频会议、云文档、云盘、工作台等功能于一体，成就组织和个人，更高效、更愉悦。\"}}]}}", nil
+	// 创建card处理器
+	cardHandler := larkcard.NewCardActionHandler("v", "", func(ctx context.Context, cardAction *larkcard.CardAction) (interface{}, error) {
+		fmt.Println(larkcore.Prettify(cardAction))
+	    fmt.Println(cardAction.RequestId())
+		// 无返回值示例
+		return nil, nil
 	})
-	// 设置 "开发者后台" -> "应用功能" -> "机器人" 消息卡片请求网址：https://domain/webhook/card
-	// startup event http server, port: 8089
-	cardhttpserver.Register("/webhook/card", conf)
-	err := http.ListenAndServe(":8089", nil)
+
+	// 注册处理器
+	http.HandleFunc("/webhook/card", httpserverext.NewCardActionHandlerFunc(cardHandler, larkevent.WithLogLevel(larkcore.LogLevelDebug)))
+
+	// 启动http服务
+	err := http.ListenAndServe(":9999", nil)
+	if err != nil {
+		panic(err)
+	}
+}
+
+```
+
+如上示例，如果不需要处理器内返回业务结果给飞书服务端，则直接返回nil
+
+## 返回卡片消息
+
+如开发者需要卡片处理器内同步返回用于更新消息卡片的消息体，则可使用下面方法方式进行处理：
+
+```
+import (
+	"context"
+	"fmt"
+	"net/http"
+
+	"github.com/larksuite/oapi-sdk-go/card"
+	"github.com/larksuite/oapi-sdk-go/core"
+	"github.com/larksuite/oapi-sdk-go/httpserverext"
+)
+
+func main() {
+	// 创建card处理器
+	cardHandler := larkcard.NewCardActionHandler("v", "", func(ctx context.Context, cardAction *larkcard.CardAction) (interface{}, error) {
+		fmt.Println(larkcore.Prettify(cardAction))
+	    fmt.Println(cardAction.RequestId())
+		
+		// 创建卡片信息
+		messageCard := larkcard.NewMessageCard().
+		Config(config).
+		Header(header).
+		Elements([]larkcard.MessageCardElement{divElement, processPersonElement}).
+		CardLink(cardLink).
+		Build()
+
+		return messageCard, nil
+	})
+
+	// 注册处理器
+	http.HandleFunc("/webhook/card", httpserverext.NewCardActionHandlerFunc(cardHandler, larkevent.WithLogLevel(larkcore.LogLevelDebug)))
+
+	// 启动http服务
+	err := http.ListenAndServe(":9999", nil)
 	if err != nil {
 		panic(err)
 	}
 }
 ```
 
-## 如何构建应用配置（AppSettings）
+## 返回自定义消息
 
-```go
+如开发者需卡片处理器内返回自定义内容，则可以使用下面方式进行处理：
+
+```go 
 import (
-    "github.com/larksuite/oapi-sdk-go/core"
+	"context"
+	"fmt"
+	"net/http"
+
+	"github.com/larksuite/oapi-sdk-go/card"
+	"github.com/larksuite/oapi-sdk-go/core"
+	"github.com/larksuite/oapi-sdk-go/httpserverext"
 )
 
-// 防止应用信息泄漏，配置环境变量中，变量（4个）说明：
-// APP_ID："开发者后台" -> "凭证与基础信息" -> 应用凭证 App ID
-// APP_SECRET："开发者后台" -> "凭证与基础信息" -> 应用凭证 App Secret
-// VERIFICATION_TOKEN："开发者后台" -> "事件订阅" -> 事件订阅 Verification Token
-// ENCRYPT_KEY："开发者后台" -> "事件订阅" -> 事件订阅 Encrypt Key
-// HELP_DESK_ID: 服务台设置中心 -> ID
-// HELP_DESK_TOKEN: 服务台设置中心 -> 令牌
-// 企业自建应用的配置，通过环境变量获取应用配置
-appSettings := core.GetInternalAppSettingsByEnv()
-// 应用商店应用的配置，通过环境变量获取应用配置
-appSettings := core.GetISVAppSettingsByEnv()
+func main() {
+	// 创建card处理器
+	cardHandler := larkcard.NewCardActionHandler("v", "", func(ctx context.Context, cardAction *larkcard.CardAction) (interface{}, error) {
+		fmt.Println(larkcore.Prettify(cardAction))
+	    fmt.Println(cardAction.RequestId())
+		
+		// 创建http body
+		body := make(map[string]interface{})
+		body["content"] = "hello"
 
+		i18n := make(map[string]string)
+		i18n["zh_cn"] = "你好"
+		i18n["en_us"] = "hello"
+		i18n["ja_jp"] = "こんにちは"
+		body["i18n"] = i18n 
+		
+		// 创建自定义消息：http状态码，body内容
+		resp := &larkcard.CustomResp{
+			StatusCode: 400,
+			Body:       body,
+		}
 
-// 参数说明：
-// AppID、AppSecret: "开发者后台" -> "凭证与基础信息" -> 应用凭证（App ID、App Secret）
-// VerificationToken、EncryptKey："开发者后台" -> "事件订阅" -> 事件订阅（Verification Token、Encrypt Key）
-// HelpDeskID、HelpDeskToken：服务台设置中心 -> ID、令牌
-// 企业自建应用的配置
-appSettings := core.NewInternalAppSettings(
-core.SetAppCredentials("AppID", "AppSecret"), // 必需
-core.SetAppEventKey("VerificationToken", "EncryptKey"), // 非必需，事件订阅时必需
-core.SetHelpDeskCredentials("HelpDeskID", "HelpDeskToken"), // 非必需，访问服务台 API 时必需
-)
-// 应用商店应用的配置
-appSettings := core.NewISVAppSettings(
-core.SetAppCredentials("AppID", "AppSecret"), // 必需
-core.SetAppEventKey("VerificationToken", "EncryptKey"), // 非必需，事件订阅时必需
-core.SetHelpDeskCredentials("HelpDeskID", "HelpDeskToken"), // 非必需，访问服务台 API 时必需
-)
+		return resp, nil
+	})
+
+	// 注册处理器
+	http.HandleFunc("/webhook/card", httpserverext.NewCardActionHandlerFunc(cardHandler, larkevent.WithLogLevel(larkcore.LogLevelDebug)))
+
+	// 启动http服务
+	err := http.ListenAndServe(":9999", nil)
+	if err != nil {
+		panic(err)
+	}
+}
+
 
 ```
 
-## 如何构建整体配置（Config）
+## 集成gin框架
 
-- 访问 飞书、LarkSuite或者其他
-- 应用的配置
-- 日志接口（Logger）的实现，用于输出SDK处理过程中产生的日志，便于排查问题。
-    - 可以使用业务系统的日志实现，请看示例代码：[sample/config/logrus.go](sample/config/logrus.go)
-- 存储接口（Store）的实现，用于保存访问凭证（app/tenant_access_token）、临时凭证(app_ticket）
-    - 推荐使用Redis实现，请看示例代码：[sample/config/redis_store.go](sample/config/redis_store.go)
-        - 减少获取 访问凭证 的次数，防止调用访问凭证 接口被限频。
-        - 应用商品应用，接受开放平台下发的app_ticket，会保存到存储中，所以存储接口（Store）的实现的实现需要支持分布式存储。
+要想集成已有gin框架，开发者需要引入集成包oapi-sdk-gin
 
-```go
+### 安装集成包
+
+```
+go get -u github.com/larksuite/oapi-sdk-gin
+```
+
+### 集成示例
+
+```
 import (
-    "github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/config"
-    "github.com/larksuite/oapi-sdk-go/core/log"
-    "github.com/larksuite/oapi-sdk-go/core/store"
+	"context"
+	"fmt"
+
+	"github.com/gin-gonic/gin"
+	"github.com/larksuite/oapi-sdk-gin"
+	"github.com/larksuite/oapi-sdk-go/card"
+	"github.com/larksuite/oapi-sdk-go/core"
 )
 
-// 参数说明：
-// domain：URL域名地址，值范围：core.DomainFeiShu / core.DomainLarkSuite / 其他URL域名地址
-// appSettings：应用配置
-// opts：选项参数
-    // core.SetLogger(logger log.Logger) ,设置 Logger， 默认是：控制台输出
-    // core.SetLoggerLevel(core.LoggerLevelDebug)，设置 Logger日志级别， 默认是：core.LoggerLevelError
-    // core.SetStore(store store.Store)，设置 Store（[存储接口](core/store/store.go)，用来存储 app_ticket/access_token），推荐使用Redis实现存储接口（Store），减少访问获取AccessToken接口的次数。默认是：内存（sync.Map）存储
-conf = core.NewConfig(domain Domain, appSettings *config.AppSettings, opts ...ConfigOpt)
+
+func main() {
+    // 创建card处理器
+    cardHandler := larkcard.NewCardActionHandler("v", "", func(ctx context.Context, cardAction *larkcard.CardAction) (interface{}, error) {
+        fmt.Println(larkcore.Prettify(cardAction))
+	    fmt.Println(cardAction.RequestId())
+	    
+        return nil, nil
+    })
+    ...
+    // 在已有的gin示例上注册卡片处理路由
+    gin.POST("/webhooXk/card", ginext.NewCardActionHandlerFunc(cardHandler))
+    ...
+}
 ```
 
-## 如何构建请求（Request）
-
-- 有些老版接口，没有直接可以使用的SDK，可以使用原生模式，这时需要构建请求。
-- 更多示例，请看：[sample/api/api.go](sample/api/api.go)（含：文件的上传与下载）
-
-```go
-import (
-    "github.com/larksuite/oapi-sdk-go/api/core/request"
-)
-
-// 参数说明：
-// httpPath：API路径
-   // 例如：https://domain/open-apis/contact/v3/users/:user_id
-   // 支持：域名之后的路径，则 httpPath："/open-apis/contact/v3/users/:user_id"（推荐）
-   // 支持：全路径，则 httpPath："https://domain/open-apis/contact/v3/users/:user_id"
-   // 支持： /open-apis/ 之后的路径，则 httpPath："contact/v3/users/:user_id"
-// httpMethod: GET/POST/PUT/BATCH/DELETE
-// accessTokenType：API使用哪种访问凭证，取值范围：request.AccessTokenTypeApp/request.AccessTokenTypeTenant/request.AccessTokenTypeUser，例如：request.AccessTokenTypeTenant
-// input：请求体（可能是request.NewFormData()（例如：文件上传））,如果不需要请求体（例如一些GET请求），则传：nil
-// output：响应体（output := response["data"]) 
-// optFns：扩展函数，一些不常用的参数封装，如下：
-    // request.SetPathParams(map[string]interface{}{"user_id": 4})：设置URL Path参数（有:前缀）值，当httpPath="contact/v3/users/:user_id"时，请求的URL="https://{domain}/open-apis/contact/v3/users/4"
-    // request.SetQueryParams(map[string]interface{}{"age":4,"types":[1,2]})：设置 URL query，会在url追加?age=4&types=1&types=2      
-    // request.setResponseStream()，设置响应的是否是流，例如下载文件，这时：output的类型需要实现 io.Writer 接口
-    // request.SetNotDataField()，有一些 API 的响应体没有`data`字段，需要设置  
-    // request.SetTenantKey("TenantKey")，以`应用商店应用`身份，表示使用`tenant_access_token`访问API，需要设置
-    // request.SetUserAccessToken("UserAccessToken")，表示使用`user_access_token`访问API，需要设置
-    // request.NeedHelpDeskAuth()，表示是服务台API，需要设置 config.AppSettings 的 help desk 信息
-req := request.NewRequestWithNative(httpPath, httpMethod string, accessTokenType AccessTokenType, input interface{}, output interface{}, optFns ...OptFn)
-
-```
-
-## 如何构建请求上下文（core.Context）及常用方法
-
-```go
-import(
-    "github.com/larksuite/oapi-sdk-go/core"
-    "github.com/larksuite/oapi-sdk-go/core/config"
-)
-
-// 参数说明：
-// c：context.Context
-// 返回值说明：
-// ctx: 实现了Golang的context.Context，保存请求中的一些变量
-ctx := core.WrapContext(c context.Context)
-
-// 获取请求的Request ID，便于排查问题
-requestId := ctx.GetRequestID()
-
-// 获取请求的响应状态码
-httpStatusCode := ctx.GetHTTPStatusCode()
-
-// 在事件订阅与消息卡片回调的处理者中，可以从core.Context中获取 Config
-conf := config.ByCtx(ctx *core.Context)
-
-```
-
-## 如何发送请求
-
-- 由于SDK已经封装了app_access_token、tenant_access_token的获取，所以在调业务API的时候，不需要去获取app_access_token、tenant_access_token。如果业务接口需要使用user_access_token，需要进行设置（request.SetUserAccessToken("UserAccessToken")），具体请看 README.zh.md -> 如何构建请求（Request）
-- 更多使用示例，请看：[sample/api/api.go](sample/api/api.go)
-
-```go
-import(
-    "fmt"
-    "context"
-    "github.com/larksuite/oapi-sdk-go/api"
-    "github.com/larksuite/oapi-sdk-go/api/core/request"
-    "github.com/larksuite/oapi-sdk-go/api/core/response"
-    "github.com/larksuite/oapi-sdk-go/core"
-    "github.com/larksuite/oapi-sdk-go/core/test"
-    "github.com/larksuite/oapi-sdk-go/core/tools"
-)
-
-// 参数说明：
-// ctx：请求的上下文
-// conf：整体的配置（Config）
-// req：请求（Request）
-// 返回值说明：
-// err：发送请求，出现的错误以及响应的错误码（response.body["code"]）不等于0
-err := api.Send(ctx *core.Context, conf *config.Config, req *request.Request)
-
-```
-
-## 下载文件工具
-
-- 通过网络请求下载文件
-- 更多使用示例，请看：[sample/tools/file_download.go](sample/tools/file_download.go)
-
-```go
-import(
-    "context"
-    "github.com/larksuite/oapi-sdk-go/core/tools"
-)
-
-// 获取文件内容
-// 参数说明：
-// ctx：context.Context
-// url：文件的HTTP地址
-// 返回值说明：
-// bytes：文件内容的二进制数组
-// err：错误
-bytes, err := tools.DownloadFile(ctx context.Context, url string)
-
-// 获取文件内容流，读取完文件内容后，需要关闭流
-// 参数说明：
-// ctx：context.Context
-// url：文件的HTTP地址
-// 返回值说明：
-// readCloser：文件内容的二进制读取流
-// err：错误
-readCloser, err := tools.DownloadFileToStream(ctx context.Context, url string)
-
-```
-
-## License
-
----
+# License
 
 - MIT
 

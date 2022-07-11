@@ -1,6 +1,7 @@
 [**飞书，点这里**](README.zh.md) | Larksuite(Overseas)
 
-- 如果使用的是飞书，请看 [**飞书，点这里**](README.zh.md) ，飞书与Larksuite使用的域名不一样，引用的文档地址也是不同的。(If you are using FeiShu, please see [**飞书，点这里**](README.zh.md) , Feishu and larksuite use different domain names and reference different document addresses.)
+- 如果使用的是飞书，请看 [**飞书，点这里**](README.zh.md) ，飞书与Larksuite使用的域名不一样，引用的文档地址也是不同的。(If you are using FeiShu, please see [**
+  飞书，点这里**](README.zh.md) , Feishu and larksuite use different domain names and reference different document addresses.)
 
 
 # LarkSuite open api SDK
@@ -20,7 +21,9 @@
 
 ---
 
-If you encounter any problems during usage, please let us know by submitting  [Github Issues](https://github.com/larksuite/oapi-sdk-go/issues). We will deal with these Issues and get back to you as soon as possible.
+If you encounter any problems during usage, please let us know by
+submitting  [Github Issues](https://github.com/larksuite/oapi-sdk-go/issues). We will deal with these Issues and get
+back to you as soon as possible.
 
 - Upgrade the package first, if you still have problems, please submit Issues
 
@@ -35,6 +38,7 @@ If you encounter any problems during usage, please let us know by submitting  [G
 --- 
 
 - The latest release candidate provides more [open services API](/service) and bug repair.
+
 ```shell
 go get github.com/larksuite/oapi-sdk-go@v1.1.44
 ```
@@ -61,7 +65,11 @@ go get github.com/larksuite/oapi-sdk-go@v1.1.44
 ### Call API
 
 #### Example of using "Custom App" to access [send text message](https://open.larksuite.com/document/uMzMyEjLzMjMx4yMzITM/ugDN0EjL4QDNx4CO0QTM) API
-- Since the SDK has encapsulated the app_access_token、tenant_access_token So when calling the business API, you don't need to get the app_access_token、tenant_access_token. If the business interface needs to use user_access_token, which needs to be set（request.SetUserAccessToken("user_access_token")), Please refer to README.md -> How to build a request(Request)
+
+- Since the SDK has encapsulated the app_access_token、tenant_access_token So when calling the business API, you don't
+  need to get the app_access_token、tenant_access_token. If the business interface needs to use user_access_token, which
+  needs to be set（request.SetUserAccessToken("user_access_token")), Please refer to README.md -> How to build a request(
+  Request)
 - Some of the old API do not have a direct SDK to use. They can use the `native` mode.
 
 ```go
@@ -234,7 +242,7 @@ func main() {
 ```go
 
 import (
-    "github.com/larksuite/oapi-sdk-go/core"
+"github.com/larksuite/oapi-sdk-go/core"
 )
 
 // To prevent application information leakage, in the configuration environment variables, the variables (4) are described as follows:
@@ -262,7 +270,7 @@ core.SetHelpDeskCredentials("HelpDeskID", "HelpDeskToken"), // Not required. Req
 // The configuration of "Marketplace App"
 appSettings := core.NewISVAppSettings(
 core.SetAppCredentials("AppID", "AppSecret"), // Required
-core.SetAppEventKey("VerificationToken", "EncryptKey"), // Not required. Required for event、card subscription
+core.SetAppEventKey("VerificationToken", "EncryptKey"),     // Not required. Required for event、card subscription
 core.SetHelpDeskCredentials("HelpDeskID", "HelpDeskToken"), // Not required. Required to access the service desk API
 )
 ```
@@ -285,19 +293,19 @@ core.SetHelpDeskCredentials("HelpDeskID", "HelpDeskToken"), // Not required. Req
 
 ```go
 import (
-    "github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/core/config"
-    "github.com/larksuite/oapi-sdk-go/core/log"
-    "github.com/larksuite/oapi-sdk-go/core/store"
+"github.com/larksuite/oapi-sdk-go/core"
+"github.com/larksuite/oapi-sdk-go/core/config"
+"github.com/larksuite/oapi-sdk-go/core/log"
+"github.com/larksuite/oapi-sdk-go/core/store"
 )
 
 // Parameter Description:
 // domain：URL domain address, value range: core.DomainFeiShu / core.DomainLarkSuite / 其他URL域名地址
 // appSettings：App settings
 // opts：Option parameters
-    // core.SetLogger(logger log.Logger), Set logger. The default is console output
-    // core.SetLoggerLevel(core.LoggerLevelDebug), Set the logger log level, and the default is: core.LoggerLevelError
-    // core.SetStore(store store.Store), Set Store([Store interface](core/store/store.go), used to store app_ticket/access_token),it is recommended to use redis to implement the store interface, so as to reduce the times of accessing the accesstoken interface. The default is: memory (sync.Map) storage
+// core.SetLogger(logger log.Logger), Set logger. The default is console output
+// core.SetLoggerLevel(core.LoggerLevelDebug), Set the logger log level, and the default is: core.LoggerLevelError
+// core.SetStore(store store.Store), Set Store([Store interface](core/store/store.go), used to store app_ticket/access_token),it is recommended to use redis to implement the store interface, so as to reduce the times of accessing the accesstoken interface. The default is: memory (sync.Map) storage
 conf = core.NewConfig(domain Domain, appSettings *config.AppSettings, opts ...ConfigOpt)
 ```
 
@@ -309,27 +317,27 @@ conf = core.NewConfig(domain Domain, appSettings *config.AppSettings, opts ...Co
 
 ```go
 import (
-    "github.com/larksuite/oapi-sdk-go/api/core/request"
+"github.com/larksuite/oapi-sdk-go/api/core/request"
 )
 
 // Parameter Description:
 // httpPath: API path
-    // such as: https://domain/open-apis/contact/v3/users/:user_id
-    // support: the path of the domain name after, httpPath: "/open apis/contact/v3/users/:user_id" (recommended)
-    // support: the full path, httpPath: "https://domain/open-apis/contact/v3/users/:user_id"
-    // support: httpPath: "contact/v3/users/:user_id"
+// such as: https://domain/open-apis/contact/v3/users/:user_id
+// support: the path of the domain name after, httpPath: "/open apis/contact/v3/users/:user_id" (recommended)
+// support: the full path, httpPath: "https://domain/open-apis/contact/v3/users/:user_id"
+// support: httpPath: "contact/v3/users/:user_id"
 // httpMethod: GET/POST/PUT/BATCH/DELETE
 // accessTokenType：What kind of access certificate does the API use and the value range：request.AccessTokenTypeApp/request.AccessTokenTypeTenant/request.AccessTokenTypeUser, for example: request.AccessTokenTypeTenant
 // input：Request body (possibly request.NewFormData () (e.g. file upload)), if the request body (e.g. some get requests) is not needed, it will be transferred to: nil
 // output：Response body (output: = response ["data"])
 // optFns：Extension function, some rarely used parameter encapsulation, as follows:
-    // request.SetPathParams(map[string]interface{}{"user_id": 4}): set the URL Path parameter(with: prefix) value, When httpPath="contact/v3/users/:user_id", the requested URL="https://{domain}/open-apis/contact/v3/users/4"
-    // request.SetQueryParams(map[string]interface{}{"age":4,"types":[1,2]}): Set the URL query, will append to the url?age=4&types=1&types=2       
-    // request.setResponseStream(), set whether the response is a stream, such as downloading a file, At this point: the type of output needs to be implemented io.Writer Interface
-    // request.SetNotDataField(), some apis do not have a 'data' field in the response body and need to be set
-    // request.SetTenantKey("TenantKey"), as an `app store application`, it means using `tenant_access_token` to access the API, you need to set 
-    // request.SetUserAccessToken("UserAccessToken"), which means using` user_access_token` To access the API, you need to set 
-    // request.NeedHelpDeskAuth(), Indicates that the help desk API needs to set help desk information of config.AppSettings
+// request.SetPathParams(map[string]interface{}{"user_id": 4}): set the URL Path parameter(with: prefix) value, When httpPath="contact/v3/users/:user_id", the requested URL="https://{domain}/open-apis/contact/v3/users/4"
+// request.SetQueryParams(map[string]interface{}{"age":4,"types":[1,2]}): Set the URL query, will append to the url?age=4&types=1&types=2       
+// request.setResponseStream(), set whether the response is a stream, such as downloading a file, At this point: the type of output needs to be implemented io.Writer Interface
+// request.SetNotDataField(), some apis do not have a 'data' field in the response body and need to be set
+// request.SetTenantKey("TenantKey"), as an `app store application`, it means using `tenant_access_token` to access the API, you need to set 
+// request.SetUserAccessToken("UserAccessToken"), which means using` user_access_token` To access the API, you need to set 
+// request.NeedHelpDeskAuth(), Indicates that the help desk API needs to set help desk information of config.AppSettings
 req := request.NewRequestWithNative(httpPath, httpMethod string, accessTokenType AccessTokenType,
 input interface{}, output interface{}, optFns ...OptFn)
 ```
@@ -338,7 +346,7 @@ input interface{}, output interface{}, optFns ...OptFn)
 
 ```go
 import(
-    "github.com/larksuite/oapi-sdk-go/core"
+"github.com/larksuite/oapi-sdk-go/core"
 )
 
 // Parameter Description:
@@ -360,19 +368,22 @@ conf := config.ByCtx(ctx *core.Context)
 
 ## How to send a request
 
-- Since the SDK has encapsulated the app_access_token、tenant_access_token So when calling the business API, you don't need to get the app_access_token、tenant_access_token. If the business interface needs to use user_access_token, which needs to be set（request.SetUserAccessToken("user_access_token")), Please refer to README.md -> How to build a request(Request)
+- Since the SDK has encapsulated the app_access_token、tenant_access_token So when calling the business API, you don't
+  need to get the app_access_token、tenant_access_token. If the business interface needs to use user_access_token, which
+  needs to be set（request.SetUserAccessToken("user_access_token")), Please refer to README.md -> How to build a request(
+  Request)
 - For more use examples, please see: [sample/api/api.go](sample/api/api.go)
 
 ```go
 import(
-    "fmt"
-    "context"
-    "github.com/larksuite/oapi-sdk-go/api"
-    "github.com/larksuite/oapi-sdk-go/api/core/request"
-    "github.com/larksuite/oapi-sdk-go/api/core/response"
-    "github.com/larksuite/oapi-sdk-go/core"
-    "github.com/larksuite/oapi-sdk-go/core/test"
-    "github.com/larksuite/oapi-sdk-go/core/tools"
+"fmt"
+"context"
+"github.com/larksuite/oapi-sdk-go/api"
+"github.com/larksuite/oapi-sdk-go/api/core/request"
+"github.com/larksuite/oapi-sdk-go/api/core/response"
+"github.com/larksuite/oapi-sdk-go/core"
+"github.com/larksuite/oapi-sdk-go/core/test"
+"github.com/larksuite/oapi-sdk-go/core/tools"
 )
 
 // Parameter Description:
@@ -392,8 +403,8 @@ err := api.Send(ctx *core.Context, conf *config.Config, req *request.Request)
 
 ```go
 import(
-    "context"
-    "github.com/larksuite/oapi-sdk-go/core/tools"
+"context"
+"github.com/larksuite/oapi-sdk-go/core/tools"
 )
 
 // Get the file content

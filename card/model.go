@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 
 	"github.com/larksuite/oapi-sdk-go/core"
+	larkevent "github.com/larksuite/oapi-sdk-go/event"
 )
 
 const (
@@ -1028,6 +1029,7 @@ func (i18n *MessageCardPlainTextI18n) Build() *MessageCardPlainTextI18n {
 }
 
 type CardAction struct {
+	*larkevent.EventReq
 	OpenID        string `json:"open_id"`
 	UserID        string `json:"user_id"`
 	OpenMessageID string `json:"open_message_id"`

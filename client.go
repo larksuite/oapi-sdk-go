@@ -77,9 +77,15 @@ func WithAppType(appType larkcore.AppType) ClientOptionFunc {
 	}
 }
 
-func WithDisableTokenCache() ClientOptionFunc {
+func WithMarketplaceApp() ClientOptionFunc {
 	return func(config *larkcore.Config) {
-		config.EnableTokenCache = false
+		config.AppType = larkcore.AppTypeMarketplace
+	}
+}
+
+func WithEnableTokenCache(enableTokenCache bool) ClientOptionFunc {
+	return func(config *larkcore.Config) {
+		config.EnableTokenCache = enableTokenCache
 	}
 }
 

@@ -16,7 +16,7 @@ import (
 func main() {
 
 	//1212121212
-	handler := dispatcher.NewEventDispatcher("v", "").OnP2MessageReceiveV1(func(ctx context.Context, event *larkim.P2MessageReceiveV1) error {
+	handler := dispatcher.NewEventDispatcher("verificationToken", "eventEncryptKey").OnP2MessageReceiveV1(func(ctx context.Context, event *larkim.P2MessageReceiveV1) error {
 		fmt.Println(larkcore.Prettify(event))
 		fmt.Println(event.RequestId())
 		return nil
@@ -78,7 +78,6 @@ func main() {
 
 	// 开发者启动服务
 	err := http.ListenAndServe(":9999", nil)
-	err = http.ListenAndServe(":9999", nil)
 	if err != nil {
 		panic(err)
 	}

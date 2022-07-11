@@ -37,7 +37,7 @@ func mockCardAction() []byte {
 	cardActionBody := &larkcard.CardActionBody{
 		CardAction: cardAction,
 		Challenge:  "121212",
-		Type:       "url_verification",
+		Type:       "url_verification1",
 	}
 
 	body, _ := json.Marshal(cardActionBody)
@@ -65,6 +65,7 @@ func main() {
 	req.Header.Set(larkevent.EventRequestTimestamp, timestamp)
 	req.Header.Set(larkevent.EventRequestNonce, nonce)
 	req.Header.Set(larkevent.EventSignature, sourceSign)
+	req.Header.Set("X-Tt-Logid", "logid111111111111111")
 
 	// 模拟推送卡片消息
 	resp, err := http.DefaultClient.Do(req)

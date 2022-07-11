@@ -84,10 +84,10 @@ func getCustomResp() interface{} {
 	return &resp
 }
 func main() {
-
 	// 创建card处理器
 	cardHandler := larkcard.NewCardActionHandler("v", "", func(ctx context.Context, cardAction *larkcard.CardAction) (interface{}, error) {
 		fmt.Println(larkcore.Prettify(cardAction))
+		fmt.Println(cardAction.RequestId())
 
 		// 返回卡片消息
 		return getCard(), nil
@@ -102,7 +102,7 @@ func main() {
 	// 注册处理器
 	http.HandleFunc("/webhook/card", httpserverext.NewCardActionHandlerFunc(cardHandler, larkevent.WithLogLevel(larkcore.LogLevelDebug)))
 
-	// 开发者启动服务
+	// 启动http服务
 	err := http.ListenAndServe(":9999", nil)
 	if err != nil {
 		panic(err)

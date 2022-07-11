@@ -130,13 +130,12 @@ func downLoadImageV2(client *lark.Client) {
 }
 
 func sendTextMsg(client *lark.Client) {
+	// 构建消息体
 	content := larkim.NewTextMsgBuilder().
-		Text("加多").
 		Line().
 		TextLine("hello").
 		TextLine("world").
 		AtUser("ou_c245b0a7dff2725cfa2fb104f8b48b9d", "陆续").
-		//AtAll().
 		Build()
 
 	header := make(http.Header)

@@ -3,510 +3,498 @@ package larkacs
 
 import (
 	"io"
-	
 
-	
 	"io/ioutil"
-	
+
 	"context"
 	"errors"
 	"fmt"
-	
-	"github.com/larksuite/oapi-sdk-go/event"
-	
-	"github.com/larksuite/oapi-sdk-go/core"
-	
 
+	"github.com/larksuite/oapi-sdk-go/event"
+
+	"github.com/larksuite/oapi-sdk-go/core"
 )
 
 // 生成枚举值
 
 const (
-
-	  UserIdTypeUserId = "user_id"
-	  UserIdTypeUnionId = "union_id"
-	  UserIdTypeOpenId = "open_id"
+	UserIdTypeUserId  = "user_id"
+	UserIdTypeUnionId = "union_id"
+	UserIdTypeOpenId  = "open_id"
 )
-
-
 
 // 生成数据类型
 
 type AccessRecord struct {
-	AccessRecordId  *int64 `json:"access_record_id,omitempty,string"`
-	UserId  *string `json:"user_id,omitempty"`
-	DeviceId  *int64 `json:"device_id,omitempty,string"`
-	IsClockIn  *bool `json:"is_clock_in,omitempty"`
-	AccessTime  *int64 `json:"access_time,omitempty,string"`
-	AccessType  *string `json:"access_type,omitempty"`
-	AccessData  *string `json:"access_data,omitempty"`
-	IsDoorOpen  *bool `json:"is_door_open,omitempty"`
+	AccessRecordId *int64  `json:"access_record_id,omitempty,string"`
+	UserId         *string `json:"user_id,omitempty"`
+	DeviceId       *int64  `json:"device_id,omitempty,string"`
+	IsClockIn      *bool   `json:"is_clock_in,omitempty"`
+	AccessTime     *int64  `json:"access_time,omitempty,string"`
+	AccessType     *string `json:"access_type,omitempty"`
+	AccessData     *string `json:"access_data,omitempty"`
+	IsDoorOpen     *bool   `json:"is_door_open,omitempty"`
 }
 
 // builder开始
 type AccessRecordBuilder struct {
-	accessRecordId  int64
-	accessRecordIdFlag  bool
-	userId  string
-	userIdFlag  bool
-	deviceId  int64
-	deviceIdFlag  bool
-	isClockIn  bool
-	isClockInFlag  bool
-	accessTime  int64
-	accessTimeFlag  bool
-	accessType  string
-	accessTypeFlag  bool
-	accessData  string
-	accessDataFlag  bool
-	isDoorOpen  bool
-	isDoorOpenFlag  bool
+	accessRecordId     int64
+	accessRecordIdFlag bool
+	userId             string
+	userIdFlag         bool
+	deviceId           int64
+	deviceIdFlag       bool
+	isClockIn          bool
+	isClockInFlag      bool
+	accessTime         int64
+	accessTimeFlag     bool
+	accessType         string
+	accessTypeFlag     bool
+	accessData         string
+	accessDataFlag     bool
+	isDoorOpen         bool
+	isDoorOpenFlag     bool
 }
 
-func NewAccessRecordBuilder() * AccessRecordBuilder{
-   builder := &AccessRecordBuilder{}
-   return builder
+func NewAccessRecordBuilder() *AccessRecordBuilder {
+	builder := &AccessRecordBuilder{}
+	return builder
 }
 
+func (builder *AccessRecordBuilder) AccessRecordId(accessRecordId int64) *AccessRecordBuilder {
+	builder.accessRecordId = accessRecordId
+	builder.accessRecordIdFlag = true
+	return builder
+}
+func (builder *AccessRecordBuilder) UserId(userId string) *AccessRecordBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *AccessRecordBuilder) DeviceId(deviceId int64) *AccessRecordBuilder {
+	builder.deviceId = deviceId
+	builder.deviceIdFlag = true
+	return builder
+}
+func (builder *AccessRecordBuilder) IsClockIn(isClockIn bool) *AccessRecordBuilder {
+	builder.isClockIn = isClockIn
+	builder.isClockInFlag = true
+	return builder
+}
+func (builder *AccessRecordBuilder) AccessTime(accessTime int64) *AccessRecordBuilder {
+	builder.accessTime = accessTime
+	builder.accessTimeFlag = true
+	return builder
+}
+func (builder *AccessRecordBuilder) AccessType(accessType string) *AccessRecordBuilder {
+	builder.accessType = accessType
+	builder.accessTypeFlag = true
+	return builder
+}
+func (builder *AccessRecordBuilder) AccessData(accessData string) *AccessRecordBuilder {
+	builder.accessData = accessData
+	builder.accessDataFlag = true
+	return builder
+}
+func (builder *AccessRecordBuilder) IsDoorOpen(isDoorOpen bool) *AccessRecordBuilder {
+	builder.isDoorOpen = isDoorOpen
+	builder.isDoorOpenFlag = true
+	return builder
+}
 
-func (builder * AccessRecordBuilder) AccessRecordId(accessRecordId int64) *AccessRecordBuilder  {
-  builder.accessRecordId = accessRecordId
-  builder.accessRecordIdFlag = true
-  return builder
-}
-func (builder * AccessRecordBuilder) UserId(userId string) *AccessRecordBuilder  {
-  builder.userId = userId
-  builder.userIdFlag = true
-  return builder
-}
-func (builder * AccessRecordBuilder) DeviceId(deviceId int64) *AccessRecordBuilder  {
-  builder.deviceId = deviceId
-  builder.deviceIdFlag = true
-  return builder
-}
-func (builder * AccessRecordBuilder) IsClockIn(isClockIn bool) *AccessRecordBuilder  {
-  builder.isClockIn = isClockIn
-  builder.isClockInFlag = true
-  return builder
-}
-func (builder * AccessRecordBuilder) AccessTime(accessTime int64) *AccessRecordBuilder  {
-  builder.accessTime = accessTime
-  builder.accessTimeFlag = true
-  return builder
-}
-func (builder * AccessRecordBuilder) AccessType(accessType string) *AccessRecordBuilder  {
-  builder.accessType = accessType
-  builder.accessTypeFlag = true
-  return builder
-}
-func (builder * AccessRecordBuilder) AccessData(accessData string) *AccessRecordBuilder  {
-  builder.accessData = accessData
-  builder.accessDataFlag = true
-  return builder
-}
-func (builder * AccessRecordBuilder) IsDoorOpen(isDoorOpen bool) *AccessRecordBuilder  {
-  builder.isDoorOpen = isDoorOpen
-  builder.isDoorOpenFlag = true
-  return builder
+func (builder *AccessRecordBuilder) Build() *AccessRecord {
+	req := &AccessRecord{}
+	if builder.accessRecordIdFlag {
+		req.AccessRecordId = &builder.accessRecordId
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.deviceIdFlag {
+		req.DeviceId = &builder.deviceId
+
+	}
+	if builder.isClockInFlag {
+		req.IsClockIn = &builder.isClockIn
+
+	}
+	if builder.accessTimeFlag {
+		req.AccessTime = &builder.accessTime
+
+	}
+	if builder.accessTypeFlag {
+		req.AccessType = &builder.accessType
+
+	}
+	if builder.accessDataFlag {
+		req.AccessData = &builder.accessData
+
+	}
+	if builder.isDoorOpenFlag {
+		req.IsDoorOpen = &builder.isDoorOpen
+
+	}
+	return req
 }
 
-func (builder * AccessRecordBuilder ) Build() *AccessRecord {
-   req := &AccessRecord{}
-   if builder.accessRecordIdFlag {
-	  req.AccessRecordId = &builder.accessRecordId
-	  
-   }
-   if builder.userIdFlag {
-	  req.UserId = &builder.userId
-	  
-   }
-   if builder.deviceIdFlag {
-	  req.DeviceId = &builder.deviceId
-	  
-   }
-   if builder.isClockInFlag {
-	  req.IsClockIn = &builder.isClockIn
-	  
-   }
-   if builder.accessTimeFlag {
-	  req.AccessTime = &builder.accessTime
-	  
-   }
-   if builder.accessTypeFlag {
-	  req.AccessType = &builder.accessType
-	  
-   }
-   if builder.accessDataFlag {
-	  req.AccessData = &builder.accessData
-	  
-   }
-   if builder.isDoorOpenFlag {
-	  req.IsDoorOpen = &builder.isDoorOpen
-	  
-   }
-   return req
-}
 // builder结束
 
 type Device struct {
-	DeviceId  *int64 `json:"device_id,omitempty,string"`
-	DeviceName  *string `json:"device_name,omitempty"`
-	DeviceSn  *string `json:"device_sn,omitempty"`
+	DeviceId   *int64  `json:"device_id,omitempty,string"`
+	DeviceName *string `json:"device_name,omitempty"`
+	DeviceSn   *string `json:"device_sn,omitempty"`
 }
 
 // builder开始
 type DeviceBuilder struct {
-	deviceId  int64
-	deviceIdFlag  bool
-	deviceName  string
-	deviceNameFlag  bool
-	deviceSn  string
-	deviceSnFlag  bool
+	deviceId       int64
+	deviceIdFlag   bool
+	deviceName     string
+	deviceNameFlag bool
+	deviceSn       string
+	deviceSnFlag   bool
 }
 
-func NewDeviceBuilder() * DeviceBuilder{
-   builder := &DeviceBuilder{}
-   return builder
+func NewDeviceBuilder() *DeviceBuilder {
+	builder := &DeviceBuilder{}
+	return builder
 }
 
+func (builder *DeviceBuilder) DeviceId(deviceId int64) *DeviceBuilder {
+	builder.deviceId = deviceId
+	builder.deviceIdFlag = true
+	return builder
+}
+func (builder *DeviceBuilder) DeviceName(deviceName string) *DeviceBuilder {
+	builder.deviceName = deviceName
+	builder.deviceNameFlag = true
+	return builder
+}
+func (builder *DeviceBuilder) DeviceSn(deviceSn string) *DeviceBuilder {
+	builder.deviceSn = deviceSn
+	builder.deviceSnFlag = true
+	return builder
+}
 
-func (builder * DeviceBuilder) DeviceId(deviceId int64) *DeviceBuilder  {
-  builder.deviceId = deviceId
-  builder.deviceIdFlag = true
-  return builder
-}
-func (builder * DeviceBuilder) DeviceName(deviceName string) *DeviceBuilder  {
-  builder.deviceName = deviceName
-  builder.deviceNameFlag = true
-  return builder
-}
-func (builder * DeviceBuilder) DeviceSn(deviceSn string) *DeviceBuilder  {
-  builder.deviceSn = deviceSn
-  builder.deviceSnFlag = true
-  return builder
+func (builder *DeviceBuilder) Build() *Device {
+	req := &Device{}
+	if builder.deviceIdFlag {
+		req.DeviceId = &builder.deviceId
+
+	}
+	if builder.deviceNameFlag {
+		req.DeviceName = &builder.deviceName
+
+	}
+	if builder.deviceSnFlag {
+		req.DeviceSn = &builder.deviceSn
+
+	}
+	return req
 }
 
-func (builder * DeviceBuilder ) Build() *Device {
-   req := &Device{}
-   if builder.deviceIdFlag {
-	  req.DeviceId = &builder.deviceId
-	  
-   }
-   if builder.deviceNameFlag {
-	  req.DeviceName = &builder.deviceName
-	  
-   }
-   if builder.deviceSnFlag {
-	  req.DeviceSn = &builder.deviceSn
-	  
-   }
-   return req
-}
 // builder结束
 
 type Feature struct {
-	Card  *int `json:"card,omitempty"`
-	FaceUploaded  *bool `json:"face_uploaded,omitempty"`
+	Card         *int  `json:"card,omitempty"`
+	FaceUploaded *bool `json:"face_uploaded,omitempty"`
 }
 
 // builder开始
 type FeatureBuilder struct {
-	card  int
-	cardFlag  bool
-	faceUploaded  bool
-	faceUploadedFlag  bool
+	card             int
+	cardFlag         bool
+	faceUploaded     bool
+	faceUploadedFlag bool
 }
 
-func NewFeatureBuilder() * FeatureBuilder{
-   builder := &FeatureBuilder{}
-   return builder
+func NewFeatureBuilder() *FeatureBuilder {
+	builder := &FeatureBuilder{}
+	return builder
 }
 
+func (builder *FeatureBuilder) Card(card int) *FeatureBuilder {
+	builder.card = card
+	builder.cardFlag = true
+	return builder
+}
+func (builder *FeatureBuilder) FaceUploaded(faceUploaded bool) *FeatureBuilder {
+	builder.faceUploaded = faceUploaded
+	builder.faceUploadedFlag = true
+	return builder
+}
 
-func (builder * FeatureBuilder) Card(card int) *FeatureBuilder  {
-  builder.card = card
-  builder.cardFlag = true
-  return builder
-}
-func (builder * FeatureBuilder) FaceUploaded(faceUploaded bool) *FeatureBuilder  {
-  builder.faceUploaded = faceUploaded
-  builder.faceUploadedFlag = true
-  return builder
+func (builder *FeatureBuilder) Build() *Feature {
+	req := &Feature{}
+	if builder.cardFlag {
+		req.Card = &builder.card
+
+	}
+	if builder.faceUploadedFlag {
+		req.FaceUploaded = &builder.faceUploaded
+
+	}
+	return req
 }
 
-func (builder * FeatureBuilder ) Build() *Feature {
-   req := &Feature{}
-   if builder.cardFlag {
-	  req.Card = &builder.card
-	  
-   }
-   if builder.faceUploadedFlag {
-	  req.FaceUploaded = &builder.faceUploaded
-	  
-   }
-   return req
-}
 // builder结束
 
 type File struct {
-	Files  io.Reader `json:"files,omitempty"`
-	FileType  *string `json:"file_type,omitempty"`
-	FileName  *string `json:"file_name,omitempty"`
+	Files    io.Reader `json:"files,omitempty"`
+	FileType *string   `json:"file_type,omitempty"`
+	FileName *string   `json:"file_name,omitempty"`
 }
 
 // builder开始
 type FileBuilder struct {
-	files  io.Reader
-	filesFlag  bool
-	fileType  string
-	fileTypeFlag  bool
-	fileName  string
-	fileNameFlag  bool
+	files        io.Reader
+	filesFlag    bool
+	fileType     string
+	fileTypeFlag bool
+	fileName     string
+	fileNameFlag bool
 }
 
-func NewFileBuilder() * FileBuilder{
-   builder := &FileBuilder{}
-   return builder
+func NewFileBuilder() *FileBuilder {
+	builder := &FileBuilder{}
+	return builder
 }
 
+func (builder *FileBuilder) Files(files io.Reader) *FileBuilder {
+	builder.files = files
+	builder.filesFlag = true
+	return builder
+}
+func (builder *FileBuilder) FileType(fileType string) *FileBuilder {
+	builder.fileType = fileType
+	builder.fileTypeFlag = true
+	return builder
+}
+func (builder *FileBuilder) FileName(fileName string) *FileBuilder {
+	builder.fileName = fileName
+	builder.fileNameFlag = true
+	return builder
+}
 
-func (builder * FileBuilder) Files(files io.Reader) *FileBuilder  {
-  builder.files = files
-  builder.filesFlag = true
-  return builder
-}
-func (builder * FileBuilder) FileType(fileType string) *FileBuilder  {
-  builder.fileType = fileType
-  builder.fileTypeFlag = true
-  return builder
-}
-func (builder * FileBuilder) FileName(fileName string) *FileBuilder  {
-  builder.fileName = fileName
-  builder.fileNameFlag = true
-  return builder
+func (builder *FileBuilder) Build() *File {
+	req := &File{}
+	if builder.filesFlag {
+		req.Files = builder.files
+	}
+	if builder.fileTypeFlag {
+		req.FileType = &builder.fileType
+
+	}
+	if builder.fileNameFlag {
+		req.FileName = &builder.fileName
+
+	}
+	return req
 }
 
-func (builder * FileBuilder ) Build() *File {
-   req := &File{}
-   if builder.filesFlag {
-	  req.Files = builder.files
-   }
-   if builder.fileTypeFlag {
-	  req.FileType = &builder.fileType
-	  
-   }
-   if builder.fileNameFlag {
-	  req.FileName = &builder.fileName
-	  
-   }
-   return req
-}
 // builder结束
 
 type User struct {
-	Feature  *Feature `json:"feature,omitempty"`
-	UserId  *string `json:"user_id,omitempty"`
+	Feature *Feature `json:"feature,omitempty"`
+	UserId  *string  `json:"user_id,omitempty"`
 }
 
 // builder开始
 type UserBuilder struct {
-	feature  *Feature
-	featureFlag  bool
-	userId  string
+	feature     *Feature
+	featureFlag bool
+	userId      string
 	userIdFlag  bool
 }
 
-func NewUserBuilder() * UserBuilder{
-   builder := &UserBuilder{}
-   return builder
+func NewUserBuilder() *UserBuilder {
+	builder := &UserBuilder{}
+	return builder
 }
 
+func (builder *UserBuilder) Feature(feature *Feature) *UserBuilder {
+	builder.feature = feature
+	builder.featureFlag = true
+	return builder
+}
+func (builder *UserBuilder) UserId(userId string) *UserBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
 
-func (builder * UserBuilder) Feature(feature *Feature) *UserBuilder  {
-  builder.feature = feature
-  builder.featureFlag = true
-  return builder
-}
-func (builder * UserBuilder) UserId(userId string) *UserBuilder  {
-  builder.userId = userId
-  builder.userIdFlag = true
-  return builder
+func (builder *UserBuilder) Build() *User {
+	req := &User{}
+	if builder.featureFlag {
+		req.Feature = builder.feature
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	return req
 }
 
-func (builder * UserBuilder ) Build() *User {
-   req := &User{}
-   if builder.featureFlag {
-	  req.Feature = builder.feature
-   }
-   if builder.userIdFlag {
-	  req.UserId = &builder.userId
-	  
-   }
-   return req
-}
 // builder结束
 
 type UserId struct {
 	UserId  *string `json:"user_id,omitempty"`
 	OpenId  *string `json:"open_id,omitempty"`
-	UnionId  *string `json:"union_id,omitempty"`
+	UnionId *string `json:"union_id,omitempty"`
 }
 
 // builder开始
 type UserIdBuilder struct {
-	userId  string
+	userId      string
 	userIdFlag  bool
-	openId  string
+	openId      string
 	openIdFlag  bool
-	unionId  string
-	unionIdFlag  bool
+	unionId     string
+	unionIdFlag bool
 }
 
-func NewUserIdBuilder() * UserIdBuilder{
-   builder := &UserIdBuilder{}
-   return builder
+func NewUserIdBuilder() *UserIdBuilder {
+	builder := &UserIdBuilder{}
+	return builder
 }
 
+func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
+	builder.openId = openId
+	builder.openIdFlag = true
+	return builder
+}
+func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
+	builder.unionId = unionId
+	builder.unionIdFlag = true
+	return builder
+}
 
-func (builder * UserIdBuilder) UserId(userId string) *UserIdBuilder  {
-  builder.userId = userId
-  builder.userIdFlag = true
-  return builder
-}
-func (builder * UserIdBuilder) OpenId(openId string) *UserIdBuilder  {
-  builder.openId = openId
-  builder.openIdFlag = true
-  return builder
-}
-func (builder * UserIdBuilder) UnionId(unionId string) *UserIdBuilder  {
-  builder.unionId = unionId
-  builder.unionIdFlag = true
-  return builder
+func (builder *UserIdBuilder) Build() *UserId {
+	req := &UserId{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.openIdFlag {
+		req.OpenId = &builder.openId
+
+	}
+	if builder.unionIdFlag {
+		req.UnionId = &builder.unionId
+
+	}
+	return req
 }
 
-func (builder * UserIdBuilder ) Build() *UserId {
-   req := &UserId{}
-   if builder.userIdFlag {
-	  req.UserId = &builder.userId
-	  
-   }
-   if builder.openIdFlag {
-	  req.OpenId = &builder.openId
-	  
-   }
-   if builder.unionIdFlag {
-	  req.UnionId = &builder.unionId
-	  
-   }
-   return req
-}
 // builder结束
-
 
 // 生成请求和响应结果类型，以及请求对象的Builder构造器
 
-
 // 1.4 生成请求的builder结构体
 type ListAccessRecordReqBuilder struct {
-	pageSize  int
-	pageSizeFlag  bool
-	pageToken  string
+	pageSize       int
+	pageSizeFlag   bool
+	pageToken      string
 	pageTokenFlag  bool
-	from  int
-	fromFlag  bool
-	to  int
-	toFlag  bool
-	deviceId  int64
-	deviceIdFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-	limit int
-
+	from           int
+	fromFlag       bool
+	to             int
+	toFlag         bool
+	deviceId       int64
+	deviceIdFlag   bool
+	userIdType     string
+	userIdTypeFlag bool
+	limit          int
 }
 
 // 生成请求的New构造器
-func NewListAccessRecordReqBuilder() * ListAccessRecordReqBuilder{
-   builder := &ListAccessRecordReqBuilder{}
-   return builder
+func NewListAccessRecordReqBuilder() *ListAccessRecordReqBuilder {
+	builder := &ListAccessRecordReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * ListAccessRecordReqBuilder) Limit(limit int ) *ListAccessRecordReqBuilder  {
-  builder.limit = limit
-  return builder
+func (builder *ListAccessRecordReqBuilder) Limit(limit int) *ListAccessRecordReqBuilder {
+	builder.limit = limit
+	return builder
 }
-func (builder * ListAccessRecordReqBuilder) PageSize(pageSize int) *ListAccessRecordReqBuilder  {
-  builder.pageSize = pageSize
-  builder.pageSizeFlag = true
-  return builder
+func (builder *ListAccessRecordReqBuilder) PageSize(pageSize int) *ListAccessRecordReqBuilder {
+	builder.pageSize = pageSize
+	builder.pageSizeFlag = true
+	return builder
 }
-func (builder * ListAccessRecordReqBuilder) PageToken(pageToken string) *ListAccessRecordReqBuilder  {
-  builder.pageToken = pageToken
-  builder.pageTokenFlag = true
-  return builder
+func (builder *ListAccessRecordReqBuilder) PageToken(pageToken string) *ListAccessRecordReqBuilder {
+	builder.pageToken = pageToken
+	builder.pageTokenFlag = true
+	return builder
 }
-func (builder * ListAccessRecordReqBuilder) From(from int) *ListAccessRecordReqBuilder  {
-  builder.from = from
-  builder.fromFlag = true
-  return builder
+func (builder *ListAccessRecordReqBuilder) From(from int) *ListAccessRecordReqBuilder {
+	builder.from = from
+	builder.fromFlag = true
+	return builder
 }
-func (builder * ListAccessRecordReqBuilder) To(to int) *ListAccessRecordReqBuilder  {
-  builder.to = to
-  builder.toFlag = true
-  return builder
+func (builder *ListAccessRecordReqBuilder) To(to int) *ListAccessRecordReqBuilder {
+	builder.to = to
+	builder.toFlag = true
+	return builder
 }
-func (builder * ListAccessRecordReqBuilder) DeviceId(deviceId int64) *ListAccessRecordReqBuilder  {
-  builder.deviceId = deviceId
-  builder.deviceIdFlag = true
-  return builder
+func (builder *ListAccessRecordReqBuilder) DeviceId(deviceId int64) *ListAccessRecordReqBuilder {
+	builder.deviceId = deviceId
+	builder.deviceIdFlag = true
+	return builder
 }
-func (builder * ListAccessRecordReqBuilder) UserIdType(userIdType string) *ListAccessRecordReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *ListAccessRecordReqBuilder) UserIdType(userIdType string) *ListAccessRecordReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * ListAccessRecordReqBuilder ) Build() *ListAccessRecordReq {
-   req := &ListAccessRecordReq{}
-   req.Limit = builder.limit
-   if builder.pageSizeFlag {
-	  req.PageSize = &builder.pageSize
-   }
-   if builder.pageTokenFlag {
-	  req.PageToken = &builder.pageToken
-   }
-   if builder.fromFlag {
-	  req.From = &builder.from
-   }
-   if builder.toFlag {
-	  req.To = &builder.to
-   }
-   if builder.deviceIdFlag {
-	  req.DeviceId = &builder.deviceId
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   return req
+func (builder *ListAccessRecordReqBuilder) Build() *ListAccessRecordReq {
+	req := &ListAccessRecordReq{}
+	req.Limit = builder.limit
+	if builder.pageSizeFlag {
+		req.PageSize = &builder.pageSize
+	}
+	if builder.pageTokenFlag {
+		req.PageToken = &builder.pageToken
+	}
+	if builder.fromFlag {
+		req.From = &builder.from
+	}
+	if builder.toFlag {
+		req.To = &builder.to
+	}
+	if builder.deviceIdFlag {
+		req.DeviceId = &builder.deviceId
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	return req
 }
 
-
 type ListAccessRecordReq struct {
-	PageSize  *int `query:"page_size"`
+	PageSize   *int    `query:"page_size"`
 	PageToken  *string `query:"page_token"`
-	From  *int `query:"from"`
-	To  *int `query:"to"`
-	DeviceId  *int64 `query:"device_id"`
-	UserIdType  *string `query:"user_id_type"`
-	Limit int
-
+	From       *int    `query:"from"`
+	To         *int    `query:"to"`
+	DeviceId   *int64  `query:"device_id"`
+	UserIdType *string `query:"user_id_type"`
+	Limit      int
 }
 
 type ListAccessRecordRespData struct {
-	Items  []*AccessRecord `json:"items,omitempty"`
-	PageToken  *string `json:"page_token,omitempty"`
-	HasMore  *bool `json:"has_more,omitempty"`
+	Items     []*AccessRecord `json:"items,omitempty"`
+	PageToken *string         `json:"page_token,omitempty"`
+	HasMore   *bool           `json:"has_more,omitempty"`
 }
 
 type ListAccessRecordResp struct {
@@ -519,55 +507,51 @@ func (resp *ListAccessRecordResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type GetAccessRecordAccessPhotoReqBuilder struct {
-	accessRecordId  int64
-	accessRecordIdFlag  bool
-
+	accessRecordId     int64
+	accessRecordIdFlag bool
 }
 
 // 生成请求的New构造器
-func NewGetAccessRecordAccessPhotoReqBuilder() * GetAccessRecordAccessPhotoReqBuilder{
-   builder := &GetAccessRecordAccessPhotoReqBuilder{}
-   return builder
+func NewGetAccessRecordAccessPhotoReqBuilder() *GetAccessRecordAccessPhotoReqBuilder {
+	builder := &GetAccessRecordAccessPhotoReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * GetAccessRecordAccessPhotoReqBuilder) AccessRecordId(accessRecordId int64) *GetAccessRecordAccessPhotoReqBuilder  {
-  builder.accessRecordId = accessRecordId
-  builder.accessRecordIdFlag = true
-  return builder
+func (builder *GetAccessRecordAccessPhotoReqBuilder) AccessRecordId(accessRecordId int64) *GetAccessRecordAccessPhotoReqBuilder {
+	builder.accessRecordId = accessRecordId
+	builder.accessRecordIdFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * GetAccessRecordAccessPhotoReqBuilder ) Build() *GetAccessRecordAccessPhotoReq {
-   req := &GetAccessRecordAccessPhotoReq{}
-   if builder.accessRecordIdFlag {
-	  req.AccessRecordId = builder.accessRecordId
-   }
-   return req
+func (builder *GetAccessRecordAccessPhotoReqBuilder) Build() *GetAccessRecordAccessPhotoReq {
+	req := &GetAccessRecordAccessPhotoReq{}
+	if builder.accessRecordIdFlag {
+		req.AccessRecordId = builder.accessRecordId
+	}
+	return req
 }
-
 
 type GetAccessRecordAccessPhotoReq struct {
-	AccessRecordId  int64 `path:"access_record_id"`
-
+	AccessRecordId int64 `path:"access_record_id"`
 }
-
 
 type GetAccessRecordAccessPhotoResp struct {
 	*larkcore.RawResponse `json:"-"`
 	larkcore.CodeError
-	File	 io.Reader `json:"-"`
-	FileName string	`json:"-"`
+	File     io.Reader `json:"-"`
+	FileName string    `json:"-"`
 }
 
 func (resp *GetAccessRecordAccessPhotoResp) Success() bool {
 	return resp.Code == 0
 }
+
 // 下载api,生成WriteFile方法
-func (resp * GetAccessRecordAccessPhotoResp) WriteFile(fileName string ) error {
+func (resp *GetAccessRecordAccessPhotoResp) WriteFile(fileName string) error {
 	bs, err := ioutil.ReadAll(resp.File)
 	if err != nil {
 		return err
@@ -580,10 +564,8 @@ func (resp * GetAccessRecordAccessPhotoResp) WriteFile(fileName string ) error {
 	return nil
 }
 
-
-
 type ListDeviceRespData struct {
-	Items  []*Device `json:"items,omitempty"`
+	Items []*Device `json:"items,omitempty"`
 }
 
 type ListDeviceResp struct {
@@ -596,55 +578,51 @@ func (resp *ListDeviceResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type GetUserReqBuilder struct {
-	userId  string
-	userIdFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-
+	userId         string
+	userIdFlag     bool
+	userIdType     string
+	userIdTypeFlag bool
 }
 
 // 生成请求的New构造器
-func NewGetUserReqBuilder() * GetUserReqBuilder{
-   builder := &GetUserReqBuilder{}
-   return builder
+func NewGetUserReqBuilder() *GetUserReqBuilder {
+	builder := &GetUserReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * GetUserReqBuilder) UserId(userId string) *GetUserReqBuilder  {
-  builder.userId = userId
-  builder.userIdFlag = true
-  return builder
+func (builder *GetUserReqBuilder) UserId(userId string) *GetUserReqBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
 }
-func (builder * GetUserReqBuilder) UserIdType(userIdType string) *GetUserReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *GetUserReqBuilder) UserIdType(userIdType string) *GetUserReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * GetUserReqBuilder ) Build() *GetUserReq {
-   req := &GetUserReq{}
-   if builder.userIdFlag {
-	  req.UserId = builder.userId
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   return req
+func (builder *GetUserReqBuilder) Build() *GetUserReq {
+	req := &GetUserReq{}
+	if builder.userIdFlag {
+		req.UserId = builder.userId
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	return req
 }
 
-
 type GetUserReq struct {
-	UserId  string `path:"user_id"`
-	UserIdType  *string `query:"user_id_type"`
-
+	UserId     string  `path:"user_id"`
+	UserIdType *string `query:"user_id_type"`
 }
 
 type GetUserRespData struct {
-	User  *User `json:"user,omitempty"`
+	User *User `json:"user,omitempty"`
 }
 
 type GetUserResp struct {
@@ -657,75 +635,71 @@ func (resp *GetUserResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type ListUserReqBuilder struct {
-	pageSize  int
-	pageSizeFlag  bool
-	pageToken  string
+	pageSize       int
+	pageSizeFlag   bool
+	pageToken      string
 	pageTokenFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-	limit int
-
+	userIdType     string
+	userIdTypeFlag bool
+	limit          int
 }
 
 // 生成请求的New构造器
-func NewListUserReqBuilder() * ListUserReqBuilder{
-   builder := &ListUserReqBuilder{}
-   return builder
+func NewListUserReqBuilder() *ListUserReqBuilder {
+	builder := &ListUserReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * ListUserReqBuilder) Limit(limit int ) *ListUserReqBuilder  {
-  builder.limit = limit
-  return builder
+func (builder *ListUserReqBuilder) Limit(limit int) *ListUserReqBuilder {
+	builder.limit = limit
+	return builder
 }
-func (builder * ListUserReqBuilder) PageSize(pageSize int) *ListUserReqBuilder  {
-  builder.pageSize = pageSize
-  builder.pageSizeFlag = true
-  return builder
+func (builder *ListUserReqBuilder) PageSize(pageSize int) *ListUserReqBuilder {
+	builder.pageSize = pageSize
+	builder.pageSizeFlag = true
+	return builder
 }
-func (builder * ListUserReqBuilder) PageToken(pageToken string) *ListUserReqBuilder  {
-  builder.pageToken = pageToken
-  builder.pageTokenFlag = true
-  return builder
+func (builder *ListUserReqBuilder) PageToken(pageToken string) *ListUserReqBuilder {
+	builder.pageToken = pageToken
+	builder.pageTokenFlag = true
+	return builder
 }
-func (builder * ListUserReqBuilder) UserIdType(userIdType string) *ListUserReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *ListUserReqBuilder) UserIdType(userIdType string) *ListUserReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * ListUserReqBuilder ) Build() *ListUserReq {
-   req := &ListUserReq{}
-   req.Limit = builder.limit
-   if builder.pageSizeFlag {
-	  req.PageSize = &builder.pageSize
-   }
-   if builder.pageTokenFlag {
-	  req.PageToken = &builder.pageToken
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   return req
+func (builder *ListUserReqBuilder) Build() *ListUserReq {
+	req := &ListUserReq{}
+	req.Limit = builder.limit
+	if builder.pageSizeFlag {
+		req.PageSize = &builder.pageSize
+	}
+	if builder.pageTokenFlag {
+		req.PageToken = &builder.pageToken
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	return req
 }
 
-
 type ListUserReq struct {
-	PageSize  *int `query:"page_size"`
+	PageSize   *int    `query:"page_size"`
 	PageToken  *string `query:"page_token"`
-	UserIdType  *string `query:"user_id_type"`
-	Limit int
-
+	UserIdType *string `query:"user_id_type"`
+	Limit      int
 }
 
 type ListUserRespData struct {
-	Items  []*User `json:"items,omitempty"`
-	PageToken  *string `json:"page_token,omitempty"`
-	HasMore  *bool `json:"has_more,omitempty"`
+	Items     []*User `json:"items,omitempty"`
+	PageToken *string `json:"page_token,omitempty"`
+	HasMore   *bool   `json:"has_more,omitempty"`
 }
 
 type ListUserResp struct {
@@ -738,64 +712,59 @@ func (resp *ListUserResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type PatchUserReqBuilder struct {
-	userId  string
-	userIdFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-	user *User
-	userFlag bool
-
+	userId         string
+	userIdFlag     bool
+	userIdType     string
+	userIdTypeFlag bool
+	user           *User
+	userFlag       bool
 }
 
 // 生成请求的New构造器
-func NewPatchUserReqBuilder() * PatchUserReqBuilder{
-   builder := &PatchUserReqBuilder{}
-   return builder
+func NewPatchUserReqBuilder() *PatchUserReqBuilder {
+	builder := &PatchUserReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * PatchUserReqBuilder) UserId(userId string) *PatchUserReqBuilder  {
-  builder.userId = userId
-  builder.userIdFlag = true
-  return builder
+func (builder *PatchUserReqBuilder) UserId(userId string) *PatchUserReqBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
 }
-func (builder * PatchUserReqBuilder) UserIdType(userIdType string) *PatchUserReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *PatchUserReqBuilder) UserIdType(userIdType string) *PatchUserReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
-func (builder * PatchUserReqBuilder) User(user *User) *PatchUserReqBuilder  {
-  builder.user = user
-  builder.userFlag = true
-  return builder
+func (builder *PatchUserReqBuilder) User(user *User) *PatchUserReqBuilder {
+	builder.user = user
+	builder.userFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * PatchUserReqBuilder ) Build() *PatchUserReq {
-   req := &PatchUserReq{}
-   if builder.userIdFlag {
-	  req.UserId = builder.userId
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   if builder.userFlag {
-	  req.User = builder.user
-   }
-   return req
+func (builder *PatchUserReqBuilder) Build() *PatchUserReq {
+	req := &PatchUserReq{}
+	if builder.userIdFlag {
+		req.UserId = builder.userId
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	if builder.userFlag {
+		req.User = builder.user
+	}
+	return req
 }
-
 
 type PatchUserReq struct {
-	UserId  string `path:"user_id"`
-	UserIdType  *string `query:"user_id_type"`
-	User *User `body:""`
-
+	UserId     string  `path:"user_id"`
+	UserIdType *string `query:"user_id_type"`
+	User       *User   `body:""`
 }
-
 
 type PatchUserResp struct {
 	*larkcore.RawResponse `json:"-"`
@@ -806,77 +775,73 @@ func (resp *PatchUserResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type GetUserFaceReqBuilder struct {
-	userId  string
-	userIdFlag  bool
-	isCropped  bool
+	userId         string
+	userIdFlag     bool
+	isCropped      bool
 	isCroppedFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-
+	userIdType     string
+	userIdTypeFlag bool
 }
 
 // 生成请求的New构造器
-func NewGetUserFaceReqBuilder() * GetUserFaceReqBuilder{
-   builder := &GetUserFaceReqBuilder{}
-   return builder
+func NewGetUserFaceReqBuilder() *GetUserFaceReqBuilder {
+	builder := &GetUserFaceReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * GetUserFaceReqBuilder) UserId(userId string) *GetUserFaceReqBuilder  {
-  builder.userId = userId
-  builder.userIdFlag = true
-  return builder
+func (builder *GetUserFaceReqBuilder) UserId(userId string) *GetUserFaceReqBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
 }
-func (builder * GetUserFaceReqBuilder) IsCropped(isCropped bool) *GetUserFaceReqBuilder  {
-  builder.isCropped = isCropped
-  builder.isCroppedFlag = true
-  return builder
+func (builder *GetUserFaceReqBuilder) IsCropped(isCropped bool) *GetUserFaceReqBuilder {
+	builder.isCropped = isCropped
+	builder.isCroppedFlag = true
+	return builder
 }
-func (builder * GetUserFaceReqBuilder) UserIdType(userIdType string) *GetUserFaceReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *GetUserFaceReqBuilder) UserIdType(userIdType string) *GetUserFaceReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * GetUserFaceReqBuilder ) Build() *GetUserFaceReq {
-   req := &GetUserFaceReq{}
-   if builder.userIdFlag {
-	  req.UserId = builder.userId
-   }
-   if builder.isCroppedFlag {
-	  req.IsCropped = &builder.isCropped
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   return req
+func (builder *GetUserFaceReqBuilder) Build() *GetUserFaceReq {
+	req := &GetUserFaceReq{}
+	if builder.userIdFlag {
+		req.UserId = builder.userId
+	}
+	if builder.isCroppedFlag {
+		req.IsCropped = &builder.isCropped
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	return req
 }
-
 
 type GetUserFaceReq struct {
-	UserId  string `path:"user_id"`
-	IsCropped  *bool `query:"is_cropped"`
-	UserIdType  *string `query:"user_id_type"`
-
+	UserId     string  `path:"user_id"`
+	IsCropped  *bool   `query:"is_cropped"`
+	UserIdType *string `query:"user_id_type"`
 }
-
 
 type GetUserFaceResp struct {
 	*larkcore.RawResponse `json:"-"`
 	larkcore.CodeError
-	File	 io.Reader `json:"-"`
-	FileName string	`json:"-"`
+	File     io.Reader `json:"-"`
+	FileName string    `json:"-"`
 }
 
 func (resp *GetUserFaceResp) Success() bool {
 	return resp.Code == 0
 }
+
 // 下载api,生成WriteFile方法
-func (resp * GetUserFaceResp) WriteFile(fileName string ) error {
+func (resp *GetUserFaceResp) WriteFile(fileName string) error {
 	bs, err := ioutil.ReadAll(resp.File)
 	if err != nil {
 		return err
@@ -889,64 +854,59 @@ func (resp * GetUserFaceResp) WriteFile(fileName string ) error {
 	return nil
 }
 
-
 // 1.4 生成请求的builder结构体
 type UpdateUserFaceReqBuilder struct {
-	userId  string
-	userIdFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-	file *File
-	fileFlag bool
-
+	userId         string
+	userIdFlag     bool
+	userIdType     string
+	userIdTypeFlag bool
+	file           *File
+	fileFlag       bool
 }
 
 // 生成请求的New构造器
-func NewUpdateUserFaceReqBuilder() * UpdateUserFaceReqBuilder{
-   builder := &UpdateUserFaceReqBuilder{}
-   return builder
+func NewUpdateUserFaceReqBuilder() *UpdateUserFaceReqBuilder {
+	builder := &UpdateUserFaceReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * UpdateUserFaceReqBuilder) UserId(userId string) *UpdateUserFaceReqBuilder  {
-  builder.userId = userId
-  builder.userIdFlag = true
-  return builder
+func (builder *UpdateUserFaceReqBuilder) UserId(userId string) *UpdateUserFaceReqBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
 }
-func (builder * UpdateUserFaceReqBuilder) UserIdType(userIdType string) *UpdateUserFaceReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *UpdateUserFaceReqBuilder) UserIdType(userIdType string) *UpdateUserFaceReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
-func (builder * UpdateUserFaceReqBuilder) File(file *File) *UpdateUserFaceReqBuilder  {
-  builder.file = file
-  builder.fileFlag = true
-  return builder
+func (builder *UpdateUserFaceReqBuilder) File(file *File) *UpdateUserFaceReqBuilder {
+	builder.file = file
+	builder.fileFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * UpdateUserFaceReqBuilder ) Build() *UpdateUserFaceReq {
-   req := &UpdateUserFaceReq{}
-   if builder.userIdFlag {
-	  req.UserId = builder.userId
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   if builder.fileFlag {
-	  req.File = builder.file
-   }
-   return req
+func (builder *UpdateUserFaceReqBuilder) Build() *UpdateUserFaceReq {
+	req := &UpdateUserFaceReq{}
+	if builder.userIdFlag {
+		req.UserId = builder.userId
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	if builder.fileFlag {
+		req.File = builder.file
+	}
+	return req
 }
-
 
 type UpdateUserFaceReq struct {
-	UserId  string `path:"user_id"`
-	UserIdType  *string `query:"user_id_type"`
-	File *File `body:""`
-
+	UserId     string  `path:"user_id"`
+	UserIdType *string `query:"user_id_type"`
+	File       *File   `body:""`
 }
-
 
 type UpdateUserFaceResp struct {
 	*larkcore.RawResponse `json:"-"`
@@ -960,148 +920,146 @@ func (resp *UpdateUserFaceResp) Success() bool {
 // 生成消息事件结构体
 
 type P2AccessRecordCreatedV1Data struct {
-	AccessRecordId  *string `json:"access_record_id,omitempty"`
-	UserId  *UserId `json:"user_id,omitempty"`
-	DeviceId  *string `json:"device_id,omitempty"`
-	IsClockIn  *bool `json:"is_clock_in,omitempty"`
-	IsDoorOpen  *bool `json:"is_door_open,omitempty"`
-	AccessTime  *string `json:"access_time,omitempty"`
+	AccessRecordId *string `json:"access_record_id,omitempty"`
+	UserId         *UserId `json:"user_id,omitempty"`
+	DeviceId       *string `json:"device_id,omitempty"`
+	IsClockIn      *bool   `json:"is_clock_in,omitempty"`
+	IsDoorOpen     *bool   `json:"is_door_open,omitempty"`
+	AccessTime     *string `json:"access_time,omitempty"`
 }
 
 type P2AccessRecordCreatedV1 struct {
 	*larkevent.EventV2Base
 	*larkevent.EventReq
-	Event * P2AccessRecordCreatedV1Data `json:"event"`
+	Event *P2AccessRecordCreatedV1Data `json:"event"`
 }
 
-func (m *P2AccessRecordCreatedV1) RawReq( req *larkevent.EventReq){
+func (m *P2AccessRecordCreatedV1) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
 }
 
 type P2UserUpdatedV1Data struct {
-	UserId  *UserId `json:"user_id,omitempty"`
-	Card  *int `json:"card,omitempty"`
-	FaceUploaded  *bool `json:"face_uploaded,omitempty"`
+	UserId       *UserId `json:"user_id,omitempty"`
+	Card         *int    `json:"card,omitempty"`
+	FaceUploaded *bool   `json:"face_uploaded,omitempty"`
 }
 
 type P2UserUpdatedV1 struct {
 	*larkevent.EventV2Base
 	*larkevent.EventReq
-	Event * P2UserUpdatedV1Data `json:"event"`
+	Event *P2UserUpdatedV1Data `json:"event"`
 }
 
-func (m *P2UserUpdatedV1) RawReq( req *larkevent.EventReq){
+func (m *P2UserUpdatedV1) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
 }
 
-
 // 生成请求的builder构造器
 // 1.1 生成body的builder结构体
-   type ListAccessRecordIterator struct{
-	 nextPageToken *string
-	 items	 []*AccessRecord
-	 index	 int
-	 limit	 int
-	 ctx	   context.Context
-	 req	   *ListAccessRecordReq
-	 listFunc  func (ctx context.Context, req *ListAccessRecordReq, options ...larkcore.RequestOptionFunc) (*ListAccessRecordResp, error)
-	 options   []larkcore.RequestOptionFunc
-   	 curlNum	   int
-   }
+type ListAccessRecordIterator struct {
+	nextPageToken *string
+	items         []*AccessRecord
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListAccessRecordReq
+	listFunc      func(ctx context.Context, req *ListAccessRecordReq, options ...larkcore.RequestOptionFunc) (*ListAccessRecordResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
 
-   func (iterator *ListAccessRecordIterator) Next() (bool, *AccessRecord, error) {
-		// 达到最大量，则返回
-		if iterator.limit >0 && iterator.curlNum >= iterator.limit {
+func (iterator *ListAccessRecordIterator) Next() (bool, *AccessRecord, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.PageToken = iterator.nextPageToken
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
 			return false, nil, nil
 		}
 
-		// 为0则拉取数据
-		if iterator.index == 0 || iterator.index >= len(iterator.items) {
-			if iterator.index != 0 && iterator.nextPageToken == nil {
-				return false, nil, nil
-			}
-			if iterator.nextPageToken != nil {
-				iterator.req.PageToken = iterator.nextPageToken
-			}
-			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-			if err != nil {
-				return false, nil, err
-			}
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
 
-			if resp.Code != 0 {
-				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
-			}
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
 
-			if len(resp.Data.Items) == 0 {
-				return false, nil, nil
-			}
+func (iterator *ListAccessRecordIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
 
-			iterator.nextPageToken = resp.Data.PageToken
-			iterator.items = resp.Data.Items
-			iterator.index = 0
+type ListUserIterator struct {
+	nextPageToken *string
+	items         []*User
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListUserReq
+	listFunc      func(ctx context.Context, req *ListUserReq, options ...larkcore.RequestOptionFunc) (*ListUserResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *ListUserIterator) Next() (bool, *User, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.PageToken = iterator.nextPageToken
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
 		}
 
-		block := iterator.items[iterator.index]
-		iterator.index++
-		iterator.curlNum++
-		return true, block, nil
-   }
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
 
-   func (iterator *ListAccessRecordIterator) NextPageToken() *string {
-	  return iterator.nextPageToken
-   }
-   type ListUserIterator struct{
-	 nextPageToken *string
-	 items	 []*User
-	 index	 int
-	 limit	 int
-	 ctx	   context.Context
-	 req	   *ListUserReq
-	 listFunc  func (ctx context.Context, req *ListUserReq, options ...larkcore.RequestOptionFunc) (*ListUserResp, error)
-	 options   []larkcore.RequestOptionFunc
-   	 curlNum	   int
-   }
-
-   func (iterator *ListUserIterator) Next() (bool, *User, error) {
-		// 达到最大量，则返回
-		if iterator.limit >0 && iterator.curlNum >= iterator.limit {
+		if len(resp.Data.Items) == 0 {
 			return false, nil, nil
 		}
 
-		// 为0则拉取数据
-		if iterator.index == 0 || iterator.index >= len(iterator.items) {
-			if iterator.index != 0 && iterator.nextPageToken == nil {
-				return false, nil, nil
-			}
-			if iterator.nextPageToken != nil {
-				iterator.req.PageToken = iterator.nextPageToken
-			}
-			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-			if err != nil {
-				return false, nil, err
-			}
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
 
-			if resp.Code != 0 {
-				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
-			}
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
 
-			if len(resp.Data.Items) == 0 {
-				return false, nil, nil
-			}
-
-			iterator.nextPageToken = resp.Data.PageToken
-			iterator.items = resp.Data.Items
-			iterator.index = 0
-		}
-
-		block := iterator.items[iterator.index]
-		iterator.index++
-		iterator.curlNum++
-		return true, block, nil
-   }
-
-   func (iterator *ListUserIterator) NextPageToken() *string {
-	  return iterator.nextPageToken
-   }
-
-
+func (iterator *ListUserIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}

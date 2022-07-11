@@ -2,37 +2,34 @@
 package larkevent
 
 import (
-	"net/http"
 	"context"
-	
+	"net/http"
+
 	"github.com/larksuite/oapi-sdk-go/core"
 )
 
-
 // 构建业务域服务实例
 func NewService(config *larkcore.Config) *EventService {
-	e := &EventService{config:config}
+	e := &EventService{config: config}
 	e.OutboundIp = &outboundIp{service: e}
 	return e
 }
 
-
 // 业务域服务定义
 type EventService struct {
-	config *larkcore.Config
+	config     *larkcore.Config
 	OutboundIp *outboundIp
 }
 
-
-
 // 资源服务定义
 type outboundIp struct {
-   service *EventService
+	service *EventService
 }
+
 // 资源服务方法定义
 func (o *outboundIp) List(ctx context.Context, req *ListOutboundIpReq, options ...larkcore.RequestOptionFunc) (*ListOutboundIpResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx,o.service.config, http.MethodGet,
+	rawResp, err := larkcore.SendRequest(ctx, o.service.config, http.MethodGet,
 		"/open-apis/event/v1/outbound_ip", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
 	if err != nil {
 		return nil, err
@@ -46,10 +43,10 @@ func (o *outboundIp) List(ctx context.Context, req *ListOutboundIpReq, options .
 	return resp, err
 }
 func (o *outboundIp) ListByIterator(ctx context.Context, req *ListOutboundIpReq, options ...larkcore.RequestOptionFunc) (*ListOutboundIpIterator, error) {
-   return &ListOutboundIpIterator{
-	  ctx:	  ctx,
-	  req:	  req,
-	  listFunc: o.List,
-	  options:  options,
-	  limit: req.Limit}, nil
+	return &ListOutboundIpIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: o.List,
+		options:  options,
+		limit:    req.Limit}, nil
 }

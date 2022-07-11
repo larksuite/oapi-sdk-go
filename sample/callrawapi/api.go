@@ -26,7 +26,13 @@ func rawApi1() {
 		return
 	}
 
-	fmt.Println(resp)
+	// 获取请求ID
+	fmt.Println(resp.RequestId())
+
+	// 处理请求结果
+	fmt.Println(resp.StatusCode) // http status code
+	fmt.Println(resp.Header)     // http header
+	fmt.Println(resp.RawBody)    // http body
 }
 
 func rawApi2() {

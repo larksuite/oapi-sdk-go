@@ -3,533 +3,516 @@ package larkim
 
 import (
 	"io"
-	
-	"bytes"
-		
 
-	
+	"bytes"
+
 	"io/ioutil"
-	
+
 	"context"
 	"errors"
 	"fmt"
-	
-	"github.com/larksuite/oapi-sdk-go/event"
-	
-	"github.com/larksuite/oapi-sdk-go/core"
-	
 
+	"github.com/larksuite/oapi-sdk-go/event"
+
+	"github.com/larksuite/oapi-sdk-go/core"
 )
 
 // 生成枚举值
 
 const (
-
-	  UserIdTypeUserId = "user_id"
-	  UserIdTypeUnionId = "union_id"
-	  UserIdTypeOpenId = "open_id"
+	UserIdTypeUserId  = "user_id"
+	UserIdTypeUnionId = "union_id"
+	UserIdTypeOpenId  = "open_id"
 )
 
 const (
-
-	  OwnerIdTypeUserId = "user_id"
-	  OwnerIdTypeUnionId = "union_id"
-	  OwnerIdTypeOpenId = "open_id"
-	  OwnerIdTypeAppId = "app_id"
+	OwnerIdTypeUserId  = "user_id"
+	OwnerIdTypeUnionId = "union_id"
+	OwnerIdTypeOpenId  = "open_id"
+	OwnerIdTypeAppId   = "app_id"
 )
 
 const (
-
-	  ModifierIdTypeUserId = "user_id"
-	  ModifierIdTypeUnionId = "union_id"
-	  ModifierIdTypeOpenId = "open_id"
-	  ModifierIdTypeAppId = "app_id"
+	ModifierIdTypeUserId  = "user_id"
+	ModifierIdTypeUnionId = "union_id"
+	ModifierIdTypeOpenId  = "open_id"
+	ModifierIdTypeAppId   = "app_id"
 )
 
 const (
-
-	  MemberIdTypeUserId = "user_id"
-	  MemberIdTypeUnionId = "union_id"
-	  MemberIdTypeOpenId = "open_id"
-	  MemberIdTypeAppId = "app_id"
+	MemberIdTypeUserId  = "user_id"
+	MemberIdTypeUnionId = "union_id"
+	MemberIdTypeOpenId  = "open_id"
+	MemberIdTypeAppId   = "app_id"
 )
 
 const (
-SucceedType0 = 0
+	SucceedType0 = 0
 	SucceedType1 = 1
 	SucceedType2 = 2
-	
 )
 
 const (
-
-	  FileTypeOpus = "opus"
-	  FileTypeMp4 = "mp4"
-	  FileTypePdf = "pdf"
-	  FileTypeDoc = "doc"
-	  FileTypeXls = "xls"
-	  FileTypePpt = "ppt"
-	  FileTypeStream = "stream"
+	FileTypeOpus   = "opus"
+	FileTypeMp4    = "mp4"
+	FileTypePdf    = "pdf"
+	FileTypeDoc    = "doc"
+	FileTypeXls    = "xls"
+	FileTypePpt    = "ppt"
+	FileTypeStream = "stream"
 )
 
 const (
-
-	  ImageTypeMessage = "message"
-	  ImageTypeAvatar = "avatar"
+	ImageTypeMessage = "message"
+	ImageTypeAvatar  = "avatar"
 )
 
 const (
-
-	  ReceiveIdTypeOpenId = "open_id"
-	  ReceiveIdTypeUserId = "user_id"
-	  ReceiveIdTypeUnionId = "union_id"
-	  ReceiveIdTypeEmail = "email"
-	  ReceiveIdTypeChatId = "chat_id"
+	ReceiveIdTypeOpenId  = "open_id"
+	ReceiveIdTypeUserId  = "user_id"
+	ReceiveIdTypeUnionId = "union_id"
+	ReceiveIdTypeEmail   = "email"
+	ReceiveIdTypeChatId  = "chat_id"
 )
-
-
 
 // 生成数据类型
 
 type BatchMessage struct {
-	BatchMessageId  *string `json:"batch_message_id,omitempty"`
-	BatchSendProgress  *BatchSendProgress `json:"batch_send_progress,omitempty"`
-	BatchRecallProgress  *BatchRecallProgress `json:"batch_recall_progress,omitempty"`
+	BatchMessageId      *string              `json:"batch_message_id,omitempty"`
+	BatchSendProgress   *BatchSendProgress   `json:"batch_send_progress,omitempty"`
+	BatchRecallProgress *BatchRecallProgress `json:"batch_recall_progress,omitempty"`
 }
 
 // builder开始
 type BatchMessageBuilder struct {
-	batchMessageId  string
-	batchMessageIdFlag  bool
-	batchSendProgress  *BatchSendProgress
-	batchSendProgressFlag  bool
-	batchRecallProgress  *BatchRecallProgress
-	batchRecallProgressFlag  bool
+	batchMessageId          string
+	batchMessageIdFlag      bool
+	batchSendProgress       *BatchSendProgress
+	batchSendProgressFlag   bool
+	batchRecallProgress     *BatchRecallProgress
+	batchRecallProgressFlag bool
 }
 
-func NewBatchMessageBuilder() * BatchMessageBuilder{
-   builder := &BatchMessageBuilder{}
-   return builder
+func NewBatchMessageBuilder() *BatchMessageBuilder {
+	builder := &BatchMessageBuilder{}
+	return builder
 }
 
+func (builder *BatchMessageBuilder) BatchMessageId(batchMessageId string) *BatchMessageBuilder {
+	builder.batchMessageId = batchMessageId
+	builder.batchMessageIdFlag = true
+	return builder
+}
+func (builder *BatchMessageBuilder) BatchSendProgress(batchSendProgress *BatchSendProgress) *BatchMessageBuilder {
+	builder.batchSendProgress = batchSendProgress
+	builder.batchSendProgressFlag = true
+	return builder
+}
+func (builder *BatchMessageBuilder) BatchRecallProgress(batchRecallProgress *BatchRecallProgress) *BatchMessageBuilder {
+	builder.batchRecallProgress = batchRecallProgress
+	builder.batchRecallProgressFlag = true
+	return builder
+}
 
-func (builder * BatchMessageBuilder) BatchMessageId(batchMessageId string) *BatchMessageBuilder  {
-  builder.batchMessageId = batchMessageId
-  builder.batchMessageIdFlag = true
-  return builder
-}
-func (builder * BatchMessageBuilder) BatchSendProgress(batchSendProgress *BatchSendProgress) *BatchMessageBuilder  {
-  builder.batchSendProgress = batchSendProgress
-  builder.batchSendProgressFlag = true
-  return builder
-}
-func (builder * BatchMessageBuilder) BatchRecallProgress(batchRecallProgress *BatchRecallProgress) *BatchMessageBuilder  {
-  builder.batchRecallProgress = batchRecallProgress
-  builder.batchRecallProgressFlag = true
-  return builder
+func (builder *BatchMessageBuilder) Build() *BatchMessage {
+	req := &BatchMessage{}
+	if builder.batchMessageIdFlag {
+		req.BatchMessageId = &builder.batchMessageId
+
+	}
+	if builder.batchSendProgressFlag {
+		req.BatchSendProgress = builder.batchSendProgress
+	}
+	if builder.batchRecallProgressFlag {
+		req.BatchRecallProgress = builder.batchRecallProgress
+	}
+	return req
 }
 
-func (builder * BatchMessageBuilder ) Build() *BatchMessage {
-   req := &BatchMessage{}
-   if builder.batchMessageIdFlag {
-	  req.BatchMessageId = &builder.batchMessageId
-	  
-   }
-   if builder.batchSendProgressFlag {
-	  req.BatchSendProgress = builder.batchSendProgress
-   }
-   if builder.batchRecallProgressFlag {
-	  req.BatchRecallProgress = builder.batchRecallProgress
-   }
-   return req
-}
 // builder结束
 
 type BatchMessageReadUser struct {
 	ReadCount  *string `json:"read_count,omitempty"`
-	TotalCount  *string `json:"total_count,omitempty"`
+	TotalCount *string `json:"total_count,omitempty"`
 }
 
 // builder开始
 type BatchMessageReadUserBuilder struct {
-	readCount  string
+	readCount      string
 	readCountFlag  bool
-	totalCount  string
-	totalCountFlag  bool
+	totalCount     string
+	totalCountFlag bool
 }
 
-func NewBatchMessageReadUserBuilder() * BatchMessageReadUserBuilder{
-   builder := &BatchMessageReadUserBuilder{}
-   return builder
+func NewBatchMessageReadUserBuilder() *BatchMessageReadUserBuilder {
+	builder := &BatchMessageReadUserBuilder{}
+	return builder
 }
 
+func (builder *BatchMessageReadUserBuilder) ReadCount(readCount string) *BatchMessageReadUserBuilder {
+	builder.readCount = readCount
+	builder.readCountFlag = true
+	return builder
+}
+func (builder *BatchMessageReadUserBuilder) TotalCount(totalCount string) *BatchMessageReadUserBuilder {
+	builder.totalCount = totalCount
+	builder.totalCountFlag = true
+	return builder
+}
 
-func (builder * BatchMessageReadUserBuilder) ReadCount(readCount string) *BatchMessageReadUserBuilder  {
-  builder.readCount = readCount
-  builder.readCountFlag = true
-  return builder
-}
-func (builder * BatchMessageReadUserBuilder) TotalCount(totalCount string) *BatchMessageReadUserBuilder  {
-  builder.totalCount = totalCount
-  builder.totalCountFlag = true
-  return builder
+func (builder *BatchMessageReadUserBuilder) Build() *BatchMessageReadUser {
+	req := &BatchMessageReadUser{}
+	if builder.readCountFlag {
+		req.ReadCount = &builder.readCount
+
+	}
+	if builder.totalCountFlag {
+		req.TotalCount = &builder.totalCount
+
+	}
+	return req
 }
 
-func (builder * BatchMessageReadUserBuilder ) Build() *BatchMessageReadUser {
-   req := &BatchMessageReadUser{}
-   if builder.readCountFlag {
-	  req.ReadCount = &builder.readCount
-	  
-   }
-   if builder.totalCountFlag {
-	  req.TotalCount = &builder.totalCount
-	  
-   }
-   return req
-}
 // builder结束
 
 type BatchMessageRecallProgress struct {
-	Recall  *bool `json:"recall,omitempty"`
-	RecallCount  *int `json:"recall_count,omitempty"`
+	Recall      *bool `json:"recall,omitempty"`
+	RecallCount *int  `json:"recall_count,omitempty"`
 }
 
 // builder开始
 type BatchMessageRecallProgressBuilder struct {
-	recall  bool
-	recallFlag  bool
-	recallCount  int
-	recallCountFlag  bool
+	recall          bool
+	recallFlag      bool
+	recallCount     int
+	recallCountFlag bool
 }
 
-func NewBatchMessageRecallProgressBuilder() * BatchMessageRecallProgressBuilder{
-   builder := &BatchMessageRecallProgressBuilder{}
-   return builder
+func NewBatchMessageRecallProgressBuilder() *BatchMessageRecallProgressBuilder {
+	builder := &BatchMessageRecallProgressBuilder{}
+	return builder
 }
 
+func (builder *BatchMessageRecallProgressBuilder) Recall(recall bool) *BatchMessageRecallProgressBuilder {
+	builder.recall = recall
+	builder.recallFlag = true
+	return builder
+}
+func (builder *BatchMessageRecallProgressBuilder) RecallCount(recallCount int) *BatchMessageRecallProgressBuilder {
+	builder.recallCount = recallCount
+	builder.recallCountFlag = true
+	return builder
+}
 
-func (builder * BatchMessageRecallProgressBuilder) Recall(recall bool) *BatchMessageRecallProgressBuilder  {
-  builder.recall = recall
-  builder.recallFlag = true
-  return builder
-}
-func (builder * BatchMessageRecallProgressBuilder) RecallCount(recallCount int) *BatchMessageRecallProgressBuilder  {
-  builder.recallCount = recallCount
-  builder.recallCountFlag = true
-  return builder
+func (builder *BatchMessageRecallProgressBuilder) Build() *BatchMessageRecallProgress {
+	req := &BatchMessageRecallProgress{}
+	if builder.recallFlag {
+		req.Recall = &builder.recall
+
+	}
+	if builder.recallCountFlag {
+		req.RecallCount = &builder.recallCount
+
+	}
+	return req
 }
 
-func (builder * BatchMessageRecallProgressBuilder ) Build() *BatchMessageRecallProgress {
-   req := &BatchMessageRecallProgress{}
-   if builder.recallFlag {
-	  req.Recall = &builder.recall
-	  
-   }
-   if builder.recallCountFlag {
-	  req.RecallCount = &builder.recallCount
-	  
-   }
-   return req
-}
 // builder结束
 
 type BatchMessageSendProgress struct {
-	ValidUserIdsCount  *int `json:"valid_user_ids_count,omitempty"`
-	SuccessUserIdsCount  *int `json:"success_user_ids_count,omitempty"`
-	ReadUserIdsCount  *int `json:"read_user_ids_count,omitempty"`
+	ValidUserIdsCount   *int `json:"valid_user_ids_count,omitempty"`
+	SuccessUserIdsCount *int `json:"success_user_ids_count,omitempty"`
+	ReadUserIdsCount    *int `json:"read_user_ids_count,omitempty"`
 }
 
 // builder开始
 type BatchMessageSendProgressBuilder struct {
-	validUserIdsCount  int
-	validUserIdsCountFlag  bool
-	successUserIdsCount  int
-	successUserIdsCountFlag  bool
-	readUserIdsCount  int
-	readUserIdsCountFlag  bool
+	validUserIdsCount       int
+	validUserIdsCountFlag   bool
+	successUserIdsCount     int
+	successUserIdsCountFlag bool
+	readUserIdsCount        int
+	readUserIdsCountFlag    bool
 }
 
-func NewBatchMessageSendProgressBuilder() * BatchMessageSendProgressBuilder{
-   builder := &BatchMessageSendProgressBuilder{}
-   return builder
+func NewBatchMessageSendProgressBuilder() *BatchMessageSendProgressBuilder {
+	builder := &BatchMessageSendProgressBuilder{}
+	return builder
 }
 
+func (builder *BatchMessageSendProgressBuilder) ValidUserIdsCount(validUserIdsCount int) *BatchMessageSendProgressBuilder {
+	builder.validUserIdsCount = validUserIdsCount
+	builder.validUserIdsCountFlag = true
+	return builder
+}
+func (builder *BatchMessageSendProgressBuilder) SuccessUserIdsCount(successUserIdsCount int) *BatchMessageSendProgressBuilder {
+	builder.successUserIdsCount = successUserIdsCount
+	builder.successUserIdsCountFlag = true
+	return builder
+}
+func (builder *BatchMessageSendProgressBuilder) ReadUserIdsCount(readUserIdsCount int) *BatchMessageSendProgressBuilder {
+	builder.readUserIdsCount = readUserIdsCount
+	builder.readUserIdsCountFlag = true
+	return builder
+}
 
-func (builder * BatchMessageSendProgressBuilder) ValidUserIdsCount(validUserIdsCount int) *BatchMessageSendProgressBuilder  {
-  builder.validUserIdsCount = validUserIdsCount
-  builder.validUserIdsCountFlag = true
-  return builder
-}
-func (builder * BatchMessageSendProgressBuilder) SuccessUserIdsCount(successUserIdsCount int) *BatchMessageSendProgressBuilder  {
-  builder.successUserIdsCount = successUserIdsCount
-  builder.successUserIdsCountFlag = true
-  return builder
-}
-func (builder * BatchMessageSendProgressBuilder) ReadUserIdsCount(readUserIdsCount int) *BatchMessageSendProgressBuilder  {
-  builder.readUserIdsCount = readUserIdsCount
-  builder.readUserIdsCountFlag = true
-  return builder
+func (builder *BatchMessageSendProgressBuilder) Build() *BatchMessageSendProgress {
+	req := &BatchMessageSendProgress{}
+	if builder.validUserIdsCountFlag {
+		req.ValidUserIdsCount = &builder.validUserIdsCount
+
+	}
+	if builder.successUserIdsCountFlag {
+		req.SuccessUserIdsCount = &builder.successUserIdsCount
+
+	}
+	if builder.readUserIdsCountFlag {
+		req.ReadUserIdsCount = &builder.readUserIdsCount
+
+	}
+	return req
 }
 
-func (builder * BatchMessageSendProgressBuilder ) Build() *BatchMessageSendProgress {
-   req := &BatchMessageSendProgress{}
-   if builder.validUserIdsCountFlag {
-	  req.ValidUserIdsCount = &builder.validUserIdsCount
-	  
-   }
-   if builder.successUserIdsCountFlag {
-	  req.SuccessUserIdsCount = &builder.successUserIdsCount
-	  
-   }
-   if builder.readUserIdsCountFlag {
-	  req.ReadUserIdsCount = &builder.readUserIdsCount
-	  
-   }
-   return req
-}
 // builder结束
 
 type BatchRecallProgress struct {
-	RecallCount  *string `json:"recall_count,omitempty"`
-	TotalRecallCount  *string `json:"total_recall_count,omitempty"`
+	RecallCount      *string `json:"recall_count,omitempty"`
+	TotalRecallCount *string `json:"total_recall_count,omitempty"`
 }
 
 // builder开始
 type BatchRecallProgressBuilder struct {
-	recallCount  string
-	recallCountFlag  bool
-	totalRecallCount  string
-	totalRecallCountFlag  bool
+	recallCount          string
+	recallCountFlag      bool
+	totalRecallCount     string
+	totalRecallCountFlag bool
 }
 
-func NewBatchRecallProgressBuilder() * BatchRecallProgressBuilder{
-   builder := &BatchRecallProgressBuilder{}
-   return builder
+func NewBatchRecallProgressBuilder() *BatchRecallProgressBuilder {
+	builder := &BatchRecallProgressBuilder{}
+	return builder
 }
 
+func (builder *BatchRecallProgressBuilder) RecallCount(recallCount string) *BatchRecallProgressBuilder {
+	builder.recallCount = recallCount
+	builder.recallCountFlag = true
+	return builder
+}
+func (builder *BatchRecallProgressBuilder) TotalRecallCount(totalRecallCount string) *BatchRecallProgressBuilder {
+	builder.totalRecallCount = totalRecallCount
+	builder.totalRecallCountFlag = true
+	return builder
+}
 
-func (builder * BatchRecallProgressBuilder) RecallCount(recallCount string) *BatchRecallProgressBuilder  {
-  builder.recallCount = recallCount
-  builder.recallCountFlag = true
-  return builder
-}
-func (builder * BatchRecallProgressBuilder) TotalRecallCount(totalRecallCount string) *BatchRecallProgressBuilder  {
-  builder.totalRecallCount = totalRecallCount
-  builder.totalRecallCountFlag = true
-  return builder
+func (builder *BatchRecallProgressBuilder) Build() *BatchRecallProgress {
+	req := &BatchRecallProgress{}
+	if builder.recallCountFlag {
+		req.RecallCount = &builder.recallCount
+
+	}
+	if builder.totalRecallCountFlag {
+		req.TotalRecallCount = &builder.totalRecallCount
+
+	}
+	return req
 }
 
-func (builder * BatchRecallProgressBuilder ) Build() *BatchRecallProgress {
-   req := &BatchRecallProgress{}
-   if builder.recallCountFlag {
-	  req.RecallCount = &builder.recallCount
-	  
-   }
-   if builder.totalRecallCountFlag {
-	  req.TotalRecallCount = &builder.totalRecallCount
-	  
-   }
-   return req
-}
 // builder结束
 
 type BatchSendProgress struct {
-	SendCount  *string `json:"send_count,omitempty"`
-	TotalSendCount  *string `json:"total_send_count,omitempty"`
+	SendCount      *string `json:"send_count,omitempty"`
+	TotalSendCount *string `json:"total_send_count,omitempty"`
 }
 
 // builder开始
 type BatchSendProgressBuilder struct {
-	sendCount  string
-	sendCountFlag  bool
-	totalSendCount  string
-	totalSendCountFlag  bool
+	sendCount          string
+	sendCountFlag      bool
+	totalSendCount     string
+	totalSendCountFlag bool
 }
 
-func NewBatchSendProgressBuilder() * BatchSendProgressBuilder{
-   builder := &BatchSendProgressBuilder{}
-   return builder
+func NewBatchSendProgressBuilder() *BatchSendProgressBuilder {
+	builder := &BatchSendProgressBuilder{}
+	return builder
 }
 
+func (builder *BatchSendProgressBuilder) SendCount(sendCount string) *BatchSendProgressBuilder {
+	builder.sendCount = sendCount
+	builder.sendCountFlag = true
+	return builder
+}
+func (builder *BatchSendProgressBuilder) TotalSendCount(totalSendCount string) *BatchSendProgressBuilder {
+	builder.totalSendCount = totalSendCount
+	builder.totalSendCountFlag = true
+	return builder
+}
 
-func (builder * BatchSendProgressBuilder) SendCount(sendCount string) *BatchSendProgressBuilder  {
-  builder.sendCount = sendCount
-  builder.sendCountFlag = true
-  return builder
-}
-func (builder * BatchSendProgressBuilder) TotalSendCount(totalSendCount string) *BatchSendProgressBuilder  {
-  builder.totalSendCount = totalSendCount
-  builder.totalSendCountFlag = true
-  return builder
+func (builder *BatchSendProgressBuilder) Build() *BatchSendProgress {
+	req := &BatchSendProgress{}
+	if builder.sendCountFlag {
+		req.SendCount = &builder.sendCount
+
+	}
+	if builder.totalSendCountFlag {
+		req.TotalSendCount = &builder.totalSendCount
+
+	}
+	return req
 }
 
-func (builder * BatchSendProgressBuilder ) Build() *BatchSendProgress {
-   req := &BatchSendProgress{}
-   if builder.sendCountFlag {
-	  req.SendCount = &builder.sendCount
-	  
-   }
-   if builder.totalSendCountFlag {
-	  req.TotalSendCount = &builder.totalSendCount
-	  
-   }
-   return req
-}
 // builder结束
 
 type Chat struct {
-	ChatId  *string `json:"chat_id,omitempty"`
-	Avatar  *string `json:"avatar,omitempty"`
-	Name  *string `json:"name,omitempty"`
-	Description  *string `json:"description,omitempty"`
-	I18nNames  *I18nNames `json:"i18n_names,omitempty"`
-	OnlyOwnerAdd  *bool `json:"only_owner_add,omitempty"`
-	ShareAllowed  *bool `json:"share_allowed,omitempty"`
-	OnlyOwnerAtAll  *bool `json:"only_owner_at_all,omitempty"`
-	OnlyOwnerEdit  *bool `json:"only_owner_edit,omitempty"`
-	OwnerUserId  *string `json:"owner_user_id,omitempty"`
-	Type  *string `json:"type,omitempty"`
-	
+	ChatId         *string    `json:"chat_id,omitempty"`
+	Avatar         *string    `json:"avatar,omitempty"`
+	Name           *string    `json:"name,omitempty"`
+	Description    *string    `json:"description,omitempty"`
+	I18nNames      *I18nNames `json:"i18n_names,omitempty"`
+	OnlyOwnerAdd   *bool      `json:"only_owner_add,omitempty"`
+	ShareAllowed   *bool      `json:"share_allowed,omitempty"`
+	OnlyOwnerAtAll *bool      `json:"only_owner_at_all,omitempty"`
+	OnlyOwnerEdit  *bool      `json:"only_owner_edit,omitempty"`
+	OwnerUserId    *string    `json:"owner_user_id,omitempty"`
+	Type           *string    `json:"type,omitempty"`
 }
 
 // builder开始
 type ChatBuilder struct {
-	chatId  string
-	chatIdFlag  bool
-	avatar  string
-	avatarFlag  bool
-	name  string
-	nameFlag  bool
-	description  string
-	descriptionFlag  bool
-	i18nNames  *I18nNames
-	i18nNamesFlag  bool
-	onlyOwnerAdd  bool
-	onlyOwnerAddFlag  bool
-	shareAllowed  bool
-	shareAllowedFlag  bool
-	onlyOwnerAtAll  bool
-	onlyOwnerAtAllFlag  bool
-	onlyOwnerEdit  bool
+	chatId             string
+	chatIdFlag         bool
+	avatar             string
+	avatarFlag         bool
+	name               string
+	nameFlag           bool
+	description        string
+	descriptionFlag    bool
+	i18nNames          *I18nNames
+	i18nNamesFlag      bool
+	onlyOwnerAdd       bool
+	onlyOwnerAddFlag   bool
+	shareAllowed       bool
+	shareAllowedFlag   bool
+	onlyOwnerAtAll     bool
+	onlyOwnerAtAllFlag bool
+	onlyOwnerEdit      bool
 	onlyOwnerEditFlag  bool
-	ownerUserId  string
-	ownerUserIdFlag  bool
-	type_  string
-	typeFlag  bool
-	
+	ownerUserId        string
+	ownerUserIdFlag    bool
+	type_              string
+	typeFlag           bool
 }
 
-func NewChatBuilder() * ChatBuilder{
-   builder := &ChatBuilder{}
-   return builder
+func NewChatBuilder() *ChatBuilder {
+	builder := &ChatBuilder{}
+	return builder
 }
 
+func (builder *ChatBuilder) ChatId(chatId string) *ChatBuilder {
+	builder.chatId = chatId
+	builder.chatIdFlag = true
+	return builder
+}
+func (builder *ChatBuilder) Avatar(avatar string) *ChatBuilder {
+	builder.avatar = avatar
+	builder.avatarFlag = true
+	return builder
+}
+func (builder *ChatBuilder) Name(name string) *ChatBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *ChatBuilder) Description(description string) *ChatBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+func (builder *ChatBuilder) I18nNames(i18nNames *I18nNames) *ChatBuilder {
+	builder.i18nNames = i18nNames
+	builder.i18nNamesFlag = true
+	return builder
+}
+func (builder *ChatBuilder) OnlyOwnerAdd(onlyOwnerAdd bool) *ChatBuilder {
+	builder.onlyOwnerAdd = onlyOwnerAdd
+	builder.onlyOwnerAddFlag = true
+	return builder
+}
+func (builder *ChatBuilder) ShareAllowed(shareAllowed bool) *ChatBuilder {
+	builder.shareAllowed = shareAllowed
+	builder.shareAllowedFlag = true
+	return builder
+}
+func (builder *ChatBuilder) OnlyOwnerAtAll(onlyOwnerAtAll bool) *ChatBuilder {
+	builder.onlyOwnerAtAll = onlyOwnerAtAll
+	builder.onlyOwnerAtAllFlag = true
+	return builder
+}
+func (builder *ChatBuilder) OnlyOwnerEdit(onlyOwnerEdit bool) *ChatBuilder {
+	builder.onlyOwnerEdit = onlyOwnerEdit
+	builder.onlyOwnerEditFlag = true
+	return builder
+}
+func (builder *ChatBuilder) OwnerUserId(ownerUserId string) *ChatBuilder {
+	builder.ownerUserId = ownerUserId
+	builder.ownerUserIdFlag = true
+	return builder
+}
+func (builder *ChatBuilder) Type(type_ string) *ChatBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
 
-func (builder * ChatBuilder) ChatId(chatId string) *ChatBuilder  {
-  builder.chatId = chatId
-  builder.chatIdFlag = true
-  return builder
-}
-func (builder * ChatBuilder) Avatar(avatar string) *ChatBuilder  {
-  builder.avatar = avatar
-  builder.avatarFlag = true
-  return builder
-}
-func (builder * ChatBuilder) Name(name string) *ChatBuilder  {
-  builder.name = name
-  builder.nameFlag = true
-  return builder
-}
-func (builder * ChatBuilder) Description(description string) *ChatBuilder  {
-  builder.description = description
-  builder.descriptionFlag = true
-  return builder
-}
-func (builder * ChatBuilder) I18nNames(i18nNames *I18nNames) *ChatBuilder  {
-  builder.i18nNames = i18nNames
-  builder.i18nNamesFlag = true
-  return builder
-}
-func (builder * ChatBuilder) OnlyOwnerAdd(onlyOwnerAdd bool) *ChatBuilder  {
-  builder.onlyOwnerAdd = onlyOwnerAdd
-  builder.onlyOwnerAddFlag = true
-  return builder
-}
-func (builder * ChatBuilder) ShareAllowed(shareAllowed bool) *ChatBuilder  {
-  builder.shareAllowed = shareAllowed
-  builder.shareAllowedFlag = true
-  return builder
-}
-func (builder * ChatBuilder) OnlyOwnerAtAll(onlyOwnerAtAll bool) *ChatBuilder  {
-  builder.onlyOwnerAtAll = onlyOwnerAtAll
-  builder.onlyOwnerAtAllFlag = true
-  return builder
-}
-func (builder * ChatBuilder) OnlyOwnerEdit(onlyOwnerEdit bool) *ChatBuilder  {
-  builder.onlyOwnerEdit = onlyOwnerEdit
-  builder.onlyOwnerEditFlag = true
-  return builder
-}
-func (builder * ChatBuilder) OwnerUserId(ownerUserId string) *ChatBuilder  {
-  builder.ownerUserId = ownerUserId
-  builder.ownerUserIdFlag = true
-  return builder
-}
-func (builder * ChatBuilder) Type(type_ string) *ChatBuilder  {
-  builder.type_ = type_
-  builder.typeFlag = true
-  return builder
+func (builder *ChatBuilder) Build() *Chat {
+	req := &Chat{}
+	if builder.chatIdFlag {
+		req.ChatId = &builder.chatId
+
+	}
+	if builder.avatarFlag {
+		req.Avatar = &builder.avatar
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	if builder.i18nNamesFlag {
+		req.I18nNames = builder.i18nNames
+	}
+	if builder.onlyOwnerAddFlag {
+		req.OnlyOwnerAdd = &builder.onlyOwnerAdd
+
+	}
+	if builder.shareAllowedFlag {
+		req.ShareAllowed = &builder.shareAllowed
+
+	}
+	if builder.onlyOwnerAtAllFlag {
+		req.OnlyOwnerAtAll = &builder.onlyOwnerAtAll
+
+	}
+	if builder.onlyOwnerEditFlag {
+		req.OnlyOwnerEdit = &builder.onlyOwnerEdit
+
+	}
+	if builder.ownerUserIdFlag {
+		req.OwnerUserId = &builder.ownerUserId
+
+	}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+
+	return req
 }
 
-
-func (builder * ChatBuilder ) Build() *Chat {
-   req := &Chat{}
-   if builder.chatIdFlag {
-	  req.ChatId = &builder.chatId
-	  
-   }
-   if builder.avatarFlag {
-	  req.Avatar = &builder.avatar
-	  
-   }
-   if builder.nameFlag {
-	  req.Name = &builder.name
-	  
-   }
-   if builder.descriptionFlag {
-	  req.Description = &builder.description
-	  
-   }
-   if builder.i18nNamesFlag {
-	  req.I18nNames = builder.i18nNames
-   }
-   if builder.onlyOwnerAddFlag {
-	  req.OnlyOwnerAdd = &builder.onlyOwnerAdd
-	  
-   }
-   if builder.shareAllowedFlag {
-	  req.ShareAllowed = &builder.shareAllowed
-	  
-   }
-   if builder.onlyOwnerAtAllFlag {
-	  req.OnlyOwnerAtAll = &builder.onlyOwnerAtAll
-	  
-   }
-   if builder.onlyOwnerEditFlag {
-	  req.OnlyOwnerEdit = &builder.onlyOwnerEdit
-	  
-   }
-   if builder.ownerUserIdFlag {
-	  req.OwnerUserId = &builder.ownerUserId
-	  
-   }
-   if builder.typeFlag {
-	  req.Type = &builder.type_
-	  
-   }
-
-   return req
-}
 // builder结束
 
 type ChatAnnouncement struct {
@@ -539,800 +522,797 @@ type ChatAnnouncement struct {
 // builder结束
 
 type ChatManagers struct {
-	ManagerId  *int64 `json:"manager_id,omitempty,string"`
+	ManagerId *int64 `json:"manager_id,omitempty,string"`
 }
 
 // builder开始
 type ChatManagersBuilder struct {
-	managerId  int64
-	managerIdFlag  bool
+	managerId     int64
+	managerIdFlag bool
 }
 
-func NewChatManagersBuilder() * ChatManagersBuilder{
-   builder := &ChatManagersBuilder{}
-   return builder
+func NewChatManagersBuilder() *ChatManagersBuilder {
+	builder := &ChatManagersBuilder{}
+	return builder
 }
 
-
-func (builder * ChatManagersBuilder) ManagerId(managerId int64) *ChatManagersBuilder  {
-  builder.managerId = managerId
-  builder.managerIdFlag = true
-  return builder
+func (builder *ChatManagersBuilder) ManagerId(managerId int64) *ChatManagersBuilder {
+	builder.managerId = managerId
+	builder.managerIdFlag = true
+	return builder
 }
 
-func (builder * ChatManagersBuilder ) Build() *ChatManagers {
-   req := &ChatManagers{}
-   if builder.managerIdFlag {
-	  req.ManagerId = &builder.managerId
-	  
-   }
-   return req
+func (builder *ChatManagersBuilder) Build() *ChatManagers {
+	req := &ChatManagers{}
+	if builder.managerIdFlag {
+		req.ManagerId = &builder.managerId
+
+	}
+	return req
 }
+
 // builder结束
 
 type ChatMember struct {
-	UserId  *string `json:"user_id,omitempty"`
+	UserId *string `json:"user_id,omitempty"`
 }
 
 // builder开始
 type ChatMemberBuilder struct {
-	userId  string
-	userIdFlag  bool
+	userId     string
+	userIdFlag bool
 }
 
-func NewChatMemberBuilder() * ChatMemberBuilder{
-   builder := &ChatMemberBuilder{}
-   return builder
+func NewChatMemberBuilder() *ChatMemberBuilder {
+	builder := &ChatMemberBuilder{}
+	return builder
 }
 
-
-func (builder * ChatMemberBuilder) UserId(userId string) *ChatMemberBuilder  {
-  builder.userId = userId
-  builder.userIdFlag = true
-  return builder
+func (builder *ChatMemberBuilder) UserId(userId string) *ChatMemberBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
 }
 
-func (builder * ChatMemberBuilder ) Build() *ChatMember {
-   req := &ChatMember{}
-   if builder.userIdFlag {
-	  req.UserId = &builder.userId
-	  
-   }
-   return req
+func (builder *ChatMemberBuilder) Build() *ChatMember {
+	req := &ChatMember{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	return req
 }
+
 // builder结束
 
 type ChatMemberBot struct {
-	BotId  *string `json:"bot_id,omitempty"`
+	BotId *string `json:"bot_id,omitempty"`
 }
 
 // builder开始
 type ChatMemberBotBuilder struct {
-	botId  string
-	botIdFlag  bool
+	botId     string
+	botIdFlag bool
 }
 
-func NewChatMemberBotBuilder() * ChatMemberBotBuilder{
-   builder := &ChatMemberBotBuilder{}
-   return builder
+func NewChatMemberBotBuilder() *ChatMemberBotBuilder {
+	builder := &ChatMemberBotBuilder{}
+	return builder
 }
 
-
-func (builder * ChatMemberBotBuilder) BotId(botId string) *ChatMemberBotBuilder  {
-  builder.botId = botId
-  builder.botIdFlag = true
-  return builder
+func (builder *ChatMemberBotBuilder) BotId(botId string) *ChatMemberBotBuilder {
+	builder.botId = botId
+	builder.botIdFlag = true
+	return builder
 }
 
-func (builder * ChatMemberBotBuilder ) Build() *ChatMemberBot {
-   req := &ChatMemberBot{}
-   if builder.botIdFlag {
-	  req.BotId = &builder.botId
-	  
-   }
-   return req
+func (builder *ChatMemberBotBuilder) Build() *ChatMemberBot {
+	req := &ChatMemberBot{}
+	if builder.botIdFlag {
+		req.BotId = &builder.botId
+
+	}
+	return req
 }
+
 // builder结束
 
 type ChatMemberUser struct {
-	Name  *string `json:"name,omitempty"`
-	TenantKey  *string `json:"tenant_key,omitempty"`
-	UserId  *UserId `json:"user_id,omitempty"`
+	Name      *string `json:"name,omitempty"`
+	TenantKey *string `json:"tenant_key,omitempty"`
+	UserId    *UserId `json:"user_id,omitempty"`
 }
 
 // builder开始
 type ChatMemberUserBuilder struct {
-	name  string
-	nameFlag  bool
-	tenantKey  string
-	tenantKeyFlag  bool
-	userId  *UserId
-	userIdFlag  bool
+	name          string
+	nameFlag      bool
+	tenantKey     string
+	tenantKeyFlag bool
+	userId        *UserId
+	userIdFlag    bool
 }
 
-func NewChatMemberUserBuilder() * ChatMemberUserBuilder{
-   builder := &ChatMemberUserBuilder{}
-   return builder
+func NewChatMemberUserBuilder() *ChatMemberUserBuilder {
+	builder := &ChatMemberUserBuilder{}
+	return builder
 }
 
+func (builder *ChatMemberUserBuilder) Name(name string) *ChatMemberUserBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *ChatMemberUserBuilder) TenantKey(tenantKey string) *ChatMemberUserBuilder {
+	builder.tenantKey = tenantKey
+	builder.tenantKeyFlag = true
+	return builder
+}
+func (builder *ChatMemberUserBuilder) UserId(userId *UserId) *ChatMemberUserBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
 
-func (builder * ChatMemberUserBuilder) Name(name string) *ChatMemberUserBuilder  {
-  builder.name = name
-  builder.nameFlag = true
-  return builder
-}
-func (builder * ChatMemberUserBuilder) TenantKey(tenantKey string) *ChatMemberUserBuilder  {
-  builder.tenantKey = tenantKey
-  builder.tenantKeyFlag = true
-  return builder
-}
-func (builder * ChatMemberUserBuilder) UserId(userId *UserId) *ChatMemberUserBuilder  {
-  builder.userId = userId
-  builder.userIdFlag = true
-  return builder
+func (builder *ChatMemberUserBuilder) Build() *ChatMemberUser {
+	req := &ChatMemberUser{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.tenantKeyFlag {
+		req.TenantKey = &builder.tenantKey
+
+	}
+	if builder.userIdFlag {
+		req.UserId = builder.userId
+	}
+	return req
 }
 
-func (builder * ChatMemberUserBuilder ) Build() *ChatMemberUser {
-   req := &ChatMemberUser{}
-   if builder.nameFlag {
-	  req.Name = &builder.name
-	  
-   }
-   if builder.tenantKeyFlag {
-	  req.TenantKey = &builder.tenantKey
-	  
-   }
-   if builder.userIdFlag {
-	  req.UserId = builder.userId
-   }
-   return req
-}
 // builder结束
 
 type ChatMembers struct {
-	UserId  *string `json:"user_id,omitempty"`
+	UserId *string `json:"user_id,omitempty"`
 }
 
 // builder开始
 type ChatMembersBuilder struct {
-	userId  string
-	userIdFlag  bool
+	userId     string
+	userIdFlag bool
 }
 
-func NewChatMembersBuilder() * ChatMembersBuilder{
-   builder := &ChatMembersBuilder{}
-   return builder
+func NewChatMembersBuilder() *ChatMembersBuilder {
+	builder := &ChatMembersBuilder{}
+	return builder
 }
 
-
-func (builder * ChatMembersBuilder) UserId(userId string) *ChatMembersBuilder  {
-  builder.userId = userId
-  builder.userIdFlag = true
-  return builder
+func (builder *ChatMembersBuilder) UserId(userId string) *ChatMembersBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
 }
 
-func (builder * ChatMembersBuilder ) Build() *ChatMembers {
-   req := &ChatMembers{}
-   if builder.userIdFlag {
-	  req.UserId = &builder.userId
-	  
-   }
-   return req
+func (builder *ChatMembersBuilder) Build() *ChatMembers {
+	req := &ChatMembers{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	return req
 }
+
 // builder结束
 
 type ChatTab struct {
-	TabId  *string `json:"tab_id,omitempty"`
-	TabName  *string `json:"tab_name,omitempty"`
-	TabType  *string `json:"tab_type,omitempty"`
-	TabContent  *ChatTabContent `json:"tab_content,omitempty"`
+	TabId      *string         `json:"tab_id,omitempty"`
+	TabName    *string         `json:"tab_name,omitempty"`
+	TabType    *string         `json:"tab_type,omitempty"`
+	TabContent *ChatTabContent `json:"tab_content,omitempty"`
 }
 
 // builder开始
 type ChatTabBuilder struct {
-	tabId  string
-	tabIdFlag  bool
-	tabName  string
-	tabNameFlag  bool
-	tabType  string
-	tabTypeFlag  bool
-	tabContent  *ChatTabContent
-	tabContentFlag  bool
+	tabId          string
+	tabIdFlag      bool
+	tabName        string
+	tabNameFlag    bool
+	tabType        string
+	tabTypeFlag    bool
+	tabContent     *ChatTabContent
+	tabContentFlag bool
 }
 
-func NewChatTabBuilder() * ChatTabBuilder{
-   builder := &ChatTabBuilder{}
-   return builder
+func NewChatTabBuilder() *ChatTabBuilder {
+	builder := &ChatTabBuilder{}
+	return builder
 }
 
+func (builder *ChatTabBuilder) TabId(tabId string) *ChatTabBuilder {
+	builder.tabId = tabId
+	builder.tabIdFlag = true
+	return builder
+}
+func (builder *ChatTabBuilder) TabName(tabName string) *ChatTabBuilder {
+	builder.tabName = tabName
+	builder.tabNameFlag = true
+	return builder
+}
+func (builder *ChatTabBuilder) TabType(tabType string) *ChatTabBuilder {
+	builder.tabType = tabType
+	builder.tabTypeFlag = true
+	return builder
+}
+func (builder *ChatTabBuilder) TabContent(tabContent *ChatTabContent) *ChatTabBuilder {
+	builder.tabContent = tabContent
+	builder.tabContentFlag = true
+	return builder
+}
 
-func (builder * ChatTabBuilder) TabId(tabId string) *ChatTabBuilder  {
-  builder.tabId = tabId
-  builder.tabIdFlag = true
-  return builder
-}
-func (builder * ChatTabBuilder) TabName(tabName string) *ChatTabBuilder  {
-  builder.tabName = tabName
-  builder.tabNameFlag = true
-  return builder
-}
-func (builder * ChatTabBuilder) TabType(tabType string) *ChatTabBuilder  {
-  builder.tabType = tabType
-  builder.tabTypeFlag = true
-  return builder
-}
-func (builder * ChatTabBuilder) TabContent(tabContent *ChatTabContent) *ChatTabBuilder  {
-  builder.tabContent = tabContent
-  builder.tabContentFlag = true
-  return builder
+func (builder *ChatTabBuilder) Build() *ChatTab {
+	req := &ChatTab{}
+	if builder.tabIdFlag {
+		req.TabId = &builder.tabId
+
+	}
+	if builder.tabNameFlag {
+		req.TabName = &builder.tabName
+
+	}
+	if builder.tabTypeFlag {
+		req.TabType = &builder.tabType
+
+	}
+	if builder.tabContentFlag {
+		req.TabContent = builder.tabContent
+	}
+	return req
 }
 
-func (builder * ChatTabBuilder ) Build() *ChatTab {
-   req := &ChatTab{}
-   if builder.tabIdFlag {
-	  req.TabId = &builder.tabId
-	  
-   }
-   if builder.tabNameFlag {
-	  req.TabName = &builder.tabName
-	  
-   }
-   if builder.tabTypeFlag {
-	  req.TabType = &builder.tabType
-	  
-   }
-   if builder.tabContentFlag {
-	  req.TabContent = builder.tabContent
-   }
-   return req
-}
 // builder结束
 
 type ChatTopNotice struct {
-	ActionType  *string `json:"action_type,omitempty"`
+	ActionType *string `json:"action_type,omitempty"`
 	MessageId  *string `json:"message_id,omitempty"`
 }
 
 // builder开始
 type ChatTopNoticeBuilder struct {
-	actionType  string
-	actionTypeFlag  bool
-	messageId  string
+	actionType     string
+	actionTypeFlag bool
+	messageId      string
 	messageIdFlag  bool
 }
 
-func NewChatTopNoticeBuilder() * ChatTopNoticeBuilder{
-   builder := &ChatTopNoticeBuilder{}
-   return builder
+func NewChatTopNoticeBuilder() *ChatTopNoticeBuilder {
+	builder := &ChatTopNoticeBuilder{}
+	return builder
 }
 
+func (builder *ChatTopNoticeBuilder) ActionType(actionType string) *ChatTopNoticeBuilder {
+	builder.actionType = actionType
+	builder.actionTypeFlag = true
+	return builder
+}
+func (builder *ChatTopNoticeBuilder) MessageId(messageId string) *ChatTopNoticeBuilder {
+	builder.messageId = messageId
+	builder.messageIdFlag = true
+	return builder
+}
 
-func (builder * ChatTopNoticeBuilder) ActionType(actionType string) *ChatTopNoticeBuilder  {
-  builder.actionType = actionType
-  builder.actionTypeFlag = true
-  return builder
-}
-func (builder * ChatTopNoticeBuilder) MessageId(messageId string) *ChatTopNoticeBuilder  {
-  builder.messageId = messageId
-  builder.messageIdFlag = true
-  return builder
+func (builder *ChatTopNoticeBuilder) Build() *ChatTopNotice {
+	req := &ChatTopNotice{}
+	if builder.actionTypeFlag {
+		req.ActionType = &builder.actionType
+
+	}
+	if builder.messageIdFlag {
+		req.MessageId = &builder.messageId
+
+	}
+	return req
 }
 
-func (builder * ChatTopNoticeBuilder ) Build() *ChatTopNotice {
-   req := &ChatTopNotice{}
-   if builder.actionTypeFlag {
-	  req.ActionType = &builder.actionType
-	  
-   }
-   if builder.messageIdFlag {
-	  req.MessageId = &builder.messageId
-	  
-   }
-   return req
-}
 // builder结束
 
 type ChatChange struct {
-	Avatar  *string `json:"avatar,omitempty"`
-	Name  *string `json:"name,omitempty"`
-	Description  *string `json:"description,omitempty"`
-	I18nNames  *I18nNames `json:"i18n_names,omitempty"`
-	AddMemberPermission  *string `json:"add_member_permission,omitempty"`
-	ShareCardPermission  *string `json:"share_card_permission,omitempty"`
-	AtAllPermission  *string `json:"at_all_permission,omitempty"`
-	EditPermission  *string `json:"edit_permission,omitempty"`
-	MembershipApproval  *string `json:"membership_approval,omitempty"`
-	JoinMessageVisibility  *string `json:"join_message_visibility,omitempty"`
-	LeaveMessageVisibility  *string `json:"leave_message_visibility,omitempty"`
-	ModerationPermission  *string `json:"moderation_permission,omitempty"`
-	OwnerId  *UserId `json:"owner_id,omitempty"`
-	
+	Avatar                 *string    `json:"avatar,omitempty"`
+	Name                   *string    `json:"name,omitempty"`
+	Description            *string    `json:"description,omitempty"`
+	I18nNames              *I18nNames `json:"i18n_names,omitempty"`
+	AddMemberPermission    *string    `json:"add_member_permission,omitempty"`
+	ShareCardPermission    *string    `json:"share_card_permission,omitempty"`
+	AtAllPermission        *string    `json:"at_all_permission,omitempty"`
+	EditPermission         *string    `json:"edit_permission,omitempty"`
+	MembershipApproval     *string    `json:"membership_approval,omitempty"`
+	JoinMessageVisibility  *string    `json:"join_message_visibility,omitempty"`
+	LeaveMessageVisibility *string    `json:"leave_message_visibility,omitempty"`
+	ModerationPermission   *string    `json:"moderation_permission,omitempty"`
+	OwnerId                *UserId    `json:"owner_id,omitempty"`
 }
 
 // builder开始
 type ChatChangeBuilder struct {
-	avatar  string
-	avatarFlag  bool
-	name  string
-	nameFlag  bool
-	description  string
-	descriptionFlag  bool
-	i18nNames  *I18nNames
-	i18nNamesFlag  bool
-	addMemberPermission  string
-	addMemberPermissionFlag  bool
-	shareCardPermission  string
-	shareCardPermissionFlag  bool
-	atAllPermission  string
-	atAllPermissionFlag  bool
-	editPermission  string
-	editPermissionFlag  bool
-	membershipApproval  string
-	membershipApprovalFlag  bool
-	joinMessageVisibility  string
+	avatar                     string
+	avatarFlag                 bool
+	name                       string
+	nameFlag                   bool
+	description                string
+	descriptionFlag            bool
+	i18nNames                  *I18nNames
+	i18nNamesFlag              bool
+	addMemberPermission        string
+	addMemberPermissionFlag    bool
+	shareCardPermission        string
+	shareCardPermissionFlag    bool
+	atAllPermission            string
+	atAllPermissionFlag        bool
+	editPermission             string
+	editPermissionFlag         bool
+	membershipApproval         string
+	membershipApprovalFlag     bool
+	joinMessageVisibility      string
 	joinMessageVisibilityFlag  bool
-	leaveMessageVisibility  string
-	leaveMessageVisibilityFlag  bool
-	moderationPermission  string
-	moderationPermissionFlag  bool
-	ownerId  *UserId
-	ownerIdFlag  bool
-	
+	leaveMessageVisibility     string
+	leaveMessageVisibilityFlag bool
+	moderationPermission       string
+	moderationPermissionFlag   bool
+	ownerId                    *UserId
+	ownerIdFlag                bool
 }
 
-func NewChatChangeBuilder() * ChatChangeBuilder{
-   builder := &ChatChangeBuilder{}
-   return builder
+func NewChatChangeBuilder() *ChatChangeBuilder {
+	builder := &ChatChangeBuilder{}
+	return builder
 }
 
+func (builder *ChatChangeBuilder) Avatar(avatar string) *ChatChangeBuilder {
+	builder.avatar = avatar
+	builder.avatarFlag = true
+	return builder
+}
+func (builder *ChatChangeBuilder) Name(name string) *ChatChangeBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *ChatChangeBuilder) Description(description string) *ChatChangeBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+func (builder *ChatChangeBuilder) I18nNames(i18nNames *I18nNames) *ChatChangeBuilder {
+	builder.i18nNames = i18nNames
+	builder.i18nNamesFlag = true
+	return builder
+}
+func (builder *ChatChangeBuilder) AddMemberPermission(addMemberPermission string) *ChatChangeBuilder {
+	builder.addMemberPermission = addMemberPermission
+	builder.addMemberPermissionFlag = true
+	return builder
+}
+func (builder *ChatChangeBuilder) ShareCardPermission(shareCardPermission string) *ChatChangeBuilder {
+	builder.shareCardPermission = shareCardPermission
+	builder.shareCardPermissionFlag = true
+	return builder
+}
+func (builder *ChatChangeBuilder) AtAllPermission(atAllPermission string) *ChatChangeBuilder {
+	builder.atAllPermission = atAllPermission
+	builder.atAllPermissionFlag = true
+	return builder
+}
+func (builder *ChatChangeBuilder) EditPermission(editPermission string) *ChatChangeBuilder {
+	builder.editPermission = editPermission
+	builder.editPermissionFlag = true
+	return builder
+}
+func (builder *ChatChangeBuilder) MembershipApproval(membershipApproval string) *ChatChangeBuilder {
+	builder.membershipApproval = membershipApproval
+	builder.membershipApprovalFlag = true
+	return builder
+}
+func (builder *ChatChangeBuilder) JoinMessageVisibility(joinMessageVisibility string) *ChatChangeBuilder {
+	builder.joinMessageVisibility = joinMessageVisibility
+	builder.joinMessageVisibilityFlag = true
+	return builder
+}
+func (builder *ChatChangeBuilder) LeaveMessageVisibility(leaveMessageVisibility string) *ChatChangeBuilder {
+	builder.leaveMessageVisibility = leaveMessageVisibility
+	builder.leaveMessageVisibilityFlag = true
+	return builder
+}
+func (builder *ChatChangeBuilder) ModerationPermission(moderationPermission string) *ChatChangeBuilder {
+	builder.moderationPermission = moderationPermission
+	builder.moderationPermissionFlag = true
+	return builder
+}
+func (builder *ChatChangeBuilder) OwnerId(ownerId *UserId) *ChatChangeBuilder {
+	builder.ownerId = ownerId
+	builder.ownerIdFlag = true
+	return builder
+}
 
-func (builder * ChatChangeBuilder) Avatar(avatar string) *ChatChangeBuilder  {
-  builder.avatar = avatar
-  builder.avatarFlag = true
-  return builder
-}
-func (builder * ChatChangeBuilder) Name(name string) *ChatChangeBuilder  {
-  builder.name = name
-  builder.nameFlag = true
-  return builder
-}
-func (builder * ChatChangeBuilder) Description(description string) *ChatChangeBuilder  {
-  builder.description = description
-  builder.descriptionFlag = true
-  return builder
-}
-func (builder * ChatChangeBuilder) I18nNames(i18nNames *I18nNames) *ChatChangeBuilder  {
-  builder.i18nNames = i18nNames
-  builder.i18nNamesFlag = true
-  return builder
-}
-func (builder * ChatChangeBuilder) AddMemberPermission(addMemberPermission string) *ChatChangeBuilder  {
-  builder.addMemberPermission = addMemberPermission
-  builder.addMemberPermissionFlag = true
-  return builder
-}
-func (builder * ChatChangeBuilder) ShareCardPermission(shareCardPermission string) *ChatChangeBuilder  {
-  builder.shareCardPermission = shareCardPermission
-  builder.shareCardPermissionFlag = true
-  return builder
-}
-func (builder * ChatChangeBuilder) AtAllPermission(atAllPermission string) *ChatChangeBuilder  {
-  builder.atAllPermission = atAllPermission
-  builder.atAllPermissionFlag = true
-  return builder
-}
-func (builder * ChatChangeBuilder) EditPermission(editPermission string) *ChatChangeBuilder  {
-  builder.editPermission = editPermission
-  builder.editPermissionFlag = true
-  return builder
-}
-func (builder * ChatChangeBuilder) MembershipApproval(membershipApproval string) *ChatChangeBuilder  {
-  builder.membershipApproval = membershipApproval
-  builder.membershipApprovalFlag = true
-  return builder
-}
-func (builder * ChatChangeBuilder) JoinMessageVisibility(joinMessageVisibility string) *ChatChangeBuilder  {
-  builder.joinMessageVisibility = joinMessageVisibility
-  builder.joinMessageVisibilityFlag = true
-  return builder
-}
-func (builder * ChatChangeBuilder) LeaveMessageVisibility(leaveMessageVisibility string) *ChatChangeBuilder  {
-  builder.leaveMessageVisibility = leaveMessageVisibility
-  builder.leaveMessageVisibilityFlag = true
-  return builder
-}
-func (builder * ChatChangeBuilder) ModerationPermission(moderationPermission string) *ChatChangeBuilder  {
-  builder.moderationPermission = moderationPermission
-  builder.moderationPermissionFlag = true
-  return builder
-}
-func (builder * ChatChangeBuilder) OwnerId(ownerId *UserId) *ChatChangeBuilder  {
-  builder.ownerId = ownerId
-  builder.ownerIdFlag = true
-  return builder
+func (builder *ChatChangeBuilder) Build() *ChatChange {
+	req := &ChatChange{}
+	if builder.avatarFlag {
+		req.Avatar = &builder.avatar
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	if builder.i18nNamesFlag {
+		req.I18nNames = builder.i18nNames
+	}
+	if builder.addMemberPermissionFlag {
+		req.AddMemberPermission = &builder.addMemberPermission
+
+	}
+	if builder.shareCardPermissionFlag {
+		req.ShareCardPermission = &builder.shareCardPermission
+
+	}
+	if builder.atAllPermissionFlag {
+		req.AtAllPermission = &builder.atAllPermission
+
+	}
+	if builder.editPermissionFlag {
+		req.EditPermission = &builder.editPermission
+
+	}
+	if builder.membershipApprovalFlag {
+		req.MembershipApproval = &builder.membershipApproval
+
+	}
+	if builder.joinMessageVisibilityFlag {
+		req.JoinMessageVisibility = &builder.joinMessageVisibility
+
+	}
+	if builder.leaveMessageVisibilityFlag {
+		req.LeaveMessageVisibility = &builder.leaveMessageVisibility
+
+	}
+	if builder.moderationPermissionFlag {
+		req.ModerationPermission = &builder.moderationPermission
+
+	}
+	if builder.ownerIdFlag {
+		req.OwnerId = builder.ownerId
+	}
+
+	return req
 }
 
-
-func (builder * ChatChangeBuilder ) Build() *ChatChange {
-   req := &ChatChange{}
-   if builder.avatarFlag {
-	  req.Avatar = &builder.avatar
-	  
-   }
-   if builder.nameFlag {
-	  req.Name = &builder.name
-	  
-   }
-   if builder.descriptionFlag {
-	  req.Description = &builder.description
-	  
-   }
-   if builder.i18nNamesFlag {
-	  req.I18nNames = builder.i18nNames
-   }
-   if builder.addMemberPermissionFlag {
-	  req.AddMemberPermission = &builder.addMemberPermission
-	  
-   }
-   if builder.shareCardPermissionFlag {
-	  req.ShareCardPermission = &builder.shareCardPermission
-	  
-   }
-   if builder.atAllPermissionFlag {
-	  req.AtAllPermission = &builder.atAllPermission
-	  
-   }
-   if builder.editPermissionFlag {
-	  req.EditPermission = &builder.editPermission
-	  
-   }
-   if builder.membershipApprovalFlag {
-	  req.MembershipApproval = &builder.membershipApproval
-	  
-   }
-   if builder.joinMessageVisibilityFlag {
-	  req.JoinMessageVisibility = &builder.joinMessageVisibility
-	  
-   }
-   if builder.leaveMessageVisibilityFlag {
-	  req.LeaveMessageVisibility = &builder.leaveMessageVisibility
-	  
-   }
-   if builder.moderationPermissionFlag {
-	  req.ModerationPermission = &builder.moderationPermission
-	  
-   }
-   if builder.ownerIdFlag {
-	  req.OwnerId = builder.ownerId
-   }
-
-   return req
-}
 // builder结束
 
 type ChatTabContent struct {
-	Url  *string `json:"url,omitempty"`
-	Doc  *string `json:"doc,omitempty"`
-	MeetingMinute  *string `json:"meeting_minute,omitempty"`
+	Url           *string `json:"url,omitempty"`
+	Doc           *string `json:"doc,omitempty"`
+	MeetingMinute *string `json:"meeting_minute,omitempty"`
 }
 
 // builder开始
 type ChatTabContentBuilder struct {
-	url  string
-	urlFlag  bool
-	doc  string
-	docFlag  bool
-	meetingMinute  string
-	meetingMinuteFlag  bool
+	url               string
+	urlFlag           bool
+	doc               string
+	docFlag           bool
+	meetingMinute     string
+	meetingMinuteFlag bool
 }
 
-func NewChatTabContentBuilder() * ChatTabContentBuilder{
-   builder := &ChatTabContentBuilder{}
-   return builder
+func NewChatTabContentBuilder() *ChatTabContentBuilder {
+	builder := &ChatTabContentBuilder{}
+	return builder
 }
 
+func (builder *ChatTabContentBuilder) Url(url string) *ChatTabContentBuilder {
+	builder.url = url
+	builder.urlFlag = true
+	return builder
+}
+func (builder *ChatTabContentBuilder) Doc(doc string) *ChatTabContentBuilder {
+	builder.doc = doc
+	builder.docFlag = true
+	return builder
+}
+func (builder *ChatTabContentBuilder) MeetingMinute(meetingMinute string) *ChatTabContentBuilder {
+	builder.meetingMinute = meetingMinute
+	builder.meetingMinuteFlag = true
+	return builder
+}
 
-func (builder * ChatTabContentBuilder) Url(url string) *ChatTabContentBuilder  {
-  builder.url = url
-  builder.urlFlag = true
-  return builder
-}
-func (builder * ChatTabContentBuilder) Doc(doc string) *ChatTabContentBuilder  {
-  builder.doc = doc
-  builder.docFlag = true
-  return builder
-}
-func (builder * ChatTabContentBuilder) MeetingMinute(meetingMinute string) *ChatTabContentBuilder  {
-  builder.meetingMinute = meetingMinute
-  builder.meetingMinuteFlag = true
-  return builder
+func (builder *ChatTabContentBuilder) Build() *ChatTabContent {
+	req := &ChatTabContent{}
+	if builder.urlFlag {
+		req.Url = &builder.url
+
+	}
+	if builder.docFlag {
+		req.Doc = &builder.doc
+
+	}
+	if builder.meetingMinuteFlag {
+		req.MeetingMinute = &builder.meetingMinute
+
+	}
+	return req
 }
 
-func (builder * ChatTabContentBuilder ) Build() *ChatTabContent {
-   req := &ChatTabContent{}
-   if builder.urlFlag {
-	  req.Url = &builder.url
-	  
-   }
-   if builder.docFlag {
-	  req.Doc = &builder.doc
-	  
-   }
-   if builder.meetingMinuteFlag {
-	  req.MeetingMinute = &builder.meetingMinute
-	  
-   }
-   return req
-}
 // builder结束
 
 type Emoji struct {
-	EmojiType  *string `json:"emoji_type,omitempty"`
+	EmojiType *string `json:"emoji_type,omitempty"`
 }
 
 // builder开始
 type EmojiBuilder struct {
-	emojiType  string
-	emojiTypeFlag  bool
+	emojiType     string
+	emojiTypeFlag bool
 }
 
-func NewEmojiBuilder() * EmojiBuilder{
-   builder := &EmojiBuilder{}
-   return builder
+func NewEmojiBuilder() *EmojiBuilder {
+	builder := &EmojiBuilder{}
+	return builder
 }
 
-
-func (builder * EmojiBuilder) EmojiType(emojiType string) *EmojiBuilder  {
-  builder.emojiType = emojiType
-  builder.emojiTypeFlag = true
-  return builder
+func (builder *EmojiBuilder) EmojiType(emojiType string) *EmojiBuilder {
+	builder.emojiType = emojiType
+	builder.emojiTypeFlag = true
+	return builder
 }
 
-func (builder * EmojiBuilder ) Build() *Emoji {
-   req := &Emoji{}
-   if builder.emojiTypeFlag {
-	  req.EmojiType = &builder.emojiType
-	  
-   }
-   return req
+func (builder *EmojiBuilder) Build() *Emoji {
+	req := &Emoji{}
+	if builder.emojiTypeFlag {
+		req.EmojiType = &builder.emojiType
+
+	}
+	return req
 }
+
 // builder结束
 
 type EventMessage struct {
-	MessageId  *string `json:"message_id,omitempty"`
-	RootId  *string `json:"root_id,omitempty"`
-	ParentId  *string `json:"parent_id,omitempty"`
-	CreateTime  *int64 `json:"create_time,omitempty,string"`
-	ChatId  *string `json:"chat_id,omitempty"`
-	ChatType  *string `json:"chat_type,omitempty"`
-	MessageType  *string `json:"message_type,omitempty"`
-	Content  *string `json:"content,omitempty"`
-	Mentions  []*MentionEvent `json:"mentions,omitempty"`
+	MessageId   *string         `json:"message_id,omitempty"`
+	RootId      *string         `json:"root_id,omitempty"`
+	ParentId    *string         `json:"parent_id,omitempty"`
+	CreateTime  *int64          `json:"create_time,omitempty,string"`
+	ChatId      *string         `json:"chat_id,omitempty"`
+	ChatType    *string         `json:"chat_type,omitempty"`
+	MessageType *string         `json:"message_type,omitempty"`
+	Content     *string         `json:"content,omitempty"`
+	Mentions    []*MentionEvent `json:"mentions,omitempty"`
 }
 
 // builder开始
 type EventMessageBuilder struct {
-	messageId  string
-	messageIdFlag  bool
-	rootId  string
-	rootIdFlag  bool
-	parentId  string
-	parentIdFlag  bool
-	createTime  int64
+	messageId       string
+	messageIdFlag   bool
+	rootId          string
+	rootIdFlag      bool
+	parentId        string
+	parentIdFlag    bool
+	createTime      int64
 	createTimeFlag  bool
-	chatId  string
-	chatIdFlag  bool
-	chatType  string
-	chatTypeFlag  bool
-	messageType  string
-	messageTypeFlag  bool
-	content  string
-	contentFlag  bool
-	mentions  []*MentionEvent
-	mentionsFlag  bool
+	chatId          string
+	chatIdFlag      bool
+	chatType        string
+	chatTypeFlag    bool
+	messageType     string
+	messageTypeFlag bool
+	content         string
+	contentFlag     bool
+	mentions        []*MentionEvent
+	mentionsFlag    bool
 }
 
-func NewEventMessageBuilder() * EventMessageBuilder{
-   builder := &EventMessageBuilder{}
-   return builder
+func NewEventMessageBuilder() *EventMessageBuilder {
+	builder := &EventMessageBuilder{}
+	return builder
 }
 
+func (builder *EventMessageBuilder) MessageId(messageId string) *EventMessageBuilder {
+	builder.messageId = messageId
+	builder.messageIdFlag = true
+	return builder
+}
+func (builder *EventMessageBuilder) RootId(rootId string) *EventMessageBuilder {
+	builder.rootId = rootId
+	builder.rootIdFlag = true
+	return builder
+}
+func (builder *EventMessageBuilder) ParentId(parentId string) *EventMessageBuilder {
+	builder.parentId = parentId
+	builder.parentIdFlag = true
+	return builder
+}
+func (builder *EventMessageBuilder) CreateTime(createTime int64) *EventMessageBuilder {
+	builder.createTime = createTime
+	builder.createTimeFlag = true
+	return builder
+}
+func (builder *EventMessageBuilder) ChatId(chatId string) *EventMessageBuilder {
+	builder.chatId = chatId
+	builder.chatIdFlag = true
+	return builder
+}
+func (builder *EventMessageBuilder) ChatType(chatType string) *EventMessageBuilder {
+	builder.chatType = chatType
+	builder.chatTypeFlag = true
+	return builder
+}
+func (builder *EventMessageBuilder) MessageType(messageType string) *EventMessageBuilder {
+	builder.messageType = messageType
+	builder.messageTypeFlag = true
+	return builder
+}
+func (builder *EventMessageBuilder) Content(content string) *EventMessageBuilder {
+	builder.content = content
+	builder.contentFlag = true
+	return builder
+}
+func (builder *EventMessageBuilder) Mentions(mentions []*MentionEvent) *EventMessageBuilder {
+	builder.mentions = mentions
+	builder.mentionsFlag = true
+	return builder
+}
 
-func (builder * EventMessageBuilder) MessageId(messageId string) *EventMessageBuilder  {
-  builder.messageId = messageId
-  builder.messageIdFlag = true
-  return builder
-}
-func (builder * EventMessageBuilder) RootId(rootId string) *EventMessageBuilder  {
-  builder.rootId = rootId
-  builder.rootIdFlag = true
-  return builder
-}
-func (builder * EventMessageBuilder) ParentId(parentId string) *EventMessageBuilder  {
-  builder.parentId = parentId
-  builder.parentIdFlag = true
-  return builder
-}
-func (builder * EventMessageBuilder) CreateTime(createTime int64) *EventMessageBuilder  {
-  builder.createTime = createTime
-  builder.createTimeFlag = true
-  return builder
-}
-func (builder * EventMessageBuilder) ChatId(chatId string) *EventMessageBuilder  {
-  builder.chatId = chatId
-  builder.chatIdFlag = true
-  return builder
-}
-func (builder * EventMessageBuilder) ChatType(chatType string) *EventMessageBuilder  {
-  builder.chatType = chatType
-  builder.chatTypeFlag = true
-  return builder
-}
-func (builder * EventMessageBuilder) MessageType(messageType string) *EventMessageBuilder  {
-  builder.messageType = messageType
-  builder.messageTypeFlag = true
-  return builder
-}
-func (builder * EventMessageBuilder) Content(content string) *EventMessageBuilder  {
-  builder.content = content
-  builder.contentFlag = true
-  return builder
-}
-func (builder * EventMessageBuilder) Mentions(mentions []*MentionEvent) *EventMessageBuilder  {
-  builder.mentions = mentions
-  builder.mentionsFlag = true
-  return builder
+func (builder *EventMessageBuilder) Build() *EventMessage {
+	req := &EventMessage{}
+	if builder.messageIdFlag {
+		req.MessageId = &builder.messageId
+
+	}
+	if builder.rootIdFlag {
+		req.RootId = &builder.rootId
+
+	}
+	if builder.parentIdFlag {
+		req.ParentId = &builder.parentId
+
+	}
+	if builder.createTimeFlag {
+		req.CreateTime = &builder.createTime
+
+	}
+	if builder.chatIdFlag {
+		req.ChatId = &builder.chatId
+
+	}
+	if builder.chatTypeFlag {
+		req.ChatType = &builder.chatType
+
+	}
+	if builder.messageTypeFlag {
+		req.MessageType = &builder.messageType
+
+	}
+	if builder.contentFlag {
+		req.Content = &builder.content
+
+	}
+	if builder.mentionsFlag {
+		req.Mentions = builder.mentions
+	}
+	return req
 }
 
-func (builder * EventMessageBuilder ) Build() *EventMessage {
-   req := &EventMessage{}
-   if builder.messageIdFlag {
-	  req.MessageId = &builder.messageId
-	  
-   }
-   if builder.rootIdFlag {
-	  req.RootId = &builder.rootId
-	  
-   }
-   if builder.parentIdFlag {
-	  req.ParentId = &builder.parentId
-	  
-   }
-   if builder.createTimeFlag {
-	  req.CreateTime = &builder.createTime
-	  
-   }
-   if builder.chatIdFlag {
-	  req.ChatId = &builder.chatId
-	  
-   }
-   if builder.chatTypeFlag {
-	  req.ChatType = &builder.chatType
-	  
-   }
-   if builder.messageTypeFlag {
-	  req.MessageType = &builder.messageType
-	  
-   }
-   if builder.contentFlag {
-	  req.Content = &builder.content
-	  
-   }
-   if builder.mentionsFlag {
-	  req.Mentions = builder.mentions
-   }
-   return req
-}
 // builder结束
 
 type EventMessageReader struct {
 	ReaderId  *UserId `json:"reader_id,omitempty"`
 	ReadTime  *string `json:"read_time,omitempty"`
-	TenantKey  *string `json:"tenant_key,omitempty"`
+	TenantKey *string `json:"tenant_key,omitempty"`
 }
 
 // builder开始
 type EventMessageReaderBuilder struct {
-	readerId  *UserId
+	readerId      *UserId
 	readerIdFlag  bool
-	readTime  string
+	readTime      string
 	readTimeFlag  bool
-	tenantKey  string
-	tenantKeyFlag  bool
+	tenantKey     string
+	tenantKeyFlag bool
 }
 
-func NewEventMessageReaderBuilder() * EventMessageReaderBuilder{
-   builder := &EventMessageReaderBuilder{}
-   return builder
+func NewEventMessageReaderBuilder() *EventMessageReaderBuilder {
+	builder := &EventMessageReaderBuilder{}
+	return builder
 }
 
+func (builder *EventMessageReaderBuilder) ReaderId(readerId *UserId) *EventMessageReaderBuilder {
+	builder.readerId = readerId
+	builder.readerIdFlag = true
+	return builder
+}
+func (builder *EventMessageReaderBuilder) ReadTime(readTime string) *EventMessageReaderBuilder {
+	builder.readTime = readTime
+	builder.readTimeFlag = true
+	return builder
+}
+func (builder *EventMessageReaderBuilder) TenantKey(tenantKey string) *EventMessageReaderBuilder {
+	builder.tenantKey = tenantKey
+	builder.tenantKeyFlag = true
+	return builder
+}
 
-func (builder * EventMessageReaderBuilder) ReaderId(readerId *UserId) *EventMessageReaderBuilder  {
-  builder.readerId = readerId
-  builder.readerIdFlag = true
-  return builder
-}
-func (builder * EventMessageReaderBuilder) ReadTime(readTime string) *EventMessageReaderBuilder  {
-  builder.readTime = readTime
-  builder.readTimeFlag = true
-  return builder
-}
-func (builder * EventMessageReaderBuilder) TenantKey(tenantKey string) *EventMessageReaderBuilder  {
-  builder.tenantKey = tenantKey
-  builder.tenantKeyFlag = true
-  return builder
+func (builder *EventMessageReaderBuilder) Build() *EventMessageReader {
+	req := &EventMessageReader{}
+	if builder.readerIdFlag {
+		req.ReaderId = builder.readerId
+	}
+	if builder.readTimeFlag {
+		req.ReadTime = &builder.readTime
+
+	}
+	if builder.tenantKeyFlag {
+		req.TenantKey = &builder.tenantKey
+
+	}
+	return req
 }
 
-func (builder * EventMessageReaderBuilder ) Build() *EventMessageReader {
-   req := &EventMessageReader{}
-   if builder.readerIdFlag {
-	  req.ReaderId = builder.readerId
-   }
-   if builder.readTimeFlag {
-	  req.ReadTime = &builder.readTime
-	  
-   }
-   if builder.tenantKeyFlag {
-	  req.TenantKey = &builder.tenantKey
-	  
-   }
-   return req
-}
 // builder结束
 
 type EventSender struct {
-	SenderId  *UserId `json:"sender_id,omitempty"`
-	SenderType  *string `json:"sender_type,omitempty"`
+	SenderId   *UserId `json:"sender_id,omitempty"`
+	SenderType *string `json:"sender_type,omitempty"`
 	TenantKey  *string `json:"tenant_key,omitempty"`
 }
 
 // builder开始
 type EventSenderBuilder struct {
-	senderId  *UserId
-	senderIdFlag  bool
-	senderType  string
-	senderTypeFlag  bool
-	tenantKey  string
+	senderId       *UserId
+	senderIdFlag   bool
+	senderType     string
+	senderTypeFlag bool
+	tenantKey      string
 	tenantKeyFlag  bool
 }
 
-func NewEventSenderBuilder() * EventSenderBuilder{
-   builder := &EventSenderBuilder{}
-   return builder
+func NewEventSenderBuilder() *EventSenderBuilder {
+	builder := &EventSenderBuilder{}
+	return builder
 }
 
+func (builder *EventSenderBuilder) SenderId(senderId *UserId) *EventSenderBuilder {
+	builder.senderId = senderId
+	builder.senderIdFlag = true
+	return builder
+}
+func (builder *EventSenderBuilder) SenderType(senderType string) *EventSenderBuilder {
+	builder.senderType = senderType
+	builder.senderTypeFlag = true
+	return builder
+}
+func (builder *EventSenderBuilder) TenantKey(tenantKey string) *EventSenderBuilder {
+	builder.tenantKey = tenantKey
+	builder.tenantKeyFlag = true
+	return builder
+}
 
-func (builder * EventSenderBuilder) SenderId(senderId *UserId) *EventSenderBuilder  {
-  builder.senderId = senderId
-  builder.senderIdFlag = true
-  return builder
-}
-func (builder * EventSenderBuilder) SenderType(senderType string) *EventSenderBuilder  {
-  builder.senderType = senderType
-  builder.senderTypeFlag = true
-  return builder
-}
-func (builder * EventSenderBuilder) TenantKey(tenantKey string) *EventSenderBuilder  {
-  builder.tenantKey = tenantKey
-  builder.tenantKeyFlag = true
-  return builder
+func (builder *EventSenderBuilder) Build() *EventSender {
+	req := &EventSender{}
+	if builder.senderIdFlag {
+		req.SenderId = builder.senderId
+	}
+	if builder.senderTypeFlag {
+		req.SenderType = &builder.senderType
+
+	}
+	if builder.tenantKeyFlag {
+		req.TenantKey = &builder.tenantKey
+
+	}
+	return req
 }
 
-func (builder * EventSenderBuilder ) Build() *EventSender {
-   req := &EventSender{}
-   if builder.senderIdFlag {
-	  req.SenderId = builder.senderId
-   }
-   if builder.senderTypeFlag {
-	  req.SenderType = &builder.senderType
-	  
-   }
-   if builder.tenantKeyFlag {
-	  req.TenantKey = &builder.tenantKey
-	  
-   }
-   return req
-}
 // builder结束
 
 type File struct {
@@ -1342,331 +1322,331 @@ type File struct {
 // builder结束
 
 type I18nNames struct {
-	ZhCn  *string `json:"zh_cn,omitempty"`
-	EnUs  *string `json:"en_us,omitempty"`
-	JaJp  *string `json:"ja_jp,omitempty"`
+	ZhCn *string `json:"zh_cn,omitempty"`
+	EnUs *string `json:"en_us,omitempty"`
+	JaJp *string `json:"ja_jp,omitempty"`
 }
 
 // builder开始
 type I18nNamesBuilder struct {
-	zhCn  string
-	zhCnFlag  bool
-	enUs  string
-	enUsFlag  bool
-	jaJp  string
-	jaJpFlag  bool
+	zhCn     string
+	zhCnFlag bool
+	enUs     string
+	enUsFlag bool
+	jaJp     string
+	jaJpFlag bool
 }
 
-func NewI18nNamesBuilder() * I18nNamesBuilder{
-   builder := &I18nNamesBuilder{}
-   return builder
+func NewI18nNamesBuilder() *I18nNamesBuilder {
+	builder := &I18nNamesBuilder{}
+	return builder
 }
 
+func (builder *I18nNamesBuilder) ZhCn(zhCn string) *I18nNamesBuilder {
+	builder.zhCn = zhCn
+	builder.zhCnFlag = true
+	return builder
+}
+func (builder *I18nNamesBuilder) EnUs(enUs string) *I18nNamesBuilder {
+	builder.enUs = enUs
+	builder.enUsFlag = true
+	return builder
+}
+func (builder *I18nNamesBuilder) JaJp(jaJp string) *I18nNamesBuilder {
+	builder.jaJp = jaJp
+	builder.jaJpFlag = true
+	return builder
+}
 
-func (builder * I18nNamesBuilder) ZhCn(zhCn string) *I18nNamesBuilder  {
-  builder.zhCn = zhCn
-  builder.zhCnFlag = true
-  return builder
-}
-func (builder * I18nNamesBuilder) EnUs(enUs string) *I18nNamesBuilder  {
-  builder.enUs = enUs
-  builder.enUsFlag = true
-  return builder
-}
-func (builder * I18nNamesBuilder) JaJp(jaJp string) *I18nNamesBuilder  {
-  builder.jaJp = jaJp
-  builder.jaJpFlag = true
-  return builder
+func (builder *I18nNamesBuilder) Build() *I18nNames {
+	req := &I18nNames{}
+	if builder.zhCnFlag {
+		req.ZhCn = &builder.zhCn
+
+	}
+	if builder.enUsFlag {
+		req.EnUs = &builder.enUs
+
+	}
+	if builder.jaJpFlag {
+		req.JaJp = &builder.jaJp
+
+	}
+	return req
 }
 
-func (builder * I18nNamesBuilder ) Build() *I18nNames {
-   req := &I18nNames{}
-   if builder.zhCnFlag {
-	  req.ZhCn = &builder.zhCn
-	  
-   }
-   if builder.enUsFlag {
-	  req.EnUs = &builder.enUs
-	  
-   }
-   if builder.jaJpFlag {
-	  req.JaJp = &builder.jaJp
-	  
-   }
-   return req
-}
 // builder结束
 
 type ImDepthData struct {
-	PDate  *string `json:"p_date,omitempty"`
-	DepartmentId  *string `json:"department_id,omitempty"`
-	DepartmentPath  *string `json:"department_path,omitempty"`
-	SendMsgRate  *float64 `json:"send_msg_rate,omitempty"`
-	AvgSendMsgCnt  *float64 `json:"avg_send_msg_cnt,omitempty"`
-	PcSendMsgRate  *float64 `json:"pc_send_msg_rate,omitempty"`
-	PcAvgSendMsgCnt  *float64 `json:"pc_avg_send_msg_cnt,omitempty"`
-	MobileSendMsgRate  *float64 `json:"mobile_send_msg_rate,omitempty"`
-	MobileAvgSendMsgCnt  *float64 `json:"mobile_avg_send_msg_cnt,omitempty"`
-	MeetingGroupSendMsgRate  *float64 `json:"meeting_group_send_msg_rate,omitempty"`
+	PDate                   *string  `json:"p_date,omitempty"`
+	DepartmentId            *string  `json:"department_id,omitempty"`
+	DepartmentPath          *string  `json:"department_path,omitempty"`
+	SendMsgRate             *float64 `json:"send_msg_rate,omitempty"`
+	AvgSendMsgCnt           *float64 `json:"avg_send_msg_cnt,omitempty"`
+	PcSendMsgRate           *float64 `json:"pc_send_msg_rate,omitempty"`
+	PcAvgSendMsgCnt         *float64 `json:"pc_avg_send_msg_cnt,omitempty"`
+	MobileSendMsgRate       *float64 `json:"mobile_send_msg_rate,omitempty"`
+	MobileAvgSendMsgCnt     *float64 `json:"mobile_avg_send_msg_cnt,omitempty"`
+	MeetingGroupSendMsgRate *float64 `json:"meeting_group_send_msg_rate,omitempty"`
 	TenantGroupSendMsgRate  *float64 `json:"tenant_group_send_msg_rate,omitempty"`
-	DeptGroupSendMsgRate  *float64 `json:"dept_group_send_msg_rate,omitempty"`
-	TopicGroupSendMsgRate  *float64 `json:"topic_group_send_msg_rate,omitempty"`
-	GroupAtMsgRate  *float64 `json:"group_at_msg_rate,omitempty"`
-	GroupReplyMsgRate  *float64 `json:"group_reply_msg_rate,omitempty"`
-	ReactionRate  *float64 `json:"reaction_rate,omitempty"`
-	P2pSendMsgRate  *float64 `json:"p2p_send_msg_rate,omitempty"`
-	ImgSendMsgRate  *float64 `json:"img_send_msg_rate,omitempty"`
-	FileSendMsgRate  *float64 `json:"file_send_msg_rate,omitempty"`
-	StickerSendMsgRate  *float64 `json:"sticker_send_msg_rate,omitempty"`
-	PostSendMsgRate  *float64 `json:"post_send_msg_rate,omitempty"`
+	DeptGroupSendMsgRate    *float64 `json:"dept_group_send_msg_rate,omitempty"`
+	TopicGroupSendMsgRate   *float64 `json:"topic_group_send_msg_rate,omitempty"`
+	GroupAtMsgRate          *float64 `json:"group_at_msg_rate,omitempty"`
+	GroupReplyMsgRate       *float64 `json:"group_reply_msg_rate,omitempty"`
+	ReactionRate            *float64 `json:"reaction_rate,omitempty"`
+	P2pSendMsgRate          *float64 `json:"p2p_send_msg_rate,omitempty"`
+	ImgSendMsgRate          *float64 `json:"img_send_msg_rate,omitempty"`
+	FileSendMsgRate         *float64 `json:"file_send_msg_rate,omitempty"`
+	StickerSendMsgRate      *float64 `json:"sticker_send_msg_rate,omitempty"`
+	PostSendMsgRate         *float64 `json:"post_send_msg_rate,omitempty"`
 }
 
 // builder开始
 type ImDepthDataBuilder struct {
-	pDate  string
-	pDateFlag  bool
-	departmentId  string
-	departmentIdFlag  bool
-	departmentPath  string
-	departmentPathFlag  bool
-	sendMsgRate  float64
-	sendMsgRateFlag  bool
-	avgSendMsgCnt  float64
-	avgSendMsgCntFlag  bool
-	pcSendMsgRate  float64
-	pcSendMsgRateFlag  bool
-	pcAvgSendMsgCnt  float64
-	pcAvgSendMsgCntFlag  bool
-	mobileSendMsgRate  float64
-	mobileSendMsgRateFlag  bool
-	mobileAvgSendMsgCnt  float64
-	mobileAvgSendMsgCntFlag  bool
-	meetingGroupSendMsgRate  float64
-	meetingGroupSendMsgRateFlag  bool
-	tenantGroupSendMsgRate  float64
+	pDate                       string
+	pDateFlag                   bool
+	departmentId                string
+	departmentIdFlag            bool
+	departmentPath              string
+	departmentPathFlag          bool
+	sendMsgRate                 float64
+	sendMsgRateFlag             bool
+	avgSendMsgCnt               float64
+	avgSendMsgCntFlag           bool
+	pcSendMsgRate               float64
+	pcSendMsgRateFlag           bool
+	pcAvgSendMsgCnt             float64
+	pcAvgSendMsgCntFlag         bool
+	mobileSendMsgRate           float64
+	mobileSendMsgRateFlag       bool
+	mobileAvgSendMsgCnt         float64
+	mobileAvgSendMsgCntFlag     bool
+	meetingGroupSendMsgRate     float64
+	meetingGroupSendMsgRateFlag bool
+	tenantGroupSendMsgRate      float64
 	tenantGroupSendMsgRateFlag  bool
-	deptGroupSendMsgRate  float64
-	deptGroupSendMsgRateFlag  bool
-	topicGroupSendMsgRate  float64
-	topicGroupSendMsgRateFlag  bool
-	groupAtMsgRate  float64
-	groupAtMsgRateFlag  bool
-	groupReplyMsgRate  float64
-	groupReplyMsgRateFlag  bool
-	reactionRate  float64
-	reactionRateFlag  bool
-	p2pSendMsgRate  float64
-	p2pSendMsgRateFlag  bool
-	imgSendMsgRate  float64
-	imgSendMsgRateFlag  bool
-	fileSendMsgRate  float64
-	fileSendMsgRateFlag  bool
-	stickerSendMsgRate  float64
-	stickerSendMsgRateFlag  bool
-	postSendMsgRate  float64
-	postSendMsgRateFlag  bool
+	deptGroupSendMsgRate        float64
+	deptGroupSendMsgRateFlag    bool
+	topicGroupSendMsgRate       float64
+	topicGroupSendMsgRateFlag   bool
+	groupAtMsgRate              float64
+	groupAtMsgRateFlag          bool
+	groupReplyMsgRate           float64
+	groupReplyMsgRateFlag       bool
+	reactionRate                float64
+	reactionRateFlag            bool
+	p2pSendMsgRate              float64
+	p2pSendMsgRateFlag          bool
+	imgSendMsgRate              float64
+	imgSendMsgRateFlag          bool
+	fileSendMsgRate             float64
+	fileSendMsgRateFlag         bool
+	stickerSendMsgRate          float64
+	stickerSendMsgRateFlag      bool
+	postSendMsgRate             float64
+	postSendMsgRateFlag         bool
 }
 
-func NewImDepthDataBuilder() * ImDepthDataBuilder{
-   builder := &ImDepthDataBuilder{}
-   return builder
+func NewImDepthDataBuilder() *ImDepthDataBuilder {
+	builder := &ImDepthDataBuilder{}
+	return builder
 }
 
+func (builder *ImDepthDataBuilder) PDate(pDate string) *ImDepthDataBuilder {
+	builder.pDate = pDate
+	builder.pDateFlag = true
+	return builder
+}
+func (builder *ImDepthDataBuilder) DepartmentId(departmentId string) *ImDepthDataBuilder {
+	builder.departmentId = departmentId
+	builder.departmentIdFlag = true
+	return builder
+}
+func (builder *ImDepthDataBuilder) DepartmentPath(departmentPath string) *ImDepthDataBuilder {
+	builder.departmentPath = departmentPath
+	builder.departmentPathFlag = true
+	return builder
+}
+func (builder *ImDepthDataBuilder) SendMsgRate(sendMsgRate float64) *ImDepthDataBuilder {
+	builder.sendMsgRate = sendMsgRate
+	builder.sendMsgRateFlag = true
+	return builder
+}
+func (builder *ImDepthDataBuilder) AvgSendMsgCnt(avgSendMsgCnt float64) *ImDepthDataBuilder {
+	builder.avgSendMsgCnt = avgSendMsgCnt
+	builder.avgSendMsgCntFlag = true
+	return builder
+}
+func (builder *ImDepthDataBuilder) PcSendMsgRate(pcSendMsgRate float64) *ImDepthDataBuilder {
+	builder.pcSendMsgRate = pcSendMsgRate
+	builder.pcSendMsgRateFlag = true
+	return builder
+}
+func (builder *ImDepthDataBuilder) PcAvgSendMsgCnt(pcAvgSendMsgCnt float64) *ImDepthDataBuilder {
+	builder.pcAvgSendMsgCnt = pcAvgSendMsgCnt
+	builder.pcAvgSendMsgCntFlag = true
+	return builder
+}
+func (builder *ImDepthDataBuilder) MobileSendMsgRate(mobileSendMsgRate float64) *ImDepthDataBuilder {
+	builder.mobileSendMsgRate = mobileSendMsgRate
+	builder.mobileSendMsgRateFlag = true
+	return builder
+}
+func (builder *ImDepthDataBuilder) MobileAvgSendMsgCnt(mobileAvgSendMsgCnt float64) *ImDepthDataBuilder {
+	builder.mobileAvgSendMsgCnt = mobileAvgSendMsgCnt
+	builder.mobileAvgSendMsgCntFlag = true
+	return builder
+}
+func (builder *ImDepthDataBuilder) MeetingGroupSendMsgRate(meetingGroupSendMsgRate float64) *ImDepthDataBuilder {
+	builder.meetingGroupSendMsgRate = meetingGroupSendMsgRate
+	builder.meetingGroupSendMsgRateFlag = true
+	return builder
+}
+func (builder *ImDepthDataBuilder) TenantGroupSendMsgRate(tenantGroupSendMsgRate float64) *ImDepthDataBuilder {
+	builder.tenantGroupSendMsgRate = tenantGroupSendMsgRate
+	builder.tenantGroupSendMsgRateFlag = true
+	return builder
+}
+func (builder *ImDepthDataBuilder) DeptGroupSendMsgRate(deptGroupSendMsgRate float64) *ImDepthDataBuilder {
+	builder.deptGroupSendMsgRate = deptGroupSendMsgRate
+	builder.deptGroupSendMsgRateFlag = true
+	return builder
+}
+func (builder *ImDepthDataBuilder) TopicGroupSendMsgRate(topicGroupSendMsgRate float64) *ImDepthDataBuilder {
+	builder.topicGroupSendMsgRate = topicGroupSendMsgRate
+	builder.topicGroupSendMsgRateFlag = true
+	return builder
+}
+func (builder *ImDepthDataBuilder) GroupAtMsgRate(groupAtMsgRate float64) *ImDepthDataBuilder {
+	builder.groupAtMsgRate = groupAtMsgRate
+	builder.groupAtMsgRateFlag = true
+	return builder
+}
+func (builder *ImDepthDataBuilder) GroupReplyMsgRate(groupReplyMsgRate float64) *ImDepthDataBuilder {
+	builder.groupReplyMsgRate = groupReplyMsgRate
+	builder.groupReplyMsgRateFlag = true
+	return builder
+}
+func (builder *ImDepthDataBuilder) ReactionRate(reactionRate float64) *ImDepthDataBuilder {
+	builder.reactionRate = reactionRate
+	builder.reactionRateFlag = true
+	return builder
+}
+func (builder *ImDepthDataBuilder) P2pSendMsgRate(p2pSendMsgRate float64) *ImDepthDataBuilder {
+	builder.p2pSendMsgRate = p2pSendMsgRate
+	builder.p2pSendMsgRateFlag = true
+	return builder
+}
+func (builder *ImDepthDataBuilder) ImgSendMsgRate(imgSendMsgRate float64) *ImDepthDataBuilder {
+	builder.imgSendMsgRate = imgSendMsgRate
+	builder.imgSendMsgRateFlag = true
+	return builder
+}
+func (builder *ImDepthDataBuilder) FileSendMsgRate(fileSendMsgRate float64) *ImDepthDataBuilder {
+	builder.fileSendMsgRate = fileSendMsgRate
+	builder.fileSendMsgRateFlag = true
+	return builder
+}
+func (builder *ImDepthDataBuilder) StickerSendMsgRate(stickerSendMsgRate float64) *ImDepthDataBuilder {
+	builder.stickerSendMsgRate = stickerSendMsgRate
+	builder.stickerSendMsgRateFlag = true
+	return builder
+}
+func (builder *ImDepthDataBuilder) PostSendMsgRate(postSendMsgRate float64) *ImDepthDataBuilder {
+	builder.postSendMsgRate = postSendMsgRate
+	builder.postSendMsgRateFlag = true
+	return builder
+}
 
-func (builder * ImDepthDataBuilder) PDate(pDate string) *ImDepthDataBuilder  {
-  builder.pDate = pDate
-  builder.pDateFlag = true
-  return builder
-}
-func (builder * ImDepthDataBuilder) DepartmentId(departmentId string) *ImDepthDataBuilder  {
-  builder.departmentId = departmentId
-  builder.departmentIdFlag = true
-  return builder
-}
-func (builder * ImDepthDataBuilder) DepartmentPath(departmentPath string) *ImDepthDataBuilder  {
-  builder.departmentPath = departmentPath
-  builder.departmentPathFlag = true
-  return builder
-}
-func (builder * ImDepthDataBuilder) SendMsgRate(sendMsgRate float64) *ImDepthDataBuilder  {
-  builder.sendMsgRate = sendMsgRate
-  builder.sendMsgRateFlag = true
-  return builder
-}
-func (builder * ImDepthDataBuilder) AvgSendMsgCnt(avgSendMsgCnt float64) *ImDepthDataBuilder  {
-  builder.avgSendMsgCnt = avgSendMsgCnt
-  builder.avgSendMsgCntFlag = true
-  return builder
-}
-func (builder * ImDepthDataBuilder) PcSendMsgRate(pcSendMsgRate float64) *ImDepthDataBuilder  {
-  builder.pcSendMsgRate = pcSendMsgRate
-  builder.pcSendMsgRateFlag = true
-  return builder
-}
-func (builder * ImDepthDataBuilder) PcAvgSendMsgCnt(pcAvgSendMsgCnt float64) *ImDepthDataBuilder  {
-  builder.pcAvgSendMsgCnt = pcAvgSendMsgCnt
-  builder.pcAvgSendMsgCntFlag = true
-  return builder
-}
-func (builder * ImDepthDataBuilder) MobileSendMsgRate(mobileSendMsgRate float64) *ImDepthDataBuilder  {
-  builder.mobileSendMsgRate = mobileSendMsgRate
-  builder.mobileSendMsgRateFlag = true
-  return builder
-}
-func (builder * ImDepthDataBuilder) MobileAvgSendMsgCnt(mobileAvgSendMsgCnt float64) *ImDepthDataBuilder  {
-  builder.mobileAvgSendMsgCnt = mobileAvgSendMsgCnt
-  builder.mobileAvgSendMsgCntFlag = true
-  return builder
-}
-func (builder * ImDepthDataBuilder) MeetingGroupSendMsgRate(meetingGroupSendMsgRate float64) *ImDepthDataBuilder  {
-  builder.meetingGroupSendMsgRate = meetingGroupSendMsgRate
-  builder.meetingGroupSendMsgRateFlag = true
-  return builder
-}
-func (builder * ImDepthDataBuilder) TenantGroupSendMsgRate(tenantGroupSendMsgRate float64) *ImDepthDataBuilder  {
-  builder.tenantGroupSendMsgRate = tenantGroupSendMsgRate
-  builder.tenantGroupSendMsgRateFlag = true
-  return builder
-}
-func (builder * ImDepthDataBuilder) DeptGroupSendMsgRate(deptGroupSendMsgRate float64) *ImDepthDataBuilder  {
-  builder.deptGroupSendMsgRate = deptGroupSendMsgRate
-  builder.deptGroupSendMsgRateFlag = true
-  return builder
-}
-func (builder * ImDepthDataBuilder) TopicGroupSendMsgRate(topicGroupSendMsgRate float64) *ImDepthDataBuilder  {
-  builder.topicGroupSendMsgRate = topicGroupSendMsgRate
-  builder.topicGroupSendMsgRateFlag = true
-  return builder
-}
-func (builder * ImDepthDataBuilder) GroupAtMsgRate(groupAtMsgRate float64) *ImDepthDataBuilder  {
-  builder.groupAtMsgRate = groupAtMsgRate
-  builder.groupAtMsgRateFlag = true
-  return builder
-}
-func (builder * ImDepthDataBuilder) GroupReplyMsgRate(groupReplyMsgRate float64) *ImDepthDataBuilder  {
-  builder.groupReplyMsgRate = groupReplyMsgRate
-  builder.groupReplyMsgRateFlag = true
-  return builder
-}
-func (builder * ImDepthDataBuilder) ReactionRate(reactionRate float64) *ImDepthDataBuilder  {
-  builder.reactionRate = reactionRate
-  builder.reactionRateFlag = true
-  return builder
-}
-func (builder * ImDepthDataBuilder) P2pSendMsgRate(p2pSendMsgRate float64) *ImDepthDataBuilder  {
-  builder.p2pSendMsgRate = p2pSendMsgRate
-  builder.p2pSendMsgRateFlag = true
-  return builder
-}
-func (builder * ImDepthDataBuilder) ImgSendMsgRate(imgSendMsgRate float64) *ImDepthDataBuilder  {
-  builder.imgSendMsgRate = imgSendMsgRate
-  builder.imgSendMsgRateFlag = true
-  return builder
-}
-func (builder * ImDepthDataBuilder) FileSendMsgRate(fileSendMsgRate float64) *ImDepthDataBuilder  {
-  builder.fileSendMsgRate = fileSendMsgRate
-  builder.fileSendMsgRateFlag = true
-  return builder
-}
-func (builder * ImDepthDataBuilder) StickerSendMsgRate(stickerSendMsgRate float64) *ImDepthDataBuilder  {
-  builder.stickerSendMsgRate = stickerSendMsgRate
-  builder.stickerSendMsgRateFlag = true
-  return builder
-}
-func (builder * ImDepthDataBuilder) PostSendMsgRate(postSendMsgRate float64) *ImDepthDataBuilder  {
-  builder.postSendMsgRate = postSendMsgRate
-  builder.postSendMsgRateFlag = true
-  return builder
+func (builder *ImDepthDataBuilder) Build() *ImDepthData {
+	req := &ImDepthData{}
+	if builder.pDateFlag {
+		req.PDate = &builder.pDate
+
+	}
+	if builder.departmentIdFlag {
+		req.DepartmentId = &builder.departmentId
+
+	}
+	if builder.departmentPathFlag {
+		req.DepartmentPath = &builder.departmentPath
+
+	}
+	if builder.sendMsgRateFlag {
+		req.SendMsgRate = &builder.sendMsgRate
+
+	}
+	if builder.avgSendMsgCntFlag {
+		req.AvgSendMsgCnt = &builder.avgSendMsgCnt
+
+	}
+	if builder.pcSendMsgRateFlag {
+		req.PcSendMsgRate = &builder.pcSendMsgRate
+
+	}
+	if builder.pcAvgSendMsgCntFlag {
+		req.PcAvgSendMsgCnt = &builder.pcAvgSendMsgCnt
+
+	}
+	if builder.mobileSendMsgRateFlag {
+		req.MobileSendMsgRate = &builder.mobileSendMsgRate
+
+	}
+	if builder.mobileAvgSendMsgCntFlag {
+		req.MobileAvgSendMsgCnt = &builder.mobileAvgSendMsgCnt
+
+	}
+	if builder.meetingGroupSendMsgRateFlag {
+		req.MeetingGroupSendMsgRate = &builder.meetingGroupSendMsgRate
+
+	}
+	if builder.tenantGroupSendMsgRateFlag {
+		req.TenantGroupSendMsgRate = &builder.tenantGroupSendMsgRate
+
+	}
+	if builder.deptGroupSendMsgRateFlag {
+		req.DeptGroupSendMsgRate = &builder.deptGroupSendMsgRate
+
+	}
+	if builder.topicGroupSendMsgRateFlag {
+		req.TopicGroupSendMsgRate = &builder.topicGroupSendMsgRate
+
+	}
+	if builder.groupAtMsgRateFlag {
+		req.GroupAtMsgRate = &builder.groupAtMsgRate
+
+	}
+	if builder.groupReplyMsgRateFlag {
+		req.GroupReplyMsgRate = &builder.groupReplyMsgRate
+
+	}
+	if builder.reactionRateFlag {
+		req.ReactionRate = &builder.reactionRate
+
+	}
+	if builder.p2pSendMsgRateFlag {
+		req.P2pSendMsgRate = &builder.p2pSendMsgRate
+
+	}
+	if builder.imgSendMsgRateFlag {
+		req.ImgSendMsgRate = &builder.imgSendMsgRate
+
+	}
+	if builder.fileSendMsgRateFlag {
+		req.FileSendMsgRate = &builder.fileSendMsgRate
+
+	}
+	if builder.stickerSendMsgRateFlag {
+		req.StickerSendMsgRate = &builder.stickerSendMsgRate
+
+	}
+	if builder.postSendMsgRateFlag {
+		req.PostSendMsgRate = &builder.postSendMsgRate
+
+	}
+	return req
 }
 
-func (builder * ImDepthDataBuilder ) Build() *ImDepthData {
-   req := &ImDepthData{}
-   if builder.pDateFlag {
-	  req.PDate = &builder.pDate
-	  
-   }
-   if builder.departmentIdFlag {
-	  req.DepartmentId = &builder.departmentId
-	  
-   }
-   if builder.departmentPathFlag {
-	  req.DepartmentPath = &builder.departmentPath
-	  
-   }
-   if builder.sendMsgRateFlag {
-	  req.SendMsgRate = &builder.sendMsgRate
-	  
-   }
-   if builder.avgSendMsgCntFlag {
-	  req.AvgSendMsgCnt = &builder.avgSendMsgCnt
-	  
-   }
-   if builder.pcSendMsgRateFlag {
-	  req.PcSendMsgRate = &builder.pcSendMsgRate
-	  
-   }
-   if builder.pcAvgSendMsgCntFlag {
-	  req.PcAvgSendMsgCnt = &builder.pcAvgSendMsgCnt
-	  
-   }
-   if builder.mobileSendMsgRateFlag {
-	  req.MobileSendMsgRate = &builder.mobileSendMsgRate
-	  
-   }
-   if builder.mobileAvgSendMsgCntFlag {
-	  req.MobileAvgSendMsgCnt = &builder.mobileAvgSendMsgCnt
-	  
-   }
-   if builder.meetingGroupSendMsgRateFlag {
-	  req.MeetingGroupSendMsgRate = &builder.meetingGroupSendMsgRate
-	  
-   }
-   if builder.tenantGroupSendMsgRateFlag {
-	  req.TenantGroupSendMsgRate = &builder.tenantGroupSendMsgRate
-	  
-   }
-   if builder.deptGroupSendMsgRateFlag {
-	  req.DeptGroupSendMsgRate = &builder.deptGroupSendMsgRate
-	  
-   }
-   if builder.topicGroupSendMsgRateFlag {
-	  req.TopicGroupSendMsgRate = &builder.topicGroupSendMsgRate
-	  
-   }
-   if builder.groupAtMsgRateFlag {
-	  req.GroupAtMsgRate = &builder.groupAtMsgRate
-	  
-   }
-   if builder.groupReplyMsgRateFlag {
-	  req.GroupReplyMsgRate = &builder.groupReplyMsgRate
-	  
-   }
-   if builder.reactionRateFlag {
-	  req.ReactionRate = &builder.reactionRate
-	  
-   }
-   if builder.p2pSendMsgRateFlag {
-	  req.P2pSendMsgRate = &builder.p2pSendMsgRate
-	  
-   }
-   if builder.imgSendMsgRateFlag {
-	  req.ImgSendMsgRate = &builder.imgSendMsgRate
-	  
-   }
-   if builder.fileSendMsgRateFlag {
-	  req.FileSendMsgRate = &builder.fileSendMsgRate
-	  
-   }
-   if builder.stickerSendMsgRateFlag {
-	  req.StickerSendMsgRate = &builder.stickerSendMsgRate
-	  
-   }
-   if builder.postSendMsgRateFlag {
-	  req.PostSendMsgRate = &builder.postSendMsgRate
-	  
-   }
-   return req
-}
 // builder结束
 
 type Image struct {
@@ -1676,676 +1656,673 @@ type Image struct {
 // builder结束
 
 type ListChat struct {
-	ChatId  *string `json:"chat_id,omitempty"`
-	Avatar  *string `json:"avatar,omitempty"`
-	Name  *string `json:"name,omitempty"`
-	Description  *string `json:"description,omitempty"`
-	OwnerId  *string `json:"owner_id,omitempty"`
-	OwnerIdType  *string `json:"owner_id_type,omitempty"`
-	External  *bool `json:"external,omitempty"`
-	TenantKey  *string `json:"tenant_key,omitempty"`
-	
+	ChatId      *string `json:"chat_id,omitempty"`
+	Avatar      *string `json:"avatar,omitempty"`
+	Name        *string `json:"name,omitempty"`
+	Description *string `json:"description,omitempty"`
+	OwnerId     *string `json:"owner_id,omitempty"`
+	OwnerIdType *string `json:"owner_id_type,omitempty"`
+	External    *bool   `json:"external,omitempty"`
+	TenantKey   *string `json:"tenant_key,omitempty"`
 }
 
 // builder开始
 type ListChatBuilder struct {
-	chatId  string
-	chatIdFlag  bool
-	avatar  string
-	avatarFlag  bool
-	name  string
-	nameFlag  bool
-	description  string
-	descriptionFlag  bool
-	ownerId  string
-	ownerIdFlag  bool
-	ownerIdType  string
-	ownerIdTypeFlag  bool
-	external  bool
-	externalFlag  bool
-	tenantKey  string
-	tenantKeyFlag  bool
-	
+	chatId          string
+	chatIdFlag      bool
+	avatar          string
+	avatarFlag      bool
+	name            string
+	nameFlag        bool
+	description     string
+	descriptionFlag bool
+	ownerId         string
+	ownerIdFlag     bool
+	ownerIdType     string
+	ownerIdTypeFlag bool
+	external        bool
+	externalFlag    bool
+	tenantKey       string
+	tenantKeyFlag   bool
 }
 
-func NewListChatBuilder() * ListChatBuilder{
-   builder := &ListChatBuilder{}
-   return builder
+func NewListChatBuilder() *ListChatBuilder {
+	builder := &ListChatBuilder{}
+	return builder
 }
 
+func (builder *ListChatBuilder) ChatId(chatId string) *ListChatBuilder {
+	builder.chatId = chatId
+	builder.chatIdFlag = true
+	return builder
+}
+func (builder *ListChatBuilder) Avatar(avatar string) *ListChatBuilder {
+	builder.avatar = avatar
+	builder.avatarFlag = true
+	return builder
+}
+func (builder *ListChatBuilder) Name(name string) *ListChatBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *ListChatBuilder) Description(description string) *ListChatBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+func (builder *ListChatBuilder) OwnerId(ownerId string) *ListChatBuilder {
+	builder.ownerId = ownerId
+	builder.ownerIdFlag = true
+	return builder
+}
+func (builder *ListChatBuilder) OwnerIdType(ownerIdType string) *ListChatBuilder {
+	builder.ownerIdType = ownerIdType
+	builder.ownerIdTypeFlag = true
+	return builder
+}
+func (builder *ListChatBuilder) External(external bool) *ListChatBuilder {
+	builder.external = external
+	builder.externalFlag = true
+	return builder
+}
+func (builder *ListChatBuilder) TenantKey(tenantKey string) *ListChatBuilder {
+	builder.tenantKey = tenantKey
+	builder.tenantKeyFlag = true
+	return builder
+}
 
-func (builder * ListChatBuilder) ChatId(chatId string) *ListChatBuilder  {
-  builder.chatId = chatId
-  builder.chatIdFlag = true
-  return builder
-}
-func (builder * ListChatBuilder) Avatar(avatar string) *ListChatBuilder  {
-  builder.avatar = avatar
-  builder.avatarFlag = true
-  return builder
-}
-func (builder * ListChatBuilder) Name(name string) *ListChatBuilder  {
-  builder.name = name
-  builder.nameFlag = true
-  return builder
-}
-func (builder * ListChatBuilder) Description(description string) *ListChatBuilder  {
-  builder.description = description
-  builder.descriptionFlag = true
-  return builder
-}
-func (builder * ListChatBuilder) OwnerId(ownerId string) *ListChatBuilder  {
-  builder.ownerId = ownerId
-  builder.ownerIdFlag = true
-  return builder
-}
-func (builder * ListChatBuilder) OwnerIdType(ownerIdType string) *ListChatBuilder  {
-  builder.ownerIdType = ownerIdType
-  builder.ownerIdTypeFlag = true
-  return builder
-}
-func (builder * ListChatBuilder) External(external bool) *ListChatBuilder  {
-  builder.external = external
-  builder.externalFlag = true
-  return builder
-}
-func (builder * ListChatBuilder) TenantKey(tenantKey string) *ListChatBuilder  {
-  builder.tenantKey = tenantKey
-  builder.tenantKeyFlag = true
-  return builder
+func (builder *ListChatBuilder) Build() *ListChat {
+	req := &ListChat{}
+	if builder.chatIdFlag {
+		req.ChatId = &builder.chatId
+
+	}
+	if builder.avatarFlag {
+		req.Avatar = &builder.avatar
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	if builder.ownerIdFlag {
+		req.OwnerId = &builder.ownerId
+
+	}
+	if builder.ownerIdTypeFlag {
+		req.OwnerIdType = &builder.ownerIdType
+
+	}
+	if builder.externalFlag {
+		req.External = &builder.external
+
+	}
+	if builder.tenantKeyFlag {
+		req.TenantKey = &builder.tenantKey
+
+	}
+
+	return req
 }
 
-
-func (builder * ListChatBuilder ) Build() *ListChat {
-   req := &ListChat{}
-   if builder.chatIdFlag {
-	  req.ChatId = &builder.chatId
-	  
-   }
-   if builder.avatarFlag {
-	  req.Avatar = &builder.avatar
-	  
-   }
-   if builder.nameFlag {
-	  req.Name = &builder.name
-	  
-   }
-   if builder.descriptionFlag {
-	  req.Description = &builder.description
-	  
-   }
-   if builder.ownerIdFlag {
-	  req.OwnerId = &builder.ownerId
-	  
-   }
-   if builder.ownerIdTypeFlag {
-	  req.OwnerIdType = &builder.ownerIdType
-	  
-   }
-   if builder.externalFlag {
-	  req.External = &builder.external
-	  
-   }
-   if builder.tenantKeyFlag {
-	  req.TenantKey = &builder.tenantKey
-	  
-   }
-
-   return req
-}
 // builder结束
 
 type ListEventModerator struct {
-	TenantKey  *string `json:"tenant_key,omitempty"`
-	UserId  *UserId `json:"user_id,omitempty"`
+	TenantKey *string `json:"tenant_key,omitempty"`
+	UserId    *UserId `json:"user_id,omitempty"`
 }
 
 // builder开始
 type ListEventModeratorBuilder struct {
-	tenantKey  string
-	tenantKeyFlag  bool
-	userId  *UserId
-	userIdFlag  bool
+	tenantKey     string
+	tenantKeyFlag bool
+	userId        *UserId
+	userIdFlag    bool
 }
 
-func NewListEventModeratorBuilder() * ListEventModeratorBuilder{
-   builder := &ListEventModeratorBuilder{}
-   return builder
+func NewListEventModeratorBuilder() *ListEventModeratorBuilder {
+	builder := &ListEventModeratorBuilder{}
+	return builder
 }
 
+func (builder *ListEventModeratorBuilder) TenantKey(tenantKey string) *ListEventModeratorBuilder {
+	builder.tenantKey = tenantKey
+	builder.tenantKeyFlag = true
+	return builder
+}
+func (builder *ListEventModeratorBuilder) UserId(userId *UserId) *ListEventModeratorBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
 
-func (builder * ListEventModeratorBuilder) TenantKey(tenantKey string) *ListEventModeratorBuilder  {
-  builder.tenantKey = tenantKey
-  builder.tenantKeyFlag = true
-  return builder
-}
-func (builder * ListEventModeratorBuilder) UserId(userId *UserId) *ListEventModeratorBuilder  {
-  builder.userId = userId
-  builder.userIdFlag = true
-  return builder
+func (builder *ListEventModeratorBuilder) Build() *ListEventModerator {
+	req := &ListEventModerator{}
+	if builder.tenantKeyFlag {
+		req.TenantKey = &builder.tenantKey
+
+	}
+	if builder.userIdFlag {
+		req.UserId = builder.userId
+	}
+	return req
 }
 
-func (builder * ListEventModeratorBuilder ) Build() *ListEventModerator {
-   req := &ListEventModerator{}
-   if builder.tenantKeyFlag {
-	  req.TenantKey = &builder.tenantKey
-	  
-   }
-   if builder.userIdFlag {
-	  req.UserId = builder.userId
-   }
-   return req
-}
 // builder结束
 
 type ListMember struct {
-	MemberIdType  *string `json:"member_id_type,omitempty"`
-	MemberId  *string `json:"member_id,omitempty"`
-	Name  *string `json:"name,omitempty"`
-	TenantKey  *string `json:"tenant_key,omitempty"`
+	MemberIdType *string `json:"member_id_type,omitempty"`
+	MemberId     *string `json:"member_id,omitempty"`
+	Name         *string `json:"name,omitempty"`
+	TenantKey    *string `json:"tenant_key,omitempty"`
 }
 
 // builder开始
 type ListMemberBuilder struct {
-	memberIdType  string
-	memberIdTypeFlag  bool
-	memberId  string
-	memberIdFlag  bool
-	name  string
-	nameFlag  bool
-	tenantKey  string
-	tenantKeyFlag  bool
+	memberIdType     string
+	memberIdTypeFlag bool
+	memberId         string
+	memberIdFlag     bool
+	name             string
+	nameFlag         bool
+	tenantKey        string
+	tenantKeyFlag    bool
 }
 
-func NewListMemberBuilder() * ListMemberBuilder{
-   builder := &ListMemberBuilder{}
-   return builder
+func NewListMemberBuilder() *ListMemberBuilder {
+	builder := &ListMemberBuilder{}
+	return builder
 }
 
+func (builder *ListMemberBuilder) MemberIdType(memberIdType string) *ListMemberBuilder {
+	builder.memberIdType = memberIdType
+	builder.memberIdTypeFlag = true
+	return builder
+}
+func (builder *ListMemberBuilder) MemberId(memberId string) *ListMemberBuilder {
+	builder.memberId = memberId
+	builder.memberIdFlag = true
+	return builder
+}
+func (builder *ListMemberBuilder) Name(name string) *ListMemberBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *ListMemberBuilder) TenantKey(tenantKey string) *ListMemberBuilder {
+	builder.tenantKey = tenantKey
+	builder.tenantKeyFlag = true
+	return builder
+}
 
-func (builder * ListMemberBuilder) MemberIdType(memberIdType string) *ListMemberBuilder  {
-  builder.memberIdType = memberIdType
-  builder.memberIdTypeFlag = true
-  return builder
-}
-func (builder * ListMemberBuilder) MemberId(memberId string) *ListMemberBuilder  {
-  builder.memberId = memberId
-  builder.memberIdFlag = true
-  return builder
-}
-func (builder * ListMemberBuilder) Name(name string) *ListMemberBuilder  {
-  builder.name = name
-  builder.nameFlag = true
-  return builder
-}
-func (builder * ListMemberBuilder) TenantKey(tenantKey string) *ListMemberBuilder  {
-  builder.tenantKey = tenantKey
-  builder.tenantKeyFlag = true
-  return builder
+func (builder *ListMemberBuilder) Build() *ListMember {
+	req := &ListMember{}
+	if builder.memberIdTypeFlag {
+		req.MemberIdType = &builder.memberIdType
+
+	}
+	if builder.memberIdFlag {
+		req.MemberId = &builder.memberId
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.tenantKeyFlag {
+		req.TenantKey = &builder.tenantKey
+
+	}
+	return req
 }
 
-func (builder * ListMemberBuilder ) Build() *ListMember {
-   req := &ListMember{}
-   if builder.memberIdTypeFlag {
-	  req.MemberIdType = &builder.memberIdType
-	  
-   }
-   if builder.memberIdFlag {
-	  req.MemberId = &builder.memberId
-	  
-   }
-   if builder.nameFlag {
-	  req.Name = &builder.name
-	  
-   }
-   if builder.tenantKeyFlag {
-	  req.TenantKey = &builder.tenantKey
-	  
-   }
-   return req
-}
 // builder结束
 
 type ListModerator struct {
-	UserIdType  *string `json:"user_id_type,omitempty"`
-	UserId  *string `json:"user_id,omitempty"`
+	UserIdType *string `json:"user_id_type,omitempty"`
+	UserId     *string `json:"user_id,omitempty"`
 	TenantKey  *string `json:"tenant_key,omitempty"`
 }
 
 // builder开始
 type ListModeratorBuilder struct {
-	userIdType  string
-	userIdTypeFlag  bool
-	userId  string
-	userIdFlag  bool
-	tenantKey  string
+	userIdType     string
+	userIdTypeFlag bool
+	userId         string
+	userIdFlag     bool
+	tenantKey      string
 	tenantKeyFlag  bool
 }
 
-func NewListModeratorBuilder() * ListModeratorBuilder{
-   builder := &ListModeratorBuilder{}
-   return builder
+func NewListModeratorBuilder() *ListModeratorBuilder {
+	builder := &ListModeratorBuilder{}
+	return builder
 }
 
+func (builder *ListModeratorBuilder) UserIdType(userIdType string) *ListModeratorBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
+}
+func (builder *ListModeratorBuilder) UserId(userId string) *ListModeratorBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *ListModeratorBuilder) TenantKey(tenantKey string) *ListModeratorBuilder {
+	builder.tenantKey = tenantKey
+	builder.tenantKeyFlag = true
+	return builder
+}
 
-func (builder * ListModeratorBuilder) UserIdType(userIdType string) *ListModeratorBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
-}
-func (builder * ListModeratorBuilder) UserId(userId string) *ListModeratorBuilder  {
-  builder.userId = userId
-  builder.userIdFlag = true
-  return builder
-}
-func (builder * ListModeratorBuilder) TenantKey(tenantKey string) *ListModeratorBuilder  {
-  builder.tenantKey = tenantKey
-  builder.tenantKeyFlag = true
-  return builder
+func (builder *ListModeratorBuilder) Build() *ListModerator {
+	req := &ListModerator{}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.tenantKeyFlag {
+		req.TenantKey = &builder.tenantKey
+
+	}
+	return req
 }
 
-func (builder * ListModeratorBuilder ) Build() *ListModerator {
-   req := &ListModerator{}
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-	  
-   }
-   if builder.userIdFlag {
-	  req.UserId = &builder.userId
-	  
-   }
-   if builder.tenantKeyFlag {
-	  req.TenantKey = &builder.tenantKey
-	  
-   }
-   return req
-}
 // builder结束
 
 type Mention struct {
-	Key  *string `json:"key,omitempty"`
-	Id  *string `json:"id,omitempty"`
-	IdType  *string `json:"id_type,omitempty"`
-	Name  *string `json:"name,omitempty"`
-	TenantKey  *string `json:"tenant_key,omitempty"`
+	Key       *string `json:"key,omitempty"`
+	Id        *string `json:"id,omitempty"`
+	IdType    *string `json:"id_type,omitempty"`
+	Name      *string `json:"name,omitempty"`
+	TenantKey *string `json:"tenant_key,omitempty"`
 }
 
 // builder开始
 type MentionBuilder struct {
-	key  string
-	keyFlag  bool
-	id  string
-	idFlag  bool
-	idType  string
-	idTypeFlag  bool
-	name  string
-	nameFlag  bool
-	tenantKey  string
-	tenantKeyFlag  bool
+	key           string
+	keyFlag       bool
+	id            string
+	idFlag        bool
+	idType        string
+	idTypeFlag    bool
+	name          string
+	nameFlag      bool
+	tenantKey     string
+	tenantKeyFlag bool
 }
 
-func NewMentionBuilder() * MentionBuilder{
-   builder := &MentionBuilder{}
-   return builder
+func NewMentionBuilder() *MentionBuilder {
+	builder := &MentionBuilder{}
+	return builder
 }
 
+func (builder *MentionBuilder) Key(key string) *MentionBuilder {
+	builder.key = key
+	builder.keyFlag = true
+	return builder
+}
+func (builder *MentionBuilder) Id(id string) *MentionBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *MentionBuilder) IdType(idType string) *MentionBuilder {
+	builder.idType = idType
+	builder.idTypeFlag = true
+	return builder
+}
+func (builder *MentionBuilder) Name(name string) *MentionBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *MentionBuilder) TenantKey(tenantKey string) *MentionBuilder {
+	builder.tenantKey = tenantKey
+	builder.tenantKeyFlag = true
+	return builder
+}
 
-func (builder * MentionBuilder) Key(key string) *MentionBuilder  {
-  builder.key = key
-  builder.keyFlag = true
-  return builder
-}
-func (builder * MentionBuilder) Id(id string) *MentionBuilder  {
-  builder.id = id
-  builder.idFlag = true
-  return builder
-}
-func (builder * MentionBuilder) IdType(idType string) *MentionBuilder  {
-  builder.idType = idType
-  builder.idTypeFlag = true
-  return builder
-}
-func (builder * MentionBuilder) Name(name string) *MentionBuilder  {
-  builder.name = name
-  builder.nameFlag = true
-  return builder
-}
-func (builder * MentionBuilder) TenantKey(tenantKey string) *MentionBuilder  {
-  builder.tenantKey = tenantKey
-  builder.tenantKeyFlag = true
-  return builder
+func (builder *MentionBuilder) Build() *Mention {
+	req := &Mention{}
+	if builder.keyFlag {
+		req.Key = &builder.key
+
+	}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.idTypeFlag {
+		req.IdType = &builder.idType
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.tenantKeyFlag {
+		req.TenantKey = &builder.tenantKey
+
+	}
+	return req
 }
 
-func (builder * MentionBuilder ) Build() *Mention {
-   req := &Mention{}
-   if builder.keyFlag {
-	  req.Key = &builder.key
-	  
-   }
-   if builder.idFlag {
-	  req.Id = &builder.id
-	  
-   }
-   if builder.idTypeFlag {
-	  req.IdType = &builder.idType
-	  
-   }
-   if builder.nameFlag {
-	  req.Name = &builder.name
-	  
-   }
-   if builder.tenantKeyFlag {
-	  req.TenantKey = &builder.tenantKey
-	  
-   }
-   return req
-}
 // builder结束
 
 type MentionEvent struct {
-	Key  *string `json:"key,omitempty"`
-	Id  *UserId `json:"id,omitempty"`
-	Name  *string `json:"name,omitempty"`
-	TenantKey  *string `json:"tenant_key,omitempty"`
+	Key       *string `json:"key,omitempty"`
+	Id        *UserId `json:"id,omitempty"`
+	Name      *string `json:"name,omitempty"`
+	TenantKey *string `json:"tenant_key,omitempty"`
 }
 
 // builder开始
 type MentionEventBuilder struct {
-	key  string
-	keyFlag  bool
-	id  *UserId
-	idFlag  bool
-	name  string
-	nameFlag  bool
-	tenantKey  string
-	tenantKeyFlag  bool
+	key           string
+	keyFlag       bool
+	id            *UserId
+	idFlag        bool
+	name          string
+	nameFlag      bool
+	tenantKey     string
+	tenantKeyFlag bool
 }
 
-func NewMentionEventBuilder() * MentionEventBuilder{
-   builder := &MentionEventBuilder{}
-   return builder
+func NewMentionEventBuilder() *MentionEventBuilder {
+	builder := &MentionEventBuilder{}
+	return builder
 }
 
+func (builder *MentionEventBuilder) Key(key string) *MentionEventBuilder {
+	builder.key = key
+	builder.keyFlag = true
+	return builder
+}
+func (builder *MentionEventBuilder) Id(id *UserId) *MentionEventBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *MentionEventBuilder) Name(name string) *MentionEventBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *MentionEventBuilder) TenantKey(tenantKey string) *MentionEventBuilder {
+	builder.tenantKey = tenantKey
+	builder.tenantKeyFlag = true
+	return builder
+}
 
-func (builder * MentionEventBuilder) Key(key string) *MentionEventBuilder  {
-  builder.key = key
-  builder.keyFlag = true
-  return builder
-}
-func (builder * MentionEventBuilder) Id(id *UserId) *MentionEventBuilder  {
-  builder.id = id
-  builder.idFlag = true
-  return builder
-}
-func (builder * MentionEventBuilder) Name(name string) *MentionEventBuilder  {
-  builder.name = name
-  builder.nameFlag = true
-  return builder
-}
-func (builder * MentionEventBuilder) TenantKey(tenantKey string) *MentionEventBuilder  {
-  builder.tenantKey = tenantKey
-  builder.tenantKeyFlag = true
-  return builder
+func (builder *MentionEventBuilder) Build() *MentionEvent {
+	req := &MentionEvent{}
+	if builder.keyFlag {
+		req.Key = &builder.key
+
+	}
+	if builder.idFlag {
+		req.Id = builder.id
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.tenantKeyFlag {
+		req.TenantKey = &builder.tenantKey
+
+	}
+	return req
 }
 
-func (builder * MentionEventBuilder ) Build() *MentionEvent {
-   req := &MentionEvent{}
-   if builder.keyFlag {
-	  req.Key = &builder.key
-	  
-   }
-   if builder.idFlag {
-	  req.Id = builder.id
-   }
-   if builder.nameFlag {
-	  req.Name = &builder.name
-	  
-   }
-   if builder.tenantKeyFlag {
-	  req.TenantKey = &builder.tenantKey
-	  
-   }
-   return req
-}
 // builder结束
 
 type Message struct {
-	MessageId  *string `json:"message_id,omitempty"`
-	RootId  *string `json:"root_id,omitempty"`
-	ParentId  *string `json:"parent_id,omitempty"`
-	MsgType  *string `json:"msg_type,omitempty"`
-	CreateTime  *int64 `json:"create_time,omitempty,string"`
-	UpdateTime  *int64 `json:"update_time,omitempty,string"`
-	Deleted  *bool `json:"deleted,omitempty"`
-	Updated  *bool `json:"updated,omitempty"`
-	ChatId  *string `json:"chat_id,omitempty"`
-	Sender  *Sender `json:"sender,omitempty"`
-	Body  *MessageBody `json:"body,omitempty"`
-	Mentions  []*Mention `json:"mentions,omitempty"`
-	UpperMessageId  *string `json:"upper_message_id,omitempty"`
+	MessageId      *string      `json:"message_id,omitempty"`
+	RootId         *string      `json:"root_id,omitempty"`
+	ParentId       *string      `json:"parent_id,omitempty"`
+	MsgType        *string      `json:"msg_type,omitempty"`
+	CreateTime     *int64       `json:"create_time,omitempty,string"`
+	UpdateTime     *int64       `json:"update_time,omitempty,string"`
+	Deleted        *bool        `json:"deleted,omitempty"`
+	Updated        *bool        `json:"updated,omitempty"`
+	ChatId         *string      `json:"chat_id,omitempty"`
+	Sender         *Sender      `json:"sender,omitempty"`
+	Body           *MessageBody `json:"body,omitempty"`
+	Mentions       []*Mention   `json:"mentions,omitempty"`
+	UpperMessageId *string      `json:"upper_message_id,omitempty"`
 }
 
 // builder开始
 type MessageBuilder struct {
-	messageId  string
-	messageIdFlag  bool
-	rootId  string
-	rootIdFlag  bool
-	parentId  string
-	parentIdFlag  bool
-	msgType  string
-	msgTypeFlag  bool
-	createTime  int64
-	createTimeFlag  bool
-	updateTime  int64
-	updateTimeFlag  bool
-	deleted  bool
-	deletedFlag  bool
-	updated  bool
-	updatedFlag  bool
-	chatId  string
-	chatIdFlag  bool
-	sender  *Sender
-	senderFlag  bool
-	body  *MessageBody
-	bodyFlag  bool
-	mentions  []*Mention
-	mentionsFlag  bool
-	upperMessageId  string
-	upperMessageIdFlag  bool
+	messageId          string
+	messageIdFlag      bool
+	rootId             string
+	rootIdFlag         bool
+	parentId           string
+	parentIdFlag       bool
+	msgType            string
+	msgTypeFlag        bool
+	createTime         int64
+	createTimeFlag     bool
+	updateTime         int64
+	updateTimeFlag     bool
+	deleted            bool
+	deletedFlag        bool
+	updated            bool
+	updatedFlag        bool
+	chatId             string
+	chatIdFlag         bool
+	sender             *Sender
+	senderFlag         bool
+	body               *MessageBody
+	bodyFlag           bool
+	mentions           []*Mention
+	mentionsFlag       bool
+	upperMessageId     string
+	upperMessageIdFlag bool
 }
 
-func NewMessageBuilder() * MessageBuilder{
-   builder := &MessageBuilder{}
-   return builder
+func NewMessageBuilder() *MessageBuilder {
+	builder := &MessageBuilder{}
+	return builder
 }
 
+func (builder *MessageBuilder) MessageId(messageId string) *MessageBuilder {
+	builder.messageId = messageId
+	builder.messageIdFlag = true
+	return builder
+}
+func (builder *MessageBuilder) RootId(rootId string) *MessageBuilder {
+	builder.rootId = rootId
+	builder.rootIdFlag = true
+	return builder
+}
+func (builder *MessageBuilder) ParentId(parentId string) *MessageBuilder {
+	builder.parentId = parentId
+	builder.parentIdFlag = true
+	return builder
+}
+func (builder *MessageBuilder) MsgType(msgType string) *MessageBuilder {
+	builder.msgType = msgType
+	builder.msgTypeFlag = true
+	return builder
+}
+func (builder *MessageBuilder) CreateTime(createTime int64) *MessageBuilder {
+	builder.createTime = createTime
+	builder.createTimeFlag = true
+	return builder
+}
+func (builder *MessageBuilder) UpdateTime(updateTime int64) *MessageBuilder {
+	builder.updateTime = updateTime
+	builder.updateTimeFlag = true
+	return builder
+}
+func (builder *MessageBuilder) Deleted(deleted bool) *MessageBuilder {
+	builder.deleted = deleted
+	builder.deletedFlag = true
+	return builder
+}
+func (builder *MessageBuilder) Updated(updated bool) *MessageBuilder {
+	builder.updated = updated
+	builder.updatedFlag = true
+	return builder
+}
+func (builder *MessageBuilder) ChatId(chatId string) *MessageBuilder {
+	builder.chatId = chatId
+	builder.chatIdFlag = true
+	return builder
+}
+func (builder *MessageBuilder) Sender(sender *Sender) *MessageBuilder {
+	builder.sender = sender
+	builder.senderFlag = true
+	return builder
+}
+func (builder *MessageBuilder) Body(body *MessageBody) *MessageBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
+}
+func (builder *MessageBuilder) Mentions(mentions []*Mention) *MessageBuilder {
+	builder.mentions = mentions
+	builder.mentionsFlag = true
+	return builder
+}
+func (builder *MessageBuilder) UpperMessageId(upperMessageId string) *MessageBuilder {
+	builder.upperMessageId = upperMessageId
+	builder.upperMessageIdFlag = true
+	return builder
+}
 
-func (builder * MessageBuilder) MessageId(messageId string) *MessageBuilder  {
-  builder.messageId = messageId
-  builder.messageIdFlag = true
-  return builder
-}
-func (builder * MessageBuilder) RootId(rootId string) *MessageBuilder  {
-  builder.rootId = rootId
-  builder.rootIdFlag = true
-  return builder
-}
-func (builder * MessageBuilder) ParentId(parentId string) *MessageBuilder  {
-  builder.parentId = parentId
-  builder.parentIdFlag = true
-  return builder
-}
-func (builder * MessageBuilder) MsgType(msgType string) *MessageBuilder  {
-  builder.msgType = msgType
-  builder.msgTypeFlag = true
-  return builder
-}
-func (builder * MessageBuilder) CreateTime(createTime int64) *MessageBuilder  {
-  builder.createTime = createTime
-  builder.createTimeFlag = true
-  return builder
-}
-func (builder * MessageBuilder) UpdateTime(updateTime int64) *MessageBuilder  {
-  builder.updateTime = updateTime
-  builder.updateTimeFlag = true
-  return builder
-}
-func (builder * MessageBuilder) Deleted(deleted bool) *MessageBuilder  {
-  builder.deleted = deleted
-  builder.deletedFlag = true
-  return builder
-}
-func (builder * MessageBuilder) Updated(updated bool) *MessageBuilder  {
-  builder.updated = updated
-  builder.updatedFlag = true
-  return builder
-}
-func (builder * MessageBuilder) ChatId(chatId string) *MessageBuilder  {
-  builder.chatId = chatId
-  builder.chatIdFlag = true
-  return builder
-}
-func (builder * MessageBuilder) Sender(sender *Sender) *MessageBuilder  {
-  builder.sender = sender
-  builder.senderFlag = true
-  return builder
-}
-func (builder * MessageBuilder) Body(body *MessageBody) *MessageBuilder  {
-  builder.body = body
-  builder.bodyFlag = true
-  return builder
-}
-func (builder * MessageBuilder) Mentions(mentions []*Mention) *MessageBuilder  {
-  builder.mentions = mentions
-  builder.mentionsFlag = true
-  return builder
-}
-func (builder * MessageBuilder) UpperMessageId(upperMessageId string) *MessageBuilder  {
-  builder.upperMessageId = upperMessageId
-  builder.upperMessageIdFlag = true
-  return builder
+func (builder *MessageBuilder) Build() *Message {
+	req := &Message{}
+	if builder.messageIdFlag {
+		req.MessageId = &builder.messageId
+
+	}
+	if builder.rootIdFlag {
+		req.RootId = &builder.rootId
+
+	}
+	if builder.parentIdFlag {
+		req.ParentId = &builder.parentId
+
+	}
+	if builder.msgTypeFlag {
+		req.MsgType = &builder.msgType
+
+	}
+	if builder.createTimeFlag {
+		req.CreateTime = &builder.createTime
+
+	}
+	if builder.updateTimeFlag {
+		req.UpdateTime = &builder.updateTime
+
+	}
+	if builder.deletedFlag {
+		req.Deleted = &builder.deleted
+
+	}
+	if builder.updatedFlag {
+		req.Updated = &builder.updated
+
+	}
+	if builder.chatIdFlag {
+		req.ChatId = &builder.chatId
+
+	}
+	if builder.senderFlag {
+		req.Sender = builder.sender
+	}
+	if builder.bodyFlag {
+		req.Body = builder.body
+	}
+	if builder.mentionsFlag {
+		req.Mentions = builder.mentions
+	}
+	if builder.upperMessageIdFlag {
+		req.UpperMessageId = &builder.upperMessageId
+
+	}
+	return req
 }
 
-func (builder * MessageBuilder ) Build() *Message {
-   req := &Message{}
-   if builder.messageIdFlag {
-	  req.MessageId = &builder.messageId
-	  
-   }
-   if builder.rootIdFlag {
-	  req.RootId = &builder.rootId
-	  
-   }
-   if builder.parentIdFlag {
-	  req.ParentId = &builder.parentId
-	  
-   }
-   if builder.msgTypeFlag {
-	  req.MsgType = &builder.msgType
-	  
-   }
-   if builder.createTimeFlag {
-	  req.CreateTime = &builder.createTime
-	  
-   }
-   if builder.updateTimeFlag {
-	  req.UpdateTime = &builder.updateTime
-	  
-   }
-   if builder.deletedFlag {
-	  req.Deleted = &builder.deleted
-	  
-   }
-   if builder.updatedFlag {
-	  req.Updated = &builder.updated
-	  
-   }
-   if builder.chatIdFlag {
-	  req.ChatId = &builder.chatId
-	  
-   }
-   if builder.senderFlag {
-	  req.Sender = builder.sender
-   }
-   if builder.bodyFlag {
-	  req.Body = builder.body
-   }
-   if builder.mentionsFlag {
-	  req.Mentions = builder.mentions
-   }
-   if builder.upperMessageIdFlag {
-	  req.UpperMessageId = &builder.upperMessageId
-	  
-   }
-   return req
-}
 // builder结束
 
 type MessageReaction struct {
-	ReactionId  *string `json:"reaction_id,omitempty"`
-	Operator  *Operator `json:"operator,omitempty"`
-	ActionTime  *int64 `json:"action_time,omitempty,string"`
-	ReactionType  *Emoji `json:"reaction_type,omitempty"`
+	ReactionId   *string   `json:"reaction_id,omitempty"`
+	Operator     *Operator `json:"operator,omitempty"`
+	ActionTime   *int64    `json:"action_time,omitempty,string"`
+	ReactionType *Emoji    `json:"reaction_type,omitempty"`
 }
 
 // builder开始
 type MessageReactionBuilder struct {
-	reactionId  string
-	reactionIdFlag  bool
-	operator  *Operator
-	operatorFlag  bool
-	actionTime  int64
-	actionTimeFlag  bool
-	reactionType  *Emoji
-	reactionTypeFlag  bool
+	reactionId       string
+	reactionIdFlag   bool
+	operator         *Operator
+	operatorFlag     bool
+	actionTime       int64
+	actionTimeFlag   bool
+	reactionType     *Emoji
+	reactionTypeFlag bool
 }
 
-func NewMessageReactionBuilder() * MessageReactionBuilder{
-   builder := &MessageReactionBuilder{}
-   return builder
+func NewMessageReactionBuilder() *MessageReactionBuilder {
+	builder := &MessageReactionBuilder{}
+	return builder
 }
 
+func (builder *MessageReactionBuilder) ReactionId(reactionId string) *MessageReactionBuilder {
+	builder.reactionId = reactionId
+	builder.reactionIdFlag = true
+	return builder
+}
+func (builder *MessageReactionBuilder) Operator(operator *Operator) *MessageReactionBuilder {
+	builder.operator = operator
+	builder.operatorFlag = true
+	return builder
+}
+func (builder *MessageReactionBuilder) ActionTime(actionTime int64) *MessageReactionBuilder {
+	builder.actionTime = actionTime
+	builder.actionTimeFlag = true
+	return builder
+}
+func (builder *MessageReactionBuilder) ReactionType(reactionType *Emoji) *MessageReactionBuilder {
+	builder.reactionType = reactionType
+	builder.reactionTypeFlag = true
+	return builder
+}
 
-func (builder * MessageReactionBuilder) ReactionId(reactionId string) *MessageReactionBuilder  {
-  builder.reactionId = reactionId
-  builder.reactionIdFlag = true
-  return builder
-}
-func (builder * MessageReactionBuilder) Operator(operator *Operator) *MessageReactionBuilder  {
-  builder.operator = operator
-  builder.operatorFlag = true
-  return builder
-}
-func (builder * MessageReactionBuilder) ActionTime(actionTime int64) *MessageReactionBuilder  {
-  builder.actionTime = actionTime
-  builder.actionTimeFlag = true
-  return builder
-}
-func (builder * MessageReactionBuilder) ReactionType(reactionType *Emoji) *MessageReactionBuilder  {
-  builder.reactionType = reactionType
-  builder.reactionTypeFlag = true
-  return builder
+func (builder *MessageReactionBuilder) Build() *MessageReaction {
+	req := &MessageReaction{}
+	if builder.reactionIdFlag {
+		req.ReactionId = &builder.reactionId
+
+	}
+	if builder.operatorFlag {
+		req.Operator = builder.operator
+	}
+	if builder.actionTimeFlag {
+		req.ActionTime = &builder.actionTime
+
+	}
+	if builder.reactionTypeFlag {
+		req.ReactionType = builder.reactionType
+	}
+	return req
 }
 
-func (builder * MessageReactionBuilder ) Build() *MessageReaction {
-   req := &MessageReaction{}
-   if builder.reactionIdFlag {
-	  req.ReactionId = &builder.reactionId
-	  
-   }
-   if builder.operatorFlag {
-	  req.Operator = builder.operator
-   }
-   if builder.actionTimeFlag {
-	  req.ActionTime = &builder.actionTime
-	  
-   }
-   if builder.reactionTypeFlag {
-	  req.ReactionType = builder.reactionType
-   }
-   return req
-}
 // builder结束
 
 type MessageResource struct {
@@ -2355,733 +2332,727 @@ type MessageResource struct {
 // builder结束
 
 type MessageBody struct {
-	Content  *string `json:"content,omitempty"`
+	Content *string `json:"content,omitempty"`
 }
 
 // builder开始
 type MessageBodyBuilder struct {
-	content  string
-	contentFlag  bool
+	content     string
+	contentFlag bool
 }
 
-func NewMessageBodyBuilder() * MessageBodyBuilder{
-   builder := &MessageBodyBuilder{}
-   return builder
+func NewMessageBodyBuilder() *MessageBodyBuilder {
+	builder := &MessageBodyBuilder{}
+	return builder
 }
 
-
-func (builder * MessageBodyBuilder) Content(content string) *MessageBodyBuilder  {
-  builder.content = content
-  builder.contentFlag = true
-  return builder
+func (builder *MessageBodyBuilder) Content(content string) *MessageBodyBuilder {
+	builder.content = content
+	builder.contentFlag = true
+	return builder
 }
 
-func (builder * MessageBodyBuilder ) Build() *MessageBody {
-   req := &MessageBody{}
-   if builder.contentFlag {
-	  req.Content = &builder.content
-	  
-   }
-   return req
+func (builder *MessageBodyBuilder) Build() *MessageBody {
+	req := &MessageBody{}
+	if builder.contentFlag {
+		req.Content = &builder.content
+
+	}
+	return req
 }
+
 // builder结束
 
 type ModeratorList struct {
-	AddedMemberList  []*ListEventModerator `json:"added_member_list,omitempty"`
-	RemovedMemberList  []*ListEventModerator `json:"removed_member_list,omitempty"`
+	AddedMemberList   []*ListEventModerator `json:"added_member_list,omitempty"`
+	RemovedMemberList []*ListEventModerator `json:"removed_member_list,omitempty"`
 }
 
 // builder开始
 type ModeratorListBuilder struct {
-	addedMemberList  []*ListEventModerator
-	addedMemberListFlag  bool
-	removedMemberList  []*ListEventModerator
-	removedMemberListFlag  bool
+	addedMemberList       []*ListEventModerator
+	addedMemberListFlag   bool
+	removedMemberList     []*ListEventModerator
+	removedMemberListFlag bool
 }
 
-func NewModeratorListBuilder() * ModeratorListBuilder{
-   builder := &ModeratorListBuilder{}
-   return builder
+func NewModeratorListBuilder() *ModeratorListBuilder {
+	builder := &ModeratorListBuilder{}
+	return builder
 }
 
+func (builder *ModeratorListBuilder) AddedMemberList(addedMemberList []*ListEventModerator) *ModeratorListBuilder {
+	builder.addedMemberList = addedMemberList
+	builder.addedMemberListFlag = true
+	return builder
+}
+func (builder *ModeratorListBuilder) RemovedMemberList(removedMemberList []*ListEventModerator) *ModeratorListBuilder {
+	builder.removedMemberList = removedMemberList
+	builder.removedMemberListFlag = true
+	return builder
+}
 
-func (builder * ModeratorListBuilder) AddedMemberList(addedMemberList []*ListEventModerator) *ModeratorListBuilder  {
-  builder.addedMemberList = addedMemberList
-  builder.addedMemberListFlag = true
-  return builder
-}
-func (builder * ModeratorListBuilder) RemovedMemberList(removedMemberList []*ListEventModerator) *ModeratorListBuilder  {
-  builder.removedMemberList = removedMemberList
-  builder.removedMemberListFlag = true
-  return builder
+func (builder *ModeratorListBuilder) Build() *ModeratorList {
+	req := &ModeratorList{}
+	if builder.addedMemberListFlag {
+		req.AddedMemberList = builder.addedMemberList
+	}
+	if builder.removedMemberListFlag {
+		req.RemovedMemberList = builder.removedMemberList
+	}
+	return req
 }
 
-func (builder * ModeratorListBuilder ) Build() *ModeratorList {
-   req := &ModeratorList{}
-   if builder.addedMemberListFlag {
-	  req.AddedMemberList = builder.addedMemberList
-   }
-   if builder.removedMemberListFlag {
-	  req.RemovedMemberList = builder.removedMemberList
-   }
-   return req
-}
 // builder结束
 
 type MsgProcessData struct {
-	PDate  *string `json:"p_date,omitempty"`
-	DepartmentId  *string `json:"department_id,omitempty"`
-	DepartmentPath  *string `json:"department_path,omitempty"`
-	AvgImpMsgReadRate12h  *float64 `json:"avg_imp_msg_read_rate_12h,omitempty"`
-	MsgReadRate12h  *float64 `json:"msg_read_rate_12h,omitempty"`
-	AvgReceiveMsgCnt  *float64 `json:"avg_receive_msg_cnt,omitempty"`
-	AvgReadMsgCnt  *float64 `json:"avg_read_msg_cnt,omitempty"`
-	AvgImpReadMsgCnt  *float64 `json:"avg_imp_read_msg_cnt,omitempty"`
-	AvgImpReceiveMsgCnt  *float64 `json:"avg_imp_receive_msg_cnt,omitempty"`
-	HighLoadRate  *float64 `json:"high_load_rate,omitempty"`
-	BigGroupMsgRate  *float64 `json:"big_group_msg_rate,omitempty"`
-	BigGroupTopicMsgRate  *float64 `json:"big_group_topic_msg_rate,omitempty"`
-	AvgReceiveBotMsgCnt  *float64 `json:"avg_receive_bot_msg_cnt,omitempty"`
-	AvgBotImpMsgReadRate12h  *float64 `json:"avg_bot_imp_msg_read_rate_12h,omitempty"`
-	ReceiveBotMsgRate  *float64 `json:"receive_bot_msg_rate,omitempty"`
-	UseChatBoxRate  *float64 `json:"use_chat_box_rate,omitempty"`
-	ReceiveMuteMsgRate  *float64 `json:"receive_mute_msg_rate,omitempty"`
-	ReadMuteMsgRate  *float64 `json:"read_mute_msg_rate,omitempty"`
-	AvgReceiveImpMsgChatCnt  *float64 `json:"avg_receive_imp_msg_chat_cnt,omitempty"`
+	PDate                   *string  `json:"p_date,omitempty"`
+	DepartmentId            *string  `json:"department_id,omitempty"`
+	DepartmentPath          *string  `json:"department_path,omitempty"`
+	AvgImpMsgReadRate12h    *float64 `json:"avg_imp_msg_read_rate_12h,omitempty"`
+	MsgReadRate12h          *float64 `json:"msg_read_rate_12h,omitempty"`
+	AvgReceiveMsgCnt        *float64 `json:"avg_receive_msg_cnt,omitempty"`
+	AvgReadMsgCnt           *float64 `json:"avg_read_msg_cnt,omitempty"`
+	AvgImpReadMsgCnt        *float64 `json:"avg_imp_read_msg_cnt,omitempty"`
+	AvgImpReceiveMsgCnt     *float64 `json:"avg_imp_receive_msg_cnt,omitempty"`
+	HighLoadRate            *float64 `json:"high_load_rate,omitempty"`
+	BigGroupMsgRate         *float64 `json:"big_group_msg_rate,omitempty"`
+	BigGroupTopicMsgRate    *float64 `json:"big_group_topic_msg_rate,omitempty"`
+	AvgReceiveBotMsgCnt     *float64 `json:"avg_receive_bot_msg_cnt,omitempty"`
+	AvgBotImpMsgReadRate12h *float64 `json:"avg_bot_imp_msg_read_rate_12h,omitempty"`
+	ReceiveBotMsgRate       *float64 `json:"receive_bot_msg_rate,omitempty"`
+	UseChatBoxRate          *float64 `json:"use_chat_box_rate,omitempty"`
+	ReceiveMuteMsgRate      *float64 `json:"receive_mute_msg_rate,omitempty"`
+	ReadMuteMsgRate         *float64 `json:"read_mute_msg_rate,omitempty"`
+	AvgReceiveImpMsgChatCnt *float64 `json:"avg_receive_imp_msg_chat_cnt,omitempty"`
 }
 
 // builder开始
 type MsgProcessDataBuilder struct {
-	pDate  string
-	pDateFlag  bool
-	departmentId  string
-	departmentIdFlag  bool
-	departmentPath  string
-	departmentPathFlag  bool
-	avgImpMsgReadRate12h  float64
-	avgImpMsgReadRate12hFlag  bool
-	msgReadRate12h  float64
-	msgReadRate12hFlag  bool
-	avgReceiveMsgCnt  float64
-	avgReceiveMsgCntFlag  bool
-	avgReadMsgCnt  float64
-	avgReadMsgCntFlag  bool
-	avgImpReadMsgCnt  float64
-	avgImpReadMsgCntFlag  bool
-	avgImpReceiveMsgCnt  float64
-	avgImpReceiveMsgCntFlag  bool
-	highLoadRate  float64
-	highLoadRateFlag  bool
-	bigGroupMsgRate  float64
-	bigGroupMsgRateFlag  bool
-	bigGroupTopicMsgRate  float64
-	bigGroupTopicMsgRateFlag  bool
-	avgReceiveBotMsgCnt  float64
-	avgReceiveBotMsgCntFlag  bool
-	avgBotImpMsgReadRate12h  float64
-	avgBotImpMsgReadRate12hFlag  bool
-	receiveBotMsgRate  float64
-	receiveBotMsgRateFlag  bool
-	useChatBoxRate  float64
-	useChatBoxRateFlag  bool
-	receiveMuteMsgRate  float64
-	receiveMuteMsgRateFlag  bool
-	readMuteMsgRate  float64
-	readMuteMsgRateFlag  bool
-	avgReceiveImpMsgChatCnt  float64
-	avgReceiveImpMsgChatCntFlag  bool
+	pDate                       string
+	pDateFlag                   bool
+	departmentId                string
+	departmentIdFlag            bool
+	departmentPath              string
+	departmentPathFlag          bool
+	avgImpMsgReadRate12h        float64
+	avgImpMsgReadRate12hFlag    bool
+	msgReadRate12h              float64
+	msgReadRate12hFlag          bool
+	avgReceiveMsgCnt            float64
+	avgReceiveMsgCntFlag        bool
+	avgReadMsgCnt               float64
+	avgReadMsgCntFlag           bool
+	avgImpReadMsgCnt            float64
+	avgImpReadMsgCntFlag        bool
+	avgImpReceiveMsgCnt         float64
+	avgImpReceiveMsgCntFlag     bool
+	highLoadRate                float64
+	highLoadRateFlag            bool
+	bigGroupMsgRate             float64
+	bigGroupMsgRateFlag         bool
+	bigGroupTopicMsgRate        float64
+	bigGroupTopicMsgRateFlag    bool
+	avgReceiveBotMsgCnt         float64
+	avgReceiveBotMsgCntFlag     bool
+	avgBotImpMsgReadRate12h     float64
+	avgBotImpMsgReadRate12hFlag bool
+	receiveBotMsgRate           float64
+	receiveBotMsgRateFlag       bool
+	useChatBoxRate              float64
+	useChatBoxRateFlag          bool
+	receiveMuteMsgRate          float64
+	receiveMuteMsgRateFlag      bool
+	readMuteMsgRate             float64
+	readMuteMsgRateFlag         bool
+	avgReceiveImpMsgChatCnt     float64
+	avgReceiveImpMsgChatCntFlag bool
 }
 
-func NewMsgProcessDataBuilder() * MsgProcessDataBuilder{
-   builder := &MsgProcessDataBuilder{}
-   return builder
+func NewMsgProcessDataBuilder() *MsgProcessDataBuilder {
+	builder := &MsgProcessDataBuilder{}
+	return builder
 }
 
+func (builder *MsgProcessDataBuilder) PDate(pDate string) *MsgProcessDataBuilder {
+	builder.pDate = pDate
+	builder.pDateFlag = true
+	return builder
+}
+func (builder *MsgProcessDataBuilder) DepartmentId(departmentId string) *MsgProcessDataBuilder {
+	builder.departmentId = departmentId
+	builder.departmentIdFlag = true
+	return builder
+}
+func (builder *MsgProcessDataBuilder) DepartmentPath(departmentPath string) *MsgProcessDataBuilder {
+	builder.departmentPath = departmentPath
+	builder.departmentPathFlag = true
+	return builder
+}
+func (builder *MsgProcessDataBuilder) AvgImpMsgReadRate12h(avgImpMsgReadRate12h float64) *MsgProcessDataBuilder {
+	builder.avgImpMsgReadRate12h = avgImpMsgReadRate12h
+	builder.avgImpMsgReadRate12hFlag = true
+	return builder
+}
+func (builder *MsgProcessDataBuilder) MsgReadRate12h(msgReadRate12h float64) *MsgProcessDataBuilder {
+	builder.msgReadRate12h = msgReadRate12h
+	builder.msgReadRate12hFlag = true
+	return builder
+}
+func (builder *MsgProcessDataBuilder) AvgReceiveMsgCnt(avgReceiveMsgCnt float64) *MsgProcessDataBuilder {
+	builder.avgReceiveMsgCnt = avgReceiveMsgCnt
+	builder.avgReceiveMsgCntFlag = true
+	return builder
+}
+func (builder *MsgProcessDataBuilder) AvgReadMsgCnt(avgReadMsgCnt float64) *MsgProcessDataBuilder {
+	builder.avgReadMsgCnt = avgReadMsgCnt
+	builder.avgReadMsgCntFlag = true
+	return builder
+}
+func (builder *MsgProcessDataBuilder) AvgImpReadMsgCnt(avgImpReadMsgCnt float64) *MsgProcessDataBuilder {
+	builder.avgImpReadMsgCnt = avgImpReadMsgCnt
+	builder.avgImpReadMsgCntFlag = true
+	return builder
+}
+func (builder *MsgProcessDataBuilder) AvgImpReceiveMsgCnt(avgImpReceiveMsgCnt float64) *MsgProcessDataBuilder {
+	builder.avgImpReceiveMsgCnt = avgImpReceiveMsgCnt
+	builder.avgImpReceiveMsgCntFlag = true
+	return builder
+}
+func (builder *MsgProcessDataBuilder) HighLoadRate(highLoadRate float64) *MsgProcessDataBuilder {
+	builder.highLoadRate = highLoadRate
+	builder.highLoadRateFlag = true
+	return builder
+}
+func (builder *MsgProcessDataBuilder) BigGroupMsgRate(bigGroupMsgRate float64) *MsgProcessDataBuilder {
+	builder.bigGroupMsgRate = bigGroupMsgRate
+	builder.bigGroupMsgRateFlag = true
+	return builder
+}
+func (builder *MsgProcessDataBuilder) BigGroupTopicMsgRate(bigGroupTopicMsgRate float64) *MsgProcessDataBuilder {
+	builder.bigGroupTopicMsgRate = bigGroupTopicMsgRate
+	builder.bigGroupTopicMsgRateFlag = true
+	return builder
+}
+func (builder *MsgProcessDataBuilder) AvgReceiveBotMsgCnt(avgReceiveBotMsgCnt float64) *MsgProcessDataBuilder {
+	builder.avgReceiveBotMsgCnt = avgReceiveBotMsgCnt
+	builder.avgReceiveBotMsgCntFlag = true
+	return builder
+}
+func (builder *MsgProcessDataBuilder) AvgBotImpMsgReadRate12h(avgBotImpMsgReadRate12h float64) *MsgProcessDataBuilder {
+	builder.avgBotImpMsgReadRate12h = avgBotImpMsgReadRate12h
+	builder.avgBotImpMsgReadRate12hFlag = true
+	return builder
+}
+func (builder *MsgProcessDataBuilder) ReceiveBotMsgRate(receiveBotMsgRate float64) *MsgProcessDataBuilder {
+	builder.receiveBotMsgRate = receiveBotMsgRate
+	builder.receiveBotMsgRateFlag = true
+	return builder
+}
+func (builder *MsgProcessDataBuilder) UseChatBoxRate(useChatBoxRate float64) *MsgProcessDataBuilder {
+	builder.useChatBoxRate = useChatBoxRate
+	builder.useChatBoxRateFlag = true
+	return builder
+}
+func (builder *MsgProcessDataBuilder) ReceiveMuteMsgRate(receiveMuteMsgRate float64) *MsgProcessDataBuilder {
+	builder.receiveMuteMsgRate = receiveMuteMsgRate
+	builder.receiveMuteMsgRateFlag = true
+	return builder
+}
+func (builder *MsgProcessDataBuilder) ReadMuteMsgRate(readMuteMsgRate float64) *MsgProcessDataBuilder {
+	builder.readMuteMsgRate = readMuteMsgRate
+	builder.readMuteMsgRateFlag = true
+	return builder
+}
+func (builder *MsgProcessDataBuilder) AvgReceiveImpMsgChatCnt(avgReceiveImpMsgChatCnt float64) *MsgProcessDataBuilder {
+	builder.avgReceiveImpMsgChatCnt = avgReceiveImpMsgChatCnt
+	builder.avgReceiveImpMsgChatCntFlag = true
+	return builder
+}
 
-func (builder * MsgProcessDataBuilder) PDate(pDate string) *MsgProcessDataBuilder  {
-  builder.pDate = pDate
-  builder.pDateFlag = true
-  return builder
-}
-func (builder * MsgProcessDataBuilder) DepartmentId(departmentId string) *MsgProcessDataBuilder  {
-  builder.departmentId = departmentId
-  builder.departmentIdFlag = true
-  return builder
-}
-func (builder * MsgProcessDataBuilder) DepartmentPath(departmentPath string) *MsgProcessDataBuilder  {
-  builder.departmentPath = departmentPath
-  builder.departmentPathFlag = true
-  return builder
-}
-func (builder * MsgProcessDataBuilder) AvgImpMsgReadRate12h(avgImpMsgReadRate12h float64) *MsgProcessDataBuilder  {
-  builder.avgImpMsgReadRate12h = avgImpMsgReadRate12h
-  builder.avgImpMsgReadRate12hFlag = true
-  return builder
-}
-func (builder * MsgProcessDataBuilder) MsgReadRate12h(msgReadRate12h float64) *MsgProcessDataBuilder  {
-  builder.msgReadRate12h = msgReadRate12h
-  builder.msgReadRate12hFlag = true
-  return builder
-}
-func (builder * MsgProcessDataBuilder) AvgReceiveMsgCnt(avgReceiveMsgCnt float64) *MsgProcessDataBuilder  {
-  builder.avgReceiveMsgCnt = avgReceiveMsgCnt
-  builder.avgReceiveMsgCntFlag = true
-  return builder
-}
-func (builder * MsgProcessDataBuilder) AvgReadMsgCnt(avgReadMsgCnt float64) *MsgProcessDataBuilder  {
-  builder.avgReadMsgCnt = avgReadMsgCnt
-  builder.avgReadMsgCntFlag = true
-  return builder
-}
-func (builder * MsgProcessDataBuilder) AvgImpReadMsgCnt(avgImpReadMsgCnt float64) *MsgProcessDataBuilder  {
-  builder.avgImpReadMsgCnt = avgImpReadMsgCnt
-  builder.avgImpReadMsgCntFlag = true
-  return builder
-}
-func (builder * MsgProcessDataBuilder) AvgImpReceiveMsgCnt(avgImpReceiveMsgCnt float64) *MsgProcessDataBuilder  {
-  builder.avgImpReceiveMsgCnt = avgImpReceiveMsgCnt
-  builder.avgImpReceiveMsgCntFlag = true
-  return builder
-}
-func (builder * MsgProcessDataBuilder) HighLoadRate(highLoadRate float64) *MsgProcessDataBuilder  {
-  builder.highLoadRate = highLoadRate
-  builder.highLoadRateFlag = true
-  return builder
-}
-func (builder * MsgProcessDataBuilder) BigGroupMsgRate(bigGroupMsgRate float64) *MsgProcessDataBuilder  {
-  builder.bigGroupMsgRate = bigGroupMsgRate
-  builder.bigGroupMsgRateFlag = true
-  return builder
-}
-func (builder * MsgProcessDataBuilder) BigGroupTopicMsgRate(bigGroupTopicMsgRate float64) *MsgProcessDataBuilder  {
-  builder.bigGroupTopicMsgRate = bigGroupTopicMsgRate
-  builder.bigGroupTopicMsgRateFlag = true
-  return builder
-}
-func (builder * MsgProcessDataBuilder) AvgReceiveBotMsgCnt(avgReceiveBotMsgCnt float64) *MsgProcessDataBuilder  {
-  builder.avgReceiveBotMsgCnt = avgReceiveBotMsgCnt
-  builder.avgReceiveBotMsgCntFlag = true
-  return builder
-}
-func (builder * MsgProcessDataBuilder) AvgBotImpMsgReadRate12h(avgBotImpMsgReadRate12h float64) *MsgProcessDataBuilder  {
-  builder.avgBotImpMsgReadRate12h = avgBotImpMsgReadRate12h
-  builder.avgBotImpMsgReadRate12hFlag = true
-  return builder
-}
-func (builder * MsgProcessDataBuilder) ReceiveBotMsgRate(receiveBotMsgRate float64) *MsgProcessDataBuilder  {
-  builder.receiveBotMsgRate = receiveBotMsgRate
-  builder.receiveBotMsgRateFlag = true
-  return builder
-}
-func (builder * MsgProcessDataBuilder) UseChatBoxRate(useChatBoxRate float64) *MsgProcessDataBuilder  {
-  builder.useChatBoxRate = useChatBoxRate
-  builder.useChatBoxRateFlag = true
-  return builder
-}
-func (builder * MsgProcessDataBuilder) ReceiveMuteMsgRate(receiveMuteMsgRate float64) *MsgProcessDataBuilder  {
-  builder.receiveMuteMsgRate = receiveMuteMsgRate
-  builder.receiveMuteMsgRateFlag = true
-  return builder
-}
-func (builder * MsgProcessDataBuilder) ReadMuteMsgRate(readMuteMsgRate float64) *MsgProcessDataBuilder  {
-  builder.readMuteMsgRate = readMuteMsgRate
-  builder.readMuteMsgRateFlag = true
-  return builder
-}
-func (builder * MsgProcessDataBuilder) AvgReceiveImpMsgChatCnt(avgReceiveImpMsgChatCnt float64) *MsgProcessDataBuilder  {
-  builder.avgReceiveImpMsgChatCnt = avgReceiveImpMsgChatCnt
-  builder.avgReceiveImpMsgChatCntFlag = true
-  return builder
+func (builder *MsgProcessDataBuilder) Build() *MsgProcessData {
+	req := &MsgProcessData{}
+	if builder.pDateFlag {
+		req.PDate = &builder.pDate
+
+	}
+	if builder.departmentIdFlag {
+		req.DepartmentId = &builder.departmentId
+
+	}
+	if builder.departmentPathFlag {
+		req.DepartmentPath = &builder.departmentPath
+
+	}
+	if builder.avgImpMsgReadRate12hFlag {
+		req.AvgImpMsgReadRate12h = &builder.avgImpMsgReadRate12h
+
+	}
+	if builder.msgReadRate12hFlag {
+		req.MsgReadRate12h = &builder.msgReadRate12h
+
+	}
+	if builder.avgReceiveMsgCntFlag {
+		req.AvgReceiveMsgCnt = &builder.avgReceiveMsgCnt
+
+	}
+	if builder.avgReadMsgCntFlag {
+		req.AvgReadMsgCnt = &builder.avgReadMsgCnt
+
+	}
+	if builder.avgImpReadMsgCntFlag {
+		req.AvgImpReadMsgCnt = &builder.avgImpReadMsgCnt
+
+	}
+	if builder.avgImpReceiveMsgCntFlag {
+		req.AvgImpReceiveMsgCnt = &builder.avgImpReceiveMsgCnt
+
+	}
+	if builder.highLoadRateFlag {
+		req.HighLoadRate = &builder.highLoadRate
+
+	}
+	if builder.bigGroupMsgRateFlag {
+		req.BigGroupMsgRate = &builder.bigGroupMsgRate
+
+	}
+	if builder.bigGroupTopicMsgRateFlag {
+		req.BigGroupTopicMsgRate = &builder.bigGroupTopicMsgRate
+
+	}
+	if builder.avgReceiveBotMsgCntFlag {
+		req.AvgReceiveBotMsgCnt = &builder.avgReceiveBotMsgCnt
+
+	}
+	if builder.avgBotImpMsgReadRate12hFlag {
+		req.AvgBotImpMsgReadRate12h = &builder.avgBotImpMsgReadRate12h
+
+	}
+	if builder.receiveBotMsgRateFlag {
+		req.ReceiveBotMsgRate = &builder.receiveBotMsgRate
+
+	}
+	if builder.useChatBoxRateFlag {
+		req.UseChatBoxRate = &builder.useChatBoxRate
+
+	}
+	if builder.receiveMuteMsgRateFlag {
+		req.ReceiveMuteMsgRate = &builder.receiveMuteMsgRate
+
+	}
+	if builder.readMuteMsgRateFlag {
+		req.ReadMuteMsgRate = &builder.readMuteMsgRate
+
+	}
+	if builder.avgReceiveImpMsgChatCntFlag {
+		req.AvgReceiveImpMsgChatCnt = &builder.avgReceiveImpMsgChatCnt
+
+	}
+	return req
 }
 
-func (builder * MsgProcessDataBuilder ) Build() *MsgProcessData {
-   req := &MsgProcessData{}
-   if builder.pDateFlag {
-	  req.PDate = &builder.pDate
-	  
-   }
-   if builder.departmentIdFlag {
-	  req.DepartmentId = &builder.departmentId
-	  
-   }
-   if builder.departmentPathFlag {
-	  req.DepartmentPath = &builder.departmentPath
-	  
-   }
-   if builder.avgImpMsgReadRate12hFlag {
-	  req.AvgImpMsgReadRate12h = &builder.avgImpMsgReadRate12h
-	  
-   }
-   if builder.msgReadRate12hFlag {
-	  req.MsgReadRate12h = &builder.msgReadRate12h
-	  
-   }
-   if builder.avgReceiveMsgCntFlag {
-	  req.AvgReceiveMsgCnt = &builder.avgReceiveMsgCnt
-	  
-   }
-   if builder.avgReadMsgCntFlag {
-	  req.AvgReadMsgCnt = &builder.avgReadMsgCnt
-	  
-   }
-   if builder.avgImpReadMsgCntFlag {
-	  req.AvgImpReadMsgCnt = &builder.avgImpReadMsgCnt
-	  
-   }
-   if builder.avgImpReceiveMsgCntFlag {
-	  req.AvgImpReceiveMsgCnt = &builder.avgImpReceiveMsgCnt
-	  
-   }
-   if builder.highLoadRateFlag {
-	  req.HighLoadRate = &builder.highLoadRate
-	  
-   }
-   if builder.bigGroupMsgRateFlag {
-	  req.BigGroupMsgRate = &builder.bigGroupMsgRate
-	  
-   }
-   if builder.bigGroupTopicMsgRateFlag {
-	  req.BigGroupTopicMsgRate = &builder.bigGroupTopicMsgRate
-	  
-   }
-   if builder.avgReceiveBotMsgCntFlag {
-	  req.AvgReceiveBotMsgCnt = &builder.avgReceiveBotMsgCnt
-	  
-   }
-   if builder.avgBotImpMsgReadRate12hFlag {
-	  req.AvgBotImpMsgReadRate12h = &builder.avgBotImpMsgReadRate12h
-	  
-   }
-   if builder.receiveBotMsgRateFlag {
-	  req.ReceiveBotMsgRate = &builder.receiveBotMsgRate
-	  
-   }
-   if builder.useChatBoxRateFlag {
-	  req.UseChatBoxRate = &builder.useChatBoxRate
-	  
-   }
-   if builder.receiveMuteMsgRateFlag {
-	  req.ReceiveMuteMsgRate = &builder.receiveMuteMsgRate
-	  
-   }
-   if builder.readMuteMsgRateFlag {
-	  req.ReadMuteMsgRate = &builder.readMuteMsgRate
-	  
-   }
-   if builder.avgReceiveImpMsgChatCntFlag {
-	  req.AvgReceiveImpMsgChatCnt = &builder.avgReceiveImpMsgChatCnt
-	  
-   }
-   return req
-}
 // builder结束
 
 type Operator struct {
-	OperatorId  *string `json:"operator_id,omitempty"`
-	OperatorType  *string `json:"operator_type,omitempty"`
+	OperatorId   *string `json:"operator_id,omitempty"`
+	OperatorType *string `json:"operator_type,omitempty"`
 }
 
 // builder开始
 type OperatorBuilder struct {
-	operatorId  string
-	operatorIdFlag  bool
-	operatorType  string
-	operatorTypeFlag  bool
+	operatorId       string
+	operatorIdFlag   bool
+	operatorType     string
+	operatorTypeFlag bool
 }
 
-func NewOperatorBuilder() * OperatorBuilder{
-   builder := &OperatorBuilder{}
-   return builder
+func NewOperatorBuilder() *OperatorBuilder {
+	builder := &OperatorBuilder{}
+	return builder
 }
 
+func (builder *OperatorBuilder) OperatorId(operatorId string) *OperatorBuilder {
+	builder.operatorId = operatorId
+	builder.operatorIdFlag = true
+	return builder
+}
+func (builder *OperatorBuilder) OperatorType(operatorType string) *OperatorBuilder {
+	builder.operatorType = operatorType
+	builder.operatorTypeFlag = true
+	return builder
+}
 
-func (builder * OperatorBuilder) OperatorId(operatorId string) *OperatorBuilder  {
-  builder.operatorId = operatorId
-  builder.operatorIdFlag = true
-  return builder
-}
-func (builder * OperatorBuilder) OperatorType(operatorType string) *OperatorBuilder  {
-  builder.operatorType = operatorType
-  builder.operatorTypeFlag = true
-  return builder
+func (builder *OperatorBuilder) Build() *Operator {
+	req := &Operator{}
+	if builder.operatorIdFlag {
+		req.OperatorId = &builder.operatorId
+
+	}
+	if builder.operatorTypeFlag {
+		req.OperatorType = &builder.operatorType
+
+	}
+	return req
 }
 
-func (builder * OperatorBuilder ) Build() *Operator {
-   req := &Operator{}
-   if builder.operatorIdFlag {
-	  req.OperatorId = &builder.operatorId
-	  
-   }
-   if builder.operatorTypeFlag {
-	  req.OperatorType = &builder.operatorType
-	  
-   }
-   return req
-}
 // builder结束
 
 type ReadUser struct {
-	UserIdType  *string `json:"user_id_type,omitempty"`
-	UserId  *string `json:"user_id,omitempty"`
+	UserIdType *string `json:"user_id_type,omitempty"`
+	UserId     *string `json:"user_id,omitempty"`
 	Timestamp  *string `json:"timestamp,omitempty"`
 	TenantKey  *string `json:"tenant_key,omitempty"`
 }
 
 // builder开始
 type ReadUserBuilder struct {
-	userIdType  string
-	userIdTypeFlag  bool
-	userId  string
-	userIdFlag  bool
-	timestamp  string
+	userIdType     string
+	userIdTypeFlag bool
+	userId         string
+	userIdFlag     bool
+	timestamp      string
 	timestampFlag  bool
-	tenantKey  string
+	tenantKey      string
 	tenantKeyFlag  bool
 }
 
-func NewReadUserBuilder() * ReadUserBuilder{
-   builder := &ReadUserBuilder{}
-   return builder
+func NewReadUserBuilder() *ReadUserBuilder {
+	builder := &ReadUserBuilder{}
+	return builder
 }
 
+func (builder *ReadUserBuilder) UserIdType(userIdType string) *ReadUserBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
+}
+func (builder *ReadUserBuilder) UserId(userId string) *ReadUserBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *ReadUserBuilder) Timestamp(timestamp string) *ReadUserBuilder {
+	builder.timestamp = timestamp
+	builder.timestampFlag = true
+	return builder
+}
+func (builder *ReadUserBuilder) TenantKey(tenantKey string) *ReadUserBuilder {
+	builder.tenantKey = tenantKey
+	builder.tenantKeyFlag = true
+	return builder
+}
 
-func (builder * ReadUserBuilder) UserIdType(userIdType string) *ReadUserBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
-}
-func (builder * ReadUserBuilder) UserId(userId string) *ReadUserBuilder  {
-  builder.userId = userId
-  builder.userIdFlag = true
-  return builder
-}
-func (builder * ReadUserBuilder) Timestamp(timestamp string) *ReadUserBuilder  {
-  builder.timestamp = timestamp
-  builder.timestampFlag = true
-  return builder
-}
-func (builder * ReadUserBuilder) TenantKey(tenantKey string) *ReadUserBuilder  {
-  builder.tenantKey = tenantKey
-  builder.tenantKeyFlag = true
-  return builder
+func (builder *ReadUserBuilder) Build() *ReadUser {
+	req := &ReadUser{}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.timestampFlag {
+		req.Timestamp = &builder.timestamp
+
+	}
+	if builder.tenantKeyFlag {
+		req.TenantKey = &builder.tenantKey
+
+	}
+	return req
 }
 
-func (builder * ReadUserBuilder ) Build() *ReadUser {
-   req := &ReadUser{}
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-	  
-   }
-   if builder.userIdFlag {
-	  req.UserId = &builder.userId
-	  
-   }
-   if builder.timestampFlag {
-	  req.Timestamp = &builder.timestamp
-	  
-   }
-   if builder.tenantKeyFlag {
-	  req.TenantKey = &builder.tenantKey
-	  
-   }
-   return req
-}
 // builder结束
 
 type Sender struct {
-	Id  *string `json:"id,omitempty"`
-	IdType  *string `json:"id_type,omitempty"`
-	SenderType  *string `json:"sender_type,omitempty"`
+	Id         *string `json:"id,omitempty"`
+	IdType     *string `json:"id_type,omitempty"`
+	SenderType *string `json:"sender_type,omitempty"`
 	TenantKey  *string `json:"tenant_key,omitempty"`
 }
 
 // builder开始
 type SenderBuilder struct {
-	id  string
-	idFlag  bool
-	idType  string
-	idTypeFlag  bool
-	senderType  string
-	senderTypeFlag  bool
-	tenantKey  string
+	id             string
+	idFlag         bool
+	idType         string
+	idTypeFlag     bool
+	senderType     string
+	senderTypeFlag bool
+	tenantKey      string
 	tenantKeyFlag  bool
 }
 
-func NewSenderBuilder() * SenderBuilder{
-   builder := &SenderBuilder{}
-   return builder
+func NewSenderBuilder() *SenderBuilder {
+	builder := &SenderBuilder{}
+	return builder
 }
 
+func (builder *SenderBuilder) Id(id string) *SenderBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *SenderBuilder) IdType(idType string) *SenderBuilder {
+	builder.idType = idType
+	builder.idTypeFlag = true
+	return builder
+}
+func (builder *SenderBuilder) SenderType(senderType string) *SenderBuilder {
+	builder.senderType = senderType
+	builder.senderTypeFlag = true
+	return builder
+}
+func (builder *SenderBuilder) TenantKey(tenantKey string) *SenderBuilder {
+	builder.tenantKey = tenantKey
+	builder.tenantKeyFlag = true
+	return builder
+}
 
-func (builder * SenderBuilder) Id(id string) *SenderBuilder  {
-  builder.id = id
-  builder.idFlag = true
-  return builder
-}
-func (builder * SenderBuilder) IdType(idType string) *SenderBuilder  {
-  builder.idType = idType
-  builder.idTypeFlag = true
-  return builder
-}
-func (builder * SenderBuilder) SenderType(senderType string) *SenderBuilder  {
-  builder.senderType = senderType
-  builder.senderTypeFlag = true
-  return builder
-}
-func (builder * SenderBuilder) TenantKey(tenantKey string) *SenderBuilder  {
-  builder.tenantKey = tenantKey
-  builder.tenantKeyFlag = true
-  return builder
+func (builder *SenderBuilder) Build() *Sender {
+	req := &Sender{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.idTypeFlag {
+		req.IdType = &builder.idType
+
+	}
+	if builder.senderTypeFlag {
+		req.SenderType = &builder.senderType
+
+	}
+	if builder.tenantKeyFlag {
+		req.TenantKey = &builder.tenantKey
+
+	}
+	return req
 }
 
-func (builder * SenderBuilder ) Build() *Sender {
-   req := &Sender{}
-   if builder.idFlag {
-	  req.Id = &builder.id
-	  
-   }
-   if builder.idTypeFlag {
-	  req.IdType = &builder.idType
-	  
-   }
-   if builder.senderTypeFlag {
-	  req.SenderType = &builder.senderType
-	  
-   }
-   if builder.tenantKeyFlag {
-	  req.TenantKey = &builder.tenantKey
-	  
-   }
-   return req
-}
 // builder结束
 
 type SpecialFocus struct {
-	Id  *string `json:"id,omitempty"`
-	IdType  *string `json:"id_type,omitempty"`
+	Id     *string `json:"id,omitempty"`
+	IdType *string `json:"id_type,omitempty"`
 }
 
 // builder开始
 type SpecialFocusBuilder struct {
-	id  string
-	idFlag  bool
-	idType  string
-	idTypeFlag  bool
+	id         string
+	idFlag     bool
+	idType     string
+	idTypeFlag bool
 }
 
-func NewSpecialFocusBuilder() * SpecialFocusBuilder{
-   builder := &SpecialFocusBuilder{}
-   return builder
+func NewSpecialFocusBuilder() *SpecialFocusBuilder {
+	builder := &SpecialFocusBuilder{}
+	return builder
 }
 
+func (builder *SpecialFocusBuilder) Id(id string) *SpecialFocusBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *SpecialFocusBuilder) IdType(idType string) *SpecialFocusBuilder {
+	builder.idType = idType
+	builder.idTypeFlag = true
+	return builder
+}
 
-func (builder * SpecialFocusBuilder) Id(id string) *SpecialFocusBuilder  {
-  builder.id = id
-  builder.idFlag = true
-  return builder
-}
-func (builder * SpecialFocusBuilder) IdType(idType string) *SpecialFocusBuilder  {
-  builder.idType = idType
-  builder.idTypeFlag = true
-  return builder
+func (builder *SpecialFocusBuilder) Build() *SpecialFocus {
+	req := &SpecialFocus{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.idTypeFlag {
+		req.IdType = &builder.idType
+
+	}
+	return req
 }
 
-func (builder * SpecialFocusBuilder ) Build() *SpecialFocus {
-   req := &SpecialFocus{}
-   if builder.idFlag {
-	  req.Id = &builder.id
-	  
-   }
-   if builder.idTypeFlag {
-	  req.IdType = &builder.idType
-	  
-   }
-   return req
-}
 // builder结束
 
 type SpecialFocusUnread struct {
-	Id  *string `json:"id,omitempty"`
-	IdType  *string `json:"id_type,omitempty"`
-	UnreadCount  *string `json:"unread_count,omitempty"`
+	Id          *string `json:"id,omitempty"`
+	IdType      *string `json:"id_type,omitempty"`
+	UnreadCount *string `json:"unread_count,omitempty"`
 }
 
 // builder开始
 type SpecialFocusUnreadBuilder struct {
-	id  string
-	idFlag  bool
-	idType  string
-	idTypeFlag  bool
-	unreadCount  string
-	unreadCountFlag  bool
+	id              string
+	idFlag          bool
+	idType          string
+	idTypeFlag      bool
+	unreadCount     string
+	unreadCountFlag bool
 }
 
-func NewSpecialFocusUnreadBuilder() * SpecialFocusUnreadBuilder{
-   builder := &SpecialFocusUnreadBuilder{}
-   return builder
+func NewSpecialFocusUnreadBuilder() *SpecialFocusUnreadBuilder {
+	builder := &SpecialFocusUnreadBuilder{}
+	return builder
 }
 
+func (builder *SpecialFocusUnreadBuilder) Id(id string) *SpecialFocusUnreadBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *SpecialFocusUnreadBuilder) IdType(idType string) *SpecialFocusUnreadBuilder {
+	builder.idType = idType
+	builder.idTypeFlag = true
+	return builder
+}
+func (builder *SpecialFocusUnreadBuilder) UnreadCount(unreadCount string) *SpecialFocusUnreadBuilder {
+	builder.unreadCount = unreadCount
+	builder.unreadCountFlag = true
+	return builder
+}
 
-func (builder * SpecialFocusUnreadBuilder) Id(id string) *SpecialFocusUnreadBuilder  {
-  builder.id = id
-  builder.idFlag = true
-  return builder
-}
-func (builder * SpecialFocusUnreadBuilder) IdType(idType string) *SpecialFocusUnreadBuilder  {
-  builder.idType = idType
-  builder.idTypeFlag = true
-  return builder
-}
-func (builder * SpecialFocusUnreadBuilder) UnreadCount(unreadCount string) *SpecialFocusUnreadBuilder  {
-  builder.unreadCount = unreadCount
-  builder.unreadCountFlag = true
-  return builder
+func (builder *SpecialFocusUnreadBuilder) Build() *SpecialFocusUnread {
+	req := &SpecialFocusUnread{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.idTypeFlag {
+		req.IdType = &builder.idType
+
+	}
+	if builder.unreadCountFlag {
+		req.UnreadCount = &builder.unreadCount
+
+	}
+	return req
 }
 
-func (builder * SpecialFocusUnreadBuilder ) Build() *SpecialFocusUnread {
-   req := &SpecialFocusUnread{}
-   if builder.idFlag {
-	  req.Id = &builder.id
-	  
-   }
-   if builder.idTypeFlag {
-	  req.IdType = &builder.idType
-	  
-   }
-   if builder.unreadCountFlag {
-	  req.UnreadCount = &builder.unreadCount
-	  
-   }
-   return req
-}
 // builder结束
 
 type UrgentReceivers struct {
-	UserIdList  []string `json:"user_id_list,omitempty"`
+	UserIdList []string `json:"user_id_list,omitempty"`
 }
 
 // builder开始
 type UrgentReceiversBuilder struct {
-	userIdList  []string
-	userIdListFlag  bool
+	userIdList     []string
+	userIdListFlag bool
 }
 
-func NewUrgentReceiversBuilder() * UrgentReceiversBuilder{
-   builder := &UrgentReceiversBuilder{}
-   return builder
+func NewUrgentReceiversBuilder() *UrgentReceiversBuilder {
+	builder := &UrgentReceiversBuilder{}
+	return builder
 }
 
-
-func (builder * UrgentReceiversBuilder) UserIdList(userIdList []string) *UrgentReceiversBuilder  {
-  builder.userIdList = userIdList
-  builder.userIdListFlag = true
-  return builder
+func (builder *UrgentReceiversBuilder) UserIdList(userIdList []string) *UrgentReceiversBuilder {
+	builder.userIdList = userIdList
+	builder.userIdListFlag = true
+	return builder
 }
 
-func (builder * UrgentReceiversBuilder ) Build() *UrgentReceivers {
-   req := &UrgentReceivers{}
-   if builder.userIdListFlag {
-	  req.UserIdList = builder.userIdList
-   }
-   return req
+func (builder *UrgentReceiversBuilder) Build() *UrgentReceivers {
+	req := &UrgentReceivers{}
+	if builder.userIdListFlag {
+		req.UserIdList = builder.userIdList
+	}
+	return req
 }
+
 // builder结束
 
 type UserId struct {
 	UserId  *string `json:"user_id,omitempty"`
 	OpenId  *string `json:"open_id,omitempty"`
-	UnionId  *string `json:"union_id,omitempty"`
+	UnionId *string `json:"union_id,omitempty"`
 }
 
 // builder开始
 type UserIdBuilder struct {
-	userId  string
+	userId      string
 	userIdFlag  bool
-	openId  string
+	openId      string
 	openIdFlag  bool
-	unionId  string
-	unionIdFlag  bool
+	unionId     string
+	unionIdFlag bool
 }
 
-func NewUserIdBuilder() * UserIdBuilder{
-   builder := &UserIdBuilder{}
-   return builder
+func NewUserIdBuilder() *UserIdBuilder {
+	builder := &UserIdBuilder{}
+	return builder
 }
 
+func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
+	builder.openId = openId
+	builder.openIdFlag = true
+	return builder
+}
+func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
+	builder.unionId = unionId
+	builder.unionIdFlag = true
+	return builder
+}
 
-func (builder * UserIdBuilder) UserId(userId string) *UserIdBuilder  {
-  builder.userId = userId
-  builder.userIdFlag = true
-  return builder
-}
-func (builder * UserIdBuilder) OpenId(openId string) *UserIdBuilder  {
-  builder.openId = openId
-  builder.openIdFlag = true
-  return builder
-}
-func (builder * UserIdBuilder) UnionId(unionId string) *UserIdBuilder  {
-  builder.unionId = unionId
-  builder.unionIdFlag = true
-  return builder
+func (builder *UserIdBuilder) Build() *UserId {
+	req := &UserId{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.openIdFlag {
+		req.OpenId = &builder.openId
+
+	}
+	if builder.unionIdFlag {
+		req.UnionId = &builder.unionId
+
+	}
+	return req
 }
 
-func (builder * UserIdBuilder ) Build() *UserId {
-   req := &UserId{}
-   if builder.userIdFlag {
-	  req.UserId = &builder.userId
-	  
-   }
-   if builder.openIdFlag {
-	  req.OpenId = &builder.openId
-	  
-   }
-   if builder.unionIdFlag {
-	  req.UnionId = &builder.unionId
-	  
-   }
-   return req
-}
 // builder结束
-
 
 // 生成请求和响应结果类型，以及请求对象的Builder构造器
 
-
 // 1.4 生成请求的builder结构体
 type DeleteBatchMessageReqBuilder struct {
-	batchMessageId  string
-	batchMessageIdFlag  bool
-
+	batchMessageId     string
+	batchMessageIdFlag bool
 }
 
 // 生成请求的New构造器
-func NewDeleteBatchMessageReqBuilder() * DeleteBatchMessageReqBuilder{
-   builder := &DeleteBatchMessageReqBuilder{}
-   return builder
+func NewDeleteBatchMessageReqBuilder() *DeleteBatchMessageReqBuilder {
+	builder := &DeleteBatchMessageReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * DeleteBatchMessageReqBuilder) BatchMessageId(batchMessageId string) *DeleteBatchMessageReqBuilder  {
-  builder.batchMessageId = batchMessageId
-  builder.batchMessageIdFlag = true
-  return builder
+func (builder *DeleteBatchMessageReqBuilder) BatchMessageId(batchMessageId string) *DeleteBatchMessageReqBuilder {
+	builder.batchMessageId = batchMessageId
+	builder.batchMessageIdFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * DeleteBatchMessageReqBuilder ) Build() *DeleteBatchMessageReq {
-   req := &DeleteBatchMessageReq{}
-   if builder.batchMessageIdFlag {
-	  req.BatchMessageId = builder.batchMessageId
-   }
-   return req
+func (builder *DeleteBatchMessageReqBuilder) Build() *DeleteBatchMessageReq {
+	req := &DeleteBatchMessageReq{}
+	if builder.batchMessageIdFlag {
+		req.BatchMessageId = builder.batchMessageId
+	}
+	return req
 }
-
 
 type DeleteBatchMessageReq struct {
-	BatchMessageId  string `path:"batch_message_id"`
-
+	BatchMessageId string `path:"batch_message_id"`
 }
-
 
 type DeleteBatchMessageResp struct {
 	*larkcore.RawResponse `json:"-"`
@@ -3092,45 +3063,41 @@ func (resp *DeleteBatchMessageResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type GetProgressBatchMessageReqBuilder struct {
-	batchMessageId  string
-	batchMessageIdFlag  bool
-
+	batchMessageId     string
+	batchMessageIdFlag bool
 }
 
 // 生成请求的New构造器
-func NewGetProgressBatchMessageReqBuilder() * GetProgressBatchMessageReqBuilder{
-   builder := &GetProgressBatchMessageReqBuilder{}
-   return builder
+func NewGetProgressBatchMessageReqBuilder() *GetProgressBatchMessageReqBuilder {
+	builder := &GetProgressBatchMessageReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * GetProgressBatchMessageReqBuilder) BatchMessageId(batchMessageId string) *GetProgressBatchMessageReqBuilder  {
-  builder.batchMessageId = batchMessageId
-  builder.batchMessageIdFlag = true
-  return builder
+func (builder *GetProgressBatchMessageReqBuilder) BatchMessageId(batchMessageId string) *GetProgressBatchMessageReqBuilder {
+	builder.batchMessageId = batchMessageId
+	builder.batchMessageIdFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * GetProgressBatchMessageReqBuilder ) Build() *GetProgressBatchMessageReq {
-   req := &GetProgressBatchMessageReq{}
-   if builder.batchMessageIdFlag {
-	  req.BatchMessageId = builder.batchMessageId
-   }
-   return req
+func (builder *GetProgressBatchMessageReqBuilder) Build() *GetProgressBatchMessageReq {
+	req := &GetProgressBatchMessageReq{}
+	if builder.batchMessageIdFlag {
+		req.BatchMessageId = builder.batchMessageId
+	}
+	return req
 }
 
-
 type GetProgressBatchMessageReq struct {
-	BatchMessageId  string `path:"batch_message_id"`
-
+	BatchMessageId string `path:"batch_message_id"`
 }
 
 type GetProgressBatchMessageRespData struct {
-	BatchMessageSendProgress  *BatchMessageSendProgress `json:"batch_message_send_progress,omitempty"`
-	BatchMessageRecallProgress  *BatchMessageRecallProgress `json:"batch_message_recall_progress,omitempty"`
+	BatchMessageSendProgress   *BatchMessageSendProgress   `json:"batch_message_send_progress,omitempty"`
+	BatchMessageRecallProgress *BatchMessageRecallProgress `json:"batch_message_recall_progress,omitempty"`
 }
 
 type GetProgressBatchMessageResp struct {
@@ -3143,44 +3110,40 @@ func (resp *GetProgressBatchMessageResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type ReadUserBatchMessageReqBuilder struct {
-	batchMessageId  string
-	batchMessageIdFlag  bool
-
+	batchMessageId     string
+	batchMessageIdFlag bool
 }
 
 // 生成请求的New构造器
-func NewReadUserBatchMessageReqBuilder() * ReadUserBatchMessageReqBuilder{
-   builder := &ReadUserBatchMessageReqBuilder{}
-   return builder
+func NewReadUserBatchMessageReqBuilder() *ReadUserBatchMessageReqBuilder {
+	builder := &ReadUserBatchMessageReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * ReadUserBatchMessageReqBuilder) BatchMessageId(batchMessageId string) *ReadUserBatchMessageReqBuilder  {
-  builder.batchMessageId = batchMessageId
-  builder.batchMessageIdFlag = true
-  return builder
+func (builder *ReadUserBatchMessageReqBuilder) BatchMessageId(batchMessageId string) *ReadUserBatchMessageReqBuilder {
+	builder.batchMessageId = batchMessageId
+	builder.batchMessageIdFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * ReadUserBatchMessageReqBuilder ) Build() *ReadUserBatchMessageReq {
-   req := &ReadUserBatchMessageReq{}
-   if builder.batchMessageIdFlag {
-	  req.BatchMessageId = builder.batchMessageId
-   }
-   return req
+func (builder *ReadUserBatchMessageReqBuilder) Build() *ReadUserBatchMessageReq {
+	req := &ReadUserBatchMessageReq{}
+	if builder.batchMessageIdFlag {
+		req.BatchMessageId = builder.batchMessageId
+	}
+	return req
 }
 
-
 type ReadUserBatchMessageReq struct {
-	BatchMessageId  string `path:"batch_message_id"`
-
+	BatchMessageId string `path:"batch_message_id"`
 }
 
 type ReadUserBatchMessageRespData struct {
-	ReadUser  *BatchMessageReadUser `json:"read_user,omitempty"`
+	ReadUser *BatchMessageReadUser `json:"read_user,omitempty"`
 }
 
 type ReadUserBatchMessageResp struct {
@@ -3194,399 +3157,391 @@ func (resp *ReadUserBatchMessageResp) Success() bool {
 }
 
 type CreateChatReqBodyBuilder struct {
-	avatar  string
-	avatarFlag  bool
-	name  string
-	nameFlag  bool
-	description  string
-	descriptionFlag  bool
-	i18nNames  *I18nNames
-	i18nNamesFlag  bool
-	ownerId  string
-	ownerIdFlag  bool
-	userIdList  []string
-	userIdListFlag  bool
-	botIdList  []string
-	botIdListFlag  bool
-	chatMode  string
-	chatModeFlag  bool
-	chatType  string
-	chatTypeFlag  bool
-	external  bool
-	externalFlag  bool
-	joinMessageVisibility  string
+	avatar                     string
+	avatarFlag                 bool
+	name                       string
+	nameFlag                   bool
+	description                string
+	descriptionFlag            bool
+	i18nNames                  *I18nNames
+	i18nNamesFlag              bool
+	ownerId                    string
+	ownerIdFlag                bool
+	userIdList                 []string
+	userIdListFlag             bool
+	botIdList                  []string
+	botIdListFlag              bool
+	chatMode                   string
+	chatModeFlag               bool
+	chatType                   string
+	chatTypeFlag               bool
+	external                   bool
+	externalFlag               bool
+	joinMessageVisibility      string
 	joinMessageVisibilityFlag  bool
-	leaveMessageVisibility  string
-	leaveMessageVisibilityFlag  bool
-	membershipApproval  string
-	membershipApprovalFlag  bool
-	
+	leaveMessageVisibility     string
+	leaveMessageVisibilityFlag bool
+	membershipApproval         string
+	membershipApprovalFlag     bool
 }
 
 // 生成body的New构造器
-func NewCreateChatReqBodyBuilder() * CreateChatReqBodyBuilder{
-  builder := &CreateChatReqBodyBuilder{}
-  return builder
+func NewCreateChatReqBodyBuilder() *CreateChatReqBodyBuilder {
+	builder := &CreateChatReqBodyBuilder{}
+	return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder * CreateChatReqBodyBuilder ) Avatar(avatar string) *CreateChatReqBodyBuilder {
-  builder.avatar = avatar
-  builder.avatarFlag = true
-  return builder
+func (builder *CreateChatReqBodyBuilder) Avatar(avatar string) *CreateChatReqBodyBuilder {
+	builder.avatar = avatar
+	builder.avatarFlag = true
+	return builder
 }
-func (builder * CreateChatReqBodyBuilder ) Name(name string) *CreateChatReqBodyBuilder {
-  builder.name = name
-  builder.nameFlag = true
-  return builder
+func (builder *CreateChatReqBodyBuilder) Name(name string) *CreateChatReqBodyBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
 }
-func (builder * CreateChatReqBodyBuilder ) Description(description string) *CreateChatReqBodyBuilder {
-  builder.description = description
-  builder.descriptionFlag = true
-  return builder
+func (builder *CreateChatReqBodyBuilder) Description(description string) *CreateChatReqBodyBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
 }
-func (builder * CreateChatReqBodyBuilder ) I18nNames(i18nNames *I18nNames) *CreateChatReqBodyBuilder {
-  builder.i18nNames = i18nNames
-  builder.i18nNamesFlag = true
-  return builder
+func (builder *CreateChatReqBodyBuilder) I18nNames(i18nNames *I18nNames) *CreateChatReqBodyBuilder {
+	builder.i18nNames = i18nNames
+	builder.i18nNamesFlag = true
+	return builder
 }
-func (builder * CreateChatReqBodyBuilder ) OwnerId(ownerId string) *CreateChatReqBodyBuilder {
-  builder.ownerId = ownerId
-  builder.ownerIdFlag = true
-  return builder
+func (builder *CreateChatReqBodyBuilder) OwnerId(ownerId string) *CreateChatReqBodyBuilder {
+	builder.ownerId = ownerId
+	builder.ownerIdFlag = true
+	return builder
 }
-func (builder * CreateChatReqBodyBuilder ) UserIdList(userIdList []string) *CreateChatReqBodyBuilder {
-  builder.userIdList = userIdList
-  builder.userIdListFlag = true
-  return builder
+func (builder *CreateChatReqBodyBuilder) UserIdList(userIdList []string) *CreateChatReqBodyBuilder {
+	builder.userIdList = userIdList
+	builder.userIdListFlag = true
+	return builder
 }
-func (builder * CreateChatReqBodyBuilder ) BotIdList(botIdList []string) *CreateChatReqBodyBuilder {
-  builder.botIdList = botIdList
-  builder.botIdListFlag = true
-  return builder
+func (builder *CreateChatReqBodyBuilder) BotIdList(botIdList []string) *CreateChatReqBodyBuilder {
+	builder.botIdList = botIdList
+	builder.botIdListFlag = true
+	return builder
 }
-func (builder * CreateChatReqBodyBuilder ) ChatMode(chatMode string) *CreateChatReqBodyBuilder {
-  builder.chatMode = chatMode
-  builder.chatModeFlag = true
-  return builder
+func (builder *CreateChatReqBodyBuilder) ChatMode(chatMode string) *CreateChatReqBodyBuilder {
+	builder.chatMode = chatMode
+	builder.chatModeFlag = true
+	return builder
 }
-func (builder * CreateChatReqBodyBuilder ) ChatType(chatType string) *CreateChatReqBodyBuilder {
-  builder.chatType = chatType
-  builder.chatTypeFlag = true
-  return builder
+func (builder *CreateChatReqBodyBuilder) ChatType(chatType string) *CreateChatReqBodyBuilder {
+	builder.chatType = chatType
+	builder.chatTypeFlag = true
+	return builder
 }
-func (builder * CreateChatReqBodyBuilder ) External(external bool) *CreateChatReqBodyBuilder {
-  builder.external = external
-  builder.externalFlag = true
-  return builder
+func (builder *CreateChatReqBodyBuilder) External(external bool) *CreateChatReqBodyBuilder {
+	builder.external = external
+	builder.externalFlag = true
+	return builder
 }
-func (builder * CreateChatReqBodyBuilder ) JoinMessageVisibility(joinMessageVisibility string) *CreateChatReqBodyBuilder {
-  builder.joinMessageVisibility = joinMessageVisibility
-  builder.joinMessageVisibilityFlag = true
-  return builder
+func (builder *CreateChatReqBodyBuilder) JoinMessageVisibility(joinMessageVisibility string) *CreateChatReqBodyBuilder {
+	builder.joinMessageVisibility = joinMessageVisibility
+	builder.joinMessageVisibilityFlag = true
+	return builder
 }
-func (builder * CreateChatReqBodyBuilder ) LeaveMessageVisibility(leaveMessageVisibility string) *CreateChatReqBodyBuilder {
-  builder.leaveMessageVisibility = leaveMessageVisibility
-  builder.leaveMessageVisibilityFlag = true
-  return builder
+func (builder *CreateChatReqBodyBuilder) LeaveMessageVisibility(leaveMessageVisibility string) *CreateChatReqBodyBuilder {
+	builder.leaveMessageVisibility = leaveMessageVisibility
+	builder.leaveMessageVisibilityFlag = true
+	return builder
 }
-func (builder * CreateChatReqBodyBuilder ) MembershipApproval(membershipApproval string) *CreateChatReqBodyBuilder {
-  builder.membershipApproval = membershipApproval
-  builder.membershipApprovalFlag = true
-  return builder
+func (builder *CreateChatReqBodyBuilder) MembershipApproval(membershipApproval string) *CreateChatReqBodyBuilder {
+	builder.membershipApproval = membershipApproval
+	builder.membershipApprovalFlag = true
+	return builder
 }
-
-
 
 // 1.3 生成body的build方法
-func (builder * CreateChatReqBodyBuilder ) Build() *CreateChatReqBody {
-   req := &CreateChatReqBody{}
-   if builder.avatarFlag {
-	  req.Avatar = &builder.avatar
-   }
-   if builder.nameFlag {
-	  req.Name = &builder.name
-   }
-   if builder.descriptionFlag {
-	  req.Description = &builder.description
-   }
-   if builder.i18nNamesFlag {
-	  req.I18nNames = builder.i18nNames
-   }
-   if builder.ownerIdFlag {
-	  req.OwnerId = &builder.ownerId
-   }
-   if builder.userIdListFlag {
-	  req.UserIdList = builder.userIdList
-   }
-   if builder.botIdListFlag {
-	  req.BotIdList = builder.botIdList
-   }
-   if builder.chatModeFlag {
-	  req.ChatMode = &builder.chatMode
-   }
-   if builder.chatTypeFlag {
-	  req.ChatType = &builder.chatType
-   }
-   if builder.externalFlag {
-	  req.External = &builder.external
-   }
-   if builder.joinMessageVisibilityFlag {
-	  req.JoinMessageVisibility = &builder.joinMessageVisibility
-   }
-   if builder.leaveMessageVisibilityFlag {
-	  req.LeaveMessageVisibility = &builder.leaveMessageVisibility
-   }
-   if builder.membershipApprovalFlag {
-	  req.MembershipApproval = &builder.membershipApproval
-   }
-   return req
+func (builder *CreateChatReqBodyBuilder) Build() *CreateChatReqBody {
+	req := &CreateChatReqBody{}
+	if builder.avatarFlag {
+		req.Avatar = &builder.avatar
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+	}
+	if builder.i18nNamesFlag {
+		req.I18nNames = builder.i18nNames
+	}
+	if builder.ownerIdFlag {
+		req.OwnerId = &builder.ownerId
+	}
+	if builder.userIdListFlag {
+		req.UserIdList = builder.userIdList
+	}
+	if builder.botIdListFlag {
+		req.BotIdList = builder.botIdList
+	}
+	if builder.chatModeFlag {
+		req.ChatMode = &builder.chatMode
+	}
+	if builder.chatTypeFlag {
+		req.ChatType = &builder.chatType
+	}
+	if builder.externalFlag {
+		req.External = &builder.external
+	}
+	if builder.joinMessageVisibilityFlag {
+		req.JoinMessageVisibility = &builder.joinMessageVisibility
+	}
+	if builder.leaveMessageVisibilityFlag {
+		req.LeaveMessageVisibility = &builder.leaveMessageVisibility
+	}
+	if builder.membershipApprovalFlag {
+		req.MembershipApproval = &builder.membershipApproval
+	}
+	return req
 }
 
 // 上传文件path开始
 type CreateChatPathReqBodyBuilder struct {
-	avatar  string
-	avatarFlag  bool
-	name  string
-	nameFlag  bool
-	description  string
-	descriptionFlag  bool
-	i18nNames  *I18nNames
-	i18nNamesFlag  bool
-	ownerId  string
-	ownerIdFlag  bool
-	userIdList  []string
-	userIdListFlag  bool
-	botIdList  []string
-	botIdListFlag  bool
-	chatMode  string
-	chatModeFlag  bool
-	chatType  string
-	chatTypeFlag  bool
-	external  bool
-	externalFlag  bool
-	joinMessageVisibility  string
+	avatar                     string
+	avatarFlag                 bool
+	name                       string
+	nameFlag                   bool
+	description                string
+	descriptionFlag            bool
+	i18nNames                  *I18nNames
+	i18nNamesFlag              bool
+	ownerId                    string
+	ownerIdFlag                bool
+	userIdList                 []string
+	userIdListFlag             bool
+	botIdList                  []string
+	botIdListFlag              bool
+	chatMode                   string
+	chatModeFlag               bool
+	chatType                   string
+	chatTypeFlag               bool
+	external                   bool
+	externalFlag               bool
+	joinMessageVisibility      string
 	joinMessageVisibilityFlag  bool
-	leaveMessageVisibility  string
-	leaveMessageVisibilityFlag  bool
-	membershipApproval  string
-	membershipApprovalFlag  bool
-	labels  []string
-	labelsFlag  bool
+	leaveMessageVisibility     string
+	leaveMessageVisibilityFlag bool
+	membershipApproval         string
+	membershipApprovalFlag     bool
+	labels                     []string
+	labelsFlag                 bool
 }
 
-func NewCreateChatPathReqBodyBuilder() * CreateChatPathReqBodyBuilder{
-  builder := &CreateChatPathReqBodyBuilder{}
-  return builder
+func NewCreateChatPathReqBodyBuilder() *CreateChatPathReqBodyBuilder {
+	builder := &CreateChatPathReqBodyBuilder{}
+	return builder
 }
-func (builder * CreateChatPathReqBodyBuilder ) Avatar(avatar string) *CreateChatPathReqBodyBuilder {
-  builder.avatar = avatar
-  builder.avatarFlag = true
-  return builder
+func (builder *CreateChatPathReqBodyBuilder) Avatar(avatar string) *CreateChatPathReqBodyBuilder {
+	builder.avatar = avatar
+	builder.avatarFlag = true
+	return builder
 }
-func (builder * CreateChatPathReqBodyBuilder ) Name(name string) *CreateChatPathReqBodyBuilder {
-  builder.name = name
-  builder.nameFlag = true
-  return builder
+func (builder *CreateChatPathReqBodyBuilder) Name(name string) *CreateChatPathReqBodyBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
 }
-func (builder * CreateChatPathReqBodyBuilder ) Description(description string) *CreateChatPathReqBodyBuilder {
-  builder.description = description
-  builder.descriptionFlag = true
-  return builder
+func (builder *CreateChatPathReqBodyBuilder) Description(description string) *CreateChatPathReqBodyBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
 }
-func (builder * CreateChatPathReqBodyBuilder ) I18nNames(i18nNames *I18nNames) *CreateChatPathReqBodyBuilder {
-  builder.i18nNames = i18nNames
-  builder.i18nNamesFlag = true
-  return builder
+func (builder *CreateChatPathReqBodyBuilder) I18nNames(i18nNames *I18nNames) *CreateChatPathReqBodyBuilder {
+	builder.i18nNames = i18nNames
+	builder.i18nNamesFlag = true
+	return builder
 }
-func (builder * CreateChatPathReqBodyBuilder ) OwnerId(ownerId string) *CreateChatPathReqBodyBuilder {
-  builder.ownerId = ownerId
-  builder.ownerIdFlag = true
-  return builder
+func (builder *CreateChatPathReqBodyBuilder) OwnerId(ownerId string) *CreateChatPathReqBodyBuilder {
+	builder.ownerId = ownerId
+	builder.ownerIdFlag = true
+	return builder
 }
-func (builder * CreateChatPathReqBodyBuilder ) UserIdList(userIdList []string) *CreateChatPathReqBodyBuilder {
-  builder.userIdList = userIdList
-  builder.userIdListFlag = true
-  return builder
+func (builder *CreateChatPathReqBodyBuilder) UserIdList(userIdList []string) *CreateChatPathReqBodyBuilder {
+	builder.userIdList = userIdList
+	builder.userIdListFlag = true
+	return builder
 }
-func (builder * CreateChatPathReqBodyBuilder ) BotIdList(botIdList []string) *CreateChatPathReqBodyBuilder {
-  builder.botIdList = botIdList
-  builder.botIdListFlag = true
-  return builder
+func (builder *CreateChatPathReqBodyBuilder) BotIdList(botIdList []string) *CreateChatPathReqBodyBuilder {
+	builder.botIdList = botIdList
+	builder.botIdListFlag = true
+	return builder
 }
-func (builder * CreateChatPathReqBodyBuilder ) ChatMode(chatMode string) *CreateChatPathReqBodyBuilder {
-  builder.chatMode = chatMode
-  builder.chatModeFlag = true
-  return builder
+func (builder *CreateChatPathReqBodyBuilder) ChatMode(chatMode string) *CreateChatPathReqBodyBuilder {
+	builder.chatMode = chatMode
+	builder.chatModeFlag = true
+	return builder
 }
-func (builder * CreateChatPathReqBodyBuilder ) ChatType(chatType string) *CreateChatPathReqBodyBuilder {
-  builder.chatType = chatType
-  builder.chatTypeFlag = true
-  return builder
+func (builder *CreateChatPathReqBodyBuilder) ChatType(chatType string) *CreateChatPathReqBodyBuilder {
+	builder.chatType = chatType
+	builder.chatTypeFlag = true
+	return builder
 }
-func (builder * CreateChatPathReqBodyBuilder ) External(external bool) *CreateChatPathReqBodyBuilder {
-  builder.external = external
-  builder.externalFlag = true
-  return builder
+func (builder *CreateChatPathReqBodyBuilder) External(external bool) *CreateChatPathReqBodyBuilder {
+	builder.external = external
+	builder.externalFlag = true
+	return builder
 }
-func (builder * CreateChatPathReqBodyBuilder ) JoinMessageVisibility(joinMessageVisibility string) *CreateChatPathReqBodyBuilder {
-  builder.joinMessageVisibility = joinMessageVisibility
-  builder.joinMessageVisibilityFlag = true
-  return builder
+func (builder *CreateChatPathReqBodyBuilder) JoinMessageVisibility(joinMessageVisibility string) *CreateChatPathReqBodyBuilder {
+	builder.joinMessageVisibility = joinMessageVisibility
+	builder.joinMessageVisibilityFlag = true
+	return builder
 }
-func (builder * CreateChatPathReqBodyBuilder ) LeaveMessageVisibility(leaveMessageVisibility string) *CreateChatPathReqBodyBuilder {
-  builder.leaveMessageVisibility = leaveMessageVisibility
-  builder.leaveMessageVisibilityFlag = true
-  return builder
+func (builder *CreateChatPathReqBodyBuilder) LeaveMessageVisibility(leaveMessageVisibility string) *CreateChatPathReqBodyBuilder {
+	builder.leaveMessageVisibility = leaveMessageVisibility
+	builder.leaveMessageVisibilityFlag = true
+	return builder
 }
-func (builder * CreateChatPathReqBodyBuilder ) MembershipApproval(membershipApproval string) *CreateChatPathReqBodyBuilder {
-  builder.membershipApproval = membershipApproval
-  builder.membershipApprovalFlag = true
-  return builder
+func (builder *CreateChatPathReqBodyBuilder) MembershipApproval(membershipApproval string) *CreateChatPathReqBodyBuilder {
+	builder.membershipApproval = membershipApproval
+	builder.membershipApprovalFlag = true
+	return builder
 }
 
-
-
-func (builder * CreateChatPathReqBodyBuilder ) Build() (*CreateChatReqBody, error) {
-   req := &CreateChatReqBody{}
-   if builder.avatarFlag {
-	  req.Avatar = &builder.avatar
-   }
-   if builder.nameFlag {
-	  req.Name = &builder.name
-   }
-   if builder.descriptionFlag {
-	  req.Description = &builder.description
-   }
-   if builder.i18nNamesFlag {
-	   req.I18nNames = builder.i18nNames
-   }
-   if builder.ownerIdFlag {
-	  req.OwnerId = &builder.ownerId
-   }
-   if builder.userIdListFlag {
-	   req.UserIdList = builder.userIdList
-   }
-   if builder.botIdListFlag {
-	   req.BotIdList = builder.botIdList
-   }
-   if builder.chatModeFlag {
-	  req.ChatMode = &builder.chatMode
-   }
-   if builder.chatTypeFlag {
-	  req.ChatType = &builder.chatType
-   }
-   if builder.externalFlag {
-	  req.External = &builder.external
-   }
-   if builder.joinMessageVisibilityFlag {
-	  req.JoinMessageVisibility = &builder.joinMessageVisibility
-   }
-   if builder.leaveMessageVisibilityFlag {
-	  req.LeaveMessageVisibility = &builder.leaveMessageVisibility
-   }
-   if builder.membershipApprovalFlag {
-	  req.MembershipApproval = &builder.membershipApproval
-   }
-   return req, nil
+func (builder *CreateChatPathReqBodyBuilder) Build() (*CreateChatReqBody, error) {
+	req := &CreateChatReqBody{}
+	if builder.avatarFlag {
+		req.Avatar = &builder.avatar
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+	}
+	if builder.i18nNamesFlag {
+		req.I18nNames = builder.i18nNames
+	}
+	if builder.ownerIdFlag {
+		req.OwnerId = &builder.ownerId
+	}
+	if builder.userIdListFlag {
+		req.UserIdList = builder.userIdList
+	}
+	if builder.botIdListFlag {
+		req.BotIdList = builder.botIdList
+	}
+	if builder.chatModeFlag {
+		req.ChatMode = &builder.chatMode
+	}
+	if builder.chatTypeFlag {
+		req.ChatType = &builder.chatType
+	}
+	if builder.externalFlag {
+		req.External = &builder.external
+	}
+	if builder.joinMessageVisibilityFlag {
+		req.JoinMessageVisibility = &builder.joinMessageVisibility
+	}
+	if builder.leaveMessageVisibilityFlag {
+		req.LeaveMessageVisibility = &builder.leaveMessageVisibility
+	}
+	if builder.membershipApprovalFlag {
+		req.MembershipApproval = &builder.membershipApproval
+	}
+	return req, nil
 }
+
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type CreateChatReqBuilder struct {
-	userIdType  string
-	userIdTypeFlag  bool
-	setBotManager  bool
-	setBotManagerFlag  bool
-	body *CreateChatReqBody
-	bodyFlag bool
-
+	userIdType        string
+	userIdTypeFlag    bool
+	setBotManager     bool
+	setBotManagerFlag bool
+	body              *CreateChatReqBody
+	bodyFlag          bool
 }
 
 // 生成请求的New构造器
-func NewCreateChatReqBuilder() * CreateChatReqBuilder{
-   builder := &CreateChatReqBuilder{}
-   return builder
+func NewCreateChatReqBuilder() *CreateChatReqBuilder {
+	builder := &CreateChatReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * CreateChatReqBuilder) UserIdType(userIdType string) *CreateChatReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *CreateChatReqBuilder) UserIdType(userIdType string) *CreateChatReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
-func (builder * CreateChatReqBuilder) SetBotManager(setBotManager bool) *CreateChatReqBuilder  {
-  builder.setBotManager = setBotManager
-  builder.setBotManagerFlag = true
-  return builder
+func (builder *CreateChatReqBuilder) SetBotManager(setBotManager bool) *CreateChatReqBuilder {
+	builder.setBotManager = setBotManager
+	builder.setBotManagerFlag = true
+	return builder
 }
-func (builder * CreateChatReqBuilder) Body(body *CreateChatReqBody) *CreateChatReqBuilder  {
-  builder.body = body
-  builder.bodyFlag = true
-  return builder
+func (builder *CreateChatReqBuilder) Body(body *CreateChatReqBody) *CreateChatReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * CreateChatReqBuilder ) Build() *CreateChatReq {
-   req := &CreateChatReq{}
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   if builder.setBotManagerFlag {
-	  req.SetBotManager = &builder.setBotManager
-   }
-   if builder.bodyFlag {
-	  req.Body = builder.body
-   }
-   return req
+func (builder *CreateChatReqBuilder) Build() *CreateChatReq {
+	req := &CreateChatReq{}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	if builder.setBotManagerFlag {
+		req.SetBotManager = &builder.setBotManager
+	}
+	if builder.bodyFlag {
+		req.Body = builder.body
+	}
+	return req
 }
 
 type CreateChatReqBody struct {
-	Avatar  *string `json:"avatar,omitempty"`
-	Name  *string `json:"name,omitempty"`
-	Description  *string `json:"description,omitempty"`
-	I18nNames  *I18nNames `json:"i18n_names,omitempty"`
-	OwnerId  *string `json:"owner_id,omitempty"`
-	UserIdList  []string `json:"user_id_list,omitempty"`
-	BotIdList  []string `json:"bot_id_list,omitempty"`
-	ChatMode  *string `json:"chat_mode,omitempty"`
-	ChatType  *string `json:"chat_type,omitempty"`
-	External  *bool `json:"external,omitempty"`
-	JoinMessageVisibility  *string `json:"join_message_visibility,omitempty"`
-	LeaveMessageVisibility  *string `json:"leave_message_visibility,omitempty"`
-	MembershipApproval  *string `json:"membership_approval,omitempty"`
-	
+	Avatar                 *string    `json:"avatar,omitempty"`
+	Name                   *string    `json:"name,omitempty"`
+	Description            *string    `json:"description,omitempty"`
+	I18nNames              *I18nNames `json:"i18n_names,omitempty"`
+	OwnerId                *string    `json:"owner_id,omitempty"`
+	UserIdList             []string   `json:"user_id_list,omitempty"`
+	BotIdList              []string   `json:"bot_id_list,omitempty"`
+	ChatMode               *string    `json:"chat_mode,omitempty"`
+	ChatType               *string    `json:"chat_type,omitempty"`
+	External               *bool      `json:"external,omitempty"`
+	JoinMessageVisibility  *string    `json:"join_message_visibility,omitempty"`
+	LeaveMessageVisibility *string    `json:"leave_message_visibility,omitempty"`
+	MembershipApproval     *string    `json:"membership_approval,omitempty"`
 }
 
 type CreateChatReq struct {
-	UserIdType  *string `query:"user_id_type"`
-	SetBotManager  *bool `query:"set_bot_manager"`
-	Body *CreateChatReqBody `body:""`
-
+	UserIdType    *string            `query:"user_id_type"`
+	SetBotManager *bool              `query:"set_bot_manager"`
+	Body          *CreateChatReqBody `body:""`
 }
 
 type CreateChatRespData struct {
-	ChatId  *string `json:"chat_id,omitempty"`
-	Avatar  *string `json:"avatar,omitempty"`
-	Name  *string `json:"name,omitempty"`
-	Description  *string `json:"description,omitempty"`
-	I18nNames  *I18nNames `json:"i18n_names,omitempty"`
-	OwnerId  *string `json:"owner_id,omitempty"`
-	OwnerIdType  *string `json:"owner_id_type,omitempty"`
-	AddMemberPermission  *string `json:"add_member_permission,omitempty"`
-	ShareCardPermission  *string `json:"share_card_permission,omitempty"`
-	AtAllPermission  *string `json:"at_all_permission,omitempty"`
-	EditPermission  *string `json:"edit_permission,omitempty"`
-	ChatMode  *string `json:"chat_mode,omitempty"`
-	ChatType  *string `json:"chat_type,omitempty"`
-	ChatTag  *string `json:"chat_tag,omitempty"`
-	External  *bool `json:"external,omitempty"`
-	TenantKey  *string `json:"tenant_key,omitempty"`
-	JoinMessageVisibility  *string `json:"join_message_visibility,omitempty"`
-	LeaveMessageVisibility  *string `json:"leave_message_visibility,omitempty"`
-	MembershipApproval  *string `json:"membership_approval,omitempty"`
-	ModerationPermission  *string `json:"moderation_permission,omitempty"`
-	
+	ChatId                 *string    `json:"chat_id,omitempty"`
+	Avatar                 *string    `json:"avatar,omitempty"`
+	Name                   *string    `json:"name,omitempty"`
+	Description            *string    `json:"description,omitempty"`
+	I18nNames              *I18nNames `json:"i18n_names,omitempty"`
+	OwnerId                *string    `json:"owner_id,omitempty"`
+	OwnerIdType            *string    `json:"owner_id_type,omitempty"`
+	AddMemberPermission    *string    `json:"add_member_permission,omitempty"`
+	ShareCardPermission    *string    `json:"share_card_permission,omitempty"`
+	AtAllPermission        *string    `json:"at_all_permission,omitempty"`
+	EditPermission         *string    `json:"edit_permission,omitempty"`
+	ChatMode               *string    `json:"chat_mode,omitempty"`
+	ChatType               *string    `json:"chat_type,omitempty"`
+	ChatTag                *string    `json:"chat_tag,omitempty"`
+	External               *bool      `json:"external,omitempty"`
+	TenantKey              *string    `json:"tenant_key,omitempty"`
+	JoinMessageVisibility  *string    `json:"join_message_visibility,omitempty"`
+	LeaveMessageVisibility *string    `json:"leave_message_visibility,omitempty"`
+	MembershipApproval     *string    `json:"membership_approval,omitempty"`
+	ModerationPermission   *string    `json:"moderation_permission,omitempty"`
 }
 
 type CreateChatResp struct {
@@ -3599,42 +3554,37 @@ func (resp *CreateChatResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type DeleteChatReqBuilder struct {
-	chatId  string
-	chatIdFlag  bool
-
+	chatId     string
+	chatIdFlag bool
 }
 
 // 生成请求的New构造器
-func NewDeleteChatReqBuilder() * DeleteChatReqBuilder{
-   builder := &DeleteChatReqBuilder{}
-   return builder
+func NewDeleteChatReqBuilder() *DeleteChatReqBuilder {
+	builder := &DeleteChatReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * DeleteChatReqBuilder) ChatId(chatId string) *DeleteChatReqBuilder  {
-  builder.chatId = chatId
-  builder.chatIdFlag = true
-  return builder
+func (builder *DeleteChatReqBuilder) ChatId(chatId string) *DeleteChatReqBuilder {
+	builder.chatId = chatId
+	builder.chatIdFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * DeleteChatReqBuilder ) Build() *DeleteChatReq {
-   req := &DeleteChatReq{}
-   if builder.chatIdFlag {
-	  req.ChatId = builder.chatId
-   }
-   return req
+func (builder *DeleteChatReqBuilder) Build() *DeleteChatReq {
+	req := &DeleteChatReq{}
+	if builder.chatIdFlag {
+		req.ChatId = builder.chatId
+	}
+	return req
 }
-
 
 type DeleteChatReq struct {
-	ChatId  string `path:"chat_id"`
-
+	ChatId string `path:"chat_id"`
 }
-
 
 type DeleteChatResp struct {
 	*larkcore.RawResponse `json:"-"`
@@ -3645,76 +3595,71 @@ func (resp *DeleteChatResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type GetChatReqBuilder struct {
-	chatId  string
-	chatIdFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-
+	chatId         string
+	chatIdFlag     bool
+	userIdType     string
+	userIdTypeFlag bool
 }
 
 // 生成请求的New构造器
-func NewGetChatReqBuilder() * GetChatReqBuilder{
-   builder := &GetChatReqBuilder{}
-   return builder
+func NewGetChatReqBuilder() *GetChatReqBuilder {
+	builder := &GetChatReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * GetChatReqBuilder) ChatId(chatId string) *GetChatReqBuilder  {
-  builder.chatId = chatId
-  builder.chatIdFlag = true
-  return builder
+func (builder *GetChatReqBuilder) ChatId(chatId string) *GetChatReqBuilder {
+	builder.chatId = chatId
+	builder.chatIdFlag = true
+	return builder
 }
-func (builder * GetChatReqBuilder) UserIdType(userIdType string) *GetChatReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *GetChatReqBuilder) UserIdType(userIdType string) *GetChatReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * GetChatReqBuilder ) Build() *GetChatReq {
-   req := &GetChatReq{}
-   if builder.chatIdFlag {
-	  req.ChatId = builder.chatId
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   return req
+func (builder *GetChatReqBuilder) Build() *GetChatReq {
+	req := &GetChatReq{}
+	if builder.chatIdFlag {
+		req.ChatId = builder.chatId
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	return req
 }
 
-
 type GetChatReq struct {
-	ChatId  string `path:"chat_id"`
-	UserIdType  *string `query:"user_id_type"`
-
+	ChatId     string  `path:"chat_id"`
+	UserIdType *string `query:"user_id_type"`
 }
 
 type GetChatRespData struct {
-	Avatar  *string `json:"avatar,omitempty"`
-	Name  *string `json:"name,omitempty"`
-	Description  *string `json:"description,omitempty"`
-	I18nNames  *I18nNames `json:"i18n_names,omitempty"`
-	AddMemberPermission  *string `json:"add_member_permission,omitempty"`
-	ShareCardPermission  *string `json:"share_card_permission,omitempty"`
-	AtAllPermission  *string `json:"at_all_permission,omitempty"`
-	EditPermission  *string `json:"edit_permission,omitempty"`
-	OwnerIdType  *string `json:"owner_id_type,omitempty"`
-	OwnerId  *string `json:"owner_id,omitempty"`
-	ChatMode  *string `json:"chat_mode,omitempty"`
-	ChatType  *string `json:"chat_type,omitempty"`
-	ChatTag  *string `json:"chat_tag,omitempty"`
-	JoinMessageVisibility  *string `json:"join_message_visibility,omitempty"`
-	LeaveMessageVisibility  *string `json:"leave_message_visibility,omitempty"`
-	MembershipApproval  *string `json:"membership_approval,omitempty"`
-	ModerationPermission  *string `json:"moderation_permission,omitempty"`
-	External  *bool `json:"external,omitempty"`
-	TenantKey  *string `json:"tenant_key,omitempty"`
-	UserCount  *string `json:"user_count,omitempty"`
-	BotCount  *string `json:"bot_count,omitempty"`
-	
+	Avatar                 *string    `json:"avatar,omitempty"`
+	Name                   *string    `json:"name,omitempty"`
+	Description            *string    `json:"description,omitempty"`
+	I18nNames              *I18nNames `json:"i18n_names,omitempty"`
+	AddMemberPermission    *string    `json:"add_member_permission,omitempty"`
+	ShareCardPermission    *string    `json:"share_card_permission,omitempty"`
+	AtAllPermission        *string    `json:"at_all_permission,omitempty"`
+	EditPermission         *string    `json:"edit_permission,omitempty"`
+	OwnerIdType            *string    `json:"owner_id_type,omitempty"`
+	OwnerId                *string    `json:"owner_id,omitempty"`
+	ChatMode               *string    `json:"chat_mode,omitempty"`
+	ChatType               *string    `json:"chat_type,omitempty"`
+	ChatTag                *string    `json:"chat_tag,omitempty"`
+	JoinMessageVisibility  *string    `json:"join_message_visibility,omitempty"`
+	LeaveMessageVisibility *string    `json:"leave_message_visibility,omitempty"`
+	MembershipApproval     *string    `json:"membership_approval,omitempty"`
+	ModerationPermission   *string    `json:"moderation_permission,omitempty"`
+	External               *bool      `json:"external,omitempty"`
+	TenantKey              *string    `json:"tenant_key,omitempty"`
+	UserCount              *string    `json:"user_count,omitempty"`
+	BotCount               *string    `json:"bot_count,omitempty"`
 }
 
 type GetChatResp struct {
@@ -3727,75 +3672,71 @@ func (resp *GetChatResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type ListChatReqBuilder struct {
-	userIdType  string
-	userIdTypeFlag  bool
-	pageToken  string
+	userIdType     string
+	userIdTypeFlag bool
+	pageToken      string
 	pageTokenFlag  bool
-	pageSize  int
-	pageSizeFlag  bool
-	limit int
-
+	pageSize       int
+	pageSizeFlag   bool
+	limit          int
 }
 
 // 生成请求的New构造器
-func NewListChatReqBuilder() * ListChatReqBuilder{
-   builder := &ListChatReqBuilder{}
-   return builder
+func NewListChatReqBuilder() *ListChatReqBuilder {
+	builder := &ListChatReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * ListChatReqBuilder) Limit(limit int ) *ListChatReqBuilder  {
-  builder.limit = limit
-  return builder
+func (builder *ListChatReqBuilder) Limit(limit int) *ListChatReqBuilder {
+	builder.limit = limit
+	return builder
 }
-func (builder * ListChatReqBuilder) UserIdType(userIdType string) *ListChatReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *ListChatReqBuilder) UserIdType(userIdType string) *ListChatReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
-func (builder * ListChatReqBuilder) PageToken(pageToken string) *ListChatReqBuilder  {
-  builder.pageToken = pageToken
-  builder.pageTokenFlag = true
-  return builder
+func (builder *ListChatReqBuilder) PageToken(pageToken string) *ListChatReqBuilder {
+	builder.pageToken = pageToken
+	builder.pageTokenFlag = true
+	return builder
 }
-func (builder * ListChatReqBuilder) PageSize(pageSize int) *ListChatReqBuilder  {
-  builder.pageSize = pageSize
-  builder.pageSizeFlag = true
-  return builder
+func (builder *ListChatReqBuilder) PageSize(pageSize int) *ListChatReqBuilder {
+	builder.pageSize = pageSize
+	builder.pageSizeFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * ListChatReqBuilder ) Build() *ListChatReq {
-   req := &ListChatReq{}
-   req.Limit = builder.limit
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   if builder.pageTokenFlag {
-	  req.PageToken = &builder.pageToken
-   }
-   if builder.pageSizeFlag {
-	  req.PageSize = &builder.pageSize
-   }
-   return req
+func (builder *ListChatReqBuilder) Build() *ListChatReq {
+	req := &ListChatReq{}
+	req.Limit = builder.limit
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	if builder.pageTokenFlag {
+		req.PageToken = &builder.pageToken
+	}
+	if builder.pageSizeFlag {
+		req.PageSize = &builder.pageSize
+	}
+	return req
 }
 
-
 type ListChatReq struct {
-	UserIdType  *string `query:"user_id_type"`
+	UserIdType *string `query:"user_id_type"`
 	PageToken  *string `query:"page_token"`
-	PageSize  *int `query:"page_size"`
-	Limit int
-
+	PageSize   *int    `query:"page_size"`
+	Limit      int
 }
 
 type ListChatRespData struct {
-	Items  []*ListChat `json:"items,omitempty"`
-	PageToken  *string `json:"page_token,omitempty"`
-	HasMore  *bool `json:"has_more,omitempty"`
+	Items     []*ListChat `json:"items,omitempty"`
+	PageToken *string     `json:"page_token,omitempty"`
+	HasMore   *bool       `json:"has_more,omitempty"`
 }
 
 type ListChatResp struct {
@@ -3808,86 +3749,82 @@ func (resp *ListChatResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type SearchChatReqBuilder struct {
-	userIdType  string
-	userIdTypeFlag  bool
-	query  string
-	queryFlag  bool
-	pageToken  string
+	userIdType     string
+	userIdTypeFlag bool
+	query          string
+	queryFlag      bool
+	pageToken      string
 	pageTokenFlag  bool
-	pageSize  int
-	pageSizeFlag  bool
-	limit int
-
+	pageSize       int
+	pageSizeFlag   bool
+	limit          int
 }
 
 // 生成请求的New构造器
-func NewSearchChatReqBuilder() * SearchChatReqBuilder{
-   builder := &SearchChatReqBuilder{}
-   return builder
+func NewSearchChatReqBuilder() *SearchChatReqBuilder {
+	builder := &SearchChatReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * SearchChatReqBuilder) Limit(limit int ) *SearchChatReqBuilder  {
-  builder.limit = limit
-  return builder
+func (builder *SearchChatReqBuilder) Limit(limit int) *SearchChatReqBuilder {
+	builder.limit = limit
+	return builder
 }
-func (builder * SearchChatReqBuilder) UserIdType(userIdType string) *SearchChatReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *SearchChatReqBuilder) UserIdType(userIdType string) *SearchChatReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
-func (builder * SearchChatReqBuilder) Query(query string) *SearchChatReqBuilder  {
-  builder.query = query
-  builder.queryFlag = true
-  return builder
+func (builder *SearchChatReqBuilder) Query(query string) *SearchChatReqBuilder {
+	builder.query = query
+	builder.queryFlag = true
+	return builder
 }
-func (builder * SearchChatReqBuilder) PageToken(pageToken string) *SearchChatReqBuilder  {
-  builder.pageToken = pageToken
-  builder.pageTokenFlag = true
-  return builder
+func (builder *SearchChatReqBuilder) PageToken(pageToken string) *SearchChatReqBuilder {
+	builder.pageToken = pageToken
+	builder.pageTokenFlag = true
+	return builder
 }
-func (builder * SearchChatReqBuilder) PageSize(pageSize int) *SearchChatReqBuilder  {
-  builder.pageSize = pageSize
-  builder.pageSizeFlag = true
-  return builder
+func (builder *SearchChatReqBuilder) PageSize(pageSize int) *SearchChatReqBuilder {
+	builder.pageSize = pageSize
+	builder.pageSizeFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * SearchChatReqBuilder ) Build() *SearchChatReq {
-   req := &SearchChatReq{}
-   req.Limit = builder.limit
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   if builder.queryFlag {
-	  req.Query = &builder.query
-   }
-   if builder.pageTokenFlag {
-	  req.PageToken = &builder.pageToken
-   }
-   if builder.pageSizeFlag {
-	  req.PageSize = &builder.pageSize
-   }
-   return req
+func (builder *SearchChatReqBuilder) Build() *SearchChatReq {
+	req := &SearchChatReq{}
+	req.Limit = builder.limit
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	if builder.queryFlag {
+		req.Query = &builder.query
+	}
+	if builder.pageTokenFlag {
+		req.PageToken = &builder.pageToken
+	}
+	if builder.pageSizeFlag {
+		req.PageSize = &builder.pageSize
+	}
+	return req
 }
 
-
 type SearchChatReq struct {
-	UserIdType  *string `query:"user_id_type"`
-	Query  *string `query:"query"`
+	UserIdType *string `query:"user_id_type"`
+	Query      *string `query:"query"`
 	PageToken  *string `query:"page_token"`
-	PageSize  *int `query:"page_size"`
-	Limit int
-
+	PageSize   *int    `query:"page_size"`
+	Limit      int
 }
 
 type SearchChatRespData struct {
-	Items  []*ListChat `json:"items,omitempty"`
-	PageToken  *string `json:"page_token,omitempty"`
-	HasMore  *bool `json:"has_more,omitempty"`
+	Items     []*ListChat `json:"items,omitempty"`
+	PageToken *string     `json:"page_token,omitempty"`
+	HasMore   *bool       `json:"has_more,omitempty"`
 }
 
 type SearchChatResp struct {
@@ -3901,356 +3838,348 @@ func (resp *SearchChatResp) Success() bool {
 }
 
 type UpdateChatReqBodyBuilder struct {
-	avatar  string
-	avatarFlag  bool
-	name  string
-	nameFlag  bool
-	description  string
-	descriptionFlag  bool
-	i18nNames  *I18nNames
-	i18nNamesFlag  bool
-	addMemberPermission  string
-	addMemberPermissionFlag  bool
-	shareCardPermission  string
-	shareCardPermissionFlag  bool
-	atAllPermission  string
-	atAllPermissionFlag  bool
-	editPermission  string
-	editPermissionFlag  bool
-	ownerId  string
-	ownerIdFlag  bool
-	joinMessageVisibility  string
+	avatar                     string
+	avatarFlag                 bool
+	name                       string
+	nameFlag                   bool
+	description                string
+	descriptionFlag            bool
+	i18nNames                  *I18nNames
+	i18nNamesFlag              bool
+	addMemberPermission        string
+	addMemberPermissionFlag    bool
+	shareCardPermission        string
+	shareCardPermissionFlag    bool
+	atAllPermission            string
+	atAllPermissionFlag        bool
+	editPermission             string
+	editPermissionFlag         bool
+	ownerId                    string
+	ownerIdFlag                bool
+	joinMessageVisibility      string
 	joinMessageVisibilityFlag  bool
-	leaveMessageVisibility  string
-	leaveMessageVisibilityFlag  bool
-	membershipApproval  string
-	membershipApprovalFlag  bool
-	
+	leaveMessageVisibility     string
+	leaveMessageVisibilityFlag bool
+	membershipApproval         string
+	membershipApprovalFlag     bool
 }
 
 // 生成body的New构造器
-func NewUpdateChatReqBodyBuilder() * UpdateChatReqBodyBuilder{
-  builder := &UpdateChatReqBodyBuilder{}
-  return builder
+func NewUpdateChatReqBodyBuilder() *UpdateChatReqBodyBuilder {
+	builder := &UpdateChatReqBodyBuilder{}
+	return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder * UpdateChatReqBodyBuilder ) Avatar(avatar string) *UpdateChatReqBodyBuilder {
-  builder.avatar = avatar
-  builder.avatarFlag = true
-  return builder
+func (builder *UpdateChatReqBodyBuilder) Avatar(avatar string) *UpdateChatReqBodyBuilder {
+	builder.avatar = avatar
+	builder.avatarFlag = true
+	return builder
 }
-func (builder * UpdateChatReqBodyBuilder ) Name(name string) *UpdateChatReqBodyBuilder {
-  builder.name = name
-  builder.nameFlag = true
-  return builder
+func (builder *UpdateChatReqBodyBuilder) Name(name string) *UpdateChatReqBodyBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
 }
-func (builder * UpdateChatReqBodyBuilder ) Description(description string) *UpdateChatReqBodyBuilder {
-  builder.description = description
-  builder.descriptionFlag = true
-  return builder
+func (builder *UpdateChatReqBodyBuilder) Description(description string) *UpdateChatReqBodyBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
 }
-func (builder * UpdateChatReqBodyBuilder ) I18nNames(i18nNames *I18nNames) *UpdateChatReqBodyBuilder {
-  builder.i18nNames = i18nNames
-  builder.i18nNamesFlag = true
-  return builder
+func (builder *UpdateChatReqBodyBuilder) I18nNames(i18nNames *I18nNames) *UpdateChatReqBodyBuilder {
+	builder.i18nNames = i18nNames
+	builder.i18nNamesFlag = true
+	return builder
 }
-func (builder * UpdateChatReqBodyBuilder ) AddMemberPermission(addMemberPermission string) *UpdateChatReqBodyBuilder {
-  builder.addMemberPermission = addMemberPermission
-  builder.addMemberPermissionFlag = true
-  return builder
+func (builder *UpdateChatReqBodyBuilder) AddMemberPermission(addMemberPermission string) *UpdateChatReqBodyBuilder {
+	builder.addMemberPermission = addMemberPermission
+	builder.addMemberPermissionFlag = true
+	return builder
 }
-func (builder * UpdateChatReqBodyBuilder ) ShareCardPermission(shareCardPermission string) *UpdateChatReqBodyBuilder {
-  builder.shareCardPermission = shareCardPermission
-  builder.shareCardPermissionFlag = true
-  return builder
+func (builder *UpdateChatReqBodyBuilder) ShareCardPermission(shareCardPermission string) *UpdateChatReqBodyBuilder {
+	builder.shareCardPermission = shareCardPermission
+	builder.shareCardPermissionFlag = true
+	return builder
 }
-func (builder * UpdateChatReqBodyBuilder ) AtAllPermission(atAllPermission string) *UpdateChatReqBodyBuilder {
-  builder.atAllPermission = atAllPermission
-  builder.atAllPermissionFlag = true
-  return builder
+func (builder *UpdateChatReqBodyBuilder) AtAllPermission(atAllPermission string) *UpdateChatReqBodyBuilder {
+	builder.atAllPermission = atAllPermission
+	builder.atAllPermissionFlag = true
+	return builder
 }
-func (builder * UpdateChatReqBodyBuilder ) EditPermission(editPermission string) *UpdateChatReqBodyBuilder {
-  builder.editPermission = editPermission
-  builder.editPermissionFlag = true
-  return builder
+func (builder *UpdateChatReqBodyBuilder) EditPermission(editPermission string) *UpdateChatReqBodyBuilder {
+	builder.editPermission = editPermission
+	builder.editPermissionFlag = true
+	return builder
 }
-func (builder * UpdateChatReqBodyBuilder ) OwnerId(ownerId string) *UpdateChatReqBodyBuilder {
-  builder.ownerId = ownerId
-  builder.ownerIdFlag = true
-  return builder
+func (builder *UpdateChatReqBodyBuilder) OwnerId(ownerId string) *UpdateChatReqBodyBuilder {
+	builder.ownerId = ownerId
+	builder.ownerIdFlag = true
+	return builder
 }
-func (builder * UpdateChatReqBodyBuilder ) JoinMessageVisibility(joinMessageVisibility string) *UpdateChatReqBodyBuilder {
-  builder.joinMessageVisibility = joinMessageVisibility
-  builder.joinMessageVisibilityFlag = true
-  return builder
+func (builder *UpdateChatReqBodyBuilder) JoinMessageVisibility(joinMessageVisibility string) *UpdateChatReqBodyBuilder {
+	builder.joinMessageVisibility = joinMessageVisibility
+	builder.joinMessageVisibilityFlag = true
+	return builder
 }
-func (builder * UpdateChatReqBodyBuilder ) LeaveMessageVisibility(leaveMessageVisibility string) *UpdateChatReqBodyBuilder {
-  builder.leaveMessageVisibility = leaveMessageVisibility
-  builder.leaveMessageVisibilityFlag = true
-  return builder
+func (builder *UpdateChatReqBodyBuilder) LeaveMessageVisibility(leaveMessageVisibility string) *UpdateChatReqBodyBuilder {
+	builder.leaveMessageVisibility = leaveMessageVisibility
+	builder.leaveMessageVisibilityFlag = true
+	return builder
 }
-func (builder * UpdateChatReqBodyBuilder ) MembershipApproval(membershipApproval string) *UpdateChatReqBodyBuilder {
-  builder.membershipApproval = membershipApproval
-  builder.membershipApprovalFlag = true
-  return builder
+func (builder *UpdateChatReqBodyBuilder) MembershipApproval(membershipApproval string) *UpdateChatReqBodyBuilder {
+	builder.membershipApproval = membershipApproval
+	builder.membershipApprovalFlag = true
+	return builder
 }
-
-
 
 // 1.3 生成body的build方法
-func (builder * UpdateChatReqBodyBuilder ) Build() *UpdateChatReqBody {
-   req := &UpdateChatReqBody{}
-   if builder.avatarFlag {
-	  req.Avatar = &builder.avatar
-   }
-   if builder.nameFlag {
-	  req.Name = &builder.name
-   }
-   if builder.descriptionFlag {
-	  req.Description = &builder.description
-   }
-   if builder.i18nNamesFlag {
-	  req.I18nNames = builder.i18nNames
-   }
-   if builder.addMemberPermissionFlag {
-	  req.AddMemberPermission = &builder.addMemberPermission
-   }
-   if builder.shareCardPermissionFlag {
-	  req.ShareCardPermission = &builder.shareCardPermission
-   }
-   if builder.atAllPermissionFlag {
-	  req.AtAllPermission = &builder.atAllPermission
-   }
-   if builder.editPermissionFlag {
-	  req.EditPermission = &builder.editPermission
-   }
-   if builder.ownerIdFlag {
-	  req.OwnerId = &builder.ownerId
-   }
-   if builder.joinMessageVisibilityFlag {
-	  req.JoinMessageVisibility = &builder.joinMessageVisibility
-   }
-   if builder.leaveMessageVisibilityFlag {
-	  req.LeaveMessageVisibility = &builder.leaveMessageVisibility
-   }
-   if builder.membershipApprovalFlag {
-	  req.MembershipApproval = &builder.membershipApproval
-   }
-   return req
+func (builder *UpdateChatReqBodyBuilder) Build() *UpdateChatReqBody {
+	req := &UpdateChatReqBody{}
+	if builder.avatarFlag {
+		req.Avatar = &builder.avatar
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+	}
+	if builder.i18nNamesFlag {
+		req.I18nNames = builder.i18nNames
+	}
+	if builder.addMemberPermissionFlag {
+		req.AddMemberPermission = &builder.addMemberPermission
+	}
+	if builder.shareCardPermissionFlag {
+		req.ShareCardPermission = &builder.shareCardPermission
+	}
+	if builder.atAllPermissionFlag {
+		req.AtAllPermission = &builder.atAllPermission
+	}
+	if builder.editPermissionFlag {
+		req.EditPermission = &builder.editPermission
+	}
+	if builder.ownerIdFlag {
+		req.OwnerId = &builder.ownerId
+	}
+	if builder.joinMessageVisibilityFlag {
+		req.JoinMessageVisibility = &builder.joinMessageVisibility
+	}
+	if builder.leaveMessageVisibilityFlag {
+		req.LeaveMessageVisibility = &builder.leaveMessageVisibility
+	}
+	if builder.membershipApprovalFlag {
+		req.MembershipApproval = &builder.membershipApproval
+	}
+	return req
 }
 
 // 上传文件path开始
 type UpdateChatPathReqBodyBuilder struct {
-	avatar  string
-	avatarFlag  bool
-	name  string
-	nameFlag  bool
-	description  string
-	descriptionFlag  bool
-	i18nNames  *I18nNames
-	i18nNamesFlag  bool
-	addMemberPermission  string
-	addMemberPermissionFlag  bool
-	shareCardPermission  string
-	shareCardPermissionFlag  bool
-	atAllPermission  string
-	atAllPermissionFlag  bool
-	editPermission  string
-	editPermissionFlag  bool
-	ownerId  string
-	ownerIdFlag  bool
-	joinMessageVisibility  string
+	avatar                     string
+	avatarFlag                 bool
+	name                       string
+	nameFlag                   bool
+	description                string
+	descriptionFlag            bool
+	i18nNames                  *I18nNames
+	i18nNamesFlag              bool
+	addMemberPermission        string
+	addMemberPermissionFlag    bool
+	shareCardPermission        string
+	shareCardPermissionFlag    bool
+	atAllPermission            string
+	atAllPermissionFlag        bool
+	editPermission             string
+	editPermissionFlag         bool
+	ownerId                    string
+	ownerIdFlag                bool
+	joinMessageVisibility      string
 	joinMessageVisibilityFlag  bool
-	leaveMessageVisibility  string
-	leaveMessageVisibilityFlag  bool
-	membershipApproval  string
-	membershipApprovalFlag  bool
-	labels  []string
-	labelsFlag  bool
+	leaveMessageVisibility     string
+	leaveMessageVisibilityFlag bool
+	membershipApproval         string
+	membershipApprovalFlag     bool
+	labels                     []string
+	labelsFlag                 bool
 }
 
-func NewUpdateChatPathReqBodyBuilder() * UpdateChatPathReqBodyBuilder{
-  builder := &UpdateChatPathReqBodyBuilder{}
-  return builder
+func NewUpdateChatPathReqBodyBuilder() *UpdateChatPathReqBodyBuilder {
+	builder := &UpdateChatPathReqBodyBuilder{}
+	return builder
 }
-func (builder * UpdateChatPathReqBodyBuilder ) Avatar(avatar string) *UpdateChatPathReqBodyBuilder {
-  builder.avatar = avatar
-  builder.avatarFlag = true
-  return builder
+func (builder *UpdateChatPathReqBodyBuilder) Avatar(avatar string) *UpdateChatPathReqBodyBuilder {
+	builder.avatar = avatar
+	builder.avatarFlag = true
+	return builder
 }
-func (builder * UpdateChatPathReqBodyBuilder ) Name(name string) *UpdateChatPathReqBodyBuilder {
-  builder.name = name
-  builder.nameFlag = true
-  return builder
+func (builder *UpdateChatPathReqBodyBuilder) Name(name string) *UpdateChatPathReqBodyBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
 }
-func (builder * UpdateChatPathReqBodyBuilder ) Description(description string) *UpdateChatPathReqBodyBuilder {
-  builder.description = description
-  builder.descriptionFlag = true
-  return builder
+func (builder *UpdateChatPathReqBodyBuilder) Description(description string) *UpdateChatPathReqBodyBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
 }
-func (builder * UpdateChatPathReqBodyBuilder ) I18nNames(i18nNames *I18nNames) *UpdateChatPathReqBodyBuilder {
-  builder.i18nNames = i18nNames
-  builder.i18nNamesFlag = true
-  return builder
+func (builder *UpdateChatPathReqBodyBuilder) I18nNames(i18nNames *I18nNames) *UpdateChatPathReqBodyBuilder {
+	builder.i18nNames = i18nNames
+	builder.i18nNamesFlag = true
+	return builder
 }
-func (builder * UpdateChatPathReqBodyBuilder ) AddMemberPermission(addMemberPermission string) *UpdateChatPathReqBodyBuilder {
-  builder.addMemberPermission = addMemberPermission
-  builder.addMemberPermissionFlag = true
-  return builder
+func (builder *UpdateChatPathReqBodyBuilder) AddMemberPermission(addMemberPermission string) *UpdateChatPathReqBodyBuilder {
+	builder.addMemberPermission = addMemberPermission
+	builder.addMemberPermissionFlag = true
+	return builder
 }
-func (builder * UpdateChatPathReqBodyBuilder ) ShareCardPermission(shareCardPermission string) *UpdateChatPathReqBodyBuilder {
-  builder.shareCardPermission = shareCardPermission
-  builder.shareCardPermissionFlag = true
-  return builder
+func (builder *UpdateChatPathReqBodyBuilder) ShareCardPermission(shareCardPermission string) *UpdateChatPathReqBodyBuilder {
+	builder.shareCardPermission = shareCardPermission
+	builder.shareCardPermissionFlag = true
+	return builder
 }
-func (builder * UpdateChatPathReqBodyBuilder ) AtAllPermission(atAllPermission string) *UpdateChatPathReqBodyBuilder {
-  builder.atAllPermission = atAllPermission
-  builder.atAllPermissionFlag = true
-  return builder
+func (builder *UpdateChatPathReqBodyBuilder) AtAllPermission(atAllPermission string) *UpdateChatPathReqBodyBuilder {
+	builder.atAllPermission = atAllPermission
+	builder.atAllPermissionFlag = true
+	return builder
 }
-func (builder * UpdateChatPathReqBodyBuilder ) EditPermission(editPermission string) *UpdateChatPathReqBodyBuilder {
-  builder.editPermission = editPermission
-  builder.editPermissionFlag = true
-  return builder
+func (builder *UpdateChatPathReqBodyBuilder) EditPermission(editPermission string) *UpdateChatPathReqBodyBuilder {
+	builder.editPermission = editPermission
+	builder.editPermissionFlag = true
+	return builder
 }
-func (builder * UpdateChatPathReqBodyBuilder ) OwnerId(ownerId string) *UpdateChatPathReqBodyBuilder {
-  builder.ownerId = ownerId
-  builder.ownerIdFlag = true
-  return builder
+func (builder *UpdateChatPathReqBodyBuilder) OwnerId(ownerId string) *UpdateChatPathReqBodyBuilder {
+	builder.ownerId = ownerId
+	builder.ownerIdFlag = true
+	return builder
 }
-func (builder * UpdateChatPathReqBodyBuilder ) JoinMessageVisibility(joinMessageVisibility string) *UpdateChatPathReqBodyBuilder {
-  builder.joinMessageVisibility = joinMessageVisibility
-  builder.joinMessageVisibilityFlag = true
-  return builder
+func (builder *UpdateChatPathReqBodyBuilder) JoinMessageVisibility(joinMessageVisibility string) *UpdateChatPathReqBodyBuilder {
+	builder.joinMessageVisibility = joinMessageVisibility
+	builder.joinMessageVisibilityFlag = true
+	return builder
 }
-func (builder * UpdateChatPathReqBodyBuilder ) LeaveMessageVisibility(leaveMessageVisibility string) *UpdateChatPathReqBodyBuilder {
-  builder.leaveMessageVisibility = leaveMessageVisibility
-  builder.leaveMessageVisibilityFlag = true
-  return builder
+func (builder *UpdateChatPathReqBodyBuilder) LeaveMessageVisibility(leaveMessageVisibility string) *UpdateChatPathReqBodyBuilder {
+	builder.leaveMessageVisibility = leaveMessageVisibility
+	builder.leaveMessageVisibilityFlag = true
+	return builder
 }
-func (builder * UpdateChatPathReqBodyBuilder ) MembershipApproval(membershipApproval string) *UpdateChatPathReqBodyBuilder {
-  builder.membershipApproval = membershipApproval
-  builder.membershipApprovalFlag = true
-  return builder
+func (builder *UpdateChatPathReqBodyBuilder) MembershipApproval(membershipApproval string) *UpdateChatPathReqBodyBuilder {
+	builder.membershipApproval = membershipApproval
+	builder.membershipApprovalFlag = true
+	return builder
 }
 
-
-
-func (builder * UpdateChatPathReqBodyBuilder ) Build() (*UpdateChatReqBody, error) {
-   req := &UpdateChatReqBody{}
-   if builder.avatarFlag {
-	  req.Avatar = &builder.avatar
-   }
-   if builder.nameFlag {
-	  req.Name = &builder.name
-   }
-   if builder.descriptionFlag {
-	  req.Description = &builder.description
-   }
-   if builder.i18nNamesFlag {
-	   req.I18nNames = builder.i18nNames
-   }
-   if builder.addMemberPermissionFlag {
-	  req.AddMemberPermission = &builder.addMemberPermission
-   }
-   if builder.shareCardPermissionFlag {
-	  req.ShareCardPermission = &builder.shareCardPermission
-   }
-   if builder.atAllPermissionFlag {
-	  req.AtAllPermission = &builder.atAllPermission
-   }
-   if builder.editPermissionFlag {
-	  req.EditPermission = &builder.editPermission
-   }
-   if builder.ownerIdFlag {
-	  req.OwnerId = &builder.ownerId
-   }
-   if builder.joinMessageVisibilityFlag {
-	  req.JoinMessageVisibility = &builder.joinMessageVisibility
-   }
-   if builder.leaveMessageVisibilityFlag {
-	  req.LeaveMessageVisibility = &builder.leaveMessageVisibility
-   }
-   if builder.membershipApprovalFlag {
-	  req.MembershipApproval = &builder.membershipApproval
-   }
-   return req, nil
+func (builder *UpdateChatPathReqBodyBuilder) Build() (*UpdateChatReqBody, error) {
+	req := &UpdateChatReqBody{}
+	if builder.avatarFlag {
+		req.Avatar = &builder.avatar
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+	}
+	if builder.i18nNamesFlag {
+		req.I18nNames = builder.i18nNames
+	}
+	if builder.addMemberPermissionFlag {
+		req.AddMemberPermission = &builder.addMemberPermission
+	}
+	if builder.shareCardPermissionFlag {
+		req.ShareCardPermission = &builder.shareCardPermission
+	}
+	if builder.atAllPermissionFlag {
+		req.AtAllPermission = &builder.atAllPermission
+	}
+	if builder.editPermissionFlag {
+		req.EditPermission = &builder.editPermission
+	}
+	if builder.ownerIdFlag {
+		req.OwnerId = &builder.ownerId
+	}
+	if builder.joinMessageVisibilityFlag {
+		req.JoinMessageVisibility = &builder.joinMessageVisibility
+	}
+	if builder.leaveMessageVisibilityFlag {
+		req.LeaveMessageVisibility = &builder.leaveMessageVisibility
+	}
+	if builder.membershipApprovalFlag {
+		req.MembershipApproval = &builder.membershipApproval
+	}
+	return req, nil
 }
+
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type UpdateChatReqBuilder struct {
-	chatId  string
-	chatIdFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-	body *UpdateChatReqBody
-	bodyFlag bool
-
+	chatId         string
+	chatIdFlag     bool
+	userIdType     string
+	userIdTypeFlag bool
+	body           *UpdateChatReqBody
+	bodyFlag       bool
 }
 
 // 生成请求的New构造器
-func NewUpdateChatReqBuilder() * UpdateChatReqBuilder{
-   builder := &UpdateChatReqBuilder{}
-   return builder
+func NewUpdateChatReqBuilder() *UpdateChatReqBuilder {
+	builder := &UpdateChatReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * UpdateChatReqBuilder) ChatId(chatId string) *UpdateChatReqBuilder  {
-  builder.chatId = chatId
-  builder.chatIdFlag = true
-  return builder
+func (builder *UpdateChatReqBuilder) ChatId(chatId string) *UpdateChatReqBuilder {
+	builder.chatId = chatId
+	builder.chatIdFlag = true
+	return builder
 }
-func (builder * UpdateChatReqBuilder) UserIdType(userIdType string) *UpdateChatReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *UpdateChatReqBuilder) UserIdType(userIdType string) *UpdateChatReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
-func (builder * UpdateChatReqBuilder) Body(body *UpdateChatReqBody) *UpdateChatReqBuilder  {
-  builder.body = body
-  builder.bodyFlag = true
-  return builder
+func (builder *UpdateChatReqBuilder) Body(body *UpdateChatReqBody) *UpdateChatReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * UpdateChatReqBuilder ) Build() *UpdateChatReq {
-   req := &UpdateChatReq{}
-   if builder.chatIdFlag {
-	  req.ChatId = builder.chatId
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   if builder.bodyFlag {
-	  req.Body = builder.body
-   }
-   return req
+func (builder *UpdateChatReqBuilder) Build() *UpdateChatReq {
+	req := &UpdateChatReq{}
+	if builder.chatIdFlag {
+		req.ChatId = builder.chatId
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	if builder.bodyFlag {
+		req.Body = builder.body
+	}
+	return req
 }
 
 type UpdateChatReqBody struct {
-	Avatar  *string `json:"avatar,omitempty"`
-	Name  *string `json:"name,omitempty"`
-	Description  *string `json:"description,omitempty"`
-	I18nNames  *I18nNames `json:"i18n_names,omitempty"`
-	AddMemberPermission  *string `json:"add_member_permission,omitempty"`
-	ShareCardPermission  *string `json:"share_card_permission,omitempty"`
-	AtAllPermission  *string `json:"at_all_permission,omitempty"`
-	EditPermission  *string `json:"edit_permission,omitempty"`
-	OwnerId  *string `json:"owner_id,omitempty"`
-	JoinMessageVisibility  *string `json:"join_message_visibility,omitempty"`
-	LeaveMessageVisibility  *string `json:"leave_message_visibility,omitempty"`
-	MembershipApproval  *string `json:"membership_approval,omitempty"`
-	
+	Avatar                 *string    `json:"avatar,omitempty"`
+	Name                   *string    `json:"name,omitempty"`
+	Description            *string    `json:"description,omitempty"`
+	I18nNames              *I18nNames `json:"i18n_names,omitempty"`
+	AddMemberPermission    *string    `json:"add_member_permission,omitempty"`
+	ShareCardPermission    *string    `json:"share_card_permission,omitempty"`
+	AtAllPermission        *string    `json:"at_all_permission,omitempty"`
+	EditPermission         *string    `json:"edit_permission,omitempty"`
+	OwnerId                *string    `json:"owner_id,omitempty"`
+	JoinMessageVisibility  *string    `json:"join_message_visibility,omitempty"`
+	LeaveMessageVisibility *string    `json:"leave_message_visibility,omitempty"`
+	MembershipApproval     *string    `json:"membership_approval,omitempty"`
 }
 
 type UpdateChatReq struct {
-	ChatId  string `path:"chat_id"`
-	UserIdType  *string `query:"user_id_type"`
-	Body *UpdateChatReqBody `body:""`
-
+	ChatId     string             `path:"chat_id"`
+	UserIdType *string            `query:"user_id_type"`
+	Body       *UpdateChatReqBody `body:""`
 }
-
 
 type UpdateChatResp struct {
 	*larkcore.RawResponse `json:"-"`
@@ -4261,62 +4190,58 @@ func (resp *UpdateChatResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type GetChatAnnouncementReqBuilder struct {
-	chatId  string
-	chatIdFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-
+	chatId         string
+	chatIdFlag     bool
+	userIdType     string
+	userIdTypeFlag bool
 }
 
 // 生成请求的New构造器
-func NewGetChatAnnouncementReqBuilder() * GetChatAnnouncementReqBuilder{
-   builder := &GetChatAnnouncementReqBuilder{}
-   return builder
+func NewGetChatAnnouncementReqBuilder() *GetChatAnnouncementReqBuilder {
+	builder := &GetChatAnnouncementReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * GetChatAnnouncementReqBuilder) ChatId(chatId string) *GetChatAnnouncementReqBuilder  {
-  builder.chatId = chatId
-  builder.chatIdFlag = true
-  return builder
+func (builder *GetChatAnnouncementReqBuilder) ChatId(chatId string) *GetChatAnnouncementReqBuilder {
+	builder.chatId = chatId
+	builder.chatIdFlag = true
+	return builder
 }
-func (builder * GetChatAnnouncementReqBuilder) UserIdType(userIdType string) *GetChatAnnouncementReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *GetChatAnnouncementReqBuilder) UserIdType(userIdType string) *GetChatAnnouncementReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * GetChatAnnouncementReqBuilder ) Build() *GetChatAnnouncementReq {
-   req := &GetChatAnnouncementReq{}
-   if builder.chatIdFlag {
-	  req.ChatId = builder.chatId
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   return req
+func (builder *GetChatAnnouncementReqBuilder) Build() *GetChatAnnouncementReq {
+	req := &GetChatAnnouncementReq{}
+	if builder.chatIdFlag {
+		req.ChatId = builder.chatId
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	return req
 }
 
-
 type GetChatAnnouncementReq struct {
-	ChatId  string `path:"chat_id"`
-	UserIdType  *string `query:"user_id_type"`
-
+	ChatId     string  `path:"chat_id"`
+	UserIdType *string `query:"user_id_type"`
 }
 
 type GetChatAnnouncementRespData struct {
-	Content  *string `json:"content,omitempty"`
-	Revision  *string `json:"revision,omitempty"`
-	CreateTime  *string `json:"create_time,omitempty"`
-	UpdateTime  *string `json:"update_time,omitempty"`
-	OwnerIdType  *string `json:"owner_id_type,omitempty"`
-	OwnerId  *string `json:"owner_id,omitempty"`
-	ModifierIdType  *string `json:"modifier_id_type,omitempty"`
-	ModifierId  *string `json:"modifier_id,omitempty"`
+	Content        *string `json:"content,omitempty"`
+	Revision       *string `json:"revision,omitempty"`
+	CreateTime     *string `json:"create_time,omitempty"`
+	UpdateTime     *string `json:"update_time,omitempty"`
+	OwnerIdType    *string `json:"owner_id_type,omitempty"`
+	OwnerId        *string `json:"owner_id,omitempty"`
+	ModifierIdType *string `json:"modifier_id_type,omitempty"`
+	ModifierId     *string `json:"modifier_id,omitempty"`
 }
 
 type GetChatAnnouncementResp struct {
@@ -4330,129 +4255,125 @@ func (resp *GetChatAnnouncementResp) Success() bool {
 }
 
 type PatchChatAnnouncementReqBodyBuilder struct {
-	revision  string
-	revisionFlag  bool
-	requests  []string
-	requestsFlag  bool
+	revision     string
+	revisionFlag bool
+	requests     []string
+	requestsFlag bool
 }
 
 // 生成body的New构造器
-func NewPatchChatAnnouncementReqBodyBuilder() * PatchChatAnnouncementReqBodyBuilder{
-  builder := &PatchChatAnnouncementReqBodyBuilder{}
-  return builder
+func NewPatchChatAnnouncementReqBodyBuilder() *PatchChatAnnouncementReqBodyBuilder {
+	builder := &PatchChatAnnouncementReqBodyBuilder{}
+	return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder * PatchChatAnnouncementReqBodyBuilder ) Revision(revision string) *PatchChatAnnouncementReqBodyBuilder {
-  builder.revision = revision
-  builder.revisionFlag = true
-  return builder
+func (builder *PatchChatAnnouncementReqBodyBuilder) Revision(revision string) *PatchChatAnnouncementReqBodyBuilder {
+	builder.revision = revision
+	builder.revisionFlag = true
+	return builder
 }
-func (builder * PatchChatAnnouncementReqBodyBuilder ) Requests(requests []string) *PatchChatAnnouncementReqBodyBuilder {
-  builder.requests = requests
-  builder.requestsFlag = true
-  return builder
+func (builder *PatchChatAnnouncementReqBodyBuilder) Requests(requests []string) *PatchChatAnnouncementReqBodyBuilder {
+	builder.requests = requests
+	builder.requestsFlag = true
+	return builder
 }
-
 
 // 1.3 生成body的build方法
-func (builder * PatchChatAnnouncementReqBodyBuilder ) Build() *PatchChatAnnouncementReqBody {
-   req := &PatchChatAnnouncementReqBody{}
-   if builder.revisionFlag {
-	  req.Revision = &builder.revision
-   }
-   if builder.requestsFlag {
-	  req.Requests = builder.requests
-   }
-   return req
+func (builder *PatchChatAnnouncementReqBodyBuilder) Build() *PatchChatAnnouncementReqBody {
+	req := &PatchChatAnnouncementReqBody{}
+	if builder.revisionFlag {
+		req.Revision = &builder.revision
+	}
+	if builder.requestsFlag {
+		req.Requests = builder.requests
+	}
+	return req
 }
 
 // 上传文件path开始
 type PatchChatAnnouncementPathReqBodyBuilder struct {
-	revision  string
-	revisionFlag  bool
-	requests  []string
-	requestsFlag  bool
+	revision     string
+	revisionFlag bool
+	requests     []string
+	requestsFlag bool
 }
 
-func NewPatchChatAnnouncementPathReqBodyBuilder() * PatchChatAnnouncementPathReqBodyBuilder{
-  builder := &PatchChatAnnouncementPathReqBodyBuilder{}
-  return builder
+func NewPatchChatAnnouncementPathReqBodyBuilder() *PatchChatAnnouncementPathReqBodyBuilder {
+	builder := &PatchChatAnnouncementPathReqBodyBuilder{}
+	return builder
 }
-func (builder * PatchChatAnnouncementPathReqBodyBuilder ) Revision(revision string) *PatchChatAnnouncementPathReqBodyBuilder {
-  builder.revision = revision
-  builder.revisionFlag = true
-  return builder
+func (builder *PatchChatAnnouncementPathReqBodyBuilder) Revision(revision string) *PatchChatAnnouncementPathReqBodyBuilder {
+	builder.revision = revision
+	builder.revisionFlag = true
+	return builder
 }
-func (builder * PatchChatAnnouncementPathReqBodyBuilder ) Requests(requests []string) *PatchChatAnnouncementPathReqBodyBuilder {
-  builder.requests = requests
-  builder.requestsFlag = true
-  return builder
+func (builder *PatchChatAnnouncementPathReqBodyBuilder) Requests(requests []string) *PatchChatAnnouncementPathReqBodyBuilder {
+	builder.requests = requests
+	builder.requestsFlag = true
+	return builder
 }
 
-
-func (builder * PatchChatAnnouncementPathReqBodyBuilder ) Build() (*PatchChatAnnouncementReqBody, error) {
-   req := &PatchChatAnnouncementReqBody{}
-   if builder.revisionFlag {
-	  req.Revision = &builder.revision
-   }
-   if builder.requestsFlag {
-	   req.Requests = builder.requests
-   }
-   return req, nil
+func (builder *PatchChatAnnouncementPathReqBodyBuilder) Build() (*PatchChatAnnouncementReqBody, error) {
+	req := &PatchChatAnnouncementReqBody{}
+	if builder.revisionFlag {
+		req.Revision = &builder.revision
+	}
+	if builder.requestsFlag {
+		req.Requests = builder.requests
+	}
+	return req, nil
 }
+
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type PatchChatAnnouncementReqBuilder struct {
-	chatId  string
-	chatIdFlag  bool
-	body *PatchChatAnnouncementReqBody
-	bodyFlag bool
-
+	chatId     string
+	chatIdFlag bool
+	body       *PatchChatAnnouncementReqBody
+	bodyFlag   bool
 }
 
 // 生成请求的New构造器
-func NewPatchChatAnnouncementReqBuilder() * PatchChatAnnouncementReqBuilder{
-   builder := &PatchChatAnnouncementReqBuilder{}
-   return builder
+func NewPatchChatAnnouncementReqBuilder() *PatchChatAnnouncementReqBuilder {
+	builder := &PatchChatAnnouncementReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * PatchChatAnnouncementReqBuilder) ChatId(chatId string) *PatchChatAnnouncementReqBuilder  {
-  builder.chatId = chatId
-  builder.chatIdFlag = true
-  return builder
+func (builder *PatchChatAnnouncementReqBuilder) ChatId(chatId string) *PatchChatAnnouncementReqBuilder {
+	builder.chatId = chatId
+	builder.chatIdFlag = true
+	return builder
 }
-func (builder * PatchChatAnnouncementReqBuilder) Body(body *PatchChatAnnouncementReqBody) *PatchChatAnnouncementReqBuilder  {
-  builder.body = body
-  builder.bodyFlag = true
-  return builder
+func (builder *PatchChatAnnouncementReqBuilder) Body(body *PatchChatAnnouncementReqBody) *PatchChatAnnouncementReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * PatchChatAnnouncementReqBuilder ) Build() *PatchChatAnnouncementReq {
-   req := &PatchChatAnnouncementReq{}
-   if builder.chatIdFlag {
-	  req.ChatId = builder.chatId
-   }
-   if builder.bodyFlag {
-	  req.Body = builder.body
-   }
-   return req
+func (builder *PatchChatAnnouncementReqBuilder) Build() *PatchChatAnnouncementReq {
+	req := &PatchChatAnnouncementReq{}
+	if builder.chatIdFlag {
+		req.ChatId = builder.chatId
+	}
+	if builder.bodyFlag {
+		req.Body = builder.body
+	}
+	return req
 }
 
 type PatchChatAnnouncementReqBody struct {
-	Revision  *string `json:"revision,omitempty"`
-	Requests  []string `json:"requests,omitempty"`
+	Revision *string  `json:"revision,omitempty"`
+	Requests []string `json:"requests,omitempty"`
 }
 
 type PatchChatAnnouncementReq struct {
-	ChatId  string `path:"chat_id"`
-	Body *PatchChatAnnouncementReqBody `body:""`
-
+	ChatId string                        `path:"chat_id"`
+	Body   *PatchChatAnnouncementReqBody `body:""`
 }
-
 
 type PatchChatAnnouncementResp struct {
 	*larkcore.RawResponse `json:"-"`
@@ -4464,122 +4385,119 @@ func (resp *PatchChatAnnouncementResp) Success() bool {
 }
 
 type AddManagersChatManagersReqBodyBuilder struct {
-	managerIds  []string
-	managerIdsFlag  bool
+	managerIds     []string
+	managerIdsFlag bool
 }
 
 // 生成body的New构造器
-func NewAddManagersChatManagersReqBodyBuilder() * AddManagersChatManagersReqBodyBuilder{
-  builder := &AddManagersChatManagersReqBodyBuilder{}
-  return builder
+func NewAddManagersChatManagersReqBodyBuilder() *AddManagersChatManagersReqBodyBuilder {
+	builder := &AddManagersChatManagersReqBodyBuilder{}
+	return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder * AddManagersChatManagersReqBodyBuilder ) ManagerIds(managerIds []string) *AddManagersChatManagersReqBodyBuilder {
-  builder.managerIds = managerIds
-  builder.managerIdsFlag = true
-  return builder
+func (builder *AddManagersChatManagersReqBodyBuilder) ManagerIds(managerIds []string) *AddManagersChatManagersReqBodyBuilder {
+	builder.managerIds = managerIds
+	builder.managerIdsFlag = true
+	return builder
 }
 
-
 // 1.3 生成body的build方法
-func (builder * AddManagersChatManagersReqBodyBuilder ) Build() *AddManagersChatManagersReqBody {
-   req := &AddManagersChatManagersReqBody{}
-   if builder.managerIdsFlag {
-	  req.ManagerIds = builder.managerIds
-   }
-   return req
+func (builder *AddManagersChatManagersReqBodyBuilder) Build() *AddManagersChatManagersReqBody {
+	req := &AddManagersChatManagersReqBody{}
+	if builder.managerIdsFlag {
+		req.ManagerIds = builder.managerIds
+	}
+	return req
 }
 
 // 上传文件path开始
 type AddManagersChatManagersPathReqBodyBuilder struct {
-	managerIds  []string
-	managerIdsFlag  bool
+	managerIds     []string
+	managerIdsFlag bool
 }
 
-func NewAddManagersChatManagersPathReqBodyBuilder() * AddManagersChatManagersPathReqBodyBuilder{
-  builder := &AddManagersChatManagersPathReqBodyBuilder{}
-  return builder
+func NewAddManagersChatManagersPathReqBodyBuilder() *AddManagersChatManagersPathReqBodyBuilder {
+	builder := &AddManagersChatManagersPathReqBodyBuilder{}
+	return builder
 }
-func (builder * AddManagersChatManagersPathReqBodyBuilder ) ManagerIds(managerIds []string) *AddManagersChatManagersPathReqBodyBuilder {
-  builder.managerIds = managerIds
-  builder.managerIdsFlag = true
-  return builder
+func (builder *AddManagersChatManagersPathReqBodyBuilder) ManagerIds(managerIds []string) *AddManagersChatManagersPathReqBodyBuilder {
+	builder.managerIds = managerIds
+	builder.managerIdsFlag = true
+	return builder
 }
 
-
-func (builder * AddManagersChatManagersPathReqBodyBuilder ) Build() (*AddManagersChatManagersReqBody, error) {
-   req := &AddManagersChatManagersReqBody{}
-   if builder.managerIdsFlag {
-	   req.ManagerIds = builder.managerIds
-   }
-   return req, nil
+func (builder *AddManagersChatManagersPathReqBodyBuilder) Build() (*AddManagersChatManagersReqBody, error) {
+	req := &AddManagersChatManagersReqBody{}
+	if builder.managerIdsFlag {
+		req.ManagerIds = builder.managerIds
+	}
+	return req, nil
 }
+
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type AddManagersChatManagersReqBuilder struct {
-	chatId  string
-	chatIdFlag  bool
-	memberIdType  string
-	memberIdTypeFlag  bool
-	body *AddManagersChatManagersReqBody
-	bodyFlag bool
-
+	chatId           string
+	chatIdFlag       bool
+	memberIdType     string
+	memberIdTypeFlag bool
+	body             *AddManagersChatManagersReqBody
+	bodyFlag         bool
 }
 
 // 生成请求的New构造器
-func NewAddManagersChatManagersReqBuilder() * AddManagersChatManagersReqBuilder{
-   builder := &AddManagersChatManagersReqBuilder{}
-   return builder
+func NewAddManagersChatManagersReqBuilder() *AddManagersChatManagersReqBuilder {
+	builder := &AddManagersChatManagersReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * AddManagersChatManagersReqBuilder) ChatId(chatId string) *AddManagersChatManagersReqBuilder  {
-  builder.chatId = chatId
-  builder.chatIdFlag = true
-  return builder
+func (builder *AddManagersChatManagersReqBuilder) ChatId(chatId string) *AddManagersChatManagersReqBuilder {
+	builder.chatId = chatId
+	builder.chatIdFlag = true
+	return builder
 }
-func (builder * AddManagersChatManagersReqBuilder) MemberIdType(memberIdType string) *AddManagersChatManagersReqBuilder  {
-  builder.memberIdType = memberIdType
-  builder.memberIdTypeFlag = true
-  return builder
+func (builder *AddManagersChatManagersReqBuilder) MemberIdType(memberIdType string) *AddManagersChatManagersReqBuilder {
+	builder.memberIdType = memberIdType
+	builder.memberIdTypeFlag = true
+	return builder
 }
-func (builder * AddManagersChatManagersReqBuilder) Body(body *AddManagersChatManagersReqBody) *AddManagersChatManagersReqBuilder  {
-  builder.body = body
-  builder.bodyFlag = true
-  return builder
+func (builder *AddManagersChatManagersReqBuilder) Body(body *AddManagersChatManagersReqBody) *AddManagersChatManagersReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * AddManagersChatManagersReqBuilder ) Build() *AddManagersChatManagersReq {
-   req := &AddManagersChatManagersReq{}
-   if builder.chatIdFlag {
-	  req.ChatId = builder.chatId
-   }
-   if builder.memberIdTypeFlag {
-	  req.MemberIdType = &builder.memberIdType
-   }
-   if builder.bodyFlag {
-	  req.Body = builder.body
-   }
-   return req
+func (builder *AddManagersChatManagersReqBuilder) Build() *AddManagersChatManagersReq {
+	req := &AddManagersChatManagersReq{}
+	if builder.chatIdFlag {
+		req.ChatId = builder.chatId
+	}
+	if builder.memberIdTypeFlag {
+		req.MemberIdType = &builder.memberIdType
+	}
+	if builder.bodyFlag {
+		req.Body = builder.body
+	}
+	return req
 }
 
 type AddManagersChatManagersReqBody struct {
-	ManagerIds  []string `json:"manager_ids,omitempty"`
+	ManagerIds []string `json:"manager_ids,omitempty"`
 }
 
 type AddManagersChatManagersReq struct {
-	ChatId  string `path:"chat_id"`
-	MemberIdType  *string `query:"member_id_type"`
-	Body *AddManagersChatManagersReqBody `body:""`
-
+	ChatId       string                          `path:"chat_id"`
+	MemberIdType *string                         `query:"member_id_type"`
+	Body         *AddManagersChatManagersReqBody `body:""`
 }
 
 type AddManagersChatManagersRespData struct {
-	ChatManagers  []string `json:"chat_managers,omitempty"`
-	ChatBotManagers  []string `json:"chat_bot_managers,omitempty"`
+	ChatManagers    []string `json:"chat_managers,omitempty"`
+	ChatBotManagers []string `json:"chat_bot_managers,omitempty"`
 }
 
 type AddManagersChatManagersResp struct {
@@ -4593,122 +4511,119 @@ func (resp *AddManagersChatManagersResp) Success() bool {
 }
 
 type DeleteManagersChatManagersReqBodyBuilder struct {
-	managerIds  []string
-	managerIdsFlag  bool
+	managerIds     []string
+	managerIdsFlag bool
 }
 
 // 生成body的New构造器
-func NewDeleteManagersChatManagersReqBodyBuilder() * DeleteManagersChatManagersReqBodyBuilder{
-  builder := &DeleteManagersChatManagersReqBodyBuilder{}
-  return builder
+func NewDeleteManagersChatManagersReqBodyBuilder() *DeleteManagersChatManagersReqBodyBuilder {
+	builder := &DeleteManagersChatManagersReqBodyBuilder{}
+	return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder * DeleteManagersChatManagersReqBodyBuilder ) ManagerIds(managerIds []string) *DeleteManagersChatManagersReqBodyBuilder {
-  builder.managerIds = managerIds
-  builder.managerIdsFlag = true
-  return builder
+func (builder *DeleteManagersChatManagersReqBodyBuilder) ManagerIds(managerIds []string) *DeleteManagersChatManagersReqBodyBuilder {
+	builder.managerIds = managerIds
+	builder.managerIdsFlag = true
+	return builder
 }
 
-
 // 1.3 生成body的build方法
-func (builder * DeleteManagersChatManagersReqBodyBuilder ) Build() *DeleteManagersChatManagersReqBody {
-   req := &DeleteManagersChatManagersReqBody{}
-   if builder.managerIdsFlag {
-	  req.ManagerIds = builder.managerIds
-   }
-   return req
+func (builder *DeleteManagersChatManagersReqBodyBuilder) Build() *DeleteManagersChatManagersReqBody {
+	req := &DeleteManagersChatManagersReqBody{}
+	if builder.managerIdsFlag {
+		req.ManagerIds = builder.managerIds
+	}
+	return req
 }
 
 // 上传文件path开始
 type DeleteManagersChatManagersPathReqBodyBuilder struct {
-	managerIds  []string
-	managerIdsFlag  bool
+	managerIds     []string
+	managerIdsFlag bool
 }
 
-func NewDeleteManagersChatManagersPathReqBodyBuilder() * DeleteManagersChatManagersPathReqBodyBuilder{
-  builder := &DeleteManagersChatManagersPathReqBodyBuilder{}
-  return builder
+func NewDeleteManagersChatManagersPathReqBodyBuilder() *DeleteManagersChatManagersPathReqBodyBuilder {
+	builder := &DeleteManagersChatManagersPathReqBodyBuilder{}
+	return builder
 }
-func (builder * DeleteManagersChatManagersPathReqBodyBuilder ) ManagerIds(managerIds []string) *DeleteManagersChatManagersPathReqBodyBuilder {
-  builder.managerIds = managerIds
-  builder.managerIdsFlag = true
-  return builder
+func (builder *DeleteManagersChatManagersPathReqBodyBuilder) ManagerIds(managerIds []string) *DeleteManagersChatManagersPathReqBodyBuilder {
+	builder.managerIds = managerIds
+	builder.managerIdsFlag = true
+	return builder
 }
 
-
-func (builder * DeleteManagersChatManagersPathReqBodyBuilder ) Build() (*DeleteManagersChatManagersReqBody, error) {
-   req := &DeleteManagersChatManagersReqBody{}
-   if builder.managerIdsFlag {
-	   req.ManagerIds = builder.managerIds
-   }
-   return req, nil
+func (builder *DeleteManagersChatManagersPathReqBodyBuilder) Build() (*DeleteManagersChatManagersReqBody, error) {
+	req := &DeleteManagersChatManagersReqBody{}
+	if builder.managerIdsFlag {
+		req.ManagerIds = builder.managerIds
+	}
+	return req, nil
 }
+
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type DeleteManagersChatManagersReqBuilder struct {
-	chatId  string
-	chatIdFlag  bool
-	memberIdType  string
-	memberIdTypeFlag  bool
-	body *DeleteManagersChatManagersReqBody
-	bodyFlag bool
-
+	chatId           string
+	chatIdFlag       bool
+	memberIdType     string
+	memberIdTypeFlag bool
+	body             *DeleteManagersChatManagersReqBody
+	bodyFlag         bool
 }
 
 // 生成请求的New构造器
-func NewDeleteManagersChatManagersReqBuilder() * DeleteManagersChatManagersReqBuilder{
-   builder := &DeleteManagersChatManagersReqBuilder{}
-   return builder
+func NewDeleteManagersChatManagersReqBuilder() *DeleteManagersChatManagersReqBuilder {
+	builder := &DeleteManagersChatManagersReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * DeleteManagersChatManagersReqBuilder) ChatId(chatId string) *DeleteManagersChatManagersReqBuilder  {
-  builder.chatId = chatId
-  builder.chatIdFlag = true
-  return builder
+func (builder *DeleteManagersChatManagersReqBuilder) ChatId(chatId string) *DeleteManagersChatManagersReqBuilder {
+	builder.chatId = chatId
+	builder.chatIdFlag = true
+	return builder
 }
-func (builder * DeleteManagersChatManagersReqBuilder) MemberIdType(memberIdType string) *DeleteManagersChatManagersReqBuilder  {
-  builder.memberIdType = memberIdType
-  builder.memberIdTypeFlag = true
-  return builder
+func (builder *DeleteManagersChatManagersReqBuilder) MemberIdType(memberIdType string) *DeleteManagersChatManagersReqBuilder {
+	builder.memberIdType = memberIdType
+	builder.memberIdTypeFlag = true
+	return builder
 }
-func (builder * DeleteManagersChatManagersReqBuilder) Body(body *DeleteManagersChatManagersReqBody) *DeleteManagersChatManagersReqBuilder  {
-  builder.body = body
-  builder.bodyFlag = true
-  return builder
+func (builder *DeleteManagersChatManagersReqBuilder) Body(body *DeleteManagersChatManagersReqBody) *DeleteManagersChatManagersReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * DeleteManagersChatManagersReqBuilder ) Build() *DeleteManagersChatManagersReq {
-   req := &DeleteManagersChatManagersReq{}
-   if builder.chatIdFlag {
-	  req.ChatId = builder.chatId
-   }
-   if builder.memberIdTypeFlag {
-	  req.MemberIdType = &builder.memberIdType
-   }
-   if builder.bodyFlag {
-	  req.Body = builder.body
-   }
-   return req
+func (builder *DeleteManagersChatManagersReqBuilder) Build() *DeleteManagersChatManagersReq {
+	req := &DeleteManagersChatManagersReq{}
+	if builder.chatIdFlag {
+		req.ChatId = builder.chatId
+	}
+	if builder.memberIdTypeFlag {
+		req.MemberIdType = &builder.memberIdType
+	}
+	if builder.bodyFlag {
+		req.Body = builder.body
+	}
+	return req
 }
 
 type DeleteManagersChatManagersReqBody struct {
-	ManagerIds  []string `json:"manager_ids,omitempty"`
+	ManagerIds []string `json:"manager_ids,omitempty"`
 }
 
 type DeleteManagersChatManagersReq struct {
-	ChatId  string `path:"chat_id"`
-	MemberIdType  *string `query:"member_id_type"`
-	Body *DeleteManagersChatManagersReqBody `body:""`
-
+	ChatId       string                             `path:"chat_id"`
+	MemberIdType *string                            `query:"member_id_type"`
+	Body         *DeleteManagersChatManagersReqBody `body:""`
 }
 
 type DeleteManagersChatManagersRespData struct {
-	ChatManagers  []string `json:"chat_managers,omitempty"`
-	ChatBotManagers  []string `json:"chat_bot_managers,omitempty"`
+	ChatManagers    []string `json:"chat_managers,omitempty"`
+	ChatBotManagers []string `json:"chat_bot_managers,omitempty"`
 }
 
 type DeleteManagersChatManagersResp struct {
@@ -4722,133 +4637,130 @@ func (resp *DeleteManagersChatManagersResp) Success() bool {
 }
 
 type CreateChatMembersReqBodyBuilder struct {
-	idList  []string
-	idListFlag  bool
+	idList     []string
+	idListFlag bool
 }
 
 // 生成body的New构造器
-func NewCreateChatMembersReqBodyBuilder() * CreateChatMembersReqBodyBuilder{
-  builder := &CreateChatMembersReqBodyBuilder{}
-  return builder
+func NewCreateChatMembersReqBodyBuilder() *CreateChatMembersReqBodyBuilder {
+	builder := &CreateChatMembersReqBodyBuilder{}
+	return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder * CreateChatMembersReqBodyBuilder ) IdList(idList []string) *CreateChatMembersReqBodyBuilder {
-  builder.idList = idList
-  builder.idListFlag = true
-  return builder
+func (builder *CreateChatMembersReqBodyBuilder) IdList(idList []string) *CreateChatMembersReqBodyBuilder {
+	builder.idList = idList
+	builder.idListFlag = true
+	return builder
 }
 
-
 // 1.3 生成body的build方法
-func (builder * CreateChatMembersReqBodyBuilder ) Build() *CreateChatMembersReqBody {
-   req := &CreateChatMembersReqBody{}
-   if builder.idListFlag {
-	  req.IdList = builder.idList
-   }
-   return req
+func (builder *CreateChatMembersReqBodyBuilder) Build() *CreateChatMembersReqBody {
+	req := &CreateChatMembersReqBody{}
+	if builder.idListFlag {
+		req.IdList = builder.idList
+	}
+	return req
 }
 
 // 上传文件path开始
 type CreateChatMembersPathReqBodyBuilder struct {
-	idList  []string
-	idListFlag  bool
+	idList     []string
+	idListFlag bool
 }
 
-func NewCreateChatMembersPathReqBodyBuilder() * CreateChatMembersPathReqBodyBuilder{
-  builder := &CreateChatMembersPathReqBodyBuilder{}
-  return builder
+func NewCreateChatMembersPathReqBodyBuilder() *CreateChatMembersPathReqBodyBuilder {
+	builder := &CreateChatMembersPathReqBodyBuilder{}
+	return builder
 }
-func (builder * CreateChatMembersPathReqBodyBuilder ) IdList(idList []string) *CreateChatMembersPathReqBodyBuilder {
-  builder.idList = idList
-  builder.idListFlag = true
-  return builder
+func (builder *CreateChatMembersPathReqBodyBuilder) IdList(idList []string) *CreateChatMembersPathReqBodyBuilder {
+	builder.idList = idList
+	builder.idListFlag = true
+	return builder
 }
 
-
-func (builder * CreateChatMembersPathReqBodyBuilder ) Build() (*CreateChatMembersReqBody, error) {
-   req := &CreateChatMembersReqBody{}
-   if builder.idListFlag {
-	   req.IdList = builder.idList
-   }
-   return req, nil
+func (builder *CreateChatMembersPathReqBodyBuilder) Build() (*CreateChatMembersReqBody, error) {
+	req := &CreateChatMembersReqBody{}
+	if builder.idListFlag {
+		req.IdList = builder.idList
+	}
+	return req, nil
 }
+
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type CreateChatMembersReqBuilder struct {
-	chatId  string
-	chatIdFlag  bool
-	memberIdType  string
-	memberIdTypeFlag  bool
-	succeedType  int
+	chatId           string
+	chatIdFlag       bool
+	memberIdType     string
+	memberIdTypeFlag bool
+	succeedType      int
 	succeedTypeFlag  bool
-	body *CreateChatMembersReqBody
-	bodyFlag bool
-
+	body             *CreateChatMembersReqBody
+	bodyFlag         bool
 }
 
 // 生成请求的New构造器
-func NewCreateChatMembersReqBuilder() * CreateChatMembersReqBuilder{
-   builder := &CreateChatMembersReqBuilder{}
-   return builder
+func NewCreateChatMembersReqBuilder() *CreateChatMembersReqBuilder {
+	builder := &CreateChatMembersReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * CreateChatMembersReqBuilder) ChatId(chatId string) *CreateChatMembersReqBuilder  {
-  builder.chatId = chatId
-  builder.chatIdFlag = true
-  return builder
+func (builder *CreateChatMembersReqBuilder) ChatId(chatId string) *CreateChatMembersReqBuilder {
+	builder.chatId = chatId
+	builder.chatIdFlag = true
+	return builder
 }
-func (builder * CreateChatMembersReqBuilder) MemberIdType(memberIdType string) *CreateChatMembersReqBuilder  {
-  builder.memberIdType = memberIdType
-  builder.memberIdTypeFlag = true
-  return builder
+func (builder *CreateChatMembersReqBuilder) MemberIdType(memberIdType string) *CreateChatMembersReqBuilder {
+	builder.memberIdType = memberIdType
+	builder.memberIdTypeFlag = true
+	return builder
 }
-func (builder * CreateChatMembersReqBuilder) SucceedType(succeedType int) *CreateChatMembersReqBuilder  {
-  builder.succeedType = succeedType
-  builder.succeedTypeFlag = true
-  return builder
+func (builder *CreateChatMembersReqBuilder) SucceedType(succeedType int) *CreateChatMembersReqBuilder {
+	builder.succeedType = succeedType
+	builder.succeedTypeFlag = true
+	return builder
 }
-func (builder * CreateChatMembersReqBuilder) Body(body *CreateChatMembersReqBody) *CreateChatMembersReqBuilder  {
-  builder.body = body
-  builder.bodyFlag = true
-  return builder
+func (builder *CreateChatMembersReqBuilder) Body(body *CreateChatMembersReqBody) *CreateChatMembersReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * CreateChatMembersReqBuilder ) Build() *CreateChatMembersReq {
-   req := &CreateChatMembersReq{}
-   if builder.chatIdFlag {
-	  req.ChatId = builder.chatId
-   }
-   if builder.memberIdTypeFlag {
-	  req.MemberIdType = &builder.memberIdType
-   }
-   if builder.succeedTypeFlag {
-	  req.SucceedType = &builder.succeedType
-   }
-   if builder.bodyFlag {
-	  req.Body = builder.body
-   }
-   return req
+func (builder *CreateChatMembersReqBuilder) Build() *CreateChatMembersReq {
+	req := &CreateChatMembersReq{}
+	if builder.chatIdFlag {
+		req.ChatId = builder.chatId
+	}
+	if builder.memberIdTypeFlag {
+		req.MemberIdType = &builder.memberIdType
+	}
+	if builder.succeedTypeFlag {
+		req.SucceedType = &builder.succeedType
+	}
+	if builder.bodyFlag {
+		req.Body = builder.body
+	}
+	return req
 }
 
 type CreateChatMembersReqBody struct {
-	IdList  []string `json:"id_list,omitempty"`
+	IdList []string `json:"id_list,omitempty"`
 }
 
 type CreateChatMembersReq struct {
-	ChatId  string `path:"chat_id"`
-	MemberIdType  *string `query:"member_id_type"`
-	SucceedType  *int `query:"succeed_type"`
-	Body *CreateChatMembersReqBody `body:""`
-
+	ChatId       string                    `path:"chat_id"`
+	MemberIdType *string                   `query:"member_id_type"`
+	SucceedType  *int                      `query:"succeed_type"`
+	Body         *CreateChatMembersReqBody `body:""`
 }
 
 type CreateChatMembersRespData struct {
-	InvalidIdList  []string `json:"invalid_id_list,omitempty"`
-	NotExistedIdList  []string `json:"not_existed_id_list,omitempty"`
+	InvalidIdList    []string `json:"invalid_id_list,omitempty"`
+	NotExistedIdList []string `json:"not_existed_id_list,omitempty"`
 }
 
 type CreateChatMembersResp struct {
@@ -4862,121 +4774,118 @@ func (resp *CreateChatMembersResp) Success() bool {
 }
 
 type DeleteChatMembersReqBodyBuilder struct {
-	idList  []string
-	idListFlag  bool
+	idList     []string
+	idListFlag bool
 }
 
 // 生成body的New构造器
-func NewDeleteChatMembersReqBodyBuilder() * DeleteChatMembersReqBodyBuilder{
-  builder := &DeleteChatMembersReqBodyBuilder{}
-  return builder
+func NewDeleteChatMembersReqBodyBuilder() *DeleteChatMembersReqBodyBuilder {
+	builder := &DeleteChatMembersReqBodyBuilder{}
+	return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder * DeleteChatMembersReqBodyBuilder ) IdList(idList []string) *DeleteChatMembersReqBodyBuilder {
-  builder.idList = idList
-  builder.idListFlag = true
-  return builder
+func (builder *DeleteChatMembersReqBodyBuilder) IdList(idList []string) *DeleteChatMembersReqBodyBuilder {
+	builder.idList = idList
+	builder.idListFlag = true
+	return builder
 }
 
-
 // 1.3 生成body的build方法
-func (builder * DeleteChatMembersReqBodyBuilder ) Build() *DeleteChatMembersReqBody {
-   req := &DeleteChatMembersReqBody{}
-   if builder.idListFlag {
-	  req.IdList = builder.idList
-   }
-   return req
+func (builder *DeleteChatMembersReqBodyBuilder) Build() *DeleteChatMembersReqBody {
+	req := &DeleteChatMembersReqBody{}
+	if builder.idListFlag {
+		req.IdList = builder.idList
+	}
+	return req
 }
 
 // 上传文件path开始
 type DeleteChatMembersPathReqBodyBuilder struct {
-	idList  []string
-	idListFlag  bool
+	idList     []string
+	idListFlag bool
 }
 
-func NewDeleteChatMembersPathReqBodyBuilder() * DeleteChatMembersPathReqBodyBuilder{
-  builder := &DeleteChatMembersPathReqBodyBuilder{}
-  return builder
+func NewDeleteChatMembersPathReqBodyBuilder() *DeleteChatMembersPathReqBodyBuilder {
+	builder := &DeleteChatMembersPathReqBodyBuilder{}
+	return builder
 }
-func (builder * DeleteChatMembersPathReqBodyBuilder ) IdList(idList []string) *DeleteChatMembersPathReqBodyBuilder {
-  builder.idList = idList
-  builder.idListFlag = true
-  return builder
+func (builder *DeleteChatMembersPathReqBodyBuilder) IdList(idList []string) *DeleteChatMembersPathReqBodyBuilder {
+	builder.idList = idList
+	builder.idListFlag = true
+	return builder
 }
 
-
-func (builder * DeleteChatMembersPathReqBodyBuilder ) Build() (*DeleteChatMembersReqBody, error) {
-   req := &DeleteChatMembersReqBody{}
-   if builder.idListFlag {
-	   req.IdList = builder.idList
-   }
-   return req, nil
+func (builder *DeleteChatMembersPathReqBodyBuilder) Build() (*DeleteChatMembersReqBody, error) {
+	req := &DeleteChatMembersReqBody{}
+	if builder.idListFlag {
+		req.IdList = builder.idList
+	}
+	return req, nil
 }
+
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type DeleteChatMembersReqBuilder struct {
-	chatId  string
-	chatIdFlag  bool
-	memberIdType  string
-	memberIdTypeFlag  bool
-	body *DeleteChatMembersReqBody
-	bodyFlag bool
-
+	chatId           string
+	chatIdFlag       bool
+	memberIdType     string
+	memberIdTypeFlag bool
+	body             *DeleteChatMembersReqBody
+	bodyFlag         bool
 }
 
 // 生成请求的New构造器
-func NewDeleteChatMembersReqBuilder() * DeleteChatMembersReqBuilder{
-   builder := &DeleteChatMembersReqBuilder{}
-   return builder
+func NewDeleteChatMembersReqBuilder() *DeleteChatMembersReqBuilder {
+	builder := &DeleteChatMembersReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * DeleteChatMembersReqBuilder) ChatId(chatId string) *DeleteChatMembersReqBuilder  {
-  builder.chatId = chatId
-  builder.chatIdFlag = true
-  return builder
+func (builder *DeleteChatMembersReqBuilder) ChatId(chatId string) *DeleteChatMembersReqBuilder {
+	builder.chatId = chatId
+	builder.chatIdFlag = true
+	return builder
 }
-func (builder * DeleteChatMembersReqBuilder) MemberIdType(memberIdType string) *DeleteChatMembersReqBuilder  {
-  builder.memberIdType = memberIdType
-  builder.memberIdTypeFlag = true
-  return builder
+func (builder *DeleteChatMembersReqBuilder) MemberIdType(memberIdType string) *DeleteChatMembersReqBuilder {
+	builder.memberIdType = memberIdType
+	builder.memberIdTypeFlag = true
+	return builder
 }
-func (builder * DeleteChatMembersReqBuilder) Body(body *DeleteChatMembersReqBody) *DeleteChatMembersReqBuilder  {
-  builder.body = body
-  builder.bodyFlag = true
-  return builder
+func (builder *DeleteChatMembersReqBuilder) Body(body *DeleteChatMembersReqBody) *DeleteChatMembersReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * DeleteChatMembersReqBuilder ) Build() *DeleteChatMembersReq {
-   req := &DeleteChatMembersReq{}
-   if builder.chatIdFlag {
-	  req.ChatId = builder.chatId
-   }
-   if builder.memberIdTypeFlag {
-	  req.MemberIdType = &builder.memberIdType
-   }
-   if builder.bodyFlag {
-	  req.Body = builder.body
-   }
-   return req
+func (builder *DeleteChatMembersReqBuilder) Build() *DeleteChatMembersReq {
+	req := &DeleteChatMembersReq{}
+	if builder.chatIdFlag {
+		req.ChatId = builder.chatId
+	}
+	if builder.memberIdTypeFlag {
+		req.MemberIdType = &builder.memberIdType
+	}
+	if builder.bodyFlag {
+		req.Body = builder.body
+	}
+	return req
 }
 
 type DeleteChatMembersReqBody struct {
-	IdList  []string `json:"id_list,omitempty"`
+	IdList []string `json:"id_list,omitempty"`
 }
 
 type DeleteChatMembersReq struct {
-	ChatId  string `path:"chat_id"`
-	MemberIdType  *string `query:"member_id_type"`
-	Body *DeleteChatMembersReqBody `body:""`
-
+	ChatId       string                    `path:"chat_id"`
+	MemberIdType *string                   `query:"member_id_type"`
+	Body         *DeleteChatMembersReqBody `body:""`
 }
 
 type DeleteChatMembersRespData struct {
-	InvalidIdList  []string `json:"invalid_id_list,omitempty"`
+	InvalidIdList []string `json:"invalid_id_list,omitempty"`
 }
 
 type DeleteChatMembersResp struct {
@@ -4989,87 +4898,83 @@ func (resp *DeleteChatMembersResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type GetChatMembersReqBuilder struct {
-	chatId  string
-	chatIdFlag  bool
-	memberIdType  string
-	memberIdTypeFlag  bool
-	pageToken  string
-	pageTokenFlag  bool
-	pageSize  int
-	pageSizeFlag  bool
-	limit int
-
+	chatId           string
+	chatIdFlag       bool
+	memberIdType     string
+	memberIdTypeFlag bool
+	pageToken        string
+	pageTokenFlag    bool
+	pageSize         int
+	pageSizeFlag     bool
+	limit            int
 }
 
 // 生成请求的New构造器
-func NewGetChatMembersReqBuilder() * GetChatMembersReqBuilder{
-   builder := &GetChatMembersReqBuilder{}
-   return builder
+func NewGetChatMembersReqBuilder() *GetChatMembersReqBuilder {
+	builder := &GetChatMembersReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * GetChatMembersReqBuilder) Limit(limit int ) *GetChatMembersReqBuilder  {
-  builder.limit = limit
-  return builder
+func (builder *GetChatMembersReqBuilder) Limit(limit int) *GetChatMembersReqBuilder {
+	builder.limit = limit
+	return builder
 }
-func (builder * GetChatMembersReqBuilder) ChatId(chatId string) *GetChatMembersReqBuilder  {
-  builder.chatId = chatId
-  builder.chatIdFlag = true
-  return builder
+func (builder *GetChatMembersReqBuilder) ChatId(chatId string) *GetChatMembersReqBuilder {
+	builder.chatId = chatId
+	builder.chatIdFlag = true
+	return builder
 }
-func (builder * GetChatMembersReqBuilder) MemberIdType(memberIdType string) *GetChatMembersReqBuilder  {
-  builder.memberIdType = memberIdType
-  builder.memberIdTypeFlag = true
-  return builder
+func (builder *GetChatMembersReqBuilder) MemberIdType(memberIdType string) *GetChatMembersReqBuilder {
+	builder.memberIdType = memberIdType
+	builder.memberIdTypeFlag = true
+	return builder
 }
-func (builder * GetChatMembersReqBuilder) PageToken(pageToken string) *GetChatMembersReqBuilder  {
-  builder.pageToken = pageToken
-  builder.pageTokenFlag = true
-  return builder
+func (builder *GetChatMembersReqBuilder) PageToken(pageToken string) *GetChatMembersReqBuilder {
+	builder.pageToken = pageToken
+	builder.pageTokenFlag = true
+	return builder
 }
-func (builder * GetChatMembersReqBuilder) PageSize(pageSize int) *GetChatMembersReqBuilder  {
-  builder.pageSize = pageSize
-  builder.pageSizeFlag = true
-  return builder
+func (builder *GetChatMembersReqBuilder) PageSize(pageSize int) *GetChatMembersReqBuilder {
+	builder.pageSize = pageSize
+	builder.pageSizeFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * GetChatMembersReqBuilder ) Build() *GetChatMembersReq {
-   req := &GetChatMembersReq{}
-   req.Limit = builder.limit
-   if builder.chatIdFlag {
-	  req.ChatId = builder.chatId
-   }
-   if builder.memberIdTypeFlag {
-	  req.MemberIdType = &builder.memberIdType
-   }
-   if builder.pageTokenFlag {
-	  req.PageToken = &builder.pageToken
-   }
-   if builder.pageSizeFlag {
-	  req.PageSize = &builder.pageSize
-   }
-   return req
+func (builder *GetChatMembersReqBuilder) Build() *GetChatMembersReq {
+	req := &GetChatMembersReq{}
+	req.Limit = builder.limit
+	if builder.chatIdFlag {
+		req.ChatId = builder.chatId
+	}
+	if builder.memberIdTypeFlag {
+		req.MemberIdType = &builder.memberIdType
+	}
+	if builder.pageTokenFlag {
+		req.PageToken = &builder.pageToken
+	}
+	if builder.pageSizeFlag {
+		req.PageSize = &builder.pageSize
+	}
+	return req
 }
 
-
 type GetChatMembersReq struct {
-	ChatId  string `path:"chat_id"`
-	MemberIdType  *string `query:"member_id_type"`
-	PageToken  *string `query:"page_token"`
-	PageSize  *int `query:"page_size"`
-	Limit int
-
+	ChatId       string  `path:"chat_id"`
+	MemberIdType *string `query:"member_id_type"`
+	PageToken    *string `query:"page_token"`
+	PageSize     *int    `query:"page_size"`
+	Limit        int
 }
 
 type GetChatMembersRespData struct {
-	Items  []*ListMember `json:"items,omitempty"`
-	PageToken  *string `json:"page_token,omitempty"`
-	HasMore  *bool `json:"has_more,omitempty"`
-	MemberTotal  *int `json:"member_total,omitempty"`
+	Items       []*ListMember `json:"items,omitempty"`
+	PageToken   *string       `json:"page_token,omitempty"`
+	HasMore     *bool         `json:"has_more,omitempty"`
+	MemberTotal *int          `json:"member_total,omitempty"`
 }
 
 type GetChatMembersResp struct {
@@ -5082,44 +4987,40 @@ func (resp *GetChatMembersResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type IsInChatChatMembersReqBuilder struct {
-	chatId  string
-	chatIdFlag  bool
-
+	chatId     string
+	chatIdFlag bool
 }
 
 // 生成请求的New构造器
-func NewIsInChatChatMembersReqBuilder() * IsInChatChatMembersReqBuilder{
-   builder := &IsInChatChatMembersReqBuilder{}
-   return builder
+func NewIsInChatChatMembersReqBuilder() *IsInChatChatMembersReqBuilder {
+	builder := &IsInChatChatMembersReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * IsInChatChatMembersReqBuilder) ChatId(chatId string) *IsInChatChatMembersReqBuilder  {
-  builder.chatId = chatId
-  builder.chatIdFlag = true
-  return builder
+func (builder *IsInChatChatMembersReqBuilder) ChatId(chatId string) *IsInChatChatMembersReqBuilder {
+	builder.chatId = chatId
+	builder.chatIdFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * IsInChatChatMembersReqBuilder ) Build() *IsInChatChatMembersReq {
-   req := &IsInChatChatMembersReq{}
-   if builder.chatIdFlag {
-	  req.ChatId = builder.chatId
-   }
-   return req
+func (builder *IsInChatChatMembersReqBuilder) Build() *IsInChatChatMembersReq {
+	req := &IsInChatChatMembersReq{}
+	if builder.chatIdFlag {
+		req.ChatId = builder.chatId
+	}
+	return req
 }
 
-
 type IsInChatChatMembersReq struct {
-	ChatId  string `path:"chat_id"`
-
+	ChatId string `path:"chat_id"`
 }
 
 type IsInChatChatMembersRespData struct {
-	IsInChat  *bool `json:"is_in_chat,omitempty"`
+	IsInChat *bool `json:"is_in_chat,omitempty"`
 }
 
 type IsInChatChatMembersResp struct {
@@ -5132,42 +5033,37 @@ func (resp *IsInChatChatMembersResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type MeJoinChatMembersReqBuilder struct {
-	chatId  string
-	chatIdFlag  bool
-
+	chatId     string
+	chatIdFlag bool
 }
 
 // 生成请求的New构造器
-func NewMeJoinChatMembersReqBuilder() * MeJoinChatMembersReqBuilder{
-   builder := &MeJoinChatMembersReqBuilder{}
-   return builder
+func NewMeJoinChatMembersReqBuilder() *MeJoinChatMembersReqBuilder {
+	builder := &MeJoinChatMembersReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * MeJoinChatMembersReqBuilder) ChatId(chatId string) *MeJoinChatMembersReqBuilder  {
-  builder.chatId = chatId
-  builder.chatIdFlag = true
-  return builder
+func (builder *MeJoinChatMembersReqBuilder) ChatId(chatId string) *MeJoinChatMembersReqBuilder {
+	builder.chatId = chatId
+	builder.chatIdFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * MeJoinChatMembersReqBuilder ) Build() *MeJoinChatMembersReq {
-   req := &MeJoinChatMembersReq{}
-   if builder.chatIdFlag {
-	  req.ChatId = builder.chatId
-   }
-   return req
+func (builder *MeJoinChatMembersReqBuilder) Build() *MeJoinChatMembersReq {
+	req := &MeJoinChatMembersReq{}
+	if builder.chatIdFlag {
+		req.ChatId = builder.chatId
+	}
+	return req
 }
-
 
 type MeJoinChatMembersReq struct {
-	ChatId  string `path:"chat_id"`
-
+	ChatId string `path:"chat_id"`
 }
-
 
 type MeJoinChatMembersResp struct {
 	*larkcore.RawResponse `json:"-"`
@@ -5178,87 +5074,83 @@ func (resp *MeJoinChatMembersResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type GetChatModerationReqBuilder struct {
-	chatId  string
-	chatIdFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-	pageToken  string
+	chatId         string
+	chatIdFlag     bool
+	userIdType     string
+	userIdTypeFlag bool
+	pageToken      string
 	pageTokenFlag  bool
-	pageSize  int
-	pageSizeFlag  bool
-	limit int
-
+	pageSize       int
+	pageSizeFlag   bool
+	limit          int
 }
 
 // 生成请求的New构造器
-func NewGetChatModerationReqBuilder() * GetChatModerationReqBuilder{
-   builder := &GetChatModerationReqBuilder{}
-   return builder
+func NewGetChatModerationReqBuilder() *GetChatModerationReqBuilder {
+	builder := &GetChatModerationReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * GetChatModerationReqBuilder) Limit(limit int ) *GetChatModerationReqBuilder  {
-  builder.limit = limit
-  return builder
+func (builder *GetChatModerationReqBuilder) Limit(limit int) *GetChatModerationReqBuilder {
+	builder.limit = limit
+	return builder
 }
-func (builder * GetChatModerationReqBuilder) ChatId(chatId string) *GetChatModerationReqBuilder  {
-  builder.chatId = chatId
-  builder.chatIdFlag = true
-  return builder
+func (builder *GetChatModerationReqBuilder) ChatId(chatId string) *GetChatModerationReqBuilder {
+	builder.chatId = chatId
+	builder.chatIdFlag = true
+	return builder
 }
-func (builder * GetChatModerationReqBuilder) UserIdType(userIdType string) *GetChatModerationReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *GetChatModerationReqBuilder) UserIdType(userIdType string) *GetChatModerationReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
-func (builder * GetChatModerationReqBuilder) PageToken(pageToken string) *GetChatModerationReqBuilder  {
-  builder.pageToken = pageToken
-  builder.pageTokenFlag = true
-  return builder
+func (builder *GetChatModerationReqBuilder) PageToken(pageToken string) *GetChatModerationReqBuilder {
+	builder.pageToken = pageToken
+	builder.pageTokenFlag = true
+	return builder
 }
-func (builder * GetChatModerationReqBuilder) PageSize(pageSize int) *GetChatModerationReqBuilder  {
-  builder.pageSize = pageSize
-  builder.pageSizeFlag = true
-  return builder
+func (builder *GetChatModerationReqBuilder) PageSize(pageSize int) *GetChatModerationReqBuilder {
+	builder.pageSize = pageSize
+	builder.pageSizeFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * GetChatModerationReqBuilder ) Build() *GetChatModerationReq {
-   req := &GetChatModerationReq{}
-   req.Limit = builder.limit
-   if builder.chatIdFlag {
-	  req.ChatId = builder.chatId
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   if builder.pageTokenFlag {
-	  req.PageToken = &builder.pageToken
-   }
-   if builder.pageSizeFlag {
-	  req.PageSize = &builder.pageSize
-   }
-   return req
+func (builder *GetChatModerationReqBuilder) Build() *GetChatModerationReq {
+	req := &GetChatModerationReq{}
+	req.Limit = builder.limit
+	if builder.chatIdFlag {
+		req.ChatId = builder.chatId
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	if builder.pageTokenFlag {
+		req.PageToken = &builder.pageToken
+	}
+	if builder.pageSizeFlag {
+		req.PageSize = &builder.pageSize
+	}
+	return req
 }
 
-
 type GetChatModerationReq struct {
-	ChatId  string `path:"chat_id"`
-	UserIdType  *string `query:"user_id_type"`
+	ChatId     string  `path:"chat_id"`
+	UserIdType *string `query:"user_id_type"`
 	PageToken  *string `query:"page_token"`
-	PageSize  *int `query:"page_size"`
-	Limit int
-
+	PageSize   *int    `query:"page_size"`
+	Limit      int
 }
 
 type GetChatModerationRespData struct {
-	ModerationSetting  *string `json:"moderation_setting,omitempty"`
-	PageToken  *string `json:"page_token,omitempty"`
-	HasMore  *bool `json:"has_more,omitempty"`
-	Items  []*ListModerator `json:"items,omitempty"`
+	ModerationSetting *string          `json:"moderation_setting,omitempty"`
+	PageToken         *string          `json:"page_token,omitempty"`
+	HasMore           *bool            `json:"has_more,omitempty"`
+	Items             []*ListModerator `json:"items,omitempty"`
 }
 
 type GetChatModerationResp struct {
@@ -5272,161 +5164,157 @@ func (resp *GetChatModerationResp) Success() bool {
 }
 
 type UpdateChatModerationReqBodyBuilder struct {
-	moderationSetting  string
-	moderationSettingFlag  bool
-	moderatorAddedList  []string
-	moderatorAddedListFlag  bool
-	moderatorRemovedList  []string
-	moderatorRemovedListFlag  bool
+	moderationSetting        string
+	moderationSettingFlag    bool
+	moderatorAddedList       []string
+	moderatorAddedListFlag   bool
+	moderatorRemovedList     []string
+	moderatorRemovedListFlag bool
 }
 
 // 生成body的New构造器
-func NewUpdateChatModerationReqBodyBuilder() * UpdateChatModerationReqBodyBuilder{
-  builder := &UpdateChatModerationReqBodyBuilder{}
-  return builder
+func NewUpdateChatModerationReqBodyBuilder() *UpdateChatModerationReqBodyBuilder {
+	builder := &UpdateChatModerationReqBodyBuilder{}
+	return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder * UpdateChatModerationReqBodyBuilder ) ModerationSetting(moderationSetting string) *UpdateChatModerationReqBodyBuilder {
-  builder.moderationSetting = moderationSetting
-  builder.moderationSettingFlag = true
-  return builder
+func (builder *UpdateChatModerationReqBodyBuilder) ModerationSetting(moderationSetting string) *UpdateChatModerationReqBodyBuilder {
+	builder.moderationSetting = moderationSetting
+	builder.moderationSettingFlag = true
+	return builder
 }
-func (builder * UpdateChatModerationReqBodyBuilder ) ModeratorAddedList(moderatorAddedList []string) *UpdateChatModerationReqBodyBuilder {
-  builder.moderatorAddedList = moderatorAddedList
-  builder.moderatorAddedListFlag = true
-  return builder
+func (builder *UpdateChatModerationReqBodyBuilder) ModeratorAddedList(moderatorAddedList []string) *UpdateChatModerationReqBodyBuilder {
+	builder.moderatorAddedList = moderatorAddedList
+	builder.moderatorAddedListFlag = true
+	return builder
 }
-func (builder * UpdateChatModerationReqBodyBuilder ) ModeratorRemovedList(moderatorRemovedList []string) *UpdateChatModerationReqBodyBuilder {
-  builder.moderatorRemovedList = moderatorRemovedList
-  builder.moderatorRemovedListFlag = true
-  return builder
+func (builder *UpdateChatModerationReqBodyBuilder) ModeratorRemovedList(moderatorRemovedList []string) *UpdateChatModerationReqBodyBuilder {
+	builder.moderatorRemovedList = moderatorRemovedList
+	builder.moderatorRemovedListFlag = true
+	return builder
 }
-
 
 // 1.3 生成body的build方法
-func (builder * UpdateChatModerationReqBodyBuilder ) Build() *UpdateChatModerationReqBody {
-   req := &UpdateChatModerationReqBody{}
-   if builder.moderationSettingFlag {
-	  req.ModerationSetting = &builder.moderationSetting
-   }
-   if builder.moderatorAddedListFlag {
-	  req.ModeratorAddedList = builder.moderatorAddedList
-   }
-   if builder.moderatorRemovedListFlag {
-	  req.ModeratorRemovedList = builder.moderatorRemovedList
-   }
-   return req
+func (builder *UpdateChatModerationReqBodyBuilder) Build() *UpdateChatModerationReqBody {
+	req := &UpdateChatModerationReqBody{}
+	if builder.moderationSettingFlag {
+		req.ModerationSetting = &builder.moderationSetting
+	}
+	if builder.moderatorAddedListFlag {
+		req.ModeratorAddedList = builder.moderatorAddedList
+	}
+	if builder.moderatorRemovedListFlag {
+		req.ModeratorRemovedList = builder.moderatorRemovedList
+	}
+	return req
 }
 
 // 上传文件path开始
 type UpdateChatModerationPathReqBodyBuilder struct {
-	moderationSetting  string
-	moderationSettingFlag  bool
-	moderatorAddedList  []string
-	moderatorAddedListFlag  bool
-	moderatorRemovedList  []string
-	moderatorRemovedListFlag  bool
+	moderationSetting        string
+	moderationSettingFlag    bool
+	moderatorAddedList       []string
+	moderatorAddedListFlag   bool
+	moderatorRemovedList     []string
+	moderatorRemovedListFlag bool
 }
 
-func NewUpdateChatModerationPathReqBodyBuilder() * UpdateChatModerationPathReqBodyBuilder{
-  builder := &UpdateChatModerationPathReqBodyBuilder{}
-  return builder
+func NewUpdateChatModerationPathReqBodyBuilder() *UpdateChatModerationPathReqBodyBuilder {
+	builder := &UpdateChatModerationPathReqBodyBuilder{}
+	return builder
 }
-func (builder * UpdateChatModerationPathReqBodyBuilder ) ModerationSetting(moderationSetting string) *UpdateChatModerationPathReqBodyBuilder {
-  builder.moderationSetting = moderationSetting
-  builder.moderationSettingFlag = true
-  return builder
+func (builder *UpdateChatModerationPathReqBodyBuilder) ModerationSetting(moderationSetting string) *UpdateChatModerationPathReqBodyBuilder {
+	builder.moderationSetting = moderationSetting
+	builder.moderationSettingFlag = true
+	return builder
 }
-func (builder * UpdateChatModerationPathReqBodyBuilder ) ModeratorAddedList(moderatorAddedList []string) *UpdateChatModerationPathReqBodyBuilder {
-  builder.moderatorAddedList = moderatorAddedList
-  builder.moderatorAddedListFlag = true
-  return builder
+func (builder *UpdateChatModerationPathReqBodyBuilder) ModeratorAddedList(moderatorAddedList []string) *UpdateChatModerationPathReqBodyBuilder {
+	builder.moderatorAddedList = moderatorAddedList
+	builder.moderatorAddedListFlag = true
+	return builder
 }
-func (builder * UpdateChatModerationPathReqBodyBuilder ) ModeratorRemovedList(moderatorRemovedList []string) *UpdateChatModerationPathReqBodyBuilder {
-  builder.moderatorRemovedList = moderatorRemovedList
-  builder.moderatorRemovedListFlag = true
-  return builder
+func (builder *UpdateChatModerationPathReqBodyBuilder) ModeratorRemovedList(moderatorRemovedList []string) *UpdateChatModerationPathReqBodyBuilder {
+	builder.moderatorRemovedList = moderatorRemovedList
+	builder.moderatorRemovedListFlag = true
+	return builder
 }
 
-
-func (builder * UpdateChatModerationPathReqBodyBuilder ) Build() (*UpdateChatModerationReqBody, error) {
-   req := &UpdateChatModerationReqBody{}
-   if builder.moderationSettingFlag {
-	  req.ModerationSetting = &builder.moderationSetting
-   }
-   if builder.moderatorAddedListFlag {
-	   req.ModeratorAddedList = builder.moderatorAddedList
-   }
-   if builder.moderatorRemovedListFlag {
-	   req.ModeratorRemovedList = builder.moderatorRemovedList
-   }
-   return req, nil
+func (builder *UpdateChatModerationPathReqBodyBuilder) Build() (*UpdateChatModerationReqBody, error) {
+	req := &UpdateChatModerationReqBody{}
+	if builder.moderationSettingFlag {
+		req.ModerationSetting = &builder.moderationSetting
+	}
+	if builder.moderatorAddedListFlag {
+		req.ModeratorAddedList = builder.moderatorAddedList
+	}
+	if builder.moderatorRemovedListFlag {
+		req.ModeratorRemovedList = builder.moderatorRemovedList
+	}
+	return req, nil
 }
+
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type UpdateChatModerationReqBuilder struct {
-	chatId  string
-	chatIdFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-	body *UpdateChatModerationReqBody
-	bodyFlag bool
-
+	chatId         string
+	chatIdFlag     bool
+	userIdType     string
+	userIdTypeFlag bool
+	body           *UpdateChatModerationReqBody
+	bodyFlag       bool
 }
 
 // 生成请求的New构造器
-func NewUpdateChatModerationReqBuilder() * UpdateChatModerationReqBuilder{
-   builder := &UpdateChatModerationReqBuilder{}
-   return builder
+func NewUpdateChatModerationReqBuilder() *UpdateChatModerationReqBuilder {
+	builder := &UpdateChatModerationReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * UpdateChatModerationReqBuilder) ChatId(chatId string) *UpdateChatModerationReqBuilder  {
-  builder.chatId = chatId
-  builder.chatIdFlag = true
-  return builder
+func (builder *UpdateChatModerationReqBuilder) ChatId(chatId string) *UpdateChatModerationReqBuilder {
+	builder.chatId = chatId
+	builder.chatIdFlag = true
+	return builder
 }
-func (builder * UpdateChatModerationReqBuilder) UserIdType(userIdType string) *UpdateChatModerationReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *UpdateChatModerationReqBuilder) UserIdType(userIdType string) *UpdateChatModerationReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
-func (builder * UpdateChatModerationReqBuilder) Body(body *UpdateChatModerationReqBody) *UpdateChatModerationReqBuilder  {
-  builder.body = body
-  builder.bodyFlag = true
-  return builder
+func (builder *UpdateChatModerationReqBuilder) Body(body *UpdateChatModerationReqBody) *UpdateChatModerationReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * UpdateChatModerationReqBuilder ) Build() *UpdateChatModerationReq {
-   req := &UpdateChatModerationReq{}
-   if builder.chatIdFlag {
-	  req.ChatId = builder.chatId
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   if builder.bodyFlag {
-	  req.Body = builder.body
-   }
-   return req
+func (builder *UpdateChatModerationReqBuilder) Build() *UpdateChatModerationReq {
+	req := &UpdateChatModerationReq{}
+	if builder.chatIdFlag {
+		req.ChatId = builder.chatId
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	if builder.bodyFlag {
+		req.Body = builder.body
+	}
+	return req
 }
 
 type UpdateChatModerationReqBody struct {
-	ModerationSetting  *string `json:"moderation_setting,omitempty"`
-	ModeratorAddedList  []string `json:"moderator_added_list,omitempty"`
-	ModeratorRemovedList  []string `json:"moderator_removed_list,omitempty"`
+	ModerationSetting    *string  `json:"moderation_setting,omitempty"`
+	ModeratorAddedList   []string `json:"moderator_added_list,omitempty"`
+	ModeratorRemovedList []string `json:"moderator_removed_list,omitempty"`
 }
 
 type UpdateChatModerationReq struct {
-	ChatId  string `path:"chat_id"`
-	UserIdType  *string `query:"user_id_type"`
-	Body *UpdateChatModerationReqBody `body:""`
-
+	ChatId     string                       `path:"chat_id"`
+	UserIdType *string                      `query:"user_id_type"`
+	Body       *UpdateChatModerationReqBody `body:""`
 }
-
 
 type UpdateChatModerationResp struct {
 	*larkcore.RawResponse `json:"-"`
@@ -5438,110 +5326,107 @@ func (resp *UpdateChatModerationResp) Success() bool {
 }
 
 type CreateChatTabReqBodyBuilder struct {
-	chatTabs  []*ChatTab
-	chatTabsFlag  bool
+	chatTabs     []*ChatTab
+	chatTabsFlag bool
 }
 
 // 生成body的New构造器
-func NewCreateChatTabReqBodyBuilder() * CreateChatTabReqBodyBuilder{
-  builder := &CreateChatTabReqBodyBuilder{}
-  return builder
+func NewCreateChatTabReqBodyBuilder() *CreateChatTabReqBodyBuilder {
+	builder := &CreateChatTabReqBodyBuilder{}
+	return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder * CreateChatTabReqBodyBuilder ) ChatTabs(chatTabs []*ChatTab) *CreateChatTabReqBodyBuilder {
-  builder.chatTabs = chatTabs
-  builder.chatTabsFlag = true
-  return builder
+func (builder *CreateChatTabReqBodyBuilder) ChatTabs(chatTabs []*ChatTab) *CreateChatTabReqBodyBuilder {
+	builder.chatTabs = chatTabs
+	builder.chatTabsFlag = true
+	return builder
 }
 
-
 // 1.3 生成body的build方法
-func (builder * CreateChatTabReqBodyBuilder ) Build() *CreateChatTabReqBody {
-   req := &CreateChatTabReqBody{}
-   if builder.chatTabsFlag {
-	  req.ChatTabs = builder.chatTabs
-   }
-   return req
+func (builder *CreateChatTabReqBodyBuilder) Build() *CreateChatTabReqBody {
+	req := &CreateChatTabReqBody{}
+	if builder.chatTabsFlag {
+		req.ChatTabs = builder.chatTabs
+	}
+	return req
 }
 
 // 上传文件path开始
 type CreateChatTabPathReqBodyBuilder struct {
-	chatTabs  []*ChatTab
-	chatTabsFlag  bool
+	chatTabs     []*ChatTab
+	chatTabsFlag bool
 }
 
-func NewCreateChatTabPathReqBodyBuilder() * CreateChatTabPathReqBodyBuilder{
-  builder := &CreateChatTabPathReqBodyBuilder{}
-  return builder
+func NewCreateChatTabPathReqBodyBuilder() *CreateChatTabPathReqBodyBuilder {
+	builder := &CreateChatTabPathReqBodyBuilder{}
+	return builder
 }
-func (builder * CreateChatTabPathReqBodyBuilder ) ChatTabs(chatTabs []*ChatTab) *CreateChatTabPathReqBodyBuilder {
-  builder.chatTabs = chatTabs
-  builder.chatTabsFlag = true
-  return builder
+func (builder *CreateChatTabPathReqBodyBuilder) ChatTabs(chatTabs []*ChatTab) *CreateChatTabPathReqBodyBuilder {
+	builder.chatTabs = chatTabs
+	builder.chatTabsFlag = true
+	return builder
 }
 
-
-func (builder * CreateChatTabPathReqBodyBuilder ) Build() (*CreateChatTabReqBody, error) {
-   req := &CreateChatTabReqBody{}
-   if builder.chatTabsFlag {
-	   req.ChatTabs = builder.chatTabs
-   }
-   return req, nil
+func (builder *CreateChatTabPathReqBodyBuilder) Build() (*CreateChatTabReqBody, error) {
+	req := &CreateChatTabReqBody{}
+	if builder.chatTabsFlag {
+		req.ChatTabs = builder.chatTabs
+	}
+	return req, nil
 }
+
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type CreateChatTabReqBuilder struct {
-	chatId  string
-	chatIdFlag  bool
-	body *CreateChatTabReqBody
-	bodyFlag bool
-
+	chatId     string
+	chatIdFlag bool
+	body       *CreateChatTabReqBody
+	bodyFlag   bool
 }
 
 // 生成请求的New构造器
-func NewCreateChatTabReqBuilder() * CreateChatTabReqBuilder{
-   builder := &CreateChatTabReqBuilder{}
-   return builder
+func NewCreateChatTabReqBuilder() *CreateChatTabReqBuilder {
+	builder := &CreateChatTabReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * CreateChatTabReqBuilder) ChatId(chatId string) *CreateChatTabReqBuilder  {
-  builder.chatId = chatId
-  builder.chatIdFlag = true
-  return builder
+func (builder *CreateChatTabReqBuilder) ChatId(chatId string) *CreateChatTabReqBuilder {
+	builder.chatId = chatId
+	builder.chatIdFlag = true
+	return builder
 }
-func (builder * CreateChatTabReqBuilder) Body(body *CreateChatTabReqBody) *CreateChatTabReqBuilder  {
-  builder.body = body
-  builder.bodyFlag = true
-  return builder
+func (builder *CreateChatTabReqBuilder) Body(body *CreateChatTabReqBody) *CreateChatTabReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * CreateChatTabReqBuilder ) Build() *CreateChatTabReq {
-   req := &CreateChatTabReq{}
-   if builder.chatIdFlag {
-	  req.ChatId = builder.chatId
-   }
-   if builder.bodyFlag {
-	  req.Body = builder.body
-   }
-   return req
+func (builder *CreateChatTabReqBuilder) Build() *CreateChatTabReq {
+	req := &CreateChatTabReq{}
+	if builder.chatIdFlag {
+		req.ChatId = builder.chatId
+	}
+	if builder.bodyFlag {
+		req.Body = builder.body
+	}
+	return req
 }
 
 type CreateChatTabReqBody struct {
-	ChatTabs  []*ChatTab `json:"chat_tabs,omitempty"`
+	ChatTabs []*ChatTab `json:"chat_tabs,omitempty"`
 }
 
 type CreateChatTabReq struct {
-	ChatId  string `path:"chat_id"`
-	Body *CreateChatTabReqBody `body:""`
-
+	ChatId string                `path:"chat_id"`
+	Body   *CreateChatTabReqBody `body:""`
 }
 
 type CreateChatTabRespData struct {
-	ChatTabs  []*ChatTab `json:"chat_tabs,omitempty"`
+	ChatTabs []*ChatTab `json:"chat_tabs,omitempty"`
 }
 
 type CreateChatTabResp struct {
@@ -5555,110 +5440,107 @@ func (resp *CreateChatTabResp) Success() bool {
 }
 
 type DeleteTabsChatTabReqBodyBuilder struct {
-	tabIds  []string
-	tabIdsFlag  bool
+	tabIds     []string
+	tabIdsFlag bool
 }
 
 // 生成body的New构造器
-func NewDeleteTabsChatTabReqBodyBuilder() * DeleteTabsChatTabReqBodyBuilder{
-  builder := &DeleteTabsChatTabReqBodyBuilder{}
-  return builder
+func NewDeleteTabsChatTabReqBodyBuilder() *DeleteTabsChatTabReqBodyBuilder {
+	builder := &DeleteTabsChatTabReqBodyBuilder{}
+	return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder * DeleteTabsChatTabReqBodyBuilder ) TabIds(tabIds []string) *DeleteTabsChatTabReqBodyBuilder {
-  builder.tabIds = tabIds
-  builder.tabIdsFlag = true
-  return builder
+func (builder *DeleteTabsChatTabReqBodyBuilder) TabIds(tabIds []string) *DeleteTabsChatTabReqBodyBuilder {
+	builder.tabIds = tabIds
+	builder.tabIdsFlag = true
+	return builder
 }
 
-
 // 1.3 生成body的build方法
-func (builder * DeleteTabsChatTabReqBodyBuilder ) Build() *DeleteTabsChatTabReqBody {
-   req := &DeleteTabsChatTabReqBody{}
-   if builder.tabIdsFlag {
-	  req.TabIds = builder.tabIds
-   }
-   return req
+func (builder *DeleteTabsChatTabReqBodyBuilder) Build() *DeleteTabsChatTabReqBody {
+	req := &DeleteTabsChatTabReqBody{}
+	if builder.tabIdsFlag {
+		req.TabIds = builder.tabIds
+	}
+	return req
 }
 
 // 上传文件path开始
 type DeleteTabsChatTabPathReqBodyBuilder struct {
-	tabIds  []string
-	tabIdsFlag  bool
+	tabIds     []string
+	tabIdsFlag bool
 }
 
-func NewDeleteTabsChatTabPathReqBodyBuilder() * DeleteTabsChatTabPathReqBodyBuilder{
-  builder := &DeleteTabsChatTabPathReqBodyBuilder{}
-  return builder
+func NewDeleteTabsChatTabPathReqBodyBuilder() *DeleteTabsChatTabPathReqBodyBuilder {
+	builder := &DeleteTabsChatTabPathReqBodyBuilder{}
+	return builder
 }
-func (builder * DeleteTabsChatTabPathReqBodyBuilder ) TabIds(tabIds []string) *DeleteTabsChatTabPathReqBodyBuilder {
-  builder.tabIds = tabIds
-  builder.tabIdsFlag = true
-  return builder
+func (builder *DeleteTabsChatTabPathReqBodyBuilder) TabIds(tabIds []string) *DeleteTabsChatTabPathReqBodyBuilder {
+	builder.tabIds = tabIds
+	builder.tabIdsFlag = true
+	return builder
 }
 
-
-func (builder * DeleteTabsChatTabPathReqBodyBuilder ) Build() (*DeleteTabsChatTabReqBody, error) {
-   req := &DeleteTabsChatTabReqBody{}
-   if builder.tabIdsFlag {
-	   req.TabIds = builder.tabIds
-   }
-   return req, nil
+func (builder *DeleteTabsChatTabPathReqBodyBuilder) Build() (*DeleteTabsChatTabReqBody, error) {
+	req := &DeleteTabsChatTabReqBody{}
+	if builder.tabIdsFlag {
+		req.TabIds = builder.tabIds
+	}
+	return req, nil
 }
+
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type DeleteTabsChatTabReqBuilder struct {
-	chatId  string
-	chatIdFlag  bool
-	body *DeleteTabsChatTabReqBody
-	bodyFlag bool
-
+	chatId     string
+	chatIdFlag bool
+	body       *DeleteTabsChatTabReqBody
+	bodyFlag   bool
 }
 
 // 生成请求的New构造器
-func NewDeleteTabsChatTabReqBuilder() * DeleteTabsChatTabReqBuilder{
-   builder := &DeleteTabsChatTabReqBuilder{}
-   return builder
+func NewDeleteTabsChatTabReqBuilder() *DeleteTabsChatTabReqBuilder {
+	builder := &DeleteTabsChatTabReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * DeleteTabsChatTabReqBuilder) ChatId(chatId string) *DeleteTabsChatTabReqBuilder  {
-  builder.chatId = chatId
-  builder.chatIdFlag = true
-  return builder
+func (builder *DeleteTabsChatTabReqBuilder) ChatId(chatId string) *DeleteTabsChatTabReqBuilder {
+	builder.chatId = chatId
+	builder.chatIdFlag = true
+	return builder
 }
-func (builder * DeleteTabsChatTabReqBuilder) Body(body *DeleteTabsChatTabReqBody) *DeleteTabsChatTabReqBuilder  {
-  builder.body = body
-  builder.bodyFlag = true
-  return builder
+func (builder *DeleteTabsChatTabReqBuilder) Body(body *DeleteTabsChatTabReqBody) *DeleteTabsChatTabReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * DeleteTabsChatTabReqBuilder ) Build() *DeleteTabsChatTabReq {
-   req := &DeleteTabsChatTabReq{}
-   if builder.chatIdFlag {
-	  req.ChatId = builder.chatId
-   }
-   if builder.bodyFlag {
-	  req.Body = builder.body
-   }
-   return req
+func (builder *DeleteTabsChatTabReqBuilder) Build() *DeleteTabsChatTabReq {
+	req := &DeleteTabsChatTabReq{}
+	if builder.chatIdFlag {
+		req.ChatId = builder.chatId
+	}
+	if builder.bodyFlag {
+		req.Body = builder.body
+	}
+	return req
 }
 
 type DeleteTabsChatTabReqBody struct {
-	TabIds  []string `json:"tab_ids,omitempty"`
+	TabIds []string `json:"tab_ids,omitempty"`
 }
 
 type DeleteTabsChatTabReq struct {
-	ChatId  string `path:"chat_id"`
-	Body *DeleteTabsChatTabReqBody `body:""`
-
+	ChatId string                    `path:"chat_id"`
+	Body   *DeleteTabsChatTabReqBody `body:""`
 }
 
 type DeleteTabsChatTabRespData struct {
-	ChatTabs  []*ChatTab `json:"chat_tabs,omitempty"`
+	ChatTabs []*ChatTab `json:"chat_tabs,omitempty"`
 }
 
 type DeleteTabsChatTabResp struct {
@@ -5671,44 +5553,40 @@ func (resp *DeleteTabsChatTabResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type ListTabsChatTabReqBuilder struct {
-	chatId  string
-	chatIdFlag  bool
-
+	chatId     string
+	chatIdFlag bool
 }
 
 // 生成请求的New构造器
-func NewListTabsChatTabReqBuilder() * ListTabsChatTabReqBuilder{
-   builder := &ListTabsChatTabReqBuilder{}
-   return builder
+func NewListTabsChatTabReqBuilder() *ListTabsChatTabReqBuilder {
+	builder := &ListTabsChatTabReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * ListTabsChatTabReqBuilder) ChatId(chatId string) *ListTabsChatTabReqBuilder  {
-  builder.chatId = chatId
-  builder.chatIdFlag = true
-  return builder
+func (builder *ListTabsChatTabReqBuilder) ChatId(chatId string) *ListTabsChatTabReqBuilder {
+	builder.chatId = chatId
+	builder.chatIdFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * ListTabsChatTabReqBuilder ) Build() *ListTabsChatTabReq {
-   req := &ListTabsChatTabReq{}
-   if builder.chatIdFlag {
-	  req.ChatId = builder.chatId
-   }
-   return req
+func (builder *ListTabsChatTabReqBuilder) Build() *ListTabsChatTabReq {
+	req := &ListTabsChatTabReq{}
+	if builder.chatIdFlag {
+		req.ChatId = builder.chatId
+	}
+	return req
 }
 
-
 type ListTabsChatTabReq struct {
-	ChatId  string `path:"chat_id"`
-
+	ChatId string `path:"chat_id"`
 }
 
 type ListTabsChatTabRespData struct {
-	ChatTabs  []*ChatTab `json:"chat_tabs,omitempty"`
+	ChatTabs []*ChatTab `json:"chat_tabs,omitempty"`
 }
 
 type ListTabsChatTabResp struct {
@@ -5722,110 +5600,107 @@ func (resp *ListTabsChatTabResp) Success() bool {
 }
 
 type SortTabsChatTabReqBodyBuilder struct {
-	tabIds  []string
-	tabIdsFlag  bool
+	tabIds     []string
+	tabIdsFlag bool
 }
 
 // 生成body的New构造器
-func NewSortTabsChatTabReqBodyBuilder() * SortTabsChatTabReqBodyBuilder{
-  builder := &SortTabsChatTabReqBodyBuilder{}
-  return builder
+func NewSortTabsChatTabReqBodyBuilder() *SortTabsChatTabReqBodyBuilder {
+	builder := &SortTabsChatTabReqBodyBuilder{}
+	return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder * SortTabsChatTabReqBodyBuilder ) TabIds(tabIds []string) *SortTabsChatTabReqBodyBuilder {
-  builder.tabIds = tabIds
-  builder.tabIdsFlag = true
-  return builder
+func (builder *SortTabsChatTabReqBodyBuilder) TabIds(tabIds []string) *SortTabsChatTabReqBodyBuilder {
+	builder.tabIds = tabIds
+	builder.tabIdsFlag = true
+	return builder
 }
 
-
 // 1.3 生成body的build方法
-func (builder * SortTabsChatTabReqBodyBuilder ) Build() *SortTabsChatTabReqBody {
-   req := &SortTabsChatTabReqBody{}
-   if builder.tabIdsFlag {
-	  req.TabIds = builder.tabIds
-   }
-   return req
+func (builder *SortTabsChatTabReqBodyBuilder) Build() *SortTabsChatTabReqBody {
+	req := &SortTabsChatTabReqBody{}
+	if builder.tabIdsFlag {
+		req.TabIds = builder.tabIds
+	}
+	return req
 }
 
 // 上传文件path开始
 type SortTabsChatTabPathReqBodyBuilder struct {
-	tabIds  []string
-	tabIdsFlag  bool
+	tabIds     []string
+	tabIdsFlag bool
 }
 
-func NewSortTabsChatTabPathReqBodyBuilder() * SortTabsChatTabPathReqBodyBuilder{
-  builder := &SortTabsChatTabPathReqBodyBuilder{}
-  return builder
+func NewSortTabsChatTabPathReqBodyBuilder() *SortTabsChatTabPathReqBodyBuilder {
+	builder := &SortTabsChatTabPathReqBodyBuilder{}
+	return builder
 }
-func (builder * SortTabsChatTabPathReqBodyBuilder ) TabIds(tabIds []string) *SortTabsChatTabPathReqBodyBuilder {
-  builder.tabIds = tabIds
-  builder.tabIdsFlag = true
-  return builder
+func (builder *SortTabsChatTabPathReqBodyBuilder) TabIds(tabIds []string) *SortTabsChatTabPathReqBodyBuilder {
+	builder.tabIds = tabIds
+	builder.tabIdsFlag = true
+	return builder
 }
 
-
-func (builder * SortTabsChatTabPathReqBodyBuilder ) Build() (*SortTabsChatTabReqBody, error) {
-   req := &SortTabsChatTabReqBody{}
-   if builder.tabIdsFlag {
-	   req.TabIds = builder.tabIds
-   }
-   return req, nil
+func (builder *SortTabsChatTabPathReqBodyBuilder) Build() (*SortTabsChatTabReqBody, error) {
+	req := &SortTabsChatTabReqBody{}
+	if builder.tabIdsFlag {
+		req.TabIds = builder.tabIds
+	}
+	return req, nil
 }
+
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type SortTabsChatTabReqBuilder struct {
-	chatId  string
-	chatIdFlag  bool
-	body *SortTabsChatTabReqBody
-	bodyFlag bool
-
+	chatId     string
+	chatIdFlag bool
+	body       *SortTabsChatTabReqBody
+	bodyFlag   bool
 }
 
 // 生成请求的New构造器
-func NewSortTabsChatTabReqBuilder() * SortTabsChatTabReqBuilder{
-   builder := &SortTabsChatTabReqBuilder{}
-   return builder
+func NewSortTabsChatTabReqBuilder() *SortTabsChatTabReqBuilder {
+	builder := &SortTabsChatTabReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * SortTabsChatTabReqBuilder) ChatId(chatId string) *SortTabsChatTabReqBuilder  {
-  builder.chatId = chatId
-  builder.chatIdFlag = true
-  return builder
+func (builder *SortTabsChatTabReqBuilder) ChatId(chatId string) *SortTabsChatTabReqBuilder {
+	builder.chatId = chatId
+	builder.chatIdFlag = true
+	return builder
 }
-func (builder * SortTabsChatTabReqBuilder) Body(body *SortTabsChatTabReqBody) *SortTabsChatTabReqBuilder  {
-  builder.body = body
-  builder.bodyFlag = true
-  return builder
+func (builder *SortTabsChatTabReqBuilder) Body(body *SortTabsChatTabReqBody) *SortTabsChatTabReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * SortTabsChatTabReqBuilder ) Build() *SortTabsChatTabReq {
-   req := &SortTabsChatTabReq{}
-   if builder.chatIdFlag {
-	  req.ChatId = builder.chatId
-   }
-   if builder.bodyFlag {
-	  req.Body = builder.body
-   }
-   return req
+func (builder *SortTabsChatTabReqBuilder) Build() *SortTabsChatTabReq {
+	req := &SortTabsChatTabReq{}
+	if builder.chatIdFlag {
+		req.ChatId = builder.chatId
+	}
+	if builder.bodyFlag {
+		req.Body = builder.body
+	}
+	return req
 }
 
 type SortTabsChatTabReqBody struct {
-	TabIds  []string `json:"tab_ids,omitempty"`
+	TabIds []string `json:"tab_ids,omitempty"`
 }
 
 type SortTabsChatTabReq struct {
-	ChatId  string `path:"chat_id"`
-	Body *SortTabsChatTabReqBody `body:""`
-
+	ChatId string                  `path:"chat_id"`
+	Body   *SortTabsChatTabReqBody `body:""`
 }
 
 type SortTabsChatTabRespData struct {
-	ChatTabs  []*ChatTab `json:"chat_tabs,omitempty"`
+	ChatTabs []*ChatTab `json:"chat_tabs,omitempty"`
 }
 
 type SortTabsChatTabResp struct {
@@ -5839,110 +5714,107 @@ func (resp *SortTabsChatTabResp) Success() bool {
 }
 
 type UpdateTabsChatTabReqBodyBuilder struct {
-	chatTabs  []*ChatTab
-	chatTabsFlag  bool
+	chatTabs     []*ChatTab
+	chatTabsFlag bool
 }
 
 // 生成body的New构造器
-func NewUpdateTabsChatTabReqBodyBuilder() * UpdateTabsChatTabReqBodyBuilder{
-  builder := &UpdateTabsChatTabReqBodyBuilder{}
-  return builder
+func NewUpdateTabsChatTabReqBodyBuilder() *UpdateTabsChatTabReqBodyBuilder {
+	builder := &UpdateTabsChatTabReqBodyBuilder{}
+	return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder * UpdateTabsChatTabReqBodyBuilder ) ChatTabs(chatTabs []*ChatTab) *UpdateTabsChatTabReqBodyBuilder {
-  builder.chatTabs = chatTabs
-  builder.chatTabsFlag = true
-  return builder
+func (builder *UpdateTabsChatTabReqBodyBuilder) ChatTabs(chatTabs []*ChatTab) *UpdateTabsChatTabReqBodyBuilder {
+	builder.chatTabs = chatTabs
+	builder.chatTabsFlag = true
+	return builder
 }
 
-
 // 1.3 生成body的build方法
-func (builder * UpdateTabsChatTabReqBodyBuilder ) Build() *UpdateTabsChatTabReqBody {
-   req := &UpdateTabsChatTabReqBody{}
-   if builder.chatTabsFlag {
-	  req.ChatTabs = builder.chatTabs
-   }
-   return req
+func (builder *UpdateTabsChatTabReqBodyBuilder) Build() *UpdateTabsChatTabReqBody {
+	req := &UpdateTabsChatTabReqBody{}
+	if builder.chatTabsFlag {
+		req.ChatTabs = builder.chatTabs
+	}
+	return req
 }
 
 // 上传文件path开始
 type UpdateTabsChatTabPathReqBodyBuilder struct {
-	chatTabs  []*ChatTab
-	chatTabsFlag  bool
+	chatTabs     []*ChatTab
+	chatTabsFlag bool
 }
 
-func NewUpdateTabsChatTabPathReqBodyBuilder() * UpdateTabsChatTabPathReqBodyBuilder{
-  builder := &UpdateTabsChatTabPathReqBodyBuilder{}
-  return builder
+func NewUpdateTabsChatTabPathReqBodyBuilder() *UpdateTabsChatTabPathReqBodyBuilder {
+	builder := &UpdateTabsChatTabPathReqBodyBuilder{}
+	return builder
 }
-func (builder * UpdateTabsChatTabPathReqBodyBuilder ) ChatTabs(chatTabs []*ChatTab) *UpdateTabsChatTabPathReqBodyBuilder {
-  builder.chatTabs = chatTabs
-  builder.chatTabsFlag = true
-  return builder
+func (builder *UpdateTabsChatTabPathReqBodyBuilder) ChatTabs(chatTabs []*ChatTab) *UpdateTabsChatTabPathReqBodyBuilder {
+	builder.chatTabs = chatTabs
+	builder.chatTabsFlag = true
+	return builder
 }
 
-
-func (builder * UpdateTabsChatTabPathReqBodyBuilder ) Build() (*UpdateTabsChatTabReqBody, error) {
-   req := &UpdateTabsChatTabReqBody{}
-   if builder.chatTabsFlag {
-	   req.ChatTabs = builder.chatTabs
-   }
-   return req, nil
+func (builder *UpdateTabsChatTabPathReqBodyBuilder) Build() (*UpdateTabsChatTabReqBody, error) {
+	req := &UpdateTabsChatTabReqBody{}
+	if builder.chatTabsFlag {
+		req.ChatTabs = builder.chatTabs
+	}
+	return req, nil
 }
+
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type UpdateTabsChatTabReqBuilder struct {
-	chatId  string
-	chatIdFlag  bool
-	body *UpdateTabsChatTabReqBody
-	bodyFlag bool
-
+	chatId     string
+	chatIdFlag bool
+	body       *UpdateTabsChatTabReqBody
+	bodyFlag   bool
 }
 
 // 生成请求的New构造器
-func NewUpdateTabsChatTabReqBuilder() * UpdateTabsChatTabReqBuilder{
-   builder := &UpdateTabsChatTabReqBuilder{}
-   return builder
+func NewUpdateTabsChatTabReqBuilder() *UpdateTabsChatTabReqBuilder {
+	builder := &UpdateTabsChatTabReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * UpdateTabsChatTabReqBuilder) ChatId(chatId string) *UpdateTabsChatTabReqBuilder  {
-  builder.chatId = chatId
-  builder.chatIdFlag = true
-  return builder
+func (builder *UpdateTabsChatTabReqBuilder) ChatId(chatId string) *UpdateTabsChatTabReqBuilder {
+	builder.chatId = chatId
+	builder.chatIdFlag = true
+	return builder
 }
-func (builder * UpdateTabsChatTabReqBuilder) Body(body *UpdateTabsChatTabReqBody) *UpdateTabsChatTabReqBuilder  {
-  builder.body = body
-  builder.bodyFlag = true
-  return builder
+func (builder *UpdateTabsChatTabReqBuilder) Body(body *UpdateTabsChatTabReqBody) *UpdateTabsChatTabReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * UpdateTabsChatTabReqBuilder ) Build() *UpdateTabsChatTabReq {
-   req := &UpdateTabsChatTabReq{}
-   if builder.chatIdFlag {
-	  req.ChatId = builder.chatId
-   }
-   if builder.bodyFlag {
-	  req.Body = builder.body
-   }
-   return req
+func (builder *UpdateTabsChatTabReqBuilder) Build() *UpdateTabsChatTabReq {
+	req := &UpdateTabsChatTabReq{}
+	if builder.chatIdFlag {
+		req.ChatId = builder.chatId
+	}
+	if builder.bodyFlag {
+		req.Body = builder.body
+	}
+	return req
 }
 
 type UpdateTabsChatTabReqBody struct {
-	ChatTabs  []*ChatTab `json:"chat_tabs,omitempty"`
+	ChatTabs []*ChatTab `json:"chat_tabs,omitempty"`
 }
 
 type UpdateTabsChatTabReq struct {
-	ChatId  string `path:"chat_id"`
-	Body *UpdateTabsChatTabReqBody `body:""`
-
+	ChatId string                    `path:"chat_id"`
+	Body   *UpdateTabsChatTabReqBody `body:""`
 }
 
 type UpdateTabsChatTabRespData struct {
-	ChatTabs  []*ChatTab `json:"chat_tabs,omitempty"`
+	ChatTabs []*ChatTab `json:"chat_tabs,omitempty"`
 }
 
 type UpdateTabsChatTabResp struct {
@@ -5955,42 +5827,37 @@ func (resp *UpdateTabsChatTabResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type DeleteTopNoticeChatTopNoticeReqBuilder struct {
-	chatId  string
-	chatIdFlag  bool
-
+	chatId     string
+	chatIdFlag bool
 }
 
 // 生成请求的New构造器
-func NewDeleteTopNoticeChatTopNoticeReqBuilder() * DeleteTopNoticeChatTopNoticeReqBuilder{
-   builder := &DeleteTopNoticeChatTopNoticeReqBuilder{}
-   return builder
+func NewDeleteTopNoticeChatTopNoticeReqBuilder() *DeleteTopNoticeChatTopNoticeReqBuilder {
+	builder := &DeleteTopNoticeChatTopNoticeReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * DeleteTopNoticeChatTopNoticeReqBuilder) ChatId(chatId string) *DeleteTopNoticeChatTopNoticeReqBuilder  {
-  builder.chatId = chatId
-  builder.chatIdFlag = true
-  return builder
+func (builder *DeleteTopNoticeChatTopNoticeReqBuilder) ChatId(chatId string) *DeleteTopNoticeChatTopNoticeReqBuilder {
+	builder.chatId = chatId
+	builder.chatIdFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * DeleteTopNoticeChatTopNoticeReqBuilder ) Build() *DeleteTopNoticeChatTopNoticeReq {
-   req := &DeleteTopNoticeChatTopNoticeReq{}
-   if builder.chatIdFlag {
-	  req.ChatId = builder.chatId
-   }
-   return req
+func (builder *DeleteTopNoticeChatTopNoticeReqBuilder) Build() *DeleteTopNoticeChatTopNoticeReq {
+	req := &DeleteTopNoticeChatTopNoticeReq{}
+	if builder.chatIdFlag {
+		req.ChatId = builder.chatId
+	}
+	return req
 }
-
 
 type DeleteTopNoticeChatTopNoticeReq struct {
-	ChatId  string `path:"chat_id"`
-
+	ChatId string `path:"chat_id"`
 }
-
 
 type DeleteTopNoticeChatTopNoticeResp struct {
 	*larkcore.RawResponse `json:"-"`
@@ -6002,108 +5869,104 @@ func (resp *DeleteTopNoticeChatTopNoticeResp) Success() bool {
 }
 
 type PutTopNoticeChatTopNoticeReqBodyBuilder struct {
-	chatTopNotice  []*ChatTopNotice
-	chatTopNoticeFlag  bool
+	chatTopNotice     []*ChatTopNotice
+	chatTopNoticeFlag bool
 }
 
 // 生成body的New构造器
-func NewPutTopNoticeChatTopNoticeReqBodyBuilder() * PutTopNoticeChatTopNoticeReqBodyBuilder{
-  builder := &PutTopNoticeChatTopNoticeReqBodyBuilder{}
-  return builder
+func NewPutTopNoticeChatTopNoticeReqBodyBuilder() *PutTopNoticeChatTopNoticeReqBodyBuilder {
+	builder := &PutTopNoticeChatTopNoticeReqBodyBuilder{}
+	return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder * PutTopNoticeChatTopNoticeReqBodyBuilder ) ChatTopNotice(chatTopNotice []*ChatTopNotice) *PutTopNoticeChatTopNoticeReqBodyBuilder {
-  builder.chatTopNotice = chatTopNotice
-  builder.chatTopNoticeFlag = true
-  return builder
+func (builder *PutTopNoticeChatTopNoticeReqBodyBuilder) ChatTopNotice(chatTopNotice []*ChatTopNotice) *PutTopNoticeChatTopNoticeReqBodyBuilder {
+	builder.chatTopNotice = chatTopNotice
+	builder.chatTopNoticeFlag = true
+	return builder
 }
 
-
 // 1.3 生成body的build方法
-func (builder * PutTopNoticeChatTopNoticeReqBodyBuilder ) Build() *PutTopNoticeChatTopNoticeReqBody {
-   req := &PutTopNoticeChatTopNoticeReqBody{}
-   if builder.chatTopNoticeFlag {
-	  req.ChatTopNotice = builder.chatTopNotice
-   }
-   return req
+func (builder *PutTopNoticeChatTopNoticeReqBodyBuilder) Build() *PutTopNoticeChatTopNoticeReqBody {
+	req := &PutTopNoticeChatTopNoticeReqBody{}
+	if builder.chatTopNoticeFlag {
+		req.ChatTopNotice = builder.chatTopNotice
+	}
+	return req
 }
 
 // 上传文件path开始
 type PutTopNoticeChatTopNoticePathReqBodyBuilder struct {
-	chatTopNotice  []*ChatTopNotice
-	chatTopNoticeFlag  bool
+	chatTopNotice     []*ChatTopNotice
+	chatTopNoticeFlag bool
 }
 
-func NewPutTopNoticeChatTopNoticePathReqBodyBuilder() * PutTopNoticeChatTopNoticePathReqBodyBuilder{
-  builder := &PutTopNoticeChatTopNoticePathReqBodyBuilder{}
-  return builder
+func NewPutTopNoticeChatTopNoticePathReqBodyBuilder() *PutTopNoticeChatTopNoticePathReqBodyBuilder {
+	builder := &PutTopNoticeChatTopNoticePathReqBodyBuilder{}
+	return builder
 }
-func (builder * PutTopNoticeChatTopNoticePathReqBodyBuilder ) ChatTopNotice(chatTopNotice []*ChatTopNotice) *PutTopNoticeChatTopNoticePathReqBodyBuilder {
-  builder.chatTopNotice = chatTopNotice
-  builder.chatTopNoticeFlag = true
-  return builder
+func (builder *PutTopNoticeChatTopNoticePathReqBodyBuilder) ChatTopNotice(chatTopNotice []*ChatTopNotice) *PutTopNoticeChatTopNoticePathReqBodyBuilder {
+	builder.chatTopNotice = chatTopNotice
+	builder.chatTopNoticeFlag = true
+	return builder
 }
 
-
-func (builder * PutTopNoticeChatTopNoticePathReqBodyBuilder ) Build() (*PutTopNoticeChatTopNoticeReqBody, error) {
-   req := &PutTopNoticeChatTopNoticeReqBody{}
-   if builder.chatTopNoticeFlag {
-	   req.ChatTopNotice = builder.chatTopNotice
-   }
-   return req, nil
+func (builder *PutTopNoticeChatTopNoticePathReqBodyBuilder) Build() (*PutTopNoticeChatTopNoticeReqBody, error) {
+	req := &PutTopNoticeChatTopNoticeReqBody{}
+	if builder.chatTopNoticeFlag {
+		req.ChatTopNotice = builder.chatTopNotice
+	}
+	return req, nil
 }
+
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type PutTopNoticeChatTopNoticeReqBuilder struct {
-	chatId  string
-	chatIdFlag  bool
-	body *PutTopNoticeChatTopNoticeReqBody
-	bodyFlag bool
-
+	chatId     string
+	chatIdFlag bool
+	body       *PutTopNoticeChatTopNoticeReqBody
+	bodyFlag   bool
 }
 
 // 生成请求的New构造器
-func NewPutTopNoticeChatTopNoticeReqBuilder() * PutTopNoticeChatTopNoticeReqBuilder{
-   builder := &PutTopNoticeChatTopNoticeReqBuilder{}
-   return builder
+func NewPutTopNoticeChatTopNoticeReqBuilder() *PutTopNoticeChatTopNoticeReqBuilder {
+	builder := &PutTopNoticeChatTopNoticeReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * PutTopNoticeChatTopNoticeReqBuilder) ChatId(chatId string) *PutTopNoticeChatTopNoticeReqBuilder  {
-  builder.chatId = chatId
-  builder.chatIdFlag = true
-  return builder
+func (builder *PutTopNoticeChatTopNoticeReqBuilder) ChatId(chatId string) *PutTopNoticeChatTopNoticeReqBuilder {
+	builder.chatId = chatId
+	builder.chatIdFlag = true
+	return builder
 }
-func (builder * PutTopNoticeChatTopNoticeReqBuilder) Body(body *PutTopNoticeChatTopNoticeReqBody) *PutTopNoticeChatTopNoticeReqBuilder  {
-  builder.body = body
-  builder.bodyFlag = true
-  return builder
+func (builder *PutTopNoticeChatTopNoticeReqBuilder) Body(body *PutTopNoticeChatTopNoticeReqBody) *PutTopNoticeChatTopNoticeReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * PutTopNoticeChatTopNoticeReqBuilder ) Build() *PutTopNoticeChatTopNoticeReq {
-   req := &PutTopNoticeChatTopNoticeReq{}
-   if builder.chatIdFlag {
-	  req.ChatId = builder.chatId
-   }
-   if builder.bodyFlag {
-	  req.Body = builder.body
-   }
-   return req
+func (builder *PutTopNoticeChatTopNoticeReqBuilder) Build() *PutTopNoticeChatTopNoticeReq {
+	req := &PutTopNoticeChatTopNoticeReq{}
+	if builder.chatIdFlag {
+		req.ChatId = builder.chatId
+	}
+	if builder.bodyFlag {
+		req.Body = builder.body
+	}
+	return req
 }
 
 type PutTopNoticeChatTopNoticeReqBody struct {
-	ChatTopNotice  []*ChatTopNotice `json:"chat_top_notice,omitempty"`
+	ChatTopNotice []*ChatTopNotice `json:"chat_top_notice,omitempty"`
 }
 
 type PutTopNoticeChatTopNoticeReq struct {
-	ChatId  string `path:"chat_id"`
-	Body *PutTopNoticeChatTopNoticeReqBody `body:""`
-
+	ChatId string                            `path:"chat_id"`
+	Body   *PutTopNoticeChatTopNoticeReqBody `body:""`
 }
-
 
 type PutTopNoticeChatTopNoticeResp struct {
 	*larkcore.RawResponse `json:"-"`
@@ -6115,166 +5978,163 @@ func (resp *PutTopNoticeChatTopNoticeResp) Success() bool {
 }
 
 type CreateFileReqBodyBuilder struct {
-	fileType  string
-	fileTypeFlag  bool
-	fileName  string
-	fileNameFlag  bool
-	duration  int
-	durationFlag  bool
-	file  io.Reader
-	fileFlag  bool
+	fileType     string
+	fileTypeFlag bool
+	fileName     string
+	fileNameFlag bool
+	duration     int
+	durationFlag bool
+	file         io.Reader
+	fileFlag     bool
 }
 
 // 生成body的New构造器
-func NewCreateFileReqBodyBuilder() * CreateFileReqBodyBuilder{
-  builder := &CreateFileReqBodyBuilder{}
-  return builder
+func NewCreateFileReqBodyBuilder() *CreateFileReqBodyBuilder {
+	builder := &CreateFileReqBodyBuilder{}
+	return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder * CreateFileReqBodyBuilder ) FileType(fileType string) *CreateFileReqBodyBuilder {
-  builder.fileType = fileType
-  builder.fileTypeFlag = true
-  return builder
+func (builder *CreateFileReqBodyBuilder) FileType(fileType string) *CreateFileReqBodyBuilder {
+	builder.fileType = fileType
+	builder.fileTypeFlag = true
+	return builder
 }
-func (builder * CreateFileReqBodyBuilder ) FileName(fileName string) *CreateFileReqBodyBuilder {
-  builder.fileName = fileName
-  builder.fileNameFlag = true
-  return builder
+func (builder *CreateFileReqBodyBuilder) FileName(fileName string) *CreateFileReqBodyBuilder {
+	builder.fileName = fileName
+	builder.fileNameFlag = true
+	return builder
 }
-func (builder * CreateFileReqBodyBuilder ) Duration(duration int) *CreateFileReqBodyBuilder {
-  builder.duration = duration
-  builder.durationFlag = true
-  return builder
+func (builder *CreateFileReqBodyBuilder) Duration(duration int) *CreateFileReqBodyBuilder {
+	builder.duration = duration
+	builder.durationFlag = true
+	return builder
 }
-func (builder * CreateFileReqBodyBuilder ) File(file io.Reader) *CreateFileReqBodyBuilder {
-  builder.file = file
-  builder.fileFlag = true
-  return builder
+func (builder *CreateFileReqBodyBuilder) File(file io.Reader) *CreateFileReqBodyBuilder {
+	builder.file = file
+	builder.fileFlag = true
+	return builder
 }
-
 
 // 1.3 生成body的build方法
-func (builder * CreateFileReqBodyBuilder ) Build() *CreateFileReqBody {
-   req := &CreateFileReqBody{}
-   if builder.fileTypeFlag {
-	  req.FileType = &builder.fileType
-   }
-   if builder.fileNameFlag {
-	  req.FileName = &builder.fileName
-   }
-   if builder.durationFlag {
-	  req.Duration = &builder.duration
-   }
-   if builder.fileFlag {
-	  req.File = builder.file
-   }
-   return req
+func (builder *CreateFileReqBodyBuilder) Build() *CreateFileReqBody {
+	req := &CreateFileReqBody{}
+	if builder.fileTypeFlag {
+		req.FileType = &builder.fileType
+	}
+	if builder.fileNameFlag {
+		req.FileName = &builder.fileName
+	}
+	if builder.durationFlag {
+		req.Duration = &builder.duration
+	}
+	if builder.fileFlag {
+		req.File = builder.file
+	}
+	return req
 }
 
 // 上传文件path开始
 type CreateFilePathReqBodyBuilder struct {
-	fileType  string
-	fileTypeFlag  bool
-	fileName  string
-	fileNameFlag  bool
-	duration  int
-	durationFlag  bool
-	filePath  string
-	filePathFlag  bool
+	fileType     string
+	fileTypeFlag bool
+	fileName     string
+	fileNameFlag bool
+	duration     int
+	durationFlag bool
+	filePath     string
+	filePathFlag bool
 }
 
-func NewCreateFilePathReqBodyBuilder() * CreateFilePathReqBodyBuilder{
-  builder := &CreateFilePathReqBodyBuilder{}
-  return builder
+func NewCreateFilePathReqBodyBuilder() *CreateFilePathReqBodyBuilder {
+	builder := &CreateFilePathReqBodyBuilder{}
+	return builder
 }
-func (builder * CreateFilePathReqBodyBuilder ) FileType(fileType string) *CreateFilePathReqBodyBuilder {
-  builder.fileType = fileType
-  builder.fileTypeFlag = true
-  return builder
+func (builder *CreateFilePathReqBodyBuilder) FileType(fileType string) *CreateFilePathReqBodyBuilder {
+	builder.fileType = fileType
+	builder.fileTypeFlag = true
+	return builder
 }
-func (builder * CreateFilePathReqBodyBuilder ) FileName(fileName string) *CreateFilePathReqBodyBuilder {
-  builder.fileName = fileName
-  builder.fileNameFlag = true
-  return builder
+func (builder *CreateFilePathReqBodyBuilder) FileName(fileName string) *CreateFilePathReqBodyBuilder {
+	builder.fileName = fileName
+	builder.fileNameFlag = true
+	return builder
 }
-func (builder * CreateFilePathReqBodyBuilder ) Duration(duration int) *CreateFilePathReqBodyBuilder {
-  builder.duration = duration
-  builder.durationFlag = true
-  return builder
+func (builder *CreateFilePathReqBodyBuilder) Duration(duration int) *CreateFilePathReqBodyBuilder {
+	builder.duration = duration
+	builder.durationFlag = true
+	return builder
 }
-func (builder * CreateFilePathReqBodyBuilder ) FilePath(filePath string) *CreateFilePathReqBodyBuilder {
-  builder.filePath = filePath
-  builder.filePathFlag = true
-  return builder
+func (builder *CreateFilePathReqBodyBuilder) FilePath(filePath string) *CreateFilePathReqBodyBuilder {
+	builder.filePath = filePath
+	builder.filePathFlag = true
+	return builder
 }
 
-
-func (builder * CreateFilePathReqBodyBuilder ) Build() (*CreateFileReqBody, error) {
-   req := &CreateFileReqBody{}
-   if builder.fileTypeFlag {
-	  req.FileType = &builder.fileType
-   }
-   if builder.fileNameFlag {
-	  req.FileName = &builder.fileName
-   }
-   if builder.durationFlag {
-	  req.Duration = &builder.duration
-   }
-   if builder.filePathFlag {
-	  data, err := larkcore.File2Bytes(builder.filePath)
-	  if err != nil {
-		return nil, err
-	  }
-	  req.File = bytes.NewBuffer(data)
-   }
-   return req, nil
+func (builder *CreateFilePathReqBodyBuilder) Build() (*CreateFileReqBody, error) {
+	req := &CreateFileReqBody{}
+	if builder.fileTypeFlag {
+		req.FileType = &builder.fileType
+	}
+	if builder.fileNameFlag {
+		req.FileName = &builder.fileName
+	}
+	if builder.durationFlag {
+		req.Duration = &builder.duration
+	}
+	if builder.filePathFlag {
+		data, err := larkcore.File2Bytes(builder.filePath)
+		if err != nil {
+			return nil, err
+		}
+		req.File = bytes.NewBuffer(data)
+	}
+	return req, nil
 }
+
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type CreateFileReqBuilder struct {
-	body *CreateFileReqBody
+	body     *CreateFileReqBody
 	bodyFlag bool
-
 }
 
 // 生成请求的New构造器
-func NewCreateFileReqBuilder() * CreateFileReqBuilder{
-   builder := &CreateFileReqBuilder{}
-   return builder
+func NewCreateFileReqBuilder() *CreateFileReqBuilder {
+	builder := &CreateFileReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * CreateFileReqBuilder) Body(body *CreateFileReqBody) *CreateFileReqBuilder  {
-  builder.body = body
-  builder.bodyFlag = true
-  return builder
+func (builder *CreateFileReqBuilder) Body(body *CreateFileReqBody) *CreateFileReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * CreateFileReqBuilder ) Build() *CreateFileReq {
-   req := &CreateFileReq{}
-   if builder.bodyFlag {
-	  req.Body = builder.body
-   }
-   return req
+func (builder *CreateFileReqBuilder) Build() *CreateFileReq {
+	req := &CreateFileReq{}
+	if builder.bodyFlag {
+		req.Body = builder.body
+	}
+	return req
 }
 
 type CreateFileReqBody struct {
-	FileType  *string `json:"file_type,omitempty"`
-	FileName  *string `json:"file_name,omitempty"`
-	Duration  *int `json:"duration,omitempty"`
-	File  io.Reader `json:"file,omitempty"`
+	FileType *string   `json:"file_type,omitempty"`
+	FileName *string   `json:"file_name,omitempty"`
+	Duration *int      `json:"duration,omitempty"`
+	File     io.Reader `json:"file,omitempty"`
 }
 
 type CreateFileReq struct {
 	Body *CreateFileReqBody `body:""`
-
 }
 
 type CreateFileRespData struct {
-	FileKey  *string `json:"file_key,omitempty"`
+	FileKey *string `json:"file_key,omitempty"`
 }
 
 type CreateFileResp struct {
@@ -6287,55 +6147,51 @@ func (resp *CreateFileResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type GetFileReqBuilder struct {
-	fileKey  string
-	fileKeyFlag  bool
-
+	fileKey     string
+	fileKeyFlag bool
 }
 
 // 生成请求的New构造器
-func NewGetFileReqBuilder() * GetFileReqBuilder{
-   builder := &GetFileReqBuilder{}
-   return builder
+func NewGetFileReqBuilder() *GetFileReqBuilder {
+	builder := &GetFileReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * GetFileReqBuilder) FileKey(fileKey string) *GetFileReqBuilder  {
-  builder.fileKey = fileKey
-  builder.fileKeyFlag = true
-  return builder
+func (builder *GetFileReqBuilder) FileKey(fileKey string) *GetFileReqBuilder {
+	builder.fileKey = fileKey
+	builder.fileKeyFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * GetFileReqBuilder ) Build() *GetFileReq {
-   req := &GetFileReq{}
-   if builder.fileKeyFlag {
-	  req.FileKey = builder.fileKey
-   }
-   return req
+func (builder *GetFileReqBuilder) Build() *GetFileReq {
+	req := &GetFileReq{}
+	if builder.fileKeyFlag {
+		req.FileKey = builder.fileKey
+	}
+	return req
 }
-
 
 type GetFileReq struct {
-	FileKey  string `path:"file_key"`
-
+	FileKey string `path:"file_key"`
 }
-
 
 type GetFileResp struct {
 	*larkcore.RawResponse `json:"-"`
 	larkcore.CodeError
-	File	 io.Reader `json:"-"`
-	FileName string	`json:"-"`
+	File     io.Reader `json:"-"`
+	FileName string    `json:"-"`
 }
 
 func (resp *GetFileResp) Success() bool {
 	return resp.Code == 0
 }
+
 // 下载api,生成WriteFile方法
-func (resp * GetFileResp) WriteFile(fileName string ) error {
+func (resp *GetFileResp) WriteFile(fileName string) error {
 	bs, err := ioutil.ReadAll(resp.File)
 	if err != nil {
 		return err
@@ -6349,124 +6205,121 @@ func (resp * GetFileResp) WriteFile(fileName string ) error {
 }
 
 type CreateImageReqBodyBuilder struct {
-	imageType  string
-	imageTypeFlag  bool
-	image  io.Reader
-	imageFlag  bool
+	imageType     string
+	imageTypeFlag bool
+	image         io.Reader
+	imageFlag     bool
 }
 
 // 生成body的New构造器
-func NewCreateImageReqBodyBuilder() * CreateImageReqBodyBuilder{
-  builder := &CreateImageReqBodyBuilder{}
-  return builder
+func NewCreateImageReqBodyBuilder() *CreateImageReqBodyBuilder {
+	builder := &CreateImageReqBodyBuilder{}
+	return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder * CreateImageReqBodyBuilder ) ImageType(imageType string) *CreateImageReqBodyBuilder {
-  builder.imageType = imageType
-  builder.imageTypeFlag = true
-  return builder
+func (builder *CreateImageReqBodyBuilder) ImageType(imageType string) *CreateImageReqBodyBuilder {
+	builder.imageType = imageType
+	builder.imageTypeFlag = true
+	return builder
 }
-func (builder * CreateImageReqBodyBuilder ) Image(image io.Reader) *CreateImageReqBodyBuilder {
-  builder.image = image
-  builder.imageFlag = true
-  return builder
+func (builder *CreateImageReqBodyBuilder) Image(image io.Reader) *CreateImageReqBodyBuilder {
+	builder.image = image
+	builder.imageFlag = true
+	return builder
 }
-
 
 // 1.3 生成body的build方法
-func (builder * CreateImageReqBodyBuilder ) Build() *CreateImageReqBody {
-   req := &CreateImageReqBody{}
-   if builder.imageTypeFlag {
-	  req.ImageType = &builder.imageType
-   }
-   if builder.imageFlag {
-	  req.Image = builder.image
-   }
-   return req
+func (builder *CreateImageReqBodyBuilder) Build() *CreateImageReqBody {
+	req := &CreateImageReqBody{}
+	if builder.imageTypeFlag {
+		req.ImageType = &builder.imageType
+	}
+	if builder.imageFlag {
+		req.Image = builder.image
+	}
+	return req
 }
 
 // 上传文件path开始
 type CreateImagePathReqBodyBuilder struct {
-	imageType  string
-	imageTypeFlag  bool
-	imagePath  string
-	imagePathFlag  bool
+	imageType     string
+	imageTypeFlag bool
+	imagePath     string
+	imagePathFlag bool
 }
 
-func NewCreateImagePathReqBodyBuilder() * CreateImagePathReqBodyBuilder{
-  builder := &CreateImagePathReqBodyBuilder{}
-  return builder
+func NewCreateImagePathReqBodyBuilder() *CreateImagePathReqBodyBuilder {
+	builder := &CreateImagePathReqBodyBuilder{}
+	return builder
 }
-func (builder * CreateImagePathReqBodyBuilder ) ImageType(imageType string) *CreateImagePathReqBodyBuilder {
-  builder.imageType = imageType
-  builder.imageTypeFlag = true
-  return builder
+func (builder *CreateImagePathReqBodyBuilder) ImageType(imageType string) *CreateImagePathReqBodyBuilder {
+	builder.imageType = imageType
+	builder.imageTypeFlag = true
+	return builder
 }
-func (builder * CreateImagePathReqBodyBuilder ) ImagePath(imagePath string) *CreateImagePathReqBodyBuilder {
-  builder.imagePath = imagePath
-  builder.imagePathFlag = true
-  return builder
+func (builder *CreateImagePathReqBodyBuilder) ImagePath(imagePath string) *CreateImagePathReqBodyBuilder {
+	builder.imagePath = imagePath
+	builder.imagePathFlag = true
+	return builder
 }
 
-
-func (builder * CreateImagePathReqBodyBuilder ) Build() (*CreateImageReqBody, error) {
-   req := &CreateImageReqBody{}
-   if builder.imageTypeFlag {
-	  req.ImageType = &builder.imageType
-   }
-   if builder.imagePathFlag {
-	  data, err := larkcore.File2Bytes(builder.imagePath)
-	  if err != nil {
-		return nil, err
-	  }
-	  req.Image = bytes.NewBuffer(data)
-   }
-   return req, nil
+func (builder *CreateImagePathReqBodyBuilder) Build() (*CreateImageReqBody, error) {
+	req := &CreateImageReqBody{}
+	if builder.imageTypeFlag {
+		req.ImageType = &builder.imageType
+	}
+	if builder.imagePathFlag {
+		data, err := larkcore.File2Bytes(builder.imagePath)
+		if err != nil {
+			return nil, err
+		}
+		req.Image = bytes.NewBuffer(data)
+	}
+	return req, nil
 }
+
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type CreateImageReqBuilder struct {
-	body *CreateImageReqBody
+	body     *CreateImageReqBody
 	bodyFlag bool
-
 }
 
 // 生成请求的New构造器
-func NewCreateImageReqBuilder() * CreateImageReqBuilder{
-   builder := &CreateImageReqBuilder{}
-   return builder
+func NewCreateImageReqBuilder() *CreateImageReqBuilder {
+	builder := &CreateImageReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * CreateImageReqBuilder) Body(body *CreateImageReqBody) *CreateImageReqBuilder  {
-  builder.body = body
-  builder.bodyFlag = true
-  return builder
+func (builder *CreateImageReqBuilder) Body(body *CreateImageReqBody) *CreateImageReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * CreateImageReqBuilder ) Build() *CreateImageReq {
-   req := &CreateImageReq{}
-   if builder.bodyFlag {
-	  req.Body = builder.body
-   }
-   return req
+func (builder *CreateImageReqBuilder) Build() *CreateImageReq {
+	req := &CreateImageReq{}
+	if builder.bodyFlag {
+		req.Body = builder.body
+	}
+	return req
 }
 
 type CreateImageReqBody struct {
-	ImageType  *string `json:"image_type,omitempty"`
-	Image  io.Reader `json:"image,omitempty"`
+	ImageType *string   `json:"image_type,omitempty"`
+	Image     io.Reader `json:"image,omitempty"`
 }
 
 type CreateImageReq struct {
 	Body *CreateImageReqBody `body:""`
-
 }
 
 type CreateImageRespData struct {
-	ImageKey  *string `json:"image_key,omitempty"`
+	ImageKey *string `json:"image_key,omitempty"`
 }
 
 type CreateImageResp struct {
@@ -6479,55 +6332,51 @@ func (resp *CreateImageResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type GetImageReqBuilder struct {
-	imageKey  string
-	imageKeyFlag  bool
-
+	imageKey     string
+	imageKeyFlag bool
 }
 
 // 生成请求的New构造器
-func NewGetImageReqBuilder() * GetImageReqBuilder{
-   builder := &GetImageReqBuilder{}
-   return builder
+func NewGetImageReqBuilder() *GetImageReqBuilder {
+	builder := &GetImageReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * GetImageReqBuilder) ImageKey(imageKey string) *GetImageReqBuilder  {
-  builder.imageKey = imageKey
-  builder.imageKeyFlag = true
-  return builder
+func (builder *GetImageReqBuilder) ImageKey(imageKey string) *GetImageReqBuilder {
+	builder.imageKey = imageKey
+	builder.imageKeyFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * GetImageReqBuilder ) Build() *GetImageReq {
-   req := &GetImageReq{}
-   if builder.imageKeyFlag {
-	  req.ImageKey = builder.imageKey
-   }
-   return req
+func (builder *GetImageReqBuilder) Build() *GetImageReq {
+	req := &GetImageReq{}
+	if builder.imageKeyFlag {
+		req.ImageKey = builder.imageKey
+	}
+	return req
 }
-
 
 type GetImageReq struct {
-	ImageKey  string `path:"image_key"`
-
+	ImageKey string `path:"image_key"`
 }
-
 
 type GetImageResp struct {
 	*larkcore.RawResponse `json:"-"`
 	larkcore.CodeError
-	File	 io.Reader `json:"-"`
-	FileName string	`json:"-"`
+	File     io.Reader `json:"-"`
+	FileName string    `json:"-"`
 }
 
 func (resp *GetImageResp) Success() bool {
 	return resp.Code == 0
 }
+
 // 下载api,生成WriteFile方法
-func (resp * GetImageResp) WriteFile(fileName string ) error {
+func (resp *GetImageResp) WriteFile(fileName string) error {
 	bs, err := ioutil.ReadAll(resp.File)
 	if err != nil {
 		return err
@@ -6541,164 +6390,161 @@ func (resp * GetImageResp) WriteFile(fileName string ) error {
 }
 
 type CreateMessageReqBodyBuilder struct {
-	receiveId  string
-	receiveIdFlag  bool
-	content  string
-	contentFlag  bool
-	msgType  string
-	msgTypeFlag  bool
+	receiveId     string
+	receiveIdFlag bool
+	content       string
+	contentFlag   bool
+	msgType       string
+	msgTypeFlag   bool
 }
 
 // 生成body的New构造器
-func NewCreateMessageReqBodyBuilder() * CreateMessageReqBodyBuilder{
-  builder := &CreateMessageReqBodyBuilder{}
-  return builder
+func NewCreateMessageReqBodyBuilder() *CreateMessageReqBodyBuilder {
+	builder := &CreateMessageReqBodyBuilder{}
+	return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder * CreateMessageReqBodyBuilder ) ReceiveId(receiveId string) *CreateMessageReqBodyBuilder {
-  builder.receiveId = receiveId
-  builder.receiveIdFlag = true
-  return builder
+func (builder *CreateMessageReqBodyBuilder) ReceiveId(receiveId string) *CreateMessageReqBodyBuilder {
+	builder.receiveId = receiveId
+	builder.receiveIdFlag = true
+	return builder
 }
-func (builder * CreateMessageReqBodyBuilder ) Content(content string) *CreateMessageReqBodyBuilder {
-  builder.content = content
-  builder.contentFlag = true
-  return builder
+func (builder *CreateMessageReqBodyBuilder) Content(content string) *CreateMessageReqBodyBuilder {
+	builder.content = content
+	builder.contentFlag = true
+	return builder
 }
-func (builder * CreateMessageReqBodyBuilder ) MsgType(msgType string) *CreateMessageReqBodyBuilder {
-  builder.msgType = msgType
-  builder.msgTypeFlag = true
-  return builder
+func (builder *CreateMessageReqBodyBuilder) MsgType(msgType string) *CreateMessageReqBodyBuilder {
+	builder.msgType = msgType
+	builder.msgTypeFlag = true
+	return builder
 }
-
 
 // 1.3 生成body的build方法
-func (builder * CreateMessageReqBodyBuilder ) Build() *CreateMessageReqBody {
-   req := &CreateMessageReqBody{}
-   if builder.receiveIdFlag {
-	  req.ReceiveId = &builder.receiveId
-   }
-   if builder.contentFlag {
-	  req.Content = &builder.content
-   }
-   if builder.msgTypeFlag {
-	  req.MsgType = &builder.msgType
-   }
-   return req
+func (builder *CreateMessageReqBodyBuilder) Build() *CreateMessageReqBody {
+	req := &CreateMessageReqBody{}
+	if builder.receiveIdFlag {
+		req.ReceiveId = &builder.receiveId
+	}
+	if builder.contentFlag {
+		req.Content = &builder.content
+	}
+	if builder.msgTypeFlag {
+		req.MsgType = &builder.msgType
+	}
+	return req
 }
 
 // 上传文件path开始
 type CreateMessagePathReqBodyBuilder struct {
-	receiveId  string
-	receiveIdFlag  bool
-	content  string
-	contentFlag  bool
-	msgType  string
-	msgTypeFlag  bool
+	receiveId     string
+	receiveIdFlag bool
+	content       string
+	contentFlag   bool
+	msgType       string
+	msgTypeFlag   bool
 }
 
-func NewCreateMessagePathReqBodyBuilder() * CreateMessagePathReqBodyBuilder{
-  builder := &CreateMessagePathReqBodyBuilder{}
-  return builder
+func NewCreateMessagePathReqBodyBuilder() *CreateMessagePathReqBodyBuilder {
+	builder := &CreateMessagePathReqBodyBuilder{}
+	return builder
 }
-func (builder * CreateMessagePathReqBodyBuilder ) ReceiveId(receiveId string) *CreateMessagePathReqBodyBuilder {
-  builder.receiveId = receiveId
-  builder.receiveIdFlag = true
-  return builder
+func (builder *CreateMessagePathReqBodyBuilder) ReceiveId(receiveId string) *CreateMessagePathReqBodyBuilder {
+	builder.receiveId = receiveId
+	builder.receiveIdFlag = true
+	return builder
 }
-func (builder * CreateMessagePathReqBodyBuilder ) Content(content string) *CreateMessagePathReqBodyBuilder {
-  builder.content = content
-  builder.contentFlag = true
-  return builder
+func (builder *CreateMessagePathReqBodyBuilder) Content(content string) *CreateMessagePathReqBodyBuilder {
+	builder.content = content
+	builder.contentFlag = true
+	return builder
 }
-func (builder * CreateMessagePathReqBodyBuilder ) MsgType(msgType string) *CreateMessagePathReqBodyBuilder {
-  builder.msgType = msgType
-  builder.msgTypeFlag = true
-  return builder
+func (builder *CreateMessagePathReqBodyBuilder) MsgType(msgType string) *CreateMessagePathReqBodyBuilder {
+	builder.msgType = msgType
+	builder.msgTypeFlag = true
+	return builder
 }
 
-
-func (builder * CreateMessagePathReqBodyBuilder ) Build() (*CreateMessageReqBody, error) {
-   req := &CreateMessageReqBody{}
-   if builder.receiveIdFlag {
-	  req.ReceiveId = &builder.receiveId
-   }
-   if builder.contentFlag {
-	  req.Content = &builder.content
-   }
-   if builder.msgTypeFlag {
-	  req.MsgType = &builder.msgType
-   }
-   return req, nil
+func (builder *CreateMessagePathReqBodyBuilder) Build() (*CreateMessageReqBody, error) {
+	req := &CreateMessageReqBody{}
+	if builder.receiveIdFlag {
+		req.ReceiveId = &builder.receiveId
+	}
+	if builder.contentFlag {
+		req.Content = &builder.content
+	}
+	if builder.msgTypeFlag {
+		req.MsgType = &builder.msgType
+	}
+	return req, nil
 }
+
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type CreateMessageReqBuilder struct {
-	receiveIdType  string
-	receiveIdTypeFlag  bool
-	body *CreateMessageReqBody
-	bodyFlag bool
-
+	receiveIdType     string
+	receiveIdTypeFlag bool
+	body              *CreateMessageReqBody
+	bodyFlag          bool
 }
 
 // 生成请求的New构造器
-func NewCreateMessageReqBuilder() * CreateMessageReqBuilder{
-   builder := &CreateMessageReqBuilder{}
-   return builder
+func NewCreateMessageReqBuilder() *CreateMessageReqBuilder {
+	builder := &CreateMessageReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * CreateMessageReqBuilder) ReceiveIdType(receiveIdType string) *CreateMessageReqBuilder  {
-  builder.receiveIdType = receiveIdType
-  builder.receiveIdTypeFlag = true
-  return builder
+func (builder *CreateMessageReqBuilder) ReceiveIdType(receiveIdType string) *CreateMessageReqBuilder {
+	builder.receiveIdType = receiveIdType
+	builder.receiveIdTypeFlag = true
+	return builder
 }
-func (builder * CreateMessageReqBuilder) Body(body *CreateMessageReqBody) *CreateMessageReqBuilder  {
-  builder.body = body
-  builder.bodyFlag = true
-  return builder
+func (builder *CreateMessageReqBuilder) Body(body *CreateMessageReqBody) *CreateMessageReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * CreateMessageReqBuilder ) Build() *CreateMessageReq {
-   req := &CreateMessageReq{}
-   if builder.receiveIdTypeFlag {
-	  req.ReceiveIdType = &builder.receiveIdType
-   }
-   if builder.bodyFlag {
-	  req.Body = builder.body
-   }
-   return req
+func (builder *CreateMessageReqBuilder) Build() *CreateMessageReq {
+	req := &CreateMessageReq{}
+	if builder.receiveIdTypeFlag {
+		req.ReceiveIdType = &builder.receiveIdType
+	}
+	if builder.bodyFlag {
+		req.Body = builder.body
+	}
+	return req
 }
 
 type CreateMessageReqBody struct {
-	ReceiveId  *string `json:"receive_id,omitempty"`
-	Content  *string `json:"content,omitempty"`
-	MsgType  *string `json:"msg_type,omitempty"`
+	ReceiveId *string `json:"receive_id,omitempty"`
+	Content   *string `json:"content,omitempty"`
+	MsgType   *string `json:"msg_type,omitempty"`
 }
 
 type CreateMessageReq struct {
-	ReceiveIdType  *string `query:"receive_id_type"`
-	Body *CreateMessageReqBody `body:""`
-
+	ReceiveIdType *string               `query:"receive_id_type"`
+	Body          *CreateMessageReqBody `body:""`
 }
 
 type CreateMessageRespData struct {
-	MessageId  *string `json:"message_id,omitempty"`
-	RootId  *string `json:"root_id,omitempty"`
-	ParentId  *string `json:"parent_id,omitempty"`
-	MsgType  *string `json:"msg_type,omitempty"`
-	CreateTime  *int64 `json:"create_time,omitempty,string"`
-	UpdateTime  *int64 `json:"update_time,omitempty,string"`
-	Deleted  *bool `json:"deleted,omitempty"`
-	Updated  *bool `json:"updated,omitempty"`
-	ChatId  *string `json:"chat_id,omitempty"`
-	Sender  *Sender `json:"sender,omitempty"`
-	Body  *MessageBody `json:"body,omitempty"`
-	Mentions  []*Mention `json:"mentions,omitempty"`
-	UpperMessageId  *string `json:"upper_message_id,omitempty"`
+	MessageId      *string      `json:"message_id,omitempty"`
+	RootId         *string      `json:"root_id,omitempty"`
+	ParentId       *string      `json:"parent_id,omitempty"`
+	MsgType        *string      `json:"msg_type,omitempty"`
+	CreateTime     *int64       `json:"create_time,omitempty,string"`
+	UpdateTime     *int64       `json:"update_time,omitempty,string"`
+	Deleted        *bool        `json:"deleted,omitempty"`
+	Updated        *bool        `json:"updated,omitempty"`
+	ChatId         *string      `json:"chat_id,omitempty"`
+	Sender         *Sender      `json:"sender,omitempty"`
+	Body           *MessageBody `json:"body,omitempty"`
+	Mentions       []*Mention   `json:"mentions,omitempty"`
+	UpperMessageId *string      `json:"upper_message_id,omitempty"`
 }
 
 type CreateMessageResp struct {
@@ -6711,42 +6557,37 @@ func (resp *CreateMessageResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type DeleteMessageReqBuilder struct {
-	messageId  string
-	messageIdFlag  bool
-
+	messageId     string
+	messageIdFlag bool
 }
 
 // 生成请求的New构造器
-func NewDeleteMessageReqBuilder() * DeleteMessageReqBuilder{
-   builder := &DeleteMessageReqBuilder{}
-   return builder
+func NewDeleteMessageReqBuilder() *DeleteMessageReqBuilder {
+	builder := &DeleteMessageReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * DeleteMessageReqBuilder) MessageId(messageId string) *DeleteMessageReqBuilder  {
-  builder.messageId = messageId
-  builder.messageIdFlag = true
-  return builder
+func (builder *DeleteMessageReqBuilder) MessageId(messageId string) *DeleteMessageReqBuilder {
+	builder.messageId = messageId
+	builder.messageIdFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * DeleteMessageReqBuilder ) Build() *DeleteMessageReq {
-   req := &DeleteMessageReq{}
-   if builder.messageIdFlag {
-	  req.MessageId = builder.messageId
-   }
-   return req
+func (builder *DeleteMessageReqBuilder) Build() *DeleteMessageReq {
+	req := &DeleteMessageReq{}
+	if builder.messageIdFlag {
+		req.MessageId = builder.messageId
+	}
+	return req
 }
-
 
 type DeleteMessageReq struct {
-	MessageId  string `path:"message_id"`
-
+	MessageId string `path:"message_id"`
 }
-
 
 type DeleteMessageResp struct {
 	*larkcore.RawResponse `json:"-"`
@@ -6757,44 +6598,40 @@ func (resp *DeleteMessageResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type GetMessageReqBuilder struct {
-	messageId  string
-	messageIdFlag  bool
-
+	messageId     string
+	messageIdFlag bool
 }
 
 // 生成请求的New构造器
-func NewGetMessageReqBuilder() * GetMessageReqBuilder{
-   builder := &GetMessageReqBuilder{}
-   return builder
+func NewGetMessageReqBuilder() *GetMessageReqBuilder {
+	builder := &GetMessageReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * GetMessageReqBuilder) MessageId(messageId string) *GetMessageReqBuilder  {
-  builder.messageId = messageId
-  builder.messageIdFlag = true
-  return builder
+func (builder *GetMessageReqBuilder) MessageId(messageId string) *GetMessageReqBuilder {
+	builder.messageId = messageId
+	builder.messageIdFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * GetMessageReqBuilder ) Build() *GetMessageReq {
-   req := &GetMessageReq{}
-   if builder.messageIdFlag {
-	  req.MessageId = builder.messageId
-   }
-   return req
+func (builder *GetMessageReqBuilder) Build() *GetMessageReq {
+	req := &GetMessageReq{}
+	if builder.messageIdFlag {
+		req.MessageId = builder.messageId
+	}
+	return req
 }
 
-
 type GetMessageReq struct {
-	MessageId  string `path:"message_id"`
-
+	MessageId string `path:"message_id"`
 }
 
 type GetMessageRespData struct {
-	Items  []*Message `json:"items,omitempty"`
+	Items []*Message `json:"items,omitempty"`
 }
 
 type GetMessageResp struct {
@@ -6807,108 +6644,104 @@ func (resp *GetMessageResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type ListMessageReqBuilder struct {
-	containerIdType  string
-	containerIdTypeFlag  bool
-	containerId  string
-	containerIdFlag  bool
-	startTime  string
-	startTimeFlag  bool
-	endTime  string
-	endTimeFlag  bool
-	pageToken  string
-	pageTokenFlag  bool
-	pageSize  int
-	pageSizeFlag  bool
-	limit int
-
+	containerIdType     string
+	containerIdTypeFlag bool
+	containerId         string
+	containerIdFlag     bool
+	startTime           string
+	startTimeFlag       bool
+	endTime             string
+	endTimeFlag         bool
+	pageToken           string
+	pageTokenFlag       bool
+	pageSize            int
+	pageSizeFlag        bool
+	limit               int
 }
 
 // 生成请求的New构造器
-func NewListMessageReqBuilder() * ListMessageReqBuilder{
-   builder := &ListMessageReqBuilder{}
-   return builder
+func NewListMessageReqBuilder() *ListMessageReqBuilder {
+	builder := &ListMessageReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * ListMessageReqBuilder) Limit(limit int ) *ListMessageReqBuilder  {
-  builder.limit = limit
-  return builder
+func (builder *ListMessageReqBuilder) Limit(limit int) *ListMessageReqBuilder {
+	builder.limit = limit
+	return builder
 }
-func (builder * ListMessageReqBuilder) ContainerIdType(containerIdType string) *ListMessageReqBuilder  {
-  builder.containerIdType = containerIdType
-  builder.containerIdTypeFlag = true
-  return builder
+func (builder *ListMessageReqBuilder) ContainerIdType(containerIdType string) *ListMessageReqBuilder {
+	builder.containerIdType = containerIdType
+	builder.containerIdTypeFlag = true
+	return builder
 }
-func (builder * ListMessageReqBuilder) ContainerId(containerId string) *ListMessageReqBuilder  {
-  builder.containerId = containerId
-  builder.containerIdFlag = true
-  return builder
+func (builder *ListMessageReqBuilder) ContainerId(containerId string) *ListMessageReqBuilder {
+	builder.containerId = containerId
+	builder.containerIdFlag = true
+	return builder
 }
-func (builder * ListMessageReqBuilder) StartTime(startTime string) *ListMessageReqBuilder  {
-  builder.startTime = startTime
-  builder.startTimeFlag = true
-  return builder
+func (builder *ListMessageReqBuilder) StartTime(startTime string) *ListMessageReqBuilder {
+	builder.startTime = startTime
+	builder.startTimeFlag = true
+	return builder
 }
-func (builder * ListMessageReqBuilder) EndTime(endTime string) *ListMessageReqBuilder  {
-  builder.endTime = endTime
-  builder.endTimeFlag = true
-  return builder
+func (builder *ListMessageReqBuilder) EndTime(endTime string) *ListMessageReqBuilder {
+	builder.endTime = endTime
+	builder.endTimeFlag = true
+	return builder
 }
-func (builder * ListMessageReqBuilder) PageToken(pageToken string) *ListMessageReqBuilder  {
-  builder.pageToken = pageToken
-  builder.pageTokenFlag = true
-  return builder
+func (builder *ListMessageReqBuilder) PageToken(pageToken string) *ListMessageReqBuilder {
+	builder.pageToken = pageToken
+	builder.pageTokenFlag = true
+	return builder
 }
-func (builder * ListMessageReqBuilder) PageSize(pageSize int) *ListMessageReqBuilder  {
-  builder.pageSize = pageSize
-  builder.pageSizeFlag = true
-  return builder
+func (builder *ListMessageReqBuilder) PageSize(pageSize int) *ListMessageReqBuilder {
+	builder.pageSize = pageSize
+	builder.pageSizeFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * ListMessageReqBuilder ) Build() *ListMessageReq {
-   req := &ListMessageReq{}
-   req.Limit = builder.limit
-   if builder.containerIdTypeFlag {
-	  req.ContainerIdType = &builder.containerIdType
-   }
-   if builder.containerIdFlag {
-	  req.ContainerId = &builder.containerId
-   }
-   if builder.startTimeFlag {
-	  req.StartTime = &builder.startTime
-   }
-   if builder.endTimeFlag {
-	  req.EndTime = &builder.endTime
-   }
-   if builder.pageTokenFlag {
-	  req.PageToken = &builder.pageToken
-   }
-   if builder.pageSizeFlag {
-	  req.PageSize = &builder.pageSize
-   }
-   return req
+func (builder *ListMessageReqBuilder) Build() *ListMessageReq {
+	req := &ListMessageReq{}
+	req.Limit = builder.limit
+	if builder.containerIdTypeFlag {
+		req.ContainerIdType = &builder.containerIdType
+	}
+	if builder.containerIdFlag {
+		req.ContainerId = &builder.containerId
+	}
+	if builder.startTimeFlag {
+		req.StartTime = &builder.startTime
+	}
+	if builder.endTimeFlag {
+		req.EndTime = &builder.endTime
+	}
+	if builder.pageTokenFlag {
+		req.PageToken = &builder.pageToken
+	}
+	if builder.pageSizeFlag {
+		req.PageSize = &builder.pageSize
+	}
+	return req
 }
 
-
 type ListMessageReq struct {
-	ContainerIdType  *string `query:"container_id_type"`
-	ContainerId  *string `query:"container_id"`
-	StartTime  *string `query:"start_time"`
-	EndTime  *string `query:"end_time"`
-	PageToken  *string `query:"page_token"`
-	PageSize  *int `query:"page_size"`
-	Limit int
-
+	ContainerIdType *string `query:"container_id_type"`
+	ContainerId     *string `query:"container_id"`
+	StartTime       *string `query:"start_time"`
+	EndTime         *string `query:"end_time"`
+	PageToken       *string `query:"page_token"`
+	PageSize        *int    `query:"page_size"`
+	Limit           int
 }
 
 type ListMessageRespData struct {
-	HasMore  *bool `json:"has_more,omitempty"`
-	PageToken  *string `json:"page_token,omitempty"`
-	Items  []*Message `json:"items,omitempty"`
+	HasMore   *bool      `json:"has_more,omitempty"`
+	PageToken *string    `json:"page_token,omitempty"`
+	Items     []*Message `json:"items,omitempty"`
 }
 
 type ListMessageResp struct {
@@ -6922,108 +6755,104 @@ func (resp *ListMessageResp) Success() bool {
 }
 
 type PatchMessageReqBodyBuilder struct {
-	content  string
-	contentFlag  bool
+	content     string
+	contentFlag bool
 }
 
 // 生成body的New构造器
-func NewPatchMessageReqBodyBuilder() * PatchMessageReqBodyBuilder{
-  builder := &PatchMessageReqBodyBuilder{}
-  return builder
+func NewPatchMessageReqBodyBuilder() *PatchMessageReqBodyBuilder {
+	builder := &PatchMessageReqBodyBuilder{}
+	return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder * PatchMessageReqBodyBuilder ) Content(content string) *PatchMessageReqBodyBuilder {
-  builder.content = content
-  builder.contentFlag = true
-  return builder
+func (builder *PatchMessageReqBodyBuilder) Content(content string) *PatchMessageReqBodyBuilder {
+	builder.content = content
+	builder.contentFlag = true
+	return builder
 }
 
-
 // 1.3 生成body的build方法
-func (builder * PatchMessageReqBodyBuilder ) Build() *PatchMessageReqBody {
-   req := &PatchMessageReqBody{}
-   if builder.contentFlag {
-	  req.Content = &builder.content
-   }
-   return req
+func (builder *PatchMessageReqBodyBuilder) Build() *PatchMessageReqBody {
+	req := &PatchMessageReqBody{}
+	if builder.contentFlag {
+		req.Content = &builder.content
+	}
+	return req
 }
 
 // 上传文件path开始
 type PatchMessagePathReqBodyBuilder struct {
-	content  string
-	contentFlag  bool
+	content     string
+	contentFlag bool
 }
 
-func NewPatchMessagePathReqBodyBuilder() * PatchMessagePathReqBodyBuilder{
-  builder := &PatchMessagePathReqBodyBuilder{}
-  return builder
+func NewPatchMessagePathReqBodyBuilder() *PatchMessagePathReqBodyBuilder {
+	builder := &PatchMessagePathReqBodyBuilder{}
+	return builder
 }
-func (builder * PatchMessagePathReqBodyBuilder ) Content(content string) *PatchMessagePathReqBodyBuilder {
-  builder.content = content
-  builder.contentFlag = true
-  return builder
+func (builder *PatchMessagePathReqBodyBuilder) Content(content string) *PatchMessagePathReqBodyBuilder {
+	builder.content = content
+	builder.contentFlag = true
+	return builder
 }
 
-
-func (builder * PatchMessagePathReqBodyBuilder ) Build() (*PatchMessageReqBody, error) {
-   req := &PatchMessageReqBody{}
-   if builder.contentFlag {
-	  req.Content = &builder.content
-   }
-   return req, nil
+func (builder *PatchMessagePathReqBodyBuilder) Build() (*PatchMessageReqBody, error) {
+	req := &PatchMessageReqBody{}
+	if builder.contentFlag {
+		req.Content = &builder.content
+	}
+	return req, nil
 }
+
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type PatchMessageReqBuilder struct {
-	messageId  string
-	messageIdFlag  bool
-	body *PatchMessageReqBody
-	bodyFlag bool
-
+	messageId     string
+	messageIdFlag bool
+	body          *PatchMessageReqBody
+	bodyFlag      bool
 }
 
 // 生成请求的New构造器
-func NewPatchMessageReqBuilder() * PatchMessageReqBuilder{
-   builder := &PatchMessageReqBuilder{}
-   return builder
+func NewPatchMessageReqBuilder() *PatchMessageReqBuilder {
+	builder := &PatchMessageReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * PatchMessageReqBuilder) MessageId(messageId string) *PatchMessageReqBuilder  {
-  builder.messageId = messageId
-  builder.messageIdFlag = true
-  return builder
+func (builder *PatchMessageReqBuilder) MessageId(messageId string) *PatchMessageReqBuilder {
+	builder.messageId = messageId
+	builder.messageIdFlag = true
+	return builder
 }
-func (builder * PatchMessageReqBuilder) Body(body *PatchMessageReqBody) *PatchMessageReqBuilder  {
-  builder.body = body
-  builder.bodyFlag = true
-  return builder
+func (builder *PatchMessageReqBuilder) Body(body *PatchMessageReqBody) *PatchMessageReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * PatchMessageReqBuilder ) Build() *PatchMessageReq {
-   req := &PatchMessageReq{}
-   if builder.messageIdFlag {
-	  req.MessageId = builder.messageId
-   }
-   if builder.bodyFlag {
-	  req.Body = builder.body
-   }
-   return req
+func (builder *PatchMessageReqBuilder) Build() *PatchMessageReq {
+	req := &PatchMessageReq{}
+	if builder.messageIdFlag {
+		req.MessageId = builder.messageId
+	}
+	if builder.bodyFlag {
+		req.Body = builder.body
+	}
+	return req
 }
 
 type PatchMessageReqBody struct {
-	Content  *string `json:"content,omitempty"`
+	Content *string `json:"content,omitempty"`
 }
 
 type PatchMessageReq struct {
-	MessageId  string `path:"message_id"`
-	Body *PatchMessageReqBody `body:""`
-
+	MessageId string               `path:"message_id"`
+	Body      *PatchMessageReqBody `body:""`
 }
-
 
 type PatchMessageResp struct {
 	*larkcore.RawResponse `json:"-"`
@@ -7034,79 +6863,75 @@ func (resp *PatchMessageResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type ReadUsersMessageReqBuilder struct {
-	messageId  string
+	messageId      string
 	messageIdFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-	pageSize  int
-	pageSizeFlag  bool
-	pageToken  string
+	userIdType     string
+	userIdTypeFlag bool
+	pageSize       int
+	pageSizeFlag   bool
+	pageToken      string
 	pageTokenFlag  bool
-
 }
 
 // 生成请求的New构造器
-func NewReadUsersMessageReqBuilder() * ReadUsersMessageReqBuilder{
-   builder := &ReadUsersMessageReqBuilder{}
-   return builder
+func NewReadUsersMessageReqBuilder() *ReadUsersMessageReqBuilder {
+	builder := &ReadUsersMessageReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * ReadUsersMessageReqBuilder) MessageId(messageId string) *ReadUsersMessageReqBuilder  {
-  builder.messageId = messageId
-  builder.messageIdFlag = true
-  return builder
+func (builder *ReadUsersMessageReqBuilder) MessageId(messageId string) *ReadUsersMessageReqBuilder {
+	builder.messageId = messageId
+	builder.messageIdFlag = true
+	return builder
 }
-func (builder * ReadUsersMessageReqBuilder) UserIdType(userIdType string) *ReadUsersMessageReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *ReadUsersMessageReqBuilder) UserIdType(userIdType string) *ReadUsersMessageReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
-func (builder * ReadUsersMessageReqBuilder) PageSize(pageSize int) *ReadUsersMessageReqBuilder  {
-  builder.pageSize = pageSize
-  builder.pageSizeFlag = true
-  return builder
+func (builder *ReadUsersMessageReqBuilder) PageSize(pageSize int) *ReadUsersMessageReqBuilder {
+	builder.pageSize = pageSize
+	builder.pageSizeFlag = true
+	return builder
 }
-func (builder * ReadUsersMessageReqBuilder) PageToken(pageToken string) *ReadUsersMessageReqBuilder  {
-  builder.pageToken = pageToken
-  builder.pageTokenFlag = true
-  return builder
+func (builder *ReadUsersMessageReqBuilder) PageToken(pageToken string) *ReadUsersMessageReqBuilder {
+	builder.pageToken = pageToken
+	builder.pageTokenFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * ReadUsersMessageReqBuilder ) Build() *ReadUsersMessageReq {
-   req := &ReadUsersMessageReq{}
-   if builder.messageIdFlag {
-	  req.MessageId = builder.messageId
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   if builder.pageSizeFlag {
-	  req.PageSize = &builder.pageSize
-   }
-   if builder.pageTokenFlag {
-	  req.PageToken = &builder.pageToken
-   }
-   return req
+func (builder *ReadUsersMessageReqBuilder) Build() *ReadUsersMessageReq {
+	req := &ReadUsersMessageReq{}
+	if builder.messageIdFlag {
+		req.MessageId = builder.messageId
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	if builder.pageSizeFlag {
+		req.PageSize = &builder.pageSize
+	}
+	if builder.pageTokenFlag {
+		req.PageToken = &builder.pageToken
+	}
+	return req
 }
 
-
 type ReadUsersMessageReq struct {
-	MessageId  string `path:"message_id"`
-	UserIdType  *string `query:"user_id_type"`
-	PageSize  *int `query:"page_size"`
+	MessageId  string  `path:"message_id"`
+	UserIdType *string `query:"user_id_type"`
+	PageSize   *int    `query:"page_size"`
 	PageToken  *string `query:"page_token"`
-
 }
 
 type ReadUsersMessageRespData struct {
-	Items  []*ReadUser `json:"items,omitempty"`
-	HasMore  *bool `json:"has_more,omitempty"`
-	PageToken  *string `json:"page_token,omitempty"`
+	Items     []*ReadUser `json:"items,omitempty"`
+	HasMore   *bool       `json:"has_more,omitempty"`
+	PageToken *string     `json:"page_token,omitempty"`
 }
 
 type ReadUsersMessageResp struct {
@@ -7120,143 +6945,140 @@ func (resp *ReadUsersMessageResp) Success() bool {
 }
 
 type ReplyMessageReqBodyBuilder struct {
-	content  string
-	contentFlag  bool
-	msgType  string
-	msgTypeFlag  bool
+	content     string
+	contentFlag bool
+	msgType     string
+	msgTypeFlag bool
 }
 
 // 生成body的New构造器
-func NewReplyMessageReqBodyBuilder() * ReplyMessageReqBodyBuilder{
-  builder := &ReplyMessageReqBodyBuilder{}
-  return builder
+func NewReplyMessageReqBodyBuilder() *ReplyMessageReqBodyBuilder {
+	builder := &ReplyMessageReqBodyBuilder{}
+	return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder * ReplyMessageReqBodyBuilder ) Content(content string) *ReplyMessageReqBodyBuilder {
-  builder.content = content
-  builder.contentFlag = true
-  return builder
+func (builder *ReplyMessageReqBodyBuilder) Content(content string) *ReplyMessageReqBodyBuilder {
+	builder.content = content
+	builder.contentFlag = true
+	return builder
 }
-func (builder * ReplyMessageReqBodyBuilder ) MsgType(msgType string) *ReplyMessageReqBodyBuilder {
-  builder.msgType = msgType
-  builder.msgTypeFlag = true
-  return builder
+func (builder *ReplyMessageReqBodyBuilder) MsgType(msgType string) *ReplyMessageReqBodyBuilder {
+	builder.msgType = msgType
+	builder.msgTypeFlag = true
+	return builder
 }
-
 
 // 1.3 生成body的build方法
-func (builder * ReplyMessageReqBodyBuilder ) Build() *ReplyMessageReqBody {
-   req := &ReplyMessageReqBody{}
-   if builder.contentFlag {
-	  req.Content = &builder.content
-   }
-   if builder.msgTypeFlag {
-	  req.MsgType = &builder.msgType
-   }
-   return req
+func (builder *ReplyMessageReqBodyBuilder) Build() *ReplyMessageReqBody {
+	req := &ReplyMessageReqBody{}
+	if builder.contentFlag {
+		req.Content = &builder.content
+	}
+	if builder.msgTypeFlag {
+		req.MsgType = &builder.msgType
+	}
+	return req
 }
 
 // 上传文件path开始
 type ReplyMessagePathReqBodyBuilder struct {
-	content  string
-	contentFlag  bool
-	msgType  string
-	msgTypeFlag  bool
+	content     string
+	contentFlag bool
+	msgType     string
+	msgTypeFlag bool
 }
 
-func NewReplyMessagePathReqBodyBuilder() * ReplyMessagePathReqBodyBuilder{
-  builder := &ReplyMessagePathReqBodyBuilder{}
-  return builder
+func NewReplyMessagePathReqBodyBuilder() *ReplyMessagePathReqBodyBuilder {
+	builder := &ReplyMessagePathReqBodyBuilder{}
+	return builder
 }
-func (builder * ReplyMessagePathReqBodyBuilder ) Content(content string) *ReplyMessagePathReqBodyBuilder {
-  builder.content = content
-  builder.contentFlag = true
-  return builder
+func (builder *ReplyMessagePathReqBodyBuilder) Content(content string) *ReplyMessagePathReqBodyBuilder {
+	builder.content = content
+	builder.contentFlag = true
+	return builder
 }
-func (builder * ReplyMessagePathReqBodyBuilder ) MsgType(msgType string) *ReplyMessagePathReqBodyBuilder {
-  builder.msgType = msgType
-  builder.msgTypeFlag = true
-  return builder
+func (builder *ReplyMessagePathReqBodyBuilder) MsgType(msgType string) *ReplyMessagePathReqBodyBuilder {
+	builder.msgType = msgType
+	builder.msgTypeFlag = true
+	return builder
 }
 
-
-func (builder * ReplyMessagePathReqBodyBuilder ) Build() (*ReplyMessageReqBody, error) {
-   req := &ReplyMessageReqBody{}
-   if builder.contentFlag {
-	  req.Content = &builder.content
-   }
-   if builder.msgTypeFlag {
-	  req.MsgType = &builder.msgType
-   }
-   return req, nil
+func (builder *ReplyMessagePathReqBodyBuilder) Build() (*ReplyMessageReqBody, error) {
+	req := &ReplyMessageReqBody{}
+	if builder.contentFlag {
+		req.Content = &builder.content
+	}
+	if builder.msgTypeFlag {
+		req.MsgType = &builder.msgType
+	}
+	return req, nil
 }
+
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type ReplyMessageReqBuilder struct {
-	messageId  string
-	messageIdFlag  bool
-	body *ReplyMessageReqBody
-	bodyFlag bool
-
+	messageId     string
+	messageIdFlag bool
+	body          *ReplyMessageReqBody
+	bodyFlag      bool
 }
 
 // 生成请求的New构造器
-func NewReplyMessageReqBuilder() * ReplyMessageReqBuilder{
-   builder := &ReplyMessageReqBuilder{}
-   return builder
+func NewReplyMessageReqBuilder() *ReplyMessageReqBuilder {
+	builder := &ReplyMessageReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * ReplyMessageReqBuilder) MessageId(messageId string) *ReplyMessageReqBuilder  {
-  builder.messageId = messageId
-  builder.messageIdFlag = true
-  return builder
+func (builder *ReplyMessageReqBuilder) MessageId(messageId string) *ReplyMessageReqBuilder {
+	builder.messageId = messageId
+	builder.messageIdFlag = true
+	return builder
 }
-func (builder * ReplyMessageReqBuilder) Body(body *ReplyMessageReqBody) *ReplyMessageReqBuilder  {
-  builder.body = body
-  builder.bodyFlag = true
-  return builder
+func (builder *ReplyMessageReqBuilder) Body(body *ReplyMessageReqBody) *ReplyMessageReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * ReplyMessageReqBuilder ) Build() *ReplyMessageReq {
-   req := &ReplyMessageReq{}
-   if builder.messageIdFlag {
-	  req.MessageId = builder.messageId
-   }
-   if builder.bodyFlag {
-	  req.Body = builder.body
-   }
-   return req
+func (builder *ReplyMessageReqBuilder) Build() *ReplyMessageReq {
+	req := &ReplyMessageReq{}
+	if builder.messageIdFlag {
+		req.MessageId = builder.messageId
+	}
+	if builder.bodyFlag {
+		req.Body = builder.body
+	}
+	return req
 }
 
 type ReplyMessageReqBody struct {
-	Content  *string `json:"content,omitempty"`
-	MsgType  *string `json:"msg_type,omitempty"`
+	Content *string `json:"content,omitempty"`
+	MsgType *string `json:"msg_type,omitempty"`
 }
 
 type ReplyMessageReq struct {
-	MessageId  string `path:"message_id"`
-	Body *ReplyMessageReqBody `body:""`
-
+	MessageId string               `path:"message_id"`
+	Body      *ReplyMessageReqBody `body:""`
 }
 
 type ReplyMessageRespData struct {
-	MessageId  *string `json:"message_id,omitempty"`
-	RootId  *string `json:"root_id,omitempty"`
-	ParentId  *string `json:"parent_id,omitempty"`
-	MsgType  *string `json:"msg_type,omitempty"`
-	CreateTime  *int64 `json:"create_time,omitempty,string"`
-	UpdateTime  *int64 `json:"update_time,omitempty,string"`
-	Deleted  *bool `json:"deleted,omitempty"`
-	Updated  *bool `json:"updated,omitempty"`
-	ChatId  *string `json:"chat_id,omitempty"`
-	Sender  *Sender `json:"sender,omitempty"`
-	Body  *MessageBody `json:"body,omitempty"`
-	Mentions  []*Mention `json:"mentions,omitempty"`
-	UpperMessageId  *string `json:"upper_message_id,omitempty"`
+	MessageId      *string      `json:"message_id,omitempty"`
+	RootId         *string      `json:"root_id,omitempty"`
+	ParentId       *string      `json:"parent_id,omitempty"`
+	MsgType        *string      `json:"msg_type,omitempty"`
+	CreateTime     *int64       `json:"create_time,omitempty,string"`
+	UpdateTime     *int64       `json:"update_time,omitempty,string"`
+	Deleted        *bool        `json:"deleted,omitempty"`
+	Updated        *bool        `json:"updated,omitempty"`
+	ChatId         *string      `json:"chat_id,omitempty"`
+	Sender         *Sender      `json:"sender,omitempty"`
+	Body           *MessageBody `json:"body,omitempty"`
+	Mentions       []*Mention   `json:"mentions,omitempty"`
+	UpperMessageId *string      `json:"upper_message_id,omitempty"`
 }
 
 type ReplyMessageResp struct {
@@ -7269,66 +7091,62 @@ func (resp *ReplyMessageResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type UrgentAppMessageReqBuilder struct {
-	messageId  string
-	messageIdFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-	urgentReceivers *UrgentReceivers
+	messageId           string
+	messageIdFlag       bool
+	userIdType          string
+	userIdTypeFlag      bool
+	urgentReceivers     *UrgentReceivers
 	urgentReceiversFlag bool
-
 }
 
 // 生成请求的New构造器
-func NewUrgentAppMessageReqBuilder() * UrgentAppMessageReqBuilder{
-   builder := &UrgentAppMessageReqBuilder{}
-   return builder
+func NewUrgentAppMessageReqBuilder() *UrgentAppMessageReqBuilder {
+	builder := &UrgentAppMessageReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * UrgentAppMessageReqBuilder) MessageId(messageId string) *UrgentAppMessageReqBuilder  {
-  builder.messageId = messageId
-  builder.messageIdFlag = true
-  return builder
+func (builder *UrgentAppMessageReqBuilder) MessageId(messageId string) *UrgentAppMessageReqBuilder {
+	builder.messageId = messageId
+	builder.messageIdFlag = true
+	return builder
 }
-func (builder * UrgentAppMessageReqBuilder) UserIdType(userIdType string) *UrgentAppMessageReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *UrgentAppMessageReqBuilder) UserIdType(userIdType string) *UrgentAppMessageReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
-func (builder * UrgentAppMessageReqBuilder) UrgentReceivers(urgentReceivers *UrgentReceivers) *UrgentAppMessageReqBuilder  {
-  builder.urgentReceivers = urgentReceivers
-  builder.urgentReceiversFlag = true
-  return builder
+func (builder *UrgentAppMessageReqBuilder) UrgentReceivers(urgentReceivers *UrgentReceivers) *UrgentAppMessageReqBuilder {
+	builder.urgentReceivers = urgentReceivers
+	builder.urgentReceiversFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * UrgentAppMessageReqBuilder ) Build() *UrgentAppMessageReq {
-   req := &UrgentAppMessageReq{}
-   if builder.messageIdFlag {
-	  req.MessageId = builder.messageId
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   if builder.urgentReceiversFlag {
-	  req.UrgentReceivers = builder.urgentReceivers
-   }
-   return req
+func (builder *UrgentAppMessageReqBuilder) Build() *UrgentAppMessageReq {
+	req := &UrgentAppMessageReq{}
+	if builder.messageIdFlag {
+		req.MessageId = builder.messageId
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	if builder.urgentReceiversFlag {
+		req.UrgentReceivers = builder.urgentReceivers
+	}
+	return req
 }
 
-
 type UrgentAppMessageReq struct {
-	MessageId  string `path:"message_id"`
-	UserIdType  *string `query:"user_id_type"`
+	MessageId       string           `path:"message_id"`
+	UserIdType      *string          `query:"user_id_type"`
 	UrgentReceivers *UrgentReceivers `body:""`
-
 }
 
 type UrgentAppMessageRespData struct {
-	InvalidUserIdList  []string `json:"invalid_user_id_list,omitempty"`
+	InvalidUserIdList []string `json:"invalid_user_id_list,omitempty"`
 }
 
 type UrgentAppMessageResp struct {
@@ -7341,66 +7159,62 @@ func (resp *UrgentAppMessageResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type UrgentPhoneMessageReqBuilder struct {
-	messageId  string
-	messageIdFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-	urgentReceivers *UrgentReceivers
+	messageId           string
+	messageIdFlag       bool
+	userIdType          string
+	userIdTypeFlag      bool
+	urgentReceivers     *UrgentReceivers
 	urgentReceiversFlag bool
-
 }
 
 // 生成请求的New构造器
-func NewUrgentPhoneMessageReqBuilder() * UrgentPhoneMessageReqBuilder{
-   builder := &UrgentPhoneMessageReqBuilder{}
-   return builder
+func NewUrgentPhoneMessageReqBuilder() *UrgentPhoneMessageReqBuilder {
+	builder := &UrgentPhoneMessageReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * UrgentPhoneMessageReqBuilder) MessageId(messageId string) *UrgentPhoneMessageReqBuilder  {
-  builder.messageId = messageId
-  builder.messageIdFlag = true
-  return builder
+func (builder *UrgentPhoneMessageReqBuilder) MessageId(messageId string) *UrgentPhoneMessageReqBuilder {
+	builder.messageId = messageId
+	builder.messageIdFlag = true
+	return builder
 }
-func (builder * UrgentPhoneMessageReqBuilder) UserIdType(userIdType string) *UrgentPhoneMessageReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *UrgentPhoneMessageReqBuilder) UserIdType(userIdType string) *UrgentPhoneMessageReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
-func (builder * UrgentPhoneMessageReqBuilder) UrgentReceivers(urgentReceivers *UrgentReceivers) *UrgentPhoneMessageReqBuilder  {
-  builder.urgentReceivers = urgentReceivers
-  builder.urgentReceiversFlag = true
-  return builder
+func (builder *UrgentPhoneMessageReqBuilder) UrgentReceivers(urgentReceivers *UrgentReceivers) *UrgentPhoneMessageReqBuilder {
+	builder.urgentReceivers = urgentReceivers
+	builder.urgentReceiversFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * UrgentPhoneMessageReqBuilder ) Build() *UrgentPhoneMessageReq {
-   req := &UrgentPhoneMessageReq{}
-   if builder.messageIdFlag {
-	  req.MessageId = builder.messageId
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   if builder.urgentReceiversFlag {
-	  req.UrgentReceivers = builder.urgentReceivers
-   }
-   return req
+func (builder *UrgentPhoneMessageReqBuilder) Build() *UrgentPhoneMessageReq {
+	req := &UrgentPhoneMessageReq{}
+	if builder.messageIdFlag {
+		req.MessageId = builder.messageId
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	if builder.urgentReceiversFlag {
+		req.UrgentReceivers = builder.urgentReceivers
+	}
+	return req
 }
 
-
 type UrgentPhoneMessageReq struct {
-	MessageId  string `path:"message_id"`
-	UserIdType  *string `query:"user_id_type"`
+	MessageId       string           `path:"message_id"`
+	UserIdType      *string          `query:"user_id_type"`
 	UrgentReceivers *UrgentReceivers `body:""`
-
 }
 
 type UrgentPhoneMessageRespData struct {
-	InvalidUserIdList  []string `json:"invalid_user_id_list,omitempty"`
+	InvalidUserIdList []string `json:"invalid_user_id_list,omitempty"`
 }
 
 type UrgentPhoneMessageResp struct {
@@ -7413,66 +7227,62 @@ func (resp *UrgentPhoneMessageResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type UrgentSmsMessageReqBuilder struct {
-	messageId  string
-	messageIdFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-	urgentReceivers *UrgentReceivers
+	messageId           string
+	messageIdFlag       bool
+	userIdType          string
+	userIdTypeFlag      bool
+	urgentReceivers     *UrgentReceivers
 	urgentReceiversFlag bool
-
 }
 
 // 生成请求的New构造器
-func NewUrgentSmsMessageReqBuilder() * UrgentSmsMessageReqBuilder{
-   builder := &UrgentSmsMessageReqBuilder{}
-   return builder
+func NewUrgentSmsMessageReqBuilder() *UrgentSmsMessageReqBuilder {
+	builder := &UrgentSmsMessageReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * UrgentSmsMessageReqBuilder) MessageId(messageId string) *UrgentSmsMessageReqBuilder  {
-  builder.messageId = messageId
-  builder.messageIdFlag = true
-  return builder
+func (builder *UrgentSmsMessageReqBuilder) MessageId(messageId string) *UrgentSmsMessageReqBuilder {
+	builder.messageId = messageId
+	builder.messageIdFlag = true
+	return builder
 }
-func (builder * UrgentSmsMessageReqBuilder) UserIdType(userIdType string) *UrgentSmsMessageReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *UrgentSmsMessageReqBuilder) UserIdType(userIdType string) *UrgentSmsMessageReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
-func (builder * UrgentSmsMessageReqBuilder) UrgentReceivers(urgentReceivers *UrgentReceivers) *UrgentSmsMessageReqBuilder  {
-  builder.urgentReceivers = urgentReceivers
-  builder.urgentReceiversFlag = true
-  return builder
+func (builder *UrgentSmsMessageReqBuilder) UrgentReceivers(urgentReceivers *UrgentReceivers) *UrgentSmsMessageReqBuilder {
+	builder.urgentReceivers = urgentReceivers
+	builder.urgentReceiversFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * UrgentSmsMessageReqBuilder ) Build() *UrgentSmsMessageReq {
-   req := &UrgentSmsMessageReq{}
-   if builder.messageIdFlag {
-	  req.MessageId = builder.messageId
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   if builder.urgentReceiversFlag {
-	  req.UrgentReceivers = builder.urgentReceivers
-   }
-   return req
+func (builder *UrgentSmsMessageReqBuilder) Build() *UrgentSmsMessageReq {
+	req := &UrgentSmsMessageReq{}
+	if builder.messageIdFlag {
+		req.MessageId = builder.messageId
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	if builder.urgentReceiversFlag {
+		req.UrgentReceivers = builder.urgentReceivers
+	}
+	return req
 }
 
-
 type UrgentSmsMessageReq struct {
-	MessageId  string `path:"message_id"`
-	UserIdType  *string `query:"user_id_type"`
+	MessageId       string           `path:"message_id"`
+	UserIdType      *string          `query:"user_id_type"`
 	UrgentReceivers *UrgentReceivers `body:""`
-
 }
 
 type UrgentSmsMessageRespData struct {
-	InvalidUserIdList  []string `json:"invalid_user_id_list,omitempty"`
+	InvalidUserIdList []string `json:"invalid_user_id_list,omitempty"`
 }
 
 type UrgentSmsMessageResp struct {
@@ -7486,113 +7296,110 @@ func (resp *UrgentSmsMessageResp) Success() bool {
 }
 
 type CreateMessageReactionReqBodyBuilder struct {
-	reactionType  *Emoji
-	reactionTypeFlag  bool
+	reactionType     *Emoji
+	reactionTypeFlag bool
 }
 
 // 生成body的New构造器
-func NewCreateMessageReactionReqBodyBuilder() * CreateMessageReactionReqBodyBuilder{
-  builder := &CreateMessageReactionReqBodyBuilder{}
-  return builder
+func NewCreateMessageReactionReqBodyBuilder() *CreateMessageReactionReqBodyBuilder {
+	builder := &CreateMessageReactionReqBodyBuilder{}
+	return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder * CreateMessageReactionReqBodyBuilder ) ReactionType(reactionType *Emoji) *CreateMessageReactionReqBodyBuilder {
-  builder.reactionType = reactionType
-  builder.reactionTypeFlag = true
-  return builder
+func (builder *CreateMessageReactionReqBodyBuilder) ReactionType(reactionType *Emoji) *CreateMessageReactionReqBodyBuilder {
+	builder.reactionType = reactionType
+	builder.reactionTypeFlag = true
+	return builder
 }
 
-
 // 1.3 生成body的build方法
-func (builder * CreateMessageReactionReqBodyBuilder ) Build() *CreateMessageReactionReqBody {
-   req := &CreateMessageReactionReqBody{}
-   if builder.reactionTypeFlag {
-	  req.ReactionType = builder.reactionType
-   }
-   return req
+func (builder *CreateMessageReactionReqBodyBuilder) Build() *CreateMessageReactionReqBody {
+	req := &CreateMessageReactionReqBody{}
+	if builder.reactionTypeFlag {
+		req.ReactionType = builder.reactionType
+	}
+	return req
 }
 
 // 上传文件path开始
 type CreateMessageReactionPathReqBodyBuilder struct {
-	reactionType  *Emoji
-	reactionTypeFlag  bool
+	reactionType     *Emoji
+	reactionTypeFlag bool
 }
 
-func NewCreateMessageReactionPathReqBodyBuilder() * CreateMessageReactionPathReqBodyBuilder{
-  builder := &CreateMessageReactionPathReqBodyBuilder{}
-  return builder
+func NewCreateMessageReactionPathReqBodyBuilder() *CreateMessageReactionPathReqBodyBuilder {
+	builder := &CreateMessageReactionPathReqBodyBuilder{}
+	return builder
 }
-func (builder * CreateMessageReactionPathReqBodyBuilder ) ReactionType(reactionType *Emoji) *CreateMessageReactionPathReqBodyBuilder {
-  builder.reactionType = reactionType
-  builder.reactionTypeFlag = true
-  return builder
+func (builder *CreateMessageReactionPathReqBodyBuilder) ReactionType(reactionType *Emoji) *CreateMessageReactionPathReqBodyBuilder {
+	builder.reactionType = reactionType
+	builder.reactionTypeFlag = true
+	return builder
 }
 
-
-func (builder * CreateMessageReactionPathReqBodyBuilder ) Build() (*CreateMessageReactionReqBody, error) {
-   req := &CreateMessageReactionReqBody{}
-   if builder.reactionTypeFlag {
-	   req.ReactionType = builder.reactionType
-   }
-   return req, nil
+func (builder *CreateMessageReactionPathReqBodyBuilder) Build() (*CreateMessageReactionReqBody, error) {
+	req := &CreateMessageReactionReqBody{}
+	if builder.reactionTypeFlag {
+		req.ReactionType = builder.reactionType
+	}
+	return req, nil
 }
+
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type CreateMessageReactionReqBuilder struct {
-	messageId  string
-	messageIdFlag  bool
-	body *CreateMessageReactionReqBody
-	bodyFlag bool
-
+	messageId     string
+	messageIdFlag bool
+	body          *CreateMessageReactionReqBody
+	bodyFlag      bool
 }
 
 // 生成请求的New构造器
-func NewCreateMessageReactionReqBuilder() * CreateMessageReactionReqBuilder{
-   builder := &CreateMessageReactionReqBuilder{}
-   return builder
+func NewCreateMessageReactionReqBuilder() *CreateMessageReactionReqBuilder {
+	builder := &CreateMessageReactionReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * CreateMessageReactionReqBuilder) MessageId(messageId string) *CreateMessageReactionReqBuilder  {
-  builder.messageId = messageId
-  builder.messageIdFlag = true
-  return builder
+func (builder *CreateMessageReactionReqBuilder) MessageId(messageId string) *CreateMessageReactionReqBuilder {
+	builder.messageId = messageId
+	builder.messageIdFlag = true
+	return builder
 }
-func (builder * CreateMessageReactionReqBuilder) Body(body *CreateMessageReactionReqBody) *CreateMessageReactionReqBuilder  {
-  builder.body = body
-  builder.bodyFlag = true
-  return builder
+func (builder *CreateMessageReactionReqBuilder) Body(body *CreateMessageReactionReqBody) *CreateMessageReactionReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * CreateMessageReactionReqBuilder ) Build() *CreateMessageReactionReq {
-   req := &CreateMessageReactionReq{}
-   if builder.messageIdFlag {
-	  req.MessageId = builder.messageId
-   }
-   if builder.bodyFlag {
-	  req.Body = builder.body
-   }
-   return req
+func (builder *CreateMessageReactionReqBuilder) Build() *CreateMessageReactionReq {
+	req := &CreateMessageReactionReq{}
+	if builder.messageIdFlag {
+		req.MessageId = builder.messageId
+	}
+	if builder.bodyFlag {
+		req.Body = builder.body
+	}
+	return req
 }
 
 type CreateMessageReactionReqBody struct {
-	ReactionType  *Emoji `json:"reaction_type,omitempty"`
+	ReactionType *Emoji `json:"reaction_type,omitempty"`
 }
 
 type CreateMessageReactionReq struct {
-	MessageId  string `path:"message_id"`
-	Body *CreateMessageReactionReqBody `body:""`
-
+	MessageId string                        `path:"message_id"`
+	Body      *CreateMessageReactionReqBody `body:""`
 }
 
 type CreateMessageReactionRespData struct {
-	ReactionId  *string `json:"reaction_id,omitempty"`
-	Operator  *Operator `json:"operator,omitempty"`
-	ActionTime  *int64 `json:"action_time,omitempty,string"`
-	ReactionType  *Emoji `json:"reaction_type,omitempty"`
+	ReactionId   *string   `json:"reaction_id,omitempty"`
+	Operator     *Operator `json:"operator,omitempty"`
+	ActionTime   *int64    `json:"action_time,omitempty,string"`
+	ReactionType *Emoji    `json:"reaction_type,omitempty"`
 }
 
 type CreateMessageReactionResp struct {
@@ -7605,58 +7412,54 @@ func (resp *CreateMessageReactionResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type DeleteMessageReactionReqBuilder struct {
-	messageId  string
+	messageId      string
 	messageIdFlag  bool
-	reactionId  string
-	reactionIdFlag  bool
-
+	reactionId     string
+	reactionIdFlag bool
 }
 
 // 生成请求的New构造器
-func NewDeleteMessageReactionReqBuilder() * DeleteMessageReactionReqBuilder{
-   builder := &DeleteMessageReactionReqBuilder{}
-   return builder
+func NewDeleteMessageReactionReqBuilder() *DeleteMessageReactionReqBuilder {
+	builder := &DeleteMessageReactionReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * DeleteMessageReactionReqBuilder) MessageId(messageId string) *DeleteMessageReactionReqBuilder  {
-  builder.messageId = messageId
-  builder.messageIdFlag = true
-  return builder
+func (builder *DeleteMessageReactionReqBuilder) MessageId(messageId string) *DeleteMessageReactionReqBuilder {
+	builder.messageId = messageId
+	builder.messageIdFlag = true
+	return builder
 }
-func (builder * DeleteMessageReactionReqBuilder) ReactionId(reactionId string) *DeleteMessageReactionReqBuilder  {
-  builder.reactionId = reactionId
-  builder.reactionIdFlag = true
-  return builder
+func (builder *DeleteMessageReactionReqBuilder) ReactionId(reactionId string) *DeleteMessageReactionReqBuilder {
+	builder.reactionId = reactionId
+	builder.reactionIdFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * DeleteMessageReactionReqBuilder ) Build() *DeleteMessageReactionReq {
-   req := &DeleteMessageReactionReq{}
-   if builder.messageIdFlag {
-	  req.MessageId = builder.messageId
-   }
-   if builder.reactionIdFlag {
-	  req.ReactionId = builder.reactionId
-   }
-   return req
+func (builder *DeleteMessageReactionReqBuilder) Build() *DeleteMessageReactionReq {
+	req := &DeleteMessageReactionReq{}
+	if builder.messageIdFlag {
+		req.MessageId = builder.messageId
+	}
+	if builder.reactionIdFlag {
+		req.ReactionId = builder.reactionId
+	}
+	return req
 }
-
 
 type DeleteMessageReactionReq struct {
 	MessageId  string `path:"message_id"`
-	ReactionId  string `path:"reaction_id"`
-
+	ReactionId string `path:"reaction_id"`
 }
 
 type DeleteMessageReactionRespData struct {
-	ReactionId  *string `json:"reaction_id,omitempty"`
-	Operator  *Operator `json:"operator,omitempty"`
-	ActionTime  *int64 `json:"action_time,omitempty,string"`
-	ReactionType  *Emoji `json:"reaction_type,omitempty"`
+	ReactionId   *string   `json:"reaction_id,omitempty"`
+	Operator     *Operator `json:"operator,omitempty"`
+	ActionTime   *int64    `json:"action_time,omitempty,string"`
+	ReactionType *Emoji    `json:"reaction_type,omitempty"`
 }
 
 type DeleteMessageReactionResp struct {
@@ -7669,97 +7472,93 @@ func (resp *DeleteMessageReactionResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type ListMessageReactionReqBuilder struct {
-	messageId  string
-	messageIdFlag  bool
-	reactionType  string
-	reactionTypeFlag  bool
-	pageToken  string
-	pageTokenFlag  bool
-	pageSize  int
-	pageSizeFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-	limit int
-
+	messageId        string
+	messageIdFlag    bool
+	reactionType     string
+	reactionTypeFlag bool
+	pageToken        string
+	pageTokenFlag    bool
+	pageSize         int
+	pageSizeFlag     bool
+	userIdType       string
+	userIdTypeFlag   bool
+	limit            int
 }
 
 // 生成请求的New构造器
-func NewListMessageReactionReqBuilder() * ListMessageReactionReqBuilder{
-   builder := &ListMessageReactionReqBuilder{}
-   return builder
+func NewListMessageReactionReqBuilder() *ListMessageReactionReqBuilder {
+	builder := &ListMessageReactionReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * ListMessageReactionReqBuilder) Limit(limit int ) *ListMessageReactionReqBuilder  {
-  builder.limit = limit
-  return builder
+func (builder *ListMessageReactionReqBuilder) Limit(limit int) *ListMessageReactionReqBuilder {
+	builder.limit = limit
+	return builder
 }
-func (builder * ListMessageReactionReqBuilder) MessageId(messageId string) *ListMessageReactionReqBuilder  {
-  builder.messageId = messageId
-  builder.messageIdFlag = true
-  return builder
+func (builder *ListMessageReactionReqBuilder) MessageId(messageId string) *ListMessageReactionReqBuilder {
+	builder.messageId = messageId
+	builder.messageIdFlag = true
+	return builder
 }
-func (builder * ListMessageReactionReqBuilder) ReactionType(reactionType string) *ListMessageReactionReqBuilder  {
-  builder.reactionType = reactionType
-  builder.reactionTypeFlag = true
-  return builder
+func (builder *ListMessageReactionReqBuilder) ReactionType(reactionType string) *ListMessageReactionReqBuilder {
+	builder.reactionType = reactionType
+	builder.reactionTypeFlag = true
+	return builder
 }
-func (builder * ListMessageReactionReqBuilder) PageToken(pageToken string) *ListMessageReactionReqBuilder  {
-  builder.pageToken = pageToken
-  builder.pageTokenFlag = true
-  return builder
+func (builder *ListMessageReactionReqBuilder) PageToken(pageToken string) *ListMessageReactionReqBuilder {
+	builder.pageToken = pageToken
+	builder.pageTokenFlag = true
+	return builder
 }
-func (builder * ListMessageReactionReqBuilder) PageSize(pageSize int) *ListMessageReactionReqBuilder  {
-  builder.pageSize = pageSize
-  builder.pageSizeFlag = true
-  return builder
+func (builder *ListMessageReactionReqBuilder) PageSize(pageSize int) *ListMessageReactionReqBuilder {
+	builder.pageSize = pageSize
+	builder.pageSizeFlag = true
+	return builder
 }
-func (builder * ListMessageReactionReqBuilder) UserIdType(userIdType string) *ListMessageReactionReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *ListMessageReactionReqBuilder) UserIdType(userIdType string) *ListMessageReactionReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * ListMessageReactionReqBuilder ) Build() *ListMessageReactionReq {
-   req := &ListMessageReactionReq{}
-   req.Limit = builder.limit
-   if builder.messageIdFlag {
-	  req.MessageId = builder.messageId
-   }
-   if builder.reactionTypeFlag {
-	  req.ReactionType = &builder.reactionType
-   }
-   if builder.pageTokenFlag {
-	  req.PageToken = &builder.pageToken
-   }
-   if builder.pageSizeFlag {
-	  req.PageSize = &builder.pageSize
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   return req
+func (builder *ListMessageReactionReqBuilder) Build() *ListMessageReactionReq {
+	req := &ListMessageReactionReq{}
+	req.Limit = builder.limit
+	if builder.messageIdFlag {
+		req.MessageId = builder.messageId
+	}
+	if builder.reactionTypeFlag {
+		req.ReactionType = &builder.reactionType
+	}
+	if builder.pageTokenFlag {
+		req.PageToken = &builder.pageToken
+	}
+	if builder.pageSizeFlag {
+		req.PageSize = &builder.pageSize
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	return req
 }
 
-
 type ListMessageReactionReq struct {
-	MessageId  string `path:"message_id"`
-	ReactionType  *string `query:"reaction_type"`
-	PageToken  *string `query:"page_token"`
-	PageSize  *int `query:"page_size"`
-	UserIdType  *string `query:"user_id_type"`
-	Limit int
-
+	MessageId    string  `path:"message_id"`
+	ReactionType *string `query:"reaction_type"`
+	PageToken    *string `query:"page_token"`
+	PageSize     *int    `query:"page_size"`
+	UserIdType   *string `query:"user_id_type"`
+	Limit        int
 }
 
 type ListMessageReactionRespData struct {
-	Items  []*MessageReaction `json:"items,omitempty"`
-	HasMore  *bool `json:"has_more,omitempty"`
-	PageToken  *string `json:"page_token,omitempty"`
+	Items     []*MessageReaction `json:"items,omitempty"`
+	HasMore   *bool              `json:"has_more,omitempty"`
+	PageToken *string            `json:"page_token,omitempty"`
 }
 
 type ListMessageReactionResp struct {
@@ -7772,77 +7571,73 @@ func (resp *ListMessageReactionResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type GetMessageResourceReqBuilder struct {
-	messageId  string
-	messageIdFlag  bool
-	fileKey  string
-	fileKeyFlag  bool
-	type_  string
-	typeFlag  bool
-
+	messageId     string
+	messageIdFlag bool
+	fileKey       string
+	fileKeyFlag   bool
+	type_         string
+	typeFlag      bool
 }
 
 // 生成请求的New构造器
-func NewGetMessageResourceReqBuilder() * GetMessageResourceReqBuilder{
-   builder := &GetMessageResourceReqBuilder{}
-   return builder
+func NewGetMessageResourceReqBuilder() *GetMessageResourceReqBuilder {
+	builder := &GetMessageResourceReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * GetMessageResourceReqBuilder) MessageId(messageId string) *GetMessageResourceReqBuilder  {
-  builder.messageId = messageId
-  builder.messageIdFlag = true
-  return builder
+func (builder *GetMessageResourceReqBuilder) MessageId(messageId string) *GetMessageResourceReqBuilder {
+	builder.messageId = messageId
+	builder.messageIdFlag = true
+	return builder
 }
-func (builder * GetMessageResourceReqBuilder) FileKey(fileKey string) *GetMessageResourceReqBuilder  {
-  builder.fileKey = fileKey
-  builder.fileKeyFlag = true
-  return builder
+func (builder *GetMessageResourceReqBuilder) FileKey(fileKey string) *GetMessageResourceReqBuilder {
+	builder.fileKey = fileKey
+	builder.fileKeyFlag = true
+	return builder
 }
-func (builder * GetMessageResourceReqBuilder) Type(type_ string) *GetMessageResourceReqBuilder  {
-  builder.type_ = type_
-  builder.typeFlag = true
-  return builder
+func (builder *GetMessageResourceReqBuilder) Type(type_ string) *GetMessageResourceReqBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * GetMessageResourceReqBuilder ) Build() *GetMessageResourceReq {
-   req := &GetMessageResourceReq{}
-   if builder.messageIdFlag {
-	  req.MessageId = builder.messageId
-   }
-   if builder.fileKeyFlag {
-	  req.FileKey = builder.fileKey
-   }
-   if builder.typeFlag {
-	  req.Type = &builder.type_
-   }
-   return req
+func (builder *GetMessageResourceReqBuilder) Build() *GetMessageResourceReq {
+	req := &GetMessageResourceReq{}
+	if builder.messageIdFlag {
+		req.MessageId = builder.messageId
+	}
+	if builder.fileKeyFlag {
+		req.FileKey = builder.fileKey
+	}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+	}
+	return req
 }
-
 
 type GetMessageResourceReq struct {
-	MessageId  string `path:"message_id"`
-	FileKey  string `path:"file_key"`
-	Type  *string `query:"type"`
-
+	MessageId string  `path:"message_id"`
+	FileKey   string  `path:"file_key"`
+	Type      *string `query:"type"`
 }
-
 
 type GetMessageResourceResp struct {
 	*larkcore.RawResponse `json:"-"`
 	larkcore.CodeError
-	File	 io.Reader `json:"-"`
-	FileName string	`json:"-"`
+	File     io.Reader `json:"-"`
+	FileName string    `json:"-"`
 }
 
 func (resp *GetMessageResourceResp) Success() bool {
 	return resp.Code == 0
 }
+
 // 下载api,生成WriteFile方法
-func (resp * GetMessageResourceResp) WriteFile(fileName string ) error {
+func (resp *GetMessageResourceResp) WriteFile(fileName string) error {
 	bs, err := ioutil.ReadAll(resp.File)
 	if err != nil {
 		return err
@@ -7858,518 +7653,520 @@ func (resp * GetMessageResourceResp) WriteFile(fileName string ) error {
 // 生成消息事件结构体
 
 type P2ChatDisbandedV1Data struct {
-	ChatId  *string `json:"chat_id,omitempty"`
-	OperatorId  *UserId `json:"operator_id,omitempty"`
-	External  *bool `json:"external,omitempty"`
-	OperatorTenantKey  *string `json:"operator_tenant_key,omitempty"`
+	ChatId            *string `json:"chat_id,omitempty"`
+	OperatorId        *UserId `json:"operator_id,omitempty"`
+	External          *bool   `json:"external,omitempty"`
+	OperatorTenantKey *string `json:"operator_tenant_key,omitempty"`
 }
 
 type P2ChatDisbandedV1 struct {
 	*larkevent.EventV2Base
 	*larkevent.EventReq
-	Event * P2ChatDisbandedV1Data `json:"event"`
+	Event *P2ChatDisbandedV1Data `json:"event"`
 }
 
-func (m *P2ChatDisbandedV1) RawReq( req *larkevent.EventReq){
+func (m *P2ChatDisbandedV1) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
 }
 
 type P2ChatUpdatedV1Data struct {
-	ChatId  *string `json:"chat_id,omitempty"`
-	OperatorId  *UserId `json:"operator_id,omitempty"`
-	External  *bool `json:"external,omitempty"`
-	OperatorTenantKey  *string `json:"operator_tenant_key,omitempty"`
-	AfterChange  *ChatChange `json:"after_change,omitempty"`
-	BeforeChange  *ChatChange `json:"before_change,omitempty"`
-	ModeratorList  *ModeratorList `json:"moderator_list,omitempty"`
+	ChatId            *string        `json:"chat_id,omitempty"`
+	OperatorId        *UserId        `json:"operator_id,omitempty"`
+	External          *bool          `json:"external,omitempty"`
+	OperatorTenantKey *string        `json:"operator_tenant_key,omitempty"`
+	AfterChange       *ChatChange    `json:"after_change,omitempty"`
+	BeforeChange      *ChatChange    `json:"before_change,omitempty"`
+	ModeratorList     *ModeratorList `json:"moderator_list,omitempty"`
 }
 
 type P2ChatUpdatedV1 struct {
 	*larkevent.EventV2Base
 	*larkevent.EventReq
-	Event * P2ChatUpdatedV1Data `json:"event"`
+	Event *P2ChatUpdatedV1Data `json:"event"`
 }
 
-func (m *P2ChatUpdatedV1) RawReq( req *larkevent.EventReq){
+func (m *P2ChatUpdatedV1) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
 }
 
 type P2ChatMemberBotAddedV1Data struct {
-	ChatId  *string `json:"chat_id,omitempty"`
-	OperatorId  *UserId `json:"operator_id,omitempty"`
-	External  *bool `json:"external,omitempty"`
-	OperatorTenantKey  *string `json:"operator_tenant_key,omitempty"`
+	ChatId            *string `json:"chat_id,omitempty"`
+	OperatorId        *UserId `json:"operator_id,omitempty"`
+	External          *bool   `json:"external,omitempty"`
+	OperatorTenantKey *string `json:"operator_tenant_key,omitempty"`
 }
 
 type P2ChatMemberBotAddedV1 struct {
 	*larkevent.EventV2Base
 	*larkevent.EventReq
-	Event * P2ChatMemberBotAddedV1Data `json:"event"`
+	Event *P2ChatMemberBotAddedV1Data `json:"event"`
 }
 
-func (m *P2ChatMemberBotAddedV1) RawReq( req *larkevent.EventReq){
+func (m *P2ChatMemberBotAddedV1) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
 }
 
 type P2ChatMemberBotDeletedV1Data struct {
-	ChatId  *string `json:"chat_id,omitempty"`
-	OperatorId  *UserId `json:"operator_id,omitempty"`
-	External  *bool `json:"external,omitempty"`
-	OperatorTenantKey  *string `json:"operator_tenant_key,omitempty"`
+	ChatId            *string `json:"chat_id,omitempty"`
+	OperatorId        *UserId `json:"operator_id,omitempty"`
+	External          *bool   `json:"external,omitempty"`
+	OperatorTenantKey *string `json:"operator_tenant_key,omitempty"`
 }
 
 type P2ChatMemberBotDeletedV1 struct {
 	*larkevent.EventV2Base
 	*larkevent.EventReq
-	Event * P2ChatMemberBotDeletedV1Data `json:"event"`
+	Event *P2ChatMemberBotDeletedV1Data `json:"event"`
 }
 
-func (m *P2ChatMemberBotDeletedV1) RawReq( req *larkevent.EventReq){
+func (m *P2ChatMemberBotDeletedV1) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
 }
 
 type P2ChatMemberUserAddedV1Data struct {
-	ChatId  *string `json:"chat_id,omitempty"`
-	OperatorId  *UserId `json:"operator_id,omitempty"`
-	External  *bool `json:"external,omitempty"`
-	OperatorTenantKey  *string `json:"operator_tenant_key,omitempty"`
-	Users  []*ChatMemberUser `json:"users,omitempty"`
+	ChatId            *string           `json:"chat_id,omitempty"`
+	OperatorId        *UserId           `json:"operator_id,omitempty"`
+	External          *bool             `json:"external,omitempty"`
+	OperatorTenantKey *string           `json:"operator_tenant_key,omitempty"`
+	Users             []*ChatMemberUser `json:"users,omitempty"`
 }
 
 type P2ChatMemberUserAddedV1 struct {
 	*larkevent.EventV2Base
 	*larkevent.EventReq
-	Event * P2ChatMemberUserAddedV1Data `json:"event"`
+	Event *P2ChatMemberUserAddedV1Data `json:"event"`
 }
 
-func (m *P2ChatMemberUserAddedV1) RawReq( req *larkevent.EventReq){
+func (m *P2ChatMemberUserAddedV1) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
 }
 
 type P2ChatMemberUserDeletedV1Data struct {
-	ChatId  *string `json:"chat_id,omitempty"`
-	OperatorId  *UserId `json:"operator_id,omitempty"`
-	External  *bool `json:"external,omitempty"`
-	OperatorTenantKey  *string `json:"operator_tenant_key,omitempty"`
-	Users  []*ChatMemberUser `json:"users,omitempty"`
+	ChatId            *string           `json:"chat_id,omitempty"`
+	OperatorId        *UserId           `json:"operator_id,omitempty"`
+	External          *bool             `json:"external,omitempty"`
+	OperatorTenantKey *string           `json:"operator_tenant_key,omitempty"`
+	Users             []*ChatMemberUser `json:"users,omitempty"`
 }
 
 type P2ChatMemberUserDeletedV1 struct {
 	*larkevent.EventV2Base
 	*larkevent.EventReq
-	Event * P2ChatMemberUserDeletedV1Data `json:"event"`
+	Event *P2ChatMemberUserDeletedV1Data `json:"event"`
 }
 
-func (m *P2ChatMemberUserDeletedV1) RawReq( req *larkevent.EventReq){
+func (m *P2ChatMemberUserDeletedV1) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
 }
 
 type P2ChatMemberUserWithdrawnV1Data struct {
-	ChatId  *string `json:"chat_id,omitempty"`
-	OperatorId  *UserId `json:"operator_id,omitempty"`
-	External  *bool `json:"external,omitempty"`
-	OperatorTenantKey  *string `json:"operator_tenant_key,omitempty"`
-	Users  []*ChatMemberUser `json:"users,omitempty"`
+	ChatId            *string           `json:"chat_id,omitempty"`
+	OperatorId        *UserId           `json:"operator_id,omitempty"`
+	External          *bool             `json:"external,omitempty"`
+	OperatorTenantKey *string           `json:"operator_tenant_key,omitempty"`
+	Users             []*ChatMemberUser `json:"users,omitempty"`
 }
 
 type P2ChatMemberUserWithdrawnV1 struct {
 	*larkevent.EventV2Base
 	*larkevent.EventReq
-	Event * P2ChatMemberUserWithdrawnV1Data `json:"event"`
+	Event *P2ChatMemberUserWithdrawnV1Data `json:"event"`
 }
 
-func (m *P2ChatMemberUserWithdrawnV1) RawReq( req *larkevent.EventReq){
+func (m *P2ChatMemberUserWithdrawnV1) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
 }
 
 type P2MessageReadV1Data struct {
-	Reader  *EventMessageReader `json:"reader,omitempty"`
-	MessageIdList  []string `json:"message_id_list,omitempty"`
+	Reader        *EventMessageReader `json:"reader,omitempty"`
+	MessageIdList []string            `json:"message_id_list,omitempty"`
 }
 
 type P2MessageReadV1 struct {
 	*larkevent.EventV2Base
 	*larkevent.EventReq
-	Event * P2MessageReadV1Data `json:"event"`
+	Event *P2MessageReadV1Data `json:"event"`
 }
 
-func (m *P2MessageReadV1) RawReq( req *larkevent.EventReq){
+func (m *P2MessageReadV1) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
 }
 
 type P2MessageReceiveV1Data struct {
-	Sender  *EventSender `json:"sender,omitempty"`
-	Message  *EventMessage `json:"message,omitempty"`
+	Sender  *EventSender  `json:"sender,omitempty"`
+	Message *EventMessage `json:"message,omitempty"`
 }
 
 type P2MessageReceiveV1 struct {
 	*larkevent.EventV2Base
 	*larkevent.EventReq
-	Event * P2MessageReceiveV1Data `json:"event"`
+	Event *P2MessageReceiveV1Data `json:"event"`
 }
 
-func (m *P2MessageReceiveV1) RawReq( req *larkevent.EventReq){
+func (m *P2MessageReceiveV1) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
 }
 
 type P2MessageReactionCreatedV1Data struct {
-	MessageId  *string `json:"message_id,omitempty"`
-	ReactionType  *Emoji `json:"reaction_type,omitempty"`
-	OperatorType  *string `json:"operator_type,omitempty"`
-	UserId  *UserId `json:"user_id,omitempty"`
-	AppId  *string `json:"app_id,omitempty"`
-	ActionTime  *string `json:"action_time,omitempty"`
+	MessageId    *string `json:"message_id,omitempty"`
+	ReactionType *Emoji  `json:"reaction_type,omitempty"`
+	OperatorType *string `json:"operator_type,omitempty"`
+	UserId       *UserId `json:"user_id,omitempty"`
+	AppId        *string `json:"app_id,omitempty"`
+	ActionTime   *string `json:"action_time,omitempty"`
 }
 
 type P2MessageReactionCreatedV1 struct {
 	*larkevent.EventV2Base
 	*larkevent.EventReq
-	Event * P2MessageReactionCreatedV1Data `json:"event"`
+	Event *P2MessageReactionCreatedV1Data `json:"event"`
 }
 
-func (m *P2MessageReactionCreatedV1) RawReq( req *larkevent.EventReq){
+func (m *P2MessageReactionCreatedV1) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
 }
 
 type P2MessageReactionDeletedV1Data struct {
-	MessageId  *string `json:"message_id,omitempty"`
-	ReactionType  *Emoji `json:"reaction_type,omitempty"`
-	OperatorType  *string `json:"operator_type,omitempty"`
-	UserId  *UserId `json:"user_id,omitempty"`
-	AppId  *string `json:"app_id,omitempty"`
-	ActionTime  *string `json:"action_time,omitempty"`
+	MessageId    *string `json:"message_id,omitempty"`
+	ReactionType *Emoji  `json:"reaction_type,omitempty"`
+	OperatorType *string `json:"operator_type,omitempty"`
+	UserId       *UserId `json:"user_id,omitempty"`
+	AppId        *string `json:"app_id,omitempty"`
+	ActionTime   *string `json:"action_time,omitempty"`
 }
 
 type P2MessageReactionDeletedV1 struct {
 	*larkevent.EventV2Base
 	*larkevent.EventReq
-	Event * P2MessageReactionDeletedV1Data `json:"event"`
+	Event *P2MessageReactionDeletedV1Data `json:"event"`
 }
 
-func (m *P2MessageReactionDeletedV1) RawReq( req *larkevent.EventReq){
+func (m *P2MessageReactionDeletedV1) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
 }
 
-
 // 生成请求的builder构造器
 // 1.1 生成body的builder结构体
-   type ListChatIterator struct{
-	 nextPageToken *string
-	 items	 []*ListChat
-	 index	 int
-	 limit	 int
-	 ctx	   context.Context
-	 req	   *ListChatReq
-	 listFunc  func (ctx context.Context, req *ListChatReq, options ...larkcore.RequestOptionFunc) (*ListChatResp, error)
-	 options   []larkcore.RequestOptionFunc
-   	 curlNum	   int
-   }
+type ListChatIterator struct {
+	nextPageToken *string
+	items         []*ListChat
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListChatReq
+	listFunc      func(ctx context.Context, req *ListChatReq, options ...larkcore.RequestOptionFunc) (*ListChatResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
 
-   func (iterator *ListChatIterator) Next() (bool, *ListChat, error) {
-		// 达到最大量，则返回
-		if iterator.limit >0 && iterator.curlNum >= iterator.limit {
+func (iterator *ListChatIterator) Next() (bool, *ListChat, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.PageToken = iterator.nextPageToken
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
 			return false, nil, nil
 		}
 
-		// 为0则拉取数据
-		if iterator.index == 0 || iterator.index >= len(iterator.items) {
-			if iterator.index != 0 && iterator.nextPageToken == nil {
-				return false, nil, nil
-			}
-			if iterator.nextPageToken != nil {
-				iterator.req.PageToken = iterator.nextPageToken
-			}
-			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-			if err != nil {
-				return false, nil, err
-			}
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
 
-			if resp.Code != 0 {
-				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
-			}
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
 
-			if len(resp.Data.Items) == 0 {
-				return false, nil, nil
-			}
+func (iterator *ListChatIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
 
-			iterator.nextPageToken = resp.Data.PageToken
-			iterator.items = resp.Data.Items
-			iterator.index = 0
+type SearchChatIterator struct {
+	nextPageToken *string
+	items         []*ListChat
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *SearchChatReq
+	listFunc      func(ctx context.Context, req *SearchChatReq, options ...larkcore.RequestOptionFunc) (*SearchChatResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *SearchChatIterator) Next() (bool, *ListChat, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.PageToken = iterator.nextPageToken
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
 		}
 
-		block := iterator.items[iterator.index]
-		iterator.index++
-		iterator.curlNum++
-		return true, block, nil
-   }
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
 
-   func (iterator *ListChatIterator) NextPageToken() *string {
-	  return iterator.nextPageToken
-   }
-   type SearchChatIterator struct{
-	 nextPageToken *string
-	 items	 []*ListChat
-	 index	 int
-	 limit	 int
-	 ctx	   context.Context
-	 req	   *SearchChatReq
-	 listFunc  func (ctx context.Context, req *SearchChatReq, options ...larkcore.RequestOptionFunc) (*SearchChatResp, error)
-	 options   []larkcore.RequestOptionFunc
-   	 curlNum	   int
-   }
-
-   func (iterator *SearchChatIterator) Next() (bool, *ListChat, error) {
-		// 达到最大量，则返回
-		if iterator.limit >0 && iterator.curlNum >= iterator.limit {
+		if len(resp.Data.Items) == 0 {
 			return false, nil, nil
 		}
 
-		// 为0则拉取数据
-		if iterator.index == 0 || iterator.index >= len(iterator.items) {
-			if iterator.index != 0 && iterator.nextPageToken == nil {
-				return false, nil, nil
-			}
-			if iterator.nextPageToken != nil {
-				iterator.req.PageToken = iterator.nextPageToken
-			}
-			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-			if err != nil {
-				return false, nil, err
-			}
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
 
-			if resp.Code != 0 {
-				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
-			}
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
 
-			if len(resp.Data.Items) == 0 {
-				return false, nil, nil
-			}
+func (iterator *SearchChatIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
 
-			iterator.nextPageToken = resp.Data.PageToken
-			iterator.items = resp.Data.Items
-			iterator.index = 0
+type GetChatMembersIterator struct {
+	nextPageToken *string
+	items         []*ListMember
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *GetChatMembersReq
+	listFunc      func(ctx context.Context, req *GetChatMembersReq, options ...larkcore.RequestOptionFunc) (*GetChatMembersResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *GetChatMembersIterator) Next() (bool, *ListMember, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.PageToken = iterator.nextPageToken
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
 		}
 
-		block := iterator.items[iterator.index]
-		iterator.index++
-		iterator.curlNum++
-		return true, block, nil
-   }
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
 
-   func (iterator *SearchChatIterator) NextPageToken() *string {
-	  return iterator.nextPageToken
-   }
-   type GetChatMembersIterator struct{
-	 nextPageToken *string
-	 items	 []*ListMember
-	 index	 int
-	 limit	 int
-	 ctx	   context.Context
-	 req	   *GetChatMembersReq
-	 listFunc  func (ctx context.Context, req *GetChatMembersReq, options ...larkcore.RequestOptionFunc) (*GetChatMembersResp, error)
-	 options   []larkcore.RequestOptionFunc
-   	 curlNum	   int
-   }
-
-   func (iterator *GetChatMembersIterator) Next() (bool, *ListMember, error) {
-		// 达到最大量，则返回
-		if iterator.limit >0 && iterator.curlNum >= iterator.limit {
+		if len(resp.Data.Items) == 0 {
 			return false, nil, nil
 		}
 
-		// 为0则拉取数据
-		if iterator.index == 0 || iterator.index >= len(iterator.items) {
-			if iterator.index != 0 && iterator.nextPageToken == nil {
-				return false, nil, nil
-			}
-			if iterator.nextPageToken != nil {
-				iterator.req.PageToken = iterator.nextPageToken
-			}
-			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-			if err != nil {
-				return false, nil, err
-			}
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
 
-			if resp.Code != 0 {
-				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
-			}
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
 
-			if len(resp.Data.Items) == 0 {
-				return false, nil, nil
-			}
+func (iterator *GetChatMembersIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
 
-			iterator.nextPageToken = resp.Data.PageToken
-			iterator.items = resp.Data.Items
-			iterator.index = 0
+type GetChatModerationIterator struct {
+	nextPageToken *string
+	items         []*ListModerator
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *GetChatModerationReq
+	listFunc      func(ctx context.Context, req *GetChatModerationReq, options ...larkcore.RequestOptionFunc) (*GetChatModerationResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *GetChatModerationIterator) Next() (bool, *ListModerator, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.PageToken = iterator.nextPageToken
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
 		}
 
-		block := iterator.items[iterator.index]
-		iterator.index++
-		iterator.curlNum++
-		return true, block, nil
-   }
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
 
-   func (iterator *GetChatMembersIterator) NextPageToken() *string {
-	  return iterator.nextPageToken
-   }
-   type GetChatModerationIterator struct{
-	 nextPageToken *string
-	 items	 []*ListModerator
-	 index	 int
-	 limit	 int
-	 ctx	   context.Context
-	 req	   *GetChatModerationReq
-	 listFunc  func (ctx context.Context, req *GetChatModerationReq, options ...larkcore.RequestOptionFunc) (*GetChatModerationResp, error)
-	 options   []larkcore.RequestOptionFunc
-   	 curlNum	   int
-   }
-
-   func (iterator *GetChatModerationIterator) Next() (bool, *ListModerator, error) {
-		// 达到最大量，则返回
-		if iterator.limit >0 && iterator.curlNum >= iterator.limit {
+		if len(resp.Data.Items) == 0 {
 			return false, nil, nil
 		}
 
-		// 为0则拉取数据
-		if iterator.index == 0 || iterator.index >= len(iterator.items) {
-			if iterator.index != 0 && iterator.nextPageToken == nil {
-				return false, nil, nil
-			}
-			if iterator.nextPageToken != nil {
-				iterator.req.PageToken = iterator.nextPageToken
-			}
-			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-			if err != nil {
-				return false, nil, err
-			}
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
 
-			if resp.Code != 0 {
-				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
-			}
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
 
-			if len(resp.Data.Items) == 0 {
-				return false, nil, nil
-			}
+func (iterator *GetChatModerationIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
 
-			iterator.nextPageToken = resp.Data.PageToken
-			iterator.items = resp.Data.Items
-			iterator.index = 0
+type ListMessageIterator struct {
+	nextPageToken *string
+	items         []*Message
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListMessageReq
+	listFunc      func(ctx context.Context, req *ListMessageReq, options ...larkcore.RequestOptionFunc) (*ListMessageResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *ListMessageIterator) Next() (bool, *Message, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.PageToken = iterator.nextPageToken
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
 		}
 
-		block := iterator.items[iterator.index]
-		iterator.index++
-		iterator.curlNum++
-		return true, block, nil
-   }
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
 
-   func (iterator *GetChatModerationIterator) NextPageToken() *string {
-	  return iterator.nextPageToken
-   }
-   type ListMessageIterator struct{
-	 nextPageToken *string
-	 items	 []*Message
-	 index	 int
-	 limit	 int
-	 ctx	   context.Context
-	 req	   *ListMessageReq
-	 listFunc  func (ctx context.Context, req *ListMessageReq, options ...larkcore.RequestOptionFunc) (*ListMessageResp, error)
-	 options   []larkcore.RequestOptionFunc
-   	 curlNum	   int
-   }
-
-   func (iterator *ListMessageIterator) Next() (bool, *Message, error) {
-		// 达到最大量，则返回
-		if iterator.limit >0 && iterator.curlNum >= iterator.limit {
+		if len(resp.Data.Items) == 0 {
 			return false, nil, nil
 		}
 
-		// 为0则拉取数据
-		if iterator.index == 0 || iterator.index >= len(iterator.items) {
-			if iterator.index != 0 && iterator.nextPageToken == nil {
-				return false, nil, nil
-			}
-			if iterator.nextPageToken != nil {
-				iterator.req.PageToken = iterator.nextPageToken
-			}
-			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-			if err != nil {
-				return false, nil, err
-			}
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
 
-			if resp.Code != 0 {
-				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
-			}
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
 
-			if len(resp.Data.Items) == 0 {
-				return false, nil, nil
-			}
+func (iterator *ListMessageIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
 
-			iterator.nextPageToken = resp.Data.PageToken
-			iterator.items = resp.Data.Items
-			iterator.index = 0
+type ListMessageReactionIterator struct {
+	nextPageToken *string
+	items         []*MessageReaction
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListMessageReactionReq
+	listFunc      func(ctx context.Context, req *ListMessageReactionReq, options ...larkcore.RequestOptionFunc) (*ListMessageReactionResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *ListMessageReactionIterator) Next() (bool, *MessageReaction, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.PageToken = iterator.nextPageToken
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
 		}
 
-		block := iterator.items[iterator.index]
-		iterator.index++
-		iterator.curlNum++
-		return true, block, nil
-   }
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
 
-   func (iterator *ListMessageIterator) NextPageToken() *string {
-	  return iterator.nextPageToken
-   }
-   type ListMessageReactionIterator struct{
-	 nextPageToken *string
-	 items	 []*MessageReaction
-	 index	 int
-	 limit	 int
-	 ctx	   context.Context
-	 req	   *ListMessageReactionReq
-	 listFunc  func (ctx context.Context, req *ListMessageReactionReq, options ...larkcore.RequestOptionFunc) (*ListMessageReactionResp, error)
-	 options   []larkcore.RequestOptionFunc
-   	 curlNum	   int
-   }
-
-   func (iterator *ListMessageReactionIterator) Next() (bool, *MessageReaction, error) {
-		// 达到最大量，则返回
-		if iterator.limit >0 && iterator.curlNum >= iterator.limit {
+		if len(resp.Data.Items) == 0 {
 			return false, nil, nil
 		}
 
-		// 为0则拉取数据
-		if iterator.index == 0 || iterator.index >= len(iterator.items) {
-			if iterator.index != 0 && iterator.nextPageToken == nil {
-				return false, nil, nil
-			}
-			if iterator.nextPageToken != nil {
-				iterator.req.PageToken = iterator.nextPageToken
-			}
-			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-			if err != nil {
-				return false, nil, err
-			}
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
 
-			if resp.Code != 0 {
-				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
-			}
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
 
-			if len(resp.Data.Items) == 0 {
-				return false, nil, nil
-			}
-
-			iterator.nextPageToken = resp.Data.PageToken
-			iterator.items = resp.Data.Items
-			iterator.index = 0
-		}
-
-		block := iterator.items[iterator.index]
-		iterator.index++
-		iterator.curlNum++
-		return true, block, nil
-   }
-
-   func (iterator *ListMessageReactionIterator) NextPageToken() *string {
-	  return iterator.nextPageToken
-   }
-
-
+func (iterator *ListMessageReactionIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}

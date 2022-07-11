@@ -58,6 +58,7 @@ func (h *CardActionHandler) Handle(ctx context.Context, req *larkevent.EventReq)
 	if err != nil {
 		return processError(ctx, h.Config.Logger, req.RequestURI, err)
 	}
+	cardAction.EventReq = req
 
 	if larkevent.ReqType(cardAction.Type) != larkevent.ReqTypeChallenge {
 		err = h.VerifySign(ctx, req)

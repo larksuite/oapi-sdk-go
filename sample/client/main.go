@@ -10,7 +10,8 @@ import (
 )
 
 func createDefaultClient() {
-	var feishu_client = lark.NewClient("appID", "appSecret")
+	var feishu_client = lark.NewClient("appID", "appSecret",
+		lark.WithMarketplaceApp())
 	fmt.Println(feishu_client)
 }
 
@@ -24,12 +25,13 @@ func createClientWithAllOptions() {
 	var feishu_client = lark.NewClient("appID", "appSecret",
 		lark.WithLogLevel(larkcore.LogLevelDebug),
 		lark.WithOpenBaseUrl(lark.FeishuBaseUrl),
-		lark.WithAppType(larkcore.AppTypeSelfBuilt),
+		lark.WithMarketplaceApp(),
 		lark.WithReqTimeout(3*time.Second),
-		lark.WithDisableTokenCache(),
+		lark.WithEnableTokenCache(false),
 		lark.WithHelpdeskCredential("id", "token"),
 		lark.WithLogger(larkcore.NewEventLogger()),
-		lark.WithHttpClient(http.DefaultClient))
+		lark.WithHttpClient(http.DefaultClient),
+		lark.WithLogReqRespInfoAtDebugLevel(true))
 	fmt.Println(feishu_client)
 
 }

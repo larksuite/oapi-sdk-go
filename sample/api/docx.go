@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"net/http"
 	"os"
 	"time"
 
@@ -13,18 +14,36 @@ import (
 )
 
 func createDocument(client *lark.Client) {
+	// 自定义请求headers
+	header := make(http.Header)
+	header.Add("k1", "v1")
+	header.Add("k2", "v2")
+
+	// 发起请求
 	resp, err := client.Docx.Document.Create(context.Background(), larkdocx.NewCreateDocumentReqBuilder().
 		Body(larkdocx.NewCreateDocumentReqBodyBuilder().
 			FolderToken("token").
 			Title("title").
-			Build()).
+			Build(),
+		).
 		Build(),
-		larkcore.WithUserAccessToken("usertoken"))
+		larkcore.WithUserAccessToken("userToken"), // 设置用户Token
+		larkcore.WithHeaders(header),              // 设置自定义headers
+	)
 
+	//处理错误
 	if err != nil {
-		panic(err)
+		// 处理err
+		return
 	}
-	fmt.Println(resp.Code, resp.Msg, resp.RequestId(), larkcore.Prettify(resp.Data))
+
+	// 服务端错误处理
+	if !resp.Success() {
+		fmt.Println(resp.Code, resp.Msg, resp.RequestId())
+	}
+
+	// 业务数据处理
+	fmt.Println(larkcore.Prettify(resp.Data))
 }
 
 func listBlocks(client *lark.Client) {

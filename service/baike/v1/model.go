@@ -5,836 +5,826 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	
-	"github.com/larksuite/oapi-sdk-go/core"
-	
 
+	"github.com/larksuite/oapi-sdk-go/core"
 )
 
 // 生成枚举值
 
 const (
-
-	  UserIdTypeUserId = "user_id"
-	  UserIdTypeUnionId = "union_id"
-	  UserIdTypeOpenId = "open_id"
+	UserIdTypeUserId  = "user_id"
+	UserIdTypeUnionId = "union_id"
+	UserIdTypeOpenId  = "open_id"
 )
-
-
 
 // 生成数据类型
 
 type Abbreviation struct {
-	Id  *string `json:"id,omitempty"`
+	Id *string `json:"id,omitempty"`
 }
 
 // builder开始
 type AbbreviationBuilder struct {
-	id  string
-	idFlag  bool
+	id     string
+	idFlag bool
 }
 
-func NewAbbreviationBuilder() * AbbreviationBuilder{
-   builder := &AbbreviationBuilder{}
-   return builder
+func NewAbbreviationBuilder() *AbbreviationBuilder {
+	builder := &AbbreviationBuilder{}
+	return builder
 }
 
-
-func (builder * AbbreviationBuilder) Id(id string) *AbbreviationBuilder  {
-  builder.id = id
-  builder.idFlag = true
-  return builder
+func (builder *AbbreviationBuilder) Id(id string) *AbbreviationBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
 }
 
-func (builder * AbbreviationBuilder ) Build() *Abbreviation {
-   req := &Abbreviation{}
-   if builder.idFlag {
-	  req.Id = &builder.id
-	  
-   }
-   return req
+func (builder *AbbreviationBuilder) Build() *Abbreviation {
+	req := &Abbreviation{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	return req
 }
+
 // builder结束
 
 type Classification struct {
-	Id  *string `json:"id,omitempty"`
-	Name  *string `json:"name,omitempty"`
-	FatherId  *string `json:"father_id,omitempty"`
+	Id       *string `json:"id,omitempty"`
+	Name     *string `json:"name,omitempty"`
+	FatherId *string `json:"father_id,omitempty"`
 }
 
 // builder开始
 type ClassificationBuilder struct {
-	id  string
-	idFlag  bool
-	name  string
-	nameFlag  bool
-	fatherId  string
-	fatherIdFlag  bool
+	id           string
+	idFlag       bool
+	name         string
+	nameFlag     bool
+	fatherId     string
+	fatherIdFlag bool
 }
 
-func NewClassificationBuilder() * ClassificationBuilder{
-   builder := &ClassificationBuilder{}
-   return builder
+func NewClassificationBuilder() *ClassificationBuilder {
+	builder := &ClassificationBuilder{}
+	return builder
 }
 
+func (builder *ClassificationBuilder) Id(id string) *ClassificationBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *ClassificationBuilder) Name(name string) *ClassificationBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *ClassificationBuilder) FatherId(fatherId string) *ClassificationBuilder {
+	builder.fatherId = fatherId
+	builder.fatherIdFlag = true
+	return builder
+}
 
-func (builder * ClassificationBuilder) Id(id string) *ClassificationBuilder  {
-  builder.id = id
-  builder.idFlag = true
-  return builder
-}
-func (builder * ClassificationBuilder) Name(name string) *ClassificationBuilder  {
-  builder.name = name
-  builder.nameFlag = true
-  return builder
-}
-func (builder * ClassificationBuilder) FatherId(fatherId string) *ClassificationBuilder  {
-  builder.fatherId = fatherId
-  builder.fatherIdFlag = true
-  return builder
+func (builder *ClassificationBuilder) Build() *Classification {
+	req := &Classification{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.fatherIdFlag {
+		req.FatherId = &builder.fatherId
+
+	}
+	return req
 }
 
-func (builder * ClassificationBuilder ) Build() *Classification {
-   req := &Classification{}
-   if builder.idFlag {
-	  req.Id = &builder.id
-	  
-   }
-   if builder.nameFlag {
-	  req.Name = &builder.name
-	  
-   }
-   if builder.fatherIdFlag {
-	  req.FatherId = &builder.fatherId
-	  
-   }
-   return req
-}
 // builder结束
 
 type DisplayStatus struct {
-	AllowHighlight  *bool `json:"allow_highlight,omitempty"`
-	AllowSearch  *bool `json:"allow_search,omitempty"`
+	AllowHighlight *bool `json:"allow_highlight,omitempty"`
+	AllowSearch    *bool `json:"allow_search,omitempty"`
 }
 
 // builder开始
 type DisplayStatusBuilder struct {
-	allowHighlight  bool
-	allowHighlightFlag  bool
-	allowSearch  bool
-	allowSearchFlag  bool
+	allowHighlight     bool
+	allowHighlightFlag bool
+	allowSearch        bool
+	allowSearchFlag    bool
 }
 
-func NewDisplayStatusBuilder() * DisplayStatusBuilder{
-   builder := &DisplayStatusBuilder{}
-   return builder
+func NewDisplayStatusBuilder() *DisplayStatusBuilder {
+	builder := &DisplayStatusBuilder{}
+	return builder
 }
 
+func (builder *DisplayStatusBuilder) AllowHighlight(allowHighlight bool) *DisplayStatusBuilder {
+	builder.allowHighlight = allowHighlight
+	builder.allowHighlightFlag = true
+	return builder
+}
+func (builder *DisplayStatusBuilder) AllowSearch(allowSearch bool) *DisplayStatusBuilder {
+	builder.allowSearch = allowSearch
+	builder.allowSearchFlag = true
+	return builder
+}
 
-func (builder * DisplayStatusBuilder) AllowHighlight(allowHighlight bool) *DisplayStatusBuilder  {
-  builder.allowHighlight = allowHighlight
-  builder.allowHighlightFlag = true
-  return builder
-}
-func (builder * DisplayStatusBuilder) AllowSearch(allowSearch bool) *DisplayStatusBuilder  {
-  builder.allowSearch = allowSearch
-  builder.allowSearchFlag = true
-  return builder
+func (builder *DisplayStatusBuilder) Build() *DisplayStatus {
+	req := &DisplayStatus{}
+	if builder.allowHighlightFlag {
+		req.AllowHighlight = &builder.allowHighlight
+
+	}
+	if builder.allowSearchFlag {
+		req.AllowSearch = &builder.allowSearch
+
+	}
+	return req
 }
 
-func (builder * DisplayStatusBuilder ) Build() *DisplayStatus {
-   req := &DisplayStatus{}
-   if builder.allowHighlightFlag {
-	  req.AllowHighlight = &builder.allowHighlight
-	  
-   }
-   if builder.allowSearchFlag {
-	  req.AllowSearch = &builder.allowSearch
-	  
-   }
-   return req
-}
 // builder结束
 
 type Draft struct {
-	DraftId  *int64 `json:"draft_id,omitempty,string"`
+	DraftId *int64  `json:"draft_id,omitempty,string"`
 	Entity  *Entity `json:"entity,omitempty"`
 }
 
 // builder开始
 type DraftBuilder struct {
-	draftId  int64
-	draftIdFlag  bool
-	entity  *Entity
+	draftId     int64
+	draftIdFlag bool
+	entity      *Entity
 	entityFlag  bool
 }
 
-func NewDraftBuilder() * DraftBuilder{
-   builder := &DraftBuilder{}
-   return builder
+func NewDraftBuilder() *DraftBuilder {
+	builder := &DraftBuilder{}
+	return builder
 }
 
+func (builder *DraftBuilder) DraftId(draftId int64) *DraftBuilder {
+	builder.draftId = draftId
+	builder.draftIdFlag = true
+	return builder
+}
+func (builder *DraftBuilder) Entity(entity *Entity) *DraftBuilder {
+	builder.entity = entity
+	builder.entityFlag = true
+	return builder
+}
 
-func (builder * DraftBuilder) DraftId(draftId int64) *DraftBuilder  {
-  builder.draftId = draftId
-  builder.draftIdFlag = true
-  return builder
-}
-func (builder * DraftBuilder) Entity(entity *Entity) *DraftBuilder  {
-  builder.entity = entity
-  builder.entityFlag = true
-  return builder
+func (builder *DraftBuilder) Build() *Draft {
+	req := &Draft{}
+	if builder.draftIdFlag {
+		req.DraftId = &builder.draftId
+
+	}
+	if builder.entityFlag {
+		req.Entity = builder.entity
+	}
+	return req
 }
 
-func (builder * DraftBuilder ) Build() *Draft {
-   req := &Draft{}
-   if builder.draftIdFlag {
-	  req.DraftId = &builder.draftId
-	  
-   }
-   if builder.entityFlag {
-	  req.Entity = builder.entity
-   }
-   return req
-}
 // builder结束
 
 type Entity struct {
-	Id  *string `json:"id,omitempty"`
-	MainKeys  []*Term `json:"main_keys,omitempty"`
-	
-	Aliases  []*Term `json:"aliases,omitempty"`
-	Description  *string `json:"description,omitempty"`
-	CreateTime  *int64 `json:"create_time,omitempty,string"`
-	UpdateTime  *int64 `json:"update_time,omitempty,string"`
-	RelatedMeta  *RelatedMeta `json:"related_meta,omitempty"`
-	Categories  []string `json:"categories,omitempty"`
-	Statistics  *Statistics `json:"statistics,omitempty"`
-	OuterInfo  *OuterInfo `json:"outer_info,omitempty"`
-	RichText  *string `json:"rich_text,omitempty"`
+	Id       *string `json:"id,omitempty"`
+	MainKeys []*Term `json:"main_keys,omitempty"`
+
+	Aliases     []*Term      `json:"aliases,omitempty"`
+	Description *string      `json:"description,omitempty"`
+	CreateTime  *int64       `json:"create_time,omitempty,string"`
+	UpdateTime  *int64       `json:"update_time,omitempty,string"`
+	RelatedMeta *RelatedMeta `json:"related_meta,omitempty"`
+	Categories  []string     `json:"categories,omitempty"`
+	Statistics  *Statistics  `json:"statistics,omitempty"`
+	OuterInfo   *OuterInfo   `json:"outer_info,omitempty"`
+	RichText    *string      `json:"rich_text,omitempty"`
 }
 
 // builder开始
 type EntityBuilder struct {
-	id  string
-	idFlag  bool
-	mainKeys  []*Term
-	mainKeysFlag  bool
-	
-	aliases  []*Term
-	aliasesFlag  bool
-	description  string
-	descriptionFlag  bool
-	createTime  int64
+	id           string
+	idFlag       bool
+	mainKeys     []*Term
+	mainKeysFlag bool
+
+	aliases         []*Term
+	aliasesFlag     bool
+	description     string
+	descriptionFlag bool
+	createTime      int64
 	createTimeFlag  bool
-	updateTime  int64
+	updateTime      int64
 	updateTimeFlag  bool
-	relatedMeta  *RelatedMeta
-	relatedMetaFlag  bool
-	categories  []string
+	relatedMeta     *RelatedMeta
+	relatedMetaFlag bool
+	categories      []string
 	categoriesFlag  bool
-	statistics  *Statistics
+	statistics      *Statistics
 	statisticsFlag  bool
-	outerInfo  *OuterInfo
-	outerInfoFlag  bool
-	richText  string
-	richTextFlag  bool
+	outerInfo       *OuterInfo
+	outerInfoFlag   bool
+	richText        string
+	richTextFlag    bool
 }
 
-func NewEntityBuilder() * EntityBuilder{
-   builder := &EntityBuilder{}
-   return builder
+func NewEntityBuilder() *EntityBuilder {
+	builder := &EntityBuilder{}
+	return builder
 }
 
-
-func (builder * EntityBuilder) Id(id string) *EntityBuilder  {
-  builder.id = id
-  builder.idFlag = true
-  return builder
+func (builder *EntityBuilder) Id(id string) *EntityBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
 }
-func (builder * EntityBuilder) MainKeys(mainKeys []*Term) *EntityBuilder  {
-  builder.mainKeys = mainKeys
-  builder.mainKeysFlag = true
-  return builder
-}
-
-func (builder * EntityBuilder) Aliases(aliases []*Term) *EntityBuilder  {
-  builder.aliases = aliases
-  builder.aliasesFlag = true
-  return builder
-}
-func (builder * EntityBuilder) Description(description string) *EntityBuilder  {
-  builder.description = description
-  builder.descriptionFlag = true
-  return builder
-}
-func (builder * EntityBuilder) CreateTime(createTime int64) *EntityBuilder  {
-  builder.createTime = createTime
-  builder.createTimeFlag = true
-  return builder
-}
-func (builder * EntityBuilder) UpdateTime(updateTime int64) *EntityBuilder  {
-  builder.updateTime = updateTime
-  builder.updateTimeFlag = true
-  return builder
-}
-func (builder * EntityBuilder) RelatedMeta(relatedMeta *RelatedMeta) *EntityBuilder  {
-  builder.relatedMeta = relatedMeta
-  builder.relatedMetaFlag = true
-  return builder
-}
-func (builder * EntityBuilder) Categories(categories []string) *EntityBuilder  {
-  builder.categories = categories
-  builder.categoriesFlag = true
-  return builder
-}
-func (builder * EntityBuilder) Statistics(statistics *Statistics) *EntityBuilder  {
-  builder.statistics = statistics
-  builder.statisticsFlag = true
-  return builder
-}
-func (builder * EntityBuilder) OuterInfo(outerInfo *OuterInfo) *EntityBuilder  {
-  builder.outerInfo = outerInfo
-  builder.outerInfoFlag = true
-  return builder
-}
-func (builder * EntityBuilder) RichText(richText string) *EntityBuilder  {
-  builder.richText = richText
-  builder.richTextFlag = true
-  return builder
+func (builder *EntityBuilder) MainKeys(mainKeys []*Term) *EntityBuilder {
+	builder.mainKeys = mainKeys
+	builder.mainKeysFlag = true
+	return builder
 }
 
-func (builder * EntityBuilder ) Build() *Entity {
-   req := &Entity{}
-   if builder.idFlag {
-	  req.Id = &builder.id
-	  
-   }
-   if builder.mainKeysFlag {
-	  req.MainKeys = builder.mainKeys
-   }
-
-   if builder.aliasesFlag {
-	  req.Aliases = builder.aliases
-   }
-   if builder.descriptionFlag {
-	  req.Description = &builder.description
-	  
-   }
-   if builder.createTimeFlag {
-	  req.CreateTime = &builder.createTime
-	  
-   }
-   if builder.updateTimeFlag {
-	  req.UpdateTime = &builder.updateTime
-	  
-   }
-   if builder.relatedMetaFlag {
-	  req.RelatedMeta = builder.relatedMeta
-   }
-   if builder.categoriesFlag {
-	  req.Categories = builder.categories
-   }
-   if builder.statisticsFlag {
-	  req.Statistics = builder.statistics
-   }
-   if builder.outerInfoFlag {
-	  req.OuterInfo = builder.outerInfo
-   }
-   if builder.richTextFlag {
-	  req.RichText = &builder.richText
-	  
-   }
-   return req
+func (builder *EntityBuilder) Aliases(aliases []*Term) *EntityBuilder {
+	builder.aliases = aliases
+	builder.aliasesFlag = true
+	return builder
 }
+func (builder *EntityBuilder) Description(description string) *EntityBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+func (builder *EntityBuilder) CreateTime(createTime int64) *EntityBuilder {
+	builder.createTime = createTime
+	builder.createTimeFlag = true
+	return builder
+}
+func (builder *EntityBuilder) UpdateTime(updateTime int64) *EntityBuilder {
+	builder.updateTime = updateTime
+	builder.updateTimeFlag = true
+	return builder
+}
+func (builder *EntityBuilder) RelatedMeta(relatedMeta *RelatedMeta) *EntityBuilder {
+	builder.relatedMeta = relatedMeta
+	builder.relatedMetaFlag = true
+	return builder
+}
+func (builder *EntityBuilder) Categories(categories []string) *EntityBuilder {
+	builder.categories = categories
+	builder.categoriesFlag = true
+	return builder
+}
+func (builder *EntityBuilder) Statistics(statistics *Statistics) *EntityBuilder {
+	builder.statistics = statistics
+	builder.statisticsFlag = true
+	return builder
+}
+func (builder *EntityBuilder) OuterInfo(outerInfo *OuterInfo) *EntityBuilder {
+	builder.outerInfo = outerInfo
+	builder.outerInfoFlag = true
+	return builder
+}
+func (builder *EntityBuilder) RichText(richText string) *EntityBuilder {
+	builder.richText = richText
+	builder.richTextFlag = true
+	return builder
+}
+
+func (builder *EntityBuilder) Build() *Entity {
+	req := &Entity{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.mainKeysFlag {
+		req.MainKeys = builder.mainKeys
+	}
+
+	if builder.aliasesFlag {
+		req.Aliases = builder.aliases
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	if builder.createTimeFlag {
+		req.CreateTime = &builder.createTime
+
+	}
+	if builder.updateTimeFlag {
+		req.UpdateTime = &builder.updateTime
+
+	}
+	if builder.relatedMetaFlag {
+		req.RelatedMeta = builder.relatedMeta
+	}
+	if builder.categoriesFlag {
+		req.Categories = builder.categories
+	}
+	if builder.statisticsFlag {
+		req.Statistics = builder.statistics
+	}
+	if builder.outerInfoFlag {
+		req.OuterInfo = builder.outerInfo
+	}
+	if builder.richTextFlag {
+		req.RichText = &builder.richText
+
+	}
+	return req
+}
+
 // builder结束
 
 type MatchInfo struct {
-	EntityId  *string `json:"entity_id,omitempty"`
-	Type  *int `json:"type,omitempty"`
+	EntityId *string `json:"entity_id,omitempty"`
+	Type     *int    `json:"type,omitempty"`
 }
 
 // builder开始
 type MatchInfoBuilder struct {
-	entityId  string
-	entityIdFlag  bool
-	type_  int
-	typeFlag  bool
+	entityId     string
+	entityIdFlag bool
+	type_        int
+	typeFlag     bool
 }
 
-func NewMatchInfoBuilder() * MatchInfoBuilder{
-   builder := &MatchInfoBuilder{}
-   return builder
+func NewMatchInfoBuilder() *MatchInfoBuilder {
+	builder := &MatchInfoBuilder{}
+	return builder
 }
 
+func (builder *MatchInfoBuilder) EntityId(entityId string) *MatchInfoBuilder {
+	builder.entityId = entityId
+	builder.entityIdFlag = true
+	return builder
+}
+func (builder *MatchInfoBuilder) Type(type_ int) *MatchInfoBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
 
-func (builder * MatchInfoBuilder) EntityId(entityId string) *MatchInfoBuilder  {
-  builder.entityId = entityId
-  builder.entityIdFlag = true
-  return builder
-}
-func (builder * MatchInfoBuilder) Type(type_ int) *MatchInfoBuilder  {
-  builder.type_ = type_
-  builder.typeFlag = true
-  return builder
+func (builder *MatchInfoBuilder) Build() *MatchInfo {
+	req := &MatchInfo{}
+	if builder.entityIdFlag {
+		req.EntityId = &builder.entityId
+
+	}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	return req
 }
 
-func (builder * MatchInfoBuilder ) Build() *MatchInfo {
-   req := &MatchInfo{}
-   if builder.entityIdFlag {
-	  req.EntityId = &builder.entityId
-	  
-   }
-   if builder.typeFlag {
-	  req.Type = &builder.type_
-	  
-   }
-   return req
-}
 // builder结束
 
 type OuterInfo struct {
-	Provider  *string `json:"provider,omitempty"`
+	Provider *string `json:"provider,omitempty"`
 	OuterId  *string `json:"outer_id,omitempty"`
 }
 
 // builder开始
 type OuterInfoBuilder struct {
-	provider  string
-	providerFlag  bool
-	outerId  string
+	provider     string
+	providerFlag bool
+	outerId      string
 	outerIdFlag  bool
 }
 
-func NewOuterInfoBuilder() * OuterInfoBuilder{
-   builder := &OuterInfoBuilder{}
-   return builder
+func NewOuterInfoBuilder() *OuterInfoBuilder {
+	builder := &OuterInfoBuilder{}
+	return builder
 }
 
+func (builder *OuterInfoBuilder) Provider(provider string) *OuterInfoBuilder {
+	builder.provider = provider
+	builder.providerFlag = true
+	return builder
+}
+func (builder *OuterInfoBuilder) OuterId(outerId string) *OuterInfoBuilder {
+	builder.outerId = outerId
+	builder.outerIdFlag = true
+	return builder
+}
 
-func (builder * OuterInfoBuilder) Provider(provider string) *OuterInfoBuilder  {
-  builder.provider = provider
-  builder.providerFlag = true
-  return builder
-}
-func (builder * OuterInfoBuilder) OuterId(outerId string) *OuterInfoBuilder  {
-  builder.outerId = outerId
-  builder.outerIdFlag = true
-  return builder
+func (builder *OuterInfoBuilder) Build() *OuterInfo {
+	req := &OuterInfo{}
+	if builder.providerFlag {
+		req.Provider = &builder.provider
+
+	}
+	if builder.outerIdFlag {
+		req.OuterId = &builder.outerId
+
+	}
+	return req
 }
 
-func (builder * OuterInfoBuilder ) Build() *OuterInfo {
-   req := &OuterInfo{}
-   if builder.providerFlag {
-	  req.Provider = &builder.provider
-	  
-   }
-   if builder.outerIdFlag {
-	  req.OuterId = &builder.outerId
-	  
-   }
-   return req
-}
 // builder结束
 
 type Phrase struct {
-	Name  *string `json:"name,omitempty"`
-	EntityIds  []string `json:"entity_ids,omitempty"`
-	Span  *Span `json:"span,omitempty"`
+	Name      *string  `json:"name,omitempty"`
+	EntityIds []string `json:"entity_ids,omitempty"`
+	Span      *Span    `json:"span,omitempty"`
 }
 
 // builder开始
 type PhraseBuilder struct {
-	name  string
-	nameFlag  bool
-	entityIds  []string
-	entityIdsFlag  bool
-	span  *Span
-	spanFlag  bool
+	name          string
+	nameFlag      bool
+	entityIds     []string
+	entityIdsFlag bool
+	span          *Span
+	spanFlag      bool
 }
 
-func NewPhraseBuilder() * PhraseBuilder{
-   builder := &PhraseBuilder{}
-   return builder
+func NewPhraseBuilder() *PhraseBuilder {
+	builder := &PhraseBuilder{}
+	return builder
 }
 
+func (builder *PhraseBuilder) Name(name string) *PhraseBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *PhraseBuilder) EntityIds(entityIds []string) *PhraseBuilder {
+	builder.entityIds = entityIds
+	builder.entityIdsFlag = true
+	return builder
+}
+func (builder *PhraseBuilder) Span(span *Span) *PhraseBuilder {
+	builder.span = span
+	builder.spanFlag = true
+	return builder
+}
 
-func (builder * PhraseBuilder) Name(name string) *PhraseBuilder  {
-  builder.name = name
-  builder.nameFlag = true
-  return builder
-}
-func (builder * PhraseBuilder) EntityIds(entityIds []string) *PhraseBuilder  {
-  builder.entityIds = entityIds
-  builder.entityIdsFlag = true
-  return builder
-}
-func (builder * PhraseBuilder) Span(span *Span) *PhraseBuilder  {
-  builder.span = span
-  builder.spanFlag = true
-  return builder
+func (builder *PhraseBuilder) Build() *Phrase {
+	req := &Phrase{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.entityIdsFlag {
+		req.EntityIds = builder.entityIds
+	}
+	if builder.spanFlag {
+		req.Span = builder.span
+	}
+	return req
 }
 
-func (builder * PhraseBuilder ) Build() *Phrase {
-   req := &Phrase{}
-   if builder.nameFlag {
-	  req.Name = &builder.name
-	  
-   }
-   if builder.entityIdsFlag {
-	  req.EntityIds = builder.entityIds
-   }
-   if builder.spanFlag {
-	  req.Span = builder.span
-   }
-   return req
-}
 // builder结束
 
 type Referer struct {
-	Id  *string `json:"id,omitempty"`
-	Title  *string `json:"title,omitempty"`
-	Url  *string `json:"url,omitempty"`
+	Id    *string `json:"id,omitempty"`
+	Title *string `json:"title,omitempty"`
+	Url   *string `json:"url,omitempty"`
 }
 
 // builder开始
 type RefererBuilder struct {
-	id  string
-	idFlag  bool
-	title  string
-	titleFlag  bool
-	url  string
-	urlFlag  bool
+	id        string
+	idFlag    bool
+	title     string
+	titleFlag bool
+	url       string
+	urlFlag   bool
 }
 
-func NewRefererBuilder() * RefererBuilder{
-   builder := &RefererBuilder{}
-   return builder
+func NewRefererBuilder() *RefererBuilder {
+	builder := &RefererBuilder{}
+	return builder
 }
 
+func (builder *RefererBuilder) Id(id string) *RefererBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *RefererBuilder) Title(title string) *RefererBuilder {
+	builder.title = title
+	builder.titleFlag = true
+	return builder
+}
+func (builder *RefererBuilder) Url(url string) *RefererBuilder {
+	builder.url = url
+	builder.urlFlag = true
+	return builder
+}
 
-func (builder * RefererBuilder) Id(id string) *RefererBuilder  {
-  builder.id = id
-  builder.idFlag = true
-  return builder
-}
-func (builder * RefererBuilder) Title(title string) *RefererBuilder  {
-  builder.title = title
-  builder.titleFlag = true
-  return builder
-}
-func (builder * RefererBuilder) Url(url string) *RefererBuilder  {
-  builder.url = url
-  builder.urlFlag = true
-  return builder
+func (builder *RefererBuilder) Build() *Referer {
+	req := &Referer{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.titleFlag {
+		req.Title = &builder.title
+
+	}
+	if builder.urlFlag {
+		req.Url = &builder.url
+
+	}
+	return req
 }
 
-func (builder * RefererBuilder ) Build() *Referer {
-   req := &Referer{}
-   if builder.idFlag {
-	  req.Id = &builder.id
-	  
-   }
-   if builder.titleFlag {
-	  req.Title = &builder.title
-	  
-   }
-   if builder.urlFlag {
-	  req.Url = &builder.url
-	  
-   }
-   return req
-}
 // builder结束
 
 type RelatedMeta struct {
-	Users  []*Referer `json:"users,omitempty"`
-	Chats  []*Referer `json:"chats,omitempty"`
-	Docs  []*Referer `json:"docs,omitempty"`
-	Oncalls  []*Referer `json:"oncalls,omitempty"`
-	Links  []*Referer `json:"links,omitempty"`
-	Abbreviations  []*Abbreviation `json:"abbreviations,omitempty"`
-	Classifications  []*Classification `json:"classifications,omitempty"`
+	Users           []*Referer        `json:"users,omitempty"`
+	Chats           []*Referer        `json:"chats,omitempty"`
+	Docs            []*Referer        `json:"docs,omitempty"`
+	Oncalls         []*Referer        `json:"oncalls,omitempty"`
+	Links           []*Referer        `json:"links,omitempty"`
+	Abbreviations   []*Abbreviation   `json:"abbreviations,omitempty"`
+	Classifications []*Classification `json:"classifications,omitempty"`
 }
 
 // builder开始
 type RelatedMetaBuilder struct {
-	users  []*Referer
-	usersFlag  bool
-	chats  []*Referer
-	chatsFlag  bool
-	docs  []*Referer
-	docsFlag  bool
-	oncalls  []*Referer
-	oncallsFlag  bool
-	links  []*Referer
-	linksFlag  bool
-	abbreviations  []*Abbreviation
-	abbreviationsFlag  bool
-	classifications  []*Classification
-	classificationsFlag  bool
+	users               []*Referer
+	usersFlag           bool
+	chats               []*Referer
+	chatsFlag           bool
+	docs                []*Referer
+	docsFlag            bool
+	oncalls             []*Referer
+	oncallsFlag         bool
+	links               []*Referer
+	linksFlag           bool
+	abbreviations       []*Abbreviation
+	abbreviationsFlag   bool
+	classifications     []*Classification
+	classificationsFlag bool
 }
 
-func NewRelatedMetaBuilder() * RelatedMetaBuilder{
-   builder := &RelatedMetaBuilder{}
-   return builder
+func NewRelatedMetaBuilder() *RelatedMetaBuilder {
+	builder := &RelatedMetaBuilder{}
+	return builder
 }
 
+func (builder *RelatedMetaBuilder) Users(users []*Referer) *RelatedMetaBuilder {
+	builder.users = users
+	builder.usersFlag = true
+	return builder
+}
+func (builder *RelatedMetaBuilder) Chats(chats []*Referer) *RelatedMetaBuilder {
+	builder.chats = chats
+	builder.chatsFlag = true
+	return builder
+}
+func (builder *RelatedMetaBuilder) Docs(docs []*Referer) *RelatedMetaBuilder {
+	builder.docs = docs
+	builder.docsFlag = true
+	return builder
+}
+func (builder *RelatedMetaBuilder) Oncalls(oncalls []*Referer) *RelatedMetaBuilder {
+	builder.oncalls = oncalls
+	builder.oncallsFlag = true
+	return builder
+}
+func (builder *RelatedMetaBuilder) Links(links []*Referer) *RelatedMetaBuilder {
+	builder.links = links
+	builder.linksFlag = true
+	return builder
+}
+func (builder *RelatedMetaBuilder) Abbreviations(abbreviations []*Abbreviation) *RelatedMetaBuilder {
+	builder.abbreviations = abbreviations
+	builder.abbreviationsFlag = true
+	return builder
+}
+func (builder *RelatedMetaBuilder) Classifications(classifications []*Classification) *RelatedMetaBuilder {
+	builder.classifications = classifications
+	builder.classificationsFlag = true
+	return builder
+}
 
-func (builder * RelatedMetaBuilder) Users(users []*Referer) *RelatedMetaBuilder  {
-  builder.users = users
-  builder.usersFlag = true
-  return builder
-}
-func (builder * RelatedMetaBuilder) Chats(chats []*Referer) *RelatedMetaBuilder  {
-  builder.chats = chats
-  builder.chatsFlag = true
-  return builder
-}
-func (builder * RelatedMetaBuilder) Docs(docs []*Referer) *RelatedMetaBuilder  {
-  builder.docs = docs
-  builder.docsFlag = true
-  return builder
-}
-func (builder * RelatedMetaBuilder) Oncalls(oncalls []*Referer) *RelatedMetaBuilder  {
-  builder.oncalls = oncalls
-  builder.oncallsFlag = true
-  return builder
-}
-func (builder * RelatedMetaBuilder) Links(links []*Referer) *RelatedMetaBuilder  {
-  builder.links = links
-  builder.linksFlag = true
-  return builder
-}
-func (builder * RelatedMetaBuilder) Abbreviations(abbreviations []*Abbreviation) *RelatedMetaBuilder  {
-  builder.abbreviations = abbreviations
-  builder.abbreviationsFlag = true
-  return builder
-}
-func (builder * RelatedMetaBuilder) Classifications(classifications []*Classification) *RelatedMetaBuilder  {
-  builder.classifications = classifications
-  builder.classificationsFlag = true
-  return builder
+func (builder *RelatedMetaBuilder) Build() *RelatedMeta {
+	req := &RelatedMeta{}
+	if builder.usersFlag {
+		req.Users = builder.users
+	}
+	if builder.chatsFlag {
+		req.Chats = builder.chats
+	}
+	if builder.docsFlag {
+		req.Docs = builder.docs
+	}
+	if builder.oncallsFlag {
+		req.Oncalls = builder.oncalls
+	}
+	if builder.linksFlag {
+		req.Links = builder.links
+	}
+	if builder.abbreviationsFlag {
+		req.Abbreviations = builder.abbreviations
+	}
+	if builder.classificationsFlag {
+		req.Classifications = builder.classifications
+	}
+	return req
 }
 
-func (builder * RelatedMetaBuilder ) Build() *RelatedMeta {
-   req := &RelatedMeta{}
-   if builder.usersFlag {
-	  req.Users = builder.users
-   }
-   if builder.chatsFlag {
-	  req.Chats = builder.chats
-   }
-   if builder.docsFlag {
-	  req.Docs = builder.docs
-   }
-   if builder.oncallsFlag {
-	  req.Oncalls = builder.oncalls
-   }
-   if builder.linksFlag {
-	  req.Links = builder.links
-   }
-   if builder.abbreviationsFlag {
-	  req.Abbreviations = builder.abbreviations
-   }
-   if builder.classificationsFlag {
-	  req.Classifications = builder.classifications
-   }
-   return req
-}
 // builder结束
 
 type Span struct {
-	Start  *int `json:"start,omitempty"`
-	End  *int `json:"end,omitempty"`
+	Start *int `json:"start,omitempty"`
+	End   *int `json:"end,omitempty"`
 }
 
 // builder开始
 type SpanBuilder struct {
-	start  int
-	startFlag  bool
-	end  int
-	endFlag  bool
+	start     int
+	startFlag bool
+	end       int
+	endFlag   bool
 }
 
-func NewSpanBuilder() * SpanBuilder{
-   builder := &SpanBuilder{}
-   return builder
+func NewSpanBuilder() *SpanBuilder {
+	builder := &SpanBuilder{}
+	return builder
 }
 
+func (builder *SpanBuilder) Start(start int) *SpanBuilder {
+	builder.start = start
+	builder.startFlag = true
+	return builder
+}
+func (builder *SpanBuilder) End(end int) *SpanBuilder {
+	builder.end = end
+	builder.endFlag = true
+	return builder
+}
 
-func (builder * SpanBuilder) Start(start int) *SpanBuilder  {
-  builder.start = start
-  builder.startFlag = true
-  return builder
-}
-func (builder * SpanBuilder) End(end int) *SpanBuilder  {
-  builder.end = end
-  builder.endFlag = true
-  return builder
+func (builder *SpanBuilder) Build() *Span {
+	req := &Span{}
+	if builder.startFlag {
+		req.Start = &builder.start
+
+	}
+	if builder.endFlag {
+		req.End = &builder.end
+
+	}
+	return req
 }
 
-func (builder * SpanBuilder ) Build() *Span {
-   req := &Span{}
-   if builder.startFlag {
-	  req.Start = &builder.start
-	  
-   }
-   if builder.endFlag {
-	  req.End = &builder.end
-	  
-   }
-   return req
-}
 // builder结束
 
 type Statistics struct {
-	LikeCount  *int `json:"like_count,omitempty"`
-	DislikeCount  *int `json:"dislike_count,omitempty"`
+	LikeCount    *int `json:"like_count,omitempty"`
+	DislikeCount *int `json:"dislike_count,omitempty"`
 }
 
 // builder开始
 type StatisticsBuilder struct {
-	likeCount  int
-	likeCountFlag  bool
-	dislikeCount  int
-	dislikeCountFlag  bool
+	likeCount        int
+	likeCountFlag    bool
+	dislikeCount     int
+	dislikeCountFlag bool
 }
 
-func NewStatisticsBuilder() * StatisticsBuilder{
-   builder := &StatisticsBuilder{}
-   return builder
+func NewStatisticsBuilder() *StatisticsBuilder {
+	builder := &StatisticsBuilder{}
+	return builder
 }
 
+func (builder *StatisticsBuilder) LikeCount(likeCount int) *StatisticsBuilder {
+	builder.likeCount = likeCount
+	builder.likeCountFlag = true
+	return builder
+}
+func (builder *StatisticsBuilder) DislikeCount(dislikeCount int) *StatisticsBuilder {
+	builder.dislikeCount = dislikeCount
+	builder.dislikeCountFlag = true
+	return builder
+}
 
-func (builder * StatisticsBuilder) LikeCount(likeCount int) *StatisticsBuilder  {
-  builder.likeCount = likeCount
-  builder.likeCountFlag = true
-  return builder
-}
-func (builder * StatisticsBuilder) DislikeCount(dislikeCount int) *StatisticsBuilder  {
-  builder.dislikeCount = dislikeCount
-  builder.dislikeCountFlag = true
-  return builder
+func (builder *StatisticsBuilder) Build() *Statistics {
+	req := &Statistics{}
+	if builder.likeCountFlag {
+		req.LikeCount = &builder.likeCount
+
+	}
+	if builder.dislikeCountFlag {
+		req.DislikeCount = &builder.dislikeCount
+
+	}
+	return req
 }
 
-func (builder * StatisticsBuilder ) Build() *Statistics {
-   req := &Statistics{}
-   if builder.likeCountFlag {
-	  req.LikeCount = &builder.likeCount
-	  
-   }
-   if builder.dislikeCountFlag {
-	  req.DislikeCount = &builder.dislikeCount
-	  
-   }
-   return req
-}
 // builder结束
 
 type Term struct {
-	Key  *string `json:"key,omitempty"`
-	DisplayStatus  *DisplayStatus `json:"display_status,omitempty"`
+	Key           *string        `json:"key,omitempty"`
+	DisplayStatus *DisplayStatus `json:"display_status,omitempty"`
 }
 
 // builder开始
 type TermBuilder struct {
-	key  string
-	keyFlag  bool
-	displayStatus  *DisplayStatus
-	displayStatusFlag  bool
+	key               string
+	keyFlag           bool
+	displayStatus     *DisplayStatus
+	displayStatusFlag bool
 }
 
-func NewTermBuilder() * TermBuilder{
-   builder := &TermBuilder{}
-   return builder
+func NewTermBuilder() *TermBuilder {
+	builder := &TermBuilder{}
+	return builder
 }
 
+func (builder *TermBuilder) Key(key string) *TermBuilder {
+	builder.key = key
+	builder.keyFlag = true
+	return builder
+}
+func (builder *TermBuilder) DisplayStatus(displayStatus *DisplayStatus) *TermBuilder {
+	builder.displayStatus = displayStatus
+	builder.displayStatusFlag = true
+	return builder
+}
 
-func (builder * TermBuilder) Key(key string) *TermBuilder  {
-  builder.key = key
-  builder.keyFlag = true
-  return builder
-}
-func (builder * TermBuilder) DisplayStatus(displayStatus *DisplayStatus) *TermBuilder  {
-  builder.displayStatus = displayStatus
-  builder.displayStatusFlag = true
-  return builder
+func (builder *TermBuilder) Build() *Term {
+	req := &Term{}
+	if builder.keyFlag {
+		req.Key = &builder.key
+
+	}
+	if builder.displayStatusFlag {
+		req.DisplayStatus = builder.displayStatus
+	}
+	return req
 }
 
-func (builder * TermBuilder ) Build() *Term {
-   req := &Term{}
-   if builder.keyFlag {
-	  req.Key = &builder.key
-	  
-   }
-   if builder.displayStatusFlag {
-	  req.DisplayStatus = builder.displayStatus
-   }
-   return req
-}
 // builder结束
-
 
 // 生成请求和响应结果类型，以及请求对象的Builder构造器
 
-
 // 1.4 生成请求的builder结构体
 type ListClassificationReqBuilder struct {
-	pageSize  int
+	pageSize      int
 	pageSizeFlag  bool
-	pageToken  string
-	pageTokenFlag  bool
-	limit int
-
+	pageToken     string
+	pageTokenFlag bool
+	limit         int
 }
 
 // 生成请求的New构造器
-func NewListClassificationReqBuilder() * ListClassificationReqBuilder{
-   builder := &ListClassificationReqBuilder{}
-   return builder
+func NewListClassificationReqBuilder() *ListClassificationReqBuilder {
+	builder := &ListClassificationReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * ListClassificationReqBuilder) Limit(limit int ) *ListClassificationReqBuilder  {
-  builder.limit = limit
-  return builder
+func (builder *ListClassificationReqBuilder) Limit(limit int) *ListClassificationReqBuilder {
+	builder.limit = limit
+	return builder
 }
-func (builder * ListClassificationReqBuilder) PageSize(pageSize int) *ListClassificationReqBuilder  {
-  builder.pageSize = pageSize
-  builder.pageSizeFlag = true
-  return builder
+func (builder *ListClassificationReqBuilder) PageSize(pageSize int) *ListClassificationReqBuilder {
+	builder.pageSize = pageSize
+	builder.pageSizeFlag = true
+	return builder
 }
-func (builder * ListClassificationReqBuilder) PageToken(pageToken string) *ListClassificationReqBuilder  {
-  builder.pageToken = pageToken
-  builder.pageTokenFlag = true
-  return builder
+func (builder *ListClassificationReqBuilder) PageToken(pageToken string) *ListClassificationReqBuilder {
+	builder.pageToken = pageToken
+	builder.pageTokenFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * ListClassificationReqBuilder ) Build() *ListClassificationReq {
-   req := &ListClassificationReq{}
-   req.Limit = builder.limit
-   if builder.pageSizeFlag {
-	  req.PageSize = &builder.pageSize
-   }
-   if builder.pageTokenFlag {
-	  req.PageToken = &builder.pageToken
-   }
-   return req
+func (builder *ListClassificationReqBuilder) Build() *ListClassificationReq {
+	req := &ListClassificationReq{}
+	req.Limit = builder.limit
+	if builder.pageSizeFlag {
+		req.PageSize = &builder.pageSize
+	}
+	if builder.pageTokenFlag {
+		req.PageToken = &builder.pageToken
+	}
+	return req
 }
 
-
 type ListClassificationReq struct {
-	PageSize  *int `query:"page_size"`
-	PageToken  *string `query:"page_token"`
-	Limit int
-
+	PageSize  *int    `query:"page_size"`
+	PageToken *string `query:"page_token"`
+	Limit     int
 }
 
 type ListClassificationRespData struct {
-	Items  []*Classification `json:"items,omitempty"`
-	PageToken  *string `json:"page_token,omitempty"`
+	Items     []*Classification `json:"items,omitempty"`
+	PageToken *string           `json:"page_token,omitempty"`
 }
 
 type ListClassificationResp struct {
@@ -847,55 +837,51 @@ func (resp *ListClassificationResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type CreateDraftReqBuilder struct {
-	userIdType  string
-	userIdTypeFlag  bool
-	entity *Entity
-	entityFlag bool
-
+	userIdType     string
+	userIdTypeFlag bool
+	entity         *Entity
+	entityFlag     bool
 }
 
 // 生成请求的New构造器
-func NewCreateDraftReqBuilder() * CreateDraftReqBuilder{
-   builder := &CreateDraftReqBuilder{}
-   return builder
+func NewCreateDraftReqBuilder() *CreateDraftReqBuilder {
+	builder := &CreateDraftReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * CreateDraftReqBuilder) UserIdType(userIdType string) *CreateDraftReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *CreateDraftReqBuilder) UserIdType(userIdType string) *CreateDraftReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
-func (builder * CreateDraftReqBuilder) Entity(entity *Entity) *CreateDraftReqBuilder  {
-  builder.entity = entity
-  builder.entityFlag = true
-  return builder
+func (builder *CreateDraftReqBuilder) Entity(entity *Entity) *CreateDraftReqBuilder {
+	builder.entity = entity
+	builder.entityFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * CreateDraftReqBuilder ) Build() *CreateDraftReq {
-   req := &CreateDraftReq{}
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   if builder.entityFlag {
-	  req.Entity = builder.entity
-   }
-   return req
+func (builder *CreateDraftReqBuilder) Build() *CreateDraftReq {
+	req := &CreateDraftReq{}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	if builder.entityFlag {
+		req.Entity = builder.entity
+	}
+	return req
 }
 
-
 type CreateDraftReq struct {
-	UserIdType  *string `query:"user_id_type"`
-	Entity *Entity `body:""`
-
+	UserIdType *string `query:"user_id_type"`
+	Entity     *Entity `body:""`
 }
 
 type CreateDraftRespData struct {
-	Draft  *Draft `json:"draft,omitempty"`
+	Draft *Draft `json:"draft,omitempty"`
 }
 
 type CreateDraftResp struct {
@@ -908,66 +894,62 @@ func (resp *CreateDraftResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type UpdateDraftReqBuilder struct {
-	draftId  int64
-	draftIdFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-	entity *Entity
-	entityFlag bool
-
+	draftId        int64
+	draftIdFlag    bool
+	userIdType     string
+	userIdTypeFlag bool
+	entity         *Entity
+	entityFlag     bool
 }
 
 // 生成请求的New构造器
-func NewUpdateDraftReqBuilder() * UpdateDraftReqBuilder{
-   builder := &UpdateDraftReqBuilder{}
-   return builder
+func NewUpdateDraftReqBuilder() *UpdateDraftReqBuilder {
+	builder := &UpdateDraftReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * UpdateDraftReqBuilder) DraftId(draftId int64) *UpdateDraftReqBuilder  {
-  builder.draftId = draftId
-  builder.draftIdFlag = true
-  return builder
+func (builder *UpdateDraftReqBuilder) DraftId(draftId int64) *UpdateDraftReqBuilder {
+	builder.draftId = draftId
+	builder.draftIdFlag = true
+	return builder
 }
-func (builder * UpdateDraftReqBuilder) UserIdType(userIdType string) *UpdateDraftReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *UpdateDraftReqBuilder) UserIdType(userIdType string) *UpdateDraftReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
-func (builder * UpdateDraftReqBuilder) Entity(entity *Entity) *UpdateDraftReqBuilder  {
-  builder.entity = entity
-  builder.entityFlag = true
-  return builder
+func (builder *UpdateDraftReqBuilder) Entity(entity *Entity) *UpdateDraftReqBuilder {
+	builder.entity = entity
+	builder.entityFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * UpdateDraftReqBuilder ) Build() *UpdateDraftReq {
-   req := &UpdateDraftReq{}
-   if builder.draftIdFlag {
-	  req.DraftId = builder.draftId
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   if builder.entityFlag {
-	  req.Entity = builder.entity
-   }
-   return req
+func (builder *UpdateDraftReqBuilder) Build() *UpdateDraftReq {
+	req := &UpdateDraftReq{}
+	if builder.draftIdFlag {
+		req.DraftId = builder.draftId
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	if builder.entityFlag {
+		req.Entity = builder.entity
+	}
+	return req
 }
 
-
 type UpdateDraftReq struct {
-	DraftId  int64 `path:"draft_id"`
-	UserIdType  *string `query:"user_id_type"`
-	Entity *Entity `body:""`
-
+	DraftId    int64   `path:"draft_id"`
+	UserIdType *string `query:"user_id_type"`
+	Entity     *Entity `body:""`
 }
 
 type UpdateDraftRespData struct {
-	Draft  *Draft `json:"draft,omitempty"`
+	Draft *Draft `json:"draft,omitempty"`
 }
 
 type UpdateDraftResp struct {
@@ -980,55 +962,51 @@ func (resp *UpdateDraftResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type CreateEntityReqBuilder struct {
-	userIdType  string
-	userIdTypeFlag  bool
-	entity *Entity
-	entityFlag bool
-
+	userIdType     string
+	userIdTypeFlag bool
+	entity         *Entity
+	entityFlag     bool
 }
 
 // 生成请求的New构造器
-func NewCreateEntityReqBuilder() * CreateEntityReqBuilder{
-   builder := &CreateEntityReqBuilder{}
-   return builder
+func NewCreateEntityReqBuilder() *CreateEntityReqBuilder {
+	builder := &CreateEntityReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * CreateEntityReqBuilder) UserIdType(userIdType string) *CreateEntityReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *CreateEntityReqBuilder) UserIdType(userIdType string) *CreateEntityReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
-func (builder * CreateEntityReqBuilder) Entity(entity *Entity) *CreateEntityReqBuilder  {
-  builder.entity = entity
-  builder.entityFlag = true
-  return builder
+func (builder *CreateEntityReqBuilder) Entity(entity *Entity) *CreateEntityReqBuilder {
+	builder.entity = entity
+	builder.entityFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * CreateEntityReqBuilder ) Build() *CreateEntityReq {
-   req := &CreateEntityReq{}
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   if builder.entityFlag {
-	  req.Entity = builder.entity
-   }
-   return req
+func (builder *CreateEntityReqBuilder) Build() *CreateEntityReq {
+	req := &CreateEntityReq{}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	if builder.entityFlag {
+		req.Entity = builder.entity
+	}
+	return req
 }
 
-
 type CreateEntityReq struct {
-	UserIdType  *string `query:"user_id_type"`
-	Entity *Entity `body:""`
-
+	UserIdType *string `query:"user_id_type"`
+	Entity     *Entity `body:""`
 }
 
 type CreateEntityRespData struct {
-	Entity  *Entity `json:"entity,omitempty"`
+	Entity *Entity `json:"entity,omitempty"`
 }
 
 type CreateEntityResp struct {
@@ -1041,77 +1019,73 @@ func (resp *CreateEntityResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type GetEntityReqBuilder struct {
-	entityId  string
-	entityIdFlag  bool
-	provider  string
-	providerFlag  bool
-	outerId  string
-	outerIdFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-
+	entityId       string
+	entityIdFlag   bool
+	provider       string
+	providerFlag   bool
+	outerId        string
+	outerIdFlag    bool
+	userIdType     string
+	userIdTypeFlag bool
 }
 
 // 生成请求的New构造器
-func NewGetEntityReqBuilder() * GetEntityReqBuilder{
-   builder := &GetEntityReqBuilder{}
-   return builder
+func NewGetEntityReqBuilder() *GetEntityReqBuilder {
+	builder := &GetEntityReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * GetEntityReqBuilder) EntityId(entityId string) *GetEntityReqBuilder  {
-  builder.entityId = entityId
-  builder.entityIdFlag = true
-  return builder
+func (builder *GetEntityReqBuilder) EntityId(entityId string) *GetEntityReqBuilder {
+	builder.entityId = entityId
+	builder.entityIdFlag = true
+	return builder
 }
-func (builder * GetEntityReqBuilder) Provider(provider string) *GetEntityReqBuilder  {
-  builder.provider = provider
-  builder.providerFlag = true
-  return builder
+func (builder *GetEntityReqBuilder) Provider(provider string) *GetEntityReqBuilder {
+	builder.provider = provider
+	builder.providerFlag = true
+	return builder
 }
-func (builder * GetEntityReqBuilder) OuterId(outerId string) *GetEntityReqBuilder  {
-  builder.outerId = outerId
-  builder.outerIdFlag = true
-  return builder
+func (builder *GetEntityReqBuilder) OuterId(outerId string) *GetEntityReqBuilder {
+	builder.outerId = outerId
+	builder.outerIdFlag = true
+	return builder
 }
-func (builder * GetEntityReqBuilder) UserIdType(userIdType string) *GetEntityReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *GetEntityReqBuilder) UserIdType(userIdType string) *GetEntityReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * GetEntityReqBuilder ) Build() *GetEntityReq {
-   req := &GetEntityReq{}
-   if builder.entityIdFlag {
-	  req.EntityId = builder.entityId
-   }
-   if builder.providerFlag {
-	  req.Provider = &builder.provider
-   }
-   if builder.outerIdFlag {
-	  req.OuterId = &builder.outerId
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   return req
+func (builder *GetEntityReqBuilder) Build() *GetEntityReq {
+	req := &GetEntityReq{}
+	if builder.entityIdFlag {
+		req.EntityId = builder.entityId
+	}
+	if builder.providerFlag {
+		req.Provider = &builder.provider
+	}
+	if builder.outerIdFlag {
+		req.OuterId = &builder.outerId
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	return req
 }
 
-
 type GetEntityReq struct {
-	EntityId  string `path:"entity_id"`
-	Provider  *string `query:"provider"`
-	OuterId  *string `query:"outer_id"`
-	UserIdType  *string `query:"user_id_type"`
-
+	EntityId   string  `path:"entity_id"`
+	Provider   *string `query:"provider"`
+	OuterId    *string `query:"outer_id"`
+	UserIdType *string `query:"user_id_type"`
 }
 
 type GetEntityRespData struct {
-	Entity  *Entity `json:"entity,omitempty"`
+	Entity *Entity `json:"entity,omitempty"`
 }
 
 type GetEntityResp struct {
@@ -1125,99 +1099,96 @@ func (resp *GetEntityResp) Success() bool {
 }
 
 type HighlightEntityReqBodyBuilder struct {
-	text  string
-	textFlag  bool
+	text     string
+	textFlag bool
 }
 
 // 生成body的New构造器
-func NewHighlightEntityReqBodyBuilder() * HighlightEntityReqBodyBuilder{
-  builder := &HighlightEntityReqBodyBuilder{}
-  return builder
+func NewHighlightEntityReqBodyBuilder() *HighlightEntityReqBodyBuilder {
+	builder := &HighlightEntityReqBodyBuilder{}
+	return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder * HighlightEntityReqBodyBuilder ) Text(text string) *HighlightEntityReqBodyBuilder {
-  builder.text = text
-  builder.textFlag = true
-  return builder
+func (builder *HighlightEntityReqBodyBuilder) Text(text string) *HighlightEntityReqBodyBuilder {
+	builder.text = text
+	builder.textFlag = true
+	return builder
 }
 
-
 // 1.3 生成body的build方法
-func (builder * HighlightEntityReqBodyBuilder ) Build() *HighlightEntityReqBody {
-   req := &HighlightEntityReqBody{}
-   if builder.textFlag {
-	  req.Text = &builder.text
-   }
-   return req
+func (builder *HighlightEntityReqBodyBuilder) Build() *HighlightEntityReqBody {
+	req := &HighlightEntityReqBody{}
+	if builder.textFlag {
+		req.Text = &builder.text
+	}
+	return req
 }
 
 // 上传文件path开始
 type HighlightEntityPathReqBodyBuilder struct {
-	text  string
-	textFlag  bool
+	text     string
+	textFlag bool
 }
 
-func NewHighlightEntityPathReqBodyBuilder() * HighlightEntityPathReqBodyBuilder{
-  builder := &HighlightEntityPathReqBodyBuilder{}
-  return builder
+func NewHighlightEntityPathReqBodyBuilder() *HighlightEntityPathReqBodyBuilder {
+	builder := &HighlightEntityPathReqBodyBuilder{}
+	return builder
 }
-func (builder * HighlightEntityPathReqBodyBuilder ) Text(text string) *HighlightEntityPathReqBodyBuilder {
-  builder.text = text
-  builder.textFlag = true
-  return builder
+func (builder *HighlightEntityPathReqBodyBuilder) Text(text string) *HighlightEntityPathReqBodyBuilder {
+	builder.text = text
+	builder.textFlag = true
+	return builder
 }
 
-
-func (builder * HighlightEntityPathReqBodyBuilder ) Build() (*HighlightEntityReqBody, error) {
-   req := &HighlightEntityReqBody{}
-   if builder.textFlag {
-	  req.Text = &builder.text
-   }
-   return req, nil
+func (builder *HighlightEntityPathReqBodyBuilder) Build() (*HighlightEntityReqBody, error) {
+	req := &HighlightEntityReqBody{}
+	if builder.textFlag {
+		req.Text = &builder.text
+	}
+	return req, nil
 }
+
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type HighlightEntityReqBuilder struct {
-	body *HighlightEntityReqBody
+	body     *HighlightEntityReqBody
 	bodyFlag bool
-
 }
 
 // 生成请求的New构造器
-func NewHighlightEntityReqBuilder() * HighlightEntityReqBuilder{
-   builder := &HighlightEntityReqBuilder{}
-   return builder
+func NewHighlightEntityReqBuilder() *HighlightEntityReqBuilder {
+	builder := &HighlightEntityReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * HighlightEntityReqBuilder) Body(body *HighlightEntityReqBody) *HighlightEntityReqBuilder  {
-  builder.body = body
-  builder.bodyFlag = true
-  return builder
+func (builder *HighlightEntityReqBuilder) Body(body *HighlightEntityReqBody) *HighlightEntityReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * HighlightEntityReqBuilder ) Build() *HighlightEntityReq {
-   req := &HighlightEntityReq{}
-   if builder.bodyFlag {
-	  req.Body = builder.body
-   }
-   return req
+func (builder *HighlightEntityReqBuilder) Build() *HighlightEntityReq {
+	req := &HighlightEntityReq{}
+	if builder.bodyFlag {
+		req.Body = builder.body
+	}
+	return req
 }
 
 type HighlightEntityReqBody struct {
-	Text  *string `json:"text,omitempty"`
+	Text *string `json:"text,omitempty"`
 }
 
 type HighlightEntityReq struct {
 	Body *HighlightEntityReqBody `body:""`
-
 }
 
 type HighlightEntityRespData struct {
-	Phrases  []*Phrase `json:"phrases,omitempty"`
+	Phrases []*Phrase `json:"phrases,omitempty"`
 }
 
 type HighlightEntityResp struct {
@@ -1230,85 +1201,81 @@ func (resp *HighlightEntityResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type ListEntityReqBuilder struct {
-	pageSize  int
-	pageSizeFlag  bool
-	pageToken  string
+	pageSize       int
+	pageSizeFlag   bool
+	pageToken      string
 	pageTokenFlag  bool
-	provider  string
-	providerFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-	limit int
-
+	provider       string
+	providerFlag   bool
+	userIdType     string
+	userIdTypeFlag bool
+	limit          int
 }
 
 // 生成请求的New构造器
-func NewListEntityReqBuilder() * ListEntityReqBuilder{
-   builder := &ListEntityReqBuilder{}
-   return builder
+func NewListEntityReqBuilder() *ListEntityReqBuilder {
+	builder := &ListEntityReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * ListEntityReqBuilder) Limit(limit int ) *ListEntityReqBuilder  {
-  builder.limit = limit
-  return builder
+func (builder *ListEntityReqBuilder) Limit(limit int) *ListEntityReqBuilder {
+	builder.limit = limit
+	return builder
 }
-func (builder * ListEntityReqBuilder) PageSize(pageSize int) *ListEntityReqBuilder  {
-  builder.pageSize = pageSize
-  builder.pageSizeFlag = true
-  return builder
+func (builder *ListEntityReqBuilder) PageSize(pageSize int) *ListEntityReqBuilder {
+	builder.pageSize = pageSize
+	builder.pageSizeFlag = true
+	return builder
 }
-func (builder * ListEntityReqBuilder) PageToken(pageToken string) *ListEntityReqBuilder  {
-  builder.pageToken = pageToken
-  builder.pageTokenFlag = true
-  return builder
+func (builder *ListEntityReqBuilder) PageToken(pageToken string) *ListEntityReqBuilder {
+	builder.pageToken = pageToken
+	builder.pageTokenFlag = true
+	return builder
 }
-func (builder * ListEntityReqBuilder) Provider(provider string) *ListEntityReqBuilder  {
-  builder.provider = provider
-  builder.providerFlag = true
-  return builder
+func (builder *ListEntityReqBuilder) Provider(provider string) *ListEntityReqBuilder {
+	builder.provider = provider
+	builder.providerFlag = true
+	return builder
 }
-func (builder * ListEntityReqBuilder) UserIdType(userIdType string) *ListEntityReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *ListEntityReqBuilder) UserIdType(userIdType string) *ListEntityReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * ListEntityReqBuilder ) Build() *ListEntityReq {
-   req := &ListEntityReq{}
-   req.Limit = builder.limit
-   if builder.pageSizeFlag {
-	  req.PageSize = &builder.pageSize
-   }
-   if builder.pageTokenFlag {
-	  req.PageToken = &builder.pageToken
-   }
-   if builder.providerFlag {
-	  req.Provider = &builder.provider
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   return req
+func (builder *ListEntityReqBuilder) Build() *ListEntityReq {
+	req := &ListEntityReq{}
+	req.Limit = builder.limit
+	if builder.pageSizeFlag {
+		req.PageSize = &builder.pageSize
+	}
+	if builder.pageTokenFlag {
+		req.PageToken = &builder.pageToken
+	}
+	if builder.providerFlag {
+		req.Provider = &builder.provider
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	return req
 }
 
-
 type ListEntityReq struct {
-	PageSize  *int `query:"page_size"`
+	PageSize   *int    `query:"page_size"`
 	PageToken  *string `query:"page_token"`
-	Provider  *string `query:"provider"`
-	UserIdType  *string `query:"user_id_type"`
-	Limit int
-
+	Provider   *string `query:"provider"`
+	UserIdType *string `query:"user_id_type"`
+	Limit      int
 }
 
 type ListEntityRespData struct {
 	Entities  []*Entity `json:"entities,omitempty"`
-	PageToken  *string `json:"page_token,omitempty"`
+	PageToken *string   `json:"page_token,omitempty"`
 }
 
 type ListEntityResp struct {
@@ -1322,99 +1289,96 @@ func (resp *ListEntityResp) Success() bool {
 }
 
 type MatchEntityReqBodyBuilder struct {
-	word  string
-	wordFlag  bool
+	word     string
+	wordFlag bool
 }
 
 // 生成body的New构造器
-func NewMatchEntityReqBodyBuilder() * MatchEntityReqBodyBuilder{
-  builder := &MatchEntityReqBodyBuilder{}
-  return builder
+func NewMatchEntityReqBodyBuilder() *MatchEntityReqBodyBuilder {
+	builder := &MatchEntityReqBodyBuilder{}
+	return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder * MatchEntityReqBodyBuilder ) Word(word string) *MatchEntityReqBodyBuilder {
-  builder.word = word
-  builder.wordFlag = true
-  return builder
+func (builder *MatchEntityReqBodyBuilder) Word(word string) *MatchEntityReqBodyBuilder {
+	builder.word = word
+	builder.wordFlag = true
+	return builder
 }
 
-
 // 1.3 生成body的build方法
-func (builder * MatchEntityReqBodyBuilder ) Build() *MatchEntityReqBody {
-   req := &MatchEntityReqBody{}
-   if builder.wordFlag {
-	  req.Word = &builder.word
-   }
-   return req
+func (builder *MatchEntityReqBodyBuilder) Build() *MatchEntityReqBody {
+	req := &MatchEntityReqBody{}
+	if builder.wordFlag {
+		req.Word = &builder.word
+	}
+	return req
 }
 
 // 上传文件path开始
 type MatchEntityPathReqBodyBuilder struct {
-	word  string
-	wordFlag  bool
+	word     string
+	wordFlag bool
 }
 
-func NewMatchEntityPathReqBodyBuilder() * MatchEntityPathReqBodyBuilder{
-  builder := &MatchEntityPathReqBodyBuilder{}
-  return builder
+func NewMatchEntityPathReqBodyBuilder() *MatchEntityPathReqBodyBuilder {
+	builder := &MatchEntityPathReqBodyBuilder{}
+	return builder
 }
-func (builder * MatchEntityPathReqBodyBuilder ) Word(word string) *MatchEntityPathReqBodyBuilder {
-  builder.word = word
-  builder.wordFlag = true
-  return builder
+func (builder *MatchEntityPathReqBodyBuilder) Word(word string) *MatchEntityPathReqBodyBuilder {
+	builder.word = word
+	builder.wordFlag = true
+	return builder
 }
 
-
-func (builder * MatchEntityPathReqBodyBuilder ) Build() (*MatchEntityReqBody, error) {
-   req := &MatchEntityReqBody{}
-   if builder.wordFlag {
-	  req.Word = &builder.word
-   }
-   return req, nil
+func (builder *MatchEntityPathReqBodyBuilder) Build() (*MatchEntityReqBody, error) {
+	req := &MatchEntityReqBody{}
+	if builder.wordFlag {
+		req.Word = &builder.word
+	}
+	return req, nil
 }
+
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type MatchEntityReqBuilder struct {
-	body *MatchEntityReqBody
+	body     *MatchEntityReqBody
 	bodyFlag bool
-
 }
 
 // 生成请求的New构造器
-func NewMatchEntityReqBuilder() * MatchEntityReqBuilder{
-   builder := &MatchEntityReqBuilder{}
-   return builder
+func NewMatchEntityReqBuilder() *MatchEntityReqBuilder {
+	builder := &MatchEntityReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * MatchEntityReqBuilder) Body(body *MatchEntityReqBody) *MatchEntityReqBuilder  {
-  builder.body = body
-  builder.bodyFlag = true
-  return builder
+func (builder *MatchEntityReqBuilder) Body(body *MatchEntityReqBody) *MatchEntityReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * MatchEntityReqBuilder ) Build() *MatchEntityReq {
-   req := &MatchEntityReq{}
-   if builder.bodyFlag {
-	  req.Body = builder.body
-   }
-   return req
+func (builder *MatchEntityReqBuilder) Build() *MatchEntityReq {
+	req := &MatchEntityReq{}
+	if builder.bodyFlag {
+		req.Body = builder.body
+	}
+	return req
 }
 
 type MatchEntityReqBody struct {
-	Word  *string `json:"word,omitempty"`
+	Word *string `json:"word,omitempty"`
 }
 
 type MatchEntityReq struct {
 	Body *MatchEntityReqBody `body:""`
-
 }
 
 type MatchEntityRespData struct {
-	Results  []*MatchInfo `json:"results,omitempty"`
+	Results []*MatchInfo `json:"results,omitempty"`
 }
 
 type MatchEntityResp struct {
@@ -1428,140 +1392,137 @@ func (resp *MatchEntityResp) Success() bool {
 }
 
 type SearchEntityReqBodyBuilder struct {
-	query  string
-	queryFlag  bool
+	query     string
+	queryFlag bool
 }
 
 // 生成body的New构造器
-func NewSearchEntityReqBodyBuilder() * SearchEntityReqBodyBuilder{
-  builder := &SearchEntityReqBodyBuilder{}
-  return builder
+func NewSearchEntityReqBodyBuilder() *SearchEntityReqBodyBuilder {
+	builder := &SearchEntityReqBodyBuilder{}
+	return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder * SearchEntityReqBodyBuilder ) Query(query string) *SearchEntityReqBodyBuilder {
-  builder.query = query
-  builder.queryFlag = true
-  return builder
+func (builder *SearchEntityReqBodyBuilder) Query(query string) *SearchEntityReqBodyBuilder {
+	builder.query = query
+	builder.queryFlag = true
+	return builder
 }
 
-
 // 1.3 生成body的build方法
-func (builder * SearchEntityReqBodyBuilder ) Build() *SearchEntityReqBody {
-   req := &SearchEntityReqBody{}
-   if builder.queryFlag {
-	  req.Query = &builder.query
-   }
-   return req
+func (builder *SearchEntityReqBodyBuilder) Build() *SearchEntityReqBody {
+	req := &SearchEntityReqBody{}
+	if builder.queryFlag {
+		req.Query = &builder.query
+	}
+	return req
 }
 
 // 上传文件path开始
 type SearchEntityPathReqBodyBuilder struct {
-	query  string
-	queryFlag  bool
+	query     string
+	queryFlag bool
 }
 
-func NewSearchEntityPathReqBodyBuilder() * SearchEntityPathReqBodyBuilder{
-  builder := &SearchEntityPathReqBodyBuilder{}
-  return builder
+func NewSearchEntityPathReqBodyBuilder() *SearchEntityPathReqBodyBuilder {
+	builder := &SearchEntityPathReqBodyBuilder{}
+	return builder
 }
-func (builder * SearchEntityPathReqBodyBuilder ) Query(query string) *SearchEntityPathReqBodyBuilder {
-  builder.query = query
-  builder.queryFlag = true
-  return builder
+func (builder *SearchEntityPathReqBodyBuilder) Query(query string) *SearchEntityPathReqBodyBuilder {
+	builder.query = query
+	builder.queryFlag = true
+	return builder
 }
 
-
-func (builder * SearchEntityPathReqBodyBuilder ) Build() (*SearchEntityReqBody, error) {
-   req := &SearchEntityReqBody{}
-   if builder.queryFlag {
-	  req.Query = &builder.query
-   }
-   return req, nil
+func (builder *SearchEntityPathReqBodyBuilder) Build() (*SearchEntityReqBody, error) {
+	req := &SearchEntityReqBody{}
+	if builder.queryFlag {
+		req.Query = &builder.query
+	}
+	return req, nil
 }
+
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type SearchEntityReqBuilder struct {
-	pageToken  string
+	pageToken      string
 	pageTokenFlag  bool
-	pageSize  int
-	pageSizeFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-	body *SearchEntityReqBody
-	bodyFlag bool
-	limit int
-
+	pageSize       int
+	pageSizeFlag   bool
+	userIdType     string
+	userIdTypeFlag bool
+	body           *SearchEntityReqBody
+	bodyFlag       bool
+	limit          int
 }
 
 // 生成请求的New构造器
-func NewSearchEntityReqBuilder() * SearchEntityReqBuilder{
-   builder := &SearchEntityReqBuilder{}
-   return builder
+func NewSearchEntityReqBuilder() *SearchEntityReqBuilder {
+	builder := &SearchEntityReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * SearchEntityReqBuilder) Limit(limit int ) *SearchEntityReqBuilder  {
-  builder.limit = limit
-  return builder
+func (builder *SearchEntityReqBuilder) Limit(limit int) *SearchEntityReqBuilder {
+	builder.limit = limit
+	return builder
 }
-func (builder * SearchEntityReqBuilder) PageToken(pageToken string) *SearchEntityReqBuilder  {
-  builder.pageToken = pageToken
-  builder.pageTokenFlag = true
-  return builder
+func (builder *SearchEntityReqBuilder) PageToken(pageToken string) *SearchEntityReqBuilder {
+	builder.pageToken = pageToken
+	builder.pageTokenFlag = true
+	return builder
 }
-func (builder * SearchEntityReqBuilder) PageSize(pageSize int) *SearchEntityReqBuilder  {
-  builder.pageSize = pageSize
-  builder.pageSizeFlag = true
-  return builder
+func (builder *SearchEntityReqBuilder) PageSize(pageSize int) *SearchEntityReqBuilder {
+	builder.pageSize = pageSize
+	builder.pageSizeFlag = true
+	return builder
 }
-func (builder * SearchEntityReqBuilder) UserIdType(userIdType string) *SearchEntityReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *SearchEntityReqBuilder) UserIdType(userIdType string) *SearchEntityReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
-func (builder * SearchEntityReqBuilder) Body(body *SearchEntityReqBody) *SearchEntityReqBuilder  {
-  builder.body = body
-  builder.bodyFlag = true
-  return builder
+func (builder *SearchEntityReqBuilder) Body(body *SearchEntityReqBody) *SearchEntityReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * SearchEntityReqBuilder ) Build() *SearchEntityReq {
-   req := &SearchEntityReq{}
-   req.Limit = builder.limit
-   if builder.pageTokenFlag {
-	  req.PageToken = &builder.pageToken
-   }
-   if builder.pageSizeFlag {
-	  req.PageSize = &builder.pageSize
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   if builder.bodyFlag {
-	  req.Body = builder.body
-   }
-   return req
+func (builder *SearchEntityReqBuilder) Build() *SearchEntityReq {
+	req := &SearchEntityReq{}
+	req.Limit = builder.limit
+	if builder.pageTokenFlag {
+		req.PageToken = &builder.pageToken
+	}
+	if builder.pageSizeFlag {
+		req.PageSize = &builder.pageSize
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	if builder.bodyFlag {
+		req.Body = builder.body
+	}
+	return req
 }
 
 type SearchEntityReqBody struct {
-	Query  *string `json:"query,omitempty"`
+	Query *string `json:"query,omitempty"`
 }
 
 type SearchEntityReq struct {
-	PageToken  *string `query:"page_token"`
-	PageSize  *int `query:"page_size"`
-	UserIdType  *string `query:"user_id_type"`
-	Body *SearchEntityReqBody `body:""`
-	Limit int
-
+	PageToken  *string              `query:"page_token"`
+	PageSize   *int                 `query:"page_size"`
+	UserIdType *string              `query:"user_id_type"`
+	Body       *SearchEntityReqBody `body:""`
+	Limit      int
 }
 
 type SearchEntityRespData struct {
 	Entities  []*Entity `json:"entities,omitempty"`
-	PageToken  *string `json:"page_token,omitempty"`
+	PageToken *string   `json:"page_token,omitempty"`
 }
 
 type SearchEntityResp struct {
@@ -1574,66 +1535,62 @@ func (resp *SearchEntityResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type UpdateEntityReqBuilder struct {
-	entityId  string
-	entityIdFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-	entity *Entity
-	entityFlag bool
-
+	entityId       string
+	entityIdFlag   bool
+	userIdType     string
+	userIdTypeFlag bool
+	entity         *Entity
+	entityFlag     bool
 }
 
 // 生成请求的New构造器
-func NewUpdateEntityReqBuilder() * UpdateEntityReqBuilder{
-   builder := &UpdateEntityReqBuilder{}
-   return builder
+func NewUpdateEntityReqBuilder() *UpdateEntityReqBuilder {
+	builder := &UpdateEntityReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * UpdateEntityReqBuilder) EntityId(entityId string) *UpdateEntityReqBuilder  {
-  builder.entityId = entityId
-  builder.entityIdFlag = true
-  return builder
+func (builder *UpdateEntityReqBuilder) EntityId(entityId string) *UpdateEntityReqBuilder {
+	builder.entityId = entityId
+	builder.entityIdFlag = true
+	return builder
 }
-func (builder * UpdateEntityReqBuilder) UserIdType(userIdType string) *UpdateEntityReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *UpdateEntityReqBuilder) UserIdType(userIdType string) *UpdateEntityReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
-func (builder * UpdateEntityReqBuilder) Entity(entity *Entity) *UpdateEntityReqBuilder  {
-  builder.entity = entity
-  builder.entityFlag = true
-  return builder
+func (builder *UpdateEntityReqBuilder) Entity(entity *Entity) *UpdateEntityReqBuilder {
+	builder.entity = entity
+	builder.entityFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * UpdateEntityReqBuilder ) Build() *UpdateEntityReq {
-   req := &UpdateEntityReq{}
-   if builder.entityIdFlag {
-	  req.EntityId = builder.entityId
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   if builder.entityFlag {
-	  req.Entity = builder.entity
-   }
-   return req
+func (builder *UpdateEntityReqBuilder) Build() *UpdateEntityReq {
+	req := &UpdateEntityReq{}
+	if builder.entityIdFlag {
+		req.EntityId = builder.entityId
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	if builder.entityFlag {
+		req.Entity = builder.entity
+	}
+	return req
 }
 
-
 type UpdateEntityReq struct {
-	EntityId  string `path:"entity_id"`
-	UserIdType  *string `query:"user_id_type"`
-	Entity *Entity `body:""`
-
+	EntityId   string  `path:"entity_id"`
+	UserIdType *string `query:"user_id_type"`
+	Entity     *Entity `body:""`
 }
 
 type UpdateEntityRespData struct {
-	Entity  *Entity `json:"entity,omitempty"`
+	Entity *Entity `json:"entity,omitempty"`
 }
 
 type UpdateEntityResp struct {
@@ -1648,167 +1605,166 @@ func (resp *UpdateEntityResp) Success() bool {
 
 // 生成消息事件结构体
 
-
 // 生成请求的builder构造器
 // 1.1 生成body的builder结构体
-   type ListClassificationIterator struct{
-	 nextPageToken *string
-	 items	 []*Classification
-	 index	 int
-	 limit	 int
-	 ctx	   context.Context
-	 req	   *ListClassificationReq
-	 listFunc  func (ctx context.Context, req *ListClassificationReq, options ...larkcore.RequestOptionFunc) (*ListClassificationResp, error)
-	 options   []larkcore.RequestOptionFunc
-   	 curlNum	   int
-   }
+type ListClassificationIterator struct {
+	nextPageToken *string
+	items         []*Classification
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListClassificationReq
+	listFunc      func(ctx context.Context, req *ListClassificationReq, options ...larkcore.RequestOptionFunc) (*ListClassificationResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
 
-   func (iterator *ListClassificationIterator) Next() (bool, *Classification, error) {
-		// 达到最大量，则返回
-		if iterator.limit >0 && iterator.curlNum >= iterator.limit {
+func (iterator *ListClassificationIterator) Next() (bool, *Classification, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.PageToken = iterator.nextPageToken
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
 			return false, nil, nil
 		}
 
-		// 为0则拉取数据
-		if iterator.index == 0 || iterator.index >= len(iterator.items) {
-			if iterator.index != 0 && iterator.nextPageToken == nil {
-				return false, nil, nil
-			}
-			if iterator.nextPageToken != nil {
-				iterator.req.PageToken = iterator.nextPageToken
-			}
-			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-			if err != nil {
-				return false, nil, err
-			}
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
 
-			if resp.Code != 0 {
-				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
-			}
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
 
-			if len(resp.Data.Items) == 0 {
-				return false, nil, nil
-			}
+func (iterator *ListClassificationIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
 
-			iterator.nextPageToken = resp.Data.PageToken
-			iterator.items = resp.Data.Items
-			iterator.index = 0
+type ListEntityIterator struct {
+	nextPageToken *string
+	items         []*Entity
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListEntityReq
+	listFunc      func(ctx context.Context, req *ListEntityReq, options ...larkcore.RequestOptionFunc) (*ListEntityResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *ListEntityIterator) Next() (bool, *Entity, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.PageToken = iterator.nextPageToken
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
 		}
 
-		block := iterator.items[iterator.index]
-		iterator.index++
-		iterator.curlNum++
-		return true, block, nil
-   }
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
 
-   func (iterator *ListClassificationIterator) NextPageToken() *string {
-	  return iterator.nextPageToken
-   }
-   type ListEntityIterator struct{
-	 nextPageToken *string
-	 items	 []*Entity
-	 index	 int
-	 limit	 int
-	 ctx	   context.Context
-	 req	   *ListEntityReq
-	 listFunc  func (ctx context.Context, req *ListEntityReq, options ...larkcore.RequestOptionFunc) (*ListEntityResp, error)
-	 options   []larkcore.RequestOptionFunc
-   	 curlNum	   int
-   }
-
-   func (iterator *ListEntityIterator) Next() (bool, *Entity, error) {
-		// 达到最大量，则返回
-		if iterator.limit >0 && iterator.curlNum >= iterator.limit {
+		if len(resp.Data.Entities) == 0 {
 			return false, nil, nil
 		}
 
-		// 为0则拉取数据
-		if iterator.index == 0 || iterator.index >= len(iterator.items) {
-			if iterator.index != 0 && iterator.nextPageToken == nil {
-				return false, nil, nil
-			}
-			if iterator.nextPageToken != nil {
-				iterator.req.PageToken = iterator.nextPageToken
-			}
-			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-			if err != nil {
-				return false, nil, err
-			}
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Entities
+		iterator.index = 0
+	}
 
-			if resp.Code != 0 {
-				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
-			}
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
 
-			if len(resp.Data.Entities) == 0 {
-				return false, nil, nil
-			}
+func (iterator *ListEntityIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
 
-			iterator.nextPageToken = resp.Data.PageToken
-			iterator.items = resp.Data.Entities
-			iterator.index = 0
+type SearchEntityIterator struct {
+	nextPageToken *string
+	items         []*Entity
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *SearchEntityReq
+	listFunc      func(ctx context.Context, req *SearchEntityReq, options ...larkcore.RequestOptionFunc) (*SearchEntityResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *SearchEntityIterator) Next() (bool, *Entity, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.PageToken = iterator.nextPageToken
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
 		}
 
-		block := iterator.items[iterator.index]
-		iterator.index++
-		iterator.curlNum++
-		return true, block, nil
-   }
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
 
-   func (iterator *ListEntityIterator) NextPageToken() *string {
-	  return iterator.nextPageToken
-   }
-   type SearchEntityIterator struct{
-	 nextPageToken *string
-	 items	 []*Entity
-	 index	 int
-	 limit	 int
-	 ctx	   context.Context
-	 req	   *SearchEntityReq
-	 listFunc  func (ctx context.Context, req *SearchEntityReq, options ...larkcore.RequestOptionFunc) (*SearchEntityResp, error)
-	 options   []larkcore.RequestOptionFunc
-   	 curlNum	   int
-   }
-
-   func (iterator *SearchEntityIterator) Next() (bool, *Entity, error) {
-		// 达到最大量，则返回
-		if iterator.limit >0 && iterator.curlNum >= iterator.limit {
+		if len(resp.Data.Entities) == 0 {
 			return false, nil, nil
 		}
 
-		// 为0则拉取数据
-		if iterator.index == 0 || iterator.index >= len(iterator.items) {
-			if iterator.index != 0 && iterator.nextPageToken == nil {
-				return false, nil, nil
-			}
-			if iterator.nextPageToken != nil {
-				iterator.req.PageToken = iterator.nextPageToken
-			}
-			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-			if err != nil {
-				return false, nil, err
-			}
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Entities
+		iterator.index = 0
+	}
 
-			if resp.Code != 0 {
-				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
-			}
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
 
-			if len(resp.Data.Entities) == 0 {
-				return false, nil, nil
-			}
-
-			iterator.nextPageToken = resp.Data.PageToken
-			iterator.items = resp.Data.Entities
-			iterator.index = 0
-		}
-
-		block := iterator.items[iterator.index]
-		iterator.index++
-		iterator.curlNum++
-		return true, block, nil
-   }
-
-   func (iterator *SearchEntityIterator) NextPageToken() *string {
-	  return iterator.nextPageToken
-   }
-
-
+func (iterator *SearchEntityIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}

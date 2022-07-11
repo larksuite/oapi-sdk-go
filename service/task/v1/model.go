@@ -5,662 +5,650 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	
-	"github.com/larksuite/oapi-sdk-go/event"
-	
-	"github.com/larksuite/oapi-sdk-go/core"
-	
 
+	"github.com/larksuite/oapi-sdk-go/event"
+
+	"github.com/larksuite/oapi-sdk-go/core"
 )
 
 // 生成枚举值
 
 const (
-
-	  UserIdTypeUserId = "user_id"
-	  UserIdTypeUnionId = "union_id"
-	  UserIdTypeOpenId = "open_id"
+	UserIdTypeUserId  = "user_id"
+	UserIdTypeUnionId = "union_id"
+	UserIdTypeOpenId  = "open_id"
 )
 
 const (
-ListDirectionDown = 0
-	ListDirectionUp = 1
-	
+	ListDirectionDown = 0
+	ListDirectionUp   = 1
 )
-
-
 
 // 生成数据类型
 
 type Collaborator struct {
-	Id  *string `json:"id,omitempty"`
+	Id *string `json:"id,omitempty"`
 }
 
 // builder开始
 type CollaboratorBuilder struct {
-	id  string
-	idFlag  bool
+	id     string
+	idFlag bool
 }
 
-func NewCollaboratorBuilder() * CollaboratorBuilder{
-   builder := &CollaboratorBuilder{}
-   return builder
+func NewCollaboratorBuilder() *CollaboratorBuilder {
+	builder := &CollaboratorBuilder{}
+	return builder
 }
 
-
-func (builder * CollaboratorBuilder) Id(id string) *CollaboratorBuilder  {
-  builder.id = id
-  builder.idFlag = true
-  return builder
+func (builder *CollaboratorBuilder) Id(id string) *CollaboratorBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
 }
 
-func (builder * CollaboratorBuilder ) Build() *Collaborator {
-   req := &Collaborator{}
-   if builder.idFlag {
-	  req.Id = &builder.id
-	  
-   }
-   return req
+func (builder *CollaboratorBuilder) Build() *Collaborator {
+	req := &Collaborator{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	return req
 }
+
 // builder结束
 
 type Comment struct {
 	Content  *string `json:"content,omitempty"`
-	ParentId  *int64 `json:"parent_id,omitempty,string"`
-	Id  *int64 `json:"id,omitempty,string"`
+	ParentId *int64  `json:"parent_id,omitempty,string"`
+	Id       *int64  `json:"id,omitempty,string"`
 }
 
 // builder开始
 type CommentBuilder struct {
-	content  string
+	content      string
 	contentFlag  bool
-	parentId  int64
-	parentIdFlag  bool
-	id  int64
-	idFlag  bool
+	parentId     int64
+	parentIdFlag bool
+	id           int64
+	idFlag       bool
 }
 
-func NewCommentBuilder() * CommentBuilder{
-   builder := &CommentBuilder{}
-   return builder
+func NewCommentBuilder() *CommentBuilder {
+	builder := &CommentBuilder{}
+	return builder
 }
 
+func (builder *CommentBuilder) Content(content string) *CommentBuilder {
+	builder.content = content
+	builder.contentFlag = true
+	return builder
+}
+func (builder *CommentBuilder) ParentId(parentId int64) *CommentBuilder {
+	builder.parentId = parentId
+	builder.parentIdFlag = true
+	return builder
+}
+func (builder *CommentBuilder) Id(id int64) *CommentBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
 
-func (builder * CommentBuilder) Content(content string) *CommentBuilder  {
-  builder.content = content
-  builder.contentFlag = true
-  return builder
-}
-func (builder * CommentBuilder) ParentId(parentId int64) *CommentBuilder  {
-  builder.parentId = parentId
-  builder.parentIdFlag = true
-  return builder
-}
-func (builder * CommentBuilder) Id(id int64) *CommentBuilder  {
-  builder.id = id
-  builder.idFlag = true
-  return builder
+func (builder *CommentBuilder) Build() *Comment {
+	req := &Comment{}
+	if builder.contentFlag {
+		req.Content = &builder.content
+
+	}
+	if builder.parentIdFlag {
+		req.ParentId = &builder.parentId
+
+	}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	return req
 }
 
-func (builder * CommentBuilder ) Build() *Comment {
-   req := &Comment{}
-   if builder.contentFlag {
-	  req.Content = &builder.content
-	  
-   }
-   if builder.parentIdFlag {
-	  req.ParentId = &builder.parentId
-	  
-   }
-   if builder.idFlag {
-	  req.Id = &builder.id
-	  
-   }
-   return req
-}
 // builder结束
 
 type Due struct {
-	Time  *int64 `json:"time,omitempty,string"`
-	Timezone  *string `json:"timezone,omitempty"`
-	IsAllDay  *bool `json:"is_all_day,omitempty"`
+	Time     *int64  `json:"time,omitempty,string"`
+	Timezone *string `json:"timezone,omitempty"`
+	IsAllDay *bool   `json:"is_all_day,omitempty"`
 }
 
 // builder开始
 type DueBuilder struct {
-	time  int64
-	timeFlag  bool
-	timezone  string
-	timezoneFlag  bool
-	isAllDay  bool
-	isAllDayFlag  bool
+	time         int64
+	timeFlag     bool
+	timezone     string
+	timezoneFlag bool
+	isAllDay     bool
+	isAllDayFlag bool
 }
 
-func NewDueBuilder() * DueBuilder{
-   builder := &DueBuilder{}
-   return builder
+func NewDueBuilder() *DueBuilder {
+	builder := &DueBuilder{}
+	return builder
 }
 
+func (builder *DueBuilder) Time(time int64) *DueBuilder {
+	builder.time = time
+	builder.timeFlag = true
+	return builder
+}
+func (builder *DueBuilder) Timezone(timezone string) *DueBuilder {
+	builder.timezone = timezone
+	builder.timezoneFlag = true
+	return builder
+}
+func (builder *DueBuilder) IsAllDay(isAllDay bool) *DueBuilder {
+	builder.isAllDay = isAllDay
+	builder.isAllDayFlag = true
+	return builder
+}
 
-func (builder * DueBuilder) Time(time int64) *DueBuilder  {
-  builder.time = time
-  builder.timeFlag = true
-  return builder
-}
-func (builder * DueBuilder) Timezone(timezone string) *DueBuilder  {
-  builder.timezone = timezone
-  builder.timezoneFlag = true
-  return builder
-}
-func (builder * DueBuilder) IsAllDay(isAllDay bool) *DueBuilder  {
-  builder.isAllDay = isAllDay
-  builder.isAllDayFlag = true
-  return builder
+func (builder *DueBuilder) Build() *Due {
+	req := &Due{}
+	if builder.timeFlag {
+		req.Time = &builder.time
+
+	}
+	if builder.timezoneFlag {
+		req.Timezone = &builder.timezone
+
+	}
+	if builder.isAllDayFlag {
+		req.IsAllDay = &builder.isAllDay
+
+	}
+	return req
 }
 
-func (builder * DueBuilder ) Build() *Due {
-   req := &Due{}
-   if builder.timeFlag {
-	  req.Time = &builder.time
-	  
-   }
-   if builder.timezoneFlag {
-	  req.Timezone = &builder.timezone
-	  
-   }
-   if builder.isAllDayFlag {
-	  req.IsAllDay = &builder.isAllDay
-	  
-   }
-   return req
-}
 // builder结束
 
 type Follower struct {
-	Id  *string `json:"id,omitempty"`
+	Id *string `json:"id,omitempty"`
 }
 
 // builder开始
 type FollowerBuilder struct {
-	id  string
-	idFlag  bool
+	id     string
+	idFlag bool
 }
 
-func NewFollowerBuilder() * FollowerBuilder{
-   builder := &FollowerBuilder{}
-   return builder
+func NewFollowerBuilder() *FollowerBuilder {
+	builder := &FollowerBuilder{}
+	return builder
 }
 
-
-func (builder * FollowerBuilder) Id(id string) *FollowerBuilder  {
-  builder.id = id
-  builder.idFlag = true
-  return builder
+func (builder *FollowerBuilder) Id(id string) *FollowerBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
 }
 
-func (builder * FollowerBuilder ) Build() *Follower {
-   req := &Follower{}
-   if builder.idFlag {
-	  req.Id = &builder.id
-	  
-   }
-   return req
+func (builder *FollowerBuilder) Build() *Follower {
+	req := &Follower{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	return req
 }
+
 // builder结束
 
 type Href struct {
-	Url  *string `json:"url,omitempty"`
-	Title  *string `json:"title,omitempty"`
+	Url   *string `json:"url,omitempty"`
+	Title *string `json:"title,omitempty"`
 }
 
 // builder开始
 type HrefBuilder struct {
-	url  string
-	urlFlag  bool
-	title  string
-	titleFlag  bool
+	url       string
+	urlFlag   bool
+	title     string
+	titleFlag bool
 }
 
-func NewHrefBuilder() * HrefBuilder{
-   builder := &HrefBuilder{}
-   return builder
+func NewHrefBuilder() *HrefBuilder {
+	builder := &HrefBuilder{}
+	return builder
 }
 
+func (builder *HrefBuilder) Url(url string) *HrefBuilder {
+	builder.url = url
+	builder.urlFlag = true
+	return builder
+}
+func (builder *HrefBuilder) Title(title string) *HrefBuilder {
+	builder.title = title
+	builder.titleFlag = true
+	return builder
+}
 
-func (builder * HrefBuilder) Url(url string) *HrefBuilder  {
-  builder.url = url
-  builder.urlFlag = true
-  return builder
-}
-func (builder * HrefBuilder) Title(title string) *HrefBuilder  {
-  builder.title = title
-  builder.titleFlag = true
-  return builder
+func (builder *HrefBuilder) Build() *Href {
+	req := &Href{}
+	if builder.urlFlag {
+		req.Url = &builder.url
+
+	}
+	if builder.titleFlag {
+		req.Title = &builder.title
+
+	}
+	return req
 }
 
-func (builder * HrefBuilder ) Build() *Href {
-   req := &Href{}
-   if builder.urlFlag {
-	  req.Url = &builder.url
-	  
-   }
-   if builder.titleFlag {
-	  req.Title = &builder.title
-	  
-   }
-   return req
-}
 // builder结束
 
 type Origin struct {
-	PlatformI18nName  *string `json:"platform_i18n_name,omitempty"`
-	Href  *Href `json:"href,omitempty"`
+	PlatformI18nName *string `json:"platform_i18n_name,omitempty"`
+	Href             *Href   `json:"href,omitempty"`
 }
 
 // builder开始
 type OriginBuilder struct {
-	platformI18nName  string
-	platformI18nNameFlag  bool
-	href  *Href
-	hrefFlag  bool
+	platformI18nName     string
+	platformI18nNameFlag bool
+	href                 *Href
+	hrefFlag             bool
 }
 
-func NewOriginBuilder() * OriginBuilder{
-   builder := &OriginBuilder{}
-   return builder
+func NewOriginBuilder() *OriginBuilder {
+	builder := &OriginBuilder{}
+	return builder
 }
 
+func (builder *OriginBuilder) PlatformI18nName(platformI18nName string) *OriginBuilder {
+	builder.platformI18nName = platformI18nName
+	builder.platformI18nNameFlag = true
+	return builder
+}
+func (builder *OriginBuilder) Href(href *Href) *OriginBuilder {
+	builder.href = href
+	builder.hrefFlag = true
+	return builder
+}
 
-func (builder * OriginBuilder) PlatformI18nName(platformI18nName string) *OriginBuilder  {
-  builder.platformI18nName = platformI18nName
-  builder.platformI18nNameFlag = true
-  return builder
-}
-func (builder * OriginBuilder) Href(href *Href) *OriginBuilder  {
-  builder.href = href
-  builder.hrefFlag = true
-  return builder
+func (builder *OriginBuilder) Build() *Origin {
+	req := &Origin{}
+	if builder.platformI18nNameFlag {
+		req.PlatformI18nName = &builder.platformI18nName
+
+	}
+	if builder.hrefFlag {
+		req.Href = builder.href
+	}
+	return req
 }
 
-func (builder * OriginBuilder ) Build() *Origin {
-   req := &Origin{}
-   if builder.platformI18nNameFlag {
-	  req.PlatformI18nName = &builder.platformI18nName
-	  
-   }
-   if builder.hrefFlag {
-	  req.Href = builder.href
-   }
-   return req
-}
 // builder结束
 
 type Reminder struct {
-	Id  *int64 `json:"id,omitempty,string"`
-	RelativeFireMinute  *int `json:"relative_fire_minute,omitempty"`
+	Id                 *int64 `json:"id,omitempty,string"`
+	RelativeFireMinute *int   `json:"relative_fire_minute,omitempty"`
 }
 
 // builder开始
 type ReminderBuilder struct {
-	id  int64
-	idFlag  bool
-	relativeFireMinute  int
-	relativeFireMinuteFlag  bool
+	id                     int64
+	idFlag                 bool
+	relativeFireMinute     int
+	relativeFireMinuteFlag bool
 }
 
-func NewReminderBuilder() * ReminderBuilder{
-   builder := &ReminderBuilder{}
-   return builder
+func NewReminderBuilder() *ReminderBuilder {
+	builder := &ReminderBuilder{}
+	return builder
 }
 
+func (builder *ReminderBuilder) Id(id int64) *ReminderBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *ReminderBuilder) RelativeFireMinute(relativeFireMinute int) *ReminderBuilder {
+	builder.relativeFireMinute = relativeFireMinute
+	builder.relativeFireMinuteFlag = true
+	return builder
+}
 
-func (builder * ReminderBuilder) Id(id int64) *ReminderBuilder  {
-  builder.id = id
-  builder.idFlag = true
-  return builder
-}
-func (builder * ReminderBuilder) RelativeFireMinute(relativeFireMinute int) *ReminderBuilder  {
-  builder.relativeFireMinute = relativeFireMinute
-  builder.relativeFireMinuteFlag = true
-  return builder
+func (builder *ReminderBuilder) Build() *Reminder {
+	req := &Reminder{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.relativeFireMinuteFlag {
+		req.RelativeFireMinute = &builder.relativeFireMinute
+
+	}
+	return req
 }
 
-func (builder * ReminderBuilder ) Build() *Reminder {
-   req := &Reminder{}
-   if builder.idFlag {
-	  req.Id = &builder.id
-	  
-   }
-   if builder.relativeFireMinuteFlag {
-	  req.RelativeFireMinute = &builder.relativeFireMinute
-	  
-   }
-   return req
-}
 // builder结束
 
 type Task struct {
-	Id  *string `json:"id,omitempty"`
-	Summary  *string `json:"summary,omitempty"`
-	Description  *string `json:"description,omitempty"`
-	CompleteTime  *int64 `json:"complete_time,omitempty,string"`
-	CreatorId  *string `json:"creator_id,omitempty"`
-	Extra  *string `json:"extra,omitempty"`
-	CreateTime  *int64 `json:"create_time,omitempty,string"`
-	UpdateTime  *int64 `json:"update_time,omitempty,string"`
-	Due  *Due `json:"due,omitempty"`
-	Origin  *Origin `json:"origin,omitempty"`
-	CanEdit  *bool `json:"can_edit,omitempty"`
-	Custom  *string `json:"custom,omitempty"`
-	Source  *int `json:"source,omitempty"`
-	Followers  []*Follower `json:"followers,omitempty"`
-	Collaborators  []*Collaborator `json:"collaborators,omitempty"`
+	Id            *string         `json:"id,omitempty"`
+	Summary       *string         `json:"summary,omitempty"`
+	Description   *string         `json:"description,omitempty"`
+	CompleteTime  *int64          `json:"complete_time,omitempty,string"`
+	CreatorId     *string         `json:"creator_id,omitempty"`
+	Extra         *string         `json:"extra,omitempty"`
+	CreateTime    *int64          `json:"create_time,omitempty,string"`
+	UpdateTime    *int64          `json:"update_time,omitempty,string"`
+	Due           *Due            `json:"due,omitempty"`
+	Origin        *Origin         `json:"origin,omitempty"`
+	CanEdit       *bool           `json:"can_edit,omitempty"`
+	Custom        *string         `json:"custom,omitempty"`
+	Source        *int            `json:"source,omitempty"`
+	Followers     []*Follower     `json:"followers,omitempty"`
+	Collaborators []*Collaborator `json:"collaborators,omitempty"`
 }
 
 // builder开始
 type TaskBuilder struct {
-	id  string
-	idFlag  bool
-	summary  string
-	summaryFlag  bool
-	description  string
-	descriptionFlag  bool
-	completeTime  int64
+	id                string
+	idFlag            bool
+	summary           string
+	summaryFlag       bool
+	description       string
+	descriptionFlag   bool
+	completeTime      int64
 	completeTimeFlag  bool
-	creatorId  string
-	creatorIdFlag  bool
-	extra  string
-	extraFlag  bool
-	createTime  int64
-	createTimeFlag  bool
-	updateTime  int64
-	updateTimeFlag  bool
-	due  *Due
-	dueFlag  bool
-	origin  *Origin
-	originFlag  bool
-	canEdit  bool
-	canEditFlag  bool
-	custom  string
-	customFlag  bool
-	source  int
-	sourceFlag  bool
-	followers  []*Follower
-	followersFlag  bool
-	collaborators  []*Collaborator
-	collaboratorsFlag  bool
+	creatorId         string
+	creatorIdFlag     bool
+	extra             string
+	extraFlag         bool
+	createTime        int64
+	createTimeFlag    bool
+	updateTime        int64
+	updateTimeFlag    bool
+	due               *Due
+	dueFlag           bool
+	origin            *Origin
+	originFlag        bool
+	canEdit           bool
+	canEditFlag       bool
+	custom            string
+	customFlag        bool
+	source            int
+	sourceFlag        bool
+	followers         []*Follower
+	followersFlag     bool
+	collaborators     []*Collaborator
+	collaboratorsFlag bool
 }
 
-func NewTaskBuilder() * TaskBuilder{
-   builder := &TaskBuilder{}
-   return builder
+func NewTaskBuilder() *TaskBuilder {
+	builder := &TaskBuilder{}
+	return builder
 }
 
+func (builder *TaskBuilder) Id(id string) *TaskBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+func (builder *TaskBuilder) Summary(summary string) *TaskBuilder {
+	builder.summary = summary
+	builder.summaryFlag = true
+	return builder
+}
+func (builder *TaskBuilder) Description(description string) *TaskBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+func (builder *TaskBuilder) CompleteTime(completeTime int64) *TaskBuilder {
+	builder.completeTime = completeTime
+	builder.completeTimeFlag = true
+	return builder
+}
+func (builder *TaskBuilder) CreatorId(creatorId string) *TaskBuilder {
+	builder.creatorId = creatorId
+	builder.creatorIdFlag = true
+	return builder
+}
+func (builder *TaskBuilder) Extra(extra string) *TaskBuilder {
+	builder.extra = extra
+	builder.extraFlag = true
+	return builder
+}
+func (builder *TaskBuilder) CreateTime(createTime int64) *TaskBuilder {
+	builder.createTime = createTime
+	builder.createTimeFlag = true
+	return builder
+}
+func (builder *TaskBuilder) UpdateTime(updateTime int64) *TaskBuilder {
+	builder.updateTime = updateTime
+	builder.updateTimeFlag = true
+	return builder
+}
+func (builder *TaskBuilder) Due(due *Due) *TaskBuilder {
+	builder.due = due
+	builder.dueFlag = true
+	return builder
+}
+func (builder *TaskBuilder) Origin(origin *Origin) *TaskBuilder {
+	builder.origin = origin
+	builder.originFlag = true
+	return builder
+}
+func (builder *TaskBuilder) CanEdit(canEdit bool) *TaskBuilder {
+	builder.canEdit = canEdit
+	builder.canEditFlag = true
+	return builder
+}
+func (builder *TaskBuilder) Custom(custom string) *TaskBuilder {
+	builder.custom = custom
+	builder.customFlag = true
+	return builder
+}
+func (builder *TaskBuilder) Source(source int) *TaskBuilder {
+	builder.source = source
+	builder.sourceFlag = true
+	return builder
+}
+func (builder *TaskBuilder) Followers(followers []*Follower) *TaskBuilder {
+	builder.followers = followers
+	builder.followersFlag = true
+	return builder
+}
+func (builder *TaskBuilder) Collaborators(collaborators []*Collaborator) *TaskBuilder {
+	builder.collaborators = collaborators
+	builder.collaboratorsFlag = true
+	return builder
+}
 
-func (builder * TaskBuilder) Id(id string) *TaskBuilder  {
-  builder.id = id
-  builder.idFlag = true
-  return builder
-}
-func (builder * TaskBuilder) Summary(summary string) *TaskBuilder  {
-  builder.summary = summary
-  builder.summaryFlag = true
-  return builder
-}
-func (builder * TaskBuilder) Description(description string) *TaskBuilder  {
-  builder.description = description
-  builder.descriptionFlag = true
-  return builder
-}
-func (builder * TaskBuilder) CompleteTime(completeTime int64) *TaskBuilder  {
-  builder.completeTime = completeTime
-  builder.completeTimeFlag = true
-  return builder
-}
-func (builder * TaskBuilder) CreatorId(creatorId string) *TaskBuilder  {
-  builder.creatorId = creatorId
-  builder.creatorIdFlag = true
-  return builder
-}
-func (builder * TaskBuilder) Extra(extra string) *TaskBuilder  {
-  builder.extra = extra
-  builder.extraFlag = true
-  return builder
-}
-func (builder * TaskBuilder) CreateTime(createTime int64) *TaskBuilder  {
-  builder.createTime = createTime
-  builder.createTimeFlag = true
-  return builder
-}
-func (builder * TaskBuilder) UpdateTime(updateTime int64) *TaskBuilder  {
-  builder.updateTime = updateTime
-  builder.updateTimeFlag = true
-  return builder
-}
-func (builder * TaskBuilder) Due(due *Due) *TaskBuilder  {
-  builder.due = due
-  builder.dueFlag = true
-  return builder
-}
-func (builder * TaskBuilder) Origin(origin *Origin) *TaskBuilder  {
-  builder.origin = origin
-  builder.originFlag = true
-  return builder
-}
-func (builder * TaskBuilder) CanEdit(canEdit bool) *TaskBuilder  {
-  builder.canEdit = canEdit
-  builder.canEditFlag = true
-  return builder
-}
-func (builder * TaskBuilder) Custom(custom string) *TaskBuilder  {
-  builder.custom = custom
-  builder.customFlag = true
-  return builder
-}
-func (builder * TaskBuilder) Source(source int) *TaskBuilder  {
-  builder.source = source
-  builder.sourceFlag = true
-  return builder
-}
-func (builder * TaskBuilder) Followers(followers []*Follower) *TaskBuilder  {
-  builder.followers = followers
-  builder.followersFlag = true
-  return builder
-}
-func (builder * TaskBuilder) Collaborators(collaborators []*Collaborator) *TaskBuilder  {
-  builder.collaborators = collaborators
-  builder.collaboratorsFlag = true
-  return builder
+func (builder *TaskBuilder) Build() *Task {
+	req := &Task{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.summaryFlag {
+		req.Summary = &builder.summary
+
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	if builder.completeTimeFlag {
+		req.CompleteTime = &builder.completeTime
+
+	}
+	if builder.creatorIdFlag {
+		req.CreatorId = &builder.creatorId
+
+	}
+	if builder.extraFlag {
+		req.Extra = &builder.extra
+
+	}
+	if builder.createTimeFlag {
+		req.CreateTime = &builder.createTime
+
+	}
+	if builder.updateTimeFlag {
+		req.UpdateTime = &builder.updateTime
+
+	}
+	if builder.dueFlag {
+		req.Due = builder.due
+	}
+	if builder.originFlag {
+		req.Origin = builder.origin
+	}
+	if builder.canEditFlag {
+		req.CanEdit = &builder.canEdit
+
+	}
+	if builder.customFlag {
+		req.Custom = &builder.custom
+
+	}
+	if builder.sourceFlag {
+		req.Source = &builder.source
+
+	}
+	if builder.followersFlag {
+		req.Followers = builder.followers
+	}
+	if builder.collaboratorsFlag {
+		req.Collaborators = builder.collaborators
+	}
+	return req
 }
 
-func (builder * TaskBuilder ) Build() *Task {
-   req := &Task{}
-   if builder.idFlag {
-	  req.Id = &builder.id
-	  
-   }
-   if builder.summaryFlag {
-	  req.Summary = &builder.summary
-	  
-   }
-   if builder.descriptionFlag {
-	  req.Description = &builder.description
-	  
-   }
-   if builder.completeTimeFlag {
-	  req.CompleteTime = &builder.completeTime
-	  
-   }
-   if builder.creatorIdFlag {
-	  req.CreatorId = &builder.creatorId
-	  
-   }
-   if builder.extraFlag {
-	  req.Extra = &builder.extra
-	  
-   }
-   if builder.createTimeFlag {
-	  req.CreateTime = &builder.createTime
-	  
-   }
-   if builder.updateTimeFlag {
-	  req.UpdateTime = &builder.updateTime
-	  
-   }
-   if builder.dueFlag {
-	  req.Due = builder.due
-   }
-   if builder.originFlag {
-	  req.Origin = builder.origin
-   }
-   if builder.canEditFlag {
-	  req.CanEdit = &builder.canEdit
-	  
-   }
-   if builder.customFlag {
-	  req.Custom = &builder.custom
-	  
-   }
-   if builder.sourceFlag {
-	  req.Source = &builder.source
-	  
-   }
-   if builder.followersFlag {
-	  req.Followers = builder.followers
-   }
-   if builder.collaboratorsFlag {
-	  req.Collaborators = builder.collaborators
-   }
-   return req
-}
 // builder结束
 
 type UserId struct {
 	UserId  *string `json:"user_id,omitempty"`
 	OpenId  *string `json:"open_id,omitempty"`
-	UnionId  *string `json:"union_id,omitempty"`
+	UnionId *string `json:"union_id,omitempty"`
 }
 
 // builder开始
 type UserIdBuilder struct {
-	userId  string
+	userId      string
 	userIdFlag  bool
-	openId  string
+	openId      string
 	openIdFlag  bool
-	unionId  string
-	unionIdFlag  bool
+	unionId     string
+	unionIdFlag bool
 }
 
-func NewUserIdBuilder() * UserIdBuilder{
-   builder := &UserIdBuilder{}
-   return builder
+func NewUserIdBuilder() *UserIdBuilder {
+	builder := &UserIdBuilder{}
+	return builder
 }
 
+func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
+	builder.openId = openId
+	builder.openIdFlag = true
+	return builder
+}
+func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
+	builder.unionId = unionId
+	builder.unionIdFlag = true
+	return builder
+}
 
-func (builder * UserIdBuilder) UserId(userId string) *UserIdBuilder  {
-  builder.userId = userId
-  builder.userIdFlag = true
-  return builder
-}
-func (builder * UserIdBuilder) OpenId(openId string) *UserIdBuilder  {
-  builder.openId = openId
-  builder.openIdFlag = true
-  return builder
-}
-func (builder * UserIdBuilder) UnionId(unionId string) *UserIdBuilder  {
-  builder.unionId = unionId
-  builder.unionIdFlag = true
-  return builder
+func (builder *UserIdBuilder) Build() *UserId {
+	req := &UserId{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.openIdFlag {
+		req.OpenId = &builder.openId
+
+	}
+	if builder.unionIdFlag {
+		req.UnionId = &builder.unionId
+
+	}
+	return req
 }
 
-func (builder * UserIdBuilder ) Build() *UserId {
-   req := &UserId{}
-   if builder.userIdFlag {
-	  req.UserId = &builder.userId
-	  
-   }
-   if builder.openIdFlag {
-	  req.OpenId = &builder.openId
-	  
-   }
-   if builder.unionIdFlag {
-	  req.UnionId = &builder.unionId
-	  
-   }
-   return req
-}
 // builder结束
 
 type UserIdList struct {
-	UserIdList  []*UserId `json:"user_id_list,omitempty"`
+	UserIdList []*UserId `json:"user_id_list,omitempty"`
 }
 
 // builder开始
 type UserIdListBuilder struct {
-	userIdList  []*UserId
-	userIdListFlag  bool
+	userIdList     []*UserId
+	userIdListFlag bool
 }
 
-func NewUserIdListBuilder() * UserIdListBuilder{
-   builder := &UserIdListBuilder{}
-   return builder
+func NewUserIdListBuilder() *UserIdListBuilder {
+	builder := &UserIdListBuilder{}
+	return builder
 }
 
-
-func (builder * UserIdListBuilder) UserIdList(userIdList []*UserId) *UserIdListBuilder  {
-  builder.userIdList = userIdList
-  builder.userIdListFlag = true
-  return builder
+func (builder *UserIdListBuilder) UserIdList(userIdList []*UserId) *UserIdListBuilder {
+	builder.userIdList = userIdList
+	builder.userIdListFlag = true
+	return builder
 }
 
-func (builder * UserIdListBuilder ) Build() *UserIdList {
-   req := &UserIdList{}
-   if builder.userIdListFlag {
-	  req.UserIdList = builder.userIdList
-   }
-   return req
+func (builder *UserIdListBuilder) Build() *UserIdList {
+	req := &UserIdList{}
+	if builder.userIdListFlag {
+		req.UserIdList = builder.userIdList
+	}
+	return req
 }
+
 // builder结束
-
 
 // 生成请求和响应结果类型，以及请求对象的Builder构造器
 
-
 // 1.4 生成请求的builder结构体
 type CompleteTaskReqBuilder struct {
-	taskId  string
-	taskIdFlag  bool
-
+	taskId     string
+	taskIdFlag bool
 }
 
 // 生成请求的New构造器
-func NewCompleteTaskReqBuilder() * CompleteTaskReqBuilder{
-   builder := &CompleteTaskReqBuilder{}
-   return builder
+func NewCompleteTaskReqBuilder() *CompleteTaskReqBuilder {
+	builder := &CompleteTaskReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * CompleteTaskReqBuilder) TaskId(taskId string) *CompleteTaskReqBuilder  {
-  builder.taskId = taskId
-  builder.taskIdFlag = true
-  return builder
+func (builder *CompleteTaskReqBuilder) TaskId(taskId string) *CompleteTaskReqBuilder {
+	builder.taskId = taskId
+	builder.taskIdFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * CompleteTaskReqBuilder ) Build() *CompleteTaskReq {
-   req := &CompleteTaskReq{}
-   if builder.taskIdFlag {
-	  req.TaskId = builder.taskId
-   }
-   return req
+func (builder *CompleteTaskReqBuilder) Build() *CompleteTaskReq {
+	req := &CompleteTaskReq{}
+	if builder.taskIdFlag {
+		req.TaskId = builder.taskId
+	}
+	return req
 }
-
 
 type CompleteTaskReq struct {
-	TaskId  string `path:"task_id"`
-
+	TaskId string `path:"task_id"`
 }
-
 
 type CompleteTaskResp struct {
 	*larkcore.RawResponse `json:"-"`
@@ -671,55 +659,51 @@ func (resp *CompleteTaskResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type CreateTaskReqBuilder struct {
-	userIdType  string
-	userIdTypeFlag  bool
-	task *Task
-	taskFlag bool
-
+	userIdType     string
+	userIdTypeFlag bool
+	task           *Task
+	taskFlag       bool
 }
 
 // 生成请求的New构造器
-func NewCreateTaskReqBuilder() * CreateTaskReqBuilder{
-   builder := &CreateTaskReqBuilder{}
-   return builder
+func NewCreateTaskReqBuilder() *CreateTaskReqBuilder {
+	builder := &CreateTaskReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * CreateTaskReqBuilder) UserIdType(userIdType string) *CreateTaskReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *CreateTaskReqBuilder) UserIdType(userIdType string) *CreateTaskReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
-func (builder * CreateTaskReqBuilder) Task(task *Task) *CreateTaskReqBuilder  {
-  builder.task = task
-  builder.taskFlag = true
-  return builder
+func (builder *CreateTaskReqBuilder) Task(task *Task) *CreateTaskReqBuilder {
+	builder.task = task
+	builder.taskFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * CreateTaskReqBuilder ) Build() *CreateTaskReq {
-   req := &CreateTaskReq{}
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   if builder.taskFlag {
-	  req.Task = builder.task
-   }
-   return req
+func (builder *CreateTaskReqBuilder) Build() *CreateTaskReq {
+	req := &CreateTaskReq{}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	if builder.taskFlag {
+		req.Task = builder.task
+	}
+	return req
 }
 
-
 type CreateTaskReq struct {
-	UserIdType  *string `query:"user_id_type"`
-	Task *Task `body:""`
-
+	UserIdType *string `query:"user_id_type"`
+	Task       *Task   `body:""`
 }
 
 type CreateTaskRespData struct {
-	Task  *Task `json:"task,omitempty"`
+	Task *Task `json:"task,omitempty"`
 }
 
 type CreateTaskResp struct {
@@ -732,42 +716,37 @@ func (resp *CreateTaskResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type DeleteTaskReqBuilder struct {
-	taskId  string
-	taskIdFlag  bool
-
+	taskId     string
+	taskIdFlag bool
 }
 
 // 生成请求的New构造器
-func NewDeleteTaskReqBuilder() * DeleteTaskReqBuilder{
-   builder := &DeleteTaskReqBuilder{}
-   return builder
+func NewDeleteTaskReqBuilder() *DeleteTaskReqBuilder {
+	builder := &DeleteTaskReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * DeleteTaskReqBuilder) TaskId(taskId string) *DeleteTaskReqBuilder  {
-  builder.taskId = taskId
-  builder.taskIdFlag = true
-  return builder
+func (builder *DeleteTaskReqBuilder) TaskId(taskId string) *DeleteTaskReqBuilder {
+	builder.taskId = taskId
+	builder.taskIdFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * DeleteTaskReqBuilder ) Build() *DeleteTaskReq {
-   req := &DeleteTaskReq{}
-   if builder.taskIdFlag {
-	  req.TaskId = builder.taskId
-   }
-   return req
+func (builder *DeleteTaskReqBuilder) Build() *DeleteTaskReq {
+	req := &DeleteTaskReq{}
+	if builder.taskIdFlag {
+		req.TaskId = builder.taskId
+	}
+	return req
 }
-
 
 type DeleteTaskReq struct {
-	TaskId  string `path:"task_id"`
-
+	TaskId string `path:"task_id"`
 }
-
 
 type DeleteTaskResp struct {
 	*larkcore.RawResponse `json:"-"`
@@ -778,55 +757,51 @@ func (resp *DeleteTaskResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type GetTaskReqBuilder struct {
-	taskId  string
-	taskIdFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-
+	taskId         string
+	taskIdFlag     bool
+	userIdType     string
+	userIdTypeFlag bool
 }
 
 // 生成请求的New构造器
-func NewGetTaskReqBuilder() * GetTaskReqBuilder{
-   builder := &GetTaskReqBuilder{}
-   return builder
+func NewGetTaskReqBuilder() *GetTaskReqBuilder {
+	builder := &GetTaskReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * GetTaskReqBuilder) TaskId(taskId string) *GetTaskReqBuilder  {
-  builder.taskId = taskId
-  builder.taskIdFlag = true
-  return builder
+func (builder *GetTaskReqBuilder) TaskId(taskId string) *GetTaskReqBuilder {
+	builder.taskId = taskId
+	builder.taskIdFlag = true
+	return builder
 }
-func (builder * GetTaskReqBuilder) UserIdType(userIdType string) *GetTaskReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *GetTaskReqBuilder) UserIdType(userIdType string) *GetTaskReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * GetTaskReqBuilder ) Build() *GetTaskReq {
-   req := &GetTaskReq{}
-   if builder.taskIdFlag {
-	  req.TaskId = builder.taskId
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   return req
+func (builder *GetTaskReqBuilder) Build() *GetTaskReq {
+	req := &GetTaskReq{}
+	if builder.taskIdFlag {
+		req.TaskId = builder.taskId
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	return req
 }
 
-
 type GetTaskReq struct {
-	TaskId  string `path:"task_id"`
-	UserIdType  *string `query:"user_id_type"`
-
+	TaskId     string  `path:"task_id"`
+	UserIdType *string `query:"user_id_type"`
 }
 
 type GetTaskRespData struct {
-	Task  *Task `json:"task,omitempty"`
+	Task *Task `json:"task,omitempty"`
 }
 
 type GetTaskResp struct {
@@ -839,108 +814,104 @@ func (resp *GetTaskResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type ListTaskReqBuilder struct {
-	pageSize  int
-	pageSizeFlag  bool
-	pageToken  string
-	pageTokenFlag  bool
-	startCreateTime  int64
-	startCreateTimeFlag  bool
-	endCreateTime  int64
-	endCreateTimeFlag  bool
-	taskCompleted  bool
-	taskCompletedFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-	limit int
-
+	pageSize            int
+	pageSizeFlag        bool
+	pageToken           string
+	pageTokenFlag       bool
+	startCreateTime     int64
+	startCreateTimeFlag bool
+	endCreateTime       int64
+	endCreateTimeFlag   bool
+	taskCompleted       bool
+	taskCompletedFlag   bool
+	userIdType          string
+	userIdTypeFlag      bool
+	limit               int
 }
 
 // 生成请求的New构造器
-func NewListTaskReqBuilder() * ListTaskReqBuilder{
-   builder := &ListTaskReqBuilder{}
-   return builder
+func NewListTaskReqBuilder() *ListTaskReqBuilder {
+	builder := &ListTaskReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * ListTaskReqBuilder) Limit(limit int ) *ListTaskReqBuilder  {
-  builder.limit = limit
-  return builder
+func (builder *ListTaskReqBuilder) Limit(limit int) *ListTaskReqBuilder {
+	builder.limit = limit
+	return builder
 }
-func (builder * ListTaskReqBuilder) PageSize(pageSize int) *ListTaskReqBuilder  {
-  builder.pageSize = pageSize
-  builder.pageSizeFlag = true
-  return builder
+func (builder *ListTaskReqBuilder) PageSize(pageSize int) *ListTaskReqBuilder {
+	builder.pageSize = pageSize
+	builder.pageSizeFlag = true
+	return builder
 }
-func (builder * ListTaskReqBuilder) PageToken(pageToken string) *ListTaskReqBuilder  {
-  builder.pageToken = pageToken
-  builder.pageTokenFlag = true
-  return builder
+func (builder *ListTaskReqBuilder) PageToken(pageToken string) *ListTaskReqBuilder {
+	builder.pageToken = pageToken
+	builder.pageTokenFlag = true
+	return builder
 }
-func (builder * ListTaskReqBuilder) StartCreateTime(startCreateTime int64) *ListTaskReqBuilder  {
-  builder.startCreateTime = startCreateTime
-  builder.startCreateTimeFlag = true
-  return builder
+func (builder *ListTaskReqBuilder) StartCreateTime(startCreateTime int64) *ListTaskReqBuilder {
+	builder.startCreateTime = startCreateTime
+	builder.startCreateTimeFlag = true
+	return builder
 }
-func (builder * ListTaskReqBuilder) EndCreateTime(endCreateTime int64) *ListTaskReqBuilder  {
-  builder.endCreateTime = endCreateTime
-  builder.endCreateTimeFlag = true
-  return builder
+func (builder *ListTaskReqBuilder) EndCreateTime(endCreateTime int64) *ListTaskReqBuilder {
+	builder.endCreateTime = endCreateTime
+	builder.endCreateTimeFlag = true
+	return builder
 }
-func (builder * ListTaskReqBuilder) TaskCompleted(taskCompleted bool) *ListTaskReqBuilder  {
-  builder.taskCompleted = taskCompleted
-  builder.taskCompletedFlag = true
-  return builder
+func (builder *ListTaskReqBuilder) TaskCompleted(taskCompleted bool) *ListTaskReqBuilder {
+	builder.taskCompleted = taskCompleted
+	builder.taskCompletedFlag = true
+	return builder
 }
-func (builder * ListTaskReqBuilder) UserIdType(userIdType string) *ListTaskReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *ListTaskReqBuilder) UserIdType(userIdType string) *ListTaskReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * ListTaskReqBuilder ) Build() *ListTaskReq {
-   req := &ListTaskReq{}
-   req.Limit = builder.limit
-   if builder.pageSizeFlag {
-	  req.PageSize = &builder.pageSize
-   }
-   if builder.pageTokenFlag {
-	  req.PageToken = &builder.pageToken
-   }
-   if builder.startCreateTimeFlag {
-	  req.StartCreateTime = &builder.startCreateTime
-   }
-   if builder.endCreateTimeFlag {
-	  req.EndCreateTime = &builder.endCreateTime
-   }
-   if builder.taskCompletedFlag {
-	  req.TaskCompleted = &builder.taskCompleted
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   return req
+func (builder *ListTaskReqBuilder) Build() *ListTaskReq {
+	req := &ListTaskReq{}
+	req.Limit = builder.limit
+	if builder.pageSizeFlag {
+		req.PageSize = &builder.pageSize
+	}
+	if builder.pageTokenFlag {
+		req.PageToken = &builder.pageToken
+	}
+	if builder.startCreateTimeFlag {
+		req.StartCreateTime = &builder.startCreateTime
+	}
+	if builder.endCreateTimeFlag {
+		req.EndCreateTime = &builder.endCreateTime
+	}
+	if builder.taskCompletedFlag {
+		req.TaskCompleted = &builder.taskCompleted
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	return req
 }
 
-
 type ListTaskReq struct {
-	PageSize  *int `query:"page_size"`
-	PageToken  *string `query:"page_token"`
-	StartCreateTime  *int64 `query:"start_create_time"`
-	EndCreateTime  *int64 `query:"end_create_time"`
-	TaskCompleted  *bool `query:"task_completed"`
-	UserIdType  *string `query:"user_id_type"`
-	Limit int
-
+	PageSize        *int    `query:"page_size"`
+	PageToken       *string `query:"page_token"`
+	StartCreateTime *int64  `query:"start_create_time"`
+	EndCreateTime   *int64  `query:"end_create_time"`
+	TaskCompleted   *bool   `query:"task_completed"`
+	UserIdType      *string `query:"user_id_type"`
+	Limit           int
 }
 
 type ListTaskRespData struct {
-	Items  []*Task `json:"items,omitempty"`
-	PageToken  *string `json:"page_token,omitempty"`
-	HasMore  *bool `json:"has_more,omitempty"`
+	Items     []*Task `json:"items,omitempty"`
+	PageToken *string `json:"page_token,omitempty"`
+	HasMore   *bool   `json:"has_more,omitempty"`
 }
 
 type ListTaskResp struct {
@@ -954,142 +925,139 @@ func (resp *ListTaskResp) Success() bool {
 }
 
 type PatchTaskReqBodyBuilder struct {
-	task  *Task
-	taskFlag  bool
-	updateFields  []string
-	updateFieldsFlag  bool
+	task             *Task
+	taskFlag         bool
+	updateFields     []string
+	updateFieldsFlag bool
 }
 
 // 生成body的New构造器
-func NewPatchTaskReqBodyBuilder() * PatchTaskReqBodyBuilder{
-  builder := &PatchTaskReqBodyBuilder{}
-  return builder
+func NewPatchTaskReqBodyBuilder() *PatchTaskReqBodyBuilder {
+	builder := &PatchTaskReqBodyBuilder{}
+	return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder * PatchTaskReqBodyBuilder ) Task(task *Task) *PatchTaskReqBodyBuilder {
-  builder.task = task
-  builder.taskFlag = true
-  return builder
+func (builder *PatchTaskReqBodyBuilder) Task(task *Task) *PatchTaskReqBodyBuilder {
+	builder.task = task
+	builder.taskFlag = true
+	return builder
 }
-func (builder * PatchTaskReqBodyBuilder ) UpdateFields(updateFields []string) *PatchTaskReqBodyBuilder {
-  builder.updateFields = updateFields
-  builder.updateFieldsFlag = true
-  return builder
+func (builder *PatchTaskReqBodyBuilder) UpdateFields(updateFields []string) *PatchTaskReqBodyBuilder {
+	builder.updateFields = updateFields
+	builder.updateFieldsFlag = true
+	return builder
 }
-
 
 // 1.3 生成body的build方法
-func (builder * PatchTaskReqBodyBuilder ) Build() *PatchTaskReqBody {
-   req := &PatchTaskReqBody{}
-   if builder.taskFlag {
-	  req.Task = builder.task
-   }
-   if builder.updateFieldsFlag {
-	  req.UpdateFields = builder.updateFields
-   }
-   return req
+func (builder *PatchTaskReqBodyBuilder) Build() *PatchTaskReqBody {
+	req := &PatchTaskReqBody{}
+	if builder.taskFlag {
+		req.Task = builder.task
+	}
+	if builder.updateFieldsFlag {
+		req.UpdateFields = builder.updateFields
+	}
+	return req
 }
 
 // 上传文件path开始
 type PatchTaskPathReqBodyBuilder struct {
-	task  *Task
-	taskFlag  bool
-	updateFields  []string
-	updateFieldsFlag  bool
+	task             *Task
+	taskFlag         bool
+	updateFields     []string
+	updateFieldsFlag bool
 }
 
-func NewPatchTaskPathReqBodyBuilder() * PatchTaskPathReqBodyBuilder{
-  builder := &PatchTaskPathReqBodyBuilder{}
-  return builder
+func NewPatchTaskPathReqBodyBuilder() *PatchTaskPathReqBodyBuilder {
+	builder := &PatchTaskPathReqBodyBuilder{}
+	return builder
 }
-func (builder * PatchTaskPathReqBodyBuilder ) Task(task *Task) *PatchTaskPathReqBodyBuilder {
-  builder.task = task
-  builder.taskFlag = true
-  return builder
+func (builder *PatchTaskPathReqBodyBuilder) Task(task *Task) *PatchTaskPathReqBodyBuilder {
+	builder.task = task
+	builder.taskFlag = true
+	return builder
 }
-func (builder * PatchTaskPathReqBodyBuilder ) UpdateFields(updateFields []string) *PatchTaskPathReqBodyBuilder {
-  builder.updateFields = updateFields
-  builder.updateFieldsFlag = true
-  return builder
+func (builder *PatchTaskPathReqBodyBuilder) UpdateFields(updateFields []string) *PatchTaskPathReqBodyBuilder {
+	builder.updateFields = updateFields
+	builder.updateFieldsFlag = true
+	return builder
 }
 
-
-func (builder * PatchTaskPathReqBodyBuilder ) Build() (*PatchTaskReqBody, error) {
-   req := &PatchTaskReqBody{}
-   if builder.taskFlag {
-	   req.Task = builder.task
-   }
-   if builder.updateFieldsFlag {
-	   req.UpdateFields = builder.updateFields
-   }
-   return req, nil
+func (builder *PatchTaskPathReqBodyBuilder) Build() (*PatchTaskReqBody, error) {
+	req := &PatchTaskReqBody{}
+	if builder.taskFlag {
+		req.Task = builder.task
+	}
+	if builder.updateFieldsFlag {
+		req.UpdateFields = builder.updateFields
+	}
+	return req, nil
 }
+
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type PatchTaskReqBuilder struct {
-	taskId  string
-	taskIdFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-	body *PatchTaskReqBody
-	bodyFlag bool
-
+	taskId         string
+	taskIdFlag     bool
+	userIdType     string
+	userIdTypeFlag bool
+	body           *PatchTaskReqBody
+	bodyFlag       bool
 }
 
 // 生成请求的New构造器
-func NewPatchTaskReqBuilder() * PatchTaskReqBuilder{
-   builder := &PatchTaskReqBuilder{}
-   return builder
+func NewPatchTaskReqBuilder() *PatchTaskReqBuilder {
+	builder := &PatchTaskReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * PatchTaskReqBuilder) TaskId(taskId string) *PatchTaskReqBuilder  {
-  builder.taskId = taskId
-  builder.taskIdFlag = true
-  return builder
+func (builder *PatchTaskReqBuilder) TaskId(taskId string) *PatchTaskReqBuilder {
+	builder.taskId = taskId
+	builder.taskIdFlag = true
+	return builder
 }
-func (builder * PatchTaskReqBuilder) UserIdType(userIdType string) *PatchTaskReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *PatchTaskReqBuilder) UserIdType(userIdType string) *PatchTaskReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
-func (builder * PatchTaskReqBuilder) Body(body *PatchTaskReqBody) *PatchTaskReqBuilder  {
-  builder.body = body
-  builder.bodyFlag = true
-  return builder
+func (builder *PatchTaskReqBuilder) Body(body *PatchTaskReqBody) *PatchTaskReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * PatchTaskReqBuilder ) Build() *PatchTaskReq {
-   req := &PatchTaskReq{}
-   if builder.taskIdFlag {
-	  req.TaskId = builder.taskId
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   if builder.bodyFlag {
-	  req.Body = builder.body
-   }
-   return req
+func (builder *PatchTaskReqBuilder) Build() *PatchTaskReq {
+	req := &PatchTaskReq{}
+	if builder.taskIdFlag {
+		req.TaskId = builder.taskId
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	if builder.bodyFlag {
+		req.Body = builder.body
+	}
+	return req
 }
 
 type PatchTaskReqBody struct {
-	Task  *Task `json:"task,omitempty"`
-	UpdateFields  []string `json:"update_fields,omitempty"`
+	Task         *Task    `json:"task,omitempty"`
+	UpdateFields []string `json:"update_fields,omitempty"`
 }
 
 type PatchTaskReq struct {
-	TaskId  string `path:"task_id"`
-	UserIdType  *string `query:"user_id_type"`
-	Body *PatchTaskReqBody `body:""`
-
+	TaskId     string            `path:"task_id"`
+	UserIdType *string           `query:"user_id_type"`
+	Body       *PatchTaskReqBody `body:""`
 }
 
 type PatchTaskRespData struct {
-	Task  *Task `json:"task,omitempty"`
+	Task *Task `json:"task,omitempty"`
 }
 
 type PatchTaskResp struct {
@@ -1102,42 +1070,37 @@ func (resp *PatchTaskResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type UncompleteTaskReqBuilder struct {
-	taskId  string
-	taskIdFlag  bool
-
+	taskId     string
+	taskIdFlag bool
 }
 
 // 生成请求的New构造器
-func NewUncompleteTaskReqBuilder() * UncompleteTaskReqBuilder{
-   builder := &UncompleteTaskReqBuilder{}
-   return builder
+func NewUncompleteTaskReqBuilder() *UncompleteTaskReqBuilder {
+	builder := &UncompleteTaskReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * UncompleteTaskReqBuilder) TaskId(taskId string) *UncompleteTaskReqBuilder  {
-  builder.taskId = taskId
-  builder.taskIdFlag = true
-  return builder
+func (builder *UncompleteTaskReqBuilder) TaskId(taskId string) *UncompleteTaskReqBuilder {
+	builder.taskId = taskId
+	builder.taskIdFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * UncompleteTaskReqBuilder ) Build() *UncompleteTaskReq {
-   req := &UncompleteTaskReq{}
-   if builder.taskIdFlag {
-	  req.TaskId = builder.taskId
-   }
-   return req
+func (builder *UncompleteTaskReqBuilder) Build() *UncompleteTaskReq {
+	req := &UncompleteTaskReq{}
+	if builder.taskIdFlag {
+		req.TaskId = builder.taskId
+	}
+	return req
 }
-
 
 type UncompleteTaskReq struct {
-	TaskId  string `path:"task_id"`
-
+	TaskId string `path:"task_id"`
 }
-
 
 type UncompleteTaskResp struct {
 	*larkcore.RawResponse `json:"-"`
@@ -1148,66 +1111,62 @@ func (resp *UncompleteTaskResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type CreateTaskCollaboratorReqBuilder struct {
-	taskId  string
-	taskIdFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-	collaborator *Collaborator
+	taskId           string
+	taskIdFlag       bool
+	userIdType       string
+	userIdTypeFlag   bool
+	collaborator     *Collaborator
 	collaboratorFlag bool
-
 }
 
 // 生成请求的New构造器
-func NewCreateTaskCollaboratorReqBuilder() * CreateTaskCollaboratorReqBuilder{
-   builder := &CreateTaskCollaboratorReqBuilder{}
-   return builder
+func NewCreateTaskCollaboratorReqBuilder() *CreateTaskCollaboratorReqBuilder {
+	builder := &CreateTaskCollaboratorReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * CreateTaskCollaboratorReqBuilder) TaskId(taskId string) *CreateTaskCollaboratorReqBuilder  {
-  builder.taskId = taskId
-  builder.taskIdFlag = true
-  return builder
+func (builder *CreateTaskCollaboratorReqBuilder) TaskId(taskId string) *CreateTaskCollaboratorReqBuilder {
+	builder.taskId = taskId
+	builder.taskIdFlag = true
+	return builder
 }
-func (builder * CreateTaskCollaboratorReqBuilder) UserIdType(userIdType string) *CreateTaskCollaboratorReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *CreateTaskCollaboratorReqBuilder) UserIdType(userIdType string) *CreateTaskCollaboratorReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
-func (builder * CreateTaskCollaboratorReqBuilder) Collaborator(collaborator *Collaborator) *CreateTaskCollaboratorReqBuilder  {
-  builder.collaborator = collaborator
-  builder.collaboratorFlag = true
-  return builder
+func (builder *CreateTaskCollaboratorReqBuilder) Collaborator(collaborator *Collaborator) *CreateTaskCollaboratorReqBuilder {
+	builder.collaborator = collaborator
+	builder.collaboratorFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * CreateTaskCollaboratorReqBuilder ) Build() *CreateTaskCollaboratorReq {
-   req := &CreateTaskCollaboratorReq{}
-   if builder.taskIdFlag {
-	  req.TaskId = builder.taskId
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   if builder.collaboratorFlag {
-	  req.Collaborator = builder.collaborator
-   }
-   return req
+func (builder *CreateTaskCollaboratorReqBuilder) Build() *CreateTaskCollaboratorReq {
+	req := &CreateTaskCollaboratorReq{}
+	if builder.taskIdFlag {
+		req.TaskId = builder.taskId
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	if builder.collaboratorFlag {
+		req.Collaborator = builder.collaborator
+	}
+	return req
 }
 
-
 type CreateTaskCollaboratorReq struct {
-	TaskId  string `path:"task_id"`
-	UserIdType  *string `query:"user_id_type"`
+	TaskId       string        `path:"task_id"`
+	UserIdType   *string       `query:"user_id_type"`
 	Collaborator *Collaborator `body:""`
-
 }
 
 type CreateTaskCollaboratorRespData struct {
-	Collaborator  *Collaborator `json:"collaborator,omitempty"`
+	Collaborator *Collaborator `json:"collaborator,omitempty"`
 }
 
 type CreateTaskCollaboratorResp struct {
@@ -1220,53 +1179,48 @@ func (resp *CreateTaskCollaboratorResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type DeleteTaskCollaboratorReqBuilder struct {
-	taskId  string
-	taskIdFlag  bool
-	collaboratorId  string
-	collaboratorIdFlag  bool
-
+	taskId             string
+	taskIdFlag         bool
+	collaboratorId     string
+	collaboratorIdFlag bool
 }
 
 // 生成请求的New构造器
-func NewDeleteTaskCollaboratorReqBuilder() * DeleteTaskCollaboratorReqBuilder{
-   builder := &DeleteTaskCollaboratorReqBuilder{}
-   return builder
+func NewDeleteTaskCollaboratorReqBuilder() *DeleteTaskCollaboratorReqBuilder {
+	builder := &DeleteTaskCollaboratorReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * DeleteTaskCollaboratorReqBuilder) TaskId(taskId string) *DeleteTaskCollaboratorReqBuilder  {
-  builder.taskId = taskId
-  builder.taskIdFlag = true
-  return builder
+func (builder *DeleteTaskCollaboratorReqBuilder) TaskId(taskId string) *DeleteTaskCollaboratorReqBuilder {
+	builder.taskId = taskId
+	builder.taskIdFlag = true
+	return builder
 }
-func (builder * DeleteTaskCollaboratorReqBuilder) CollaboratorId(collaboratorId string) *DeleteTaskCollaboratorReqBuilder  {
-  builder.collaboratorId = collaboratorId
-  builder.collaboratorIdFlag = true
-  return builder
+func (builder *DeleteTaskCollaboratorReqBuilder) CollaboratorId(collaboratorId string) *DeleteTaskCollaboratorReqBuilder {
+	builder.collaboratorId = collaboratorId
+	builder.collaboratorIdFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * DeleteTaskCollaboratorReqBuilder ) Build() *DeleteTaskCollaboratorReq {
-   req := &DeleteTaskCollaboratorReq{}
-   if builder.taskIdFlag {
-	  req.TaskId = builder.taskId
-   }
-   if builder.collaboratorIdFlag {
-	  req.CollaboratorId = builder.collaboratorId
-   }
-   return req
+func (builder *DeleteTaskCollaboratorReqBuilder) Build() *DeleteTaskCollaboratorReq {
+	req := &DeleteTaskCollaboratorReq{}
+	if builder.taskIdFlag {
+		req.TaskId = builder.taskId
+	}
+	if builder.collaboratorIdFlag {
+		req.CollaboratorId = builder.collaboratorId
+	}
+	return req
 }
-
 
 type DeleteTaskCollaboratorReq struct {
-	TaskId  string `path:"task_id"`
-	CollaboratorId  string `path:"collaborator_id"`
-
+	TaskId         string `path:"task_id"`
+	CollaboratorId string `path:"collaborator_id"`
 }
-
 
 type DeleteTaskCollaboratorResp struct {
 	*larkcore.RawResponse `json:"-"`
@@ -1277,86 +1231,82 @@ func (resp *DeleteTaskCollaboratorResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type ListTaskCollaboratorReqBuilder struct {
-	taskId  string
-	taskIdFlag  bool
-	pageSize  int
-	pageSizeFlag  bool
-	pageToken  string
+	taskId         string
+	taskIdFlag     bool
+	pageSize       int
+	pageSizeFlag   bool
+	pageToken      string
 	pageTokenFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-	limit int
-
+	userIdType     string
+	userIdTypeFlag bool
+	limit          int
 }
 
 // 生成请求的New构造器
-func NewListTaskCollaboratorReqBuilder() * ListTaskCollaboratorReqBuilder{
-   builder := &ListTaskCollaboratorReqBuilder{}
-   return builder
+func NewListTaskCollaboratorReqBuilder() *ListTaskCollaboratorReqBuilder {
+	builder := &ListTaskCollaboratorReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * ListTaskCollaboratorReqBuilder) Limit(limit int ) *ListTaskCollaboratorReqBuilder  {
-  builder.limit = limit
-  return builder
+func (builder *ListTaskCollaboratorReqBuilder) Limit(limit int) *ListTaskCollaboratorReqBuilder {
+	builder.limit = limit
+	return builder
 }
-func (builder * ListTaskCollaboratorReqBuilder) TaskId(taskId string) *ListTaskCollaboratorReqBuilder  {
-  builder.taskId = taskId
-  builder.taskIdFlag = true
-  return builder
+func (builder *ListTaskCollaboratorReqBuilder) TaskId(taskId string) *ListTaskCollaboratorReqBuilder {
+	builder.taskId = taskId
+	builder.taskIdFlag = true
+	return builder
 }
-func (builder * ListTaskCollaboratorReqBuilder) PageSize(pageSize int) *ListTaskCollaboratorReqBuilder  {
-  builder.pageSize = pageSize
-  builder.pageSizeFlag = true
-  return builder
+func (builder *ListTaskCollaboratorReqBuilder) PageSize(pageSize int) *ListTaskCollaboratorReqBuilder {
+	builder.pageSize = pageSize
+	builder.pageSizeFlag = true
+	return builder
 }
-func (builder * ListTaskCollaboratorReqBuilder) PageToken(pageToken string) *ListTaskCollaboratorReqBuilder  {
-  builder.pageToken = pageToken
-  builder.pageTokenFlag = true
-  return builder
+func (builder *ListTaskCollaboratorReqBuilder) PageToken(pageToken string) *ListTaskCollaboratorReqBuilder {
+	builder.pageToken = pageToken
+	builder.pageTokenFlag = true
+	return builder
 }
-func (builder * ListTaskCollaboratorReqBuilder) UserIdType(userIdType string) *ListTaskCollaboratorReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *ListTaskCollaboratorReqBuilder) UserIdType(userIdType string) *ListTaskCollaboratorReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * ListTaskCollaboratorReqBuilder ) Build() *ListTaskCollaboratorReq {
-   req := &ListTaskCollaboratorReq{}
-   req.Limit = builder.limit
-   if builder.taskIdFlag {
-	  req.TaskId = builder.taskId
-   }
-   if builder.pageSizeFlag {
-	  req.PageSize = &builder.pageSize
-   }
-   if builder.pageTokenFlag {
-	  req.PageToken = &builder.pageToken
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   return req
+func (builder *ListTaskCollaboratorReqBuilder) Build() *ListTaskCollaboratorReq {
+	req := &ListTaskCollaboratorReq{}
+	req.Limit = builder.limit
+	if builder.taskIdFlag {
+		req.TaskId = builder.taskId
+	}
+	if builder.pageSizeFlag {
+		req.PageSize = &builder.pageSize
+	}
+	if builder.pageTokenFlag {
+		req.PageToken = &builder.pageToken
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	return req
 }
 
-
 type ListTaskCollaboratorReq struct {
-	TaskId  string `path:"task_id"`
-	PageSize  *int `query:"page_size"`
+	TaskId     string  `path:"task_id"`
+	PageSize   *int    `query:"page_size"`
 	PageToken  *string `query:"page_token"`
-	UserIdType  *string `query:"user_id_type"`
-	Limit int
-
+	UserIdType *string `query:"user_id_type"`
+	Limit      int
 }
 
 type ListTaskCollaboratorRespData struct {
-	Items  []*Collaborator `json:"items,omitempty"`
-	PageToken  *string `json:"page_token,omitempty"`
-	HasMore  *bool `json:"has_more,omitempty"`
+	Items     []*Collaborator `json:"items,omitempty"`
+	PageToken *string         `json:"page_token,omitempty"`
+	HasMore   *bool           `json:"has_more,omitempty"`
 }
 
 type ListTaskCollaboratorResp struct {
@@ -1369,55 +1319,51 @@ func (resp *ListTaskCollaboratorResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type CreateTaskCommentReqBuilder struct {
-	taskId  string
+	taskId      string
 	taskIdFlag  bool
-	comment *Comment
+	comment     *Comment
 	commentFlag bool
-
 }
 
 // 生成请求的New构造器
-func NewCreateTaskCommentReqBuilder() * CreateTaskCommentReqBuilder{
-   builder := &CreateTaskCommentReqBuilder{}
-   return builder
+func NewCreateTaskCommentReqBuilder() *CreateTaskCommentReqBuilder {
+	builder := &CreateTaskCommentReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * CreateTaskCommentReqBuilder) TaskId(taskId string) *CreateTaskCommentReqBuilder  {
-  builder.taskId = taskId
-  builder.taskIdFlag = true
-  return builder
+func (builder *CreateTaskCommentReqBuilder) TaskId(taskId string) *CreateTaskCommentReqBuilder {
+	builder.taskId = taskId
+	builder.taskIdFlag = true
+	return builder
 }
-func (builder * CreateTaskCommentReqBuilder) Comment(comment *Comment) *CreateTaskCommentReqBuilder  {
-  builder.comment = comment
-  builder.commentFlag = true
-  return builder
+func (builder *CreateTaskCommentReqBuilder) Comment(comment *Comment) *CreateTaskCommentReqBuilder {
+	builder.comment = comment
+	builder.commentFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * CreateTaskCommentReqBuilder ) Build() *CreateTaskCommentReq {
-   req := &CreateTaskCommentReq{}
-   if builder.taskIdFlag {
-	  req.TaskId = builder.taskId
-   }
-   if builder.commentFlag {
-	  req.Comment = builder.comment
-   }
-   return req
+func (builder *CreateTaskCommentReqBuilder) Build() *CreateTaskCommentReq {
+	req := &CreateTaskCommentReq{}
+	if builder.taskIdFlag {
+		req.TaskId = builder.taskId
+	}
+	if builder.commentFlag {
+		req.Comment = builder.comment
+	}
+	return req
 }
 
-
 type CreateTaskCommentReq struct {
-	TaskId  string `path:"task_id"`
+	TaskId  string   `path:"task_id"`
 	Comment *Comment `body:""`
-
 }
 
 type CreateTaskCommentRespData struct {
-	Comment  *Comment `json:"comment,omitempty"`
+	Comment *Comment `json:"comment,omitempty"`
 }
 
 type CreateTaskCommentResp struct {
@@ -1430,53 +1376,48 @@ func (resp *CreateTaskCommentResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type DeleteTaskCommentReqBuilder struct {
-	taskId  string
-	taskIdFlag  bool
-	commentId  int64
-	commentIdFlag  bool
-
+	taskId        string
+	taskIdFlag    bool
+	commentId     int64
+	commentIdFlag bool
 }
 
 // 生成请求的New构造器
-func NewDeleteTaskCommentReqBuilder() * DeleteTaskCommentReqBuilder{
-   builder := &DeleteTaskCommentReqBuilder{}
-   return builder
+func NewDeleteTaskCommentReqBuilder() *DeleteTaskCommentReqBuilder {
+	builder := &DeleteTaskCommentReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * DeleteTaskCommentReqBuilder) TaskId(taskId string) *DeleteTaskCommentReqBuilder  {
-  builder.taskId = taskId
-  builder.taskIdFlag = true
-  return builder
+func (builder *DeleteTaskCommentReqBuilder) TaskId(taskId string) *DeleteTaskCommentReqBuilder {
+	builder.taskId = taskId
+	builder.taskIdFlag = true
+	return builder
 }
-func (builder * DeleteTaskCommentReqBuilder) CommentId(commentId int64) *DeleteTaskCommentReqBuilder  {
-  builder.commentId = commentId
-  builder.commentIdFlag = true
-  return builder
+func (builder *DeleteTaskCommentReqBuilder) CommentId(commentId int64) *DeleteTaskCommentReqBuilder {
+	builder.commentId = commentId
+	builder.commentIdFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * DeleteTaskCommentReqBuilder ) Build() *DeleteTaskCommentReq {
-   req := &DeleteTaskCommentReq{}
-   if builder.taskIdFlag {
-	  req.TaskId = builder.taskId
-   }
-   if builder.commentIdFlag {
-	  req.CommentId = builder.commentId
-   }
-   return req
+func (builder *DeleteTaskCommentReqBuilder) Build() *DeleteTaskCommentReq {
+	req := &DeleteTaskCommentReq{}
+	if builder.taskIdFlag {
+		req.TaskId = builder.taskId
+	}
+	if builder.commentIdFlag {
+		req.CommentId = builder.commentId
+	}
+	return req
 }
-
 
 type DeleteTaskCommentReq struct {
-	TaskId  string `path:"task_id"`
-	CommentId  int64 `path:"comment_id"`
-
+	TaskId    string `path:"task_id"`
+	CommentId int64  `path:"comment_id"`
 }
-
 
 type DeleteTaskCommentResp struct {
 	*larkcore.RawResponse `json:"-"`
@@ -1487,55 +1428,51 @@ func (resp *DeleteTaskCommentResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type GetTaskCommentReqBuilder struct {
-	taskId  string
-	taskIdFlag  bool
-	commentId  int64
-	commentIdFlag  bool
-
+	taskId        string
+	taskIdFlag    bool
+	commentId     int64
+	commentIdFlag bool
 }
 
 // 生成请求的New构造器
-func NewGetTaskCommentReqBuilder() * GetTaskCommentReqBuilder{
-   builder := &GetTaskCommentReqBuilder{}
-   return builder
+func NewGetTaskCommentReqBuilder() *GetTaskCommentReqBuilder {
+	builder := &GetTaskCommentReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * GetTaskCommentReqBuilder) TaskId(taskId string) *GetTaskCommentReqBuilder  {
-  builder.taskId = taskId
-  builder.taskIdFlag = true
-  return builder
+func (builder *GetTaskCommentReqBuilder) TaskId(taskId string) *GetTaskCommentReqBuilder {
+	builder.taskId = taskId
+	builder.taskIdFlag = true
+	return builder
 }
-func (builder * GetTaskCommentReqBuilder) CommentId(commentId int64) *GetTaskCommentReqBuilder  {
-  builder.commentId = commentId
-  builder.commentIdFlag = true
-  return builder
+func (builder *GetTaskCommentReqBuilder) CommentId(commentId int64) *GetTaskCommentReqBuilder {
+	builder.commentId = commentId
+	builder.commentIdFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * GetTaskCommentReqBuilder ) Build() *GetTaskCommentReq {
-   req := &GetTaskCommentReq{}
-   if builder.taskIdFlag {
-	  req.TaskId = builder.taskId
-   }
-   if builder.commentIdFlag {
-	  req.CommentId = builder.commentId
-   }
-   return req
+func (builder *GetTaskCommentReqBuilder) Build() *GetTaskCommentReq {
+	req := &GetTaskCommentReq{}
+	if builder.taskIdFlag {
+		req.TaskId = builder.taskId
+	}
+	if builder.commentIdFlag {
+		req.CommentId = builder.commentId
+	}
+	return req
 }
 
-
 type GetTaskCommentReq struct {
-	TaskId  string `path:"task_id"`
-	CommentId  int64 `path:"comment_id"`
-
+	TaskId    string `path:"task_id"`
+	CommentId int64  `path:"comment_id"`
 }
 
 type GetTaskCommentRespData struct {
-	Comment  *Comment `json:"comment,omitempty"`
+	Comment *Comment `json:"comment,omitempty"`
 }
 
 type GetTaskCommentResp struct {
@@ -1548,86 +1485,82 @@ func (resp *GetTaskCommentResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type ListTaskCommentReqBuilder struct {
-	taskId  string
-	taskIdFlag  bool
-	pageSize  int
-	pageSizeFlag  bool
-	pageToken  string
-	pageTokenFlag  bool
-	listDirection  int
-	listDirectionFlag  bool
-	limit int
-
+	taskId            string
+	taskIdFlag        bool
+	pageSize          int
+	pageSizeFlag      bool
+	pageToken         string
+	pageTokenFlag     bool
+	listDirection     int
+	listDirectionFlag bool
+	limit             int
 }
 
 // 生成请求的New构造器
-func NewListTaskCommentReqBuilder() * ListTaskCommentReqBuilder{
-   builder := &ListTaskCommentReqBuilder{}
-   return builder
+func NewListTaskCommentReqBuilder() *ListTaskCommentReqBuilder {
+	builder := &ListTaskCommentReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * ListTaskCommentReqBuilder) Limit(limit int ) *ListTaskCommentReqBuilder  {
-  builder.limit = limit
-  return builder
+func (builder *ListTaskCommentReqBuilder) Limit(limit int) *ListTaskCommentReqBuilder {
+	builder.limit = limit
+	return builder
 }
-func (builder * ListTaskCommentReqBuilder) TaskId(taskId string) *ListTaskCommentReqBuilder  {
-  builder.taskId = taskId
-  builder.taskIdFlag = true
-  return builder
+func (builder *ListTaskCommentReqBuilder) TaskId(taskId string) *ListTaskCommentReqBuilder {
+	builder.taskId = taskId
+	builder.taskIdFlag = true
+	return builder
 }
-func (builder * ListTaskCommentReqBuilder) PageSize(pageSize int) *ListTaskCommentReqBuilder  {
-  builder.pageSize = pageSize
-  builder.pageSizeFlag = true
-  return builder
+func (builder *ListTaskCommentReqBuilder) PageSize(pageSize int) *ListTaskCommentReqBuilder {
+	builder.pageSize = pageSize
+	builder.pageSizeFlag = true
+	return builder
 }
-func (builder * ListTaskCommentReqBuilder) PageToken(pageToken string) *ListTaskCommentReqBuilder  {
-  builder.pageToken = pageToken
-  builder.pageTokenFlag = true
-  return builder
+func (builder *ListTaskCommentReqBuilder) PageToken(pageToken string) *ListTaskCommentReqBuilder {
+	builder.pageToken = pageToken
+	builder.pageTokenFlag = true
+	return builder
 }
-func (builder * ListTaskCommentReqBuilder) ListDirection(listDirection int) *ListTaskCommentReqBuilder  {
-  builder.listDirection = listDirection
-  builder.listDirectionFlag = true
-  return builder
+func (builder *ListTaskCommentReqBuilder) ListDirection(listDirection int) *ListTaskCommentReqBuilder {
+	builder.listDirection = listDirection
+	builder.listDirectionFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * ListTaskCommentReqBuilder ) Build() *ListTaskCommentReq {
-   req := &ListTaskCommentReq{}
-   req.Limit = builder.limit
-   if builder.taskIdFlag {
-	  req.TaskId = builder.taskId
-   }
-   if builder.pageSizeFlag {
-	  req.PageSize = &builder.pageSize
-   }
-   if builder.pageTokenFlag {
-	  req.PageToken = &builder.pageToken
-   }
-   if builder.listDirectionFlag {
-	  req.ListDirection = &builder.listDirection
-   }
-   return req
+func (builder *ListTaskCommentReqBuilder) Build() *ListTaskCommentReq {
+	req := &ListTaskCommentReq{}
+	req.Limit = builder.limit
+	if builder.taskIdFlag {
+		req.TaskId = builder.taskId
+	}
+	if builder.pageSizeFlag {
+		req.PageSize = &builder.pageSize
+	}
+	if builder.pageTokenFlag {
+		req.PageToken = &builder.pageToken
+	}
+	if builder.listDirectionFlag {
+		req.ListDirection = &builder.listDirection
+	}
+	return req
 }
 
-
 type ListTaskCommentReq struct {
-	TaskId  string `path:"task_id"`
-	PageSize  *int `query:"page_size"`
-	PageToken  *string `query:"page_token"`
-	ListDirection  *int `query:"list_direction"`
-	Limit int
-
+	TaskId        string  `path:"task_id"`
+	PageSize      *int    `query:"page_size"`
+	PageToken     *string `query:"page_token"`
+	ListDirection *int    `query:"list_direction"`
+	Limit         int
 }
 
 type ListTaskCommentRespData struct {
-	Items  []*Comment `json:"items,omitempty"`
-	PageToken  *string `json:"page_token,omitempty"`
-	HasMore  *bool `json:"has_more,omitempty"`
+	Items     []*Comment `json:"items,omitempty"`
+	PageToken *string    `json:"page_token,omitempty"`
+	HasMore   *bool      `json:"has_more,omitempty"`
 }
 
 type ListTaskCommentResp struct {
@@ -1641,121 +1574,118 @@ func (resp *ListTaskCommentResp) Success() bool {
 }
 
 type UpdateTaskCommentReqBodyBuilder struct {
-	content  string
-	contentFlag  bool
+	content     string
+	contentFlag bool
 }
 
 // 生成body的New构造器
-func NewUpdateTaskCommentReqBodyBuilder() * UpdateTaskCommentReqBodyBuilder{
-  builder := &UpdateTaskCommentReqBodyBuilder{}
-  return builder
+func NewUpdateTaskCommentReqBodyBuilder() *UpdateTaskCommentReqBodyBuilder {
+	builder := &UpdateTaskCommentReqBodyBuilder{}
+	return builder
 }
 
 // 1.2 生成body的builder属性方法
-func (builder * UpdateTaskCommentReqBodyBuilder ) Content(content string) *UpdateTaskCommentReqBodyBuilder {
-  builder.content = content
-  builder.contentFlag = true
-  return builder
+func (builder *UpdateTaskCommentReqBodyBuilder) Content(content string) *UpdateTaskCommentReqBodyBuilder {
+	builder.content = content
+	builder.contentFlag = true
+	return builder
 }
 
-
 // 1.3 生成body的build方法
-func (builder * UpdateTaskCommentReqBodyBuilder ) Build() *UpdateTaskCommentReqBody {
-   req := &UpdateTaskCommentReqBody{}
-   if builder.contentFlag {
-	  req.Content = &builder.content
-   }
-   return req
+func (builder *UpdateTaskCommentReqBodyBuilder) Build() *UpdateTaskCommentReqBody {
+	req := &UpdateTaskCommentReqBody{}
+	if builder.contentFlag {
+		req.Content = &builder.content
+	}
+	return req
 }
 
 // 上传文件path开始
 type UpdateTaskCommentPathReqBodyBuilder struct {
-	content  string
-	contentFlag  bool
+	content     string
+	contentFlag bool
 }
 
-func NewUpdateTaskCommentPathReqBodyBuilder() * UpdateTaskCommentPathReqBodyBuilder{
-  builder := &UpdateTaskCommentPathReqBodyBuilder{}
-  return builder
+func NewUpdateTaskCommentPathReqBodyBuilder() *UpdateTaskCommentPathReqBodyBuilder {
+	builder := &UpdateTaskCommentPathReqBodyBuilder{}
+	return builder
 }
-func (builder * UpdateTaskCommentPathReqBodyBuilder ) Content(content string) *UpdateTaskCommentPathReqBodyBuilder {
-  builder.content = content
-  builder.contentFlag = true
-  return builder
+func (builder *UpdateTaskCommentPathReqBodyBuilder) Content(content string) *UpdateTaskCommentPathReqBodyBuilder {
+	builder.content = content
+	builder.contentFlag = true
+	return builder
 }
 
-
-func (builder * UpdateTaskCommentPathReqBodyBuilder ) Build() (*UpdateTaskCommentReqBody, error) {
-   req := &UpdateTaskCommentReqBody{}
-   if builder.contentFlag {
-	  req.Content = &builder.content
-   }
-   return req, nil
+func (builder *UpdateTaskCommentPathReqBodyBuilder) Build() (*UpdateTaskCommentReqBody, error) {
+	req := &UpdateTaskCommentReqBody{}
+	if builder.contentFlag {
+		req.Content = &builder.content
+	}
+	return req, nil
 }
+
 // 上传文件path结束
 
 // 1.4 生成请求的builder结构体
 type UpdateTaskCommentReqBuilder struct {
-	taskId  string
-	taskIdFlag  bool
-	commentId  int64
-	commentIdFlag  bool
-	body *UpdateTaskCommentReqBody
-	bodyFlag bool
-
+	taskId        string
+	taskIdFlag    bool
+	commentId     int64
+	commentIdFlag bool
+	body          *UpdateTaskCommentReqBody
+	bodyFlag      bool
 }
 
 // 生成请求的New构造器
-func NewUpdateTaskCommentReqBuilder() * UpdateTaskCommentReqBuilder{
-   builder := &UpdateTaskCommentReqBuilder{}
-   return builder
+func NewUpdateTaskCommentReqBuilder() *UpdateTaskCommentReqBuilder {
+	builder := &UpdateTaskCommentReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * UpdateTaskCommentReqBuilder) TaskId(taskId string) *UpdateTaskCommentReqBuilder  {
-  builder.taskId = taskId
-  builder.taskIdFlag = true
-  return builder
+func (builder *UpdateTaskCommentReqBuilder) TaskId(taskId string) *UpdateTaskCommentReqBuilder {
+	builder.taskId = taskId
+	builder.taskIdFlag = true
+	return builder
 }
-func (builder * UpdateTaskCommentReqBuilder) CommentId(commentId int64) *UpdateTaskCommentReqBuilder  {
-  builder.commentId = commentId
-  builder.commentIdFlag = true
-  return builder
+func (builder *UpdateTaskCommentReqBuilder) CommentId(commentId int64) *UpdateTaskCommentReqBuilder {
+	builder.commentId = commentId
+	builder.commentIdFlag = true
+	return builder
 }
-func (builder * UpdateTaskCommentReqBuilder) Body(body *UpdateTaskCommentReqBody) *UpdateTaskCommentReqBuilder  {
-  builder.body = body
-  builder.bodyFlag = true
-  return builder
+func (builder *UpdateTaskCommentReqBuilder) Body(body *UpdateTaskCommentReqBody) *UpdateTaskCommentReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * UpdateTaskCommentReqBuilder ) Build() *UpdateTaskCommentReq {
-   req := &UpdateTaskCommentReq{}
-   if builder.taskIdFlag {
-	  req.TaskId = builder.taskId
-   }
-   if builder.commentIdFlag {
-	  req.CommentId = builder.commentId
-   }
-   if builder.bodyFlag {
-	  req.Body = builder.body
-   }
-   return req
+func (builder *UpdateTaskCommentReqBuilder) Build() *UpdateTaskCommentReq {
+	req := &UpdateTaskCommentReq{}
+	if builder.taskIdFlag {
+		req.TaskId = builder.taskId
+	}
+	if builder.commentIdFlag {
+		req.CommentId = builder.commentId
+	}
+	if builder.bodyFlag {
+		req.Body = builder.body
+	}
+	return req
 }
 
 type UpdateTaskCommentReqBody struct {
-	Content  *string `json:"content,omitempty"`
+	Content *string `json:"content,omitempty"`
 }
 
 type UpdateTaskCommentReq struct {
-	TaskId  string `path:"task_id"`
-	CommentId  int64 `path:"comment_id"`
-	Body *UpdateTaskCommentReqBody `body:""`
-
+	TaskId    string                    `path:"task_id"`
+	CommentId int64                     `path:"comment_id"`
+	Body      *UpdateTaskCommentReqBody `body:""`
 }
 
 type UpdateTaskCommentRespData struct {
-	Comment  *Comment `json:"comment,omitempty"`
+	Comment *Comment `json:"comment,omitempty"`
 }
 
 type UpdateTaskCommentResp struct {
@@ -1768,66 +1698,62 @@ func (resp *UpdateTaskCommentResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type CreateTaskFollowerReqBuilder struct {
-	taskId  string
-	taskIdFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-	follower *Follower
-	followerFlag bool
-
+	taskId         string
+	taskIdFlag     bool
+	userIdType     string
+	userIdTypeFlag bool
+	follower       *Follower
+	followerFlag   bool
 }
 
 // 生成请求的New构造器
-func NewCreateTaskFollowerReqBuilder() * CreateTaskFollowerReqBuilder{
-   builder := &CreateTaskFollowerReqBuilder{}
-   return builder
+func NewCreateTaskFollowerReqBuilder() *CreateTaskFollowerReqBuilder {
+	builder := &CreateTaskFollowerReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * CreateTaskFollowerReqBuilder) TaskId(taskId string) *CreateTaskFollowerReqBuilder  {
-  builder.taskId = taskId
-  builder.taskIdFlag = true
-  return builder
+func (builder *CreateTaskFollowerReqBuilder) TaskId(taskId string) *CreateTaskFollowerReqBuilder {
+	builder.taskId = taskId
+	builder.taskIdFlag = true
+	return builder
 }
-func (builder * CreateTaskFollowerReqBuilder) UserIdType(userIdType string) *CreateTaskFollowerReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *CreateTaskFollowerReqBuilder) UserIdType(userIdType string) *CreateTaskFollowerReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
-func (builder * CreateTaskFollowerReqBuilder) Follower(follower *Follower) *CreateTaskFollowerReqBuilder  {
-  builder.follower = follower
-  builder.followerFlag = true
-  return builder
+func (builder *CreateTaskFollowerReqBuilder) Follower(follower *Follower) *CreateTaskFollowerReqBuilder {
+	builder.follower = follower
+	builder.followerFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * CreateTaskFollowerReqBuilder ) Build() *CreateTaskFollowerReq {
-   req := &CreateTaskFollowerReq{}
-   if builder.taskIdFlag {
-	  req.TaskId = builder.taskId
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   if builder.followerFlag {
-	  req.Follower = builder.follower
-   }
-   return req
+func (builder *CreateTaskFollowerReqBuilder) Build() *CreateTaskFollowerReq {
+	req := &CreateTaskFollowerReq{}
+	if builder.taskIdFlag {
+		req.TaskId = builder.taskId
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	if builder.followerFlag {
+		req.Follower = builder.follower
+	}
+	return req
 }
 
-
 type CreateTaskFollowerReq struct {
-	TaskId  string `path:"task_id"`
-	UserIdType  *string `query:"user_id_type"`
-	Follower *Follower `body:""`
-
+	TaskId     string    `path:"task_id"`
+	UserIdType *string   `query:"user_id_type"`
+	Follower   *Follower `body:""`
 }
 
 type CreateTaskFollowerRespData struct {
-	Follower  *Follower `json:"follower,omitempty"`
+	Follower *Follower `json:"follower,omitempty"`
 }
 
 type CreateTaskFollowerResp struct {
@@ -1840,53 +1766,48 @@ func (resp *CreateTaskFollowerResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type DeleteTaskFollowerReqBuilder struct {
-	taskId  string
-	taskIdFlag  bool
-	followerId  string
-	followerIdFlag  bool
-
+	taskId         string
+	taskIdFlag     bool
+	followerId     string
+	followerIdFlag bool
 }
 
 // 生成请求的New构造器
-func NewDeleteTaskFollowerReqBuilder() * DeleteTaskFollowerReqBuilder{
-   builder := &DeleteTaskFollowerReqBuilder{}
-   return builder
+func NewDeleteTaskFollowerReqBuilder() *DeleteTaskFollowerReqBuilder {
+	builder := &DeleteTaskFollowerReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * DeleteTaskFollowerReqBuilder) TaskId(taskId string) *DeleteTaskFollowerReqBuilder  {
-  builder.taskId = taskId
-  builder.taskIdFlag = true
-  return builder
+func (builder *DeleteTaskFollowerReqBuilder) TaskId(taskId string) *DeleteTaskFollowerReqBuilder {
+	builder.taskId = taskId
+	builder.taskIdFlag = true
+	return builder
 }
-func (builder * DeleteTaskFollowerReqBuilder) FollowerId(followerId string) *DeleteTaskFollowerReqBuilder  {
-  builder.followerId = followerId
-  builder.followerIdFlag = true
-  return builder
+func (builder *DeleteTaskFollowerReqBuilder) FollowerId(followerId string) *DeleteTaskFollowerReqBuilder {
+	builder.followerId = followerId
+	builder.followerIdFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * DeleteTaskFollowerReqBuilder ) Build() *DeleteTaskFollowerReq {
-   req := &DeleteTaskFollowerReq{}
-   if builder.taskIdFlag {
-	  req.TaskId = builder.taskId
-   }
-   if builder.followerIdFlag {
-	  req.FollowerId = builder.followerId
-   }
-   return req
+func (builder *DeleteTaskFollowerReqBuilder) Build() *DeleteTaskFollowerReq {
+	req := &DeleteTaskFollowerReq{}
+	if builder.taskIdFlag {
+		req.TaskId = builder.taskId
+	}
+	if builder.followerIdFlag {
+		req.FollowerId = builder.followerId
+	}
+	return req
 }
-
 
 type DeleteTaskFollowerReq struct {
-	TaskId  string `path:"task_id"`
-	FollowerId  string `path:"follower_id"`
-
+	TaskId     string `path:"task_id"`
+	FollowerId string `path:"follower_id"`
 }
-
 
 type DeleteTaskFollowerResp struct {
 	*larkcore.RawResponse `json:"-"`
@@ -1897,86 +1818,82 @@ func (resp *DeleteTaskFollowerResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type ListTaskFollowerReqBuilder struct {
-	taskId  string
-	taskIdFlag  bool
-	pageSize  int
-	pageSizeFlag  bool
-	pageToken  string
+	taskId         string
+	taskIdFlag     bool
+	pageSize       int
+	pageSizeFlag   bool
+	pageToken      string
 	pageTokenFlag  bool
-	userIdType  string
-	userIdTypeFlag  bool
-	limit int
-
+	userIdType     string
+	userIdTypeFlag bool
+	limit          int
 }
 
 // 生成请求的New构造器
-func NewListTaskFollowerReqBuilder() * ListTaskFollowerReqBuilder{
-   builder := &ListTaskFollowerReqBuilder{}
-   return builder
+func NewListTaskFollowerReqBuilder() *ListTaskFollowerReqBuilder {
+	builder := &ListTaskFollowerReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * ListTaskFollowerReqBuilder) Limit(limit int ) *ListTaskFollowerReqBuilder  {
-  builder.limit = limit
-  return builder
+func (builder *ListTaskFollowerReqBuilder) Limit(limit int) *ListTaskFollowerReqBuilder {
+	builder.limit = limit
+	return builder
 }
-func (builder * ListTaskFollowerReqBuilder) TaskId(taskId string) *ListTaskFollowerReqBuilder  {
-  builder.taskId = taskId
-  builder.taskIdFlag = true
-  return builder
+func (builder *ListTaskFollowerReqBuilder) TaskId(taskId string) *ListTaskFollowerReqBuilder {
+	builder.taskId = taskId
+	builder.taskIdFlag = true
+	return builder
 }
-func (builder * ListTaskFollowerReqBuilder) PageSize(pageSize int) *ListTaskFollowerReqBuilder  {
-  builder.pageSize = pageSize
-  builder.pageSizeFlag = true
-  return builder
+func (builder *ListTaskFollowerReqBuilder) PageSize(pageSize int) *ListTaskFollowerReqBuilder {
+	builder.pageSize = pageSize
+	builder.pageSizeFlag = true
+	return builder
 }
-func (builder * ListTaskFollowerReqBuilder) PageToken(pageToken string) *ListTaskFollowerReqBuilder  {
-  builder.pageToken = pageToken
-  builder.pageTokenFlag = true
-  return builder
+func (builder *ListTaskFollowerReqBuilder) PageToken(pageToken string) *ListTaskFollowerReqBuilder {
+	builder.pageToken = pageToken
+	builder.pageTokenFlag = true
+	return builder
 }
-func (builder * ListTaskFollowerReqBuilder) UserIdType(userIdType string) *ListTaskFollowerReqBuilder  {
-  builder.userIdType = userIdType
-  builder.userIdTypeFlag = true
-  return builder
+func (builder *ListTaskFollowerReqBuilder) UserIdType(userIdType string) *ListTaskFollowerReqBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * ListTaskFollowerReqBuilder ) Build() *ListTaskFollowerReq {
-   req := &ListTaskFollowerReq{}
-   req.Limit = builder.limit
-   if builder.taskIdFlag {
-	  req.TaskId = builder.taskId
-   }
-   if builder.pageSizeFlag {
-	  req.PageSize = &builder.pageSize
-   }
-   if builder.pageTokenFlag {
-	  req.PageToken = &builder.pageToken
-   }
-   if builder.userIdTypeFlag {
-	  req.UserIdType = &builder.userIdType
-   }
-   return req
+func (builder *ListTaskFollowerReqBuilder) Build() *ListTaskFollowerReq {
+	req := &ListTaskFollowerReq{}
+	req.Limit = builder.limit
+	if builder.taskIdFlag {
+		req.TaskId = builder.taskId
+	}
+	if builder.pageSizeFlag {
+		req.PageSize = &builder.pageSize
+	}
+	if builder.pageTokenFlag {
+		req.PageToken = &builder.pageToken
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+	}
+	return req
 }
 
-
 type ListTaskFollowerReq struct {
-	TaskId  string `path:"task_id"`
-	PageSize  *int `query:"page_size"`
+	TaskId     string  `path:"task_id"`
+	PageSize   *int    `query:"page_size"`
 	PageToken  *string `query:"page_token"`
-	UserIdType  *string `query:"user_id_type"`
-	Limit int
-
+	UserIdType *string `query:"user_id_type"`
+	Limit      int
 }
 
 type ListTaskFollowerRespData struct {
-	Items  []*Follower `json:"items,omitempty"`
-	PageToken  *string `json:"page_token,omitempty"`
-	HasMore  *bool `json:"has_more,omitempty"`
+	Items     []*Follower `json:"items,omitempty"`
+	PageToken *string     `json:"page_token,omitempty"`
+	HasMore   *bool       `json:"has_more,omitempty"`
 }
 
 type ListTaskFollowerResp struct {
@@ -1989,55 +1906,51 @@ func (resp *ListTaskFollowerResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type CreateTaskReminderReqBuilder struct {
-	taskId  string
-	taskIdFlag  bool
-	reminder *Reminder
+	taskId       string
+	taskIdFlag   bool
+	reminder     *Reminder
 	reminderFlag bool
-
 }
 
 // 生成请求的New构造器
-func NewCreateTaskReminderReqBuilder() * CreateTaskReminderReqBuilder{
-   builder := &CreateTaskReminderReqBuilder{}
-   return builder
+func NewCreateTaskReminderReqBuilder() *CreateTaskReminderReqBuilder {
+	builder := &CreateTaskReminderReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * CreateTaskReminderReqBuilder) TaskId(taskId string) *CreateTaskReminderReqBuilder  {
-  builder.taskId = taskId
-  builder.taskIdFlag = true
-  return builder
+func (builder *CreateTaskReminderReqBuilder) TaskId(taskId string) *CreateTaskReminderReqBuilder {
+	builder.taskId = taskId
+	builder.taskIdFlag = true
+	return builder
 }
-func (builder * CreateTaskReminderReqBuilder) Reminder(reminder *Reminder) *CreateTaskReminderReqBuilder  {
-  builder.reminder = reminder
-  builder.reminderFlag = true
-  return builder
+func (builder *CreateTaskReminderReqBuilder) Reminder(reminder *Reminder) *CreateTaskReminderReqBuilder {
+	builder.reminder = reminder
+	builder.reminderFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * CreateTaskReminderReqBuilder ) Build() *CreateTaskReminderReq {
-   req := &CreateTaskReminderReq{}
-   if builder.taskIdFlag {
-	  req.TaskId = builder.taskId
-   }
-   if builder.reminderFlag {
-	  req.Reminder = builder.reminder
-   }
-   return req
+func (builder *CreateTaskReminderReqBuilder) Build() *CreateTaskReminderReq {
+	req := &CreateTaskReminderReq{}
+	if builder.taskIdFlag {
+		req.TaskId = builder.taskId
+	}
+	if builder.reminderFlag {
+		req.Reminder = builder.reminder
+	}
+	return req
 }
 
-
 type CreateTaskReminderReq struct {
-	TaskId  string `path:"task_id"`
+	TaskId   string    `path:"task_id"`
 	Reminder *Reminder `body:""`
-
 }
 
 type CreateTaskReminderRespData struct {
-	Reminder  *Reminder `json:"reminder,omitempty"`
+	Reminder *Reminder `json:"reminder,omitempty"`
 }
 
 type CreateTaskReminderResp struct {
@@ -2050,53 +1963,48 @@ func (resp *CreateTaskReminderResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type DeleteTaskReminderReqBuilder struct {
-	taskId  string
-	taskIdFlag  bool
-	reminderId  string
-	reminderIdFlag  bool
-
+	taskId         string
+	taskIdFlag     bool
+	reminderId     string
+	reminderIdFlag bool
 }
 
 // 生成请求的New构造器
-func NewDeleteTaskReminderReqBuilder() * DeleteTaskReminderReqBuilder{
-   builder := &DeleteTaskReminderReqBuilder{}
-   return builder
+func NewDeleteTaskReminderReqBuilder() *DeleteTaskReminderReqBuilder {
+	builder := &DeleteTaskReminderReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * DeleteTaskReminderReqBuilder) TaskId(taskId string) *DeleteTaskReminderReqBuilder  {
-  builder.taskId = taskId
-  builder.taskIdFlag = true
-  return builder
+func (builder *DeleteTaskReminderReqBuilder) TaskId(taskId string) *DeleteTaskReminderReqBuilder {
+	builder.taskId = taskId
+	builder.taskIdFlag = true
+	return builder
 }
-func (builder * DeleteTaskReminderReqBuilder) ReminderId(reminderId string) *DeleteTaskReminderReqBuilder  {
-  builder.reminderId = reminderId
-  builder.reminderIdFlag = true
-  return builder
+func (builder *DeleteTaskReminderReqBuilder) ReminderId(reminderId string) *DeleteTaskReminderReqBuilder {
+	builder.reminderId = reminderId
+	builder.reminderIdFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * DeleteTaskReminderReqBuilder ) Build() *DeleteTaskReminderReq {
-   req := &DeleteTaskReminderReq{}
-   if builder.taskIdFlag {
-	  req.TaskId = builder.taskId
-   }
-   if builder.reminderIdFlag {
-	  req.ReminderId = builder.reminderId
-   }
-   return req
+func (builder *DeleteTaskReminderReqBuilder) Build() *DeleteTaskReminderReq {
+	req := &DeleteTaskReminderReq{}
+	if builder.taskIdFlag {
+		req.TaskId = builder.taskId
+	}
+	if builder.reminderIdFlag {
+		req.ReminderId = builder.reminderId
+	}
+	return req
 }
-
 
 type DeleteTaskReminderReq struct {
-	TaskId  string `path:"task_id"`
-	ReminderId  string `path:"reminder_id"`
-
+	TaskId     string `path:"task_id"`
+	ReminderId string `path:"reminder_id"`
 }
-
 
 type DeleteTaskReminderResp struct {
 	*larkcore.RawResponse `json:"-"`
@@ -2107,75 +2015,71 @@ func (resp *DeleteTaskReminderResp) Success() bool {
 	return resp.Code == 0
 }
 
-
 // 1.4 生成请求的builder结构体
 type ListTaskReminderReqBuilder struct {
-	taskId  string
-	taskIdFlag  bool
-	pageSize  int
+	taskId        string
+	taskIdFlag    bool
+	pageSize      int
 	pageSizeFlag  bool
-	pageToken  string
-	pageTokenFlag  bool
-	limit int
-
+	pageToken     string
+	pageTokenFlag bool
+	limit         int
 }
 
 // 生成请求的New构造器
-func NewListTaskReminderReqBuilder() * ListTaskReminderReqBuilder{
-   builder := &ListTaskReminderReqBuilder{}
-   return builder
+func NewListTaskReminderReqBuilder() *ListTaskReminderReqBuilder {
+	builder := &ListTaskReminderReqBuilder{}
+	return builder
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder * ListTaskReminderReqBuilder) Limit(limit int ) *ListTaskReminderReqBuilder  {
-  builder.limit = limit
-  return builder
+func (builder *ListTaskReminderReqBuilder) Limit(limit int) *ListTaskReminderReqBuilder {
+	builder.limit = limit
+	return builder
 }
-func (builder * ListTaskReminderReqBuilder) TaskId(taskId string) *ListTaskReminderReqBuilder  {
-  builder.taskId = taskId
-  builder.taskIdFlag = true
-  return builder
+func (builder *ListTaskReminderReqBuilder) TaskId(taskId string) *ListTaskReminderReqBuilder {
+	builder.taskId = taskId
+	builder.taskIdFlag = true
+	return builder
 }
-func (builder * ListTaskReminderReqBuilder) PageSize(pageSize int) *ListTaskReminderReqBuilder  {
-  builder.pageSize = pageSize
-  builder.pageSizeFlag = true
-  return builder
+func (builder *ListTaskReminderReqBuilder) PageSize(pageSize int) *ListTaskReminderReqBuilder {
+	builder.pageSize = pageSize
+	builder.pageSizeFlag = true
+	return builder
 }
-func (builder * ListTaskReminderReqBuilder) PageToken(pageToken string) *ListTaskReminderReqBuilder  {
-  builder.pageToken = pageToken
-  builder.pageTokenFlag = true
-  return builder
+func (builder *ListTaskReminderReqBuilder) PageToken(pageToken string) *ListTaskReminderReqBuilder {
+	builder.pageToken = pageToken
+	builder.pageTokenFlag = true
+	return builder
 }
 
 // 1.5 生成请求的builder的build方法
-func (builder * ListTaskReminderReqBuilder ) Build() *ListTaskReminderReq {
-   req := &ListTaskReminderReq{}
-   req.Limit = builder.limit
-   if builder.taskIdFlag {
-	  req.TaskId = builder.taskId
-   }
-   if builder.pageSizeFlag {
-	  req.PageSize = &builder.pageSize
-   }
-   if builder.pageTokenFlag {
-	  req.PageToken = &builder.pageToken
-   }
-   return req
+func (builder *ListTaskReminderReqBuilder) Build() *ListTaskReminderReq {
+	req := &ListTaskReminderReq{}
+	req.Limit = builder.limit
+	if builder.taskIdFlag {
+		req.TaskId = builder.taskId
+	}
+	if builder.pageSizeFlag {
+		req.PageSize = &builder.pageSize
+	}
+	if builder.pageTokenFlag {
+		req.PageToken = &builder.pageToken
+	}
+	return req
 }
 
-
 type ListTaskReminderReq struct {
-	TaskId  string `path:"task_id"`
-	PageSize  *int `query:"page_size"`
-	PageToken  *string `query:"page_token"`
-	Limit int
-
+	TaskId    string  `path:"task_id"`
+	PageSize  *int    `query:"page_size"`
+	PageToken *string `query:"page_token"`
+	Limit     int
 }
 
 type ListTaskReminderRespData struct {
-	Items  []*Reminder `json:"items,omitempty"`
-	PageToken  *string `json:"page_token,omitempty"`
-	HasMore  *bool `json:"has_more,omitempty"`
+	Items     []*Reminder `json:"items,omitempty"`
+	PageToken *string     `json:"page_token,omitempty"`
+	HasMore   *bool       `json:"has_more,omitempty"`
 }
 
 type ListTaskReminderResp struct {
@@ -2191,321 +2095,322 @@ func (resp *ListTaskReminderResp) Success() bool {
 // 生成消息事件结构体
 
 type P2TaskUpdateTenantV1Data struct {
-	UserIdList  *UserIdList `json:"user_id_list,omitempty"`
-	TaskId  *string `json:"task_id,omitempty"`
-	ObjectType  *string `json:"object_type,omitempty"`
-	EventType  *string `json:"event_type,omitempty"`
+	UserIdList *UserIdList `json:"user_id_list,omitempty"`
+	TaskId     *string     `json:"task_id,omitempty"`
+	ObjectType *string     `json:"object_type,omitempty"`
+	EventType  *string     `json:"event_type,omitempty"`
 }
 
 type P2TaskUpdateTenantV1 struct {
 	*larkevent.EventV2Base
 	*larkevent.EventReq
-	Event * P2TaskUpdateTenantV1Data `json:"event"`
+	Event *P2TaskUpdateTenantV1Data `json:"event"`
 }
 
-func (m *P2TaskUpdateTenantV1) RawReq( req *larkevent.EventReq){
+func (m *P2TaskUpdateTenantV1) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
 }
 
 type P2TaskUpdatedV1Data struct {
 	TaskId  *string `json:"task_id,omitempty"`
-	ObjType  *int `json:"obj_type,omitempty"`
+	ObjType *int    `json:"obj_type,omitempty"`
 }
 
 type P2TaskUpdatedV1 struct {
 	*larkevent.EventV2Base
 	*larkevent.EventReq
-	Event * P2TaskUpdatedV1Data `json:"event"`
+	Event *P2TaskUpdatedV1Data `json:"event"`
 }
 
-func (m *P2TaskUpdatedV1) RawReq( req *larkevent.EventReq){
+func (m *P2TaskUpdatedV1) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
 }
 
 type P2TaskCommentUpdatedV1Data struct {
-	TaskId  *string `json:"task_id,omitempty"`
-	CommentId  *string `json:"comment_id,omitempty"`
+	TaskId    *string `json:"task_id,omitempty"`
+	CommentId *string `json:"comment_id,omitempty"`
 	ParentId  *string `json:"parent_id,omitempty"`
-	ObjType  *int `json:"obj_type,omitempty"`
+	ObjType   *int    `json:"obj_type,omitempty"`
 }
 
 type P2TaskCommentUpdatedV1 struct {
 	*larkevent.EventV2Base
 	*larkevent.EventReq
-	Event * P2TaskCommentUpdatedV1Data `json:"event"`
+	Event *P2TaskCommentUpdatedV1Data `json:"event"`
 }
 
-func (m *P2TaskCommentUpdatedV1) RawReq( req *larkevent.EventReq){
+func (m *P2TaskCommentUpdatedV1) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
 }
 
-
 // 生成请求的builder构造器
 // 1.1 生成body的builder结构体
-   type ListTaskIterator struct{
-	 nextPageToken *string
-	 items	 []*Task
-	 index	 int
-	 limit	 int
-	 ctx	   context.Context
-	 req	   *ListTaskReq
-	 listFunc  func (ctx context.Context, req *ListTaskReq, options ...larkcore.RequestOptionFunc) (*ListTaskResp, error)
-	 options   []larkcore.RequestOptionFunc
-   	 curlNum	   int
-   }
+type ListTaskIterator struct {
+	nextPageToken *string
+	items         []*Task
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListTaskReq
+	listFunc      func(ctx context.Context, req *ListTaskReq, options ...larkcore.RequestOptionFunc) (*ListTaskResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
 
-   func (iterator *ListTaskIterator) Next() (bool, *Task, error) {
-		// 达到最大量，则返回
-		if iterator.limit >0 && iterator.curlNum >= iterator.limit {
+func (iterator *ListTaskIterator) Next() (bool, *Task, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.PageToken = iterator.nextPageToken
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
 			return false, nil, nil
 		}
 
-		// 为0则拉取数据
-		if iterator.index == 0 || iterator.index >= len(iterator.items) {
-			if iterator.index != 0 && iterator.nextPageToken == nil {
-				return false, nil, nil
-			}
-			if iterator.nextPageToken != nil {
-				iterator.req.PageToken = iterator.nextPageToken
-			}
-			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-			if err != nil {
-				return false, nil, err
-			}
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
 
-			if resp.Code != 0 {
-				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
-			}
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
 
-			if len(resp.Data.Items) == 0 {
-				return false, nil, nil
-			}
+func (iterator *ListTaskIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
 
-			iterator.nextPageToken = resp.Data.PageToken
-			iterator.items = resp.Data.Items
-			iterator.index = 0
+type ListTaskCollaboratorIterator struct {
+	nextPageToken *string
+	items         []*Collaborator
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListTaskCollaboratorReq
+	listFunc      func(ctx context.Context, req *ListTaskCollaboratorReq, options ...larkcore.RequestOptionFunc) (*ListTaskCollaboratorResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *ListTaskCollaboratorIterator) Next() (bool, *Collaborator, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.PageToken = iterator.nextPageToken
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
 		}
 
-		block := iterator.items[iterator.index]
-		iterator.index++
-		iterator.curlNum++
-		return true, block, nil
-   }
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
 
-   func (iterator *ListTaskIterator) NextPageToken() *string {
-	  return iterator.nextPageToken
-   }
-   type ListTaskCollaboratorIterator struct{
-	 nextPageToken *string
-	 items	 []*Collaborator
-	 index	 int
-	 limit	 int
-	 ctx	   context.Context
-	 req	   *ListTaskCollaboratorReq
-	 listFunc  func (ctx context.Context, req *ListTaskCollaboratorReq, options ...larkcore.RequestOptionFunc) (*ListTaskCollaboratorResp, error)
-	 options   []larkcore.RequestOptionFunc
-   	 curlNum	   int
-   }
-
-   func (iterator *ListTaskCollaboratorIterator) Next() (bool, *Collaborator, error) {
-		// 达到最大量，则返回
-		if iterator.limit >0 && iterator.curlNum >= iterator.limit {
+		if len(resp.Data.Items) == 0 {
 			return false, nil, nil
 		}
 
-		// 为0则拉取数据
-		if iterator.index == 0 || iterator.index >= len(iterator.items) {
-			if iterator.index != 0 && iterator.nextPageToken == nil {
-				return false, nil, nil
-			}
-			if iterator.nextPageToken != nil {
-				iterator.req.PageToken = iterator.nextPageToken
-			}
-			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-			if err != nil {
-				return false, nil, err
-			}
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
 
-			if resp.Code != 0 {
-				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
-			}
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
 
-			if len(resp.Data.Items) == 0 {
-				return false, nil, nil
-			}
+func (iterator *ListTaskCollaboratorIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
 
-			iterator.nextPageToken = resp.Data.PageToken
-			iterator.items = resp.Data.Items
-			iterator.index = 0
+type ListTaskCommentIterator struct {
+	nextPageToken *string
+	items         []*Comment
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListTaskCommentReq
+	listFunc      func(ctx context.Context, req *ListTaskCommentReq, options ...larkcore.RequestOptionFunc) (*ListTaskCommentResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *ListTaskCommentIterator) Next() (bool, *Comment, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.PageToken = iterator.nextPageToken
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
 		}
 
-		block := iterator.items[iterator.index]
-		iterator.index++
-		iterator.curlNum++
-		return true, block, nil
-   }
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
 
-   func (iterator *ListTaskCollaboratorIterator) NextPageToken() *string {
-	  return iterator.nextPageToken
-   }
-   type ListTaskCommentIterator struct{
-	 nextPageToken *string
-	 items	 []*Comment
-	 index	 int
-	 limit	 int
-	 ctx	   context.Context
-	 req	   *ListTaskCommentReq
-	 listFunc  func (ctx context.Context, req *ListTaskCommentReq, options ...larkcore.RequestOptionFunc) (*ListTaskCommentResp, error)
-	 options   []larkcore.RequestOptionFunc
-   	 curlNum	   int
-   }
-
-   func (iterator *ListTaskCommentIterator) Next() (bool, *Comment, error) {
-		// 达到最大量，则返回
-		if iterator.limit >0 && iterator.curlNum >= iterator.limit {
+		if len(resp.Data.Items) == 0 {
 			return false, nil, nil
 		}
 
-		// 为0则拉取数据
-		if iterator.index == 0 || iterator.index >= len(iterator.items) {
-			if iterator.index != 0 && iterator.nextPageToken == nil {
-				return false, nil, nil
-			}
-			if iterator.nextPageToken != nil {
-				iterator.req.PageToken = iterator.nextPageToken
-			}
-			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-			if err != nil {
-				return false, nil, err
-			}
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
 
-			if resp.Code != 0 {
-				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
-			}
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
 
-			if len(resp.Data.Items) == 0 {
-				return false, nil, nil
-			}
+func (iterator *ListTaskCommentIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
 
-			iterator.nextPageToken = resp.Data.PageToken
-			iterator.items = resp.Data.Items
-			iterator.index = 0
+type ListTaskFollowerIterator struct {
+	nextPageToken *string
+	items         []*Follower
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListTaskFollowerReq
+	listFunc      func(ctx context.Context, req *ListTaskFollowerReq, options ...larkcore.RequestOptionFunc) (*ListTaskFollowerResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *ListTaskFollowerIterator) Next() (bool, *Follower, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.PageToken = iterator.nextPageToken
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
 		}
 
-		block := iterator.items[iterator.index]
-		iterator.index++
-		iterator.curlNum++
-		return true, block, nil
-   }
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
 
-   func (iterator *ListTaskCommentIterator) NextPageToken() *string {
-	  return iterator.nextPageToken
-   }
-   type ListTaskFollowerIterator struct{
-	 nextPageToken *string
-	 items	 []*Follower
-	 index	 int
-	 limit	 int
-	 ctx	   context.Context
-	 req	   *ListTaskFollowerReq
-	 listFunc  func (ctx context.Context, req *ListTaskFollowerReq, options ...larkcore.RequestOptionFunc) (*ListTaskFollowerResp, error)
-	 options   []larkcore.RequestOptionFunc
-   	 curlNum	   int
-   }
-
-   func (iterator *ListTaskFollowerIterator) Next() (bool, *Follower, error) {
-		// 达到最大量，则返回
-		if iterator.limit >0 && iterator.curlNum >= iterator.limit {
+		if len(resp.Data.Items) == 0 {
 			return false, nil, nil
 		}
 
-		// 为0则拉取数据
-		if iterator.index == 0 || iterator.index >= len(iterator.items) {
-			if iterator.index != 0 && iterator.nextPageToken == nil {
-				return false, nil, nil
-			}
-			if iterator.nextPageToken != nil {
-				iterator.req.PageToken = iterator.nextPageToken
-			}
-			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-			if err != nil {
-				return false, nil, err
-			}
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
 
-			if resp.Code != 0 {
-				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
-			}
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
 
-			if len(resp.Data.Items) == 0 {
-				return false, nil, nil
-			}
+func (iterator *ListTaskFollowerIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
 
-			iterator.nextPageToken = resp.Data.PageToken
-			iterator.items = resp.Data.Items
-			iterator.index = 0
+type ListTaskReminderIterator struct {
+	nextPageToken *string
+	items         []*Reminder
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListTaskReminderReq
+	listFunc      func(ctx context.Context, req *ListTaskReminderReq, options ...larkcore.RequestOptionFunc) (*ListTaskReminderResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *ListTaskReminderIterator) Next() (bool, *Reminder, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.PageToken = iterator.nextPageToken
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
 		}
 
-		block := iterator.items[iterator.index]
-		iterator.index++
-		iterator.curlNum++
-		return true, block, nil
-   }
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
 
-   func (iterator *ListTaskFollowerIterator) NextPageToken() *string {
-	  return iterator.nextPageToken
-   }
-   type ListTaskReminderIterator struct{
-	 nextPageToken *string
-	 items	 []*Reminder
-	 index	 int
-	 limit	 int
-	 ctx	   context.Context
-	 req	   *ListTaskReminderReq
-	 listFunc  func (ctx context.Context, req *ListTaskReminderReq, options ...larkcore.RequestOptionFunc) (*ListTaskReminderResp, error)
-	 options   []larkcore.RequestOptionFunc
-   	 curlNum	   int
-   }
-
-   func (iterator *ListTaskReminderIterator) Next() (bool, *Reminder, error) {
-		// 达到最大量，则返回
-		if iterator.limit >0 && iterator.curlNum >= iterator.limit {
+		if len(resp.Data.Items) == 0 {
 			return false, nil, nil
 		}
 
-		// 为0则拉取数据
-		if iterator.index == 0 || iterator.index >= len(iterator.items) {
-			if iterator.index != 0 && iterator.nextPageToken == nil {
-				return false, nil, nil
-			}
-			if iterator.nextPageToken != nil {
-				iterator.req.PageToken = iterator.nextPageToken
-			}
-			resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-			if err != nil {
-				return false, nil, err
-			}
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
 
-			if resp.Code != 0 {
-				return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
-			}
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
 
-			if len(resp.Data.Items) == 0 {
-				return false, nil, nil
-			}
-
-			iterator.nextPageToken = resp.Data.PageToken
-			iterator.items = resp.Data.Items
-			iterator.index = 0
-		}
-
-		block := iterator.items[iterator.index]
-		iterator.index++
-		iterator.curlNum++
-		return true, block, nil
-   }
-
-   func (iterator *ListTaskReminderIterator) NextPageToken() *string {
-	  return iterator.nextPageToken
-   }
-
-
+func (iterator *ListTaskReminderIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}

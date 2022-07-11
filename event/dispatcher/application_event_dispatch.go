@@ -3,7 +3,6 @@ package dispatcher
 
 import (
 	"context"
-
 	"github.com/larksuite/oapi-sdk-go/service/application/v6"
 )
 
