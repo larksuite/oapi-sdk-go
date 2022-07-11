@@ -6,27 +6,27 @@ import (
 	"github.com/larksuite/oapi-sdk-go/service/task/v1"
 )
 
-func (dispatcher *EventDispatcher) OnTaskUpdateTenantV1(handler func(ctx context.Context, event *larktask.TaskUpdateTenantEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnP2TaskUpdateTenantV1(handler func(ctx context.Context, event *larktask.P2TaskUpdateTenantV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["task.task.update_tenant_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "task.task.update_tenant_v1")
 	}
-	dispatcher.eventType2EventHandler["task.task.update_tenant_v1"] = larktask.NewTaskUpdateTenantEventHandler(handler)
+	dispatcher.eventType2EventHandler["task.task.update_tenant_v1"] = larktask.NewP2TaskUpdateTenantV1Handler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnTaskUpdatedV1(handler func(ctx context.Context, event *larktask.TaskUpdatedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnP2TaskUpdatedV1(handler func(ctx context.Context, event *larktask.P2TaskUpdatedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["task.task.updated_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "task.task.updated_v1")
 	}
-	dispatcher.eventType2EventHandler["task.task.updated_v1"] = larktask.NewTaskUpdatedEventHandler(handler)
+	dispatcher.eventType2EventHandler["task.task.updated_v1"] = larktask.NewP2TaskUpdatedV1Handler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnTaskCommentUpdatedV1(handler func(ctx context.Context, event *larktask.TaskCommentUpdatedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnP2TaskCommentUpdatedV1(handler func(ctx context.Context, event *larktask.P2TaskCommentUpdatedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["task.task.comment.updated_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "task.task.comment.updated_v1")
 	}
-	dispatcher.eventType2EventHandler["task.task.comment.updated_v1"] = larktask.NewTaskCommentUpdatedEventHandler(handler)
+	dispatcher.eventType2EventHandler["task.task.comment.updated_v1"] = larktask.NewP2TaskCommentUpdatedV1Handler(handler)
 	return dispatcher
 }

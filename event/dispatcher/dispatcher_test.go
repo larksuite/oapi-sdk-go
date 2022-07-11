@@ -16,10 +16,10 @@ import (
 func mockEncryptedBody(encrypteKey string) []byte {
 
 	eventBody := ""
-	en, _ := core.EncryptedEventMsg(context.Background(), eventBody, encrypteKey)
+	en, _ := larkcore.EncryptedEventMsg(context.Background(), eventBody, encrypteKey)
 	fmt.Println(encrypteKey)
 
-	encrypt := event.EventEncryptMsg{Encrypt: en}
+	encrypt := larkevent.EventEncryptMsg{Encrypt: en}
 	body1, _ := json.Marshal(encrypt)
 
 	return body1
@@ -35,16 +35,16 @@ func mockEvent() []byte {
 }
 
 func TestVerifyUrlOk(t *testing.T) {
-	handler := NewEventDispatcher("v", "1212121212").OnMessageReceiveV1(func(ctx context.Context, event *larkim.MessageReceiveEvent) error {
-		fmt.Println(core.Prettify(event))
+	handler := NewEventDispatcher("v", "1212121212").OnP2MessageReceiveV1(func(ctx context.Context, event *larkim.P2MessageReceiveV1) error {
+		fmt.Println(larkcore.Prettify(event))
 		return nil
-	}).OnUserCreatedV3(func(ctx context.Context, event *larkcontact.UserCreatedEvent) error {
-		fmt.Println(core.Prettify(event))
+	}).OnP2UserCreatedV3(func(ctx context.Context, event *larkcontact.P2UserCreatedV3) error {
+		fmt.Println(larkcore.Prettify(event))
 		return nil
 	})
 
 	//plainEventJsonStr := "{\"schema\":\"2.0\",\"header\":{\"event_id\":\"f7984f25108f8137722bb63cee927e66\",\"event_type\":\"contact.user.created_v3\",\"app_id\":\"cli_xxxxxxxx\",\"tenant_key\":\"xxxxxxx\",\"create_time\":\"1603977298000000\",\"token\":\"v\"},\"event\":{\"object\":{\"open_id\":\"ou_7dab8a3d3cdcc9da365777c7ad535d62\",\"union_id\":\"on_576833b917gda3d939b9a3c2d53e72c8\",\"user_id\":\"e33ggbyz\",\"name\":\"张三\",\"employee_no\":\"employee_no\"}},\"challenge\":\"1212\",\"type\":\"url_verification\"}"
-	_, err := handler.AuthByChallenge(context.Background(), event.ReqTypeEventCallBack, "", "")
+	_, err := handler.AuthByChallenge(context.Background(), larkevent.ReqTypeEventCallBack, "", "")
 	if err != nil {
 		t.Errorf("verfiy url failed ,%v", err)
 	}
@@ -53,22 +53,22 @@ func TestVerifyUrlOk(t *testing.T) {
 
 func TestVerifyUrlFailed(t *testing.T) {
 	// 创建card处理器
-	handler := NewEventDispatcher("v", "1212121212").OnMessageReceiveV1(func(ctx context.Context, event *larkim.MessageReceiveEvent) error {
-		fmt.Println(core.Prettify(event))
+	handler := NewEventDispatcher("v", "1212121212").OnP2MessageReceiveV1(func(ctx context.Context, event *larkim.P2MessageReceiveV1) error {
+		fmt.Println(larkcore.Prettify(event))
 		return nil
-	}).OnUserCreatedV3(func(ctx context.Context, event *larkcontact.UserCreatedEvent) error {
-		fmt.Println(core.Prettify(event))
+	}).OnP2UserCreatedV3(func(ctx context.Context, event *larkcontact.P2UserCreatedV3) error {
+		fmt.Println(larkcore.Prettify(event))
 		return nil
 	})
 	//plainEventJsonStr := "{\"schema\":\"2.0\",\"header\":{\"event_id\":\"f7984f25108f8137722bb63cee927e66\",\"event_type\":\"contact.user.created_v3\",\"app_id\":\"cli_xxxxxxxx\",\"tenant_key\":\"xxxxxxx\",\"create_time\":\"1603977298000000\",\"token\":\"1v\"},\"event\":{\"object\":{\"open_id\":\"ou_7dab8a3d3cdcc9da365777c7ad535d62\",\"union_id\":\"on_576833b917gda3d939b9a3c2d53e72c8\",\"user_id\":\"e33ggbyz\",\"name\":\"张三\",\"employee_no\":\"employee_no\"}},\"challenge\":\"1212\",\"type\":\"url_verification\"}"
-	_, err := handler.AuthByChallenge(context.Background(), event.ReqTypeEventCallBack, "", "")
+	_, err := handler.AuthByChallenge(context.Background(), larkevent.ReqTypeEventCallBack, "", "")
 	if err == nil {
 		fmt.Println(err)
 		return
 	}
 }
 
-func mockEventReq(token string) *event.EventReq {
+func mockEventReq(token string) *larkevent.EventReq {
 
 	req, _ := http.NewRequest(http.MethodPost, "http://127.0.0.1:9999/webhook/event", nil)
 
@@ -76,14 +76,14 @@ func mockEventReq(token string) *event.EventReq {
 
 	var timestamp = "timestamp"
 	var nonce = "nonce"
-	sourceSign := event.Signature(timestamp, nonce, token, string(body))
+	sourceSign := larkevent.Signature(timestamp, nonce, token, string(body))
 
 	// 添加header
-	req.Header.Set(event.EventRequestTimestamp, timestamp)
-	req.Header.Set(event.EventRequestNonce, nonce)
-	req.Header.Set(event.EventSignature, sourceSign)
+	req.Header.Set(larkevent.EventRequestTimestamp, timestamp)
+	req.Header.Set(larkevent.EventRequestNonce, nonce)
+	req.Header.Set(larkevent.EventSignature, sourceSign)
 
-	eventReq := event.EventReq{
+	eventReq := larkevent.EventReq{
 		Header: req.Header,
 		Body:   []byte(body),
 	}
@@ -93,16 +93,16 @@ func mockEventReq(token string) *event.EventReq {
 
 func TestParseReq(t *testing.T) {
 	// 创建card处理器
-	handler := NewEventDispatcher("", "").OnMessageReceiveV1(func(ctx context.Context, event *larkim.MessageReceiveEvent) error {
-		fmt.Println(core.Prettify(event))
+	handler := NewEventDispatcher("", "").OnP2MessageReceiveV1(func(ctx context.Context, event *larkim.P2MessageReceiveV1) error {
+		fmt.Println(larkcore.Prettify(event))
 		return nil
-	}).OnUserCreatedV3(func(ctx context.Context, event *larkcontact.UserCreatedEvent) error {
-		fmt.Println(core.Prettify(event))
+	}).OnP2UserCreatedV3(func(ctx context.Context, event *larkcontact.P2UserCreatedV3) error {
+		fmt.Println(larkcore.Prettify(event))
 		return nil
 	})
 
-	config := &core.Config{}
-	core.NewLogger(config)
+	config := &larkcore.Config{}
+	larkcore.NewLogger(config)
 	handler.Config = config
 
 	// mock请求
@@ -118,16 +118,16 @@ func TestParseReq(t *testing.T) {
 
 func TestDecryptEvent(t *testing.T) {
 	// 创建card处理器
-	handler := NewEventDispatcher("v", "1212121212").OnMessageReceiveV1(func(ctx context.Context, event *larkim.MessageReceiveEvent) error {
-		fmt.Println(core.Prettify(event))
+	handler := NewEventDispatcher("v", "1212121212").OnP2MessageReceiveV1(func(ctx context.Context, event *larkim.P2MessageReceiveV1) error {
+		fmt.Println(larkcore.Prettify(event))
 		return nil
-	}).OnUserCreatedV3(func(ctx context.Context, event *larkcontact.UserCreatedEvent) error {
-		fmt.Println(core.Prettify(event))
+	}).OnP2UserCreatedV3(func(ctx context.Context, event *larkcontact.P2UserCreatedV3) error {
+		fmt.Println(larkcore.Prettify(event))
 		return nil
 	})
 
-	config := &core.Config{}
-	core.NewLogger(config)
+	config := &larkcore.Config{}
+	larkcore.NewLogger(config)
 	handler.Config = config
 
 	resp, err := handler.DecryptEvent(context.Background(), "bZ3L7yh6m3Fkuffl4g+3uGjIHnhOm5fVZbKVuyT8t7tcd5ABMYm8l28/X900ZL3knZ7n+sCREu/H2WnIzft0amC7+xWqNH8o25IU63N4BnZWfHh+4hyG76QPd19vkw2bPJCx9aqxK8Nz+xqFNbk0RdgyWhmgd30jSxHtcQXAllkI7FMpGpOCteJad3bLXPDBQIV/xkCtKICCS7Z63gakpxZCLaRZ3qCXP1fapHh+LBIupxenrU6ysc7I3nHmjmKie41IiWwS5puG4zQHhVbq6KWLcgWm/3NBZOPQy53ucMu75SXA55I7jarVLZXWUcqBGrcgE3vouWbtwgZuzmoTQl0GSh5VYSVvpW992BuGxUWj0XjPYdICJm6Cr7xouNXwMcdb7N8caVdkdSZeEnswG19qSyDoQhklwzNGW0yiaayulBqJNjfge/G5V3401c2XaIuAeEIo+QQ4RSNpRGfnHkbu/j55FGQAGWjpuBNaIwZbaUoVP3NkGP+vM5rpEDe3sL2GN+Xsd+g9yBs7FqdMV8mXTGgLjCqjrPrke5/km76Q3Pe6KPs2YexMRG4MkSx3xUTzZnNn7zIzShPcjeSwBd2pxk6ht5N+fzueZdxl6Oo=")
@@ -141,16 +141,16 @@ func TestDecryptEvent(t *testing.T) {
 
 func TestVerifySignOk(t *testing.T) {
 	// 创建card处理器
-	handler := NewEventDispatcher("v", "1212121212").OnMessageReceiveV1(func(ctx context.Context, event *larkim.MessageReceiveEvent) error {
-		fmt.Println(core.Prettify(event))
+	handler := NewEventDispatcher("v", "1212121212").OnP2MessageReceiveV1(func(ctx context.Context, event *larkim.P2MessageReceiveV1) error {
+		fmt.Println(larkcore.Prettify(event))
 		return nil
-	}).OnUserCreatedV3(func(ctx context.Context, event *larkcontact.UserCreatedEvent) error {
-		fmt.Println(core.Prettify(event))
+	}).OnP2UserCreatedV3(func(ctx context.Context, event *larkcontact.P2UserCreatedV3) error {
+		fmt.Println(larkcore.Prettify(event))
 		return nil
 	})
 
-	config := &core.Config{}
-	core.NewLogger(config)
+	config := &larkcore.Config{}
+	larkcore.NewLogger(config)
 	handler.Config = config
 
 	req := mockEventReq("1212121212")
@@ -163,7 +163,7 @@ func TestVerifySignOk(t *testing.T) {
 func TestAppTicket(t *testing.T) {
 
 	event := appTicketEvent{
-		EventBase: &event.EventBase{
+		EventBase: &larkevent.EventBase{
 			Ts:    "",
 			UUID:  "",
 			Token: "1212121212",

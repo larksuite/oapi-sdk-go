@@ -1,4 +1,4 @@
-package card
+package larkcard
 
 import (
 	"context"
@@ -10,7 +10,7 @@ import (
 	"strings"
 
 	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/event"
+	"github.com/larksuite/oapi-sdk-go/larkevent"
 )
 
 type CardActionHandler struct {
@@ -20,32 +20,32 @@ type CardActionHandler struct {
 	*core.Config
 }
 
-func processError(ctx context.Context, logger core.Logger, path string, err error) *event.EventResp {
+func processError(ctx context.Context, logger core.Logger, path string, err error) *larkevent.EventResp {
 	header := map[string][]string{}
 	statusCode := http.StatusInternalServerError
-	header[event.ContentTypeHeader] = []string{event.DefaultContentType}
-	eventResp := &event.EventResp{
+	header[larkevent.ContentTypeHeader] = []string{larkevent.DefaultContentType}
+	eventResp := &larkevent.EventResp{
 		Header:     header,
-		Body:       []byte(fmt.Sprintf(event.WebhookResponseFormat, err.Error())),
+		Body:       []byte(fmt.Sprintf(larkevent.WebhookResponseFormat, err.Error())),
 		StatusCode: statusCode,
 	}
 	logger.Error(ctx, fmt.Sprintf("handle cardAcion,path:%s, err: %v", path, err))
 	return eventResp
 }
 
-func recoveryResult() *event.EventResp {
+func recoveryResult() *larkevent.EventResp {
 	header := map[string][]string{}
 	statusCode := http.StatusInternalServerError
-	header[event.ContentTypeHeader] = []string{event.DefaultContentType}
-	eventResp := &event.EventResp{
+	header[larkevent.ContentTypeHeader] = []string{larkevent.DefaultContentType}
+	eventResp := &larkevent.EventResp{
 		Header:     header,
-		Body:       []byte(fmt.Sprintf(event.WebhookResponseFormat, "Server Internal Error")),
+		Body:       []byte(fmt.Sprintf(larkevent.WebhookResponseFormat, "Server Internal Error")),
 		StatusCode: statusCode,
 	}
 	return eventResp
 }
 
-func (h *CardActionHandler) Handle(ctx context.Context, req *event.EventReq) (eventResp *event.EventResp) {
+func (h *CardActionHandler) Handle(ctx context.Context, req *larkevent.EventReq) (eventResp *larkevent.EventResp) {
 	h.Config.Logger.Debug(ctx, fmt.Sprintf("card request: header:%v,body:%s", req.Header, string(req.Body)))
 	defer func() {
 		if err := recover(); err != nil {
@@ -59,7 +59,7 @@ func (h *CardActionHandler) Handle(ctx context.Context, req *event.EventReq) (ev
 		return processError(ctx, h.Config.Logger, req.RequestURI, err)
 	}
 
-	if event.ReqType(cardAction.Type) != event.ReqTypeChallenge {
+	if larkevent.ReqType(cardAction.Type) != larkevent.ReqTypeChallenge {
 		err = h.VerifySign(ctx, req)
 		if err != nil {
 			return processError(ctx, h.Config.Logger, req.RequestURI, err)
@@ -77,7 +77,7 @@ func (h *CardActionHandler) Logger() core.Logger {
 	return h.Config.Logger
 }
 
-func (h *CardActionHandler) InitConfig(options ...event.OptionFunc) {
+func (h *CardActionHandler) InitConfig(options ...larkevent.OptionFunc) {
 	for _, option := range options {
 		option(h.Config)
 	}
@@ -100,26 +100,27 @@ func (h *CardActionHandler) Event() interface{} {
 
 var notFoundCardHandlerErr = errors.New("card action handler not found")
 
-func (h *CardActionHandler) AuthByChallenge(ctx context.Context, cardAction *CardAction) (*event.EventResp, error) {
+func (h *CardActionHandler) AuthByChallenge(ctx context.Context, cardAction *CardAction) (*larkevent.EventResp, error) {
 	header := map[string][]string{}
-	header[event.ContentTypeHeader] = []string{event.DefaultContentType}
-	hookType := event.ReqType(cardAction.Type)
+	header[larkevent.ContentTypeHeader] = []string{larkevent.DefaultContentType}
+	hookType := larkevent.ReqType(cardAction.Type)
 	challenge := cardAction.Challenge
-	if hookType == event.ReqTypeChallenge {
+	if hookType == larkevent.ReqTypeChallenge {
 		if h.verificationToken != cardAction.Token {
 			err := errors.New("the result of auth by challenge failed")
 			return nil, err
 		}
-		eventResp := event.EventResp{
+		eventResp := larkevent.EventResp{
 			Header:     header,
-			Body:       []byte(fmt.Sprintf(event.ChallengeResponseFormat, challenge)),
+			Body:       []byte(fmt.Sprintf(larkevent.ChallengeResponseFormat, challenge)),
 			StatusCode: http.StatusOK,
 		}
+		h.Config.Logger.Info(ctx, fmt.Sprintf("AuthByChallenge Success"))
 		return &eventResp, nil
 	}
 	return nil, nil
 }
-func (h *CardActionHandler) DoHandle(ctx context.Context, cardAction *CardAction) (*event.EventResp, error) {
+func (h *CardActionHandler) DoHandle(ctx context.Context, cardAction *CardAction) (*larkevent.EventResp, error) {
 	var err error
 	// auth by challenge
 	resp, err := h.AuthByChallenge(ctx, cardAction)
@@ -144,11 +145,11 @@ func (h *CardActionHandler) DoHandle(ctx context.Context, cardAction *CardAction
 	}
 
 	header := map[string][]string{}
-	header[event.ContentTypeHeader] = []string{event.DefaultContentType}
+	header[larkevent.ContentTypeHeader] = []string{larkevent.DefaultContentType}
 	if result == nil {
-		eventResp := &event.EventResp{
+		eventResp := &larkevent.EventResp{
 			Header:     header,
-			Body:       []byte(fmt.Sprintf(event.WebhookResponseFormat, "success")),
+			Body:       []byte(fmt.Sprintf(larkevent.WebhookResponseFormat, "success")),
 			StatusCode: http.StatusOK,
 		}
 		return eventResp, nil
@@ -169,7 +170,7 @@ func (h *CardActionHandler) DoHandle(ctx context.Context, cardAction *CardAction
 			return nil, err
 		}
 
-		eventResp := &event.EventResp{
+		eventResp := &larkevent.EventResp{
 			Header:     header,
 			Body:       b,
 			StatusCode: statusCode,
@@ -179,7 +180,7 @@ func (h *CardActionHandler) DoHandle(ctx context.Context, cardAction *CardAction
 		respBody, err = json.Marshal(result)
 	}
 
-	eventResp := &event.EventResp{
+	eventResp := &larkevent.EventResp{
 		Header:     header,
 		Body:       respBody,
 		StatusCode: http.StatusOK,
@@ -188,14 +189,14 @@ func (h *CardActionHandler) DoHandle(ctx context.Context, cardAction *CardAction
 	return eventResp, err
 }
 
-func (h *CardActionHandler) VerifySign(ctx context.Context, req *event.EventReq) error {
+func (h *CardActionHandler) VerifySign(ctx context.Context, req *larkevent.EventReq) error {
 	if h.verificationToken == "" {
 		return nil
 	}
 
 	// 解析签名头
-	requestTimestamps := req.Header[event.EventRequestTimestamp]
-	requestNonces := req.Header[event.EventRequestNonce]
+	requestTimestamps := req.Header[larkevent.EventRequestTimestamp]
+	requestNonces := req.Header[larkevent.EventRequestNonce]
 
 	var requestTimestamp = ""
 	var requestNonce = ""
@@ -211,7 +212,7 @@ func (h *CardActionHandler) VerifySign(ctx context.Context, req *event.EventReq)
 		h.verificationToken,
 		string(req.Body))
 
-	sourceSigns := req.Header[event.EventSignature]
+	sourceSigns := req.Header[larkevent.EventSignature]
 	var sourceSign = ""
 	if len(sourceSigns) > 0 {
 		sourceSign = sourceSigns[0]

@@ -3,62 +3,63 @@ package dispatcher
 
 import (
 	"context"
+
 	"github.com/larksuite/oapi-sdk-go/service/application/v6"
 )
 
-func (dispatcher *EventDispatcher) OnApplicationCreatedV6(handler func(ctx context.Context, event *larkapplication.ApplicationCreatedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnP2ApplicationCreatedV6(handler func(ctx context.Context, event *larkapplication.P2ApplicationCreatedV6) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["application.application.created_v6"]
 	if existed {
 		panic("event: multiple handler registrations for " + "application.application.created_v6")
 	}
-	dispatcher.eventType2EventHandler["application.application.created_v6"] = larkapplication.NewApplicationCreatedEventHandler(handler)
+	dispatcher.eventType2EventHandler["application.application.created_v6"] = larkapplication.NewP2ApplicationCreatedV6Handler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnApplicationAppVersionAuditV6(handler func(ctx context.Context, event *larkapplication.ApplicationAppVersionAuditEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnP2ApplicationAppVersionAuditV6(handler func(ctx context.Context, event *larkapplication.P2ApplicationAppVersionAuditV6) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["application.application.app_version.audit_v6"]
 	if existed {
 		panic("event: multiple handler registrations for " + "application.application.app_version.audit_v6")
 	}
-	dispatcher.eventType2EventHandler["application.application.app_version.audit_v6"] = larkapplication.NewApplicationAppVersionAuditEventHandler(handler)
+	dispatcher.eventType2EventHandler["application.application.app_version.audit_v6"] = larkapplication.NewP2ApplicationAppVersionAuditV6Handler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnApplicationAppVersionPublishApplyV6(handler func(ctx context.Context, event *larkapplication.ApplicationAppVersionPublishApplyEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnP2ApplicationAppVersionPublishApplyV6(handler func(ctx context.Context, event *larkapplication.P2ApplicationAppVersionPublishApplyV6) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["application.application.app_version.publish_apply_v6"]
 	if existed {
 		panic("event: multiple handler registrations for " + "application.application.app_version.publish_apply_v6")
 	}
-	dispatcher.eventType2EventHandler["application.application.app_version.publish_apply_v6"] = larkapplication.NewApplicationAppVersionPublishApplyEventHandler(handler)
+	dispatcher.eventType2EventHandler["application.application.app_version.publish_apply_v6"] = larkapplication.NewP2ApplicationAppVersionPublishApplyV6Handler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnApplicationAppVersionPublishRevokeV6(handler func(ctx context.Context, event *larkapplication.ApplicationAppVersionPublishRevokeEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnP2ApplicationAppVersionPublishRevokeV6(handler func(ctx context.Context, event *larkapplication.P2ApplicationAppVersionPublishRevokeV6) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["application.application.app_version.publish_revoke_v6"]
 	if existed {
 		panic("event: multiple handler registrations for " + "application.application.app_version.publish_revoke_v6")
 	}
-	dispatcher.eventType2EventHandler["application.application.app_version.publish_revoke_v6"] = larkapplication.NewApplicationAppVersionPublishRevokeEventHandler(handler)
+	dispatcher.eventType2EventHandler["application.application.app_version.publish_revoke_v6"] = larkapplication.NewP2ApplicationAppVersionPublishRevokeV6Handler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnApplicationFeedbackCreatedV6(handler func(ctx context.Context, event *larkapplication.ApplicationFeedbackCreatedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnP2ApplicationFeedbackCreatedV6(handler func(ctx context.Context, event *larkapplication.P2ApplicationFeedbackCreatedV6) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["application.application.feedback.created_v6"]
 	if existed {
 		panic("event: multiple handler registrations for " + "application.application.feedback.created_v6")
 	}
-	dispatcher.eventType2EventHandler["application.application.feedback.created_v6"] = larkapplication.NewApplicationFeedbackCreatedEventHandler(handler)
+	dispatcher.eventType2EventHandler["application.application.feedback.created_v6"] = larkapplication.NewP2ApplicationFeedbackCreatedV6Handler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnApplicationFeedbackUpdatedV6(handler func(ctx context.Context, event *larkapplication.ApplicationFeedbackUpdatedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnP2ApplicationFeedbackUpdatedV6(handler func(ctx context.Context, event *larkapplication.P2ApplicationFeedbackUpdatedV6) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["application.application.feedback.updated_v6"]
 	if existed {
 		panic("event: multiple handler registrations for " + "application.application.feedback.updated_v6")
 	}
-	dispatcher.eventType2EventHandler["application.application.feedback.updated_v6"] = larkapplication.NewApplicationFeedbackUpdatedEventHandler(handler)
+	dispatcher.eventType2EventHandler["application.application.feedback.updated_v6"] = larkapplication.NewP2ApplicationFeedbackUpdatedV6Handler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnApplicationVisibilityAddedV6(handler func(ctx context.Context, event *larkapplication.ApplicationVisibilityAddedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnP2ApplicationVisibilityAddedV6(handler func(ctx context.Context, event *larkapplication.P2ApplicationVisibilityAddedV6) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["application.application.visibility.added_v6"]
 	if existed {
 		panic("event: multiple handler registrations for " + "application.application.visibility.added_v6")
 	}
-	dispatcher.eventType2EventHandler["application.application.visibility.added_v6"] = larkapplication.NewApplicationVisibilityAddedEventHandler(handler)
+	dispatcher.eventType2EventHandler["application.application.visibility.added_v6"] = larkapplication.NewP2ApplicationVisibilityAddedV6Handler(handler)
 	return dispatcher
 }

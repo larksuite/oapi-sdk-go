@@ -15,7 +15,7 @@ type appTicketEventData struct {
 }
 
 type appTicketEvent struct {
-	*event.EventBase
+	*larkevent.EventBase
 	Event *appTicketEventData `json:"event"`
 }
 
@@ -30,7 +30,7 @@ func (h *appTicketEventHandler) Event() interface{} {
 
 func (h *appTicketEventHandler) Handle(ctx context.Context, event interface{}) error {
 	appTicketEvent := event.(*appTicketEvent)
-	return core.GetAppTicketManager().Set(context.Background(),
+	return larkcore.GetAppTicketManager().Set(context.Background(),
 		appTicketEvent.Event.AppId,
 		appTicketEvent.Event.AppTicket, time.Hour*12)
 }

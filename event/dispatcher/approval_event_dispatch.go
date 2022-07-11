@@ -6,11 +6,11 @@ import (
 	"github.com/larksuite/oapi-sdk-go/service/approval/v4"
 )
 
-func (dispatcher *EventDispatcher) OnApprovalUpdatedV4(handler func(ctx context.Context, event *larkapproval.ApprovalUpdatedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnP2ApprovalUpdatedV4(handler func(ctx context.Context, event *larkapproval.P2ApprovalUpdatedV4) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["approval.approval.updated_v4"]
 	if existed {
 		panic("event: multiple handler registrations for " + "approval.approval.updated_v4")
 	}
-	dispatcher.eventType2EventHandler["approval.approval.updated_v4"] = larkapproval.NewApprovalUpdatedEventHandler(handler)
+	dispatcher.eventType2EventHandler["approval.approval.updated_v4"] = larkapproval.NewP2ApprovalUpdatedV4Handler(handler)
 	return dispatcher
 }

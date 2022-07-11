@@ -1,4 +1,4 @@
-package card
+package larkcard
 
 import (
 	"context"
@@ -9,7 +9,7 @@ import (
 	"testing"
 
 	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/event"
+	"github.com/larksuite/oapi-sdk-go/larkevent"
 )
 
 func TestVerifyUrlOk(t *testing.T) {
@@ -47,7 +47,7 @@ func TestVerifyUrlFailed(t *testing.T) {
 
 }
 
-func mockEventReq(token string) *event.EventReq {
+func mockEventReq(token string) *larkevent.EventReq {
 	value := map[string]interface{}{}
 	value["value"] = "sdfsfd"
 	value["tag"] = "button"
@@ -82,10 +82,10 @@ func mockEventReq(token string) *event.EventReq {
 	sign := Signature(timestamp, nonce, token, string(body))
 
 	header := http.Header{}
-	header.Set(event.EventRequestTimestamp, timestamp)
-	header.Set(event.EventRequestNonce, nonce)
-	header.Set(event.EventSignature, sign)
-	req := &event.EventReq{
+	header.Set(larkevent.EventRequestTimestamp, timestamp)
+	header.Set(larkevent.EventRequestNonce, nonce)
+	header.Set(larkevent.EventSignature, sign)
+	req := &larkevent.EventReq{
 		Header: header,
 		Body:   body,
 	}
@@ -200,7 +200,7 @@ func mockCardAction() *CardAction {
 	value["value"] = "1111sdfsfd"
 	value["tag"] = "b11111utton"
 	cardAction := &CardAction{
-		Type:          string(event.ReqTypeChallenge),
+		Type:          string(larkevent.ReqTypeChallenge),
 		Token:         "12",
 		OpenID:        "ou_sdfimx9948345",
 		UserID:        "eu_sd923r0sdf5",

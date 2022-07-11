@@ -6,59 +6,59 @@ import (
 	"github.com/larksuite/oapi-sdk-go/service/drive/v1"
 )
 
-func (dispatcher *EventDispatcher) OnFileDeletedV1(handler func(ctx context.Context, event *larkdrive.FileDeletedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnP2FileDeletedV1(handler func(ctx context.Context, event *larkdrive.P2FileDeletedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["drive.file.deleted_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "drive.file.deleted_v1")
 	}
-	dispatcher.eventType2EventHandler["drive.file.deleted_v1"] = larkdrive.NewFileDeletedEventHandler(handler)
+	dispatcher.eventType2EventHandler["drive.file.deleted_v1"] = larkdrive.NewP2FileDeletedV1Handler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnFileEditV1(handler func(ctx context.Context, event *larkdrive.FileEditEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnP2FileEditV1(handler func(ctx context.Context, event *larkdrive.P2FileEditV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["drive.file.edit_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "drive.file.edit_v1")
 	}
-	dispatcher.eventType2EventHandler["drive.file.edit_v1"] = larkdrive.NewFileEditEventHandler(handler)
+	dispatcher.eventType2EventHandler["drive.file.edit_v1"] = larkdrive.NewP2FileEditV1Handler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnFilePermissionMemberAddedV1(handler func(ctx context.Context, event *larkdrive.FilePermissionMemberAddedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnP2FilePermissionMemberAddedV1(handler func(ctx context.Context, event *larkdrive.P2FilePermissionMemberAddedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["drive.file.permission_member_added_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "drive.file.permission_member_added_v1")
 	}
-	dispatcher.eventType2EventHandler["drive.file.permission_member_added_v1"] = larkdrive.NewFilePermissionMemberAddedEventHandler(handler)
+	dispatcher.eventType2EventHandler["drive.file.permission_member_added_v1"] = larkdrive.NewP2FilePermissionMemberAddedV1Handler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnFilePermissionMemberRemovedV1(handler func(ctx context.Context, event *larkdrive.FilePermissionMemberRemovedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnP2FilePermissionMemberRemovedV1(handler func(ctx context.Context, event *larkdrive.P2FilePermissionMemberRemovedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["drive.file.permission_member_removed_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "drive.file.permission_member_removed_v1")
 	}
-	dispatcher.eventType2EventHandler["drive.file.permission_member_removed_v1"] = larkdrive.NewFilePermissionMemberRemovedEventHandler(handler)
+	dispatcher.eventType2EventHandler["drive.file.permission_member_removed_v1"] = larkdrive.NewP2FilePermissionMemberRemovedV1Handler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnFileReadV1(handler func(ctx context.Context, event *larkdrive.FileReadEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnP2FileReadV1(handler func(ctx context.Context, event *larkdrive.P2FileReadV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["drive.file.read_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "drive.file.read_v1")
 	}
-	dispatcher.eventType2EventHandler["drive.file.read_v1"] = larkdrive.NewFileReadEventHandler(handler)
+	dispatcher.eventType2EventHandler["drive.file.read_v1"] = larkdrive.NewP2FileReadV1Handler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnFileTitleUpdatedV1(handler func(ctx context.Context, event *larkdrive.FileTitleUpdatedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnP2FileTitleUpdatedV1(handler func(ctx context.Context, event *larkdrive.P2FileTitleUpdatedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["drive.file.title_updated_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "drive.file.title_updated_v1")
 	}
-	dispatcher.eventType2EventHandler["drive.file.title_updated_v1"] = larkdrive.NewFileTitleUpdatedEventHandler(handler)
+	dispatcher.eventType2EventHandler["drive.file.title_updated_v1"] = larkdrive.NewP2FileTitleUpdatedV1Handler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnFileTrashedV1(handler func(ctx context.Context, event *larkdrive.FileTrashedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnP2FileTrashedV1(handler func(ctx context.Context, event *larkdrive.P2FileTrashedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["drive.file.trashed_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "drive.file.trashed_v1")
 	}
-	dispatcher.eventType2EventHandler["drive.file.trashed_v1"] = larkdrive.NewFileTrashedEventHandler(handler)
+	dispatcher.eventType2EventHandler["drive.file.trashed_v1"] = larkdrive.NewP2FileTrashedV1Handler(handler)
 	return dispatcher
 }

@@ -1,4 +1,4 @@
-package card
+package larkcard
 
 import (
 	"encoding/json"

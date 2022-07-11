@@ -6,107 +6,107 @@ import (
 	"github.com/larksuite/oapi-sdk-go/service/contact/v3"
 )
 
-func (dispatcher *EventDispatcher) OnCustomAttrEventUpdatedV3(handler func(ctx context.Context, event *larkcontact.CustomAttrEventUpdatedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnP2CustomAttrEventUpdatedV3(handler func(ctx context.Context, event *larkcontact.P2CustomAttrEventUpdatedV3) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["contact.custom_attr_event.updated_v3"]
 	if existed {
 		panic("event: multiple handler registrations for " + "contact.custom_attr_event.updated_v3")
 	}
-	dispatcher.eventType2EventHandler["contact.custom_attr_event.updated_v3"] = larkcontact.NewCustomAttrEventUpdatedEventHandler(handler)
+	dispatcher.eventType2EventHandler["contact.custom_attr_event.updated_v3"] = larkcontact.NewP2CustomAttrEventUpdatedV3Handler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnDepartmentCreatedV3(handler func(ctx context.Context, event *larkcontact.DepartmentCreatedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnP2DepartmentCreatedV3(handler func(ctx context.Context, event *larkcontact.P2DepartmentCreatedV3) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["contact.department.created_v3"]
 	if existed {
 		panic("event: multiple handler registrations for " + "contact.department.created_v3")
 	}
-	dispatcher.eventType2EventHandler["contact.department.created_v3"] = larkcontact.NewDepartmentCreatedEventHandler(handler)
+	dispatcher.eventType2EventHandler["contact.department.created_v3"] = larkcontact.NewP2DepartmentCreatedV3Handler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnDepartmentDeletedV3(handler func(ctx context.Context, event *larkcontact.DepartmentDeletedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnP2DepartmentDeletedV3(handler func(ctx context.Context, event *larkcontact.P2DepartmentDeletedV3) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["contact.department.deleted_v3"]
 	if existed {
 		panic("event: multiple handler registrations for " + "contact.department.deleted_v3")
 	}
-	dispatcher.eventType2EventHandler["contact.department.deleted_v3"] = larkcontact.NewDepartmentDeletedEventHandler(handler)
+	dispatcher.eventType2EventHandler["contact.department.deleted_v3"] = larkcontact.NewP2DepartmentDeletedV3Handler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnDepartmentUpdatedV3(handler func(ctx context.Context, event *larkcontact.DepartmentUpdatedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnP2DepartmentUpdatedV3(handler func(ctx context.Context, event *larkcontact.P2DepartmentUpdatedV3) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["contact.department.updated_v3"]
 	if existed {
 		panic("event: multiple handler registrations for " + "contact.department.updated_v3")
 	}
-	dispatcher.eventType2EventHandler["contact.department.updated_v3"] = larkcontact.NewDepartmentUpdatedEventHandler(handler)
+	dispatcher.eventType2EventHandler["contact.department.updated_v3"] = larkcontact.NewP2DepartmentUpdatedV3Handler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnEmployeeTypeEnumActivedV3(handler func(ctx context.Context, event *larkcontact.EmployeeTypeEnumActivedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnP2EmployeeTypeEnumActivedV3(handler func(ctx context.Context, event *larkcontact.P2EmployeeTypeEnumActivedV3) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["contact.employee_type_enum.actived_v3"]
 	if existed {
 		panic("event: multiple handler registrations for " + "contact.employee_type_enum.actived_v3")
 	}
-	dispatcher.eventType2EventHandler["contact.employee_type_enum.actived_v3"] = larkcontact.NewEmployeeTypeEnumActivedEventHandler(handler)
+	dispatcher.eventType2EventHandler["contact.employee_type_enum.actived_v3"] = larkcontact.NewP2EmployeeTypeEnumActivedV3Handler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnEmployeeTypeEnumCreatedV3(handler func(ctx context.Context, event *larkcontact.EmployeeTypeEnumCreatedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnP2EmployeeTypeEnumCreatedV3(handler func(ctx context.Context, event *larkcontact.P2EmployeeTypeEnumCreatedV3) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["contact.employee_type_enum.created_v3"]
 	if existed {
 		panic("event: multiple handler registrations for " + "contact.employee_type_enum.created_v3")
 	}
-	dispatcher.eventType2EventHandler["contact.employee_type_enum.created_v3"] = larkcontact.NewEmployeeTypeEnumCreatedEventHandler(handler)
+	dispatcher.eventType2EventHandler["contact.employee_type_enum.created_v3"] = larkcontact.NewP2EmployeeTypeEnumCreatedV3Handler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnEmployeeTypeEnumDeactivatedV3(handler func(ctx context.Context, event *larkcontact.EmployeeTypeEnumDeactivatedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnP2EmployeeTypeEnumDeactivatedV3(handler func(ctx context.Context, event *larkcontact.P2EmployeeTypeEnumDeactivatedV3) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["contact.employee_type_enum.deactivated_v3"]
 	if existed {
 		panic("event: multiple handler registrations for " + "contact.employee_type_enum.deactivated_v3")
 	}
-	dispatcher.eventType2EventHandler["contact.employee_type_enum.deactivated_v3"] = larkcontact.NewEmployeeTypeEnumDeactivatedEventHandler(handler)
+	dispatcher.eventType2EventHandler["contact.employee_type_enum.deactivated_v3"] = larkcontact.NewP2EmployeeTypeEnumDeactivatedV3Handler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnEmployeeTypeEnumDeletedV3(handler func(ctx context.Context, event *larkcontact.EmployeeTypeEnumDeletedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnP2EmployeeTypeEnumDeletedV3(handler func(ctx context.Context, event *larkcontact.P2EmployeeTypeEnumDeletedV3) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["contact.employee_type_enum.deleted_v3"]
 	if existed {
 		panic("event: multiple handler registrations for " + "contact.employee_type_enum.deleted_v3")
 	}
-	dispatcher.eventType2EventHandler["contact.employee_type_enum.deleted_v3"] = larkcontact.NewEmployeeTypeEnumDeletedEventHandler(handler)
+	dispatcher.eventType2EventHandler["contact.employee_type_enum.deleted_v3"] = larkcontact.NewP2EmployeeTypeEnumDeletedV3Handler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnEmployeeTypeEnumUpdatedV3(handler func(ctx context.Context, event *larkcontact.EmployeeTypeEnumUpdatedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnP2EmployeeTypeEnumUpdatedV3(handler func(ctx context.Context, event *larkcontact.P2EmployeeTypeEnumUpdatedV3) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["contact.employee_type_enum.updated_v3"]
 	if existed {
 		panic("event: multiple handler registrations for " + "contact.employee_type_enum.updated_v3")
 	}
-	dispatcher.eventType2EventHandler["contact.employee_type_enum.updated_v3"] = larkcontact.NewEmployeeTypeEnumUpdatedEventHandler(handler)
+	dispatcher.eventType2EventHandler["contact.employee_type_enum.updated_v3"] = larkcontact.NewP2EmployeeTypeEnumUpdatedV3Handler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnScopeUpdatedV3(handler func(ctx context.Context, event *larkcontact.ScopeUpdatedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnP2ScopeUpdatedV3(handler func(ctx context.Context, event *larkcontact.P2ScopeUpdatedV3) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["contact.scope.updated_v3"]
 	if existed {
 		panic("event: multiple handler registrations for " + "contact.scope.updated_v3")
 	}
-	dispatcher.eventType2EventHandler["contact.scope.updated_v3"] = larkcontact.NewScopeUpdatedEventHandler(handler)
+	dispatcher.eventType2EventHandler["contact.scope.updated_v3"] = larkcontact.NewP2ScopeUpdatedV3Handler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnUserCreatedV3(handler func(ctx context.Context, event *larkcontact.UserCreatedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnP2UserCreatedV3(handler func(ctx context.Context, event *larkcontact.P2UserCreatedV3) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["contact.user.created_v3"]
 	if existed {
 		panic("event: multiple handler registrations for " + "contact.user.created_v3")
 	}
-	dispatcher.eventType2EventHandler["contact.user.created_v3"] = larkcontact.NewUserCreatedEventHandler(handler)
+	dispatcher.eventType2EventHandler["contact.user.created_v3"] = larkcontact.NewP2UserCreatedV3Handler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnUserDeletedV3(handler func(ctx context.Context, event *larkcontact.UserDeletedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnP2UserDeletedV3(handler func(ctx context.Context, event *larkcontact.P2UserDeletedV3) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["contact.user.deleted_v3"]
 	if existed {
 		panic("event: multiple handler registrations for " + "contact.user.deleted_v3")
 	}
-	dispatcher.eventType2EventHandler["contact.user.deleted_v3"] = larkcontact.NewUserDeletedEventHandler(handler)
+	dispatcher.eventType2EventHandler["contact.user.deleted_v3"] = larkcontact.NewP2UserDeletedV3Handler(handler)
 	return dispatcher
 }
-func (dispatcher *EventDispatcher) OnUserUpdatedV3(handler func(ctx context.Context, event *larkcontact.UserUpdatedEvent) error) *EventDispatcher {
+func (dispatcher *EventDispatcher) OnP2UserUpdatedV3(handler func(ctx context.Context, event *larkcontact.P2UserUpdatedV3) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["contact.user.updated_v3"]
 	if existed {
 		panic("event: multiple handler registrations for " + "contact.user.updated_v3")
 	}
-	dispatcher.eventType2EventHandler["contact.user.updated_v3"] = larkcontact.NewUserUpdatedEventHandler(handler)
+	dispatcher.eventType2EventHandler["contact.user.updated_v3"] = larkcontact.NewP2UserUpdatedV3Handler(handler)
 	return dispatcher
 }

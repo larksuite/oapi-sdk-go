@@ -13,62 +13,62 @@ import (
 
 type EventDispatcher struct {
 	// 事件map,key为事件类型，value为事件处理器
-	eventType2EventHandler map[string]event.EventHandler
+	eventType2EventHandler map[string]larkevent.EventHandler
 	// 事件回调签名token，消息解密key
 	verificationToken string
 	eventEncryptKey   string
-	*core.Config
+	*larkcore.Config
 }
 
-func (dispatcher *EventDispatcher) Logger() core.Logger {
+func (dispatcher *EventDispatcher) Logger() larkcore.Logger {
 	return dispatcher.Config.Logger
 }
 
-func (d *EventDispatcher) InitConfig(options ...event.OptionFunc) {
+func (d *EventDispatcher) InitConfig(options ...larkevent.OptionFunc) {
 	for _, option := range options {
 		option(d.Config)
 	}
-	core.NewLogger(d.Config)
+	larkcore.NewLogger(d.Config)
 }
 
 func NewEventDispatcher(verificationToken, eventEncryptKey string) *EventDispatcher {
 	reqDispatcher := &EventDispatcher{
-		eventType2EventHandler: make(map[string]event.EventHandler),
+		eventType2EventHandler: make(map[string]larkevent.EventHandler),
 		verificationToken:      verificationToken,
 		eventEncryptKey:        eventEncryptKey,
-		Config:                 &core.Config{Logger: core.NewEventLogger()},
+		Config:                 &larkcore.Config{Logger: larkcore.NewEventLogger()},
 	}
 	// 注册app_ticket事件
 	reqDispatcher.eventType2EventHandler["app_ticket"] = &appTicketEventHandler{}
 	return reqDispatcher
 }
 
-func processError(ctx context.Context, logger core.Logger, path string, err error) *event.EventResp {
+func processError(ctx context.Context, logger larkcore.Logger, path string, err error) *larkevent.EventResp {
 	header := map[string][]string{}
 	statusCode := http.StatusInternalServerError
-	header[event.ContentTypeHeader] = []string{event.DefaultContentType}
-	eventResp := &event.EventResp{
+	header[larkevent.ContentTypeHeader] = []string{larkevent.DefaultContentType}
+	eventResp := &larkevent.EventResp{
 		Header:     header,
-		Body:       []byte(fmt.Sprintf(event.WebhookResponseFormat, err.Error())),
+		Body:       []byte(fmt.Sprintf(larkevent.WebhookResponseFormat, err.Error())),
 		StatusCode: statusCode,
 	}
 	logger.Error(ctx, fmt.Sprintf("handle event,path:%s,err: %v", path, err))
 	return eventResp
 }
 
-func recoveryResult() *event.EventResp {
+func recoveryResult() *larkevent.EventResp {
 	header := map[string][]string{}
 	statusCode := http.StatusInternalServerError
-	header[event.ContentTypeHeader] = []string{event.DefaultContentType}
-	eventResp := &event.EventResp{
+	header[larkevent.ContentTypeHeader] = []string{larkevent.DefaultContentType}
+	eventResp := &larkevent.EventResp{
 		Header:     header,
-		Body:       []byte(fmt.Sprintf(event.WebhookResponseFormat, "Server Internal Error")),
+		Body:       []byte(fmt.Sprintf(larkevent.WebhookResponseFormat, "Server Internal Error")),
 		StatusCode: statusCode,
 	}
 	return eventResp
 }
 
-func (d *EventDispatcher) Handle(ctx context.Context, req *event.EventReq) (eventResp *event.EventResp) {
+func (d *EventDispatcher) Handle(ctx context.Context, req *larkevent.EventReq) (eventResp *larkevent.EventResp) {
 	defer func() {
 		if err := recover(); err != nil {
 			d.Config.Logger.Error(ctx, fmt.Sprintf("handle event,path:%s, error:%v", req.RequestURI, err))
@@ -90,24 +90,24 @@ func (d *EventDispatcher) Handle(ctx context.Context, req *event.EventReq) (even
 	if err != nil {
 		return processError(ctx, d.Config.Logger, req.RequestURI, err)
 	}
-	if reqType != event.ReqTypeChallenge {
+	if reqType != larkevent.ReqTypeChallenge {
 		err = d.VerifySign(ctx, req)
 		if err != nil {
 			return processError(ctx, d.Config.Logger, req.RequestURI, err)
 		}
 	}
 
-	result, err := d.DoHandle(ctx, reqType, eventType, challenge, token, plainEventJsonStr)
+	result, err := d.DoHandle(ctx, reqType, eventType, challenge, token, plainEventJsonStr, req.RequestURI, req)
 	if err != nil {
 		return processError(ctx, d.Config.Logger, req.RequestURI, err)
 	}
 	return result
 }
 
-func (d *EventDispatcher) ParseReq(ctx context.Context, req *event.EventReq) (string, error) {
+func (d *EventDispatcher) ParseReq(ctx context.Context, req *larkevent.EventReq) (string, error) {
 	d.Config.Logger.Debug(ctx, fmt.Sprintf("event request: header:%v,body:%s", req.Header, string(req.Body)))
 	if d.eventEncryptKey != "" {
-		var encrypt event.EventEncryptMsg
+		var encrypt larkevent.EventEncryptMsg
 		err := json.Unmarshal(req.Body, &encrypt)
 		if err != nil {
 			err = fmt.Errorf("event message unmarshal failed:%v", err)
@@ -124,7 +124,7 @@ func (d *EventDispatcher) ParseReq(ctx context.Context, req *event.EventReq) (st
 
 func (d *EventDispatcher) DecryptEvent(ctx context.Context, cipherEventJsonStr string) (str string, er error) {
 	if d.eventEncryptKey != "" {
-		body, err := event.EventDecrypt(cipherEventJsonStr, d.eventEncryptKey)
+		body, err := larkevent.EventDecrypt(cipherEventJsonStr, d.eventEncryptKey)
 		if err != nil {
 			err = fmt.Errorf("event message decryption failed:%v", err)
 			return "", err
@@ -134,13 +134,13 @@ func (d *EventDispatcher) DecryptEvent(ctx context.Context, cipherEventJsonStr s
 	return cipherEventJsonStr, nil
 }
 
-func (d *EventDispatcher) VerifySign(ctx context.Context, req *event.EventReq) error {
+func (d *EventDispatcher) VerifySign(ctx context.Context, req *larkevent.EventReq) error {
 	if d.eventEncryptKey == "" {
 		return nil
 	}
 	// 解析签名头
-	requestTimestamps := req.Header[event.EventRequestTimestamp]
-	requestNonces := req.Header[event.EventRequestNonce]
+	requestTimestamps := req.Header[larkevent.EventRequestTimestamp]
+	requestNonces := req.Header[larkevent.EventRequestNonce]
 	var requestTimestamp = ""
 	var requestNonce = ""
 	if len(requestTimestamps) > 0 {
@@ -150,10 +150,10 @@ func (d *EventDispatcher) VerifySign(ctx context.Context, req *event.EventReq) e
 		requestNonce = requestNonces[0]
 	}
 	// 执行sha256签名计算
-	targetSign := event.Signature(requestTimestamp, requestNonce,
+	targetSign := larkevent.Signature(requestTimestamp, requestNonce,
 		d.eventEncryptKey, string(req.Body))
 
-	sourceSigns := req.Header[event.EventSignature]
+	sourceSigns := req.Header[larkevent.EventSignature]
 	var sourceSign = ""
 	if len(sourceSigns) > 0 {
 		sourceSign = sourceSigns[0]
@@ -166,8 +166,8 @@ func (d *EventDispatcher) VerifySign(ctx context.Context, req *event.EventReq) e
 	return errors.New("the result of signature verification failed")
 }
 
-func parse(plainEventJsonStr string) (event.ReqType, string, string, string, error) {
-	fuzzy := &event.EventFuzzy{}
+func parse(plainEventJsonStr string) (larkevent.ReqType, string, string, string, error) {
+	fuzzy := &larkevent.EventFuzzy{}
 	err := json.Unmarshal([]byte(plainEventJsonStr), fuzzy)
 	if err != nil {
 		err = fmt.Errorf("event json unmarshal, err: %v", err)
@@ -178,7 +178,7 @@ func parse(plainEventJsonStr string) (event.ReqType, string, string, string, err
 		return "", "", "", "", err
 	}
 
-	reqType := event.ReqType(fuzzy.Type)
+	reqType := larkevent.ReqType(fuzzy.Type)
 	var eventType string
 	token := fuzzy.Token
 	challenge := fuzzy.Challenge
@@ -195,36 +195,38 @@ func parse(plainEventJsonStr string) (event.ReqType, string, string, string, err
 	return reqType, challenge, token, eventType, nil
 }
 
-func (d *EventDispatcher) getErrorResp(ctx context.Context, header map[string][]string, err error) *event.EventResp {
-	eventResp := &event.EventResp{
+func (d *EventDispatcher) getErrorResp(ctx context.Context, header map[string][]string, err error) *larkevent.EventResp {
+	eventResp := &larkevent.EventResp{
 		Header:     header,
-		Body:       []byte(fmt.Sprintf(event.WebhookResponseFormat, err.Error())),
+		Body:       []byte(fmt.Sprintf(larkevent.WebhookResponseFormat, err.Error())),
 		StatusCode: http.StatusInternalServerError,
 	}
 	d.Config.Logger.Error(ctx, fmt.Sprintf("event handle err: %v", err))
 	return eventResp
 }
 
-func (d *EventDispatcher) AuthByChallenge(ctx context.Context, reqType event.ReqType, challenge, token string) (*event.EventResp, error) {
-	if reqType == event.ReqTypeChallenge {
+func (d *EventDispatcher) AuthByChallenge(ctx context.Context, reqType larkevent.ReqType, challenge, token string) (*larkevent.EventResp, error) {
+	if reqType == larkevent.ReqTypeChallenge {
 		if token != d.verificationToken {
 			err := errors.New("the result of auth by challenge failed")
 			return nil, err
 		}
 
 		header := map[string][]string{}
-		header[event.ContentTypeHeader] = []string{event.DefaultContentType}
-		eventResp := event.EventResp{
+		header[larkevent.ContentTypeHeader] = []string{larkevent.DefaultContentType}
+		eventResp := larkevent.EventResp{
 			Header:     header,
-			Body:       []byte(fmt.Sprintf(event.ChallengeResponseFormat, challenge)),
+			Body:       []byte(fmt.Sprintf(larkevent.ChallengeResponseFormat, challenge)),
 			StatusCode: http.StatusOK,
 		}
+		d.Config.Logger.Info(ctx, fmt.Sprintf("AuthByChallenge Success"))
 		return &eventResp, nil
 	}
 	return nil, nil
 }
 
-func (d *EventDispatcher) DoHandle(ctx context.Context, reqType event.ReqType, eventType, challenge, token, plainEventJsonStr string) (*event.EventResp, error) {
+func (d *EventDispatcher) DoHandle(ctx context.Context, reqType larkevent.ReqType, eventType, challenge, token,
+	plainEventJsonStr string, path string, req *larkevent.EventReq) (*larkevent.EventResp, error) {
 	// auth by challenge
 	resp, err := d.AuthByChallenge(ctx, reqType, challenge, token)
 	if err != nil {
@@ -239,13 +241,13 @@ func (d *EventDispatcher) DoHandle(ctx context.Context, reqType event.ReqType, e
 	if handler == nil {
 		err = &notFoundEventHandlerErr{eventType: eventType}
 		header := map[string][]string{}
-		header[event.ContentTypeHeader] = []string{event.DefaultContentType}
-		eventResp := &event.EventResp{
+		header[larkevent.ContentTypeHeader] = []string{larkevent.DefaultContentType}
+		eventResp := &larkevent.EventResp{
 			Header:     header,
-			Body:       []byte(fmt.Sprintf(event.WebhookResponseFormat, err.Error())),
+			Body:       []byte(fmt.Sprintf(larkevent.WebhookResponseFormat, err.Error())),
 			StatusCode: http.StatusOK,
 		}
-		d.Config.Logger.Error(ctx, fmt.Sprintf(event.WebhookResponseFormat, err.Error()))
+		d.Config.Logger.Error(ctx, fmt.Sprintf("handle event,path:%s,error:%v", path, err.Error()))
 		return eventResp, nil
 	}
 
@@ -258,6 +260,10 @@ func (d *EventDispatcher) DoHandle(ctx context.Context, reqType event.ReqType, e
 		}
 	}
 
+	if msg, ok := eventMsg.(larkevent.EventHandlerModel); ok {
+		msg.RawReq(req)
+	}
+
 	// 执行处理器
 	err = handler.Handle(ctx, eventMsg)
 	if err != nil {
@@ -266,10 +272,10 @@ func (d *EventDispatcher) DoHandle(ctx context.Context, reqType event.ReqType, e
 
 	//返回结果
 	header := map[string][]string{}
-	header[event.ContentTypeHeader] = []string{event.DefaultContentType}
-	eventResp := &event.EventResp{
+	header[larkevent.ContentTypeHeader] = []string{larkevent.DefaultContentType}
+	eventResp := &larkevent.EventResp{
 		Header:     header,
-		Body:       []byte(fmt.Sprintf(event.WebhookResponseFormat, "success")),
+		Body:       []byte(fmt.Sprintf(larkevent.WebhookResponseFormat, "success")),
 		StatusCode: http.StatusOK,
 	}
 	return eventResp, nil
