@@ -66,13 +66,13 @@ func (m *P1RemoveBotV1) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
 }
 
-type P1P2PChatCreateV1 struct {
+type P1P2PChatCreatedV1 struct {
 	*larkevent.EventReq
 	*larkevent.EventBase
-	Event *P1P2PChatCreateV1Data `json:"event"`
+	Event *P1P2PChatCreatedV1Data `json:"event"`
 }
 
-type P1P2PChatCreateV1Data struct {
+type P1P2PChatCreatedV1Data struct {
 	AppID     string        `json:"app_id,omitempty"`
 	ChatID    string        `json:"chat_id,omitempty"`
 	Operator  *P1OperatorV1 `json:"operator,omitempty"`
@@ -81,7 +81,7 @@ type P1P2PChatCreateV1Data struct {
 	User      *P1UserV1     `json:"user,omitempty"`
 }
 
-func (m *P1P2PChatCreateV1) RawReq(req *larkevent.EventReq) {
+func (m *P1P2PChatCreatedV1) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
 }
 

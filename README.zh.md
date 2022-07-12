@@ -65,7 +65,6 @@ lark.WithLogLevel(larkcore.LogLevelDebug),
 lark.WithReqTimeout(3*time.Second),
 lark.WithEnableTokenCache(true),
 lark.WithHelpdeskCredential("id", "token"),
-lark.WithLogger(larkcore.NewEventLogger()),
 lark.WithHttpClient(http.DefaultClient))
 ```
 
@@ -140,7 +139,7 @@ lark.WithHttpClient(http.DefaultClient))
         <code>lark.WithOpenBaseUrl(baseUrl string)</code>
       </td>
       <td>
-设置飞书域名；默认为该值：
+设置飞书域名；默认为FeishuBaseUrl：
 
 ```go
 var FeishuBaseUrl = "https://open.feishu.cn"
@@ -158,7 +157,7 @@ var LarkBaseUrl = "https://open.larksuite.com"
         <code>lark.WithEnableTokenCache(enableTokenCache bool)</code>
       </td>
       <td>
-是否开启 UserAccessToken,TenantAccessToken 的自动获取与缓存;
+是否开启 TenantAccessToken 的自动获取与缓存;
 默认开启，如需要关闭可传递 false
 </td>
 </tr>
@@ -184,14 +183,14 @@ var LarkBaseUrl = "https://open.larksuite.com"
         <code>lark.WithLogger(logger larkcore.Logger)</code>
       </td>
       <td>
-设置自定义的日志器，开发者需要实现下面的 Logger 接口:
+日志器，默认为标准输出；开发者可通过实现下面的 Logger 接口，来设置自定义的日志器:
 
 ```go
 type Logger interface {
-Debug(context.Context, ...interface{})
-Info(context.Context, ...interface{})
-Warn(context.Context, ...interface{})
-Error(context.Context, ...interface{})
+    Debug(context.Context, ...interface{})
+    Info(context.Context, ...interface{})
+    Warn(context.Context, ...interface{})
+    Error(context.Context, ...interface{})
 }
 ```
 
@@ -207,11 +206,11 @@ Error(context.Context, ...interface{})
         <code>lark.WithHttpClient(httpClient larkcore.HttpClient)</code>
       </td>
       <td>
-设置自定义的 httpClient，开发者需要实现下面的 HttpClient 接口:
+ 开发者可通过实现下面的 HttpClient 接口，来设置自定义的 Http Client:
 
 ```go
 type HttpClient interface {
-Do(*http.Request) (*http.Response, error)
+  Do(*http.Request) (*http.Response, error)
 }
 
 ```
@@ -227,12 +226,12 @@ Do(*http.Request) (*http.Response, error)
         <code>lark.WithTokenCache(cache larkcore.Cache)</code>
       </td>
       <td>
-设置自定义的 token 缓存，开发者需要实现下面的 Cache 接口:
+token缓存器，默认实现为内存Map。如果开发者想要定制 token 缓存，则需要实现下面 Cache 接口:
 
 ```go
 type Cache interface {
-Set(ctx context.Context, key string, value string, expireTime time.Duration) error
-Get(ctx context.Context, key string) (string, error)
+  Set(ctx context.Context, key string, value string, expireTime time.Duration) error
+  Get(ctx context.Context, key string) (string, error)
 }
 
 ```
@@ -249,7 +248,7 @@ Get(ctx context.Context, key string) (string, error)
         <code>lark.WithLogReqRespInfoAtDebugLevel(printReqRespLog bool)</code>
       </td>
       <td>
-开启 Http 请求参数和响应参数的日志打印开关；开启后，在 debug 模式下会打印 http 请求的 headers,body 等信息
+开启 Http 请求参数和响应参数的日志打印开关；开启后，在 debug 模式下会打印 http 请求和响应的 headers,body 等信息
 
 </td>
 </tr>
@@ -414,7 +413,7 @@ func main() {
         <code>larkcore.WithTenantAccessToken(tenantAccessToken string)</code>
       </td>
       <td>
-当开发者自己维护租户 toke n时，可以通过该选项传递组合 token
+当开发者自己维护租户 token 时（即创建Client时EnableTokenCache设置为了false），可以通过该选项传递 tenant token
 
 </td>
 </tr>
@@ -754,28 +753,28 @@ go get -u github.com/larksuite/oapi-sdk-gin
 
 ```go
 import (
-"context"
-"fmt"
-
-"github.com/gin-gonic/gin"
-"github.com/larksuite/oapi-sdk-gin"
-"github.com/larksuite/oapi-sdk-go/card"
-"github.com/larksuite/oapi-sdk-go/core"
+    "context"
+    "fmt"
+    
+    "github.com/gin-gonic/gin"
+    "github.com/larksuite/oapi-sdk-gin"
+    "github.com/larksuite/oapi-sdk-go/card"
+    "github.com/larksuite/oapi-sdk-go/core"
 )
 
 
 func main() {
-// 创建 card 处理器
-cardHandler := larkcard.NewCardActionHandler("v", "", func(ctx context.Context, cardAction *larkcard.CardAction) (interface{}, error) {
-fmt.Println(larkcore.Prettify(cardAction))
-fmt.Println(cardAction.RequestId())
-
-return nil, nil
-})
-...
-// 在已有的 Gin 实例上注册卡片处理路由
-gin.POST("/webhooXk/card", sdkginext.NewCardActionHandlerFunc(cardHandler))
-...
+      // 创建 card 处理器
+      cardHandler := larkcard.NewCardActionHandler("v", "", func(ctx context.Context, cardAction *larkcard.CardAction) (interface{}, error) {
+      fmt.Println(larkcore.Prettify(cardAction))
+      fmt.Println(cardAction.RequestId())
+    
+      return nil, nil
+      })
+      ...
+      // 在已有的 Gin 实例上注册卡片处理路由
+      gin.POST("/webhook/card", sdkginext.NewCardActionHandlerFunc(cardHandler))
+      ...
 }
 ```
 

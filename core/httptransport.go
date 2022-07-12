@@ -118,7 +118,7 @@ func doSend(ctx context.Context, rawRequest *http.Request, httpClient HttpClient
 			logID = resp.Header.Get(HttpHeaderKeyRequestId)
 		}
 		logger.Info(ctx, fmt.Sprintf("req path:%s, server time out,requestId:%s",
-			rawRequest.RequestURI, logID))
+			rawRequest.URL.RequestURI(), logID))
 		return nil, &ServerTimeoutError{msg: "server time out error"}
 	}
 	body, err := readResponse(resp)

@@ -11,8 +11,10 @@ import (
 	"github.com/larksuite/oapi-sdk-go/core"
 	"github.com/larksuite/oapi-sdk-go/event"
 	larkapplication "github.com/larksuite/oapi-sdk-go/service/application/v6"
+	larkapproval "github.com/larksuite/oapi-sdk-go/service/approval/v4"
 	"github.com/larksuite/oapi-sdk-go/service/contact/v3"
 	larkim "github.com/larksuite/oapi-sdk-go/service/im/v1"
+	larkmeeting_room "github.com/larksuite/oapi-sdk-go/service/meeting_room/v1"
 )
 
 type EventV2Body struct {
@@ -441,6 +443,62 @@ func mockAppOpenEventV1() []byte {
 	return body1
 }
 
+func mockP2PCreatedChatEventV1() []byte {
+	event := &larkim.P1P2PChatCreatedV1{
+		EventBase: &larkevent.EventBase{
+			Ts:    "ts",
+			UUID:  "uid",
+			Token: "v",
+			Type:  "",
+		},
+		Event: &larkim.P1P2PChatCreatedV1Data{
+			Type:      "p2p_chat_create",
+			AppID:     "xxx",
+			TenantKey: "tk",
+			ChatID:    "chatid",
+			Operator: &larkim.P1OperatorV1{
+				OpenId: "oi",
+				UserId: "ui",
+			},
+			User: &larkim.P1UserV1{
+				OpenId: "oi",
+				UserId: "ui",
+				Name:   "jiaduo",
+			},
+		},
+	}
+	body1, _ := json.Marshal(event)
+	return body1
+}
+
+func mockThirdMeetingRoomChangedEventV1() []byte {
+	event := &larkmeeting_room.P1ThirdPartyMeetingRoomChangedV1{
+		EventBase: &larkevent.EventBase{
+			Ts:    "ts",
+			UUID:  "uid",
+			Token: "v",
+			Type:  "",
+		},
+		Event: &larkmeeting_room.P1ThirdPartyMeetingRoomChangedV1Data{
+			Type:         "third_party_meeting_room_event_updated",
+			AppID:        "xxx",
+			TenantKey:    "tk",
+			EventTime:    "1594979647635",
+			Uid:          "bff6b51f",
+			OriginalTime: 0,
+			Start:        &larkmeeting_room.P1EventTimeV1{TimeStamp: "1553853600000"},
+			End:          &larkmeeting_room.P1EventTimeV1{TimeStamp: "1553860800000"},
+			MeetingRoom:  []*larkmeeting_room.P1MeetingRoomV1{{OpenId: "oi1"}, {OpenId: "oi2"}},
+			Organizer: &larkmeeting_room.P1OrganizerV1{
+				OpenId: "oi",
+				UserId: "ui",
+			},
+		},
+	}
+	body1, _ := json.Marshal(event)
+	return body1
+}
+
 func mockGroupSettingUpdatedEventV1() []byte {
 	event := &larkim.P1GroupSettingUpdatedV1{
 		EventBase: &larkevent.EventBase{
@@ -481,6 +539,265 @@ func mockAppTicketEvent() []byte {
 	return []byte(body)
 }
 
+func mockLeaveApprovalEventV1() []byte {
+	event := &larkapproval.P1LeaveApprovalV4{
+		EventBase: &larkevent.EventBase{
+			Ts:    "ts",
+			UUID:  "uid",
+			Token: "v",
+			Type:  "",
+		},
+		Event: &larkapproval.P1LeaveApprovalV4Data{
+			Type:                   "leave_approvalV2",
+			AppID:                  "xxx",
+			TenantKey:              "tk",
+			InstanceCode:           "code",
+			UserID:                 "userid",
+			OpenID:                 "openid",
+			OriginInstanceCode:     "origincode",
+			StartTime:              1564590532,
+			EndTime:                1564590533,
+			LeaveFeedingArriveLate: 1,
+			LeaveFeedingLeaveEarly: 2,
+			LeaveFeedingRestDaily:  3,
+			LeaveName:              "JIADUO",
+			LeaveUnit:              "day",
+			LeaveStartTime:         "2019-10-01 00:00:00",
+			LeaveEndTime:           "2019-10-01 00:00:00",
+			LeaveDetail:            []string{"2019-10-01 00:00:00", "2019-10-02 00:00:00"},
+			LeaveRange:             []string{"2019-10-01 00:00:00", "2019-10-02 00:00:00"},
+			LeaveInterval:          86400,
+			LeaveReason:            "abc",
+			I18nResources: []*larkapproval.P1LeaveApprovalI18nResourceV4{
+				{Locale: "en_us",
+					IsDefault: true,
+					Texts: map[string]string{
+						"@i18n@123456": "Holiday",
+					},
+				},
+			},
+		},
+	}
+	body1, _ := json.Marshal(event)
+	return body1
+}
+
+func mockWorkApprovalEventV1() []byte {
+	event := &larkapproval.P1WorkApprovalV4{
+		EventBase: &larkevent.EventBase{
+			Ts:    "ts",
+			UUID:  "uid",
+			Token: "v",
+			Type:  "",
+		},
+		Event: &larkapproval.P1WorkApprovalV4Data{
+			Type:          "work_approval",
+			AppID:         "xxx",
+			TenantKey:     "tk",
+			InstanceCode:  "code",
+			OpenID:        "openid",
+			StartTime:     1564590532,
+			EndTime:       1564590533,
+			EmployeeID:    "id",
+			WorkType:      "ss",
+			WorkStartTime: "2018-12-01 12:00:00",
+			WorkEndTime:   "2018-12-03 12:00:00",
+			WorkInterval:  1000,
+			WorkReason:    "reason",
+		},
+	}
+	body1, _ := json.Marshal(event)
+	return body1
+}
+
+func mockShiftApprovalEventV1() []byte {
+	event := &larkapproval.P1ShiftApprovalV4{
+		EventBase: &larkevent.EventBase{
+			Ts:    "ts",
+			UUID:  "uid",
+			Token: "v",
+			Type:  "",
+		},
+		Event: &larkapproval.P1ShiftApprovalV4Data{
+			Type:         "shift_approval",
+			AppID:        "xxx",
+			TenantKey:    "tk",
+			InstanceCode: "code",
+			OpenID:       "openid",
+			StartTime:    1564590532,
+			EndTime:      1564590533,
+			EmployeeID:   "id",
+			ShiftTime:    "2018-12-01 12:00:00",
+			ReturnTime:   "2018-12-01 12:00:00",
+			ShiftReason:  "reason",
+		},
+	}
+	body1, _ := json.Marshal(event)
+	return body1
+}
+
+func mockRemedyApprovalEventV1() []byte {
+	event := &larkapproval.P1RemedyApprovalV4{
+		EventBase: &larkevent.EventBase{
+			Ts:    "ts",
+			UUID:  "uid",
+			Token: "v",
+			Type:  "",
+		},
+		Event: &larkapproval.P1RemedyApprovalV4Data{
+			Type:         "remedy_approval",
+			AppID:        "xxx",
+			TenantKey:    "tk",
+			InstanceCode: "code",
+			OpenID:       "openid",
+			StartTime:    1564590532,
+			EndTime:      1564590533,
+			EmployeeID:   "id",
+			RemedyReason: "reason",
+			RemedyTime:   "0",
+		},
+	}
+	body1, _ := json.Marshal(event)
+	return body1
+}
+
+func mockTripApprovalEventV1() []byte {
+	event := &larkapproval.P1TripApprovalV4{
+		EventBase: &larkevent.EventBase{
+			Ts:    "ts",
+			UUID:  "uid",
+			Token: "v",
+			Type:  "",
+		},
+		Event: &larkapproval.P1TripApprovalV4Data{
+			Type:         "trip_approval",
+			AppID:        "xxx",
+			TenantKey:    "tk",
+			InstanceCode: "code",
+			OpenID:       "openid",
+			StartTime:    1564590532,
+			EndTime:      1564590533,
+			EmployeeID:   "id",
+			Schedules: []*larkapproval.P1TripApprovalScheduleV4{
+				{
+					TripStartTime:  "2018-12-01 12:00:00",
+					TripEndTime:    "2018-12-02 12:00:00",
+					TripInterval:   3600,
+					Departure:      "xxx",
+					Destination:    "x",
+					Transportation: "xxxx",
+					TripType:       "单程",
+					Remark:         "备注",
+				},
+			},
+		},
+	}
+	body1, _ := json.Marshal(event)
+	return body1
+}
+
+func mockOutApprovalEventV1() []byte {
+	event := &larkapproval.P1OutApprovalV4{
+		EventBase: &larkevent.EventBase{
+			Ts:    "ts",
+			UUID:  "uid",
+			Token: "v",
+			Type:  "",
+		},
+		Event: &larkapproval.P1OutApprovalV4Data{
+			Type:         "out_approval",
+			AppID:        "xxx",
+			TenantKey:    "tk",
+			InstanceCode: "code",
+			OpenID:       "openid",
+			StartTime:    1564590532,
+			EndTime:      1564590533,
+			I18nResources: []*larkapproval.P1OutApprovalI18nResourceV4{{
+				Locale:    "en_us",
+				IsDefault: true,
+				Texts:     nil,
+			}},
+			OutImage:     "image",
+			OutInterval:  1000,
+			OutName:      "name",
+			OutReason:    "事由",
+			OutStartTime: "2020-05-15 15:00:00",
+			OutEndTime:   "2020-05-16 15:00:00",
+			OutUnit:      "HOUR",
+		},
+	}
+	body1, _ := json.Marshal(event)
+	return body1
+}
+
+func mockAppStatusChangedEventV1() []byte {
+	event := &larkapplication.P1AppStatusChangedV6{
+		EventBase: &larkevent.EventBase{
+			Ts:    "ts",
+			UUID:  "uid",
+			Token: "v",
+			Type:  "",
+		},
+		Event: &larkapplication.P1AppStatusChangedV6Data{
+			Type:      "app_status_change",
+			AppID:     "xxx",
+			TenantKey: "tk",
+			Status:    "start_by_tenant",
+			Operator: &larkapplication.P1AppStatusChangeOperatorV6{
+				OpenID:  "o1",
+				UserID:  "ui",
+				UnionId: "ui",
+			},
+		},
+	}
+	body1, _ := json.Marshal(event)
+	return body1
+}
+
+func mockAppUninstalledEventV1() []byte {
+	event := &larkapplication.P1AppUninstalledV6{
+		EventBase: &larkevent.EventBase{
+			Ts:    "ts",
+			UUID:  "uid",
+			Token: "v",
+			Type:  "",
+		},
+		Event: &larkapplication.P1AppUninstalledV6Data{
+			Type:      "app_uninstalled",
+			AppID:     "xxx",
+			TenantKey: "tk",
+		},
+	}
+	body1, _ := json.Marshal(event)
+	return body1
+}
+
+func mockAppOrderPaidEventV1() []byte {
+	event := &larkapplication.P1OrderPaidV6{
+		EventBase: &larkevent.EventBase{
+			Ts:    "ts",
+			UUID:  "uid",
+			Token: "v",
+			Type:  "type",
+		},
+		Event: &larkapplication.P1OrderPaidV6Data{
+			Type:          "order_paid",
+			AppID:         "xxx",
+			TenantKey:     "tk",
+			OrderID:       "54323223",
+			PricePlanID:   "price_12121",
+			PricePlanType: "per_seat_per_month",
+			Seats:         20,
+			BuyType:       "buy",
+			BuyCount:      1,
+			SrcOrderID:    "23233",
+			OrderPayPrice: 10000,
+		},
+	}
+	body1, _ := json.Marshal(event)
+	return body1
+}
+
 func main() {
 
 	//mock body
@@ -489,7 +806,7 @@ func main() {
 	//body := mockEvent()
 	//body := mockMessageReceiveEventV1()
 	//body := mockAppTicketEvent()
-	body := mockAppOpenEventV1()
+	body := mockAppOrderPaidEventV1()
 
 	// 创建http req
 	req, err := http.NewRequest(http.MethodPost, "http://127.0.0.1:9999/webhook/event", bytes.NewBuffer(body))

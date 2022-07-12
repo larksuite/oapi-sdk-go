@@ -5,9 +5,41 @@ import (
 	"context"
 
 	larkapplication "github.com/larksuite/oapi-sdk-go/service/application/v6"
+	larkapproval "github.com/larksuite/oapi-sdk-go/service/approval/v4"
 	larkcontact "github.com/larksuite/oapi-sdk-go/service/contact/v3"
 	larkim "github.com/larksuite/oapi-sdk-go/service/im/v1"
+	larkmeeting_room "github.com/larksuite/oapi-sdk-go/service/meeting_room/v1"
 )
+
+// v1消息协议：用户购买应用商店付费应用成功后发送给应用ISV的通知事件。
+func (dispatcher *EventDispatcher) OnP1OrderPaidV6(handler func(ctx context.Context, event *larkapplication.P1OrderPaidV6) error) *EventDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["order_paid"]
+	if existed {
+		panic("event: multiple handler registrations for " + "order_paid")
+	}
+	dispatcher.eventType2EventHandler["order_paid"] = larkapplication.NewP1OrderPaidV6Handler(handler)
+	return dispatcher
+}
+
+// v1消息协议：企业解散后会推送此事件。商店应用开发者可在收到此事件后进行相应的账户注销、数据清理等处理。自建应用无此事件。
+func (dispatcher *EventDispatcher) OnP1AppUninstalledV6(handler func(ctx context.Context, event *larkapplication.P1AppUninstalledV6) error) *EventDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["app_uninstalled"]
+	if existed {
+		panic("event: multiple handler registrations for " + "app_uninstalled")
+	}
+	dispatcher.eventType2EventHandler["app_uninstalled"] = larkapplication.NewP1AppUninstalledV6Handler(handler)
+	return dispatcher
+}
+
+// v1消息协议：当企业管理员在管理员后台启用、停用应用，或应用被平台停用时，开放平台推送 app_status_change 事件到请求网址。
+func (dispatcher *EventDispatcher) OnP1AppStatusChangedV6(handler func(ctx context.Context, event *larkapplication.P1AppStatusChangedV6) error) *EventDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["app_status_change"]
+	if existed {
+		panic("event: multiple handler registrations for " + "app_status_change")
+	}
+	dispatcher.eventType2EventHandler["app_status_change"] = larkapplication.NewP1AppStatusChangedV6Handler(handler)
+	return dispatcher
+}
 
 //  v1消息协议：用户阅读机器人发送的消息后触发此事件。
 func (dispatcher *EventDispatcher) OnP1MessageReadV1(handler func(ctx context.Context, event *larkim.P1MessageReadV1) error) *EventDispatcher {
@@ -164,5 +196,97 @@ func (dispatcher *EventDispatcher) OnP1AppOpenV6(handler func(ctx context.Contex
 		panic("event: multiple handler registrations for " + "app_open")
 	}
 	dispatcher.eventType2EventHandler["app_open"] = larkapplication.NewP1AppOpenV6Handler(handler)
+	return dispatcher
+}
+
+// v1消息协议：首次会话是用户了解应用的重要机会，你可以发送操作说明、配置地址来指导用户开始使用你的应用。
+func (dispatcher *EventDispatcher) OnP1P2PChatCreatedV1(handler func(ctx context.Context, event *larkim.P1P2PChatCreatedV1) error) *EventDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["p2p_chat_create"]
+	if existed {
+		panic("event: multiple handler registrations for " + "p2p_chat_create")
+	}
+	dispatcher.eventType2EventHandler["p2p_chat_create"] = larkim.NewP1P2PChatCreatedV1Handler(handler)
+	return dispatcher
+}
+
+// v1消息协议：当添加了第三方会议室的日程发生变动时（创建/更新/删除）触发此事件。
+func (dispatcher *EventDispatcher) OnP1ThirdPartyMeetingRoomChangedV1(handler func(ctx context.Context, event *larkmeeting_room.P1ThirdPartyMeetingRoomChangedV1) error) *EventDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["third_party_meeting_room_event_created"]
+	if existed {
+		panic("event: multiple handler registrations for " + "third_party_meeting_room_event_created")
+	}
+	dispatcher.eventType2EventHandler["third_party_meeting_room_event_created"] = larkmeeting_room.NewP1ThirdPartyMeetingRoomChangedV1Handler(handler)
+
+	_, existed = dispatcher.eventType2EventHandler["third_party_meeting_room_event_updated"]
+	if existed {
+		panic("event: multiple handler registrations for " + "third_party_meeting_room_event_updated")
+	}
+	dispatcher.eventType2EventHandler["third_party_meeting_room_event_updated"] = larkmeeting_room.NewP1ThirdPartyMeetingRoomChangedV1Handler(handler)
+
+	_, existed = dispatcher.eventType2EventHandler["third_party_meeting_room_event_deleted"]
+	if existed {
+		panic("event: multiple handler registrations for " + "third_party_meeting_room_event_deleted")
+	}
+	dispatcher.eventType2EventHandler["third_party_meeting_room_event_deleted"] = larkmeeting_room.NewP1ThirdPartyMeetingRoomChangedV1Handler(handler)
+	return dispatcher
+}
+
+// v1消息协议：审批」应用的表单里如果包含 请假控件组，则在此表单审批通过后触发此事件。
+func (dispatcher *EventDispatcher) OnP1LeaveApprovalV4(handler func(ctx context.Context, event *larkapproval.P1LeaveApprovalV4) error) *EventDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["leave_approvalV2"]
+	if existed {
+		panic("event: multiple handler registrations for " + "leave_approvalV2")
+	}
+	dispatcher.eventType2EventHandler["leave_approvalV2"] = larkapproval.NewP1LeaveApprovalV4Handler(handler)
+	return dispatcher
+}
+
+// v1消息协议：「审批」应用的表单里如果包含 加班控件组，则在此表单审批通过后触发此事件。
+func (dispatcher *EventDispatcher) OnP1WorkApprovalV4(handler func(ctx context.Context, event *larkapproval.P1WorkApprovalV4) error) *EventDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["work_approval"]
+	if existed {
+		panic("event: multiple handler registrations for " + "work_approval")
+	}
+	dispatcher.eventType2EventHandler["work_approval"] = larkapproval.NewP1WorkApprovalV4Handler(handler)
+	return dispatcher
+}
+
+// v1消息协议：换班申请审批通过后触发此事件。 你可以在「打卡」应用里提交换班申请。
+func (dispatcher *EventDispatcher) OnP1ShiftApprovalV4(handler func(ctx context.Context, event *larkapproval.P1ShiftApprovalV4) error) *EventDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["shift_approval"]
+	if existed {
+		panic("event: multiple handler registrations for " + "shift_approval")
+	}
+	dispatcher.eventType2EventHandler["shift_approval"] = larkapproval.NewP1ShiftApprovalV4Handler(handler)
+	return dispatcher
+}
+
+// v1消息协议：补卡申请审批通过后触发此事件。 你可以在「打卡」应用里提交补卡申请。
+func (dispatcher *EventDispatcher) OnP1RemedyApprovalV4(handler func(ctx context.Context, event *larkapproval.P1RemedyApprovalV4) error) *EventDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["remedy_approval"]
+	if existed {
+		panic("event: multiple handler registrations for " + "remedy_approval")
+	}
+	dispatcher.eventType2EventHandler["remedy_approval"] = larkapproval.NewP1RemedyApprovalV4Handler(handler)
+	return dispatcher
+}
+
+// v1消息协议：「审批」应用的表单里如果包含 出差控件组，则在此表单审批通过后触发此事件。
+func (dispatcher *EventDispatcher) OnP1TripApprovalV4(handler func(ctx context.Context, event *larkapproval.P1TripApprovalV4) error) *EventDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["trip_approval"]
+	if existed {
+		panic("event: multiple handler registrations for " + "trip_approval")
+	}
+	dispatcher.eventType2EventHandler["trip_approval"] = larkapproval.NewP1TripApprovalV4Handler(handler)
+	return dispatcher
+}
+
+// v1消息协议：「审批」应用的表单里如果包含 外出控件组，则在此表单审批通过后触发此事件。
+func (dispatcher *EventDispatcher) OnP1OutApprovalV4(handler func(ctx context.Context, event *larkapproval.P1OutApprovalV4) error) *EventDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["out_approval"]
+	if existed {
+		panic("event: multiple handler registrations for " + "out_approval")
+	}
+	dispatcher.eventType2EventHandler["out_approval"] = larkapproval.NewP1OutApprovalV4Handler(handler)
 	return dispatcher
 }

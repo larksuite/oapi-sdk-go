@@ -122,3 +122,20 @@ func (h *P1GroupSettingUpdatedV1Handler) Event() interface{} {
 func (h *P1GroupSettingUpdatedV1Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P1GroupSettingUpdatedV1))
 }
+
+type P1P2PChatCreatedV1Handler struct {
+	handler func(context.Context, *P1P2PChatCreatedV1) error
+}
+
+func NewP1P2PChatCreatedV1Handler(handler func(context.Context, *P1P2PChatCreatedV1) error) *P1P2PChatCreatedV1Handler {
+	h := &P1P2PChatCreatedV1Handler{handler: handler}
+	return h
+}
+
+func (h *P1P2PChatCreatedV1Handler) Event() interface{} {
+	return &P1P2PChatCreatedV1{}
+}
+
+func (h *P1P2PChatCreatedV1Handler) Handle(ctx context.Context, event interface{}) error {
+	return h.handler(ctx, event.(*P1P2PChatCreatedV1))
+}

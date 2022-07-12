@@ -10,8 +10,10 @@ import (
 	"github.com/larksuite/oapi-sdk-go/event/dispatcher"
 	"github.com/larksuite/oapi-sdk-go/httpserverext"
 	larkapplication "github.com/larksuite/oapi-sdk-go/service/application/v6"
+	larkapproval "github.com/larksuite/oapi-sdk-go/service/approval/v4"
 	"github.com/larksuite/oapi-sdk-go/service/contact/v3"
 	"github.com/larksuite/oapi-sdk-go/service/im/v1"
+	larkmeeting_room "github.com/larksuite/oapi-sdk-go/service/meeting_room/v1"
 )
 
 func main() {
@@ -77,11 +79,56 @@ func main() {
 		fmt.Println(larkcore.Prettify(event))
 		fmt.Println(event.RequestId())
 		return nil
+	}).OnP1P2PChatCreatedV1(func(ctx context.Context, event *larkim.P1P2PChatCreatedV1) error {
+		fmt.Println(larkcore.Prettify(event))
+		fmt.Println(event.RequestId())
+		return nil
+	}).OnP1ThirdPartyMeetingRoomChangedV1(func(ctx context.Context, event *larkmeeting_room.P1ThirdPartyMeetingRoomChangedV1) error {
+		fmt.Println(larkcore.Prettify(event))
+		fmt.Println(event.RequestId())
+		return nil
+	}).OnP1LeaveApprovalV4(func(ctx context.Context, event *larkapproval.P1LeaveApprovalV4) error {
+		fmt.Println(larkcore.Prettify(event))
+		fmt.Println(event.RequestId())
+		return nil
+	}).OnP1WorkApprovalV4(func(ctx context.Context, event *larkapproval.P1WorkApprovalV4) error {
+		fmt.Println(larkcore.Prettify(event))
+		fmt.Println(event.RequestId())
+		return nil
+	}).OnP1ShiftApprovalV4(func(ctx context.Context, event *larkapproval.P1ShiftApprovalV4) error {
+		fmt.Println(larkcore.Prettify(event))
+		fmt.Println(event.RequestId())
+		return nil
+	}).OnP1RemedyApprovalV4(func(ctx context.Context, event *larkapproval.P1RemedyApprovalV4) error {
+		fmt.Println(larkcore.Prettify(event))
+		fmt.Println(event.RequestId())
+		return nil
+	}).OnP1TripApprovalV4(func(ctx context.Context, event *larkapproval.P1TripApprovalV4) error {
+		fmt.Println(larkcore.Prettify(event))
+		fmt.Println(event.RequestId())
+		return nil
+	}).OnP1OutApprovalV4(func(ctx context.Context, event *larkapproval.P1OutApprovalV4) error {
+		fmt.Println(larkcore.Prettify(event))
+		fmt.Println(event.RequestId())
+		return nil
+	}).OnP1AppStatusChangedV6(func(ctx context.Context, event *larkapplication.P1AppStatusChangedV6) error {
+		fmt.Println(larkcore.Prettify(event))
+		fmt.Println(event.RequestId())
+		return nil
+	}).OnP1AppUninstalledV6(func(ctx context.Context, event *larkapplication.P1AppUninstalledV6) error {
+		fmt.Println(larkcore.Prettify(event))
+		fmt.Println(event.RequestId())
+		return nil
+	}).OnP1OrderPaidV6(func(ctx context.Context, event *larkapplication.P1OrderPaidV6) error {
+		fmt.Println(larkcore.Prettify(event))
+		fmt.Println(event.RequestId())
+		return nil
 	})
 
+	// 注册 http 路由
 	http.HandleFunc("/webhook/event", httpserverext.NewEventHandlerFunc(handler, larkevent.WithLogLevel(larkcore.LogLevelDebug)))
 
-	// 开发者启动服务
+	// 启动服务
 	err := http.ListenAndServe(":9999", nil)
 	if err != nil {
 		panic(err)
