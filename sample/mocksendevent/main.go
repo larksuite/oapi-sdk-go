@@ -10,6 +10,7 @@ import (
 
 	"github.com/larksuite/oapi-sdk-go/core"
 	"github.com/larksuite/oapi-sdk-go/event"
+	larkapplication "github.com/larksuite/oapi-sdk-go/service/application/v6"
 	"github.com/larksuite/oapi-sdk-go/service/contact/v3"
 	larkim "github.com/larksuite/oapi-sdk-go/service/im/v1"
 )
@@ -417,6 +418,29 @@ func mockDisbandChatEventV1() []byte {
 	return body1
 }
 
+func mockAppOpenEventV1() []byte {
+	event := &larkapplication.P1AppOpenV6{
+		EventBase: &larkevent.EventBase{
+			Ts:    "ts",
+			UUID:  "uid",
+			Token: "v",
+			Type:  "",
+		},
+		Event: &larkapplication.P1AppOpenV6Data{
+			Type:      "app_open",
+			AppID:     "xxx",
+			TenantKey: "tk",
+			Applicants: []*larkapplication.P1AppOpenApplicantV6{
+				{OpenID: "o1"}, {OpenID: "o2"},
+			},
+			Installer:         &larkapplication.P1AppOpenInstallerV6{OpenID: "o1"},
+			InstallerEmployee: &larkapplication.P1AppOpenInstallerEmployeeV6{OpenID: "o1"},
+		},
+	}
+	body1, _ := json.Marshal(event)
+	return body1
+}
+
 func mockGroupSettingUpdatedEventV1() []byte {
 	event := &larkim.P1GroupSettingUpdatedV1{
 		EventBase: &larkevent.EventBase{
@@ -465,7 +489,7 @@ func main() {
 	//body := mockEvent()
 	//body := mockMessageReceiveEventV1()
 	//body := mockAppTicketEvent()
-	body := mockEvent()
+	body := mockAppOpenEventV1()
 
 	// 创建http req
 	req, err := http.NewRequest(http.MethodPost, "http://127.0.0.1:9999/webhook/event", bytes.NewBuffer(body))

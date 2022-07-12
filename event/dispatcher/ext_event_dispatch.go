@@ -4,6 +4,7 @@ package dispatcher
 import (
 	"context"
 
+	larkapplication "github.com/larksuite/oapi-sdk-go/service/application/v6"
 	larkcontact "github.com/larksuite/oapi-sdk-go/service/contact/v3"
 	larkim "github.com/larksuite/oapi-sdk-go/service/im/v1"
 )
@@ -151,5 +152,17 @@ func (dispatcher *EventDispatcher) OnP1GroupSettingUpdatedV1(handler func(ctx co
 		panic("event: multiple handler registrations for " + "group_setting_update")
 	}
 	dispatcher.eventType2EventHandler["group_setting_update"] = larkim.NewP1GroupSettingUpdatedV1Handler(handler)
+	return dispatcher
+}
+
+// v1消息协议：当租户第一次安装并启用此应用时触发此事件，启用应用包含以下场景：
+//  当租户管理员后台首次开通应用
+//  租户内的普通成员首次安装此应用
+func (dispatcher *EventDispatcher) OnP1AppOpenV6(handler func(ctx context.Context, event *larkapplication.P1AppOpenV6) error) *EventDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["app_open"]
+	if existed {
+		panic("event: multiple handler registrations for " + "app_open")
+	}
+	dispatcher.eventType2EventHandler["app_open"] = larkapplication.NewP1AppOpenV6Handler(handler)
 	return dispatcher
 }

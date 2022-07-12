@@ -9,6 +9,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/event"
 	"github.com/larksuite/oapi-sdk-go/event/dispatcher"
 	"github.com/larksuite/oapi-sdk-go/httpserverext"
+	larkapplication "github.com/larksuite/oapi-sdk-go/service/application/v6"
 	"github.com/larksuite/oapi-sdk-go/service/contact/v3"
 	"github.com/larksuite/oapi-sdk-go/service/im/v1"
 )
@@ -16,7 +17,7 @@ import (
 func main() {
 
 	//1212121212
-	handler := dispatcher.NewEventDispatcher("verificationToken", "eventEncryptKey").OnP2MessageReceiveV1(func(ctx context.Context, event *larkim.P2MessageReceiveV1) error {
+	handler := dispatcher.NewEventDispatcher("verificationToken", "").OnP2MessageReceiveV1(func(ctx context.Context, event *larkim.P2MessageReceiveV1) error {
 		fmt.Println(larkcore.Prettify(event))
 		fmt.Println(event.RequestId())
 		return nil
@@ -69,6 +70,10 @@ func main() {
 		fmt.Println(event.RequestId())
 		return nil
 	}).OnP1GroupSettingUpdatedV1(func(ctx context.Context, event *larkim.P1GroupSettingUpdatedV1) error {
+		fmt.Println(larkcore.Prettify(event))
+		fmt.Println(event.RequestId())
+		return nil
+	}).OnP1AppOpenV6(func(ctx context.Context, event *larkapplication.P1AppOpenV6) error {
 		fmt.Println(larkcore.Prettify(event))
 		fmt.Println(event.RequestId())
 		return nil

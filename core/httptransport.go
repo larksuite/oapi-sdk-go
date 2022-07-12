@@ -94,7 +94,7 @@ func validate(config *Config, option *RequestOption, accessTokenType AccessToken
 	return nil
 }
 
-func doSend(ctx context.Context, rawRequest *http.Request, httpClient HttpClient) (*RawResponse, error) {
+func doSend(ctx context.Context, rawRequest *http.Request, httpClient HttpClient, logger Logger) (*RawResponse, error) {
 	if httpClient == nil {
 		httpClient = http.DefaultClient
 	}
@@ -113,7 +113,13 @@ func doSend(ctx context.Context, rawRequest *http.Request, httpClient HttpClient
 	}
 
 	if resp.StatusCode == http.StatusGatewayTimeout {
-		return nil, &ServerTimeoutError{msg: "server time out error "}
+		logID := resp.Header.Get(HttpHeaderKeyLogId)
+		if logID == "" {
+			logID = resp.Header.Get(HttpHeaderKeyRequestId)
+		}
+		logger.Info(ctx, fmt.Sprintf("req path:%s, server time out,requestId:%s",
+			rawRequest.RequestURI, logID))
+		return nil, &ServerTimeoutError{msg: "server time out error"}
 	}
 	body, err := readResponse(resp)
 	if err != nil {
@@ -164,7 +170,7 @@ func doSendRequest(ctx context.Context, config *Config, httpMethod string, httpP
 		} else {
 			config.Logger.Debug(ctx, fmt.Sprintf("req:%s,%s", httpMethod, httpPath))
 		}
-		rawResp, err = doSend(ctx, req, config.HttpClient)
+		rawResp, err = doSend(ctx, req, config.HttpClient, config.Logger)
 		if config.LogReqRespInfoAtDebugLevel {
 			config.Logger.Debug(ctx, fmt.Sprintf("resp:%v", rawResp))
 		}

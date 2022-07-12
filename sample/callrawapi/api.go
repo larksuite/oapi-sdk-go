@@ -64,5 +64,25 @@ func rawApi2() {
 }
 
 func main() {
-	rawApi2()
+	// 创建 API Client
+	var cli = lark.NewClient("appID", "appSecret")
+
+	// 发起请求
+	resp, err := cli.Post(context.Background(), "https://www.feishu.cn/approval/openapi/v2/approval/get", map[string]interface{}{
+		"approval_code": "ou_c245b0a7dff2725cfa2fb104f8b48b9d",
+	}, larkcore.AccessTokenTypeTenant)
+
+	// 错误处理
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	// 获取请求ID
+	fmt.Println(resp.RequestId())
+
+	// 处理请求结果
+	fmt.Println(resp.StatusCode) // http status code
+	fmt.Println(resp.Header)     // http header
+	fmt.Println(resp.RawBody)    // http body}
 }

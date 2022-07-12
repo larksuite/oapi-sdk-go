@@ -17,6 +17,7 @@ func mockCardAction() []byte {
 	value := map[string]interface{}{}
 	value["value"] = "sdfsfd"
 	value["tag"] = "button"
+
 	cardAction := &larkcard.CardAction{
 		OpenID:        "ou_sdfimx9948345",
 		UserID:        "eu_sd923r0sdf5",
@@ -59,8 +60,10 @@ func main() {
 	var timestamp = "timestamp"
 	var nonce = "nonce"
 	var token = "v"
-	sourceSign := larkcard.Signature(timestamp, nonce, token, string(body))
 
+	//var b = "{\"open_id\":\"ou_d840b2e2be16b3e0091bc0c79220e1fa\",\"user_id\":\"16fd348g\",\"open_message_id\":\"om_dce5707d696ee4952ebedaf1ee762ed2\",\"tenant_key\":\"736588c9260f175d\",\"token\":\"v\",\"action\":{\"value\":{\"key\":\"value\"},\"tag\":\"button\"}}"
+	sourceSign := larkcard.Signature(timestamp, nonce, token, string(body))
+	//fmt.Println(sourceSign)
 	// 添加header
 	req.Header.Set(larkevent.EventRequestTimestamp, timestamp)
 	req.Header.Set(larkevent.EventRequestNonce, nonce)
