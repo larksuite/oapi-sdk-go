@@ -4,6 +4,7 @@ package dispatcher
 import (
 	"context"
 
+	larkevent "github.com/larksuite/oapi-sdk-go/event"
 	larkapplication "github.com/larksuite/oapi-sdk-go/service/application/v6"
 	larkapproval "github.com/larksuite/oapi-sdk-go/service/approval/v4"
 	larkcontact "github.com/larksuite/oapi-sdk-go/service/contact/v3"
@@ -288,5 +289,15 @@ func (dispatcher *EventDispatcher) OnP1OutApprovalV4(handler func(ctx context.Co
 		panic("event: multiple handler registrations for " + "out_approval")
 	}
 	dispatcher.eventType2EventHandler["out_approval"] = larkapproval.NewP1OutApprovalV4Handler(handler)
+	return dispatcher
+}
+
+// 订阅事件扩展：开发者可自己传递事件类型，并传递对应事件类型的处理器
+func (dispatcher *EventDispatcher) OnCustomizedEvent(eventType string, handler func(ctx context.Context, event *larkevent.EventReq) error) *EventDispatcher {
+	_, existed := dispatcher.eventType2EventHandler[eventType]
+	if existed {
+		panic("event: multiple handler registrations for " + eventType)
+	}
+	dispatcher.eventType2EventHandler[eventType] = &defaultHandler{handler: handler}
 	return dispatcher
 }

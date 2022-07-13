@@ -258,6 +258,8 @@ func (d *EventDispatcher) DoHandle(ctx context.Context, reqType larkevent.ReqTyp
 		if err != nil {
 			return nil, err
 		}
+	} else {
+		eventMsg = req
 	}
 
 	if msg, ok := eventMsg.(larkevent.EventHandlerModel); ok {
@@ -290,7 +292,7 @@ func (e notFoundEventHandlerErr) Error() string {
 }
 
 type defaultHandler struct {
-	handler func(context.Context) error
+	handler func(context.Context, *larkevent.EventReq) error
 }
 
 func (h *defaultHandler) Event() interface{} {
@@ -298,5 +300,5 @@ func (h *defaultHandler) Event() interface{} {
 }
 
 func (h *defaultHandler) Handle(ctx context.Context, event interface{}) error {
-	return h.handler(ctx)
+	return h.handler(ctx, event.(*larkevent.EventReq))
 }

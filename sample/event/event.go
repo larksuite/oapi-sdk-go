@@ -123,6 +123,12 @@ func main() {
 		fmt.Println(larkcore.Prettify(event))
 		fmt.Println(event.RequestId())
 		return nil
+	}).OnCustomizedEvent("custom_event_type", func(ctx context.Context, event *larkevent.EventReq) error {
+		fmt.Println(string(event.Body))
+		fmt.Println(larkcore.Prettify(event.Header))
+		fmt.Println(larkcore.Prettify(event.RequestURI))
+		fmt.Println(event.RequestId())
+		return nil
 	})
 
 	// 注册 http 路由
