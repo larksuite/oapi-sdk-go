@@ -14,7 +14,7 @@
 
 - [API调用](#api调用)
     - [基本用法](#基本用法)
-    - [配置请求选项](#配置请求选项)
+    - [设置请求选项](#设置请求选项)
     - [原生API调用方式](#原生api调用方式)
 
 - [处理消息事件回调](#处理消息事件回调)
@@ -39,7 +39,7 @@ go get -u github.com/larksuite/oapi-sdk-go
 
 ## API Client
 
-开发者在调用 API 前，需要先创建一个 API Client，然后才可以基于 API Client 发起 API 调用
+开发者在调用 API 前，需要先创建一个 API Client，然后才可以基于 API Client 发起 API 调用。
 
 ### 创建API Client
 
@@ -61,11 +61,11 @@ var client = lark.NewClient("appID", "appSecret",lark.WithMarketplaceApp()) // �
 
 ```go
 var client = lark.NewClient("appID", "appSecret",
-lark.WithLogLevel(larkcore.LogLevelDebug),
-lark.WithReqTimeout(3*time.Second),
-lark.WithEnableTokenCache(true),
-lark.WithHelpdeskCredential("id", "token"),
-lark.WithHttpClient(http.DefaultClient))
+    lark.WithLogLevel(larkcore.LogLevelDebug),
+    lark.WithReqTimeout(3*time.Second),
+    lark.WithEnableTokenCache(true),
+    lark.WithHelpdeskCredential("id", "token"),
+    lark.WithHttpClient(http.DefaultClient))
 ```
 
 每个配置选项的具体含义，如下表格：
@@ -86,6 +86,17 @@ lark.WithHttpClient(http.DefaultClient))
   </thead>
   <tbody align=left valign=top>
     <tr>
+          <th>
+            <code>AppType</code>
+          </th>
+          <td>
+            <code>lark.WithMarketplaceApp()</code>
+          </td>
+          <td>
+    设置 App 类型为 商店应用 ，ISV 开发者必须要设置该选项。
+          </td>
+    </tr>
+    <tr>
       <th>
         <code>LogLevel</code>
       </th>
@@ -105,27 +116,24 @@ lark.WithHttpClient(http.DefaultClient))
 
 <tr>
       <th>
-        <code>AppType</code>
+        <code>Logger</code>
       </th>
       <td>
-        <code>lark.WithMarketplaceApp()</code>
+        <code>lark.WithLogger(logger larkcore.Logger)</code>
       </td>
       <td>
-设置 App 类型为商店应用，ISV 开发者必须要设置该选项，默认为自建应用
+设置API Client的日志器，默认日志输出到标准输出。
 
-</td>
-</tr>
+开发者可通过实现下面的 Logger 接口，来设置自定义的日志器:
 
-<tr>
-      <th>
-        <code>ReqTimeout</code>
-      </th>
-      <td>
-        <code>lark.WithReqTimeout(time time.Duration)</code>
-      </td>
-      <td>
-设置 Http 整个调用过程的超时时间，单位为 time.Duration。
-默认为0，表示永不超时
+```go
+type Logger interface {
+    Debug(context.Context, ...interface{})
+    Info(context.Context, ...interface{})
+    Warn(context.Context, ...interface{})
+    Error(context.Context, ...interface{})
+}
+```
 
 </td>
 </tr>
@@ -139,10 +147,13 @@ lark.WithHttpClient(http.DefaultClient))
         <code>lark.WithOpenBaseUrl(baseUrl string)</code>
       </td>
       <td>
-设置飞书域名；默认为FeishuBaseUrl：
+设置飞书域名，默认为FeishuBaseUrl，可用域名列表为：
 
 ```go
+// 飞书域名
 var FeishuBaseUrl = "https://open.feishu.cn"
+
+// Lark域名
 var LarkBaseUrl = "https://open.larksuite.com"
 ```
 
@@ -157,8 +168,9 @@ var LarkBaseUrl = "https://open.larksuite.com"
         <code>lark.WithEnableTokenCache(enableTokenCache bool)</code>
       </td>
       <td>
-是否开启 TenantAccessToken 的自动获取与缓存;
-默认开启，如需要关闭可传递 false
+设置是否开启 TenantAccessToken 的自动获取与缓存。
+
+默认开启，如需要关闭可传递 false。
 </td>
 </tr>
 
@@ -170,31 +182,20 @@ var LarkBaseUrl = "https://open.larksuite.com"
         <code>lark.WithHelpdeskCredential(helpdeskID, helpdeskToken string)</code>
       </td>
       <td>
-仅在调用服务台业务的 API 时需要传递
+该选项仅在调用服务台业务的 API 时需要配置。
 </td>
 </tr>
 
 
 <tr>
       <th>
-        <code>Logger</code>
+        <code>ReqTimeout</code>
       </th>
       <td>
-        <code>lark.WithLogger(logger larkcore.Logger)</code>
+        <code>lark.WithReqTimeout(time time.Duration)</code>
       </td>
       <td>
-日志器，默认为标准输出；开发者可通过实现下面的 Logger 接口，来设置自定义的日志器:
-
-```go
-type Logger interface {
-    Debug(context.Context, ...interface{})
-    Info(context.Context, ...interface{})
-    Warn(context.Context, ...interface{})
-    Error(context.Context, ...interface{})
-}
-```
-
-默认为标准输出
+设置 SDK 内置的 Http Client 的请求超时时间，默认为0代表永不超时。
 </td>
 </tr>
 
@@ -206,7 +207,9 @@ type Logger interface {
         <code>lark.WithHttpClient(httpClient larkcore.HttpClient)</code>
       </td>
       <td>
- 开发者可通过实现下面的 HttpClient 接口，来设置自定义的 Http Client:
+设置 HttpClient，用于替换 SDK 提供的默认实现。
+
+开发者可通过实现下面的 HttpClient 接口来设置自定义的 HttpClient:
 
 ```go
 type HttpClient interface {
@@ -226,15 +229,18 @@ type HttpClient interface {
         <code>lark.WithTokenCache(cache larkcore.Cache)</code>
       </td>
       <td>
-token缓存器，默认实现为内存Map。如果开发者想要定制 token 缓存，则需要实现下面 Cache 接口:
+设置 token 缓存器，默认实现为内存Map。
+
+如开发者想要定制 token 缓存器，需实现下面 Cache 接口:
 
 ```go
 type Cache interface {
   Set(ctx context.Context, key string, value string, expireTime time.Duration) error
   Get(ctx context.Context, key string) (string, error)
 }
-
 ```
+
+对于 ISV 开发者来说，如需要 SDK 来缓存 token，需要实现该接口，实现提供分布式缓存。
 
 </td>
 </tr>
@@ -248,7 +254,9 @@ type Cache interface {
         <code>lark.WithLogReqRespInfoAtDebugLevel(printReqRespLog bool)</code>
       </td>
       <td>
-开启 Http 请求参数和响应参数的日志打印开关；开启后，在 debug 模式下会打印 http 请求和响应的 headers,body 等信息
+设置是否开启 Http 请求参数和响应参数的日志打印开关；开启后，在 debug 模式下会打印 http 请求和响应的 headers,body 等信息。
+
+在排查问题时，开启该选项，有利于问题的排查。
 
 </td>
 </tr>
@@ -256,7 +264,7 @@ type Cache interface {
 </table>
 
 ## API调用
-创建完毕 API Client，我们可以使用 Client.业务域.资源.方法名称 来定位具体的 API 方法，然后对具体的 API 发起调用。
+创建完毕 API Client，我们可以使用 ``Client.业务域.资源.方法名称`` 来定位具体的 API 方法，然后对具体的 API 发起调用。
 
 飞书开放平台开放的所有 API 列表，可点击[这里查看](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/server-api-list)
 
@@ -308,7 +316,7 @@ func main() {
 
 更多 API 调用示例：[./sample/api/im.go](./sample/api/im.go)
 
-### 配置请求选项
+### 设置请求选项
 
 开发者在每次发起 API 调用时，可以设置请求级别的一些参数，比如传递 UserAccessToken ,自定义 Headers 等：
 
@@ -362,7 +370,7 @@ func main() {
 
 ```
 
-如下表格，展示了所有请求级别可配置的选项：
+如下表格，展示了所有请求级别可设置的选项：
 
 <table>
   <thead align=left>
@@ -387,7 +395,7 @@ func main() {
         <code>larkcore.WithHeaders(header http.Header)</code>
       </td>
       <td>
-设置自定义请求头
+设置自定义请求头，开发者可在发起请求时，这些请求头会被透传到飞书开放平台服务端。
 
 </td>
 </tr>
@@ -400,7 +408,7 @@ func main() {
         <code>larkcore.WithUserAccessToken(userAccessToken string)</code>
       </td>
       <td>
-设置用户token，当需要以用户身份发起调用时，需要配置该选项
+设置用户token，当开发者需要以用户身份发起调用时，需要设置该选项的值。
 
 </td>
 </tr>
@@ -413,21 +421,7 @@ func main() {
         <code>larkcore.WithTenantAccessToken(tenantAccessToken string)</code>
       </td>
       <td>
-当开发者自己维护租户 token 时（即创建Client时EnableTokenCache设置为了false），可以通过该选项传递 tenant token
-
-</td>
-</tr>
-
-
-<tr>
-      <th>
-        <code>RequestId</code>
-      </th>
-      <td>
-        <code>larkCore.WithRequestId(requestId string)</code>
-      </td>
-      <td>
-设置请求ID
+设置租户 token，当开发者自己维护租户 token 时（即创建Client时EnableTokenCache设置为了false），需通过该选项传递 租户 token。
 
 </td>
 </tr>
@@ -440,7 +434,21 @@ func main() {
         <code>larkcore.WithTenantKey(tenantKey string)</code>
       </td>
       <td>
-设置租户 key, 商店应用必须设置该选项
+设置租户 key, 当开发者开发商店应用时，必须设置该选项。
+</td>
+</tr>
+
+
+<tr>
+      <th>
+        <code>RequestId</code>
+      </th>
+      <td>
+        <code>larkCore.WithRequestId(requestId string)</code>
+      </td>
+      <td>
+设置请求 ID，用来做请求的唯一标识，该 ID 会被透传到飞书开放平台服务端。
+
 </td>
 </tr>
 
@@ -486,7 +494,7 @@ func main() {
 }
 ```
 
-更多 API 调用示例：[./sample/callrawapi/im.go](./sample/callrawapi/api.go)
+更多 API 调用示例：[./sample/callrawapi/api.go](./sample/callrawapi/api.go)
 
 
 ## 处理消息事件回调
