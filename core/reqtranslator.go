@@ -108,13 +108,13 @@ func (translator *ReqTranslator) signHelpdeskAuthToken(rawRequest *http.Request,
 	return nil
 }
 
-func (translator *ReqTranslator) getFullReqUrl(domain string, httpPath string, paths, queries map[string]interface{}) (string, error) {
+func (translator *ReqTranslator) getFullReqUrl(domain string, httpPath string, pathVars, queries map[string]interface{}) (string, error) {
 	// path
 	var pathSegs []string
 	for _, p := range strings.Split(httpPath, "/") {
 		if strings.Index(p, ":") == 0 {
 			varName := p[1:]
-			v, ok := paths[varName]
+			v, ok := pathVars[varName]
 			if !ok {
 				return "", fmt.Errorf("http path:%s, name: %s, not found value", httpPath, varName)
 			}
@@ -122,6 +122,7 @@ func (translator *ReqTranslator) getFullReqUrl(domain string, httpPath string, p
 			if val == "" {
 				return "", fmt.Errorf("http path:%s, name: %s, value is empty", httpPath, varName)
 			}
+			val = url.PathEscape(val)
 			pathSegs = append(pathSegs, val)
 			continue
 		}
