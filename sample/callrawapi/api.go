@@ -16,8 +16,8 @@ func rawApiTenantCall1() {
 	var cli = lark.NewClient(appID, appSecret)
 
 	//发起请求
-	//1.支持httpPath传递完整请求url
-	//2.body 传递http的body内容
+	//1.支持 httpPath 传递完整请求 url
+	//2.body 传递 http 的 body 内容
 	//3.传递租户权限
 	resp, err := cli.Post(context.Background(), "https://www.feishu.cn/approval/openapi/v2/approval/get", map[string]interface{}{
 		"approval_code": "ou_c245b0a7dff2725cfa2fb104f8b48b9d",
@@ -29,7 +29,7 @@ func rawApiTenantCall1() {
 		return
 	}
 
-	// 获取请求ID
+	// 获取请求 ID
 	fmt.Println(resp.RequestId())
 
 	// 处理请求结果
@@ -53,8 +53,8 @@ func rawApiTenantCall2() {
 		Build()
 
 	// 发起请求
-	//1.如有path参数，query参数，则需要拼接到url上
-	//2.body 传递http的body内容
+	//1.如有 path 参数，query 参数，则需要拼接到 url 上
+	//2.body 传递 http 的 body 内容
 	//3.传递租户权限
 	resp, err := cli.Post(context.Background(), "https://open.feishu.cn/open-apis/im/v1/messages?receive_id_type=open_id", map[string]interface{}{
 		"receive_id": "ou_c245b0a7dff2725cfa2fb104f8b48b9d",
@@ -68,7 +68,7 @@ func rawApiTenantCall2() {
 		return
 	}
 
-	// 获取请求ID
+	// 获取请求 ID
 	fmt.Println(resp.RequestId())
 
 	// 处理请求结果
@@ -83,10 +83,10 @@ func rawApiUserCall1() {
 	var cli = lark.NewClient(appID, appSecret)
 
 	// 发起请求
-	//1.httpPath:如有path参数，query参数，则需要拼接到url上
-	//2.body:传递http的body内容
-	//3.accessTokenType:传递User权限
-	//4.options:传递User token
+	//1.httpPath:如有 path 参数，query 参数，则需要拼接到 url 上
+	//2.body:传递 http 的 body 内容
+	//3.accessTokenType:传递 user 权限
+	//4.options:传递 user token
 	resp, err := cli.Get(context.Background(),
 		"https://open.feishu.cn/open-apis/contact/v3/users/ou_c245b0a7dff2725cfa2fb104f8b48b9d?user_id_type=open_id",
 		nil,
@@ -99,7 +99,7 @@ func rawApiUserCall1() {
 		return
 	}
 
-	// 获取请求ID
+	// 获取请求 ID
 	fmt.Println(resp.RequestId())
 
 	// 处理请求结果

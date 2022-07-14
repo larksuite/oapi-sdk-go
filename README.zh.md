@@ -484,13 +484,13 @@ func main() {
 		return
 	}
 
-	// 获取请求ID
+	// 获取请求 ID
 	fmt.Println(resp.RequestId())
 
 	// 处理请求结果
 	fmt.Println(resp.StatusCode) // http status code
 	fmt.Println(resp.Header)     // http header
-	fmt.Println(resp.RawBody)    // http body}
+	fmt.Println(resp.RawBody)    // http body
 }
 ```
 
