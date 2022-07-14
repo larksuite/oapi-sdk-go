@@ -6,7 +6,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/larksuite/oapi-sdk-go/core"
+	"github.com/larksuite/oapi-sdk-go.v3/core"
 )
 
 // 生成枚举值
@@ -1974,6 +1974,264 @@ type GetDataSourceItemResp struct {
 }
 
 func (resp *GetDataSourceItemResp) Success() bool {
+	return resp.Code == 0
+}
+
+// 1.4 生成请求的builder结构体
+type CreateSchemaReqBuilder struct {
+	validateOnly     bool
+	validateOnlyFlag bool
+	schema           *Schema
+	schemaFlag       bool
+}
+
+// 生成请求的New构造器
+func NewCreateSchemaReqBuilder() *CreateSchemaReqBuilder {
+	builder := &CreateSchemaReqBuilder{}
+	return builder
+}
+
+// 1.5 生成请求的builder属性方法
+func (builder *CreateSchemaReqBuilder) ValidateOnly(validateOnly bool) *CreateSchemaReqBuilder {
+	builder.validateOnly = validateOnly
+	builder.validateOnlyFlag = true
+	return builder
+}
+func (builder *CreateSchemaReqBuilder) Schema(schema *Schema) *CreateSchemaReqBuilder {
+	builder.schema = schema
+	builder.schemaFlag = true
+	return builder
+}
+
+// 1.5 生成请求的builder的build方法
+func (builder *CreateSchemaReqBuilder) Build() *CreateSchemaReq {
+	req := &CreateSchemaReq{}
+	if builder.validateOnlyFlag {
+		req.ValidateOnly = &builder.validateOnly
+	}
+	if builder.schemaFlag {
+		req.Schema = builder.schema
+	}
+	return req
+}
+
+type CreateSchemaReq struct {
+	ValidateOnly *bool   `query:"validate_only"`
+	Schema       *Schema `body:""`
+}
+
+type CreateSchemaRespData struct {
+	Schema *Schema `json:"schema,omitempty"`
+}
+
+type CreateSchemaResp struct {
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
+	Data *CreateSchemaRespData `json:"data"`
+}
+
+func (resp *CreateSchemaResp) Success() bool {
+	return resp.Code == 0
+}
+
+// 1.4 生成请求的builder结构体
+type DeleteSchemaReqBuilder struct {
+	schemaId     string
+	schemaIdFlag bool
+}
+
+// 生成请求的New构造器
+func NewDeleteSchemaReqBuilder() *DeleteSchemaReqBuilder {
+	builder := &DeleteSchemaReqBuilder{}
+	return builder
+}
+
+// 1.5 生成请求的builder属性方法
+func (builder *DeleteSchemaReqBuilder) SchemaId(schemaId string) *DeleteSchemaReqBuilder {
+	builder.schemaId = schemaId
+	builder.schemaIdFlag = true
+	return builder
+}
+
+// 1.5 生成请求的builder的build方法
+func (builder *DeleteSchemaReqBuilder) Build() *DeleteSchemaReq {
+	req := &DeleteSchemaReq{}
+	if builder.schemaIdFlag {
+		req.SchemaId = builder.schemaId
+	}
+	return req
+}
+
+type DeleteSchemaReq struct {
+	SchemaId string `path:"schema_id"`
+}
+
+type DeleteSchemaResp struct {
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *DeleteSchemaResp) Success() bool {
+	return resp.Code == 0
+}
+
+// 1.4 生成请求的builder结构体
+type GetSchemaReqBuilder struct {
+	schemaId     string
+	schemaIdFlag bool
+}
+
+// 生成请求的New构造器
+func NewGetSchemaReqBuilder() *GetSchemaReqBuilder {
+	builder := &GetSchemaReqBuilder{}
+	return builder
+}
+
+// 1.5 生成请求的builder属性方法
+func (builder *GetSchemaReqBuilder) SchemaId(schemaId string) *GetSchemaReqBuilder {
+	builder.schemaId = schemaId
+	builder.schemaIdFlag = true
+	return builder
+}
+
+// 1.5 生成请求的builder的build方法
+func (builder *GetSchemaReqBuilder) Build() *GetSchemaReq {
+	req := &GetSchemaReq{}
+	if builder.schemaIdFlag {
+		req.SchemaId = builder.schemaId
+	}
+	return req
+}
+
+type GetSchemaReq struct {
+	SchemaId string `path:"schema_id"`
+}
+
+type GetSchemaRespData struct {
+	Schema *Schema `json:"schema,omitempty"`
+}
+
+type GetSchemaResp struct {
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
+	Data *GetSchemaRespData `json:"data"`
+}
+
+func (resp *GetSchemaResp) Success() bool {
+	return resp.Code == 0
+}
+
+type PatchSchemaReqBodyBuilder struct {
+	display     *SchemaDisplay
+	displayFlag bool
+}
+
+// 生成body的New构造器
+func NewPatchSchemaReqBodyBuilder() *PatchSchemaReqBodyBuilder {
+	builder := &PatchSchemaReqBodyBuilder{}
+	return builder
+}
+
+// 1.2 生成body的builder属性方法
+func (builder *PatchSchemaReqBodyBuilder) Display(display *SchemaDisplay) *PatchSchemaReqBodyBuilder {
+	builder.display = display
+	builder.displayFlag = true
+	return builder
+}
+
+// 1.3 生成body的build方法
+func (builder *PatchSchemaReqBodyBuilder) Build() *PatchSchemaReqBody {
+	req := &PatchSchemaReqBody{}
+	if builder.displayFlag {
+		req.Display = builder.display
+	}
+	return req
+}
+
+// 上传文件path开始
+type PatchSchemaPathReqBodyBuilder struct {
+	display     *SchemaDisplay
+	displayFlag bool
+}
+
+func NewPatchSchemaPathReqBodyBuilder() *PatchSchemaPathReqBodyBuilder {
+	builder := &PatchSchemaPathReqBodyBuilder{}
+	return builder
+}
+func (builder *PatchSchemaPathReqBodyBuilder) Display(display *SchemaDisplay) *PatchSchemaPathReqBodyBuilder {
+	builder.display = display
+	builder.displayFlag = true
+	return builder
+}
+
+func (builder *PatchSchemaPathReqBodyBuilder) Build() (*PatchSchemaReqBody, error) {
+	req := &PatchSchemaReqBody{}
+	if builder.displayFlag {
+		req.Display = builder.display
+	}
+	return req, nil
+}
+
+// 上传文件path结束
+
+// 1.4 生成请求的builder结构体
+type PatchSchemaReqBuilder struct {
+	schemaId     string
+	schemaIdFlag bool
+	body         *PatchSchemaReqBody
+	bodyFlag     bool
+}
+
+// 生成请求的New构造器
+func NewPatchSchemaReqBuilder() *PatchSchemaReqBuilder {
+	builder := &PatchSchemaReqBuilder{}
+	return builder
+}
+
+// 1.5 生成请求的builder属性方法
+func (builder *PatchSchemaReqBuilder) SchemaId(schemaId string) *PatchSchemaReqBuilder {
+	builder.schemaId = schemaId
+	builder.schemaIdFlag = true
+	return builder
+}
+func (builder *PatchSchemaReqBuilder) Body(body *PatchSchemaReqBody) *PatchSchemaReqBuilder {
+	builder.body = body
+	builder.bodyFlag = true
+	return builder
+}
+
+// 1.5 生成请求的builder的build方法
+func (builder *PatchSchemaReqBuilder) Build() *PatchSchemaReq {
+	req := &PatchSchemaReq{}
+	if builder.schemaIdFlag {
+		req.SchemaId = builder.schemaId
+	}
+	if builder.bodyFlag {
+		req.Body = builder.body
+	}
+	return req
+}
+
+type PatchSchemaReqBody struct {
+	Display *SchemaDisplay `json:"display,omitempty"`
+}
+
+type PatchSchemaReq struct {
+	SchemaId string              `path:"schema_id"`
+	Body     *PatchSchemaReqBody `body:""`
+}
+
+type PatchSchemaRespData struct {
+	Schema *Schema `json:"schema,omitempty"`
+}
+
+type PatchSchemaResp struct {
+	*larkcore.RawResponse `json:"-"`
+	larkcore.CodeError
+	Data *PatchSchemaRespData `json:"data"`
+}
+
+func (resp *PatchSchemaResp) Success() bool {
 	return resp.Code == 0
 }
 

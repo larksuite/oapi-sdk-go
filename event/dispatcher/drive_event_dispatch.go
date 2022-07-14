@@ -3,7 +3,7 @@ package dispatcher
 
 import (
 	"context"
-	"github.com/larksuite/oapi-sdk-go/service/drive/v1"
+	"github.com/larksuite/oapi-sdk-go.v3/service/drive/v1"
 )
 
 func (dispatcher *EventDispatcher) OnP2FileDeletedV1(handler func(ctx context.Context, event *larkdrive.P2FileDeletedV1) error) *EventDispatcher {

@@ -3,7 +3,7 @@ package dispatcher
 
 import (
 	"context"
-	"github.com/larksuite/oapi-sdk-go/service/task/v1"
+	"github.com/larksuite/oapi-sdk-go.v3/service/task/v1"
 )
 
 func (dispatcher *EventDispatcher) OnP2TaskUpdateTenantV1(handler func(ctx context.Context, event *larktask.P2TaskUpdateTenantV1) error) *EventDispatcher {

@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/larksuite/oapi-sdk-go"
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/service/contact/v3"
+	"github.com/larksuite/oapi-sdk-go.v3"
+	"github.com/larksuite/oapi-sdk-go.v3/core"
+	"github.com/larksuite/oapi-sdk-go.v3/service/contact/v3"
 )
 
 func main() {

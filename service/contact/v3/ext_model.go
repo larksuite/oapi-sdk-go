@@ -1,6 +1,6 @@
 package larkcontact
 
-import larkevent "github.com/larksuite/oapi-sdk-go/event"
+import larkevent "github.com/larksuite/oapi-sdk-go.v3/event"
 
 type P1UserChangedV3Data struct {
 	Type       string `json:"type"`

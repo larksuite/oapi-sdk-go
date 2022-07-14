@@ -3,7 +3,7 @@ package dispatcher
 
 import (
 	"context"
-	"github.com/larksuite/oapi-sdk-go/service/acs/v1"
+	"github.com/larksuite/oapi-sdk-go.v3/service/acs/v1"
 )
 
 func (dispatcher *EventDispatcher) OnP2AccessRecordCreatedV1(handler func(ctx context.Context, event *larkacs.P2AccessRecordCreatedV1) error) *EventDispatcher {

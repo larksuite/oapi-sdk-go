@@ -5,7 +5,7 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/larksuite/oapi-sdk-go/core"
+	"github.com/larksuite/oapi-sdk-go.v3/core"
 )
 
 // 构建业务域服务实例
@@ -13,6 +13,7 @@ func NewService(config *larkcore.Config) *SearchService {
 	s := &SearchService{config: config}
 	s.DataSource = &dataSource{service: s}
 	s.DataSourceItem = &dataSourceItem{service: s}
+	s.Schema = &schema{service: s}
 	return s
 }
 
@@ -21,6 +22,7 @@ type SearchService struct {
 	config         *larkcore.Config
 	DataSource     *dataSource
 	DataSourceItem *dataSourceItem
+	Schema         *schema
 }
 
 // 资源服务定义
@@ -28,6 +30,9 @@ type dataSource struct {
 	service *SearchService
 }
 type dataSourceItem struct {
+	service *SearchService
+}
+type schema struct {
 	service *SearchService
 }
 
@@ -154,6 +159,66 @@ func (d *dataSourceItem) Get(ctx context.Context, req *GetDataSourceItemReq, opt
 	}
 	// 反序列响应结果
 	resp := &GetDataSourceItemResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (s *schema) Create(ctx context.Context, req *CreateSchemaReq, options ...larkcore.RequestOptionFunc) (*CreateSchemaResp, error) {
+	// 发起请求
+	rawResp, err := larkcore.SendRequest(ctx, s.service.config, http.MethodPost,
+		"/open-apis/search/v2/schemas", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateSchemaResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (s *schema) Delete(ctx context.Context, req *DeleteSchemaReq, options ...larkcore.RequestOptionFunc) (*DeleteSchemaResp, error) {
+	// 发起请求
+	rawResp, err := larkcore.SendRequest(ctx, s.service.config, http.MethodDelete,
+		"/open-apis/search/v2/schemas/:schema_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &DeleteSchemaResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (s *schema) Get(ctx context.Context, req *GetSchemaReq, options ...larkcore.RequestOptionFunc) (*GetSchemaResp, error) {
+	// 发起请求
+	rawResp, err := larkcore.SendRequest(ctx, s.service.config, http.MethodGet,
+		"/open-apis/search/v2/schemas/:schema_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &GetSchemaResp{RawResponse: rawResp}
+	err = rawResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (s *schema) Patch(ctx context.Context, req *PatchSchemaReq, options ...larkcore.RequestOptionFunc) (*PatchSchemaResp, error) {
+	// 发起请求
+	rawResp, err := larkcore.SendRequest(ctx, s.service.config, http.MethodPatch,
+		"/open-apis/search/v2/schemas/:schema_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &PatchSchemaResp{RawResponse: rawResp}
 	err = rawResp.JSONUnmarshalBody(resp)
 	if err != nil {
 		return nil, err

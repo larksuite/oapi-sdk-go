@@ -3,8 +3,8 @@ package larkcard
 import (
 	"encoding/json"
 
-	"github.com/larksuite/oapi-sdk-go/core"
-	larkevent "github.com/larksuite/oapi-sdk-go/event"
+	larkcore "github.com/larksuite/oapi-sdk-go.v3/core"
+	larkevent "github.com/larksuite/oapi-sdk-go.v3/event"
 )
 
 const (

@@ -3,7 +3,7 @@ package dispatcher
 
 import (
 	"context"
-	"github.com/larksuite/oapi-sdk-go/service/contact/v3"
+	"github.com/larksuite/oapi-sdk-go.v3/service/contact/v3"
 )
 
 func (dispatcher *EventDispatcher) OnP2CustomAttrEventUpdatedV3(handler func(ctx context.Context, event *larkcontact.P2CustomAttrEventUpdatedV3) error) *EventDispatcher {

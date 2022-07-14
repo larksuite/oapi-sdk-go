@@ -4,12 +4,12 @@ package dispatcher
 import (
 	"context"
 
-	larkevent "github.com/larksuite/oapi-sdk-go/event"
-	larkapplication "github.com/larksuite/oapi-sdk-go/service/application/v6"
-	larkapproval "github.com/larksuite/oapi-sdk-go/service/approval/v4"
-	larkcontact "github.com/larksuite/oapi-sdk-go/service/contact/v3"
-	larkim "github.com/larksuite/oapi-sdk-go/service/im/v1"
-	larkmeeting_room "github.com/larksuite/oapi-sdk-go/service/meeting_room/v1"
+	larkevent "github.com/larksuite/oapi-sdk-go.v3/event"
+	larkapplication "github.com/larksuite/oapi-sdk-go.v3/service/application/v6"
+	larkapproval "github.com/larksuite/oapi-sdk-go.v3/service/approval/v4"
+	larkcontact "github.com/larksuite/oapi-sdk-go.v3/service/contact/v3"
+	larkim "github.com/larksuite/oapi-sdk-go.v3/service/im/v1"
+	larkmeeting_room "github.com/larksuite/oapi-sdk-go.v3/service/meeting_room/v1"
 )
 
 // v1消息协议：用户购买应用商店付费应用成功后发送给应用ISV的通知事件。

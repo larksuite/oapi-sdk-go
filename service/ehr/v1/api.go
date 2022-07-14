@@ -6,7 +6,7 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/larksuite/oapi-sdk-go/core"
+	"github.com/larksuite/oapi-sdk-go.v3/core"
 )
 
 // 构建业务域服务实例

@@ -3,7 +3,7 @@ package dispatcher
 
 import (
 	"context"
-	"github.com/larksuite/oapi-sdk-go/service/vc/v1"
+	"github.com/larksuite/oapi-sdk-go.v3/service/vc/v1"
 )
 
 func (dispatcher *EventDispatcher) OnP2MeetingJoinMeetingV1(handler func(ctx context.Context, event *larkvc.P2MeetingJoinMeetingV1) error) *EventDispatcher {

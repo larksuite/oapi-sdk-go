@@ -8,13 +8,13 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/event"
-	larkapplication "github.com/larksuite/oapi-sdk-go/service/application/v6"
-	larkapproval "github.com/larksuite/oapi-sdk-go/service/approval/v4"
-	"github.com/larksuite/oapi-sdk-go/service/contact/v3"
-	larkim "github.com/larksuite/oapi-sdk-go/service/im/v1"
-	larkmeeting_room "github.com/larksuite/oapi-sdk-go/service/meeting_room/v1"
+	"github.com/larksuite/oapi-sdk-go.v3/core"
+	"github.com/larksuite/oapi-sdk-go.v3/event"
+	larkapplication "github.com/larksuite/oapi-sdk-go.v3/service/application/v6"
+	larkapproval "github.com/larksuite/oapi-sdk-go.v3/service/approval/v4"
+	"github.com/larksuite/oapi-sdk-go.v3/service/contact/v3"
+	larkim "github.com/larksuite/oapi-sdk-go.v3/service/im/v1"
+	larkmeeting_room "github.com/larksuite/oapi-sdk-go.v3/service/meeting_room/v1"
 )
 
 type EventV2Body struct {

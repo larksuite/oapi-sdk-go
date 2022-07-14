@@ -6,9 +6,9 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/larksuite/oapi-sdk-go/card"
-	"github.com/larksuite/oapi-sdk-go/event"
-	"github.com/larksuite/oapi-sdk-go/event/dispatcher"
+	larkcard "github.com/larksuite/oapi-sdk-go.v3/card"
+	larkevent "github.com/larksuite/oapi-sdk-go.v3/event"
+	"github.com/larksuite/oapi-sdk-go.v3/event/dispatcher"
 )
 
 func doProcess(writer http.ResponseWriter, req *http.Request, reqHandler larkevent.IReqHandler) {

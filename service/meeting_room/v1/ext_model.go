@@ -1,6 +1,6 @@
 package larkmeeting_room
 
-import "github.com/larksuite/oapi-sdk-go/event"
+import "github.com/larksuite/oapi-sdk-go.v3/event"
 
 type P1ThirdPartyMeetingRoomChangedV1 struct {
 	*larkevent.EventReq

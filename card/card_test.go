@@ -8,8 +8,8 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/event"
+	larkcore "github.com/larksuite/oapi-sdk-go.v3/core"
+	larkevent "github.com/larksuite/oapi-sdk-go.v3/event"
 )
 
 func TestVerifyUrlOk(t *testing.T) {

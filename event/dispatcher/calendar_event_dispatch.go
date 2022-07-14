@@ -3,7 +3,7 @@ package dispatcher
 
 import (
 	"context"
-	"github.com/larksuite/oapi-sdk-go/service/calendar/v4"
+	"github.com/larksuite/oapi-sdk-go.v3/service/calendar/v4"
 )
 
 func (dispatcher *EventDispatcher) OnP2CalendarChangedV4(handler func(ctx context.Context, event *larkcalendar.P2CalendarChangedV4) error) *EventDispatcher {

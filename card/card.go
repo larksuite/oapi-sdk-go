@@ -9,8 +9,8 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/event"
+	larkcore "github.com/larksuite/oapi-sdk-go.v3/core"
+	larkevent "github.com/larksuite/oapi-sdk-go.v3/event"
 )
 
 type CardActionHandler struct {

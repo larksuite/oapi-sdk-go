@@ -3,7 +3,7 @@ package larkevent
 import (
 	"net/http"
 
-	"github.com/larksuite/oapi-sdk-go/core"
+	larkcore "github.com/larksuite/oapi-sdk-go.v3/core"
 )
 
 type EventHeader struct {
