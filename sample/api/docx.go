@@ -7,10 +7,10 @@ import (
 	"os"
 	"time"
 
-	"github.com/larksuite/oapi-sdk-go.v3"
-	"github.com/larksuite/oapi-sdk-go.v3/core"
-	"github.com/larksuite/oapi-sdk-go.v3/service/docx/v1"
-	"github.com/larksuite/oapi-sdk-go.v3/service/drive/v1"
+	"github.com/larksuite/oapi-sdk-go/v3"
+	"github.com/larksuite/oapi-sdk-go/v3/core"
+	"github.com/larksuite/oapi-sdk-go/v3/service/docx/v1"
+	"github.com/larksuite/oapi-sdk-go/v3/service/drive/v1"
 )
 
 func createDocument(client *lark.Client) {

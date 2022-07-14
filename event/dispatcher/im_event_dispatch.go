@@ -3,7 +3,7 @@ package dispatcher
 
 import (
 	"context"
-	"github.com/larksuite/oapi-sdk-go.v3/service/im/v1"
+	"github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
 )
 
 func (dispatcher *EventDispatcher) OnP2ChatDisbandedV1(handler func(ctx context.Context, event *larkim.P2ChatDisbandedV1) error) *EventDispatcher {

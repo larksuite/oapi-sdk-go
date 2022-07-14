@@ -3,8 +3,7 @@ package dispatcher
 
 import (
 	"context"
-
-	"github.com/larksuite/oapi-sdk-go.v3/service/approval/v4"
+	"github.com/larksuite/oapi-sdk-go/v3/service/approval/v4"
 )
 
 func (dispatcher *EventDispatcher) OnP2ApprovalUpdatedV4(handler func(ctx context.Context, event *larkapproval.P2ApprovalUpdatedV4) error) *EventDispatcher {

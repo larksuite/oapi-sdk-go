@@ -3,7 +3,7 @@ package dispatcher
 
 import (
 	"context"
-	"github.com/larksuite/oapi-sdk-go.v3/service/meeting_room/v1"
+	"github.com/larksuite/oapi-sdk-go/v3/service/meeting_room/v1"
 )
 
 func (dispatcher *EventDispatcher) OnP2MeetingRoomCreatedV1(handler func(ctx context.Context, event *larkmeeting_room.P2MeetingRoomCreatedV1) error) *EventDispatcher {

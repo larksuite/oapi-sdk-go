@@ -2,7 +2,7 @@
 package larkmeeting_room
 
 import (
-	"github.com/larksuite/oapi-sdk-go.v3/event"
+	"github.com/larksuite/oapi-sdk-go/v3/event"
 )
 
 // 生成枚举值

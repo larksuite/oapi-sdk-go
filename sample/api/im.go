@@ -7,11 +7,11 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/larksuite/oapi-sdk-go.v3"
-	"github.com/larksuite/oapi-sdk-go.v3/card"
-	"github.com/larksuite/oapi-sdk-go.v3/core"
-	"github.com/larksuite/oapi-sdk-go.v3/service/gray_test_open_sg/v1"
-	"github.com/larksuite/oapi-sdk-go.v3/service/im/v1"
+	"github.com/larksuite/oapi-sdk-go/v3"
+	"github.com/larksuite/oapi-sdk-go/v3/card"
+	"github.com/larksuite/oapi-sdk-go/v3/core"
+	"github.com/larksuite/oapi-sdk-go/v3/service/gray_test_open_sg/v1"
+	"github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
 )
 
 func uploadImage(client *lark.Client) {

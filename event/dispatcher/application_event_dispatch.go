@@ -3,7 +3,7 @@ package dispatcher
 
 import (
 	"context"
-	"github.com/larksuite/oapi-sdk-go.v3/service/application/v6"
+	"github.com/larksuite/oapi-sdk-go/v3/service/application/v6"
 )
 
 func (dispatcher *EventDispatcher) OnP2ApplicationCreatedV6(handler func(ctx context.Context, event *larkapplication.P2ApplicationCreatedV6) error) *EventDispatcher {

@@ -2,7 +2,7 @@
 package larktranslation
 
 import (
-	"github.com/larksuite/oapi-sdk-go.v3/core"
+	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
 // 生成枚举值
