@@ -14,7 +14,7 @@ func main() {
 	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
 	var feishu_client = lark.NewClient(appID, appSecret,
 		lark.WithLogLevel(larkcore.LogLevelDebug),
-		lark.WithLogReqRespInfoAtDebugLevel(false))
+		lark.WithLogReqAtDebug(false))
 
 	user := larkcontact.NewUserBuilder().Build()
 	resp, err := feishu_client.Contact.User.Patch(context.Background(),

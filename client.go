@@ -113,9 +113,9 @@ func WithTokenCache(cache larkcore.Cache) ClientOptionFunc {
 	}
 }
 
-func WithLogReqRespInfoAtDebugLevel(printReqRespLog bool) ClientOptionFunc {
+func WithLogReqAtDebug(printReqRespLog bool) ClientOptionFunc {
 	return func(config *larkcore.Config) {
-		config.LogReqRespInfoAtDebugLevel = printReqRespLog
+		config.LogReqAtDebug = printReqRespLog
 	}
 }
 

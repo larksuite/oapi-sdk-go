@@ -165,13 +165,13 @@ func doSendRequest(ctx context.Context, config *Config, httpMethod string, httpP
 			return nil, err
 		}
 
-		if config.LogReqRespInfoAtDebugLevel {
+		if config.LogReqAtDebug {
 			config.Logger.Debug(ctx, fmt.Sprintf("req:%v", req))
 		} else {
 			config.Logger.Debug(ctx, fmt.Sprintf("req:%s,%s", httpMethod, httpPath))
 		}
 		rawResp, err = doSend(ctx, req, config.HttpClient, config.Logger)
-		if config.LogReqRespInfoAtDebugLevel {
+		if config.LogReqAtDebug {
 			config.Logger.Debug(ctx, fmt.Sprintf("resp:%v", rawResp))
 		}
 		_, isDialError := err.(*DialFailedError)

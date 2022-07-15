@@ -28,6 +28,13 @@ type EventV2Base struct {
 	Header *EventHeader `json:"header"`
 }
 
+func (base *EventV2Base) TenantKey() string {
+	if base != nil && base.Header != nil {
+		return base.Header.TenantKey
+	}
+	return ""
+}
+
 type EventV2Body struct {
 	EventV2Base
 	Challenge string      `json:"challenge"`

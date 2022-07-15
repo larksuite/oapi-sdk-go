@@ -31,7 +31,7 @@ func createClientWithAllOptions() {
 		lark.WithHelpdeskCredential("id", "token"),
 		lark.WithLogger(larkcore.NewEventLogger()),
 		lark.WithHttpClient(http.DefaultClient),
-		lark.WithLogReqRespInfoAtDebugLevel(true))
+		lark.WithLogReqAtDebug(true))
 	fmt.Println(feishu_client)
 
 }
