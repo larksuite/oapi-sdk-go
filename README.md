@@ -284,9 +284,9 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/larksuite/oapi-sdk-go"
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/service/docx/v1"
+	"github.com/larksuite/oapi-sdk-go/v3"
+	"github.com/larksuite/oapi-sdk-go/v3/core"
+	"github.com/larksuite/oapi-sdk-go/v3/service/docx/v1"
 )
 
 
@@ -332,9 +332,9 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/larksuite/oapi-sdk-go"
-	larkcore "github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/service/docx/v1"
+	"github.com/larksuite/oapi-sdk-go/v3"
+	"github.com/larksuite/oapi-sdk-go/v3/core"
+	"github.com/larksuite/oapi-sdk-go/v3/service/docx/v1"
 )
 
 func main() {
@@ -470,8 +470,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/larksuite/oapi-sdk-go"
-	"github.com/larksuite/oapi-sdk-go/core"
+	"github.com/larksuite/oapi-sdk-go/v3"
+	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
 func main() {
@@ -516,12 +516,12 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/event"
-	"github.com/larksuite/oapi-sdk-go/event/dispatcher"
-	"github.com/larksuite/oapi-sdk-go/httpserverext"
-	"github.com/larksuite/oapi-sdk-go/service/contact/v3"
-	"github.com/larksuite/oapi-sdk-go/service/im/v1"
+	"github.com/larksuite/oapi-sdk-go/v3/core"
+	"github.com/larksuite/oapi-sdk-go/v3/event"
+	"github.com/larksuite/oapi-sdk-go/v3/event/dispatcher"
+	"github.com/larksuite/oapi-sdk-go/v3/core/httpserverext"
+	"github.com/larksuite/oapi-sdk-go/v3/service/contact/v3"
+	"github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
 )
 
 func main() {
@@ -576,12 +576,12 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/event"
-	"github.com/larksuite/oapi-sdk-go/event/dispatcher"
-	"github.com/larksuite/oapi-sdk-go/httpserverext"
-	"github.com/larksuite/oapi-sdk-go/service/contact/v3"
-	"github.com/larksuite/oapi-sdk-go/service/im/v1"
+	"github.com/larksuite/oapi-sdk-go/v3/core"
+	"github.com/larksuite/oapi-sdk-go/v3/event"
+	"github.com/larksuite/oapi-sdk-go/v3/event/dispatcher"
+	"github.com/larksuite/oapi-sdk-go/v3/core/httpserverext"
+	"github.com/larksuite/oapi-sdk-go/v3/service/contact/v3"
+	"github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
 )
 
 func main() {
@@ -645,11 +645,11 @@ import (
 
 	 "github.com/gin-gonic/gin"
 	 "github.com/larksuite/oapi-sdk-gin"
-	 "github.com/larksuite/oapi-sdk-go/card"
-	 "github.com/larksuite/oapi-sdk-go/core"
-	 "github.com/larksuite/oapi-sdk-go/event/dispatcher"
-	 "github.com/larksuite/oapi-sdk-go/service/contact/v3"
-	 "github.com/larksuite/oapi-sdk-go/service/im/v1"
+	 "github.com/larksuite/oapi-sdk-go/v3/card"
+	 "github.com/larksuite/oapi-sdk-go/v3/core"
+	 "github.com/larksuite/oapi-sdk-go/v3/event/dispatcher"
+	 "github.com/larksuite/oapi-sdk-go/v3/service/contact/v3"
+	 "github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
 )
 
 func main() {
@@ -689,9 +689,9 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/larksuite/oapi-sdk-go/card"
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/httpserverext"
+	"github.com/larksuite/oapi-sdk-go/v3/card"
+	"github.com/larksuite/oapi-sdk-go/v3/core"
+	"github.com/larksuite/oapi-sdk-go/v3/core/httpserverext"
 )
 
 func main() {
@@ -731,9 +731,9 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/larksuite/oapi-sdk-go/card"
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/httpserverext"
+	"github.com/larksuite/oapi-sdk-go/v3/card"
+	"github.com/larksuite/oapi-sdk-go/v3/core"
+	"github.com/larksuite/oapi-sdk-go/v3/core/httpserverext"
 )
 
 func main() {
@@ -777,9 +777,9 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/larksuite/oapi-sdk-go/card"
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/httpserverext"
+	"github.com/larksuite/oapi-sdk-go/v3/card"
+	"github.com/larksuite/oapi-sdk-go/v3/core"
+	"github.com/larksuite/oapi-sdk-go/v3/core/httpserverext"
 )
 
 func main() {
@@ -833,9 +833,9 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/larksuite/oapi-sdk-go/card"
-	"github.com/larksuite/oapi-sdk-go/core"
-	"github.com/larksuite/oapi-sdk-go/httpserverext"
+	"github.com/larksuite/oapi-sdk-go/v3/card"
+	"github.com/larksuite/oapi-sdk-go/v3/core"
+	"github.com/larksuite/oapi-sdk-go/v3/core/httpserverext"
 )
 
 func main() {
@@ -900,8 +900,8 @@ import (
     
     "github.com/gin-gonic/gin"
     "github.com/larksuite/oapi-sdk-gin"
-    "github.com/larksuite/oapi-sdk-go/card"
-    "github.com/larksuite/oapi-sdk-go/core"
+    "github.com/larksuite/oapi-sdk-go/v3/card"
+    "github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
 
