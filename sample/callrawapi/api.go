@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"net/http"
 	"os"
 
 	"github.com/larksuite/oapi-sdk-go/v3"
@@ -108,6 +109,69 @@ func rawApiUserCall1() {
 	fmt.Println(string(resp.RawBody)) // http body
 }
 
+func rawApiUserCallNew() {
+	// 创建 API Client
+	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
+	var cli = lark.NewClient(appID, appSecret)
+
+	// 发起请求
+	resp, err := cli.Do(context.Background(),
+		&larkcore.HttpReq{
+			HttpMethod:                http.MethodGet,
+			ApiPath:                   "/open-apis/contact/v3/users/:user_id",
+			Body:                      nil,
+			QueryParams:               larkcore.QueryParams{"user_id_type": []string{"open_id"}},
+			PathParams:                larkcore.PathParams{"user_id": []string{"ou_c245b0a7dff2725cfa2fb104f8b48b9d"}},
+			SupportedAccessTokenTypes: []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser},
+		},
+		larkcore.WithUserAccessToken("u-1C.E95YFlf2HqXDz4kcNjx5lhNtMh5CxqMG0l0a00yWy"),
+	)
+
+	// 错误处理
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	// 获取请求 ID
+	fmt.Println(resp.RequestId())
+
+	// 处理请求结果
+	fmt.Println(resp.StatusCode)      // http status code
+	fmt.Println(resp.Header)          // http header
+	fmt.Println(string(resp.RawBody)) // http body
+}
+
+func rawApiTenantCallNew() {
+	// 创建 API Client
+	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
+	var cli = lark.NewClient(appID, appSecret)
+
+	//发起请求
+	resp, err := cli.Do(context.Background(), &larkcore.HttpReq{
+		HttpMethod: http.MethodGet,
+		ApiPath:    "https://www.feishu.cn/approval/openapi/v2/approval/get",
+		Body: map[string]interface{}{
+			"approval_code": "ou_c245b0a7dff2725cfa2fb104f8b48b9d",
+		},
+		SupportedAccessTokenTypes: []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant},
+	})
+
+	// 错误处理
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	// 获取请求 ID
+	fmt.Println(resp.RequestId())
+
+	// 处理请求结果
+	fmt.Println(resp.StatusCode) // http status code
+	fmt.Println(resp.Header)     // http header
+	fmt.Println(resp.RawBody)    // http body
+}
+
 func main() {
-	rawApiUserCall1()
+	rawApiTenantCall2()
 }

@@ -2,6 +2,8 @@
 package larkpassport
 
 import (
+	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
@@ -222,39 +224,36 @@ func (builder *QuerySessionPathReqBodyBuilder) Build() (*QuerySessionReqBody, er
 
 // 1.4 生成请求的builder结构体
 type QuerySessionReqBuilder struct {
-	userIdType     string
-	userIdTypeFlag bool
-	body           *QuerySessionReqBody
-	bodyFlag       bool
+	*larkcore.HttpReq
+	body *QuerySessionReqBody
 }
 
 // 生成请求的New构造器
 func NewQuerySessionReqBuilder() *QuerySessionReqBuilder {
 	builder := &QuerySessionReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *QuerySessionReqBuilder) UserIdType(userIdType string) *QuerySessionReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
+	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *QuerySessionReqBuilder) Body(body *QuerySessionReqBody) *QuerySessionReqBuilder {
 	builder.body = body
-	builder.bodyFlag = true
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *QuerySessionReqBuilder) Build() *QuerySessionReq {
 	req := &QuerySessionReq{}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.QueryParams = builder.QueryParams
+	req.HttpReq.Body = builder.body
 	return req
 }
 
@@ -263,8 +262,8 @@ type QuerySessionReqBody struct {
 }
 
 type QuerySessionReq struct {
-	UserIdType *string              `query:"user_id_type"`
-	Body       *QuerySessionReqBody `body:""`
+	*larkcore.HttpReq
+	Body *QuerySessionReqBody `body:""`
 }
 
 type QuerySessionRespData struct {

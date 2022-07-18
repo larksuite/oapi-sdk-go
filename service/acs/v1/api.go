@@ -50,8 +50,11 @@ type userFace struct {
 // 资源服务方法定义
 func (a *accessRecord) List(ctx context.Context, req *ListAccessRecordReq, options ...larkcore.RequestOptionFunc) (*ListAccessRecordResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, a.service.config, http.MethodGet,
-		"/open-apis/acs/v1/access_records", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/acs/v1/access_records"
+	httpReq.HttpMethod = http.MethodGet
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, a.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -73,8 +76,11 @@ func (a *accessRecord) ListByIterator(ctx context.Context, req *ListAccessRecord
 }
 func (a *accessRecordAccessPhoto) Get(ctx context.Context, req *GetAccessRecordAccessPhotoReq, options ...larkcore.RequestOptionFunc) (*GetAccessRecordAccessPhotoResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, a.service.config, http.MethodGet,
-		"/open-apis/acs/v1/access_records/:access_record_id/access_photo", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/acs/v1/access_records/:access_record_id/access_photo"
+	httpReq.HttpMethod = http.MethodGet
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, a.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -94,8 +100,14 @@ func (a *accessRecordAccessPhoto) Get(ctx context.Context, req *GetAccessRecordA
 }
 func (d *device) List(ctx context.Context, options ...larkcore.RequestOptionFunc) (*ListDeviceResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, d.service.config, http.MethodGet,
-		"/open-apis/acs/v1/devices", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, nil, options...)
+	httpReq := &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	httpReq.ApiPath = "/open-apis/acs/v1/devices"
+	httpReq.HttpMethod = http.MethodGet
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, nil, d.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -109,8 +121,11 @@ func (d *device) List(ctx context.Context, options ...larkcore.RequestOptionFunc
 }
 func (u *user) Get(ctx context.Context, req *GetUserReq, options ...larkcore.RequestOptionFunc) (*GetUserResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, u.service.config, http.MethodGet,
-		"/open-apis/acs/v1/users/:user_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/acs/v1/users/:user_id"
+	httpReq.HttpMethod = http.MethodGet
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, u.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -124,8 +139,11 @@ func (u *user) Get(ctx context.Context, req *GetUserReq, options ...larkcore.Req
 }
 func (u *user) List(ctx context.Context, req *ListUserReq, options ...larkcore.RequestOptionFunc) (*ListUserResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, u.service.config, http.MethodGet,
-		"/open-apis/acs/v1/users", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/acs/v1/users"
+	httpReq.HttpMethod = http.MethodGet
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, u.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -147,8 +165,11 @@ func (u *user) ListByIterator(ctx context.Context, req *ListUserReq, options ...
 }
 func (u *user) Patch(ctx context.Context, req *PatchUserReq, options ...larkcore.RequestOptionFunc) (*PatchUserResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, u.service.config, http.MethodPatch,
-		"/open-apis/acs/v1/users/:user_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/acs/v1/users/:user_id"
+	httpReq.HttpMethod = http.MethodPatch
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, u.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -162,8 +183,11 @@ func (u *user) Patch(ctx context.Context, req *PatchUserReq, options ...larkcore
 }
 func (u *userFace) Get(ctx context.Context, req *GetUserFaceReq, options ...larkcore.RequestOptionFunc) (*GetUserFaceResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, u.service.config, http.MethodGet,
-		"/open-apis/acs/v1/users/:user_id/face", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/acs/v1/users/:user_id/face"
+	httpReq.HttpMethod = http.MethodGet
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, u.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -184,8 +208,11 @@ func (u *userFace) Get(ctx context.Context, req *GetUserFaceReq, options ...lark
 func (u *userFace) Update(ctx context.Context, req *UpdateUserFaceReq, options ...larkcore.RequestOptionFunc) (*UpdateUserFaceResp, error) {
 	options = append(options, larkcore.WithFileUpload())
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, u.service.config, http.MethodPut,
-		"/open-apis/acs/v1/users/:user_id/face", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/acs/v1/users/:user_id/face"
+	httpReq.HttpMethod = http.MethodPut
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, u.service.config, options...)
 	if err != nil {
 		return nil, err
 	}

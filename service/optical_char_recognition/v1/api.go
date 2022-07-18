@@ -29,8 +29,11 @@ type image struct {
 // 资源服务方法定义
 func (i *image) BasicRecognize(ctx context.Context, req *BasicRecognizeImageReq, options ...larkcore.RequestOptionFunc) (*BasicRecognizeImageResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, i.service.config, http.MethodPost,
-		"/open-apis/optical_char_recognition/v1/image/basic_recognize", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/optical_char_recognition/v1/image/basic_recognize"
+	httpReq.HttpMethod = http.MethodPost
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, i.service.config, options...)
 	if err != nil {
 		return nil, err
 	}

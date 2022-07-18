@@ -69,8 +69,11 @@ type timeoffEvent struct {
 // 资源服务方法定义
 func (c *calendar) Create(ctx context.Context, req *CreateCalendarReq, options ...larkcore.RequestOptionFunc) (*CreateCalendarResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, c.service.config, http.MethodPost,
-		"/open-apis/calendar/v4/calendars", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/calendar/v4/calendars"
+	httpReq.HttpMethod = http.MethodPost
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -84,8 +87,11 @@ func (c *calendar) Create(ctx context.Context, req *CreateCalendarReq, options .
 }
 func (c *calendar) Delete(ctx context.Context, req *DeleteCalendarReq, options ...larkcore.RequestOptionFunc) (*DeleteCalendarResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, c.service.config, http.MethodDelete,
-		"/open-apis/calendar/v4/calendars/:calendar_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/calendar/v4/calendars/:calendar_id"
+	httpReq.HttpMethod = http.MethodDelete
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -99,8 +105,11 @@ func (c *calendar) Delete(ctx context.Context, req *DeleteCalendarReq, options .
 }
 func (c *calendar) Get(ctx context.Context, req *GetCalendarReq, options ...larkcore.RequestOptionFunc) (*GetCalendarResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, c.service.config, http.MethodGet,
-		"/open-apis/calendar/v4/calendars/:calendar_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/calendar/v4/calendars/:calendar_id"
+	httpReq.HttpMethod = http.MethodGet
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -114,8 +123,11 @@ func (c *calendar) Get(ctx context.Context, req *GetCalendarReq, options ...lark
 }
 func (c *calendar) List(ctx context.Context, req *ListCalendarReq, options ...larkcore.RequestOptionFunc) (*ListCalendarResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, c.service.config, http.MethodGet,
-		"/open-apis/calendar/v4/calendars", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/calendar/v4/calendars"
+	httpReq.HttpMethod = http.MethodGet
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -129,8 +141,11 @@ func (c *calendar) List(ctx context.Context, req *ListCalendarReq, options ...la
 }
 func (c *calendar) Patch(ctx context.Context, req *PatchCalendarReq, options ...larkcore.RequestOptionFunc) (*PatchCalendarResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, c.service.config, http.MethodPatch,
-		"/open-apis/calendar/v4/calendars/:calendar_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/calendar/v4/calendars/:calendar_id"
+	httpReq.HttpMethod = http.MethodPatch
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -144,8 +159,11 @@ func (c *calendar) Patch(ctx context.Context, req *PatchCalendarReq, options ...
 }
 func (c *calendar) Primary(ctx context.Context, req *PrimaryCalendarReq, options ...larkcore.RequestOptionFunc) (*PrimaryCalendarResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, c.service.config, http.MethodPost,
-		"/open-apis/calendar/v4/calendars/primary", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/calendar/v4/calendars/primary"
+	httpReq.HttpMethod = http.MethodPost
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -159,8 +177,11 @@ func (c *calendar) Primary(ctx context.Context, req *PrimaryCalendarReq, options
 }
 func (c *calendar) Search(ctx context.Context, req *SearchCalendarReq, options ...larkcore.RequestOptionFunc) (*SearchCalendarResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, c.service.config, http.MethodPost,
-		"/open-apis/calendar/v4/calendars/search", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/calendar/v4/calendars/search"
+	httpReq.HttpMethod = http.MethodPost
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -182,8 +203,11 @@ func (c *calendar) SearchByIterator(ctx context.Context, req *SearchCalendarReq,
 }
 func (c *calendar) Subscribe(ctx context.Context, req *SubscribeCalendarReq, options ...larkcore.RequestOptionFunc) (*SubscribeCalendarResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, c.service.config, http.MethodPost,
-		"/open-apis/calendar/v4/calendars/:calendar_id/subscribe", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/calendar/v4/calendars/:calendar_id/subscribe"
+	httpReq.HttpMethod = http.MethodPost
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -197,8 +221,14 @@ func (c *calendar) Subscribe(ctx context.Context, req *SubscribeCalendarReq, opt
 }
 func (c *calendar) Subscription(ctx context.Context, options ...larkcore.RequestOptionFunc) (*SubscriptionCalendarResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, c.service.config, http.MethodPost,
-		"/open-apis/calendar/v4/calendars/subscription", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}, nil, options...)
+	httpReq := &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	httpReq.ApiPath = "/open-apis/calendar/v4/calendars/subscription"
+	httpReq.HttpMethod = http.MethodPost
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, nil, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -212,8 +242,11 @@ func (c *calendar) Subscription(ctx context.Context, options ...larkcore.Request
 }
 func (c *calendar) Unsubscribe(ctx context.Context, req *UnsubscribeCalendarReq, options ...larkcore.RequestOptionFunc) (*UnsubscribeCalendarResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, c.service.config, http.MethodPost,
-		"/open-apis/calendar/v4/calendars/:calendar_id/unsubscribe", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/calendar/v4/calendars/:calendar_id/unsubscribe"
+	httpReq.HttpMethod = http.MethodPost
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -227,8 +260,11 @@ func (c *calendar) Unsubscribe(ctx context.Context, req *UnsubscribeCalendarReq,
 }
 func (c *calendarAcl) Create(ctx context.Context, req *CreateCalendarAclReq, options ...larkcore.RequestOptionFunc) (*CreateCalendarAclResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, c.service.config, http.MethodPost,
-		"/open-apis/calendar/v4/calendars/:calendar_id/acls", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/calendar/v4/calendars/:calendar_id/acls"
+	httpReq.HttpMethod = http.MethodPost
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -242,8 +278,11 @@ func (c *calendarAcl) Create(ctx context.Context, req *CreateCalendarAclReq, opt
 }
 func (c *calendarAcl) Delete(ctx context.Context, req *DeleteCalendarAclReq, options ...larkcore.RequestOptionFunc) (*DeleteCalendarAclResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, c.service.config, http.MethodDelete,
-		"/open-apis/calendar/v4/calendars/:calendar_id/acls/:acl_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/calendar/v4/calendars/:calendar_id/acls/:acl_id"
+	httpReq.HttpMethod = http.MethodDelete
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -257,8 +296,11 @@ func (c *calendarAcl) Delete(ctx context.Context, req *DeleteCalendarAclReq, opt
 }
 func (c *calendarAcl) List(ctx context.Context, req *ListCalendarAclReq, options ...larkcore.RequestOptionFunc) (*ListCalendarAclResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, c.service.config, http.MethodGet,
-		"/open-apis/calendar/v4/calendars/:calendar_id/acls", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/calendar/v4/calendars/:calendar_id/acls"
+	httpReq.HttpMethod = http.MethodGet
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -280,8 +322,11 @@ func (c *calendarAcl) ListByIterator(ctx context.Context, req *ListCalendarAclRe
 }
 func (c *calendarAcl) Subscription(ctx context.Context, req *SubscriptionCalendarAclReq, options ...larkcore.RequestOptionFunc) (*SubscriptionCalendarAclResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, c.service.config, http.MethodPost,
-		"/open-apis/calendar/v4/calendars/:calendar_id/acls/subscription", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/calendar/v4/calendars/:calendar_id/acls/subscription"
+	httpReq.HttpMethod = http.MethodPost
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -295,8 +340,11 @@ func (c *calendarAcl) Subscription(ctx context.Context, req *SubscriptionCalenda
 }
 func (c *calendarEvent) Create(ctx context.Context, req *CreateCalendarEventReq, options ...larkcore.RequestOptionFunc) (*CreateCalendarEventResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, c.service.config, http.MethodPost,
-		"/open-apis/calendar/v4/calendars/:calendar_id/events", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/calendar/v4/calendars/:calendar_id/events"
+	httpReq.HttpMethod = http.MethodPost
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -310,8 +358,11 @@ func (c *calendarEvent) Create(ctx context.Context, req *CreateCalendarEventReq,
 }
 func (c *calendarEvent) Delete(ctx context.Context, req *DeleteCalendarEventReq, options ...larkcore.RequestOptionFunc) (*DeleteCalendarEventResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, c.service.config, http.MethodDelete,
-		"/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id"
+	httpReq.HttpMethod = http.MethodDelete
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -325,8 +376,11 @@ func (c *calendarEvent) Delete(ctx context.Context, req *DeleteCalendarEventReq,
 }
 func (c *calendarEvent) Get(ctx context.Context, req *GetCalendarEventReq, options ...larkcore.RequestOptionFunc) (*GetCalendarEventResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, c.service.config, http.MethodGet,
-		"/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id"
+	httpReq.HttpMethod = http.MethodGet
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -340,8 +394,11 @@ func (c *calendarEvent) Get(ctx context.Context, req *GetCalendarEventReq, optio
 }
 func (c *calendarEvent) List(ctx context.Context, req *ListCalendarEventReq, options ...larkcore.RequestOptionFunc) (*ListCalendarEventResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, c.service.config, http.MethodGet,
-		"/open-apis/calendar/v4/calendars/:calendar_id/events", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/calendar/v4/calendars/:calendar_id/events"
+	httpReq.HttpMethod = http.MethodGet
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -355,8 +412,11 @@ func (c *calendarEvent) List(ctx context.Context, req *ListCalendarEventReq, opt
 }
 func (c *calendarEvent) Patch(ctx context.Context, req *PatchCalendarEventReq, options ...larkcore.RequestOptionFunc) (*PatchCalendarEventResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, c.service.config, http.MethodPatch,
-		"/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id"
+	httpReq.HttpMethod = http.MethodPatch
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -370,8 +430,11 @@ func (c *calendarEvent) Patch(ctx context.Context, req *PatchCalendarEventReq, o
 }
 func (c *calendarEvent) Search(ctx context.Context, req *SearchCalendarEventReq, options ...larkcore.RequestOptionFunc) (*SearchCalendarEventResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, c.service.config, http.MethodPost,
-		"/open-apis/calendar/v4/calendars/:calendar_id/events/search", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/calendar/v4/calendars/:calendar_id/events/search"
+	httpReq.HttpMethod = http.MethodPost
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -393,8 +456,11 @@ func (c *calendarEvent) SearchByIterator(ctx context.Context, req *SearchCalenda
 }
 func (c *calendarEvent) Subscription(ctx context.Context, req *SubscriptionCalendarEventReq, options ...larkcore.RequestOptionFunc) (*SubscriptionCalendarEventResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, c.service.config, http.MethodPost,
-		"/open-apis/calendar/v4/calendars/:calendar_id/events/subscription", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/calendar/v4/calendars/:calendar_id/events/subscription"
+	httpReq.HttpMethod = http.MethodPost
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -408,8 +474,11 @@ func (c *calendarEvent) Subscription(ctx context.Context, req *SubscriptionCalen
 }
 func (c *calendarEventAttendee) BatchDelete(ctx context.Context, req *BatchDeleteCalendarEventAttendeeReq, options ...larkcore.RequestOptionFunc) (*BatchDeleteCalendarEventAttendeeResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, c.service.config, http.MethodPost,
-		"/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id/attendees/batch_delete", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id/attendees/batch_delete"
+	httpReq.HttpMethod = http.MethodPost
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -423,8 +492,11 @@ func (c *calendarEventAttendee) BatchDelete(ctx context.Context, req *BatchDelet
 }
 func (c *calendarEventAttendee) Create(ctx context.Context, req *CreateCalendarEventAttendeeReq, options ...larkcore.RequestOptionFunc) (*CreateCalendarEventAttendeeResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, c.service.config, http.MethodPost,
-		"/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id/attendees", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id/attendees"
+	httpReq.HttpMethod = http.MethodPost
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -438,8 +510,11 @@ func (c *calendarEventAttendee) Create(ctx context.Context, req *CreateCalendarE
 }
 func (c *calendarEventAttendee) List(ctx context.Context, req *ListCalendarEventAttendeeReq, options ...larkcore.RequestOptionFunc) (*ListCalendarEventAttendeeResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, c.service.config, http.MethodGet,
-		"/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id/attendees", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id/attendees"
+	httpReq.HttpMethod = http.MethodGet
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -461,8 +536,11 @@ func (c *calendarEventAttendee) ListByIterator(ctx context.Context, req *ListCal
 }
 func (c *calendarEventAttendeeChatMember) List(ctx context.Context, req *ListCalendarEventAttendeeChatMemberReq, options ...larkcore.RequestOptionFunc) (*ListCalendarEventAttendeeChatMemberResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, c.service.config, http.MethodGet,
-		"/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id/attendees/:attendee_id/chat_members", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id/attendees/:attendee_id/chat_members"
+	httpReq.HttpMethod = http.MethodGet
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -484,8 +562,11 @@ func (c *calendarEventAttendeeChatMember) ListByIterator(ctx context.Context, re
 }
 func (e *exchangeBinding) Create(ctx context.Context, req *CreateExchangeBindingReq, options ...larkcore.RequestOptionFunc) (*CreateExchangeBindingResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, e.service.config, http.MethodPost,
-		"/open-apis/calendar/v4/exchange_bindings", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/calendar/v4/exchange_bindings"
+	httpReq.HttpMethod = http.MethodPost
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, e.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -499,8 +580,11 @@ func (e *exchangeBinding) Create(ctx context.Context, req *CreateExchangeBinding
 }
 func (e *exchangeBinding) Delete(ctx context.Context, req *DeleteExchangeBindingReq, options ...larkcore.RequestOptionFunc) (*DeleteExchangeBindingResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, e.service.config, http.MethodDelete,
-		"/open-apis/calendar/v4/exchange_bindings/:exchange_binding_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/calendar/v4/exchange_bindings/:exchange_binding_id"
+	httpReq.HttpMethod = http.MethodDelete
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, e.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -514,8 +598,11 @@ func (e *exchangeBinding) Delete(ctx context.Context, req *DeleteExchangeBinding
 }
 func (e *exchangeBinding) Get(ctx context.Context, req *GetExchangeBindingReq, options ...larkcore.RequestOptionFunc) (*GetExchangeBindingResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, e.service.config, http.MethodGet,
-		"/open-apis/calendar/v4/exchange_bindings/:exchange_binding_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/calendar/v4/exchange_bindings/:exchange_binding_id"
+	httpReq.HttpMethod = http.MethodGet
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, e.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -529,8 +616,11 @@ func (e *exchangeBinding) Get(ctx context.Context, req *GetExchangeBindingReq, o
 }
 func (f *freebusy) List(ctx context.Context, req *ListFreebusyReq, options ...larkcore.RequestOptionFunc) (*ListFreebusyResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, f.service.config, http.MethodPost,
-		"/open-apis/calendar/v4/freebusy/list", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/calendar/v4/freebusy/list"
+	httpReq.HttpMethod = http.MethodPost
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, f.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -544,8 +634,11 @@ func (f *freebusy) List(ctx context.Context, req *ListFreebusyReq, options ...la
 }
 func (s *setting) GenerateCaldavConf(ctx context.Context, req *GenerateCaldavConfSettingReq, options ...larkcore.RequestOptionFunc) (*GenerateCaldavConfSettingResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, s.service.config, http.MethodPost,
-		"/open-apis/calendar/v4/settings/generate_caldav_conf", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/calendar/v4/settings/generate_caldav_conf"
+	httpReq.HttpMethod = http.MethodPost
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, s.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -559,8 +652,11 @@ func (s *setting) GenerateCaldavConf(ctx context.Context, req *GenerateCaldavCon
 }
 func (t *timeoffEvent) Create(ctx context.Context, req *CreateTimeoffEventReq, options ...larkcore.RequestOptionFunc) (*CreateTimeoffEventResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, t.service.config, http.MethodPost,
-		"/open-apis/calendar/v4/timeoff_events", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/calendar/v4/timeoff_events"
+	httpReq.HttpMethod = http.MethodPost
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, t.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -574,8 +670,11 @@ func (t *timeoffEvent) Create(ctx context.Context, req *CreateTimeoffEventReq, o
 }
 func (t *timeoffEvent) Delete(ctx context.Context, req *DeleteTimeoffEventReq, options ...larkcore.RequestOptionFunc) (*DeleteTimeoffEventResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, t.service.config, http.MethodDelete,
-		"/open-apis/calendar/v4/timeoff_events/:timeoff_event_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/calendar/v4/timeoff_events/:timeoff_event_id"
+	httpReq.HttpMethod = http.MethodDelete
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, t.service.config, options...)
 	if err != nil {
 		return nil, err
 	}

@@ -2,9 +2,10 @@
 package larkapplication
 
 import (
+	"fmt"
+
 	"context"
 	"errors"
-	"fmt"
 
 	"github.com/larksuite/oapi-sdk-go/v3/event"
 
@@ -3538,56 +3539,44 @@ func (builder *WorkplaceWidgetBuilder) Build() *WorkplaceWidget {
 
 // 1.4 生成请求的builder结构体
 type GetApplicationReqBuilder struct {
-	appId          string
-	appIdFlag      bool
-	lang           string
-	langFlag       bool
-	userIdType     string
-	userIdTypeFlag bool
+	*larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewGetApplicationReqBuilder() *GetApplicationReqBuilder {
 	builder := &GetApplicationReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *GetApplicationReqBuilder) AppId(appId string) *GetApplicationReqBuilder {
-	builder.appId = appId
-	builder.appIdFlag = true
+	builder.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
 }
 func (builder *GetApplicationReqBuilder) Lang(lang string) *GetApplicationReqBuilder {
-	builder.lang = lang
-	builder.langFlag = true
+	builder.QueryParams.Set("lang", fmt.Sprint(lang))
 	return builder
 }
 func (builder *GetApplicationReqBuilder) UserIdType(userIdType string) *GetApplicationReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
+	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *GetApplicationReqBuilder) Build() *GetApplicationReq {
 	req := &GetApplicationReq{}
-	if builder.appIdFlag {
-		req.AppId = builder.appId
-	}
-	if builder.langFlag {
-		req.Lang = &builder.lang
-	}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.PathParams = builder.PathParams
+	req.HttpReq.QueryParams = builder.QueryParams
 	return req
 }
 
 type GetApplicationReq struct {
-	AppId      string  `path:"app_id"`
-	Lang       *string `query:"lang"`
-	UserIdType *string `query:"user_id_type"`
+	*larkcore.HttpReq
 }
 
 type GetApplicationRespData struct {
@@ -3606,55 +3595,46 @@ func (resp *GetApplicationResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type PatchApplicationReqBuilder struct {
-	appId           string
-	appIdFlag       bool
-	lang            string
-	langFlag        bool
-	application     *Application
-	applicationFlag bool
+	*larkcore.HttpReq
+	application *Application
 }
 
 // 生成请求的New构造器
 func NewPatchApplicationReqBuilder() *PatchApplicationReqBuilder {
 	builder := &PatchApplicationReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *PatchApplicationReqBuilder) AppId(appId string) *PatchApplicationReqBuilder {
-	builder.appId = appId
-	builder.appIdFlag = true
+	builder.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
 }
 func (builder *PatchApplicationReqBuilder) Lang(lang string) *PatchApplicationReqBuilder {
-	builder.lang = lang
-	builder.langFlag = true
+	builder.QueryParams.Set("lang", fmt.Sprint(lang))
 	return builder
 }
 func (builder *PatchApplicationReqBuilder) Application(application *Application) *PatchApplicationReqBuilder {
 	builder.application = application
-	builder.applicationFlag = true
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *PatchApplicationReqBuilder) Build() *PatchApplicationReq {
 	req := &PatchApplicationReq{}
-	if builder.appIdFlag {
-		req.AppId = builder.appId
-	}
-	if builder.langFlag {
-		req.Lang = &builder.lang
-	}
-	if builder.applicationFlag {
-		req.Application = builder.application
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.PathParams = builder.PathParams
+	req.HttpReq.QueryParams = builder.QueryParams
+	req.HttpReq.Body = builder.application
 	return req
 }
 
 type PatchApplicationReq struct {
-	AppId       string       `path:"app_id"`
-	Lang        *string      `query:"lang"`
+	*larkcore.HttpReq
 	Application *Application `body:""`
 }
 
@@ -3669,20 +3649,17 @@ func (resp *PatchApplicationResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type UnderauditlistApplicationReqBuilder struct {
-	lang           string
-	langFlag       bool
-	pageToken      string
-	pageTokenFlag  bool
-	pageSize       int
-	pageSizeFlag   bool
-	userIdType     string
-	userIdTypeFlag bool
-	limit          int
+	*larkcore.HttpReq
+	limit int
 }
 
 // 生成请求的New构造器
 func NewUnderauditlistApplicationReqBuilder() *UnderauditlistApplicationReqBuilder {
 	builder := &UnderauditlistApplicationReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
@@ -3692,51 +3669,34 @@ func (builder *UnderauditlistApplicationReqBuilder) Limit(limit int) *Underaudit
 	return builder
 }
 func (builder *UnderauditlistApplicationReqBuilder) Lang(lang string) *UnderauditlistApplicationReqBuilder {
-	builder.lang = lang
-	builder.langFlag = true
+	builder.QueryParams.Set("lang", fmt.Sprint(lang))
 	return builder
 }
 func (builder *UnderauditlistApplicationReqBuilder) PageToken(pageToken string) *UnderauditlistApplicationReqBuilder {
-	builder.pageToken = pageToken
-	builder.pageTokenFlag = true
+	builder.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 func (builder *UnderauditlistApplicationReqBuilder) PageSize(pageSize int) *UnderauditlistApplicationReqBuilder {
-	builder.pageSize = pageSize
-	builder.pageSizeFlag = true
+	builder.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 func (builder *UnderauditlistApplicationReqBuilder) UserIdType(userIdType string) *UnderauditlistApplicationReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
+	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *UnderauditlistApplicationReqBuilder) Build() *UnderauditlistApplicationReq {
 	req := &UnderauditlistApplicationReq{}
+	req.HttpReq = &larkcore.HttpReq{}
 	req.Limit = builder.limit
-	if builder.langFlag {
-		req.Lang = &builder.lang
-	}
-	if builder.pageTokenFlag {
-		req.PageToken = &builder.pageToken
-	}
-	if builder.pageSizeFlag {
-		req.PageSize = &builder.pageSize
-	}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
+	req.HttpReq.QueryParams = builder.QueryParams
 	return req
 }
 
 type UnderauditlistApplicationReq struct {
-	Lang       *string `query:"lang"`
-	PageToken  *string `query:"page_token"`
-	PageSize   *int    `query:"page_size"`
-	UserIdType *string `query:"user_id_type"`
-	Limit      int
+	*larkcore.HttpReq
+	Limit int
 }
 
 type UnderauditlistApplicationRespData struct {
@@ -3870,49 +3830,41 @@ func (builder *OverviewApplicationAppUsagePathReqBodyBuilder) Build() (*Overview
 
 // 1.4 生成请求的builder结构体
 type OverviewApplicationAppUsageReqBuilder struct {
-	appId                string
-	appIdFlag            bool
-	departmentIdType     string
-	departmentIdTypeFlag bool
-	body                 *OverviewApplicationAppUsageReqBody
-	bodyFlag             bool
+	*larkcore.HttpReq
+	body *OverviewApplicationAppUsageReqBody
 }
 
 // 生成请求的New构造器
 func NewOverviewApplicationAppUsageReqBuilder() *OverviewApplicationAppUsageReqBuilder {
 	builder := &OverviewApplicationAppUsageReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *OverviewApplicationAppUsageReqBuilder) AppId(appId string) *OverviewApplicationAppUsageReqBuilder {
-	builder.appId = appId
-	builder.appIdFlag = true
+	builder.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
 }
 func (builder *OverviewApplicationAppUsageReqBuilder) DepartmentIdType(departmentIdType string) *OverviewApplicationAppUsageReqBuilder {
-	builder.departmentIdType = departmentIdType
-	builder.departmentIdTypeFlag = true
+	builder.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
 	return builder
 }
 func (builder *OverviewApplicationAppUsageReqBuilder) Body(body *OverviewApplicationAppUsageReqBody) *OverviewApplicationAppUsageReqBuilder {
 	builder.body = body
-	builder.bodyFlag = true
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *OverviewApplicationAppUsageReqBuilder) Build() *OverviewApplicationAppUsageReq {
 	req := &OverviewApplicationAppUsageReq{}
-	if builder.appIdFlag {
-		req.AppId = builder.appId
-	}
-	if builder.departmentIdTypeFlag {
-		req.DepartmentIdType = &builder.departmentIdType
-	}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.PathParams = builder.PathParams
+	req.HttpReq.QueryParams = builder.QueryParams
+	req.HttpReq.Body = builder.body
 	return req
 }
 
@@ -3924,9 +3876,8 @@ type OverviewApplicationAppUsageReqBody struct {
 }
 
 type OverviewApplicationAppUsageReq struct {
-	AppId            string                              `path:"app_id"`
-	DepartmentIdType *string                             `query:"department_id_type"`
-	Body             *OverviewApplicationAppUsageReqBody `body:""`
+	*larkcore.HttpReq
+	Body *OverviewApplicationAppUsageReqBody `body:""`
 }
 
 type OverviewApplicationAppUsageRespData struct {
@@ -3945,67 +3896,48 @@ func (resp *OverviewApplicationAppUsageResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type GetApplicationAppVersionReqBuilder struct {
-	appId          string
-	appIdFlag      bool
-	versionId      int64
-	versionIdFlag  bool
-	lang           string
-	langFlag       bool
-	userIdType     string
-	userIdTypeFlag bool
+	*larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewGetApplicationAppVersionReqBuilder() *GetApplicationAppVersionReqBuilder {
 	builder := &GetApplicationAppVersionReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *GetApplicationAppVersionReqBuilder) AppId(appId string) *GetApplicationAppVersionReqBuilder {
-	builder.appId = appId
-	builder.appIdFlag = true
+	builder.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
 }
 func (builder *GetApplicationAppVersionReqBuilder) VersionId(versionId int64) *GetApplicationAppVersionReqBuilder {
-	builder.versionId = versionId
-	builder.versionIdFlag = true
+	builder.PathParams.Set("version_id", fmt.Sprint(versionId))
 	return builder
 }
 func (builder *GetApplicationAppVersionReqBuilder) Lang(lang string) *GetApplicationAppVersionReqBuilder {
-	builder.lang = lang
-	builder.langFlag = true
+	builder.QueryParams.Set("lang", fmt.Sprint(lang))
 	return builder
 }
 func (builder *GetApplicationAppVersionReqBuilder) UserIdType(userIdType string) *GetApplicationAppVersionReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
+	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *GetApplicationAppVersionReqBuilder) Build() *GetApplicationAppVersionReq {
 	req := &GetApplicationAppVersionReq{}
-	if builder.appIdFlag {
-		req.AppId = builder.appId
-	}
-	if builder.versionIdFlag {
-		req.VersionId = builder.versionId
-	}
-	if builder.langFlag {
-		req.Lang = &builder.lang
-	}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.PathParams = builder.PathParams
+	req.HttpReq.QueryParams = builder.QueryParams
 	return req
 }
 
 type GetApplicationAppVersionReq struct {
-	AppId      string  `path:"app_id"`
-	VersionId  int64   `path:"version_id"`
-	Lang       *string `query:"lang"`
-	UserIdType *string `query:"user_id_type"`
+	*larkcore.HttpReq
 }
 
 type GetApplicationAppVersionRespData struct {
@@ -4024,88 +3956,58 @@ func (resp *GetApplicationAppVersionResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type PatchApplicationAppVersionReqBuilder struct {
-	appId                     string
-	appIdFlag                 bool
-	versionId                 int64
-	versionIdFlag             bool
-	userIdType                string
-	userIdTypeFlag            bool
-	operatorId                int64
-	operatorIdFlag            bool
-	rejectReason              string
-	rejectReasonFlag          bool
-	applicationAppVersion     *ApplicationAppVersion
-	applicationAppVersionFlag bool
+	*larkcore.HttpReq
+	applicationAppVersion *ApplicationAppVersion
 }
 
 // 生成请求的New构造器
 func NewPatchApplicationAppVersionReqBuilder() *PatchApplicationAppVersionReqBuilder {
 	builder := &PatchApplicationAppVersionReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *PatchApplicationAppVersionReqBuilder) AppId(appId string) *PatchApplicationAppVersionReqBuilder {
-	builder.appId = appId
-	builder.appIdFlag = true
+	builder.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
 }
 func (builder *PatchApplicationAppVersionReqBuilder) VersionId(versionId int64) *PatchApplicationAppVersionReqBuilder {
-	builder.versionId = versionId
-	builder.versionIdFlag = true
+	builder.PathParams.Set("version_id", fmt.Sprint(versionId))
 	return builder
 }
 func (builder *PatchApplicationAppVersionReqBuilder) UserIdType(userIdType string) *PatchApplicationAppVersionReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
+	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *PatchApplicationAppVersionReqBuilder) OperatorId(operatorId int64) *PatchApplicationAppVersionReqBuilder {
-	builder.operatorId = operatorId
-	builder.operatorIdFlag = true
+	builder.QueryParams.Set("operator_id", fmt.Sprint(operatorId))
 	return builder
 }
 func (builder *PatchApplicationAppVersionReqBuilder) RejectReason(rejectReason string) *PatchApplicationAppVersionReqBuilder {
-	builder.rejectReason = rejectReason
-	builder.rejectReasonFlag = true
+	builder.QueryParams.Set("reject_reason", fmt.Sprint(rejectReason))
 	return builder
 }
 func (builder *PatchApplicationAppVersionReqBuilder) ApplicationAppVersion(applicationAppVersion *ApplicationAppVersion) *PatchApplicationAppVersionReqBuilder {
 	builder.applicationAppVersion = applicationAppVersion
-	builder.applicationAppVersionFlag = true
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *PatchApplicationAppVersionReqBuilder) Build() *PatchApplicationAppVersionReq {
 	req := &PatchApplicationAppVersionReq{}
-	if builder.appIdFlag {
-		req.AppId = builder.appId
-	}
-	if builder.versionIdFlag {
-		req.VersionId = builder.versionId
-	}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
-	if builder.operatorIdFlag {
-		req.OperatorId = &builder.operatorId
-	}
-	if builder.rejectReasonFlag {
-		req.RejectReason = &builder.rejectReason
-	}
-	if builder.applicationAppVersionFlag {
-		req.ApplicationAppVersion = builder.applicationAppVersion
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.PathParams = builder.PathParams
+	req.HttpReq.QueryParams = builder.QueryParams
+	req.HttpReq.Body = builder.applicationAppVersion
 	return req
 }
 
 type PatchApplicationAppVersionReq struct {
-	AppId                 string                 `path:"app_id"`
-	VersionId             int64                  `path:"version_id"`
-	UserIdType            *string                `query:"user_id_type"`
-	OperatorId            *int64                 `query:"operator_id"`
-	RejectReason          *string                `query:"reject_reason"`
+	*larkcore.HttpReq
 	ApplicationAppVersion *ApplicationAppVersion `body:""`
 }
 
@@ -4120,111 +4022,64 @@ func (resp *PatchApplicationAppVersionResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type ListApplicationFeedbackReqBuilder struct {
-	appId            string
-	appIdFlag        bool
-	fromDate         string
-	fromDateFlag     bool
-	toDate           string
-	toDateFlag       bool
-	feedbackType     int
-	feedbackTypeFlag bool
-	status           int
-	statusFlag       bool
-	userIdType       string
-	userIdTypeFlag   bool
-	pageToken        int64
-	pageTokenFlag    bool
-	pageSize         int
-	pageSizeFlag     bool
+	*larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewListApplicationFeedbackReqBuilder() *ListApplicationFeedbackReqBuilder {
 	builder := &ListApplicationFeedbackReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *ListApplicationFeedbackReqBuilder) AppId(appId string) *ListApplicationFeedbackReqBuilder {
-	builder.appId = appId
-	builder.appIdFlag = true
+	builder.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
 }
 func (builder *ListApplicationFeedbackReqBuilder) FromDate(fromDate string) *ListApplicationFeedbackReqBuilder {
-	builder.fromDate = fromDate
-	builder.fromDateFlag = true
+	builder.QueryParams.Set("from_date", fmt.Sprint(fromDate))
 	return builder
 }
 func (builder *ListApplicationFeedbackReqBuilder) ToDate(toDate string) *ListApplicationFeedbackReqBuilder {
-	builder.toDate = toDate
-	builder.toDateFlag = true
+	builder.QueryParams.Set("to_date", fmt.Sprint(toDate))
 	return builder
 }
 func (builder *ListApplicationFeedbackReqBuilder) FeedbackType(feedbackType int) *ListApplicationFeedbackReqBuilder {
-	builder.feedbackType = feedbackType
-	builder.feedbackTypeFlag = true
+	builder.QueryParams.Set("feedback_type", fmt.Sprint(feedbackType))
 	return builder
 }
 func (builder *ListApplicationFeedbackReqBuilder) Status(status int) *ListApplicationFeedbackReqBuilder {
-	builder.status = status
-	builder.statusFlag = true
+	builder.QueryParams.Set("status", fmt.Sprint(status))
 	return builder
 }
 func (builder *ListApplicationFeedbackReqBuilder) UserIdType(userIdType string) *ListApplicationFeedbackReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
+	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *ListApplicationFeedbackReqBuilder) PageToken(pageToken int64) *ListApplicationFeedbackReqBuilder {
-	builder.pageToken = pageToken
-	builder.pageTokenFlag = true
+	builder.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 func (builder *ListApplicationFeedbackReqBuilder) PageSize(pageSize int) *ListApplicationFeedbackReqBuilder {
-	builder.pageSize = pageSize
-	builder.pageSizeFlag = true
+	builder.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ListApplicationFeedbackReqBuilder) Build() *ListApplicationFeedbackReq {
 	req := &ListApplicationFeedbackReq{}
-	if builder.appIdFlag {
-		req.AppId = builder.appId
-	}
-	if builder.fromDateFlag {
-		req.FromDate = &builder.fromDate
-	}
-	if builder.toDateFlag {
-		req.ToDate = &builder.toDate
-	}
-	if builder.feedbackTypeFlag {
-		req.FeedbackType = &builder.feedbackType
-	}
-	if builder.statusFlag {
-		req.Status = &builder.status
-	}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
-	if builder.pageTokenFlag {
-		req.PageToken = &builder.pageToken
-	}
-	if builder.pageSizeFlag {
-		req.PageSize = &builder.pageSize
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.PathParams = builder.PathParams
+	req.HttpReq.QueryParams = builder.QueryParams
 	return req
 }
 
 type ListApplicationFeedbackReq struct {
-	AppId        string  `path:"app_id"`
-	FromDate     *string `query:"from_date"`
-	ToDate       *string `query:"to_date"`
-	FeedbackType *int    `query:"feedback_type"`
-	Status       *int    `query:"status"`
-	UserIdType   *string `query:"user_id_type"`
-	PageToken    *int64  `query:"page_token"`
-	PageSize     *int    `query:"page_size"`
+	*larkcore.HttpReq
 }
 
 type ListApplicationFeedbackRespData struct {
@@ -4245,78 +4100,52 @@ func (resp *ListApplicationFeedbackResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type PatchApplicationFeedbackReqBuilder struct {
-	appId          string
-	appIdFlag      bool
-	feedbackId     int64
-	feedbackIdFlag bool
-	userIdType     string
-	userIdTypeFlag bool
-	status         int
-	statusFlag     bool
-	operatorId     string
-	operatorIdFlag bool
+	*larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewPatchApplicationFeedbackReqBuilder() *PatchApplicationFeedbackReqBuilder {
 	builder := &PatchApplicationFeedbackReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *PatchApplicationFeedbackReqBuilder) AppId(appId string) *PatchApplicationFeedbackReqBuilder {
-	builder.appId = appId
-	builder.appIdFlag = true
+	builder.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
 }
 func (builder *PatchApplicationFeedbackReqBuilder) FeedbackId(feedbackId int64) *PatchApplicationFeedbackReqBuilder {
-	builder.feedbackId = feedbackId
-	builder.feedbackIdFlag = true
+	builder.PathParams.Set("feedback_id", fmt.Sprint(feedbackId))
 	return builder
 }
 func (builder *PatchApplicationFeedbackReqBuilder) UserIdType(userIdType string) *PatchApplicationFeedbackReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
+	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *PatchApplicationFeedbackReqBuilder) Status(status int) *PatchApplicationFeedbackReqBuilder {
-	builder.status = status
-	builder.statusFlag = true
+	builder.QueryParams.Set("status", fmt.Sprint(status))
 	return builder
 }
 func (builder *PatchApplicationFeedbackReqBuilder) OperatorId(operatorId string) *PatchApplicationFeedbackReqBuilder {
-	builder.operatorId = operatorId
-	builder.operatorIdFlag = true
+	builder.QueryParams.Set("operator_id", fmt.Sprint(operatorId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *PatchApplicationFeedbackReqBuilder) Build() *PatchApplicationFeedbackReq {
 	req := &PatchApplicationFeedbackReq{}
-	if builder.appIdFlag {
-		req.AppId = builder.appId
-	}
-	if builder.feedbackIdFlag {
-		req.FeedbackId = builder.feedbackId
-	}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
-	if builder.statusFlag {
-		req.Status = &builder.status
-	}
-	if builder.operatorIdFlag {
-		req.OperatorId = &builder.operatorId
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.PathParams = builder.PathParams
+	req.HttpReq.QueryParams = builder.QueryParams
 	return req
 }
 
 type PatchApplicationFeedbackReq struct {
-	AppId      string  `path:"app_id"`
-	FeedbackId int64   `path:"feedback_id"`
-	UserIdType *string `query:"user_id_type"`
-	Status     *int    `query:"status"`
-	OperatorId *string `query:"operator_id"`
+	*larkcore.HttpReq
 }
 
 type PatchApplicationFeedbackResp struct {
@@ -4488,7 +4317,7 @@ func (iterator *UnderauditlistApplicationIterator) Next() (bool, *Application, e
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
-			iterator.req.PageToken = iterator.nextPageToken
+			iterator.req.QueryParams.Set("page_token", *iterator.nextPageToken)
 		}
 		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
 		if err != nil {

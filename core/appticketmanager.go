@@ -39,10 +39,16 @@ func appTicketKey(appID string) string {
 }
 
 func applyAppTicket(ctx context.Context, config *Config) {
-	rawResp, err := SendRequest(ctx, config, http.MethodPost, applyAppTicketPath, []AccessTokenType{accessTokenTypeNone}, &applyAppTicketReq{
-		AppID:     config.AppId,
-		AppSecret: config.AppSecret,
-	})
+	rawResp, err := Request(ctx, &HttpReq{
+		HttpMethod: http.MethodPost,
+		ApiPath:    applyAppTicketPath,
+		Body: &applyAppTicketReq{
+			AppID:     config.AppId,
+			AppSecret: config.AppSecret,
+		},
+		SupportedAccessTokenTypes: []AccessTokenType{accessTokenTypeNone},
+	}, config)
+
 	if err != nil {
 		config.Logger.Error(ctx, fmt.Sprintf("apply app_ticket, error: %v", err))
 		return

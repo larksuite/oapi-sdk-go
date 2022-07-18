@@ -29,8 +29,11 @@ type identity struct {
 // 资源服务方法定义
 func (i *identity) Create(ctx context.Context, req *CreateIdentityReq, options ...larkcore.RequestOptionFunc) (*CreateIdentityResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, i.service.config, http.MethodPost,
-		"/open-apis/human_authentication/v1/identities", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/human_authentication/v1/identities"
+	httpReq.HttpMethod = http.MethodPost
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, i.service.config, options...)
 	if err != nil {
 		return nil, err
 	}

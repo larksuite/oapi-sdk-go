@@ -51,7 +51,7 @@ func listBlocks(client *lark.Client) {
 		larkdocx.NewListDocumentBlockReqBuilder().
 			DocumentId("doxcnku1W0IhiZBDPkxlEVSn6Tf").
 			PageSize(100).
-			Build(), larkcore.WithUserAccessToken("u-3vEh2SpiF2WoJzYJOdiGKQ41mJrQ1hebh0G0hg.02CgW"),
+			Build(), larkcore.WithUserAccessToken("u-1C.E95YFlf2HqXDz4kcNjx5lhNtMh5CxqMG0l0a00yWy"),
 	)
 
 	if err != nil {
@@ -70,15 +70,15 @@ func downloadFile(client *lark.Client) {
 		larkdrive.NewDownloadFileReqBuilder().
 			FileToken("boxcnTrRml0GB9E3NFDEyNtMeOb").
 			Build(),
-		larkcore.WithUserAccessToken("u-11ETll3Kd1O8NxVwd_uVVN0hnoUAlhcbWi00kg.yyIsw"))
+		larkcore.WithUserAccessToken("u-1C.E95YFlf2HqXDz4kcNjx5lhNtMh5CxqMG0l0a00yWy"))
 
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	fmt.Println(resp.RequestId())
 	fmt.Println(larkcore.Prettify(resp))
+	fmt.Println(resp.RequestId())
 
 }
 
@@ -95,7 +95,7 @@ func listBlocksIter(client *lark.Client) {
 			DocumentId("doxcnku1W0IhiZBDPkxlEVSn6Tf").
 			PageSize(1).
 			Limit(3).
-			Build(), larkcore.WithUserAccessToken("u-11ETll3Kd1O8NxVwd_uVVN0hnoUAlhcbWi00kg.yyIsw"),
+			Build(), larkcore.WithUserAccessToken("u-1C.E95YFlf2HqXDz4kcNjx5lhNtMh5CxqMG0l0a00yWy"),
 	)
 
 	if err != nil {

@@ -6,9 +6,10 @@ import (
 
 	"io/ioutil"
 
+	"fmt"
+
 	"context"
 	"errors"
-	"fmt"
 
 	"github.com/larksuite/oapi-sdk-go/v3/event"
 
@@ -399,24 +400,17 @@ func (builder *UserIdBuilder) Build() *UserId {
 
 // 1.4 生成请求的builder结构体
 type ListAccessRecordReqBuilder struct {
-	pageSize       int
-	pageSizeFlag   bool
-	pageToken      string
-	pageTokenFlag  bool
-	from           int
-	fromFlag       bool
-	to             int
-	toFlag         bool
-	deviceId       int64
-	deviceIdFlag   bool
-	userIdType     string
-	userIdTypeFlag bool
-	limit          int
+	*larkcore.HttpReq
+	limit int
 }
 
 // 生成请求的New构造器
 func NewListAccessRecordReqBuilder() *ListAccessRecordReqBuilder {
 	builder := &ListAccessRecordReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
@@ -426,69 +420,42 @@ func (builder *ListAccessRecordReqBuilder) Limit(limit int) *ListAccessRecordReq
 	return builder
 }
 func (builder *ListAccessRecordReqBuilder) PageSize(pageSize int) *ListAccessRecordReqBuilder {
-	builder.pageSize = pageSize
-	builder.pageSizeFlag = true
+	builder.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 func (builder *ListAccessRecordReqBuilder) PageToken(pageToken string) *ListAccessRecordReqBuilder {
-	builder.pageToken = pageToken
-	builder.pageTokenFlag = true
+	builder.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 func (builder *ListAccessRecordReqBuilder) From(from int) *ListAccessRecordReqBuilder {
-	builder.from = from
-	builder.fromFlag = true
+	builder.QueryParams.Set("from", fmt.Sprint(from))
 	return builder
 }
 func (builder *ListAccessRecordReqBuilder) To(to int) *ListAccessRecordReqBuilder {
-	builder.to = to
-	builder.toFlag = true
+	builder.QueryParams.Set("to", fmt.Sprint(to))
 	return builder
 }
 func (builder *ListAccessRecordReqBuilder) DeviceId(deviceId int64) *ListAccessRecordReqBuilder {
-	builder.deviceId = deviceId
-	builder.deviceIdFlag = true
+	builder.QueryParams.Set("device_id", fmt.Sprint(deviceId))
 	return builder
 }
 func (builder *ListAccessRecordReqBuilder) UserIdType(userIdType string) *ListAccessRecordReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
+	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ListAccessRecordReqBuilder) Build() *ListAccessRecordReq {
 	req := &ListAccessRecordReq{}
+	req.HttpReq = &larkcore.HttpReq{}
 	req.Limit = builder.limit
-	if builder.pageSizeFlag {
-		req.PageSize = &builder.pageSize
-	}
-	if builder.pageTokenFlag {
-		req.PageToken = &builder.pageToken
-	}
-	if builder.fromFlag {
-		req.From = &builder.from
-	}
-	if builder.toFlag {
-		req.To = &builder.to
-	}
-	if builder.deviceIdFlag {
-		req.DeviceId = &builder.deviceId
-	}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
+	req.HttpReq.QueryParams = builder.QueryParams
 	return req
 }
 
 type ListAccessRecordReq struct {
-	PageSize   *int    `query:"page_size"`
-	PageToken  *string `query:"page_token"`
-	From       *int    `query:"from"`
-	To         *int    `query:"to"`
-	DeviceId   *int64  `query:"device_id"`
-	UserIdType *string `query:"user_id_type"`
-	Limit      int
+	*larkcore.HttpReq
+	Limit int
 }
 
 type ListAccessRecordRespData struct {
@@ -509,34 +476,35 @@ func (resp *ListAccessRecordResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type GetAccessRecordAccessPhotoReqBuilder struct {
-	accessRecordId     int64
-	accessRecordIdFlag bool
+	*larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewGetAccessRecordAccessPhotoReqBuilder() *GetAccessRecordAccessPhotoReqBuilder {
 	builder := &GetAccessRecordAccessPhotoReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *GetAccessRecordAccessPhotoReqBuilder) AccessRecordId(accessRecordId int64) *GetAccessRecordAccessPhotoReqBuilder {
-	builder.accessRecordId = accessRecordId
-	builder.accessRecordIdFlag = true
+	builder.PathParams.Set("access_record_id", fmt.Sprint(accessRecordId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *GetAccessRecordAccessPhotoReqBuilder) Build() *GetAccessRecordAccessPhotoReq {
 	req := &GetAccessRecordAccessPhotoReq{}
-	if builder.accessRecordIdFlag {
-		req.AccessRecordId = builder.accessRecordId
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.PathParams = builder.PathParams
 	return req
 }
 
 type GetAccessRecordAccessPhotoReq struct {
-	AccessRecordId int64 `path:"access_record_id"`
+	*larkcore.HttpReq
 }
 
 type GetAccessRecordAccessPhotoResp struct {
@@ -580,45 +548,40 @@ func (resp *ListDeviceResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type GetUserReqBuilder struct {
-	userId         string
-	userIdFlag     bool
-	userIdType     string
-	userIdTypeFlag bool
+	*larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewGetUserReqBuilder() *GetUserReqBuilder {
 	builder := &GetUserReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *GetUserReqBuilder) UserId(userId string) *GetUserReqBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
+	builder.PathParams.Set("user_id", fmt.Sprint(userId))
 	return builder
 }
 func (builder *GetUserReqBuilder) UserIdType(userIdType string) *GetUserReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
+	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *GetUserReqBuilder) Build() *GetUserReq {
 	req := &GetUserReq{}
-	if builder.userIdFlag {
-		req.UserId = builder.userId
-	}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.PathParams = builder.PathParams
+	req.HttpReq.QueryParams = builder.QueryParams
 	return req
 }
 
 type GetUserReq struct {
-	UserId     string  `path:"user_id"`
-	UserIdType *string `query:"user_id_type"`
+	*larkcore.HttpReq
 }
 
 type GetUserRespData struct {
@@ -637,18 +600,17 @@ func (resp *GetUserResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type ListUserReqBuilder struct {
-	pageSize       int
-	pageSizeFlag   bool
-	pageToken      string
-	pageTokenFlag  bool
-	userIdType     string
-	userIdTypeFlag bool
-	limit          int
+	*larkcore.HttpReq
+	limit int
 }
 
 // 生成请求的New构造器
 func NewListUserReqBuilder() *ListUserReqBuilder {
 	builder := &ListUserReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
@@ -658,42 +620,30 @@ func (builder *ListUserReqBuilder) Limit(limit int) *ListUserReqBuilder {
 	return builder
 }
 func (builder *ListUserReqBuilder) PageSize(pageSize int) *ListUserReqBuilder {
-	builder.pageSize = pageSize
-	builder.pageSizeFlag = true
+	builder.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 func (builder *ListUserReqBuilder) PageToken(pageToken string) *ListUserReqBuilder {
-	builder.pageToken = pageToken
-	builder.pageTokenFlag = true
+	builder.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 func (builder *ListUserReqBuilder) UserIdType(userIdType string) *ListUserReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
+	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ListUserReqBuilder) Build() *ListUserReq {
 	req := &ListUserReq{}
+	req.HttpReq = &larkcore.HttpReq{}
 	req.Limit = builder.limit
-	if builder.pageSizeFlag {
-		req.PageSize = &builder.pageSize
-	}
-	if builder.pageTokenFlag {
-		req.PageToken = &builder.pageToken
-	}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
+	req.HttpReq.QueryParams = builder.QueryParams
 	return req
 }
 
 type ListUserReq struct {
-	PageSize   *int    `query:"page_size"`
-	PageToken  *string `query:"page_token"`
-	UserIdType *string `query:"user_id_type"`
-	Limit      int
+	*larkcore.HttpReq
+	Limit int
 }
 
 type ListUserRespData struct {
@@ -714,56 +664,47 @@ func (resp *ListUserResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type PatchUserReqBuilder struct {
-	userId         string
-	userIdFlag     bool
-	userIdType     string
-	userIdTypeFlag bool
-	user           *User
-	userFlag       bool
+	*larkcore.HttpReq
+	user *User
 }
 
 // 生成请求的New构造器
 func NewPatchUserReqBuilder() *PatchUserReqBuilder {
 	builder := &PatchUserReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *PatchUserReqBuilder) UserId(userId string) *PatchUserReqBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
+	builder.PathParams.Set("user_id", fmt.Sprint(userId))
 	return builder
 }
 func (builder *PatchUserReqBuilder) UserIdType(userIdType string) *PatchUserReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
+	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *PatchUserReqBuilder) User(user *User) *PatchUserReqBuilder {
 	builder.user = user
-	builder.userFlag = true
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *PatchUserReqBuilder) Build() *PatchUserReq {
 	req := &PatchUserReq{}
-	if builder.userIdFlag {
-		req.UserId = builder.userId
-	}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
-	if builder.userFlag {
-		req.User = builder.user
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.PathParams = builder.PathParams
+	req.HttpReq.QueryParams = builder.QueryParams
+	req.HttpReq.Body = builder.user
 	return req
 }
 
 type PatchUserReq struct {
-	UserId     string  `path:"user_id"`
-	UserIdType *string `query:"user_id_type"`
-	User       *User   `body:""`
+	*larkcore.HttpReq
+	User *User `body:""`
 }
 
 type PatchUserResp struct {
@@ -777,56 +718,44 @@ func (resp *PatchUserResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type GetUserFaceReqBuilder struct {
-	userId         string
-	userIdFlag     bool
-	isCropped      bool
-	isCroppedFlag  bool
-	userIdType     string
-	userIdTypeFlag bool
+	*larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewGetUserFaceReqBuilder() *GetUserFaceReqBuilder {
 	builder := &GetUserFaceReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *GetUserFaceReqBuilder) UserId(userId string) *GetUserFaceReqBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
+	builder.PathParams.Set("user_id", fmt.Sprint(userId))
 	return builder
 }
 func (builder *GetUserFaceReqBuilder) IsCropped(isCropped bool) *GetUserFaceReqBuilder {
-	builder.isCropped = isCropped
-	builder.isCroppedFlag = true
+	builder.QueryParams.Set("is_cropped", fmt.Sprint(isCropped))
 	return builder
 }
 func (builder *GetUserFaceReqBuilder) UserIdType(userIdType string) *GetUserFaceReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
+	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *GetUserFaceReqBuilder) Build() *GetUserFaceReq {
 	req := &GetUserFaceReq{}
-	if builder.userIdFlag {
-		req.UserId = builder.userId
-	}
-	if builder.isCroppedFlag {
-		req.IsCropped = &builder.isCropped
-	}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.PathParams = builder.PathParams
+	req.HttpReq.QueryParams = builder.QueryParams
 	return req
 }
 
 type GetUserFaceReq struct {
-	UserId     string  `path:"user_id"`
-	IsCropped  *bool   `query:"is_cropped"`
-	UserIdType *string `query:"user_id_type"`
+	*larkcore.HttpReq
 }
 
 type GetUserFaceResp struct {
@@ -856,56 +785,47 @@ func (resp *GetUserFaceResp) WriteFile(fileName string) error {
 
 // 1.4 生成请求的builder结构体
 type UpdateUserFaceReqBuilder struct {
-	userId         string
-	userIdFlag     bool
-	userIdType     string
-	userIdTypeFlag bool
-	file           *File
-	fileFlag       bool
+	*larkcore.HttpReq
+	file *File
 }
 
 // 生成请求的New构造器
 func NewUpdateUserFaceReqBuilder() *UpdateUserFaceReqBuilder {
 	builder := &UpdateUserFaceReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *UpdateUserFaceReqBuilder) UserId(userId string) *UpdateUserFaceReqBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
+	builder.PathParams.Set("user_id", fmt.Sprint(userId))
 	return builder
 }
 func (builder *UpdateUserFaceReqBuilder) UserIdType(userIdType string) *UpdateUserFaceReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
+	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *UpdateUserFaceReqBuilder) File(file *File) *UpdateUserFaceReqBuilder {
 	builder.file = file
-	builder.fileFlag = true
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *UpdateUserFaceReqBuilder) Build() *UpdateUserFaceReq {
 	req := &UpdateUserFaceReq{}
-	if builder.userIdFlag {
-		req.UserId = builder.userId
-	}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
-	if builder.fileFlag {
-		req.File = builder.file
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.PathParams = builder.PathParams
+	req.HttpReq.QueryParams = builder.QueryParams
+	req.HttpReq.Body = builder.file
 	return req
 }
 
 type UpdateUserFaceReq struct {
-	UserId     string  `path:"user_id"`
-	UserIdType *string `query:"user_id_type"`
-	File       *File   `body:""`
+	*larkcore.HttpReq
+	File *File `body:""`
 }
 
 type UpdateUserFaceResp struct {
@@ -980,7 +900,7 @@ func (iterator *ListAccessRecordIterator) Next() (bool, *AccessRecord, error) {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
-			iterator.req.PageToken = iterator.nextPageToken
+			iterator.req.QueryParams.Set("page_token", *iterator.nextPageToken)
 		}
 		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
 		if err != nil {
@@ -1034,7 +954,7 @@ func (iterator *ListUserIterator) Next() (bool, *User, error) {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
-			iterator.req.PageToken = iterator.nextPageToken
+			iterator.req.QueryParams.Set("page_token", *iterator.nextPageToken)
 		}
 		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
 		if err != nil {

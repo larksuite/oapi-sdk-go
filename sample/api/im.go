@@ -15,7 +15,7 @@ import (
 )
 
 func uploadImage(client *lark.Client) {
-	pdf, err := os.Open("/Users/bytedance/Downloads/a.jpg")
+	pdf, err := os.Open("/Users/bytedance/Downloads/go-icon.png")
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -84,7 +84,7 @@ func uploadImage2(client *lark.Client) {
 }
 
 func downLoadImage(client *lark.Client) {
-	resp, err := client.Im.Image.Get(context.Background(), larkim.NewGetImageReqBuilder().ImageKey("img_v2_9068cbd5-71d8-4799-b29e-a01650b1328g").Build())
+	resp, err := client.Im.Image.Get(context.Background(), larkim.NewGetImageReqBuilder().ImageKey("img_v2_b9f85d3e-a4e5-4ae7-9b8a-d72880189b1g").Build())
 
 	if err != nil {
 		fmt.Println(larkcore.Prettify(err))
@@ -775,6 +775,7 @@ func main() {
 	//sendPostMsgUseBuilder(feishu_client)
 	//testCreate(feishu_client)
 	//sendInteractiveMsg(feishu_client)
+	sendInteractiveMonitorMsg(feishu_client)
 	sendInteractiveMonitorMsg(feishu_client)
 
 }

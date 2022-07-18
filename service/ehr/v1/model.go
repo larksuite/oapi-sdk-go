@@ -6,9 +6,10 @@ import (
 
 	"io/ioutil"
 
+	"fmt"
+
 	"context"
 	"errors"
-	"fmt"
 
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
@@ -1471,34 +1472,35 @@ func (builder *WorkLocationBuilder) Build() *WorkLocation {
 
 // 1.4 生成请求的builder结构体
 type GetAttachmentReqBuilder struct {
-	token     string
-	tokenFlag bool
+	*larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewGetAttachmentReqBuilder() *GetAttachmentReqBuilder {
 	builder := &GetAttachmentReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *GetAttachmentReqBuilder) Token(token string) *GetAttachmentReqBuilder {
-	builder.token = token
-	builder.tokenFlag = true
+	builder.PathParams.Set("token", fmt.Sprint(token))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *GetAttachmentReqBuilder) Build() *GetAttachmentReq {
 	req := &GetAttachmentReq{}
-	if builder.tokenFlag {
-		req.Token = builder.token
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.PathParams = builder.PathParams
 	return req
 }
 
 type GetAttachmentReq struct {
-	Token string `path:"token"`
+	*larkcore.HttpReq
 }
 
 type GetAttachmentResp struct {
@@ -1528,30 +1530,17 @@ func (resp *GetAttachmentResp) WriteFile(fileName string) error {
 
 // 1.4 生成请求的builder结构体
 type ListEmployeeReqBuilder struct {
-	view           string
-	viewFlag       bool
-	status         []int
-	statusFlag     bool
-	type_          []int
-	typeFlag       bool
-	startTime      int64
-	startTimeFlag  bool
-	endTime        int64
-	endTimeFlag    bool
-	userIdType     string
-	userIdTypeFlag bool
-	userIds        []string
-	userIdsFlag    bool
-	pageToken      string
-	pageTokenFlag  bool
-	pageSize       int
-	pageSizeFlag   bool
-	limit          int
+	*larkcore.HttpReq
+	limit int
 }
 
 // 生成请求的New构造器
 func NewListEmployeeReqBuilder() *ListEmployeeReqBuilder {
 	builder := &ListEmployeeReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
@@ -1561,96 +1550,54 @@ func (builder *ListEmployeeReqBuilder) Limit(limit int) *ListEmployeeReqBuilder 
 	return builder
 }
 func (builder *ListEmployeeReqBuilder) View(view string) *ListEmployeeReqBuilder {
-	builder.view = view
-	builder.viewFlag = true
+	builder.QueryParams.Set("view", fmt.Sprint(view))
 	return builder
 }
 func (builder *ListEmployeeReqBuilder) Status(status []int) *ListEmployeeReqBuilder {
-	builder.status = status
-	builder.statusFlag = true
+	builder.QueryParams.Set("status", fmt.Sprint(status))
 	return builder
 }
 func (builder *ListEmployeeReqBuilder) Type(type_ []int) *ListEmployeeReqBuilder {
-	builder.type_ = type_
-	builder.typeFlag = true
+	builder.QueryParams.Set("type", fmt.Sprint(type_))
 	return builder
 }
 func (builder *ListEmployeeReqBuilder) StartTime(startTime int64) *ListEmployeeReqBuilder {
-	builder.startTime = startTime
-	builder.startTimeFlag = true
+	builder.QueryParams.Set("start_time", fmt.Sprint(startTime))
 	return builder
 }
 func (builder *ListEmployeeReqBuilder) EndTime(endTime int64) *ListEmployeeReqBuilder {
-	builder.endTime = endTime
-	builder.endTimeFlag = true
+	builder.QueryParams.Set("end_time", fmt.Sprint(endTime))
 	return builder
 }
 func (builder *ListEmployeeReqBuilder) UserIdType(userIdType string) *ListEmployeeReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
+	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *ListEmployeeReqBuilder) UserIds(userIds []string) *ListEmployeeReqBuilder {
-	builder.userIds = userIds
-	builder.userIdsFlag = true
+	builder.QueryParams.Set("user_ids", fmt.Sprint(userIds))
 	return builder
 }
 func (builder *ListEmployeeReqBuilder) PageToken(pageToken string) *ListEmployeeReqBuilder {
-	builder.pageToken = pageToken
-	builder.pageTokenFlag = true
+	builder.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 func (builder *ListEmployeeReqBuilder) PageSize(pageSize int) *ListEmployeeReqBuilder {
-	builder.pageSize = pageSize
-	builder.pageSizeFlag = true
+	builder.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ListEmployeeReqBuilder) Build() *ListEmployeeReq {
 	req := &ListEmployeeReq{}
+	req.HttpReq = &larkcore.HttpReq{}
 	req.Limit = builder.limit
-	if builder.viewFlag {
-		req.View = &builder.view
-	}
-	if builder.statusFlag {
-		req.Status = builder.status
-	}
-	if builder.typeFlag {
-		req.Type = builder.type_
-	}
-	if builder.startTimeFlag {
-		req.StartTime = &builder.startTime
-	}
-	if builder.endTimeFlag {
-		req.EndTime = &builder.endTime
-	}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
-	if builder.userIdsFlag {
-		req.UserIds = builder.userIds
-	}
-	if builder.pageTokenFlag {
-		req.PageToken = &builder.pageToken
-	}
-	if builder.pageSizeFlag {
-		req.PageSize = &builder.pageSize
-	}
+	req.HttpReq.QueryParams = builder.QueryParams
 	return req
 }
 
 type ListEmployeeReq struct {
-	View       *string  `query:"view"`
-	Status     []int    `query:"status"`
-	Type       []int    `query:"type"`
-	StartTime  *int64   `query:"start_time"`
-	EndTime    *int64   `query:"end_time"`
-	UserIdType *string  `query:"user_id_type"`
-	UserIds    []string `query:"user_ids"`
-	PageToken  *string  `query:"page_token"`
-	PageSize   *int     `query:"page_size"`
-	Limit      int
+	*larkcore.HttpReq
+	Limit int
 }
 
 type ListEmployeeRespData struct {
@@ -1697,7 +1644,7 @@ func (iterator *ListEmployeeIterator) Next() (bool, *Employee, error) {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
-			iterator.req.PageToken = iterator.nextPageToken
+			iterator.req.QueryParams.Set("page_token", *iterator.nextPageToken)
 		}
 		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
 		if err != nil {

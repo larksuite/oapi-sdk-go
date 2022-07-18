@@ -138,6 +138,85 @@ type applyAppTicketReq struct {
 	AppSecret string `json:"app_secret"`
 }
 
+func Request(ctx context.Context, req *HttpReq, config *Config, options ...RequestOptionFunc) (*RawResponse, error) {
+	option := &RequestOption{}
+	for _, optionFunc := range options {
+		optionFunc(option)
+	}
+
+	accessTokenType := determineTokenType(req.SupportedAccessTokenTypes, option, config.EnableTokenCache)
+	err := validate(config, option, accessTokenType)
+	if err != nil {
+		return nil, err
+	}
+
+	return doRequest(ctx, req, accessTokenType, config, option)
+
+}
+
+func doRequest(ctx context.Context, httpReq *HttpReq, accessTokenType AccessTokenType, config *Config, option *RequestOption) (*RawResponse, error) {
+	var rawResp *RawResponse
+	var errResult error
+	for i := 0; i < 2; i++ {
+		req, err := reqTranslator.translate(ctx, httpReq, accessTokenType, config, option)
+		if err != nil {
+			return nil, err
+		}
+
+		if config.LogReqAtDebug {
+			config.Logger.Debug(ctx, fmt.Sprintf("req:%v", req))
+		} else {
+			config.Logger.Debug(ctx, fmt.Sprintf("req:%s,%s", httpReq.HttpMethod, httpReq.ApiPath))
+		}
+		rawResp, err = doSend(ctx, req, config.HttpClient, config.Logger)
+		if config.LogReqAtDebug {
+			config.Logger.Debug(ctx, fmt.Sprintf("resp:%v", rawResp))
+		}
+		_, isDialError := err.(*DialFailedError)
+		if err != nil && !isDialError {
+			return nil, err
+		}
+		errResult = err
+		if isDialError {
+			continue
+		}
+
+		fileDownloadSuccess := option.FileDownload && rawResp.StatusCode == http.StatusOK
+		if fileDownloadSuccess || !strings.Contains(rawResp.Header.Get(contentTypeHeader), contentTypeJson) {
+			break
+		}
+
+		codeError := &CodeError{}
+		err = json.Unmarshal(rawResp.RawBody, codeError)
+		if err != nil {
+			return nil, err
+		}
+
+		code := codeError.Code
+		if code == errCodeAppTicketInvalid {
+			applyAppTicket(ctx, config)
+		}
+
+		if accessTokenType == accessTokenTypeNone {
+			break
+		}
+
+		if !config.EnableTokenCache {
+			break
+		}
+
+		if code != errCodeAccessTokenInvalid && code != errCodeAppAccessTokenInvalid &&
+			code != errCodeTenantAccessTokenInvalid {
+			break
+		}
+	}
+
+	if errResult != nil {
+		return nil, errResult
+	}
+	return rawResp, nil
+}
+
 func SendRequest(ctx context.Context, config *Config, httpMethod string, httpPath string,
 	accessTokenTypes []AccessTokenType, input interface{}, options ...RequestOptionFunc) (*RawResponse, error) {
 	option := &RequestOption{}
@@ -160,7 +239,7 @@ func doSendRequest(ctx context.Context, config *Config, httpMethod string, httpP
 	var rawResp *RawResponse
 	var errResult error
 	for i := 0; i < 2; i++ {
-		req, err := reqTranslator.translate(ctx, input, accessTokenType, config, httpMethod, httpPath, option)
+		req, err := reqTranslator.translateOld(ctx, input, accessTokenType, config, httpMethod, httpPath, option)
 		if err != nil {
 			return nil, err
 		}

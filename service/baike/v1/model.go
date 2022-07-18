@@ -2,9 +2,10 @@
 package larkbaike
 
 import (
+	"fmt"
+
 	"context"
 	"errors"
-	"fmt"
 
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
@@ -774,16 +775,17 @@ func (builder *TermBuilder) Build() *Term {
 
 // 1.4 生成请求的builder结构体
 type ListClassificationReqBuilder struct {
-	pageSize      int
-	pageSizeFlag  bool
-	pageToken     string
-	pageTokenFlag bool
-	limit         int
+	*larkcore.HttpReq
+	limit int
 }
 
 // 生成请求的New构造器
 func NewListClassificationReqBuilder() *ListClassificationReqBuilder {
 	builder := &ListClassificationReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
@@ -793,33 +795,26 @@ func (builder *ListClassificationReqBuilder) Limit(limit int) *ListClassificatio
 	return builder
 }
 func (builder *ListClassificationReqBuilder) PageSize(pageSize int) *ListClassificationReqBuilder {
-	builder.pageSize = pageSize
-	builder.pageSizeFlag = true
+	builder.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 func (builder *ListClassificationReqBuilder) PageToken(pageToken string) *ListClassificationReqBuilder {
-	builder.pageToken = pageToken
-	builder.pageTokenFlag = true
+	builder.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ListClassificationReqBuilder) Build() *ListClassificationReq {
 	req := &ListClassificationReq{}
+	req.HttpReq = &larkcore.HttpReq{}
 	req.Limit = builder.limit
-	if builder.pageSizeFlag {
-		req.PageSize = &builder.pageSize
-	}
-	if builder.pageTokenFlag {
-		req.PageToken = &builder.pageToken
-	}
+	req.HttpReq.QueryParams = builder.QueryParams
 	return req
 }
 
 type ListClassificationReq struct {
-	PageSize  *int    `query:"page_size"`
-	PageToken *string `query:"page_token"`
-	Limit     int
+	*larkcore.HttpReq
+	Limit int
 }
 
 type ListClassificationRespData struct {
@@ -839,45 +834,42 @@ func (resp *ListClassificationResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type CreateDraftReqBuilder struct {
-	userIdType     string
-	userIdTypeFlag bool
-	entity         *Entity
-	entityFlag     bool
+	*larkcore.HttpReq
+	entity *Entity
 }
 
 // 生成请求的New构造器
 func NewCreateDraftReqBuilder() *CreateDraftReqBuilder {
 	builder := &CreateDraftReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *CreateDraftReqBuilder) UserIdType(userIdType string) *CreateDraftReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
+	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *CreateDraftReqBuilder) Entity(entity *Entity) *CreateDraftReqBuilder {
 	builder.entity = entity
-	builder.entityFlag = true
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *CreateDraftReqBuilder) Build() *CreateDraftReq {
 	req := &CreateDraftReq{}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
-	if builder.entityFlag {
-		req.Entity = builder.entity
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.QueryParams = builder.QueryParams
+	req.HttpReq.Body = builder.entity
 	return req
 }
 
 type CreateDraftReq struct {
-	UserIdType *string `query:"user_id_type"`
-	Entity     *Entity `body:""`
+	*larkcore.HttpReq
+	Entity *Entity `body:""`
 }
 
 type CreateDraftRespData struct {
@@ -896,56 +888,47 @@ func (resp *CreateDraftResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type UpdateDraftReqBuilder struct {
-	draftId        int64
-	draftIdFlag    bool
-	userIdType     string
-	userIdTypeFlag bool
-	entity         *Entity
-	entityFlag     bool
+	*larkcore.HttpReq
+	entity *Entity
 }
 
 // 生成请求的New构造器
 func NewUpdateDraftReqBuilder() *UpdateDraftReqBuilder {
 	builder := &UpdateDraftReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *UpdateDraftReqBuilder) DraftId(draftId int64) *UpdateDraftReqBuilder {
-	builder.draftId = draftId
-	builder.draftIdFlag = true
+	builder.PathParams.Set("draft_id", fmt.Sprint(draftId))
 	return builder
 }
 func (builder *UpdateDraftReqBuilder) UserIdType(userIdType string) *UpdateDraftReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
+	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *UpdateDraftReqBuilder) Entity(entity *Entity) *UpdateDraftReqBuilder {
 	builder.entity = entity
-	builder.entityFlag = true
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *UpdateDraftReqBuilder) Build() *UpdateDraftReq {
 	req := &UpdateDraftReq{}
-	if builder.draftIdFlag {
-		req.DraftId = builder.draftId
-	}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
-	if builder.entityFlag {
-		req.Entity = builder.entity
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.PathParams = builder.PathParams
+	req.HttpReq.QueryParams = builder.QueryParams
+	req.HttpReq.Body = builder.entity
 	return req
 }
 
 type UpdateDraftReq struct {
-	DraftId    int64   `path:"draft_id"`
-	UserIdType *string `query:"user_id_type"`
-	Entity     *Entity `body:""`
+	*larkcore.HttpReq
+	Entity *Entity `body:""`
 }
 
 type UpdateDraftRespData struct {
@@ -964,45 +947,42 @@ func (resp *UpdateDraftResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type CreateEntityReqBuilder struct {
-	userIdType     string
-	userIdTypeFlag bool
-	entity         *Entity
-	entityFlag     bool
+	*larkcore.HttpReq
+	entity *Entity
 }
 
 // 生成请求的New构造器
 func NewCreateEntityReqBuilder() *CreateEntityReqBuilder {
 	builder := &CreateEntityReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *CreateEntityReqBuilder) UserIdType(userIdType string) *CreateEntityReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
+	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *CreateEntityReqBuilder) Entity(entity *Entity) *CreateEntityReqBuilder {
 	builder.entity = entity
-	builder.entityFlag = true
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *CreateEntityReqBuilder) Build() *CreateEntityReq {
 	req := &CreateEntityReq{}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
-	if builder.entityFlag {
-		req.Entity = builder.entity
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.QueryParams = builder.QueryParams
+	req.HttpReq.Body = builder.entity
 	return req
 }
 
 type CreateEntityReq struct {
-	UserIdType *string `query:"user_id_type"`
-	Entity     *Entity `body:""`
+	*larkcore.HttpReq
+	Entity *Entity `body:""`
 }
 
 type CreateEntityRespData struct {
@@ -1021,67 +1001,48 @@ func (resp *CreateEntityResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type GetEntityReqBuilder struct {
-	entityId       string
-	entityIdFlag   bool
-	provider       string
-	providerFlag   bool
-	outerId        string
-	outerIdFlag    bool
-	userIdType     string
-	userIdTypeFlag bool
+	*larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewGetEntityReqBuilder() *GetEntityReqBuilder {
 	builder := &GetEntityReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *GetEntityReqBuilder) EntityId(entityId string) *GetEntityReqBuilder {
-	builder.entityId = entityId
-	builder.entityIdFlag = true
+	builder.PathParams.Set("entity_id", fmt.Sprint(entityId))
 	return builder
 }
 func (builder *GetEntityReqBuilder) Provider(provider string) *GetEntityReqBuilder {
-	builder.provider = provider
-	builder.providerFlag = true
+	builder.QueryParams.Set("provider", fmt.Sprint(provider))
 	return builder
 }
 func (builder *GetEntityReqBuilder) OuterId(outerId string) *GetEntityReqBuilder {
-	builder.outerId = outerId
-	builder.outerIdFlag = true
+	builder.QueryParams.Set("outer_id", fmt.Sprint(outerId))
 	return builder
 }
 func (builder *GetEntityReqBuilder) UserIdType(userIdType string) *GetEntityReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
+	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *GetEntityReqBuilder) Build() *GetEntityReq {
 	req := &GetEntityReq{}
-	if builder.entityIdFlag {
-		req.EntityId = builder.entityId
-	}
-	if builder.providerFlag {
-		req.Provider = &builder.provider
-	}
-	if builder.outerIdFlag {
-		req.OuterId = &builder.outerId
-	}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.PathParams = builder.PathParams
+	req.HttpReq.QueryParams = builder.QueryParams
 	return req
 }
 
 type GetEntityReq struct {
-	EntityId   string  `path:"entity_id"`
-	Provider   *string `query:"provider"`
-	OuterId    *string `query:"outer_id"`
-	UserIdType *string `query:"user_id_type"`
+	*larkcore.HttpReq
 }
 
 type GetEntityRespData struct {
@@ -1153,29 +1114,31 @@ func (builder *HighlightEntityPathReqBodyBuilder) Build() (*HighlightEntityReqBo
 
 // 1.4 生成请求的builder结构体
 type HighlightEntityReqBuilder struct {
-	body     *HighlightEntityReqBody
-	bodyFlag bool
+	*larkcore.HttpReq
+	body *HighlightEntityReqBody
 }
 
 // 生成请求的New构造器
 func NewHighlightEntityReqBuilder() *HighlightEntityReqBuilder {
 	builder := &HighlightEntityReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *HighlightEntityReqBuilder) Body(body *HighlightEntityReqBody) *HighlightEntityReqBuilder {
 	builder.body = body
-	builder.bodyFlag = true
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *HighlightEntityReqBuilder) Build() *HighlightEntityReq {
 	req := &HighlightEntityReq{}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.Body = builder.body
 	return req
 }
 
@@ -1184,6 +1147,7 @@ type HighlightEntityReqBody struct {
 }
 
 type HighlightEntityReq struct {
+	*larkcore.HttpReq
 	Body *HighlightEntityReqBody `body:""`
 }
 
@@ -1203,20 +1167,17 @@ func (resp *HighlightEntityResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type ListEntityReqBuilder struct {
-	pageSize       int
-	pageSizeFlag   bool
-	pageToken      string
-	pageTokenFlag  bool
-	provider       string
-	providerFlag   bool
-	userIdType     string
-	userIdTypeFlag bool
-	limit          int
+	*larkcore.HttpReq
+	limit int
 }
 
 // 生成请求的New构造器
 func NewListEntityReqBuilder() *ListEntityReqBuilder {
 	builder := &ListEntityReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
@@ -1226,51 +1187,34 @@ func (builder *ListEntityReqBuilder) Limit(limit int) *ListEntityReqBuilder {
 	return builder
 }
 func (builder *ListEntityReqBuilder) PageSize(pageSize int) *ListEntityReqBuilder {
-	builder.pageSize = pageSize
-	builder.pageSizeFlag = true
+	builder.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 func (builder *ListEntityReqBuilder) PageToken(pageToken string) *ListEntityReqBuilder {
-	builder.pageToken = pageToken
-	builder.pageTokenFlag = true
+	builder.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 func (builder *ListEntityReqBuilder) Provider(provider string) *ListEntityReqBuilder {
-	builder.provider = provider
-	builder.providerFlag = true
+	builder.QueryParams.Set("provider", fmt.Sprint(provider))
 	return builder
 }
 func (builder *ListEntityReqBuilder) UserIdType(userIdType string) *ListEntityReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
+	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ListEntityReqBuilder) Build() *ListEntityReq {
 	req := &ListEntityReq{}
+	req.HttpReq = &larkcore.HttpReq{}
 	req.Limit = builder.limit
-	if builder.pageSizeFlag {
-		req.PageSize = &builder.pageSize
-	}
-	if builder.pageTokenFlag {
-		req.PageToken = &builder.pageToken
-	}
-	if builder.providerFlag {
-		req.Provider = &builder.provider
-	}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
+	req.HttpReq.QueryParams = builder.QueryParams
 	return req
 }
 
 type ListEntityReq struct {
-	PageSize   *int    `query:"page_size"`
-	PageToken  *string `query:"page_token"`
-	Provider   *string `query:"provider"`
-	UserIdType *string `query:"user_id_type"`
-	Limit      int
+	*larkcore.HttpReq
+	Limit int
 }
 
 type ListEntityRespData struct {
@@ -1343,29 +1287,31 @@ func (builder *MatchEntityPathReqBodyBuilder) Build() (*MatchEntityReqBody, erro
 
 // 1.4 生成请求的builder结构体
 type MatchEntityReqBuilder struct {
-	body     *MatchEntityReqBody
-	bodyFlag bool
+	*larkcore.HttpReq
+	body *MatchEntityReqBody
 }
 
 // 生成请求的New构造器
 func NewMatchEntityReqBuilder() *MatchEntityReqBuilder {
 	builder := &MatchEntityReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *MatchEntityReqBuilder) Body(body *MatchEntityReqBody) *MatchEntityReqBuilder {
 	builder.body = body
-	builder.bodyFlag = true
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *MatchEntityReqBuilder) Build() *MatchEntityReq {
 	req := &MatchEntityReq{}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.Body = builder.body
 	return req
 }
 
@@ -1374,6 +1320,7 @@ type MatchEntityReqBody struct {
 }
 
 type MatchEntityReq struct {
+	*larkcore.HttpReq
 	Body *MatchEntityReqBody `body:""`
 }
 
@@ -1446,20 +1393,18 @@ func (builder *SearchEntityPathReqBodyBuilder) Build() (*SearchEntityReqBody, er
 
 // 1.4 生成请求的builder结构体
 type SearchEntityReqBuilder struct {
-	pageToken      string
-	pageTokenFlag  bool
-	pageSize       int
-	pageSizeFlag   bool
-	userIdType     string
-	userIdTypeFlag bool
-	body           *SearchEntityReqBody
-	bodyFlag       bool
-	limit          int
+	*larkcore.HttpReq
+	body  *SearchEntityReqBody
+	limit int
 }
 
 // 生成请求的New构造器
 func NewSearchEntityReqBuilder() *SearchEntityReqBuilder {
 	builder := &SearchEntityReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
@@ -1469,42 +1414,29 @@ func (builder *SearchEntityReqBuilder) Limit(limit int) *SearchEntityReqBuilder 
 	return builder
 }
 func (builder *SearchEntityReqBuilder) PageToken(pageToken string) *SearchEntityReqBuilder {
-	builder.pageToken = pageToken
-	builder.pageTokenFlag = true
+	builder.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 func (builder *SearchEntityReqBuilder) PageSize(pageSize int) *SearchEntityReqBuilder {
-	builder.pageSize = pageSize
-	builder.pageSizeFlag = true
+	builder.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 func (builder *SearchEntityReqBuilder) UserIdType(userIdType string) *SearchEntityReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
+	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *SearchEntityReqBuilder) Body(body *SearchEntityReqBody) *SearchEntityReqBuilder {
 	builder.body = body
-	builder.bodyFlag = true
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *SearchEntityReqBuilder) Build() *SearchEntityReq {
 	req := &SearchEntityReq{}
+	req.HttpReq = &larkcore.HttpReq{}
 	req.Limit = builder.limit
-	if builder.pageTokenFlag {
-		req.PageToken = &builder.pageToken
-	}
-	if builder.pageSizeFlag {
-		req.PageSize = &builder.pageSize
-	}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
+	req.HttpReq.QueryParams = builder.QueryParams
+	req.HttpReq.Body = builder.body
 	return req
 }
 
@@ -1513,11 +1445,9 @@ type SearchEntityReqBody struct {
 }
 
 type SearchEntityReq struct {
-	PageToken  *string              `query:"page_token"`
-	PageSize   *int                 `query:"page_size"`
-	UserIdType *string              `query:"user_id_type"`
-	Body       *SearchEntityReqBody `body:""`
-	Limit      int
+	*larkcore.HttpReq
+	Body  *SearchEntityReqBody `body:""`
+	Limit int
 }
 
 type SearchEntityRespData struct {
@@ -1537,56 +1467,47 @@ func (resp *SearchEntityResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type UpdateEntityReqBuilder struct {
-	entityId       string
-	entityIdFlag   bool
-	userIdType     string
-	userIdTypeFlag bool
-	entity         *Entity
-	entityFlag     bool
+	*larkcore.HttpReq
+	entity *Entity
 }
 
 // 生成请求的New构造器
 func NewUpdateEntityReqBuilder() *UpdateEntityReqBuilder {
 	builder := &UpdateEntityReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *UpdateEntityReqBuilder) EntityId(entityId string) *UpdateEntityReqBuilder {
-	builder.entityId = entityId
-	builder.entityIdFlag = true
+	builder.PathParams.Set("entity_id", fmt.Sprint(entityId))
 	return builder
 }
 func (builder *UpdateEntityReqBuilder) UserIdType(userIdType string) *UpdateEntityReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
+	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *UpdateEntityReqBuilder) Entity(entity *Entity) *UpdateEntityReqBuilder {
 	builder.entity = entity
-	builder.entityFlag = true
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *UpdateEntityReqBuilder) Build() *UpdateEntityReq {
 	req := &UpdateEntityReq{}
-	if builder.entityIdFlag {
-		req.EntityId = builder.entityId
-	}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
-	if builder.entityFlag {
-		req.Entity = builder.entity
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.PathParams = builder.PathParams
+	req.HttpReq.QueryParams = builder.QueryParams
+	req.HttpReq.Body = builder.entity
 	return req
 }
 
 type UpdateEntityReq struct {
-	EntityId   string  `path:"entity_id"`
-	UserIdType *string `query:"user_id_type"`
-	Entity     *Entity `body:""`
+	*larkcore.HttpReq
+	Entity *Entity `body:""`
 }
 
 type UpdateEntityRespData struct {
@@ -1631,7 +1552,7 @@ func (iterator *ListClassificationIterator) Next() (bool, *Classification, error
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
-			iterator.req.PageToken = iterator.nextPageToken
+			iterator.req.QueryParams.Set("page_token", *iterator.nextPageToken)
 		}
 		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
 		if err != nil {
@@ -1685,7 +1606,7 @@ func (iterator *ListEntityIterator) Next() (bool, *Entity, error) {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
-			iterator.req.PageToken = iterator.nextPageToken
+			iterator.req.QueryParams.Set("page_token", *iterator.nextPageToken)
 		}
 		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
 		if err != nil {
@@ -1739,7 +1660,7 @@ func (iterator *SearchEntityIterator) Next() (bool, *Entity, error) {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
-			iterator.req.PageToken = iterator.nextPageToken
+			iterator.req.QueryParams.Set("page_token", *iterator.nextPageToken)
 		}
 		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
 		if err != nil {

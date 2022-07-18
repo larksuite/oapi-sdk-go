@@ -2,6 +2,8 @@
 package larkhuman_authentication
 
 import (
+	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
@@ -168,49 +170,40 @@ func (builder *CreateIdentityPathReqBodyBuilder) Build() (*CreateIdentityReqBody
 
 // 1.4 生成请求的builder结构体
 type CreateIdentityReqBuilder struct {
-	userId         string
-	userIdFlag     bool
-	userIdType     string
-	userIdTypeFlag bool
-	body           *CreateIdentityReqBody
-	bodyFlag       bool
+	*larkcore.HttpReq
+	body *CreateIdentityReqBody
 }
 
 // 生成请求的New构造器
 func NewCreateIdentityReqBuilder() *CreateIdentityReqBuilder {
 	builder := &CreateIdentityReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *CreateIdentityReqBuilder) UserId(userId string) *CreateIdentityReqBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
+	builder.QueryParams.Set("user_id", fmt.Sprint(userId))
 	return builder
 }
 func (builder *CreateIdentityReqBuilder) UserIdType(userIdType string) *CreateIdentityReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
+	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *CreateIdentityReqBuilder) Body(body *CreateIdentityReqBody) *CreateIdentityReqBuilder {
 	builder.body = body
-	builder.bodyFlag = true
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *CreateIdentityReqBuilder) Build() *CreateIdentityReq {
 	req := &CreateIdentityReq{}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-	}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.QueryParams = builder.QueryParams
+	req.HttpReq.Body = builder.body
 	return req
 }
 
@@ -221,9 +214,8 @@ type CreateIdentityReqBody struct {
 }
 
 type CreateIdentityReq struct {
-	UserId     *string                `query:"user_id"`
-	UserIdType *string                `query:"user_id_type"`
-	Body       *CreateIdentityReqBody `body:""`
+	*larkcore.HttpReq
+	Body *CreateIdentityReqBody `body:""`
 }
 
 type CreateIdentityRespData struct {

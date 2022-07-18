@@ -17,7 +17,58 @@ import (
 type ReqTranslator struct {
 }
 
-func (translator *ReqTranslator) translate(ctx context.Context, input interface{}, tokenType AccessTokenType, config *Config, httpMethod, httpPath string, option *RequestOption) (*http.Request, error) {
+func (translator *ReqTranslator) translate(ctx context.Context, req *HttpReq, accessTokenType AccessTokenType, config *Config, option *RequestOption) (*http.Request, error) {
+	body := req.Body
+	if _, ok := body.(*Formdata); !ok {
+		if option.FileUpload {
+			body = toFormdata(body)
+		}
+	} else {
+		option.FileUpload = true
+	}
+
+	contentType, rawBody, err := translator.payload(body)
+	if err != nil {
+		return nil, err
+	}
+
+	// path
+	var pathSegs []string
+	for _, p := range strings.Split(req.ApiPath, "/") {
+		if strings.Index(p, ":") == 0 {
+			varName := p[1:]
+			v, ok := req.PathParams[varName]
+			if !ok {
+				return nil, fmt.Errorf("http path:%s, name: %s, not found value", req.ApiPath, varName)
+			}
+			val := fmt.Sprint(v[0])
+			if val == "" {
+				return nil, fmt.Errorf("http path:%s, name: %s, value is empty", req.ApiPath, varName)
+			}
+			val = url.PathEscape(val)
+			pathSegs = append(pathSegs, val)
+			continue
+		}
+		pathSegs = append(pathSegs, p)
+	}
+	newPath := strings.Join(pathSegs, "/")
+	if strings.Index(newPath, "http") != 0 {
+		newPath = fmt.Sprintf("%s%s", config.BaseUrl, newPath)
+	}
+
+	queryPath := req.QueryParams.Encode()
+	if queryPath != "" {
+		newPath = fmt.Sprintf("%s?%s", newPath, queryPath)
+	}
+
+	req1, err := translator.newHTTPRequest(ctx, req.HttpMethod, newPath, contentType, rawBody, accessTokenType, option, config)
+	if err != nil {
+		return nil, err
+	}
+	return req1, nil
+}
+
+func (translator *ReqTranslator) translateOld(ctx context.Context, input interface{}, tokenType AccessTokenType, config *Config, httpMethod, httpPath string, option *RequestOption) (*http.Request, error) {
 	paths, queries, body := translator.parseInput(input, option)
 	if _, ok := body.(*Formdata); ok {
 		option.FileUpload = true
@@ -39,6 +90,7 @@ func (translator *ReqTranslator) translate(ctx context.Context, input interface{
 	}
 	return req, nil
 }
+
 func authorizationToHeader(req *http.Request, token string) {
 	req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", token))
 }

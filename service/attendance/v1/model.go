@@ -8,9 +8,10 @@ import (
 
 	"io/ioutil"
 
+	"fmt"
+
 	"context"
 	"errors"
-	"fmt"
 
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
@@ -4166,29 +4167,31 @@ func (builder *ProcessApprovalInfoPathReqBodyBuilder) Build() (*ProcessApprovalI
 
 // 1.4 生成请求的builder结构体
 type ProcessApprovalInfoReqBuilder struct {
-	body     *ProcessApprovalInfoReqBody
-	bodyFlag bool
+	*larkcore.HttpReq
+	body *ProcessApprovalInfoReqBody
 }
 
 // 生成请求的New构造器
 func NewProcessApprovalInfoReqBuilder() *ProcessApprovalInfoReqBuilder {
 	builder := &ProcessApprovalInfoReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *ProcessApprovalInfoReqBuilder) Body(body *ProcessApprovalInfoReqBody) *ProcessApprovalInfoReqBuilder {
 	builder.body = body
-	builder.bodyFlag = true
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ProcessApprovalInfoReqBuilder) Build() *ProcessApprovalInfoReq {
 	req := &ProcessApprovalInfoReq{}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.Body = builder.body
 	return req
 }
 
@@ -4199,6 +4202,7 @@ type ProcessApprovalInfoReqBody struct {
 }
 
 type ProcessApprovalInfoReq struct {
+	*larkcore.HttpReq
 	Body *ProcessApprovalInfoReqBody `body:""`
 }
 
@@ -4218,34 +4222,35 @@ func (resp *ProcessApprovalInfoResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type DownloadFileReqBuilder struct {
-	fileId     string
-	fileIdFlag bool
+	*larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewDownloadFileReqBuilder() *DownloadFileReqBuilder {
 	builder := &DownloadFileReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *DownloadFileReqBuilder) FileId(fileId string) *DownloadFileReqBuilder {
-	builder.fileId = fileId
-	builder.fileIdFlag = true
+	builder.PathParams.Set("file_id", fmt.Sprint(fileId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *DownloadFileReqBuilder) Build() *DownloadFileReq {
 	req := &DownloadFileReq{}
-	if builder.fileIdFlag {
-		req.FileId = builder.fileId
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.PathParams = builder.PathParams
 	return req
 }
 
 type DownloadFileReq struct {
-	FileId string `path:"file_id"`
+	*larkcore.HttpReq
 }
 
 type DownloadFileResp struct {
@@ -4332,39 +4337,36 @@ func (builder *UploadFilePathReqBodyBuilder) Build() (*UploadFileReqBody, error)
 
 // 1.4 生成请求的builder结构体
 type UploadFileReqBuilder struct {
-	fileName     string
-	fileNameFlag bool
-	body         *UploadFileReqBody
-	bodyFlag     bool
+	*larkcore.HttpReq
+	body *UploadFileReqBody
 }
 
 // 生成请求的New构造器
 func NewUploadFileReqBuilder() *UploadFileReqBuilder {
 	builder := &UploadFileReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *UploadFileReqBuilder) FileName(fileName string) *UploadFileReqBuilder {
-	builder.fileName = fileName
-	builder.fileNameFlag = true
+	builder.QueryParams.Set("file_name", fmt.Sprint(fileName))
 	return builder
 }
 func (builder *UploadFileReqBuilder) Body(body *UploadFileReqBody) *UploadFileReqBuilder {
 	builder.body = body
-	builder.bodyFlag = true
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *UploadFileReqBuilder) Build() *UploadFileReq {
 	req := &UploadFileReq{}
-	if builder.fileNameFlag {
-		req.FileName = &builder.fileName
-	}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.QueryParams = builder.QueryParams
+	req.HttpReq.Body = builder.body
 	return req
 }
 
@@ -4373,8 +4375,8 @@ type UploadFileReqBody struct {
 }
 
 type UploadFileReq struct {
-	FileName *string            `query:"file_name"`
-	Body     *UploadFileReqBody `body:""`
+	*larkcore.HttpReq
+	Body *UploadFileReqBody `body:""`
 }
 
 type UploadFileRespData struct {
@@ -4466,49 +4468,40 @@ func (builder *CreateGroupPathReqBodyBuilder) Build() (*CreateGroupReqBody, erro
 
 // 1.4 生成请求的builder结构体
 type CreateGroupReqBuilder struct {
-	employeeType     string
-	employeeTypeFlag bool
-	deptType         string
-	deptTypeFlag     bool
-	body             *CreateGroupReqBody
-	bodyFlag         bool
+	*larkcore.HttpReq
+	body *CreateGroupReqBody
 }
 
 // 生成请求的New构造器
 func NewCreateGroupReqBuilder() *CreateGroupReqBuilder {
 	builder := &CreateGroupReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *CreateGroupReqBuilder) EmployeeType(employeeType string) *CreateGroupReqBuilder {
-	builder.employeeType = employeeType
-	builder.employeeTypeFlag = true
+	builder.QueryParams.Set("employee_type", fmt.Sprint(employeeType))
 	return builder
 }
 func (builder *CreateGroupReqBuilder) DeptType(deptType string) *CreateGroupReqBuilder {
-	builder.deptType = deptType
-	builder.deptTypeFlag = true
+	builder.QueryParams.Set("dept_type", fmt.Sprint(deptType))
 	return builder
 }
 func (builder *CreateGroupReqBuilder) Body(body *CreateGroupReqBody) *CreateGroupReqBuilder {
 	builder.body = body
-	builder.bodyFlag = true
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *CreateGroupReqBuilder) Build() *CreateGroupReq {
 	req := &CreateGroupReq{}
-	if builder.employeeTypeFlag {
-		req.EmployeeType = &builder.employeeType
-	}
-	if builder.deptTypeFlag {
-		req.DeptType = &builder.deptType
-	}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.QueryParams = builder.QueryParams
+	req.HttpReq.Body = builder.body
 	return req
 }
 
@@ -4518,9 +4511,8 @@ type CreateGroupReqBody struct {
 }
 
 type CreateGroupReq struct {
-	EmployeeType *string             `query:"employee_type"`
-	DeptType     *string             `query:"dept_type"`
-	Body         *CreateGroupReqBody `body:""`
+	*larkcore.HttpReq
+	Body *CreateGroupReqBody `body:""`
 }
 
 type CreateGroupRespData struct {
@@ -4539,34 +4531,35 @@ func (resp *CreateGroupResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type DeleteGroupReqBuilder struct {
-	groupId     string
-	groupIdFlag bool
+	*larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewDeleteGroupReqBuilder() *DeleteGroupReqBuilder {
 	builder := &DeleteGroupReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *DeleteGroupReqBuilder) GroupId(groupId string) *DeleteGroupReqBuilder {
-	builder.groupId = groupId
-	builder.groupIdFlag = true
+	builder.PathParams.Set("group_id", fmt.Sprint(groupId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *DeleteGroupReqBuilder) Build() *DeleteGroupReq {
 	req := &DeleteGroupReq{}
-	if builder.groupIdFlag {
-		req.GroupId = builder.groupId
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.PathParams = builder.PathParams
 	return req
 }
 
 type DeleteGroupReq struct {
-	GroupId string `path:"group_id"`
+	*larkcore.HttpReq
 }
 
 type DeleteGroupResp struct {
@@ -4580,56 +4573,44 @@ func (resp *DeleteGroupResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type GetGroupReqBuilder struct {
-	groupId          string
-	groupIdFlag      bool
-	employeeType     string
-	employeeTypeFlag bool
-	deptType         string
-	deptTypeFlag     bool
+	*larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewGetGroupReqBuilder() *GetGroupReqBuilder {
 	builder := &GetGroupReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *GetGroupReqBuilder) GroupId(groupId string) *GetGroupReqBuilder {
-	builder.groupId = groupId
-	builder.groupIdFlag = true
+	builder.PathParams.Set("group_id", fmt.Sprint(groupId))
 	return builder
 }
 func (builder *GetGroupReqBuilder) EmployeeType(employeeType string) *GetGroupReqBuilder {
-	builder.employeeType = employeeType
-	builder.employeeTypeFlag = true
+	builder.QueryParams.Set("employee_type", fmt.Sprint(employeeType))
 	return builder
 }
 func (builder *GetGroupReqBuilder) DeptType(deptType string) *GetGroupReqBuilder {
-	builder.deptType = deptType
-	builder.deptTypeFlag = true
+	builder.QueryParams.Set("dept_type", fmt.Sprint(deptType))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *GetGroupReqBuilder) Build() *GetGroupReq {
 	req := &GetGroupReq{}
-	if builder.groupIdFlag {
-		req.GroupId = builder.groupId
-	}
-	if builder.employeeTypeFlag {
-		req.EmployeeType = &builder.employeeType
-	}
-	if builder.deptTypeFlag {
-		req.DeptType = &builder.deptType
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.PathParams = builder.PathParams
+	req.HttpReq.QueryParams = builder.QueryParams
 	return req
 }
 
 type GetGroupReq struct {
-	GroupId      string  `path:"group_id"`
-	EmployeeType *string `query:"employee_type"`
-	DeptType     *string `query:"dept_type"`
+	*larkcore.HttpReq
 }
 
 type GetGroupRespData struct {
@@ -4683,16 +4664,17 @@ func (resp *GetGroupResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type ListGroupReqBuilder struct {
-	pageSize      int
-	pageSizeFlag  bool
-	pageToken     string
-	pageTokenFlag bool
-	limit         int
+	*larkcore.HttpReq
+	limit int
 }
 
 // 生成请求的New构造器
 func NewListGroupReqBuilder() *ListGroupReqBuilder {
 	builder := &ListGroupReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
@@ -4702,33 +4684,26 @@ func (builder *ListGroupReqBuilder) Limit(limit int) *ListGroupReqBuilder {
 	return builder
 }
 func (builder *ListGroupReqBuilder) PageSize(pageSize int) *ListGroupReqBuilder {
-	builder.pageSize = pageSize
-	builder.pageSizeFlag = true
+	builder.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 func (builder *ListGroupReqBuilder) PageToken(pageToken string) *ListGroupReqBuilder {
-	builder.pageToken = pageToken
-	builder.pageTokenFlag = true
+	builder.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ListGroupReqBuilder) Build() *ListGroupReq {
 	req := &ListGroupReq{}
+	req.HttpReq = &larkcore.HttpReq{}
 	req.Limit = builder.limit
-	if builder.pageSizeFlag {
-		req.PageSize = &builder.pageSize
-	}
-	if builder.pageTokenFlag {
-		req.PageToken = &builder.pageToken
-	}
+	req.HttpReq.QueryParams = builder.QueryParams
 	return req
 }
 
 type ListGroupReq struct {
-	PageSize  *int    `query:"page_size"`
-	PageToken *string `query:"page_token"`
-	Limit     int
+	*larkcore.HttpReq
+	Limit int
 }
 
 type ListGroupRespData struct {
@@ -4822,29 +4797,31 @@ func (builder *SearchGroupPathReqBodyBuilder) Build() (*SearchGroupReqBody, erro
 
 // 1.4 生成请求的builder结构体
 type SearchGroupReqBuilder struct {
-	body     *SearchGroupReqBody
-	bodyFlag bool
+	*larkcore.HttpReq
+	body *SearchGroupReqBody
 }
 
 // 生成请求的New构造器
 func NewSearchGroupReqBuilder() *SearchGroupReqBuilder {
 	builder := &SearchGroupReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *SearchGroupReqBuilder) Body(body *SearchGroupReqBody) *SearchGroupReqBuilder {
 	builder.body = body
-	builder.bodyFlag = true
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *SearchGroupReqBuilder) Build() *SearchGroupReq {
 	req := &SearchGroupReq{}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.Body = builder.body
 	return req
 }
 
@@ -4854,6 +4831,7 @@ type SearchGroupReqBody struct {
 }
 
 type SearchGroupReq struct {
+	*larkcore.HttpReq
 	Body *SearchGroupReqBody `body:""`
 }
 
@@ -4873,33 +4851,36 @@ func (resp *SearchGroupResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type CreateShiftReqBuilder struct {
-	shift     *Shift
-	shiftFlag bool
+	*larkcore.HttpReq
+	shift *Shift
 }
 
 // 生成请求的New构造器
 func NewCreateShiftReqBuilder() *CreateShiftReqBuilder {
 	builder := &CreateShiftReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *CreateShiftReqBuilder) Shift(shift *Shift) *CreateShiftReqBuilder {
 	builder.shift = shift
-	builder.shiftFlag = true
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *CreateShiftReqBuilder) Build() *CreateShiftReq {
 	req := &CreateShiftReq{}
-	if builder.shiftFlag {
-		req.Shift = builder.shift
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.Body = builder.shift
 	return req
 }
 
 type CreateShiftReq struct {
+	*larkcore.HttpReq
 	Shift *Shift `body:""`
 }
 
@@ -4919,34 +4900,35 @@ func (resp *CreateShiftResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type DeleteShiftReqBuilder struct {
-	shiftId     string
-	shiftIdFlag bool
+	*larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewDeleteShiftReqBuilder() *DeleteShiftReqBuilder {
 	builder := &DeleteShiftReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *DeleteShiftReqBuilder) ShiftId(shiftId string) *DeleteShiftReqBuilder {
-	builder.shiftId = shiftId
-	builder.shiftIdFlag = true
+	builder.PathParams.Set("shift_id", fmt.Sprint(shiftId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *DeleteShiftReqBuilder) Build() *DeleteShiftReq {
 	req := &DeleteShiftReq{}
-	if builder.shiftIdFlag {
-		req.ShiftId = builder.shiftId
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.PathParams = builder.PathParams
 	return req
 }
 
 type DeleteShiftReq struct {
-	ShiftId string `path:"shift_id"`
+	*larkcore.HttpReq
 }
 
 type DeleteShiftResp struct {
@@ -4960,34 +4942,35 @@ func (resp *DeleteShiftResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type GetShiftReqBuilder struct {
-	shiftId     string
-	shiftIdFlag bool
+	*larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewGetShiftReqBuilder() *GetShiftReqBuilder {
 	builder := &GetShiftReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *GetShiftReqBuilder) ShiftId(shiftId string) *GetShiftReqBuilder {
-	builder.shiftId = shiftId
-	builder.shiftIdFlag = true
+	builder.PathParams.Set("shift_id", fmt.Sprint(shiftId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *GetShiftReqBuilder) Build() *GetShiftReq {
 	req := &GetShiftReq{}
-	if builder.shiftIdFlag {
-		req.ShiftId = builder.shiftId
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.PathParams = builder.PathParams
 	return req
 }
 
 type GetShiftReq struct {
-	ShiftId string `path:"shift_id"`
+	*larkcore.HttpReq
 }
 
 type GetShiftRespData struct {
@@ -5014,16 +4997,17 @@ func (resp *GetShiftResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type ListShiftReqBuilder struct {
-	pageSize      int
-	pageSizeFlag  bool
-	pageToken     string
-	pageTokenFlag bool
-	limit         int
+	*larkcore.HttpReq
+	limit int
 }
 
 // 生成请求的New构造器
 func NewListShiftReqBuilder() *ListShiftReqBuilder {
 	builder := &ListShiftReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
@@ -5033,33 +5017,26 @@ func (builder *ListShiftReqBuilder) Limit(limit int) *ListShiftReqBuilder {
 	return builder
 }
 func (builder *ListShiftReqBuilder) PageSize(pageSize int) *ListShiftReqBuilder {
-	builder.pageSize = pageSize
-	builder.pageSizeFlag = true
+	builder.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 func (builder *ListShiftReqBuilder) PageToken(pageToken string) *ListShiftReqBuilder {
-	builder.pageToken = pageToken
-	builder.pageTokenFlag = true
+	builder.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ListShiftReqBuilder) Build() *ListShiftReq {
 	req := &ListShiftReq{}
+	req.HttpReq = &larkcore.HttpReq{}
 	req.Limit = builder.limit
-	if builder.pageSizeFlag {
-		req.PageSize = &builder.pageSize
-	}
-	if builder.pageTokenFlag {
-		req.PageToken = &builder.pageToken
-	}
+	req.HttpReq.QueryParams = builder.QueryParams
 	return req
 }
 
 type ListShiftReq struct {
-	PageSize  *int    `query:"page_size"`
-	PageToken *string `query:"page_token"`
-	Limit     int
+	*larkcore.HttpReq
+	Limit int
 }
 
 type ListShiftRespData struct {
@@ -5080,34 +5057,35 @@ func (resp *ListShiftResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type QueryShiftReqBuilder struct {
-	shiftName     string
-	shiftNameFlag bool
+	*larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewQueryShiftReqBuilder() *QueryShiftReqBuilder {
 	builder := &QueryShiftReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *QueryShiftReqBuilder) ShiftName(shiftName string) *QueryShiftReqBuilder {
-	builder.shiftName = shiftName
-	builder.shiftNameFlag = true
+	builder.QueryParams.Set("shift_name", fmt.Sprint(shiftName))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *QueryShiftReqBuilder) Build() *QueryShiftReq {
 	req := &QueryShiftReq{}
-	if builder.shiftNameFlag {
-		req.ShiftName = &builder.shiftName
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.QueryParams = builder.QueryParams
 	return req
 }
 
 type QueryShiftReq struct {
-	ShiftName *string `query:"shift_name"`
+	*larkcore.HttpReq
 }
 
 type QueryShiftRespData struct {
@@ -5187,39 +5165,36 @@ func (builder *CreateUserApprovalPathReqBodyBuilder) Build() (*CreateUserApprova
 
 // 1.4 生成请求的builder结构体
 type CreateUserApprovalReqBuilder struct {
-	employeeType     string
-	employeeTypeFlag bool
-	body             *CreateUserApprovalReqBody
-	bodyFlag         bool
+	*larkcore.HttpReq
+	body *CreateUserApprovalReqBody
 }
 
 // 生成请求的New构造器
 func NewCreateUserApprovalReqBuilder() *CreateUserApprovalReqBuilder {
 	builder := &CreateUserApprovalReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *CreateUserApprovalReqBuilder) EmployeeType(employeeType string) *CreateUserApprovalReqBuilder {
-	builder.employeeType = employeeType
-	builder.employeeTypeFlag = true
+	builder.QueryParams.Set("employee_type", fmt.Sprint(employeeType))
 	return builder
 }
 func (builder *CreateUserApprovalReqBuilder) Body(body *CreateUserApprovalReqBody) *CreateUserApprovalReqBuilder {
 	builder.body = body
-	builder.bodyFlag = true
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *CreateUserApprovalReqBuilder) Build() *CreateUserApprovalReq {
 	req := &CreateUserApprovalReq{}
-	if builder.employeeTypeFlag {
-		req.EmployeeType = &builder.employeeType
-	}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.QueryParams = builder.QueryParams
+	req.HttpReq.Body = builder.body
 	return req
 }
 
@@ -5228,8 +5203,8 @@ type CreateUserApprovalReqBody struct {
 }
 
 type CreateUserApprovalReq struct {
-	EmployeeType *string                    `query:"employee_type"`
-	Body         *CreateUserApprovalReqBody `body:""`
+	*larkcore.HttpReq
+	Body *CreateUserApprovalReqBody `body:""`
 }
 
 type CreateUserApprovalRespData struct {
@@ -5341,39 +5316,36 @@ func (builder *QueryUserApprovalPathReqBodyBuilder) Build() (*QueryUserApprovalR
 
 // 1.4 生成请求的builder结构体
 type QueryUserApprovalReqBuilder struct {
-	employeeType     string
-	employeeTypeFlag bool
-	body             *QueryUserApprovalReqBody
-	bodyFlag         bool
+	*larkcore.HttpReq
+	body *QueryUserApprovalReqBody
 }
 
 // 生成请求的New构造器
 func NewQueryUserApprovalReqBuilder() *QueryUserApprovalReqBuilder {
 	builder := &QueryUserApprovalReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *QueryUserApprovalReqBuilder) EmployeeType(employeeType string) *QueryUserApprovalReqBuilder {
-	builder.employeeType = employeeType
-	builder.employeeTypeFlag = true
+	builder.QueryParams.Set("employee_type", fmt.Sprint(employeeType))
 	return builder
 }
 func (builder *QueryUserApprovalReqBuilder) Body(body *QueryUserApprovalReqBody) *QueryUserApprovalReqBuilder {
 	builder.body = body
-	builder.bodyFlag = true
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *QueryUserApprovalReqBuilder) Build() *QueryUserApprovalReq {
 	req := &QueryUserApprovalReq{}
-	if builder.employeeTypeFlag {
-		req.EmployeeType = &builder.employeeType
-	}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.QueryParams = builder.QueryParams
+	req.HttpReq.Body = builder.body
 	return req
 }
 
@@ -5384,8 +5356,8 @@ type QueryUserApprovalReqBody struct {
 }
 
 type QueryUserApprovalReq struct {
-	EmployeeType *string                   `query:"employee_type"`
-	Body         *QueryUserApprovalReqBody `body:""`
+	*larkcore.HttpReq
+	Body *QueryUserApprovalReqBody `body:""`
 }
 
 type QueryUserApprovalRespData struct {
@@ -5477,39 +5449,36 @@ func (builder *BatchCreateUserDailyShiftPathReqBodyBuilder) Build() (*BatchCreat
 
 // 1.4 生成请求的builder结构体
 type BatchCreateUserDailyShiftReqBuilder struct {
-	employeeType     string
-	employeeTypeFlag bool
-	body             *BatchCreateUserDailyShiftReqBody
-	bodyFlag         bool
+	*larkcore.HttpReq
+	body *BatchCreateUserDailyShiftReqBody
 }
 
 // 生成请求的New构造器
 func NewBatchCreateUserDailyShiftReqBuilder() *BatchCreateUserDailyShiftReqBuilder {
 	builder := &BatchCreateUserDailyShiftReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *BatchCreateUserDailyShiftReqBuilder) EmployeeType(employeeType string) *BatchCreateUserDailyShiftReqBuilder {
-	builder.employeeType = employeeType
-	builder.employeeTypeFlag = true
+	builder.QueryParams.Set("employee_type", fmt.Sprint(employeeType))
 	return builder
 }
 func (builder *BatchCreateUserDailyShiftReqBuilder) Body(body *BatchCreateUserDailyShiftReqBody) *BatchCreateUserDailyShiftReqBuilder {
 	builder.body = body
-	builder.bodyFlag = true
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *BatchCreateUserDailyShiftReqBuilder) Build() *BatchCreateUserDailyShiftReq {
 	req := &BatchCreateUserDailyShiftReq{}
-	if builder.employeeTypeFlag {
-		req.EmployeeType = &builder.employeeType
-	}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.QueryParams = builder.QueryParams
+	req.HttpReq.Body = builder.body
 	return req
 }
 
@@ -5519,8 +5488,8 @@ type BatchCreateUserDailyShiftReqBody struct {
 }
 
 type BatchCreateUserDailyShiftReq struct {
-	EmployeeType *string                           `query:"employee_type"`
-	Body         *BatchCreateUserDailyShiftReqBody `body:""`
+	*larkcore.HttpReq
+	Body *BatchCreateUserDailyShiftReqBody `body:""`
 }
 
 type BatchCreateUserDailyShiftRespData struct {
@@ -5632,39 +5601,36 @@ func (builder *QueryUserDailyShiftPathReqBodyBuilder) Build() (*QueryUserDailySh
 
 // 1.4 生成请求的builder结构体
 type QueryUserDailyShiftReqBuilder struct {
-	employeeType     string
-	employeeTypeFlag bool
-	body             *QueryUserDailyShiftReqBody
-	bodyFlag         bool
+	*larkcore.HttpReq
+	body *QueryUserDailyShiftReqBody
 }
 
 // 生成请求的New构造器
 func NewQueryUserDailyShiftReqBuilder() *QueryUserDailyShiftReqBuilder {
 	builder := &QueryUserDailyShiftReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *QueryUserDailyShiftReqBuilder) EmployeeType(employeeType string) *QueryUserDailyShiftReqBuilder {
-	builder.employeeType = employeeType
-	builder.employeeTypeFlag = true
+	builder.QueryParams.Set("employee_type", fmt.Sprint(employeeType))
 	return builder
 }
 func (builder *QueryUserDailyShiftReqBuilder) Body(body *QueryUserDailyShiftReqBody) *QueryUserDailyShiftReqBuilder {
 	builder.body = body
-	builder.bodyFlag = true
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *QueryUserDailyShiftReqBuilder) Build() *QueryUserDailyShiftReq {
 	req := &QueryUserDailyShiftReq{}
-	if builder.employeeTypeFlag {
-		req.EmployeeType = &builder.employeeType
-	}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.QueryParams = builder.QueryParams
+	req.HttpReq.Body = builder.body
 	return req
 }
 
@@ -5675,8 +5641,8 @@ type QueryUserDailyShiftReqBody struct {
 }
 
 type QueryUserDailyShiftReq struct {
-	EmployeeType *string                     `query:"employee_type"`
-	Body         *QueryUserDailyShiftReqBody `body:""`
+	*larkcore.HttpReq
+	Body *QueryUserDailyShiftReqBody `body:""`
 }
 
 type QueryUserDailyShiftRespData struct {
@@ -5748,39 +5714,36 @@ func (builder *BatchCreateUserFlowPathReqBodyBuilder) Build() (*BatchCreateUserF
 
 // 1.4 生成请求的builder结构体
 type BatchCreateUserFlowReqBuilder struct {
-	employeeType     string
-	employeeTypeFlag bool
-	body             *BatchCreateUserFlowReqBody
-	bodyFlag         bool
+	*larkcore.HttpReq
+	body *BatchCreateUserFlowReqBody
 }
 
 // 生成请求的New构造器
 func NewBatchCreateUserFlowReqBuilder() *BatchCreateUserFlowReqBuilder {
 	builder := &BatchCreateUserFlowReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *BatchCreateUserFlowReqBuilder) EmployeeType(employeeType string) *BatchCreateUserFlowReqBuilder {
-	builder.employeeType = employeeType
-	builder.employeeTypeFlag = true
+	builder.QueryParams.Set("employee_type", fmt.Sprint(employeeType))
 	return builder
 }
 func (builder *BatchCreateUserFlowReqBuilder) Body(body *BatchCreateUserFlowReqBody) *BatchCreateUserFlowReqBuilder {
 	builder.body = body
-	builder.bodyFlag = true
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *BatchCreateUserFlowReqBuilder) Build() *BatchCreateUserFlowReq {
 	req := &BatchCreateUserFlowReq{}
-	if builder.employeeTypeFlag {
-		req.EmployeeType = &builder.employeeType
-	}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.QueryParams = builder.QueryParams
+	req.HttpReq.Body = builder.body
 	return req
 }
 
@@ -5789,8 +5752,8 @@ type BatchCreateUserFlowReqBody struct {
 }
 
 type BatchCreateUserFlowReq struct {
-	EmployeeType *string                     `query:"employee_type"`
-	Body         *BatchCreateUserFlowReqBody `body:""`
+	*larkcore.HttpReq
+	Body *BatchCreateUserFlowReqBody `body:""`
 }
 
 type BatchCreateUserFlowRespData struct {
@@ -5809,45 +5772,40 @@ func (resp *BatchCreateUserFlowResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type GetUserFlowReqBuilder struct {
-	userFlowId       string
-	userFlowIdFlag   bool
-	employeeType     string
-	employeeTypeFlag bool
+	*larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewGetUserFlowReqBuilder() *GetUserFlowReqBuilder {
 	builder := &GetUserFlowReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *GetUserFlowReqBuilder) UserFlowId(userFlowId string) *GetUserFlowReqBuilder {
-	builder.userFlowId = userFlowId
-	builder.userFlowIdFlag = true
+	builder.PathParams.Set("user_flow_id", fmt.Sprint(userFlowId))
 	return builder
 }
 func (builder *GetUserFlowReqBuilder) EmployeeType(employeeType string) *GetUserFlowReqBuilder {
-	builder.employeeType = employeeType
-	builder.employeeTypeFlag = true
+	builder.QueryParams.Set("employee_type", fmt.Sprint(employeeType))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *GetUserFlowReqBuilder) Build() *GetUserFlowReq {
 	req := &GetUserFlowReq{}
-	if builder.userFlowIdFlag {
-		req.UserFlowId = builder.userFlowId
-	}
-	if builder.employeeTypeFlag {
-		req.EmployeeType = &builder.employeeType
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.PathParams = builder.PathParams
+	req.HttpReq.QueryParams = builder.QueryParams
 	return req
 }
 
 type GetUserFlowReq struct {
-	UserFlowId   string  `path:"user_flow_id"`
-	EmployeeType *string `query:"employee_type"`
+	*larkcore.HttpReq
 }
 
 type GetUserFlowRespData struct {
@@ -5974,49 +5932,40 @@ func (builder *QueryUserFlowPathReqBodyBuilder) Build() (*QueryUserFlowReqBody, 
 
 // 1.4 生成请求的builder结构体
 type QueryUserFlowReqBuilder struct {
-	employeeType              string
-	employeeTypeFlag          bool
-	includeTerminatedUser     bool
-	includeTerminatedUserFlag bool
-	body                      *QueryUserFlowReqBody
-	bodyFlag                  bool
+	*larkcore.HttpReq
+	body *QueryUserFlowReqBody
 }
 
 // 生成请求的New构造器
 func NewQueryUserFlowReqBuilder() *QueryUserFlowReqBuilder {
 	builder := &QueryUserFlowReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *QueryUserFlowReqBuilder) EmployeeType(employeeType string) *QueryUserFlowReqBuilder {
-	builder.employeeType = employeeType
-	builder.employeeTypeFlag = true
+	builder.QueryParams.Set("employee_type", fmt.Sprint(employeeType))
 	return builder
 }
 func (builder *QueryUserFlowReqBuilder) IncludeTerminatedUser(includeTerminatedUser bool) *QueryUserFlowReqBuilder {
-	builder.includeTerminatedUser = includeTerminatedUser
-	builder.includeTerminatedUserFlag = true
+	builder.QueryParams.Set("include_terminated_user", fmt.Sprint(includeTerminatedUser))
 	return builder
 }
 func (builder *QueryUserFlowReqBuilder) Body(body *QueryUserFlowReqBody) *QueryUserFlowReqBuilder {
 	builder.body = body
-	builder.bodyFlag = true
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *QueryUserFlowReqBuilder) Build() *QueryUserFlowReq {
 	req := &QueryUserFlowReq{}
-	if builder.employeeTypeFlag {
-		req.EmployeeType = &builder.employeeType
-	}
-	if builder.includeTerminatedUserFlag {
-		req.IncludeTerminatedUser = &builder.includeTerminatedUser
-	}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.QueryParams = builder.QueryParams
+	req.HttpReq.Body = builder.body
 	return req
 }
 
@@ -6027,9 +5976,8 @@ type QueryUserFlowReqBody struct {
 }
 
 type QueryUserFlowReq struct {
-	EmployeeType          *string               `query:"employee_type"`
-	IncludeTerminatedUser *bool                 `query:"include_terminated_user"`
-	Body                  *QueryUserFlowReqBody `body:""`
+	*larkcore.HttpReq
+	Body *QueryUserFlowReqBody `body:""`
 }
 
 type QueryUserFlowRespData struct {
@@ -6101,39 +6049,36 @@ func (builder *ModifyUserSettingPathReqBodyBuilder) Build() (*ModifyUserSettingR
 
 // 1.4 生成请求的builder结构体
 type ModifyUserSettingReqBuilder struct {
-	employeeType     string
-	employeeTypeFlag bool
-	body             *ModifyUserSettingReqBody
-	bodyFlag         bool
+	*larkcore.HttpReq
+	body *ModifyUserSettingReqBody
 }
 
 // 生成请求的New构造器
 func NewModifyUserSettingReqBuilder() *ModifyUserSettingReqBuilder {
 	builder := &ModifyUserSettingReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *ModifyUserSettingReqBuilder) EmployeeType(employeeType string) *ModifyUserSettingReqBuilder {
-	builder.employeeType = employeeType
-	builder.employeeTypeFlag = true
+	builder.QueryParams.Set("employee_type", fmt.Sprint(employeeType))
 	return builder
 }
 func (builder *ModifyUserSettingReqBuilder) Body(body *ModifyUserSettingReqBody) *ModifyUserSettingReqBuilder {
 	builder.body = body
-	builder.bodyFlag = true
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ModifyUserSettingReqBuilder) Build() *ModifyUserSettingReq {
 	req := &ModifyUserSettingReq{}
-	if builder.employeeTypeFlag {
-		req.EmployeeType = &builder.employeeType
-	}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.QueryParams = builder.QueryParams
+	req.HttpReq.Body = builder.body
 	return req
 }
 
@@ -6142,8 +6087,8 @@ type ModifyUserSettingReqBody struct {
 }
 
 type ModifyUserSettingReq struct {
-	EmployeeType *string                   `query:"employee_type"`
-	Body         *ModifyUserSettingReqBody `body:""`
+	*larkcore.HttpReq
+	Body *ModifyUserSettingReqBody `body:""`
 }
 
 type ModifyUserSettingRespData struct {
@@ -6215,39 +6160,36 @@ func (builder *QueryUserSettingPathReqBodyBuilder) Build() (*QueryUserSettingReq
 
 // 1.4 生成请求的builder结构体
 type QueryUserSettingReqBuilder struct {
-	employeeType     string
-	employeeTypeFlag bool
-	body             *QueryUserSettingReqBody
-	bodyFlag         bool
+	*larkcore.HttpReq
+	body *QueryUserSettingReqBody
 }
 
 // 生成请求的New构造器
 func NewQueryUserSettingReqBuilder() *QueryUserSettingReqBuilder {
 	builder := &QueryUserSettingReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *QueryUserSettingReqBuilder) EmployeeType(employeeType string) *QueryUserSettingReqBuilder {
-	builder.employeeType = employeeType
-	builder.employeeTypeFlag = true
+	builder.QueryParams.Set("employee_type", fmt.Sprint(employeeType))
 	return builder
 }
 func (builder *QueryUserSettingReqBuilder) Body(body *QueryUserSettingReqBody) *QueryUserSettingReqBuilder {
 	builder.body = body
-	builder.bodyFlag = true
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *QueryUserSettingReqBuilder) Build() *QueryUserSettingReq {
 	req := &QueryUserSettingReq{}
-	if builder.employeeTypeFlag {
-		req.EmployeeType = &builder.employeeType
-	}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.QueryParams = builder.QueryParams
+	req.HttpReq.Body = builder.body
 	return req
 }
 
@@ -6256,8 +6198,8 @@ type QueryUserSettingReqBody struct {
 }
 
 type QueryUserSettingReq struct {
-	EmployeeType *string                  `query:"employee_type"`
-	Body         *QueryUserSettingReqBody `body:""`
+	*larkcore.HttpReq
+	Body *QueryUserSettingReqBody `body:""`
 }
 
 type QueryUserSettingRespData struct {
@@ -6469,39 +6411,36 @@ func (builder *QueryUserStatsDataPathReqBodyBuilder) Build() (*QueryUserStatsDat
 
 // 1.4 生成请求的builder结构体
 type QueryUserStatsDataReqBuilder struct {
-	employeeType     string
-	employeeTypeFlag bool
-	body             *QueryUserStatsDataReqBody
-	bodyFlag         bool
+	*larkcore.HttpReq
+	body *QueryUserStatsDataReqBody
 }
 
 // 生成请求的New构造器
 func NewQueryUserStatsDataReqBuilder() *QueryUserStatsDataReqBuilder {
 	builder := &QueryUserStatsDataReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *QueryUserStatsDataReqBuilder) EmployeeType(employeeType string) *QueryUserStatsDataReqBuilder {
-	builder.employeeType = employeeType
-	builder.employeeTypeFlag = true
+	builder.QueryParams.Set("employee_type", fmt.Sprint(employeeType))
 	return builder
 }
 func (builder *QueryUserStatsDataReqBuilder) Body(body *QueryUserStatsDataReqBody) *QueryUserStatsDataReqBuilder {
 	builder.body = body
-	builder.bodyFlag = true
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *QueryUserStatsDataReqBuilder) Build() *QueryUserStatsDataReq {
 	req := &QueryUserStatsDataReq{}
-	if builder.employeeTypeFlag {
-		req.EmployeeType = &builder.employeeType
-	}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.QueryParams = builder.QueryParams
+	req.HttpReq.Body = builder.body
 	return req
 }
 
@@ -6517,8 +6456,8 @@ type QueryUserStatsDataReqBody struct {
 }
 
 type QueryUserStatsDataReq struct {
-	EmployeeType *string                    `query:"employee_type"`
-	Body         *QueryUserStatsDataReqBody `body:""`
+	*larkcore.HttpReq
+	Body *QueryUserStatsDataReqBody `body:""`
 }
 
 type QueryUserStatsDataRespData struct {
@@ -6650,39 +6589,36 @@ func (builder *QueryUserStatsFieldPathReqBodyBuilder) Build() (*QueryUserStatsFi
 
 // 1.4 生成请求的builder结构体
 type QueryUserStatsFieldReqBuilder struct {
-	employeeType     string
-	employeeTypeFlag bool
-	body             *QueryUserStatsFieldReqBody
-	bodyFlag         bool
+	*larkcore.HttpReq
+	body *QueryUserStatsFieldReqBody
 }
 
 // 生成请求的New构造器
 func NewQueryUserStatsFieldReqBuilder() *QueryUserStatsFieldReqBuilder {
 	builder := &QueryUserStatsFieldReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *QueryUserStatsFieldReqBuilder) EmployeeType(employeeType string) *QueryUserStatsFieldReqBuilder {
-	builder.employeeType = employeeType
-	builder.employeeTypeFlag = true
+	builder.QueryParams.Set("employee_type", fmt.Sprint(employeeType))
 	return builder
 }
 func (builder *QueryUserStatsFieldReqBuilder) Body(body *QueryUserStatsFieldReqBody) *QueryUserStatsFieldReqBuilder {
 	builder.body = body
-	builder.bodyFlag = true
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *QueryUserStatsFieldReqBuilder) Build() *QueryUserStatsFieldReq {
 	req := &QueryUserStatsFieldReq{}
-	if builder.employeeTypeFlag {
-		req.EmployeeType = &builder.employeeType
-	}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.QueryParams = builder.QueryParams
+	req.HttpReq.Body = builder.body
 	return req
 }
 
@@ -6694,8 +6630,8 @@ type QueryUserStatsFieldReqBody struct {
 }
 
 type QueryUserStatsFieldReq struct {
-	EmployeeType *string                     `query:"employee_type"`
-	Body         *QueryUserStatsFieldReqBody `body:""`
+	*larkcore.HttpReq
+	Body *QueryUserStatsFieldReqBody `body:""`
 }
 
 type QueryUserStatsFieldRespData struct {
@@ -6807,39 +6743,36 @@ func (builder *QueryUserStatsViewPathReqBodyBuilder) Build() (*QueryUserStatsVie
 
 // 1.4 生成请求的builder结构体
 type QueryUserStatsViewReqBuilder struct {
-	employeeType     string
-	employeeTypeFlag bool
-	body             *QueryUserStatsViewReqBody
-	bodyFlag         bool
+	*larkcore.HttpReq
+	body *QueryUserStatsViewReqBody
 }
 
 // 生成请求的New构造器
 func NewQueryUserStatsViewReqBuilder() *QueryUserStatsViewReqBuilder {
 	builder := &QueryUserStatsViewReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *QueryUserStatsViewReqBuilder) EmployeeType(employeeType string) *QueryUserStatsViewReqBuilder {
-	builder.employeeType = employeeType
-	builder.employeeTypeFlag = true
+	builder.QueryParams.Set("employee_type", fmt.Sprint(employeeType))
 	return builder
 }
 func (builder *QueryUserStatsViewReqBuilder) Body(body *QueryUserStatsViewReqBody) *QueryUserStatsViewReqBuilder {
 	builder.body = body
-	builder.bodyFlag = true
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *QueryUserStatsViewReqBuilder) Build() *QueryUserStatsViewReq {
 	req := &QueryUserStatsViewReq{}
-	if builder.employeeTypeFlag {
-		req.EmployeeType = &builder.employeeType
-	}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.QueryParams = builder.QueryParams
+	req.HttpReq.Body = builder.body
 	return req
 }
 
@@ -6850,8 +6783,8 @@ type QueryUserStatsViewReqBody struct {
 }
 
 type QueryUserStatsViewReq struct {
-	EmployeeType *string                    `query:"employee_type"`
-	Body         *QueryUserStatsViewReqBody `body:""`
+	*larkcore.HttpReq
+	Body *QueryUserStatsViewReqBody `body:""`
 }
 
 type QueryUserStatsViewRespData struct {
@@ -6923,49 +6856,41 @@ func (builder *UpdateUserStatsViewPathReqBodyBuilder) Build() (*UpdateUserStatsV
 
 // 1.4 生成请求的builder结构体
 type UpdateUserStatsViewReqBuilder struct {
-	userStatsViewId     string
-	userStatsViewIdFlag bool
-	employeeType        string
-	employeeTypeFlag    bool
-	body                *UpdateUserStatsViewReqBody
-	bodyFlag            bool
+	*larkcore.HttpReq
+	body *UpdateUserStatsViewReqBody
 }
 
 // 生成请求的New构造器
 func NewUpdateUserStatsViewReqBuilder() *UpdateUserStatsViewReqBuilder {
 	builder := &UpdateUserStatsViewReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *UpdateUserStatsViewReqBuilder) UserStatsViewId(userStatsViewId string) *UpdateUserStatsViewReqBuilder {
-	builder.userStatsViewId = userStatsViewId
-	builder.userStatsViewIdFlag = true
+	builder.PathParams.Set("user_stats_view_id", fmt.Sprint(userStatsViewId))
 	return builder
 }
 func (builder *UpdateUserStatsViewReqBuilder) EmployeeType(employeeType string) *UpdateUserStatsViewReqBuilder {
-	builder.employeeType = employeeType
-	builder.employeeTypeFlag = true
+	builder.QueryParams.Set("employee_type", fmt.Sprint(employeeType))
 	return builder
 }
 func (builder *UpdateUserStatsViewReqBuilder) Body(body *UpdateUserStatsViewReqBody) *UpdateUserStatsViewReqBuilder {
 	builder.body = body
-	builder.bodyFlag = true
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *UpdateUserStatsViewReqBuilder) Build() *UpdateUserStatsViewReq {
 	req := &UpdateUserStatsViewReq{}
-	if builder.userStatsViewIdFlag {
-		req.UserStatsViewId = builder.userStatsViewId
-	}
-	if builder.employeeTypeFlag {
-		req.EmployeeType = &builder.employeeType
-	}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.PathParams = builder.PathParams
+	req.HttpReq.QueryParams = builder.QueryParams
+	req.HttpReq.Body = builder.body
 	return req
 }
 
@@ -6974,9 +6899,8 @@ type UpdateUserStatsViewReqBody struct {
 }
 
 type UpdateUserStatsViewReq struct {
-	UserStatsViewId string                      `path:"user_stats_view_id"`
-	EmployeeType    *string                     `query:"employee_type"`
-	Body            *UpdateUserStatsViewReqBody `body:""`
+	*larkcore.HttpReq
+	Body *UpdateUserStatsViewReqBody `body:""`
 }
 
 type UpdateUserStatsViewRespData struct {
@@ -7088,59 +7012,44 @@ func (builder *QueryUserTaskPathReqBodyBuilder) Build() (*QueryUserTaskReqBody, 
 
 // 1.4 生成请求的builder结构体
 type QueryUserTaskReqBuilder struct {
-	employeeType              string
-	employeeTypeFlag          bool
-	ignoreInvalidUsers        bool
-	ignoreInvalidUsersFlag    bool
-	includeTerminatedUser     bool
-	includeTerminatedUserFlag bool
-	body                      *QueryUserTaskReqBody
-	bodyFlag                  bool
+	*larkcore.HttpReq
+	body *QueryUserTaskReqBody
 }
 
 // 生成请求的New构造器
 func NewQueryUserTaskReqBuilder() *QueryUserTaskReqBuilder {
 	builder := &QueryUserTaskReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *QueryUserTaskReqBuilder) EmployeeType(employeeType string) *QueryUserTaskReqBuilder {
-	builder.employeeType = employeeType
-	builder.employeeTypeFlag = true
+	builder.QueryParams.Set("employee_type", fmt.Sprint(employeeType))
 	return builder
 }
 func (builder *QueryUserTaskReqBuilder) IgnoreInvalidUsers(ignoreInvalidUsers bool) *QueryUserTaskReqBuilder {
-	builder.ignoreInvalidUsers = ignoreInvalidUsers
-	builder.ignoreInvalidUsersFlag = true
+	builder.QueryParams.Set("ignore_invalid_users", fmt.Sprint(ignoreInvalidUsers))
 	return builder
 }
 func (builder *QueryUserTaskReqBuilder) IncludeTerminatedUser(includeTerminatedUser bool) *QueryUserTaskReqBuilder {
-	builder.includeTerminatedUser = includeTerminatedUser
-	builder.includeTerminatedUserFlag = true
+	builder.QueryParams.Set("include_terminated_user", fmt.Sprint(includeTerminatedUser))
 	return builder
 }
 func (builder *QueryUserTaskReqBuilder) Body(body *QueryUserTaskReqBody) *QueryUserTaskReqBuilder {
 	builder.body = body
-	builder.bodyFlag = true
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *QueryUserTaskReqBuilder) Build() *QueryUserTaskReq {
 	req := &QueryUserTaskReq{}
-	if builder.employeeTypeFlag {
-		req.EmployeeType = &builder.employeeType
-	}
-	if builder.ignoreInvalidUsersFlag {
-		req.IgnoreInvalidUsers = &builder.ignoreInvalidUsers
-	}
-	if builder.includeTerminatedUserFlag {
-		req.IncludeTerminatedUser = &builder.includeTerminatedUser
-	}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.QueryParams = builder.QueryParams
+	req.HttpReq.Body = builder.body
 	return req
 }
 
@@ -7151,10 +7060,8 @@ type QueryUserTaskReqBody struct {
 }
 
 type QueryUserTaskReq struct {
-	EmployeeType          *string               `query:"employee_type"`
-	IgnoreInvalidUsers    *bool                 `query:"ignore_invalid_users"`
-	IncludeTerminatedUser *bool                 `query:"include_terminated_user"`
-	Body                  *QueryUserTaskReqBody `body:""`
+	*larkcore.HttpReq
+	Body *QueryUserTaskReqBody `body:""`
 }
 
 type QueryUserTaskRespData struct {
@@ -7175,44 +7082,41 @@ func (resp *QueryUserTaskResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type CreateUserTaskRemedyReqBuilder struct {
-	employeeType       string
-	employeeTypeFlag   bool
-	userTaskRemedy     *UserTaskRemedy
-	userTaskRemedyFlag bool
+	*larkcore.HttpReq
+	userTaskRemedy *UserTaskRemedy
 }
 
 // 生成请求的New构造器
 func NewCreateUserTaskRemedyReqBuilder() *CreateUserTaskRemedyReqBuilder {
 	builder := &CreateUserTaskRemedyReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *CreateUserTaskRemedyReqBuilder) EmployeeType(employeeType string) *CreateUserTaskRemedyReqBuilder {
-	builder.employeeType = employeeType
-	builder.employeeTypeFlag = true
+	builder.QueryParams.Set("employee_type", fmt.Sprint(employeeType))
 	return builder
 }
 func (builder *CreateUserTaskRemedyReqBuilder) UserTaskRemedy(userTaskRemedy *UserTaskRemedy) *CreateUserTaskRemedyReqBuilder {
 	builder.userTaskRemedy = userTaskRemedy
-	builder.userTaskRemedyFlag = true
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *CreateUserTaskRemedyReqBuilder) Build() *CreateUserTaskRemedyReq {
 	req := &CreateUserTaskRemedyReq{}
-	if builder.employeeTypeFlag {
-		req.EmployeeType = &builder.employeeType
-	}
-	if builder.userTaskRemedyFlag {
-		req.UserTaskRemedy = builder.userTaskRemedy
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.QueryParams = builder.QueryParams
+	req.HttpReq.Body = builder.userTaskRemedy
 	return req
 }
 
 type CreateUserTaskRemedyReq struct {
-	EmployeeType   *string         `query:"employee_type"`
+	*larkcore.HttpReq
 	UserTaskRemedy *UserTaskRemedy `body:""`
 }
 
@@ -7325,39 +7229,36 @@ func (builder *QueryUserTaskRemedyPathReqBodyBuilder) Build() (*QueryUserTaskRem
 
 // 1.4 生成请求的builder结构体
 type QueryUserTaskRemedyReqBuilder struct {
-	employeeType     string
-	employeeTypeFlag bool
-	body             *QueryUserTaskRemedyReqBody
-	bodyFlag         bool
+	*larkcore.HttpReq
+	body *QueryUserTaskRemedyReqBody
 }
 
 // 生成请求的New构造器
 func NewQueryUserTaskRemedyReqBuilder() *QueryUserTaskRemedyReqBuilder {
 	builder := &QueryUserTaskRemedyReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *QueryUserTaskRemedyReqBuilder) EmployeeType(employeeType string) *QueryUserTaskRemedyReqBuilder {
-	builder.employeeType = employeeType
-	builder.employeeTypeFlag = true
+	builder.QueryParams.Set("employee_type", fmt.Sprint(employeeType))
 	return builder
 }
 func (builder *QueryUserTaskRemedyReqBuilder) Body(body *QueryUserTaskRemedyReqBody) *QueryUserTaskRemedyReqBuilder {
 	builder.body = body
-	builder.bodyFlag = true
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *QueryUserTaskRemedyReqBuilder) Build() *QueryUserTaskRemedyReq {
 	req := &QueryUserTaskRemedyReq{}
-	if builder.employeeTypeFlag {
-		req.EmployeeType = &builder.employeeType
-	}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.QueryParams = builder.QueryParams
+	req.HttpReq.Body = builder.body
 	return req
 }
 
@@ -7368,8 +7269,8 @@ type QueryUserTaskRemedyReqBody struct {
 }
 
 type QueryUserTaskRemedyReq struct {
-	EmployeeType *string                     `query:"employee_type"`
-	Body         *QueryUserTaskRemedyReqBody `body:""`
+	*larkcore.HttpReq
+	Body *QueryUserTaskRemedyReqBody `body:""`
 }
 
 type QueryUserTaskRemedyRespData struct {
@@ -7461,39 +7362,36 @@ func (builder *QueryUserAllowedRemedysUserTaskRemedyPathReqBodyBuilder) Build() 
 
 // 1.4 生成请求的builder结构体
 type QueryUserAllowedRemedysUserTaskRemedyReqBuilder struct {
-	employeeType     string
-	employeeTypeFlag bool
-	body             *QueryUserAllowedRemedysUserTaskRemedyReqBody
-	bodyFlag         bool
+	*larkcore.HttpReq
+	body *QueryUserAllowedRemedysUserTaskRemedyReqBody
 }
 
 // 生成请求的New构造器
 func NewQueryUserAllowedRemedysUserTaskRemedyReqBuilder() *QueryUserAllowedRemedysUserTaskRemedyReqBuilder {
 	builder := &QueryUserAllowedRemedysUserTaskRemedyReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *QueryUserAllowedRemedysUserTaskRemedyReqBuilder) EmployeeType(employeeType string) *QueryUserAllowedRemedysUserTaskRemedyReqBuilder {
-	builder.employeeType = employeeType
-	builder.employeeTypeFlag = true
+	builder.QueryParams.Set("employee_type", fmt.Sprint(employeeType))
 	return builder
 }
 func (builder *QueryUserAllowedRemedysUserTaskRemedyReqBuilder) Body(body *QueryUserAllowedRemedysUserTaskRemedyReqBody) *QueryUserAllowedRemedysUserTaskRemedyReqBuilder {
 	builder.body = body
-	builder.bodyFlag = true
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *QueryUserAllowedRemedysUserTaskRemedyReqBuilder) Build() *QueryUserAllowedRemedysUserTaskRemedyReq {
 	req := &QueryUserAllowedRemedysUserTaskRemedyReq{}
-	if builder.employeeTypeFlag {
-		req.EmployeeType = &builder.employeeType
-	}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.QueryParams = builder.QueryParams
+	req.HttpReq.Body = builder.body
 	return req
 }
 
@@ -7503,8 +7401,8 @@ type QueryUserAllowedRemedysUserTaskRemedyReqBody struct {
 }
 
 type QueryUserAllowedRemedysUserTaskRemedyReq struct {
-	EmployeeType *string                                       `query:"employee_type"`
-	Body         *QueryUserAllowedRemedysUserTaskRemedyReqBody `body:""`
+	*larkcore.HttpReq
+	Body *QueryUserAllowedRemedysUserTaskRemedyReqBody `body:""`
 }
 
 type QueryUserAllowedRemedysUserTaskRemedyRespData struct {
@@ -7549,7 +7447,7 @@ func (iterator *ListGroupIterator) Next() (bool, *GroupMeta, error) {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
-			iterator.req.PageToken = iterator.nextPageToken
+			iterator.req.QueryParams.Set("page_token", *iterator.nextPageToken)
 		}
 		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
 		if err != nil {
@@ -7603,7 +7501,7 @@ func (iterator *ListShiftIterator) Next() (bool, *Shift, error) {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
-			iterator.req.PageToken = iterator.nextPageToken
+			iterator.req.QueryParams.Set("page_token", *iterator.nextPageToken)
 		}
 		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
 		if err != nil {

@@ -106,10 +106,16 @@ func tenantAccessTokenKey(appID, tenantKey string) string {
 	return fmt.Sprintf("%s-%s-%s", tenantAccessTokenKeyPrefix, appID, tenantKey)
 }
 func (m *TokenManager) getCustomAppAccessTokenThenCache(ctx context.Context, config *Config) (string, error) {
-	rawResp, err := SendRequest(ctx, config, http.MethodPost, appAccessTokenInternalUrlPath, []AccessTokenType{accessTokenTypeNone}, &internalAccessTokenReq{
-		AppID:     config.AppId,
-		AppSecret: config.AppSecret,
-	})
+	rawResp, err := Request(ctx, &HttpReq{
+		HttpMethod: http.MethodPost,
+		ApiPath:    appAccessTokenInternalUrlPath,
+		Body: &internalAccessTokenReq{
+			AppID:     config.AppId,
+			AppSecret: config.AppSecret,
+		},
+		SupportedAccessTokenTypes: []AccessTokenType{accessTokenTypeNone},
+	}, config)
+
 	if err != nil {
 		return "", err
 	}
@@ -131,10 +137,15 @@ func (m *TokenManager) getCustomAppAccessTokenThenCache(ctx context.Context, con
 }
 
 func (m *TokenManager) getCustomTenantAccessTokenThenCache(ctx context.Context, config *Config, tenantKey string) (string, error) {
-	rawResp, err := SendRequest(ctx, config, http.MethodPost, tenantAccessTokenInternalUrlPath, []AccessTokenType{accessTokenTypeNone}, &internalAccessTokenReq{
-		AppID:     config.AppId,
-		AppSecret: config.AppSecret,
-	})
+	rawResp, err := Request(ctx, &HttpReq{
+		HttpMethod: http.MethodPost,
+		ApiPath:    tenantAccessTokenInternalUrlPath,
+		Body: &internalAccessTokenReq{
+			AppID:     config.AppId,
+			AppSecret: config.AppSecret,
+		},
+		SupportedAccessTokenTypes: []AccessTokenType{accessTokenTypeNone},
+	}, config)
 
 	if err != nil {
 		return "", err
@@ -166,11 +177,17 @@ func (m *TokenManager) getMarketplaceAppAccessTokenThenCache(ctx context.Context
 	if appTicket == "" {
 		return "", ErrAppTicketIsEmpty
 	}
-	rawResp, err := SendRequest(ctx, config, http.MethodPost, appAccessTokenUrlPath, []AccessTokenType{accessTokenTypeNone}, &marketplaceAppAccessTokenReq{
-		AppID:     config.AppId,
-		AppSecret: config.AppSecret,
-		AppTicket: appTicket,
-	})
+	rawResp, err := Request(ctx, &HttpReq{
+		HttpMethod: http.MethodPost,
+		ApiPath:    appAccessTokenUrlPath,
+		Body: &marketplaceAppAccessTokenReq{
+			AppID:     config.AppId,
+			AppSecret: config.AppSecret,
+			AppTicket: appTicket,
+		},
+		SupportedAccessTokenTypes: []AccessTokenType{accessTokenTypeNone},
+	}, config)
+
 	if err != nil {
 		return "", err
 	}
@@ -197,10 +214,16 @@ func (m *TokenManager) getMarketplaceTenantAccessTokenThenCache(ctx context.Cont
 	if err != nil {
 		return "", err
 	}
-	rawResp, err := SendRequest(ctx, config, http.MethodPost, tenantAccessTokenUrlPath, []AccessTokenType{accessTokenTypeNone}, &marketplaceTenantAccessTokenReq{
-		AppAccessToken: appAccessToken,
-		TenantKey:      tenantKey,
-	})
+	rawResp, err := Request(ctx, &HttpReq{
+		HttpMethod: http.MethodPost,
+		ApiPath:    tenantAccessTokenUrlPath,
+		Body: &marketplaceTenantAccessTokenReq{
+			AppAccessToken: appAccessToken,
+			TenantKey:      tenantKey,
+		},
+		SupportedAccessTokenTypes: []AccessTokenType{accessTokenTypeNone},
+	}, config)
+
 	if err != nil {
 		return "", err
 	}

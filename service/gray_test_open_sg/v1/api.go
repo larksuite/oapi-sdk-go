@@ -29,8 +29,11 @@ type moto struct {
 // 资源服务方法定义
 func (m *moto) Create(ctx context.Context, req *CreateMotoReq, options ...larkcore.RequestOptionFunc) (*CreateMotoResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, m.service.config, http.MethodPost,
-		"/open-apis/gray_test_open_sg/v1/motos", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/gray_test_open_sg/v1/motos"
+	httpReq.HttpMethod = http.MethodPost
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, m.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -44,8 +47,11 @@ func (m *moto) Create(ctx context.Context, req *CreateMotoReq, options ...larkco
 }
 func (m *moto) Get(ctx context.Context, req *GetMotoReq, options ...larkcore.RequestOptionFunc) (*GetMotoResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, m.service.config, http.MethodGet,
-		"/open-apis/gray_test_open_sg/v1/motos/:moto_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/gray_test_open_sg/v1/motos/:moto_id"
+	httpReq.HttpMethod = http.MethodGet
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, m.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -59,8 +65,11 @@ func (m *moto) Get(ctx context.Context, req *GetMotoReq, options ...larkcore.Req
 }
 func (m *moto) List(ctx context.Context, req *ListMotoReq, options ...larkcore.RequestOptionFunc) (*ListMotoResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, m.service.config, http.MethodGet,
-		"/open-apis/gray_test_open_sg/v1/motos", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/gray_test_open_sg/v1/motos"
+	httpReq.HttpMethod = http.MethodGet
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, m.service.config, options...)
 	if err != nil {
 		return nil, err
 	}

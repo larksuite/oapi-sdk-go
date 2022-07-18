@@ -29,8 +29,11 @@ type outboundIp struct {
 // 资源服务方法定义
 func (o *outboundIp) List(ctx context.Context, req *ListOutboundIpReq, options ...larkcore.RequestOptionFunc) (*ListOutboundIpResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, o.service.config, http.MethodGet,
-		"/open-apis/event/v1/outbound_ip", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/event/v1/outbound_ip"
+	httpReq.HttpMethod = http.MethodGet
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, o.service.config, options...)
 	if err != nil {
 		return nil, err
 	}

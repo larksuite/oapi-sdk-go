@@ -39,8 +39,11 @@ type documentBlockChildren struct {
 // 资源服务方法定义
 func (d *document) Create(ctx context.Context, req *CreateDocumentReq, options ...larkcore.RequestOptionFunc) (*CreateDocumentResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, d.service.config, http.MethodPost,
-		"/open-apis/docx/v1/documents", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/docx/v1/documents"
+	httpReq.HttpMethod = http.MethodPost
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, d.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -54,8 +57,11 @@ func (d *document) Create(ctx context.Context, req *CreateDocumentReq, options .
 }
 func (d *document) Get(ctx context.Context, req *GetDocumentReq, options ...larkcore.RequestOptionFunc) (*GetDocumentResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, d.service.config, http.MethodGet,
-		"/open-apis/docx/v1/documents/:document_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/docx/v1/documents/:document_id"
+	httpReq.HttpMethod = http.MethodGet
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, d.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -69,8 +75,11 @@ func (d *document) Get(ctx context.Context, req *GetDocumentReq, options ...lark
 }
 func (d *document) RawContent(ctx context.Context, req *RawContentDocumentReq, options ...larkcore.RequestOptionFunc) (*RawContentDocumentResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, d.service.config, http.MethodGet,
-		"/open-apis/docx/v1/documents/:document_id/raw_content", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/docx/v1/documents/:document_id/raw_content"
+	httpReq.HttpMethod = http.MethodGet
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, d.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -84,8 +93,11 @@ func (d *document) RawContent(ctx context.Context, req *RawContentDocumentReq, o
 }
 func (d *documentBlock) BatchUpdate(ctx context.Context, req *BatchUpdateDocumentBlockReq, options ...larkcore.RequestOptionFunc) (*BatchUpdateDocumentBlockResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, d.service.config, http.MethodPatch,
-		"/open-apis/docx/v1/documents/:document_id/blocks/batch_update", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/docx/v1/documents/:document_id/blocks/batch_update"
+	httpReq.HttpMethod = http.MethodPatch
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, d.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -99,8 +111,11 @@ func (d *documentBlock) BatchUpdate(ctx context.Context, req *BatchUpdateDocumen
 }
 func (d *documentBlock) Get(ctx context.Context, req *GetDocumentBlockReq, options ...larkcore.RequestOptionFunc) (*GetDocumentBlockResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, d.service.config, http.MethodGet,
-		"/open-apis/docx/v1/documents/:document_id/blocks/:block_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/docx/v1/documents/:document_id/blocks/:block_id"
+	httpReq.HttpMethod = http.MethodGet
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, d.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -114,8 +129,11 @@ func (d *documentBlock) Get(ctx context.Context, req *GetDocumentBlockReq, optio
 }
 func (d *documentBlock) List(ctx context.Context, req *ListDocumentBlockReq, options ...larkcore.RequestOptionFunc) (*ListDocumentBlockResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, d.service.config, http.MethodGet,
-		"/open-apis/docx/v1/documents/:document_id/blocks", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/docx/v1/documents/:document_id/blocks"
+	httpReq.HttpMethod = http.MethodGet
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, d.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -137,8 +155,11 @@ func (d *documentBlock) ListByIterator(ctx context.Context, req *ListDocumentBlo
 }
 func (d *documentBlock) Patch(ctx context.Context, req *PatchDocumentBlockReq, options ...larkcore.RequestOptionFunc) (*PatchDocumentBlockResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, d.service.config, http.MethodPatch,
-		"/open-apis/docx/v1/documents/:document_id/blocks/:block_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/docx/v1/documents/:document_id/blocks/:block_id"
+	httpReq.HttpMethod = http.MethodPatch
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, d.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -152,8 +173,11 @@ func (d *documentBlock) Patch(ctx context.Context, req *PatchDocumentBlockReq, o
 }
 func (d *documentBlockChildren) BatchDelete(ctx context.Context, req *BatchDeleteDocumentBlockChildrenReq, options ...larkcore.RequestOptionFunc) (*BatchDeleteDocumentBlockChildrenResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, d.service.config, http.MethodDelete,
-		"/open-apis/docx/v1/documents/:document_id/blocks/:block_id/children/batch_delete", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/docx/v1/documents/:document_id/blocks/:block_id/children/batch_delete"
+	httpReq.HttpMethod = http.MethodDelete
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, d.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -167,8 +191,11 @@ func (d *documentBlockChildren) BatchDelete(ctx context.Context, req *BatchDelet
 }
 func (d *documentBlockChildren) Create(ctx context.Context, req *CreateDocumentBlockChildrenReq, options ...larkcore.RequestOptionFunc) (*CreateDocumentBlockChildrenResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, d.service.config, http.MethodPost,
-		"/open-apis/docx/v1/documents/:document_id/blocks/:block_id/children", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/docx/v1/documents/:document_id/blocks/:block_id/children"
+	httpReq.HttpMethod = http.MethodPost
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, d.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -182,8 +209,11 @@ func (d *documentBlockChildren) Create(ctx context.Context, req *CreateDocumentB
 }
 func (d *documentBlockChildren) Get(ctx context.Context, req *GetDocumentBlockChildrenReq, options ...larkcore.RequestOptionFunc) (*GetDocumentBlockChildrenResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, d.service.config, http.MethodGet,
-		"/open-apis/docx/v1/documents/:document_id/blocks/:block_id/children", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/docx/v1/documents/:document_id/blocks/:block_id/children"
+	httpReq.HttpMethod = http.MethodGet
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, d.service.config, options...)
 	if err != nil {
 		return nil, err
 	}

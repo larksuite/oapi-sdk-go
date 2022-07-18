@@ -116,29 +116,31 @@ func (builder *DetectTextPathReqBodyBuilder) Build() (*DetectTextReqBody, error)
 
 // 1.4 生成请求的builder结构体
 type DetectTextReqBuilder struct {
-	body     *DetectTextReqBody
-	bodyFlag bool
+	*larkcore.HttpReq
+	body *DetectTextReqBody
 }
 
 // 生成请求的New构造器
 func NewDetectTextReqBuilder() *DetectTextReqBuilder {
 	builder := &DetectTextReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *DetectTextReqBuilder) Body(body *DetectTextReqBody) *DetectTextReqBuilder {
 	builder.body = body
-	builder.bodyFlag = true
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *DetectTextReqBuilder) Build() *DetectTextReq {
 	req := &DetectTextReq{}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.Body = builder.body
 	return req
 }
 
@@ -147,6 +149,7 @@ type DetectTextReqBody struct {
 }
 
 type DetectTextReq struct {
+	*larkcore.HttpReq
 	Body *DetectTextReqBody `body:""`
 }
 
@@ -279,29 +282,31 @@ func (builder *TranslateTextPathReqBodyBuilder) Build() (*TranslateTextReqBody, 
 
 // 1.4 生成请求的builder结构体
 type TranslateTextReqBuilder struct {
-	body     *TranslateTextReqBody
-	bodyFlag bool
+	*larkcore.HttpReq
+	body *TranslateTextReqBody
 }
 
 // 生成请求的New构造器
 func NewTranslateTextReqBuilder() *TranslateTextReqBuilder {
 	builder := &TranslateTextReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *TranslateTextReqBuilder) Body(body *TranslateTextReqBody) *TranslateTextReqBuilder {
 	builder.body = body
-	builder.bodyFlag = true
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *TranslateTextReqBuilder) Build() *TranslateTextReq {
 	req := &TranslateTextReq{}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.Body = builder.body
 	return req
 }
 
@@ -313,6 +318,7 @@ type TranslateTextReqBody struct {
 }
 
 type TranslateTextReq struct {
+	*larkcore.HttpReq
 	Body *TranslateTextReqBody `body:""`
 }
 

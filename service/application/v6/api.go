@@ -49,8 +49,11 @@ type applicationVisibility struct {
 // 资源服务方法定义
 func (a *application) Get(ctx context.Context, req *GetApplicationReq, options ...larkcore.RequestOptionFunc) (*GetApplicationResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, a.service.config, http.MethodGet,
-		"/open-apis/application/v6/applications/:app_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/application/v6/applications/:app_id"
+	httpReq.HttpMethod = http.MethodGet
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, a.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -64,8 +67,11 @@ func (a *application) Get(ctx context.Context, req *GetApplicationReq, options .
 }
 func (a *application) Patch(ctx context.Context, req *PatchApplicationReq, options ...larkcore.RequestOptionFunc) (*PatchApplicationResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, a.service.config, http.MethodPatch,
-		"/open-apis/application/v6/applications/:app_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/application/v6/applications/:app_id"
+	httpReq.HttpMethod = http.MethodPatch
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, a.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -79,8 +85,11 @@ func (a *application) Patch(ctx context.Context, req *PatchApplicationReq, optio
 }
 func (a *application) Underauditlist(ctx context.Context, req *UnderauditlistApplicationReq, options ...larkcore.RequestOptionFunc) (*UnderauditlistApplicationResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, a.service.config, http.MethodGet,
-		"/open-apis/application/v6/applications/underauditlist", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/application/v6/applications/underauditlist"
+	httpReq.HttpMethod = http.MethodGet
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, a.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -102,8 +111,11 @@ func (a *application) UnderauditlistByIterator(ctx context.Context, req *Underau
 }
 func (a *applicationAppUsage) Overview(ctx context.Context, req *OverviewApplicationAppUsageReq, options ...larkcore.RequestOptionFunc) (*OverviewApplicationAppUsageResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, a.service.config, http.MethodPost,
-		"/open-apis/application/v6/applications/:app_id/app_usage/overview", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/application/v6/applications/:app_id/app_usage/overview"
+	httpReq.HttpMethod = http.MethodPost
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, a.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -117,8 +129,11 @@ func (a *applicationAppUsage) Overview(ctx context.Context, req *OverviewApplica
 }
 func (a *applicationAppVersion) Get(ctx context.Context, req *GetApplicationAppVersionReq, options ...larkcore.RequestOptionFunc) (*GetApplicationAppVersionResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, a.service.config, http.MethodGet,
-		"/open-apis/application/v6/applications/:app_id/app_versions/:version_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/application/v6/applications/:app_id/app_versions/:version_id"
+	httpReq.HttpMethod = http.MethodGet
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, a.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -132,8 +147,11 @@ func (a *applicationAppVersion) Get(ctx context.Context, req *GetApplicationAppV
 }
 func (a *applicationAppVersion) Patch(ctx context.Context, req *PatchApplicationAppVersionReq, options ...larkcore.RequestOptionFunc) (*PatchApplicationAppVersionResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, a.service.config, http.MethodPatch,
-		"/open-apis/application/v6/applications/:app_id/app_versions/:version_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/application/v6/applications/:app_id/app_versions/:version_id"
+	httpReq.HttpMethod = http.MethodPatch
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, a.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -147,8 +165,11 @@ func (a *applicationAppVersion) Patch(ctx context.Context, req *PatchApplication
 }
 func (a *applicationFeedback) List(ctx context.Context, req *ListApplicationFeedbackReq, options ...larkcore.RequestOptionFunc) (*ListApplicationFeedbackResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, a.service.config, http.MethodGet,
-		"/open-apis/application/v6/applications/:app_id/feedbacks", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/application/v6/applications/:app_id/feedbacks"
+	httpReq.HttpMethod = http.MethodGet
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, a.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -162,8 +183,11 @@ func (a *applicationFeedback) List(ctx context.Context, req *ListApplicationFeed
 }
 func (a *applicationFeedback) Patch(ctx context.Context, req *PatchApplicationFeedbackReq, options ...larkcore.RequestOptionFunc) (*PatchApplicationFeedbackResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, a.service.config, http.MethodPatch,
-		"/open-apis/application/v6/applications/:app_id/feedbacks/:feedback_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/application/v6/applications/:app_id/feedbacks/:feedback_id"
+	httpReq.HttpMethod = http.MethodPatch
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, a.service.config, options...)
 	if err != nil {
 		return nil, err
 	}

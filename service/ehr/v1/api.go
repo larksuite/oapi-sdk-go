@@ -35,8 +35,11 @@ type employee struct {
 // 资源服务方法定义
 func (a *attachment) Get(ctx context.Context, req *GetAttachmentReq, options ...larkcore.RequestOptionFunc) (*GetAttachmentResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, a.service.config, http.MethodGet,
-		"/open-apis/ehr/v1/attachments/:token", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/ehr/v1/attachments/:token"
+	httpReq.HttpMethod = http.MethodGet
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, a.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -56,8 +59,11 @@ func (a *attachment) Get(ctx context.Context, req *GetAttachmentReq, options ...
 }
 func (e *employee) List(ctx context.Context, req *ListEmployeeReq, options ...larkcore.RequestOptionFunc) (*ListEmployeeResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, e.service.config, http.MethodGet,
-		"/open-apis/ehr/v1/employees", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/ehr/v1/employees"
+	httpReq.HttpMethod = http.MethodGet
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, e.service.config, options...)
 	if err != nil {
 		return nil, err
 	}

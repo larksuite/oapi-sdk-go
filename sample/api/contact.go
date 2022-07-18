@@ -10,6 +10,29 @@ import (
 	larkcontact "github.com/larksuite/oapi-sdk-go/v3/service/contact/v3"
 )
 
+func getUserInfo() {
+	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
+	var feishu_client = lark.NewClient(appID, appSecret,
+		lark.WithLogLevel(larkcore.LogLevelDebug),
+		lark.WithLogReqAtDebug(false))
+
+	resp, err := feishu_client.Contact.User.Get(context.Background(), larkcontact.NewGetUserReqBuilder().
+		UserIdType("open_id").
+		UserId("ou_xxx").
+		Build())
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	if resp.Success() {
+		fmt.Println(resp.Data.User)
+	} else {
+		fmt.Println(resp.Msg, resp.Code, resp.RequestId())
+	}
+
+}
 func main() {
 	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
 	var feishu_client = lark.NewClient(appID, appSecret,

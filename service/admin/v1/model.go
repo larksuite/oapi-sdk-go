@@ -2,6 +2,8 @@
 package larkadmin
 
 import (
+	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
@@ -3224,100 +3226,59 @@ func (builder *UserReport2021Builder) Build() *UserReport2021 {
 
 // 1.4 生成请求的builder结构体
 type ListAdminDeptStatReqBuilder struct {
-	departmentIdType      string
-	departmentIdTypeFlag  bool
-	startDate             string
-	startDateFlag         bool
-	endDate               string
-	endDateFlag           bool
-	departmentId          string
-	departmentIdFlag      bool
-	containsChildDept     bool
-	containsChildDeptFlag bool
-	pageSize              int
-	pageSizeFlag          bool
-	pageToken             string
-	pageTokenFlag         bool
+	*larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewListAdminDeptStatReqBuilder() *ListAdminDeptStatReqBuilder {
 	builder := &ListAdminDeptStatReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *ListAdminDeptStatReqBuilder) DepartmentIdType(departmentIdType string) *ListAdminDeptStatReqBuilder {
-	builder.departmentIdType = departmentIdType
-	builder.departmentIdTypeFlag = true
+	builder.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
 	return builder
 }
 func (builder *ListAdminDeptStatReqBuilder) StartDate(startDate string) *ListAdminDeptStatReqBuilder {
-	builder.startDate = startDate
-	builder.startDateFlag = true
+	builder.QueryParams.Set("start_date", fmt.Sprint(startDate))
 	return builder
 }
 func (builder *ListAdminDeptStatReqBuilder) EndDate(endDate string) *ListAdminDeptStatReqBuilder {
-	builder.endDate = endDate
-	builder.endDateFlag = true
+	builder.QueryParams.Set("end_date", fmt.Sprint(endDate))
 	return builder
 }
 func (builder *ListAdminDeptStatReqBuilder) DepartmentId(departmentId string) *ListAdminDeptStatReqBuilder {
-	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.QueryParams.Set("department_id", fmt.Sprint(departmentId))
 	return builder
 }
 func (builder *ListAdminDeptStatReqBuilder) ContainsChildDept(containsChildDept bool) *ListAdminDeptStatReqBuilder {
-	builder.containsChildDept = containsChildDept
-	builder.containsChildDeptFlag = true
+	builder.QueryParams.Set("contains_child_dept", fmt.Sprint(containsChildDept))
 	return builder
 }
 func (builder *ListAdminDeptStatReqBuilder) PageSize(pageSize int) *ListAdminDeptStatReqBuilder {
-	builder.pageSize = pageSize
-	builder.pageSizeFlag = true
+	builder.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 func (builder *ListAdminDeptStatReqBuilder) PageToken(pageToken string) *ListAdminDeptStatReqBuilder {
-	builder.pageToken = pageToken
-	builder.pageTokenFlag = true
+	builder.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ListAdminDeptStatReqBuilder) Build() *ListAdminDeptStatReq {
 	req := &ListAdminDeptStatReq{}
-	if builder.departmentIdTypeFlag {
-		req.DepartmentIdType = &builder.departmentIdType
-	}
-	if builder.startDateFlag {
-		req.StartDate = &builder.startDate
-	}
-	if builder.endDateFlag {
-		req.EndDate = &builder.endDate
-	}
-	if builder.departmentIdFlag {
-		req.DepartmentId = &builder.departmentId
-	}
-	if builder.containsChildDeptFlag {
-		req.ContainsChildDept = &builder.containsChildDept
-	}
-	if builder.pageSizeFlag {
-		req.PageSize = &builder.pageSize
-	}
-	if builder.pageTokenFlag {
-		req.PageToken = &builder.pageToken
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.QueryParams = builder.QueryParams
 	return req
 }
 
 type ListAdminDeptStatReq struct {
-	DepartmentIdType  *string `query:"department_id_type"`
-	StartDate         *string `query:"start_date"`
-	EndDate           *string `query:"end_date"`
-	DepartmentId      *string `query:"department_id"`
-	ContainsChildDept *bool   `query:"contains_child_dept"`
-	PageSize          *int    `query:"page_size"`
-	PageToken         *string `query:"page_token"`
+	*larkcore.HttpReq
 }
 
 type ListAdminDeptStatRespData struct {
@@ -3338,111 +3299,63 @@ func (resp *ListAdminDeptStatResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type ListAdminUserStatReqBuilder struct {
-	userIdType           string
-	userIdTypeFlag       bool
-	departmentIdType     string
-	departmentIdTypeFlag bool
-	startDate            string
-	startDateFlag        bool
-	endDate              string
-	endDateFlag          bool
-	departmentId         string
-	departmentIdFlag     bool
-	userId               string
-	userIdFlag           bool
-	pageSize             int
-	pageSizeFlag         bool
-	pageToken            string
-	pageTokenFlag        bool
+	*larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewListAdminUserStatReqBuilder() *ListAdminUserStatReqBuilder {
 	builder := &ListAdminUserStatReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *ListAdminUserStatReqBuilder) UserIdType(userIdType string) *ListAdminUserStatReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
+	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *ListAdminUserStatReqBuilder) DepartmentIdType(departmentIdType string) *ListAdminUserStatReqBuilder {
-	builder.departmentIdType = departmentIdType
-	builder.departmentIdTypeFlag = true
+	builder.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
 	return builder
 }
 func (builder *ListAdminUserStatReqBuilder) StartDate(startDate string) *ListAdminUserStatReqBuilder {
-	builder.startDate = startDate
-	builder.startDateFlag = true
+	builder.QueryParams.Set("start_date", fmt.Sprint(startDate))
 	return builder
 }
 func (builder *ListAdminUserStatReqBuilder) EndDate(endDate string) *ListAdminUserStatReqBuilder {
-	builder.endDate = endDate
-	builder.endDateFlag = true
+	builder.QueryParams.Set("end_date", fmt.Sprint(endDate))
 	return builder
 }
 func (builder *ListAdminUserStatReqBuilder) DepartmentId(departmentId string) *ListAdminUserStatReqBuilder {
-	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.QueryParams.Set("department_id", fmt.Sprint(departmentId))
 	return builder
 }
 func (builder *ListAdminUserStatReqBuilder) UserId(userId string) *ListAdminUserStatReqBuilder {
-	builder.userId = userId
-	builder.userIdFlag = true
+	builder.QueryParams.Set("user_id", fmt.Sprint(userId))
 	return builder
 }
 func (builder *ListAdminUserStatReqBuilder) PageSize(pageSize int) *ListAdminUserStatReqBuilder {
-	builder.pageSize = pageSize
-	builder.pageSizeFlag = true
+	builder.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 func (builder *ListAdminUserStatReqBuilder) PageToken(pageToken string) *ListAdminUserStatReqBuilder {
-	builder.pageToken = pageToken
-	builder.pageTokenFlag = true
+	builder.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ListAdminUserStatReqBuilder) Build() *ListAdminUserStatReq {
 	req := &ListAdminUserStatReq{}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
-	if builder.departmentIdTypeFlag {
-		req.DepartmentIdType = &builder.departmentIdType
-	}
-	if builder.startDateFlag {
-		req.StartDate = &builder.startDate
-	}
-	if builder.endDateFlag {
-		req.EndDate = &builder.endDate
-	}
-	if builder.departmentIdFlag {
-		req.DepartmentId = &builder.departmentId
-	}
-	if builder.userIdFlag {
-		req.UserId = &builder.userId
-	}
-	if builder.pageSizeFlag {
-		req.PageSize = &builder.pageSize
-	}
-	if builder.pageTokenFlag {
-		req.PageToken = &builder.pageToken
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.QueryParams = builder.QueryParams
 	return req
 }
 
 type ListAdminUserStatReq struct {
-	UserIdType       *string `query:"user_id_type"`
-	DepartmentIdType *string `query:"department_id_type"`
-	StartDate        *string `query:"start_date"`
-	EndDate          *string `query:"end_date"`
-	DepartmentId     *string `query:"department_id"`
-	UserId           *string `query:"user_id"`
-	PageSize         *int    `query:"page_size"`
-	PageToken        *string `query:"page_token"`
+	*larkcore.HttpReq
 }
 
 type ListAdminUserStatRespData struct {
@@ -3536,39 +3449,36 @@ func (builder *ResetPasswordPathReqBodyBuilder) Build() (*ResetPasswordReqBody, 
 
 // 1.4 生成请求的builder结构体
 type ResetPasswordReqBuilder struct {
-	userIdType     string
-	userIdTypeFlag bool
-	body           *ResetPasswordReqBody
-	bodyFlag       bool
+	*larkcore.HttpReq
+	body *ResetPasswordReqBody
 }
 
 // 生成请求的New构造器
 func NewResetPasswordReqBuilder() *ResetPasswordReqBuilder {
 	builder := &ResetPasswordReqBuilder{}
+	builder.HttpReq = &larkcore.HttpReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
 	return builder
 }
 
 // 1.5 生成请求的builder属性方法
 func (builder *ResetPasswordReqBuilder) UserIdType(userIdType string) *ResetPasswordReqBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
+	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *ResetPasswordReqBuilder) Body(body *ResetPasswordReqBody) *ResetPasswordReqBuilder {
 	builder.body = body
-	builder.bodyFlag = true
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ResetPasswordReqBuilder) Build() *ResetPasswordReq {
 	req := &ResetPasswordReq{}
-	if builder.userIdTypeFlag {
-		req.UserIdType = &builder.userIdType
-	}
-	if builder.bodyFlag {
-		req.Body = builder.body
-	}
+	req.HttpReq = &larkcore.HttpReq{}
+	req.HttpReq.QueryParams = builder.QueryParams
+	req.HttpReq.Body = builder.body
 	return req
 }
 
@@ -3578,8 +3488,8 @@ type ResetPasswordReqBody struct {
 }
 
 type ResetPasswordReq struct {
-	UserIdType *string               `query:"user_id_type"`
-	Body       *ResetPasswordReqBody `body:""`
+	*larkcore.HttpReq
+	Body *ResetPasswordReqBody `body:""`
 }
 
 type ResetPasswordResp struct {

@@ -49,8 +49,11 @@ type task struct {
 // 资源服务方法定义
 func (s *space) Create(ctx context.Context, req *CreateSpaceReq, options ...larkcore.RequestOptionFunc) (*CreateSpaceResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, s.service.config, http.MethodPost,
-		"/open-apis/wiki/v2/spaces", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/wiki/v2/spaces"
+	httpReq.HttpMethod = http.MethodPost
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, s.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -64,8 +67,11 @@ func (s *space) Create(ctx context.Context, req *CreateSpaceReq, options ...lark
 }
 func (s *space) Get(ctx context.Context, req *GetSpaceReq, options ...larkcore.RequestOptionFunc) (*GetSpaceResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, s.service.config, http.MethodGet,
-		"/open-apis/wiki/v2/spaces/:space_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/wiki/v2/spaces/:space_id"
+	httpReq.HttpMethod = http.MethodGet
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, s.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -79,8 +85,11 @@ func (s *space) Get(ctx context.Context, req *GetSpaceReq, options ...larkcore.R
 }
 func (s *space) GetNode(ctx context.Context, req *GetNodeSpaceReq, options ...larkcore.RequestOptionFunc) (*GetNodeSpaceResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, s.service.config, http.MethodGet,
-		"/open-apis/wiki/v2/spaces/get_node", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/wiki/v2/spaces/get_node"
+	httpReq.HttpMethod = http.MethodGet
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, s.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -94,8 +103,11 @@ func (s *space) GetNode(ctx context.Context, req *GetNodeSpaceReq, options ...la
 }
 func (s *space) List(ctx context.Context, req *ListSpaceReq, options ...larkcore.RequestOptionFunc) (*ListSpaceResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, s.service.config, http.MethodGet,
-		"/open-apis/wiki/v2/spaces", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/wiki/v2/spaces"
+	httpReq.HttpMethod = http.MethodGet
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, s.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -117,8 +129,11 @@ func (s *space) ListByIterator(ctx context.Context, req *ListSpaceReq, options .
 }
 func (s *spaceMember) Create(ctx context.Context, req *CreateSpaceMemberReq, options ...larkcore.RequestOptionFunc) (*CreateSpaceMemberResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, s.service.config, http.MethodPost,
-		"/open-apis/wiki/v2/spaces/:space_id/members", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/wiki/v2/spaces/:space_id/members"
+	httpReq.HttpMethod = http.MethodPost
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, s.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -132,8 +147,11 @@ func (s *spaceMember) Create(ctx context.Context, req *CreateSpaceMemberReq, opt
 }
 func (s *spaceMember) Delete(ctx context.Context, req *DeleteSpaceMemberReq, options ...larkcore.RequestOptionFunc) (*DeleteSpaceMemberResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, s.service.config, http.MethodDelete,
-		"/open-apis/wiki/v2/spaces/:space_id/members/:member_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/wiki/v2/spaces/:space_id/members/:member_id"
+	httpReq.HttpMethod = http.MethodDelete
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, s.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -147,8 +165,11 @@ func (s *spaceMember) Delete(ctx context.Context, req *DeleteSpaceMemberReq, opt
 }
 func (s *spaceNode) Copy(ctx context.Context, req *CopySpaceNodeReq, options ...larkcore.RequestOptionFunc) (*CopySpaceNodeResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, s.service.config, http.MethodPost,
-		"/open-apis/wiki/v2/spaces/:space_id/nodes/:node_token/copy", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/wiki/v2/spaces/:space_id/nodes/:node_token/copy"
+	httpReq.HttpMethod = http.MethodPost
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, s.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -162,8 +183,11 @@ func (s *spaceNode) Copy(ctx context.Context, req *CopySpaceNodeReq, options ...
 }
 func (s *spaceNode) Create(ctx context.Context, req *CreateSpaceNodeReq, options ...larkcore.RequestOptionFunc) (*CreateSpaceNodeResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, s.service.config, http.MethodPost,
-		"/open-apis/wiki/v2/spaces/:space_id/nodes", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/wiki/v2/spaces/:space_id/nodes"
+	httpReq.HttpMethod = http.MethodPost
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, s.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -177,8 +201,11 @@ func (s *spaceNode) Create(ctx context.Context, req *CreateSpaceNodeReq, options
 }
 func (s *spaceNode) List(ctx context.Context, req *ListSpaceNodeReq, options ...larkcore.RequestOptionFunc) (*ListSpaceNodeResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, s.service.config, http.MethodGet,
-		"/open-apis/wiki/v2/spaces/:space_id/nodes", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/wiki/v2/spaces/:space_id/nodes"
+	httpReq.HttpMethod = http.MethodGet
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, s.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -200,8 +227,11 @@ func (s *spaceNode) ListByIterator(ctx context.Context, req *ListSpaceNodeReq, o
 }
 func (s *spaceNode) Move(ctx context.Context, req *MoveSpaceNodeReq, options ...larkcore.RequestOptionFunc) (*MoveSpaceNodeResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, s.service.config, http.MethodPost,
-		"/open-apis/wiki/v2/spaces/:space_id/nodes/:node_token/move", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/wiki/v2/spaces/:space_id/nodes/:node_token/move"
+	httpReq.HttpMethod = http.MethodPost
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, s.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -215,8 +245,11 @@ func (s *spaceNode) Move(ctx context.Context, req *MoveSpaceNodeReq, options ...
 }
 func (s *spaceNode) MoveDocsToWiki(ctx context.Context, req *MoveDocsToWikiSpaceNodeReq, options ...larkcore.RequestOptionFunc) (*MoveDocsToWikiSpaceNodeResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, s.service.config, http.MethodPost,
-		"/open-apis/wiki/v2/spaces/:space_id/nodes/move_docs_to_wiki", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/wiki/v2/spaces/:space_id/nodes/move_docs_to_wiki"
+	httpReq.HttpMethod = http.MethodPost
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, s.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -230,8 +263,11 @@ func (s *spaceNode) MoveDocsToWiki(ctx context.Context, req *MoveDocsToWikiSpace
 }
 func (s *spaceNode) UpdateTitle(ctx context.Context, req *UpdateTitleSpaceNodeReq, options ...larkcore.RequestOptionFunc) (*UpdateTitleSpaceNodeResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, s.service.config, http.MethodPost,
-		"/open-apis/wiki/v2/spaces/:space_id/nodes/:node_token/update_title", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/wiki/v2/spaces/:space_id/nodes/:node_token/update_title"
+	httpReq.HttpMethod = http.MethodPost
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, s.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -245,8 +281,11 @@ func (s *spaceNode) UpdateTitle(ctx context.Context, req *UpdateTitleSpaceNodeRe
 }
 func (s *spaceSetting) Update(ctx context.Context, req *UpdateSpaceSettingReq, options ...larkcore.RequestOptionFunc) (*UpdateSpaceSettingResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, s.service.config, http.MethodPut,
-		"/open-apis/wiki/v2/spaces/:space_id/setting", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/wiki/v2/spaces/:space_id/setting"
+	httpReq.HttpMethod = http.MethodPut
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, s.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -260,8 +299,11 @@ func (s *spaceSetting) Update(ctx context.Context, req *UpdateSpaceSettingReq, o
 }
 func (t *task) Get(ctx context.Context, req *GetTaskReq, options ...larkcore.RequestOptionFunc) (*GetTaskResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, t.service.config, http.MethodGet,
-		"/open-apis/wiki/v2/tasks/:task_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/wiki/v2/tasks/:task_id"
+	httpReq.HttpMethod = http.MethodGet
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, t.service.config, options...)
 	if err != nil {
 		return nil, err
 	}

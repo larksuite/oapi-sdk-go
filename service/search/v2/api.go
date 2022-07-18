@@ -39,8 +39,11 @@ type schema struct {
 // 资源服务方法定义
 func (d *dataSource) Create(ctx context.Context, req *CreateDataSourceReq, options ...larkcore.RequestOptionFunc) (*CreateDataSourceResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, d.service.config, http.MethodPost,
-		"/open-apis/search/v2/data_sources", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/search/v2/data_sources"
+	httpReq.HttpMethod = http.MethodPost
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, d.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -54,8 +57,11 @@ func (d *dataSource) Create(ctx context.Context, req *CreateDataSourceReq, optio
 }
 func (d *dataSource) Delete(ctx context.Context, req *DeleteDataSourceReq, options ...larkcore.RequestOptionFunc) (*DeleteDataSourceResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, d.service.config, http.MethodDelete,
-		"/open-apis/search/v2/data_sources/:data_source_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/search/v2/data_sources/:data_source_id"
+	httpReq.HttpMethod = http.MethodDelete
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, d.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -69,8 +75,11 @@ func (d *dataSource) Delete(ctx context.Context, req *DeleteDataSourceReq, optio
 }
 func (d *dataSource) Get(ctx context.Context, req *GetDataSourceReq, options ...larkcore.RequestOptionFunc) (*GetDataSourceResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, d.service.config, http.MethodGet,
-		"/open-apis/search/v2/data_sources/:data_source_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/search/v2/data_sources/:data_source_id"
+	httpReq.HttpMethod = http.MethodGet
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, d.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -84,8 +93,11 @@ func (d *dataSource) Get(ctx context.Context, req *GetDataSourceReq, options ...
 }
 func (d *dataSource) List(ctx context.Context, req *ListDataSourceReq, options ...larkcore.RequestOptionFunc) (*ListDataSourceResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, d.service.config, http.MethodGet,
-		"/open-apis/search/v2/data_sources", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/search/v2/data_sources"
+	httpReq.HttpMethod = http.MethodGet
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, d.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -107,8 +119,11 @@ func (d *dataSource) ListByIterator(ctx context.Context, req *ListDataSourceReq,
 }
 func (d *dataSource) Patch(ctx context.Context, req *PatchDataSourceReq, options ...larkcore.RequestOptionFunc) (*PatchDataSourceResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, d.service.config, http.MethodPatch,
-		"/open-apis/search/v2/data_sources/:data_source_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/search/v2/data_sources/:data_source_id"
+	httpReq.HttpMethod = http.MethodPatch
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, d.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -122,8 +137,11 @@ func (d *dataSource) Patch(ctx context.Context, req *PatchDataSourceReq, options
 }
 func (d *dataSourceItem) Create(ctx context.Context, req *CreateDataSourceItemReq, options ...larkcore.RequestOptionFunc) (*CreateDataSourceItemResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, d.service.config, http.MethodPost,
-		"/open-apis/search/v2/data_sources/:data_source_id/items", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/search/v2/data_sources/:data_source_id/items"
+	httpReq.HttpMethod = http.MethodPost
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, d.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -137,8 +155,11 @@ func (d *dataSourceItem) Create(ctx context.Context, req *CreateDataSourceItemRe
 }
 func (d *dataSourceItem) Delete(ctx context.Context, req *DeleteDataSourceItemReq, options ...larkcore.RequestOptionFunc) (*DeleteDataSourceItemResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, d.service.config, http.MethodDelete,
-		"/open-apis/search/v2/data_sources/:data_source_id/items/:item_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/search/v2/data_sources/:data_source_id/items/:item_id"
+	httpReq.HttpMethod = http.MethodDelete
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, d.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -152,8 +173,11 @@ func (d *dataSourceItem) Delete(ctx context.Context, req *DeleteDataSourceItemRe
 }
 func (d *dataSourceItem) Get(ctx context.Context, req *GetDataSourceItemReq, options ...larkcore.RequestOptionFunc) (*GetDataSourceItemResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, d.service.config, http.MethodGet,
-		"/open-apis/search/v2/data_sources/:data_source_id/items/:item_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/search/v2/data_sources/:data_source_id/items/:item_id"
+	httpReq.HttpMethod = http.MethodGet
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, d.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -167,8 +191,11 @@ func (d *dataSourceItem) Get(ctx context.Context, req *GetDataSourceItemReq, opt
 }
 func (s *schema) Create(ctx context.Context, req *CreateSchemaReq, options ...larkcore.RequestOptionFunc) (*CreateSchemaResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, s.service.config, http.MethodPost,
-		"/open-apis/search/v2/schemas", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/search/v2/schemas"
+	httpReq.HttpMethod = http.MethodPost
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, s.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -182,8 +209,11 @@ func (s *schema) Create(ctx context.Context, req *CreateSchemaReq, options ...la
 }
 func (s *schema) Delete(ctx context.Context, req *DeleteSchemaReq, options ...larkcore.RequestOptionFunc) (*DeleteSchemaResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, s.service.config, http.MethodDelete,
-		"/open-apis/search/v2/schemas/:schema_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/search/v2/schemas/:schema_id"
+	httpReq.HttpMethod = http.MethodDelete
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, s.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -197,8 +227,11 @@ func (s *schema) Delete(ctx context.Context, req *DeleteSchemaReq, options ...la
 }
 func (s *schema) Get(ctx context.Context, req *GetSchemaReq, options ...larkcore.RequestOptionFunc) (*GetSchemaResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, s.service.config, http.MethodGet,
-		"/open-apis/search/v2/schemas/:schema_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/search/v2/schemas/:schema_id"
+	httpReq.HttpMethod = http.MethodGet
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, s.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -212,8 +245,11 @@ func (s *schema) Get(ctx context.Context, req *GetSchemaReq, options ...larkcore
 }
 func (s *schema) Patch(ctx context.Context, req *PatchSchemaReq, options ...larkcore.RequestOptionFunc) (*PatchSchemaResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, s.service.config, http.MethodPatch,
-		"/open-apis/search/v2/schemas/:schema_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/search/v2/schemas/:schema_id"
+	httpReq.HttpMethod = http.MethodPatch
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, s.service.config, options...)
 	if err != nil {
 		return nil, err
 	}

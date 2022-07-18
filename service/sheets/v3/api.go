@@ -54,8 +54,11 @@ type spreadsheetSheetFloatImage struct {
 // 资源服务方法定义
 func (s *spreadsheet) Create(ctx context.Context, req *CreateSpreadsheetReq, options ...larkcore.RequestOptionFunc) (*CreateSpreadsheetResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, s.service.config, http.MethodPost,
-		"/open-apis/sheets/v3/spreadsheets", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/sheets/v3/spreadsheets"
+	httpReq.HttpMethod = http.MethodPost
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, s.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -69,8 +72,11 @@ func (s *spreadsheet) Create(ctx context.Context, req *CreateSpreadsheetReq, opt
 }
 func (s *spreadsheetSheet) Find(ctx context.Context, req *FindSpreadsheetSheetReq, options ...larkcore.RequestOptionFunc) (*FindSpreadsheetSheetResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, s.service.config, http.MethodPost,
-		"/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/find", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/find"
+	httpReq.HttpMethod = http.MethodPost
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, s.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -84,8 +90,11 @@ func (s *spreadsheetSheet) Find(ctx context.Context, req *FindSpreadsheetSheetRe
 }
 func (s *spreadsheetSheet) MoveDimension(ctx context.Context, req *MoveDimensionSpreadsheetSheetReq, options ...larkcore.RequestOptionFunc) (*MoveDimensionSpreadsheetSheetResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, s.service.config, http.MethodPost,
-		"/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/move_dimension", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/move_dimension"
+	httpReq.HttpMethod = http.MethodPost
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, s.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -99,8 +108,11 @@ func (s *spreadsheetSheet) MoveDimension(ctx context.Context, req *MoveDimension
 }
 func (s *spreadsheetSheet) Replace(ctx context.Context, req *ReplaceSpreadsheetSheetReq, options ...larkcore.RequestOptionFunc) (*ReplaceSpreadsheetSheetResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, s.service.config, http.MethodPost,
-		"/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/replace", []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/replace"
+	httpReq.HttpMethod = http.MethodPost
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, s.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -114,8 +126,11 @@ func (s *spreadsheetSheet) Replace(ctx context.Context, req *ReplaceSpreadsheetS
 }
 func (s *spreadsheetSheetFilter) Create(ctx context.Context, req *CreateSpreadsheetSheetFilterReq, options ...larkcore.RequestOptionFunc) (*CreateSpreadsheetSheetFilterResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, s.service.config, http.MethodPost,
-		"/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter"
+	httpReq.HttpMethod = http.MethodPost
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, s.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -129,8 +144,11 @@ func (s *spreadsheetSheetFilter) Create(ctx context.Context, req *CreateSpreadsh
 }
 func (s *spreadsheetSheetFilter) Delete(ctx context.Context, req *DeleteSpreadsheetSheetFilterReq, options ...larkcore.RequestOptionFunc) (*DeleteSpreadsheetSheetFilterResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, s.service.config, http.MethodDelete,
-		"/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter"
+	httpReq.HttpMethod = http.MethodDelete
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, s.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -144,8 +162,11 @@ func (s *spreadsheetSheetFilter) Delete(ctx context.Context, req *DeleteSpreadsh
 }
 func (s *spreadsheetSheetFilter) Get(ctx context.Context, req *GetSpreadsheetSheetFilterReq, options ...larkcore.RequestOptionFunc) (*GetSpreadsheetSheetFilterResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, s.service.config, http.MethodGet,
-		"/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter"
+	httpReq.HttpMethod = http.MethodGet
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, s.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -159,8 +180,11 @@ func (s *spreadsheetSheetFilter) Get(ctx context.Context, req *GetSpreadsheetShe
 }
 func (s *spreadsheetSheetFilter) Update(ctx context.Context, req *UpdateSpreadsheetSheetFilterReq, options ...larkcore.RequestOptionFunc) (*UpdateSpreadsheetSheetFilterResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, s.service.config, http.MethodPut,
-		"/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter"
+	httpReq.HttpMethod = http.MethodPut
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, s.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -174,8 +198,11 @@ func (s *spreadsheetSheetFilter) Update(ctx context.Context, req *UpdateSpreadsh
 }
 func (s *spreadsheetSheetFilterView) Create(ctx context.Context, req *CreateSpreadsheetSheetFilterViewReq, options ...larkcore.RequestOptionFunc) (*CreateSpreadsheetSheetFilterViewResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, s.service.config, http.MethodPost,
-		"/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter_views", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter_views"
+	httpReq.HttpMethod = http.MethodPost
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, s.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -189,8 +216,11 @@ func (s *spreadsheetSheetFilterView) Create(ctx context.Context, req *CreateSpre
 }
 func (s *spreadsheetSheetFilterView) Delete(ctx context.Context, req *DeleteSpreadsheetSheetFilterViewReq, options ...larkcore.RequestOptionFunc) (*DeleteSpreadsheetSheetFilterViewResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, s.service.config, http.MethodDelete,
-		"/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter_views/:filter_view_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter_views/:filter_view_id"
+	httpReq.HttpMethod = http.MethodDelete
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, s.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -204,8 +234,11 @@ func (s *spreadsheetSheetFilterView) Delete(ctx context.Context, req *DeleteSpre
 }
 func (s *spreadsheetSheetFilterView) Get(ctx context.Context, req *GetSpreadsheetSheetFilterViewReq, options ...larkcore.RequestOptionFunc) (*GetSpreadsheetSheetFilterViewResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, s.service.config, http.MethodGet,
-		"/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter_views/:filter_view_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter_views/:filter_view_id"
+	httpReq.HttpMethod = http.MethodGet
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, s.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -219,8 +252,11 @@ func (s *spreadsheetSheetFilterView) Get(ctx context.Context, req *GetSpreadshee
 }
 func (s *spreadsheetSheetFilterView) Patch(ctx context.Context, req *PatchSpreadsheetSheetFilterViewReq, options ...larkcore.RequestOptionFunc) (*PatchSpreadsheetSheetFilterViewResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, s.service.config, http.MethodPatch,
-		"/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter_views/:filter_view_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter_views/:filter_view_id"
+	httpReq.HttpMethod = http.MethodPatch
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, s.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -234,8 +270,11 @@ func (s *spreadsheetSheetFilterView) Patch(ctx context.Context, req *PatchSpread
 }
 func (s *spreadsheetSheetFilterView) Query(ctx context.Context, req *QuerySpreadsheetSheetFilterViewReq, options ...larkcore.RequestOptionFunc) (*QuerySpreadsheetSheetFilterViewResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, s.service.config, http.MethodGet,
-		"/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter_views/query", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter_views/query"
+	httpReq.HttpMethod = http.MethodGet
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, s.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -249,8 +288,11 @@ func (s *spreadsheetSheetFilterView) Query(ctx context.Context, req *QuerySpread
 }
 func (s *spreadsheetSheetFilterViewCondition) Create(ctx context.Context, req *CreateSpreadsheetSheetFilterViewConditionReq, options ...larkcore.RequestOptionFunc) (*CreateSpreadsheetSheetFilterViewConditionResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, s.service.config, http.MethodPost,
-		"/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter_views/:filter_view_id/conditions", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter_views/:filter_view_id/conditions"
+	httpReq.HttpMethod = http.MethodPost
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, s.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -264,8 +306,11 @@ func (s *spreadsheetSheetFilterViewCondition) Create(ctx context.Context, req *C
 }
 func (s *spreadsheetSheetFilterViewCondition) Delete(ctx context.Context, req *DeleteSpreadsheetSheetFilterViewConditionReq, options ...larkcore.RequestOptionFunc) (*DeleteSpreadsheetSheetFilterViewConditionResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, s.service.config, http.MethodDelete,
-		"/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter_views/:filter_view_id/conditions/:condition_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter_views/:filter_view_id/conditions/:condition_id"
+	httpReq.HttpMethod = http.MethodDelete
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, s.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -279,8 +324,11 @@ func (s *spreadsheetSheetFilterViewCondition) Delete(ctx context.Context, req *D
 }
 func (s *spreadsheetSheetFilterViewCondition) Get(ctx context.Context, req *GetSpreadsheetSheetFilterViewConditionReq, options ...larkcore.RequestOptionFunc) (*GetSpreadsheetSheetFilterViewConditionResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, s.service.config, http.MethodGet,
-		"/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter_views/:filter_view_id/conditions/:condition_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter_views/:filter_view_id/conditions/:condition_id"
+	httpReq.HttpMethod = http.MethodGet
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, s.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -294,8 +342,11 @@ func (s *spreadsheetSheetFilterViewCondition) Get(ctx context.Context, req *GetS
 }
 func (s *spreadsheetSheetFilterViewCondition) Query(ctx context.Context, req *QuerySpreadsheetSheetFilterViewConditionReq, options ...larkcore.RequestOptionFunc) (*QuerySpreadsheetSheetFilterViewConditionResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, s.service.config, http.MethodGet,
-		"/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter_views/:filter_view_id/conditions/query", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter_views/:filter_view_id/conditions/query"
+	httpReq.HttpMethod = http.MethodGet
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, s.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -309,8 +360,11 @@ func (s *spreadsheetSheetFilterViewCondition) Query(ctx context.Context, req *Qu
 }
 func (s *spreadsheetSheetFilterViewCondition) Update(ctx context.Context, req *UpdateSpreadsheetSheetFilterViewConditionReq, options ...larkcore.RequestOptionFunc) (*UpdateSpreadsheetSheetFilterViewConditionResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, s.service.config, http.MethodPut,
-		"/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter_views/:filter_view_id/conditions/:condition_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter_views/:filter_view_id/conditions/:condition_id"
+	httpReq.HttpMethod = http.MethodPut
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, s.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -324,8 +378,11 @@ func (s *spreadsheetSheetFilterViewCondition) Update(ctx context.Context, req *U
 }
 func (s *spreadsheetSheetFloatImage) Create(ctx context.Context, req *CreateSpreadsheetSheetFloatImageReq, options ...larkcore.RequestOptionFunc) (*CreateSpreadsheetSheetFloatImageResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, s.service.config, http.MethodPost,
-		"/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/float_images", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/float_images"
+	httpReq.HttpMethod = http.MethodPost
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, s.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -339,8 +396,11 @@ func (s *spreadsheetSheetFloatImage) Create(ctx context.Context, req *CreateSpre
 }
 func (s *spreadsheetSheetFloatImage) Delete(ctx context.Context, req *DeleteSpreadsheetSheetFloatImageReq, options ...larkcore.RequestOptionFunc) (*DeleteSpreadsheetSheetFloatImageResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, s.service.config, http.MethodDelete,
-		"/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/float_images/:float_image_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/float_images/:float_image_id"
+	httpReq.HttpMethod = http.MethodDelete
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, s.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -354,8 +414,11 @@ func (s *spreadsheetSheetFloatImage) Delete(ctx context.Context, req *DeleteSpre
 }
 func (s *spreadsheetSheetFloatImage) Get(ctx context.Context, req *GetSpreadsheetSheetFloatImageReq, options ...larkcore.RequestOptionFunc) (*GetSpreadsheetSheetFloatImageResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, s.service.config, http.MethodGet,
-		"/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/float_images/:float_image_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/float_images/:float_image_id"
+	httpReq.HttpMethod = http.MethodGet
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, s.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -369,8 +432,11 @@ func (s *spreadsheetSheetFloatImage) Get(ctx context.Context, req *GetSpreadshee
 }
 func (s *spreadsheetSheetFloatImage) Patch(ctx context.Context, req *PatchSpreadsheetSheetFloatImageReq, options ...larkcore.RequestOptionFunc) (*PatchSpreadsheetSheetFloatImageResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, s.service.config, http.MethodPatch,
-		"/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/float_images/:float_image_id", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/float_images/:float_image_id"
+	httpReq.HttpMethod = http.MethodPatch
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, s.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -384,8 +450,11 @@ func (s *spreadsheetSheetFloatImage) Patch(ctx context.Context, req *PatchSpread
 }
 func (s *spreadsheetSheetFloatImage) Query(ctx context.Context, req *QuerySpreadsheetSheetFloatImageReq, options ...larkcore.RequestOptionFunc) (*QuerySpreadsheetSheetFloatImageResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, s.service.config, http.MethodGet,
-		"/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/float_images/query", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/float_images/query"
+	httpReq.HttpMethod = http.MethodGet
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, s.service.config, options...)
 	if err != nil {
 		return nil, err
 	}

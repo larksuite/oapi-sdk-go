@@ -39,8 +39,11 @@ type password struct {
 // 资源服务方法定义
 func (a *adminDeptStat) List(ctx context.Context, req *ListAdminDeptStatReq, options ...larkcore.RequestOptionFunc) (*ListAdminDeptStatResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, a.service.config, http.MethodGet,
-		"/open-apis/admin/v1/admin_dept_stats", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/admin/v1/admin_dept_stats"
+	httpReq.HttpMethod = http.MethodGet
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, a.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -54,8 +57,11 @@ func (a *adminDeptStat) List(ctx context.Context, req *ListAdminDeptStatReq, opt
 }
 func (a *adminUserStat) List(ctx context.Context, req *ListAdminUserStatReq, options ...larkcore.RequestOptionFunc) (*ListAdminUserStatResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, a.service.config, http.MethodGet,
-		"/open-apis/admin/v1/admin_user_stats", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/admin/v1/admin_user_stats"
+	httpReq.HttpMethod = http.MethodGet
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, a.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -69,8 +75,11 @@ func (a *adminUserStat) List(ctx context.Context, req *ListAdminUserStatReq, opt
 }
 func (p *password) Reset(ctx context.Context, req *ResetPasswordReq, options ...larkcore.RequestOptionFunc) (*ResetPasswordResp, error) {
 	// 发起请求
-	rawResp, err := larkcore.SendRequest(ctx, p.service.config, http.MethodPost,
-		"/open-apis/admin/v1/password/reset", []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}, req, options...)
+	httpReq := req.HttpReq
+	httpReq.ApiPath = "/open-apis/admin/v1/password/reset"
+	httpReq.HttpMethod = http.MethodPost
+	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	rawResp, err := larkcore.Request(ctx, req.HttpReq, p.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
