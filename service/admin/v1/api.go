@@ -39,11 +39,11 @@ type password struct {
 // 资源服务方法定义
 func (a *adminDeptStat) List(ctx context.Context, req *ListAdminDeptStatReq, options ...larkcore.RequestOptionFunc) (*ListAdminDeptStatResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/admin/v1/admin_dept_stats"
 	httpReq.HttpMethod = http.MethodGet
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, a.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, a.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -57,11 +57,11 @@ func (a *adminDeptStat) List(ctx context.Context, req *ListAdminDeptStatReq, opt
 }
 func (a *adminUserStat) List(ctx context.Context, req *ListAdminUserStatReq, options ...larkcore.RequestOptionFunc) (*ListAdminUserStatResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/admin/v1/admin_user_stats"
 	httpReq.HttpMethod = http.MethodGet
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, a.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, a.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -75,11 +75,11 @@ func (a *adminUserStat) List(ctx context.Context, req *ListAdminUserStatReq, opt
 }
 func (p *password) Reset(ctx context.Context, req *ResetPasswordReq, options ...larkcore.RequestOptionFunc) (*ResetPasswordResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/admin/v1/password/reset"
 	httpReq.HttpMethod = http.MethodPost
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, p.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, p.service.config, options...)
 	if err != nil {
 		return nil, err
 	}

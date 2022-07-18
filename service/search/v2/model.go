@@ -1390,14 +1390,14 @@ func (builder *SchemaTypeDefinitionsBuilder) Build() *SchemaTypeDefinitions {
 
 // 1.4 生成请求的builder结构体
 type CreateDataSourceReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq    *larkcore.HttpReq
 	dataSource *DataSource
 }
 
 // 生成请求的New构造器
 func NewCreateDataSourceReqBuilder() *CreateDataSourceReqBuilder {
 	builder := &CreateDataSourceReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1413,13 +1413,13 @@ func (builder *CreateDataSourceReqBuilder) DataSource(dataSource *DataSource) *C
 // 1.5 生成请求的builder的build方法
 func (builder *CreateDataSourceReqBuilder) Build() *CreateDataSourceReq {
 	req := &CreateDataSourceReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.Body = builder.dataSource
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.Body = builder.dataSource
 	return req
 }
 
 type CreateDataSourceReq struct {
-	*larkcore.HttpReq
+	httpReq    *larkcore.HttpReq
 	DataSource *DataSource `body:""`
 }
 
@@ -1439,13 +1439,13 @@ func (resp *CreateDataSourceResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type DeleteDataSourceReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewDeleteDataSourceReqBuilder() *DeleteDataSourceReqBuilder {
 	builder := &DeleteDataSourceReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1454,20 +1454,20 @@ func NewDeleteDataSourceReqBuilder() *DeleteDataSourceReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *DeleteDataSourceReqBuilder) DataSourceId(dataSourceId string) *DeleteDataSourceReqBuilder {
-	builder.PathParams.Set("data_source_id", fmt.Sprint(dataSourceId))
+	builder.httpReq.PathParams.Set("data_source_id", fmt.Sprint(dataSourceId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *DeleteDataSourceReqBuilder) Build() *DeleteDataSourceReq {
 	req := &DeleteDataSourceReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
 	return req
 }
 
 type DeleteDataSourceReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type DeleteDataSourceResp struct {
@@ -1481,13 +1481,13 @@ func (resp *DeleteDataSourceResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type GetDataSourceReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewGetDataSourceReqBuilder() *GetDataSourceReqBuilder {
 	builder := &GetDataSourceReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1496,20 +1496,20 @@ func NewGetDataSourceReqBuilder() *GetDataSourceReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *GetDataSourceReqBuilder) DataSourceId(dataSourceId string) *GetDataSourceReqBuilder {
-	builder.PathParams.Set("data_source_id", fmt.Sprint(dataSourceId))
+	builder.httpReq.PathParams.Set("data_source_id", fmt.Sprint(dataSourceId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *GetDataSourceReqBuilder) Build() *GetDataSourceReq {
 	req := &GetDataSourceReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
 	return req
 }
 
 type GetDataSourceReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type GetDataSourceRespData struct {
@@ -1528,14 +1528,14 @@ func (resp *GetDataSourceResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type ListDataSourceReqBuilder struct {
-	*larkcore.HttpReq
-	limit int
+	httpReq *larkcore.HttpReq
+	limit   int
 }
 
 // 生成请求的New构造器
 func NewListDataSourceReqBuilder() *ListDataSourceReqBuilder {
 	builder := &ListDataSourceReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1548,30 +1548,30 @@ func (builder *ListDataSourceReqBuilder) Limit(limit int) *ListDataSourceReqBuil
 	return builder
 }
 func (builder *ListDataSourceReqBuilder) View(view int) *ListDataSourceReqBuilder {
-	builder.QueryParams.Set("view", fmt.Sprint(view))
+	builder.httpReq.QueryParams.Set("view", fmt.Sprint(view))
 	return builder
 }
 func (builder *ListDataSourceReqBuilder) PageToken(pageToken string) *ListDataSourceReqBuilder {
-	builder.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	builder.httpReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 func (builder *ListDataSourceReqBuilder) PageSize(pageSize int) *ListDataSourceReqBuilder {
-	builder.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	builder.httpReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ListDataSourceReqBuilder) Build() *ListDataSourceReq {
 	req := &ListDataSourceReq{}
-	req.HttpReq = &larkcore.HttpReq{}
+	req.httpReq = &larkcore.HttpReq{}
 	req.Limit = builder.limit
-	req.HttpReq.QueryParams = builder.QueryParams
+	req.httpReq.QueryParams = builder.httpReq.QueryParams
 	return req
 }
 
 type ListDataSourceReq struct {
-	*larkcore.HttpReq
-	Limit int
+	httpReq *larkcore.HttpReq
+	Limit   int
 }
 
 type ListDataSourceRespData struct {
@@ -1745,14 +1745,14 @@ func (builder *PatchDataSourcePathReqBodyBuilder) Build() (*PatchDataSourceReqBo
 
 // 1.4 生成请求的builder结构体
 type PatchDataSourceReqBuilder struct {
-	*larkcore.HttpReq
-	body *PatchDataSourceReqBody
+	httpReq *larkcore.HttpReq
+	body    *PatchDataSourceReqBody
 }
 
 // 生成请求的New构造器
 func NewPatchDataSourceReqBuilder() *PatchDataSourceReqBuilder {
 	builder := &PatchDataSourceReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1761,7 +1761,7 @@ func NewPatchDataSourceReqBuilder() *PatchDataSourceReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *PatchDataSourceReqBuilder) DataSourceId(dataSourceId string) *PatchDataSourceReqBuilder {
-	builder.PathParams.Set("data_source_id", fmt.Sprint(dataSourceId))
+	builder.httpReq.PathParams.Set("data_source_id", fmt.Sprint(dataSourceId))
 	return builder
 }
 func (builder *PatchDataSourceReqBuilder) Body(body *PatchDataSourceReqBody) *PatchDataSourceReqBuilder {
@@ -1772,9 +1772,9 @@ func (builder *PatchDataSourceReqBuilder) Body(body *PatchDataSourceReqBody) *Pa
 // 1.5 生成请求的builder的build方法
 func (builder *PatchDataSourceReqBuilder) Build() *PatchDataSourceReq {
 	req := &PatchDataSourceReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.Body = builder.body
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.Body = builder.body
 	return req
 }
 
@@ -1788,8 +1788,8 @@ type PatchDataSourceReqBody struct {
 }
 
 type PatchDataSourceReq struct {
-	*larkcore.HttpReq
-	Body *PatchDataSourceReqBody `body:""`
+	httpReq *larkcore.HttpReq
+	Body    *PatchDataSourceReqBody `body:""`
 }
 
 type PatchDataSourceRespData struct {
@@ -1808,14 +1808,14 @@ func (resp *PatchDataSourceResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type CreateDataSourceItemReqBuilder struct {
-	*larkcore.HttpReq
-	item *Item
+	httpReq *larkcore.HttpReq
+	item    *Item
 }
 
 // 生成请求的New构造器
 func NewCreateDataSourceItemReqBuilder() *CreateDataSourceItemReqBuilder {
 	builder := &CreateDataSourceItemReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1824,7 +1824,7 @@ func NewCreateDataSourceItemReqBuilder() *CreateDataSourceItemReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *CreateDataSourceItemReqBuilder) DataSourceId(dataSourceId string) *CreateDataSourceItemReqBuilder {
-	builder.PathParams.Set("data_source_id", fmt.Sprint(dataSourceId))
+	builder.httpReq.PathParams.Set("data_source_id", fmt.Sprint(dataSourceId))
 	return builder
 }
 func (builder *CreateDataSourceItemReqBuilder) Item(item *Item) *CreateDataSourceItemReqBuilder {
@@ -1835,15 +1835,15 @@ func (builder *CreateDataSourceItemReqBuilder) Item(item *Item) *CreateDataSourc
 // 1.5 生成请求的builder的build方法
 func (builder *CreateDataSourceItemReqBuilder) Build() *CreateDataSourceItemReq {
 	req := &CreateDataSourceItemReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.Body = builder.item
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.Body = builder.item
 	return req
 }
 
 type CreateDataSourceItemReq struct {
-	*larkcore.HttpReq
-	Item *Item `body:""`
+	httpReq *larkcore.HttpReq
+	Item    *Item `body:""`
 }
 
 type CreateDataSourceItemResp struct {
@@ -1857,13 +1857,13 @@ func (resp *CreateDataSourceItemResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type DeleteDataSourceItemReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewDeleteDataSourceItemReqBuilder() *DeleteDataSourceItemReqBuilder {
 	builder := &DeleteDataSourceItemReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1872,24 +1872,24 @@ func NewDeleteDataSourceItemReqBuilder() *DeleteDataSourceItemReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *DeleteDataSourceItemReqBuilder) DataSourceId(dataSourceId string) *DeleteDataSourceItemReqBuilder {
-	builder.PathParams.Set("data_source_id", fmt.Sprint(dataSourceId))
+	builder.httpReq.PathParams.Set("data_source_id", fmt.Sprint(dataSourceId))
 	return builder
 }
 func (builder *DeleteDataSourceItemReqBuilder) ItemId(itemId string) *DeleteDataSourceItemReqBuilder {
-	builder.PathParams.Set("item_id", fmt.Sprint(itemId))
+	builder.httpReq.PathParams.Set("item_id", fmt.Sprint(itemId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *DeleteDataSourceItemReqBuilder) Build() *DeleteDataSourceItemReq {
 	req := &DeleteDataSourceItemReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
 	return req
 }
 
 type DeleteDataSourceItemReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type DeleteDataSourceItemResp struct {
@@ -1903,13 +1903,13 @@ func (resp *DeleteDataSourceItemResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type GetDataSourceItemReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewGetDataSourceItemReqBuilder() *GetDataSourceItemReqBuilder {
 	builder := &GetDataSourceItemReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1918,24 +1918,24 @@ func NewGetDataSourceItemReqBuilder() *GetDataSourceItemReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *GetDataSourceItemReqBuilder) DataSourceId(dataSourceId string) *GetDataSourceItemReqBuilder {
-	builder.PathParams.Set("data_source_id", fmt.Sprint(dataSourceId))
+	builder.httpReq.PathParams.Set("data_source_id", fmt.Sprint(dataSourceId))
 	return builder
 }
 func (builder *GetDataSourceItemReqBuilder) ItemId(itemId string) *GetDataSourceItemReqBuilder {
-	builder.PathParams.Set("item_id", fmt.Sprint(itemId))
+	builder.httpReq.PathParams.Set("item_id", fmt.Sprint(itemId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *GetDataSourceItemReqBuilder) Build() *GetDataSourceItemReq {
 	req := &GetDataSourceItemReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
 	return req
 }
 
 type GetDataSourceItemReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type GetDataSourceItemRespData struct {
@@ -1954,14 +1954,14 @@ func (resp *GetDataSourceItemResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type CreateSchemaReqBuilder struct {
-	*larkcore.HttpReq
-	schema *Schema
+	httpReq *larkcore.HttpReq
+	schema  *Schema
 }
 
 // 生成请求的New构造器
 func NewCreateSchemaReqBuilder() *CreateSchemaReqBuilder {
 	builder := &CreateSchemaReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1970,7 +1970,7 @@ func NewCreateSchemaReqBuilder() *CreateSchemaReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *CreateSchemaReqBuilder) ValidateOnly(validateOnly bool) *CreateSchemaReqBuilder {
-	builder.QueryParams.Set("validate_only", fmt.Sprint(validateOnly))
+	builder.httpReq.QueryParams.Set("validate_only", fmt.Sprint(validateOnly))
 	return builder
 }
 func (builder *CreateSchemaReqBuilder) Schema(schema *Schema) *CreateSchemaReqBuilder {
@@ -1981,15 +1981,15 @@ func (builder *CreateSchemaReqBuilder) Schema(schema *Schema) *CreateSchemaReqBu
 // 1.5 生成请求的builder的build方法
 func (builder *CreateSchemaReqBuilder) Build() *CreateSchemaReq {
 	req := &CreateSchemaReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.QueryParams = builder.QueryParams
-	req.HttpReq.Body = builder.schema
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.httpReq.Body = builder.schema
 	return req
 }
 
 type CreateSchemaReq struct {
-	*larkcore.HttpReq
-	Schema *Schema `body:""`
+	httpReq *larkcore.HttpReq
+	Schema  *Schema `body:""`
 }
 
 type CreateSchemaRespData struct {
@@ -2008,13 +2008,13 @@ func (resp *CreateSchemaResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type DeleteSchemaReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewDeleteSchemaReqBuilder() *DeleteSchemaReqBuilder {
 	builder := &DeleteSchemaReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -2023,20 +2023,20 @@ func NewDeleteSchemaReqBuilder() *DeleteSchemaReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *DeleteSchemaReqBuilder) SchemaId(schemaId string) *DeleteSchemaReqBuilder {
-	builder.PathParams.Set("schema_id", fmt.Sprint(schemaId))
+	builder.httpReq.PathParams.Set("schema_id", fmt.Sprint(schemaId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *DeleteSchemaReqBuilder) Build() *DeleteSchemaReq {
 	req := &DeleteSchemaReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
 	return req
 }
 
 type DeleteSchemaReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type DeleteSchemaResp struct {
@@ -2050,13 +2050,13 @@ func (resp *DeleteSchemaResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type GetSchemaReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewGetSchemaReqBuilder() *GetSchemaReqBuilder {
 	builder := &GetSchemaReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -2065,20 +2065,20 @@ func NewGetSchemaReqBuilder() *GetSchemaReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *GetSchemaReqBuilder) SchemaId(schemaId string) *GetSchemaReqBuilder {
-	builder.PathParams.Set("schema_id", fmt.Sprint(schemaId))
+	builder.httpReq.PathParams.Set("schema_id", fmt.Sprint(schemaId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *GetSchemaReqBuilder) Build() *GetSchemaReq {
 	req := &GetSchemaReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
 	return req
 }
 
 type GetSchemaReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type GetSchemaRespData struct {
@@ -2150,14 +2150,14 @@ func (builder *PatchSchemaPathReqBodyBuilder) Build() (*PatchSchemaReqBody, erro
 
 // 1.4 生成请求的builder结构体
 type PatchSchemaReqBuilder struct {
-	*larkcore.HttpReq
-	body *PatchSchemaReqBody
+	httpReq *larkcore.HttpReq
+	body    *PatchSchemaReqBody
 }
 
 // 生成请求的New构造器
 func NewPatchSchemaReqBuilder() *PatchSchemaReqBuilder {
 	builder := &PatchSchemaReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -2166,7 +2166,7 @@ func NewPatchSchemaReqBuilder() *PatchSchemaReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *PatchSchemaReqBuilder) SchemaId(schemaId string) *PatchSchemaReqBuilder {
-	builder.PathParams.Set("schema_id", fmt.Sprint(schemaId))
+	builder.httpReq.PathParams.Set("schema_id", fmt.Sprint(schemaId))
 	return builder
 }
 func (builder *PatchSchemaReqBuilder) Body(body *PatchSchemaReqBody) *PatchSchemaReqBuilder {
@@ -2177,9 +2177,9 @@ func (builder *PatchSchemaReqBuilder) Body(body *PatchSchemaReqBody) *PatchSchem
 // 1.5 生成请求的builder的build方法
 func (builder *PatchSchemaReqBuilder) Build() *PatchSchemaReq {
 	req := &PatchSchemaReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.Body = builder.body
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.Body = builder.body
 	return req
 }
 
@@ -2188,8 +2188,8 @@ type PatchSchemaReqBody struct {
 }
 
 type PatchSchemaReq struct {
-	*larkcore.HttpReq
-	Body *PatchSchemaReqBody `body:""`
+	httpReq *larkcore.HttpReq
+	Body    *PatchSchemaReqBody `body:""`
 }
 
 type PatchSchemaRespData struct {
@@ -2234,7 +2234,7 @@ func (iterator *ListDataSourceIterator) Next() (bool, *DataSource, error) {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
-			iterator.req.QueryParams.Set("page_token", *iterator.nextPageToken)
+			iterator.req.httpReq.QueryParams.Set("page_token", *iterator.nextPageToken)
 		}
 		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
 		if err != nil {

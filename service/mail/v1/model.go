@@ -554,14 +554,14 @@ func (builder *UserBuilder) Build() *User {
 
 // 1.4 生成请求的builder结构体
 type CreateMailgroupReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq   *larkcore.HttpReq
 	mailgroup *Mailgroup
 }
 
 // 生成请求的New构造器
 func NewCreateMailgroupReqBuilder() *CreateMailgroupReqBuilder {
 	builder := &CreateMailgroupReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -577,13 +577,13 @@ func (builder *CreateMailgroupReqBuilder) Mailgroup(mailgroup *Mailgroup) *Creat
 // 1.5 生成请求的builder的build方法
 func (builder *CreateMailgroupReqBuilder) Build() *CreateMailgroupReq {
 	req := &CreateMailgroupReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.Body = builder.mailgroup
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.Body = builder.mailgroup
 	return req
 }
 
 type CreateMailgroupReq struct {
-	*larkcore.HttpReq
+	httpReq   *larkcore.HttpReq
 	Mailgroup *Mailgroup `body:""`
 }
 
@@ -610,13 +610,13 @@ func (resp *CreateMailgroupResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type DeleteMailgroupReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewDeleteMailgroupReqBuilder() *DeleteMailgroupReqBuilder {
 	builder := &DeleteMailgroupReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -625,20 +625,20 @@ func NewDeleteMailgroupReqBuilder() *DeleteMailgroupReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *DeleteMailgroupReqBuilder) MailgroupId(mailgroupId string) *DeleteMailgroupReqBuilder {
-	builder.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
+	builder.httpReq.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *DeleteMailgroupReqBuilder) Build() *DeleteMailgroupReq {
 	req := &DeleteMailgroupReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
 	return req
 }
 
 type DeleteMailgroupReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type DeleteMailgroupResp struct {
@@ -652,13 +652,13 @@ func (resp *DeleteMailgroupResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type GetMailgroupReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewGetMailgroupReqBuilder() *GetMailgroupReqBuilder {
 	builder := &GetMailgroupReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -667,20 +667,20 @@ func NewGetMailgroupReqBuilder() *GetMailgroupReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *GetMailgroupReqBuilder) MailgroupId(mailgroupId string) *GetMailgroupReqBuilder {
-	builder.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
+	builder.httpReq.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *GetMailgroupReqBuilder) Build() *GetMailgroupReq {
 	req := &GetMailgroupReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
 	return req
 }
 
 type GetMailgroupReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type GetMailgroupRespData struct {
@@ -706,14 +706,14 @@ func (resp *GetMailgroupResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type ListMailgroupReqBuilder struct {
-	*larkcore.HttpReq
-	limit int
+	httpReq *larkcore.HttpReq
+	limit   int
 }
 
 // 生成请求的New构造器
 func NewListMailgroupReqBuilder() *ListMailgroupReqBuilder {
 	builder := &ListMailgroupReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -726,34 +726,34 @@ func (builder *ListMailgroupReqBuilder) Limit(limit int) *ListMailgroupReqBuilde
 	return builder
 }
 func (builder *ListMailgroupReqBuilder) ManagerUserId(managerUserId string) *ListMailgroupReqBuilder {
-	builder.QueryParams.Set("manager_user_id", fmt.Sprint(managerUserId))
+	builder.httpReq.QueryParams.Set("manager_user_id", fmt.Sprint(managerUserId))
 	return builder
 }
 func (builder *ListMailgroupReqBuilder) UserIdType(userIdType string) *ListMailgroupReqBuilder {
-	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *ListMailgroupReqBuilder) PageToken(pageToken string) *ListMailgroupReqBuilder {
-	builder.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	builder.httpReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 func (builder *ListMailgroupReqBuilder) PageSize(pageSize int) *ListMailgroupReqBuilder {
-	builder.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	builder.httpReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ListMailgroupReqBuilder) Build() *ListMailgroupReq {
 	req := &ListMailgroupReq{}
-	req.HttpReq = &larkcore.HttpReq{}
+	req.httpReq = &larkcore.HttpReq{}
 	req.Limit = builder.limit
-	req.HttpReq.QueryParams = builder.QueryParams
+	req.httpReq.QueryParams = builder.httpReq.QueryParams
 	return req
 }
 
 type ListMailgroupReq struct {
-	*larkcore.HttpReq
-	Limit int
+	httpReq *larkcore.HttpReq
+	Limit   int
 }
 
 type ListMailgroupRespData struct {
@@ -774,14 +774,14 @@ func (resp *ListMailgroupResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type PatchMailgroupReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq   *larkcore.HttpReq
 	mailgroup *Mailgroup
 }
 
 // 生成请求的New构造器
 func NewPatchMailgroupReqBuilder() *PatchMailgroupReqBuilder {
 	builder := &PatchMailgroupReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -790,7 +790,7 @@ func NewPatchMailgroupReqBuilder() *PatchMailgroupReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *PatchMailgroupReqBuilder) MailgroupId(mailgroupId string) *PatchMailgroupReqBuilder {
-	builder.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
+	builder.httpReq.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
 	return builder
 }
 func (builder *PatchMailgroupReqBuilder) Mailgroup(mailgroup *Mailgroup) *PatchMailgroupReqBuilder {
@@ -801,14 +801,14 @@ func (builder *PatchMailgroupReqBuilder) Mailgroup(mailgroup *Mailgroup) *PatchM
 // 1.5 生成请求的builder的build方法
 func (builder *PatchMailgroupReqBuilder) Build() *PatchMailgroupReq {
 	req := &PatchMailgroupReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.Body = builder.mailgroup
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.Body = builder.mailgroup
 	return req
 }
 
 type PatchMailgroupReq struct {
-	*larkcore.HttpReq
+	httpReq   *larkcore.HttpReq
 	Mailgroup *Mailgroup `body:""`
 }
 
@@ -835,14 +835,14 @@ func (resp *PatchMailgroupResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type UpdateMailgroupReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq   *larkcore.HttpReq
 	mailgroup *Mailgroup
 }
 
 // 生成请求的New构造器
 func NewUpdateMailgroupReqBuilder() *UpdateMailgroupReqBuilder {
 	builder := &UpdateMailgroupReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -851,7 +851,7 @@ func NewUpdateMailgroupReqBuilder() *UpdateMailgroupReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *UpdateMailgroupReqBuilder) MailgroupId(mailgroupId string) *UpdateMailgroupReqBuilder {
-	builder.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
+	builder.httpReq.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
 	return builder
 }
 func (builder *UpdateMailgroupReqBuilder) Mailgroup(mailgroup *Mailgroup) *UpdateMailgroupReqBuilder {
@@ -862,14 +862,14 @@ func (builder *UpdateMailgroupReqBuilder) Mailgroup(mailgroup *Mailgroup) *Updat
 // 1.5 生成请求的builder的build方法
 func (builder *UpdateMailgroupReqBuilder) Build() *UpdateMailgroupReq {
 	req := &UpdateMailgroupReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.Body = builder.mailgroup
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.Body = builder.mailgroup
 	return req
 }
 
 type UpdateMailgroupReq struct {
-	*larkcore.HttpReq
+	httpReq   *larkcore.HttpReq
 	Mailgroup *Mailgroup `body:""`
 }
 
@@ -896,14 +896,14 @@ func (resp *UpdateMailgroupResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type CreateMailgroupAliasReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq    *larkcore.HttpReq
 	emailAlias *EmailAlias
 }
 
 // 生成请求的New构造器
 func NewCreateMailgroupAliasReqBuilder() *CreateMailgroupAliasReqBuilder {
 	builder := &CreateMailgroupAliasReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -912,7 +912,7 @@ func NewCreateMailgroupAliasReqBuilder() *CreateMailgroupAliasReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *CreateMailgroupAliasReqBuilder) MailgroupId(mailgroupId string) *CreateMailgroupAliasReqBuilder {
-	builder.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
+	builder.httpReq.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
 	return builder
 }
 func (builder *CreateMailgroupAliasReqBuilder) EmailAlias(emailAlias *EmailAlias) *CreateMailgroupAliasReqBuilder {
@@ -923,14 +923,14 @@ func (builder *CreateMailgroupAliasReqBuilder) EmailAlias(emailAlias *EmailAlias
 // 1.5 生成请求的builder的build方法
 func (builder *CreateMailgroupAliasReqBuilder) Build() *CreateMailgroupAliasReq {
 	req := &CreateMailgroupAliasReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.Body = builder.emailAlias
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.Body = builder.emailAlias
 	return req
 }
 
 type CreateMailgroupAliasReq struct {
-	*larkcore.HttpReq
+	httpReq    *larkcore.HttpReq
 	EmailAlias *EmailAlias `body:""`
 }
 
@@ -950,13 +950,13 @@ func (resp *CreateMailgroupAliasResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type DeleteMailgroupAliasReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewDeleteMailgroupAliasReqBuilder() *DeleteMailgroupAliasReqBuilder {
 	builder := &DeleteMailgroupAliasReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -965,24 +965,24 @@ func NewDeleteMailgroupAliasReqBuilder() *DeleteMailgroupAliasReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *DeleteMailgroupAliasReqBuilder) MailgroupId(mailgroupId string) *DeleteMailgroupAliasReqBuilder {
-	builder.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
+	builder.httpReq.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
 	return builder
 }
 func (builder *DeleteMailgroupAliasReqBuilder) AliasId(aliasId string) *DeleteMailgroupAliasReqBuilder {
-	builder.PathParams.Set("alias_id", fmt.Sprint(aliasId))
+	builder.httpReq.PathParams.Set("alias_id", fmt.Sprint(aliasId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *DeleteMailgroupAliasReqBuilder) Build() *DeleteMailgroupAliasReq {
 	req := &DeleteMailgroupAliasReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
 	return req
 }
 
 type DeleteMailgroupAliasReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type DeleteMailgroupAliasResp struct {
@@ -996,13 +996,13 @@ func (resp *DeleteMailgroupAliasResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type ListMailgroupAliasReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewListMailgroupAliasReqBuilder() *ListMailgroupAliasReqBuilder {
 	builder := &ListMailgroupAliasReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1011,20 +1011,20 @@ func NewListMailgroupAliasReqBuilder() *ListMailgroupAliasReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *ListMailgroupAliasReqBuilder) MailgroupId(mailgroupId string) *ListMailgroupAliasReqBuilder {
-	builder.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
+	builder.httpReq.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ListMailgroupAliasReqBuilder) Build() *ListMailgroupAliasReq {
 	req := &ListMailgroupAliasReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
 	return req
 }
 
 type ListMailgroupAliasReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type ListMailgroupAliasRespData struct {
@@ -1043,14 +1043,14 @@ func (resp *ListMailgroupAliasResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type CreateMailgroupMemberReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq         *larkcore.HttpReq
 	mailgroupMember *MailgroupMember
 }
 
 // 生成请求的New构造器
 func NewCreateMailgroupMemberReqBuilder() *CreateMailgroupMemberReqBuilder {
 	builder := &CreateMailgroupMemberReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1059,15 +1059,15 @@ func NewCreateMailgroupMemberReqBuilder() *CreateMailgroupMemberReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *CreateMailgroupMemberReqBuilder) MailgroupId(mailgroupId string) *CreateMailgroupMemberReqBuilder {
-	builder.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
+	builder.httpReq.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
 	return builder
 }
 func (builder *CreateMailgroupMemberReqBuilder) UserIdType(userIdType string) *CreateMailgroupMemberReqBuilder {
-	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *CreateMailgroupMemberReqBuilder) DepartmentIdType(departmentIdType string) *CreateMailgroupMemberReqBuilder {
-	builder.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
+	builder.httpReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
 	return builder
 }
 func (builder *CreateMailgroupMemberReqBuilder) MailgroupMember(mailgroupMember *MailgroupMember) *CreateMailgroupMemberReqBuilder {
@@ -1078,15 +1078,15 @@ func (builder *CreateMailgroupMemberReqBuilder) MailgroupMember(mailgroupMember 
 // 1.5 生成请求的builder的build方法
 func (builder *CreateMailgroupMemberReqBuilder) Build() *CreateMailgroupMemberReq {
 	req := &CreateMailgroupMemberReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.QueryParams = builder.QueryParams
-	req.HttpReq.Body = builder.mailgroupMember
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.httpReq.Body = builder.mailgroupMember
 	return req
 }
 
 type CreateMailgroupMemberReq struct {
-	*larkcore.HttpReq
+	httpReq         *larkcore.HttpReq
 	MailgroupMember *MailgroupMember `body:""`
 }
 
@@ -1110,13 +1110,13 @@ func (resp *CreateMailgroupMemberResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type DeleteMailgroupMemberReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewDeleteMailgroupMemberReqBuilder() *DeleteMailgroupMemberReqBuilder {
 	builder := &DeleteMailgroupMemberReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1125,24 +1125,24 @@ func NewDeleteMailgroupMemberReqBuilder() *DeleteMailgroupMemberReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *DeleteMailgroupMemberReqBuilder) MailgroupId(mailgroupId string) *DeleteMailgroupMemberReqBuilder {
-	builder.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
+	builder.httpReq.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
 	return builder
 }
 func (builder *DeleteMailgroupMemberReqBuilder) MemberId(memberId string) *DeleteMailgroupMemberReqBuilder {
-	builder.PathParams.Set("member_id", fmt.Sprint(memberId))
+	builder.httpReq.PathParams.Set("member_id", fmt.Sprint(memberId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *DeleteMailgroupMemberReqBuilder) Build() *DeleteMailgroupMemberReq {
 	req := &DeleteMailgroupMemberReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
 	return req
 }
 
 type DeleteMailgroupMemberReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type DeleteMailgroupMemberResp struct {
@@ -1156,13 +1156,13 @@ func (resp *DeleteMailgroupMemberResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type GetMailgroupMemberReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewGetMailgroupMemberReqBuilder() *GetMailgroupMemberReqBuilder {
 	builder := &GetMailgroupMemberReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1171,33 +1171,33 @@ func NewGetMailgroupMemberReqBuilder() *GetMailgroupMemberReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *GetMailgroupMemberReqBuilder) MailgroupId(mailgroupId string) *GetMailgroupMemberReqBuilder {
-	builder.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
+	builder.httpReq.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
 	return builder
 }
 func (builder *GetMailgroupMemberReqBuilder) MemberId(memberId string) *GetMailgroupMemberReqBuilder {
-	builder.PathParams.Set("member_id", fmt.Sprint(memberId))
+	builder.httpReq.PathParams.Set("member_id", fmt.Sprint(memberId))
 	return builder
 }
 func (builder *GetMailgroupMemberReqBuilder) UserIdType(userIdType string) *GetMailgroupMemberReqBuilder {
-	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *GetMailgroupMemberReqBuilder) DepartmentIdType(departmentIdType string) *GetMailgroupMemberReqBuilder {
-	builder.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
+	builder.httpReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *GetMailgroupMemberReqBuilder) Build() *GetMailgroupMemberReq {
 	req := &GetMailgroupMemberReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.QueryParams = builder.QueryParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.QueryParams = builder.httpReq.QueryParams
 	return req
 }
 
 type GetMailgroupMemberReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type GetMailgroupMemberRespData struct {
@@ -1220,14 +1220,14 @@ func (resp *GetMailgroupMemberResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type ListMailgroupMemberReqBuilder struct {
-	*larkcore.HttpReq
-	limit int
+	httpReq *larkcore.HttpReq
+	limit   int
 }
 
 // 生成请求的New构造器
 func NewListMailgroupMemberReqBuilder() *ListMailgroupMemberReqBuilder {
 	builder := &ListMailgroupMemberReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1240,39 +1240,39 @@ func (builder *ListMailgroupMemberReqBuilder) Limit(limit int) *ListMailgroupMem
 	return builder
 }
 func (builder *ListMailgroupMemberReqBuilder) MailgroupId(mailgroupId string) *ListMailgroupMemberReqBuilder {
-	builder.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
+	builder.httpReq.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
 	return builder
 }
 func (builder *ListMailgroupMemberReqBuilder) UserIdType(userIdType string) *ListMailgroupMemberReqBuilder {
-	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *ListMailgroupMemberReqBuilder) DepartmentIdType(departmentIdType string) *ListMailgroupMemberReqBuilder {
-	builder.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
+	builder.httpReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
 	return builder
 }
 func (builder *ListMailgroupMemberReqBuilder) PageToken(pageToken string) *ListMailgroupMemberReqBuilder {
-	builder.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	builder.httpReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 func (builder *ListMailgroupMemberReqBuilder) PageSize(pageSize int) *ListMailgroupMemberReqBuilder {
-	builder.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	builder.httpReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ListMailgroupMemberReqBuilder) Build() *ListMailgroupMemberReq {
 	req := &ListMailgroupMemberReq{}
-	req.HttpReq = &larkcore.HttpReq{}
+	req.httpReq = &larkcore.HttpReq{}
 	req.Limit = builder.limit
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.QueryParams = builder.QueryParams
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.QueryParams = builder.httpReq.QueryParams
 	return req
 }
 
 type ListMailgroupMemberReq struct {
-	*larkcore.HttpReq
-	Limit int
+	httpReq *larkcore.HttpReq
+	Limit   int
 }
 
 type ListMailgroupMemberRespData struct {
@@ -1293,14 +1293,14 @@ func (resp *ListMailgroupMemberResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type CreateMailgroupPermissionMemberReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq                   *larkcore.HttpReq
 	mailgroupPermissionMember *MailgroupPermissionMember
 }
 
 // 生成请求的New构造器
 func NewCreateMailgroupPermissionMemberReqBuilder() *CreateMailgroupPermissionMemberReqBuilder {
 	builder := &CreateMailgroupPermissionMemberReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1309,15 +1309,15 @@ func NewCreateMailgroupPermissionMemberReqBuilder() *CreateMailgroupPermissionMe
 
 // 1.5 生成请求的builder属性方法
 func (builder *CreateMailgroupPermissionMemberReqBuilder) MailgroupId(mailgroupId string) *CreateMailgroupPermissionMemberReqBuilder {
-	builder.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
+	builder.httpReq.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
 	return builder
 }
 func (builder *CreateMailgroupPermissionMemberReqBuilder) UserIdType(userIdType string) *CreateMailgroupPermissionMemberReqBuilder {
-	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *CreateMailgroupPermissionMemberReqBuilder) DepartmentIdType(departmentIdType string) *CreateMailgroupPermissionMemberReqBuilder {
-	builder.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
+	builder.httpReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
 	return builder
 }
 func (builder *CreateMailgroupPermissionMemberReqBuilder) MailgroupPermissionMember(mailgroupPermissionMember *MailgroupPermissionMember) *CreateMailgroupPermissionMemberReqBuilder {
@@ -1328,15 +1328,15 @@ func (builder *CreateMailgroupPermissionMemberReqBuilder) MailgroupPermissionMem
 // 1.5 生成请求的builder的build方法
 func (builder *CreateMailgroupPermissionMemberReqBuilder) Build() *CreateMailgroupPermissionMemberReq {
 	req := &CreateMailgroupPermissionMemberReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.QueryParams = builder.QueryParams
-	req.HttpReq.Body = builder.mailgroupPermissionMember
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.httpReq.Body = builder.mailgroupPermissionMember
 	return req
 }
 
 type CreateMailgroupPermissionMemberReq struct {
-	*larkcore.HttpReq
+	httpReq                   *larkcore.HttpReq
 	MailgroupPermissionMember *MailgroupPermissionMember `body:""`
 }
 
@@ -1359,13 +1359,13 @@ func (resp *CreateMailgroupPermissionMemberResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type DeleteMailgroupPermissionMemberReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewDeleteMailgroupPermissionMemberReqBuilder() *DeleteMailgroupPermissionMemberReqBuilder {
 	builder := &DeleteMailgroupPermissionMemberReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1374,24 +1374,24 @@ func NewDeleteMailgroupPermissionMemberReqBuilder() *DeleteMailgroupPermissionMe
 
 // 1.5 生成请求的builder属性方法
 func (builder *DeleteMailgroupPermissionMemberReqBuilder) MailgroupId(mailgroupId string) *DeleteMailgroupPermissionMemberReqBuilder {
-	builder.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
+	builder.httpReq.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
 	return builder
 }
 func (builder *DeleteMailgroupPermissionMemberReqBuilder) PermissionMemberId(permissionMemberId string) *DeleteMailgroupPermissionMemberReqBuilder {
-	builder.PathParams.Set("permission_member_id", fmt.Sprint(permissionMemberId))
+	builder.httpReq.PathParams.Set("permission_member_id", fmt.Sprint(permissionMemberId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *DeleteMailgroupPermissionMemberReqBuilder) Build() *DeleteMailgroupPermissionMemberReq {
 	req := &DeleteMailgroupPermissionMemberReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
 	return req
 }
 
 type DeleteMailgroupPermissionMemberReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type DeleteMailgroupPermissionMemberResp struct {
@@ -1405,13 +1405,13 @@ func (resp *DeleteMailgroupPermissionMemberResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type GetMailgroupPermissionMemberReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewGetMailgroupPermissionMemberReqBuilder() *GetMailgroupPermissionMemberReqBuilder {
 	builder := &GetMailgroupPermissionMemberReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1420,33 +1420,33 @@ func NewGetMailgroupPermissionMemberReqBuilder() *GetMailgroupPermissionMemberRe
 
 // 1.5 生成请求的builder属性方法
 func (builder *GetMailgroupPermissionMemberReqBuilder) MailgroupId(mailgroupId string) *GetMailgroupPermissionMemberReqBuilder {
-	builder.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
+	builder.httpReq.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
 	return builder
 }
 func (builder *GetMailgroupPermissionMemberReqBuilder) PermissionMemberId(permissionMemberId string) *GetMailgroupPermissionMemberReqBuilder {
-	builder.PathParams.Set("permission_member_id", fmt.Sprint(permissionMemberId))
+	builder.httpReq.PathParams.Set("permission_member_id", fmt.Sprint(permissionMemberId))
 	return builder
 }
 func (builder *GetMailgroupPermissionMemberReqBuilder) UserIdType(userIdType string) *GetMailgroupPermissionMemberReqBuilder {
-	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *GetMailgroupPermissionMemberReqBuilder) DepartmentIdType(departmentIdType string) *GetMailgroupPermissionMemberReqBuilder {
-	builder.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
+	builder.httpReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *GetMailgroupPermissionMemberReqBuilder) Build() *GetMailgroupPermissionMemberReq {
 	req := &GetMailgroupPermissionMemberReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.QueryParams = builder.QueryParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.QueryParams = builder.httpReq.QueryParams
 	return req
 }
 
 type GetMailgroupPermissionMemberReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type GetMailgroupPermissionMemberRespData struct {
@@ -1468,14 +1468,14 @@ func (resp *GetMailgroupPermissionMemberResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type ListMailgroupPermissionMemberReqBuilder struct {
-	*larkcore.HttpReq
-	limit int
+	httpReq *larkcore.HttpReq
+	limit   int
 }
 
 // 生成请求的New构造器
 func NewListMailgroupPermissionMemberReqBuilder() *ListMailgroupPermissionMemberReqBuilder {
 	builder := &ListMailgroupPermissionMemberReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1488,39 +1488,39 @@ func (builder *ListMailgroupPermissionMemberReqBuilder) Limit(limit int) *ListMa
 	return builder
 }
 func (builder *ListMailgroupPermissionMemberReqBuilder) MailgroupId(mailgroupId string) *ListMailgroupPermissionMemberReqBuilder {
-	builder.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
+	builder.httpReq.PathParams.Set("mailgroup_id", fmt.Sprint(mailgroupId))
 	return builder
 }
 func (builder *ListMailgroupPermissionMemberReqBuilder) UserIdType(userIdType string) *ListMailgroupPermissionMemberReqBuilder {
-	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *ListMailgroupPermissionMemberReqBuilder) DepartmentIdType(departmentIdType string) *ListMailgroupPermissionMemberReqBuilder {
-	builder.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
+	builder.httpReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
 	return builder
 }
 func (builder *ListMailgroupPermissionMemberReqBuilder) PageToken(pageToken string) *ListMailgroupPermissionMemberReqBuilder {
-	builder.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	builder.httpReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 func (builder *ListMailgroupPermissionMemberReqBuilder) PageSize(pageSize int) *ListMailgroupPermissionMemberReqBuilder {
-	builder.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	builder.httpReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ListMailgroupPermissionMemberReqBuilder) Build() *ListMailgroupPermissionMemberReq {
 	req := &ListMailgroupPermissionMemberReq{}
-	req.HttpReq = &larkcore.HttpReq{}
+	req.httpReq = &larkcore.HttpReq{}
 	req.Limit = builder.limit
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.QueryParams = builder.QueryParams
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.QueryParams = builder.httpReq.QueryParams
 	return req
 }
 
 type ListMailgroupPermissionMemberReq struct {
-	*larkcore.HttpReq
-	Limit int
+	httpReq *larkcore.HttpReq
+	Limit   int
 }
 
 type ListMailgroupPermissionMemberRespData struct {
@@ -1541,14 +1541,14 @@ func (resp *ListMailgroupPermissionMemberResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type CreatePublicMailboxReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq       *larkcore.HttpReq
 	publicMailbox *PublicMailbox
 }
 
 // 生成请求的New构造器
 func NewCreatePublicMailboxReqBuilder() *CreatePublicMailboxReqBuilder {
 	builder := &CreatePublicMailboxReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1564,13 +1564,13 @@ func (builder *CreatePublicMailboxReqBuilder) PublicMailbox(publicMailbox *Publi
 // 1.5 生成请求的builder的build方法
 func (builder *CreatePublicMailboxReqBuilder) Build() *CreatePublicMailboxReq {
 	req := &CreatePublicMailboxReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.Body = builder.publicMailbox
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.Body = builder.publicMailbox
 	return req
 }
 
 type CreatePublicMailboxReq struct {
-	*larkcore.HttpReq
+	httpReq       *larkcore.HttpReq
 	PublicMailbox *PublicMailbox `body:""`
 }
 
@@ -1592,13 +1592,13 @@ func (resp *CreatePublicMailboxResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type DeletePublicMailboxReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewDeletePublicMailboxReqBuilder() *DeletePublicMailboxReqBuilder {
 	builder := &DeletePublicMailboxReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1607,20 +1607,20 @@ func NewDeletePublicMailboxReqBuilder() *DeletePublicMailboxReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *DeletePublicMailboxReqBuilder) PublicMailboxId(publicMailboxId string) *DeletePublicMailboxReqBuilder {
-	builder.PathParams.Set("public_mailbox_id", fmt.Sprint(publicMailboxId))
+	builder.httpReq.PathParams.Set("public_mailbox_id", fmt.Sprint(publicMailboxId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *DeletePublicMailboxReqBuilder) Build() *DeletePublicMailboxReq {
 	req := &DeletePublicMailboxReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
 	return req
 }
 
 type DeletePublicMailboxReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type DeletePublicMailboxResp struct {
@@ -1634,13 +1634,13 @@ func (resp *DeletePublicMailboxResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type GetPublicMailboxReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewGetPublicMailboxReqBuilder() *GetPublicMailboxReqBuilder {
 	builder := &GetPublicMailboxReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1649,20 +1649,20 @@ func NewGetPublicMailboxReqBuilder() *GetPublicMailboxReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *GetPublicMailboxReqBuilder) PublicMailboxId(publicMailboxId string) *GetPublicMailboxReqBuilder {
-	builder.PathParams.Set("public_mailbox_id", fmt.Sprint(publicMailboxId))
+	builder.httpReq.PathParams.Set("public_mailbox_id", fmt.Sprint(publicMailboxId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *GetPublicMailboxReqBuilder) Build() *GetPublicMailboxReq {
 	req := &GetPublicMailboxReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
 	return req
 }
 
 type GetPublicMailboxReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type GetPublicMailboxRespData struct {
@@ -1683,14 +1683,14 @@ func (resp *GetPublicMailboxResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type ListPublicMailboxReqBuilder struct {
-	*larkcore.HttpReq
-	limit int
+	httpReq *larkcore.HttpReq
+	limit   int
 }
 
 // 生成请求的New构造器
 func NewListPublicMailboxReqBuilder() *ListPublicMailboxReqBuilder {
 	builder := &ListPublicMailboxReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1703,26 +1703,26 @@ func (builder *ListPublicMailboxReqBuilder) Limit(limit int) *ListPublicMailboxR
 	return builder
 }
 func (builder *ListPublicMailboxReqBuilder) PageToken(pageToken string) *ListPublicMailboxReqBuilder {
-	builder.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	builder.httpReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 func (builder *ListPublicMailboxReqBuilder) PageSize(pageSize int) *ListPublicMailboxReqBuilder {
-	builder.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	builder.httpReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ListPublicMailboxReqBuilder) Build() *ListPublicMailboxReq {
 	req := &ListPublicMailboxReq{}
-	req.HttpReq = &larkcore.HttpReq{}
+	req.httpReq = &larkcore.HttpReq{}
 	req.Limit = builder.limit
-	req.HttpReq.QueryParams = builder.QueryParams
+	req.httpReq.QueryParams = builder.httpReq.QueryParams
 	return req
 }
 
 type ListPublicMailboxReq struct {
-	*larkcore.HttpReq
-	Limit int
+	httpReq *larkcore.HttpReq
+	Limit   int
 }
 
 type ListPublicMailboxRespData struct {
@@ -1743,14 +1743,14 @@ func (resp *ListPublicMailboxResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type PatchPublicMailboxReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq       *larkcore.HttpReq
 	publicMailbox *PublicMailbox
 }
 
 // 生成请求的New构造器
 func NewPatchPublicMailboxReqBuilder() *PatchPublicMailboxReqBuilder {
 	builder := &PatchPublicMailboxReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1759,7 +1759,7 @@ func NewPatchPublicMailboxReqBuilder() *PatchPublicMailboxReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *PatchPublicMailboxReqBuilder) PublicMailboxId(publicMailboxId string) *PatchPublicMailboxReqBuilder {
-	builder.PathParams.Set("public_mailbox_id", fmt.Sprint(publicMailboxId))
+	builder.httpReq.PathParams.Set("public_mailbox_id", fmt.Sprint(publicMailboxId))
 	return builder
 }
 func (builder *PatchPublicMailboxReqBuilder) PublicMailbox(publicMailbox *PublicMailbox) *PatchPublicMailboxReqBuilder {
@@ -1770,14 +1770,14 @@ func (builder *PatchPublicMailboxReqBuilder) PublicMailbox(publicMailbox *Public
 // 1.5 生成请求的builder的build方法
 func (builder *PatchPublicMailboxReqBuilder) Build() *PatchPublicMailboxReq {
 	req := &PatchPublicMailboxReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.Body = builder.publicMailbox
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.Body = builder.publicMailbox
 	return req
 }
 
 type PatchPublicMailboxReq struct {
-	*larkcore.HttpReq
+	httpReq       *larkcore.HttpReq
 	PublicMailbox *PublicMailbox `body:""`
 }
 
@@ -1799,14 +1799,14 @@ func (resp *PatchPublicMailboxResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type UpdatePublicMailboxReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq       *larkcore.HttpReq
 	publicMailbox *PublicMailbox
 }
 
 // 生成请求的New构造器
 func NewUpdatePublicMailboxReqBuilder() *UpdatePublicMailboxReqBuilder {
 	builder := &UpdatePublicMailboxReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1815,7 +1815,7 @@ func NewUpdatePublicMailboxReqBuilder() *UpdatePublicMailboxReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *UpdatePublicMailboxReqBuilder) PublicMailboxId(publicMailboxId string) *UpdatePublicMailboxReqBuilder {
-	builder.PathParams.Set("public_mailbox_id", fmt.Sprint(publicMailboxId))
+	builder.httpReq.PathParams.Set("public_mailbox_id", fmt.Sprint(publicMailboxId))
 	return builder
 }
 func (builder *UpdatePublicMailboxReqBuilder) PublicMailbox(publicMailbox *PublicMailbox) *UpdatePublicMailboxReqBuilder {
@@ -1826,14 +1826,14 @@ func (builder *UpdatePublicMailboxReqBuilder) PublicMailbox(publicMailbox *Publi
 // 1.5 生成请求的builder的build方法
 func (builder *UpdatePublicMailboxReqBuilder) Build() *UpdatePublicMailboxReq {
 	req := &UpdatePublicMailboxReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.Body = builder.publicMailbox
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.Body = builder.publicMailbox
 	return req
 }
 
 type UpdatePublicMailboxReq struct {
-	*larkcore.HttpReq
+	httpReq       *larkcore.HttpReq
 	PublicMailbox *PublicMailbox `body:""`
 }
 
@@ -1855,14 +1855,14 @@ func (resp *UpdatePublicMailboxResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type CreatePublicMailboxAliasReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq    *larkcore.HttpReq
 	emailAlias *EmailAlias
 }
 
 // 生成请求的New构造器
 func NewCreatePublicMailboxAliasReqBuilder() *CreatePublicMailboxAliasReqBuilder {
 	builder := &CreatePublicMailboxAliasReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1871,7 +1871,7 @@ func NewCreatePublicMailboxAliasReqBuilder() *CreatePublicMailboxAliasReqBuilder
 
 // 1.5 生成请求的builder属性方法
 func (builder *CreatePublicMailboxAliasReqBuilder) PublicMailboxId(publicMailboxId string) *CreatePublicMailboxAliasReqBuilder {
-	builder.PathParams.Set("public_mailbox_id", fmt.Sprint(publicMailboxId))
+	builder.httpReq.PathParams.Set("public_mailbox_id", fmt.Sprint(publicMailboxId))
 	return builder
 }
 func (builder *CreatePublicMailboxAliasReqBuilder) EmailAlias(emailAlias *EmailAlias) *CreatePublicMailboxAliasReqBuilder {
@@ -1882,14 +1882,14 @@ func (builder *CreatePublicMailboxAliasReqBuilder) EmailAlias(emailAlias *EmailA
 // 1.5 生成请求的builder的build方法
 func (builder *CreatePublicMailboxAliasReqBuilder) Build() *CreatePublicMailboxAliasReq {
 	req := &CreatePublicMailboxAliasReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.Body = builder.emailAlias
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.Body = builder.emailAlias
 	return req
 }
 
 type CreatePublicMailboxAliasReq struct {
-	*larkcore.HttpReq
+	httpReq    *larkcore.HttpReq
 	EmailAlias *EmailAlias `body:""`
 }
 
@@ -1909,13 +1909,13 @@ func (resp *CreatePublicMailboxAliasResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type DeletePublicMailboxAliasReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewDeletePublicMailboxAliasReqBuilder() *DeletePublicMailboxAliasReqBuilder {
 	builder := &DeletePublicMailboxAliasReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1924,24 +1924,24 @@ func NewDeletePublicMailboxAliasReqBuilder() *DeletePublicMailboxAliasReqBuilder
 
 // 1.5 生成请求的builder属性方法
 func (builder *DeletePublicMailboxAliasReqBuilder) PublicMailboxId(publicMailboxId string) *DeletePublicMailboxAliasReqBuilder {
-	builder.PathParams.Set("public_mailbox_id", fmt.Sprint(publicMailboxId))
+	builder.httpReq.PathParams.Set("public_mailbox_id", fmt.Sprint(publicMailboxId))
 	return builder
 }
 func (builder *DeletePublicMailboxAliasReqBuilder) AliasId(aliasId string) *DeletePublicMailboxAliasReqBuilder {
-	builder.PathParams.Set("alias_id", fmt.Sprint(aliasId))
+	builder.httpReq.PathParams.Set("alias_id", fmt.Sprint(aliasId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *DeletePublicMailboxAliasReqBuilder) Build() *DeletePublicMailboxAliasReq {
 	req := &DeletePublicMailboxAliasReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
 	return req
 }
 
 type DeletePublicMailboxAliasReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type DeletePublicMailboxAliasResp struct {
@@ -1955,13 +1955,13 @@ func (resp *DeletePublicMailboxAliasResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type ListPublicMailboxAliasReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewListPublicMailboxAliasReqBuilder() *ListPublicMailboxAliasReqBuilder {
 	builder := &ListPublicMailboxAliasReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1970,20 +1970,20 @@ func NewListPublicMailboxAliasReqBuilder() *ListPublicMailboxAliasReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *ListPublicMailboxAliasReqBuilder) PublicMailboxId(publicMailboxId string) *ListPublicMailboxAliasReqBuilder {
-	builder.PathParams.Set("public_mailbox_id", fmt.Sprint(publicMailboxId))
+	builder.httpReq.PathParams.Set("public_mailbox_id", fmt.Sprint(publicMailboxId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ListPublicMailboxAliasReqBuilder) Build() *ListPublicMailboxAliasReq {
 	req := &ListPublicMailboxAliasReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
 	return req
 }
 
 type ListPublicMailboxAliasReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type ListPublicMailboxAliasRespData struct {
@@ -2002,13 +2002,13 @@ func (resp *ListPublicMailboxAliasResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type ClearPublicMailboxMemberReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewClearPublicMailboxMemberReqBuilder() *ClearPublicMailboxMemberReqBuilder {
 	builder := &ClearPublicMailboxMemberReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -2017,20 +2017,20 @@ func NewClearPublicMailboxMemberReqBuilder() *ClearPublicMailboxMemberReqBuilder
 
 // 1.5 生成请求的builder属性方法
 func (builder *ClearPublicMailboxMemberReqBuilder) PublicMailboxId(publicMailboxId string) *ClearPublicMailboxMemberReqBuilder {
-	builder.PathParams.Set("public_mailbox_id", fmt.Sprint(publicMailboxId))
+	builder.httpReq.PathParams.Set("public_mailbox_id", fmt.Sprint(publicMailboxId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ClearPublicMailboxMemberReqBuilder) Build() *ClearPublicMailboxMemberReq {
 	req := &ClearPublicMailboxMemberReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
 	return req
 }
 
 type ClearPublicMailboxMemberReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type ClearPublicMailboxMemberResp struct {
@@ -2044,14 +2044,14 @@ func (resp *ClearPublicMailboxMemberResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type CreatePublicMailboxMemberReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq             *larkcore.HttpReq
 	publicMailboxMember *PublicMailboxMember
 }
 
 // 生成请求的New构造器
 func NewCreatePublicMailboxMemberReqBuilder() *CreatePublicMailboxMemberReqBuilder {
 	builder := &CreatePublicMailboxMemberReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -2060,11 +2060,11 @@ func NewCreatePublicMailboxMemberReqBuilder() *CreatePublicMailboxMemberReqBuild
 
 // 1.5 生成请求的builder属性方法
 func (builder *CreatePublicMailboxMemberReqBuilder) PublicMailboxId(publicMailboxId string) *CreatePublicMailboxMemberReqBuilder {
-	builder.PathParams.Set("public_mailbox_id", fmt.Sprint(publicMailboxId))
+	builder.httpReq.PathParams.Set("public_mailbox_id", fmt.Sprint(publicMailboxId))
 	return builder
 }
 func (builder *CreatePublicMailboxMemberReqBuilder) UserIdType(userIdType string) *CreatePublicMailboxMemberReqBuilder {
-	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *CreatePublicMailboxMemberReqBuilder) PublicMailboxMember(publicMailboxMember *PublicMailboxMember) *CreatePublicMailboxMemberReqBuilder {
@@ -2075,15 +2075,15 @@ func (builder *CreatePublicMailboxMemberReqBuilder) PublicMailboxMember(publicMa
 // 1.5 生成请求的builder的build方法
 func (builder *CreatePublicMailboxMemberReqBuilder) Build() *CreatePublicMailboxMemberReq {
 	req := &CreatePublicMailboxMemberReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.QueryParams = builder.QueryParams
-	req.HttpReq.Body = builder.publicMailboxMember
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.httpReq.Body = builder.publicMailboxMember
 	return req
 }
 
 type CreatePublicMailboxMemberReq struct {
-	*larkcore.HttpReq
+	httpReq             *larkcore.HttpReq
 	PublicMailboxMember *PublicMailboxMember `body:""`
 }
 
@@ -2105,13 +2105,13 @@ func (resp *CreatePublicMailboxMemberResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type DeletePublicMailboxMemberReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewDeletePublicMailboxMemberReqBuilder() *DeletePublicMailboxMemberReqBuilder {
 	builder := &DeletePublicMailboxMemberReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -2120,24 +2120,24 @@ func NewDeletePublicMailboxMemberReqBuilder() *DeletePublicMailboxMemberReqBuild
 
 // 1.5 生成请求的builder属性方法
 func (builder *DeletePublicMailboxMemberReqBuilder) PublicMailboxId(publicMailboxId string) *DeletePublicMailboxMemberReqBuilder {
-	builder.PathParams.Set("public_mailbox_id", fmt.Sprint(publicMailboxId))
+	builder.httpReq.PathParams.Set("public_mailbox_id", fmt.Sprint(publicMailboxId))
 	return builder
 }
 func (builder *DeletePublicMailboxMemberReqBuilder) MemberId(memberId string) *DeletePublicMailboxMemberReqBuilder {
-	builder.PathParams.Set("member_id", fmt.Sprint(memberId))
+	builder.httpReq.PathParams.Set("member_id", fmt.Sprint(memberId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *DeletePublicMailboxMemberReqBuilder) Build() *DeletePublicMailboxMemberReq {
 	req := &DeletePublicMailboxMemberReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
 	return req
 }
 
 type DeletePublicMailboxMemberReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type DeletePublicMailboxMemberResp struct {
@@ -2151,13 +2151,13 @@ func (resp *DeletePublicMailboxMemberResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type GetPublicMailboxMemberReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewGetPublicMailboxMemberReqBuilder() *GetPublicMailboxMemberReqBuilder {
 	builder := &GetPublicMailboxMemberReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -2166,29 +2166,29 @@ func NewGetPublicMailboxMemberReqBuilder() *GetPublicMailboxMemberReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *GetPublicMailboxMemberReqBuilder) PublicMailboxId(publicMailboxId string) *GetPublicMailboxMemberReqBuilder {
-	builder.PathParams.Set("public_mailbox_id", fmt.Sprint(publicMailboxId))
+	builder.httpReq.PathParams.Set("public_mailbox_id", fmt.Sprint(publicMailboxId))
 	return builder
 }
 func (builder *GetPublicMailboxMemberReqBuilder) MemberId(memberId string) *GetPublicMailboxMemberReqBuilder {
-	builder.PathParams.Set("member_id", fmt.Sprint(memberId))
+	builder.httpReq.PathParams.Set("member_id", fmt.Sprint(memberId))
 	return builder
 }
 func (builder *GetPublicMailboxMemberReqBuilder) UserIdType(userIdType string) *GetPublicMailboxMemberReqBuilder {
-	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *GetPublicMailboxMemberReqBuilder) Build() *GetPublicMailboxMemberReq {
 	req := &GetPublicMailboxMemberReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.QueryParams = builder.QueryParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.QueryParams = builder.httpReq.QueryParams
 	return req
 }
 
 type GetPublicMailboxMemberReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type GetPublicMailboxMemberRespData struct {
@@ -2209,14 +2209,14 @@ func (resp *GetPublicMailboxMemberResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type ListPublicMailboxMemberReqBuilder struct {
-	*larkcore.HttpReq
-	limit int
+	httpReq *larkcore.HttpReq
+	limit   int
 }
 
 // 生成请求的New构造器
 func NewListPublicMailboxMemberReqBuilder() *ListPublicMailboxMemberReqBuilder {
 	builder := &ListPublicMailboxMemberReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -2229,35 +2229,35 @@ func (builder *ListPublicMailboxMemberReqBuilder) Limit(limit int) *ListPublicMa
 	return builder
 }
 func (builder *ListPublicMailboxMemberReqBuilder) PublicMailboxId(publicMailboxId string) *ListPublicMailboxMemberReqBuilder {
-	builder.PathParams.Set("public_mailbox_id", fmt.Sprint(publicMailboxId))
+	builder.httpReq.PathParams.Set("public_mailbox_id", fmt.Sprint(publicMailboxId))
 	return builder
 }
 func (builder *ListPublicMailboxMemberReqBuilder) UserIdType(userIdType string) *ListPublicMailboxMemberReqBuilder {
-	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *ListPublicMailboxMemberReqBuilder) PageToken(pageToken string) *ListPublicMailboxMemberReqBuilder {
-	builder.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	builder.httpReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 func (builder *ListPublicMailboxMemberReqBuilder) PageSize(pageSize int) *ListPublicMailboxMemberReqBuilder {
-	builder.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	builder.httpReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ListPublicMailboxMemberReqBuilder) Build() *ListPublicMailboxMemberReq {
 	req := &ListPublicMailboxMemberReq{}
-	req.HttpReq = &larkcore.HttpReq{}
+	req.httpReq = &larkcore.HttpReq{}
 	req.Limit = builder.limit
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.QueryParams = builder.QueryParams
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.QueryParams = builder.httpReq.QueryParams
 	return req
 }
 
 type ListPublicMailboxMemberReq struct {
-	*larkcore.HttpReq
-	Limit int
+	httpReq *larkcore.HttpReq
+	Limit   int
 }
 
 type ListPublicMailboxMemberRespData struct {
@@ -2331,14 +2331,14 @@ func (builder *QueryUserPathReqBodyBuilder) Build() (*QueryUserReqBody, error) {
 
 // 1.4 生成请求的builder结构体
 type QueryUserReqBuilder struct {
-	*larkcore.HttpReq
-	body *QueryUserReqBody
+	httpReq *larkcore.HttpReq
+	body    *QueryUserReqBody
 }
 
 // 生成请求的New构造器
 func NewQueryUserReqBuilder() *QueryUserReqBuilder {
 	builder := &QueryUserReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -2354,8 +2354,8 @@ func (builder *QueryUserReqBuilder) Body(body *QueryUserReqBody) *QueryUserReqBu
 // 1.5 生成请求的builder的build方法
 func (builder *QueryUserReqBuilder) Build() *QueryUserReq {
 	req := &QueryUserReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.Body = builder.body
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.Body = builder.body
 	return req
 }
 
@@ -2364,8 +2364,8 @@ type QueryUserReqBody struct {
 }
 
 type QueryUserReq struct {
-	*larkcore.HttpReq
-	Body *QueryUserReqBody `body:""`
+	httpReq *larkcore.HttpReq
+	Body    *QueryUserReqBody `body:""`
 }
 
 type QueryUserRespData struct {
@@ -2384,13 +2384,13 @@ func (resp *QueryUserResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type DeleteUserMailboxReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewDeleteUserMailboxReqBuilder() *DeleteUserMailboxReqBuilder {
 	builder := &DeleteUserMailboxReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -2399,25 +2399,25 @@ func NewDeleteUserMailboxReqBuilder() *DeleteUserMailboxReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *DeleteUserMailboxReqBuilder) UserMailboxId(userMailboxId string) *DeleteUserMailboxReqBuilder {
-	builder.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
+	builder.httpReq.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
 	return builder
 }
 func (builder *DeleteUserMailboxReqBuilder) TransferMailbox(transferMailbox string) *DeleteUserMailboxReqBuilder {
-	builder.QueryParams.Set("transfer_mailbox", fmt.Sprint(transferMailbox))
+	builder.httpReq.QueryParams.Set("transfer_mailbox", fmt.Sprint(transferMailbox))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *DeleteUserMailboxReqBuilder) Build() *DeleteUserMailboxReq {
 	req := &DeleteUserMailboxReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.QueryParams = builder.QueryParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.QueryParams = builder.httpReq.QueryParams
 	return req
 }
 
 type DeleteUserMailboxReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type DeleteUserMailboxResp struct {
@@ -2431,14 +2431,14 @@ func (resp *DeleteUserMailboxResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type CreateUserMailboxAliasReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq    *larkcore.HttpReq
 	emailAlias *EmailAlias
 }
 
 // 生成请求的New构造器
 func NewCreateUserMailboxAliasReqBuilder() *CreateUserMailboxAliasReqBuilder {
 	builder := &CreateUserMailboxAliasReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -2447,7 +2447,7 @@ func NewCreateUserMailboxAliasReqBuilder() *CreateUserMailboxAliasReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *CreateUserMailboxAliasReqBuilder) UserMailboxId(userMailboxId string) *CreateUserMailboxAliasReqBuilder {
-	builder.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
+	builder.httpReq.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
 	return builder
 }
 func (builder *CreateUserMailboxAliasReqBuilder) EmailAlias(emailAlias *EmailAlias) *CreateUserMailboxAliasReqBuilder {
@@ -2458,14 +2458,14 @@ func (builder *CreateUserMailboxAliasReqBuilder) EmailAlias(emailAlias *EmailAli
 // 1.5 生成请求的builder的build方法
 func (builder *CreateUserMailboxAliasReqBuilder) Build() *CreateUserMailboxAliasReq {
 	req := &CreateUserMailboxAliasReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.Body = builder.emailAlias
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.Body = builder.emailAlias
 	return req
 }
 
 type CreateUserMailboxAliasReq struct {
-	*larkcore.HttpReq
+	httpReq    *larkcore.HttpReq
 	EmailAlias *EmailAlias `body:""`
 }
 
@@ -2485,13 +2485,13 @@ func (resp *CreateUserMailboxAliasResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type DeleteUserMailboxAliasReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewDeleteUserMailboxAliasReqBuilder() *DeleteUserMailboxAliasReqBuilder {
 	builder := &DeleteUserMailboxAliasReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -2500,24 +2500,24 @@ func NewDeleteUserMailboxAliasReqBuilder() *DeleteUserMailboxAliasReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *DeleteUserMailboxAliasReqBuilder) UserMailboxId(userMailboxId string) *DeleteUserMailboxAliasReqBuilder {
-	builder.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
+	builder.httpReq.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
 	return builder
 }
 func (builder *DeleteUserMailboxAliasReqBuilder) AliasId(aliasId string) *DeleteUserMailboxAliasReqBuilder {
-	builder.PathParams.Set("alias_id", fmt.Sprint(aliasId))
+	builder.httpReq.PathParams.Set("alias_id", fmt.Sprint(aliasId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *DeleteUserMailboxAliasReqBuilder) Build() *DeleteUserMailboxAliasReq {
 	req := &DeleteUserMailboxAliasReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
 	return req
 }
 
 type DeleteUserMailboxAliasReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type DeleteUserMailboxAliasResp struct {
@@ -2531,13 +2531,13 @@ func (resp *DeleteUserMailboxAliasResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type ListUserMailboxAliasReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewListUserMailboxAliasReqBuilder() *ListUserMailboxAliasReqBuilder {
 	builder := &ListUserMailboxAliasReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -2546,29 +2546,29 @@ func NewListUserMailboxAliasReqBuilder() *ListUserMailboxAliasReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *ListUserMailboxAliasReqBuilder) UserMailboxId(userMailboxId string) *ListUserMailboxAliasReqBuilder {
-	builder.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
+	builder.httpReq.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
 	return builder
 }
 func (builder *ListUserMailboxAliasReqBuilder) PageToken(pageToken string) *ListUserMailboxAliasReqBuilder {
-	builder.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	builder.httpReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 func (builder *ListUserMailboxAliasReqBuilder) PageSize(pageSize int) *ListUserMailboxAliasReqBuilder {
-	builder.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	builder.httpReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ListUserMailboxAliasReqBuilder) Build() *ListUserMailboxAliasReq {
 	req := &ListUserMailboxAliasReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.QueryParams = builder.QueryParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.QueryParams = builder.httpReq.QueryParams
 	return req
 }
 
 type ListUserMailboxAliasReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type ListUserMailboxAliasRespData struct {
@@ -2613,7 +2613,7 @@ func (iterator *ListMailgroupIterator) Next() (bool, *Mailgroup, error) {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
-			iterator.req.QueryParams.Set("page_token", *iterator.nextPageToken)
+			iterator.req.httpReq.QueryParams.Set("page_token", *iterator.nextPageToken)
 		}
 		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
 		if err != nil {
@@ -2667,7 +2667,7 @@ func (iterator *ListMailgroupMemberIterator) Next() (bool, *MailgroupMember, err
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
-			iterator.req.QueryParams.Set("page_token", *iterator.nextPageToken)
+			iterator.req.httpReq.QueryParams.Set("page_token", *iterator.nextPageToken)
 		}
 		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
 		if err != nil {
@@ -2721,7 +2721,7 @@ func (iterator *ListMailgroupPermissionMemberIterator) Next() (bool, *MailgroupP
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
-			iterator.req.QueryParams.Set("page_token", *iterator.nextPageToken)
+			iterator.req.httpReq.QueryParams.Set("page_token", *iterator.nextPageToken)
 		}
 		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
 		if err != nil {
@@ -2775,7 +2775,7 @@ func (iterator *ListPublicMailboxIterator) Next() (bool, *PublicMailbox, error) 
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
-			iterator.req.QueryParams.Set("page_token", *iterator.nextPageToken)
+			iterator.req.httpReq.QueryParams.Set("page_token", *iterator.nextPageToken)
 		}
 		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
 		if err != nil {
@@ -2829,7 +2829,7 @@ func (iterator *ListPublicMailboxMemberIterator) Next() (bool, *PublicMailboxMem
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
-			iterator.req.QueryParams.Set("page_token", *iterator.nextPageToken)
+			iterator.req.httpReq.QueryParams.Set("page_token", *iterator.nextPageToken)
 		}
 		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
 		if err != nil {

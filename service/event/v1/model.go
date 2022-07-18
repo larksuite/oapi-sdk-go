@@ -18,14 +18,14 @@ import (
 
 // 1.4 生成请求的builder结构体
 type ListOutboundIpReqBuilder struct {
-	*larkcore.HttpReq
-	limit int
+	httpReq *larkcore.HttpReq
+	limit   int
 }
 
 // 生成请求的New构造器
 func NewListOutboundIpReqBuilder() *ListOutboundIpReqBuilder {
 	builder := &ListOutboundIpReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -38,26 +38,26 @@ func (builder *ListOutboundIpReqBuilder) Limit(limit int) *ListOutboundIpReqBuil
 	return builder
 }
 func (builder *ListOutboundIpReqBuilder) PageSize(pageSize int) *ListOutboundIpReqBuilder {
-	builder.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	builder.httpReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 func (builder *ListOutboundIpReqBuilder) PageToken(pageToken string) *ListOutboundIpReqBuilder {
-	builder.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	builder.httpReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ListOutboundIpReqBuilder) Build() *ListOutboundIpReq {
 	req := &ListOutboundIpReq{}
-	req.HttpReq = &larkcore.HttpReq{}
+	req.httpReq = &larkcore.HttpReq{}
 	req.Limit = builder.limit
-	req.HttpReq.QueryParams = builder.QueryParams
+	req.httpReq.QueryParams = builder.httpReq.QueryParams
 	return req
 }
 
 type ListOutboundIpReq struct {
-	*larkcore.HttpReq
-	Limit int
+	httpReq *larkcore.HttpReq
+	Limit   int
 }
 
 type ListOutboundIpRespData struct {
@@ -104,7 +104,7 @@ func (iterator *ListOutboundIpIterator) Next() (bool, string, error) {
 			return false, "", nil
 		}
 		if iterator.nextPageToken != nil {
-			iterator.req.QueryParams.Set("page_token", *iterator.nextPageToken)
+			iterator.req.httpReq.QueryParams.Set("page_token", *iterator.nextPageToken)
 		}
 		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
 		if err != nil {

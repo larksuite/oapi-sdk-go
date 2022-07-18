@@ -3025,13 +3025,13 @@ func (builder *UserIdBuilder) Build() *UserId {
 
 // 1.4 生成请求的builder结构体
 type DeleteBatchMessageReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewDeleteBatchMessageReqBuilder() *DeleteBatchMessageReqBuilder {
 	builder := &DeleteBatchMessageReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -3040,20 +3040,20 @@ func NewDeleteBatchMessageReqBuilder() *DeleteBatchMessageReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *DeleteBatchMessageReqBuilder) BatchMessageId(batchMessageId string) *DeleteBatchMessageReqBuilder {
-	builder.PathParams.Set("batch_message_id", fmt.Sprint(batchMessageId))
+	builder.httpReq.PathParams.Set("batch_message_id", fmt.Sprint(batchMessageId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *DeleteBatchMessageReqBuilder) Build() *DeleteBatchMessageReq {
 	req := &DeleteBatchMessageReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
 	return req
 }
 
 type DeleteBatchMessageReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type DeleteBatchMessageResp struct {
@@ -3067,13 +3067,13 @@ func (resp *DeleteBatchMessageResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type GetProgressBatchMessageReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewGetProgressBatchMessageReqBuilder() *GetProgressBatchMessageReqBuilder {
 	builder := &GetProgressBatchMessageReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -3082,20 +3082,20 @@ func NewGetProgressBatchMessageReqBuilder() *GetProgressBatchMessageReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *GetProgressBatchMessageReqBuilder) BatchMessageId(batchMessageId string) *GetProgressBatchMessageReqBuilder {
-	builder.PathParams.Set("batch_message_id", fmt.Sprint(batchMessageId))
+	builder.httpReq.PathParams.Set("batch_message_id", fmt.Sprint(batchMessageId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *GetProgressBatchMessageReqBuilder) Build() *GetProgressBatchMessageReq {
 	req := &GetProgressBatchMessageReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
 	return req
 }
 
 type GetProgressBatchMessageReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type GetProgressBatchMessageRespData struct {
@@ -3115,13 +3115,13 @@ func (resp *GetProgressBatchMessageResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type ReadUserBatchMessageReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewReadUserBatchMessageReqBuilder() *ReadUserBatchMessageReqBuilder {
 	builder := &ReadUserBatchMessageReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -3130,20 +3130,20 @@ func NewReadUserBatchMessageReqBuilder() *ReadUserBatchMessageReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *ReadUserBatchMessageReqBuilder) BatchMessageId(batchMessageId string) *ReadUserBatchMessageReqBuilder {
-	builder.PathParams.Set("batch_message_id", fmt.Sprint(batchMessageId))
+	builder.httpReq.PathParams.Set("batch_message_id", fmt.Sprint(batchMessageId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ReadUserBatchMessageReqBuilder) Build() *ReadUserBatchMessageReq {
 	req := &ReadUserBatchMessageReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
 	return req
 }
 
 type ReadUserBatchMessageReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type ReadUserBatchMessageRespData struct {
@@ -3457,14 +3457,14 @@ func (builder *CreateChatPathReqBodyBuilder) Build() (*CreateChatReqBody, error)
 
 // 1.4 生成请求的builder结构体
 type CreateChatReqBuilder struct {
-	*larkcore.HttpReq
-	body *CreateChatReqBody
+	httpReq *larkcore.HttpReq
+	body    *CreateChatReqBody
 }
 
 // 生成请求的New构造器
 func NewCreateChatReqBuilder() *CreateChatReqBuilder {
 	builder := &CreateChatReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -3473,11 +3473,11 @@ func NewCreateChatReqBuilder() *CreateChatReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *CreateChatReqBuilder) UserIdType(userIdType string) *CreateChatReqBuilder {
-	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *CreateChatReqBuilder) SetBotManager(setBotManager bool) *CreateChatReqBuilder {
-	builder.QueryParams.Set("set_bot_manager", fmt.Sprint(setBotManager))
+	builder.httpReq.QueryParams.Set("set_bot_manager", fmt.Sprint(setBotManager))
 	return builder
 }
 func (builder *CreateChatReqBuilder) Body(body *CreateChatReqBody) *CreateChatReqBuilder {
@@ -3488,9 +3488,9 @@ func (builder *CreateChatReqBuilder) Body(body *CreateChatReqBody) *CreateChatRe
 // 1.5 生成请求的builder的build方法
 func (builder *CreateChatReqBuilder) Build() *CreateChatReq {
 	req := &CreateChatReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.QueryParams = builder.QueryParams
-	req.HttpReq.Body = builder.body
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.httpReq.Body = builder.body
 	return req
 }
 
@@ -3511,8 +3511,8 @@ type CreateChatReqBody struct {
 }
 
 type CreateChatReq struct {
-	*larkcore.HttpReq
-	Body *CreateChatReqBody `body:""`
+	httpReq *larkcore.HttpReq
+	Body    *CreateChatReqBody `body:""`
 }
 
 type CreateChatRespData struct {
@@ -3550,13 +3550,13 @@ func (resp *CreateChatResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type DeleteChatReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewDeleteChatReqBuilder() *DeleteChatReqBuilder {
 	builder := &DeleteChatReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -3565,20 +3565,20 @@ func NewDeleteChatReqBuilder() *DeleteChatReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *DeleteChatReqBuilder) ChatId(chatId string) *DeleteChatReqBuilder {
-	builder.PathParams.Set("chat_id", fmt.Sprint(chatId))
+	builder.httpReq.PathParams.Set("chat_id", fmt.Sprint(chatId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *DeleteChatReqBuilder) Build() *DeleteChatReq {
 	req := &DeleteChatReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
 	return req
 }
 
 type DeleteChatReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type DeleteChatResp struct {
@@ -3592,13 +3592,13 @@ func (resp *DeleteChatResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type GetChatReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewGetChatReqBuilder() *GetChatReqBuilder {
 	builder := &GetChatReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -3607,25 +3607,25 @@ func NewGetChatReqBuilder() *GetChatReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *GetChatReqBuilder) ChatId(chatId string) *GetChatReqBuilder {
-	builder.PathParams.Set("chat_id", fmt.Sprint(chatId))
+	builder.httpReq.PathParams.Set("chat_id", fmt.Sprint(chatId))
 	return builder
 }
 func (builder *GetChatReqBuilder) UserIdType(userIdType string) *GetChatReqBuilder {
-	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *GetChatReqBuilder) Build() *GetChatReq {
 	req := &GetChatReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.QueryParams = builder.QueryParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.QueryParams = builder.httpReq.QueryParams
 	return req
 }
 
 type GetChatReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type GetChatRespData struct {
@@ -3664,14 +3664,14 @@ func (resp *GetChatResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type ListChatReqBuilder struct {
-	*larkcore.HttpReq
-	limit int
+	httpReq *larkcore.HttpReq
+	limit   int
 }
 
 // 生成请求的New构造器
 func NewListChatReqBuilder() *ListChatReqBuilder {
 	builder := &ListChatReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -3684,30 +3684,30 @@ func (builder *ListChatReqBuilder) Limit(limit int) *ListChatReqBuilder {
 	return builder
 }
 func (builder *ListChatReqBuilder) UserIdType(userIdType string) *ListChatReqBuilder {
-	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *ListChatReqBuilder) PageToken(pageToken string) *ListChatReqBuilder {
-	builder.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	builder.httpReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 func (builder *ListChatReqBuilder) PageSize(pageSize int) *ListChatReqBuilder {
-	builder.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	builder.httpReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ListChatReqBuilder) Build() *ListChatReq {
 	req := &ListChatReq{}
-	req.HttpReq = &larkcore.HttpReq{}
+	req.httpReq = &larkcore.HttpReq{}
 	req.Limit = builder.limit
-	req.HttpReq.QueryParams = builder.QueryParams
+	req.httpReq.QueryParams = builder.httpReq.QueryParams
 	return req
 }
 
 type ListChatReq struct {
-	*larkcore.HttpReq
-	Limit int
+	httpReq *larkcore.HttpReq
+	Limit   int
 }
 
 type ListChatRespData struct {
@@ -3728,14 +3728,14 @@ func (resp *ListChatResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type SearchChatReqBuilder struct {
-	*larkcore.HttpReq
-	limit int
+	httpReq *larkcore.HttpReq
+	limit   int
 }
 
 // 生成请求的New构造器
 func NewSearchChatReqBuilder() *SearchChatReqBuilder {
 	builder := &SearchChatReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -3748,34 +3748,34 @@ func (builder *SearchChatReqBuilder) Limit(limit int) *SearchChatReqBuilder {
 	return builder
 }
 func (builder *SearchChatReqBuilder) UserIdType(userIdType string) *SearchChatReqBuilder {
-	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *SearchChatReqBuilder) Query(query string) *SearchChatReqBuilder {
-	builder.QueryParams.Set("query", fmt.Sprint(query))
+	builder.httpReq.QueryParams.Set("query", fmt.Sprint(query))
 	return builder
 }
 func (builder *SearchChatReqBuilder) PageToken(pageToken string) *SearchChatReqBuilder {
-	builder.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	builder.httpReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 func (builder *SearchChatReqBuilder) PageSize(pageSize int) *SearchChatReqBuilder {
-	builder.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	builder.httpReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *SearchChatReqBuilder) Build() *SearchChatReq {
 	req := &SearchChatReq{}
-	req.HttpReq = &larkcore.HttpReq{}
+	req.httpReq = &larkcore.HttpReq{}
 	req.Limit = builder.limit
-	req.HttpReq.QueryParams = builder.QueryParams
+	req.httpReq.QueryParams = builder.httpReq.QueryParams
 	return req
 }
 
 type SearchChatReq struct {
-	*larkcore.HttpReq
-	Limit int
+	httpReq *larkcore.HttpReq
+	Limit   int
 }
 
 type SearchChatRespData struct {
@@ -4071,14 +4071,14 @@ func (builder *UpdateChatPathReqBodyBuilder) Build() (*UpdateChatReqBody, error)
 
 // 1.4 生成请求的builder结构体
 type UpdateChatReqBuilder struct {
-	*larkcore.HttpReq
-	body *UpdateChatReqBody
+	httpReq *larkcore.HttpReq
+	body    *UpdateChatReqBody
 }
 
 // 生成请求的New构造器
 func NewUpdateChatReqBuilder() *UpdateChatReqBuilder {
 	builder := &UpdateChatReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -4087,11 +4087,11 @@ func NewUpdateChatReqBuilder() *UpdateChatReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *UpdateChatReqBuilder) ChatId(chatId string) *UpdateChatReqBuilder {
-	builder.PathParams.Set("chat_id", fmt.Sprint(chatId))
+	builder.httpReq.PathParams.Set("chat_id", fmt.Sprint(chatId))
 	return builder
 }
 func (builder *UpdateChatReqBuilder) UserIdType(userIdType string) *UpdateChatReqBuilder {
-	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *UpdateChatReqBuilder) Body(body *UpdateChatReqBody) *UpdateChatReqBuilder {
@@ -4102,10 +4102,10 @@ func (builder *UpdateChatReqBuilder) Body(body *UpdateChatReqBody) *UpdateChatRe
 // 1.5 生成请求的builder的build方法
 func (builder *UpdateChatReqBuilder) Build() *UpdateChatReq {
 	req := &UpdateChatReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.QueryParams = builder.QueryParams
-	req.HttpReq.Body = builder.body
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.httpReq.Body = builder.body
 	return req
 }
 
@@ -4125,8 +4125,8 @@ type UpdateChatReqBody struct {
 }
 
 type UpdateChatReq struct {
-	*larkcore.HttpReq
-	Body *UpdateChatReqBody `body:""`
+	httpReq *larkcore.HttpReq
+	Body    *UpdateChatReqBody `body:""`
 }
 
 type UpdateChatResp struct {
@@ -4140,13 +4140,13 @@ func (resp *UpdateChatResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type GetChatAnnouncementReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewGetChatAnnouncementReqBuilder() *GetChatAnnouncementReqBuilder {
 	builder := &GetChatAnnouncementReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -4155,25 +4155,25 @@ func NewGetChatAnnouncementReqBuilder() *GetChatAnnouncementReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *GetChatAnnouncementReqBuilder) ChatId(chatId string) *GetChatAnnouncementReqBuilder {
-	builder.PathParams.Set("chat_id", fmt.Sprint(chatId))
+	builder.httpReq.PathParams.Set("chat_id", fmt.Sprint(chatId))
 	return builder
 }
 func (builder *GetChatAnnouncementReqBuilder) UserIdType(userIdType string) *GetChatAnnouncementReqBuilder {
-	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *GetChatAnnouncementReqBuilder) Build() *GetChatAnnouncementReq {
 	req := &GetChatAnnouncementReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.QueryParams = builder.QueryParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.QueryParams = builder.httpReq.QueryParams
 	return req
 }
 
 type GetChatAnnouncementReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type GetChatAnnouncementRespData struct {
@@ -4272,14 +4272,14 @@ func (builder *PatchChatAnnouncementPathReqBodyBuilder) Build() (*PatchChatAnnou
 
 // 1.4 生成请求的builder结构体
 type PatchChatAnnouncementReqBuilder struct {
-	*larkcore.HttpReq
-	body *PatchChatAnnouncementReqBody
+	httpReq *larkcore.HttpReq
+	body    *PatchChatAnnouncementReqBody
 }
 
 // 生成请求的New构造器
 func NewPatchChatAnnouncementReqBuilder() *PatchChatAnnouncementReqBuilder {
 	builder := &PatchChatAnnouncementReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -4288,7 +4288,7 @@ func NewPatchChatAnnouncementReqBuilder() *PatchChatAnnouncementReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *PatchChatAnnouncementReqBuilder) ChatId(chatId string) *PatchChatAnnouncementReqBuilder {
-	builder.PathParams.Set("chat_id", fmt.Sprint(chatId))
+	builder.httpReq.PathParams.Set("chat_id", fmt.Sprint(chatId))
 	return builder
 }
 func (builder *PatchChatAnnouncementReqBuilder) Body(body *PatchChatAnnouncementReqBody) *PatchChatAnnouncementReqBuilder {
@@ -4299,9 +4299,9 @@ func (builder *PatchChatAnnouncementReqBuilder) Body(body *PatchChatAnnouncement
 // 1.5 生成请求的builder的build方法
 func (builder *PatchChatAnnouncementReqBuilder) Build() *PatchChatAnnouncementReq {
 	req := &PatchChatAnnouncementReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.Body = builder.body
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.Body = builder.body
 	return req
 }
 
@@ -4311,8 +4311,8 @@ type PatchChatAnnouncementReqBody struct {
 }
 
 type PatchChatAnnouncementReq struct {
-	*larkcore.HttpReq
-	Body *PatchChatAnnouncementReqBody `body:""`
+	httpReq *larkcore.HttpReq
+	Body    *PatchChatAnnouncementReqBody `body:""`
 }
 
 type PatchChatAnnouncementResp struct {
@@ -4379,14 +4379,14 @@ func (builder *AddManagersChatManagersPathReqBodyBuilder) Build() (*AddManagersC
 
 // 1.4 生成请求的builder结构体
 type AddManagersChatManagersReqBuilder struct {
-	*larkcore.HttpReq
-	body *AddManagersChatManagersReqBody
+	httpReq *larkcore.HttpReq
+	body    *AddManagersChatManagersReqBody
 }
 
 // 生成请求的New构造器
 func NewAddManagersChatManagersReqBuilder() *AddManagersChatManagersReqBuilder {
 	builder := &AddManagersChatManagersReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -4395,11 +4395,11 @@ func NewAddManagersChatManagersReqBuilder() *AddManagersChatManagersReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *AddManagersChatManagersReqBuilder) ChatId(chatId string) *AddManagersChatManagersReqBuilder {
-	builder.PathParams.Set("chat_id", fmt.Sprint(chatId))
+	builder.httpReq.PathParams.Set("chat_id", fmt.Sprint(chatId))
 	return builder
 }
 func (builder *AddManagersChatManagersReqBuilder) MemberIdType(memberIdType string) *AddManagersChatManagersReqBuilder {
-	builder.QueryParams.Set("member_id_type", fmt.Sprint(memberIdType))
+	builder.httpReq.QueryParams.Set("member_id_type", fmt.Sprint(memberIdType))
 	return builder
 }
 func (builder *AddManagersChatManagersReqBuilder) Body(body *AddManagersChatManagersReqBody) *AddManagersChatManagersReqBuilder {
@@ -4410,10 +4410,10 @@ func (builder *AddManagersChatManagersReqBuilder) Body(body *AddManagersChatMana
 // 1.5 生成请求的builder的build方法
 func (builder *AddManagersChatManagersReqBuilder) Build() *AddManagersChatManagersReq {
 	req := &AddManagersChatManagersReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.QueryParams = builder.QueryParams
-	req.HttpReq.Body = builder.body
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.httpReq.Body = builder.body
 	return req
 }
 
@@ -4422,8 +4422,8 @@ type AddManagersChatManagersReqBody struct {
 }
 
 type AddManagersChatManagersReq struct {
-	*larkcore.HttpReq
-	Body *AddManagersChatManagersReqBody `body:""`
+	httpReq *larkcore.HttpReq
+	Body    *AddManagersChatManagersReqBody `body:""`
 }
 
 type AddManagersChatManagersRespData struct {
@@ -4496,14 +4496,14 @@ func (builder *DeleteManagersChatManagersPathReqBodyBuilder) Build() (*DeleteMan
 
 // 1.4 生成请求的builder结构体
 type DeleteManagersChatManagersReqBuilder struct {
-	*larkcore.HttpReq
-	body *DeleteManagersChatManagersReqBody
+	httpReq *larkcore.HttpReq
+	body    *DeleteManagersChatManagersReqBody
 }
 
 // 生成请求的New构造器
 func NewDeleteManagersChatManagersReqBuilder() *DeleteManagersChatManagersReqBuilder {
 	builder := &DeleteManagersChatManagersReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -4512,11 +4512,11 @@ func NewDeleteManagersChatManagersReqBuilder() *DeleteManagersChatManagersReqBui
 
 // 1.5 生成请求的builder属性方法
 func (builder *DeleteManagersChatManagersReqBuilder) ChatId(chatId string) *DeleteManagersChatManagersReqBuilder {
-	builder.PathParams.Set("chat_id", fmt.Sprint(chatId))
+	builder.httpReq.PathParams.Set("chat_id", fmt.Sprint(chatId))
 	return builder
 }
 func (builder *DeleteManagersChatManagersReqBuilder) MemberIdType(memberIdType string) *DeleteManagersChatManagersReqBuilder {
-	builder.QueryParams.Set("member_id_type", fmt.Sprint(memberIdType))
+	builder.httpReq.QueryParams.Set("member_id_type", fmt.Sprint(memberIdType))
 	return builder
 }
 func (builder *DeleteManagersChatManagersReqBuilder) Body(body *DeleteManagersChatManagersReqBody) *DeleteManagersChatManagersReqBuilder {
@@ -4527,10 +4527,10 @@ func (builder *DeleteManagersChatManagersReqBuilder) Body(body *DeleteManagersCh
 // 1.5 生成请求的builder的build方法
 func (builder *DeleteManagersChatManagersReqBuilder) Build() *DeleteManagersChatManagersReq {
 	req := &DeleteManagersChatManagersReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.QueryParams = builder.QueryParams
-	req.HttpReq.Body = builder.body
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.httpReq.Body = builder.body
 	return req
 }
 
@@ -4539,8 +4539,8 @@ type DeleteManagersChatManagersReqBody struct {
 }
 
 type DeleteManagersChatManagersReq struct {
-	*larkcore.HttpReq
-	Body *DeleteManagersChatManagersReqBody `body:""`
+	httpReq *larkcore.HttpReq
+	Body    *DeleteManagersChatManagersReqBody `body:""`
 }
 
 type DeleteManagersChatManagersRespData struct {
@@ -4613,14 +4613,14 @@ func (builder *CreateChatMembersPathReqBodyBuilder) Build() (*CreateChatMembersR
 
 // 1.4 生成请求的builder结构体
 type CreateChatMembersReqBuilder struct {
-	*larkcore.HttpReq
-	body *CreateChatMembersReqBody
+	httpReq *larkcore.HttpReq
+	body    *CreateChatMembersReqBody
 }
 
 // 生成请求的New构造器
 func NewCreateChatMembersReqBuilder() *CreateChatMembersReqBuilder {
 	builder := &CreateChatMembersReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -4629,15 +4629,15 @@ func NewCreateChatMembersReqBuilder() *CreateChatMembersReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *CreateChatMembersReqBuilder) ChatId(chatId string) *CreateChatMembersReqBuilder {
-	builder.PathParams.Set("chat_id", fmt.Sprint(chatId))
+	builder.httpReq.PathParams.Set("chat_id", fmt.Sprint(chatId))
 	return builder
 }
 func (builder *CreateChatMembersReqBuilder) MemberIdType(memberIdType string) *CreateChatMembersReqBuilder {
-	builder.QueryParams.Set("member_id_type", fmt.Sprint(memberIdType))
+	builder.httpReq.QueryParams.Set("member_id_type", fmt.Sprint(memberIdType))
 	return builder
 }
 func (builder *CreateChatMembersReqBuilder) SucceedType(succeedType int) *CreateChatMembersReqBuilder {
-	builder.QueryParams.Set("succeed_type", fmt.Sprint(succeedType))
+	builder.httpReq.QueryParams.Set("succeed_type", fmt.Sprint(succeedType))
 	return builder
 }
 func (builder *CreateChatMembersReqBuilder) Body(body *CreateChatMembersReqBody) *CreateChatMembersReqBuilder {
@@ -4648,10 +4648,10 @@ func (builder *CreateChatMembersReqBuilder) Body(body *CreateChatMembersReqBody)
 // 1.5 生成请求的builder的build方法
 func (builder *CreateChatMembersReqBuilder) Build() *CreateChatMembersReq {
 	req := &CreateChatMembersReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.QueryParams = builder.QueryParams
-	req.HttpReq.Body = builder.body
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.httpReq.Body = builder.body
 	return req
 }
 
@@ -4660,8 +4660,8 @@ type CreateChatMembersReqBody struct {
 }
 
 type CreateChatMembersReq struct {
-	*larkcore.HttpReq
-	Body *CreateChatMembersReqBody `body:""`
+	httpReq *larkcore.HttpReq
+	Body    *CreateChatMembersReqBody `body:""`
 }
 
 type CreateChatMembersRespData struct {
@@ -4734,14 +4734,14 @@ func (builder *DeleteChatMembersPathReqBodyBuilder) Build() (*DeleteChatMembersR
 
 // 1.4 生成请求的builder结构体
 type DeleteChatMembersReqBuilder struct {
-	*larkcore.HttpReq
-	body *DeleteChatMembersReqBody
+	httpReq *larkcore.HttpReq
+	body    *DeleteChatMembersReqBody
 }
 
 // 生成请求的New构造器
 func NewDeleteChatMembersReqBuilder() *DeleteChatMembersReqBuilder {
 	builder := &DeleteChatMembersReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -4750,11 +4750,11 @@ func NewDeleteChatMembersReqBuilder() *DeleteChatMembersReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *DeleteChatMembersReqBuilder) ChatId(chatId string) *DeleteChatMembersReqBuilder {
-	builder.PathParams.Set("chat_id", fmt.Sprint(chatId))
+	builder.httpReq.PathParams.Set("chat_id", fmt.Sprint(chatId))
 	return builder
 }
 func (builder *DeleteChatMembersReqBuilder) MemberIdType(memberIdType string) *DeleteChatMembersReqBuilder {
-	builder.QueryParams.Set("member_id_type", fmt.Sprint(memberIdType))
+	builder.httpReq.QueryParams.Set("member_id_type", fmt.Sprint(memberIdType))
 	return builder
 }
 func (builder *DeleteChatMembersReqBuilder) Body(body *DeleteChatMembersReqBody) *DeleteChatMembersReqBuilder {
@@ -4765,10 +4765,10 @@ func (builder *DeleteChatMembersReqBuilder) Body(body *DeleteChatMembersReqBody)
 // 1.5 生成请求的builder的build方法
 func (builder *DeleteChatMembersReqBuilder) Build() *DeleteChatMembersReq {
 	req := &DeleteChatMembersReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.QueryParams = builder.QueryParams
-	req.HttpReq.Body = builder.body
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.httpReq.Body = builder.body
 	return req
 }
 
@@ -4777,8 +4777,8 @@ type DeleteChatMembersReqBody struct {
 }
 
 type DeleteChatMembersReq struct {
-	*larkcore.HttpReq
-	Body *DeleteChatMembersReqBody `body:""`
+	httpReq *larkcore.HttpReq
+	Body    *DeleteChatMembersReqBody `body:""`
 }
 
 type DeleteChatMembersRespData struct {
@@ -4797,14 +4797,14 @@ func (resp *DeleteChatMembersResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type GetChatMembersReqBuilder struct {
-	*larkcore.HttpReq
-	limit int
+	httpReq *larkcore.HttpReq
+	limit   int
 }
 
 // 生成请求的New构造器
 func NewGetChatMembersReqBuilder() *GetChatMembersReqBuilder {
 	builder := &GetChatMembersReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -4817,35 +4817,35 @@ func (builder *GetChatMembersReqBuilder) Limit(limit int) *GetChatMembersReqBuil
 	return builder
 }
 func (builder *GetChatMembersReqBuilder) ChatId(chatId string) *GetChatMembersReqBuilder {
-	builder.PathParams.Set("chat_id", fmt.Sprint(chatId))
+	builder.httpReq.PathParams.Set("chat_id", fmt.Sprint(chatId))
 	return builder
 }
 func (builder *GetChatMembersReqBuilder) MemberIdType(memberIdType string) *GetChatMembersReqBuilder {
-	builder.QueryParams.Set("member_id_type", fmt.Sprint(memberIdType))
+	builder.httpReq.QueryParams.Set("member_id_type", fmt.Sprint(memberIdType))
 	return builder
 }
 func (builder *GetChatMembersReqBuilder) PageToken(pageToken string) *GetChatMembersReqBuilder {
-	builder.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	builder.httpReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 func (builder *GetChatMembersReqBuilder) PageSize(pageSize int) *GetChatMembersReqBuilder {
-	builder.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	builder.httpReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *GetChatMembersReqBuilder) Build() *GetChatMembersReq {
 	req := &GetChatMembersReq{}
-	req.HttpReq = &larkcore.HttpReq{}
+	req.httpReq = &larkcore.HttpReq{}
 	req.Limit = builder.limit
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.QueryParams = builder.QueryParams
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.QueryParams = builder.httpReq.QueryParams
 	return req
 }
 
 type GetChatMembersReq struct {
-	*larkcore.HttpReq
-	Limit int
+	httpReq *larkcore.HttpReq
+	Limit   int
 }
 
 type GetChatMembersRespData struct {
@@ -4867,13 +4867,13 @@ func (resp *GetChatMembersResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type IsInChatChatMembersReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewIsInChatChatMembersReqBuilder() *IsInChatChatMembersReqBuilder {
 	builder := &IsInChatChatMembersReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -4882,20 +4882,20 @@ func NewIsInChatChatMembersReqBuilder() *IsInChatChatMembersReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *IsInChatChatMembersReqBuilder) ChatId(chatId string) *IsInChatChatMembersReqBuilder {
-	builder.PathParams.Set("chat_id", fmt.Sprint(chatId))
+	builder.httpReq.PathParams.Set("chat_id", fmt.Sprint(chatId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *IsInChatChatMembersReqBuilder) Build() *IsInChatChatMembersReq {
 	req := &IsInChatChatMembersReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
 	return req
 }
 
 type IsInChatChatMembersReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type IsInChatChatMembersRespData struct {
@@ -4914,13 +4914,13 @@ func (resp *IsInChatChatMembersResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type MeJoinChatMembersReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewMeJoinChatMembersReqBuilder() *MeJoinChatMembersReqBuilder {
 	builder := &MeJoinChatMembersReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -4929,20 +4929,20 @@ func NewMeJoinChatMembersReqBuilder() *MeJoinChatMembersReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *MeJoinChatMembersReqBuilder) ChatId(chatId string) *MeJoinChatMembersReqBuilder {
-	builder.PathParams.Set("chat_id", fmt.Sprint(chatId))
+	builder.httpReq.PathParams.Set("chat_id", fmt.Sprint(chatId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *MeJoinChatMembersReqBuilder) Build() *MeJoinChatMembersReq {
 	req := &MeJoinChatMembersReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
 	return req
 }
 
 type MeJoinChatMembersReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type MeJoinChatMembersResp struct {
@@ -4956,14 +4956,14 @@ func (resp *MeJoinChatMembersResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type GetChatModerationReqBuilder struct {
-	*larkcore.HttpReq
-	limit int
+	httpReq *larkcore.HttpReq
+	limit   int
 }
 
 // 生成请求的New构造器
 func NewGetChatModerationReqBuilder() *GetChatModerationReqBuilder {
 	builder := &GetChatModerationReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -4976,35 +4976,35 @@ func (builder *GetChatModerationReqBuilder) Limit(limit int) *GetChatModerationR
 	return builder
 }
 func (builder *GetChatModerationReqBuilder) ChatId(chatId string) *GetChatModerationReqBuilder {
-	builder.PathParams.Set("chat_id", fmt.Sprint(chatId))
+	builder.httpReq.PathParams.Set("chat_id", fmt.Sprint(chatId))
 	return builder
 }
 func (builder *GetChatModerationReqBuilder) UserIdType(userIdType string) *GetChatModerationReqBuilder {
-	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *GetChatModerationReqBuilder) PageToken(pageToken string) *GetChatModerationReqBuilder {
-	builder.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	builder.httpReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 func (builder *GetChatModerationReqBuilder) PageSize(pageSize int) *GetChatModerationReqBuilder {
-	builder.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	builder.httpReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *GetChatModerationReqBuilder) Build() *GetChatModerationReq {
 	req := &GetChatModerationReq{}
-	req.HttpReq = &larkcore.HttpReq{}
+	req.httpReq = &larkcore.HttpReq{}
 	req.Limit = builder.limit
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.QueryParams = builder.QueryParams
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.QueryParams = builder.httpReq.QueryParams
 	return req
 }
 
 type GetChatModerationReq struct {
-	*larkcore.HttpReq
-	Limit int
+	httpReq *larkcore.HttpReq
+	Limit   int
 }
 
 type GetChatModerationRespData struct {
@@ -5119,14 +5119,14 @@ func (builder *UpdateChatModerationPathReqBodyBuilder) Build() (*UpdateChatModer
 
 // 1.4 生成请求的builder结构体
 type UpdateChatModerationReqBuilder struct {
-	*larkcore.HttpReq
-	body *UpdateChatModerationReqBody
+	httpReq *larkcore.HttpReq
+	body    *UpdateChatModerationReqBody
 }
 
 // 生成请求的New构造器
 func NewUpdateChatModerationReqBuilder() *UpdateChatModerationReqBuilder {
 	builder := &UpdateChatModerationReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -5135,11 +5135,11 @@ func NewUpdateChatModerationReqBuilder() *UpdateChatModerationReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *UpdateChatModerationReqBuilder) ChatId(chatId string) *UpdateChatModerationReqBuilder {
-	builder.PathParams.Set("chat_id", fmt.Sprint(chatId))
+	builder.httpReq.PathParams.Set("chat_id", fmt.Sprint(chatId))
 	return builder
 }
 func (builder *UpdateChatModerationReqBuilder) UserIdType(userIdType string) *UpdateChatModerationReqBuilder {
-	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *UpdateChatModerationReqBuilder) Body(body *UpdateChatModerationReqBody) *UpdateChatModerationReqBuilder {
@@ -5150,10 +5150,10 @@ func (builder *UpdateChatModerationReqBuilder) Body(body *UpdateChatModerationRe
 // 1.5 生成请求的builder的build方法
 func (builder *UpdateChatModerationReqBuilder) Build() *UpdateChatModerationReq {
 	req := &UpdateChatModerationReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.QueryParams = builder.QueryParams
-	req.HttpReq.Body = builder.body
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.httpReq.Body = builder.body
 	return req
 }
 
@@ -5164,8 +5164,8 @@ type UpdateChatModerationReqBody struct {
 }
 
 type UpdateChatModerationReq struct {
-	*larkcore.HttpReq
-	Body *UpdateChatModerationReqBody `body:""`
+	httpReq *larkcore.HttpReq
+	Body    *UpdateChatModerationReqBody `body:""`
 }
 
 type UpdateChatModerationResp struct {
@@ -5232,14 +5232,14 @@ func (builder *CreateChatTabPathReqBodyBuilder) Build() (*CreateChatTabReqBody, 
 
 // 1.4 生成请求的builder结构体
 type CreateChatTabReqBuilder struct {
-	*larkcore.HttpReq
-	body *CreateChatTabReqBody
+	httpReq *larkcore.HttpReq
+	body    *CreateChatTabReqBody
 }
 
 // 生成请求的New构造器
 func NewCreateChatTabReqBuilder() *CreateChatTabReqBuilder {
 	builder := &CreateChatTabReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -5248,7 +5248,7 @@ func NewCreateChatTabReqBuilder() *CreateChatTabReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *CreateChatTabReqBuilder) ChatId(chatId string) *CreateChatTabReqBuilder {
-	builder.PathParams.Set("chat_id", fmt.Sprint(chatId))
+	builder.httpReq.PathParams.Set("chat_id", fmt.Sprint(chatId))
 	return builder
 }
 func (builder *CreateChatTabReqBuilder) Body(body *CreateChatTabReqBody) *CreateChatTabReqBuilder {
@@ -5259,9 +5259,9 @@ func (builder *CreateChatTabReqBuilder) Body(body *CreateChatTabReqBody) *Create
 // 1.5 生成请求的builder的build方法
 func (builder *CreateChatTabReqBuilder) Build() *CreateChatTabReq {
 	req := &CreateChatTabReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.Body = builder.body
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.Body = builder.body
 	return req
 }
 
@@ -5270,8 +5270,8 @@ type CreateChatTabReqBody struct {
 }
 
 type CreateChatTabReq struct {
-	*larkcore.HttpReq
-	Body *CreateChatTabReqBody `body:""`
+	httpReq *larkcore.HttpReq
+	Body    *CreateChatTabReqBody `body:""`
 }
 
 type CreateChatTabRespData struct {
@@ -5343,14 +5343,14 @@ func (builder *DeleteTabsChatTabPathReqBodyBuilder) Build() (*DeleteTabsChatTabR
 
 // 1.4 生成请求的builder结构体
 type DeleteTabsChatTabReqBuilder struct {
-	*larkcore.HttpReq
-	body *DeleteTabsChatTabReqBody
+	httpReq *larkcore.HttpReq
+	body    *DeleteTabsChatTabReqBody
 }
 
 // 生成请求的New构造器
 func NewDeleteTabsChatTabReqBuilder() *DeleteTabsChatTabReqBuilder {
 	builder := &DeleteTabsChatTabReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -5359,7 +5359,7 @@ func NewDeleteTabsChatTabReqBuilder() *DeleteTabsChatTabReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *DeleteTabsChatTabReqBuilder) ChatId(chatId string) *DeleteTabsChatTabReqBuilder {
-	builder.PathParams.Set("chat_id", fmt.Sprint(chatId))
+	builder.httpReq.PathParams.Set("chat_id", fmt.Sprint(chatId))
 	return builder
 }
 func (builder *DeleteTabsChatTabReqBuilder) Body(body *DeleteTabsChatTabReqBody) *DeleteTabsChatTabReqBuilder {
@@ -5370,9 +5370,9 @@ func (builder *DeleteTabsChatTabReqBuilder) Body(body *DeleteTabsChatTabReqBody)
 // 1.5 生成请求的builder的build方法
 func (builder *DeleteTabsChatTabReqBuilder) Build() *DeleteTabsChatTabReq {
 	req := &DeleteTabsChatTabReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.Body = builder.body
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.Body = builder.body
 	return req
 }
 
@@ -5381,8 +5381,8 @@ type DeleteTabsChatTabReqBody struct {
 }
 
 type DeleteTabsChatTabReq struct {
-	*larkcore.HttpReq
-	Body *DeleteTabsChatTabReqBody `body:""`
+	httpReq *larkcore.HttpReq
+	Body    *DeleteTabsChatTabReqBody `body:""`
 }
 
 type DeleteTabsChatTabRespData struct {
@@ -5401,13 +5401,13 @@ func (resp *DeleteTabsChatTabResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type ListTabsChatTabReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewListTabsChatTabReqBuilder() *ListTabsChatTabReqBuilder {
 	builder := &ListTabsChatTabReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -5416,20 +5416,20 @@ func NewListTabsChatTabReqBuilder() *ListTabsChatTabReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *ListTabsChatTabReqBuilder) ChatId(chatId string) *ListTabsChatTabReqBuilder {
-	builder.PathParams.Set("chat_id", fmt.Sprint(chatId))
+	builder.httpReq.PathParams.Set("chat_id", fmt.Sprint(chatId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ListTabsChatTabReqBuilder) Build() *ListTabsChatTabReq {
 	req := &ListTabsChatTabReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
 	return req
 }
 
 type ListTabsChatTabReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type ListTabsChatTabRespData struct {
@@ -5501,14 +5501,14 @@ func (builder *SortTabsChatTabPathReqBodyBuilder) Build() (*SortTabsChatTabReqBo
 
 // 1.4 生成请求的builder结构体
 type SortTabsChatTabReqBuilder struct {
-	*larkcore.HttpReq
-	body *SortTabsChatTabReqBody
+	httpReq *larkcore.HttpReq
+	body    *SortTabsChatTabReqBody
 }
 
 // 生成请求的New构造器
 func NewSortTabsChatTabReqBuilder() *SortTabsChatTabReqBuilder {
 	builder := &SortTabsChatTabReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -5517,7 +5517,7 @@ func NewSortTabsChatTabReqBuilder() *SortTabsChatTabReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *SortTabsChatTabReqBuilder) ChatId(chatId string) *SortTabsChatTabReqBuilder {
-	builder.PathParams.Set("chat_id", fmt.Sprint(chatId))
+	builder.httpReq.PathParams.Set("chat_id", fmt.Sprint(chatId))
 	return builder
 }
 func (builder *SortTabsChatTabReqBuilder) Body(body *SortTabsChatTabReqBody) *SortTabsChatTabReqBuilder {
@@ -5528,9 +5528,9 @@ func (builder *SortTabsChatTabReqBuilder) Body(body *SortTabsChatTabReqBody) *So
 // 1.5 生成请求的builder的build方法
 func (builder *SortTabsChatTabReqBuilder) Build() *SortTabsChatTabReq {
 	req := &SortTabsChatTabReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.Body = builder.body
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.Body = builder.body
 	return req
 }
 
@@ -5539,8 +5539,8 @@ type SortTabsChatTabReqBody struct {
 }
 
 type SortTabsChatTabReq struct {
-	*larkcore.HttpReq
-	Body *SortTabsChatTabReqBody `body:""`
+	httpReq *larkcore.HttpReq
+	Body    *SortTabsChatTabReqBody `body:""`
 }
 
 type SortTabsChatTabRespData struct {
@@ -5612,14 +5612,14 @@ func (builder *UpdateTabsChatTabPathReqBodyBuilder) Build() (*UpdateTabsChatTabR
 
 // 1.4 生成请求的builder结构体
 type UpdateTabsChatTabReqBuilder struct {
-	*larkcore.HttpReq
-	body *UpdateTabsChatTabReqBody
+	httpReq *larkcore.HttpReq
+	body    *UpdateTabsChatTabReqBody
 }
 
 // 生成请求的New构造器
 func NewUpdateTabsChatTabReqBuilder() *UpdateTabsChatTabReqBuilder {
 	builder := &UpdateTabsChatTabReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -5628,7 +5628,7 @@ func NewUpdateTabsChatTabReqBuilder() *UpdateTabsChatTabReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *UpdateTabsChatTabReqBuilder) ChatId(chatId string) *UpdateTabsChatTabReqBuilder {
-	builder.PathParams.Set("chat_id", fmt.Sprint(chatId))
+	builder.httpReq.PathParams.Set("chat_id", fmt.Sprint(chatId))
 	return builder
 }
 func (builder *UpdateTabsChatTabReqBuilder) Body(body *UpdateTabsChatTabReqBody) *UpdateTabsChatTabReqBuilder {
@@ -5639,9 +5639,9 @@ func (builder *UpdateTabsChatTabReqBuilder) Body(body *UpdateTabsChatTabReqBody)
 // 1.5 生成请求的builder的build方法
 func (builder *UpdateTabsChatTabReqBuilder) Build() *UpdateTabsChatTabReq {
 	req := &UpdateTabsChatTabReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.Body = builder.body
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.Body = builder.body
 	return req
 }
 
@@ -5650,8 +5650,8 @@ type UpdateTabsChatTabReqBody struct {
 }
 
 type UpdateTabsChatTabReq struct {
-	*larkcore.HttpReq
-	Body *UpdateTabsChatTabReqBody `body:""`
+	httpReq *larkcore.HttpReq
+	Body    *UpdateTabsChatTabReqBody `body:""`
 }
 
 type UpdateTabsChatTabRespData struct {
@@ -5670,13 +5670,13 @@ func (resp *UpdateTabsChatTabResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type DeleteTopNoticeChatTopNoticeReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewDeleteTopNoticeChatTopNoticeReqBuilder() *DeleteTopNoticeChatTopNoticeReqBuilder {
 	builder := &DeleteTopNoticeChatTopNoticeReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -5685,20 +5685,20 @@ func NewDeleteTopNoticeChatTopNoticeReqBuilder() *DeleteTopNoticeChatTopNoticeRe
 
 // 1.5 生成请求的builder属性方法
 func (builder *DeleteTopNoticeChatTopNoticeReqBuilder) ChatId(chatId string) *DeleteTopNoticeChatTopNoticeReqBuilder {
-	builder.PathParams.Set("chat_id", fmt.Sprint(chatId))
+	builder.httpReq.PathParams.Set("chat_id", fmt.Sprint(chatId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *DeleteTopNoticeChatTopNoticeReqBuilder) Build() *DeleteTopNoticeChatTopNoticeReq {
 	req := &DeleteTopNoticeChatTopNoticeReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
 	return req
 }
 
 type DeleteTopNoticeChatTopNoticeReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type DeleteTopNoticeChatTopNoticeResp struct {
@@ -5765,14 +5765,14 @@ func (builder *PutTopNoticeChatTopNoticePathReqBodyBuilder) Build() (*PutTopNoti
 
 // 1.4 生成请求的builder结构体
 type PutTopNoticeChatTopNoticeReqBuilder struct {
-	*larkcore.HttpReq
-	body *PutTopNoticeChatTopNoticeReqBody
+	httpReq *larkcore.HttpReq
+	body    *PutTopNoticeChatTopNoticeReqBody
 }
 
 // 生成请求的New构造器
 func NewPutTopNoticeChatTopNoticeReqBuilder() *PutTopNoticeChatTopNoticeReqBuilder {
 	builder := &PutTopNoticeChatTopNoticeReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -5781,7 +5781,7 @@ func NewPutTopNoticeChatTopNoticeReqBuilder() *PutTopNoticeChatTopNoticeReqBuild
 
 // 1.5 生成请求的builder属性方法
 func (builder *PutTopNoticeChatTopNoticeReqBuilder) ChatId(chatId string) *PutTopNoticeChatTopNoticeReqBuilder {
-	builder.PathParams.Set("chat_id", fmt.Sprint(chatId))
+	builder.httpReq.PathParams.Set("chat_id", fmt.Sprint(chatId))
 	return builder
 }
 func (builder *PutTopNoticeChatTopNoticeReqBuilder) Body(body *PutTopNoticeChatTopNoticeReqBody) *PutTopNoticeChatTopNoticeReqBuilder {
@@ -5792,9 +5792,9 @@ func (builder *PutTopNoticeChatTopNoticeReqBuilder) Body(body *PutTopNoticeChatT
 // 1.5 生成请求的builder的build方法
 func (builder *PutTopNoticeChatTopNoticeReqBuilder) Build() *PutTopNoticeChatTopNoticeReq {
 	req := &PutTopNoticeChatTopNoticeReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.Body = builder.body
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.Body = builder.body
 	return req
 }
 
@@ -5803,8 +5803,8 @@ type PutTopNoticeChatTopNoticeReqBody struct {
 }
 
 type PutTopNoticeChatTopNoticeReq struct {
-	*larkcore.HttpReq
-	Body *PutTopNoticeChatTopNoticeReqBody `body:""`
+	httpReq *larkcore.HttpReq
+	Body    *PutTopNoticeChatTopNoticeReqBody `body:""`
 }
 
 type PutTopNoticeChatTopNoticeResp struct {
@@ -5935,14 +5935,14 @@ func (builder *CreateFilePathReqBodyBuilder) Build() (*CreateFileReqBody, error)
 
 // 1.4 生成请求的builder结构体
 type CreateFileReqBuilder struct {
-	*larkcore.HttpReq
-	body *CreateFileReqBody
+	httpReq *larkcore.HttpReq
+	body    *CreateFileReqBody
 }
 
 // 生成请求的New构造器
 func NewCreateFileReqBuilder() *CreateFileReqBuilder {
 	builder := &CreateFileReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -5958,8 +5958,8 @@ func (builder *CreateFileReqBuilder) Body(body *CreateFileReqBody) *CreateFileRe
 // 1.5 生成请求的builder的build方法
 func (builder *CreateFileReqBuilder) Build() *CreateFileReq {
 	req := &CreateFileReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.Body = builder.body
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.Body = builder.body
 	return req
 }
 
@@ -5971,8 +5971,8 @@ type CreateFileReqBody struct {
 }
 
 type CreateFileReq struct {
-	*larkcore.HttpReq
-	Body *CreateFileReqBody `body:""`
+	httpReq *larkcore.HttpReq
+	Body    *CreateFileReqBody `body:""`
 }
 
 type CreateFileRespData struct {
@@ -5991,13 +5991,13 @@ func (resp *CreateFileResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type GetFileReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewGetFileReqBuilder() *GetFileReqBuilder {
 	builder := &GetFileReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -6006,20 +6006,20 @@ func NewGetFileReqBuilder() *GetFileReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *GetFileReqBuilder) FileKey(fileKey string) *GetFileReqBuilder {
-	builder.PathParams.Set("file_key", fmt.Sprint(fileKey))
+	builder.httpReq.PathParams.Set("file_key", fmt.Sprint(fileKey))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *GetFileReqBuilder) Build() *GetFileReq {
 	req := &GetFileReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
 	return req
 }
 
 type GetFileReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type GetFileResp struct {
@@ -6126,14 +6126,14 @@ func (builder *CreateImagePathReqBodyBuilder) Build() (*CreateImageReqBody, erro
 
 // 1.4 生成请求的builder结构体
 type CreateImageReqBuilder struct {
-	*larkcore.HttpReq
-	body *CreateImageReqBody
+	httpReq *larkcore.HttpReq
+	body    *CreateImageReqBody
 }
 
 // 生成请求的New构造器
 func NewCreateImageReqBuilder() *CreateImageReqBuilder {
 	builder := &CreateImageReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -6149,8 +6149,8 @@ func (builder *CreateImageReqBuilder) Body(body *CreateImageReqBody) *CreateImag
 // 1.5 生成请求的builder的build方法
 func (builder *CreateImageReqBuilder) Build() *CreateImageReq {
 	req := &CreateImageReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.Body = builder.body
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.Body = builder.body
 	return req
 }
 
@@ -6160,8 +6160,8 @@ type CreateImageReqBody struct {
 }
 
 type CreateImageReq struct {
-	*larkcore.HttpReq
-	Body *CreateImageReqBody `body:""`
+	httpReq *larkcore.HttpReq
+	Body    *CreateImageReqBody `body:""`
 }
 
 type CreateImageRespData struct {
@@ -6180,13 +6180,13 @@ func (resp *CreateImageResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type GetImageReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewGetImageReqBuilder() *GetImageReqBuilder {
 	builder := &GetImageReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -6195,20 +6195,20 @@ func NewGetImageReqBuilder() *GetImageReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *GetImageReqBuilder) ImageKey(imageKey string) *GetImageReqBuilder {
-	builder.PathParams.Set("image_key", fmt.Sprint(imageKey))
+	builder.httpReq.PathParams.Set("image_key", fmt.Sprint(imageKey))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *GetImageReqBuilder) Build() *GetImageReq {
 	req := &GetImageReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
 	return req
 }
 
 type GetImageReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type GetImageResp struct {
@@ -6331,14 +6331,14 @@ func (builder *CreateMessagePathReqBodyBuilder) Build() (*CreateMessageReqBody, 
 
 // 1.4 生成请求的builder结构体
 type CreateMessageReqBuilder struct {
-	*larkcore.HttpReq
-	body *CreateMessageReqBody
+	httpReq *larkcore.HttpReq
+	body    *CreateMessageReqBody
 }
 
 // 生成请求的New构造器
 func NewCreateMessageReqBuilder() *CreateMessageReqBuilder {
 	builder := &CreateMessageReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -6347,7 +6347,7 @@ func NewCreateMessageReqBuilder() *CreateMessageReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *CreateMessageReqBuilder) ReceiveIdType(receiveIdType string) *CreateMessageReqBuilder {
-	builder.QueryParams.Set("receive_id_type", fmt.Sprint(receiveIdType))
+	builder.httpReq.QueryParams.Set("receive_id_type", fmt.Sprint(receiveIdType))
 	return builder
 }
 func (builder *CreateMessageReqBuilder) Body(body *CreateMessageReqBody) *CreateMessageReqBuilder {
@@ -6358,9 +6358,9 @@ func (builder *CreateMessageReqBuilder) Body(body *CreateMessageReqBody) *Create
 // 1.5 生成请求的builder的build方法
 func (builder *CreateMessageReqBuilder) Build() *CreateMessageReq {
 	req := &CreateMessageReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.QueryParams = builder.QueryParams
-	req.HttpReq.Body = builder.body
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.httpReq.Body = builder.body
 	return req
 }
 
@@ -6371,8 +6371,8 @@ type CreateMessageReqBody struct {
 }
 
 type CreateMessageReq struct {
-	*larkcore.HttpReq
-	Body *CreateMessageReqBody `body:""`
+	httpReq *larkcore.HttpReq
+	Body    *CreateMessageReqBody `body:""`
 }
 
 type CreateMessageRespData struct {
@@ -6403,13 +6403,13 @@ func (resp *CreateMessageResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type DeleteMessageReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewDeleteMessageReqBuilder() *DeleteMessageReqBuilder {
 	builder := &DeleteMessageReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -6418,20 +6418,20 @@ func NewDeleteMessageReqBuilder() *DeleteMessageReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *DeleteMessageReqBuilder) MessageId(messageId string) *DeleteMessageReqBuilder {
-	builder.PathParams.Set("message_id", fmt.Sprint(messageId))
+	builder.httpReq.PathParams.Set("message_id", fmt.Sprint(messageId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *DeleteMessageReqBuilder) Build() *DeleteMessageReq {
 	req := &DeleteMessageReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
 	return req
 }
 
 type DeleteMessageReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type DeleteMessageResp struct {
@@ -6445,13 +6445,13 @@ func (resp *DeleteMessageResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type GetMessageReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewGetMessageReqBuilder() *GetMessageReqBuilder {
 	builder := &GetMessageReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -6460,20 +6460,20 @@ func NewGetMessageReqBuilder() *GetMessageReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *GetMessageReqBuilder) MessageId(messageId string) *GetMessageReqBuilder {
-	builder.PathParams.Set("message_id", fmt.Sprint(messageId))
+	builder.httpReq.PathParams.Set("message_id", fmt.Sprint(messageId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *GetMessageReqBuilder) Build() *GetMessageReq {
 	req := &GetMessageReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
 	return req
 }
 
 type GetMessageReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type GetMessageRespData struct {
@@ -6492,14 +6492,14 @@ func (resp *GetMessageResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type ListMessageReqBuilder struct {
-	*larkcore.HttpReq
-	limit int
+	httpReq *larkcore.HttpReq
+	limit   int
 }
 
 // 生成请求的New构造器
 func NewListMessageReqBuilder() *ListMessageReqBuilder {
 	builder := &ListMessageReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -6512,42 +6512,42 @@ func (builder *ListMessageReqBuilder) Limit(limit int) *ListMessageReqBuilder {
 	return builder
 }
 func (builder *ListMessageReqBuilder) ContainerIdType(containerIdType string) *ListMessageReqBuilder {
-	builder.QueryParams.Set("container_id_type", fmt.Sprint(containerIdType))
+	builder.httpReq.QueryParams.Set("container_id_type", fmt.Sprint(containerIdType))
 	return builder
 }
 func (builder *ListMessageReqBuilder) ContainerId(containerId string) *ListMessageReqBuilder {
-	builder.QueryParams.Set("container_id", fmt.Sprint(containerId))
+	builder.httpReq.QueryParams.Set("container_id", fmt.Sprint(containerId))
 	return builder
 }
 func (builder *ListMessageReqBuilder) StartTime(startTime string) *ListMessageReqBuilder {
-	builder.QueryParams.Set("start_time", fmt.Sprint(startTime))
+	builder.httpReq.QueryParams.Set("start_time", fmt.Sprint(startTime))
 	return builder
 }
 func (builder *ListMessageReqBuilder) EndTime(endTime string) *ListMessageReqBuilder {
-	builder.QueryParams.Set("end_time", fmt.Sprint(endTime))
+	builder.httpReq.QueryParams.Set("end_time", fmt.Sprint(endTime))
 	return builder
 }
 func (builder *ListMessageReqBuilder) PageToken(pageToken string) *ListMessageReqBuilder {
-	builder.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	builder.httpReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 func (builder *ListMessageReqBuilder) PageSize(pageSize int) *ListMessageReqBuilder {
-	builder.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	builder.httpReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ListMessageReqBuilder) Build() *ListMessageReq {
 	req := &ListMessageReq{}
-	req.HttpReq = &larkcore.HttpReq{}
+	req.httpReq = &larkcore.HttpReq{}
 	req.Limit = builder.limit
-	req.HttpReq.QueryParams = builder.QueryParams
+	req.httpReq.QueryParams = builder.httpReq.QueryParams
 	return req
 }
 
 type ListMessageReq struct {
-	*larkcore.HttpReq
-	Limit int
+	httpReq *larkcore.HttpReq
+	Limit   int
 }
 
 type ListMessageRespData struct {
@@ -6621,14 +6621,14 @@ func (builder *PatchMessagePathReqBodyBuilder) Build() (*PatchMessageReqBody, er
 
 // 1.4 生成请求的builder结构体
 type PatchMessageReqBuilder struct {
-	*larkcore.HttpReq
-	body *PatchMessageReqBody
+	httpReq *larkcore.HttpReq
+	body    *PatchMessageReqBody
 }
 
 // 生成请求的New构造器
 func NewPatchMessageReqBuilder() *PatchMessageReqBuilder {
 	builder := &PatchMessageReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -6637,7 +6637,7 @@ func NewPatchMessageReqBuilder() *PatchMessageReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *PatchMessageReqBuilder) MessageId(messageId string) *PatchMessageReqBuilder {
-	builder.PathParams.Set("message_id", fmt.Sprint(messageId))
+	builder.httpReq.PathParams.Set("message_id", fmt.Sprint(messageId))
 	return builder
 }
 func (builder *PatchMessageReqBuilder) Body(body *PatchMessageReqBody) *PatchMessageReqBuilder {
@@ -6648,9 +6648,9 @@ func (builder *PatchMessageReqBuilder) Body(body *PatchMessageReqBody) *PatchMes
 // 1.5 生成请求的builder的build方法
 func (builder *PatchMessageReqBuilder) Build() *PatchMessageReq {
 	req := &PatchMessageReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.Body = builder.body
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.Body = builder.body
 	return req
 }
 
@@ -6659,8 +6659,8 @@ type PatchMessageReqBody struct {
 }
 
 type PatchMessageReq struct {
-	*larkcore.HttpReq
-	Body *PatchMessageReqBody `body:""`
+	httpReq *larkcore.HttpReq
+	Body    *PatchMessageReqBody `body:""`
 }
 
 type PatchMessageResp struct {
@@ -6674,13 +6674,13 @@ func (resp *PatchMessageResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type ReadUsersMessageReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewReadUsersMessageReqBuilder() *ReadUsersMessageReqBuilder {
 	builder := &ReadUsersMessageReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -6689,33 +6689,33 @@ func NewReadUsersMessageReqBuilder() *ReadUsersMessageReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *ReadUsersMessageReqBuilder) MessageId(messageId string) *ReadUsersMessageReqBuilder {
-	builder.PathParams.Set("message_id", fmt.Sprint(messageId))
+	builder.httpReq.PathParams.Set("message_id", fmt.Sprint(messageId))
 	return builder
 }
 func (builder *ReadUsersMessageReqBuilder) UserIdType(userIdType string) *ReadUsersMessageReqBuilder {
-	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *ReadUsersMessageReqBuilder) PageSize(pageSize int) *ReadUsersMessageReqBuilder {
-	builder.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	builder.httpReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 func (builder *ReadUsersMessageReqBuilder) PageToken(pageToken string) *ReadUsersMessageReqBuilder {
-	builder.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	builder.httpReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ReadUsersMessageReqBuilder) Build() *ReadUsersMessageReq {
 	req := &ReadUsersMessageReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.QueryParams = builder.QueryParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.QueryParams = builder.httpReq.QueryParams
 	return req
 }
 
 type ReadUsersMessageReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type ReadUsersMessageRespData struct {
@@ -6809,14 +6809,14 @@ func (builder *ReplyMessagePathReqBodyBuilder) Build() (*ReplyMessageReqBody, er
 
 // 1.4 生成请求的builder结构体
 type ReplyMessageReqBuilder struct {
-	*larkcore.HttpReq
-	body *ReplyMessageReqBody
+	httpReq *larkcore.HttpReq
+	body    *ReplyMessageReqBody
 }
 
 // 生成请求的New构造器
 func NewReplyMessageReqBuilder() *ReplyMessageReqBuilder {
 	builder := &ReplyMessageReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -6825,7 +6825,7 @@ func NewReplyMessageReqBuilder() *ReplyMessageReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *ReplyMessageReqBuilder) MessageId(messageId string) *ReplyMessageReqBuilder {
-	builder.PathParams.Set("message_id", fmt.Sprint(messageId))
+	builder.httpReq.PathParams.Set("message_id", fmt.Sprint(messageId))
 	return builder
 }
 func (builder *ReplyMessageReqBuilder) Body(body *ReplyMessageReqBody) *ReplyMessageReqBuilder {
@@ -6836,9 +6836,9 @@ func (builder *ReplyMessageReqBuilder) Body(body *ReplyMessageReqBody) *ReplyMes
 // 1.5 生成请求的builder的build方法
 func (builder *ReplyMessageReqBuilder) Build() *ReplyMessageReq {
 	req := &ReplyMessageReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.Body = builder.body
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.Body = builder.body
 	return req
 }
 
@@ -6848,8 +6848,8 @@ type ReplyMessageReqBody struct {
 }
 
 type ReplyMessageReq struct {
-	*larkcore.HttpReq
-	Body *ReplyMessageReqBody `body:""`
+	httpReq *larkcore.HttpReq
+	Body    *ReplyMessageReqBody `body:""`
 }
 
 type ReplyMessageRespData struct {
@@ -6880,14 +6880,14 @@ func (resp *ReplyMessageResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type UrgentAppMessageReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq         *larkcore.HttpReq
 	urgentReceivers *UrgentReceivers
 }
 
 // 生成请求的New构造器
 func NewUrgentAppMessageReqBuilder() *UrgentAppMessageReqBuilder {
 	builder := &UrgentAppMessageReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -6896,11 +6896,11 @@ func NewUrgentAppMessageReqBuilder() *UrgentAppMessageReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *UrgentAppMessageReqBuilder) MessageId(messageId string) *UrgentAppMessageReqBuilder {
-	builder.PathParams.Set("message_id", fmt.Sprint(messageId))
+	builder.httpReq.PathParams.Set("message_id", fmt.Sprint(messageId))
 	return builder
 }
 func (builder *UrgentAppMessageReqBuilder) UserIdType(userIdType string) *UrgentAppMessageReqBuilder {
-	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *UrgentAppMessageReqBuilder) UrgentReceivers(urgentReceivers *UrgentReceivers) *UrgentAppMessageReqBuilder {
@@ -6911,15 +6911,15 @@ func (builder *UrgentAppMessageReqBuilder) UrgentReceivers(urgentReceivers *Urge
 // 1.5 生成请求的builder的build方法
 func (builder *UrgentAppMessageReqBuilder) Build() *UrgentAppMessageReq {
 	req := &UrgentAppMessageReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.QueryParams = builder.QueryParams
-	req.HttpReq.Body = builder.urgentReceivers
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.httpReq.Body = builder.urgentReceivers
 	return req
 }
 
 type UrgentAppMessageReq struct {
-	*larkcore.HttpReq
+	httpReq         *larkcore.HttpReq
 	UrgentReceivers *UrgentReceivers `body:""`
 }
 
@@ -6939,14 +6939,14 @@ func (resp *UrgentAppMessageResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type UrgentPhoneMessageReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq         *larkcore.HttpReq
 	urgentReceivers *UrgentReceivers
 }
 
 // 生成请求的New构造器
 func NewUrgentPhoneMessageReqBuilder() *UrgentPhoneMessageReqBuilder {
 	builder := &UrgentPhoneMessageReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -6955,11 +6955,11 @@ func NewUrgentPhoneMessageReqBuilder() *UrgentPhoneMessageReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *UrgentPhoneMessageReqBuilder) MessageId(messageId string) *UrgentPhoneMessageReqBuilder {
-	builder.PathParams.Set("message_id", fmt.Sprint(messageId))
+	builder.httpReq.PathParams.Set("message_id", fmt.Sprint(messageId))
 	return builder
 }
 func (builder *UrgentPhoneMessageReqBuilder) UserIdType(userIdType string) *UrgentPhoneMessageReqBuilder {
-	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *UrgentPhoneMessageReqBuilder) UrgentReceivers(urgentReceivers *UrgentReceivers) *UrgentPhoneMessageReqBuilder {
@@ -6970,15 +6970,15 @@ func (builder *UrgentPhoneMessageReqBuilder) UrgentReceivers(urgentReceivers *Ur
 // 1.5 生成请求的builder的build方法
 func (builder *UrgentPhoneMessageReqBuilder) Build() *UrgentPhoneMessageReq {
 	req := &UrgentPhoneMessageReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.QueryParams = builder.QueryParams
-	req.HttpReq.Body = builder.urgentReceivers
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.httpReq.Body = builder.urgentReceivers
 	return req
 }
 
 type UrgentPhoneMessageReq struct {
-	*larkcore.HttpReq
+	httpReq         *larkcore.HttpReq
 	UrgentReceivers *UrgentReceivers `body:""`
 }
 
@@ -6998,14 +6998,14 @@ func (resp *UrgentPhoneMessageResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type UrgentSmsMessageReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq         *larkcore.HttpReq
 	urgentReceivers *UrgentReceivers
 }
 
 // 生成请求的New构造器
 func NewUrgentSmsMessageReqBuilder() *UrgentSmsMessageReqBuilder {
 	builder := &UrgentSmsMessageReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -7014,11 +7014,11 @@ func NewUrgentSmsMessageReqBuilder() *UrgentSmsMessageReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *UrgentSmsMessageReqBuilder) MessageId(messageId string) *UrgentSmsMessageReqBuilder {
-	builder.PathParams.Set("message_id", fmt.Sprint(messageId))
+	builder.httpReq.PathParams.Set("message_id", fmt.Sprint(messageId))
 	return builder
 }
 func (builder *UrgentSmsMessageReqBuilder) UserIdType(userIdType string) *UrgentSmsMessageReqBuilder {
-	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *UrgentSmsMessageReqBuilder) UrgentReceivers(urgentReceivers *UrgentReceivers) *UrgentSmsMessageReqBuilder {
@@ -7029,15 +7029,15 @@ func (builder *UrgentSmsMessageReqBuilder) UrgentReceivers(urgentReceivers *Urge
 // 1.5 生成请求的builder的build方法
 func (builder *UrgentSmsMessageReqBuilder) Build() *UrgentSmsMessageReq {
 	req := &UrgentSmsMessageReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.QueryParams = builder.QueryParams
-	req.HttpReq.Body = builder.urgentReceivers
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.httpReq.Body = builder.urgentReceivers
 	return req
 }
 
 type UrgentSmsMessageReq struct {
-	*larkcore.HttpReq
+	httpReq         *larkcore.HttpReq
 	UrgentReceivers *UrgentReceivers `body:""`
 }
 
@@ -7110,14 +7110,14 @@ func (builder *CreateMessageReactionPathReqBodyBuilder) Build() (*CreateMessageR
 
 // 1.4 生成请求的builder结构体
 type CreateMessageReactionReqBuilder struct {
-	*larkcore.HttpReq
-	body *CreateMessageReactionReqBody
+	httpReq *larkcore.HttpReq
+	body    *CreateMessageReactionReqBody
 }
 
 // 生成请求的New构造器
 func NewCreateMessageReactionReqBuilder() *CreateMessageReactionReqBuilder {
 	builder := &CreateMessageReactionReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -7126,7 +7126,7 @@ func NewCreateMessageReactionReqBuilder() *CreateMessageReactionReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *CreateMessageReactionReqBuilder) MessageId(messageId string) *CreateMessageReactionReqBuilder {
-	builder.PathParams.Set("message_id", fmt.Sprint(messageId))
+	builder.httpReq.PathParams.Set("message_id", fmt.Sprint(messageId))
 	return builder
 }
 func (builder *CreateMessageReactionReqBuilder) Body(body *CreateMessageReactionReqBody) *CreateMessageReactionReqBuilder {
@@ -7137,9 +7137,9 @@ func (builder *CreateMessageReactionReqBuilder) Body(body *CreateMessageReaction
 // 1.5 生成请求的builder的build方法
 func (builder *CreateMessageReactionReqBuilder) Build() *CreateMessageReactionReq {
 	req := &CreateMessageReactionReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.Body = builder.body
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.Body = builder.body
 	return req
 }
 
@@ -7148,8 +7148,8 @@ type CreateMessageReactionReqBody struct {
 }
 
 type CreateMessageReactionReq struct {
-	*larkcore.HttpReq
-	Body *CreateMessageReactionReqBody `body:""`
+	httpReq *larkcore.HttpReq
+	Body    *CreateMessageReactionReqBody `body:""`
 }
 
 type CreateMessageReactionRespData struct {
@@ -7171,13 +7171,13 @@ func (resp *CreateMessageReactionResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type DeleteMessageReactionReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewDeleteMessageReactionReqBuilder() *DeleteMessageReactionReqBuilder {
 	builder := &DeleteMessageReactionReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -7186,24 +7186,24 @@ func NewDeleteMessageReactionReqBuilder() *DeleteMessageReactionReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *DeleteMessageReactionReqBuilder) MessageId(messageId string) *DeleteMessageReactionReqBuilder {
-	builder.PathParams.Set("message_id", fmt.Sprint(messageId))
+	builder.httpReq.PathParams.Set("message_id", fmt.Sprint(messageId))
 	return builder
 }
 func (builder *DeleteMessageReactionReqBuilder) ReactionId(reactionId string) *DeleteMessageReactionReqBuilder {
-	builder.PathParams.Set("reaction_id", fmt.Sprint(reactionId))
+	builder.httpReq.PathParams.Set("reaction_id", fmt.Sprint(reactionId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *DeleteMessageReactionReqBuilder) Build() *DeleteMessageReactionReq {
 	req := &DeleteMessageReactionReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
 	return req
 }
 
 type DeleteMessageReactionReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type DeleteMessageReactionRespData struct {
@@ -7225,14 +7225,14 @@ func (resp *DeleteMessageReactionResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type ListMessageReactionReqBuilder struct {
-	*larkcore.HttpReq
-	limit int
+	httpReq *larkcore.HttpReq
+	limit   int
 }
 
 // 生成请求的New构造器
 func NewListMessageReactionReqBuilder() *ListMessageReactionReqBuilder {
 	builder := &ListMessageReactionReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -7245,39 +7245,39 @@ func (builder *ListMessageReactionReqBuilder) Limit(limit int) *ListMessageReact
 	return builder
 }
 func (builder *ListMessageReactionReqBuilder) MessageId(messageId string) *ListMessageReactionReqBuilder {
-	builder.PathParams.Set("message_id", fmt.Sprint(messageId))
+	builder.httpReq.PathParams.Set("message_id", fmt.Sprint(messageId))
 	return builder
 }
 func (builder *ListMessageReactionReqBuilder) ReactionType(reactionType string) *ListMessageReactionReqBuilder {
-	builder.QueryParams.Set("reaction_type", fmt.Sprint(reactionType))
+	builder.httpReq.QueryParams.Set("reaction_type", fmt.Sprint(reactionType))
 	return builder
 }
 func (builder *ListMessageReactionReqBuilder) PageToken(pageToken string) *ListMessageReactionReqBuilder {
-	builder.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	builder.httpReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 func (builder *ListMessageReactionReqBuilder) PageSize(pageSize int) *ListMessageReactionReqBuilder {
-	builder.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	builder.httpReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 func (builder *ListMessageReactionReqBuilder) UserIdType(userIdType string) *ListMessageReactionReqBuilder {
-	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ListMessageReactionReqBuilder) Build() *ListMessageReactionReq {
 	req := &ListMessageReactionReq{}
-	req.HttpReq = &larkcore.HttpReq{}
+	req.httpReq = &larkcore.HttpReq{}
 	req.Limit = builder.limit
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.QueryParams = builder.QueryParams
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.QueryParams = builder.httpReq.QueryParams
 	return req
 }
 
 type ListMessageReactionReq struct {
-	*larkcore.HttpReq
-	Limit int
+	httpReq *larkcore.HttpReq
+	Limit   int
 }
 
 type ListMessageReactionRespData struct {
@@ -7298,13 +7298,13 @@ func (resp *ListMessageReactionResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type GetMessageResourceReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewGetMessageResourceReqBuilder() *GetMessageResourceReqBuilder {
 	builder := &GetMessageResourceReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -7313,29 +7313,29 @@ func NewGetMessageResourceReqBuilder() *GetMessageResourceReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *GetMessageResourceReqBuilder) MessageId(messageId string) *GetMessageResourceReqBuilder {
-	builder.PathParams.Set("message_id", fmt.Sprint(messageId))
+	builder.httpReq.PathParams.Set("message_id", fmt.Sprint(messageId))
 	return builder
 }
 func (builder *GetMessageResourceReqBuilder) FileKey(fileKey string) *GetMessageResourceReqBuilder {
-	builder.PathParams.Set("file_key", fmt.Sprint(fileKey))
+	builder.httpReq.PathParams.Set("file_key", fmt.Sprint(fileKey))
 	return builder
 }
 func (builder *GetMessageResourceReqBuilder) Type(type_ string) *GetMessageResourceReqBuilder {
-	builder.QueryParams.Set("type", fmt.Sprint(type_))
+	builder.httpReq.QueryParams.Set("type", fmt.Sprint(type_))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *GetMessageResourceReqBuilder) Build() *GetMessageResourceReq {
 	req := &GetMessageResourceReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.QueryParams = builder.QueryParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.QueryParams = builder.httpReq.QueryParams
 	return req
 }
 
 type GetMessageResourceReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type GetMessageResourceResp struct {
@@ -7584,7 +7584,7 @@ func (iterator *ListChatIterator) Next() (bool, *ListChat, error) {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
-			iterator.req.QueryParams.Set("page_token", *iterator.nextPageToken)
+			iterator.req.httpReq.QueryParams.Set("page_token", *iterator.nextPageToken)
 		}
 		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
 		if err != nil {
@@ -7638,7 +7638,7 @@ func (iterator *SearchChatIterator) Next() (bool, *ListChat, error) {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
-			iterator.req.QueryParams.Set("page_token", *iterator.nextPageToken)
+			iterator.req.httpReq.QueryParams.Set("page_token", *iterator.nextPageToken)
 		}
 		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
 		if err != nil {
@@ -7692,7 +7692,7 @@ func (iterator *GetChatMembersIterator) Next() (bool, *ListMember, error) {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
-			iterator.req.QueryParams.Set("page_token", *iterator.nextPageToken)
+			iterator.req.httpReq.QueryParams.Set("page_token", *iterator.nextPageToken)
 		}
 		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
 		if err != nil {
@@ -7746,7 +7746,7 @@ func (iterator *GetChatModerationIterator) Next() (bool, *ListModerator, error) 
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
-			iterator.req.QueryParams.Set("page_token", *iterator.nextPageToken)
+			iterator.req.httpReq.QueryParams.Set("page_token", *iterator.nextPageToken)
 		}
 		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
 		if err != nil {
@@ -7800,7 +7800,7 @@ func (iterator *ListMessageIterator) Next() (bool, *Message, error) {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
-			iterator.req.QueryParams.Set("page_token", *iterator.nextPageToken)
+			iterator.req.httpReq.QueryParams.Set("page_token", *iterator.nextPageToken)
 		}
 		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
 		if err != nil {
@@ -7854,7 +7854,7 @@ func (iterator *ListMessageReactionIterator) Next() (bool, *MessageReaction, err
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
-			iterator.req.QueryParams.Set("page_token", *iterator.nextPageToken)
+			iterator.req.httpReq.QueryParams.Set("page_token", *iterator.nextPageToken)
 		}
 		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
 		if err != nil {

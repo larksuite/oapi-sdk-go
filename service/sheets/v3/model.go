@@ -891,14 +891,14 @@ func (builder *UpdateSheetFilterBuilder) Build() *UpdateSheetFilter {
 
 // 1.4 生成请求的builder结构体
 type CreateSpreadsheetReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq     *larkcore.HttpReq
 	spreadsheet *Spreadsheet
 }
 
 // 生成请求的New构造器
 func NewCreateSpreadsheetReqBuilder() *CreateSpreadsheetReqBuilder {
 	builder := &CreateSpreadsheetReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -914,13 +914,13 @@ func (builder *CreateSpreadsheetReqBuilder) Spreadsheet(spreadsheet *Spreadsheet
 // 1.5 生成请求的builder的build方法
 func (builder *CreateSpreadsheetReqBuilder) Build() *CreateSpreadsheetReq {
 	req := &CreateSpreadsheetReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.Body = builder.spreadsheet
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.Body = builder.spreadsheet
 	return req
 }
 
 type CreateSpreadsheetReq struct {
-	*larkcore.HttpReq
+	httpReq     *larkcore.HttpReq
 	Spreadsheet *Spreadsheet `body:""`
 }
 
@@ -940,14 +940,14 @@ func (resp *CreateSpreadsheetResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type FindSpreadsheetSheetReqBuilder struct {
-	*larkcore.HttpReq
-	find *Find
+	httpReq *larkcore.HttpReq
+	find    *Find
 }
 
 // 生成请求的New构造器
 func NewFindSpreadsheetSheetReqBuilder() *FindSpreadsheetSheetReqBuilder {
 	builder := &FindSpreadsheetSheetReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -956,11 +956,11 @@ func NewFindSpreadsheetSheetReqBuilder() *FindSpreadsheetSheetReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *FindSpreadsheetSheetReqBuilder) SpreadsheetToken(spreadsheetToken string) *FindSpreadsheetSheetReqBuilder {
-	builder.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
+	builder.httpReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
 }
 func (builder *FindSpreadsheetSheetReqBuilder) SheetId(sheetId string) *FindSpreadsheetSheetReqBuilder {
-	builder.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
+	builder.httpReq.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
 	return builder
 }
 func (builder *FindSpreadsheetSheetReqBuilder) Find(find *Find) *FindSpreadsheetSheetReqBuilder {
@@ -971,15 +971,15 @@ func (builder *FindSpreadsheetSheetReqBuilder) Find(find *Find) *FindSpreadsheet
 // 1.5 生成请求的builder的build方法
 func (builder *FindSpreadsheetSheetReqBuilder) Build() *FindSpreadsheetSheetReq {
 	req := &FindSpreadsheetSheetReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.Body = builder.find
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.Body = builder.find
 	return req
 }
 
 type FindSpreadsheetSheetReq struct {
-	*larkcore.HttpReq
-	Find *Find `body:""`
+	httpReq *larkcore.HttpReq
+	Find    *Find `body:""`
 }
 
 type FindSpreadsheetSheetRespData struct {
@@ -998,14 +998,14 @@ func (resp *FindSpreadsheetSheetResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type MoveDimensionSpreadsheetSheetReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq       *larkcore.HttpReq
 	moveDimension *MoveDimension
 }
 
 // 生成请求的New构造器
 func NewMoveDimensionSpreadsheetSheetReqBuilder() *MoveDimensionSpreadsheetSheetReqBuilder {
 	builder := &MoveDimensionSpreadsheetSheetReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1014,11 +1014,11 @@ func NewMoveDimensionSpreadsheetSheetReqBuilder() *MoveDimensionSpreadsheetSheet
 
 // 1.5 生成请求的builder属性方法
 func (builder *MoveDimensionSpreadsheetSheetReqBuilder) SpreadsheetToken(spreadsheetToken string) *MoveDimensionSpreadsheetSheetReqBuilder {
-	builder.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
+	builder.httpReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
 }
 func (builder *MoveDimensionSpreadsheetSheetReqBuilder) SheetId(sheetId string) *MoveDimensionSpreadsheetSheetReqBuilder {
-	builder.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
+	builder.httpReq.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
 	return builder
 }
 func (builder *MoveDimensionSpreadsheetSheetReqBuilder) MoveDimension(moveDimension *MoveDimension) *MoveDimensionSpreadsheetSheetReqBuilder {
@@ -1029,14 +1029,14 @@ func (builder *MoveDimensionSpreadsheetSheetReqBuilder) MoveDimension(moveDimens
 // 1.5 生成请求的builder的build方法
 func (builder *MoveDimensionSpreadsheetSheetReqBuilder) Build() *MoveDimensionSpreadsheetSheetReq {
 	req := &MoveDimensionSpreadsheetSheetReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.Body = builder.moveDimension
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.Body = builder.moveDimension
 	return req
 }
 
 type MoveDimensionSpreadsheetSheetReq struct {
-	*larkcore.HttpReq
+	httpReq       *larkcore.HttpReq
 	MoveDimension *MoveDimension `body:""`
 }
 
@@ -1051,14 +1051,14 @@ func (resp *MoveDimensionSpreadsheetSheetResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type ReplaceSpreadsheetSheetReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 	replace *Replace
 }
 
 // 生成请求的New构造器
 func NewReplaceSpreadsheetSheetReqBuilder() *ReplaceSpreadsheetSheetReqBuilder {
 	builder := &ReplaceSpreadsheetSheetReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1067,11 +1067,11 @@ func NewReplaceSpreadsheetSheetReqBuilder() *ReplaceSpreadsheetSheetReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *ReplaceSpreadsheetSheetReqBuilder) SpreadsheetToken(spreadsheetToken string) *ReplaceSpreadsheetSheetReqBuilder {
-	builder.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
+	builder.httpReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
 }
 func (builder *ReplaceSpreadsheetSheetReqBuilder) SheetId(sheetId string) *ReplaceSpreadsheetSheetReqBuilder {
-	builder.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
+	builder.httpReq.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
 	return builder
 }
 func (builder *ReplaceSpreadsheetSheetReqBuilder) Replace(replace *Replace) *ReplaceSpreadsheetSheetReqBuilder {
@@ -1082,14 +1082,14 @@ func (builder *ReplaceSpreadsheetSheetReqBuilder) Replace(replace *Replace) *Rep
 // 1.5 生成请求的builder的build方法
 func (builder *ReplaceSpreadsheetSheetReqBuilder) Build() *ReplaceSpreadsheetSheetReq {
 	req := &ReplaceSpreadsheetSheetReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.Body = builder.replace
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.Body = builder.replace
 	return req
 }
 
 type ReplaceSpreadsheetSheetReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 	Replace *Replace `body:""`
 }
 
@@ -1109,14 +1109,14 @@ func (resp *ReplaceSpreadsheetSheetResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type CreateSpreadsheetSheetFilterReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq           *larkcore.HttpReq
 	createSheetFilter *CreateSheetFilter
 }
 
 // 生成请求的New构造器
 func NewCreateSpreadsheetSheetFilterReqBuilder() *CreateSpreadsheetSheetFilterReqBuilder {
 	builder := &CreateSpreadsheetSheetFilterReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1125,11 +1125,11 @@ func NewCreateSpreadsheetSheetFilterReqBuilder() *CreateSpreadsheetSheetFilterRe
 
 // 1.5 生成请求的builder属性方法
 func (builder *CreateSpreadsheetSheetFilterReqBuilder) SpreadsheetToken(spreadsheetToken string) *CreateSpreadsheetSheetFilterReqBuilder {
-	builder.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
+	builder.httpReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
 }
 func (builder *CreateSpreadsheetSheetFilterReqBuilder) SheetId(sheetId string) *CreateSpreadsheetSheetFilterReqBuilder {
-	builder.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
+	builder.httpReq.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
 	return builder
 }
 func (builder *CreateSpreadsheetSheetFilterReqBuilder) CreateSheetFilter(createSheetFilter *CreateSheetFilter) *CreateSpreadsheetSheetFilterReqBuilder {
@@ -1140,14 +1140,14 @@ func (builder *CreateSpreadsheetSheetFilterReqBuilder) CreateSheetFilter(createS
 // 1.5 生成请求的builder的build方法
 func (builder *CreateSpreadsheetSheetFilterReqBuilder) Build() *CreateSpreadsheetSheetFilterReq {
 	req := &CreateSpreadsheetSheetFilterReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.Body = builder.createSheetFilter
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.Body = builder.createSheetFilter
 	return req
 }
 
 type CreateSpreadsheetSheetFilterReq struct {
-	*larkcore.HttpReq
+	httpReq           *larkcore.HttpReq
 	CreateSheetFilter *CreateSheetFilter `body:""`
 }
 
@@ -1162,13 +1162,13 @@ func (resp *CreateSpreadsheetSheetFilterResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type DeleteSpreadsheetSheetFilterReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewDeleteSpreadsheetSheetFilterReqBuilder() *DeleteSpreadsheetSheetFilterReqBuilder {
 	builder := &DeleteSpreadsheetSheetFilterReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1177,24 +1177,24 @@ func NewDeleteSpreadsheetSheetFilterReqBuilder() *DeleteSpreadsheetSheetFilterRe
 
 // 1.5 生成请求的builder属性方法
 func (builder *DeleteSpreadsheetSheetFilterReqBuilder) SpreadsheetToken(spreadsheetToken string) *DeleteSpreadsheetSheetFilterReqBuilder {
-	builder.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
+	builder.httpReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
 }
 func (builder *DeleteSpreadsheetSheetFilterReqBuilder) SheetId(sheetId string) *DeleteSpreadsheetSheetFilterReqBuilder {
-	builder.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
+	builder.httpReq.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *DeleteSpreadsheetSheetFilterReqBuilder) Build() *DeleteSpreadsheetSheetFilterReq {
 	req := &DeleteSpreadsheetSheetFilterReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
 	return req
 }
 
 type DeleteSpreadsheetSheetFilterReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type DeleteSpreadsheetSheetFilterResp struct {
@@ -1208,13 +1208,13 @@ func (resp *DeleteSpreadsheetSheetFilterResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type GetSpreadsheetSheetFilterReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewGetSpreadsheetSheetFilterReqBuilder() *GetSpreadsheetSheetFilterReqBuilder {
 	builder := &GetSpreadsheetSheetFilterReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1223,24 +1223,24 @@ func NewGetSpreadsheetSheetFilterReqBuilder() *GetSpreadsheetSheetFilterReqBuild
 
 // 1.5 生成请求的builder属性方法
 func (builder *GetSpreadsheetSheetFilterReqBuilder) SpreadsheetToken(spreadsheetToken string) *GetSpreadsheetSheetFilterReqBuilder {
-	builder.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
+	builder.httpReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
 }
 func (builder *GetSpreadsheetSheetFilterReqBuilder) SheetId(sheetId string) *GetSpreadsheetSheetFilterReqBuilder {
-	builder.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
+	builder.httpReq.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *GetSpreadsheetSheetFilterReqBuilder) Build() *GetSpreadsheetSheetFilterReq {
 	req := &GetSpreadsheetSheetFilterReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
 	return req
 }
 
 type GetSpreadsheetSheetFilterReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type GetSpreadsheetSheetFilterRespData struct {
@@ -1259,14 +1259,14 @@ func (resp *GetSpreadsheetSheetFilterResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type UpdateSpreadsheetSheetFilterReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq           *larkcore.HttpReq
 	updateSheetFilter *UpdateSheetFilter
 }
 
 // 生成请求的New构造器
 func NewUpdateSpreadsheetSheetFilterReqBuilder() *UpdateSpreadsheetSheetFilterReqBuilder {
 	builder := &UpdateSpreadsheetSheetFilterReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1275,11 +1275,11 @@ func NewUpdateSpreadsheetSheetFilterReqBuilder() *UpdateSpreadsheetSheetFilterRe
 
 // 1.5 生成请求的builder属性方法
 func (builder *UpdateSpreadsheetSheetFilterReqBuilder) SpreadsheetToken(spreadsheetToken string) *UpdateSpreadsheetSheetFilterReqBuilder {
-	builder.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
+	builder.httpReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
 }
 func (builder *UpdateSpreadsheetSheetFilterReqBuilder) SheetId(sheetId string) *UpdateSpreadsheetSheetFilterReqBuilder {
-	builder.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
+	builder.httpReq.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
 	return builder
 }
 func (builder *UpdateSpreadsheetSheetFilterReqBuilder) UpdateSheetFilter(updateSheetFilter *UpdateSheetFilter) *UpdateSpreadsheetSheetFilterReqBuilder {
@@ -1290,14 +1290,14 @@ func (builder *UpdateSpreadsheetSheetFilterReqBuilder) UpdateSheetFilter(updateS
 // 1.5 生成请求的builder的build方法
 func (builder *UpdateSpreadsheetSheetFilterReqBuilder) Build() *UpdateSpreadsheetSheetFilterReq {
 	req := &UpdateSpreadsheetSheetFilterReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.Body = builder.updateSheetFilter
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.Body = builder.updateSheetFilter
 	return req
 }
 
 type UpdateSpreadsheetSheetFilterReq struct {
-	*larkcore.HttpReq
+	httpReq           *larkcore.HttpReq
 	UpdateSheetFilter *UpdateSheetFilter `body:""`
 }
 
@@ -1312,14 +1312,14 @@ func (resp *UpdateSpreadsheetSheetFilterResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type CreateSpreadsheetSheetFilterViewReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq    *larkcore.HttpReq
 	filterView *FilterView
 }
 
 // 生成请求的New构造器
 func NewCreateSpreadsheetSheetFilterViewReqBuilder() *CreateSpreadsheetSheetFilterViewReqBuilder {
 	builder := &CreateSpreadsheetSheetFilterViewReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1328,11 +1328,11 @@ func NewCreateSpreadsheetSheetFilterViewReqBuilder() *CreateSpreadsheetSheetFilt
 
 // 1.5 生成请求的builder属性方法
 func (builder *CreateSpreadsheetSheetFilterViewReqBuilder) SpreadsheetToken(spreadsheetToken string) *CreateSpreadsheetSheetFilterViewReqBuilder {
-	builder.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
+	builder.httpReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
 }
 func (builder *CreateSpreadsheetSheetFilterViewReqBuilder) SheetId(sheetId string) *CreateSpreadsheetSheetFilterViewReqBuilder {
-	builder.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
+	builder.httpReq.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
 	return builder
 }
 func (builder *CreateSpreadsheetSheetFilterViewReqBuilder) FilterView(filterView *FilterView) *CreateSpreadsheetSheetFilterViewReqBuilder {
@@ -1343,14 +1343,14 @@ func (builder *CreateSpreadsheetSheetFilterViewReqBuilder) FilterView(filterView
 // 1.5 生成请求的builder的build方法
 func (builder *CreateSpreadsheetSheetFilterViewReqBuilder) Build() *CreateSpreadsheetSheetFilterViewReq {
 	req := &CreateSpreadsheetSheetFilterViewReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.Body = builder.filterView
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.Body = builder.filterView
 	return req
 }
 
 type CreateSpreadsheetSheetFilterViewReq struct {
-	*larkcore.HttpReq
+	httpReq    *larkcore.HttpReq
 	FilterView *FilterView `body:""`
 }
 
@@ -1370,13 +1370,13 @@ func (resp *CreateSpreadsheetSheetFilterViewResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type DeleteSpreadsheetSheetFilterViewReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewDeleteSpreadsheetSheetFilterViewReqBuilder() *DeleteSpreadsheetSheetFilterViewReqBuilder {
 	builder := &DeleteSpreadsheetSheetFilterViewReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1385,28 +1385,28 @@ func NewDeleteSpreadsheetSheetFilterViewReqBuilder() *DeleteSpreadsheetSheetFilt
 
 // 1.5 生成请求的builder属性方法
 func (builder *DeleteSpreadsheetSheetFilterViewReqBuilder) SpreadsheetToken(spreadsheetToken string) *DeleteSpreadsheetSheetFilterViewReqBuilder {
-	builder.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
+	builder.httpReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
 }
 func (builder *DeleteSpreadsheetSheetFilterViewReqBuilder) SheetId(sheetId string) *DeleteSpreadsheetSheetFilterViewReqBuilder {
-	builder.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
+	builder.httpReq.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
 	return builder
 }
 func (builder *DeleteSpreadsheetSheetFilterViewReqBuilder) FilterViewId(filterViewId string) *DeleteSpreadsheetSheetFilterViewReqBuilder {
-	builder.PathParams.Set("filter_view_id", fmt.Sprint(filterViewId))
+	builder.httpReq.PathParams.Set("filter_view_id", fmt.Sprint(filterViewId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *DeleteSpreadsheetSheetFilterViewReqBuilder) Build() *DeleteSpreadsheetSheetFilterViewReq {
 	req := &DeleteSpreadsheetSheetFilterViewReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
 	return req
 }
 
 type DeleteSpreadsheetSheetFilterViewReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type DeleteSpreadsheetSheetFilterViewResp struct {
@@ -1420,13 +1420,13 @@ func (resp *DeleteSpreadsheetSheetFilterViewResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type GetSpreadsheetSheetFilterViewReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewGetSpreadsheetSheetFilterViewReqBuilder() *GetSpreadsheetSheetFilterViewReqBuilder {
 	builder := &GetSpreadsheetSheetFilterViewReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1435,28 +1435,28 @@ func NewGetSpreadsheetSheetFilterViewReqBuilder() *GetSpreadsheetSheetFilterView
 
 // 1.5 生成请求的builder属性方法
 func (builder *GetSpreadsheetSheetFilterViewReqBuilder) SpreadsheetToken(spreadsheetToken string) *GetSpreadsheetSheetFilterViewReqBuilder {
-	builder.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
+	builder.httpReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
 }
 func (builder *GetSpreadsheetSheetFilterViewReqBuilder) SheetId(sheetId string) *GetSpreadsheetSheetFilterViewReqBuilder {
-	builder.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
+	builder.httpReq.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
 	return builder
 }
 func (builder *GetSpreadsheetSheetFilterViewReqBuilder) FilterViewId(filterViewId string) *GetSpreadsheetSheetFilterViewReqBuilder {
-	builder.PathParams.Set("filter_view_id", fmt.Sprint(filterViewId))
+	builder.httpReq.PathParams.Set("filter_view_id", fmt.Sprint(filterViewId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *GetSpreadsheetSheetFilterViewReqBuilder) Build() *GetSpreadsheetSheetFilterViewReq {
 	req := &GetSpreadsheetSheetFilterViewReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
 	return req
 }
 
 type GetSpreadsheetSheetFilterViewReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type GetSpreadsheetSheetFilterViewRespData struct {
@@ -1475,14 +1475,14 @@ func (resp *GetSpreadsheetSheetFilterViewResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type PatchSpreadsheetSheetFilterViewReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq    *larkcore.HttpReq
 	filterView *FilterView
 }
 
 // 生成请求的New构造器
 func NewPatchSpreadsheetSheetFilterViewReqBuilder() *PatchSpreadsheetSheetFilterViewReqBuilder {
 	builder := &PatchSpreadsheetSheetFilterViewReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1491,15 +1491,15 @@ func NewPatchSpreadsheetSheetFilterViewReqBuilder() *PatchSpreadsheetSheetFilter
 
 // 1.5 生成请求的builder属性方法
 func (builder *PatchSpreadsheetSheetFilterViewReqBuilder) SpreadsheetToken(spreadsheetToken string) *PatchSpreadsheetSheetFilterViewReqBuilder {
-	builder.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
+	builder.httpReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
 }
 func (builder *PatchSpreadsheetSheetFilterViewReqBuilder) SheetId(sheetId string) *PatchSpreadsheetSheetFilterViewReqBuilder {
-	builder.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
+	builder.httpReq.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
 	return builder
 }
 func (builder *PatchSpreadsheetSheetFilterViewReqBuilder) FilterViewId(filterViewId string) *PatchSpreadsheetSheetFilterViewReqBuilder {
-	builder.PathParams.Set("filter_view_id", fmt.Sprint(filterViewId))
+	builder.httpReq.PathParams.Set("filter_view_id", fmt.Sprint(filterViewId))
 	return builder
 }
 func (builder *PatchSpreadsheetSheetFilterViewReqBuilder) FilterView(filterView *FilterView) *PatchSpreadsheetSheetFilterViewReqBuilder {
@@ -1510,14 +1510,14 @@ func (builder *PatchSpreadsheetSheetFilterViewReqBuilder) FilterView(filterView 
 // 1.5 生成请求的builder的build方法
 func (builder *PatchSpreadsheetSheetFilterViewReqBuilder) Build() *PatchSpreadsheetSheetFilterViewReq {
 	req := &PatchSpreadsheetSheetFilterViewReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.Body = builder.filterView
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.Body = builder.filterView
 	return req
 }
 
 type PatchSpreadsheetSheetFilterViewReq struct {
-	*larkcore.HttpReq
+	httpReq    *larkcore.HttpReq
 	FilterView *FilterView `body:""`
 }
 
@@ -1537,13 +1537,13 @@ func (resp *PatchSpreadsheetSheetFilterViewResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type QuerySpreadsheetSheetFilterViewReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewQuerySpreadsheetSheetFilterViewReqBuilder() *QuerySpreadsheetSheetFilterViewReqBuilder {
 	builder := &QuerySpreadsheetSheetFilterViewReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1552,24 +1552,24 @@ func NewQuerySpreadsheetSheetFilterViewReqBuilder() *QuerySpreadsheetSheetFilter
 
 // 1.5 生成请求的builder属性方法
 func (builder *QuerySpreadsheetSheetFilterViewReqBuilder) SpreadsheetToken(spreadsheetToken string) *QuerySpreadsheetSheetFilterViewReqBuilder {
-	builder.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
+	builder.httpReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
 }
 func (builder *QuerySpreadsheetSheetFilterViewReqBuilder) SheetId(sheetId string) *QuerySpreadsheetSheetFilterViewReqBuilder {
-	builder.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
+	builder.httpReq.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *QuerySpreadsheetSheetFilterViewReqBuilder) Build() *QuerySpreadsheetSheetFilterViewReq {
 	req := &QuerySpreadsheetSheetFilterViewReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
 	return req
 }
 
 type QuerySpreadsheetSheetFilterViewReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type QuerySpreadsheetSheetFilterViewRespData struct {
@@ -1588,14 +1588,14 @@ func (resp *QuerySpreadsheetSheetFilterViewResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type CreateSpreadsheetSheetFilterViewConditionReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq             *larkcore.HttpReq
 	filterViewCondition *FilterViewCondition
 }
 
 // 生成请求的New构造器
 func NewCreateSpreadsheetSheetFilterViewConditionReqBuilder() *CreateSpreadsheetSheetFilterViewConditionReqBuilder {
 	builder := &CreateSpreadsheetSheetFilterViewConditionReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1604,15 +1604,15 @@ func NewCreateSpreadsheetSheetFilterViewConditionReqBuilder() *CreateSpreadsheet
 
 // 1.5 生成请求的builder属性方法
 func (builder *CreateSpreadsheetSheetFilterViewConditionReqBuilder) SpreadsheetToken(spreadsheetToken string) *CreateSpreadsheetSheetFilterViewConditionReqBuilder {
-	builder.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
+	builder.httpReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
 }
 func (builder *CreateSpreadsheetSheetFilterViewConditionReqBuilder) SheetId(sheetId string) *CreateSpreadsheetSheetFilterViewConditionReqBuilder {
-	builder.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
+	builder.httpReq.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
 	return builder
 }
 func (builder *CreateSpreadsheetSheetFilterViewConditionReqBuilder) FilterViewId(filterViewId string) *CreateSpreadsheetSheetFilterViewConditionReqBuilder {
-	builder.PathParams.Set("filter_view_id", fmt.Sprint(filterViewId))
+	builder.httpReq.PathParams.Set("filter_view_id", fmt.Sprint(filterViewId))
 	return builder
 }
 func (builder *CreateSpreadsheetSheetFilterViewConditionReqBuilder) FilterViewCondition(filterViewCondition *FilterViewCondition) *CreateSpreadsheetSheetFilterViewConditionReqBuilder {
@@ -1623,14 +1623,14 @@ func (builder *CreateSpreadsheetSheetFilterViewConditionReqBuilder) FilterViewCo
 // 1.5 生成请求的builder的build方法
 func (builder *CreateSpreadsheetSheetFilterViewConditionReqBuilder) Build() *CreateSpreadsheetSheetFilterViewConditionReq {
 	req := &CreateSpreadsheetSheetFilterViewConditionReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.Body = builder.filterViewCondition
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.Body = builder.filterViewCondition
 	return req
 }
 
 type CreateSpreadsheetSheetFilterViewConditionReq struct {
-	*larkcore.HttpReq
+	httpReq             *larkcore.HttpReq
 	FilterViewCondition *FilterViewCondition `body:""`
 }
 
@@ -1650,13 +1650,13 @@ func (resp *CreateSpreadsheetSheetFilterViewConditionResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type DeleteSpreadsheetSheetFilterViewConditionReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewDeleteSpreadsheetSheetFilterViewConditionReqBuilder() *DeleteSpreadsheetSheetFilterViewConditionReqBuilder {
 	builder := &DeleteSpreadsheetSheetFilterViewConditionReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1665,32 +1665,32 @@ func NewDeleteSpreadsheetSheetFilterViewConditionReqBuilder() *DeleteSpreadsheet
 
 // 1.5 生成请求的builder属性方法
 func (builder *DeleteSpreadsheetSheetFilterViewConditionReqBuilder) SpreadsheetToken(spreadsheetToken string) *DeleteSpreadsheetSheetFilterViewConditionReqBuilder {
-	builder.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
+	builder.httpReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
 }
 func (builder *DeleteSpreadsheetSheetFilterViewConditionReqBuilder) SheetId(sheetId string) *DeleteSpreadsheetSheetFilterViewConditionReqBuilder {
-	builder.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
+	builder.httpReq.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
 	return builder
 }
 func (builder *DeleteSpreadsheetSheetFilterViewConditionReqBuilder) FilterViewId(filterViewId string) *DeleteSpreadsheetSheetFilterViewConditionReqBuilder {
-	builder.PathParams.Set("filter_view_id", fmt.Sprint(filterViewId))
+	builder.httpReq.PathParams.Set("filter_view_id", fmt.Sprint(filterViewId))
 	return builder
 }
 func (builder *DeleteSpreadsheetSheetFilterViewConditionReqBuilder) ConditionId(conditionId string) *DeleteSpreadsheetSheetFilterViewConditionReqBuilder {
-	builder.PathParams.Set("condition_id", fmt.Sprint(conditionId))
+	builder.httpReq.PathParams.Set("condition_id", fmt.Sprint(conditionId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *DeleteSpreadsheetSheetFilterViewConditionReqBuilder) Build() *DeleteSpreadsheetSheetFilterViewConditionReq {
 	req := &DeleteSpreadsheetSheetFilterViewConditionReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
 	return req
 }
 
 type DeleteSpreadsheetSheetFilterViewConditionReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type DeleteSpreadsheetSheetFilterViewConditionResp struct {
@@ -1704,13 +1704,13 @@ func (resp *DeleteSpreadsheetSheetFilterViewConditionResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type GetSpreadsheetSheetFilterViewConditionReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewGetSpreadsheetSheetFilterViewConditionReqBuilder() *GetSpreadsheetSheetFilterViewConditionReqBuilder {
 	builder := &GetSpreadsheetSheetFilterViewConditionReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1719,32 +1719,32 @@ func NewGetSpreadsheetSheetFilterViewConditionReqBuilder() *GetSpreadsheetSheetF
 
 // 1.5 生成请求的builder属性方法
 func (builder *GetSpreadsheetSheetFilterViewConditionReqBuilder) SpreadsheetToken(spreadsheetToken string) *GetSpreadsheetSheetFilterViewConditionReqBuilder {
-	builder.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
+	builder.httpReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
 }
 func (builder *GetSpreadsheetSheetFilterViewConditionReqBuilder) SheetId(sheetId string) *GetSpreadsheetSheetFilterViewConditionReqBuilder {
-	builder.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
+	builder.httpReq.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
 	return builder
 }
 func (builder *GetSpreadsheetSheetFilterViewConditionReqBuilder) FilterViewId(filterViewId string) *GetSpreadsheetSheetFilterViewConditionReqBuilder {
-	builder.PathParams.Set("filter_view_id", fmt.Sprint(filterViewId))
+	builder.httpReq.PathParams.Set("filter_view_id", fmt.Sprint(filterViewId))
 	return builder
 }
 func (builder *GetSpreadsheetSheetFilterViewConditionReqBuilder) ConditionId(conditionId string) *GetSpreadsheetSheetFilterViewConditionReqBuilder {
-	builder.PathParams.Set("condition_id", fmt.Sprint(conditionId))
+	builder.httpReq.PathParams.Set("condition_id", fmt.Sprint(conditionId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *GetSpreadsheetSheetFilterViewConditionReqBuilder) Build() *GetSpreadsheetSheetFilterViewConditionReq {
 	req := &GetSpreadsheetSheetFilterViewConditionReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
 	return req
 }
 
 type GetSpreadsheetSheetFilterViewConditionReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type GetSpreadsheetSheetFilterViewConditionRespData struct {
@@ -1763,13 +1763,13 @@ func (resp *GetSpreadsheetSheetFilterViewConditionResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type QuerySpreadsheetSheetFilterViewConditionReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewQuerySpreadsheetSheetFilterViewConditionReqBuilder() *QuerySpreadsheetSheetFilterViewConditionReqBuilder {
 	builder := &QuerySpreadsheetSheetFilterViewConditionReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1778,28 +1778,28 @@ func NewQuerySpreadsheetSheetFilterViewConditionReqBuilder() *QuerySpreadsheetSh
 
 // 1.5 生成请求的builder属性方法
 func (builder *QuerySpreadsheetSheetFilterViewConditionReqBuilder) SpreadsheetToken(spreadsheetToken string) *QuerySpreadsheetSheetFilterViewConditionReqBuilder {
-	builder.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
+	builder.httpReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
 }
 func (builder *QuerySpreadsheetSheetFilterViewConditionReqBuilder) SheetId(sheetId string) *QuerySpreadsheetSheetFilterViewConditionReqBuilder {
-	builder.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
+	builder.httpReq.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
 	return builder
 }
 func (builder *QuerySpreadsheetSheetFilterViewConditionReqBuilder) FilterViewId(filterViewId string) *QuerySpreadsheetSheetFilterViewConditionReqBuilder {
-	builder.PathParams.Set("filter_view_id", fmt.Sprint(filterViewId))
+	builder.httpReq.PathParams.Set("filter_view_id", fmt.Sprint(filterViewId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *QuerySpreadsheetSheetFilterViewConditionReqBuilder) Build() *QuerySpreadsheetSheetFilterViewConditionReq {
 	req := &QuerySpreadsheetSheetFilterViewConditionReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
 	return req
 }
 
 type QuerySpreadsheetSheetFilterViewConditionReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type QuerySpreadsheetSheetFilterViewConditionRespData struct {
@@ -1818,14 +1818,14 @@ func (resp *QuerySpreadsheetSheetFilterViewConditionResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type UpdateSpreadsheetSheetFilterViewConditionReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq             *larkcore.HttpReq
 	filterViewCondition *FilterViewCondition
 }
 
 // 生成请求的New构造器
 func NewUpdateSpreadsheetSheetFilterViewConditionReqBuilder() *UpdateSpreadsheetSheetFilterViewConditionReqBuilder {
 	builder := &UpdateSpreadsheetSheetFilterViewConditionReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1834,19 +1834,19 @@ func NewUpdateSpreadsheetSheetFilterViewConditionReqBuilder() *UpdateSpreadsheet
 
 // 1.5 生成请求的builder属性方法
 func (builder *UpdateSpreadsheetSheetFilterViewConditionReqBuilder) SpreadsheetToken(spreadsheetToken string) *UpdateSpreadsheetSheetFilterViewConditionReqBuilder {
-	builder.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
+	builder.httpReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
 }
 func (builder *UpdateSpreadsheetSheetFilterViewConditionReqBuilder) SheetId(sheetId string) *UpdateSpreadsheetSheetFilterViewConditionReqBuilder {
-	builder.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
+	builder.httpReq.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
 	return builder
 }
 func (builder *UpdateSpreadsheetSheetFilterViewConditionReqBuilder) FilterViewId(filterViewId string) *UpdateSpreadsheetSheetFilterViewConditionReqBuilder {
-	builder.PathParams.Set("filter_view_id", fmt.Sprint(filterViewId))
+	builder.httpReq.PathParams.Set("filter_view_id", fmt.Sprint(filterViewId))
 	return builder
 }
 func (builder *UpdateSpreadsheetSheetFilterViewConditionReqBuilder) ConditionId(conditionId string) *UpdateSpreadsheetSheetFilterViewConditionReqBuilder {
-	builder.PathParams.Set("condition_id", fmt.Sprint(conditionId))
+	builder.httpReq.PathParams.Set("condition_id", fmt.Sprint(conditionId))
 	return builder
 }
 func (builder *UpdateSpreadsheetSheetFilterViewConditionReqBuilder) FilterViewCondition(filterViewCondition *FilterViewCondition) *UpdateSpreadsheetSheetFilterViewConditionReqBuilder {
@@ -1857,14 +1857,14 @@ func (builder *UpdateSpreadsheetSheetFilterViewConditionReqBuilder) FilterViewCo
 // 1.5 生成请求的builder的build方法
 func (builder *UpdateSpreadsheetSheetFilterViewConditionReqBuilder) Build() *UpdateSpreadsheetSheetFilterViewConditionReq {
 	req := &UpdateSpreadsheetSheetFilterViewConditionReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.Body = builder.filterViewCondition
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.Body = builder.filterViewCondition
 	return req
 }
 
 type UpdateSpreadsheetSheetFilterViewConditionReq struct {
-	*larkcore.HttpReq
+	httpReq             *larkcore.HttpReq
 	FilterViewCondition *FilterViewCondition `body:""`
 }
 
@@ -1884,14 +1884,14 @@ func (resp *UpdateSpreadsheetSheetFilterViewConditionResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type CreateSpreadsheetSheetFloatImageReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq    *larkcore.HttpReq
 	floatImage *FloatImage
 }
 
 // 生成请求的New构造器
 func NewCreateSpreadsheetSheetFloatImageReqBuilder() *CreateSpreadsheetSheetFloatImageReqBuilder {
 	builder := &CreateSpreadsheetSheetFloatImageReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1900,11 +1900,11 @@ func NewCreateSpreadsheetSheetFloatImageReqBuilder() *CreateSpreadsheetSheetFloa
 
 // 1.5 生成请求的builder属性方法
 func (builder *CreateSpreadsheetSheetFloatImageReqBuilder) SpreadsheetToken(spreadsheetToken string) *CreateSpreadsheetSheetFloatImageReqBuilder {
-	builder.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
+	builder.httpReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
 }
 func (builder *CreateSpreadsheetSheetFloatImageReqBuilder) SheetId(sheetId string) *CreateSpreadsheetSheetFloatImageReqBuilder {
-	builder.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
+	builder.httpReq.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
 	return builder
 }
 func (builder *CreateSpreadsheetSheetFloatImageReqBuilder) FloatImage(floatImage *FloatImage) *CreateSpreadsheetSheetFloatImageReqBuilder {
@@ -1915,14 +1915,14 @@ func (builder *CreateSpreadsheetSheetFloatImageReqBuilder) FloatImage(floatImage
 // 1.5 生成请求的builder的build方法
 func (builder *CreateSpreadsheetSheetFloatImageReqBuilder) Build() *CreateSpreadsheetSheetFloatImageReq {
 	req := &CreateSpreadsheetSheetFloatImageReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.Body = builder.floatImage
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.Body = builder.floatImage
 	return req
 }
 
 type CreateSpreadsheetSheetFloatImageReq struct {
-	*larkcore.HttpReq
+	httpReq    *larkcore.HttpReq
 	FloatImage *FloatImage `body:""`
 }
 
@@ -1942,13 +1942,13 @@ func (resp *CreateSpreadsheetSheetFloatImageResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type DeleteSpreadsheetSheetFloatImageReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewDeleteSpreadsheetSheetFloatImageReqBuilder() *DeleteSpreadsheetSheetFloatImageReqBuilder {
 	builder := &DeleteSpreadsheetSheetFloatImageReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1957,28 +1957,28 @@ func NewDeleteSpreadsheetSheetFloatImageReqBuilder() *DeleteSpreadsheetSheetFloa
 
 // 1.5 生成请求的builder属性方法
 func (builder *DeleteSpreadsheetSheetFloatImageReqBuilder) SpreadsheetToken(spreadsheetToken string) *DeleteSpreadsheetSheetFloatImageReqBuilder {
-	builder.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
+	builder.httpReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
 }
 func (builder *DeleteSpreadsheetSheetFloatImageReqBuilder) SheetId(sheetId string) *DeleteSpreadsheetSheetFloatImageReqBuilder {
-	builder.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
+	builder.httpReq.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
 	return builder
 }
 func (builder *DeleteSpreadsheetSheetFloatImageReqBuilder) FloatImageId(floatImageId string) *DeleteSpreadsheetSheetFloatImageReqBuilder {
-	builder.PathParams.Set("float_image_id", fmt.Sprint(floatImageId))
+	builder.httpReq.PathParams.Set("float_image_id", fmt.Sprint(floatImageId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *DeleteSpreadsheetSheetFloatImageReqBuilder) Build() *DeleteSpreadsheetSheetFloatImageReq {
 	req := &DeleteSpreadsheetSheetFloatImageReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
 	return req
 }
 
 type DeleteSpreadsheetSheetFloatImageReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type DeleteSpreadsheetSheetFloatImageResp struct {
@@ -1992,13 +1992,13 @@ func (resp *DeleteSpreadsheetSheetFloatImageResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type GetSpreadsheetSheetFloatImageReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewGetSpreadsheetSheetFloatImageReqBuilder() *GetSpreadsheetSheetFloatImageReqBuilder {
 	builder := &GetSpreadsheetSheetFloatImageReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -2007,28 +2007,28 @@ func NewGetSpreadsheetSheetFloatImageReqBuilder() *GetSpreadsheetSheetFloatImage
 
 // 1.5 生成请求的builder属性方法
 func (builder *GetSpreadsheetSheetFloatImageReqBuilder) SpreadsheetToken(spreadsheetToken string) *GetSpreadsheetSheetFloatImageReqBuilder {
-	builder.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
+	builder.httpReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
 }
 func (builder *GetSpreadsheetSheetFloatImageReqBuilder) SheetId(sheetId string) *GetSpreadsheetSheetFloatImageReqBuilder {
-	builder.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
+	builder.httpReq.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
 	return builder
 }
 func (builder *GetSpreadsheetSheetFloatImageReqBuilder) FloatImageId(floatImageId string) *GetSpreadsheetSheetFloatImageReqBuilder {
-	builder.PathParams.Set("float_image_id", fmt.Sprint(floatImageId))
+	builder.httpReq.PathParams.Set("float_image_id", fmt.Sprint(floatImageId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *GetSpreadsheetSheetFloatImageReqBuilder) Build() *GetSpreadsheetSheetFloatImageReq {
 	req := &GetSpreadsheetSheetFloatImageReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
 	return req
 }
 
 type GetSpreadsheetSheetFloatImageReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type GetSpreadsheetSheetFloatImageRespData struct {
@@ -2047,14 +2047,14 @@ func (resp *GetSpreadsheetSheetFloatImageResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type PatchSpreadsheetSheetFloatImageReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq    *larkcore.HttpReq
 	floatImage *FloatImage
 }
 
 // 生成请求的New构造器
 func NewPatchSpreadsheetSheetFloatImageReqBuilder() *PatchSpreadsheetSheetFloatImageReqBuilder {
 	builder := &PatchSpreadsheetSheetFloatImageReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -2063,15 +2063,15 @@ func NewPatchSpreadsheetSheetFloatImageReqBuilder() *PatchSpreadsheetSheetFloatI
 
 // 1.5 生成请求的builder属性方法
 func (builder *PatchSpreadsheetSheetFloatImageReqBuilder) SpreadsheetToken(spreadsheetToken string) *PatchSpreadsheetSheetFloatImageReqBuilder {
-	builder.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
+	builder.httpReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
 }
 func (builder *PatchSpreadsheetSheetFloatImageReqBuilder) SheetId(sheetId string) *PatchSpreadsheetSheetFloatImageReqBuilder {
-	builder.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
+	builder.httpReq.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
 	return builder
 }
 func (builder *PatchSpreadsheetSheetFloatImageReqBuilder) FloatImageId(floatImageId string) *PatchSpreadsheetSheetFloatImageReqBuilder {
-	builder.PathParams.Set("float_image_id", fmt.Sprint(floatImageId))
+	builder.httpReq.PathParams.Set("float_image_id", fmt.Sprint(floatImageId))
 	return builder
 }
 func (builder *PatchSpreadsheetSheetFloatImageReqBuilder) FloatImage(floatImage *FloatImage) *PatchSpreadsheetSheetFloatImageReqBuilder {
@@ -2082,14 +2082,14 @@ func (builder *PatchSpreadsheetSheetFloatImageReqBuilder) FloatImage(floatImage 
 // 1.5 生成请求的builder的build方法
 func (builder *PatchSpreadsheetSheetFloatImageReqBuilder) Build() *PatchSpreadsheetSheetFloatImageReq {
 	req := &PatchSpreadsheetSheetFloatImageReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.Body = builder.floatImage
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.Body = builder.floatImage
 	return req
 }
 
 type PatchSpreadsheetSheetFloatImageReq struct {
-	*larkcore.HttpReq
+	httpReq    *larkcore.HttpReq
 	FloatImage *FloatImage `body:""`
 }
 
@@ -2109,13 +2109,13 @@ func (resp *PatchSpreadsheetSheetFloatImageResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type QuerySpreadsheetSheetFloatImageReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewQuerySpreadsheetSheetFloatImageReqBuilder() *QuerySpreadsheetSheetFloatImageReqBuilder {
 	builder := &QuerySpreadsheetSheetFloatImageReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -2124,24 +2124,24 @@ func NewQuerySpreadsheetSheetFloatImageReqBuilder() *QuerySpreadsheetSheetFloatI
 
 // 1.5 生成请求的builder属性方法
 func (builder *QuerySpreadsheetSheetFloatImageReqBuilder) SpreadsheetToken(spreadsheetToken string) *QuerySpreadsheetSheetFloatImageReqBuilder {
-	builder.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
+	builder.httpReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
 }
 func (builder *QuerySpreadsheetSheetFloatImageReqBuilder) SheetId(sheetId string) *QuerySpreadsheetSheetFloatImageReqBuilder {
-	builder.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
+	builder.httpReq.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *QuerySpreadsheetSheetFloatImageReqBuilder) Build() *QuerySpreadsheetSheetFloatImageReq {
 	req := &QuerySpreadsheetSheetFloatImageReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
 	return req
 }
 
 type QuerySpreadsheetSheetFloatImageReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type QuerySpreadsheetSheetFloatImageRespData struct {

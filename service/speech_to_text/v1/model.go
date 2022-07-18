@@ -266,14 +266,14 @@ func (builder *FileRecognizeSpeechPathReqBodyBuilder) Build() (*FileRecognizeSpe
 
 // 1.4 生成请求的builder结构体
 type FileRecognizeSpeechReqBuilder struct {
-	*larkcore.HttpReq
-	body *FileRecognizeSpeechReqBody
+	httpReq *larkcore.HttpReq
+	body    *FileRecognizeSpeechReqBody
 }
 
 // 生成请求的New构造器
 func NewFileRecognizeSpeechReqBuilder() *FileRecognizeSpeechReqBuilder {
 	builder := &FileRecognizeSpeechReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -289,8 +289,8 @@ func (builder *FileRecognizeSpeechReqBuilder) Body(body *FileRecognizeSpeechReqB
 // 1.5 生成请求的builder的build方法
 func (builder *FileRecognizeSpeechReqBuilder) Build() *FileRecognizeSpeechReq {
 	req := &FileRecognizeSpeechReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.Body = builder.body
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.Body = builder.body
 	return req
 }
 
@@ -300,8 +300,8 @@ type FileRecognizeSpeechReqBody struct {
 }
 
 type FileRecognizeSpeechReq struct {
-	*larkcore.HttpReq
-	Body *FileRecognizeSpeechReqBody `body:""`
+	httpReq *larkcore.HttpReq
+	Body    *FileRecognizeSpeechReqBody `body:""`
 }
 
 type FileRecognizeSpeechRespData struct {
@@ -393,14 +393,14 @@ func (builder *StreamRecognizeSpeechPathReqBodyBuilder) Build() (*StreamRecogniz
 
 // 1.4 生成请求的builder结构体
 type StreamRecognizeSpeechReqBuilder struct {
-	*larkcore.HttpReq
-	body *StreamRecognizeSpeechReqBody
+	httpReq *larkcore.HttpReq
+	body    *StreamRecognizeSpeechReqBody
 }
 
 // 生成请求的New构造器
 func NewStreamRecognizeSpeechReqBuilder() *StreamRecognizeSpeechReqBuilder {
 	builder := &StreamRecognizeSpeechReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -416,8 +416,8 @@ func (builder *StreamRecognizeSpeechReqBuilder) Body(body *StreamRecognizeSpeech
 // 1.5 生成请求的builder的build方法
 func (builder *StreamRecognizeSpeechReqBuilder) Build() *StreamRecognizeSpeechReq {
 	req := &StreamRecognizeSpeechReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.Body = builder.body
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.Body = builder.body
 	return req
 }
 
@@ -427,8 +427,8 @@ type StreamRecognizeSpeechReqBody struct {
 }
 
 type StreamRecognizeSpeechReq struct {
-	*larkcore.HttpReq
-	Body *StreamRecognizeSpeechReqBody `body:""`
+	httpReq *larkcore.HttpReq
+	Body    *StreamRecognizeSpeechReqBody `body:""`
 }
 
 type StreamRecognizeSpeechRespData struct {

@@ -34,11 +34,11 @@ type message struct {
 // 资源服务方法定义
 func (e *entity) Create(ctx context.Context, req *CreateEntityReq, options ...larkcore.RequestOptionFunc) (*CreateEntityResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/block/v2/entities"
 	httpReq.HttpMethod = http.MethodPost
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, e.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, e.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -52,11 +52,11 @@ func (e *entity) Create(ctx context.Context, req *CreateEntityReq, options ...la
 }
 func (e *entity) Update(ctx context.Context, req *UpdateEntityReq, options ...larkcore.RequestOptionFunc) (*UpdateEntityResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/block/v2/entities/:block_id"
 	httpReq.HttpMethod = http.MethodPut
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, e.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, e.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -70,11 +70,11 @@ func (e *entity) Update(ctx context.Context, req *UpdateEntityReq, options ...la
 }
 func (m *message) Create(ctx context.Context, req *CreateMessageReq, options ...larkcore.RequestOptionFunc) (*CreateMessageResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/block/v2/message"
 	httpReq.HttpMethod = http.MethodPost
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, m.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, m.service.config, options...)
 	if err != nil {
 		return nil, err
 	}

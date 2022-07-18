@@ -753,13 +753,13 @@ func main() {
 	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
 	var feishu_client = lark.NewClient(appID, appSecret,
 		lark.WithLogLevel(larkcore.LogLevelDebug),
-		lark.WithLogReqAtDebug(true),
+		lark.WithLogReqAtDebug(false),
 	)
 
 	//downLoadImageV2(feishu_client)
 	//uploadImage(feishu_client)
 	//uploadImage(client)
-	//downLoadImage(feishu_client)
+	downLoadImage(feishu_client)
 	//uploadImage2(feishu_client)
 	//sendTextMsg(feishu_client)
 	//sendRawReq(feishu_client)
@@ -775,7 +775,7 @@ func main() {
 	//sendPostMsgUseBuilder(feishu_client)
 	//testCreate(feishu_client)
 	//sendInteractiveMsg(feishu_client)
-	sendInteractiveMonitorMsg(feishu_client)
-	sendInteractiveMonitorMsg(feishu_client)
+	//sendInteractiveMonitorMsg(feishu_client)
+	//sendInteractiveMonitorMsg(feishu_client)
 
 }

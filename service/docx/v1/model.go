@@ -2882,14 +2882,14 @@ func (builder *CreateDocumentPathReqBodyBuilder) Build() (*CreateDocumentReqBody
 
 // 1.4 生成请求的builder结构体
 type CreateDocumentReqBuilder struct {
-	*larkcore.HttpReq
-	body *CreateDocumentReqBody
+	httpReq *larkcore.HttpReq
+	body    *CreateDocumentReqBody
 }
 
 // 生成请求的New构造器
 func NewCreateDocumentReqBuilder() *CreateDocumentReqBuilder {
 	builder := &CreateDocumentReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -2905,8 +2905,8 @@ func (builder *CreateDocumentReqBuilder) Body(body *CreateDocumentReqBody) *Crea
 // 1.5 生成请求的builder的build方法
 func (builder *CreateDocumentReqBuilder) Build() *CreateDocumentReq {
 	req := &CreateDocumentReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.Body = builder.body
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.Body = builder.body
 	return req
 }
 
@@ -2916,8 +2916,8 @@ type CreateDocumentReqBody struct {
 }
 
 type CreateDocumentReq struct {
-	*larkcore.HttpReq
-	Body *CreateDocumentReqBody `body:""`
+	httpReq *larkcore.HttpReq
+	Body    *CreateDocumentReqBody `body:""`
 }
 
 type CreateDocumentRespData struct {
@@ -2936,13 +2936,13 @@ func (resp *CreateDocumentResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type GetDocumentReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewGetDocumentReqBuilder() *GetDocumentReqBuilder {
 	builder := &GetDocumentReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -2951,20 +2951,20 @@ func NewGetDocumentReqBuilder() *GetDocumentReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *GetDocumentReqBuilder) DocumentId(documentId string) *GetDocumentReqBuilder {
-	builder.PathParams.Set("document_id", fmt.Sprint(documentId))
+	builder.httpReq.PathParams.Set("document_id", fmt.Sprint(documentId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *GetDocumentReqBuilder) Build() *GetDocumentReq {
 	req := &GetDocumentReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
 	return req
 }
 
 type GetDocumentReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type GetDocumentRespData struct {
@@ -2983,13 +2983,13 @@ func (resp *GetDocumentResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type RawContentDocumentReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewRawContentDocumentReqBuilder() *RawContentDocumentReqBuilder {
 	builder := &RawContentDocumentReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -2998,25 +2998,25 @@ func NewRawContentDocumentReqBuilder() *RawContentDocumentReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *RawContentDocumentReqBuilder) DocumentId(documentId string) *RawContentDocumentReqBuilder {
-	builder.PathParams.Set("document_id", fmt.Sprint(documentId))
+	builder.httpReq.PathParams.Set("document_id", fmt.Sprint(documentId))
 	return builder
 }
 func (builder *RawContentDocumentReqBuilder) Lang(lang int) *RawContentDocumentReqBuilder {
-	builder.QueryParams.Set("lang", fmt.Sprint(lang))
+	builder.httpReq.QueryParams.Set("lang", fmt.Sprint(lang))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *RawContentDocumentReqBuilder) Build() *RawContentDocumentReq {
 	req := &RawContentDocumentReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.QueryParams = builder.QueryParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.QueryParams = builder.httpReq.QueryParams
 	return req
 }
 
 type RawContentDocumentReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type RawContentDocumentRespData struct {
@@ -3088,14 +3088,14 @@ func (builder *BatchUpdateDocumentBlockPathReqBodyBuilder) Build() (*BatchUpdate
 
 // 1.4 生成请求的builder结构体
 type BatchUpdateDocumentBlockReqBuilder struct {
-	*larkcore.HttpReq
-	body *BatchUpdateDocumentBlockReqBody
+	httpReq *larkcore.HttpReq
+	body    *BatchUpdateDocumentBlockReqBody
 }
 
 // 生成请求的New构造器
 func NewBatchUpdateDocumentBlockReqBuilder() *BatchUpdateDocumentBlockReqBuilder {
 	builder := &BatchUpdateDocumentBlockReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -3104,19 +3104,19 @@ func NewBatchUpdateDocumentBlockReqBuilder() *BatchUpdateDocumentBlockReqBuilder
 
 // 1.5 生成请求的builder属性方法
 func (builder *BatchUpdateDocumentBlockReqBuilder) DocumentId(documentId string) *BatchUpdateDocumentBlockReqBuilder {
-	builder.PathParams.Set("document_id", fmt.Sprint(documentId))
+	builder.httpReq.PathParams.Set("document_id", fmt.Sprint(documentId))
 	return builder
 }
 func (builder *BatchUpdateDocumentBlockReqBuilder) DocumentRevisionId(documentRevisionId int) *BatchUpdateDocumentBlockReqBuilder {
-	builder.QueryParams.Set("document_revision_id", fmt.Sprint(documentRevisionId))
+	builder.httpReq.QueryParams.Set("document_revision_id", fmt.Sprint(documentRevisionId))
 	return builder
 }
 func (builder *BatchUpdateDocumentBlockReqBuilder) ClientToken(clientToken string) *BatchUpdateDocumentBlockReqBuilder {
-	builder.QueryParams.Set("client_token", fmt.Sprint(clientToken))
+	builder.httpReq.QueryParams.Set("client_token", fmt.Sprint(clientToken))
 	return builder
 }
 func (builder *BatchUpdateDocumentBlockReqBuilder) UserIdType(userIdType string) *BatchUpdateDocumentBlockReqBuilder {
-	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *BatchUpdateDocumentBlockReqBuilder) Body(body *BatchUpdateDocumentBlockReqBody) *BatchUpdateDocumentBlockReqBuilder {
@@ -3127,10 +3127,10 @@ func (builder *BatchUpdateDocumentBlockReqBuilder) Body(body *BatchUpdateDocumen
 // 1.5 生成请求的builder的build方法
 func (builder *BatchUpdateDocumentBlockReqBuilder) Build() *BatchUpdateDocumentBlockReq {
 	req := &BatchUpdateDocumentBlockReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.QueryParams = builder.QueryParams
-	req.HttpReq.Body = builder.body
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.httpReq.Body = builder.body
 	return req
 }
 
@@ -3139,8 +3139,8 @@ type BatchUpdateDocumentBlockReqBody struct {
 }
 
 type BatchUpdateDocumentBlockReq struct {
-	*larkcore.HttpReq
-	Body *BatchUpdateDocumentBlockReqBody `body:""`
+	httpReq *larkcore.HttpReq
+	Body    *BatchUpdateDocumentBlockReqBody `body:""`
 }
 
 type BatchUpdateDocumentBlockRespData struct {
@@ -3161,13 +3161,13 @@ func (resp *BatchUpdateDocumentBlockResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type GetDocumentBlockReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 // 生成请求的New构造器
 func NewGetDocumentBlockReqBuilder() *GetDocumentBlockReqBuilder {
 	builder := &GetDocumentBlockReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -3176,33 +3176,33 @@ func NewGetDocumentBlockReqBuilder() *GetDocumentBlockReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *GetDocumentBlockReqBuilder) DocumentId(documentId string) *GetDocumentBlockReqBuilder {
-	builder.PathParams.Set("document_id", fmt.Sprint(documentId))
+	builder.httpReq.PathParams.Set("document_id", fmt.Sprint(documentId))
 	return builder
 }
 func (builder *GetDocumentBlockReqBuilder) BlockId(blockId string) *GetDocumentBlockReqBuilder {
-	builder.PathParams.Set("block_id", fmt.Sprint(blockId))
+	builder.httpReq.PathParams.Set("block_id", fmt.Sprint(blockId))
 	return builder
 }
 func (builder *GetDocumentBlockReqBuilder) DocumentRevisionId(documentRevisionId int) *GetDocumentBlockReqBuilder {
-	builder.QueryParams.Set("document_revision_id", fmt.Sprint(documentRevisionId))
+	builder.httpReq.QueryParams.Set("document_revision_id", fmt.Sprint(documentRevisionId))
 	return builder
 }
 func (builder *GetDocumentBlockReqBuilder) UserIdType(userIdType string) *GetDocumentBlockReqBuilder {
-	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *GetDocumentBlockReqBuilder) Build() *GetDocumentBlockReq {
 	req := &GetDocumentBlockReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.QueryParams = builder.QueryParams
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.QueryParams = builder.httpReq.QueryParams
 	return req
 }
 
 type GetDocumentBlockReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 }
 
 type GetDocumentBlockRespData struct {
@@ -3221,14 +3221,14 @@ func (resp *GetDocumentBlockResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type ListDocumentBlockReqBuilder struct {
-	*larkcore.HttpReq
-	limit int
+	httpReq *larkcore.HttpReq
+	limit   int
 }
 
 // 生成请求的New构造器
 func NewListDocumentBlockReqBuilder() *ListDocumentBlockReqBuilder {
 	builder := &ListDocumentBlockReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -3241,39 +3241,39 @@ func (builder *ListDocumentBlockReqBuilder) Limit(limit int) *ListDocumentBlockR
 	return builder
 }
 func (builder *ListDocumentBlockReqBuilder) DocumentId(documentId string) *ListDocumentBlockReqBuilder {
-	builder.PathParams.Set("document_id", fmt.Sprint(documentId))
+	builder.httpReq.PathParams.Set("document_id", fmt.Sprint(documentId))
 	return builder
 }
 func (builder *ListDocumentBlockReqBuilder) PageSize(pageSize int) *ListDocumentBlockReqBuilder {
-	builder.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	builder.httpReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 func (builder *ListDocumentBlockReqBuilder) PageToken(pageToken string) *ListDocumentBlockReqBuilder {
-	builder.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	builder.httpReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 func (builder *ListDocumentBlockReqBuilder) DocumentRevisionId(documentRevisionId int) *ListDocumentBlockReqBuilder {
-	builder.QueryParams.Set("document_revision_id", fmt.Sprint(documentRevisionId))
+	builder.httpReq.QueryParams.Set("document_revision_id", fmt.Sprint(documentRevisionId))
 	return builder
 }
 func (builder *ListDocumentBlockReqBuilder) UserIdType(userIdType string) *ListDocumentBlockReqBuilder {
-	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ListDocumentBlockReqBuilder) Build() *ListDocumentBlockReq {
 	req := &ListDocumentBlockReq{}
-	req.HttpReq = &larkcore.HttpReq{}
+	req.httpReq = &larkcore.HttpReq{}
 	req.Limit = builder.limit
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.QueryParams = builder.QueryParams
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.QueryParams = builder.httpReq.QueryParams
 	return req
 }
 
 type ListDocumentBlockReq struct {
-	*larkcore.HttpReq
-	Limit int
+	httpReq *larkcore.HttpReq
+	Limit   int
 }
 
 type ListDocumentBlockRespData struct {
@@ -3294,14 +3294,14 @@ func (resp *ListDocumentBlockResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type PatchDocumentBlockReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq            *larkcore.HttpReq
 	updateBlockRequest *UpdateBlockRequest
 }
 
 // 生成请求的New构造器
 func NewPatchDocumentBlockReqBuilder() *PatchDocumentBlockReqBuilder {
 	builder := &PatchDocumentBlockReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -3310,23 +3310,23 @@ func NewPatchDocumentBlockReqBuilder() *PatchDocumentBlockReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *PatchDocumentBlockReqBuilder) DocumentId(documentId string) *PatchDocumentBlockReqBuilder {
-	builder.PathParams.Set("document_id", fmt.Sprint(documentId))
+	builder.httpReq.PathParams.Set("document_id", fmt.Sprint(documentId))
 	return builder
 }
 func (builder *PatchDocumentBlockReqBuilder) BlockId(blockId string) *PatchDocumentBlockReqBuilder {
-	builder.PathParams.Set("block_id", fmt.Sprint(blockId))
+	builder.httpReq.PathParams.Set("block_id", fmt.Sprint(blockId))
 	return builder
 }
 func (builder *PatchDocumentBlockReqBuilder) DocumentRevisionId(documentRevisionId int) *PatchDocumentBlockReqBuilder {
-	builder.QueryParams.Set("document_revision_id", fmt.Sprint(documentRevisionId))
+	builder.httpReq.QueryParams.Set("document_revision_id", fmt.Sprint(documentRevisionId))
 	return builder
 }
 func (builder *PatchDocumentBlockReqBuilder) ClientToken(clientToken string) *PatchDocumentBlockReqBuilder {
-	builder.QueryParams.Set("client_token", fmt.Sprint(clientToken))
+	builder.httpReq.QueryParams.Set("client_token", fmt.Sprint(clientToken))
 	return builder
 }
 func (builder *PatchDocumentBlockReqBuilder) UserIdType(userIdType string) *PatchDocumentBlockReqBuilder {
-	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *PatchDocumentBlockReqBuilder) UpdateBlockRequest(updateBlockRequest *UpdateBlockRequest) *PatchDocumentBlockReqBuilder {
@@ -3337,15 +3337,15 @@ func (builder *PatchDocumentBlockReqBuilder) UpdateBlockRequest(updateBlockReque
 // 1.5 生成请求的builder的build方法
 func (builder *PatchDocumentBlockReqBuilder) Build() *PatchDocumentBlockReq {
 	req := &PatchDocumentBlockReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.QueryParams = builder.QueryParams
-	req.HttpReq.Body = builder.updateBlockRequest
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.httpReq.Body = builder.updateBlockRequest
 	return req
 }
 
 type PatchDocumentBlockReq struct {
-	*larkcore.HttpReq
+	httpReq            *larkcore.HttpReq
 	UpdateBlockRequest *UpdateBlockRequest `body:""`
 }
 
@@ -3440,14 +3440,14 @@ func (builder *BatchDeleteDocumentBlockChildrenPathReqBodyBuilder) Build() (*Bat
 
 // 1.4 生成请求的builder结构体
 type BatchDeleteDocumentBlockChildrenReqBuilder struct {
-	*larkcore.HttpReq
-	body *BatchDeleteDocumentBlockChildrenReqBody
+	httpReq *larkcore.HttpReq
+	body    *BatchDeleteDocumentBlockChildrenReqBody
 }
 
 // 生成请求的New构造器
 func NewBatchDeleteDocumentBlockChildrenReqBuilder() *BatchDeleteDocumentBlockChildrenReqBuilder {
 	builder := &BatchDeleteDocumentBlockChildrenReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -3456,19 +3456,19 @@ func NewBatchDeleteDocumentBlockChildrenReqBuilder() *BatchDeleteDocumentBlockCh
 
 // 1.5 生成请求的builder属性方法
 func (builder *BatchDeleteDocumentBlockChildrenReqBuilder) DocumentId(documentId string) *BatchDeleteDocumentBlockChildrenReqBuilder {
-	builder.PathParams.Set("document_id", fmt.Sprint(documentId))
+	builder.httpReq.PathParams.Set("document_id", fmt.Sprint(documentId))
 	return builder
 }
 func (builder *BatchDeleteDocumentBlockChildrenReqBuilder) BlockId(blockId string) *BatchDeleteDocumentBlockChildrenReqBuilder {
-	builder.PathParams.Set("block_id", fmt.Sprint(blockId))
+	builder.httpReq.PathParams.Set("block_id", fmt.Sprint(blockId))
 	return builder
 }
 func (builder *BatchDeleteDocumentBlockChildrenReqBuilder) DocumentRevisionId(documentRevisionId int) *BatchDeleteDocumentBlockChildrenReqBuilder {
-	builder.QueryParams.Set("document_revision_id", fmt.Sprint(documentRevisionId))
+	builder.httpReq.QueryParams.Set("document_revision_id", fmt.Sprint(documentRevisionId))
 	return builder
 }
 func (builder *BatchDeleteDocumentBlockChildrenReqBuilder) ClientToken(clientToken string) *BatchDeleteDocumentBlockChildrenReqBuilder {
-	builder.QueryParams.Set("client_token", fmt.Sprint(clientToken))
+	builder.httpReq.QueryParams.Set("client_token", fmt.Sprint(clientToken))
 	return builder
 }
 func (builder *BatchDeleteDocumentBlockChildrenReqBuilder) Body(body *BatchDeleteDocumentBlockChildrenReqBody) *BatchDeleteDocumentBlockChildrenReqBuilder {
@@ -3479,10 +3479,10 @@ func (builder *BatchDeleteDocumentBlockChildrenReqBuilder) Body(body *BatchDelet
 // 1.5 生成请求的builder的build方法
 func (builder *BatchDeleteDocumentBlockChildrenReqBuilder) Build() *BatchDeleteDocumentBlockChildrenReq {
 	req := &BatchDeleteDocumentBlockChildrenReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.QueryParams = builder.QueryParams
-	req.HttpReq.Body = builder.body
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.httpReq.Body = builder.body
 	return req
 }
 
@@ -3492,8 +3492,8 @@ type BatchDeleteDocumentBlockChildrenReqBody struct {
 }
 
 type BatchDeleteDocumentBlockChildrenReq struct {
-	*larkcore.HttpReq
-	Body *BatchDeleteDocumentBlockChildrenReqBody `body:""`
+	httpReq *larkcore.HttpReq
+	Body    *BatchDeleteDocumentBlockChildrenReqBody `body:""`
 }
 
 type BatchDeleteDocumentBlockChildrenRespData struct {
@@ -3586,14 +3586,14 @@ func (builder *CreateDocumentBlockChildrenPathReqBodyBuilder) Build() (*CreateDo
 
 // 1.4 生成请求的builder结构体
 type CreateDocumentBlockChildrenReqBuilder struct {
-	*larkcore.HttpReq
-	body *CreateDocumentBlockChildrenReqBody
+	httpReq *larkcore.HttpReq
+	body    *CreateDocumentBlockChildrenReqBody
 }
 
 // 生成请求的New构造器
 func NewCreateDocumentBlockChildrenReqBuilder() *CreateDocumentBlockChildrenReqBuilder {
 	builder := &CreateDocumentBlockChildrenReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -3602,23 +3602,23 @@ func NewCreateDocumentBlockChildrenReqBuilder() *CreateDocumentBlockChildrenReqB
 
 // 1.5 生成请求的builder属性方法
 func (builder *CreateDocumentBlockChildrenReqBuilder) DocumentId(documentId string) *CreateDocumentBlockChildrenReqBuilder {
-	builder.PathParams.Set("document_id", fmt.Sprint(documentId))
+	builder.httpReq.PathParams.Set("document_id", fmt.Sprint(documentId))
 	return builder
 }
 func (builder *CreateDocumentBlockChildrenReqBuilder) BlockId(blockId string) *CreateDocumentBlockChildrenReqBuilder {
-	builder.PathParams.Set("block_id", fmt.Sprint(blockId))
+	builder.httpReq.PathParams.Set("block_id", fmt.Sprint(blockId))
 	return builder
 }
 func (builder *CreateDocumentBlockChildrenReqBuilder) DocumentRevisionId(documentRevisionId int) *CreateDocumentBlockChildrenReqBuilder {
-	builder.QueryParams.Set("document_revision_id", fmt.Sprint(documentRevisionId))
+	builder.httpReq.QueryParams.Set("document_revision_id", fmt.Sprint(documentRevisionId))
 	return builder
 }
 func (builder *CreateDocumentBlockChildrenReqBuilder) ClientToken(clientToken string) *CreateDocumentBlockChildrenReqBuilder {
-	builder.QueryParams.Set("client_token", fmt.Sprint(clientToken))
+	builder.httpReq.QueryParams.Set("client_token", fmt.Sprint(clientToken))
 	return builder
 }
 func (builder *CreateDocumentBlockChildrenReqBuilder) UserIdType(userIdType string) *CreateDocumentBlockChildrenReqBuilder {
-	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *CreateDocumentBlockChildrenReqBuilder) Body(body *CreateDocumentBlockChildrenReqBody) *CreateDocumentBlockChildrenReqBuilder {
@@ -3629,10 +3629,10 @@ func (builder *CreateDocumentBlockChildrenReqBuilder) Body(body *CreateDocumentB
 // 1.5 生成请求的builder的build方法
 func (builder *CreateDocumentBlockChildrenReqBuilder) Build() *CreateDocumentBlockChildrenReq {
 	req := &CreateDocumentBlockChildrenReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.QueryParams = builder.QueryParams
-	req.HttpReq.Body = builder.body
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.httpReq.Body = builder.body
 	return req
 }
 
@@ -3642,8 +3642,8 @@ type CreateDocumentBlockChildrenReqBody struct {
 }
 
 type CreateDocumentBlockChildrenReq struct {
-	*larkcore.HttpReq
-	Body *CreateDocumentBlockChildrenReqBody `body:""`
+	httpReq *larkcore.HttpReq
+	Body    *CreateDocumentBlockChildrenReqBody `body:""`
 }
 
 type CreateDocumentBlockChildrenRespData struct {
@@ -3664,14 +3664,14 @@ func (resp *CreateDocumentBlockChildrenResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type GetDocumentBlockChildrenReqBuilder struct {
-	*larkcore.HttpReq
-	limit int
+	httpReq *larkcore.HttpReq
+	limit   int
 }
 
 // 生成请求的New构造器
 func NewGetDocumentBlockChildrenReqBuilder() *GetDocumentBlockChildrenReqBuilder {
 	builder := &GetDocumentBlockChildrenReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -3684,43 +3684,43 @@ func (builder *GetDocumentBlockChildrenReqBuilder) Limit(limit int) *GetDocument
 	return builder
 }
 func (builder *GetDocumentBlockChildrenReqBuilder) DocumentId(documentId string) *GetDocumentBlockChildrenReqBuilder {
-	builder.PathParams.Set("document_id", fmt.Sprint(documentId))
+	builder.httpReq.PathParams.Set("document_id", fmt.Sprint(documentId))
 	return builder
 }
 func (builder *GetDocumentBlockChildrenReqBuilder) BlockId(blockId string) *GetDocumentBlockChildrenReqBuilder {
-	builder.PathParams.Set("block_id", fmt.Sprint(blockId))
+	builder.httpReq.PathParams.Set("block_id", fmt.Sprint(blockId))
 	return builder
 }
 func (builder *GetDocumentBlockChildrenReqBuilder) DocumentRevisionId(documentRevisionId int) *GetDocumentBlockChildrenReqBuilder {
-	builder.QueryParams.Set("document_revision_id", fmt.Sprint(documentRevisionId))
+	builder.httpReq.QueryParams.Set("document_revision_id", fmt.Sprint(documentRevisionId))
 	return builder
 }
 func (builder *GetDocumentBlockChildrenReqBuilder) PageToken(pageToken string) *GetDocumentBlockChildrenReqBuilder {
-	builder.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	builder.httpReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 func (builder *GetDocumentBlockChildrenReqBuilder) PageSize(pageSize int) *GetDocumentBlockChildrenReqBuilder {
-	builder.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	builder.httpReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 func (builder *GetDocumentBlockChildrenReqBuilder) UserIdType(userIdType string) *GetDocumentBlockChildrenReqBuilder {
-	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *GetDocumentBlockChildrenReqBuilder) Build() *GetDocumentBlockChildrenReq {
 	req := &GetDocumentBlockChildrenReq{}
-	req.HttpReq = &larkcore.HttpReq{}
+	req.httpReq = &larkcore.HttpReq{}
 	req.Limit = builder.limit
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.QueryParams = builder.QueryParams
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.QueryParams = builder.httpReq.QueryParams
 	return req
 }
 
 type GetDocumentBlockChildrenReq struct {
-	*larkcore.HttpReq
-	Limit int
+	httpReq *larkcore.HttpReq
+	Limit   int
 }
 
 type GetDocumentBlockChildrenRespData struct {
@@ -3767,7 +3767,7 @@ func (iterator *ListDocumentBlockIterator) Next() (bool, *Block, error) {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
-			iterator.req.QueryParams.Set("page_token", *iterator.nextPageToken)
+			iterator.req.httpReq.QueryParams.Set("page_token", *iterator.nextPageToken)
 		}
 		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
 		if err != nil {
@@ -3821,7 +3821,7 @@ func (iterator *GetDocumentBlockChildrenIterator) Next() (bool, *Block, error) {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
-			iterator.req.QueryParams.Set("page_token", *iterator.nextPageToken)
+			iterator.req.httpReq.QueryParams.Set("page_token", *iterator.nextPageToken)
 		}
 		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
 		if err != nil {

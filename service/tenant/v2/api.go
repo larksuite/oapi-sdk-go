@@ -36,7 +36,7 @@ func (t *tenant) Query(ctx context.Context, options ...larkcore.RequestOptionFun
 	httpReq.ApiPath = "/open-apis/tenant/v2/tenant/query"
 	httpReq.HttpMethod = http.MethodGet
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, nil, t.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, t.service.config, options...)
 	if err != nil {
 		return nil, err
 	}

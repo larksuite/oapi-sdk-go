@@ -29,11 +29,11 @@ type speech struct {
 // 资源服务方法定义
 func (s *speech) FileRecognize(ctx context.Context, req *FileRecognizeSpeechReq, options ...larkcore.RequestOptionFunc) (*FileRecognizeSpeechResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/speech_to_text/v1/speech/file_recognize"
 	httpReq.HttpMethod = http.MethodPost
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, s.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, s.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -47,11 +47,11 @@ func (s *speech) FileRecognize(ctx context.Context, req *FileRecognizeSpeechReq,
 }
 func (s *speech) StreamRecognize(ctx context.Context, req *StreamRecognizeSpeechReq, options ...larkcore.RequestOptionFunc) (*StreamRecognizeSpeechResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/speech_to_text/v1/speech/stream_recognize"
 	httpReq.HttpMethod = http.MethodPost
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, s.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, s.service.config, options...)
 	if err != nil {
 		return nil, err
 	}

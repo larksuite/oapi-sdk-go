@@ -543,14 +543,14 @@ func (builder *CreateEntityPathReqBodyBuilder) Build() (*CreateEntityReqBody, er
 
 // 1.4 生成请求的builder结构体
 type CreateEntityReqBuilder struct {
-	*larkcore.HttpReq
-	body *CreateEntityReqBody
+	httpReq *larkcore.HttpReq
+	body    *CreateEntityReqBody
 }
 
 // 生成请求的New构造器
 func NewCreateEntityReqBuilder() *CreateEntityReqBuilder {
 	builder := &CreateEntityReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -566,8 +566,8 @@ func (builder *CreateEntityReqBuilder) Body(body *CreateEntityReqBody) *CreateEn
 // 1.5 生成请求的builder的build方法
 func (builder *CreateEntityReqBuilder) Build() *CreateEntityReq {
 	req := &CreateEntityReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.Body = builder.body
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.Body = builder.body
 	return req
 }
 
@@ -587,8 +587,8 @@ type CreateEntityReqBody struct {
 }
 
 type CreateEntityReq struct {
-	*larkcore.HttpReq
-	Body *CreateEntityReqBody `body:""`
+	httpReq *larkcore.HttpReq
+	Body    *CreateEntityReqBody `body:""`
 }
 
 type CreateEntityRespData struct {
@@ -607,14 +607,14 @@ func (resp *CreateEntityResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type UpdateEntityReqBuilder struct {
-	*larkcore.HttpReq
-	entity *Entity
+	httpReq *larkcore.HttpReq
+	entity  *Entity
 }
 
 // 生成请求的New构造器
 func NewUpdateEntityReqBuilder() *UpdateEntityReqBuilder {
 	builder := &UpdateEntityReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -623,7 +623,7 @@ func NewUpdateEntityReqBuilder() *UpdateEntityReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *UpdateEntityReqBuilder) BlockId(blockId string) *UpdateEntityReqBuilder {
-	builder.PathParams.Set("block_id", fmt.Sprint(blockId))
+	builder.httpReq.PathParams.Set("block_id", fmt.Sprint(blockId))
 	return builder
 }
 func (builder *UpdateEntityReqBuilder) Entity(entity *Entity) *UpdateEntityReqBuilder {
@@ -634,15 +634,15 @@ func (builder *UpdateEntityReqBuilder) Entity(entity *Entity) *UpdateEntityReqBu
 // 1.5 生成请求的builder的build方法
 func (builder *UpdateEntityReqBuilder) Build() *UpdateEntityReq {
 	req := &UpdateEntityReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.PathParams = builder.PathParams
-	req.HttpReq.Body = builder.entity
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.httpReq.Body = builder.entity
 	return req
 }
 
 type UpdateEntityReq struct {
-	*larkcore.HttpReq
-	Entity *Entity `body:""`
+	httpReq *larkcore.HttpReq
+	Entity  *Entity `body:""`
 }
 
 type UpdateEntityResp struct {
@@ -656,14 +656,14 @@ func (resp *UpdateEntityResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type CreateMessageReqBuilder struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 	message *Message
 }
 
 // 生成请求的New构造器
 func NewCreateMessageReqBuilder() *CreateMessageReqBuilder {
 	builder := &CreateMessageReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -679,13 +679,13 @@ func (builder *CreateMessageReqBuilder) Message(message *Message) *CreateMessage
 // 1.5 生成请求的builder的build方法
 func (builder *CreateMessageReqBuilder) Build() *CreateMessageReq {
 	req := &CreateMessageReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.Body = builder.message
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.Body = builder.message
 	return req
 }
 
 type CreateMessageReq struct {
-	*larkcore.HttpReq
+	httpReq *larkcore.HttpReq
 	Message *Message `body:""`
 }
 

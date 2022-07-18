@@ -49,11 +49,11 @@ type taskReminder struct {
 // 资源服务方法定义
 func (t *task) Complete(ctx context.Context, req *CompleteTaskReq, options ...larkcore.RequestOptionFunc) (*CompleteTaskResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/task/v1/tasks/:task_id/complete"
 	httpReq.HttpMethod = http.MethodPost
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, t.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, t.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -67,11 +67,11 @@ func (t *task) Complete(ctx context.Context, req *CompleteTaskReq, options ...la
 }
 func (t *task) Create(ctx context.Context, req *CreateTaskReq, options ...larkcore.RequestOptionFunc) (*CreateTaskResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/task/v1/tasks"
 	httpReq.HttpMethod = http.MethodPost
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, t.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, t.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -85,11 +85,11 @@ func (t *task) Create(ctx context.Context, req *CreateTaskReq, options ...larkco
 }
 func (t *task) Delete(ctx context.Context, req *DeleteTaskReq, options ...larkcore.RequestOptionFunc) (*DeleteTaskResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/task/v1/tasks/:task_id"
 	httpReq.HttpMethod = http.MethodDelete
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, t.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, t.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -103,11 +103,11 @@ func (t *task) Delete(ctx context.Context, req *DeleteTaskReq, options ...larkco
 }
 func (t *task) Get(ctx context.Context, req *GetTaskReq, options ...larkcore.RequestOptionFunc) (*GetTaskResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/task/v1/tasks/:task_id"
 	httpReq.HttpMethod = http.MethodGet
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, t.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, t.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -121,11 +121,11 @@ func (t *task) Get(ctx context.Context, req *GetTaskReq, options ...larkcore.Req
 }
 func (t *task) List(ctx context.Context, req *ListTaskReq, options ...larkcore.RequestOptionFunc) (*ListTaskResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/task/v1/tasks"
 	httpReq.HttpMethod = http.MethodGet
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, t.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, t.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -147,11 +147,11 @@ func (t *task) ListByIterator(ctx context.Context, req *ListTaskReq, options ...
 }
 func (t *task) Patch(ctx context.Context, req *PatchTaskReq, options ...larkcore.RequestOptionFunc) (*PatchTaskResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/task/v1/tasks/:task_id"
 	httpReq.HttpMethod = http.MethodPatch
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, t.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, t.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -165,11 +165,11 @@ func (t *task) Patch(ctx context.Context, req *PatchTaskReq, options ...larkcore
 }
 func (t *task) Uncomplete(ctx context.Context, req *UncompleteTaskReq, options ...larkcore.RequestOptionFunc) (*UncompleteTaskResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/task/v1/tasks/:task_id/uncomplete"
 	httpReq.HttpMethod = http.MethodPost
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, t.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, t.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -183,11 +183,11 @@ func (t *task) Uncomplete(ctx context.Context, req *UncompleteTaskReq, options .
 }
 func (t *taskCollaborator) Create(ctx context.Context, req *CreateTaskCollaboratorReq, options ...larkcore.RequestOptionFunc) (*CreateTaskCollaboratorResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/task/v1/tasks/:task_id/collaborators"
 	httpReq.HttpMethod = http.MethodPost
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, t.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, t.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -201,11 +201,11 @@ func (t *taskCollaborator) Create(ctx context.Context, req *CreateTaskCollaborat
 }
 func (t *taskCollaborator) Delete(ctx context.Context, req *DeleteTaskCollaboratorReq, options ...larkcore.RequestOptionFunc) (*DeleteTaskCollaboratorResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/task/v1/tasks/:task_id/collaborators/:collaborator_id"
 	httpReq.HttpMethod = http.MethodDelete
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, t.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, t.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -219,11 +219,11 @@ func (t *taskCollaborator) Delete(ctx context.Context, req *DeleteTaskCollaborat
 }
 func (t *taskCollaborator) List(ctx context.Context, req *ListTaskCollaboratorReq, options ...larkcore.RequestOptionFunc) (*ListTaskCollaboratorResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/task/v1/tasks/:task_id/collaborators"
 	httpReq.HttpMethod = http.MethodGet
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, t.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, t.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -245,11 +245,11 @@ func (t *taskCollaborator) ListByIterator(ctx context.Context, req *ListTaskColl
 }
 func (t *taskComment) Create(ctx context.Context, req *CreateTaskCommentReq, options ...larkcore.RequestOptionFunc) (*CreateTaskCommentResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/task/v1/tasks/:task_id/comments"
 	httpReq.HttpMethod = http.MethodPost
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, t.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, t.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -263,11 +263,11 @@ func (t *taskComment) Create(ctx context.Context, req *CreateTaskCommentReq, opt
 }
 func (t *taskComment) Delete(ctx context.Context, req *DeleteTaskCommentReq, options ...larkcore.RequestOptionFunc) (*DeleteTaskCommentResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/task/v1/tasks/:task_id/comments/:comment_id"
 	httpReq.HttpMethod = http.MethodDelete
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, t.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, t.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -281,11 +281,11 @@ func (t *taskComment) Delete(ctx context.Context, req *DeleteTaskCommentReq, opt
 }
 func (t *taskComment) Get(ctx context.Context, req *GetTaskCommentReq, options ...larkcore.RequestOptionFunc) (*GetTaskCommentResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/task/v1/tasks/:task_id/comments/:comment_id"
 	httpReq.HttpMethod = http.MethodGet
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, t.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, t.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -299,11 +299,11 @@ func (t *taskComment) Get(ctx context.Context, req *GetTaskCommentReq, options .
 }
 func (t *taskComment) List(ctx context.Context, req *ListTaskCommentReq, options ...larkcore.RequestOptionFunc) (*ListTaskCommentResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/task/v1/tasks/:task_id/comments"
 	httpReq.HttpMethod = http.MethodGet
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, t.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, t.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -325,11 +325,11 @@ func (t *taskComment) ListByIterator(ctx context.Context, req *ListTaskCommentRe
 }
 func (t *taskComment) Update(ctx context.Context, req *UpdateTaskCommentReq, options ...larkcore.RequestOptionFunc) (*UpdateTaskCommentResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/task/v1/tasks/:task_id/comments/:comment_id"
 	httpReq.HttpMethod = http.MethodPut
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, t.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, t.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -343,11 +343,11 @@ func (t *taskComment) Update(ctx context.Context, req *UpdateTaskCommentReq, opt
 }
 func (t *taskFollower) Create(ctx context.Context, req *CreateTaskFollowerReq, options ...larkcore.RequestOptionFunc) (*CreateTaskFollowerResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/task/v1/tasks/:task_id/followers"
 	httpReq.HttpMethod = http.MethodPost
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, t.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, t.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -361,11 +361,11 @@ func (t *taskFollower) Create(ctx context.Context, req *CreateTaskFollowerReq, o
 }
 func (t *taskFollower) Delete(ctx context.Context, req *DeleteTaskFollowerReq, options ...larkcore.RequestOptionFunc) (*DeleteTaskFollowerResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/task/v1/tasks/:task_id/followers/:follower_id"
 	httpReq.HttpMethod = http.MethodDelete
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, t.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, t.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -379,11 +379,11 @@ func (t *taskFollower) Delete(ctx context.Context, req *DeleteTaskFollowerReq, o
 }
 func (t *taskFollower) List(ctx context.Context, req *ListTaskFollowerReq, options ...larkcore.RequestOptionFunc) (*ListTaskFollowerResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/task/v1/tasks/:task_id/followers"
 	httpReq.HttpMethod = http.MethodGet
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, t.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, t.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -405,11 +405,11 @@ func (t *taskFollower) ListByIterator(ctx context.Context, req *ListTaskFollower
 }
 func (t *taskReminder) Create(ctx context.Context, req *CreateTaskReminderReq, options ...larkcore.RequestOptionFunc) (*CreateTaskReminderResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/task/v1/tasks/:task_id/reminders"
 	httpReq.HttpMethod = http.MethodPost
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, t.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, t.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -423,11 +423,11 @@ func (t *taskReminder) Create(ctx context.Context, req *CreateTaskReminderReq, o
 }
 func (t *taskReminder) Delete(ctx context.Context, req *DeleteTaskReminderReq, options ...larkcore.RequestOptionFunc) (*DeleteTaskReminderResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/task/v1/tasks/:task_id/reminders/:reminder_id"
 	httpReq.HttpMethod = http.MethodDelete
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, t.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, t.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -441,11 +441,11 @@ func (t *taskReminder) Delete(ctx context.Context, req *DeleteTaskReminderReq, o
 }
 func (t *taskReminder) List(ctx context.Context, req *ListTaskReminderReq, options ...larkcore.RequestOptionFunc) (*ListTaskReminderResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/task/v1/tasks/:task_id/reminders"
 	httpReq.HttpMethod = http.MethodGet
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, t.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, t.service.config, options...)
 	if err != nil {
 		return nil, err
 	}

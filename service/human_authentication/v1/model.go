@@ -170,14 +170,14 @@ func (builder *CreateIdentityPathReqBodyBuilder) Build() (*CreateIdentityReqBody
 
 // 1.4 生成请求的builder结构体
 type CreateIdentityReqBuilder struct {
-	*larkcore.HttpReq
-	body *CreateIdentityReqBody
+	httpReq *larkcore.HttpReq
+	body    *CreateIdentityReqBody
 }
 
 // 生成请求的New构造器
 func NewCreateIdentityReqBuilder() *CreateIdentityReqBuilder {
 	builder := &CreateIdentityReqBuilder{}
-	builder.HttpReq = &larkcore.HttpReq{
+	builder.httpReq = &larkcore.HttpReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -186,11 +186,11 @@ func NewCreateIdentityReqBuilder() *CreateIdentityReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *CreateIdentityReqBuilder) UserId(userId string) *CreateIdentityReqBuilder {
-	builder.QueryParams.Set("user_id", fmt.Sprint(userId))
+	builder.httpReq.QueryParams.Set("user_id", fmt.Sprint(userId))
 	return builder
 }
 func (builder *CreateIdentityReqBuilder) UserIdType(userIdType string) *CreateIdentityReqBuilder {
-	builder.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *CreateIdentityReqBuilder) Body(body *CreateIdentityReqBody) *CreateIdentityReqBuilder {
@@ -201,9 +201,9 @@ func (builder *CreateIdentityReqBuilder) Body(body *CreateIdentityReqBody) *Crea
 // 1.5 生成请求的builder的build方法
 func (builder *CreateIdentityReqBuilder) Build() *CreateIdentityReq {
 	req := &CreateIdentityReq{}
-	req.HttpReq = &larkcore.HttpReq{}
-	req.HttpReq.QueryParams = builder.QueryParams
-	req.HttpReq.Body = builder.body
+	req.httpReq = &larkcore.HttpReq{}
+	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.httpReq.Body = builder.body
 	return req
 }
 
@@ -214,8 +214,8 @@ type CreateIdentityReqBody struct {
 }
 
 type CreateIdentityReq struct {
-	*larkcore.HttpReq
-	Body *CreateIdentityReqBody `body:""`
+	httpReq *larkcore.HttpReq
+	Body    *CreateIdentityReqBody `body:""`
 }
 
 type CreateIdentityRespData struct {

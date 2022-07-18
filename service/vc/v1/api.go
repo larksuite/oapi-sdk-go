@@ -49,11 +49,11 @@ type roomConfig struct {
 // 资源服务方法定义
 func (m *meeting) End(ctx context.Context, req *EndMeetingReq, options ...larkcore.RequestOptionFunc) (*EndMeetingResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/vc/v1/meetings/:meeting_id/end"
 	httpReq.HttpMethod = http.MethodPatch
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, m.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, m.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -67,11 +67,11 @@ func (m *meeting) End(ctx context.Context, req *EndMeetingReq, options ...larkco
 }
 func (m *meeting) Get(ctx context.Context, req *GetMeetingReq, options ...larkcore.RequestOptionFunc) (*GetMeetingResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/vc/v1/meetings/:meeting_id"
 	httpReq.HttpMethod = http.MethodGet
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, m.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, m.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -85,11 +85,11 @@ func (m *meeting) Get(ctx context.Context, req *GetMeetingReq, options ...larkco
 }
 func (m *meeting) Invite(ctx context.Context, req *InviteMeetingReq, options ...larkcore.RequestOptionFunc) (*InviteMeetingResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/vc/v1/meetings/:meeting_id/invite"
 	httpReq.HttpMethod = http.MethodPatch
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, m.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, m.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -103,11 +103,11 @@ func (m *meeting) Invite(ctx context.Context, req *InviteMeetingReq, options ...
 }
 func (m *meeting) Kickout(ctx context.Context, req *KickoutMeetingReq, options ...larkcore.RequestOptionFunc) (*KickoutMeetingResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/vc/v1/meetings/:meeting_id/kickout"
 	httpReq.HttpMethod = http.MethodPost
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, m.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, m.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -121,11 +121,11 @@ func (m *meeting) Kickout(ctx context.Context, req *KickoutMeetingReq, options .
 }
 func (m *meeting) ListByNo(ctx context.Context, req *ListByNoMeetingReq, options ...larkcore.RequestOptionFunc) (*ListByNoMeetingResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/vc/v1/meetings/list_by_no"
 	httpReq.HttpMethod = http.MethodGet
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, m.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, m.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -147,11 +147,11 @@ func (m *meeting) ListByNoByIterator(ctx context.Context, req *ListByNoMeetingRe
 }
 func (m *meeting) SetHost(ctx context.Context, req *SetHostMeetingReq, options ...larkcore.RequestOptionFunc) (*SetHostMeetingResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/vc/v1/meetings/:meeting_id/set_host"
 	httpReq.HttpMethod = http.MethodPatch
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, m.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, m.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -165,11 +165,11 @@ func (m *meeting) SetHost(ctx context.Context, req *SetHostMeetingReq, options .
 }
 func (m *meetingRecording) Get(ctx context.Context, req *GetMeetingRecordingReq, options ...larkcore.RequestOptionFunc) (*GetMeetingRecordingResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/vc/v1/meetings/:meeting_id/recording"
 	httpReq.HttpMethod = http.MethodGet
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, m.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, m.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -183,11 +183,11 @@ func (m *meetingRecording) Get(ctx context.Context, req *GetMeetingRecordingReq,
 }
 func (m *meetingRecording) SetPermission(ctx context.Context, req *SetPermissionMeetingRecordingReq, options ...larkcore.RequestOptionFunc) (*SetPermissionMeetingRecordingResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/vc/v1/meetings/:meeting_id/recording/set_permission"
 	httpReq.HttpMethod = http.MethodPatch
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, m.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, m.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -201,11 +201,11 @@ func (m *meetingRecording) SetPermission(ctx context.Context, req *SetPermission
 }
 func (m *meetingRecording) Start(ctx context.Context, req *StartMeetingRecordingReq, options ...larkcore.RequestOptionFunc) (*StartMeetingRecordingResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/vc/v1/meetings/:meeting_id/recording/start"
 	httpReq.HttpMethod = http.MethodPatch
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, m.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, m.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -219,11 +219,11 @@ func (m *meetingRecording) Start(ctx context.Context, req *StartMeetingRecording
 }
 func (m *meetingRecording) Stop(ctx context.Context, req *StopMeetingRecordingReq, options ...larkcore.RequestOptionFunc) (*StopMeetingRecordingResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/vc/v1/meetings/:meeting_id/recording/stop"
 	httpReq.HttpMethod = http.MethodPatch
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, m.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, m.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -237,11 +237,11 @@ func (m *meetingRecording) Stop(ctx context.Context, req *StopMeetingRecordingRe
 }
 func (r *report) GetDaily(ctx context.Context, req *GetDailyReportReq, options ...larkcore.RequestOptionFunc) (*GetDailyReportResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/vc/v1/reports/get_daily"
 	httpReq.HttpMethod = http.MethodGet
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, r.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, r.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -255,11 +255,11 @@ func (r *report) GetDaily(ctx context.Context, req *GetDailyReportReq, options .
 }
 func (r *report) GetTopUser(ctx context.Context, req *GetTopUserReportReq, options ...larkcore.RequestOptionFunc) (*GetTopUserReportResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/vc/v1/reports/get_top_user"
 	httpReq.HttpMethod = http.MethodGet
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, r.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, r.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -273,11 +273,11 @@ func (r *report) GetTopUser(ctx context.Context, req *GetTopUserReportReq, optio
 }
 func (r *reserve) Apply(ctx context.Context, req *ApplyReserveReq, options ...larkcore.RequestOptionFunc) (*ApplyReserveResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/vc/v1/reserves/apply"
 	httpReq.HttpMethod = http.MethodPost
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, r.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, r.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -291,11 +291,11 @@ func (r *reserve) Apply(ctx context.Context, req *ApplyReserveReq, options ...la
 }
 func (r *reserve) Delete(ctx context.Context, req *DeleteReserveReq, options ...larkcore.RequestOptionFunc) (*DeleteReserveResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/vc/v1/reserves/:reserve_id"
 	httpReq.HttpMethod = http.MethodDelete
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, r.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, r.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -309,11 +309,11 @@ func (r *reserve) Delete(ctx context.Context, req *DeleteReserveReq, options ...
 }
 func (r *reserve) Get(ctx context.Context, req *GetReserveReq, options ...larkcore.RequestOptionFunc) (*GetReserveResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/vc/v1/reserves/:reserve_id"
 	httpReq.HttpMethod = http.MethodGet
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, r.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, r.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -327,11 +327,11 @@ func (r *reserve) Get(ctx context.Context, req *GetReserveReq, options ...larkco
 }
 func (r *reserve) GetActiveMeeting(ctx context.Context, req *GetActiveMeetingReserveReq, options ...larkcore.RequestOptionFunc) (*GetActiveMeetingReserveResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/vc/v1/reserves/:reserve_id/get_active_meeting"
 	httpReq.HttpMethod = http.MethodGet
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, r.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, r.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -345,11 +345,11 @@ func (r *reserve) GetActiveMeeting(ctx context.Context, req *GetActiveMeetingRes
 }
 func (r *reserve) Update(ctx context.Context, req *UpdateReserveReq, options ...larkcore.RequestOptionFunc) (*UpdateReserveResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/vc/v1/reserves/:reserve_id"
 	httpReq.HttpMethod = http.MethodPut
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, r.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, r.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -363,11 +363,11 @@ func (r *reserve) Update(ctx context.Context, req *UpdateReserveReq, options ...
 }
 func (r *roomConfig) Query(ctx context.Context, req *QueryRoomConfigReq, options ...larkcore.RequestOptionFunc) (*QueryRoomConfigResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/vc/v1/room_configs/query"
 	httpReq.HttpMethod = http.MethodGet
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, r.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, r.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -381,11 +381,11 @@ func (r *roomConfig) Query(ctx context.Context, req *QueryRoomConfigReq, options
 }
 func (r *roomConfig) Set(ctx context.Context, req *SetRoomConfigReq, options ...larkcore.RequestOptionFunc) (*SetRoomConfigResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/vc/v1/room_configs/set"
 	httpReq.HttpMethod = http.MethodPost
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, r.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, r.service.config, options...)
 	if err != nil {
 		return nil, err
 	}

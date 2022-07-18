@@ -29,11 +29,11 @@ type session struct {
 // 资源服务方法定义
 func (s *session) Query(ctx context.Context, req *QuerySessionReq, options ...larkcore.RequestOptionFunc) (*QuerySessionResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/passport/v1/sessions/query"
 	httpReq.HttpMethod = http.MethodPost
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, s.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, s.service.config, options...)
 	if err != nil {
 		return nil, err
 	}

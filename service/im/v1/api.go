@@ -100,11 +100,11 @@ type messageResource struct {
 // 资源服务方法定义
 func (b *batchMessage) Delete(ctx context.Context, req *DeleteBatchMessageReq, options ...larkcore.RequestOptionFunc) (*DeleteBatchMessageResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/im/v1/batch_messages/:batch_message_id"
 	httpReq.HttpMethod = http.MethodDelete
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, b.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, b.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -118,11 +118,11 @@ func (b *batchMessage) Delete(ctx context.Context, req *DeleteBatchMessageReq, o
 }
 func (b *batchMessage) GetProgress(ctx context.Context, req *GetProgressBatchMessageReq, options ...larkcore.RequestOptionFunc) (*GetProgressBatchMessageResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/im/v1/batch_messages/:batch_message_id/get_progress"
 	httpReq.HttpMethod = http.MethodGet
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, b.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, b.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -136,11 +136,11 @@ func (b *batchMessage) GetProgress(ctx context.Context, req *GetProgressBatchMes
 }
 func (b *batchMessage) ReadUser(ctx context.Context, req *ReadUserBatchMessageReq, options ...larkcore.RequestOptionFunc) (*ReadUserBatchMessageResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/im/v1/batch_messages/:batch_message_id/read_user"
 	httpReq.HttpMethod = http.MethodGet
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, b.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, b.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -154,11 +154,11 @@ func (b *batchMessage) ReadUser(ctx context.Context, req *ReadUserBatchMessageRe
 }
 func (c *chat) Create(ctx context.Context, req *CreateChatReq, options ...larkcore.RequestOptionFunc) (*CreateChatResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/im/v1/chats"
 	httpReq.HttpMethod = http.MethodPost
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -172,11 +172,11 @@ func (c *chat) Create(ctx context.Context, req *CreateChatReq, options ...larkco
 }
 func (c *chat) Delete(ctx context.Context, req *DeleteChatReq, options ...larkcore.RequestOptionFunc) (*DeleteChatResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/im/v1/chats/:chat_id"
 	httpReq.HttpMethod = http.MethodDelete
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -190,11 +190,11 @@ func (c *chat) Delete(ctx context.Context, req *DeleteChatReq, options ...larkco
 }
 func (c *chat) Get(ctx context.Context, req *GetChatReq, options ...larkcore.RequestOptionFunc) (*GetChatResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/im/v1/chats/:chat_id"
 	httpReq.HttpMethod = http.MethodGet
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -208,11 +208,11 @@ func (c *chat) Get(ctx context.Context, req *GetChatReq, options ...larkcore.Req
 }
 func (c *chat) List(ctx context.Context, req *ListChatReq, options ...larkcore.RequestOptionFunc) (*ListChatResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/im/v1/chats"
 	httpReq.HttpMethod = http.MethodGet
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -234,11 +234,11 @@ func (c *chat) ListByIterator(ctx context.Context, req *ListChatReq, options ...
 }
 func (c *chat) Search(ctx context.Context, req *SearchChatReq, options ...larkcore.RequestOptionFunc) (*SearchChatResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/im/v1/chats/search"
 	httpReq.HttpMethod = http.MethodGet
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -260,11 +260,11 @@ func (c *chat) SearchByIterator(ctx context.Context, req *SearchChatReq, options
 }
 func (c *chat) Update(ctx context.Context, req *UpdateChatReq, options ...larkcore.RequestOptionFunc) (*UpdateChatResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/im/v1/chats/:chat_id"
 	httpReq.HttpMethod = http.MethodPut
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -278,11 +278,11 @@ func (c *chat) Update(ctx context.Context, req *UpdateChatReq, options ...larkco
 }
 func (c *chatAnnouncement) Get(ctx context.Context, req *GetChatAnnouncementReq, options ...larkcore.RequestOptionFunc) (*GetChatAnnouncementResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/im/v1/chats/:chat_id/announcement"
 	httpReq.HttpMethod = http.MethodGet
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -296,11 +296,11 @@ func (c *chatAnnouncement) Get(ctx context.Context, req *GetChatAnnouncementReq,
 }
 func (c *chatAnnouncement) Patch(ctx context.Context, req *PatchChatAnnouncementReq, options ...larkcore.RequestOptionFunc) (*PatchChatAnnouncementResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/im/v1/chats/:chat_id/announcement"
 	httpReq.HttpMethod = http.MethodPatch
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -314,11 +314,11 @@ func (c *chatAnnouncement) Patch(ctx context.Context, req *PatchChatAnnouncement
 }
 func (c *chatManagers) AddManagers(ctx context.Context, req *AddManagersChatManagersReq, options ...larkcore.RequestOptionFunc) (*AddManagersChatManagersResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/im/v1/chats/:chat_id/managers/add_managers"
 	httpReq.HttpMethod = http.MethodPost
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -332,11 +332,11 @@ func (c *chatManagers) AddManagers(ctx context.Context, req *AddManagersChatMana
 }
 func (c *chatManagers) DeleteManagers(ctx context.Context, req *DeleteManagersChatManagersReq, options ...larkcore.RequestOptionFunc) (*DeleteManagersChatManagersResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/im/v1/chats/:chat_id/managers/delete_managers"
 	httpReq.HttpMethod = http.MethodPost
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -350,11 +350,11 @@ func (c *chatManagers) DeleteManagers(ctx context.Context, req *DeleteManagersCh
 }
 func (c *chatMembers) Create(ctx context.Context, req *CreateChatMembersReq, options ...larkcore.RequestOptionFunc) (*CreateChatMembersResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/im/v1/chats/:chat_id/members"
 	httpReq.HttpMethod = http.MethodPost
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -368,11 +368,11 @@ func (c *chatMembers) Create(ctx context.Context, req *CreateChatMembersReq, opt
 }
 func (c *chatMembers) Delete(ctx context.Context, req *DeleteChatMembersReq, options ...larkcore.RequestOptionFunc) (*DeleteChatMembersResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/im/v1/chats/:chat_id/members"
 	httpReq.HttpMethod = http.MethodDelete
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -386,11 +386,11 @@ func (c *chatMembers) Delete(ctx context.Context, req *DeleteChatMembersReq, opt
 }
 func (c *chatMembers) Get(ctx context.Context, req *GetChatMembersReq, options ...larkcore.RequestOptionFunc) (*GetChatMembersResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/im/v1/chats/:chat_id/members"
 	httpReq.HttpMethod = http.MethodGet
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -412,11 +412,11 @@ func (c *chatMembers) GetByIterator(ctx context.Context, req *GetChatMembersReq,
 }
 func (c *chatMembers) IsInChat(ctx context.Context, req *IsInChatChatMembersReq, options ...larkcore.RequestOptionFunc) (*IsInChatChatMembersResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/im/v1/chats/:chat_id/members/is_in_chat"
 	httpReq.HttpMethod = http.MethodGet
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -430,11 +430,11 @@ func (c *chatMembers) IsInChat(ctx context.Context, req *IsInChatChatMembersReq,
 }
 func (c *chatMembers) MeJoin(ctx context.Context, req *MeJoinChatMembersReq, options ...larkcore.RequestOptionFunc) (*MeJoinChatMembersResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/im/v1/chats/:chat_id/members/me_join"
 	httpReq.HttpMethod = http.MethodPatch
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -448,11 +448,11 @@ func (c *chatMembers) MeJoin(ctx context.Context, req *MeJoinChatMembersReq, opt
 }
 func (c *chatModeration) Get(ctx context.Context, req *GetChatModerationReq, options ...larkcore.RequestOptionFunc) (*GetChatModerationResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/im/v1/chats/:chat_id/moderation"
 	httpReq.HttpMethod = http.MethodGet
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -474,11 +474,11 @@ func (c *chatModeration) GetByIterator(ctx context.Context, req *GetChatModerati
 }
 func (c *chatModeration) Update(ctx context.Context, req *UpdateChatModerationReq, options ...larkcore.RequestOptionFunc) (*UpdateChatModerationResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/im/v1/chats/:chat_id/moderation"
 	httpReq.HttpMethod = http.MethodPut
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -492,11 +492,11 @@ func (c *chatModeration) Update(ctx context.Context, req *UpdateChatModerationRe
 }
 func (c *chatTab) Create(ctx context.Context, req *CreateChatTabReq, options ...larkcore.RequestOptionFunc) (*CreateChatTabResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/im/v1/chats/:chat_id/chat_tabs"
 	httpReq.HttpMethod = http.MethodPost
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -510,11 +510,11 @@ func (c *chatTab) Create(ctx context.Context, req *CreateChatTabReq, options ...
 }
 func (c *chatTab) DeleteTabs(ctx context.Context, req *DeleteTabsChatTabReq, options ...larkcore.RequestOptionFunc) (*DeleteTabsChatTabResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/im/v1/chats/:chat_id/chat_tabs/delete_tabs"
 	httpReq.HttpMethod = http.MethodDelete
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -528,11 +528,11 @@ func (c *chatTab) DeleteTabs(ctx context.Context, req *DeleteTabsChatTabReq, opt
 }
 func (c *chatTab) ListTabs(ctx context.Context, req *ListTabsChatTabReq, options ...larkcore.RequestOptionFunc) (*ListTabsChatTabResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/im/v1/chats/:chat_id/chat_tabs/list_tabs"
 	httpReq.HttpMethod = http.MethodGet
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -546,11 +546,11 @@ func (c *chatTab) ListTabs(ctx context.Context, req *ListTabsChatTabReq, options
 }
 func (c *chatTab) SortTabs(ctx context.Context, req *SortTabsChatTabReq, options ...larkcore.RequestOptionFunc) (*SortTabsChatTabResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/im/v1/chats/:chat_id/chat_tabs/sort_tabs"
 	httpReq.HttpMethod = http.MethodPost
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -564,11 +564,11 @@ func (c *chatTab) SortTabs(ctx context.Context, req *SortTabsChatTabReq, options
 }
 func (c *chatTab) UpdateTabs(ctx context.Context, req *UpdateTabsChatTabReq, options ...larkcore.RequestOptionFunc) (*UpdateTabsChatTabResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/im/v1/chats/:chat_id/chat_tabs/update_tabs"
 	httpReq.HttpMethod = http.MethodPost
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -582,11 +582,11 @@ func (c *chatTab) UpdateTabs(ctx context.Context, req *UpdateTabsChatTabReq, opt
 }
 func (c *chatTopNotice) DeleteTopNotice(ctx context.Context, req *DeleteTopNoticeChatTopNoticeReq, options ...larkcore.RequestOptionFunc) (*DeleteTopNoticeChatTopNoticeResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/im/v1/chats/:chat_id/top_notice/delete_top_notice"
 	httpReq.HttpMethod = http.MethodPost
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -600,11 +600,11 @@ func (c *chatTopNotice) DeleteTopNotice(ctx context.Context, req *DeleteTopNotic
 }
 func (c *chatTopNotice) PutTopNotice(ctx context.Context, req *PutTopNoticeChatTopNoticeReq, options ...larkcore.RequestOptionFunc) (*PutTopNoticeChatTopNoticeResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/im/v1/chats/:chat_id/top_notice/put_top_notice"
 	httpReq.HttpMethod = http.MethodPost
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, c.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, c.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -619,11 +619,11 @@ func (c *chatTopNotice) PutTopNotice(ctx context.Context, req *PutTopNoticeChatT
 func (f *file) Create(ctx context.Context, req *CreateFileReq, options ...larkcore.RequestOptionFunc) (*CreateFileResp, error) {
 	options = append(options, larkcore.WithFileUpload())
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/im/v1/files"
 	httpReq.HttpMethod = http.MethodPost
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, f.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, f.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -637,11 +637,11 @@ func (f *file) Create(ctx context.Context, req *CreateFileReq, options ...larkco
 }
 func (f *file) Get(ctx context.Context, req *GetFileReq, options ...larkcore.RequestOptionFunc) (*GetFileResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/im/v1/files/:file_key"
 	httpReq.HttpMethod = http.MethodGet
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, f.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, f.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -662,11 +662,11 @@ func (f *file) Get(ctx context.Context, req *GetFileReq, options ...larkcore.Req
 func (i *image) Create(ctx context.Context, req *CreateImageReq, options ...larkcore.RequestOptionFunc) (*CreateImageResp, error) {
 	options = append(options, larkcore.WithFileUpload())
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/im/v1/images"
 	httpReq.HttpMethod = http.MethodPost
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, i.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, i.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -680,11 +680,11 @@ func (i *image) Create(ctx context.Context, req *CreateImageReq, options ...lark
 }
 func (i *image) Get(ctx context.Context, req *GetImageReq, options ...larkcore.RequestOptionFunc) (*GetImageResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/im/v1/images/:image_key"
 	httpReq.HttpMethod = http.MethodGet
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, i.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, i.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -704,11 +704,11 @@ func (i *image) Get(ctx context.Context, req *GetImageReq, options ...larkcore.R
 }
 func (m *message) Create(ctx context.Context, req *CreateMessageReq, options ...larkcore.RequestOptionFunc) (*CreateMessageResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/im/v1/messages"
 	httpReq.HttpMethod = http.MethodPost
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, m.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, m.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -722,11 +722,11 @@ func (m *message) Create(ctx context.Context, req *CreateMessageReq, options ...
 }
 func (m *message) Delete(ctx context.Context, req *DeleteMessageReq, options ...larkcore.RequestOptionFunc) (*DeleteMessageResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/im/v1/messages/:message_id"
 	httpReq.HttpMethod = http.MethodDelete
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, m.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, m.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -740,11 +740,11 @@ func (m *message) Delete(ctx context.Context, req *DeleteMessageReq, options ...
 }
 func (m *message) Get(ctx context.Context, req *GetMessageReq, options ...larkcore.RequestOptionFunc) (*GetMessageResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/im/v1/messages/:message_id"
 	httpReq.HttpMethod = http.MethodGet
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, m.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, m.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -758,11 +758,11 @@ func (m *message) Get(ctx context.Context, req *GetMessageReq, options ...larkco
 }
 func (m *message) List(ctx context.Context, req *ListMessageReq, options ...larkcore.RequestOptionFunc) (*ListMessageResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/im/v1/messages"
 	httpReq.HttpMethod = http.MethodGet
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, m.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, m.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -784,11 +784,11 @@ func (m *message) ListByIterator(ctx context.Context, req *ListMessageReq, optio
 }
 func (m *message) Patch(ctx context.Context, req *PatchMessageReq, options ...larkcore.RequestOptionFunc) (*PatchMessageResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/im/v1/messages/:message_id"
 	httpReq.HttpMethod = http.MethodPatch
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, m.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, m.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -802,11 +802,11 @@ func (m *message) Patch(ctx context.Context, req *PatchMessageReq, options ...la
 }
 func (m *message) ReadUsers(ctx context.Context, req *ReadUsersMessageReq, options ...larkcore.RequestOptionFunc) (*ReadUsersMessageResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/im/v1/messages/:message_id/read_users"
 	httpReq.HttpMethod = http.MethodGet
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, m.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, m.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -820,11 +820,11 @@ func (m *message) ReadUsers(ctx context.Context, req *ReadUsersMessageReq, optio
 }
 func (m *message) Reply(ctx context.Context, req *ReplyMessageReq, options ...larkcore.RequestOptionFunc) (*ReplyMessageResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/im/v1/messages/:message_id/reply"
 	httpReq.HttpMethod = http.MethodPost
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, m.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, m.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -838,11 +838,11 @@ func (m *message) Reply(ctx context.Context, req *ReplyMessageReq, options ...la
 }
 func (m *message) UrgentApp(ctx context.Context, req *UrgentAppMessageReq, options ...larkcore.RequestOptionFunc) (*UrgentAppMessageResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/im/v1/messages/:message_id/urgent_app"
 	httpReq.HttpMethod = http.MethodPatch
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, m.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, m.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -856,11 +856,11 @@ func (m *message) UrgentApp(ctx context.Context, req *UrgentAppMessageReq, optio
 }
 func (m *message) UrgentPhone(ctx context.Context, req *UrgentPhoneMessageReq, options ...larkcore.RequestOptionFunc) (*UrgentPhoneMessageResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/im/v1/messages/:message_id/urgent_phone"
 	httpReq.HttpMethod = http.MethodPatch
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, m.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, m.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -874,11 +874,11 @@ func (m *message) UrgentPhone(ctx context.Context, req *UrgentPhoneMessageReq, o
 }
 func (m *message) UrgentSms(ctx context.Context, req *UrgentSmsMessageReq, options ...larkcore.RequestOptionFunc) (*UrgentSmsMessageResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/im/v1/messages/:message_id/urgent_sms"
 	httpReq.HttpMethod = http.MethodPatch
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, m.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, m.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -892,11 +892,11 @@ func (m *message) UrgentSms(ctx context.Context, req *UrgentSmsMessageReq, optio
 }
 func (m *messageReaction) Create(ctx context.Context, req *CreateMessageReactionReq, options ...larkcore.RequestOptionFunc) (*CreateMessageReactionResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/im/v1/messages/:message_id/reactions"
 	httpReq.HttpMethod = http.MethodPost
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, m.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, m.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -910,11 +910,11 @@ func (m *messageReaction) Create(ctx context.Context, req *CreateMessageReaction
 }
 func (m *messageReaction) Delete(ctx context.Context, req *DeleteMessageReactionReq, options ...larkcore.RequestOptionFunc) (*DeleteMessageReactionResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/im/v1/messages/:message_id/reactions/:reaction_id"
 	httpReq.HttpMethod = http.MethodDelete
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, m.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, m.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -928,11 +928,11 @@ func (m *messageReaction) Delete(ctx context.Context, req *DeleteMessageReaction
 }
 func (m *messageReaction) List(ctx context.Context, req *ListMessageReactionReq, options ...larkcore.RequestOptionFunc) (*ListMessageReactionResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/im/v1/messages/:message_id/reactions"
 	httpReq.HttpMethod = http.MethodGet
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, m.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, m.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -954,11 +954,11 @@ func (m *messageReaction) ListByIterator(ctx context.Context, req *ListMessageRe
 }
 func (m *messageResource) Get(ctx context.Context, req *GetMessageResourceReq, options ...larkcore.RequestOptionFunc) (*GetMessageResourceResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/im/v1/messages/:message_id/resources/:file_key"
 	httpReq.HttpMethod = http.MethodGet
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, m.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, m.service.config, options...)
 	if err != nil {
 		return nil, err
 	}

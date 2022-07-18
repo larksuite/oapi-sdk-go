@@ -29,11 +29,11 @@ type text struct {
 // 资源服务方法定义
 func (t *text) Detect(ctx context.Context, req *DetectTextReq, options ...larkcore.RequestOptionFunc) (*DetectTextResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/translation/v1/text/detect"
 	httpReq.HttpMethod = http.MethodPost
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, t.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, t.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -47,11 +47,11 @@ func (t *text) Detect(ctx context.Context, req *DetectTextReq, options ...larkco
 }
 func (t *text) Translate(ctx context.Context, req *TranslateTextReq, options ...larkcore.RequestOptionFunc) (*TranslateTextResp, error) {
 	// 发起请求
-	httpReq := req.HttpReq
+	httpReq := req.httpReq
 	httpReq.ApiPath = "/open-apis/translation/v1/text/translate"
 	httpReq.HttpMethod = http.MethodPost
 	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, req.HttpReq, t.service.config, options...)
+	rawResp, err := larkcore.Request(ctx, httpReq, t.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
