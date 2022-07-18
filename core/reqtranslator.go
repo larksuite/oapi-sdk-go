@@ -17,7 +17,7 @@ import (
 type ReqTranslator struct {
 }
 
-func (translator *ReqTranslator) translate(ctx context.Context, req *HttpReq, accessTokenType AccessTokenType, config *Config, option *RequestOption) (*http.Request, error) {
+func (translator *ReqTranslator) translate(ctx context.Context, req *ApiReq, accessTokenType AccessTokenType, config *Config, option *RequestOption) (*http.Request, error) {
 	body := req.Body
 	if _, ok := body.(*Formdata); !ok {
 		if option.FileUpload {
@@ -41,7 +41,7 @@ func (translator *ReqTranslator) translate(ctx context.Context, req *HttpReq, ac
 			if !ok {
 				return nil, fmt.Errorf("http path:%s, name: %s, not found value", req.ApiPath, varName)
 			}
-			val := fmt.Sprint(v[0])
+			val := fmt.Sprint(v)
 			if val == "" {
 				return nil, fmt.Errorf("http path:%s, name: %s, value is empty", req.ApiPath, varName)
 			}

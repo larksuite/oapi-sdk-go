@@ -39,17 +39,17 @@ type password struct {
 // 资源服务方法定义
 func (a *adminDeptStat) List(ctx context.Context, req *ListAdminDeptStatReq, options ...larkcore.RequestOptionFunc) (*ListAdminDeptStatResp, error) {
 	// 发起请求
-	httpReq := req.httpReq
-	httpReq.ApiPath = "/open-apis/admin/v1/admin_dept_stats"
-	httpReq.HttpMethod = http.MethodGet
-	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, httpReq, a.service.config, options...)
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/admin/v1/admin_dept_stats"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, a.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &ListAdminDeptStatResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
+	resp := &ListAdminDeptStatResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp)
 	if err != nil {
 		return nil, err
 	}
@@ -57,17 +57,17 @@ func (a *adminDeptStat) List(ctx context.Context, req *ListAdminDeptStatReq, opt
 }
 func (a *adminUserStat) List(ctx context.Context, req *ListAdminUserStatReq, options ...larkcore.RequestOptionFunc) (*ListAdminUserStatResp, error) {
 	// 发起请求
-	httpReq := req.httpReq
-	httpReq.ApiPath = "/open-apis/admin/v1/admin_user_stats"
-	httpReq.HttpMethod = http.MethodGet
-	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, httpReq, a.service.config, options...)
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/admin/v1/admin_user_stats"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, a.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &ListAdminUserStatResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
+	resp := &ListAdminUserStatResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp)
 	if err != nil {
 		return nil, err
 	}
@@ -75,17 +75,17 @@ func (a *adminUserStat) List(ctx context.Context, req *ListAdminUserStatReq, opt
 }
 func (p *password) Reset(ctx context.Context, req *ResetPasswordReq, options ...larkcore.RequestOptionFunc) (*ResetPasswordResp, error) {
 	// 发起请求
-	httpReq := req.httpReq
-	httpReq.ApiPath = "/open-apis/admin/v1/password/reset"
-	httpReq.HttpMethod = http.MethodPost
-	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, httpReq, p.service.config, options...)
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/admin/v1/password/reset"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, p.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &ResetPasswordResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
+	resp := &ResetPasswordResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp)
 	if err != nil {
 		return nil, err
 	}

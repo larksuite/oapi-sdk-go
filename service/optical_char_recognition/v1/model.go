@@ -72,14 +72,14 @@ func (builder *BasicRecognizeImagePathReqBodyBuilder) Build() (*BasicRecognizeIm
 
 // 1.4 生成请求的builder结构体
 type BasicRecognizeImageReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	body    *BasicRecognizeImageReqBody
+	apiReq *larkcore.ApiReq
+	body   *BasicRecognizeImageReqBody
 }
 
 // 生成请求的New构造器
 func NewBasicRecognizeImageReqBuilder() *BasicRecognizeImageReqBuilder {
 	builder := &BasicRecognizeImageReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -95,8 +95,8 @@ func (builder *BasicRecognizeImageReqBuilder) Body(body *BasicRecognizeImageReqB
 // 1.5 生成请求的builder的build方法
 func (builder *BasicRecognizeImageReqBuilder) Build() *BasicRecognizeImageReq {
 	req := &BasicRecognizeImageReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.Body = builder.body
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -105,8 +105,8 @@ type BasicRecognizeImageReqBody struct {
 }
 
 type BasicRecognizeImageReq struct {
-	httpReq *larkcore.HttpReq
-	Body    *BasicRecognizeImageReqBody `body:""`
+	apiReq *larkcore.ApiReq
+	Body   *BasicRecognizeImageReqBody `body:""`
 }
 
 type BasicRecognizeImageRespData struct {
@@ -114,7 +114,7 @@ type BasicRecognizeImageRespData struct {
 }
 
 type BasicRecognizeImageResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *BasicRecognizeImageRespData `json:"data"`
 }

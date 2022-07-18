@@ -224,14 +224,14 @@ func (builder *QuerySessionPathReqBodyBuilder) Build() (*QuerySessionReqBody, er
 
 // 1.4 生成请求的builder结构体
 type QuerySessionReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	body    *QuerySessionReqBody
+	apiReq *larkcore.ApiReq
+	body   *QuerySessionReqBody
 }
 
 // 生成请求的New构造器
 func NewQuerySessionReqBuilder() *QuerySessionReqBuilder {
 	builder := &QuerySessionReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -240,7 +240,7 @@ func NewQuerySessionReqBuilder() *QuerySessionReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *QuerySessionReqBuilder) UserIdType(userIdType string) *QuerySessionReqBuilder {
-	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *QuerySessionReqBuilder) Body(body *QuerySessionReqBody) *QuerySessionReqBuilder {
@@ -251,9 +251,9 @@ func (builder *QuerySessionReqBuilder) Body(body *QuerySessionReqBody) *QuerySes
 // 1.5 生成请求的builder的build方法
 func (builder *QuerySessionReqBuilder) Build() *QuerySessionReq {
 	req := &QuerySessionReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
-	req.httpReq.Body = builder.body
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -262,8 +262,8 @@ type QuerySessionReqBody struct {
 }
 
 type QuerySessionReq struct {
-	httpReq *larkcore.HttpReq
-	Body    *QuerySessionReqBody `body:""`
+	apiReq *larkcore.ApiReq
+	Body   *QuerySessionReqBody `body:""`
 }
 
 type QuerySessionRespData struct {
@@ -271,7 +271,7 @@ type QuerySessionRespData struct {
 }
 
 type QuerySessionResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *QuerySessionRespData `json:"data"`
 }

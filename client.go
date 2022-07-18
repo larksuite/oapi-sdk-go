@@ -203,8 +203,8 @@ func initService(client *Client, config *larkcore.Config) {
 
 }
 
-func (cli *Client) Post(ctx context.Context, httpPath string, body interface{}, accessTokeType larkcore.AccessTokenType, options ...larkcore.RequestOptionFunc) (*larkcore.RawResponse, error) {
-	return cli.Do(ctx, &larkcore.HttpReq{
+func (cli *Client) Post(ctx context.Context, httpPath string, body interface{}, accessTokeType larkcore.AccessTokenType, options ...larkcore.RequestOptionFunc) (*larkcore.ApiResp, error) {
+	return cli.Do(ctx, &larkcore.ApiReq{
 		HttpMethod:                http.MethodPost,
 		ApiPath:                   httpPath,
 		Body:                      body,
@@ -212,11 +212,11 @@ func (cli *Client) Post(ctx context.Context, httpPath string, body interface{}, 
 	}, options...)
 }
 
-func (cli *Client) Do(ctx context.Context, httpReq *larkcore.HttpReq, options ...larkcore.RequestOptionFunc) (*larkcore.RawResponse, error) {
-	return larkcore.Request(ctx, httpReq, cli.config, options...)
+func (cli *Client) Do(ctx context.Context, apiReq *larkcore.ApiReq, options ...larkcore.RequestOptionFunc) (*larkcore.ApiResp, error) {
+	return larkcore.Request(ctx, apiReq, cli.config, options...)
 }
-func (cli *Client) Get(ctx context.Context, httpPath string, body interface{}, accessTokeType larkcore.AccessTokenType, options ...larkcore.RequestOptionFunc) (*larkcore.RawResponse, error) {
-	return cli.Do(ctx, &larkcore.HttpReq{
+func (cli *Client) Get(ctx context.Context, httpPath string, body interface{}, accessTokeType larkcore.AccessTokenType, options ...larkcore.RequestOptionFunc) (*larkcore.ApiResp, error) {
+	return cli.Do(ctx, &larkcore.ApiReq{
 		HttpMethod:                http.MethodGet,
 		ApiPath:                   httpPath,
 		Body:                      body,
@@ -224,8 +224,8 @@ func (cli *Client) Get(ctx context.Context, httpPath string, body interface{}, a
 	}, options...)
 }
 
-func (cli *Client) Delete(ctx context.Context, httpPath string, body interface{}, accessTokeType larkcore.AccessTokenType, options ...larkcore.RequestOptionFunc) (*larkcore.RawResponse, error) {
-	return cli.Do(ctx, &larkcore.HttpReq{
+func (cli *Client) Delete(ctx context.Context, httpPath string, body interface{}, accessTokeType larkcore.AccessTokenType, options ...larkcore.RequestOptionFunc) (*larkcore.ApiResp, error) {
+	return cli.Do(ctx, &larkcore.ApiReq{
 		HttpMethod:                http.MethodDelete,
 		ApiPath:                   httpPath,
 		Body:                      body,
@@ -233,8 +233,8 @@ func (cli *Client) Delete(ctx context.Context, httpPath string, body interface{}
 	}, options...)
 }
 
-func (cli *Client) Put(ctx context.Context, httpPath string, body interface{}, accessTokeType larkcore.AccessTokenType, options ...larkcore.RequestOptionFunc) (*larkcore.RawResponse, error) {
-	return cli.Do(ctx, &larkcore.HttpReq{
+func (cli *Client) Put(ctx context.Context, httpPath string, body interface{}, accessTokeType larkcore.AccessTokenType, options ...larkcore.RequestOptionFunc) (*larkcore.ApiResp, error) {
+	return cli.Do(ctx, &larkcore.ApiReq{
 		HttpMethod:                http.MethodPut,
 		ApiPath:                   httpPath,
 		Body:                      body,
@@ -242,8 +242,8 @@ func (cli *Client) Put(ctx context.Context, httpPath string, body interface{}, a
 	}, options...)
 }
 
-func (cli *Client) Patch(ctx context.Context, httpPath string, body interface{}, accessTokeType larkcore.AccessTokenType, options ...larkcore.RequestOptionFunc) (*larkcore.RawResponse, error) {
-	return cli.Do(ctx, &larkcore.HttpReq{
+func (cli *Client) Patch(ctx context.Context, httpPath string, body interface{}, accessTokeType larkcore.AccessTokenType, options ...larkcore.RequestOptionFunc) (*larkcore.ApiResp, error) {
+	return cli.Do(ctx, &larkcore.ApiReq{
 		HttpMethod:                http.MethodPatch,
 		ApiPath:                   httpPath,
 		Body:                      body,

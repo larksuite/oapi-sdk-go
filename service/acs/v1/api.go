@@ -50,17 +50,17 @@ type userFace struct {
 // 资源服务方法定义
 func (a *accessRecord) List(ctx context.Context, req *ListAccessRecordReq, options ...larkcore.RequestOptionFunc) (*ListAccessRecordResp, error) {
 	// 发起请求
-	httpReq := req.httpReq
-	httpReq.ApiPath = "/open-apis/acs/v1/access_records"
-	httpReq.HttpMethod = http.MethodGet
-	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, httpReq, a.service.config, options...)
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/acs/v1/access_records"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, a.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &ListAccessRecordResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
+	resp := &ListAccessRecordResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp)
 	if err != nil {
 		return nil, err
 	}
@@ -76,23 +76,23 @@ func (a *accessRecord) ListByIterator(ctx context.Context, req *ListAccessRecord
 }
 func (a *accessRecordAccessPhoto) Get(ctx context.Context, req *GetAccessRecordAccessPhotoReq, options ...larkcore.RequestOptionFunc) (*GetAccessRecordAccessPhotoResp, error) {
 	// 发起请求
-	httpReq := req.httpReq
-	httpReq.ApiPath = "/open-apis/acs/v1/access_records/:access_record_id/access_photo"
-	httpReq.HttpMethod = http.MethodGet
-	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, httpReq, a.service.config, options...)
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/acs/v1/access_records/:access_record_id/access_photo"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, a.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &GetAccessRecordAccessPhotoResp{RawResponse: rawResp}
+	resp := &GetAccessRecordAccessPhotoResp{ApiResp: apiResp}
 	// 如果是下载，则设置响应结果
-	if rawResp.StatusCode == http.StatusOK {
-		resp.File = bytes.NewBuffer(rawResp.RawBody)
-		resp.FileName = larkcore.FileNameByHeader(rawResp.Header)
+	if apiResp.StatusCode == http.StatusOK {
+		resp.File = bytes.NewBuffer(apiResp.RawBody)
+		resp.FileName = larkcore.FileNameByHeader(apiResp.Header)
 		return resp, err
 	}
-	err = rawResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp)
 	if err != nil {
 		return nil, err
 	}
@@ -100,20 +100,20 @@ func (a *accessRecordAccessPhoto) Get(ctx context.Context, req *GetAccessRecordA
 }
 func (d *device) List(ctx context.Context, options ...larkcore.RequestOptionFunc) (*ListDeviceResp, error) {
 	// 发起请求
-	httpReq := &larkcore.HttpReq{
+	apiReq := &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
-	httpReq.ApiPath = "/open-apis/acs/v1/devices"
-	httpReq.HttpMethod = http.MethodGet
-	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, httpReq, d.service.config, options...)
+	apiReq.ApiPath = "/open-apis/acs/v1/devices"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, d.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &ListDeviceResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
+	resp := &ListDeviceResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp)
 	if err != nil {
 		return nil, err
 	}
@@ -121,17 +121,17 @@ func (d *device) List(ctx context.Context, options ...larkcore.RequestOptionFunc
 }
 func (u *user) Get(ctx context.Context, req *GetUserReq, options ...larkcore.RequestOptionFunc) (*GetUserResp, error) {
 	// 发起请求
-	httpReq := req.httpReq
-	httpReq.ApiPath = "/open-apis/acs/v1/users/:user_id"
-	httpReq.HttpMethod = http.MethodGet
-	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, httpReq, u.service.config, options...)
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/acs/v1/users/:user_id"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, u.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &GetUserResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
+	resp := &GetUserResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp)
 	if err != nil {
 		return nil, err
 	}
@@ -139,17 +139,17 @@ func (u *user) Get(ctx context.Context, req *GetUserReq, options ...larkcore.Req
 }
 func (u *user) List(ctx context.Context, req *ListUserReq, options ...larkcore.RequestOptionFunc) (*ListUserResp, error) {
 	// 发起请求
-	httpReq := req.httpReq
-	httpReq.ApiPath = "/open-apis/acs/v1/users"
-	httpReq.HttpMethod = http.MethodGet
-	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, httpReq, u.service.config, options...)
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/acs/v1/users"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, u.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &ListUserResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
+	resp := &ListUserResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp)
 	if err != nil {
 		return nil, err
 	}
@@ -165,17 +165,17 @@ func (u *user) ListByIterator(ctx context.Context, req *ListUserReq, options ...
 }
 func (u *user) Patch(ctx context.Context, req *PatchUserReq, options ...larkcore.RequestOptionFunc) (*PatchUserResp, error) {
 	// 发起请求
-	httpReq := req.httpReq
-	httpReq.ApiPath = "/open-apis/acs/v1/users/:user_id"
-	httpReq.HttpMethod = http.MethodPatch
-	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, httpReq, u.service.config, options...)
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/acs/v1/users/:user_id"
+	apiReq.HttpMethod = http.MethodPatch
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, u.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &PatchUserResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
+	resp := &PatchUserResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp)
 	if err != nil {
 		return nil, err
 	}
@@ -183,23 +183,23 @@ func (u *user) Patch(ctx context.Context, req *PatchUserReq, options ...larkcore
 }
 func (u *userFace) Get(ctx context.Context, req *GetUserFaceReq, options ...larkcore.RequestOptionFunc) (*GetUserFaceResp, error) {
 	// 发起请求
-	httpReq := req.httpReq
-	httpReq.ApiPath = "/open-apis/acs/v1/users/:user_id/face"
-	httpReq.HttpMethod = http.MethodGet
-	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, httpReq, u.service.config, options...)
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/acs/v1/users/:user_id/face"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, u.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &GetUserFaceResp{RawResponse: rawResp}
+	resp := &GetUserFaceResp{ApiResp: apiResp}
 	// 如果是下载，则设置响应结果
-	if rawResp.StatusCode == http.StatusOK {
-		resp.File = bytes.NewBuffer(rawResp.RawBody)
-		resp.FileName = larkcore.FileNameByHeader(rawResp.Header)
+	if apiResp.StatusCode == http.StatusOK {
+		resp.File = bytes.NewBuffer(apiResp.RawBody)
+		resp.FileName = larkcore.FileNameByHeader(apiResp.Header)
 		return resp, err
 	}
-	err = rawResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp)
 	if err != nil {
 		return nil, err
 	}
@@ -208,17 +208,17 @@ func (u *userFace) Get(ctx context.Context, req *GetUserFaceReq, options ...lark
 func (u *userFace) Update(ctx context.Context, req *UpdateUserFaceReq, options ...larkcore.RequestOptionFunc) (*UpdateUserFaceResp, error) {
 	options = append(options, larkcore.WithFileUpload())
 	// 发起请求
-	httpReq := req.httpReq
-	httpReq.ApiPath = "/open-apis/acs/v1/users/:user_id/face"
-	httpReq.HttpMethod = http.MethodPut
-	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, httpReq, u.service.config, options...)
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/acs/v1/users/:user_id/face"
+	apiReq.HttpMethod = http.MethodPut
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, u.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &UpdateUserFaceResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
+	resp := &UpdateUserFaceResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp)
 	if err != nil {
 		return nil, err
 	}

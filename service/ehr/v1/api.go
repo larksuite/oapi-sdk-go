@@ -35,23 +35,23 @@ type employee struct {
 // 资源服务方法定义
 func (a *attachment) Get(ctx context.Context, req *GetAttachmentReq, options ...larkcore.RequestOptionFunc) (*GetAttachmentResp, error) {
 	// 发起请求
-	httpReq := req.httpReq
-	httpReq.ApiPath = "/open-apis/ehr/v1/attachments/:token"
-	httpReq.HttpMethod = http.MethodGet
-	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, httpReq, a.service.config, options...)
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/ehr/v1/attachments/:token"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, a.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &GetAttachmentResp{RawResponse: rawResp}
+	resp := &GetAttachmentResp{ApiResp: apiResp}
 	// 如果是下载，则设置响应结果
-	if rawResp.StatusCode == http.StatusOK {
-		resp.File = bytes.NewBuffer(rawResp.RawBody)
-		resp.FileName = larkcore.FileNameByHeader(rawResp.Header)
+	if apiResp.StatusCode == http.StatusOK {
+		resp.File = bytes.NewBuffer(apiResp.RawBody)
+		resp.FileName = larkcore.FileNameByHeader(apiResp.Header)
 		return resp, err
 	}
-	err = rawResp.JSONUnmarshalBody(resp)
+	err = apiResp.JSONUnmarshalBody(resp)
 	if err != nil {
 		return nil, err
 	}
@@ -59,17 +59,17 @@ func (a *attachment) Get(ctx context.Context, req *GetAttachmentReq, options ...
 }
 func (e *employee) List(ctx context.Context, req *ListEmployeeReq, options ...larkcore.RequestOptionFunc) (*ListEmployeeResp, error) {
 	// 发起请求
-	httpReq := req.httpReq
-	httpReq.ApiPath = "/open-apis/ehr/v1/employees"
-	httpReq.HttpMethod = http.MethodGet
-	httpReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
-	rawResp, err := larkcore.Request(ctx, httpReq, e.service.config, options...)
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/ehr/v1/employees"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, e.service.config, options...)
 	if err != nil {
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &ListEmployeeResp{RawResponse: rawResp}
-	err = rawResp.JSONUnmarshalBody(resp)
+	resp := &ListEmployeeResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp)
 	if err != nil {
 		return nil, err
 	}

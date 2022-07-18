@@ -1472,13 +1472,13 @@ func (builder *WorkLocationBuilder) Build() *WorkLocation {
 
 // 1.4 生成请求的builder结构体
 type GetAttachmentReqBuilder struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 // 生成请求的New构造器
 func NewGetAttachmentReqBuilder() *GetAttachmentReqBuilder {
 	builder := &GetAttachmentReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1487,24 +1487,24 @@ func NewGetAttachmentReqBuilder() *GetAttachmentReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *GetAttachmentReqBuilder) Token(token string) *GetAttachmentReqBuilder {
-	builder.httpReq.PathParams.Set("token", fmt.Sprint(token))
+	builder.apiReq.PathParams.Set("token", fmt.Sprint(token))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *GetAttachmentReqBuilder) Build() *GetAttachmentReq {
 	req := &GetAttachmentReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
 	return req
 }
 
 type GetAttachmentReq struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 type GetAttachmentResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	File     io.Reader `json:"-"`
 	FileName string    `json:"-"`
@@ -1530,14 +1530,14 @@ func (resp *GetAttachmentResp) WriteFile(fileName string) error {
 
 // 1.4 生成请求的builder结构体
 type ListEmployeeReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	limit   int
+	apiReq *larkcore.ApiReq
+	limit  int
 }
 
 // 生成请求的New构造器
 func NewListEmployeeReqBuilder() *ListEmployeeReqBuilder {
 	builder := &ListEmployeeReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1550,54 +1550,54 @@ func (builder *ListEmployeeReqBuilder) Limit(limit int) *ListEmployeeReqBuilder 
 	return builder
 }
 func (builder *ListEmployeeReqBuilder) View(view string) *ListEmployeeReqBuilder {
-	builder.httpReq.QueryParams.Set("view", fmt.Sprint(view))
+	builder.apiReq.QueryParams.Set("view", fmt.Sprint(view))
 	return builder
 }
 func (builder *ListEmployeeReqBuilder) Status(status []int) *ListEmployeeReqBuilder {
-	builder.httpReq.QueryParams.Set("status", fmt.Sprint(status))
+	builder.apiReq.QueryParams.Set("status", fmt.Sprint(status))
 	return builder
 }
 func (builder *ListEmployeeReqBuilder) Type(type_ []int) *ListEmployeeReqBuilder {
-	builder.httpReq.QueryParams.Set("type", fmt.Sprint(type_))
+	builder.apiReq.QueryParams.Set("type", fmt.Sprint(type_))
 	return builder
 }
 func (builder *ListEmployeeReqBuilder) StartTime(startTime int64) *ListEmployeeReqBuilder {
-	builder.httpReq.QueryParams.Set("start_time", fmt.Sprint(startTime))
+	builder.apiReq.QueryParams.Set("start_time", fmt.Sprint(startTime))
 	return builder
 }
 func (builder *ListEmployeeReqBuilder) EndTime(endTime int64) *ListEmployeeReqBuilder {
-	builder.httpReq.QueryParams.Set("end_time", fmt.Sprint(endTime))
+	builder.apiReq.QueryParams.Set("end_time", fmt.Sprint(endTime))
 	return builder
 }
 func (builder *ListEmployeeReqBuilder) UserIdType(userIdType string) *ListEmployeeReqBuilder {
-	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *ListEmployeeReqBuilder) UserIds(userIds []string) *ListEmployeeReqBuilder {
-	builder.httpReq.QueryParams.Set("user_ids", fmt.Sprint(userIds))
+	builder.apiReq.QueryParams.Set("user_ids", fmt.Sprint(userIds))
 	return builder
 }
 func (builder *ListEmployeeReqBuilder) PageToken(pageToken string) *ListEmployeeReqBuilder {
-	builder.httpReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 func (builder *ListEmployeeReqBuilder) PageSize(pageSize int) *ListEmployeeReqBuilder {
-	builder.httpReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ListEmployeeReqBuilder) Build() *ListEmployeeReq {
 	req := &ListEmployeeReq{}
-	req.httpReq = &larkcore.HttpReq{}
+	req.apiReq = &larkcore.ApiReq{}
 	req.Limit = builder.limit
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
 	return req
 }
 
 type ListEmployeeReq struct {
-	httpReq *larkcore.HttpReq
-	Limit   int
+	apiReq *larkcore.ApiReq
+	Limit  int
 }
 
 type ListEmployeeRespData struct {
@@ -1607,7 +1607,7 @@ type ListEmployeeRespData struct {
 }
 
 type ListEmployeeResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *ListEmployeeRespData `json:"data"`
 }
@@ -1644,7 +1644,7 @@ func (iterator *ListEmployeeIterator) Next() (bool, *Employee, error) {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
-			iterator.req.httpReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
 		}
 		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
 		if err != nil {

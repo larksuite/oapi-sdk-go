@@ -163,7 +163,7 @@ type QueryTenantRespData struct {
 }
 
 type QueryTenantResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *QueryTenantRespData `json:"data"`
 }

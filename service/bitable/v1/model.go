@@ -1756,13 +1756,13 @@ func (builder *UrlBuilder) Build() *Url {
 
 // 1.4 生成请求的builder结构体
 type GetAppReqBuilder struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 // 生成请求的New构造器
 func NewGetAppReqBuilder() *GetAppReqBuilder {
 	builder := &GetAppReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1771,20 +1771,20 @@ func NewGetAppReqBuilder() *GetAppReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *GetAppReqBuilder) AppToken(appToken string) *GetAppReqBuilder {
-	builder.httpReq.PathParams.Set("app_token", fmt.Sprint(appToken))
+	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *GetAppReqBuilder) Build() *GetAppReq {
 	req := &GetAppReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
 	return req
 }
 
 type GetAppReq struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 type GetAppRespData struct {
@@ -1792,7 +1792,7 @@ type GetAppRespData struct {
 }
 
 type GetAppResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *GetAppRespData `json:"data"`
 }
@@ -1876,14 +1876,14 @@ func (builder *UpdateAppPathReqBodyBuilder) Build() (*UpdateAppReqBody, error) {
 
 // 1.4 生成请求的builder结构体
 type UpdateAppReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	body    *UpdateAppReqBody
+	apiReq *larkcore.ApiReq
+	body   *UpdateAppReqBody
 }
 
 // 生成请求的New构造器
 func NewUpdateAppReqBuilder() *UpdateAppReqBuilder {
 	builder := &UpdateAppReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1892,7 +1892,7 @@ func NewUpdateAppReqBuilder() *UpdateAppReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *UpdateAppReqBuilder) AppToken(appToken string) *UpdateAppReqBuilder {
-	builder.httpReq.PathParams.Set("app_token", fmt.Sprint(appToken))
+	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
 func (builder *UpdateAppReqBuilder) Body(body *UpdateAppReqBody) *UpdateAppReqBuilder {
@@ -1903,9 +1903,9 @@ func (builder *UpdateAppReqBuilder) Body(body *UpdateAppReqBody) *UpdateAppReqBu
 // 1.5 生成请求的builder的build方法
 func (builder *UpdateAppReqBuilder) Build() *UpdateAppReq {
 	req := &UpdateAppReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.Body = builder.body
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -1915,8 +1915,8 @@ type UpdateAppReqBody struct {
 }
 
 type UpdateAppReq struct {
-	httpReq *larkcore.HttpReq
-	Body    *UpdateAppReqBody `body:""`
+	apiReq *larkcore.ApiReq
+	Body   *UpdateAppReqBody `body:""`
 }
 
 type UpdateAppRespData struct {
@@ -1924,7 +1924,7 @@ type UpdateAppRespData struct {
 }
 
 type UpdateAppResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *UpdateAppRespData `json:"data"`
 }
@@ -1935,14 +1935,14 @@ func (resp *UpdateAppResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type CreateAppRoleReqBuilder struct {
-	httpReq *larkcore.HttpReq
+	apiReq  *larkcore.ApiReq
 	appRole *AppRole
 }
 
 // 生成请求的New构造器
 func NewCreateAppRoleReqBuilder() *CreateAppRoleReqBuilder {
 	builder := &CreateAppRoleReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1951,7 +1951,7 @@ func NewCreateAppRoleReqBuilder() *CreateAppRoleReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *CreateAppRoleReqBuilder) AppToken(appToken string) *CreateAppRoleReqBuilder {
-	builder.httpReq.PathParams.Set("app_token", fmt.Sprint(appToken))
+	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
 func (builder *CreateAppRoleReqBuilder) AppRole(appRole *AppRole) *CreateAppRoleReqBuilder {
@@ -1962,14 +1962,14 @@ func (builder *CreateAppRoleReqBuilder) AppRole(appRole *AppRole) *CreateAppRole
 // 1.5 生成请求的builder的build方法
 func (builder *CreateAppRoleReqBuilder) Build() *CreateAppRoleReq {
 	req := &CreateAppRoleReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.Body = builder.appRole
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.appRole
 	return req
 }
 
 type CreateAppRoleReq struct {
-	httpReq *larkcore.HttpReq
+	apiReq  *larkcore.ApiReq
 	AppRole *AppRole `body:""`
 }
 
@@ -1978,7 +1978,7 @@ type CreateAppRoleRespData struct {
 }
 
 type CreateAppRoleResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *CreateAppRoleRespData `json:"data"`
 }
@@ -1989,13 +1989,13 @@ func (resp *CreateAppRoleResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type DeleteAppRoleReqBuilder struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 // 生成请求的New构造器
 func NewDeleteAppRoleReqBuilder() *DeleteAppRoleReqBuilder {
 	builder := &DeleteAppRoleReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -2004,28 +2004,28 @@ func NewDeleteAppRoleReqBuilder() *DeleteAppRoleReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *DeleteAppRoleReqBuilder) AppToken(appToken string) *DeleteAppRoleReqBuilder {
-	builder.httpReq.PathParams.Set("app_token", fmt.Sprint(appToken))
+	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
 func (builder *DeleteAppRoleReqBuilder) RoleId(roleId string) *DeleteAppRoleReqBuilder {
-	builder.httpReq.PathParams.Set("role_id", fmt.Sprint(roleId))
+	builder.apiReq.PathParams.Set("role_id", fmt.Sprint(roleId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *DeleteAppRoleReqBuilder) Build() *DeleteAppRoleReq {
 	req := &DeleteAppRoleReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
 	return req
 }
 
 type DeleteAppRoleReq struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 type DeleteAppRoleResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 }
 
@@ -2035,14 +2035,14 @@ func (resp *DeleteAppRoleResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type ListAppRoleReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	limit   int
+	apiReq *larkcore.ApiReq
+	limit  int
 }
 
 // 生成请求的New构造器
 func NewListAppRoleReqBuilder() *ListAppRoleReqBuilder {
 	builder := &ListAppRoleReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -2055,31 +2055,31 @@ func (builder *ListAppRoleReqBuilder) Limit(limit int) *ListAppRoleReqBuilder {
 	return builder
 }
 func (builder *ListAppRoleReqBuilder) AppToken(appToken string) *ListAppRoleReqBuilder {
-	builder.httpReq.PathParams.Set("app_token", fmt.Sprint(appToken))
+	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
 func (builder *ListAppRoleReqBuilder) PageSize(pageSize int) *ListAppRoleReqBuilder {
-	builder.httpReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 func (builder *ListAppRoleReqBuilder) PageToken(pageToken string) *ListAppRoleReqBuilder {
-	builder.httpReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ListAppRoleReqBuilder) Build() *ListAppRoleReq {
 	req := &ListAppRoleReq{}
-	req.httpReq = &larkcore.HttpReq{}
+	req.apiReq = &larkcore.ApiReq{}
 	req.Limit = builder.limit
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
 	return req
 }
 
 type ListAppRoleReq struct {
-	httpReq *larkcore.HttpReq
-	Limit   int
+	apiReq *larkcore.ApiReq
+	Limit  int
 }
 
 type ListAppRoleRespData struct {
@@ -2090,7 +2090,7 @@ type ListAppRoleRespData struct {
 }
 
 type ListAppRoleResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *ListAppRoleRespData `json:"data"`
 }
@@ -2101,14 +2101,14 @@ func (resp *ListAppRoleResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type UpdateAppRoleReqBuilder struct {
-	httpReq *larkcore.HttpReq
+	apiReq  *larkcore.ApiReq
 	appRole *AppRole
 }
 
 // 生成请求的New构造器
 func NewUpdateAppRoleReqBuilder() *UpdateAppRoleReqBuilder {
 	builder := &UpdateAppRoleReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -2117,11 +2117,11 @@ func NewUpdateAppRoleReqBuilder() *UpdateAppRoleReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *UpdateAppRoleReqBuilder) AppToken(appToken string) *UpdateAppRoleReqBuilder {
-	builder.httpReq.PathParams.Set("app_token", fmt.Sprint(appToken))
+	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
 func (builder *UpdateAppRoleReqBuilder) RoleId(roleId string) *UpdateAppRoleReqBuilder {
-	builder.httpReq.PathParams.Set("role_id", fmt.Sprint(roleId))
+	builder.apiReq.PathParams.Set("role_id", fmt.Sprint(roleId))
 	return builder
 }
 func (builder *UpdateAppRoleReqBuilder) AppRole(appRole *AppRole) *UpdateAppRoleReqBuilder {
@@ -2132,14 +2132,14 @@ func (builder *UpdateAppRoleReqBuilder) AppRole(appRole *AppRole) *UpdateAppRole
 // 1.5 生成请求的builder的build方法
 func (builder *UpdateAppRoleReqBuilder) Build() *UpdateAppRoleReq {
 	req := &UpdateAppRoleReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.Body = builder.appRole
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.appRole
 	return req
 }
 
 type UpdateAppRoleReq struct {
-	httpReq *larkcore.HttpReq
+	apiReq  *larkcore.ApiReq
 	AppRole *AppRole `body:""`
 }
 
@@ -2148,7 +2148,7 @@ type UpdateAppRoleRespData struct {
 }
 
 type UpdateAppRoleResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *UpdateAppRoleRespData `json:"data"`
 }
@@ -2212,14 +2212,14 @@ func (builder *BatchCreateAppRoleMemberPathReqBodyBuilder) Build() (*BatchCreate
 
 // 1.4 生成请求的builder结构体
 type BatchCreateAppRoleMemberReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	body    *BatchCreateAppRoleMemberReqBody
+	apiReq *larkcore.ApiReq
+	body   *BatchCreateAppRoleMemberReqBody
 }
 
 // 生成请求的New构造器
 func NewBatchCreateAppRoleMemberReqBuilder() *BatchCreateAppRoleMemberReqBuilder {
 	builder := &BatchCreateAppRoleMemberReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -2228,11 +2228,11 @@ func NewBatchCreateAppRoleMemberReqBuilder() *BatchCreateAppRoleMemberReqBuilder
 
 // 1.5 生成请求的builder属性方法
 func (builder *BatchCreateAppRoleMemberReqBuilder) AppToken(appToken string) *BatchCreateAppRoleMemberReqBuilder {
-	builder.httpReq.PathParams.Set("app_token", fmt.Sprint(appToken))
+	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
 func (builder *BatchCreateAppRoleMemberReqBuilder) RoleId(roleId string) *BatchCreateAppRoleMemberReqBuilder {
-	builder.httpReq.PathParams.Set("role_id", fmt.Sprint(roleId))
+	builder.apiReq.PathParams.Set("role_id", fmt.Sprint(roleId))
 	return builder
 }
 func (builder *BatchCreateAppRoleMemberReqBuilder) Body(body *BatchCreateAppRoleMemberReqBody) *BatchCreateAppRoleMemberReqBuilder {
@@ -2243,9 +2243,9 @@ func (builder *BatchCreateAppRoleMemberReqBuilder) Body(body *BatchCreateAppRole
 // 1.5 生成请求的builder的build方法
 func (builder *BatchCreateAppRoleMemberReqBuilder) Build() *BatchCreateAppRoleMemberReq {
 	req := &BatchCreateAppRoleMemberReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.Body = builder.body
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -2254,12 +2254,12 @@ type BatchCreateAppRoleMemberReqBody struct {
 }
 
 type BatchCreateAppRoleMemberReq struct {
-	httpReq *larkcore.HttpReq
-	Body    *BatchCreateAppRoleMemberReqBody `body:""`
+	apiReq *larkcore.ApiReq
+	Body   *BatchCreateAppRoleMemberReqBody `body:""`
 }
 
 type BatchCreateAppRoleMemberResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 }
 
@@ -2322,14 +2322,14 @@ func (builder *BatchDeleteAppRoleMemberPathReqBodyBuilder) Build() (*BatchDelete
 
 // 1.4 生成请求的builder结构体
 type BatchDeleteAppRoleMemberReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	body    *BatchDeleteAppRoleMemberReqBody
+	apiReq *larkcore.ApiReq
+	body   *BatchDeleteAppRoleMemberReqBody
 }
 
 // 生成请求的New构造器
 func NewBatchDeleteAppRoleMemberReqBuilder() *BatchDeleteAppRoleMemberReqBuilder {
 	builder := &BatchDeleteAppRoleMemberReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -2338,11 +2338,11 @@ func NewBatchDeleteAppRoleMemberReqBuilder() *BatchDeleteAppRoleMemberReqBuilder
 
 // 1.5 生成请求的builder属性方法
 func (builder *BatchDeleteAppRoleMemberReqBuilder) AppToken(appToken string) *BatchDeleteAppRoleMemberReqBuilder {
-	builder.httpReq.PathParams.Set("app_token", fmt.Sprint(appToken))
+	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
 func (builder *BatchDeleteAppRoleMemberReqBuilder) RoleId(roleId string) *BatchDeleteAppRoleMemberReqBuilder {
-	builder.httpReq.PathParams.Set("role_id", fmt.Sprint(roleId))
+	builder.apiReq.PathParams.Set("role_id", fmt.Sprint(roleId))
 	return builder
 }
 func (builder *BatchDeleteAppRoleMemberReqBuilder) Body(body *BatchDeleteAppRoleMemberReqBody) *BatchDeleteAppRoleMemberReqBuilder {
@@ -2353,9 +2353,9 @@ func (builder *BatchDeleteAppRoleMemberReqBuilder) Body(body *BatchDeleteAppRole
 // 1.5 生成请求的builder的build方法
 func (builder *BatchDeleteAppRoleMemberReqBuilder) Build() *BatchDeleteAppRoleMemberReq {
 	req := &BatchDeleteAppRoleMemberReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.Body = builder.body
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -2364,12 +2364,12 @@ type BatchDeleteAppRoleMemberReqBody struct {
 }
 
 type BatchDeleteAppRoleMemberReq struct {
-	httpReq *larkcore.HttpReq
-	Body    *BatchDeleteAppRoleMemberReqBody `body:""`
+	apiReq *larkcore.ApiReq
+	Body   *BatchDeleteAppRoleMemberReqBody `body:""`
 }
 
 type BatchDeleteAppRoleMemberResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 }
 
@@ -2379,14 +2379,14 @@ func (resp *BatchDeleteAppRoleMemberResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type CreateAppRoleMemberReqBuilder struct {
-	httpReq       *larkcore.HttpReq
+	apiReq        *larkcore.ApiReq
 	appRoleMember *AppRoleMember
 }
 
 // 生成请求的New构造器
 func NewCreateAppRoleMemberReqBuilder() *CreateAppRoleMemberReqBuilder {
 	builder := &CreateAppRoleMemberReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -2395,15 +2395,15 @@ func NewCreateAppRoleMemberReqBuilder() *CreateAppRoleMemberReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *CreateAppRoleMemberReqBuilder) AppToken(appToken string) *CreateAppRoleMemberReqBuilder {
-	builder.httpReq.PathParams.Set("app_token", fmt.Sprint(appToken))
+	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
 func (builder *CreateAppRoleMemberReqBuilder) RoleId(roleId string) *CreateAppRoleMemberReqBuilder {
-	builder.httpReq.PathParams.Set("role_id", fmt.Sprint(roleId))
+	builder.apiReq.PathParams.Set("role_id", fmt.Sprint(roleId))
 	return builder
 }
 func (builder *CreateAppRoleMemberReqBuilder) MemberIdType(memberIdType string) *CreateAppRoleMemberReqBuilder {
-	builder.httpReq.QueryParams.Set("member_id_type", fmt.Sprint(memberIdType))
+	builder.apiReq.QueryParams.Set("member_id_type", fmt.Sprint(memberIdType))
 	return builder
 }
 func (builder *CreateAppRoleMemberReqBuilder) AppRoleMember(appRoleMember *AppRoleMember) *CreateAppRoleMemberReqBuilder {
@@ -2414,20 +2414,20 @@ func (builder *CreateAppRoleMemberReqBuilder) AppRoleMember(appRoleMember *AppRo
 // 1.5 生成请求的builder的build方法
 func (builder *CreateAppRoleMemberReqBuilder) Build() *CreateAppRoleMemberReq {
 	req := &CreateAppRoleMemberReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
-	req.httpReq.Body = builder.appRoleMember
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.appRoleMember
 	return req
 }
 
 type CreateAppRoleMemberReq struct {
-	httpReq       *larkcore.HttpReq
+	apiReq        *larkcore.ApiReq
 	AppRoleMember *AppRoleMember `body:""`
 }
 
 type CreateAppRoleMemberResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 }
 
@@ -2437,13 +2437,13 @@ func (resp *CreateAppRoleMemberResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type DeleteAppRoleMemberReqBuilder struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 // 生成请求的New构造器
 func NewDeleteAppRoleMemberReqBuilder() *DeleteAppRoleMemberReqBuilder {
 	builder := &DeleteAppRoleMemberReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -2452,37 +2452,37 @@ func NewDeleteAppRoleMemberReqBuilder() *DeleteAppRoleMemberReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *DeleteAppRoleMemberReqBuilder) AppToken(appToken string) *DeleteAppRoleMemberReqBuilder {
-	builder.httpReq.PathParams.Set("app_token", fmt.Sprint(appToken))
+	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
 func (builder *DeleteAppRoleMemberReqBuilder) RoleId(roleId string) *DeleteAppRoleMemberReqBuilder {
-	builder.httpReq.PathParams.Set("role_id", fmt.Sprint(roleId))
+	builder.apiReq.PathParams.Set("role_id", fmt.Sprint(roleId))
 	return builder
 }
 func (builder *DeleteAppRoleMemberReqBuilder) MemberId(memberId string) *DeleteAppRoleMemberReqBuilder {
-	builder.httpReq.PathParams.Set("member_id", fmt.Sprint(memberId))
+	builder.apiReq.PathParams.Set("member_id", fmt.Sprint(memberId))
 	return builder
 }
 func (builder *DeleteAppRoleMemberReqBuilder) MemberIdType(memberIdType string) *DeleteAppRoleMemberReqBuilder {
-	builder.httpReq.QueryParams.Set("member_id_type", fmt.Sprint(memberIdType))
+	builder.apiReq.QueryParams.Set("member_id_type", fmt.Sprint(memberIdType))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *DeleteAppRoleMemberReqBuilder) Build() *DeleteAppRoleMemberReq {
 	req := &DeleteAppRoleMemberReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
 	return req
 }
 
 type DeleteAppRoleMemberReq struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 type DeleteAppRoleMemberResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 }
 
@@ -2492,14 +2492,14 @@ func (resp *DeleteAppRoleMemberResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type ListAppRoleMemberReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	limit   int
+	apiReq *larkcore.ApiReq
+	limit  int
 }
 
 // 生成请求的New构造器
 func NewListAppRoleMemberReqBuilder() *ListAppRoleMemberReqBuilder {
 	builder := &ListAppRoleMemberReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -2512,35 +2512,35 @@ func (builder *ListAppRoleMemberReqBuilder) Limit(limit int) *ListAppRoleMemberR
 	return builder
 }
 func (builder *ListAppRoleMemberReqBuilder) AppToken(appToken string) *ListAppRoleMemberReqBuilder {
-	builder.httpReq.PathParams.Set("app_token", fmt.Sprint(appToken))
+	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
 func (builder *ListAppRoleMemberReqBuilder) RoleId(roleId string) *ListAppRoleMemberReqBuilder {
-	builder.httpReq.PathParams.Set("role_id", fmt.Sprint(roleId))
+	builder.apiReq.PathParams.Set("role_id", fmt.Sprint(roleId))
 	return builder
 }
 func (builder *ListAppRoleMemberReqBuilder) PageSize(pageSize int) *ListAppRoleMemberReqBuilder {
-	builder.httpReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 func (builder *ListAppRoleMemberReqBuilder) PageToken(pageToken string) *ListAppRoleMemberReqBuilder {
-	builder.httpReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ListAppRoleMemberReqBuilder) Build() *ListAppRoleMemberReq {
 	req := &ListAppRoleMemberReq{}
-	req.httpReq = &larkcore.HttpReq{}
+	req.apiReq = &larkcore.ApiReq{}
 	req.Limit = builder.limit
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
 	return req
 }
 
 type ListAppRoleMemberReq struct {
-	httpReq *larkcore.HttpReq
-	Limit   int
+	apiReq *larkcore.ApiReq
+	Limit  int
 }
 
 type ListAppRoleMemberRespData struct {
@@ -2551,7 +2551,7 @@ type ListAppRoleMemberRespData struct {
 }
 
 type ListAppRoleMemberResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *ListAppRoleMemberRespData `json:"data"`
 }
@@ -2615,14 +2615,14 @@ func (builder *BatchCreateAppTablePathReqBodyBuilder) Build() (*BatchCreateAppTa
 
 // 1.4 生成请求的builder结构体
 type BatchCreateAppTableReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	body    *BatchCreateAppTableReqBody
+	apiReq *larkcore.ApiReq
+	body   *BatchCreateAppTableReqBody
 }
 
 // 生成请求的New构造器
 func NewBatchCreateAppTableReqBuilder() *BatchCreateAppTableReqBuilder {
 	builder := &BatchCreateAppTableReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -2631,11 +2631,11 @@ func NewBatchCreateAppTableReqBuilder() *BatchCreateAppTableReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *BatchCreateAppTableReqBuilder) AppToken(appToken string) *BatchCreateAppTableReqBuilder {
-	builder.httpReq.PathParams.Set("app_token", fmt.Sprint(appToken))
+	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
 func (builder *BatchCreateAppTableReqBuilder) UserIdType(userIdType string) *BatchCreateAppTableReqBuilder {
-	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *BatchCreateAppTableReqBuilder) Body(body *BatchCreateAppTableReqBody) *BatchCreateAppTableReqBuilder {
@@ -2646,10 +2646,10 @@ func (builder *BatchCreateAppTableReqBuilder) Body(body *BatchCreateAppTableReqB
 // 1.5 生成请求的builder的build方法
 func (builder *BatchCreateAppTableReqBuilder) Build() *BatchCreateAppTableReq {
 	req := &BatchCreateAppTableReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
-	req.httpReq.Body = builder.body
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -2658,8 +2658,8 @@ type BatchCreateAppTableReqBody struct {
 }
 
 type BatchCreateAppTableReq struct {
-	httpReq *larkcore.HttpReq
-	Body    *BatchCreateAppTableReqBody `body:""`
+	apiReq *larkcore.ApiReq
+	Body   *BatchCreateAppTableReqBody `body:""`
 }
 
 type BatchCreateAppTableRespData struct {
@@ -2667,7 +2667,7 @@ type BatchCreateAppTableRespData struct {
 }
 
 type BatchCreateAppTableResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *BatchCreateAppTableRespData `json:"data"`
 }
@@ -2731,14 +2731,14 @@ func (builder *BatchDeleteAppTablePathReqBodyBuilder) Build() (*BatchDeleteAppTa
 
 // 1.4 生成请求的builder结构体
 type BatchDeleteAppTableReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	body    *BatchDeleteAppTableReqBody
+	apiReq *larkcore.ApiReq
+	body   *BatchDeleteAppTableReqBody
 }
 
 // 生成请求的New构造器
 func NewBatchDeleteAppTableReqBuilder() *BatchDeleteAppTableReqBuilder {
 	builder := &BatchDeleteAppTableReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -2747,7 +2747,7 @@ func NewBatchDeleteAppTableReqBuilder() *BatchDeleteAppTableReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *BatchDeleteAppTableReqBuilder) AppToken(appToken string) *BatchDeleteAppTableReqBuilder {
-	builder.httpReq.PathParams.Set("app_token", fmt.Sprint(appToken))
+	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
 func (builder *BatchDeleteAppTableReqBuilder) Body(body *BatchDeleteAppTableReqBody) *BatchDeleteAppTableReqBuilder {
@@ -2758,9 +2758,9 @@ func (builder *BatchDeleteAppTableReqBuilder) Body(body *BatchDeleteAppTableReqB
 // 1.5 生成请求的builder的build方法
 func (builder *BatchDeleteAppTableReqBuilder) Build() *BatchDeleteAppTableReq {
 	req := &BatchDeleteAppTableReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.Body = builder.body
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -2769,12 +2769,12 @@ type BatchDeleteAppTableReqBody struct {
 }
 
 type BatchDeleteAppTableReq struct {
-	httpReq *larkcore.HttpReq
-	Body    *BatchDeleteAppTableReqBody `body:""`
+	apiReq *larkcore.ApiReq
+	Body   *BatchDeleteAppTableReqBody `body:""`
 }
 
 type BatchDeleteAppTableResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 }
 
@@ -2837,14 +2837,14 @@ func (builder *CreateAppTablePathReqBodyBuilder) Build() (*CreateAppTableReqBody
 
 // 1.4 生成请求的builder结构体
 type CreateAppTableReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	body    *CreateAppTableReqBody
+	apiReq *larkcore.ApiReq
+	body   *CreateAppTableReqBody
 }
 
 // 生成请求的New构造器
 func NewCreateAppTableReqBuilder() *CreateAppTableReqBuilder {
 	builder := &CreateAppTableReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -2853,11 +2853,11 @@ func NewCreateAppTableReqBuilder() *CreateAppTableReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *CreateAppTableReqBuilder) AppToken(appToken string) *CreateAppTableReqBuilder {
-	builder.httpReq.PathParams.Set("app_token", fmt.Sprint(appToken))
+	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
 func (builder *CreateAppTableReqBuilder) UserIdType(userIdType string) *CreateAppTableReqBuilder {
-	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *CreateAppTableReqBuilder) Body(body *CreateAppTableReqBody) *CreateAppTableReqBuilder {
@@ -2868,10 +2868,10 @@ func (builder *CreateAppTableReqBuilder) Body(body *CreateAppTableReqBody) *Crea
 // 1.5 生成请求的builder的build方法
 func (builder *CreateAppTableReqBuilder) Build() *CreateAppTableReq {
 	req := &CreateAppTableReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
-	req.httpReq.Body = builder.body
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -2880,8 +2880,8 @@ type CreateAppTableReqBody struct {
 }
 
 type CreateAppTableReq struct {
-	httpReq *larkcore.HttpReq
-	Body    *CreateAppTableReqBody `body:""`
+	apiReq *larkcore.ApiReq
+	Body   *CreateAppTableReqBody `body:""`
 }
 
 type CreateAppTableRespData struct {
@@ -2889,7 +2889,7 @@ type CreateAppTableRespData struct {
 }
 
 type CreateAppTableResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *CreateAppTableRespData `json:"data"`
 }
@@ -2900,13 +2900,13 @@ func (resp *CreateAppTableResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type DeleteAppTableReqBuilder struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 // 生成请求的New构造器
 func NewDeleteAppTableReqBuilder() *DeleteAppTableReqBuilder {
 	builder := &DeleteAppTableReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -2915,28 +2915,28 @@ func NewDeleteAppTableReqBuilder() *DeleteAppTableReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *DeleteAppTableReqBuilder) AppToken(appToken string) *DeleteAppTableReqBuilder {
-	builder.httpReq.PathParams.Set("app_token", fmt.Sprint(appToken))
+	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
 func (builder *DeleteAppTableReqBuilder) TableId(tableId string) *DeleteAppTableReqBuilder {
-	builder.httpReq.PathParams.Set("table_id", fmt.Sprint(tableId))
+	builder.apiReq.PathParams.Set("table_id", fmt.Sprint(tableId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *DeleteAppTableReqBuilder) Build() *DeleteAppTableReq {
 	req := &DeleteAppTableReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
 	return req
 }
 
 type DeleteAppTableReq struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 type DeleteAppTableResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 }
 
@@ -2946,14 +2946,14 @@ func (resp *DeleteAppTableResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type ListAppTableReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	limit   int
+	apiReq *larkcore.ApiReq
+	limit  int
 }
 
 // 生成请求的New构造器
 func NewListAppTableReqBuilder() *ListAppTableReqBuilder {
 	builder := &ListAppTableReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -2966,31 +2966,31 @@ func (builder *ListAppTableReqBuilder) Limit(limit int) *ListAppTableReqBuilder 
 	return builder
 }
 func (builder *ListAppTableReqBuilder) AppToken(appToken string) *ListAppTableReqBuilder {
-	builder.httpReq.PathParams.Set("app_token", fmt.Sprint(appToken))
+	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
 func (builder *ListAppTableReqBuilder) PageToken(pageToken string) *ListAppTableReqBuilder {
-	builder.httpReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 func (builder *ListAppTableReqBuilder) PageSize(pageSize int) *ListAppTableReqBuilder {
-	builder.httpReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ListAppTableReqBuilder) Build() *ListAppTableReq {
 	req := &ListAppTableReq{}
-	req.httpReq = &larkcore.HttpReq{}
+	req.apiReq = &larkcore.ApiReq{}
 	req.Limit = builder.limit
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
 	return req
 }
 
 type ListAppTableReq struct {
-	httpReq *larkcore.HttpReq
-	Limit   int
+	apiReq *larkcore.ApiReq
+	Limit  int
 }
 
 type ListAppTableRespData struct {
@@ -3001,7 +3001,7 @@ type ListAppTableRespData struct {
 }
 
 type ListAppTableResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *ListAppTableRespData `json:"data"`
 }
@@ -3012,14 +3012,14 @@ func (resp *ListAppTableResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type CreateAppTableFieldReqBuilder struct {
-	httpReq       *larkcore.HttpReq
+	apiReq        *larkcore.ApiReq
 	appTableField *AppTableField
 }
 
 // 生成请求的New构造器
 func NewCreateAppTableFieldReqBuilder() *CreateAppTableFieldReqBuilder {
 	builder := &CreateAppTableFieldReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -3028,11 +3028,11 @@ func NewCreateAppTableFieldReqBuilder() *CreateAppTableFieldReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *CreateAppTableFieldReqBuilder) AppToken(appToken string) *CreateAppTableFieldReqBuilder {
-	builder.httpReq.PathParams.Set("app_token", fmt.Sprint(appToken))
+	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
 func (builder *CreateAppTableFieldReqBuilder) TableId(tableId string) *CreateAppTableFieldReqBuilder {
-	builder.httpReq.PathParams.Set("table_id", fmt.Sprint(tableId))
+	builder.apiReq.PathParams.Set("table_id", fmt.Sprint(tableId))
 	return builder
 }
 func (builder *CreateAppTableFieldReqBuilder) AppTableField(appTableField *AppTableField) *CreateAppTableFieldReqBuilder {
@@ -3043,14 +3043,14 @@ func (builder *CreateAppTableFieldReqBuilder) AppTableField(appTableField *AppTa
 // 1.5 生成请求的builder的build方法
 func (builder *CreateAppTableFieldReqBuilder) Build() *CreateAppTableFieldReq {
 	req := &CreateAppTableFieldReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.Body = builder.appTableField
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.appTableField
 	return req
 }
 
 type CreateAppTableFieldReq struct {
-	httpReq       *larkcore.HttpReq
+	apiReq        *larkcore.ApiReq
 	AppTableField *AppTableField `body:""`
 }
 
@@ -3059,7 +3059,7 @@ type CreateAppTableFieldRespData struct {
 }
 
 type CreateAppTableFieldResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *CreateAppTableFieldRespData `json:"data"`
 }
@@ -3070,13 +3070,13 @@ func (resp *CreateAppTableFieldResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type DeleteAppTableFieldReqBuilder struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 // 生成请求的New构造器
 func NewDeleteAppTableFieldReqBuilder() *DeleteAppTableFieldReqBuilder {
 	builder := &DeleteAppTableFieldReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -3085,28 +3085,28 @@ func NewDeleteAppTableFieldReqBuilder() *DeleteAppTableFieldReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *DeleteAppTableFieldReqBuilder) AppToken(appToken string) *DeleteAppTableFieldReqBuilder {
-	builder.httpReq.PathParams.Set("app_token", fmt.Sprint(appToken))
+	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
 func (builder *DeleteAppTableFieldReqBuilder) TableId(tableId string) *DeleteAppTableFieldReqBuilder {
-	builder.httpReq.PathParams.Set("table_id", fmt.Sprint(tableId))
+	builder.apiReq.PathParams.Set("table_id", fmt.Sprint(tableId))
 	return builder
 }
 func (builder *DeleteAppTableFieldReqBuilder) FieldId(fieldId string) *DeleteAppTableFieldReqBuilder {
-	builder.httpReq.PathParams.Set("field_id", fmt.Sprint(fieldId))
+	builder.apiReq.PathParams.Set("field_id", fmt.Sprint(fieldId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *DeleteAppTableFieldReqBuilder) Build() *DeleteAppTableFieldReq {
 	req := &DeleteAppTableFieldReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
 	return req
 }
 
 type DeleteAppTableFieldReq struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 type DeleteAppTableFieldRespData struct {
@@ -3115,7 +3115,7 @@ type DeleteAppTableFieldRespData struct {
 }
 
 type DeleteAppTableFieldResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *DeleteAppTableFieldRespData `json:"data"`
 }
@@ -3126,14 +3126,14 @@ func (resp *DeleteAppTableFieldResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type ListAppTableFieldReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	limit   int
+	apiReq *larkcore.ApiReq
+	limit  int
 }
 
 // 生成请求的New构造器
 func NewListAppTableFieldReqBuilder() *ListAppTableFieldReqBuilder {
 	builder := &ListAppTableFieldReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -3146,39 +3146,39 @@ func (builder *ListAppTableFieldReqBuilder) Limit(limit int) *ListAppTableFieldR
 	return builder
 }
 func (builder *ListAppTableFieldReqBuilder) AppToken(appToken string) *ListAppTableFieldReqBuilder {
-	builder.httpReq.PathParams.Set("app_token", fmt.Sprint(appToken))
+	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
 func (builder *ListAppTableFieldReqBuilder) TableId(tableId string) *ListAppTableFieldReqBuilder {
-	builder.httpReq.PathParams.Set("table_id", fmt.Sprint(tableId))
+	builder.apiReq.PathParams.Set("table_id", fmt.Sprint(tableId))
 	return builder
 }
 func (builder *ListAppTableFieldReqBuilder) ViewId(viewId string) *ListAppTableFieldReqBuilder {
-	builder.httpReq.QueryParams.Set("view_id", fmt.Sprint(viewId))
+	builder.apiReq.QueryParams.Set("view_id", fmt.Sprint(viewId))
 	return builder
 }
 func (builder *ListAppTableFieldReqBuilder) PageToken(pageToken string) *ListAppTableFieldReqBuilder {
-	builder.httpReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 func (builder *ListAppTableFieldReqBuilder) PageSize(pageSize int) *ListAppTableFieldReqBuilder {
-	builder.httpReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ListAppTableFieldReqBuilder) Build() *ListAppTableFieldReq {
 	req := &ListAppTableFieldReq{}
-	req.httpReq = &larkcore.HttpReq{}
+	req.apiReq = &larkcore.ApiReq{}
 	req.Limit = builder.limit
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
 	return req
 }
 
 type ListAppTableFieldReq struct {
-	httpReq *larkcore.HttpReq
-	Limit   int
+	apiReq *larkcore.ApiReq
+	Limit  int
 }
 
 type ListAppTableFieldRespData struct {
@@ -3189,7 +3189,7 @@ type ListAppTableFieldRespData struct {
 }
 
 type ListAppTableFieldResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *ListAppTableFieldRespData `json:"data"`
 }
@@ -3200,14 +3200,14 @@ func (resp *ListAppTableFieldResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type UpdateAppTableFieldReqBuilder struct {
-	httpReq       *larkcore.HttpReq
+	apiReq        *larkcore.ApiReq
 	appTableField *AppTableField
 }
 
 // 生成请求的New构造器
 func NewUpdateAppTableFieldReqBuilder() *UpdateAppTableFieldReqBuilder {
 	builder := &UpdateAppTableFieldReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -3216,15 +3216,15 @@ func NewUpdateAppTableFieldReqBuilder() *UpdateAppTableFieldReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *UpdateAppTableFieldReqBuilder) AppToken(appToken string) *UpdateAppTableFieldReqBuilder {
-	builder.httpReq.PathParams.Set("app_token", fmt.Sprint(appToken))
+	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
 func (builder *UpdateAppTableFieldReqBuilder) TableId(tableId string) *UpdateAppTableFieldReqBuilder {
-	builder.httpReq.PathParams.Set("table_id", fmt.Sprint(tableId))
+	builder.apiReq.PathParams.Set("table_id", fmt.Sprint(tableId))
 	return builder
 }
 func (builder *UpdateAppTableFieldReqBuilder) FieldId(fieldId string) *UpdateAppTableFieldReqBuilder {
-	builder.httpReq.PathParams.Set("field_id", fmt.Sprint(fieldId))
+	builder.apiReq.PathParams.Set("field_id", fmt.Sprint(fieldId))
 	return builder
 }
 func (builder *UpdateAppTableFieldReqBuilder) AppTableField(appTableField *AppTableField) *UpdateAppTableFieldReqBuilder {
@@ -3235,14 +3235,14 @@ func (builder *UpdateAppTableFieldReqBuilder) AppTableField(appTableField *AppTa
 // 1.5 生成请求的builder的build方法
 func (builder *UpdateAppTableFieldReqBuilder) Build() *UpdateAppTableFieldReq {
 	req := &UpdateAppTableFieldReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.Body = builder.appTableField
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.appTableField
 	return req
 }
 
 type UpdateAppTableFieldReq struct {
-	httpReq       *larkcore.HttpReq
+	apiReq        *larkcore.ApiReq
 	AppTableField *AppTableField `body:""`
 }
 
@@ -3251,7 +3251,7 @@ type UpdateAppTableFieldRespData struct {
 }
 
 type UpdateAppTableFieldResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *UpdateAppTableFieldRespData `json:"data"`
 }
@@ -3262,14 +3262,14 @@ func (resp *UpdateAppTableFieldResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type ListAppTableFormFieldReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	limit   int
+	apiReq *larkcore.ApiReq
+	limit  int
 }
 
 // 生成请求的New构造器
 func NewListAppTableFormFieldReqBuilder() *ListAppTableFormFieldReqBuilder {
 	builder := &ListAppTableFormFieldReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -3282,39 +3282,39 @@ func (builder *ListAppTableFormFieldReqBuilder) Limit(limit int) *ListAppTableFo
 	return builder
 }
 func (builder *ListAppTableFormFieldReqBuilder) AppToken(appToken string) *ListAppTableFormFieldReqBuilder {
-	builder.httpReq.PathParams.Set("app_token", fmt.Sprint(appToken))
+	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
 func (builder *ListAppTableFormFieldReqBuilder) TableId(tableId string) *ListAppTableFormFieldReqBuilder {
-	builder.httpReq.PathParams.Set("table_id", fmt.Sprint(tableId))
+	builder.apiReq.PathParams.Set("table_id", fmt.Sprint(tableId))
 	return builder
 }
 func (builder *ListAppTableFormFieldReqBuilder) FormId(formId string) *ListAppTableFormFieldReqBuilder {
-	builder.httpReq.PathParams.Set("form_id", fmt.Sprint(formId))
+	builder.apiReq.PathParams.Set("form_id", fmt.Sprint(formId))
 	return builder
 }
 func (builder *ListAppTableFormFieldReqBuilder) PageSize(pageSize int) *ListAppTableFormFieldReqBuilder {
-	builder.httpReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 func (builder *ListAppTableFormFieldReqBuilder) PageToken(pageToken string) *ListAppTableFormFieldReqBuilder {
-	builder.httpReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ListAppTableFormFieldReqBuilder) Build() *ListAppTableFormFieldReq {
 	req := &ListAppTableFormFieldReq{}
-	req.httpReq = &larkcore.HttpReq{}
+	req.apiReq = &larkcore.ApiReq{}
 	req.Limit = builder.limit
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
 	return req
 }
 
 type ListAppTableFormFieldReq struct {
-	httpReq *larkcore.HttpReq
-	Limit   int
+	apiReq *larkcore.ApiReq
+	Limit  int
 }
 
 type ListAppTableFormFieldRespData struct {
@@ -3325,7 +3325,7 @@ type ListAppTableFormFieldRespData struct {
 }
 
 type ListAppTableFormFieldResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *ListAppTableFormFieldRespData `json:"data"`
 }
@@ -3336,14 +3336,14 @@ func (resp *ListAppTableFormFieldResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type PatchAppTableFormFieldReqBuilder struct {
-	httpReq                  *larkcore.HttpReq
+	apiReq                   *larkcore.ApiReq
 	appTableFormPatchedField *AppTableFormPatchedField
 }
 
 // 生成请求的New构造器
 func NewPatchAppTableFormFieldReqBuilder() *PatchAppTableFormFieldReqBuilder {
 	builder := &PatchAppTableFormFieldReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -3352,19 +3352,19 @@ func NewPatchAppTableFormFieldReqBuilder() *PatchAppTableFormFieldReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *PatchAppTableFormFieldReqBuilder) AppToken(appToken string) *PatchAppTableFormFieldReqBuilder {
-	builder.httpReq.PathParams.Set("app_token", fmt.Sprint(appToken))
+	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
 func (builder *PatchAppTableFormFieldReqBuilder) TableId(tableId string) *PatchAppTableFormFieldReqBuilder {
-	builder.httpReq.PathParams.Set("table_id", fmt.Sprint(tableId))
+	builder.apiReq.PathParams.Set("table_id", fmt.Sprint(tableId))
 	return builder
 }
 func (builder *PatchAppTableFormFieldReqBuilder) FormId(formId string) *PatchAppTableFormFieldReqBuilder {
-	builder.httpReq.PathParams.Set("form_id", fmt.Sprint(formId))
+	builder.apiReq.PathParams.Set("form_id", fmt.Sprint(formId))
 	return builder
 }
 func (builder *PatchAppTableFormFieldReqBuilder) FieldId(fieldId string) *PatchAppTableFormFieldReqBuilder {
-	builder.httpReq.PathParams.Set("field_id", fmt.Sprint(fieldId))
+	builder.apiReq.PathParams.Set("field_id", fmt.Sprint(fieldId))
 	return builder
 }
 func (builder *PatchAppTableFormFieldReqBuilder) AppTableFormPatchedField(appTableFormPatchedField *AppTableFormPatchedField) *PatchAppTableFormFieldReqBuilder {
@@ -3375,14 +3375,14 @@ func (builder *PatchAppTableFormFieldReqBuilder) AppTableFormPatchedField(appTab
 // 1.5 生成请求的builder的build方法
 func (builder *PatchAppTableFormFieldReqBuilder) Build() *PatchAppTableFormFieldReq {
 	req := &PatchAppTableFormFieldReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.Body = builder.appTableFormPatchedField
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.appTableFormPatchedField
 	return req
 }
 
 type PatchAppTableFormFieldReq struct {
-	httpReq                  *larkcore.HttpReq
+	apiReq                   *larkcore.ApiReq
 	AppTableFormPatchedField *AppTableFormPatchedField `body:""`
 }
 
@@ -3391,7 +3391,7 @@ type PatchAppTableFormFieldRespData struct {
 }
 
 type PatchAppTableFormFieldResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *PatchAppTableFormFieldRespData `json:"data"`
 }
@@ -3455,14 +3455,14 @@ func (builder *BatchCreateAppTableRecordPathReqBodyBuilder) Build() (*BatchCreat
 
 // 1.4 生成请求的builder结构体
 type BatchCreateAppTableRecordReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	body    *BatchCreateAppTableRecordReqBody
+	apiReq *larkcore.ApiReq
+	body   *BatchCreateAppTableRecordReqBody
 }
 
 // 生成请求的New构造器
 func NewBatchCreateAppTableRecordReqBuilder() *BatchCreateAppTableRecordReqBuilder {
 	builder := &BatchCreateAppTableRecordReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -3471,15 +3471,15 @@ func NewBatchCreateAppTableRecordReqBuilder() *BatchCreateAppTableRecordReqBuild
 
 // 1.5 生成请求的builder属性方法
 func (builder *BatchCreateAppTableRecordReqBuilder) AppToken(appToken string) *BatchCreateAppTableRecordReqBuilder {
-	builder.httpReq.PathParams.Set("app_token", fmt.Sprint(appToken))
+	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
 func (builder *BatchCreateAppTableRecordReqBuilder) TableId(tableId string) *BatchCreateAppTableRecordReqBuilder {
-	builder.httpReq.PathParams.Set("table_id", fmt.Sprint(tableId))
+	builder.apiReq.PathParams.Set("table_id", fmt.Sprint(tableId))
 	return builder
 }
 func (builder *BatchCreateAppTableRecordReqBuilder) UserIdType(userIdType string) *BatchCreateAppTableRecordReqBuilder {
-	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *BatchCreateAppTableRecordReqBuilder) Body(body *BatchCreateAppTableRecordReqBody) *BatchCreateAppTableRecordReqBuilder {
@@ -3490,10 +3490,10 @@ func (builder *BatchCreateAppTableRecordReqBuilder) Body(body *BatchCreateAppTab
 // 1.5 生成请求的builder的build方法
 func (builder *BatchCreateAppTableRecordReqBuilder) Build() *BatchCreateAppTableRecordReq {
 	req := &BatchCreateAppTableRecordReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
-	req.httpReq.Body = builder.body
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -3502,8 +3502,8 @@ type BatchCreateAppTableRecordReqBody struct {
 }
 
 type BatchCreateAppTableRecordReq struct {
-	httpReq *larkcore.HttpReq
-	Body    *BatchCreateAppTableRecordReqBody `body:""`
+	apiReq *larkcore.ApiReq
+	Body   *BatchCreateAppTableRecordReqBody `body:""`
 }
 
 type BatchCreateAppTableRecordRespData struct {
@@ -3511,7 +3511,7 @@ type BatchCreateAppTableRecordRespData struct {
 }
 
 type BatchCreateAppTableRecordResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *BatchCreateAppTableRecordRespData `json:"data"`
 }
@@ -3575,14 +3575,14 @@ func (builder *BatchDeleteAppTableRecordPathReqBodyBuilder) Build() (*BatchDelet
 
 // 1.4 生成请求的builder结构体
 type BatchDeleteAppTableRecordReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	body    *BatchDeleteAppTableRecordReqBody
+	apiReq *larkcore.ApiReq
+	body   *BatchDeleteAppTableRecordReqBody
 }
 
 // 生成请求的New构造器
 func NewBatchDeleteAppTableRecordReqBuilder() *BatchDeleteAppTableRecordReqBuilder {
 	builder := &BatchDeleteAppTableRecordReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -3591,11 +3591,11 @@ func NewBatchDeleteAppTableRecordReqBuilder() *BatchDeleteAppTableRecordReqBuild
 
 // 1.5 生成请求的builder属性方法
 func (builder *BatchDeleteAppTableRecordReqBuilder) AppToken(appToken string) *BatchDeleteAppTableRecordReqBuilder {
-	builder.httpReq.PathParams.Set("app_token", fmt.Sprint(appToken))
+	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
 func (builder *BatchDeleteAppTableRecordReqBuilder) TableId(tableId string) *BatchDeleteAppTableRecordReqBuilder {
-	builder.httpReq.PathParams.Set("table_id", fmt.Sprint(tableId))
+	builder.apiReq.PathParams.Set("table_id", fmt.Sprint(tableId))
 	return builder
 }
 func (builder *BatchDeleteAppTableRecordReqBuilder) Body(body *BatchDeleteAppTableRecordReqBody) *BatchDeleteAppTableRecordReqBuilder {
@@ -3606,9 +3606,9 @@ func (builder *BatchDeleteAppTableRecordReqBuilder) Body(body *BatchDeleteAppTab
 // 1.5 生成请求的builder的build方法
 func (builder *BatchDeleteAppTableRecordReqBuilder) Build() *BatchDeleteAppTableRecordReq {
 	req := &BatchDeleteAppTableRecordReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.Body = builder.body
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -3617,8 +3617,8 @@ type BatchDeleteAppTableRecordReqBody struct {
 }
 
 type BatchDeleteAppTableRecordReq struct {
-	httpReq *larkcore.HttpReq
-	Body    *BatchDeleteAppTableRecordReqBody `body:""`
+	apiReq *larkcore.ApiReq
+	Body   *BatchDeleteAppTableRecordReqBody `body:""`
 }
 
 type BatchDeleteAppTableRecordRespData struct {
@@ -3626,7 +3626,7 @@ type BatchDeleteAppTableRecordRespData struct {
 }
 
 type BatchDeleteAppTableRecordResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *BatchDeleteAppTableRecordRespData `json:"data"`
 }
@@ -3690,14 +3690,14 @@ func (builder *BatchUpdateAppTableRecordPathReqBodyBuilder) Build() (*BatchUpdat
 
 // 1.4 生成请求的builder结构体
 type BatchUpdateAppTableRecordReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	body    *BatchUpdateAppTableRecordReqBody
+	apiReq *larkcore.ApiReq
+	body   *BatchUpdateAppTableRecordReqBody
 }
 
 // 生成请求的New构造器
 func NewBatchUpdateAppTableRecordReqBuilder() *BatchUpdateAppTableRecordReqBuilder {
 	builder := &BatchUpdateAppTableRecordReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -3706,15 +3706,15 @@ func NewBatchUpdateAppTableRecordReqBuilder() *BatchUpdateAppTableRecordReqBuild
 
 // 1.5 生成请求的builder属性方法
 func (builder *BatchUpdateAppTableRecordReqBuilder) AppToken(appToken string) *BatchUpdateAppTableRecordReqBuilder {
-	builder.httpReq.PathParams.Set("app_token", fmt.Sprint(appToken))
+	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
 func (builder *BatchUpdateAppTableRecordReqBuilder) TableId(tableId string) *BatchUpdateAppTableRecordReqBuilder {
-	builder.httpReq.PathParams.Set("table_id", fmt.Sprint(tableId))
+	builder.apiReq.PathParams.Set("table_id", fmt.Sprint(tableId))
 	return builder
 }
 func (builder *BatchUpdateAppTableRecordReqBuilder) UserIdType(userIdType string) *BatchUpdateAppTableRecordReqBuilder {
-	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *BatchUpdateAppTableRecordReqBuilder) Body(body *BatchUpdateAppTableRecordReqBody) *BatchUpdateAppTableRecordReqBuilder {
@@ -3725,10 +3725,10 @@ func (builder *BatchUpdateAppTableRecordReqBuilder) Body(body *BatchUpdateAppTab
 // 1.5 生成请求的builder的build方法
 func (builder *BatchUpdateAppTableRecordReqBuilder) Build() *BatchUpdateAppTableRecordReq {
 	req := &BatchUpdateAppTableRecordReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
-	req.httpReq.Body = builder.body
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -3737,8 +3737,8 @@ type BatchUpdateAppTableRecordReqBody struct {
 }
 
 type BatchUpdateAppTableRecordReq struct {
-	httpReq *larkcore.HttpReq
-	Body    *BatchUpdateAppTableRecordReqBody `body:""`
+	apiReq *larkcore.ApiReq
+	Body   *BatchUpdateAppTableRecordReqBody `body:""`
 }
 
 type BatchUpdateAppTableRecordRespData struct {
@@ -3746,7 +3746,7 @@ type BatchUpdateAppTableRecordRespData struct {
 }
 
 type BatchUpdateAppTableRecordResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *BatchUpdateAppTableRecordRespData `json:"data"`
 }
@@ -3757,14 +3757,14 @@ func (resp *BatchUpdateAppTableRecordResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type CreateAppTableRecordReqBuilder struct {
-	httpReq        *larkcore.HttpReq
+	apiReq         *larkcore.ApiReq
 	appTableRecord *AppTableRecord
 }
 
 // 生成请求的New构造器
 func NewCreateAppTableRecordReqBuilder() *CreateAppTableRecordReqBuilder {
 	builder := &CreateAppTableRecordReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -3773,15 +3773,15 @@ func NewCreateAppTableRecordReqBuilder() *CreateAppTableRecordReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *CreateAppTableRecordReqBuilder) AppToken(appToken string) *CreateAppTableRecordReqBuilder {
-	builder.httpReq.PathParams.Set("app_token", fmt.Sprint(appToken))
+	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
 func (builder *CreateAppTableRecordReqBuilder) TableId(tableId string) *CreateAppTableRecordReqBuilder {
-	builder.httpReq.PathParams.Set("table_id", fmt.Sprint(tableId))
+	builder.apiReq.PathParams.Set("table_id", fmt.Sprint(tableId))
 	return builder
 }
 func (builder *CreateAppTableRecordReqBuilder) UserIdType(userIdType string) *CreateAppTableRecordReqBuilder {
-	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *CreateAppTableRecordReqBuilder) AppTableRecord(appTableRecord *AppTableRecord) *CreateAppTableRecordReqBuilder {
@@ -3792,15 +3792,15 @@ func (builder *CreateAppTableRecordReqBuilder) AppTableRecord(appTableRecord *Ap
 // 1.5 生成请求的builder的build方法
 func (builder *CreateAppTableRecordReqBuilder) Build() *CreateAppTableRecordReq {
 	req := &CreateAppTableRecordReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
-	req.httpReq.Body = builder.appTableRecord
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.appTableRecord
 	return req
 }
 
 type CreateAppTableRecordReq struct {
-	httpReq        *larkcore.HttpReq
+	apiReq         *larkcore.ApiReq
 	AppTableRecord *AppTableRecord `body:""`
 }
 
@@ -3809,7 +3809,7 @@ type CreateAppTableRecordRespData struct {
 }
 
 type CreateAppTableRecordResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *CreateAppTableRecordRespData `json:"data"`
 }
@@ -3820,13 +3820,13 @@ func (resp *CreateAppTableRecordResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type DeleteAppTableRecordReqBuilder struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 // 生成请求的New构造器
 func NewDeleteAppTableRecordReqBuilder() *DeleteAppTableRecordReqBuilder {
 	builder := &DeleteAppTableRecordReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -3835,28 +3835,28 @@ func NewDeleteAppTableRecordReqBuilder() *DeleteAppTableRecordReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *DeleteAppTableRecordReqBuilder) AppToken(appToken string) *DeleteAppTableRecordReqBuilder {
-	builder.httpReq.PathParams.Set("app_token", fmt.Sprint(appToken))
+	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
 func (builder *DeleteAppTableRecordReqBuilder) TableId(tableId string) *DeleteAppTableRecordReqBuilder {
-	builder.httpReq.PathParams.Set("table_id", fmt.Sprint(tableId))
+	builder.apiReq.PathParams.Set("table_id", fmt.Sprint(tableId))
 	return builder
 }
 func (builder *DeleteAppTableRecordReqBuilder) RecordId(recordId string) *DeleteAppTableRecordReqBuilder {
-	builder.httpReq.PathParams.Set("record_id", fmt.Sprint(recordId))
+	builder.apiReq.PathParams.Set("record_id", fmt.Sprint(recordId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *DeleteAppTableRecordReqBuilder) Build() *DeleteAppTableRecordReq {
 	req := &DeleteAppTableRecordReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
 	return req
 }
 
 type DeleteAppTableRecordReq struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 type DeleteAppTableRecordRespData struct {
@@ -3865,7 +3865,7 @@ type DeleteAppTableRecordRespData struct {
 }
 
 type DeleteAppTableRecordResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *DeleteAppTableRecordRespData `json:"data"`
 }
@@ -3876,13 +3876,13 @@ func (resp *DeleteAppTableRecordResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type GetAppTableRecordReqBuilder struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 // 生成请求的New构造器
 func NewGetAppTableRecordReqBuilder() *GetAppTableRecordReqBuilder {
 	builder := &GetAppTableRecordReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -3891,45 +3891,45 @@ func NewGetAppTableRecordReqBuilder() *GetAppTableRecordReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *GetAppTableRecordReqBuilder) AppToken(appToken string) *GetAppTableRecordReqBuilder {
-	builder.httpReq.PathParams.Set("app_token", fmt.Sprint(appToken))
+	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
 func (builder *GetAppTableRecordReqBuilder) TableId(tableId string) *GetAppTableRecordReqBuilder {
-	builder.httpReq.PathParams.Set("table_id", fmt.Sprint(tableId))
+	builder.apiReq.PathParams.Set("table_id", fmt.Sprint(tableId))
 	return builder
 }
 func (builder *GetAppTableRecordReqBuilder) RecordId(recordId string) *GetAppTableRecordReqBuilder {
-	builder.httpReq.PathParams.Set("record_id", fmt.Sprint(recordId))
+	builder.apiReq.PathParams.Set("record_id", fmt.Sprint(recordId))
 	return builder
 }
 func (builder *GetAppTableRecordReqBuilder) TextFieldAsArray(textFieldAsArray bool) *GetAppTableRecordReqBuilder {
-	builder.httpReq.QueryParams.Set("text_field_as_array", fmt.Sprint(textFieldAsArray))
+	builder.apiReq.QueryParams.Set("text_field_as_array", fmt.Sprint(textFieldAsArray))
 	return builder
 }
 func (builder *GetAppTableRecordReqBuilder) UserIdType(userIdType string) *GetAppTableRecordReqBuilder {
-	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *GetAppTableRecordReqBuilder) DisplayFormulaRef(displayFormulaRef bool) *GetAppTableRecordReqBuilder {
-	builder.httpReq.QueryParams.Set("display_formula_ref", fmt.Sprint(displayFormulaRef))
+	builder.apiReq.QueryParams.Set("display_formula_ref", fmt.Sprint(displayFormulaRef))
 	return builder
 }
 func (builder *GetAppTableRecordReqBuilder) AutomaticFields(automaticFields bool) *GetAppTableRecordReqBuilder {
-	builder.httpReq.QueryParams.Set("automatic_fields", fmt.Sprint(automaticFields))
+	builder.apiReq.QueryParams.Set("automatic_fields", fmt.Sprint(automaticFields))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *GetAppTableRecordReqBuilder) Build() *GetAppTableRecordReq {
 	req := &GetAppTableRecordReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
 	return req
 }
 
 type GetAppTableRecordReq struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 type GetAppTableRecordRespData struct {
@@ -3937,7 +3937,7 @@ type GetAppTableRecordRespData struct {
 }
 
 type GetAppTableRecordResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *GetAppTableRecordRespData `json:"data"`
 }
@@ -3948,14 +3948,14 @@ func (resp *GetAppTableRecordResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type ListAppTableRecordReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	limit   int
+	apiReq *larkcore.ApiReq
+	limit  int
 }
 
 // 生成请求的New构造器
 func NewListAppTableRecordReqBuilder() *ListAppTableRecordReqBuilder {
 	builder := &ListAppTableRecordReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -3968,67 +3968,67 @@ func (builder *ListAppTableRecordReqBuilder) Limit(limit int) *ListAppTableRecor
 	return builder
 }
 func (builder *ListAppTableRecordReqBuilder) AppToken(appToken string) *ListAppTableRecordReqBuilder {
-	builder.httpReq.PathParams.Set("app_token", fmt.Sprint(appToken))
+	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
 func (builder *ListAppTableRecordReqBuilder) TableId(tableId string) *ListAppTableRecordReqBuilder {
-	builder.httpReq.PathParams.Set("table_id", fmt.Sprint(tableId))
+	builder.apiReq.PathParams.Set("table_id", fmt.Sprint(tableId))
 	return builder
 }
 func (builder *ListAppTableRecordReqBuilder) ViewId(viewId string) *ListAppTableRecordReqBuilder {
-	builder.httpReq.QueryParams.Set("view_id", fmt.Sprint(viewId))
+	builder.apiReq.QueryParams.Set("view_id", fmt.Sprint(viewId))
 	return builder
 }
 func (builder *ListAppTableRecordReqBuilder) Filter(filter string) *ListAppTableRecordReqBuilder {
-	builder.httpReq.QueryParams.Set("filter", fmt.Sprint(filter))
+	builder.apiReq.QueryParams.Set("filter", fmt.Sprint(filter))
 	return builder
 }
 func (builder *ListAppTableRecordReqBuilder) Sort(sort string) *ListAppTableRecordReqBuilder {
-	builder.httpReq.QueryParams.Set("sort", fmt.Sprint(sort))
+	builder.apiReq.QueryParams.Set("sort", fmt.Sprint(sort))
 	return builder
 }
 func (builder *ListAppTableRecordReqBuilder) FieldNames(fieldNames string) *ListAppTableRecordReqBuilder {
-	builder.httpReq.QueryParams.Set("field_names", fmt.Sprint(fieldNames))
+	builder.apiReq.QueryParams.Set("field_names", fmt.Sprint(fieldNames))
 	return builder
 }
 func (builder *ListAppTableRecordReqBuilder) TextFieldAsArray(textFieldAsArray bool) *ListAppTableRecordReqBuilder {
-	builder.httpReq.QueryParams.Set("text_field_as_array", fmt.Sprint(textFieldAsArray))
+	builder.apiReq.QueryParams.Set("text_field_as_array", fmt.Sprint(textFieldAsArray))
 	return builder
 }
 func (builder *ListAppTableRecordReqBuilder) UserIdType(userIdType string) *ListAppTableRecordReqBuilder {
-	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *ListAppTableRecordReqBuilder) DisplayFormulaRef(displayFormulaRef bool) *ListAppTableRecordReqBuilder {
-	builder.httpReq.QueryParams.Set("display_formula_ref", fmt.Sprint(displayFormulaRef))
+	builder.apiReq.QueryParams.Set("display_formula_ref", fmt.Sprint(displayFormulaRef))
 	return builder
 }
 func (builder *ListAppTableRecordReqBuilder) AutomaticFields(automaticFields bool) *ListAppTableRecordReqBuilder {
-	builder.httpReq.QueryParams.Set("automatic_fields", fmt.Sprint(automaticFields))
+	builder.apiReq.QueryParams.Set("automatic_fields", fmt.Sprint(automaticFields))
 	return builder
 }
 func (builder *ListAppTableRecordReqBuilder) PageToken(pageToken string) *ListAppTableRecordReqBuilder {
-	builder.httpReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 func (builder *ListAppTableRecordReqBuilder) PageSize(pageSize int) *ListAppTableRecordReqBuilder {
-	builder.httpReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ListAppTableRecordReqBuilder) Build() *ListAppTableRecordReq {
 	req := &ListAppTableRecordReq{}
-	req.httpReq = &larkcore.HttpReq{}
+	req.apiReq = &larkcore.ApiReq{}
 	req.Limit = builder.limit
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
 	return req
 }
 
 type ListAppTableRecordReq struct {
-	httpReq *larkcore.HttpReq
-	Limit   int
+	apiReq *larkcore.ApiReq
+	Limit  int
 }
 
 type ListAppTableRecordRespData struct {
@@ -4039,7 +4039,7 @@ type ListAppTableRecordRespData struct {
 }
 
 type ListAppTableRecordResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *ListAppTableRecordRespData `json:"data"`
 }
@@ -4050,14 +4050,14 @@ func (resp *ListAppTableRecordResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type UpdateAppTableRecordReqBuilder struct {
-	httpReq        *larkcore.HttpReq
+	apiReq         *larkcore.ApiReq
 	appTableRecord *AppTableRecord
 }
 
 // 生成请求的New构造器
 func NewUpdateAppTableRecordReqBuilder() *UpdateAppTableRecordReqBuilder {
 	builder := &UpdateAppTableRecordReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -4066,19 +4066,19 @@ func NewUpdateAppTableRecordReqBuilder() *UpdateAppTableRecordReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *UpdateAppTableRecordReqBuilder) AppToken(appToken string) *UpdateAppTableRecordReqBuilder {
-	builder.httpReq.PathParams.Set("app_token", fmt.Sprint(appToken))
+	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
 func (builder *UpdateAppTableRecordReqBuilder) TableId(tableId string) *UpdateAppTableRecordReqBuilder {
-	builder.httpReq.PathParams.Set("table_id", fmt.Sprint(tableId))
+	builder.apiReq.PathParams.Set("table_id", fmt.Sprint(tableId))
 	return builder
 }
 func (builder *UpdateAppTableRecordReqBuilder) RecordId(recordId string) *UpdateAppTableRecordReqBuilder {
-	builder.httpReq.PathParams.Set("record_id", fmt.Sprint(recordId))
+	builder.apiReq.PathParams.Set("record_id", fmt.Sprint(recordId))
 	return builder
 }
 func (builder *UpdateAppTableRecordReqBuilder) UserIdType(userIdType string) *UpdateAppTableRecordReqBuilder {
-	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *UpdateAppTableRecordReqBuilder) AppTableRecord(appTableRecord *AppTableRecord) *UpdateAppTableRecordReqBuilder {
@@ -4089,15 +4089,15 @@ func (builder *UpdateAppTableRecordReqBuilder) AppTableRecord(appTableRecord *Ap
 // 1.5 生成请求的builder的build方法
 func (builder *UpdateAppTableRecordReqBuilder) Build() *UpdateAppTableRecordReq {
 	req := &UpdateAppTableRecordReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
-	req.httpReq.Body = builder.appTableRecord
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.appTableRecord
 	return req
 }
 
 type UpdateAppTableRecordReq struct {
-	httpReq        *larkcore.HttpReq
+	apiReq         *larkcore.ApiReq
 	AppTableRecord *AppTableRecord `body:""`
 }
 
@@ -4106,7 +4106,7 @@ type UpdateAppTableRecordRespData struct {
 }
 
 type UpdateAppTableRecordResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *UpdateAppTableRecordRespData `json:"data"`
 }
@@ -4117,14 +4117,14 @@ func (resp *UpdateAppTableRecordResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type CreateAppTableViewReqBuilder struct {
-	httpReq *larkcore.HttpReq
+	apiReq  *larkcore.ApiReq
 	reqView *ReqView
 }
 
 // 生成请求的New构造器
 func NewCreateAppTableViewReqBuilder() *CreateAppTableViewReqBuilder {
 	builder := &CreateAppTableViewReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -4133,11 +4133,11 @@ func NewCreateAppTableViewReqBuilder() *CreateAppTableViewReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *CreateAppTableViewReqBuilder) AppToken(appToken string) *CreateAppTableViewReqBuilder {
-	builder.httpReq.PathParams.Set("app_token", fmt.Sprint(appToken))
+	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
 func (builder *CreateAppTableViewReqBuilder) TableId(tableId string) *CreateAppTableViewReqBuilder {
-	builder.httpReq.PathParams.Set("table_id", fmt.Sprint(tableId))
+	builder.apiReq.PathParams.Set("table_id", fmt.Sprint(tableId))
 	return builder
 }
 func (builder *CreateAppTableViewReqBuilder) ReqView(reqView *ReqView) *CreateAppTableViewReqBuilder {
@@ -4148,14 +4148,14 @@ func (builder *CreateAppTableViewReqBuilder) ReqView(reqView *ReqView) *CreateAp
 // 1.5 生成请求的builder的build方法
 func (builder *CreateAppTableViewReqBuilder) Build() *CreateAppTableViewReq {
 	req := &CreateAppTableViewReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.Body = builder.reqView
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.reqView
 	return req
 }
 
 type CreateAppTableViewReq struct {
-	httpReq *larkcore.HttpReq
+	apiReq  *larkcore.ApiReq
 	ReqView *ReqView `body:""`
 }
 
@@ -4164,7 +4164,7 @@ type CreateAppTableViewRespData struct {
 }
 
 type CreateAppTableViewResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *CreateAppTableViewRespData `json:"data"`
 }
@@ -4175,13 +4175,13 @@ func (resp *CreateAppTableViewResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type DeleteAppTableViewReqBuilder struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 // 生成请求的New构造器
 func NewDeleteAppTableViewReqBuilder() *DeleteAppTableViewReqBuilder {
 	builder := &DeleteAppTableViewReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -4190,32 +4190,32 @@ func NewDeleteAppTableViewReqBuilder() *DeleteAppTableViewReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *DeleteAppTableViewReqBuilder) AppToken(appToken string) *DeleteAppTableViewReqBuilder {
-	builder.httpReq.PathParams.Set("app_token", fmt.Sprint(appToken))
+	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
 func (builder *DeleteAppTableViewReqBuilder) TableId(tableId string) *DeleteAppTableViewReqBuilder {
-	builder.httpReq.PathParams.Set("table_id", fmt.Sprint(tableId))
+	builder.apiReq.PathParams.Set("table_id", fmt.Sprint(tableId))
 	return builder
 }
 func (builder *DeleteAppTableViewReqBuilder) ViewId(viewId string) *DeleteAppTableViewReqBuilder {
-	builder.httpReq.PathParams.Set("view_id", fmt.Sprint(viewId))
+	builder.apiReq.PathParams.Set("view_id", fmt.Sprint(viewId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *DeleteAppTableViewReqBuilder) Build() *DeleteAppTableViewReq {
 	req := &DeleteAppTableViewReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
 	return req
 }
 
 type DeleteAppTableViewReq struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 type DeleteAppTableViewResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 }
 
@@ -4225,14 +4225,14 @@ func (resp *DeleteAppTableViewResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type ListAppTableViewReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	limit   int
+	apiReq *larkcore.ApiReq
+	limit  int
 }
 
 // 生成请求的New构造器
 func NewListAppTableViewReqBuilder() *ListAppTableViewReqBuilder {
 	builder := &ListAppTableViewReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -4245,35 +4245,35 @@ func (builder *ListAppTableViewReqBuilder) Limit(limit int) *ListAppTableViewReq
 	return builder
 }
 func (builder *ListAppTableViewReqBuilder) AppToken(appToken string) *ListAppTableViewReqBuilder {
-	builder.httpReq.PathParams.Set("app_token", fmt.Sprint(appToken))
+	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
 func (builder *ListAppTableViewReqBuilder) TableId(tableId string) *ListAppTableViewReqBuilder {
-	builder.httpReq.PathParams.Set("table_id", fmt.Sprint(tableId))
+	builder.apiReq.PathParams.Set("table_id", fmt.Sprint(tableId))
 	return builder
 }
 func (builder *ListAppTableViewReqBuilder) PageSize(pageSize int) *ListAppTableViewReqBuilder {
-	builder.httpReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 func (builder *ListAppTableViewReqBuilder) PageToken(pageToken string) *ListAppTableViewReqBuilder {
-	builder.httpReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ListAppTableViewReqBuilder) Build() *ListAppTableViewReq {
 	req := &ListAppTableViewReq{}
-	req.httpReq = &larkcore.HttpReq{}
+	req.apiReq = &larkcore.ApiReq{}
 	req.Limit = builder.limit
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
 	return req
 }
 
 type ListAppTableViewReq struct {
-	httpReq *larkcore.HttpReq
-	Limit   int
+	apiReq *larkcore.ApiReq
+	Limit  int
 }
 
 type ListAppTableViewRespData struct {
@@ -4284,7 +4284,7 @@ type ListAppTableViewRespData struct {
 }
 
 type ListAppTableViewResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *ListAppTableViewRespData `json:"data"`
 }
@@ -4321,7 +4321,7 @@ func (iterator *ListAppRoleIterator) Next() (bool, *AppRole, error) {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
-			iterator.req.httpReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
 		}
 		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
 		if err != nil {
@@ -4375,7 +4375,7 @@ func (iterator *ListAppRoleMemberIterator) Next() (bool, *AppRoleMember, error) 
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
-			iterator.req.httpReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
 		}
 		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
 		if err != nil {
@@ -4429,7 +4429,7 @@ func (iterator *ListAppTableIterator) Next() (bool, *AppTable, error) {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
-			iterator.req.httpReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
 		}
 		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
 		if err != nil {
@@ -4483,7 +4483,7 @@ func (iterator *ListAppTableFieldIterator) Next() (bool, *AppTableField, error) 
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
-			iterator.req.httpReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
 		}
 		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
 		if err != nil {
@@ -4537,7 +4537,7 @@ func (iterator *ListAppTableFormFieldIterator) Next() (bool, *AppTableFormField,
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
-			iterator.req.httpReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
 		}
 		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
 		if err != nil {
@@ -4591,7 +4591,7 @@ func (iterator *ListAppTableRecordIterator) Next() (bool, *AppTableRecord, error
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
-			iterator.req.httpReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
 		}
 		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
 		if err != nil {
@@ -4645,7 +4645,7 @@ func (iterator *ListAppTableViewIterator) Next() (bool, *AppTableView, error) {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
-			iterator.req.httpReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
 		}
 		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
 		if err != nil {

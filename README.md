@@ -476,12 +476,18 @@ import (
 
 func main() {
 	// 创建 API Client
-	var cli = lark.NewClient("appID", "appSecret")
+	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
+	var cli = lark.NewClient(appID, appSecret)
 
-	// 发起请求
-	resp, err := cli.Post(context.Background(), "https://www.feishu.cn/approval/openapi/v2/approval/get", map[string]interface{}{
-		"approval_code": "ou_c245b0a7dff2725cfa2fb104f8b48b9d",
-	}, larkcore.AccessTokenTypeTenant)
+	//发起请求
+	resp, err := cli.Do(context.Background(), &larkcore.ApiReq{
+		HttpMethod: http.MethodGet,
+		ApiPath:    "https://www.feishu.cn/approval/openapi/v2/approval/get",
+		Body: map[string]interface{}{
+			"approval_code": "ou_c245b0a7dff2725cfa2fb104f8b48b9d",
+		},
+		SupportedAccessTokenTypes: []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant},
+	})
 
 	// 错误处理
 	if err != nil {

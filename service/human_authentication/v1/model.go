@@ -170,14 +170,14 @@ func (builder *CreateIdentityPathReqBodyBuilder) Build() (*CreateIdentityReqBody
 
 // 1.4 生成请求的builder结构体
 type CreateIdentityReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	body    *CreateIdentityReqBody
+	apiReq *larkcore.ApiReq
+	body   *CreateIdentityReqBody
 }
 
 // 生成请求的New构造器
 func NewCreateIdentityReqBuilder() *CreateIdentityReqBuilder {
 	builder := &CreateIdentityReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -186,11 +186,11 @@ func NewCreateIdentityReqBuilder() *CreateIdentityReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *CreateIdentityReqBuilder) UserId(userId string) *CreateIdentityReqBuilder {
-	builder.httpReq.QueryParams.Set("user_id", fmt.Sprint(userId))
+	builder.apiReq.QueryParams.Set("user_id", fmt.Sprint(userId))
 	return builder
 }
 func (builder *CreateIdentityReqBuilder) UserIdType(userIdType string) *CreateIdentityReqBuilder {
-	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *CreateIdentityReqBuilder) Body(body *CreateIdentityReqBody) *CreateIdentityReqBuilder {
@@ -201,9 +201,9 @@ func (builder *CreateIdentityReqBuilder) Body(body *CreateIdentityReqBody) *Crea
 // 1.5 生成请求的builder的build方法
 func (builder *CreateIdentityReqBuilder) Build() *CreateIdentityReq {
 	req := &CreateIdentityReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
-	req.httpReq.Body = builder.body
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -214,8 +214,8 @@ type CreateIdentityReqBody struct {
 }
 
 type CreateIdentityReq struct {
-	httpReq *larkcore.HttpReq
-	Body    *CreateIdentityReqBody `body:""`
+	apiReq *larkcore.ApiReq
+	Body   *CreateIdentityReqBody `body:""`
 }
 
 type CreateIdentityRespData struct {
@@ -223,7 +223,7 @@ type CreateIdentityRespData struct {
 }
 
 type CreateIdentityResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *CreateIdentityRespData `json:"data"`
 }

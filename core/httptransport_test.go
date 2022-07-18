@@ -9,14 +9,14 @@ import (
 
 func TestSendPost(t *testing.T) {
 	config := mockConfig()
-	_, err := Request(context.Background(), &HttpReq{
+	_, err := Request(context.Background(), &ApiReq{
 		HttpMethod: http.MethodPost,
-		ApiPath:    "https://www.feishu.cn/approval/openapi/v2/approval/get",
+		ApiPath:    "/",
 		Body: map[string]interface{}{
 			"approval_code": "ou_c245b0a7dff2725cfa2fb104f8b48b9d",
 		},
-		SupportedAccessTokenTypes: []AccessTokenType{AccessTokenTypeTenant},
-	}, config)
+		SupportedAccessTokenTypes: []AccessTokenType{AccessTokenTypeUser},
+	}, config, WithUserAccessToken("key"))
 
 	if err != nil {
 		t.Errorf("TestSendPost failed ,%v", err)

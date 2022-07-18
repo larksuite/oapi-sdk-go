@@ -94,7 +94,7 @@ func validate(config *Config, option *RequestOption, accessTokenType AccessToken
 	return nil
 }
 
-func doSend(ctx context.Context, rawRequest *http.Request, httpClient HttpClient, logger Logger) (*RawResponse, error) {
+func doSend(ctx context.Context, rawRequest *http.Request, httpClient HttpClient, logger Logger) (*ApiResp, error) {
 	if httpClient == nil {
 		httpClient = http.DefaultClient
 	}
@@ -126,7 +126,7 @@ func doSend(ctx context.Context, rawRequest *http.Request, httpClient HttpClient
 		return nil, err
 	}
 
-	return &RawResponse{
+	return &ApiResp{
 		StatusCode: resp.StatusCode,
 		Header:     resp.Header,
 		RawBody:    body,
@@ -138,7 +138,7 @@ type applyAppTicketReq struct {
 	AppSecret string `json:"app_secret"`
 }
 
-func Request(ctx context.Context, req *HttpReq, config *Config, options ...RequestOptionFunc) (*RawResponse, error) {
+func Request(ctx context.Context, req *ApiReq, config *Config, options ...RequestOptionFunc) (*ApiResp, error) {
 	option := &RequestOption{}
 	for _, optionFunc := range options {
 		optionFunc(option)
@@ -154,8 +154,8 @@ func Request(ctx context.Context, req *HttpReq, config *Config, options ...Reque
 
 }
 
-func doRequest(ctx context.Context, httpReq *HttpReq, accessTokenType AccessTokenType, config *Config, option *RequestOption) (*RawResponse, error) {
-	var rawResp *RawResponse
+func doRequest(ctx context.Context, httpReq *ApiReq, accessTokenType AccessTokenType, config *Config, option *RequestOption) (*ApiResp, error) {
+	var rawResp *ApiResp
 	var errResult error
 	for i := 0; i < 2; i++ {
 		req, err := reqTranslator.translate(ctx, httpReq, accessTokenType, config, option)
@@ -216,145 +216,3 @@ func doRequest(ctx context.Context, httpReq *HttpReq, accessTokenType AccessToke
 	}
 	return rawResp, nil
 }
-
-func SendRequest(ctx context.Context, config *Config, httpMethod string, httpPath string,
-	accessTokenTypes []AccessTokenType, input interface{}, options ...RequestOptionFunc) (*RawResponse, error) {
-	option := &RequestOption{}
-	for _, optionFunc := range options {
-		optionFunc(option)
-	}
-
-	accessTokenType := determineTokenType(accessTokenTypes, option, config.EnableTokenCache)
-	err := validate(config, option, accessTokenType)
-	if err != nil {
-		return nil, err
-	}
-
-	rawResp, err := doSendRequest(ctx, config, httpMethod, httpPath, accessTokenType, input, option)
-	return rawResp, err
-}
-
-func doSendRequest(ctx context.Context, config *Config, httpMethod string, httpPath string,
-	accessTokenType AccessTokenType, input interface{}, option *RequestOption) (*RawResponse, error) {
-	var rawResp *RawResponse
-	var errResult error
-	for i := 0; i < 2; i++ {
-		req, err := reqTranslator.translateOld(ctx, input, accessTokenType, config, httpMethod, httpPath, option)
-		if err != nil {
-			return nil, err
-		}
-
-		if config.LogReqAtDebug {
-			config.Logger.Debug(ctx, fmt.Sprintf("req:%v", req))
-		} else {
-			config.Logger.Debug(ctx, fmt.Sprintf("req:%s,%s", httpMethod, httpPath))
-		}
-		rawResp, err = doSend(ctx, req, config.HttpClient, config.Logger)
-		if config.LogReqAtDebug {
-			config.Logger.Debug(ctx, fmt.Sprintf("resp:%v", rawResp))
-		}
-		_, isDialError := err.(*DialFailedError)
-		if err != nil && !isDialError {
-			return nil, err
-		}
-		errResult = err
-		if isDialError {
-			continue
-		}
-
-		fileDownloadSuccess := option.FileDownload && rawResp.StatusCode == http.StatusOK
-		if fileDownloadSuccess || !strings.Contains(rawResp.Header.Get(contentTypeHeader), contentTypeJson) {
-			break
-		}
-
-		codeError := &CodeError{}
-		err = json.Unmarshal(rawResp.RawBody, codeError)
-		if err != nil {
-			return nil, err
-		}
-
-		code := codeError.Code
-		if code == errCodeAppTicketInvalid {
-			applyAppTicket(ctx, config)
-		}
-
-		if accessTokenType == accessTokenTypeNone {
-			break
-		}
-
-		if !config.EnableTokenCache {
-			break
-		}
-
-		if code != errCodeAccessTokenInvalid && code != errCodeAppAccessTokenInvalid &&
-			code != errCodeTenantAccessTokenInvalid {
-			break
-		}
-	}
-
-	if errResult != nil {
-		return nil, errResult
-	}
-	return rawResp, nil
-}
-
-func GetConfig(appId, appSecret string) *Config {
-	config := &Config{
-		BaseUrl:          "https://open.feishu.cn",
-		AppType:          AppTypeSelfBuilt,
-		EnableTokenCache: true,
-		AppSecret:        appSecret,
-		AppId:            appId,
-	}
-
-	NewLogger(config)
-	NewCache(config)
-
-	return config
-}
-
-//
-//func Post(ctx context.Context, config *Config, httpPath string,
-//	body interface{}, accessTokeType AccessTokenType, options ...RequestOptionFunc) (*RawResponse, error) {
-//	return SendRequest(ctx, config, http.MethodPost, httpPath, []AccessTokenType{accessTokeType}, body, options...)
-//}
-//
-//func Get(ctx context.Context, config *Config, httpPath string,
-//	body interface{}, accessTokeType AccessTokenType, options ...RequestOptionFunc) (*RawResponse, error) {
-//	return SendRequest(ctx, config, http.MethodGet, httpPath, []AccessTokenType{accessTokeType}, body, options...)
-//}
-//
-//func Head(ctx context.Context, config *Config, httpPath string,
-//	body interface{}, accessTokeType AccessTokenType, options ...RequestOptionFunc) (*RawResponse, error) {
-//	return SendRequest(ctx, config, http.MethodHead, httpPath, []AccessTokenType{accessTokeType}, body, options...)
-//}
-//
-//func Put(ctx context.Context, config *Config, httpPath string,
-//	body interface{}, accessTokeType AccessTokenType, options ...RequestOptionFunc) (*RawResponse, error) {
-//	return SendRequest(ctx, config, http.MethodPut, httpPath, []AccessTokenType{accessTokeType}, body, options...)
-//}
-//
-//func Patch(ctx context.Context, config *Config, httpPath string,
-//	body interface{}, accessTokeType AccessTokenType, options ...RequestOptionFunc) (*RawResponse, error) {
-//	return SendRequest(ctx, config, http.MethodPatch, httpPath, []AccessTokenType{accessTokeType}, body, options...)
-//}
-//
-//func Delete(ctx context.Context, config *Config, httpPath string,
-//	body interface{}, accessTokeType AccessTokenType, options ...RequestOptionFunc) (*RawResponse, error) {
-//	return SendRequest(ctx, config, http.MethodDelete, httpPath, []AccessTokenType{accessTokeType}, body, options...)
-//}
-//
-//func Connect(ctx context.Context, config *Config, httpPath string,
-//	body interface{}, accessTokeType AccessTokenType, options ...RequestOptionFunc) (*RawResponse, error) {
-//	return SendRequest(ctx, config, http.MethodConnect, httpPath, []AccessTokenType{accessTokeType}, body, options...)
-//}
-//
-//func SendOptions(ctx context.Context, config *Config, httpPath string,
-//	body interface{}, accessTokeType AccessTokenType, options ...RequestOptionFunc) (*RawResponse, error) {
-//	return SendRequest(ctx, config, http.MethodOptions, httpPath, []AccessTokenType{accessTokeType}, body, options...)
-//}
-//
-//func SendTrace(ctx context.Context, config *Config, httpPath string,
-//	body interface{}, accessTokeType AccessTokenType, options ...RequestOptionFunc) (*RawResponse, error) {
-//	return SendRequest(ctx, config, http.MethodTrace, httpPath, []AccessTokenType{accessTokeType}, body, options...)
-//}

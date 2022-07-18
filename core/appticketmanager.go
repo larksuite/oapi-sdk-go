@@ -39,7 +39,7 @@ func appTicketKey(appID string) string {
 }
 
 func applyAppTicket(ctx context.Context, config *Config) {
-	rawResp, err := Request(ctx, &HttpReq{
+	rawResp, err := Request(ctx, &ApiReq{
 		HttpMethod: http.MethodPost,
 		ApiPath:    applyAppTicketPath,
 		Body: &applyAppTicketReq{

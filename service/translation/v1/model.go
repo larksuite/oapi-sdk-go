@@ -116,14 +116,14 @@ func (builder *DetectTextPathReqBodyBuilder) Build() (*DetectTextReqBody, error)
 
 // 1.4 生成请求的builder结构体
 type DetectTextReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	body    *DetectTextReqBody
+	apiReq *larkcore.ApiReq
+	body   *DetectTextReqBody
 }
 
 // 生成请求的New构造器
 func NewDetectTextReqBuilder() *DetectTextReqBuilder {
 	builder := &DetectTextReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -139,8 +139,8 @@ func (builder *DetectTextReqBuilder) Body(body *DetectTextReqBody) *DetectTextRe
 // 1.5 生成请求的builder的build方法
 func (builder *DetectTextReqBuilder) Build() *DetectTextReq {
 	req := &DetectTextReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.Body = builder.body
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -149,8 +149,8 @@ type DetectTextReqBody struct {
 }
 
 type DetectTextReq struct {
-	httpReq *larkcore.HttpReq
-	Body    *DetectTextReqBody `body:""`
+	apiReq *larkcore.ApiReq
+	Body   *DetectTextReqBody `body:""`
 }
 
 type DetectTextRespData struct {
@@ -158,7 +158,7 @@ type DetectTextRespData struct {
 }
 
 type DetectTextResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *DetectTextRespData `json:"data"`
 }
@@ -282,14 +282,14 @@ func (builder *TranslateTextPathReqBodyBuilder) Build() (*TranslateTextReqBody, 
 
 // 1.4 生成请求的builder结构体
 type TranslateTextReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	body    *TranslateTextReqBody
+	apiReq *larkcore.ApiReq
+	body   *TranslateTextReqBody
 }
 
 // 生成请求的New构造器
 func NewTranslateTextReqBuilder() *TranslateTextReqBuilder {
 	builder := &TranslateTextReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -305,8 +305,8 @@ func (builder *TranslateTextReqBuilder) Body(body *TranslateTextReqBody) *Transl
 // 1.5 生成请求的builder的build方法
 func (builder *TranslateTextReqBuilder) Build() *TranslateTextReq {
 	req := &TranslateTextReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.Body = builder.body
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -318,8 +318,8 @@ type TranslateTextReqBody struct {
 }
 
 type TranslateTextReq struct {
-	httpReq *larkcore.HttpReq
-	Body    *TranslateTextReqBody `body:""`
+	apiReq *larkcore.ApiReq
+	Body   *TranslateTextReqBody `body:""`
 }
 
 type TranslateTextRespData struct {
@@ -327,7 +327,7 @@ type TranslateTextRespData struct {
 }
 
 type TranslateTextResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *TranslateTextRespData `json:"data"`
 }

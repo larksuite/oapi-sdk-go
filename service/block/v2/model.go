@@ -543,14 +543,14 @@ func (builder *CreateEntityPathReqBodyBuilder) Build() (*CreateEntityReqBody, er
 
 // 1.4 生成请求的builder结构体
 type CreateEntityReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	body    *CreateEntityReqBody
+	apiReq *larkcore.ApiReq
+	body   *CreateEntityReqBody
 }
 
 // 生成请求的New构造器
 func NewCreateEntityReqBuilder() *CreateEntityReqBuilder {
 	builder := &CreateEntityReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -566,8 +566,8 @@ func (builder *CreateEntityReqBuilder) Body(body *CreateEntityReqBody) *CreateEn
 // 1.5 生成请求的builder的build方法
 func (builder *CreateEntityReqBuilder) Build() *CreateEntityReq {
 	req := &CreateEntityReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.Body = builder.body
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -587,8 +587,8 @@ type CreateEntityReqBody struct {
 }
 
 type CreateEntityReq struct {
-	httpReq *larkcore.HttpReq
-	Body    *CreateEntityReqBody `body:""`
+	apiReq *larkcore.ApiReq
+	Body   *CreateEntityReqBody `body:""`
 }
 
 type CreateEntityRespData struct {
@@ -596,7 +596,7 @@ type CreateEntityRespData struct {
 }
 
 type CreateEntityResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *CreateEntityRespData `json:"data"`
 }
@@ -607,14 +607,14 @@ func (resp *CreateEntityResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type UpdateEntityReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	entity  *Entity
+	apiReq *larkcore.ApiReq
+	entity *Entity
 }
 
 // 生成请求的New构造器
 func NewUpdateEntityReqBuilder() *UpdateEntityReqBuilder {
 	builder := &UpdateEntityReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -623,7 +623,7 @@ func NewUpdateEntityReqBuilder() *UpdateEntityReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *UpdateEntityReqBuilder) BlockId(blockId string) *UpdateEntityReqBuilder {
-	builder.httpReq.PathParams.Set("block_id", fmt.Sprint(blockId))
+	builder.apiReq.PathParams.Set("block_id", fmt.Sprint(blockId))
 	return builder
 }
 func (builder *UpdateEntityReqBuilder) Entity(entity *Entity) *UpdateEntityReqBuilder {
@@ -634,19 +634,19 @@ func (builder *UpdateEntityReqBuilder) Entity(entity *Entity) *UpdateEntityReqBu
 // 1.5 生成请求的builder的build方法
 func (builder *UpdateEntityReqBuilder) Build() *UpdateEntityReq {
 	req := &UpdateEntityReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.Body = builder.entity
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.entity
 	return req
 }
 
 type UpdateEntityReq struct {
-	httpReq *larkcore.HttpReq
-	Entity  *Entity `body:""`
+	apiReq *larkcore.ApiReq
+	Entity *Entity `body:""`
 }
 
 type UpdateEntityResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 }
 
@@ -656,14 +656,14 @@ func (resp *UpdateEntityResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type CreateMessageReqBuilder struct {
-	httpReq *larkcore.HttpReq
+	apiReq  *larkcore.ApiReq
 	message *Message
 }
 
 // 生成请求的New构造器
 func NewCreateMessageReqBuilder() *CreateMessageReqBuilder {
 	builder := &CreateMessageReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -679,18 +679,18 @@ func (builder *CreateMessageReqBuilder) Message(message *Message) *CreateMessage
 // 1.5 生成请求的builder的build方法
 func (builder *CreateMessageReqBuilder) Build() *CreateMessageReq {
 	req := &CreateMessageReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.Body = builder.message
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.message
 	return req
 }
 
 type CreateMessageReq struct {
-	httpReq *larkcore.HttpReq
+	apiReq  *larkcore.ApiReq
 	Message *Message `body:""`
 }
 
 type CreateMessageResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 }
 

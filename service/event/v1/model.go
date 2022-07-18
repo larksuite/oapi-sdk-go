@@ -18,14 +18,14 @@ import (
 
 // 1.4 生成请求的builder结构体
 type ListOutboundIpReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	limit   int
+	apiReq *larkcore.ApiReq
+	limit  int
 }
 
 // 生成请求的New构造器
 func NewListOutboundIpReqBuilder() *ListOutboundIpReqBuilder {
 	builder := &ListOutboundIpReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -38,26 +38,26 @@ func (builder *ListOutboundIpReqBuilder) Limit(limit int) *ListOutboundIpReqBuil
 	return builder
 }
 func (builder *ListOutboundIpReqBuilder) PageSize(pageSize int) *ListOutboundIpReqBuilder {
-	builder.httpReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 func (builder *ListOutboundIpReqBuilder) PageToken(pageToken string) *ListOutboundIpReqBuilder {
-	builder.httpReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ListOutboundIpReqBuilder) Build() *ListOutboundIpReq {
 	req := &ListOutboundIpReq{}
-	req.httpReq = &larkcore.HttpReq{}
+	req.apiReq = &larkcore.ApiReq{}
 	req.Limit = builder.limit
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
 	return req
 }
 
 type ListOutboundIpReq struct {
-	httpReq *larkcore.HttpReq
-	Limit   int
+	apiReq *larkcore.ApiReq
+	Limit  int
 }
 
 type ListOutboundIpRespData struct {
@@ -67,7 +67,7 @@ type ListOutboundIpRespData struct {
 }
 
 type ListOutboundIpResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *ListOutboundIpRespData `json:"data"`
 }
@@ -104,7 +104,7 @@ func (iterator *ListOutboundIpIterator) Next() (bool, string, error) {
 			return false, "", nil
 		}
 		if iterator.nextPageToken != nil {
-			iterator.req.httpReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
 		}
 		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
 		if err != nil {

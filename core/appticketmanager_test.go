@@ -12,7 +12,22 @@ type MockHttpClient struct {
 }
 
 func (client *MockHttpClient) Do(*http.Request) (*http.Response, error) {
-	return nil, nil
+	return &http.Response{
+		Status:           "200",
+		StatusCode:       200,
+		Proto:            "",
+		ProtoMajor:       0,
+		ProtoMinor:       0,
+		Header:           nil,
+		Body:             nil,
+		ContentLength:    0,
+		TransferEncoding: nil,
+		Close:            false,
+		Uncompressed:     false,
+		Trailer:          nil,
+		Request:          nil,
+		TLS:              nil,
+	}, nil
 }
 func mockConfig() *Config {
 
@@ -21,8 +36,8 @@ func mockConfig() *Config {
 		AppSecret:        "xxx",
 		Logger:           newLoggerProxy(LogLevelInfo, NewEventLogger()),
 		LogLevel:         LogLevelInfo,
-		EnableTokenCache: true,
-		HttpClient:       &MockHttpClient{},
+		EnableTokenCache: false,
+		HttpClient:       &http.Client{},
 		AppType:          AppTypeSelfBuilt,
 		BaseUrl:          "https://www.baidu.com",
 	}

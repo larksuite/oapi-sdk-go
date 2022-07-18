@@ -142,14 +142,14 @@ func (builder *MotoBuilder) Build() *Moto {
 
 // 1.4 生成请求的builder结构体
 type CreateMotoReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	level   *Level
+	apiReq *larkcore.ApiReq
+	level  *Level
 }
 
 // 生成请求的New构造器
 func NewCreateMotoReqBuilder() *CreateMotoReqBuilder {
 	builder := &CreateMotoReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -158,7 +158,7 @@ func NewCreateMotoReqBuilder() *CreateMotoReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *CreateMotoReqBuilder) DepartmentIdType(departmentIdType string) *CreateMotoReqBuilder {
-	builder.httpReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
+	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
 	return builder
 }
 func (builder *CreateMotoReqBuilder) Level(level *Level) *CreateMotoReqBuilder {
@@ -169,15 +169,15 @@ func (builder *CreateMotoReqBuilder) Level(level *Level) *CreateMotoReqBuilder {
 // 1.5 生成请求的builder的build方法
 func (builder *CreateMotoReqBuilder) Build() *CreateMotoReq {
 	req := &CreateMotoReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
-	req.httpReq.Body = builder.level
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.level
 	return req
 }
 
 type CreateMotoReq struct {
-	httpReq *larkcore.HttpReq
-	Level   *Level `body:""`
+	apiReq *larkcore.ApiReq
+	Level  *Level `body:""`
 }
 
 type CreateMotoRespData struct {
@@ -185,7 +185,7 @@ type CreateMotoRespData struct {
 }
 
 type CreateMotoResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *CreateMotoRespData `json:"data"`
 }
@@ -196,13 +196,13 @@ func (resp *CreateMotoResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type GetMotoReqBuilder struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 // 生成请求的New构造器
 func NewGetMotoReqBuilder() *GetMotoReqBuilder {
 	builder := &GetMotoReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -211,25 +211,25 @@ func NewGetMotoReqBuilder() *GetMotoReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *GetMotoReqBuilder) MotoId(motoId string) *GetMotoReqBuilder {
-	builder.httpReq.PathParams.Set("moto_id", fmt.Sprint(motoId))
+	builder.apiReq.PathParams.Set("moto_id", fmt.Sprint(motoId))
 	return builder
 }
 func (builder *GetMotoReqBuilder) BodyLevel(bodyLevel string) *GetMotoReqBuilder {
-	builder.httpReq.QueryParams.Set("body_level", fmt.Sprint(bodyLevel))
+	builder.apiReq.QueryParams.Set("body_level", fmt.Sprint(bodyLevel))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *GetMotoReqBuilder) Build() *GetMotoReq {
 	req := &GetMotoReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
 	return req
 }
 
 type GetMotoReq struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 type GetMotoRespData struct {
@@ -237,7 +237,7 @@ type GetMotoRespData struct {
 }
 
 type GetMotoResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *GetMotoRespData `json:"data"`
 }
@@ -248,14 +248,14 @@ func (resp *GetMotoResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type ListMotoReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	limit   int
+	apiReq *larkcore.ApiReq
+	limit  int
 }
 
 // 生成请求的New构造器
 func NewListMotoReqBuilder() *ListMotoReqBuilder {
 	builder := &ListMotoReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -268,30 +268,30 @@ func (builder *ListMotoReqBuilder) Limit(limit int) *ListMotoReqBuilder {
 	return builder
 }
 func (builder *ListMotoReqBuilder) PageSize(pageSize int) *ListMotoReqBuilder {
-	builder.httpReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 func (builder *ListMotoReqBuilder) PageToken(pageToken string) *ListMotoReqBuilder {
-	builder.httpReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 func (builder *ListMotoReqBuilder) Level(level int) *ListMotoReqBuilder {
-	builder.httpReq.QueryParams.Set("level", fmt.Sprint(level))
+	builder.apiReq.QueryParams.Set("level", fmt.Sprint(level))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ListMotoReqBuilder) Build() *ListMotoReq {
 	req := &ListMotoReq{}
-	req.httpReq = &larkcore.HttpReq{}
+	req.apiReq = &larkcore.ApiReq{}
 	req.Limit = builder.limit
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
 	return req
 }
 
 type ListMotoReq struct {
-	httpReq *larkcore.HttpReq
-	Limit   int
+	apiReq *larkcore.ApiReq
+	Limit  int
 }
 
 type ListMotoRespData struct {
@@ -301,7 +301,7 @@ type ListMotoRespData struct {
 }
 
 type ListMotoResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *ListMotoRespData `json:"data"`
 }
@@ -338,7 +338,7 @@ func (iterator *ListMotoIterator) Next() (bool, string, error) {
 			return false, "", nil
 		}
 		if iterator.nextPageToken != nil {
-			iterator.req.httpReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
 		}
 		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
 		if err != nil {

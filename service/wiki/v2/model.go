@@ -687,14 +687,14 @@ func (builder *TaskResultBuilder) Build() *TaskResult {
 
 // 1.4 生成请求的builder结构体
 type CreateSpaceReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	space   *Space
+	apiReq *larkcore.ApiReq
+	space  *Space
 }
 
 // 生成请求的New构造器
 func NewCreateSpaceReqBuilder() *CreateSpaceReqBuilder {
 	builder := &CreateSpaceReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -710,14 +710,14 @@ func (builder *CreateSpaceReqBuilder) Space(space *Space) *CreateSpaceReqBuilder
 // 1.5 生成请求的builder的build方法
 func (builder *CreateSpaceReqBuilder) Build() *CreateSpaceReq {
 	req := &CreateSpaceReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.Body = builder.space
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.space
 	return req
 }
 
 type CreateSpaceReq struct {
-	httpReq *larkcore.HttpReq
-	Space   *Space `body:""`
+	apiReq *larkcore.ApiReq
+	Space  *Space `body:""`
 }
 
 type CreateSpaceRespData struct {
@@ -725,7 +725,7 @@ type CreateSpaceRespData struct {
 }
 
 type CreateSpaceResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *CreateSpaceRespData `json:"data"`
 }
@@ -736,13 +736,13 @@ func (resp *CreateSpaceResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type GetSpaceReqBuilder struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 // 生成请求的New构造器
 func NewGetSpaceReqBuilder() *GetSpaceReqBuilder {
 	builder := &GetSpaceReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -751,20 +751,20 @@ func NewGetSpaceReqBuilder() *GetSpaceReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *GetSpaceReqBuilder) SpaceId(spaceId string) *GetSpaceReqBuilder {
-	builder.httpReq.PathParams.Set("space_id", fmt.Sprint(spaceId))
+	builder.apiReq.PathParams.Set("space_id", fmt.Sprint(spaceId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *GetSpaceReqBuilder) Build() *GetSpaceReq {
 	req := &GetSpaceReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
 	return req
 }
 
 type GetSpaceReq struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 type GetSpaceRespData struct {
@@ -772,7 +772,7 @@ type GetSpaceRespData struct {
 }
 
 type GetSpaceResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *GetSpaceRespData `json:"data"`
 }
@@ -783,13 +783,13 @@ func (resp *GetSpaceResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type GetNodeSpaceReqBuilder struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 // 生成请求的New构造器
 func NewGetNodeSpaceReqBuilder() *GetNodeSpaceReqBuilder {
 	builder := &GetNodeSpaceReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -798,20 +798,20 @@ func NewGetNodeSpaceReqBuilder() *GetNodeSpaceReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *GetNodeSpaceReqBuilder) Token(token string) *GetNodeSpaceReqBuilder {
-	builder.httpReq.QueryParams.Set("token", fmt.Sprint(token))
+	builder.apiReq.QueryParams.Set("token", fmt.Sprint(token))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *GetNodeSpaceReqBuilder) Build() *GetNodeSpaceReq {
 	req := &GetNodeSpaceReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
 	return req
 }
 
 type GetNodeSpaceReq struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 type GetNodeSpaceRespData struct {
@@ -819,7 +819,7 @@ type GetNodeSpaceRespData struct {
 }
 
 type GetNodeSpaceResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *GetNodeSpaceRespData `json:"data"`
 }
@@ -830,14 +830,14 @@ func (resp *GetNodeSpaceResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type ListSpaceReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	limit   int
+	apiReq *larkcore.ApiReq
+	limit  int
 }
 
 // 生成请求的New构造器
 func NewListSpaceReqBuilder() *ListSpaceReqBuilder {
 	builder := &ListSpaceReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -850,26 +850,26 @@ func (builder *ListSpaceReqBuilder) Limit(limit int) *ListSpaceReqBuilder {
 	return builder
 }
 func (builder *ListSpaceReqBuilder) PageSize(pageSize int) *ListSpaceReqBuilder {
-	builder.httpReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 func (builder *ListSpaceReqBuilder) PageToken(pageToken string) *ListSpaceReqBuilder {
-	builder.httpReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ListSpaceReqBuilder) Build() *ListSpaceReq {
 	req := &ListSpaceReq{}
-	req.httpReq = &larkcore.HttpReq{}
+	req.apiReq = &larkcore.ApiReq{}
 	req.Limit = builder.limit
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
 	return req
 }
 
 type ListSpaceReq struct {
-	httpReq *larkcore.HttpReq
-	Limit   int
+	apiReq *larkcore.ApiReq
+	Limit  int
 }
 
 type ListSpaceRespData struct {
@@ -879,7 +879,7 @@ type ListSpaceRespData struct {
 }
 
 type ListSpaceResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *ListSpaceRespData `json:"data"`
 }
@@ -890,14 +890,14 @@ func (resp *ListSpaceResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type CreateSpaceMemberReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	member  *Member
+	apiReq *larkcore.ApiReq
+	member *Member
 }
 
 // 生成请求的New构造器
 func NewCreateSpaceMemberReqBuilder() *CreateSpaceMemberReqBuilder {
 	builder := &CreateSpaceMemberReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -906,11 +906,11 @@ func NewCreateSpaceMemberReqBuilder() *CreateSpaceMemberReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *CreateSpaceMemberReqBuilder) SpaceId(spaceId string) *CreateSpaceMemberReqBuilder {
-	builder.httpReq.PathParams.Set("space_id", fmt.Sprint(spaceId))
+	builder.apiReq.PathParams.Set("space_id", fmt.Sprint(spaceId))
 	return builder
 }
 func (builder *CreateSpaceMemberReqBuilder) NeedNotification(needNotification bool) *CreateSpaceMemberReqBuilder {
-	builder.httpReq.QueryParams.Set("need_notification", fmt.Sprint(needNotification))
+	builder.apiReq.QueryParams.Set("need_notification", fmt.Sprint(needNotification))
 	return builder
 }
 func (builder *CreateSpaceMemberReqBuilder) Member(member *Member) *CreateSpaceMemberReqBuilder {
@@ -921,16 +921,16 @@ func (builder *CreateSpaceMemberReqBuilder) Member(member *Member) *CreateSpaceM
 // 1.5 生成请求的builder的build方法
 func (builder *CreateSpaceMemberReqBuilder) Build() *CreateSpaceMemberReq {
 	req := &CreateSpaceMemberReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
-	req.httpReq.Body = builder.member
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.member
 	return req
 }
 
 type CreateSpaceMemberReq struct {
-	httpReq *larkcore.HttpReq
-	Member  *Member `body:""`
+	apiReq *larkcore.ApiReq
+	Member *Member `body:""`
 }
 
 type CreateSpaceMemberRespData struct {
@@ -938,7 +938,7 @@ type CreateSpaceMemberRespData struct {
 }
 
 type CreateSpaceMemberResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *CreateSpaceMemberRespData `json:"data"`
 }
@@ -949,14 +949,14 @@ func (resp *CreateSpaceMemberResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type DeleteSpaceMemberReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	member  *Member
+	apiReq *larkcore.ApiReq
+	member *Member
 }
 
 // 生成请求的New构造器
 func NewDeleteSpaceMemberReqBuilder() *DeleteSpaceMemberReqBuilder {
 	builder := &DeleteSpaceMemberReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -965,11 +965,11 @@ func NewDeleteSpaceMemberReqBuilder() *DeleteSpaceMemberReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *DeleteSpaceMemberReqBuilder) SpaceId(spaceId string) *DeleteSpaceMemberReqBuilder {
-	builder.httpReq.PathParams.Set("space_id", fmt.Sprint(spaceId))
+	builder.apiReq.PathParams.Set("space_id", fmt.Sprint(spaceId))
 	return builder
 }
 func (builder *DeleteSpaceMemberReqBuilder) MemberId(memberId string) *DeleteSpaceMemberReqBuilder {
-	builder.httpReq.PathParams.Set("member_id", fmt.Sprint(memberId))
+	builder.apiReq.PathParams.Set("member_id", fmt.Sprint(memberId))
 	return builder
 }
 func (builder *DeleteSpaceMemberReqBuilder) Member(member *Member) *DeleteSpaceMemberReqBuilder {
@@ -980,15 +980,15 @@ func (builder *DeleteSpaceMemberReqBuilder) Member(member *Member) *DeleteSpaceM
 // 1.5 生成请求的builder的build方法
 func (builder *DeleteSpaceMemberReqBuilder) Build() *DeleteSpaceMemberReq {
 	req := &DeleteSpaceMemberReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.Body = builder.member
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.member
 	return req
 }
 
 type DeleteSpaceMemberReq struct {
-	httpReq *larkcore.HttpReq
-	Member  *Member `body:""`
+	apiReq *larkcore.ApiReq
+	Member *Member `body:""`
 }
 
 type DeleteSpaceMemberRespData struct {
@@ -996,7 +996,7 @@ type DeleteSpaceMemberRespData struct {
 }
 
 type DeleteSpaceMemberResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *DeleteSpaceMemberRespData `json:"data"`
 }
@@ -1100,14 +1100,14 @@ func (builder *CopySpaceNodePathReqBodyBuilder) Build() (*CopySpaceNodeReqBody, 
 
 // 1.4 生成请求的builder结构体
 type CopySpaceNodeReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	body    *CopySpaceNodeReqBody
+	apiReq *larkcore.ApiReq
+	body   *CopySpaceNodeReqBody
 }
 
 // 生成请求的New构造器
 func NewCopySpaceNodeReqBuilder() *CopySpaceNodeReqBuilder {
 	builder := &CopySpaceNodeReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1116,11 +1116,11 @@ func NewCopySpaceNodeReqBuilder() *CopySpaceNodeReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *CopySpaceNodeReqBuilder) SpaceId(spaceId int64) *CopySpaceNodeReqBuilder {
-	builder.httpReq.PathParams.Set("space_id", fmt.Sprint(spaceId))
+	builder.apiReq.PathParams.Set("space_id", fmt.Sprint(spaceId))
 	return builder
 }
 func (builder *CopySpaceNodeReqBuilder) NodeToken(nodeToken string) *CopySpaceNodeReqBuilder {
-	builder.httpReq.PathParams.Set("node_token", fmt.Sprint(nodeToken))
+	builder.apiReq.PathParams.Set("node_token", fmt.Sprint(nodeToken))
 	return builder
 }
 func (builder *CopySpaceNodeReqBuilder) Body(body *CopySpaceNodeReqBody) *CopySpaceNodeReqBuilder {
@@ -1131,9 +1131,9 @@ func (builder *CopySpaceNodeReqBuilder) Body(body *CopySpaceNodeReqBody) *CopySp
 // 1.5 生成请求的builder的build方法
 func (builder *CopySpaceNodeReqBuilder) Build() *CopySpaceNodeReq {
 	req := &CopySpaceNodeReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.Body = builder.body
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -1144,8 +1144,8 @@ type CopySpaceNodeReqBody struct {
 }
 
 type CopySpaceNodeReq struct {
-	httpReq *larkcore.HttpReq
-	Body    *CopySpaceNodeReqBody `body:""`
+	apiReq *larkcore.ApiReq
+	Body   *CopySpaceNodeReqBody `body:""`
 }
 
 type CopySpaceNodeRespData struct {
@@ -1153,7 +1153,7 @@ type CopySpaceNodeRespData struct {
 }
 
 type CopySpaceNodeResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *CopySpaceNodeRespData `json:"data"`
 }
@@ -1164,14 +1164,14 @@ func (resp *CopySpaceNodeResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type CreateSpaceNodeReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	node    *Node
+	apiReq *larkcore.ApiReq
+	node   *Node
 }
 
 // 生成请求的New构造器
 func NewCreateSpaceNodeReqBuilder() *CreateSpaceNodeReqBuilder {
 	builder := &CreateSpaceNodeReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1180,7 +1180,7 @@ func NewCreateSpaceNodeReqBuilder() *CreateSpaceNodeReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *CreateSpaceNodeReqBuilder) SpaceId(spaceId string) *CreateSpaceNodeReqBuilder {
-	builder.httpReq.PathParams.Set("space_id", fmt.Sprint(spaceId))
+	builder.apiReq.PathParams.Set("space_id", fmt.Sprint(spaceId))
 	return builder
 }
 func (builder *CreateSpaceNodeReqBuilder) Node(node *Node) *CreateSpaceNodeReqBuilder {
@@ -1191,15 +1191,15 @@ func (builder *CreateSpaceNodeReqBuilder) Node(node *Node) *CreateSpaceNodeReqBu
 // 1.5 生成请求的builder的build方法
 func (builder *CreateSpaceNodeReqBuilder) Build() *CreateSpaceNodeReq {
 	req := &CreateSpaceNodeReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.Body = builder.node
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.node
 	return req
 }
 
 type CreateSpaceNodeReq struct {
-	httpReq *larkcore.HttpReq
-	Node    *Node `body:""`
+	apiReq *larkcore.ApiReq
+	Node   *Node `body:""`
 }
 
 type CreateSpaceNodeRespData struct {
@@ -1207,7 +1207,7 @@ type CreateSpaceNodeRespData struct {
 }
 
 type CreateSpaceNodeResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *CreateSpaceNodeRespData `json:"data"`
 }
@@ -1218,14 +1218,14 @@ func (resp *CreateSpaceNodeResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type ListSpaceNodeReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	limit   int
+	apiReq *larkcore.ApiReq
+	limit  int
 }
 
 // 生成请求的New构造器
 func NewListSpaceNodeReqBuilder() *ListSpaceNodeReqBuilder {
 	builder := &ListSpaceNodeReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1238,35 +1238,35 @@ func (builder *ListSpaceNodeReqBuilder) Limit(limit int) *ListSpaceNodeReqBuilde
 	return builder
 }
 func (builder *ListSpaceNodeReqBuilder) SpaceId(spaceId string) *ListSpaceNodeReqBuilder {
-	builder.httpReq.PathParams.Set("space_id", fmt.Sprint(spaceId))
+	builder.apiReq.PathParams.Set("space_id", fmt.Sprint(spaceId))
 	return builder
 }
 func (builder *ListSpaceNodeReqBuilder) PageSize(pageSize int) *ListSpaceNodeReqBuilder {
-	builder.httpReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 func (builder *ListSpaceNodeReqBuilder) PageToken(pageToken string) *ListSpaceNodeReqBuilder {
-	builder.httpReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 func (builder *ListSpaceNodeReqBuilder) ParentNodeToken(parentNodeToken string) *ListSpaceNodeReqBuilder {
-	builder.httpReq.QueryParams.Set("parent_node_token", fmt.Sprint(parentNodeToken))
+	builder.apiReq.QueryParams.Set("parent_node_token", fmt.Sprint(parentNodeToken))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ListSpaceNodeReqBuilder) Build() *ListSpaceNodeReq {
 	req := &ListSpaceNodeReq{}
-	req.httpReq = &larkcore.HttpReq{}
+	req.apiReq = &larkcore.ApiReq{}
 	req.Limit = builder.limit
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
 	return req
 }
 
 type ListSpaceNodeReq struct {
-	httpReq *larkcore.HttpReq
-	Limit   int
+	apiReq *larkcore.ApiReq
+	Limit  int
 }
 
 type ListSpaceNodeRespData struct {
@@ -1276,7 +1276,7 @@ type ListSpaceNodeRespData struct {
 }
 
 type ListSpaceNodeResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *ListSpaceNodeRespData `json:"data"`
 }
@@ -1360,14 +1360,14 @@ func (builder *MoveSpaceNodePathReqBodyBuilder) Build() (*MoveSpaceNodeReqBody, 
 
 // 1.4 生成请求的builder结构体
 type MoveSpaceNodeReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	body    *MoveSpaceNodeReqBody
+	apiReq *larkcore.ApiReq
+	body   *MoveSpaceNodeReqBody
 }
 
 // 生成请求的New构造器
 func NewMoveSpaceNodeReqBuilder() *MoveSpaceNodeReqBuilder {
 	builder := &MoveSpaceNodeReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1376,11 +1376,11 @@ func NewMoveSpaceNodeReqBuilder() *MoveSpaceNodeReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *MoveSpaceNodeReqBuilder) SpaceId(spaceId string) *MoveSpaceNodeReqBuilder {
-	builder.httpReq.PathParams.Set("space_id", fmt.Sprint(spaceId))
+	builder.apiReq.PathParams.Set("space_id", fmt.Sprint(spaceId))
 	return builder
 }
 func (builder *MoveSpaceNodeReqBuilder) NodeToken(nodeToken string) *MoveSpaceNodeReqBuilder {
-	builder.httpReq.PathParams.Set("node_token", fmt.Sprint(nodeToken))
+	builder.apiReq.PathParams.Set("node_token", fmt.Sprint(nodeToken))
 	return builder
 }
 func (builder *MoveSpaceNodeReqBuilder) Body(body *MoveSpaceNodeReqBody) *MoveSpaceNodeReqBuilder {
@@ -1391,9 +1391,9 @@ func (builder *MoveSpaceNodeReqBuilder) Body(body *MoveSpaceNodeReqBody) *MoveSp
 // 1.5 生成请求的builder的build方法
 func (builder *MoveSpaceNodeReqBuilder) Build() *MoveSpaceNodeReq {
 	req := &MoveSpaceNodeReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.Body = builder.body
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -1403,8 +1403,8 @@ type MoveSpaceNodeReqBody struct {
 }
 
 type MoveSpaceNodeReq struct {
-	httpReq *larkcore.HttpReq
-	Body    *MoveSpaceNodeReqBody `body:""`
+	apiReq *larkcore.ApiReq
+	Body   *MoveSpaceNodeReqBody `body:""`
 }
 
 type MoveSpaceNodeRespData struct {
@@ -1412,7 +1412,7 @@ type MoveSpaceNodeRespData struct {
 }
 
 type MoveSpaceNodeResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *MoveSpaceNodeRespData `json:"data"`
 }
@@ -1536,14 +1536,14 @@ func (builder *MoveDocsToWikiSpaceNodePathReqBodyBuilder) Build() (*MoveDocsToWi
 
 // 1.4 生成请求的builder结构体
 type MoveDocsToWikiSpaceNodeReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	body    *MoveDocsToWikiSpaceNodeReqBody
+	apiReq *larkcore.ApiReq
+	body   *MoveDocsToWikiSpaceNodeReqBody
 }
 
 // 生成请求的New构造器
 func NewMoveDocsToWikiSpaceNodeReqBuilder() *MoveDocsToWikiSpaceNodeReqBuilder {
 	builder := &MoveDocsToWikiSpaceNodeReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1552,7 +1552,7 @@ func NewMoveDocsToWikiSpaceNodeReqBuilder() *MoveDocsToWikiSpaceNodeReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *MoveDocsToWikiSpaceNodeReqBuilder) SpaceId(spaceId int64) *MoveDocsToWikiSpaceNodeReqBuilder {
-	builder.httpReq.PathParams.Set("space_id", fmt.Sprint(spaceId))
+	builder.apiReq.PathParams.Set("space_id", fmt.Sprint(spaceId))
 	return builder
 }
 func (builder *MoveDocsToWikiSpaceNodeReqBuilder) Body(body *MoveDocsToWikiSpaceNodeReqBody) *MoveDocsToWikiSpaceNodeReqBuilder {
@@ -1563,9 +1563,9 @@ func (builder *MoveDocsToWikiSpaceNodeReqBuilder) Body(body *MoveDocsToWikiSpace
 // 1.5 生成请求的builder的build方法
 func (builder *MoveDocsToWikiSpaceNodeReqBuilder) Build() *MoveDocsToWikiSpaceNodeReq {
 	req := &MoveDocsToWikiSpaceNodeReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.Body = builder.body
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -1577,8 +1577,8 @@ type MoveDocsToWikiSpaceNodeReqBody struct {
 }
 
 type MoveDocsToWikiSpaceNodeReq struct {
-	httpReq *larkcore.HttpReq
-	Body    *MoveDocsToWikiSpaceNodeReqBody `body:""`
+	apiReq *larkcore.ApiReq
+	Body   *MoveDocsToWikiSpaceNodeReqBody `body:""`
 }
 
 type MoveDocsToWikiSpaceNodeRespData struct {
@@ -1588,7 +1588,7 @@ type MoveDocsToWikiSpaceNodeRespData struct {
 }
 
 type MoveDocsToWikiSpaceNodeResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *MoveDocsToWikiSpaceNodeRespData `json:"data"`
 }
@@ -1652,14 +1652,14 @@ func (builder *UpdateTitleSpaceNodePathReqBodyBuilder) Build() (*UpdateTitleSpac
 
 // 1.4 生成请求的builder结构体
 type UpdateTitleSpaceNodeReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	body    *UpdateTitleSpaceNodeReqBody
+	apiReq *larkcore.ApiReq
+	body   *UpdateTitleSpaceNodeReqBody
 }
 
 // 生成请求的New构造器
 func NewUpdateTitleSpaceNodeReqBuilder() *UpdateTitleSpaceNodeReqBuilder {
 	builder := &UpdateTitleSpaceNodeReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1668,11 +1668,11 @@ func NewUpdateTitleSpaceNodeReqBuilder() *UpdateTitleSpaceNodeReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *UpdateTitleSpaceNodeReqBuilder) SpaceId(spaceId int64) *UpdateTitleSpaceNodeReqBuilder {
-	builder.httpReq.PathParams.Set("space_id", fmt.Sprint(spaceId))
+	builder.apiReq.PathParams.Set("space_id", fmt.Sprint(spaceId))
 	return builder
 }
 func (builder *UpdateTitleSpaceNodeReqBuilder) NodeToken(nodeToken string) *UpdateTitleSpaceNodeReqBuilder {
-	builder.httpReq.PathParams.Set("node_token", fmt.Sprint(nodeToken))
+	builder.apiReq.PathParams.Set("node_token", fmt.Sprint(nodeToken))
 	return builder
 }
 func (builder *UpdateTitleSpaceNodeReqBuilder) Body(body *UpdateTitleSpaceNodeReqBody) *UpdateTitleSpaceNodeReqBuilder {
@@ -1683,9 +1683,9 @@ func (builder *UpdateTitleSpaceNodeReqBuilder) Body(body *UpdateTitleSpaceNodeRe
 // 1.5 生成请求的builder的build方法
 func (builder *UpdateTitleSpaceNodeReqBuilder) Build() *UpdateTitleSpaceNodeReq {
 	req := &UpdateTitleSpaceNodeReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.Body = builder.body
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -1694,12 +1694,12 @@ type UpdateTitleSpaceNodeReqBody struct {
 }
 
 type UpdateTitleSpaceNodeReq struct {
-	httpReq *larkcore.HttpReq
-	Body    *UpdateTitleSpaceNodeReqBody `body:""`
+	apiReq *larkcore.ApiReq
+	Body   *UpdateTitleSpaceNodeReqBody `body:""`
 }
 
 type UpdateTitleSpaceNodeResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 }
 
@@ -1709,14 +1709,14 @@ func (resp *UpdateTitleSpaceNodeResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type UpdateSpaceSettingReqBuilder struct {
-	httpReq *larkcore.HttpReq
+	apiReq  *larkcore.ApiReq
 	setting *Setting
 }
 
 // 生成请求的New构造器
 func NewUpdateSpaceSettingReqBuilder() *UpdateSpaceSettingReqBuilder {
 	builder := &UpdateSpaceSettingReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1725,7 +1725,7 @@ func NewUpdateSpaceSettingReqBuilder() *UpdateSpaceSettingReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *UpdateSpaceSettingReqBuilder) SpaceId(spaceId string) *UpdateSpaceSettingReqBuilder {
-	builder.httpReq.PathParams.Set("space_id", fmt.Sprint(spaceId))
+	builder.apiReq.PathParams.Set("space_id", fmt.Sprint(spaceId))
 	return builder
 }
 func (builder *UpdateSpaceSettingReqBuilder) Setting(setting *Setting) *UpdateSpaceSettingReqBuilder {
@@ -1736,14 +1736,14 @@ func (builder *UpdateSpaceSettingReqBuilder) Setting(setting *Setting) *UpdateSp
 // 1.5 生成请求的builder的build方法
 func (builder *UpdateSpaceSettingReqBuilder) Build() *UpdateSpaceSettingReq {
 	req := &UpdateSpaceSettingReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.Body = builder.setting
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.setting
 	return req
 }
 
 type UpdateSpaceSettingReq struct {
-	httpReq *larkcore.HttpReq
+	apiReq  *larkcore.ApiReq
 	Setting *Setting `body:""`
 }
 
@@ -1752,7 +1752,7 @@ type UpdateSpaceSettingRespData struct {
 }
 
 type UpdateSpaceSettingResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *UpdateSpaceSettingRespData `json:"data"`
 }
@@ -1763,13 +1763,13 @@ func (resp *UpdateSpaceSettingResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type GetTaskReqBuilder struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 // 生成请求的New构造器
 func NewGetTaskReqBuilder() *GetTaskReqBuilder {
 	builder := &GetTaskReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -1778,25 +1778,25 @@ func NewGetTaskReqBuilder() *GetTaskReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *GetTaskReqBuilder) TaskId(taskId string) *GetTaskReqBuilder {
-	builder.httpReq.PathParams.Set("task_id", fmt.Sprint(taskId))
+	builder.apiReq.PathParams.Set("task_id", fmt.Sprint(taskId))
 	return builder
 }
 func (builder *GetTaskReqBuilder) TaskType(taskType string) *GetTaskReqBuilder {
-	builder.httpReq.QueryParams.Set("task_type", fmt.Sprint(taskType))
+	builder.apiReq.QueryParams.Set("task_type", fmt.Sprint(taskType))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *GetTaskReqBuilder) Build() *GetTaskReq {
 	req := &GetTaskReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
 	return req
 }
 
 type GetTaskReq struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 type GetTaskRespData struct {
@@ -1804,7 +1804,7 @@ type GetTaskRespData struct {
 }
 
 type GetTaskResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *GetTaskRespData `json:"data"`
 }
@@ -1841,7 +1841,7 @@ func (iterator *ListSpaceIterator) Next() (bool, *Space, error) {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
-			iterator.req.httpReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
 		}
 		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
 		if err != nil {
@@ -1895,7 +1895,7 @@ func (iterator *ListSpaceNodeIterator) Next() (bool, *Node, error) {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
-			iterator.req.httpReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
 		}
 		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
 		if err != nil {

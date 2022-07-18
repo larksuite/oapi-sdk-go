@@ -2467,14 +2467,14 @@ func (builder *VchatBuilder) Build() *Vchat {
 
 // 1.4 生成请求的builder结构体
 type CreateCalendarReqBuilder struct {
-	httpReq  *larkcore.HttpReq
+	apiReq   *larkcore.ApiReq
 	calendar *Calendar
 }
 
 // 生成请求的New构造器
 func NewCreateCalendarReqBuilder() *CreateCalendarReqBuilder {
 	builder := &CreateCalendarReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -2490,13 +2490,13 @@ func (builder *CreateCalendarReqBuilder) Calendar(calendar *Calendar) *CreateCal
 // 1.5 生成请求的builder的build方法
 func (builder *CreateCalendarReqBuilder) Build() *CreateCalendarReq {
 	req := &CreateCalendarReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.Body = builder.calendar
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.calendar
 	return req
 }
 
 type CreateCalendarReq struct {
-	httpReq  *larkcore.HttpReq
+	apiReq   *larkcore.ApiReq
 	Calendar *Calendar `body:""`
 }
 
@@ -2505,7 +2505,7 @@ type CreateCalendarRespData struct {
 }
 
 type CreateCalendarResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *CreateCalendarRespData `json:"data"`
 }
@@ -2516,13 +2516,13 @@ func (resp *CreateCalendarResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type DeleteCalendarReqBuilder struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 // 生成请求的New构造器
 func NewDeleteCalendarReqBuilder() *DeleteCalendarReqBuilder {
 	builder := &DeleteCalendarReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -2531,24 +2531,24 @@ func NewDeleteCalendarReqBuilder() *DeleteCalendarReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *DeleteCalendarReqBuilder) CalendarId(calendarId string) *DeleteCalendarReqBuilder {
-	builder.httpReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
+	builder.apiReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *DeleteCalendarReqBuilder) Build() *DeleteCalendarReq {
 	req := &DeleteCalendarReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
 	return req
 }
 
 type DeleteCalendarReq struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 type DeleteCalendarResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 }
 
@@ -2558,13 +2558,13 @@ func (resp *DeleteCalendarResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type GetCalendarReqBuilder struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 // 生成请求的New构造器
 func NewGetCalendarReqBuilder() *GetCalendarReqBuilder {
 	builder := &GetCalendarReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -2573,20 +2573,20 @@ func NewGetCalendarReqBuilder() *GetCalendarReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *GetCalendarReqBuilder) CalendarId(calendarId string) *GetCalendarReqBuilder {
-	builder.httpReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
+	builder.apiReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *GetCalendarReqBuilder) Build() *GetCalendarReq {
 	req := &GetCalendarReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
 	return req
 }
 
 type GetCalendarReq struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 type GetCalendarRespData struct {
@@ -2603,7 +2603,7 @@ type GetCalendarRespData struct {
 }
 
 type GetCalendarResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *GetCalendarRespData `json:"data"`
 }
@@ -2614,13 +2614,13 @@ func (resp *GetCalendarResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type ListCalendarReqBuilder struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 // 生成请求的New构造器
 func NewListCalendarReqBuilder() *ListCalendarReqBuilder {
 	builder := &ListCalendarReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -2629,28 +2629,28 @@ func NewListCalendarReqBuilder() *ListCalendarReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *ListCalendarReqBuilder) PageSize(pageSize int) *ListCalendarReqBuilder {
-	builder.httpReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 func (builder *ListCalendarReqBuilder) PageToken(pageToken string) *ListCalendarReqBuilder {
-	builder.httpReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 func (builder *ListCalendarReqBuilder) SyncToken(syncToken string) *ListCalendarReqBuilder {
-	builder.httpReq.QueryParams.Set("sync_token", fmt.Sprint(syncToken))
+	builder.apiReq.QueryParams.Set("sync_token", fmt.Sprint(syncToken))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ListCalendarReqBuilder) Build() *ListCalendarReq {
 	req := &ListCalendarReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
 	return req
 }
 
 type ListCalendarReq struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 type ListCalendarRespData struct {
@@ -2661,7 +2661,7 @@ type ListCalendarRespData struct {
 }
 
 type ListCalendarResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *ListCalendarRespData `json:"data"`
 }
@@ -2672,14 +2672,14 @@ func (resp *ListCalendarResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type PatchCalendarReqBuilder struct {
-	httpReq  *larkcore.HttpReq
+	apiReq   *larkcore.ApiReq
 	calendar *Calendar
 }
 
 // 生成请求的New构造器
 func NewPatchCalendarReqBuilder() *PatchCalendarReqBuilder {
 	builder := &PatchCalendarReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -2688,7 +2688,7 @@ func NewPatchCalendarReqBuilder() *PatchCalendarReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *PatchCalendarReqBuilder) CalendarId(calendarId string) *PatchCalendarReqBuilder {
-	builder.httpReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
+	builder.apiReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
 	return builder
 }
 func (builder *PatchCalendarReqBuilder) Calendar(calendar *Calendar) *PatchCalendarReqBuilder {
@@ -2699,14 +2699,14 @@ func (builder *PatchCalendarReqBuilder) Calendar(calendar *Calendar) *PatchCalen
 // 1.5 生成请求的builder的build方法
 func (builder *PatchCalendarReqBuilder) Build() *PatchCalendarReq {
 	req := &PatchCalendarReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.Body = builder.calendar
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.calendar
 	return req
 }
 
 type PatchCalendarReq struct {
-	httpReq  *larkcore.HttpReq
+	apiReq   *larkcore.ApiReq
 	Calendar *Calendar `body:""`
 }
 
@@ -2715,7 +2715,7 @@ type PatchCalendarRespData struct {
 }
 
 type PatchCalendarResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *PatchCalendarRespData `json:"data"`
 }
@@ -2726,13 +2726,13 @@ func (resp *PatchCalendarResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type PrimaryCalendarReqBuilder struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 // 生成请求的New构造器
 func NewPrimaryCalendarReqBuilder() *PrimaryCalendarReqBuilder {
 	builder := &PrimaryCalendarReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -2741,20 +2741,20 @@ func NewPrimaryCalendarReqBuilder() *PrimaryCalendarReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *PrimaryCalendarReqBuilder) UserIdType(userIdType string) *PrimaryCalendarReqBuilder {
-	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *PrimaryCalendarReqBuilder) Build() *PrimaryCalendarReq {
 	req := &PrimaryCalendarReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
 	return req
 }
 
 type PrimaryCalendarReq struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 type PrimaryCalendarRespData struct {
@@ -2762,7 +2762,7 @@ type PrimaryCalendarRespData struct {
 }
 
 type PrimaryCalendarResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *PrimaryCalendarRespData `json:"data"`
 }
@@ -2826,15 +2826,15 @@ func (builder *SearchCalendarPathReqBodyBuilder) Build() (*SearchCalendarReqBody
 
 // 1.4 生成请求的builder结构体
 type SearchCalendarReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	body    *SearchCalendarReqBody
-	limit   int
+	apiReq *larkcore.ApiReq
+	body   *SearchCalendarReqBody
+	limit  int
 }
 
 // 生成请求的New构造器
 func NewSearchCalendarReqBuilder() *SearchCalendarReqBuilder {
 	builder := &SearchCalendarReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -2847,11 +2847,11 @@ func (builder *SearchCalendarReqBuilder) Limit(limit int) *SearchCalendarReqBuil
 	return builder
 }
 func (builder *SearchCalendarReqBuilder) PageToken(pageToken string) *SearchCalendarReqBuilder {
-	builder.httpReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 func (builder *SearchCalendarReqBuilder) PageSize(pageSize int) *SearchCalendarReqBuilder {
-	builder.httpReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 func (builder *SearchCalendarReqBuilder) Body(body *SearchCalendarReqBody) *SearchCalendarReqBuilder {
@@ -2862,10 +2862,10 @@ func (builder *SearchCalendarReqBuilder) Body(body *SearchCalendarReqBody) *Sear
 // 1.5 生成请求的builder的build方法
 func (builder *SearchCalendarReqBuilder) Build() *SearchCalendarReq {
 	req := &SearchCalendarReq{}
-	req.httpReq = &larkcore.HttpReq{}
+	req.apiReq = &larkcore.ApiReq{}
 	req.Limit = builder.limit
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
-	req.httpReq.Body = builder.body
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -2874,9 +2874,9 @@ type SearchCalendarReqBody struct {
 }
 
 type SearchCalendarReq struct {
-	httpReq *larkcore.HttpReq
-	Body    *SearchCalendarReqBody `body:""`
-	Limit   int
+	apiReq *larkcore.ApiReq
+	Body   *SearchCalendarReqBody `body:""`
+	Limit  int
 }
 
 type SearchCalendarRespData struct {
@@ -2885,7 +2885,7 @@ type SearchCalendarRespData struct {
 }
 
 type SearchCalendarResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *SearchCalendarRespData `json:"data"`
 }
@@ -2896,13 +2896,13 @@ func (resp *SearchCalendarResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type SubscribeCalendarReqBuilder struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 // 生成请求的New构造器
 func NewSubscribeCalendarReqBuilder() *SubscribeCalendarReqBuilder {
 	builder := &SubscribeCalendarReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -2911,20 +2911,20 @@ func NewSubscribeCalendarReqBuilder() *SubscribeCalendarReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *SubscribeCalendarReqBuilder) CalendarId(calendarId string) *SubscribeCalendarReqBuilder {
-	builder.httpReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
+	builder.apiReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *SubscribeCalendarReqBuilder) Build() *SubscribeCalendarReq {
 	req := &SubscribeCalendarReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
 	return req
 }
 
 type SubscribeCalendarReq struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 type SubscribeCalendarRespData struct {
@@ -2932,7 +2932,7 @@ type SubscribeCalendarRespData struct {
 }
 
 type SubscribeCalendarResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *SubscribeCalendarRespData `json:"data"`
 }
@@ -2942,7 +2942,7 @@ func (resp *SubscribeCalendarResp) Success() bool {
 }
 
 type SubscriptionCalendarResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 }
 
@@ -2952,13 +2952,13 @@ func (resp *SubscriptionCalendarResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type UnsubscribeCalendarReqBuilder struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 // 生成请求的New构造器
 func NewUnsubscribeCalendarReqBuilder() *UnsubscribeCalendarReqBuilder {
 	builder := &UnsubscribeCalendarReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -2967,24 +2967,24 @@ func NewUnsubscribeCalendarReqBuilder() *UnsubscribeCalendarReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *UnsubscribeCalendarReqBuilder) CalendarId(calendarId string) *UnsubscribeCalendarReqBuilder {
-	builder.httpReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
+	builder.apiReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *UnsubscribeCalendarReqBuilder) Build() *UnsubscribeCalendarReq {
 	req := &UnsubscribeCalendarReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
 	return req
 }
 
 type UnsubscribeCalendarReq struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 type UnsubscribeCalendarResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 }
 
@@ -2994,14 +2994,14 @@ func (resp *UnsubscribeCalendarResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type CreateCalendarAclReqBuilder struct {
-	httpReq     *larkcore.HttpReq
+	apiReq      *larkcore.ApiReq
 	calendarAcl *CalendarAcl
 }
 
 // 生成请求的New构造器
 func NewCreateCalendarAclReqBuilder() *CreateCalendarAclReqBuilder {
 	builder := &CreateCalendarAclReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -3010,11 +3010,11 @@ func NewCreateCalendarAclReqBuilder() *CreateCalendarAclReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *CreateCalendarAclReqBuilder) CalendarId(calendarId string) *CreateCalendarAclReqBuilder {
-	builder.httpReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
+	builder.apiReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
 	return builder
 }
 func (builder *CreateCalendarAclReqBuilder) UserIdType(userIdType string) *CreateCalendarAclReqBuilder {
-	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *CreateCalendarAclReqBuilder) CalendarAcl(calendarAcl *CalendarAcl) *CreateCalendarAclReqBuilder {
@@ -3025,15 +3025,15 @@ func (builder *CreateCalendarAclReqBuilder) CalendarAcl(calendarAcl *CalendarAcl
 // 1.5 生成请求的builder的build方法
 func (builder *CreateCalendarAclReqBuilder) Build() *CreateCalendarAclReq {
 	req := &CreateCalendarAclReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
-	req.httpReq.Body = builder.calendarAcl
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.calendarAcl
 	return req
 }
 
 type CreateCalendarAclReq struct {
-	httpReq     *larkcore.HttpReq
+	apiReq      *larkcore.ApiReq
 	CalendarAcl *CalendarAcl `body:""`
 }
 
@@ -3044,7 +3044,7 @@ type CreateCalendarAclRespData struct {
 }
 
 type CreateCalendarAclResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *CreateCalendarAclRespData `json:"data"`
 }
@@ -3055,13 +3055,13 @@ func (resp *CreateCalendarAclResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type DeleteCalendarAclReqBuilder struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 // 生成请求的New构造器
 func NewDeleteCalendarAclReqBuilder() *DeleteCalendarAclReqBuilder {
 	builder := &DeleteCalendarAclReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -3070,28 +3070,28 @@ func NewDeleteCalendarAclReqBuilder() *DeleteCalendarAclReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *DeleteCalendarAclReqBuilder) CalendarId(calendarId string) *DeleteCalendarAclReqBuilder {
-	builder.httpReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
+	builder.apiReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
 	return builder
 }
 func (builder *DeleteCalendarAclReqBuilder) AclId(aclId string) *DeleteCalendarAclReqBuilder {
-	builder.httpReq.PathParams.Set("acl_id", fmt.Sprint(aclId))
+	builder.apiReq.PathParams.Set("acl_id", fmt.Sprint(aclId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *DeleteCalendarAclReqBuilder) Build() *DeleteCalendarAclReq {
 	req := &DeleteCalendarAclReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
 	return req
 }
 
 type DeleteCalendarAclReq struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 type DeleteCalendarAclResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 }
 
@@ -3101,14 +3101,14 @@ func (resp *DeleteCalendarAclResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type ListCalendarAclReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	limit   int
+	apiReq *larkcore.ApiReq
+	limit  int
 }
 
 // 生成请求的New构造器
 func NewListCalendarAclReqBuilder() *ListCalendarAclReqBuilder {
 	builder := &ListCalendarAclReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -3121,35 +3121,35 @@ func (builder *ListCalendarAclReqBuilder) Limit(limit int) *ListCalendarAclReqBu
 	return builder
 }
 func (builder *ListCalendarAclReqBuilder) CalendarId(calendarId string) *ListCalendarAclReqBuilder {
-	builder.httpReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
+	builder.apiReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
 	return builder
 }
 func (builder *ListCalendarAclReqBuilder) UserIdType(userIdType string) *ListCalendarAclReqBuilder {
-	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *ListCalendarAclReqBuilder) PageToken(pageToken string) *ListCalendarAclReqBuilder {
-	builder.httpReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 func (builder *ListCalendarAclReqBuilder) PageSize(pageSize int) *ListCalendarAclReqBuilder {
-	builder.httpReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ListCalendarAclReqBuilder) Build() *ListCalendarAclReq {
 	req := &ListCalendarAclReq{}
-	req.httpReq = &larkcore.HttpReq{}
+	req.apiReq = &larkcore.ApiReq{}
 	req.Limit = builder.limit
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
 	return req
 }
 
 type ListCalendarAclReq struct {
-	httpReq *larkcore.HttpReq
-	Limit   int
+	apiReq *larkcore.ApiReq
+	Limit  int
 }
 
 type ListCalendarAclRespData struct {
@@ -3159,7 +3159,7 @@ type ListCalendarAclRespData struct {
 }
 
 type ListCalendarAclResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *ListCalendarAclRespData `json:"data"`
 }
@@ -3170,13 +3170,13 @@ func (resp *ListCalendarAclResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type SubscriptionCalendarAclReqBuilder struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 // 生成请求的New构造器
 func NewSubscriptionCalendarAclReqBuilder() *SubscriptionCalendarAclReqBuilder {
 	builder := &SubscriptionCalendarAclReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -3185,24 +3185,24 @@ func NewSubscriptionCalendarAclReqBuilder() *SubscriptionCalendarAclReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *SubscriptionCalendarAclReqBuilder) CalendarId(calendarId string) *SubscriptionCalendarAclReqBuilder {
-	builder.httpReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
+	builder.apiReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *SubscriptionCalendarAclReqBuilder) Build() *SubscriptionCalendarAclReq {
 	req := &SubscriptionCalendarAclReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
 	return req
 }
 
 type SubscriptionCalendarAclReq struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 type SubscriptionCalendarAclResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 }
 
@@ -3212,14 +3212,14 @@ func (resp *SubscriptionCalendarAclResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type CreateCalendarEventReqBuilder struct {
-	httpReq       *larkcore.HttpReq
+	apiReq        *larkcore.ApiReq
 	calendarEvent *CalendarEvent
 }
 
 // 生成请求的New构造器
 func NewCreateCalendarEventReqBuilder() *CreateCalendarEventReqBuilder {
 	builder := &CreateCalendarEventReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -3228,7 +3228,7 @@ func NewCreateCalendarEventReqBuilder() *CreateCalendarEventReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *CreateCalendarEventReqBuilder) CalendarId(calendarId string) *CreateCalendarEventReqBuilder {
-	builder.httpReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
+	builder.apiReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
 	return builder
 }
 func (builder *CreateCalendarEventReqBuilder) CalendarEvent(calendarEvent *CalendarEvent) *CreateCalendarEventReqBuilder {
@@ -3239,14 +3239,14 @@ func (builder *CreateCalendarEventReqBuilder) CalendarEvent(calendarEvent *Calen
 // 1.5 生成请求的builder的build方法
 func (builder *CreateCalendarEventReqBuilder) Build() *CreateCalendarEventReq {
 	req := &CreateCalendarEventReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.Body = builder.calendarEvent
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.calendarEvent
 	return req
 }
 
 type CreateCalendarEventReq struct {
-	httpReq       *larkcore.HttpReq
+	apiReq        *larkcore.ApiReq
 	CalendarEvent *CalendarEvent `body:""`
 }
 
@@ -3255,7 +3255,7 @@ type CreateCalendarEventRespData struct {
 }
 
 type CreateCalendarEventResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *CreateCalendarEventRespData `json:"data"`
 }
@@ -3266,13 +3266,13 @@ func (resp *CreateCalendarEventResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type DeleteCalendarEventReqBuilder struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 // 生成请求的New构造器
 func NewDeleteCalendarEventReqBuilder() *DeleteCalendarEventReqBuilder {
 	builder := &DeleteCalendarEventReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -3281,33 +3281,33 @@ func NewDeleteCalendarEventReqBuilder() *DeleteCalendarEventReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *DeleteCalendarEventReqBuilder) CalendarId(calendarId string) *DeleteCalendarEventReqBuilder {
-	builder.httpReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
+	builder.apiReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
 	return builder
 }
 func (builder *DeleteCalendarEventReqBuilder) EventId(eventId string) *DeleteCalendarEventReqBuilder {
-	builder.httpReq.PathParams.Set("event_id", fmt.Sprint(eventId))
+	builder.apiReq.PathParams.Set("event_id", fmt.Sprint(eventId))
 	return builder
 }
 func (builder *DeleteCalendarEventReqBuilder) NeedNotification(needNotification bool) *DeleteCalendarEventReqBuilder {
-	builder.httpReq.QueryParams.Set("need_notification", fmt.Sprint(needNotification))
+	builder.apiReq.QueryParams.Set("need_notification", fmt.Sprint(needNotification))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *DeleteCalendarEventReqBuilder) Build() *DeleteCalendarEventReq {
 	req := &DeleteCalendarEventReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
 	return req
 }
 
 type DeleteCalendarEventReq struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 type DeleteCalendarEventResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 }
 
@@ -3317,13 +3317,13 @@ func (resp *DeleteCalendarEventResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type GetCalendarEventReqBuilder struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 // 生成请求的New构造器
 func NewGetCalendarEventReqBuilder() *GetCalendarEventReqBuilder {
 	builder := &GetCalendarEventReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -3332,24 +3332,24 @@ func NewGetCalendarEventReqBuilder() *GetCalendarEventReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *GetCalendarEventReqBuilder) CalendarId(calendarId string) *GetCalendarEventReqBuilder {
-	builder.httpReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
+	builder.apiReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
 	return builder
 }
 func (builder *GetCalendarEventReqBuilder) EventId(eventId string) *GetCalendarEventReqBuilder {
-	builder.httpReq.PathParams.Set("event_id", fmt.Sprint(eventId))
+	builder.apiReq.PathParams.Set("event_id", fmt.Sprint(eventId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *GetCalendarEventReqBuilder) Build() *GetCalendarEventReq {
 	req := &GetCalendarEventReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
 	return req
 }
 
 type GetCalendarEventReq struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 type GetCalendarEventRespData struct {
@@ -3357,7 +3357,7 @@ type GetCalendarEventRespData struct {
 }
 
 type GetCalendarEventResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *GetCalendarEventRespData `json:"data"`
 }
@@ -3368,13 +3368,13 @@ func (resp *GetCalendarEventResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type ListCalendarEventReqBuilder struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 // 生成请求的New构造器
 func NewListCalendarEventReqBuilder() *ListCalendarEventReqBuilder {
 	builder := &ListCalendarEventReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -3383,45 +3383,45 @@ func NewListCalendarEventReqBuilder() *ListCalendarEventReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *ListCalendarEventReqBuilder) CalendarId(calendarId string) *ListCalendarEventReqBuilder {
-	builder.httpReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
+	builder.apiReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
 	return builder
 }
 func (builder *ListCalendarEventReqBuilder) PageSize(pageSize int) *ListCalendarEventReqBuilder {
-	builder.httpReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 func (builder *ListCalendarEventReqBuilder) AnchorTime(anchorTime string) *ListCalendarEventReqBuilder {
-	builder.httpReq.QueryParams.Set("anchor_time", fmt.Sprint(anchorTime))
+	builder.apiReq.QueryParams.Set("anchor_time", fmt.Sprint(anchorTime))
 	return builder
 }
 func (builder *ListCalendarEventReqBuilder) PageToken(pageToken string) *ListCalendarEventReqBuilder {
-	builder.httpReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 func (builder *ListCalendarEventReqBuilder) SyncToken(syncToken string) *ListCalendarEventReqBuilder {
-	builder.httpReq.QueryParams.Set("sync_token", fmt.Sprint(syncToken))
+	builder.apiReq.QueryParams.Set("sync_token", fmt.Sprint(syncToken))
 	return builder
 }
 func (builder *ListCalendarEventReqBuilder) StartTime(startTime string) *ListCalendarEventReqBuilder {
-	builder.httpReq.QueryParams.Set("start_time", fmt.Sprint(startTime))
+	builder.apiReq.QueryParams.Set("start_time", fmt.Sprint(startTime))
 	return builder
 }
 func (builder *ListCalendarEventReqBuilder) EndTime(endTime string) *ListCalendarEventReqBuilder {
-	builder.httpReq.QueryParams.Set("end_time", fmt.Sprint(endTime))
+	builder.apiReq.QueryParams.Set("end_time", fmt.Sprint(endTime))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ListCalendarEventReqBuilder) Build() *ListCalendarEventReq {
 	req := &ListCalendarEventReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
 	return req
 }
 
 type ListCalendarEventReq struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 type ListCalendarEventRespData struct {
@@ -3432,7 +3432,7 @@ type ListCalendarEventRespData struct {
 }
 
 type ListCalendarEventResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *ListCalendarEventRespData `json:"data"`
 }
@@ -3443,14 +3443,14 @@ func (resp *ListCalendarEventResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type PatchCalendarEventReqBuilder struct {
-	httpReq       *larkcore.HttpReq
+	apiReq        *larkcore.ApiReq
 	calendarEvent *CalendarEvent
 }
 
 // 生成请求的New构造器
 func NewPatchCalendarEventReqBuilder() *PatchCalendarEventReqBuilder {
 	builder := &PatchCalendarEventReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -3459,11 +3459,11 @@ func NewPatchCalendarEventReqBuilder() *PatchCalendarEventReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *PatchCalendarEventReqBuilder) CalendarId(calendarId string) *PatchCalendarEventReqBuilder {
-	builder.httpReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
+	builder.apiReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
 	return builder
 }
 func (builder *PatchCalendarEventReqBuilder) EventId(eventId string) *PatchCalendarEventReqBuilder {
-	builder.httpReq.PathParams.Set("event_id", fmt.Sprint(eventId))
+	builder.apiReq.PathParams.Set("event_id", fmt.Sprint(eventId))
 	return builder
 }
 func (builder *PatchCalendarEventReqBuilder) CalendarEvent(calendarEvent *CalendarEvent) *PatchCalendarEventReqBuilder {
@@ -3474,14 +3474,14 @@ func (builder *PatchCalendarEventReqBuilder) CalendarEvent(calendarEvent *Calend
 // 1.5 生成请求的builder的build方法
 func (builder *PatchCalendarEventReqBuilder) Build() *PatchCalendarEventReq {
 	req := &PatchCalendarEventReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.Body = builder.calendarEvent
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.calendarEvent
 	return req
 }
 
 type PatchCalendarEventReq struct {
-	httpReq       *larkcore.HttpReq
+	apiReq        *larkcore.ApiReq
 	CalendarEvent *CalendarEvent `body:""`
 }
 
@@ -3490,7 +3490,7 @@ type PatchCalendarEventRespData struct {
 }
 
 type PatchCalendarEventResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *PatchCalendarEventRespData `json:"data"`
 }
@@ -3574,15 +3574,15 @@ func (builder *SearchCalendarEventPathReqBodyBuilder) Build() (*SearchCalendarEv
 
 // 1.4 生成请求的builder结构体
 type SearchCalendarEventReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	body    *SearchCalendarEventReqBody
-	limit   int
+	apiReq *larkcore.ApiReq
+	body   *SearchCalendarEventReqBody
+	limit  int
 }
 
 // 生成请求的New构造器
 func NewSearchCalendarEventReqBuilder() *SearchCalendarEventReqBuilder {
 	builder := &SearchCalendarEventReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -3595,19 +3595,19 @@ func (builder *SearchCalendarEventReqBuilder) Limit(limit int) *SearchCalendarEv
 	return builder
 }
 func (builder *SearchCalendarEventReqBuilder) CalendarId(calendarId string) *SearchCalendarEventReqBuilder {
-	builder.httpReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
+	builder.apiReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
 	return builder
 }
 func (builder *SearchCalendarEventReqBuilder) UserIdType(userIdType string) *SearchCalendarEventReqBuilder {
-	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *SearchCalendarEventReqBuilder) PageToken(pageToken string) *SearchCalendarEventReqBuilder {
-	builder.httpReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 func (builder *SearchCalendarEventReqBuilder) PageSize(pageSize int) *SearchCalendarEventReqBuilder {
-	builder.httpReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 func (builder *SearchCalendarEventReqBuilder) Body(body *SearchCalendarEventReqBody) *SearchCalendarEventReqBuilder {
@@ -3618,11 +3618,11 @@ func (builder *SearchCalendarEventReqBuilder) Body(body *SearchCalendarEventReqB
 // 1.5 生成请求的builder的build方法
 func (builder *SearchCalendarEventReqBuilder) Build() *SearchCalendarEventReq {
 	req := &SearchCalendarEventReq{}
-	req.httpReq = &larkcore.HttpReq{}
+	req.apiReq = &larkcore.ApiReq{}
 	req.Limit = builder.limit
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
-	req.httpReq.Body = builder.body
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -3632,9 +3632,9 @@ type SearchCalendarEventReqBody struct {
 }
 
 type SearchCalendarEventReq struct {
-	httpReq *larkcore.HttpReq
-	Body    *SearchCalendarEventReqBody `body:""`
-	Limit   int
+	apiReq *larkcore.ApiReq
+	Body   *SearchCalendarEventReqBody `body:""`
+	Limit  int
 }
 
 type SearchCalendarEventRespData struct {
@@ -3643,7 +3643,7 @@ type SearchCalendarEventRespData struct {
 }
 
 type SearchCalendarEventResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *SearchCalendarEventRespData `json:"data"`
 }
@@ -3654,13 +3654,13 @@ func (resp *SearchCalendarEventResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type SubscriptionCalendarEventReqBuilder struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 // 生成请求的New构造器
 func NewSubscriptionCalendarEventReqBuilder() *SubscriptionCalendarEventReqBuilder {
 	builder := &SubscriptionCalendarEventReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -3669,24 +3669,24 @@ func NewSubscriptionCalendarEventReqBuilder() *SubscriptionCalendarEventReqBuild
 
 // 1.5 生成请求的builder属性方法
 func (builder *SubscriptionCalendarEventReqBuilder) CalendarId(calendarId string) *SubscriptionCalendarEventReqBuilder {
-	builder.httpReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
+	builder.apiReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *SubscriptionCalendarEventReqBuilder) Build() *SubscriptionCalendarEventReq {
 	req := &SubscriptionCalendarEventReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
 	return req
 }
 
 type SubscriptionCalendarEventReq struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 type SubscriptionCalendarEventResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 }
 
@@ -3829,14 +3829,14 @@ func (builder *BatchDeleteCalendarEventAttendeePathReqBodyBuilder) Build() (*Bat
 
 // 1.4 生成请求的builder结构体
 type BatchDeleteCalendarEventAttendeeReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	body    *BatchDeleteCalendarEventAttendeeReqBody
+	apiReq *larkcore.ApiReq
+	body   *BatchDeleteCalendarEventAttendeeReqBody
 }
 
 // 生成请求的New构造器
 func NewBatchDeleteCalendarEventAttendeeReqBuilder() *BatchDeleteCalendarEventAttendeeReqBuilder {
 	builder := &BatchDeleteCalendarEventAttendeeReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -3845,15 +3845,15 @@ func NewBatchDeleteCalendarEventAttendeeReqBuilder() *BatchDeleteCalendarEventAt
 
 // 1.5 生成请求的builder属性方法
 func (builder *BatchDeleteCalendarEventAttendeeReqBuilder) CalendarId(calendarId string) *BatchDeleteCalendarEventAttendeeReqBuilder {
-	builder.httpReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
+	builder.apiReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
 	return builder
 }
 func (builder *BatchDeleteCalendarEventAttendeeReqBuilder) EventId(eventId string) *BatchDeleteCalendarEventAttendeeReqBuilder {
-	builder.httpReq.PathParams.Set("event_id", fmt.Sprint(eventId))
+	builder.apiReq.PathParams.Set("event_id", fmt.Sprint(eventId))
 	return builder
 }
 func (builder *BatchDeleteCalendarEventAttendeeReqBuilder) UserIdType(userIdType string) *BatchDeleteCalendarEventAttendeeReqBuilder {
-	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *BatchDeleteCalendarEventAttendeeReqBuilder) Body(body *BatchDeleteCalendarEventAttendeeReqBody) *BatchDeleteCalendarEventAttendeeReqBuilder {
@@ -3864,10 +3864,10 @@ func (builder *BatchDeleteCalendarEventAttendeeReqBuilder) Body(body *BatchDelet
 // 1.5 生成请求的builder的build方法
 func (builder *BatchDeleteCalendarEventAttendeeReqBuilder) Build() *BatchDeleteCalendarEventAttendeeReq {
 	req := &BatchDeleteCalendarEventAttendeeReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
-	req.httpReq.Body = builder.body
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -3880,12 +3880,12 @@ type BatchDeleteCalendarEventAttendeeReqBody struct {
 }
 
 type BatchDeleteCalendarEventAttendeeReq struct {
-	httpReq *larkcore.HttpReq
-	Body    *BatchDeleteCalendarEventAttendeeReqBody `body:""`
+	apiReq *larkcore.ApiReq
+	Body   *BatchDeleteCalendarEventAttendeeReqBody `body:""`
 }
 
 type BatchDeleteCalendarEventAttendeeResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 }
 
@@ -4008,14 +4008,14 @@ func (builder *CreateCalendarEventAttendeePathReqBodyBuilder) Build() (*CreateCa
 
 // 1.4 生成请求的builder结构体
 type CreateCalendarEventAttendeeReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	body    *CreateCalendarEventAttendeeReqBody
+	apiReq *larkcore.ApiReq
+	body   *CreateCalendarEventAttendeeReqBody
 }
 
 // 生成请求的New构造器
 func NewCreateCalendarEventAttendeeReqBuilder() *CreateCalendarEventAttendeeReqBuilder {
 	builder := &CreateCalendarEventAttendeeReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -4024,15 +4024,15 @@ func NewCreateCalendarEventAttendeeReqBuilder() *CreateCalendarEventAttendeeReqB
 
 // 1.5 生成请求的builder属性方法
 func (builder *CreateCalendarEventAttendeeReqBuilder) CalendarId(calendarId string) *CreateCalendarEventAttendeeReqBuilder {
-	builder.httpReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
+	builder.apiReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
 	return builder
 }
 func (builder *CreateCalendarEventAttendeeReqBuilder) EventId(eventId string) *CreateCalendarEventAttendeeReqBuilder {
-	builder.httpReq.PathParams.Set("event_id", fmt.Sprint(eventId))
+	builder.apiReq.PathParams.Set("event_id", fmt.Sprint(eventId))
 	return builder
 }
 func (builder *CreateCalendarEventAttendeeReqBuilder) UserIdType(userIdType string) *CreateCalendarEventAttendeeReqBuilder {
-	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *CreateCalendarEventAttendeeReqBuilder) Body(body *CreateCalendarEventAttendeeReqBody) *CreateCalendarEventAttendeeReqBuilder {
@@ -4043,10 +4043,10 @@ func (builder *CreateCalendarEventAttendeeReqBuilder) Body(body *CreateCalendarE
 // 1.5 生成请求的builder的build方法
 func (builder *CreateCalendarEventAttendeeReqBuilder) Build() *CreateCalendarEventAttendeeReq {
 	req := &CreateCalendarEventAttendeeReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
-	req.httpReq.Body = builder.body
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -4058,8 +4058,8 @@ type CreateCalendarEventAttendeeReqBody struct {
 }
 
 type CreateCalendarEventAttendeeReq struct {
-	httpReq *larkcore.HttpReq
-	Body    *CreateCalendarEventAttendeeReqBody `body:""`
+	apiReq *larkcore.ApiReq
+	Body   *CreateCalendarEventAttendeeReqBody `body:""`
 }
 
 type CreateCalendarEventAttendeeRespData struct {
@@ -4067,7 +4067,7 @@ type CreateCalendarEventAttendeeRespData struct {
 }
 
 type CreateCalendarEventAttendeeResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *CreateCalendarEventAttendeeRespData `json:"data"`
 }
@@ -4078,14 +4078,14 @@ func (resp *CreateCalendarEventAttendeeResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type ListCalendarEventAttendeeReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	limit   int
+	apiReq *larkcore.ApiReq
+	limit  int
 }
 
 // 生成请求的New构造器
 func NewListCalendarEventAttendeeReqBuilder() *ListCalendarEventAttendeeReqBuilder {
 	builder := &ListCalendarEventAttendeeReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -4098,39 +4098,39 @@ func (builder *ListCalendarEventAttendeeReqBuilder) Limit(limit int) *ListCalend
 	return builder
 }
 func (builder *ListCalendarEventAttendeeReqBuilder) CalendarId(calendarId string) *ListCalendarEventAttendeeReqBuilder {
-	builder.httpReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
+	builder.apiReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
 	return builder
 }
 func (builder *ListCalendarEventAttendeeReqBuilder) EventId(eventId string) *ListCalendarEventAttendeeReqBuilder {
-	builder.httpReq.PathParams.Set("event_id", fmt.Sprint(eventId))
+	builder.apiReq.PathParams.Set("event_id", fmt.Sprint(eventId))
 	return builder
 }
 func (builder *ListCalendarEventAttendeeReqBuilder) UserIdType(userIdType string) *ListCalendarEventAttendeeReqBuilder {
-	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *ListCalendarEventAttendeeReqBuilder) PageToken(pageToken string) *ListCalendarEventAttendeeReqBuilder {
-	builder.httpReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 func (builder *ListCalendarEventAttendeeReqBuilder) PageSize(pageSize int) *ListCalendarEventAttendeeReqBuilder {
-	builder.httpReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ListCalendarEventAttendeeReqBuilder) Build() *ListCalendarEventAttendeeReq {
 	req := &ListCalendarEventAttendeeReq{}
-	req.httpReq = &larkcore.HttpReq{}
+	req.apiReq = &larkcore.ApiReq{}
 	req.Limit = builder.limit
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
 	return req
 }
 
 type ListCalendarEventAttendeeReq struct {
-	httpReq *larkcore.HttpReq
-	Limit   int
+	apiReq *larkcore.ApiReq
+	Limit  int
 }
 
 type ListCalendarEventAttendeeRespData struct {
@@ -4140,7 +4140,7 @@ type ListCalendarEventAttendeeRespData struct {
 }
 
 type ListCalendarEventAttendeeResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *ListCalendarEventAttendeeRespData `json:"data"`
 }
@@ -4151,14 +4151,14 @@ func (resp *ListCalendarEventAttendeeResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type ListCalendarEventAttendeeChatMemberReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	limit   int
+	apiReq *larkcore.ApiReq
+	limit  int
 }
 
 // 生成请求的New构造器
 func NewListCalendarEventAttendeeChatMemberReqBuilder() *ListCalendarEventAttendeeChatMemberReqBuilder {
 	builder := &ListCalendarEventAttendeeChatMemberReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -4171,43 +4171,43 @@ func (builder *ListCalendarEventAttendeeChatMemberReqBuilder) Limit(limit int) *
 	return builder
 }
 func (builder *ListCalendarEventAttendeeChatMemberReqBuilder) CalendarId(calendarId string) *ListCalendarEventAttendeeChatMemberReqBuilder {
-	builder.httpReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
+	builder.apiReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
 	return builder
 }
 func (builder *ListCalendarEventAttendeeChatMemberReqBuilder) EventId(eventId string) *ListCalendarEventAttendeeChatMemberReqBuilder {
-	builder.httpReq.PathParams.Set("event_id", fmt.Sprint(eventId))
+	builder.apiReq.PathParams.Set("event_id", fmt.Sprint(eventId))
 	return builder
 }
 func (builder *ListCalendarEventAttendeeChatMemberReqBuilder) AttendeeId(attendeeId string) *ListCalendarEventAttendeeChatMemberReqBuilder {
-	builder.httpReq.PathParams.Set("attendee_id", fmt.Sprint(attendeeId))
+	builder.apiReq.PathParams.Set("attendee_id", fmt.Sprint(attendeeId))
 	return builder
 }
 func (builder *ListCalendarEventAttendeeChatMemberReqBuilder) PageToken(pageToken string) *ListCalendarEventAttendeeChatMemberReqBuilder {
-	builder.httpReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 func (builder *ListCalendarEventAttendeeChatMemberReqBuilder) PageSize(pageSize int) *ListCalendarEventAttendeeChatMemberReqBuilder {
-	builder.httpReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 func (builder *ListCalendarEventAttendeeChatMemberReqBuilder) UserIdType(userIdType string) *ListCalendarEventAttendeeChatMemberReqBuilder {
-	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ListCalendarEventAttendeeChatMemberReqBuilder) Build() *ListCalendarEventAttendeeChatMemberReq {
 	req := &ListCalendarEventAttendeeChatMemberReq{}
-	req.httpReq = &larkcore.HttpReq{}
+	req.apiReq = &larkcore.ApiReq{}
 	req.Limit = builder.limit
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
 	return req
 }
 
 type ListCalendarEventAttendeeChatMemberReq struct {
-	httpReq *larkcore.HttpReq
-	Limit   int
+	apiReq *larkcore.ApiReq
+	Limit  int
 }
 
 type ListCalendarEventAttendeeChatMemberRespData struct {
@@ -4217,7 +4217,7 @@ type ListCalendarEventAttendeeChatMemberRespData struct {
 }
 
 type ListCalendarEventAttendeeChatMemberResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *ListCalendarEventAttendeeChatMemberRespData `json:"data"`
 }
@@ -4228,14 +4228,14 @@ func (resp *ListCalendarEventAttendeeChatMemberResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type CreateExchangeBindingReqBuilder struct {
-	httpReq         *larkcore.HttpReq
+	apiReq          *larkcore.ApiReq
 	exchangeBinding *ExchangeBinding
 }
 
 // 生成请求的New构造器
 func NewCreateExchangeBindingReqBuilder() *CreateExchangeBindingReqBuilder {
 	builder := &CreateExchangeBindingReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -4244,7 +4244,7 @@ func NewCreateExchangeBindingReqBuilder() *CreateExchangeBindingReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *CreateExchangeBindingReqBuilder) UserIdType(userIdType string) *CreateExchangeBindingReqBuilder {
-	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *CreateExchangeBindingReqBuilder) ExchangeBinding(exchangeBinding *ExchangeBinding) *CreateExchangeBindingReqBuilder {
@@ -4255,14 +4255,14 @@ func (builder *CreateExchangeBindingReqBuilder) ExchangeBinding(exchangeBinding 
 // 1.5 生成请求的builder的build方法
 func (builder *CreateExchangeBindingReqBuilder) Build() *CreateExchangeBindingReq {
 	req := &CreateExchangeBindingReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
-	req.httpReq.Body = builder.exchangeBinding
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.exchangeBinding
 	return req
 }
 
 type CreateExchangeBindingReq struct {
-	httpReq         *larkcore.HttpReq
+	apiReq          *larkcore.ApiReq
 	ExchangeBinding *ExchangeBinding `body:""`
 }
 
@@ -4275,7 +4275,7 @@ type CreateExchangeBindingRespData struct {
 }
 
 type CreateExchangeBindingResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *CreateExchangeBindingRespData `json:"data"`
 }
@@ -4286,13 +4286,13 @@ func (resp *CreateExchangeBindingResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type DeleteExchangeBindingReqBuilder struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 // 生成请求的New构造器
 func NewDeleteExchangeBindingReqBuilder() *DeleteExchangeBindingReqBuilder {
 	builder := &DeleteExchangeBindingReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -4301,24 +4301,24 @@ func NewDeleteExchangeBindingReqBuilder() *DeleteExchangeBindingReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *DeleteExchangeBindingReqBuilder) ExchangeBindingId(exchangeBindingId string) *DeleteExchangeBindingReqBuilder {
-	builder.httpReq.PathParams.Set("exchange_binding_id", fmt.Sprint(exchangeBindingId))
+	builder.apiReq.PathParams.Set("exchange_binding_id", fmt.Sprint(exchangeBindingId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *DeleteExchangeBindingReqBuilder) Build() *DeleteExchangeBindingReq {
 	req := &DeleteExchangeBindingReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
 	return req
 }
 
 type DeleteExchangeBindingReq struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 type DeleteExchangeBindingResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 }
 
@@ -4328,13 +4328,13 @@ func (resp *DeleteExchangeBindingResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type GetExchangeBindingReqBuilder struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 // 生成请求的New构造器
 func NewGetExchangeBindingReqBuilder() *GetExchangeBindingReqBuilder {
 	builder := &GetExchangeBindingReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -4343,25 +4343,25 @@ func NewGetExchangeBindingReqBuilder() *GetExchangeBindingReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *GetExchangeBindingReqBuilder) ExchangeBindingId(exchangeBindingId string) *GetExchangeBindingReqBuilder {
-	builder.httpReq.PathParams.Set("exchange_binding_id", fmt.Sprint(exchangeBindingId))
+	builder.apiReq.PathParams.Set("exchange_binding_id", fmt.Sprint(exchangeBindingId))
 	return builder
 }
 func (builder *GetExchangeBindingReqBuilder) UserIdType(userIdType string) *GetExchangeBindingReqBuilder {
-	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *GetExchangeBindingReqBuilder) Build() *GetExchangeBindingReq {
 	req := &GetExchangeBindingReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
 	return req
 }
 
 type GetExchangeBindingReq struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 type GetExchangeBindingRespData struct {
@@ -4373,7 +4373,7 @@ type GetExchangeBindingRespData struct {
 }
 
 type GetExchangeBindingResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *GetExchangeBindingRespData `json:"data"`
 }
@@ -4497,14 +4497,14 @@ func (builder *ListFreebusyPathReqBodyBuilder) Build() (*ListFreebusyReqBody, er
 
 // 1.4 生成请求的builder结构体
 type ListFreebusyReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	body    *ListFreebusyReqBody
+	apiReq *larkcore.ApiReq
+	body   *ListFreebusyReqBody
 }
 
 // 生成请求的New构造器
 func NewListFreebusyReqBuilder() *ListFreebusyReqBuilder {
 	builder := &ListFreebusyReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -4513,7 +4513,7 @@ func NewListFreebusyReqBuilder() *ListFreebusyReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *ListFreebusyReqBuilder) UserIdType(userIdType string) *ListFreebusyReqBuilder {
-	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *ListFreebusyReqBuilder) Body(body *ListFreebusyReqBody) *ListFreebusyReqBuilder {
@@ -4524,9 +4524,9 @@ func (builder *ListFreebusyReqBuilder) Body(body *ListFreebusyReqBody) *ListFree
 // 1.5 生成请求的builder的build方法
 func (builder *ListFreebusyReqBuilder) Build() *ListFreebusyReq {
 	req := &ListFreebusyReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
-	req.httpReq.Body = builder.body
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -4538,8 +4538,8 @@ type ListFreebusyReqBody struct {
 }
 
 type ListFreebusyReq struct {
-	httpReq *larkcore.HttpReq
-	Body    *ListFreebusyReqBody `body:""`
+	apiReq *larkcore.ApiReq
+	Body   *ListFreebusyReqBody `body:""`
 }
 
 type ListFreebusyRespData struct {
@@ -4547,7 +4547,7 @@ type ListFreebusyRespData struct {
 }
 
 type ListFreebusyResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *ListFreebusyRespData `json:"data"`
 }
@@ -4611,14 +4611,14 @@ func (builder *GenerateCaldavConfSettingPathReqBodyBuilder) Build() (*GenerateCa
 
 // 1.4 生成请求的builder结构体
 type GenerateCaldavConfSettingReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	body    *GenerateCaldavConfSettingReqBody
+	apiReq *larkcore.ApiReq
+	body   *GenerateCaldavConfSettingReqBody
 }
 
 // 生成请求的New构造器
 func NewGenerateCaldavConfSettingReqBuilder() *GenerateCaldavConfSettingReqBuilder {
 	builder := &GenerateCaldavConfSettingReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -4634,8 +4634,8 @@ func (builder *GenerateCaldavConfSettingReqBuilder) Body(body *GenerateCaldavCon
 // 1.5 生成请求的builder的build方法
 func (builder *GenerateCaldavConfSettingReqBuilder) Build() *GenerateCaldavConfSettingReq {
 	req := &GenerateCaldavConfSettingReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.Body = builder.body
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -4644,8 +4644,8 @@ type GenerateCaldavConfSettingReqBody struct {
 }
 
 type GenerateCaldavConfSettingReq struct {
-	httpReq *larkcore.HttpReq
-	Body    *GenerateCaldavConfSettingReqBody `body:""`
+	apiReq *larkcore.ApiReq
+	Body   *GenerateCaldavConfSettingReqBody `body:""`
 }
 
 type GenerateCaldavConfSettingRespData struct {
@@ -4656,7 +4656,7 @@ type GenerateCaldavConfSettingRespData struct {
 }
 
 type GenerateCaldavConfSettingResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *GenerateCaldavConfSettingRespData `json:"data"`
 }
@@ -4667,14 +4667,14 @@ func (resp *GenerateCaldavConfSettingResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type CreateTimeoffEventReqBuilder struct {
-	httpReq      *larkcore.HttpReq
+	apiReq       *larkcore.ApiReq
 	timeoffEvent *TimeoffEvent
 }
 
 // 生成请求的New构造器
 func NewCreateTimeoffEventReqBuilder() *CreateTimeoffEventReqBuilder {
 	builder := &CreateTimeoffEventReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -4683,7 +4683,7 @@ func NewCreateTimeoffEventReqBuilder() *CreateTimeoffEventReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *CreateTimeoffEventReqBuilder) UserIdType(userIdType string) *CreateTimeoffEventReqBuilder {
-	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *CreateTimeoffEventReqBuilder) TimeoffEvent(timeoffEvent *TimeoffEvent) *CreateTimeoffEventReqBuilder {
@@ -4694,14 +4694,14 @@ func (builder *CreateTimeoffEventReqBuilder) TimeoffEvent(timeoffEvent *TimeoffE
 // 1.5 生成请求的builder的build方法
 func (builder *CreateTimeoffEventReqBuilder) Build() *CreateTimeoffEventReq {
 	req := &CreateTimeoffEventReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
-	req.httpReq.Body = builder.timeoffEvent
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.timeoffEvent
 	return req
 }
 
 type CreateTimeoffEventReq struct {
-	httpReq      *larkcore.HttpReq
+	apiReq       *larkcore.ApiReq
 	TimeoffEvent *TimeoffEvent `body:""`
 }
 
@@ -4716,7 +4716,7 @@ type CreateTimeoffEventRespData struct {
 }
 
 type CreateTimeoffEventResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *CreateTimeoffEventRespData `json:"data"`
 }
@@ -4727,13 +4727,13 @@ func (resp *CreateTimeoffEventResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type DeleteTimeoffEventReqBuilder struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 // 生成请求的New构造器
 func NewDeleteTimeoffEventReqBuilder() *DeleteTimeoffEventReqBuilder {
 	builder := &DeleteTimeoffEventReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -4742,24 +4742,24 @@ func NewDeleteTimeoffEventReqBuilder() *DeleteTimeoffEventReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *DeleteTimeoffEventReqBuilder) TimeoffEventId(timeoffEventId string) *DeleteTimeoffEventReqBuilder {
-	builder.httpReq.PathParams.Set("timeoff_event_id", fmt.Sprint(timeoffEventId))
+	builder.apiReq.PathParams.Set("timeoff_event_id", fmt.Sprint(timeoffEventId))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *DeleteTimeoffEventReqBuilder) Build() *DeleteTimeoffEventReq {
 	req := &DeleteTimeoffEventReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.PathParams = builder.httpReq.PathParams
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
 	return req
 }
 
 type DeleteTimeoffEventReq struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 type DeleteTimeoffEventResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 }
 
@@ -4858,7 +4858,7 @@ func (iterator *SearchCalendarIterator) Next() (bool, *Calendar, error) {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
-			iterator.req.httpReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
 		}
 		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
 		if err != nil {
@@ -4912,7 +4912,7 @@ func (iterator *ListCalendarAclIterator) Next() (bool, *CalendarAcl, error) {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
-			iterator.req.httpReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
 		}
 		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
 		if err != nil {
@@ -4966,7 +4966,7 @@ func (iterator *SearchCalendarEventIterator) Next() (bool, *CalendarEvent, error
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
-			iterator.req.httpReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
 		}
 		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
 		if err != nil {
@@ -5020,7 +5020,7 @@ func (iterator *ListCalendarEventAttendeeIterator) Next() (bool, *CalendarEventA
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
-			iterator.req.httpReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
 		}
 		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
 		if err != nil {
@@ -5074,7 +5074,7 @@ func (iterator *ListCalendarEventAttendeeChatMemberIterator) Next() (bool, *Cale
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
-			iterator.req.httpReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
 		}
 		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
 		if err != nil {

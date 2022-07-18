@@ -759,7 +759,7 @@ func main() {
 	//downLoadImageV2(feishu_client)
 	//uploadImage(feishu_client)
 	//uploadImage(client)
-	downLoadImage(feishu_client)
+	//downLoadImage(feishu_client)
 	//uploadImage2(feishu_client)
 	//sendTextMsg(feishu_client)
 	//sendRawReq(feishu_client)
@@ -776,6 +776,6 @@ func main() {
 	//testCreate(feishu_client)
 	//sendInteractiveMsg(feishu_client)
 	//sendInteractiveMonitorMsg(feishu_client)
-	//sendInteractiveMonitorMsg(feishu_client)
+	sendInteractiveMonitorMsg(feishu_client)
 
 }

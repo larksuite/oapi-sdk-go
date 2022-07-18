@@ -3226,13 +3226,13 @@ func (builder *UserReport2021Builder) Build() *UserReport2021 {
 
 // 1.4 生成请求的builder结构体
 type ListAdminDeptStatReqBuilder struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 // 生成请求的New构造器
 func NewListAdminDeptStatReqBuilder() *ListAdminDeptStatReqBuilder {
 	builder := &ListAdminDeptStatReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -3241,44 +3241,44 @@ func NewListAdminDeptStatReqBuilder() *ListAdminDeptStatReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *ListAdminDeptStatReqBuilder) DepartmentIdType(departmentIdType string) *ListAdminDeptStatReqBuilder {
-	builder.httpReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
+	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
 	return builder
 }
 func (builder *ListAdminDeptStatReqBuilder) StartDate(startDate string) *ListAdminDeptStatReqBuilder {
-	builder.httpReq.QueryParams.Set("start_date", fmt.Sprint(startDate))
+	builder.apiReq.QueryParams.Set("start_date", fmt.Sprint(startDate))
 	return builder
 }
 func (builder *ListAdminDeptStatReqBuilder) EndDate(endDate string) *ListAdminDeptStatReqBuilder {
-	builder.httpReq.QueryParams.Set("end_date", fmt.Sprint(endDate))
+	builder.apiReq.QueryParams.Set("end_date", fmt.Sprint(endDate))
 	return builder
 }
 func (builder *ListAdminDeptStatReqBuilder) DepartmentId(departmentId string) *ListAdminDeptStatReqBuilder {
-	builder.httpReq.QueryParams.Set("department_id", fmt.Sprint(departmentId))
+	builder.apiReq.QueryParams.Set("department_id", fmt.Sprint(departmentId))
 	return builder
 }
 func (builder *ListAdminDeptStatReqBuilder) ContainsChildDept(containsChildDept bool) *ListAdminDeptStatReqBuilder {
-	builder.httpReq.QueryParams.Set("contains_child_dept", fmt.Sprint(containsChildDept))
+	builder.apiReq.QueryParams.Set("contains_child_dept", fmt.Sprint(containsChildDept))
 	return builder
 }
 func (builder *ListAdminDeptStatReqBuilder) PageSize(pageSize int) *ListAdminDeptStatReqBuilder {
-	builder.httpReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 func (builder *ListAdminDeptStatReqBuilder) PageToken(pageToken string) *ListAdminDeptStatReqBuilder {
-	builder.httpReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ListAdminDeptStatReqBuilder) Build() *ListAdminDeptStatReq {
 	req := &ListAdminDeptStatReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
 	return req
 }
 
 type ListAdminDeptStatReq struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 type ListAdminDeptStatRespData struct {
@@ -3288,7 +3288,7 @@ type ListAdminDeptStatRespData struct {
 }
 
 type ListAdminDeptStatResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *ListAdminDeptStatRespData `json:"data"`
 }
@@ -3299,13 +3299,13 @@ func (resp *ListAdminDeptStatResp) Success() bool {
 
 // 1.4 生成请求的builder结构体
 type ListAdminUserStatReqBuilder struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 // 生成请求的New构造器
 func NewListAdminUserStatReqBuilder() *ListAdminUserStatReqBuilder {
 	builder := &ListAdminUserStatReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -3314,48 +3314,48 @@ func NewListAdminUserStatReqBuilder() *ListAdminUserStatReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *ListAdminUserStatReqBuilder) UserIdType(userIdType string) *ListAdminUserStatReqBuilder {
-	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *ListAdminUserStatReqBuilder) DepartmentIdType(departmentIdType string) *ListAdminUserStatReqBuilder {
-	builder.httpReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
+	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
 	return builder
 }
 func (builder *ListAdminUserStatReqBuilder) StartDate(startDate string) *ListAdminUserStatReqBuilder {
-	builder.httpReq.QueryParams.Set("start_date", fmt.Sprint(startDate))
+	builder.apiReq.QueryParams.Set("start_date", fmt.Sprint(startDate))
 	return builder
 }
 func (builder *ListAdminUserStatReqBuilder) EndDate(endDate string) *ListAdminUserStatReqBuilder {
-	builder.httpReq.QueryParams.Set("end_date", fmt.Sprint(endDate))
+	builder.apiReq.QueryParams.Set("end_date", fmt.Sprint(endDate))
 	return builder
 }
 func (builder *ListAdminUserStatReqBuilder) DepartmentId(departmentId string) *ListAdminUserStatReqBuilder {
-	builder.httpReq.QueryParams.Set("department_id", fmt.Sprint(departmentId))
+	builder.apiReq.QueryParams.Set("department_id", fmt.Sprint(departmentId))
 	return builder
 }
 func (builder *ListAdminUserStatReqBuilder) UserId(userId string) *ListAdminUserStatReqBuilder {
-	builder.httpReq.QueryParams.Set("user_id", fmt.Sprint(userId))
+	builder.apiReq.QueryParams.Set("user_id", fmt.Sprint(userId))
 	return builder
 }
 func (builder *ListAdminUserStatReqBuilder) PageSize(pageSize int) *ListAdminUserStatReqBuilder {
-	builder.httpReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 func (builder *ListAdminUserStatReqBuilder) PageToken(pageToken string) *ListAdminUserStatReqBuilder {
-	builder.httpReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 
 // 1.5 生成请求的builder的build方法
 func (builder *ListAdminUserStatReqBuilder) Build() *ListAdminUserStatReq {
 	req := &ListAdminUserStatReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
 	return req
 }
 
 type ListAdminUserStatReq struct {
-	httpReq *larkcore.HttpReq
+	apiReq *larkcore.ApiReq
 }
 
 type ListAdminUserStatRespData struct {
@@ -3365,7 +3365,7 @@ type ListAdminUserStatRespData struct {
 }
 
 type ListAdminUserStatResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 	Data *ListAdminUserStatRespData `json:"data"`
 }
@@ -3449,14 +3449,14 @@ func (builder *ResetPasswordPathReqBodyBuilder) Build() (*ResetPasswordReqBody, 
 
 // 1.4 生成请求的builder结构体
 type ResetPasswordReqBuilder struct {
-	httpReq *larkcore.HttpReq
-	body    *ResetPasswordReqBody
+	apiReq *larkcore.ApiReq
+	body   *ResetPasswordReqBody
 }
 
 // 生成请求的New构造器
 func NewResetPasswordReqBuilder() *ResetPasswordReqBuilder {
 	builder := &ResetPasswordReqBuilder{}
-	builder.httpReq = &larkcore.HttpReq{
+	builder.apiReq = &larkcore.ApiReq{
 		PathParams:  larkcore.PathParams{},
 		QueryParams: larkcore.QueryParams{},
 	}
@@ -3465,7 +3465,7 @@ func NewResetPasswordReqBuilder() *ResetPasswordReqBuilder {
 
 // 1.5 生成请求的builder属性方法
 func (builder *ResetPasswordReqBuilder) UserIdType(userIdType string) *ResetPasswordReqBuilder {
-	builder.httpReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 func (builder *ResetPasswordReqBuilder) Body(body *ResetPasswordReqBody) *ResetPasswordReqBuilder {
@@ -3476,9 +3476,9 @@ func (builder *ResetPasswordReqBuilder) Body(body *ResetPasswordReqBody) *ResetP
 // 1.5 生成请求的builder的build方法
 func (builder *ResetPasswordReqBuilder) Build() *ResetPasswordReq {
 	req := &ResetPasswordReq{}
-	req.httpReq = &larkcore.HttpReq{}
-	req.httpReq.QueryParams = builder.httpReq.QueryParams
-	req.httpReq.Body = builder.body
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -3488,12 +3488,12 @@ type ResetPasswordReqBody struct {
 }
 
 type ResetPasswordReq struct {
-	httpReq *larkcore.HttpReq
-	Body    *ResetPasswordReqBody `body:""`
+	apiReq *larkcore.ApiReq
+	Body   *ResetPasswordReqBody `body:""`
 }
 
 type ResetPasswordResp struct {
-	*larkcore.RawResponse `json:"-"`
+	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
 }
 
