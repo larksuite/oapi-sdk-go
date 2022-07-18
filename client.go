@@ -204,35 +204,51 @@ func initService(client *Client, config *larkcore.Config) {
 }
 
 func (cli *Client) Post(ctx context.Context, httpPath string, body interface{}, accessTokeType larkcore.AccessTokenType, options ...larkcore.RequestOptionFunc) (*larkcore.RawResponse, error) {
-	return larkcore.SendRequest(ctx, cli.config, http.MethodPost, httpPath, []larkcore.AccessTokenType{accessTokeType}, body, options...)
+	return cli.Do(ctx, &larkcore.HttpReq{
+		HttpMethod:                http.MethodPost,
+		ApiPath:                   httpPath,
+		Body:                      body,
+		SupportedAccessTokenTypes: []larkcore.AccessTokenType{accessTokeType},
+	}, options...)
 }
 
+func (cli *Client) Do(ctx context.Context, httpReq *larkcore.HttpReq, options ...larkcore.RequestOptionFunc) (*larkcore.RawResponse, error) {
+	return larkcore.Request(ctx, httpReq, cli.config, options...)
+}
 func (cli *Client) Get(ctx context.Context, httpPath string, body interface{}, accessTokeType larkcore.AccessTokenType, options ...larkcore.RequestOptionFunc) (*larkcore.RawResponse, error) {
-	return larkcore.SendRequest(ctx, cli.config, http.MethodGet, httpPath, []larkcore.AccessTokenType{accessTokeType}, body, options...)
+	return cli.Do(ctx, &larkcore.HttpReq{
+		HttpMethod:                http.MethodGet,
+		ApiPath:                   httpPath,
+		Body:                      body,
+		SupportedAccessTokenTypes: []larkcore.AccessTokenType{accessTokeType},
+	}, options...)
 }
 
 func (cli *Client) Delete(ctx context.Context, httpPath string, body interface{}, accessTokeType larkcore.AccessTokenType, options ...larkcore.RequestOptionFunc) (*larkcore.RawResponse, error) {
-	return larkcore.SendRequest(ctx, cli.config, http.MethodDelete, httpPath, []larkcore.AccessTokenType{accessTokeType}, body, options...)
+	return cli.Do(ctx, &larkcore.HttpReq{
+		HttpMethod:                http.MethodDelete,
+		ApiPath:                   httpPath,
+		Body:                      body,
+		SupportedAccessTokenTypes: []larkcore.AccessTokenType{accessTokeType},
+	}, options...)
 }
 
 func (cli *Client) Put(ctx context.Context, httpPath string, body interface{}, accessTokeType larkcore.AccessTokenType, options ...larkcore.RequestOptionFunc) (*larkcore.RawResponse, error) {
-	return larkcore.SendRequest(ctx, cli.config, http.MethodPut, httpPath, []larkcore.AccessTokenType{accessTokeType}, body, options...)
+	return cli.Do(ctx, &larkcore.HttpReq{
+		HttpMethod:                http.MethodPut,
+		ApiPath:                   httpPath,
+		Body:                      body,
+		SupportedAccessTokenTypes: []larkcore.AccessTokenType{accessTokeType},
+	}, options...)
 }
 
 func (cli *Client) Patch(ctx context.Context, httpPath string, body interface{}, accessTokeType larkcore.AccessTokenType, options ...larkcore.RequestOptionFunc) (*larkcore.RawResponse, error) {
-	return larkcore.SendRequest(ctx, cli.config, http.MethodPatch, httpPath, []larkcore.AccessTokenType{accessTokeType}, body, options...)
-}
-
-func (cli *Client) Head(ctx context.Context, httpPath string, body interface{}, accessTokeType larkcore.AccessTokenType, options ...larkcore.RequestOptionFunc) (*larkcore.RawResponse, error) {
-	return larkcore.SendRequest(ctx, cli.config, http.MethodHead, httpPath, []larkcore.AccessTokenType{accessTokeType}, body, options...)
-}
-
-func (cli *Client) Options(ctx context.Context, httpPath string, body interface{}, accessTokeType larkcore.AccessTokenType, options ...larkcore.RequestOptionFunc) (*larkcore.RawResponse, error) {
-	return larkcore.SendRequest(ctx, cli.config, http.MethodOptions, httpPath, []larkcore.AccessTokenType{accessTokeType}, body, options...)
-}
-
-func (cli *Client) Trace(ctx context.Context, httpPath string, body interface{}, accessTokeType larkcore.AccessTokenType, options ...larkcore.RequestOptionFunc) (*larkcore.RawResponse, error) {
-	return larkcore.SendRequest(ctx, cli.config, http.MethodTrace, httpPath, []larkcore.AccessTokenType{accessTokeType}, body, options...)
+	return cli.Do(ctx, &larkcore.HttpReq{
+		HttpMethod:                http.MethodPatch,
+		ApiPath:                   httpPath,
+		Body:                      body,
+		SupportedAccessTokenTypes: []larkcore.AccessTokenType{accessTokeType},
+	}, options...)
 }
 
 var FeishuBaseUrl = "https://open.feishu.cn"

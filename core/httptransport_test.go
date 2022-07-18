@@ -2,37 +2,26 @@ package larkcore
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 	"testing"
 )
 
 func TestSendPost(t *testing.T) {
 	config := mockConfig()
-	_, err := SendRequest(context.Background(), config, "POST", "/", []AccessTokenType{AccessTokenTypeUser}, map[string]interface{}{
-		"receive_id": "ou_c245b0a7dff2725cfa2fb104f8b48b9d",
-		"msg_type":   "text",
-		"content":    "{\"text\":\"hello<at user_id=\\\"ou_155184d1e73cbfb8973e5a9e698e74f2\\\">Tom</at>\"}",
-	}, WithUserAccessToken("121"))
+	_, err := Request(context.Background(), &HttpReq{
+		HttpMethod: http.MethodPost,
+		ApiPath:    "https://www.feishu.cn/approval/openapi/v2/approval/get",
+		Body: map[string]interface{}{
+			"approval_code": "ou_c245b0a7dff2725cfa2fb104f8b48b9d",
+		},
+		SupportedAccessTokenTypes: []AccessTokenType{AccessTokenTypeTenant},
+	}, config)
 
 	if err != nil {
 		t.Errorf("TestSendPost failed ,%v", err)
 		return
 	}
+	fmt.Println("ok")
 
-	//fmt.Println(string(resp.RawBody))
-}
-
-func TestSendRequest(t *testing.T) {
-	config := mockConfig()
-	_, err := SendRequest(context.Background(), config, http.MethodPost, "/", []AccessTokenType{AccessTokenTypeUser}, map[string]interface{}{
-		"receive_id": "ou_c245b0a7dff2725cfa2fb104f8b48b9d",
-		"msg_type":   "text",
-		"content":    "{\"text\":\"hello<at user_id=\\\"ou_155184d1e73cbfb8973e5a9e698e74f2\\\">Tom</at>\"}",
-	}, WithUserAccessToken("121"))
-
-	if err != nil {
-		t.Errorf("TestSendRequest failed ,%v", err)
-		return
-	}
-	//fmt.Println(string(resp.RawBody))
 }

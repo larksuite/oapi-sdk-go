@@ -8,14 +8,21 @@ import (
 	"time"
 )
 
+type MockHttpClient struct {
+}
+
+func (client *MockHttpClient) Do(*http.Request) (*http.Response, error) {
+	return nil, nil
+}
 func mockConfig() *Config {
+
 	config := &Config{
 		AppId:            "xxx",
 		AppSecret:        "xxx",
 		Logger:           newLoggerProxy(LogLevelInfo, NewEventLogger()),
 		LogLevel:         LogLevelInfo,
 		EnableTokenCache: true,
-		HttpClient:       http.DefaultClient,
+		HttpClient:       &MockHttpClient{},
 		AppType:          AppTypeSelfBuilt,
 		BaseUrl:          "https://www.baidu.com",
 	}

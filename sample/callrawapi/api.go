@@ -172,6 +172,33 @@ func rawApiTenantCallNew() {
 	fmt.Println(resp.RawBody)    // http body
 }
 
+func rawApiUserCall2() {
+	// 创建 API Client
+	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
+	var cli = lark.NewClient(appID, appSecret)
+
+	// 发起请求
+	resp, err := cli.Get(context.Background(),
+		"https://open.feishu.cn/open-apis/authen/v1/user_info",
+		nil,
+		larkcore.AccessTokenTypeUser,
+		larkcore.WithUserAccessToken("u-2mb3tUQx988E6Bqoo8tbiTghj3g4h54xggw01gQw07Dm"))
+
+	// 错误处理
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	// 获取请求 ID
+	fmt.Println(resp.RequestId())
+
+	// 处理请求结果
+	fmt.Println(resp.StatusCode)      // http status code
+	fmt.Println(resp.Header)          // http header
+	fmt.Println(string(resp.RawBody)) // http body
+}
+
 func main() {
-	rawApiTenantCall2()
+	rawApiUserCall2()
 }
