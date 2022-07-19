@@ -96,7 +96,7 @@ func main() {
 	coreCtx := core.WrapContext(context.Background())
 	reqCall := imService.Messages.Create(coreCtx, &im.MessageCreateReqBody{
 		ReceiveId: "ou_a11d2bcc7d852afbcaf37e5b3ad01f7e",
-		Content:   `{"text":"<at user_id="ou_a11d2bcc7d852afbcaf37e5b3ad01f7e">Tom</at> test content"}`,
+		Content:   `{"text":"<at user_id=\"ou_a11d2bcc7d852afbcaf37e5b3ad01f7e\">Tom</at> test content"}`,
 		MsgType:   "text",
 	})
 	reqCall.SetReceiveIdType("open_id")
