@@ -71,9 +71,9 @@ func rawApiTenantCallNew() {
 	fmt.Println(resp.RequestId())
 
 	// 处理请求结果
-	fmt.Println(resp.StatusCode) // http status code
-	fmt.Println(resp.Header)     // http header
-	fmt.Println(resp.RawBody)    // http body
+	fmt.Println(resp.StatusCode)      // http status code
+	fmt.Println(resp.Header)          // http header
+	fmt.Println(string(resp.RawBody)) // http body
 }
 
 // 老的原生调用方法，仅做兼容使用
@@ -131,7 +131,7 @@ func rawApiUserCallOld() {
 		"https://open.feishu.cn/open-apis/contact/v3/users/ou_c245b0a7dff2725cfa2fb104f8b48b9d?user_id_type=open_id",
 		nil,
 		larkcore.AccessTokenTypeUser,
-		larkcore.WithUserAccessToken("u-23P_0Vu5JdeGGShR0dw7.f1hmckRk5KzNww0g0wawHAU"))
+		larkcore.WithUserAccessToken("u-0Y.tlvJCJecosQGIo46tLal50E4xh5KxpE001he02erY"))
 
 	// 错误处理
 	if err != nil {
@@ -148,5 +148,5 @@ func rawApiUserCallOld() {
 	fmt.Println(string(resp.RawBody)) // http body
 }
 func main() {
-	rawApiUserCallNew()
+	rawApiUserCallOld()
 }
