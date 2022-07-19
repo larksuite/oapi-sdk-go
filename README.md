@@ -477,17 +477,20 @@ import (
 func main() {
 	// 创建 API Client
 	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
-	var cli = lark.NewClient(appID, appSecret)
+	var cli = lark.NewClient(appID, appSecret, lark.WithLogReqAtDebug(true), lark.WithLogLevel(larkcore.LogLevelDebug))
 
-	//发起请求
-	resp, err := cli.Do(context.Background(), &larkcore.ApiReq{
-		HttpMethod: http.MethodGet,
-		ApiPath:    "https://www.feishu.cn/approval/openapi/v2/approval/get",
-		Body: map[string]interface{}{
-			"approval_code": "ou_c245b0a7dff2725cfa2fb104f8b48b9d",
+	// 发起请求
+	resp, err := cli.Do(context.Background(),
+		&larkcore.ApiReq{
+			HttpMethod:                http.MethodGet,
+			ApiPath:                   "https://open.feishu.cn/open-apis/contact/v3/users/:user_id",
+			Body:                      nil,
+			QueryParams:               larkcore.QueryParams{"user_id_type": []string{"open_id"}},
+			PathParams:                larkcore.PathParams{"user_id": "ou_c245b0a7dff2725cfa2fb104f8b48b9d"},
+			SupportedAccessTokenTypes: []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser},
 		},
-		SupportedAccessTokenTypes: []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant},
-	})
+		larkcore.WithUserAccessToken("u-3Sr1oTO4V1FWxTFTFYuFCqhk2Vs4h5IbhMG00gmw0CXh"),
+	)
 
 	// 错误处理
 	if err != nil {
@@ -499,9 +502,9 @@ func main() {
 	fmt.Println(resp.RequestId())
 
 	// 处理请求结果
-	fmt.Println(resp.StatusCode) // http status code
-	fmt.Println(resp.Header)     // http header
-	fmt.Println(resp.RawBody)    // http body
+	fmt.Println(resp.StatusCode)      // http status code
+	fmt.Println(resp.Header)          // http header
+	fmt.Println(string(resp.RawBody)) // http body
 }
 ```
 
