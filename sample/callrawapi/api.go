@@ -143,7 +143,7 @@ func rawApiUserCallOld() {
 		"https://open.feishu.cn/open-apis/contact/v3/users/ou_c245b0a7dff2725cfa2fb104f8b48b9d?user_id_type=open_id",
 		nil,
 		larkcore.AccessTokenTypeUser,
-		larkcore.WithUserAccessToken("u-0Y.tlvJCJecosQGIo46tLal50E4xh5KxpE001he02erY"))
+		larkcore.WithUserAccessToken("u-0s9SxTtX9fNGreDT8RgAjXh47fL5h5AbMMw0lgEayx27"))
 
 	// 错误处理
 	if err != nil {

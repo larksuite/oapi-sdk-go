@@ -36,17 +36,17 @@ const (
 )
 
 const (
-	appAccessTokenInternalUrlPath    string = "/open-apis/auth/v3/app_access_token/internal"
-	appAccessTokenUrlPath            string = "/open-apis/auth/v3/app_access_token"
-	tenantAccessTokenInternalUrlPath string = "/open-apis/auth/v3/tenant_access_token/internal"
-	tenantAccessTokenUrlPath         string = "/open-apis/auth/v3/tenant_access_token"
-	applyAppTicketPath               string = "/open-apis/auth/v3/app_ticket/resend"
+	AppAccessTokenInternalUrlPath    string = "/open-apis/auth/v3/app_access_token/internal"
+	AppAccessTokenUrlPath            string = "/open-apis/auth/v3/app_access_token"
+	TenantAccessTokenInternalUrlPath string = "/open-apis/auth/v3/tenant_access_token/internal"
+	TenantAccessTokenUrlPath         string = "/open-apis/auth/v3/tenant_access_token"
+	ApplyAppTicketPath               string = "/open-apis/auth/v3/app_ticket/resend"
 )
 
 type AccessTokenType string
 
 const (
-	accessTokenTypeNone   AccessTokenType = "none_access_token"
+	AccessTokenTypeNone   AccessTokenType = "none_access_token"
 	AccessTokenTypeApp    AccessTokenType = "app_access_token"
 	AccessTokenTypeTenant AccessTokenType = "tenant_access_token"
 	AccessTokenTypeUser   AccessTokenType = "user_access_token"

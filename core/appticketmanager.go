@@ -50,15 +50,24 @@ func appTicketKey(appID string) string {
 	return fmt.Sprintf("%s-%s", appTicketKeyPrefix, appID)
 }
 
+type ResendAppTicketReq struct {
+	AppID     string `json:"app_id"`
+	AppSecret string `json:"app_secret"`
+}
+
+type ResendAppTicketResp struct {
+	CodeError
+}
+
 func applyAppTicket(ctx context.Context, config *Config) {
 	rawResp, err := Request(ctx, &ApiReq{
 		HttpMethod: http.MethodPost,
-		ApiPath:    applyAppTicketPath,
-		Body: &applyAppTicketReq{
+		ApiPath:    ApplyAppTicketPath,
+		Body: &ResendAppTicketReq{
 			AppID:     config.AppId,
 			AppSecret: config.AppSecret,
 		},
-		SupportedAccessTokenTypes: []AccessTokenType{accessTokenTypeNone},
+		SupportedAccessTokenTypes: []AccessTokenType{AccessTokenTypeNone},
 	}, config)
 
 	if err != nil {

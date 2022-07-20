@@ -15,6 +15,7 @@ package larkcore
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net"
 	"net/http"
@@ -34,6 +35,21 @@ func NewHttpClient(config *Config) {
 	}
 }
 
+func validateTokenType(accessTokenTypes []AccessTokenType, option *RequestOption) error {
+	if option == nil || len(accessTokenTypes) == 0 || len(accessTokenTypes) > 1 {
+		return nil
+	}
+
+	accessTokenType := accessTokenTypes[0]
+	if accessTokenType == AccessTokenTypeTenant && option.UserAccessToken != "" {
+		return errors.New("tenant token type not match user access token")
+	}
+	if accessTokenType == AccessTokenTypeUser && option.TenantAccessToken != "" {
+		return errors.New("user token type not match tenant access token")
+	}
+	return nil
+}
+
 func determineTokenType(accessTokenTypes []AccessTokenType, option *RequestOption, enableTokenCache bool) AccessTokenType {
 	if !enableTokenCache {
 		if option.UserAccessToken != "" {
@@ -46,7 +62,7 @@ func determineTokenType(accessTokenTypes []AccessTokenType, option *RequestOptio
 			return AccessTokenTypeApp
 		}
 
-		return accessTokenTypeNone
+		return AccessTokenTypeNone
 	}
 	accessibleTokenTypeSet := make(map[AccessTokenType]struct{})
 	accessTokenType := accessTokenTypes[0]
@@ -145,19 +161,18 @@ func doSend(ctx context.Context, rawRequest *http.Request, httpClient HttpClient
 	}, nil
 }
 
-type applyAppTicketReq struct {
-	AppID     string `json:"app_id"`
-	AppSecret string `json:"app_secret"`
-}
-
 func Request(ctx context.Context, req *ApiReq, config *Config, options ...RequestOptionFunc) (*ApiResp, error) {
 	option := &RequestOption{}
 	for _, optionFunc := range options {
 		optionFunc(option)
 	}
 
+	err := validateTokenType(req.SupportedAccessTokenTypes, option)
+	if err != nil {
+		return nil, err
+	}
 	accessTokenType := determineTokenType(req.SupportedAccessTokenTypes, option, config.EnableTokenCache)
-	err := validate(config, option, accessTokenType)
+	err = validate(config, option, accessTokenType)
 	if err != nil {
 		return nil, err
 	}
@@ -209,7 +224,7 @@ func doRequest(ctx context.Context, httpReq *ApiReq, accessTokenType AccessToken
 			applyAppTicket(ctx, config)
 		}
 
-		if accessTokenType == accessTokenTypeNone {
+		if accessTokenType == AccessTokenTypeNone {
 			break
 		}
 

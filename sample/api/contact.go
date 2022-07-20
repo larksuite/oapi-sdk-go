@@ -45,7 +45,8 @@ func getUserInfo() {
 	}
 
 }
-func main() {
+
+func patchUser() {
 	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
 	var feishu_client = lark.NewClient(appID, appSecret,
 		lark.WithLogLevel(larkcore.LogLevelDebug),
@@ -69,5 +70,28 @@ func main() {
 	} else {
 		fmt.Println(resp.Msg, resp.Code, resp.RequestId())
 	}
+}
+func createUser() {
+	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
+	var client = lark.NewClient(appID, appSecret,
+		lark.WithLogLevel(larkcore.LogLevelDebug),
+		lark.WithLogReqAtDebug(true))
+
+	resp, err := client.Contact.User.Create(context.Background(),
+		larkcontact.NewCreateUserReqBuilder().UserIdType(larkcontact.UserIdTypeOpenId).User(larkcontact.NewUserBuilder().Build()).Build())
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	if resp.Success() {
+		fmt.Println(resp.Data.User)
+	} else {
+		fmt.Println(resp.Msg, resp.Code, resp.RequestId())
+	}
+}
+func main() {
+	createUser()
 
 }

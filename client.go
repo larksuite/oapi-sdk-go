@@ -16,6 +16,7 @@ package lark
 import (
 	"context"
 	"encoding/base64"
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"time"
@@ -36,9 +37,12 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/ehr/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/event/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/gray_test_open_sg/v1"
+	"github.com/larksuite/oapi-sdk-go/v3/service/helpdesk/v1"
+	"github.com/larksuite/oapi-sdk-go/v3/service/hire/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/human_authentication/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/mail/v1"
+	"github.com/larksuite/oapi-sdk-go/v3/service/okr/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/optical_char_recognition/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/passport/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/search/v2"
@@ -68,9 +72,12 @@ type Client struct {
 	Ehr                    *larkehr.EhrService
 	Event                  *larkevent.EventService
 	GrayTestOpenSg         *larkgray_test_open_sg.GrayTestOpenSgService
+	Helpdesk               *larkhelpdesk.HelpdeskService
+	Hire                   *larkhire.HireService
 	HumanAuthentication    *larkhuman_authentication.HumanAuthenticationService
 	Im                     *larkim.ImService
 	Mail                   *larkmail.MailService
+	Okr                    *larkokr.OkrService
 	OpticalCharRecognition *larkoptical_char_recognition.OpticalCharRecognitionService
 	Passport               *larkpassport.PassportService
 	Search                 *larksearch.SearchService
@@ -199,9 +206,12 @@ func initService(client *Client, config *larkcore.Config) {
 	client.Ehr = larkehr.NewService(config)
 	client.Event = larkevent.NewService(config)
 	client.GrayTestOpenSg = larkgray_test_open_sg.NewService(config)
+	client.Helpdesk = larkhelpdesk.NewService(config)
+	client.Hire = larkhire.NewService(config)
 	client.HumanAuthentication = larkhuman_authentication.NewService(config)
 	client.Im = larkim.NewService(config)
 	client.Mail = larkmail.NewService(config)
+	client.Okr = larkokr.NewService(config)
 	client.OpticalCharRecognition = larkoptical_char_recognition.NewService(config)
 	client.Passport = larkpassport.NewService(config)
 	client.Search = larksearch.NewService(config)
@@ -261,6 +271,106 @@ func (cli *Client) Patch(ctx context.Context, httpPath string, body interface{},
 		Body:                      body,
 		SupportedAccessTokenTypes: []larkcore.AccessTokenType{accessTokeType},
 	}, options...)
+}
+
+func (cli *Client) GetAppAccessTokenBySelfBuiltApp(ctx context.Context, req *larkcore.SelfBuiltAppAccessTokenReq) (*larkcore.AppAccessTokenResp, error) {
+	rawResp, err := larkcore.Request(ctx, &larkcore.ApiReq{
+		HttpMethod:                http.MethodPost,
+		ApiPath:                   larkcore.AppAccessTokenInternalUrlPath,
+		Body:                      req,
+		SupportedAccessTokenTypes: []larkcore.AccessTokenType{larkcore.AccessTokenTypeNone},
+	}, cli.config)
+
+	if err != nil {
+		return nil, err
+	}
+	resp := &larkcore.AppAccessTokenResp{}
+	err = json.Unmarshal(rawResp.RawBody, resp)
+	if err != nil {
+		return nil, err
+	}
+
+	return resp, nil
+}
+
+func (cli *Client) GetAppAccessTokenByMarketplaceApp(ctx context.Context, req *larkcore.MarketplaceAppAccessTokenReq) (*larkcore.AppAccessTokenResp, error) {
+	rawResp, err := larkcore.Request(ctx, &larkcore.ApiReq{
+		HttpMethod:                http.MethodPost,
+		ApiPath:                   larkcore.AppAccessTokenUrlPath,
+		Body:                      req,
+		SupportedAccessTokenTypes: []larkcore.AccessTokenType{larkcore.AccessTokenTypeNone},
+	}, cli.config)
+
+	if err != nil {
+		return nil, err
+	}
+	resp := &larkcore.AppAccessTokenResp{}
+	err = json.Unmarshal(rawResp.RawBody, resp)
+	if err != nil {
+		return nil, err
+	}
+
+	return resp, nil
+}
+
+func (cli *Client) GetTenantAccessTokenBySelfBuiltApp(ctx context.Context, req *larkcore.SelfBuiltTenantAccessTokenReq) (*larkcore.TenantAccessTokenResp, error) {
+	rawResp, err := larkcore.Request(ctx, &larkcore.ApiReq{
+		HttpMethod:                http.MethodPost,
+		ApiPath:                   larkcore.TenantAccessTokenInternalUrlPath,
+		Body:                      req,
+		SupportedAccessTokenTypes: []larkcore.AccessTokenType{larkcore.AccessTokenTypeNone},
+	}, cli.config)
+
+	if err != nil {
+		return nil, err
+	}
+	resp := &larkcore.TenantAccessTokenResp{}
+	err = json.Unmarshal(rawResp.RawBody, resp)
+	if err != nil {
+		return nil, err
+	}
+
+	return resp, nil
+}
+
+func (cli *Client) GetTenantAccessTokenByMarketplaceApp(ctx context.Context, req *larkcore.MarketplaceTenantAccessTokenReq) (*larkcore.TenantAccessTokenResp, error) {
+	rawResp, err := larkcore.Request(ctx, &larkcore.ApiReq{
+		HttpMethod:                http.MethodPost,
+		ApiPath:                   larkcore.TenantAccessTokenUrlPath,
+		Body:                      req,
+		SupportedAccessTokenTypes: []larkcore.AccessTokenType{larkcore.AccessTokenTypeNone},
+	}, cli.config)
+
+	if err != nil {
+		return nil, err
+	}
+	resp := &larkcore.TenantAccessTokenResp{}
+	err = json.Unmarshal(rawResp.RawBody, resp)
+	if err != nil {
+		return nil, err
+	}
+
+	return resp, nil
+}
+
+func (cli *Client) ResendAppTicket(ctx context.Context, req *larkcore.ResendAppTicketReq) (*larkcore.ResendAppTicketResp, error) {
+	rawResp, err := larkcore.Request(ctx, &larkcore.ApiReq{
+		HttpMethod:                http.MethodPost,
+		ApiPath:                   larkcore.ApplyAppTicketPath,
+		Body:                      req,
+		SupportedAccessTokenTypes: []larkcore.AccessTokenType{larkcore.AccessTokenTypeNone},
+	}, cli.config)
+
+	if err != nil {
+		return nil, err
+	}
+	resp := &larkcore.ResendAppTicketResp{}
+	err = json.Unmarshal(rawResp.RawBody, resp)
+	if err != nil {
+		return nil, err
+	}
+
+	return resp, nil
 }
 
 var FeishuBaseUrl = "https://open.feishu.cn"

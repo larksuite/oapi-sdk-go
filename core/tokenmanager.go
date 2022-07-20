@@ -85,27 +85,32 @@ func (m *TokenManager) get(ctx context.Context, tokenKey string) (string, error)
 	return token, err
 }
 
-type internalAccessTokenReq struct {
+type SelfBuiltAppAccessTokenReq struct {
 	AppID     string `json:"app_id"`
 	AppSecret string `json:"app_secret"`
 }
-type appAccessTokenResp struct {
+
+type SelfBuiltTenantAccessTokenReq struct {
+	AppID     string `json:"app_id"`
+	AppSecret string `json:"app_secret"`
+}
+type AppAccessTokenResp struct {
 	CodeError
 	Expire         int    `json:"expire"`
 	AppAccessToken string `json:"app_access_token"`
 }
-type tenantAccessTokenResp struct {
+type TenantAccessTokenResp struct {
 	CodeError
 	Expire            int    `json:"expire"`
 	TenantAccessToken string `json:"tenant_access_token"`
 }
-type marketplaceAppAccessTokenReq struct {
+type MarketplaceAppAccessTokenReq struct {
 	AppID     string `json:"app_id"`
 	AppSecret string `json:"app_secret"`
 	AppTicket string `json:"app_ticket"`
 }
 
-type marketplaceTenantAccessTokenReq struct {
+type MarketplaceTenantAccessTokenReq struct {
 	AppAccessToken string `json:"app_access_token"`
 	TenantKey      string `json:"tenant_key"`
 }
@@ -120,18 +125,18 @@ func tenantAccessTokenKey(appID, tenantKey string) string {
 func (m *TokenManager) getCustomAppAccessTokenThenCache(ctx context.Context, config *Config) (string, error) {
 	rawResp, err := Request(ctx, &ApiReq{
 		HttpMethod: http.MethodPost,
-		ApiPath:    appAccessTokenInternalUrlPath,
-		Body: &internalAccessTokenReq{
+		ApiPath:    AppAccessTokenInternalUrlPath,
+		Body: &SelfBuiltAppAccessTokenReq{
 			AppID:     config.AppId,
 			AppSecret: config.AppSecret,
 		},
-		SupportedAccessTokenTypes: []AccessTokenType{accessTokenTypeNone},
+		SupportedAccessTokenTypes: []AccessTokenType{AccessTokenTypeNone},
 	}, config)
 
 	if err != nil {
 		return "", err
 	}
-	resp := &appAccessTokenResp{}
+	resp := &AppAccessTokenResp{}
 	err = json.Unmarshal(rawResp.RawBody, resp)
 	if err != nil {
 		return "", err
@@ -151,18 +156,18 @@ func (m *TokenManager) getCustomAppAccessTokenThenCache(ctx context.Context, con
 func (m *TokenManager) getCustomTenantAccessTokenThenCache(ctx context.Context, config *Config, tenantKey string) (string, error) {
 	rawResp, err := Request(ctx, &ApiReq{
 		HttpMethod: http.MethodPost,
-		ApiPath:    tenantAccessTokenInternalUrlPath,
-		Body: &internalAccessTokenReq{
+		ApiPath:    TenantAccessTokenInternalUrlPath,
+		Body: &SelfBuiltAppAccessTokenReq{
 			AppID:     config.AppId,
 			AppSecret: config.AppSecret,
 		},
-		SupportedAccessTokenTypes: []AccessTokenType{accessTokenTypeNone},
+		SupportedAccessTokenTypes: []AccessTokenType{AccessTokenTypeNone},
 	}, config)
 
 	if err != nil {
 		return "", err
 	}
-	tenantAccessTokenResp := &tenantAccessTokenResp{}
+	tenantAccessTokenResp := &TenantAccessTokenResp{}
 	err = json.Unmarshal(rawResp.RawBody, tenantAccessTokenResp)
 	if err != nil {
 		return "", err
@@ -191,19 +196,19 @@ func (m *TokenManager) getMarketplaceAppAccessTokenThenCache(ctx context.Context
 	}
 	rawResp, err := Request(ctx, &ApiReq{
 		HttpMethod: http.MethodPost,
-		ApiPath:    appAccessTokenUrlPath,
-		Body: &marketplaceAppAccessTokenReq{
+		ApiPath:    AppAccessTokenUrlPath,
+		Body: &MarketplaceAppAccessTokenReq{
 			AppID:     config.AppId,
 			AppSecret: config.AppSecret,
 			AppTicket: appTicket,
 		},
-		SupportedAccessTokenTypes: []AccessTokenType{accessTokenTypeNone},
+		SupportedAccessTokenTypes: []AccessTokenType{AccessTokenTypeNone},
 	}, config)
 
 	if err != nil {
 		return "", err
 	}
-	appAccessTokenResp := &appAccessTokenResp{}
+	appAccessTokenResp := &AppAccessTokenResp{}
 	err = json.Unmarshal(rawResp.RawBody, appAccessTokenResp)
 	if err != nil {
 		config.Logger.Warn(ctx, fmt.Sprintf("marketplace app appAccessToken cache, err:%v", Prettify(appAccessTokenResp)))
@@ -228,18 +233,18 @@ func (m *TokenManager) getMarketplaceTenantAccessTokenThenCache(ctx context.Cont
 	}
 	rawResp, err := Request(ctx, &ApiReq{
 		HttpMethod: http.MethodPost,
-		ApiPath:    tenantAccessTokenUrlPath,
-		Body: &marketplaceTenantAccessTokenReq{
+		ApiPath:    TenantAccessTokenUrlPath,
+		Body: &MarketplaceTenantAccessTokenReq{
 			AppAccessToken: appAccessToken,
 			TenantKey:      tenantKey,
 		},
-		SupportedAccessTokenTypes: []AccessTokenType{accessTokenTypeNone},
+		SupportedAccessTokenTypes: []AccessTokenType{AccessTokenTypeNone},
 	}, config)
 
 	if err != nil {
 		return "", err
 	}
-	tenantAccessTokenResp := &tenantAccessTokenResp{}
+	tenantAccessTokenResp := &TenantAccessTokenResp{}
 	err = json.Unmarshal(rawResp.RawBody, tenantAccessTokenResp)
 	if err != nil {
 		config.Logger.Warn(ctx, fmt.Sprintf("marketplace app tenantAccessToken cache, err:%v", Prettify(tenantAccessTokenResp)))
