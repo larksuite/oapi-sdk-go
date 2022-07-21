@@ -14,35 +14,16 @@ package dispatcher
 
 import (
 	"context"
-	"time"
-
-	"github.com/larksuite/oapi-sdk-go/v3/core"
-	"github.com/larksuite/oapi-sdk-go/v3/event"
 )
 
-type appTicketEventData struct {
-	AppId     string `json:"app_id"`
-	Type      string `json:"type"`
-	AppTicket string `json:"app_ticket"`
+type CustomAppTicketEventHandler struct {
+	handler func(context.Context, *AppTicketEvent) error
 }
 
-type AppTicketEvent struct {
-	*larkevent.EventBase
-	Event *appTicketEventData `json:"event"`
+func (h *CustomAppTicketEventHandler) Event() interface{} {
+	return &AppTicketEvent{}
 }
 
-type appTicketEventHandler struct {
-	event *AppTicketEvent
-}
-
-func (h *appTicketEventHandler) Event() interface{} {
-	h.event = &AppTicketEvent{}
-	return h.event
-}
-
-func (h *appTicketEventHandler) Handle(ctx context.Context, event interface{}) error {
-	appTicketEvent := event.(*AppTicketEvent)
-	return larkcore.GetAppTicketManager().Set(context.Background(),
-		appTicketEvent.Event.AppId,
-		appTicketEvent.Event.AppTicket, time.Hour*12)
+func (h *CustomAppTicketEventHandler) Handle(ctx context.Context, event interface{}) error {
+	return h.handler(ctx, event.(*AppTicketEvent))
 }

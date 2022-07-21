@@ -313,3 +313,9 @@ func (dispatcher *EventDispatcher) OnCustomizedEvent(eventType string, handler f
 	dispatcher.eventType2EventHandler[eventType] = &defaultHandler{handler: handler}
 	return dispatcher
 }
+
+// 当 ISV 需要自己管理 app_ticket 和 token 时，需要注册该处理器,以获取app_ticket。这时 SDK 内将不能帮开发者自动获取和缓存token。
+func (dispatcher *EventDispatcher) OnAppTicketEvent(handler func(ctx context.Context, event *AppTicketEvent) error) *EventDispatcher {
+	dispatcher.eventType2EventHandler["app_ticket"] = &CustomAppTicketEventHandler{handler: handler}
+	return dispatcher
+}

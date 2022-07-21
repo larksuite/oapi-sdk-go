@@ -174,7 +174,7 @@ func TestVerifySignOk(t *testing.T) {
 }
 func TestAppTicket(t *testing.T) {
 
-	event := appTicketEvent{
+	event := AppTicketEvent{
 		EventBase: &larkevent.EventBase{
 			Ts:    "",
 			UUID:  "",

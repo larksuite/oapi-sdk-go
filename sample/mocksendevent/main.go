@@ -820,7 +820,7 @@ func main() {
 	//mock body
 	encryptedKey := "1212121212"
 	//body := mockMessageReceiveEventV1()
-	body := mockAppUninstalledEventV1()
+	body := mockAppTicketEvent()
 	//body := mockMessageReceiveEventV1()
 	//body := mockAppTicketEvent()
 	//body := mockMessageReadEventV1()
