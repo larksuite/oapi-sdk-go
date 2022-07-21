@@ -38,7 +38,7 @@
 ## 安装
 
 ```go
-go get -u github.com/larksuite/oapi-sdk-go/v3@v3.0.0-beta-1
+go get -u github.com/larksuite/oapi-sdk-go/v3@v3.0.0-beta-2
 ```
 
 ## API Client
@@ -509,7 +509,6 @@ func main() {
 ```
 
 更多 API 调用示例：[./sample/callrawapi/api.go](./sample/callrawapi/api.go)
-
 
 ## 处理消息事件回调
 关于消息订阅相关的知识，可以点击[这里查看](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)

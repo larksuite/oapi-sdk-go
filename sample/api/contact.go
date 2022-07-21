@@ -71,6 +71,7 @@ func patchUser() {
 		fmt.Println(resp.Msg, resp.Code, resp.RequestId())
 	}
 }
+
 func createUser() {
 	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
 	var client = lark.NewClient(appID, appSecret,
@@ -91,7 +92,33 @@ func createUser() {
 		fmt.Println(resp.Msg, resp.Code, resp.RequestId())
 	}
 }
+
+func batchGetId() {
+	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
+	var client = lark.NewClient(appID, appSecret,
+		lark.WithLogLevel(larkcore.LogLevelDebug),
+		lark.WithLogReqAtDebug(true))
+
+	resp, err := client.Contact.User.BatchGetId(context.Background(),
+		larkcontact.NewBatchGetIdUserReqBuilder().
+			UserIdType(larkcontact.UserIdTypeOpenId).
+			Body(larkcontact.NewBatchGetIdUserReqBodyBuilder().
+				Mobiles([]string{"183688661111"}).
+				Build()).
+			Build())
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	if resp.Success() {
+		fmt.Println(resp.Data)
+	} else {
+		fmt.Println(resp.Msg, resp.Code, resp.RequestId())
+	}
+}
 func main() {
-	createUser()
+	batchGetId()
 
 }

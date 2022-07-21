@@ -95,8 +95,13 @@ func validate(config *Config, option *RequestOption, accessTokenType AccessToken
 		return &IllegalParamError{msg: "AppSecret is empty"}
 	}
 
-	if !config.EnableTokenCache && option.UserAccessToken == "" && option.TenantAccessToken == "" && option.AppAccessToken == "" {
-		return &IllegalParamError{msg: "accessToken is empty"}
+	if !config.EnableTokenCache {
+		if accessTokenType == AccessTokenTypeNone {
+			return nil
+		}
+		if option.UserAccessToken == "" && option.TenantAccessToken == "" && option.AppAccessToken == "" {
+			return &IllegalParamError{msg: "accessToken is empty"}
+		}
 	}
 
 	if config.AppType == AppTypeMarketplace && accessTokenType == AccessTokenTypeTenant && option.TenantKey == "" {

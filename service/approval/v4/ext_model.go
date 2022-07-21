@@ -151,7 +151,7 @@ type P1TripApprovalV4Data struct {
 	Schedules    []*P1TripApprovalScheduleV4 `json:"schedules,omitempty"`
 	TripInterval int64                       `json:"trip_interval,omitempty"`
 	TripReason   string                      `json:"trip_reason,omitempty"`
-	TripPeers    []*P1TripApprovalTripPeerV4 `json:"trip_peers,omitempty"`
+	TripPeers    []string                    `json:"trip_peers,omitempty"`
 }
 
 type P1TripApprovalScheduleV4 struct {

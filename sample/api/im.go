@@ -765,7 +765,7 @@ func main() {
 	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
 	var feishu_client = lark.NewClient(appID, appSecret,
 		lark.WithLogLevel(larkcore.LogLevelDebug),
-		lark.WithLogReqAtDebug(false),
+		lark.WithLogReqAtDebug(true),
 	)
 
 	//downLoadImageV2(feishu_client)

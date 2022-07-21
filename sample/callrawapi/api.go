@@ -132,7 +132,7 @@ func rawApiTenantCallOld() {
 func rawApiUserCallOld() {
 	// 创建 API Client
 	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
-	var cli = lark.NewClient(appID, appSecret)
+	var cli = lark.NewClient(appID, appSecret, lark.WithEnableTokenCache(false))
 
 	// 发起请求
 	//1.httpPath:如有 path 参数，query 参数，则需要拼接到 url 上
@@ -142,8 +142,38 @@ func rawApiUserCallOld() {
 	resp, err := cli.Get(context.Background(),
 		"https://open.feishu.cn/open-apis/contact/v3/users/ou_c245b0a7dff2725cfa2fb104f8b48b9d?user_id_type=open_id",
 		nil,
-		larkcore.AccessTokenTypeUser,
-		larkcore.WithUserAccessToken("u-0s9SxTtX9fNGreDT8RgAjXh47fL5h5AbMMw0lgEayx27"))
+		larkcore.AccessTokenTypeTenant,
+		larkcore.WithTenantAccessToken("t-cbaf253c7d6f99e1c579950d67e86e56da64a395"))
+
+	// 错误处理
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	// 获取请求 ID
+	fmt.Println(resp.RequestId())
+
+	// 处理请求结果
+	fmt.Println(resp.StatusCode)      // http status code
+	fmt.Println(resp.Header)          // http header
+	fmt.Println(string(resp.RawBody)) // http body
+}
+
+// 老的原生调用方法，仅做兼容使用
+func rawApiGetTokenCallOld() {
+	// 创建 API Client
+	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
+	var cli = lark.NewClient(appID, appSecret, lark.WithEnableTokenCache(false))
+
+	// 发起请求
+	resp, err := cli.Post(context.Background(),
+		"https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal",
+		map[string]interface{}{
+			"app_id":     appID,
+			"app_secret": appSecret,
+		},
+		larkcore.AccessTokenTypeNone)
 
 	// 错误处理
 	if err != nil {
@@ -160,5 +190,5 @@ func rawApiUserCallOld() {
 	fmt.Println(string(resp.RawBody)) // http body
 }
 func main() {
-	rawApiUserCallOld()
+	rawApiGetTokenCallOld()
 }

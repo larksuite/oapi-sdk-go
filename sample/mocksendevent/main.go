@@ -298,10 +298,10 @@ func mockDeptChangedEventV1() []byte {
 func mockContactScopeChangedEventV1() []byte {
 	event := &larkcontact.P1ContactScopeChangedV3{
 		EventBase: &larkevent.EventBase{
-			Ts:    "",
-			UUID:  "",
+			Ts:    "t",
+			UUID:  "u",
 			Token: "v",
-			Type:  "",
+			Type:  "type",
 		},
 		Event: &larkcontact.P1ContactScopeChangedV3Data{
 			Type:      "contact_scope_change",
@@ -690,6 +690,9 @@ func mockTripApprovalEventV1() []byte {
 			StartTime:    1564590532,
 			EndTime:      1564590533,
 			EmployeeID:   "id",
+			TripInterval: 12121,
+			TripReason:   "reason",
+			TripPeers:    []string{"a", "b"},
 			Schedules: []*larkapproval.P1TripApprovalScheduleV4{
 				{
 					TripStartTime:  "2018-12-01 12:00:00",
@@ -727,7 +730,7 @@ func mockOutApprovalEventV1() []byte {
 			I18nResources: []*larkapproval.P1OutApprovalI18nResourceV4{{
 				Locale:    "en_us",
 				IsDefault: true,
-				Texts:     nil,
+				Texts:     map[string]string{"k1": "v1", "k2": "v2"},
 			}},
 			OutImage:     "image",
 			OutInterval:  1000,
@@ -804,6 +807,8 @@ func mockAppOrderPaidEventV1() []byte {
 			BuyCount:      1,
 			SrcOrderID:    "23233",
 			OrderPayPrice: 10000,
+			CreateTime:    "time",
+			PayTime:       "paytime",
 		},
 	}
 	body1, _ := json.Marshal(event)
@@ -814,8 +819,8 @@ func main() {
 
 	//mock body
 	encryptedKey := "1212121212"
-	body := mockEncryptedBody(encryptedKey)
-	//body := mockEvent()
+	//body := mockMessageReceiveEventV1()
+	body := mockAppUninstalledEventV1()
 	//body := mockMessageReceiveEventV1()
 	//body := mockAppTicketEvent()
 	//body := mockMessageReadEventV1()
