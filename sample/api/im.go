@@ -788,6 +788,6 @@ func main() {
 	//testCreate(feishu_client)
 	//sendInteractiveMsg(feishu_client)
 	//sendInteractiveMonitorMsg(feishu_client)
-	sendInteractiveMonitorMsg(feishu_client)
+	sendPostMsgUseBuilder(feishu_client)
 
 }

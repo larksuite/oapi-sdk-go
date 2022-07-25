@@ -36,6 +36,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/drive/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/ehr/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/event/v1"
+	"github.com/larksuite/oapi-sdk-go/v3/service/ext"
 	"github.com/larksuite/oapi-sdk-go/v3/service/gray_test_open_sg/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/helpdesk/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/hire/v1"
@@ -88,6 +89,7 @@ type Client struct {
 	Translation            *larktranslation.TranslationService
 	Vc                     *larkvc.VcService
 	Wiki                   *larkwiki.WikiService
+	Ext                    *larkext.ExtService
 }
 
 type ClientOptionFunc func(config *larkcore.Config)
@@ -225,7 +227,7 @@ func initService(client *Client, config *larkcore.Config) {
 	client.Translation = larktranslation.NewService(config)
 	client.Vc = larkvc.NewService(config)
 	client.Wiki = larkwiki.NewService(config)
-
+	client.Ext = larkext.NewService(config)
 }
 
 func resendAppTicketIfNeed(client *Client) {

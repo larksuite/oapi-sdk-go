@@ -14,11 +14,13 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"os"
 
 	lark "github.com/larksuite/oapi-sdk-go/v3"
 	larkcore "github.com/larksuite/oapi-sdk-go/v3/core"
 	larkbitable "github.com/larksuite/oapi-sdk-go/v3/service/bitable/v1"
+	larkext "github.com/larksuite/oapi-sdk-go/v3/service/ext"
 )
 
 func batchAdd(client *lark.Client) {
@@ -33,8 +35,26 @@ func batchAdd(client *lark.Client) {
 			Build()).
 		Build())
 }
+
+func createFile(client *lark.Client) {
+	resp, err := client.Ext.DriveExplorer.CreateFile(context.Background(), larkext.NewCreateFileReqBuilder().
+		FolderToken("fldcniHf40Vcv1DoEc8SXeuA0Zd").
+		Body(larkext.NewCreateFileReqBodyBuilder().
+			Title("title").
+			Type(larkext.FileTypeDoc).
+			Build()).
+		Build(), larkcore.WithUserAccessToken("u-1Kg48B3nh96VzeLBgRanoskhlmB1l54biMG010qyw7rm"))
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(larkcore.Prettify(resp))
+	fmt.Println(resp.RequestId())
+}
+
 func main() {
 	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
 	client := lark.NewClient(appID, appSecret, lark.WithLogLevel(larkcore.LogLevelDebug), lark.WithLogReqAtDebug(true))
-	batchAdd(client)
+	createFile(client)
 }
