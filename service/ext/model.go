@@ -31,6 +31,10 @@ type CreateFileResp struct {
 	Data *CreateFileRespData `json:"data"`
 }
 
+func (c *CreateFileResp) Success() bool {
+	return c.Code == 0
+}
+
 type CreateFileRespData struct {
 	Url      string `json:"url,omitempty"`
 	Token    string `json:"token,omitempty"`

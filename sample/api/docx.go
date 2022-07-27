@@ -52,6 +52,7 @@ func createDocument(client *lark.Client) {
 	// 服务端错误处理
 	if !resp.Success() {
 		fmt.Println(resp.Code, resp.Msg, resp.RequestId())
+		return
 	}
 
 	// 业务数据处理
@@ -70,6 +71,10 @@ func listBlocks(client *lark.Client) {
 		fmt.Println(err)
 		return
 	}
+	if !resp.Success() {
+		fmt.Println(resp.Code, resp.Msg, resp.RequestId())
+		return
+	}
 
 	fmt.Println(resp.RequestId())
 	fmt.Println(larkcore.Prettify(resp))
@@ -86,6 +91,11 @@ func downloadFile(client *lark.Client) {
 
 	if err != nil {
 		fmt.Println(err)
+		return
+	}
+
+	if !resp.Success() {
+		fmt.Println(resp.Code, resp.Msg, resp.RequestId())
 		return
 	}
 

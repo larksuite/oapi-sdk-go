@@ -41,7 +41,7 @@ func createFile(client *lark.Client) {
 		FolderToken("fldcniHf40Vcv1DoEc8SXeuA0Zd").
 		Body(larkext.NewCreateFileReqBodyBuilder().
 			Title("title").
-			Type(larkext.FileTypeDoc).
+			Type(larkext.FileTypeBitable).
 			Build()).
 		Build(), larkcore.WithUserAccessToken("u-1Kg48B3nh96VzeLBgRanoskhlmB1l54biMG010qyw7rm"))
 
@@ -49,7 +49,13 @@ func createFile(client *lark.Client) {
 		fmt.Println(err)
 		return
 	}
-	fmt.Println(larkcore.Prettify(resp))
+
+	if !resp.Success() {
+		fmt.Println(resp.Code, resp.Msg, resp.RequestId())
+		return
+	}
+
+	fmt.Println(larkcore.Prettify(resp.Data))
 	fmt.Println(resp.RequestId())
 }
 

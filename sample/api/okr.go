@@ -35,5 +35,10 @@ func main() {
 		return
 	}
 
+	if !resp.Success() {
+		fmt.Println(resp.Code, resp.Msg, resp.RequestId())
+		return
+	}
+
 	fmt.Println(larkcore.Prettify(resp))
 }

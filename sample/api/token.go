@@ -34,6 +34,11 @@ func GetAppAccessTokenBySelfBuiltApp() {
 		return
 	}
 
+	if !resp.Success() {
+		fmt.Println(resp.Code, resp.Msg, resp.RequestId())
+		return
+	}
+
 	fmt.Println(larkcore.Prettify(resp))
 }
 
@@ -48,6 +53,11 @@ func GetAppAccessTokenByMarketApp() {
 
 	if err != nil {
 		fmt.Println(err)
+		return
+	}
+
+	if !resp.Success() {
+		fmt.Println(resp.Code, resp.Msg, resp.RequestId())
 		return
 	}
 
@@ -67,6 +77,11 @@ func GetTenantAccessTokenBySelfBuiltApp() {
 		return
 	}
 
+	if !resp.Success() {
+		fmt.Println(resp.Code, resp.Msg, resp.RequestId())
+		return
+	}
+
 	fmt.Println(larkcore.Prettify(resp))
 }
 
@@ -80,6 +95,11 @@ func GetTenantAccessTokenByMarketApp() {
 
 	if err != nil {
 		fmt.Println(err)
+		return
+	}
+
+	if !resp.Success() {
+		fmt.Println(resp.Code, resp.Msg, resp.RequestId())
 		return
 	}
 
@@ -99,9 +119,14 @@ func ResendAppTicket() {
 		return
 	}
 
+	if !resp.Success() {
+		fmt.Println(resp.Code, resp.Msg, resp.RequestId())
+		return
+	}
+
 	fmt.Println(larkcore.Prettify(resp))
 }
 
 func main() {
-	ResendAppTicket()
+	GetTenantAccessTokenBySelfBuiltApp()
 }

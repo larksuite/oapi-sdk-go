@@ -56,7 +56,12 @@ type ResendAppTicketReq struct {
 }
 
 type ResendAppTicketResp struct {
+	*ApiResp `json:"-"`
 	CodeError
+}
+
+func (r *ResendAppTicketResp) Success() bool {
+	return r.Code == 0
 }
 
 func applyAppTicket(ctx context.Context, config *Config) {

@@ -37,6 +37,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/ehr/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/event/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/ext"
+	"github.com/larksuite/oapi-sdk-go/v3/service/face_detection/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/gray_test_open_sg/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/helpdesk/v1"
 	"github.com/larksuite/oapi-sdk-go/v3/service/hire/v1"
@@ -72,6 +73,7 @@ type Client struct {
 	Drive                  *larkdrive.DriveService
 	Ehr                    *larkehr.EhrService
 	Event                  *larkevent.EventService
+	FaceDetection          *larkface_detection.FaceDetectionService
 	GrayTestOpenSg         *larkgray_test_open_sg.GrayTestOpenSgService
 	Helpdesk               *larkhelpdesk.HelpdeskService
 	Hire                   *larkhire.HireService
@@ -210,6 +212,7 @@ func initService(client *Client, config *larkcore.Config) {
 	client.Drive = larkdrive.NewService(config)
 	client.Ehr = larkehr.NewService(config)
 	client.Event = larkevent.NewService(config)
+	client.FaceDetection = larkface_detection.NewService(config)
 	client.GrayTestOpenSg = larkgray_test_open_sg.NewService(config)
 	client.Helpdesk = larkhelpdesk.NewService(config)
 	client.Hire = larkhire.NewService(config)
@@ -316,6 +319,7 @@ func (cli *Client) GetAppAccessTokenBySelfBuiltApp(ctx context.Context, req *lar
 	if err != nil {
 		return nil, err
 	}
+	resp.ApiResp = rawResp
 
 	return resp, nil
 }
@@ -336,6 +340,7 @@ func (cli *Client) GetAppAccessTokenByMarketplaceApp(ctx context.Context, req *l
 	if err != nil {
 		return nil, err
 	}
+	resp.ApiResp = rawResp
 
 	return resp, nil
 }
@@ -356,6 +361,7 @@ func (cli *Client) GetTenantAccessTokenBySelfBuiltApp(ctx context.Context, req *
 	if err != nil {
 		return nil, err
 	}
+	resp.ApiResp = rawResp
 
 	return resp, nil
 }
@@ -376,6 +382,7 @@ func (cli *Client) GetTenantAccessTokenByMarketplaceApp(ctx context.Context, req
 	if err != nil {
 		return nil, err
 	}
+	resp.ApiResp = rawResp
 
 	return resp, nil
 }
@@ -396,6 +403,7 @@ func (cli *Client) ResendAppTicket(ctx context.Context, req *larkcore.ResendAppT
 	if err != nil {
 		return nil, err
 	}
+	resp.ApiResp = rawResp
 
 	return resp, nil
 }

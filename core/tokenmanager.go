@@ -95,15 +95,27 @@ type SelfBuiltTenantAccessTokenReq struct {
 	AppSecret string `json:"app_secret"`
 }
 type AppAccessTokenResp struct {
+	*ApiResp `json:"-"`
 	CodeError
 	Expire         int    `json:"expire"`
 	AppAccessToken string `json:"app_access_token"`
 }
+
+func (t *AppAccessTokenResp) Success() bool {
+	return t.Code == 0
+}
+
 type TenantAccessTokenResp struct {
+	*ApiResp `json:"-"`
 	CodeError
 	Expire            int    `json:"expire"`
 	TenantAccessToken string `json:"tenant_access_token"`
 }
+
+func (t *TenantAccessTokenResp) Success() bool {
+	return t.Code == 0
+}
+
 type MarketplaceAppAccessTokenReq struct {
 	AppID     string `json:"app_id"`
 	AppSecret string `json:"app_secret"`

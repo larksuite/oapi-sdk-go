@@ -46,6 +46,12 @@ func uploadImage(client *lark.Client) {
 		fmt.Println(err)
 		return
 	}
+
+	if !resp.Success() {
+		fmt.Println(resp.Code, resp.Msg, resp.RequestId())
+		return
+	}
+
 	fmt.Println(larkcore.Prettify(resp))
 	fmt.Println(resp.RequestId())
 }
@@ -71,6 +77,12 @@ func uploadFile(client *lark.Client) {
 		fmt.Println(err)
 		return
 	}
+
+	if !resp.Success() {
+		fmt.Println(resp.Code, resp.Msg, resp.RequestId())
+		return
+	}
+
 	fmt.Println(larkcore.Prettify(resp))
 	fmt.Println(resp.RequestId())
 }
@@ -91,6 +103,12 @@ func uploadImage2(client *lark.Client) {
 		fmt.Println(err)
 		return
 	}
+
+	if !resp.Success() {
+		fmt.Println(resp.Code, resp.Msg, resp.RequestId())
+		return
+	}
+
 	fmt.Println(larkcore.Prettify(resp))
 	fmt.Println(resp.RequestId())
 }
@@ -107,6 +125,7 @@ func downLoadImage(client *lark.Client) {
 		fmt.Println(larkcore.Prettify(resp))
 		return
 	}
+
 	fmt.Println(resp.FileName)
 	fmt.Println(resp.RequestId())
 
@@ -165,6 +184,12 @@ func sendTextMsg(client *lark.Client) {
 		fmt.Println(err)
 		return
 	}
+
+	if !resp.Success() {
+		fmt.Println(resp.Code, resp.Msg, resp.RequestId())
+		return
+	}
+
 	fmt.Println(larkcore.Prettify(resp))
 	fmt.Println(resp.RequestId())
 }
@@ -239,6 +264,12 @@ func sendInteractiveMsg(client *lark.Client) {
 		fmt.Println(err)
 		return
 	}
+
+	if !resp.Success() {
+		fmt.Println(resp.Code, resp.Msg, resp.RequestId())
+		return
+	}
+
 	fmt.Println(larkcore.Prettify(resp))
 	fmt.Println(resp.RequestId())
 }
@@ -405,6 +436,12 @@ func sendInteractiveMonitorMsg(client *lark.Client) {
 		fmt.Println(err)
 		return
 	}
+
+	if !resp.Success() {
+		fmt.Println(resp.Code, resp.Msg, resp.RequestId())
+		return
+	}
+
 	fmt.Println(larkcore.Prettify(resp))
 	fmt.Println(resp.RequestId())
 }
@@ -429,6 +466,12 @@ func sendImageMsg(client *lark.Client) {
 		fmt.Println(err)
 		return
 	}
+
+	if !resp.Success() {
+		fmt.Println(resp.Code, resp.Msg, resp.RequestId())
+		return
+	}
+
 	fmt.Println(larkcore.Prettify(resp))
 	fmt.Println(resp.RequestId())
 }
@@ -453,6 +496,12 @@ func sendShardChatMsg(client *lark.Client) {
 		fmt.Println(err)
 		return
 	}
+
+	if !resp.Success() {
+		fmt.Println(resp.Code, resp.Msg, resp.RequestId())
+		return
+	}
+
 	fmt.Println(larkcore.Prettify(resp))
 	fmt.Println(resp.RequestId())
 
@@ -478,6 +527,12 @@ func sendShardUserMsg(client *lark.Client) {
 		fmt.Println(err)
 		return
 	}
+
+	if !resp.Success() {
+		fmt.Println(resp.Code, resp.Msg, resp.RequestId())
+		return
+	}
+
 	fmt.Println(larkcore.Prettify(resp))
 	fmt.Println(resp.RequestId())
 
@@ -503,6 +558,12 @@ func sendAudioMsg(client *lark.Client) {
 		fmt.Println(err)
 		return
 	}
+
+	if !resp.Success() {
+		fmt.Println(resp.Code, resp.Msg, resp.RequestId())
+		return
+	}
+
 	fmt.Println(larkcore.Prettify(resp))
 	fmt.Println(resp.RequestId())
 
@@ -528,6 +589,12 @@ func sendMediaMsg(client *lark.Client) {
 		fmt.Println(err)
 		return
 	}
+
+	if !resp.Success() {
+		fmt.Println(resp.Code, resp.Msg, resp.RequestId())
+		return
+	}
+
 	fmt.Println(larkcore.Prettify(resp))
 	fmt.Println(resp.RequestId())
 
@@ -553,6 +620,12 @@ func sendFileMsg(client *lark.Client) {
 		fmt.Println(err)
 		return
 	}
+
+	if !resp.Success() {
+		fmt.Println(resp.Code, resp.Msg, resp.RequestId())
+		return
+	}
+
 	fmt.Println(larkcore.Prettify(resp))
 	fmt.Println(resp.RequestId())
 
@@ -578,6 +651,12 @@ func sendStickerMsg(client *lark.Client) {
 		fmt.Println(err)
 		return
 	}
+
+	if !resp.Success() {
+		fmt.Println(resp.Code, resp.Msg, resp.RequestId())
+		return
+	}
+
 	fmt.Println(larkcore.Prettify(resp))
 	fmt.Println(resp.RequestId())
 
@@ -625,6 +704,12 @@ func sendPostMsg(client *lark.Client) {
 		}
 		return
 	}
+
+	if !resp.Success() {
+		fmt.Println(resp.Code, resp.Msg, resp.RequestId())
+		return
+	}
+
 	fmt.Println(larkcore.Prettify(resp))
 	fmt.Println(resp.RequestId())
 }
@@ -660,19 +745,7 @@ func sendPostMsgUseBuilder(client *lark.Client) {
 		Build())
 
 	if err != nil {
-		switch er := err.(type) {
-		case *larkcore.IllegalParamError:
-			fmt.Println(er.Error()) // 处理错误
-		case *larkcore.ClientTimeoutError:
-			fmt.Println(er.Error()) // 处理错误
-		case *larkcore.ServerTimeoutError:
-			fmt.Println(er.Error()) // 处理错误
-		case *larkcore.DialFailedError:
-			fmt.Println(er.Error()) // 处理错误
-		default:
-			//其他处理
-			fmt.Println(err)
-		}
+		fmt.Println(err)
 		return
 	}
 
