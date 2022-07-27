@@ -319,6 +319,10 @@ func main() {
 }
 ```
 
+注：``API 文档上 HTTP URL 与 SDK 内方法对应关系如下``：
+![](doc/find_method.jpg)
+
+
 更多 API 调用示例：[./sample/api/im.go](./sample/api/im.go)
 
 ### 设置请求选项
