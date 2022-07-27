@@ -271,6 +271,8 @@ type HttpClient interface {
 ## API调用
 创建完毕 API Client，我们可以使用 ``Client.业务域.资源.方法名称`` 来定位具体的 API 方法，然后对具体的 API 发起调用。
 
+![](doc/find_method.jpg)
+
 飞书开放平台开放的所有 API 列表，可点击[这里查看](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/server-api-list)
 
 ### 基本用法
@@ -318,10 +320,6 @@ func main() {
 	fmt.Println(larkcore.Prettify(resp.Data))
 }
 ```
-
-注：``API 文档上 HTTP URL 与 SDK 内方法对应关系如下``：
-![](doc/find_method.jpg)
-
 
 更多 API 调用示例：[./sample/api/im.go](./sample/api/im.go)
 
