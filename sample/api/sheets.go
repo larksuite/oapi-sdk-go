@@ -19,31 +19,19 @@ import (
 
 	lark "github.com/larksuite/oapi-sdk-go/v3"
 	larkcore "github.com/larksuite/oapi-sdk-go/v3/core"
-	larkbitable "github.com/larksuite/oapi-sdk-go/v3/service/bitable/v1"
-	larkext "github.com/larksuite/oapi-sdk-go/v3/service/ext"
+	larksheets "github.com/larksuite/oapi-sdk-go/v3/service/sheets/v3"
 )
 
-func batchAdd(client *lark.Client) {
-	client.Bitable.AppTableRecord.BatchCreate(context.Background(), larkbitable.NewBatchCreateAppTableRecordReqBuilder().
-		TableId("id").
-		Body(larkbitable.NewBatchCreateAppTableRecordReqBodyBuilder().
-			Records([]*larkbitable.AppTableRecord{larkbitable.
-				NewAppTableRecordBuilder().
-				RecordId("").
-				Fields(map[string]interface{}{"a": []*larkbitable.Person{larkbitable.NewPersonBuilder().Name("name").Build()}}).
-				Build()}).
-			Build()).
-		Build())
-}
-
-func createFile(client *lark.Client) {
-	resp, err := client.Ext.DriveExplorer.CreateFile(context.Background(), larkext.NewCreateFileReqBuilder().
-		FolderToken("fldcniHf40Vcv1DoEc8SXeuA0Zd").
-		Body(larkext.NewCreateFileReqBodyBuilder().
+func createSheet(client *lark.Client) {
+	// 用户权限创建表格
+	resp, err := client.Sheets.Spreadsheet.Create(context.Background(), larksheets.
+		NewCreateSpreadsheetReqBuilder().
+		Spreadsheet(larksheets.NewSpreadsheetBuilder().
+			FolderToken("fldcniHf40Vcv1DoEc8SXeuA0Zd").
 			Title("title").
-			Type(larkext.FileTypeBitable).
 			Build()).
-		Build(), larkcore.WithUserAccessToken("u-1Kg48B3nh96VzeLBgRanoskhlmB1l54biMG010qyw7rm"))
+		Build(),
+		larkcore.WithUserAccessToken("u-2NJonELO1d.WwANxJ3Q1fL5k2caRglcFr200g5ww22PK"))
 
 	if err != nil {
 		fmt.Println(err)
@@ -57,10 +45,12 @@ func createFile(client *lark.Client) {
 
 	fmt.Println(larkcore.Prettify(resp.Data))
 	fmt.Println(resp.RequestId())
+
 }
 
 func main() {
 	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
 	client := lark.NewClient(appID, appSecret, lark.WithLogLevel(larkcore.LogLevelDebug), lark.WithLogReqAtDebug(true))
-	createFile(client)
+
+	createSheet(client)
 }
