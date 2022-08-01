@@ -12,26 +12,64 @@
 
 package larkbitable
 
-func (a AppTableRecord) StringField(key string) string {
-	return a.Fields[key].(string)
+func (a *AppTableRecord) StringField(key string) *string {
+	if a == nil || a.Fields == nil {
+		return nil
+	}
+
+	v := a.Fields[key]
+	if v == nil {
+		return nil
+	}
+
+	if v, ok := v.(string); ok {
+		return &v
+	}
+
+	return nil
 }
 
-func (a AppTableRecord) ListStringField(key string) []string {
-	return a.Fields[key].([]string)
+func (a *AppTableRecord) ListStringField(key string) []string {
+	if a == nil || a.Fields == nil {
+		return nil
+	}
+	if v, ok := a.Fields[key].([]string); ok {
+		return v
+	}
+
+	return nil
 }
 
-func (a AppTableRecord) BoolField(key string) bool {
-	return a.Fields[key].(bool)
+func (a *AppTableRecord) BoolField(key string) *bool {
+	if a == nil || a.Fields == nil {
+		return nil
+	}
+	if v, ok := a.Fields[key].(bool); ok {
+		return &v
+	}
+
+	return nil
 }
 
-func (a AppTableRecord) ListUrlField(key string) []Url {
-	return a.Fields[key].([]Url)
+func (a *AppTableRecord) ListUrlField(key string) []Url {
+	if v, ok := a.Fields[key].([]Url); ok {
+		return v
+	}
+
+	return nil
 }
 
-func (a AppTableRecord) ListPersonField(key string) []Person {
-	return a.Fields[key].([]Person)
+func (a *AppTableRecord) ListPersonField(key string) []Person {
+	if v, ok := a.Fields[key].([]Person); ok {
+		return v
+	}
+
+	return nil
 }
 
-func (a AppTableRecord) ListAttachmentField(key string) []Attachment {
-	return a.Fields[key].([]Attachment)
+func (a *AppTableRecord) ListAttachmentField(key string) []Attachment {
+	if v, ok := a.Fields[key].([]Attachment); ok {
+		return v
+	}
+	return nil
 }
