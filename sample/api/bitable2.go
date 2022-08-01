@@ -98,8 +98,27 @@ func listFile(client *lark.Client) {
 	fmt.Println(fmt.Sprintf("total :%d", len(resp.Data.Files)))
 }
 
+func TestAppRecordStruct() {
+	tableRecord := larkbitable.AppTableRecord{}
+	fields := map[string]interface{}{}
+	fields["str"] = "string"
+	fields["bool"] = false
+	fields["listurl"] = []larkbitable.Url{*larkbitable.NewUrlBuilder().Text("t1").Link("www.baiducom").Build(), *larkbitable.NewUrlBuilder().Text("t2").Link("www.google").Build()}
+	fields["liststr"] = []string{"str1", "str2"}
+	fields["listperson"] = []larkbitable.Person{*larkbitable.NewPersonBuilder().Name("n1").Id("id1").Email("e1").Build(), *larkbitable.NewPersonBuilder().Name("n2").Id("id2").Email("e2").Build()}
+	fields["listattachment"] = []larkbitable.Attachment{*larkbitable.NewAttachmentBuilder().Name("n1").Url("u1").Build(), *larkbitable.NewAttachmentBuilder().Name("n2").Url("url2").Build()}
+	tableRecord.Fields = fields
+
+	fmt.Println(tableRecord.BoolField("bool"))
+	fmt.Println(larkcore.Prettify(tableRecord.StringField("str")))
+	fmt.Println(larkcore.Prettify(tableRecord.ListUrlField("listurl")))
+	fmt.Println(larkcore.Prettify(tableRecord.ListStringField("liststr")))
+	fmt.Println(larkcore.Prettify((tableRecord.ListPersonField("listperson"))))
+	fmt.Println(larkcore.Prettify(tableRecord.ListAttachmentField("listattachment")))
+}
 func main() {
 	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
 	client := lark.NewClient(appID, appSecret, lark.WithLogLevel(larkcore.LogLevelDebug), lark.WithLogReqAtDebug(true))
 	listFileByIterator(client)
+
 }
