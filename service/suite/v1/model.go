@@ -10,6 +10,7 @@ type DocsEntity struct {
 	DocsType        string   `json:"docs_type,omitempty"`
 	Title           string   `json:"title,omitempty"`
 	DocsOwner       string   `json:"docs_owner,omitempty"`
+	ownerId         string   `json:"owner_id,omitempty"`
 	ForceSendFields []string `json:"-"`
 }
 
