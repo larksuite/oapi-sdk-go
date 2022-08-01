@@ -115,6 +115,14 @@ func TestAppRecordStruct() {
 	fmt.Println(larkcore.Prettify(tableRecord.ListStringField("liststr")))
 	fmt.Println(larkcore.Prettify((tableRecord.ListPersonField("listperson"))))
 	fmt.Println(larkcore.Prettify(tableRecord.ListAttachmentField("listattachment")))
+
+	boolField := tableRecord.BoolField("bool")
+	strField := tableRecord.StringField("str")
+	listUrlField := tableRecord.ListUrlField("listurl")
+	listStrField := tableRecord.ListStringField("liststr")
+	listPersonField := tableRecord.ListPersonField("listperson")
+	listAttachField := tableRecord.ListAttachmentField("listattachment")
+	fmt.Println(boolField, strField, listUrlField, listStrField, listPersonField, listAttachField)
 }
 func main() {
 	TestAppRecordStruct()
