@@ -711,14 +711,14 @@ func (builder *AdminUserStatBuilder) Build() *AdminUserStat {
 // builder结束
 
 type Administrator struct {
-	UserId               *int64 `json:"user_id,omitempty,string"`
-	IsSuperAdministrator *bool  `json:"is_super_administrator,omitempty"`
-	IsAdministrator      *bool  `json:"is_administrator,omitempty"`
+	UserId               *string `json:"user_id,omitempty"`
+	IsSuperAdministrator *bool   `json:"is_super_administrator,omitempty"`
+	IsAdministrator      *bool   `json:"is_administrator,omitempty"`
 }
 
 // builder开始
 type AdministratorBuilder struct {
-	userId                   int64
+	userId                   string
 	userIdFlag               bool
 	isSuperAdministrator     bool
 	isSuperAdministratorFlag bool
@@ -731,7 +731,7 @@ func NewAdministratorBuilder() *AdministratorBuilder {
 	return builder
 }
 
-func (builder *AdministratorBuilder) UserId(userId int64) *AdministratorBuilder {
+func (builder *AdministratorBuilder) UserId(userId string) *AdministratorBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
 	return builder
@@ -2644,17 +2644,17 @@ func (builder *PasswordBuilder) Build() *Password {
 // builder结束
 
 type RuleDetail struct {
-	EffectiveTime   *int64 `json:"effective_time,omitempty,string"`
-	ExpirationTime  *int64 `json:"expiration_time,omitempty,string"`
-	Anniversary     *int   `json:"anniversary,omitempty"`
-	EffectivePeriod *int   `json:"effective_period,omitempty"`
+	EffectiveTime   *string `json:"effective_time,omitempty"`
+	ExpirationTime  *string `json:"expiration_time,omitempty"`
+	Anniversary     *int    `json:"anniversary,omitempty"`
+	EffectivePeriod *int    `json:"effective_period,omitempty"`
 }
 
 // builder开始
 type RuleDetailBuilder struct {
-	effectiveTime       int64
+	effectiveTime       string
 	effectiveTimeFlag   bool
-	expirationTime      int64
+	expirationTime      string
 	expirationTimeFlag  bool
 	anniversary         int
 	anniversaryFlag     bool
@@ -2667,12 +2667,12 @@ func NewRuleDetailBuilder() *RuleDetailBuilder {
 	return builder
 }
 
-func (builder *RuleDetailBuilder) EffectiveTime(effectiveTime int64) *RuleDetailBuilder {
+func (builder *RuleDetailBuilder) EffectiveTime(effectiveTime string) *RuleDetailBuilder {
 	builder.effectiveTime = effectiveTime
 	builder.effectiveTimeFlag = true
 	return builder
 }
-func (builder *RuleDetailBuilder) ExpirationTime(expirationTime int64) *RuleDetailBuilder {
+func (builder *RuleDetailBuilder) ExpirationTime(expirationTime string) *RuleDetailBuilder {
 	builder.expirationTime = expirationTime
 	builder.expirationTimeFlag = true
 	return builder

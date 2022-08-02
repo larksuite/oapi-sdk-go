@@ -7855,7 +7855,7 @@ type ExternalApplication struct {
 	TalentId           *string `json:"talent_id,omitempty"`
 	TerminationReason  *string `json:"termination_reason,omitempty"`
 	DeliveryType       *int    `json:"delivery_type,omitempty"`
-	ModifyTime         *int64  `json:"modify_time,omitempty,string"`
+	ModifyTime         *string `json:"modify_time,omitempty"`
 	TerminationType    *string `json:"termination_type,omitempty"`
 }
 
@@ -7879,7 +7879,7 @@ type ExternalApplicationBuilder struct {
 	terminationReasonFlag  bool
 	deliveryType           int
 	deliveryTypeFlag       bool
-	modifyTime             int64
+	modifyTime             string
 	modifyTimeFlag         bool
 	terminationType        string
 	terminationTypeFlag    bool
@@ -7935,7 +7935,7 @@ func (builder *ExternalApplicationBuilder) DeliveryType(deliveryType int) *Exter
 	builder.deliveryTypeFlag = true
 	return builder
 }
-func (builder *ExternalApplicationBuilder) ModifyTime(modifyTime int64) *ExternalApplicationBuilder {
+func (builder *ExternalApplicationBuilder) ModifyTime(modifyTime string) *ExternalApplicationBuilder {
 	builder.modifyTime = modifyTime
 	builder.modifyTimeFlag = true
 	return builder
@@ -24411,11 +24411,11 @@ func (builder *ListApplicationReqBuilder) PageSize(pageSize int) *ListApplicatio
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
-func (builder *ListApplicationReqBuilder) UpdateStartTime(updateStartTime int64) *ListApplicationReqBuilder {
+func (builder *ListApplicationReqBuilder) UpdateStartTime(updateStartTime string) *ListApplicationReqBuilder {
 	builder.apiReq.QueryParams.Set("update_start_time", fmt.Sprint(updateStartTime))
 	return builder
 }
-func (builder *ListApplicationReqBuilder) UpdateEndTime(updateEndTime int64) *ListApplicationReqBuilder {
+func (builder *ListApplicationReqBuilder) UpdateEndTime(updateEndTime string) *ListApplicationReqBuilder {
 	builder.apiReq.QueryParams.Set("update_end_time", fmt.Sprint(updateEndTime))
 	return builder
 }

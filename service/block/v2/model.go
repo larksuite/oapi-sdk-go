@@ -29,7 +29,7 @@ type Entity struct {
 	BlockTypeId *string `json:"block_type_id,omitempty"`
 	SourceData  *string `json:"source_data,omitempty"`
 	SourceMeta  *string `json:"source_meta,omitempty"`
-	Version     *int64  `json:"version,omitempty,string"`
+	Version     *string `json:"version,omitempty"`
 	SourceLink  *string `json:"source_link,omitempty"`
 	Summary     *string `json:"summary,omitempty"`
 	Preview     *string `json:"preview,omitempty"`
@@ -51,7 +51,7 @@ type EntityBuilder struct {
 	sourceDataFlag  bool
 	sourceMeta      string
 	sourceMetaFlag  bool
-	version         int64
+	version         string
 	versionFlag     bool
 	sourceLink      string
 	sourceLinkFlag  bool
@@ -99,7 +99,7 @@ func (builder *EntityBuilder) SourceMeta(sourceMeta string) *EntityBuilder {
 	builder.sourceMetaFlag = true
 	return builder
 }
-func (builder *EntityBuilder) Version(version int64) *EntityBuilder {
+func (builder *EntityBuilder) Version(version string) *EntityBuilder {
 	builder.version = version
 	builder.versionFlag = true
 	return builder
@@ -201,7 +201,7 @@ func (builder *EntityBuilder) Build() *Entity {
 
 type Message struct {
 	Body     *string  `json:"body,omitempty"`
-	Version  *int64   `json:"version,omitempty,string"`
+	Version  *string  `json:"version,omitempty"`
 	BlockId  *string  `json:"block_id,omitempty"`
 	Resource *string  `json:"resource,omitempty"`
 	OpenIds  []string `json:"open_ids,omitempty"`
@@ -211,7 +211,7 @@ type Message struct {
 type MessageBuilder struct {
 	body         string
 	bodyFlag     bool
-	version      int64
+	version      string
 	versionFlag  bool
 	blockId      string
 	blockIdFlag  bool
@@ -231,7 +231,7 @@ func (builder *MessageBuilder) Body(body string) *MessageBuilder {
 	builder.bodyFlag = true
 	return builder
 }
-func (builder *MessageBuilder) Version(version int64) *MessageBuilder {
+func (builder *MessageBuilder) Version(version string) *MessageBuilder {
 	builder.version = version
 	builder.versionFlag = true
 	return builder
@@ -289,7 +289,7 @@ type CreateEntityReqBodyBuilder struct {
 	sourceDataFlag  bool
 	sourceMeta      string
 	sourceMetaFlag  bool
-	version         int64
+	version         string
 	versionFlag     bool
 	sourceLink      string
 	sourceLinkFlag  bool
@@ -334,7 +334,7 @@ func (builder *CreateEntityReqBodyBuilder) SourceMeta(sourceMeta string) *Create
 	builder.sourceMetaFlag = true
 	return builder
 }
-func (builder *CreateEntityReqBodyBuilder) Version(version int64) *CreateEntityReqBodyBuilder {
+func (builder *CreateEntityReqBodyBuilder) Version(version string) *CreateEntityReqBodyBuilder {
 	builder.version = version
 	builder.versionFlag = true
 	return builder
@@ -427,7 +427,7 @@ type CreateEntityPathReqBodyBuilder struct {
 	sourceDataFlag  bool
 	sourceMeta      string
 	sourceMetaFlag  bool
-	version         int64
+	version         string
 	versionFlag     bool
 	sourceLink      string
 	sourceLinkFlag  bool
@@ -469,7 +469,7 @@ func (builder *CreateEntityPathReqBodyBuilder) SourceMeta(sourceMeta string) *Cr
 	builder.sourceMetaFlag = true
 	return builder
 }
-func (builder *CreateEntityPathReqBodyBuilder) Version(version int64) *CreateEntityPathReqBodyBuilder {
+func (builder *CreateEntityPathReqBodyBuilder) Version(version string) *CreateEntityPathReqBodyBuilder {
 	builder.version = version
 	builder.versionFlag = true
 	return builder
@@ -588,7 +588,7 @@ type CreateEntityReqBody struct {
 	BlockTypeId *string `json:"block_type_id,omitempty"`
 	SourceData  *string `json:"source_data,omitempty"`
 	SourceMeta  *string `json:"source_meta,omitempty"`
-	Version     *int64  `json:"version,omitempty,string"`
+	Version     *string `json:"version,omitempty"`
 	SourceLink  *string `json:"source_link,omitempty"`
 	Owner       *string `json:"owner,omitempty"`
 	Extra       *string `json:"extra,omitempty"`

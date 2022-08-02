@@ -423,14 +423,15 @@ func sendInteractiveMonitorMsg(client *lark.Client) {
 		return
 	}
 
-	resp, err := client.Im.Message.Create(context.Background(), larkim.NewCreateMessageReqBuilder().
+	req := larkim.NewCreateMessageReqBuilder().
 		ReceiveIdType(larkim.ReceiveIdTypeOpenId).
 		Body(larkim.NewCreateMessageReqBodyBuilder().
 			MsgType(larkim.MsgTypeInteractive).
 			ReceiveId("ou_c245b0a7dff2725cfa2fb104f8b48b9d").
 			Content(cardContent).
 			Build()).
-		Build())
+		Build()
+	resp, err := client.Im.Message.Create(context.Background(), req)
 
 	if err != nil {
 		fmt.Println(err)

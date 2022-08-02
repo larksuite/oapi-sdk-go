@@ -165,26 +165,26 @@ func (builder *MoveResultBuilder) Build() *MoveResult {
 // builder结束
 
 type Node struct {
-	SpaceId         *int64  `json:"space_id,omitempty,string"`
+	SpaceId         *string `json:"space_id,omitempty"`
 	NodeToken       *string `json:"node_token,omitempty"`
 	ObjToken        *string `json:"obj_token,omitempty"`
 	ObjType         *string `json:"obj_type,omitempty"`
 	ParentNodeToken *string `json:"parent_node_token,omitempty"`
 	NodeType        *string `json:"node_type,omitempty"`
 	OriginNodeToken *string `json:"origin_node_token,omitempty"`
-	OriginSpaceId   *int64  `json:"origin_space_id,omitempty,string"`
+	OriginSpaceId   *string `json:"origin_space_id,omitempty"`
 	HasChild        *bool   `json:"has_child,omitempty"`
 	Title           *string `json:"title,omitempty"`
-	ObjCreateTime   *int64  `json:"obj_create_time,omitempty,string"`
-	ObjEditTime     *int64  `json:"obj_edit_time,omitempty,string"`
-	NodeCreateTime  *int64  `json:"node_create_time,omitempty,string"`
+	ObjCreateTime   *string `json:"obj_create_time,omitempty"`
+	ObjEditTime     *string `json:"obj_edit_time,omitempty"`
+	NodeCreateTime  *string `json:"node_create_time,omitempty"`
 	Creator         *string `json:"creator,omitempty"`
 	Owner           *string `json:"owner,omitempty"`
 }
 
 // builder开始
 type NodeBuilder struct {
-	spaceId             int64
+	spaceId             string
 	spaceIdFlag         bool
 	nodeToken           string
 	nodeTokenFlag       bool
@@ -198,17 +198,17 @@ type NodeBuilder struct {
 	nodeTypeFlag        bool
 	originNodeToken     string
 	originNodeTokenFlag bool
-	originSpaceId       int64
+	originSpaceId       string
 	originSpaceIdFlag   bool
 	hasChild            bool
 	hasChildFlag        bool
 	title               string
 	titleFlag           bool
-	objCreateTime       int64
+	objCreateTime       string
 	objCreateTimeFlag   bool
-	objEditTime         int64
+	objEditTime         string
 	objEditTimeFlag     bool
-	nodeCreateTime      int64
+	nodeCreateTime      string
 	nodeCreateTimeFlag  bool
 	creator             string
 	creatorFlag         bool
@@ -221,7 +221,7 @@ func NewNodeBuilder() *NodeBuilder {
 	return builder
 }
 
-func (builder *NodeBuilder) SpaceId(spaceId int64) *NodeBuilder {
+func (builder *NodeBuilder) SpaceId(spaceId string) *NodeBuilder {
 	builder.spaceId = spaceId
 	builder.spaceIdFlag = true
 	return builder
@@ -256,7 +256,7 @@ func (builder *NodeBuilder) OriginNodeToken(originNodeToken string) *NodeBuilder
 	builder.originNodeTokenFlag = true
 	return builder
 }
-func (builder *NodeBuilder) OriginSpaceId(originSpaceId int64) *NodeBuilder {
+func (builder *NodeBuilder) OriginSpaceId(originSpaceId string) *NodeBuilder {
 	builder.originSpaceId = originSpaceId
 	builder.originSpaceIdFlag = true
 	return builder
@@ -271,17 +271,17 @@ func (builder *NodeBuilder) Title(title string) *NodeBuilder {
 	builder.titleFlag = true
 	return builder
 }
-func (builder *NodeBuilder) ObjCreateTime(objCreateTime int64) *NodeBuilder {
+func (builder *NodeBuilder) ObjCreateTime(objCreateTime string) *NodeBuilder {
 	builder.objCreateTime = objCreateTime
 	builder.objCreateTimeFlag = true
 	return builder
 }
-func (builder *NodeBuilder) ObjEditTime(objEditTime int64) *NodeBuilder {
+func (builder *NodeBuilder) ObjEditTime(objEditTime string) *NodeBuilder {
 	builder.objEditTime = objEditTime
 	builder.objEditTimeFlag = true
 	return builder
 }
-func (builder *NodeBuilder) NodeCreateTime(nodeCreateTime int64) *NodeBuilder {
+func (builder *NodeBuilder) NodeCreateTime(nodeCreateTime string) *NodeBuilder {
 	builder.nodeCreateTime = nodeCreateTime
 	builder.nodeCreateTimeFlag = true
 	return builder
@@ -1020,7 +1020,7 @@ func (resp *DeleteSpaceMemberResp) Success() bool {
 type CopySpaceNodeReqBodyBuilder struct {
 	targetParentToken     string
 	targetParentTokenFlag bool
-	targetSpaceId         int64
+	targetSpaceId         string
 	targetSpaceIdFlag     bool
 	title                 string
 	titleFlag             bool
@@ -1038,7 +1038,7 @@ func (builder *CopySpaceNodeReqBodyBuilder) TargetParentToken(targetParentToken 
 	builder.targetParentTokenFlag = true
 	return builder
 }
-func (builder *CopySpaceNodeReqBodyBuilder) TargetSpaceId(targetSpaceId int64) *CopySpaceNodeReqBodyBuilder {
+func (builder *CopySpaceNodeReqBodyBuilder) TargetSpaceId(targetSpaceId string) *CopySpaceNodeReqBodyBuilder {
 	builder.targetSpaceId = targetSpaceId
 	builder.targetSpaceIdFlag = true
 	return builder
@@ -1068,7 +1068,7 @@ func (builder *CopySpaceNodeReqBodyBuilder) Build() *CopySpaceNodeReqBody {
 type CopySpaceNodePathReqBodyBuilder struct {
 	targetParentToken     string
 	targetParentTokenFlag bool
-	targetSpaceId         int64
+	targetSpaceId         string
 	targetSpaceIdFlag     bool
 	title                 string
 	titleFlag             bool
@@ -1083,7 +1083,7 @@ func (builder *CopySpaceNodePathReqBodyBuilder) TargetParentToken(targetParentTo
 	builder.targetParentTokenFlag = true
 	return builder
 }
-func (builder *CopySpaceNodePathReqBodyBuilder) TargetSpaceId(targetSpaceId int64) *CopySpaceNodePathReqBodyBuilder {
+func (builder *CopySpaceNodePathReqBodyBuilder) TargetSpaceId(targetSpaceId string) *CopySpaceNodePathReqBodyBuilder {
 	builder.targetSpaceId = targetSpaceId
 	builder.targetSpaceIdFlag = true
 	return builder
@@ -1127,7 +1127,7 @@ func NewCopySpaceNodeReqBuilder() *CopySpaceNodeReqBuilder {
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *CopySpaceNodeReqBuilder) SpaceId(spaceId int64) *CopySpaceNodeReqBuilder {
+func (builder *CopySpaceNodeReqBuilder) SpaceId(spaceId string) *CopySpaceNodeReqBuilder {
 	builder.apiReq.PathParams.Set("space_id", fmt.Sprint(spaceId))
 	return builder
 }
@@ -1151,7 +1151,7 @@ func (builder *CopySpaceNodeReqBuilder) Build() *CopySpaceNodeReq {
 
 type CopySpaceNodeReqBody struct {
 	TargetParentToken *string `json:"target_parent_token,omitempty"`
-	TargetSpaceId     *int64  `json:"target_space_id,omitempty,string"`
+	TargetSpaceId     *string `json:"target_space_id,omitempty"`
 	Title             *string `json:"title,omitempty"`
 }
 
@@ -1563,7 +1563,7 @@ func NewMoveDocsToWikiSpaceNodeReqBuilder() *MoveDocsToWikiSpaceNodeReqBuilder {
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *MoveDocsToWikiSpaceNodeReqBuilder) SpaceId(spaceId int64) *MoveDocsToWikiSpaceNodeReqBuilder {
+func (builder *MoveDocsToWikiSpaceNodeReqBuilder) SpaceId(spaceId string) *MoveDocsToWikiSpaceNodeReqBuilder {
 	builder.apiReq.PathParams.Set("space_id", fmt.Sprint(spaceId))
 	return builder
 }
@@ -1679,7 +1679,7 @@ func NewUpdateTitleSpaceNodeReqBuilder() *UpdateTitleSpaceNodeReqBuilder {
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *UpdateTitleSpaceNodeReqBuilder) SpaceId(spaceId int64) *UpdateTitleSpaceNodeReqBuilder {
+func (builder *UpdateTitleSpaceNodeReqBuilder) SpaceId(spaceId string) *UpdateTitleSpaceNodeReqBuilder {
 	builder.apiReq.PathParams.Set("space_id", fmt.Sprint(spaceId))
 	return builder
 }

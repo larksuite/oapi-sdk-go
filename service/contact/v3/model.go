@@ -414,7 +414,7 @@ type Department struct {
 	OpenDepartmentId   *string             `json:"open_department_id,omitempty"`
 	LeaderUserId       *string             `json:"leader_user_id,omitempty"`
 	ChatId             *string             `json:"chat_id,omitempty"`
-	Order              *int64              `json:"order,omitempty,string"`
+	Order              *string             `json:"order,omitempty"`
 	UnitIds            []string            `json:"unit_ids,omitempty"`
 	MemberCount        *int                `json:"member_count,omitempty"`
 	Status             *DepartmentStatus   `json:"status,omitempty"`
@@ -437,7 +437,7 @@ type DepartmentBuilder struct {
 	leaderUserIdFlag       bool
 	chatId                 string
 	chatIdFlag             bool
-	order                  int64
+	order                  string
 	orderFlag              bool
 	unitIds                []string
 	unitIdsFlag            bool
@@ -489,7 +489,7 @@ func (builder *DepartmentBuilder) ChatId(chatId string) *DepartmentBuilder {
 	builder.chatIdFlag = true
 	return builder
 }
-func (builder *DepartmentBuilder) Order(order int64) *DepartmentBuilder {
+func (builder *DepartmentBuilder) Order(order string) *DepartmentBuilder {
 	builder.order = order
 	builder.orderFlag = true
 	return builder
@@ -955,7 +955,7 @@ func (builder *DepartmentUnitBuilder) Build() *DepartmentUnit {
 
 type EmployeeTypeEnum struct {
 	EnumId      *string        `json:"enum_id,omitempty"`
-	EnumValue   *int64         `json:"enum_value,omitempty,string"`
+	EnumValue   *string        `json:"enum_value,omitempty"`
 	Content     *string        `json:"content,omitempty"`
 	EnumType    *int           `json:"enum_type,omitempty"`
 	EnumStatus  *int           `json:"enum_status,omitempty"`
@@ -966,7 +966,7 @@ type EmployeeTypeEnum struct {
 type EmployeeTypeEnumBuilder struct {
 	enumId          string
 	enumIdFlag      bool
-	enumValue       int64
+	enumValue       string
 	enumValueFlag   bool
 	content         string
 	contentFlag     bool
@@ -988,7 +988,7 @@ func (builder *EmployeeTypeEnumBuilder) EnumId(enumId string) *EmployeeTypeEnumB
 	builder.enumIdFlag = true
 	return builder
 }
-func (builder *EmployeeTypeEnumBuilder) EnumValue(enumValue int64) *EmployeeTypeEnumBuilder {
+func (builder *EmployeeTypeEnumBuilder) EnumValue(enumValue string) *EmployeeTypeEnumBuilder {
 	builder.enumValue = enumValue
 	builder.enumValueFlag = true
 	return builder
@@ -2887,7 +2887,7 @@ func (builder *ChildrenDepartmentReqBuilder) Limit(limit int) *ChildrenDepartmen
 	builder.limit = limit
 	return builder
 }
-func (builder *ChildrenDepartmentReqBuilder) DepartmentId(departmentId int64) *ChildrenDepartmentReqBuilder {
+func (builder *ChildrenDepartmentReqBuilder) DepartmentId(departmentId string) *ChildrenDepartmentReqBuilder {
 	builder.apiReq.PathParams.Set("department_id", fmt.Sprint(departmentId))
 	return builder
 }

@@ -241,8 +241,8 @@ func (builder *AppAdminUserBuilder) Build() *AppAdminUser {
 // builder结束
 
 type AppBadge struct {
-	UserId  *int64          `json:"user_id,omitempty,string"`
-	Version *int64          `json:"version,omitempty,string"`
+	UserId  *string         `json:"user_id,omitempty"`
+	Version *string         `json:"version,omitempty"`
 	Extra   *string         `json:"extra,omitempty"`
 	Pc      *ClientBadgeNum `json:"pc,omitempty"`
 	Mobile  *ClientBadgeNum `json:"mobile,omitempty"`
@@ -250,9 +250,9 @@ type AppBadge struct {
 
 // builder开始
 type AppBadgeBuilder struct {
-	userId      int64
+	userId      string
 	userIdFlag  bool
-	version     int64
+	version     string
 	versionFlag bool
 	extra       string
 	extraFlag   bool
@@ -267,12 +267,12 @@ func NewAppBadgeBuilder() *AppBadgeBuilder {
 	return builder
 }
 
-func (builder *AppBadgeBuilder) UserId(userId int64) *AppBadgeBuilder {
+func (builder *AppBadgeBuilder) UserId(userId string) *AppBadgeBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
 	return builder
 }
-func (builder *AppBadgeBuilder) Version(version int64) *AppBadgeBuilder {
+func (builder *AppBadgeBuilder) Version(version string) *AppBadgeBuilder {
 	builder.version = version
 	builder.versionFlag = true
 	return builder
@@ -1100,15 +1100,15 @@ func (builder *AppVisibilityItemBuilder) Build() *AppVisibilityItem {
 // builder结束
 
 type AppVisibleList struct {
-	OpenIds       []int64 `json:"open_ids,omitempty"`
-	DepartmentIds []int64 `json:"department_ids,omitempty"`
+	OpenIds       []string `json:"open_ids,omitempty"`
+	DepartmentIds []string `json:"department_ids,omitempty"`
 }
 
 // builder开始
 type AppVisibleListBuilder struct {
-	openIds           []int64
+	openIds           []string
 	openIdsFlag       bool
-	departmentIds     []int64
+	departmentIds     []string
 	departmentIdsFlag bool
 }
 
@@ -1117,12 +1117,12 @@ func NewAppVisibleListBuilder() *AppVisibleListBuilder {
 	return builder
 }
 
-func (builder *AppVisibleListBuilder) OpenIds(openIds []int64) *AppVisibleListBuilder {
+func (builder *AppVisibleListBuilder) OpenIds(openIds []string) *AppVisibleListBuilder {
 	builder.openIds = openIds
 	builder.openIdsFlag = true
 	return builder
 }
-func (builder *AppVisibleListBuilder) DepartmentIds(departmentIds []int64) *AppVisibleListBuilder {
+func (builder *AppVisibleListBuilder) DepartmentIds(departmentIds []string) *AppVisibleListBuilder {
 	builder.departmentIds = departmentIds
 	builder.departmentIdsFlag = true
 	return builder
@@ -1184,38 +1184,42 @@ func (builder *AppVisibleListEventBuilder) Build() *AppVisibleListEvent {
 // builder结束
 
 type Application struct {
-	AppId            *string        `json:"app_id,omitempty"`
-	CreatorId        *int64         `json:"creator_id,omitempty,string"`
-	Status           *int           `json:"status,omitempty"`
-	SceneType        *int           `json:"scene_type,omitempty"`
-	RedirectUrls     []string       `json:"redirect_urls,omitempty"`
-	OnlineVersionId  *int64         `json:"online_version_id,omitempty,string"`
-	UnauditVersionId *int64         `json:"unaudit_version_id,omitempty,string"`
-	AppName          *string        `json:"app_name,omitempty"`
-	AvatarUrl        *string        `json:"avatar_url,omitempty"`
-	Description      *string        `json:"description,omitempty"`
-	Scopes           []*AppScope    `json:"scopes,omitempty"`
-	BackHomeUrl      *string        `json:"back_home_url,omitempty"`
-	I18n             []*AppI18nInfo `json:"i18n,omitempty"`
-	PrimaryLanguage  *string        `json:"primary_language,omitempty"`
-	CommonCategories []string       `json:"common_categories,omitempty"`
+	AppId            *string           `json:"app_id,omitempty"`
+	CreatorId        *string           `json:"creator_id,omitempty"`
+	Status           *int              `json:"status,omitempty"`
+	SceneType        *int              `json:"scene_type,omitempty"`
+	PaymentType      *int              `json:"payment_type,omitempty"`
+	RedirectUrls     []string          `json:"redirect_urls,omitempty"`
+	OnlineVersionId  *string           `json:"online_version_id,omitempty"`
+	UnauditVersionId *string           `json:"unaudit_version_id,omitempty"`
+	AppName          *string           `json:"app_name,omitempty"`
+	AvatarUrl        *string           `json:"avatar_url,omitempty"`
+	Description      *string           `json:"description,omitempty"`
+	Scopes           []*AppScope       `json:"scopes,omitempty"`
+	BackHomeUrl      *string           `json:"back_home_url,omitempty"`
+	I18n             []*AppI18nInfo    `json:"i18n,omitempty"`
+	PrimaryLanguage  *string           `json:"primary_language,omitempty"`
+	CommonCategories []string          `json:"common_categories,omitempty"`
+	Owner            *ApplicationOwner `json:"owner,omitempty"`
 }
 
 // builder开始
 type ApplicationBuilder struct {
 	appId                string
 	appIdFlag            bool
-	creatorId            int64
+	creatorId            string
 	creatorIdFlag        bool
 	status               int
 	statusFlag           bool
 	sceneType            int
 	sceneTypeFlag        bool
+	paymentType          int
+	paymentTypeFlag      bool
 	redirectUrls         []string
 	redirectUrlsFlag     bool
-	onlineVersionId      int64
+	onlineVersionId      string
 	onlineVersionIdFlag  bool
-	unauditVersionId     int64
+	unauditVersionId     string
 	unauditVersionIdFlag bool
 	appName              string
 	appNameFlag          bool
@@ -1233,6 +1237,8 @@ type ApplicationBuilder struct {
 	primaryLanguageFlag  bool
 	commonCategories     []string
 	commonCategoriesFlag bool
+	owner                *ApplicationOwner
+	ownerFlag            bool
 }
 
 func NewApplicationBuilder() *ApplicationBuilder {
@@ -1245,7 +1251,7 @@ func (builder *ApplicationBuilder) AppId(appId string) *ApplicationBuilder {
 	builder.appIdFlag = true
 	return builder
 }
-func (builder *ApplicationBuilder) CreatorId(creatorId int64) *ApplicationBuilder {
+func (builder *ApplicationBuilder) CreatorId(creatorId string) *ApplicationBuilder {
 	builder.creatorId = creatorId
 	builder.creatorIdFlag = true
 	return builder
@@ -1260,17 +1266,22 @@ func (builder *ApplicationBuilder) SceneType(sceneType int) *ApplicationBuilder 
 	builder.sceneTypeFlag = true
 	return builder
 }
+func (builder *ApplicationBuilder) PaymentType(paymentType int) *ApplicationBuilder {
+	builder.paymentType = paymentType
+	builder.paymentTypeFlag = true
+	return builder
+}
 func (builder *ApplicationBuilder) RedirectUrls(redirectUrls []string) *ApplicationBuilder {
 	builder.redirectUrls = redirectUrls
 	builder.redirectUrlsFlag = true
 	return builder
 }
-func (builder *ApplicationBuilder) OnlineVersionId(onlineVersionId int64) *ApplicationBuilder {
+func (builder *ApplicationBuilder) OnlineVersionId(onlineVersionId string) *ApplicationBuilder {
 	builder.onlineVersionId = onlineVersionId
 	builder.onlineVersionIdFlag = true
 	return builder
 }
-func (builder *ApplicationBuilder) UnauditVersionId(unauditVersionId int64) *ApplicationBuilder {
+func (builder *ApplicationBuilder) UnauditVersionId(unauditVersionId string) *ApplicationBuilder {
 	builder.unauditVersionId = unauditVersionId
 	builder.unauditVersionIdFlag = true
 	return builder
@@ -1315,6 +1326,11 @@ func (builder *ApplicationBuilder) CommonCategories(commonCategories []string) *
 	builder.commonCategoriesFlag = true
 	return builder
 }
+func (builder *ApplicationBuilder) Owner(owner *ApplicationOwner) *ApplicationBuilder {
+	builder.owner = owner
+	builder.ownerFlag = true
+	return builder
+}
 
 func (builder *ApplicationBuilder) Build() *Application {
 	req := &Application{}
@@ -1332,6 +1348,10 @@ func (builder *ApplicationBuilder) Build() *Application {
 	}
 	if builder.sceneTypeFlag {
 		req.SceneType = &builder.sceneType
+
+	}
+	if builder.paymentTypeFlag {
+		req.PaymentType = &builder.paymentType
 
 	}
 	if builder.redirectUrlsFlag {
@@ -1373,6 +1393,9 @@ func (builder *ApplicationBuilder) Build() *Application {
 	}
 	if builder.commonCategoriesFlag {
 		req.CommonCategories = builder.commonCategories
+	}
+	if builder.ownerFlag {
+		req.Owner = builder.owner
 	}
 	return req
 }
@@ -1426,7 +1449,7 @@ func (builder *ApplicationAppUsageBuilder) Build() *ApplicationAppUsage {
 type ApplicationAppVersion struct {
 	AppId            *string           `json:"app_id,omitempty"`
 	Version          *string           `json:"version,omitempty"`
-	VersionId        *int64            `json:"version_id,omitempty,string"`
+	VersionId        *string           `json:"version_id,omitempty"`
 	AppName          *string           `json:"app_name,omitempty"`
 	AvatarUrl        *string           `json:"avatar_url,omitempty"`
 	Description      *string           `json:"description,omitempty"`
@@ -1436,8 +1459,8 @@ type ApplicationAppVersion struct {
 	CommonCategories []string          `json:"common_categories,omitempty"`
 	Events           []string          `json:"events,omitempty"`
 	Status           *int              `json:"status,omitempty"`
-	CreateTime       *int64            `json:"create_time,omitempty,string"`
-	PublishTime      *int64            `json:"publish_time,omitempty,string"`
+	CreateTime       *string           `json:"create_time,omitempty"`
+	PublishTime      *string           `json:"publish_time,omitempty"`
 	Ability          *AppAbility       `json:"ability,omitempty"`
 	Remark           *AppVersionRemark `json:"remark,omitempty"`
 }
@@ -1448,7 +1471,7 @@ type ApplicationAppVersionBuilder struct {
 	appIdFlag            bool
 	version              string
 	versionFlag          bool
-	versionId            int64
+	versionId            string
 	versionIdFlag        bool
 	appName              string
 	appNameFlag          bool
@@ -1468,9 +1491,9 @@ type ApplicationAppVersionBuilder struct {
 	eventsFlag           bool
 	status               int
 	statusFlag           bool
-	createTime           int64
+	createTime           string
 	createTimeFlag       bool
-	publishTime          int64
+	publishTime          string
 	publishTimeFlag      bool
 	ability              *AppAbility
 	abilityFlag          bool
@@ -1493,7 +1516,7 @@ func (builder *ApplicationAppVersionBuilder) Version(version string) *Applicatio
 	builder.versionFlag = true
 	return builder
 }
-func (builder *ApplicationAppVersionBuilder) VersionId(versionId int64) *ApplicationAppVersionBuilder {
+func (builder *ApplicationAppVersionBuilder) VersionId(versionId string) *ApplicationAppVersionBuilder {
 	builder.versionId = versionId
 	builder.versionIdFlag = true
 	return builder
@@ -1543,12 +1566,12 @@ func (builder *ApplicationAppVersionBuilder) Status(status int) *ApplicationAppV
 	builder.statusFlag = true
 	return builder
 }
-func (builder *ApplicationAppVersionBuilder) CreateTime(createTime int64) *ApplicationAppVersionBuilder {
+func (builder *ApplicationAppVersionBuilder) CreateTime(createTime string) *ApplicationAppVersionBuilder {
 	builder.createTime = createTime
 	builder.createTimeFlag = true
 	return builder
 }
-func (builder *ApplicationAppVersionBuilder) PublishTime(publishTime int64) *ApplicationAppVersionBuilder {
+func (builder *ApplicationAppVersionBuilder) PublishTime(publishTime string) *ApplicationAppVersionBuilder {
 	builder.publishTime = publishTime
 	builder.publishTimeFlag = true
 	return builder
@@ -1642,8 +1665,8 @@ type ApplicationAppVersionEvent struct {
 	CommonCategories []string               `json:"common_categories,omitempty"`
 	Events           []string               `json:"events,omitempty"`
 	Status           *int                   `json:"status,omitempty"`
-	CreateTime       *int64                 `json:"create_time,omitempty,string"`
-	PublishTime      *int64                 `json:"publish_time,omitempty,string"`
+	CreateTime       *string                `json:"create_time,omitempty"`
+	PublishTime      *string                `json:"publish_time,omitempty"`
 	Ability          *AppAbility            `json:"ability,omitempty"`
 	Remark           *AppVersionRemarkEvent `json:"remark,omitempty"`
 }
@@ -1674,9 +1697,9 @@ type ApplicationAppVersionEventBuilder struct {
 	eventsFlag           bool
 	status               int
 	statusFlag           bool
-	createTime           int64
+	createTime           string
 	createTimeFlag       bool
-	publishTime          int64
+	publishTime          string
 	publishTimeFlag      bool
 	ability              *AppAbility
 	abilityFlag          bool
@@ -1749,12 +1772,12 @@ func (builder *ApplicationAppVersionEventBuilder) Status(status int) *Applicatio
 	builder.statusFlag = true
 	return builder
 }
-func (builder *ApplicationAppVersionEventBuilder) CreateTime(createTime int64) *ApplicationAppVersionEventBuilder {
+func (builder *ApplicationAppVersionEventBuilder) CreateTime(createTime string) *ApplicationAppVersionEventBuilder {
 	builder.createTime = createTime
 	builder.createTimeFlag = true
 	return builder
 }
-func (builder *ApplicationAppVersionEventBuilder) PublishTime(publishTime int64) *ApplicationAppVersionEventBuilder {
+func (builder *ApplicationAppVersionEventBuilder) PublishTime(publishTime string) *ApplicationAppVersionEventBuilder {
 	builder.publishTime = publishTime
 	builder.publishTimeFlag = true
 	return builder
@@ -1911,8 +1934,88 @@ func (builder *ApplicationDepartmentAppUsageBuilder) Build() *ApplicationDepartm
 
 // builder结束
 
+type ApplicationEventOwner struct {
+	Type     *int    `json:"type,omitempty"`
+	Name     *string `json:"name,omitempty"`
+	HelpDesk *string `json:"help_desk,omitempty"`
+	Email    *string `json:"email,omitempty"`
+	Phone    *string `json:"phone,omitempty"`
+}
+
+// builder开始
+type ApplicationEventOwnerBuilder struct {
+	type_        int
+	typeFlag     bool
+	name         string
+	nameFlag     bool
+	helpDesk     string
+	helpDeskFlag bool
+	email        string
+	emailFlag    bool
+	phone        string
+	phoneFlag    bool
+}
+
+func NewApplicationEventOwnerBuilder() *ApplicationEventOwnerBuilder {
+	builder := &ApplicationEventOwnerBuilder{}
+	return builder
+}
+
+func (builder *ApplicationEventOwnerBuilder) Type(type_ int) *ApplicationEventOwnerBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+func (builder *ApplicationEventOwnerBuilder) Name(name string) *ApplicationEventOwnerBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *ApplicationEventOwnerBuilder) HelpDesk(helpDesk string) *ApplicationEventOwnerBuilder {
+	builder.helpDesk = helpDesk
+	builder.helpDeskFlag = true
+	return builder
+}
+func (builder *ApplicationEventOwnerBuilder) Email(email string) *ApplicationEventOwnerBuilder {
+	builder.email = email
+	builder.emailFlag = true
+	return builder
+}
+func (builder *ApplicationEventOwnerBuilder) Phone(phone string) *ApplicationEventOwnerBuilder {
+	builder.phone = phone
+	builder.phoneFlag = true
+	return builder
+}
+
+func (builder *ApplicationEventOwnerBuilder) Build() *ApplicationEventOwner {
+	req := &ApplicationEventOwner{}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.helpDeskFlag {
+		req.HelpDesk = &builder.helpDesk
+
+	}
+	if builder.emailFlag {
+		req.Email = &builder.email
+
+	}
+	if builder.phoneFlag {
+		req.Phone = &builder.phone
+
+	}
+	return req
+}
+
+// builder结束
+
 type ApplicationFeedback struct {
-	FeedbackId   *int64   `json:"feedback_id,omitempty,string"`
+	FeedbackId   *string  `json:"feedback_id,omitempty"`
 	AppId        *string  `json:"app_id,omitempty"`
 	FeedbackTime *string  `json:"feedback_time,omitempty"`
 	TenantName   *string  `json:"tenant_name,omitempty"`
@@ -1927,11 +2030,12 @@ type ApplicationFeedback struct {
 	UserId       *string  `json:"user_id,omitempty"`
 	OperatorId   *string  `json:"operator_id,omitempty"`
 	Images       []string `json:"images,omitempty"`
+	FeedbackPath *string  `json:"feedback_path,omitempty"`
 }
 
 // builder开始
 type ApplicationFeedbackBuilder struct {
-	feedbackId       int64
+	feedbackId       string
 	feedbackIdFlag   bool
 	appId            string
 	appIdFlag        bool
@@ -1961,6 +2065,8 @@ type ApplicationFeedbackBuilder struct {
 	operatorIdFlag   bool
 	images           []string
 	imagesFlag       bool
+	feedbackPath     string
+	feedbackPathFlag bool
 }
 
 func NewApplicationFeedbackBuilder() *ApplicationFeedbackBuilder {
@@ -1968,7 +2074,7 @@ func NewApplicationFeedbackBuilder() *ApplicationFeedbackBuilder {
 	return builder
 }
 
-func (builder *ApplicationFeedbackBuilder) FeedbackId(feedbackId int64) *ApplicationFeedbackBuilder {
+func (builder *ApplicationFeedbackBuilder) FeedbackId(feedbackId string) *ApplicationFeedbackBuilder {
 	builder.feedbackId = feedbackId
 	builder.feedbackIdFlag = true
 	return builder
@@ -2043,6 +2149,11 @@ func (builder *ApplicationFeedbackBuilder) Images(images []string) *ApplicationF
 	builder.imagesFlag = true
 	return builder
 }
+func (builder *ApplicationFeedbackBuilder) FeedbackPath(feedbackPath string) *ApplicationFeedbackBuilder {
+	builder.feedbackPath = feedbackPath
+	builder.feedbackPathFlag = true
+	return builder
+}
 
 func (builder *ApplicationFeedbackBuilder) Build() *ApplicationFeedback {
 	req := &ApplicationFeedback{}
@@ -2104,6 +2215,102 @@ func (builder *ApplicationFeedbackBuilder) Build() *ApplicationFeedback {
 	if builder.imagesFlag {
 		req.Images = builder.images
 	}
+	if builder.feedbackPathFlag {
+		req.FeedbackPath = &builder.feedbackPath
+
+	}
+	return req
+}
+
+// builder结束
+
+type ApplicationOwner struct {
+	Type     *int    `json:"type,omitempty"`
+	OwnerId  *string `json:"owner_id,omitempty"`
+	Name     *string `json:"name,omitempty"`
+	HelpDesk *string `json:"help_desk,omitempty"`
+	Email    *string `json:"email,omitempty"`
+	Phone    *string `json:"phone,omitempty"`
+}
+
+// builder开始
+type ApplicationOwnerBuilder struct {
+	type_        int
+	typeFlag     bool
+	ownerId      string
+	ownerIdFlag  bool
+	name         string
+	nameFlag     bool
+	helpDesk     string
+	helpDeskFlag bool
+	email        string
+	emailFlag    bool
+	phone        string
+	phoneFlag    bool
+}
+
+func NewApplicationOwnerBuilder() *ApplicationOwnerBuilder {
+	builder := &ApplicationOwnerBuilder{}
+	return builder
+}
+
+func (builder *ApplicationOwnerBuilder) Type(type_ int) *ApplicationOwnerBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+func (builder *ApplicationOwnerBuilder) OwnerId(ownerId string) *ApplicationOwnerBuilder {
+	builder.ownerId = ownerId
+	builder.ownerIdFlag = true
+	return builder
+}
+func (builder *ApplicationOwnerBuilder) Name(name string) *ApplicationOwnerBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *ApplicationOwnerBuilder) HelpDesk(helpDesk string) *ApplicationOwnerBuilder {
+	builder.helpDesk = helpDesk
+	builder.helpDeskFlag = true
+	return builder
+}
+func (builder *ApplicationOwnerBuilder) Email(email string) *ApplicationOwnerBuilder {
+	builder.email = email
+	builder.emailFlag = true
+	return builder
+}
+func (builder *ApplicationOwnerBuilder) Phone(phone string) *ApplicationOwnerBuilder {
+	builder.phone = phone
+	builder.phoneFlag = true
+	return builder
+}
+
+func (builder *ApplicationOwnerBuilder) Build() *ApplicationOwner {
+	req := &ApplicationOwner{}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.ownerIdFlag {
+		req.OwnerId = &builder.ownerId
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.helpDeskFlag {
+		req.HelpDesk = &builder.helpDesk
+
+	}
+	if builder.emailFlag {
+		req.Email = &builder.email
+
+	}
+	if builder.phoneFlag {
+		req.Phone = &builder.phone
+
+	}
 	return req
 }
 
@@ -2157,6 +2364,225 @@ func (builder *ApplicationVisibilityBuilder) Build() *ApplicationVisibility {
 	}
 	if builder.invisibleListFlag {
 		req.InvisibleList = builder.invisibleList
+	}
+	return req
+}
+
+// builder结束
+
+type ApplicationV2 struct {
+	AppId            *string           `json:"app_id,omitempty"`
+	CreatorId        *string           `json:"creator_id,omitempty"`
+	Status           *int              `json:"status,omitempty"`
+	SceneType        *int              `json:"scene_type,omitempty"`
+	PaymentType      *int              `json:"payment_type,omitempty"`
+	RedirectUrls     []string          `json:"redirect_urls,omitempty"`
+	OnlineVersionId  *string           `json:"online_version_id,omitempty"`
+	UnauditVersionId *string           `json:"unaudit_version_id,omitempty"`
+	AppName          *string           `json:"app_name,omitempty"`
+	AvatarUrl        *string           `json:"avatar_url,omitempty"`
+	Description      *string           `json:"description,omitempty"`
+	Scopes           []*AppScope       `json:"scopes,omitempty"`
+	BackHomeUrl      *string           `json:"back_home_url,omitempty"`
+	I18n             []*AppI18nInfo    `json:"i18n,omitempty"`
+	PrimaryLanguage  *string           `json:"primary_language,omitempty"`
+	CommonCategories []string          `json:"common_categories,omitempty"`
+	Owner            *ApplicationOwner `json:"owner,omitempty"`
+}
+
+// builder开始
+type ApplicationV2Builder struct {
+	appId                string
+	appIdFlag            bool
+	creatorId            string
+	creatorIdFlag        bool
+	status               int
+	statusFlag           bool
+	sceneType            int
+	sceneTypeFlag        bool
+	paymentType          int
+	paymentTypeFlag      bool
+	redirectUrls         []string
+	redirectUrlsFlag     bool
+	onlineVersionId      string
+	onlineVersionIdFlag  bool
+	unauditVersionId     string
+	unauditVersionIdFlag bool
+	appName              string
+	appNameFlag          bool
+	avatarUrl            string
+	avatarUrlFlag        bool
+	description          string
+	descriptionFlag      bool
+	scopes               []*AppScope
+	scopesFlag           bool
+	backHomeUrl          string
+	backHomeUrlFlag      bool
+	i18n                 []*AppI18nInfo
+	i18nFlag             bool
+	primaryLanguage      string
+	primaryLanguageFlag  bool
+	commonCategories     []string
+	commonCategoriesFlag bool
+	owner                *ApplicationOwner
+	ownerFlag            bool
+}
+
+func NewApplicationV2Builder() *ApplicationV2Builder {
+	builder := &ApplicationV2Builder{}
+	return builder
+}
+
+func (builder *ApplicationV2Builder) AppId(appId string) *ApplicationV2Builder {
+	builder.appId = appId
+	builder.appIdFlag = true
+	return builder
+}
+func (builder *ApplicationV2Builder) CreatorId(creatorId string) *ApplicationV2Builder {
+	builder.creatorId = creatorId
+	builder.creatorIdFlag = true
+	return builder
+}
+func (builder *ApplicationV2Builder) Status(status int) *ApplicationV2Builder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+func (builder *ApplicationV2Builder) SceneType(sceneType int) *ApplicationV2Builder {
+	builder.sceneType = sceneType
+	builder.sceneTypeFlag = true
+	return builder
+}
+func (builder *ApplicationV2Builder) PaymentType(paymentType int) *ApplicationV2Builder {
+	builder.paymentType = paymentType
+	builder.paymentTypeFlag = true
+	return builder
+}
+func (builder *ApplicationV2Builder) RedirectUrls(redirectUrls []string) *ApplicationV2Builder {
+	builder.redirectUrls = redirectUrls
+	builder.redirectUrlsFlag = true
+	return builder
+}
+func (builder *ApplicationV2Builder) OnlineVersionId(onlineVersionId string) *ApplicationV2Builder {
+	builder.onlineVersionId = onlineVersionId
+	builder.onlineVersionIdFlag = true
+	return builder
+}
+func (builder *ApplicationV2Builder) UnauditVersionId(unauditVersionId string) *ApplicationV2Builder {
+	builder.unauditVersionId = unauditVersionId
+	builder.unauditVersionIdFlag = true
+	return builder
+}
+func (builder *ApplicationV2Builder) AppName(appName string) *ApplicationV2Builder {
+	builder.appName = appName
+	builder.appNameFlag = true
+	return builder
+}
+func (builder *ApplicationV2Builder) AvatarUrl(avatarUrl string) *ApplicationV2Builder {
+	builder.avatarUrl = avatarUrl
+	builder.avatarUrlFlag = true
+	return builder
+}
+func (builder *ApplicationV2Builder) Description(description string) *ApplicationV2Builder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+func (builder *ApplicationV2Builder) Scopes(scopes []*AppScope) *ApplicationV2Builder {
+	builder.scopes = scopes
+	builder.scopesFlag = true
+	return builder
+}
+func (builder *ApplicationV2Builder) BackHomeUrl(backHomeUrl string) *ApplicationV2Builder {
+	builder.backHomeUrl = backHomeUrl
+	builder.backHomeUrlFlag = true
+	return builder
+}
+func (builder *ApplicationV2Builder) I18n(i18n []*AppI18nInfo) *ApplicationV2Builder {
+	builder.i18n = i18n
+	builder.i18nFlag = true
+	return builder
+}
+func (builder *ApplicationV2Builder) PrimaryLanguage(primaryLanguage string) *ApplicationV2Builder {
+	builder.primaryLanguage = primaryLanguage
+	builder.primaryLanguageFlag = true
+	return builder
+}
+func (builder *ApplicationV2Builder) CommonCategories(commonCategories []string) *ApplicationV2Builder {
+	builder.commonCategories = commonCategories
+	builder.commonCategoriesFlag = true
+	return builder
+}
+func (builder *ApplicationV2Builder) Owner(owner *ApplicationOwner) *ApplicationV2Builder {
+	builder.owner = owner
+	builder.ownerFlag = true
+	return builder
+}
+
+func (builder *ApplicationV2Builder) Build() *ApplicationV2 {
+	req := &ApplicationV2{}
+	if builder.appIdFlag {
+		req.AppId = &builder.appId
+
+	}
+	if builder.creatorIdFlag {
+		req.CreatorId = &builder.creatorId
+
+	}
+	if builder.statusFlag {
+		req.Status = &builder.status
+
+	}
+	if builder.sceneTypeFlag {
+		req.SceneType = &builder.sceneType
+
+	}
+	if builder.paymentTypeFlag {
+		req.PaymentType = &builder.paymentType
+
+	}
+	if builder.redirectUrlsFlag {
+		req.RedirectUrls = builder.redirectUrls
+	}
+	if builder.onlineVersionIdFlag {
+		req.OnlineVersionId = &builder.onlineVersionId
+
+	}
+	if builder.unauditVersionIdFlag {
+		req.UnauditVersionId = &builder.unauditVersionId
+
+	}
+	if builder.appNameFlag {
+		req.AppName = &builder.appName
+
+	}
+	if builder.avatarUrlFlag {
+		req.AvatarUrl = &builder.avatarUrl
+
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	if builder.scopesFlag {
+		req.Scopes = builder.scopes
+	}
+	if builder.backHomeUrlFlag {
+		req.BackHomeUrl = &builder.backHomeUrl
+
+	}
+	if builder.i18nFlag {
+		req.I18n = builder.i18n
+	}
+	if builder.primaryLanguageFlag {
+		req.PrimaryLanguage = &builder.primaryLanguage
+
+	}
+	if builder.commonCategoriesFlag {
+		req.CommonCategories = builder.commonCategories
+	}
+	if builder.ownerFlag {
+		req.Owner = builder.owner
 	}
 	return req
 }
@@ -2767,8 +3193,8 @@ func (builder *MessageActionI18nInfoBuilder) Build() *MessageActionI18nInfo {
 // builder结束
 
 type MessageOverviewItem struct {
-	PageView      *int64  `json:"page_view,omitempty,string"`
-	UniqueVisitor *int64  `json:"unique_visitor,omitempty,string"`
+	PageView      *string `json:"page_view,omitempty"`
+	UniqueVisitor *string `json:"unique_visitor,omitempty"`
 	ChatType      *string `json:"chat_type,omitempty"`
 	MessageType   *string `json:"message_type,omitempty"`
 	EventType     *string `json:"event_type,omitempty"`
@@ -2776,9 +3202,9 @@ type MessageOverviewItem struct {
 
 // builder开始
 type MessageOverviewItemBuilder struct {
-	pageView          int64
+	pageView          string
 	pageViewFlag      bool
-	uniqueVisitor     int64
+	uniqueVisitor     string
 	uniqueVisitorFlag bool
 	chatType          string
 	chatTypeFlag      bool
@@ -2793,12 +3219,12 @@ func NewMessageOverviewItemBuilder() *MessageOverviewItemBuilder {
 	return builder
 }
 
-func (builder *MessageOverviewItemBuilder) PageView(pageView int64) *MessageOverviewItemBuilder {
+func (builder *MessageOverviewItemBuilder) PageView(pageView string) *MessageOverviewItemBuilder {
 	builder.pageView = pageView
 	builder.pageViewFlag = true
 	return builder
 }
-func (builder *MessageOverviewItemBuilder) UniqueVisitor(uniqueVisitor int64) *MessageOverviewItemBuilder {
+func (builder *MessageOverviewItemBuilder) UniqueVisitor(uniqueVisitor string) *MessageOverviewItemBuilder {
 	builder.uniqueVisitor = uniqueVisitor
 	builder.uniqueVisitorFlag = true
 	return builder
@@ -3235,16 +3661,16 @@ func (builder *ScopeBuilder) Build() *Scope {
 // builder结束
 
 type UsageOverviewItem struct {
-	PageView      *int64  `json:"page_view,omitempty,string"`
-	UniqueVisitor *int64  `json:"unique_visitor,omitempty,string"`
+	PageView      *string `json:"page_view,omitempty"`
+	UniqueVisitor *string `json:"unique_visitor,omitempty"`
 	DepartmentId  *string `json:"department_id,omitempty"`
 }
 
 // builder开始
 type UsageOverviewItemBuilder struct {
-	pageView          int64
+	pageView          string
 	pageViewFlag      bool
-	uniqueVisitor     int64
+	uniqueVisitor     string
 	uniqueVisitorFlag bool
 	departmentId      string
 	departmentIdFlag  bool
@@ -3255,12 +3681,12 @@ func NewUsageOverviewItemBuilder() *UsageOverviewItemBuilder {
 	return builder
 }
 
-func (builder *UsageOverviewItemBuilder) PageView(pageView int64) *UsageOverviewItemBuilder {
+func (builder *UsageOverviewItemBuilder) PageView(pageView string) *UsageOverviewItemBuilder {
 	builder.pageView = pageView
 	builder.pageViewFlag = true
 	return builder
 }
-func (builder *UsageOverviewItemBuilder) UniqueVisitor(uniqueVisitor int64) *UsageOverviewItemBuilder {
+func (builder *UsageOverviewItemBuilder) UniqueVisitor(uniqueVisitor string) *UsageOverviewItemBuilder {
 	builder.uniqueVisitor = uniqueVisitor
 	builder.uniqueVisitorFlag = true
 	return builder
@@ -3291,18 +3717,18 @@ func (builder *UsageOverviewItemBuilder) Build() *UsageOverviewItem {
 // builder结束
 
 type UsageTrendItem struct {
-	Timestamp     *int64 `json:"timestamp,omitempty,string"`
-	PageView      *int64 `json:"page_view,omitempty,string"`
-	UniqueVisitor *int64 `json:"unique_visitor,omitempty,string"`
+	Timestamp     *string `json:"timestamp,omitempty"`
+	PageView      *string `json:"page_view,omitempty"`
+	UniqueVisitor *string `json:"unique_visitor,omitempty"`
 }
 
 // builder开始
 type UsageTrendItemBuilder struct {
-	timestamp         int64
+	timestamp         string
 	timestampFlag     bool
-	pageView          int64
+	pageView          string
 	pageViewFlag      bool
-	uniqueVisitor     int64
+	uniqueVisitor     string
 	uniqueVisitorFlag bool
 }
 
@@ -3311,17 +3737,17 @@ func NewUsageTrendItemBuilder() *UsageTrendItemBuilder {
 	return builder
 }
 
-func (builder *UsageTrendItemBuilder) Timestamp(timestamp int64) *UsageTrendItemBuilder {
+func (builder *UsageTrendItemBuilder) Timestamp(timestamp string) *UsageTrendItemBuilder {
 	builder.timestamp = timestamp
 	builder.timestampFlag = true
 	return builder
 }
-func (builder *UsageTrendItemBuilder) PageView(pageView int64) *UsageTrendItemBuilder {
+func (builder *UsageTrendItemBuilder) PageView(pageView string) *UsageTrendItemBuilder {
 	builder.pageView = pageView
 	builder.pageViewFlag = true
 	return builder
 }
-func (builder *UsageTrendItemBuilder) UniqueVisitor(uniqueVisitor int64) *UsageTrendItemBuilder {
+func (builder *UsageTrendItemBuilder) UniqueVisitor(uniqueVisitor string) *UsageTrendItemBuilder {
 	builder.uniqueVisitor = uniqueVisitor
 	builder.uniqueVisitorFlag = true
 	return builder
@@ -3926,7 +4352,7 @@ func (builder *GetApplicationAppVersionReqBuilder) AppId(appId string) *GetAppli
 	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
 }
-func (builder *GetApplicationAppVersionReqBuilder) VersionId(versionId int64) *GetApplicationAppVersionReqBuilder {
+func (builder *GetApplicationAppVersionReqBuilder) VersionId(versionId string) *GetApplicationAppVersionReqBuilder {
 	builder.apiReq.PathParams.Set("version_id", fmt.Sprint(versionId))
 	return builder
 }
@@ -3987,7 +4413,7 @@ func (builder *PatchApplicationAppVersionReqBuilder) AppId(appId string) *PatchA
 	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
 }
-func (builder *PatchApplicationAppVersionReqBuilder) VersionId(versionId int64) *PatchApplicationAppVersionReqBuilder {
+func (builder *PatchApplicationAppVersionReqBuilder) VersionId(versionId string) *PatchApplicationAppVersionReqBuilder {
 	builder.apiReq.PathParams.Set("version_id", fmt.Sprint(versionId))
 	return builder
 }
@@ -3995,7 +4421,7 @@ func (builder *PatchApplicationAppVersionReqBuilder) UserIdType(userIdType strin
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
-func (builder *PatchApplicationAppVersionReqBuilder) OperatorId(operatorId int64) *PatchApplicationAppVersionReqBuilder {
+func (builder *PatchApplicationAppVersionReqBuilder) OperatorId(operatorId string) *PatchApplicationAppVersionReqBuilder {
 	builder.apiReq.QueryParams.Set("operator_id", fmt.Sprint(operatorId))
 	return builder
 }
@@ -4072,7 +4498,7 @@ func (builder *ListApplicationFeedbackReqBuilder) UserIdType(userIdType string) 
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
-func (builder *ListApplicationFeedbackReqBuilder) PageToken(pageToken int64) *ListApplicationFeedbackReqBuilder {
+func (builder *ListApplicationFeedbackReqBuilder) PageToken(pageToken string) *ListApplicationFeedbackReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
@@ -4130,7 +4556,7 @@ func (builder *PatchApplicationFeedbackReqBuilder) AppId(appId string) *PatchApp
 	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
 }
-func (builder *PatchApplicationFeedbackReqBuilder) FeedbackId(feedbackId int64) *PatchApplicationFeedbackReqBuilder {
+func (builder *PatchApplicationFeedbackReqBuilder) FeedbackId(feedbackId string) *PatchApplicationFeedbackReqBuilder {
 	builder.apiReq.PathParams.Set("feedback_id", fmt.Sprint(feedbackId))
 	return builder
 }
@@ -4258,6 +4684,7 @@ type P2ApplicationFeedbackCreatedV6Data struct {
 	Description  *string  `json:"description,omitempty"`
 	Images       []string `json:"images,omitempty"`
 	FeedbackId   *string  `json:"feedback_id,omitempty"`
+	FeedbackPath *string  `json:"feedback_path,omitempty"`
 }
 
 type P2ApplicationFeedbackCreatedV6 struct {

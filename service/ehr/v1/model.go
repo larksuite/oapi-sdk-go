@@ -1573,11 +1573,11 @@ func (builder *ListEmployeeReqBuilder) Type(type_ []int) *ListEmployeeReqBuilder
 	builder.apiReq.QueryParams.Set("type", fmt.Sprint(type_))
 	return builder
 }
-func (builder *ListEmployeeReqBuilder) StartTime(startTime int64) *ListEmployeeReqBuilder {
+func (builder *ListEmployeeReqBuilder) StartTime(startTime string) *ListEmployeeReqBuilder {
 	builder.apiReq.QueryParams.Set("start_time", fmt.Sprint(startTime))
 	return builder
 }
-func (builder *ListEmployeeReqBuilder) EndTime(endTime int64) *ListEmployeeReqBuilder {
+func (builder *ListEmployeeReqBuilder) EndTime(endTime string) *ListEmployeeReqBuilder {
 	builder.apiReq.QueryParams.Set("end_time", fmt.Sprint(endTime))
 	return builder
 }

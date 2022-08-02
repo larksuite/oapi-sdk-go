@@ -86,11 +86,11 @@ const (
 )
 
 const (
-	TopicTodoApproval      = 1
-	TopicDoneApproval      = 2
-	TopicInitiatedApproval = 3
-	TopicUnreadNotice      = 17
-	TopicReadNotice        = 18
+	TopicTodoApproval      = "1"
+	TopicDoneApproval      = "2"
+	TopicInitiatedApproval = "3"
+	TopicUnreadNotice      = "17"
+	TopicReadNotice        = "18"
 )
 
 const (
@@ -1212,8 +1212,8 @@ type CcNode struct {
 	ReadStatus    *string               `json:"read_status,omitempty"`
 	Extra         *string               `json:"extra,omitempty"`
 	Title         *string               `json:"title,omitempty"`
-	CreateTime    *int64                `json:"create_time,omitempty,string"`
-	UpdateTime    *int64                `json:"update_time,omitempty,string"`
+	CreateTime    *string               `json:"create_time,omitempty"`
+	UpdateTime    *string               `json:"update_time,omitempty"`
 	DisplayMethod *string               `json:"display_method,omitempty"`
 }
 
@@ -1233,9 +1233,9 @@ type CcNodeBuilder struct {
 	extraFlag         bool
 	title             string
 	titleFlag         bool
-	createTime        int64
+	createTime        string
 	createTimeFlag    bool
-	updateTime        int64
+	updateTime        string
 	updateTimeFlag    bool
 	displayMethod     string
 	displayMethodFlag bool
@@ -1281,12 +1281,12 @@ func (builder *CcNodeBuilder) Title(title string) *CcNodeBuilder {
 	builder.titleFlag = true
 	return builder
 }
-func (builder *CcNodeBuilder) CreateTime(createTime int64) *CcNodeBuilder {
+func (builder *CcNodeBuilder) CreateTime(createTime string) *CcNodeBuilder {
 	builder.createTime = createTime
 	builder.createTimeFlag = true
 	return builder
 }
-func (builder *CcNodeBuilder) UpdateTime(updateTime int64) *CcNodeBuilder {
+func (builder *CcNodeBuilder) UpdateTime(updateTime string) *CcNodeBuilder {
 	builder.updateTime = updateTime
 	builder.updateTimeFlag = true
 	return builder
@@ -1351,8 +1351,8 @@ type CcSearch struct {
 	GroupExternalId    *string `json:"group_external_id,omitempty"`
 	CcTitle            *string `json:"cc_title,omitempty"`
 	ReadStatus         *string `json:"read_status,omitempty"`
-	CcCreateTimeFrom   *int64  `json:"cc_create_time_from,omitempty,string"`
-	CcCreateTimeTo     *int64  `json:"cc_create_time_to,omitempty,string"`
+	CcCreateTimeFrom   *string `json:"cc_create_time_from,omitempty"`
+	CcCreateTimeTo     *string `json:"cc_create_time_to,omitempty"`
 	Locale             *string `json:"locale,omitempty"`
 }
 
@@ -1372,9 +1372,9 @@ type CcSearchBuilder struct {
 	ccTitleFlag            bool
 	readStatus             string
 	readStatusFlag         bool
-	ccCreateTimeFrom       int64
+	ccCreateTimeFrom       string
 	ccCreateTimeFromFlag   bool
-	ccCreateTimeTo         int64
+	ccCreateTimeTo         string
 	ccCreateTimeToFlag     bool
 	locale                 string
 	localeFlag             bool
@@ -1420,12 +1420,12 @@ func (builder *CcSearchBuilder) ReadStatus(readStatus string) *CcSearchBuilder {
 	builder.readStatusFlag = true
 	return builder
 }
-func (builder *CcSearchBuilder) CcCreateTimeFrom(ccCreateTimeFrom int64) *CcSearchBuilder {
+func (builder *CcSearchBuilder) CcCreateTimeFrom(ccCreateTimeFrom string) *CcSearchBuilder {
 	builder.ccCreateTimeFrom = ccCreateTimeFrom
 	builder.ccCreateTimeFromFlag = true
 	return builder
 }
-func (builder *CcSearchBuilder) CcCreateTimeTo(ccCreateTimeTo int64) *CcSearchBuilder {
+func (builder *CcSearchBuilder) CcCreateTimeTo(ccCreateTimeTo string) *CcSearchBuilder {
 	builder.ccCreateTimeTo = ccCreateTimeTo
 	builder.ccCreateTimeToFlag = true
 	return builder
@@ -1549,7 +1549,7 @@ func (builder *CcSearchItemBuilder) Build() *CcSearchItem {
 
 type CcSearchNode struct {
 	UserId     *string             `json:"user_id,omitempty"`
-	CreateTime *int64              `json:"create_time,omitempty,string"`
+	CreateTime *string             `json:"create_time,omitempty"`
 	ReadStatus *string             `json:"read_status,omitempty"`
 	Title      *string             `json:"title,omitempty"`
 	Extra      *string             `json:"extra,omitempty"`
@@ -1560,7 +1560,7 @@ type CcSearchNode struct {
 type CcSearchNodeBuilder struct {
 	userId         string
 	userIdFlag     bool
-	createTime     int64
+	createTime     string
 	createTimeFlag bool
 	readStatus     string
 	readStatusFlag bool
@@ -1582,7 +1582,7 @@ func (builder *CcSearchNodeBuilder) UserId(userId string) *CcSearchNodeBuilder {
 	builder.userIdFlag = true
 	return builder
 }
-func (builder *CcSearchNodeBuilder) CreateTime(createTime int64) *CcSearchNodeBuilder {
+func (builder *CcSearchNodeBuilder) CreateTime(createTime string) *CcSearchNodeBuilder {
 	builder.createTime = createTime
 	builder.createTimeFlag = true
 	return builder
@@ -1639,10 +1639,10 @@ func (builder *CcSearchNodeBuilder) Build() *CcSearchNode {
 // builder结束
 
 type Comment struct {
-	Id          *int64           `json:"id,omitempty,string"`
+	Id          *string          `json:"id,omitempty"`
 	Content     *string          `json:"content,omitempty"`
-	CreateTime  *int64           `json:"create_time,omitempty,string"`
-	UpdateTime  *int64           `json:"update_time,omitempty,string"`
+	CreateTime  *string          `json:"create_time,omitempty"`
+	UpdateTime  *string          `json:"update_time,omitempty"`
 	IsDelete    *int             `json:"is_delete,omitempty"`
 	Replies     []*CommentReply  `json:"replies,omitempty"`
 	AtInfoList  []*CommentAtInfo `json:"at_info_list,omitempty"`
@@ -1652,13 +1652,13 @@ type Comment struct {
 
 // builder开始
 type CommentBuilder struct {
-	id              int64
+	id              string
 	idFlag          bool
 	content         string
 	contentFlag     bool
-	createTime      int64
+	createTime      string
 	createTimeFlag  bool
-	updateTime      int64
+	updateTime      string
 	updateTimeFlag  bool
 	isDelete        int
 	isDeleteFlag    bool
@@ -1677,7 +1677,7 @@ func NewCommentBuilder() *CommentBuilder {
 	return builder
 }
 
-func (builder *CommentBuilder) Id(id int64) *CommentBuilder {
+func (builder *CommentBuilder) Id(id string) *CommentBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
@@ -1687,12 +1687,12 @@ func (builder *CommentBuilder) Content(content string) *CommentBuilder {
 	builder.contentFlag = true
 	return builder
 }
-func (builder *CommentBuilder) CreateTime(createTime int64) *CommentBuilder {
+func (builder *CommentBuilder) CreateTime(createTime string) *CommentBuilder {
 	builder.createTime = createTime
 	builder.createTimeFlag = true
 	return builder
 }
-func (builder *CommentBuilder) UpdateTime(updateTime int64) *CommentBuilder {
+func (builder *CommentBuilder) UpdateTime(updateTime string) *CommentBuilder {
 	builder.updateTime = updateTime
 	builder.updateTimeFlag = true
 	return builder
@@ -1765,18 +1765,18 @@ func (builder *CommentBuilder) Build() *Comment {
 // builder结束
 
 type CommentAtInfo struct {
-	UserId *int64  `json:"user_id,omitempty,string"`
+	UserId *string `json:"user_id,omitempty"`
 	Name   *string `json:"name,omitempty"`
-	Offset *int64  `json:"offset,omitempty,string"`
+	Offset *string `json:"offset,omitempty"`
 }
 
 // builder开始
 type CommentAtInfoBuilder struct {
-	userId     int64
+	userId     string
 	userIdFlag bool
 	name       string
 	nameFlag   bool
-	offset     int64
+	offset     string
 	offsetFlag bool
 }
 
@@ -1785,7 +1785,7 @@ func NewCommentAtInfoBuilder() *CommentAtInfoBuilder {
 	return builder
 }
 
-func (builder *CommentAtInfoBuilder) UserId(userId int64) *CommentAtInfoBuilder {
+func (builder *CommentAtInfoBuilder) UserId(userId string) *CommentAtInfoBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
 	return builder
@@ -1795,7 +1795,7 @@ func (builder *CommentAtInfoBuilder) Name(name string) *CommentAtInfoBuilder {
 	builder.nameFlag = true
 	return builder
 }
-func (builder *CommentAtInfoBuilder) Offset(offset int64) *CommentAtInfoBuilder {
+func (builder *CommentAtInfoBuilder) Offset(offset string) *CommentAtInfoBuilder {
 	builder.offset = offset
 	builder.offsetFlag = true
 	return builder
@@ -1821,10 +1821,10 @@ func (builder *CommentAtInfoBuilder) Build() *CommentAtInfo {
 // builder结束
 
 type CommentReply struct {
-	Id          *int64           `json:"id,omitempty,string"`
+	Id          *string          `json:"id,omitempty"`
 	Content     *string          `json:"content,omitempty"`
-	CreateTime  *int64           `json:"create_time,omitempty,string"`
-	UpdateTime  *int64           `json:"update_time,omitempty,string"`
+	CreateTime  *string          `json:"create_time,omitempty"`
+	UpdateTime  *string          `json:"update_time,omitempty"`
 	IsDelete    *int             `json:"is_delete,omitempty"`
 	AtInfoList  []*CommentAtInfo `json:"at_info_list,omitempty"`
 	Commentator *string          `json:"commentator,omitempty"`
@@ -1833,13 +1833,13 @@ type CommentReply struct {
 
 // builder开始
 type CommentReplyBuilder struct {
-	id              int64
+	id              string
 	idFlag          bool
 	content         string
 	contentFlag     bool
-	createTime      int64
+	createTime      string
 	createTimeFlag  bool
-	updateTime      int64
+	updateTime      string
 	updateTimeFlag  bool
 	isDelete        int
 	isDeleteFlag    bool
@@ -1856,7 +1856,7 @@ func NewCommentReplyBuilder() *CommentReplyBuilder {
 	return builder
 }
 
-func (builder *CommentReplyBuilder) Id(id int64) *CommentReplyBuilder {
+func (builder *CommentReplyBuilder) Id(id string) *CommentReplyBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
@@ -1866,12 +1866,12 @@ func (builder *CommentReplyBuilder) Content(content string) *CommentReplyBuilder
 	builder.contentFlag = true
 	return builder
 }
-func (builder *CommentReplyBuilder) CreateTime(createTime int64) *CommentReplyBuilder {
+func (builder *CommentReplyBuilder) CreateTime(createTime string) *CommentReplyBuilder {
 	builder.createTime = createTime
 	builder.createTimeFlag = true
 	return builder
 }
-func (builder *CommentReplyBuilder) UpdateTime(updateTime int64) *CommentReplyBuilder {
+func (builder *CommentReplyBuilder) UpdateTime(updateTime string) *CommentReplyBuilder {
 	builder.updateTime = updateTime
 	builder.updateTimeFlag = true
 	return builder
@@ -1938,8 +1938,8 @@ func (builder *CommentReplyBuilder) Build() *CommentReply {
 type CommentRequest struct {
 	Content         *string          `json:"content,omitempty"`
 	AtInfoList      []*CommentAtInfo `json:"at_info_list,omitempty"`
-	ParentCommentId *int64           `json:"parent_comment_id,omitempty,string"`
-	CommentId       *int64           `json:"comment_id,omitempty,string"`
+	ParentCommentId *string          `json:"parent_comment_id,omitempty"`
+	CommentId       *string          `json:"comment_id,omitempty"`
 	DisableBot      *bool            `json:"disable_bot,omitempty"`
 	Extra           *string          `json:"extra,omitempty"`
 }
@@ -1950,9 +1950,9 @@ type CommentRequestBuilder struct {
 	contentFlag         bool
 	atInfoList          []*CommentAtInfo
 	atInfoListFlag      bool
-	parentCommentId     int64
+	parentCommentId     string
 	parentCommentIdFlag bool
-	commentId           int64
+	commentId           string
 	commentIdFlag       bool
 	disableBot          bool
 	disableBotFlag      bool
@@ -1975,12 +1975,12 @@ func (builder *CommentRequestBuilder) AtInfoList(atInfoList []*CommentAtInfo) *C
 	builder.atInfoListFlag = true
 	return builder
 }
-func (builder *CommentRequestBuilder) ParentCommentId(parentCommentId int64) *CommentRequestBuilder {
+func (builder *CommentRequestBuilder) ParentCommentId(parentCommentId string) *CommentRequestBuilder {
 	builder.parentCommentId = parentCommentId
 	builder.parentCommentIdFlag = true
 	return builder
 }
-func (builder *CommentRequestBuilder) CommentId(commentId int64) *CommentRequestBuilder {
+func (builder *CommentRequestBuilder) CommentId(commentId string) *CommentRequestBuilder {
 	builder.commentId = commentId
 	builder.commentIdFlag = true
 	return builder
@@ -2072,7 +2072,7 @@ func (builder *CountBuilder) Build() *Count {
 
 type ExteranlInstanceCheck struct {
 	InstanceId *string                 `json:"instance_id,omitempty"`
-	UpdateTime *int64                  `json:"update_time,omitempty,string"`
+	UpdateTime *string                 `json:"update_time,omitempty"`
 	Tasks      []*ExternalInstanceTask `json:"tasks,omitempty"`
 }
 
@@ -2080,7 +2080,7 @@ type ExteranlInstanceCheck struct {
 type ExteranlInstanceCheckBuilder struct {
 	instanceId     string
 	instanceIdFlag bool
-	updateTime     int64
+	updateTime     string
 	updateTimeFlag bool
 	tasks          []*ExternalInstanceTask
 	tasksFlag      bool
@@ -2096,7 +2096,7 @@ func (builder *ExteranlInstanceCheckBuilder) InstanceId(instanceId string) *Exte
 	builder.instanceIdFlag = true
 	return builder
 }
-func (builder *ExteranlInstanceCheckBuilder) UpdateTime(updateTime int64) *ExteranlInstanceCheckBuilder {
+func (builder *ExteranlInstanceCheckBuilder) UpdateTime(updateTime string) *ExteranlInstanceCheckBuilder {
 	builder.updateTime = updateTime
 	builder.updateTimeFlag = true
 	return builder
@@ -2127,7 +2127,7 @@ func (builder *ExteranlInstanceCheckBuilder) Build() *ExteranlInstanceCheck {
 
 type ExteranlInstanceCheckResponse struct {
 	InstanceId *string                 `json:"instance_id,omitempty"`
-	UpdateTime *int64                  `json:"update_time,omitempty,string"`
+	UpdateTime *string                 `json:"update_time,omitempty"`
 	Tasks      []*ExternalInstanceTask `json:"tasks,omitempty"`
 }
 
@@ -2135,7 +2135,7 @@ type ExteranlInstanceCheckResponse struct {
 type ExteranlInstanceCheckResponseBuilder struct {
 	instanceId     string
 	instanceIdFlag bool
-	updateTime     int64
+	updateTime     string
 	updateTimeFlag bool
 	tasks          []*ExternalInstanceTask
 	tasksFlag      bool
@@ -2151,7 +2151,7 @@ func (builder *ExteranlInstanceCheckResponseBuilder) InstanceId(instanceId strin
 	builder.instanceIdFlag = true
 	return builder
 }
-func (builder *ExteranlInstanceCheckResponseBuilder) UpdateTime(updateTime int64) *ExteranlInstanceCheckResponseBuilder {
+func (builder *ExteranlInstanceCheckResponseBuilder) UpdateTime(updateTime string) *ExteranlInstanceCheckResponseBuilder {
 	builder.updateTime = updateTime
 	builder.updateTimeFlag = true
 	return builder
@@ -2306,9 +2306,9 @@ type ExternalInstance struct {
 	OpenId         *string                     `json:"open_id,omitempty"`
 	DepartmentId   *string                     `json:"department_id,omitempty"`
 	DepartmentName *string                     `json:"department_name,omitempty"`
-	StartTime      *int64                      `json:"start_time,omitempty,string"`
-	EndTime        *int64                      `json:"end_time,omitempty,string"`
-	UpdateTime     *int64                      `json:"update_time,omitempty,string"`
+	StartTime      *string                     `json:"start_time,omitempty"`
+	EndTime        *string                     `json:"end_time,omitempty"`
+	UpdateTime     *string                     `json:"update_time,omitempty"`
 	DisplayMethod  *string                     `json:"display_method,omitempty"`
 	UpdateMode     *string                     `json:"update_mode,omitempty"`
 	TaskList       []*ExternalInstanceTaskNode `json:"task_list,omitempty"`
@@ -2342,11 +2342,11 @@ type ExternalInstanceBuilder struct {
 	departmentIdFlag   bool
 	departmentName     string
 	departmentNameFlag bool
-	startTime          int64
+	startTime          string
 	startTimeFlag      bool
-	endTime            int64
+	endTime            string
 	endTimeFlag        bool
-	updateTime         int64
+	updateTime         string
 	updateTimeFlag     bool
 	displayMethod      string
 	displayMethodFlag  bool
@@ -2425,17 +2425,17 @@ func (builder *ExternalInstanceBuilder) DepartmentName(departmentName string) *E
 	builder.departmentNameFlag = true
 	return builder
 }
-func (builder *ExternalInstanceBuilder) StartTime(startTime int64) *ExternalInstanceBuilder {
+func (builder *ExternalInstanceBuilder) StartTime(startTime string) *ExternalInstanceBuilder {
 	builder.startTime = startTime
 	builder.startTimeFlag = true
 	return builder
 }
-func (builder *ExternalInstanceBuilder) EndTime(endTime int64) *ExternalInstanceBuilder {
+func (builder *ExternalInstanceBuilder) EndTime(endTime string) *ExternalInstanceBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
 	return builder
 }
-func (builder *ExternalInstanceBuilder) UpdateTime(updateTime int64) *ExternalInstanceBuilder {
+func (builder *ExternalInstanceBuilder) UpdateTime(updateTime string) *ExternalInstanceBuilder {
 	builder.updateTime = updateTime
 	builder.updateTimeFlag = true
 	return builder
@@ -2638,14 +2638,14 @@ func (builder *ExternalInstanceLinkBuilder) Build() *ExternalInstanceLink {
 
 type ExternalInstanceTask struct {
 	TaskId     *string `json:"task_id,omitempty"`
-	UpdateTime *int64  `json:"update_time,omitempty,string"`
+	UpdateTime *string `json:"update_time,omitempty"`
 }
 
 // builder开始
 type ExternalInstanceTaskBuilder struct {
 	taskId         string
 	taskIdFlag     bool
-	updateTime     int64
+	updateTime     string
 	updateTimeFlag bool
 }
 
@@ -2659,7 +2659,7 @@ func (builder *ExternalInstanceTaskBuilder) TaskId(taskId string) *ExternalInsta
 	builder.taskIdFlag = true
 	return builder
 }
-func (builder *ExternalInstanceTaskBuilder) UpdateTime(updateTime int64) *ExternalInstanceTaskBuilder {
+func (builder *ExternalInstanceTaskBuilder) UpdateTime(updateTime string) *ExternalInstanceTaskBuilder {
 	builder.updateTime = updateTime
 	builder.updateTimeFlag = true
 	return builder
@@ -2688,9 +2688,9 @@ type ExternalInstanceTaskNode struct {
 	Links         *ExternalInstanceLink `json:"links,omitempty"`
 	Status        *string               `json:"status,omitempty"`
 	Extra         *string               `json:"extra,omitempty"`
-	CreateTime    *int64                `json:"create_time,omitempty,string"`
-	EndTime       *int64                `json:"end_time,omitempty,string"`
-	UpdateTime    *int64                `json:"update_time,omitempty,string"`
+	CreateTime    *string               `json:"create_time,omitempty"`
+	EndTime       *string               `json:"end_time,omitempty"`
+	UpdateTime    *string               `json:"update_time,omitempty"`
 	ActionContext *string               `json:"action_context,omitempty"`
 	ActionConfigs []*ActionConfig       `json:"action_configs,omitempty"`
 	DisplayMethod *string               `json:"display_method,omitempty"`
@@ -2712,11 +2712,11 @@ type ExternalInstanceTaskNodeBuilder struct {
 	statusFlag        bool
 	extra             string
 	extraFlag         bool
-	createTime        int64
+	createTime        string
 	createTimeFlag    bool
-	endTime           int64
+	endTime           string
 	endTimeFlag       bool
-	updateTime        int64
+	updateTime        string
 	updateTimeFlag    bool
 	actionContext     string
 	actionContextFlag bool
@@ -2766,17 +2766,17 @@ func (builder *ExternalInstanceTaskNodeBuilder) Extra(extra string) *ExternalIns
 	builder.extraFlag = true
 	return builder
 }
-func (builder *ExternalInstanceTaskNodeBuilder) CreateTime(createTime int64) *ExternalInstanceTaskNodeBuilder {
+func (builder *ExternalInstanceTaskNodeBuilder) CreateTime(createTime string) *ExternalInstanceTaskNodeBuilder {
 	builder.createTime = createTime
 	builder.createTimeFlag = true
 	return builder
 }
-func (builder *ExternalInstanceTaskNodeBuilder) EndTime(endTime int64) *ExternalInstanceTaskNodeBuilder {
+func (builder *ExternalInstanceTaskNodeBuilder) EndTime(endTime string) *ExternalInstanceTaskNodeBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
 	return builder
 }
-func (builder *ExternalInstanceTaskNodeBuilder) UpdateTime(updateTime int64) *ExternalInstanceTaskNodeBuilder {
+func (builder *ExternalInstanceTaskNodeBuilder) UpdateTime(updateTime string) *ExternalInstanceTaskNodeBuilder {
 	builder.updateTime = updateTime
 	builder.updateTimeFlag = true
 	return builder
@@ -2857,7 +2857,7 @@ func (builder *ExternalInstanceTaskNodeBuilder) Build() *ExternalInstanceTaskNod
 type ExternalTaskItem struct {
 	Id         *string `json:"id,omitempty"`
 	Status     *string `json:"status,omitempty"`
-	UpdateTime *int64  `json:"update_time,omitempty,string"`
+	UpdateTime *string `json:"update_time,omitempty"`
 }
 
 // builder开始
@@ -2866,7 +2866,7 @@ type ExternalTaskItemBuilder struct {
 	idFlag         bool
 	status         string
 	statusFlag     bool
-	updateTime     int64
+	updateTime     string
 	updateTimeFlag bool
 }
 
@@ -2885,7 +2885,7 @@ func (builder *ExternalTaskItemBuilder) Status(status string) *ExternalTaskItemB
 	builder.statusFlag = true
 	return builder
 }
-func (builder *ExternalTaskItemBuilder) UpdateTime(updateTime int64) *ExternalTaskItemBuilder {
+func (builder *ExternalTaskItemBuilder) UpdateTime(updateTime string) *ExternalTaskItemBuilder {
 	builder.updateTime = updateTime
 	builder.updateTimeFlag = true
 	return builder
@@ -2915,7 +2915,7 @@ type ExternalTaskList struct {
 	ApprovalId   *string             `json:"approval_id,omitempty"`
 	ApprovalCode *string             `json:"approval_code,omitempty"`
 	Status       *string             `json:"status,omitempty"`
-	UpdateTime   *int64              `json:"update_time,omitempty,string"`
+	UpdateTime   *string             `json:"update_time,omitempty"`
 	Tasks        []*ExternalTaskItem `json:"tasks,omitempty"`
 }
 
@@ -2929,7 +2929,7 @@ type ExternalTaskListBuilder struct {
 	approvalCodeFlag bool
 	status           string
 	statusFlag       bool
-	updateTime       int64
+	updateTime       string
 	updateTimeFlag   bool
 	tasks            []*ExternalTaskItem
 	tasksFlag        bool
@@ -2960,7 +2960,7 @@ func (builder *ExternalTaskListBuilder) Status(status string) *ExternalTaskListB
 	builder.statusFlag = true
 	return builder
 }
-func (builder *ExternalTaskListBuilder) UpdateTime(updateTime int64) *ExternalTaskListBuilder {
+func (builder *ExternalTaskListBuilder) UpdateTime(updateTime string) *ExternalTaskListBuilder {
 	builder.updateTime = updateTime
 	builder.updateTimeFlag = true
 	return builder
@@ -3213,8 +3213,8 @@ func (builder *I18nResourceTextBuilder) Build() *I18nResourceText {
 type Instance struct {
 	InstanceCode *string `json:"instance_code,omitempty"`
 	ApprovalName *string `json:"approval_name,omitempty"`
-	StartTime    *int64  `json:"start_time,omitempty,string"`
-	EndTime      *int64  `json:"end_time,omitempty,string"`
+	StartTime    *string `json:"start_time,omitempty"`
+	EndTime      *string `json:"end_time,omitempty"`
 	UserId       *string `json:"user_id,omitempty"`
 	SerialId     *string `json:"serial_id,omitempty"`
 }
@@ -3225,9 +3225,9 @@ type InstanceBuilder struct {
 	instanceCodeFlag bool
 	approvalName     string
 	approvalNameFlag bool
-	startTime        int64
+	startTime        string
 	startTimeFlag    bool
-	endTime          int64
+	endTime          string
 	endTimeFlag      bool
 	userId           string
 	userIdFlag       bool
@@ -3250,12 +3250,12 @@ func (builder *InstanceBuilder) ApprovalName(approvalName string) *InstanceBuild
 	builder.approvalNameFlag = true
 	return builder
 }
-func (builder *InstanceBuilder) StartTime(startTime int64) *InstanceBuilder {
+func (builder *InstanceBuilder) StartTime(startTime string) *InstanceBuilder {
 	builder.startTime = startTime
 	builder.startTimeFlag = true
 	return builder
 }
-func (builder *InstanceBuilder) EndTime(endTime int64) *InstanceBuilder {
+func (builder *InstanceBuilder) EndTime(endTime string) *InstanceBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
 	return builder
@@ -3510,7 +3510,7 @@ type InstanceComment struct {
 	UserId     *string `json:"user_id,omitempty"`
 	OpenId     *string `json:"open_id,omitempty"`
 	Comment    *string `json:"comment,omitempty"`
-	CreateTime *int64  `json:"create_time,omitempty,string"`
+	CreateTime *string `json:"create_time,omitempty"`
 }
 
 // builder开始
@@ -3523,7 +3523,7 @@ type InstanceCommentBuilder struct {
 	openIdFlag     bool
 	comment        string
 	commentFlag    bool
-	createTime     int64
+	createTime     string
 	createTimeFlag bool
 }
 
@@ -3552,7 +3552,7 @@ func (builder *InstanceCommentBuilder) Comment(comment string) *InstanceCommentB
 	builder.commentFlag = true
 	return builder
 }
-func (builder *InstanceCommentBuilder) CreateTime(createTime int64) *InstanceCommentBuilder {
+func (builder *InstanceCommentBuilder) CreateTime(createTime string) *InstanceCommentBuilder {
 	builder.createTime = createTime
 	builder.createTimeFlag = true
 	return builder
@@ -3724,8 +3724,8 @@ func (builder *InstanceCreateBuilder) Build() *InstanceCreate {
 type InstanceInfo struct {
 	ApprovalCode *string             `json:"approval_code,omitempty"`
 	ApprovalName *string             `json:"approval_name,omitempty"`
-	StartTime    *int64              `json:"start_time,omitempty,string"`
-	EndTime      *int64              `json:"end_time,omitempty,string"`
+	StartTime    *string             `json:"start_time,omitempty"`
+	EndTime      *string             `json:"end_time,omitempty"`
 	UserId       *string             `json:"user_id,omitempty"`
 	OpenId       *string             `json:"open_id,omitempty"`
 	SerialNumber *string             `json:"serial_number,omitempty"`
@@ -3744,9 +3744,9 @@ type InstanceInfoBuilder struct {
 	approvalCodeFlag bool
 	approvalName     string
 	approvalNameFlag bool
-	startTime        int64
+	startTime        string
 	startTimeFlag    bool
-	endTime          int64
+	endTime          string
 	endTimeFlag      bool
 	userId           string
 	userIdFlag       bool
@@ -3785,12 +3785,12 @@ func (builder *InstanceInfoBuilder) ApprovalName(approvalName string) *InstanceI
 	builder.approvalNameFlag = true
 	return builder
 }
-func (builder *InstanceInfoBuilder) StartTime(startTime int64) *InstanceInfoBuilder {
+func (builder *InstanceInfoBuilder) StartTime(startTime string) *InstanceInfoBuilder {
 	builder.startTime = startTime
 	builder.startTimeFlag = true
 	return builder
 }
-func (builder *InstanceInfoBuilder) EndTime(endTime int64) *InstanceInfoBuilder {
+func (builder *InstanceInfoBuilder) EndTime(endTime string) *InstanceInfoBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
 	return builder
@@ -3914,8 +3914,8 @@ type InstanceSearch struct {
 	GroupExternalId       *string `json:"group_external_id,omitempty"`
 	InstanceTitle         *string `json:"instance_title,omitempty"`
 	InstanceStatus        *string `json:"instance_status,omitempty"`
-	InstanceStartTimeFrom *int64  `json:"instance_start_time_from,omitempty,string"`
-	InstanceStartTimeTo   *int64  `json:"instance_start_time_to,omitempty,string"`
+	InstanceStartTimeFrom *string `json:"instance_start_time_from,omitempty"`
+	InstanceStartTimeTo   *string `json:"instance_start_time_to,omitempty"`
 	Locale                *string `json:"locale,omitempty"`
 }
 
@@ -3935,9 +3935,9 @@ type InstanceSearchBuilder struct {
 	instanceTitleFlag         bool
 	instanceStatus            string
 	instanceStatusFlag        bool
-	instanceStartTimeFrom     int64
+	instanceStartTimeFrom     string
 	instanceStartTimeFromFlag bool
-	instanceStartTimeTo       int64
+	instanceStartTimeTo       string
 	instanceStartTimeToFlag   bool
 	locale                    string
 	localeFlag                bool
@@ -3983,12 +3983,12 @@ func (builder *InstanceSearchBuilder) InstanceStatus(instanceStatus string) *Ins
 	builder.instanceStatusFlag = true
 	return builder
 }
-func (builder *InstanceSearchBuilder) InstanceStartTimeFrom(instanceStartTimeFrom int64) *InstanceSearchBuilder {
+func (builder *InstanceSearchBuilder) InstanceStartTimeFrom(instanceStartTimeFrom string) *InstanceSearchBuilder {
 	builder.instanceStartTimeFrom = instanceStartTimeFrom
 	builder.instanceStartTimeFromFlag = true
 	return builder
 }
-func (builder *InstanceSearchBuilder) InstanceStartTimeTo(instanceStartTimeTo int64) *InstanceSearchBuilder {
+func (builder *InstanceSearchBuilder) InstanceStartTimeTo(instanceStartTimeTo string) *InstanceSearchBuilder {
 	builder.instanceStartTimeTo = instanceStartTimeTo
 	builder.instanceStartTimeToFlag = true
 	return builder
@@ -4290,8 +4290,8 @@ type InstanceSearchNode struct {
 	Code       *string             `json:"code,omitempty"`
 	ExternalId *string             `json:"external_id,omitempty"`
 	UserId     *string             `json:"user_id,omitempty"`
-	StartTime  *int64              `json:"start_time,omitempty,string"`
-	EndTime    *int64              `json:"end_time,omitempty,string"`
+	StartTime  *string             `json:"start_time,omitempty"`
+	EndTime    *string             `json:"end_time,omitempty"`
 	Status     *string             `json:"status,omitempty"`
 	Title      *string             `json:"title,omitempty"`
 	Extra      *string             `json:"extra,omitempty"`
@@ -4307,9 +4307,9 @@ type InstanceSearchNodeBuilder struct {
 	externalIdFlag bool
 	userId         string
 	userIdFlag     bool
-	startTime      int64
+	startTime      string
 	startTimeFlag  bool
-	endTime        int64
+	endTime        string
 	endTimeFlag    bool
 	status         string
 	statusFlag     bool
@@ -4343,12 +4343,12 @@ func (builder *InstanceSearchNodeBuilder) UserId(userId string) *InstanceSearchN
 	builder.userIdFlag = true
 	return builder
 }
-func (builder *InstanceSearchNodeBuilder) StartTime(startTime int64) *InstanceSearchNodeBuilder {
+func (builder *InstanceSearchNodeBuilder) StartTime(startTime string) *InstanceSearchNodeBuilder {
 	builder.startTime = startTime
 	builder.startTimeFlag = true
 	return builder
 }
-func (builder *InstanceSearchNodeBuilder) EndTime(endTime int64) *InstanceSearchNodeBuilder {
+func (builder *InstanceSearchNodeBuilder) EndTime(endTime string) *InstanceSearchNodeBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
 	return builder
@@ -4434,8 +4434,8 @@ type InstanceTask struct {
 	NodeName     *string `json:"node_name,omitempty"`
 	CustomNodeId *string `json:"custom_node_id,omitempty"`
 	Type         *string `json:"type,omitempty"`
-	StartTime    *int64  `json:"start_time,omitempty,string"`
-	EndTime      *int64  `json:"end_time,omitempty,string"`
+	StartTime    *string `json:"start_time,omitempty"`
+	EndTime      *string `json:"end_time,omitempty"`
 }
 
 // builder开始
@@ -4456,9 +4456,9 @@ type InstanceTaskBuilder struct {
 	customNodeIdFlag bool
 	type_            string
 	typeFlag         bool
-	startTime        int64
+	startTime        string
 	startTimeFlag    bool
-	endTime          int64
+	endTime          string
 	endTimeFlag      bool
 }
 
@@ -4507,12 +4507,12 @@ func (builder *InstanceTaskBuilder) Type(type_ string) *InstanceTaskBuilder {
 	builder.typeFlag = true
 	return builder
 }
-func (builder *InstanceTaskBuilder) StartTime(startTime int64) *InstanceTaskBuilder {
+func (builder *InstanceTaskBuilder) StartTime(startTime string) *InstanceTaskBuilder {
 	builder.startTime = startTime
 	builder.startTimeFlag = true
 	return builder
 }
-func (builder *InstanceTaskBuilder) EndTime(endTime int64) *InstanceTaskBuilder {
+func (builder *InstanceTaskBuilder) EndTime(endTime string) *InstanceTaskBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
 	return builder
@@ -4567,7 +4567,7 @@ func (builder *InstanceTaskBuilder) Build() *InstanceTask {
 
 type InstanceTimeline struct {
 	Type       *string           `json:"type,omitempty"`
-	CreateTime *int64            `json:"create_time,omitempty,string"`
+	CreateTime *string           `json:"create_time,omitempty"`
 	UserId     *string           `json:"user_id,omitempty"`
 	OpenId     *string           `json:"open_id,omitempty"`
 	UserIdList []string          `json:"user_id_list,omitempty"`
@@ -4583,7 +4583,7 @@ type InstanceTimeline struct {
 type InstanceTimelineBuilder struct {
 	type_          string
 	typeFlag       bool
-	createTime     int64
+	createTime     string
 	createTimeFlag bool
 	userId         string
 	userIdFlag     bool
@@ -4615,7 +4615,7 @@ func (builder *InstanceTimelineBuilder) Type(type_ string) *InstanceTimelineBuil
 	builder.typeFlag = true
 	return builder
 }
-func (builder *InstanceTimelineBuilder) CreateTime(createTime int64) *InstanceTimelineBuilder {
+func (builder *InstanceTimelineBuilder) CreateTime(createTime string) *InstanceTimelineBuilder {
 	builder.createTime = createTime
 	builder.createTimeFlag = true
 	return builder
@@ -5305,7 +5305,7 @@ func (builder *SignGroupBuilder) Build() *SignGroup {
 
 type SpecifiedRollback struct {
 	UserId         *string  `json:"user_id,omitempty"`
-	TaskId         *int64   `json:"task_id,omitempty,string"`
+	TaskId         *string  `json:"task_id,omitempty"`
 	Reason         *string  `json:"reason,omitempty"`
 	Extra          *string  `json:"extra,omitempty"`
 	TaskDefKeyList []string `json:"task_def_key_list,omitempty"`
@@ -5315,7 +5315,7 @@ type SpecifiedRollback struct {
 type SpecifiedRollbackBuilder struct {
 	userId             string
 	userIdFlag         bool
-	taskId             int64
+	taskId             string
 	taskIdFlag         bool
 	reason             string
 	reasonFlag         bool
@@ -5335,7 +5335,7 @@ func (builder *SpecifiedRollbackBuilder) UserId(userId string) *SpecifiedRollbac
 	builder.userIdFlag = true
 	return builder
 }
-func (builder *SpecifiedRollbackBuilder) TaskId(taskId int64) *SpecifiedRollbackBuilder {
+func (builder *SpecifiedRollbackBuilder) TaskId(taskId string) *SpecifiedRollbackBuilder {
 	builder.taskId = taskId
 	builder.taskIdFlag = true
 	return builder
@@ -5383,8 +5383,8 @@ func (builder *SpecifiedRollbackBuilder) Build() *SpecifiedRollback {
 // builder结束
 
 type Task struct {
-	Topic               *int64    `json:"topic,omitempty,string"`
-	UserId              *int64    `json:"user_id,omitempty,string"`
+	Topic               *string   `json:"topic,omitempty"`
+	UserId              *string   `json:"user_id,omitempty"`
 	Title               *string   `json:"title,omitempty"`
 	Urls                *TaskUrls `json:"urls,omitempty"`
 	ProcessExternalId   *string   `json:"process_external_id,omitempty"`
@@ -5394,20 +5394,20 @@ type Task struct {
 	DefinitionCode      *string   `json:"definition_code,omitempty"`
 	Initiators          []string  `json:"initiators,omitempty"`
 	InitiatorNames      []string  `json:"initiator_names,omitempty"`
-	TaskId              *int64    `json:"task_id,omitempty,string"`
-	ProcessId           *int64    `json:"process_id,omitempty,string"`
+	TaskId              *string   `json:"task_id,omitempty"`
+	ProcessId           *string   `json:"process_id,omitempty"`
 	ProcessCode         *string   `json:"process_code,omitempty"`
-	DefinitionGroupId   *int64    `json:"definition_group_id,omitempty,string"`
+	DefinitionGroupId   *string   `json:"definition_group_id,omitempty"`
 	DefinitionGroupName *string   `json:"definition_group_name,omitempty"`
-	DefinitionId        *int64    `json:"definition_id,omitempty,string"`
+	DefinitionId        *string   `json:"definition_id,omitempty"`
 	DefinitionName      *string   `json:"definition_name,omitempty"`
 }
 
 // builder开始
 type TaskBuilder struct {
-	topic                   int64
+	topic                   string
 	topicFlag               bool
-	userId                  int64
+	userId                  string
 	userIdFlag              bool
 	title                   string
 	titleFlag               bool
@@ -5427,17 +5427,17 @@ type TaskBuilder struct {
 	initiatorsFlag          bool
 	initiatorNames          []string
 	initiatorNamesFlag      bool
-	taskId                  int64
+	taskId                  string
 	taskIdFlag              bool
-	processId               int64
+	processId               string
 	processIdFlag           bool
 	processCode             string
 	processCodeFlag         bool
-	definitionGroupId       int64
+	definitionGroupId       string
 	definitionGroupIdFlag   bool
 	definitionGroupName     string
 	definitionGroupNameFlag bool
-	definitionId            int64
+	definitionId            string
 	definitionIdFlag        bool
 	definitionName          string
 	definitionNameFlag      bool
@@ -5448,12 +5448,12 @@ func NewTaskBuilder() *TaskBuilder {
 	return builder
 }
 
-func (builder *TaskBuilder) Topic(topic int64) *TaskBuilder {
+func (builder *TaskBuilder) Topic(topic string) *TaskBuilder {
 	builder.topic = topic
 	builder.topicFlag = true
 	return builder
 }
-func (builder *TaskBuilder) UserId(userId int64) *TaskBuilder {
+func (builder *TaskBuilder) UserId(userId string) *TaskBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
 	return builder
@@ -5503,12 +5503,12 @@ func (builder *TaskBuilder) InitiatorNames(initiatorNames []string) *TaskBuilder
 	builder.initiatorNamesFlag = true
 	return builder
 }
-func (builder *TaskBuilder) TaskId(taskId int64) *TaskBuilder {
+func (builder *TaskBuilder) TaskId(taskId string) *TaskBuilder {
 	builder.taskId = taskId
 	builder.taskIdFlag = true
 	return builder
 }
-func (builder *TaskBuilder) ProcessId(processId int64) *TaskBuilder {
+func (builder *TaskBuilder) ProcessId(processId string) *TaskBuilder {
 	builder.processId = processId
 	builder.processIdFlag = true
 	return builder
@@ -5518,7 +5518,7 @@ func (builder *TaskBuilder) ProcessCode(processCode string) *TaskBuilder {
 	builder.processCodeFlag = true
 	return builder
 }
-func (builder *TaskBuilder) DefinitionGroupId(definitionGroupId int64) *TaskBuilder {
+func (builder *TaskBuilder) DefinitionGroupId(definitionGroupId string) *TaskBuilder {
 	builder.definitionGroupId = definitionGroupId
 	builder.definitionGroupIdFlag = true
 	return builder
@@ -5528,7 +5528,7 @@ func (builder *TaskBuilder) DefinitionGroupName(definitionGroupName string) *Tas
 	builder.definitionGroupNameFlag = true
 	return builder
 }
-func (builder *TaskBuilder) DefinitionId(definitionId int64) *TaskBuilder {
+func (builder *TaskBuilder) DefinitionId(definitionId string) *TaskBuilder {
 	builder.definitionId = definitionId
 	builder.definitionIdFlag = true
 	return builder
@@ -5703,8 +5703,8 @@ type TaskSearch struct {
 	GroupExternalId       *string `json:"group_external_id,omitempty"`
 	TaskTitle             *string `json:"task_title,omitempty"`
 	TaskStatus            *string `json:"task_status,omitempty"`
-	InstanceStartTimeFrom *int64  `json:"instance_start_time_from,omitempty,string"`
-	InstanceStartTimeTo   *int64  `json:"instance_start_time_to,omitempty,string"`
+	InstanceStartTimeFrom *string `json:"instance_start_time_from,omitempty"`
+	InstanceStartTimeTo   *string `json:"instance_start_time_to,omitempty"`
 	Locale                *string `json:"locale,omitempty"`
 }
 
@@ -5724,9 +5724,9 @@ type TaskSearchBuilder struct {
 	taskTitleFlag             bool
 	taskStatus                string
 	taskStatusFlag            bool
-	instanceStartTimeFrom     int64
+	instanceStartTimeFrom     string
 	instanceStartTimeFromFlag bool
-	instanceStartTimeTo       int64
+	instanceStartTimeTo       string
 	instanceStartTimeToFlag   bool
 	locale                    string
 	localeFlag                bool
@@ -5772,12 +5772,12 @@ func (builder *TaskSearchBuilder) TaskStatus(taskStatus string) *TaskSearchBuild
 	builder.taskStatusFlag = true
 	return builder
 }
-func (builder *TaskSearchBuilder) InstanceStartTimeFrom(instanceStartTimeFrom int64) *TaskSearchBuilder {
+func (builder *TaskSearchBuilder) InstanceStartTimeFrom(instanceStartTimeFrom string) *TaskSearchBuilder {
 	builder.instanceStartTimeFrom = instanceStartTimeFrom
 	builder.instanceStartTimeFromFlag = true
 	return builder
 }
-func (builder *TaskSearchBuilder) InstanceStartTimeTo(instanceStartTimeTo int64) *TaskSearchBuilder {
+func (builder *TaskSearchBuilder) InstanceStartTimeTo(instanceStartTimeTo string) *TaskSearchBuilder {
 	builder.instanceStartTimeTo = instanceStartTimeTo
 	builder.instanceStartTimeToFlag = true
 	return builder
@@ -5901,8 +5901,8 @@ func (builder *TaskSearchItemBuilder) Build() *TaskSearchItem {
 
 type TaskSearchNode struct {
 	UserId    *string             `json:"user_id,omitempty"`
-	StartTime *int64              `json:"start_time,omitempty,string"`
-	EndTime   *int64              `json:"end_time,omitempty,string"`
+	StartTime *string             `json:"start_time,omitempty"`
+	EndTime   *string             `json:"end_time,omitempty"`
 	Status    *string             `json:"status,omitempty"`
 	Title     *string             `json:"title,omitempty"`
 	Extra     *string             `json:"extra,omitempty"`
@@ -5913,9 +5913,9 @@ type TaskSearchNode struct {
 type TaskSearchNodeBuilder struct {
 	userId        string
 	userIdFlag    bool
-	startTime     int64
+	startTime     string
 	startTimeFlag bool
-	endTime       int64
+	endTime       string
 	endTimeFlag   bool
 	status        string
 	statusFlag    bool
@@ -5937,12 +5937,12 @@ func (builder *TaskSearchNodeBuilder) UserId(userId string) *TaskSearchNodeBuild
 	builder.userIdFlag = true
 	return builder
 }
-func (builder *TaskSearchNodeBuilder) StartTime(startTime int64) *TaskSearchNodeBuilder {
+func (builder *TaskSearchNodeBuilder) StartTime(startTime string) *TaskSearchNodeBuilder {
 	builder.startTime = startTime
 	builder.startTimeFlag = true
 	return builder
 }
-func (builder *TaskSearchNodeBuilder) EndTime(endTime int64) *TaskSearchNodeBuilder {
+func (builder *TaskSearchNodeBuilder) EndTime(endTime string) *TaskSearchNodeBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
 	return builder
@@ -6538,7 +6538,7 @@ type CreateApprovalReq struct {
 
 type CreateApprovalRespData struct {
 	ApprovalCode *string `json:"approval_code,omitempty"`
-	ApprovalId   *int64  `json:"approval_id,omitempty,string"`
+	ApprovalId   *string `json:"approval_id,omitempty"`
 }
 
 type CreateApprovalResp struct {
@@ -7534,8 +7534,8 @@ type GetInstanceReq struct {
 
 type GetInstanceRespData struct {
 	ApprovalName         *string             `json:"approval_name,omitempty"`
-	StartTime            *int64              `json:"start_time,omitempty,string"`
-	EndTime              *int64              `json:"end_time,omitempty,string"`
+	StartTime            *string             `json:"start_time,omitempty"`
+	EndTime              *string             `json:"end_time,omitempty"`
 	UserId               *string             `json:"user_id,omitempty"`
 	OpenId               *string             `json:"open_id,omitempty"`
 	SerialNumber         *string             `json:"serial_number,omitempty"`
@@ -7595,11 +7595,11 @@ func (builder *ListInstanceReqBuilder) ApprovalCode(approvalCode string) *ListIn
 	builder.apiReq.QueryParams.Set("approval_code", fmt.Sprint(approvalCode))
 	return builder
 }
-func (builder *ListInstanceReqBuilder) StartTime(startTime int64) *ListInstanceReqBuilder {
+func (builder *ListInstanceReqBuilder) StartTime(startTime string) *ListInstanceReqBuilder {
 	builder.apiReq.QueryParams.Set("start_time", fmt.Sprint(startTime))
 	return builder
 }
-func (builder *ListInstanceReqBuilder) EndTime(endTime int64) *ListInstanceReqBuilder {
+func (builder *ListInstanceReqBuilder) EndTime(endTime string) *ListInstanceReqBuilder {
 	builder.apiReq.QueryParams.Set("end_time", fmt.Sprint(endTime))
 	return builder
 }
@@ -8073,7 +8073,7 @@ func (builder *CreateInstanceCommentReqBuilder) UserIdType(userIdType string) *C
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
-func (builder *CreateInstanceCommentReqBuilder) UserId(userId int64) *CreateInstanceCommentReqBuilder {
+func (builder *CreateInstanceCommentReqBuilder) UserId(userId string) *CreateInstanceCommentReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id", fmt.Sprint(userId))
 	return builder
 }
@@ -8098,7 +8098,7 @@ type CreateInstanceCommentReq struct {
 }
 
 type CreateInstanceCommentRespData struct {
-	CommentId *int64 `json:"comment_id,omitempty,string"`
+	CommentId *string `json:"comment_id,omitempty"`
 }
 
 type CreateInstanceCommentResp struct {
@@ -8131,7 +8131,7 @@ func (builder *DeleteInstanceCommentReqBuilder) InstanceId(instanceId string) *D
 	builder.apiReq.PathParams.Set("instance_id", fmt.Sprint(instanceId))
 	return builder
 }
-func (builder *DeleteInstanceCommentReqBuilder) CommentId(commentId int64) *DeleteInstanceCommentReqBuilder {
+func (builder *DeleteInstanceCommentReqBuilder) CommentId(commentId string) *DeleteInstanceCommentReqBuilder {
 	builder.apiReq.PathParams.Set("comment_id", fmt.Sprint(commentId))
 	return builder
 }
@@ -8139,7 +8139,7 @@ func (builder *DeleteInstanceCommentReqBuilder) UserIdType(userIdType string) *D
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
-func (builder *DeleteInstanceCommentReqBuilder) UserId(userId int64) *DeleteInstanceCommentReqBuilder {
+func (builder *DeleteInstanceCommentReqBuilder) UserId(userId string) *DeleteInstanceCommentReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id", fmt.Sprint(userId))
 	return builder
 }
@@ -8158,7 +8158,7 @@ type DeleteInstanceCommentReq struct {
 }
 
 type DeleteInstanceCommentRespData struct {
-	CommentId *int64 `json:"comment_id,omitempty,string"`
+	CommentId *string `json:"comment_id,omitempty"`
 }
 
 type DeleteInstanceCommentResp struct {
@@ -8195,7 +8195,7 @@ func (builder *ListInstanceCommentReqBuilder) UserIdType(userIdType string) *Lis
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
-func (builder *ListInstanceCommentReqBuilder) UserId(userId int64) *ListInstanceCommentReqBuilder {
+func (builder *ListInstanceCommentReqBuilder) UserId(userId string) *ListInstanceCommentReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id", fmt.Sprint(userId))
 	return builder
 }
@@ -8259,7 +8259,7 @@ func (builder *RemoveInstanceCommentReqBuilder) UserIdType(userIdType string) *R
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
-func (builder *RemoveInstanceCommentReqBuilder) UserId(userId int64) *RemoveInstanceCommentReqBuilder {
+func (builder *RemoveInstanceCommentReqBuilder) UserId(userId string) *RemoveInstanceCommentReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id", fmt.Sprint(userId))
 	return builder
 }
@@ -8374,7 +8374,7 @@ func (builder *QueryTaskReqBuilder) UserId(userId string) *QueryTaskReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id", fmt.Sprint(userId))
 	return builder
 }
-func (builder *QueryTaskReqBuilder) Topic(topic int64) *QueryTaskReqBuilder {
+func (builder *QueryTaskReqBuilder) Topic(topic string) *QueryTaskReqBuilder {
 	builder.apiReq.QueryParams.Set("topic", fmt.Sprint(topic))
 	return builder
 }

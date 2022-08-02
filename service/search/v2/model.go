@@ -265,7 +265,7 @@ func (builder *ConnectDataSourceBuilder) Build() *ConnectDataSource {
 // builder结束
 
 type DataSource struct {
-	Id               *int64    `json:"id,omitempty,string"`
+	Id               *string   `json:"id,omitempty"`
 	Name             *string   `json:"name,omitempty"`
 	State            *int      `json:"state,omitempty"`
 	Description      *string   `json:"description,omitempty"`
@@ -282,7 +282,7 @@ type DataSource struct {
 
 // builder开始
 type DataSourceBuilder struct {
-	id                   int64
+	id                   string
 	idFlag               bool
 	name                 string
 	nameFlag             bool
@@ -315,7 +315,7 @@ func NewDataSourceBuilder() *DataSourceBuilder {
 	return builder
 }
 
-func (builder *DataSourceBuilder) Id(id int64) *DataSourceBuilder {
+func (builder *DataSourceBuilder) Id(id string) *DataSourceBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder

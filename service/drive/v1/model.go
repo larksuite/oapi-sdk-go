@@ -1450,9 +1450,9 @@ type Meta struct {
 	DocType          *string `json:"doc_type,omitempty"`
 	Title            *string `json:"title,omitempty"`
 	OwnerId          *string `json:"owner_id,omitempty"`
-	CreateTime       *int64  `json:"create_time,omitempty,string"`
+	CreateTime       *string `json:"create_time,omitempty"`
 	LatestModifyUser *string `json:"latest_modify_user,omitempty"`
-	LatestModifyTime *int64  `json:"latest_modify_time,omitempty,string"`
+	LatestModifyTime *string `json:"latest_modify_time,omitempty"`
 	Url              *string `json:"url,omitempty"`
 }
 
@@ -1466,11 +1466,11 @@ type MetaBuilder struct {
 	titleFlag            bool
 	ownerId              string
 	ownerIdFlag          bool
-	createTime           int64
+	createTime           string
 	createTimeFlag       bool
 	latestModifyUser     string
 	latestModifyUserFlag bool
-	latestModifyTime     int64
+	latestModifyTime     string
 	latestModifyTimeFlag bool
 	url                  string
 	urlFlag              bool
@@ -1501,7 +1501,7 @@ func (builder *MetaBuilder) OwnerId(ownerId string) *MetaBuilder {
 	builder.ownerIdFlag = true
 	return builder
 }
-func (builder *MetaBuilder) CreateTime(createTime int64) *MetaBuilder {
+func (builder *MetaBuilder) CreateTime(createTime string) *MetaBuilder {
 	builder.createTime = createTime
 	builder.createTimeFlag = true
 	return builder
@@ -1511,7 +1511,7 @@ func (builder *MetaBuilder) LatestModifyUser(latestModifyUser string) *MetaBuild
 	builder.latestModifyUserFlag = true
 	return builder
 }
-func (builder *MetaBuilder) LatestModifyTime(latestModifyTime int64) *MetaBuilder {
+func (builder *MetaBuilder) LatestModifyTime(latestModifyTime string) *MetaBuilder {
 	builder.latestModifyTime = latestModifyTime
 	builder.latestModifyTimeFlag = true
 	return builder
@@ -3886,7 +3886,7 @@ func (builder *GetFileCommentReqBuilder) FileToken(fileToken string) *GetFileCom
 	builder.apiReq.PathParams.Set("file_token", fmt.Sprint(fileToken))
 	return builder
 }
-func (builder *GetFileCommentReqBuilder) CommentId(commentId int64) *GetFileCommentReqBuilder {
+func (builder *GetFileCommentReqBuilder) CommentId(commentId string) *GetFileCommentReqBuilder {
 	builder.apiReq.PathParams.Set("comment_id", fmt.Sprint(commentId))
 	return builder
 }
@@ -4084,7 +4084,7 @@ func (builder *PatchFileCommentReqBuilder) FileToken(fileToken string) *PatchFil
 	builder.apiReq.PathParams.Set("file_token", fmt.Sprint(fileToken))
 	return builder
 }
-func (builder *PatchFileCommentReqBuilder) CommentId(commentId int64) *PatchFileCommentReqBuilder {
+func (builder *PatchFileCommentReqBuilder) CommentId(commentId string) *PatchFileCommentReqBuilder {
 	builder.apiReq.PathParams.Set("comment_id", fmt.Sprint(commentId))
 	return builder
 }
@@ -4145,11 +4145,11 @@ func (builder *DeleteFileCommentReplyReqBuilder) FileToken(fileToken string) *De
 	builder.apiReq.PathParams.Set("file_token", fmt.Sprint(fileToken))
 	return builder
 }
-func (builder *DeleteFileCommentReplyReqBuilder) CommentId(commentId int64) *DeleteFileCommentReplyReqBuilder {
+func (builder *DeleteFileCommentReplyReqBuilder) CommentId(commentId string) *DeleteFileCommentReplyReqBuilder {
 	builder.apiReq.PathParams.Set("comment_id", fmt.Sprint(commentId))
 	return builder
 }
-func (builder *DeleteFileCommentReplyReqBuilder) ReplyId(replyId int64) *DeleteFileCommentReplyReqBuilder {
+func (builder *DeleteFileCommentReplyReqBuilder) ReplyId(replyId string) *DeleteFileCommentReplyReqBuilder {
 	builder.apiReq.PathParams.Set("reply_id", fmt.Sprint(replyId))
 	return builder
 }
@@ -4254,11 +4254,11 @@ func (builder *UpdateFileCommentReplyReqBuilder) FileToken(fileToken string) *Up
 	builder.apiReq.PathParams.Set("file_token", fmt.Sprint(fileToken))
 	return builder
 }
-func (builder *UpdateFileCommentReplyReqBuilder) CommentId(commentId int64) *UpdateFileCommentReplyReqBuilder {
+func (builder *UpdateFileCommentReplyReqBuilder) CommentId(commentId string) *UpdateFileCommentReplyReqBuilder {
 	builder.apiReq.PathParams.Set("comment_id", fmt.Sprint(commentId))
 	return builder
 }
-func (builder *UpdateFileCommentReplyReqBuilder) ReplyId(replyId int64) *UpdateFileCommentReplyReqBuilder {
+func (builder *UpdateFileCommentReplyReqBuilder) ReplyId(replyId string) *UpdateFileCommentReplyReqBuilder {
 	builder.apiReq.PathParams.Set("reply_id", fmt.Sprint(replyId))
 	return builder
 }

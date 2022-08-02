@@ -165,13 +165,13 @@ func (builder *DisplayStatusBuilder) Build() *DisplayStatus {
 // builder结束
 
 type Draft struct {
-	DraftId *int64  `json:"draft_id,omitempty,string"`
+	DraftId *string `json:"draft_id,omitempty"`
 	Entity  *Entity `json:"entity,omitempty"`
 }
 
 // builder开始
 type DraftBuilder struct {
-	draftId     int64
+	draftId     string
 	draftIdFlag bool
 	entity      *Entity
 	entityFlag  bool
@@ -182,7 +182,7 @@ func NewDraftBuilder() *DraftBuilder {
 	return builder
 }
 
-func (builder *DraftBuilder) DraftId(draftId int64) *DraftBuilder {
+func (builder *DraftBuilder) DraftId(draftId string) *DraftBuilder {
 	builder.draftId = draftId
 	builder.draftIdFlag = true
 	return builder
@@ -213,8 +213,8 @@ type Entity struct {
 
 	Aliases     []*Term      `json:"aliases,omitempty"`
 	Description *string      `json:"description,omitempty"`
-	CreateTime  *int64       `json:"create_time,omitempty,string"`
-	UpdateTime  *int64       `json:"update_time,omitempty,string"`
+	CreateTime  *string      `json:"create_time,omitempty"`
+	UpdateTime  *string      `json:"update_time,omitempty"`
 	RelatedMeta *RelatedMeta `json:"related_meta,omitempty"`
 	Categories  []string     `json:"categories,omitempty"`
 	Statistics  *Statistics  `json:"statistics,omitempty"`
@@ -233,9 +233,9 @@ type EntityBuilder struct {
 	aliasesFlag     bool
 	description     string
 	descriptionFlag bool
-	createTime      int64
+	createTime      string
 	createTimeFlag  bool
-	updateTime      int64
+	updateTime      string
 	updateTimeFlag  bool
 	relatedMeta     *RelatedMeta
 	relatedMetaFlag bool
@@ -275,12 +275,12 @@ func (builder *EntityBuilder) Description(description string) *EntityBuilder {
 	builder.descriptionFlag = true
 	return builder
 }
-func (builder *EntityBuilder) CreateTime(createTime int64) *EntityBuilder {
+func (builder *EntityBuilder) CreateTime(createTime string) *EntityBuilder {
 	builder.createTime = createTime
 	builder.createTimeFlag = true
 	return builder
 }
-func (builder *EntityBuilder) UpdateTime(updateTime int64) *EntityBuilder {
+func (builder *EntityBuilder) UpdateTime(updateTime string) *EntityBuilder {
 	builder.updateTime = updateTime
 	builder.updateTimeFlag = true
 	return builder
@@ -915,7 +915,7 @@ func NewUpdateDraftReqBuilder() *UpdateDraftReqBuilder {
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *UpdateDraftReqBuilder) DraftId(draftId int64) *UpdateDraftReqBuilder {
+func (builder *UpdateDraftReqBuilder) DraftId(draftId string) *UpdateDraftReqBuilder {
 	builder.apiReq.PathParams.Set("draft_id", fmt.Sprint(draftId))
 	return builder
 }

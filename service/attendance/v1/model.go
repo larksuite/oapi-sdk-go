@@ -142,7 +142,7 @@ func (builder *ApprovalInfoBuilder) Build() *ApprovalInfo {
 type Area struct {
 	Type   *string       `json:"type,omitempty"`
 	Center *Coordinate   `json:"center,omitempty"`
-	Radius *int64        `json:"radius,omitempty,string"`
+	Radius *string       `json:"radius,omitempty"`
 	Coords []*Coordinate `json:"coords,omitempty"`
 }
 
@@ -152,7 +152,7 @@ type AreaBuilder struct {
 	typeFlag   bool
 	center     *Coordinate
 	centerFlag bool
-	radius     int64
+	radius     string
 	radiusFlag bool
 	coords     []*Coordinate
 	coordsFlag bool
@@ -173,7 +173,7 @@ func (builder *AreaBuilder) Center(center *Coordinate) *AreaBuilder {
 	builder.centerFlag = true
 	return builder
 }
-func (builder *AreaBuilder) Radius(radius int64) *AreaBuilder {
+func (builder *AreaBuilder) Radius(radius string) *AreaBuilder {
 	builder.radius = radius
 	builder.radiusFlag = true
 	return builder

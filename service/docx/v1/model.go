@@ -603,13 +603,13 @@ func (builder *CalloutBuilder) Build() *Callout {
 // builder结束
 
 type ChatCard struct {
-	ChatId *int64 `json:"chat_id,omitempty,string"`
-	Align  *int   `json:"align,omitempty"`
+	ChatId *string `json:"chat_id,omitempty"`
+	Align  *int    `json:"align,omitempty"`
 }
 
 // builder开始
 type ChatCardBuilder struct {
-	chatId     int64
+	chatId     string
 	chatIdFlag bool
 	align      int
 	alignFlag  bool
@@ -620,7 +620,7 @@ func NewChatCardBuilder() *ChatCardBuilder {
 	return builder
 }
 
-func (builder *ChatCardBuilder) ChatId(chatId int64) *ChatCardBuilder {
+func (builder *ChatCardBuilder) ChatId(chatId string) *ChatCardBuilder {
 	builder.chatId = chatId
 	builder.chatIdFlag = true
 	return builder
@@ -1589,8 +1589,8 @@ type Reminder struct {
 	CreateUserId *string `json:"create_user_id,omitempty"`
 	IsNotify     *bool   `json:"is_notify,omitempty"`
 	IsWholeDay   *bool   `json:"is_whole_day,omitempty"`
-	ExpireTime   *int64  `json:"expire_time,omitempty,string"`
-	NotifyTime   *int64  `json:"notify_time,omitempty,string"`
+	ExpireTime   *string `json:"expire_time,omitempty"`
+	NotifyTime   *string `json:"notify_time,omitempty"`
 }
 
 // builder开始
@@ -1601,9 +1601,9 @@ type ReminderBuilder struct {
 	isNotifyFlag     bool
 	isWholeDay       bool
 	isWholeDayFlag   bool
-	expireTime       int64
+	expireTime       string
 	expireTimeFlag   bool
-	notifyTime       int64
+	notifyTime       string
 	notifyTimeFlag   bool
 }
 
@@ -1627,12 +1627,12 @@ func (builder *ReminderBuilder) IsWholeDay(isWholeDay bool) *ReminderBuilder {
 	builder.isWholeDayFlag = true
 	return builder
 }
-func (builder *ReminderBuilder) ExpireTime(expireTime int64) *ReminderBuilder {
+func (builder *ReminderBuilder) ExpireTime(expireTime string) *ReminderBuilder {
 	builder.expireTime = expireTime
 	builder.expireTimeFlag = true
 	return builder
 }
-func (builder *ReminderBuilder) NotifyTime(notifyTime int64) *ReminderBuilder {
+func (builder *ReminderBuilder) NotifyTime(notifyTime string) *ReminderBuilder {
 	builder.notifyTime = notifyTime
 	builder.notifyTimeFlag = true
 	return builder

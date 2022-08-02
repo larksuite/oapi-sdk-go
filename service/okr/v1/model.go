@@ -40,16 +40,16 @@ const (
 // 生成数据类型
 
 type AlignObjective struct {
-	Id     *int64  `json:"id,omitempty,string"`
-	OkrId  *int64  `json:"okr_id,omitempty,string"`
+	Id     *string `json:"id,omitempty"`
+	OkrId  *string `json:"okr_id,omitempty"`
 	UserId *string `json:"user_id,omitempty"`
 }
 
 // builder开始
 type AlignObjectiveBuilder struct {
-	id         int64
+	id         string
 	idFlag     bool
-	okrId      int64
+	okrId      string
 	okrIdFlag  bool
 	userId     string
 	userIdFlag bool
@@ -60,12 +60,12 @@ func NewAlignObjectiveBuilder() *AlignObjectiveBuilder {
 	return builder
 }
 
-func (builder *AlignObjectiveBuilder) Id(id int64) *AlignObjectiveBuilder {
+func (builder *AlignObjectiveBuilder) Id(id string) *AlignObjectiveBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
 }
-func (builder *AlignObjectiveBuilder) OkrId(okrId int64) *AlignObjectiveBuilder {
+func (builder *AlignObjectiveBuilder) OkrId(okrId string) *AlignObjectiveBuilder {
 	builder.okrId = okrId
 	builder.okrIdFlag = true
 	return builder
@@ -890,7 +890,7 @@ func (builder *ImageInfoBuilder) Build() *ImageInfo {
 // builder结束
 
 type Kr struct {
-	Id         *int64     `json:"id,omitempty,string"`
+	Id         *string    `json:"id,omitempty"`
 	Pos        *string    `json:"pos,omitempty"`
 	Score      *string    `json:"score,omitempty"`
 	Weight     *string    `json:"weight,omitempty"`
@@ -901,7 +901,7 @@ type Kr struct {
 
 // builder开始
 type KrBuilder struct {
-	id             int64
+	id             string
 	idFlag         bool
 	pos            string
 	posFlag        bool
@@ -922,7 +922,7 @@ func NewKrBuilder() *KrBuilder {
 	return builder
 }
 
-func (builder *KrBuilder) Id(id int64) *KrBuilder {
+func (builder *KrBuilder) Id(id string) *KrBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
@@ -1284,8 +1284,8 @@ func (builder *ObjectiveProgressBuilder) Build() *ObjectiveProgress {
 // builder结束
 
 type Okr struct {
-	OkrId         *int64                `json:"okr_id,omitempty,string"`
-	PeriodId      *int64                `json:"period_id,omitempty,string"`
+	OkrId         *string               `json:"okr_id,omitempty"`
+	PeriodId      *string               `json:"period_id,omitempty"`
 	PeriodType    *string               `json:"period_type,omitempty"`
 	Name          *OkrName              `json:"name,omitempty"`
 	CreateTime    *int                  `json:"create_time,omitempty"`
@@ -1296,9 +1296,9 @@ type Okr struct {
 
 // builder开始
 type OkrBuilder struct {
-	okrId             int64
+	okrId             string
 	okrIdFlag         bool
-	periodId          int64
+	periodId          string
 	periodIdFlag      bool
 	periodType        string
 	periodTypeFlag    bool
@@ -1319,12 +1319,12 @@ func NewOkrBuilder() *OkrBuilder {
 	return builder
 }
 
-func (builder *OkrBuilder) OkrId(okrId int64) *OkrBuilder {
+func (builder *OkrBuilder) OkrId(okrId string) *OkrBuilder {
 	builder.okrId = okrId
 	builder.okrIdFlag = true
 	return builder
 }
-func (builder *OkrBuilder) PeriodId(periodId int64) *OkrBuilder {
+func (builder *OkrBuilder) PeriodId(periodId string) *OkrBuilder {
 	builder.periodId = periodId
 	builder.periodIdFlag = true
 	return builder
@@ -1398,7 +1398,7 @@ func (builder *OkrBuilder) Build() *Okr {
 // builder结束
 
 type OkrComment struct {
-	Id                *int64                             `json:"id,omitempty,string"`
+	Id                *string                            `json:"id,omitempty"`
 	Content           *string                            `json:"content,omitempty"`
 	CommentTime       *int                               `json:"comment_time,omitempty"`
 	Commentator       *OkrObjectiveAlignedObjectiveOwner `json:"commentator,omitempty"`
@@ -1409,7 +1409,7 @@ type OkrComment struct {
 
 // builder开始
 type OkrCommentBuilder struct {
-	id                    int64
+	id                    string
 	idFlag                bool
 	content               string
 	contentFlag           bool
@@ -1430,7 +1430,7 @@ func NewOkrCommentBuilder() *OkrCommentBuilder {
 	return builder
 }
 
-func (builder *OkrCommentBuilder) Id(id int64) *OkrCommentBuilder {
+func (builder *OkrCommentBuilder) Id(id string) *OkrCommentBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
@@ -1500,16 +1500,16 @@ func (builder *OkrCommentBuilder) Build() *OkrComment {
 // builder结束
 
 type OkrObjectiveAlignment struct {
-	Id     *int64 `json:"id,omitempty,string"`
-	ToId   *int64 `json:"to_id,omitempty,string"`
-	ToType *int   `json:"to_type,omitempty"`
+	Id     *string `json:"id,omitempty"`
+	ToId   *string `json:"to_id,omitempty"`
+	ToType *int    `json:"to_type,omitempty"`
 }
 
 // builder开始
 type OkrObjectiveAlignmentBuilder struct {
-	id         int64
+	id         string
 	idFlag     bool
-	toId       int64
+	toId       string
 	toIdFlag   bool
 	toType     int
 	toTypeFlag bool
@@ -1520,12 +1520,12 @@ func NewOkrObjectiveAlignmentBuilder() *OkrObjectiveAlignmentBuilder {
 	return builder
 }
 
-func (builder *OkrObjectiveAlignmentBuilder) Id(id int64) *OkrObjectiveAlignmentBuilder {
+func (builder *OkrObjectiveAlignmentBuilder) Id(id string) *OkrObjectiveAlignmentBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
 }
-func (builder *OkrObjectiveAlignmentBuilder) ToId(toId int64) *OkrObjectiveAlignmentBuilder {
+func (builder *OkrObjectiveAlignmentBuilder) ToId(toId string) *OkrObjectiveAlignmentBuilder {
 	builder.toId = toId
 	builder.toIdFlag = true
 	return builder
@@ -1556,9 +1556,9 @@ func (builder *OkrObjectiveAlignmentBuilder) Build() *OkrObjectiveAlignment {
 // builder结束
 
 type OkrBatch struct {
-	Id            *int64          `json:"id,omitempty,string"`
+	Id            *string         `json:"id,omitempty"`
 	Permission    *int            `json:"permission,omitempty"`
-	PeriodId      *int64          `json:"period_id,omitempty,string"`
+	PeriodId      *string         `json:"period_id,omitempty"`
 	Name          *string         `json:"name,omitempty"`
 	ObjectiveList []*OkrObjective `json:"objective_list,omitempty"`
 	ConfirmStatus *int            `json:"confirm_status,omitempty"`
@@ -1566,11 +1566,11 @@ type OkrBatch struct {
 
 // builder开始
 type OkrBatchBuilder struct {
-	id                int64
+	id                string
 	idFlag            bool
 	permission        int
 	permissionFlag    bool
-	periodId          int64
+	periodId          string
 	periodIdFlag      bool
 	name              string
 	nameFlag          bool
@@ -1585,7 +1585,7 @@ func NewOkrBatchBuilder() *OkrBatchBuilder {
 	return builder
 }
 
-func (builder *OkrBatchBuilder) Id(id int64) *OkrBatchBuilder {
+func (builder *OkrBatchBuilder) Id(id string) *OkrBatchBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
@@ -1595,7 +1595,7 @@ func (builder *OkrBatchBuilder) Permission(permission int) *OkrBatchBuilder {
 	builder.permissionFlag = true
 	return builder
 }
-func (builder *OkrBatchBuilder) PeriodId(periodId int64) *OkrBatchBuilder {
+func (builder *OkrBatchBuilder) PeriodId(periodId string) *OkrBatchBuilder {
 	builder.periodId = periodId
 	builder.periodIdFlag = true
 	return builder
@@ -1761,8 +1761,8 @@ func (builder *OkrDetailBuilder) Build() *OkrDetail {
 // builder结束
 
 type OkrDetailObjective struct {
-	Id                    *int64                     `json:"id,omitempty,string"`
-	OkrId                 *int64                     `json:"okr_id,omitempty,string"`
+	Id                    *string                    `json:"id,omitempty"`
+	OkrId                 *string                    `json:"okr_id,omitempty"`
 	UserId                *string                    `json:"user_id,omitempty"`
 	Pos                   *int                       `json:"pos,omitempty"`
 	Score                 *int                       `json:"score,omitempty"`
@@ -1778,9 +1778,9 @@ type OkrDetailObjective struct {
 
 // builder开始
 type OkrDetailObjectiveBuilder struct {
-	id                        int64
+	id                        string
 	idFlag                    bool
-	okrId                     int64
+	okrId                     string
 	okrIdFlag                 bool
 	userId                    string
 	userIdFlag                bool
@@ -1811,12 +1811,12 @@ func NewOkrDetailObjectiveBuilder() *OkrDetailObjectiveBuilder {
 	return builder
 }
 
-func (builder *OkrDetailObjectiveBuilder) Id(id int64) *OkrDetailObjectiveBuilder {
+func (builder *OkrDetailObjectiveBuilder) Id(id string) *OkrDetailObjectiveBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
 }
-func (builder *OkrDetailObjectiveBuilder) OkrId(okrId int64) *OkrDetailObjectiveBuilder {
+func (builder *OkrDetailObjectiveBuilder) OkrId(okrId string) *OkrDetailObjectiveBuilder {
 	builder.okrId = okrId
 	builder.okrIdFlag = true
 	return builder
@@ -1932,16 +1932,16 @@ func (builder *OkrDetailObjectiveBuilder) Build() *OkrDetailObjective {
 // builder结束
 
 type OkrDetailObjectiveAlign struct {
-	Id     *int64  `json:"id,omitempty,string"`
-	OkrId  *int64  `json:"okr_id,omitempty,string"`
+	Id     *string `json:"id,omitempty"`
+	OkrId  *string `json:"okr_id,omitempty"`
 	UserId *string `json:"user_id,omitempty"`
 }
 
 // builder开始
 type OkrDetailObjectiveAlignBuilder struct {
-	id         int64
+	id         string
 	idFlag     bool
-	okrId      int64
+	okrId      string
 	okrIdFlag  bool
 	userId     string
 	userIdFlag bool
@@ -1952,12 +1952,12 @@ func NewOkrDetailObjectiveAlignBuilder() *OkrDetailObjectiveAlignBuilder {
 	return builder
 }
 
-func (builder *OkrDetailObjectiveAlignBuilder) Id(id int64) *OkrDetailObjectiveAlignBuilder {
+func (builder *OkrDetailObjectiveAlignBuilder) Id(id string) *OkrDetailObjectiveAlignBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
 }
-func (builder *OkrDetailObjectiveAlignBuilder) OkrId(okrId int64) *OkrDetailObjectiveAlignBuilder {
+func (builder *OkrDetailObjectiveAlignBuilder) OkrId(okrId string) *OkrDetailObjectiveAlignBuilder {
 	builder.okrId = okrId
 	builder.okrIdFlag = true
 	return builder
@@ -1988,7 +1988,7 @@ func (builder *OkrDetailObjectiveAlignBuilder) Build() *OkrDetailObjectiveAlign 
 // builder结束
 
 type OkrDetailObjectiveKr struct {
-	Id         *int64   `json:"id,omitempty,string"`
+	Id         *string  `json:"id,omitempty"`
 	Pos        *int     `json:"pos,omitempty"`
 	Score      *int     `json:"score,omitempty"`
 	Weight     *float64 `json:"weight,omitempty"`
@@ -1999,7 +1999,7 @@ type OkrDetailObjectiveKr struct {
 
 // builder开始
 type OkrDetailObjectiveKrBuilder struct {
-	id             int64
+	id             string
 	idFlag         bool
 	pos            int
 	posFlag        bool
@@ -2020,7 +2020,7 @@ func NewOkrDetailObjectiveKrBuilder() *OkrDetailObjectiveKrBuilder {
 	return builder
 }
 
-func (builder *OkrDetailObjectiveKrBuilder) Id(id int64) *OkrDetailObjectiveKrBuilder {
+func (builder *OkrDetailObjectiveKrBuilder) Id(id string) *OkrDetailObjectiveKrBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
@@ -2177,7 +2177,7 @@ func (builder *OkrNameBuilder) Build() *OkrName {
 // builder结束
 
 type OkrObjective struct {
-	Id                                 *int64                               `json:"id,omitempty,string"`
+	Id                                 *string                              `json:"id,omitempty"`
 	Permission                         *int                                 `json:"permission,omitempty"`
 	Content                            *string                              `json:"content,omitempty"`
 	ProgressReport                     *string                              `json:"progress_report,omitempty"`
@@ -2188,18 +2188,18 @@ type OkrObjective struct {
 	AlignedObjectiveList               []*OkrObjectiveAlignedObjective      `json:"aligned_objective_list,omitempty"`
 	AligningObjectiveList              []*OkrObjectiveAlignedObjective      `json:"aligning_objective_list,omitempty"`
 	ProgressRecordList                 []*ProgressRecordSimplify            `json:"progress_record_list,omitempty"`
-	ProgressRatePercentLastUpdatedTime *int64                               `json:"progress_rate_percent_last_updated_time,omitempty,string"`
-	ProgressRateStatusLastUpdatedTime  *int64                               `json:"progress_rate_status_last_updated_time,omitempty,string"`
-	ProgressRecordLastUpdatedTime      *int64                               `json:"progress_record_last_updated_time,omitempty,string"`
-	ProgressReportLastUpdatedTime      *int64                               `json:"progress_report_last_updated_time,omitempty,string"`
-	ScoreLastUpdatedTime               *int64                               `json:"score_last_updated_time,omitempty,string"`
-	Deadline                           *int64                               `json:"deadline,omitempty,string"`
+	ProgressRatePercentLastUpdatedTime *string                              `json:"progress_rate_percent_last_updated_time,omitempty"`
+	ProgressRateStatusLastUpdatedTime  *string                              `json:"progress_rate_status_last_updated_time,omitempty"`
+	ProgressRecordLastUpdatedTime      *string                              `json:"progress_record_last_updated_time,omitempty"`
+	ProgressReportLastUpdatedTime      *string                              `json:"progress_report_last_updated_time,omitempty"`
+	ScoreLastUpdatedTime               *string                              `json:"score_last_updated_time,omitempty"`
+	Deadline                           *string                              `json:"deadline,omitempty"`
 	MentionedUserList                  []*OkrObjectiveAlignedObjectiveOwner `json:"mentioned_user_list,omitempty"`
 }
 
 // builder开始
 type OkrObjectiveBuilder struct {
-	id                                     int64
+	id                                     string
 	idFlag                                 bool
 	permission                             int
 	permissionFlag                         bool
@@ -2221,17 +2221,17 @@ type OkrObjectiveBuilder struct {
 	aligningObjectiveListFlag              bool
 	progressRecordList                     []*ProgressRecordSimplify
 	progressRecordListFlag                 bool
-	progressRatePercentLastUpdatedTime     int64
+	progressRatePercentLastUpdatedTime     string
 	progressRatePercentLastUpdatedTimeFlag bool
-	progressRateStatusLastUpdatedTime      int64
+	progressRateStatusLastUpdatedTime      string
 	progressRateStatusLastUpdatedTimeFlag  bool
-	progressRecordLastUpdatedTime          int64
+	progressRecordLastUpdatedTime          string
 	progressRecordLastUpdatedTimeFlag      bool
-	progressReportLastUpdatedTime          int64
+	progressReportLastUpdatedTime          string
 	progressReportLastUpdatedTimeFlag      bool
-	scoreLastUpdatedTime                   int64
+	scoreLastUpdatedTime                   string
 	scoreLastUpdatedTimeFlag               bool
-	deadline                               int64
+	deadline                               string
 	deadlineFlag                           bool
 	mentionedUserList                      []*OkrObjectiveAlignedObjectiveOwner
 	mentionedUserListFlag                  bool
@@ -2242,7 +2242,7 @@ func NewOkrObjectiveBuilder() *OkrObjectiveBuilder {
 	return builder
 }
 
-func (builder *OkrObjectiveBuilder) Id(id int64) *OkrObjectiveBuilder {
+func (builder *OkrObjectiveBuilder) Id(id string) *OkrObjectiveBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
@@ -2297,32 +2297,32 @@ func (builder *OkrObjectiveBuilder) ProgressRecordList(progressRecordList []*Pro
 	builder.progressRecordListFlag = true
 	return builder
 }
-func (builder *OkrObjectiveBuilder) ProgressRatePercentLastUpdatedTime(progressRatePercentLastUpdatedTime int64) *OkrObjectiveBuilder {
+func (builder *OkrObjectiveBuilder) ProgressRatePercentLastUpdatedTime(progressRatePercentLastUpdatedTime string) *OkrObjectiveBuilder {
 	builder.progressRatePercentLastUpdatedTime = progressRatePercentLastUpdatedTime
 	builder.progressRatePercentLastUpdatedTimeFlag = true
 	return builder
 }
-func (builder *OkrObjectiveBuilder) ProgressRateStatusLastUpdatedTime(progressRateStatusLastUpdatedTime int64) *OkrObjectiveBuilder {
+func (builder *OkrObjectiveBuilder) ProgressRateStatusLastUpdatedTime(progressRateStatusLastUpdatedTime string) *OkrObjectiveBuilder {
 	builder.progressRateStatusLastUpdatedTime = progressRateStatusLastUpdatedTime
 	builder.progressRateStatusLastUpdatedTimeFlag = true
 	return builder
 }
-func (builder *OkrObjectiveBuilder) ProgressRecordLastUpdatedTime(progressRecordLastUpdatedTime int64) *OkrObjectiveBuilder {
+func (builder *OkrObjectiveBuilder) ProgressRecordLastUpdatedTime(progressRecordLastUpdatedTime string) *OkrObjectiveBuilder {
 	builder.progressRecordLastUpdatedTime = progressRecordLastUpdatedTime
 	builder.progressRecordLastUpdatedTimeFlag = true
 	return builder
 }
-func (builder *OkrObjectiveBuilder) ProgressReportLastUpdatedTime(progressReportLastUpdatedTime int64) *OkrObjectiveBuilder {
+func (builder *OkrObjectiveBuilder) ProgressReportLastUpdatedTime(progressReportLastUpdatedTime string) *OkrObjectiveBuilder {
 	builder.progressReportLastUpdatedTime = progressReportLastUpdatedTime
 	builder.progressReportLastUpdatedTimeFlag = true
 	return builder
 }
-func (builder *OkrObjectiveBuilder) ScoreLastUpdatedTime(scoreLastUpdatedTime int64) *OkrObjectiveBuilder {
+func (builder *OkrObjectiveBuilder) ScoreLastUpdatedTime(scoreLastUpdatedTime string) *OkrObjectiveBuilder {
 	builder.scoreLastUpdatedTime = scoreLastUpdatedTime
 	builder.scoreLastUpdatedTimeFlag = true
 	return builder
 }
-func (builder *OkrObjectiveBuilder) Deadline(deadline int64) *OkrObjectiveBuilder {
+func (builder *OkrObjectiveBuilder) Deadline(deadline string) *OkrObjectiveBuilder {
 	builder.deadline = deadline
 	builder.deadlineFlag = true
 	return builder
@@ -2407,16 +2407,16 @@ func (builder *OkrObjectiveBuilder) Build() *OkrObjective {
 // builder结束
 
 type OkrObjectiveAlignedObjective struct {
-	Id    *int64                             `json:"id,omitempty,string"`
-	OkrId *int64                             `json:"okr_id,omitempty,string"`
+	Id    *string                            `json:"id,omitempty"`
+	OkrId *string                            `json:"okr_id,omitempty"`
 	Owner *OkrObjectiveAlignedObjectiveOwner `json:"owner,omitempty"`
 }
 
 // builder开始
 type OkrObjectiveAlignedObjectiveBuilder struct {
-	id        int64
+	id        string
 	idFlag    bool
-	okrId     int64
+	okrId     string
 	okrIdFlag bool
 	owner     *OkrObjectiveAlignedObjectiveOwner
 	ownerFlag bool
@@ -2427,12 +2427,12 @@ func NewOkrObjectiveAlignedObjectiveBuilder() *OkrObjectiveAlignedObjectiveBuild
 	return builder
 }
 
-func (builder *OkrObjectiveAlignedObjectiveBuilder) Id(id int64) *OkrObjectiveAlignedObjectiveBuilder {
+func (builder *OkrObjectiveAlignedObjectiveBuilder) Id(id string) *OkrObjectiveAlignedObjectiveBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
 }
-func (builder *OkrObjectiveAlignedObjectiveBuilder) OkrId(okrId int64) *OkrObjectiveAlignedObjectiveBuilder {
+func (builder *OkrObjectiveAlignedObjectiveBuilder) OkrId(okrId string) *OkrObjectiveAlignedObjectiveBuilder {
 	builder.okrId = okrId
 	builder.okrIdFlag = true
 	return builder
@@ -2506,25 +2506,25 @@ func (builder *OkrObjectiveAlignedObjectiveOwnerBuilder) Build() *OkrObjectiveAl
 // builder结束
 
 type OkrObjectiveKr struct {
-	Id                                 *int64                               `json:"id,omitempty,string"`
+	Id                                 *string                              `json:"id,omitempty"`
 	Content                            *string                              `json:"content,omitempty"`
 	Score                              *int                                 `json:"score,omitempty"`
 	Weight                             *int                                 `json:"weight,omitempty"`
 	KrWeight                           *float64                             `json:"kr_weight,omitempty"`
 	ProgressRate                       *OkrObjectiveProgressRate            `json:"progress_rate,omitempty"`
 	ProgressRecordList                 []*ProgressRecordSimplify            `json:"progress_record_list,omitempty"`
-	ProgressRatePercentLastUpdatedTime *int64                               `json:"progress_rate_percent_last_updated_time,omitempty,string"`
-	ProgressRateStatusLastUpdatedTime  *int64                               `json:"progress_rate_status_last_updated_time,omitempty,string"`
-	ProgressRecordLastUpdatedTime      *int64                               `json:"progress_record_last_updated_time,omitempty,string"`
-	ProgressReportLastUpdatedTime      *int64                               `json:"progress_report_last_updated_time,omitempty,string"`
-	ScoreLastUpdatedTime               *int64                               `json:"score_last_updated_time,omitempty,string"`
-	Deadline                           *int64                               `json:"deadline,omitempty,string"`
+	ProgressRatePercentLastUpdatedTime *string                              `json:"progress_rate_percent_last_updated_time,omitempty"`
+	ProgressRateStatusLastUpdatedTime  *string                              `json:"progress_rate_status_last_updated_time,omitempty"`
+	ProgressRecordLastUpdatedTime      *string                              `json:"progress_record_last_updated_time,omitempty"`
+	ProgressReportLastUpdatedTime      *string                              `json:"progress_report_last_updated_time,omitempty"`
+	ScoreLastUpdatedTime               *string                              `json:"score_last_updated_time,omitempty"`
+	Deadline                           *string                              `json:"deadline,omitempty"`
 	MentionedUserList                  []*OkrObjectiveAlignedObjectiveOwner `json:"mentioned_user_list,omitempty"`
 }
 
 // builder开始
 type OkrObjectiveKrBuilder struct {
-	id                                     int64
+	id                                     string
 	idFlag                                 bool
 	content                                string
 	contentFlag                            bool
@@ -2538,17 +2538,17 @@ type OkrObjectiveKrBuilder struct {
 	progressRateFlag                       bool
 	progressRecordList                     []*ProgressRecordSimplify
 	progressRecordListFlag                 bool
-	progressRatePercentLastUpdatedTime     int64
+	progressRatePercentLastUpdatedTime     string
 	progressRatePercentLastUpdatedTimeFlag bool
-	progressRateStatusLastUpdatedTime      int64
+	progressRateStatusLastUpdatedTime      string
 	progressRateStatusLastUpdatedTimeFlag  bool
-	progressRecordLastUpdatedTime          int64
+	progressRecordLastUpdatedTime          string
 	progressRecordLastUpdatedTimeFlag      bool
-	progressReportLastUpdatedTime          int64
+	progressReportLastUpdatedTime          string
 	progressReportLastUpdatedTimeFlag      bool
-	scoreLastUpdatedTime                   int64
+	scoreLastUpdatedTime                   string
 	scoreLastUpdatedTimeFlag               bool
-	deadline                               int64
+	deadline                               string
 	deadlineFlag                           bool
 	mentionedUserList                      []*OkrObjectiveAlignedObjectiveOwner
 	mentionedUserListFlag                  bool
@@ -2559,7 +2559,7 @@ func NewOkrObjectiveKrBuilder() *OkrObjectiveKrBuilder {
 	return builder
 }
 
-func (builder *OkrObjectiveKrBuilder) Id(id int64) *OkrObjectiveKrBuilder {
+func (builder *OkrObjectiveKrBuilder) Id(id string) *OkrObjectiveKrBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
@@ -2594,32 +2594,32 @@ func (builder *OkrObjectiveKrBuilder) ProgressRecordList(progressRecordList []*P
 	builder.progressRecordListFlag = true
 	return builder
 }
-func (builder *OkrObjectiveKrBuilder) ProgressRatePercentLastUpdatedTime(progressRatePercentLastUpdatedTime int64) *OkrObjectiveKrBuilder {
+func (builder *OkrObjectiveKrBuilder) ProgressRatePercentLastUpdatedTime(progressRatePercentLastUpdatedTime string) *OkrObjectiveKrBuilder {
 	builder.progressRatePercentLastUpdatedTime = progressRatePercentLastUpdatedTime
 	builder.progressRatePercentLastUpdatedTimeFlag = true
 	return builder
 }
-func (builder *OkrObjectiveKrBuilder) ProgressRateStatusLastUpdatedTime(progressRateStatusLastUpdatedTime int64) *OkrObjectiveKrBuilder {
+func (builder *OkrObjectiveKrBuilder) ProgressRateStatusLastUpdatedTime(progressRateStatusLastUpdatedTime string) *OkrObjectiveKrBuilder {
 	builder.progressRateStatusLastUpdatedTime = progressRateStatusLastUpdatedTime
 	builder.progressRateStatusLastUpdatedTimeFlag = true
 	return builder
 }
-func (builder *OkrObjectiveKrBuilder) ProgressRecordLastUpdatedTime(progressRecordLastUpdatedTime int64) *OkrObjectiveKrBuilder {
+func (builder *OkrObjectiveKrBuilder) ProgressRecordLastUpdatedTime(progressRecordLastUpdatedTime string) *OkrObjectiveKrBuilder {
 	builder.progressRecordLastUpdatedTime = progressRecordLastUpdatedTime
 	builder.progressRecordLastUpdatedTimeFlag = true
 	return builder
 }
-func (builder *OkrObjectiveKrBuilder) ProgressReportLastUpdatedTime(progressReportLastUpdatedTime int64) *OkrObjectiveKrBuilder {
+func (builder *OkrObjectiveKrBuilder) ProgressReportLastUpdatedTime(progressReportLastUpdatedTime string) *OkrObjectiveKrBuilder {
 	builder.progressReportLastUpdatedTime = progressReportLastUpdatedTime
 	builder.progressReportLastUpdatedTimeFlag = true
 	return builder
 }
-func (builder *OkrObjectiveKrBuilder) ScoreLastUpdatedTime(scoreLastUpdatedTime int64) *OkrObjectiveKrBuilder {
+func (builder *OkrObjectiveKrBuilder) ScoreLastUpdatedTime(scoreLastUpdatedTime string) *OkrObjectiveKrBuilder {
 	builder.scoreLastUpdatedTime = scoreLastUpdatedTime
 	builder.scoreLastUpdatedTimeFlag = true
 	return builder
 }
-func (builder *OkrObjectiveKrBuilder) Deadline(deadline int64) *OkrObjectiveKrBuilder {
+func (builder *OkrObjectiveKrBuilder) Deadline(deadline string) *OkrObjectiveKrBuilder {
 	builder.deadline = deadline
 	builder.deadlineFlag = true
 	return builder
@@ -2777,14 +2777,14 @@ func (builder *OkrReviewBuilder) Build() *OkrReview {
 // builder结束
 
 type OkrReviewPeriod struct {
-	PeriodId           *int64                `json:"period_id,omitempty,string"`
+	PeriodId           *string               `json:"period_id,omitempty"`
 	CycleReviewList    []*OkrReviewPeriodUrl `json:"cycle_review_list,omitempty"`
 	ProgressReportList []*OkrReviewPeriodUrl `json:"progress_report_list,omitempty"`
 }
 
 // builder开始
 type OkrReviewPeriodBuilder struct {
-	periodId               int64
+	periodId               string
 	periodIdFlag           bool
 	cycleReviewList        []*OkrReviewPeriodUrl
 	cycleReviewListFlag    bool
@@ -2797,7 +2797,7 @@ func NewOkrReviewPeriodBuilder() *OkrReviewPeriodBuilder {
 	return builder
 }
 
-func (builder *OkrReviewPeriodBuilder) PeriodId(periodId int64) *OkrReviewPeriodBuilder {
+func (builder *OkrReviewPeriodBuilder) PeriodId(periodId string) *OkrReviewPeriodBuilder {
 	builder.periodId = periodId
 	builder.periodIdFlag = true
 	return builder
@@ -2832,14 +2832,14 @@ func (builder *OkrReviewPeriodBuilder) Build() *OkrReviewPeriod {
 
 type OkrReviewPeriodUrl struct {
 	Url        *string `json:"url,omitempty"`
-	CreateTime *int64  `json:"create_time,omitempty,string"`
+	CreateTime *string `json:"create_time,omitempty"`
 }
 
 // builder开始
 type OkrReviewPeriodUrlBuilder struct {
 	url            string
 	urlFlag        bool
-	createTime     int64
+	createTime     string
 	createTimeFlag bool
 }
 
@@ -2853,7 +2853,7 @@ func (builder *OkrReviewPeriodUrlBuilder) Url(url string) *OkrReviewPeriodUrlBui
 	builder.urlFlag = true
 	return builder
 }
-func (builder *OkrReviewPeriodUrlBuilder) CreateTime(createTime int64) *OkrReviewPeriodUrlBuilder {
+func (builder *OkrReviewPeriodUrlBuilder) CreateTime(createTime string) *OkrReviewPeriodUrlBuilder {
 	builder.createTime = createTime
 	builder.createTimeFlag = true
 	return builder
@@ -2942,7 +2942,7 @@ func (builder *OkrSimpleBuilder) Build() *OkrSimple {
 // builder结束
 
 type Period struct {
-	Id     *int64  `json:"id,omitempty,string"`
+	Id     *string `json:"id,omitempty"`
 	ZhName *string `json:"zh_name,omitempty"`
 	EnName *string `json:"en_name,omitempty"`
 	Status *int    `json:"status,omitempty"`
@@ -2950,7 +2950,7 @@ type Period struct {
 
 // builder开始
 type PeriodBuilder struct {
-	id         int64
+	id         string
 	idFlag     bool
 	zhName     string
 	zhNameFlag bool
@@ -2965,7 +2965,7 @@ func NewPeriodBuilder() *PeriodBuilder {
 	return builder
 }
 
-func (builder *PeriodBuilder) Id(id int64) *PeriodBuilder {
+func (builder *PeriodBuilder) Id(id string) *PeriodBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
@@ -3109,16 +3109,16 @@ func (builder *ProgressRateBuilder) Build() *ProgressRate {
 // builder结束
 
 type ProgressRecord struct {
-	ProgressId *int64        `json:"progress_id,omitempty,string"`
-	ModifyTime *int64        `json:"modify_time,omitempty,string"`
+	ProgressId *string       `json:"progress_id,omitempty"`
+	ModifyTime *string       `json:"modify_time,omitempty"`
 	Content    *ContentBlock `json:"content,omitempty"`
 }
 
 // builder开始
 type ProgressRecordBuilder struct {
-	progressId     int64
+	progressId     string
 	progressIdFlag bool
-	modifyTime     int64
+	modifyTime     string
 	modifyTimeFlag bool
 	content        *ContentBlock
 	contentFlag    bool
@@ -3129,12 +3129,12 @@ func NewProgressRecordBuilder() *ProgressRecordBuilder {
 	return builder
 }
 
-func (builder *ProgressRecordBuilder) ProgressId(progressId int64) *ProgressRecordBuilder {
+func (builder *ProgressRecordBuilder) ProgressId(progressId string) *ProgressRecordBuilder {
 	builder.progressId = progressId
 	builder.progressIdFlag = true
 	return builder
 }
-func (builder *ProgressRecordBuilder) ModifyTime(modifyTime int64) *ProgressRecordBuilder {
+func (builder *ProgressRecordBuilder) ModifyTime(modifyTime string) *ProgressRecordBuilder {
 	builder.modifyTime = modifyTime
 	builder.modifyTimeFlag = true
 	return builder
@@ -3164,12 +3164,12 @@ func (builder *ProgressRecordBuilder) Build() *ProgressRecord {
 // builder结束
 
 type ProgressRecordSimplify struct {
-	Id *int64 `json:"id,omitempty,string"`
+	Id *string `json:"id,omitempty"`
 }
 
 // builder开始
 type ProgressRecordSimplifyBuilder struct {
-	id     int64
+	id     string
 	idFlag bool
 }
 
@@ -3178,7 +3178,7 @@ func NewProgressRecordSimplifyBuilder() *ProgressRecordSimplifyBuilder {
 	return builder
 }
 
-func (builder *ProgressRecordSimplifyBuilder) Id(id int64) *ProgressRecordSimplifyBuilder {
+func (builder *ProgressRecordSimplifyBuilder) Id(id string) *ProgressRecordSimplifyBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
@@ -3405,7 +3405,7 @@ func (builder *UserBuilder) Build() *User {
 // builder结束
 
 type UserOkr struct {
-	Id            *int64              `json:"id,omitempty,string"`
+	Id            *string             `json:"id,omitempty"`
 	Name          *string             `json:"name,omitempty"`
 	Permission    *int                `json:"permission,omitempty"`
 	ObjectiveList []*UserOkrObjective `json:"objective_list,omitempty"`
@@ -3413,7 +3413,7 @@ type UserOkr struct {
 
 // builder开始
 type UserOkrBuilder struct {
-	id                int64
+	id                string
 	idFlag            bool
 	name              string
 	nameFlag          bool
@@ -3428,7 +3428,7 @@ func NewUserOkrBuilder() *UserOkrBuilder {
 	return builder
 }
 
-func (builder *UserOkrBuilder) Id(id int64) *UserOkrBuilder {
+func (builder *UserOkrBuilder) Id(id string) *UserOkrBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
@@ -3858,7 +3858,7 @@ func (builder *UserOkrObjectiveProgressRateBuilder) Build() *UserOkrObjectivePro
 type UploadImageReqBodyBuilder struct {
 	data           io.Reader
 	dataFlag       bool
-	targetId       int64
+	targetId       string
 	targetIdFlag   bool
 	targetType     int
 	targetTypeFlag bool
@@ -3876,7 +3876,7 @@ func (builder *UploadImageReqBodyBuilder) Data(data io.Reader) *UploadImageReqBo
 	builder.dataFlag = true
 	return builder
 }
-func (builder *UploadImageReqBodyBuilder) TargetId(targetId int64) *UploadImageReqBodyBuilder {
+func (builder *UploadImageReqBodyBuilder) TargetId(targetId string) *UploadImageReqBodyBuilder {
 	builder.targetId = targetId
 	builder.targetIdFlag = true
 	return builder
@@ -3906,7 +3906,7 @@ func (builder *UploadImageReqBodyBuilder) Build() *UploadImageReqBody {
 type UploadImagePathReqBodyBuilder struct {
 	dataPath       string
 	dataPathFlag   bool
-	targetId       int64
+	targetId       string
 	targetIdFlag   bool
 	targetType     int
 	targetTypeFlag bool
@@ -3921,7 +3921,7 @@ func (builder *UploadImagePathReqBodyBuilder) DataPath(dataPath string) *UploadI
 	builder.dataPathFlag = true
 	return builder
 }
-func (builder *UploadImagePathReqBodyBuilder) TargetId(targetId int64) *UploadImagePathReqBodyBuilder {
+func (builder *UploadImagePathReqBodyBuilder) TargetId(targetId string) *UploadImagePathReqBodyBuilder {
 	builder.targetId = targetId
 	builder.targetIdFlag = true
 	return builder
@@ -3984,7 +3984,7 @@ func (builder *UploadImageReqBuilder) Build() *UploadImageReq {
 
 type UploadImageReqBody struct {
 	Data       io.Reader `json:"data,omitempty"`
-	TargetId   *int64    `json:"target_id,omitempty,string"`
+	TargetId   *string   `json:"target_id,omitempty"`
 	TargetType *int      `json:"target_type,omitempty"`
 }
 
@@ -4120,7 +4120,7 @@ type CreateProgressRecordReqBodyBuilder struct {
 	sourceTitleFlag bool
 	sourceUrl       string
 	sourceUrlFlag   bool
-	targetId        int64
+	targetId        string
 	targetIdFlag    bool
 	targetType      int
 	targetTypeFlag  bool
@@ -4145,7 +4145,7 @@ func (builder *CreateProgressRecordReqBodyBuilder) SourceUrl(sourceUrl string) *
 	builder.sourceUrlFlag = true
 	return builder
 }
-func (builder *CreateProgressRecordReqBodyBuilder) TargetId(targetId int64) *CreateProgressRecordReqBodyBuilder {
+func (builder *CreateProgressRecordReqBodyBuilder) TargetId(targetId string) *CreateProgressRecordReqBodyBuilder {
 	builder.targetId = targetId
 	builder.targetIdFlag = true
 	return builder
@@ -4188,7 +4188,7 @@ type CreateProgressRecordPathReqBodyBuilder struct {
 	sourceTitleFlag bool
 	sourceUrl       string
 	sourceUrlFlag   bool
-	targetId        int64
+	targetId        string
 	targetIdFlag    bool
 	targetType      int
 	targetTypeFlag  bool
@@ -4210,7 +4210,7 @@ func (builder *CreateProgressRecordPathReqBodyBuilder) SourceUrl(sourceUrl strin
 	builder.sourceUrlFlag = true
 	return builder
 }
-func (builder *CreateProgressRecordPathReqBodyBuilder) TargetId(targetId int64) *CreateProgressRecordPathReqBodyBuilder {
+func (builder *CreateProgressRecordPathReqBodyBuilder) TargetId(targetId string) *CreateProgressRecordPathReqBodyBuilder {
 	builder.targetId = targetId
 	builder.targetIdFlag = true
 	return builder
@@ -4281,7 +4281,7 @@ func (builder *CreateProgressRecordReqBuilder) Build() *CreateProgressRecordReq 
 type CreateProgressRecordReqBody struct {
 	SourceTitle *string       `json:"source_title,omitempty"`
 	SourceUrl   *string       `json:"source_url,omitempty"`
-	TargetId    *int64        `json:"target_id,omitempty,string"`
+	TargetId    *string       `json:"target_id,omitempty"`
 	TargetType  *int          `json:"target_type,omitempty"`
 	Content     *ContentBlock `json:"content,omitempty"`
 }
@@ -4321,7 +4321,7 @@ func NewDeleteProgressRecordReqBuilder() *DeleteProgressRecordReqBuilder {
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *DeleteProgressRecordReqBuilder) ProgressId(progressId int64) *DeleteProgressRecordReqBuilder {
+func (builder *DeleteProgressRecordReqBuilder) ProgressId(progressId string) *DeleteProgressRecordReqBuilder {
 	builder.apiReq.PathParams.Set("progress_id", fmt.Sprint(progressId))
 	return builder
 }
@@ -4363,7 +4363,7 @@ func NewGetProgressRecordReqBuilder() *GetProgressRecordReqBuilder {
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *GetProgressRecordReqBuilder) ProgressId(progressId int64) *GetProgressRecordReqBuilder {
+func (builder *GetProgressRecordReqBuilder) ProgressId(progressId string) *GetProgressRecordReqBuilder {
 	builder.apiReq.PathParams.Set("progress_id", fmt.Sprint(progressId))
 	return builder
 }
@@ -4381,8 +4381,8 @@ type GetProgressRecordReq struct {
 }
 
 type GetProgressRecordRespData struct {
-	ProgressId *int64        `json:"progress_id,omitempty,string"`
-	ModifyTime *int64        `json:"modify_time,omitempty,string"`
+	ProgressId *string       `json:"progress_id,omitempty"`
+	ModifyTime *string       `json:"modify_time,omitempty"`
 	Content    *ContentBlock `json:"content,omitempty"`
 }
 
@@ -4466,7 +4466,7 @@ func NewUpdateProgressRecordReqBuilder() *UpdateProgressRecordReqBuilder {
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *UpdateProgressRecordReqBuilder) ProgressId(progressId int64) *UpdateProgressRecordReqBuilder {
+func (builder *UpdateProgressRecordReqBuilder) ProgressId(progressId string) *UpdateProgressRecordReqBuilder {
 	builder.apiReq.PathParams.Set("progress_id", fmt.Sprint(progressId))
 	return builder
 }

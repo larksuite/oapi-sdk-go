@@ -39,11 +39,11 @@ const (
 // 生成数据类型
 
 type AccessRecord struct {
-	AccessRecordId *int64  `json:"access_record_id,omitempty,string"`
+	AccessRecordId *string `json:"access_record_id,omitempty"`
 	UserId         *string `json:"user_id,omitempty"`
-	DeviceId       *int64  `json:"device_id,omitempty,string"`
+	DeviceId       *string `json:"device_id,omitempty"`
 	IsClockIn      *bool   `json:"is_clock_in,omitempty"`
-	AccessTime     *int64  `json:"access_time,omitempty,string"`
+	AccessTime     *string `json:"access_time,omitempty"`
 	AccessType     *string `json:"access_type,omitempty"`
 	AccessData     *string `json:"access_data,omitempty"`
 	IsDoorOpen     *bool   `json:"is_door_open,omitempty"`
@@ -51,15 +51,15 @@ type AccessRecord struct {
 
 // builder开始
 type AccessRecordBuilder struct {
-	accessRecordId     int64
+	accessRecordId     string
 	accessRecordIdFlag bool
 	userId             string
 	userIdFlag         bool
-	deviceId           int64
+	deviceId           string
 	deviceIdFlag       bool
 	isClockIn          bool
 	isClockInFlag      bool
-	accessTime         int64
+	accessTime         string
 	accessTimeFlag     bool
 	accessType         string
 	accessTypeFlag     bool
@@ -74,7 +74,7 @@ func NewAccessRecordBuilder() *AccessRecordBuilder {
 	return builder
 }
 
-func (builder *AccessRecordBuilder) AccessRecordId(accessRecordId int64) *AccessRecordBuilder {
+func (builder *AccessRecordBuilder) AccessRecordId(accessRecordId string) *AccessRecordBuilder {
 	builder.accessRecordId = accessRecordId
 	builder.accessRecordIdFlag = true
 	return builder
@@ -84,7 +84,7 @@ func (builder *AccessRecordBuilder) UserId(userId string) *AccessRecordBuilder {
 	builder.userIdFlag = true
 	return builder
 }
-func (builder *AccessRecordBuilder) DeviceId(deviceId int64) *AccessRecordBuilder {
+func (builder *AccessRecordBuilder) DeviceId(deviceId string) *AccessRecordBuilder {
 	builder.deviceId = deviceId
 	builder.deviceIdFlag = true
 	return builder
@@ -94,7 +94,7 @@ func (builder *AccessRecordBuilder) IsClockIn(isClockIn bool) *AccessRecordBuild
 	builder.isClockInFlag = true
 	return builder
 }
-func (builder *AccessRecordBuilder) AccessTime(accessTime int64) *AccessRecordBuilder {
+func (builder *AccessRecordBuilder) AccessTime(accessTime string) *AccessRecordBuilder {
 	builder.accessTime = accessTime
 	builder.accessTimeFlag = true
 	return builder
@@ -155,14 +155,14 @@ func (builder *AccessRecordBuilder) Build() *AccessRecord {
 // builder结束
 
 type Device struct {
-	DeviceId   *int64  `json:"device_id,omitempty,string"`
+	DeviceId   *string `json:"device_id,omitempty"`
 	DeviceName *string `json:"device_name,omitempty"`
 	DeviceSn   *string `json:"device_sn,omitempty"`
 }
 
 // builder开始
 type DeviceBuilder struct {
-	deviceId       int64
+	deviceId       string
 	deviceIdFlag   bool
 	deviceName     string
 	deviceNameFlag bool
@@ -175,7 +175,7 @@ func NewDeviceBuilder() *DeviceBuilder {
 	return builder
 }
 
-func (builder *DeviceBuilder) DeviceId(deviceId int64) *DeviceBuilder {
+func (builder *DeviceBuilder) DeviceId(deviceId string) *DeviceBuilder {
 	builder.deviceId = deviceId
 	builder.deviceIdFlag = true
 	return builder
@@ -447,7 +447,7 @@ func (builder *ListAccessRecordReqBuilder) To(to int) *ListAccessRecordReqBuilde
 	builder.apiReq.QueryParams.Set("to", fmt.Sprint(to))
 	return builder
 }
-func (builder *ListAccessRecordReqBuilder) DeviceId(deviceId int64) *ListAccessRecordReqBuilder {
+func (builder *ListAccessRecordReqBuilder) DeviceId(deviceId string) *ListAccessRecordReqBuilder {
 	builder.apiReq.QueryParams.Set("device_id", fmt.Sprint(deviceId))
 	return builder
 }
@@ -502,7 +502,7 @@ func NewGetAccessRecordAccessPhotoReqBuilder() *GetAccessRecordAccessPhotoReqBui
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *GetAccessRecordAccessPhotoReqBuilder) AccessRecordId(accessRecordId int64) *GetAccessRecordAccessPhotoReqBuilder {
+func (builder *GetAccessRecordAccessPhotoReqBuilder) AccessRecordId(accessRecordId string) *GetAccessRecordAccessPhotoReqBuilder {
 	builder.apiReq.PathParams.Set("access_record_id", fmt.Sprint(accessRecordId))
 	return builder
 }

@@ -535,12 +535,12 @@ type ChatAnnouncement struct {
 // builder结束
 
 type ChatManagers struct {
-	ManagerId *int64 `json:"manager_id,omitempty,string"`
+	ManagerId *string `json:"manager_id,omitempty"`
 }
 
 // builder开始
 type ChatManagersBuilder struct {
-	managerId     int64
+	managerId     string
 	managerIdFlag bool
 }
 
@@ -549,7 +549,7 @@ func NewChatManagersBuilder() *ChatManagersBuilder {
 	return builder
 }
 
-func (builder *ChatManagersBuilder) ManagerId(managerId int64) *ChatManagersBuilder {
+func (builder *ChatManagersBuilder) ManagerId(managerId string) *ChatManagersBuilder {
 	builder.managerId = managerId
 	builder.managerIdFlag = true
 	return builder
@@ -1095,7 +1095,7 @@ type EventMessage struct {
 	MessageId   *string         `json:"message_id,omitempty"`
 	RootId      *string         `json:"root_id,omitempty"`
 	ParentId    *string         `json:"parent_id,omitempty"`
-	CreateTime  *int64          `json:"create_time,omitempty,string"`
+	CreateTime  *string         `json:"create_time,omitempty"`
 	ChatId      *string         `json:"chat_id,omitempty"`
 	ChatType    *string         `json:"chat_type,omitempty"`
 	MessageType *string         `json:"message_type,omitempty"`
@@ -1111,7 +1111,7 @@ type EventMessageBuilder struct {
 	rootIdFlag      bool
 	parentId        string
 	parentIdFlag    bool
-	createTime      int64
+	createTime      string
 	createTimeFlag  bool
 	chatId          string
 	chatIdFlag      bool
@@ -1145,7 +1145,7 @@ func (builder *EventMessageBuilder) ParentId(parentId string) *EventMessageBuild
 	builder.parentIdFlag = true
 	return builder
 }
-func (builder *EventMessageBuilder) CreateTime(createTime int64) *EventMessageBuilder {
+func (builder *EventMessageBuilder) CreateTime(createTime string) *EventMessageBuilder {
 	builder.createTime = createTime
 	builder.createTimeFlag = true
 	return builder
@@ -2104,8 +2104,8 @@ type Message struct {
 	RootId         *string      `json:"root_id,omitempty"`
 	ParentId       *string      `json:"parent_id,omitempty"`
 	MsgType        *string      `json:"msg_type,omitempty"`
-	CreateTime     *int64       `json:"create_time,omitempty,string"`
-	UpdateTime     *int64       `json:"update_time,omitempty,string"`
+	CreateTime     *string      `json:"create_time,omitempty"`
+	UpdateTime     *string      `json:"update_time,omitempty"`
 	Deleted        *bool        `json:"deleted,omitempty"`
 	Updated        *bool        `json:"updated,omitempty"`
 	ChatId         *string      `json:"chat_id,omitempty"`
@@ -2125,9 +2125,9 @@ type MessageBuilder struct {
 	parentIdFlag       bool
 	msgType            string
 	msgTypeFlag        bool
-	createTime         int64
+	createTime         string
 	createTimeFlag     bool
-	updateTime         int64
+	updateTime         string
 	updateTimeFlag     bool
 	deleted            bool
 	deletedFlag        bool
@@ -2170,12 +2170,12 @@ func (builder *MessageBuilder) MsgType(msgType string) *MessageBuilder {
 	builder.msgTypeFlag = true
 	return builder
 }
-func (builder *MessageBuilder) CreateTime(createTime int64) *MessageBuilder {
+func (builder *MessageBuilder) CreateTime(createTime string) *MessageBuilder {
 	builder.createTime = createTime
 	builder.createTimeFlag = true
 	return builder
 }
-func (builder *MessageBuilder) UpdateTime(updateTime int64) *MessageBuilder {
+func (builder *MessageBuilder) UpdateTime(updateTime string) *MessageBuilder {
 	builder.updateTime = updateTime
 	builder.updateTimeFlag = true
 	return builder
@@ -2275,7 +2275,7 @@ func (builder *MessageBuilder) Build() *Message {
 type MessageReaction struct {
 	ReactionId   *string   `json:"reaction_id,omitempty"`
 	Operator     *Operator `json:"operator,omitempty"`
-	ActionTime   *int64    `json:"action_time,omitempty,string"`
+	ActionTime   *string   `json:"action_time,omitempty"`
 	ReactionType *Emoji    `json:"reaction_type,omitempty"`
 }
 
@@ -2285,7 +2285,7 @@ type MessageReactionBuilder struct {
 	reactionIdFlag   bool
 	operator         *Operator
 	operatorFlag     bool
-	actionTime       int64
+	actionTime       string
 	actionTimeFlag   bool
 	reactionType     *Emoji
 	reactionTypeFlag bool
@@ -2306,7 +2306,7 @@ func (builder *MessageReactionBuilder) Operator(operator *Operator) *MessageReac
 	builder.operatorFlag = true
 	return builder
 }
-func (builder *MessageReactionBuilder) ActionTime(actionTime int64) *MessageReactionBuilder {
+func (builder *MessageReactionBuilder) ActionTime(actionTime string) *MessageReactionBuilder {
 	builder.actionTime = actionTime
 	builder.actionTimeFlag = true
 	return builder
@@ -6392,8 +6392,8 @@ type CreateMessageRespData struct {
 	RootId         *string      `json:"root_id,omitempty"`
 	ParentId       *string      `json:"parent_id,omitempty"`
 	MsgType        *string      `json:"msg_type,omitempty"`
-	CreateTime     *int64       `json:"create_time,omitempty,string"`
-	UpdateTime     *int64       `json:"update_time,omitempty,string"`
+	CreateTime     *string      `json:"create_time,omitempty"`
+	UpdateTime     *string      `json:"update_time,omitempty"`
 	Deleted        *bool        `json:"deleted,omitempty"`
 	Updated        *bool        `json:"updated,omitempty"`
 	ChatId         *string      `json:"chat_id,omitempty"`
@@ -6869,8 +6869,8 @@ type ReplyMessageRespData struct {
 	RootId         *string      `json:"root_id,omitempty"`
 	ParentId       *string      `json:"parent_id,omitempty"`
 	MsgType        *string      `json:"msg_type,omitempty"`
-	CreateTime     *int64       `json:"create_time,omitempty,string"`
-	UpdateTime     *int64       `json:"update_time,omitempty,string"`
+	CreateTime     *string      `json:"create_time,omitempty"`
+	UpdateTime     *string      `json:"update_time,omitempty"`
 	Deleted        *bool        `json:"deleted,omitempty"`
 	Updated        *bool        `json:"updated,omitempty"`
 	ChatId         *string      `json:"chat_id,omitempty"`
@@ -7167,7 +7167,7 @@ type CreateMessageReactionReq struct {
 type CreateMessageReactionRespData struct {
 	ReactionId   *string   `json:"reaction_id,omitempty"`
 	Operator     *Operator `json:"operator,omitempty"`
-	ActionTime   *int64    `json:"action_time,omitempty,string"`
+	ActionTime   *string   `json:"action_time,omitempty"`
 	ReactionType *Emoji    `json:"reaction_type,omitempty"`
 }
 
@@ -7221,7 +7221,7 @@ type DeleteMessageReactionReq struct {
 type DeleteMessageReactionRespData struct {
 	ReactionId   *string   `json:"reaction_id,omitempty"`
 	Operator     *Operator `json:"operator,omitempty"`
-	ActionTime   *int64    `json:"action_time,omitempty,string"`
+	ActionTime   *string   `json:"action_time,omitempty"`
 	ReactionType *Emoji    `json:"reaction_type,omitempty"`
 }
 

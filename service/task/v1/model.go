@@ -73,17 +73,17 @@ func (builder *CollaboratorBuilder) Build() *Collaborator {
 
 type Comment struct {
 	Content  *string `json:"content,omitempty"`
-	ParentId *int64  `json:"parent_id,omitempty,string"`
-	Id       *int64  `json:"id,omitempty,string"`
+	ParentId *string `json:"parent_id,omitempty"`
+	Id       *string `json:"id,omitempty"`
 }
 
 // builder开始
 type CommentBuilder struct {
 	content      string
 	contentFlag  bool
-	parentId     int64
+	parentId     string
 	parentIdFlag bool
-	id           int64
+	id           string
 	idFlag       bool
 }
 
@@ -97,12 +97,12 @@ func (builder *CommentBuilder) Content(content string) *CommentBuilder {
 	builder.contentFlag = true
 	return builder
 }
-func (builder *CommentBuilder) ParentId(parentId int64) *CommentBuilder {
+func (builder *CommentBuilder) ParentId(parentId string) *CommentBuilder {
 	builder.parentId = parentId
 	builder.parentIdFlag = true
 	return builder
 }
-func (builder *CommentBuilder) Id(id int64) *CommentBuilder {
+func (builder *CommentBuilder) Id(id string) *CommentBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
@@ -128,14 +128,14 @@ func (builder *CommentBuilder) Build() *Comment {
 // builder结束
 
 type Due struct {
-	Time     *int64  `json:"time,omitempty,string"`
+	Time     *string `json:"time,omitempty"`
 	Timezone *string `json:"timezone,omitempty"`
 	IsAllDay *bool   `json:"is_all_day,omitempty"`
 }
 
 // builder开始
 type DueBuilder struct {
-	time         int64
+	time         string
 	timeFlag     bool
 	timezone     string
 	timezoneFlag bool
@@ -148,7 +148,7 @@ func NewDueBuilder() *DueBuilder {
 	return builder
 }
 
-func (builder *DueBuilder) Time(time int64) *DueBuilder {
+func (builder *DueBuilder) Time(time string) *DueBuilder {
 	builder.time = time
 	builder.timeFlag = true
 	return builder
@@ -303,13 +303,13 @@ func (builder *OriginBuilder) Build() *Origin {
 // builder结束
 
 type Reminder struct {
-	Id                 *int64 `json:"id,omitempty,string"`
-	RelativeFireMinute *int   `json:"relative_fire_minute,omitempty"`
+	Id                 *string `json:"id,omitempty"`
+	RelativeFireMinute *int    `json:"relative_fire_minute,omitempty"`
 }
 
 // builder开始
 type ReminderBuilder struct {
-	id                     int64
+	id                     string
 	idFlag                 bool
 	relativeFireMinute     int
 	relativeFireMinuteFlag bool
@@ -320,7 +320,7 @@ func NewReminderBuilder() *ReminderBuilder {
 	return builder
 }
 
-func (builder *ReminderBuilder) Id(id int64) *ReminderBuilder {
+func (builder *ReminderBuilder) Id(id string) *ReminderBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
@@ -350,11 +350,11 @@ type Task struct {
 	Id            *string         `json:"id,omitempty"`
 	Summary       *string         `json:"summary,omitempty"`
 	Description   *string         `json:"description,omitempty"`
-	CompleteTime  *int64          `json:"complete_time,omitempty,string"`
+	CompleteTime  *string         `json:"complete_time,omitempty"`
 	CreatorId     *string         `json:"creator_id,omitempty"`
 	Extra         *string         `json:"extra,omitempty"`
-	CreateTime    *int64          `json:"create_time,omitempty,string"`
-	UpdateTime    *int64          `json:"update_time,omitempty,string"`
+	CreateTime    *string         `json:"create_time,omitempty"`
+	UpdateTime    *string         `json:"update_time,omitempty"`
 	Due           *Due            `json:"due,omitempty"`
 	Origin        *Origin         `json:"origin,omitempty"`
 	CanEdit       *bool           `json:"can_edit,omitempty"`
@@ -372,15 +372,15 @@ type TaskBuilder struct {
 	summaryFlag       bool
 	description       string
 	descriptionFlag   bool
-	completeTime      int64
+	completeTime      string
 	completeTimeFlag  bool
 	creatorId         string
 	creatorIdFlag     bool
 	extra             string
 	extraFlag         bool
-	createTime        int64
+	createTime        string
 	createTimeFlag    bool
-	updateTime        int64
+	updateTime        string
 	updateTimeFlag    bool
 	due               *Due
 	dueFlag           bool
@@ -418,7 +418,7 @@ func (builder *TaskBuilder) Description(description string) *TaskBuilder {
 	builder.descriptionFlag = true
 	return builder
 }
-func (builder *TaskBuilder) CompleteTime(completeTime int64) *TaskBuilder {
+func (builder *TaskBuilder) CompleteTime(completeTime string) *TaskBuilder {
 	builder.completeTime = completeTime
 	builder.completeTimeFlag = true
 	return builder
@@ -433,12 +433,12 @@ func (builder *TaskBuilder) Extra(extra string) *TaskBuilder {
 	builder.extraFlag = true
 	return builder
 }
-func (builder *TaskBuilder) CreateTime(createTime int64) *TaskBuilder {
+func (builder *TaskBuilder) CreateTime(createTime string) *TaskBuilder {
 	builder.createTime = createTime
 	builder.createTimeFlag = true
 	return builder
 }
-func (builder *TaskBuilder) UpdateTime(updateTime int64) *TaskBuilder {
+func (builder *TaskBuilder) UpdateTime(updateTime string) *TaskBuilder {
 	builder.updateTime = updateTime
 	builder.updateTimeFlag = true
 	return builder
@@ -850,11 +850,11 @@ func (builder *ListTaskReqBuilder) PageToken(pageToken string) *ListTaskReqBuild
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
-func (builder *ListTaskReqBuilder) StartCreateTime(startCreateTime int64) *ListTaskReqBuilder {
+func (builder *ListTaskReqBuilder) StartCreateTime(startCreateTime string) *ListTaskReqBuilder {
 	builder.apiReq.QueryParams.Set("start_create_time", fmt.Sprint(startCreateTime))
 	return builder
 }
-func (builder *ListTaskReqBuilder) EndCreateTime(endCreateTime int64) *ListTaskReqBuilder {
+func (builder *ListTaskReqBuilder) EndCreateTime(endCreateTime string) *ListTaskReqBuilder {
 	builder.apiReq.QueryParams.Set("end_create_time", fmt.Sprint(endCreateTime))
 	return builder
 }
@@ -1324,7 +1324,7 @@ func (builder *DeleteTaskCommentReqBuilder) TaskId(taskId string) *DeleteTaskCom
 	builder.apiReq.PathParams.Set("task_id", fmt.Sprint(taskId))
 	return builder
 }
-func (builder *DeleteTaskCommentReqBuilder) CommentId(commentId int64) *DeleteTaskCommentReqBuilder {
+func (builder *DeleteTaskCommentReqBuilder) CommentId(commentId string) *DeleteTaskCommentReqBuilder {
 	builder.apiReq.PathParams.Set("comment_id", fmt.Sprint(commentId))
 	return builder
 }
@@ -1370,7 +1370,7 @@ func (builder *GetTaskCommentReqBuilder) TaskId(taskId string) *GetTaskCommentRe
 	builder.apiReq.PathParams.Set("task_id", fmt.Sprint(taskId))
 	return builder
 }
-func (builder *GetTaskCommentReqBuilder) CommentId(commentId int64) *GetTaskCommentReqBuilder {
+func (builder *GetTaskCommentReqBuilder) CommentId(commentId string) *GetTaskCommentReqBuilder {
 	builder.apiReq.PathParams.Set("comment_id", fmt.Sprint(commentId))
 	return builder
 }
@@ -1544,7 +1544,7 @@ func (builder *UpdateTaskCommentReqBuilder) TaskId(taskId string) *UpdateTaskCom
 	builder.apiReq.PathParams.Set("task_id", fmt.Sprint(taskId))
 	return builder
 }
-func (builder *UpdateTaskCommentReqBuilder) CommentId(commentId int64) *UpdateTaskCommentReqBuilder {
+func (builder *UpdateTaskCommentReqBuilder) CommentId(commentId string) *UpdateTaskCommentReqBuilder {
 	builder.apiReq.PathParams.Set("comment_id", fmt.Sprint(commentId))
 	return builder
 }

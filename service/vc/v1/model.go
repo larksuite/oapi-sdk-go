@@ -285,24 +285,24 @@ func (builder *MaterialUploadResultBuilder) Build() *MaterialUploadResult {
 // builder结束
 
 type Meeting struct {
-	Id                          *int64                `json:"id,omitempty,string"`
+	Id                          *string               `json:"id,omitempty"`
 	Topic                       *string               `json:"topic,omitempty"`
 	Url                         *string               `json:"url,omitempty"`
 	MeetingNo                   *string               `json:"meeting_no,omitempty"`
-	CreateTime                  *int64                `json:"create_time,omitempty,string"`
-	StartTime                   *int64                `json:"start_time,omitempty,string"`
-	EndTime                     *int64                `json:"end_time,omitempty,string"`
+	CreateTime                  *string               `json:"create_time,omitempty"`
+	StartTime                   *string               `json:"start_time,omitempty"`
+	EndTime                     *string               `json:"end_time,omitempty"`
 	HostUser                    *MeetingUser          `json:"host_user,omitempty"`
 	Status                      *int                  `json:"status,omitempty"`
-	ParticipantCount            *int64                `json:"participant_count,omitempty,string"`
-	ParticipantCountAccumulated *int64                `json:"participant_count_accumulated,omitempty,string"`
+	ParticipantCount            *string               `json:"participant_count,omitempty"`
+	ParticipantCountAccumulated *string               `json:"participant_count_accumulated,omitempty"`
 	Participants                []*MeetingParticipant `json:"participants,omitempty"`
 	Ability                     *MeetingAbility       `json:"ability,omitempty"`
 }
 
 // builder开始
 type MeetingBuilder struct {
-	id                              int64
+	id                              string
 	idFlag                          bool
 	topic                           string
 	topicFlag                       bool
@@ -310,19 +310,19 @@ type MeetingBuilder struct {
 	urlFlag                         bool
 	meetingNo                       string
 	meetingNoFlag                   bool
-	createTime                      int64
+	createTime                      string
 	createTimeFlag                  bool
-	startTime                       int64
+	startTime                       string
 	startTimeFlag                   bool
-	endTime                         int64
+	endTime                         string
 	endTimeFlag                     bool
 	hostUser                        *MeetingUser
 	hostUserFlag                    bool
 	status                          int
 	statusFlag                      bool
-	participantCount                int64
+	participantCount                string
 	participantCountFlag            bool
-	participantCountAccumulated     int64
+	participantCountAccumulated     string
 	participantCountAccumulatedFlag bool
 	participants                    []*MeetingParticipant
 	participantsFlag                bool
@@ -335,7 +335,7 @@ func NewMeetingBuilder() *MeetingBuilder {
 	return builder
 }
 
-func (builder *MeetingBuilder) Id(id int64) *MeetingBuilder {
+func (builder *MeetingBuilder) Id(id string) *MeetingBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
@@ -355,17 +355,17 @@ func (builder *MeetingBuilder) MeetingNo(meetingNo string) *MeetingBuilder {
 	builder.meetingNoFlag = true
 	return builder
 }
-func (builder *MeetingBuilder) CreateTime(createTime int64) *MeetingBuilder {
+func (builder *MeetingBuilder) CreateTime(createTime string) *MeetingBuilder {
 	builder.createTime = createTime
 	builder.createTimeFlag = true
 	return builder
 }
-func (builder *MeetingBuilder) StartTime(startTime int64) *MeetingBuilder {
+func (builder *MeetingBuilder) StartTime(startTime string) *MeetingBuilder {
 	builder.startTime = startTime
 	builder.startTimeFlag = true
 	return builder
 }
-func (builder *MeetingBuilder) EndTime(endTime int64) *MeetingBuilder {
+func (builder *MeetingBuilder) EndTime(endTime string) *MeetingBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
 	return builder
@@ -380,12 +380,12 @@ func (builder *MeetingBuilder) Status(status int) *MeetingBuilder {
 	builder.statusFlag = true
 	return builder
 }
-func (builder *MeetingBuilder) ParticipantCount(participantCount int64) *MeetingBuilder {
+func (builder *MeetingBuilder) ParticipantCount(participantCount string) *MeetingBuilder {
 	builder.participantCount = participantCount
 	builder.participantCountFlag = true
 	return builder
 }
-func (builder *MeetingBuilder) ParticipantCountAccumulated(participantCountAccumulated int64) *MeetingBuilder {
+func (builder *MeetingBuilder) ParticipantCountAccumulated(participantCountAccumulated string) *MeetingBuilder {
 	builder.participantCountAccumulated = participantCountAccumulated
 	builder.participantCountAccumulatedFlag = true
 	return builder
@@ -458,21 +458,21 @@ func (builder *MeetingBuilder) Build() *Meeting {
 // builder结束
 
 type MeetingRecording struct {
-	Id        *int64  `json:"id,omitempty,string"`
-	MeetingId *int64  `json:"meeting_id,omitempty,string"`
+	Id        *string `json:"id,omitempty"`
+	MeetingId *string `json:"meeting_id,omitempty"`
 	Url       *string `json:"url,omitempty"`
-	Duration  *int64  `json:"duration,omitempty,string"`
+	Duration  *string `json:"duration,omitempty"`
 }
 
 // builder开始
 type MeetingRecordingBuilder struct {
-	id            int64
+	id            string
 	idFlag        bool
-	meetingId     int64
+	meetingId     string
 	meetingIdFlag bool
 	url           string
 	urlFlag       bool
-	duration      int64
+	duration      string
 	durationFlag  bool
 }
 
@@ -481,12 +481,12 @@ func NewMeetingRecordingBuilder() *MeetingRecordingBuilder {
 	return builder
 }
 
-func (builder *MeetingRecordingBuilder) Id(id int64) *MeetingRecordingBuilder {
+func (builder *MeetingRecordingBuilder) Id(id string) *MeetingRecordingBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
 }
-func (builder *MeetingRecordingBuilder) MeetingId(meetingId int64) *MeetingRecordingBuilder {
+func (builder *MeetingRecordingBuilder) MeetingId(meetingId string) *MeetingRecordingBuilder {
 	builder.meetingId = meetingId
 	builder.meetingIdFlag = true
 	return builder
@@ -496,7 +496,7 @@ func (builder *MeetingRecordingBuilder) Url(url string) *MeetingRecordingBuilder
 	builder.urlFlag = true
 	return builder
 }
-func (builder *MeetingRecordingBuilder) Duration(duration int64) *MeetingRecordingBuilder {
+func (builder *MeetingRecordingBuilder) Duration(duration string) *MeetingRecordingBuilder {
 	builder.duration = duration
 	builder.durationFlag = true
 	return builder
@@ -618,26 +618,26 @@ func (builder *MeetingAbilityBuilder) Build() *MeetingAbility {
 // builder结束
 
 type MeetingEventMeeting struct {
-	Id        *int64            `json:"id,omitempty,string"`
+	Id        *string           `json:"id,omitempty"`
 	Topic     *string           `json:"topic,omitempty"`
 	MeetingNo *string           `json:"meeting_no,omitempty"`
-	StartTime *int64            `json:"start_time,omitempty,string"`
-	EndTime   *int64            `json:"end_time,omitempty,string"`
+	StartTime *string           `json:"start_time,omitempty"`
+	EndTime   *string           `json:"end_time,omitempty"`
 	HostUser  *MeetingEventUser `json:"host_user,omitempty"`
 	Owner     *MeetingEventUser `json:"owner,omitempty"`
 }
 
 // builder开始
 type MeetingEventMeetingBuilder struct {
-	id            int64
+	id            string
 	idFlag        bool
 	topic         string
 	topicFlag     bool
 	meetingNo     string
 	meetingNoFlag bool
-	startTime     int64
+	startTime     string
 	startTimeFlag bool
-	endTime       int64
+	endTime       string
 	endTimeFlag   bool
 	hostUser      *MeetingEventUser
 	hostUserFlag  bool
@@ -650,7 +650,7 @@ func NewMeetingEventMeetingBuilder() *MeetingEventMeetingBuilder {
 	return builder
 }
 
-func (builder *MeetingEventMeetingBuilder) Id(id int64) *MeetingEventMeetingBuilder {
+func (builder *MeetingEventMeetingBuilder) Id(id string) *MeetingEventMeetingBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
@@ -665,12 +665,12 @@ func (builder *MeetingEventMeetingBuilder) MeetingNo(meetingNo string) *MeetingE
 	builder.meetingNoFlag = true
 	return builder
 }
-func (builder *MeetingEventMeetingBuilder) StartTime(startTime int64) *MeetingEventMeetingBuilder {
+func (builder *MeetingEventMeetingBuilder) StartTime(startTime string) *MeetingEventMeetingBuilder {
 	builder.startTime = startTime
 	builder.startTimeFlag = true
 	return builder
 }
-func (builder *MeetingEventMeetingBuilder) EndTime(endTime int64) *MeetingEventMeetingBuilder {
+func (builder *MeetingEventMeetingBuilder) EndTime(endTime string) *MeetingEventMeetingBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
 	return builder
@@ -832,9 +832,9 @@ func (builder *MeetingInviteStatusBuilder) Build() *MeetingInviteStatus {
 
 type MeetingParticipant struct {
 	Id                *string `json:"id,omitempty"`
-	FirstJoinTime     *int64  `json:"first_join_time,omitempty,string"`
-	FinalLeaveTime    *int64  `json:"final_leave_time,omitempty,string"`
-	InMeetingDuration *int64  `json:"in_meeting_duration,omitempty,string"`
+	FirstJoinTime     *string `json:"first_join_time,omitempty"`
+	FinalLeaveTime    *string `json:"final_leave_time,omitempty"`
+	InMeetingDuration *string `json:"in_meeting_duration,omitempty"`
 	UserType          *int    `json:"user_type,omitempty"`
 	IsHost            *bool   `json:"is_host,omitempty"`
 	IsCohost          *bool   `json:"is_cohost,omitempty"`
@@ -846,11 +846,11 @@ type MeetingParticipant struct {
 type MeetingParticipantBuilder struct {
 	id                    string
 	idFlag                bool
-	firstJoinTime         int64
+	firstJoinTime         string
 	firstJoinTimeFlag     bool
-	finalLeaveTime        int64
+	finalLeaveTime        string
 	finalLeaveTimeFlag    bool
-	inMeetingDuration     int64
+	inMeetingDuration     string
 	inMeetingDurationFlag bool
 	userType              int
 	userTypeFlag          bool
@@ -874,17 +874,17 @@ func (builder *MeetingParticipantBuilder) Id(id string) *MeetingParticipantBuild
 	builder.idFlag = true
 	return builder
 }
-func (builder *MeetingParticipantBuilder) FirstJoinTime(firstJoinTime int64) *MeetingParticipantBuilder {
+func (builder *MeetingParticipantBuilder) FirstJoinTime(firstJoinTime string) *MeetingParticipantBuilder {
 	builder.firstJoinTime = firstJoinTime
 	builder.firstJoinTimeFlag = true
 	return builder
 }
-func (builder *MeetingParticipantBuilder) FinalLeaveTime(finalLeaveTime int64) *MeetingParticipantBuilder {
+func (builder *MeetingParticipantBuilder) FinalLeaveTime(finalLeaveTime string) *MeetingParticipantBuilder {
 	builder.finalLeaveTime = finalLeaveTime
 	builder.finalLeaveTimeFlag = true
 	return builder
 }
-func (builder *MeetingParticipantBuilder) InMeetingDuration(inMeetingDuration int64) *MeetingParticipantBuilder {
+func (builder *MeetingParticipantBuilder) InMeetingDuration(inMeetingDuration string) *MeetingParticipantBuilder {
 	builder.inMeetingDuration = inMeetingDuration
 	builder.inMeetingDurationFlag = true
 	return builder
@@ -1159,19 +1159,19 @@ func (builder *RecordingPermissionObjectBuilder) Build() *RecordingPermissionObj
 // builder结束
 
 type Report struct {
-	TotalMeetingCount     *int64                `json:"total_meeting_count,omitempty,string"`
-	TotalMeetingDuration  *int64                `json:"total_meeting_duration,omitempty,string"`
-	TotalParticipantCount *int64                `json:"total_participant_count,omitempty,string"`
+	TotalMeetingCount     *string               `json:"total_meeting_count,omitempty"`
+	TotalMeetingDuration  *string               `json:"total_meeting_duration,omitempty"`
+	TotalParticipantCount *string               `json:"total_participant_count,omitempty"`
 	DailyReport           []*ReportMeetingDaily `json:"daily_report,omitempty"`
 }
 
 // builder开始
 type ReportBuilder struct {
-	totalMeetingCount         int64
+	totalMeetingCount         string
 	totalMeetingCountFlag     bool
-	totalMeetingDuration      int64
+	totalMeetingDuration      string
 	totalMeetingDurationFlag  bool
-	totalParticipantCount     int64
+	totalParticipantCount     string
 	totalParticipantCountFlag bool
 	dailyReport               []*ReportMeetingDaily
 	dailyReportFlag           bool
@@ -1182,17 +1182,17 @@ func NewReportBuilder() *ReportBuilder {
 	return builder
 }
 
-func (builder *ReportBuilder) TotalMeetingCount(totalMeetingCount int64) *ReportBuilder {
+func (builder *ReportBuilder) TotalMeetingCount(totalMeetingCount string) *ReportBuilder {
 	builder.totalMeetingCount = totalMeetingCount
 	builder.totalMeetingCountFlag = true
 	return builder
 }
-func (builder *ReportBuilder) TotalMeetingDuration(totalMeetingDuration int64) *ReportBuilder {
+func (builder *ReportBuilder) TotalMeetingDuration(totalMeetingDuration string) *ReportBuilder {
 	builder.totalMeetingDuration = totalMeetingDuration
 	builder.totalMeetingDurationFlag = true
 	return builder
 }
-func (builder *ReportBuilder) TotalParticipantCount(totalParticipantCount int64) *ReportBuilder {
+func (builder *ReportBuilder) TotalParticipantCount(totalParticipantCount string) *ReportBuilder {
 	builder.totalParticipantCount = totalParticipantCount
 	builder.totalParticipantCountFlag = true
 	return builder
@@ -1226,21 +1226,21 @@ func (builder *ReportBuilder) Build() *Report {
 // builder结束
 
 type ReportMeetingDaily struct {
-	Date             *int64 `json:"date,omitempty,string"`
-	MeetingCount     *int64 `json:"meeting_count,omitempty,string"`
-	MeetingDuration  *int64 `json:"meeting_duration,omitempty,string"`
-	ParticipantCount *int64 `json:"participant_count,omitempty,string"`
+	Date             *string `json:"date,omitempty"`
+	MeetingCount     *string `json:"meeting_count,omitempty"`
+	MeetingDuration  *string `json:"meeting_duration,omitempty"`
+	ParticipantCount *string `json:"participant_count,omitempty"`
 }
 
 // builder开始
 type ReportMeetingDailyBuilder struct {
-	date                 int64
+	date                 string
 	dateFlag             bool
-	meetingCount         int64
+	meetingCount         string
 	meetingCountFlag     bool
-	meetingDuration      int64
+	meetingDuration      string
 	meetingDurationFlag  bool
-	participantCount     int64
+	participantCount     string
 	participantCountFlag bool
 }
 
@@ -1249,22 +1249,22 @@ func NewReportMeetingDailyBuilder() *ReportMeetingDailyBuilder {
 	return builder
 }
 
-func (builder *ReportMeetingDailyBuilder) Date(date int64) *ReportMeetingDailyBuilder {
+func (builder *ReportMeetingDailyBuilder) Date(date string) *ReportMeetingDailyBuilder {
 	builder.date = date
 	builder.dateFlag = true
 	return builder
 }
-func (builder *ReportMeetingDailyBuilder) MeetingCount(meetingCount int64) *ReportMeetingDailyBuilder {
+func (builder *ReportMeetingDailyBuilder) MeetingCount(meetingCount string) *ReportMeetingDailyBuilder {
 	builder.meetingCount = meetingCount
 	builder.meetingCountFlag = true
 	return builder
 }
-func (builder *ReportMeetingDailyBuilder) MeetingDuration(meetingDuration int64) *ReportMeetingDailyBuilder {
+func (builder *ReportMeetingDailyBuilder) MeetingDuration(meetingDuration string) *ReportMeetingDailyBuilder {
 	builder.meetingDuration = meetingDuration
 	builder.meetingDurationFlag = true
 	return builder
 }
-func (builder *ReportMeetingDailyBuilder) ParticipantCount(participantCount int64) *ReportMeetingDailyBuilder {
+func (builder *ReportMeetingDailyBuilder) ParticipantCount(participantCount string) *ReportMeetingDailyBuilder {
 	builder.participantCount = participantCount
 	builder.participantCountFlag = true
 	return builder
@@ -1294,24 +1294,24 @@ func (builder *ReportMeetingDailyBuilder) Build() *ReportMeetingDaily {
 // builder结束
 
 type ReportTopUser struct {
-	Id              *int64  `json:"id,omitempty,string"`
+	Id              *string `json:"id,omitempty"`
 	Name            *string `json:"name,omitempty"`
 	UserType        *int    `json:"user_type,omitempty"`
-	MeetingCount    *int64  `json:"meeting_count,omitempty,string"`
-	MeetingDuration *int64  `json:"meeting_duration,omitempty,string"`
+	MeetingCount    *string `json:"meeting_count,omitempty"`
+	MeetingDuration *string `json:"meeting_duration,omitempty"`
 }
 
 // builder开始
 type ReportTopUserBuilder struct {
-	id                  int64
+	id                  string
 	idFlag              bool
 	name                string
 	nameFlag            bool
 	userType            int
 	userTypeFlag        bool
-	meetingCount        int64
+	meetingCount        string
 	meetingCountFlag    bool
-	meetingDuration     int64
+	meetingDuration     string
 	meetingDurationFlag bool
 }
 
@@ -1320,7 +1320,7 @@ func NewReportTopUserBuilder() *ReportTopUserBuilder {
 	return builder
 }
 
-func (builder *ReportTopUserBuilder) Id(id int64) *ReportTopUserBuilder {
+func (builder *ReportTopUserBuilder) Id(id string) *ReportTopUserBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
@@ -1335,12 +1335,12 @@ func (builder *ReportTopUserBuilder) UserType(userType int) *ReportTopUserBuilde
 	builder.userTypeFlag = true
 	return builder
 }
-func (builder *ReportTopUserBuilder) MeetingCount(meetingCount int64) *ReportTopUserBuilder {
+func (builder *ReportTopUserBuilder) MeetingCount(meetingCount string) *ReportTopUserBuilder {
 	builder.meetingCount = meetingCount
 	builder.meetingCountFlag = true
 	return builder
 }
-func (builder *ReportTopUserBuilder) MeetingDuration(meetingDuration int64) *ReportTopUserBuilder {
+func (builder *ReportTopUserBuilder) MeetingDuration(meetingDuration string) *ReportTopUserBuilder {
 	builder.meetingDuration = meetingDuration
 	builder.meetingDurationFlag = true
 	return builder
@@ -1374,12 +1374,12 @@ func (builder *ReportTopUserBuilder) Build() *ReportTopUser {
 // builder结束
 
 type Reserve struct {
-	Id              *int64                 `json:"id,omitempty,string"`
+	Id              *string                `json:"id,omitempty"`
 	MeetingNo       *string                `json:"meeting_no,omitempty"`
 	Url             *string                `json:"url,omitempty"`
 	AppLink         *string                `json:"app_link,omitempty"`
 	LiveLink        *string                `json:"live_link,omitempty"`
-	EndTime         *int64                 `json:"end_time,omitempty,string"`
+	EndTime         *string                `json:"end_time,omitempty"`
 	ExpireStatus    *int                   `json:"expire_status,omitempty"`
 	ReserveUserId   *string                `json:"reserve_user_id,omitempty"`
 	MeetingSettings *ReserveMeetingSetting `json:"meeting_settings,omitempty"`
@@ -1387,7 +1387,7 @@ type Reserve struct {
 
 // builder开始
 type ReserveBuilder struct {
-	id                  int64
+	id                  string
 	idFlag              bool
 	meetingNo           string
 	meetingNoFlag       bool
@@ -1397,7 +1397,7 @@ type ReserveBuilder struct {
 	appLinkFlag         bool
 	liveLink            string
 	liveLinkFlag        bool
-	endTime             int64
+	endTime             string
 	endTimeFlag         bool
 	expireStatus        int
 	expireStatusFlag    bool
@@ -1412,7 +1412,7 @@ func NewReserveBuilder() *ReserveBuilder {
 	return builder
 }
 
-func (builder *ReserveBuilder) Id(id int64) *ReserveBuilder {
+func (builder *ReserveBuilder) Id(id string) *ReserveBuilder {
 	builder.id = id
 	builder.idFlag = true
 	return builder
@@ -1437,7 +1437,7 @@ func (builder *ReserveBuilder) LiveLink(liveLink string) *ReserveBuilder {
 	builder.liveLinkFlag = true
 	return builder
 }
-func (builder *ReserveBuilder) EndTime(endTime int64) *ReserveBuilder {
+func (builder *ReserveBuilder) EndTime(endTime string) *ReserveBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
 	return builder
@@ -2037,8 +2037,8 @@ func (builder *RoomDigitalSignageMaterialBuilder) Build() *RoomDigitalSignageMat
 type RoomStatus struct {
 	Status           *bool    `json:"status,omitempty"`
 	ScheduleStatus   *bool    `json:"schedule_status,omitempty"`
-	DisableStartTime *int64   `json:"disable_start_time,omitempty,string"`
-	DisableEndTime   *int64   `json:"disable_end_time,omitempty,string"`
+	DisableStartTime *string  `json:"disable_start_time,omitempty"`
+	DisableEndTime   *string  `json:"disable_end_time,omitempty"`
 	DisableReason    *string  `json:"disable_reason,omitempty"`
 	ContactIds       []string `json:"contact_ids,omitempty"`
 	DisableNotice    *bool    `json:"disable_notice,omitempty"`
@@ -2051,9 +2051,9 @@ type RoomStatusBuilder struct {
 	statusFlag           bool
 	scheduleStatus       bool
 	scheduleStatusFlag   bool
-	disableStartTime     int64
+	disableStartTime     string
 	disableStartTimeFlag bool
-	disableEndTime       int64
+	disableEndTime       string
 	disableEndTimeFlag   bool
 	disableReason        string
 	disableReasonFlag    bool
@@ -2080,12 +2080,12 @@ func (builder *RoomStatusBuilder) ScheduleStatus(scheduleStatus bool) *RoomStatu
 	builder.scheduleStatusFlag = true
 	return builder
 }
-func (builder *RoomStatusBuilder) DisableStartTime(disableStartTime int64) *RoomStatusBuilder {
+func (builder *RoomStatusBuilder) DisableStartTime(disableStartTime string) *RoomStatusBuilder {
 	builder.disableStartTime = disableStartTime
 	builder.disableStartTimeFlag = true
 	return builder
 }
-func (builder *RoomStatusBuilder) DisableEndTime(disableEndTime int64) *RoomStatusBuilder {
+func (builder *RoomStatusBuilder) DisableEndTime(disableEndTime string) *RoomStatusBuilder {
 	builder.disableEndTime = disableEndTime
 	builder.disableEndTimeFlag = true
 	return builder
@@ -2223,7 +2223,7 @@ func NewEndMeetingReqBuilder() *EndMeetingReqBuilder {
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *EndMeetingReqBuilder) MeetingId(meetingId int64) *EndMeetingReqBuilder {
+func (builder *EndMeetingReqBuilder) MeetingId(meetingId string) *EndMeetingReqBuilder {
 	builder.apiReq.PathParams.Set("meeting_id", fmt.Sprint(meetingId))
 	return builder
 }
@@ -2265,7 +2265,7 @@ func NewGetMeetingReqBuilder() *GetMeetingReqBuilder {
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *GetMeetingReqBuilder) MeetingId(meetingId int64) *GetMeetingReqBuilder {
+func (builder *GetMeetingReqBuilder) MeetingId(meetingId string) *GetMeetingReqBuilder {
 	builder.apiReq.PathParams.Set("meeting_id", fmt.Sprint(meetingId))
 	return builder
 }
@@ -2379,7 +2379,7 @@ func NewInviteMeetingReqBuilder() *InviteMeetingReqBuilder {
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *InviteMeetingReqBuilder) MeetingId(meetingId int64) *InviteMeetingReqBuilder {
+func (builder *InviteMeetingReqBuilder) MeetingId(meetingId string) *InviteMeetingReqBuilder {
 	builder.apiReq.PathParams.Set("meeting_id", fmt.Sprint(meetingId))
 	return builder
 }
@@ -2495,7 +2495,7 @@ func NewKickoutMeetingReqBuilder() *KickoutMeetingReqBuilder {
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *KickoutMeetingReqBuilder) MeetingId(meetingId int64) *KickoutMeetingReqBuilder {
+func (builder *KickoutMeetingReqBuilder) MeetingId(meetingId string) *KickoutMeetingReqBuilder {
 	builder.apiReq.PathParams.Set("meeting_id", fmt.Sprint(meetingId))
 	return builder
 }
@@ -2566,11 +2566,11 @@ func (builder *ListByNoMeetingReqBuilder) MeetingNo(meetingNo string) *ListByNoM
 	builder.apiReq.QueryParams.Set("meeting_no", fmt.Sprint(meetingNo))
 	return builder
 }
-func (builder *ListByNoMeetingReqBuilder) StartTime(startTime int64) *ListByNoMeetingReqBuilder {
+func (builder *ListByNoMeetingReqBuilder) StartTime(startTime string) *ListByNoMeetingReqBuilder {
 	builder.apiReq.QueryParams.Set("start_time", fmt.Sprint(startTime))
 	return builder
 }
-func (builder *ListByNoMeetingReqBuilder) EndTime(endTime int64) *ListByNoMeetingReqBuilder {
+func (builder *ListByNoMeetingReqBuilder) EndTime(endTime string) *ListByNoMeetingReqBuilder {
 	builder.apiReq.QueryParams.Set("end_time", fmt.Sprint(endTime))
 	return builder
 }
@@ -2703,7 +2703,7 @@ func NewSetHostMeetingReqBuilder() *SetHostMeetingReqBuilder {
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *SetHostMeetingReqBuilder) MeetingId(meetingId int64) *SetHostMeetingReqBuilder {
+func (builder *SetHostMeetingReqBuilder) MeetingId(meetingId string) *SetHostMeetingReqBuilder {
 	builder.apiReq.PathParams.Set("meeting_id", fmt.Sprint(meetingId))
 	return builder
 }
@@ -2766,7 +2766,7 @@ func NewGetMeetingRecordingReqBuilder() *GetMeetingRecordingReqBuilder {
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *GetMeetingRecordingReqBuilder) MeetingId(meetingId int64) *GetMeetingRecordingReqBuilder {
+func (builder *GetMeetingRecordingReqBuilder) MeetingId(meetingId string) *GetMeetingRecordingReqBuilder {
 	builder.apiReq.PathParams.Set("meeting_id", fmt.Sprint(meetingId))
 	return builder
 }
@@ -2867,7 +2867,7 @@ func NewSetPermissionMeetingRecordingReqBuilder() *SetPermissionMeetingRecording
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *SetPermissionMeetingRecordingReqBuilder) MeetingId(meetingId int64) *SetPermissionMeetingRecordingReqBuilder {
+func (builder *SetPermissionMeetingRecordingReqBuilder) MeetingId(meetingId string) *SetPermissionMeetingRecordingReqBuilder {
 	builder.apiReq.PathParams.Set("meeting_id", fmt.Sprint(meetingId))
 	return builder
 }
@@ -2978,7 +2978,7 @@ func NewStartMeetingRecordingReqBuilder() *StartMeetingRecordingReqBuilder {
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *StartMeetingRecordingReqBuilder) MeetingId(meetingId int64) *StartMeetingRecordingReqBuilder {
+func (builder *StartMeetingRecordingReqBuilder) MeetingId(meetingId string) *StartMeetingRecordingReqBuilder {
 	builder.apiReq.PathParams.Set("meeting_id", fmt.Sprint(meetingId))
 	return builder
 }
@@ -3030,7 +3030,7 @@ func NewStopMeetingRecordingReqBuilder() *StopMeetingRecordingReqBuilder {
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *StopMeetingRecordingReqBuilder) MeetingId(meetingId int64) *StopMeetingRecordingReqBuilder {
+func (builder *StopMeetingRecordingReqBuilder) MeetingId(meetingId string) *StopMeetingRecordingReqBuilder {
 	builder.apiReq.PathParams.Set("meeting_id", fmt.Sprint(meetingId))
 	return builder
 }
@@ -3072,11 +3072,11 @@ func NewGetDailyReportReqBuilder() *GetDailyReportReqBuilder {
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *GetDailyReportReqBuilder) StartTime(startTime int64) *GetDailyReportReqBuilder {
+func (builder *GetDailyReportReqBuilder) StartTime(startTime string) *GetDailyReportReqBuilder {
 	builder.apiReq.QueryParams.Set("start_time", fmt.Sprint(startTime))
 	return builder
 }
-func (builder *GetDailyReportReqBuilder) EndTime(endTime int64) *GetDailyReportReqBuilder {
+func (builder *GetDailyReportReqBuilder) EndTime(endTime string) *GetDailyReportReqBuilder {
 	builder.apiReq.QueryParams.Set("end_time", fmt.Sprint(endTime))
 	return builder
 }
@@ -3123,11 +3123,11 @@ func NewGetTopUserReportReqBuilder() *GetTopUserReportReqBuilder {
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *GetTopUserReportReqBuilder) StartTime(startTime int64) *GetTopUserReportReqBuilder {
+func (builder *GetTopUserReportReqBuilder) StartTime(startTime string) *GetTopUserReportReqBuilder {
 	builder.apiReq.QueryParams.Set("start_time", fmt.Sprint(startTime))
 	return builder
 }
-func (builder *GetTopUserReportReqBuilder) EndTime(endTime int64) *GetTopUserReportReqBuilder {
+func (builder *GetTopUserReportReqBuilder) EndTime(endTime string) *GetTopUserReportReqBuilder {
 	builder.apiReq.QueryParams.Set("end_time", fmt.Sprint(endTime))
 	return builder
 }
@@ -3171,7 +3171,7 @@ func (resp *GetTopUserReportResp) Success() bool {
 }
 
 type ApplyReserveReqBodyBuilder struct {
-	endTime             int64
+	endTime             string
 	endTimeFlag         bool
 	meetingSettings     *ReserveMeetingSetting
 	meetingSettingsFlag bool
@@ -3184,7 +3184,7 @@ func NewApplyReserveReqBodyBuilder() *ApplyReserveReqBodyBuilder {
 }
 
 // 1.2 生成body的builder属性方法
-func (builder *ApplyReserveReqBodyBuilder) EndTime(endTime int64) *ApplyReserveReqBodyBuilder {
+func (builder *ApplyReserveReqBodyBuilder) EndTime(endTime string) *ApplyReserveReqBodyBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
 	return builder
@@ -3209,7 +3209,7 @@ func (builder *ApplyReserveReqBodyBuilder) Build() *ApplyReserveReqBody {
 
 // 上传文件path开始
 type ApplyReservePathReqBodyBuilder struct {
-	endTime             int64
+	endTime             string
 	endTimeFlag         bool
 	meetingSettings     *ReserveMeetingSetting
 	meetingSettingsFlag bool
@@ -3219,7 +3219,7 @@ func NewApplyReservePathReqBodyBuilder() *ApplyReservePathReqBodyBuilder {
 	builder := &ApplyReservePathReqBodyBuilder{}
 	return builder
 }
-func (builder *ApplyReservePathReqBodyBuilder) EndTime(endTime int64) *ApplyReservePathReqBodyBuilder {
+func (builder *ApplyReservePathReqBodyBuilder) EndTime(endTime string) *ApplyReservePathReqBodyBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
 	return builder
@@ -3279,7 +3279,7 @@ func (builder *ApplyReserveReqBuilder) Build() *ApplyReserveReq {
 }
 
 type ApplyReserveReqBody struct {
-	EndTime         *int64                 `json:"end_time,omitempty,string"`
+	EndTime         *string                `json:"end_time,omitempty"`
 	MeetingSettings *ReserveMeetingSetting `json:"meeting_settings,omitempty"`
 }
 
@@ -3318,7 +3318,7 @@ func NewDeleteReserveReqBuilder() *DeleteReserveReqBuilder {
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *DeleteReserveReqBuilder) ReserveId(reserveId int64) *DeleteReserveReqBuilder {
+func (builder *DeleteReserveReqBuilder) ReserveId(reserveId string) *DeleteReserveReqBuilder {
 	builder.apiReq.PathParams.Set("reserve_id", fmt.Sprint(reserveId))
 	return builder
 }
@@ -3360,7 +3360,7 @@ func NewGetReserveReqBuilder() *GetReserveReqBuilder {
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *GetReserveReqBuilder) ReserveId(reserveId int64) *GetReserveReqBuilder {
+func (builder *GetReserveReqBuilder) ReserveId(reserveId string) *GetReserveReqBuilder {
 	builder.apiReq.PathParams.Set("reserve_id", fmt.Sprint(reserveId))
 	return builder
 }
@@ -3412,7 +3412,7 @@ func NewGetActiveMeetingReserveReqBuilder() *GetActiveMeetingReserveReqBuilder {
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *GetActiveMeetingReserveReqBuilder) ReserveId(reserveId int64) *GetActiveMeetingReserveReqBuilder {
+func (builder *GetActiveMeetingReserveReqBuilder) ReserveId(reserveId string) *GetActiveMeetingReserveReqBuilder {
 	builder.apiReq.PathParams.Set("reserve_id", fmt.Sprint(reserveId))
 	return builder
 }
@@ -3453,7 +3453,7 @@ func (resp *GetActiveMeetingReserveResp) Success() bool {
 }
 
 type UpdateReserveReqBodyBuilder struct {
-	endTime             int64
+	endTime             string
 	endTimeFlag         bool
 	meetingSettings     *ReserveMeetingSetting
 	meetingSettingsFlag bool
@@ -3466,7 +3466,7 @@ func NewUpdateReserveReqBodyBuilder() *UpdateReserveReqBodyBuilder {
 }
 
 // 1.2 生成body的builder属性方法
-func (builder *UpdateReserveReqBodyBuilder) EndTime(endTime int64) *UpdateReserveReqBodyBuilder {
+func (builder *UpdateReserveReqBodyBuilder) EndTime(endTime string) *UpdateReserveReqBodyBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
 	return builder
@@ -3491,7 +3491,7 @@ func (builder *UpdateReserveReqBodyBuilder) Build() *UpdateReserveReqBody {
 
 // 上传文件path开始
 type UpdateReservePathReqBodyBuilder struct {
-	endTime             int64
+	endTime             string
 	endTimeFlag         bool
 	meetingSettings     *ReserveMeetingSetting
 	meetingSettingsFlag bool
@@ -3501,7 +3501,7 @@ func NewUpdateReservePathReqBodyBuilder() *UpdateReservePathReqBodyBuilder {
 	builder := &UpdateReservePathReqBodyBuilder{}
 	return builder
 }
-func (builder *UpdateReservePathReqBodyBuilder) EndTime(endTime int64) *UpdateReservePathReqBodyBuilder {
+func (builder *UpdateReservePathReqBodyBuilder) EndTime(endTime string) *UpdateReservePathReqBodyBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
 	return builder
@@ -3542,7 +3542,7 @@ func NewUpdateReserveReqBuilder() *UpdateReserveReqBuilder {
 }
 
 // 1.5 生成请求的builder属性方法
-func (builder *UpdateReserveReqBuilder) ReserveId(reserveId int64) *UpdateReserveReqBuilder {
+func (builder *UpdateReserveReqBuilder) ReserveId(reserveId string) *UpdateReserveReqBuilder {
 	builder.apiReq.PathParams.Set("reserve_id", fmt.Sprint(reserveId))
 	return builder
 }
@@ -3566,7 +3566,7 @@ func (builder *UpdateReserveReqBuilder) Build() *UpdateReserveReq {
 }
 
 type UpdateReserveReqBody struct {
-	EndTime         *int64                 `json:"end_time,omitempty,string"`
+	EndTime         *string                `json:"end_time,omitempty"`
 	MeetingSettings *ReserveMeetingSetting `json:"meeting_settings,omitempty"`
 }
 
@@ -3977,7 +3977,7 @@ func (m *P2MeetingRecordingEndedV1) RawReq(req *larkevent.EventReq) {
 type P2MeetingRecordingReadyV1Data struct {
 	Meeting  *MeetingEventMeeting `json:"meeting,omitempty"`
 	Url      *string              `json:"url,omitempty"`
-	Duration *int64               `json:"duration,omitempty,string"`
+	Duration *string              `json:"duration,omitempty"`
 }
 
 type P2MeetingRecordingReadyV1 struct {

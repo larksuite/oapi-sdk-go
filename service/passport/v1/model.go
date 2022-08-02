@@ -124,14 +124,14 @@ func (builder *IdpCredentialIdBuilder) Build() *IdpCredentialId {
 // builder结束
 
 type MaskSession struct {
-	CreateTime   *int64  `json:"create_time,omitempty,string"`
+	CreateTime   *string `json:"create_time,omitempty"`
 	TerminalType *int    `json:"terminal_type,omitempty"`
 	UserId       *string `json:"user_id,omitempty"`
 }
 
 // builder开始
 type MaskSessionBuilder struct {
-	createTime       int64
+	createTime       string
 	createTimeFlag   bool
 	terminalType     int
 	terminalTypeFlag bool
@@ -144,7 +144,7 @@ func NewMaskSessionBuilder() *MaskSessionBuilder {
 	return builder
 }
 
-func (builder *MaskSessionBuilder) CreateTime(createTime int64) *MaskSessionBuilder {
+func (builder *MaskSessionBuilder) CreateTime(createTime string) *MaskSessionBuilder {
 	builder.createTime = createTime
 	builder.createTimeFlag = true
 	return builder
