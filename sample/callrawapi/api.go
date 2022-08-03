@@ -64,12 +64,13 @@ func rawApiTenantCallNew() {
 	var cli = lark.NewClient(appID, appSecret, lark.WithLogReqAtDebug(true))
 
 	//发起请求
+	body := map[string]interface{}{}
+	body["approval_code"] = "ou_c245b0a7dff2725cfa2fb104f8b48b9d"
+
 	resp, err := cli.Do(context.Background(), &larkcore.ApiReq{
-		HttpMethod: http.MethodGet,
-		ApiPath:    "https://www.feishu.cn/approval/openapi/v2/approval/get",
-		Body: map[string]interface{}{
-			"approval_code": "ou_c245b0a7dff2725cfa2fb104f8b48b9d",
-		},
+		HttpMethod:                http.MethodGet,
+		ApiPath:                   "https://www.feishu.cn/approval/openapi/v2/approval/get",
+		Body:                      body,
 		SupportedAccessTokenTypes: []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant},
 	})
 
