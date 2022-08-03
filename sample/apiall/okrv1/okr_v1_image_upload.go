@@ -34,7 +34,7 @@ func main() {
 	// 创建请求对象
 	req := larkokr.NewUploadImageReqBuilder().
 		Body(larkokr.NewUploadImageReqBodyBuilder().
-			Data(nil).
+			Data(file).
 			TargetId("6974586812998174252").
 			TargetType(1).
 			Build()).

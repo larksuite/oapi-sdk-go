@@ -33,9 +33,9 @@ func main() {
 			Id("6981801914270744596").
 			JobName("测试推送任务").
 			Status(0).
-			CreateUser().
+			CreateUser(larkhelpdesk.NewNotificationUserBuilder().Build()).
 			CreatedAt("1626332244719").
-			UpdateUser().
+			UpdateUser(larkhelpdesk.NewNotificationUserBuilder().Build()).
 			UpdatedAt("1626332244719").
 			TargetUserCount(1).
 			SentUserCount(1).

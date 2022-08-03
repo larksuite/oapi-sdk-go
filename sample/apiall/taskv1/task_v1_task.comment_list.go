@@ -16,29 +16,27 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/task/v1"
 )
 
 // HTTP PATH: /open-apis/task/v1/tasks/:task_id/comments"
-func main(){
-   // 创建 Client
-   client := lark.NewClient("appID", "appSecret")
-   // 创建请求对象
-   req := larktask.NewListTaskCommentReqBuilder().
-		TaskId(""83912691-2e43-47fc-94a4-d512e03984fa"").
-		
+func main() {
+	// 创建 Client
+	client := lark.NewClient("appID", "appSecret")
+	// 创建请求对象
+	req := larktask.NewListTaskCommentReqBuilder().
+		TaskId("").
 		PageSize(10).
-		PageToken(""MTYzMTg3ODUxNQ=="").
-		
+		PageToken("").
 		ListDirection(0).
-	   Build()
-   // 发起请求
-   resp,err := client.Task.TaskComment.List(context.Background(),req)
+		Build()
+	// 发起请求
+	resp, err := client.Task.TaskComment.List(context.Background(), req)
 
-
-   // 处理错误
+	// 处理错误
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -53,4 +51,3 @@ func main(){
 	// 业务处理处理
 	fmt.Println(larkcore.Prettify(resp))
 }
-
