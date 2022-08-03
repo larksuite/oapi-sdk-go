@@ -30,7 +30,7 @@ func main() {
 		SpreadsheetToken("").
 		SheetId("").
 		MoveDimension(larksheets.NewMoveDimensionBuilder().
-			Source(&larksheets.Dimension{}).
+			Source(larksheets.NewDimensionBuilder().Build()).
 			DestinationIndex(0).
 			Build()).
 		Build()

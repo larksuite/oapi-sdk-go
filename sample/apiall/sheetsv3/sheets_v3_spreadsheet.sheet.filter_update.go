@@ -31,7 +31,7 @@ func main() {
 		SheetId("").
 		UpdateSheetFilter(larksheets.NewUpdateSheetFilterBuilder().
 			Col("").
-			Condition(&larksheets.Condition{}).
+			Condition(larksheets.NewConditionBuilder().Build()).
 			Build()).
 		Build()
 	// 发起请求

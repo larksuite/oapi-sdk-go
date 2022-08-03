@@ -30,7 +30,7 @@ func main() {
 		UserStatsViewId("").
 		EmployeeType("employee_id").
 		Body(larkattendance.NewUpdateUserStatsViewReqBodyBuilder().
-			View(&larkattendance.UserStatsView{}).
+			View(larkattendance.NewUserStatsViewBuilder().Build()).
 			Build()).
 		Build()
 	// 发起请求

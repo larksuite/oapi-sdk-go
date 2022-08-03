@@ -29,7 +29,7 @@ func main() {
 	req := larkhelpdesk.NewPatchFaqReqBuilder().
 		Id("").
 		Body(larkhelpdesk.NewPatchFaqReqBodyBuilder().
-			Faq(&larkhelpdesk.FaqUpdateInfo{}).
+			Faq(larkhelpdesk.NewFaqUpdateInfoBuilder().Build()).
 			Build()).
 		Build()
 	// 发起请求

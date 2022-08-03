@@ -30,8 +30,8 @@ func main() {
 		MeetingId("6911188411932033028").
 		UserIdType("user_id").
 		Body(larkvc.NewSetHostMeetingReqBodyBuilder().
-			HostUser(&larkvc.MeetingUser{}).
-			OldHostUser(&larkvc.MeetingUser{}).
+			HostUser(larkvc.NewMeetingUserBuilder().Build()).
+			OldHostUser(larkvc.NewMeetingUserBuilder().Build()).
 			Build()).
 		Build()
 	// 发起请求

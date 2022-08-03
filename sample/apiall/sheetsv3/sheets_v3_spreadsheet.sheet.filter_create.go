@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/sheets/v3"
@@ -32,7 +33,7 @@ func main() {
 		CreateSheetFilter(larksheets.NewCreateSheetFilterBuilder().
 			Range("").
 			Col("").
-			Condition(&larksheets.Condition{}).
+			Condition(larksheets.NewConditionBuilder().Build()).
 			Build()).
 		Build()
 	// 发起请求

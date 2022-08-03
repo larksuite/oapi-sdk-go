@@ -32,7 +32,7 @@ func main() {
 			FileToken("").
 			Type("").
 			FileName("").
-			Point(&larkdrive.ImportTaskMountPoint{}).
+			Point(larkdrive.NewImportTaskMountPointBuilder().Build()).
 			Build()).
 		Build()
 	// 发起请求

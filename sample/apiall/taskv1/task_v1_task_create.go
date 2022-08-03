@@ -32,8 +32,8 @@ func main() {
 			Summary("每天喝八杯水，保持身心愉悦").
 			Description("多吃水果，多运动，健康生活，快乐工作。").
 			Extra("dGVzdA==").
-			Due(&larktask.Due{}).
-			Origin(&larktask.Origin{}).
+			Due(larktask.NewDueBuilder().Build()).
+			Origin(larktask.NewOriginBuilder().Build()).
 			CanEdit(false).
 			Custom("").
 			Followers([]*larktask.Follower{}).

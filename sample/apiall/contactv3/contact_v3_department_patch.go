@@ -32,7 +32,7 @@ func main() {
 		DepartmentIdType("open_department_id").
 		Department(larkcontact.NewDepartmentBuilder().
 			Name("").
-			I18nName(&larkcontact.DepartmentI18nName{}).
+			I18nName(larkcontact.NewDepartmentI18nNameBuilder().Build()).
 			ParentDepartmentId("").
 			LeaderUserId("").
 			Order("").

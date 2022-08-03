@@ -29,7 +29,7 @@ func main() {
 	req := larkhelpdesk.NewPatchAgentSkillReqBuilder().
 		AgentSkillId("").
 		Body(larkhelpdesk.NewPatchAgentSkillReqBodyBuilder().
-			AgentSkill(&larkhelpdesk.AgentSkill{}).
+			AgentSkill(larkhelpdesk.NewAgentSkillBuilder().Build()).
 			Build()).
 		Build()
 	// 发起请求

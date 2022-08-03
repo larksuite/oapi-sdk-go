@@ -33,7 +33,7 @@ func main() {
 		FileType("doc").
 		UserIdType("user_id").
 		Body(larkdrive.NewUpdateFileCommentReplyReqBodyBuilder().
-			Content(&larkdrive.ReplyContent{}).
+			Content(larkdrive.NewReplyContentBuilder().Build()).
 			Build()).
 		Build()
 	// 发起请求

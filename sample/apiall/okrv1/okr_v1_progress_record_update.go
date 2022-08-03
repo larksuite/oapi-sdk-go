@@ -29,7 +29,7 @@ func main() {
 	req := larkokr.NewUpdateProgressRecordReqBuilder().
 		ProgressId("7041857032248410131").
 		Body(larkokr.NewUpdateProgressRecordReqBodyBuilder().
-			Content(&larkokr.ContentBlock{}).
+			Content(larkokr.NewContentBlockBuilder().Build()).
 			Build()).
 		Build()
 	// 发起请求

@@ -31,7 +31,7 @@ func main() {
 		UserIdType("user_id").
 		Body(larkvc.NewUpdateReserveReqBodyBuilder().
 			EndTime("1608888867").
-			MeetingSettings(&larkvc.ReserveMeetingSetting{}).
+			MeetingSettings(larkvc.NewReserveMeetingSettingBuilder().Build()).
 			Build()).
 		Build()
 	// 发起请求

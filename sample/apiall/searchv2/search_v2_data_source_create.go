@@ -34,8 +34,8 @@ func main() {
 			IconUrl("").
 			Template("search_common_card").
 			SearchableFields([]string{}).
-			I18nName(&larksearch.I18nMeta{}).
-			I18nDescription(&larksearch.I18nMeta{}).
+			I18nName(larksearch.NewI18nMetaBuilder().Build()).
+			I18nDescription(larksearch.NewI18nMetaBuilder().Build()).
 			SchemaId("").
 			Build()).
 		Build()

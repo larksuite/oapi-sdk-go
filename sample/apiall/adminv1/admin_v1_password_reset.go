@@ -29,7 +29,7 @@ func main() {
 	req := larkadmin.NewResetPasswordReqBuilder().
 		UserIdType("open_id").
 		Body(larkadmin.NewResetPasswordReqBodyBuilder().
-			Password(&larkadmin.Password{}).
+			Password(larkadmin.NewPasswordBuilder().Build()).
 			UserId("abc123").
 			Build()).
 		Build()

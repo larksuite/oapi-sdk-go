@@ -30,7 +30,7 @@ func main() {
 		ValidateOnly(false).
 		Schema(larksearch.NewSchemaBuilder().
 			Properties([]*larksearch.SchemaProperty{}).
-			Display(&larksearch.SchemaDisplay{}).
+			Display(larksearch.NewSchemaDisplayBuilder().Build()).
 			SchemaId("jira_schema").
 			Build()).
 		Build()

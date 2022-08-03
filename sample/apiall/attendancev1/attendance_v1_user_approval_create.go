@@ -29,7 +29,7 @@ func main() {
 	req := larkattendance.NewCreateUserApprovalReqBuilder().
 		EmployeeType("employee_id").
 		Body(larkattendance.NewCreateUserApprovalReqBodyBuilder().
-			UserApproval(&larkattendance.UserApproval{}).
+			UserApproval(larkattendance.NewUserApprovalBuilder().Build()).
 			Build()).
 		Build()
 	// 发起请求

@@ -35,7 +35,7 @@ func main() {
 			GroupCode("work_group").
 			GroupName("@i18n@2").
 			Description("@i18n@2").
-			External(&larkapproval.ApprovalCreateExternal{}).
+			External(larkapproval.NewApprovalCreateExternalBuilder().Build()).
 			Viewers([]*larkapproval.ApprovalCreateViewers{}).
 			I18nResources([]*larkapproval.I18nResource{}).
 			Build()).

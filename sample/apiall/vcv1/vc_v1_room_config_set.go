@@ -35,7 +35,7 @@ func main() {
 			BuildingId("3").
 			FloorName("4").
 			RoomId("67687262867363").
-			RoomConfig(&larkvc.RoomConfig{}).
+			RoomConfig(larkvc.NewRoomConfigBuilder().Build()).
 			Build()).
 		Build()
 	// 发起请求

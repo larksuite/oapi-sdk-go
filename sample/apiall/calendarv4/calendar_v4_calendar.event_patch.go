@@ -33,13 +33,13 @@ func main() {
 			Summary("").
 			Description("").
 			NeedNotification(false).
-			StartTime(&larkcalendar.TimeInfo{}).
-			EndTime(&larkcalendar.TimeInfo{}).
-			Vchat(&larkcalendar.Vchat{}).
+			StartTime(larkcalendar.NewTimeInfoBuilder().Build()).
+			EndTime(larkcalendar.NewTimeInfoBuilder().Build()).
+			Vchat(larkcalendar.NewVchatBuilder().Build()).
 			Visibility("default").
 			AttendeeAbility("none").
 			FreeBusyStatus("busy").
-			Location(&larkcalendar.EventLocation{}).
+			Location(larkcalendar.NewEventLocationBuilder().Build()).
 			Color(0).
 			Reminders([]*larkcalendar.Reminder{}).
 			Recurrence("").

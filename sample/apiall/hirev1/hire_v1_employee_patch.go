@@ -31,8 +31,8 @@ func main() {
 		UserIdType("user_id").
 		ChangeEmployeeStage(larkhire.NewChangeEmployeeStageBuilder().
 			Operation(1).
-			ConversionInfo(&larkhire.EmployeeConversionInfo{}).
-			OverboardInfo(&larkhire.EmployeeOverboardInfo{}).
+			ConversionInfo(larkhire.NewEmployeeConversionInfoBuilder().Build()).
+			OverboardInfo(larkhire.NewEmployeeOverboardInfoBuilder().Build()).
 			Build()).
 		Build()
 	// 发起请求

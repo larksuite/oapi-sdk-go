@@ -30,7 +30,7 @@ func main() {
 		EmployeeType("employee_id").
 		DeptType("open_id").
 		Body(larkattendance.NewCreateGroupReqBodyBuilder().
-			Group(&larkattendance.Group{}).
+			Group(larkattendance.NewGroupBuilder().Build()).
 			OperatorId("dd31248a").
 			Build()).
 		Build()

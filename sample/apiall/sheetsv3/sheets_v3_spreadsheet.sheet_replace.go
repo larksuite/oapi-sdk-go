@@ -30,7 +30,7 @@ func main() {
 		SpreadsheetToken("").
 		SheetId("").
 		Replace(larksheets.NewReplaceBuilder().
-			FindCondition(&larksheets.FindCondition{}).
+			FindCondition(larksheets.NewFindConditionBuilder().Build()).
 			Find("").
 			Replacement("").
 			Build()).

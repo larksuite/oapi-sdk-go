@@ -32,7 +32,7 @@ func main() {
 			SourceUrl("www.baidu.com").
 			TargetId("7041430377642082323").
 			TargetType(1).
-			Content(&larkokr.ContentBlock{}).
+			Content(larkokr.NewContentBlockBuilder().Build()).
 			Build()).
 		Build()
 	// 发起请求

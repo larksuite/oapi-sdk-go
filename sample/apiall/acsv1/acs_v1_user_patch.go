@@ -30,7 +30,7 @@ func main() {
 		UserId("ou_7dab8a3d3cdcc9da365777c7ad535d62").
 		UserIdType("user_id").
 		User(larkacs.NewUserBuilder().
-			Feature(&larkacs.Feature{}).
+			Feature(larkacs.NewFeatureBuilder().Build()).
 			Build()).
 		Build()
 	// 发起请求

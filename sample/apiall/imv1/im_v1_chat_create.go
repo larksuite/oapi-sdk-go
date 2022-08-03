@@ -33,7 +33,7 @@ func main() {
 			Avatar("default-avatar_44ae0ca3-e140-494b-956f-78091e348435").
 			Name("测试群名称").
 			Description("测试群描述").
-			I18nNames(&larkim.I18nNames{}).
+			I18nNames(larkim.NewI18nNamesBuilder().Build()).
 			OwnerId("4d7a3c6g").
 			UserIdList([]string{}).
 			BotIdList([]string{}).

@@ -31,9 +31,9 @@ func main() {
 		Item(larksearch.NewItemBuilder().
 			Id("").
 			Acl([]*larksearch.Acl{}).
-			Metadata(&larksearch.ItemMetadata{}).
+			Metadata(larksearch.NewItemMetadataBuilder().Build()).
 			StructuredData("").
-			Content(&larksearch.ItemContent{}).
+			Content(larksearch.NewItemContentBuilder().Build()).
 			Build()).
 		Build()
 	// 发起请求

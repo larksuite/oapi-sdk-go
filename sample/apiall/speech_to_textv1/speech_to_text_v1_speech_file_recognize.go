@@ -28,8 +28,8 @@ func main() {
 	// 创建请求对象
 	req := larkspeech_to_text.NewFileRecognizeSpeechReqBuilder().
 		Body(larkspeech_to_text.NewFileRecognizeSpeechReqBodyBuilder().
-			Speech(&larkspeech_to_text.Speech{}).
-			Config(&larkspeech_to_text.FileConfig{}).
+			Speech(larkspeech_to_text.NewSpeechBuilder().Build()).
+			Config(larkspeech_to_text.NewFileConfigBuilder().Build()).
 			Build()).
 		Build()
 	// 发起请求

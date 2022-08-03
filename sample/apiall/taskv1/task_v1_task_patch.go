@@ -30,7 +30,7 @@ func main() {
 		TaskId("83912691-2e43-47fc-94a4-d512e03984fa").
 		UserIdType("user_id").
 		Body(larktask.NewPatchTaskReqBodyBuilder().
-			Task(&larktask.Task{}).
+			Task(larktask.NewTaskBuilder().Build()).
 			UpdateFields([]string{}).
 			Build()).
 		Build()

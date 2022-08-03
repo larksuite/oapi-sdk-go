@@ -32,7 +32,7 @@ func main() {
 			Status("PENDING").
 			Extra("").
 			InstanceId("24492654").
-			Links(&larkapproval.ExternalInstanceLink{}).
+			Links(larkapproval.NewExternalInstanceLinkBuilder().Build()).
 			Title("@i18n@1").
 			Form([]*larkapproval.ExternalInstanceForm{}).
 			UserId("a987sf9s").

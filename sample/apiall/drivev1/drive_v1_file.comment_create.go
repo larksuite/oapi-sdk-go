@@ -38,7 +38,7 @@ func main() {
 			IsSolved(false).
 			SolvedTime(0).
 			SolverUserId("").
-			ReplyList(&larkdrive.ReplyList{}).
+			ReplyList(larkdrive.NewReplyListBuilder().Build()).
 			Build()).
 		Build()
 	// 发起请求

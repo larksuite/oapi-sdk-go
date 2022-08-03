@@ -16,13 +16,12 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/acs/v1"
 )
 
-// Example: /open-apis/acs/v1/access_records"
+// HTTP PATH: /open-apis/acs/v1/access_records"
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")

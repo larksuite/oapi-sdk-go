@@ -34,10 +34,10 @@ func main() {
 			ApprovalCode("7C468A54-8745-2245-9675-08B7C63E7A85").
 			Description("@i18n@description").
 			Viewers([]*larkapproval.ApprovalCreateViewers{}).
-			Form(&larkapproval.ApprovalForm{}).
+			Form(larkapproval.NewApprovalFormBuilder().Build()).
 			NodeList([]*larkapproval.ApprovalNode{}).
-			Settings(&larkapproval.ApprovalSetting{}).
-			Config(&larkapproval.ApprovalConfig{}).
+			Settings(larkapproval.NewApprovalSettingBuilder().Build()).
+			Config(larkapproval.NewApprovalConfigBuilder().Build()).
 			Icon(0).
 			I18nResources([]*larkapproval.I18nResource{}).
 			Build()).

@@ -30,7 +30,7 @@ func main() {
 		SpreadsheetToken("").
 		SheetId("").
 		Find(larksheets.NewFindBuilder().
-			FindCondition(&larksheets.FindCondition{}).
+			FindCondition(larksheets.NewFindConditionBuilder().Build()).
 			Find("").
 			Build()).
 		Build()

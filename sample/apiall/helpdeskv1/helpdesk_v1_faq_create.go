@@ -28,7 +28,7 @@ func main() {
 	// 创建请求对象
 	req := larkhelpdesk.NewCreateFaqReqBuilder().
 		Body(larkhelpdesk.NewCreateFaqReqBodyBuilder().
-			Faq(&larkhelpdesk.FaqUpdateInfo{}).
+			Faq(larkhelpdesk.NewFaqUpdateInfoBuilder().Build()).
 			Build()).
 		Build()
 	// 发起请求

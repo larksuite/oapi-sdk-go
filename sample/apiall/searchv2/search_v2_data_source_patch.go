@@ -33,8 +33,8 @@ func main() {
 			State(0).
 			Description("").
 			IconUrl("").
-			I18nName(&larksearch.ItemMetadata{}).
-			I18nDescription(&larksearch.I18nMeta{}).
+			I18nName(larksearch.NewItemMetadataBuilder().Build()).
+			I18nDescription(larksearch.NewI18nMetaBuilder().Build()).
 			Build()).
 		Build()
 	// 发起请求

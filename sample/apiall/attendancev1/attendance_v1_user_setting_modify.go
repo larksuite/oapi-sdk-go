@@ -29,7 +29,7 @@ func main() {
 	req := larkattendance.NewModifyUserSettingReqBuilder().
 		EmployeeType("employee_id").
 		Body(larkattendance.NewModifyUserSettingReqBodyBuilder().
-			UserSetting(&larkattendance.UserSetting{}).
+			UserSetting(larkattendance.NewUserSettingBuilder().Build()).
 			Build()).
 		Build()
 	// 发起请求

@@ -29,7 +29,7 @@ func main() {
 	req := larksearch.NewPatchSchemaReqBuilder().
 		SchemaId("custom_schema_id").
 		Body(larksearch.NewPatchSchemaReqBodyBuilder().
-			Display(&larksearch.SchemaDisplay{}).
+			Display(larksearch.NewSchemaDisplayBuilder().Build()).
 			Build()).
 		Build()
 	// 发起请求

@@ -33,21 +33,21 @@ func main() {
 		ClientToken("").
 		UserIdType("user_id").
 		UpdateBlockRequest(larkdocx.NewUpdateBlockRequestBuilder().
-			UpdateTextElements(&larkdocx.UpdateTextElementsRequest{}).
-			UpdateTextStyle(&larkdocx.UpdateTextStyleRequest{}).
-			UpdateTableProperty(&larkdocx.UpdateTablePropertyRequest{}).
-			InsertTableRow(&larkdocx.InsertTableRowRequest{}).
-			InsertTableColumn(&larkdocx.InsertTableColumnRequest{}).
-			DeleteTableRows(&larkdocx.DeleteTableRowsRequest{}).
-			DeleteTableColumns(&larkdocx.DeleteTableColumnsRequest{}).
-			MergeTableCells(&larkdocx.MergeTableCellsRequest{}).
-			UnmergeTableCells(&larkdocx.UnmergeTableCellsRequest{}).
-			InsertGridColumn(&larkdocx.InsertGridColumnRequest{}).
-			DeleteGridColumn(&larkdocx.DeleteGridColumnRequest{}).
-			UpdateGridColumnWidthRatio(&larkdocx.UpdateGridColumnWidthRatioRequest{}).
-			ReplaceImage(&larkdocx.ReplaceImageRequest{}).
-			ReplaceFile(&larkdocx.ReplaceFileRequest{}).
-			UpdateText(&larkdocx.UpdateTextRequest{}).
+			UpdateTextElements(larkdocx.NewUpdateTextElementsRequestBuilder().Build()).
+			UpdateTextStyle(larkdocx.NewUpdateTextStyleRequestBuilder().Build()).
+			UpdateTableProperty(larkdocx.NewUpdateTablePropertyRequestBuilder().Build()).
+			InsertTableRow(larkdocx.NewInsertTableRowRequestBuilder().Build()).
+			InsertTableColumn(larkdocx.NewInsertTableColumnRequestBuilder().Build()).
+			DeleteTableRows(larkdocx.NewDeleteTableRowsRequestBuilder().Build()).
+			DeleteTableColumns(larkdocx.NewDeleteTableColumnsRequestBuilder().Build()).
+			MergeTableCells(larkdocx.NewMergeTableCellsRequestBuilder().Build()).
+			UnmergeTableCells(larkdocx.NewUnmergeTableCellsRequestBuilder().Build()).
+			InsertGridColumn(larkdocx.NewInsertGridColumnRequestBuilder().Build()).
+			DeleteGridColumn(larkdocx.NewDeleteGridColumnRequestBuilder().Build()).
+			UpdateGridColumnWidthRatio(larkdocx.NewUpdateGridColumnWidthRatioRequestBuilder().Build()).
+			ReplaceImage(larkdocx.NewReplaceImageRequestBuilder().Build()).
+			ReplaceFile(larkdocx.NewReplaceFileRequestBuilder().Build()).
+			UpdateText(larkdocx.NewUpdateTextRequestBuilder().Build()).
 			Build()).
 		Build()
 	// 发起请求
