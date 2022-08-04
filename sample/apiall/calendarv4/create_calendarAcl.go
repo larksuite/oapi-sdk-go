@@ -16,23 +16,26 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/calendar/v4"
 )
 
-// HTTP PATH: /open-apis/calendar/v4/calendars/:calendar_id/acls/:acl_id"
+// HTTP PATH: /open-apis/calendar/v4/calendars/:calendar_id/acls"
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
-	req := larkcalendar.NewDeleteCalendarAclReqBuilder().
+	req := larkcalendar.NewCreateCalendarAclReqBuilder().
 		CalendarId("").
-		AclId("").
+		UserIdType("user_id").
+		CalendarAcl(larkcalendar.NewCalendarAclBuilder().
+			Role("unknown").
+			Scope(larkcalendar.NewAclScopeBuilder().Build()).
+			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Calendar.CalendarAcl.Delete(context.Background(), req)
+	resp, err := client.Calendar.CalendarAcl.Create(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

@@ -16,26 +16,22 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
 )
 
-// HTTP PATH: /open-apis/im/v1/chats/:chat_id/managers/add_managers"
+// HTTP PATH: /open-apis/im/v1/chats/:chat_id/announcement"
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
-	req := larkim.NewAddManagersChatManagersReqBuilder().
-		ChatId("oc_a0553eda9014c201e6969b478895c230").
-		MemberIdType("user_id").
-		Body(larkim.NewAddManagersChatManagersReqBodyBuilder().
-			ManagerIds([]string{}).
-			Build()).
+	req := larkim.NewGetChatAnnouncementReqBuilder().
+		ChatId("oc_5ad11d72b830411d72b836c20").
+		UserIdType("open_id").
 		Build()
 	// 发起请求
-	resp, err := client.Im.ChatManagers.AddManagers(context.Background(), req)
+	resp, err := client.Im.ChatAnnouncement.Get(context.Background(), req)
 
 	// 处理错误
 	if err != nil {
