@@ -14,7 +14,14 @@
 package larkadmin
 
 import (
+	"io"
+
+	"bytes"
+
 	"fmt"
+
+	"context"
+	"errors"
 
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
@@ -30,6 +37,16 @@ const (
 	UserIdTypeUserId  = "user_id"
 	UserIdTypeUnionId = "union_id"
 	UserIdTypeOpenId  = "open_id"
+)
+
+const (
+	GrantTypeManual   = 0
+	GrantTypeJoinTime = 1
+)
+
+const (
+	ImageTypeDetail = 1
+	ImageTypeShow   = 2
 )
 
 // 生成数据类型
@@ -3386,6 +3403,660 @@ func (resp *ListAdminUserStatResp) Success() bool {
 	return resp.Code == 0
 }
 
+// 1.4 生成请求的builder结构体
+type CreateBadgeReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	badge  *Badge
+}
+
+// 生成请求的New构造器
+func NewCreateBadgeReqBuilder() *CreateBadgeReqBuilder {
+	builder := &CreateBadgeReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 1.5 生成请求的builder属性方法
+func (builder *CreateBadgeReqBuilder) Badge(badge *Badge) *CreateBadgeReqBuilder {
+	builder.badge = badge
+	return builder
+}
+
+// 1.5 生成请求的builder的build方法
+func (builder *CreateBadgeReqBuilder) Build() *CreateBadgeReq {
+	req := &CreateBadgeReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.badge
+	return req
+}
+
+type CreateBadgeReq struct {
+	apiReq *larkcore.ApiReq
+	Badge  *Badge `body:""`
+}
+
+type CreateBadgeRespData struct {
+	Badge *Badge `json:"badge,omitempty"`
+}
+
+type CreateBadgeResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *CreateBadgeRespData `json:"data"`
+}
+
+func (resp *CreateBadgeResp) Success() bool {
+	return resp.Code == 0
+}
+
+// 1.4 生成请求的builder结构体
+type GetBadgeReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+// 生成请求的New构造器
+func NewGetBadgeReqBuilder() *GetBadgeReqBuilder {
+	builder := &GetBadgeReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 1.5 生成请求的builder属性方法
+func (builder *GetBadgeReqBuilder) BadgeId(badgeId string) *GetBadgeReqBuilder {
+	builder.apiReq.PathParams.Set("badge_id", fmt.Sprint(badgeId))
+	return builder
+}
+
+// 1.5 生成请求的builder的build方法
+func (builder *GetBadgeReqBuilder) Build() *GetBadgeReq {
+	req := &GetBadgeReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	return req
+}
+
+type GetBadgeReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type GetBadgeRespData struct {
+	Badge *Badge `json:"badge,omitempty"`
+}
+
+type GetBadgeResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *GetBadgeRespData `json:"data"`
+}
+
+func (resp *GetBadgeResp) Success() bool {
+	return resp.Code == 0
+}
+
+// 1.4 生成请求的builder结构体
+type ListBadgeReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	limit  int
+}
+
+// 生成请求的New构造器
+func NewListBadgeReqBuilder() *ListBadgeReqBuilder {
+	builder := &ListBadgeReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 1.5 生成请求的builder属性方法
+func (builder *ListBadgeReqBuilder) Limit(limit int) *ListBadgeReqBuilder {
+	builder.limit = limit
+	return builder
+}
+func (builder *ListBadgeReqBuilder) PageSize(pageSize int) *ListBadgeReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+func (builder *ListBadgeReqBuilder) PageToken(pageToken string) *ListBadgeReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+func (builder *ListBadgeReqBuilder) Name(name string) *ListBadgeReqBuilder {
+	builder.apiReq.QueryParams.Set("name", fmt.Sprint(name))
+	return builder
+}
+
+// 1.5 生成请求的builder的build方法
+func (builder *ListBadgeReqBuilder) Build() *ListBadgeReq {
+	req := &ListBadgeReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ListBadgeReq struct {
+	apiReq *larkcore.ApiReq
+	Limit  int
+}
+
+type ListBadgeRespData struct {
+	Badges    []*Badge `json:"badges,omitempty"`
+	PageToken *string  `json:"page_token,omitempty"`
+	HasMore   *bool    `json:"has_more,omitempty"`
+}
+
+type ListBadgeResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListBadgeRespData `json:"data"`
+}
+
+func (resp *ListBadgeResp) Success() bool {
+	return resp.Code == 0
+}
+
+// 1.4 生成请求的builder结构体
+type UpdateBadgeReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	badge  *Badge
+}
+
+// 生成请求的New构造器
+func NewUpdateBadgeReqBuilder() *UpdateBadgeReqBuilder {
+	builder := &UpdateBadgeReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 1.5 生成请求的builder属性方法
+func (builder *UpdateBadgeReqBuilder) BadgeId(badgeId string) *UpdateBadgeReqBuilder {
+	builder.apiReq.PathParams.Set("badge_id", fmt.Sprint(badgeId))
+	return builder
+}
+func (builder *UpdateBadgeReqBuilder) Badge(badge *Badge) *UpdateBadgeReqBuilder {
+	builder.badge = badge
+	return builder
+}
+
+// 1.5 生成请求的builder的build方法
+func (builder *UpdateBadgeReqBuilder) Build() *UpdateBadgeReq {
+	req := &UpdateBadgeReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.badge
+	return req
+}
+
+type UpdateBadgeReq struct {
+	apiReq *larkcore.ApiReq
+	Badge  *Badge `body:""`
+}
+
+type UpdateBadgeRespData struct {
+	Badge *Badge `json:"badge,omitempty"`
+}
+
+type UpdateBadgeResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *UpdateBadgeRespData `json:"data"`
+}
+
+func (resp *UpdateBadgeResp) Success() bool {
+	return resp.Code == 0
+}
+
+// 1.4 生成请求的builder结构体
+type CreateBadgeGrantReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	grant  *Grant
+}
+
+// 生成请求的New构造器
+func NewCreateBadgeGrantReqBuilder() *CreateBadgeGrantReqBuilder {
+	builder := &CreateBadgeGrantReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 1.5 生成请求的builder属性方法
+func (builder *CreateBadgeGrantReqBuilder) BadgeId(badgeId string) *CreateBadgeGrantReqBuilder {
+	builder.apiReq.PathParams.Set("badge_id", fmt.Sprint(badgeId))
+	return builder
+}
+func (builder *CreateBadgeGrantReqBuilder) UserIdType(userIdType string) *CreateBadgeGrantReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+func (builder *CreateBadgeGrantReqBuilder) DepartmentIdType(departmentIdType string) *CreateBadgeGrantReqBuilder {
+	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
+	return builder
+}
+func (builder *CreateBadgeGrantReqBuilder) Grant(grant *Grant) *CreateBadgeGrantReqBuilder {
+	builder.grant = grant
+	return builder
+}
+
+// 1.5 生成请求的builder的build方法
+func (builder *CreateBadgeGrantReqBuilder) Build() *CreateBadgeGrantReq {
+	req := &CreateBadgeGrantReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.grant
+	return req
+}
+
+type CreateBadgeGrantReq struct {
+	apiReq *larkcore.ApiReq
+	Grant  *Grant `body:""`
+}
+
+type CreateBadgeGrantRespData struct {
+	Grant *Grant `json:"grant,omitempty"`
+}
+
+type CreateBadgeGrantResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *CreateBadgeGrantRespData `json:"data"`
+}
+
+func (resp *CreateBadgeGrantResp) Success() bool {
+	return resp.Code == 0
+}
+
+// 1.4 生成请求的builder结构体
+type DeleteBadgeGrantReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+// 生成请求的New构造器
+func NewDeleteBadgeGrantReqBuilder() *DeleteBadgeGrantReqBuilder {
+	builder := &DeleteBadgeGrantReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 1.5 生成请求的builder属性方法
+func (builder *DeleteBadgeGrantReqBuilder) BadgeId(badgeId string) *DeleteBadgeGrantReqBuilder {
+	builder.apiReq.PathParams.Set("badge_id", fmt.Sprint(badgeId))
+	return builder
+}
+func (builder *DeleteBadgeGrantReqBuilder) GrantId(grantId string) *DeleteBadgeGrantReqBuilder {
+	builder.apiReq.PathParams.Set("grant_id", fmt.Sprint(grantId))
+	return builder
+}
+
+// 1.5 生成请求的builder的build方法
+func (builder *DeleteBadgeGrantReqBuilder) Build() *DeleteBadgeGrantReq {
+	req := &DeleteBadgeGrantReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	return req
+}
+
+type DeleteBadgeGrantReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type DeleteBadgeGrantResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *DeleteBadgeGrantResp) Success() bool {
+	return resp.Code == 0
+}
+
+// 1.4 生成请求的builder结构体
+type GetBadgeGrantReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+// 生成请求的New构造器
+func NewGetBadgeGrantReqBuilder() *GetBadgeGrantReqBuilder {
+	builder := &GetBadgeGrantReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 1.5 生成请求的builder属性方法
+func (builder *GetBadgeGrantReqBuilder) BadgeId(badgeId string) *GetBadgeGrantReqBuilder {
+	builder.apiReq.PathParams.Set("badge_id", fmt.Sprint(badgeId))
+	return builder
+}
+func (builder *GetBadgeGrantReqBuilder) GrantId(grantId string) *GetBadgeGrantReqBuilder {
+	builder.apiReq.PathParams.Set("grant_id", fmt.Sprint(grantId))
+	return builder
+}
+func (builder *GetBadgeGrantReqBuilder) UserIdType(userIdType string) *GetBadgeGrantReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+func (builder *GetBadgeGrantReqBuilder) DepartmentIdType(departmentIdType string) *GetBadgeGrantReqBuilder {
+	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
+	return builder
+}
+
+// 1.5 生成请求的builder的build方法
+func (builder *GetBadgeGrantReqBuilder) Build() *GetBadgeGrantReq {
+	req := &GetBadgeGrantReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type GetBadgeGrantReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type GetBadgeGrantRespData struct {
+	Grant *Grant `json:"grant,omitempty"`
+}
+
+type GetBadgeGrantResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *GetBadgeGrantRespData `json:"data"`
+}
+
+func (resp *GetBadgeGrantResp) Success() bool {
+	return resp.Code == 0
+}
+
+// 1.4 生成请求的builder结构体
+type ListBadgeGrantReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	limit  int
+}
+
+// 生成请求的New构造器
+func NewListBadgeGrantReqBuilder() *ListBadgeGrantReqBuilder {
+	builder := &ListBadgeGrantReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 1.5 生成请求的builder属性方法
+func (builder *ListBadgeGrantReqBuilder) Limit(limit int) *ListBadgeGrantReqBuilder {
+	builder.limit = limit
+	return builder
+}
+func (builder *ListBadgeGrantReqBuilder) BadgeId(badgeId string) *ListBadgeGrantReqBuilder {
+	builder.apiReq.PathParams.Set("badge_id", fmt.Sprint(badgeId))
+	return builder
+}
+func (builder *ListBadgeGrantReqBuilder) PageSize(pageSize int) *ListBadgeGrantReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+func (builder *ListBadgeGrantReqBuilder) PageToken(pageToken string) *ListBadgeGrantReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+func (builder *ListBadgeGrantReqBuilder) UserIdType(userIdType string) *ListBadgeGrantReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+func (builder *ListBadgeGrantReqBuilder) DepartmentIdType(departmentIdType string) *ListBadgeGrantReqBuilder {
+	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
+	return builder
+}
+
+// 1.5 生成请求的builder的build方法
+func (builder *ListBadgeGrantReqBuilder) Build() *ListBadgeGrantReq {
+	req := &ListBadgeGrantReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ListBadgeGrantReq struct {
+	apiReq *larkcore.ApiReq
+	Limit  int
+}
+
+type ListBadgeGrantRespData struct {
+	Grants    []*Grant `json:"grants,omitempty"`
+	PageToken *string  `json:"page_token,omitempty"`
+	HasMore   *bool    `json:"has_more,omitempty"`
+}
+
+type ListBadgeGrantResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListBadgeGrantRespData `json:"data"`
+}
+
+func (resp *ListBadgeGrantResp) Success() bool {
+	return resp.Code == 0
+}
+
+// 1.4 生成请求的builder结构体
+type UpdateBadgeGrantReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	grant  *Grant
+}
+
+// 生成请求的New构造器
+func NewUpdateBadgeGrantReqBuilder() *UpdateBadgeGrantReqBuilder {
+	builder := &UpdateBadgeGrantReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 1.5 生成请求的builder属性方法
+func (builder *UpdateBadgeGrantReqBuilder) BadgeId(badgeId string) *UpdateBadgeGrantReqBuilder {
+	builder.apiReq.PathParams.Set("badge_id", fmt.Sprint(badgeId))
+	return builder
+}
+func (builder *UpdateBadgeGrantReqBuilder) GrantId(grantId string) *UpdateBadgeGrantReqBuilder {
+	builder.apiReq.PathParams.Set("grant_id", fmt.Sprint(grantId))
+	return builder
+}
+func (builder *UpdateBadgeGrantReqBuilder) UserIdType(userIdType string) *UpdateBadgeGrantReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+func (builder *UpdateBadgeGrantReqBuilder) DepartmentIdType(departmentIdType string) *UpdateBadgeGrantReqBuilder {
+	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
+	return builder
+}
+func (builder *UpdateBadgeGrantReqBuilder) Grant(grant *Grant) *UpdateBadgeGrantReqBuilder {
+	builder.grant = grant
+	return builder
+}
+
+// 1.5 生成请求的builder的build方法
+func (builder *UpdateBadgeGrantReqBuilder) Build() *UpdateBadgeGrantReq {
+	req := &UpdateBadgeGrantReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.grant
+	return req
+}
+
+type UpdateBadgeGrantReq struct {
+	apiReq *larkcore.ApiReq
+	Grant  *Grant `body:""`
+}
+
+type UpdateBadgeGrantRespData struct {
+	Grant *Grant `json:"grant,omitempty"`
+}
+
+type UpdateBadgeGrantResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *UpdateBadgeGrantRespData `json:"data"`
+}
+
+func (resp *UpdateBadgeGrantResp) Success() bool {
+	return resp.Code == 0
+}
+
+type CreateBadgeImageReqBodyBuilder struct {
+	imageFile     io.Reader
+	imageFileFlag bool
+	imageType     int
+	imageTypeFlag bool
+}
+
+// 生成body的New构造器
+func NewCreateBadgeImageReqBodyBuilder() *CreateBadgeImageReqBodyBuilder {
+	builder := &CreateBadgeImageReqBodyBuilder{}
+	return builder
+}
+
+// 1.2 生成body的builder属性方法
+func (builder *CreateBadgeImageReqBodyBuilder) ImageFile(imageFile io.Reader) *CreateBadgeImageReqBodyBuilder {
+	builder.imageFile = imageFile
+	builder.imageFileFlag = true
+	return builder
+}
+func (builder *CreateBadgeImageReqBodyBuilder) ImageType(imageType int) *CreateBadgeImageReqBodyBuilder {
+	builder.imageType = imageType
+	builder.imageTypeFlag = true
+	return builder
+}
+
+// 1.3 生成body的build方法
+func (builder *CreateBadgeImageReqBodyBuilder) Build() *CreateBadgeImageReqBody {
+	req := &CreateBadgeImageReqBody{}
+	if builder.imageFileFlag {
+		req.ImageFile = builder.imageFile
+	}
+	if builder.imageTypeFlag {
+		req.ImageType = &builder.imageType
+	}
+	return req
+}
+
+// 上传文件path开始
+type CreateBadgeImagePathReqBodyBuilder struct {
+	imageFilePath     string
+	imageFilePathFlag bool
+	imageType         int
+	imageTypeFlag     bool
+}
+
+func NewCreateBadgeImagePathReqBodyBuilder() *CreateBadgeImagePathReqBodyBuilder {
+	builder := &CreateBadgeImagePathReqBodyBuilder{}
+	return builder
+}
+func (builder *CreateBadgeImagePathReqBodyBuilder) ImageFilePath(imageFilePath string) *CreateBadgeImagePathReqBodyBuilder {
+	builder.imageFilePath = imageFilePath
+	builder.imageFilePathFlag = true
+	return builder
+}
+func (builder *CreateBadgeImagePathReqBodyBuilder) ImageType(imageType int) *CreateBadgeImagePathReqBodyBuilder {
+	builder.imageType = imageType
+	builder.imageTypeFlag = true
+	return builder
+}
+
+func (builder *CreateBadgeImagePathReqBodyBuilder) Build() (*CreateBadgeImageReqBody, error) {
+	req := &CreateBadgeImageReqBody{}
+	if builder.imageFilePathFlag {
+		data, err := larkcore.File2Bytes(builder.imageFilePath)
+		if err != nil {
+			return nil, err
+		}
+		req.ImageFile = bytes.NewBuffer(data)
+	}
+	if builder.imageTypeFlag {
+		req.ImageType = &builder.imageType
+	}
+	return req, nil
+}
+
+// 上传文件path结束
+
+// 1.4 生成请求的builder结构体
+type CreateBadgeImageReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *CreateBadgeImageReqBody
+}
+
+// 生成请求的New构造器
+func NewCreateBadgeImageReqBuilder() *CreateBadgeImageReqBuilder {
+	builder := &CreateBadgeImageReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 1.5 生成请求的builder属性方法
+func (builder *CreateBadgeImageReqBuilder) Body(body *CreateBadgeImageReqBody) *CreateBadgeImageReqBuilder {
+	builder.body = body
+	return builder
+}
+
+// 1.5 生成请求的builder的build方法
+func (builder *CreateBadgeImageReqBuilder) Build() *CreateBadgeImageReq {
+	req := &CreateBadgeImageReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type CreateBadgeImageReqBody struct {
+	ImageFile io.Reader `json:"image_file,omitempty"`
+	ImageType *int      `json:"image_type,omitempty"`
+}
+
+type CreateBadgeImageReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *CreateBadgeImageReqBody `body:""`
+}
+
+type CreateBadgeImageRespData struct {
+	ImageKey *string `json:"image_key,omitempty"`
+}
+
+type CreateBadgeImageResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *CreateBadgeImageRespData `json:"data"`
+}
+
+func (resp *CreateBadgeImageResp) Success() bool {
+	return resp.Code == 0
+}
+
 type ResetPasswordReqBodyBuilder struct {
 	password     *Password
 	passwordFlag bool
@@ -3517,3 +4188,110 @@ func (resp *ResetPasswordResp) Success() bool {
 
 // 生成请求的builder构造器
 // 1.1 生成body的builder结构体
+type ListBadgeIterator struct {
+	nextPageToken *string
+	items         []*Badge
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListBadgeReq
+	listFunc      func(ctx context.Context, req *ListBadgeReq, options ...larkcore.RequestOptionFunc) (*ListBadgeResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *ListBadgeIterator) Next() (bool, *Badge, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Badges) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Badges
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *ListBadgeIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
+
+type ListBadgeGrantIterator struct {
+	nextPageToken *string
+	items         []*Grant
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListBadgeGrantReq
+	listFunc      func(ctx context.Context, req *ListBadgeGrantReq, options ...larkcore.RequestOptionFunc) (*ListBadgeGrantResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *ListBadgeGrantIterator) Next() (bool, *Grant, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Grants) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Grants
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *ListBadgeGrantIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}

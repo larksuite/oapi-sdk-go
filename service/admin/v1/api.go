@@ -25,6 +25,9 @@ func NewService(config *larkcore.Config) *AdminService {
 	a := &AdminService{config: config}
 	a.AdminDeptStat = &adminDeptStat{service: a}
 	a.AdminUserStat = &adminUserStat{service: a}
+	a.Badge = &badge{service: a}
+	a.BadgeGrant = &badgeGrant{service: a}
+	a.BadgeImage = &badgeImage{service: a}
 	a.Password = &password{service: a}
 	return a
 }
@@ -34,6 +37,9 @@ type AdminService struct {
 	config        *larkcore.Config
 	AdminDeptStat *adminDeptStat
 	AdminUserStat *adminUserStat
+	Badge         *badge
+	BadgeGrant    *badgeGrant
+	BadgeImage    *badgeImage
 	Password      *password
 }
 
@@ -42,6 +48,15 @@ type adminDeptStat struct {
 	service *AdminService
 }
 type adminUserStat struct {
+	service *AdminService
+}
+type badge struct {
+	service *AdminService
+}
+type badgeGrant struct {
+	service *AdminService
+}
+type badgeImage struct {
 	service *AdminService
 }
 type password struct {
@@ -79,6 +94,203 @@ func (a *adminUserStat) List(ctx context.Context, req *ListAdminUserStatReq, opt
 	}
 	// 反序列响应结果
 	resp := &ListAdminUserStatResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (b *badge) Create(ctx context.Context, req *CreateBadgeReq, options ...larkcore.RequestOptionFunc) (*CreateBadgeResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/admin/v1/badges"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, b.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateBadgeResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (b *badge) Get(ctx context.Context, req *GetBadgeReq, options ...larkcore.RequestOptionFunc) (*GetBadgeResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/admin/v1/badges/:badge_id"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, b.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &GetBadgeResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (b *badge) List(ctx context.Context, req *ListBadgeReq, options ...larkcore.RequestOptionFunc) (*ListBadgeResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/admin/v1/badges"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, b.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListBadgeResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (b *badge) ListByIterator(ctx context.Context, req *ListBadgeReq, options ...larkcore.RequestOptionFunc) (*ListBadgeIterator, error) {
+	return &ListBadgeIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: b.List,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+func (b *badge) Update(ctx context.Context, req *UpdateBadgeReq, options ...larkcore.RequestOptionFunc) (*UpdateBadgeResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/admin/v1/badges/:badge_id"
+	apiReq.HttpMethod = http.MethodPut
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, b.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &UpdateBadgeResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (b *badgeGrant) Create(ctx context.Context, req *CreateBadgeGrantReq, options ...larkcore.RequestOptionFunc) (*CreateBadgeGrantResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/admin/v1/badges/:badge_id/grants"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, b.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateBadgeGrantResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (b *badgeGrant) Delete(ctx context.Context, req *DeleteBadgeGrantReq, options ...larkcore.RequestOptionFunc) (*DeleteBadgeGrantResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/admin/v1/badges/:badge_id/grants/:grant_id"
+	apiReq.HttpMethod = http.MethodDelete
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, b.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &DeleteBadgeGrantResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (b *badgeGrant) Get(ctx context.Context, req *GetBadgeGrantReq, options ...larkcore.RequestOptionFunc) (*GetBadgeGrantResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/admin/v1/badges/:badge_id/grants/:grant_id"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, b.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &GetBadgeGrantResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (b *badgeGrant) List(ctx context.Context, req *ListBadgeGrantReq, options ...larkcore.RequestOptionFunc) (*ListBadgeGrantResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/admin/v1/badges/:badge_id/grants"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, b.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListBadgeGrantResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (b *badgeGrant) ListByIterator(ctx context.Context, req *ListBadgeGrantReq, options ...larkcore.RequestOptionFunc) (*ListBadgeGrantIterator, error) {
+	return &ListBadgeGrantIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: b.List,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+func (b *badgeGrant) Update(ctx context.Context, req *UpdateBadgeGrantReq, options ...larkcore.RequestOptionFunc) (*UpdateBadgeGrantResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/admin/v1/badges/:badge_id/grants/:grant_id"
+	apiReq.HttpMethod = http.MethodPut
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, b.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &UpdateBadgeGrantResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (b *badgeImage) Create(ctx context.Context, req *CreateBadgeImageReq, options ...larkcore.RequestOptionFunc) (*CreateBadgeImageResp, error) {
+	options = append(options, larkcore.WithFileUpload())
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/admin/v1/badge_images"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, b.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateBadgeImageResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp)
 	if err != nil {
 		return nil, err
