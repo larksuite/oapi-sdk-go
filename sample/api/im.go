@@ -178,7 +178,7 @@ func sendTextMsg(client *lark.Client) {
 			ReceiveId("ou_c245b0a7dff2725cfa2fb104f8b48b9d").
 			Content(content).
 			Build()).
-		Build(), larkcore.WithHeaders(header))
+		Build(), larkcore.WithHeaders(header), larkcore.WithAppTicket("appticket"), larkcore.WithTenantKey("key"))
 
 	if err != nil {
 		fmt.Println(err)
@@ -840,6 +840,7 @@ func main() {
 	var feishu_client = lark.NewClient(appID, appSecret,
 		lark.WithLogLevel(larkcore.LogLevelDebug),
 		lark.WithLogReqAtDebug(true),
+		lark.WithMarketplaceApp(),
 	)
 
 	//downLoadImageV2(feishu_client)
@@ -847,7 +848,7 @@ func main() {
 	//uploadImage(client)
 	//downLoadImage(feishu_client)
 	//uploadImage2(feishu_client)
-	//sendTextMsg(feishu_client)
+	sendTextMsg(feishu_client)
 	//sendRawReq(feishu_client)
 	//sendRawImageReq(feishu_client)
 	//sendImageMsg(feishu_client)
@@ -861,7 +862,8 @@ func main() {
 	//sendPostMsgUseBuilder(feishu_client)
 	//testCreate(feishu_client)
 	//sendInteractiveMsg(feishu_client)
-	sendInteractiveMonitorMsg(feishu_client)
+	//sendInteractiveMonitorMsg(feishu_client)
+	//sendInteractiveMonitorMsg(feishu_client)
 	//sendPostMsgUseBuilder(feishu_client)
 
 }

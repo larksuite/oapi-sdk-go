@@ -27,7 +27,7 @@ type TokenManager struct {
 	cache Cache
 }
 
-func (m *TokenManager) getAppAccessToken(ctx context.Context, config *Config) (string, error) {
+func (m *TokenManager) getAppAccessToken(ctx context.Context, config *Config, appTicket string) (string, error) {
 	token, err := m.get(ctx, appAccessTokenKey(config.AppId))
 	if err != nil {
 		return "", err
@@ -42,7 +42,7 @@ func (m *TokenManager) getAppAccessToken(ctx context.Context, config *Config) (s
 			}
 			return token, nil
 		} else {
-			token, err = m.getMarketplaceAppAccessTokenThenCache(ctx, config)
+			token, err = m.getMarketplaceAppAccessTokenThenCache(ctx, config, appTicket)
 			if err != nil {
 				return "", err
 			}
@@ -52,7 +52,7 @@ func (m *TokenManager) getAppAccessToken(ctx context.Context, config *Config) (s
 	return token, nil
 }
 
-func (m *TokenManager) getTenantAccessToken(ctx context.Context, config *Config, tenantKey string) (string, error) {
+func (m *TokenManager) getTenantAccessToken(ctx context.Context, config *Config, tenantKey, appTicket string) (string, error) {
 	token, err := m.get(ctx, tenantAccessTokenKey(config.AppId, tenantKey))
 	if err != nil {
 		return "", err
@@ -66,7 +66,7 @@ func (m *TokenManager) getTenantAccessToken(ctx context.Context, config *Config,
 			}
 			return token, nil
 		} else {
-			token, err = m.getMarketplaceTenantAccessTokenThenCache(ctx, config, tenantKey)
+			token, err = m.getMarketplaceTenantAccessTokenThenCache(ctx, config, tenantKey, appTicket)
 			if err != nil {
 				return "", err
 			}
@@ -198,13 +198,16 @@ func (m *TokenManager) getCustomTenantAccessTokenThenCache(ctx context.Context, 
 
 var ErrAppTicketIsEmpty = errors.New("app ticket is empty")
 
-func (m *TokenManager) getMarketplaceAppAccessTokenThenCache(ctx context.Context, config *Config) (string, error) {
-	appTicket, err := appTicketManager.Get(ctx, config)
-	if err != nil {
-		return "", err
-	}
+func (m *TokenManager) getMarketplaceAppAccessTokenThenCache(ctx context.Context, config *Config, appTicket string) (string, error) {
 	if appTicket == "" {
-		return "", ErrAppTicketIsEmpty
+		appTicket1, err := appTicketManager.Get(ctx, config)
+		if err != nil {
+			return "", err
+		}
+		if appTicket1 == "" {
+			return "", ErrAppTicketIsEmpty
+		}
+		appTicket = appTicket1
 	}
 	rawResp, err := Request(ctx, &ApiReq{
 		HttpMethod: http.MethodPost,
@@ -238,8 +241,8 @@ func (m *TokenManager) getMarketplaceAppAccessTokenThenCache(ctx context.Context
 }
 
 // get marketplace tenant access token
-func (m *TokenManager) getMarketplaceTenantAccessTokenThenCache(ctx context.Context, config *Config, tenantKey string) (string, error) {
-	appAccessToken, err := m.getMarketplaceAppAccessTokenThenCache(ctx, config)
+func (m *TokenManager) getMarketplaceTenantAccessTokenThenCache(ctx context.Context, config *Config, tenantKey, appTicket string) (string, error) {
+	appAccessToken, err := m.getMarketplaceAppAccessTokenThenCache(ctx, config, appTicket)
 	if err != nil {
 		return "", err
 	}

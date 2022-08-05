@@ -130,7 +130,7 @@ func (translator *ReqTranslator) newHTTPRequest(ctx context.Context,
 	case AccessTokenTypeApp:
 		appAccessToken := option.AppAccessToken
 		if config.EnableTokenCache {
-			appAccessToken, err = tokenManager.getAppAccessToken(ctx, config)
+			appAccessToken, err = tokenManager.getAppAccessToken(ctx, config, option.AppTicket)
 			if err != nil {
 				return nil, err
 			}
@@ -140,7 +140,7 @@ func (translator *ReqTranslator) newHTTPRequest(ctx context.Context,
 	case AccessTokenTypeTenant:
 		tenantAccessToken := option.TenantAccessToken
 		if config.EnableTokenCache {
-			tenantAccessToken, err = tokenManager.getTenantAccessToken(ctx, config, option.TenantKey)
+			tenantAccessToken, err = tokenManager.getTenantAccessToken(ctx, config, option.TenantKey, option.AppTicket)
 			if err != nil {
 				return nil, err
 			}

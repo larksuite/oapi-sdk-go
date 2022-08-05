@@ -21,6 +21,7 @@ type RequestOption struct {
 	TenantAccessToken string
 	NeedHelpDeskAuth  bool
 	RequestId         string
+	AppTicket         string
 	FileUpload        bool
 	FileDownload      bool
 	Header            http.Header
@@ -43,6 +44,12 @@ func WithRequestId(requestId string) RequestOptionFunc {
 func WithTenantKey(tenantKey string) RequestOptionFunc {
 	return func(option *RequestOption) {
 		option.TenantKey = tenantKey
+	}
+}
+
+func WithAppTicket(appTicket string) RequestOptionFunc {
+	return func(option *RequestOption) {
+		option.AppTicket = appTicket
 	}
 }
 

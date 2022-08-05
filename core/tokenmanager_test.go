@@ -28,7 +28,7 @@ func TestTokenManagerSetAndGet(t *testing.T) {
 		t.Errorf("set key failed ,%v", err)
 	}
 
-	token, err := tokenManager.getTenantAccessToken(context.Background(), config, "tenantKey")
+	token, err := tokenManager.getTenantAccessToken(context.Background(), config, "tenantKey", "")
 	if err != nil {
 		t.Errorf("get key failed ,%v", err)
 	}
