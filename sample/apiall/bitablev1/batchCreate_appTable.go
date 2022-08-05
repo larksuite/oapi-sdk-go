@@ -30,7 +30,7 @@ func main() {
 		AppToken("").
 		UserIdType("user_id").
 		Body(larkbitable.NewBatchCreateAppTableReqBodyBuilder().
-			Tables([]*larkbitable.ReqTable{}).
+			Tables([]*larkbitable.ReqTable{larkbitable.NewReqTableBuilder().Build()}).
 			Build()).
 		Build()
 	// 发起请求

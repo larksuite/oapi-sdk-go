@@ -29,7 +29,7 @@ func main() {
 	req := larkcontact.NewBatchRemoveGroupMemberReqBuilder().
 		GroupId("").
 		Body(larkcontact.NewBatchRemoveGroupMemberReqBodyBuilder().
-			Members([]*larkcontact.Memberlist{}).
+			Members([]*larkcontact.Memberlist{larkcontact.NewMemberlistBuilder().Build()}).
 			Build()).
 		Build()
 	// 发起请求

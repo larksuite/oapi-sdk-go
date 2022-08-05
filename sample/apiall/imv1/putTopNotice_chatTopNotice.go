@@ -29,7 +29,7 @@ func main() {
 	req := larkim.NewPutTopNoticeChatTopNoticeReqBuilder().
 		ChatId("").
 		Body(larkim.NewPutTopNoticeChatTopNoticeReqBodyBuilder().
-			ChatTopNotice([]*larkim.ChatTopNotice{}).
+			ChatTopNotice([]*larkim.ChatTopNotice{larkim.NewChatTopNoticeBuilder().Build()}).
 			Build()).
 		Build()
 	// 发起请求

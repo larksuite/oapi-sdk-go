@@ -34,7 +34,7 @@ func main() {
 			InstanceId("24492654").
 			Links(larkapproval.NewExternalInstanceLinkBuilder().Build()).
 			Title("@i18n@1").
-			Form([]*larkapproval.ExternalInstanceForm{}).
+			Form([]*larkapproval.ExternalInstanceForm{larkapproval.NewExternalInstanceFormBuilder().Build()}).
 			UserId("a987sf9s").
 			UserName("@i18n@9").
 			OpenId("ou_be73cbc0ee35eb6ca54e9e7cc14998c1").
@@ -45,9 +45,9 @@ func main() {
 			UpdateTime("1556468012678").
 			DisplayMethod("BROWSER").
 			UpdateMode("UPDATE").
-			TaskList([]*larkapproval.ExternalInstanceTaskNode{}).
-			CcList([]*larkapproval.CcNode{}).
-			I18nResources([]*larkapproval.I18nResource{}).
+			TaskList([]*larkapproval.ExternalInstanceTaskNode{larkapproval.NewExternalInstanceTaskNodeBuilder().Build()}).
+			CcList([]*larkapproval.CcNode{larkapproval.NewCcNodeBuilder().Build()}).
+			I18nResources([]*larkapproval.I18nResource{larkapproval.NewI18nResourceBuilder().Build()}).
 			Build()).
 		Build()
 	// 发起请求

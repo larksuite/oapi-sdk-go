@@ -32,7 +32,7 @@ func main() {
 		UserIdType("user_id").
 		Body(larkcalendar.NewBatchDeleteCalendarEventAttendeeReqBodyBuilder().
 			AttendeeIds([]string{}).
-			DeleteIds([]*larkcalendar.CalendarEventAttendeeId{}).
+			DeleteIds([]*larkcalendar.CalendarEventAttendeeId{larkcalendar.NewCalendarEventAttendeeIdBuilder().Build()}).
 			NeedNotification(false).
 			InstanceStartTimeAdmin("").
 			IsEnableAdmin(false).

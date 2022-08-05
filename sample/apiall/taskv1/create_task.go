@@ -36,8 +36,8 @@ func main() {
 			Origin(larktask.NewOriginBuilder().Build()).
 			CanEdit(false).
 			Custom("").
-			Followers([]*larktask.Follower{}).
-			Collaborators([]*larktask.Collaborator{}).
+			Followers([]*larktask.Follower{larktask.NewFollowerBuilder().Build()}).
+			Collaborators([]*larktask.Collaborator{larktask.NewCollaboratorBuilder().Build()}).
 			Build()).
 		Build()
 	// 发起请求

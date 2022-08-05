@@ -30,7 +30,7 @@ func main() {
 		DataSourceId("").
 		Item(larksearch.NewItemBuilder().
 			Id("").
-			Acl([]*larksearch.Acl{}).
+			Acl([]*larksearch.Acl{larksearch.NewAclBuilder().Build()}).
 			Metadata(larksearch.NewItemMetadataBuilder().Build()).
 			StructuredData("").
 			Content(larksearch.NewItemContentBuilder().Build()).

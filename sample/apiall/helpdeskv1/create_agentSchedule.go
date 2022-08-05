@@ -28,7 +28,7 @@ func main() {
 	// 创建请求对象
 	req := larkhelpdesk.NewCreateAgentScheduleReqBuilder().
 		Body(larkhelpdesk.NewCreateAgentScheduleReqBodyBuilder().
-			AgentSchedules([]*larkhelpdesk.AgentScheduleUpdateInfo{}).
+			AgentSchedules([]*larkhelpdesk.AgentScheduleUpdateInfo{larkhelpdesk.NewAgentScheduleUpdateInfoBuilder().Build()}).
 			Build()).
 		Build()
 	// 发起请求

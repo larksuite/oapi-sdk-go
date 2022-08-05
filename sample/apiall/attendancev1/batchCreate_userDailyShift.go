@@ -29,7 +29,7 @@ func main() {
 	req := larkattendance.NewBatchCreateUserDailyShiftReqBuilder().
 		EmployeeType("employee_id").
 		Body(larkattendance.NewBatchCreateUserDailyShiftReqBodyBuilder().
-			UserDailyShifts([]*larkattendance.UserDailyShift{}).
+			UserDailyShifts([]*larkattendance.UserDailyShift{larkattendance.NewUserDailyShiftBuilder().Build()}).
 			OperatorId("dd31248a").
 			Build()).
 		Build()

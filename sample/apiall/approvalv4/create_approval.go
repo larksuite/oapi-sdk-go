@@ -33,13 +33,13 @@ func main() {
 			ApprovalName("@i18n@approval_name").
 			ApprovalCode("7C468A54-8745-2245-9675-08B7C63E7A85").
 			Description("@i18n@description").
-			Viewers([]*larkapproval.ApprovalCreateViewers{}).
+			Viewers([]*larkapproval.ApprovalCreateViewers{larkapproval.NewApprovalCreateViewersBuilder().Build()}).
 			Form(larkapproval.NewApprovalFormBuilder().Build()).
-			NodeList([]*larkapproval.ApprovalNode{}).
+			NodeList([]*larkapproval.ApprovalNode{larkapproval.NewApprovalNodeBuilder().Build()}).
 			Settings(larkapproval.NewApprovalSettingBuilder().Build()).
 			Config(larkapproval.NewApprovalConfigBuilder().Build()).
 			Icon(0).
-			I18nResources([]*larkapproval.I18nResource{}).
+			I18nResources([]*larkapproval.I18nResource{larkapproval.NewI18nResourceBuilder().Build()}).
 			Build()).
 		Build()
 	// 发起请求

@@ -32,7 +32,7 @@ func main() {
 			Status(0).
 			TagNames([]string{}).
 			Comment("").
-			CustomizedFields([]*larkhelpdesk.CustomizedFieldDisplayItem{}).
+			CustomizedFields([]*larkhelpdesk.CustomizedFieldDisplayItem{larkhelpdesk.NewCustomizedFieldDisplayItemBuilder().Build()}).
 			TicketType(0).
 			Solved(0).
 			Channel(0).

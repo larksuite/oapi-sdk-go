@@ -31,7 +31,7 @@ func main() {
 		TableId("").
 		UserIdType("user_id").
 		Body(larkbitable.NewBatchCreateAppTableRecordReqBodyBuilder().
-			Records([]*larkbitable.AppTableRecord{}).
+			Records([]*larkbitable.AppTableRecord{larkbitable.NewAppTableRecordBuilder().Build()}).
 			Build()).
 		Build()
 	// 发起请求

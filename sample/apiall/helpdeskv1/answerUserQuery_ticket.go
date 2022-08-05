@@ -30,7 +30,7 @@ func main() {
 		TicketId("").
 		Body(larkhelpdesk.NewAnswerUserQueryTicketReqBodyBuilder().
 			EventId("").
-			Faqs([]*larkhelpdesk.UserQueryFaqInfo{}).
+			Faqs([]*larkhelpdesk.UserQueryFaqInfo{larkhelpdesk.NewUserQueryFaqInfoBuilder().Build()}).
 			Build()).
 		Build()
 	// 发起请求

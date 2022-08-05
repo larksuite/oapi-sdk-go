@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/docx/v1"
@@ -33,7 +34,7 @@ func main() {
 		ClientToken("").
 		UserIdType("user_id").
 		Body(larkdocx.NewCreateDocumentBlockChildrenReqBodyBuilder().
-			Children([]*larkdocx.Block{}).
+			Children([]*larkdocx.Block{larkdocx.NewBlockBuilder().Build()}).
 			Index(-1).
 			Build()).
 		Build()

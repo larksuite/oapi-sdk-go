@@ -30,7 +30,7 @@ func main() {
 		AppToken("").
 		RoleId("").
 		Body(larkbitable.NewBatchDeleteAppRoleMemberReqBodyBuilder().
-			MemberList([]*larkbitable.AppRoleMemberId{}).
+			MemberList([]*larkbitable.AppRoleMemberId{larkbitable.NewAppRoleMemberIdBuilder().Build()}).
 			Build()).
 		Build()
 	// 发起请求

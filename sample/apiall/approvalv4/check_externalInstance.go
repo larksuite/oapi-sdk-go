@@ -28,7 +28,7 @@ func main() {
 	// 创建请求对象
 	req := larkapproval.NewCheckExternalInstanceReqBuilder().
 		Body(larkapproval.NewCheckExternalInstanceReqBodyBuilder().
-			Instances([]*larkapproval.ExteranlInstanceCheck{}).
+			Instances([]*larkapproval.ExteranlInstanceCheck{larkapproval.NewExteranlInstanceCheckBuilder().Build()}).
 			Build()).
 		Build()
 	// 发起请求

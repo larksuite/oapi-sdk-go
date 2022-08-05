@@ -29,7 +29,7 @@ func main() {
 	req := larkdrive.NewBatchQueryMetaReqBuilder().
 		UserIdType("user_id").
 		MetaRequest(larkdrive.NewMetaRequestBuilder().
-			RequestDocs([]*larkdrive.RequestDoc{}).
+			RequestDocs([]*larkdrive.RequestDoc{larkdrive.NewRequestDocBuilder().Build()}).
 			WithUrl(false).
 			Build()).
 		Build()

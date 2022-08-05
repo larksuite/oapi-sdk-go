@@ -29,7 +29,7 @@ func main() {
 	req := larkhelpdesk.NewCreateAgentSkillReqBuilder().
 		Body(larkhelpdesk.NewCreateAgentSkillReqBodyBuilder().
 			Name("").
-			Rules([]*larkhelpdesk.AgentSkillRule{}).
+			Rules([]*larkhelpdesk.AgentSkillRule{larkhelpdesk.NewAgentSkillRuleBuilder().Build()}).
 			AgentIds([]string{}).
 			Build()).
 		Build()

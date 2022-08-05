@@ -40,9 +40,9 @@ func main() {
 			FreeBusyStatus("busy").
 			Location(larkcalendar.NewEventLocationBuilder().Build()).
 			Color(0).
-			Reminders([]*larkcalendar.Reminder{}).
+			Reminders([]*larkcalendar.Reminder{larkcalendar.NewReminderBuilder().Build()}).
 			Recurrence("").
-			Schemas([]*larkcalendar.Schema{}).
+			Schemas([]*larkcalendar.Schema{larkcalendar.NewSchemaBuilder().Build()}).
 			Build()).
 		Build()
 	// 发起请求

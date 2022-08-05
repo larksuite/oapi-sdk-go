@@ -29,7 +29,7 @@ func main() {
 	req := larksearch.NewCreateSchemaReqBuilder().
 		ValidateOnly(false).
 		Schema(larksearch.NewSchemaBuilder().
-			Properties([]*larksearch.SchemaProperty{}).
+			Properties([]*larksearch.SchemaProperty{larksearch.NewSchemaPropertyBuilder().Build()}).
 			Display(larksearch.NewSchemaDisplayBuilder().Build()).
 			SchemaId("jira_schema").
 			Build()).

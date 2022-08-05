@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/contact/v3"
@@ -47,8 +48,8 @@ func main() {
 			JoinTime(0).
 			EmployeeNo("").
 			EmployeeType(0).
-			Orders([]*larkcontact.UserOrder{}).
-			CustomAttrs([]*larkcontact.UserCustomAttr{}).
+			Orders([]*larkcontact.UserOrder{larkcontact.NewUserOrderBuilder().Build()}).
+			CustomAttrs([]*larkcontact.UserCustomAttr{larkcontact.NewUserCustomAttrBuilder().Build()}).
 			EnterpriseEmail("").
 			JobTitle("").
 			IsFrozen(false).

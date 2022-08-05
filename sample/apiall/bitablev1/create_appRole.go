@@ -30,7 +30,7 @@ func main() {
 		AppToken("appbcbWCzen6D8dezhoCH2RpMAh").
 		AppRole(larkbitable.NewAppRoleBuilder().
 			RoleName("自定义权限1").
-			TableRoles([]*larkbitable.AppRoleTableRole{}).
+			TableRoles([]*larkbitable.AppRoleTableRole{larkbitable.NewAppRoleTableRoleBuilder().Build()}).
 			Build()).
 		Build()
 	// 发起请求

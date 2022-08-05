@@ -45,10 +45,10 @@ func main() {
 			PushType(0).
 			PushScopeType(0).
 			NewStaffScopeType(0).
-			NewStaffScopeDepartmentList([]*larkhelpdesk.NotificationDepartment{}).
-			UserList([]*larkhelpdesk.NotificationUser{}).
-			DepartmentList([]*larkhelpdesk.NotificationDepartment{}).
-			ChatList([]*larkhelpdesk.NotificationChat{}).
+			NewStaffScopeDepartmentList([]*larkhelpdesk.NotificationDepartment{larkhelpdesk.NewNotificationDepartmentBuilder().Build()}).
+			UserList([]*larkhelpdesk.NotificationUser{larkhelpdesk.NewNotificationUserBuilder().Build()}).
+			DepartmentList([]*larkhelpdesk.NotificationDepartment{larkhelpdesk.NewNotificationDepartmentBuilder().Build()}).
+			ChatList([]*larkhelpdesk.NotificationChat{larkhelpdesk.NewNotificationChatBuilder().Build()}).
 			Ext("{}").
 			Build()).
 		Build()

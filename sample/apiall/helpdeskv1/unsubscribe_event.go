@@ -28,7 +28,7 @@ func main() {
 	// 创建请求对象
 	req := larkhelpdesk.NewUnsubscribeEventReqBuilder().
 		Body(larkhelpdesk.NewUnsubscribeEventReqBodyBuilder().
-			Events([]*larkhelpdesk.Event{}).
+			Events([]*larkhelpdesk.Event{larkhelpdesk.NewEventBuilder().Build()}).
 			Build()).
 		Build()
 	// 发起请求

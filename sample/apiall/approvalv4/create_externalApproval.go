@@ -36,8 +36,8 @@ func main() {
 			GroupName("@i18n@2").
 			Description("@i18n@2").
 			External(larkapproval.NewApprovalCreateExternalBuilder().Build()).
-			Viewers([]*larkapproval.ApprovalCreateViewers{}).
-			I18nResources([]*larkapproval.I18nResource{}).
+			Viewers([]*larkapproval.ApprovalCreateViewers{larkapproval.NewApprovalCreateViewersBuilder().Build()}).
+			I18nResources([]*larkapproval.I18nResource{larkapproval.NewI18nResourceBuilder().Build()}).
 			Build()).
 		Build()
 	// 发起请求

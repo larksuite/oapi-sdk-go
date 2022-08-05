@@ -49,8 +49,8 @@ func main() {
 			JoinTime(0).
 			EmployeeNo("").
 			EmployeeType(0).
-			Orders([]*larkcontact.UserOrder{}).
-			CustomAttrs([]*larkcontact.UserCustomAttr{}).
+			Orders([]*larkcontact.UserOrder{larkcontact.NewUserOrderBuilder().Build()}).
+			CustomAttrs([]*larkcontact.UserCustomAttr{larkcontact.NewUserCustomAttrBuilder().Build()}).
 			EnterpriseEmail("").
 			JobTitle("").
 			EntEmailPassword("").

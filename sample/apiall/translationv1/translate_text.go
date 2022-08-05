@@ -31,7 +31,7 @@ func main() {
 			SourceLanguage("").
 			Text("").
 			TargetLanguage("").
-			Glossary([]*larktranslation.Term{}).
+			Glossary([]*larktranslation.Term{larktranslation.NewTermBuilder().Build()}).
 			Build()).
 		Build()
 	// 发起请求

@@ -32,7 +32,7 @@ func main() {
 		UserId("").
 		CommentRequest(larkapproval.NewCommentRequestBuilder().
 			Content("").
-			AtInfoList([]*larkapproval.CommentAtInfo{}).
+			AtInfoList([]*larkapproval.CommentAtInfo{larkapproval.NewCommentAtInfoBuilder().Build()}).
 			ParentCommentId("").
 			CommentId("").
 			DisableBot(false).

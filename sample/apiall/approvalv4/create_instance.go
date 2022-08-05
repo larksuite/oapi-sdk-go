@@ -33,10 +33,10 @@ func main() {
 			OpenId("ou_123456").
 			DepartmentId("123456").
 			Form("").
-			NodeApproverUserIdList([]*larkapproval.NodeApprover{}).
-			NodeApproverOpenIdList([]*larkapproval.NodeApprover{}).
-			NodeCcUserIdList([]*larkapproval.NodeCc{}).
-			NodeCcOpenIdList([]*larkapproval.NodeCc{}).
+			NodeApproverUserIdList([]*larkapproval.NodeApprover{larkapproval.NewNodeApproverBuilder().Build()}).
+			NodeApproverOpenIdList([]*larkapproval.NodeApprover{larkapproval.NewNodeApproverBuilder().Build()}).
+			NodeCcUserIdList([]*larkapproval.NodeCc{larkapproval.NewNodeCcBuilder().Build()}).
+			NodeCcOpenIdList([]*larkapproval.NodeCc{larkapproval.NewNodeCcBuilder().Build()}).
 			Uuid("XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX").
 			Build()).
 		Build()

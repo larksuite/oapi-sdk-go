@@ -29,7 +29,7 @@ func main() {
 	req := larkattendance.NewBatchCreateUserFlowReqBuilder().
 		EmployeeType("employee_id").
 		Body(larkattendance.NewBatchCreateUserFlowReqBodyBuilder().
-			FlowRecords([]*larkattendance.UserFlow{}).
+			FlowRecords([]*larkattendance.UserFlow{larkattendance.NewUserFlowBuilder().Build()}).
 			Build()).
 		Build()
 	// 发起请求

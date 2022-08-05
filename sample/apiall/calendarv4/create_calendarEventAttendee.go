@@ -31,7 +31,7 @@ func main() {
 		EventId("").
 		UserIdType("user_id").
 		Body(larkcalendar.NewCreateCalendarEventAttendeeReqBodyBuilder().
-			Attendees([]*larkcalendar.CalendarEventAttendee{}).
+			Attendees([]*larkcalendar.CalendarEventAttendee{larkcalendar.NewCalendarEventAttendeeBuilder().Build()}).
 			NeedNotification(false).
 			InstanceStartTimeAdmin("").
 			IsEnableAdmin(false).

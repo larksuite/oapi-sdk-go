@@ -31,7 +31,7 @@ func main() {
 			Content("").
 			EnumType(1).
 			EnumStatus(1).
-			I18nContent([]*larkcontact.I18nContent{}).
+			I18nContent([]*larkcontact.I18nContent{larkcontact.NewI18nContentBuilder().Build()}).
 			Build()).
 		Build()
 	// 发起请求

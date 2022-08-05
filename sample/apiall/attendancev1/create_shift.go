@@ -33,9 +33,9 @@ func main() {
 			IsFlexible(false).
 			FlexibleMinutes(60).
 			NoNeedOff(true).
-			PunchTimeRule([]*larkattendance.PunchTimeRule{}).
-			LateOffLateOnRule([]*larkattendance.LateOffLateOnRule{}).
-			RestTimeRule([]*larkattendance.RestRule{}).
+			PunchTimeRule([]*larkattendance.PunchTimeRule{larkattendance.NewPunchTimeRuleBuilder().Build()}).
+			LateOffLateOnRule([]*larkattendance.LateOffLateOnRule{larkattendance.NewLateOffLateOnRuleBuilder().Build()}).
+			RestTimeRule([]*larkattendance.RestRule{larkattendance.NewRestRuleBuilder().Build()}).
 			Build()).
 		Build()
 	// 发起请求
