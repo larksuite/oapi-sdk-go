@@ -22,6 +22,7 @@ import (
 func NewService(config *larkcore.Config) *ExtService {
 	s := &ExtService{config: config}
 	s.DriveExplorer = &driveExplorer{service: s}
+	s.Authen = &authen{service: s}
 	return s
 }
 
@@ -29,11 +30,74 @@ func NewService(config *larkcore.Config) *ExtService {
 type ExtService struct {
 	config        *larkcore.Config
 	DriveExplorer *driveExplorer
+	Authen        *authen
 }
 
 // 资源服务定义
 type driveExplorer struct {
 	service *ExtService
+}
+
+// 资源服务定义
+type authen struct {
+	service *ExtService
+}
+
+func (d *authen) AuthenAccessToken(ctx context.Context, req *AuthenAccessTokenReq, options ...larkcore.RequestOptionFunc) (*AuthenAccessTokenResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/authen/v1/access_token"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeApp}
+	apiResp, err := larkcore.Request(ctx, apiReq, d.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &AuthenAccessTokenResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+func (d *authen) RefreshAuthenAccessToken(ctx context.Context, req *RefreshAuthenAccessTokenReq, options ...larkcore.RequestOptionFunc) (*RefreshAuthenAccessTokenResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/authen/v1/refresh_access_token"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeApp}
+	apiResp, err := larkcore.Request(ctx, apiReq, d.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &RefreshAuthenAccessTokenResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+func (d *authen) AuthenUserInfo(ctx context.Context, options ...larkcore.RequestOptionFunc) (*AuthenUserInfoResp, error) {
+	// 发起请求
+	apiReq := &larkcore.ApiReq{}
+	apiReq.ApiPath = "/open-apis/authen/v1/user_info"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, d.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &AuthenUserInfoResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
 }
 
 func (d *driveExplorer) CreateFile(ctx context.Context, req *CreateFileReq, options ...larkcore.RequestOptionFunc) (*CreateFileResp, error) {

@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 ## v3.0.0-beta-6-2022-08-05
 Added
 - 添加 API 调用时，让开发者传递 appTicket,SDK内部根据appticket自动获取token的功能
-
+- 添加获取登录用户身份、刷新 access_token，获取用户信息（身份验证）的接口
 ## v3.0.0-beta-5-2022-08-01
 Added
 - 添加 多维表格结果解析器

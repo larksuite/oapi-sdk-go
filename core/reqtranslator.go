@@ -129,7 +129,7 @@ func (translator *ReqTranslator) newHTTPRequest(ctx context.Context,
 	switch accessTokenType {
 	case AccessTokenTypeApp:
 		appAccessToken := option.AppAccessToken
-		if config.EnableTokenCache {
+		if config.EnableTokenCache && appAccessToken == "" {
 			appAccessToken, err = tokenManager.getAppAccessToken(ctx, config, option.AppTicket)
 			if err != nil {
 				return nil, err

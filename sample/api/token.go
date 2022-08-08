@@ -19,6 +19,7 @@ import (
 
 	lark "github.com/larksuite/oapi-sdk-go/v3"
 	larkcore "github.com/larksuite/oapi-sdk-go/v3/core"
+	larkext "github.com/larksuite/oapi-sdk-go/v3/service/ext"
 )
 
 func GetAppAccessTokenBySelfBuiltApp() {
@@ -127,6 +128,70 @@ func ResendAppTicket() {
 	fmt.Println(larkcore.Prettify(resp))
 }
 
+func GetAuthenAccessToken() {
+	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
+	client := lark.NewClient(appID, appSecret, lark.WithLogLevel(larkcore.LogLevelDebug), lark.WithLogReqAtDebug(true))
+	var resp, err = client.Ext.Authen.AuthenAccessToken(context.Background(),
+		larkext.NewAuthenAccessTokenReqBuilder().
+			Body(larkext.NewAuthenAccessTokenReqBodyBuilder().
+				GrantType(larkext.GrantTypeAuthorizationCode).
+				Code("78bo589568ca437d89899f56f7f1f1f2").
+				Build()).
+			Build())
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	if !resp.Success() {
+		fmt.Println(resp.Code, resp.Msg, resp.RequestId())
+		return
+	}
+
+	fmt.Println(larkcore.Prettify(resp))
+}
+
+func RefreshAuthenAccessToken() {
+	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
+	client := lark.NewClient(appID, appSecret, lark.WithLogLevel(larkcore.LogLevelDebug), lark.WithLogReqAtDebug(true))
+	var resp, err = client.Ext.Authen.RefreshAuthenAccessToken(context.Background(),
+		larkext.NewRefreshAuthenAccessTokenReqBuilder().
+			Body(larkext.NewRefreshAuthenAccessTokenReqBodyBuilder().
+				GrantType(larkext.GrantTypeRefreshCode).
+				RefreshToken("ur-1pAKN26JRfWHMv_CnaF6Yxkh4.IM1le1io004lI00aYP").
+				Build()).
+			Build())
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	if !resp.Success() {
+		fmt.Println(resp.Code, resp.Msg, resp.RequestId())
+		return
+	}
+
+	fmt.Println(larkcore.Prettify(resp))
+}
+
+func AuthenUserInfo() {
+	var appID, appSecret = os.Getenv("APP_ID"), os.Getenv("APP_SECRET")
+	client := lark.NewClient(appID, appSecret, lark.WithLogLevel(larkcore.LogLevelDebug), lark.WithLogReqAtDebug(true))
+	var resp, err = client.Ext.Authen.AuthenUserInfo(context.Background(), larkcore.WithUserAccessToken("u-1fY9bHm_RcvWrcjFqTBi0x0h5Ht01le3N800k0SE07kB"))
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	if !resp.Success() {
+		fmt.Println(resp.Code, resp.Msg, resp.RequestId())
+		return
+	}
+
+	fmt.Println(larkcore.Prettify(resp))
+}
+
 func main() {
-	GetTenantAccessTokenBySelfBuiltApp()
+	//GetAuthenAccessToken()
+	AuthenUserInfo()
 }
