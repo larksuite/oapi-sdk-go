@@ -840,7 +840,6 @@ func main() {
 	var feishu_client = lark.NewClient(appID, appSecret,
 		lark.WithLogLevel(larkcore.LogLevelDebug),
 		lark.WithLogReqAtDebug(true),
-		lark.WithMarketplaceApp(),
 	)
 
 	//downLoadImageV2(feishu_client)

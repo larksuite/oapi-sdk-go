@@ -36,6 +36,9 @@ func main() {
 			CalendarAcceptorUserId("").
 			ApplicationAcceptorUserId("").
 			HelpdeskAcceptorUserId("").
+			MinutesAcceptorUserId("").
+			SurveyAcceptorUserId("").
+			EmailAcceptor(larkcontact.NewResourceAcceptorBuilder().Build()).
 			Build()).
 		Build()
 	// 发起请求

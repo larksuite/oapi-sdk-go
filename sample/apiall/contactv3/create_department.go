@@ -16,6 +16,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/contact/v3"
@@ -39,6 +40,7 @@ func main() {
 			Order("").
 			UnitIds([]string{}).
 			CreateGroupChat(false).
+			Leaders([]*larkcontact.DepartmentLeader{larkcontact.NewDepartmentLeaderBuilder().Build()}).
 			Build()).
 		Build()
 	// 发起请求

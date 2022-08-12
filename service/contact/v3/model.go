@@ -48,10 +48,6 @@ const (
 )
 
 const (
-	CreateGroupTypeAssign = 1
-)
-
-const (
 	MemberIdTypeOpenID  = "open_id"
 	MemberIdTypeUnionID = "union_id"
 	MemberIdTypeUserID  = "user_id"
@@ -136,6 +132,85 @@ func (builder *AvatarInfoBuilder) Build() *AvatarInfo {
 	if builder.avatarOriginFlag {
 		req.AvatarOrigin = &builder.avatarOrigin
 
+	}
+	return req
+}
+
+// builder结束
+
+type CollaborationTenant struct {
+	TenantKey   *string     `json:"tenant_key,omitempty"`
+	Name        *string     `json:"name,omitempty"`
+	Nickname    *string     `json:"nickname,omitempty"`
+	ConnectTime *int        `json:"connect_time,omitempty"`
+	Avatar      *AvatarInfo `json:"avatar,omitempty"`
+}
+
+// builder开始
+type CollaborationTenantBuilder struct {
+	tenantKey       string
+	tenantKeyFlag   bool
+	name            string
+	nameFlag        bool
+	nickname        string
+	nicknameFlag    bool
+	connectTime     int
+	connectTimeFlag bool
+	avatar          *AvatarInfo
+	avatarFlag      bool
+}
+
+func NewCollaborationTenantBuilder() *CollaborationTenantBuilder {
+	builder := &CollaborationTenantBuilder{}
+	return builder
+}
+
+func (builder *CollaborationTenantBuilder) TenantKey(tenantKey string) *CollaborationTenantBuilder {
+	builder.tenantKey = tenantKey
+	builder.tenantKeyFlag = true
+	return builder
+}
+func (builder *CollaborationTenantBuilder) Name(name string) *CollaborationTenantBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *CollaborationTenantBuilder) Nickname(nickname string) *CollaborationTenantBuilder {
+	builder.nickname = nickname
+	builder.nicknameFlag = true
+	return builder
+}
+func (builder *CollaborationTenantBuilder) ConnectTime(connectTime int) *CollaborationTenantBuilder {
+	builder.connectTime = connectTime
+	builder.connectTimeFlag = true
+	return builder
+}
+func (builder *CollaborationTenantBuilder) Avatar(avatar *AvatarInfo) *CollaborationTenantBuilder {
+	builder.avatar = avatar
+	builder.avatarFlag = true
+	return builder
+}
+
+func (builder *CollaborationTenantBuilder) Build() *CollaborationTenant {
+	req := &CollaborationTenant{}
+	if builder.tenantKeyFlag {
+		req.TenantKey = &builder.tenantKey
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.nicknameFlag {
+		req.Nickname = &builder.nickname
+
+	}
+	if builder.connectTimeFlag {
+		req.ConnectTime = &builder.connectTime
+
+	}
+	if builder.avatarFlag {
+		req.Avatar = builder.avatar
 	}
 	return req
 }
@@ -419,6 +494,7 @@ type Department struct {
 	MemberCount        *int                `json:"member_count,omitempty"`
 	Status             *DepartmentStatus   `json:"status,omitempty"`
 	CreateGroupChat    *bool               `json:"create_group_chat,omitempty"`
+	Leaders            []*DepartmentLeader `json:"leaders,omitempty"`
 }
 
 // builder开始
@@ -447,6 +523,8 @@ type DepartmentBuilder struct {
 	statusFlag             bool
 	createGroupChat        bool
 	createGroupChatFlag    bool
+	leaders                []*DepartmentLeader
+	leadersFlag            bool
 }
 
 func NewDepartmentBuilder() *DepartmentBuilder {
@@ -514,6 +592,11 @@ func (builder *DepartmentBuilder) CreateGroupChat(createGroupChat bool) *Departm
 	builder.createGroupChatFlag = true
 	return builder
 }
+func (builder *DepartmentBuilder) Leaders(leaders []*DepartmentLeader) *DepartmentBuilder {
+	builder.leaders = leaders
+	builder.leadersFlag = true
+	return builder
+}
 
 func (builder *DepartmentBuilder) Build() *Department {
 	req := &Department{}
@@ -560,6 +643,53 @@ func (builder *DepartmentBuilder) Build() *Department {
 	}
 	if builder.createGroupChatFlag {
 		req.CreateGroupChat = &builder.createGroupChat
+
+	}
+	if builder.leadersFlag {
+		req.Leaders = builder.leaders
+	}
+	return req
+}
+
+// builder结束
+
+type DepartmentLeader struct {
+	LeaderType *int    `json:"leaderType,omitempty"`
+	LeaderID   *string `json:"leaderID,omitempty"`
+}
+
+// builder开始
+type DepartmentLeaderBuilder struct {
+	leaderType     int
+	leaderTypeFlag bool
+	leaderID       string
+	leaderIDFlag   bool
+}
+
+func NewDepartmentLeaderBuilder() *DepartmentLeaderBuilder {
+	builder := &DepartmentLeaderBuilder{}
+	return builder
+}
+
+func (builder *DepartmentLeaderBuilder) LeaderType(leaderType int) *DepartmentLeaderBuilder {
+	builder.leaderType = leaderType
+	builder.leaderTypeFlag = true
+	return builder
+}
+func (builder *DepartmentLeaderBuilder) LeaderID(leaderID string) *DepartmentLeaderBuilder {
+	builder.leaderID = leaderID
+	builder.leaderIDFlag = true
+	return builder
+}
+
+func (builder *DepartmentLeaderBuilder) Build() *DepartmentLeader {
+	req := &DepartmentLeader{}
+	if builder.leaderTypeFlag {
+		req.LeaderType = &builder.leaderType
+
+	}
+	if builder.leaderIDFlag {
+		req.LeaderID = &builder.leaderID
 
 	}
 	return req
@@ -656,7 +786,8 @@ type DepartmentEvent struct {
 	ChatId             *string `json:"chat_id,omitempty"`
 	Order              *int    `json:"order,omitempty"`
 
-	Status *DepartmentStatus `json:"status,omitempty"`
+	Status  *DepartmentStatus   `json:"status,omitempty"`
+	Leaders []*DepartmentLeader `json:"leaders,omitempty"`
 }
 
 // builder开始
@@ -676,8 +807,10 @@ type DepartmentEventBuilder struct {
 	order                  int
 	orderFlag              bool
 
-	status     *DepartmentStatus
-	statusFlag bool
+	status      *DepartmentStatus
+	statusFlag  bool
+	leaders     []*DepartmentLeader
+	leadersFlag bool
 }
 
 func NewDepartmentEventBuilder() *DepartmentEventBuilder {
@@ -726,6 +859,11 @@ func (builder *DepartmentEventBuilder) Status(status *DepartmentStatus) *Departm
 	builder.statusFlag = true
 	return builder
 }
+func (builder *DepartmentEventBuilder) Leaders(leaders []*DepartmentLeader) *DepartmentEventBuilder {
+	builder.leaders = leaders
+	builder.leadersFlag = true
+	return builder
+}
 
 func (builder *DepartmentEventBuilder) Build() *DepartmentEvent {
 	req := &DepartmentEvent{}
@@ -760,6 +898,9 @@ func (builder *DepartmentEventBuilder) Build() *DepartmentEvent {
 
 	if builder.statusFlag {
 		req.Status = builder.status
+	}
+	if builder.leadersFlag {
+		req.Leaders = builder.leaders
 	}
 	return req
 }
@@ -1441,6 +1582,50 @@ func (builder *OldUserObjectBuilder) Build() *OldUserObject {
 
 // builder结束
 
+type ResourceAcceptor struct {
+	ProcessingType *string `json:"processing_type,omitempty"`
+	AcceptorUserId *string `json:"acceptor_user_id,omitempty"`
+}
+
+// builder开始
+type ResourceAcceptorBuilder struct {
+	processingType     string
+	processingTypeFlag bool
+	acceptorUserId     string
+	acceptorUserIdFlag bool
+}
+
+func NewResourceAcceptorBuilder() *ResourceAcceptorBuilder {
+	builder := &ResourceAcceptorBuilder{}
+	return builder
+}
+
+func (builder *ResourceAcceptorBuilder) ProcessingType(processingType string) *ResourceAcceptorBuilder {
+	builder.processingType = processingType
+	builder.processingTypeFlag = true
+	return builder
+}
+func (builder *ResourceAcceptorBuilder) AcceptorUserId(acceptorUserId string) *ResourceAcceptorBuilder {
+	builder.acceptorUserId = acceptorUserId
+	builder.acceptorUserIdFlag = true
+	return builder
+}
+
+func (builder *ResourceAcceptorBuilder) Build() *ResourceAcceptor {
+	req := &ResourceAcceptor{}
+	if builder.processingTypeFlag {
+		req.ProcessingType = &builder.processingType
+
+	}
+	if builder.acceptorUserIdFlag {
+		req.AcceptorUserId = &builder.acceptorUserId
+
+	}
+	return req
+}
+
+// builder结束
+
 type Scope struct {
 	Departments []*Department `json:"departments,omitempty"`
 	Users       []*User       `json:"users,omitempty"`
@@ -1488,6 +1673,140 @@ func (builder *ScopeBuilder) Build() *Scope {
 	}
 	if builder.userGroupsFlag {
 		req.UserGroups = builder.userGroups
+	}
+	return req
+}
+
+// builder结束
+
+type ShareDepartment struct {
+	OpenId   *string             `json:"open_id,omitempty"`
+	Name     *string             `json:"name,omitempty"`
+	I18nName *DepartmentI18nName `json:"i18n_name,omitempty"`
+	Order    *string             `json:"order,omitempty"`
+}
+
+// builder开始
+type ShareDepartmentBuilder struct {
+	openId       string
+	openIdFlag   bool
+	name         string
+	nameFlag     bool
+	i18nName     *DepartmentI18nName
+	i18nNameFlag bool
+	order        string
+	orderFlag    bool
+}
+
+func NewShareDepartmentBuilder() *ShareDepartmentBuilder {
+	builder := &ShareDepartmentBuilder{}
+	return builder
+}
+
+func (builder *ShareDepartmentBuilder) OpenId(openId string) *ShareDepartmentBuilder {
+	builder.openId = openId
+	builder.openIdFlag = true
+	return builder
+}
+func (builder *ShareDepartmentBuilder) Name(name string) *ShareDepartmentBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *ShareDepartmentBuilder) I18nName(i18nName *DepartmentI18nName) *ShareDepartmentBuilder {
+	builder.i18nName = i18nName
+	builder.i18nNameFlag = true
+	return builder
+}
+func (builder *ShareDepartmentBuilder) Order(order string) *ShareDepartmentBuilder {
+	builder.order = order
+	builder.orderFlag = true
+	return builder
+}
+
+func (builder *ShareDepartmentBuilder) Build() *ShareDepartment {
+	req := &ShareDepartment{}
+	if builder.openIdFlag {
+		req.OpenId = &builder.openId
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.i18nNameFlag {
+		req.I18nName = builder.i18nName
+	}
+	if builder.orderFlag {
+		req.Order = &builder.order
+
+	}
+	return req
+}
+
+// builder结束
+
+type ShareUser struct {
+	OpenId *string     `json:"open_id,omitempty"`
+	Name   *string     `json:"name,omitempty"`
+	EnName *string     `json:"en_name,omitempty"`
+	Avatar *AvatarInfo `json:"avatar,omitempty"`
+}
+
+// builder开始
+type ShareUserBuilder struct {
+	openId     string
+	openIdFlag bool
+	name       string
+	nameFlag   bool
+	enName     string
+	enNameFlag bool
+	avatar     *AvatarInfo
+	avatarFlag bool
+}
+
+func NewShareUserBuilder() *ShareUserBuilder {
+	builder := &ShareUserBuilder{}
+	return builder
+}
+
+func (builder *ShareUserBuilder) OpenId(openId string) *ShareUserBuilder {
+	builder.openId = openId
+	builder.openIdFlag = true
+	return builder
+}
+func (builder *ShareUserBuilder) Name(name string) *ShareUserBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+func (builder *ShareUserBuilder) EnName(enName string) *ShareUserBuilder {
+	builder.enName = enName
+	builder.enNameFlag = true
+	return builder
+}
+func (builder *ShareUserBuilder) Avatar(avatar *AvatarInfo) *ShareUserBuilder {
+	builder.avatar = avatar
+	builder.avatarFlag = true
+	return builder
+}
+
+func (builder *ShareUserBuilder) Build() *ShareUser {
+	req := &ShareUser{}
+	if builder.openIdFlag {
+		req.OpenId = &builder.openId
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.enNameFlag {
+		req.EnName = &builder.enName
+
+	}
+	if builder.avatarFlag {
+		req.Avatar = builder.avatar
 	}
 	return req
 }
@@ -5931,6 +6250,12 @@ type DeleteUserReqBodyBuilder struct {
 	applicationAcceptorUserIdFlag    bool
 	helpdeskAcceptorUserId           string
 	helpdeskAcceptorUserIdFlag       bool
+	minutesAcceptorUserId            string
+	minutesAcceptorUserIdFlag        bool
+	surveyAcceptorUserId             string
+	surveyAcceptorUserIdFlag         bool
+	emailAcceptor                    *ResourceAcceptor
+	emailAcceptorFlag                bool
 }
 
 // 生成body的New构造器
@@ -5970,6 +6295,21 @@ func (builder *DeleteUserReqBodyBuilder) HelpdeskAcceptorUserId(helpdeskAcceptor
 	builder.helpdeskAcceptorUserIdFlag = true
 	return builder
 }
+func (builder *DeleteUserReqBodyBuilder) MinutesAcceptorUserId(minutesAcceptorUserId string) *DeleteUserReqBodyBuilder {
+	builder.minutesAcceptorUserId = minutesAcceptorUserId
+	builder.minutesAcceptorUserIdFlag = true
+	return builder
+}
+func (builder *DeleteUserReqBodyBuilder) SurveyAcceptorUserId(surveyAcceptorUserId string) *DeleteUserReqBodyBuilder {
+	builder.surveyAcceptorUserId = surveyAcceptorUserId
+	builder.surveyAcceptorUserIdFlag = true
+	return builder
+}
+func (builder *DeleteUserReqBodyBuilder) EmailAcceptor(emailAcceptor *ResourceAcceptor) *DeleteUserReqBodyBuilder {
+	builder.emailAcceptor = emailAcceptor
+	builder.emailAcceptorFlag = true
+	return builder
+}
 
 // 1.3 生成body的build方法
 func (builder *DeleteUserReqBodyBuilder) Build() *DeleteUserReqBody {
@@ -5992,6 +6332,15 @@ func (builder *DeleteUserReqBodyBuilder) Build() *DeleteUserReqBody {
 	if builder.helpdeskAcceptorUserIdFlag {
 		req.HelpdeskAcceptorUserId = &builder.helpdeskAcceptorUserId
 	}
+	if builder.minutesAcceptorUserIdFlag {
+		req.MinutesAcceptorUserId = &builder.minutesAcceptorUserId
+	}
+	if builder.surveyAcceptorUserIdFlag {
+		req.SurveyAcceptorUserId = &builder.surveyAcceptorUserId
+	}
+	if builder.emailAcceptorFlag {
+		req.EmailAcceptor = builder.emailAcceptor
+	}
 	return req
 }
 
@@ -6009,6 +6358,12 @@ type DeleteUserPathReqBodyBuilder struct {
 	applicationAcceptorUserIdFlag    bool
 	helpdeskAcceptorUserId           string
 	helpdeskAcceptorUserIdFlag       bool
+	minutesAcceptorUserId            string
+	minutesAcceptorUserIdFlag        bool
+	surveyAcceptorUserId             string
+	surveyAcceptorUserIdFlag         bool
+	emailAcceptor                    *ResourceAcceptor
+	emailAcceptorFlag                bool
 }
 
 func NewDeleteUserPathReqBodyBuilder() *DeleteUserPathReqBodyBuilder {
@@ -6045,6 +6400,21 @@ func (builder *DeleteUserPathReqBodyBuilder) HelpdeskAcceptorUserId(helpdeskAcce
 	builder.helpdeskAcceptorUserIdFlag = true
 	return builder
 }
+func (builder *DeleteUserPathReqBodyBuilder) MinutesAcceptorUserId(minutesAcceptorUserId string) *DeleteUserPathReqBodyBuilder {
+	builder.minutesAcceptorUserId = minutesAcceptorUserId
+	builder.minutesAcceptorUserIdFlag = true
+	return builder
+}
+func (builder *DeleteUserPathReqBodyBuilder) SurveyAcceptorUserId(surveyAcceptorUserId string) *DeleteUserPathReqBodyBuilder {
+	builder.surveyAcceptorUserId = surveyAcceptorUserId
+	builder.surveyAcceptorUserIdFlag = true
+	return builder
+}
+func (builder *DeleteUserPathReqBodyBuilder) EmailAcceptor(emailAcceptor *ResourceAcceptor) *DeleteUserPathReqBodyBuilder {
+	builder.emailAcceptor = emailAcceptor
+	builder.emailAcceptorFlag = true
+	return builder
+}
 
 func (builder *DeleteUserPathReqBodyBuilder) Build() (*DeleteUserReqBody, error) {
 	req := &DeleteUserReqBody{}
@@ -6065,6 +6435,15 @@ func (builder *DeleteUserPathReqBodyBuilder) Build() (*DeleteUserReqBody, error)
 	}
 	if builder.helpdeskAcceptorUserIdFlag {
 		req.HelpdeskAcceptorUserId = &builder.helpdeskAcceptorUserId
+	}
+	if builder.minutesAcceptorUserIdFlag {
+		req.MinutesAcceptorUserId = &builder.minutesAcceptorUserId
+	}
+	if builder.surveyAcceptorUserIdFlag {
+		req.SurveyAcceptorUserId = &builder.surveyAcceptorUserId
+	}
+	if builder.emailAcceptorFlag {
+		req.EmailAcceptor = builder.emailAcceptor
 	}
 	return req, nil
 }
@@ -6112,12 +6491,15 @@ func (builder *DeleteUserReqBuilder) Build() *DeleteUserReq {
 }
 
 type DeleteUserReqBody struct {
-	DepartmentChatAcceptorUserId *string `json:"department_chat_acceptor_user_id,omitempty"`
-	ExternalChatAcceptorUserId   *string `json:"external_chat_acceptor_user_id,omitempty"`
-	DocsAcceptorUserId           *string `json:"docs_acceptor_user_id,omitempty"`
-	CalendarAcceptorUserId       *string `json:"calendar_acceptor_user_id,omitempty"`
-	ApplicationAcceptorUserId    *string `json:"application_acceptor_user_id,omitempty"`
-	HelpdeskAcceptorUserId       *string `json:"helpdesk_acceptor_user_id,omitempty"`
+	DepartmentChatAcceptorUserId *string           `json:"department_chat_acceptor_user_id,omitempty"`
+	ExternalChatAcceptorUserId   *string           `json:"external_chat_acceptor_user_id,omitempty"`
+	DocsAcceptorUserId           *string           `json:"docs_acceptor_user_id,omitempty"`
+	CalendarAcceptorUserId       *string           `json:"calendar_acceptor_user_id,omitempty"`
+	ApplicationAcceptorUserId    *string           `json:"application_acceptor_user_id,omitempty"`
+	HelpdeskAcceptorUserId       *string           `json:"helpdesk_acceptor_user_id,omitempty"`
+	MinutesAcceptorUserId        *string           `json:"minutes_acceptor_user_id,omitempty"`
+	SurveyAcceptorUserId         *string           `json:"survey_acceptor_user_id,omitempty"`
+	EmailAcceptor                *ResourceAcceptor `json:"email_acceptor,omitempty"`
 }
 
 type DeleteUserReq struct {

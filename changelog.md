@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## v3.0.0-beta-7-2022-08-12
+Added
+- 消息卡片添加MessageCardEmbedImage结构体
+
 ## v3.0.0-beta-6-2022-08-05
 Added
 - 添加 API 调用时，让开发者传递 appTicket,SDK内部根据appticket自动获取token的功能

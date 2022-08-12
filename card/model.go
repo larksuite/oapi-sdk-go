@@ -608,6 +608,10 @@ func (m *MessageCardEmbedImage) IsExtra() {
 func (m *MessageCardEmbedImage) IsNote() {
 }
 
+func (m *MessageCardEmbedImage) MarshalJSON() ([]byte, error) {
+	return messageCardElementJson(m)
+}
+
 type MessageCardEmbedButton struct {
 	Text_     MessageCardText           `json:"text,omitempty"`
 	URL_      *string                   `json:"url,omitempty"`
