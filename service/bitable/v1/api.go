@@ -24,10 +24,12 @@ import (
 func NewService(config *larkcore.Config) *BitableService {
 	b := &BitableService{config: config}
 	b.App = &app{service: b}
+	b.AppDashboard = &appDashboard{service: b}
 	b.AppRole = &appRole{service: b}
 	b.AppRoleMember = &appRoleMember{service: b}
 	b.AppTable = &appTable{service: b}
 	b.AppTableField = &appTableField{service: b}
+	b.AppTableForm = &appTableForm{service: b}
 	b.AppTableFormField = &appTableFormField{service: b}
 	b.AppTableRecord = &appTableRecord{service: b}
 	b.AppTableView = &appTableView{service: b}
@@ -38,10 +40,12 @@ func NewService(config *larkcore.Config) *BitableService {
 type BitableService struct {
 	config            *larkcore.Config
 	App               *app
+	AppDashboard      *appDashboard
 	AppRole           *appRole
 	AppRoleMember     *appRoleMember
 	AppTable          *appTable
 	AppTableField     *appTableField
+	AppTableForm      *appTableForm
 	AppTableFormField *appTableFormField
 	AppTableRecord    *appTableRecord
 	AppTableView      *appTableView
@@ -49,6 +53,9 @@ type BitableService struct {
 
 // 资源服务定义
 type app struct {
+	service *BitableService
+}
+type appDashboard struct {
 	service *BitableService
 }
 type appRole struct {
@@ -61,6 +68,9 @@ type appTable struct {
 	service *BitableService
 }
 type appTableField struct {
+	service *BitableService
+}
+type appTableForm struct {
 	service *BitableService
 }
 type appTableFormField struct {
@@ -109,6 +119,32 @@ func (a *app) Update(ctx context.Context, req *UpdateAppReq, options ...larkcore
 		return nil, err
 	}
 	return resp, err
+}
+func (a *appDashboard) List(ctx context.Context, req *ListAppDashboardReq, options ...larkcore.RequestOptionFunc) (*ListAppDashboardResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/bitable/v1/apps/:app_token/dashboards"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, a.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListAppDashboardResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (a *appDashboard) ListByIterator(ctx context.Context, req *ListAppDashboardReq, options ...larkcore.RequestOptionFunc) (*ListAppDashboardIterator, error) {
+	return &ListAppDashboardIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: a.List,
+		options:  options,
+		limit:    req.Limit}, nil
 }
 func (a *appRole) Create(ctx context.Context, req *CreateAppRoleReq, options ...larkcore.RequestOptionFunc) (*CreateAppRoleResp, error) {
 	// 发起请求
@@ -460,6 +496,42 @@ func (a *appTableField) Update(ctx context.Context, req *UpdateAppTableFieldReq,
 	}
 	// 反序列响应结果
 	resp := &UpdateAppTableFieldResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (a *appTableForm) Get(ctx context.Context, req *GetAppTableFormReq, options ...larkcore.RequestOptionFunc) (*GetAppTableFormResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/bitable/v1/apps/:app_token/tables/:table_id/forms/:form_id"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, a.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &GetAppTableFormResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (a *appTableForm) Patch(ctx context.Context, req *PatchAppTableFormReq, options ...larkcore.RequestOptionFunc) (*PatchAppTableFormResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/bitable/v1/apps/:app_token/tables/:table_id/forms/:form_id"
+	apiReq.HttpMethod = http.MethodPatch
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, a.service.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &PatchAppTableFormResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp)
 	if err != nil {
 		return nil, err

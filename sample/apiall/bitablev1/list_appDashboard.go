@@ -16,28 +16,23 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/bitable/v1"
 )
 
-// HTTP PATH: /open-apis/bitable/v1/apps/:app_token/roles/:role_id"
+// HTTP PATH: /open-apis/bitable/v1/apps/:app_token/dashboards"
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
-	req := larkbitable.NewUpdateAppRoleReqBuilder().
-		AppToken("appbcbWCzen6D8dezhoCH2RpMAh").
-		RoleId("roljRpwIUt").
-		AppRole(larkbitable.NewAppRoleBuilder().
-			RoleName("自定义权限1").
-			TableRoles([]*larkbitable.AppRoleTableRole{larkbitable.NewAppRoleTableRoleBuilder().Build()}).
-			BlockRoles([]*larkbitable.AppRoleBlockRole{larkbitable.NewAppRoleBlockRoleBuilder().Build()}).
-			Build()).
+	req := larkbitable.NewListAppDashboardReqBuilder().
+		AppToken("bascng7vrxcxpig7geggXiCtadY").
+		PageSize(10).
+		PageToken("blknkqrP3RqUkcAW").
 		Build()
 	// 发起请求
-	resp, err := client.Bitable.AppRole.Update(context.Background(), req)
+	resp, err := client.Bitable.AppDashboard.List(context.Background(), req)
 
 	// 处理错误
 	if err != nil {
