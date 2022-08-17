@@ -26,8 +26,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
-// 生成枚举值
-
 const (
 	DepartmentIdTypeDepartmentId     = "department_id"
 	DepartmentIdTypeOpenDepartmentId = "open_department_id"
@@ -48,8 +46,6 @@ const (
 	ImageTypeDetail = 1
 	ImageTypeShow   = 2
 )
-
-// 生成数据类型
 
 type AdminDeptStat struct {
 	Date                 *string `json:"date,omitempty"`
@@ -86,7 +82,6 @@ type AdminDeptStat struct {
 	AvgCreateTaskNum     *string `json:"avg_create_task_num,omitempty"`
 }
 
-// builder开始
 type AdminDeptStatBuilder struct {
 	date                     string
 	dateFlag                 bool
@@ -453,8 +448,6 @@ func (builder *AdminDeptStatBuilder) Build() *AdminDeptStat {
 	return req
 }
 
-// builder结束
-
 type AdminUserStat struct {
 	Date             *string `json:"date,omitempty"`
 	UserId           *string `json:"user_id,omitempty"`
@@ -479,7 +472,6 @@ type AdminUserStat struct {
 	VcNum            *int    `json:"vc_num,omitempty"`
 }
 
-// builder开始
 type AdminUserStatBuilder struct {
 	date                 string
 	dateFlag             bool
@@ -725,15 +717,12 @@ func (builder *AdminUserStatBuilder) Build() *AdminUserStat {
 	return req
 }
 
-// builder结束
-
 type Administrator struct {
 	UserId               *string `json:"user_id,omitempty"`
 	IsSuperAdministrator *bool   `json:"is_super_administrator,omitempty"`
 	IsAdministrator      *bool   `json:"is_administrator,omitempty"`
 }
 
-// builder开始
 type AdministratorBuilder struct {
 	userId                   string
 	userIdFlag               bool
@@ -781,13 +770,10 @@ func (builder *AdministratorBuilder) Build() *Administrator {
 	return req
 }
 
-// builder结束
-
 type ApiAuditCommonDrawers struct {
 	CommonDrawInfoList []*ApiAuditDrawerInfo `json:"common_draw_info_list,omitempty"`
 }
 
-// builder开始
 type ApiAuditCommonDrawersBuilder struct {
 	commonDrawInfoList     []*ApiAuditDrawerInfo
 	commonDrawInfoListFlag bool
@@ -812,8 +798,6 @@ func (builder *ApiAuditCommonDrawersBuilder) Build() *ApiAuditCommonDrawers {
 	return req
 }
 
-// builder结束
-
 type ApiAuditDrawerInfo struct {
 	InfoKey    *string `json:"info_key,omitempty"`
 	InfoVal    *string `json:"info_val,omitempty"`
@@ -822,7 +806,6 @@ type ApiAuditDrawerInfo struct {
 	ValI18nKey *string `json:"val_i18n_key,omitempty"`
 }
 
-// builder开始
 type ApiAuditDrawerInfoBuilder struct {
 	infoKey        string
 	infoKeyFlag    bool
@@ -892,8 +875,6 @@ func (builder *ApiAuditDrawerInfoBuilder) Build() *ApiAuditDrawerInfo {
 	return req
 }
 
-// builder结束
-
 type AuditAndroidContext struct {
 	Udid            *string `json:"udid,omitempty"`
 	Did             *string `json:"did,omitempty"`
@@ -917,7 +898,6 @@ type AuditAndroidContext struct {
 	IP              *string `json:"IP,omitempty"`
 }
 
-// builder开始
 type AuditAndroidContextBuilder struct {
 	udid                string
 	udidFlag            bool
@@ -1152,8 +1132,6 @@ func (builder *AuditAndroidContextBuilder) Build() *AuditAndroidContext {
 	return req
 }
 
-// builder结束
-
 type AuditContext struct {
 	TerminalType   *int                 `json:"terminal_type,omitempty"`
 	IosContext     *AuditIosContext     `json:"ios_context,omitempty"`
@@ -1162,7 +1140,6 @@ type AuditContext struct {
 	AndroidContext *AuditAndroidContext `json:"android_context,omitempty"`
 }
 
-// builder开始
 type AuditContextBuilder struct {
 	terminalType       int
 	terminalTypeFlag   bool
@@ -1228,8 +1205,6 @@ func (builder *AuditContextBuilder) Build() *AuditContext {
 	return req
 }
 
-// builder结束
-
 type AuditEventExtend struct {
 	CommentType                 *string `json:"comment_type,omitempty"`
 	AppDetail                   *string `json:"app_detail,omitempty"`
@@ -1243,7 +1218,6 @@ type AuditEventExtend struct {
 	ExternalPeopleNumInDocShare *int    `json:"external_people_num_in_doc_share,omitempty"`
 }
 
-// builder开始
 type AuditEventExtendBuilder struct {
 	commentType                     string
 	commentTypeFlag                 bool
@@ -1368,8 +1342,6 @@ func (builder *AuditEventExtendBuilder) Build() *AuditEventExtend {
 	return req
 }
 
-// builder结束
-
 type AuditInfo struct {
 	EventId         *string                 `json:"event_id,omitempty"`
 	UniqueId        *string                 `json:"unique_id,omitempty"`
@@ -1389,7 +1361,6 @@ type AuditInfo struct {
 	CommonDrawers   *ApiAuditCommonDrawers  `json:"common_drawers,omitempty"`
 }
 
-// builder开始
 type AuditInfoBuilder struct {
 	eventId             string
 	eventIdFlag         bool
@@ -1574,8 +1545,6 @@ func (builder *AuditInfoBuilder) Build() *AuditInfo {
 	return req
 }
 
-// builder结束
-
 type AuditIosContext struct {
 	Udid            *string `json:"udid,omitempty"`
 	Did             *string `json:"did,omitempty"`
@@ -1594,7 +1563,6 @@ type AuditIosContext struct {
 	IP              *string `json:"IP,omitempty"`
 }
 
-// builder开始
 type AuditIosContextBuilder struct {
 	udid                string
 	udidFlag            bool
@@ -1774,8 +1742,6 @@ func (builder *AuditIosContextBuilder) Build() *AuditIosContext {
 	return req
 }
 
-// builder结束
-
 type AuditObjectDetail struct {
 	CloneSource                  *string `json:"clone_source,omitempty"`
 	TextDetail                   *string `json:"text_detail,omitempty"`
@@ -1792,7 +1758,6 @@ type AuditObjectDetail struct {
 	CurrentPage                  *string `json:"current_page,omitempty"`
 }
 
-// builder开始
 type AuditObjectDetailBuilder struct {
 	cloneSource                      string
 	cloneSourceFlag                  bool
@@ -1950,8 +1915,6 @@ func (builder *AuditObjectDetailBuilder) Build() *AuditObjectDetail {
 	return req
 }
 
-// builder结束
-
 type AuditObjectEntity struct {
 	ObjectType   *string            `json:"object_type,omitempty"`
 	ObjectValue  *string            `json:"object_value,omitempty"`
@@ -1960,7 +1923,6 @@ type AuditObjectEntity struct {
 	ObjectDetail *AuditObjectDetail `json:"object_detail,omitempty"`
 }
 
-// builder开始
 type AuditObjectEntityBuilder struct {
 	objectType       string
 	objectTypeFlag   bool
@@ -2029,8 +1991,6 @@ func (builder *AuditObjectEntityBuilder) Build() *AuditObjectEntity {
 	return req
 }
 
-// builder结束
-
 type AuditPcContext struct {
 	Udid   *string `json:"udid,omitempty"`
 	Did    *string `json:"did,omitempty"`
@@ -2042,7 +2002,6 @@ type AuditPcContext struct {
 	IP     *string `json:"IP,omitempty"`
 }
 
-// builder开始
 type AuditPcContextBuilder struct {
 	udid       string
 	udidFlag   bool
@@ -2145,13 +2104,10 @@ func (builder *AuditPcContextBuilder) Build() *AuditPcContext {
 	return req
 }
 
-// builder结束
-
 type AuditRecipientDetail struct {
 	PermissionActionType *string `json:"permission_action_type,omitempty"`
 }
 
-// builder开始
 type AuditRecipientDetailBuilder struct {
 	permissionActionType     string
 	permissionActionTypeFlag bool
@@ -2177,15 +2133,12 @@ func (builder *AuditRecipientDetailBuilder) Build() *AuditRecipientDetail {
 	return req
 }
 
-// builder结束
-
 type AuditRecipientEntity struct {
 	RecipientType   *string               `json:"recipient_type,omitempty"`
 	RecipientValue  *string               `json:"recipient_value,omitempty"`
 	RecipientDetail *AuditRecipientDetail `json:"recipient_detail,omitempty"`
 }
 
-// builder开始
 type AuditRecipientEntityBuilder struct {
 	recipientType       string
 	recipientTypeFlag   bool
@@ -2232,14 +2185,11 @@ func (builder *AuditRecipientEntityBuilder) Build() *AuditRecipientEntity {
 	return req
 }
 
-// builder结束
-
 type AuditWebContext struct {
 	UserAgent *string `json:"user_agent,omitempty"`
 	IP        *string `json:"IP,omitempty"`
 }
 
-// builder开始
 type AuditWebContextBuilder struct {
 	userAgent     string
 	userAgentFlag bool
@@ -2276,8 +2226,6 @@ func (builder *AuditWebContextBuilder) Build() *AuditWebContext {
 	return req
 }
 
-// builder结束
-
 type Badge struct {
 	Id          *string `json:"id,omitempty"`
 	Name        *string `json:"name,omitempty"`
@@ -2286,7 +2234,6 @@ type Badge struct {
 	ShowImage   *string `json:"show_image,omitempty"`
 }
 
-// builder开始
 type BadgeBuilder struct {
 	id              string
 	idFlag          bool
@@ -2356,8 +2303,6 @@ func (builder *BadgeBuilder) Build() *Badge {
 	return req
 }
 
-// builder结束
-
 type File struct {
 	Title      *string `json:"title,omitempty"`
 	Type       *string `json:"type,omitempty"`
@@ -2368,7 +2313,6 @@ type File struct {
 	Token      *string `json:"token,omitempty"`
 }
 
-// builder开始
 type FileBuilder struct {
 	title          string
 	titleFlag      bool
@@ -2459,13 +2403,10 @@ func (builder *FileBuilder) Build() *File {
 	return req
 }
 
-// builder结束
-
 type FileList struct {
 	Files []*File `json:"files,omitempty"`
 }
 
-// builder开始
 type FileListBuilder struct {
 	files     []*File
 	filesFlag bool
@@ -2490,8 +2431,6 @@ func (builder *FileListBuilder) Build() *FileList {
 	return req
 }
 
-// builder结束
-
 type Grant struct {
 	Id            *string     `json:"id,omitempty"`
 	BadgeId       *string     `json:"badge_id,omitempty"`
@@ -2505,7 +2444,6 @@ type Grant struct {
 	GroupIds      []string    `json:"group_ids,omitempty"`
 }
 
-// builder开始
 type GrantBuilder struct {
 	id                string
 	idFlag            bool
@@ -2626,13 +2564,10 @@ func (builder *GrantBuilder) Build() *Grant {
 	return req
 }
 
-// builder结束
-
 type Password struct {
 	EntEmailPassword *string `json:"ent_email_password,omitempty"`
 }
 
-// builder开始
 type PasswordBuilder struct {
 	entEmailPassword     string
 	entEmailPasswordFlag bool
@@ -2658,8 +2593,6 @@ func (builder *PasswordBuilder) Build() *Password {
 	return req
 }
 
-// builder结束
-
 type RuleDetail struct {
 	EffectiveTime   *string `json:"effective_time,omitempty"`
 	ExpirationTime  *string `json:"expiration_time,omitempty"`
@@ -2667,7 +2600,6 @@ type RuleDetail struct {
 	EffectivePeriod *int    `json:"effective_period,omitempty"`
 }
 
-// builder开始
 type RuleDetailBuilder struct {
 	effectiveTime       string
 	effectiveTimeFlag   bool
@@ -2726,8 +2658,6 @@ func (builder *RuleDetailBuilder) Build() *RuleDetail {
 	return req
 }
 
-// builder结束
-
 type SplashPageStat struct {
 	Date                      *string `json:"date,omitempty"`
 	SplashId                  *string `json:"splash_id,omitempty"`
@@ -2739,7 +2669,6 @@ type SplashPageStat struct {
 	SkipCountAccumulate       *int    `json:"skip_count_accumulate,omitempty"`
 }
 
-// builder开始
 type SplashPageStatBuilder struct {
 	date                          string
 	dateFlag                      bool
@@ -2842,15 +2771,12 @@ func (builder *SplashPageStatBuilder) Build() *SplashPageStat {
 	return req
 }
 
-// builder结束
-
 type User struct {
 	Name   *string `json:"name,omitempty"`
 	Avatar *string `json:"avatar,omitempty"`
 	Id     *string `json:"id,omitempty"`
 }
 
-// builder开始
 type UserBuilder struct {
 	name       string
 	nameFlag   bool
@@ -2898,13 +2824,10 @@ func (builder *UserBuilder) Build() *User {
 	return req
 }
 
-// builder结束
-
 type UserAnnualReport struct {
 	Year2021 *UserReport2021 `json:"year_2021,omitempty"`
 }
 
-// builder开始
 type UserAnnualReportBuilder struct {
 	year2021     *UserReport2021
 	year2021Flag bool
@@ -2928,8 +2851,6 @@ func (builder *UserAnnualReportBuilder) Build() *UserAnnualReport {
 	}
 	return req
 }
-
-// builder结束
 
 type UserReport2021 struct {
 	ActiveDayCount                *int     `json:"active_day_count,omitempty"`
@@ -2959,7 +2880,6 @@ type UserReport2021 struct {
 	CreateReadUserCount           *string  `json:"create_read_user_count,omitempty"`
 }
 
-// builder开始
 type UserReport2021Builder struct {
 	activeDayCount                    int
 	activeDayCountFlag                bool
@@ -3249,16 +3169,10 @@ func (builder *UserReport2021Builder) Build() *UserReport2021 {
 	return req
 }
 
-// builder结束
-
-// 生成请求和响应结果类型，以及请求对象的Builder构造器
-
-// 1.4 生成请求的builder结构体
 type ListAdminDeptStatReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewListAdminDeptStatReqBuilder() *ListAdminDeptStatReqBuilder {
 	builder := &ListAdminDeptStatReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3268,7 +3182,6 @@ func NewListAdminDeptStatReqBuilder() *ListAdminDeptStatReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListAdminDeptStatReqBuilder) DepartmentIdType(departmentIdType string) *ListAdminDeptStatReqBuilder {
 	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
 	return builder
@@ -3298,7 +3211,6 @@ func (builder *ListAdminDeptStatReqBuilder) PageToken(pageToken string) *ListAdm
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListAdminDeptStatReqBuilder) Build() *ListAdminDeptStatReq {
 	req := &ListAdminDeptStatReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3326,12 +3238,10 @@ func (resp *ListAdminDeptStatResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type ListAdminUserStatReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewListAdminUserStatReqBuilder() *ListAdminUserStatReqBuilder {
 	builder := &ListAdminUserStatReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3341,7 +3251,6 @@ func NewListAdminUserStatReqBuilder() *ListAdminUserStatReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListAdminUserStatReqBuilder) UserIdType(userIdType string) *ListAdminUserStatReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -3375,7 +3284,6 @@ func (builder *ListAdminUserStatReqBuilder) PageToken(pageToken string) *ListAdm
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListAdminUserStatReqBuilder) Build() *ListAdminUserStatReq {
 	req := &ListAdminUserStatReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3403,13 +3311,11 @@ func (resp *ListAdminUserStatResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type CreateBadgeReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	badge  *Badge
 }
 
-// 生成请求的New构造器
 func NewCreateBadgeReqBuilder() *CreateBadgeReqBuilder {
 	builder := &CreateBadgeReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3419,13 +3325,11 @@ func NewCreateBadgeReqBuilder() *CreateBadgeReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateBadgeReqBuilder) Badge(badge *Badge) *CreateBadgeReqBuilder {
 	builder.badge = badge
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateBadgeReqBuilder) Build() *CreateBadgeReq {
 	req := &CreateBadgeReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3452,12 +3356,10 @@ func (resp *CreateBadgeResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type GetBadgeReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewGetBadgeReqBuilder() *GetBadgeReqBuilder {
 	builder := &GetBadgeReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3467,13 +3369,11 @@ func NewGetBadgeReqBuilder() *GetBadgeReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *GetBadgeReqBuilder) BadgeId(badgeId string) *GetBadgeReqBuilder {
 	builder.apiReq.PathParams.Set("badge_id", fmt.Sprint(badgeId))
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *GetBadgeReqBuilder) Build() *GetBadgeReq {
 	req := &GetBadgeReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3499,13 +3399,11 @@ func (resp *GetBadgeResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type ListBadgeReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	limit  int
 }
 
-// 生成请求的New构造器
 func NewListBadgeReqBuilder() *ListBadgeReqBuilder {
 	builder := &ListBadgeReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3515,7 +3413,6 @@ func NewListBadgeReqBuilder() *ListBadgeReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListBadgeReqBuilder) Limit(limit int) *ListBadgeReqBuilder {
 	builder.limit = limit
 	return builder
@@ -3533,7 +3430,6 @@ func (builder *ListBadgeReqBuilder) Name(name string) *ListBadgeReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListBadgeReqBuilder) Build() *ListBadgeReq {
 	req := &ListBadgeReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3563,13 +3459,11 @@ func (resp *ListBadgeResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type UpdateBadgeReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	badge  *Badge
 }
 
-// 生成请求的New构造器
 func NewUpdateBadgeReqBuilder() *UpdateBadgeReqBuilder {
 	builder := &UpdateBadgeReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3579,7 +3473,6 @@ func NewUpdateBadgeReqBuilder() *UpdateBadgeReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *UpdateBadgeReqBuilder) BadgeId(badgeId string) *UpdateBadgeReqBuilder {
 	builder.apiReq.PathParams.Set("badge_id", fmt.Sprint(badgeId))
 	return builder
@@ -3589,7 +3482,6 @@ func (builder *UpdateBadgeReqBuilder) Badge(badge *Badge) *UpdateBadgeReqBuilder
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *UpdateBadgeReqBuilder) Build() *UpdateBadgeReq {
 	req := &UpdateBadgeReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3617,13 +3509,11 @@ func (resp *UpdateBadgeResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type CreateBadgeGrantReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	grant  *Grant
 }
 
-// 生成请求的New构造器
 func NewCreateBadgeGrantReqBuilder() *CreateBadgeGrantReqBuilder {
 	builder := &CreateBadgeGrantReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3633,7 +3523,6 @@ func NewCreateBadgeGrantReqBuilder() *CreateBadgeGrantReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateBadgeGrantReqBuilder) BadgeId(badgeId string) *CreateBadgeGrantReqBuilder {
 	builder.apiReq.PathParams.Set("badge_id", fmt.Sprint(badgeId))
 	return builder
@@ -3651,7 +3540,6 @@ func (builder *CreateBadgeGrantReqBuilder) Grant(grant *Grant) *CreateBadgeGrant
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateBadgeGrantReqBuilder) Build() *CreateBadgeGrantReq {
 	req := &CreateBadgeGrantReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3680,12 +3568,10 @@ func (resp *CreateBadgeGrantResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type DeleteBadgeGrantReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewDeleteBadgeGrantReqBuilder() *DeleteBadgeGrantReqBuilder {
 	builder := &DeleteBadgeGrantReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3695,7 +3581,6 @@ func NewDeleteBadgeGrantReqBuilder() *DeleteBadgeGrantReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *DeleteBadgeGrantReqBuilder) BadgeId(badgeId string) *DeleteBadgeGrantReqBuilder {
 	builder.apiReq.PathParams.Set("badge_id", fmt.Sprint(badgeId))
 	return builder
@@ -3705,7 +3590,6 @@ func (builder *DeleteBadgeGrantReqBuilder) GrantId(grantId string) *DeleteBadgeG
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *DeleteBadgeGrantReqBuilder) Build() *DeleteBadgeGrantReq {
 	req := &DeleteBadgeGrantReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3726,12 +3610,10 @@ func (resp *DeleteBadgeGrantResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type GetBadgeGrantReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewGetBadgeGrantReqBuilder() *GetBadgeGrantReqBuilder {
 	builder := &GetBadgeGrantReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3741,7 +3623,6 @@ func NewGetBadgeGrantReqBuilder() *GetBadgeGrantReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *GetBadgeGrantReqBuilder) BadgeId(badgeId string) *GetBadgeGrantReqBuilder {
 	builder.apiReq.PathParams.Set("badge_id", fmt.Sprint(badgeId))
 	return builder
@@ -3759,7 +3640,6 @@ func (builder *GetBadgeGrantReqBuilder) DepartmentIdType(departmentIdType string
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *GetBadgeGrantReqBuilder) Build() *GetBadgeGrantReq {
 	req := &GetBadgeGrantReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3786,13 +3666,11 @@ func (resp *GetBadgeGrantResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type ListBadgeGrantReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	limit  int
 }
 
-// 生成请求的New构造器
 func NewListBadgeGrantReqBuilder() *ListBadgeGrantReqBuilder {
 	builder := &ListBadgeGrantReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3802,7 +3680,6 @@ func NewListBadgeGrantReqBuilder() *ListBadgeGrantReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListBadgeGrantReqBuilder) Limit(limit int) *ListBadgeGrantReqBuilder {
 	builder.limit = limit
 	return builder
@@ -3828,7 +3705,6 @@ func (builder *ListBadgeGrantReqBuilder) DepartmentIdType(departmentIdType strin
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListBadgeGrantReqBuilder) Build() *ListBadgeGrantReq {
 	req := &ListBadgeGrantReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3859,13 +3735,11 @@ func (resp *ListBadgeGrantResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type UpdateBadgeGrantReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	grant  *Grant
 }
 
-// 生成请求的New构造器
 func NewUpdateBadgeGrantReqBuilder() *UpdateBadgeGrantReqBuilder {
 	builder := &UpdateBadgeGrantReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3875,7 +3749,6 @@ func NewUpdateBadgeGrantReqBuilder() *UpdateBadgeGrantReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *UpdateBadgeGrantReqBuilder) BadgeId(badgeId string) *UpdateBadgeGrantReqBuilder {
 	builder.apiReq.PathParams.Set("badge_id", fmt.Sprint(badgeId))
 	return builder
@@ -3897,7 +3770,6 @@ func (builder *UpdateBadgeGrantReqBuilder) Grant(grant *Grant) *UpdateBadgeGrant
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *UpdateBadgeGrantReqBuilder) Build() *UpdateBadgeGrantReq {
 	req := &UpdateBadgeGrantReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3933,13 +3805,11 @@ type CreateBadgeImageReqBodyBuilder struct {
 	imageTypeFlag bool
 }
 
-// 生成body的New构造器
 func NewCreateBadgeImageReqBodyBuilder() *CreateBadgeImageReqBodyBuilder {
 	builder := &CreateBadgeImageReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *CreateBadgeImageReqBodyBuilder) ImageFile(imageFile io.Reader) *CreateBadgeImageReqBodyBuilder {
 	builder.imageFile = imageFile
 	builder.imageFileFlag = true
@@ -3951,7 +3821,6 @@ func (builder *CreateBadgeImageReqBodyBuilder) ImageType(imageType int) *CreateB
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *CreateBadgeImageReqBodyBuilder) Build() *CreateBadgeImageReqBody {
 	req := &CreateBadgeImageReqBody{}
 	if builder.imageFileFlag {
@@ -3963,7 +3832,6 @@ func (builder *CreateBadgeImageReqBodyBuilder) Build() *CreateBadgeImageReqBody 
 	return req
 }
 
-// 上传文件path开始
 type CreateBadgeImagePathReqBodyBuilder struct {
 	imageFilePath     string
 	imageFilePathFlag bool
@@ -4001,15 +3869,11 @@ func (builder *CreateBadgeImagePathReqBodyBuilder) Build() (*CreateBadgeImageReq
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type CreateBadgeImageReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *CreateBadgeImageReqBody
 }
 
-// 生成请求的New构造器
 func NewCreateBadgeImageReqBuilder() *CreateBadgeImageReqBuilder {
 	builder := &CreateBadgeImageReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4019,13 +3883,11 @@ func NewCreateBadgeImageReqBuilder() *CreateBadgeImageReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateBadgeImageReqBuilder) Body(body *CreateBadgeImageReqBody) *CreateBadgeImageReqBuilder {
 	builder.body = body
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateBadgeImageReqBuilder) Build() *CreateBadgeImageReq {
 	req := &CreateBadgeImageReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4064,13 +3926,11 @@ type ResetPasswordReqBodyBuilder struct {
 	userIdFlag   bool
 }
 
-// 生成body的New构造器
 func NewResetPasswordReqBodyBuilder() *ResetPasswordReqBodyBuilder {
 	builder := &ResetPasswordReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *ResetPasswordReqBodyBuilder) Password(password *Password) *ResetPasswordReqBodyBuilder {
 	builder.password = password
 	builder.passwordFlag = true
@@ -4082,7 +3942,6 @@ func (builder *ResetPasswordReqBodyBuilder) UserId(userId string) *ResetPassword
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *ResetPasswordReqBodyBuilder) Build() *ResetPasswordReqBody {
 	req := &ResetPasswordReqBody{}
 	if builder.passwordFlag {
@@ -4094,7 +3953,6 @@ func (builder *ResetPasswordReqBodyBuilder) Build() *ResetPasswordReqBody {
 	return req
 }
 
-// 上传文件path开始
 type ResetPasswordPathReqBodyBuilder struct {
 	password     *Password
 	passwordFlag bool
@@ -4128,15 +3986,11 @@ func (builder *ResetPasswordPathReqBodyBuilder) Build() (*ResetPasswordReqBody, 
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type ResetPasswordReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *ResetPasswordReqBody
 }
 
-// 生成请求的New构造器
 func NewResetPasswordReqBuilder() *ResetPasswordReqBuilder {
 	builder := &ResetPasswordReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4146,7 +4000,6 @@ func NewResetPasswordReqBuilder() *ResetPasswordReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ResetPasswordReqBuilder) UserIdType(userIdType string) *ResetPasswordReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -4156,7 +4009,6 @@ func (builder *ResetPasswordReqBuilder) Body(body *ResetPasswordReqBody) *ResetP
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ResetPasswordReqBuilder) Build() *ResetPasswordReq {
 	req := &ResetPasswordReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4184,10 +4036,6 @@ func (resp *ResetPasswordResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 生成消息事件结构体
-
-// 生成请求的builder构造器
-// 1.1 生成body的builder结构体
 type ListBadgeIterator struct {
 	nextPageToken *string
 	items         []*Badge

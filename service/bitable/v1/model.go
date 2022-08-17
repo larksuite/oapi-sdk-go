@@ -22,8 +22,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
-// 生成枚举值
-
 const (
 	MemberIdTypeOpenID           = "open_id"
 	MemberIdTypeUnionID          = "union_id"
@@ -75,8 +73,6 @@ const (
 	ViewTypeForm    = "form"
 )
 
-// 生成数据类型
-
 type App struct {
 	AppToken    *string `json:"app_token,omitempty"`
 	Name        *string `json:"name,omitempty"`
@@ -85,7 +81,6 @@ type App struct {
 	Url         *string `json:"url,omitempty"`
 }
 
-// builder开始
 type AppBuilder struct {
 	appToken        string
 	appTokenFlag    bool
@@ -155,14 +150,11 @@ func (builder *AppBuilder) Build() *App {
 	return req
 }
 
-// builder结束
-
 type AppDashboard struct {
 	BlockId *string `json:"block_id,omitempty"`
 	Name    *string `json:"name,omitempty"`
 }
 
-// builder开始
 type AppDashboardBuilder struct {
 	blockId     string
 	blockIdFlag bool
@@ -199,14 +191,11 @@ func (builder *AppDashboardBuilder) Build() *AppDashboard {
 	return req
 }
 
-// builder结束
-
 type AppFieldPropertyAutoSerial struct {
 	Type    *string                              `json:"type,omitempty"`
 	Options []*AppFieldPropertyAutoSerialOptions `json:"options,omitempty"`
 }
 
-// builder开始
 type AppFieldPropertyAutoSerialBuilder struct {
 	type_       string
 	typeFlag    bool
@@ -242,14 +231,11 @@ func (builder *AppFieldPropertyAutoSerialBuilder) Build() *AppFieldPropertyAutoS
 	return req
 }
 
-// builder结束
-
 type AppFieldPropertyAutoSerialOptions struct {
 	Type  *string `json:"type,omitempty"`
 	Value *string `json:"value,omitempty"`
 }
 
-// builder开始
 type AppFieldPropertyAutoSerialOptionsBuilder struct {
 	type_     string
 	typeFlag  bool
@@ -286,13 +272,10 @@ func (builder *AppFieldPropertyAutoSerialOptionsBuilder) Build() *AppFieldProper
 	return req
 }
 
-// builder结束
-
 type AppFieldPropertyLocation struct {
 	InputType *string `json:"input_type,omitempty"`
 }
 
-// builder开始
 type AppFieldPropertyLocationBuilder struct {
 	inputType     string
 	inputTypeFlag bool
@@ -318,8 +301,6 @@ func (builder *AppFieldPropertyLocationBuilder) Build() *AppFieldPropertyLocatio
 	return req
 }
 
-// builder结束
-
 type AppRole struct {
 	RoleName   *string             `json:"role_name,omitempty"`
 	RoleId     *string             `json:"role_id,omitempty"`
@@ -327,7 +308,6 @@ type AppRole struct {
 	BlockRoles []*AppRoleBlockRole `json:"block_roles,omitempty"`
 }
 
-// builder开始
 type AppRoleBuilder struct {
 	roleName       string
 	roleNameFlag   bool
@@ -384,15 +364,12 @@ func (builder *AppRoleBuilder) Build() *AppRole {
 	return req
 }
 
-// builder结束
-
 type AppRoleBlockRole struct {
 	BlockId   *string `json:"block_id,omitempty"`
 	BlockType *string `json:"block_type,omitempty"`
 	BlockPerm *int    `json:"block_perm,omitempty"`
 }
 
-// builder开始
 type AppRoleBlockRoleBuilder struct {
 	blockId       string
 	blockIdFlag   bool
@@ -440,8 +417,6 @@ func (builder *AppRoleBlockRoleBuilder) Build() *AppRoleBlockRole {
 	return req
 }
 
-// builder结束
-
 type AppRoleMember struct {
 	MemberId         *string `json:"member_id,omitempty"`
 	OpenId           *string `json:"open_id,omitempty"`
@@ -455,7 +430,6 @@ type AppRoleMember struct {
 	MemberType       *string `json:"member_type,omitempty"`
 }
 
-// builder开始
 type AppRoleMemberBuilder struct {
 	memberId             string
 	memberIdFlag         bool
@@ -580,14 +554,11 @@ func (builder *AppRoleMemberBuilder) Build() *AppRoleMember {
 	return req
 }
 
-// builder结束
-
 type AppRoleMemberId struct {
 	Type *string `json:"type,omitempty"`
 	Id   *string `json:"id,omitempty"`
 }
 
-// builder开始
 type AppRoleMemberIdBuilder struct {
 	type_    string
 	typeFlag bool
@@ -624,8 +595,6 @@ func (builder *AppRoleMemberIdBuilder) Build() *AppRoleMemberId {
 	return req
 }
 
-// builder结束
-
 type AppRoleTableRole struct {
 	TableName         *string                    `json:"table_name,omitempty"`
 	TableId           *string                    `json:"table_id,omitempty"`
@@ -636,7 +605,6 @@ type AppRoleTableRole struct {
 	AllowDeleteRecord *bool                      `json:"allow_delete_record,omitempty"`
 }
 
-// builder开始
 type AppRoleTableRoleBuilder struct {
 	tableName             string
 	tableNameFlag         bool
@@ -726,13 +694,8 @@ func (builder *AppRoleTableRoleBuilder) Build() *AppRoleTableRole {
 	return req
 }
 
-// builder结束
-
 type AppRoleTableRoleFieldPerm struct {
 }
-
-// builder开始
-// builder结束
 
 type AppRoleTableRoleRecRule struct {
 	Conditions  []*AppRoleTableRoleRecRuleCondition `json:"conditions,omitempty"`
@@ -740,7 +703,6 @@ type AppRoleTableRoleRecRule struct {
 	OtherPerm   *int                                `json:"other_perm,omitempty"`
 }
 
-// builder开始
 type AppRoleTableRoleRecRuleBuilder struct {
 	conditions      []*AppRoleTableRoleRecRuleCondition
 	conditionsFlag  bool
@@ -787,8 +749,6 @@ func (builder *AppRoleTableRoleRecRuleBuilder) Build() *AppRoleTableRoleRecRule 
 	return req
 }
 
-// builder结束
-
 type AppRoleTableRoleRecRuleCondition struct {
 	FieldName *string  `json:"field_name,omitempty"`
 	Operator  *string  `json:"operator,omitempty"`
@@ -796,7 +756,6 @@ type AppRoleTableRoleRecRuleCondition struct {
 	FieldType *int     `json:"field_type,omitempty"`
 }
 
-// builder开始
 type AppRoleTableRoleRecRuleConditionBuilder struct {
 	fieldName     string
 	fieldNameFlag bool
@@ -854,15 +813,12 @@ func (builder *AppRoleTableRoleRecRuleConditionBuilder) Build() *AppRoleTableRol
 	return req
 }
 
-// builder结束
-
 type AppTable struct {
 	TableId  *string `json:"table_id,omitempty"`
 	Revision *int    `json:"revision,omitempty"`
 	Name     *string `json:"name,omitempty"`
 }
 
-// builder开始
 type AppTableBuilder struct {
 	tableId      string
 	tableIdFlag  bool
@@ -910,8 +866,6 @@ func (builder *AppTableBuilder) Build() *AppTable {
 	return req
 }
 
-// builder结束
-
 type AppTableField struct {
 	FieldId   *string                `json:"field_id,omitempty"`
 	FieldName *string                `json:"field_name,omitempty"`
@@ -919,7 +873,6 @@ type AppTableField struct {
 	Property  *AppTableFieldProperty `json:"property,omitempty"`
 }
 
-// builder开始
 type AppTableFieldBuilder struct {
 	fieldId       string
 	fieldIdFlag   bool
@@ -977,8 +930,6 @@ func (builder *AppTableFieldBuilder) Build() *AppTableField {
 	return req
 }
 
-// builder结束
-
 type AppTableFieldProperty struct {
 	Options       []*AppTableFieldPropertyOption `json:"options,omitempty"`
 	Formatter     *string                        `json:"formatter,omitempty"`
@@ -992,7 +943,6 @@ type AppTableFieldProperty struct {
 	Location      *AppFieldPropertyLocation      `json:"location,omitempty"`
 }
 
-// builder开始
 type AppTableFieldPropertyBuilder struct {
 	options           []*AppTableFieldPropertyOption
 	optionsFlag       bool
@@ -1114,15 +1064,12 @@ func (builder *AppTableFieldPropertyBuilder) Build() *AppTableFieldProperty {
 	return req
 }
 
-// builder结束
-
 type AppTableFieldPropertyOption struct {
 	Name  *string `json:"name,omitempty"`
 	Id    *string `json:"id,omitempty"`
 	Color *int    `json:"color,omitempty"`
 }
 
-// builder开始
 type AppTableFieldPropertyOptionBuilder struct {
 	name      string
 	nameFlag  bool
@@ -1170,8 +1117,6 @@ func (builder *AppTableFieldPropertyOptionBuilder) Build() *AppTableFieldPropert
 	return req
 }
 
-// builder结束
-
 type AppTableForm struct {
 	Name            *string `json:"name,omitempty"`
 	Description     *string `json:"description,omitempty"`
@@ -1181,7 +1126,6 @@ type AppTableForm struct {
 	SubmitLimitOnce *bool   `json:"submit_limit_once,omitempty"`
 }
 
-// builder开始
 type AppTableFormBuilder struct {
 	name                string
 	nameFlag            bool
@@ -1262,8 +1206,6 @@ func (builder *AppTableFormBuilder) Build() *AppTableForm {
 	return req
 }
 
-// builder结束
-
 type AppTableFormField struct {
 	FieldId     *string `json:"field_id,omitempty"`
 	Title       *string `json:"title,omitempty"`
@@ -1272,7 +1214,6 @@ type AppTableFormField struct {
 	Visible     *bool   `json:"visible,omitempty"`
 }
 
-// builder开始
 type AppTableFormFieldBuilder struct {
 	fieldId         string
 	fieldIdFlag     bool
@@ -1342,8 +1283,6 @@ func (builder *AppTableFormFieldBuilder) Build() *AppTableFormField {
 	return req
 }
 
-// builder结束
-
 type AppTableFormPatchedField struct {
 	PreFieldId  *string `json:"pre_field_id,omitempty"`
 	Title       *string `json:"title,omitempty"`
@@ -1352,7 +1291,6 @@ type AppTableFormPatchedField struct {
 	Visible     *bool   `json:"visible,omitempty"`
 }
 
-// builder开始
 type AppTableFormPatchedFieldBuilder struct {
 	preFieldId      string
 	preFieldIdFlag  bool
@@ -1422,8 +1360,6 @@ func (builder *AppTableFormPatchedFieldBuilder) Build() *AppTableFormPatchedFiel
 	return req
 }
 
-// builder结束
-
 type AppTableRecord struct {
 	RecordId         *string                `json:"record_id,omitempty"`
 	CreatedBy        *Person                `json:"created_by,omitempty"`
@@ -1433,7 +1369,6 @@ type AppTableRecord struct {
 	Fields           map[string]interface{} `json:"fields,omitempty"`
 }
 
-// builder开始
 type AppTableRecordBuilder struct {
 	recordId             string
 	recordIdFlag         bool
@@ -1511,15 +1446,12 @@ func (builder *AppTableRecordBuilder) Build() *AppTableRecord {
 	return req
 }
 
-// builder结束
-
 type AppTableView struct {
 	ViewId   *string `json:"view_id,omitempty"`
 	ViewName *string `json:"view_name,omitempty"`
 	ViewType *string `json:"view_type,omitempty"`
 }
 
-// builder开始
 type AppTableViewBuilder struct {
 	viewId       string
 	viewIdFlag   bool
@@ -1567,8 +1499,6 @@ func (builder *AppTableViewBuilder) Build() *AppTableView {
 	return req
 }
 
-// builder结束
-
 type Attachment struct {
 	FileToken *string `json:"file_token,omitempty"`
 	Name      *string `json:"name,omitempty"`
@@ -1578,7 +1508,6 @@ type Attachment struct {
 	TmpUrl    *string `json:"tmp_url,omitempty"`
 }
 
-// builder开始
 type AttachmentBuilder struct {
 	fileToken     string
 	fileTokenFlag bool
@@ -1659,14 +1588,11 @@ func (builder *AttachmentBuilder) Build() *Attachment {
 	return req
 }
 
-// builder结束
-
 type DeleteRecord struct {
 	Deleted  *bool   `json:"deleted,omitempty"`
 	RecordId *string `json:"record_id,omitempty"`
 }
 
-// builder开始
 type DeleteRecordBuilder struct {
 	deleted      bool
 	deletedFlag  bool
@@ -1703,8 +1629,6 @@ func (builder *DeleteRecordBuilder) Build() *DeleteRecord {
 	return req
 }
 
-// builder结束
-
 type DisplayApp struct {
 	AppToken   *string `json:"app_token,omitempty"`
 	Name       *string `json:"name,omitempty"`
@@ -1712,7 +1636,6 @@ type DisplayApp struct {
 	IsAdvanced *bool   `json:"is_advanced,omitempty"`
 }
 
-// builder开始
 type DisplayAppBuilder struct {
 	appToken       string
 	appTokenFlag   bool
@@ -1771,15 +1694,12 @@ func (builder *DisplayAppBuilder) Build() *DisplayApp {
 	return req
 }
 
-// builder结束
-
 type DisplayAppV2 struct {
 	AppToken   *string `json:"app_token,omitempty"`
 	Name       *string `json:"name,omitempty"`
 	IsAdvanced *bool   `json:"is_advanced,omitempty"`
 }
 
-// builder开始
 type DisplayAppV2Builder struct {
 	appToken       string
 	appTokenFlag   bool
@@ -1827,8 +1747,6 @@ func (builder *DisplayAppV2Builder) Build() *DisplayAppV2 {
 	return req
 }
 
-// builder结束
-
 type Location struct {
 	Location    *string `json:"location,omitempty"`
 	Pname       *string `json:"pname,omitempty"`
@@ -1839,7 +1757,6 @@ type Location struct {
 	FullAddress *string `json:"full_address,omitempty"`
 }
 
-// builder开始
 type LocationBuilder struct {
 	location        string
 	locationFlag    bool
@@ -1931,8 +1848,6 @@ func (builder *LocationBuilder) Build() *Location {
 	return req
 }
 
-// builder结束
-
 type Person struct {
 	Id     *string `json:"id,omitempty"`
 	Name   *string `json:"name,omitempty"`
@@ -1940,7 +1855,6 @@ type Person struct {
 	Email  *string `json:"email,omitempty"`
 }
 
-// builder开始
 type PersonBuilder struct {
 	id         string
 	idFlag     bool
@@ -1999,14 +1913,11 @@ func (builder *PersonBuilder) Build() *Person {
 	return req
 }
 
-// builder结束
-
 type ReqApp struct {
 	Name        *string `json:"name,omitempty"`
 	FolderToken *string `json:"folder_token,omitempty"`
 }
 
-// builder开始
 type ReqAppBuilder struct {
 	name            string
 	nameFlag        bool
@@ -2043,13 +1954,10 @@ func (builder *ReqAppBuilder) Build() *ReqApp {
 	return req
 }
 
-// builder结束
-
 type ReqTable struct {
 	Name *string `json:"name,omitempty"`
 }
 
-// builder开始
 type ReqTableBuilder struct {
 	name     string
 	nameFlag bool
@@ -2075,14 +1983,11 @@ func (builder *ReqTableBuilder) Build() *ReqTable {
 	return req
 }
 
-// builder结束
-
 type ReqView struct {
 	ViewName *string `json:"view_name,omitempty"`
 	ViewType *string `json:"view_type,omitempty"`
 }
 
-// builder开始
 type ReqViewBuilder struct {
 	viewName     string
 	viewNameFlag bool
@@ -2119,14 +2024,11 @@ func (builder *ReqViewBuilder) Build() *ReqView {
 	return req
 }
 
-// builder结束
-
 type Url struct {
 	Text *string `json:"text,omitempty"`
 	Link *string `json:"link,omitempty"`
 }
 
-// builder开始
 type UrlBuilder struct {
 	text     string
 	textFlag bool
@@ -2163,16 +2065,10 @@ func (builder *UrlBuilder) Build() *Url {
 	return req
 }
 
-// builder结束
-
-// 生成请求和响应结果类型，以及请求对象的Builder构造器
-
-// 1.4 生成请求的builder结构体
 type GetAppReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewGetAppReqBuilder() *GetAppReqBuilder {
 	builder := &GetAppReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -2182,13 +2078,11 @@ func NewGetAppReqBuilder() *GetAppReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *GetAppReqBuilder) AppToken(appToken string) *GetAppReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *GetAppReqBuilder) Build() *GetAppReq {
 	req := &GetAppReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -2221,13 +2115,11 @@ type UpdateAppReqBodyBuilder struct {
 	isAdvancedFlag bool
 }
 
-// 生成body的New构造器
 func NewUpdateAppReqBodyBuilder() *UpdateAppReqBodyBuilder {
 	builder := &UpdateAppReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *UpdateAppReqBodyBuilder) Name(name string) *UpdateAppReqBodyBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -2239,7 +2131,6 @@ func (builder *UpdateAppReqBodyBuilder) IsAdvanced(isAdvanced bool) *UpdateAppRe
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *UpdateAppReqBodyBuilder) Build() *UpdateAppReqBody {
 	req := &UpdateAppReqBody{}
 	if builder.nameFlag {
@@ -2251,7 +2142,6 @@ func (builder *UpdateAppReqBodyBuilder) Build() *UpdateAppReqBody {
 	return req
 }
 
-// 上传文件path开始
 type UpdateAppPathReqBodyBuilder struct {
 	name           string
 	nameFlag       bool
@@ -2285,15 +2175,11 @@ func (builder *UpdateAppPathReqBodyBuilder) Build() (*UpdateAppReqBody, error) {
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type UpdateAppReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *UpdateAppReqBody
 }
 
-// 生成请求的New构造器
 func NewUpdateAppReqBuilder() *UpdateAppReqBuilder {
 	builder := &UpdateAppReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -2303,7 +2189,6 @@ func NewUpdateAppReqBuilder() *UpdateAppReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *UpdateAppReqBuilder) AppToken(appToken string) *UpdateAppReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
@@ -2313,7 +2198,6 @@ func (builder *UpdateAppReqBuilder) Body(body *UpdateAppReqBody) *UpdateAppReqBu
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *UpdateAppReqBuilder) Build() *UpdateAppReq {
 	req := &UpdateAppReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -2346,13 +2230,11 @@ func (resp *UpdateAppResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type ListAppDashboardReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	limit  int
 }
 
-// 生成请求的New构造器
 func NewListAppDashboardReqBuilder() *ListAppDashboardReqBuilder {
 	builder := &ListAppDashboardReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -2362,7 +2244,6 @@ func NewListAppDashboardReqBuilder() *ListAppDashboardReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListAppDashboardReqBuilder) Limit(limit int) *ListAppDashboardReqBuilder {
 	builder.limit = limit
 	return builder
@@ -2380,7 +2261,6 @@ func (builder *ListAppDashboardReqBuilder) PageToken(pageToken string) *ListAppD
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListAppDashboardReqBuilder) Build() *ListAppDashboardReq {
 	req := &ListAppDashboardReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -2411,13 +2291,11 @@ func (resp *ListAppDashboardResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type CreateAppRoleReqBuilder struct {
 	apiReq  *larkcore.ApiReq
 	appRole *AppRole
 }
 
-// 生成请求的New构造器
 func NewCreateAppRoleReqBuilder() *CreateAppRoleReqBuilder {
 	builder := &CreateAppRoleReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -2427,7 +2305,6 @@ func NewCreateAppRoleReqBuilder() *CreateAppRoleReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateAppRoleReqBuilder) AppToken(appToken string) *CreateAppRoleReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
@@ -2437,7 +2314,6 @@ func (builder *CreateAppRoleReqBuilder) AppRole(appRole *AppRole) *CreateAppRole
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateAppRoleReqBuilder) Build() *CreateAppRoleReq {
 	req := &CreateAppRoleReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -2465,12 +2341,10 @@ func (resp *CreateAppRoleResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type DeleteAppRoleReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewDeleteAppRoleReqBuilder() *DeleteAppRoleReqBuilder {
 	builder := &DeleteAppRoleReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -2480,7 +2354,6 @@ func NewDeleteAppRoleReqBuilder() *DeleteAppRoleReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *DeleteAppRoleReqBuilder) AppToken(appToken string) *DeleteAppRoleReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
@@ -2490,7 +2363,6 @@ func (builder *DeleteAppRoleReqBuilder) RoleId(roleId string) *DeleteAppRoleReqB
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *DeleteAppRoleReqBuilder) Build() *DeleteAppRoleReq {
 	req := &DeleteAppRoleReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -2511,13 +2383,11 @@ func (resp *DeleteAppRoleResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type ListAppRoleReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	limit  int
 }
 
-// 生成请求的New构造器
 func NewListAppRoleReqBuilder() *ListAppRoleReqBuilder {
 	builder := &ListAppRoleReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -2527,7 +2397,6 @@ func NewListAppRoleReqBuilder() *ListAppRoleReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListAppRoleReqBuilder) Limit(limit int) *ListAppRoleReqBuilder {
 	builder.limit = limit
 	return builder
@@ -2545,7 +2414,6 @@ func (builder *ListAppRoleReqBuilder) PageToken(pageToken string) *ListAppRoleRe
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListAppRoleReqBuilder) Build() *ListAppRoleReq {
 	req := &ListAppRoleReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -2577,13 +2445,11 @@ func (resp *ListAppRoleResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type UpdateAppRoleReqBuilder struct {
 	apiReq  *larkcore.ApiReq
 	appRole *AppRole
 }
 
-// 生成请求的New构造器
 func NewUpdateAppRoleReqBuilder() *UpdateAppRoleReqBuilder {
 	builder := &UpdateAppRoleReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -2593,7 +2459,6 @@ func NewUpdateAppRoleReqBuilder() *UpdateAppRoleReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *UpdateAppRoleReqBuilder) AppToken(appToken string) *UpdateAppRoleReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
@@ -2607,7 +2472,6 @@ func (builder *UpdateAppRoleReqBuilder) AppRole(appRole *AppRole) *UpdateAppRole
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *UpdateAppRoleReqBuilder) Build() *UpdateAppRoleReq {
 	req := &UpdateAppRoleReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -2640,20 +2504,17 @@ type BatchCreateAppRoleMemberReqBodyBuilder struct {
 	memberListFlag bool
 }
 
-// 生成body的New构造器
 func NewBatchCreateAppRoleMemberReqBodyBuilder() *BatchCreateAppRoleMemberReqBodyBuilder {
 	builder := &BatchCreateAppRoleMemberReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *BatchCreateAppRoleMemberReqBodyBuilder) MemberList(memberList []*AppRoleMemberId) *BatchCreateAppRoleMemberReqBodyBuilder {
 	builder.memberList = memberList
 	builder.memberListFlag = true
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *BatchCreateAppRoleMemberReqBodyBuilder) Build() *BatchCreateAppRoleMemberReqBody {
 	req := &BatchCreateAppRoleMemberReqBody{}
 	if builder.memberListFlag {
@@ -2662,7 +2523,6 @@ func (builder *BatchCreateAppRoleMemberReqBodyBuilder) Build() *BatchCreateAppRo
 	return req
 }
 
-// 上传文件path开始
 type BatchCreateAppRoleMemberPathReqBodyBuilder struct {
 	memberList     []*AppRoleMemberId
 	memberListFlag bool
@@ -2686,15 +2546,11 @@ func (builder *BatchCreateAppRoleMemberPathReqBodyBuilder) Build() (*BatchCreate
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type BatchCreateAppRoleMemberReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *BatchCreateAppRoleMemberReqBody
 }
 
-// 生成请求的New构造器
 func NewBatchCreateAppRoleMemberReqBuilder() *BatchCreateAppRoleMemberReqBuilder {
 	builder := &BatchCreateAppRoleMemberReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -2704,7 +2560,6 @@ func NewBatchCreateAppRoleMemberReqBuilder() *BatchCreateAppRoleMemberReqBuilder
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *BatchCreateAppRoleMemberReqBuilder) AppToken(appToken string) *BatchCreateAppRoleMemberReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
@@ -2718,7 +2573,6 @@ func (builder *BatchCreateAppRoleMemberReqBuilder) Body(body *BatchCreateAppRole
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *BatchCreateAppRoleMemberReqBuilder) Build() *BatchCreateAppRoleMemberReq {
 	req := &BatchCreateAppRoleMemberReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -2750,20 +2604,17 @@ type BatchDeleteAppRoleMemberReqBodyBuilder struct {
 	memberListFlag bool
 }
 
-// 生成body的New构造器
 func NewBatchDeleteAppRoleMemberReqBodyBuilder() *BatchDeleteAppRoleMemberReqBodyBuilder {
 	builder := &BatchDeleteAppRoleMemberReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *BatchDeleteAppRoleMemberReqBodyBuilder) MemberList(memberList []*AppRoleMemberId) *BatchDeleteAppRoleMemberReqBodyBuilder {
 	builder.memberList = memberList
 	builder.memberListFlag = true
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *BatchDeleteAppRoleMemberReqBodyBuilder) Build() *BatchDeleteAppRoleMemberReqBody {
 	req := &BatchDeleteAppRoleMemberReqBody{}
 	if builder.memberListFlag {
@@ -2772,7 +2623,6 @@ func (builder *BatchDeleteAppRoleMemberReqBodyBuilder) Build() *BatchDeleteAppRo
 	return req
 }
 
-// 上传文件path开始
 type BatchDeleteAppRoleMemberPathReqBodyBuilder struct {
 	memberList     []*AppRoleMemberId
 	memberListFlag bool
@@ -2796,15 +2646,11 @@ func (builder *BatchDeleteAppRoleMemberPathReqBodyBuilder) Build() (*BatchDelete
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type BatchDeleteAppRoleMemberReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *BatchDeleteAppRoleMemberReqBody
 }
 
-// 生成请求的New构造器
 func NewBatchDeleteAppRoleMemberReqBuilder() *BatchDeleteAppRoleMemberReqBuilder {
 	builder := &BatchDeleteAppRoleMemberReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -2814,7 +2660,6 @@ func NewBatchDeleteAppRoleMemberReqBuilder() *BatchDeleteAppRoleMemberReqBuilder
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *BatchDeleteAppRoleMemberReqBuilder) AppToken(appToken string) *BatchDeleteAppRoleMemberReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
@@ -2828,7 +2673,6 @@ func (builder *BatchDeleteAppRoleMemberReqBuilder) Body(body *BatchDeleteAppRole
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *BatchDeleteAppRoleMemberReqBuilder) Build() *BatchDeleteAppRoleMemberReq {
 	req := &BatchDeleteAppRoleMemberReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -2855,13 +2699,11 @@ func (resp *BatchDeleteAppRoleMemberResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type CreateAppRoleMemberReqBuilder struct {
 	apiReq        *larkcore.ApiReq
 	appRoleMember *AppRoleMember
 }
 
-// 生成请求的New构造器
 func NewCreateAppRoleMemberReqBuilder() *CreateAppRoleMemberReqBuilder {
 	builder := &CreateAppRoleMemberReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -2871,7 +2713,6 @@ func NewCreateAppRoleMemberReqBuilder() *CreateAppRoleMemberReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateAppRoleMemberReqBuilder) AppToken(appToken string) *CreateAppRoleMemberReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
@@ -2889,7 +2730,6 @@ func (builder *CreateAppRoleMemberReqBuilder) AppRoleMember(appRoleMember *AppRo
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateAppRoleMemberReqBuilder) Build() *CreateAppRoleMemberReq {
 	req := &CreateAppRoleMemberReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -2913,12 +2753,10 @@ func (resp *CreateAppRoleMemberResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type DeleteAppRoleMemberReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewDeleteAppRoleMemberReqBuilder() *DeleteAppRoleMemberReqBuilder {
 	builder := &DeleteAppRoleMemberReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -2928,7 +2766,6 @@ func NewDeleteAppRoleMemberReqBuilder() *DeleteAppRoleMemberReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *DeleteAppRoleMemberReqBuilder) AppToken(appToken string) *DeleteAppRoleMemberReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
@@ -2946,7 +2783,6 @@ func (builder *DeleteAppRoleMemberReqBuilder) MemberIdType(memberIdType string) 
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *DeleteAppRoleMemberReqBuilder) Build() *DeleteAppRoleMemberReq {
 	req := &DeleteAppRoleMemberReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -2968,13 +2804,11 @@ func (resp *DeleteAppRoleMemberResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type ListAppRoleMemberReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	limit  int
 }
 
-// 生成请求的New构造器
 func NewListAppRoleMemberReqBuilder() *ListAppRoleMemberReqBuilder {
 	builder := &ListAppRoleMemberReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -2984,7 +2818,6 @@ func NewListAppRoleMemberReqBuilder() *ListAppRoleMemberReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListAppRoleMemberReqBuilder) Limit(limit int) *ListAppRoleMemberReqBuilder {
 	builder.limit = limit
 	return builder
@@ -3006,7 +2839,6 @@ func (builder *ListAppRoleMemberReqBuilder) PageToken(pageToken string) *ListApp
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListAppRoleMemberReqBuilder) Build() *ListAppRoleMemberReq {
 	req := &ListAppRoleMemberReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3043,20 +2875,17 @@ type BatchCreateAppTableReqBodyBuilder struct {
 	tablesFlag bool
 }
 
-// 生成body的New构造器
 func NewBatchCreateAppTableReqBodyBuilder() *BatchCreateAppTableReqBodyBuilder {
 	builder := &BatchCreateAppTableReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *BatchCreateAppTableReqBodyBuilder) Tables(tables []*ReqTable) *BatchCreateAppTableReqBodyBuilder {
 	builder.tables = tables
 	builder.tablesFlag = true
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *BatchCreateAppTableReqBodyBuilder) Build() *BatchCreateAppTableReqBody {
 	req := &BatchCreateAppTableReqBody{}
 	if builder.tablesFlag {
@@ -3065,7 +2894,6 @@ func (builder *BatchCreateAppTableReqBodyBuilder) Build() *BatchCreateAppTableRe
 	return req
 }
 
-// 上传文件path开始
 type BatchCreateAppTablePathReqBodyBuilder struct {
 	tables     []*ReqTable
 	tablesFlag bool
@@ -3089,15 +2917,11 @@ func (builder *BatchCreateAppTablePathReqBodyBuilder) Build() (*BatchCreateAppTa
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type BatchCreateAppTableReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *BatchCreateAppTableReqBody
 }
 
-// 生成请求的New构造器
 func NewBatchCreateAppTableReqBuilder() *BatchCreateAppTableReqBuilder {
 	builder := &BatchCreateAppTableReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3107,7 +2931,6 @@ func NewBatchCreateAppTableReqBuilder() *BatchCreateAppTableReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *BatchCreateAppTableReqBuilder) AppToken(appToken string) *BatchCreateAppTableReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
@@ -3121,7 +2944,6 @@ func (builder *BatchCreateAppTableReqBuilder) Body(body *BatchCreateAppTableReqB
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *BatchCreateAppTableReqBuilder) Build() *BatchCreateAppTableReq {
 	req := &BatchCreateAppTableReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3159,20 +2981,17 @@ type BatchDeleteAppTableReqBodyBuilder struct {
 	tableIdsFlag bool
 }
 
-// 生成body的New构造器
 func NewBatchDeleteAppTableReqBodyBuilder() *BatchDeleteAppTableReqBodyBuilder {
 	builder := &BatchDeleteAppTableReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *BatchDeleteAppTableReqBodyBuilder) TableIds(tableIds []string) *BatchDeleteAppTableReqBodyBuilder {
 	builder.tableIds = tableIds
 	builder.tableIdsFlag = true
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *BatchDeleteAppTableReqBodyBuilder) Build() *BatchDeleteAppTableReqBody {
 	req := &BatchDeleteAppTableReqBody{}
 	if builder.tableIdsFlag {
@@ -3181,7 +3000,6 @@ func (builder *BatchDeleteAppTableReqBodyBuilder) Build() *BatchDeleteAppTableRe
 	return req
 }
 
-// 上传文件path开始
 type BatchDeleteAppTablePathReqBodyBuilder struct {
 	tableIds     []string
 	tableIdsFlag bool
@@ -3205,15 +3023,11 @@ func (builder *BatchDeleteAppTablePathReqBodyBuilder) Build() (*BatchDeleteAppTa
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type BatchDeleteAppTableReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *BatchDeleteAppTableReqBody
 }
 
-// 生成请求的New构造器
 func NewBatchDeleteAppTableReqBuilder() *BatchDeleteAppTableReqBuilder {
 	builder := &BatchDeleteAppTableReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3223,7 +3037,6 @@ func NewBatchDeleteAppTableReqBuilder() *BatchDeleteAppTableReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *BatchDeleteAppTableReqBuilder) AppToken(appToken string) *BatchDeleteAppTableReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
@@ -3233,7 +3046,6 @@ func (builder *BatchDeleteAppTableReqBuilder) Body(body *BatchDeleteAppTableReqB
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *BatchDeleteAppTableReqBuilder) Build() *BatchDeleteAppTableReq {
 	req := &BatchDeleteAppTableReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3265,20 +3077,17 @@ type CreateAppTableReqBodyBuilder struct {
 	tableFlag bool
 }
 
-// 生成body的New构造器
 func NewCreateAppTableReqBodyBuilder() *CreateAppTableReqBodyBuilder {
 	builder := &CreateAppTableReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *CreateAppTableReqBodyBuilder) Table(table *ReqTable) *CreateAppTableReqBodyBuilder {
 	builder.table = table
 	builder.tableFlag = true
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *CreateAppTableReqBodyBuilder) Build() *CreateAppTableReqBody {
 	req := &CreateAppTableReqBody{}
 	if builder.tableFlag {
@@ -3287,7 +3096,6 @@ func (builder *CreateAppTableReqBodyBuilder) Build() *CreateAppTableReqBody {
 	return req
 }
 
-// 上传文件path开始
 type CreateAppTablePathReqBodyBuilder struct {
 	table     *ReqTable
 	tableFlag bool
@@ -3311,15 +3119,11 @@ func (builder *CreateAppTablePathReqBodyBuilder) Build() (*CreateAppTableReqBody
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type CreateAppTableReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *CreateAppTableReqBody
 }
 
-// 生成请求的New构造器
 func NewCreateAppTableReqBuilder() *CreateAppTableReqBuilder {
 	builder := &CreateAppTableReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3329,7 +3133,6 @@ func NewCreateAppTableReqBuilder() *CreateAppTableReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateAppTableReqBuilder) AppToken(appToken string) *CreateAppTableReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
@@ -3343,7 +3146,6 @@ func (builder *CreateAppTableReqBuilder) Body(body *CreateAppTableReqBody) *Crea
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateAppTableReqBuilder) Build() *CreateAppTableReq {
 	req := &CreateAppTableReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3376,12 +3178,10 @@ func (resp *CreateAppTableResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type DeleteAppTableReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewDeleteAppTableReqBuilder() *DeleteAppTableReqBuilder {
 	builder := &DeleteAppTableReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3391,7 +3191,6 @@ func NewDeleteAppTableReqBuilder() *DeleteAppTableReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *DeleteAppTableReqBuilder) AppToken(appToken string) *DeleteAppTableReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
@@ -3401,7 +3200,6 @@ func (builder *DeleteAppTableReqBuilder) TableId(tableId string) *DeleteAppTable
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *DeleteAppTableReqBuilder) Build() *DeleteAppTableReq {
 	req := &DeleteAppTableReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3422,13 +3220,11 @@ func (resp *DeleteAppTableResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type ListAppTableReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	limit  int
 }
 
-// 生成请求的New构造器
 func NewListAppTableReqBuilder() *ListAppTableReqBuilder {
 	builder := &ListAppTableReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3438,7 +3234,6 @@ func NewListAppTableReqBuilder() *ListAppTableReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListAppTableReqBuilder) Limit(limit int) *ListAppTableReqBuilder {
 	builder.limit = limit
 	return builder
@@ -3456,7 +3251,6 @@ func (builder *ListAppTableReqBuilder) PageSize(pageSize int) *ListAppTableReqBu
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListAppTableReqBuilder) Build() *ListAppTableReq {
 	req := &ListAppTableReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3488,13 +3282,11 @@ func (resp *ListAppTableResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type CreateAppTableFieldReqBuilder struct {
 	apiReq        *larkcore.ApiReq
 	appTableField *AppTableField
 }
 
-// 生成请求的New构造器
 func NewCreateAppTableFieldReqBuilder() *CreateAppTableFieldReqBuilder {
 	builder := &CreateAppTableFieldReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3504,7 +3296,6 @@ func NewCreateAppTableFieldReqBuilder() *CreateAppTableFieldReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateAppTableFieldReqBuilder) AppToken(appToken string) *CreateAppTableFieldReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
@@ -3518,7 +3309,6 @@ func (builder *CreateAppTableFieldReqBuilder) AppTableField(appTableField *AppTa
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateAppTableFieldReqBuilder) Build() *CreateAppTableFieldReq {
 	req := &CreateAppTableFieldReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3546,12 +3336,10 @@ func (resp *CreateAppTableFieldResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type DeleteAppTableFieldReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewDeleteAppTableFieldReqBuilder() *DeleteAppTableFieldReqBuilder {
 	builder := &DeleteAppTableFieldReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3561,7 +3349,6 @@ func NewDeleteAppTableFieldReqBuilder() *DeleteAppTableFieldReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *DeleteAppTableFieldReqBuilder) AppToken(appToken string) *DeleteAppTableFieldReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
@@ -3575,7 +3362,6 @@ func (builder *DeleteAppTableFieldReqBuilder) FieldId(fieldId string) *DeleteApp
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *DeleteAppTableFieldReqBuilder) Build() *DeleteAppTableFieldReq {
 	req := &DeleteAppTableFieldReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3602,13 +3388,11 @@ func (resp *DeleteAppTableFieldResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type ListAppTableFieldReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	limit  int
 }
 
-// 生成请求的New构造器
 func NewListAppTableFieldReqBuilder() *ListAppTableFieldReqBuilder {
 	builder := &ListAppTableFieldReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3618,7 +3402,6 @@ func NewListAppTableFieldReqBuilder() *ListAppTableFieldReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListAppTableFieldReqBuilder) Limit(limit int) *ListAppTableFieldReqBuilder {
 	builder.limit = limit
 	return builder
@@ -3644,7 +3427,6 @@ func (builder *ListAppTableFieldReqBuilder) PageSize(pageSize int) *ListAppTable
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListAppTableFieldReqBuilder) Build() *ListAppTableFieldReq {
 	req := &ListAppTableFieldReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3676,13 +3458,11 @@ func (resp *ListAppTableFieldResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type UpdateAppTableFieldReqBuilder struct {
 	apiReq        *larkcore.ApiReq
 	appTableField *AppTableField
 }
 
-// 生成请求的New构造器
 func NewUpdateAppTableFieldReqBuilder() *UpdateAppTableFieldReqBuilder {
 	builder := &UpdateAppTableFieldReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3692,7 +3472,6 @@ func NewUpdateAppTableFieldReqBuilder() *UpdateAppTableFieldReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *UpdateAppTableFieldReqBuilder) AppToken(appToken string) *UpdateAppTableFieldReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
@@ -3710,7 +3489,6 @@ func (builder *UpdateAppTableFieldReqBuilder) AppTableField(appTableField *AppTa
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *UpdateAppTableFieldReqBuilder) Build() *UpdateAppTableFieldReq {
 	req := &UpdateAppTableFieldReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3738,12 +3516,10 @@ func (resp *UpdateAppTableFieldResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type GetAppTableFormReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewGetAppTableFormReqBuilder() *GetAppTableFormReqBuilder {
 	builder := &GetAppTableFormReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3753,7 +3529,6 @@ func NewGetAppTableFormReqBuilder() *GetAppTableFormReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *GetAppTableFormReqBuilder) AppToken(appToken string) *GetAppTableFormReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
@@ -3767,7 +3542,6 @@ func (builder *GetAppTableFormReqBuilder) FormId(formId string) *GetAppTableForm
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *GetAppTableFormReqBuilder) Build() *GetAppTableFormReq {
 	req := &GetAppTableFormReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3793,13 +3567,11 @@ func (resp *GetAppTableFormResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type PatchAppTableFormReqBuilder struct {
 	apiReq       *larkcore.ApiReq
 	appTableForm *AppTableForm
 }
 
-// 生成请求的New构造器
 func NewPatchAppTableFormReqBuilder() *PatchAppTableFormReqBuilder {
 	builder := &PatchAppTableFormReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3809,7 +3581,6 @@ func NewPatchAppTableFormReqBuilder() *PatchAppTableFormReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *PatchAppTableFormReqBuilder) AppToken(appToken string) *PatchAppTableFormReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
@@ -3827,7 +3598,6 @@ func (builder *PatchAppTableFormReqBuilder) AppTableForm(appTableForm *AppTableF
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *PatchAppTableFormReqBuilder) Build() *PatchAppTableFormReq {
 	req := &PatchAppTableFormReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3855,13 +3625,11 @@ func (resp *PatchAppTableFormResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type ListAppTableFormFieldReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	limit  int
 }
 
-// 生成请求的New构造器
 func NewListAppTableFormFieldReqBuilder() *ListAppTableFormFieldReqBuilder {
 	builder := &ListAppTableFormFieldReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3871,7 +3639,6 @@ func NewListAppTableFormFieldReqBuilder() *ListAppTableFormFieldReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListAppTableFormFieldReqBuilder) Limit(limit int) *ListAppTableFormFieldReqBuilder {
 	builder.limit = limit
 	return builder
@@ -3897,7 +3664,6 @@ func (builder *ListAppTableFormFieldReqBuilder) PageToken(pageToken string) *Lis
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListAppTableFormFieldReqBuilder) Build() *ListAppTableFormFieldReq {
 	req := &ListAppTableFormFieldReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3929,13 +3695,11 @@ func (resp *ListAppTableFormFieldResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type PatchAppTableFormFieldReqBuilder struct {
 	apiReq                   *larkcore.ApiReq
 	appTableFormPatchedField *AppTableFormPatchedField
 }
 
-// 生成请求的New构造器
 func NewPatchAppTableFormFieldReqBuilder() *PatchAppTableFormFieldReqBuilder {
 	builder := &PatchAppTableFormFieldReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3945,7 +3709,6 @@ func NewPatchAppTableFormFieldReqBuilder() *PatchAppTableFormFieldReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *PatchAppTableFormFieldReqBuilder) AppToken(appToken string) *PatchAppTableFormFieldReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
@@ -3967,7 +3730,6 @@ func (builder *PatchAppTableFormFieldReqBuilder) AppTableFormPatchedField(appTab
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *PatchAppTableFormFieldReqBuilder) Build() *PatchAppTableFormFieldReq {
 	req := &PatchAppTableFormFieldReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4000,20 +3762,17 @@ type BatchCreateAppTableRecordReqBodyBuilder struct {
 	recordsFlag bool
 }
 
-// 生成body的New构造器
 func NewBatchCreateAppTableRecordReqBodyBuilder() *BatchCreateAppTableRecordReqBodyBuilder {
 	builder := &BatchCreateAppTableRecordReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *BatchCreateAppTableRecordReqBodyBuilder) Records(records []*AppTableRecord) *BatchCreateAppTableRecordReqBodyBuilder {
 	builder.records = records
 	builder.recordsFlag = true
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *BatchCreateAppTableRecordReqBodyBuilder) Build() *BatchCreateAppTableRecordReqBody {
 	req := &BatchCreateAppTableRecordReqBody{}
 	if builder.recordsFlag {
@@ -4022,7 +3781,6 @@ func (builder *BatchCreateAppTableRecordReqBodyBuilder) Build() *BatchCreateAppT
 	return req
 }
 
-// 上传文件path开始
 type BatchCreateAppTableRecordPathReqBodyBuilder struct {
 	records     []*AppTableRecord
 	recordsFlag bool
@@ -4046,15 +3804,11 @@ func (builder *BatchCreateAppTableRecordPathReqBodyBuilder) Build() (*BatchCreat
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type BatchCreateAppTableRecordReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *BatchCreateAppTableRecordReqBody
 }
 
-// 生成请求的New构造器
 func NewBatchCreateAppTableRecordReqBuilder() *BatchCreateAppTableRecordReqBuilder {
 	builder := &BatchCreateAppTableRecordReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4064,7 +3818,6 @@ func NewBatchCreateAppTableRecordReqBuilder() *BatchCreateAppTableRecordReqBuild
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *BatchCreateAppTableRecordReqBuilder) AppToken(appToken string) *BatchCreateAppTableRecordReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
@@ -4082,7 +3835,6 @@ func (builder *BatchCreateAppTableRecordReqBuilder) Body(body *BatchCreateAppTab
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *BatchCreateAppTableRecordReqBuilder) Build() *BatchCreateAppTableRecordReq {
 	req := &BatchCreateAppTableRecordReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4120,20 +3872,17 @@ type BatchDeleteAppTableRecordReqBodyBuilder struct {
 	recordsFlag bool
 }
 
-// 生成body的New构造器
 func NewBatchDeleteAppTableRecordReqBodyBuilder() *BatchDeleteAppTableRecordReqBodyBuilder {
 	builder := &BatchDeleteAppTableRecordReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *BatchDeleteAppTableRecordReqBodyBuilder) Records(records []string) *BatchDeleteAppTableRecordReqBodyBuilder {
 	builder.records = records
 	builder.recordsFlag = true
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *BatchDeleteAppTableRecordReqBodyBuilder) Build() *BatchDeleteAppTableRecordReqBody {
 	req := &BatchDeleteAppTableRecordReqBody{}
 	if builder.recordsFlag {
@@ -4142,7 +3891,6 @@ func (builder *BatchDeleteAppTableRecordReqBodyBuilder) Build() *BatchDeleteAppT
 	return req
 }
 
-// 上传文件path开始
 type BatchDeleteAppTableRecordPathReqBodyBuilder struct {
 	records     []string
 	recordsFlag bool
@@ -4166,15 +3914,11 @@ func (builder *BatchDeleteAppTableRecordPathReqBodyBuilder) Build() (*BatchDelet
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type BatchDeleteAppTableRecordReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *BatchDeleteAppTableRecordReqBody
 }
 
-// 生成请求的New构造器
 func NewBatchDeleteAppTableRecordReqBuilder() *BatchDeleteAppTableRecordReqBuilder {
 	builder := &BatchDeleteAppTableRecordReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4184,7 +3928,6 @@ func NewBatchDeleteAppTableRecordReqBuilder() *BatchDeleteAppTableRecordReqBuild
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *BatchDeleteAppTableRecordReqBuilder) AppToken(appToken string) *BatchDeleteAppTableRecordReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
@@ -4198,7 +3941,6 @@ func (builder *BatchDeleteAppTableRecordReqBuilder) Body(body *BatchDeleteAppTab
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *BatchDeleteAppTableRecordReqBuilder) Build() *BatchDeleteAppTableRecordReq {
 	req := &BatchDeleteAppTableRecordReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4235,20 +3977,17 @@ type BatchUpdateAppTableRecordReqBodyBuilder struct {
 	recordsFlag bool
 }
 
-// 生成body的New构造器
 func NewBatchUpdateAppTableRecordReqBodyBuilder() *BatchUpdateAppTableRecordReqBodyBuilder {
 	builder := &BatchUpdateAppTableRecordReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *BatchUpdateAppTableRecordReqBodyBuilder) Records(records []*AppTableRecord) *BatchUpdateAppTableRecordReqBodyBuilder {
 	builder.records = records
 	builder.recordsFlag = true
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *BatchUpdateAppTableRecordReqBodyBuilder) Build() *BatchUpdateAppTableRecordReqBody {
 	req := &BatchUpdateAppTableRecordReqBody{}
 	if builder.recordsFlag {
@@ -4257,7 +3996,6 @@ func (builder *BatchUpdateAppTableRecordReqBodyBuilder) Build() *BatchUpdateAppT
 	return req
 }
 
-// 上传文件path开始
 type BatchUpdateAppTableRecordPathReqBodyBuilder struct {
 	records     []*AppTableRecord
 	recordsFlag bool
@@ -4281,15 +4019,11 @@ func (builder *BatchUpdateAppTableRecordPathReqBodyBuilder) Build() (*BatchUpdat
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type BatchUpdateAppTableRecordReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *BatchUpdateAppTableRecordReqBody
 }
 
-// 生成请求的New构造器
 func NewBatchUpdateAppTableRecordReqBuilder() *BatchUpdateAppTableRecordReqBuilder {
 	builder := &BatchUpdateAppTableRecordReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4299,7 +4033,6 @@ func NewBatchUpdateAppTableRecordReqBuilder() *BatchUpdateAppTableRecordReqBuild
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *BatchUpdateAppTableRecordReqBuilder) AppToken(appToken string) *BatchUpdateAppTableRecordReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
@@ -4317,7 +4050,6 @@ func (builder *BatchUpdateAppTableRecordReqBuilder) Body(body *BatchUpdateAppTab
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *BatchUpdateAppTableRecordReqBuilder) Build() *BatchUpdateAppTableRecordReq {
 	req := &BatchUpdateAppTableRecordReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4350,13 +4082,11 @@ func (resp *BatchUpdateAppTableRecordResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type CreateAppTableRecordReqBuilder struct {
 	apiReq         *larkcore.ApiReq
 	appTableRecord *AppTableRecord
 }
 
-// 生成请求的New构造器
 func NewCreateAppTableRecordReqBuilder() *CreateAppTableRecordReqBuilder {
 	builder := &CreateAppTableRecordReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4366,7 +4096,6 @@ func NewCreateAppTableRecordReqBuilder() *CreateAppTableRecordReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateAppTableRecordReqBuilder) AppToken(appToken string) *CreateAppTableRecordReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
@@ -4384,7 +4113,6 @@ func (builder *CreateAppTableRecordReqBuilder) AppTableRecord(appTableRecord *Ap
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateAppTableRecordReqBuilder) Build() *CreateAppTableRecordReq {
 	req := &CreateAppTableRecordReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4413,12 +4141,10 @@ func (resp *CreateAppTableRecordResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type DeleteAppTableRecordReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewDeleteAppTableRecordReqBuilder() *DeleteAppTableRecordReqBuilder {
 	builder := &DeleteAppTableRecordReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4428,7 +4154,6 @@ func NewDeleteAppTableRecordReqBuilder() *DeleteAppTableRecordReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *DeleteAppTableRecordReqBuilder) AppToken(appToken string) *DeleteAppTableRecordReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
@@ -4442,7 +4167,6 @@ func (builder *DeleteAppTableRecordReqBuilder) RecordId(recordId string) *Delete
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *DeleteAppTableRecordReqBuilder) Build() *DeleteAppTableRecordReq {
 	req := &DeleteAppTableRecordReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4469,12 +4193,10 @@ func (resp *DeleteAppTableRecordResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type GetAppTableRecordReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewGetAppTableRecordReqBuilder() *GetAppTableRecordReqBuilder {
 	builder := &GetAppTableRecordReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4484,7 +4206,6 @@ func NewGetAppTableRecordReqBuilder() *GetAppTableRecordReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *GetAppTableRecordReqBuilder) AppToken(appToken string) *GetAppTableRecordReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
@@ -4514,7 +4235,6 @@ func (builder *GetAppTableRecordReqBuilder) AutomaticFields(automaticFields bool
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *GetAppTableRecordReqBuilder) Build() *GetAppTableRecordReq {
 	req := &GetAppTableRecordReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4541,13 +4261,11 @@ func (resp *GetAppTableRecordResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type ListAppTableRecordReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	limit  int
 }
 
-// 生成请求的New构造器
 func NewListAppTableRecordReqBuilder() *ListAppTableRecordReqBuilder {
 	builder := &ListAppTableRecordReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4557,7 +4275,6 @@ func NewListAppTableRecordReqBuilder() *ListAppTableRecordReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListAppTableRecordReqBuilder) Limit(limit int) *ListAppTableRecordReqBuilder {
 	builder.limit = limit
 	return builder
@@ -4611,7 +4328,6 @@ func (builder *ListAppTableRecordReqBuilder) PageSize(pageSize int) *ListAppTabl
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListAppTableRecordReqBuilder) Build() *ListAppTableRecordReq {
 	req := &ListAppTableRecordReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4643,13 +4359,11 @@ func (resp *ListAppTableRecordResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type UpdateAppTableRecordReqBuilder struct {
 	apiReq         *larkcore.ApiReq
 	appTableRecord *AppTableRecord
 }
 
-// 生成请求的New构造器
 func NewUpdateAppTableRecordReqBuilder() *UpdateAppTableRecordReqBuilder {
 	builder := &UpdateAppTableRecordReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4659,7 +4373,6 @@ func NewUpdateAppTableRecordReqBuilder() *UpdateAppTableRecordReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *UpdateAppTableRecordReqBuilder) AppToken(appToken string) *UpdateAppTableRecordReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
@@ -4681,7 +4394,6 @@ func (builder *UpdateAppTableRecordReqBuilder) AppTableRecord(appTableRecord *Ap
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *UpdateAppTableRecordReqBuilder) Build() *UpdateAppTableRecordReq {
 	req := &UpdateAppTableRecordReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4710,13 +4422,11 @@ func (resp *UpdateAppTableRecordResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type CreateAppTableViewReqBuilder struct {
 	apiReq  *larkcore.ApiReq
 	reqView *ReqView
 }
 
-// 生成请求的New构造器
 func NewCreateAppTableViewReqBuilder() *CreateAppTableViewReqBuilder {
 	builder := &CreateAppTableViewReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4726,7 +4436,6 @@ func NewCreateAppTableViewReqBuilder() *CreateAppTableViewReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateAppTableViewReqBuilder) AppToken(appToken string) *CreateAppTableViewReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
@@ -4740,7 +4449,6 @@ func (builder *CreateAppTableViewReqBuilder) ReqView(reqView *ReqView) *CreateAp
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateAppTableViewReqBuilder) Build() *CreateAppTableViewReq {
 	req := &CreateAppTableViewReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4768,12 +4476,10 @@ func (resp *CreateAppTableViewResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type DeleteAppTableViewReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewDeleteAppTableViewReqBuilder() *DeleteAppTableViewReqBuilder {
 	builder := &DeleteAppTableViewReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4783,7 +4489,6 @@ func NewDeleteAppTableViewReqBuilder() *DeleteAppTableViewReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *DeleteAppTableViewReqBuilder) AppToken(appToken string) *DeleteAppTableViewReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
@@ -4797,7 +4502,6 @@ func (builder *DeleteAppTableViewReqBuilder) ViewId(viewId string) *DeleteAppTab
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *DeleteAppTableViewReqBuilder) Build() *DeleteAppTableViewReq {
 	req := &DeleteAppTableViewReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4818,13 +4522,11 @@ func (resp *DeleteAppTableViewResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type ListAppTableViewReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	limit  int
 }
 
-// 生成请求的New构造器
 func NewListAppTableViewReqBuilder() *ListAppTableViewReqBuilder {
 	builder := &ListAppTableViewReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4834,7 +4536,6 @@ func NewListAppTableViewReqBuilder() *ListAppTableViewReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListAppTableViewReqBuilder) Limit(limit int) *ListAppTableViewReqBuilder {
 	builder.limit = limit
 	return builder
@@ -4856,7 +4557,6 @@ func (builder *ListAppTableViewReqBuilder) PageToken(pageToken string) *ListAppT
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListAppTableViewReqBuilder) Build() *ListAppTableViewReq {
 	req := &ListAppTableViewReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4888,10 +4588,6 @@ func (resp *ListAppTableViewResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 生成消息事件结构体
-
-// 生成请求的builder构造器
-// 1.1 生成body的builder结构体
 type ListAppDashboardIterator struct {
 	nextPageToken *string
 	items         []*AppDashboard

@@ -24,8 +24,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
-// 生成枚举值
-
 const (
 	EventPermissionsPrivate          = "private"
 	EventPermissionsShowOnlyFreeBusy = "show_only_free_busy"
@@ -86,14 +84,11 @@ const (
 	StatusErr          = "err"
 )
 
-// 生成数据类型
-
 type AclScope struct {
 	Type   *string `json:"type,omitempty"`
 	UserId *string `json:"user_id,omitempty"`
 }
 
-// builder开始
 type AclScopeBuilder struct {
 	type_      string
 	typeFlag   bool
@@ -130,14 +125,11 @@ func (builder *AclScopeBuilder) Build() *AclScope {
 	return req
 }
 
-// builder结束
-
 type AclScopeEvent struct {
 	Type   *string `json:"type,omitempty"`
 	UserId *UserId `json:"user_id,omitempty"`
 }
 
-// builder开始
 type AclScopeEventBuilder struct {
 	type_      string
 	typeFlag   bool
@@ -173,8 +165,6 @@ func (builder *AclScopeEventBuilder) Build() *AclScopeEvent {
 	return req
 }
 
-// builder结束
-
 type AttendeeChatMember struct {
 	RsvpStatus  *string `json:"rsvp_status,omitempty"`
 	IsOptional  *bool   `json:"is_optional,omitempty"`
@@ -183,7 +173,6 @@ type AttendeeChatMember struct {
 	IsExternal  *bool   `json:"is_external,omitempty"`
 }
 
-// builder开始
 type AttendeeChatMemberBuilder struct {
 	rsvpStatus      string
 	rsvpStatusFlag  bool
@@ -253,8 +242,6 @@ func (builder *AttendeeChatMemberBuilder) Build() *AttendeeChatMember {
 	return req
 }
 
-// builder结束
-
 type Calendar struct {
 	CalendarId   *string `json:"calendar_id,omitempty"`
 	Summary      *string `json:"summary,omitempty"`
@@ -268,7 +255,6 @@ type Calendar struct {
 	Role         *string `json:"role,omitempty"`
 }
 
-// builder开始
 type CalendarBuilder struct {
 	calendarId       string
 	calendarIdFlag   bool
@@ -393,15 +379,12 @@ func (builder *CalendarBuilder) Build() *Calendar {
 	return req
 }
 
-// builder结束
-
 type CalendarAcl struct {
 	AclId *string   `json:"acl_id,omitempty"`
 	Role  *string   `json:"role,omitempty"`
 	Scope *AclScope `json:"scope,omitempty"`
 }
 
-// builder开始
 type CalendarAclBuilder struct {
 	aclId     string
 	aclIdFlag bool
@@ -448,8 +431,6 @@ func (builder *CalendarAclBuilder) Build() *CalendarAcl {
 	return req
 }
 
-// builder结束
-
 type CalendarAclEvent struct {
 	AclId      *string        `json:"acl_id,omitempty"`
 	Role       *string        `json:"role,omitempty"`
@@ -457,7 +438,6 @@ type CalendarAclEvent struct {
 	UserIdList []*UserId      `json:"user_id_list,omitempty"`
 }
 
-// builder开始
 type CalendarAclEventBuilder struct {
 	aclId          string
 	aclIdFlag      bool
@@ -514,15 +494,12 @@ func (builder *CalendarAclEventBuilder) Build() *CalendarAclEvent {
 	return req
 }
 
-// builder结束
-
 type CalendarAttendeeResourceCustomization struct {
 	IndexKey     *string                `json:"index_key,omitempty"`
 	InputContent *string                `json:"input_content,omitempty"`
 	Options      []*CustomizationOption `json:"options,omitempty"`
 }
 
-// builder开始
 type CalendarAttendeeResourceCustomizationBuilder struct {
 	indexKey         string
 	indexKeyFlag     bool
@@ -569,8 +546,6 @@ func (builder *CalendarAttendeeResourceCustomizationBuilder) Build() *CalendarAt
 	return req
 }
 
-// builder结束
-
 type CalendarEvent struct {
 	EventId             *string        `json:"event_id,omitempty"`
 	OrganizerCalendarId *string        `json:"organizer_calendar_id,omitempty"`
@@ -593,7 +568,6 @@ type CalendarEvent struct {
 	Schemas             []*Schema      `json:"schemas,omitempty"`
 }
 
-// builder开始
 type CalendarEventBuilder struct {
 	eventId                 string
 	eventIdFlag             bool
@@ -811,8 +785,6 @@ func (builder *CalendarEventBuilder) Build() *CalendarEvent {
 	return req
 }
 
-// builder结束
-
 type CalendarEventAttendee struct {
 	Type                  *string                                  `json:"type,omitempty"`
 	AttendeeId            *string                                  `json:"attendee_id,omitempty"`
@@ -830,7 +802,6 @@ type CalendarEventAttendee struct {
 	ResourceCustomization []*CalendarAttendeeResourceCustomization `json:"resource_customization,omitempty"`
 }
 
-// builder开始
 type CalendarEventAttendeeBuilder struct {
 	type_                     string
 	typeFlag                  bool
@@ -997,8 +968,6 @@ func (builder *CalendarEventAttendeeBuilder) Build() *CalendarEventAttendee {
 	return req
 }
 
-// builder结束
-
 type CalendarEventAttendeeChatMember struct {
 	RsvpStatus  *string `json:"rsvp_status,omitempty"`
 	IsOptional  *bool   `json:"is_optional,omitempty"`
@@ -1008,7 +977,6 @@ type CalendarEventAttendeeChatMember struct {
 	IsExternal  *bool   `json:"is_external,omitempty"`
 }
 
-// builder开始
 type CalendarEventAttendeeChatMemberBuilder struct {
 	rsvpStatus      string
 	rsvpStatusFlag  bool
@@ -1089,8 +1057,6 @@ func (builder *CalendarEventAttendeeChatMemberBuilder) Build() *CalendarEventAtt
 	return req
 }
 
-// builder结束
-
 type CalendarEventAttendeeId struct {
 	Type            *string `json:"type,omitempty"`
 	AttendeeId      *string `json:"attendee_id,omitempty"`
@@ -1100,7 +1066,6 @@ type CalendarEventAttendeeId struct {
 	ThirdPartyEmail *string `json:"third_party_email,omitempty"`
 }
 
-// builder开始
 type CalendarEventAttendeeIdBuilder struct {
 	type_               string
 	typeFlag            bool
@@ -1181,8 +1146,6 @@ func (builder *CalendarEventAttendeeIdBuilder) Build() *CalendarEventAttendeeId 
 	return req
 }
 
-// builder结束
-
 type CalendarEventAttendeeResp struct {
 	Type                  *string                                  `json:"type,omitempty"`
 	AttendeeId            *string                                  `json:"attendee_id,omitempty"`
@@ -1200,7 +1163,6 @@ type CalendarEventAttendeeResp struct {
 	ResourceCustomization []*CalendarAttendeeResourceCustomization `json:"resource_customization,omitempty"`
 }
 
-// builder开始
 type CalendarEventAttendeeRespBuilder struct {
 	type_                     string
 	typeFlag                  bool
@@ -1367,8 +1329,6 @@ func (builder *CalendarEventAttendeeRespBuilder) Build() *CalendarEventAttendeeR
 	return req
 }
 
-// builder结束
-
 type CalendarEventResp struct {
 	EventId             *string        `json:"event_id,omitempty"`
 	OrganizerCalendarId *string        `json:"organizer_calendar_id,omitempty"`
@@ -1391,7 +1351,6 @@ type CalendarEventResp struct {
 	Schemas             []*Schema      `json:"schemas,omitempty"`
 }
 
-// builder开始
 type CalendarEventRespBuilder struct {
 	eventId                 string
 	eventIdFlag             bool
@@ -1609,15 +1568,12 @@ func (builder *CalendarEventRespBuilder) Build() *CalendarEventResp {
 	return req
 }
 
-// builder结束
-
 type CalendarFreebusy struct {
 	StartTime  *string `json:"start_time,omitempty"`
 	EndTime    *string `json:"end_time,omitempty"`
 	CalendarId *string `json:"calendar_id,omitempty"`
 }
 
-// builder开始
 type CalendarFreebusyBuilder struct {
 	startTime      string
 	startTimeFlag  bool
@@ -1665,14 +1621,11 @@ func (builder *CalendarFreebusyBuilder) Build() *CalendarFreebusy {
 	return req
 }
 
-// builder结束
-
 type CalendarFreebusyError struct {
 	CalendarId *string `json:"calendar_id,omitempty"`
 	ErrorMsg   *string `json:"error_msg,omitempty"`
 }
 
-// builder开始
 type CalendarFreebusyErrorBuilder struct {
 	calendarId     string
 	calendarIdFlag bool
@@ -1709,14 +1662,11 @@ func (builder *CalendarFreebusyErrorBuilder) Build() *CalendarFreebusyError {
 	return req
 }
 
-// builder结束
-
 type CustomizationOption struct {
 	OptionKey     *string `json:"option_key,omitempty"`
 	OthersContent *string `json:"others_content,omitempty"`
 }
 
-// builder开始
 type CustomizationOptionBuilder struct {
 	optionKey         string
 	optionKeyFlag     bool
@@ -1753,8 +1703,6 @@ func (builder *CustomizationOptionBuilder) Build() *CustomizationOption {
 	return req
 }
 
-// builder结束
-
 type EventLocation struct {
 	Name      *string  `json:"name,omitempty"`
 	Address   *string  `json:"address,omitempty"`
@@ -1762,7 +1710,6 @@ type EventLocation struct {
 	Longitude *float64 `json:"longitude,omitempty"`
 }
 
-// builder开始
 type EventLocationBuilder struct {
 	name          string
 	nameFlag      bool
@@ -1821,8 +1768,6 @@ func (builder *EventLocationBuilder) Build() *EventLocation {
 	return req
 }
 
-// builder结束
-
 type EventSearchFilter struct {
 	StartTime *TimeInfo `json:"start_time,omitempty"`
 	EndTime   *TimeInfo `json:"end_time,omitempty"`
@@ -1831,7 +1776,6 @@ type EventSearchFilter struct {
 	ChatIds   []string  `json:"chat_ids,omitempty"`
 }
 
-// builder开始
 type EventSearchFilterBuilder struct {
 	startTime     *TimeInfo
 	startTimeFlag bool
@@ -1896,13 +1840,10 @@ func (builder *EventSearchFilterBuilder) Build() *EventSearchFilter {
 	return req
 }
 
-// builder结束
-
 type EventTime struct {
 	TimeStamp *string `json:"time_stamp,omitempty"`
 }
 
-// builder开始
 type EventTimeBuilder struct {
 	timeStamp     string
 	timeStampFlag bool
@@ -1928,8 +1869,6 @@ func (builder *EventTimeBuilder) Build() *EventTime {
 	return req
 }
 
-// builder结束
-
 type ExchangeBinding struct {
 	AdminAccount      *string `json:"admin_account,omitempty"`
 	ExchangeAccount   *string `json:"exchange_account,omitempty"`
@@ -1938,7 +1877,6 @@ type ExchangeBinding struct {
 	ExchangeBindingId *string `json:"exchange_binding_id,omitempty"`
 }
 
-// builder开始
 type ExchangeBindingBuilder struct {
 	adminAccount          string
 	adminAccountFlag      bool
@@ -2008,14 +1946,11 @@ func (builder *ExchangeBindingBuilder) Build() *ExchangeBinding {
 	return req
 }
 
-// builder结束
-
 type Freebusy struct {
 	StartTime *string `json:"start_time,omitempty"`
 	EndTime   *string `json:"end_time,omitempty"`
 }
 
-// builder开始
 type FreebusyBuilder struct {
 	startTime     string
 	startTimeFlag bool
@@ -2052,13 +1987,10 @@ func (builder *FreebusyBuilder) Build() *Freebusy {
 	return req
 }
 
-// builder结束
-
 type Reminder struct {
 	Minutes *int `json:"minutes,omitempty"`
 }
 
-// builder开始
 type ReminderBuilder struct {
 	minutes     int
 	minutesFlag bool
@@ -2084,15 +2016,12 @@ func (builder *ReminderBuilder) Build() *Reminder {
 	return req
 }
 
-// builder结束
-
 type Schema struct {
 	UiName   *string `json:"ui_name,omitempty"`
 	UiStatus *string `json:"ui_status,omitempty"`
 	AppLink  *string `json:"app_link,omitempty"`
 }
 
-// builder开始
 type SchemaBuilder struct {
 	uiName       string
 	uiNameFlag   bool
@@ -2140,13 +2069,8 @@ func (builder *SchemaBuilder) Build() *Schema {
 	return req
 }
 
-// builder结束
-
 type Setting struct {
 }
-
-// builder开始
-// builder结束
 
 type TimeInfo struct {
 	Date      *string `json:"date,omitempty"`
@@ -2154,7 +2078,6 @@ type TimeInfo struct {
 	Timezone  *string `json:"timezone,omitempty"`
 }
 
-// builder开始
 type TimeInfoBuilder struct {
 	date          string
 	dateFlag      bool
@@ -2202,8 +2125,6 @@ func (builder *TimeInfoBuilder) Build() *TimeInfo {
 	return req
 }
 
-// builder结束
-
 type TimeoffEvent struct {
 	TimeoffEventId *string `json:"timeoff_event_id,omitempty"`
 	UserId         *string `json:"user_id,omitempty"`
@@ -2214,7 +2135,6 @@ type TimeoffEvent struct {
 	Description    *string `json:"description,omitempty"`
 }
 
-// builder开始
 type TimeoffEventBuilder struct {
 	timeoffEventId     string
 	timeoffEventIdFlag bool
@@ -2306,14 +2226,11 @@ func (builder *TimeoffEventBuilder) Build() *TimeoffEvent {
 	return req
 }
 
-// builder结束
-
 type UserCalendar struct {
 	Calendar *Calendar `json:"calendar,omitempty"`
 	UserId   *string   `json:"user_id,omitempty"`
 }
 
-// builder开始
 type UserCalendarBuilder struct {
 	calendar     *Calendar
 	calendarFlag bool
@@ -2349,15 +2266,12 @@ func (builder *UserCalendarBuilder) Build() *UserCalendar {
 	return req
 }
 
-// builder结束
-
 type UserId struct {
 	UserId  *string `json:"user_id,omitempty"`
 	OpenId  *string `json:"open_id,omitempty"`
 	UnionId *string `json:"union_id,omitempty"`
 }
 
-// builder开始
 type UserIdBuilder struct {
 	userId      string
 	userIdFlag  bool
@@ -2405,8 +2319,6 @@ func (builder *UserIdBuilder) Build() *UserId {
 	return req
 }
 
-// builder结束
-
 type Vchat struct {
 	VcType      *string `json:"vc_type,omitempty"`
 	IconType    *string `json:"icon_type,omitempty"`
@@ -2414,7 +2326,6 @@ type Vchat struct {
 	MeetingUrl  *string `json:"meeting_url,omitempty"`
 }
 
-// builder开始
 type VchatBuilder struct {
 	vcType          string
 	vcTypeFlag      bool
@@ -2473,17 +2384,11 @@ func (builder *VchatBuilder) Build() *Vchat {
 	return req
 }
 
-// builder结束
-
-// 生成请求和响应结果类型，以及请求对象的Builder构造器
-
-// 1.4 生成请求的builder结构体
 type CreateCalendarReqBuilder struct {
 	apiReq   *larkcore.ApiReq
 	calendar *Calendar
 }
 
-// 生成请求的New构造器
 func NewCreateCalendarReqBuilder() *CreateCalendarReqBuilder {
 	builder := &CreateCalendarReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -2493,13 +2398,11 @@ func NewCreateCalendarReqBuilder() *CreateCalendarReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateCalendarReqBuilder) Calendar(calendar *Calendar) *CreateCalendarReqBuilder {
 	builder.calendar = calendar
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateCalendarReqBuilder) Build() *CreateCalendarReq {
 	req := &CreateCalendarReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -2526,12 +2429,10 @@ func (resp *CreateCalendarResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type DeleteCalendarReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewDeleteCalendarReqBuilder() *DeleteCalendarReqBuilder {
 	builder := &DeleteCalendarReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -2541,13 +2442,11 @@ func NewDeleteCalendarReqBuilder() *DeleteCalendarReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *DeleteCalendarReqBuilder) CalendarId(calendarId string) *DeleteCalendarReqBuilder {
 	builder.apiReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *DeleteCalendarReqBuilder) Build() *DeleteCalendarReq {
 	req := &DeleteCalendarReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -2568,12 +2467,10 @@ func (resp *DeleteCalendarResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type GetCalendarReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewGetCalendarReqBuilder() *GetCalendarReqBuilder {
 	builder := &GetCalendarReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -2583,13 +2480,11 @@ func NewGetCalendarReqBuilder() *GetCalendarReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *GetCalendarReqBuilder) CalendarId(calendarId string) *GetCalendarReqBuilder {
 	builder.apiReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *GetCalendarReqBuilder) Build() *GetCalendarReq {
 	req := &GetCalendarReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -2624,12 +2519,10 @@ func (resp *GetCalendarResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type ListCalendarReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewListCalendarReqBuilder() *ListCalendarReqBuilder {
 	builder := &ListCalendarReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -2639,7 +2532,6 @@ func NewListCalendarReqBuilder() *ListCalendarReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListCalendarReqBuilder) PageSize(pageSize int) *ListCalendarReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
@@ -2653,7 +2545,6 @@ func (builder *ListCalendarReqBuilder) SyncToken(syncToken string) *ListCalendar
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListCalendarReqBuilder) Build() *ListCalendarReq {
 	req := &ListCalendarReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -2682,13 +2573,11 @@ func (resp *ListCalendarResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type PatchCalendarReqBuilder struct {
 	apiReq   *larkcore.ApiReq
 	calendar *Calendar
 }
 
-// 生成请求的New构造器
 func NewPatchCalendarReqBuilder() *PatchCalendarReqBuilder {
 	builder := &PatchCalendarReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -2698,7 +2587,6 @@ func NewPatchCalendarReqBuilder() *PatchCalendarReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *PatchCalendarReqBuilder) CalendarId(calendarId string) *PatchCalendarReqBuilder {
 	builder.apiReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
 	return builder
@@ -2708,7 +2596,6 @@ func (builder *PatchCalendarReqBuilder) Calendar(calendar *Calendar) *PatchCalen
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *PatchCalendarReqBuilder) Build() *PatchCalendarReq {
 	req := &PatchCalendarReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -2736,12 +2623,10 @@ func (resp *PatchCalendarResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type PrimaryCalendarReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewPrimaryCalendarReqBuilder() *PrimaryCalendarReqBuilder {
 	builder := &PrimaryCalendarReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -2751,13 +2636,11 @@ func NewPrimaryCalendarReqBuilder() *PrimaryCalendarReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *PrimaryCalendarReqBuilder) UserIdType(userIdType string) *PrimaryCalendarReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *PrimaryCalendarReqBuilder) Build() *PrimaryCalendarReq {
 	req := &PrimaryCalendarReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -2788,20 +2671,17 @@ type SearchCalendarReqBodyBuilder struct {
 	queryFlag bool
 }
 
-// 生成body的New构造器
 func NewSearchCalendarReqBodyBuilder() *SearchCalendarReqBodyBuilder {
 	builder := &SearchCalendarReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *SearchCalendarReqBodyBuilder) Query(query string) *SearchCalendarReqBodyBuilder {
 	builder.query = query
 	builder.queryFlag = true
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *SearchCalendarReqBodyBuilder) Build() *SearchCalendarReqBody {
 	req := &SearchCalendarReqBody{}
 	if builder.queryFlag {
@@ -2810,7 +2690,6 @@ func (builder *SearchCalendarReqBodyBuilder) Build() *SearchCalendarReqBody {
 	return req
 }
 
-// 上传文件path开始
 type SearchCalendarPathReqBodyBuilder struct {
 	query     string
 	queryFlag bool
@@ -2834,16 +2713,12 @@ func (builder *SearchCalendarPathReqBodyBuilder) Build() (*SearchCalendarReqBody
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type SearchCalendarReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *SearchCalendarReqBody
 	limit  int
 }
 
-// 生成请求的New构造器
 func NewSearchCalendarReqBuilder() *SearchCalendarReqBuilder {
 	builder := &SearchCalendarReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -2853,7 +2728,6 @@ func NewSearchCalendarReqBuilder() *SearchCalendarReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *SearchCalendarReqBuilder) Limit(limit int) *SearchCalendarReqBuilder {
 	builder.limit = limit
 	return builder
@@ -2871,7 +2745,6 @@ func (builder *SearchCalendarReqBuilder) Body(body *SearchCalendarReqBody) *Sear
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *SearchCalendarReqBuilder) Build() *SearchCalendarReq {
 	req := &SearchCalendarReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -2906,12 +2779,10 @@ func (resp *SearchCalendarResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type SubscribeCalendarReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewSubscribeCalendarReqBuilder() *SubscribeCalendarReqBuilder {
 	builder := &SubscribeCalendarReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -2921,13 +2792,11 @@ func NewSubscribeCalendarReqBuilder() *SubscribeCalendarReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *SubscribeCalendarReqBuilder) CalendarId(calendarId string) *SubscribeCalendarReqBuilder {
 	builder.apiReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *SubscribeCalendarReqBuilder) Build() *SubscribeCalendarReq {
 	req := &SubscribeCalendarReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -2962,12 +2831,10 @@ func (resp *SubscriptionCalendarResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type UnsubscribeCalendarReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewUnsubscribeCalendarReqBuilder() *UnsubscribeCalendarReqBuilder {
 	builder := &UnsubscribeCalendarReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -2977,13 +2844,11 @@ func NewUnsubscribeCalendarReqBuilder() *UnsubscribeCalendarReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *UnsubscribeCalendarReqBuilder) CalendarId(calendarId string) *UnsubscribeCalendarReqBuilder {
 	builder.apiReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *UnsubscribeCalendarReqBuilder) Build() *UnsubscribeCalendarReq {
 	req := &UnsubscribeCalendarReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3004,13 +2869,11 @@ func (resp *UnsubscribeCalendarResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type CreateCalendarAclReqBuilder struct {
 	apiReq      *larkcore.ApiReq
 	calendarAcl *CalendarAcl
 }
 
-// 生成请求的New构造器
 func NewCreateCalendarAclReqBuilder() *CreateCalendarAclReqBuilder {
 	builder := &CreateCalendarAclReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3020,7 +2883,6 @@ func NewCreateCalendarAclReqBuilder() *CreateCalendarAclReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateCalendarAclReqBuilder) CalendarId(calendarId string) *CreateCalendarAclReqBuilder {
 	builder.apiReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
 	return builder
@@ -3034,7 +2896,6 @@ func (builder *CreateCalendarAclReqBuilder) CalendarAcl(calendarAcl *CalendarAcl
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateCalendarAclReqBuilder) Build() *CreateCalendarAclReq {
 	req := &CreateCalendarAclReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3065,12 +2926,10 @@ func (resp *CreateCalendarAclResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type DeleteCalendarAclReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewDeleteCalendarAclReqBuilder() *DeleteCalendarAclReqBuilder {
 	builder := &DeleteCalendarAclReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3080,7 +2939,6 @@ func NewDeleteCalendarAclReqBuilder() *DeleteCalendarAclReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *DeleteCalendarAclReqBuilder) CalendarId(calendarId string) *DeleteCalendarAclReqBuilder {
 	builder.apiReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
 	return builder
@@ -3090,7 +2948,6 @@ func (builder *DeleteCalendarAclReqBuilder) AclId(aclId string) *DeleteCalendarA
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *DeleteCalendarAclReqBuilder) Build() *DeleteCalendarAclReq {
 	req := &DeleteCalendarAclReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3111,13 +2968,11 @@ func (resp *DeleteCalendarAclResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type ListCalendarAclReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	limit  int
 }
 
-// 生成请求的New构造器
 func NewListCalendarAclReqBuilder() *ListCalendarAclReqBuilder {
 	builder := &ListCalendarAclReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3127,7 +2982,6 @@ func NewListCalendarAclReqBuilder() *ListCalendarAclReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListCalendarAclReqBuilder) Limit(limit int) *ListCalendarAclReqBuilder {
 	builder.limit = limit
 	return builder
@@ -3149,7 +3003,6 @@ func (builder *ListCalendarAclReqBuilder) PageSize(pageSize int) *ListCalendarAc
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListCalendarAclReqBuilder) Build() *ListCalendarAclReq {
 	req := &ListCalendarAclReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3180,12 +3033,10 @@ func (resp *ListCalendarAclResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type SubscriptionCalendarAclReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewSubscriptionCalendarAclReqBuilder() *SubscriptionCalendarAclReqBuilder {
 	builder := &SubscriptionCalendarAclReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3195,13 +3046,11 @@ func NewSubscriptionCalendarAclReqBuilder() *SubscriptionCalendarAclReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *SubscriptionCalendarAclReqBuilder) CalendarId(calendarId string) *SubscriptionCalendarAclReqBuilder {
 	builder.apiReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *SubscriptionCalendarAclReqBuilder) Build() *SubscriptionCalendarAclReq {
 	req := &SubscriptionCalendarAclReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3222,13 +3071,11 @@ func (resp *SubscriptionCalendarAclResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type CreateCalendarEventReqBuilder struct {
 	apiReq        *larkcore.ApiReq
 	calendarEvent *CalendarEvent
 }
 
-// 生成请求的New构造器
 func NewCreateCalendarEventReqBuilder() *CreateCalendarEventReqBuilder {
 	builder := &CreateCalendarEventReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3238,7 +3085,6 @@ func NewCreateCalendarEventReqBuilder() *CreateCalendarEventReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateCalendarEventReqBuilder) CalendarId(calendarId string) *CreateCalendarEventReqBuilder {
 	builder.apiReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
 	return builder
@@ -3248,7 +3094,6 @@ func (builder *CreateCalendarEventReqBuilder) CalendarEvent(calendarEvent *Calen
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateCalendarEventReqBuilder) Build() *CreateCalendarEventReq {
 	req := &CreateCalendarEventReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3276,12 +3121,10 @@ func (resp *CreateCalendarEventResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type DeleteCalendarEventReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewDeleteCalendarEventReqBuilder() *DeleteCalendarEventReqBuilder {
 	builder := &DeleteCalendarEventReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3291,7 +3134,6 @@ func NewDeleteCalendarEventReqBuilder() *DeleteCalendarEventReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *DeleteCalendarEventReqBuilder) CalendarId(calendarId string) *DeleteCalendarEventReqBuilder {
 	builder.apiReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
 	return builder
@@ -3305,7 +3147,6 @@ func (builder *DeleteCalendarEventReqBuilder) NeedNotification(needNotification 
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *DeleteCalendarEventReqBuilder) Build() *DeleteCalendarEventReq {
 	req := &DeleteCalendarEventReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3327,12 +3168,10 @@ func (resp *DeleteCalendarEventResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type GetCalendarEventReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewGetCalendarEventReqBuilder() *GetCalendarEventReqBuilder {
 	builder := &GetCalendarEventReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3342,7 +3181,6 @@ func NewGetCalendarEventReqBuilder() *GetCalendarEventReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *GetCalendarEventReqBuilder) CalendarId(calendarId string) *GetCalendarEventReqBuilder {
 	builder.apiReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
 	return builder
@@ -3352,7 +3190,6 @@ func (builder *GetCalendarEventReqBuilder) EventId(eventId string) *GetCalendarE
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *GetCalendarEventReqBuilder) Build() *GetCalendarEventReq {
 	req := &GetCalendarEventReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3378,12 +3215,10 @@ func (resp *GetCalendarEventResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type ListCalendarEventReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewListCalendarEventReqBuilder() *ListCalendarEventReqBuilder {
 	builder := &ListCalendarEventReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3393,7 +3228,6 @@ func NewListCalendarEventReqBuilder() *ListCalendarEventReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListCalendarEventReqBuilder) CalendarId(calendarId string) *ListCalendarEventReqBuilder {
 	builder.apiReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
 	return builder
@@ -3423,7 +3257,6 @@ func (builder *ListCalendarEventReqBuilder) EndTime(endTime string) *ListCalenda
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListCalendarEventReqBuilder) Build() *ListCalendarEventReq {
 	req := &ListCalendarEventReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3453,13 +3286,11 @@ func (resp *ListCalendarEventResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type PatchCalendarEventReqBuilder struct {
 	apiReq        *larkcore.ApiReq
 	calendarEvent *CalendarEvent
 }
 
-// 生成请求的New构造器
 func NewPatchCalendarEventReqBuilder() *PatchCalendarEventReqBuilder {
 	builder := &PatchCalendarEventReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3469,7 +3300,6 @@ func NewPatchCalendarEventReqBuilder() *PatchCalendarEventReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *PatchCalendarEventReqBuilder) CalendarId(calendarId string) *PatchCalendarEventReqBuilder {
 	builder.apiReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
 	return builder
@@ -3483,7 +3313,6 @@ func (builder *PatchCalendarEventReqBuilder) CalendarEvent(calendarEvent *Calend
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *PatchCalendarEventReqBuilder) Build() *PatchCalendarEventReq {
 	req := &PatchCalendarEventReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3518,13 +3347,11 @@ type SearchCalendarEventReqBodyBuilder struct {
 	filterFlag bool
 }
 
-// 生成body的New构造器
 func NewSearchCalendarEventReqBodyBuilder() *SearchCalendarEventReqBodyBuilder {
 	builder := &SearchCalendarEventReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *SearchCalendarEventReqBodyBuilder) Query(query string) *SearchCalendarEventReqBodyBuilder {
 	builder.query = query
 	builder.queryFlag = true
@@ -3536,7 +3363,6 @@ func (builder *SearchCalendarEventReqBodyBuilder) Filter(filter *EventSearchFilt
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *SearchCalendarEventReqBodyBuilder) Build() *SearchCalendarEventReqBody {
 	req := &SearchCalendarEventReqBody{}
 	if builder.queryFlag {
@@ -3548,7 +3374,6 @@ func (builder *SearchCalendarEventReqBodyBuilder) Build() *SearchCalendarEventRe
 	return req
 }
 
-// 上传文件path开始
 type SearchCalendarEventPathReqBodyBuilder struct {
 	query      string
 	queryFlag  bool
@@ -3582,16 +3407,12 @@ func (builder *SearchCalendarEventPathReqBodyBuilder) Build() (*SearchCalendarEv
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type SearchCalendarEventReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *SearchCalendarEventReqBody
 	limit  int
 }
 
-// 生成请求的New构造器
 func NewSearchCalendarEventReqBuilder() *SearchCalendarEventReqBuilder {
 	builder := &SearchCalendarEventReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3601,7 +3422,6 @@ func NewSearchCalendarEventReqBuilder() *SearchCalendarEventReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *SearchCalendarEventReqBuilder) Limit(limit int) *SearchCalendarEventReqBuilder {
 	builder.limit = limit
 	return builder
@@ -3627,7 +3447,6 @@ func (builder *SearchCalendarEventReqBuilder) Body(body *SearchCalendarEventReqB
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *SearchCalendarEventReqBuilder) Build() *SearchCalendarEventReq {
 	req := &SearchCalendarEventReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3664,12 +3483,10 @@ func (resp *SearchCalendarEventResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type SubscriptionCalendarEventReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewSubscriptionCalendarEventReqBuilder() *SubscriptionCalendarEventReqBuilder {
 	builder := &SubscriptionCalendarEventReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3679,13 +3496,11 @@ func NewSubscriptionCalendarEventReqBuilder() *SubscriptionCalendarEventReqBuild
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *SubscriptionCalendarEventReqBuilder) CalendarId(calendarId string) *SubscriptionCalendarEventReqBuilder {
 	builder.apiReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *SubscriptionCalendarEventReqBuilder) Build() *SubscriptionCalendarEventReq {
 	req := &SubscriptionCalendarEventReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3719,13 +3534,11 @@ type BatchDeleteCalendarEventAttendeeReqBodyBuilder struct {
 	isEnableAdminFlag          bool
 }
 
-// 生成body的New构造器
 func NewBatchDeleteCalendarEventAttendeeReqBodyBuilder() *BatchDeleteCalendarEventAttendeeReqBodyBuilder {
 	builder := &BatchDeleteCalendarEventAttendeeReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *BatchDeleteCalendarEventAttendeeReqBodyBuilder) AttendeeIds(attendeeIds []string) *BatchDeleteCalendarEventAttendeeReqBodyBuilder {
 	builder.attendeeIds = attendeeIds
 	builder.attendeeIdsFlag = true
@@ -3752,7 +3565,6 @@ func (builder *BatchDeleteCalendarEventAttendeeReqBodyBuilder) IsEnableAdmin(isE
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *BatchDeleteCalendarEventAttendeeReqBodyBuilder) Build() *BatchDeleteCalendarEventAttendeeReqBody {
 	req := &BatchDeleteCalendarEventAttendeeReqBody{}
 	if builder.attendeeIdsFlag {
@@ -3773,7 +3585,6 @@ func (builder *BatchDeleteCalendarEventAttendeeReqBodyBuilder) Build() *BatchDel
 	return req
 }
 
-// 上传文件path开始
 type BatchDeleteCalendarEventAttendeePathReqBodyBuilder struct {
 	attendeeIds                []string
 	attendeeIdsFlag            bool
@@ -3837,15 +3648,11 @@ func (builder *BatchDeleteCalendarEventAttendeePathReqBodyBuilder) Build() (*Bat
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type BatchDeleteCalendarEventAttendeeReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *BatchDeleteCalendarEventAttendeeReqBody
 }
 
-// 生成请求的New构造器
 func NewBatchDeleteCalendarEventAttendeeReqBuilder() *BatchDeleteCalendarEventAttendeeReqBuilder {
 	builder := &BatchDeleteCalendarEventAttendeeReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3855,7 +3662,6 @@ func NewBatchDeleteCalendarEventAttendeeReqBuilder() *BatchDeleteCalendarEventAt
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *BatchDeleteCalendarEventAttendeeReqBuilder) CalendarId(calendarId string) *BatchDeleteCalendarEventAttendeeReqBuilder {
 	builder.apiReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
 	return builder
@@ -3873,7 +3679,6 @@ func (builder *BatchDeleteCalendarEventAttendeeReqBuilder) Body(body *BatchDelet
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *BatchDeleteCalendarEventAttendeeReqBuilder) Build() *BatchDeleteCalendarEventAttendeeReq {
 	req := &BatchDeleteCalendarEventAttendeeReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3916,13 +3721,11 @@ type CreateCalendarEventAttendeeReqBodyBuilder struct {
 	isEnableAdminFlag          bool
 }
 
-// 生成body的New构造器
 func NewCreateCalendarEventAttendeeReqBodyBuilder() *CreateCalendarEventAttendeeReqBodyBuilder {
 	builder := &CreateCalendarEventAttendeeReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *CreateCalendarEventAttendeeReqBodyBuilder) Attendees(attendees []*CalendarEventAttendee) *CreateCalendarEventAttendeeReqBodyBuilder {
 	builder.attendees = attendees
 	builder.attendeesFlag = true
@@ -3944,7 +3747,6 @@ func (builder *CreateCalendarEventAttendeeReqBodyBuilder) IsEnableAdmin(isEnable
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *CreateCalendarEventAttendeeReqBodyBuilder) Build() *CreateCalendarEventAttendeeReqBody {
 	req := &CreateCalendarEventAttendeeReqBody{}
 	if builder.attendeesFlag {
@@ -3962,7 +3764,6 @@ func (builder *CreateCalendarEventAttendeeReqBodyBuilder) Build() *CreateCalenda
 	return req
 }
 
-// 上传文件path开始
 type CreateCalendarEventAttendeePathReqBodyBuilder struct {
 	attendees                  []*CalendarEventAttendee
 	attendeesFlag              bool
@@ -4016,15 +3817,11 @@ func (builder *CreateCalendarEventAttendeePathReqBodyBuilder) Build() (*CreateCa
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type CreateCalendarEventAttendeeReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *CreateCalendarEventAttendeeReqBody
 }
 
-// 生成请求的New构造器
 func NewCreateCalendarEventAttendeeReqBuilder() *CreateCalendarEventAttendeeReqBuilder {
 	builder := &CreateCalendarEventAttendeeReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4034,7 +3831,6 @@ func NewCreateCalendarEventAttendeeReqBuilder() *CreateCalendarEventAttendeeReqB
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateCalendarEventAttendeeReqBuilder) CalendarId(calendarId string) *CreateCalendarEventAttendeeReqBuilder {
 	builder.apiReq.PathParams.Set("calendar_id", fmt.Sprint(calendarId))
 	return builder
@@ -4052,7 +3848,6 @@ func (builder *CreateCalendarEventAttendeeReqBuilder) Body(body *CreateCalendarE
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateCalendarEventAttendeeReqBuilder) Build() *CreateCalendarEventAttendeeReq {
 	req := &CreateCalendarEventAttendeeReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4088,13 +3883,11 @@ func (resp *CreateCalendarEventAttendeeResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type ListCalendarEventAttendeeReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	limit  int
 }
 
-// 生成请求的New构造器
 func NewListCalendarEventAttendeeReqBuilder() *ListCalendarEventAttendeeReqBuilder {
 	builder := &ListCalendarEventAttendeeReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4104,7 +3897,6 @@ func NewListCalendarEventAttendeeReqBuilder() *ListCalendarEventAttendeeReqBuild
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListCalendarEventAttendeeReqBuilder) Limit(limit int) *ListCalendarEventAttendeeReqBuilder {
 	builder.limit = limit
 	return builder
@@ -4130,7 +3922,6 @@ func (builder *ListCalendarEventAttendeeReqBuilder) PageSize(pageSize int) *List
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListCalendarEventAttendeeReqBuilder) Build() *ListCalendarEventAttendeeReq {
 	req := &ListCalendarEventAttendeeReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4161,13 +3952,11 @@ func (resp *ListCalendarEventAttendeeResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type ListCalendarEventAttendeeChatMemberReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	limit  int
 }
 
-// 生成请求的New构造器
 func NewListCalendarEventAttendeeChatMemberReqBuilder() *ListCalendarEventAttendeeChatMemberReqBuilder {
 	builder := &ListCalendarEventAttendeeChatMemberReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4177,7 +3966,6 @@ func NewListCalendarEventAttendeeChatMemberReqBuilder() *ListCalendarEventAttend
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListCalendarEventAttendeeChatMemberReqBuilder) Limit(limit int) *ListCalendarEventAttendeeChatMemberReqBuilder {
 	builder.limit = limit
 	return builder
@@ -4207,7 +3995,6 @@ func (builder *ListCalendarEventAttendeeChatMemberReqBuilder) UserIdType(userIdT
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListCalendarEventAttendeeChatMemberReqBuilder) Build() *ListCalendarEventAttendeeChatMemberReq {
 	req := &ListCalendarEventAttendeeChatMemberReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4238,13 +4025,11 @@ func (resp *ListCalendarEventAttendeeChatMemberResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type CreateExchangeBindingReqBuilder struct {
 	apiReq          *larkcore.ApiReq
 	exchangeBinding *ExchangeBinding
 }
 
-// 生成请求的New构造器
 func NewCreateExchangeBindingReqBuilder() *CreateExchangeBindingReqBuilder {
 	builder := &CreateExchangeBindingReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4254,7 +4039,6 @@ func NewCreateExchangeBindingReqBuilder() *CreateExchangeBindingReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateExchangeBindingReqBuilder) UserIdType(userIdType string) *CreateExchangeBindingReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -4264,7 +4048,6 @@ func (builder *CreateExchangeBindingReqBuilder) ExchangeBinding(exchangeBinding 
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateExchangeBindingReqBuilder) Build() *CreateExchangeBindingReq {
 	req := &CreateExchangeBindingReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4296,12 +4079,10 @@ func (resp *CreateExchangeBindingResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type DeleteExchangeBindingReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewDeleteExchangeBindingReqBuilder() *DeleteExchangeBindingReqBuilder {
 	builder := &DeleteExchangeBindingReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4311,13 +4092,11 @@ func NewDeleteExchangeBindingReqBuilder() *DeleteExchangeBindingReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *DeleteExchangeBindingReqBuilder) ExchangeBindingId(exchangeBindingId string) *DeleteExchangeBindingReqBuilder {
 	builder.apiReq.PathParams.Set("exchange_binding_id", fmt.Sprint(exchangeBindingId))
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *DeleteExchangeBindingReqBuilder) Build() *DeleteExchangeBindingReq {
 	req := &DeleteExchangeBindingReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4338,12 +4117,10 @@ func (resp *DeleteExchangeBindingResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type GetExchangeBindingReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewGetExchangeBindingReqBuilder() *GetExchangeBindingReqBuilder {
 	builder := &GetExchangeBindingReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4353,7 +4130,6 @@ func NewGetExchangeBindingReqBuilder() *GetExchangeBindingReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *GetExchangeBindingReqBuilder) ExchangeBindingId(exchangeBindingId string) *GetExchangeBindingReqBuilder {
 	builder.apiReq.PathParams.Set("exchange_binding_id", fmt.Sprint(exchangeBindingId))
 	return builder
@@ -4363,7 +4139,6 @@ func (builder *GetExchangeBindingReqBuilder) UserIdType(userIdType string) *GetE
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *GetExchangeBindingReqBuilder) Build() *GetExchangeBindingReq {
 	req := &GetExchangeBindingReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4405,13 +4180,11 @@ type ListFreebusyReqBodyBuilder struct {
 	roomIdFlag  bool
 }
 
-// 生成body的New构造器
 func NewListFreebusyReqBodyBuilder() *ListFreebusyReqBodyBuilder {
 	builder := &ListFreebusyReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *ListFreebusyReqBodyBuilder) TimeMin(timeMin string) *ListFreebusyReqBodyBuilder {
 	builder.timeMin = timeMin
 	builder.timeMinFlag = true
@@ -4433,7 +4206,6 @@ func (builder *ListFreebusyReqBodyBuilder) RoomId(roomId string) *ListFreebusyRe
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *ListFreebusyReqBodyBuilder) Build() *ListFreebusyReqBody {
 	req := &ListFreebusyReqBody{}
 	if builder.timeMinFlag {
@@ -4451,7 +4223,6 @@ func (builder *ListFreebusyReqBodyBuilder) Build() *ListFreebusyReqBody {
 	return req
 }
 
-// 上传文件path开始
 type ListFreebusyPathReqBodyBuilder struct {
 	timeMin     string
 	timeMinFlag bool
@@ -4505,15 +4276,11 @@ func (builder *ListFreebusyPathReqBodyBuilder) Build() (*ListFreebusyReqBody, er
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type ListFreebusyReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *ListFreebusyReqBody
 }
 
-// 生成请求的New构造器
 func NewListFreebusyReqBuilder() *ListFreebusyReqBuilder {
 	builder := &ListFreebusyReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4523,7 +4290,6 @@ func NewListFreebusyReqBuilder() *ListFreebusyReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListFreebusyReqBuilder) UserIdType(userIdType string) *ListFreebusyReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -4533,7 +4299,6 @@ func (builder *ListFreebusyReqBuilder) Body(body *ListFreebusyReqBody) *ListFree
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListFreebusyReqBuilder) Build() *ListFreebusyReq {
 	req := &ListFreebusyReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4573,20 +4338,17 @@ type GenerateCaldavConfSettingReqBodyBuilder struct {
 	deviceNameFlag bool
 }
 
-// 生成body的New构造器
 func NewGenerateCaldavConfSettingReqBodyBuilder() *GenerateCaldavConfSettingReqBodyBuilder {
 	builder := &GenerateCaldavConfSettingReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *GenerateCaldavConfSettingReqBodyBuilder) DeviceName(deviceName string) *GenerateCaldavConfSettingReqBodyBuilder {
 	builder.deviceName = deviceName
 	builder.deviceNameFlag = true
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *GenerateCaldavConfSettingReqBodyBuilder) Build() *GenerateCaldavConfSettingReqBody {
 	req := &GenerateCaldavConfSettingReqBody{}
 	if builder.deviceNameFlag {
@@ -4595,7 +4357,6 @@ func (builder *GenerateCaldavConfSettingReqBodyBuilder) Build() *GenerateCaldavC
 	return req
 }
 
-// 上传文件path开始
 type GenerateCaldavConfSettingPathReqBodyBuilder struct {
 	deviceName     string
 	deviceNameFlag bool
@@ -4619,15 +4380,11 @@ func (builder *GenerateCaldavConfSettingPathReqBodyBuilder) Build() (*GenerateCa
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type GenerateCaldavConfSettingReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *GenerateCaldavConfSettingReqBody
 }
 
-// 生成请求的New构造器
 func NewGenerateCaldavConfSettingReqBuilder() *GenerateCaldavConfSettingReqBuilder {
 	builder := &GenerateCaldavConfSettingReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4637,13 +4394,11 @@ func NewGenerateCaldavConfSettingReqBuilder() *GenerateCaldavConfSettingReqBuild
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *GenerateCaldavConfSettingReqBuilder) Body(body *GenerateCaldavConfSettingReqBody) *GenerateCaldavConfSettingReqBuilder {
 	builder.body = body
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *GenerateCaldavConfSettingReqBuilder) Build() *GenerateCaldavConfSettingReq {
 	req := &GenerateCaldavConfSettingReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4677,13 +4432,11 @@ func (resp *GenerateCaldavConfSettingResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type CreateTimeoffEventReqBuilder struct {
 	apiReq       *larkcore.ApiReq
 	timeoffEvent *TimeoffEvent
 }
 
-// 生成请求的New构造器
 func NewCreateTimeoffEventReqBuilder() *CreateTimeoffEventReqBuilder {
 	builder := &CreateTimeoffEventReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4693,7 +4446,6 @@ func NewCreateTimeoffEventReqBuilder() *CreateTimeoffEventReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateTimeoffEventReqBuilder) UserIdType(userIdType string) *CreateTimeoffEventReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -4703,7 +4455,6 @@ func (builder *CreateTimeoffEventReqBuilder) TimeoffEvent(timeoffEvent *TimeoffE
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateTimeoffEventReqBuilder) Build() *CreateTimeoffEventReq {
 	req := &CreateTimeoffEventReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4737,12 +4488,10 @@ func (resp *CreateTimeoffEventResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type DeleteTimeoffEventReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewDeleteTimeoffEventReqBuilder() *DeleteTimeoffEventReqBuilder {
 	builder := &DeleteTimeoffEventReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4752,13 +4501,11 @@ func NewDeleteTimeoffEventReqBuilder() *DeleteTimeoffEventReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *DeleteTimeoffEventReqBuilder) TimeoffEventId(timeoffEventId string) *DeleteTimeoffEventReqBuilder {
 	builder.apiReq.PathParams.Set("timeoff_event_id", fmt.Sprint(timeoffEventId))
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *DeleteTimeoffEventReqBuilder) Build() *DeleteTimeoffEventReq {
 	req := &DeleteTimeoffEventReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4778,8 +4525,6 @@ type DeleteTimeoffEventResp struct {
 func (resp *DeleteTimeoffEventResp) Success() bool {
 	return resp.Code == 0
 }
-
-// 生成消息事件结构体
 
 type P2CalendarChangedV4Data struct {
 	UserIdList []*UserId `json:"user_id_list,omitempty"`
@@ -4844,8 +4589,6 @@ func (m *P2CalendarEventChangedV4) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
 }
 
-// 生成请求的builder构造器
-// 1.1 生成body的builder结构体
 type SearchCalendarIterator struct {
 	nextPageToken *string
 	items         []*Calendar

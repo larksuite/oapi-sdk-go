@@ -24,8 +24,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
-// 生成枚举值
-
 const (
 	I18nKeyZhCn = "zh_cn"
 	I18nKeyEnUs = "en_us"
@@ -76,8 +74,6 @@ const (
 	OpenMarkStatusClosed     = 3
 )
 
-// 生成数据类型
-
 type AppAbility struct {
 	Gadget           *Gadget            `json:"gadget,omitempty"`
 	WebApp           *WebApp            `json:"web_app,omitempty"`
@@ -90,7 +86,6 @@ type AppAbility struct {
 	PlusMenu         *PlusMenu          `json:"plus_menu,omitempty"`
 }
 
-// builder开始
 type AppAbilityBuilder struct {
 	gadget               *Gadget
 	gadgetFlag           bool
@@ -195,14 +190,11 @@ func (builder *AppAbilityBuilder) Build() *AppAbility {
 	return req
 }
 
-// builder结束
-
 type AppAdminUser struct {
 	AdminType []string `json:"admin_type,omitempty"`
 	UserId    *string  `json:"user_id,omitempty"`
 }
 
-// builder开始
 type AppAdminUserBuilder struct {
 	adminType     []string
 	adminTypeFlag bool
@@ -238,8 +230,6 @@ func (builder *AppAdminUserBuilder) Build() *AppAdminUser {
 	return req
 }
 
-// builder结束
-
 type AppBadge struct {
 	UserId  *string         `json:"user_id,omitempty"`
 	Version *string         `json:"version,omitempty"`
@@ -248,7 +238,6 @@ type AppBadge struct {
 	Mobile  *ClientBadgeNum `json:"mobile,omitempty"`
 }
 
-// builder开始
 type AppBadgeBuilder struct {
 	userId      string
 	userIdFlag  bool
@@ -316,14 +305,11 @@ func (builder *AppBadgeBuilder) Build() *AppBadge {
 	return req
 }
 
-// builder结束
-
 type AppCommonCategory struct {
 	I18nKey  *string `json:"i18n_key,omitempty"`
 	Category *string `json:"category,omitempty"`
 }
 
-// builder开始
 type AppCommonCategoryBuilder struct {
 	i18nKey      string
 	i18nKeyFlag  bool
@@ -360,15 +346,12 @@ func (builder *AppCommonCategoryBuilder) Build() *AppCommonCategory {
 	return req
 }
 
-// builder结束
-
 type AppCustomCategory struct {
 	I18nKey     *string  `json:"i18n_key,omitempty"`
 	Description *string  `json:"description,omitempty"`
 	AppIds      []string `json:"app_ids,omitempty"`
 }
 
-// builder开始
 type AppCustomCategoryBuilder struct {
 	i18nKey         string
 	i18nKeyFlag     bool
@@ -415,14 +398,11 @@ func (builder *AppCustomCategoryBuilder) Build() *AppCustomCategory {
 	return req
 }
 
-// builder结束
-
 type AppCustomCategoryI18nInfo struct {
 	I18nKey *string `json:"i18n_key,omitempty"`
 	Name    *string `json:"name,omitempty"`
 }
 
-// builder开始
 type AppCustomCategoryI18nInfoBuilder struct {
 	i18nKey     string
 	i18nKeyFlag bool
@@ -459,8 +439,6 @@ func (builder *AppCustomCategoryI18nInfoBuilder) Build() *AppCustomCategoryI18nI
 	return req
 }
 
-// builder结束
-
 type AppI18nInfo struct {
 	I18nKey     *string `json:"i18n_key,omitempty"`
 	Name        *string `json:"name,omitempty"`
@@ -468,7 +446,6 @@ type AppI18nInfo struct {
 	HelpUse     *string `json:"help_use,omitempty"`
 }
 
-// builder开始
 type AppI18nInfoBuilder struct {
 	i18nKey         string
 	i18nKeyFlag     bool
@@ -527,8 +504,6 @@ func (builder *AppI18nInfoBuilder) Build() *AppI18nInfo {
 	return req
 }
 
-// builder结束
-
 type AppMessageTrendItem struct {
 	ChatType    *string           `json:"chat_type,omitempty"`
 	EventType   *string           `json:"event_type,omitempty"`
@@ -536,7 +511,6 @@ type AppMessageTrendItem struct {
 	Trend       []*UsageTrendItem `json:"trend,omitempty"`
 }
 
-// builder开始
 type AppMessageTrendItemBuilder struct {
 	chatType        string
 	chatTypeFlag    bool
@@ -594,15 +568,12 @@ func (builder *AppMessageTrendItemBuilder) Build() *AppMessageTrendItem {
 	return req
 }
 
-// builder结束
-
 type AppScope struct {
 	Scope       *string `json:"scope,omitempty"`
 	Description *string `json:"description,omitempty"`
 	Level       *int    `json:"level,omitempty"`
 }
 
-// builder开始
 type AppScopeBuilder struct {
 	scope           string
 	scopeFlag       bool
@@ -650,14 +621,11 @@ func (builder *AppScopeBuilder) Build() *AppScope {
 	return req
 }
 
-// builder结束
-
 type AppScopeI18nInfo struct {
 	I18nKey     *string `json:"i18n_key,omitempty"`
 	Description *string `json:"description,omitempty"`
 }
 
-// builder开始
 type AppScopeI18nInfoBuilder struct {
 	i18nKey         string
 	i18nKeyFlag     bool
@@ -694,14 +662,11 @@ func (builder *AppScopeI18nInfoBuilder) Build() *AppScopeI18nInfo {
 	return req
 }
 
-// builder结束
-
 type AppScopes struct {
 	HighLevelScopes []string `json:"high_level_scopes,omitempty"`
 	LowLevelScopes  []string `json:"low_level_scopes,omitempty"`
 }
 
-// builder开始
 type AppScopesBuilder struct {
 	highLevelScopes     []string
 	highLevelScopesFlag bool
@@ -736,14 +701,11 @@ func (builder *AppScopesBuilder) Build() *AppScopes {
 	return req
 }
 
-// builder结束
-
 type AppUsageTrendItems struct {
 	Id    *string           `json:"id,omitempty"`
 	Trend []*UsageTrendItem `json:"trend,omitempty"`
 }
 
-// builder开始
 type AppUsageTrendItemsBuilder struct {
 	id        string
 	idFlag    bool
@@ -779,14 +741,11 @@ func (builder *AppUsageTrendItemsBuilder) Build() *AppUsageTrendItems {
 	return req
 }
 
-// builder结束
-
 type AppVersionId struct {
 	Version   *string `json:"version,omitempty"`
 	VersionId *string `json:"version_id,omitempty"`
 }
 
-// builder开始
 type AppVersionIdBuilder struct {
 	version       string
 	versionFlag   bool
@@ -823,15 +782,12 @@ func (builder *AppVersionIdBuilder) Build() *AppVersionId {
 	return req
 }
 
-// builder结束
-
 type AppVersionRemark struct {
 	Remark       *string        `json:"remark,omitempty"`
 	UpdateRemark *string        `json:"update_remark,omitempty"`
 	Visibility   *AppVisibility `json:"visibility,omitempty"`
 }
 
-// builder开始
 type AppVersionRemarkBuilder struct {
 	remark           string
 	remarkFlag       bool
@@ -878,15 +834,12 @@ func (builder *AppVersionRemarkBuilder) Build() *AppVersionRemark {
 	return req
 }
 
-// builder结束
-
 type AppVersionRemarkEvent struct {
 	Remark       *string             `json:"remark,omitempty"`
 	UpdateRemark *string             `json:"update_remark,omitempty"`
 	Visibility   *AppVisibilityEvent `json:"visibility,omitempty"`
 }
 
-// builder开始
 type AppVersionRemarkEventBuilder struct {
 	remark           string
 	remarkFlag       bool
@@ -933,15 +886,12 @@ func (builder *AppVersionRemarkEventBuilder) Build() *AppVersionRemarkEvent {
 	return req
 }
 
-// builder结束
-
 type AppVisibility struct {
 	IsAll         *bool           `json:"is_all,omitempty"`
 	VisibleList   *AppVisibleList `json:"visible_list,omitempty"`
 	InvisibleList *AppVisibleList `json:"invisible_list,omitempty"`
 }
 
-// builder开始
 type AppVisibilityBuilder struct {
 	isAll             bool
 	isAllFlag         bool
@@ -987,15 +937,12 @@ func (builder *AppVisibilityBuilder) Build() *AppVisibility {
 	return req
 }
 
-// builder结束
-
 type AppVisibilityEvent struct {
 	IsAll         *bool                `json:"is_all,omitempty"`
 	VisibleList   *AppVisibleListEvent `json:"visible_list,omitempty"`
 	InvisibleList *AppVisibleListEvent `json:"invisible_list,omitempty"`
 }
 
-// builder开始
 type AppVisibilityEventBuilder struct {
 	isAll             bool
 	isAllFlag         bool
@@ -1041,15 +988,12 @@ func (builder *AppVisibilityEventBuilder) Build() *AppVisibilityEvent {
 	return req
 }
 
-// builder结束
-
 type AppVisibilityItem struct {
 	UserId       *string `json:"user_id,omitempty"`
 	DepartmentId *string `json:"department_id,omitempty"`
 	GroupId      *string `json:"group_id,omitempty"`
 }
 
-// builder开始
 type AppVisibilityItemBuilder struct {
 	userId           string
 	userIdFlag       bool
@@ -1097,14 +1041,11 @@ func (builder *AppVisibilityItemBuilder) Build() *AppVisibilityItem {
 	return req
 }
 
-// builder结束
-
 type AppVisibleList struct {
 	OpenIds       []string `json:"open_ids,omitempty"`
 	DepartmentIds []string `json:"department_ids,omitempty"`
 }
 
-// builder开始
 type AppVisibleListBuilder struct {
 	openIds           []string
 	openIdsFlag       bool
@@ -1139,14 +1080,11 @@ func (builder *AppVisibleListBuilder) Build() *AppVisibleList {
 	return req
 }
 
-// builder结束
-
 type AppVisibleListEvent struct {
 	OpenIds       []*UserId `json:"open_ids,omitempty"`
 	DepartmentIds []string  `json:"department_ids,omitempty"`
 }
 
-// builder开始
 type AppVisibleListEventBuilder struct {
 	openIds           []*UserId
 	openIdsFlag       bool
@@ -1181,8 +1119,6 @@ func (builder *AppVisibleListEventBuilder) Build() *AppVisibleListEvent {
 	return req
 }
 
-// builder结束
-
 type Application struct {
 	AppId            *string           `json:"app_id,omitempty"`
 	CreatorId        *string           `json:"creator_id,omitempty"`
@@ -1203,7 +1139,6 @@ type Application struct {
 	Owner            *ApplicationOwner `json:"owner,omitempty"`
 }
 
-// builder开始
 type ApplicationBuilder struct {
 	appId                string
 	appIdFlag            bool
@@ -1400,14 +1335,11 @@ func (builder *ApplicationBuilder) Build() *Application {
 	return req
 }
 
-// builder结束
-
 type ApplicationAppUsage struct {
 	MetricName  *string `json:"metric_name,omitempty"`
 	MetricValue *int    `json:"metric_value,omitempty"`
 }
 
-// builder开始
 type ApplicationAppUsageBuilder struct {
 	metricName      string
 	metricNameFlag  bool
@@ -1444,8 +1376,6 @@ func (builder *ApplicationAppUsageBuilder) Build() *ApplicationAppUsage {
 	return req
 }
 
-// builder结束
-
 type ApplicationAppVersion struct {
 	AppId            *string           `json:"app_id,omitempty"`
 	Version          *string           `json:"version,omitempty"`
@@ -1465,7 +1395,6 @@ type ApplicationAppVersion struct {
 	Remark           *AppVersionRemark `json:"remark,omitempty"`
 }
 
-// builder开始
 type ApplicationAppVersionBuilder struct {
 	appId                string
 	appIdFlag            bool
@@ -1650,8 +1579,6 @@ func (builder *ApplicationAppVersionBuilder) Build() *ApplicationAppVersion {
 	return req
 }
 
-// builder结束
-
 type ApplicationAppVersionEvent struct {
 	AppId            *string                `json:"app_id,omitempty"`
 	Version          *string                `json:"version,omitempty"`
@@ -1671,7 +1598,6 @@ type ApplicationAppVersionEvent struct {
 	Remark           *AppVersionRemarkEvent `json:"remark,omitempty"`
 }
 
-// builder开始
 type ApplicationAppVersionEventBuilder struct {
 	appId                string
 	appIdFlag            bool
@@ -1856,8 +1782,6 @@ func (builder *ApplicationAppVersionEventBuilder) Build() *ApplicationAppVersion
 	return req
 }
 
-// builder结束
-
 type ApplicationDepartmentAppUsage struct {
 	DepartmentId *string                `json:"department_id,omitempty"`
 	App          []*ApplicationAppUsage `json:"app,omitempty"`
@@ -1866,7 +1790,6 @@ type ApplicationDepartmentAppUsage struct {
 	Bot          []*ApplicationAppUsage `json:"bot,omitempty"`
 }
 
-// builder开始
 type ApplicationDepartmentAppUsageBuilder struct {
 	departmentId     string
 	departmentIdFlag bool
@@ -1932,8 +1855,6 @@ func (builder *ApplicationDepartmentAppUsageBuilder) Build() *ApplicationDepartm
 	return req
 }
 
-// builder结束
-
 type ApplicationEventOwner struct {
 	Type     *int    `json:"type,omitempty"`
 	Name     *string `json:"name,omitempty"`
@@ -1942,7 +1863,6 @@ type ApplicationEventOwner struct {
 	Phone    *string `json:"phone,omitempty"`
 }
 
-// builder开始
 type ApplicationEventOwnerBuilder struct {
 	type_        int
 	typeFlag     bool
@@ -2012,8 +1932,6 @@ func (builder *ApplicationEventOwnerBuilder) Build() *ApplicationEventOwner {
 	return req
 }
 
-// builder结束
-
 type ApplicationFeedback struct {
 	FeedbackId   *string  `json:"feedback_id,omitempty"`
 	AppId        *string  `json:"app_id,omitempty"`
@@ -2033,7 +1951,6 @@ type ApplicationFeedback struct {
 	FeedbackPath *string  `json:"feedback_path,omitempty"`
 }
 
-// builder开始
 type ApplicationFeedbackBuilder struct {
 	feedbackId       string
 	feedbackIdFlag   bool
@@ -2222,8 +2139,6 @@ func (builder *ApplicationFeedbackBuilder) Build() *ApplicationFeedback {
 	return req
 }
 
-// builder结束
-
 type ApplicationOwner struct {
 	Type     *int    `json:"type,omitempty"`
 	OwnerId  *string `json:"owner_id,omitempty"`
@@ -2233,7 +2148,6 @@ type ApplicationOwner struct {
 	Phone    *string `json:"phone,omitempty"`
 }
 
-// builder开始
 type ApplicationOwnerBuilder struct {
 	type_        int
 	typeFlag     bool
@@ -2314,15 +2228,12 @@ func (builder *ApplicationOwnerBuilder) Build() *ApplicationOwner {
 	return req
 }
 
-// builder结束
-
 type ApplicationVisibility struct {
 	IsAll         *bool           `json:"is_all,omitempty"`
 	VisibleList   *AppVisibleList `json:"visible_list,omitempty"`
 	InvisibleList *AppVisibleList `json:"invisible_list,omitempty"`
 }
 
-// builder开始
 type ApplicationVisibilityBuilder struct {
 	isAll             bool
 	isAllFlag         bool
@@ -2368,8 +2279,6 @@ func (builder *ApplicationVisibilityBuilder) Build() *ApplicationVisibility {
 	return req
 }
 
-// builder结束
-
 type ApplicationV2 struct {
 	AppId            *string           `json:"app_id,omitempty"`
 	CreatorId        *string           `json:"creator_id,omitempty"`
@@ -2390,7 +2299,6 @@ type ApplicationV2 struct {
 	Owner            *ApplicationOwner `json:"owner,omitempty"`
 }
 
-// builder开始
 type ApplicationV2Builder struct {
 	appId                string
 	appIdFlag            bool
@@ -2587,8 +2495,6 @@ func (builder *ApplicationV2Builder) Build() *ApplicationV2 {
 	return req
 }
 
-// builder结束
-
 type Block struct {
 	BlockTypeId   *string          `json:"block_type_id,omitempty"`
 	VersionId     *string          `json:"version_id,omitempty"`
@@ -2597,7 +2503,6 @@ type Block struct {
 	PcIconUrl     *string          `json:"pc_icon_url,omitempty"`
 }
 
-// builder开始
 type BlockBuilder struct {
 	blockTypeId       string
 	blockTypeIdFlag   bool
@@ -2666,14 +2571,11 @@ func (builder *BlockBuilder) Build() *Block {
 	return req
 }
 
-// builder结束
-
 type BlockI18nInfo struct {
 	I18nKey *string `json:"i18n_key,omitempty"`
 	Name    *string `json:"name,omitempty"`
 }
 
-// builder开始
 type BlockI18nInfoBuilder struct {
 	i18nKey     string
 	i18nKeyFlag bool
@@ -2710,13 +2612,10 @@ func (builder *BlockI18nInfoBuilder) Build() *BlockI18nInfo {
 	return req
 }
 
-// builder结束
-
 type Bot struct {
 	CardRequestUrl *string `json:"card_request_url,omitempty"`
 }
 
-// builder开始
 type BotBuilder struct {
 	cardRequestUrl     string
 	cardRequestUrlFlag bool
@@ -2742,14 +2641,11 @@ func (builder *BotBuilder) Build() *Bot {
 	return req
 }
 
-// builder结束
-
 type ClientBadgeNum struct {
 	WebApp *int `json:"web_app,omitempty"`
 	Gadget *int `json:"gadget,omitempty"`
 }
 
-// builder开始
 type ClientBadgeNumBuilder struct {
 	webApp     int
 	webAppFlag bool
@@ -2786,8 +2682,6 @@ func (builder *ClientBadgeNumBuilder) Build() *ClientBadgeNum {
 	return req
 }
 
-// builder结束
-
 type CloudDoc struct {
 	SpaceUrl *string             `json:"space_url,omitempty"`
 	I18n     []*CloudDocI18nInfo `json:"i18n,omitempty"`
@@ -2795,7 +2689,6 @@ type CloudDoc struct {
 	Mode     *int                `json:"mode,omitempty"`
 }
 
-// builder开始
 type CloudDocBuilder struct {
 	spaceUrl     string
 	spaceUrlFlag bool
@@ -2853,8 +2746,6 @@ func (builder *CloudDocBuilder) Build() *CloudDoc {
 	return req
 }
 
-// builder结束
-
 type CloudDocI18nInfo struct {
 	I18nKey          *string `json:"i18n_key,omitempty"`
 	Name             *string `json:"name,omitempty"`
@@ -2862,7 +2753,6 @@ type CloudDocI18nInfo struct {
 	WriteDescription *string `json:"write_description,omitempty"`
 }
 
-// builder开始
 type CloudDocI18nInfoBuilder struct {
 	i18nKey              string
 	i18nKeyFlag          bool
@@ -2921,8 +2811,6 @@ func (builder *CloudDocI18nInfoBuilder) Build() *CloudDocI18nInfo {
 	return req
 }
 
-// builder结束
-
 type DocsBlock struct {
 	BlockTypeId   *string          `json:"block_type_id,omitempty"`
 	I18n          []*BlockI18nInfo `json:"i18n,omitempty"`
@@ -2930,7 +2818,6 @@ type DocsBlock struct {
 	PcIconUrl     *string          `json:"pc_icon_url,omitempty"`
 }
 
-// builder开始
 type DocsBlockBuilder struct {
 	blockTypeId       string
 	blockTypeIdFlag   bool
@@ -2988,8 +2875,6 @@ func (builder *DocsBlockBuilder) Build() *DocsBlock {
 	return req
 }
 
-// builder结束
-
 type Gadget struct {
 	EnablePcMode         *int     `json:"enable_pc_mode,omitempty"`
 	SchemaUrls           []string `json:"schema_urls,omitempty"`
@@ -3000,7 +2885,6 @@ type Gadget struct {
 	PcMinLarkVersion     *string  `json:"pc_min_lark_version,omitempty"`
 }
 
-// builder开始
 type GadgetBuilder struct {
 	enablePcMode             int
 	enablePcModeFlag         bool
@@ -3091,15 +2975,12 @@ func (builder *GadgetBuilder) Build() *Gadget {
 	return req
 }
 
-// builder结束
-
 type MessageAction struct {
 	PcAppLink     *string                  `json:"pc_app_link,omitempty"`
 	MobileAppLink *string                  `json:"mobile_app_link,omitempty"`
 	I18n          []*MessageActionI18nInfo `json:"i18n,omitempty"`
 }
 
-// builder开始
 type MessageActionBuilder struct {
 	pcAppLink         string
 	pcAppLinkFlag     bool
@@ -3146,14 +3027,11 @@ func (builder *MessageActionBuilder) Build() *MessageAction {
 	return req
 }
 
-// builder结束
-
 type MessageActionI18nInfo struct {
 	I18nKey *string `json:"i18n_key,omitempty"`
 	Name    *string `json:"name,omitempty"`
 }
 
-// builder开始
 type MessageActionI18nInfoBuilder struct {
 	i18nKey     string
 	i18nKeyFlag bool
@@ -3190,8 +3068,6 @@ func (builder *MessageActionI18nInfoBuilder) Build() *MessageActionI18nInfo {
 	return req
 }
 
-// builder结束
-
 type MessageOverviewItem struct {
 	PageView      *string `json:"page_view,omitempty"`
 	UniqueVisitor *string `json:"unique_visitor,omitempty"`
@@ -3200,7 +3076,6 @@ type MessageOverviewItem struct {
 	EventType     *string `json:"event_type,omitempty"`
 }
 
-// builder开始
 type MessageOverviewItemBuilder struct {
 	pageView          string
 	pageViewFlag      bool
@@ -3270,8 +3145,6 @@ func (builder *MessageOverviewItemBuilder) Build() *MessageOverviewItem {
 	return req
 }
 
-// builder结束
-
 type Miniprogram struct {
 	EnablePcMode         *int     `json:"enable_pc_mode,omitempty"`
 	SchemaUrls           []string `json:"schema_urls,omitempty"`
@@ -3282,7 +3155,6 @@ type Miniprogram struct {
 	PcMinLarkVersion     *string  `json:"pc_min_lark_version,omitempty"`
 }
 
-// builder开始
 type MiniprogramBuilder struct {
 	enablePcMode             int
 	enablePcModeFlag         bool
@@ -3373,15 +3245,12 @@ func (builder *MiniprogramBuilder) Build() *Miniprogram {
 	return req
 }
 
-// builder结束
-
 type MsgAction struct {
 	PcAppLink     *string              `json:"pc_app_link,omitempty"`
 	MobileAppLink *string              `json:"mobile_app_link,omitempty"`
 	I18n          []*MsgActionI18nInfo `json:"i18n,omitempty"`
 }
 
-// builder开始
 type MsgActionBuilder struct {
 	pcAppLink         string
 	pcAppLinkFlag     bool
@@ -3428,14 +3297,11 @@ func (builder *MsgActionBuilder) Build() *MsgAction {
 	return req
 }
 
-// builder结束
-
 type MsgActionI18nInfo struct {
 	I18nKey *string `json:"i18n_key,omitempty"`
 	Name    *string `json:"name,omitempty"`
 }
 
-// builder开始
 type MsgActionI18nInfoBuilder struct {
 	i18nKey     string
 	i18nKeyFlag bool
@@ -3472,14 +3338,11 @@ func (builder *MsgActionI18nInfoBuilder) Build() *MsgActionI18nInfo {
 	return req
 }
 
-// builder结束
-
 type Navigate struct {
 	Pc     *NavigateMeta `json:"pc,omitempty"`
 	Mobile *NavigateMeta `json:"mobile,omitempty"`
 }
 
-// builder开始
 type NavigateBuilder struct {
 	pc         *NavigateMeta
 	pcFlag     bool
@@ -3514,15 +3377,12 @@ func (builder *NavigateBuilder) Build() *Navigate {
 	return req
 }
 
-// builder结束
-
 type NavigateMeta struct {
 	Version       *string `json:"version,omitempty"`
 	ImageUrl      *string `json:"image_url,omitempty"`
 	HoverImageUrl *string `json:"hover_image_url,omitempty"`
 }
 
-// builder开始
 type NavigateMetaBuilder struct {
 	version           string
 	versionFlag       bool
@@ -3570,14 +3430,11 @@ func (builder *NavigateMetaBuilder) Build() *NavigateMeta {
 	return req
 }
 
-// builder结束
-
 type PlusMenu struct {
 	PcAppLink     *string `json:"pc_app_link,omitempty"`
 	MobileAppLink *string `json:"mobile_app_link,omitempty"`
 }
 
-// builder开始
 type PlusMenuBuilder struct {
 	pcAppLink         string
 	pcAppLinkFlag     bool
@@ -3614,14 +3471,11 @@ func (builder *PlusMenuBuilder) Build() *PlusMenu {
 	return req
 }
 
-// builder结束
-
 type Scope struct {
 	ScopeName   *string `json:"scope_name,omitempty"`
 	GrantStatus *int    `json:"grant_status,omitempty"`
 }
 
-// builder开始
 type ScopeBuilder struct {
 	scopeName       string
 	scopeNameFlag   bool
@@ -3658,15 +3512,12 @@ func (builder *ScopeBuilder) Build() *Scope {
 	return req
 }
 
-// builder结束
-
 type UsageOverviewItem struct {
 	PageView      *string `json:"page_view,omitempty"`
 	UniqueVisitor *string `json:"unique_visitor,omitempty"`
 	DepartmentId  *string `json:"department_id,omitempty"`
 }
 
-// builder开始
 type UsageOverviewItemBuilder struct {
 	pageView          string
 	pageViewFlag      bool
@@ -3714,15 +3565,12 @@ func (builder *UsageOverviewItemBuilder) Build() *UsageOverviewItem {
 	return req
 }
 
-// builder结束
-
 type UsageTrendItem struct {
 	Timestamp     *string `json:"timestamp,omitempty"`
 	PageView      *string `json:"page_view,omitempty"`
 	UniqueVisitor *string `json:"unique_visitor,omitempty"`
 }
 
-// builder开始
 type UsageTrendItemBuilder struct {
 	timestamp         string
 	timestampFlag     bool
@@ -3770,13 +3618,10 @@ func (builder *UsageTrendItemBuilder) Build() *UsageTrendItem {
 	return req
 }
 
-// builder结束
-
 type UsageUser struct {
 	UserId *string `json:"user_id,omitempty"`
 }
 
-// builder开始
 type UsageUserBuilder struct {
 	userId     string
 	userIdFlag bool
@@ -3802,13 +3647,10 @@ func (builder *UsageUserBuilder) Build() *UsageUser {
 	return req
 }
 
-// builder结束
-
 type User struct {
 	UserId *UserId `json:"user_id,omitempty"`
 }
 
-// builder开始
 type UserBuilder struct {
 	userId     *UserId
 	userIdFlag bool
@@ -3833,15 +3675,12 @@ func (builder *UserBuilder) Build() *User {
 	return req
 }
 
-// builder结束
-
 type UserId struct {
 	UserId  *string `json:"user_id,omitempty"`
 	OpenId  *string `json:"open_id,omitempty"`
 	UnionId *string `json:"union_id,omitempty"`
 }
 
-// builder开始
 type UserIdBuilder struct {
 	userId      string
 	userIdFlag  bool
@@ -3889,14 +3728,11 @@ func (builder *UserIdBuilder) Build() *UserId {
 	return req
 }
 
-// builder结束
-
 type WebApp struct {
 	PcUrl     *string `json:"pc_url,omitempty"`
 	MobileUrl *string `json:"mobile_url,omitempty"`
 }
 
-// builder开始
 type WebAppBuilder struct {
 	pcUrl         string
 	pcUrlFlag     bool
@@ -3933,19 +3769,13 @@ func (builder *WebAppBuilder) Build() *WebApp {
 	return req
 }
 
-// builder结束
-
 type Widget struct {
 }
-
-// builder开始
-// builder结束
 
 type WorkplaceWidget struct {
 	MinLarkVersion *string `json:"min_lark_version,omitempty"`
 }
 
-// builder开始
 type WorkplaceWidgetBuilder struct {
 	minLarkVersion     string
 	minLarkVersionFlag bool
@@ -3971,16 +3801,10 @@ func (builder *WorkplaceWidgetBuilder) Build() *WorkplaceWidget {
 	return req
 }
 
-// builder结束
-
-// 生成请求和响应结果类型，以及请求对象的Builder构造器
-
-// 1.4 生成请求的builder结构体
 type GetApplicationReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewGetApplicationReqBuilder() *GetApplicationReqBuilder {
 	builder := &GetApplicationReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3990,7 +3814,6 @@ func NewGetApplicationReqBuilder() *GetApplicationReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *GetApplicationReqBuilder) AppId(appId string) *GetApplicationReqBuilder {
 	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
@@ -4004,7 +3827,6 @@ func (builder *GetApplicationReqBuilder) UserIdType(userIdType string) *GetAppli
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *GetApplicationReqBuilder) Build() *GetApplicationReq {
 	req := &GetApplicationReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4031,13 +3853,11 @@ func (resp *GetApplicationResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type PatchApplicationReqBuilder struct {
 	apiReq      *larkcore.ApiReq
 	application *Application
 }
 
-// 生成请求的New构造器
 func NewPatchApplicationReqBuilder() *PatchApplicationReqBuilder {
 	builder := &PatchApplicationReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4047,7 +3867,6 @@ func NewPatchApplicationReqBuilder() *PatchApplicationReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *PatchApplicationReqBuilder) AppId(appId string) *PatchApplicationReqBuilder {
 	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
@@ -4061,7 +3880,6 @@ func (builder *PatchApplicationReqBuilder) Application(application *Application)
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *PatchApplicationReqBuilder) Build() *PatchApplicationReq {
 	req := &PatchApplicationReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4085,13 +3903,11 @@ func (resp *PatchApplicationResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type UnderauditlistApplicationReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	limit  int
 }
 
-// 生成请求的New构造器
 func NewUnderauditlistApplicationReqBuilder() *UnderauditlistApplicationReqBuilder {
 	builder := &UnderauditlistApplicationReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4101,7 +3917,6 @@ func NewUnderauditlistApplicationReqBuilder() *UnderauditlistApplicationReqBuild
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *UnderauditlistApplicationReqBuilder) Limit(limit int) *UnderauditlistApplicationReqBuilder {
 	builder.limit = limit
 	return builder
@@ -4123,7 +3938,6 @@ func (builder *UnderauditlistApplicationReqBuilder) UserIdType(userIdType string
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *UnderauditlistApplicationReqBuilder) Build() *UnderauditlistApplicationReq {
 	req := &UnderauditlistApplicationReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4164,13 +3978,11 @@ type OverviewApplicationAppUsageReqBodyBuilder struct {
 	abilityFlag      bool
 }
 
-// 生成body的New构造器
 func NewOverviewApplicationAppUsageReqBodyBuilder() *OverviewApplicationAppUsageReqBodyBuilder {
 	builder := &OverviewApplicationAppUsageReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *OverviewApplicationAppUsageReqBodyBuilder) Date(date string) *OverviewApplicationAppUsageReqBodyBuilder {
 	builder.date = date
 	builder.dateFlag = true
@@ -4192,7 +4004,6 @@ func (builder *OverviewApplicationAppUsageReqBodyBuilder) Ability(ability string
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *OverviewApplicationAppUsageReqBodyBuilder) Build() *OverviewApplicationAppUsageReqBody {
 	req := &OverviewApplicationAppUsageReqBody{}
 	if builder.dateFlag {
@@ -4210,7 +4021,6 @@ func (builder *OverviewApplicationAppUsageReqBodyBuilder) Build() *OverviewAppli
 	return req
 }
 
-// 上传文件path开始
 type OverviewApplicationAppUsagePathReqBodyBuilder struct {
 	date             string
 	dateFlag         bool
@@ -4264,15 +4074,11 @@ func (builder *OverviewApplicationAppUsagePathReqBodyBuilder) Build() (*Overview
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type OverviewApplicationAppUsageReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *OverviewApplicationAppUsageReqBody
 }
 
-// 生成请求的New构造器
 func NewOverviewApplicationAppUsageReqBuilder() *OverviewApplicationAppUsageReqBuilder {
 	builder := &OverviewApplicationAppUsageReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4282,7 +4088,6 @@ func NewOverviewApplicationAppUsageReqBuilder() *OverviewApplicationAppUsageReqB
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *OverviewApplicationAppUsageReqBuilder) AppId(appId string) *OverviewApplicationAppUsageReqBuilder {
 	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
@@ -4296,7 +4101,6 @@ func (builder *OverviewApplicationAppUsageReqBuilder) Body(body *OverviewApplica
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *OverviewApplicationAppUsageReqBuilder) Build() *OverviewApplicationAppUsageReq {
 	req := &OverviewApplicationAppUsageReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4332,12 +4136,10 @@ func (resp *OverviewApplicationAppUsageResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type GetApplicationAppVersionReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewGetApplicationAppVersionReqBuilder() *GetApplicationAppVersionReqBuilder {
 	builder := &GetApplicationAppVersionReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4347,7 +4149,6 @@ func NewGetApplicationAppVersionReqBuilder() *GetApplicationAppVersionReqBuilder
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *GetApplicationAppVersionReqBuilder) AppId(appId string) *GetApplicationAppVersionReqBuilder {
 	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
@@ -4365,7 +4166,6 @@ func (builder *GetApplicationAppVersionReqBuilder) UserIdType(userIdType string)
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *GetApplicationAppVersionReqBuilder) Build() *GetApplicationAppVersionReq {
 	req := &GetApplicationAppVersionReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4392,13 +4192,11 @@ func (resp *GetApplicationAppVersionResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type PatchApplicationAppVersionReqBuilder struct {
 	apiReq                *larkcore.ApiReq
 	applicationAppVersion *ApplicationAppVersion
 }
 
-// 生成请求的New构造器
 func NewPatchApplicationAppVersionReqBuilder() *PatchApplicationAppVersionReqBuilder {
 	builder := &PatchApplicationAppVersionReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4408,7 +4206,6 @@ func NewPatchApplicationAppVersionReqBuilder() *PatchApplicationAppVersionReqBui
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *PatchApplicationAppVersionReqBuilder) AppId(appId string) *PatchApplicationAppVersionReqBuilder {
 	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
@@ -4434,7 +4231,6 @@ func (builder *PatchApplicationAppVersionReqBuilder) ApplicationAppVersion(appli
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *PatchApplicationAppVersionReqBuilder) Build() *PatchApplicationAppVersionReq {
 	req := &PatchApplicationAppVersionReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4458,12 +4254,10 @@ func (resp *PatchApplicationAppVersionResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type ListApplicationFeedbackReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewListApplicationFeedbackReqBuilder() *ListApplicationFeedbackReqBuilder {
 	builder := &ListApplicationFeedbackReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4473,7 +4267,6 @@ func NewListApplicationFeedbackReqBuilder() *ListApplicationFeedbackReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListApplicationFeedbackReqBuilder) AppId(appId string) *ListApplicationFeedbackReqBuilder {
 	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
@@ -4507,7 +4300,6 @@ func (builder *ListApplicationFeedbackReqBuilder) PageSize(pageSize int) *ListAp
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListApplicationFeedbackReqBuilder) Build() *ListApplicationFeedbackReq {
 	req := &ListApplicationFeedbackReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4536,12 +4328,10 @@ func (resp *ListApplicationFeedbackResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type PatchApplicationFeedbackReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewPatchApplicationFeedbackReqBuilder() *PatchApplicationFeedbackReqBuilder {
 	builder := &PatchApplicationFeedbackReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4551,7 +4341,6 @@ func NewPatchApplicationFeedbackReqBuilder() *PatchApplicationFeedbackReqBuilder
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *PatchApplicationFeedbackReqBuilder) AppId(appId string) *PatchApplicationFeedbackReqBuilder {
 	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
@@ -4573,7 +4362,6 @@ func (builder *PatchApplicationFeedbackReqBuilder) OperatorId(operatorId string)
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *PatchApplicationFeedbackReqBuilder) Build() *PatchApplicationFeedbackReq {
 	req := &PatchApplicationFeedbackReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4594,8 +4382,6 @@ type PatchApplicationFeedbackResp struct {
 func (resp *PatchApplicationFeedbackResp) Success() bool {
 	return resp.Code == 0
 }
-
-// 生成消息事件结构体
 
 type P2ApplicationCreatedV6Data struct {
 	OperatorId      *UserId `json:"operator_id,omitempty"`
@@ -4730,8 +4516,6 @@ func (m *P2ApplicationVisibilityAddedV6) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
 }
 
-// 生成请求的builder构造器
-// 1.1 生成body的builder结构体
 type UnderauditlistApplicationIterator struct {
 	nextPageToken *string
 	items         []*Application

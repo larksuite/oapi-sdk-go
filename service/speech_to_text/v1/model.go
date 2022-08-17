@@ -17,17 +17,12 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
-// 生成枚举值
-
-// 生成数据类型
-
 type FileConfig struct {
 	FileId     *string `json:"file_id,omitempty"`
 	Format     *string `json:"format,omitempty"`
 	EngineType *string `json:"engine_type,omitempty"`
 }
 
-// builder开始
 type FileConfigBuilder struct {
 	fileId         string
 	fileIdFlag     bool
@@ -75,14 +70,11 @@ func (builder *FileConfigBuilder) Build() *FileConfig {
 	return req
 }
 
-// builder结束
-
 type Speech struct {
 	Speech    *string `json:"speech,omitempty"`
 	SpeechKey *string `json:"speech_key,omitempty"`
 }
 
-// builder开始
 type SpeechBuilder struct {
 	speech        string
 	speechFlag    bool
@@ -119,8 +111,6 @@ func (builder *SpeechBuilder) Build() *Speech {
 	return req
 }
 
-// builder结束
-
 type StreamConfig struct {
 	StreamId   *string `json:"stream_id,omitempty"`
 	SequenceId *int    `json:"sequence_id,omitempty"`
@@ -129,7 +119,6 @@ type StreamConfig struct {
 	EngineType *string `json:"engine_type,omitempty"`
 }
 
-// builder开始
 type StreamConfigBuilder struct {
 	streamId       string
 	streamIdFlag   bool
@@ -199,10 +188,6 @@ func (builder *StreamConfigBuilder) Build() *StreamConfig {
 	return req
 }
 
-// builder结束
-
-// 生成请求和响应结果类型，以及请求对象的Builder构造器
-
 type FileRecognizeSpeechReqBodyBuilder struct {
 	speech     *Speech
 	speechFlag bool
@@ -210,13 +195,11 @@ type FileRecognizeSpeechReqBodyBuilder struct {
 	configFlag bool
 }
 
-// 生成body的New构造器
 func NewFileRecognizeSpeechReqBodyBuilder() *FileRecognizeSpeechReqBodyBuilder {
 	builder := &FileRecognizeSpeechReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *FileRecognizeSpeechReqBodyBuilder) Speech(speech *Speech) *FileRecognizeSpeechReqBodyBuilder {
 	builder.speech = speech
 	builder.speechFlag = true
@@ -228,7 +211,6 @@ func (builder *FileRecognizeSpeechReqBodyBuilder) Config(config *FileConfig) *Fi
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *FileRecognizeSpeechReqBodyBuilder) Build() *FileRecognizeSpeechReqBody {
 	req := &FileRecognizeSpeechReqBody{}
 	if builder.speechFlag {
@@ -240,7 +222,6 @@ func (builder *FileRecognizeSpeechReqBodyBuilder) Build() *FileRecognizeSpeechRe
 	return req
 }
 
-// 上传文件path开始
 type FileRecognizeSpeechPathReqBodyBuilder struct {
 	speech     *Speech
 	speechFlag bool
@@ -274,15 +255,11 @@ func (builder *FileRecognizeSpeechPathReqBodyBuilder) Build() (*FileRecognizeSpe
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type FileRecognizeSpeechReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *FileRecognizeSpeechReqBody
 }
 
-// 生成请求的New构造器
 func NewFileRecognizeSpeechReqBuilder() *FileRecognizeSpeechReqBuilder {
 	builder := &FileRecognizeSpeechReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -292,13 +269,11 @@ func NewFileRecognizeSpeechReqBuilder() *FileRecognizeSpeechReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *FileRecognizeSpeechReqBuilder) Body(body *FileRecognizeSpeechReqBody) *FileRecognizeSpeechReqBuilder {
 	builder.body = body
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *FileRecognizeSpeechReqBuilder) Build() *FileRecognizeSpeechReq {
 	req := &FileRecognizeSpeechReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -337,13 +312,11 @@ type StreamRecognizeSpeechReqBodyBuilder struct {
 	configFlag bool
 }
 
-// 生成body的New构造器
 func NewStreamRecognizeSpeechReqBodyBuilder() *StreamRecognizeSpeechReqBodyBuilder {
 	builder := &StreamRecognizeSpeechReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *StreamRecognizeSpeechReqBodyBuilder) Speech(speech *Speech) *StreamRecognizeSpeechReqBodyBuilder {
 	builder.speech = speech
 	builder.speechFlag = true
@@ -355,7 +328,6 @@ func (builder *StreamRecognizeSpeechReqBodyBuilder) Config(config *StreamConfig)
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *StreamRecognizeSpeechReqBodyBuilder) Build() *StreamRecognizeSpeechReqBody {
 	req := &StreamRecognizeSpeechReqBody{}
 	if builder.speechFlag {
@@ -367,7 +339,6 @@ func (builder *StreamRecognizeSpeechReqBodyBuilder) Build() *StreamRecognizeSpee
 	return req
 }
 
-// 上传文件path开始
 type StreamRecognizeSpeechPathReqBodyBuilder struct {
 	speech     *Speech
 	speechFlag bool
@@ -401,15 +372,11 @@ func (builder *StreamRecognizeSpeechPathReqBodyBuilder) Build() (*StreamRecogniz
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type StreamRecognizeSpeechReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *StreamRecognizeSpeechReqBody
 }
 
-// 生成请求的New构造器
 func NewStreamRecognizeSpeechReqBuilder() *StreamRecognizeSpeechReqBuilder {
 	builder := &StreamRecognizeSpeechReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -419,13 +386,11 @@ func NewStreamRecognizeSpeechReqBuilder() *StreamRecognizeSpeechReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *StreamRecognizeSpeechReqBuilder) Body(body *StreamRecognizeSpeechReqBody) *StreamRecognizeSpeechReqBuilder {
 	builder.body = body
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *StreamRecognizeSpeechReqBuilder) Build() *StreamRecognizeSpeechReq {
 	req := &StreamRecognizeSpeechReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -458,8 +423,3 @@ type StreamRecognizeSpeechResp struct {
 func (resp *StreamRecognizeSpeechResp) Success() bool {
 	return resp.Code == 0
 }
-
-// 生成消息事件结构体
-
-// 生成请求的builder构造器
-// 1.1 生成body的builder结构体

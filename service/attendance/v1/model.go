@@ -28,8 +28,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
-// 生成枚举值
-
 const (
 	EmployeeTypeEmployeeId = "employee_id"
 	EmployeeTypeEmployeeNo = "employee_no"
@@ -81,15 +79,12 @@ const (
 	StatusWithdraw = 4
 )
 
-// 生成数据类型
-
 type ApprovalInfo struct {
 	ApprovalId   *string `json:"approval_id,omitempty"`
 	ApprovalType *string `json:"approval_type,omitempty"`
 	Status       *int    `json:"status,omitempty"`
 }
 
-// builder开始
 type ApprovalInfoBuilder struct {
 	approvalId       string
 	approvalIdFlag   bool
@@ -137,8 +132,6 @@ func (builder *ApprovalInfoBuilder) Build() *ApprovalInfo {
 	return req
 }
 
-// builder结束
-
 type Area struct {
 	Type   *string       `json:"type,omitempty"`
 	Center *Coordinate   `json:"center,omitempty"`
@@ -146,7 +139,6 @@ type Area struct {
 	Coords []*Coordinate `json:"coords,omitempty"`
 }
 
-// builder开始
 type AreaBuilder struct {
 	type_      string
 	typeFlag   bool
@@ -203,15 +195,12 @@ func (builder *AreaBuilder) Build() *Area {
 	return req
 }
 
-// builder结束
-
 type ChildField struct {
 	Code     *string `json:"code,omitempty"`
 	Title    *string `json:"title,omitempty"`
 	TimeUnit *string `json:"time_unit,omitempty"`
 }
 
-// builder开始
 type ChildFieldBuilder struct {
 	code         string
 	codeFlag     bool
@@ -259,8 +248,6 @@ func (builder *ChildFieldBuilder) Build() *ChildField {
 	return req
 }
 
-// builder结束
-
 type ChildItem struct {
 	Code       *string `json:"code,omitempty"`
 	Value      *string `json:"value,omitempty"`
@@ -271,7 +258,6 @@ type ChildItem struct {
 	MaxValue   *string `json:"max_value,omitempty"`
 }
 
-// builder开始
 type ChildItemBuilder struct {
 	code           string
 	codeFlag       bool
@@ -363,15 +349,12 @@ func (builder *ChildItemBuilder) Build() *ChildItem {
 	return req
 }
 
-// builder结束
-
 type Coordinate struct {
 	Longitude *float64 `json:"longitude,omitempty"`
 	Latitude  *float64 `json:"latitude,omitempty"`
 	Accuracy  *float64 `json:"accuracy,omitempty"`
 }
 
-// builder开始
 type CoordinateBuilder struct {
 	longitude     float64
 	longitudeFlag bool
@@ -419,15 +402,12 @@ func (builder *CoordinateBuilder) Build() *Coordinate {
 	return req
 }
 
-// builder结束
-
 type Field struct {
 	Code        *string       `json:"code,omitempty"`
 	Title       *string       `json:"title,omitempty"`
 	ChildFields []*ChildField `json:"child_fields,omitempty"`
 }
 
-// builder开始
 type FieldBuilder struct {
 	code            string
 	codeFlag        bool
@@ -474,13 +454,10 @@ func (builder *FieldBuilder) Build() *Field {
 	return req
 }
 
-// builder结束
-
 type File struct {
 	FileId *string `json:"file_id,omitempty"`
 }
 
-// builder开始
 type FileBuilder struct {
 	fileId     string
 	fileIdFlag bool
@@ -506,8 +483,6 @@ func (builder *FileBuilder) Build() *File {
 	return req
 }
 
-// builder结束
-
 type FreePunchCfg struct {
 	FreeStartTime        *string `json:"free_start_time,omitempty"`
 	FreeEndTime          *string `json:"free_end_time,omitempty"`
@@ -515,7 +490,6 @@ type FreePunchCfg struct {
 	WorkDayNoPunchAsLack *bool   `json:"work_day_no_punch_as_lack,omitempty"`
 }
 
-// builder开始
 type FreePunchCfgBuilder struct {
 	freeStartTime            string
 	freeStartTimeFlag        bool
@@ -574,8 +548,6 @@ func (builder *FreePunchCfgBuilder) Build() *FreePunchCfg {
 	return req
 }
 
-// builder结束
-
 type Group struct {
 	GroupId                *string                  `json:"group_id,omitempty"`
 	GroupName              *string                  `json:"group_name,omitempty"`
@@ -615,7 +587,6 @@ type Group struct {
 	PunchType              *int                     `json:"punch_type,omitempty"`
 }
 
-// builder开始
 type GroupBuilder struct {
 	groupId                    string
 	groupIdFlag                bool
@@ -1015,14 +986,11 @@ func (builder *GroupBuilder) Build() *Group {
 	return req
 }
 
-// builder结束
-
 type GroupMeta struct {
 	GroupId   *string `json:"group_id,omitempty"`
 	GroupName *string `json:"group_name,omitempty"`
 }
 
-// builder开始
 type GroupMetaBuilder struct {
 	groupId       string
 	groupIdFlag   bool
@@ -1059,15 +1027,12 @@ func (builder *GroupMetaBuilder) Build() *GroupMeta {
 	return req
 }
 
-// builder结束
-
 type I18nNames struct {
 	Ch *string `json:"ch,omitempty"`
 	En *string `json:"en,omitempty"`
 	Ja *string `json:"ja,omitempty"`
 }
 
-// builder开始
 type I18nNamesBuilder struct {
 	ch     string
 	chFlag bool
@@ -1115,15 +1080,12 @@ func (builder *I18nNamesBuilder) Build() *I18nNames {
 	return req
 }
 
-// builder结束
-
 type Item struct {
 	Code       *string      `json:"code,omitempty"`
 	Title      *string      `json:"title,omitempty"`
 	ChildItems []*ChildItem `json:"child_items,omitempty"`
 }
 
-// builder开始
 type ItemBuilder struct {
 	code           string
 	codeFlag       bool
@@ -1170,14 +1132,11 @@ func (builder *ItemBuilder) Build() *Item {
 	return req
 }
 
-// builder结束
-
 type LateOffLateOnRule struct {
 	LateOffMinutes *int `json:"late_off_minutes,omitempty"`
 	LateOnMinutes  *int `json:"late_on_minutes,omitempty"`
 }
 
-// builder开始
 type LateOffLateOnRuleBuilder struct {
 	lateOffMinutes     int
 	lateOffMinutesFlag bool
@@ -1214,8 +1173,6 @@ func (builder *LateOffLateOnRuleBuilder) Build() *LateOffLateOnRule {
 	return req
 }
 
-// builder结束
-
 type Location struct {
 	LocationId   *string  `json:"location_id,omitempty"`
 	LocationName *string  `json:"location_name,omitempty"`
@@ -1231,7 +1188,6 @@ type Location struct {
 	GpsRange     *int     `json:"gps_range,omitempty"`
 }
 
-// builder开始
 type LocationBuilder struct {
 	locationId       string
 	locationIdFlag   bool
@@ -1378,14 +1334,11 @@ func (builder *LocationBuilder) Build() *Location {
 	return req
 }
 
-// builder结束
-
 type LocationInfo struct {
 	Status    *int    `json:"status,omitempty"`
 	Geofences []*Area `json:"geofences,omitempty"`
 }
 
-// builder开始
 type LocationInfoBuilder struct {
 	status        int
 	statusFlag    bool
@@ -1421,13 +1374,10 @@ func (builder *LocationInfoBuilder) Build() *LocationInfo {
 	return req
 }
 
-// builder结束
-
 type LocationInfoEvent struct {
 	Coord *Coordinate `json:"coord,omitempty"`
 }
 
-// builder开始
 type LocationInfoEventBuilder struct {
 	coord     *Coordinate
 	coordFlag bool
@@ -1452,8 +1402,6 @@ func (builder *LocationInfoEventBuilder) Build() *LocationInfoEvent {
 	return req
 }
 
-// builder结束
-
 type LocationRecord struct {
 	UserId         *UserId            `json:"user_id,omitempty"`
 	Timestamp      *string            `json:"timestamp,omitempty"`
@@ -1466,7 +1414,6 @@ type LocationRecord struct {
 	ClientInfo     *string            `json:"client_info,omitempty"`
 }
 
-// builder开始
 type LocationRecordBuilder struct {
 	userId             *UserId
 	userIdFlag         bool
@@ -1576,15 +1523,12 @@ func (builder *LocationRecordBuilder) Build() *LocationRecord {
 	return req
 }
 
-// builder结束
-
 type LocationSetting struct {
 	Location *LocationInfo `json:"location,omitempty"`
 	Wifi     *WifiInfo     `json:"wifi,omitempty"`
 	UserId   *string       `json:"user_id,omitempty"`
 }
 
-// builder开始
 type LocationSettingBuilder struct {
 	location     *LocationInfo
 	locationFlag bool
@@ -1630,14 +1574,11 @@ func (builder *LocationSettingBuilder) Build() *LocationSetting {
 	return req
 }
 
-// builder结束
-
 type Machine struct {
 	MachineSn   *string `json:"machine_sn,omitempty"`
 	MachineName *string `json:"machine_name,omitempty"`
 }
 
-// builder开始
 type MachineBuilder struct {
 	machineSn       string
 	machineSnFlag   bool
@@ -1674,14 +1615,11 @@ func (builder *MachineBuilder) Build() *Machine {
 	return req
 }
 
-// builder结束
-
 type PunchSpecialDateShift struct {
 	PunchDay *int    `json:"punch_day,omitempty"`
 	ShiftId  *string `json:"shift_id,omitempty"`
 }
 
-// builder开始
 type PunchSpecialDateShiftBuilder struct {
 	punchDay     int
 	punchDayFlag bool
@@ -1718,8 +1656,6 @@ func (builder *PunchSpecialDateShiftBuilder) Build() *PunchSpecialDateShift {
 	return req
 }
 
-// builder结束
-
 type PunchTimeRule struct {
 	OnTime              *string `json:"on_time,omitempty"`
 	OffTime             *string `json:"off_time,omitempty"`
@@ -1731,7 +1667,6 @@ type PunchTimeRule struct {
 	OffDelayMinutes     *int    `json:"off_delay_minutes,omitempty"`
 }
 
-// builder开始
 type PunchTimeRuleBuilder struct {
 	onTime                  string
 	onTimeFlag              bool
@@ -1834,14 +1769,11 @@ func (builder *PunchTimeRuleBuilder) Build() *PunchTimeRule {
 	return req
 }
 
-// builder结束
-
 type RestRule struct {
 	RestBeginTime *string `json:"rest_begin_time,omitempty"`
 	RestEndTime   *string `json:"rest_end_time,omitempty"`
 }
 
-// builder开始
 type RestRuleBuilder struct {
 	restBeginTime     string
 	restBeginTimeFlag bool
@@ -1878,14 +1810,11 @@ func (builder *RestRuleBuilder) Build() *RestRule {
 	return req
 }
 
-// builder结束
-
 type ScanWifiInfo struct {
 	Ssid  *string `json:"ssid,omitempty"`
 	Bssid *string `json:"bssid,omitempty"`
 }
 
-// builder开始
 type ScanWifiInfoBuilder struct {
 	ssid      string
 	ssidFlag  bool
@@ -1922,14 +1851,11 @@ func (builder *ScanWifiInfoBuilder) Build() *ScanWifiInfo {
 	return req
 }
 
-// builder结束
-
 type Schedule struct {
 	GroupId *string  `json:"group_id,omitempty"`
 	Shifts  []string `json:"shifts,omitempty"`
 }
 
-// builder开始
 type ScheduleBuilder struct {
 	groupId     string
 	groupIdFlag bool
@@ -1965,8 +1891,6 @@ func (builder *ScheduleBuilder) Build() *Schedule {
 	return req
 }
 
-// builder结束
-
 type Shift struct {
 	ShiftId           *string              `json:"shift_id,omitempty"`
 	ShiftName         *string              `json:"shift_name,omitempty"`
@@ -1979,7 +1903,6 @@ type Shift struct {
 	RestTimeRule      []*RestRule          `json:"rest_time_rule,omitempty"`
 }
 
-// builder开始
 type ShiftBuilder struct {
 	shiftId               string
 	shiftIdFlag           bool
@@ -2090,8 +2013,6 @@ func (builder *ShiftBuilder) Build() *Shift {
 	return req
 }
 
-// builder结束
-
 type StatusChange struct {
 	Index             *int    `json:"index,omitempty"`
 	BeforeStatus      *string `json:"before_status,omitempty"`
@@ -2101,7 +2022,6 @@ type StatusChange struct {
 	WorkType          *string `json:"work_type,omitempty"`
 }
 
-// builder开始
 type StatusChangeBuilder struct {
 	index                 int
 	indexFlag             bool
@@ -2182,8 +2102,6 @@ func (builder *StatusChangeBuilder) Build() *StatusChange {
 	return req
 }
 
-// builder结束
-
 type TaskResult struct {
 	CheckInRecordId          *string   `json:"check_in_record_id,omitempty"`
 	CheckInRecord            *UserFlow `json:"check_in_record,omitempty"`
@@ -2197,7 +2115,6 @@ type TaskResult struct {
 	CheckOutShiftTime        *string   `json:"check_out_shift_time,omitempty"`
 }
 
-// builder开始
 type TaskResultBuilder struct {
 	checkInRecordId              string
 	checkInRecordIdFlag          bool
@@ -2320,8 +2237,6 @@ func (builder *TaskResultBuilder) Build() *TaskResult {
 	return req
 }
 
-// builder结束
-
 type UserAllowedRemedy struct {
 	UserId          *string `json:"user_id,omitempty"`
 	RemedyDate      *int    `json:"remedy_date,omitempty"`
@@ -2334,7 +2249,6 @@ type UserAllowedRemedy struct {
 	RemedyEndTime   *string `json:"remedy_end_time,omitempty"`
 }
 
-// builder开始
 type UserAllowedRemedyBuilder struct {
 	userId              string
 	userIdFlag          bool
@@ -2448,8 +2362,6 @@ func (builder *UserAllowedRemedyBuilder) Build() *UserAllowedRemedy {
 	return req
 }
 
-// builder结束
-
 type UserApproval struct {
 	UserId        *string             `json:"user_id,omitempty"`
 	Date          *string             `json:"date,omitempty"`
@@ -2459,7 +2371,6 @@ type UserApproval struct {
 	Trips         []*UserTrip         `json:"trips,omitempty"`
 }
 
-// builder开始
 type UserApprovalBuilder struct {
 	userId            string
 	userIdFlag        bool
@@ -2536,8 +2447,6 @@ func (builder *UserApprovalBuilder) Build() *UserApproval {
 	return req
 }
 
-// builder结束
-
 type UserDailyShift struct {
 	GroupId *string `json:"group_id,omitempty"`
 	ShiftId *string `json:"shift_id,omitempty"`
@@ -2546,7 +2455,6 @@ type UserDailyShift struct {
 	DayNo   *int    `json:"day_no,omitempty"`
 }
 
-// builder开始
 type UserDailyShiftBuilder struct {
 	groupId     string
 	groupIdFlag bool
@@ -2616,8 +2524,6 @@ func (builder *UserDailyShiftBuilder) Build() *UserDailyShift {
 	return req
 }
 
-// builder结束
-
 type UserFlow struct {
 	UserId       *string  `json:"user_id,omitempty"`
 	CreatorId    *string  `json:"creator_id,omitempty"`
@@ -2637,7 +2543,6 @@ type UserFlow struct {
 	CheckResult  *string  `json:"check_result,omitempty"`
 }
 
-// builder开始
 type UserFlowBuilder struct {
 	userId           string
 	userIdFlag       bool
@@ -2827,15 +2732,12 @@ func (builder *UserFlowBuilder) Build() *UserFlow {
 	return req
 }
 
-// builder结束
-
 type UserId struct {
 	UserId  *string `json:"user_id,omitempty"`
 	OpenId  *string `json:"open_id,omitempty"`
 	UnionId *string `json:"union_id,omitempty"`
 }
 
-// builder开始
 type UserIdBuilder struct {
 	userId      string
 	userIdFlag  bool
@@ -2883,8 +2785,6 @@ func (builder *UserIdBuilder) Build() *UserId {
 	return req
 }
 
-// builder结束
-
 type UserLeave struct {
 	ApprovalId       *string    `json:"approval_id,omitempty"`
 	UniqId           *string    `json:"uniq_id,omitempty"`
@@ -2899,7 +2799,6 @@ type UserLeave struct {
 	ApproveApplyTime *string    `json:"approve_apply_time,omitempty"`
 }
 
-// builder开始
 type UserLeaveBuilder struct {
 	approvalId           string
 	approvalIdFlag       bool
@@ -3034,8 +2933,6 @@ func (builder *UserLeaveBuilder) Build() *UserLeave {
 	return req
 }
 
-// builder结束
-
 type UserOut struct {
 	ApprovalId       *string    `json:"approval_id,omitempty"`
 	UniqId           *string    `json:"uniq_id,omitempty"`
@@ -3050,7 +2947,6 @@ type UserOut struct {
 	ApproveApplyTime *string    `json:"approve_apply_time,omitempty"`
 }
 
-// builder开始
 type UserOutBuilder struct {
 	approvalId           string
 	approvalIdFlag       bool
@@ -3185,8 +3081,6 @@ func (builder *UserOutBuilder) Build() *UserOut {
 	return req
 }
 
-// builder结束
-
 type UserOvertimeWork struct {
 	ApprovalId *string  `json:"approval_id,omitempty"`
 	Duration   *float64 `json:"duration,omitempty"`
@@ -3197,7 +3091,6 @@ type UserOvertimeWork struct {
 	EndTime    *string  `json:"end_time,omitempty"`
 }
 
-// builder开始
 type UserOvertimeWorkBuilder struct {
 	approvalId     string
 	approvalIdFlag bool
@@ -3289,15 +3182,12 @@ func (builder *UserOvertimeWorkBuilder) Build() *UserOvertimeWork {
 	return req
 }
 
-// builder结束
-
 type UserSetting struct {
 	UserId            *string `json:"user_id,omitempty"`
 	FaceKey           *string `json:"face_key,omitempty"`
 	FaceKeyUpdateTime *string `json:"face_key_update_time,omitempty"`
 }
 
-// builder开始
 type UserSettingBuilder struct {
 	userId                string
 	userIdFlag            bool
@@ -3345,15 +3235,12 @@ func (builder *UserSettingBuilder) Build() *UserSetting {
 	return req
 }
 
-// builder结束
-
 type UserStatsData struct {
 	Name   *string              `json:"name,omitempty"`
 	UserId *string              `json:"user_id,omitempty"`
 	Datas  []*UserStatsDataCell `json:"datas,omitempty"`
 }
 
-// builder开始
 type UserStatsDataBuilder struct {
 	name       string
 	nameFlag   bool
@@ -3400,15 +3287,12 @@ func (builder *UserStatsDataBuilder) Build() *UserStatsData {
 	return req
 }
 
-// builder结束
-
 type UserStatsDataCell struct {
 	Code     *string                 `json:"code,omitempty"`
 	Value    *string                 `json:"value,omitempty"`
 	Features []*UserStatsDataFeature `json:"features,omitempty"`
 }
 
-// builder开始
 type UserStatsDataCellBuilder struct {
 	code         string
 	codeFlag     bool
@@ -3455,14 +3339,11 @@ func (builder *UserStatsDataCellBuilder) Build() *UserStatsDataCell {
 	return req
 }
 
-// builder结束
-
 type UserStatsDataFeature struct {
 	Key   *string `json:"key,omitempty"`
 	Value *string `json:"value,omitempty"`
 }
 
-// builder开始
 type UserStatsDataFeatureBuilder struct {
 	key       string
 	keyFlag   bool
@@ -3499,15 +3380,12 @@ func (builder *UserStatsDataFeatureBuilder) Build() *UserStatsDataFeature {
 	return req
 }
 
-// builder结束
-
 type UserStatsField struct {
 	StatsType *string  `json:"stats_type,omitempty"`
 	UserId    *string  `json:"user_id,omitempty"`
 	Fields    []*Field `json:"fields,omitempty"`
 }
 
-// builder开始
 type UserStatsFieldBuilder struct {
 	statsType     string
 	statsTypeFlag bool
@@ -3554,8 +3432,6 @@ func (builder *UserStatsFieldBuilder) Build() *UserStatsField {
 	return req
 }
 
-// builder结束
-
 type UserStatsView struct {
 	ViewId    *string `json:"view_id,omitempty"`
 	StatsType *string `json:"stats_type,omitempty"`
@@ -3563,7 +3439,6 @@ type UserStatsView struct {
 	Items     []*Item `json:"items,omitempty"`
 }
 
-// builder开始
 type UserStatsViewBuilder struct {
 	viewId        string
 	viewIdFlag    bool
@@ -3621,8 +3496,6 @@ func (builder *UserStatsViewBuilder) Build() *UserStatsView {
 	return req
 }
 
-// builder结束
-
 type UserTask struct {
 	ResultId     *string       `json:"result_id,omitempty"`
 	UserId       *string       `json:"user_id,omitempty"`
@@ -3633,7 +3506,6 @@ type UserTask struct {
 	Records      []*TaskResult `json:"records,omitempty"`
 }
 
-// builder开始
 type UserTaskBuilder struct {
 	resultId         string
 	resultIdFlag     bool
@@ -3724,8 +3596,6 @@ func (builder *UserTaskBuilder) Build() *UserTask {
 	return req
 }
 
-// builder结束
-
 type UserTaskRemedy struct {
 	UserId     *string `json:"user_id,omitempty"`
 	RemedyDate *int    `json:"remedy_date,omitempty"`
@@ -3741,7 +3611,6 @@ type UserTaskRemedy struct {
 	UpdateTime *string `json:"update_time,omitempty"`
 }
 
-// builder开始
 type UserTaskRemedyBuilder struct {
 	userId         string
 	userIdFlag     bool
@@ -3888,8 +3757,6 @@ func (builder *UserTaskRemedyBuilder) Build() *UserTaskRemedy {
 	return req
 }
 
-// builder结束
-
 type UserTrip struct {
 	ApprovalId       *string `json:"approval_id,omitempty"`
 	StartTime        *string `json:"start_time,omitempty"`
@@ -3899,7 +3766,6 @@ type UserTrip struct {
 	ApproveApplyTime *string `json:"approve_apply_time,omitempty"`
 }
 
-// builder开始
 type UserTripBuilder struct {
 	approvalId           string
 	approvalIdFlag       bool
@@ -3980,13 +3846,10 @@ func (builder *UserTripBuilder) Build() *UserTrip {
 	return req
 }
 
-// builder结束
-
 type WifiInfo struct {
 	Status *int `json:"status,omitempty"`
 }
 
-// builder开始
 type WifiInfoBuilder struct {
 	status     int
 	statusFlag bool
@@ -4012,8 +3875,6 @@ func (builder *WifiInfoBuilder) Build() *WifiInfo {
 	return req
 }
 
-// builder结束
-
 type WifiInfoEvent struct {
 	Ssid      *string `json:"ssid,omitempty"`
 	Bssid     *string `json:"bssid,omitempty"`
@@ -4021,7 +3882,6 @@ type WifiInfoEvent struct {
 	Lastbssid *string `json:"lastbssid,omitempty"`
 }
 
-// builder开始
 type WifiInfoEventBuilder struct {
 	ssid          string
 	ssidFlag      bool
@@ -4080,10 +3940,6 @@ func (builder *WifiInfoEventBuilder) Build() *WifiInfoEvent {
 	return req
 }
 
-// builder结束
-
-// 生成请求和响应结果类型，以及请求对象的Builder构造器
-
 type ProcessApprovalInfoReqBodyBuilder struct {
 	approvalId       string
 	approvalIdFlag   bool
@@ -4093,13 +3949,11 @@ type ProcessApprovalInfoReqBodyBuilder struct {
 	statusFlag       bool
 }
 
-// 生成body的New构造器
 func NewProcessApprovalInfoReqBodyBuilder() *ProcessApprovalInfoReqBodyBuilder {
 	builder := &ProcessApprovalInfoReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *ProcessApprovalInfoReqBodyBuilder) ApprovalId(approvalId string) *ProcessApprovalInfoReqBodyBuilder {
 	builder.approvalId = approvalId
 	builder.approvalIdFlag = true
@@ -4116,7 +3970,6 @@ func (builder *ProcessApprovalInfoReqBodyBuilder) Status(status int) *ProcessApp
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *ProcessApprovalInfoReqBodyBuilder) Build() *ProcessApprovalInfoReqBody {
 	req := &ProcessApprovalInfoReqBody{}
 	if builder.approvalIdFlag {
@@ -4131,7 +3984,6 @@ func (builder *ProcessApprovalInfoReqBodyBuilder) Build() *ProcessApprovalInfoRe
 	return req
 }
 
-// 上传文件path开始
 type ProcessApprovalInfoPathReqBodyBuilder struct {
 	approvalId       string
 	approvalIdFlag   bool
@@ -4175,15 +4027,11 @@ func (builder *ProcessApprovalInfoPathReqBodyBuilder) Build() (*ProcessApprovalI
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type ProcessApprovalInfoReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *ProcessApprovalInfoReqBody
 }
 
-// 生成请求的New构造器
 func NewProcessApprovalInfoReqBuilder() *ProcessApprovalInfoReqBuilder {
 	builder := &ProcessApprovalInfoReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4193,13 +4041,11 @@ func NewProcessApprovalInfoReqBuilder() *ProcessApprovalInfoReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ProcessApprovalInfoReqBuilder) Body(body *ProcessApprovalInfoReqBody) *ProcessApprovalInfoReqBuilder {
 	builder.body = body
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ProcessApprovalInfoReqBuilder) Build() *ProcessApprovalInfoReq {
 	req := &ProcessApprovalInfoReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4232,12 +4078,10 @@ func (resp *ProcessApprovalInfoResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type DownloadFileReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewDownloadFileReqBuilder() *DownloadFileReqBuilder {
 	builder := &DownloadFileReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4247,13 +4091,11 @@ func NewDownloadFileReqBuilder() *DownloadFileReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *DownloadFileReqBuilder) FileId(fileId string) *DownloadFileReqBuilder {
 	builder.apiReq.PathParams.Set("file_id", fmt.Sprint(fileId))
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *DownloadFileReqBuilder) Build() *DownloadFileReq {
 	req := &DownloadFileReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4276,7 +4118,6 @@ func (resp *DownloadFileResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 下载api,生成WriteFile方法
 func (resp *DownloadFileResp) WriteFile(fileName string) error {
 	bs, err := ioutil.ReadAll(resp.File)
 	if err != nil {
@@ -4295,20 +4136,17 @@ type UploadFileReqBodyBuilder struct {
 	fileFlag bool
 }
 
-// 生成body的New构造器
 func NewUploadFileReqBodyBuilder() *UploadFileReqBodyBuilder {
 	builder := &UploadFileReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *UploadFileReqBodyBuilder) File(file io.Reader) *UploadFileReqBodyBuilder {
 	builder.file = file
 	builder.fileFlag = true
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *UploadFileReqBodyBuilder) Build() *UploadFileReqBody {
 	req := &UploadFileReqBody{}
 	if builder.fileFlag {
@@ -4317,7 +4155,6 @@ func (builder *UploadFileReqBodyBuilder) Build() *UploadFileReqBody {
 	return req
 }
 
-// 上传文件path开始
 type UploadFilePathReqBodyBuilder struct {
 	filePath     string
 	filePathFlag bool
@@ -4345,15 +4182,11 @@ func (builder *UploadFilePathReqBodyBuilder) Build() (*UploadFileReqBody, error)
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type UploadFileReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *UploadFileReqBody
 }
 
-// 生成请求的New构造器
 func NewUploadFileReqBuilder() *UploadFileReqBuilder {
 	builder := &UploadFileReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4363,7 +4196,6 @@ func NewUploadFileReqBuilder() *UploadFileReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *UploadFileReqBuilder) FileName(fileName string) *UploadFileReqBuilder {
 	builder.apiReq.QueryParams.Set("file_name", fmt.Sprint(fileName))
 	return builder
@@ -4373,7 +4205,6 @@ func (builder *UploadFileReqBuilder) Body(body *UploadFileReqBody) *UploadFileRe
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *UploadFileReqBuilder) Build() *UploadFileReq {
 	req := &UploadFileReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4412,13 +4243,11 @@ type CreateGroupReqBodyBuilder struct {
 	operatorIdFlag bool
 }
 
-// 生成body的New构造器
 func NewCreateGroupReqBodyBuilder() *CreateGroupReqBodyBuilder {
 	builder := &CreateGroupReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *CreateGroupReqBodyBuilder) Group(group *Group) *CreateGroupReqBodyBuilder {
 	builder.group = group
 	builder.groupFlag = true
@@ -4430,7 +4259,6 @@ func (builder *CreateGroupReqBodyBuilder) OperatorId(operatorId string) *CreateG
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *CreateGroupReqBodyBuilder) Build() *CreateGroupReqBody {
 	req := &CreateGroupReqBody{}
 	if builder.groupFlag {
@@ -4442,7 +4270,6 @@ func (builder *CreateGroupReqBodyBuilder) Build() *CreateGroupReqBody {
 	return req
 }
 
-// 上传文件path开始
 type CreateGroupPathReqBodyBuilder struct {
 	group          *Group
 	groupFlag      bool
@@ -4476,15 +4303,11 @@ func (builder *CreateGroupPathReqBodyBuilder) Build() (*CreateGroupReqBody, erro
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type CreateGroupReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *CreateGroupReqBody
 }
 
-// 生成请求的New构造器
 func NewCreateGroupReqBuilder() *CreateGroupReqBuilder {
 	builder := &CreateGroupReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4494,7 +4317,6 @@ func NewCreateGroupReqBuilder() *CreateGroupReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateGroupReqBuilder) EmployeeType(employeeType string) *CreateGroupReqBuilder {
 	builder.apiReq.QueryParams.Set("employee_type", fmt.Sprint(employeeType))
 	return builder
@@ -4508,7 +4330,6 @@ func (builder *CreateGroupReqBuilder) Body(body *CreateGroupReqBody) *CreateGrou
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateGroupReqBuilder) Build() *CreateGroupReq {
 	req := &CreateGroupReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4541,12 +4362,10 @@ func (resp *CreateGroupResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type DeleteGroupReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewDeleteGroupReqBuilder() *DeleteGroupReqBuilder {
 	builder := &DeleteGroupReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4556,13 +4375,11 @@ func NewDeleteGroupReqBuilder() *DeleteGroupReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *DeleteGroupReqBuilder) GroupId(groupId string) *DeleteGroupReqBuilder {
 	builder.apiReq.PathParams.Set("group_id", fmt.Sprint(groupId))
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *DeleteGroupReqBuilder) Build() *DeleteGroupReq {
 	req := &DeleteGroupReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4583,12 +4400,10 @@ func (resp *DeleteGroupResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type GetGroupReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewGetGroupReqBuilder() *GetGroupReqBuilder {
 	builder := &GetGroupReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4598,7 +4413,6 @@ func NewGetGroupReqBuilder() *GetGroupReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *GetGroupReqBuilder) GroupId(groupId string) *GetGroupReqBuilder {
 	builder.apiReq.PathParams.Set("group_id", fmt.Sprint(groupId))
 	return builder
@@ -4612,7 +4426,6 @@ func (builder *GetGroupReqBuilder) DeptType(deptType string) *GetGroupReqBuilder
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *GetGroupReqBuilder) Build() *GetGroupReq {
 	req := &GetGroupReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4674,13 +4487,11 @@ func (resp *GetGroupResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type ListGroupReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	limit  int
 }
 
-// 生成请求的New构造器
 func NewListGroupReqBuilder() *ListGroupReqBuilder {
 	builder := &ListGroupReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4690,7 +4501,6 @@ func NewListGroupReqBuilder() *ListGroupReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListGroupReqBuilder) Limit(limit int) *ListGroupReqBuilder {
 	builder.limit = limit
 	return builder
@@ -4704,7 +4514,6 @@ func (builder *ListGroupReqBuilder) PageToken(pageToken string) *ListGroupReqBui
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListGroupReqBuilder) Build() *ListGroupReq {
 	req := &ListGroupReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4741,13 +4550,11 @@ type SearchGroupReqBodyBuilder struct {
 	exactlyMatchedFlag bool
 }
 
-// 生成body的New构造器
 func NewSearchGroupReqBodyBuilder() *SearchGroupReqBodyBuilder {
 	builder := &SearchGroupReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *SearchGroupReqBodyBuilder) GroupName(groupName string) *SearchGroupReqBodyBuilder {
 	builder.groupName = groupName
 	builder.groupNameFlag = true
@@ -4759,7 +4566,6 @@ func (builder *SearchGroupReqBodyBuilder) ExactlyMatched(exactlyMatched bool) *S
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *SearchGroupReqBodyBuilder) Build() *SearchGroupReqBody {
 	req := &SearchGroupReqBody{}
 	if builder.groupNameFlag {
@@ -4771,7 +4577,6 @@ func (builder *SearchGroupReqBodyBuilder) Build() *SearchGroupReqBody {
 	return req
 }
 
-// 上传文件path开始
 type SearchGroupPathReqBodyBuilder struct {
 	groupName          string
 	groupNameFlag      bool
@@ -4805,15 +4610,11 @@ func (builder *SearchGroupPathReqBodyBuilder) Build() (*SearchGroupReqBody, erro
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type SearchGroupReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *SearchGroupReqBody
 }
 
-// 生成请求的New构造器
 func NewSearchGroupReqBuilder() *SearchGroupReqBuilder {
 	builder := &SearchGroupReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4823,13 +4624,11 @@ func NewSearchGroupReqBuilder() *SearchGroupReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *SearchGroupReqBuilder) Body(body *SearchGroupReqBody) *SearchGroupReqBuilder {
 	builder.body = body
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *SearchGroupReqBuilder) Build() *SearchGroupReq {
 	req := &SearchGroupReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4861,13 +4660,11 @@ func (resp *SearchGroupResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type CreateShiftReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	shift  *Shift
 }
 
-// 生成请求的New构造器
 func NewCreateShiftReqBuilder() *CreateShiftReqBuilder {
 	builder := &CreateShiftReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4877,13 +4674,11 @@ func NewCreateShiftReqBuilder() *CreateShiftReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateShiftReqBuilder) Shift(shift *Shift) *CreateShiftReqBuilder {
 	builder.shift = shift
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateShiftReqBuilder) Build() *CreateShiftReq {
 	req := &CreateShiftReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4910,12 +4705,10 @@ func (resp *CreateShiftResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type DeleteShiftReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewDeleteShiftReqBuilder() *DeleteShiftReqBuilder {
 	builder := &DeleteShiftReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4925,13 +4718,11 @@ func NewDeleteShiftReqBuilder() *DeleteShiftReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *DeleteShiftReqBuilder) ShiftId(shiftId string) *DeleteShiftReqBuilder {
 	builder.apiReq.PathParams.Set("shift_id", fmt.Sprint(shiftId))
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *DeleteShiftReqBuilder) Build() *DeleteShiftReq {
 	req := &DeleteShiftReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4952,12 +4743,10 @@ func (resp *DeleteShiftResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type GetShiftReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewGetShiftReqBuilder() *GetShiftReqBuilder {
 	builder := &GetShiftReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4967,13 +4756,11 @@ func NewGetShiftReqBuilder() *GetShiftReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *GetShiftReqBuilder) ShiftId(shiftId string) *GetShiftReqBuilder {
 	builder.apiReq.PathParams.Set("shift_id", fmt.Sprint(shiftId))
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *GetShiftReqBuilder) Build() *GetShiftReq {
 	req := &GetShiftReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -5007,13 +4794,11 @@ func (resp *GetShiftResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type ListShiftReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	limit  int
 }
 
-// 生成请求的New构造器
 func NewListShiftReqBuilder() *ListShiftReqBuilder {
 	builder := &ListShiftReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -5023,7 +4808,6 @@ func NewListShiftReqBuilder() *ListShiftReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListShiftReqBuilder) Limit(limit int) *ListShiftReqBuilder {
 	builder.limit = limit
 	return builder
@@ -5037,7 +4821,6 @@ func (builder *ListShiftReqBuilder) PageToken(pageToken string) *ListShiftReqBui
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListShiftReqBuilder) Build() *ListShiftReq {
 	req := &ListShiftReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -5067,12 +4850,10 @@ func (resp *ListShiftResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type QueryShiftReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewQueryShiftReqBuilder() *QueryShiftReqBuilder {
 	builder := &QueryShiftReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -5082,13 +4863,11 @@ func NewQueryShiftReqBuilder() *QueryShiftReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *QueryShiftReqBuilder) ShiftName(shiftName string) *QueryShiftReqBuilder {
 	builder.apiReq.QueryParams.Set("shift_name", fmt.Sprint(shiftName))
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *QueryShiftReqBuilder) Build() *QueryShiftReq {
 	req := &QueryShiftReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -5127,20 +4906,17 @@ type CreateUserApprovalReqBodyBuilder struct {
 	userApprovalFlag bool
 }
 
-// 生成body的New构造器
 func NewCreateUserApprovalReqBodyBuilder() *CreateUserApprovalReqBodyBuilder {
 	builder := &CreateUserApprovalReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *CreateUserApprovalReqBodyBuilder) UserApproval(userApproval *UserApproval) *CreateUserApprovalReqBodyBuilder {
 	builder.userApproval = userApproval
 	builder.userApprovalFlag = true
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *CreateUserApprovalReqBodyBuilder) Build() *CreateUserApprovalReqBody {
 	req := &CreateUserApprovalReqBody{}
 	if builder.userApprovalFlag {
@@ -5149,7 +4925,6 @@ func (builder *CreateUserApprovalReqBodyBuilder) Build() *CreateUserApprovalReqB
 	return req
 }
 
-// 上传文件path开始
 type CreateUserApprovalPathReqBodyBuilder struct {
 	userApproval     *UserApproval
 	userApprovalFlag bool
@@ -5173,15 +4948,11 @@ func (builder *CreateUserApprovalPathReqBodyBuilder) Build() (*CreateUserApprova
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type CreateUserApprovalReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *CreateUserApprovalReqBody
 }
 
-// 生成请求的New构造器
 func NewCreateUserApprovalReqBuilder() *CreateUserApprovalReqBuilder {
 	builder := &CreateUserApprovalReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -5191,7 +4962,6 @@ func NewCreateUserApprovalReqBuilder() *CreateUserApprovalReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateUserApprovalReqBuilder) EmployeeType(employeeType string) *CreateUserApprovalReqBuilder {
 	builder.apiReq.QueryParams.Set("employee_type", fmt.Sprint(employeeType))
 	return builder
@@ -5201,7 +4971,6 @@ func (builder *CreateUserApprovalReqBuilder) Body(body *CreateUserApprovalReqBod
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateUserApprovalReqBuilder) Build() *CreateUserApprovalReq {
 	req := &CreateUserApprovalReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -5242,13 +5011,11 @@ type QueryUserApprovalReqBodyBuilder struct {
 	checkDateToFlag   bool
 }
 
-// 生成body的New构造器
 func NewQueryUserApprovalReqBodyBuilder() *QueryUserApprovalReqBodyBuilder {
 	builder := &QueryUserApprovalReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *QueryUserApprovalReqBodyBuilder) UserIds(userIds []string) *QueryUserApprovalReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsFlag = true
@@ -5265,7 +5032,6 @@ func (builder *QueryUserApprovalReqBodyBuilder) CheckDateTo(checkDateTo int) *Qu
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *QueryUserApprovalReqBodyBuilder) Build() *QueryUserApprovalReqBody {
 	req := &QueryUserApprovalReqBody{}
 	if builder.userIdsFlag {
@@ -5280,7 +5046,6 @@ func (builder *QueryUserApprovalReqBodyBuilder) Build() *QueryUserApprovalReqBod
 	return req
 }
 
-// 上传文件path开始
 type QueryUserApprovalPathReqBodyBuilder struct {
 	userIds           []string
 	userIdsFlag       bool
@@ -5324,15 +5089,11 @@ func (builder *QueryUserApprovalPathReqBodyBuilder) Build() (*QueryUserApprovalR
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type QueryUserApprovalReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *QueryUserApprovalReqBody
 }
 
-// 生成请求的New构造器
 func NewQueryUserApprovalReqBuilder() *QueryUserApprovalReqBuilder {
 	builder := &QueryUserApprovalReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -5342,7 +5103,6 @@ func NewQueryUserApprovalReqBuilder() *QueryUserApprovalReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *QueryUserApprovalReqBuilder) EmployeeType(employeeType string) *QueryUserApprovalReqBuilder {
 	builder.apiReq.QueryParams.Set("employee_type", fmt.Sprint(employeeType))
 	return builder
@@ -5352,7 +5112,6 @@ func (builder *QueryUserApprovalReqBuilder) Body(body *QueryUserApprovalReqBody)
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *QueryUserApprovalReqBuilder) Build() *QueryUserApprovalReq {
 	req := &QueryUserApprovalReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -5393,13 +5152,11 @@ type BatchCreateUserDailyShiftReqBodyBuilder struct {
 	operatorIdFlag      bool
 }
 
-// 生成body的New构造器
 func NewBatchCreateUserDailyShiftReqBodyBuilder() *BatchCreateUserDailyShiftReqBodyBuilder {
 	builder := &BatchCreateUserDailyShiftReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *BatchCreateUserDailyShiftReqBodyBuilder) UserDailyShifts(userDailyShifts []*UserDailyShift) *BatchCreateUserDailyShiftReqBodyBuilder {
 	builder.userDailyShifts = userDailyShifts
 	builder.userDailyShiftsFlag = true
@@ -5411,7 +5168,6 @@ func (builder *BatchCreateUserDailyShiftReqBodyBuilder) OperatorId(operatorId st
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *BatchCreateUserDailyShiftReqBodyBuilder) Build() *BatchCreateUserDailyShiftReqBody {
 	req := &BatchCreateUserDailyShiftReqBody{}
 	if builder.userDailyShiftsFlag {
@@ -5423,7 +5179,6 @@ func (builder *BatchCreateUserDailyShiftReqBodyBuilder) Build() *BatchCreateUser
 	return req
 }
 
-// 上传文件path开始
 type BatchCreateUserDailyShiftPathReqBodyBuilder struct {
 	userDailyShifts     []*UserDailyShift
 	userDailyShiftsFlag bool
@@ -5457,15 +5212,11 @@ func (builder *BatchCreateUserDailyShiftPathReqBodyBuilder) Build() (*BatchCreat
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type BatchCreateUserDailyShiftReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *BatchCreateUserDailyShiftReqBody
 }
 
-// 生成请求的New构造器
 func NewBatchCreateUserDailyShiftReqBuilder() *BatchCreateUserDailyShiftReqBuilder {
 	builder := &BatchCreateUserDailyShiftReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -5475,7 +5226,6 @@ func NewBatchCreateUserDailyShiftReqBuilder() *BatchCreateUserDailyShiftReqBuild
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *BatchCreateUserDailyShiftReqBuilder) EmployeeType(employeeType string) *BatchCreateUserDailyShiftReqBuilder {
 	builder.apiReq.QueryParams.Set("employee_type", fmt.Sprint(employeeType))
 	return builder
@@ -5485,7 +5235,6 @@ func (builder *BatchCreateUserDailyShiftReqBuilder) Body(body *BatchCreateUserDa
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *BatchCreateUserDailyShiftReqBuilder) Build() *BatchCreateUserDailyShiftReq {
 	req := &BatchCreateUserDailyShiftReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -5527,13 +5276,11 @@ type QueryUserDailyShiftReqBodyBuilder struct {
 	checkDateToFlag   bool
 }
 
-// 生成body的New构造器
 func NewQueryUserDailyShiftReqBodyBuilder() *QueryUserDailyShiftReqBodyBuilder {
 	builder := &QueryUserDailyShiftReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *QueryUserDailyShiftReqBodyBuilder) UserIds(userIds []string) *QueryUserDailyShiftReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsFlag = true
@@ -5550,7 +5297,6 @@ func (builder *QueryUserDailyShiftReqBodyBuilder) CheckDateTo(checkDateTo int) *
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *QueryUserDailyShiftReqBodyBuilder) Build() *QueryUserDailyShiftReqBody {
 	req := &QueryUserDailyShiftReqBody{}
 	if builder.userIdsFlag {
@@ -5565,7 +5311,6 @@ func (builder *QueryUserDailyShiftReqBodyBuilder) Build() *QueryUserDailyShiftRe
 	return req
 }
 
-// 上传文件path开始
 type QueryUserDailyShiftPathReqBodyBuilder struct {
 	userIds           []string
 	userIdsFlag       bool
@@ -5609,15 +5354,11 @@ func (builder *QueryUserDailyShiftPathReqBodyBuilder) Build() (*QueryUserDailySh
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type QueryUserDailyShiftReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *QueryUserDailyShiftReqBody
 }
 
-// 生成请求的New构造器
 func NewQueryUserDailyShiftReqBuilder() *QueryUserDailyShiftReqBuilder {
 	builder := &QueryUserDailyShiftReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -5627,7 +5368,6 @@ func NewQueryUserDailyShiftReqBuilder() *QueryUserDailyShiftReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *QueryUserDailyShiftReqBuilder) EmployeeType(employeeType string) *QueryUserDailyShiftReqBuilder {
 	builder.apiReq.QueryParams.Set("employee_type", fmt.Sprint(employeeType))
 	return builder
@@ -5637,7 +5377,6 @@ func (builder *QueryUserDailyShiftReqBuilder) Body(body *QueryUserDailyShiftReqB
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *QueryUserDailyShiftReqBuilder) Build() *QueryUserDailyShiftReq {
 	req := &QueryUserDailyShiftReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -5676,20 +5415,17 @@ type BatchCreateUserFlowReqBodyBuilder struct {
 	flowRecordsFlag bool
 }
 
-// 生成body的New构造器
 func NewBatchCreateUserFlowReqBodyBuilder() *BatchCreateUserFlowReqBodyBuilder {
 	builder := &BatchCreateUserFlowReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *BatchCreateUserFlowReqBodyBuilder) FlowRecords(flowRecords []*UserFlow) *BatchCreateUserFlowReqBodyBuilder {
 	builder.flowRecords = flowRecords
 	builder.flowRecordsFlag = true
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *BatchCreateUserFlowReqBodyBuilder) Build() *BatchCreateUserFlowReqBody {
 	req := &BatchCreateUserFlowReqBody{}
 	if builder.flowRecordsFlag {
@@ -5698,7 +5434,6 @@ func (builder *BatchCreateUserFlowReqBodyBuilder) Build() *BatchCreateUserFlowRe
 	return req
 }
 
-// 上传文件path开始
 type BatchCreateUserFlowPathReqBodyBuilder struct {
 	flowRecords     []*UserFlow
 	flowRecordsFlag bool
@@ -5722,15 +5457,11 @@ func (builder *BatchCreateUserFlowPathReqBodyBuilder) Build() (*BatchCreateUserF
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type BatchCreateUserFlowReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *BatchCreateUserFlowReqBody
 }
 
-// 生成请求的New构造器
 func NewBatchCreateUserFlowReqBuilder() *BatchCreateUserFlowReqBuilder {
 	builder := &BatchCreateUserFlowReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -5740,7 +5471,6 @@ func NewBatchCreateUserFlowReqBuilder() *BatchCreateUserFlowReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *BatchCreateUserFlowReqBuilder) EmployeeType(employeeType string) *BatchCreateUserFlowReqBuilder {
 	builder.apiReq.QueryParams.Set("employee_type", fmt.Sprint(employeeType))
 	return builder
@@ -5750,7 +5480,6 @@ func (builder *BatchCreateUserFlowReqBuilder) Body(body *BatchCreateUserFlowReqB
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *BatchCreateUserFlowReqBuilder) Build() *BatchCreateUserFlowReq {
 	req := &BatchCreateUserFlowReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -5782,12 +5511,10 @@ func (resp *BatchCreateUserFlowResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type GetUserFlowReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewGetUserFlowReqBuilder() *GetUserFlowReqBuilder {
 	builder := &GetUserFlowReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -5797,7 +5524,6 @@ func NewGetUserFlowReqBuilder() *GetUserFlowReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *GetUserFlowReqBuilder) UserFlowId(userFlowId string) *GetUserFlowReqBuilder {
 	builder.apiReq.PathParams.Set("user_flow_id", fmt.Sprint(userFlowId))
 	return builder
@@ -5807,7 +5533,6 @@ func (builder *GetUserFlowReqBuilder) EmployeeType(employeeType string) *GetUser
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *GetUserFlowReqBuilder) Build() *GetUserFlowReq {
 	req := &GetUserFlowReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -5858,13 +5583,11 @@ type QueryUserFlowReqBodyBuilder struct {
 	checkTimeToFlag   bool
 }
 
-// 生成body的New构造器
 func NewQueryUserFlowReqBodyBuilder() *QueryUserFlowReqBodyBuilder {
 	builder := &QueryUserFlowReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *QueryUserFlowReqBodyBuilder) UserIds(userIds []string) *QueryUserFlowReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsFlag = true
@@ -5881,7 +5604,6 @@ func (builder *QueryUserFlowReqBodyBuilder) CheckTimeTo(checkTimeTo string) *Que
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *QueryUserFlowReqBodyBuilder) Build() *QueryUserFlowReqBody {
 	req := &QueryUserFlowReqBody{}
 	if builder.userIdsFlag {
@@ -5896,7 +5618,6 @@ func (builder *QueryUserFlowReqBodyBuilder) Build() *QueryUserFlowReqBody {
 	return req
 }
 
-// 上传文件path开始
 type QueryUserFlowPathReqBodyBuilder struct {
 	userIds           []string
 	userIdsFlag       bool
@@ -5940,15 +5661,11 @@ func (builder *QueryUserFlowPathReqBodyBuilder) Build() (*QueryUserFlowReqBody, 
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type QueryUserFlowReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *QueryUserFlowReqBody
 }
 
-// 生成请求的New构造器
 func NewQueryUserFlowReqBuilder() *QueryUserFlowReqBuilder {
 	builder := &QueryUserFlowReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -5958,7 +5675,6 @@ func NewQueryUserFlowReqBuilder() *QueryUserFlowReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *QueryUserFlowReqBuilder) EmployeeType(employeeType string) *QueryUserFlowReqBuilder {
 	builder.apiReq.QueryParams.Set("employee_type", fmt.Sprint(employeeType))
 	return builder
@@ -5972,7 +5688,6 @@ func (builder *QueryUserFlowReqBuilder) Body(body *QueryUserFlowReqBody) *QueryU
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *QueryUserFlowReqBuilder) Build() *QueryUserFlowReq {
 	req := &QueryUserFlowReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -6011,20 +5726,17 @@ type ModifyUserSettingReqBodyBuilder struct {
 	userSettingFlag bool
 }
 
-// 生成body的New构造器
 func NewModifyUserSettingReqBodyBuilder() *ModifyUserSettingReqBodyBuilder {
 	builder := &ModifyUserSettingReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *ModifyUserSettingReqBodyBuilder) UserSetting(userSetting *UserSetting) *ModifyUserSettingReqBodyBuilder {
 	builder.userSetting = userSetting
 	builder.userSettingFlag = true
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *ModifyUserSettingReqBodyBuilder) Build() *ModifyUserSettingReqBody {
 	req := &ModifyUserSettingReqBody{}
 	if builder.userSettingFlag {
@@ -6033,7 +5745,6 @@ func (builder *ModifyUserSettingReqBodyBuilder) Build() *ModifyUserSettingReqBod
 	return req
 }
 
-// 上传文件path开始
 type ModifyUserSettingPathReqBodyBuilder struct {
 	userSetting     *UserSetting
 	userSettingFlag bool
@@ -6057,15 +5768,11 @@ func (builder *ModifyUserSettingPathReqBodyBuilder) Build() (*ModifyUserSettingR
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type ModifyUserSettingReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *ModifyUserSettingReqBody
 }
 
-// 生成请求的New构造器
 func NewModifyUserSettingReqBuilder() *ModifyUserSettingReqBuilder {
 	builder := &ModifyUserSettingReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -6075,7 +5782,6 @@ func NewModifyUserSettingReqBuilder() *ModifyUserSettingReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ModifyUserSettingReqBuilder) EmployeeType(employeeType string) *ModifyUserSettingReqBuilder {
 	builder.apiReq.QueryParams.Set("employee_type", fmt.Sprint(employeeType))
 	return builder
@@ -6085,7 +5791,6 @@ func (builder *ModifyUserSettingReqBuilder) Body(body *ModifyUserSettingReqBody)
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ModifyUserSettingReqBuilder) Build() *ModifyUserSettingReq {
 	req := &ModifyUserSettingReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -6122,20 +5827,17 @@ type QueryUserSettingReqBodyBuilder struct {
 	userIdsFlag bool
 }
 
-// 生成body的New构造器
 func NewQueryUserSettingReqBodyBuilder() *QueryUserSettingReqBodyBuilder {
 	builder := &QueryUserSettingReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *QueryUserSettingReqBodyBuilder) UserIds(userIds []string) *QueryUserSettingReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsFlag = true
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *QueryUserSettingReqBodyBuilder) Build() *QueryUserSettingReqBody {
 	req := &QueryUserSettingReqBody{}
 	if builder.userIdsFlag {
@@ -6144,7 +5846,6 @@ func (builder *QueryUserSettingReqBodyBuilder) Build() *QueryUserSettingReqBody 
 	return req
 }
 
-// 上传文件path开始
 type QueryUserSettingPathReqBodyBuilder struct {
 	userIds     []string
 	userIdsFlag bool
@@ -6168,15 +5869,11 @@ func (builder *QueryUserSettingPathReqBodyBuilder) Build() (*QueryUserSettingReq
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type QueryUserSettingReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *QueryUserSettingReqBody
 }
 
-// 生成请求的New构造器
 func NewQueryUserSettingReqBuilder() *QueryUserSettingReqBuilder {
 	builder := &QueryUserSettingReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -6186,7 +5883,6 @@ func NewQueryUserSettingReqBuilder() *QueryUserSettingReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *QueryUserSettingReqBuilder) EmployeeType(employeeType string) *QueryUserSettingReqBuilder {
 	builder.apiReq.QueryParams.Set("employee_type", fmt.Sprint(employeeType))
 	return builder
@@ -6196,7 +5892,6 @@ func (builder *QueryUserSettingReqBuilder) Body(body *QueryUserSettingReqBody) *
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *QueryUserSettingReqBuilder) Build() *QueryUserSettingReq {
 	req := &QueryUserSettingReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -6247,13 +5942,11 @@ type QueryUserStatsDataReqBodyBuilder struct {
 	userIdFlag           bool
 }
 
-// 生成body的New构造器
 func NewQueryUserStatsDataReqBodyBuilder() *QueryUserStatsDataReqBodyBuilder {
 	builder := &QueryUserStatsDataReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *QueryUserStatsDataReqBodyBuilder) Locale(locale string) *QueryUserStatsDataReqBodyBuilder {
 	builder.locale = locale
 	builder.localeFlag = true
@@ -6295,7 +5988,6 @@ func (builder *QueryUserStatsDataReqBodyBuilder) UserId(userId string) *QueryUse
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *QueryUserStatsDataReqBodyBuilder) Build() *QueryUserStatsDataReqBody {
 	req := &QueryUserStatsDataReqBody{}
 	if builder.localeFlag {
@@ -6325,7 +6017,6 @@ func (builder *QueryUserStatsDataReqBodyBuilder) Build() *QueryUserStatsDataReqB
 	return req
 }
 
-// 上传文件path开始
 type QueryUserStatsDataPathReqBodyBuilder struct {
 	locale               string
 	localeFlag           bool
@@ -6419,15 +6110,11 @@ func (builder *QueryUserStatsDataPathReqBodyBuilder) Build() (*QueryUserStatsDat
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type QueryUserStatsDataReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *QueryUserStatsDataReqBody
 }
 
-// 生成请求的New构造器
 func NewQueryUserStatsDataReqBuilder() *QueryUserStatsDataReqBuilder {
 	builder := &QueryUserStatsDataReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -6437,7 +6124,6 @@ func NewQueryUserStatsDataReqBuilder() *QueryUserStatsDataReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *QueryUserStatsDataReqBuilder) EmployeeType(employeeType string) *QueryUserStatsDataReqBuilder {
 	builder.apiReq.QueryParams.Set("employee_type", fmt.Sprint(employeeType))
 	return builder
@@ -6447,7 +6133,6 @@ func (builder *QueryUserStatsDataReqBuilder) Body(body *QueryUserStatsDataReqBod
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *QueryUserStatsDataReqBuilder) Build() *QueryUserStatsDataReq {
 	req := &QueryUserStatsDataReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -6497,13 +6182,11 @@ type QueryUserStatsFieldReqBodyBuilder struct {
 	endDateFlag   bool
 }
 
-// 生成body的New构造器
 func NewQueryUserStatsFieldReqBodyBuilder() *QueryUserStatsFieldReqBodyBuilder {
 	builder := &QueryUserStatsFieldReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *QueryUserStatsFieldReqBodyBuilder) Locale(locale string) *QueryUserStatsFieldReqBodyBuilder {
 	builder.locale = locale
 	builder.localeFlag = true
@@ -6525,7 +6208,6 @@ func (builder *QueryUserStatsFieldReqBodyBuilder) EndDate(endDate int) *QueryUse
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *QueryUserStatsFieldReqBodyBuilder) Build() *QueryUserStatsFieldReqBody {
 	req := &QueryUserStatsFieldReqBody{}
 	if builder.localeFlag {
@@ -6543,7 +6225,6 @@ func (builder *QueryUserStatsFieldReqBodyBuilder) Build() *QueryUserStatsFieldRe
 	return req
 }
 
-// 上传文件path开始
 type QueryUserStatsFieldPathReqBodyBuilder struct {
 	locale        string
 	localeFlag    bool
@@ -6597,15 +6278,11 @@ func (builder *QueryUserStatsFieldPathReqBodyBuilder) Build() (*QueryUserStatsFi
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type QueryUserStatsFieldReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *QueryUserStatsFieldReqBody
 }
 
-// 生成请求的New构造器
 func NewQueryUserStatsFieldReqBuilder() *QueryUserStatsFieldReqBuilder {
 	builder := &QueryUserStatsFieldReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -6615,7 +6292,6 @@ func NewQueryUserStatsFieldReqBuilder() *QueryUserStatsFieldReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *QueryUserStatsFieldReqBuilder) EmployeeType(employeeType string) *QueryUserStatsFieldReqBuilder {
 	builder.apiReq.QueryParams.Set("employee_type", fmt.Sprint(employeeType))
 	return builder
@@ -6625,7 +6301,6 @@ func (builder *QueryUserStatsFieldReqBuilder) Body(body *QueryUserStatsFieldReqB
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *QueryUserStatsFieldReqBuilder) Build() *QueryUserStatsFieldReq {
 	req := &QueryUserStatsFieldReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -6669,13 +6344,11 @@ type QueryUserStatsViewReqBodyBuilder struct {
 	userIdFlag    bool
 }
 
-// 生成body的New构造器
 func NewQueryUserStatsViewReqBodyBuilder() *QueryUserStatsViewReqBodyBuilder {
 	builder := &QueryUserStatsViewReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *QueryUserStatsViewReqBodyBuilder) Locale(locale string) *QueryUserStatsViewReqBodyBuilder {
 	builder.locale = locale
 	builder.localeFlag = true
@@ -6692,7 +6365,6 @@ func (builder *QueryUserStatsViewReqBodyBuilder) UserId(userId string) *QueryUse
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *QueryUserStatsViewReqBodyBuilder) Build() *QueryUserStatsViewReqBody {
 	req := &QueryUserStatsViewReqBody{}
 	if builder.localeFlag {
@@ -6707,7 +6379,6 @@ func (builder *QueryUserStatsViewReqBodyBuilder) Build() *QueryUserStatsViewReqB
 	return req
 }
 
-// 上传文件path开始
 type QueryUserStatsViewPathReqBodyBuilder struct {
 	locale        string
 	localeFlag    bool
@@ -6751,15 +6422,11 @@ func (builder *QueryUserStatsViewPathReqBodyBuilder) Build() (*QueryUserStatsVie
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type QueryUserStatsViewReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *QueryUserStatsViewReqBody
 }
 
-// 生成请求的New构造器
 func NewQueryUserStatsViewReqBuilder() *QueryUserStatsViewReqBuilder {
 	builder := &QueryUserStatsViewReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -6769,7 +6436,6 @@ func NewQueryUserStatsViewReqBuilder() *QueryUserStatsViewReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *QueryUserStatsViewReqBuilder) EmployeeType(employeeType string) *QueryUserStatsViewReqBuilder {
 	builder.apiReq.QueryParams.Set("employee_type", fmt.Sprint(employeeType))
 	return builder
@@ -6779,7 +6445,6 @@ func (builder *QueryUserStatsViewReqBuilder) Body(body *QueryUserStatsViewReqBod
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *QueryUserStatsViewReqBuilder) Build() *QueryUserStatsViewReq {
 	req := &QueryUserStatsViewReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -6818,20 +6483,17 @@ type UpdateUserStatsViewReqBodyBuilder struct {
 	viewFlag bool
 }
 
-// 生成body的New构造器
 func NewUpdateUserStatsViewReqBodyBuilder() *UpdateUserStatsViewReqBodyBuilder {
 	builder := &UpdateUserStatsViewReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *UpdateUserStatsViewReqBodyBuilder) View(view *UserStatsView) *UpdateUserStatsViewReqBodyBuilder {
 	builder.view = view
 	builder.viewFlag = true
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *UpdateUserStatsViewReqBodyBuilder) Build() *UpdateUserStatsViewReqBody {
 	req := &UpdateUserStatsViewReqBody{}
 	if builder.viewFlag {
@@ -6840,7 +6502,6 @@ func (builder *UpdateUserStatsViewReqBodyBuilder) Build() *UpdateUserStatsViewRe
 	return req
 }
 
-// 上传文件path开始
 type UpdateUserStatsViewPathReqBodyBuilder struct {
 	view     *UserStatsView
 	viewFlag bool
@@ -6864,15 +6525,11 @@ func (builder *UpdateUserStatsViewPathReqBodyBuilder) Build() (*UpdateUserStatsV
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type UpdateUserStatsViewReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *UpdateUserStatsViewReqBody
 }
 
-// 生成请求的New构造器
 func NewUpdateUserStatsViewReqBuilder() *UpdateUserStatsViewReqBuilder {
 	builder := &UpdateUserStatsViewReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -6882,7 +6539,6 @@ func NewUpdateUserStatsViewReqBuilder() *UpdateUserStatsViewReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *UpdateUserStatsViewReqBuilder) UserStatsViewId(userStatsViewId string) *UpdateUserStatsViewReqBuilder {
 	builder.apiReq.PathParams.Set("user_stats_view_id", fmt.Sprint(userStatsViewId))
 	return builder
@@ -6896,7 +6552,6 @@ func (builder *UpdateUserStatsViewReqBuilder) Body(body *UpdateUserStatsViewReqB
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *UpdateUserStatsViewReqBuilder) Build() *UpdateUserStatsViewReq {
 	req := &UpdateUserStatsViewReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -6938,13 +6593,11 @@ type QueryUserTaskReqBodyBuilder struct {
 	checkDateToFlag   bool
 }
 
-// 生成body的New构造器
 func NewQueryUserTaskReqBodyBuilder() *QueryUserTaskReqBodyBuilder {
 	builder := &QueryUserTaskReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *QueryUserTaskReqBodyBuilder) UserIds(userIds []string) *QueryUserTaskReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsFlag = true
@@ -6961,7 +6614,6 @@ func (builder *QueryUserTaskReqBodyBuilder) CheckDateTo(checkDateTo int) *QueryU
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *QueryUserTaskReqBodyBuilder) Build() *QueryUserTaskReqBody {
 	req := &QueryUserTaskReqBody{}
 	if builder.userIdsFlag {
@@ -6976,7 +6628,6 @@ func (builder *QueryUserTaskReqBodyBuilder) Build() *QueryUserTaskReqBody {
 	return req
 }
 
-// 上传文件path开始
 type QueryUserTaskPathReqBodyBuilder struct {
 	userIds           []string
 	userIdsFlag       bool
@@ -7020,15 +6671,11 @@ func (builder *QueryUserTaskPathReqBodyBuilder) Build() (*QueryUserTaskReqBody, 
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type QueryUserTaskReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *QueryUserTaskReqBody
 }
 
-// 生成请求的New构造器
 func NewQueryUserTaskReqBuilder() *QueryUserTaskReqBuilder {
 	builder := &QueryUserTaskReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -7038,7 +6685,6 @@ func NewQueryUserTaskReqBuilder() *QueryUserTaskReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *QueryUserTaskReqBuilder) EmployeeType(employeeType string) *QueryUserTaskReqBuilder {
 	builder.apiReq.QueryParams.Set("employee_type", fmt.Sprint(employeeType))
 	return builder
@@ -7056,7 +6702,6 @@ func (builder *QueryUserTaskReqBuilder) Body(body *QueryUserTaskReqBody) *QueryU
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *QueryUserTaskReqBuilder) Build() *QueryUserTaskReq {
 	req := &QueryUserTaskReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -7092,13 +6737,11 @@ func (resp *QueryUserTaskResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type CreateUserTaskRemedyReqBuilder struct {
 	apiReq         *larkcore.ApiReq
 	userTaskRemedy *UserTaskRemedy
 }
 
-// 生成请求的New构造器
 func NewCreateUserTaskRemedyReqBuilder() *CreateUserTaskRemedyReqBuilder {
 	builder := &CreateUserTaskRemedyReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -7108,7 +6751,6 @@ func NewCreateUserTaskRemedyReqBuilder() *CreateUserTaskRemedyReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateUserTaskRemedyReqBuilder) EmployeeType(employeeType string) *CreateUserTaskRemedyReqBuilder {
 	builder.apiReq.QueryParams.Set("employee_type", fmt.Sprint(employeeType))
 	return builder
@@ -7118,7 +6760,6 @@ func (builder *CreateUserTaskRemedyReqBuilder) UserTaskRemedy(userTaskRemedy *Us
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateUserTaskRemedyReqBuilder) Build() *CreateUserTaskRemedyReq {
 	req := &CreateUserTaskRemedyReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -7155,13 +6796,11 @@ type QueryUserTaskRemedyReqBodyBuilder struct {
 	checkTimeToFlag   bool
 }
 
-// 生成body的New构造器
 func NewQueryUserTaskRemedyReqBodyBuilder() *QueryUserTaskRemedyReqBodyBuilder {
 	builder := &QueryUserTaskRemedyReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *QueryUserTaskRemedyReqBodyBuilder) UserIds(userIds []string) *QueryUserTaskRemedyReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsFlag = true
@@ -7178,7 +6817,6 @@ func (builder *QueryUserTaskRemedyReqBodyBuilder) CheckTimeTo(checkTimeTo string
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *QueryUserTaskRemedyReqBodyBuilder) Build() *QueryUserTaskRemedyReqBody {
 	req := &QueryUserTaskRemedyReqBody{}
 	if builder.userIdsFlag {
@@ -7193,7 +6831,6 @@ func (builder *QueryUserTaskRemedyReqBodyBuilder) Build() *QueryUserTaskRemedyRe
 	return req
 }
 
-// 上传文件path开始
 type QueryUserTaskRemedyPathReqBodyBuilder struct {
 	userIds           []string
 	userIdsFlag       bool
@@ -7237,15 +6874,11 @@ func (builder *QueryUserTaskRemedyPathReqBodyBuilder) Build() (*QueryUserTaskRem
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type QueryUserTaskRemedyReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *QueryUserTaskRemedyReqBody
 }
 
-// 生成请求的New构造器
 func NewQueryUserTaskRemedyReqBuilder() *QueryUserTaskRemedyReqBuilder {
 	builder := &QueryUserTaskRemedyReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -7255,7 +6888,6 @@ func NewQueryUserTaskRemedyReqBuilder() *QueryUserTaskRemedyReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *QueryUserTaskRemedyReqBuilder) EmployeeType(employeeType string) *QueryUserTaskRemedyReqBuilder {
 	builder.apiReq.QueryParams.Set("employee_type", fmt.Sprint(employeeType))
 	return builder
@@ -7265,7 +6897,6 @@ func (builder *QueryUserTaskRemedyReqBuilder) Body(body *QueryUserTaskRemedyReqB
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *QueryUserTaskRemedyReqBuilder) Build() *QueryUserTaskRemedyReq {
 	req := &QueryUserTaskRemedyReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -7306,13 +6937,11 @@ type QueryUserAllowedRemedysUserTaskRemedyReqBodyBuilder struct {
 	remedyDateFlag bool
 }
 
-// 生成body的New构造器
 func NewQueryUserAllowedRemedysUserTaskRemedyReqBodyBuilder() *QueryUserAllowedRemedysUserTaskRemedyReqBodyBuilder {
 	builder := &QueryUserAllowedRemedysUserTaskRemedyReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *QueryUserAllowedRemedysUserTaskRemedyReqBodyBuilder) UserId(userId string) *QueryUserAllowedRemedysUserTaskRemedyReqBodyBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
@@ -7324,7 +6953,6 @@ func (builder *QueryUserAllowedRemedysUserTaskRemedyReqBodyBuilder) RemedyDate(r
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *QueryUserAllowedRemedysUserTaskRemedyReqBodyBuilder) Build() *QueryUserAllowedRemedysUserTaskRemedyReqBody {
 	req := &QueryUserAllowedRemedysUserTaskRemedyReqBody{}
 	if builder.userIdFlag {
@@ -7336,7 +6964,6 @@ func (builder *QueryUserAllowedRemedysUserTaskRemedyReqBodyBuilder) Build() *Que
 	return req
 }
 
-// 上传文件path开始
 type QueryUserAllowedRemedysUserTaskRemedyPathReqBodyBuilder struct {
 	userId         string
 	userIdFlag     bool
@@ -7370,15 +6997,11 @@ func (builder *QueryUserAllowedRemedysUserTaskRemedyPathReqBodyBuilder) Build() 
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type QueryUserAllowedRemedysUserTaskRemedyReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *QueryUserAllowedRemedysUserTaskRemedyReqBody
 }
 
-// 生成请求的New构造器
 func NewQueryUserAllowedRemedysUserTaskRemedyReqBuilder() *QueryUserAllowedRemedysUserTaskRemedyReqBuilder {
 	builder := &QueryUserAllowedRemedysUserTaskRemedyReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -7388,7 +7011,6 @@ func NewQueryUserAllowedRemedysUserTaskRemedyReqBuilder() *QueryUserAllowedRemed
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *QueryUserAllowedRemedysUserTaskRemedyReqBuilder) EmployeeType(employeeType string) *QueryUserAllowedRemedysUserTaskRemedyReqBuilder {
 	builder.apiReq.QueryParams.Set("employee_type", fmt.Sprint(employeeType))
 	return builder
@@ -7398,7 +7020,6 @@ func (builder *QueryUserAllowedRemedysUserTaskRemedyReqBuilder) Body(body *Query
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *QueryUserAllowedRemedysUserTaskRemedyReqBuilder) Build() *QueryUserAllowedRemedysUserTaskRemedyReq {
 	req := &QueryUserAllowedRemedysUserTaskRemedyReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -7431,10 +7052,6 @@ func (resp *QueryUserAllowedRemedysUserTaskRemedyResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 生成消息事件结构体
-
-// 生成请求的builder构造器
-// 1.1 生成body的builder结构体
 type ListGroupIterator struct {
 	nextPageToken *string
 	items         []*GroupMeta

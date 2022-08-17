@@ -17,16 +17,11 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
-// 生成枚举值
-
-// 生成数据类型
-
 type Term struct {
 	From *string `json:"from,omitempty"`
 	To   *string `json:"to,omitempty"`
 }
 
-// builder开始
 type TermBuilder struct {
 	from     string
 	fromFlag bool
@@ -63,35 +58,25 @@ func (builder *TermBuilder) Build() *Term {
 	return req
 }
 
-// builder结束
-
 type Text struct {
 }
-
-// builder开始
-// builder结束
-
-// 生成请求和响应结果类型，以及请求对象的Builder构造器
 
 type DetectTextReqBodyBuilder struct {
 	text     string
 	textFlag bool
 }
 
-// 生成body的New构造器
 func NewDetectTextReqBodyBuilder() *DetectTextReqBodyBuilder {
 	builder := &DetectTextReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *DetectTextReqBodyBuilder) Text(text string) *DetectTextReqBodyBuilder {
 	builder.text = text
 	builder.textFlag = true
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *DetectTextReqBodyBuilder) Build() *DetectTextReqBody {
 	req := &DetectTextReqBody{}
 	if builder.textFlag {
@@ -100,7 +85,6 @@ func (builder *DetectTextReqBodyBuilder) Build() *DetectTextReqBody {
 	return req
 }
 
-// 上传文件path开始
 type DetectTextPathReqBodyBuilder struct {
 	text     string
 	textFlag bool
@@ -124,15 +108,11 @@ func (builder *DetectTextPathReqBodyBuilder) Build() (*DetectTextReqBody, error)
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type DetectTextReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *DetectTextReqBody
 }
 
-// 生成请求的New构造器
 func NewDetectTextReqBuilder() *DetectTextReqBuilder {
 	builder := &DetectTextReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -142,13 +122,11 @@ func NewDetectTextReqBuilder() *DetectTextReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *DetectTextReqBuilder) Body(body *DetectTextReqBody) *DetectTextReqBuilder {
 	builder.body = body
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *DetectTextReqBuilder) Build() *DetectTextReq {
 	req := &DetectTextReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -190,13 +168,11 @@ type TranslateTextReqBodyBuilder struct {
 	glossaryFlag       bool
 }
 
-// 生成body的New构造器
 func NewTranslateTextReqBodyBuilder() *TranslateTextReqBodyBuilder {
 	builder := &TranslateTextReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *TranslateTextReqBodyBuilder) SourceLanguage(sourceLanguage string) *TranslateTextReqBodyBuilder {
 	builder.sourceLanguage = sourceLanguage
 	builder.sourceLanguageFlag = true
@@ -218,7 +194,6 @@ func (builder *TranslateTextReqBodyBuilder) Glossary(glossary []*Term) *Translat
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *TranslateTextReqBodyBuilder) Build() *TranslateTextReqBody {
 	req := &TranslateTextReqBody{}
 	if builder.sourceLanguageFlag {
@@ -236,7 +211,6 @@ func (builder *TranslateTextReqBodyBuilder) Build() *TranslateTextReqBody {
 	return req
 }
 
-// 上传文件path开始
 type TranslateTextPathReqBodyBuilder struct {
 	sourceLanguage     string
 	sourceLanguageFlag bool
@@ -290,15 +264,11 @@ func (builder *TranslateTextPathReqBodyBuilder) Build() (*TranslateTextReqBody, 
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type TranslateTextReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *TranslateTextReqBody
 }
 
-// 生成请求的New构造器
 func NewTranslateTextReqBuilder() *TranslateTextReqBuilder {
 	builder := &TranslateTextReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -308,13 +278,11 @@ func NewTranslateTextReqBuilder() *TranslateTextReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *TranslateTextReqBuilder) Body(body *TranslateTextReqBody) *TranslateTextReqBuilder {
 	builder.body = body
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *TranslateTextReqBuilder) Build() *TranslateTextReq {
 	req := &TranslateTextReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -347,8 +315,3 @@ type TranslateTextResp struct {
 func (resp *TranslateTextResp) Success() bool {
 	return resp.Code == 0
 }
-
-// 生成消息事件结构体
-
-// 生成请求的builder构造器
-// 1.1 生成body的builder结构体

@@ -19,15 +19,11 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
-// 生成枚举值
-
 const (
 	UserIdTypeOpenId  = "open_id"
 	UserIdTypeUserId  = "user_id"
 	UserIdTypeUnionId = "union_id"
 )
-
-// 生成数据类型
 
 type Identity struct {
 	IdentityName *string `json:"identity_name,omitempty"`
@@ -35,7 +31,6 @@ type Identity struct {
 	Mobile       *string `json:"mobile,omitempty"`
 }
 
-// builder开始
 type IdentityBuilder struct {
 	identityName     string
 	identityNameFlag bool
@@ -83,10 +78,6 @@ func (builder *IdentityBuilder) Build() *Identity {
 	return req
 }
 
-// builder结束
-
-// 生成请求和响应结果类型，以及请求对象的Builder构造器
-
 type CreateIdentityReqBodyBuilder struct {
 	identityName     string
 	identityNameFlag bool
@@ -96,13 +87,11 @@ type CreateIdentityReqBodyBuilder struct {
 	mobileFlag       bool
 }
 
-// 生成body的New构造器
 func NewCreateIdentityReqBodyBuilder() *CreateIdentityReqBodyBuilder {
 	builder := &CreateIdentityReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *CreateIdentityReqBodyBuilder) IdentityName(identityName string) *CreateIdentityReqBodyBuilder {
 	builder.identityName = identityName
 	builder.identityNameFlag = true
@@ -119,7 +108,6 @@ func (builder *CreateIdentityReqBodyBuilder) Mobile(mobile string) *CreateIdenti
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *CreateIdentityReqBodyBuilder) Build() *CreateIdentityReqBody {
 	req := &CreateIdentityReqBody{}
 	if builder.identityNameFlag {
@@ -134,7 +122,6 @@ func (builder *CreateIdentityReqBodyBuilder) Build() *CreateIdentityReqBody {
 	return req
 }
 
-// 上传文件path开始
 type CreateIdentityPathReqBodyBuilder struct {
 	identityName     string
 	identityNameFlag bool
@@ -178,15 +165,11 @@ func (builder *CreateIdentityPathReqBodyBuilder) Build() (*CreateIdentityReqBody
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type CreateIdentityReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *CreateIdentityReqBody
 }
 
-// 生成请求的New构造器
 func NewCreateIdentityReqBuilder() *CreateIdentityReqBuilder {
 	builder := &CreateIdentityReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -196,7 +179,6 @@ func NewCreateIdentityReqBuilder() *CreateIdentityReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateIdentityReqBuilder) UserId(userId string) *CreateIdentityReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id", fmt.Sprint(userId))
 	return builder
@@ -210,7 +192,6 @@ func (builder *CreateIdentityReqBuilder) Body(body *CreateIdentityReqBody) *Crea
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateIdentityReqBuilder) Build() *CreateIdentityReq {
 	req := &CreateIdentityReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -243,8 +224,3 @@ type CreateIdentityResp struct {
 func (resp *CreateIdentityResp) Success() bool {
 	return resp.Code == 0
 }
-
-// 生成消息事件结构体
-
-// 生成请求的builder构造器
-// 1.1 生成body的builder结构体

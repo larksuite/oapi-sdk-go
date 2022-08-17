@@ -19,10 +19,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
-// 生成枚举值
-
-// 生成数据类型
-
 type Entity struct {
 	BlockId     *string `json:"block_id,omitempty"`
 	Title       *string `json:"title,omitempty"`
@@ -39,7 +35,6 @@ type Entity struct {
 	Extra       *string `json:"extra,omitempty"`
 }
 
-// builder开始
 type EntityBuilder struct {
 	blockId         string
 	blockIdFlag     bool
@@ -197,8 +192,6 @@ func (builder *EntityBuilder) Build() *Entity {
 	return req
 }
 
-// builder结束
-
 type Message struct {
 	Body     *string  `json:"body,omitempty"`
 	Version  *string  `json:"version,omitempty"`
@@ -207,7 +200,6 @@ type Message struct {
 	OpenIds  []string `json:"open_ids,omitempty"`
 }
 
-// builder开始
 type MessageBuilder struct {
 	body         string
 	bodyFlag     bool
@@ -276,10 +268,6 @@ func (builder *MessageBuilder) Build() *Message {
 	return req
 }
 
-// builder结束
-
-// 生成请求和响应结果类型，以及请求对象的Builder构造器
-
 type CreateEntityReqBodyBuilder struct {
 	title           string
 	titleFlag       bool
@@ -307,13 +295,11 @@ type CreateEntityReqBodyBuilder struct {
 	previewFlag     bool
 }
 
-// 生成body的New构造器
 func NewCreateEntityReqBodyBuilder() *CreateEntityReqBodyBuilder {
 	builder := &CreateEntityReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *CreateEntityReqBodyBuilder) Title(title string) *CreateEntityReqBodyBuilder {
 	builder.title = title
 	builder.titleFlag = true
@@ -375,7 +361,6 @@ func (builder *CreateEntityReqBodyBuilder) Preview(preview string) *CreateEntity
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *CreateEntityReqBodyBuilder) Build() *CreateEntityReqBody {
 	req := &CreateEntityReqBody{}
 	if builder.titleFlag {
@@ -417,7 +402,6 @@ func (builder *CreateEntityReqBodyBuilder) Build() *CreateEntityReqBody {
 	return req
 }
 
-// 上传文件path开始
 type CreateEntityPathReqBodyBuilder struct {
 	title           string
 	titleFlag       bool
@@ -551,15 +535,11 @@ func (builder *CreateEntityPathReqBodyBuilder) Build() (*CreateEntityReqBody, er
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type CreateEntityReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *CreateEntityReqBody
 }
 
-// 生成请求的New构造器
 func NewCreateEntityReqBuilder() *CreateEntityReqBuilder {
 	builder := &CreateEntityReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -569,13 +549,11 @@ func NewCreateEntityReqBuilder() *CreateEntityReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateEntityReqBuilder) Body(body *CreateEntityReqBody) *CreateEntityReqBuilder {
 	builder.body = body
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateEntityReqBuilder) Build() *CreateEntityReq {
 	req := &CreateEntityReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -617,13 +595,11 @@ func (resp *CreateEntityResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type UpdateEntityReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	entity *Entity
 }
 
-// 生成请求的New构造器
 func NewUpdateEntityReqBuilder() *UpdateEntityReqBuilder {
 	builder := &UpdateEntityReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -633,7 +609,6 @@ func NewUpdateEntityReqBuilder() *UpdateEntityReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *UpdateEntityReqBuilder) BlockId(blockId string) *UpdateEntityReqBuilder {
 	builder.apiReq.PathParams.Set("block_id", fmt.Sprint(blockId))
 	return builder
@@ -643,7 +618,6 @@ func (builder *UpdateEntityReqBuilder) Entity(entity *Entity) *UpdateEntityReqBu
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *UpdateEntityReqBuilder) Build() *UpdateEntityReq {
 	req := &UpdateEntityReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -666,13 +640,11 @@ func (resp *UpdateEntityResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type CreateMessageReqBuilder struct {
 	apiReq  *larkcore.ApiReq
 	message *Message
 }
 
-// 生成请求的New构造器
 func NewCreateMessageReqBuilder() *CreateMessageReqBuilder {
 	builder := &CreateMessageReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -682,13 +654,11 @@ func NewCreateMessageReqBuilder() *CreateMessageReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateMessageReqBuilder) Message(message *Message) *CreateMessageReqBuilder {
 	builder.message = message
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateMessageReqBuilder) Build() *CreateMessageReq {
 	req := &CreateMessageReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -709,8 +679,3 @@ type CreateMessageResp struct {
 func (resp *CreateMessageResp) Success() bool {
 	return resp.Code == 0
 }
-
-// 生成消息事件结构体
-
-// 生成请求的builder构造器
-// 1.1 生成body的builder结构体

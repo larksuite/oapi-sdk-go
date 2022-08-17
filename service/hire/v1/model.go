@@ -22,8 +22,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
-// 生成枚举值
-
 const (
 	UserIdTypeUserId  = "user_id"
 	UserIdTypeUnionId = "union_id"
@@ -50,15 +48,12 @@ const (
 	ScenarioApplyOffer = 1
 )
 
-// 生成数据类型
-
 type Agency struct {
 	Id          *string `json:"id,omitempty"`
 	Name        *string `json:"name,omitempty"`
 	ContactorId *string `json:"contactor_id,omitempty"`
 }
 
-// builder开始
 type AgencyBuilder struct {
 	id              string
 	idFlag          bool
@@ -106,8 +101,6 @@ func (builder *AgencyBuilder) Build() *Agency {
 	return req
 }
 
-// builder结束
-
 type AppliOfferBasicCustObj struct {
 	Id              *string                      `json:"id,omitempty"`
 	Name            *OfferSchemaName             `json:"name,omitempty"`
@@ -116,7 +109,6 @@ type AppliOfferBasicCustObj struct {
 	OptionValueList []*AppliOfferBasicCustObjOpV `json:"option_value_list,omitempty"`
 }
 
-// builder开始
 type AppliOfferBasicCustObjBuilder struct {
 	id                  string
 	idFlag              bool
@@ -184,14 +176,11 @@ func (builder *AppliOfferBasicCustObjBuilder) Build() *AppliOfferBasicCustObj {
 	return req
 }
 
-// builder结束
-
 type AppliOfferBasicCustObjOpV struct {
 	ZhCn *string `json:"zh_cn,omitempty"`
 	EnUs *string `json:"en_us,omitempty"`
 }
 
-// builder开始
 type AppliOfferBasicCustObjOpVBuilder struct {
 	zhCn     string
 	zhCnFlag bool
@@ -228,8 +217,6 @@ func (builder *AppliOfferBasicCustObjOpVBuilder) Build() *AppliOfferBasicCustObj
 	return req
 }
 
-// builder结束
-
 type AppliOfferBasicInfoUser struct {
 	Id         *string     `json:"id,omitempty"`
 	Name       *string     `json:"name,omitempty"`
@@ -242,7 +229,6 @@ type AppliOfferBasicInfoUser struct {
 	InAppScope *bool       `json:"in_app_scope,omitempty"`
 }
 
-// builder开始
 type AppliOfferBasicInfoUserBuilder struct {
 	id             string
 	idFlag         bool
@@ -355,8 +341,6 @@ func (builder *AppliOfferBasicInfoUserBuilder) Build() *AppliOfferBasicInfoUser 
 	return req
 }
 
-// builder结束
-
 type AppliOfferOnboardProfile struct {
 	OfferId                    *string                      `json:"offer_id,omitempty"`
 	Department                 *Department                  `json:"department,omitempty"`
@@ -371,7 +355,6 @@ type AppliOfferOnboardProfile struct {
 	ContractYear               *int                         `json:"contract_year,omitempty"`
 }
 
-// builder开始
 type AppliOfferOnboardProfileBuilder struct {
 	offerId                        string
 	offerIdFlag                    bool
@@ -500,8 +483,6 @@ func (builder *AppliOfferOnboardProfileBuilder) Build() *AppliOfferOnboardProfil
 	return req
 }
 
-// builder结束
-
 type AppliOfferOnboardProfileAdd struct {
 	Id           *string                       `json:"id,omitempty"`
 	Name         *string                       `json:"name,omitempty"`
@@ -514,7 +495,6 @@ type AppliOfferOnboardProfileAdd struct {
 	ActiveStatus *int                          `json:"active_status,omitempty"`
 }
 
-// builder开始
 type AppliOfferOnboardProfileAddBuilder struct {
 	id               string
 	idFlag           bool
@@ -623,8 +603,6 @@ func (builder *AppliOfferOnboardProfileAddBuilder) Build() *AppliOfferOnboardPro
 	return req
 }
 
-// builder结束
-
 type AppliOfferOnboardProfileCity struct {
 	Code         *string `json:"code,omitempty"`
 	Name         *string `json:"name,omitempty"`
@@ -632,7 +610,6 @@ type AppliOfferOnboardProfileCity struct {
 	LocationType *int    `json:"location_type,omitempty"`
 }
 
-// builder开始
 type AppliOfferOnboardProfileCityBuilder struct {
 	code             string
 	codeFlag         bool
@@ -691,8 +668,6 @@ func (builder *AppliOfferOnboardProfileCityBuilder) Build() *AppliOfferOnboardPr
 	return req
 }
 
-// builder结束
-
 type AppliOfferSalaryPlanTemplate struct {
 	TemplateKey   *string `json:"template_key,omitempty"`
 	TotalAmount   *string `json:"total_amount,omitempty"`
@@ -700,7 +675,6 @@ type AppliOfferSalaryPlanTemplate struct {
 	SalaryContent *string `json:"salary_content,omitempty"`
 }
 
-// builder开始
 type AppliOfferSalaryPlanTemplateBuilder struct {
 	templateKey       string
 	templateKeyFlag   bool
@@ -759,14 +733,11 @@ func (builder *AppliOfferSalaryPlanTemplateBuilder) Build() *AppliOfferSalaryPla
 	return req
 }
 
-// builder结束
-
 type AppliTalentAttachResumeInfo struct {
 	Id   *string `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
 }
 
-// builder开始
 type AppliTalentAttachResumeInfoBuilder struct {
 	id       string
 	idFlag   bool
@@ -803,15 +774,12 @@ func (builder *AppliTalentAttachResumeInfoBuilder) Build() *AppliTalentAttachRes
 	return req
 }
 
-// builder结束
-
 type AppliTalentCertificateInfo struct {
 	Id   *string `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
 	Desc *string `json:"desc,omitempty"`
 }
 
-// builder开始
 type AppliTalentCertificateInfoBuilder struct {
 	id       string
 	idFlag   bool
@@ -859,15 +827,12 @@ func (builder *AppliTalentCertificateInfoBuilder) Build() *AppliTalentCertificat
 	return req
 }
 
-// builder结束
-
 type AppliTalentCompetitionInfo struct {
 	Id   *string `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
 	Desc *string `json:"desc,omitempty"`
 }
 
-// builder开始
 type AppliTalentCompetitionInfoBuilder struct {
 	id       string
 	idFlag   bool
@@ -915,8 +880,6 @@ func (builder *AppliTalentCompetitionInfoBuilder) Build() *AppliTalentCompetitio
 	return req
 }
 
-// builder结束
-
 type AppliTalentEducationInfo struct {
 	Id              *string `json:"id,omitempty"`
 	Degree          *int    `json:"degree,omitempty"`
@@ -929,7 +892,6 @@ type AppliTalentEducationInfo struct {
 	TagList         []int   `json:"tag_list,omitempty"`
 }
 
-// builder开始
 type AppliTalentEducationInfoBuilder struct {
 	id                  string
 	idFlag              bool
@@ -1042,8 +1004,6 @@ func (builder *AppliTalentEducationInfoBuilder) Build() *AppliTalentEducationInf
 	return req
 }
 
-// builder结束
-
 type Application struct {
 	Id                           *string                         `json:"id,omitempty"`
 	JobId                        *string                         `json:"job_id,omitempty"`
@@ -1064,7 +1024,6 @@ type Application struct {
 	ApplicationPreferredCityList []*CodeNameObject               `json:"application_preferred_city_list,omitempty"`
 }
 
-// builder开始
 type ApplicationBuilder struct {
 	id                               string
 	idFlag                           bool
@@ -1260,8 +1219,6 @@ func (builder *ApplicationBuilder) Build() *Application {
 	return req
 }
 
-// builder结束
-
 type ApplicationBasicInfo struct {
 	Stage         *ApplicationStage    `json:"stage,omitempty"`
 	Referral      *ApplicationReferral `json:"referral,omitempty"`
@@ -1270,7 +1227,6 @@ type ApplicationBasicInfo struct {
 	BizModifyTime *int                 `json:"biz_modify_time,omitempty"`
 }
 
-// builder开始
 type ApplicationBasicInfoBuilder struct {
 	stage             *ApplicationStage
 	stageFlag         bool
@@ -1338,8 +1294,6 @@ func (builder *ApplicationBasicInfoBuilder) Build() *ApplicationBasicInfo {
 	return req
 }
 
-// builder结束
-
 type ApplicationJob struct {
 	Id              *string                `json:"id,omitempty"`
 	Title           *string                `json:"title,omitempty"`
@@ -1353,7 +1307,6 @@ type ApplicationJob struct {
 	Country         *Country               `json:"country,omitempty"`
 }
 
-// builder开始
 type ApplicationJobBuilder struct {
 	id                  string
 	idFlag              bool
@@ -1473,15 +1426,12 @@ func (builder *ApplicationJobBuilder) Build() *ApplicationJob {
 	return req
 }
 
-// builder结束
-
 type ApplicationJobAddress struct {
 	Id     *string `json:"id,omitempty"`
 	Name   *string `json:"name,omitempty"`
 	EnName *string `json:"en_name,omitempty"`
 }
 
-// builder开始
 type ApplicationJobAddressBuilder struct {
 	id         string
 	idFlag     bool
@@ -1529,8 +1479,6 @@ func (builder *ApplicationJobAddressBuilder) Build() *ApplicationJobAddress {
 	return req
 }
 
-// builder结束
-
 type ApplicationOffer struct {
 	Id            *string                     `json:"id,omitempty"`
 	ApplicationId *string                     `json:"application_id,omitempty"`
@@ -1541,7 +1489,6 @@ type ApplicationOffer struct {
 	JobInfo       *OfferJobInfo               `json:"job_info,omitempty"`
 }
 
-// builder开始
 type ApplicationOfferBuilder struct {
 	id                string
 	idFlag            bool
@@ -1630,14 +1577,11 @@ func (builder *ApplicationOfferBuilder) Build() *ApplicationOffer {
 	return req
 }
 
-// builder结束
-
 type ApplicationOfferAttachment struct {
 	AttachmentId *string `json:"attachment_id,omitempty"`
 	Name         *string `json:"name,omitempty"`
 }
 
-// builder开始
 type ApplicationOfferAttachmentBuilder struct {
 	attachmentId     string
 	attachmentIdFlag bool
@@ -1674,8 +1618,6 @@ func (builder *ApplicationOfferAttachmentBuilder) Build() *ApplicationOfferAttac
 	return req
 }
 
-// builder结束
-
 type ApplicationOfferBasicInfo struct {
 	OfferType         *int                           `json:"offer_type,omitempty"`
 	Remark            *string                        `json:"remark,omitempty"`
@@ -1697,7 +1639,6 @@ type ApplicationOfferBasicInfo struct {
 	CustomizeInfoList []*ApplicationOfferCustomValue `json:"customize_info_list,omitempty"`
 }
 
-// builder开始
 type ApplicationOfferBasicInfoBuilder struct {
 	offerType             int
 	offerTypeFlag         bool
@@ -1903,8 +1844,6 @@ func (builder *ApplicationOfferBasicInfoBuilder) Build() *ApplicationOfferBasicI
 	return req
 }
 
-// builder结束
-
 type ApplicationOfferBasicInfoCustomizedObject struct {
 	Id              *string                                                 `json:"id,omitempty"`
 	Name            *OfferSchemaName                                        `json:"name,omitempty"`
@@ -1913,7 +1852,6 @@ type ApplicationOfferBasicInfoCustomizedObject struct {
 	OptionValueList []*ApplicationOfferBasicInfoCustomizedObjectOptionValue `json:"option_value_list,omitempty"`
 }
 
-// builder开始
 type ApplicationOfferBasicInfoCustomizedObjectBuilder struct {
 	id                  string
 	idFlag              bool
@@ -1981,14 +1919,11 @@ func (builder *ApplicationOfferBasicInfoCustomizedObjectBuilder) Build() *Applic
 	return req
 }
 
-// builder结束
-
 type ApplicationOfferBasicInfoCustomizedObjectOptionValue struct {
 	ZhCn *string `json:"zh_cn,omitempty"`
 	EnUs *string `json:"en_us,omitempty"`
 }
 
-// builder开始
 type ApplicationOfferBasicInfoCustomizedObjectOptionValueBuilder struct {
 	zhCn     string
 	zhCnFlag bool
@@ -2025,8 +1960,6 @@ func (builder *ApplicationOfferBasicInfoCustomizedObjectOptionValueBuilder) Buil
 	return req
 }
 
-// builder结束
-
 type ApplicationOfferBasicInfoUser struct {
 	Id         *string     `json:"id,omitempty"`
 	Name       *string     `json:"name,omitempty"`
@@ -2039,7 +1972,6 @@ type ApplicationOfferBasicInfoUser struct {
 	InAppScope *bool       `json:"in_app_scope,omitempty"`
 }
 
-// builder开始
 type ApplicationOfferBasicInfoUserBuilder struct {
 	id             string
 	idFlag         bool
@@ -2152,14 +2084,11 @@ func (builder *ApplicationOfferBasicInfoUserBuilder) Build() *ApplicationOfferBa
 	return req
 }
 
-// builder结束
-
 type ApplicationOfferCustomValue struct {
 	ObjectId       *string `json:"object_id,omitempty"`
 	CustomizeValue *string `json:"customize_value,omitempty"`
 }
 
-// builder开始
 type ApplicationOfferCustomValueBuilder struct {
 	objectId           string
 	objectIdFlag       bool
@@ -2196,8 +2125,6 @@ func (builder *ApplicationOfferCustomValueBuilder) Build() *ApplicationOfferCust
 	return req
 }
 
-// builder结束
-
 type ApplicationOfferOnboardProfile struct {
 	OfferId                    *string                                `json:"offer_id,omitempty"`
 	Department                 *Department                            `json:"department,omitempty"`
@@ -2212,7 +2139,6 @@ type ApplicationOfferOnboardProfile struct {
 	ContractYear               *int                                   `json:"contract_year,omitempty"`
 }
 
-// builder开始
 type ApplicationOfferOnboardProfileBuilder struct {
 	offerId                        string
 	offerIdFlag                    bool
@@ -2341,8 +2267,6 @@ func (builder *ApplicationOfferOnboardProfileBuilder) Build() *ApplicationOfferO
 	return req
 }
 
-// builder结束
-
 type ApplicationOfferOnboardProfileAddress struct {
 	Id           *string                             `json:"id,omitempty"`
 	Name         *string                             `json:"name,omitempty"`
@@ -2355,7 +2279,6 @@ type ApplicationOfferOnboardProfileAddress struct {
 	ActiveStatus *int                                `json:"active_status,omitempty"`
 }
 
-// builder开始
 type ApplicationOfferOnboardProfileAddressBuilder struct {
 	id               string
 	idFlag           bool
@@ -2464,8 +2387,6 @@ func (builder *ApplicationOfferOnboardProfileAddressBuilder) Build() *Applicatio
 	return req
 }
 
-// builder结束
-
 type ApplicationOfferOnboardProfileCity struct {
 	Code         *string `json:"code,omitempty"`
 	Name         *string `json:"name,omitempty"`
@@ -2473,7 +2394,6 @@ type ApplicationOfferOnboardProfileCity struct {
 	LocationType *int    `json:"location_type,omitempty"`
 }
 
-// builder开始
 type ApplicationOfferOnboardProfileCityBuilder struct {
 	code             string
 	codeFlag         bool
@@ -2532,8 +2452,6 @@ func (builder *ApplicationOfferOnboardProfileCityBuilder) Build() *ApplicationOf
 	return req
 }
 
-// builder结束
-
 type ApplicationOfferSalaryPlan struct {
 	Currency                  *string                        `json:"currency,omitempty"`
 	BasicSalary               *string                        `json:"basic_salary,omitempty"`
@@ -2546,7 +2464,6 @@ type ApplicationOfferSalaryPlan struct {
 	CustomizeInfoList         []*ApplicationOfferCustomValue `json:"customize_info_list,omitempty"`
 }
 
-// builder开始
 type ApplicationOfferSalaryPlanBuilder struct {
 	currency                      string
 	currencyFlag                  bool
@@ -2659,8 +2576,6 @@ func (builder *ApplicationOfferSalaryPlanBuilder) Build() *ApplicationOfferSalar
 	return req
 }
 
-// builder结束
-
 type ApplicationOfferSalaryPlanSalaryTemplate struct {
 	TemplateKey   *string `json:"template_key,omitempty"`
 	TotalAmount   *string `json:"total_amount,omitempty"`
@@ -2668,7 +2583,6 @@ type ApplicationOfferSalaryPlanSalaryTemplate struct {
 	SalaryContent *string `json:"salary_content,omitempty"`
 }
 
-// builder开始
 type ApplicationOfferSalaryPlanSalaryTemplateBuilder struct {
 	templateKey       string
 	templateKeyFlag   bool
@@ -2727,8 +2641,6 @@ func (builder *ApplicationOfferSalaryPlanSalaryTemplateBuilder) Build() *Applica
 	return req
 }
 
-// builder结束
-
 type ApplicationPrehire struct {
 	Id        *string                  `json:"id,omitempty"`
 	BasicInfo *ApplicationBasicInfo    `json:"basic_info,omitempty"`
@@ -2737,7 +2649,6 @@ type ApplicationPrehire struct {
 	Offer     *ApplicationPrehireOffer `json:"offer,omitempty"`
 }
 
-// builder开始
 type ApplicationPrehireBuilder struct {
 	id            string
 	idFlag        bool
@@ -2803,15 +2714,12 @@ func (builder *ApplicationPrehireBuilder) Build() *ApplicationPrehire {
 	return req
 }
 
-// builder结束
-
 type ApplicationPrehireDepartment struct {
 	Id     *string `json:"id,omitempty"`
 	Name   *string `json:"name,omitempty"`
 	EnName *string `json:"en_name,omitempty"`
 }
 
-// builder开始
 type ApplicationPrehireDepartmentBuilder struct {
 	id         string
 	idFlag     bool
@@ -2859,15 +2767,12 @@ func (builder *ApplicationPrehireDepartmentBuilder) Build() *ApplicationPrehireD
 	return req
 }
 
-// builder结束
-
 type ApplicationPrehireOffer struct {
 	BasicInfo           *ApplicationPrehireOfferBasic `json:"basic_info,omitempty"`
 	OfferOnboardProfile *AppliOfferOnboardProfile     `json:"offer_onboard_profile,omitempty"`
 	AttachmentList      []*ApplicationOfferAttachment `json:"attachment_list,omitempty"`
 }
 
-// builder开始
 type ApplicationPrehireOfferBuilder struct {
 	basicInfo               *ApplicationPrehireOfferBasic
 	basicInfoFlag           bool
@@ -2912,8 +2817,6 @@ func (builder *ApplicationPrehireOfferBuilder) Build() *ApplicationPrehireOffer 
 	return req
 }
 
-// builder结束
-
 type ApplicationPrehireOfferBasic struct {
 	OfferId       *string                  `json:"offer_id,omitempty"`
 	ApplicationId *string                  `json:"application_id,omitempty"`
@@ -2929,7 +2832,6 @@ type ApplicationPrehireOfferBasic struct {
 	OfferJobTitle *string                  `json:"offer_job_title,omitempty"`
 }
 
-// builder开始
 type ApplicationPrehireOfferBasicBuilder struct {
 	offerId           string
 	offerIdFlag       bool
@@ -3075,8 +2977,6 @@ func (builder *ApplicationPrehireOfferBasicBuilder) Build() *ApplicationPrehireO
 	return req
 }
 
-// builder结束
-
 type ApplicationPrehireOptional struct {
 	WithTalentBasic  *bool `json:"with_talent_basic,omitempty"`
 	WithTalentExtend *bool `json:"with_talent_extend,omitempty"`
@@ -3084,7 +2984,6 @@ type ApplicationPrehireOptional struct {
 	WithOffer        *bool `json:"with_offer,omitempty"`
 }
 
-// builder开始
 type ApplicationPrehireOptionalBuilder struct {
 	withTalentBasic      bool
 	withTalentBasicFlag  bool
@@ -3143,15 +3042,12 @@ func (builder *ApplicationPrehireOptionalBuilder) Build() *ApplicationPrehireOpt
 	return req
 }
 
-// builder结束
-
 type ApplicationReferral struct {
 	Id     *string `json:"id,omitempty"`
 	Name   *string `json:"name,omitempty"`
 	EnName *string `json:"en_name,omitempty"`
 }
 
-// builder开始
 type ApplicationReferralBuilder struct {
 	id         string
 	idFlag     bool
@@ -3199,15 +3095,12 @@ func (builder *ApplicationReferralBuilder) Build() *ApplicationReferral {
 	return req
 }
 
-// builder结束
-
 type ApplicationResumeSource struct {
 	Id               *string `json:"id,omitempty"`
 	Name             *I18n   `json:"name,omitempty"`
 	ResumeSourceType *int    `json:"resume_source_type,omitempty"`
 }
 
-// builder开始
 type ApplicationResumeSourceBuilder struct {
 	id                   string
 	idFlag               bool
@@ -3254,8 +3147,6 @@ func (builder *ApplicationResumeSourceBuilder) Build() *ApplicationResumeSource 
 	return req
 }
 
-// builder结束
-
 type ApplicationStage struct {
 	Id            *string `json:"id,omitempty"`
 	Name          *string `json:"name,omitempty"`
@@ -3268,7 +3159,6 @@ type ApplicationStage struct {
 	PublishEnName *string `json:"publish_en_name,omitempty"`
 }
 
-// builder开始
 type ApplicationStageBuilder struct {
 	id                string
 	idFlag            bool
@@ -3382,8 +3272,6 @@ func (builder *ApplicationStageBuilder) Build() *ApplicationStage {
 	return req
 }
 
-// builder结束
-
 type ApplicationStageInfo struct {
 	Id     *string `json:"id,omitempty"`
 	ZhName *string `json:"zh_name,omitempty"`
@@ -3391,7 +3279,6 @@ type ApplicationStageInfo struct {
 	Type   *int    `json:"type,omitempty"`
 }
 
-// builder开始
 type ApplicationStageInfoBuilder struct {
 	id         string
 	idFlag     bool
@@ -3450,15 +3337,12 @@ func (builder *ApplicationStageInfoBuilder) Build() *ApplicationStageInfo {
 	return req
 }
 
-// builder结束
-
 type ApplicationStageTime struct {
 	StageId   *string `json:"stage_id,omitempty"`
 	EnterTime *string `json:"enter_time,omitempty"`
 	ExitTime  *string `json:"exit_time,omitempty"`
 }
 
-// builder开始
 type ApplicationStageTimeBuilder struct {
 	stageId       string
 	stageIdFlag   bool
@@ -3506,8 +3390,6 @@ func (builder *ApplicationStageTimeBuilder) Build() *ApplicationStageTime {
 	return req
 }
 
-// builder结束
-
 type ApplicationTalent struct {
 	Id                   *string                          `json:"id,omitempty"`
 	BasicInfo            *ApplicationTalentBasicInfo      `json:"basic_info,omitempty"`
@@ -3524,7 +3406,6 @@ type ApplicationTalent struct {
 	AttachmentResumeList []*AppliTalentAttachResumeInfo   `json:"attachment_resume_list,omitempty"`
 }
 
-// builder开始
 type ApplicationTalentBuilder struct {
 	id                       string
 	idFlag                   bool
@@ -3671,14 +3552,11 @@ func (builder *ApplicationTalentBuilder) Build() *ApplicationTalent {
 	return req
 }
 
-// builder结束
-
 type ApplicationTalentAttachmentResumeInfo struct {
 	Id   *string `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
 }
 
-// builder开始
 type ApplicationTalentAttachmentResumeInfoBuilder struct {
 	id       string
 	idFlag   bool
@@ -3715,8 +3593,6 @@ func (builder *ApplicationTalentAttachmentResumeInfoBuilder) Build() *Applicatio
 	return req
 }
 
-// builder结束
-
 type ApplicationTalentAwardInfo struct {
 	Id        *string `json:"id,omitempty"`
 	Title     *string `json:"title,omitempty"`
@@ -3724,7 +3600,6 @@ type ApplicationTalentAwardInfo struct {
 	Desc      *string `json:"desc,omitempty"`
 }
 
-// builder开始
 type ApplicationTalentAwardInfoBuilder struct {
 	id            string
 	idFlag        bool
@@ -3783,8 +3658,6 @@ func (builder *ApplicationTalentAwardInfoBuilder) Build() *ApplicationTalentAwar
 	return req
 }
 
-// builder结束
-
 type ApplicationTalentBasicInfo struct {
 	Name                 *string      `json:"name,omitempty"`
 	Mobile               *string      `json:"mobile,omitempty"`
@@ -3802,7 +3675,6 @@ type ApplicationTalentBasicInfo struct {
 	IdentificationNumber *string      `json:"identification_number,omitempty"`
 }
 
-// builder开始
 type ApplicationTalentBasicInfoBuilder struct {
 	name                     string
 	nameFlag                 bool
@@ -3967,8 +3839,6 @@ func (builder *ApplicationTalentBasicInfoBuilder) Build() *ApplicationTalentBasi
 	return req
 }
 
-// builder结束
-
 type ApplicationTalentCareerInfo struct {
 	Id        *string `json:"id,omitempty"`
 	Company   *string `json:"company,omitempty"`
@@ -3979,7 +3849,6 @@ type ApplicationTalentCareerInfo struct {
 	TagList   []int   `json:"tag_list,omitempty"`
 }
 
-// builder开始
 type ApplicationTalentCareerInfoBuilder struct {
 	id            string
 	idFlag        bool
@@ -4070,15 +3939,12 @@ func (builder *ApplicationTalentCareerInfoBuilder) Build() *ApplicationTalentCar
 	return req
 }
 
-// builder结束
-
 type ApplicationTalentCertificateInfo struct {
 	Id   *string `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
 	Desc *string `json:"desc,omitempty"`
 }
 
-// builder开始
 type ApplicationTalentCertificateInfoBuilder struct {
 	id       string
 	idFlag   bool
@@ -4126,15 +3992,12 @@ func (builder *ApplicationTalentCertificateInfoBuilder) Build() *ApplicationTale
 	return req
 }
 
-// builder结束
-
 type ApplicationTalentCompetitionInfo struct {
 	Id   *string `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
 	Desc *string `json:"desc,omitempty"`
 }
 
-// builder开始
 type ApplicationTalentCompetitionInfoBuilder struct {
 	id       string
 	idFlag   bool
@@ -4182,8 +4045,6 @@ func (builder *ApplicationTalentCompetitionInfoBuilder) Build() *ApplicationTale
 	return req
 }
 
-// builder结束
-
 type ApplicationTalentEducationInfo struct {
 	Id              *string `json:"id,omitempty"`
 	Degree          *int    `json:"degree,omitempty"`
@@ -4196,7 +4057,6 @@ type ApplicationTalentEducationInfo struct {
 	TagList         []int   `json:"tag_list,omitempty"`
 }
 
-// builder开始
 type ApplicationTalentEducationInfoBuilder struct {
 	id                  string
 	idFlag              bool
@@ -4309,15 +4169,12 @@ func (builder *ApplicationTalentEducationInfoBuilder) Build() *ApplicationTalent
 	return req
 }
 
-// builder结束
-
 type ApplicationTalentLanguageInfo struct {
 	Id          *string `json:"id,omitempty"`
 	Language    *int    `json:"language,omitempty"`
 	Proficiency *int    `json:"proficiency,omitempty"`
 }
 
-// builder开始
 type ApplicationTalentLanguageInfoBuilder struct {
 	id              string
 	idFlag          bool
@@ -4365,8 +4222,6 @@ func (builder *ApplicationTalentLanguageInfoBuilder) Build() *ApplicationTalentL
 	return req
 }
 
-// builder结束
-
 type ApplicationTalentProjectInfo struct {
 	Id        *string `json:"id,omitempty"`
 	Name      *string `json:"name,omitempty"`
@@ -4377,7 +4232,6 @@ type ApplicationTalentProjectInfo struct {
 	EndTime   *int    `json:"end_time,omitempty"`
 }
 
-// builder开始
 type ApplicationTalentProjectInfoBuilder struct {
 	id            string
 	idFlag        bool
@@ -4469,15 +4323,12 @@ func (builder *ApplicationTalentProjectInfoBuilder) Build() *ApplicationTalentPr
 	return req
 }
 
-// builder结束
-
 type ApplicationTalentSnsInfo struct {
 	Id      *string `json:"id,omitempty"`
 	SnsType *int    `json:"sns_type,omitempty"`
 	Link    *string `json:"link,omitempty"`
 }
 
-// builder开始
 type ApplicationTalentSnsInfoBuilder struct {
 	id          string
 	idFlag      bool
@@ -4525,8 +4376,6 @@ func (builder *ApplicationTalentSnsInfoBuilder) Build() *ApplicationTalentSnsInf
 	return req
 }
 
-// builder结束
-
 type ApplicationTalentWorksInfo struct {
 	Id   *string `json:"id,omitempty"`
 	Link *string `json:"link,omitempty"`
@@ -4534,7 +4383,6 @@ type ApplicationTalentWorksInfo struct {
 	Name *string `json:"name,omitempty"`
 }
 
-// builder开始
 type ApplicationTalentWorksInfoBuilder struct {
 	id       string
 	idFlag   bool
@@ -4593,14 +4441,11 @@ func (builder *ApplicationTalentWorksInfoBuilder) Build() *ApplicationTalentWork
 	return req
 }
 
-// builder结束
-
 type ApplicationWebsiteChannel struct {
 	ChannelId   *string `json:"channel_id,omitempty"`
 	ChannelName *I18n   `json:"channel_name,omitempty"`
 }
 
-// builder开始
 type ApplicationWebsiteChannelBuilder struct {
 	channelId       string
 	channelIdFlag   bool
@@ -4636,15 +4481,12 @@ func (builder *ApplicationWebsiteChannelBuilder) Build() *ApplicationWebsiteChan
 	return req
 }
 
-// builder结束
-
 type ApplicationWebsiteResumeSource struct {
 	WebsiteId   *string                    `json:"website_id,omitempty"`
 	WebsiteName *I18n                      `json:"website_name,omitempty"`
 	Channel     *ApplicationWebsiteChannel `json:"channel,omitempty"`
 }
 
-// builder开始
 type ApplicationWebsiteResumeSourceBuilder struct {
 	websiteId       string
 	websiteIdFlag   bool
@@ -4690,8 +4532,6 @@ func (builder *ApplicationWebsiteResumeSourceBuilder) Build() *ApplicationWebsit
 	return req
 }
 
-// builder结束
-
 type Attachment struct {
 	Id         *string `json:"id,omitempty"`
 	Url        *string `json:"url,omitempty"`
@@ -4700,7 +4540,6 @@ type Attachment struct {
 	CreateTime *int    `json:"create_time,omitempty"`
 }
 
-// builder开始
 type AttachmentBuilder struct {
 	id             string
 	idFlag         bool
@@ -4770,14 +4609,11 @@ func (builder *AttachmentBuilder) Build() *Attachment {
 	return req
 }
 
-// builder结束
-
 type Auth struct {
 	Id   *string `json:"id,omitempty"`
 	Name *I18n   `json:"name,omitempty"`
 }
 
-// builder开始
 type AuthBuilder struct {
 	id       string
 	idFlag   bool
@@ -4813,15 +4649,12 @@ func (builder *AuthBuilder) Build() *Auth {
 	return req
 }
 
-// builder结束
-
 type AwardInfo struct {
 	AwardTime *int    `json:"award_time,omitempty"`
 	Desc      *string `json:"desc,omitempty"`
 	Title     *string `json:"title,omitempty"`
 }
 
-// builder开始
 type AwardInfoBuilder struct {
 	awardTime     int
 	awardTimeFlag bool
@@ -4869,14 +4702,11 @@ func (builder *AwardInfoBuilder) Build() *AwardInfo {
 	return req
 }
 
-// builder结束
-
 type BackgroundCheckFeedbackInfo struct {
 	AttachmentUrl *string `json:"attachment_url,omitempty"`
 	Result        *string `json:"result,omitempty"`
 }
 
-// builder开始
 type BackgroundCheckFeedbackInfoBuilder struct {
 	attachmentUrl     string
 	attachmentUrlFlag bool
@@ -4913,8 +4743,6 @@ func (builder *BackgroundCheckFeedbackInfoBuilder) Build() *BackgroundCheckFeedb
 	return req
 }
 
-// builder结束
-
 type BackgroundCheckOrder struct {
 	OrderId          *string                        `json:"order_id,omitempty"`
 	ApplicationId    *string                        `json:"application_id,omitempty"`
@@ -4924,7 +4752,6 @@ type BackgroundCheckOrder struct {
 	ProcessInfoList  []*BackgroundCheckProcessInfo  `json:"process_info_list,omitempty"`
 }
 
-// builder开始
 type BackgroundCheckOrderBuilder struct {
 	orderId              string
 	orderIdFlag          bool
@@ -5003,14 +4830,11 @@ func (builder *BackgroundCheckOrderBuilder) Build() *BackgroundCheckOrder {
 	return req
 }
 
-// builder结束
-
 type BackgroundCheckProcessInfo struct {
 	Process    *string `json:"process,omitempty"`
 	UpdateTime *string `json:"update_time,omitempty"`
 }
 
-// builder开始
 type BackgroundCheckProcessInfoBuilder struct {
 	process        string
 	processFlag    bool
@@ -5047,8 +4871,6 @@ func (builder *BackgroundCheckProcessInfoBuilder) Build() *BackgroundCheckProces
 	return req
 }
 
-// builder结束
-
 type BaseAddress struct {
 	Id       *string       `json:"id,omitempty"`
 	ZhName   *string       `json:"zh_name,omitempty"`
@@ -5059,7 +4881,6 @@ type BaseAddress struct {
 	Country  *BaseCountry  `json:"country,omitempty"`
 }
 
-// builder开始
 type BaseAddressBuilder struct {
 	id           string
 	idFlag       bool
@@ -5147,15 +4968,12 @@ func (builder *BaseAddressBuilder) Build() *BaseAddress {
 	return req
 }
 
-// builder结束
-
 type BaseBilingualWithId struct {
 	Id     *string `json:"id,omitempty"`
 	ZhName *string `json:"zh_name,omitempty"`
 	EnName *string `json:"en_name,omitempty"`
 }
 
-// builder开始
 type BaseBilingualWithIdBuilder struct {
 	id         string
 	idFlag     bool
@@ -5203,8 +5021,6 @@ func (builder *BaseBilingualWithIdBuilder) Build() *BaseBilingualWithId {
 	return req
 }
 
-// builder结束
-
 type BaseCity struct {
 	ZhName       *string `json:"zh_name,omitempty"`
 	EnName       *string `json:"en_name,omitempty"`
@@ -5212,7 +5028,6 @@ type BaseCity struct {
 	LocationType *int    `json:"location_type,omitempty"`
 }
 
-// builder开始
 type BaseCityBuilder struct {
 	zhName           string
 	zhNameFlag       bool
@@ -5271,8 +5086,6 @@ func (builder *BaseCityBuilder) Build() *BaseCity {
 	return req
 }
 
-// builder结束
-
 type BaseCountry struct {
 	ZhName       *string `json:"zh_name,omitempty"`
 	EnName       *string `json:"en_name,omitempty"`
@@ -5280,7 +5093,6 @@ type BaseCountry struct {
 	LocationType *int    `json:"location_type,omitempty"`
 }
 
-// builder开始
 type BaseCountryBuilder struct {
 	zhName           string
 	zhNameFlag       bool
@@ -5339,8 +5151,6 @@ func (builder *BaseCountryBuilder) Build() *BaseCountry {
 	return req
 }
 
-// builder结束
-
 type BaseDistrict struct {
 	ZhName       *string `json:"zh_name,omitempty"`
 	EnName       *string `json:"en_name,omitempty"`
@@ -5348,7 +5158,6 @@ type BaseDistrict struct {
 	LocationType *int    `json:"location_type,omitempty"`
 }
 
-// builder开始
 type BaseDistrictBuilder struct {
 	zhName           string
 	zhNameFlag       bool
@@ -5407,14 +5216,11 @@ func (builder *BaseDistrictBuilder) Build() *BaseDistrict {
 	return req
 }
 
-// builder结束
-
 type BaseResp struct {
 	StatusMessage *string `json:"StatusMessage,omitempty"`
 	StatusCode    *int    `json:"StatusCode,omitempty"`
 }
 
-// builder开始
 type BaseRespBuilder struct {
 	statusMessage     string
 	statusMessageFlag bool
@@ -5451,8 +5257,6 @@ func (builder *BaseRespBuilder) Build() *BaseResp {
 	return req
 }
 
-// builder结束
-
 type BasicInfo struct {
 	Name               *string         `json:"name,omitempty"`
 	Mobile             *string         `json:"mobile,omitempty"`
@@ -5473,7 +5277,6 @@ type BasicInfo struct {
 	StartWorkTime      *int            `json:"start_work_time,omitempty"`
 }
 
-// builder开始
 type BasicInfoBuilder struct {
 	name                   string
 	nameFlag               bool
@@ -5674,8 +5477,6 @@ func (builder *BasicInfoBuilder) Build() *BasicInfo {
 	return req
 }
 
-// builder结束
-
 type CareerInfo struct {
 	CareerType *int    `json:"career_type,omitempty"`
 	Company    *string `json:"company,omitempty"`
@@ -5685,7 +5486,6 @@ type CareerInfo struct {
 	Title      *string `json:"title,omitempty"`
 }
 
-// builder开始
 type CareerInfoBuilder struct {
 	careerType     int
 	careerTypeFlag bool
@@ -5766,14 +5566,11 @@ func (builder *CareerInfoBuilder) Build() *CareerInfo {
 	return req
 }
 
-// builder结束
-
 type CertificateInfo struct {
 	Desc *string `json:"desc,omitempty"`
 	Name *string `json:"name,omitempty"`
 }
 
-// builder开始
 type CertificateInfoBuilder struct {
 	desc     string
 	descFlag bool
@@ -5810,15 +5607,12 @@ func (builder *CertificateInfoBuilder) Build() *CertificateInfo {
 	return req
 }
 
-// builder结束
-
 type ChangeEmployeeStage struct {
 	Operation      *int                    `json:"operation,omitempty"`
 	ConversionInfo *EmployeeConversionInfo `json:"conversion_info,omitempty"`
 	OverboardInfo  *EmployeeOverboardInfo  `json:"overboard_info,omitempty"`
 }
 
-// builder开始
 type ChangeEmployeeStageBuilder struct {
 	operation          int
 	operationFlag      bool
@@ -5864,8 +5658,6 @@ func (builder *ChangeEmployeeStageBuilder) Build() *ChangeEmployeeStage {
 	return req
 }
 
-// builder结束
-
 type City struct {
 	CityCode *string  `json:"city_code,omitempty"`
 	Name     *string  `json:"name,omitempty"`
@@ -5873,7 +5665,6 @@ type City struct {
 	Country  *Country `json:"country,omitempty"`
 }
 
-// builder开始
 type CityBuilder struct {
 	cityCode     string
 	cityCodeFlag bool
@@ -5931,14 +5722,11 @@ func (builder *CityBuilder) Build() *City {
 	return req
 }
 
-// builder结束
-
 type CodeNameObject struct {
 	Code *string `json:"code,omitempty"`
 	Name *I18n   `json:"name,omitempty"`
 }
 
-// builder开始
 type CodeNameObjectBuilder struct {
 	code     string
 	codeFlag bool
@@ -5974,8 +5762,6 @@ func (builder *CodeNameObjectBuilder) Build() *CodeNameObject {
 	return req
 }
 
-// builder结束
-
 type CombinedJob struct {
 	Id                 *string                      `json:"id,omitempty"`
 	Code               *string                      `json:"code,omitempty"`
@@ -6006,7 +5792,6 @@ type CombinedJob struct {
 	AddressIdList      []string                     `json:"address_id_list,omitempty"`
 }
 
-// builder开始
 type CombinedJobBuilder struct {
 	id                     string
 	idFlag                 bool
@@ -6314,14 +6099,11 @@ func (builder *CombinedJobBuilder) Build() *CombinedJob {
 	return req
 }
 
-// builder结束
-
 type CombinedJobObjectValueMap struct {
 	ObjectId *string `json:"object_id,omitempty"`
 	Value    *string `json:"value,omitempty"`
 }
 
-// builder开始
 type CombinedJobObjectValueMapBuilder struct {
 	objectId     string
 	objectIdFlag bool
@@ -6358,15 +6140,12 @@ func (builder *CombinedJobObjectValueMapBuilder) Build() *CombinedJobObjectValue
 	return req
 }
 
-// builder结束
-
 type CombinedJobResult struct {
 	DefaultJobPost *CombinedJobResultDefaultJobPost `json:"default_job_post,omitempty"`
 	Job            *Job                             `json:"job,omitempty"`
 	JobManager     *JobManager                      `json:"job_manager,omitempty"`
 }
 
-// builder开始
 type CombinedJobResultBuilder struct {
 	defaultJobPost     *CombinedJobResultDefaultJobPost
 	defaultJobPostFlag bool
@@ -6411,13 +6190,10 @@ func (builder *CombinedJobResultBuilder) Build() *CombinedJobResult {
 	return req
 }
 
-// builder结束
-
 type CombinedJobResultDefaultJobPost struct {
 	Id *string `json:"id,omitempty"`
 }
 
-// builder开始
 type CombinedJobResultDefaultJobPostBuilder struct {
 	id     string
 	idFlag bool
@@ -6443,8 +6219,6 @@ func (builder *CombinedJobResultDefaultJobPostBuilder) Build() *CombinedJobResul
 	return req
 }
 
-// builder结束
-
 type CommonAddress struct {
 	Id       *string         `json:"id,omitempty"`
 	Name     *I18n           `json:"name,omitempty"`
@@ -6454,7 +6228,6 @@ type CommonAddress struct {
 	Country  *CodeNameObject `json:"country,omitempty"`
 }
 
-// builder开始
 type CommonAddressBuilder struct {
 	id           string
 	idFlag       bool
@@ -6530,8 +6303,6 @@ func (builder *CommonAddressBuilder) Build() *CommonAddress {
 	return req
 }
 
-// builder结束
-
 type CommonSchema struct {
 	Id           *string              `json:"id,omitempty"`
 	Name         *I18n                `json:"name,omitempty"`
@@ -6544,7 +6315,6 @@ type CommonSchema struct {
 	ChildrenList []*CommonSchemaChild `json:"children_list,omitempty"`
 }
 
-// builder开始
 type CommonSchemaBuilder struct {
 	id               string
 	idFlag           bool
@@ -6654,8 +6424,6 @@ func (builder *CommonSchemaBuilder) Build() *CommonSchema {
 	return req
 }
 
-// builder结束
-
 type CommonSchemaChild struct {
 	Id           *string              `json:"id,omitempty"`
 	Name         *I18n                `json:"name,omitempty"`
@@ -6668,7 +6436,6 @@ type CommonSchemaChild struct {
 	ActiveStatus *int                 `json:"active_status,omitempty"`
 }
 
-// builder开始
 type CommonSchemaChildBuilder struct {
 	id               string
 	idFlag           bool
@@ -6779,13 +6546,10 @@ func (builder *CommonSchemaChildBuilder) Build() *CommonSchemaChild {
 	return req
 }
 
-// builder结束
-
 type CommonSchemaConfig struct {
 	Options []*CommonSchemaOption `json:"options,omitempty"`
 }
 
-// builder开始
 type CommonSchemaConfigBuilder struct {
 	options     []*CommonSchemaOption
 	optionsFlag bool
@@ -6810,8 +6574,6 @@ func (builder *CommonSchemaConfigBuilder) Build() *CommonSchemaConfig {
 	return req
 }
 
-// builder结束
-
 type CommonSchemaOption struct {
 	Key          *string `json:"key,omitempty"`
 	Name         *I18n   `json:"name,omitempty"`
@@ -6819,7 +6581,6 @@ type CommonSchemaOption struct {
 	ActiveStatus *int    `json:"active_status,omitempty"`
 }
 
-// builder开始
 type CommonSchemaOptionBuilder struct {
 	key              string
 	keyFlag          bool
@@ -6876,14 +6637,11 @@ func (builder *CommonSchemaOptionBuilder) Build() *CommonSchemaOption {
 	return req
 }
 
-// builder结束
-
 type CommonSchemaSetting struct {
 	ObjectType *int                `json:"object_type,omitempty"`
 	Config     *CommonSchemaConfig `json:"config,omitempty"`
 }
 
-// builder开始
 type CommonSchemaSettingBuilder struct {
 	objectType     int
 	objectTypeFlag bool
@@ -6919,14 +6677,11 @@ func (builder *CommonSchemaSettingBuilder) Build() *CommonSchemaSetting {
 	return req
 }
 
-// builder结束
-
 type CompetitionInfo struct {
 	Desc *string `json:"desc,omitempty"`
 	Name *string `json:"name,omitempty"`
 }
 
-// builder开始
 type CompetitionInfoBuilder struct {
 	desc     string
 	descFlag bool
@@ -6963,15 +6718,12 @@ func (builder *CompetitionInfoBuilder) Build() *CompetitionInfo {
 	return req
 }
 
-// builder结束
-
 type Country struct {
 	CountryCode *string `json:"country_code,omitempty"`
 	Name        *string `json:"name,omitempty"`
 	EnName      *string `json:"en_name,omitempty"`
 }
 
-// builder开始
 type CountryBuilder struct {
 	countryCode     string
 	countryCodeFlag bool
@@ -7019,15 +6771,12 @@ func (builder *CountryBuilder) Build() *Country {
 	return req
 }
 
-// builder结束
-
 type Department struct {
 	Id     *string `json:"id,omitempty"`
 	Name   *string `json:"name,omitempty"`
 	EnName *string `json:"en_name,omitempty"`
 }
 
-// builder开始
 type DepartmentBuilder struct {
 	id         string
 	idFlag     bool
@@ -7075,13 +6824,10 @@ func (builder *DepartmentBuilder) Build() *Department {
 	return req
 }
 
-// builder结束
-
 type Dummy struct {
 	Id *string `json:"id,omitempty"`
 }
 
-// builder开始
 type DummyBuilder struct {
 	id     string
 	idFlag bool
@@ -7107,8 +6853,6 @@ func (builder *DummyBuilder) Build() *Dummy {
 	return req
 }
 
-// builder结束
-
 type EducationInfo struct {
 	Degree          *int    `json:"degree,omitempty"`
 	EndTime         *int    `json:"end_time,omitempty"`
@@ -7119,7 +6863,6 @@ type EducationInfo struct {
 	AcademicRanking *int    `json:"academic_ranking,omitempty"`
 }
 
-// builder开始
 type EducationInfoBuilder struct {
 	degree              int
 	degreeFlag          bool
@@ -7211,15 +6954,12 @@ func (builder *EducationInfoBuilder) Build() *EducationInfo {
 	return req
 }
 
-// builder结束
-
 type EhrImportTask struct {
 	FailReason  *string `json:"fail_reason,omitempty"`
 	RedirectUrl *string `json:"redirect_url,omitempty"`
 	State       *int    `json:"state,omitempty"`
 }
 
-// builder开始
 type EhrImportTaskBuilder struct {
 	failReason      string
 	failReasonFlag  bool
@@ -7267,8 +7007,6 @@ func (builder *EhrImportTaskBuilder) Build() *EhrImportTask {
 	return req
 }
 
-// builder结束
-
 type Employee struct {
 	Id                     *string `json:"id,omitempty"`
 	ApplicationId          *string `json:"application_id,omitempty"`
@@ -7287,7 +7025,6 @@ type Employee struct {
 	EmployeeType           *string `json:"employee_type,omitempty"`
 }
 
-// builder开始
 type EmployeeBuilder struct {
 	id                         string
 	idFlag                     bool
@@ -7467,13 +7204,10 @@ func (builder *EmployeeBuilder) Build() *Employee {
 	return req
 }
 
-// builder结束
-
 type EmployeeConversionInfo struct {
 	ActualConversionTime *int `json:"actual_conversion_time,omitempty"`
 }
 
-// builder开始
 type EmployeeConversionInfoBuilder struct {
 	actualConversionTime     int
 	actualConversionTimeFlag bool
@@ -7499,14 +7233,11 @@ func (builder *EmployeeConversionInfoBuilder) Build() *EmployeeConversionInfo {
 	return req
 }
 
-// builder结束
-
 type EmployeeOverboardInfo struct {
 	ActualOverboardTime *int    `json:"actual_overboard_time,omitempty"`
 	OverboardNote       *string `json:"overboard_note,omitempty"`
 }
 
-// builder开始
 type EmployeeOverboardInfoBuilder struct {
 	actualOverboardTime     int
 	actualOverboardTimeFlag bool
@@ -7543,8 +7274,6 @@ func (builder *EmployeeOverboardInfoBuilder) Build() *EmployeeOverboardInfo {
 	return req
 }
 
-// builder结束
-
 type Evaluation struct {
 	Id            *string `json:"id,omitempty"`
 	ApplicationId *string `json:"application_id,omitempty"`
@@ -7558,7 +7287,6 @@ type Evaluation struct {
 	UpdateTime    *string `json:"update_time,omitempty"`
 }
 
-// builder开始
 type EvaluationBuilder struct {
 	id                string
 	idFlag            bool
@@ -7683,8 +7411,6 @@ func (builder *EvaluationBuilder) Build() *Evaluation {
 	return req
 }
 
-// builder结束
-
 type EvaluationTask struct {
 	Id             *string `json:"id,omitempty"`
 	JobId          *string `json:"job_id,omitempty"`
@@ -7693,7 +7419,6 @@ type EvaluationTask struct {
 	ActivityStatus *int    `json:"activity_status,omitempty"`
 }
 
-// builder开始
 type EvaluationTaskBuilder struct {
 	id                 string
 	idFlag             bool
@@ -7763,8 +7488,6 @@ func (builder *EvaluationTaskBuilder) Build() *EvaluationTask {
 	return req
 }
 
-// builder结束
-
 type ExamMarkingTask struct {
 	Id             *string `json:"id,omitempty"`
 	JobId          *string `json:"job_id,omitempty"`
@@ -7773,7 +7496,6 @@ type ExamMarkingTask struct {
 	ActivityStatus *int    `json:"activity_status,omitempty"`
 }
 
-// builder开始
 type ExamMarkingTaskBuilder struct {
 	id                 string
 	idFlag             bool
@@ -7843,8 +7565,6 @@ func (builder *ExamMarkingTaskBuilder) Build() *ExamMarkingTask {
 	return req
 }
 
-// builder结束
-
 type ExternalApplication struct {
 	Id                 *string `json:"id,omitempty"`
 	ExternalId         *string `json:"external_id,omitempty"`
@@ -7859,7 +7579,6 @@ type ExternalApplication struct {
 	TerminationType    *string `json:"termination_type,omitempty"`
 }
 
-// builder开始
 type ExternalApplicationBuilder struct {
 	id                     string
 	idFlag                 bool
@@ -7995,8 +7714,6 @@ func (builder *ExternalApplicationBuilder) Build() *ExternalApplication {
 	return req
 }
 
-// builder结束
-
 type ExternalBackgroundCheck struct {
 	Id                    *string                              `json:"id,omitempty"`
 	ExternalId            *string                              `json:"external_id,omitempty"`
@@ -8008,7 +7725,6 @@ type ExternalBackgroundCheck struct {
 	AttachmentList        []*ExternalBackgroundCheckAttachment `json:"attachment_list,omitempty"`
 }
 
-// builder开始
 type ExternalBackgroundCheckBuilder struct {
 	id                        string
 	idFlag                    bool
@@ -8109,15 +7825,12 @@ func (builder *ExternalBackgroundCheckBuilder) Build() *ExternalBackgroundCheck 
 	return req
 }
 
-// builder结束
-
 type ExternalBackgroundCheckAttachment struct {
 	Id   *string `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
 	Size *int    `json:"size,omitempty"`
 }
 
-// builder开始
 type ExternalBackgroundCheckAttachmentBuilder struct {
 	id       string
 	idFlag   bool
@@ -8165,8 +7878,6 @@ func (builder *ExternalBackgroundCheckAttachmentBuilder) Build() *ExternalBackgr
 	return req
 }
 
-// builder结束
-
 type ExternalInterview struct {
 	ExternalId            *string `json:"external_id,omitempty"`
 	ExternalApplicationId *string `json:"external_application_id,omitempty"`
@@ -8176,7 +7887,6 @@ type ExternalInterview struct {
 	EndTime               *int    `json:"end_time,omitempty"`
 }
 
-// builder开始
 type ExternalInterviewBuilder struct {
 	externalId                string
 	externalIdFlag            bool
@@ -8257,8 +7967,6 @@ func (builder *ExternalInterviewBuilder) Build() *ExternalInterview {
 	return req
 }
 
-// builder结束
-
 type ExternalInterviewAssessment struct {
 	Id                      *string                                 `json:"id,omitempty"`
 	ExternalId              *string                                 `json:"external_id,omitempty"`
@@ -8269,7 +7977,6 @@ type ExternalInterviewAssessment struct {
 	ExternalInterviewId     *string                                 `json:"external_interview_id,omitempty"`
 }
 
-// builder开始
 type ExternalInterviewAssessmentBuilder struct {
 	id                          string
 	idFlag                      bool
@@ -8360,8 +8067,6 @@ func (builder *ExternalInterviewAssessmentBuilder) Build() *ExternalInterviewAss
 	return req
 }
 
-// builder结束
-
 type ExternalInterviewAssessmentDimension struct {
 	Score          *int     `json:"score,omitempty"`
 	Option         *string  `json:"option,omitempty"`
@@ -8372,7 +8077,6 @@ type ExternalInterviewAssessmentDimension struct {
 	Description    *string  `json:"description,omitempty"`
 }
 
-// builder开始
 type ExternalInterviewAssessmentDimensionBuilder struct {
 	score              int
 	scoreFlag          bool
@@ -8463,8 +8167,6 @@ func (builder *ExternalInterviewAssessmentDimensionBuilder) Build() *ExternalInt
 	return req
 }
 
-// builder结束
-
 type FiveStartScoringResult struct {
 	HighestScoreDesc   *string  `json:"highest_score_desc,omitempty"`
 	HighestScoreEnDesc *string  `json:"highest_score_en_desc,omitempty"`
@@ -8473,7 +8175,6 @@ type FiveStartScoringResult struct {
 	ScoreResult        *float64 `json:"score_result,omitempty"`
 }
 
-// builder开始
 type FiveStartScoringResultBuilder struct {
 	highestScoreDesc       string
 	highestScoreDescFlag   bool
@@ -8543,14 +8244,11 @@ func (builder *FiveStartScoringResultBuilder) Build() *FiveStartScoringResult {
 	return req
 }
 
-// builder结束
-
 type I18n struct {
 	ZhCn *string `json:"zh_cn,omitempty"`
 	EnUs *string `json:"en_us,omitempty"`
 }
 
-// builder开始
 type I18nBuilder struct {
 	zhCn     string
 	zhCnFlag bool
@@ -8587,14 +8285,11 @@ func (builder *I18nBuilder) Build() *I18n {
 	return req
 }
 
-// builder结束
-
 type IdNameObject struct {
 	Id   *string `json:"id,omitempty"`
 	Name *I18n   `json:"name,omitempty"`
 }
 
-// builder开始
 type IdNameObjectBuilder struct {
 	id       string
 	idFlag   bool
@@ -8630,14 +8325,11 @@ func (builder *IdNameObjectBuilder) Build() *IdNameObject {
 	return req
 }
 
-// builder结束
-
 type Identification struct {
 	IdentificationNumber *string `json:"identification_number,omitempty"`
 	IdentificationType   *int    `json:"identification_type,omitempty"`
 }
 
-// builder开始
 type IdentificationBuilder struct {
 	identificationNumber     string
 	identificationNumberFlag bool
@@ -8674,8 +8366,6 @@ func (builder *IdentificationBuilder) Build() *Identification {
 	return req
 }
 
-// builder结束
-
 type InternshipInfo struct {
 	CareerType *int    `json:"career_type,omitempty"`
 	Company    *string `json:"company,omitempty"`
@@ -8685,7 +8375,6 @@ type InternshipInfo struct {
 	Title      *string `json:"title,omitempty"`
 }
 
-// builder开始
 type InternshipInfoBuilder struct {
 	careerType     int
 	careerTypeFlag bool
@@ -8766,8 +8455,6 @@ func (builder *InternshipInfoBuilder) Build() *InternshipInfo {
 	return req
 }
 
-// builder结束
-
 type Interview struct {
 	Id                  *string            `json:"id,omitempty"`
 	BeginTime           *int               `json:"begin_time,omitempty"`
@@ -8777,7 +8464,6 @@ type Interview struct {
 	InterviewRecordList []*InterviewRecord `json:"interview_record_list,omitempty"`
 }
 
-// builder开始
 type InterviewBuilder struct {
 	id                      string
 	idFlag                  bool
@@ -8857,8 +8543,6 @@ func (builder *InterviewBuilder) Build() *Interview {
 	return req
 }
 
-// builder结束
-
 type InterviewAddress struct {
 	Id       *string         `json:"id,omitempty"`
 	Name     *I18n           `json:"name,omitempty"`
@@ -8868,7 +8552,6 @@ type InterviewAddress struct {
 	Country  *CodeNameObject `json:"country,omitempty"`
 }
 
-// builder开始
 type InterviewAddressBuilder struct {
 	id           string
 	idFlag       bool
@@ -8944,8 +8627,6 @@ func (builder *InterviewAddressBuilder) Build() *InterviewAddress {
 	return req
 }
 
-// builder结束
-
 type InterviewAssessmentDimension struct {
 	Id            *string                           `json:"id,omitempty"`
 	Name          *I18n                             `json:"name,omitempty"`
@@ -8957,7 +8638,6 @@ type InterviewAssessmentDimension struct {
 	Args          *InterviewAssessmentDimensionArgs `json:"args,omitempty"`
 }
 
-// builder开始
 type InterviewAssessmentDimensionBuilder struct {
 	id                string
 	idFlag            bool
@@ -9057,13 +8737,10 @@ func (builder *InterviewAssessmentDimensionBuilder) Build() *InterviewAssessment
 	return req
 }
 
-// builder结束
-
 type InterviewAssessmentDimensionArgs struct {
 	ScoreList []*InterviewAssessmentDimensionArgsScore `json:"score_list,omitempty"`
 }
 
-// builder开始
 type InterviewAssessmentDimensionArgsBuilder struct {
 	scoreList     []*InterviewAssessmentDimensionArgsScore
 	scoreListFlag bool
@@ -9088,8 +8765,6 @@ func (builder *InterviewAssessmentDimensionArgsBuilder) Build() *InterviewAssess
 	return req
 }
 
-// builder结束
-
 type InterviewAssessmentDimensionArgsScore struct {
 	Id          *string `json:"id,omitempty"`
 	Name        *I18n   `json:"name,omitempty"`
@@ -9097,7 +8772,6 @@ type InterviewAssessmentDimensionArgsScore struct {
 	Enabled     *bool   `json:"enabled,omitempty"`
 }
 
-// builder开始
 type InterviewAssessmentDimensionArgsScoreBuilder struct {
 	id              string
 	idFlag          bool
@@ -9154,15 +8828,12 @@ func (builder *InterviewAssessmentDimensionArgsScoreBuilder) Build() *InterviewA
 	return req
 }
 
-// builder结束
-
 type InterviewAssessmentTemplate struct {
 	Id   *string                          `json:"id,omitempty"`
 	Name *I18n                            `json:"name,omitempty"`
 	Args *InterviewAssessmentTemplateArgs `json:"args,omitempty"`
 }
 
-// builder开始
 type InterviewAssessmentTemplateBuilder struct {
 	id       string
 	idFlag   bool
@@ -9208,8 +8879,6 @@ func (builder *InterviewAssessmentTemplateBuilder) Build() *InterviewAssessmentT
 	return req
 }
 
-// builder结束
-
 type InterviewAssessmentTemplateArgs struct {
 	ConclusionDimension *InterviewAssessmentDimension   `json:"conclusion_dimension,omitempty"`
 	ScoreDimension      *InterviewAssessmentDimension   `json:"score_dimension,omitempty"`
@@ -9217,7 +8886,6 @@ type InterviewAssessmentTemplateArgs struct {
 	CustomDimensionList []*InterviewAssessmentDimension `json:"custom_dimension_list,omitempty"`
 }
 
-// builder开始
 type InterviewAssessmentTemplateArgsBuilder struct {
 	conclusionDimension     *InterviewAssessmentDimension
 	conclusionDimensionFlag bool
@@ -9272,8 +8940,6 @@ func (builder *InterviewAssessmentTemplateArgsBuilder) Build() *InterviewAssessm
 	return req
 }
 
-// builder结束
-
 type InterviewDimensionAssessment struct {
 	Id                 *string                    `json:"id,omitempty"`
 	Name               *I18n                      `json:"name,omitempty"`
@@ -9284,7 +8950,6 @@ type InterviewDimensionAssessment struct {
 	DimensionType      *int                       `json:"dimension_type,omitempty"`
 }
 
-// builder开始
 type InterviewDimensionAssessmentBuilder struct {
 	id                     string
 	idFlag                 bool
@@ -9373,14 +9038,11 @@ func (builder *InterviewDimensionAssessmentBuilder) Build() *InterviewDimensionA
 	return req
 }
 
-// builder结束
-
 type InterviewDimensionScore struct {
 	Id   *string `json:"id,omitempty"`
 	Name *I18n   `json:"name,omitempty"`
 }
 
-// builder开始
 type InterviewDimensionScoreBuilder struct {
 	id       string
 	idFlag   bool
@@ -9416,8 +9078,6 @@ func (builder *InterviewDimensionScoreBuilder) Build() *InterviewDimensionScore 
 	return req
 }
 
-// builder结束
-
 type InterviewExtend struct {
 	Id                         *string                 `json:"id,omitempty"`
 	BeginTime                  *int                    `json:"begin_time,omitempty"`
@@ -9446,7 +9106,6 @@ type InterviewExtend struct {
 	InterviewRoundType         *IdNameObject           `json:"interview_round_type,omitempty"`
 }
 
-// builder开始
 type InterviewExtendBuilder struct {
 	id                             string
 	idFlag                         bool
@@ -9728,8 +9387,6 @@ func (builder *InterviewExtendBuilder) Build() *InterviewExtend {
 	return req
 }
 
-// builder结束
-
 type InterviewMeetingRoom struct {
 	RoomId         *string `json:"room_id,omitempty"`
 	RoomName       *string `json:"room_name,omitempty"`
@@ -9738,7 +9395,6 @@ type InterviewMeetingRoom struct {
 	FloorName      *string `json:"floor_name,omitempty"`
 }
 
-// builder开始
 type InterviewMeetingRoomBuilder struct {
 	roomId             string
 	roomIdFlag         bool
@@ -9808,8 +9464,6 @@ func (builder *InterviewMeetingRoomBuilder) Build() *InterviewMeetingRoom {
 	return req
 }
 
-// builder结束
-
 type InterviewRecord struct {
 	Id                      *string                         `json:"id,omitempty"`
 	UserId                  *string                         `json:"user_id,omitempty"`
@@ -9823,7 +9477,6 @@ type InterviewRecord struct {
 	DimensionAssessmentList []*InterviewDimensionAssessment `json:"dimension_assessment_list,omitempty"`
 }
 
-// builder开始
 type InterviewRecordBuilder struct {
 	id                          string
 	idFlag                      bool
@@ -9945,13 +9598,10 @@ func (builder *InterviewRecordBuilder) Build() *InterviewRecord {
 	return req
 }
 
-// builder结束
-
 type InterviewRecordTemplate struct {
 	AssessmentTemplate *InterviewAssessmentTemplate `json:"assessment_template,omitempty"`
 }
 
-// builder开始
 type InterviewRecordTemplateBuilder struct {
 	assessmentTemplate     *InterviewAssessmentTemplate
 	assessmentTemplateFlag bool
@@ -9976,8 +9626,6 @@ func (builder *InterviewRecordTemplateBuilder) Build() *InterviewRecordTemplate 
 	return req
 }
 
-// builder结束
-
 type InterviewRegistrationSchema struct {
 	Id                *string         `json:"id,omitempty"`
 	Name              *string         `json:"name,omitempty"`
@@ -9985,7 +9633,6 @@ type InterviewRegistrationSchema struct {
 	ObjectList        []*CommonSchema `json:"object_list,omitempty"`
 }
 
-// builder开始
 type InterviewRegistrationSchemaBuilder struct {
 	id                    string
 	idFlag                bool
@@ -10043,8 +9690,6 @@ func (builder *InterviewRegistrationSchemaBuilder) Build() *InterviewRegistratio
 	return req
 }
 
-// builder结束
-
 type InterviewRoundType struct {
 	Id                              *string                               `json:"id,omitempty"`
 	BizId                           *string                               `json:"biz_id,omitempty"`
@@ -10054,7 +9699,6 @@ type InterviewRoundType struct {
 	InterviewAssessmentTemplateInfo *InterviewRoundTypeAssessmentTemplate `json:"interview_assessment_template_info,omitempty"`
 }
 
-// builder开始
 type InterviewRoundTypeBuilder struct {
 	id                                  string
 	idFlag                              bool
@@ -10133,15 +9777,12 @@ func (builder *InterviewRoundTypeBuilder) Build() *InterviewRoundType {
 	return req
 }
 
-// builder结束
-
 type InterviewRoundTypeAssessmentTemplate struct {
 	Id    *string `json:"id,omitempty"`
 	BizId *string `json:"biz_id,omitempty"`
 	Name  *I18n   `json:"name,omitempty"`
 }
 
-// builder开始
 type InterviewRoundTypeAssessmentTemplateBuilder struct {
 	id        string
 	idFlag    bool
@@ -10188,8 +9829,6 @@ func (builder *InterviewRoundTypeAssessmentTemplateBuilder) Build() *InterviewRo
 	return req
 }
 
-// builder结束
-
 type InterviewScore struct {
 	Id            *string `json:"id,omitempty"`
 	Level         *int    `json:"level,omitempty"`
@@ -10199,7 +9838,6 @@ type InterviewScore struct {
 	EnDescription *string `json:"en_description,omitempty"`
 }
 
-// builder开始
 type InterviewScoreBuilder struct {
 	id                string
 	idFlag            bool
@@ -10280,8 +9918,6 @@ func (builder *InterviewScoreBuilder) Build() *InterviewScore {
 	return req
 }
 
-// builder结束
-
 type InterviewTask struct {
 	Id             *string `json:"id,omitempty"`
 	JobId          *string `json:"job_id,omitempty"`
@@ -10290,7 +9926,6 @@ type InterviewTask struct {
 	ActivityStatus *int    `json:"activity_status,omitempty"`
 }
 
-// builder开始
 type InterviewTaskBuilder struct {
 	id                 string
 	idFlag             bool
@@ -10360,8 +9995,6 @@ func (builder *InterviewTaskBuilder) Build() *InterviewTask {
 	return req
 }
 
-// builder结束
-
 type Job struct {
 	Id                 *string              `json:"id,omitempty"`
 	Title              *string              `json:"title,omitempty"`
@@ -10396,7 +10029,6 @@ type Job struct {
 	CityList           []*CodeNameObject    `json:"city_list,omitempty"`
 }
 
-// builder开始
 type JobBuilder struct {
 	id                     string
 	idFlag                 bool
@@ -10740,8 +10372,6 @@ func (builder *JobBuilder) Build() *Job {
 	return req
 }
 
-// builder结束
-
 type JobManager struct {
 	Id                  *string  `json:"id,omitempty"`
 	RecruiterId         *string  `json:"recruiter_id,omitempty"`
@@ -10749,7 +10379,6 @@ type JobManager struct {
 	AssistantIdList     []string `json:"assistant_id_list,omitempty"`
 }
 
-// builder开始
 type JobManagerBuilder struct {
 	id                      string
 	idFlag                  bool
@@ -10806,8 +10435,6 @@ func (builder *JobManagerBuilder) Build() *JobManager {
 	return req
 }
 
-// builder结束
-
 type JobRecruiter struct {
 	Id                  *string  `json:"id,omitempty"`
 	RecruiterId         *string  `json:"recruiter_id,omitempty"`
@@ -10815,7 +10442,6 @@ type JobRecruiter struct {
 	AssistantIdList     []string `json:"assistant_id_list,omitempty"`
 }
 
-// builder开始
 type JobRecruiterBuilder struct {
 	id                      string
 	idFlag                  bool
@@ -10872,8 +10498,6 @@ func (builder *JobRecruiterBuilder) Build() *JobRecruiter {
 	return req
 }
 
-// builder结束
-
 type JobCategory struct {
 	Id           *string `json:"id,omitempty"`
 	ZhName       *string `json:"zh_name,omitempty"`
@@ -10881,7 +10505,6 @@ type JobCategory struct {
 	ActiveStatus *int    `json:"active_status,omitempty"`
 }
 
-// builder开始
 type JobCategoryBuilder struct {
 	id               string
 	idFlag           bool
@@ -10940,15 +10563,12 @@ func (builder *JobCategoryBuilder) Build() *JobCategory {
 	return req
 }
 
-// builder结束
-
 type JobCity struct {
 	CityCode *string `json:"city_code,omitempty"`
 	ZhName   *string `json:"zh_name,omitempty"`
 	EnName   *string `json:"en_name,omitempty"`
 }
 
-// builder开始
 type JobCityBuilder struct {
 	cityCode     string
 	cityCodeFlag bool
@@ -10996,8 +10616,6 @@ func (builder *JobCityBuilder) Build() *JobCity {
 	return req
 }
 
-// builder结束
-
 type JobConfig struct {
 	OfferApplySchemaId         *string                        `json:"offer_apply_schema_id,omitempty"`
 	OfferProcessConf           *string                        `json:"offer_process_conf,omitempty"`
@@ -11009,7 +10627,6 @@ type JobConfig struct {
 	InterviewRoundTypeConfList []*JobConfigRoundType          `json:"interview_round_type_conf_list,omitempty"`
 }
 
-// builder开始
 type JobConfigBuilder struct {
 	offerApplySchemaId             string
 	offerApplySchemaIdFlag         bool
@@ -11107,14 +10724,11 @@ func (builder *JobConfigBuilder) Build() *JobConfig {
 	return req
 }
 
-// builder结束
-
 type JobConfigInterviewRound struct {
 	InterviewerList []*IdNameObject `json:"interviewer_list,omitempty"`
 	Round           *int            `json:"round,omitempty"`
 }
 
-// builder开始
 type JobConfigInterviewRoundBuilder struct {
 	interviewerList     []*IdNameObject
 	interviewerListFlag bool
@@ -11150,14 +10764,11 @@ func (builder *JobConfigInterviewRoundBuilder) Build() *JobConfigInterviewRound 
 	return req
 }
 
-// builder结束
-
 type JobConfigInterviewRoundConf struct {
 	InterviewerIdList []string `json:"interviewer_id_list,omitempty"`
 	Round             *int     `json:"round,omitempty"`
 }
 
-// builder开始
 type JobConfigInterviewRoundConfBuilder struct {
 	interviewerIdList     []string
 	interviewerIdListFlag bool
@@ -11193,8 +10804,6 @@ func (builder *JobConfigInterviewRoundConfBuilder) Build() *JobConfigInterviewRo
 	return req
 }
 
-// builder结束
-
 type JobConfigResult struct {
 	OfferApplySchema         *IdNameObject               `json:"offer_apply_schema,omitempty"`
 	OfferProcessConf         *IdNameObject               `json:"offer_process_conf,omitempty"`
@@ -11206,7 +10815,6 @@ type JobConfigResult struct {
 	InterviewRoundTypeList   []*JobConfigRoundTypeResult `json:"interview_round_type_list,omitempty"`
 }
 
-// builder开始
 type JobConfigResultBuilder struct {
 	offerApplySchema             *IdNameObject
 	offerApplySchemaFlag         bool
@@ -11302,14 +10910,11 @@ func (builder *JobConfigResultBuilder) Build() *JobConfigResult {
 	return req
 }
 
-// builder结束
-
 type JobConfigRoundType struct {
 	RoundBizId              *string `json:"round_biz_id,omitempty"`
 	AssessmentTemplateBizId *string `json:"assessment_template_biz_id,omitempty"`
 }
 
-// builder开始
 type JobConfigRoundTypeBuilder struct {
 	roundBizId                  string
 	roundBizIdFlag              bool
@@ -11346,14 +10951,11 @@ func (builder *JobConfigRoundTypeBuilder) Build() *JobConfigRoundType {
 	return req
 }
 
-// builder结束
-
 type JobConfigRoundTypeResult struct {
 	AssessmentRound    *IdNameObject `json:"assessment_round,omitempty"`
 	AssessmentTemplate *IdNameObject `json:"assessment_template,omitempty"`
 }
 
-// builder开始
 type JobConfigRoundTypeResultBuilder struct {
 	assessmentRound        *IdNameObject
 	assessmentRoundFlag    bool
@@ -11388,8 +10990,6 @@ func (builder *JobConfigRoundTypeResultBuilder) Build() *JobConfigRoundTypeResul
 	return req
 }
 
-// builder结束
-
 type JobCustomizedData struct {
 	ObjectId   *string             `json:"object_id,omitempty"`
 	Name       *I18n               `json:"name,omitempty"`
@@ -11397,7 +10997,6 @@ type JobCustomizedData struct {
 	Value      *JobCustomizedValue `json:"value,omitempty"`
 }
 
-// builder开始
 type JobCustomizedDataBuilder struct {
 	objectId       string
 	objectIdFlag   bool
@@ -11454,14 +11053,11 @@ func (builder *JobCustomizedDataBuilder) Build() *JobCustomizedData {
 	return req
 }
 
-// builder结束
-
 type JobCustomizedOption struct {
 	Key  *string `json:"key,omitempty"`
 	Name *I18n   `json:"name,omitempty"`
 }
 
-// builder开始
 type JobCustomizedOptionBuilder struct {
 	key      string
 	keyFlag  bool
@@ -11497,14 +11093,11 @@ func (builder *JobCustomizedOptionBuilder) Build() *JobCustomizedOption {
 	return req
 }
 
-// builder结束
-
 type JobCustomizedTimeRange struct {
 	StartTime *string `json:"start_time,omitempty"`
 	EndTime   *string `json:"end_time,omitempty"`
 }
 
-// builder开始
 type JobCustomizedTimeRangeBuilder struct {
 	startTime     string
 	startTimeFlag bool
@@ -11541,8 +11134,6 @@ func (builder *JobCustomizedTimeRangeBuilder) Build() *JobCustomizedTimeRange {
 	return req
 }
 
-// builder结束
-
 type JobCustomizedValue struct {
 	Content    *string                 `json:"content,omitempty"`
 	Option     *JobCustomizedOption    `json:"option,omitempty"`
@@ -11552,7 +11143,6 @@ type JobCustomizedValue struct {
 	Number     *string                 `json:"number,omitempty"`
 }
 
-// builder开始
 type JobCustomizedValueBuilder struct {
 	content        string
 	contentFlag    bool
@@ -11630,15 +11220,12 @@ func (builder *JobCustomizedValueBuilder) Build() *JobCustomizedValue {
 	return req
 }
 
-// builder结束
-
 type JobDepartment struct {
 	Id     *string `json:"id,omitempty"`
 	ZhName *string `json:"zh_name,omitempty"`
 	EnName *string `json:"en_name,omitempty"`
 }
 
-// builder开始
 type JobDepartmentBuilder struct {
 	id         string
 	idFlag     bool
@@ -11686,8 +11273,6 @@ func (builder *JobDepartmentBuilder) Build() *JobDepartment {
 	return req
 }
 
-// builder结束
-
 type JobFunction struct {
 	Id           *string `json:"id,omitempty"`
 	Name         *I18n   `json:"name,omitempty"`
@@ -11695,7 +11280,6 @@ type JobFunction struct {
 	ParentId     *string `json:"parent_id,omitempty"`
 }
 
-// builder开始
 type JobFunctionBuilder struct {
 	id               string
 	idFlag           bool
@@ -11753,15 +11337,12 @@ func (builder *JobFunctionBuilder) Build() *JobFunction {
 	return req
 }
 
-// builder结束
-
 type JobHighlight struct {
 	Id     *string `json:"id,omitempty"`
 	ZhName *string `json:"zh_name,omitempty"`
 	EnName *string `json:"en_name,omitempty"`
 }
 
-// builder开始
 type JobHighlightBuilder struct {
 	id         string
 	idFlag     bool
@@ -11809,8 +11390,6 @@ func (builder *JobHighlightBuilder) Build() *JobHighlight {
 	return req
 }
 
-// builder结束
-
 type JobLevel struct {
 	Id           *string `json:"id,omitempty"`
 	ZhName       *string `json:"zh_name,omitempty"`
@@ -11818,7 +11397,6 @@ type JobLevel struct {
 	ActiveStatus *int    `json:"active_status,omitempty"`
 }
 
-// builder开始
 type JobLevelBuilder struct {
 	id               string
 	idFlag           bool
@@ -11877,13 +11455,10 @@ func (builder *JobLevelBuilder) Build() *JobLevel {
 	return req
 }
 
-// builder结束
-
 type JobProcess struct {
 	YourPropertyName *string `json:"your_property_name,omitempty"`
 }
 
-// builder开始
 type JobProcessBuilder struct {
 	yourPropertyName     string
 	yourPropertyNameFlag bool
@@ -11909,8 +11484,6 @@ func (builder *JobProcessBuilder) Build() *JobProcess {
 	return req
 }
 
-// builder结束
-
 type JobProcesses struct {
 	Id        *string              `json:"id,omitempty"`
 	ZhName    *string              `json:"zh_name,omitempty"`
@@ -11919,7 +11492,6 @@ type JobProcesses struct {
 	StageList []*JobProcessesStage `json:"stage_list,omitempty"`
 }
 
-// builder开始
 type JobProcessesBuilder struct {
 	id            string
 	idFlag        bool
@@ -11988,8 +11560,6 @@ func (builder *JobProcessesBuilder) Build() *JobProcesses {
 	return req
 }
 
-// builder结束
-
 type JobProcessesStage struct {
 	Id     *string `json:"id,omitempty"`
 	ZhName *string `json:"zh_name,omitempty"`
@@ -11997,7 +11567,6 @@ type JobProcessesStage struct {
 	Type   *int    `json:"type,omitempty"`
 }
 
-// builder开始
 type JobProcessesStageBuilder struct {
 	id         string
 	idFlag     bool
@@ -12056,8 +11625,6 @@ func (builder *JobProcessesStageBuilder) Build() *JobProcessesStage {
 	return req
 }
 
-// builder结束
-
 type JobRecruiter2 struct {
 	Id                  *string  `json:"id,omitempty"`
 	RecruiterId         *string  `json:"recruiter_id,omitempty"`
@@ -12065,7 +11632,6 @@ type JobRecruiter2 struct {
 	AssistantIdList     []string `json:"assistant_id_list,omitempty"`
 }
 
-// builder开始
 type JobRecruiter2Builder struct {
 	id                      string
 	idFlag                  bool
@@ -12122,8 +11688,6 @@ func (builder *JobRecruiter2Builder) Build() *JobRecruiter2 {
 	return req
 }
 
-// builder结束
-
 type JobRecruitmentType struct {
 	Id           *string `json:"id,omitempty"`
 	ZhName       *string `json:"zh_name,omitempty"`
@@ -12131,7 +11695,6 @@ type JobRecruitmentType struct {
 	ActiveStatus *int    `json:"active_status,omitempty"`
 }
 
-// builder开始
 type JobRecruitmentTypeBuilder struct {
 	id               string
 	idFlag           bool
@@ -12190,8 +11753,6 @@ func (builder *JobRecruitmentTypeBuilder) Build() *JobRecruitmentType {
 	return req
 }
 
-// builder结束
-
 type JobRequirement struct {
 	ShortCode          *string                         `json:"short_code,omitempty"`
 	Name               *string                         `json:"name,omitempty"`
@@ -12216,7 +11777,6 @@ type JobRequirement struct {
 	CustomizedDataList []*JobRequirementCustomizedData `json:"customized_data_list,omitempty"`
 }
 
-// builder开始
 type JobRequirementBuilder struct {
 	shortCode              string
 	shortCodeFlag          bool
@@ -12459,14 +12019,11 @@ func (builder *JobRequirementBuilder) Build() *JobRequirement {
 	return req
 }
 
-// builder结束
-
 type JobRequirementCustomizedData struct {
 	ObjectId *string `json:"object_id,omitempty"`
 	Value    *string `json:"value,omitempty"`
 }
 
-// builder开始
 type JobRequirementCustomizedDataBuilder struct {
 	objectId     string
 	objectIdFlag bool
@@ -12503,8 +12060,6 @@ func (builder *JobRequirementCustomizedDataBuilder) Build() *JobRequirementCusto
 	return req
 }
 
-// builder结束
-
 type JobRequirementCustomizedDataDto struct {
 	ObjectId   *string                        `json:"object_id,omitempty"`
 	Name       *I18n                          `json:"name,omitempty"`
@@ -12512,7 +12067,6 @@ type JobRequirementCustomizedDataDto struct {
 	Value      *JobRequirementCustomizedValue `json:"value,omitempty"`
 }
 
-// builder开始
 type JobRequirementCustomizedDataDtoBuilder struct {
 	objectId       string
 	objectIdFlag   bool
@@ -12569,14 +12123,11 @@ func (builder *JobRequirementCustomizedDataDtoBuilder) Build() *JobRequirementCu
 	return req
 }
 
-// builder结束
-
 type JobRequirementCustomizedOption struct {
 	Key  *string `json:"key,omitempty"`
 	Name *I18n   `json:"name,omitempty"`
 }
 
-// builder开始
 type JobRequirementCustomizedOptionBuilder struct {
 	key      string
 	keyFlag  bool
@@ -12612,14 +12163,11 @@ func (builder *JobRequirementCustomizedOptionBuilder) Build() *JobRequirementCus
 	return req
 }
 
-// builder结束
-
 type JobRequirementCustomizedTimeRange struct {
 	StartTime *string `json:"start_time,omitempty"`
 	EndTime   *string `json:"end_time,omitempty"`
 }
 
-// builder开始
 type JobRequirementCustomizedTimeRangeBuilder struct {
 	startTime     string
 	startTimeFlag bool
@@ -12656,8 +12204,6 @@ func (builder *JobRequirementCustomizedTimeRangeBuilder) Build() *JobRequirement
 	return req
 }
 
-// builder结束
-
 type JobRequirementCustomizedValue struct {
 	Content    *string                            `json:"content,omitempty"`
 	Option     *JobRequirementCustomizedOption    `json:"option,omitempty"`
@@ -12667,7 +12213,6 @@ type JobRequirementCustomizedValue struct {
 	Number     *string                            `json:"number,omitempty"`
 }
 
-// builder开始
 type JobRequirementCustomizedValueBuilder struct {
 	content        string
 	contentFlag    bool
@@ -12745,8 +12290,6 @@ func (builder *JobRequirementCustomizedValueBuilder) Build() *JobRequirementCust
 	return req
 }
 
-// builder结束
-
 type JobRequirementDto struct {
 	Id                 *string                            `json:"id,omitempty"`
 	ShortCode          *string                            `json:"short_code,omitempty"`
@@ -12773,7 +12316,6 @@ type JobRequirementDto struct {
 	JobIdList          []string                           `json:"job_id_list,omitempty"`
 }
 
-// builder开始
 type JobRequirementDtoBuilder struct {
 	id                     string
 	idFlag                 bool
@@ -13031,15 +12573,12 @@ func (builder *JobRequirementDtoBuilder) Build() *JobRequirementDto {
 	return req
 }
 
-// builder结束
-
 type JobRequirementSchema struct {
 	Id         *string         `json:"id,omitempty"`
 	Name       *I18n           `json:"name,omitempty"`
 	ObjectList []*CommonSchema `json:"object_list,omitempty"`
 }
 
-// builder开始
 type JobRequirementSchemaBuilder struct {
 	id             string
 	idFlag         bool
@@ -13085,8 +12624,6 @@ func (builder *JobRequirementSchemaBuilder) Build() *JobRequirementSchema {
 	return req
 }
 
-// builder结束
-
 type JobSchema struct {
 	Id           *string         `json:"id,omitempty"`
 	Name         *I18n           `json:"name,omitempty"`
@@ -13094,7 +12631,6 @@ type JobSchema struct {
 	ObjectList   []*CommonSchema `json:"object_list,omitempty"`
 }
 
-// builder开始
 type JobSchemaBuilder struct {
 	id               string
 	idFlag           bool
@@ -13151,15 +12687,12 @@ func (builder *JobSchemaBuilder) Build() *JobSchema {
 	return req
 }
 
-// builder结束
-
 type JobType struct {
 	Id     *string `json:"id,omitempty"`
 	ZhName *string `json:"zh_name,omitempty"`
 	EnName *string `json:"en_name,omitempty"`
 }
 
-// builder开始
 type JobTypeBuilder struct {
 	id         string
 	idFlag     bool
@@ -13207,14 +12740,11 @@ func (builder *JobTypeBuilder) Build() *JobType {
 	return req
 }
 
-// builder结束
-
 type LanguageInfo struct {
 	Language    *int `json:"language,omitempty"`
 	Proficiency *int `json:"proficiency,omitempty"`
 }
 
-// builder开始
 type LanguageInfoBuilder struct {
 	language        int
 	languageFlag    bool
@@ -13251,15 +12781,12 @@ func (builder *LanguageInfoBuilder) Build() *LanguageInfo {
 	return req
 }
 
-// builder结束
-
 type Level struct {
 	Id     *string `json:"id,omitempty"`
 	Name   *string `json:"name,omitempty"`
 	EnName *string `json:"en_name,omitempty"`
 }
 
-// builder开始
 type LevelBuilder struct {
 	id         string
 	idFlag     bool
@@ -13307,8 +12834,6 @@ func (builder *LevelBuilder) Build() *Level {
 	return req
 }
 
-// builder结束
-
 type Location struct {
 	Id           *string         `json:"id,omitempty"`
 	Name         *I18n           `json:"name,omitempty"`
@@ -13319,7 +12844,6 @@ type Location struct {
 	ActiveStatus *int            `json:"active_status,omitempty"`
 }
 
-// builder开始
 type LocationBuilder struct {
 	id               string
 	idFlag           bool
@@ -13406,8 +12930,6 @@ func (builder *LocationBuilder) Build() *Location {
 	return req
 }
 
-// builder结束
-
 type LocationBaseInfo struct {
 	Code         *string `json:"code,omitempty"`
 	Name         *string `json:"name,omitempty"`
@@ -13417,7 +12939,6 @@ type LocationBaseInfo struct {
 	PyName       *string `json:"py_name,omitempty"`
 }
 
-// builder开始
 type LocationBaseInfoBuilder struct {
 	code             string
 	codeFlag         bool
@@ -13498,15 +13019,12 @@ func (builder *LocationBaseInfoBuilder) Build() *LocationBaseInfo {
 	return req
 }
 
-// builder结束
-
 type Nationality struct {
 	NationalityCode *string `json:"nationality_code,omitempty"`
 	Name            *string `json:"name,omitempty"`
 	EnName          *string `json:"en_name,omitempty"`
 }
 
-// builder开始
 type NationalityBuilder struct {
 	nationalityCode     string
 	nationalityCodeFlag bool
@@ -13554,8 +13072,6 @@ func (builder *NationalityBuilder) Build() *Nationality {
 	return req
 }
 
-// builder结束
-
 type Note struct {
 	Id            *string `json:"id,omitempty"`
 	TalentId      *string `json:"talent_id,omitempty"`
@@ -13568,7 +13084,6 @@ type Note struct {
 	Privacy       *int    `json:"privacy,omitempty"`
 }
 
-// builder开始
 type NoteBuilder struct {
 	id                string
 	idFlag            bool
@@ -13682,8 +13197,6 @@ func (builder *NoteBuilder) Build() *Note {
 	return req
 }
 
-// builder结束
-
 type Offer struct {
 	Id            *string                     `json:"id,omitempty"`
 	ApplicationId *string                     `json:"application_id,omitempty"`
@@ -13694,7 +13207,6 @@ type Offer struct {
 	JobInfo       *OfferJobInfo               `json:"job_info,omitempty"`
 }
 
-// builder开始
 type OfferBuilder struct {
 	id                string
 	idFlag            bool
@@ -13783,15 +13295,12 @@ func (builder *OfferBuilder) Build() *Offer {
 	return req
 }
 
-// builder结束
-
 type OfferApplyForm struct {
 	Id         *string `json:"id,omitempty"`
 	Name       *I18n   `json:"name,omitempty"`
 	CreateTime *string `json:"create_time,omitempty"`
 }
 
-// builder开始
 type OfferApplyFormBuilder struct {
 	id             string
 	idFlag         bool
@@ -13838,15 +13347,12 @@ func (builder *OfferApplyFormBuilder) Build() *OfferApplyForm {
 	return req
 }
 
-// builder结束
-
 type OfferApplyFormConfigFormulaInfo struct {
 	Value    *string                              `json:"value,omitempty"`
 	Result   *int                                 `json:"result,omitempty"`
 	ExtraMap []*OfferApplyFormFormulaExtraMapInfo `json:"extra_map,omitempty"`
 }
 
-// builder开始
 type OfferApplyFormConfigFormulaInfoBuilder struct {
 	value        string
 	valueFlag    bool
@@ -13893,15 +13399,12 @@ func (builder *OfferApplyFormConfigFormulaInfoBuilder) Build() *OfferApplyFormCo
 	return req
 }
 
-// builder结束
-
 type OfferApplyFormConfigOptionInfo struct {
 	Id          *string `json:"id,omitempty"`
 	Name        *I18n   `json:"name,omitempty"`
 	Description *I18n   `json:"description,omitempty"`
 }
 
-// builder开始
 type OfferApplyFormConfigOptionInfoBuilder struct {
 	id              string
 	idFlag          bool
@@ -13947,14 +13450,11 @@ func (builder *OfferApplyFormConfigOptionInfoBuilder) Build() *OfferApplyFormCon
 	return req
 }
 
-// builder结束
-
 type OfferApplyFormFormulaExtraMapInfo struct {
 	Key   *string `json:"key,omitempty"`
 	Value *I18n   `json:"value,omitempty"`
 }
 
-// builder开始
 type OfferApplyFormFormulaExtraMapInfoBuilder struct {
 	key       string
 	keyFlag   bool
@@ -13990,15 +13490,12 @@ func (builder *OfferApplyFormFormulaExtraMapInfoBuilder) Build() *OfferApplyForm
 	return req
 }
 
-// builder结束
-
 type OfferApplyFormInfo struct {
 	Id     *string               `json:"id,omitempty"`
 	Name   *I18n                 `json:"name,omitempty"`
 	Schema *OfferApplyFormSchema `json:"schema,omitempty"`
 }
 
-// builder开始
 type OfferApplyFormInfoBuilder struct {
 	id         string
 	idFlag     bool
@@ -14044,8 +13541,6 @@ func (builder *OfferApplyFormInfoBuilder) Build() *OfferApplyFormInfo {
 	return req
 }
 
-// builder结束
-
 type OfferApplyFormModuleInfo struct {
 	Id           *string                     `json:"id,omitempty"`
 	Name         *I18n                       `json:"name,omitempty"`
@@ -14055,7 +13550,6 @@ type OfferApplyFormModuleInfo struct {
 	ObjectList   []*OfferApplyFormObjectInfo `json:"object_list,omitempty"`
 }
 
-// builder开始
 type OfferApplyFormModuleInfoBuilder struct {
 	id               string
 	idFlag           bool
@@ -14133,15 +13627,12 @@ func (builder *OfferApplyFormModuleInfoBuilder) Build() *OfferApplyFormModuleInf
 	return req
 }
 
-// builder结束
-
 type OfferApplyFormObjectConfigInfo struct {
 	Options             []*OfferApplyFormConfigOptionInfo      `json:"options,omitempty"`
 	Formula             *OfferApplyFormConfigFormulaInfo       `json:"formula,omitempty"`
 	ObjectDisplayConfig *OfferApplyFormObjectDisplayConfigInfo `json:"object_display_config,omitempty"`
 }
 
-// builder开始
 type OfferApplyFormObjectConfigInfoBuilder struct {
 	options                 []*OfferApplyFormConfigOptionInfo
 	optionsFlag             bool
@@ -14186,14 +13677,11 @@ func (builder *OfferApplyFormObjectConfigInfoBuilder) Build() *OfferApplyFormObj
 	return req
 }
 
-// builder结束
-
 type OfferApplyFormObjectDisplayConfigInfo struct {
 	DisplayCondition    *int                                 `json:"display_condition,omitempty"`
 	PreObjectConfigList []*OfferApplyFormPreObjectConfigInfo `json:"pre_object_config_list,omitempty"`
 }
 
-// builder开始
 type OfferApplyFormObjectDisplayConfigInfoBuilder struct {
 	displayCondition        int
 	displayConditionFlag    bool
@@ -14229,8 +13717,6 @@ func (builder *OfferApplyFormObjectDisplayConfigInfoBuilder) Build() *OfferApply
 	return req
 }
 
-// builder结束
-
 type OfferApplyFormObjectInfo struct {
 	Id           *string                         `json:"id,omitempty"`
 	Name         *I18n                           `json:"name,omitempty"`
@@ -14245,7 +13731,6 @@ type OfferApplyFormObjectInfo struct {
 	Config       *OfferApplyFormObjectConfigInfo `json:"config,omitempty"`
 }
 
-// builder开始
 type OfferApplyFormObjectInfoBuilder struct {
 	id               string
 	idFlag           bool
@@ -14378,15 +13863,12 @@ func (builder *OfferApplyFormObjectInfoBuilder) Build() *OfferApplyFormObjectInf
 	return req
 }
 
-// builder结束
-
 type OfferApplyFormPreObjectConfigInfo struct {
 	Id       *string  `json:"id,omitempty"`
 	Operator *int     `json:"operator,omitempty"`
 	Value    []string `json:"value,omitempty"`
 }
 
-// builder开始
 type OfferApplyFormPreObjectConfigInfoBuilder struct {
 	id           string
 	idFlag       bool
@@ -14433,14 +13915,11 @@ func (builder *OfferApplyFormPreObjectConfigInfoBuilder) Build() *OfferApplyForm
 	return req
 }
 
-// builder结束
-
 type OfferApplyFormSchema struct {
 	Id         *string                     `json:"id,omitempty"`
 	ModuleList []*OfferApplyFormModuleInfo `json:"module_list,omitempty"`
 }
 
-// builder开始
 type OfferApplyFormSchemaBuilder struct {
 	id             string
 	idFlag         bool
@@ -14476,8 +13955,6 @@ func (builder *OfferApplyFormSchemaBuilder) Build() *OfferApplyFormSchema {
 	return req
 }
 
-// builder结束
-
 type OfferApprovalTemplate struct {
 	Id             *string       `json:"id,omitempty"`
 	Name           *I18n         `json:"name,omitempty"`
@@ -14486,7 +13963,6 @@ type OfferApprovalTemplate struct {
 	DepartmentList []*Department `json:"department_list,omitempty"`
 }
 
-// builder开始
 type OfferApprovalTemplateBuilder struct {
 	id                 string
 	idFlag             bool
@@ -14554,8 +14030,6 @@ func (builder *OfferApprovalTemplateBuilder) Build() *OfferApprovalTemplate {
 	return req
 }
 
-// builder结束
-
 type OfferBasicInfo struct {
 	DepartmentId          *string  `json:"department_id,omitempty"`
 	LeaderUserId          *string  `json:"leader_user_id,omitempty"`
@@ -14577,7 +14051,6 @@ type OfferBasicInfo struct {
 	OperatorUserId        *string  `json:"operator_user_id,omitempty"`
 }
 
-// builder开始
 type OfferBasicInfoBuilder struct {
 	departmentId              string
 	departmentIdFlag          bool
@@ -14789,15 +14262,12 @@ func (builder *OfferBasicInfoBuilder) Build() *OfferBasicInfo {
 	return req
 }
 
-// builder结束
-
 type OfferCustomField struct {
 	Id     *string                 `json:"id,omitempty"`
 	Name   *I18n                   `json:"name,omitempty"`
 	Config *OfferCustomFieldConfig `json:"config,omitempty"`
 }
 
-// builder开始
 type OfferCustomFieldBuilder struct {
 	id         string
 	idFlag     bool
@@ -14843,13 +14313,10 @@ func (builder *OfferCustomFieldBuilder) Build() *OfferCustomField {
 	return req
 }
 
-// builder结束
-
 type OfferCustomFieldConfig struct {
 	Options []*OfferCustomFieldConfigOption `json:"options,omitempty"`
 }
 
-// builder开始
 type OfferCustomFieldConfigBuilder struct {
 	options     []*OfferCustomFieldConfigOption
 	optionsFlag bool
@@ -14874,13 +14341,10 @@ func (builder *OfferCustomFieldConfigBuilder) Build() *OfferCustomFieldConfig {
 	return req
 }
 
-// builder结束
-
 type OfferCustomFieldConfigOption struct {
 	Name *I18n `json:"name,omitempty"`
 }
 
-// builder开始
 type OfferCustomFieldConfigOptionBuilder struct {
 	name     *I18n
 	nameFlag bool
@@ -14905,14 +14369,11 @@ func (builder *OfferCustomFieldConfigOptionBuilder) Build() *OfferCustomFieldCon
 	return req
 }
 
-// builder结束
-
 type OfferCustomizedInfo struct {
 	Id    *string `json:"id,omitempty"`
 	Value *string `json:"value,omitempty"`
 }
 
-// builder开始
 type OfferCustomizedInfoBuilder struct {
 	id        string
 	idFlag    bool
@@ -14949,8 +14410,6 @@ func (builder *OfferCustomizedInfoBuilder) Build() *OfferCustomizedInfo {
 	return req
 }
 
-// builder结束
-
 type OfferInfo struct {
 	OfferId            *string                `json:"offer_id,omitempty"`
 	ApplicationId      *string                `json:"application_id,omitempty"`
@@ -14960,7 +14419,6 @@ type OfferInfo struct {
 	CustomizedInfoList []*OfferCustomizedInfo `json:"customized_info_list,omitempty"`
 }
 
-// builder开始
 type OfferInfoBuilder struct {
 	offerId                string
 	offerIdFlag            bool
@@ -15038,14 +14496,11 @@ func (builder *OfferInfoBuilder) Build() *OfferInfo {
 	return req
 }
 
-// builder结束
-
 type OfferJobInfo struct {
 	JobId   *string `json:"job_id,omitempty"`
 	JobName *string `json:"job_name,omitempty"`
 }
 
-// builder开始
 type OfferJobInfoBuilder struct {
 	jobId       string
 	jobIdFlag   bool
@@ -15082,8 +14537,6 @@ func (builder *OfferJobInfoBuilder) Build() *OfferJobInfo {
 	return req
 }
 
-// builder结束
-
 type OfferListInfo struct {
 	Id            *string              `json:"id,omitempty"`
 	JobInfo       *OfferJobInfo        `json:"job_info,omitempty"`
@@ -15093,7 +14546,6 @@ type OfferListInfo struct {
 	ApplicationId *string              `json:"application_id,omitempty"`
 }
 
-// builder开始
 type OfferListInfoBuilder struct {
 	id                string
 	idFlag            bool
@@ -15172,8 +14624,6 @@ func (builder *OfferListInfoBuilder) Build() *OfferListInfo {
 	return req
 }
 
-// builder结束
-
 type OfferSalaryInfo struct {
 	Currency                  *string `json:"currency,omitempty"`
 	BasicSalary               *string `json:"basic_salary,omitempty"`
@@ -15184,7 +14634,6 @@ type OfferSalaryInfo struct {
 	HalfYearBonus             *string `json:"half_year_bonus,omitempty"`
 }
 
-// builder开始
 type OfferSalaryInfoBuilder struct {
 	currency                      string
 	currencyFlag                  bool
@@ -15276,8 +14725,6 @@ func (builder *OfferSalaryInfoBuilder) Build() *OfferSalaryInfo {
 	return req
 }
 
-// builder结束
-
 type OfferSchema struct {
 	Id         *string              `json:"id,omitempty"`
 	Scenario   *int                 `json:"scenario,omitempty"`
@@ -15285,7 +14732,6 @@ type OfferSchema struct {
 	ObjectList []*OfferSchemaDetail `json:"object_list,omitempty"`
 }
 
-// builder开始
 type OfferSchemaBuilder struct {
 	id             string
 	idFlag         bool
@@ -15343,8 +14789,6 @@ func (builder *OfferSchemaBuilder) Build() *OfferSchema {
 	return req
 }
 
-// builder结束
-
 type OfferSchemaChild struct {
 	Id         *string              `json:"id,omitempty"`
 	Scenario   *int                 `json:"scenario,omitempty"`
@@ -15352,7 +14796,6 @@ type OfferSchemaChild struct {
 	ObjectList []*OfferSchemaDetail `json:"object_list,omitempty"`
 }
 
-// builder开始
 type OfferSchemaChildBuilder struct {
 	id             string
 	idFlag         bool
@@ -15410,8 +14853,6 @@ func (builder *OfferSchemaChildBuilder) Build() *OfferSchemaChild {
 	return req
 }
 
-// builder结束
-
 type OfferSchemaDetail struct {
 	Id           *string                    `json:"id,omitempty"`
 	Name         *OfferSchemaName           `json:"name,omitempty"`
@@ -15420,7 +14861,6 @@ type OfferSchemaDetail struct {
 	OptionList   []*OfferSchemaDetailOption `json:"option_list,omitempty"`
 }
 
-// builder开始
 type OfferSchemaDetailBuilder struct {
 	id               string
 	idFlag           bool
@@ -15488,15 +14928,12 @@ func (builder *OfferSchemaDetailBuilder) Build() *OfferSchemaDetail {
 	return req
 }
 
-// builder结束
-
 type OfferSchemaDetailOption struct {
 	Name         *OfferSchemaName `json:"name,omitempty"`
 	Index        *int             `json:"index,omitempty"`
 	ActiveStatus *int             `json:"active_status,omitempty"`
 }
 
-// builder开始
 type OfferSchemaDetailOptionBuilder struct {
 	name             *OfferSchemaName
 	nameFlag         bool
@@ -15543,13 +14980,10 @@ func (builder *OfferSchemaDetailOptionBuilder) Build() *OfferSchemaDetailOption 
 	return req
 }
 
-// builder结束
-
 type OfferSchemaListInfo struct {
 	SchemaList []*OfferSchemaChild `json:"schema_list,omitempty"`
 }
 
-// builder开始
 type OfferSchemaListInfoBuilder struct {
 	schemaList     []*OfferSchemaChild
 	schemaListFlag bool
@@ -15574,14 +15008,11 @@ func (builder *OfferSchemaListInfoBuilder) Build() *OfferSchemaListInfo {
 	return req
 }
 
-// builder结束
-
 type OfferSchemaName struct {
 	ZhCn *string `json:"zh_cn,omitempty"`
 	EnUs *string `json:"en_us,omitempty"`
 }
 
-// builder开始
 type OfferSchemaNameBuilder struct {
 	zhCn     string
 	zhCnFlag bool
@@ -15618,14 +15049,11 @@ func (builder *OfferSchemaNameBuilder) Build() *OfferSchemaName {
 	return req
 }
 
-// builder结束
-
 type OfferSelectionObject struct {
 	SchemaVersion *int                       `json:"schema_version,omitempty"`
 	OptionList    []*OfferSchemaDetailOption `json:"option_list,omitempty"`
 }
 
-// builder开始
 type OfferSelectionObjectBuilder struct {
 	schemaVersion     int
 	schemaVersionFlag bool
@@ -15661,8 +15089,6 @@ func (builder *OfferSelectionObjectBuilder) Build() *OfferSelectionObject {
 	return req
 }
 
-// builder结束
-
 type ProjectInfo struct {
 	Desc      *string `json:"desc,omitempty"`
 	EndTime   *int    `json:"end_time,omitempty"`
@@ -15672,7 +15098,6 @@ type ProjectInfo struct {
 	StartTime *int    `json:"start_time,omitempty"`
 }
 
-// builder开始
 type ProjectInfoBuilder struct {
 	desc          string
 	descFlag      bool
@@ -15753,13 +15178,8 @@ func (builder *ProjectInfoBuilder) Build() *ProjectInfo {
 	return req
 }
 
-// builder结束
-
 type PushStage struct {
 }
-
-// builder开始
-// builder结束
 
 type Question struct {
 	QuestionId             *string                 `json:"question_id,omitempty"`
@@ -15774,7 +15194,6 @@ type Question struct {
 	DescriptionResult      *string                 `json:"description_result,omitempty"`
 }
 
-// builder开始
 type QuestionBuilder struct {
 	questionId                 string
 	questionIdFlag             bool
@@ -15897,8 +15316,6 @@ func (builder *QuestionBuilder) Build() *Question {
 	return req
 }
 
-// builder结束
-
 type Questionnaire struct {
 	QuestionnaireId *string     `json:"questionnaire_id,omitempty"`
 	ApplicationId   *string     `json:"application_id,omitempty"`
@@ -15909,7 +15326,6 @@ type Questionnaire struct {
 	UpdateTime      *string     `json:"update_time,omitempty"`
 }
 
-// builder开始
 type QuestionnaireBuilder struct {
 	questionnaireId     string
 	questionnaireIdFlag bool
@@ -16000,15 +15416,12 @@ func (builder *QuestionnaireBuilder) Build() *Questionnaire {
 	return req
 }
 
-// builder结束
-
 type RecruitmentType struct {
 	Id     *string `json:"id,omitempty"`
 	Name   *string `json:"name,omitempty"`
 	EnName *string `json:"en_name,omitempty"`
 }
 
-// builder开始
 type RecruitmentTypeBuilder struct {
 	id         string
 	idFlag     bool
@@ -16056,8 +15469,6 @@ func (builder *RecruitmentTypeBuilder) Build() *RecruitmentType {
 	return req
 }
 
-// builder结束
-
 type Referral struct {
 	Id             *string       `json:"id,omitempty"`
 	ApplicationId  *string       `json:"application_id,omitempty"`
@@ -16066,7 +15477,6 @@ type Referral struct {
 	ReferralUser   *IdNameObject `json:"referral_user,omitempty"`
 }
 
-// builder开始
 type ReferralBuilder struct {
 	id                 string
 	idFlag             bool
@@ -16135,8 +15545,6 @@ func (builder *ReferralBuilder) Build() *Referral {
 	return req
 }
 
-// builder结束
-
 type ResumeSource struct {
 	Id               *string `json:"id,omitempty"`
 	ZhName           *string `json:"zh_name,omitempty"`
@@ -16145,7 +15553,6 @@ type ResumeSource struct {
 	ResumeSourceType *int    `json:"resume_source_type,omitempty"`
 }
 
-// builder开始
 type ResumeSourceBuilder struct {
 	id                   string
 	idFlag               bool
@@ -16215,15 +15622,12 @@ func (builder *ResumeSourceBuilder) Build() *ResumeSource {
 	return req
 }
 
-// builder结束
-
 type Role struct {
 	Id          *string `json:"id,omitempty"`
 	Name        *I18n   `json:"name,omitempty"`
 	Description *I18n   `json:"description,omitempty"`
 }
 
-// builder开始
 type RoleBuilder struct {
 	id              string
 	idFlag          bool
@@ -16269,8 +15673,6 @@ func (builder *RoleBuilder) Build() *Role {
 	return req
 }
 
-// builder结束
-
 type Salary struct {
 	OperateTime  *string `json:"operate_time,omitempty"`
 	SalaryStatus *int    `json:"salary_status,omitempty"`
@@ -16279,7 +15681,6 @@ type Salary struct {
 	OperatorId   *string `json:"operator_id,omitempty"`
 }
 
-// builder开始
 type SalaryBuilder struct {
 	operateTime      string
 	operateTimeFlag  bool
@@ -16349,8 +15750,6 @@ func (builder *SalaryBuilder) Build() *Salary {
 	return req
 }
 
-// builder结束
-
 type SelectOptionResult struct {
 	OptionId     *string `json:"option_id,omitempty"`
 	OptionName   *string `json:"option_name,omitempty"`
@@ -16360,7 +15759,6 @@ type SelectOptionResult struct {
 	IsSelected   *bool   `json:"is_selected,omitempty"`
 }
 
-// builder开始
 type SelectOptionResultBuilder struct {
 	optionId         string
 	optionIdFlag     bool
@@ -16441,15 +15839,12 @@ func (builder *SelectOptionResultBuilder) Build() *SelectOptionResult {
 	return req
 }
 
-// builder结束
-
 type Sequence struct {
 	Id     *string `json:"id,omitempty"`
 	Name   *string `json:"name,omitempty"`
 	EnName *string `json:"en_name,omitempty"`
 }
 
-// builder开始
 type SequenceBuilder struct {
 	id         string
 	idFlag     bool
@@ -16497,14 +15892,11 @@ func (builder *SequenceBuilder) Build() *Sequence {
 	return req
 }
 
-// builder结束
-
 type Site struct {
 	Id   *string   `json:"id,omitempty"`
 	Name *SiteName `json:"name,omitempty"`
 }
 
-// builder开始
 type SiteBuilder struct {
 	id       string
 	idFlag   bool
@@ -16540,8 +15932,6 @@ func (builder *SiteBuilder) Build() *Site {
 	return req
 }
 
-// builder结束
-
 type SiteApplication struct {
 	ExternalId *string                `json:"external_id,omitempty"`
 	JobPostId  *string                `json:"job_post_id,omitempty"`
@@ -16549,7 +15939,6 @@ type SiteApplication struct {
 	Status     *string                `json:"status,omitempty"`
 }
 
-// builder开始
 type SiteApplicationBuilder struct {
 	externalId     string
 	externalIdFlag bool
@@ -16607,14 +15996,11 @@ func (builder *SiteApplicationBuilder) Build() *SiteApplication {
 	return req
 }
 
-// builder结束
-
 type SiteJobCity struct {
 	CityCode *string   `json:"city_code,omitempty"`
 	Name     *SiteName `json:"name,omitempty"`
 }
 
-// builder开始
 type SiteJobCityBuilder struct {
 	cityCode     string
 	cityCodeFlag bool
@@ -16650,8 +16036,6 @@ func (builder *SiteJobCityBuilder) Build() *SiteJobCity {
 	return req
 }
 
-// builder结束
-
 type SiteJobPost struct {
 	Id              *string                 `json:"id,omitempty"`
 	Title           *string                 `json:"title,omitempty"`
@@ -16663,7 +16047,6 @@ type SiteJobPost struct {
 	PublishTime     *int                    `json:"publish_time,omitempty"`
 }
 
-// builder开始
 type SiteJobPostBuilder struct {
 	id                  string
 	idFlag              bool
@@ -16763,14 +16146,11 @@ func (builder *SiteJobPostBuilder) Build() *SiteJobPost {
 	return req
 }
 
-// builder结束
-
 type SiteJobType struct {
 	Id   *string   `json:"id,omitempty"`
 	Name *SiteName `json:"name,omitempty"`
 }
 
-// builder开始
 type SiteJobTypeBuilder struct {
 	id       string
 	idFlag   bool
@@ -16806,8 +16186,6 @@ func (builder *SiteJobTypeBuilder) Build() *SiteJobType {
 	return req
 }
 
-// builder结束
-
 type SiteApplicationResume struct {
 	Name              *string                    `json:"name,omitempty"`
 	MobileNumber      *string                    `json:"mobile_number,omitempty"`
@@ -16830,7 +16208,6 @@ type SiteApplicationResume struct {
 	CertificateList   []*SiteResumeCertificate   `json:"certificate_list,omitempty"`
 }
 
-// builder开始
 type SiteApplicationResumeBuilder struct {
 	name                  string
 	nameFlag              bool
@@ -17043,14 +16420,11 @@ func (builder *SiteApplicationResumeBuilder) Build() *SiteApplicationResume {
 	return req
 }
 
-// builder结束
-
 type SiteJobPostSearchInfo struct {
 	JobPostInfo []*SiteJobPost `json:"job_post_info,omitempty"`
 	Count       *int           `json:"count,omitempty"`
 }
 
-// builder开始
 type SiteJobPostSearchInfoBuilder struct {
 	jobPostInfo     []*SiteJobPost
 	jobPostInfoFlag bool
@@ -17086,8 +16460,6 @@ func (builder *SiteJobPostSearchInfoBuilder) Build() *SiteJobPostSearchInfo {
 	return req
 }
 
-// builder结束
-
 type SiteJobPostSearchRequest struct {
 	Keyword       *string  `json:"keyword,omitempty"`
 	Offset        *int     `json:"offset,omitempty"`
@@ -17097,7 +16469,6 @@ type SiteJobPostSearchRequest struct {
 	SiteId        *string  `json:"site_id,omitempty"`
 }
 
-// builder开始
 type SiteJobPostSearchRequestBuilder struct {
 	keyword           string
 	keywordFlag       bool
@@ -17176,14 +16547,11 @@ func (builder *SiteJobPostSearchRequestBuilder) Build() *SiteJobPostSearchReques
 	return req
 }
 
-// builder结束
-
 type SiteJobRecruitmentType struct {
 	Id   *string   `json:"id,omitempty"`
 	Name *SiteName `json:"name,omitempty"`
 }
 
-// builder开始
 type SiteJobRecruitmentTypeBuilder struct {
 	id       string
 	idFlag   bool
@@ -17219,14 +16587,11 @@ func (builder *SiteJobRecruitmentTypeBuilder) Build() *SiteJobRecruitmentType {
 	return req
 }
 
-// builder结束
-
 type SiteName struct {
 	ZhCn *string `json:"zh_cn,omitempty"`
 	EnUs *string `json:"en_us,omitempty"`
 }
 
-// builder开始
 type SiteNameBuilder struct {
 	zhCn     string
 	zhCnFlag bool
@@ -17263,15 +16628,12 @@ func (builder *SiteNameBuilder) Build() *SiteName {
 	return req
 }
 
-// builder结束
-
 type SiteResumeAward struct {
 	Title       *string `json:"title,omitempty"`
 	AwardTime   *string `json:"award_time,omitempty"`
 	Description *string `json:"description,omitempty"`
 }
 
-// builder开始
 type SiteResumeAwardBuilder struct {
 	title           string
 	titleFlag       bool
@@ -17319,8 +16681,6 @@ func (builder *SiteResumeAwardBuilder) Build() *SiteResumeAward {
 	return req
 }
 
-// builder结束
-
 type SiteResumeCareer struct {
 	Company     *string `json:"company,omitempty"`
 	Title       *string `json:"title,omitempty"`
@@ -17330,7 +16690,6 @@ type SiteResumeCareer struct {
 	EndTime     *string `json:"end_time,omitempty"`
 }
 
-// builder开始
 type SiteResumeCareerBuilder struct {
 	company         string
 	companyFlag     bool
@@ -17411,14 +16770,11 @@ func (builder *SiteResumeCareerBuilder) Build() *SiteResumeCareer {
 	return req
 }
 
-// builder结束
-
 type SiteResumeCertificate struct {
 	Name        *string `json:"name,omitempty"`
 	Description *string `json:"description,omitempty"`
 }
 
-// builder开始
 type SiteResumeCertificateBuilder struct {
 	name            string
 	nameFlag        bool
@@ -17455,14 +16811,11 @@ func (builder *SiteResumeCertificateBuilder) Build() *SiteResumeCertificate {
 	return req
 }
 
-// builder结束
-
 type SiteResumeCompetition struct {
 	Name        *string `json:"name,omitempty"`
 	Description *string `json:"description,omitempty"`
 }
 
-// builder开始
 type SiteResumeCompetitionBuilder struct {
 	name            string
 	nameFlag        bool
@@ -17499,8 +16852,6 @@ func (builder *SiteResumeCompetitionBuilder) Build() *SiteResumeCompetition {
 	return req
 }
 
-// builder结束
-
 type SiteResumeEducation struct {
 	Degree          *string `json:"degree,omitempty"`
 	School          *string `json:"school,omitempty"`
@@ -17511,7 +16862,6 @@ type SiteResumeEducation struct {
 	AcademicRanking *string `json:"academic_ranking,omitempty"`
 }
 
-// builder开始
 type SiteResumeEducationBuilder struct {
 	degree              string
 	degreeFlag          bool
@@ -17603,14 +16953,11 @@ func (builder *SiteResumeEducationBuilder) Build() *SiteResumeEducation {
 	return req
 }
 
-// builder结束
-
 type SiteResumeIdentification struct {
 	IdentificationType *string `json:"identification_type,omitempty"`
 	Code               *string `json:"code,omitempty"`
 }
 
-// builder开始
 type SiteResumeIdentificationBuilder struct {
 	identificationType     string
 	identificationTypeFlag bool
@@ -17647,8 +16994,6 @@ func (builder *SiteResumeIdentificationBuilder) Build() *SiteResumeIdentificatio
 	return req
 }
 
-// builder结束
-
 type SiteResumeInternship struct {
 	Company     *string `json:"company,omitempty"`
 	Position    *string `json:"position,omitempty"`
@@ -17657,7 +17002,6 @@ type SiteResumeInternship struct {
 	EndTime     *string `json:"end_time,omitempty"`
 }
 
-// builder开始
 type SiteResumeInternshipBuilder struct {
 	company         string
 	companyFlag     bool
@@ -17727,14 +17071,11 @@ func (builder *SiteResumeInternshipBuilder) Build() *SiteResumeInternship {
 	return req
 }
 
-// builder结束
-
 type SiteResumeLanguageSkill struct {
 	Language    *string `json:"language,omitempty"`
 	Proficiency *string `json:"proficiency,omitempty"`
 }
 
-// builder开始
 type SiteResumeLanguageSkillBuilder struct {
 	language        string
 	languageFlag    bool
@@ -17771,8 +17112,6 @@ func (builder *SiteResumeLanguageSkillBuilder) Build() *SiteResumeLanguageSkill 
 	return req
 }
 
-// builder结束
-
 type SiteResumeProject struct {
 	Name        *string `json:"name,omitempty"`
 	Role        *string `json:"role,omitempty"`
@@ -17781,7 +17120,6 @@ type SiteResumeProject struct {
 	EndTime     *string `json:"end_time,omitempty"`
 }
 
-// builder开始
 type SiteResumeProjectBuilder struct {
 	name            string
 	nameFlag        bool
@@ -17851,14 +17189,11 @@ func (builder *SiteResumeProjectBuilder) Build() *SiteResumeProject {
 	return req
 }
 
-// builder结束
-
 type SiteResumeSns struct {
 	SnsType *string `json:"sns_type,omitempty"`
 	Link    *string `json:"link,omitempty"`
 }
 
-// builder开始
 type SiteResumeSnsBuilder struct {
 	snsType     string
 	snsTypeFlag bool
@@ -17895,15 +17230,12 @@ func (builder *SiteResumeSnsBuilder) Build() *SiteResumeSns {
 	return req
 }
 
-// builder结束
-
 type SiteResumeWork struct {
 	Link             *string `json:"link,omitempty"`
 	Description      *string `json:"description,omitempty"`
 	SiteAttachmentId *string `json:"site_attachment_id,omitempty"`
 }
 
-// builder开始
 type SiteResumeWorkBuilder struct {
 	link                 string
 	linkFlag             bool
@@ -17951,14 +17283,11 @@ func (builder *SiteResumeWorkBuilder) Build() *SiteResumeWork {
 	return req
 }
 
-// builder结束
-
 type SnsInfo struct {
 	Link    *string `json:"link,omitempty"`
 	SnsType *int    `json:"sns_type,omitempty"`
 }
 
-// builder开始
 type SnsInfoBuilder struct {
 	link        string
 	linkFlag    bool
@@ -17995,8 +17324,6 @@ func (builder *SnsInfoBuilder) Build() *SnsInfo {
 	return req
 }
 
-// builder结束
-
 type Subject struct {
 	Id               *string       `json:"id,omitempty"`
 	Name             *I18n         `json:"name,omitempty"`
@@ -18006,7 +17333,6 @@ type Subject struct {
 	Creator          *IdNameObject `json:"creator,omitempty"`
 }
 
-// builder开始
 type SubjectBuilder struct {
 	id                   string
 	idFlag               bool
@@ -18085,8 +17411,6 @@ func (builder *SubjectBuilder) Build() *Subject {
 	return req
 }
 
-// builder结束
-
 type Talent struct {
 	Id                        *string                              `json:"id,omitempty"`
 	IsInAgencyPeriod          *bool                                `json:"is_in_agency_period,omitempty"`
@@ -18105,7 +17429,6 @@ type Talent struct {
 	TopDegree                 *int                                 `json:"top_degree,omitempty"`
 }
 
-// builder开始
 type TalentBuilder struct {
 	id                            string
 	idFlag                        bool
@@ -18273,13 +17596,8 @@ func (builder *TalentBuilder) Build() *Talent {
 	return req
 }
 
-// builder结束
-
 type TalentInterviewRegistration struct {
 }
-
-// builder开始
-// builder结束
 
 type TalentAwardInfo struct {
 	Id                 *string                      `json:"id,omitempty"`
@@ -18289,7 +17607,6 @@ type TalentAwardInfo struct {
 	CustomizedDataList []*TalentCustomizedDataChild `json:"customized_data_list,omitempty"`
 }
 
-// builder开始
 type TalentAwardInfoBuilder struct {
 	id                     string
 	idFlag                 bool
@@ -18358,8 +17675,6 @@ func (builder *TalentAwardInfoBuilder) Build() *TalentAwardInfo {
 	return req
 }
 
-// builder结束
-
 type TalentBasicInfo struct {
 	Name                 *string                      `json:"name,omitempty"`
 	Mobile               *string                      `json:"mobile,omitempty"`
@@ -18383,7 +17698,6 @@ type TalentBasicInfo struct {
 	ModifyTime           *string                      `json:"modify_time,omitempty"`
 }
 
-// builder开始
 type TalentBasicInfoBuilder struct {
 	name                     string
 	nameFlag                 bool
@@ -18613,8 +17927,6 @@ func (builder *TalentBasicInfoBuilder) Build() *TalentBasicInfo {
 	return req
 }
 
-// builder结束
-
 type TalentCareerInfo struct {
 	Id                 *string                      `json:"id,omitempty"`
 	Company            *string                      `json:"company,omitempty"`
@@ -18627,7 +17939,6 @@ type TalentCareerInfo struct {
 	CustomizedDataList []*TalentCustomizedDataChild `json:"customized_data_list,omitempty"`
 }
 
-// builder开始
 type TalentCareerInfoBuilder struct {
 	id                     string
 	idFlag                 bool
@@ -18739,8 +18050,6 @@ func (builder *TalentCareerInfoBuilder) Build() *TalentCareerInfo {
 	return req
 }
 
-// builder结束
-
 type TalentCertificateInfo struct {
 	Id                 *string                      `json:"id,omitempty"`
 	Name               *string                      `json:"name,omitempty"`
@@ -18748,7 +18057,6 @@ type TalentCertificateInfo struct {
 	CustomizedDataList []*TalentCustomizedDataChild `json:"customized_data_list,omitempty"`
 }
 
-// builder开始
 type TalentCertificateInfoBuilder struct {
 	id                     string
 	idFlag                 bool
@@ -18806,15 +18114,12 @@ func (builder *TalentCertificateInfoBuilder) Build() *TalentCertificateInfo {
 	return req
 }
 
-// builder结束
-
 type TalentCityInfo struct {
 	CityCode *string `json:"city_code,omitempty"`
 	ZhName   *string `json:"zh_name,omitempty"`
 	EnName   *string `json:"en_name,omitempty"`
 }
 
-// builder开始
 type TalentCityInfoBuilder struct {
 	cityCode     string
 	cityCodeFlag bool
@@ -18862,8 +18167,6 @@ func (builder *TalentCityInfoBuilder) Build() *TalentCityInfo {
 	return req
 }
 
-// builder结束
-
 type TalentCombinedAwardInfo struct {
 	Id             *string                            `json:"id,omitempty"`
 	Title          *string                            `json:"title,omitempty"`
@@ -18872,7 +18175,6 @@ type TalentCombinedAwardInfo struct {
 	CustomizedData []*TalentCustomizedDataObjectValue `json:"customized_data,omitempty"`
 }
 
-// builder开始
 type TalentCombinedAwardInfoBuilder struct {
 	id                 string
 	idFlag             bool
@@ -18941,8 +18243,6 @@ func (builder *TalentCombinedAwardInfoBuilder) Build() *TalentCombinedAwardInfo 
 	return req
 }
 
-// builder结束
-
 type TalentCombinedBasicInfo struct {
 	Name                 *string                            `json:"name,omitempty"`
 	Mobile               *string                            `json:"mobile,omitempty"`
@@ -18959,7 +18259,6 @@ type TalentCombinedBasicInfo struct {
 	CustomizedData       []*TalentCustomizedDataObjectValue `json:"customized_data,omitempty"`
 }
 
-// builder开始
 type TalentCombinedBasicInfoBuilder struct {
 	name                     string
 	nameFlag                 bool
@@ -19116,8 +18415,6 @@ func (builder *TalentCombinedBasicInfoBuilder) Build() *TalentCombinedBasicInfo 
 	return req
 }
 
-// builder结束
-
 type TalentCombinedCareerInfo struct {
 	Id             *string                            `json:"id,omitempty"`
 	Company        *string                            `json:"company,omitempty"`
@@ -19129,7 +18426,6 @@ type TalentCombinedCareerInfo struct {
 	CustomizedData []*TalentCustomizedDataObjectValue `json:"customized_data,omitempty"`
 }
 
-// builder开始
 type TalentCombinedCareerInfoBuilder struct {
 	id                 string
 	idFlag             bool
@@ -19231,8 +18527,6 @@ func (builder *TalentCombinedCareerInfoBuilder) Build() *TalentCombinedCareerInf
 	return req
 }
 
-// builder结束
-
 type TalentCombinedEducationInfo struct {
 	Id              *string                            `json:"id,omitempty"`
 	Degree          *int                               `json:"degree,omitempty"`
@@ -19245,7 +18539,6 @@ type TalentCombinedEducationInfo struct {
 	CustomizedData  []*TalentCustomizedDataObjectValue `json:"customized_data,omitempty"`
 }
 
-// builder开始
 type TalentCombinedEducationInfoBuilder struct {
 	id                  string
 	idFlag              bool
@@ -19358,8 +18651,6 @@ func (builder *TalentCombinedEducationInfoBuilder) Build() *TalentCombinedEducat
 	return req
 }
 
-// builder结束
-
 type TalentCombinedLanguageInfo struct {
 	Id             *string                            `json:"id,omitempty"`
 	Language       *int                               `json:"language,omitempty"`
@@ -19367,7 +18658,6 @@ type TalentCombinedLanguageInfo struct {
 	CustomizedData []*TalentCustomizedDataObjectValue `json:"customized_data,omitempty"`
 }
 
-// builder开始
 type TalentCombinedLanguageInfoBuilder struct {
 	id                 string
 	idFlag             bool
@@ -19425,8 +18715,6 @@ func (builder *TalentCombinedLanguageInfoBuilder) Build() *TalentCombinedLanguag
 	return req
 }
 
-// builder结束
-
 type TalentCombinedProjectInfo struct {
 	Id             *string                            `json:"id,omitempty"`
 	Name           *string                            `json:"name,omitempty"`
@@ -19438,7 +18726,6 @@ type TalentCombinedProjectInfo struct {
 	CustomizedData []*TalentCustomizedDataObjectValue `json:"customized_data,omitempty"`
 }
 
-// builder开始
 type TalentCombinedProjectInfoBuilder struct {
 	id                 string
 	idFlag             bool
@@ -19540,8 +18827,6 @@ func (builder *TalentCombinedProjectInfoBuilder) Build() *TalentCombinedProjectI
 	return req
 }
 
-// builder结束
-
 type TalentCombinedSnsInfo struct {
 	Id             *string                            `json:"id,omitempty"`
 	SnsType        *int                               `json:"sns_type,omitempty"`
@@ -19549,7 +18834,6 @@ type TalentCombinedSnsInfo struct {
 	CustomizedData []*TalentCustomizedDataObjectValue `json:"customized_data,omitempty"`
 }
 
-// builder开始
 type TalentCombinedSnsInfoBuilder struct {
 	id                 string
 	idFlag             bool
@@ -19607,8 +18891,6 @@ func (builder *TalentCombinedSnsInfoBuilder) Build() *TalentCombinedSnsInfo {
 	return req
 }
 
-// builder结束
-
 type TalentCombinedWorkInfo struct {
 	Id             *string                            `json:"id,omitempty"`
 	Link           *string                            `json:"link,omitempty"`
@@ -19617,7 +18899,6 @@ type TalentCombinedWorkInfo struct {
 	CustomizedData []*TalentCustomizedDataObjectValue `json:"customized_data,omitempty"`
 }
 
-// builder开始
 type TalentCombinedWorkInfoBuilder struct {
 	id                 string
 	idFlag             bool
@@ -19686,8 +18967,6 @@ func (builder *TalentCombinedWorkInfoBuilder) Build() *TalentCombinedWorkInfo {
 	return req
 }
 
-// builder结束
-
 type TalentCompetitionInfo struct {
 	Id                 *string                      `json:"id,omitempty"`
 	Name               *string                      `json:"name,omitempty"`
@@ -19695,7 +18974,6 @@ type TalentCompetitionInfo struct {
 	CustomizedDataList []*TalentCustomizedDataChild `json:"customized_data_list,omitempty"`
 }
 
-// builder开始
 type TalentCompetitionInfoBuilder struct {
 	id                     string
 	idFlag                 bool
@@ -19753,8 +19031,6 @@ func (builder *TalentCompetitionInfoBuilder) Build() *TalentCompetitionInfo {
 	return req
 }
 
-// builder结束
-
 type TalentCustomizedData struct {
 	ObjectId   *string                      `json:"object_id,omitempty"`
 	Name       *I18n                        `json:"name,omitempty"`
@@ -19762,7 +19038,6 @@ type TalentCustomizedData struct {
 	Children   []*TalentCustomizedDataChild `json:"children,omitempty"`
 }
 
-// builder开始
 type TalentCustomizedDataBuilder struct {
 	objectId       string
 	objectIdFlag   bool
@@ -19819,8 +19094,6 @@ func (builder *TalentCustomizedDataBuilder) Build() *TalentCustomizedData {
 	return req
 }
 
-// builder结束
-
 type TalentCustomizedDataChild struct {
 	ObjectId   *string                `json:"object_id,omitempty"`
 	Name       *I18n                  `json:"name,omitempty"`
@@ -19828,7 +19101,6 @@ type TalentCustomizedDataChild struct {
 	Value      *TalentCustomizedValue `json:"value,omitempty"`
 }
 
-// builder开始
 type TalentCustomizedDataChildBuilder struct {
 	objectId       string
 	objectIdFlag   bool
@@ -19885,14 +19157,11 @@ func (builder *TalentCustomizedDataChildBuilder) Build() *TalentCustomizedDataCh
 	return req
 }
 
-// builder结束
-
 type TalentCustomizedDataObjectValue struct {
 	ObjectId *string                                 `json:"object_id,omitempty"`
 	Children []*TalentCustomizedDataObjectValueChild `json:"children,omitempty"`
 }
 
-// builder开始
 type TalentCustomizedDataObjectValueBuilder struct {
 	objectId     string
 	objectIdFlag bool
@@ -19928,14 +19197,11 @@ func (builder *TalentCustomizedDataObjectValueBuilder) Build() *TalentCustomized
 	return req
 }
 
-// builder结束
-
 type TalentCustomizedDataObjectValueChild struct {
 	ObjectId *string `json:"object_id,omitempty"`
 	Value    *string `json:"value,omitempty"`
 }
 
-// builder开始
 type TalentCustomizedDataObjectValueChildBuilder struct {
 	objectId     string
 	objectIdFlag bool
@@ -19972,14 +19238,11 @@ func (builder *TalentCustomizedDataObjectValueChildBuilder) Build() *TalentCusto
 	return req
 }
 
-// builder结束
-
 type TalentCustomizedOption struct {
 	Key  *string `json:"key,omitempty"`
 	Name *I18n   `json:"name,omitempty"`
 }
 
-// builder开始
 type TalentCustomizedOptionBuilder struct {
 	key      string
 	keyFlag  bool
@@ -20015,14 +19278,11 @@ func (builder *TalentCustomizedOptionBuilder) Build() *TalentCustomizedOption {
 	return req
 }
 
-// builder结束
-
 type TalentCustomizedTimeRange struct {
 	StartTime *string `json:"start_time,omitempty"`
 	EndTime   *string `json:"end_time,omitempty"`
 }
 
-// builder开始
 type TalentCustomizedTimeRangeBuilder struct {
 	startTime     string
 	startTimeFlag bool
@@ -20059,8 +19319,6 @@ func (builder *TalentCustomizedTimeRangeBuilder) Build() *TalentCustomizedTimeRa
 	return req
 }
 
-// builder结束
-
 type TalentCustomizedValue struct {
 	Content    *string                    `json:"content,omitempty"`
 	Option     *TalentCustomizedOption    `json:"option,omitempty"`
@@ -20070,7 +19328,6 @@ type TalentCustomizedValue struct {
 	Number     *string                    `json:"number,omitempty"`
 }
 
-// builder开始
 type TalentCustomizedValueBuilder struct {
 	content        string
 	contentFlag    bool
@@ -20148,8 +19405,6 @@ func (builder *TalentCustomizedValueBuilder) Build() *TalentCustomizedValue {
 	return req
 }
 
-// builder结束
-
 type TalentEducationInfo struct {
 	Id                 *string                      `json:"id,omitempty"`
 	Degree             *int                         `json:"degree,omitempty"`
@@ -20163,7 +19418,6 @@ type TalentEducationInfo struct {
 	CustomizedDataList []*TalentCustomizedDataChild `json:"customized_data_list,omitempty"`
 }
 
-// builder开始
 type TalentEducationInfoBuilder struct {
 	id                     string
 	idFlag                 bool
@@ -20286,14 +19540,11 @@ func (builder *TalentEducationInfoBuilder) Build() *TalentEducationInfo {
 	return req
 }
 
-// builder结束
-
 type TalentExternalInfo struct {
 	TalentId           *string `json:"talent_id,omitempty"`
 	ExternalCreateTime *string `json:"external_create_time,omitempty"`
 }
 
-// builder开始
 type TalentExternalInfoBuilder struct {
 	talentId               string
 	talentIdFlag           bool
@@ -20330,8 +19581,6 @@ func (builder *TalentExternalInfoBuilder) Build() *TalentExternalInfo {
 	return req
 }
 
-// builder结束
-
 type TalentFolder struct {
 	ExternalId *string `json:"external_id,omitempty"`
 	Name       *string `json:"name,omitempty"`
@@ -20341,7 +19590,6 @@ type TalentFolder struct {
 	OwnerId    *string `json:"owner_id,omitempty"`
 }
 
-// builder开始
 type TalentFolderBuilder struct {
 	externalId     string
 	externalIdFlag bool
@@ -20422,8 +19670,6 @@ func (builder *TalentFolderBuilder) Build() *TalentFolder {
 	return req
 }
 
-// builder结束
-
 type TalentInternshipInfo struct {
 	Id        *string `json:"id,omitempty"`
 	Company   *string `json:"company,omitempty"`
@@ -20434,7 +19680,6 @@ type TalentInternshipInfo struct {
 	TagList   []int   `json:"tag_list,omitempty"`
 }
 
-// builder开始
 type TalentInternshipInfoBuilder struct {
 	id            string
 	idFlag        bool
@@ -20525,14 +19770,11 @@ func (builder *TalentInternshipInfoBuilder) Build() *TalentInternshipInfo {
 	return req
 }
 
-// builder结束
-
 type TalentInterview struct {
 	ApplicationId *string            `json:"application_id,omitempty"`
 	InterviewList []*InterviewExtend `json:"interview_list,omitempty"`
 }
 
-// builder开始
 type TalentInterviewBuilder struct {
 	applicationId     string
 	applicationIdFlag bool
@@ -20568,14 +19810,11 @@ func (builder *TalentInterviewBuilder) Build() *TalentInterview {
 	return req
 }
 
-// builder结束
-
 type TalentInterviewRegistrationSimple struct {
 	Id               *string `json:"id,omitempty"`
 	RegistrationTime *int    `json:"registration_time,omitempty"`
 }
 
-// builder开始
 type TalentInterviewRegistrationSimpleBuilder struct {
 	id                   string
 	idFlag               bool
@@ -20612,8 +19851,6 @@ func (builder *TalentInterviewRegistrationSimpleBuilder) Build() *TalentIntervie
 	return req
 }
 
-// builder结束
-
 type TalentLanguageInfo struct {
 	Id                 *string                      `json:"id,omitempty"`
 	Language           *int                         `json:"language,omitempty"`
@@ -20621,7 +19858,6 @@ type TalentLanguageInfo struct {
 	CustomizedDataList []*TalentCustomizedDataChild `json:"customized_data_list,omitempty"`
 }
 
-// builder开始
 type TalentLanguageInfoBuilder struct {
 	id                     string
 	idFlag                 bool
@@ -20679,15 +19915,12 @@ func (builder *TalentLanguageInfoBuilder) Build() *TalentLanguageInfo {
 	return req
 }
 
-// builder结束
-
 type TalentNationality struct {
 	NationalityCode *string `json:"nationality_code,omitempty"`
 	ZhName          *string `json:"zh_name,omitempty"`
 	EnName          *string `json:"en_name,omitempty"`
 }
 
-// builder开始
 type TalentNationalityBuilder struct {
 	nationalityCode     string
 	nationalityCodeFlag bool
@@ -20735,8 +19968,6 @@ func (builder *TalentNationalityBuilder) Build() *TalentNationality {
 	return req
 }
 
-// builder结束
-
 type TalentOperationLog struct {
 	ApplicationId *string       `json:"application_id,omitempty"`
 	TalentId      *string       `json:"talent_id,omitempty"`
@@ -20746,7 +19977,6 @@ type TalentOperationLog struct {
 	OperatorType  *int          `json:"operator_type,omitempty"`
 }
 
-// builder开始
 type TalentOperationLogBuilder struct {
 	applicationId     string
 	applicationIdFlag bool
@@ -20826,8 +20056,6 @@ func (builder *TalentOperationLogBuilder) Build() *TalentOperationLog {
 	return req
 }
 
-// builder结束
-
 type TalentProjectInfo struct {
 	Id                 *string                      `json:"id,omitempty"`
 	Name               *string                      `json:"name,omitempty"`
@@ -20839,7 +20067,6 @@ type TalentProjectInfo struct {
 	CustomizedDataList []*TalentCustomizedDataChild `json:"customized_data_list,omitempty"`
 }
 
-// builder开始
 type TalentProjectInfoBuilder struct {
 	id                     string
 	idFlag                 bool
@@ -20941,15 +20168,12 @@ func (builder *TalentProjectInfoBuilder) Build() *TalentProjectInfo {
 	return req
 }
 
-// builder结束
-
 type TalentResumeSource struct {
 	Id     *string `json:"id,omitempty"`
 	ZhName *string `json:"zh_name,omitempty"`
 	EnName *string `json:"en_name,omitempty"`
 }
 
-// builder开始
 type TalentResumeSourceBuilder struct {
 	id         string
 	idFlag     bool
@@ -20997,13 +20221,8 @@ func (builder *TalentResumeSourceBuilder) Build() *TalentResumeSource {
 	return req
 }
 
-// builder结束
-
 type TalentSchema struct {
 }
-
-// builder开始
-// builder结束
 
 type TalentSchemaChildObject struct {
 	Id           *string               `json:"id,omitempty"`
@@ -21013,7 +20232,6 @@ type TalentSchemaChildObject struct {
 	OptionList   []*TalentSchemaOption `json:"option_list,omitempty"`
 }
 
-// builder开始
 type TalentSchemaChildObjectBuilder struct {
 	id               string
 	idFlag           bool
@@ -21081,8 +20299,6 @@ func (builder *TalentSchemaChildObjectBuilder) Build() *TalentSchemaChildObject 
 	return req
 }
 
-// builder结束
-
 type TalentSchemaObject struct {
 	Id           *string                    `json:"id,omitempty"`
 	ActiveStatus *int                       `json:"active_status,omitempty"`
@@ -21092,7 +20308,6 @@ type TalentSchemaObject struct {
 	Children     []*TalentSchemaChildObject `json:"children,omitempty"`
 }
 
-// builder开始
 type TalentSchemaObjectBuilder struct {
 	id               string
 	idFlag           bool
@@ -21170,15 +20385,12 @@ func (builder *TalentSchemaObjectBuilder) Build() *TalentSchemaObject {
 	return req
 }
 
-// builder结束
-
 type TalentSchemaOption struct {
 	ActiveStatus *int    `json:"active_status,omitempty"`
 	Value        *string `json:"value,omitempty"`
 	Name         *I18n   `json:"name,omitempty"`
 }
 
-// builder开始
 type TalentSchemaOptionBuilder struct {
 	activeStatus     int
 	activeStatusFlag bool
@@ -21225,15 +20437,12 @@ func (builder *TalentSchemaOptionBuilder) Build() *TalentSchemaOption {
 	return req
 }
 
-// builder结束
-
 type TalentSelfEvaluation struct {
 	Id             *string                            `json:"id,omitempty"`
 	Content        *string                            `json:"content,omitempty"`
 	CustomizedData []*TalentCustomizedDataObjectValue `json:"customized_data,omitempty"`
 }
 
-// builder开始
 type TalentSelfEvaluationBuilder struct {
 	id                 string
 	idFlag             bool
@@ -21280,8 +20489,6 @@ func (builder *TalentSelfEvaluationBuilder) Build() *TalentSelfEvaluation {
 	return req
 }
 
-// builder结束
-
 type TalentSnsInfo struct {
 	Id                 *string                      `json:"id,omitempty"`
 	SnsType            *int                         `json:"sns_type,omitempty"`
@@ -21289,7 +20496,6 @@ type TalentSnsInfo struct {
 	CustomizedDataList []*TalentCustomizedDataChild `json:"customized_data_list,omitempty"`
 }
 
-// builder开始
 type TalentSnsInfoBuilder struct {
 	id                     string
 	idFlag                 bool
@@ -21347,8 +20553,6 @@ func (builder *TalentSnsInfoBuilder) Build() *TalentSnsInfo {
 	return req
 }
 
-// builder结束
-
 type TalentWorksInfo struct {
 	Id                 *string                      `json:"id,omitempty"`
 	Link               *string                      `json:"link,omitempty"`
@@ -21357,7 +20561,6 @@ type TalentWorksInfo struct {
 	CustomizedDataList []*TalentCustomizedDataChild `json:"customized_data_list,omitempty"`
 }
 
-// builder开始
 type TalentWorksInfoBuilder struct {
 	id                     string
 	idFlag                 bool
@@ -21426,8 +20629,6 @@ func (builder *TalentWorksInfoBuilder) Build() *TalentWorksInfo {
 	return req
 }
 
-// builder结束
-
 type TerminationReason struct {
 	Id                 *string `json:"id,omitempty"`
 	Name               *I18n   `json:"name,omitempty"`
@@ -21437,7 +20638,6 @@ type TerminationReason struct {
 	ActiveStatus       *int    `json:"active_status,omitempty"`
 }
 
-// builder开始
 type TerminationReasonBuilder struct {
 	id                     string
 	idFlag                 bool
@@ -21516,8 +20716,6 @@ func (builder *TerminationReasonBuilder) Build() *TerminationReason {
 	return req
 }
 
-// builder结束
-
 type Todo struct {
 	Evaluation *TodoCommon `json:"evaluation,omitempty"`
 	Offer      *TodoCommon `json:"offer,omitempty"`
@@ -21525,7 +20723,6 @@ type Todo struct {
 	Interview  *TodoCommon `json:"interview,omitempty"`
 }
 
-// builder开始
 type TodoBuilder struct {
 	evaluation     *TodoCommon
 	evaluationFlag bool
@@ -21580,8 +20777,6 @@ func (builder *TodoBuilder) Build() *Todo {
 	return req
 }
 
-// builder结束
-
 type TodoCommon struct {
 	TalentId      *string `json:"talent_id,omitempty"`
 	JobId         *string `json:"job_id,omitempty"`
@@ -21589,7 +20784,6 @@ type TodoCommon struct {
 	Id            *string `json:"id,omitempty"`
 }
 
-// builder开始
 type TodoCommonBuilder struct {
 	talentId          string
 	talentIdFlag      bool
@@ -21648,15 +20842,12 @@ func (builder *TodoCommonBuilder) Build() *TodoCommon {
 	return req
 }
 
-// builder结束
-
 type UserRole struct {
 	UserId     *string `json:"user_id,omitempty"`
 	RoleId     *string `json:"role_id,omitempty"`
 	ModifyTime *string `json:"modify_time,omitempty"`
 }
 
-// builder开始
 type UserRoleBuilder struct {
 	userId         string
 	userIdFlag     bool
@@ -21704,8 +20895,6 @@ func (builder *UserRoleBuilder) Build() *UserRole {
 	return req
 }
 
-// builder结束
-
 type Website struct {
 	Id              *string  `json:"id,omitempty"`
 	Name            *I18n    `json:"name,omitempty"`
@@ -21713,7 +20902,6 @@ type Website struct {
 	JobChannelId    *string  `json:"job_channel_id,omitempty"`
 }
 
-// builder开始
 type WebsiteBuilder struct {
 	id                  string
 	idFlag              bool
@@ -21770,8 +20958,6 @@ func (builder *WebsiteBuilder) Build() *Website {
 	return req
 }
 
-// builder结束
-
 type WebsiteChannelInfo struct {
 	Id   *string `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
@@ -21779,7 +20965,6 @@ type WebsiteChannelInfo struct {
 	Code *string `json:"code,omitempty"`
 }
 
-// builder开始
 type WebsiteChannelInfoBuilder struct {
 	id       string
 	idFlag   bool
@@ -21838,8 +21023,6 @@ func (builder *WebsiteChannelInfoBuilder) Build() *WebsiteChannelInfo {
 	return req
 }
 
-// builder结束
-
 type WebsiteDelivery struct {
 	JobPostId                        *string                `json:"job_post_id,omitempty"`
 	Resume                           *WebsiteDeliveryResume `json:"resume,omitempty"`
@@ -21848,7 +21031,6 @@ type WebsiteDelivery struct {
 	ChannelId                        *string                `json:"channel_id,omitempty"`
 }
 
-// builder开始
 type WebsiteDeliveryBuilder struct {
 	jobPostId                            string
 	jobPostIdFlag                        bool
@@ -21916,8 +21098,6 @@ func (builder *WebsiteDeliveryBuilder) Build() *WebsiteDelivery {
 	return req
 }
 
-// builder结束
-
 type WebsiteDeliveryAttachment struct {
 	JobPostId                        *string  `json:"job_post_id,omitempty"`
 	UserId                           *string  `json:"user_id,omitempty"`
@@ -21926,7 +21106,6 @@ type WebsiteDeliveryAttachment struct {
 	ApplicationPreferredCityCodeList []string `json:"application_preferred_city_code_list,omitempty"`
 }
 
-// builder开始
 type WebsiteDeliveryAttachmentBuilder struct {
 	jobPostId                            string
 	jobPostIdFlag                        bool
@@ -21995,8 +21174,6 @@ func (builder *WebsiteDeliveryAttachmentBuilder) Build() *WebsiteDeliveryAttachm
 	return req
 }
 
-// builder结束
-
 type WebsiteDeliveryAward struct {
 	CustomizedData []*WebsiteDeliveryCustomizedData `json:"customized_data,omitempty"`
 	Desc           *string                          `json:"desc,omitempty"`
@@ -22004,7 +21181,6 @@ type WebsiteDeliveryAward struct {
 	AwardTime      *int                             `json:"award_time,omitempty"`
 }
 
-// builder开始
 type WebsiteDeliveryAwardBuilder struct {
 	customizedData     []*WebsiteDeliveryCustomizedData
 	customizedDataFlag bool
@@ -22062,8 +21238,6 @@ func (builder *WebsiteDeliveryAwardBuilder) Build() *WebsiteDeliveryAward {
 	return req
 }
 
-// builder结束
-
 type WebsiteDeliveryBasicInfo struct {
 	NationalityId         *string                          `json:"nationality_id,omitempty"`
 	StartWorkTime         *int                             `json:"start_work_time,omitempty"`
@@ -22085,7 +21259,6 @@ type WebsiteDeliveryBasicInfo struct {
 	Email                 *string                          `json:"email,omitempty"`
 }
 
-// builder开始
 type WebsiteDeliveryBasicInfoBuilder struct {
 	nationalityId             string
 	nationalityIdFlag         bool
@@ -22295,8 +21468,6 @@ func (builder *WebsiteDeliveryBasicInfoBuilder) Build() *WebsiteDeliveryBasicInf
 	return req
 }
 
-// builder结束
-
 type WebsiteDeliveryCareer struct {
 	Desc           *string                          `json:"desc,omitempty"`
 	EndTime        *int                             `json:"end_time,omitempty"`
@@ -22306,7 +21477,6 @@ type WebsiteDeliveryCareer struct {
 	CustomizedData []*WebsiteDeliveryCustomizedData `json:"customized_data,omitempty"`
 }
 
-// builder开始
 type WebsiteDeliveryCareerBuilder struct {
 	desc               string
 	descFlag           bool
@@ -22386,15 +21556,12 @@ func (builder *WebsiteDeliveryCareerBuilder) Build() *WebsiteDeliveryCareer {
 	return req
 }
 
-// builder结束
-
 type WebsiteDeliveryCertificate struct {
 	CustomizedData []*WebsiteDeliveryCustomizedData `json:"customized_data,omitempty"`
 	Desc           *string                          `json:"desc,omitempty"`
 	Name           *string                          `json:"name,omitempty"`
 }
 
-// builder开始
 type WebsiteDeliveryCertificateBuilder struct {
 	customizedData     []*WebsiteDeliveryCustomizedData
 	customizedDataFlag bool
@@ -22441,15 +21608,12 @@ func (builder *WebsiteDeliveryCertificateBuilder) Build() *WebsiteDeliveryCertif
 	return req
 }
 
-// builder结束
-
 type WebsiteDeliveryCompetition struct {
 	CustomizedData []*WebsiteDeliveryCustomizedData `json:"customized_data,omitempty"`
 	Desc           *string                          `json:"desc,omitempty"`
 	Name           *string                          `json:"name,omitempty"`
 }
 
-// builder开始
 type WebsiteDeliveryCompetitionBuilder struct {
 	customizedData     []*WebsiteDeliveryCustomizedData
 	customizedDataFlag bool
@@ -22496,14 +21660,11 @@ func (builder *WebsiteDeliveryCompetitionBuilder) Build() *WebsiteDeliveryCompet
 	return req
 }
 
-// builder结束
-
 type WebsiteDeliveryCustomizedData struct {
 	ObjectId *string `json:"object_id,omitempty"`
 	Value    *string `json:"value,omitempty"`
 }
 
-// builder开始
 type WebsiteDeliveryCustomizedDataBuilder struct {
 	objectId     string
 	objectIdFlag bool
@@ -22540,14 +21701,11 @@ func (builder *WebsiteDeliveryCustomizedDataBuilder) Build() *WebsiteDeliveryCus
 	return req
 }
 
-// builder结束
-
 type WebsiteDeliveryCustomizedDataParent struct {
 	ObjectId *string                          `json:"object_id,omitempty"`
 	Children []*WebsiteDeliveryCustomizedData `json:"children,omitempty"`
 }
 
-// builder开始
 type WebsiteDeliveryCustomizedDataParentBuilder struct {
 	objectId     string
 	objectIdFlag bool
@@ -22583,8 +21741,6 @@ func (builder *WebsiteDeliveryCustomizedDataParentBuilder) Build() *WebsiteDeliv
 	return req
 }
 
-// builder结束
-
 type WebsiteDeliveryDto struct {
 	ApplicationId  *string `json:"application_id,omitempty"`
 	Id             *string `json:"id,omitempty"`
@@ -22595,7 +21751,6 @@ type WebsiteDeliveryDto struct {
 	TalentId       *string `json:"talent_id,omitempty"`
 }
 
-// builder开始
 type WebsiteDeliveryDtoBuilder struct {
 	applicationId      string
 	applicationIdFlag  bool
@@ -22687,8 +21842,6 @@ func (builder *WebsiteDeliveryDtoBuilder) Build() *WebsiteDeliveryDto {
 	return req
 }
 
-// builder结束
-
 type WebsiteDeliveryEducation struct {
 	EducationType   *int                             `json:"education_type,omitempty"`
 	EndTime         *int                             `json:"end_time,omitempty"`
@@ -22700,7 +21853,6 @@ type WebsiteDeliveryEducation struct {
 	Degree          *int                             `json:"degree,omitempty"`
 }
 
-// builder开始
 type WebsiteDeliveryEducationBuilder struct {
 	educationType       int
 	educationTypeFlag   bool
@@ -22802,14 +21954,11 @@ func (builder *WebsiteDeliveryEducationBuilder) Build() *WebsiteDeliveryEducatio
 	return req
 }
 
-// builder结束
-
 type WebsiteDeliveryIdentification struct {
 	IdentificationNumber *string `json:"identification_number,omitempty"`
 	IdentificationType   *int    `json:"identification_type,omitempty"`
 }
 
-// builder开始
 type WebsiteDeliveryIdentificationBuilder struct {
 	identificationNumber     string
 	identificationNumberFlag bool
@@ -22846,8 +21995,6 @@ func (builder *WebsiteDeliveryIdentificationBuilder) Build() *WebsiteDeliveryIde
 	return req
 }
 
-// builder结束
-
 type WebsiteDeliveryInternship struct {
 	Desc           *string                          `json:"desc,omitempty"`
 	EndTime        *int                             `json:"end_time,omitempty"`
@@ -22857,7 +22004,6 @@ type WebsiteDeliveryInternship struct {
 	CustomizedData []*WebsiteDeliveryCustomizedData `json:"customized_data,omitempty"`
 }
 
-// builder开始
 type WebsiteDeliveryInternshipBuilder struct {
 	desc               string
 	descFlag           bool
@@ -22937,15 +22083,12 @@ func (builder *WebsiteDeliveryInternshipBuilder) Build() *WebsiteDeliveryInterns
 	return req
 }
 
-// builder结束
-
 type WebsiteDeliveryLanguage struct {
 	CustomizedData []*WebsiteDeliveryCustomizedData `json:"customized_data,omitempty"`
 	Language       *int                             `json:"language,omitempty"`
 	Proficiency    *int                             `json:"proficiency,omitempty"`
 }
 
-// builder开始
 type WebsiteDeliveryLanguageBuilder struct {
 	customizedData     []*WebsiteDeliveryCustomizedData
 	customizedDataFlag bool
@@ -22992,8 +22135,6 @@ func (builder *WebsiteDeliveryLanguageBuilder) Build() *WebsiteDeliveryLanguage 
 	return req
 }
 
-// builder结束
-
 type WebsiteDeliveryProject struct {
 	CustomizedData []*WebsiteDeliveryCustomizedData `json:"customized_data,omitempty"`
 	Desc           *string                          `json:"desc,omitempty"`
@@ -23004,7 +22145,6 @@ type WebsiteDeliveryProject struct {
 	StartTime      *int                             `json:"start_time,omitempty"`
 }
 
-// builder开始
 type WebsiteDeliveryProjectBuilder struct {
 	customizedData     []*WebsiteDeliveryCustomizedData
 	customizedDataFlag bool
@@ -23095,8 +22235,6 @@ func (builder *WebsiteDeliveryProjectBuilder) Build() *WebsiteDeliveryProject {
 	return req
 }
 
-// builder结束
-
 type WebsiteDeliveryResume struct {
 	InternshipList     []*WebsiteDeliveryInternship           `json:"internship_list,omitempty"`
 	BasicInfo          *WebsiteDeliveryBasicInfo              `json:"basic_info,omitempty"`
@@ -23112,7 +22250,6 @@ type WebsiteDeliveryResume struct {
 	LanguageList       []*WebsiteDeliveryLanguage             `json:"language_list,omitempty"`
 }
 
-// builder开始
 type WebsiteDeliveryResumeBuilder struct {
 	internshipList         []*WebsiteDeliveryInternship
 	internshipListFlag     bool
@@ -23248,14 +22385,11 @@ func (builder *WebsiteDeliveryResumeBuilder) Build() *WebsiteDeliveryResume {
 	return req
 }
 
-// builder结束
-
 type WebsiteDeliverySelfEvaluation struct {
 	Content        *string                          `json:"content,omitempty"`
 	CustomizedData []*WebsiteDeliveryCustomizedData `json:"customized_data,omitempty"`
 }
 
-// builder开始
 type WebsiteDeliverySelfEvaluationBuilder struct {
 	content            string
 	contentFlag        bool
@@ -23291,15 +22425,12 @@ func (builder *WebsiteDeliverySelfEvaluationBuilder) Build() *WebsiteDeliverySel
 	return req
 }
 
-// builder结束
-
 type WebsiteDeliverySns struct {
 	SnsType        *int                             `json:"sns_type,omitempty"`
 	CustomizedData []*WebsiteDeliveryCustomizedData `json:"customized_data,omitempty"`
 	Link           *string                          `json:"link,omitempty"`
 }
 
-// builder开始
 type WebsiteDeliverySnsBuilder struct {
 	snsType            int
 	snsTypeFlag        bool
@@ -23346,8 +22477,6 @@ func (builder *WebsiteDeliverySnsBuilder) Build() *WebsiteDeliverySns {
 	return req
 }
 
-// builder结束
-
 type WebsiteDeliveryWorks struct {
 	Desc           *string                          `json:"desc,omitempty"`
 	Link           *string                          `json:"link,omitempty"`
@@ -23355,7 +22484,6 @@ type WebsiteDeliveryWorks struct {
 	CustomizedData []*WebsiteDeliveryCustomizedData `json:"customized_data,omitempty"`
 }
 
-// builder开始
 type WebsiteDeliveryWorksBuilder struct {
 	desc               string
 	descFlag           bool
@@ -23412,13 +22540,10 @@ func (builder *WebsiteDeliveryWorksBuilder) Build() *WebsiteDeliveryWorks {
 	return req
 }
 
-// builder结束
-
 type WebsiteDeliveryWorksAttachment struct {
 	FileId *string `json:"file_id,omitempty"`
 }
 
-// builder开始
 type WebsiteDeliveryWorksAttachmentBuilder struct {
 	fileId     string
 	fileIdFlag bool
@@ -23443,8 +22568,6 @@ func (builder *WebsiteDeliveryWorksAttachmentBuilder) Build() *WebsiteDeliveryWo
 	}
 	return req
 }
-
-// builder结束
 
 type WebsiteJobPost struct {
 	Id                 *string                         `json:"id,omitempty"`
@@ -23476,7 +22599,6 @@ type WebsiteJobPost struct {
 	AddressList        []*CommonAddress                `json:"address_list,omitempty"`
 }
 
-// builder开始
 type WebsiteJobPostBuilder struct {
 	id                     string
 	idFlag                 bool
@@ -23778,8 +22900,6 @@ func (builder *WebsiteJobPostBuilder) Build() *WebsiteJobPost {
 	return req
 }
 
-// builder结束
-
 type WebsiteJobPostCustomizedData struct {
 	ObjectId   *string                        `json:"object_id,omitempty"`
 	Name       *I18n                          `json:"name,omitempty"`
@@ -23787,7 +22907,6 @@ type WebsiteJobPostCustomizedData struct {
 	Value      *WebsiteJobPostCustomizedValue `json:"value,omitempty"`
 }
 
-// builder开始
 type WebsiteJobPostCustomizedDataBuilder struct {
 	objectId       string
 	objectIdFlag   bool
@@ -23844,14 +22963,11 @@ func (builder *WebsiteJobPostCustomizedDataBuilder) Build() *WebsiteJobPostCusto
 	return req
 }
 
-// builder结束
-
 type WebsiteJobPostCustomizedOption struct {
 	Key  *string `json:"key,omitempty"`
 	Name *I18n   `json:"name,omitempty"`
 }
 
-// builder开始
 type WebsiteJobPostCustomizedOptionBuilder struct {
 	key      string
 	keyFlag  bool
@@ -23887,14 +23003,11 @@ func (builder *WebsiteJobPostCustomizedOptionBuilder) Build() *WebsiteJobPostCus
 	return req
 }
 
-// builder结束
-
 type WebsiteJobPostCustomizedTimeRange struct {
 	StartTime *string `json:"start_time,omitempty"`
 	EndTime   *string `json:"end_time,omitempty"`
 }
 
-// builder开始
 type WebsiteJobPostCustomizedTimeRangeBuilder struct {
 	startTime     string
 	startTimeFlag bool
@@ -23931,8 +23044,6 @@ func (builder *WebsiteJobPostCustomizedTimeRangeBuilder) Build() *WebsiteJobPost
 	return req
 }
 
-// builder结束
-
 type WebsiteJobPostCustomizedValue struct {
 	Content    *string                            `json:"content,omitempty"`
 	Option     *WebsiteJobPostCustomizedOption    `json:"option,omitempty"`
@@ -23942,7 +23053,6 @@ type WebsiteJobPostCustomizedValue struct {
 	Number     *string                            `json:"number,omitempty"`
 }
 
-// builder开始
 type WebsiteJobPostCustomizedValueBuilder struct {
 	content        string
 	contentFlag    bool
@@ -24020,8 +23130,6 @@ func (builder *WebsiteJobPostCustomizedValueBuilder) Build() *WebsiteJobPostCust
 	return req
 }
 
-// builder结束
-
 type WebsiteUser struct {
 	Id                *string `json:"id,omitempty"`
 	Name              *string `json:"name,omitempty"`
@@ -24031,7 +23139,6 @@ type WebsiteUser struct {
 	MobileCountryCode *string `json:"mobile_country_code,omitempty"`
 }
 
-// builder开始
 type WebsiteUserBuilder struct {
 	id                    string
 	idFlag                bool
@@ -24112,15 +23219,12 @@ func (builder *WebsiteUserBuilder) Build() *WebsiteUser {
 	return req
 }
 
-// builder结束
-
 type WorksInfo struct {
 	AttachmentId *string `json:"attachment_id,omitempty"`
 	Desc         *string `json:"desc,omitempty"`
 	Link         *string `json:"link,omitempty"`
 }
 
-// builder开始
 type WorksInfoBuilder struct {
 	attachmentId     string
 	attachmentIdFlag bool
@@ -24168,10 +23272,6 @@ func (builder *WorksInfoBuilder) Build() *WorksInfo {
 	return req
 }
 
-// builder结束
-
-// 生成请求和响应结果类型，以及请求对象的Builder构造器
-
 type CreateApplicationReqBodyBuilder struct {
 	talentId                             string
 	talentIdFlag                         bool
@@ -24181,13 +23281,11 @@ type CreateApplicationReqBodyBuilder struct {
 	applicationPreferredCityCodeListFlag bool
 }
 
-// 生成body的New构造器
 func NewCreateApplicationReqBodyBuilder() *CreateApplicationReqBodyBuilder {
 	builder := &CreateApplicationReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *CreateApplicationReqBodyBuilder) TalentId(talentId string) *CreateApplicationReqBodyBuilder {
 	builder.talentId = talentId
 	builder.talentIdFlag = true
@@ -24204,7 +23302,6 @@ func (builder *CreateApplicationReqBodyBuilder) ApplicationPreferredCityCodeList
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *CreateApplicationReqBodyBuilder) Build() *CreateApplicationReqBody {
 	req := &CreateApplicationReqBody{}
 	if builder.talentIdFlag {
@@ -24219,7 +23316,6 @@ func (builder *CreateApplicationReqBodyBuilder) Build() *CreateApplicationReqBod
 	return req
 }
 
-// 上传文件path开始
 type CreateApplicationPathReqBodyBuilder struct {
 	talentId                             string
 	talentIdFlag                         bool
@@ -24263,15 +23359,11 @@ func (builder *CreateApplicationPathReqBodyBuilder) Build() (*CreateApplicationR
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type CreateApplicationReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *CreateApplicationReqBody
 }
 
-// 生成请求的New构造器
 func NewCreateApplicationReqBuilder() *CreateApplicationReqBuilder {
 	builder := &CreateApplicationReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -24281,13 +23373,11 @@ func NewCreateApplicationReqBuilder() *CreateApplicationReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateApplicationReqBuilder) Body(body *CreateApplicationReqBody) *CreateApplicationReqBuilder {
 	builder.body = body
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateApplicationReqBuilder) Build() *CreateApplicationReq {
 	req := &CreateApplicationReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -24320,12 +23410,10 @@ func (resp *CreateApplicationResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type GetApplicationReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewGetApplicationReqBuilder() *GetApplicationReqBuilder {
 	builder := &GetApplicationReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -24335,13 +23423,11 @@ func NewGetApplicationReqBuilder() *GetApplicationReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *GetApplicationReqBuilder) ApplicationId(applicationId string) *GetApplicationReqBuilder {
 	builder.apiReq.PathParams.Set("application_id", fmt.Sprint(applicationId))
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *GetApplicationReqBuilder) Build() *GetApplicationReq {
 	req := &GetApplicationReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -24367,12 +23453,10 @@ func (resp *GetApplicationResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type ListApplicationReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewListApplicationReqBuilder() *ListApplicationReqBuilder {
 	builder := &ListApplicationReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -24382,7 +23466,6 @@ func NewListApplicationReqBuilder() *ListApplicationReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListApplicationReqBuilder) ProcessId(processId string) *ListApplicationReqBuilder {
 	builder.apiReq.QueryParams.Set("process_id", fmt.Sprint(processId))
 	return builder
@@ -24420,7 +23503,6 @@ func (builder *ListApplicationReqBuilder) UpdateEndTime(updateEndTime string) *L
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListApplicationReqBuilder) Build() *ListApplicationReq {
 	req := &ListApplicationReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -24448,12 +23530,10 @@ func (resp *ListApplicationResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type OfferApplicationReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewOfferApplicationReqBuilder() *OfferApplicationReqBuilder {
 	builder := &OfferApplicationReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -24463,7 +23543,6 @@ func NewOfferApplicationReqBuilder() *OfferApplicationReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *OfferApplicationReqBuilder) ApplicationId(applicationId string) *OfferApplicationReqBuilder {
 	builder.apiReq.PathParams.Set("application_id", fmt.Sprint(applicationId))
 	return builder
@@ -24473,7 +23552,6 @@ func (builder *OfferApplicationReqBuilder) UserIdType(userIdType string) *OfferA
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *OfferApplicationReqBuilder) Build() *OfferApplicationReq {
 	req := &OfferApplicationReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -24509,13 +23587,11 @@ type TerminateApplicationReqBodyBuilder struct {
 	terminationReasonNoteFlag bool
 }
 
-// 生成body的New构造器
 func NewTerminateApplicationReqBodyBuilder() *TerminateApplicationReqBodyBuilder {
 	builder := &TerminateApplicationReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *TerminateApplicationReqBodyBuilder) TerminationType(terminationType int) *TerminateApplicationReqBodyBuilder {
 	builder.terminationType = terminationType
 	builder.terminationTypeFlag = true
@@ -24532,7 +23608,6 @@ func (builder *TerminateApplicationReqBodyBuilder) TerminationReasonNote(termina
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *TerminateApplicationReqBodyBuilder) Build() *TerminateApplicationReqBody {
 	req := &TerminateApplicationReqBody{}
 	if builder.terminationTypeFlag {
@@ -24547,7 +23622,6 @@ func (builder *TerminateApplicationReqBodyBuilder) Build() *TerminateApplication
 	return req
 }
 
-// 上传文件path开始
 type TerminateApplicationPathReqBodyBuilder struct {
 	terminationType           int
 	terminationTypeFlag       bool
@@ -24591,15 +23665,11 @@ func (builder *TerminateApplicationPathReqBodyBuilder) Build() (*TerminateApplic
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type TerminateApplicationReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *TerminateApplicationReqBody
 }
 
-// 生成请求的New构造器
 func NewTerminateApplicationReqBuilder() *TerminateApplicationReqBuilder {
 	builder := &TerminateApplicationReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -24609,7 +23679,6 @@ func NewTerminateApplicationReqBuilder() *TerminateApplicationReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *TerminateApplicationReqBuilder) ApplicationId(applicationId string) *TerminateApplicationReqBuilder {
 	builder.apiReq.PathParams.Set("application_id", fmt.Sprint(applicationId))
 	return builder
@@ -24619,7 +23688,6 @@ func (builder *TerminateApplicationReqBuilder) Body(body *TerminateApplicationRe
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *TerminateApplicationReqBuilder) Build() *TerminateApplicationReq {
 	req := &TerminateApplicationReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -24671,13 +23739,11 @@ type TransferOnboardApplicationReqBodyBuilder struct {
 	employeeTypeFlag           bool
 }
 
-// 生成body的New构造器
 func NewTransferOnboardApplicationReqBodyBuilder() *TransferOnboardApplicationReqBodyBuilder {
 	builder := &TransferOnboardApplicationReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *TransferOnboardApplicationReqBodyBuilder) ActualOnboardTime(actualOnboardTime int) *TransferOnboardApplicationReqBodyBuilder {
 	builder.actualOnboardTime = actualOnboardTime
 	builder.actualOnboardTimeFlag = true
@@ -24729,7 +23795,6 @@ func (builder *TransferOnboardApplicationReqBodyBuilder) EmployeeType(employeeTy
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *TransferOnboardApplicationReqBodyBuilder) Build() *TransferOnboardApplicationReqBody {
 	req := &TransferOnboardApplicationReqBody{}
 	if builder.actualOnboardTimeFlag {
@@ -24765,7 +23830,6 @@ func (builder *TransferOnboardApplicationReqBodyBuilder) Build() *TransferOnboar
 	return req
 }
 
-// 上传文件path开始
 type TransferOnboardApplicationPathReqBodyBuilder struct {
 	actualOnboardTime          int
 	actualOnboardTimeFlag      bool
@@ -24879,15 +23943,11 @@ func (builder *TransferOnboardApplicationPathReqBodyBuilder) Build() (*TransferO
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type TransferOnboardApplicationReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *TransferOnboardApplicationReqBody
 }
 
-// 生成请求的New构造器
 func NewTransferOnboardApplicationReqBuilder() *TransferOnboardApplicationReqBuilder {
 	builder := &TransferOnboardApplicationReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -24897,7 +23957,6 @@ func NewTransferOnboardApplicationReqBuilder() *TransferOnboardApplicationReqBui
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *TransferOnboardApplicationReqBuilder) ApplicationId(applicationId string) *TransferOnboardApplicationReqBuilder {
 	builder.apiReq.PathParams.Set("application_id", fmt.Sprint(applicationId))
 	return builder
@@ -24911,7 +23970,6 @@ func (builder *TransferOnboardApplicationReqBuilder) Body(body *TransferOnboardA
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *TransferOnboardApplicationReqBuilder) Build() *TransferOnboardApplicationReq {
 	req := &TransferOnboardApplicationReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -24953,12 +24011,10 @@ func (resp *TransferOnboardApplicationResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type ListApplicationInterviewReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewListApplicationInterviewReqBuilder() *ListApplicationInterviewReqBuilder {
 	builder := &ListApplicationInterviewReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -24968,7 +24024,6 @@ func NewListApplicationInterviewReqBuilder() *ListApplicationInterviewReqBuilder
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListApplicationInterviewReqBuilder) ApplicationId(applicationId string) *ListApplicationInterviewReqBuilder {
 	builder.apiReq.PathParams.Set("application_id", fmt.Sprint(applicationId))
 	return builder
@@ -24986,7 +24041,6 @@ func (builder *ListApplicationInterviewReqBuilder) UserIdType(userIdType string)
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListApplicationInterviewReqBuilder) Build() *ListApplicationInterviewReq {
 	req := &ListApplicationInterviewReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -25015,12 +24069,10 @@ func (resp *ListApplicationInterviewResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type GetAttachmentReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewGetAttachmentReqBuilder() *GetAttachmentReqBuilder {
 	builder := &GetAttachmentReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -25030,13 +24082,11 @@ func NewGetAttachmentReqBuilder() *GetAttachmentReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *GetAttachmentReqBuilder) AttachmentId(attachmentId string) *GetAttachmentReqBuilder {
 	builder.apiReq.PathParams.Set("attachment_id", fmt.Sprint(attachmentId))
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *GetAttachmentReqBuilder) Build() *GetAttachmentReq {
 	req := &GetAttachmentReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -25062,12 +24112,10 @@ func (resp *GetAttachmentResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type PreviewAttachmentReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewPreviewAttachmentReqBuilder() *PreviewAttachmentReqBuilder {
 	builder := &PreviewAttachmentReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -25077,13 +24125,11 @@ func NewPreviewAttachmentReqBuilder() *PreviewAttachmentReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *PreviewAttachmentReqBuilder) AttachmentId(attachmentId string) *PreviewAttachmentReqBuilder {
 	builder.apiReq.PathParams.Set("attachment_id", fmt.Sprint(attachmentId))
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *PreviewAttachmentReqBuilder) Build() *PreviewAttachmentReq {
 	req := &PreviewAttachmentReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -25109,12 +24155,10 @@ func (resp *PreviewAttachmentResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type GetEmployeeReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewGetEmployeeReqBuilder() *GetEmployeeReqBuilder {
 	builder := &GetEmployeeReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -25124,7 +24168,6 @@ func NewGetEmployeeReqBuilder() *GetEmployeeReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *GetEmployeeReqBuilder) EmployeeId(employeeId string) *GetEmployeeReqBuilder {
 	builder.apiReq.PathParams.Set("employee_id", fmt.Sprint(employeeId))
 	return builder
@@ -25134,7 +24177,6 @@ func (builder *GetEmployeeReqBuilder) UserIdType(userIdType string) *GetEmployee
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *GetEmployeeReqBuilder) Build() *GetEmployeeReq {
 	req := &GetEmployeeReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -25161,12 +24203,10 @@ func (resp *GetEmployeeResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type GetByApplicationEmployeeReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewGetByApplicationEmployeeReqBuilder() *GetByApplicationEmployeeReqBuilder {
 	builder := &GetByApplicationEmployeeReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -25176,7 +24216,6 @@ func NewGetByApplicationEmployeeReqBuilder() *GetByApplicationEmployeeReqBuilder
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *GetByApplicationEmployeeReqBuilder) ApplicationId(applicationId string) *GetByApplicationEmployeeReqBuilder {
 	builder.apiReq.QueryParams.Set("application_id", fmt.Sprint(applicationId))
 	return builder
@@ -25186,7 +24225,6 @@ func (builder *GetByApplicationEmployeeReqBuilder) UserIdType(userIdType string)
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *GetByApplicationEmployeeReqBuilder) Build() *GetByApplicationEmployeeReq {
 	req := &GetByApplicationEmployeeReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -25212,13 +24250,11 @@ func (resp *GetByApplicationEmployeeResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type PatchEmployeeReqBuilder struct {
 	apiReq              *larkcore.ApiReq
 	changeEmployeeStage *ChangeEmployeeStage
 }
 
-// 生成请求的New构造器
 func NewPatchEmployeeReqBuilder() *PatchEmployeeReqBuilder {
 	builder := &PatchEmployeeReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -25228,7 +24264,6 @@ func NewPatchEmployeeReqBuilder() *PatchEmployeeReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *PatchEmployeeReqBuilder) EmployeeId(employeeId string) *PatchEmployeeReqBuilder {
 	builder.apiReq.PathParams.Set("employee_id", fmt.Sprint(employeeId))
 	return builder
@@ -25242,7 +24277,6 @@ func (builder *PatchEmployeeReqBuilder) ChangeEmployeeStage(changeEmployeeStage 
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *PatchEmployeeReqBuilder) Build() *PatchEmployeeReq {
 	req := &PatchEmployeeReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -25271,12 +24305,10 @@ func (resp *PatchEmployeeResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type GetJobReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewGetJobReqBuilder() *GetJobReqBuilder {
 	builder := &GetJobReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -25286,7 +24318,6 @@ func NewGetJobReqBuilder() *GetJobReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *GetJobReqBuilder) JobId(jobId int) *GetJobReqBuilder {
 	builder.apiReq.PathParams.Set("job_id", fmt.Sprint(jobId))
 	return builder
@@ -25296,7 +24327,6 @@ func (builder *GetJobReqBuilder) UserIdType(userIdType string) *GetJobReqBuilder
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *GetJobReqBuilder) Build() *GetJobReq {
 	req := &GetJobReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -25323,12 +24353,10 @@ func (resp *GetJobResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type GetJobManagerReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewGetJobManagerReqBuilder() *GetJobManagerReqBuilder {
 	builder := &GetJobManagerReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -25338,7 +24366,6 @@ func NewGetJobManagerReqBuilder() *GetJobManagerReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *GetJobManagerReqBuilder) JobId(jobId string) *GetJobManagerReqBuilder {
 	builder.apiReq.PathParams.Set("job_id", fmt.Sprint(jobId))
 	return builder
@@ -25352,7 +24379,6 @@ func (builder *GetJobManagerReqBuilder) UserIdType(userIdType string) *GetJobMan
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *GetJobManagerReqBuilder) Build() *GetJobManagerReq {
 	req := &GetJobManagerReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -25379,12 +24405,10 @@ func (resp *GetJobManagerResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type ListJobProcessReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewListJobProcessReqBuilder() *ListJobProcessReqBuilder {
 	builder := &ListJobProcessReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -25394,7 +24418,6 @@ func NewListJobProcessReqBuilder() *ListJobProcessReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListJobProcessReqBuilder) PageSize(pageSize int) *ListJobProcessReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
@@ -25404,7 +24427,6 @@ func (builder *ListJobProcessReqBuilder) PageToken(pageToken string) *ListJobPro
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListJobProcessReqBuilder) Build() *ListJobProcessReq {
 	req := &ListJobProcessReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -25432,13 +24454,11 @@ func (resp *ListJobProcessResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type CreateNoteReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	note   *Note
 }
 
-// 生成请求的New构造器
 func NewCreateNoteReqBuilder() *CreateNoteReqBuilder {
 	builder := &CreateNoteReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -25448,7 +24468,6 @@ func NewCreateNoteReqBuilder() *CreateNoteReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateNoteReqBuilder) UserIdType(userIdType string) *CreateNoteReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -25458,7 +24477,6 @@ func (builder *CreateNoteReqBuilder) Note(note *Note) *CreateNoteReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateNoteReqBuilder) Build() *CreateNoteReq {
 	req := &CreateNoteReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -25486,12 +24504,10 @@ func (resp *CreateNoteResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type GetNoteReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewGetNoteReqBuilder() *GetNoteReqBuilder {
 	builder := &GetNoteReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -25501,7 +24517,6 @@ func NewGetNoteReqBuilder() *GetNoteReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *GetNoteReqBuilder) NoteId(noteId string) *GetNoteReqBuilder {
 	builder.apiReq.PathParams.Set("note_id", fmt.Sprint(noteId))
 	return builder
@@ -25511,7 +24526,6 @@ func (builder *GetNoteReqBuilder) UserIdType(userIdType string) *GetNoteReqBuild
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *GetNoteReqBuilder) Build() *GetNoteReq {
 	req := &GetNoteReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -25538,12 +24552,10 @@ func (resp *GetNoteResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type ListNoteReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewListNoteReqBuilder() *ListNoteReqBuilder {
 	builder := &ListNoteReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -25553,7 +24565,6 @@ func NewListNoteReqBuilder() *ListNoteReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListNoteReqBuilder) PageSize(pageSize int) *ListNoteReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
@@ -25571,7 +24582,6 @@ func (builder *ListNoteReqBuilder) UserIdType(userIdType string) *ListNoteReqBui
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListNoteReqBuilder) Build() *ListNoteReq {
 	req := &ListNoteReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -25604,20 +24614,17 @@ type PatchNoteReqBodyBuilder struct {
 	contentFlag bool
 }
 
-// 生成body的New构造器
 func NewPatchNoteReqBodyBuilder() *PatchNoteReqBodyBuilder {
 	builder := &PatchNoteReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *PatchNoteReqBodyBuilder) Content(content string) *PatchNoteReqBodyBuilder {
 	builder.content = content
 	builder.contentFlag = true
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *PatchNoteReqBodyBuilder) Build() *PatchNoteReqBody {
 	req := &PatchNoteReqBody{}
 	if builder.contentFlag {
@@ -25626,7 +24633,6 @@ func (builder *PatchNoteReqBodyBuilder) Build() *PatchNoteReqBody {
 	return req
 }
 
-// 上传文件path开始
 type PatchNotePathReqBodyBuilder struct {
 	content     string
 	contentFlag bool
@@ -25650,15 +24656,11 @@ func (builder *PatchNotePathReqBodyBuilder) Build() (*PatchNoteReqBody, error) {
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type PatchNoteReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *PatchNoteReqBody
 }
 
-// 生成请求的New构造器
 func NewPatchNoteReqBuilder() *PatchNoteReqBuilder {
 	builder := &PatchNoteReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -25668,7 +24670,6 @@ func NewPatchNoteReqBuilder() *PatchNoteReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *PatchNoteReqBuilder) NoteId(noteId string) *PatchNoteReqBuilder {
 	builder.apiReq.PathParams.Set("note_id", fmt.Sprint(noteId))
 	return builder
@@ -25682,7 +24683,6 @@ func (builder *PatchNoteReqBuilder) Body(body *PatchNoteReqBody) *PatchNoteReqBu
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *PatchNoteReqBuilder) Build() *PatchNoteReq {
 	req := &PatchNoteReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -25715,12 +24715,10 @@ func (resp *PatchNoteResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type GetOfferSchemaReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewGetOfferSchemaReqBuilder() *GetOfferSchemaReqBuilder {
 	builder := &GetOfferSchemaReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -25730,13 +24728,11 @@ func NewGetOfferSchemaReqBuilder() *GetOfferSchemaReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *GetOfferSchemaReqBuilder) OfferSchemaId(offerSchemaId string) *GetOfferSchemaReqBuilder {
 	builder.apiReq.PathParams.Set("offer_schema_id", fmt.Sprint(offerSchemaId))
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *GetOfferSchemaReqBuilder) Build() *GetOfferSchemaReq {
 	req := &GetOfferSchemaReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -25765,12 +24761,10 @@ func (resp *GetOfferSchemaResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type GetByApplicationReferralReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewGetByApplicationReferralReqBuilder() *GetByApplicationReferralReqBuilder {
 	builder := &GetByApplicationReferralReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -25780,7 +24774,6 @@ func NewGetByApplicationReferralReqBuilder() *GetByApplicationReferralReqBuilder
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *GetByApplicationReferralReqBuilder) ApplicationId(applicationId string) *GetByApplicationReferralReqBuilder {
 	builder.apiReq.QueryParams.Set("application_id", fmt.Sprint(applicationId))
 	return builder
@@ -25790,7 +24783,6 @@ func (builder *GetByApplicationReferralReqBuilder) UserIdType(userIdType string)
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *GetByApplicationReferralReqBuilder) Build() *GetByApplicationReferralReq {
 	req := &GetByApplicationReferralReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -25816,13 +24808,11 @@ func (resp *GetByApplicationReferralResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type ListResumeSourceReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	limit  int
 }
 
-// 生成请求的New构造器
 func NewListResumeSourceReqBuilder() *ListResumeSourceReqBuilder {
 	builder := &ListResumeSourceReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -25832,7 +24822,6 @@ func NewListResumeSourceReqBuilder() *ListResumeSourceReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListResumeSourceReqBuilder) Limit(limit int) *ListResumeSourceReqBuilder {
 	builder.limit = limit
 	return builder
@@ -25846,7 +24835,6 @@ func (builder *ListResumeSourceReqBuilder) PageToken(pageToken string) *ListResu
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListResumeSourceReqBuilder) Build() *ListResumeSourceReq {
 	req := &ListResumeSourceReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -25876,12 +24864,10 @@ func (resp *ListResumeSourceResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type GetTalentReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewGetTalentReqBuilder() *GetTalentReqBuilder {
 	builder := &GetTalentReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -25891,13 +24877,11 @@ func NewGetTalentReqBuilder() *GetTalentReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *GetTalentReqBuilder) TalentId(talentId string) *GetTalentReqBuilder {
 	builder.apiReq.PathParams.Set("talent_id", fmt.Sprint(talentId))
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *GetTalentReqBuilder) Build() *GetTalentReq {
 	req := &GetTalentReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -25923,10 +24907,6 @@ func (resp *GetTalentResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 生成消息事件结构体
-
-// 生成请求的builder构造器
-// 1.1 生成body的builder结构体
 type ListResumeSourceIterator struct {
 	nextPageToken *string
 	items         []*ResumeSource

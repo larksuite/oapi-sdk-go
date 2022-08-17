@@ -17,37 +17,25 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
-// 生成枚举值
-
-// 生成数据类型
-
 type Image struct {
 }
-
-// builder开始
-// builder结束
-
-// 生成请求和响应结果类型，以及请求对象的Builder构造器
 
 type BasicRecognizeImageReqBodyBuilder struct {
 	image     string
 	imageFlag bool
 }
 
-// 生成body的New构造器
 func NewBasicRecognizeImageReqBodyBuilder() *BasicRecognizeImageReqBodyBuilder {
 	builder := &BasicRecognizeImageReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *BasicRecognizeImageReqBodyBuilder) Image(image string) *BasicRecognizeImageReqBodyBuilder {
 	builder.image = image
 	builder.imageFlag = true
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *BasicRecognizeImageReqBodyBuilder) Build() *BasicRecognizeImageReqBody {
 	req := &BasicRecognizeImageReqBody{}
 	if builder.imageFlag {
@@ -56,7 +44,6 @@ func (builder *BasicRecognizeImageReqBodyBuilder) Build() *BasicRecognizeImageRe
 	return req
 }
 
-// 上传文件path开始
 type BasicRecognizeImagePathReqBodyBuilder struct {
 	image     string
 	imageFlag bool
@@ -80,15 +67,11 @@ func (builder *BasicRecognizeImagePathReqBodyBuilder) Build() (*BasicRecognizeIm
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type BasicRecognizeImageReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *BasicRecognizeImageReqBody
 }
 
-// 生成请求的New构造器
 func NewBasicRecognizeImageReqBuilder() *BasicRecognizeImageReqBuilder {
 	builder := &BasicRecognizeImageReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -98,13 +81,11 @@ func NewBasicRecognizeImageReqBuilder() *BasicRecognizeImageReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *BasicRecognizeImageReqBuilder) Body(body *BasicRecognizeImageReqBody) *BasicRecognizeImageReqBuilder {
 	builder.body = body
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *BasicRecognizeImageReqBuilder) Build() *BasicRecognizeImageReq {
 	req := &BasicRecognizeImageReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -134,8 +115,3 @@ type BasicRecognizeImageResp struct {
 func (resp *BasicRecognizeImageResp) Success() bool {
 	return resp.Code == 0
 }
-
-// 生成消息事件结构体
-
-// 生成请求的builder构造器
-// 1.1 生成body的builder结构体

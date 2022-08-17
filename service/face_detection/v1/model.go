@@ -17,16 +17,11 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
-// 生成枚举值
-
-// 生成数据类型
-
 type AttributeItem struct {
 	Type        *int     `json:"type,omitempty"`
 	Probability *float64 `json:"probability,omitempty"`
 }
 
-// builder开始
 type AttributeItemBuilder struct {
 	type_           int
 	typeFlag        bool
@@ -63,8 +58,6 @@ func (builder *AttributeItemBuilder) Build() *AttributeItem {
 	return req
 }
 
-// builder结束
-
 type FaceAttribute struct {
 	Gender  *AttributeItem `json:"gender,omitempty"`
 	Age     *int           `json:"age,omitempty"`
@@ -76,7 +69,6 @@ type FaceAttribute struct {
 	Mask    *AttributeItem `json:"mask,omitempty"`
 }
 
-// builder开始
 type FaceAttributeBuilder struct {
 	gender      *AttributeItem
 	genderFlag  bool
@@ -173,15 +165,12 @@ func (builder *FaceAttributeBuilder) Build() *FaceAttribute {
 	return req
 }
 
-// builder结束
-
 type FaceInfo struct {
 	Position  *FacePosition  `json:"position,omitempty"`
 	Attribute *FaceAttribute `json:"attribute,omitempty"`
 	Quality   *FaceQuality   `json:"quality,omitempty"`
 }
 
-// builder开始
 type FaceInfoBuilder struct {
 	position      *FacePosition
 	positionFlag  bool
@@ -226,8 +215,6 @@ func (builder *FaceInfoBuilder) Build() *FaceInfo {
 	return req
 }
 
-// builder结束
-
 type FaceOcclude struct {
 	Eyebrow  *float64 `json:"eyebrow,omitempty"`
 	Nose     *float64 `json:"nose,omitempty"`
@@ -238,7 +225,6 @@ type FaceOcclude struct {
 	RightEye *float64 `json:"right_eye,omitempty"`
 }
 
-// builder开始
 type FaceOccludeBuilder struct {
 	eyebrow      float64
 	eyebrowFlag  bool
@@ -330,15 +316,12 @@ func (builder *FaceOccludeBuilder) Build() *FaceOcclude {
 	return req
 }
 
-// builder结束
-
 type FacePose struct {
 	Pitch *int `json:"pitch,omitempty"`
 	Yaw   *int `json:"yaw,omitempty"`
 	Roll  *int `json:"roll,omitempty"`
 }
 
-// builder开始
 type FacePoseBuilder struct {
 	pitch     int
 	pitchFlag bool
@@ -386,14 +369,11 @@ func (builder *FacePoseBuilder) Build() *FacePose {
 	return req
 }
 
-// builder结束
-
 type FacePosition struct {
 	UpperLeft  *Point `json:"upper_left,omitempty"`
 	LowerRight *Point `json:"lower_right,omitempty"`
 }
 
-// builder开始
 type FacePositionBuilder struct {
 	upperLeft      *Point
 	upperLeftFlag  bool
@@ -428,15 +408,12 @@ func (builder *FacePositionBuilder) Build() *FacePosition {
 	return req
 }
 
-// builder结束
-
 type FaceQuality struct {
 	Sharpness  *float64     `json:"sharpness,omitempty"`
 	Brightness *float64     `json:"brightness,omitempty"`
 	Occlude    *FaceOcclude `json:"occlude,omitempty"`
 }
 
-// builder开始
 type FaceQualityBuilder struct {
 	sharpness      float64
 	sharpnessFlag  bool
@@ -483,14 +460,11 @@ func (builder *FaceQualityBuilder) Build() *FaceQuality {
 	return req
 }
 
-// builder结束
-
 type Image struct {
 	Width  *int `json:"width,omitempty"`
 	Height *int `json:"height,omitempty"`
 }
 
-// builder开始
 type ImageBuilder struct {
 	width      int
 	widthFlag  bool
@@ -527,14 +501,11 @@ func (builder *ImageBuilder) Build() *Image {
 	return req
 }
 
-// builder结束
-
 type Point struct {
 	X *float64 `json:"x,omitempty"`
 	Y *float64 `json:"y,omitempty"`
 }
 
-// builder开始
 type PointBuilder struct {
 	x     float64
 	xFlag bool
@@ -571,29 +542,22 @@ func (builder *PointBuilder) Build() *Point {
 	return req
 }
 
-// builder结束
-
-// 生成请求和响应结果类型，以及请求对象的Builder构造器
-
 type DetectFaceAttributesImageReqBodyBuilder struct {
 	image     string
 	imageFlag bool
 }
 
-// 生成body的New构造器
 func NewDetectFaceAttributesImageReqBodyBuilder() *DetectFaceAttributesImageReqBodyBuilder {
 	builder := &DetectFaceAttributesImageReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *DetectFaceAttributesImageReqBodyBuilder) Image(image string) *DetectFaceAttributesImageReqBodyBuilder {
 	builder.image = image
 	builder.imageFlag = true
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *DetectFaceAttributesImageReqBodyBuilder) Build() *DetectFaceAttributesImageReqBody {
 	req := &DetectFaceAttributesImageReqBody{}
 	if builder.imageFlag {
@@ -602,7 +566,6 @@ func (builder *DetectFaceAttributesImageReqBodyBuilder) Build() *DetectFaceAttri
 	return req
 }
 
-// 上传文件path开始
 type DetectFaceAttributesImagePathReqBodyBuilder struct {
 	image     string
 	imageFlag bool
@@ -626,15 +589,11 @@ func (builder *DetectFaceAttributesImagePathReqBodyBuilder) Build() (*DetectFace
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type DetectFaceAttributesImageReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *DetectFaceAttributesImageReqBody
 }
 
-// 生成请求的New构造器
 func NewDetectFaceAttributesImageReqBuilder() *DetectFaceAttributesImageReqBuilder {
 	builder := &DetectFaceAttributesImageReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -644,13 +603,11 @@ func NewDetectFaceAttributesImageReqBuilder() *DetectFaceAttributesImageReqBuild
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *DetectFaceAttributesImageReqBuilder) Body(body *DetectFaceAttributesImageReqBody) *DetectFaceAttributesImageReqBuilder {
 	builder.body = body
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *DetectFaceAttributesImageReqBuilder) Build() *DetectFaceAttributesImageReq {
 	req := &DetectFaceAttributesImageReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -681,8 +638,3 @@ type DetectFaceAttributesImageResp struct {
 func (resp *DetectFaceAttributesImageResp) Success() bool {
 	return resp.Code == 0
 }
-
-// 生成消息事件结构体
-
-// 生成请求的builder构造器
-// 1.1 生成body的builder结构体

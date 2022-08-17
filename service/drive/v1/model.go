@@ -30,8 +30,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
-// 生成枚举值
-
 const (
 	FileExtensionDocx = "docx"
 	FileExtensionPdf  = "pdf"
@@ -118,14 +116,11 @@ const (
 	LinkShareEntityClosed         = "closed"
 )
 
-// 生成数据类型
-
 type ApplyMemberRequest struct {
 	Perm   *string `json:"perm,omitempty"`
 	Remark *string `json:"remark,omitempty"`
 }
 
-// builder开始
 type ApplyMemberRequestBuilder struct {
 	perm       string
 	permFlag   bool
@@ -162,8 +157,6 @@ func (builder *ApplyMemberRequestBuilder) Build() *ApplyMemberRequest {
 	return req
 }
 
-// builder结束
-
 type BitableTableRecordAction struct {
 	RecordId    *string                          `json:"record_id,omitempty"`
 	Action      *string                          `json:"action,omitempty"`
@@ -171,7 +164,6 @@ type BitableTableRecordAction struct {
 	AfterValue  []*BitableTableRecordActionField `json:"after_value,omitempty"`
 }
 
-// builder开始
 type BitableTableRecordActionBuilder struct {
 	recordId        string
 	recordIdFlag    bool
@@ -228,14 +220,11 @@ func (builder *BitableTableRecordActionBuilder) Build() *BitableTableRecordActio
 	return req
 }
 
-// builder结束
-
 type BitableTableRecordActionField struct {
 	FieldId    *string `json:"field_id,omitempty"`
 	FieldValue *string `json:"field_value,omitempty"`
 }
 
-// builder开始
 type BitableTableRecordActionFieldBuilder struct {
 	fieldId        string
 	fieldIdFlag    bool
@@ -272,8 +261,6 @@ func (builder *BitableTableRecordActionFieldBuilder) Build() *BitableTableRecord
 	return req
 }
 
-// builder结束
-
 type Collaborator struct {
 	MemberType   *string `json:"member_type,omitempty"`
 	MemberOpenId *string `json:"member_open_id,omitempty"`
@@ -281,7 +268,6 @@ type Collaborator struct {
 	Perm         *string `json:"perm,omitempty"`
 }
 
-// builder开始
 type CollaboratorBuilder struct {
 	memberType       string
 	memberTypeFlag   bool
@@ -340,13 +326,10 @@ func (builder *CollaboratorBuilder) Build() *Collaborator {
 	return req
 }
 
-// builder结束
-
 type DocsLink struct {
 	Url *string `json:"url,omitempty"`
 }
 
-// builder开始
 type DocsLinkBuilder struct {
 	url     string
 	urlFlag bool
@@ -372,8 +355,6 @@ func (builder *DocsLinkBuilder) Build() *DocsLink {
 	return req
 }
 
-// builder结束
-
 type ExportTask struct {
 	FileExtension *string `json:"file_extension,omitempty"`
 	Token         *string `json:"token,omitempty"`
@@ -385,7 +366,6 @@ type ExportTask struct {
 	JobStatus     *int    `json:"job_status,omitempty"`
 }
 
-// builder开始
 type ExportTaskBuilder struct {
 	fileExtension     string
 	fileExtensionFlag bool
@@ -488,8 +468,6 @@ func (builder *ExportTaskBuilder) Build() *ExportTask {
 	return req
 }
 
-// builder结束
-
 type File struct {
 	Token        *string       `json:"token,omitempty"`
 	Name         *string       `json:"name,omitempty"`
@@ -499,7 +477,6 @@ type File struct {
 	ShortcutInfo *ShortcutInfo `json:"shortcut_info,omitempty"`
 }
 
-// builder开始
 type FileBuilder struct {
 	token            string
 	tokenFlag        bool
@@ -579,8 +556,6 @@ func (builder *FileBuilder) Build() *File {
 	return req
 }
 
-// builder结束
-
 type FileComment struct {
 	CommentId    *string    `json:"comment_id,omitempty"`
 	UserId       *string    `json:"user_id,omitempty"`
@@ -592,7 +567,6 @@ type FileComment struct {
 	ReplyList    *ReplyList `json:"reply_list,omitempty"`
 }
 
-// builder开始
 type FileCommentBuilder struct {
 	commentId        string
 	commentIdFlag    bool
@@ -694,8 +668,6 @@ func (builder *FileCommentBuilder) Build() *FileComment {
 	return req
 }
 
-// builder结束
-
 type FileCommentReply struct {
 	ReplyId    *string       `json:"reply_id,omitempty"`
 	UserId     *string       `json:"user_id,omitempty"`
@@ -704,7 +676,6 @@ type FileCommentReply struct {
 	Content    *ReplyContent `json:"content,omitempty"`
 }
 
-// builder开始
 type FileCommentReplyBuilder struct {
 	replyId        string
 	replyIdFlag    bool
@@ -773,8 +744,6 @@ func (builder *FileCommentReplyBuilder) Build() *FileCommentReply {
 	return req
 }
 
-// builder结束
-
 type FileSubscription struct {
 	SubscriptionId   *string `json:"subscription_id,omitempty"`
 	SubscriptionType *string `json:"subscription_type,omitempty"`
@@ -782,7 +751,6 @@ type FileSubscription struct {
 	FileType         *string `json:"file_type,omitempty"`
 }
 
-// builder开始
 type FileSubscriptionBuilder struct {
 	subscriptionId       string
 	subscriptionIdFlag   bool
@@ -841,8 +809,6 @@ func (builder *FileSubscriptionBuilder) Build() *FileSubscription {
 	return req
 }
 
-// builder结束
-
 type FileSearch struct {
 	DocsToken *string `json:"docs_token,omitempty"`
 	DocsType  *string `json:"docs_type,omitempty"`
@@ -850,7 +816,6 @@ type FileSearch struct {
 	OwnerId   *string `json:"owner_id,omitempty"`
 }
 
-// builder开始
 type FileSearchBuilder struct {
 	docsToken     string
 	docsTokenFlag bool
@@ -909,8 +874,6 @@ func (builder *FileSearchBuilder) Build() *FileSearch {
 	return req
 }
 
-// builder结束
-
 type FileStatistics struct {
 	Uv        *int `json:"uv,omitempty"`
 	Pv        *int `json:"pv,omitempty"`
@@ -918,7 +881,6 @@ type FileStatistics struct {
 	Timestamp *int `json:"timestamp,omitempty"`
 }
 
-// builder开始
 type FileStatisticsBuilder struct {
 	uv            int
 	uvFlag        bool
@@ -977,8 +939,6 @@ func (builder *FileStatisticsBuilder) Build() *FileStatistics {
 	return req
 }
 
-// builder结束
-
 type FileUploadInfo struct {
 	FileName   *string `json:"file_name,omitempty"`
 	ParentType *string `json:"parent_type,omitempty"`
@@ -986,7 +946,6 @@ type FileUploadInfo struct {
 	Size       *int    `json:"size,omitempty"`
 }
 
-// builder开始
 type FileUploadInfoBuilder struct {
 	fileName       string
 	fileNameFlag   bool
@@ -1045,8 +1004,6 @@ func (builder *FileUploadInfoBuilder) Build() *FileUploadInfo {
 	return req
 }
 
-// builder结束
-
 type ImportTask struct {
 	Ticket        *string               `json:"ticket,omitempty"`
 	FileExtension *string               `json:"file_extension,omitempty"`
@@ -1061,7 +1018,6 @@ type ImportTask struct {
 	Extra         []string              `json:"extra,omitempty"`
 }
 
-// builder开始
 type ImportTaskBuilder struct {
 	ticket            string
 	ticketFlag        bool
@@ -1195,14 +1151,11 @@ func (builder *ImportTaskBuilder) Build() *ImportTask {
 	return req
 }
 
-// builder结束
-
 type ImportTaskMountPoint struct {
 	MountType *int    `json:"mount_type,omitempty"`
 	MountKey  *string `json:"mount_key,omitempty"`
 }
 
-// builder开始
 type ImportTaskMountPointBuilder struct {
 	mountType     int
 	mountTypeFlag bool
@@ -1239,8 +1192,6 @@ func (builder *ImportTaskMountPointBuilder) Build() *ImportTaskMountPoint {
 	return req
 }
 
-// builder结束
-
 type Media struct {
 	FileToken *string `json:"file_token,omitempty"`
 	FileName  *string `json:"file_name,omitempty"`
@@ -1248,7 +1199,6 @@ type Media struct {
 	MimeType  *string `json:"mime_type,omitempty"`
 }
 
-// builder开始
 type MediaBuilder struct {
 	fileToken     string
 	fileTokenFlag bool
@@ -1307,8 +1257,6 @@ func (builder *MediaBuilder) Build() *Media {
 	return req
 }
 
-// builder结束
-
 type MediaUploadInfo struct {
 	FileName   *string `json:"file_name,omitempty"`
 	ParentType *string `json:"parent_type,omitempty"`
@@ -1317,7 +1265,6 @@ type MediaUploadInfo struct {
 	Extra      *string `json:"extra,omitempty"`
 }
 
-// builder开始
 type MediaUploadInfoBuilder struct {
 	fileName       string
 	fileNameFlag   bool
@@ -1387,15 +1334,12 @@ func (builder *MediaUploadInfoBuilder) Build() *MediaUploadInfo {
 	return req
 }
 
-// builder结束
-
 type Member struct {
 	MemberType *string `json:"member_type,omitempty"`
 	MemberId   *string `json:"member_id,omitempty"`
 	Perm       *string `json:"perm,omitempty"`
 }
 
-// builder开始
 type MemberBuilder struct {
 	memberType     string
 	memberTypeFlag bool
@@ -1443,8 +1387,6 @@ func (builder *MemberBuilder) Build() *Member {
 	return req
 }
 
-// builder结束
-
 type Meta struct {
 	DocToken         *string `json:"doc_token,omitempty"`
 	DocType          *string `json:"doc_type,omitempty"`
@@ -1456,7 +1398,6 @@ type Meta struct {
 	Url              *string `json:"url,omitempty"`
 }
 
-// builder开始
 type MetaBuilder struct {
 	docToken             string
 	docTokenFlag         bool
@@ -1559,14 +1500,11 @@ func (builder *MetaBuilder) Build() *Meta {
 	return req
 }
 
-// builder结束
-
 type MetaFailed struct {
 	Token *string `json:"token,omitempty"`
 	Code  *int    `json:"code,omitempty"`
 }
 
-// builder开始
 type MetaFailedBuilder struct {
 	token     string
 	tokenFlag bool
@@ -1603,14 +1541,11 @@ func (builder *MetaFailedBuilder) Build() *MetaFailed {
 	return req
 }
 
-// builder结束
-
 type MetaRequest struct {
 	RequestDocs []*RequestDoc `json:"request_docs,omitempty"`
 	WithUrl     *bool         `json:"with_url,omitempty"`
 }
 
-// builder开始
 type MetaRequestBuilder struct {
 	requestDocs     []*RequestDoc
 	requestDocsFlag bool
@@ -1646,14 +1581,11 @@ func (builder *MetaRequestBuilder) Build() *MetaRequest {
 	return req
 }
 
-// builder结束
-
 type Owner struct {
 	MemberType *string `json:"member_type,omitempty"`
 	MemberId   *string `json:"member_id,omitempty"`
 }
 
-// builder开始
 type OwnerBuilder struct {
 	memberType     string
 	memberTypeFlag bool
@@ -1690,8 +1622,6 @@ func (builder *OwnerBuilder) Build() *Owner {
 	return req
 }
 
-// builder结束
-
 type PermissionPublic struct {
 	ExternalAccess  *bool   `json:"external_access,omitempty"`
 	SecurityEntity  *string `json:"security_entity,omitempty"`
@@ -1702,7 +1632,6 @@ type PermissionPublic struct {
 	LockSwitch      *bool   `json:"lock_switch,omitempty"`
 }
 
-// builder开始
 type PermissionPublicBuilder struct {
 	externalAccess      bool
 	externalAccessFlag  bool
@@ -1794,8 +1723,6 @@ func (builder *PermissionPublicBuilder) Build() *PermissionPublic {
 	return req
 }
 
-// builder结束
-
 type PermissionPublicRequest struct {
 	ExternalAccess  *bool   `json:"external_access,omitempty"`
 	SecurityEntity  *string `json:"security_entity,omitempty"`
@@ -1805,7 +1732,6 @@ type PermissionPublicRequest struct {
 	InviteExternal  *bool   `json:"invite_external,omitempty"`
 }
 
-// builder开始
 type PermissionPublicRequestBuilder struct {
 	externalAccess      bool
 	externalAccessFlag  bool
@@ -1886,13 +1812,10 @@ func (builder *PermissionPublicRequestBuilder) Build() *PermissionPublicRequest 
 	return req
 }
 
-// builder结束
-
 type Person struct {
 	UserId *string `json:"user_id,omitempty"`
 }
 
-// builder开始
 type PersonBuilder struct {
 	userId     string
 	userIdFlag bool
@@ -1918,13 +1841,10 @@ func (builder *PersonBuilder) Build() *Person {
 	return req
 }
 
-// builder结束
-
 type ReplyContent struct {
 	Elements []*ReplyElement `json:"elements,omitempty"`
 }
 
-// builder开始
 type ReplyContentBuilder struct {
 	elements     []*ReplyElement
 	elementsFlag bool
@@ -1949,8 +1869,6 @@ func (builder *ReplyContentBuilder) Build() *ReplyContent {
 	return req
 }
 
-// builder结束
-
 type ReplyElement struct {
 	Type     *string   `json:"type,omitempty"`
 	TextRun  *TextRun  `json:"text_run,omitempty"`
@@ -1958,7 +1876,6 @@ type ReplyElement struct {
 	Person   *Person   `json:"person,omitempty"`
 }
 
-// builder开始
 type ReplyElementBuilder struct {
 	type_        string
 	typeFlag     bool
@@ -2014,13 +1931,10 @@ func (builder *ReplyElementBuilder) Build() *ReplyElement {
 	return req
 }
 
-// builder结束
-
 type ReplyList struct {
 	Replies []*FileCommentReply `json:"replies,omitempty"`
 }
 
-// builder开始
 type ReplyListBuilder struct {
 	replies     []*FileCommentReply
 	repliesFlag bool
@@ -2045,14 +1959,11 @@ func (builder *ReplyListBuilder) Build() *ReplyList {
 	return req
 }
 
-// builder结束
-
 type RequestDoc struct {
 	DocToken *string `json:"doc_token,omitempty"`
 	DocType  *string `json:"doc_type,omitempty"`
 }
 
-// builder开始
 type RequestDocBuilder struct {
 	docToken     string
 	docTokenFlag bool
@@ -2089,14 +2000,11 @@ func (builder *RequestDocBuilder) Build() *RequestDoc {
 	return req
 }
 
-// builder结束
-
 type ShortcutInfo struct {
 	TargetType  *string `json:"target_type,omitempty"`
 	TargetToken *string `json:"target_token,omitempty"`
 }
 
-// builder开始
 type ShortcutInfoBuilder struct {
 	targetType      string
 	targetTypeFlag  bool
@@ -2133,13 +2041,10 @@ func (builder *ShortcutInfoBuilder) Build() *ShortcutInfo {
 	return req
 }
 
-// builder结束
-
 type TextRun struct {
 	Text *string `json:"text,omitempty"`
 }
 
-// builder开始
 type TextRunBuilder struct {
 	text     string
 	textFlag bool
@@ -2165,14 +2070,11 @@ func (builder *TextRunBuilder) Build() *TextRun {
 	return req
 }
 
-// builder结束
-
 type TmpDownloadUrl struct {
 	FileToken      *string `json:"file_token,omitempty"`
 	TmpDownloadUrl *string `json:"tmp_download_url,omitempty"`
 }
 
-// builder开始
 type TmpDownloadUrlBuilder struct {
 	fileToken          string
 	fileTokenFlag      bool
@@ -2209,14 +2111,11 @@ func (builder *TmpDownloadUrlBuilder) Build() *TmpDownloadUrl {
 	return req
 }
 
-// builder结束
-
 type TokenType struct {
 	Token *string `json:"token,omitempty"`
 	Type  *string `json:"type,omitempty"`
 }
 
-// builder开始
 type TokenTypeBuilder struct {
 	token     string
 	tokenFlag bool
@@ -2253,8 +2152,6 @@ func (builder *TokenTypeBuilder) Build() *TokenType {
 	return req
 }
 
-// builder结束
-
 type UploadInfo struct {
 	FileName   *string `json:"file_name,omitempty"`
 	ParentType *string `json:"parent_type,omitempty"`
@@ -2262,7 +2159,6 @@ type UploadInfo struct {
 	Size       *int    `json:"size,omitempty"`
 }
 
-// builder开始
 type UploadInfoBuilder struct {
 	fileName       string
 	fileNameFlag   bool
@@ -2321,15 +2217,12 @@ func (builder *UploadInfoBuilder) Build() *UploadInfo {
 	return req
 }
 
-// builder结束
-
 type UserId struct {
 	UserId  *string `json:"user_id,omitempty"`
 	OpenId  *string `json:"open_id,omitempty"`
 	UnionId *string `json:"union_id,omitempty"`
 }
 
-// builder开始
 type UserIdBuilder struct {
 	userId      string
 	userIdFlag  bool
@@ -2377,17 +2270,11 @@ func (builder *UserIdBuilder) Build() *UserId {
 	return req
 }
 
-// builder结束
-
-// 生成请求和响应结果类型，以及请求对象的Builder构造器
-
-// 1.4 生成请求的builder结构体
 type CreateExportTaskReqBuilder struct {
 	apiReq     *larkcore.ApiReq
 	exportTask *ExportTask
 }
 
-// 生成请求的New构造器
 func NewCreateExportTaskReqBuilder() *CreateExportTaskReqBuilder {
 	builder := &CreateExportTaskReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -2397,13 +2284,11 @@ func NewCreateExportTaskReqBuilder() *CreateExportTaskReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateExportTaskReqBuilder) ExportTask(exportTask *ExportTask) *CreateExportTaskReqBuilder {
 	builder.exportTask = exportTask
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateExportTaskReqBuilder) Build() *CreateExportTaskReq {
 	req := &CreateExportTaskReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -2430,12 +2315,10 @@ func (resp *CreateExportTaskResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type DownloadExportTaskReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewDownloadExportTaskReqBuilder() *DownloadExportTaskReqBuilder {
 	builder := &DownloadExportTaskReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -2445,13 +2328,11 @@ func NewDownloadExportTaskReqBuilder() *DownloadExportTaskReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *DownloadExportTaskReqBuilder) FileToken(fileToken string) *DownloadExportTaskReqBuilder {
 	builder.apiReq.PathParams.Set("file_token", fmt.Sprint(fileToken))
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *DownloadExportTaskReqBuilder) Build() *DownloadExportTaskReq {
 	req := &DownloadExportTaskReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -2474,7 +2355,6 @@ func (resp *DownloadExportTaskResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 下载api,生成WriteFile方法
 func (resp *DownloadExportTaskResp) WriteFile(fileName string) error {
 	bs, err := ioutil.ReadAll(resp.File)
 	if err != nil {
@@ -2488,12 +2368,10 @@ func (resp *DownloadExportTaskResp) WriteFile(fileName string) error {
 	return nil
 }
 
-// 1.4 生成请求的builder结构体
 type GetExportTaskReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewGetExportTaskReqBuilder() *GetExportTaskReqBuilder {
 	builder := &GetExportTaskReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -2503,7 +2381,6 @@ func NewGetExportTaskReqBuilder() *GetExportTaskReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *GetExportTaskReqBuilder) Ticket(ticket string) *GetExportTaskReqBuilder {
 	builder.apiReq.PathParams.Set("ticket", fmt.Sprint(ticket))
 	return builder
@@ -2513,7 +2390,6 @@ func (builder *GetExportTaskReqBuilder) Token(token string) *GetExportTaskReqBui
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *GetExportTaskReqBuilder) Build() *GetExportTaskReq {
 	req := &GetExportTaskReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -2549,13 +2425,11 @@ type CopyFileReqBodyBuilder struct {
 	folderTokenFlag bool
 }
 
-// 生成body的New构造器
 func NewCopyFileReqBodyBuilder() *CopyFileReqBodyBuilder {
 	builder := &CopyFileReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *CopyFileReqBodyBuilder) Name(name string) *CopyFileReqBodyBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -2572,7 +2446,6 @@ func (builder *CopyFileReqBodyBuilder) FolderToken(folderToken string) *CopyFile
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *CopyFileReqBodyBuilder) Build() *CopyFileReqBody {
 	req := &CopyFileReqBody{}
 	if builder.nameFlag {
@@ -2587,7 +2460,6 @@ func (builder *CopyFileReqBodyBuilder) Build() *CopyFileReqBody {
 	return req
 }
 
-// 上传文件path开始
 type CopyFilePathReqBodyBuilder struct {
 	name            string
 	nameFlag        bool
@@ -2631,15 +2503,11 @@ func (builder *CopyFilePathReqBodyBuilder) Build() (*CopyFileReqBody, error) {
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type CopyFileReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *CopyFileReqBody
 }
 
-// 生成请求的New构造器
 func NewCopyFileReqBuilder() *CopyFileReqBuilder {
 	builder := &CopyFileReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -2649,7 +2517,6 @@ func NewCopyFileReqBuilder() *CopyFileReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CopyFileReqBuilder) FileToken(fileToken string) *CopyFileReqBuilder {
 	builder.apiReq.PathParams.Set("file_token", fmt.Sprint(fileToken))
 	return builder
@@ -2659,7 +2526,6 @@ func (builder *CopyFileReqBuilder) Body(body *CopyFileReqBody) *CopyFileReqBuild
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CopyFileReqBuilder) Build() *CopyFileReq {
 	req := &CopyFileReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -2700,13 +2566,11 @@ type CreateFolderFileReqBodyBuilder struct {
 	folderTokenFlag bool
 }
 
-// 生成body的New构造器
 func NewCreateFolderFileReqBodyBuilder() *CreateFolderFileReqBodyBuilder {
 	builder := &CreateFolderFileReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *CreateFolderFileReqBodyBuilder) Name(name string) *CreateFolderFileReqBodyBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -2718,7 +2582,6 @@ func (builder *CreateFolderFileReqBodyBuilder) FolderToken(folderToken string) *
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *CreateFolderFileReqBodyBuilder) Build() *CreateFolderFileReqBody {
 	req := &CreateFolderFileReqBody{}
 	if builder.nameFlag {
@@ -2730,7 +2593,6 @@ func (builder *CreateFolderFileReqBodyBuilder) Build() *CreateFolderFileReqBody 
 	return req
 }
 
-// 上传文件path开始
 type CreateFolderFilePathReqBodyBuilder struct {
 	name            string
 	nameFlag        bool
@@ -2764,15 +2626,11 @@ func (builder *CreateFolderFilePathReqBodyBuilder) Build() (*CreateFolderFileReq
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type CreateFolderFileReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *CreateFolderFileReqBody
 }
 
-// 生成请求的New构造器
 func NewCreateFolderFileReqBuilder() *CreateFolderFileReqBuilder {
 	builder := &CreateFolderFileReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -2782,13 +2640,11 @@ func NewCreateFolderFileReqBuilder() *CreateFolderFileReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateFolderFileReqBuilder) Body(body *CreateFolderFileReqBody) *CreateFolderFileReqBuilder {
 	builder.body = body
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateFolderFileReqBuilder) Build() *CreateFolderFileReq {
 	req := &CreateFolderFileReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -2821,12 +2677,10 @@ func (resp *CreateFolderFileResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type DeleteFileReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewDeleteFileReqBuilder() *DeleteFileReqBuilder {
 	builder := &DeleteFileReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -2836,7 +2690,6 @@ func NewDeleteFileReqBuilder() *DeleteFileReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *DeleteFileReqBuilder) FileToken(fileToken string) *DeleteFileReqBuilder {
 	builder.apiReq.PathParams.Set("file_token", fmt.Sprint(fileToken))
 	return builder
@@ -2846,7 +2699,6 @@ func (builder *DeleteFileReqBuilder) Type(type_ string) *DeleteFileReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *DeleteFileReqBuilder) Build() *DeleteFileReq {
 	req := &DeleteFileReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -2873,12 +2725,10 @@ func (resp *DeleteFileResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type DownloadFileReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewDownloadFileReqBuilder() *DownloadFileReqBuilder {
 	builder := &DownloadFileReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -2888,13 +2738,11 @@ func NewDownloadFileReqBuilder() *DownloadFileReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *DownloadFileReqBuilder) FileToken(fileToken string) *DownloadFileReqBuilder {
 	builder.apiReq.PathParams.Set("file_token", fmt.Sprint(fileToken))
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *DownloadFileReqBuilder) Build() *DownloadFileReq {
 	req := &DownloadFileReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -2917,7 +2765,6 @@ func (resp *DownloadFileResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 下载api,生成WriteFile方法
 func (resp *DownloadFileResp) WriteFile(fileName string) error {
 	bs, err := ioutil.ReadAll(resp.File)
 	if err != nil {
@@ -2931,12 +2778,10 @@ func (resp *DownloadFileResp) WriteFile(fileName string) error {
 	return nil
 }
 
-// 1.4 生成请求的builder结构体
 type ListFileReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewListFileReqBuilder() *ListFileReqBuilder {
 	builder := &ListFileReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -2946,7 +2791,6 @@ func NewListFileReqBuilder() *ListFileReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListFileReqBuilder) PageSize(pageSize int) *ListFileReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
@@ -2960,7 +2804,6 @@ func (builder *ListFileReqBuilder) FolderToken(folderToken string) *ListFileReqB
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListFileReqBuilder) Build() *ListFileReq {
 	req := &ListFileReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -2995,13 +2838,11 @@ type MoveFileReqBodyBuilder struct {
 	folderTokenFlag bool
 }
 
-// 生成body的New构造器
 func NewMoveFileReqBodyBuilder() *MoveFileReqBodyBuilder {
 	builder := &MoveFileReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *MoveFileReqBodyBuilder) Type(type_ string) *MoveFileReqBodyBuilder {
 	builder.type_ = type_
 	builder.typeFlag = true
@@ -3013,7 +2854,6 @@ func (builder *MoveFileReqBodyBuilder) FolderToken(folderToken string) *MoveFile
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *MoveFileReqBodyBuilder) Build() *MoveFileReqBody {
 	req := &MoveFileReqBody{}
 	if builder.typeFlag {
@@ -3025,7 +2865,6 @@ func (builder *MoveFileReqBodyBuilder) Build() *MoveFileReqBody {
 	return req
 }
 
-// 上传文件path开始
 type MoveFilePathReqBodyBuilder struct {
 	type_           string
 	typeFlag        bool
@@ -3059,15 +2898,11 @@ func (builder *MoveFilePathReqBodyBuilder) Build() (*MoveFileReqBody, error) {
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type MoveFileReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *MoveFileReqBody
 }
 
-// 生成请求的New构造器
 func NewMoveFileReqBuilder() *MoveFileReqBuilder {
 	builder := &MoveFileReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3077,7 +2912,6 @@ func NewMoveFileReqBuilder() *MoveFileReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *MoveFileReqBuilder) FileToken(fileToken string) *MoveFileReqBuilder {
 	builder.apiReq.PathParams.Set("file_token", fmt.Sprint(fileToken))
 	return builder
@@ -3087,7 +2921,6 @@ func (builder *MoveFileReqBuilder) Body(body *MoveFileReqBody) *MoveFileReqBuild
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *MoveFileReqBuilder) Build() *MoveFileReq {
 	req := &MoveFileReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3120,12 +2953,10 @@ func (resp *MoveFileResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type SubscribeFileReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewSubscribeFileReqBuilder() *SubscribeFileReqBuilder {
 	builder := &SubscribeFileReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3135,7 +2966,6 @@ func NewSubscribeFileReqBuilder() *SubscribeFileReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *SubscribeFileReqBuilder) FileToken(fileToken string) *SubscribeFileReqBuilder {
 	builder.apiReq.PathParams.Set("file_token", fmt.Sprint(fileToken))
 	return builder
@@ -3145,7 +2975,6 @@ func (builder *SubscribeFileReqBuilder) FileType(fileType string) *SubscribeFile
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *SubscribeFileReqBuilder) Build() *SubscribeFileReq {
 	req := &SubscribeFileReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3167,12 +2996,10 @@ func (resp *SubscribeFileResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type TaskCheckFileReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewTaskCheckFileReqBuilder() *TaskCheckFileReqBuilder {
 	builder := &TaskCheckFileReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3182,13 +3009,11 @@ func NewTaskCheckFileReqBuilder() *TaskCheckFileReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *TaskCheckFileReqBuilder) TaskId(taskId string) *TaskCheckFileReqBuilder {
 	builder.apiReq.QueryParams.Set("task_id", fmt.Sprint(taskId))
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *TaskCheckFileReqBuilder) Build() *TaskCheckFileReq {
 	req := &TaskCheckFileReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3229,13 +3054,11 @@ type UploadAllFileReqBodyBuilder struct {
 	fileFlag       bool
 }
 
-// 生成body的New构造器
 func NewUploadAllFileReqBodyBuilder() *UploadAllFileReqBodyBuilder {
 	builder := &UploadAllFileReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *UploadAllFileReqBodyBuilder) FileName(fileName string) *UploadAllFileReqBodyBuilder {
 	builder.fileName = fileName
 	builder.fileNameFlag = true
@@ -3267,7 +3090,6 @@ func (builder *UploadAllFileReqBodyBuilder) File(file io.Reader) *UploadAllFileR
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *UploadAllFileReqBodyBuilder) Build() *UploadAllFileReqBody {
 	req := &UploadAllFileReqBody{}
 	if builder.fileNameFlag {
@@ -3291,7 +3113,6 @@ func (builder *UploadAllFileReqBodyBuilder) Build() *UploadAllFileReqBody {
 	return req
 }
 
-// 上传文件path开始
 type UploadAllFilePathReqBodyBuilder struct {
 	fileName       string
 	fileNameFlag   bool
@@ -3369,15 +3190,11 @@ func (builder *UploadAllFilePathReqBodyBuilder) Build() (*UploadAllFileReqBody, 
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type UploadAllFileReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *UploadAllFileReqBody
 }
 
-// 生成请求的New构造器
 func NewUploadAllFileReqBuilder() *UploadAllFileReqBuilder {
 	builder := &UploadAllFileReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3387,13 +3204,11 @@ func NewUploadAllFileReqBuilder() *UploadAllFileReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *UploadAllFileReqBuilder) Body(body *UploadAllFileReqBody) *UploadAllFileReqBuilder {
 	builder.body = body
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *UploadAllFileReqBuilder) Build() *UploadAllFileReq {
 	req := &UploadAllFileReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3436,13 +3251,11 @@ type UploadFinishFileReqBodyBuilder struct {
 	blockNumFlag bool
 }
 
-// 生成body的New构造器
 func NewUploadFinishFileReqBodyBuilder() *UploadFinishFileReqBodyBuilder {
 	builder := &UploadFinishFileReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *UploadFinishFileReqBodyBuilder) UploadId(uploadId string) *UploadFinishFileReqBodyBuilder {
 	builder.uploadId = uploadId
 	builder.uploadIdFlag = true
@@ -3454,7 +3267,6 @@ func (builder *UploadFinishFileReqBodyBuilder) BlockNum(blockNum int) *UploadFin
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *UploadFinishFileReqBodyBuilder) Build() *UploadFinishFileReqBody {
 	req := &UploadFinishFileReqBody{}
 	if builder.uploadIdFlag {
@@ -3466,7 +3278,6 @@ func (builder *UploadFinishFileReqBodyBuilder) Build() *UploadFinishFileReqBody 
 	return req
 }
 
-// 上传文件path开始
 type UploadFinishFilePathReqBodyBuilder struct {
 	uploadId     string
 	uploadIdFlag bool
@@ -3500,15 +3311,11 @@ func (builder *UploadFinishFilePathReqBodyBuilder) Build() (*UploadFinishFileReq
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type UploadFinishFileReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *UploadFinishFileReqBody
 }
 
-// 生成请求的New构造器
 func NewUploadFinishFileReqBuilder() *UploadFinishFileReqBuilder {
 	builder := &UploadFinishFileReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3518,13 +3325,11 @@ func NewUploadFinishFileReqBuilder() *UploadFinishFileReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *UploadFinishFileReqBuilder) Body(body *UploadFinishFileReqBody) *UploadFinishFileReqBuilder {
 	builder.body = body
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *UploadFinishFileReqBuilder) Build() *UploadFinishFileReq {
 	req := &UploadFinishFileReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3569,13 +3374,11 @@ type UploadPartFileReqBodyBuilder struct {
 	fileFlag     bool
 }
 
-// 生成body的New构造器
 func NewUploadPartFileReqBodyBuilder() *UploadPartFileReqBodyBuilder {
 	builder := &UploadPartFileReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *UploadPartFileReqBodyBuilder) UploadId(uploadId string) *UploadPartFileReqBodyBuilder {
 	builder.uploadId = uploadId
 	builder.uploadIdFlag = true
@@ -3602,7 +3405,6 @@ func (builder *UploadPartFileReqBodyBuilder) File(file io.Reader) *UploadPartFil
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *UploadPartFileReqBodyBuilder) Build() *UploadPartFileReqBody {
 	req := &UploadPartFileReqBody{}
 	if builder.uploadIdFlag {
@@ -3623,7 +3425,6 @@ func (builder *UploadPartFileReqBodyBuilder) Build() *UploadPartFileReqBody {
 	return req
 }
 
-// 上传文件path开始
 type UploadPartFilePathReqBodyBuilder struct {
 	uploadId     string
 	uploadIdFlag bool
@@ -3691,15 +3492,11 @@ func (builder *UploadPartFilePathReqBodyBuilder) Build() (*UploadPartFileReqBody
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type UploadPartFileReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *UploadPartFileReqBody
 }
 
-// 生成请求的New构造器
 func NewUploadPartFileReqBuilder() *UploadPartFileReqBuilder {
 	builder := &UploadPartFileReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3709,13 +3506,11 @@ func NewUploadPartFileReqBuilder() *UploadPartFileReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *UploadPartFileReqBuilder) Body(body *UploadPartFileReqBody) *UploadPartFileReqBuilder {
 	builder.body = body
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *UploadPartFileReqBuilder) Build() *UploadPartFileReq {
 	req := &UploadPartFileReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3745,13 +3540,11 @@ func (resp *UploadPartFileResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type UploadPrepareFileReqBuilder struct {
 	apiReq         *larkcore.ApiReq
 	fileUploadInfo *FileUploadInfo
 }
 
-// 生成请求的New构造器
 func NewUploadPrepareFileReqBuilder() *UploadPrepareFileReqBuilder {
 	builder := &UploadPrepareFileReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3761,13 +3554,11 @@ func NewUploadPrepareFileReqBuilder() *UploadPrepareFileReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *UploadPrepareFileReqBuilder) FileUploadInfo(fileUploadInfo *FileUploadInfo) *UploadPrepareFileReqBuilder {
 	builder.fileUploadInfo = fileUploadInfo
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *UploadPrepareFileReqBuilder) Build() *UploadPrepareFileReq {
 	req := &UploadPrepareFileReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3796,13 +3587,11 @@ func (resp *UploadPrepareFileResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type CreateFileCommentReqBuilder struct {
 	apiReq      *larkcore.ApiReq
 	fileComment *FileComment
 }
 
-// 生成请求的New构造器
 func NewCreateFileCommentReqBuilder() *CreateFileCommentReqBuilder {
 	builder := &CreateFileCommentReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3812,7 +3601,6 @@ func NewCreateFileCommentReqBuilder() *CreateFileCommentReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateFileCommentReqBuilder) FileToken(fileToken string) *CreateFileCommentReqBuilder {
 	builder.apiReq.PathParams.Set("file_token", fmt.Sprint(fileToken))
 	return builder
@@ -3830,7 +3618,6 @@ func (builder *CreateFileCommentReqBuilder) FileComment(fileComment *FileComment
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateFileCommentReqBuilder) Build() *CreateFileCommentReq {
 	req := &CreateFileCommentReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3866,12 +3653,10 @@ func (resp *CreateFileCommentResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type GetFileCommentReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewGetFileCommentReqBuilder() *GetFileCommentReqBuilder {
 	builder := &GetFileCommentReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3881,7 +3666,6 @@ func NewGetFileCommentReqBuilder() *GetFileCommentReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *GetFileCommentReqBuilder) FileToken(fileToken string) *GetFileCommentReqBuilder {
 	builder.apiReq.PathParams.Set("file_token", fmt.Sprint(fileToken))
 	return builder
@@ -3899,7 +3683,6 @@ func (builder *GetFileCommentReqBuilder) UserIdType(userIdType string) *GetFileC
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *GetFileCommentReqBuilder) Build() *GetFileCommentReq {
 	req := &GetFileCommentReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3933,13 +3716,11 @@ func (resp *GetFileCommentResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type ListFileCommentReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	limit  int
 }
 
-// 生成请求的New构造器
 func NewListFileCommentReqBuilder() *ListFileCommentReqBuilder {
 	builder := &ListFileCommentReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3949,7 +3730,6 @@ func NewListFileCommentReqBuilder() *ListFileCommentReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListFileCommentReqBuilder) Limit(limit int) *ListFileCommentReqBuilder {
 	builder.limit = limit
 	return builder
@@ -3979,7 +3759,6 @@ func (builder *ListFileCommentReqBuilder) PageSize(pageSize int) *ListFileCommen
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListFileCommentReqBuilder) Build() *ListFileCommentReq {
 	req := &ListFileCommentReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4015,20 +3794,17 @@ type PatchFileCommentReqBodyBuilder struct {
 	isSolvedFlag bool
 }
 
-// 生成body的New构造器
 func NewPatchFileCommentReqBodyBuilder() *PatchFileCommentReqBodyBuilder {
 	builder := &PatchFileCommentReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *PatchFileCommentReqBodyBuilder) IsSolved(isSolved bool) *PatchFileCommentReqBodyBuilder {
 	builder.isSolved = isSolved
 	builder.isSolvedFlag = true
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *PatchFileCommentReqBodyBuilder) Build() *PatchFileCommentReqBody {
 	req := &PatchFileCommentReqBody{}
 	if builder.isSolvedFlag {
@@ -4037,7 +3813,6 @@ func (builder *PatchFileCommentReqBodyBuilder) Build() *PatchFileCommentReqBody 
 	return req
 }
 
-// 上传文件path开始
 type PatchFileCommentPathReqBodyBuilder struct {
 	isSolved     bool
 	isSolvedFlag bool
@@ -4061,15 +3836,11 @@ func (builder *PatchFileCommentPathReqBodyBuilder) Build() (*PatchFileCommentReq
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type PatchFileCommentReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *PatchFileCommentReqBody
 }
 
-// 生成请求的New构造器
 func NewPatchFileCommentReqBuilder() *PatchFileCommentReqBuilder {
 	builder := &PatchFileCommentReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4079,7 +3850,6 @@ func NewPatchFileCommentReqBuilder() *PatchFileCommentReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *PatchFileCommentReqBuilder) FileToken(fileToken string) *PatchFileCommentReqBuilder {
 	builder.apiReq.PathParams.Set("file_token", fmt.Sprint(fileToken))
 	return builder
@@ -4097,7 +3867,6 @@ func (builder *PatchFileCommentReqBuilder) Body(body *PatchFileCommentReqBody) *
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *PatchFileCommentReqBuilder) Build() *PatchFileCommentReq {
 	req := &PatchFileCommentReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4125,12 +3894,10 @@ func (resp *PatchFileCommentResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type DeleteFileCommentReplyReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewDeleteFileCommentReplyReqBuilder() *DeleteFileCommentReplyReqBuilder {
 	builder := &DeleteFileCommentReplyReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4140,7 +3907,6 @@ func NewDeleteFileCommentReplyReqBuilder() *DeleteFileCommentReplyReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *DeleteFileCommentReplyReqBuilder) FileToken(fileToken string) *DeleteFileCommentReplyReqBuilder {
 	builder.apiReq.PathParams.Set("file_token", fmt.Sprint(fileToken))
 	return builder
@@ -4158,7 +3924,6 @@ func (builder *DeleteFileCommentReplyReqBuilder) FileType(fileType string) *Dele
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *DeleteFileCommentReplyReqBuilder) Build() *DeleteFileCommentReplyReq {
 	req := &DeleteFileCommentReplyReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4185,20 +3950,17 @@ type UpdateFileCommentReplyReqBodyBuilder struct {
 	contentFlag bool
 }
 
-// 生成body的New构造器
 func NewUpdateFileCommentReplyReqBodyBuilder() *UpdateFileCommentReplyReqBodyBuilder {
 	builder := &UpdateFileCommentReplyReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *UpdateFileCommentReplyReqBodyBuilder) Content(content *ReplyContent) *UpdateFileCommentReplyReqBodyBuilder {
 	builder.content = content
 	builder.contentFlag = true
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *UpdateFileCommentReplyReqBodyBuilder) Build() *UpdateFileCommentReplyReqBody {
 	req := &UpdateFileCommentReplyReqBody{}
 	if builder.contentFlag {
@@ -4207,7 +3969,6 @@ func (builder *UpdateFileCommentReplyReqBodyBuilder) Build() *UpdateFileCommentR
 	return req
 }
 
-// 上传文件path开始
 type UpdateFileCommentReplyPathReqBodyBuilder struct {
 	content     *ReplyContent
 	contentFlag bool
@@ -4231,15 +3992,11 @@ func (builder *UpdateFileCommentReplyPathReqBodyBuilder) Build() (*UpdateFileCom
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type UpdateFileCommentReplyReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *UpdateFileCommentReplyReqBody
 }
 
-// 生成请求的New构造器
 func NewUpdateFileCommentReplyReqBuilder() *UpdateFileCommentReplyReqBuilder {
 	builder := &UpdateFileCommentReplyReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4249,7 +4006,6 @@ func NewUpdateFileCommentReplyReqBuilder() *UpdateFileCommentReplyReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *UpdateFileCommentReplyReqBuilder) FileToken(fileToken string) *UpdateFileCommentReplyReqBuilder {
 	builder.apiReq.PathParams.Set("file_token", fmt.Sprint(fileToken))
 	return builder
@@ -4275,7 +4031,6 @@ func (builder *UpdateFileCommentReplyReqBuilder) Body(body *UpdateFileCommentRep
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *UpdateFileCommentReplyReqBuilder) Build() *UpdateFileCommentReplyReq {
 	req := &UpdateFileCommentReplyReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4303,12 +4058,10 @@ func (resp *UpdateFileCommentReplyResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type GetFileStatisticsReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewGetFileStatisticsReqBuilder() *GetFileStatisticsReqBuilder {
 	builder := &GetFileStatisticsReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4318,7 +4071,6 @@ func NewGetFileStatisticsReqBuilder() *GetFileStatisticsReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *GetFileStatisticsReqBuilder) FileToken(fileToken string) *GetFileStatisticsReqBuilder {
 	builder.apiReq.PathParams.Set("file_token", fmt.Sprint(fileToken))
 	return builder
@@ -4328,7 +4080,6 @@ func (builder *GetFileStatisticsReqBuilder) FileType(fileType string) *GetFileSt
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *GetFileStatisticsReqBuilder) Build() *GetFileStatisticsReq {
 	req := &GetFileStatisticsReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4357,13 +4108,11 @@ func (resp *GetFileStatisticsResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type CreateFileSubscriptionReqBuilder struct {
 	apiReq           *larkcore.ApiReq
 	fileSubscription *FileSubscription
 }
 
-// 生成请求的New构造器
 func NewCreateFileSubscriptionReqBuilder() *CreateFileSubscriptionReqBuilder {
 	builder := &CreateFileSubscriptionReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4373,7 +4122,6 @@ func NewCreateFileSubscriptionReqBuilder() *CreateFileSubscriptionReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateFileSubscriptionReqBuilder) FileToken(fileToken string) *CreateFileSubscriptionReqBuilder {
 	builder.apiReq.PathParams.Set("file_token", fmt.Sprint(fileToken))
 	return builder
@@ -4383,7 +4131,6 @@ func (builder *CreateFileSubscriptionReqBuilder) FileSubscription(fileSubscripti
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateFileSubscriptionReqBuilder) Build() *CreateFileSubscriptionReq {
 	req := &CreateFileSubscriptionReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4411,13 +4158,11 @@ func (resp *CreateFileSubscriptionResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type GetFileSubscriptionReqBuilder struct {
 	apiReq           *larkcore.ApiReq
 	fileSubscription *FileSubscription
 }
 
-// 生成请求的New构造器
 func NewGetFileSubscriptionReqBuilder() *GetFileSubscriptionReqBuilder {
 	builder := &GetFileSubscriptionReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4427,7 +4172,6 @@ func NewGetFileSubscriptionReqBuilder() *GetFileSubscriptionReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *GetFileSubscriptionReqBuilder) FileToken(fileToken string) *GetFileSubscriptionReqBuilder {
 	builder.apiReq.PathParams.Set("file_token", fmt.Sprint(fileToken))
 	return builder
@@ -4441,7 +4185,6 @@ func (builder *GetFileSubscriptionReqBuilder) FileSubscription(fileSubscription 
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *GetFileSubscriptionReqBuilder) Build() *GetFileSubscriptionReq {
 	req := &GetFileSubscriptionReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4476,13 +4219,11 @@ type PatchFileSubscriptionReqBodyBuilder struct {
 	fileTypeFlag    bool
 }
 
-// 生成body的New构造器
 func NewPatchFileSubscriptionReqBodyBuilder() *PatchFileSubscriptionReqBodyBuilder {
 	builder := &PatchFileSubscriptionReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *PatchFileSubscriptionReqBodyBuilder) IsSubscribe(isSubscribe bool) *PatchFileSubscriptionReqBodyBuilder {
 	builder.isSubscribe = isSubscribe
 	builder.isSubscribeFlag = true
@@ -4494,7 +4235,6 @@ func (builder *PatchFileSubscriptionReqBodyBuilder) FileType(fileType string) *P
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *PatchFileSubscriptionReqBodyBuilder) Build() *PatchFileSubscriptionReqBody {
 	req := &PatchFileSubscriptionReqBody{}
 	if builder.isSubscribeFlag {
@@ -4506,7 +4246,6 @@ func (builder *PatchFileSubscriptionReqBodyBuilder) Build() *PatchFileSubscripti
 	return req
 }
 
-// 上传文件path开始
 type PatchFileSubscriptionPathReqBodyBuilder struct {
 	isSubscribe     bool
 	isSubscribeFlag bool
@@ -4540,15 +4279,11 @@ func (builder *PatchFileSubscriptionPathReqBodyBuilder) Build() (*PatchFileSubsc
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type PatchFileSubscriptionReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *PatchFileSubscriptionReqBody
 }
 
-// 生成请求的New构造器
 func NewPatchFileSubscriptionReqBuilder() *PatchFileSubscriptionReqBuilder {
 	builder := &PatchFileSubscriptionReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4558,7 +4293,6 @@ func NewPatchFileSubscriptionReqBuilder() *PatchFileSubscriptionReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *PatchFileSubscriptionReqBuilder) FileToken(fileToken string) *PatchFileSubscriptionReqBuilder {
 	builder.apiReq.PathParams.Set("file_token", fmt.Sprint(fileToken))
 	return builder
@@ -4572,7 +4306,6 @@ func (builder *PatchFileSubscriptionReqBuilder) Body(body *PatchFileSubscription
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *PatchFileSubscriptionReqBuilder) Build() *PatchFileSubscriptionReq {
 	req := &PatchFileSubscriptionReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4605,13 +4338,11 @@ func (resp *PatchFileSubscriptionResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type CreateImportTaskReqBuilder struct {
 	apiReq     *larkcore.ApiReq
 	importTask *ImportTask
 }
 
-// 生成请求的New构造器
 func NewCreateImportTaskReqBuilder() *CreateImportTaskReqBuilder {
 	builder := &CreateImportTaskReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4621,13 +4352,11 @@ func NewCreateImportTaskReqBuilder() *CreateImportTaskReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateImportTaskReqBuilder) ImportTask(importTask *ImportTask) *CreateImportTaskReqBuilder {
 	builder.importTask = importTask
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateImportTaskReqBuilder) Build() *CreateImportTaskReq {
 	req := &CreateImportTaskReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4654,12 +4383,10 @@ func (resp *CreateImportTaskResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type GetImportTaskReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewGetImportTaskReqBuilder() *GetImportTaskReqBuilder {
 	builder := &GetImportTaskReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4669,13 +4396,11 @@ func NewGetImportTaskReqBuilder() *GetImportTaskReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *GetImportTaskReqBuilder) Ticket(ticket string) *GetImportTaskReqBuilder {
 	builder.apiReq.PathParams.Set("ticket", fmt.Sprint(ticket))
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *GetImportTaskReqBuilder) Build() *GetImportTaskReq {
 	req := &GetImportTaskReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4701,12 +4426,10 @@ func (resp *GetImportTaskResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type BatchGetTmpDownloadUrlMediaReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewBatchGetTmpDownloadUrlMediaReqBuilder() *BatchGetTmpDownloadUrlMediaReqBuilder {
 	builder := &BatchGetTmpDownloadUrlMediaReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4716,7 +4439,6 @@ func NewBatchGetTmpDownloadUrlMediaReqBuilder() *BatchGetTmpDownloadUrlMediaReqB
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *BatchGetTmpDownloadUrlMediaReqBuilder) FileTokens(fileTokens []string) *BatchGetTmpDownloadUrlMediaReqBuilder {
 	builder.apiReq.QueryParams.Set("file_tokens", fmt.Sprint(fileTokens))
 	return builder
@@ -4726,7 +4448,6 @@ func (builder *BatchGetTmpDownloadUrlMediaReqBuilder) Extra(extra string) *Batch
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *BatchGetTmpDownloadUrlMediaReqBuilder) Build() *BatchGetTmpDownloadUrlMediaReq {
 	req := &BatchGetTmpDownloadUrlMediaReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4752,12 +4473,10 @@ func (resp *BatchGetTmpDownloadUrlMediaResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type DownloadMediaReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewDownloadMediaReqBuilder() *DownloadMediaReqBuilder {
 	builder := &DownloadMediaReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4767,7 +4486,6 @@ func NewDownloadMediaReqBuilder() *DownloadMediaReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *DownloadMediaReqBuilder) FileToken(fileToken string) *DownloadMediaReqBuilder {
 	builder.apiReq.PathParams.Set("file_token", fmt.Sprint(fileToken))
 	return builder
@@ -4777,7 +4495,6 @@ func (builder *DownloadMediaReqBuilder) Extra(extra string) *DownloadMediaReqBui
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *DownloadMediaReqBuilder) Build() *DownloadMediaReq {
 	req := &DownloadMediaReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4801,7 +4518,6 @@ func (resp *DownloadMediaResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 下载api,生成WriteFile方法
 func (resp *DownloadMediaResp) WriteFile(fileName string) error {
 	bs, err := ioutil.ReadAll(resp.File)
 	if err != nil {
@@ -4832,13 +4548,11 @@ type UploadAllMediaReqBodyBuilder struct {
 	fileFlag       bool
 }
 
-// 生成body的New构造器
 func NewUploadAllMediaReqBodyBuilder() *UploadAllMediaReqBodyBuilder {
 	builder := &UploadAllMediaReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *UploadAllMediaReqBodyBuilder) FileName(fileName string) *UploadAllMediaReqBodyBuilder {
 	builder.fileName = fileName
 	builder.fileNameFlag = true
@@ -4875,7 +4589,6 @@ func (builder *UploadAllMediaReqBodyBuilder) File(file io.Reader) *UploadAllMedi
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *UploadAllMediaReqBodyBuilder) Build() *UploadAllMediaReqBody {
 	req := &UploadAllMediaReqBody{}
 	if builder.fileNameFlag {
@@ -4902,7 +4615,6 @@ func (builder *UploadAllMediaReqBodyBuilder) Build() *UploadAllMediaReqBody {
 	return req
 }
 
-// 上传文件path开始
 type UploadAllMediaPathReqBodyBuilder struct {
 	fileName       string
 	fileNameFlag   bool
@@ -4990,15 +4702,11 @@ func (builder *UploadAllMediaPathReqBodyBuilder) Build() (*UploadAllMediaReqBody
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type UploadAllMediaReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *UploadAllMediaReqBody
 }
 
-// 生成请求的New构造器
 func NewUploadAllMediaReqBuilder() *UploadAllMediaReqBuilder {
 	builder := &UploadAllMediaReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -5008,13 +4716,11 @@ func NewUploadAllMediaReqBuilder() *UploadAllMediaReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *UploadAllMediaReqBuilder) Body(body *UploadAllMediaReqBody) *UploadAllMediaReqBuilder {
 	builder.body = body
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *UploadAllMediaReqBuilder) Build() *UploadAllMediaReq {
 	req := &UploadAllMediaReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -5058,13 +4764,11 @@ type UploadFinishMediaReqBodyBuilder struct {
 	blockNumFlag bool
 }
 
-// 生成body的New构造器
 func NewUploadFinishMediaReqBodyBuilder() *UploadFinishMediaReqBodyBuilder {
 	builder := &UploadFinishMediaReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *UploadFinishMediaReqBodyBuilder) UploadId(uploadId string) *UploadFinishMediaReqBodyBuilder {
 	builder.uploadId = uploadId
 	builder.uploadIdFlag = true
@@ -5076,7 +4780,6 @@ func (builder *UploadFinishMediaReqBodyBuilder) BlockNum(blockNum int) *UploadFi
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *UploadFinishMediaReqBodyBuilder) Build() *UploadFinishMediaReqBody {
 	req := &UploadFinishMediaReqBody{}
 	if builder.uploadIdFlag {
@@ -5088,7 +4791,6 @@ func (builder *UploadFinishMediaReqBodyBuilder) Build() *UploadFinishMediaReqBod
 	return req
 }
 
-// 上传文件path开始
 type UploadFinishMediaPathReqBodyBuilder struct {
 	uploadId     string
 	uploadIdFlag bool
@@ -5122,15 +4824,11 @@ func (builder *UploadFinishMediaPathReqBodyBuilder) Build() (*UploadFinishMediaR
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type UploadFinishMediaReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *UploadFinishMediaReqBody
 }
 
-// 生成请求的New构造器
 func NewUploadFinishMediaReqBuilder() *UploadFinishMediaReqBuilder {
 	builder := &UploadFinishMediaReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -5140,13 +4838,11 @@ func NewUploadFinishMediaReqBuilder() *UploadFinishMediaReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *UploadFinishMediaReqBuilder) Body(body *UploadFinishMediaReqBody) *UploadFinishMediaReqBuilder {
 	builder.body = body
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *UploadFinishMediaReqBuilder) Build() *UploadFinishMediaReq {
 	req := &UploadFinishMediaReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -5191,13 +4887,11 @@ type UploadPartMediaReqBodyBuilder struct {
 	fileFlag     bool
 }
 
-// 生成body的New构造器
 func NewUploadPartMediaReqBodyBuilder() *UploadPartMediaReqBodyBuilder {
 	builder := &UploadPartMediaReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *UploadPartMediaReqBodyBuilder) UploadId(uploadId string) *UploadPartMediaReqBodyBuilder {
 	builder.uploadId = uploadId
 	builder.uploadIdFlag = true
@@ -5224,7 +4918,6 @@ func (builder *UploadPartMediaReqBodyBuilder) File(file io.Reader) *UploadPartMe
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *UploadPartMediaReqBodyBuilder) Build() *UploadPartMediaReqBody {
 	req := &UploadPartMediaReqBody{}
 	if builder.uploadIdFlag {
@@ -5245,7 +4938,6 @@ func (builder *UploadPartMediaReqBodyBuilder) Build() *UploadPartMediaReqBody {
 	return req
 }
 
-// 上传文件path开始
 type UploadPartMediaPathReqBodyBuilder struct {
 	uploadId     string
 	uploadIdFlag bool
@@ -5313,15 +5005,11 @@ func (builder *UploadPartMediaPathReqBodyBuilder) Build() (*UploadPartMediaReqBo
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type UploadPartMediaReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *UploadPartMediaReqBody
 }
 
-// 生成请求的New构造器
 func NewUploadPartMediaReqBuilder() *UploadPartMediaReqBuilder {
 	builder := &UploadPartMediaReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -5331,13 +5019,11 @@ func NewUploadPartMediaReqBuilder() *UploadPartMediaReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *UploadPartMediaReqBuilder) Body(body *UploadPartMediaReqBody) *UploadPartMediaReqBuilder {
 	builder.body = body
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *UploadPartMediaReqBuilder) Build() *UploadPartMediaReq {
 	req := &UploadPartMediaReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -5367,13 +5053,11 @@ func (resp *UploadPartMediaResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type UploadPrepareMediaReqBuilder struct {
 	apiReq          *larkcore.ApiReq
 	mediaUploadInfo *MediaUploadInfo
 }
 
-// 生成请求的New构造器
 func NewUploadPrepareMediaReqBuilder() *UploadPrepareMediaReqBuilder {
 	builder := &UploadPrepareMediaReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -5383,13 +5067,11 @@ func NewUploadPrepareMediaReqBuilder() *UploadPrepareMediaReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *UploadPrepareMediaReqBuilder) MediaUploadInfo(mediaUploadInfo *MediaUploadInfo) *UploadPrepareMediaReqBuilder {
 	builder.mediaUploadInfo = mediaUploadInfo
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *UploadPrepareMediaReqBuilder) Build() *UploadPrepareMediaReq {
 	req := &UploadPrepareMediaReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -5418,13 +5100,11 @@ func (resp *UploadPrepareMediaResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type BatchQueryMetaReqBuilder struct {
 	apiReq      *larkcore.ApiReq
 	metaRequest *MetaRequest
 }
 
-// 生成请求的New构造器
 func NewBatchQueryMetaReqBuilder() *BatchQueryMetaReqBuilder {
 	builder := &BatchQueryMetaReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -5434,7 +5114,6 @@ func NewBatchQueryMetaReqBuilder() *BatchQueryMetaReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *BatchQueryMetaReqBuilder) UserIdType(userIdType string) *BatchQueryMetaReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -5444,7 +5123,6 @@ func (builder *BatchQueryMetaReqBuilder) MetaRequest(metaRequest *MetaRequest) *
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *BatchQueryMetaReqBuilder) Build() *BatchQueryMetaReq {
 	req := &BatchQueryMetaReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -5473,13 +5151,11 @@ func (resp *BatchQueryMetaResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type CreatePermissionMemberReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	member *Member
 }
 
-// 生成请求的New构造器
 func NewCreatePermissionMemberReqBuilder() *CreatePermissionMemberReqBuilder {
 	builder := &CreatePermissionMemberReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -5489,7 +5165,6 @@ func NewCreatePermissionMemberReqBuilder() *CreatePermissionMemberReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreatePermissionMemberReqBuilder) Token(token string) *CreatePermissionMemberReqBuilder {
 	builder.apiReq.PathParams.Set("token", fmt.Sprint(token))
 	return builder
@@ -5507,7 +5182,6 @@ func (builder *CreatePermissionMemberReqBuilder) Member(member *Member) *CreateP
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreatePermissionMemberReqBuilder) Build() *CreatePermissionMemberReq {
 	req := &CreatePermissionMemberReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -5536,12 +5210,10 @@ func (resp *CreatePermissionMemberResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type DeletePermissionMemberReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewDeletePermissionMemberReqBuilder() *DeletePermissionMemberReqBuilder {
 	builder := &DeletePermissionMemberReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -5551,7 +5223,6 @@ func NewDeletePermissionMemberReqBuilder() *DeletePermissionMemberReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *DeletePermissionMemberReqBuilder) Token(token string) *DeletePermissionMemberReqBuilder {
 	builder.apiReq.PathParams.Set("token", fmt.Sprint(token))
 	return builder
@@ -5569,7 +5240,6 @@ func (builder *DeletePermissionMemberReqBuilder) MemberType(memberType string) *
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *DeletePermissionMemberReqBuilder) Build() *DeletePermissionMemberReq {
 	req := &DeletePermissionMemberReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -5591,13 +5261,11 @@ func (resp *DeletePermissionMemberResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type UpdatePermissionMemberReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	member *Member
 }
 
-// 生成请求的New构造器
 func NewUpdatePermissionMemberReqBuilder() *UpdatePermissionMemberReqBuilder {
 	builder := &UpdatePermissionMemberReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -5607,7 +5275,6 @@ func NewUpdatePermissionMemberReqBuilder() *UpdatePermissionMemberReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *UpdatePermissionMemberReqBuilder) Token(token string) *UpdatePermissionMemberReqBuilder {
 	builder.apiReq.PathParams.Set("token", fmt.Sprint(token))
 	return builder
@@ -5629,7 +5296,6 @@ func (builder *UpdatePermissionMemberReqBuilder) Member(member *Member) *UpdateP
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *UpdatePermissionMemberReqBuilder) Build() *UpdatePermissionMemberReq {
 	req := &UpdatePermissionMemberReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -5658,12 +5324,10 @@ func (resp *UpdatePermissionMemberResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type GetPermissionPublicReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewGetPermissionPublicReqBuilder() *GetPermissionPublicReqBuilder {
 	builder := &GetPermissionPublicReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -5673,7 +5337,6 @@ func NewGetPermissionPublicReqBuilder() *GetPermissionPublicReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *GetPermissionPublicReqBuilder) Token(token string) *GetPermissionPublicReqBuilder {
 	builder.apiReq.PathParams.Set("token", fmt.Sprint(token))
 	return builder
@@ -5683,7 +5346,6 @@ func (builder *GetPermissionPublicReqBuilder) Type(type_ string) *GetPermissionP
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *GetPermissionPublicReqBuilder) Build() *GetPermissionPublicReq {
 	req := &GetPermissionPublicReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -5710,13 +5372,11 @@ func (resp *GetPermissionPublicResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type PatchPermissionPublicReqBuilder struct {
 	apiReq                  *larkcore.ApiReq
 	permissionPublicRequest *PermissionPublicRequest
 }
 
-// 生成请求的New构造器
 func NewPatchPermissionPublicReqBuilder() *PatchPermissionPublicReqBuilder {
 	builder := &PatchPermissionPublicReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -5726,7 +5386,6 @@ func NewPatchPermissionPublicReqBuilder() *PatchPermissionPublicReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *PatchPermissionPublicReqBuilder) Token(token string) *PatchPermissionPublicReqBuilder {
 	builder.apiReq.PathParams.Set("token", fmt.Sprint(token))
 	return builder
@@ -5740,7 +5399,6 @@ func (builder *PatchPermissionPublicReqBuilder) PermissionPublicRequest(permissi
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *PatchPermissionPublicReqBuilder) Build() *PatchPermissionPublicReq {
 	req := &PatchPermissionPublicReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -5768,8 +5426,6 @@ type PatchPermissionPublicResp struct {
 func (resp *PatchPermissionPublicResp) Success() bool {
 	return resp.Code == 0
 }
-
-// 生成消息事件结构体
 
 type P2FileDeletedV1Data struct {
 	FileType         *string   `json:"file_type,omitempty"`
@@ -5896,8 +5552,6 @@ func (m *P2FileTrashedV1) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
 }
 
-// 生成请求的builder构造器
-// 1.1 生成body的builder结构体
 type ListFileCommentIterator struct {
 	nextPageToken *string
 	items         []*FileComment

@@ -17,15 +17,10 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/event"
 )
 
-// 生成枚举值
-
-// 生成数据类型
-
 type EventTime struct {
 	TimeStamp *int `json:"time_stamp,omitempty"`
 }
 
-// builder开始
 type EventTimeBuilder struct {
 	timeStamp     int
 	timeStampFlag bool
@@ -51,13 +46,10 @@ func (builder *EventTimeBuilder) Build() *EventTime {
 	return req
 }
 
-// builder结束
-
 type MeetingRoom struct {
 	RoomId *int `json:"room_id,omitempty"`
 }
 
-// builder开始
 type MeetingRoomBuilder struct {
 	roomId     int
 	roomIdFlag bool
@@ -83,14 +75,11 @@ func (builder *MeetingRoomBuilder) Build() *MeetingRoom {
 	return req
 }
 
-// builder结束
-
 type UserInfo struct {
 	OpenId *string `json:"open_id,omitempty"`
 	UserId *string `json:"user_id,omitempty"`
 }
 
-// builder开始
 type UserInfoBuilder struct {
 	openId     string
 	openIdFlag bool
@@ -126,12 +115,6 @@ func (builder *UserInfoBuilder) Build() *UserInfo {
 	}
 	return req
 }
-
-// builder结束
-
-// 生成请求和响应结果类型，以及请求对象的Builder构造器
-
-// 生成消息事件结构体
 
 type P2MeetingRoomCreatedV1Data struct {
 	RoomName *string `json:"room_name,omitempty"`
@@ -192,6 +175,3 @@ type P2MeetingRoomUpdatedV1 struct {
 func (m *P2MeetingRoomUpdatedV1) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
 }
-
-// 生成请求的builder构造器
-// 1.1 生成body的builder结构体

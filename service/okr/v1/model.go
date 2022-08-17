@@ -23,8 +23,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
-// 生成枚举值
-
 const (
 	TargetTypeOkr的O  = 2
 	TargetTypeOkr的KR = 3
@@ -37,15 +35,12 @@ const (
 	UserIdTypePeopleAdminId = "people_admin_id"
 )
 
-// 生成数据类型
-
 type AlignObjective struct {
 	Id     *string `json:"id,omitempty"`
 	OkrId  *string `json:"okr_id,omitempty"`
 	UserId *string `json:"user_id,omitempty"`
 }
 
-// builder开始
 type AlignObjectiveBuilder struct {
 	id         string
 	idFlag     bool
@@ -93,13 +88,10 @@ func (builder *AlignObjectiveBuilder) Build() *AlignObjective {
 	return req
 }
 
-// builder结束
-
 type ContentBlock struct {
 	Blocks []*ContentBlockElement `json:"blocks,omitempty"`
 }
 
-// builder开始
 type ContentBlockBuilder struct {
 	blocks     []*ContentBlockElement
 	blocksFlag bool
@@ -124,15 +116,12 @@ func (builder *ContentBlockBuilder) Build() *ContentBlock {
 	return req
 }
 
-// builder结束
-
 type ContentBlockElement struct {
 	Type      *string           `json:"type,omitempty"`
 	Paragraph *ContentParagraph `json:"paragraph,omitempty"`
 	Gallery   *ContentGallery   `json:"gallery,omitempty"`
 }
 
-// builder开始
 type ContentBlockElementBuilder struct {
 	type_         string
 	typeFlag      bool
@@ -178,8 +167,6 @@ func (builder *ContentBlockElementBuilder) Build() *ContentBlockElement {
 	return req
 }
 
-// builder结束
-
 type ContentColor struct {
 	Red   *int     `json:"red,omitempty"`
 	Green *int     `json:"green,omitempty"`
@@ -187,7 +174,6 @@ type ContentColor struct {
 	Alpha *float64 `json:"alpha,omitempty"`
 }
 
-// builder开始
 type ContentColorBuilder struct {
 	red       int
 	redFlag   bool
@@ -246,14 +232,11 @@ func (builder *ContentColorBuilder) Build() *ContentColor {
 	return req
 }
 
-// builder结束
-
 type ContentDocsLink struct {
 	Url   *string `json:"url,omitempty"`
 	Title *string `json:"title,omitempty"`
 }
 
-// builder开始
 type ContentDocsLinkBuilder struct {
 	url       string
 	urlFlag   bool
@@ -290,13 +273,10 @@ func (builder *ContentDocsLinkBuilder) Build() *ContentDocsLink {
 	return req
 }
 
-// builder结束
-
 type ContentGallery struct {
 	ImageList []*ContentImageItem `json:"imageList,omitempty"`
 }
 
-// builder开始
 type ContentGalleryBuilder struct {
 	imageList     []*ContentImageItem
 	imageListFlag bool
@@ -321,8 +301,6 @@ func (builder *ContentGalleryBuilder) Build() *ContentGallery {
 	return req
 }
 
-// builder结束
-
 type ContentImageItem struct {
 	FileToken *string  `json:"fileToken,omitempty"`
 	Url       *string  `json:"url,omitempty"`
@@ -330,7 +308,6 @@ type ContentImageItem struct {
 	Height    *float64 `json:"height,omitempty"`
 }
 
-// builder开始
 type ContentImageItemBuilder struct {
 	fileToken     string
 	fileTokenFlag bool
@@ -389,13 +366,10 @@ func (builder *ContentImageItemBuilder) Build() *ContentImageItem {
 	return req
 }
 
-// builder结束
-
 type ContentLink struct {
 	Url *string `json:"url,omitempty"`
 }
 
-// builder开始
 type ContentLinkBuilder struct {
 	url     string
 	urlFlag bool
@@ -421,15 +395,12 @@ func (builder *ContentLinkBuilder) Build() *ContentLink {
 	return req
 }
 
-// builder结束
-
 type ContentList struct {
 	Type        *string `json:"type,omitempty"`
 	IndentLevel *int    `json:"indentLevel,omitempty"`
 	Number      *int    `json:"number,omitempty"`
 }
 
-// builder开始
 type ContentListBuilder struct {
 	type_           string
 	typeFlag        bool
@@ -477,14 +448,11 @@ func (builder *ContentListBuilder) Build() *ContentList {
 	return req
 }
 
-// builder结束
-
 type ContentParagraph struct {
 	Style    *ContentParagraphStyle     `json:"style,omitempty"`
 	Elements []*ContentParagraphElement `json:"elements,omitempty"`
 }
 
-// builder开始
 type ContentParagraphBuilder struct {
 	style        *ContentParagraphStyle
 	styleFlag    bool
@@ -519,8 +487,6 @@ func (builder *ContentParagraphBuilder) Build() *ContentParagraph {
 	return req
 }
 
-// builder结束
-
 type ContentParagraphElement struct {
 	Type     *string          `json:"type,omitempty"`
 	TextRun  *ContentTextRun  `json:"textRun,omitempty"`
@@ -528,7 +494,6 @@ type ContentParagraphElement struct {
 	Person   *ContentPerson   `json:"person,omitempty"`
 }
 
-// builder开始
 type ContentParagraphElementBuilder struct {
 	type_        string
 	typeFlag     bool
@@ -584,13 +549,10 @@ func (builder *ContentParagraphElementBuilder) Build() *ContentParagraphElement 
 	return req
 }
 
-// builder结束
-
 type ContentParagraphStyle struct {
 	List []*ContentList `json:"list,omitempty"`
 }
 
-// builder开始
 type ContentParagraphStyleBuilder struct {
 	list     []*ContentList
 	listFlag bool
@@ -615,13 +577,10 @@ func (builder *ContentParagraphStyleBuilder) Build() *ContentParagraphStyle {
 	return req
 }
 
-// builder结束
-
 type ContentPerson struct {
 	OpenId *string `json:"openId,omitempty"`
 }
 
-// builder开始
 type ContentPersonBuilder struct {
 	openId     string
 	openIdFlag bool
@@ -647,14 +606,11 @@ func (builder *ContentPersonBuilder) Build() *ContentPerson {
 	return req
 }
 
-// builder结束
-
 type ContentTextRun struct {
 	Text  *string           `json:"text,omitempty"`
 	Style *ContentTextStyle `json:"style,omitempty"`
 }
 
-// builder开始
 type ContentTextRunBuilder struct {
 	text      string
 	textFlag  bool
@@ -690,8 +646,6 @@ func (builder *ContentTextRunBuilder) Build() *ContentTextRun {
 	return req
 }
 
-// builder结束
-
 type ContentTextStyle struct {
 	Bold          *bool         `json:"bold,omitempty"`
 	StrikeThrough *bool         `json:"strikeThrough,omitempty"`
@@ -700,7 +654,6 @@ type ContentTextStyle struct {
 	Link          *ContentLink  `json:"link,omitempty"`
 }
 
-// builder开始
 type ContentTextStyleBuilder struct {
 	bold              bool
 	boldFlag          bool
@@ -767,14 +720,11 @@ func (builder *ContentTextStyleBuilder) Build() *ContentTextStyle {
 	return req
 }
 
-// builder结束
-
 type CurrentOkrSimple struct {
 	OkrId    *string `json:"okr_id,omitempty"`
 	PeriodId *string `json:"period_id,omitempty"`
 }
 
-// builder开始
 type CurrentOkrSimpleBuilder struct {
 	okrId        string
 	okrIdFlag    bool
@@ -811,13 +761,10 @@ func (builder *CurrentOkrSimpleBuilder) Build() *CurrentOkrSimple {
 	return req
 }
 
-// builder结束
-
 type Dummy struct {
 	Id *string `json:"id,omitempty"`
 }
 
-// builder开始
 type DummyBuilder struct {
 	id     string
 	idFlag bool
@@ -843,14 +790,11 @@ func (builder *DummyBuilder) Build() *Dummy {
 	return req
 }
 
-// builder结束
-
 type ImageInfo struct {
 	FileToken *string `json:"file_token,omitempty"`
 	Url       *string `json:"url,omitempty"`
 }
 
-// builder开始
 type ImageInfoBuilder struct {
 	fileToken     string
 	fileTokenFlag bool
@@ -887,8 +831,6 @@ func (builder *ImageInfoBuilder) Build() *ImageInfo {
 	return req
 }
 
-// builder结束
-
 type Kr struct {
 	Id         *string    `json:"id,omitempty"`
 	Pos        *string    `json:"pos,omitempty"`
@@ -899,7 +841,6 @@ type Kr struct {
 	ModifyTime *int       `json:"modify_time,omitempty"`
 }
 
-// builder开始
 type KrBuilder struct {
 	id             string
 	idFlag         bool
@@ -990,14 +931,11 @@ func (builder *KrBuilder) Build() *Kr {
 	return req
 }
 
-// builder结束
-
 type KrContent struct {
 	Zh *string `json:"zh,omitempty"`
 	En *string `json:"en,omitempty"`
 }
 
-// builder开始
 type KrContentBuilder struct {
 	zh     string
 	zhFlag bool
@@ -1034,8 +972,6 @@ func (builder *KrContentBuilder) Build() *KrContent {
 	return req
 }
 
-// builder结束
-
 type Objective struct {
 	Id                    *string            `json:"id,omitempty"`
 	OkrId                 *string            `json:"okr_id,omitempty"`
@@ -1051,7 +987,6 @@ type Objective struct {
 	AlignedObjectiveList  []*AlignObjective  `json:"aligned_objective_list,omitempty"`
 }
 
-// builder开始
 type ObjectiveBuilder struct {
 	id                        string
 	idFlag                    bool
@@ -1193,14 +1128,11 @@ func (builder *ObjectiveBuilder) Build() *Objective {
 	return req
 }
 
-// builder结束
-
 type ObjectiveName struct {
 	Zh *string `json:"zh,omitempty"`
 	En *string `json:"en,omitempty"`
 }
 
-// builder开始
 type ObjectiveNameBuilder struct {
 	zh     string
 	zhFlag bool
@@ -1237,14 +1169,11 @@ func (builder *ObjectiveNameBuilder) Build() *ObjectiveName {
 	return req
 }
 
-// builder结束
-
 type ObjectiveProgress struct {
 	Zh *string `json:"zh,omitempty"`
 	En *string `json:"en,omitempty"`
 }
 
-// builder开始
 type ObjectiveProgressBuilder struct {
 	zh     string
 	zhFlag bool
@@ -1281,8 +1210,6 @@ func (builder *ObjectiveProgressBuilder) Build() *ObjectiveProgress {
 	return req
 }
 
-// builder结束
-
 type Okr struct {
 	OkrId         *string               `json:"okr_id,omitempty"`
 	PeriodId      *string               `json:"period_id,omitempty"`
@@ -1294,7 +1221,6 @@ type Okr struct {
 	OkrScore      *int                  `json:"okr_score,omitempty"`
 }
 
-// builder开始
 type OkrBuilder struct {
 	okrId             string
 	okrIdFlag         bool
@@ -1395,8 +1321,6 @@ func (builder *OkrBuilder) Build() *Okr {
 	return req
 }
 
-// builder结束
-
 type OkrComment struct {
 	Id                *string                            `json:"id,omitempty"`
 	Content           *string                            `json:"content,omitempty"`
@@ -1407,7 +1331,6 @@ type OkrComment struct {
 	SolvedTime        *int                               `json:"solved_time,omitempty"`
 }
 
-// builder开始
 type OkrCommentBuilder struct {
 	id                    string
 	idFlag                bool
@@ -1497,15 +1420,12 @@ func (builder *OkrCommentBuilder) Build() *OkrComment {
 	return req
 }
 
-// builder结束
-
 type OkrObjectiveAlignment struct {
 	Id     *string `json:"id,omitempty"`
 	ToId   *string `json:"to_id,omitempty"`
 	ToType *int    `json:"to_type,omitempty"`
 }
 
-// builder开始
 type OkrObjectiveAlignmentBuilder struct {
 	id         string
 	idFlag     bool
@@ -1553,8 +1473,6 @@ func (builder *OkrObjectiveAlignmentBuilder) Build() *OkrObjectiveAlignment {
 	return req
 }
 
-// builder结束
-
 type OkrBatch struct {
 	Id            *string         `json:"id,omitempty"`
 	Permission    *int            `json:"permission,omitempty"`
@@ -1564,7 +1482,6 @@ type OkrBatch struct {
 	ConfirmStatus *int            `json:"confirm_status,omitempty"`
 }
 
-// builder开始
 type OkrBatchBuilder struct {
 	id                string
 	idFlag            bool
@@ -1644,8 +1561,6 @@ func (builder *OkrBatchBuilder) Build() *OkrBatch {
 	return req
 }
 
-// builder结束
-
 type OkrDetail struct {
 	OkrId         *string               `json:"okr_id,omitempty"`
 	PeriodId      *string               `json:"period_id,omitempty"`
@@ -1657,7 +1572,6 @@ type OkrDetail struct {
 	OkrScore      *int                  `json:"okr_score,omitempty"`
 }
 
-// builder开始
 type OkrDetailBuilder struct {
 	okrId             string
 	okrIdFlag         bool
@@ -1758,8 +1672,6 @@ func (builder *OkrDetailBuilder) Build() *OkrDetail {
 	return req
 }
 
-// builder结束
-
 type OkrDetailObjective struct {
 	Id                    *string                    `json:"id,omitempty"`
 	OkrId                 *string                    `json:"okr_id,omitempty"`
@@ -1776,7 +1688,6 @@ type OkrDetailObjective struct {
 	Weight                *float64                   `json:"weight,omitempty"`
 }
 
-// builder开始
 type OkrDetailObjectiveBuilder struct {
 	id                        string
 	idFlag                    bool
@@ -1929,15 +1840,12 @@ func (builder *OkrDetailObjectiveBuilder) Build() *OkrDetailObjective {
 	return req
 }
 
-// builder结束
-
 type OkrDetailObjectiveAlign struct {
 	Id     *string `json:"id,omitempty"`
 	OkrId  *string `json:"okr_id,omitempty"`
 	UserId *string `json:"user_id,omitempty"`
 }
 
-// builder开始
 type OkrDetailObjectiveAlignBuilder struct {
 	id         string
 	idFlag     bool
@@ -1985,8 +1893,6 @@ func (builder *OkrDetailObjectiveAlignBuilder) Build() *OkrDetailObjectiveAlign 
 	return req
 }
 
-// builder结束
-
 type OkrDetailObjectiveKr struct {
 	Id         *string  `json:"id,omitempty"`
 	Pos        *int     `json:"pos,omitempty"`
@@ -1997,7 +1903,6 @@ type OkrDetailObjectiveKr struct {
 	ModifyTime *int     `json:"modify_time,omitempty"`
 }
 
-// builder开始
 type OkrDetailObjectiveKrBuilder struct {
 	id             string
 	idFlag         bool
@@ -2088,14 +1993,11 @@ func (builder *OkrDetailObjectiveKrBuilder) Build() *OkrDetailObjectiveKr {
 	return req
 }
 
-// builder结束
-
 type OkrListInfo struct {
 	CurrentOkr *Okr   `json:"current_okr,omitempty"`
 	OkrList    []*Okr `json:"okr_list,omitempty"`
 }
 
-// builder开始
 type OkrListInfoBuilder struct {
 	currentOkr     *Okr
 	currentOkrFlag bool
@@ -2130,14 +2032,11 @@ func (builder *OkrListInfoBuilder) Build() *OkrListInfo {
 	return req
 }
 
-// builder结束
-
 type OkrName struct {
 	Zh *string `json:"zh,omitempty"`
 	En *string `json:"en,omitempty"`
 }
 
-// builder开始
 type OkrNameBuilder struct {
 	zh     string
 	zhFlag bool
@@ -2174,8 +2073,6 @@ func (builder *OkrNameBuilder) Build() *OkrName {
 	return req
 }
 
-// builder结束
-
 type OkrObjective struct {
 	Id                                 *string                              `json:"id,omitempty"`
 	Permission                         *int                                 `json:"permission,omitempty"`
@@ -2197,7 +2094,6 @@ type OkrObjective struct {
 	MentionedUserList                  []*OkrObjectiveAlignedObjectiveOwner `json:"mentioned_user_list,omitempty"`
 }
 
-// builder开始
 type OkrObjectiveBuilder struct {
 	id                                     string
 	idFlag                                 bool
@@ -2404,15 +2300,12 @@ func (builder *OkrObjectiveBuilder) Build() *OkrObjective {
 	return req
 }
 
-// builder结束
-
 type OkrObjectiveAlignedObjective struct {
 	Id    *string                            `json:"id,omitempty"`
 	OkrId *string                            `json:"okr_id,omitempty"`
 	Owner *OkrObjectiveAlignedObjectiveOwner `json:"owner,omitempty"`
 }
 
-// builder开始
 type OkrObjectiveAlignedObjectiveBuilder struct {
 	id        string
 	idFlag    bool
@@ -2459,14 +2352,11 @@ func (builder *OkrObjectiveAlignedObjectiveBuilder) Build() *OkrObjectiveAligned
 	return req
 }
 
-// builder结束
-
 type OkrObjectiveAlignedObjectiveOwner struct {
 	OpenId *string `json:"open_id,omitempty"`
 	UserId *string `json:"user_id,omitempty"`
 }
 
-// builder开始
 type OkrObjectiveAlignedObjectiveOwnerBuilder struct {
 	openId     string
 	openIdFlag bool
@@ -2503,8 +2393,6 @@ func (builder *OkrObjectiveAlignedObjectiveOwnerBuilder) Build() *OkrObjectiveAl
 	return req
 }
 
-// builder结束
-
 type OkrObjectiveKr struct {
 	Id                                 *string                              `json:"id,omitempty"`
 	Content                            *string                              `json:"content,omitempty"`
@@ -2522,7 +2410,6 @@ type OkrObjectiveKr struct {
 	MentionedUserList                  []*OkrObjectiveAlignedObjectiveOwner `json:"mentioned_user_list,omitempty"`
 }
 
-// builder开始
 type OkrObjectiveKrBuilder struct {
 	id                                     string
 	idFlag                                 bool
@@ -2688,14 +2575,11 @@ func (builder *OkrObjectiveKrBuilder) Build() *OkrObjectiveKr {
 	return req
 }
 
-// builder结束
-
 type OkrObjectiveProgressRate struct {
 	Percent *int    `json:"percent,omitempty"`
 	Status  *string `json:"status,omitempty"`
 }
 
-// builder开始
 type OkrObjectiveProgressRateBuilder struct {
 	percent     int
 	percentFlag bool
@@ -2732,14 +2616,11 @@ func (builder *OkrObjectiveProgressRateBuilder) Build() *OkrObjectiveProgressRat
 	return req
 }
 
-// builder结束
-
 type OkrReview struct {
 	UserId           *OkrObjectiveAlignedObjectiveOwner `json:"user_id,omitempty"`
 	ReviewPeriodList []*OkrReviewPeriod                 `json:"review_period_list,omitempty"`
 }
 
-// builder开始
 type OkrReviewBuilder struct {
 	userId               *OkrObjectiveAlignedObjectiveOwner
 	userIdFlag           bool
@@ -2774,15 +2655,12 @@ func (builder *OkrReviewBuilder) Build() *OkrReview {
 	return req
 }
 
-// builder结束
-
 type OkrReviewPeriod struct {
 	PeriodId           *string               `json:"period_id,omitempty"`
 	CycleReviewList    []*OkrReviewPeriodUrl `json:"cycle_review_list,omitempty"`
 	ProgressReportList []*OkrReviewPeriodUrl `json:"progress_report_list,omitempty"`
 }
 
-// builder开始
 type OkrReviewPeriodBuilder struct {
 	periodId               string
 	periodIdFlag           bool
@@ -2828,14 +2706,11 @@ func (builder *OkrReviewPeriodBuilder) Build() *OkrReviewPeriod {
 	return req
 }
 
-// builder结束
-
 type OkrReviewPeriodUrl struct {
 	Url        *string `json:"url,omitempty"`
 	CreateTime *string `json:"create_time,omitempty"`
 }
 
-// builder开始
 type OkrReviewPeriodUrlBuilder struct {
 	url            string
 	urlFlag        bool
@@ -2872,8 +2747,6 @@ func (builder *OkrReviewPeriodUrlBuilder) Build() *OkrReviewPeriodUrl {
 	return req
 }
 
-// builder结束
-
 type OkrSimple struct {
 	Name       *OkrName `json:"name,omitempty"`
 	OkrId      *string  `json:"okr_id,omitempty"`
@@ -2881,7 +2754,6 @@ type OkrSimple struct {
 	PeriodType *string  `json:"period_type,omitempty"`
 }
 
-// builder开始
 type OkrSimpleBuilder struct {
 	name           *OkrName
 	nameFlag       bool
@@ -2939,8 +2811,6 @@ func (builder *OkrSimpleBuilder) Build() *OkrSimple {
 	return req
 }
 
-// builder结束
-
 type Period struct {
 	Id     *string `json:"id,omitempty"`
 	ZhName *string `json:"zh_name,omitempty"`
@@ -2948,7 +2818,6 @@ type Period struct {
 	Status *int    `json:"status,omitempty"`
 }
 
-// builder开始
 type PeriodBuilder struct {
 	id         string
 	idFlag     bool
@@ -3007,15 +2876,12 @@ func (builder *PeriodBuilder) Build() *Period {
 	return req
 }
 
-// builder结束
-
 type ProgressItem struct {
 	Content     *string  `json:"content,omitempty"`
 	Timestamp   *int     `json:"timestamp,omitempty"`
 	MentionList []string `json:"mention_list,omitempty"`
 }
 
-// builder开始
 type ProgressItemBuilder struct {
 	content         string
 	contentFlag     bool
@@ -3062,14 +2928,11 @@ func (builder *ProgressItemBuilder) Build() *ProgressItem {
 	return req
 }
 
-// builder结束
-
 type ProgressRate struct {
 	Percent *int `json:"percent,omitempty"`
 	Status  *int `json:"status,omitempty"`
 }
 
-// builder开始
 type ProgressRateBuilder struct {
 	percent     int
 	percentFlag bool
@@ -3106,15 +2969,12 @@ func (builder *ProgressRateBuilder) Build() *ProgressRate {
 	return req
 }
 
-// builder结束
-
 type ProgressRecord struct {
 	ProgressId *string       `json:"progress_id,omitempty"`
 	ModifyTime *string       `json:"modify_time,omitempty"`
 	Content    *ContentBlock `json:"content,omitempty"`
 }
 
-// builder开始
 type ProgressRecordBuilder struct {
 	progressId     string
 	progressIdFlag bool
@@ -3161,13 +3021,10 @@ func (builder *ProgressRecordBuilder) Build() *ProgressRecord {
 	return req
 }
 
-// builder结束
-
 type ProgressRecordSimplify struct {
 	Id *string `json:"id,omitempty"`
 }
 
-// builder开始
 type ProgressRecordSimplifyBuilder struct {
 	id     string
 	idFlag bool
@@ -3193,8 +3050,6 @@ func (builder *ProgressRecordSimplifyBuilder) Build() *ProgressRecordSimplify {
 	return req
 }
 
-// builder结束
-
 type UpsertObjective struct {
 	Content      *string              `json:"content,omitempty"`
 	MentionList  []string             `json:"mention_list,omitempty"`
@@ -3204,7 +3059,6 @@ type UpsertObjective struct {
 	Weight       *float64             `json:"weight,omitempty"`
 }
 
-// builder开始
 type UpsertObjectiveBuilder struct {
 	content          string
 	contentFlag      bool
@@ -3281,8 +3135,6 @@ func (builder *UpsertObjectiveBuilder) Build() *UpsertObjective {
 	return req
 }
 
-// builder结束
-
 type UpsertObjectiveKr struct {
 	Content      *string         `json:"content,omitempty"`
 	MentionList  []string        `json:"mention_list,omitempty"`
@@ -3292,7 +3144,6 @@ type UpsertObjectiveKr struct {
 	Weight       *float64        `json:"weight,omitempty"`
 }
 
-// builder开始
 type UpsertObjectiveKrBuilder struct {
 	content          string
 	contentFlag      bool
@@ -3370,13 +3221,10 @@ func (builder *UpsertObjectiveKrBuilder) Build() *UpsertObjectiveKr {
 	return req
 }
 
-// builder结束
-
 type User struct {
 	Id *string `json:"id,omitempty"`
 }
 
-// builder开始
 type UserBuilder struct {
 	id     string
 	idFlag bool
@@ -3402,8 +3250,6 @@ func (builder *UserBuilder) Build() *User {
 	return req
 }
 
-// builder结束
-
 type UserOkr struct {
 	Id            *string             `json:"id,omitempty"`
 	Name          *string             `json:"name,omitempty"`
@@ -3411,7 +3257,6 @@ type UserOkr struct {
 	ObjectiveList []*UserOkrObjective `json:"objective_list,omitempty"`
 }
 
-// builder开始
 type UserOkrBuilder struct {
 	id                string
 	idFlag            bool
@@ -3469,8 +3314,6 @@ func (builder *UserOkrBuilder) Build() *UserOkr {
 	return req
 }
 
-// builder结束
-
 type UserOkrObjective struct {
 	Id                    *string                             `json:"id,omitempty"`
 	Permission            *int                                `json:"permission,omitempty"`
@@ -3483,7 +3326,6 @@ type UserOkrObjective struct {
 	AligningObjectiveList []*UserOkrObjectiveAlignedObjective `json:"aligning_objective_list,omitempty"`
 }
 
-// builder开始
 type UserOkrObjectiveBuilder struct {
 	id                        string
 	idFlag                    bool
@@ -3593,15 +3435,12 @@ func (builder *UserOkrObjectiveBuilder) Build() *UserOkrObjective {
 	return req
 }
 
-// builder结束
-
 type UserOkrObjectiveAlignedObjective struct {
 	Id    *string                                `json:"id,omitempty"`
 	OkrId *string                                `json:"okr_id,omitempty"`
 	Owner *UserOkrObjectiveAlignedObjectiveOwner `json:"owner,omitempty"`
 }
 
-// builder开始
 type UserOkrObjectiveAlignedObjectiveBuilder struct {
 	id        string
 	idFlag    bool
@@ -3648,8 +3487,6 @@ func (builder *UserOkrObjectiveAlignedObjectiveBuilder) Build() *UserOkrObjectiv
 	return req
 }
 
-// builder结束
-
 type UserOkrObjectiveAlignedObjectiveOwner struct {
 	OpenId     *string `json:"open_id,omitempty"`
 	EmployeeId *string `json:"employee_id,omitempty"`
@@ -3658,7 +3495,6 @@ type UserOkrObjectiveAlignedObjectiveOwner struct {
 	Name       *string `json:"name,omitempty"`
 }
 
-// builder开始
 type UserOkrObjectiveAlignedObjectiveOwnerBuilder struct {
 	openId         string
 	openIdFlag     bool
@@ -3728,8 +3564,6 @@ func (builder *UserOkrObjectiveAlignedObjectiveOwnerBuilder) Build() *UserOkrObj
 	return req
 }
 
-// builder结束
-
 type UserOkrObjectiveKr struct {
 	Id           *string                       `json:"id,omitempty"`
 	Content      *string                       `json:"content,omitempty"`
@@ -3738,7 +3572,6 @@ type UserOkrObjectiveKr struct {
 	ProgressRate *UserOkrObjectiveProgressRate `json:"progress_rate,omitempty"`
 }
 
-// builder开始
 type UserOkrObjectiveKrBuilder struct {
 	id               string
 	idFlag           bool
@@ -3807,14 +3640,11 @@ func (builder *UserOkrObjectiveKrBuilder) Build() *UserOkrObjectiveKr {
 	return req
 }
 
-// builder结束
-
 type UserOkrObjectiveProgressRate struct {
 	Percent *int    `json:"percent,omitempty"`
 	Status  *string `json:"status,omitempty"`
 }
 
-// builder开始
 type UserOkrObjectiveProgressRateBuilder struct {
 	percent     int
 	percentFlag bool
@@ -3851,10 +3681,6 @@ func (builder *UserOkrObjectiveProgressRateBuilder) Build() *UserOkrObjectivePro
 	return req
 }
 
-// builder结束
-
-// 生成请求和响应结果类型，以及请求对象的Builder构造器
-
 type UploadImageReqBodyBuilder struct {
 	data           io.Reader
 	dataFlag       bool
@@ -3864,13 +3690,11 @@ type UploadImageReqBodyBuilder struct {
 	targetTypeFlag bool
 }
 
-// 生成body的New构造器
 func NewUploadImageReqBodyBuilder() *UploadImageReqBodyBuilder {
 	builder := &UploadImageReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *UploadImageReqBodyBuilder) Data(data io.Reader) *UploadImageReqBodyBuilder {
 	builder.data = data
 	builder.dataFlag = true
@@ -3887,7 +3711,6 @@ func (builder *UploadImageReqBodyBuilder) TargetType(targetType int) *UploadImag
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *UploadImageReqBodyBuilder) Build() *UploadImageReqBody {
 	req := &UploadImageReqBody{}
 	if builder.dataFlag {
@@ -3902,7 +3725,6 @@ func (builder *UploadImageReqBodyBuilder) Build() *UploadImageReqBody {
 	return req
 }
 
-// 上传文件path开始
 type UploadImagePathReqBodyBuilder struct {
 	dataPath       string
 	dataPathFlag   bool
@@ -3950,15 +3772,11 @@ func (builder *UploadImagePathReqBodyBuilder) Build() (*UploadImageReqBody, erro
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type UploadImageReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *UploadImageReqBody
 }
 
-// 生成请求的New构造器
 func NewUploadImageReqBuilder() *UploadImageReqBuilder {
 	builder := &UploadImageReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3968,13 +3786,11 @@ func NewUploadImageReqBuilder() *UploadImageReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *UploadImageReqBuilder) Body(body *UploadImageReqBody) *UploadImageReqBuilder {
 	builder.body = body
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *UploadImageReqBuilder) Build() *UploadImageReq {
 	req := &UploadImageReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4007,12 +3823,10 @@ func (resp *UploadImageResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type BatchGetOkrReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewBatchGetOkrReqBuilder() *BatchGetOkrReqBuilder {
 	builder := &BatchGetOkrReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4022,7 +3836,6 @@ func NewBatchGetOkrReqBuilder() *BatchGetOkrReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *BatchGetOkrReqBuilder) UserIdType(userIdType string) *BatchGetOkrReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -4036,7 +3849,6 @@ func (builder *BatchGetOkrReqBuilder) Lang(lang string) *BatchGetOkrReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *BatchGetOkrReqBuilder) Build() *BatchGetOkrReq {
 	req := &BatchGetOkrReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4062,12 +3874,10 @@ func (resp *BatchGetOkrResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type ListPeriodReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewListPeriodReqBuilder() *ListPeriodReqBuilder {
 	builder := &ListPeriodReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4077,7 +3887,6 @@ func NewListPeriodReqBuilder() *ListPeriodReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListPeriodReqBuilder) PageToken(pageToken string) *ListPeriodReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
@@ -4087,7 +3896,6 @@ func (builder *ListPeriodReqBuilder) PageSize(pageSize int) *ListPeriodReqBuilde
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListPeriodReqBuilder) Build() *ListPeriodReq {
 	req := &ListPeriodReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4128,13 +3936,11 @@ type CreateProgressRecordReqBodyBuilder struct {
 	contentFlag     bool
 }
 
-// 生成body的New构造器
 func NewCreateProgressRecordReqBodyBuilder() *CreateProgressRecordReqBodyBuilder {
 	builder := &CreateProgressRecordReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *CreateProgressRecordReqBodyBuilder) SourceTitle(sourceTitle string) *CreateProgressRecordReqBodyBuilder {
 	builder.sourceTitle = sourceTitle
 	builder.sourceTitleFlag = true
@@ -4161,7 +3967,6 @@ func (builder *CreateProgressRecordReqBodyBuilder) Content(content *ContentBlock
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *CreateProgressRecordReqBodyBuilder) Build() *CreateProgressRecordReqBody {
 	req := &CreateProgressRecordReqBody{}
 	if builder.sourceTitleFlag {
@@ -4182,7 +3987,6 @@ func (builder *CreateProgressRecordReqBodyBuilder) Build() *CreateProgressRecord
 	return req
 }
 
-// 上传文件path开始
 type CreateProgressRecordPathReqBodyBuilder struct {
 	sourceTitle     string
 	sourceTitleFlag bool
@@ -4246,15 +4050,11 @@ func (builder *CreateProgressRecordPathReqBodyBuilder) Build() (*CreateProgressR
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type CreateProgressRecordReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *CreateProgressRecordReqBody
 }
 
-// 生成请求的New构造器
 func NewCreateProgressRecordReqBuilder() *CreateProgressRecordReqBuilder {
 	builder := &CreateProgressRecordReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4264,13 +4064,11 @@ func NewCreateProgressRecordReqBuilder() *CreateProgressRecordReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateProgressRecordReqBuilder) Body(body *CreateProgressRecordReqBody) *CreateProgressRecordReqBuilder {
 	builder.body = body
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateProgressRecordReqBuilder) Build() *CreateProgressRecordReq {
 	req := &CreateProgressRecordReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4305,12 +4103,10 @@ func (resp *CreateProgressRecordResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type DeleteProgressRecordReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewDeleteProgressRecordReqBuilder() *DeleteProgressRecordReqBuilder {
 	builder := &DeleteProgressRecordReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4320,13 +4116,11 @@ func NewDeleteProgressRecordReqBuilder() *DeleteProgressRecordReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *DeleteProgressRecordReqBuilder) ProgressId(progressId string) *DeleteProgressRecordReqBuilder {
 	builder.apiReq.PathParams.Set("progress_id", fmt.Sprint(progressId))
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *DeleteProgressRecordReqBuilder) Build() *DeleteProgressRecordReq {
 	req := &DeleteProgressRecordReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4347,12 +4141,10 @@ func (resp *DeleteProgressRecordResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type GetProgressRecordReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewGetProgressRecordReqBuilder() *GetProgressRecordReqBuilder {
 	builder := &GetProgressRecordReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4362,13 +4154,11 @@ func NewGetProgressRecordReqBuilder() *GetProgressRecordReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *GetProgressRecordReqBuilder) ProgressId(progressId string) *GetProgressRecordReqBuilder {
 	builder.apiReq.PathParams.Set("progress_id", fmt.Sprint(progressId))
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *GetProgressRecordReqBuilder) Build() *GetProgressRecordReq {
 	req := &GetProgressRecordReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4401,20 +4191,17 @@ type UpdateProgressRecordReqBodyBuilder struct {
 	contentFlag bool
 }
 
-// 生成body的New构造器
 func NewUpdateProgressRecordReqBodyBuilder() *UpdateProgressRecordReqBodyBuilder {
 	builder := &UpdateProgressRecordReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *UpdateProgressRecordReqBodyBuilder) Content(content *ContentBlock) *UpdateProgressRecordReqBodyBuilder {
 	builder.content = content
 	builder.contentFlag = true
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *UpdateProgressRecordReqBodyBuilder) Build() *UpdateProgressRecordReqBody {
 	req := &UpdateProgressRecordReqBody{}
 	if builder.contentFlag {
@@ -4423,7 +4210,6 @@ func (builder *UpdateProgressRecordReqBodyBuilder) Build() *UpdateProgressRecord
 	return req
 }
 
-// 上传文件path开始
 type UpdateProgressRecordPathReqBodyBuilder struct {
 	content     *ContentBlock
 	contentFlag bool
@@ -4447,15 +4233,11 @@ func (builder *UpdateProgressRecordPathReqBodyBuilder) Build() (*UpdateProgressR
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type UpdateProgressRecordReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *UpdateProgressRecordReqBody
 }
 
-// 生成请求的New构造器
 func NewUpdateProgressRecordReqBuilder() *UpdateProgressRecordReqBuilder {
 	builder := &UpdateProgressRecordReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4465,7 +4247,6 @@ func NewUpdateProgressRecordReqBuilder() *UpdateProgressRecordReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *UpdateProgressRecordReqBuilder) ProgressId(progressId string) *UpdateProgressRecordReqBuilder {
 	builder.apiReq.PathParams.Set("progress_id", fmt.Sprint(progressId))
 	return builder
@@ -4475,7 +4256,6 @@ func (builder *UpdateProgressRecordReqBuilder) Body(body *UpdateProgressRecordRe
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *UpdateProgressRecordReqBuilder) Build() *UpdateProgressRecordReq {
 	req := &UpdateProgressRecordReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4507,12 +4287,10 @@ func (resp *UpdateProgressRecordResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type ListUserOkrReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewListUserOkrReqBuilder() *ListUserOkrReqBuilder {
 	builder := &ListUserOkrReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4522,7 +4300,6 @@ func NewListUserOkrReqBuilder() *ListUserOkrReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListUserOkrReqBuilder) UserId(userId string) *ListUserOkrReqBuilder {
 	builder.apiReq.PathParams.Set("user_id", fmt.Sprint(userId))
 	return builder
@@ -4548,7 +4325,6 @@ func (builder *ListUserOkrReqBuilder) PeriodIds(periodIds []string) *ListUserOkr
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListUserOkrReqBuilder) Build() *ListUserOkrReq {
 	req := &ListUserOkrReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4575,8 +4351,3 @@ type ListUserOkrResp struct {
 func (resp *ListUserOkrResp) Success() bool {
 	return resp.Code == 0
 }
-
-// 生成消息事件结构体
-
-// 生成请求的builder构造器
-// 1.1 生成body的builder结构体

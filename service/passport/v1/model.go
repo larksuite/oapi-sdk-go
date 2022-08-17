@@ -19,15 +19,11 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
-// 生成枚举值
-
 const (
 	UserIdTypeOpenId  = "open_id"
 	UserIdTypeUnionId = "union_id"
 	UserIdTypeUserId  = "user_id"
 )
-
-// 生成数据类型
 
 type Credentials struct {
 	Email  *string `json:"email,omitempty"`
@@ -35,7 +31,6 @@ type Credentials struct {
 	UserId *string `json:"user_id,omitempty"`
 }
 
-// builder开始
 type CredentialsBuilder struct {
 	email      string
 	emailFlag  bool
@@ -83,19 +78,13 @@ func (builder *CredentialsBuilder) Build() *Credentials {
 	return req
 }
 
-// builder结束
-
 type IdpCredential struct {
 }
-
-// builder开始
-// builder结束
 
 type IdpCredentialId struct {
 	IdpCredentialId *string `json:"idp_credential_id,omitempty"`
 }
 
-// builder开始
 type IdpCredentialIdBuilder struct {
 	idpCredentialId     string
 	idpCredentialIdFlag bool
@@ -121,15 +110,12 @@ func (builder *IdpCredentialIdBuilder) Build() *IdpCredentialId {
 	return req
 }
 
-// builder结束
-
 type MaskSession struct {
 	CreateTime   *string `json:"create_time,omitempty"`
 	TerminalType *int    `json:"terminal_type,omitempty"`
 	UserId       *string `json:"user_id,omitempty"`
 }
 
-// builder开始
 type MaskSessionBuilder struct {
 	createTime       string
 	createTimeFlag   bool
@@ -177,29 +163,22 @@ func (builder *MaskSessionBuilder) Build() *MaskSession {
 	return req
 }
 
-// builder结束
-
-// 生成请求和响应结果类型，以及请求对象的Builder构造器
-
 type QuerySessionReqBodyBuilder struct {
 	userIds     []string
 	userIdsFlag bool
 }
 
-// 生成body的New构造器
 func NewQuerySessionReqBodyBuilder() *QuerySessionReqBodyBuilder {
 	builder := &QuerySessionReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *QuerySessionReqBodyBuilder) UserIds(userIds []string) *QuerySessionReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsFlag = true
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *QuerySessionReqBodyBuilder) Build() *QuerySessionReqBody {
 	req := &QuerySessionReqBody{}
 	if builder.userIdsFlag {
@@ -208,7 +187,6 @@ func (builder *QuerySessionReqBodyBuilder) Build() *QuerySessionReqBody {
 	return req
 }
 
-// 上传文件path开始
 type QuerySessionPathReqBodyBuilder struct {
 	userIds     []string
 	userIdsFlag bool
@@ -232,15 +210,11 @@ func (builder *QuerySessionPathReqBodyBuilder) Build() (*QuerySessionReqBody, er
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type QuerySessionReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *QuerySessionReqBody
 }
 
-// 生成请求的New构造器
 func NewQuerySessionReqBuilder() *QuerySessionReqBuilder {
 	builder := &QuerySessionReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -250,7 +224,6 @@ func NewQuerySessionReqBuilder() *QuerySessionReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *QuerySessionReqBuilder) UserIdType(userIdType string) *QuerySessionReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -260,7 +233,6 @@ func (builder *QuerySessionReqBuilder) Body(body *QuerySessionReqBody) *QuerySes
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *QuerySessionReqBuilder) Build() *QuerySessionReq {
 	req := &QuerySessionReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -291,8 +263,3 @@ type QuerySessionResp struct {
 func (resp *QuerySessionResp) Success() bool {
 	return resp.Code == 0
 }
-
-// 生成消息事件结构体
-
-// 生成请求的builder构造器
-// 1.1 生成body的builder结构体

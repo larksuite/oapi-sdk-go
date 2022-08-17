@@ -24,8 +24,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
-// 生成枚举值
-
 const (
 	UserIdTypeUserId  = "user_id"
 	UserIdTypeUnionId = "union_id"
@@ -68,8 +66,6 @@ const (
 	GenderTypeFemale = 2
 )
 
-// 生成数据类型
-
 type AvatarInfo struct {
 	Avatar72     *string `json:"avatar_72,omitempty"`
 	Avatar240    *string `json:"avatar_240,omitempty"`
@@ -77,7 +73,6 @@ type AvatarInfo struct {
 	AvatarOrigin *string `json:"avatar_origin,omitempty"`
 }
 
-// builder开始
 type AvatarInfoBuilder struct {
 	avatar72         string
 	avatar72Flag     bool
@@ -136,8 +131,6 @@ func (builder *AvatarInfoBuilder) Build() *AvatarInfo {
 	return req
 }
 
-// builder结束
-
 type CollaborationTenant struct {
 	TenantKey   *string     `json:"tenant_key,omitempty"`
 	Name        *string     `json:"name,omitempty"`
@@ -146,7 +139,6 @@ type CollaborationTenant struct {
 	Avatar      *AvatarInfo `json:"avatar,omitempty"`
 }
 
-// builder开始
 type CollaborationTenantBuilder struct {
 	tenantKey       string
 	tenantKeyFlag   bool
@@ -215,8 +207,6 @@ func (builder *CollaborationTenantBuilder) Build() *CollaborationTenant {
 	return req
 }
 
-// builder结束
-
 type CustomAttr struct {
 	Id       *string            `json:"id,omitempty"`
 	Type     *string            `json:"type,omitempty"`
@@ -224,7 +214,6 @@ type CustomAttr struct {
 	I18nName []*I18nContent     `json:"i18n_name,omitempty"`
 }
 
-// builder开始
 type CustomAttrBuilder struct {
 	id           string
 	idFlag       bool
@@ -281,14 +270,11 @@ func (builder *CustomAttrBuilder) Build() *CustomAttr {
 	return req
 }
 
-// builder结束
-
 type CustomAttrEvent struct {
 	ContactFieldKey []string `json:"contact_field_key,omitempty"`
 	AllowOpenQuery  *bool    `json:"allow_open_query,omitempty"`
 }
 
-// builder开始
 type CustomAttrEventBuilder struct {
 	contactFieldKey     []string
 	contactFieldKeyFlag bool
@@ -324,14 +310,11 @@ func (builder *CustomAttrEventBuilder) Build() *CustomAttrEvent {
 	return req
 }
 
-// builder结束
-
 type CustomAttrGenericUser struct {
 	Id   *string `json:"id,omitempty"`
 	Type *int    `json:"type,omitempty"`
 }
 
-// builder开始
 type CustomAttrGenericUserBuilder struct {
 	id       string
 	idFlag   bool
@@ -368,15 +351,12 @@ func (builder *CustomAttrGenericUserBuilder) Build() *CustomAttrGenericUser {
 	return req
 }
 
-// builder结束
-
 type CustomAttrOption struct {
 	Id    *string `json:"id,omitempty"`
 	Value *string `json:"value,omitempty"`
 	Name  *string `json:"name,omitempty"`
 }
 
-// builder开始
 type CustomAttrOptionBuilder struct {
 	id        string
 	idFlag    bool
@@ -424,15 +404,12 @@ func (builder *CustomAttrOptionBuilder) Build() *CustomAttrOption {
 	return req
 }
 
-// builder结束
-
 type CustomAttrOptions struct {
 	DefaultOptionId *string             `json:"default_option_id,omitempty"`
 	OptionType      *string             `json:"option_type,omitempty"`
 	Options         []*CustomAttrOption `json:"options,omitempty"`
 }
 
-// builder开始
 type CustomAttrOptionsBuilder struct {
 	defaultOptionId     string
 	defaultOptionIdFlag bool
@@ -479,8 +456,6 @@ func (builder *CustomAttrOptionsBuilder) Build() *CustomAttrOptions {
 	return req
 }
 
-// builder结束
-
 type Department struct {
 	Name               *string             `json:"name,omitempty"`
 	I18nName           *DepartmentI18nName `json:"i18n_name,omitempty"`
@@ -497,7 +472,6 @@ type Department struct {
 	Leaders            []*DepartmentLeader `json:"leaders,omitempty"`
 }
 
-// builder开始
 type DepartmentBuilder struct {
 	name                   string
 	nameFlag               bool
@@ -651,14 +625,11 @@ func (builder *DepartmentBuilder) Build() *Department {
 	return req
 }
 
-// builder结束
-
 type DepartmentLeader struct {
 	LeaderType *int    `json:"leaderType,omitempty"`
 	LeaderID   *string `json:"leaderID,omitempty"`
 }
 
-// builder开始
 type DepartmentLeaderBuilder struct {
 	leaderType     int
 	leaderTypeFlag bool
@@ -695,8 +666,6 @@ func (builder *DepartmentLeaderBuilder) Build() *DepartmentLeader {
 	return req
 }
 
-// builder结束
-
 type DepartmentCount struct {
 	DepartmentId          *string `json:"department_id,omitempty"`
 	DirectDepartmentCount *int    `json:"direct_department_count,omitempty"`
@@ -705,7 +674,6 @@ type DepartmentCount struct {
 	UserCount             *int    `json:"user_count,omitempty"`
 }
 
-// builder开始
 type DepartmentCountBuilder struct {
 	departmentId              string
 	departmentIdFlag          bool
@@ -775,8 +743,6 @@ func (builder *DepartmentCountBuilder) Build() *DepartmentCount {
 	return req
 }
 
-// builder结束
-
 type DepartmentEvent struct {
 	Name               *string `json:"name,omitempty"`
 	ParentDepartmentId *string `json:"parent_department_id,omitempty"`
@@ -790,7 +756,6 @@ type DepartmentEvent struct {
 	Leaders []*DepartmentLeader `json:"leaders,omitempty"`
 }
 
-// builder开始
 type DepartmentEventBuilder struct {
 	name                   string
 	nameFlag               bool
@@ -905,15 +870,12 @@ func (builder *DepartmentEventBuilder) Build() *DepartmentEvent {
 	return req
 }
 
-// builder结束
-
 type DepartmentI18nName struct {
 	ZhCn *string `json:"zh_cn,omitempty"`
 	JaJp *string `json:"ja_jp,omitempty"`
 	EnUs *string `json:"en_us,omitempty"`
 }
 
-// builder开始
 type DepartmentI18nNameBuilder struct {
 	zhCn     string
 	zhCnFlag bool
@@ -961,14 +923,11 @@ func (builder *DepartmentI18nNameBuilder) Build() *DepartmentI18nName {
 	return req
 }
 
-// builder结束
-
 type DepartmentParent struct {
 	DepartmentId *string  `json:"department_id,omitempty"`
 	ParentIds    []string `json:"parent_ids,omitempty"`
 }
 
-// builder开始
 type DepartmentParentBuilder struct {
 	departmentId     string
 	departmentIdFlag bool
@@ -1004,13 +963,10 @@ func (builder *DepartmentParentBuilder) Build() *DepartmentParent {
 	return req
 }
 
-// builder结束
-
 type DepartmentStatus struct {
 	IsDeleted *bool `json:"is_deleted,omitempty"`
 }
 
-// builder开始
 type DepartmentStatusBuilder struct {
 	isDeleted     bool
 	isDeletedFlag bool
@@ -1036,15 +992,12 @@ func (builder *DepartmentStatusBuilder) Build() *DepartmentStatus {
 	return req
 }
 
-// builder结束
-
 type DepartmentUnit struct {
 	UnitId   *string `json:"unit_id,omitempty"`
 	UnitType *string `json:"unit_type,omitempty"`
 	UnitName *string `json:"unit_name,omitempty"`
 }
 
-// builder开始
 type DepartmentUnitBuilder struct {
 	unitId       string
 	unitIdFlag   bool
@@ -1092,8 +1045,6 @@ func (builder *DepartmentUnitBuilder) Build() *DepartmentUnit {
 	return req
 }
 
-// builder结束
-
 type EmployeeTypeEnum struct {
 	EnumId      *string        `json:"enum_id,omitempty"`
 	EnumValue   *string        `json:"enum_value,omitempty"`
@@ -1103,7 +1054,6 @@ type EmployeeTypeEnum struct {
 	I18nContent []*I18nContent `json:"i18n_content,omitempty"`
 }
 
-// builder开始
 type EmployeeTypeEnumBuilder struct {
 	enumId          string
 	enumIdFlag      bool
@@ -1183,8 +1133,6 @@ func (builder *EmployeeTypeEnumBuilder) Build() *EmployeeTypeEnum {
 	return req
 }
 
-// builder结束
-
 type Group struct {
 	Id                    *string `json:"id,omitempty"`
 	Name                  *string `json:"name,omitempty"`
@@ -1193,7 +1141,6 @@ type Group struct {
 	MemberDepartmentCount *int    `json:"member_department_count,omitempty"`
 }
 
-// builder开始
 type GroupBuilder struct {
 	id                        string
 	idFlag                    bool
@@ -1263,14 +1210,11 @@ func (builder *GroupBuilder) Build() *Group {
 	return req
 }
 
-// builder结束
-
 type GroupEvent struct {
 	UserGroupId *string `json:"user_group_id,omitempty"`
 	Name        *string `json:"name,omitempty"`
 }
 
-// builder开始
 type GroupEventBuilder struct {
 	userGroupId     string
 	userGroupIdFlag bool
@@ -1307,14 +1251,11 @@ func (builder *GroupEventBuilder) Build() *GroupEvent {
 	return req
 }
 
-// builder结束
-
 type I18nContent struct {
 	Locale *string `json:"locale,omitempty"`
 	Value  *string `json:"value,omitempty"`
 }
 
-// builder开始
 type I18nContentBuilder struct {
 	locale     string
 	localeFlag bool
@@ -1351,14 +1292,11 @@ func (builder *I18nContentBuilder) Build() *I18nContent {
 	return req
 }
 
-// builder结束
-
 type MemberResult struct {
 	MemberId *string `json:"member_id,omitempty"`
 	Code     *int    `json:"code,omitempty"`
 }
 
-// builder开始
 type MemberResultBuilder struct {
 	memberId     string
 	memberIdFlag bool
@@ -1395,15 +1333,12 @@ func (builder *MemberResultBuilder) Build() *MemberResult {
 	return req
 }
 
-// builder结束
-
 type Memberlist struct {
 	MemberId     *string `json:"member_id,omitempty"`
 	MemberType   *string `json:"member_type,omitempty"`
 	MemberIdType *string `json:"member_id_type,omitempty"`
 }
 
-// builder开始
 type MemberlistBuilder struct {
 	memberId         string
 	memberIdFlag     bool
@@ -1451,14 +1386,11 @@ func (builder *MemberlistBuilder) Build() *Memberlist {
 	return req
 }
 
-// builder结束
-
 type NotificationOption struct {
 	Channels []string `json:"channels,omitempty"`
 	Language *string  `json:"language,omitempty"`
 }
 
-// builder开始
 type NotificationOptionBuilder struct {
 	channels     []string
 	channelsFlag bool
@@ -1494,14 +1426,11 @@ func (builder *NotificationOptionBuilder) Build() *NotificationOption {
 	return req
 }
 
-// builder结束
-
 type OldDepartmentObject struct {
 	Status           *DepartmentStatus `json:"status,omitempty"`
 	OpenDepartmentId *string           `json:"open_department_id,omitempty"`
 }
 
-// builder开始
 type OldDepartmentObjectBuilder struct {
 	status               *DepartmentStatus
 	statusFlag           bool
@@ -1537,14 +1466,11 @@ func (builder *OldDepartmentObjectBuilder) Build() *OldDepartmentObject {
 	return req
 }
 
-// builder结束
-
 type OldUserObject struct {
 	DepartmentIds []string `json:"department_ids,omitempty"`
 	OpenId        *string  `json:"open_id,omitempty"`
 }
 
-// builder开始
 type OldUserObjectBuilder struct {
 	departmentIds     []string
 	departmentIdsFlag bool
@@ -1580,14 +1506,11 @@ func (builder *OldUserObjectBuilder) Build() *OldUserObject {
 	return req
 }
 
-// builder结束
-
 type ResourceAcceptor struct {
 	ProcessingType *string `json:"processing_type,omitempty"`
 	AcceptorUserId *string `json:"acceptor_user_id,omitempty"`
 }
 
-// builder开始
 type ResourceAcceptorBuilder struct {
 	processingType     string
 	processingTypeFlag bool
@@ -1624,15 +1547,12 @@ func (builder *ResourceAcceptorBuilder) Build() *ResourceAcceptor {
 	return req
 }
 
-// builder结束
-
 type Scope struct {
 	Departments []*Department `json:"departments,omitempty"`
 	Users       []*User       `json:"users,omitempty"`
 	UserGroups  []*UserGroup  `json:"user_groups,omitempty"`
 }
 
-// builder开始
 type ScopeBuilder struct {
 	departments     []*Department
 	departmentsFlag bool
@@ -1677,8 +1597,6 @@ func (builder *ScopeBuilder) Build() *Scope {
 	return req
 }
 
-// builder结束
-
 type ShareDepartment struct {
 	OpenId   *string             `json:"open_id,omitempty"`
 	Name     *string             `json:"name,omitempty"`
@@ -1686,7 +1604,6 @@ type ShareDepartment struct {
 	Order    *string             `json:"order,omitempty"`
 }
 
-// builder开始
 type ShareDepartmentBuilder struct {
 	openId       string
 	openIdFlag   bool
@@ -1744,8 +1661,6 @@ func (builder *ShareDepartmentBuilder) Build() *ShareDepartment {
 	return req
 }
 
-// builder结束
-
 type ShareUser struct {
 	OpenId *string     `json:"open_id,omitempty"`
 	Name   *string     `json:"name,omitempty"`
@@ -1753,7 +1668,6 @@ type ShareUser struct {
 	Avatar *AvatarInfo `json:"avatar,omitempty"`
 }
 
-// builder开始
 type ShareUserBuilder struct {
 	openId     string
 	openIdFlag bool
@@ -1811,15 +1725,12 @@ func (builder *ShareUserBuilder) Build() *ShareUser {
 	return req
 }
 
-// builder结束
-
 type Unit struct {
 	UnitId   *string `json:"unit_id,omitempty"`
 	Name     *string `json:"name,omitempty"`
 	UnitType *string `json:"unit_type,omitempty"`
 }
 
-// builder开始
 type UnitBuilder struct {
 	unitId       string
 	unitIdFlag   bool
@@ -1867,14 +1778,11 @@ func (builder *UnitBuilder) Build() *Unit {
 	return req
 }
 
-// builder结束
-
 type UnitDepartment struct {
 	UnitId       *string `json:"unit_id,omitempty"`
 	DepartmentId *string `json:"department_id,omitempty"`
 }
 
-// builder开始
 type UnitDepartmentBuilder struct {
 	unitId           string
 	unitIdFlag       bool
@@ -1911,8 +1819,6 @@ func (builder *UnitDepartmentBuilder) Build() *UnitDepartment {
 	return req
 }
 
-// builder结束
-
 type User struct {
 	UnionId         *string     `json:"union_id,omitempty"`
 	UserId          *string     `json:"user_id,omitempty"`
@@ -1947,7 +1853,6 @@ type User struct {
 	EntEmailPassword *string `json:"ent_email_password,omitempty"`
 }
 
-// builder开始
 type UserBuilder struct {
 	unionId             string
 	unionIdFlag         bool
@@ -2274,15 +2179,12 @@ func (builder *UserBuilder) Build() *User {
 	return req
 }
 
-// builder结束
-
 type UserContactInfo struct {
 	UserId *string `json:"user_id,omitempty"`
 	Mobile *string `json:"mobile,omitempty"`
 	Email  *string `json:"email,omitempty"`
 }
 
-// builder开始
 type UserContactInfoBuilder struct {
 	userId     string
 	userIdFlag bool
@@ -2330,15 +2232,12 @@ func (builder *UserContactInfoBuilder) Build() *UserContactInfo {
 	return req
 }
 
-// builder结束
-
 type UserCustomAttr struct {
 	Type  *string              `json:"type,omitempty"`
 	Id    *string              `json:"id,omitempty"`
 	Value *UserCustomAttrValue `json:"value,omitempty"`
 }
 
-// builder开始
 type UserCustomAttrBuilder struct {
 	type_     string
 	typeFlag  bool
@@ -2385,8 +2284,6 @@ func (builder *UserCustomAttrBuilder) Build() *UserCustomAttr {
 	return req
 }
 
-// builder结束
-
 type UserCustomAttrValue struct {
 	Text        *string                `json:"text,omitempty"`
 	Url         *string                `json:"url,omitempty"`
@@ -2398,7 +2295,6 @@ type UserCustomAttrValue struct {
 	GenericUser *CustomAttrGenericUser `json:"generic_user,omitempty"`
 }
 
-// builder开始
 type UserCustomAttrValueBuilder struct {
 	text            string
 	textFlag        bool
@@ -2500,8 +2396,6 @@ func (builder *UserCustomAttrValueBuilder) Build() *UserCustomAttrValue {
 	return req
 }
 
-// builder结束
-
 type UserEvent struct {
 	OpenId          *string `json:"open_id,omitempty"`
 	UnionId         *string `json:"union_id,omitempty"`
@@ -2532,7 +2426,6 @@ type UserEvent struct {
 	CustomAttrs []*UserCustomAttr `json:"custom_attrs,omitempty"`
 }
 
-// builder开始
 type UserEventBuilder struct {
 	openId              string
 	openIdFlag          bool
@@ -2807,8 +2700,6 @@ func (builder *UserEventBuilder) Build() *UserEvent {
 	return req
 }
 
-// builder结束
-
 type UserGroup struct {
 	UserGroupId *string `json:"user_group_id,omitempty"`
 	Name        *string `json:"name,omitempty"`
@@ -2817,7 +2708,6 @@ type UserGroup struct {
 	Status      *int    `json:"status,omitempty"`
 }
 
-// builder开始
 type UserGroupBuilder struct {
 	userGroupId     string
 	userGroupIdFlag bool
@@ -2887,13 +2777,8 @@ func (builder *UserGroupBuilder) Build() *UserGroup {
 	return req
 }
 
-// builder结束
-
 type UserGroupMember struct {
 }
-
-// builder开始
-// builder结束
 
 type UserOrder struct {
 	DepartmentId    *string `json:"department_id,omitempty"`
@@ -2901,7 +2786,6 @@ type UserOrder struct {
 	DepartmentOrder *int    `json:"department_order,omitempty"`
 }
 
-// builder开始
 type UserOrderBuilder struct {
 	departmentId        string
 	departmentIdFlag    bool
@@ -2949,8 +2833,6 @@ func (builder *UserOrderBuilder) Build() *UserOrder {
 	return req
 }
 
-// builder结束
-
 type UserPosition struct {
 	PositionCode       *string `json:"position_code,omitempty"`
 	PositionName       *string `json:"position_name,omitempty"`
@@ -2960,7 +2842,6 @@ type UserPosition struct {
 	IsMajor            *bool   `json:"is_major,omitempty"`
 }
 
-// builder开始
 type UserPositionBuilder struct {
 	positionCode           string
 	positionCodeFlag       bool
@@ -3041,8 +2922,6 @@ func (builder *UserPositionBuilder) Build() *UserPosition {
 	return req
 }
 
-// builder结束
-
 type UserStatus struct {
 	IsFrozen    *bool `json:"is_frozen,omitempty"`
 	IsResigned  *bool `json:"is_resigned,omitempty"`
@@ -3051,7 +2930,6 @@ type UserStatus struct {
 	IsUnjoin    *bool `json:"is_unjoin,omitempty"`
 }
 
-// builder开始
 type UserStatusBuilder struct {
 	isFrozen        bool
 	isFrozenFlag    bool
@@ -3121,17 +2999,11 @@ func (builder *UserStatusBuilder) Build() *UserStatus {
 	return req
 }
 
-// builder结束
-
-// 生成请求和响应结果类型，以及请求对象的Builder构造器
-
-// 1.4 生成请求的builder结构体
 type ListCustomAttrReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	limit  int
 }
 
-// 生成请求的New构造器
 func NewListCustomAttrReqBuilder() *ListCustomAttrReqBuilder {
 	builder := &ListCustomAttrReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3141,7 +3013,6 @@ func NewListCustomAttrReqBuilder() *ListCustomAttrReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListCustomAttrReqBuilder) Limit(limit int) *ListCustomAttrReqBuilder {
 	builder.limit = limit
 	return builder
@@ -3155,7 +3026,6 @@ func (builder *ListCustomAttrReqBuilder) PageToken(pageToken string) *ListCustom
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListCustomAttrReqBuilder) Build() *ListCustomAttrReq {
 	req := &ListCustomAttrReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3185,13 +3055,11 @@ func (resp *ListCustomAttrResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type ChildrenDepartmentReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	limit  int
 }
 
-// 生成请求的New构造器
 func NewChildrenDepartmentReqBuilder() *ChildrenDepartmentReqBuilder {
 	builder := &ChildrenDepartmentReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3201,7 +3069,6 @@ func NewChildrenDepartmentReqBuilder() *ChildrenDepartmentReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ChildrenDepartmentReqBuilder) Limit(limit int) *ChildrenDepartmentReqBuilder {
 	builder.limit = limit
 	return builder
@@ -3231,7 +3098,6 @@ func (builder *ChildrenDepartmentReqBuilder) PageToken(pageToken string) *Childr
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ChildrenDepartmentReqBuilder) Build() *ChildrenDepartmentReq {
 	req := &ChildrenDepartmentReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3262,13 +3128,11 @@ func (resp *ChildrenDepartmentResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type CreateDepartmentReqBuilder struct {
 	apiReq     *larkcore.ApiReq
 	department *Department
 }
 
-// 生成请求的New构造器
 func NewCreateDepartmentReqBuilder() *CreateDepartmentReqBuilder {
 	builder := &CreateDepartmentReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3278,7 +3142,6 @@ func NewCreateDepartmentReqBuilder() *CreateDepartmentReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateDepartmentReqBuilder) UserIdType(userIdType string) *CreateDepartmentReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -3296,7 +3159,6 @@ func (builder *CreateDepartmentReqBuilder) Department(department *Department) *C
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateDepartmentReqBuilder) Build() *CreateDepartmentReq {
 	req := &CreateDepartmentReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3324,12 +3186,10 @@ func (resp *CreateDepartmentResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type DeleteDepartmentReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewDeleteDepartmentReqBuilder() *DeleteDepartmentReqBuilder {
 	builder := &DeleteDepartmentReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3339,7 +3199,6 @@ func NewDeleteDepartmentReqBuilder() *DeleteDepartmentReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *DeleteDepartmentReqBuilder) DepartmentId(departmentId string) *DeleteDepartmentReqBuilder {
 	builder.apiReq.PathParams.Set("department_id", fmt.Sprint(departmentId))
 	return builder
@@ -3349,7 +3208,6 @@ func (builder *DeleteDepartmentReqBuilder) DepartmentIdType(departmentIdType str
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *DeleteDepartmentReqBuilder) Build() *DeleteDepartmentReq {
 	req := &DeleteDepartmentReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3371,12 +3229,10 @@ func (resp *DeleteDepartmentResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type GetDepartmentReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewGetDepartmentReqBuilder() *GetDepartmentReqBuilder {
 	builder := &GetDepartmentReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3386,7 +3242,6 @@ func NewGetDepartmentReqBuilder() *GetDepartmentReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *GetDepartmentReqBuilder) DepartmentId(departmentId string) *GetDepartmentReqBuilder {
 	builder.apiReq.PathParams.Set("department_id", fmt.Sprint(departmentId))
 	return builder
@@ -3400,7 +3255,6 @@ func (builder *GetDepartmentReqBuilder) DepartmentIdType(departmentIdType string
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *GetDepartmentReqBuilder) Build() *GetDepartmentReq {
 	req := &GetDepartmentReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3427,13 +3281,11 @@ func (resp *GetDepartmentResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type ListDepartmentReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	limit  int
 }
 
-// 生成请求的New构造器
 func NewListDepartmentReqBuilder() *ListDepartmentReqBuilder {
 	builder := &ListDepartmentReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3443,7 +3295,6 @@ func NewListDepartmentReqBuilder() *ListDepartmentReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListDepartmentReqBuilder) Limit(limit int) *ListDepartmentReqBuilder {
 	builder.limit = limit
 	return builder
@@ -3473,7 +3324,6 @@ func (builder *ListDepartmentReqBuilder) PageSize(pageSize int) *ListDepartmentR
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListDepartmentReqBuilder) Build() *ListDepartmentReq {
 	req := &ListDepartmentReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3503,13 +3353,11 @@ func (resp *ListDepartmentResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type ParentDepartmentReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	limit  int
 }
 
-// 生成请求的New构造器
 func NewParentDepartmentReqBuilder() *ParentDepartmentReqBuilder {
 	builder := &ParentDepartmentReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3519,7 +3367,6 @@ func NewParentDepartmentReqBuilder() *ParentDepartmentReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ParentDepartmentReqBuilder) Limit(limit int) *ParentDepartmentReqBuilder {
 	builder.limit = limit
 	return builder
@@ -3545,7 +3392,6 @@ func (builder *ParentDepartmentReqBuilder) PageSize(pageSize int) *ParentDepartm
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ParentDepartmentReqBuilder) Build() *ParentDepartmentReq {
 	req := &ParentDepartmentReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3575,13 +3421,11 @@ func (resp *ParentDepartmentResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type PatchDepartmentReqBuilder struct {
 	apiReq     *larkcore.ApiReq
 	department *Department
 }
 
-// 生成请求的New构造器
 func NewPatchDepartmentReqBuilder() *PatchDepartmentReqBuilder {
 	builder := &PatchDepartmentReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3591,7 +3435,6 @@ func NewPatchDepartmentReqBuilder() *PatchDepartmentReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *PatchDepartmentReqBuilder) DepartmentId(departmentId string) *PatchDepartmentReqBuilder {
 	builder.apiReq.PathParams.Set("department_id", fmt.Sprint(departmentId))
 	return builder
@@ -3609,7 +3452,6 @@ func (builder *PatchDepartmentReqBuilder) Department(department *Department) *Pa
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *PatchDepartmentReqBuilder) Build() *PatchDepartmentReq {
 	req := &PatchDepartmentReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3643,20 +3485,17 @@ type SearchDepartmentReqBodyBuilder struct {
 	queryFlag bool
 }
 
-// 生成body的New构造器
 func NewSearchDepartmentReqBodyBuilder() *SearchDepartmentReqBodyBuilder {
 	builder := &SearchDepartmentReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *SearchDepartmentReqBodyBuilder) Query(query string) *SearchDepartmentReqBodyBuilder {
 	builder.query = query
 	builder.queryFlag = true
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *SearchDepartmentReqBodyBuilder) Build() *SearchDepartmentReqBody {
 	req := &SearchDepartmentReqBody{}
 	if builder.queryFlag {
@@ -3665,7 +3504,6 @@ func (builder *SearchDepartmentReqBodyBuilder) Build() *SearchDepartmentReqBody 
 	return req
 }
 
-// 上传文件path开始
 type SearchDepartmentPathReqBodyBuilder struct {
 	query     string
 	queryFlag bool
@@ -3689,16 +3527,12 @@ func (builder *SearchDepartmentPathReqBodyBuilder) Build() (*SearchDepartmentReq
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type SearchDepartmentReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *SearchDepartmentReqBody
 	limit  int
 }
 
-// 生成请求的New构造器
 func NewSearchDepartmentReqBuilder() *SearchDepartmentReqBuilder {
 	builder := &SearchDepartmentReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3708,7 +3542,6 @@ func NewSearchDepartmentReqBuilder() *SearchDepartmentReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *SearchDepartmentReqBuilder) Limit(limit int) *SearchDepartmentReqBuilder {
 	builder.limit = limit
 	return builder
@@ -3734,7 +3567,6 @@ func (builder *SearchDepartmentReqBuilder) Body(body *SearchDepartmentReqBody) *
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *SearchDepartmentReqBuilder) Build() *SearchDepartmentReq {
 	req := &SearchDepartmentReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3775,20 +3607,17 @@ type UnbindDepartmentChatDepartmentReqBodyBuilder struct {
 	departmentIdFlag bool
 }
 
-// 生成body的New构造器
 func NewUnbindDepartmentChatDepartmentReqBodyBuilder() *UnbindDepartmentChatDepartmentReqBodyBuilder {
 	builder := &UnbindDepartmentChatDepartmentReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *UnbindDepartmentChatDepartmentReqBodyBuilder) DepartmentId(departmentId string) *UnbindDepartmentChatDepartmentReqBodyBuilder {
 	builder.departmentId = departmentId
 	builder.departmentIdFlag = true
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *UnbindDepartmentChatDepartmentReqBodyBuilder) Build() *UnbindDepartmentChatDepartmentReqBody {
 	req := &UnbindDepartmentChatDepartmentReqBody{}
 	if builder.departmentIdFlag {
@@ -3797,7 +3626,6 @@ func (builder *UnbindDepartmentChatDepartmentReqBodyBuilder) Build() *UnbindDepa
 	return req
 }
 
-// 上传文件path开始
 type UnbindDepartmentChatDepartmentPathReqBodyBuilder struct {
 	departmentId     string
 	departmentIdFlag bool
@@ -3821,15 +3649,11 @@ func (builder *UnbindDepartmentChatDepartmentPathReqBodyBuilder) Build() (*Unbin
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type UnbindDepartmentChatDepartmentReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *UnbindDepartmentChatDepartmentReqBody
 }
 
-// 生成请求的New构造器
 func NewUnbindDepartmentChatDepartmentReqBuilder() *UnbindDepartmentChatDepartmentReqBuilder {
 	builder := &UnbindDepartmentChatDepartmentReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3839,7 +3663,6 @@ func NewUnbindDepartmentChatDepartmentReqBuilder() *UnbindDepartmentChatDepartme
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *UnbindDepartmentChatDepartmentReqBuilder) DepartmentIdType(departmentIdType string) *UnbindDepartmentChatDepartmentReqBuilder {
 	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
 	return builder
@@ -3849,7 +3672,6 @@ func (builder *UnbindDepartmentChatDepartmentReqBuilder) Body(body *UnbindDepart
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *UnbindDepartmentChatDepartmentReqBuilder) Build() *UnbindDepartmentChatDepartmentReq {
 	req := &UnbindDepartmentChatDepartmentReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3876,13 +3698,11 @@ func (resp *UnbindDepartmentChatDepartmentResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type UpdateDepartmentReqBuilder struct {
 	apiReq     *larkcore.ApiReq
 	department *Department
 }
 
-// 生成请求的New构造器
 func NewUpdateDepartmentReqBuilder() *UpdateDepartmentReqBuilder {
 	builder := &UpdateDepartmentReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3892,7 +3712,6 @@ func NewUpdateDepartmentReqBuilder() *UpdateDepartmentReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *UpdateDepartmentReqBuilder) DepartmentId(departmentId string) *UpdateDepartmentReqBuilder {
 	builder.apiReq.PathParams.Set("department_id", fmt.Sprint(departmentId))
 	return builder
@@ -3910,7 +3729,6 @@ func (builder *UpdateDepartmentReqBuilder) Department(department *Department) *U
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *UpdateDepartmentReqBuilder) Build() *UpdateDepartmentReq {
 	req := &UpdateDepartmentReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3939,13 +3757,11 @@ func (resp *UpdateDepartmentResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type CreateEmployeeTypeEnumReqBuilder struct {
 	apiReq           *larkcore.ApiReq
 	employeeTypeEnum *EmployeeTypeEnum
 }
 
-// 生成请求的New构造器
 func NewCreateEmployeeTypeEnumReqBuilder() *CreateEmployeeTypeEnumReqBuilder {
 	builder := &CreateEmployeeTypeEnumReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -3955,13 +3771,11 @@ func NewCreateEmployeeTypeEnumReqBuilder() *CreateEmployeeTypeEnumReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateEmployeeTypeEnumReqBuilder) EmployeeTypeEnum(employeeTypeEnum *EmployeeTypeEnum) *CreateEmployeeTypeEnumReqBuilder {
 	builder.employeeTypeEnum = employeeTypeEnum
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateEmployeeTypeEnumReqBuilder) Build() *CreateEmployeeTypeEnumReq {
 	req := &CreateEmployeeTypeEnumReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -3988,12 +3802,10 @@ func (resp *CreateEmployeeTypeEnumResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type DeleteEmployeeTypeEnumReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewDeleteEmployeeTypeEnumReqBuilder() *DeleteEmployeeTypeEnumReqBuilder {
 	builder := &DeleteEmployeeTypeEnumReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4003,13 +3815,11 @@ func NewDeleteEmployeeTypeEnumReqBuilder() *DeleteEmployeeTypeEnumReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *DeleteEmployeeTypeEnumReqBuilder) EnumId(enumId string) *DeleteEmployeeTypeEnumReqBuilder {
 	builder.apiReq.PathParams.Set("enum_id", fmt.Sprint(enumId))
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *DeleteEmployeeTypeEnumReqBuilder) Build() *DeleteEmployeeTypeEnumReq {
 	req := &DeleteEmployeeTypeEnumReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4030,13 +3840,11 @@ func (resp *DeleteEmployeeTypeEnumResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type ListEmployeeTypeEnumReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	limit  int
 }
 
-// 生成请求的New构造器
 func NewListEmployeeTypeEnumReqBuilder() *ListEmployeeTypeEnumReqBuilder {
 	builder := &ListEmployeeTypeEnumReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4046,7 +3854,6 @@ func NewListEmployeeTypeEnumReqBuilder() *ListEmployeeTypeEnumReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListEmployeeTypeEnumReqBuilder) Limit(limit int) *ListEmployeeTypeEnumReqBuilder {
 	builder.limit = limit
 	return builder
@@ -4060,7 +3867,6 @@ func (builder *ListEmployeeTypeEnumReqBuilder) PageSize(pageSize int) *ListEmplo
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListEmployeeTypeEnumReqBuilder) Build() *ListEmployeeTypeEnumReq {
 	req := &ListEmployeeTypeEnumReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4090,13 +3896,11 @@ func (resp *ListEmployeeTypeEnumResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type UpdateEmployeeTypeEnumReqBuilder struct {
 	apiReq           *larkcore.ApiReq
 	employeeTypeEnum *EmployeeTypeEnum
 }
 
-// 生成请求的New构造器
 func NewUpdateEmployeeTypeEnumReqBuilder() *UpdateEmployeeTypeEnumReqBuilder {
 	builder := &UpdateEmployeeTypeEnumReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4106,7 +3910,6 @@ func NewUpdateEmployeeTypeEnumReqBuilder() *UpdateEmployeeTypeEnumReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *UpdateEmployeeTypeEnumReqBuilder) EnumId(enumId string) *UpdateEmployeeTypeEnumReqBuilder {
 	builder.apiReq.PathParams.Set("enum_id", fmt.Sprint(enumId))
 	return builder
@@ -4116,7 +3919,6 @@ func (builder *UpdateEmployeeTypeEnumReqBuilder) EmployeeTypeEnum(employeeTypeEn
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *UpdateEmployeeTypeEnumReqBuilder) Build() *UpdateEmployeeTypeEnumReq {
 	req := &UpdateEmployeeTypeEnumReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4155,13 +3957,11 @@ type CreateGroupReqBodyBuilder struct {
 	typeFlag        bool
 }
 
-// 生成body的New构造器
 func NewCreateGroupReqBodyBuilder() *CreateGroupReqBodyBuilder {
 	builder := &CreateGroupReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *CreateGroupReqBodyBuilder) GroupId(groupId string) *CreateGroupReqBodyBuilder {
 	builder.groupId = groupId
 	builder.groupIdFlag = true
@@ -4183,7 +3983,6 @@ func (builder *CreateGroupReqBodyBuilder) Type(type_ int) *CreateGroupReqBodyBui
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *CreateGroupReqBodyBuilder) Build() *CreateGroupReqBody {
 	req := &CreateGroupReqBody{}
 	if builder.groupIdFlag {
@@ -4201,7 +4000,6 @@ func (builder *CreateGroupReqBodyBuilder) Build() *CreateGroupReqBody {
 	return req
 }
 
-// 上传文件path开始
 type CreateGroupPathReqBodyBuilder struct {
 	groupId         string
 	groupIdFlag     bool
@@ -4255,15 +4053,11 @@ func (builder *CreateGroupPathReqBodyBuilder) Build() (*CreateGroupReqBody, erro
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type CreateGroupReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *CreateGroupReqBody
 }
 
-// 生成请求的New构造器
 func NewCreateGroupReqBuilder() *CreateGroupReqBuilder {
 	builder := &CreateGroupReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4273,13 +4067,11 @@ func NewCreateGroupReqBuilder() *CreateGroupReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateGroupReqBuilder) Body(body *CreateGroupReqBody) *CreateGroupReqBuilder {
 	builder.body = body
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateGroupReqBuilder) Build() *CreateGroupReq {
 	req := &CreateGroupReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4313,12 +4105,10 @@ func (resp *CreateGroupResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type DeleteGroupReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewDeleteGroupReqBuilder() *DeleteGroupReqBuilder {
 	builder := &DeleteGroupReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4328,13 +4118,11 @@ func NewDeleteGroupReqBuilder() *DeleteGroupReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *DeleteGroupReqBuilder) GroupId(groupId string) *DeleteGroupReqBuilder {
 	builder.apiReq.PathParams.Set("group_id", fmt.Sprint(groupId))
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *DeleteGroupReqBuilder) Build() *DeleteGroupReq {
 	req := &DeleteGroupReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4355,12 +4143,10 @@ func (resp *DeleteGroupResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type GetGroupReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewGetGroupReqBuilder() *GetGroupReqBuilder {
 	builder := &GetGroupReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4370,13 +4156,11 @@ func NewGetGroupReqBuilder() *GetGroupReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *GetGroupReqBuilder) GroupId(groupId string) *GetGroupReqBuilder {
 	builder.apiReq.PathParams.Set("group_id", fmt.Sprint(groupId))
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *GetGroupReqBuilder) Build() *GetGroupReq {
 	req := &GetGroupReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4402,12 +4186,10 @@ func (resp *GetGroupResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type MemberBelongGroupReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewMemberBelongGroupReqBuilder() *MemberBelongGroupReqBuilder {
 	builder := &MemberBelongGroupReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4417,7 +4199,6 @@ func NewMemberBelongGroupReqBuilder() *MemberBelongGroupReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *MemberBelongGroupReqBuilder) MemberId(memberId string) *MemberBelongGroupReqBuilder {
 	builder.apiReq.QueryParams.Set("member_id", fmt.Sprint(memberId))
 	return builder
@@ -4439,7 +4220,6 @@ func (builder *MemberBelongGroupReqBuilder) PageToken(pageToken string) *MemberB
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *MemberBelongGroupReqBuilder) Build() *MemberBelongGroupReq {
 	req := &MemberBelongGroupReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4474,13 +4254,11 @@ type PatchGroupReqBodyBuilder struct {
 	descriptionFlag bool
 }
 
-// 生成body的New构造器
 func NewPatchGroupReqBodyBuilder() *PatchGroupReqBodyBuilder {
 	builder := &PatchGroupReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *PatchGroupReqBodyBuilder) Name(name string) *PatchGroupReqBodyBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -4492,7 +4270,6 @@ func (builder *PatchGroupReqBodyBuilder) Description(description string) *PatchG
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *PatchGroupReqBodyBuilder) Build() *PatchGroupReqBody {
 	req := &PatchGroupReqBody{}
 	if builder.nameFlag {
@@ -4504,7 +4281,6 @@ func (builder *PatchGroupReqBodyBuilder) Build() *PatchGroupReqBody {
 	return req
 }
 
-// 上传文件path开始
 type PatchGroupPathReqBodyBuilder struct {
 	name            string
 	nameFlag        bool
@@ -4538,15 +4314,11 @@ func (builder *PatchGroupPathReqBodyBuilder) Build() (*PatchGroupReqBody, error)
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type PatchGroupReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *PatchGroupReqBody
 }
 
-// 生成请求的New构造器
 func NewPatchGroupReqBuilder() *PatchGroupReqBuilder {
 	builder := &PatchGroupReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4556,7 +4328,6 @@ func NewPatchGroupReqBuilder() *PatchGroupReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *PatchGroupReqBuilder) GroupId(groupId string) *PatchGroupReqBuilder {
 	builder.apiReq.PathParams.Set("group_id", fmt.Sprint(groupId))
 	return builder
@@ -4566,7 +4337,6 @@ func (builder *PatchGroupReqBuilder) Body(body *PatchGroupReqBody) *PatchGroupRe
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *PatchGroupReqBuilder) Build() *PatchGroupReq {
 	req := &PatchGroupReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4594,13 +4364,11 @@ func (resp *PatchGroupResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type SimplelistGroupReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	limit  int
 }
 
-// 生成请求的New构造器
 func NewSimplelistGroupReqBuilder() *SimplelistGroupReqBuilder {
 	builder := &SimplelistGroupReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4610,7 +4378,6 @@ func NewSimplelistGroupReqBuilder() *SimplelistGroupReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *SimplelistGroupReqBuilder) Limit(limit int) *SimplelistGroupReqBuilder {
 	builder.limit = limit
 	return builder
@@ -4628,7 +4395,6 @@ func (builder *SimplelistGroupReqBuilder) Type(type_ int) *SimplelistGroupReqBui
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *SimplelistGroupReqBuilder) Build() *SimplelistGroupReq {
 	req := &SimplelistGroupReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4667,13 +4433,11 @@ type AddGroupMemberReqBodyBuilder struct {
 	memberIdFlag     bool
 }
 
-// 生成body的New构造器
 func NewAddGroupMemberReqBodyBuilder() *AddGroupMemberReqBodyBuilder {
 	builder := &AddGroupMemberReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *AddGroupMemberReqBodyBuilder) MemberType(memberType string) *AddGroupMemberReqBodyBuilder {
 	builder.memberType = memberType
 	builder.memberTypeFlag = true
@@ -4690,7 +4454,6 @@ func (builder *AddGroupMemberReqBodyBuilder) MemberId(memberId string) *AddGroup
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *AddGroupMemberReqBodyBuilder) Build() *AddGroupMemberReqBody {
 	req := &AddGroupMemberReqBody{}
 	if builder.memberTypeFlag {
@@ -4705,7 +4468,6 @@ func (builder *AddGroupMemberReqBodyBuilder) Build() *AddGroupMemberReqBody {
 	return req
 }
 
-// 上传文件path开始
 type AddGroupMemberPathReqBodyBuilder struct {
 	memberType       string
 	memberTypeFlag   bool
@@ -4749,15 +4511,11 @@ func (builder *AddGroupMemberPathReqBodyBuilder) Build() (*AddGroupMemberReqBody
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type AddGroupMemberReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *AddGroupMemberReqBody
 }
 
-// 生成请求的New构造器
 func NewAddGroupMemberReqBuilder() *AddGroupMemberReqBuilder {
 	builder := &AddGroupMemberReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4767,7 +4525,6 @@ func NewAddGroupMemberReqBuilder() *AddGroupMemberReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *AddGroupMemberReqBuilder) GroupId(groupId string) *AddGroupMemberReqBuilder {
 	builder.apiReq.PathParams.Set("group_id", fmt.Sprint(groupId))
 	return builder
@@ -4777,7 +4534,6 @@ func (builder *AddGroupMemberReqBuilder) Body(body *AddGroupMemberReqBody) *AddG
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *AddGroupMemberReqBuilder) Build() *AddGroupMemberReq {
 	req := &AddGroupMemberReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4811,20 +4567,17 @@ type BatchAddGroupMemberReqBodyBuilder struct {
 	membersFlag bool
 }
 
-// 生成body的New构造器
 func NewBatchAddGroupMemberReqBodyBuilder() *BatchAddGroupMemberReqBodyBuilder {
 	builder := &BatchAddGroupMemberReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *BatchAddGroupMemberReqBodyBuilder) Members(members []*Memberlist) *BatchAddGroupMemberReqBodyBuilder {
 	builder.members = members
 	builder.membersFlag = true
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *BatchAddGroupMemberReqBodyBuilder) Build() *BatchAddGroupMemberReqBody {
 	req := &BatchAddGroupMemberReqBody{}
 	if builder.membersFlag {
@@ -4833,7 +4586,6 @@ func (builder *BatchAddGroupMemberReqBodyBuilder) Build() *BatchAddGroupMemberRe
 	return req
 }
 
-// 上传文件path开始
 type BatchAddGroupMemberPathReqBodyBuilder struct {
 	members     []*Memberlist
 	membersFlag bool
@@ -4857,15 +4609,11 @@ func (builder *BatchAddGroupMemberPathReqBodyBuilder) Build() (*BatchAddGroupMem
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type BatchAddGroupMemberReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *BatchAddGroupMemberReqBody
 }
 
-// 生成请求的New构造器
 func NewBatchAddGroupMemberReqBuilder() *BatchAddGroupMemberReqBuilder {
 	builder := &BatchAddGroupMemberReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4875,7 +4623,6 @@ func NewBatchAddGroupMemberReqBuilder() *BatchAddGroupMemberReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *BatchAddGroupMemberReqBuilder) GroupId(groupId string) *BatchAddGroupMemberReqBuilder {
 	builder.apiReq.PathParams.Set("group_id", fmt.Sprint(groupId))
 	return builder
@@ -4885,7 +4632,6 @@ func (builder *BatchAddGroupMemberReqBuilder) Body(body *BatchAddGroupMemberReqB
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *BatchAddGroupMemberReqBuilder) Build() *BatchAddGroupMemberReq {
 	req := &BatchAddGroupMemberReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -4922,20 +4668,17 @@ type BatchRemoveGroupMemberReqBodyBuilder struct {
 	membersFlag bool
 }
 
-// 生成body的New构造器
 func NewBatchRemoveGroupMemberReqBodyBuilder() *BatchRemoveGroupMemberReqBodyBuilder {
 	builder := &BatchRemoveGroupMemberReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *BatchRemoveGroupMemberReqBodyBuilder) Members(members []*Memberlist) *BatchRemoveGroupMemberReqBodyBuilder {
 	builder.members = members
 	builder.membersFlag = true
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *BatchRemoveGroupMemberReqBodyBuilder) Build() *BatchRemoveGroupMemberReqBody {
 	req := &BatchRemoveGroupMemberReqBody{}
 	if builder.membersFlag {
@@ -4944,7 +4687,6 @@ func (builder *BatchRemoveGroupMemberReqBodyBuilder) Build() *BatchRemoveGroupMe
 	return req
 }
 
-// 上传文件path开始
 type BatchRemoveGroupMemberPathReqBodyBuilder struct {
 	members     []*Memberlist
 	membersFlag bool
@@ -4968,15 +4710,11 @@ func (builder *BatchRemoveGroupMemberPathReqBodyBuilder) Build() (*BatchRemoveGr
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type BatchRemoveGroupMemberReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *BatchRemoveGroupMemberReqBody
 }
 
-// 生成请求的New构造器
 func NewBatchRemoveGroupMemberReqBuilder() *BatchRemoveGroupMemberReqBuilder {
 	builder := &BatchRemoveGroupMemberReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -4986,7 +4724,6 @@ func NewBatchRemoveGroupMemberReqBuilder() *BatchRemoveGroupMemberReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *BatchRemoveGroupMemberReqBuilder) GroupId(groupId string) *BatchRemoveGroupMemberReqBuilder {
 	builder.apiReq.PathParams.Set("group_id", fmt.Sprint(groupId))
 	return builder
@@ -4996,7 +4733,6 @@ func (builder *BatchRemoveGroupMemberReqBuilder) Body(body *BatchRemoveGroupMemb
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *BatchRemoveGroupMemberReqBuilder) Build() *BatchRemoveGroupMemberReq {
 	req := &BatchRemoveGroupMemberReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -5032,13 +4768,11 @@ type RemoveGroupMemberReqBodyBuilder struct {
 	memberIdTypeFlag bool
 }
 
-// 生成body的New构造器
 func NewRemoveGroupMemberReqBodyBuilder() *RemoveGroupMemberReqBodyBuilder {
 	builder := &RemoveGroupMemberReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *RemoveGroupMemberReqBodyBuilder) MemberType(memberType string) *RemoveGroupMemberReqBodyBuilder {
 	builder.memberType = memberType
 	builder.memberTypeFlag = true
@@ -5055,7 +4789,6 @@ func (builder *RemoveGroupMemberReqBodyBuilder) MemberIdType(memberIdType string
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *RemoveGroupMemberReqBodyBuilder) Build() *RemoveGroupMemberReqBody {
 	req := &RemoveGroupMemberReqBody{}
 	if builder.memberTypeFlag {
@@ -5070,7 +4803,6 @@ func (builder *RemoveGroupMemberReqBodyBuilder) Build() *RemoveGroupMemberReqBod
 	return req
 }
 
-// 上传文件path开始
 type RemoveGroupMemberPathReqBodyBuilder struct {
 	memberType       string
 	memberTypeFlag   bool
@@ -5114,15 +4846,11 @@ func (builder *RemoveGroupMemberPathReqBodyBuilder) Build() (*RemoveGroupMemberR
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type RemoveGroupMemberReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *RemoveGroupMemberReqBody
 }
 
-// 生成请求的New构造器
 func NewRemoveGroupMemberReqBuilder() *RemoveGroupMemberReqBuilder {
 	builder := &RemoveGroupMemberReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -5132,7 +4860,6 @@ func NewRemoveGroupMemberReqBuilder() *RemoveGroupMemberReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *RemoveGroupMemberReqBuilder) GroupId(groupId string) *RemoveGroupMemberReqBuilder {
 	builder.apiReq.PathParams.Set("group_id", fmt.Sprint(groupId))
 	return builder
@@ -5142,7 +4869,6 @@ func (builder *RemoveGroupMemberReqBuilder) Body(body *RemoveGroupMemberReqBody)
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *RemoveGroupMemberReqBuilder) Build() *RemoveGroupMemberReq {
 	req := &RemoveGroupMemberReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -5171,12 +4897,10 @@ func (resp *RemoveGroupMemberResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type SimplelistGroupMemberReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewSimplelistGroupMemberReqBuilder() *SimplelistGroupMemberReqBuilder {
 	builder := &SimplelistGroupMemberReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -5186,7 +4910,6 @@ func NewSimplelistGroupMemberReqBuilder() *SimplelistGroupMemberReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *SimplelistGroupMemberReqBuilder) GroupId(groupId string) *SimplelistGroupMemberReqBuilder {
 	builder.apiReq.PathParams.Set("group_id", fmt.Sprint(groupId))
 	return builder
@@ -5208,7 +4931,6 @@ func (builder *SimplelistGroupMemberReqBuilder) MemberType(memberType string) *S
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *SimplelistGroupMemberReqBuilder) Build() *SimplelistGroupMemberReq {
 	req := &SimplelistGroupMemberReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -5237,12 +4959,10 @@ func (resp *SimplelistGroupMemberResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type ListScopeReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewListScopeReqBuilder() *ListScopeReqBuilder {
 	builder := &ListScopeReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -5252,7 +4972,6 @@ func NewListScopeReqBuilder() *ListScopeReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListScopeReqBuilder) UserIdType(userIdType string) *ListScopeReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -5270,7 +4989,6 @@ func (builder *ListScopeReqBuilder) PageSize(pageSize int) *ListScopeReqBuilder 
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListScopeReqBuilder) Build() *ListScopeReq {
 	req := &ListScopeReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -5309,13 +5027,11 @@ type BindDepartmentUnitReqBodyBuilder struct {
 	departmentIdTypeFlag bool
 }
 
-// 生成body的New构造器
 func NewBindDepartmentUnitReqBodyBuilder() *BindDepartmentUnitReqBodyBuilder {
 	builder := &BindDepartmentUnitReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *BindDepartmentUnitReqBodyBuilder) UnitId(unitId string) *BindDepartmentUnitReqBodyBuilder {
 	builder.unitId = unitId
 	builder.unitIdFlag = true
@@ -5332,7 +5048,6 @@ func (builder *BindDepartmentUnitReqBodyBuilder) DepartmentIdType(departmentIdTy
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *BindDepartmentUnitReqBodyBuilder) Build() *BindDepartmentUnitReqBody {
 	req := &BindDepartmentUnitReqBody{}
 	if builder.unitIdFlag {
@@ -5347,7 +5062,6 @@ func (builder *BindDepartmentUnitReqBodyBuilder) Build() *BindDepartmentUnitReqB
 	return req
 }
 
-// 上传文件path开始
 type BindDepartmentUnitPathReqBodyBuilder struct {
 	unitId               string
 	unitIdFlag           bool
@@ -5391,15 +5105,11 @@ func (builder *BindDepartmentUnitPathReqBodyBuilder) Build() (*BindDepartmentUni
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type BindDepartmentUnitReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *BindDepartmentUnitReqBody
 }
 
-// 生成请求的New构造器
 func NewBindDepartmentUnitReqBuilder() *BindDepartmentUnitReqBuilder {
 	builder := &BindDepartmentUnitReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -5409,13 +5119,11 @@ func NewBindDepartmentUnitReqBuilder() *BindDepartmentUnitReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *BindDepartmentUnitReqBuilder) Body(body *BindDepartmentUnitReqBody) *BindDepartmentUnitReqBuilder {
 	builder.body = body
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *BindDepartmentUnitReqBuilder) Build() *BindDepartmentUnitReq {
 	req := &BindDepartmentUnitReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -5452,13 +5160,11 @@ type CreateUnitReqBodyBuilder struct {
 	unitTypeFlag bool
 }
 
-// 生成body的New构造器
 func NewCreateUnitReqBodyBuilder() *CreateUnitReqBodyBuilder {
 	builder := &CreateUnitReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *CreateUnitReqBodyBuilder) UnitId(unitId string) *CreateUnitReqBodyBuilder {
 	builder.unitId = unitId
 	builder.unitIdFlag = true
@@ -5475,7 +5181,6 @@ func (builder *CreateUnitReqBodyBuilder) UnitType(unitType string) *CreateUnitRe
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *CreateUnitReqBodyBuilder) Build() *CreateUnitReqBody {
 	req := &CreateUnitReqBody{}
 	if builder.unitIdFlag {
@@ -5490,7 +5195,6 @@ func (builder *CreateUnitReqBodyBuilder) Build() *CreateUnitReqBody {
 	return req
 }
 
-// 上传文件path开始
 type CreateUnitPathReqBodyBuilder struct {
 	unitId       string
 	unitIdFlag   bool
@@ -5534,15 +5238,11 @@ func (builder *CreateUnitPathReqBodyBuilder) Build() (*CreateUnitReqBody, error)
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type CreateUnitReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *CreateUnitReqBody
 }
 
-// 生成请求的New构造器
 func NewCreateUnitReqBuilder() *CreateUnitReqBuilder {
 	builder := &CreateUnitReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -5552,13 +5252,11 @@ func NewCreateUnitReqBuilder() *CreateUnitReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateUnitReqBuilder) Body(body *CreateUnitReqBody) *CreateUnitReqBuilder {
 	builder.body = body
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateUnitReqBuilder) Build() *CreateUnitReq {
 	req := &CreateUnitReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -5591,12 +5289,10 @@ func (resp *CreateUnitResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type DeleteUnitReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewDeleteUnitReqBuilder() *DeleteUnitReqBuilder {
 	builder := &DeleteUnitReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -5606,13 +5302,11 @@ func NewDeleteUnitReqBuilder() *DeleteUnitReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *DeleteUnitReqBuilder) UnitId(unitId string) *DeleteUnitReqBuilder {
 	builder.apiReq.PathParams.Set("unit_id", fmt.Sprint(unitId))
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *DeleteUnitReqBuilder) Build() *DeleteUnitReq {
 	req := &DeleteUnitReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -5633,12 +5327,10 @@ func (resp *DeleteUnitResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type GetUnitReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewGetUnitReqBuilder() *GetUnitReqBuilder {
 	builder := &GetUnitReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -5648,13 +5340,11 @@ func NewGetUnitReqBuilder() *GetUnitReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *GetUnitReqBuilder) UnitId(unitId string) *GetUnitReqBuilder {
 	builder.apiReq.PathParams.Set("unit_id", fmt.Sprint(unitId))
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *GetUnitReqBuilder) Build() *GetUnitReq {
 	req := &GetUnitReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -5680,12 +5370,10 @@ func (resp *GetUnitResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type ListUnitReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewListUnitReqBuilder() *ListUnitReqBuilder {
 	builder := &ListUnitReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -5695,7 +5383,6 @@ func NewListUnitReqBuilder() *ListUnitReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListUnitReqBuilder) PageSize(pageSize int) *ListUnitReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
@@ -5705,7 +5392,6 @@ func (builder *ListUnitReqBuilder) PageToken(pageToken string) *ListUnitReqBuild
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListUnitReqBuilder) Build() *ListUnitReq {
 	req := &ListUnitReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -5733,12 +5419,10 @@ func (resp *ListUnitResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type ListDepartmentUnitReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewListDepartmentUnitReqBuilder() *ListDepartmentUnitReqBuilder {
 	builder := &ListDepartmentUnitReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -5748,7 +5432,6 @@ func NewListDepartmentUnitReqBuilder() *ListDepartmentUnitReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListDepartmentUnitReqBuilder) UnitId(unitId string) *ListDepartmentUnitReqBuilder {
 	builder.apiReq.QueryParams.Set("unit_id", fmt.Sprint(unitId))
 	return builder
@@ -5766,7 +5449,6 @@ func (builder *ListDepartmentUnitReqBuilder) PageSize(pageSize int) *ListDepartm
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListDepartmentUnitReqBuilder) Build() *ListDepartmentUnitReq {
 	req := &ListDepartmentUnitReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -5799,20 +5481,17 @@ type PatchUnitReqBodyBuilder struct {
 	nameFlag bool
 }
 
-// 生成body的New构造器
 func NewPatchUnitReqBodyBuilder() *PatchUnitReqBodyBuilder {
 	builder := &PatchUnitReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *PatchUnitReqBodyBuilder) Name(name string) *PatchUnitReqBodyBuilder {
 	builder.name = name
 	builder.nameFlag = true
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *PatchUnitReqBodyBuilder) Build() *PatchUnitReqBody {
 	req := &PatchUnitReqBody{}
 	if builder.nameFlag {
@@ -5821,7 +5500,6 @@ func (builder *PatchUnitReqBodyBuilder) Build() *PatchUnitReqBody {
 	return req
 }
 
-// 上传文件path开始
 type PatchUnitPathReqBodyBuilder struct {
 	name     string
 	nameFlag bool
@@ -5845,15 +5523,11 @@ func (builder *PatchUnitPathReqBodyBuilder) Build() (*PatchUnitReqBody, error) {
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type PatchUnitReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *PatchUnitReqBody
 }
 
-// 生成请求的New构造器
 func NewPatchUnitReqBuilder() *PatchUnitReqBuilder {
 	builder := &PatchUnitReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -5863,7 +5537,6 @@ func NewPatchUnitReqBuilder() *PatchUnitReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *PatchUnitReqBuilder) UnitId(unitId string) *PatchUnitReqBuilder {
 	builder.apiReq.PathParams.Set("unit_id", fmt.Sprint(unitId))
 	return builder
@@ -5873,7 +5546,6 @@ func (builder *PatchUnitReqBuilder) Body(body *PatchUnitReqBody) *PatchUnitReqBu
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *PatchUnitReqBuilder) Build() *PatchUnitReq {
 	req := &PatchUnitReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -5909,13 +5581,11 @@ type UnbindDepartmentUnitReqBodyBuilder struct {
 	departmentIdTypeFlag bool
 }
 
-// 生成body的New构造器
 func NewUnbindDepartmentUnitReqBodyBuilder() *UnbindDepartmentUnitReqBodyBuilder {
 	builder := &UnbindDepartmentUnitReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *UnbindDepartmentUnitReqBodyBuilder) UnitId(unitId string) *UnbindDepartmentUnitReqBodyBuilder {
 	builder.unitId = unitId
 	builder.unitIdFlag = true
@@ -5932,7 +5602,6 @@ func (builder *UnbindDepartmentUnitReqBodyBuilder) DepartmentIdType(departmentId
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *UnbindDepartmentUnitReqBodyBuilder) Build() *UnbindDepartmentUnitReqBody {
 	req := &UnbindDepartmentUnitReqBody{}
 	if builder.unitIdFlag {
@@ -5947,7 +5616,6 @@ func (builder *UnbindDepartmentUnitReqBodyBuilder) Build() *UnbindDepartmentUnit
 	return req
 }
 
-// 上传文件path开始
 type UnbindDepartmentUnitPathReqBodyBuilder struct {
 	unitId               string
 	unitIdFlag           bool
@@ -5991,15 +5659,11 @@ func (builder *UnbindDepartmentUnitPathReqBodyBuilder) Build() (*UnbindDepartmen
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type UnbindDepartmentUnitReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *UnbindDepartmentUnitReqBody
 }
 
-// 生成请求的New构造器
 func NewUnbindDepartmentUnitReqBuilder() *UnbindDepartmentUnitReqBuilder {
 	builder := &UnbindDepartmentUnitReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -6009,13 +5673,11 @@ func NewUnbindDepartmentUnitReqBuilder() *UnbindDepartmentUnitReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *UnbindDepartmentUnitReqBuilder) Body(body *UnbindDepartmentUnitReqBody) *UnbindDepartmentUnitReqBuilder {
 	builder.body = body
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *UnbindDepartmentUnitReqBuilder) Build() *UnbindDepartmentUnitReq {
 	req := &UnbindDepartmentUnitReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -6050,13 +5712,11 @@ type BatchGetIdUserReqBodyBuilder struct {
 	mobilesFlag bool
 }
 
-// 生成body的New构造器
 func NewBatchGetIdUserReqBodyBuilder() *BatchGetIdUserReqBodyBuilder {
 	builder := &BatchGetIdUserReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *BatchGetIdUserReqBodyBuilder) Emails(emails []string) *BatchGetIdUserReqBodyBuilder {
 	builder.emails = emails
 	builder.emailsFlag = true
@@ -6068,7 +5728,6 @@ func (builder *BatchGetIdUserReqBodyBuilder) Mobiles(mobiles []string) *BatchGet
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *BatchGetIdUserReqBodyBuilder) Build() *BatchGetIdUserReqBody {
 	req := &BatchGetIdUserReqBody{}
 	if builder.emailsFlag {
@@ -6080,7 +5739,6 @@ func (builder *BatchGetIdUserReqBodyBuilder) Build() *BatchGetIdUserReqBody {
 	return req
 }
 
-// 上传文件path开始
 type BatchGetIdUserPathReqBodyBuilder struct {
 	emails      []string
 	emailsFlag  bool
@@ -6114,15 +5772,11 @@ func (builder *BatchGetIdUserPathReqBodyBuilder) Build() (*BatchGetIdUserReqBody
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type BatchGetIdUserReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *BatchGetIdUserReqBody
 }
 
-// 生成请求的New构造器
 func NewBatchGetIdUserReqBuilder() *BatchGetIdUserReqBuilder {
 	builder := &BatchGetIdUserReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -6132,7 +5786,6 @@ func NewBatchGetIdUserReqBuilder() *BatchGetIdUserReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *BatchGetIdUserReqBuilder) UserIdType(userIdType string) *BatchGetIdUserReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -6142,7 +5795,6 @@ func (builder *BatchGetIdUserReqBuilder) Body(body *BatchGetIdUserReqBody) *Batc
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *BatchGetIdUserReqBuilder) Build() *BatchGetIdUserReq {
 	req := &BatchGetIdUserReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -6175,13 +5827,11 @@ func (resp *BatchGetIdUserResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type CreateUserReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	user   *User
 }
 
-// 生成请求的New构造器
 func NewCreateUserReqBuilder() *CreateUserReqBuilder {
 	builder := &CreateUserReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -6191,7 +5841,6 @@ func NewCreateUserReqBuilder() *CreateUserReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateUserReqBuilder) UserIdType(userIdType string) *CreateUserReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -6209,7 +5858,6 @@ func (builder *CreateUserReqBuilder) User(user *User) *CreateUserReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateUserReqBuilder) Build() *CreateUserReq {
 	req := &CreateUserReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -6258,13 +5906,11 @@ type DeleteUserReqBodyBuilder struct {
 	emailAcceptorFlag                bool
 }
 
-// 生成body的New构造器
 func NewDeleteUserReqBodyBuilder() *DeleteUserReqBodyBuilder {
 	builder := &DeleteUserReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *DeleteUserReqBodyBuilder) DepartmentChatAcceptorUserId(departmentChatAcceptorUserId string) *DeleteUserReqBodyBuilder {
 	builder.departmentChatAcceptorUserId = departmentChatAcceptorUserId
 	builder.departmentChatAcceptorUserIdFlag = true
@@ -6311,7 +5957,6 @@ func (builder *DeleteUserReqBodyBuilder) EmailAcceptor(emailAcceptor *ResourceAc
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *DeleteUserReqBodyBuilder) Build() *DeleteUserReqBody {
 	req := &DeleteUserReqBody{}
 	if builder.departmentChatAcceptorUserIdFlag {
@@ -6344,7 +5989,6 @@ func (builder *DeleteUserReqBodyBuilder) Build() *DeleteUserReqBody {
 	return req
 }
 
-// 上传文件path开始
 type DeleteUserPathReqBodyBuilder struct {
 	departmentChatAcceptorUserId     string
 	departmentChatAcceptorUserIdFlag bool
@@ -6448,15 +6092,11 @@ func (builder *DeleteUserPathReqBodyBuilder) Build() (*DeleteUserReqBody, error)
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type DeleteUserReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *DeleteUserReqBody
 }
 
-// 生成请求的New构造器
 func NewDeleteUserReqBuilder() *DeleteUserReqBuilder {
 	builder := &DeleteUserReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -6466,7 +6106,6 @@ func NewDeleteUserReqBuilder() *DeleteUserReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *DeleteUserReqBuilder) UserId(userId string) *DeleteUserReqBuilder {
 	builder.apiReq.PathParams.Set("user_id", fmt.Sprint(userId))
 	return builder
@@ -6480,7 +6119,6 @@ func (builder *DeleteUserReqBuilder) Body(body *DeleteUserReqBody) *DeleteUserRe
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *DeleteUserReqBuilder) Build() *DeleteUserReq {
 	req := &DeleteUserReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -6516,13 +6154,11 @@ func (resp *DeleteUserResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type FindByDepartmentUserReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	limit  int
 }
 
-// 生成请求的New构造器
 func NewFindByDepartmentUserReqBuilder() *FindByDepartmentUserReqBuilder {
 	builder := &FindByDepartmentUserReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -6532,7 +6168,6 @@ func NewFindByDepartmentUserReqBuilder() *FindByDepartmentUserReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *FindByDepartmentUserReqBuilder) Limit(limit int) *FindByDepartmentUserReqBuilder {
 	builder.limit = limit
 	return builder
@@ -6558,7 +6193,6 @@ func (builder *FindByDepartmentUserReqBuilder) PageToken(pageToken string) *Find
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *FindByDepartmentUserReqBuilder) Build() *FindByDepartmentUserReq {
 	req := &FindByDepartmentUserReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -6588,12 +6222,10 @@ func (resp *FindByDepartmentUserResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type GetUserReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewGetUserReqBuilder() *GetUserReqBuilder {
 	builder := &GetUserReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -6603,7 +6235,6 @@ func NewGetUserReqBuilder() *GetUserReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *GetUserReqBuilder) UserId(userId string) *GetUserReqBuilder {
 	builder.apiReq.PathParams.Set("user_id", fmt.Sprint(userId))
 	return builder
@@ -6617,7 +6248,6 @@ func (builder *GetUserReqBuilder) DepartmentIdType(departmentIdType string) *Get
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *GetUserReqBuilder) Build() *GetUserReq {
 	req := &GetUserReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -6644,13 +6274,11 @@ func (resp *GetUserResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type ListUserReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	limit  int
 }
 
-// 生成请求的New构造器
 func NewListUserReqBuilder() *ListUserReqBuilder {
 	builder := &ListUserReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -6660,7 +6288,6 @@ func NewListUserReqBuilder() *ListUserReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListUserReqBuilder) Limit(limit int) *ListUserReqBuilder {
 	builder.limit = limit
 	return builder
@@ -6686,7 +6313,6 @@ func (builder *ListUserReqBuilder) PageSize(pageSize int) *ListUserReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListUserReqBuilder) Build() *ListUserReq {
 	req := &ListUserReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -6716,13 +6342,11 @@ func (resp *ListUserResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type PatchUserReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	user   *User
 }
 
-// 生成请求的New构造器
 func NewPatchUserReqBuilder() *PatchUserReqBuilder {
 	builder := &PatchUserReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -6732,7 +6356,6 @@ func NewPatchUserReqBuilder() *PatchUserReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *PatchUserReqBuilder) UserId(userId string) *PatchUserReqBuilder {
 	builder.apiReq.PathParams.Set("user_id", fmt.Sprint(userId))
 	return builder
@@ -6750,7 +6373,6 @@ func (builder *PatchUserReqBuilder) User(user *User) *PatchUserReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *PatchUserReqBuilder) Build() *PatchUserReq {
 	req := &PatchUserReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -6779,13 +6401,11 @@ func (resp *PatchUserResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type UpdateUserReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	user   *User
 }
 
-// 生成请求的New构造器
 func NewUpdateUserReqBuilder() *UpdateUserReqBuilder {
 	builder := &UpdateUserReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -6795,7 +6415,6 @@ func NewUpdateUserReqBuilder() *UpdateUserReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *UpdateUserReqBuilder) UserId(userId string) *UpdateUserReqBuilder {
 	builder.apiReq.PathParams.Set("user_id", fmt.Sprint(userId))
 	return builder
@@ -6813,7 +6432,6 @@ func (builder *UpdateUserReqBuilder) User(user *User) *UpdateUserReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *UpdateUserReqBuilder) Build() *UpdateUserReq {
 	req := &UpdateUserReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -6841,8 +6459,6 @@ type UpdateUserResp struct {
 func (resp *UpdateUserResp) Success() bool {
 	return resp.Code == 0
 }
-
-// 生成消息事件结构体
 
 type P2CustomAttrEventUpdatedV3Data struct {
 	Object    *CustomAttrEvent `json:"object,omitempty"`
@@ -7035,8 +6651,6 @@ func (m *P2UserUpdatedV3) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
 }
 
-// 生成请求的builder构造器
-// 1.1 生成body的builder结构体
 type ListCustomAttrIterator struct {
 	nextPageToken *string
 	items         []*CustomAttr

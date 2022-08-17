@@ -26,8 +26,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
-// 生成枚举值
-
 const (
 	ViewBasic = "basic"
 	ViewFull  = "full"
@@ -39,8 +37,6 @@ const (
 	UserIdTypeOpenId  = "open_id"
 )
 
-// 生成数据类型
-
 type Attachment struct {
 	Id       *string `json:"id,omitempty"`
 	MimeType *string `json:"mime_type,omitempty"`
@@ -48,7 +44,6 @@ type Attachment struct {
 	Size     *int64  `json:"size,omitempty"`
 }
 
-// builder开始
 type AttachmentBuilder struct {
 	id           string
 	idFlag       bool
@@ -107,14 +102,11 @@ func (builder *AttachmentBuilder) Build() *Attachment {
 	return req
 }
 
-// builder结束
-
 type ContractCompany struct {
 	Id   *int64  `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
 }
 
-// builder开始
 type ContractCompanyBuilder struct {
 	id       int64
 	idFlag   bool
@@ -151,8 +143,6 @@ func (builder *ContractCompanyBuilder) Build() *ContractCompany {
 	return req
 }
 
-// builder结束
-
 type CustomFields struct {
 	Key   *string `json:"key,omitempty"`
 	Label *string `json:"label,omitempty"`
@@ -160,7 +150,6 @@ type CustomFields struct {
 	Value *string `json:"value,omitempty"`
 }
 
-// builder开始
 type CustomFieldsBuilder struct {
 	key       string
 	keyFlag   bool
@@ -219,8 +208,6 @@ func (builder *CustomFieldsBuilder) Build() *CustomFields {
 	return req
 }
 
-// builder结束
-
 type Education struct {
 	Level  *int    `json:"level,omitempty"`
 	School *string `json:"school,omitempty"`
@@ -230,7 +217,6 @@ type Education struct {
 	End    *string `json:"end,omitempty"`
 }
 
-// builder开始
 type EducationBuilder struct {
 	level      int
 	levelFlag  bool
@@ -311,15 +297,12 @@ func (builder *EducationBuilder) Build() *Education {
 	return req
 }
 
-// builder结束
-
 type EmergencyContact struct {
 	Name         *string `json:"name,omitempty"`
 	Relationship *int    `json:"relationship,omitempty"`
 	Mobile       *string `json:"mobile,omitempty"`
 }
 
-// builder开始
 type EmergencyContactBuilder struct {
 	name             string
 	nameFlag         bool
@@ -367,15 +350,12 @@ func (builder *EmergencyContactBuilder) Build() *EmergencyContact {
 	return req
 }
 
-// builder结束
-
 type Employee struct {
 	UserId       *string         `json:"user_id,omitempty"`
 	SystemFields *SystemFields   `json:"system_fields,omitempty"`
 	CustomFields []*CustomFields `json:"custom_fields,omitempty"`
 }
 
-// builder开始
 type EmployeeBuilder struct {
 	userId           string
 	userIdFlag       bool
@@ -421,14 +401,11 @@ func (builder *EmployeeBuilder) Build() *Employee {
 	return req
 }
 
-// builder结束
-
 type Job struct {
 	Id   *int64  `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
 }
 
-// builder开始
 type JobBuilder struct {
 	id       int64
 	idFlag   bool
@@ -465,14 +442,11 @@ func (builder *JobBuilder) Build() *Job {
 	return req
 }
 
-// builder结束
-
 type JobLevel struct {
 	Id   *int64  `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
 }
 
-// builder开始
 type JobLevelBuilder struct {
 	id       int64
 	idFlag   bool
@@ -509,15 +483,12 @@ func (builder *JobLevelBuilder) Build() *JobLevel {
 	return req
 }
 
-// builder结束
-
 type Manager struct {
 	UserId *string `json:"user_id,omitempty"`
 	Name   *string `json:"name,omitempty"`
 	EnName *string `json:"en_name,omitempty"`
 }
 
-// builder开始
 type ManagerBuilder struct {
 	userId     string
 	userIdFlag bool
@@ -565,14 +536,11 @@ func (builder *ManagerBuilder) Build() *Manager {
 	return req
 }
 
-// builder结束
-
 type NativeRegion struct {
 	IsoCode *string `json:"iso_code,omitempty"`
 	Name    *string `json:"name,omitempty"`
 }
 
-// builder开始
 type NativeRegionBuilder struct {
 	isoCode     string
 	isoCodeFlag bool
@@ -608,8 +576,6 @@ func (builder *NativeRegionBuilder) Build() *NativeRegion {
 	}
 	return req
 }
-
-// builder结束
 
 type SystemFields struct {
 	Name                    *string             `json:"name,omitempty"`
@@ -675,7 +641,6 @@ type SystemFields struct {
 	UpdateTime              *int64              `json:"update_time,omitempty"`
 }
 
-// builder开始
 type SystemFieldsBuilder struct {
 	name                        string
 	nameFlag                    bool
@@ -1342,8 +1307,6 @@ func (builder *SystemFieldsBuilder) Build() *SystemFields {
 	return req
 }
 
-// builder结束
-
 type WorkExperience struct {
 	Company     *string `json:"company,omitempty"`
 	Department  *string `json:"department,omitempty"`
@@ -1353,7 +1316,6 @@ type WorkExperience struct {
 	Description *string `json:"description,omitempty"`
 }
 
-// builder开始
 type WorkExperienceBuilder struct {
 	company         string
 	companyFlag     bool
@@ -1434,14 +1396,11 @@ func (builder *WorkExperienceBuilder) Build() *WorkExperience {
 	return req
 }
 
-// builder结束
-
 type WorkLocation struct {
 	Id   *int64  `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
 }
 
-// builder开始
 type WorkLocationBuilder struct {
 	id       int64
 	idFlag   bool
@@ -1478,16 +1437,10 @@ func (builder *WorkLocationBuilder) Build() *WorkLocation {
 	return req
 }
 
-// builder结束
-
-// 生成请求和响应结果类型，以及请求对象的Builder构造器
-
-// 1.4 生成请求的builder结构体
 type GetAttachmentReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewGetAttachmentReqBuilder() *GetAttachmentReqBuilder {
 	builder := &GetAttachmentReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -1497,13 +1450,11 @@ func NewGetAttachmentReqBuilder() *GetAttachmentReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *GetAttachmentReqBuilder) Token(token string) *GetAttachmentReqBuilder {
 	builder.apiReq.PathParams.Set("token", fmt.Sprint(token))
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *GetAttachmentReqBuilder) Build() *GetAttachmentReq {
 	req := &GetAttachmentReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -1526,7 +1477,6 @@ func (resp *GetAttachmentResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 下载api,生成WriteFile方法
 func (resp *GetAttachmentResp) WriteFile(fileName string) error {
 	bs, err := ioutil.ReadAll(resp.File)
 	if err != nil {
@@ -1540,13 +1490,11 @@ func (resp *GetAttachmentResp) WriteFile(fileName string) error {
 	return nil
 }
 
-// 1.4 生成请求的builder结构体
 type ListEmployeeReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	limit  int
 }
 
-// 生成请求的New构造器
 func NewListEmployeeReqBuilder() *ListEmployeeReqBuilder {
 	builder := &ListEmployeeReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -1556,7 +1504,6 @@ func NewListEmployeeReqBuilder() *ListEmployeeReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListEmployeeReqBuilder) Limit(limit int) *ListEmployeeReqBuilder {
 	builder.limit = limit
 	return builder
@@ -1598,7 +1545,6 @@ func (builder *ListEmployeeReqBuilder) PageSize(pageSize int) *ListEmployeeReqBu
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListEmployeeReqBuilder) Build() *ListEmployeeReq {
 	req := &ListEmployeeReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -1628,10 +1574,6 @@ func (resp *ListEmployeeResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 生成消息事件结构体
-
-// 生成请求的builder构造器
-// 1.1 生成body的builder结构体
 type ListEmployeeIterator struct {
 	nextPageToken *string
 	items         []*Employee

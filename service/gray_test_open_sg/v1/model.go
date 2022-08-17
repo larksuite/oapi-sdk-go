@@ -22,17 +22,12 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
-// 生成枚举值
-
-// 生成数据类型
-
 type Level struct {
 	Level *string `json:"level,omitempty"`
 	Body  *string `json:"body,omitempty"`
 	Type  *string `json:"type,omitempty"`
 }
 
-// builder开始
 type LevelBuilder struct {
 	level     string
 	levelFlag bool
@@ -80,8 +75,6 @@ func (builder *LevelBuilder) Build() *Level {
 	return req
 }
 
-// builder结束
-
 type Moto struct {
 	MotoId   *string `json:"moto_id,omitempty"`
 	Id       *string `json:"id,omitempty"`
@@ -89,7 +82,6 @@ type Moto struct {
 	Type     *string `json:"type,omitempty"`
 }
 
-// builder开始
 type MotoBuilder struct {
 	motoId       string
 	motoIdFlag   bool
@@ -148,17 +140,11 @@ func (builder *MotoBuilder) Build() *Moto {
 	return req
 }
 
-// builder结束
-
-// 生成请求和响应结果类型，以及请求对象的Builder构造器
-
-// 1.4 生成请求的builder结构体
 type CreateMotoReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	level  *Level
 }
 
-// 生成请求的New构造器
 func NewCreateMotoReqBuilder() *CreateMotoReqBuilder {
 	builder := &CreateMotoReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -168,7 +154,6 @@ func NewCreateMotoReqBuilder() *CreateMotoReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateMotoReqBuilder) DepartmentIdType(departmentIdType string) *CreateMotoReqBuilder {
 	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
 	return builder
@@ -178,7 +163,6 @@ func (builder *CreateMotoReqBuilder) Level(level *Level) *CreateMotoReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateMotoReqBuilder) Build() *CreateMotoReq {
 	req := &CreateMotoReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -206,12 +190,10 @@ func (resp *CreateMotoResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type GetMotoReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewGetMotoReqBuilder() *GetMotoReqBuilder {
 	builder := &GetMotoReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -221,7 +203,6 @@ func NewGetMotoReqBuilder() *GetMotoReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *GetMotoReqBuilder) MotoId(motoId string) *GetMotoReqBuilder {
 	builder.apiReq.PathParams.Set("moto_id", fmt.Sprint(motoId))
 	return builder
@@ -231,7 +212,6 @@ func (builder *GetMotoReqBuilder) BodyLevel(bodyLevel string) *GetMotoReqBuilder
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *GetMotoReqBuilder) Build() *GetMotoReq {
 	req := &GetMotoReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -258,13 +238,11 @@ func (resp *GetMotoResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type ListMotoReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	limit  int
 }
 
-// 生成请求的New构造器
 func NewListMotoReqBuilder() *ListMotoReqBuilder {
 	builder := &ListMotoReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -274,7 +252,6 @@ func NewListMotoReqBuilder() *ListMotoReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListMotoReqBuilder) Limit(limit int) *ListMotoReqBuilder {
 	builder.limit = limit
 	return builder
@@ -292,7 +269,6 @@ func (builder *ListMotoReqBuilder) Level(level int) *ListMotoReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListMotoReqBuilder) Build() *ListMotoReq {
 	req := &ListMotoReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -322,10 +298,6 @@ func (resp *ListMotoResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 生成消息事件结构体
-
-// 生成请求的builder构造器
-// 1.1 生成body的builder结构体
 type ListMotoIterator struct {
 	nextPageToken *string
 	items         []string

@@ -24,8 +24,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
-// 生成枚举值
-
 const (
 	DepartmentIdTypeDepartmentId     = "department_id"
 	DepartmentIdTypeOpenDepartmentId = "open_department_id"
@@ -103,8 +101,6 @@ const (
 	TaskStatusPROCESSED   = "PROCESSED"
 )
 
-// 生成数据类型
-
 type ActionConfig struct {
 	ActionType       *string `json:"action_type,omitempty"`
 	ActionName       *string `json:"action_name,omitempty"`
@@ -113,7 +109,6 @@ type ActionConfig struct {
 	IsNeedAttachment *bool   `json:"is_need_attachment,omitempty"`
 }
 
-// builder开始
 type ActionConfigBuilder struct {
 	actionType           string
 	actionTypeFlag       bool
@@ -183,14 +178,11 @@ func (builder *ActionConfigBuilder) Build() *ActionConfig {
 	return req
 }
 
-// builder结束
-
 type Approval struct {
 	ApprovalCode *string `json:"approval_code,omitempty"`
 	ApprovalName *string `json:"approval_name,omitempty"`
 }
 
-// builder开始
 type ApprovalBuilder struct {
 	approvalCode     string
 	approvalCodeFlag bool
@@ -227,15 +219,12 @@ func (builder *ApprovalBuilder) Build() *Approval {
 	return req
 }
 
-// builder结束
-
 type ApprovalApproverCcer struct {
 	Type   *string `json:"type,omitempty"`
 	UserId *string `json:"user_id,omitempty"`
 	Level  *string `json:"level,omitempty"`
 }
 
-// builder开始
 type ApprovalApproverCcerBuilder struct {
 	type_      string
 	typeFlag   bool
@@ -283,8 +272,6 @@ func (builder *ApprovalApproverCcerBuilder) Build() *ApprovalApproverCcer {
 	return req
 }
 
-// builder结束
-
 type ApprovalConfig struct {
 	CanUpdateViewer  *bool   `json:"can_update_viewer,omitempty"`
 	CanUpdateForm    *bool   `json:"can_update_form,omitempty"`
@@ -293,7 +280,6 @@ type ApprovalConfig struct {
 	HelpUrl          *string `json:"help_url,omitempty"`
 }
 
-// builder开始
 type ApprovalConfigBuilder struct {
 	canUpdateViewer      bool
 	canUpdateViewerFlag  bool
@@ -363,8 +349,6 @@ func (builder *ApprovalConfigBuilder) Build() *ApprovalConfig {
 	return req
 }
 
-// builder结束
-
 type ApprovalCreate struct {
 	ApprovalName  *string                  `json:"approval_name,omitempty"`
 	ApprovalCode  *string                  `json:"approval_code,omitempty"`
@@ -378,7 +362,6 @@ type ApprovalCreate struct {
 	I18nResources []*I18nResource          `json:"i18n_resources,omitempty"`
 }
 
-// builder开始
 type ApprovalCreateBuilder struct {
 	approvalName      string
 	approvalNameFlag  bool
@@ -497,8 +480,6 @@ func (builder *ApprovalCreateBuilder) Build() *ApprovalCreate {
 	return req
 }
 
-// builder结束
-
 type ApprovalCreateExternal struct {
 	BizName             *string `json:"biz_name,omitempty"`
 	BizType             *string `json:"biz_type,omitempty"`
@@ -514,7 +495,6 @@ type ApprovalCreateExternal struct {
 	ActionCallbackKey   *string `json:"action_callback_key,omitempty"`
 }
 
-// builder开始
 type ApprovalCreateExternalBuilder struct {
 	bizName                 string
 	bizNameFlag             bool
@@ -661,15 +641,12 @@ func (builder *ApprovalCreateExternalBuilder) Build() *ApprovalCreateExternal {
 	return req
 }
 
-// builder结束
-
 type ApprovalCreateViewers struct {
 	ViewerType         *string `json:"viewer_type,omitempty"`
 	ViewerUserId       *string `json:"viewer_user_id,omitempty"`
 	ViewerDepartmentId *string `json:"viewer_department_id,omitempty"`
 }
 
-// builder开始
 type ApprovalCreateViewersBuilder struct {
 	viewerType             string
 	viewerTypeFlag         bool
@@ -717,8 +694,6 @@ func (builder *ApprovalCreateViewersBuilder) Build() *ApprovalCreateViewers {
 	return req
 }
 
-// builder结束
-
 type ApprovalEvent struct {
 	ApprovalId       *string `json:"approval_id,omitempty"`
 	ApprovalCode     *string `json:"approval_code,omitempty"`
@@ -730,7 +705,6 @@ type ApprovalEvent struct {
 	Extra            *string `json:"extra,omitempty"`
 }
 
-// builder开始
 type ApprovalEventBuilder struct {
 	approvalId           string
 	approvalIdFlag       bool
@@ -833,13 +807,10 @@ func (builder *ApprovalEventBuilder) Build() *ApprovalEvent {
 	return req
 }
 
-// builder结束
-
 type ApprovalForm struct {
 	FormContent *string `json:"form_content,omitempty"`
 }
 
-// builder开始
 type ApprovalFormBuilder struct {
 	formContent     string
 	formContentFlag bool
@@ -865,8 +836,6 @@ func (builder *ApprovalFormBuilder) Build() *ApprovalForm {
 	return req
 }
 
-// builder结束
-
 type ApprovalNode struct {
 	Id             *string                 `json:"id,omitempty"`
 	Name           *string                 `json:"name,omitempty"`
@@ -876,7 +845,6 @@ type ApprovalNode struct {
 	PrivilegeField *FieldGroup             `json:"privilege_field,omitempty"`
 }
 
-// builder开始
 type ApprovalNodeBuilder struct {
 	id                 string
 	idFlag             bool
@@ -954,8 +922,6 @@ func (builder *ApprovalNodeBuilder) Build() *ApprovalNode {
 	return req
 }
 
-// builder结束
-
 type ApprovalNodeInfo struct {
 	Name         *string `json:"name,omitempty"`
 	NeedApprover *bool   `json:"need_approver,omitempty"`
@@ -964,7 +930,6 @@ type ApprovalNodeInfo struct {
 	NodeType     *string `json:"node_type,omitempty"`
 }
 
-// builder开始
 type ApprovalNodeInfoBuilder struct {
 	name             string
 	nameFlag         bool
@@ -1034,14 +999,11 @@ func (builder *ApprovalNodeInfoBuilder) Build() *ApprovalNodeInfo {
 	return req
 }
 
-// builder结束
-
 type ApprovalSetting struct {
 	RevertInterval *int `json:"revert_interval,omitempty"`
 	RevertOption   *int `json:"revert_option,omitempty"`
 }
 
-// builder开始
 type ApprovalSettingBuilder struct {
 	revertInterval     int
 	revertIntervalFlag bool
@@ -1078,8 +1040,6 @@ func (builder *ApprovalSettingBuilder) Build() *ApprovalSetting {
 	return req
 }
 
-// builder结束
-
 type ApprovalViewer struct {
 	Type    *string `json:"type,omitempty"`
 	OpenId  *string `json:"open_id,omitempty"`
@@ -1087,7 +1047,6 @@ type ApprovalViewer struct {
 	UnionId *string `json:"union_id,omitempty"`
 }
 
-// builder开始
 type ApprovalViewerBuilder struct {
 	type_       string
 	typeFlag    bool
@@ -1146,15 +1105,12 @@ func (builder *ApprovalViewerBuilder) Build() *ApprovalViewer {
 	return req
 }
 
-// builder结束
-
 type ApprovalViewerInfo struct {
 	Type   *string `json:"type,omitempty"`
 	Id     *string `json:"id,omitempty"`
 	UserId *string `json:"user_id,omitempty"`
 }
 
-// builder开始
 type ApprovalViewerInfoBuilder struct {
 	type_      string
 	typeFlag   bool
@@ -1202,8 +1158,6 @@ func (builder *ApprovalViewerInfoBuilder) Build() *ApprovalViewerInfo {
 	return req
 }
 
-// builder结束
-
 type CcNode struct {
 	CcId          *string               `json:"cc_id,omitempty"`
 	UserId        *string               `json:"user_id,omitempty"`
@@ -1217,7 +1171,6 @@ type CcNode struct {
 	DisplayMethod *string               `json:"display_method,omitempty"`
 }
 
-// builder开始
 type CcNodeBuilder struct {
 	ccId              string
 	ccIdFlag          bool
@@ -1341,8 +1294,6 @@ func (builder *CcNodeBuilder) Build() *CcNode {
 	return req
 }
 
-// builder结束
-
 type CcSearch struct {
 	UserId             *string `json:"user_id,omitempty"`
 	ApprovalCode       *string `json:"approval_code,omitempty"`
@@ -1356,7 +1307,6 @@ type CcSearch struct {
 	Locale             *string `json:"locale,omitempty"`
 }
 
-// builder开始
 type CcSearchBuilder struct {
 	userId                 string
 	userIdFlag             bool
@@ -1481,8 +1431,6 @@ func (builder *CcSearchBuilder) Build() *CcSearch {
 	return req
 }
 
-// builder结束
-
 type CcSearchItem struct {
 	Approval *InstanceSearchApproval `json:"approval,omitempty"`
 	Group    *InstanceSearchGroup    `json:"group,omitempty"`
@@ -1490,7 +1438,6 @@ type CcSearchItem struct {
 	Cc       *CcSearchNode           `json:"cc,omitempty"`
 }
 
-// builder开始
 type CcSearchItemBuilder struct {
 	approval     *InstanceSearchApproval
 	approvalFlag bool
@@ -1545,8 +1492,6 @@ func (builder *CcSearchItemBuilder) Build() *CcSearchItem {
 	return req
 }
 
-// builder结束
-
 type CcSearchNode struct {
 	UserId     *string             `json:"user_id,omitempty"`
 	CreateTime *string             `json:"create_time,omitempty"`
@@ -1556,7 +1501,6 @@ type CcSearchNode struct {
 	Link       *InstanceSearchLink `json:"link,omitempty"`
 }
 
-// builder开始
 type CcSearchNodeBuilder struct {
 	userId         string
 	userIdFlag     bool
@@ -1636,8 +1580,6 @@ func (builder *CcSearchNodeBuilder) Build() *CcSearchNode {
 	return req
 }
 
-// builder结束
-
 type Comment struct {
 	Id          *string          `json:"id,omitempty"`
 	Content     *string          `json:"content,omitempty"`
@@ -1650,7 +1592,6 @@ type Comment struct {
 	Extra       *string          `json:"extra,omitempty"`
 }
 
-// builder开始
 type CommentBuilder struct {
 	id              string
 	idFlag          bool
@@ -1762,15 +1703,12 @@ func (builder *CommentBuilder) Build() *Comment {
 	return req
 }
 
-// builder结束
-
 type CommentAtInfo struct {
 	UserId *string `json:"user_id,omitempty"`
 	Name   *string `json:"name,omitempty"`
 	Offset *string `json:"offset,omitempty"`
 }
 
-// builder开始
 type CommentAtInfoBuilder struct {
 	userId     string
 	userIdFlag bool
@@ -1818,8 +1756,6 @@ func (builder *CommentAtInfoBuilder) Build() *CommentAtInfo {
 	return req
 }
 
-// builder结束
-
 type CommentReply struct {
 	Id          *string          `json:"id,omitempty"`
 	Content     *string          `json:"content,omitempty"`
@@ -1831,7 +1767,6 @@ type CommentReply struct {
 	Extra       *string          `json:"extra,omitempty"`
 }
 
-// builder开始
 type CommentReplyBuilder struct {
 	id              string
 	idFlag          bool
@@ -1933,8 +1868,6 @@ func (builder *CommentReplyBuilder) Build() *CommentReply {
 	return req
 }
 
-// builder结束
-
 type CommentRequest struct {
 	Content         *string          `json:"content,omitempty"`
 	AtInfoList      []*CommentAtInfo `json:"at_info_list,omitempty"`
@@ -1944,7 +1877,6 @@ type CommentRequest struct {
 	Extra           *string          `json:"extra,omitempty"`
 }
 
-// builder开始
 type CommentRequestBuilder struct {
 	content             string
 	contentFlag         bool
@@ -2024,14 +1956,11 @@ func (builder *CommentRequestBuilder) Build() *CommentRequest {
 	return req
 }
 
-// builder结束
-
 type Count struct {
 	Total   *int  `json:"total,omitempty"`
 	HasMore *bool `json:"has_more,omitempty"`
 }
 
-// builder开始
 type CountBuilder struct {
 	total       int
 	totalFlag   bool
@@ -2068,15 +1997,12 @@ func (builder *CountBuilder) Build() *Count {
 	return req
 }
 
-// builder结束
-
 type ExteranlInstanceCheck struct {
 	InstanceId *string                 `json:"instance_id,omitempty"`
 	UpdateTime *string                 `json:"update_time,omitempty"`
 	Tasks      []*ExternalInstanceTask `json:"tasks,omitempty"`
 }
 
-// builder开始
 type ExteranlInstanceCheckBuilder struct {
 	instanceId     string
 	instanceIdFlag bool
@@ -2123,15 +2049,12 @@ func (builder *ExteranlInstanceCheckBuilder) Build() *ExteranlInstanceCheck {
 	return req
 }
 
-// builder结束
-
 type ExteranlInstanceCheckResponse struct {
 	InstanceId *string                 `json:"instance_id,omitempty"`
 	UpdateTime *string                 `json:"update_time,omitempty"`
 	Tasks      []*ExternalInstanceTask `json:"tasks,omitempty"`
 }
 
-// builder开始
 type ExteranlInstanceCheckResponseBuilder struct {
 	instanceId     string
 	instanceIdFlag bool
@@ -2178,8 +2101,6 @@ func (builder *ExteranlInstanceCheckResponseBuilder) Build() *ExteranlInstanceCh
 	return req
 }
 
-// builder结束
-
 type ExternalApproval struct {
 	ApprovalName  *string                  `json:"approval_name,omitempty"`
 	ApprovalCode  *string                  `json:"approval_code,omitempty"`
@@ -2191,7 +2112,6 @@ type ExternalApproval struct {
 	I18nResources []*I18nResource          `json:"i18n_resources,omitempty"`
 }
 
-// builder开始
 type ExternalApprovalBuilder struct {
 	approvalName      string
 	approvalNameFlag  bool
@@ -2291,8 +2211,6 @@ func (builder *ExternalApprovalBuilder) Build() *ExternalApproval {
 	return req
 }
 
-// builder结束
-
 type ExternalInstance struct {
 	ApprovalCode   *string                     `json:"approval_code,omitempty"`
 	Status         *string                     `json:"status,omitempty"`
@@ -2316,7 +2234,6 @@ type ExternalInstance struct {
 	I18nResources  []*I18nResource             `json:"i18n_resources,omitempty"`
 }
 
-// builder开始
 type ExternalInstanceBuilder struct {
 	approvalCode       string
 	approvalCodeFlag   bool
@@ -2546,14 +2463,11 @@ func (builder *ExternalInstanceBuilder) Build() *ExternalInstance {
 	return req
 }
 
-// builder结束
-
 type ExternalInstanceForm struct {
 	Name  *string `json:"name,omitempty"`
 	Value *string `json:"value,omitempty"`
 }
 
-// builder开始
 type ExternalInstanceFormBuilder struct {
 	name      string
 	nameFlag  bool
@@ -2590,14 +2504,11 @@ func (builder *ExternalInstanceFormBuilder) Build() *ExternalInstanceForm {
 	return req
 }
 
-// builder结束
-
 type ExternalInstanceLink struct {
 	PcLink     *string `json:"pc_link,omitempty"`
 	MobileLink *string `json:"mobile_link,omitempty"`
 }
 
-// builder开始
 type ExternalInstanceLinkBuilder struct {
 	pcLink         string
 	pcLinkFlag     bool
@@ -2634,14 +2545,11 @@ func (builder *ExternalInstanceLinkBuilder) Build() *ExternalInstanceLink {
 	return req
 }
 
-// builder结束
-
 type ExternalInstanceTask struct {
 	TaskId     *string `json:"task_id,omitempty"`
 	UpdateTime *string `json:"update_time,omitempty"`
 }
 
-// builder开始
 type ExternalInstanceTaskBuilder struct {
 	taskId         string
 	taskIdFlag     bool
@@ -2678,8 +2586,6 @@ func (builder *ExternalInstanceTaskBuilder) Build() *ExternalInstanceTask {
 	return req
 }
 
-// builder结束
-
 type ExternalInstanceTaskNode struct {
 	TaskId        *string               `json:"task_id,omitempty"`
 	UserId        *string               `json:"user_id,omitempty"`
@@ -2696,7 +2602,6 @@ type ExternalInstanceTaskNode struct {
 	DisplayMethod *string               `json:"display_method,omitempty"`
 }
 
-// builder开始
 type ExternalInstanceTaskNodeBuilder struct {
 	taskId            string
 	taskIdFlag        bool
@@ -2852,15 +2757,12 @@ func (builder *ExternalInstanceTaskNodeBuilder) Build() *ExternalInstanceTaskNod
 	return req
 }
 
-// builder结束
-
 type ExternalTaskItem struct {
 	Id         *string `json:"id,omitempty"`
 	Status     *string `json:"status,omitempty"`
 	UpdateTime *string `json:"update_time,omitempty"`
 }
 
-// builder开始
 type ExternalTaskItemBuilder struct {
 	id             string
 	idFlag         bool
@@ -2908,8 +2810,6 @@ func (builder *ExternalTaskItemBuilder) Build() *ExternalTaskItem {
 	return req
 }
 
-// builder结束
-
 type ExternalTaskList struct {
 	InstanceId   *string             `json:"instance_id,omitempty"`
 	ApprovalId   *string             `json:"approval_id,omitempty"`
@@ -2919,7 +2819,6 @@ type ExternalTaskList struct {
 	Tasks        []*ExternalTaskItem `json:"tasks,omitempty"`
 }
 
-// builder开始
 type ExternalTaskListBuilder struct {
 	instanceId       string
 	instanceIdFlag   bool
@@ -2999,14 +2898,11 @@ func (builder *ExternalTaskListBuilder) Build() *ExternalTaskList {
 	return req
 }
 
-// builder结束
-
 type FieldGroup struct {
 	Writable []string `json:"writable,omitempty"`
 	Readable []string `json:"readable,omitempty"`
 }
 
-// builder开始
 type FieldGroupBuilder struct {
 	writable     []string
 	writableFlag bool
@@ -3041,8 +2937,6 @@ func (builder *FieldGroupBuilder) Build() *FieldGroup {
 	return req
 }
 
-// builder结束
-
 type File struct {
 	Url      *string `json:"url,omitempty"`
 	FileSize *int    `json:"file_size,omitempty"`
@@ -3050,7 +2944,6 @@ type File struct {
 	Type     *string `json:"type,omitempty"`
 }
 
-// builder开始
 type FileBuilder struct {
 	url          string
 	urlFlag      bool
@@ -3109,15 +3002,12 @@ func (builder *FileBuilder) Build() *File {
 	return req
 }
 
-// builder结束
-
 type I18nResource struct {
 	Locale    *string             `json:"locale,omitempty"`
 	Texts     []*I18nResourceText `json:"texts,omitempty"`
 	IsDefault *bool               `json:"is_default,omitempty"`
 }
 
-// builder开始
 type I18nResourceBuilder struct {
 	locale        string
 	localeFlag    bool
@@ -3164,14 +3054,11 @@ func (builder *I18nResourceBuilder) Build() *I18nResource {
 	return req
 }
 
-// builder结束
-
 type I18nResourceText struct {
 	Key   *string `json:"key,omitempty"`
 	Value *string `json:"value,omitempty"`
 }
 
-// builder开始
 type I18nResourceTextBuilder struct {
 	key       string
 	keyFlag   bool
@@ -3208,8 +3095,6 @@ func (builder *I18nResourceTextBuilder) Build() *I18nResourceText {
 	return req
 }
 
-// builder结束
-
 type Instance struct {
 	InstanceCode *string `json:"instance_code,omitempty"`
 	ApprovalName *string `json:"approval_name,omitempty"`
@@ -3219,7 +3104,6 @@ type Instance struct {
 	SerialId     *string `json:"serial_id,omitempty"`
 }
 
-// builder开始
 type InstanceBuilder struct {
 	instanceCode     string
 	instanceCodeFlag bool
@@ -3300,8 +3184,6 @@ func (builder *InstanceBuilder) Build() *Instance {
 	return req
 }
 
-// builder结束
-
 type InstanceCancel struct {
 	ApprovalCode  *string `json:"approval_code,omitempty"`
 	InstanceCode  *string `json:"instance_code,omitempty"`
@@ -3309,7 +3191,6 @@ type InstanceCancel struct {
 	NotifyStarter *bool   `json:"notify_starter,omitempty"`
 }
 
-// builder开始
 type InstanceCancelBuilder struct {
 	approvalCode      string
 	approvalCodeFlag  bool
@@ -3368,8 +3249,6 @@ func (builder *InstanceCancelBuilder) Build() *InstanceCancel {
 	return req
 }
 
-// builder结束
-
 type InstanceCc struct {
 	ApprovalCode *string  `json:"approval_code,omitempty"`
 	InstanceCode *string  `json:"instance_code,omitempty"`
@@ -3378,7 +3257,6 @@ type InstanceCc struct {
 	Comment      *string  `json:"comment,omitempty"`
 }
 
-// builder开始
 type InstanceCcBuilder struct {
 	approvalCode     string
 	approvalCodeFlag bool
@@ -3447,15 +3325,12 @@ func (builder *InstanceCcBuilder) Build() *InstanceCc {
 	return req
 }
 
-// builder结束
-
 type InstanceCcUser struct {
 	UserId *string `json:"user_id,omitempty"`
 	CcId   *string `json:"cc_id,omitempty"`
 	OpenId *string `json:"open_id,omitempty"`
 }
 
-// builder开始
 type InstanceCcUserBuilder struct {
 	userId     string
 	userIdFlag bool
@@ -3503,8 +3378,6 @@ func (builder *InstanceCcUserBuilder) Build() *InstanceCcUser {
 	return req
 }
 
-// builder结束
-
 type InstanceComment struct {
 	Id         *string `json:"id,omitempty"`
 	UserId     *string `json:"user_id,omitempty"`
@@ -3513,7 +3386,6 @@ type InstanceComment struct {
 	CreateTime *string `json:"create_time,omitempty"`
 }
 
-// builder开始
 type InstanceCommentBuilder struct {
 	id             string
 	idFlag         bool
@@ -3583,8 +3455,6 @@ func (builder *InstanceCommentBuilder) Build() *InstanceComment {
 	return req
 }
 
-// builder结束
-
 type InstanceCreate struct {
 	ApprovalCode           *string         `json:"approval_code,omitempty"`
 	UserId                 *string         `json:"user_id,omitempty"`
@@ -3598,7 +3468,6 @@ type InstanceCreate struct {
 	Uuid                   *string         `json:"uuid,omitempty"`
 }
 
-// builder开始
 type InstanceCreateBuilder struct {
 	approvalCode               string
 	approvalCodeFlag           bool
@@ -3719,8 +3588,6 @@ func (builder *InstanceCreateBuilder) Build() *InstanceCreate {
 	return req
 }
 
-// builder结束
-
 type InstanceInfo struct {
 	ApprovalCode *string             `json:"approval_code,omitempty"`
 	ApprovalName *string             `json:"approval_name,omitempty"`
@@ -3738,7 +3605,6 @@ type InstanceInfo struct {
 	Timeline     []*InstanceTimeline `json:"timeline,omitempty"`
 }
 
-// builder开始
 type InstanceInfoBuilder struct {
 	approvalCode     string
 	approvalCodeFlag bool
@@ -3904,8 +3770,6 @@ func (builder *InstanceInfoBuilder) Build() *InstanceInfo {
 	return req
 }
 
-// builder结束
-
 type InstanceSearch struct {
 	UserId                *string `json:"user_id,omitempty"`
 	ApprovalCode          *string `json:"approval_code,omitempty"`
@@ -3919,7 +3783,6 @@ type InstanceSearch struct {
 	Locale                *string `json:"locale,omitempty"`
 }
 
-// builder开始
 type InstanceSearchBuilder struct {
 	userId                    string
 	userIdFlag                bool
@@ -4044,8 +3907,6 @@ func (builder *InstanceSearchBuilder) Build() *InstanceSearch {
 	return req
 }
 
-// builder结束
-
 type InstanceSearchApproval struct {
 	Code       *string                         `json:"code,omitempty"`
 	Name       *string                         `json:"name,omitempty"`
@@ -4053,7 +3914,6 @@ type InstanceSearchApproval struct {
 	External   *InstanceSearchApprovalExternal `json:"external,omitempty"`
 }
 
-// builder开始
 type InstanceSearchApprovalBuilder struct {
 	code           string
 	codeFlag       bool
@@ -4111,13 +3971,10 @@ func (builder *InstanceSearchApprovalBuilder) Build() *InstanceSearchApproval {
 	return req
 }
 
-// builder结束
-
 type InstanceSearchApprovalExternal struct {
 	BatchCcRead *bool `json:"batch_cc_read,omitempty"`
 }
 
-// builder开始
 type InstanceSearchApprovalExternalBuilder struct {
 	batchCcRead     bool
 	batchCcReadFlag bool
@@ -4143,14 +4000,11 @@ func (builder *InstanceSearchApprovalExternalBuilder) Build() *InstanceSearchApp
 	return req
 }
 
-// builder结束
-
 type InstanceSearchGroup struct {
 	ExternalId *string `json:"external_id,omitempty"`
 	Name       *string `json:"name,omitempty"`
 }
 
-// builder开始
 type InstanceSearchGroupBuilder struct {
 	externalId     string
 	externalIdFlag bool
@@ -4187,15 +4041,12 @@ func (builder *InstanceSearchGroupBuilder) Build() *InstanceSearchGroup {
 	return req
 }
 
-// builder结束
-
 type InstanceSearchItem struct {
 	Approval *InstanceSearchApproval `json:"approval,omitempty"`
 	Group    *InstanceSearchGroup    `json:"group,omitempty"`
 	Instance *InstanceSearchNode     `json:"instance,omitempty"`
 }
 
-// builder开始
 type InstanceSearchItemBuilder struct {
 	approval     *InstanceSearchApproval
 	approvalFlag bool
@@ -4240,14 +4091,11 @@ func (builder *InstanceSearchItemBuilder) Build() *InstanceSearchItem {
 	return req
 }
 
-// builder结束
-
 type InstanceSearchLink struct {
 	PcLink     *string `json:"pc_link,omitempty"`
 	MobileLink *string `json:"mobile_link,omitempty"`
 }
 
-// builder开始
 type InstanceSearchLinkBuilder struct {
 	pcLink         string
 	pcLinkFlag     bool
@@ -4284,8 +4132,6 @@ func (builder *InstanceSearchLinkBuilder) Build() *InstanceSearchLink {
 	return req
 }
 
-// builder结束
-
 type InstanceSearchNode struct {
 	Code       *string             `json:"code,omitempty"`
 	ExternalId *string             `json:"external_id,omitempty"`
@@ -4299,7 +4145,6 @@ type InstanceSearchNode struct {
 	Link       *InstanceSearchLink `json:"link,omitempty"`
 }
 
-// builder开始
 type InstanceSearchNodeBuilder struct {
 	code           string
 	codeFlag       bool
@@ -4423,8 +4268,6 @@ func (builder *InstanceSearchNodeBuilder) Build() *InstanceSearchNode {
 	return req
 }
 
-// builder结束
-
 type InstanceTask struct {
 	Id           *string `json:"id,omitempty"`
 	UserId       *string `json:"user_id,omitempty"`
@@ -4438,7 +4281,6 @@ type InstanceTask struct {
 	EndTime      *string `json:"end_time,omitempty"`
 }
 
-// builder开始
 type InstanceTaskBuilder struct {
 	id               string
 	idFlag           bool
@@ -4563,8 +4405,6 @@ func (builder *InstanceTaskBuilder) Build() *InstanceTask {
 	return req
 }
 
-// builder结束
-
 type InstanceTimeline struct {
 	Type       *string           `json:"type,omitempty"`
 	CreateTime *string           `json:"create_time,omitempty"`
@@ -4579,7 +4419,6 @@ type InstanceTimeline struct {
 	NodeKey    *string           `json:"node_key,omitempty"`
 }
 
-// builder开始
 type InstanceTimelineBuilder struct {
 	type_          string
 	typeFlag       bool
@@ -4712,8 +4551,6 @@ func (builder *InstanceTimelineBuilder) Build() *InstanceTimeline {
 	return req
 }
 
-// builder结束
-
 type Message struct {
 	Id        *string `json:"id,omitempty"`
 	ReceiveId *string `json:"receive_id,omitempty"`
@@ -4724,7 +4561,6 @@ type Message struct {
 	Uuid      *string `json:"uuid,omitempty"`
 }
 
-// builder开始
 type MessageBuilder struct {
 	id            string
 	idFlag        bool
@@ -4816,14 +4652,11 @@ func (builder *MessageBuilder) Build() *Message {
 	return req
 }
 
-// builder结束
-
 type NodeApprover struct {
 	Key   *string  `json:"key,omitempty"`
 	Value []string `json:"value,omitempty"`
 }
 
-// builder开始
 type NodeApproverBuilder struct {
 	key       string
 	keyFlag   bool
@@ -4859,14 +4692,11 @@ func (builder *NodeApproverBuilder) Build() *NodeApprover {
 	return req
 }
 
-// builder结束
-
 type NodeCc struct {
 	Key   *string  `json:"key,omitempty"`
 	Value []string `json:"value,omitempty"`
 }
 
-// builder开始
 type NodeCcBuilder struct {
 	key       string
 	keyFlag   bool
@@ -4902,8 +4732,6 @@ func (builder *NodeCcBuilder) Build() *NodeCc {
 	return req
 }
 
-// builder结束
-
 type PreviewNode struct {
 	NodeId             *string  `json:"node_id,omitempty"`
 	NodeName           *string  `json:"node_name,omitempty"`
@@ -4917,7 +4745,6 @@ type PreviewNode struct {
 	HasCcTypeFree      *bool    `json:"has_cc_type_free,omitempty"`
 }
 
-// builder开始
 type PreviewNodeBuilder struct {
 	nodeId                 string
 	nodeIdFlag             bool
@@ -5039,14 +4866,11 @@ func (builder *PreviewNodeBuilder) Build() *PreviewNode {
 	return req
 }
 
-// builder结束
-
 type Reason struct {
 	Text  *string `json:"text,omitempty"`
 	Files []*File `json:"files,omitempty"`
 }
 
-// builder开始
 type ReasonBuilder struct {
 	text      string
 	textFlag  bool
@@ -5082,8 +4906,6 @@ func (builder *ReasonBuilder) Build() *Reason {
 	return req
 }
 
-// builder结束
-
 type RemedyGroup struct {
 	Type         *string `json:"type,omitempty"`
 	InstanceCode *string `json:"instance_code,omitempty"`
@@ -5095,7 +4917,6 @@ type RemedyGroup struct {
 	Status       *string `json:"status,omitempty"`
 }
 
-// builder开始
 type RemedyGroupBuilder struct {
 	type_            string
 	typeFlag         bool
@@ -5198,8 +5019,6 @@ func (builder *RemedyGroupBuilder) Build() *RemedyGroup {
 	return req
 }
 
-// builder结束
-
 type SignGroup struct {
 	InstanceCode          *string `json:"instance_code,omitempty"`
 	UserId                *UserId `json:"user_id,omitempty"`
@@ -5210,7 +5029,6 @@ type SignGroup struct {
 	Type                  *string `json:"type,omitempty"`
 }
 
-// builder开始
 type SignGroupBuilder struct {
 	instanceCode              string
 	instanceCodeFlag          bool
@@ -5301,8 +5119,6 @@ func (builder *SignGroupBuilder) Build() *SignGroup {
 	return req
 }
 
-// builder结束
-
 type SpecifiedRollback struct {
 	UserId         *string  `json:"user_id,omitempty"`
 	TaskId         *string  `json:"task_id,omitempty"`
@@ -5311,7 +5127,6 @@ type SpecifiedRollback struct {
 	TaskDefKeyList []string `json:"task_def_key_list,omitempty"`
 }
 
-// builder开始
 type SpecifiedRollbackBuilder struct {
 	userId             string
 	userIdFlag         bool
@@ -5380,8 +5195,6 @@ func (builder *SpecifiedRollbackBuilder) Build() *SpecifiedRollback {
 	return req
 }
 
-// builder结束
-
 type Task struct {
 	Topic               *string   `json:"topic,omitempty"`
 	UserId              *string   `json:"user_id,omitempty"`
@@ -5403,7 +5216,6 @@ type Task struct {
 	DefinitionName      *string   `json:"definition_name,omitempty"`
 }
 
-// builder开始
 type TaskBuilder struct {
 	topic                   string
 	topicFlag               bool
@@ -5613,8 +5425,6 @@ func (builder *TaskBuilder) Build() *Task {
 	return req
 }
 
-// builder结束
-
 type TaskApprove struct {
 	ApprovalCode *string `json:"approval_code,omitempty"`
 	InstanceCode *string `json:"instance_code,omitempty"`
@@ -5623,7 +5433,6 @@ type TaskApprove struct {
 	TaskId       *string `json:"task_id,omitempty"`
 }
 
-// builder开始
 type TaskApproveBuilder struct {
 	approvalCode     string
 	approvalCodeFlag bool
@@ -5693,8 +5502,6 @@ func (builder *TaskApproveBuilder) Build() *TaskApprove {
 	return req
 }
 
-// builder结束
-
 type TaskSearch struct {
 	UserId                *string `json:"user_id,omitempty"`
 	ApprovalCode          *string `json:"approval_code,omitempty"`
@@ -5708,7 +5515,6 @@ type TaskSearch struct {
 	Locale                *string `json:"locale,omitempty"`
 }
 
-// builder开始
 type TaskSearchBuilder struct {
 	userId                    string
 	userIdFlag                bool
@@ -5833,8 +5639,6 @@ func (builder *TaskSearchBuilder) Build() *TaskSearch {
 	return req
 }
 
-// builder结束
-
 type TaskSearchItem struct {
 	Approval *InstanceSearchApproval `json:"approval,omitempty"`
 	Group    *InstanceSearchGroup    `json:"group,omitempty"`
@@ -5842,7 +5646,6 @@ type TaskSearchItem struct {
 	Task     *TaskSearchNode         `json:"task,omitempty"`
 }
 
-// builder开始
 type TaskSearchItemBuilder struct {
 	approval     *InstanceSearchApproval
 	approvalFlag bool
@@ -5897,8 +5700,6 @@ func (builder *TaskSearchItemBuilder) Build() *TaskSearchItem {
 	return req
 }
 
-// builder结束
-
 type TaskSearchNode struct {
 	UserId    *string             `json:"user_id,omitempty"`
 	StartTime *string             `json:"start_time,omitempty"`
@@ -5909,7 +5710,6 @@ type TaskSearchNode struct {
 	Link      *InstanceSearchLink `json:"link,omitempty"`
 }
 
-// builder开始
 type TaskSearchNodeBuilder struct {
 	userId        string
 	userIdFlag    bool
@@ -6000,8 +5800,6 @@ func (builder *TaskSearchNodeBuilder) Build() *TaskSearchNode {
 	return req
 }
 
-// builder结束
-
 type TaskTransfer struct {
 	ApprovalCode   *string `json:"approval_code,omitempty"`
 	InstanceCode   *string `json:"instance_code,omitempty"`
@@ -6011,7 +5809,6 @@ type TaskTransfer struct {
 	TaskId         *string `json:"task_id,omitempty"`
 }
 
-// builder开始
 type TaskTransferBuilder struct {
 	approvalCode       string
 	approvalCodeFlag   bool
@@ -6092,15 +5889,12 @@ func (builder *TaskTransferBuilder) Build() *TaskTransfer {
 	return req
 }
 
-// builder结束
-
 type TaskUrls struct {
 	Helpdesk *string `json:"helpdesk,omitempty"`
 	Mobile   *string `json:"mobile,omitempty"`
 	Pc       *string `json:"pc,omitempty"`
 }
 
-// builder开始
 type TaskUrlsBuilder struct {
 	helpdesk     string
 	helpdeskFlag bool
@@ -6148,8 +5942,6 @@ func (builder *TaskUrlsBuilder) Build() *TaskUrls {
 	return req
 }
 
-// builder结束
-
 type TripGroup struct {
 	Type         *string              `json:"type,omitempty"`
 	InstanceCode *string              `json:"instance_code,omitempty"`
@@ -6162,7 +5954,6 @@ type TripGroup struct {
 	TripPeers    []*User              `json:"trip_peers,omitempty"`
 }
 
-// builder开始
 type TripGroupBuilder struct {
 	type_            string
 	typeFlag         bool
@@ -6273,8 +6064,6 @@ func (builder *TripGroupBuilder) Build() *TripGroup {
 	return req
 }
 
-// builder结束
-
 type TripGroupSchedule struct {
 	TripStartTime  *string `json:"trip_start_time,omitempty"`
 	TripEndTime    *string `json:"trip_end_time,omitempty"`
@@ -6286,7 +6075,6 @@ type TripGroupSchedule struct {
 	Remark         *string `json:"remark,omitempty"`
 }
 
-// builder开始
 type TripGroupScheduleBuilder struct {
 	tripStartTime      string
 	tripStartTimeFlag  bool
@@ -6389,14 +6177,11 @@ func (builder *TripGroupScheduleBuilder) Build() *TripGroupSchedule {
 	return req
 }
 
-// builder结束
-
 type User struct {
 	Id   *UserId `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
 }
 
-// builder开始
 type UserBuilder struct {
 	id       *UserId
 	idFlag   bool
@@ -6432,15 +6217,12 @@ func (builder *UserBuilder) Build() *User {
 	return req
 }
 
-// builder结束
-
 type UserId struct {
 	UserId  *string `json:"user_id,omitempty"`
 	OpenId  *string `json:"open_id,omitempty"`
 	UnionId *string `json:"union_id,omitempty"`
 }
 
-// builder开始
 type UserIdBuilder struct {
 	userId      string
 	userIdFlag  bool
@@ -6488,17 +6270,11 @@ func (builder *UserIdBuilder) Build() *UserId {
 	return req
 }
 
-// builder结束
-
-// 生成请求和响应结果类型，以及请求对象的Builder构造器
-
-// 1.4 生成请求的builder结构体
 type CreateApprovalReqBuilder struct {
 	apiReq         *larkcore.ApiReq
 	approvalCreate *ApprovalCreate
 }
 
-// 生成请求的New构造器
 func NewCreateApprovalReqBuilder() *CreateApprovalReqBuilder {
 	builder := &CreateApprovalReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -6508,7 +6284,6 @@ func NewCreateApprovalReqBuilder() *CreateApprovalReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateApprovalReqBuilder) DepartmentIdType(departmentIdType string) *CreateApprovalReqBuilder {
 	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
 	return builder
@@ -6522,7 +6297,6 @@ func (builder *CreateApprovalReqBuilder) ApprovalCreate(approvalCreate *Approval
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateApprovalReqBuilder) Build() *CreateApprovalReq {
 	req := &CreateApprovalReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -6551,12 +6325,10 @@ func (resp *CreateApprovalResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type GetApprovalReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewGetApprovalReqBuilder() *GetApprovalReqBuilder {
 	builder := &GetApprovalReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -6566,7 +6338,6 @@ func NewGetApprovalReqBuilder() *GetApprovalReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *GetApprovalReqBuilder) ApprovalCode(approvalCode string) *GetApprovalReqBuilder {
 	builder.apiReq.PathParams.Set("approval_code", fmt.Sprint(approvalCode))
 	return builder
@@ -6576,7 +6347,6 @@ func (builder *GetApprovalReqBuilder) Locale(locale string) *GetApprovalReqBuild
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *GetApprovalReqBuilder) Build() *GetApprovalReq {
 	req := &GetApprovalReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -6607,12 +6377,10 @@ func (resp *GetApprovalResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type SubscribeApprovalReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewSubscribeApprovalReqBuilder() *SubscribeApprovalReqBuilder {
 	builder := &SubscribeApprovalReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -6622,13 +6390,11 @@ func NewSubscribeApprovalReqBuilder() *SubscribeApprovalReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *SubscribeApprovalReqBuilder) ApprovalCode(approvalCode string) *SubscribeApprovalReqBuilder {
 	builder.apiReq.PathParams.Set("approval_code", fmt.Sprint(approvalCode))
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *SubscribeApprovalReqBuilder) Build() *SubscribeApprovalReq {
 	req := &SubscribeApprovalReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -6649,12 +6415,10 @@ func (resp *SubscribeApprovalResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type UnsubscribeApprovalReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewUnsubscribeApprovalReqBuilder() *UnsubscribeApprovalReqBuilder {
 	builder := &UnsubscribeApprovalReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -6664,13 +6428,11 @@ func NewUnsubscribeApprovalReqBuilder() *UnsubscribeApprovalReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *UnsubscribeApprovalReqBuilder) ApprovalCode(approvalCode string) *UnsubscribeApprovalReqBuilder {
 	builder.apiReq.PathParams.Set("approval_code", fmt.Sprint(approvalCode))
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *UnsubscribeApprovalReqBuilder) Build() *UnsubscribeApprovalReq {
 	req := &UnsubscribeApprovalReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -6691,13 +6453,11 @@ func (resp *UnsubscribeApprovalResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type CreateExternalApprovalReqBuilder struct {
 	apiReq           *larkcore.ApiReq
 	externalApproval *ExternalApproval
 }
 
-// 生成请求的New构造器
 func NewCreateExternalApprovalReqBuilder() *CreateExternalApprovalReqBuilder {
 	builder := &CreateExternalApprovalReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -6707,7 +6467,6 @@ func NewCreateExternalApprovalReqBuilder() *CreateExternalApprovalReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateExternalApprovalReqBuilder) DepartmentIdType(departmentIdType string) *CreateExternalApprovalReqBuilder {
 	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
 	return builder
@@ -6721,7 +6480,6 @@ func (builder *CreateExternalApprovalReqBuilder) ExternalApproval(externalApprov
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateExternalApprovalReqBuilder) Build() *CreateExternalApprovalReq {
 	req := &CreateExternalApprovalReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -6754,20 +6512,17 @@ type CheckExternalInstanceReqBodyBuilder struct {
 	instancesFlag bool
 }
 
-// 生成body的New构造器
 func NewCheckExternalInstanceReqBodyBuilder() *CheckExternalInstanceReqBodyBuilder {
 	builder := &CheckExternalInstanceReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *CheckExternalInstanceReqBodyBuilder) Instances(instances []*ExteranlInstanceCheck) *CheckExternalInstanceReqBodyBuilder {
 	builder.instances = instances
 	builder.instancesFlag = true
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *CheckExternalInstanceReqBodyBuilder) Build() *CheckExternalInstanceReqBody {
 	req := &CheckExternalInstanceReqBody{}
 	if builder.instancesFlag {
@@ -6776,7 +6531,6 @@ func (builder *CheckExternalInstanceReqBodyBuilder) Build() *CheckExternalInstan
 	return req
 }
 
-// 上传文件path开始
 type CheckExternalInstancePathReqBodyBuilder struct {
 	instances     []*ExteranlInstanceCheck
 	instancesFlag bool
@@ -6800,15 +6554,11 @@ func (builder *CheckExternalInstancePathReqBodyBuilder) Build() (*CheckExternalI
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type CheckExternalInstanceReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *CheckExternalInstanceReqBody
 }
 
-// 生成请求的New构造器
 func NewCheckExternalInstanceReqBuilder() *CheckExternalInstanceReqBuilder {
 	builder := &CheckExternalInstanceReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -6818,13 +6568,11 @@ func NewCheckExternalInstanceReqBuilder() *CheckExternalInstanceReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CheckExternalInstanceReqBuilder) Body(body *CheckExternalInstanceReqBody) *CheckExternalInstanceReqBuilder {
 	builder.body = body
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CheckExternalInstanceReqBuilder) Build() *CheckExternalInstanceReq {
 	req := &CheckExternalInstanceReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -6855,13 +6603,11 @@ func (resp *CheckExternalInstanceResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type CreateExternalInstanceReqBuilder struct {
 	apiReq           *larkcore.ApiReq
 	externalInstance *ExternalInstance
 }
 
-// 生成请求的New构造器
 func NewCreateExternalInstanceReqBuilder() *CreateExternalInstanceReqBuilder {
 	builder := &CreateExternalInstanceReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -6871,13 +6617,11 @@ func NewCreateExternalInstanceReqBuilder() *CreateExternalInstanceReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateExternalInstanceReqBuilder) ExternalInstance(externalInstance *ExternalInstance) *CreateExternalInstanceReqBuilder {
 	builder.externalInstance = externalInstance
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateExternalInstanceReqBuilder) Build() *CreateExternalInstanceReq {
 	req := &CreateExternalInstanceReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -6915,13 +6659,11 @@ type ListExternalTaskReqBodyBuilder struct {
 	statusFlag        bool
 }
 
-// 生成body的New构造器
 func NewListExternalTaskReqBodyBuilder() *ListExternalTaskReqBodyBuilder {
 	builder := &ListExternalTaskReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *ListExternalTaskReqBodyBuilder) ApprovalCodes(approvalCodes []string) *ListExternalTaskReqBodyBuilder {
 	builder.approvalCodes = approvalCodes
 	builder.approvalCodesFlag = true
@@ -6943,7 +6685,6 @@ func (builder *ListExternalTaskReqBodyBuilder) Status(status string) *ListExtern
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *ListExternalTaskReqBodyBuilder) Build() *ListExternalTaskReqBody {
 	req := &ListExternalTaskReqBody{}
 	if builder.approvalCodesFlag {
@@ -6961,7 +6702,6 @@ func (builder *ListExternalTaskReqBodyBuilder) Build() *ListExternalTaskReqBody 
 	return req
 }
 
-// 上传文件path开始
 type ListExternalTaskPathReqBodyBuilder struct {
 	approvalCodes     []string
 	approvalCodesFlag bool
@@ -7015,16 +6755,12 @@ func (builder *ListExternalTaskPathReqBodyBuilder) Build() (*ListExternalTaskReq
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type ListExternalTaskReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *ListExternalTaskReqBody
 	limit  int
 }
 
-// 生成请求的New构造器
 func NewListExternalTaskReqBuilder() *ListExternalTaskReqBuilder {
 	builder := &ListExternalTaskReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -7034,7 +6770,6 @@ func NewListExternalTaskReqBuilder() *ListExternalTaskReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListExternalTaskReqBuilder) Limit(limit int) *ListExternalTaskReqBuilder {
 	builder.limit = limit
 	return builder
@@ -7052,7 +6787,6 @@ func (builder *ListExternalTaskReqBuilder) Body(body *ListExternalTaskReqBody) *
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListExternalTaskReqBuilder) Build() *ListExternalTaskReq {
 	req := &ListExternalTaskReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -7110,13 +6844,11 @@ type AddSignInstanceReqBodyBuilder struct {
 	approvalMethodFlag bool
 }
 
-// 生成body的New构造器
 func NewAddSignInstanceReqBodyBuilder() *AddSignInstanceReqBodyBuilder {
 	builder := &AddSignInstanceReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *AddSignInstanceReqBodyBuilder) UserId(userId string) *AddSignInstanceReqBodyBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
@@ -7158,7 +6890,6 @@ func (builder *AddSignInstanceReqBodyBuilder) ApprovalMethod(approvalMethod int)
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *AddSignInstanceReqBodyBuilder) Build() *AddSignInstanceReqBody {
 	req := &AddSignInstanceReqBody{}
 	if builder.userIdFlag {
@@ -7188,7 +6919,6 @@ func (builder *AddSignInstanceReqBodyBuilder) Build() *AddSignInstanceReqBody {
 	return req
 }
 
-// 上传文件path开始
 type AddSignInstancePathReqBodyBuilder struct {
 	userId             string
 	userIdFlag         bool
@@ -7282,15 +7012,11 @@ func (builder *AddSignInstancePathReqBodyBuilder) Build() (*AddSignInstanceReqBo
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type AddSignInstanceReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *AddSignInstanceReqBody
 }
 
-// 生成请求的New构造器
 func NewAddSignInstanceReqBuilder() *AddSignInstanceReqBuilder {
 	builder := &AddSignInstanceReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -7300,13 +7026,11 @@ func NewAddSignInstanceReqBuilder() *AddSignInstanceReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *AddSignInstanceReqBuilder) Body(body *AddSignInstanceReqBody) *AddSignInstanceReqBuilder {
 	builder.body = body
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *AddSignInstanceReqBuilder) Build() *AddSignInstanceReq {
 	req := &AddSignInstanceReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -7339,13 +7063,11 @@ func (resp *AddSignInstanceResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type CancelInstanceReqBuilder struct {
 	apiReq         *larkcore.ApiReq
 	instanceCancel *InstanceCancel
 }
 
-// 生成请求的New构造器
 func NewCancelInstanceReqBuilder() *CancelInstanceReqBuilder {
 	builder := &CancelInstanceReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -7355,7 +7077,6 @@ func NewCancelInstanceReqBuilder() *CancelInstanceReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CancelInstanceReqBuilder) UserIdType(userIdType string) *CancelInstanceReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -7365,7 +7086,6 @@ func (builder *CancelInstanceReqBuilder) InstanceCancel(instanceCancel *Instance
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CancelInstanceReqBuilder) Build() *CancelInstanceReq {
 	req := &CancelInstanceReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -7388,13 +7108,11 @@ func (resp *CancelInstanceResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type CcInstanceReqBuilder struct {
 	apiReq     *larkcore.ApiReq
 	instanceCc *InstanceCc
 }
 
-// 生成请求的New构造器
 func NewCcInstanceReqBuilder() *CcInstanceReqBuilder {
 	builder := &CcInstanceReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -7404,7 +7122,6 @@ func NewCcInstanceReqBuilder() *CcInstanceReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CcInstanceReqBuilder) UserIdType(userIdType string) *CcInstanceReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -7414,7 +7131,6 @@ func (builder *CcInstanceReqBuilder) InstanceCc(instanceCc *InstanceCc) *CcInsta
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CcInstanceReqBuilder) Build() *CcInstanceReq {
 	req := &CcInstanceReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -7437,13 +7153,11 @@ func (resp *CcInstanceResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type CreateInstanceReqBuilder struct {
 	apiReq         *larkcore.ApiReq
 	instanceCreate *InstanceCreate
 }
 
-// 生成请求的New构造器
 func NewCreateInstanceReqBuilder() *CreateInstanceReqBuilder {
 	builder := &CreateInstanceReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -7453,13 +7167,11 @@ func NewCreateInstanceReqBuilder() *CreateInstanceReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateInstanceReqBuilder) InstanceCreate(instanceCreate *InstanceCreate) *CreateInstanceReqBuilder {
 	builder.instanceCreate = instanceCreate
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateInstanceReqBuilder) Build() *CreateInstanceReq {
 	req := &CreateInstanceReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -7486,12 +7198,10 @@ func (resp *CreateInstanceResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type GetInstanceReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewGetInstanceReqBuilder() *GetInstanceReqBuilder {
 	builder := &GetInstanceReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -7501,7 +7211,6 @@ func NewGetInstanceReqBuilder() *GetInstanceReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *GetInstanceReqBuilder) InstanceId(instanceId string) *GetInstanceReqBuilder {
 	builder.apiReq.PathParams.Set("instance_id", fmt.Sprint(instanceId))
 	return builder
@@ -7519,7 +7228,6 @@ func (builder *GetInstanceReqBuilder) UserIdType(userIdType string) *GetInstance
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *GetInstanceReqBuilder) Build() *GetInstanceReq {
 	req := &GetInstanceReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -7562,13 +7270,11 @@ func (resp *GetInstanceResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type ListInstanceReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	limit  int
 }
 
-// 生成请求的New构造器
 func NewListInstanceReqBuilder() *ListInstanceReqBuilder {
 	builder := &ListInstanceReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -7578,7 +7284,6 @@ func NewListInstanceReqBuilder() *ListInstanceReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListInstanceReqBuilder) Limit(limit int) *ListInstanceReqBuilder {
 	builder.limit = limit
 	return builder
@@ -7604,7 +7309,6 @@ func (builder *ListInstanceReqBuilder) EndTime(endTime string) *ListInstanceReqB
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListInstanceReqBuilder) Build() *ListInstanceReq {
 	req := &ListInstanceReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -7651,13 +7355,11 @@ type PreviewInstanceReqBodyBuilder struct {
 	taskIdFlag       bool
 }
 
-// 生成body的New构造器
 func NewPreviewInstanceReqBodyBuilder() *PreviewInstanceReqBodyBuilder {
 	builder := &PreviewInstanceReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *PreviewInstanceReqBodyBuilder) UserId(userId string) *PreviewInstanceReqBodyBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
@@ -7694,7 +7396,6 @@ func (builder *PreviewInstanceReqBodyBuilder) TaskId(taskId string) *PreviewInst
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *PreviewInstanceReqBodyBuilder) Build() *PreviewInstanceReqBody {
 	req := &PreviewInstanceReqBody{}
 	if builder.userIdFlag {
@@ -7721,7 +7422,6 @@ func (builder *PreviewInstanceReqBodyBuilder) Build() *PreviewInstanceReqBody {
 	return req
 }
 
-// 上传文件path开始
 type PreviewInstancePathReqBodyBuilder struct {
 	userId           string
 	userIdFlag       bool
@@ -7805,15 +7505,11 @@ func (builder *PreviewInstancePathReqBodyBuilder) Build() (*PreviewInstanceReqBo
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type PreviewInstanceReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *PreviewInstanceReqBody
 }
 
-// 生成请求的New构造器
 func NewPreviewInstanceReqBuilder() *PreviewInstanceReqBuilder {
 	builder := &PreviewInstanceReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -7823,7 +7519,6 @@ func NewPreviewInstanceReqBuilder() *PreviewInstanceReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *PreviewInstanceReqBuilder) UserIdType(userIdType string) *PreviewInstanceReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -7833,7 +7528,6 @@ func (builder *PreviewInstanceReqBuilder) Body(body *PreviewInstanceReqBody) *Pr
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *PreviewInstanceReqBuilder) Build() *PreviewInstanceReq {
 	req := &PreviewInstanceReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -7871,13 +7565,11 @@ func (resp *PreviewInstanceResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type QueryInstanceReqBuilder struct {
 	apiReq         *larkcore.ApiReq
 	instanceSearch *InstanceSearch
 }
 
-// 生成请求的New构造器
 func NewQueryInstanceReqBuilder() *QueryInstanceReqBuilder {
 	builder := &QueryInstanceReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -7887,7 +7579,6 @@ func NewQueryInstanceReqBuilder() *QueryInstanceReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *QueryInstanceReqBuilder) PageSize(pageSize int) *QueryInstanceReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
@@ -7905,7 +7596,6 @@ func (builder *QueryInstanceReqBuilder) InstanceSearch(instanceSearch *InstanceS
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *QueryInstanceReqBuilder) Build() *QueryInstanceReq {
 	req := &QueryInstanceReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -7936,13 +7626,11 @@ func (resp *QueryInstanceResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type SearchCcInstanceReqBuilder struct {
 	apiReq   *larkcore.ApiReq
 	ccSearch *CcSearch
 }
 
-// 生成请求的New构造器
 func NewSearchCcInstanceReqBuilder() *SearchCcInstanceReqBuilder {
 	builder := &SearchCcInstanceReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -7952,7 +7640,6 @@ func NewSearchCcInstanceReqBuilder() *SearchCcInstanceReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *SearchCcInstanceReqBuilder) PageSize(pageSize int) *SearchCcInstanceReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
@@ -7970,7 +7657,6 @@ func (builder *SearchCcInstanceReqBuilder) CcSearch(ccSearch *CcSearch) *SearchC
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *SearchCcInstanceReqBuilder) Build() *SearchCcInstanceReq {
 	req := &SearchCcInstanceReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -7999,13 +7685,11 @@ func (resp *SearchCcInstanceResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type SpecifiedRollbackInstanceReqBuilder struct {
 	apiReq            *larkcore.ApiReq
 	specifiedRollback *SpecifiedRollback
 }
 
-// 生成请求的New构造器
 func NewSpecifiedRollbackInstanceReqBuilder() *SpecifiedRollbackInstanceReqBuilder {
 	builder := &SpecifiedRollbackInstanceReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -8015,7 +7699,6 @@ func NewSpecifiedRollbackInstanceReqBuilder() *SpecifiedRollbackInstanceReqBuild
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *SpecifiedRollbackInstanceReqBuilder) UserIdType(userIdType string) *SpecifiedRollbackInstanceReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -8025,7 +7708,6 @@ func (builder *SpecifiedRollbackInstanceReqBuilder) SpecifiedRollback(specifiedR
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *SpecifiedRollbackInstanceReqBuilder) Build() *SpecifiedRollbackInstanceReq {
 	req := &SpecifiedRollbackInstanceReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -8048,13 +7730,11 @@ func (resp *SpecifiedRollbackInstanceResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type CreateInstanceCommentReqBuilder struct {
 	apiReq         *larkcore.ApiReq
 	commentRequest *CommentRequest
 }
 
-// 生成请求的New构造器
 func NewCreateInstanceCommentReqBuilder() *CreateInstanceCommentReqBuilder {
 	builder := &CreateInstanceCommentReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -8064,7 +7744,6 @@ func NewCreateInstanceCommentReqBuilder() *CreateInstanceCommentReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateInstanceCommentReqBuilder) InstanceId(instanceId string) *CreateInstanceCommentReqBuilder {
 	builder.apiReq.PathParams.Set("instance_id", fmt.Sprint(instanceId))
 	return builder
@@ -8082,7 +7761,6 @@ func (builder *CreateInstanceCommentReqBuilder) CommentRequest(commentRequest *C
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateInstanceCommentReqBuilder) Build() *CreateInstanceCommentReq {
 	req := &CreateInstanceCommentReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -8111,12 +7789,10 @@ func (resp *CreateInstanceCommentResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type DeleteInstanceCommentReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewDeleteInstanceCommentReqBuilder() *DeleteInstanceCommentReqBuilder {
 	builder := &DeleteInstanceCommentReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -8126,7 +7802,6 @@ func NewDeleteInstanceCommentReqBuilder() *DeleteInstanceCommentReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *DeleteInstanceCommentReqBuilder) InstanceId(instanceId string) *DeleteInstanceCommentReqBuilder {
 	builder.apiReq.PathParams.Set("instance_id", fmt.Sprint(instanceId))
 	return builder
@@ -8144,7 +7819,6 @@ func (builder *DeleteInstanceCommentReqBuilder) UserId(userId string) *DeleteIns
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *DeleteInstanceCommentReqBuilder) Build() *DeleteInstanceCommentReq {
 	req := &DeleteInstanceCommentReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -8171,12 +7845,10 @@ func (resp *DeleteInstanceCommentResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type ListInstanceCommentReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewListInstanceCommentReqBuilder() *ListInstanceCommentReqBuilder {
 	builder := &ListInstanceCommentReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -8186,7 +7858,6 @@ func NewListInstanceCommentReqBuilder() *ListInstanceCommentReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListInstanceCommentReqBuilder) InstanceId(instanceId string) *ListInstanceCommentReqBuilder {
 	builder.apiReq.PathParams.Set("instance_id", fmt.Sprint(instanceId))
 	return builder
@@ -8208,7 +7879,6 @@ func (builder *ListInstanceCommentReqBuilder) PageSize(pageSize int) *ListInstan
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListInstanceCommentReqBuilder) Build() *ListInstanceCommentReq {
 	req := &ListInstanceCommentReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -8235,12 +7905,10 @@ func (resp *ListInstanceCommentResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type RemoveInstanceCommentReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewRemoveInstanceCommentReqBuilder() *RemoveInstanceCommentReqBuilder {
 	builder := &RemoveInstanceCommentReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -8250,7 +7918,6 @@ func NewRemoveInstanceCommentReqBuilder() *RemoveInstanceCommentReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *RemoveInstanceCommentReqBuilder) InstanceId(instanceId string) *RemoveInstanceCommentReqBuilder {
 	builder.apiReq.PathParams.Set("instance_id", fmt.Sprint(instanceId))
 	return builder
@@ -8264,7 +7931,6 @@ func (builder *RemoveInstanceCommentReqBuilder) UserId(userId string) *RemoveIns
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *RemoveInstanceCommentReqBuilder) Build() *RemoveInstanceCommentReq {
 	req := &RemoveInstanceCommentReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -8292,13 +7958,11 @@ func (resp *RemoveInstanceCommentResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type ApproveTaskReqBuilder struct {
 	apiReq      *larkcore.ApiReq
 	taskApprove *TaskApprove
 }
 
-// 生成请求的New构造器
 func NewApproveTaskReqBuilder() *ApproveTaskReqBuilder {
 	builder := &ApproveTaskReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -8308,7 +7972,6 @@ func NewApproveTaskReqBuilder() *ApproveTaskReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ApproveTaskReqBuilder) UserIdType(userIdType string) *ApproveTaskReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -8318,7 +7981,6 @@ func (builder *ApproveTaskReqBuilder) TaskApprove(taskApprove *TaskApprove) *App
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ApproveTaskReqBuilder) Build() *ApproveTaskReq {
 	req := &ApproveTaskReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -8341,13 +8003,11 @@ func (resp *ApproveTaskResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type QueryTaskReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	limit  int
 }
 
-// 生成请求的New构造器
 func NewQueryTaskReqBuilder() *QueryTaskReqBuilder {
 	builder := &QueryTaskReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -8357,7 +8017,6 @@ func NewQueryTaskReqBuilder() *QueryTaskReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *QueryTaskReqBuilder) Limit(limit int) *QueryTaskReqBuilder {
 	builder.limit = limit
 	return builder
@@ -8383,7 +8042,6 @@ func (builder *QueryTaskReqBuilder) UserIdType(userIdType string) *QueryTaskReqB
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *QueryTaskReqBuilder) Build() *QueryTaskReq {
 	req := &QueryTaskReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -8414,13 +8072,11 @@ func (resp *QueryTaskResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type RejectTaskReqBuilder struct {
 	apiReq      *larkcore.ApiReq
 	taskApprove *TaskApprove
 }
 
-// 生成请求的New构造器
 func NewRejectTaskReqBuilder() *RejectTaskReqBuilder {
 	builder := &RejectTaskReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -8430,7 +8086,6 @@ func NewRejectTaskReqBuilder() *RejectTaskReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *RejectTaskReqBuilder) UserIdType(userIdType string) *RejectTaskReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -8440,7 +8095,6 @@ func (builder *RejectTaskReqBuilder) TaskApprove(taskApprove *TaskApprove) *Reje
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *RejectTaskReqBuilder) Build() *RejectTaskReq {
 	req := &RejectTaskReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -8463,13 +8117,11 @@ func (resp *RejectTaskResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type SearchTaskReqBuilder struct {
 	apiReq     *larkcore.ApiReq
 	taskSearch *TaskSearch
 }
 
-// 生成请求的New构造器
 func NewSearchTaskReqBuilder() *SearchTaskReqBuilder {
 	builder := &SearchTaskReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -8479,7 +8131,6 @@ func NewSearchTaskReqBuilder() *SearchTaskReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *SearchTaskReqBuilder) PageSize(pageSize int) *SearchTaskReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
@@ -8497,7 +8148,6 @@ func (builder *SearchTaskReqBuilder) TaskSearch(taskSearch *TaskSearch) *SearchT
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *SearchTaskReqBuilder) Build() *SearchTaskReq {
 	req := &SearchTaskReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -8528,13 +8178,11 @@ func (resp *SearchTaskResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type TransferTaskReqBuilder struct {
 	apiReq       *larkcore.ApiReq
 	taskTransfer *TaskTransfer
 }
 
-// 生成请求的New构造器
 func NewTransferTaskReqBuilder() *TransferTaskReqBuilder {
 	builder := &TransferTaskReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -8544,7 +8192,6 @@ func NewTransferTaskReqBuilder() *TransferTaskReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *TransferTaskReqBuilder) UserIdType(userIdType string) *TransferTaskReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -8554,7 +8201,6 @@ func (builder *TransferTaskReqBuilder) TaskTransfer(taskTransfer *TaskTransfer) 
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *TransferTaskReqBuilder) Build() *TransferTaskReq {
 	req := &TransferTaskReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -8577,8 +8223,6 @@ func (resp *TransferTaskResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 生成消息事件结构体
-
 type P2ApprovalUpdatedV4Data struct {
 	Object *ApprovalEvent `json:"object,omitempty"`
 }
@@ -8593,8 +8237,6 @@ func (m *P2ApprovalUpdatedV4) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
 }
 
-// 生成请求的builder构造器
-// 1.1 生成body的builder结构体
 type ListExternalTaskIterator struct {
 	nextPageToken *string
 	items         []*ExternalTaskList

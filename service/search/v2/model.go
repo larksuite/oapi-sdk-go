@@ -22,8 +22,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
-// 生成枚举值
-
 const (
 	StateOnline  = 0
 	StateOffline = 1
@@ -34,15 +32,12 @@ const (
 	ViewBASIC = 1
 )
 
-// 生成数据类型
-
 type Acl struct {
 	Access *string `json:"access,omitempty"`
 	Value  *string `json:"value,omitempty"`
 	Type   *string `json:"type,omitempty"`
 }
 
-// builder开始
 type AclBuilder struct {
 	access     string
 	accessFlag bool
@@ -90,15 +85,12 @@ func (builder *AclBuilder) Build() *Acl {
 	return req
 }
 
-// builder结束
-
 type BatchItemResult struct {
 	ItemId    *string `json:"item_id,omitempty"`
 	IsSuccess *bool   `json:"is_success,omitempty"`
 	Err       *string `json:"err,omitempty"`
 }
 
-// builder开始
 type BatchItemResultBuilder struct {
 	itemId        string
 	itemIdFlag    bool
@@ -146,8 +138,6 @@ func (builder *BatchItemResultBuilder) Build() *BatchItemResult {
 	return req
 }
 
-// builder结束
-
 type ConnectDataSource struct {
 	ServiceUrl         *string `json:"service_url,omitempty"`
 	ProjectName        *string `json:"project_name,omitempty"`
@@ -159,7 +149,6 @@ type ConnectDataSource struct {
 	TenantName         *string `json:"tenant_name,omitempty"`
 }
 
-// builder开始
 type ConnectDataSourceBuilder struct {
 	serviceUrl             string
 	serviceUrlFlag         bool
@@ -262,8 +251,6 @@ func (builder *ConnectDataSourceBuilder) Build() *ConnectDataSource {
 	return req
 }
 
-// builder结束
-
 type DataSource struct {
 	Id               *string   `json:"id,omitempty"`
 	Name             *string   `json:"name,omitempty"`
@@ -280,7 +267,6 @@ type DataSource struct {
 	SchemaId         *string   `json:"schema_id,omitempty"`
 }
 
-// builder开始
 type DataSourceBuilder struct {
 	id                   string
 	idFlag               bool
@@ -435,15 +421,12 @@ func (builder *DataSourceBuilder) Build() *DataSource {
 	return req
 }
 
-// builder结束
-
 type I18nMeta struct {
 	ZhCn *string `json:"zh_cn,omitempty"`
 	EnUs *string `json:"en_us,omitempty"`
 	JaJp *string `json:"ja_jp,omitempty"`
 }
 
-// builder开始
 type I18nMetaBuilder struct {
 	zhCn     string
 	zhCnFlag bool
@@ -491,8 +474,6 @@ func (builder *I18nMetaBuilder) Build() *I18nMeta {
 	return req
 }
 
-// builder结束
-
 type Item struct {
 	Id             *string       `json:"id,omitempty"`
 	Acl            []*Acl        `json:"acl,omitempty"`
@@ -501,7 +482,6 @@ type Item struct {
 	Content        *ItemContent  `json:"content,omitempty"`
 }
 
-// builder开始
 type ItemBuilder struct {
 	id                 string
 	idFlag             bool
@@ -568,14 +548,11 @@ func (builder *ItemBuilder) Build() *Item {
 	return req
 }
 
-// builder结束
-
 type ItemContent struct {
 	Format      *string `json:"format,omitempty"`
 	ContentData *string `json:"content_data,omitempty"`
 }
 
-// builder开始
 type ItemContentBuilder struct {
 	format          string
 	formatFlag      bool
@@ -612,8 +589,6 @@ func (builder *ItemContentBuilder) Build() *ItemContent {
 	return req
 }
 
-// builder结束
-
 type ItemMetadata struct {
 	Title           *string `json:"title,omitempty"`
 	SourceUrl       *string `json:"source_url,omitempty"`
@@ -622,7 +597,6 @@ type ItemMetadata struct {
 	SourceUrlMobile *string `json:"source_url_mobile,omitempty"`
 }
 
-// builder开始
 type ItemMetadataBuilder struct {
 	title               string
 	titleFlag           bool
@@ -692,8 +666,6 @@ func (builder *ItemMetadataBuilder) Build() *ItemMetadata {
 	return req
 }
 
-// builder结束
-
 type ItemRecord struct {
 	ItemId       *string `json:"item_id,omitempty"`
 	DataSourceId *string `json:"data_source_id,omitempty"`
@@ -702,7 +674,6 @@ type ItemRecord struct {
 	UpdatedAt    *string `json:"updated_at,omitempty"`
 }
 
-// builder开始
 type ItemRecordBuilder struct {
 	itemId           string
 	itemIdFlag       bool
@@ -772,15 +743,12 @@ func (builder *ItemRecordBuilder) Build() *ItemRecord {
 	return req
 }
 
-// builder结束
-
 type Schema struct {
 	Properties []*SchemaProperty `json:"properties,omitempty"`
 	Display    *SchemaDisplay    `json:"display,omitempty"`
 	SchemaId   *string           `json:"schema_id,omitempty"`
 }
 
-// builder开始
 type SchemaBuilder struct {
 	properties     []*SchemaProperty
 	propertiesFlag bool
@@ -826,14 +794,11 @@ func (builder *SchemaBuilder) Build() *Schema {
 	return req
 }
 
-// builder结束
-
 type SchemaDisplay struct {
 	CardKey       *string                      `json:"card_key,omitempty"`
 	FieldsMapping []*SchemaDisplayFieldMapping `json:"fields_mapping,omitempty"`
 }
 
-// builder开始
 type SchemaDisplayBuilder struct {
 	cardKey           string
 	cardKeyFlag       bool
@@ -869,14 +834,11 @@ func (builder *SchemaDisplayBuilder) Build() *SchemaDisplay {
 	return req
 }
 
-// builder结束
-
 type SchemaDisplayFieldMapping struct {
 	DisplayField *string `json:"display_field,omitempty"`
 	DataField    *string `json:"data_field,omitempty"`
 }
 
-// builder开始
 type SchemaDisplayFieldMappingBuilder struct {
 	displayField     string
 	displayFieldFlag bool
@@ -913,14 +875,11 @@ func (builder *SchemaDisplayFieldMappingBuilder) Build() *SchemaDisplayFieldMapp
 	return req
 }
 
-// builder结束
-
 type SchemaDisplayOption struct {
 	DisplayLabel *string `json:"display_label,omitempty"`
 	DisplayType  *string `json:"display_type,omitempty"`
 }
 
-// builder开始
 type SchemaDisplayOptionBuilder struct {
 	displayLabel     string
 	displayLabelFlag bool
@@ -957,8 +916,6 @@ func (builder *SchemaDisplayOptionBuilder) Build() *SchemaDisplayOption {
 	return req
 }
 
-// builder结束
-
 type SchemaProperty struct {
 	Name            *string                `json:"name,omitempty"`
 	Type            *string                `json:"type,omitempty"`
@@ -970,7 +927,6 @@ type SchemaProperty struct {
 	SearchOptions   *SchemaSearchOptions   `json:"search_options,omitempty"`
 }
 
-// builder开始
 type SchemaPropertyBuilder struct {
 	name                string
 	nameFlag            bool
@@ -1070,8 +1026,6 @@ func (builder *SchemaPropertyBuilder) Build() *SchemaProperty {
 	return req
 }
 
-// builder结束
-
 type SchemaPropertyDefinition struct {
 	Name                 *string              `json:"name,omitempty"`
 	IsReturnable         *bool                `json:"is_returnable,omitempty"`
@@ -1083,7 +1037,6 @@ type SchemaPropertyDefinition struct {
 	DisplayOptions       *SchemaDisplayOption `json:"display_options,omitempty"`
 }
 
-// builder开始
 type SchemaPropertyDefinitionBuilder struct {
 	name                     string
 	nameFlag                 bool
@@ -1185,8 +1138,6 @@ func (builder *SchemaPropertyDefinitionBuilder) Build() *SchemaPropertyDefinitio
 	return req
 }
 
-// builder结束
-
 type SchemaSearchOptions struct {
 	EnableSemanticMatch     *bool `json:"enable_semantic_match,omitempty"`
 	EnableExactMatch        *bool `json:"enable_exact_match,omitempty"`
@@ -1195,7 +1146,6 @@ type SchemaSearchOptions struct {
 	EnableCamelMatch        *bool `json:"enable_camel_match,omitempty"`
 }
 
-// builder开始
 type SchemaSearchOptionsBuilder struct {
 	enableSemanticMatch         bool
 	enableSemanticMatchFlag     bool
@@ -1265,14 +1215,11 @@ func (builder *SchemaSearchOptionsBuilder) Build() *SchemaSearchOptions {
 	return req
 }
 
-// builder结束
-
 type SchemaSortOptions struct {
 	Priority *int    `json:"priority,omitempty"`
 	Order    *string `json:"order,omitempty"`
 }
 
-// builder开始
 type SchemaSortOptionsBuilder struct {
 	priority     int
 	priorityFlag bool
@@ -1309,15 +1256,12 @@ func (builder *SchemaSortOptionsBuilder) Build() *SchemaSortOptions {
 	return req
 }
 
-// builder结束
-
 type SchemaTagOptions struct {
 	Name  *string `json:"name,omitempty"`
 	Color *string `json:"color,omitempty"`
 	Text  *string `json:"text,omitempty"`
 }
 
-// builder开始
 type SchemaTagOptionsBuilder struct {
 	name      string
 	nameFlag  bool
@@ -1365,13 +1309,10 @@ func (builder *SchemaTagOptionsBuilder) Build() *SchemaTagOptions {
 	return req
 }
 
-// builder结束
-
 type SchemaTypeDefinitions struct {
 	Tag []*SchemaTagOptions `json:"tag,omitempty"`
 }
 
-// builder开始
 type SchemaTypeDefinitionsBuilder struct {
 	tag     []*SchemaTagOptions
 	tagFlag bool
@@ -1396,17 +1337,11 @@ func (builder *SchemaTypeDefinitionsBuilder) Build() *SchemaTypeDefinitions {
 	return req
 }
 
-// builder结束
-
-// 生成请求和响应结果类型，以及请求对象的Builder构造器
-
-// 1.4 生成请求的builder结构体
 type CreateDataSourceReqBuilder struct {
 	apiReq     *larkcore.ApiReq
 	dataSource *DataSource
 }
 
-// 生成请求的New构造器
 func NewCreateDataSourceReqBuilder() *CreateDataSourceReqBuilder {
 	builder := &CreateDataSourceReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -1416,13 +1351,11 @@ func NewCreateDataSourceReqBuilder() *CreateDataSourceReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateDataSourceReqBuilder) DataSource(dataSource *DataSource) *CreateDataSourceReqBuilder {
 	builder.dataSource = dataSource
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateDataSourceReqBuilder) Build() *CreateDataSourceReq {
 	req := &CreateDataSourceReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -1449,12 +1382,10 @@ func (resp *CreateDataSourceResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type DeleteDataSourceReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewDeleteDataSourceReqBuilder() *DeleteDataSourceReqBuilder {
 	builder := &DeleteDataSourceReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -1464,13 +1395,11 @@ func NewDeleteDataSourceReqBuilder() *DeleteDataSourceReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *DeleteDataSourceReqBuilder) DataSourceId(dataSourceId string) *DeleteDataSourceReqBuilder {
 	builder.apiReq.PathParams.Set("data_source_id", fmt.Sprint(dataSourceId))
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *DeleteDataSourceReqBuilder) Build() *DeleteDataSourceReq {
 	req := &DeleteDataSourceReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -1491,12 +1420,10 @@ func (resp *DeleteDataSourceResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type GetDataSourceReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewGetDataSourceReqBuilder() *GetDataSourceReqBuilder {
 	builder := &GetDataSourceReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -1506,13 +1433,11 @@ func NewGetDataSourceReqBuilder() *GetDataSourceReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *GetDataSourceReqBuilder) DataSourceId(dataSourceId string) *GetDataSourceReqBuilder {
 	builder.apiReq.PathParams.Set("data_source_id", fmt.Sprint(dataSourceId))
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *GetDataSourceReqBuilder) Build() *GetDataSourceReq {
 	req := &GetDataSourceReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -1538,13 +1463,11 @@ func (resp *GetDataSourceResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type ListDataSourceReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	limit  int
 }
 
-// 生成请求的New构造器
 func NewListDataSourceReqBuilder() *ListDataSourceReqBuilder {
 	builder := &ListDataSourceReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -1554,7 +1477,6 @@ func NewListDataSourceReqBuilder() *ListDataSourceReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListDataSourceReqBuilder) Limit(limit int) *ListDataSourceReqBuilder {
 	builder.limit = limit
 	return builder
@@ -1572,7 +1494,6 @@ func (builder *ListDataSourceReqBuilder) PageSize(pageSize int) *ListDataSourceR
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListDataSourceReqBuilder) Build() *ListDataSourceReq {
 	req := &ListDataSourceReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -1617,13 +1538,11 @@ type PatchDataSourceReqBodyBuilder struct {
 	i18nDescriptionFlag bool
 }
 
-// 生成body的New构造器
 func NewPatchDataSourceReqBodyBuilder() *PatchDataSourceReqBodyBuilder {
 	builder := &PatchDataSourceReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *PatchDataSourceReqBodyBuilder) Name(name string) *PatchDataSourceReqBodyBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -1655,7 +1574,6 @@ func (builder *PatchDataSourceReqBodyBuilder) I18nDescription(i18nDescription *I
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *PatchDataSourceReqBodyBuilder) Build() *PatchDataSourceReqBody {
 	req := &PatchDataSourceReqBody{}
 	if builder.nameFlag {
@@ -1679,7 +1597,6 @@ func (builder *PatchDataSourceReqBodyBuilder) Build() *PatchDataSourceReqBody {
 	return req
 }
 
-// 上传文件path开始
 type PatchDataSourcePathReqBodyBuilder struct {
 	name                string
 	nameFlag            bool
@@ -1753,15 +1670,11 @@ func (builder *PatchDataSourcePathReqBodyBuilder) Build() (*PatchDataSourceReqBo
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type PatchDataSourceReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *PatchDataSourceReqBody
 }
 
-// 生成请求的New构造器
 func NewPatchDataSourceReqBuilder() *PatchDataSourceReqBuilder {
 	builder := &PatchDataSourceReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -1771,7 +1684,6 @@ func NewPatchDataSourceReqBuilder() *PatchDataSourceReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *PatchDataSourceReqBuilder) DataSourceId(dataSourceId string) *PatchDataSourceReqBuilder {
 	builder.apiReq.PathParams.Set("data_source_id", fmt.Sprint(dataSourceId))
 	return builder
@@ -1781,7 +1693,6 @@ func (builder *PatchDataSourceReqBuilder) Body(body *PatchDataSourceReqBody) *Pa
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *PatchDataSourceReqBuilder) Build() *PatchDataSourceReq {
 	req := &PatchDataSourceReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -1818,13 +1729,11 @@ func (resp *PatchDataSourceResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type CreateDataSourceItemReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	item   *Item
 }
 
-// 生成请求的New构造器
 func NewCreateDataSourceItemReqBuilder() *CreateDataSourceItemReqBuilder {
 	builder := &CreateDataSourceItemReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -1834,7 +1743,6 @@ func NewCreateDataSourceItemReqBuilder() *CreateDataSourceItemReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateDataSourceItemReqBuilder) DataSourceId(dataSourceId string) *CreateDataSourceItemReqBuilder {
 	builder.apiReq.PathParams.Set("data_source_id", fmt.Sprint(dataSourceId))
 	return builder
@@ -1844,7 +1752,6 @@ func (builder *CreateDataSourceItemReqBuilder) Item(item *Item) *CreateDataSourc
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateDataSourceItemReqBuilder) Build() *CreateDataSourceItemReq {
 	req := &CreateDataSourceItemReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -1867,12 +1774,10 @@ func (resp *CreateDataSourceItemResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type DeleteDataSourceItemReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewDeleteDataSourceItemReqBuilder() *DeleteDataSourceItemReqBuilder {
 	builder := &DeleteDataSourceItemReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -1882,7 +1787,6 @@ func NewDeleteDataSourceItemReqBuilder() *DeleteDataSourceItemReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *DeleteDataSourceItemReqBuilder) DataSourceId(dataSourceId string) *DeleteDataSourceItemReqBuilder {
 	builder.apiReq.PathParams.Set("data_source_id", fmt.Sprint(dataSourceId))
 	return builder
@@ -1892,7 +1796,6 @@ func (builder *DeleteDataSourceItemReqBuilder) ItemId(itemId string) *DeleteData
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *DeleteDataSourceItemReqBuilder) Build() *DeleteDataSourceItemReq {
 	req := &DeleteDataSourceItemReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -1913,12 +1816,10 @@ func (resp *DeleteDataSourceItemResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type GetDataSourceItemReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewGetDataSourceItemReqBuilder() *GetDataSourceItemReqBuilder {
 	builder := &GetDataSourceItemReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -1928,7 +1829,6 @@ func NewGetDataSourceItemReqBuilder() *GetDataSourceItemReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *GetDataSourceItemReqBuilder) DataSourceId(dataSourceId string) *GetDataSourceItemReqBuilder {
 	builder.apiReq.PathParams.Set("data_source_id", fmt.Sprint(dataSourceId))
 	return builder
@@ -1938,7 +1838,6 @@ func (builder *GetDataSourceItemReqBuilder) ItemId(itemId string) *GetDataSource
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *GetDataSourceItemReqBuilder) Build() *GetDataSourceItemReq {
 	req := &GetDataSourceItemReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -1964,13 +1863,11 @@ func (resp *GetDataSourceItemResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type CreateSchemaReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	schema *Schema
 }
 
-// 生成请求的New构造器
 func NewCreateSchemaReqBuilder() *CreateSchemaReqBuilder {
 	builder := &CreateSchemaReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -1980,7 +1877,6 @@ func NewCreateSchemaReqBuilder() *CreateSchemaReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateSchemaReqBuilder) ValidateOnly(validateOnly bool) *CreateSchemaReqBuilder {
 	builder.apiReq.QueryParams.Set("validate_only", fmt.Sprint(validateOnly))
 	return builder
@@ -1990,7 +1886,6 @@ func (builder *CreateSchemaReqBuilder) Schema(schema *Schema) *CreateSchemaReqBu
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateSchemaReqBuilder) Build() *CreateSchemaReq {
 	req := &CreateSchemaReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -2018,12 +1913,10 @@ func (resp *CreateSchemaResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type DeleteSchemaReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewDeleteSchemaReqBuilder() *DeleteSchemaReqBuilder {
 	builder := &DeleteSchemaReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -2033,13 +1926,11 @@ func NewDeleteSchemaReqBuilder() *DeleteSchemaReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *DeleteSchemaReqBuilder) SchemaId(schemaId string) *DeleteSchemaReqBuilder {
 	builder.apiReq.PathParams.Set("schema_id", fmt.Sprint(schemaId))
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *DeleteSchemaReqBuilder) Build() *DeleteSchemaReq {
 	req := &DeleteSchemaReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -2060,12 +1951,10 @@ func (resp *DeleteSchemaResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type GetSchemaReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewGetSchemaReqBuilder() *GetSchemaReqBuilder {
 	builder := &GetSchemaReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -2075,13 +1964,11 @@ func NewGetSchemaReqBuilder() *GetSchemaReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *GetSchemaReqBuilder) SchemaId(schemaId string) *GetSchemaReqBuilder {
 	builder.apiReq.PathParams.Set("schema_id", fmt.Sprint(schemaId))
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *GetSchemaReqBuilder) Build() *GetSchemaReq {
 	req := &GetSchemaReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -2112,20 +1999,17 @@ type PatchSchemaReqBodyBuilder struct {
 	displayFlag bool
 }
 
-// 生成body的New构造器
 func NewPatchSchemaReqBodyBuilder() *PatchSchemaReqBodyBuilder {
 	builder := &PatchSchemaReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *PatchSchemaReqBodyBuilder) Display(display *SchemaDisplay) *PatchSchemaReqBodyBuilder {
 	builder.display = display
 	builder.displayFlag = true
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *PatchSchemaReqBodyBuilder) Build() *PatchSchemaReqBody {
 	req := &PatchSchemaReqBody{}
 	if builder.displayFlag {
@@ -2134,7 +2018,6 @@ func (builder *PatchSchemaReqBodyBuilder) Build() *PatchSchemaReqBody {
 	return req
 }
 
-// 上传文件path开始
 type PatchSchemaPathReqBodyBuilder struct {
 	display     *SchemaDisplay
 	displayFlag bool
@@ -2158,15 +2041,11 @@ func (builder *PatchSchemaPathReqBodyBuilder) Build() (*PatchSchemaReqBody, erro
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type PatchSchemaReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *PatchSchemaReqBody
 }
 
-// 生成请求的New构造器
 func NewPatchSchemaReqBuilder() *PatchSchemaReqBuilder {
 	builder := &PatchSchemaReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -2176,7 +2055,6 @@ func NewPatchSchemaReqBuilder() *PatchSchemaReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *PatchSchemaReqBuilder) SchemaId(schemaId string) *PatchSchemaReqBuilder {
 	builder.apiReq.PathParams.Set("schema_id", fmt.Sprint(schemaId))
 	return builder
@@ -2186,7 +2064,6 @@ func (builder *PatchSchemaReqBuilder) Body(body *PatchSchemaReqBody) *PatchSchem
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *PatchSchemaReqBuilder) Build() *PatchSchemaReq {
 	req := &PatchSchemaReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -2218,10 +2095,6 @@ func (resp *PatchSchemaResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 生成消息事件结构体
-
-// 生成请求的builder构造器
-// 1.1 生成body的builder结构体
 type ListDataSourceIterator struct {
 	nextPageToken *string
 	items         []*DataSource

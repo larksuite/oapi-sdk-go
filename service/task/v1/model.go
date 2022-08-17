@@ -24,8 +24,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
-// 生成枚举值
-
 const (
 	UserIdTypeUserId  = "user_id"
 	UserIdTypeUnionId = "union_id"
@@ -37,13 +35,10 @@ const (
 	ListDirectionUp   = 1
 )
 
-// 生成数据类型
-
 type Collaborator struct {
 	Id *string `json:"id,omitempty"`
 }
 
-// builder开始
 type CollaboratorBuilder struct {
 	id     string
 	idFlag bool
@@ -69,15 +64,12 @@ func (builder *CollaboratorBuilder) Build() *Collaborator {
 	return req
 }
 
-// builder结束
-
 type Comment struct {
 	Content  *string `json:"content,omitempty"`
 	ParentId *string `json:"parent_id,omitempty"`
 	Id       *string `json:"id,omitempty"`
 }
 
-// builder开始
 type CommentBuilder struct {
 	content      string
 	contentFlag  bool
@@ -125,15 +117,12 @@ func (builder *CommentBuilder) Build() *Comment {
 	return req
 }
 
-// builder结束
-
 type Due struct {
 	Time     *string `json:"time,omitempty"`
 	Timezone *string `json:"timezone,omitempty"`
 	IsAllDay *bool   `json:"is_all_day,omitempty"`
 }
 
-// builder开始
 type DueBuilder struct {
 	time         string
 	timeFlag     bool
@@ -181,13 +170,10 @@ func (builder *DueBuilder) Build() *Due {
 	return req
 }
 
-// builder结束
-
 type Follower struct {
 	Id *string `json:"id,omitempty"`
 }
 
-// builder开始
 type FollowerBuilder struct {
 	id     string
 	idFlag bool
@@ -213,14 +199,11 @@ func (builder *FollowerBuilder) Build() *Follower {
 	return req
 }
 
-// builder结束
-
 type Href struct {
 	Url   *string `json:"url,omitempty"`
 	Title *string `json:"title,omitempty"`
 }
 
-// builder开始
 type HrefBuilder struct {
 	url       string
 	urlFlag   bool
@@ -257,14 +240,11 @@ func (builder *HrefBuilder) Build() *Href {
 	return req
 }
 
-// builder结束
-
 type Origin struct {
 	PlatformI18nName *string `json:"platform_i18n_name,omitempty"`
 	Href             *Href   `json:"href,omitempty"`
 }
 
-// builder开始
 type OriginBuilder struct {
 	platformI18nName     string
 	platformI18nNameFlag bool
@@ -300,14 +280,11 @@ func (builder *OriginBuilder) Build() *Origin {
 	return req
 }
 
-// builder结束
-
 type Reminder struct {
 	Id                 *string `json:"id,omitempty"`
 	RelativeFireMinute *int    `json:"relative_fire_minute,omitempty"`
 }
 
-// builder开始
 type ReminderBuilder struct {
 	id                     string
 	idFlag                 bool
@@ -344,8 +321,6 @@ func (builder *ReminderBuilder) Build() *Reminder {
 	return req
 }
 
-// builder结束
-
 type Task struct {
 	Id            *string         `json:"id,omitempty"`
 	Summary       *string         `json:"summary,omitempty"`
@@ -364,7 +339,6 @@ type Task struct {
 	Collaborators []*Collaborator `json:"collaborators,omitempty"`
 }
 
-// builder开始
 type TaskBuilder struct {
 	id                string
 	idFlag            bool
@@ -540,15 +514,12 @@ func (builder *TaskBuilder) Build() *Task {
 	return req
 }
 
-// builder结束
-
 type UserId struct {
 	UserId  *string `json:"user_id,omitempty"`
 	OpenId  *string `json:"open_id,omitempty"`
 	UnionId *string `json:"union_id,omitempty"`
 }
 
-// builder开始
 type UserIdBuilder struct {
 	userId      string
 	userIdFlag  bool
@@ -596,13 +567,10 @@ func (builder *UserIdBuilder) Build() *UserId {
 	return req
 }
 
-// builder结束
-
 type UserIdList struct {
 	UserIdList []*UserId `json:"user_id_list,omitempty"`
 }
 
-// builder开始
 type UserIdListBuilder struct {
 	userIdList     []*UserId
 	userIdListFlag bool
@@ -627,16 +595,10 @@ func (builder *UserIdListBuilder) Build() *UserIdList {
 	return req
 }
 
-// builder结束
-
-// 生成请求和响应结果类型，以及请求对象的Builder构造器
-
-// 1.4 生成请求的builder结构体
 type CompleteTaskReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewCompleteTaskReqBuilder() *CompleteTaskReqBuilder {
 	builder := &CompleteTaskReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -646,13 +608,11 @@ func NewCompleteTaskReqBuilder() *CompleteTaskReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CompleteTaskReqBuilder) TaskId(taskId string) *CompleteTaskReqBuilder {
 	builder.apiReq.PathParams.Set("task_id", fmt.Sprint(taskId))
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CompleteTaskReqBuilder) Build() *CompleteTaskReq {
 	req := &CompleteTaskReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -673,13 +633,11 @@ func (resp *CompleteTaskResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type CreateTaskReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	task   *Task
 }
 
-// 生成请求的New构造器
 func NewCreateTaskReqBuilder() *CreateTaskReqBuilder {
 	builder := &CreateTaskReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -689,7 +647,6 @@ func NewCreateTaskReqBuilder() *CreateTaskReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateTaskReqBuilder) UserIdType(userIdType string) *CreateTaskReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
@@ -699,7 +656,6 @@ func (builder *CreateTaskReqBuilder) Task(task *Task) *CreateTaskReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateTaskReqBuilder) Build() *CreateTaskReq {
 	req := &CreateTaskReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -727,12 +683,10 @@ func (resp *CreateTaskResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type DeleteTaskReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewDeleteTaskReqBuilder() *DeleteTaskReqBuilder {
 	builder := &DeleteTaskReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -742,13 +696,11 @@ func NewDeleteTaskReqBuilder() *DeleteTaskReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *DeleteTaskReqBuilder) TaskId(taskId string) *DeleteTaskReqBuilder {
 	builder.apiReq.PathParams.Set("task_id", fmt.Sprint(taskId))
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *DeleteTaskReqBuilder) Build() *DeleteTaskReq {
 	req := &DeleteTaskReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -769,12 +721,10 @@ func (resp *DeleteTaskResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type GetTaskReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewGetTaskReqBuilder() *GetTaskReqBuilder {
 	builder := &GetTaskReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -784,7 +734,6 @@ func NewGetTaskReqBuilder() *GetTaskReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *GetTaskReqBuilder) TaskId(taskId string) *GetTaskReqBuilder {
 	builder.apiReq.PathParams.Set("task_id", fmt.Sprint(taskId))
 	return builder
@@ -794,7 +743,6 @@ func (builder *GetTaskReqBuilder) UserIdType(userIdType string) *GetTaskReqBuild
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *GetTaskReqBuilder) Build() *GetTaskReq {
 	req := &GetTaskReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -821,13 +769,11 @@ func (resp *GetTaskResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type ListTaskReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	limit  int
 }
 
-// 生成请求的New构造器
 func NewListTaskReqBuilder() *ListTaskReqBuilder {
 	builder := &ListTaskReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -837,7 +783,6 @@ func NewListTaskReqBuilder() *ListTaskReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListTaskReqBuilder) Limit(limit int) *ListTaskReqBuilder {
 	builder.limit = limit
 	return builder
@@ -867,7 +812,6 @@ func (builder *ListTaskReqBuilder) UserIdType(userIdType string) *ListTaskReqBui
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListTaskReqBuilder) Build() *ListTaskReq {
 	req := &ListTaskReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -904,13 +848,11 @@ type PatchTaskReqBodyBuilder struct {
 	updateFieldsFlag bool
 }
 
-// 生成body的New构造器
 func NewPatchTaskReqBodyBuilder() *PatchTaskReqBodyBuilder {
 	builder := &PatchTaskReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *PatchTaskReqBodyBuilder) Task(task *Task) *PatchTaskReqBodyBuilder {
 	builder.task = task
 	builder.taskFlag = true
@@ -922,7 +864,6 @@ func (builder *PatchTaskReqBodyBuilder) UpdateFields(updateFields []string) *Pat
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *PatchTaskReqBodyBuilder) Build() *PatchTaskReqBody {
 	req := &PatchTaskReqBody{}
 	if builder.taskFlag {
@@ -934,7 +875,6 @@ func (builder *PatchTaskReqBodyBuilder) Build() *PatchTaskReqBody {
 	return req
 }
 
-// 上传文件path开始
 type PatchTaskPathReqBodyBuilder struct {
 	task             *Task
 	taskFlag         bool
@@ -968,15 +908,11 @@ func (builder *PatchTaskPathReqBodyBuilder) Build() (*PatchTaskReqBody, error) {
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type PatchTaskReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *PatchTaskReqBody
 }
 
-// 生成请求的New构造器
 func NewPatchTaskReqBuilder() *PatchTaskReqBuilder {
 	builder := &PatchTaskReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -986,7 +922,6 @@ func NewPatchTaskReqBuilder() *PatchTaskReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *PatchTaskReqBuilder) TaskId(taskId string) *PatchTaskReqBuilder {
 	builder.apiReq.PathParams.Set("task_id", fmt.Sprint(taskId))
 	return builder
@@ -1000,7 +935,6 @@ func (builder *PatchTaskReqBuilder) Body(body *PatchTaskReqBody) *PatchTaskReqBu
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *PatchTaskReqBuilder) Build() *PatchTaskReq {
 	req := &PatchTaskReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -1034,12 +968,10 @@ func (resp *PatchTaskResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type UncompleteTaskReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewUncompleteTaskReqBuilder() *UncompleteTaskReqBuilder {
 	builder := &UncompleteTaskReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -1049,13 +981,11 @@ func NewUncompleteTaskReqBuilder() *UncompleteTaskReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *UncompleteTaskReqBuilder) TaskId(taskId string) *UncompleteTaskReqBuilder {
 	builder.apiReq.PathParams.Set("task_id", fmt.Sprint(taskId))
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *UncompleteTaskReqBuilder) Build() *UncompleteTaskReq {
 	req := &UncompleteTaskReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -1076,13 +1006,11 @@ func (resp *UncompleteTaskResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type CreateTaskCollaboratorReqBuilder struct {
 	apiReq       *larkcore.ApiReq
 	collaborator *Collaborator
 }
 
-// 生成请求的New构造器
 func NewCreateTaskCollaboratorReqBuilder() *CreateTaskCollaboratorReqBuilder {
 	builder := &CreateTaskCollaboratorReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -1092,7 +1020,6 @@ func NewCreateTaskCollaboratorReqBuilder() *CreateTaskCollaboratorReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateTaskCollaboratorReqBuilder) TaskId(taskId string) *CreateTaskCollaboratorReqBuilder {
 	builder.apiReq.PathParams.Set("task_id", fmt.Sprint(taskId))
 	return builder
@@ -1106,7 +1033,6 @@ func (builder *CreateTaskCollaboratorReqBuilder) Collaborator(collaborator *Coll
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateTaskCollaboratorReqBuilder) Build() *CreateTaskCollaboratorReq {
 	req := &CreateTaskCollaboratorReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -1135,12 +1061,10 @@ func (resp *CreateTaskCollaboratorResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type DeleteTaskCollaboratorReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewDeleteTaskCollaboratorReqBuilder() *DeleteTaskCollaboratorReqBuilder {
 	builder := &DeleteTaskCollaboratorReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -1150,7 +1074,6 @@ func NewDeleteTaskCollaboratorReqBuilder() *DeleteTaskCollaboratorReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *DeleteTaskCollaboratorReqBuilder) TaskId(taskId string) *DeleteTaskCollaboratorReqBuilder {
 	builder.apiReq.PathParams.Set("task_id", fmt.Sprint(taskId))
 	return builder
@@ -1160,7 +1083,6 @@ func (builder *DeleteTaskCollaboratorReqBuilder) CollaboratorId(collaboratorId s
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *DeleteTaskCollaboratorReqBuilder) Build() *DeleteTaskCollaboratorReq {
 	req := &DeleteTaskCollaboratorReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -1181,13 +1103,11 @@ func (resp *DeleteTaskCollaboratorResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type ListTaskCollaboratorReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	limit  int
 }
 
-// 生成请求的New构造器
 func NewListTaskCollaboratorReqBuilder() *ListTaskCollaboratorReqBuilder {
 	builder := &ListTaskCollaboratorReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -1197,7 +1117,6 @@ func NewListTaskCollaboratorReqBuilder() *ListTaskCollaboratorReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListTaskCollaboratorReqBuilder) Limit(limit int) *ListTaskCollaboratorReqBuilder {
 	builder.limit = limit
 	return builder
@@ -1219,7 +1138,6 @@ func (builder *ListTaskCollaboratorReqBuilder) UserIdType(userIdType string) *Li
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListTaskCollaboratorReqBuilder) Build() *ListTaskCollaboratorReq {
 	req := &ListTaskCollaboratorReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -1250,13 +1168,11 @@ func (resp *ListTaskCollaboratorResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type CreateTaskCommentReqBuilder struct {
 	apiReq  *larkcore.ApiReq
 	comment *Comment
 }
 
-// 生成请求的New构造器
 func NewCreateTaskCommentReqBuilder() *CreateTaskCommentReqBuilder {
 	builder := &CreateTaskCommentReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -1266,7 +1182,6 @@ func NewCreateTaskCommentReqBuilder() *CreateTaskCommentReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateTaskCommentReqBuilder) TaskId(taskId string) *CreateTaskCommentReqBuilder {
 	builder.apiReq.PathParams.Set("task_id", fmt.Sprint(taskId))
 	return builder
@@ -1276,7 +1191,6 @@ func (builder *CreateTaskCommentReqBuilder) Comment(comment *Comment) *CreateTas
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateTaskCommentReqBuilder) Build() *CreateTaskCommentReq {
 	req := &CreateTaskCommentReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -1304,12 +1218,10 @@ func (resp *CreateTaskCommentResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type DeleteTaskCommentReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewDeleteTaskCommentReqBuilder() *DeleteTaskCommentReqBuilder {
 	builder := &DeleteTaskCommentReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -1319,7 +1231,6 @@ func NewDeleteTaskCommentReqBuilder() *DeleteTaskCommentReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *DeleteTaskCommentReqBuilder) TaskId(taskId string) *DeleteTaskCommentReqBuilder {
 	builder.apiReq.PathParams.Set("task_id", fmt.Sprint(taskId))
 	return builder
@@ -1329,7 +1240,6 @@ func (builder *DeleteTaskCommentReqBuilder) CommentId(commentId string) *DeleteT
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *DeleteTaskCommentReqBuilder) Build() *DeleteTaskCommentReq {
 	req := &DeleteTaskCommentReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -1350,12 +1260,10 @@ func (resp *DeleteTaskCommentResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type GetTaskCommentReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewGetTaskCommentReqBuilder() *GetTaskCommentReqBuilder {
 	builder := &GetTaskCommentReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -1365,7 +1273,6 @@ func NewGetTaskCommentReqBuilder() *GetTaskCommentReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *GetTaskCommentReqBuilder) TaskId(taskId string) *GetTaskCommentReqBuilder {
 	builder.apiReq.PathParams.Set("task_id", fmt.Sprint(taskId))
 	return builder
@@ -1375,7 +1282,6 @@ func (builder *GetTaskCommentReqBuilder) CommentId(commentId string) *GetTaskCom
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *GetTaskCommentReqBuilder) Build() *GetTaskCommentReq {
 	req := &GetTaskCommentReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -1401,13 +1307,11 @@ func (resp *GetTaskCommentResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type ListTaskCommentReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	limit  int
 }
 
-// 生成请求的New构造器
 func NewListTaskCommentReqBuilder() *ListTaskCommentReqBuilder {
 	builder := &ListTaskCommentReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -1417,7 +1321,6 @@ func NewListTaskCommentReqBuilder() *ListTaskCommentReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListTaskCommentReqBuilder) Limit(limit int) *ListTaskCommentReqBuilder {
 	builder.limit = limit
 	return builder
@@ -1439,7 +1342,6 @@ func (builder *ListTaskCommentReqBuilder) ListDirection(listDirection int) *List
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListTaskCommentReqBuilder) Build() *ListTaskCommentReq {
 	req := &ListTaskCommentReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -1475,20 +1377,17 @@ type UpdateTaskCommentReqBodyBuilder struct {
 	contentFlag bool
 }
 
-// 生成body的New构造器
 func NewUpdateTaskCommentReqBodyBuilder() *UpdateTaskCommentReqBodyBuilder {
 	builder := &UpdateTaskCommentReqBodyBuilder{}
 	return builder
 }
 
-// 1.2 生成body的builder属性方法
 func (builder *UpdateTaskCommentReqBodyBuilder) Content(content string) *UpdateTaskCommentReqBodyBuilder {
 	builder.content = content
 	builder.contentFlag = true
 	return builder
 }
 
-// 1.3 生成body的build方法
 func (builder *UpdateTaskCommentReqBodyBuilder) Build() *UpdateTaskCommentReqBody {
 	req := &UpdateTaskCommentReqBody{}
 	if builder.contentFlag {
@@ -1497,7 +1396,6 @@ func (builder *UpdateTaskCommentReqBodyBuilder) Build() *UpdateTaskCommentReqBod
 	return req
 }
 
-// 上传文件path开始
 type UpdateTaskCommentPathReqBodyBuilder struct {
 	content     string
 	contentFlag bool
@@ -1521,15 +1419,11 @@ func (builder *UpdateTaskCommentPathReqBodyBuilder) Build() (*UpdateTaskCommentR
 	return req, nil
 }
 
-// 上传文件path结束
-
-// 1.4 生成请求的builder结构体
 type UpdateTaskCommentReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	body   *UpdateTaskCommentReqBody
 }
 
-// 生成请求的New构造器
 func NewUpdateTaskCommentReqBuilder() *UpdateTaskCommentReqBuilder {
 	builder := &UpdateTaskCommentReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -1539,7 +1433,6 @@ func NewUpdateTaskCommentReqBuilder() *UpdateTaskCommentReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *UpdateTaskCommentReqBuilder) TaskId(taskId string) *UpdateTaskCommentReqBuilder {
 	builder.apiReq.PathParams.Set("task_id", fmt.Sprint(taskId))
 	return builder
@@ -1553,7 +1446,6 @@ func (builder *UpdateTaskCommentReqBuilder) Body(body *UpdateTaskCommentReqBody)
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *UpdateTaskCommentReqBuilder) Build() *UpdateTaskCommentReq {
 	req := &UpdateTaskCommentReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -1585,13 +1477,11 @@ func (resp *UpdateTaskCommentResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type CreateTaskFollowerReqBuilder struct {
 	apiReq   *larkcore.ApiReq
 	follower *Follower
 }
 
-// 生成请求的New构造器
 func NewCreateTaskFollowerReqBuilder() *CreateTaskFollowerReqBuilder {
 	builder := &CreateTaskFollowerReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -1601,7 +1491,6 @@ func NewCreateTaskFollowerReqBuilder() *CreateTaskFollowerReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateTaskFollowerReqBuilder) TaskId(taskId string) *CreateTaskFollowerReqBuilder {
 	builder.apiReq.PathParams.Set("task_id", fmt.Sprint(taskId))
 	return builder
@@ -1615,7 +1504,6 @@ func (builder *CreateTaskFollowerReqBuilder) Follower(follower *Follower) *Creat
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateTaskFollowerReqBuilder) Build() *CreateTaskFollowerReq {
 	req := &CreateTaskFollowerReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -1644,12 +1532,10 @@ func (resp *CreateTaskFollowerResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type DeleteTaskFollowerReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewDeleteTaskFollowerReqBuilder() *DeleteTaskFollowerReqBuilder {
 	builder := &DeleteTaskFollowerReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -1659,7 +1545,6 @@ func NewDeleteTaskFollowerReqBuilder() *DeleteTaskFollowerReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *DeleteTaskFollowerReqBuilder) TaskId(taskId string) *DeleteTaskFollowerReqBuilder {
 	builder.apiReq.PathParams.Set("task_id", fmt.Sprint(taskId))
 	return builder
@@ -1669,7 +1554,6 @@ func (builder *DeleteTaskFollowerReqBuilder) FollowerId(followerId string) *Dele
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *DeleteTaskFollowerReqBuilder) Build() *DeleteTaskFollowerReq {
 	req := &DeleteTaskFollowerReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -1690,13 +1574,11 @@ func (resp *DeleteTaskFollowerResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type ListTaskFollowerReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	limit  int
 }
 
-// 生成请求的New构造器
 func NewListTaskFollowerReqBuilder() *ListTaskFollowerReqBuilder {
 	builder := &ListTaskFollowerReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -1706,7 +1588,6 @@ func NewListTaskFollowerReqBuilder() *ListTaskFollowerReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListTaskFollowerReqBuilder) Limit(limit int) *ListTaskFollowerReqBuilder {
 	builder.limit = limit
 	return builder
@@ -1728,7 +1609,6 @@ func (builder *ListTaskFollowerReqBuilder) UserIdType(userIdType string) *ListTa
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListTaskFollowerReqBuilder) Build() *ListTaskFollowerReq {
 	req := &ListTaskFollowerReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -1759,13 +1639,11 @@ func (resp *ListTaskFollowerResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type CreateTaskReminderReqBuilder struct {
 	apiReq   *larkcore.ApiReq
 	reminder *Reminder
 }
 
-// 生成请求的New构造器
 func NewCreateTaskReminderReqBuilder() *CreateTaskReminderReqBuilder {
 	builder := &CreateTaskReminderReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -1775,7 +1653,6 @@ func NewCreateTaskReminderReqBuilder() *CreateTaskReminderReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *CreateTaskReminderReqBuilder) TaskId(taskId string) *CreateTaskReminderReqBuilder {
 	builder.apiReq.PathParams.Set("task_id", fmt.Sprint(taskId))
 	return builder
@@ -1785,7 +1662,6 @@ func (builder *CreateTaskReminderReqBuilder) Reminder(reminder *Reminder) *Creat
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *CreateTaskReminderReqBuilder) Build() *CreateTaskReminderReq {
 	req := &CreateTaskReminderReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -1813,12 +1689,10 @@ func (resp *CreateTaskReminderResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type DeleteTaskReminderReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
 
-// 生成请求的New构造器
 func NewDeleteTaskReminderReqBuilder() *DeleteTaskReminderReqBuilder {
 	builder := &DeleteTaskReminderReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -1828,7 +1702,6 @@ func NewDeleteTaskReminderReqBuilder() *DeleteTaskReminderReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *DeleteTaskReminderReqBuilder) TaskId(taskId string) *DeleteTaskReminderReqBuilder {
 	builder.apiReq.PathParams.Set("task_id", fmt.Sprint(taskId))
 	return builder
@@ -1838,7 +1711,6 @@ func (builder *DeleteTaskReminderReqBuilder) ReminderId(reminderId string) *Dele
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *DeleteTaskReminderReqBuilder) Build() *DeleteTaskReminderReq {
 	req := &DeleteTaskReminderReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -1859,13 +1731,11 @@ func (resp *DeleteTaskReminderResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 1.4 生成请求的builder结构体
 type ListTaskReminderReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	limit  int
 }
 
-// 生成请求的New构造器
 func NewListTaskReminderReqBuilder() *ListTaskReminderReqBuilder {
 	builder := &ListTaskReminderReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -1875,7 +1745,6 @@ func NewListTaskReminderReqBuilder() *ListTaskReminderReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListTaskReminderReqBuilder) Limit(limit int) *ListTaskReminderReqBuilder {
 	builder.limit = limit
 	return builder
@@ -1893,7 +1762,6 @@ func (builder *ListTaskReminderReqBuilder) PageToken(pageToken string) *ListTask
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListTaskReminderReqBuilder) Build() *ListTaskReminderReq {
 	req := &ListTaskReminderReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -1923,8 +1791,6 @@ type ListTaskReminderResp struct {
 func (resp *ListTaskReminderResp) Success() bool {
 	return resp.Code == 0
 }
-
-// 生成消息事件结构体
 
 type P2TaskUpdateTenantV1Data struct {
 	UserIdList *UserIdList `json:"user_id_list,omitempty"`
@@ -1975,8 +1841,6 @@ func (m *P2TaskCommentUpdatedV1) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
 }
 
-// 生成请求的builder构造器
-// 1.1 生成body的builder结构体
 type ListTaskIterator struct {
 	nextPageToken *string
 	items         []*Task

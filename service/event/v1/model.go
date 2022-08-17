@@ -22,19 +22,11 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
-// 生成枚举值
-
-// 生成数据类型
-
-// 生成请求和响应结果类型，以及请求对象的Builder构造器
-
-// 1.4 生成请求的builder结构体
 type ListOutboundIpReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	limit  int
 }
 
-// 生成请求的New构造器
 func NewListOutboundIpReqBuilder() *ListOutboundIpReqBuilder {
 	builder := &ListOutboundIpReqBuilder{}
 	builder.apiReq = &larkcore.ApiReq{
@@ -44,7 +36,6 @@ func NewListOutboundIpReqBuilder() *ListOutboundIpReqBuilder {
 	return builder
 }
 
-// 1.5 生成请求的builder属性方法
 func (builder *ListOutboundIpReqBuilder) Limit(limit int) *ListOutboundIpReqBuilder {
 	builder.limit = limit
 	return builder
@@ -58,7 +49,6 @@ func (builder *ListOutboundIpReqBuilder) PageToken(pageToken string) *ListOutbou
 	return builder
 }
 
-// 1.5 生成请求的builder的build方法
 func (builder *ListOutboundIpReqBuilder) Build() *ListOutboundIpReq {
 	req := &ListOutboundIpReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -88,10 +78,6 @@ func (resp *ListOutboundIpResp) Success() bool {
 	return resp.Code == 0
 }
 
-// 生成消息事件结构体
-
-// 生成请求的builder构造器
-// 1.1 生成body的builder结构体
 type ListOutboundIpIterator struct {
 	nextPageToken *string
 	items         []string
