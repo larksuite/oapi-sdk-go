@@ -87,6 +87,24 @@ func uploadFile(client *lark.Client) {
 	fmt.Println(resp.RequestId())
 }
 
+func downFile(client *lark.Client) {
+
+	resp, err := client.Im.File.Get(context.Background(), larkim.NewGetFileReqBuilder().FileKey("file_v2_4fa17cda-01f3-4aac-927a-7833ab482fcg").Build())
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	if !resp.Success() {
+		fmt.Println(resp.Code, resp.Msg, resp.RequestId())
+		return
+	}
+
+	fmt.Println(larkcore.Prettify(resp))
+	fmt.Println(resp.RequestId())
+}
+
 func uploadImage2(client *lark.Client) {
 	body, err := larkim.NewCreateImagePathReqBodyBuilder().
 		ImagePath("/Users/bytedance/Downloads/b.jpg").
@@ -842,12 +860,13 @@ func main() {
 		lark.WithLogReqAtDebug(true),
 	)
 
+	downFile(feishu_client)
 	//downLoadImageV2(feishu_client)
 	//uploadImage(feishu_client)
 	//uploadImage(client)
 	//downLoadImage(feishu_client)
 	//uploadImage2(feishu_client)
-	sendTextMsg(feishu_client)
+	//sendTextMsg(feishu_client)
 	//sendRawReq(feishu_client)
 	//sendRawImageReq(feishu_client)
 	//sendImageMsg(feishu_client)
